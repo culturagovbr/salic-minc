@@ -1,41 +1,24 @@
-    <table class="table-responsive bordered linhaRegistros dFilho<?php echo $cont4 ?> dF<?php echo $cont3; ?>">
-        <tr>
-        <?php if($this->codGrupo == 132 || $this->codGrupo == 125): ?>
-            <th>Visualizar An&aacute;lise</th>
-        <?php else: ?>
-            <th>Analisar</th>
-        <?php endif; ?>
-        <th style="width: 15%">Item de Custo</th>
-        <th>Valor Aprovado</th>
-        <th>Valor Comprovado</th>
-        <th>Comprovação Validada</th>
-        <th>Modalidade Vinculada</th>
-        </tr>
-        <?php foreach($this->incFiscaisP as $idPlanilhaAprovacao => $valor) : ?>
-            <tr>
-            <td align="center">
-                <?php $href = $this->url(
-                    array(
-                        'module' => 'default',
-                        'controller' => 'realizarprestacaodecontas',
-                        'action' => 'analisar-comprovacao',
-                        'idPronac' => $this->idPronac,
-                        'idPlanilhaAprovacao' => $idPlanilhaAprovacao,
-                        'idPlanilhaItem' => $valor[6],
-                    )
-                );
-                $itemAvaliadoParam = Zend_Controller_Front::getInstance()->getRequest()->getParam('itemAvaliadoFilter'); ?>
-                <?php if ($itemAvaliadoParam) :  ?>
-                    <?php $itemAvaliadoParam = "?".$itemAvaliadoParam; ?>
-                <?php endif;  ?>
-                <?php $href .= $itemAvaliadoParam; ?>
-                <a href='<?php echo $href ?>' class='editarIco'>Analisar item</a>
-            </td>
-            <td style="width: 15%" > <?php echo $valor[0]?></td>
-            <td nowrap><?php echo $this->formatarReal($valor[1]) ?></td>
-            <td nowrap><?php echo $this->formatarReal($valor[3]) ?></td>
-            <td nowrap><?php echo $this->formatarReal($valor[7]) ?></td>
-            <td><?php echo $valor[4] ?></td>
-            </tr>
-        <?php endforeach; ?>
-        </table>
+<?php $id = uniqid() ?>
+<div class="row" id="tab">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a class="active" href="#test_2_<?php echo $id ?>">Aguardando Analise</a></li>
+        <li class="tab col s3"><a href="#test_3_<?php echo $id ?>">Avaliado</a></li>
+        <li class="tab col s3"><a href="#test_4_<?php echo $id ?>">Impugnados</a></li>
+        <li class="tab col s3"><a href="#test_1_<?php echo $id ?>">Todos</a></li>
+      </ul>
+    </div>
+        <div id="test_2_<?php echo $id ?>" class="col s12">
+            <?php echo $this->partial('realizarprestacaodecontas/planilha-orcamentaria-tabela.phtml', ['dados' => $this->aguardandoAnalise])?>
+        </div>
+        <div id="test_3_<?php echo $id ?>" class="col s12">
+            <?php echo $this->partial('realizarprestacaodecontas/planilha-orcamentaria-tabela.phtml', ['dados' => $this->avaliadas])?>
+        </div>
+        <div id="test_4_<?php echo $id ?>" class="col s12">
+            <?php echo $this->partial('realizarprestacaodecontas/planilha-orcamentaria-tabela.phtml', ['dados' => $this->recusadas])?>
+        </div>
+        <div id="test_1_<?php echo $id ?>" class="col s12">
+            <?php echo $this->partial('realizarprestacaodecontas/planilha-orcamentaria-tabela.phtml', ['dados' => $this->todos])?>
+        </div>
+   </div>
+</div>

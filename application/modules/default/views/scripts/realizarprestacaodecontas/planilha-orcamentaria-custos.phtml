@@ -1,51 +1,25 @@
-<div style="padding:3px; margin-left: 15px;">
-    <?php if(is_array($this->incFiscaisA) && !empty($this->incFiscaisA)): ?>
-        <table class="bordered striped linhaTabelaItem dF<?php echo $cont3; ?>">
-            <thead>
-                <tr>
-                    <?php if ($this->codGrupo == 132 || $this->codGrupo == 125) : ?>
-                        <th>Visualizar An&aacute;lise</th>
-                    <?php else : ?>    
-                        <th>Analisar</th>
-                    <?php endif?>    
-                    <th>Item de Custo</th>
-                    <th>Valor Aprovado</th>
-                    <th>Valor Comprovado</th>
-                    <th>Comprovação Validada</th>
-                    <th>Modalidade Vinculada</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php foreach($this->incFiscaisA as $key=>$valor) : ?>
-                <tr>
-                    <td align="center">
-                        <?php
-                            $href = $this->url(
-                                array(
-                                   'controller' => 'realizarprestacaodecontas',
-                                    'action' => 'analisar-comprovacao',
-                                    'idPronac' => $this->idPronac,
-                                    'idPlanilhaAprovacao' => $key,
-                                    'idPlanilhaItem' => $valor[6],
-                                    'idRelatorio' => $this->idRelatorio, #Alysson - Adicionado
-                                )
-                            );
-                            $itemAvaliadoParam = Zend_Controller_Front::getInstance()->getRequest()->getParam('itemAvaliadoFilter');
-                            if ($itemAvaliadoParam) {
-                                $itemAvaliadoParam = "?itemAvaliadoFilter=".$itemAvaliadoParam;
-                            }
-                            $href .= $itemAvaliadoParam; 
-                        ?>
-                        <a class="btn small btn-primary" href='<?php echo $href ?>'><i class="material-icons">gavel</i></a>
-                    </td>
-                    <td><?php echo utf8_decode($valor[0]) ?></td>
-                    <td><?php echo $this->formatarReal($valor[1]) ?></td>
-                    <td><?php echo $this->formatarReal($valor[3]) ?></td>
-                    <td><?php echo $this->formatarReal($valor[7]) ?></td>
-                    <td><?php echo $valor[4] ?></td>
-                 </tr>
-            <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php endif; ?>
+<div>
+    <?php $id = uniqid() ?>
+    <div class="row" id="tab">
+        <div class="col s12">
+          <ul class="tabs">
+            <li class="tab col s3"><a class="active" href="#test_2_<?php echo $id ?>">Aguardando Analise</a></li>
+            <li class="tab col s3"><a href="#test_3_<?php echo $id ?>">Avaliado</a></li>
+            <li class="tab col s3"><a href="#test_4_<?php echo $id ?>">Impugnados</a></li>
+            <li class="tab col s3"><a href="#test_1_<?php echo $id ?>">Todos</a></li>
+          </ul>
+        </div>
+        <div id="test_2_<?php echo $id ?>" class="col s12">
+            <?php echo $this->partial('realizarprestacaodecontas/planilha-orcamentaria-tabela.phtml', ['dados' => $this->aguardandoAnalise])?>
+        </div>
+        <div id="test_3_<?php echo $id ?>" class="col s12">
+            <?php echo $this->partial('realizarprestacaodecontas/planilha-orcamentaria-tabela.phtml', ['dados' => $this->avaliadas])?>
+        </div>
+        <div id="test_4_<?php echo $id ?>" class="col s12">
+            <?php echo $this->partial('realizarprestacaodecontas/planilha-orcamentaria-tabela.phtml', ['dados' => $this->recusadas])?>
+        </div>
+        <div id="test_1_<?php echo $id ?>" class="col s12">
+            <?php echo $this->partial('realizarprestacaodecontas/planilha-orcamentaria-tabela.phtml', ['dados' => $this->todos])?>
+        </div>
+      </div>
 </div>

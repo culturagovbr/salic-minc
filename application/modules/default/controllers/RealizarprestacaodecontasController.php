@@ -2103,10 +2103,16 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
         $this->view->idRelatorio = $this->getRequest()->getParam('relatorio');
 
         $dao = new PlanilhaAprovacao();
-        $resposta = $dao->buscarItensPagamentoDados(
+        /* $resposta = $dao->buscarItensPagamentoDados( */
+        /*     $this->view->idPronac, */
+        /*     ($this->view->itemAvaliadoFilter ? $this->view->itemAvaliadoFilter : null) */
+        /* ); */
+        $respostaView = $dao->buscarItensPagamentoDadosView(
             $this->view->idPronac,
             ($this->view->itemAvaliadoFilter ? $this->view->itemAvaliadoFilter : null)
         );
+        /* var_dump($respostaView->toArray()[0], $resposta->toArray()[0]); */
+        $resposta = $respostaView;
 
         $tblEncaminhamento = new EncaminhamentoPrestacaoContas();
         $rsEncaminhamento = $tblEncaminhamento->buscar(array('idPronac=?'=>$this->view->idPronac,'stAtivo=?'=>1))->current();
@@ -2137,20 +2143,12 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
                 }
 
                 if ($val->tpCusto == 'P') {
-                    $arrayP[($val->Descricao)][($val->descEtapa)][$val->uf.' - '.($val->cidade)] = array(
+                    $arrayP[($val->descEtapa)][$val->uf.' - ' . $val->cidade] = array(
                         'idPlanilhaEtapa' => $val->idPlanilhaEtapa,
                         'uf' => $val->uf,
                         'codigo' => $val->Codigo,
                         'idMunicipio' => $val->idMunicipio
                     );
-                }
-
-                #Pedro - Somatorio dos Itens Impugnados
-                $obComprovantesPagamento = $planilhaAprovacaoModel->buscarcomprovantepagamento($this->view->idPronac, $val->idPlanilhaAprovacao);
-                foreach ($obComprovantesPagamento as $index => $comprovante) {
-                    if ($comprovante->stItemAvaliado == 3) { //Prestacao de Contas Inpugnada
-                        $arrComprovantesImpugnados[$comprovante->idComprovantePagamento] = $comprovante->vlComprovacao;
-                    }
                 }
             }
         }
@@ -2162,7 +2160,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
 
         $this->view->vlComprovacaoImpugnado = $vlTotalImpugnado;
         $this->view->incFiscaisA = array(utf8_encode('Administra&ccedil;&atilde;o do Projeto') =>$arrayA);
-        $this->view->incFiscaisP = array(utf8_encode('Custo por Produto') =>$arrayP);
+        $this->view->incFiscaisP = $arrayP;
     }
 
     public function emitirparecertecnicoAction()
@@ -2696,7 +2694,6 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
         $this->view->projeto = $planilhaAprovacaoModel
             ->dadosdoitem($idPlanilhaAprovacao, $idPronac)
             ;
-        /* var_dump($this->view->projeto);die; */
         $this->view->projeto = $this->view->projeto[0];
 
         if (!$this->view->projeto) {
@@ -2713,7 +2710,6 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
             $this->view->comprovantesPagamento = $planilhaAprovacaoModel
                 ->dadosdoitemPorItem($idPlanilhaItem, $idPronac)
                 ;
-            /* var_dump($this->view->comprovantesPagamento);die; */
         }
 
         $this->view->idPronac = $idPronac;
@@ -3839,84 +3835,59 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
 
     public function planilhaOrcamentariaCustosAction()
     {
+        $this->_helper->layout->disableLayout();
         $auth = Zend_Auth::getInstance();
         $this->view->codGrupo = $_SESSION['GrupoAtivo']['codGrupo'];
 
         $this->dadosProjeto();
         $this->view->idPronac = $this->getRequest()->getParam('idPronac');
-        $this->view->uf = $this->getRequest()->getParam('uf');
-        $this->view->itemAvaliadoFilter = $this->getRequest()->getParam('itemAvaliadoFilter');
-        $this->view->idRelatorio = $this->getRequest()->getParam('relatorio');
+        $municipio = $this->getRequest()->getParam('idmunicipio');
+        $uf = $this->getRequest()->getParam('uf');
 
         $dao = new PlanilhaAprovacao();
-        $resposta = $dao->buscarItensPagamento(
+
+        $resposta = $dao->vwComprovacaoFinanceiraProjeto(
             $this->view->idPronac,
-            ($this->view->itemAvaliadoFilter ? $this->view->itemAvaliadoFilter : null)
+            $uf,
+            null,
+            $this->view->codigoProduto != 0 ? $this->view->codigoProduto :  null,
+            $municipio
         );
 
-        $tblEncaminhamento = new EncaminhamentoPrestacaoContas();
-        $rsEncaminhamento = $tblEncaminhamento->buscar(array('idPronac=?'=>$this->view->idPronac,'stAtivo=?'=>1))->current();
+        $respostaAguardandoAnalise = $dao->vwComprovacaoProjetoSemAnalise(
+            $this->view->idPronac,
+            $uf,
+            null,
+            $this->view->codigoProduto != 0 ? $this->view->codigoProduto :  null,
+            $municipio
+        );
 
-        if (is_object($rsEncaminhamento)) {
-            $this->view->situacaoAtual = $rsEncaminhamento->idSituacaoEncPrestContas;
-        } else {
-            $this->view->situacaoAtual = 1;
-        }
+        $avaliadas = $dao->vwComprovacaoProjetoAvaliada(
+            $this->view->idPronac,
+            $uf,
+            null,
+            $this->view->codigoProduto != 0 ? $this->view->codigoProduto :  null,
+            $municipio
+        );
 
-        $arrayA = array();
+        $recusadas = $dao->vwComprovacaoProjetoRecusada(
+            $this->view->idPronac,
+            $uf,
+            null,
+            $this->view->codigoProduto != 0 ? $this->view->codigoProduto :  null,
+            $municipio
+        );
 
-        if (is_object($resposta)) {
-            foreach ($resposta as $val) {
-                $modalidade = '';
-                if ($val->idCotacao != '') {
-                    $modalidade = 'Cota&ccedil;&atilde;o';
-                    $idmod = 'cot'.$val->idCotacao.'_'.$val->idFornecedorCotacao;
-                }
 
-                if ($val->idDispensaLicitacao != '') {
-                    $modalidade = 'Dispensa';
-                    $idmod = 'dis'.$val->idDispensaLicitacao;
-                }
-
-                if ($val->idLicitacao != '') {
-                    $modalidade =   'Licita&ccedil;&atilde;o';
-                    $idmod = 'lic'.$val->idLicitacao;
-                }
-
-                if ($val->idContrato != '') {
-                    if ($modalidade != '') {
-                        $modalidade .=   ' /';
-                    }
-                    $modalidade .=   ' Contrato';
-                    $idmod = 'con'.$val->idContrato;
-                }
-
-                if ($modalidade == '') {
-                    $modalidade = '-';
-                    $idmod = 'sem';
-                }
-
-                if ($val->tpCusto == 'A') {
-                    $arrayA[utf8_encode($val->idPlanilhaAprovacao)] = array(
-                        utf8_encode($val->descItem),
-                        $val->Total,
-                        $val->tpDocumento,
-                        $val->vlComprovado,
-                        $modalidade,
-                        $idmod,
-                        $val->idPlanilhaItens,
-                        $val->ComprovacaoValidada,
-                        $val->uf
-                    );
-                }
-            }
-        }
-        $this->_helper->layout->disableLayout();
-        $this->view->incFiscaisA = $arrayA;
+        $this->view->todos = $resposta;
+        $this->view->aguardandoAnalise = $respostaAguardandoAnalise;
+        $this->view->avaliadas = $avaliadas;
+        $this->view->recusadas = $recusadas;
     }
 
     public function planilhaOrcamentariaCustosProdutoAction()
     {
+        $this->_helper->layout->disableLayout();
         $auth = Zend_Auth::getInstance();
         $this->view->codGrupo = $_SESSION['GrupoAtivo']['codGrupo'];
 
@@ -3930,77 +3901,43 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
         $this->view->codigoProduto = $this->getRequest()->getParam('produto');
 
         $dao = new PlanilhaAprovacao();
-        $resposta = $dao->buscarItensPagamentoCustoProduto(
+
+        $resposta = $dao->vwComprovacaoFinanceiraProjeto(
             $this->view->idPronac,
-            ($this->view->itemAvaliadoFilter ? $this->view->itemAvaliadoFilter : null),
             $this->view->uf,
             $this->view->idPlanilhaEtapa,
             $this->view->codigoProduto != 0 ? $this->view->codigoProduto :  null,
             $this->view->idMunicipio
         );
 
-        $tblEncaminhamento = new EncaminhamentoPrestacaoContas();
-        $rsEncaminhamento = $tblEncaminhamento->buscar(array('idPronac=?'=>$this->view->idPronac,'stAtivo=?'=>1))->current();
+        $respostaAguardandoAnalise = $dao->vwComprovacaoProjetoSemAnalise(
+            $this->view->idPronac,
+            $uf,
+            null,
+            $this->view->codigoProduto != 0 ? $this->view->codigoProduto :  null,
+            $municipio
+        );
 
-        if (is_object($rsEncaminhamento)) {
-            $this->view->situacaoAtual = $rsEncaminhamento->idSituacaoEncPrestContas;
-        } else {
-            $this->view->situacaoAtual = 1;
-        }
+        $avaliadas = $dao->vwComprovacaoProjetoAvaliada(
+            $this->view->idPronac,
+            $uf,
+            null,
+            $this->view->codigoProduto != 0 ? $this->view->codigoProduto :  null,
+            $municipio
+        );
 
-        $arrayA = array();
-        $arrayP = array();
+        $recusadas = $dao->vwComprovacaoProjetoRecusada(
+            $this->view->idPronac,
+            $uf,
+            null,
+            $this->view->codigoProduto != 0 ? $this->view->codigoProduto :  null,
+            $municipio
+        );
 
-        #Alysson
-        $planilhaAprovacaoModel = new PlanilhaAprovacao();
-        #$vlTotalImpugnado = 0;
-        $arrComprovantesImpugnados = array();
-        if (is_object($resposta)) {
-            foreach ($resposta as $val) {
-                $modalidade = '';
-                if ($val->idCotacao != '') {
-                    $modalidade = 'Cota&ccedil;&atilde;o';
-                    $idmod = 'cot'.$val->idCotacao.'_'.$val->idFornecedorCotacao;
-                }
 
-                if ($val->idDispensaLicitacao != '') {
-                    $modalidade = 'Dispensa';
-                    $idmod = 'dis'.$val->idDispensaLicitacao;
-                }
-
-                if ($val->idLicitacao != '') {
-                    $modalidade =   'Licita&ccedil;&atilde;o';
-                    $idmod = 'lic'.$val->idLicitacao;
-                }
-
-                if ($val->idContrato != '') {
-                    if ($modalidade != '') {
-                        $modalidade .=   ' /';
-                    }
-                    $modalidade .=   ' Contrato';
-                    $idmod = 'con'.$val->idContrato;
-                }
-
-                if ($modalidade == '') {
-                    $modalidade = '-';
-                    $idmod = 'sem';
-                }
-
-                if ($val->tpCusto == 'P') {
-                    $arrayP[$val->idPlanilhaAprovacao] = array(
-                        ($val->descItem),
-                        $val->Total,
-                        $val->tpDocumento,
-                        $val->vlComprovado,
-                        $modalidade,
-                        $idmod,
-                        $val->idPlanilhaItens,
-                        $val->ComprovacaoValidada
-                    );
-                }
-            }
-        }
-        $this->_helper->layout->disableLayout();
-        $this->view->incFiscaisP = $arrayP;
+        $this->view->todos = $resposta;
+        $this->view->aguardandoAnalise = $respostaAguardandoAnalise;
+        $this->view->avaliadas = $avaliadas;
+        $this->view->recusadas = $recusadas;
     }
 }
