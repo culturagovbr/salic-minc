@@ -521,16 +521,16 @@ class tbDistribuirParecer extends MinC_Db_Table_Abstract
                     "CONVERT(CHAR(10), t.DtDevolucao, 103) AS DtDevolucaoPT",
                     "CONVERT(CHAR(10), t.DtDistribuicao, 103) AS DtDistribuicaoPT",
                     "DescricaoAnalise" => new Zend_Db_Expr("CASE WHEN TipoAnalise = 0 THEN 'Cont�udo' WHEN TipoAnalise = 1 THEN 'Custo do Produto' ELSE 'Custo Administrativo' END"),
-                    "SAC.dbo.fnChecarDistribuicaoProjeto(p.IdPRONAC, t.idProduto, t.TipoAnalise) AS Obs",
-                    "(Select SUM(x.Ocorrencia*x.Quantidade*x.ValorUnitario) FROM SAC.dbo.tbPlanilhaProjeto x WHERE p.IdPRONAC = x.idPRONAC and x.FonteRecurso = 109 and x.idProduto = t.idProduto) as Valor",
-		    "(SELECT x1.Segmento FROM sac.dbo.PlanoDistribuicaoProduto x1
-		     WHERE x1.idProjeto = p.idProjeto and x1.idProduto = t.idProduto)  AS
-		    idSegmento, (SELECT x1.Segmento FROM sac.dbo.PlanoDistribuicaoProduto x1
-				 INNER JOIN sac.dbo.Projetos y1 on (x1.idProjeto = y1.idProjeto)
-				 WHERE x1.idProjeto = p.idProjeto and x1.idProduto = t.idProduto)  AS idSegmento",
-		    "(SELECT z1.Descricao FROM sac.dbo.PlanoDistribuicaoProduto x1
-                         INNER JOIN sac.dbo.Segmento z1 on (x1.Segmento  = z1.Codigo)
-                                WHERE x1.idProjeto = p.idProjeto and x1.idProduto = t.idProduto)  AS Segmento"
+                    'Obs' => new Zend_Db_Expr("SAC.dbo.fnChecarDistribuicaoProjeto(p.IdPRONAC, t.idProduto, t.TipoAnalise)"),
+                    'Valor' => new Zend_Db_Expr("(Select SUM(x.Ocorrencia*x.Quantidade*x.ValorUnitario) FROM SAC.dbo.tbPlanilhaProjeto x WHERE p.IdPRONAC = x.idPRONAC and x.FonteRecurso = 109 and x.idProduto = t.idProduto)"),
+                    new Zend_Db_Expr("(SELECT x1.Segmento FROM sac.dbo.PlanoDistribuicaoProduto x1
+                     WHERE x1.idProjeto = p.idProjeto and x1.idProduto = t.idProduto)  AS
+                    idSegmento, (SELECT x1.Segmento FROM sac.dbo.PlanoDistribuicaoProduto x1
+                         INNER JOIN sac.dbo.Projetos y1 on (x1.idProjeto = y1.idProjeto)
+                         WHERE x1.idProjeto = p.idProjeto and x1.idProduto = t.idProduto)  AS idSegmento"),
+                    new Zend_Db_Expr("(SELECT z1.Descricao FROM sac.dbo.PlanoDistribuicaoProduto x1
+                                 INNER JOIN sac.dbo.Segmento z1 on (x1.Segmento  = z1.Codigo)
+                                        WHERE x1.idProjeto = p.idProjeto and x1.idProduto = t.idProduto)  AS Segmento")
             ));
 
 

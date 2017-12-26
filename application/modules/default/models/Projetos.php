@@ -1746,7 +1746,7 @@ class Projetos extends MinC_Db_Table_Abstract
                 "TipoParecer" => new Zend_Db_Expr("CASE WHEN TipoParecer = 1 THEN 'Aprova��o' WHEN TipoParecer = 2 THEN 'Complementa��o' WHEN TipoParecer = 4 THEN 'Redu��o' END"),
                 "ParecerFavoravel" => new Zend_Db_Expr("CASE WHEN ParecerFavoravel = 1 THEN 'Sim' ELSE 'N�o' END"),
                 "a.ParecerDeConteudo",
-                "dbo.fnNomeParecerista(a.idUsuario) AS Parecerista",
+                "sac.dbo.fnNomeParecerista(a.idUsuario) AS Parecerista",
             )
         );
 
@@ -1816,7 +1816,7 @@ class Projetos extends MinC_Db_Table_Abstract
                 "TipoParecer" => new Zend_Db_Expr("CASE WHEN TipoParecer = 1 THEN 'Aprova��o' WHEN TipoParecer = 2 THEN 'Complementa��o' WHEN TipoParecer = 4 THEN 'Redu��o' END"),
                 "ParecerFavoravel" => new Zend_Db_Expr("CASE WHEN ParecerFavoravel = 1 THEN 'Sim' ELSE 'N�o' END"),
                 "a.ParecerDeConteudo",
-                "dbo.fnNomeParecerista(a.idUsuario) AS Parecerista",
+                New Zend_Db_Expr("sac.dbo.fnNomeParecerista(a.idUsuario) AS Parecerista"),
             )
         );
 
@@ -5676,8 +5676,7 @@ class Projetos extends MinC_Db_Table_Abstract
         $b->joinInner(
             array('l' => 'Nomes'), "j.idAgente = l.idAgente", array('Descricao AS Proponente'), $this->getSchema('agentes')
         );
-//        $b->where('c.siProcuracao = ?', 1);
-//        $b->where('b.siEstado = ?', 2);
+
         $b->where('e.IdUsuario = ?', $idResponsavel);
 
         $slctUnion = $this->select()
@@ -5773,7 +5772,7 @@ class Projetos extends MinC_Db_Table_Abstract
             )
         );
         $a->joinInner(
-            array('b' => 'Agentes'), "a.CgcCpf = b.CNPJCPF", array('idAgente', 'dbo.fnNome(b.idAgente) AS NomeProponente'), $this->getSchema('agentes')
+            array('b' => 'Agentes'), "a.CgcCpf = b.CNPJCPF", array('idAgente', New Zend_Db_Expr('sac.dbo.fnNome(b.idAgente) AS NomeProponente')), $this->getSchema('agentes')
         );
         $a->joinInner(
             array('c' => 'SGCacesso'), "a.CgcCpf = c.Cpf", array(), 'CONTROLEDEACESSO.dbo'
@@ -5807,7 +5806,7 @@ class Projetos extends MinC_Db_Table_Abstract
             )
         );
         $b->joinInner(
-            array('b' => 'Agentes'), "a.CgcCpf = b.CNPJCPF", array('idAgente', 'dbo.fnNome(b.idAgente) AS NomeProponente'), $this->getSchema('agentes')
+            array('b' => 'Agentes'), "a.CgcCpf = b.CNPJCPF", array('idAgente', New Zend_Db_Expr('sac.dbo.fnNome(b.idAgente) AS NomeProponente')), $this->getSchema('agentes')
         );
         $b->joinInner(
             array('c' => 'tbProcuradorProjeto'), "a.IdPRONAC = c.idPronac", array(), $this->getSchema('agentes')
@@ -5851,7 +5850,7 @@ class Projetos extends MinC_Db_Table_Abstract
             )
         );
         $c->joinInner(
-            array('b' => 'Agentes'), "a.CgcCpf = b.CNPJCPF", array('idAgente', 'dbo.fnNome(b.idAgente) AS NomeProponente'), $this->getSchema('agentes')
+            array('b' => 'Agentes'), "a.CgcCpf = b.CNPJCPF", array('idAgente', New Zend_Db_Expr('sac.dbo.fnNome(b.idAgente) AS NomeProponente')), $this->getSchema('agentes')
         );
         $c->joinInner(
             array('c' => 'Vinculacao'), "b.idAgente = c.idVinculoPrincipal", array(), $this->getSchema('agentes')

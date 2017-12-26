@@ -88,31 +88,41 @@ class ContaBancaria extends MinC_Db_Table_Abstract {
     }
 
     public function contaPorProjeto($idPronac){
+        $select = $this->select();
+        $select->distinct();
+        $select->setIntegrityCheck(false);
 
-	$select = "
-		SELECT DISTINCT c.Banco,
-                 		c.Agencia,
-                		c.ContaBloqueada,
-                		c.DtLoteRemessaCB,
-                		v.Descricao AS OcorrenciaCB,
-                		c.ContaLivre,
-                		c.DtLoteRemessaCL,
-                		x.Descricao AS OcorrenciaCL,
-                		p.AnoProjeto+p.Sequencial AS NrProjeto,
-                		p.NomeProjeto
-		FROM ContaBancaria AS c
-		INNER JOIN projetos AS p ON c.AnoProjeto = p.AnoProjeto
-		AND c.Sequencial = p.Sequencial
-		LEFT JOIN Verificacao AS v ON c.OcorrenciaCB = SUBSTRING(v.Descricao,1,3)
-		AND v.idTipo = 22
-		LEFT JOIN Verificacao AS x ON c.OcorrenciaCL = SUBSTRING(x.Descricao,1,3)
-		AND x.idTipo = 22
-		WHERE (p.IdPRONAC = '$idPronac')
-	      ";
+        $select->from(
+            ['c' => $this->_name],
+            ['Banco', 'Agencia', 'DtLoteRemessaCB', 'ContaLivre','ContaBloqueada', 'DtLoteRemessaCL'],
+            $this->_schema
+        );
 
-	$statement = $this->getAdapter()->query($select);
+        $select->joinInner(
+            ['p' => 'projetos'],
+            'c.AnoProjeto = p.AnoProjeto AND c.Sequencial = p.Sequencial',
+            [new Zend_Db_Expr('p.AnoProjeto+p.Sequencial AS NrProjeto'), 'NomeProjeto'],
+            $this->_schema
+        );
 
-        return $statement->fetchObject();
+        $select->joinLeft(
+            ['v'=>'Verificacao'],
+            'c.OcorrenciaCB = SUBSTRING(v.Descricao,1,3) AND v.idTipo = 22',
+            [new Zend_Db_Expr('v.Descricao AS OcorrenciaCB')],
+            $this->_schema
+        );
+
+        $select->joinLeft(
+            ['x'=>'Verificacao'],
+            'c.OcorrenciaCL = SUBSTRING(x.Descricao,1,3) AND x.idTipo = 22',
+            [new Zend_Db_Expr('x.Descricao AS OcorrenciaCL')],
+            $this->_schema
+        );
+
+        $select->where('p.IdPRONAC = ?', $idPronac);
+
+        return $this->fetchAll($select);
+
     }
 
     public function consultarDadosPorPronac($pronac, $orgao = NULL){
@@ -140,17 +150,6 @@ class ContaBancaria extends MinC_Db_Table_Abstract {
     }
 
 
-
-	/**
-	 * M�todo para buscar
-	 * @access public
-	 * @param string $pronac
-	 * @param integer $idPronac
-	 * @param string $agencia
-	 * @param string $conta
-	 * @param boolean $buscarTodos (informa se busca todos ou somente um)
-	 * @return object/array
-	 */
 	public function buscarDados($pronac = null, $idPronac = null, $agencia = null, $conta = null, $buscarTodos = true)
 	{
 		$select = $this->select();
@@ -183,8 +182,7 @@ class ContaBancaria extends MinC_Db_Table_Abstract {
 		}
 
 		return $buscarTodos ? $this->fetchAll($select) : $this->fetchRow($select);
-	} // fecha m�todo buscarDados()
-
+	}
 
 	public function buscarDadosBancarios($pronac = null)
 	{

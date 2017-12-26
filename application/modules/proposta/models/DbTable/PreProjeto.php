@@ -192,12 +192,12 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
                               ),
                           $this->_schema);
 
-        $slct->joinInner(array('ag' => 'Agentes'),
+        $slct->joinLeft(array('ag' => 'Agentes'),
                          'a.idAgente = ag.idAgente',
                          array("ag.CNPJCPF as CNPJCPF"),
                          $this->getSchema('agentes'));
 
-        $slct->joinInner(array('m' => 'Nomes'),
+        $slct->joinLeft(array('m' => 'Nomes'),
                          'a.idAgente = m.idAgente',
                          array("m.Descricao as NomeAgente"),
                          $this->getSchema('agentes'));

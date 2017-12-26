@@ -17,7 +17,6 @@ if (getenv('APPLICATION_ENV') != 'production') {
     $strEnv = false;
 }
 ?>
-
 <div id="container-progress-part" style="display: none;" class="preloader-wrapper big active">
     <div class="spinner-layer spinner-green">
         <div class="circle-clipper left">
@@ -63,19 +62,24 @@ if (getenv('APPLICATION_ENV') != 'production') {
     <div class="footer-copyright">
         <div class="container">
             <div class="row">
-                <div class="col s4 l4">
+                <div class="col s3 l3">
                     <a class="orange-text text-lighten-3 tooltipped" data-position="top" data-delay="50" data-tooltip="Ir para o portal do Minist&eacute;rio da Cultura" " target="_blank" href="http://cultura.gov.br">MINIST&Eacute;RIO DA CULTURA</a>
                 </div>
-                <div class="col s4 l4">
+                <div class="col s3 l3">
                     <div class="center-align">
                         <?php if ($strDb): ?>
                             <?php echo $arrEnv[$strEnv]; ?> | <?php echo $arrDb[$strDb]; ?>
                         <?php endif; ?>
                     </div>
                 </div>
-                <div class="col s4 l4">
+                <div class="col s3 l3">
                     <div class="center-align">
                         <?php echo $this->vcs(); ?>
+                    </div>
+                </div>
+                <div class="col s3 l3">
+                    <div class="center-align">
+                        <a class="orange-text text-lighten-3 tooltipped" data-position="top" data-delay="50" data-tooltip="Ir para o Site: Desenvolvimento Salic MinC" " target="_blank" href="http://culturagovbr.github.io/salic-minc">Dev Site</a>
                     </div>
                 </div>
             </div>

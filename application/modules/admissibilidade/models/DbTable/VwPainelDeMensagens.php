@@ -23,7 +23,7 @@ class Admissibilidade_Model_DbTable_VwPainelDeMensagens extends MinC_Db_Table_Ab
                     'Enquadramento',
                     'VlSolicitado',
                     'idMensagemProjeto',
-                    'dtMensagem' => $this->getExpressionToChar($this->_name . '.dtMensagem') . $this->getExpressionConcat() . " ' ' " . $this->getExpressionConcat()  .  $this->getExpressionToChar($this->_name . '.dtMensagem', 108),
+                    'dtMensagem' => new Zend_Db_Expr($this->getExpressionToChar($this->_name . '.dtMensagem') . $this->getExpressionConcat() . " ' ' " . $this->getExpressionConcat()  .  $this->getExpressionToChar($this->_name . '.dtMensagem', 108)),
                     'QtdeDias',
                     'dsMensagem',
                     'cdTipoMensagem',

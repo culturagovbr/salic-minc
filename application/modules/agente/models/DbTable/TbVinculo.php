@@ -79,7 +79,7 @@ class Agente_Model_DbTable_TbVinculo extends MinC_Db_Table_Abstract{
                     )
                     ->joinInner(
                             array('b' => 'Agentes'), "a.CgcCpf = b.CNPJCPF",
-                            array('idAgente', 'dbo.fnNome(b.idAgente) as NomeProponente'), $this->getSchema('agentes')
+                            array('idAgente', new Zend_Db_Expr('sac.dbo.fnNome(b.idAgente) as NomeProponente')), $this->getSchema('agentes')
                     )
                     ->joinInner(
                             array('c' => 'SGCacesso'), "a.CgcCpf = c.Cpf",
@@ -101,7 +101,7 @@ class Agente_Model_DbTable_TbVinculo extends MinC_Db_Table_Abstract{
                     )
                     ->joinInner(
                             array('b' => 'Agentes'), "a.CgcCpf = b.CNPJCPF",
-                            array('CNPJCPF', 'idAgente', 'dbo.fnNome(b.idAgente) as NomeProponente'), $this->getSchema('agentes')
+                            array('CNPJCPF', 'idAgente', new Zend_Db_Expr('sac.dbo.fnNome(b.idAgente) as NomeProponente')), $this->getSchema('agentes')
                     )
                     ->joinInner(
                             array('c' => 'tbProcuradorProjeto'), "a.IdPRONAC = c.idPronac",
@@ -135,7 +135,7 @@ class Agente_Model_DbTable_TbVinculo extends MinC_Db_Table_Abstract{
                     )
                     ->joinInner(
                             array('b' => 'Agentes'), "a.CgcCpf = b.CNPJCPF",
-                            array('CNPJCPF', 'idAgente', 'dbo.fnNome(b.idAgente) as NomeProponente'), $this->getSchema('agentes')
+                            array('CNPJCPF', 'idAgente', new Zend_Db_Expr('sac.dbo.fnNome(b.idAgente) as NomeProponente')), $this->getSchema('agentes')
                     )
                     ->joinInner(
                             array('c' => 'Vinculacao'), "b.idAgente = c.idVinculoPrincipal",
@@ -256,7 +256,7 @@ class Agente_Model_DbTable_TbVinculo extends MinC_Db_Table_Abstract{
                                 ->distinct()
                                 ->from(
                                         array('a' => 'Agentes'),
-                                        array('CNPJCPF', 'idAgente', 'dbo.fnNome(a.idAgente) AS NomeProponente'), $this->getSchema('agentes')
+                                        array('CNPJCPF', 'idAgente', new Zend_Db_Expr('sac.dbo.fnNome(a.idAgente) AS NomeProponente')), $this->getSchema('agentes')
                                 )
                                 ->joinInner(
                                         array('c' => 'SGCacesso'), "a.CNPJCPF = c.Cpf",
@@ -271,7 +271,7 @@ class Agente_Model_DbTable_TbVinculo extends MinC_Db_Table_Abstract{
                                 ->distinct()
                                 ->from(
                                         array('a' => 'Agentes'),
-                                        array('CNPJCPF', 'idAgente', 'dbo.fnNome(idAgente) as NomeProponente'), $this->getSchema('agentes')
+                                        array('CNPJCPF', 'idAgente', new Zend_Db_Expr('sac.dbo.fnNome(idAgente) as NomeProponente')), $this->getSchema('agentes')
                                 )
                                 ->joinInner(
                                         array('v' => 'tbVinculo'), "a.idAgente = v.idAgenteProponente",

@@ -24,7 +24,8 @@ class Orgaos extends MinC_Db_Table_Abstract{
     const ORGAO_FCRB = 95;
     const ORGAO_IBRAM = 335;
 
-    public function pesquisarTodosOrgaos() {
+    public function pesquisarTodosOrgaos() 
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->distinct();
@@ -32,7 +33,7 @@ class Orgaos extends MinC_Db_Table_Abstract{
                 array('o'=>$this->_name),
                 array(
                 'o.Codigo',
-                'Tabelas.dbo.fnEstruturaOrgao(o.codigo, 0) as Sigla',
+                new Zend_Db_Expr('Tabelas.dbo.fnEstruturaOrgao(o.codigo, 0) as Sigla'),
                 'org.org_nomeautorizado'
                 )
         );
