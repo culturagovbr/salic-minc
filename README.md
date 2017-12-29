@@ -29,7 +29,7 @@ Para parar o container basta digitar:
 * [Zend Framework 1](https://framework.zend.com/manual/1.12/en/learning.quickstart.html) 
 * [Composer](https://getcomposer.org/)
 * [jQuery](https://jquery.com/)
-* [Vuejs](https://vuejs.org/)
+* [Vue.js](https://vuejs.org/)
 * [Materialize](http://materializecss.com/)
 * [SqlServer](https://www.microsoft.com/en-us/sql-server/sql-server-2017)
 
