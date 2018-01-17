@@ -1,13 +1,4 @@
 <?php
-
-/**
- * Proposta_Model_AnalisarPropostaDAO
- *
- * @uses Zend
- * @uses _Db_Table
- * @package
- * @author  wouerner <wouerner@gmail.com>
- */
 class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
 {
     /**
@@ -17,7 +8,6 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
     {
         die('enviado para o dbtable documentosexigidos');
         $sql = "select codigo, descricao from SAC.dbo.vwDocumentosExigidosApresentacaoProposta where opcao = {$idOpcao} order by descricao ";
-        //$sql = "select codigo,descricao from SAC.dbo.DocumentosExigidos where opcao=$idOpcao order by descricao";
 
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);

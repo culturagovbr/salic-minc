@@ -597,8 +597,8 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
                 array(
                     'aval.stProrrogacao',
                     'idDiligencia'=>'aval.idAvaliacaoProposta',
-                    'dataSolicitacao'=>'CONVERT(VARCHAR,aval.DtAvaliacao,120)',
-                    'dataResposta'=>'CONVERT(VARCHAR,aval.dtResposta,120)',
+                    'dataSolicitacao'=> new Zend_Db_Expr('CONVERT(VARCHAR,aval.DtAvaliacao,120)'),
+                    'dataResposta'=> new Zend_Db_Expr('CONVERT(VARCHAR,aval.dtResposta,120)'),
                     'Solicitacao'=>'aval.Avaliacao',
                     'Resposta'=>'aval.dsResposta',
                     'aval.idCodigoDocumentosExigidos',
@@ -1701,13 +1701,21 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
         $slct->joinInner(
                         array("m"=>"tbMovimentacao"),
                         "p.idPreProjeto = m.idProjeto AND m.stEstado = 0",
-                        array("idMovimentacao", "CodSituacao"=>"m.Movimentacao", "DtMovimentacao"=>"CONVERT(CHAR(20),m.DtMovimentacao, 120)", "diasDesdeMovimentacao"=>"DATEDIFF(d, m.DtMovimentacao, GETDATE())"),
+                        array(
+                            "idMovimentacao", "CodSituacao"=>"m.Movimentacao",
+                            "DtMovimentacao"=> new Zend_Db_Expr("CONVERT(CHAR(20),m.DtMovimentacao, 120)"),
+                            "diasDesdeMovimentacao"=> new Zend_Db_Expr("DATEDIFF(d, m.DtMovimentacao, GETDATE())")
+                        ),
                         "SAC.dbo"
                         );
         $slct->joinLeft(
                         array("x"=>"tbAvaliacaoProposta"),
                         "p.idPreProjeto = x.idProjeto AND x.stEstado = 0",
-                        array("idAvaliacaoProposta", "DtAdmissibilidade"=>"CONVERT(CHAR(20),x.DtAvaliacao, 120)", "diasCorridos"=>"DATEDIFF(d, x.DtAvaliacao, GETDATE())"),
+                        array(
+                            "idAvaliacaoProposta",
+                            "DtAdmissibilidade"=> new Zend_Db_Expr("CONVERT(CHAR(20),x.DtAvaliacao, 120)"),
+                            "diasCorridos"=> new Zend_Db_Expr("DATEDIFF(d, x.DtAvaliacao, GETDATE())")
+                        ),
                         "SAC.dbo"
                         );
         $slct->joinInner(
@@ -1988,7 +1996,7 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
             'NomeProjeto',
             'Tecnico',
             'DtEnvio',
-            'CONVERT(CHAR(20),DtMovimentacao, 120) AS DtMovimentacao',
+             new Zend_Db_Expr('CONVERT(CHAR(20),DtMovimentacao, 120) AS DtMovimentacao'),
             'DtAvaliacao',
             'Dias',
             'idOrgao',
@@ -2340,13 +2348,18 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
         $slct->setIntegrityCheck(false);
         $slct->from(
                     array("p"=>$this->_name),
-                    array("idProjeto"=>"idPreProjeto", "NomeProposta"=>"NomeProjeto", "idAgente", "DtCadastro"=>"CONVERT(CHAR(20),p.dtAceite, 120)"),
+                    array(
+                        "idProjeto"=>"idPreProjeto",
+                        "NomeProposta"=>"NomeProjeto",
+                        "idAgente",
+                        "DtCadastro"=> new Zend_Db_Expr("CONVERT(CHAR(20),p.dtAceite, 120)")
+                    ),
                     "SAC.dbo"
                     );
         $slct->joinLeft(
                         array("m"=>"tbMovimentacao"),
                         "p.idPreProjeto = m.idProjeto AND m.stEstado = 0",
-                        array("idMovimentacao", "CodSituacao"=>"m.Movimentacao", "DtMovimentacao"=>"CONVERT(CHAR(20),m.DtMovimentacao, 120)"),
+                        array("idMovimentacao", "CodSituacao"=>"m.Movimentacao", "DtMovimentacao"=> new Zend_Db_Expr("CONVERT(CHAR(20),m.DtMovimentacao, 120)")),
                         "SAC.dbo"
                         );
         $slct->joinLeft(
@@ -2358,7 +2371,7 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
         $slct->joinLeft(
                         array("x1"=>"tbAvaliacaoProposta"),
                         "p.idPreProjeto = x1.idProjeto",
-                        array("DtEnvioMinC"=>"CONVERT(CHAR(20),x1.DtEnvio , 120)"),
+                        array("DtEnvioMinC"=> new Zend_Db_Expr("CONVERT(CHAR(20),x1.DtEnvio , 120)")),
                         "SAC.dbo"
                         );
         $slct->joinLeft(

@@ -135,7 +135,7 @@ class TitulacaoConselheiro extends MinC_Db_Table_Abstract
             array(
                 'H.idConselheiro',
                 'H.dsJustificativa as Just',
-                'CONVERT(CHAR(10), H.dtHistorico,103) as Data'
+                new Zend_Db_Expr('CONVERT(CHAR(10), H.dtHistorico,103) as Data')
                 ),
             "BDCORPORATIVO.scAGENTES"
         );

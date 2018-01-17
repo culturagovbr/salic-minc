@@ -131,8 +131,6 @@ class tbEncaminhamentoPrestacaoContas extends MinC_Db_Table_Abstract
         $select->where('tbepc.idOrgaoDestino = ?', $idOrgao);
         $select->where('tbepc.idAgenteDestino = ?', $idAgenteDestino);
         $select->where('tbepc.idSituacaoEncPrestContas = ?', $situacao);
-        //$select->where('tbepc.idTipoAgente = ?',11);
-        
 
         return $this->fetchAll($select);
     }
@@ -144,14 +142,14 @@ class tbEncaminhamentoPrestacaoContas extends MinC_Db_Table_Abstract
         $select->setIntegrityCheck(false);
         $select->from(
             array('a'=>$this->_name),
-                        array('
-                           b.AnoProjeto+b.Sequencial as PRONAC,
-                           b.NomeProjeto, 
-                           CONVERT(CHAR(10), a.dtInicioEncaminhamento, 101) AS dtInicioEncaminhamento,
-                           a.dsJustificativa, 
-                           c.usu_nome AS NomeOrigem, 
-                           d.usu_nome AS NomeDestino
-                           '),
+                        array(
+                           'b.AnoProjeto+b.Sequencial as PRONAC',
+                           'b.NomeProjeto',
+                           new Zend_Db_Expr('CONVERT(CHAR(10), a.dtInicioEncaminhamento, 101) AS dtInicioEncaminhamento'),
+                           'a.dsJustificativa',
+                           'c.usu_nome AS NomeOrigem',
+                           'd.usu_nome AS NomeDestino'
+                           ),
                         $this->_schema
                       );
 
@@ -246,7 +244,7 @@ class tbEncaminhamentoPrestacaoContas extends MinC_Db_Table_Abstract
 
         $select->where('tbepc.idOrgao = ?', $idOrgao);
         $select->where('tbepc.idPronac = ?', $idPronac);
-       
+
 
         return $this->fetchAll($select);
     }

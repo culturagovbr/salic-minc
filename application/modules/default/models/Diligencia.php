@@ -1,9 +1,4 @@
 <?php
-/**
- * Description of Diligencia
- *
- * @author augusto
- */
 class Diligencia extends MinC_Db_Table_Abstract
 {
     protected $_banco = 'SAC';
@@ -25,7 +20,13 @@ class Diligencia extends MinC_Db_Table_Abstract
         $slct->setIntegrityCheck(false);
         $slct->from(
                 array("d"=>$this->_name),
-                array("DtSolicitacao"=>"CONVERT(CHAR(10),d.DtSolicitacao,121)", "idSolicitante", "idProponente", "idDiligencia", "idTipoDiligencia"),
+                array(
+                    "DtSolicitacao"=> new Zend_Db_Expr("CONVERT(CHAR(10),d.DtSolicitacao,121)"),
+                    "idSolicitante",
+                    "idProponente",
+                    "idDiligencia",
+                    "idTipoDiligencia"
+                ),
                 "SAC.dbo"
         );
         //adiciona quantos filtros foram enviados
@@ -104,8 +105,8 @@ class Diligencia extends MinC_Db_Table_Abstract
         $select->from(
                 array('D' => $this->_name),
                 array(
-                    'CONVERT(CHAR(10),D.DtResposta,103) AS DtResposta',
-                    'CONVERT(CHAR(10),D.dtSolicitacao,103) AS dtSolicitacao',
+                     new Zend_Db_Expr('CONVERT(CHAR(10),D.DtResposta,103) AS DtResposta'),
+                     new Zend_Db_Expr('CONVERT(CHAR(10),D.dtSolicitacao,103) AS dtSolicitacao'),
                     'D.Resposta'
                     ),
                 "SAC.dbo"
@@ -192,8 +193,8 @@ class Diligencia extends MinC_Db_Table_Abstract
         $select->from(
                 array('D' => $this->_name),
                 array(
-                    'CONVERT(CHAR(10),D.DtResposta,103) AS DtResposta',
-                    'CONVERT(CHAR(10),D.dtSolicitacao,103) AS dtSolicitacao',
+                    new Zend_Db_Expr('CONVERT(CHAR(10),D.DtResposta,103) AS DtResposta'),
+                    new Zend_Db_Expr('CONVERT(CHAR(10),D.dtSolicitacao,103) AS dtSolicitacao'),
                     'D.Resposta',
                     new Zend_Db_Expr('ISNULL((SELECT tpAcao FROM BDCORPORATIVO.scSAC.tbRetirarDePauta x WHERE stAtivo = 1 and  x.idPronac = pr.idPronac),0) as Acao'),
                     new Zend_Db_Expr('ISNULL((SELECT idRetirardepauta FROM BDCORPORATIVO.scSAC.tbRetirarDePauta x WHERE stAtivo = 1 and  x.idPronac = pr.idPronac),0) as idRetiradaPauta')
@@ -244,7 +245,7 @@ class Diligencia extends MinC_Db_Table_Abstract
             $select->limit($tamanho, $tmpInicio);
         }
 
-        
+
         return $this->fetchAll($select);
     }
 }

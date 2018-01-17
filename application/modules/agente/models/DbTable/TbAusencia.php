@@ -97,18 +97,21 @@ class Agente_Model_DbTable_TbAusencia extends MinC_Db_Table_Abstract
         $select->order('a.idausencia');
         return $this->fetchAll($select);
     }
-    
+
     public function BuscarAusenciaPainel($ano)
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
             array('A'=>$this->_name),
-                      array('*','CONVERT(CHAR(10), dtInicioAusencia, 103) as dtInicio',
-                            'CONVERT(CHAR(10), dtFimAusencia, 103) as dtFim',
-                            'DATEDIFF ( DAY , dtInicioAusencia , dtFimAusencia ) as qtdDias'),
-                        $this->_schema
-                      );
+            array(
+                '*',
+                 new Zend_Db_Expr('CONVERT(CHAR(10), dtInicioAusencia, 103) as dtInicio'),
+                 new Zend_Db_Expr('CONVERT(CHAR(10), dtFimAusencia, 103) as dtFim'),
+                 new Zend_Db_Expr('DATEDIFF ( DAY , dtInicioAusencia , dtFimAusencia ) as qtdDias')
+            ),
+            $this->_schema
+          );
 
         $select->joinInner(
                 array('N'=>'Nomes'),
@@ -144,21 +147,21 @@ class Agente_Model_DbTable_TbAusencia extends MinC_Db_Table_Abstract
                 array('*'),
             $this->getSchema('bdcorporativo', true, 'sccorp')
         );
-        
+
         $select->where('A.idTipoAusencia = ?', 2);
-        
+
         $select->where('A.siAusencia = ?', 0);
 
         $select->where('YEAR(dtInicioAusencia) = ?', $ano);
-        
+
         $select->order('A.idAlteracao');
         $select->order('A.idAusencia');
-        
+
 
         return $this->fetchAll($select);
     }
 
-    
+
 
     public function UltimoRegistro()
     {
@@ -168,38 +171,41 @@ class Agente_Model_DbTable_TbAusencia extends MinC_Db_Table_Abstract
             array('A'=>$this->_name),
                         array('MAX(idAusencia) as id')
         );
-        
+
         return $this->fetchAll($select);
     }
-    
+
     public function BuscarAusenciaRepetida($idAgente, $dtInicio, $dtFim)
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
             array('A'=>$this->_name),
-                      array('*','CONVERT(CHAR(10), dtInicioAusencia, 103) as dtInicio',
-                            'CONVERT(CHAR(10), dtFimAusencia, 103) as dtFim',
-                            'DATEDIFF ( DAY , dtInicioAusencia , dtFimAusencia ) as qtdDias')
-                      );
+            array(
+                '*',
+                new Zend_Db_Expr('CONVERT(CHAR(10), dtInicioAusencia, 103) as dtInicio'),
+                new Zend_Db_Expr('CONVERT(CHAR(10), dtFimAusencia, 103) as dtFim'),
+                new Zend_Db_Expr('DATEDIFF ( DAY , dtInicioAusencia , dtFimAusencia ) as qtdDias')
+            )
+          );
 
         $select->joinInner(
                 array('TP'=>'tbTipoAusencia'),
             'TP.idTipoAusencia = A.idTipoAusencia',
                 array('TP.nmAusencia as tipoAusencia')
         );
-        
-        
+
+
         $select->where('A.idAgente = ?', $idAgente);
         $select->where("'{$dtInicio}' BETWEEN dtInicioAusencia AND dtFimAusencia");
         $select->orWhere('A.idAgente = ?', $idAgente);
         $select->where("'{$dtFim}' BETWEEN dtInicioAusencia AND dtFimAusencia");
-        
+
         $select->order('A.siAusencia');
-        
+
         return $this->fetchAll($select);
     }
-    
+
     public function BuscarAusenciaAtiva($idAgente, $dtAtual, $tipoAusencia)
     {
         $select = $this->select();
@@ -214,7 +220,7 @@ class Agente_Model_DbTable_TbAusencia extends MinC_Db_Table_Abstract
             'TP.idTipoAusencia = A.idTipoAusencia',
                 array('TP.nmAusencia as tipoAusencia')
         );
-        
+
         $select->where('A.idAgente = ?', $idAgente);
         $select->where('A.idTipoAusencia = ?', $tipoAusencia);
         if ($tipoAusencia == 1) {
@@ -222,13 +228,13 @@ class Agente_Model_DbTable_TbAusencia extends MinC_Db_Table_Abstract
         } else {
             $select->where('A.dtInicioAusencia <= ?', new Zend_Db_Expr('GETDATE()'));
         }
-        
+
         $select->where('A.dtFimAusencia >= ?', new Zend_Db_Expr('GETDATE()'));
         $select->where('A.siAusencia = ?', 1);
-        
+
         return $this->fetchAll($select);
     }
-    
+
 
     public function inserirAusencia($dados)
     {
@@ -239,7 +245,7 @@ class Agente_Model_DbTable_TbAusencia extends MinC_Db_Table_Abstract
     public function alteraAusencia($dados, $idAusencia)
     {
         $where = "idAusencia = " . $idAusencia;
-        
+
         return $this->update($dados, $where);
     }
 }

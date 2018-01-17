@@ -16,16 +16,18 @@ class GerarPagamentoParecerista extends MinC_Db_Table_Abstract
         $select->setIntegrityCheck(false);
         $select->from(
             array('gpp'=>$this->_name),
-                        array('gpp.idGerarPagamentoParecerista',
-                                'gpp.idConfigurarPagamento',
-                                'CONVERT(VARCHAR(10), gpp.dtGeracaoPagamento ,103) as dtGeracaoPagamento',
-                                'CONVERT(VARCHAR(10), gpp.dtEfetivacaoPagamento ,103) as dtEfetivacaoPagamento',
-                                'CONVERT(VARCHAR(10), gpp.dtOrdemBancaria ,103) as dtOrdemBancaria',
-                                'gpp.nrOrdemBancaria',
-                                'CONVERT(INT, gpp.nrDespacho) as nrDespacho',
-                                'gpp.siPagamento',
-                                'gpp.vlTotalPagamento',
-                                'gpp.idUsuario')
+            array(
+                'gpp.idGerarPagamentoParecerista',
+                'gpp.idConfigurarPagamento',
+                new Zend_Db_Expr('CONVERT(VARCHAR(10), gpp.dtGeracaoPagamento ,103) as dtGeracaoPagamento'),
+                new Zend_Db_Expr('CONVERT(VARCHAR(10), gpp.dtEfetivacaoPagamento ,103) as dtEfetivacaoPagamento'),
+                new Zend_Db_Expr('CONVERT(VARCHAR(10), gpp.dtOrdemBancaria ,103) as dtOrdemBancaria'),
+                'gpp.nrOrdemBancaria',
+                new Zend_Db_Expr('CONVERT(INT, gpp.nrDespacho) as nrDespacho'),
+                'gpp.siPagamento',
+                'gpp.vlTotalPagamento',
+                'gpp.idUsuario'
+            )
         );
         $select->joinInner(
             array('pp'=> 'tbPagarParecerista'),
@@ -76,7 +78,11 @@ class GerarPagamentoParecerista extends MinC_Db_Table_Abstract
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from(array('gpp'=>$this->_name), array('max(convert(int,(nrDespacho))) as UltimoDespachoDoAno'));
+        $select->from(array('gpp'=>$this->_name),
+            array(
+                new Zend_Db_Expr('max(convert(int,(nrDespacho))) as UltimoDespachoDoAno')
+            )
+        );
         $select->where('YEAR([dtGeracaoPagamento]) = ?', new Zend_Db_Expr('YEAR(GETDATE())'));
         return $this->fetchRow($select);
     }
@@ -122,12 +128,14 @@ class GerarPagamentoParecerista extends MinC_Db_Table_Abstract
         $select->joinLeft(
             array('gpp'=> 'tbGerarPagamentoParecerista'),
             "pp.idGerarPagamentoParecerista = gpp.idGerarPagamentoParecerista",
-                            array('CONVERT(VARCHAR(10), gpp.dtGeracaoPagamento ,103) as dtGeracaoPagamento',
-                                  'CONVERT(VARCHAR(10), gpp.dtEfetivacaoPagamento ,103) as dtEfetivacaoPagamento',
-                                  'CONVERT(VARCHAR(10), gpp.dtOrdemBancaria ,103) as dtOrdemBancaria',
-                                  'gpp.nrOrdemBancaria',
-                                  'gpp.nrDespacho',
-                                  'gpp.siPagamento as Estado')
+            array(
+                new Zend_Db_Expr('CONVERT(VARCHAR(10), gpp.dtGeracaoPagamento ,103) as dtGeracaoPagamento'),
+                new Zend_Db_Expr('CONVERT(VARCHAR(10), gpp.dtEfetivacaoPagamento ,103) as dtEfetivacaoPagamento'),
+                new Zend_Db_Expr('CONVERT(VARCHAR(10), gpp.dtOrdemBancaria ,103) as dtOrdemBancaria'),
+                'gpp.nrOrdemBancaria',
+                'gpp.nrDespacho',
+                'gpp.siPagamento as Estado'
+            )
         );
 
         $siArquivo = 1;

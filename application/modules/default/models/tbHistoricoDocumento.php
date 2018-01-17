@@ -1,14 +1,4 @@
 <?php
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
-*/
-
-/**
- * Description of Vinculo
- *
- * @author tisomar
- */
 class tbHistoricoDocumento extends MinC_Db_Table_Abstract
 {
     protected $_banco = "SAC";
@@ -28,7 +18,13 @@ class tbHistoricoDocumento extends MinC_Db_Table_Abstract
         $slct->setIntegrityCheck(false);
         $slct->from(
                 array("hd"=>$this->_name),
-                array("idHistorico", "dtTramitacaoEnvio"=>"CONVERT(CHAR(20),dtTramitacaoEnvio, 120)", "dtTramitacaoRecebida"=>"CONVERT(CHAR(20),dtTramitacaoRecebida, 120)", "idLote", "Acao")
+                array(
+                    "idHistorico",
+                    "dtTramitacaoEnvio" => new Zend_Db_Expr("CONVERT(CHAR(20),dtTramitacaoEnvio, 120)"),
+                    "dtTramitacaoRecebida" =>  new Zend_Db_Expr("CONVERT(CHAR(20),dtTramitacaoRecebida, 120)"),
+                    "idLote",
+                    "Acao"
+                )
         );
         $slct->joinInner(
                 array("pr"=>"Projetos"),
@@ -66,7 +62,7 @@ class tbHistoricoDocumento extends MinC_Db_Table_Abstract
             $slct->limit($tamanho, $tmpInicio);
         }
 
-        
+
         return $this->fetchAll($slct);
     }
 
@@ -119,12 +115,23 @@ class tbHistoricoDocumento extends MinC_Db_Table_Abstract
         $slct->setIntegrityCheck(false);
         $slct->from(
                 array("hd"=>$this->_name),
-                array("idHistorico", "dtTramitacaoEnvio"=>"CONVERT(CHAR(20),dtTramitacaoEnvio, 120)", "dtTramitacaoRecebida"=>"CONVERT(CHAR(20),dtTramitacaoRecebida, 120)", "idLote", "Acao")
+                array(
+                    "idHistorico",
+                    "dtTramitacaoEnvio"=> new Zend_Db_Expr("CONVERT(CHAR(20),dtTramitacaoEnvio, 120)"),
+                    "dtTramitacaoRecebida"=> new Zend_Db_Expr("CONVERT(CHAR(20),dtTramitacaoRecebida, 120)"),
+                    "idLote",
+                    "Acao"
+                )
         );
         $slct->joinInner(
                 array("d"=>"tbDocumento"),
                 "d.idDocumento = hd.idDocumento",
-                array("NoArquivo", "dtDocumento"=>"CONVERT(CHAR(20),dtDocumento, 120)", "CodigoCorreio", "idDocumento"),
+                array(
+                    "NoArquivo", 
+                    "dtDocumento"=> new Zend_Db_Expr("CONVERT(CHAR(20),dtDocumento, 120)"), 
+                    "CodigoCorreio", 
+                    "idDocumento"
+                ),
                 "SAC.dbo"
         );
         $slct->joinInner(
@@ -163,7 +170,7 @@ class tbHistoricoDocumento extends MinC_Db_Table_Abstract
             $slct->limit($tamanho, $tmpInicio);
         }
 
-        
+
         return $this->fetchAll($slct);
     }
 
@@ -215,8 +222,8 @@ class tbHistoricoDocumento extends MinC_Db_Table_Abstract
         $slct->from(
                 array("h"=>$this->_name),
                 array("h.idHistorico",
-                "dtTramitacaoEnvio"=>"CONVERT(CHAR(20),h.dtTramitacaoEnvio, 120)",
-                "dtTramitacaoRecebida"=>"CONVERT(CHAR(20),h.dtTramitacaoRecebida, 120)",
+                "dtTramitacaoEnvio"=>new Zend_Db_Expr("CONVERT(CHAR(20),h.dtTramitacaoEnvio, 120)"),
+                "dtTramitacaoRecebida"=>new Zend_Db_Expr("CONVERT(CHAR(20),h.dtTramitacaoRecebida, 120)"),
                 "idDestino"=>"h.idUnidade",
                 "h.meDespacho",
                 "Destino"=>new Zend_Db_Expr("TABELAS.dbo.fnEstruturaOrgao(h.idunidade,0)"),
@@ -292,7 +299,7 @@ class tbHistoricoDocumento extends MinC_Db_Table_Abstract
             $slct->limit($tamanho, $tmpInicio);
         }
 
-        
+
         return $this->fetchAll($slct);
     }
 
@@ -326,8 +333,8 @@ class tbHistoricoDocumento extends MinC_Db_Table_Abstract
                 array("d"=>"tbDocumento"),
                 "d.idPronac = p.idPronac",
                 array("d.idDocumento",
-                "dtDocumento"=>"CONVERT(CHAR(20),d.dtDocumento, 120)",
-                "dtJuntada"=>"CONVERT(CHAR(20),d.dtJuntada, 120)",
+                "dtDocumento" => new Zend_Db_Expr("CONVERT(CHAR(20),d.dtDocumento, 120)"),
+                "dtJuntada" => new Zend_Db_Expr("CONVERT(CHAR(20),d.dtJuntada, 120)"),
                 "d.imDocumento",
                 "d.noArquivo",
                 "Usuario"=>new Zend_Db_Expr("SAC.dbo.fnNomeUsuario(d.idUsuarioJuntada)")
@@ -397,7 +404,7 @@ class tbHistoricoDocumento extends MinC_Db_Table_Abstract
             }
             $slct->limit($tamanho, $tmpInicio);
         }
-        
+
         return $this->fetchAll($slct);
     }
 
