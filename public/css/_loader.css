@@ -1,0 +1,37 @@
+/*--------------------------------------------------------------
+x - LOADER
+--------------------------------------------------------------*/
+.carregando {
+    text-align:center;
+}
+.carregando_ajax {
+    background:#ffc url(../img/ajax.gif) 5px center no-repeat;
+    vertical-align:bottom;
+}
+.carregando_ajax .txt_ajax {
+    margin-left:90px;
+}
+
+.loader {
+    background:url(../img/ajax.gif) no-repeat center;
+    padding:5px 0 50px;
+    height:1px;
+}
+.tag_pre {
+    overflow-x:auto;
+    white-space:-moz-pre-wrap !important;
+    white-space:-o-pre-wrap;
+    white-space:pre-wrap;
+    word-wrap: break-word;
+}
+
+.modal.modal-pre-loader {
+    width: 300px !important;
+    height: 180px !important;
+    padding: 10px;
+    z-index: 1002 !important;
+}
+
+.modal.modal-pre-loader .modal-content {
+    padding: 10px;
+}

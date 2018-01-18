@@ -1,8 +1,8 @@
 <?php 
-class ReadequacaoProjetos extends Zend_Db_Table {
-
-    
-    public function buscarProjetos($idPronac) {
+class ReadequacaoProjetos extends Zend_Db_Table
+{
+    public function buscarProjetos($idPronac)
+    {
         $sql0 = " select  projetos.idProjeto,
 
                     projetos.IdPRONAC,
@@ -32,8 +32,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function buscarLocais($idProjeto) {
-
+    public function buscarLocais($idProjeto)
+    {
         $sql0 = "   select pais.idPais, uf.idUF, mp.idMunicipioIBGE as idMunicipioIBGE ,idAbrangencia,idProjeto,pais.Descricao,uf.Sigla as sigla,mp.Descricao as cidade from SAC.dbo.Abrangencia as ab
                     left join AGENTES.dbo.Municipios as mp
                     on ab.idMunicipioIBGE = mp.idMunicipioIBGE
@@ -49,8 +49,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function buscarLocaisExterior($idPedidoAlteracao) {
-
+    public function buscarLocaisExterior($idPedidoAlteracao)
+    {
         $sql0 = " select pais.idPais, idAbrangencia,idAbrangenciaAntiga,pais.Descricao,'-' as sigla,'-'as cidade from SAC.dbo.tbAbrangencia as ab
                     inner join Agentes.dbo.Pais as pais
                     on pais.idPais = ab.idPais
@@ -62,8 +62,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function buscarLocais2($idPedidoAlteracao) {
-
+    public function buscarLocais2($idPedidoAlteracao)
+    {
         $sql0 = " select pais.idPais, uf.idUF, mp.idMunicipioIBGE as idMunicipioIBGE ,idAbrangencia,idAbrangenciaAntiga,pais.Descricao,uf.Sigla as sigla,mp.Descricao as cidade, ab.tpAcao from SAC.dbo.tbAbrangencia as ab
                     left join AGENTES.dbo.Municipios as mp
                     on ab.idMunicipioIBGE = mp.idMunicipioIBGE
@@ -80,7 +80,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function updateLocais($idPais, $idUF, $idMunicipioIBGE, $tpAcao, $idPedidoAlteracao, $idAbrangencia) {
+    public function updateLocais($idPais, $idUF, $idMunicipioIBGE, $tpAcao, $idPedidoAlteracao, $idAbrangencia)
+    {
         $sql0 = "  update SAC.dbo.tbAbrangencia set idPais = $idPais, idUF= $idUF,idMunicipioIBGE = $idMunicipioIBGE,tpAcao = '$tpAcao',dtRegistro = GETDATE()
                     where idPedidoAlteracao = $idPedidoAlteracao and idAbrangencia= $idAbrangencia";
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -88,7 +89,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function excluirLocais($idAbrangencia, $dsJustificativaExclusao) {
+    public function excluirLocais($idAbrangencia, $dsJustificativaExclusao)
+    {
         $sql0 = "  update SAC.dbo.tbAbrangencia set tpAcao = 'E', dtRegistro = GETDATE(), dsExclusao='".$dsJustificativaExclusao."'
                     where idAbrangencia= $idAbrangencia";
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -96,7 +98,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function insertLocais($idPais, $idUF, $idMunicipioIBGE, $idPedidoAlteracao, $tpAcao = 'I') {
+    public function insertLocais($idPais, $idUF, $idMunicipioIBGE, $idPedidoAlteracao, $tpAcao = 'I')
+    {
         $sql0 = " insert into SAC.dbo.tbAbrangencia (idPais,idUF,idMunicipioIBGE,tpAbrangencia,tpAcao,idPedidoAlteracao,dtRegistro)
                     values ($idPais,$idUF,$idMunicipioIBGE,'SA','$tpAcao',$idPedidoAlteracao,GETDATE())";
 
@@ -105,14 +108,16 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function buscarLocaisCadastrados($idPais, $idUF, $idMunicipioIBGE, $idPedidoAlteracao) {
+    public function buscarLocaisCadastrados($idPais, $idUF, $idMunicipioIBGE, $idPedidoAlteracao)
+    {
         $sql0 = " select * from SAC.dbo.tbAbrangencia where idPais = $idPais and idUF = $idUF and  idMunicipioIBGE = $idMunicipioIBGE and idPedidoAlteracao = $idPedidoAlteracao";
 
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql0);
     }
-    public function buscarLocaisCadastradosFinal($idPedidoAlteracao) {
+    public function buscarLocaisCadastradosFinal($idPedidoAlteracao)
+    {
         $sql0 = " select * from BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao where tpAlteracaoProjeto  = 4 and idPedidoAlteracao = $idPedidoAlteracao";
 
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -120,7 +125,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function buscaridPedidoAlteracao($idPedidoAlteracao) {
+    public function buscaridPedidoAlteracao($idPedidoAlteracao)
+    {
         $sql0 = "  select * from BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao
                     where idPedidoAlteracao =  $idPedidoAlteracao";
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -128,14 +134,16 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function buscarTipoAlteracaoInserido($idPedidoAlteracao) {
+    public function buscarTipoAlteracaoInserido($idPedidoAlteracao)
+    {
         $sql0 = " select * from   BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao WHERE tpAlteracaoProjeto = 7 AND idPedidoAlteracao = $idPedidoAlteracao";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql0);
     }
 
-    public function buscarProdutobd($idPedidoAlteracao, $idProduto) {
+    public function buscarProdutobd($idPedidoAlteracao, $idProduto)
+    {
         $sql0 = "SELECT *, plano.stPrincipal, CAST(plano.dsjustificativa AS TEXT) AS JustificativaProponente
 					FROM SAC.dbo.tbPlanoDistribuicao AS plano 
 						INNER JOIN SAC.dbo.Segmento AS segmento ON plano.cdSegmento = segmento.Codigo
@@ -146,14 +154,16 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function buscarID($idPronac) {
+    public function buscarID($idPronac)
+    {
         $sql0 = " select p.idProjeto from SAC.dbo.Projetos as p where p.IdPRONAC = $idPronac";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql0);
     }
 
-    public function buscarProdutosAtual($idProjeto) {
+    public function buscarProdutosAtual($idProjeto)
+    {
         $sql0 = "   select  produto.Descricao,plano.idProduto, plano.stPrincipal from SAC.dbo.PlanoDistribuicaoProduto as plano
                     inner join SAC.dbo.Produto as produto
                     on plano.idProduto = produto.Codigo
@@ -166,7 +176,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function buscarProdutosOpcao($idProjeto, $idProduto) {
+    public function buscarProdutosOpcao($idProjeto, $idProduto)
+    {
         $sql0 = "SELECT *, plano.stPrincipal, CAST(pla.dsjustificativa AS TEXT) AS JustificativaProponente FROM SAC.dbo.PlanoDistribuicaoProduto AS plano 
 					INNER JOIN SAC.dbo.Produto AS produto ON plano.idProduto = produto.Codigo 
 					INNER JOIN SAC.dbo.Segmento AS segmento ON plano.Segmento = segmento.Codigo 
@@ -179,7 +190,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function buscarProdutosAtiva($idProjeto, $idProduto) {
+    public function buscarProdutosAtiva($idProjeto, $idProduto)
+    {
         $sql0 = "   select  produto.Descricao,plano.idProduto as idProduto, plano.stPrincipal from SAC.dbo.PlanoDistribuicaoProduto as plano
                     inner join SAC.dbo.Produto as produto
                     on plano.idProduto = produto.Codigo
@@ -189,7 +201,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function buscarProdutostabelaAtiva($idProjeto) {
+    public function buscarProdutostabelaAtiva($idProjeto)
+    {
         $sql0 = "   select  produto.Descricao,plano.idProduto as idProduto, plano.stPrincipal from SAC.dbo.PlanoDistribuicaoProduto as plano
                     inner join SAC.dbo.Produto as produto
                     on plano.idProduto = produto.Codigo
@@ -200,14 +213,16 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function buscarSolicitacao($idPronac) {
+    public function buscarSolicitacao($idPronac)
+    {
         $sql1 = "select MAX(idPedidoAlteracao)as idPedidoAlteracao   from BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto where IdPRONAC = $idPronac";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql1);
     }
 
-    public function buscarprodutoSolicitado($idPedidoAlteracao) {
+    public function buscarprodutoSolicitado($idPedidoAlteracao)
+    {
         $sql1 = "select plano.idProduto,
                 produto.Descricao as Descricao,
                 plano.stPrincipal 
@@ -222,8 +237,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql1);
     }
 
-    public static function inserirProdutoPlano($idProjeto, $idPedidoAlteracao, $idProduto) {
-
+    public static function inserirProdutoPlano($idProjeto, $idPedidoAlteracao, $idProduto)
+    {
         $sql = "insert into SAC.dbo.tbPlanoDistribuicao
                 (idPlanoDistribuicao, cdArea, cdSegmento, idPedidoAlteracao,idProduto,idPosicaoLogo,qtPatrocinador,qtProduzida,qtOutros,qtVendaNormal,qtVendaPromocional,vlUnitarioNormal,vlUnitarioPromocional,stPrincipal,tpAcao,tpPlanoDistribuicao,dtPlanoDistribuicao)
                 select
@@ -238,7 +253,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public function inserirSolicitacao($idPronac, $idSolicitante, $stPedido) {
+    public function inserirSolicitacao($idPronac, $idSolicitante, $stPedido)
+    {
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
@@ -251,7 +267,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $resultado;
     }
 
-    public function buscarProdutos($idPronac) {
+    public function buscarProdutos($idPronac)
+    {
         $sql1 = " select
                     projetos.IdPRONAC,
                     projetos.AnoProjeto,
@@ -273,7 +290,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql1);
     }
 
-    public function buscarDescricao() {
+    public function buscarDescricao()
+    {
         $sql1 = "Select
                 produto.Codigo,
                 produto.Descricao 
@@ -285,7 +303,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql1);
     }
 
-    public function buscarprodutoAcao($idProduto, $idPedidoAlteracao) {
+    public function buscarprodutoAcao($idProduto, $idPedidoAlteracao)
+    {
         $sql1 = "select * from SAC.dbo.tbPlanoDistribuicao where idPedidoAlteracao = $idPedidoAlteracao and idProduto = $idProduto";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -293,7 +312,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql1);
     }
 
-    public function buscarprodutoPlano($idProjeto, $idProduto) {
+    public function buscarprodutoPlano($idProjeto, $idProduto)
+    {
         $sql1 = "SELECT p.idPlanoDistribuicao
 					,p.idProjeto
 					,p.idProduto
@@ -328,7 +348,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql1);
     }
 
-    public function buscarPosicao() {
+    public function buscarPosicao()
+    {
         $sql1 = "select Verificacao.idVerificacao as idVerificacao, ltrim(Verificacao.Descricao)as Descricao from SAC.dbo.Verificacao as Verificacao
                 inner join SAC.dbo.Tipo as Tipo
                 on Verificacao.idTipo = Tipo.idTipo
@@ -340,7 +361,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql1);
     }
 
-    public function acaoProduto($idPronac, $idProduto) {
+    public function acaoProduto($idPronac, $idProduto)
+    {
         $sql1 = "select
                 projetos.IdPRONAC,
                 projetos.AnoProjeto,
@@ -363,14 +385,16 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql1);
     }
 
-    public function buscarProdutosPlano($idProjeto) {
+    public function buscarProdutosPlano($idProjeto)
+    {
         $sql0 = "select idProduto from SAC.dbo.PlanoDistribuicaoProduto  where idProjeto = $idProjeto";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql0);
     }
 
-    public function compararProdutos($idPedidoAlteracao, $idProjeto, $idProduto) {
+    public function compararProdutos($idPedidoAlteracao, $idProjeto, $idProduto)
+    {
         $sql0 = "select * from SAC.dbo.PlanoDistribuicaoProduto as plano
                 inner join SAC.dbo.tbPlanoDistribuicao as plano2
                 on plano.idProduto = plano2.idProduto
@@ -380,7 +404,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function solicitarAlteracao($idPronac) {
+    public function solicitarAlteracao($idPronac)
+    {
         $sql0 = "";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -388,7 +413,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql0);
     }
 
-    public function inserirProduto($idPedidoAlteracao, $idProdutoNovo, $areaCultural, $segmentoCultural, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural, $dsJustificativa = null) {
+    public function inserirProduto($idPedidoAlteracao, $idProdutoNovo, $areaCultural, $segmentoCultural, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural, $dsJustificativa = null)
+    {
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
         $sql = "insert into sac.dbo.tbPlanoDistribuicao
@@ -400,9 +426,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $resultado;
     }
 
-    public static function inserirPedidoTipo($idPedidoAlteracao, $justificativa) {
-
-
+    public static function inserirPedidoTipo($idPedidoAlteracao, $justificativa)
+    {
         $sql = "INSERT INTO
                 BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao(idPedidoAlteracao, tpAlteracaoProjeto, dsJustificativa)
                 VALUES     ($idPedidoAlteracao,7,'$justificativa')";
@@ -412,8 +437,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function atualizaPedidoTipoAlteracao($idPedidoAlteracao, $justificativa) {
-
+    public static function atualizaPedidoTipoAlteracao($idPedidoAlteracao, $justificativa)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao
                 SET     idPedidoAlteracao = $idPedidoAlteracao, tpAlteracaoProjeto = 7 , dsJustificativa = '$justificativa' WHERE idPedidoAlteracao = $idPedidoAlteracao";
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -422,7 +447,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function verificaPedidoTipoAlteracao($idPedidoAlteracao) {
+    public static function verificaPedidoTipoAlteracao($idPedidoAlteracao)
+    {
         $sql = "select TOP 1 idPedidoAlteracao
                 from BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao WHERE idPedidoAlteracao = $idPedidoAlteracao order by idPedidoAlteracao desc";
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -431,21 +457,24 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function verificarBotao($idPedidoAlteracao) {
+    public static function verificarBotao($idPedidoAlteracao)
+    {
         $sql = "select * from BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto where idPedidoAlteracao=$idPedidoAlteracao and stPedidoAlteracao = 'A'";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
     }
 
-    public static function verificarMenu($idPronac) {
+    public static function verificarMenu($idPronac)
+    {
         $sql = "select stPedidoAlteracao from BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto where idPronac = $idPronac";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
     }
 
-    public static function verificarProposta($idPedidoAlteracao) {
+    public static function verificarProposta($idPedidoAlteracao)
+    {
         $sql = "select * from SAC.dbo.tbProposta where idPedidoAlteracao = $idPedidoAlteracao";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -453,8 +482,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function inserirProposta($dsEspecificacaotecnica, $idPedidoAlteracao) {
-
+    public static function inserirProposta($dsEspecificacaotecnica, $idPedidoAlteracao)
+    {
         $sql = "insert into SAC.dbo.tbProposta (tpProposta,dtProposta,dsEspecificacaoTecnica,idPedidoAlteracao)
                 values ('SA',GETDATE(),'$dsEspecificacaotecnica',$idPedidoAlteracao);";
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -463,8 +492,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function alterarPedido($idPedidoAlteracao, $status) {
-
+    public static function alterarPedido($idPedidoAlteracao, $status)
+    {
         $sql = "update BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto
                 set dtSolicitacao = GETDATE(),stPedidoAlteracao= '$status'
                 where idPedidoAlteracao = $idPedidoAlteracao";
@@ -475,8 +504,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status) {
-
+    public static function inserirJustificativa($idPedidoAlteracao, $dsJustificativa, $status)
+    {
         $sql = "insert into BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao(idPedidoAlteracao,tpAlteracaoProjeto,dsJustificativa)
                 values ($idPedidoAlteracao,$status,'$dsJustificativa')";
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -485,8 +514,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function alterarJustificativa($idPedidoAlteracao, $dsJustificativa) {
-
+    public static function alterarJustificativa($idPedidoAlteracao, $dsJustificativa)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao SET dsJustificativa = '".$dsJustificativa."' WHERE idPedidoAlteracao = '".$idPedidoAlteracao."';";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -494,8 +523,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public function alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural, $dsJustificativa = null) {
-
+    public function alterarProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional, $areaCultural, $segmentoCultural, $dsJustificativa = null)
+    {
         $sql = "update SAC.dbo.tbPlanoDistribuicao set idPedidoAlteracao = $idPedidoAlteracao,idPosicaoLogo = $idPosicaoLogo, qtProduzida=$qtProduzida, qtPatrocinador=$qtPatrocinador, qtOutros=$qtOutros, qtVendaNormal=$qtVendaNormal, qtVendaPromocional = $qtVendaPromocional  , vlUnitarioNormal=$vlUnitarioNormal, vlUnitarioPromocional=$vlUnitarioPromocional
                 ,cdArea = $areaCultural,cdSegmento = $segmentoCultural,tpAcao = 'A', dsjustificativa = '".$dsJustificativa."' 
                 where idPedidoAlteracao = $idPedidoAlteracao and idProduto = $idProdutoNovo";
@@ -506,7 +535,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public function updateProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional) {
+    public function updateProduto($idPedidoAlteracao, $idProdutoNovo, $idPosicaoLogo, $qtProduzida, $qtPatrocinador, $qtOutros, $qtVendaNormal, $qtVendaPromocional, $vlUnitarioNormal, $vlUnitarioPromocional)
+    {
         $sql = "update SAC.dbo.tbPlanoDistribuicao set idPedidoAlteracao = $idPedidoAlteracao,idPosicaoLogo = $idPosicaoLogo, qtProduzida=$qtProduzida, qtPatrocinador=$qtPatrocinador, qtOutros=$qtOutros, qtVendaNormal=$qtVendaNormal, qtVendaPromocional = $qtVendaPromocional  , vlUnitarioNormal=$vlUnitarioNormal, vlUnitarioPromocional=$vlUnitarioPromocional,tpAcao = 'A'
                 where idPedidoAlteracao = $idPedidoAlteracao and idProduto = $idProdutoNovo";
 
@@ -516,7 +546,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public function alterarSolicitacao($idPedidoAlteracao, $stPedido) {
+    public function alterarSolicitacao($idPedidoAlteracao, $stPedido)
+    {
         $sql = "update BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto set stPedidoAlteracao = '$stPedido'
                 where idPedidoAlteracao = $idPedidoAlteracao";
 
@@ -526,7 +557,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public function excluirProduto($idPedidoAlteracao, $idProduto, $dsJustificativa = null) {
+    public function excluirProduto($idPedidoAlteracao, $idProduto, $dsJustificativa = null)
+    {
         $sql = "update SAC.dbo.tbPlanoDistribuicao  set tpAcao = 'E',dtPlanoDistribuicao = GETDATE(), dsjustificativa = '".$dsJustificativa."' 
                 where idPedidoAlteracao = $idPedidoAlteracao and idProduto = $idProduto ";
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -535,8 +567,9 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public function BuscarPrazo($idPedidoAlteracao, $tpProrrogacao) {
-    	$sql = "SELECT idPedidoAlteracao
+    public function BuscarPrazo($idPedidoAlteracao, $tpProrrogacao)
+    {
+        $sql = "SELECT idPedidoAlteracao
 					,tpProrrogacao
 					,CONVERT(CHAR(10), dtInicioNovoPrazo, 103) AS dtInicioNovoPrazo
 					,CONVERT(CHAR(10), dtFimNovoPrazo, 103) AS dtFimNovoPrazo
@@ -549,8 +582,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
     }
 
 
-	public function BuscarPrazoProjetos($idPronac) {
-    
+    public function BuscarPrazoProjetos($idPronac)
+    {
         $sql = "select CONVERT(CHAR(10), DtInicioExecucao,103) AS DtInicioExecucao
                     ,CONVERT(CHAR(10), DtFimExecucao,103) AS DtFimExecucao from Sac.dbo.Projetos WHERE IdPRONAC = $idPronac";
 
@@ -564,8 +597,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
 
 
 
-    public function BuscarPrazoProjetosCaptacao($pronac) {
-
+    public function BuscarPrazoProjetosCaptacao($pronac)
+    {
         $sql = "SELECT TOP 1 CONVERT(CHAR(10), DtInicioCaptacao,103) AS DtInicioCaptacao
                     ,CONVERT(CHAR(10), DtFimCaptacao,103) AS DtFimCaptacao
             FROM SAC.dbo.Aprovacao
@@ -581,7 +614,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
 
 
 
-    public function insertPrazo($idPedidoAlteracao, $dtInicioNovoPrazo, $dtFimNovoPrazo, $tpProrrogacao) {
+    public function insertPrazo($idPedidoAlteracao, $dtInicioNovoPrazo, $dtFimNovoPrazo, $tpProrrogacao)
+    {
         $sql = "insert into BDCORPORATIVO.scSAC.tbProrrogacaoPrazo (idPedidoAlteracao,dtInicioNovoPrazo,dtFimNovoPrazo,tpProrrogacao)
                 values ($idPedidoAlteracao,'$dtInicioNovoPrazo','$dtFimNovoPrazo','$tpProrrogacao')";
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -590,7 +624,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public function updatePrazo($idPedidoAlteracao, $dtInicioNovoPrazo, $dtFimNovoPrazo, $tpProrrogacao) {
+    public function updatePrazo($idPedidoAlteracao, $dtInicioNovoPrazo, $dtFimNovoPrazo, $tpProrrogacao)
+    {
         $sql = "update BDCORPORATIVO.scSAC.tbProrrogacaoPrazo set dtInicioNovoPrazo = '$dtInicioNovoPrazo',dtFimNovoPrazo ='$dtFimNovoPrazo'
                 where idPedidoAlteracao = $idPedidoAlteracao and tpProrrogacao = '$tpProrrogacao'";
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -603,12 +638,12 @@ class ReadequacaoProjetos extends Zend_Db_Table {
      * Fun��o que retorna os dados da pesquisa de acordo com o perfil
      * *********************************************************************************************************************** */
 
-//SQL DO COORDENADOR DE ACOMPANHAMENTO
-    public static function retornaSQL($sqlDesejado, $tpAlteracao, $unidade_autorizada = null) {
+    //SQL DO COORDENADOR DE ACOMPANHAMENTO
+    public static function retornaSQL($sqlDesejado, $tpAlteracao, $unidade_autorizada = null)
+    {
         $sql = '';
 
         if ($sqlDesejado == "sqlCoordAcomp") {
-            
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
                         b.NomeProjeto AS NomeProjeto,
@@ -636,18 +671,16 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                         AND (g.stVerificacao = 0 or g.stVerificacao is null)
                         AND g.tpAlteracaoProjeto = $tpAlteracao ";
 
-			if ($unidade_autorizada == 166) :
-				$sql.= " AND b.Area = 2 ";  // quando for SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
-			elseif ($unidade_autorizada == 272) :
-				$sql.= " AND b.Area <> 2 "; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que n�o sejam de Audiovisual
-			else :
-				$sql.= " AND b.Area = 0 ";  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
-			endif;
+            if ($unidade_autorizada == 166) :
+                $sql.= " AND b.Area = 2 ";  // quando for SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
+            elseif ($unidade_autorizada == 272) :
+                $sql.= " AND b.Area <> 2 "; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que n�o sejam de Audiovisual
+            else :
+                $sql.= " AND b.Area = 0 ";  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
+            endif;
 
-			$sql.= " ORDER BY a.dtSolicitacao";
-
-        } else if ($sqlDesejado == "sqlCoordAcompProdutos") {
-
+            $sql.= " ORDER BY a.dtSolicitacao";
+        } elseif ($sqlDesejado == "sqlCoordAcompProdutos") {
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
                         b.NomeProjeto AS NomeProjeto,
@@ -685,18 +718,16 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                         AND tmp.idPedidoAlteracao = g.idPedidoAlteracao
                         AND tmp.tpAlteracaoProjeto = g.tpAlteracaoProjeto ";
 
-			if ($unidade_autorizada == 166) :
-				$sql.= " AND b.Area = 2 ";  // quando for SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
-			elseif ($unidade_autorizada == 272) :
-				$sql.= " AND b.Area <> 2 "; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que n�o sejam de Audiovisual
-			else :
-				$sql.= " AND b.Area = 0 ";  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
-			endif;
+            if ($unidade_autorizada == 166) :
+                $sql.= " AND b.Area = 2 ";  // quando for SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
+            elseif ($unidade_autorizada == 272) :
+                $sql.= " AND b.Area <> 2 "; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que n�o sejam de Audiovisual
+            else :
+                $sql.= " AND b.Area = 0 ";  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
+            endif;
 
-			$sql.= " ORDER BY a.dtSolicitacao ";
-
-        } else if ($sqlDesejado == "sqlUFs") {
-
+            $sql.= " ORDER BY a.dtSolicitacao ";
+        } elseif ($sqlDesejado == "sqlUFs") {
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.NomeProjeto AS NomeProjeto,
                         h.Sigla
@@ -711,9 +742,7 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                         INNER JOIN AGENTES.dbo.UF					AS h ON e.idUF = h.idUF
 
                         WHERE a.stPedidoAlteracao = 'I' ";
-
-        } else if ($sqlDesejado == "sqlCoordAcompDev") {
-
+        } elseif ($sqlDesejado == "sqlCoordAcompDev") {
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
                         b.NomeProjeto AS NomeProjeto,
@@ -750,16 +779,14 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     AND j.idTipoAgente = 3
                     AND i.stAvaliacaoItemPedidoAlteracao in ('AP','IN')";
 
-			if ($unidade_autorizada == 166) :
-				$sql.= " AND b.Area = 2 ";  // quando for SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
-			elseif ($unidade_autorizada == 272) :
-				$sql.= " AND b.Area <> 2 "; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que n�o sejam de Audiovisual
-			else :
-				$sql.= " AND b.Area = 0 ";  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
-			endif;
-
-        } else if ($sqlDesejado == "sqlCoordAcompDevProdutos") {
-
+            if ($unidade_autorizada == 166) :
+                $sql.= " AND b.Area = 2 ";  // quando for SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
+            elseif ($unidade_autorizada == 272) :
+                $sql.= " AND b.Area <> 2 "; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que n�o sejam de Audiovisual
+            else :
+                $sql.= " AND b.Area = 0 ";  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
+            endif;
+        } elseif ($sqlDesejado == "sqlCoordAcompDevProdutos") {
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
                         b.NomeProjeto AS NomeProjeto,
@@ -806,16 +833,14 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     AND j.idTipoAgente = 3
                     AND i.stAvaliacaoItemPedidoAlteracao in ('AP','IN')";
 
-			if ($unidade_autorizada == 166) :
-				$sql.= " AND b.Area = 2 ";  // quando for SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
-			elseif ($unidade_autorizada == 272) :
-				$sql.= " AND b.Area <> 2 "; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que n�o sejam de Audiovisual
-			else :
-				$sql.= " AND b.Area = 0 ";  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
-			endif;
-
-        } else if ($sqlDesejado == "sqlCoordAcompDevItens") {
-
+            if ($unidade_autorizada == 166) :
+                $sql.= " AND b.Area = 2 ";  // quando for SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
+            elseif ($unidade_autorizada == 272) :
+                $sql.= " AND b.Area <> 2 "; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que n�o sejam de Audiovisual
+            else :
+                $sql.= " AND b.Area = 0 ";  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
+            endif;
+        } elseif ($sqlDesejado == "sqlCoordAcompDevItens") {
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
                         b.NomeProjeto AS NomeProjeto,
@@ -861,17 +886,14 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     AND tmp.tpAlteracaoProjeto = g.tpAlteracaoProjeto
                     AND i.stAvaliacaoItemPedidoAlteracao in ('AP','IN')";
 
-			if ($unidade_autorizada == 166) :
-				$sql.= " AND b.Area = 2 ";  // quando for SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
-			elseif ($unidade_autorizada == 272) :
-				$sql.= " AND b.Area <> 2 "; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que n�o sejam de Audiovisual
-			else :
-				$sql.= " AND b.Area = 0 ";  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
-			endif;
-
-
-        } else if ($sqlDesejado == "sqlAnaliseGeral") {
-
+            if ($unidade_autorizada == 166) :
+                $sql.= " AND b.Area = 2 ";  // quando for SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
+            elseif ($unidade_autorizada == 272) :
+                $sql.= " AND b.Area <> 2 "; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que n�o sejam de Audiovisual
+            else :
+                $sql.= " AND b.Area = 0 ";  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
+            endif;
+        } elseif ($sqlDesejado == "sqlAnaliseGeral") {
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
                         b.NomeProjeto AS NomeProjeto,
@@ -897,9 +919,7 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                         WHERE a.stPedidoAlteracao = 'I'
                         AND a.siVerificacao in (0,1)
                         AND (g.stVerificacao = 0 or g.stVerificacao is null) ";
-
-        } else if ($sqlDesejado == "sqlAnaliseGeralDev") {
-
+        } elseif ($sqlDesejado == "sqlAnaliseGeralDev") {
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
                         b.NomeProjeto AS NomeProjeto,
@@ -933,9 +953,7 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                         AND j.stAtivo = 0
                         AND j.idTipoAgente in (2,3)
                         AND i.stAvaliacaoItemPedidoAlteracao in ('AP','IN') ";
-
-        } else if ($sqlDesejado == "sqlCoordAcompItensProdutos") {
-
+        } elseif ($sqlDesejado == "sqlCoordAcompItensProdutos") {
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
                         b.NomeProjeto AS NomeProjeto,
@@ -973,15 +991,15 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                         AND tmp.idPedidoAlteracao = g.idPedidoAlteracao
                         AND tmp.tpAlteracaoProjeto = g.tpAlteracaoProjeto ";
 
-			if ($unidade_autorizada == 166) :
-				$sql.= " AND b.Area = 2 ";  // quando for SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
-			elseif ($unidade_autorizada == 272) :
-				$sql.= " AND b.Area <> 2 "; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que n�o sejam de Audiovisual
-			else :
-				$sql.= " AND b.Area = 0 ";  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
-			endif;
+            if ($unidade_autorizada == 166) :
+                $sql.= " AND b.Area = 2 ";  // quando for SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
+            elseif ($unidade_autorizada == 272) :
+                $sql.= " AND b.Area <> 2 "; // quando for SEFIC/GEAR/SACAV pega somente os projetos das �reas que n�o sejam de Audiovisual
+            else :
+                $sql.= " AND b.Area = 0 ";  // quando for diferente de SAV/CGAV/CAP e SAV/CGAV/CAP pega somente os projetos da �rea de Audiovisual
+            endif;
 
-			$sql.= " ORDER BY a.dtSolicitacao ";
+            $sql.= " ORDER BY a.dtSolicitacao ";
         }
 
         return $sql;
@@ -991,10 +1009,9 @@ class ReadequacaoProjetos extends Zend_Db_Table {
      * SQL DO COORDENADOR DE PARECERISTA
      * *********************************************************************************************************************** */
 
-    public static function retornaSQLCP($sqlDesejado, $tpAlteracao, $AgenteAcionado, $idOrgao = null) {
-
+    public static function retornaSQLCP($sqlDesejado, $tpAlteracao, $AgenteAcionado, $idOrgao = null)
+    {
         if ($sqlDesejado == "sqlCoordParecerista") {
-
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
                         b.NomeProjeto AS NomeProjeto,
@@ -1033,14 +1050,12 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                         AND i.stAvaliacaoItemPedidoAlteracao = 'AG'
                         AND j.idAgenteAcionado = $AgenteAcionado ";
 
-					if (!empty($idOrgao)) :
-						$sql.= " AND j.idOrgao = $idOrgao ";
-					endif;
+            if (!empty($idOrgao)) :
+                        $sql.= " AND j.idOrgao = $idOrgao ";
+            endif;
 
-					$sql .= " ORDER BY j.dtEncaminhamento";
-
-        } else if ($sqlDesejado == "sqlCoordPareceristaGeral") {
-
+            $sql .= " ORDER BY j.dtEncaminhamento";
+        } elseif ($sqlDesejado == "sqlCoordPareceristaGeral") {
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
                         b.NomeProjeto AS NomeProjeto,
@@ -1079,9 +1094,7 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     AND j.idTipoAgente = 2
                     AND g.idPedidoAlteracao = tmp.idPedidoAlteracao
                     AND g.tpAlteracaoProjeto = tmp.tpAlteracaoProjeto ";
-
-        } else if ($sqlDesejado == "sqlCoordPareceristaDev") {
-
+        } elseif ($sqlDesejado == "sqlCoordPareceristaDev") {
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
                         b.NomeProjeto AS NomeProjeto,
@@ -1119,10 +1132,10 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     AND i.stAvaliacaoItemPedidoAlteracao != 'AG' 
                     AND j.idAgenteAcionado = $AgenteAcionado  ";
 
-                    if (!empty($idOrgao)) :
+            if (!empty($idOrgao)) :
                             $sql.= " AND j.idOrgao = $idOrgao ";
-                    endif;
-    }
+            endif;
+        }
 
 
         return $sql;
@@ -1132,10 +1145,9 @@ class ReadequacaoProjetos extends Zend_Db_Table {
      * SQL DO PARECERISTA
      * *********************************************************************************************************************** */
 
-    public static function retornaSQLPar($sqlDesejado, $tpAlteracao, $idOrgao = null, $idAgente = null) {
-
+    public static function retornaSQLPar($sqlDesejado, $tpAlteracao, $idOrgao = null, $idAgente = null)
+    {
         if ($sqlDesejado == "sqlParecerista") {
-
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
                         b.NomeProjeto AS NomeProjeto,
@@ -1170,18 +1182,16 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     AND j.stAtivo = 0
                     AND j.idTipoAgente = 1 ";
 
-					if (!empty($idOrgao)) :
-						$sql.= " AND j.idOrgao = $idOrgao ";
-					endif;
+            if (!empty($idOrgao)) :
+                        $sql.= " AND j.idOrgao = $idOrgao ";
+            endif;
 
-					if (!empty($idAgente)) :
-						$sql.= " AND j.idAgenteAcionado = $idAgente ";
-					endif;
+            if (!empty($idAgente)) :
+                        $sql.= " AND j.idAgenteAcionado = $idAgente ";
+            endif;
 
-					$sql.= " ORDER BY j.dtEncaminhamento";
-
-        } else if ($sqlDesejado == "sqlPareceristaGeral") {
-
+            $sql.= " ORDER BY j.dtEncaminhamento";
+        } elseif ($sqlDesejado == "sqlPareceristaGeral") {
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
                         b.NomeProjeto AS NomeProjeto,
@@ -1223,8 +1233,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
      * SQL DO T�CNICO
      * *********************************************************************************************************************** */
 
-    public static function retornaSQLTec($sqlDesejado, $tpAlteracao, $agenteAcionado, $orgaoAcionado) {
-
+    public static function retornaSQLTec($sqlDesejado, $tpAlteracao, $agenteAcionado, $orgaoAcionado)
+    {
         if ($sqlDesejado == "sqlTecnico") {
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
@@ -1263,8 +1273,7 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     AND j.idTipoAgente = 5
                     AND j.idAgenteAcionado = $agenteAcionado
                     ORDER BY j.dtEncaminhamento";
-
-        } else if ($sqlDesejado == "sqlTecnicoGeral") {
+        } elseif ($sqlDesejado == "sqlTecnicoGeral") {
             $sql = "SELECT DISTINCT a.IdPRONAC AS ID_PRONAC,
                         b.AnoProjeto+b.Sequencial AS PRONAC,
                         b.NomeProjeto AS NomeProjeto,
@@ -1308,7 +1317,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
       SQL - PROPOSTA PEDAG�GICA
      * ********************************************************************* */
 
-    public static function retornaSQLproposta($sqlDesejado, $id_Pronac, $tipoAlteracao=null, $planoDistribuicaoObrigatorio = null) {
+    public static function retornaSQLproposta($sqlDesejado, $id_Pronac, $tipoAlteracao=null, $planoDistribuicaoObrigatorio = null)
+    {
         $sql = '';
 
         if ($sqlDesejado == "sqlproposta") {
@@ -1344,8 +1354,7 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     WHERE b.IdPRONAC = $id_Pronac 
                     AND g.tpAlteracaoProjeto = 6
                     AND g.stVerificacao in (0,2) ) as tabela ";
-//            
-
+//
         }
 
         if ($sqlDesejado == "sqlpropostafinalizar") {
@@ -1363,7 +1372,6 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     AND b.siVerificacao = 1
                     AND g.tpAlteracaoProjeto = 6 
                     ORDER BY g.stVerificacao ";
-
         }
 
         if ($sqlDesejado == "sqlpropostadev") {
@@ -1413,7 +1421,6 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         }
 
         if ($sqlDesejado == "sqlpropostaeditar") {
-           
             $sql = "SELECT *,
             CAST(dsJustificativa AS text) as dsJustificativa,
             CAST(dsEstrategiaExecucao AS text) as dsEstrategiaExecucao,
@@ -1608,7 +1615,6 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     AND a.idPlano   = tmp.idPlano
                     AND h.idAvaliacaoItemPedidoAlteracao = tmp2.idAvaliacaoItemPedidoAlteracao
                     ORDER BY d.Descricao ";
-            
         }
 
 
@@ -1671,12 +1677,11 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     WHERE c.IdPRONAC = $id_Pronac
                     AND d.Codigo = tmp.idProduto";
 
-                    if ($planoDistribuicaoObrigatorio) :
+            if ($planoDistribuicaoObrigatorio) :
                         $sql.= " AND a.idPlano   = tmp.idPlano";
-                    endif;
+            endif;
 
-                    $sql.= " AND h.idAvaliacaoItemPedidoAlteracao = tmp2.idAvaliacaoItemPedidoAlteracao ORDER BY d.Descricao ";
-            
+            $sql.= " AND h.idAvaliacaoItemPedidoAlteracao = tmp2.idAvaliacaoItemPedidoAlteracao ORDER BY d.Descricao ";
         }
 
 
@@ -1805,11 +1810,11 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     WHERE c.IdPRONAC = $id_Pronac
                     AND d.Codigo = tmp.idProduto";
                    
-                    if ($planoDistribuicaoObrigatorio) :
+            if ($planoDistribuicaoObrigatorio) :
                    $sql.= " AND a.idPlano   = tmp.idPlano";
-                    endif;
+            endif;
 
-                   $sql.= " AND h.idAvaliacaoItemPedidoAlteracao = tmp2.idAvaliacaoItemPedidoAlteracao
+            $sql.= " AND h.idAvaliacaoItemPedidoAlteracao = tmp2.idAvaliacaoItemPedidoAlteracao
                     ORDER BY d.Descricao ";
         }
 
@@ -1979,15 +1984,17 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-//finalizar
-    public static function retornaSQLfinalprop($estrategia, $especificacao, $IdProposta) {
+    //finalizar
+    public static function retornaSQLfinalprop($estrategia, $especificacao, $IdProposta)
+    {
         $sql = "UPDATE SAC.dbo.tbProposta
                 SET dsEstrategiaExecucao = '" . $estrategia . "', dsJustificativa = '" . $especificacao . "'
                 WHERE IdProposta = $IdProposta ";
         return $sql;
     }
 
-    public static function retornaSQLfinalprop1($idPedidoAlteracao, $tpAlteracaoProjeto) {
+    public static function retornaSQLfinalprop1($idPedidoAlteracao, $tpAlteracaoProjeto)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao
                 SET stVerificacao = 2
                 WHERE idPedidoAlteracao = $idPedidoAlteracao
@@ -1996,41 +2003,46 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function consultarIdAvaliacao($idPedidoAlteracao) {
+    public static function consultarIdAvaliacao($idPedidoAlteracao)
+    {
         $sql = "SELECT * FROM BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                 WHERE idPedidoAlteracao = $idPedidoAlteracao
                 AND tpAlteracaoProjeto = 7";
-                //AND stAvaliacaoItemPedidoAlteracao = 'EA' ";
+        //AND stAvaliacaoItemPedidoAlteracao = 'EA' ";
         return $sql;
     }
 
-    public static function consultarIdAcaoAvaliacao($idAvaliacaoPedidoAlteracao) {
+    public static function consultarIdAcaoAvaliacao($idAvaliacaoPedidoAlteracao)
+    {
         $sql = "SELECT idAcaoAvaliacaoItemPedidoAlteracao AS idAcaoAvaliacao, idOrgao FROM BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 WHERE idAvaliacaoItemPedidoAlteracao = $idAvaliacaoPedidoAlteracao
                 AND stAtivo = 0 ";
         return $sql;
     }
 
-    public static function retornaSQLfinalprop2($idAvaliacao, $especificacao='.',$status, $tpAlteracaoProjeto = null) {
+    public static function retornaSQLfinalprop2($idAvaliacao, $especificacao='.', $status, $tpAlteracaoProjeto = null)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                 SET dtFimAvaliacao = GETDATE(), stAvaliacaoItemPedidoAlteracao = '$status', dsAvaliacao = '$especificacao'
                 WHERE idAvaliacaoItemPedidoAlteracao = $idAvaliacao ";
 
-		if (!empty($tpAlteracaoProjeto)) :
-			$sql.= " AND tpAlteracaoProjeto = $tpAlteracaoProjeto ";
-		endif;
+        if (!empty($tpAlteracaoProjeto)) :
+            $sql.= " AND tpAlteracaoProjeto = $tpAlteracaoProjeto ";
+        endif;
 
         return $sql;
     }
 
-    public static function retornaSQLfinalprop3($idAcao) {
+    public static function retornaSQLfinalprop3($idAcao)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 SET stAtivo = 1
                 WHERE idAcaoAvaliacaoItemPedidoAlteracao = $idAcao ";
         return $sql;
     }
 
-    public static function retornaSQLfinalprop4($idAvaliacao, $idOrgao,$idAgenteRemetente,$idPerfilRemetente) {
+    public static function retornaSQLfinalprop4($idAvaliacao, $idOrgao, $idAgenteRemetente, $idPerfilRemetente)
+    {
         $sql = "INSERT BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 VALUES ('$idAvaliacao','','','3','$idOrgao','0','2',GETDATE(),'$idAgenteRemetente','$idPerfilRemetente')";
         return $sql;
@@ -2040,17 +2052,17 @@ class ReadequacaoProjetos extends Zend_Db_Table {
       SQL PARA INICIAR A SOLICITA��O DE PROPOSTA PEDAG�GICA
      * ***************************************************************************** */
 
-    public static function stPropostaInicio($sqlDesejado, $idAvaliacao, $AgenteLogin) {
-
+    public static function stPropostaInicio($sqlDesejado, $idAvaliacao, $AgenteLogin)
+    {
         if ($sqlDesejado == "readequacaoEA") {
             $sql = "UPDATE BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                     SET idAgenteAvaliador = $AgenteLogin, dtInicioAvaliacao = GETDATE(), stAvaliacaoItemPedidoAlteracao = 'EA'
                     WHERE idAvaliacaoItemPedidoAlteracao = $idAvaliacao ";
-        } else if ($sqlDesejado == "readequacaoAP") {
+        } elseif ($sqlDesejado == "readequacaoAP") {
             $sql = "UPDATE BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                     SET idAgenteAvaliador = $AgenteLogin, dtInicioAvaliacao = GETDATE(), stAvaliacaoItemPedidoAlteracao = 'AP'
                     WHERE idAvaliacaoItemPedidoAlteracao = $idAvaliacao ";
-        } else if ($sqlDesejado == "readequacaoIN") {
+        } elseif ($sqlDesejado == "readequacaoIN") {
             $sql = "UPDATE BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                     SET idAgenteAvaliador = $AgenteLogin, dtInicioAvaliacao = GETDATE(), stAvaliacaoItemPedidoAlteracao = 'IN'
                     WHERE idAvaliacaoItemPedidoAlteracao = $idAvaliacao ";
@@ -2059,8 +2071,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function PropostaAltCampo($idAvaliacao) {
-
+    public static function PropostaAltCampo($idAvaliacao)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 SET stVerificacao = 1
                 WHERE idAvaliacaoItemPedidoAlteracao = $idAvaliacao
@@ -2068,8 +2080,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function diligenciarProposta($IdPronac, $solicitacao, $AgenteLogin) {
-
+    public static function diligenciarProposta($IdPronac, $solicitacao, $AgenteLogin)
+    {
         $sql = "INSERT into SAC.dbo.tbDiligencia
                 VALUES ('$IdPronac','124',GETDATE(),'" . $solicitacao . "','$AgenteLogin','','','','0')";
         return $sql;
@@ -2079,7 +2091,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
       SQL PARA LISTAR OS IDs PLANOS PARA ALTERA��O DOS DADOS INDIVIDUALMENTE
      ********************************************************************** */
 
-    public static function listaSQLidPlano($idPronac) {
+    public static function listaSQLidPlano($idPronac)
+    {
         $sql = "SELECT distinct a.idPedidoAlteracao,
                     a.idPlano,
                     b.IdPRONAC,
@@ -2123,7 +2136,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
       SQL SALVAR OS DADOS NA TABELA tbPlanoDistribuicao
      * ********************************************************************* */
 
-    public static function sqlsalvareadequacao($updateFrom, $sqldados, $where, $and1) {
+    public static function sqlsalvareadequacao($updateFrom, $sqldados, $where, $and1)
+    {
         $sql = $updateFrom . " " . $sqldados . " " . $where . " " . $and1;
         return $sql;
     }
@@ -2134,7 +2148,6 @@ class ReadequacaoProjetos extends Zend_Db_Table {
 
     public static function alteraStatusReadequacao($idPedidoAlt)
     {
-
         $sql = "SELECT *
                 FROM BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                 WHERE idAvaliacaoItemPedidoAlteracao = $idPedidoAlt ";
@@ -2142,12 +2155,12 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function alteraStatusProposta($idAvaliacao) {
-
+    public static function alteraStatusProposta($idAvaliacao)
+    {
         $sql = "SELECT *
                 FROM BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                 WHERE idAvaliacaoItemPedidoAlteracao = $idAvaliacao ";
-		
+        
         return $sql;
     }
 
@@ -2155,17 +2168,17 @@ class ReadequacaoProjetos extends Zend_Db_Table {
       SQL PARA INICIAR A SOLICITA��O DE READEQUA��O DE PRODUTOS
      * ***************************************************************************** */
 
-    public static function stReadequacaoInicio($sqlDesejado, $idPedidoAlteracao, $idAgente) {
-
+    public static function stReadequacaoInicio($sqlDesejado, $idPedidoAlteracao, $idAgente)
+    {
         if ($sqlDesejado == "readequacaoEA") {
             $sql = "UPDATE BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                     SET idAgenteAvaliador = $idAgente, dtInicioAvaliacao = GETDATE(), stAvaliacaoItemPedidoAlteracao = 'EA'
                     WHERE idAvaliacaoItemPedidoAlteracao = $idPedidoAlteracao ";
-        } else if ($sqlDesejado == "readequacaoAP") {
+        } elseif ($sqlDesejado == "readequacaoAP") {
             $sql = "UPDATE BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                     SET idAgenteAvaliador = $idAgente, dtInicioAvaliacao = GETDATE(), stAvaliacaoItemPedidoAlteracao = 'AP'
                     WHERE idAvaliacaoItemPedidoAlteracao = $idPedidoAlteracao ";
-        } else if ($sqlDesejado == "readequacaoIN") {
+        } elseif ($sqlDesejado == "readequacaoIN") {
             $sql = "UPDATE BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                     SET idAgenteAvaliador = $idAgente, dtInicioAvaliacao = GETDATE(), stAvaliacaoItemPedidoAlteracao = 'IN'
                     WHERE idAvaliacaoItemPedidoAlteracao = $idPedidoAlteracao ";
@@ -2178,8 +2191,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
       SQL ALTERAR O STATUS DO CAMPO stVerificacao DA TABELA tbPedidoAlteracaoXTipoAlteracao
      * ************************************************************************************** */
 
-    public static function readequacaoAltCampo($idPedido) {
-
+    public static function readequacaoAltCampo($idPedido)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 SET stVerificacao = 1
                 WHERE idAvaliacaoItemPedidoAlteracao = $idPedido
@@ -2187,9 +2200,10 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function dadosAgentesOrgaoA($idorgao) {
-//sis_codigo = 21 (Trata-se do c�digo do SalicWeb)
-//gru_codigo = 129 (C�digo de T�cnico de acompanhamento)
+    public static function dadosAgentesOrgaoA($idorgao)
+    {
+        //sis_codigo = 21 (Trata-se do c�digo do SalicWeb)
+        //gru_codigo = 129 (C�digo de T�cnico de acompanhamento)
 
         $sql = "SELECT a.usu_codigo, a.usu_nome, a.gru_nome AS Perfil, b.idAgente, a.gru_codigo AS idVerificacao
                 FROM Tabelas..vwUsuariosOrgaosGrupos a
@@ -2201,9 +2215,10 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function dadosAgentesOrgaoB($idorgao) {
-//sis_codigo = 21 (Trata-se do c�digo do SalicWeb)
-//gru_codigo = 93 (C�digo de Coordenador de Parecerista)
+    public static function dadosAgentesOrgaoB($idorgao)
+    {
+        //sis_codigo = 21 (Trata-se do c�digo do SalicWeb)
+        //gru_codigo = 93 (C�digo de Coordenador de Parecerista)
 
         $sql = "SELECT a.usu_codigo, a.usu_nome, a.gru_nome AS Perfil, b.idAgente, a.gru_codigo AS idVerificacao
                 FROM Tabelas..vwUsuariosOrgaosGrupos a
@@ -2216,7 +2231,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function dadosAgentesPerfil($idagente) {
+    public static function dadosAgentesPerfil($idagente)
+    {
         $sql = "SELECT DISTINCT
                     vuog.usu_codigo,
                     vuog.usu_nome,
@@ -2233,29 +2249,26 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function retornaSQLlista($sqlDesejado, $idOrgao) {
-
+    public static function retornaSQLlista($sqlDesejado, $idOrgao)
+    {
         if ($sqlDesejado == "listasDeEncaminhamento") {
-
             $sql = "SELECT a.usu_codigo, a.usu_nome, a.gru_nome AS Perfil, b.idAgente, a.gru_codigo AS idVerificacao
                     FROM Tabelas..vwUsuariosOrgaosGrupos a
                     INNER JOIN AGENTES.dbo.Agentes AS b ON a.usu_identificacao = b.CNPJCPF
                     WHERE sis_codigo = 21 and uog_orgao = $idOrgao
                     AND gru_codigo = 94 AND a.uog_status = 1 
                     ORDER BY usu_nome ";
-          
         }
 
         if ($sqlDesejado == "listasDeEntidadesVinculadas") {
-
- 			$sql = "SELECT * FROM SAC.dbo.Orgaos
+            $sql = "SELECT * FROM SAC.dbo.Orgaos
                     WHERE Status = 0 ";
 
-			if (!empty($idOrgao)) :
-				$sql.= " AND Codigo = '$idOrgao'";
-			endif;
+            if (!empty($idOrgao)) :
+                $sql.= " AND Codigo = '$idOrgao'";
+            endif;
 
-			$sql.= "ORDER BY Sigla";
+            $sql.= "ORDER BY Sigla";
                    
             //$sql = "select org_codigo as Codigo,org_sigla as Sigla from Orgaos ORDER BY org_sigla";
             //$sql = "SELECT DISTINCT uog_orgao as Codigo,org_siglaautorizado as Sigla FROM vwUsuariosOrgaosGrupos ORDER BY org_siglaautorizado";
@@ -2266,7 +2279,6 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     ORDER BY Sigla";
         }
         if ($sqlDesejado == "listasDeEntidadesVinculadasEspecificas") {
-
             $sql = "SELECT * FROM SAC.dbo.Orgaos
                     WHERE Vinculo = 1 AND Status = 0 AND idSecretaria IS NOT NULL 
                           AND Codigo in ({$idOrgao})
@@ -2282,8 +2294,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
      * VERIFICA O PERFIL DO AGENTE ACIONADO
      * ************************************************************ */
 
-    public static function retornaSQLPerfilAgente() {
-
+    public static function retornaSQLPerfilAgente()
+    {
         $sql = "";
 
         return $sql;
@@ -2291,10 +2303,10 @@ class ReadequacaoProjetos extends Zend_Db_Table {
 
     /*     * *********************************************************** */
 
-//SQL PARA ENCAMINHAR DE COORDENADOR DE ACOMPANHAMENTO PARA COORDENADOR DE PARECERISTA
-    public static function retornaSQLencaminhar($sqlDesejado, $ID_PRONAC, $idPedidoAlteracao, $tpAlteracaoProjeto, $justificativa, $Orgao, $idAgenteReceber) {
+    //SQL PARA ENCAMINHAR DE COORDENADOR DE ACOMPANHAMENTO PARA COORDENADOR DE PARECERISTA
+    public static function retornaSQLencaminhar($sqlDesejado, $ID_PRONAC, $idPedidoAlteracao, $tpAlteracaoProjeto, $justificativa, $Orgao, $idAgenteReceber)
+    {
         if ($sqlDesejado == "sqlAlteraVariavelAltProj") {
-
             $sql = "UPDATE BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto
                     SET siVerificacao = 1
                     WHERE idPedidoAlteracao = $idPedidoAlteracao
@@ -2302,7 +2314,6 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         }
 
         if ($sqlDesejado == "sqlAlteraVariavelTipoAlt") {
-
             $sql = "UPDATE BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao
                     SET stVerificacao = 1
                     WHERE idPedidoAlteracao = $idPedidoAlteracao
@@ -2310,13 +2321,11 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         }
 
         if ($sqlDesejado == "sqlCoordAcompEncaminhar") {
-
             $sql = "INSERT BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                     VALUES ('$idPedidoAlteracao','$tpAlteracaoProjeto','','','','AG','')";
         }
 
         if ($sqlDesejado == "sqlRecuperarRegistro") {
-
             $sql = "SELECT TOP 1 idAvaliacaoItemPedidoAlteracao
                     FROM BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                     WHERE idPedidoAlteracao = '$idPedidoAlteracao'
@@ -2326,8 +2335,9 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-//SQL PARA GERAR UMA A��O NA TABELA tbAcaoAvaliacaoItemPedidoAlteracao
-    public static function retornaSQLtbAcao($idAvaliacaoItemPedidoAlteracao, $justificativa, $tipoAg, $Orgao, $idAgenteReceber, $idAgenteRemente, $idPerfilRemetente) {
+    //SQL PARA GERAR UMA A��O NA TABELA tbAcaoAvaliacaoItemPedidoAlteracao
+    public static function retornaSQLtbAcao($idAvaliacaoItemPedidoAlteracao, $justificativa, $tipoAg, $Orgao, $idAgenteReceber, $idAgenteRemente, $idPerfilRemetente)
+    {
         $sql = "INSERT INTO BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 VALUES ('$idAvaliacaoItemPedidoAlteracao','$idAgenteReceber','" . $justificativa . "','$tipoAg','$Orgao','0','0',GETDATE(),'$idAgenteRemente','$idPerfilRemetente')";
         return $sql;
@@ -2337,10 +2347,9 @@ class ReadequacaoProjetos extends Zend_Db_Table {
      * //SQL PARA ENCAMINHAR DE COORDENADOR PARECERISTA PARA PARECERISTA
      * *********************************************************************** */
 
-    public static function retornaSQLencaminharParecerista($sqlDesejado, $idAvaliacaoItemPedidoAlteracao, $idAcao, $stAcao, $justificativa, $agenteNovo, $Orgao, $idAgenteRemetente, $idPerfilRemetente) {
-
+    public static function retornaSQLencaminharParecerista($sqlDesejado, $idAvaliacaoItemPedidoAlteracao, $idAcao, $stAcao, $justificativa, $agenteNovo, $Orgao, $idAgenteRemetente, $idPerfilRemetente)
+    {
         if ($sqlDesejado == "sqlAlteraVariavel") {
-
             $sql = "UPDATE BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                     SET stAtivo = 1
                     WHERE idAcaoAvaliacaoItemPedidoAlteracao = $idAcao
@@ -2349,7 +2358,6 @@ class ReadequacaoProjetos extends Zend_Db_Table {
 
 
         if ($sqlDesejado == "sqlCoordPareceristaEncaminhar") {
-
             $sql = "INSERT INTO BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                     VALUES ('$idAvaliacaoItemPedidoAlteracao','$agenteNovo','" . $justificativa . "','1','$Orgao','0','0',GETDATE(), '$idAgenteRemetente', '$idPerfilRemetente')";
         }
@@ -2357,7 +2365,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function retornaSQLReencaminharPar($idPedidoAlteracao, $tpAlteracaoProjeto) {
+    public static function retornaSQLReencaminharPar($idPedidoAlteracao, $tpAlteracaoProjeto)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao
                 SET stVerificacao = 1
                 WHERE idPedidoAlteracao = $idPedidoAlteracao
@@ -2365,20 +2374,23 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function reencaminharPar($idPedidoAlteracao, $tpAlteracaoProjeto) {
+    public static function reencaminharPar($idPedidoAlteracao, $tpAlteracaoProjeto)
+    {
         $sql = "INSERT BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                 VALUES ('$idPedidoAlteracao','$tpAlteracaoProjeto','','','','AG','')";
         return $sql;
     }
 
-    public static function reencaminharPar1($idAcao) {
+    public static function reencaminharPar1($idAcao)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 SET stAtivo = 1
                 WHERE idAcaoAvaliacaoItemPedidoAlteracao = $idAcao ";
         return $sql;
     }
 
-    public static function reencaminharPar2($idPedidoAlteracao, $tpAlteracaoProjeto) {
+    public static function reencaminharPar2($idPedidoAlteracao, $tpAlteracaoProjeto)
+    {
         $sql = "SELECT TOP 1 idAvaliacaoItemPedidoAlteracao
                 FROM BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                 WHERE idPedidoAlteracao = $idPedidoAlteracao
@@ -2387,25 +2399,29 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function verificaProdutos($idPedidoAlteracao) {
+    public static function verificaProdutos($idPedidoAlteracao)
+    {
         $sql = "SELECT * FROM SAC.dbo.tbplanodistribuicao WHERE idPedidoAlteracao = $idPedidoAlteracao ";
         return $sql;
     }
 
-    public static function verificaPedidoAlteracaoProjetoProduto($idPronac) {
+    public static function verificaPedidoAlteracaoProjetoProduto($idPronac)
+    {
         $sql = "select * from BDCORPORATIVO.scSac.tbPedidoAlteracaoProjeto tpa inner join
         BDCORPORATIVO.scSac.tbPedidoAlteracaoXTipoAlteracao paxta on tpa.idPedidoAlteracao = paxta.idPedidoAlteracao WHERE idPronac = $idPronac AND tpAlteracaoProjeto = 7";
         return $sql;
     }
 
 
-    public static function reencaminharPar3($idAvaliacaoItemPedidoAlteracao, $idAgente, $justificativa, $Orgao, $idAgenteRemetente, $idPerfilRemetente) {
+    public static function reencaminharPar3($idAvaliacaoItemPedidoAlteracao, $idAgente, $justificativa, $Orgao, $idAgenteRemetente, $idPerfilRemetente)
+    {
         $sql = "INSERT INTO BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 VALUES ('$idAvaliacaoItemPedidoAlteracao','$idAgente','" . $justificativa . "','1','$Orgao','0','0',GETDATE(), $idAgenteRemetente, $idPerfilRemetente)";
         return $sql;
     }
 
-    public static function reencaminharPar4() {
+    public static function reencaminharPar4()
+    {
         $sql = "SELECT TOP 1 idAvaliacaoItemPedidoAlteracao
                 FROM BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                 WHERE idPedidoAlteracao = $idPedidoAlteracao
@@ -2414,7 +2430,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function reencaminharPar5($idAvaliacaoItemPedidoAlteracao, $idAgenteLogado, $justificativa, $Orgao, $idPerfil, $idAgente, $idGrupo) {
+    public static function reencaminharPar5($idAvaliacaoItemPedidoAlteracao, $idAgenteLogado, $justificativa, $Orgao, $idPerfil, $idAgente, $idGrupo)
+    {
         $sql = "INSERT INTO BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 VALUES ('$idAvaliacaoItemPedidoAlteracao','$idAgenteLogado','" . $justificativa . "','$idPerfil','$Orgao','0','0',GETDATE(), '$idAgente', '$idGrupo')";
         return $sql;
@@ -2424,7 +2441,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
       //SQLs PARA FINALIZACAO DA READEQUACAO DE PRODUTO
      *************************************************************************/
 
-    public static function retornaSQLfinalizarTec($idPedidoAlteracao,$situacao,$justificativa) {
+    public static function retornaSQLfinalizarTec($idPedidoAlteracao, $situacao, $justificativa)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                 SET stAvaliacaoItemPedidoAlteracao = '".$situacao."', dtFimAvaliacao = GETDATE(), dsAvaliacao = '".$justificativa."'
                 WHERE idPedidoAlteracao = $idPedidoAlteracao
@@ -2433,7 +2451,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function retornaSQLfinalizarTec2($idPedidoAlteracao) {
+    public static function retornaSQLfinalizarTec2($idPedidoAlteracao)
+    {
         $sql = "SELECT a.idAvaliacaoItemPedidoAlteracao, a.idAgenteAvaliador, idOrgao
                 FROM BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao AS a
                 INNER JOIN BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao AS b ON a.idAvaliacaoItemPedidoAlteracao = b.idAvaliacaoItemPedidoAlteracao
@@ -2441,7 +2460,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function retornaSQLfinalizarTec3($idPedidoAlteracao, $tpAlteracaoProjeto) {
+    public static function retornaSQLfinalizarTec3($idPedidoAlteracao, $tpAlteracaoProjeto)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao
                 SET stVerificacao = 2
                 WHERE idPedidoAlteracao = $idPedidoAlteracao
@@ -2449,7 +2469,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function retornaSQLfinalizarTec4($idAvaliacaoItemPedidoAlteracao) {
+    public static function retornaSQLfinalizarTec4($idAvaliacaoItemPedidoAlteracao)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 SET stAtivo = 1
                 WHERE idAvaliacaoItemPedidoAlteracao = $idAvaliacaoItemPedidoAlteracao
@@ -2457,7 +2478,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function retornaSQLfinalizarTec5($idAvaliacaoItemPedidoAlteracao, $idAgenteAvaliador, $observacoes, $idOrgao, $idAgenteRemetente, $idGrupoRemetente) {
+    public static function retornaSQLfinalizarTec5($idAvaliacaoItemPedidoAlteracao, $idAgenteAvaliador, $observacoes, $idOrgao, $idAgenteRemetente, $idGrupoRemetente)
+    {
         $sql = "INSERT INTO BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 VALUES ('$idAvaliacaoItemPedidoAlteracao','$idAgenteAvaliador','$observacoes','3','$idOrgao','0','2',GETDATE(), $idAgenteRemetente, $idGrupoRemetente) ";
         return $sql;
@@ -2467,28 +2489,33 @@ class ReadequacaoProjetos extends Zend_Db_Table {
 
 
 
-    public static function retornaSQLInclusaoItem($idPedidoAlteracao,$idAgenteAvaliador) {
+    public static function retornaSQLInclusaoItem($idPedidoAlteracao, $idAgenteAvaliador)
+    {
         $sql = "INSERT BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                 VALUES ('$idPedidoAlteracao','10','$idAgenteAvaliador',GETDATE(),'','AG','')";
         return $sql;
     }
-    public static function retornaSQLInclusaoItemId($idPedidoAlteracao) {
+    public static function retornaSQLInclusaoItemId($idPedidoAlteracao)
+    {
         $sql = "SELECT idAvaliacaoItemPedidoAlteracao
                 FROM BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                 WHERE idPedidoAlteracao = $idPedidoAlteracao AND tpAlteracaoProjeto = 10 AND stAvaliacaoItemPedidoAlteracao = 'AG'";
         return $sql;
     }
-    public static function retornaSQLInclusaoPar($idAvaliacaoItemPedidoAlteracao, $idAgenteAvaliador, $observacoes, $idOrgao, $idAgenteRemetente, $idGrupoRemetente) {
+    public static function retornaSQLInclusaoPar($idAvaliacaoItemPedidoAlteracao, $idAgenteAvaliador, $observacoes, $idOrgao, $idAgenteRemetente, $idGrupoRemetente)
+    {
         $sql = "INSERT INTO BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 VALUES ('$idAvaliacaoItemPedidoAlteracao','$idAgenteAvaliador','$observacoes','2','$idOrgao','0','2',GETDATE(), $idAgenteRemetente, $idGrupoRemetente) ";
         return $sql;
     }
-    public static function retornaSQLAtualizaUltimoPedidoPar($idAcaoAvaliacao) {
+    public static function retornaSQLAtualizaUltimoPedidoPar($idAcaoAvaliacao)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao SET stAtivo = 1
                 WHERE idAcaoAvaliacaoItemPedidoAlteracao = $idAcaoAvaliacao AND stAtivo = 0 ";
         return $sql;
     }
-    public static function retornaSQLAtualizaUltimoPedidoParecerista($idAvaliacao) {
+    public static function retornaSQLAtualizaUltimoPedidoParecerista($idAvaliacao)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao SET stAtivo = 1
                 WHERE idAvaliacaoItemPedidoAlteracao = $idAvaliacao ";
         return $sql;
@@ -2499,7 +2526,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
 
 
 
-    public static function retornaSQLfinalizarPar($idPedidoAlteracao,$situacao,$justificativa) {
+    public static function retornaSQLfinalizarPar($idPedidoAlteracao, $situacao, $justificativa)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                 SET stAvaliacaoItemPedidoAlteracao = '".$situacao."', dtFimAvaliacao = GETDATE(), dsAvaliacao = '".$justificativa."'
                 WHERE idPedidoAlteracao = $idPedidoAlteracao
@@ -2507,7 +2535,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function retornaSQLfinalizarPar2($idPedidoAlteracao) {
+    public static function retornaSQLfinalizarPar2($idPedidoAlteracao)
+    {
         $sql = "SELECT a.idAvaliacaoItemPedidoAlteracao, a.idAgenteAvaliador, idOrgao
                 FROM BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao AS a
                 INNER JOIN BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao AS b ON a.idAvaliacaoItemPedidoAlteracao = b.idAvaliacaoItemPedidoAlteracao
@@ -2516,7 +2545,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function retornaSQLfinalizarPar3($idAvaliacaoItemPedidoAlteracao) {
+    public static function retornaSQLfinalizarPar3($idAvaliacaoItemPedidoAlteracao)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 SET stAtivo = 1
                 WHERE idAvaliacaoItemPedidoAlteracao = $idAvaliacaoItemPedidoAlteracao
@@ -2524,25 +2554,29 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function retornaSQLfinalizarPar4($idAvaliacaoItemPedidoAlteracao, $idAgenteAvaliador, $idOrgao, $idAgenteRemetente, $idGrupoRemetente) {
+    public static function retornaSQLfinalizarPar4($idAvaliacaoItemPedidoAlteracao, $idAgenteAvaliador, $idOrgao, $idAgenteRemetente, $idGrupoRemetente)
+    {
         $sql = "INSERT INTO BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 VALUES ('$idAvaliacaoItemPedidoAlteracao','$idAgenteAvaliador','','3','$idOrgao','0','2',GETDATE(), $idAgenteRemetente, $idGrupoRemetente) ";
         return $sql;
     }
 
     //serve somente para o item de custo (IC)
-    public static function retornaSQLfinalizarPar4IC($idAvaliacaoItemPedidoAlteracao, $idAgenteAvaliador, $idOrgao, $idAgenteRemetente, $idGrupoRemetente) {
+    public static function retornaSQLfinalizarPar4IC($idAvaliacaoItemPedidoAlteracao, $idAgenteAvaliador, $idOrgao, $idAgenteRemetente, $idGrupoRemetente)
+    {
         $sql = "INSERT INTO BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 VALUES ('$idAvaliacaoItemPedidoAlteracao','$idAgenteAvaliador','','2','$idOrgao','0','2',GETDATE(), $idAgenteRemetente, $idGrupoRemetente) ";
         return $sql;
     }
 
-    public static function retornaSQLfinalizarParST($idAvaliacaoItemPedidoAlteracao) {
+    public static function retornaSQLfinalizarParST($idAvaliacaoItemPedidoAlteracao)
+    {
         $sql = "select * from BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao where idAvaliacaoItemPedidoAlteracao = $idAvaliacaoItemPedidoAlteracao ";
         return $sql;
     }
 
-    public static function retornaSQLfinalizarParST2($idPedidoAlteracao, $tpAlteracaoProjeto) {
+    public static function retornaSQLfinalizarParST2($idPedidoAlteracao, $tpAlteracaoProjeto)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao
                 SET stVerificacao = 2
                 WHERE idPedidoAlteracao = $idPedidoAlteracao
@@ -2554,10 +2588,9 @@ class ReadequacaoProjetos extends Zend_Db_Table {
      * SQL PARA LISTAR O HIST�RICO
      * *********************************************************************** */
 
-    public static function retornaSQLHistorico($sqlDesejado) {
-
+    public static function retornaSQLHistorico($sqlDesejado)
+    {
         if ($sqlDesejado == "sqlListarHistorico") {
-
             $sql = "SELECT distinct e.IdPRONAC, e.NomeProjeto, b.idPedidoAlteracao, a.dtEncaminhamento, a.idOrgao, f.Sigla, a.idTipoAgente, a.dsObservacao, stAtivo, a.idAcaoAvaliacaoItemPedidoAlteracao AS idAcao, b.tpAlteracaoProjeto
                     FROM BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao AS a
                     INNER JOIN BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao AS b ON a.idAvaliacaoItemPedidoAlteracao = b.idAvaliacaoItemPedidoAlteracaO
@@ -2568,7 +2601,6 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         }
 
         if ($sqlDesejado == "sqlListarHistoricoUnico") {
-
             $sql = "SELECT distinct e.IdPRONAC, e.NomeProjeto, b.idPedidoAlteracao, a.dtEncaminhamento, a.idOrgao, f.Sigla, a.idTipoAgente, a.dsObservacao, c.tpAlteracaoProjeto, stAtivo, a.idAcaoAvaliacaoItemPedidoAlteracao AS idAcao, b.tpAlteracaoProjeto, b.idAvaliacaoItemPedidoAlteracao
                     FROM BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao AS a
                     INNER JOIN BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao AS b ON a.idAvaliacaoItemPedidoAlteracao = b.idAvaliacaoItemPedidoAlteracaO
@@ -2581,8 +2613,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function retornaSQLHistoricoLista($idavaliacao) {
-
+    public static function retornaSQLHistoricoLista($idavaliacao)
+    {
         $sql = "
         SELECT *, CAST(dsObservacao AS text) as dsObservacao FROM
             (
@@ -2607,28 +2639,32 @@ class ReadequacaoProjetos extends Zend_Db_Table {
      * SQL PARA DEVOLVER MINC (TELA DE COORDENADOR DE PARECERISTA)
      * *********************************************************************** */
 
-    public static function retornaSQLdevolverMinc($idAcao) {
+    public static function retornaSQLdevolverMinc($idAcao)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 SET stAtivo = 1
                 WHERE idAcaoAvaliacaoItemPedidoAlteracao = $idAcao ";
         return $sql;
     }
 
-    public static function retornaSQLdevolverMinc2($idAcao) {
+    public static function retornaSQLdevolverMinc2($idAcao)
+    {
         $sql = "SELECT idAvaliacaoItemPedidoAlteracao, idOrgao
                 FROM BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 WHERE idAcaoAvaliacaoItemPedidoAlteracao = $idAcao ";
         return $sql;
     }
 
-    public static function retornaSQLdevolverMinc3($id) {
+    public static function retornaSQLdevolverMinc3($id)
+    {
         $sql = "SELECT idPedidoAlteracao, tpAlteracaoProjeto
                 FROM BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                 WHERE idAvaliacaoItemPedidoAlteracao = $id ";
         return $sql;
     }
 
-    public static function retornaSQLdevolverMinc4($idPedidoAlt, $tpAlt) {
+    public static function retornaSQLdevolverMinc4($idPedidoAlt, $tpAlt)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao
                 SET stVerificacao = 3
                 WHERE idPedidoAlteracao = $idPedidoAlt
@@ -2636,7 +2672,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function retornaSQLdevolverMinc5($id, $idOrgao, $idAgenteRemetente, $idPerfilRemetente) {
+    public static function retornaSQLdevolverMinc5($id, $idOrgao, $idAgenteRemetente, $idPerfilRemetente)
+    {
         $sql = "INSERT INTO BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 VALUES ('$id','','','3','$idOrgao','0','3',GETDATE(),'$idAgenteRemetente','$idPerfilRemetente') ";
         return $sql;
@@ -2646,29 +2683,33 @@ class ReadequacaoProjetos extends Zend_Db_Table {
      * SQL PARA FINALIZAR GERAL (TELA DE COORDENADOR DE ACOMPANHAMENTO)
      * ****************************************************************** */
 
-    public static function retornaSQLfinalizaGeral($idAcao) {
+    public static function retornaSQLfinalizaGeral($idAcao)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 SET stAtivo = 1
                 WHERE idAcaoAvaliacaoItemPedidoAlteracao = $idAcao ";
         return $sql;
     }
 
-    public static function retornaSQLfinalizaGeral2($idAcao) {
+    public static function retornaSQLfinalizaGeral2($idAcao)
+    {
         $sql = "SELECT idAvaliacaoItemPedidoAlteracao, idOrgao, dsObservacao
                 FROM BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 WHERE idAcaoAvaliacaoItemPedidoAlteracao = $idAcao ";
         return $sql;
     }
 
-    public static function retornaSQLfinalizaGeral3($id) {
+    public static function retornaSQLfinalizaGeral3($id)
+    {
         $sql = "SELECT idPedidoAlteracao, tpAlteracaoProjeto, stAvaliacaoItemPedidoAlteracao, idAgenteAvaliador 
                 FROM BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                 WHERE idAvaliacaoItemPedidoAlteracao = $id ";
         return $sql;
     }
 
-    public static function retornaSQLfinalizaGeral4($idPedidoAlt, $tpAlt) {
-        if($tpAlt == 7){
+    public static function retornaSQLfinalizaGeral4($idPedidoAlt, $tpAlt)
+    {
+        if ($tpAlt == 7) {
             $and = " AND tpAlteracaoProjeto in (7,10) ";
         } else {
             $and = " AND tpAlteracaoProjeto = $tpAlt ";
@@ -2681,20 +2722,23 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         return $sql;
     }
 
-    public static function retornaSQLfinalizaGeral5($id, $idOrgao, $idAgenteRemetente, $idPerfilRemetente) {
+    public static function retornaSQLfinalizaGeral5($id, $idOrgao, $idAgenteRemetente, $idPerfilRemetente)
+    {
         $sql = "INSERT INTO BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                 VALUES ('$id','','','4','$idOrgao','1','4',GETDATE(),'$idAgenteRemetente','$idPerfilRemetente') ";
         return $sql;
     }
 
-    public static function retornaSQLfinalizaGeral6($idPedidoAlt) {
+    public static function retornaSQLfinalizaGeral6($idPedidoAlt)
+    {
         $sql = "SELECT IdPRONAC
                 FROM BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto
                 WHERE idPedidoAlteracao = $idPedidoAlt ";
         return $sql;
     }
 
-    public static function retornaSQLfinalizaGeral7($idPedidoAlt) {
+    public static function retornaSQLfinalizaGeral7($idPedidoAlt)
+    {
         $sql = "SELECT tpAlteracaoProjeto
                 FROM BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao
                 WHERE idPedidoAlteracao = $idPedidoAlt AND tpAlteracaoProjeto in (7,10) ";
@@ -2702,7 +2746,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
     }
 
     //Alterar o TipoParecer da Tabela SAC.dbo.Parecer
-    public static function AlteraTipoParecer($idPronac) {
+    public static function AlteraTipoParecer($idPronac)
+    {
         $sql = " update SAC.dbo.Parecer set TipoParecer = 2 where idPRONAC = $idPronac";
         return $sql;
     }
@@ -2711,14 +2756,16 @@ class ReadequacaoProjetos extends Zend_Db_Table {
 
 
     // Atualiza os dados originais ap�s a finaliza��o do coordenador de acompanhamento
-    public static function finalizacaoCoordAcomp($tabela, $campo, $dados, $where, $id) {
+    public static function finalizacaoCoordAcomp($tabela, $campo, $dados, $where, $id)
+    {
         $sql = "UPDATE ".$tabela."
                 SET ".$campo." = '".$dados."'
                 WHERE ".$where." = $id ";
         return $sql;
     }
 
-    public static function ConsultaFinalPropPedag($id_Pronac){
+    public static function ConsultaFinalPropPedag($id_Pronac)
+    {
         $sql = "SELECT DISTINCT b.IdPRONAC,
                         d.idPreProjeto,
                         c.AnoProjeto+c.Sequencial AS PRONAC,
@@ -2752,19 +2799,19 @@ class ReadequacaoProjetos extends Zend_Db_Table {
     }
    
 
-	public static function buscarJustificativaFinalParecerista($idAvaliacaoItemPedidoAlteracao)
-	{
-		$sql = "SELECT CAST(dsObservacao AS TEXT) AS dsObservacao, idAgenteRemetente  
+    public static function buscarJustificativaFinalParecerista($idAvaliacaoItemPedidoAlteracao)
+    {
+        $sql = "SELECT CAST(dsObservacao AS TEXT) AS dsObservacao, idAgenteRemetente  
 				FROM BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao 
 				WHERE idAvaliacaoItemPedidoAlteracao = $idAvaliacaoItemPedidoAlteracao AND idTipoAgente = 2 AND stVerificacao = 2";
-		
-		return $sql;
-	}
+        
+        return $sql;
+    }
 
 
 
-        public static function listarProdutosReadequacao($sqlDesejado, $idPronac, $idPedidoAlteracao) {
-
+    public static function listarProdutosReadequacao($sqlDesejado, $idPronac, $idPedidoAlteracao)
+    {
         if ($sqlDesejado == "sqlCoordAcompAguardAnalise") {
             $sql = "SELECT a.idPedidoAlteracao,
                         a.idPlano,
@@ -2802,8 +2849,7 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     INNER JOIN AGENTES.dbo.Nomes                                AS j ON i.idAgente = j.idAgente
                     WHERE c.IdPRONAC = $idPronac AND b.idPedidoAlteracao = $idPedidoAlteracao
                     ORDER BY a.idPlano";
-
-        } else if($sqlDesejado == "sqlTecAcomp"){
+        } elseif ($sqlDesejado == "sqlTecAcomp") {
             $sql = "SELECT a.idPedidoAlteracao,
                         a.idPlano,
                         a.idProduto,
@@ -2842,8 +2888,7 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     INNER JOIN BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao   AS k on k.idPedidoAlteracao = a.idPedidoAlteracao
                     WHERE c.IdPRONAC = $idPronac AND b.idPedidoAlteracao = $idPedidoAlteracao AND k.tpAlteracaoProjeto = 7 AND k.stAvaliacaoItemPedidoAlteracao in ('AG','EA')
                     ORDER BY a.idPlano";
-
-        } else if($sqlDesejado == "sqlCoordAcompAposAnalise"){
+        } elseif ($sqlDesejado == "sqlCoordAcompAposAnalise") {
             $sql = "SELECT a.idPedidoAlteracao,
                         a.idPlano,
                         a.idProduto,
@@ -2883,9 +2928,7 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     INNER JOIN BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao AS l on l.idAvaliacaoItemPedidoAlteracao = k.idAvaliacaoItemPedidoAlteracao
                     WHERE c.IdPRONAC = $idPronac AND b.idPedidoAlteracao = $idPedidoAlteracao AND l.stAtivo = 0
                     ORDER BY a.idPlano";
-
-
-        } else if($sqlDesejado == "sqlCoordAcompAposAnaliseItens"){
+        } elseif ($sqlDesejado == "sqlCoordAcompAposAnaliseItens") {
             $sql = "SELECT a.idPedidoAlteracao,
                         a.idPlano,
                         a.idProduto,
@@ -2925,8 +2968,7 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     INNER JOIN BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao AS l on l.idAvaliacaoItemPedidoAlteracao = k.idAvaliacaoItemPedidoAlteracao
                     WHERE c.IdPRONAC = $idPronac AND b.idPedidoAlteracao = $idPedidoAlteracao AND l.stAtivo = 1 AND k.tpAlteracaoProjeto = 7 AND l.idTipoAgente = 1
                     ORDER BY a.idPlano";
-
-        } else if($sqlDesejado == "sqlParecerista"){
+        } elseif ($sqlDesejado == "sqlParecerista") {
             $sql = "SELECT a.idPedidoAlteracao,
                         a.idPlano,
                         a.idProduto,
@@ -2965,9 +3007,8 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     INNER JOIN BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao   AS k on k.idPedidoAlteracao = a.idPedidoAlteracao
                     WHERE c.IdPRONAC = $idPronac AND b.idPedidoAlteracao = $idPedidoAlteracao AND k.tpAlteracaoProjeto = 7
                     ORDER BY a.idPlano";
-                    //AND k.stAvaliacaoItemPedidoAlteracao in ('AG','EA')
-
-        } else if($sqlDesejado == "sqlPareceristaAtual"){
+            //AND k.stAvaliacaoItemPedidoAlteracao in ('AG','EA')
+        } elseif ($sqlDesejado == "sqlPareceristaAtual") {
             $sql = "SELECT a.idPedidoAlteracao,
                         a.idPlano,
                         a.idProduto,
@@ -3007,8 +3048,7 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     WHERE c.IdPRONAC = $idPronac AND b.idPedidoAlteracao = $idPedidoAlteracao AND k.tpAlteracaoProjeto = 7
                     AND k.stAvaliacaoItemPedidoAlteracao in ('AG','EA')
                     ORDER BY a.idPlano";
-
-        } else if($sqlDesejado == "sqlCoordAcompanhamentoConcluido"){
+        } elseif ($sqlDesejado == "sqlCoordAcompanhamentoConcluido") {
             $sql = "SELECT a.idPedidoAlteracao,
                         a.idPlano,
                         a.idProduto,
@@ -3048,13 +3088,13 @@ class ReadequacaoProjetos extends Zend_Db_Table {
                     WHERE c.IdPRONAC = $idPronac AND b.idPedidoAlteracao = $idPedidoAlteracao AND k.tpAlteracaoProjeto = 7
                     AND k.stAvaliacaoItemPedidoAlteracao not in ('AG','EA')
                     ORDER BY a.idPlano";
-
         }
         
         return $sql;
     }
 
-    public static function dadosDoProjeto($idPronac) {
+    public static function dadosDoProjeto($idPronac)
+    {
         $sql = "SELECT a.idPronac,a.AnoProjeto+a.Sequencial  as PRONAC,a.NomeProjeto,a.CGCCPF,c.Descricao as Proponente
         FROM SAC.DBO.Projetos a
         INNER JOIN AGENTES.DBO.AGENTES b on (a.CGCCPF = b.CNPJCPF)
@@ -3062,8 +3102,4 @@ class ReadequacaoProjetos extends Zend_Db_Table {
         WHERE c.TipoNome in (18,19) and c.Status = 0 and a.idPronac = $idPronac";
         return $sql;
     }
-
-
 }
-
-?>

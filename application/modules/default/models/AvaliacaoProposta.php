@@ -16,7 +16,7 @@ class AvaliacaoProposta extends MinC_Db_Table_Abstract
     public function buscar($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
     {
         $slct = $this->select();
-        foreach ($where as $coluna=>$valor){
+        foreach ($where as $coluna=>$valor) {
             $slct->where($coluna, $valor);
         }
 
@@ -24,22 +24,20 @@ class AvaliacaoProposta extends MinC_Db_Table_Abstract
         $slct->order($order);
 
         // paginacao
-        if ($tamanho > -1)
-        {
-                $tmpInicio = 0;
-                if ($inicio > -1)
-                {
-                        $tmpInicio = $inicio;
-                }
-                $slctUnidade->limit($tamanho, $tmpInicio);
+        if ($tamanho > -1) {
+            $tmpInicio = 0;
+            if ($inicio > -1) {
+                $tmpInicio = $inicio;
+            }
+            $slctUnidade->limit($tamanho, $tmpInicio);
         }
 
         // retornando os registros conforme objeto select
         return $this->fetchAll($slct);
     }
 
-    public function diligenciasNaoRespondidas($retornaSelect = false){
-
+    public function diligenciasNaoRespondidas($retornaSelect = false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -50,15 +48,16 @@ class AvaliacaoProposta extends MinC_Db_Table_Abstract
         );
 
         $select->where('((DATEDIFF(day, DtAvaliacao, GETDATE()) > 20');
-        $select->where("stProrrogacao =?)",'N');
+        $select->where("stProrrogacao =?)", 'N');
 
         $select->orWhere('(DATEDIFF(day, DtAvaliacao, GETDATE()) > 40');
-        $select->where("stProrrogacao =?))",'S');
-        $select->where('stEnviado =?','N');
+        $select->where("stProrrogacao =?))", 'S');
+        $select->where('stEnviado =?', 'N');
 
-        if($retornaSelect)
+        if ($retornaSelect) {
             return $select;
-        else
+        } else {
             return $this->fetchAll($select);
+        }
     }
 }

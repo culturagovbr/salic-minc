@@ -1,21 +1,9 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of EnviaemailController
- *
- * @author tisomar
- */
-class EnviaemailController extends MinC_Controller_Action_Abstract {
-
-    public static function enviaEmail($body, $from, $to) {
-        
-
-
+class EnviaemailController extends MinC_Controller_Action_Abstract
+{
+    public static function enviaEmail($body, $from, $to)
+    {
         $config = array(
             'auth' => 'login',
             'username' => 'minc\01373930160',
@@ -35,5 +23,4 @@ class EnviaemailController extends MinC_Controller_Action_Abstract {
             xd($e);
         }
     }
-
 }

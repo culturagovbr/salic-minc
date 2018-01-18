@@ -16,7 +16,4 @@ class tbalteracaofictecDAO extends Zend_Db_Table
         //return $sql;
         return $db->fetchAll($sql);
     }
-
 }
-
-?>

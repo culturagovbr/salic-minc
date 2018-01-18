@@ -24,8 +24,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
         $Usuario = new Autenticacao_Model_Usuario(); // objeto usuario
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
 
-        if ($auth->hasIdentity()) // caso o usuario esteja autenticado
-        {
+        if ($auth->hasIdentity()) { // caso o usuario esteja autenticado
             // verifica as permissoes
             $PermissoesGrupo = array();
             //$PermissoesGrupo[] = 93;  // Coordenador de Parecerista
@@ -35,8 +34,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
             //$PermissoesGrupo[] = 119; // Presidente da Mesa
             //$PermissoesGrupo[] = 120; // Coordenador Administrativo CNIC
             $PermissoesGrupo[] = 127; // Ministro
-            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) // verifica se o grupo ativo esta no array de permissoes
-            {
+            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo esta no array de permissoes
                 parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
             }
 
@@ -45,9 +43,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
             $this->view->arrayGrupos = $grupos; // manda todos os grupos do usuario para a visao
             $this->view->grupoAtivo = $GrupoAtivo->codGrupo; // manda o grupo ativo do usuario para a visao
             $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o orgao ativo do usuario para a visao
-        }
-        else
-        {
+        } else {
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
@@ -237,8 +233,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
             } else {
                 throw new Exception("Erro ao efetuar alteracao!");
             }
-        }
-        else {
+        } else {
             // recebe os dados via get
             $idpronac = $this->_request->getParam("idpronac");
             $buscarprojeto = $projeto->buscar(array('IdPRONAC = ?' => $idpronac))->current()->toArray();
@@ -314,7 +309,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
                     $totalItemReduzido++;
                 }
                 if ($valorcomponente == 0 and $valorproponente > 0) {
-
                     $valores['retirado'][$totalItemRetirado]['idPlanilhaAprovacao'] = $b->idPlanilhaAprovacao;
                     $valores['retirado'][$totalItemRetirado]['nrFonteRecurso'] = $b->nrFonteRecurso;
                     $valores['retirado'][$totalItemRetirado]['idProduto'] = $b->idProduto;
@@ -423,99 +417,99 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
      * @return void
      */
     /*public function analisedeconteudoAction()
-	{
+    {
                 $planilhaaprovacao = new PlanilhaAprovacao();
-		// caso o formulario seja enviado via post
-		if ($this->getRequest()->isPost())
-		{
-			// recebe os dados via post
-			$post                 = Zend_Registry::get('post');
-			$idPlanilha           = $post->idPlanilha;
-			$IdPRONAC             = $post->IdPRONAC;
-			$idProduto            = $post->idProduto;
+        // caso o formulario seja enviado via post
+        if ($this->getRequest()->isPost())
+        {
+            // recebe os dados via post
+            $post                 = Zend_Registry::get('post');
+            $idPlanilha           = $post->idPlanilha;
+            $IdPRONAC             = $post->IdPRONAC;
+            $idProduto            = $post->idProduto;
 
-			$stLei8313            = $post->stLei8313;
-			$stArtigo3            = $post->stArtigo3;
-			$nrIncisoArtigo3      = $post->nrIncisoArtigo3;
-			$dsAlineaArt3         = $post->dsAlineaArt3;
+            $stLei8313            = $post->stLei8313;
+            $stArtigo3            = $post->stArtigo3;
+            $nrIncisoArtigo3      = $post->nrIncisoArtigo3;
+            $dsAlineaArt3         = $post->dsAlineaArt3;
 
-			$stArtigo18           = $post->stArtigo18;
-			$dsAlineaArtigo18     = $post->dsAlineaArtigo18;
-			$stArtigo26           = $post->stArtigo26;
+            $stArtigo18           = $post->stArtigo18;
+            $dsAlineaArtigo18     = $post->dsAlineaArtigo18;
+            $stArtigo26           = $post->stArtigo26;
 
-			$stLei5761            = $post->stLei5761;
-			$stArtigo27           = $post->stArtigo27;
-			$stIncisoArtigo27_I   = $post->stIncisoArtigo27_I;
-			$stIncisoArtigo27_II  = $post->stIncisoArtigo27_II;
-			$stIncisoArtigo27_III = $post->stIncisoArtigo27_III;
-			$stIncisoArtigo27_IV  = $post->stIncisoArtigo27_IV;
-			$stAvaliacao          = $post->stAvaliacao;
-			$dsAvaliacao          = $post->dsAvaliacao;
+            $stLei5761            = $post->stLei5761;
+            $stArtigo27           = $post->stArtigo27;
+            $stIncisoArtigo27_I   = $post->stIncisoArtigo27_I;
+            $stIncisoArtigo27_II  = $post->stIncisoArtigo27_II;
+            $stIncisoArtigo27_III = $post->stIncisoArtigo27_III;
+            $stIncisoArtigo27_IV  = $post->stIncisoArtigo27_IV;
+            $stAvaliacao          = $post->stAvaliacao;
+            $dsAvaliacao          = $post->dsAvaliacao;
 
                         $page = $post->page;
 
                         $rsPlanilhaAtual = $planilhaaprovacao->buscar(array('IdPRONAC = ?'=>$IdPRONAC), array('dtPlanilha DESC'))->current();
                         $tpAnalise = (!empty($rsPlanilhaAtual) && $rsPlanilhaAtual->tpPlanilha == 'SE') ? 'SE' : 'CO';
 
-			try
-			{
+            try
+            {
                             $auth = Zend_Auth::getInstance(); // pega a autenticacao
                             $idagente = GerenciarPautaReuniaoDAO::consultaAgenteUsuario($auth->getIdentity()->usu_codigo);
                             $idagente = $idagente['idAgente'];
-				// atualiza todos os campos caso siga a Lei 8313
-				if ($stLei8313 == 1)
-				{
-					$dados = array(
-						'tpAnalise'            => $tpAnalise,
-						'dtAnalise'            => new Zend_Db_Expr('GETDATE()'),
-						'stLei8313'            => $stLei8313,
-						'stArtigo3'            => $stArtigo3,
-						'nrIncisoArtigo3'      => $nrIncisoArtigo3,
-						'dsAlineaArt3'         => $dsAlineaArt3,
-						'stArtigo18'           => $stArtigo18,
-						'dsAlineaArtigo18'     => $dsAlineaArtigo18,
-						'stArtigo26'           => $stArtigo26,
-						'stLei5761'            => $stLei5761,
-						'stArtigo27'           => $stArtigo27,
-						'stIncisoArtigo27_I'   => $stIncisoArtigo27_I,
-						'stIncisoArtigo27_II'  => $stIncisoArtigo27_II,
-						'stIncisoArtigo27_III' => $stIncisoArtigo27_III,
-						'stIncisoArtigo27_IV'  => $stIncisoArtigo27_IV,
-						'stAvaliacao'          => $stAvaliacao,
-						'dsAvaliacao'          => $dsAvaliacao,
-						'idAgente'             => $idagente);
-					$alterarAnalise = AnaliseAprovacaoDAO::alterar($dados, $IdPRONAC, $idProduto, $idPlanilha, $tpAnalise);
-				}
-				// atualiza apenas o campo com a Lei 8313 caso o valor da mesma seja 0
-				else
-				{
-					$dados = array(
-						'tpAnalise'            => 'CO',
-						'dtAnalise'            => new Zend_Db_Expr('GETDATE()'),
-						'stLei8313'            => $stLei8313,
-						'idAgente'             => $idagente);
-					$alterarAnalise = AnaliseAprovacaoDAO::alterar($dados, $IdPRONAC, $idProduto, $idPlanilha, $tpAnalise);
-				}
+                // atualiza todos os campos caso siga a Lei 8313
+                if ($stLei8313 == 1)
+                {
+                    $dados = array(
+                        'tpAnalise'            => $tpAnalise,
+                        'dtAnalise'            => new Zend_Db_Expr('GETDATE()'),
+                        'stLei8313'            => $stLei8313,
+                        'stArtigo3'            => $stArtigo3,
+                        'nrIncisoArtigo3'      => $nrIncisoArtigo3,
+                        'dsAlineaArt3'         => $dsAlineaArt3,
+                        'stArtigo18'           => $stArtigo18,
+                        'dsAlineaArtigo18'     => $dsAlineaArtigo18,
+                        'stArtigo26'           => $stArtigo26,
+                        'stLei5761'            => $stLei5761,
+                        'stArtigo27'           => $stArtigo27,
+                        'stIncisoArtigo27_I'   => $stIncisoArtigo27_I,
+                        'stIncisoArtigo27_II'  => $stIncisoArtigo27_II,
+                        'stIncisoArtigo27_III' => $stIncisoArtigo27_III,
+                        'stIncisoArtigo27_IV'  => $stIncisoArtigo27_IV,
+                        'stAvaliacao'          => $stAvaliacao,
+                        'dsAvaliacao'          => $dsAvaliacao,
+                        'idAgente'             => $idagente);
+                    $alterarAnalise = AnaliseAprovacaoDAO::alterar($dados, $IdPRONAC, $idProduto, $idPlanilha, $tpAnalise);
+                }
+                // atualiza apenas o campo com a Lei 8313 caso o valor da mesma seja 0
+                else
+                {
+                    $dados = array(
+                        'tpAnalise'            => 'CO',
+                        'dtAnalise'            => new Zend_Db_Expr('GETDATE()'),
+                        'stLei8313'            => $stLei8313,
+                        'idAgente'             => $idagente);
+                    $alterarAnalise = AnaliseAprovacaoDAO::alterar($dados, $IdPRONAC, $idProduto, $idPlanilha, $tpAnalise);
+                }
 
-				if ($alterarAnalise)
-				{
-					parent::message("Registro inserido com sucesso!", "realizaranaliseprojeto/analisedeconteudo/idpronac/".$IdPRONAC, "CONFIRM");
-				}
-				else
-				{
-					throw new Exception("Erro ao efetuar alteracao!");
-				}
-			} // fecha try
-			catch (Exception $e)
-			{
-				parent::message($e->getMessage(), "realizaranaliseprojeto/analisedeconteudo/idpronac/".$IdPRONAC, "ERROR");
-			}
-		} // fecha if
-		// quando a pagina e aberta
-		else
-		{
-			// recebe o id da planilha a ser alterada
-			$idPronac   = $this->_request->getParam("idpronac");
+                if ($alterarAnalise)
+                {
+                    parent::message("Registro inserido com sucesso!", "realizaranaliseprojeto/analisedeconteudo/idpronac/".$IdPRONAC, "CONFIRM");
+                }
+                else
+                {
+                    throw new Exception("Erro ao efetuar alteracao!");
+                }
+            } // fecha try
+            catch (Exception $e)
+            {
+                parent::message($e->getMessage(), "realizaranaliseprojeto/analisedeconteudo/idpronac/".$IdPRONAC, "ERROR");
+            }
+        } // fecha if
+        // quando a pagina e aberta
+        else
+        {
+            // recebe o id da planilha a ser alterada
+            $idPronac   = $this->_request->getParam("idpronac");
                         $tblPauta = new Pauta();
                         $projeto = new Projetos();
 
@@ -533,21 +527,21 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
 //                            $buscar = RealizarAnaliseProjetoDAO::analiseDeConteudo($idPronac, 'CO') ;
                             $buscar = $analise->buscarAnaliseProduto('CO', $idPronac);
                         }
-			// ========== INICIO PAGINACAO ==========
-			// criando a paginacao
-			Zend_Paginator::setDefaultScrollingStyle('Sliding');
-			Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
-			$paginator = Zend_Paginator::factory($buscar); // dados a serem paginados
+            // ========== INICIO PAGINACAO ==========
+            // criando a paginacao
+            Zend_Paginator::setDefaultScrollingStyle('Sliding');
+            Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacao.phtml');
+            $paginator = Zend_Paginator::factory($buscar); // dados a serem paginados
 
-			// pagina atual e quantidade de itens por pagina
-			$currentPage = $this->_getParam('page', 1);
-			$paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(1);
-			// ========== FIM PAGINACAO ==========
+            // pagina atual e quantidade de itens por pagina
+            $currentPage = $this->_getParam('page', 1);
+            $paginator->setCurrentPageNumber($currentPage)->setItemCountPerPage(1);
+            // ========== FIM PAGINACAO ==========
 
-			// manda para a visao
-			$this->view->dados    = $paginator;
+            // manda para a visao
+            $this->view->dados    = $paginator;
                         $this->view->dadosprojeto = $buscarprojeto;
-			$this->view->qtdItens = count($buscar); // quantidade de itens
+            $this->view->qtdItens = count($buscar); // quantidade de itens
                         $auth              = Zend_Auth::getInstance(); // pega a autenticacao
                         $idagente = GerenciarPautaReuniaoDAO::consultaAgenteUsuario($auth->getIdentity()->usu_codigo);
                         $idagente = $idagente['idAgente'];
@@ -577,7 +571,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
                             parent::message("N&atilde;o existe CNIC aberta no momento. Favor aguardar!", "principal/index", "ERROR");
                         }
                 } // fecha else
-	}*/ // fecha metodo analisedeconteudoAction()
+    }*/ // fecha metodo analisedeconteudoAction()
 
     public function analisedeconteudoAction()
     {
@@ -610,7 +604,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
             $campo = $this->_request->getParam("campo");
             $order = array($campo . " " . $ordem);
             $ordenacao = "&campo=" . $campo . "&ordem=" . $ordem;
-
         } else {
             $campo = null;
             $order = array('stPrincipal');
@@ -621,11 +614,13 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag > 1) ? ($pag - 1) * $this->intTamPag : 0;
 
         /* ================== PAGINACAO ======================*/
-        $projetos = New Projetos();
+        $projetos = new Projetos();
         $tbPlanilhaAprovacao = new PlanilhaAprovacao();
         $tbAnaliseAprovacao = new AnaliseAprovacao();
 
@@ -702,7 +697,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
         $this->view->dados = $busca;
         $this->view->intTamPag = $this->intTamPag;
         $this->view->dadosprojeto = $rsProjeto;
-
     } // fecha metodo analisedeconteudoAction()
 
     public function formAlterarAnaliseDeConteudoAction()
@@ -788,23 +782,22 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
                 $alterarAnalise = AnaliseAprovacaoDAO::alterar($dados, $IdPRONAC, $idProduto, $idPlanilha, $tpAnalise);
             } // atualiza apenas o campo com a Lei 8313 caso o valor da mesma seja 0
             else {
-
                 $dados = array(
                     'tpAnalise' => $tpAnalise,
                     'dtAnalise' => new Zend_Db_Expr('GETDATE()'),
                     'stLei8313' => $stLei8313,
                     'stArtigo3' => 0,
-                    'nrIncisoArtigo3' => NULL,
-                    'dsAlineaArt3' => NULL,
+                    'nrIncisoArtigo3' => null,
+                    'dsAlineaArt3' => null,
                     'stArtigo18' => 0,
-                    'dsAlineaArtigo18' => NULL,
+                    'dsAlineaArtigo18' => null,
                     'stArtigo26' => 0,
                     'stLei5761' => 0,
                     'stArtigo27' => 0,
-                    'stIncisoArtigo27_I' => NULL,
-                    'stIncisoArtigo27_II' => NULL,
-                    'stIncisoArtigo27_III' => NULL,
-                    'stIncisoArtigo27_IV' => NULL,
+                    'stIncisoArtigo27_I' => null,
+                    'stIncisoArtigo27_II' => null,
+                    'stIncisoArtigo27_III' => null,
+                    'stIncisoArtigo27_IV' => null,
                     'stAvaliacao' => 0,
                     'dsAvaliacao' => trim($dsAvaliacao),
                     'idAgente' => $idagente);
@@ -813,7 +806,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
 
             //ZERA VALORES DOS ITENS DA PLANILHA DO PRODUTO DESFAVORECIDO
             if ($stAvaliacao != 1) {
-
                 try {
                     $tblPlanilhaAprovacao = new PlanilhaAprovacao();
 
@@ -832,7 +824,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
                         $where .= " AND stAtivo = 'S'";
                     }
                     $tblPlanilhaAprovacao->alterar($dados, $where);
-
                 } // fecha try
                 catch (Exception $e) {
                     throw new Exception("Erro ao efetuar alteracao!");
@@ -1056,7 +1047,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
      */
     public function emitirparecerAction()
     {
-        $this->redirect("/parecer/analise-cnic/emitirparecer");    
+        $this->redirect("/parecer/analise-cnic/emitirparecer");
     }
     
     public function gerarpdfAction()
@@ -1200,7 +1191,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
             $valores['retirado'] = array();
 
             foreach ($buscarAnaliseConta as $b) {
-
                 $valorproponente = ($b['qtdSolicitado'] * $b['ocoSolicitado'] * $b['vlSolicitado']);
                 $valorcomponente = ($b['ocorrenciaRelator'] * $b['vlunitarioRelator'] * $b['qtdRelator']);
                 $valorparecerista = ($b['ocoParecer'] * $b['vlParecer'] * $b['qtdParecer']);
@@ -1246,7 +1236,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
                     $totalItemReduzido++;
                 }
                 if ($valorcomponente == 0 and $valorproponente > 0) {
-
                     $valores['retirado'][$totalItemRetirado]['idPlanilhaAprovacao'] = $b['idPlanilhaAprovacao'];
                     $valores['retirado'][$totalItemRetirado]['nrFonteRecurso'] = $b['nrFonteRecurso'];
                     $valores['retirado'][$totalItemRetirado]['idProduto'] = $b['idProduto'];
@@ -1434,7 +1423,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
                     //ATUALIZA ETAPA - PLANILHA SR
                     $whereSR = 'idPlanilhaAprovacao = ' . $rsPlanSR->idPlanilhaAprovacao;
                     $tblPlanilhaAprovacao->alterar($dados, $whereSR);
-
                 }
 
                 if ($alterarPlanilha) {
@@ -1584,7 +1572,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
             $this->view->produtosFavoraveis = $arrProdutosFavoraveis;
 
             $this->montaTela("realizaranaliseprojeto/analisedecustos.phtml", array());
-
         } // fecha else
     } // fecha metodo analisedecustosAction()
 
@@ -1614,8 +1601,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
         $rsProjeto = $tblProjetos->buscar(array('IdPRONAC = ?' => $idPronac))->current();
         $this->view->dadosProjeto = $rsProjeto;
 
-        if ($this->bln_readequacao != "true") //projeto de analise inicial
-        {
+        if ($this->bln_readequacao != "true") { //projeto de analise inicial
             /*==== ETAPA - TOTAL SOLICITADO ====*/
             $arrWhereSolicitado = array();
             $arrWhereSolicitado['idProduto = ?'] = $idProduto;
@@ -1637,7 +1623,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
             $arrWhereSomaPlanilha['NrFonteRecurso = ? '] = '109';
             $arrWhereSomaPlanilha['stAtivo = ? '] = 'S';
             $rsTotalComponente = $tblPlanilhaAprovacao->somarItensPlanilhaAprovacao($arrWhereSomaPlanilha);
-
         } else { //projeto de readequacao
 
             $arrWhereSomaPlanilha = array();
@@ -1661,7 +1646,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
             /*==== ETAPA - TOTAL PARECERISTA ====*/
             $arrWhereSomaPlanilha['tpPlanilha = ? '] = 'PA';
             $rsTotalParecerista = $tblPlanilhaAprovacao->somarItensPlanilhaAprovacao($arrWhereSomaPlanilha);
-
         }
 
         $this->view->totalEtapaSolicitado = $rsTotalSolicitado['soma'];
@@ -1674,9 +1658,8 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
         $this->view->codEtapa = $codEtapa;
     }
 
-    function reintegrarValoresEtapaAction()
+    public function reintegrarValoresEtapaAction()
     {
-
         $post = Zend_Registry::get('post');
         $idPronac = $this->_request->getParam("idPronac");
         $idProduto = $this->_request->getParam("idProduto");
@@ -1695,10 +1678,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
         }
 
         try {
-
-
-            if ($this->bln_readequacao != "true") //projeto de ANALISE INICIAL
-            {
+            if ($this->bln_readequacao != "true") { //projeto de ANALISE INICIAL
                 $arrBusca = array();
                 $arrBusca['PAP.idProduto = ?'] = $idProduto;
                 $arrBusca['PAP.idEtapa = ?'] = $idEtapa;
@@ -1709,7 +1689,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
 
                     //reintegra valos do proponente (Solicitado)
                     if ($etapaAReintegrar == "solicitado") {
-
                         $dados = null;
                         $dados = array('qtItem' => $planilha->quantidadeprop,
                             'nrOcorrencia' => $planilha->ocorrenciaprop,
@@ -1718,7 +1697,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
                     }
                     //reintegra valos do parecerista
                     if ($etapaAReintegrar == "parecerista") {
-
                         $dados = null;
                         $dados = array('qtItem' => $planilha->quantidadeparc,
                             'nrOcorrencia' => $planilha->ocorrenciaparc,
@@ -1733,7 +1711,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
                     $where .= " AND idPlanilhaAprovacao = '{$planilha->idPlanilhaAprovacao}'";
                     $tblPlanilhaAprovacao->alterar($dados, $where);
                 }
-
             } else { //projeto de READEQUACAO
 
                 $arrBusca = array();
@@ -1753,7 +1730,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
 
                     //reintegra valores do proponente (Solicitado)
                     if ($etapaAReintegrar == "solicitado") {
-
                         $dados = null;
                         $dados = array('qtItem' => $rsPlanSR->qtItem,
                             'nrOcorrencia' => $rsPlanSR->nrOcorrencia,
@@ -1763,7 +1739,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
 
                     //reintegra valos do parecerista
                     if ($etapaAReintegrar == "parecerista") {
-
                         $dados = null;
                         $dados = array('qtItem' => $rsPlanPA->qtItem,
                             'nrOcorrencia' => $rsPlanPA->nrOcorrencia,
@@ -1777,22 +1752,18 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
                     $where .= " AND tpPlanilha = '{$tpPlanilha}'";
                     $where .= " AND idPlanilhaAprovacao = '{$planilha->idPlanilhaAprovacao}'";
                     $tblPlanilhaAprovacao->alterar($dados, $where);
-
                 }//feach foreach (planilha)
             }
 
             parent::message("Etapa reintegrada com sucesso!", "realizaranaliseprojeto/" . $url . "/idpronac/" . $idPronac . "/?ETP=" . $codEtapa, "CONFIRM");
-
         } // fecha try
         catch (Exception $e) {
-
             parent::message("Erro ao efetuar altera&ccedil;&atilde;o! " . $e->getMessage(), "realizaranaliseprojeto/" . $url . "/idpronac/" . $idPronac, "ERROR");
         }
     }
 
     public function recuperarEtapasDoItemAction()
     {
-
         $post = Zend_Registry::get('post');
         $this->_helper->layout->disableLayout(); // desabilita o layout
         $this->_helper->viewRenderer->setNoRender(true);
@@ -1814,6 +1785,6 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
         //$arrEtapas = $rsEtapas->toArray();
         //x($arrEtapas);
         $this->_helper->json($arrEtapas);
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 } // fecha class

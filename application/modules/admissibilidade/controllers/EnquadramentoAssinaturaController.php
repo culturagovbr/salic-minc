@@ -62,9 +62,8 @@ class Admissibilidade_EnquadramentoAssinaturaController extends Assinatura_Gener
         $this->validarPerfis();
         $get = Zend_Registry::get('get');
         try {
-
             if (!filter_input(INPUT_GET, 'IdPRONAC')) {
-                throw new Exception ("Identificador do projeto é necessário para acessar essa funcionalidade.");
+                throw new Exception("Identificador do projeto é necessário para acessar essa funcionalidade.");
             }
 
             $objTbProjetos = new Projeto_Model_DbTable_Projetos();
@@ -153,7 +152,7 @@ class Admissibilidade_EnquadramentoAssinaturaController extends Assinatura_Gener
         $get = Zend_Registry::get('get');
         try {
             if (!filter_input(INPUT_GET, 'IdPRONAC')) {
-                throw new Exception ("Identificador do projeto é necessário para acessar essa funcionalidade.");
+                throw new Exception("Identificador do projeto é necessário para acessar essa funcionalidade.");
             }
 
             $objProjetos = new Projetos();
@@ -228,5 +227,4 @@ class Admissibilidade_EnquadramentoAssinaturaController extends Assinatura_Gener
             parent::message($objException->getMessage(), "/{$this->moduleName}/enquadramento-assinatura/finalizar-assinatura?IdPRONAC={$get->IdPRONAC}");
         }
     }
-
 }

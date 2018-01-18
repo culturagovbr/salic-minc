@@ -1,12 +1,4 @@
 <?php
-/**
- * PrincipalController
- * @author Equipe RUP - Politec
- * @since 29/03/2010
- * @package application
- * @subpackage application.controllers
- * @link http://www.cultura.gov.br
- */
 
 class PrincipalController extends MinC_Controller_Action_Abstract
 {
@@ -49,19 +41,33 @@ class PrincipalController extends MinC_Controller_Action_Abstract
         $this->view->comunicados = $rs;
     }
 
-    public function abasAction() {} // fecha metodo abasAction()
+    public function abasAction()
+    {
+    } // fecha metodo abasAction()
 
-    public function textoAction() {} // fecha metodo textoAction()
+    public function textoAction()
+    {
+    } // fecha metodo textoAction()
 
-    public function gridAction() {} // fecha metodo gridAction()
+    public function gridAction()
+    {
+    } // fecha metodo gridAction()
 
-    public function caixadetextoAction() {} // fecha metodo caixadetextoAction()
+    public function caixadetextoAction()
+    {
+    } // fecha metodo caixadetextoAction()
 
-    public function modalAction() {} // fecha metodo modalAction()
+    public function modalAction()
+    {
+    } // fecha metodo modalAction()
 
-    public function botoesAction() {} // fecha metodo botoesAction()
+    public function botoesAction()
+    {
+    } // fecha metodo botoesAction()
 
-    public function exemplosAction() {} // fecha metodo exemplosAction()
+    public function exemplosAction()
+    {
+    } // fecha metodo exemplosAction()
 
     /**
      * Metodo listarComunicados()
@@ -85,26 +91,27 @@ class PrincipalController extends MinC_Controller_Action_Abstract
         $stEstado = $this->_request->getParam("stEstado");
         $stOpcao  = $this->_request->getParam("stOpcao");
 
-        if(!empty($periodo1) && !empty($periodo1))
-        {
+        if (!empty($periodo1) && !empty($periodo1)) {
             $where['dtInicioVigencia >= ?']  = $periodo1;
             $where['dtTerminoVigencia <= ?'] = $periodo2;
         }
 
-        if($stEstado != '')
-        {
+        if ($stEstado != '') {
             $where['stEstado = ?'] = $stEstado;
         }
 
-        if($stOpcao != '')
-        {
+        if ($stOpcao != '') {
             $where['stOpcao = ?'] = $stOpcao;
         }
 
 
         $pag = 1;
-        if (isset($post->pag)) $pag = $post->pag;
-        if (isset($post->tamPag)) $this->intTamPag = $post->tamPag;
+        if (isset($post->pag)) {
+            $pag = $post->pag;
+        }
+        if (isset($post->tamPag)) {
+            $this->intTamPag = $post->tamPag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
         $fim    = $inicio + $this->intTamPag;
 
@@ -112,7 +119,9 @@ class PrincipalController extends MinC_Controller_Action_Abstract
 
         $totalPag = (int)(($total % $this->intTamPag == 0)?($total/$this->intTamPag):(($total/$this->intTamPag)+1));
         $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
-        if ($fim>$total) $fim = $total;
+        if ($fim>$total) {
+            $fim = $total;
+        }
 
         $ordem = array("6 DESC");
         $rs = $tbComunicados->listarComunicados($where, $ordem, $tamanho, $inicio);
@@ -126,25 +135,25 @@ class PrincipalController extends MinC_Controller_Action_Abstract
         $this->view->parametrosBusca  = $_POST;
     }
 
-	/**
-	 * Metodo buscarProjeto()
-	 * @access public
-	 * @param void
-	 * @return void
-	 */
-	public function buscarprojetoAction() {
-		$Pronac = $this->_request->getParam("Pronac");
-		if(!empty($Pronac)){
-			$proj = new Projetos();
+    /**
+     * Metodo buscarProjeto()
+     * @access public
+     * @param void
+     * @return void
+     */
+    public function buscarprojetoAction()
+    {
+        $Pronac = $this->_request->getParam("Pronac");
+        if (!empty($Pronac)) {
+            $proj = new Projetos();
             $resp = $proj->buscarIdPronac($Pronac);
-            if(!empty($resp)){
-            	$this->_redirect('consultardadosprojeto/index?idPronac='.$resp->IdPRONAC);
-            }else{
-            	parent::message("Nenhum projeto encontrado com o n&uacute;mero de Pronac informado.", "principal/index", "ERROR");
+            if (!empty($resp)) {
+                $this->_redirect('consultardadosprojeto/index?idPronac='.$resp->IdPRONAC);
+            } else {
+                parent::message("Nenhum projeto encontrado com o n&uacute;mero de Pronac informado.", "principal/index", "ERROR");
             }
-
-		}else{
-			parent::message("Informe o Pronac.", "principal/index", "ERROR");
-		}
-	}
+        } else {
+            parent::message("Informe o Pronac.", "principal/index", "ERROR");
+        }
+    }
 }

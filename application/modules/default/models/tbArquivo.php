@@ -36,11 +36,14 @@ class tbArquivo extends MinC_Db_Table_Abstract
             , "a.dsHash"
             , "a.stAtivo"
             , "a.dsTipoPadronizado"
-            , "a.idUsuario"), 'BDCORPORATIVO.scCorp'
+            , "a.idUsuario"),
+            'BDCORPORATIVO.scCorp'
         );
         $select->joinInner(
-            array("i" => "tbArquivoImagem"), "a.idArquivo = i.idArquivo",
-            array("i.biArquivo"), 'BDCORPORATIVO.scCorp'
+            array("i" => "tbArquivoImagem"),
+            "a.idArquivo = i.idArquivo",
+            array("i.biArquivo"),
+            'BDCORPORATIVO.scCorp'
         );
 
         $select->where("a.idArquivo = ?", $idArquivo);
@@ -61,7 +64,6 @@ class tbArquivo extends MinC_Db_Table_Abstract
         $resultado = $db->fetchAll("SET TEXTSIZE 10485760");
         $resultado = $db->fetchAll($sql);
         return $resultado;
-
     }
 
     /**
@@ -74,8 +76,11 @@ class tbArquivo extends MinC_Db_Table_Abstract
         $select = $this->select();
         $select->setIntegrityCheck(false);
 
-        $select->from(array($this->_name),
-            array('*'), 'BDCORPORATIVO.scCorp');
+        $select->from(
+            array($this->_name),
+            array('*'),
+            'BDCORPORATIVO.scCorp'
+        );
 
 
         $select->order('idArquivo desc');

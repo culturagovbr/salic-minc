@@ -12,9 +12,9 @@
 
 class Zend_View_Helper_Mes
 {
-	public function mes($valormes)
-	{
-                switch ($valormes) {
+    public function mes($valormes)
+    {
+        switch ($valormes) {
                 case "01":    $mes = 'Janeiro';     break;
                 case "02":    $mes = 'Fevereiro';   break;
                 case "03":    $mes = 'Mar&ccedil;o';       break;
@@ -28,7 +28,6 @@ class Zend_View_Helper_Mes
                 case "11":    $mes = 'Novembro';    break;
                 case "12":    $mes = 'Dezembro';    break;
                 }
-          return $mes;
-	} 
-
+        return $mes;
+    }
 } // fecha class

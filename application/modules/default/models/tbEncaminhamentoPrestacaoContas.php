@@ -4,14 +4,15 @@
  *
  * @author Emerson Silva
  */
-class tbEncaminhamentoPrestacaoContas extends MinC_Db_Table_Abstract {
-
+class tbEncaminhamentoPrestacaoContas extends MinC_Db_Table_Abstract
+{
     protected $_name   = 'tbEncaminhamentoPrestacaoContas';
     protected $_schema = 'BDCORPORATIVO.scSAC';
     protected $_banco  = 'BDCORPORATIVO';
 
-    public function EncaminhamentoPrestacaoContas($idPronac){
-    	$select = $this->select();
+    public function EncaminhamentoPrestacaoContas($idPronac)
+    {
+        $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
                         array('tbepc'=>$this->_name),
@@ -51,29 +52,30 @@ class tbEncaminhamentoPrestacaoContas extends MinC_Db_Table_Abstract {
                             array('o.org_sigla'),
                             'TABELAS.dbo'
                            );
-		$select->where('tbepc.idPronac = ?',$idPronac);
+        $select->where('tbepc.idPronac = ?', $idPronac);
 
-		return $this->fetchAll($select);
+        return $this->fetchAll($select);
     }
 
-    public function BuscaEncaminhamentoPrestacaoContas($idOrgao, $situacao, $idAgenteDestino){
-    	
-    	$select = $this->select();
+    public function BuscaEncaminhamentoPrestacaoContas($idOrgao, $situacao, $idAgenteDestino)
+    {
+        $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from(array('tbepc'=>$this->_name),
+        $select->from(
+            array('tbepc'=>$this->_name),
                         array(
-						      'idAgenteOrigem',
-						      'dtInicioEncaminhamento',
-						      'dsJustificativa',
-						      'idOrgaoDestino',
-						      'idOrgaoOrigem',
-						      'idAgenteDestino',
-						      'cdGruposDestino',
-						      'cdGruposOrigem',
-						      'dtFimEncaminhamento',
-						      'idSituacaoEncPrestContas',
-						      'idSituacao',
-						      'stAtivo',
+                              'idAgenteOrigem',
+                              'dtInicioEncaminhamento',
+                              'dsJustificativa',
+                              'idOrgaoDestino',
+                              'idOrgaoOrigem',
+                              'idAgenteDestino',
+                              'cdGruposDestino',
+                              'cdGruposOrigem',
+                              'dtFimEncaminhamento',
+                              'idSituacaoEncPrestContas',
+                              'idSituacao',
+                              'stAtivo',
                                                       'idEncPrestContas'
                               )
                       );
@@ -126,30 +128,28 @@ class tbEncaminhamentoPrestacaoContas extends MinC_Db_Table_Abstract {
                             'SAC.dbo'
                            );
 
-                $select->where('tbepc.idOrgaoDestino = ?',$idOrgao);
-                $select->where('tbepc.idAgenteDestino = ?',$idAgenteDestino);
-		        $select->where('tbepc.idSituacaoEncPrestContas = ?',$situacao);
-		//$select->where('tbepc.idTipoAgente = ?',11);
-	    
+        $select->where('tbepc.idOrgaoDestino = ?', $idOrgao);
+        $select->where('tbepc.idAgenteDestino = ?', $idAgenteDestino);
+        $select->where('tbepc.idSituacaoEncPrestContas = ?', $situacao);
 
-		return $this->fetchAll($select);
+        return $this->fetchAll($select);
     }
 
 
     public function HistoricoEncaminhamentoPrestacaoContas($idPronac)
     {
-
-    	$select = $this->select();
+        $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from(array('a'=>$this->_name),
-                        array('
-                           b.AnoProjeto+b.Sequencial as PRONAC,
-                           b.NomeProjeto, 
-                           CONVERT(CHAR(10), a.dtInicioEncaminhamento, 101) AS dtInicioEncaminhamento,
-                           a.dsJustificativa, 
-                           c.usu_nome AS NomeOrigem, 
-                           d.usu_nome AS NomeDestino
-                           '), 
+        $select->from(
+            array('a'=>$this->_name),
+                        array(
+                           'b.AnoProjeto+b.Sequencial as PRONAC',
+                           'b.NomeProjeto',
+                           new Zend_Db_Expr('CONVERT(CHAR(10), a.dtInicioEncaminhamento, 101) AS dtInicioEncaminhamento'),
+                           'a.dsJustificativa',
+                           'c.usu_nome AS NomeOrigem',
+                           'd.usu_nome AS NomeDestino'
+                           ),
                         $this->_schema
                       );
 
@@ -172,23 +172,25 @@ class tbEncaminhamentoPrestacaoContas extends MinC_Db_Table_Abstract {
                             'TABELAS.dbo'
                            );
 
-        $select->where('a.idPronac = ?',$idPronac);
+        $select->where('a.idPronac = ?', $idPronac);
 
         return $this->fetchAll($select);
     }
 
 
-    public function BuscaEmitirParecerPrestacaoContas($idPronac,$idOrgao){
-    	$select = $this->select();
+    public function BuscaEmitirParecerPrestacaoContas($idPronac, $idOrgao)
+    {
+        $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from(array('tbepc'=>$this->_name),
+        $select->from(
+            array('tbepc'=>$this->_name),
                         array(
                               'idAgenteDestino',
                               'idAgenteOrigem',
                               'dtInicioEncaminhamento',
                               'idOrgao',
                               'idPronac',
-                        	  'idSituacao'
+                              'idSituacao'
                               )
                       );
         $select->joinInner(
@@ -240,14 +242,14 @@ class tbEncaminhamentoPrestacaoContas extends MinC_Db_Table_Abstract {
                             'SAC.dbo'
                            );
 
-		$select->where('tbepc.idOrgao = ?',$idOrgao);
-		$select->where('tbepc.idPronac = ?',$idPronac);
-	   
+        $select->where('tbepc.idOrgao = ?', $idOrgao);
+        $select->where('tbepc.idPronac = ?', $idPronac);
 
-		return $this->fetchAll($select);
+
+        return $this->fetchAll($select);
     }
 
-	/*public function InsertParecerTecnicoPrestacaoContas($dados) {
+    /*public function InsertParecerTecnicoPrestacaoContas($dados) {
         try {
             $insert = $this->insert($dados);
         } catch (Zend_Db_Table_Exception $e) {
@@ -283,13 +285,13 @@ class tbEncaminhamentoPrestacaoContas extends MinC_Db_Table_Abstract {
             }
             $slct->limit($tamanho, $tmpInicio);
         }
-        
+
         return $this->fetchAll($slct);
     }*/
 
 
-    public function buscarAtoresPrestacaoContas($idPronac, $idusuario=null){
-
+    public function buscarAtoresPrestacaoContas($idPronac, $idusuario=null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(

@@ -13,9 +13,8 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
     public function obterAssinaturas(
         $idPronac,
         $idTipoDoAtoAdministrativo,
-        $idDocumentoAssinatura = NULL
-    )
-    {
+        $idDocumentoAssinatura = null
+    ) {
         $query = $this->select();
         $query->setIntegrityCheck(false);
 
@@ -54,7 +53,7 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
         );
         $objQuery->where("IdPRONAC = ?", $idPronac);
         $objQuery->where("tbAtoAdministrativo.idTipoDoAto = ?", $idTipoDoAtoAdministrativo);
-        if(!is_null($idDocumentoAssinatura)) {
+        if (!is_null($idDocumentoAssinatura)) {
             $objQuery->where("tbAssinatura.idDocumentoAssinatura = ?", $idDocumentoAssinatura);
         }
         return $this->_db->fetchAll($objQuery);
@@ -81,7 +80,7 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
 //            $this->getSchema('Agentes')
 //        );
 //        $objQuery->where('idOrgaoDoAssinante = ?', $idOrgaoDoAssinante);
-////        $objQuery->where('idPerfilDoAssinante = ?', $idPerfilDoAssinante);
+    ////        $objQuery->where('idPerfilDoAssinante = ?', $idPerfilDoAssinante);
 //        $objQuery->where('idTipoDoAto = ?', $idTipoDoAto);
 //        $result = $this->fetchAll($objQuery);
 //        if ($result) {
@@ -92,15 +91,14 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
     public function obterProjetosAssinados(
         $idOrgaoSuperiorDoAssinante,
         $idAssinante = null
-    )
-    {
+    ) {
         $objQuery = $this->select();
         $objQuery->setIntegrityCheck(false);
 
         $objQuery->from(
             array("Projetos" => "Projetos"),
             array(
-                'pronac' => New Zend_Db_Expr('Projetos.AnoProjeto + Projetos.Sequencial'),
+                'pronac' => new Zend_Db_Expr('Projetos.AnoProjeto + Projetos.Sequencial'),
                 'Projetos.nomeProjeto',
                 'Projetos.IdPRONAC',
                 'Projetos.CgcCpf',
@@ -168,7 +166,7 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
 
 //        $query->where("Projetos.Orgao = ?", $idOrgaoDoAssinante);
 
-        if($idAssinante) {
+        if ($idAssinante) {
             $objQuery->where(new Zend_Db_Expr(
 
             'tbDocumentoAssinatura.idDocumentoAssinatura IN (

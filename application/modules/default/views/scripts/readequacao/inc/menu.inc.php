@@ -6,7 +6,7 @@
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.readequacao.inc
- * @copyright © 2012 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ï¿½ 2012 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://salic.cultura.gov.br
  */
 
@@ -29,7 +29,7 @@ $menu[3][1] = 'Custo por Produtos';
 $menu[3][2] = 'Custo Administrativo';
 
 
-// define o módulo e todas as actions utilizadas no menu
+// define o mï¿½dulo e todas as actions utilizadas no menu
 $controle = 'readequacao';
 $acao[0]  = 'proponente';
 $acao[1]  = 'produtos';
@@ -45,7 +45,7 @@ $acao[9]  = 'custo';
 
 // marca o menu como ativo
 for ($i = 0; $i <= 9; $i++) :
-    $mAtivo[$i]  = 'no_seta'; // define se o menu estará ativo ou não
+    $mAtivo[$i]  = 'no_seta'; // define se o menu estarï¿½ ativo ou nï¿½o
     $onClick[$i] = 'onclick="carregandoModal();"'; // simulador do loader
     
 //    if ($this->pagina == $acao[$i]) : // evita carregar o menu ativo novamente
@@ -55,7 +55,7 @@ for ($i = 0; $i <= 9; $i++) :
 endfor;
 
 
-// controla a exibição dos sub-menus de Projetos
+// controla a exibiï¿½ï¿½o dos sub-menus de Projetos
 if ($this->pagina == $acao[1] || $this->pagina == $acao[2] || $this->pagina == $acao[3] || $this->pagina == $acao[4] || $this->pagina == $acao[5] || $this->pagina == $acao[6] || $this->pagina == $acao[7]) :
     $sumirProjetos = '';
 else :
@@ -63,7 +63,7 @@ else :
 endif;
 
 
-// controla a exibição dos sub-menus de Custo
+// controla a exibiï¿½ï¿½o dos sub-menus de Custo
 if ($this->pagina == $acao[8] || $this->pagina == $acao[9]) :
     $sumirCusto = '';
 else :
@@ -75,7 +75,7 @@ endif;
 
 <script type="text/javascript">
 /**
- * Função que ajusta o layout para acoplar o menu lateral
+ * Funï¿½ï¿½o que ajusta o layout para acoplar o menu lateral
  */
     function layout_fluido() {
 	var janela         = $(window).width();
@@ -83,21 +83,21 @@ endif;
 	var fluidConteudo  = janela - 253;
 	var fluidTitulo    = janela - 252;
 	var fluidRodape    = janela - 19;
-	$("#navglobal").css("width", fluidNavGlobal);
-	$("#conteudo").css("width", fluidConteudo);
-	$("#titulo").css("width", fluidTitulo);
-	$("#rodapeConteudo").css("width", fluidConteudo);
-	$("#imagemRodape").css("width", fluidConteudo);
-	$("#rodape").css("width", fluidRodape);
-	$("#conteudo").css("min-height", $('#menuContexto').height()); // altura minima do conteudo
-	$("#rodapeConteudo").css("margin-left", "225px");
-	$(".sanfonaDiv").css("clear", "both");
-	$(".sanfonaDiv").css("width", "91%");
-    } // fecha função layout_fluido()
+//	$("#navglobal").css("width", fluidNavGlobal);
+//	$("#conteudo").css("width", fluidConteudo);
+//	$("#titulo").css("width", fluidTitulo);
+//	$("#rodapeConteudo").css("width", fluidConteudo);
+//	$("#imagemRodape").css("width", fluidConteudo);
+//	$("#rodape").css("width", fluidRodape);
+//	$("#conteudo").css("min-height", $('#menuContexto').height()); // altura minima do conteudo
+//	$("#rodapeConteudo").css("margin-left", "225px");
+//	$(".sanfonaDiv").css("clear", "both");
+//	$(".sanfonaDiv").css("width", "91%");
+    } // fecha funï¿½ï¿½o layout_fluido()
 
 
     /**
-     * Função para excluir os arquivos das solicitações de readequação
+     * Funï¿½ï¿½o para excluir os arquivos das solicitaï¿½ï¿½es de readequaï¿½ï¿½o
      */
     function excluir_arq_readeq(idPedidoAlteracao, idArquivo, nmArquivo) {
 	$('#modal-excluir-arquivo').dialog('destroy');
@@ -106,9 +106,9 @@ endif;
             resizable: false,
             width: 360,
             height: 180,
-            title: 'Confirmação!',
+            title: 'Confirmaï¿½ï¿½o!',
             buttons: {
-                Não: function() {
+                Nï¿½o: function() {
                     fecharModal('modal-excluir-arquivo');
                 },
                 'Sim': function() {
@@ -151,22 +151,22 @@ endif;
                     }
 		}
 	});
-    } // fecha função excluir_arq_readeq()
+    } // fecha funï¿½ï¿½o excluir_arq_readeq()
 
 
     /**
-     * Função responsável por finalizar o envio da solicitação de readequação
+     * Funï¿½ï¿½o responsï¿½vel por finalizar o envio da solicitaï¿½ï¿½o de readequaï¿½ï¿½o
      */
     function enviar_solicitacao(stPedidoAlteracao) {
 	$('#finalizarPedido').attr('value', stPedidoAlteracao);
 	fecharModal('msgConfirm1');
 	carregandoModal();
 	$('#enviar_solicitacao').submit();
-    } // fecha função enviar_solicitacao()
+    } // fecha funï¿½ï¿½o enviar_solicitacao()
 
 
     /**
-     * Ações que serão executadas após o carregamento da página
+     * Aï¿½ï¿½es que serï¿½o executadas apï¿½s o carregamento da pï¿½gina
      */
     $(document).ready(function() {
 	// ajustes do menu
@@ -174,7 +174,7 @@ endif;
             $(this).next().toggle('fast');
 	});
 
-	// finaliza o envio da solicitação de readequação
+	// finaliza o envio da solicitaï¿½ï¿½o de readequaï¿½ï¿½o
 	$('#menu_enviar_readequacao').click(function() {
             $(this).dialog('close');
             $('#msgConfirm1').dialog ({
@@ -185,7 +185,7 @@ endif;
                 title: 'Alerta!',
                 width: 320,
                 buttons: {
-                    Não: function() {
+                    Nï¿½o: function() {
                         enviar_solicitacao('T');
                     },
                     'Sim': function() {
@@ -197,13 +197,13 @@ endif;
 	});
 
 	<?php if ($this->stPedidoAlteracao === 'A' || $this->stPedidoAlteracao === 'T') : ?>
-	$('#enviar_solicitacao').show(); // exibe o formulário de envio
+	$('#enviar_solicitacao').show(); // exibe o formulï¿½rio de envio
 	<?php endif; ?>
 
 	<?php if ($this->stPedidoAlteracao === 'A') : ?>
-	// desabilita todos os formulários e botões de cadastro
-	$('.btnsModReadequacao').hide(); // esconde os botões
-	$('#formReadequacao input, #formReadequacao textarea, #formReadequacao select').attr('disabled', true); // desabilita os campos do formulário
+	// desabilita todos os formulï¿½rios e botï¿½es de cadastro
+	$('.btnsModReadequacao').hide(); // esconde os botï¿½es
+	$('#formReadequacao input, #formReadequacao textarea, #formReadequacao select').attr('disabled', true); // desabilita os campos do formulï¿½rio
 	<?php endif; ?>
 
 	<?php if ($this->stPedidoAlteracao === 'I') : ?>
@@ -222,21 +222,21 @@ endif;
 			{
 				fecharModal('projeto-em-analise');
 				carregandoModal();
-				redirecionar('<?php //echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index')); ?>?idPronac=<?php //echo $this->idPronac; ?>');
+				redirecionar('<?php //echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'));?>?idPronac=<?php //echo $this->idPronac;?>');
 			}
 		}
 	});
 	$('.ui-dialog-titlebar-close').remove();*/
 	messageTopo('H&aacute; pedido de readequa&ccedil;&atilde;o em an&aacute;lise. Favor aguardar.', 'ALERT');
-	$('#enviar_solicitacao, .btnsModReadequacao').hide(); // esconde os formulários e botões do sistema
-	$('#formReadequacao input, #formReadequacao textarea, #formReadequacao select').attr('disabled', true); // desabilita os campos do formulário
+	$('#enviar_solicitacao, .btnsModReadequacao').hide(); // esconde os formulï¿½rios e botï¿½es do sistema
+	$('#formReadequacao input, #formReadequacao textarea, #formReadequacao select').attr('disabled', true); // desabilita os campos do formulï¿½rio
 	$('.linksModReadequacao').click( function() { return false; }); // bloqueia os links
 	$('.linksModReadequacao').css('text-decoration', 'none'); // oculta os links
 	$('.linksModReadequacao').css('cursor', 'auto'); // oculta o cursor de link
-	$('.linksModReadequacao').attr('title', 'Produto disponível apenas para consulta');
+	$('.linksModReadequacao').attr('title', 'Produto disponï¿½vel apenas para consulta');
 	<?php endif; ?>
 
-	// efetua o envio dos formulários
+	// efetua o envio dos formulï¿½rios
 	$('#btn_salvar').click(function() {
 
             var preenchimento = false;
@@ -267,7 +267,7 @@ endif;
             validacao = validarFormularios();
             if (!validacao) {
                 alertModal('Alerta!', 'msgAlert3');
-                //message('Dados obrigat&oacute;rios não informados!', 'ERROR');
+                //message('Dados obrigat&oacute;rios nï¿½o informados!', 'ERROR');
                 //$('html, body').animate({scrollTop: $("#msgERROR").offset().top}, 2000);
             } else if(validacao == 'cancelarSegundaModal'){
                 return false;
@@ -278,11 +278,11 @@ endif;
                     resizable: false,
                     draggable: false,
                     closeOnEscape: false,
-                    title: 'Enviar Solicitação',
+                    title: 'Enviar Solicitaï¿½ï¿½o',
                     width: 300,
                     height: 200,
                     buttons: {
-                        Não: function() {
+                        Nï¿½o: function() {
                         fecharModal('msgConfirm0');
                         carregandoModal();
                             $('#stPedidoAlteracao').attr('value', 'A');
@@ -308,7 +308,7 @@ endif;
 
 
     /**
-     * Função para carregar os dados do histórico
+     * Funï¿½ï¿½o para carregar os dados do histï¿½rico
      */
     function carregaDados(url, divRetorno) {
 	$("#historico").html('<br><br><center>Aguarde, carregando dados...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center><br><br>');
@@ -319,24 +319,24 @@ endif;
             },
             type : 'post'
 	});
-    } // fecha função carregaDados()
+    } // fecha funï¿½ï¿½o carregaDados()
 
 
     /**
-     * Função para validar os formulários
+     * Funï¿½ï¿½o para validar os formulï¿½rios
      */
     function validarFormularios() {
 	validacao = true;
 	t = $('#tpAlteracaoProjeto').val();
 
-	// validação proponente
+	// validaï¿½ï¿½o proponente
 	if (t == 1 || t == 2) {
             if ($('#cpfcnpj').val() == '' || $('#nome').val() == '' || $('#justificativa').val() == ''){
                 validacao = false;
             }
 	}
 
-	// validação produtos
+	// validaï¿½ï¿½o produtos
 	if (t == 7) {
             /*if ($('#').val() == '' || $('#').val() == '' || $('#').val() == '')
             {
@@ -344,65 +344,65 @@ endif;
             }*/
 	}
 
-	// validação ficha técnica
+	// validaï¿½ï¿½o ficha tï¿½cnica
 	if (t == 3) {
             if ($('#fichaSolicitada').val() == '' || $('#justificativa').val() == '') {
                 validacao = false;
             }
 	}
 
-	// validação local de realização
+	// validaï¿½ï¿½o local de realizaï¿½ï¿½o
 	if (t == 4) {
             if ($('#pais').val() == '31' && ($('#uf').val() == '' || $('#cidade').val() == '') || $('#justificativa').val() == '') {
                 validacao = false;
             }
 	}
 
-	// validação nome do projeto
+	// validaï¿½ï¿½o nome do projeto
 	if (t == 5) {
             if ($('#nome').val() == '' || $('#justificativa').val() == ''){
                 validacao = false;
             }
         }
 
-	// validação prazo execução
+	// validaï¿½ï¿½o prazo execuï¿½ï¿½o
 	if (t == 9) {
             if ($('#dtInicioExecucaoSR').val() == '' || $('#dtFimExecucaoSR').val() == '' || $('#justificativa').val() == '') {
                 validacao = false;
             } else if (!validarData($('#dtInicioExecucaoSR').val())) {
-                var div = $("<div id='modal-validar-dataE-validacao1'></div>").html('Data de Início Inválida!').appendTo('body');
+                var div = $("<div id='modal-validar-dataE-validacao1'></div>").html('Data de Inï¿½cio Invï¿½lida!').appendTo('body');
                 alertModal("Alerta!", "modal-validar-dataE-validacao1");
                 return 'cancelarSegundaModal';
             } else if (!validarData($('#dtFimExecucaoSR').val())) {
-                var div = $("<div id='modal-validar-dataE-validacao2'></div>").html('Data de Fim Inválida!').appendTo('body');
+                var div = $("<div id='modal-validar-dataE-validacao2'></div>").html('Data de Fim Invï¿½lida!').appendTo('body');
                 alertModal("Alerta!", "modal-validar-dataE-validacao2");
                 return 'cancelarSegundaModal';
             } else if (compararDataInicialDataFinal($('#dtInicioExecucaoSR').val(), $('#dtFimExecucaoSR').val()) == 1){
-                var div = $("<div id='modal-validar-dataE-inicio'></div>").html('Data Início não poderá ser superior a Data Fim!').appendTo('body');
+                var div = $("<div id='modal-validar-dataE-inicio'></div>").html('Data Inï¿½cio nï¿½o poderï¿½ ser superior a Data Fim!').appendTo('body');
                 alertModal("Alerta!", "modal-validar-dataE-inicio");
                 return 'cancelarSegundaModal';
             } else if (compararDataInicialDataFinal($('#dtFimExecucao').val(), $('#dtInicioExecucaoSR').val()) != 0 || diasDecorridosEntreDuasDatas($('#dtFimExecucao').val(), $('#dtInicioExecucaoSR').val()) != 1){
-                var div = $("<div id='modal-validar-dataE-inicial'></div>").html('A nova Data de Início deve ser um dia posterior a Data Final atual!').appendTo('body');
+                var div = $("<div id='modal-validar-dataE-inicial'></div>").html('A nova Data de Inï¿½cio deve ser um dia posterior a Data Final atual!').appendTo('body');
                 alertModal("Alerta!", "modal-validar-dataE-inicial");
                 return 'cancelarSegundaModal';
             } else if ($('#dtInicioExecucaoSR').val().substr(6,4) != $('#dtFimExecucaoSR').val().substr(6,4)) {
-                var div = $("<div id='modal-validar-dataE-ano'></div>").html('As Datas deverão ser na ocorrência do mesmo ano de exercício fiscal!').appendTo('body');
+                var div = $("<div id='modal-validar-dataE-ano'></div>").html('As Datas deverï¿½o ser na ocorrï¿½ncia do mesmo ano de exercï¿½cio fiscal!').appendTo('body');
                 alertModal("Alerta!", "modal-validar-dataE-ano");
                 return 'cancelarSegundaModal';
             }
 	}
 
-	// validação prazo captação
+	// validaï¿½ï¿½o prazo captaï¿½ï¿½o
 	if (t == 8) { }
 
-	// validação proposta pedagógica
+	// validaï¿½ï¿½o proposta pedagï¿½gica
 	if (t == 6) {
             if ($('#especificacaoSolicitada').val() == '' || $('#informacoesSolicitada').val() == '')   {
                 validacao = false;
             }
 	}
 
-	// validação custos
+	// validaï¿½ï¿½o custos
 	if (t == 10) {
 		/*if ($('#').val() == '' || $('#').val() == '' || $('#').val() == '')
 		{
@@ -411,12 +411,12 @@ endif;
 	}
 
 	return validacao;
-    } // fecha função validarFormularios()
+    } // fecha funï¿½ï¿½o validarFormularios()
 </script>
 
 <script src="<?php echo $this->baseUrl(); ?>/public/js/jquery.MultiFile.js" type="text/javascript"></script>
 
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== INï¿½CIO MENU ========== -->
 <div id="menuContexto">
     <div class="top"></div>
     <div id="qm0" class="qmmc">
@@ -429,7 +429,7 @@ endif;
         </div>
         <a class="sanfona" href="#" title="Abrir menu <?php echo $menu[3][0]; ?>"><?php echo $menu[3][0]; ?></a>
         <div class="sanfonaDiv<?php echo $sumirCusto; ?>">
-            <?php $i--; // $i = 7 ?>
+            <?php $i--; // $i = 7?>
             <?php for ($j = 1; $j <= 2; $j++) : ?>
             <a class="<?php echo $mAtivo[$i+$j]; ?>" href="<?php echo $this->url(array('controller' => $controle, 'action' => $acao[$i+$j], 'idpronac' => Seguranca::encrypt($this->idPronac)), '', true); ?>" <?php echo $onClick[$i+$j]; ?> title="Ir para <?php echo $menu[3][$j]; ?>"><?php echo $menu[3][$j]; ?></a>
             <?php endfor; ?>
@@ -450,7 +450,7 @@ endif;
 
 <?php
 /**
- * Definição de todas as mensagens de validação do módulo readequação
+ * Definiï¿½ï¿½o de todas as mensagens de validaï¿½ï¿½o do mï¿½dulo readequaï¿½ï¿½o
  */
 
 // mensagens de alerta
@@ -460,7 +460,7 @@ $msgAlert[2]   = 'H&aacute; pedido de readequa&ccedil;&atilde;o em an&aacute;lis
 $msgAlert[3]   = 'Dados obrigat&oacute;rios n&atilde;o informados!';
 $msgAlert[4]   = '';
 
-// mensagens de confirmação
+// mensagens de confirmaï¿½ï¿½o
 $msgConfirm[0] = 'Solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o realizada com sucesso! Deseja fazer nova readequa&ccedil;&atilde;o?';
 $msgConfirm[1] = $this->tipoReadequacao . 'Tem certeza que deseja Enviar e Finalizar?';
 $msgConfirm[2] = '';

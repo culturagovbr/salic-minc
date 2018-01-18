@@ -11,71 +11,71 @@
 
 class tbRelatorioConsolidado extends MinC_Db_Table_Abstract
 {
-	protected $_banco  = "SAC";
-	protected $_schema = "SAC";
-	protected $_name   = "tbRelatorioConsolidado";
+    protected $_banco  = "SAC";
+    protected $_schema = "SAC";
+    protected $_name   = "tbRelatorioConsolidado";
 
-        /**
-	 * M�todo para cadastrar
-	 * @access public
-	 * @param array $dados
-	 * @return integer (retorna o �ltimo id cadastrado)
-	 */
-	public function cadastrarDados($dados)
-	{
-		return $this->insert($dados);
-	} // fecha m�todo cadastrarDados()
-
-
-
-	/**
-	 * M�todo para alterar
-	 * @access public
-	 * @param array $dados
-	 * @param integer $where
-	 * @return integer (quantidade de registros alterados)
-	 */
-	public function alterarDados($dados, $where)
-	{
-		$where = "idRelatorioConsolidado = " . $where;
-		return $this->update($dados, $where);
-	} // fecha m�todo alterarDados()
+    /**
+     * M�todo para cadastrar
+     * @access public
+     * @param array $dados
+     * @return integer (retorna o �ltimo id cadastrado)
+     */
+    public function cadastrarDados($dados)
+    {
+        return $this->insert($dados);
+    } // fecha m�todo cadastrarDados()
 
 
-        /**
-	 * M�todo para buscar o relat�rio consolidado
-	 * @access public
-	 * @param array $dados
-	 * @return array dos dados cadastrados
-	 */
-        public function buscarRelatorioPronac($idpronac)
-        {
-            $select = $this->select();
-            $select->setIntegrityCheck(false);
-            $select->from(
+
+    /**
+     * M�todo para alterar
+     * @access public
+     * @param array $dados
+     * @param integer $where
+     * @return integer (quantidade de registros alterados)
+     */
+    public function alterarDados($dados, $where)
+    {
+        $where = "idRelatorioConsolidado = " . $where;
+        return $this->update($dados, $where);
+    } // fecha m�todo alterarDados()
+
+
+    /**
+     * M�todo para buscar o relat�rio consolidado
+     * @access public
+     * @param array $dados
+     * @return array dos dados cadastrados
+     */
+    public function buscarRelatorioPronac($idpronac)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
                     array('a' => $this->_name)
             );
-            $select->joinInner(
+        $select->joinInner(
                     array('b' => 'tbRelatorio'),
                     'b.idRelatorio = a.idRelatorio',
                     array('*'),
                     'SAC.dbo'
                     );
-            $select->where('b.idPRONAC = ?', $idpronac);
+        $select->where('b.idPRONAC = ?', $idpronac);
 
-            return $this->fetchAll($select);
-        }
+        return $this->fetchAll($select);
+    }
 
 
-        /**
-	 * M�todo para consultar dados
-	 * @access public
-	 * @param array $dados
-	 * @param integer $where
-	 * @return integer (quantidade de registros)
-	 */
-        public function consultarDados ($idRelatorio) {
-
+    /**
+     * M�todo para consultar dados
+     * @access public
+     * @param array $dados
+     * @param integer $where
+     * @return integer (quantidade de registros)
+     */
+    public function consultarDados($idRelatorio)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -96,19 +96,18 @@ class tbRelatorioConsolidado extends MinC_Db_Table_Abstract
 
         
         return $this->fetchAll($select);
+    }
 
-        }
 
-
-        /**
-	 * M�todo para consultar dados
-	 * @access public
-	 * @param array $dados
-	 * @param integer $where
-	 * @return integer (quantidade de registros)
-	 */
-        public function consultarDados2 ($idRelatorio) {
-
+    /**
+     * M�todo para consultar dados
+     * @access public
+     * @param array $dados
+     * @param integer $where
+     * @return integer (quantidade de registros)
+     */
+    public function consultarDados2($idRelatorio)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -129,12 +128,11 @@ class tbRelatorioConsolidado extends MinC_Db_Table_Abstract
 
         
         return $this->fetchAll($select);
+    }
 
-        }
 
-
-        public function consultarDadosPronac ($idPronac) {
-
+    public function consultarDadosPronac($idPronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -163,7 +161,7 @@ class tbRelatorioConsolidado extends MinC_Db_Table_Abstract
                 array('nmArquivo'),
                 'BDCORPORATIVO.scCorp'
         );
-       $select->joinLeft(
+        $select->joinLeft(
                 array('f' => 'tbDescricaoRelatorioConsolidado'),
                 'f.idRelatorioConsolidado = a.idRelatorioConsolidado',
                 array('*')
@@ -171,9 +169,10 @@ class tbRelatorioConsolidado extends MinC_Db_Table_Abstract
         $select->where("b.idPRONAC = ?", $idPronac);
 
         return $this->fetchAll($select);
-        }
+    }
 
-        public function buscardsrelatorioconsolidado($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
+    public function buscardsrelatorioconsolidado($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
 
         //adiciona quantos filtros foram enviados
@@ -184,7 +183,7 @@ class tbRelatorioConsolidado extends MinC_Db_Table_Abstract
         //adicionando linha order ao select
         $slct->order($order);
 
-         $select->joinInner(
+        $select->joinInner(
                 array('d' => 'tb'),
                 'd.idDocumento = c.idDocumento',
                 array('idArquivo'),
@@ -203,80 +202,80 @@ class tbRelatorioConsolidado extends MinC_Db_Table_Abstract
     }
 
     /**
-	 * M�todo para buscar o relat�rio trimestral
-	 * @access public
-	 * @param array $dados
-	 * @return array dos dados cadastrados
-	 */
-        public function buscarstRelatorioPronac($idpronac, $status = 1)
-        {
-            $select = $this->select();
-            $select->setIntegrityCheck(false);
-            $select->from(
+     * M�todo para buscar o relat�rio trimestral
+     * @access public
+     * @param array $dados
+     * @return array dos dados cadastrados
+     */
+    public function buscarstRelatorioPronac($idpronac, $status = 1)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
                     array('a'=>$this->_name)
             );
-            $select->joinInner(
+        $select->joinInner(
                     array('b' => 'tbRelatorio'),
                     'b.idRelatorio = a.idRelatorio',
                     array('*'),
                     'SAC.dbo'
                     );
-            $select->where('b.idPRONAC = ?', $idpronac);
-            $select->where('a.stRelatorioConsolidado = ?', $status);
-            $select->where('b.tpRelatorio = ?', 'C');
+        $select->where('b.idPRONAC = ?', $idpronac);
+        $select->where('a.stRelatorioConsolidado = ?', $status);
+        $select->where('b.tpRelatorio = ?', 'C');
 
-            return $this->fetchAll($select);
-        }
+        return $this->fetchAll($select);
+    }
 
 
-        /**
-	 * M�todo para buscar o relat�rio trimestral
-	 * @access public
-	 * @param array $dados
-	 * @return array dos dados cadastrados
-	 */
-        public function buscarRelatorioConsolidado($idpronac)
-        {
-            $select = $this->select();
-            $select->setIntegrityCheck(false);
-            $select->from(
+    /**
+     * M�todo para buscar o relat�rio trimestral
+     * @access public
+     * @param array $dados
+     * @return array dos dados cadastrados
+     */
+    public function buscarRelatorioConsolidado($idpronac)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
                     array('a'=>$this->_name)
             );
-            $select->joinInner(
+        $select->joinInner(
                     array('b' => 'tbRelatorio'),
                     'b.idRelatorio = a.idRelatorio',
                     array('*'),
                     'SAC.dbo'
                     );
-            $select->where('b.idPRONAC = ?', $idpronac);
-            $select->where('b.tpRelatorio = ?', 'C');
+        $select->where('b.idPRONAC = ?', $idpronac);
+        $select->where('b.tpRelatorio = ?', 'C');
 
-            return $this->fetchAll($select);
-        }
+        return $this->fetchAll($select);
+    }
 
-        /**
-	 * M�todo para liberar a finaliza��o do relat�rio consolidado
-         * Se estes 3 campos estiverem preenchidos � sinal para que o toda a avalia��o do relatorio consolidado foi feita.
-	 * @access public
-	 * @param array $dados
-	 * @return array dos dados cadastrados
-	 */
-        public function consultarAvaliacaoRelatorioConsolidado($idpronac)
-        {
-            $select = $this->select();
-            $select->setIntegrityCheck(false);
-            $select->from(
+    /**
+     * M�todo para liberar a finaliza��o do relat�rio consolidado
+     * Se estes 3 campos estiverem preenchidos � sinal para que o toda a avalia��o do relatorio consolidado foi feita.
+     * @access public
+     * @param array $dados
+     * @return array dos dados cadastrados
+     */
+    public function consultarAvaliacaoRelatorioConsolidado($idpronac)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
                     array('a'=>$this->_name),
                     array('a.stObjetivosMetas','a.stTermoProjeto','a.stProduto')
             );
-            $select->joinInner(
+        $select->joinInner(
                     array('b' => 'tbRelatorio'),
                     'b.idRelatorio = a.idRelatorio',
                     array(),
                     'SAC.dbo'
                     );
-            $select->where('b.idPRONAC = ?', $idpronac);
+        $select->where('b.idPRONAC = ?', $idpronac);
 
-            return $this->fetchAll($select);
-        }
+        return $this->fetchAll($select);
+    }
 } // fecha class

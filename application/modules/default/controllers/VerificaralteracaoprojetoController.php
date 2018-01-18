@@ -17,16 +17,14 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
 
-        if ($auth->hasIdentity()) // caso o usu�rio esteja autenticado
-        {
+        if ($auth->hasIdentity()) { // caso o usu�rio esteja autenticado
             // verifica as permiss�es
             $PermissoesGrupo = array();
             $PermissoesGrupo[] = 93;
             $PermissoesGrupo[] = 103;
             // $PermissoesGrupo[] = 119;
             // $PermissoesGrupo[] = 120;
-            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) // verifica se o grupo ativo est� no array de permiss�es
-            {
+            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
                 parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
             }
 
@@ -39,8 +37,7 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
             $this->view->grupoAtivo = $GrupoAtivo->codGrupo; // manda o grupo ativo do usu�rio para a vis�o
             $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o �rg�o ativo do usu�rio para a vis�o
         } // fecha if
-        else // caso o usu�rio n�o esteja autenticado
-        {
+        else { // caso o usu�rio n�o esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
@@ -58,41 +55,39 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
         $Result['ProrrogacaoPrazoCaptacao'] = array();
         $Result['ProrrogacaoPrazoExecucao'] = array();
 
-        foreach ($resultadobusca as $ResultAltBusca)
-        {
-            switch ($ResultAltBusca->tpAlteracaoProjeto)
-            {
-                case 1 :
+        foreach ($resultadobusca as $ResultAltBusca) {
+            switch ($ResultAltBusca->tpAlteracaoProjeto) {
+                case 1:
                     {
                         $Result['NomeProponente'][] = $ResultAltBusca;
                         break;
                     }
-                case 2 :
+                case 2:
                     {
                         $Result['RazaoSocial'][] = $ResultAltBusca;
                         break;
                     }
-                case 3 :
+                case 3:
                     {
                         $Result['FichaTecnica'][] = $ResultAltBusca;
                         break;
                     }
-                case 4 :
+                case 4:
                     {
                         $Result['LocalRealizacao'][] = $ResultAltBusca;
                         break;
                     }
-                case 5 :
+                case 5:
                     {
                         $Result['NomeProjeto'][] = $ResultAltBusca;
                         break;
                     }
-                case 9 :
+                case 9:
                     {
                         $Result['ProrrogacaoPrazoCaptacao'][] = $ResultAltBusca;
                         break;
                     }
-                case 10 :
+                case 10:
                     {
                         $Result['ProrrogacaoPrazoExecucao'][] = $ResultAltBusca;
                         break;
@@ -118,17 +113,12 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
 
     public function nomeprojetoAction()
     {
-        if ($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
-            if ($recebidoPost->stAprovacao == 'RT')
-            {
+            if ($recebidoPost->stAprovacao == 'RT') {
                 $this->RetornoTecnico($_POST);
-            }
-            else
-            {
-                if ($recebidoPost->stAprovacao == 'D')
-                {
+            } else {
+                if ($recebidoPost->stAprovacao == 'D') {
                     $recDadosParaAlteracao = tbalteracaonomeprojetoDAO::buscarDadosNmProj($_POST['idpedidoalteracao']);
                     $dadosalterar = array("nomeProjeto" => $recDadosParaAlteracao[0]->nmprojeto);
                     tbalteracaonomeprojetoDAO::alterarNomeProjeto($dadosalterar, $recDadosParaAlteracao[0]->idPRONAC);
@@ -152,17 +142,12 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
 
     public function solaltrazsocAction()
     {
-        if ($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
-            if ($recebidoPost->stAprovacao == 'RT')
-            {
+            if ($recebidoPost->stAprovacao == 'RT') {
                 $this->RetornoTecnico($_POST);
-            }
-            else
-            {
-                if ($recebidoPost->stAprovacao == 'D')
-                {
+            } else {
+                if ($recebidoPost->stAprovacao == 'D') {
                     $recDadosParaAlteracao = tbalteracaoaltrazDAO::buscarDadosAltRaz($_POST['idpedidoalteracao']);
                     $dadosalterar = array("descricao" => $recDadosParaAlteracao[0]->nmrazaosocial);
                     tbalteracaoaltrazDAO::alterarRazaoSocialProjeto($dadosalterar, $recDadosParaAlteracao[0]->idAgente);
@@ -185,17 +170,12 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
 
     public function solaltnomprpAction()
     {
-        if ($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
-            if ($recebidoPost->stAprovacao == 'RT')
-            {
+            if ($recebidoPost->stAprovacao == 'RT') {
                 $this->RetornoTecnico($_POST);
-            }
-            else
-            {
-                if ($recebidoPost->stAprovacao == 'D')
-                {
+            } else {
+                if ($recebidoPost->stAprovacao == 'D') {
                     $recDadosParaAlteracao = tbalteracaonomeproponenteDAO::buscarDadosAltNomProp($_POST['idpedidoalteracao']);
                     $dadosalterar = array("cgccpf" => $recDadosParaAlteracao[0]->nrCNPJCPF);
                     tbalteracaonomeproponenteDAO::alterarNomeProponente($dadosalterar, $recDadosParaAlteracao[0]->idPRONAC);
@@ -218,26 +198,16 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
 
     public function solaltlocrelAction()
     {
-
-        if ($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
-            if ($recebidoPost->stAprovacao == 'RT')
-            {
+            if ($recebidoPost->stAprovacao == 'RT') {
                 $this->RetornoTecnico($_POST);
-            }
-            else
-            {
-                if ($recebidoPost->stAprovacao == 'D')
-                {
+            } else {
+                if ($recebidoPost->stAprovacao == 'D') {
                     $recDadosParaAlteracaoAltLocalRel = tbalteracaolocalrealizacaoDAO::buscarDadosAltLocRel($_POST['idpedidoalteracao']);
-                    foreach ($recDadosParaAlteracaoAltLocalRel as $dados)
-                    {
-                        
+                    foreach ($recDadosParaAlteracaoAltLocalRel as $dados) {
                     }
-                }
-                else
-                {
+                } else {
                     $this->InserirStatusAvaliacaoProjeto($_POST);
                 }
             }
@@ -258,15 +228,11 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
 
     public function solaltfictecAction()
     {
-        if ($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
-            if ($recebidoPost->stAprovacao == 'RT')
-            {
+            if ($recebidoPost->stAprovacao == 'RT') {
                 $this->RetornoTecnico($_POST);
-            }
-            else
-            {
+            } else {
                 $this->InserirStatusAvaliacaoProjeto($_POST);
             }
         }
@@ -284,29 +250,21 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
 
     public function solaltprogprazcapAction()
     {
-        if ($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
-            if ($recebidoPost->stAprovacao == 'RT')
-            {
+            if ($recebidoPost->stAprovacao == 'RT') {
                 $this->RetornoTecnico($_POST);
-            }
-            else
-            {
-                if ($recebidoPost->stAprovacao == 'D')
-                {
+            } else {
+                if ($recebidoPost->stAprovacao == 'D') {
                     $recDadosParaAlteracao = tbprorrogacaoprazoDao::buscarDadosProrrogacaoPrazo($_POST['idpedidoalteracao']);
                     $datainicioprazo = Data::tratarDataZend($recDadosParaAlteracao[0]->dtinicioprazo, 'americano');
                     $datafimprazo = Data::tratarDataZend($recDadosParaAlteracao[0]->dtfimprazo, 'americano');
                     $dadosalterar = array("dtiniciocaptacao" => $datainicioprazo, "dtfimcaptacao" => $datafimprazo);
                     $result = tbprorrogacaoprazoDao::alterarProrrogracaoPrazoCap($dadosalterar, $recDadosParaAlteracao[0]->idPRONAC);
-                    if ($result)
-                    {
+                    if ($result) {
                         $this->InserirStatusAvaliacaoProjeto($_POST);
                     };
-                }
-                else
-                {
+                } else {
                     $this->InserirStatusAvaliacaoProjeto($_POST);
                 }
             }
@@ -326,29 +284,21 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
 
     public function solaltprogprazexecAction()
     {
-        if ($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
-            if ($recebidoPost->stAprovacao == 'RT')
-            {
+            if ($recebidoPost->stAprovacao == 'RT') {
                 $this->RetornoTecnico($_POST);
-            }
-            else
-            {
-                if ($recebidoPost->stAprovacao == 'D')
-                {
+            } else {
+                if ($recebidoPost->stAprovacao == 'D') {
                     $recDadosParaAlteracao = tbprorrogacaoprazoDao::buscarDadosProrrogacaoPrazo($_POST['idpedidoalteracao']);
                     $datainicioprazo = Data::tratarDataZend($recDadosParaAlteracao[0]->dtinicioprazo, 'americano');
                     $datafimprazo = Data::tratarDataZend($recDadosParaAlteracao[0]->dtfimprazo, 'americano');
                     $dadosalterar = array("dtinicioexecucao" => $datainicioprazo, "dtfimexecucao" => $datafimprazo);
                     tbprorrogacaoprazoDao::alterarProrrogracaoPrazoExec($dadosalterar, $recDadosParaAlteracao[0]->idPRONAC);
-                    if ($result)
-                    {
+                    if ($result) {
                         $this->InserirStatusAvaliacaoProjeto($_POST);
                     };
-                }
-                else
-                {
+                } else {
                     $this->InserirStatusAvaliacaoProjeto($_POST);
                 }
             }
@@ -364,7 +314,6 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
 
     public function InserirStatusAvaliacaoProjeto($post)
     {
-
         $idpedidoalteracao = $post['idpedidoalteracao'];
         $dsJustificativaAvaliacao = $post['dsJustificativaAvaliacao'];
         $stDeferimentoAvaliacao = $post['stAprovacao'];
@@ -376,10 +325,9 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
             "stDeferimentoAvaliacao" => $stDeferimentoAvaliacao);
 
         $query = tbPedidoAlteracaoProjetoCoordDAO::updateDadosProjeto($parecerCoordenador, $idpedidoalteracao);
-        if ($query)
-        {
+        if ($query) {
             $this->_redirect('verificaralteracaocoordenador/');
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
     }
 
@@ -396,19 +344,17 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
 
         $query = tbPedidoAlteracaoProjetoCoordDAO::UpdateAvaliacaoProjeto($parecerCoordenador, $idpedidoalteracao, $dtparecertecnico);
 
-        if ($query)
-        {
+        if ($query) {
             $this->_redirect('verificaralteracaocoordenador/');
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
     }
 
     public static function VerificarCpfCnpj($dado)
     {
         $qtdcarecteres = strlen($dado);
-        switch ($qtdcarecteres)
-        {
-            case 11 :
+        switch ($qtdcarecteres) {
+            case 11:
                 {
                     $retorno = Mascara::addMaskCPF($dado);
                 }
@@ -422,8 +368,7 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
 
     public static function BuscarDadosTabelasAlt($idpedidoalteracao, $tpalteracao)
     {
-        switch ($tpalteracao)
-        {
+        switch ($tpalteracao) {
             case 1:
                 {
                     $nomProp = tbalteracaonomeproponenteDAO::buscarDadosAltNomProp($idpedidoalteracao);
@@ -451,6 +396,4 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
                 }
         }
     }
-
 }
-

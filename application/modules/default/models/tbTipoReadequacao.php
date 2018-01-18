@@ -9,11 +9,12 @@
 
 class tbTipoReadequacao extends MinC_Db_Table_Abstract
 {
-	protected $_banco  = "SAC";
-	protected $_schema = "SAC";
-	protected $_name   = "tbTipoReadequacao";
+    protected $_banco  = "SAC";
+    protected $_schema = "SAC";
+    protected $_name   = "tbTipoReadequacao";
 
-    public function buscarTiposReadequacoesPermitidos($idPronac) {
+    public function buscarTiposReadequacoesPermitidos($idPronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -33,5 +34,4 @@ class tbTipoReadequacao extends MinC_Db_Table_Abstract
         
         return $this->fetchAll($select);
     }
-
 }

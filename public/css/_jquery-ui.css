@@ -1,0 +1,120 @@
+/*--------------------------------------------------------------
+x - JQUERY
+--------------------------------------------------------------*/
+#Jquery {
+    margin: 50px;
+    font: 12px "Trebuchet MS", sans-serif;
+}
+
+.ui-dialog {
+    font-size: 14px;
+}
+/*--------------------------------------------------------------
+x - DATE PICKER
+--------------------------------------------------------------*/
+.ui-dialog .ui-dialog-title {
+    font-weight: bold;
+    color: #fff;
+}
+.ui-datepicker .ui-datepicker-title {
+    font-size: 20px;
+}
+
+.ui-datepicker td span, .ui-datepicker td a {
+    padding: 0.5em;
+    font-size: 18px;
+}
+
+.ui-dialog .ui-dialog-titlebar {
+    background: rgb(76,175,80);
+}
+.ui-dialog .ui-dialog-buttonpane button {
+    background-color: rgb(76,175,80);
+    box-shadow: none;
+    border: none;
+    padding: 10px 20px !important;
+}
+
+.ui-dialog .ui-dialog-buttonpane button:hover,
+.ui-dialog .ui-dialog-buttonpane button:active {
+    background-color: #2bbbad;
+}
+
+.ui-dialog table {
+    width: 100%;
+    margin: 0px;
+}
+
+.ui-dialog table > tbody > tr:hover,
+.ui-dialog table tr:nth-child(odd),
+.ui-dialog table > tbody > tr:nth-child(odd) {
+    background: transparent;
+}
+
+.ui-dialog table tr td {
+    border: solid 2px #ccc;
+}
+.ui-dialog table tr td.destacar {
+    background: #388E3C;
+    color: #fff;
+    padding: 8px 5px;
+}
+
+.ui-dialog table tr td.bold {
+    font-weight: bold;
+}
+
+.ui-dialog table tr td.green {
+    background-color: transparent !important;
+    color: #4CAF50;
+    font-weight: bold;
+}
+.ui-widget-content {
+    background: #f8f8f8 !important;
+}
+
+.ui-dialog  .ui-widget-content {
+    /*height: 100% !important;*/
+}
+
+.ui-dialog input[type="text"],
+.ui-dialog textarea,
+.ui-dialog select.input_simples {
+    /*width: 100%;*/
+    border: 1px solid #676767;
+    background: #fff;
+    min-height: 25px;
+}
+
+.ui-dialog input[type="text"][disabled],
+.ui-dialog textarea[disabled],
+.ui-dialog select.input_simples[disabled]{
+    background: rgb(230, 230, 230);
+}
+
+.ui-dialog textarea {
+    min-height: 5rem;
+}
+
+.ui-dialog label {
+    color: #212121;
+    /*padding: 5px;*/
+}
+
+.ui-datepicker .ui-datepicker-header {
+    background: #388e3c;
+    color: #fff;
+    font-weight: bold;
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default {
+    border: 1px solid transparent;
+}
+
+.ui-datepicker table > tbody > tr{
+    background: #388e3c;
+}
+
+.ui-datepicker th, .ui-datepicker td {
+    border-radius: 0;
+}

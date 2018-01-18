@@ -10,8 +10,8 @@
  * @link http://www.cultura.gov.br
  * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
  */
-class AnexospublicosController extends MinC_Controller_Action_Abstract {
-
+class AnexospublicosController extends MinC_Controller_Action_Abstract
+{
     private $idPreProjeto = null;
     private $idPronac = null;
     private $limiteTamanhoArq = null;
@@ -30,9 +30,9 @@ class AnexospublicosController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function init() {
-
-      parent::init(); 
+    public function init()
+    {
+        parent::init();
     }
 
     /**
@@ -41,7 +41,8 @@ class AnexospublicosController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function abrirAction() {
+    public function abrirAction()
+    {
         // recebe o id do arquivo via get
         $get = Zend_Registry::get('get');
         $id = (int) isset($get->id) ? $get->id : $this->_request->getParam('id');
@@ -90,7 +91,8 @@ class AnexospublicosController extends MinC_Controller_Action_Abstract {
      * @return void
      */
   
-    public function abrirdocumentosanexadosAction() {
+    public function abrirdocumentosanexadosAction()
+    {
         // recebe o id do arquivo via get
         $get = Zend_Registry::get('get');
         $id = (int) $get->id;
@@ -154,8 +156,6 @@ class AnexospublicosController extends MinC_Controller_Action_Abstract {
             } // fecha foreach
         } // fecha else
     }
-
-  
 }
 
 // fecha class

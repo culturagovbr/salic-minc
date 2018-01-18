@@ -10,7 +10,8 @@ class Logomarca extends MinC_Db_Table_Abstract
     protected $_schema = "sac";
     protected $_name = "tblogomarca";
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
@@ -26,19 +27,16 @@ class Logomarca extends MinC_Db_Table_Abstract
     {
         $slct = $this->select();
 
-        foreach ($where as $coluna=>$valor)
-        {
+        foreach ($where as $coluna=>$valor) {
             $slct->where($coluna, $valor);
         }
 
         $slct->order($order);
 
         // paginacao
-        if ($tamanho > -1)
-        {
+        if ($tamanho > -1) {
             $tmpInicio = 0;
-            if ($inicio > -1)
-            {
+            if ($inicio > -1) {
                 $tmpInicio = $inicio;
             }
             $slct->limit($tamanho, $tmpInicio);

@@ -13,7 +13,6 @@
  */
 class ServicosReceitaFederal
 {
-
     const urlPessoaFisica = "pessoa_fisica/consultar/";
     const urlPessoaJuridica = "pessoa_juridica/consultar/";
     const urlForcar = "?forcarBuscaNaReceita=true";
@@ -204,5 +203,4 @@ class ServicosReceitaFederal
     {
         debug("O m&eacute;todo " . $strMethod . " n&atilde;o foi encontrado na classe " . get_class($this) . ".<br />" . __FILE__ . "(linha " . __LINE__ . ")", 1);
     }
-
 }

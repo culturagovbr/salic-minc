@@ -6,7 +6,8 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
     protected $_name      = 'tbDocumentoAssinatura';
     protected $_primary   = 'idDocumentoAssinatura';
 
-    public function obterDocumentoAssinatura($idPronac, $idTipoDoAtoAdministrativo) {
+    public function obterDocumentoAssinatura($idPronac, $idTipoDoAtoAdministrativo)
+    {
         $objQuery = $this->select();
         $objQuery->setIntegrityCheck(false);
         $objQuery->from(
@@ -18,7 +19,7 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
         $objQuery->where('idTipoDoAtoAdministrativo = ?', $idTipoDoAtoAdministrativo);
 
         $result = $this->fetchRow($objQuery);
-        if($result) {
+        if ($result) {
             return $result->toArray();
         }
     }
@@ -30,19 +31,21 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
 
         $queryPlanilhaOrcamentaria = $this->select();
         $queryPlanilhaOrcamentaria->setIntegrityCheck(false);
-        $queryPlanilhaOrcamentaria->from('tbPlanilhaAprovacao',
+        $queryPlanilhaOrcamentaria->from(
+            'tbPlanilhaAprovacao',
             array(
-                "vlAprovado" => New Zend_Db_Expr(
+                "vlAprovado" => new Zend_Db_Expr(
                     "tbPlanilhaAprovacao.vlUnitario * tbPlanilhaAprovacao.qtItem * tbPlanilhaAprovacao.nrOcorrencia"
                 )
-            ), $this->_schema
+            ),
+            $this->_schema
         );
         $queryPlanilhaOrcamentaria->where("tbPlanilhaAprovacao.IdPRONAC = projetos.IdPRONAC");
 
         $query->from(
             array("Projetos" => "Projetos"),
             array(
-                'pronac' => New Zend_Db_Expr('Projetos.AnoProjeto + Projetos.Sequencial'),
+                'pronac' => new Zend_Db_Expr('Projetos.AnoProjeto + Projetos.Sequencial'),
                 'Projetos.nomeProjeto',
                 'Projetos.IdPRONAC',
                 'Projetos.CgcCpf',
@@ -113,16 +116,15 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
         $idOrgaoDoAssinante,
         $idPerfilDoAssinante,
         $idOrgaoSuperiorDoAssinante,
-        $idTipoDoAtoAdministrativo = NULL
-    )
-    {
+        $idTipoDoAtoAdministrativo = null
+    ) {
         $query = $this->select();
         $query->setIntegrityCheck(false);
 
         $query->from(
             array("Projetos" => "Projetos"),
             array(
-                'pronac' => New Zend_Db_Expr('Projetos.AnoProjeto + Projetos.Sequencial'),
+                'pronac' => new Zend_Db_Expr('Projetos.AnoProjeto + Projetos.Sequencial'),
                 'Projetos.nomeProjeto',
                 'Projetos.IdPRONAC',
                 'Projetos.CgcCpf',
@@ -229,7 +231,7 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
         $query->where("tbDocumentoAssinatura.cdSituacao = ?", Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA);
         $query->where("tbDocumentoAssinatura.stEstado = ?", Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO);
 
-        if($idTipoDoAtoAdministrativo) {
+        if ($idTipoDoAtoAdministrativo) {
             $query->where("tbDocumentoAssinatura.idTipoDoAtoAdministrativo = ?", $idTipoDoAtoAdministrativo);
         }
 
@@ -238,7 +240,8 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
         return $this->_db->fetchAll($query);
     }
 
-    public function isProjetoDisponivelParaAssinatura($idPronac, $idTipoDoAtoAdministrativo) {
+    public function isProjetoDisponivelParaAssinatura($idPronac, $idTipoDoAtoAdministrativo)
+    {
         $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
         $where = array(
             'IdPRONAC = ?' => $idPronac,
@@ -253,7 +256,6 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
 
     public function obterDocumentosAssinadosPorProjeto($idPronac)
     {
-
         $objQuery = $this->select();
         $objQuery->setIntegrityCheck(false);
         $objQuery->from(
@@ -270,7 +272,7 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
             ["Projetos" => "Projetos"],
             "tbDocumentoAssinatura.IdPRONAC = Projetos.IdPRONAC",
             [
-                'pronac' => New Zend_Db_Expr('Projetos.AnoProjeto + Projetos.Sequencial'),
+                'pronac' => new Zend_Db_Expr('Projetos.AnoProjeto + Projetos.Sequencial'),
                 'Projetos.nomeProjeto',
                 'Projetos.IdPRONAC',
             ],

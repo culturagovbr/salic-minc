@@ -6,295 +6,286 @@
 
 class tbRecurso extends MinC_Db_Table_Abstract
 {
-	protected $_schema = "SAC";
-	protected $_name   = "tbRecurso";
+    protected $_schema = "SAC";
+    protected $_name   = "tbRecurso";
 
-	/**
-	 * Metodo para buscar o(s) recursos(s)
-	 * @access public
-	 * @param $idPronac integer
-	 * @param $idPlanilhaAprovacao integer
-	 * @return object
-	 */
-	public function buscarDados($idPronac = null, $idPlanilhaAprovacao = null)
-	{
-		$select = $this->select();
-		$select->setIntegrityCheck(false);
-		$select->from(
-			array("r" => $this->_name)
-			,array("r.idRecurso"
-				,"CONVERT(CHAR(10), r.dtSolicitacaoRecurso,103) + ' ' + CONVERT(CHAR(8), r.dtSolicitacaoRecurso,108) AS dtSolicitacaoRecurso"
-				,"CAST(r.dsSolicitacaoRecurso AS TEXT) AS dsSolicitacaoRecurso"
-				,"proponente.CNPJCPF AS CNPJCPFProponente"
-				,"nmProponente.Descricao AS Proponente"
-				,"CONVERT(CHAR(10), r.dtAvaliacao,103) + ' ' + CONVERT(CHAR(8), r.dtAvaliacao,108) AS dtAvaliacao"
-				,"CAST(r.dsAvaliacao AS TEXT) AS dsAvaliacao"
-				,"r.stAtendimento"
-				,"r.tpSolicitacao"
-				,"ministro.CNPJCPF AS CNPJCPFMinistro"
-				,"nmMinistro.Descricao AS Ministro"
-				,"rx.idPlanilhaAprovacao"
-				,"rx.stRecursoAprovacao"
-				,"CAST(rx.dsJustificativa AS TEXT) AS dsJustificativaProponente"
-				,"CAST(papm.dsJustificativa AS TEXT) AS dsJustificativaMinistro"
-				,"pi.Descricao AS Item"
-				)
-		);
+    /**
+     * Metodo para buscar o(s) recursos(s)
+     * @access public
+     * @param $idPronac integer
+     * @param $idPlanilhaAprovacao integer
+     * @return object
+     */
+    public function buscarDados($idPronac = null, $idPlanilhaAprovacao = null)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            array("r" => $this->_name),
+            array("r.idRecurso"
+                ,"CONVERT(CHAR(10), r.dtSolicitacaoRecurso,103) + ' ' + CONVERT(CHAR(8), r.dtSolicitacaoRecurso,108) AS dtSolicitacaoRecurso"
+                ,"CAST(r.dsSolicitacaoRecurso AS TEXT) AS dsSolicitacaoRecurso"
+                ,"proponente.CNPJCPF AS CNPJCPFProponente"
+                ,"nmProponente.Descricao AS Proponente"
+                ,"CONVERT(CHAR(10), r.dtAvaliacao,103) + ' ' + CONVERT(CHAR(8), r.dtAvaliacao,108) AS dtAvaliacao"
+                ,"CAST(r.dsAvaliacao AS TEXT) AS dsAvaliacao"
+                ,"r.stAtendimento"
+                ,"r.tpSolicitacao"
+                ,"ministro.CNPJCPF AS CNPJCPFMinistro"
+                ,"nmMinistro.Descricao AS Ministro"
+                ,"rx.idPlanilhaAprovacao"
+                ,"rx.stRecursoAprovacao"
+                ,"CAST(rx.dsJustificativa AS TEXT) AS dsJustificativaProponente"
+                ,"CAST(papm.dsJustificativa AS TEXT) AS dsJustificativaMinistro"
+                ,"pi.Descricao AS Item"
+                )
+        );
 
-		$select->joinLeft(
-			array("rx" => "tbRecursoXPlanilhaAprovacao")
-			,"r.idRecurso = rx.idRecurso"
-			,array()
-		);
-		$select->joinLeft(
-			array("pa" => "tbPlanilhaAprovacao")
-			,"rx.idPlanilhaAprovacao = pa.idPlanilhaAprovacao"
-			,array()
-		);
-		$select->joinLeft(
-			array("pi" => "tbPlanilhaItens")
-			,"pi.idPlanilhaItens = pa.idPlanilhaItem"
-			,array()
-		);
-		$select->joinLeft(
-			array("proponente" => "Agentes")
-			,"proponente.idAgente = r.idAgenteSolicitante"
-			,array()
-			,"AGENTES.dbo"
-		);
-		$select->joinLeft(
-			array("nmProponente" => "Nomes")
-			,"nmProponente.idAgente = proponente.idAgente"
-			,array()
-			,"AGENTES.dbo"
-		);
-		$select->joinLeft(
-			array("ministro" => "Agentes")
-			,"ministro.idAgente = r.idAgenteAvaliador"
-			,array()
-			,"AGENTES.dbo"
-		);
-		$select->joinLeft(
-			array("nmMinistro" => "Nomes")
-			,"nmMinistro.idAgente = ministro.idAgente"
-			,array()
-			,"AGENTES.dbo"
-		);
+        $select->joinLeft(
+            array("rx" => "tbRecursoXPlanilhaAprovacao"),
+            "r.idRecurso = rx.idRecurso",
+            array()
+        );
+        $select->joinLeft(
+            array("pa" => "tbPlanilhaAprovacao"),
+            "rx.idPlanilhaAprovacao = pa.idPlanilhaAprovacao",
+            array()
+        );
+        $select->joinLeft(
+            array("pi" => "tbPlanilhaItens"),
+            "pi.idPlanilhaItens = pa.idPlanilhaItem",
+            array()
+        );
+        $select->joinLeft(
+            array("proponente" => "Agentes"),
+            "proponente.idAgente = r.idAgenteSolicitante",
+            array(),
+            "AGENTES.dbo"
+        );
+        $select->joinLeft(
+            array("nmProponente" => "Nomes"),
+            "nmProponente.idAgente = proponente.idAgente",
+            array(),
+            "AGENTES.dbo"
+        );
+        $select->joinLeft(
+            array("ministro" => "Agentes"),
+            "ministro.idAgente = r.idAgenteAvaliador",
+            array(),
+            "AGENTES.dbo"
+        );
+        $select->joinLeft(
+            array("nmMinistro" => "Nomes"),
+            "nmMinistro.idAgente = ministro.idAgente",
+            array(),
+            "AGENTES.dbo"
+        );
 
-		// avaliacao do ministro
-		$select->joinLeft(
-			array("papm" => "tbPlanilhaAprovacao")
-			,"rx.idPlanilhaAprovacao = papm.idPlanilhaAprovacaoPai AND papm.tpPlanilha = 'MI'"
-			,array()
-		);
+        // avaliacao do ministro
+        $select->joinLeft(
+            array("papm" => "tbPlanilhaAprovacao"),
+            "rx.idPlanilhaAprovacao = papm.idPlanilhaAprovacaoPai AND papm.tpPlanilha = 'MI'",
+            array()
+        );
 
-		// filtra pelo idPronac
-		if (!empty($idPronac))
-		{
-			$select->where("r.IdPRONAC = ?", $idPronac);
-		}
+        // filtra pelo idPronac
+        if (!empty($idPronac)) {
+            $select->where("r.IdPRONAC = ?", $idPronac);
+        }
 
-		// filtra pelo idPlanilhaAprovacao
-		if (!empty($idPlanilhaAprovacao))
-		{
-			$select->where("rx.idPlanilhaAprovacao = ?", $idPlanilhaAprovacao);
-		}
+        // filtra pelo idPlanilhaAprovacao
+        if (!empty($idPlanilhaAprovacao)) {
+            $select->where("rx.idPlanilhaAprovacao = ?", $idPlanilhaAprovacao);
+        }
 
-		$select->order("r.dtSolicitacaoRecurso DESC");
-		$select->order("r.dtAvaliacao DESC");
-		$select->order("pi.Descricao");
+        $select->order("r.dtSolicitacaoRecurso DESC");
+        $select->order("r.dtAvaliacao DESC");
+        $select->order("pi.Descricao");
 
-		return $this->fetchAll($select);
-	} // fecha metodo buscarDados()
+        return $this->fetchAll($select);
+    } // fecha metodo buscarDados()
 
 
-	/**
-	 * Metodo para cadastrar
-	 * @access public
-	 * @param array $dados
-	 * @return integer (retorna o ultimo id cadastrado)
-	 */
-	public function cadastrarDados($dados)
-	{
-		return $this->insert($dados);
-	}
+    /**
+     * Metodo para cadastrar
+     * @access public
+     * @param array $dados
+     * @return integer (retorna o ultimo id cadastrado)
+     */
+    public function cadastrarDados($dados)
+    {
+        return $this->insert($dados);
+    }
 
 
-	/**
-	 * Metodo para alterar
-	 * @access public
-	 * @param array $dados
-	 * @param integer $where
-	 * @return integer (quantidade de registros alterados)
-	 */
-	public function alterarDados($dados, $where)
-	{
-		$where = "idRecurso = " . $where;
-		return $this->update($dados, $where);
-	} // fecha metodo alterarDados()
+    /**
+     * Metodo para alterar
+     * @access public
+     * @param array $dados
+     * @param integer $where
+     * @return integer (quantidade de registros alterados)
+     */
+    public function alterarDados($dados, $where)
+    {
+        $where = "idRecurso = " . $where;
+        return $this->update($dados, $where);
+    } // fecha metodo alterarDados()
 
 
-	/**
-	 * Metodo para excluir
-	 * @access public
-	 * @param integer $idPronac (excluir todos os recursos de um projeto)
-	 * @param integer $idRecurso (excluir um determinado recurso)
-	 * @return integer (quantidade de registros excluidos)
-	 */
-	public function excluirDados($idPronac = null, $idRecurso = null)
-	{
-		// exclui todos os recursos de um projeto
-		if (!empty($idPronac))
-		{
-			$where = "IdPRONAC = " . $idPronac;
-		}
+    /**
+     * Metodo para excluir
+     * @access public
+     * @param integer $idPronac (excluir todos os recursos de um projeto)
+     * @param integer $idRecurso (excluir um determinado recurso)
+     * @return integer (quantidade de registros excluidos)
+     */
+    public function excluirDados($idPronac = null, $idRecurso = null)
+    {
+        // exclui todos os recursos de um projeto
+        if (!empty($idPronac)) {
+            $where = "IdPRONAC = " . $idPronac;
+        }
 
-		// exclui um determinado recurso
-		else if (!empty($idRecurso))
-		{
-			$where = "idRecurso = " . $idRecurso;
-		}
+        // exclui um determinado recurso
+        elseif (!empty($idRecurso)) {
+            $where = "idRecurso = " . $idRecurso;
+        }
 
-		return $this->delete($where);
-	} // fecha metodo excluirDados()
+        return $this->delete($where);
+    } // fecha metodo excluirDados()
 
 
-	/**
-	 * Metodo para buscar os projetos com solicitacao de recurso
-	 * @access public
-	 * @param $idPronac integer
-	 * @param $tpSolicitacao string
-	 * @return object
-	 */
-	public function buscarSolicitacaoRecurso($idPronac = null, $tpSolicitacao = null)
-	{
-		$select = $this->select();
-		$select->setIntegrityCheck(false);
-		$select->distinct();
-		$select->from(
-			array("rec" => $this->_name)
-			,array("Pr.IdPRONAC"
-				,"(Pr.AnoProjeto+Pr.Sequencial) AS pronac"
-				,"Rec.idRecurso"
-				,"Rec.dsSolicitacaoRecurso"
-				,"CONVERT(CHAR(10),Rec.dtSolicitacaoRecurso,103) + ' ' + CONVERT(CHAR(10),Rec.dtSolicitacaoRecurso,108) AS dtSolicitacaoRecurso"
-				,"Pr.IdPRONAC"
-				,"Pr.CgcCpf"
-				,"Pr.NomeProjeto"
-				,"Ar.Descricao AS Area"
-				,"Seg.Descricao AS Segmento"
-				,"CONVERT(CHAR(10),Pr.DtInicioExecucao,103) AS DataInicio"
-				,"CONVERT(CHAR(10),Pr.DtFimExecucao,103) AS DataFim"
+    /**
+     * Metodo para buscar os projetos com solicitacao de recurso
+     * @access public
+     * @param $idPronac integer
+     * @param $tpSolicitacao string
+     * @return object
+     */
+    public function buscarSolicitacaoRecurso($idPronac = null, $tpSolicitacao = null)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->distinct();
+        $select->from(
+            array("rec" => $this->_name),
+            array("Pr.IdPRONAC"
+                ,"(Pr.AnoProjeto+Pr.Sequencial) AS pronac"
+                ,"Rec.idRecurso"
+                ,"Rec.dsSolicitacaoRecurso"
+                ,"CONVERT(CHAR(10),Rec.dtSolicitacaoRecurso,103) + ' ' + CONVERT(CHAR(10),Rec.dtSolicitacaoRecurso,108) AS dtSolicitacaoRecurso"
+                ,"Pr.IdPRONAC"
+                ,"Pr.CgcCpf"
+                ,"Pr.NomeProjeto"
+                ,"Ar.Descricao AS Area"
+                ,"Seg.Descricao AS Segmento"
+                ,"CONVERT(CHAR(10),Pr.DtInicioExecucao,103) AS DataInicio"
+                ,"CONVERT(CHAR(10),Pr.DtFimExecucao,103) AS DataFim"
                 ,"NomeProponente" => new Zend_Db_Expr("
 					CASE
 						WHEN N.Descricao IS NULL
 							THEN I.Nome
 						ELSE N.Descricao
 					END")
-				,"(mun.Descricao +' - '+ uf.Sigla) AS Cidade"
-				,"Rec.stAtendimento"
-				,"Rec.tpSolicitacao"
-				,"Enq.IdEnquadramento AS idEnquadramento"
-				,"Enq.Enquadramento")
-		);
+                ,"(mun.Descricao +' - '+ uf.Sigla) AS Cidade"
+                ,"Rec.stAtendimento"
+                ,"Rec.tpSolicitacao"
+                ,"Enq.IdEnquadramento AS idEnquadramento"
+                ,"Enq.Enquadramento")
+        );
 
-		$select->joinInner(
-			array("Pr" => "Projetos")
-			,"Rec.IdPRONAC = Pr.IdPRONAC"
-			,array()
-		);
-		$select->joinInner(
-			array("Seg" => "Segmento")
-			,"Seg.Codigo = Pr.Segmento"
-			,array()
-		);
-		$select->joinInner(
-			array("Ar" => "Area")
-			,"Ar.Codigo = Pr.Area"
-			,array()
-		);
-		$select->joinInner(
-			array("I" => "Interessado")
-			,"I.CgcCpf = Pr.CgcCpf"
-			,array()
-		);
-		$select->joinLeft(
-			array("Ag" => "Agentes")
-			,"Ag.CNPJCPF = Pr.CgcCpf"
-			,array()
-			,"AGENTES.dbo"
-		);
-		$select->joinLeft(
-			array("N" => "Nomes")
-			,"N.idAgente = Ag.idAgente"
-			,array()
-			,"AGENTES.dbo"
-		);
-		$select->joinLeft(
-			array("EN" => "EnderecoNacional")
-			,"EN.idAgente = Ag.idAgente"
-			,array()
-			,"AGENTES.dbo"
-		);
-		$select->joinInner(
-			array("mun" => "Municipios")
-			,"mun.idMunicipioIBGE = I.Cidade OR mun.idMunicipioIBGE = EN.Cidade"
-			,array()
-			,"AGENTES.dbo"
-		);
-		$select->joinInner(
-			array("uf" => "UF")
-			,"uf.idUF = mun.idUFIBGE"
-			,array()
-			,"AGENTES.dbo"
-		);
-		$select->joinLeft(
-			array("Enq" => "Enquadramento")
-			,"Enq.IdPRONAC = Pr.IdPRONAC"
-			,array()
-		);
+        $select->joinInner(
+            array("Pr" => "Projetos"),
+            "Rec.IdPRONAC = Pr.IdPRONAC",
+            array()
+        );
+        $select->joinInner(
+            array("Seg" => "Segmento"),
+            "Seg.Codigo = Pr.Segmento",
+            array()
+        );
+        $select->joinInner(
+            array("Ar" => "Area"),
+            "Ar.Codigo = Pr.Area",
+            array()
+        );
+        $select->joinInner(
+            array("I" => "Interessado"),
+            "I.CgcCpf = Pr.CgcCpf",
+            array()
+        );
+        $select->joinLeft(
+            array("Ag" => "Agentes"),
+            "Ag.CNPJCPF = Pr.CgcCpf",
+            array(),
+            "AGENTES.dbo"
+        );
+        $select->joinLeft(
+            array("N" => "Nomes"),
+            "N.idAgente = Ag.idAgente",
+            array(),
+            "AGENTES.dbo"
+        );
+        $select->joinLeft(
+            array("EN" => "EnderecoNacional"),
+            "EN.idAgente = Ag.idAgente",
+            array(),
+            "AGENTES.dbo"
+        );
+        $select->joinInner(
+            array("mun" => "Municipios"),
+            "mun.idMunicipioIBGE = I.Cidade OR mun.idMunicipioIBGE = EN.Cidade",
+            array(),
+            "AGENTES.dbo"
+        );
+        $select->joinInner(
+            array("uf" => "UF"),
+            "uf.idUF = mun.idUFIBGE",
+            array(),
+            "AGENTES.dbo"
+        );
+        $select->joinLeft(
+            array("Enq" => "Enquadramento"),
+            "Enq.IdPRONAC = Pr.IdPRONAC",
+            array()
+        );
 
-		$select->where("Rec.stAtendimento = 'N'");
+        $select->where("Rec.stAtendimento = 'N'");
 
-		// filtra pelo tipo de solicitacao
-		if (!empty($tpSolicitacao))
-		{
-			if ($tpSolicitacao == 'PP' || $tpSolicitacao == 'PE')
-			{
-				$select->where("Rec.tpSolicitacao = 'PP' OR Rec.tpSolicitacao = 'PE'");
-			}
-			else
-			{
-				$select->where("Rec.tpSolicitacao = ?", $tpSolicitacao);
-			}
-		} // fecha if
+        // filtra pelo tipo de solicitacao
+        if (!empty($tpSolicitacao)) {
+            if ($tpSolicitacao == 'PP' || $tpSolicitacao == 'PE') {
+                $select->where("Rec.tpSolicitacao = 'PP' OR Rec.tpSolicitacao = 'PE'");
+            } else {
+                $select->where("Rec.tpSolicitacao = ?", $tpSolicitacao);
+            }
+        } // fecha if
 
-		// filtra pelo idPronac
-		if (!empty($idPronac))
-		{
-			$select->where("Pr.IdPRONAC = ?", $idPronac);
-		}
+        // filtra pelo idPronac
+        if (!empty($idPronac)) {
+            $select->where("Pr.IdPRONAC = ?", $idPronac);
+        }
 
-		$select->order("Pr.NomeProjeto");
+        $select->order("Pr.NomeProjeto");
 
-		return $this->fetchAll($select);
-	} // fecha metodo buscarSolicitacaoRecurso()
+        return $this->fetchAll($select);
+    } // fecha metodo buscarSolicitacaoRecurso()
 
 
-	/**
-	 * Metodo para buscar os projetos com solicitacao de recurso
-	 * @access public
-	 * @param $idPronac integer
-	 * @param $tpSolicitacao string
-	 * @return object
-	 */
-	public function buscarRecursosEnviadosPlenaria($idReuniao)
-	{
-		$select = $this->select();
-		$select->setIntegrityCheck(false);
-		$select->from(
-			array("tp" => $this->_name)
-			,array(
+    /**
+     * Metodo para buscar os projetos com solicitacao de recurso
+     * @access public
+     * @param $idPronac integer
+     * @param $tpSolicitacao string
+     * @return object
+     */
+    public function buscarRecursosEnviadosPlenaria($idReuniao)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            array("tp" => $this->_name),
+            array(
                 new Zend_Db_Expr("
                     CASE
                         WHEN tp.tpSolicitacao = 'EN' THEN 'Enquadramento'
@@ -312,57 +303,63 @@ class tbRecurso extends MinC_Db_Table_Abstract
                     nm.Descricao AS nomeComponente,
                     tp.idRecurso,
                     tp.tpSolicitacao as tipoSolicitacao")
-            ), 'SAC.dbo'
-		);
-		$select->joinInner(
-			array("pr" => "Projetos")
-			,"pr.IdPRONAC = tp.IdPRONAC"
-			,array(), 'SAC.dbo'
-		);
-		$select->joinInner(
-			array("ar" => "Area")
-			,"pr.Area = ar.Codigo"
-			,array(), 'SAC.dbo'
-		);
-		$select->joinInner(
-			array("seg" => "Segmento")
-			,"pr.Segmento = seg.Codigo"
-			,array(), 'SAC.dbo'
-		);
-		$select->joinLeft(
-			array("par" => "Parecer")
-			,"par.IdPRONAC = tp.IdPRONAC AND par.DtParecer = (SELECT TOP 1 max(DtParecer) from SAC..Parecer where IdPRONAC = pr.IdPRONAC)"
-			,array(), 'SAC.dbo'
-		);
-		$select->joinLeft(
-			array("nm" => "Nomes")
-			,"nm.idAgente = tp.idAgenteAvaliador"
-			,array(), 'AGENTES.dbo'
-		);
+            ),
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            array("pr" => "Projetos"),
+            "pr.IdPRONAC = tp.IdPRONAC",
+            array(),
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            array("ar" => "Area"),
+            "pr.Area = ar.Codigo",
+            array(),
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            array("seg" => "Segmento"),
+            "pr.Segmento = seg.Codigo",
+            array(),
+            'SAC.dbo'
+        );
+        $select->joinLeft(
+            array("par" => "Parecer"),
+            "par.IdPRONAC = tp.IdPRONAC AND par.DtParecer = (SELECT TOP 1 max(DtParecer) from SAC..Parecer where IdPRONAC = pr.IdPRONAC)",
+            array(),
+            'SAC.dbo'
+        );
+        $select->joinLeft(
+            array("nm" => "Nomes"),
+            "nm.idAgente = tp.idAgenteAvaliador",
+            array(),
+            'AGENTES.dbo'
+        );
 
-		$select->where("tp.stEstado = ?", 0);
-		$select->where("tp.idNrReuniao = ?", $idReuniao);
-		$select->where("tp.siRecurso = ?", 8);
-		$select->where("par.stAtivo = ?", 1);
-		$select->where("par.TipoParecer = ?", 7);
-		$select->where("NOT EXISTS(SELECT TOP 1 * FROM BDCORPORATIVO.scSAC.tbConsolidacaoVotacao AS cv WHERE tp.idNrReuniao = cv.idNrReuniao and tp.IdPRONAC = cv.IdPRONAC)", '');
-		$select->order(array(8,2));
+        $select->where("tp.stEstado = ?", 0);
+        $select->where("tp.idNrReuniao = ?", $idReuniao);
+        $select->where("tp.siRecurso = ?", 8);
+        $select->where("par.stAtivo = ?", 1);
+        $select->where("par.TipoParecer = ?", 7);
+        $select->where("NOT EXISTS(SELECT TOP 1 * FROM BDCORPORATIVO.scSAC.tbConsolidacaoVotacao AS cv WHERE tp.idNrReuniao = cv.idNrReuniao and tp.IdPRONAC = cv.IdPRONAC)", '');
+        $select->order(array(8,2));
 
         
-		return $this->fetchAll($select);
-	} // fecha metodo buscarSolicitacaoRecurso()
+        return $this->fetchAll($select);
+    } // fecha metodo buscarSolicitacaoRecurso()
 
 
-	/**
-	 * Metodo que busca a planilha de de orcamento de custos
-	 * @access public
-	 * @param $idPronac integer
-	 * @param $tpPlanilha string
-	 * @return object
-	 */
-	public function buscarPlanilhaDeCustos($idPronac = null, $tpPlanilha = null)
-	{
-		$sql = "SELECT DISTINCT PAP.idProduto
+    /**
+     * Metodo que busca a planilha de de orcamento de custos
+     * @access public
+     * @param $idPronac integer
+     * @param $tpPlanilha string
+     * @return object
+     */
+    public function buscarPlanilhaDeCustos($idPronac = null, $tpPlanilha = null)
+    {
+        $sql = "SELECT DISTINCT PAP.idProduto
 					,RPA.dsJustificativa AS justificativa
 					,Rec.idRecurso
 					,PD.Descricao
@@ -431,20 +428,20 @@ class tbRecurso extends MinC_Db_Table_Abstract
 					AND PAP.idPlanilhaItem NOT IN (206)
 					AND (PP.Quantidade * PP.Ocorrencia * PP.ValorUnitario) <> (PPJ.Quantidade * PPJ.Ocorrencia * PPJ.ValorUnitario)"; // vl solicitado != vl sugerido parecerista
 
-		if (!empty($idPronac))
-		{
-			$sql.= "AND PRO.idpronac = $idPronac ";
-		}
+        if (!empty($idPronac)) {
+            $sql.= "AND PRO.idpronac = $idPronac ";
+        }
 
-		$sql.= "ORDER BY PAP.nrFonteRecurso, PD.Descricao, PAP.idEtapa, E.Descricao, UF.Sigla, CID.Descricao, I.Descricao";
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		$resultado = $db->fetchAll($sql);
-		return $resultado;
-	}
+        $sql.= "ORDER BY PAP.nrFonteRecurso, PD.Descricao, PAP.idEtapa, E.Descricao, UF.Sigla, CID.Descricao, I.Descricao";
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $resultado = $db->fetchAll($sql);
+        return $resultado;
+    }
 
 
-    public function buscarRecursoProjeto($idPronac) {
+    public function buscarRecursoProjeto($idPronac)
+    {
         $sql = "SELECT  idRecurso, IdPRONAC, dtSolicitacaoRecurso, CAST(dsSolicitacaoRecurso AS TEXT) AS dsSolicitacaoRecurso,
                         idAgenteSolicitante, dtAvaliacao, dsAvaliacao, stAtendimento,
                         tpSolicitacao, idAgenteAvaliador
@@ -455,7 +452,8 @@ class tbRecurso extends MinC_Db_Table_Abstract
         return $resultado;
     }
 
-    public function painelRecursos($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false) {
+    public function painelRecursos($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -482,26 +480,31 @@ class tbRecurso extends MinC_Db_Table_Abstract
         );
 
         $select->joinInner(
-            array('b' => 'Projetos'), 'a.idPronac = b.idPronac',
-            array(''), 'SAC.dbo'
+            array('b' => 'Projetos'),
+            'a.idPronac = b.idPronac',
+            array(''),
+            'SAC.dbo'
         );
 
         $select->joinLeft(
             array('c' => 'tbDistribuirProjeto'),
             'b.IdPRONAC = c.IdPRONAC',
-            array(''), 'SAC.dbo'
+            array(''),
+            'SAC.dbo'
         );
 
         $select->joinLeft(
             array('d' => 'Orgaos'),
             'c.idUnidade = d.Codigo',
-            array(''), 'SAC.dbo'
+            array(''),
+            'SAC.dbo'
         );
 
         $select->joinLeft(
             array('e' => 'Nomes'),
             'c.idAvaliador = e.idAgente',
-            array(''), 'AGENTES.dbo'
+            array(''),
+            'AGENTES.dbo'
         );
 
         //adiciona quantos filtros foram enviados
@@ -565,11 +568,13 @@ class tbRecurso extends MinC_Db_Table_Abstract
         );
 
         $select->joinInner(
-            array('b' => 'tbTipoEncaminhamento'), 'a.siRecurso = b.idTipoEncaminhamento',
-            array('dsEncaminhamento AS siRecursoDesc'), 'SAC.dbo'
+            array('b' => 'tbTipoEncaminhamento'),
+            'a.siRecurso = b.idTipoEncaminhamento',
+            array('dsEncaminhamento AS siRecursoDesc'),
+            'SAC.dbo'
         );
 
-       //adiciona quantos filtros foram enviados
+        //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
@@ -594,7 +599,8 @@ class tbRecurso extends MinC_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
-    public function recursosNaoSubmetidos($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false) {
+    public function recursosNaoSubmetidos($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -617,23 +623,31 @@ class tbRecurso extends MinC_Db_Table_Abstract
         );
 
         $select->joinInner(
-            array('b' => 'Projetos'), 'a.idPronac = b.idPronac',
-            array(''), 'SAC.dbo'
+            array('b' => 'Projetos'),
+            'a.idPronac = b.idPronac',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('c' => 'Nomes'), 'a.idAgenteAvaliador = c.idAgente',
-            array(''), 'AGENTES.dbo'
+            array('c' => 'Nomes'),
+            'a.idAgenteAvaliador = c.idAgente',
+            array(''),
+            'AGENTES.dbo'
         );
         $select->joinInner(
-            array('d' => 'Area'), 'b.Area = d.Codigo',
-            array(''), 'SAC.dbo'
+            array('d' => 'Area'),
+            'b.Area = d.Codigo',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('e' => 'Segmento'), 'b.Segmento = e.Codigo',
-            array(''), 'SAC.dbo'
+            array('e' => 'Segmento'),
+            'b.Segmento = e.Codigo',
+            array(''),
+            'SAC.dbo'
         );
 
-       //adiciona quantos filtros foram enviados
+        //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
@@ -658,7 +672,8 @@ class tbRecurso extends MinC_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
-    public function atualizarRecursosProximaPlenaria($idNrReuniao) {
+    public function atualizarRecursosProximaPlenaria($idNrReuniao)
+    {
         $sql = "UPDATE SAC.dbo.tbRecurso
                      SET idNrReuniao = idNrReuniao + 1
                 FROM  SAC.dbo.tbRecurso  a
@@ -671,7 +686,8 @@ class tbRecurso extends MinC_Db_Table_Abstract
         return $resultado;
     } // fecha metodo buscarPlanilhaDeCustos()
 
-    public function atualizarStatusRecursosNaoSubmetidos($idNrReuniao) {
+    public function atualizarStatusRecursosNaoSubmetidos($idNrReuniao)
+    {
         $sql = "UPDATE SAC.dbo.tbRecurso
                     SET stEstado = 1
                FROM  SAC.dbo.tbRecurso a
@@ -710,11 +726,13 @@ class tbRecurso extends MinC_Db_Table_Abstract
         );
 
         $select->joinInner(
-            array('b' => 'Projetos'), 'a.idPronac = b.idPronac',
-            array(''), 'SAC.dbo'
+            array('b' => 'Projetos'),
+            'a.idPronac = b.idPronac',
+            array(''),
+            'SAC.dbo'
         );
 
-       //adiciona quantos filtros foram enviados
+        //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
@@ -743,8 +761,8 @@ class tbRecurso extends MinC_Db_Table_Abstract
         return $this->fetchRow($select);
     }
 
-    public function buscarAvaliacaoRecurso($idPronac) {
-
+    public function buscarAvaliacaoRecurso($idPronac)
+    {
         $objQuery = $this->select();
 
         $objQuery->from(
@@ -761,8 +779,8 @@ class tbRecurso extends MinC_Db_Table_Abstract
         return $db->fetchOne($objQuery);
     }
 
-    public function finalizarRecurso($idPronac) {
-
+    public function finalizarRecurso($idPronac)
+    {
         $arrayAlteracaoRecurso = array(
             'siRecurso' => 15,
             'stEstado' => 1
@@ -787,13 +805,13 @@ class tbRecurso extends MinC_Db_Table_Abstract
         $select = $this->select()
             ->setIntegrityCheck(false)
             ->from(array('r' => $this->_name), '*', $this->_schema)
-            ->join(array('p' => 'projetos'),'r.IdPRONAC = p.IdPRONAC', '*', $this->_schema)
+            ->join(array('p' => 'projetos'), 'r.IdPRONAC = p.IdPRONAC', '*', $this->_schema)
             ->where('stEstado = 0')
             ->where("tpSolicitacao = 'DR'")
             ->where('siFaseProjeto = 1')
         ;
 
-        if ($area == '2'){
+        if ($area == '2') {
             $select->where("area = 2");
         } else {
             $select->where("area <> 2");

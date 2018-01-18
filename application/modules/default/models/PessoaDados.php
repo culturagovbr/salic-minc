@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,8 +9,8 @@
  *
  * @author tisomar
  */
-class PessoaDados extends MinC_Db_Table_Abstract {
-
+class PessoaDados extends MinC_Db_Table_Abstract
+{
     protected $_banco = "TABELAS";
     protected $_name = "Pessoa_Dados";
 
@@ -24,19 +24,25 @@ class PessoaDados extends MinC_Db_Table_Abstract {
         $tmpTblPessoasDados = $tmpTblPessoasDados->createRow();
 
         //ATRIBUINDO VALORES AOS CAMPOS QUE FORAM PASSADOS
-        if(isset($dados['pdd_pessoa'])){ $tmpTblPessoasDados->pdd_pessoa = $dados['pdd_pessoa']; }
-        if(isset($dados['pdd_meta_dado'])){ $tmpTblPessoasDados->pdd_meta_dado = $dados['pdd_meta_dado']; }
-        if(isset($dados['pdd_sequencia'])){ $tmpTblPessoasDados->pdd_sequencia = $dados['pdd_sequencia']; }
-        if(isset($dados['pdd_dado'])){ $tmpTblPessoasDados->pdd_dado = $dados['pdd_dado']; }
+        if (isset($dados['pdd_pessoa'])) {
+            $tmpTblPessoasDados->pdd_pessoa = $dados['pdd_pessoa'];
+        }
+        if (isset($dados['pdd_meta_dado'])) {
+            $tmpTblPessoasDados->pdd_meta_dado = $dados['pdd_meta_dado'];
+        }
+        if (isset($dados['pdd_sequencia'])) {
+            $tmpTblPessoasDados->pdd_sequencia = $dados['pdd_sequencia'];
+        }
+        if (isset($dados['pdd_dado'])) {
+            $tmpTblPessoasDados->pdd_dado = $dados['pdd_dado'];
+        }
 
         $id = $tmpTblPessoasDados->save();
 
-        if($id){
+        if ($id) {
             return $id;
-        }else{
+        } else {
             return false;
         }
     }
-
 }
-?>

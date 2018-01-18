@@ -12,57 +12,58 @@
 
 class ManterpropostaeditalDAO extends Zend_Db_Table
 {
-	/* dados da tabela */
-	protected $_schema  = "";
-	protected $_name    = "SAC.dbo.PreProjeto";
-	protected $_primary = "idPreProjeto";
+    /* dados da tabela */
+    protected $_schema  = "";
+    protected $_name    = "SAC.dbo.PreProjeto";
+    protected $_primary = "idPreProjeto";
 
 
 
-	
-//	public static function cadastrar($dados)
-//	{
-//		$db= Zend_Db_Table::getDefaultAdapter();
-//		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+    
+    //	public static function cadastrar($dados)
+    //	{
+    //		$db= Zend_Db_Table::getDefaultAdapter();
+    //		$db->setFetchMode(Zend_DB::FETCH_OBJ);
 //
-//		$cadastrar = $db->insert("SAC.dbo.tbRecurso", $dados);
+    //		$cadastrar = $db->insert("SAC.dbo.tbRecurso", $dados);
 //
 //
-//		if ($cadastrar)
-//		{
-//			return true;
-//		}
-//		else
-//		{
-//			return false;
-//		}
-//	} // fecha m�todo cadastrar()
+    //		if ($cadastrar)
+    //		{
+    //			return true;
+    //		}
+    //		else
+    //		{
+    //			return false;
+    //		}
+    //	} // fecha m�todo cadastrar()
 
 
 
-	
-//	public static function alterar($dados, $idPronac)
-//	{
-//		$db= Zend_Db_Table::getDefaultAdapter();
-//		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+    
+    //	public static function alterar($dados, $idPronac)
+    //	{
+    //		$db= Zend_Db_Table::getDefaultAdapter();
+    //		$db->setFetchMode(Zend_DB::FETCH_OBJ);
 //
-//		$where   = "IdPRONAC = $idPronac";
-//		$alterar = $db->update("SAC.dbo.Projetos", $dados, $where);
+    //		$where   = "IdPRONAC = $idPronac";
+    //		$alterar = $db->update("SAC.dbo.Projetos", $dados, $where);
 //
-//		if ($alterar)
-//		{
-//			return true;
-//		}
-//		else
-//		{
-//			return false;
-//		}
-//	} // fecha m�todo alterar()
+    //		if ($alterar)
+    //		{
+    //			return true;
+    //		}
+    //		else
+    //		{
+    //			return false;
+    //		}
+    //	} // fecha m�todo alterar()
 
 
 
-	public static function buscaredital($array) {
-            $sql = "Select p.idPreProjeto,
+    public static function buscaredital($array)
+    {
+        $sql = "Select p.idPreProjeto,
                            nm.Descricao   as Proponente,
                            p.idagente     as idAgente,
                            p.NomeProjeto,
@@ -85,41 +86,42 @@ class ManterpropostaeditalDAO extends Zend_Db_Table
                 and not exists (select * from SAC.dbo.projetos pr where p.idPreProjeto = pr.idProjeto )
                 AND fd.idClassificaDocumento not in (23,24,25)";
 
-            $db= Zend_Db_Table::getDefaultAdapter();
-            $db->setFetchMode(Zend_DB::FETCH_OBJ);
-            return $db->fetchAll($sql);
-	} // fecha m�todo buscaredital()
-	
-	
-		public static function buscarpreprojeto()
-	{
-		$sql = "select pp.NomeProjeto, nm.Descricao as Nome from SAC.dbo.PreProjeto pp
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    } // fecha m�todo buscaredital()
+    
+    
+    public static function buscarpreprojeto()
+    {
+        $sql = "select pp.NomeProjeto, nm.Descricao as Nome from SAC.dbo.PreProjeto pp
                 INNER JOIN AGENTES.dbo.Nomes nm on nm.idAgente = pp.idAgente
                 where pp.idPreProjeto = '23546'";
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		return $db->fetchAll($sql);
-	} // fecha m�todo buscarpreprojeto()
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    } // fecha m�todo buscarpreprojeto()
 
 
-		public static function buscaendereco($cpf)
-	{
-		$sql = "select Ag.idAgente, Ag.CNPJCPF, en.TipoEndereco,  en.Divulgar, en.TipoLogradouro, en.TipoEndereco, nm.Descricao as Nome, mun.Descricao as Municipio, uf.Descricao as UF, en.Numero, en.Bairro, en.Cep, en.Complemento, en.Logradouro, en.Numero, uf.Descricao as UF 
+    public static function buscaendereco($cpf)
+    {
+        $sql = "select Ag.idAgente, Ag.CNPJCPF, en.TipoEndereco,  en.Divulgar, en.TipoLogradouro, en.TipoEndereco, nm.Descricao as Nome, mun.Descricao as Municipio, uf.Descricao as UF, en.Numero, en.Bairro, en.Cep, en.Complemento, en.Logradouro, en.Numero, uf.Descricao as UF 
                 from AGENTES..EnderecoNacional en
                 INNER JOIN AGENTES..Agentes Ag on Ag.idAgente = en.idAgente
                 INNER JOIN AGENTES.dbo.Nomes nm on nm.idAgente = Ag.idAgente
                 INNER JOIN AGENTES.dbo.UF uf on uf.idUF = en.UF
                 LEFT JOIN AGENTES.dbo.Municipios mun on mun.idMunicipioIBGE = en.Cidade
                 where Ag.CNPJCPF= '" . $cpf . "'";
-		
-
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		return $db->fetchAll($sql);
-	}
         
-    public static function buscaEditalConfirmarAvancada($array = array()) {
+
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    }
+        
+    public static function buscaEditalConfirmarAvancada($array = array())
+    {
         $sql = " SELECT e.idEdital as idEditalTb,
                         convert(varchar(12),e.NrEdital)as NrEditalTb,
                         convert(char(4),YEAR(e.DtEdital)) as Ano,
@@ -135,19 +137,19 @@ class ManterpropostaeditalDAO extends Zend_Db_Table
              INNER JOIN BDCORPORATIVO.scSAC.tbClassificaDocumento c ON (f.idClassificaDocumento = c.idClassificaDocumento)
                   WHERE u.idFaseEdital = '2' AND
                         f.stModalidadeDocumento is not null";
-        if($array['nrEdital']) {
+        if ($array['nrEdital']) {
             $sql .= " and e.NrEdital = '{$array['nrEdital']}'";
         }
-        if($array['dtEditalInicial'] && $array['dtEditalFinal']) {
+        if ($array['dtEditalInicial'] && $array['dtEditalFinal']) {
             $sql .= " and e.DtEdital BETWEEN '{$array['dtEditalInicial']}' and '{$array['dtEditalFinal']}'";
         }
-        if($array['dtInicoInscricaoInicial'] && $array['dtInicoInscricaoFinal']) {
+        if ($array['dtInicoInscricaoInicial'] && $array['dtInicoInscricaoFinal']) {
             $sql .= " and u.dtIniFase BETWEEN '{$array['dtInicoInscricaoInicial']}' and '{$array['dtInicoInscricaoFinal']}'";
         }
-        if($array['dtFinalInscricaoInicial'] && $array['dtFinalInscricaoFinal']) {
+        if ($array['dtFinalInscricaoInicial'] && $array['dtFinalInscricaoFinal']) {
             $sql .= " and u.dtFimFase BETWEEN '{$array['dtFinalInscricaoInicial']}' and '{$array['dtFinalInscricaoFinal']}'";
         }
-        if($array['nmEdital']) {
+        if ($array['nmEdital']) {
             $sql .= " and Objeto like '%{$array['nmEdital']}%'
                        or nmDocumento like '%{$array['nmEdital']}%'";
         }
@@ -157,7 +159,8 @@ class ManterpropostaeditalDAO extends Zend_Db_Table
         return $db->fetchAll($sql);
     }
 
-    public static function buscaEditalConfirmar($array = array()) {
+    public static function buscaEditalConfirmar($array = array())
+    {
         $sql = " SELECT e.idEdital as idEditalTb,
                         convert(varchar(12),e.NrEdital)as NrEditalTb,
                         convert(char(4),YEAR(e.DtEdital)) as Ano,
@@ -181,7 +184,8 @@ class ManterpropostaeditalDAO extends Zend_Db_Table
         return $db->fetchAll($sql);
     }
 
-    public static function buscaEditalConfirmarLocalizar($array = array()) {
+    public static function buscaEditalConfirmarLocalizar($array = array())
+    {
         $sql = " SELECT e.idEdital as idEditalTb,
                         e.Objeto,
                         convert(varchar(12),e.NrEdital)as NrEditalTb,
@@ -198,7 +202,7 @@ class ManterpropostaeditalDAO extends Zend_Db_Table
              INNER JOIN BDCORPORATIVO.scSAC.tbClassificaDocumento c ON (f.idClassificaDocumento = c.idClassificaDocumento)
                   WHERE u.idFaseEdital = '2' AND
                         f.stModalidadeDocumento is not null ";
-        if(isset($array['idEdital'])) {
+        if (isset($array['idEdital'])) {
             $sql .= " and e.idEdital = {$array['idEdital']}";
         }
         $sql .= " ORDER BY c.dsClassificaDocumento,v.Descricao,Tabelas.dbo.fnEstruturaOrgao(e.idOrgao,1),e.NrEdital";
@@ -207,7 +211,8 @@ class ManterpropostaeditalDAO extends Zend_Db_Table
         return $db->fetchAll($sql);
     }
 
-    public static function listarEditalResumo($array = array()) {
+    public static function listarEditalResumo($array = array())
+    {
         $sql = " SELECT f.nmFormDocumento,
                         count(f.nmFormDocumento) as qtd
                    FROM Sac.dbo.Edital e
@@ -224,7 +229,8 @@ class ManterpropostaeditalDAO extends Zend_Db_Table
         return $db->fetchAll($sql);
     }
 
-    public static function exibirDadosPropostaEditalCompleto($array = array()) {
+    public static function exibirDadosPropostaEditalCompleto($array = array())
+    {
         $sql = "  Select p.idPreProjeto,
                         p.idAgente,
                         NomeProjeto,
@@ -248,7 +254,8 @@ class ManterpropostaeditalDAO extends Zend_Db_Table
         return $db->fetchAll($sql);
     }
 
-    public static function buscarNomeAgente($array = array()) {
+    public static function buscarNomeAgente($array = array())
+    {
         $sql = "select Descricao
                   from AGENTES.dbo.Nomes
                  where idAgente = {$array['idAgente']} --39318";
@@ -257,13 +264,15 @@ class ManterpropostaeditalDAO extends Zend_Db_Table
         return $db->fetchAll($sql);
     }
 
-    public static function inserirProposta($array = array()) {
+    public static function inserirProposta($array = array())
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
-    	$db->insert('SAC.dbo.PreProjeto', $array);
-    	return $db->lastInsertId();
+        $db->insert('SAC.dbo.PreProjeto', $array);
+        return $db->lastInsertId();
     }
 
-    public static function buscarDadosProposta($array = array()) {
+    public static function buscarDadosProposta($array = array())
+    {
         $sql = "select idPreProjeto
                   from SAC.dbo.PreProjeto
                  where idAgente          = {$array['idAgente']}
@@ -276,7 +285,8 @@ class ManterpropostaeditalDAO extends Zend_Db_Table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
     }
-    public static function alterarDadosProposta($array = array()) {
+    public static function alterarDadosProposta($array = array())
+    {
         $sql = "update SAC.dbo.PreProjeto
                    set NomeProjeto     = '{$array['NomeProjeto']}',
                        ResumoDoProjeto = '{$array['ResumoDoProjeto']}'
@@ -288,7 +298,8 @@ class ManterpropostaeditalDAO extends Zend_Db_Table
         return $db->fetchAll($sql);
     }
 
-    public static function buscarPropostaEdital($idAgente){
+    public static function buscarPropostaEdital($idAgente)
+    {
         $sql = "Select  
                     p.idPreProjeto,
                     idagente,
@@ -308,6 +319,5 @@ class ManterpropostaeditalDAO extends Zend_Db_Table
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
-
     }
 }

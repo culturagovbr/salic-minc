@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,12 +9,13 @@
  *
  * @author 01610881125
  */
-class OrgaoFiscalizador  extends MinC_Db_Table_Abstract{
-
+class OrgaoFiscalizador extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'SAC';
     protected $_name  = 'tbOrgaoFiscalizador';
 
-    function buscarOrgao($where){
+    public function buscarOrgao($where)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -33,7 +34,8 @@ class OrgaoFiscalizador  extends MinC_Db_Table_Abstract{
         return $this->fetchAll($select);
     }
 
-     function dadosOrgaos($where){
+    public function dadosOrgaos($where)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -63,4 +65,3 @@ class OrgaoFiscalizador  extends MinC_Db_Table_Abstract{
         return $this->fetchAll($select);
     }
 }
-?>

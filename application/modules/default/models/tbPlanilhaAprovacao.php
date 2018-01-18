@@ -9,7 +9,8 @@
  * @link http://www.cultura.gov.br
  */
 
-class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract {
+class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
+{
     protected $_schema = "sac";
     protected $_name   = "tbPlanilhaAprovacao";
     protected $_primary = "idPlanilhaAprovacao";
@@ -20,7 +21,8 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract {
      * @param array $dados
      * @return integer (retorna o ultimo id cadastrado)
      */
-    public function cadastrarDados($dados) {
+    public function cadastrarDados($dados)
+    {
         return $this->insert($dados);
     } // fecha metodo cadastrarDados()
 
@@ -32,13 +34,15 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract {
      * @param integer $where
      * @return integer (quantidade de registros alterados)
      */
-    public function alterarDados($dados, $where) {
+    public function alterarDados($dados, $where)
+    {
         $where = "idPlanilhaAprovacao = " . $where;
         return $this->update($dados, $where);
     } // fecha metodo alterarDados()
 
 
-    public function buscarItensOrcamentarios($where, $order = array()) {
+    public function buscarItensOrcamentarios($where, $order = array())
+    {
         // criando objeto do tipo select
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
@@ -49,8 +53,10 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract {
         );
 
         $slct->joinLeft(
-                array('b' => 'tbPlanilhaItens'), "a.idPlanilhaItem = b.idPlanilhaItens",
-                array('Descricao'), 'SAC.dbo'
+                array('b' => 'tbPlanilhaItens'),
+            "a.idPlanilhaItem = b.idPlanilhaItens",
+                array('Descricao'),
+            'SAC.dbo'
         );
 
         // adicionando clausulas where
@@ -67,11 +73,10 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract {
         
         // retornando os registros
         return $this->fetchAll($slct);
-
     } // fecha metodo alterarDados()
 
-    public function copiandoPlanilhaRecurso($idPronac){
-
+    public function copiandoPlanilhaRecurso($idPronac)
+    {
         $sql = "INSERT INTO SAC.dbo.tbPlanilhaAprovacao
                     (tpPlanilha,dtPlanilha,idPlanilhaProjeto,idPlanilhaProposta,idPronac,idProduto,idEtapa,idPlanilhaItem,dsItem,idUnidade,
                     qtItem,nrOcorrencia,vlUnitario,qtDias,tpDespesa,tpPessoa,nrContraPartida,nrFonteRecurso,idUFDespesa,idMunicipioDespesa,
@@ -82,7 +87,7 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract {
                         FROM SAC.dbo.tbPlanilhaProjeto
                         WHERE idPronac = '$idPronac'
         ";
-//        
+//
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
@@ -90,8 +95,8 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public function copiandoPlanilhaRemanejamento($idPronac){
-
+    public function copiandoPlanilhaRemanejamento($idPronac)
+    {
         $sql = "INSERT INTO SAC.dbo.tbPlanilhaAprovacao
                         (tpPlanilha,dtPlanilha,idPlanilhaProjeto,idPlanilhaProposta,idPronac,idProduto,idEtapa,idPlanilhaItem,dsItem,idUnidade,
                         qtItem,nrOcorrencia,vlUnitario,qtDias,tpDespesa,tpPessoa,nrContraPartida,nrFonteRecurso,idUFDespesa,idMunicipioDespesa,
@@ -110,13 +115,15 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public function buscarDadosAvaliacaoDeItemRemanejamento($where = array()){
+    public function buscarDadosAvaliacaoDeItemRemanejamento($where = array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
                 array('a' => $this->_name),
                 array(
-                    New Zend_Db_Expr('a.idPRONAC, a.idPlanilhaAprovacao, a.idProduto, b.Descricao as descProduto, a.idEtapa,
+                    new Zend_Db_Expr(
+                        'a.idPRONAC, a.idPlanilhaAprovacao, a.idProduto, b.Descricao as descProduto, a.idEtapa,
                         c.Descricao as descEtapa, a.idPlanilhaItem, d.Descricao as descItem,
                         a.idUnidade, e.Descricao as descUnidade, a.qtItem as Quantidade, a.nrOcorrencia as Ocorrencia,
                         a.vlUnitario as ValorUnitario, a.qtDias as QtdeDias, CAST(a.dsJustificativa as TEXT) as Justificativa, a.idAgente'
@@ -124,40 +131,49 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract {
                 )
         );
         $select->joinLeft(
-            array('b' => 'Produto'), "a.idProduto = b.Codigo",
-            array(), 'SAC.dbo'
+            array('b' => 'Produto'),
+            "a.idProduto = b.Codigo",
+            array(),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('c' => 'tbPlanilhaEtapa'), "a.idEtapa = c.idPlanilhaEtapa",
-            array(), 'SAC.dbo'
+            array('c' => 'tbPlanilhaEtapa'),
+            "a.idEtapa = c.idPlanilhaEtapa",
+            array(),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('d' => 'tbPlanilhaItens'), "a.idPlanilhaItem = d.idPlanilhaItens",
-            array(), 'SAC.dbo'
+            array('d' => 'tbPlanilhaItens'),
+            "a.idPlanilhaItem = d.idPlanilhaItens",
+            array(),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('e' => 'tbPlanilhaUnidade'), "a.idUnidade = e.idUnidade",
-            array(), 'SAC.dbo'
+            array('e' => 'tbPlanilhaUnidade'),
+            "a.idUnidade = e.idUnidade",
+            array(),
+            'SAC.dbo'
         );
 
-        foreach($where as $key=>$valor){
+        foreach ($where as $key=>$valor) {
             $select->where($key, $valor);
         }
         
         return $this->fetchAll($select);
     }
 
-    public function valorTotalPlanilha($where = array()){
+    public function valorTotalPlanilha($where = array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
                 array('a' => $this->_name),
                 array(
-                    New Zend_Db_Expr('ROUND(SUM(a.qtItem*a.nrOcorrencia*a.vlUnitario), 2) AS Total')
+                    new Zend_Db_Expr('ROUND(SUM(a.qtItem*a.nrOcorrencia*a.vlUnitario), 2) AS Total')
                 )
         );
 
-        foreach($where as $key=>$valor){
+        foreach ($where as $key=>$valor) {
             $select->where($key, $valor);
         }
         
@@ -166,7 +182,8 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract {
     }
 
 
-    public function getInfoIdPlanilhaPai($idPlanilhaAprovacao, $tpPlanilha = null) {
+    public function getInfoIdPlanilhaPai($idPlanilhaAprovacao, $tpPlanilha = null)
+    {
         $idPlanilhaAprovacaoPai = array();
         
         $select = $this->select();
@@ -174,7 +191,7 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract {
         $select->from(
                 array('a' => $this->_name),
                 array(
-                    New Zend_Db_Expr('a.idPlanilhaAprovacao, a.idPlanilhaAprovacaoPai, a.tpAcao, a.tpPlanilha')
+                    new Zend_Db_Expr('a.idPlanilhaAprovacao, a.idPlanilhaAprovacaoPai, a.tpAcao, a.tpPlanilha')
                 )
         );
         
@@ -185,5 +202,4 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract {
         
         return $this->fetchAll($select);
     }
-    
 }

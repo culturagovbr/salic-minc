@@ -152,5 +152,4 @@ class Proposta_Model_PlanoDeDivulgacao extends MinC_Db_Model
     {
         $this->_stplanodivulgacao = $stplanodivulgacao;
     }
-
 }

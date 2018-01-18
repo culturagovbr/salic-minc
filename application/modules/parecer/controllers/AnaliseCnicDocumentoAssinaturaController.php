@@ -8,20 +8,21 @@ class Parecer_AnaliseCnicDocumentoAssinaturaController implements MinC_Assinatur
 
     const ID_TIPO_AGENTE_COMPONENTE_CNIC = 6;
     
-    function __construct($post)
+    public function __construct($post)
     {
         $this->post = $post;
     }
 
-    function encaminharProjetoParaAssinatura() {
-        if(!$this->idPronac) {
+    public function encaminharProjetoParaAssinatura()
+    {
+        if (!$this->idPronac) {
             throw new Exception("Identificador do Projeto não informado.");
         }
         
         $objTbProjetos = new Projeto_Model_DbTable_Projetos();
         $dadosProjeto = $objTbProjetos->findBy(array('IdPRONAC' => $this->idPronac));
 
-        if(!$dadosProjeto) {
+        if (!$dadosProjeto) {
             throw new Exception("Projeto n&atilde;o encontrado.");
         }
         
@@ -31,12 +32,12 @@ class Parecer_AnaliseCnicDocumentoAssinaturaController implements MinC_Assinatur
             Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_CNIC
         );
 
-        if(!$isProjetoDisponivelParaAssinatura) {
+        if (!$isProjetoDisponivelParaAssinatura) {
             $auth = Zend_Auth::getInstance();
             $objDocumentoAssinatura = new MinC_Assinatura_Servico_Assinatura($this->post, $auth->getIdentity());
             $idTipoDoAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_CNIC;
             
-            $parecer = new Parecer();           
+            $parecer = new Parecer();
             $idAtoAdministrativo = $parecer->getIdAtoAdministrativoParecerTecnico($this->idPronac, self::ID_TIPO_AGENTE_COMPONENTE_CNIC)[0]['idParecer'];
             
             $objModelDocumentoAssinatura = new Assinatura_Model_TbDocumentoAssinatura();
@@ -57,14 +58,14 @@ class Parecer_AnaliseCnicDocumentoAssinaturaController implements MinC_Assinatur
     /**
      * @return string
      */
-    function gerarDocumentoAssinatura()
+    public function gerarDocumentoAssinatura()
     {
         $view = new Zend_View();
         $view->setScriptPath(__DIR__ . DIRECTORY_SEPARATOR . '../views/scripts/analise-cnic-documento-assinatura');
 
         $view->titulo = 'Aprecia&ccedil;&atilde;o do Comiss&aacute;rio Relator';
         
-        $view->IdPRONAC = $this->idPronac;        
+        $view->IdPRONAC = $this->idPronac;
 
         $objPlanoDistribuicaoProduto = new Projeto_Model_vwPlanoDeDistribuicaoProduto();
         $view->dadosProducaoProjeto = $objPlanoDistribuicaoProduto->obterProducaoProjeto(array(
@@ -111,7 +112,7 @@ class Parecer_AnaliseCnicDocumentoAssinaturaController implements MinC_Assinatur
             $view->dadosAlcance = $dadosProjeto['alcance'][0];
         }
         
-        $view->dadosParecer = $dadosProjeto['parecer'];        
+        $view->dadosParecer = $dadosProjeto['parecer'];
         
         return $view->render('documento-assinatura.phtml');
     }

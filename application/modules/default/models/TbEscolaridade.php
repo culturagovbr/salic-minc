@@ -5,8 +5,8 @@
  *
  * @author Equipe MINC
  */
-class TbEscolaridade extends MinC_Db_Table_Abstract {
-
+class TbEscolaridade extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'Agentes';
     protected $_name = 'tbEscolaridade';
     protected $_schema  = 'Agentes';
@@ -17,34 +17,46 @@ class TbEscolaridade extends MinC_Db_Table_Abstract {
         $select = $this->select();
         $select->setIntegrityCheck(false);
 
-        $select->from(array('E'=>$this->_name),
-        			  array('*','CONVERT(CHAR(10), dtInicioCurso, 103) as dtInicio',
-        			  			'CONVERT(CHAR(10), dtFimCurso, 103) as dtFim'),'AGENTES.dbo'
+        $select->from(
+            array('E'=>$this->_name),
+                      array('*','CONVERT(CHAR(10), dtInicioCurso, 103) as dtInicio',
+                                'CONVERT(CHAR(10), dtFimCurso, 103) as dtFim'),
+            'AGENTES.dbo'
         );
 
         $select->joinInner(
-                array('TE'=>'tbTipoEscolaridade'),'TE.idTipoEscolaridade = E.idTipoEscolaridade',
-                array('nmEscolaridade'),'AGENTES.dbo'
+                array('TE'=>'tbTipoEscolaridade'),
+            'TE.idTipoEscolaridade = E.idTipoEscolaridade',
+                array('nmEscolaridade'),
+            'AGENTES.dbo'
         );
 
         $select->joinInner(
-                array('P'=>'Pais'),'P.idPais = E.idPais',
-                array('Descricao as pais'),'AGENTES.dbo'
+                array('P'=>'Pais'),
+            'P.idPais = E.idPais',
+                array('Descricao as pais'),
+            'AGENTES.dbo'
         );
 
         $select->joinLeft(
-                array('D'=>'tbDocumento'),'D.idDocumento = E.idDocumento',
-                array('*'),'BDCORPORATIVO.scCorp'
+                array('D'=>'tbDocumento'),
+            'D.idDocumento = E.idDocumento',
+                array('*'),
+            'BDCORPORATIVO.scCorp'
         );
 
         $select->joinLeft(
-                array('TA'=>'tbArquivo'),'TA.idArquivo = D.idArquivo',
-                array('*'),'BDCORPORATIVO.scCorp'
+                array('TA'=>'tbArquivo'),
+            'TA.idArquivo = D.idArquivo',
+                array('*'),
+            'BDCORPORATIVO.scCorp'
         );
 
         $select->joinLeft(
-                array('TAI'=>'tbArquivoImagem'),'TAI.idArquivo = TA.idArquivo',
-                array('*'),'BDCORPORATIVO.scCorp'
+                array('TAI'=>'tbArquivoImagem'),
+            'TAI.idArquivo = TA.idArquivo',
+                array('*'),
+            'BDCORPORATIVO.scCorp'
         );
 
         $select->where('E.idAgente = ?', $idAgente);
@@ -52,7 +64,6 @@ class TbEscolaridade extends MinC_Db_Table_Abstract {
         $select->order('E.idTipoEscolaridade');
 
         return $this->fetchAll($select);
-
     }
 
 
@@ -68,7 +79,6 @@ class TbEscolaridade extends MinC_Db_Table_Abstract {
         $select->order('E.idTipoEscolaridade');
 
         return $this->fetchAll($select);
-
     }
 
     public function BuscarPais()
@@ -83,7 +93,6 @@ class TbEscolaridade extends MinC_Db_Table_Abstract {
         $select->order('P.Descricao');
 
         return $this->fetchAll($select);
-
     }
 
     public function BuscarTipoDocumento()
@@ -92,23 +101,21 @@ class TbEscolaridade extends MinC_Db_Table_Abstract {
         $select->setIntegrityCheck(false);
         $select->from(
                 array('TP'=> 'tbTipoDocumento'),
-                array('idTipoDocumento', 'dsTipoDocumento'),'BDCORPORATIVO.scCorp'
+                array('idTipoDocumento', 'dsTipoDocumento'),
+            'BDCORPORATIVO.scCorp'
         );
 
         $select->order('TP.dsTipoDocumento');
 
         return $this->fetchAll($select);
-
     }
 
 
 
 
-    public function inserirEscolaridade($dados) {
+    public function inserirEscolaridade($dados)
+    {
         $insert = $this->insert($dados);
         return $insert;
     }
-
-
-
 }

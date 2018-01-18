@@ -10,13 +10,14 @@
  *
  * @author augusto
  */
-class Votacao extends MinC_Db_Table_Abstract {
-
+class Votacao extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'BDCORPORATIVO';
     protected $_schema = 'BDCORPORATIVO.scSAC';
     protected $_name = 'tbVotacao';
 
-    public function resultadovotacao($idNrReuniao, $idPRONAC, $stvoto = null, $tipoReadequacao = null) {
+    public function resultadovotacao($idNrReuniao, $idPRONAC, $stvoto = null, $tipoReadequacao = null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -34,7 +35,8 @@ class Votacao extends MinC_Db_Table_Abstract {
         return $this->fetchRow($select);
     }
 
-    public function votantesjustificativavoto($idNrReuniao, $idPRONAC, $tipoReadequacao = null) {
+    public function votantesjustificativavoto($idNrReuniao, $idPRONAC, $tipoReadequacao = null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -58,6 +60,4 @@ class Votacao extends MinC_Db_Table_Abstract {
         }
         return $this->fetchAll($select);
     }
-
 }
-

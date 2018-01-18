@@ -1,0 +1,83 @@
+
+/*--------------------------------------------------------------
+x - Container-fluid
+--------------------------------------------------------------*/
+
+
+.container-fluid #breadcrumb {
+    left: 0px;
+}
+
+.container-fluid #novo-titulo {
+}
+
+.container-fluid #novo-titulo div {
+    background: transparent;
+    padding: 0px;
+}
+
+.container-fluid #novo-titulo .voltar {
+    background: transparent;
+    color: #1D5B22;
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.container-fluid #novo-titulo .voltar i {
+    margin-right: 5px;
+    font-size: 20px;
+}
+
+.container-fluid table {
+    margin: 0px;
+    width: 100%;
+    background: transparent;
+}
+
+.container-fluid table td {
+    background: transparent;
+}
+
+.container-fluid table.tabela .btn-localizar {
+    margin-top: 20px;
+}
+
+.container-fluid form#frmNovaProposta table th {
+    background: #abda5d;
+    padding: 10px;
+    color: #3a7300;
+    text-transform: uppercase;
+    font-size: 13px;
+    border-bottom: 3px solid #dddddd;
+    background: transparent;
+}
+
+.container-fluid form#frmNovaProposta table td {
+    padding: 20px 0px;
+}
+
+.container-fluid table td a:not(.btn) {
+    text-decoration: underline;
+}
+
+.container-fluid form#frmNovaProposta table td .btn {
+    margin-right: 15px;
+}
+
+.container-fluid .loading {
+    text-align: center;
+}
+
+.container-fluid .loading {
+    width: 600px;
+    margin: 0 auto;
+}
+
+.container-fluid select {
+    background: transparent;
+    border: 1px solid #ddd;
+}
+
+.container-fluid {
+    margin-left: 0px;
+}

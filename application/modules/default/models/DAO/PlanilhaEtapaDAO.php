@@ -11,24 +11,23 @@
 
 class PlanilhaEtapaDAO extends Zend_Db_Table
 {
-	protected $_name = 'SAC.dbo.tbPlanilhaEtapa';
+    protected $_name = 'SAC.dbo.tbPlanilhaEtapa';
 
 
 
-	/**
-	 * Busca a planilha com as etapas
-	 * @access public
-	 * @static
-	 * @param void
-	 * @return object
-	 */
-	public static function buscar()
-	{
-		$sql = "SELECT * FROM SAC.dbo.tbPlanilhaEtapa ORDER BY Descricao";
+    /**
+     * Busca a planilha com as etapas
+     * @access public
+     * @static
+     * @param void
+     * @return object
+     */
+    public static function buscar()
+    {
+        $sql = "SELECT * FROM SAC.dbo.tbPlanilhaEtapa ORDER BY Descricao";
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		return $db->fetchAll($sql);
-	} // fecha m�todo buscar()
-
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    } // fecha m�todo buscar()
 } // fecha class

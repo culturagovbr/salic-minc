@@ -9,12 +9,14 @@
  *
  * @author augusto
  */
-class Area extends MinC_Db_Table_Abstract {
-    protected  $_banco = 'SAC';
-    protected  $_schema = 'SAC';
-    protected  $_name = 'Area';
+class Area extends MinC_Db_Table_Abstract
+{
+    protected $_banco = 'SAC';
+    protected $_schema = 'SAC';
+    protected $_name = 'Area';
 
-    public function  BuscarAreaProjeto($idpronac=false){
+    public function BuscarAreaProjeto($idpronac=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -25,7 +27,7 @@ class Area extends MinC_Db_Table_Abstract {
                             array('pr'=>'Projetos'),
                             'pr.Area = a.Codigo'
                           );
-        if($idpronac){
+        if ($idpronac) {
             $select->where('pr.IdPRONAC = ?', $idpronac);
         }
 
@@ -33,7 +35,8 @@ class Area extends MinC_Db_Table_Abstract {
     }
 
 
-    public function  BuscarAreas(){
+    public function BuscarAreas()
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -43,6 +46,4 @@ class Area extends MinC_Db_Table_Abstract {
 
         return $this->fetchAll($select);
     }
-
 }
-?>

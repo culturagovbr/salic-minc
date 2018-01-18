@@ -222,5 +222,4 @@ class AprovacaoModel implements ModelInterface
     {
         throw new Exception('Não implementado');
     }
-
 }

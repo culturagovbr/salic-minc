@@ -15,8 +15,9 @@ class Analise_Model_DbTable_TbAvaliarAdequacaoProjeto extends MinC_Db_Table_Abst
 
     public function inserirAvaliacao($idPronac, $orgaoUsuario, $idTecnico = null)
     {
-        if (empty($idTecnico))
+        if (empty($idTecnico)) {
             $idTecnico = new Zend_Db_Expr('sac.dbo.fnPegarTecnico(110, ' . $orgaoUsuario . ' ,1)');
+        }
 
         $dados = array(
             'idPronac' => $idPronac,
@@ -72,5 +73,4 @@ class Analise_Model_DbTable_TbAvaliarAdequacaoProjeto extends MinC_Db_Table_Abst
 
         return $this->update($dados, $where);
     }
-
 }

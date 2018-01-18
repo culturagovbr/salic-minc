@@ -12,11 +12,12 @@
  *
  * @link http://salic.cultura.gov.br
  */
-class Proposta_Model_DbTable_TbDocumentosPreProjeto  extends MinC_Db_Table_Abstract {
-     protected $_banco   = "sac";
-     protected $_schema  = "sac";
-     protected $_name = 'tbdocumentospreprojeto';
-     protected $_primary = 'idDocumentosPreprojetos';
+class Proposta_Model_DbTable_TbDocumentosPreProjeto extends MinC_Db_Table_Abstract
+{
+    protected $_banco   = "sac";
+    protected $_schema  = "sac";
+    protected $_name = 'tbdocumentospreprojeto';
+    protected $_primary = 'idDocumentosPreprojetos';
 
 
     /**
@@ -27,7 +28,8 @@ class Proposta_Model_DbTable_TbDocumentosPreProjeto  extends MinC_Db_Table_Abstr
      * @param int $inicio - offset
      * @return Zend_Db_Table_Rowset_Abstract
      */
-    public function buscarDocumentos($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
+    public function buscarDocumentos($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -37,8 +39,10 @@ class Proposta_Model_DbTable_TbDocumentosPreProjeto  extends MinC_Db_Table_Abstr
             $this->_schema
         );
         $slct->joinInner(
-            array("b"=> "documentosexigidos"), "a.codigodocumento = b.codigo",
-            array("descricao"), $this->getSchema('sac')
+            array("b"=> "documentosexigidos"),
+            "a.codigodocumento = b.codigo",
+            array("descricao"),
+            $this->getSchema('sac')
         );
 
         //adiciona quantos filtros foram enviados
@@ -70,7 +74,8 @@ class Proposta_Model_DbTable_TbDocumentosPreProjeto  extends MinC_Db_Table_Abstr
      * @param int $inicio - offset
      * @return Zend_Db_Table_Rowset_Abstract
      */
-    public function abrir($id) {
+    public function abrir($id)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
 
@@ -91,4 +96,3 @@ class Proposta_Model_DbTable_TbDocumentosPreProjeto  extends MinC_Db_Table_Abstr
         return $this->fetchAll($slct);
     }
 }
-?>

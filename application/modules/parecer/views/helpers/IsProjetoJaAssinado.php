@@ -5,16 +5,16 @@
 
 class Zend_View_Helper_IsProjetoJaAssinado
 {
-	/**
-	 * Método para verificar se projeto já foi assinado na fase atual
-	 * @access public
-	 * @param integer $idPronac
-	 * @param integer $idTipoDoAtoAdministrativo
-	 * @param integer $quantidadeMinimaAssinaturas
-	 * @return string
-	 */
-	public function IsProjetoJaAssinado($idPronac, $idTipoDoAtoAdministrativo, $idPerfilDoAssinante)
-	{
+    /**
+     * Método para verificar se projeto já foi assinado na fase atual
+     * @access public
+     * @param integer $idPronac
+     * @param integer $idTipoDoAtoAdministrativo
+     * @param integer $quantidadeMinimaAssinaturas
+     * @return string
+     */
+    public function IsProjetoJaAssinado($idPronac, $idTipoDoAtoAdministrativo, $idPerfilDoAssinante)
+    {
         $objAssinatura = new Assinatura_Model_DbTable_TbAssinatura();
         $objDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
 

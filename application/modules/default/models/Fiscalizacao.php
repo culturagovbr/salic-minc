@@ -4,13 +4,14 @@
  *
  * @author Andr� Nogueira Pereira
  */
-class Fiscalizacao extends MinC_Db_Table_Abstract {
-
+class Fiscalizacao extends MinC_Db_Table_Abstract
+{
     protected $_name = 'tbFiscalizacao';
     protected $_schema = 'SAC';
     protected $_banco = 'SAC';
 
-    public function buscaFiscalizacao($idFiscalizacao) {
+    public function buscaFiscalizacao($idFiscalizacao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -31,7 +32,8 @@ class Fiscalizacao extends MinC_Db_Table_Abstract {
                 'ar.Codigo = Fisc.Area',
                 array('ar.Codigo as area')
         );
-        $select->joinLeft(array('sg' => 'Segmento'),
+        $select->joinLeft(
+            array('sg' => 'Segmento'),
                 'sg.Codigo = Fisc.Segmento',
                 array('sg.Codigo as segmento')
         );
@@ -39,7 +41,8 @@ class Fiscalizacao extends MinC_Db_Table_Abstract {
 
         return $this->fetchRow($select);
     }
-    public function alteraSituacaoProjeto($situacao, $idFiscalizacao) {
+    public function alteraSituacaoProjeto($situacao, $idFiscalizacao)
+    {
         try {
             $dados = array('stFiscalizacaoProjeto'=>$situacao);
             $where = array('idFiscalizacao = ?'=>$idFiscalizacao);
@@ -49,9 +52,8 @@ class Fiscalizacao extends MinC_Db_Table_Abstract {
             return 'RelatorioFiscalizacao -> alteraRelatorio. Erro:' . $e->getMessage();
         }
     }
-    public function filtroFiscalizacao($retornaSelect = false){
-
-
+    public function filtroFiscalizacao($retornaSelect = false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -62,12 +64,10 @@ class Fiscalizacao extends MinC_Db_Table_Abstract {
         $select->Where("tbFiscalizacao.stFiscalizacaoProjeto = '0'");
         $select->orWhere("tbFiscalizacao.stFiscalizacaoProjeto = '1'");
 
-        if($retornaSelect)
+        if ($retornaSelect) {
             return $select;
-        else
+        } else {
             return $this->fetchAll($select);
-
+        }
     }
-
-
 }

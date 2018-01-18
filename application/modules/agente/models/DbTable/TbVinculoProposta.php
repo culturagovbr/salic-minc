@@ -33,7 +33,8 @@ class Agente_Model_DbTable_TbVinculoProposta extends MinC_Db_Table_Abstract
         );
 
         $slct->joinInner(
-            array('VI' => 'tbVinculo'), 'VI.idVinculo = VP.idVinculo',
+            array('VI' => 'tbVinculo'),
+            'VI.idVinculo = VP.idVinculo',
             array('*')
         );
 
@@ -44,4 +45,3 @@ class Agente_Model_DbTable_TbVinculoProposta extends MinC_Db_Table_Abstract
         return $this->fetchAll($slct);
     }
 }
-

@@ -6,8 +6,8 @@
  * @version 1.0
  * @link http://www.cultura.gov.br
  */
-class tbRelatorio extends MinC_Db_Table_Abstract {
-
+class tbRelatorio extends MinC_Db_Table_Abstract
+{
     protected $_banco = "SAC";
     protected $_schema = "SAC";
     protected $_name = "tbRelatorio";
@@ -19,11 +19,13 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
      * @param integer $where
      * @return integer (quantidade de registros alterados)
      */
-    public function buscarDadosRelatorioPronac($idpronac) {
+    public function buscarDadosRelatorioPronac($idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('p' => $this->_name), array('*')
+                array('p' => $this->_name),
+            array('*')
         );
         if ($idpronac) {
             $select->where('p.idPRONAC = ?', $idpronac);
@@ -32,15 +34,19 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function buscarDadosRelatorio($where=array()) {
+    public function buscarDadosRelatorio($where=array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->distinct();
         $select->from(
-                array('r' => $this->_name), array()
+                array('r' => $this->_name),
+            array()
         );
         $select->joinInner(
-                array('pr' => 'Projetos'), 'pr.IdPRONAC = r.idPRONAC', array(
+                array('pr' => 'Projetos'),
+            'pr.IdPRONAC = r.idPRONAC',
+            array(
             'SAC.dbo.fnchecarDiligencia(pr.IdPRONAC) AS Diligencia',
             'pr.IdPRONAC',
             'pr.AnoProjeto',
@@ -53,13 +59,19 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
                 )
         );
         $select->joinLeft(
-                array('dl' => 'tbDiligencia'), 'dl.IdPRONAC = r.idPRONAC', array()
+                array('dl' => 'tbDiligencia'),
+            'dl.IdPRONAC = r.idPRONAC',
+            array()
         );
         $select->joinInner(
-                array('rt' => 'tbRelatorioTrimestral'), 'rt.idRelatorio = r.idRelatorio', array()
+                array('rt' => 'tbRelatorioTrimestral'),
+            'rt.idRelatorio = r.idRelatorio',
+            array()
         );
         $select->joinLeft(
-                array('ab' => 'Abrangencia'), 'ab.idProjeto = pr.idProjeto AND ab.stAbrangencia = 1', array()
+                array('ab' => 'Abrangencia'),
+            'ab.idProjeto = pr.idProjeto AND ab.stAbrangencia = 1',
+            array()
         );
         $select->joinLeft(
                 array('mc'=>'Mecanismo'),
@@ -76,9 +88,8 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
         foreach ($where as $key => $valor) {
             if (!is_array($valor) and (!$valor == '' or !$valor == 0)) {
                 $select->where($key, $valor);
-            }
-            else if(is_array($valor) and (!in_array(0, $valor))){
-                if(!in_array('', $valor)){
+            } elseif (is_array($valor) and (!in_array(0, $valor))) {
+                if (!in_array('', $valor)) {
                     $select->where($key, $valor);
                 }
             }
@@ -94,11 +105,13 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
      * @param integer $where
      * @return integer (quantidade de registros alterados)
      */
-    public function buscarDistribuicaoProduto($idpronac, $idProduto) {
+    public function buscarDistribuicaoProduto($idpronac, $idProduto)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('r' => $this->_name), array('*')
+                array('r' => $this->_name),
+            array('*')
         );
         if ($idpronac) {
             $select->where('r.idPRONAC = ?', $idpronac);
@@ -116,18 +129,26 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
      * @param integer $where
      * @return integer (quantidade de registros alterados)
      */
-    public function dadosGerais($idpronac) {
+    public function dadosGerais($idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('a' => $this->_name), array('a.idRelatorio')
+                array('a' => $this->_name),
+            array('a.idRelatorio')
         );
         $select->joinInner(
-                array('b' => 'tbRelatorioTrimestral'), 'b.idRelatorio = a.idRelatorio', array(
-                    "CAST(b.dsObjetivosMetas AS TEXT) AS dsObjetivosMetas", 'b.stRelatorioTrimestral'), 'SAC.dbo'
+                array('b' => 'tbRelatorioTrimestral'),
+            'b.idRelatorio = a.idRelatorio',
+            array(
+                    "CAST(b.dsObjetivosMetas AS TEXT) AS dsObjetivosMetas", 'b.stRelatorioTrimestral'),
+            'SAC.dbo'
         );
         $select->joinLeft(
-                array('c' => 'tbBeneficiario'), 'c.idRelatorio = a.idRelatorio', array('c.dsBeneficiario', 'c.tpBeneficiario', 'c.nrCNPJ', 'c.nrCPF', 'CAST(c.dsPublicoAlvo AS TEXT) AS dsPublicoAlvo', 'CAST(c.dsEntrega AS TEXT) AS dsEntrega'), 'SAC.dbo'
+                array('c' => 'tbBeneficiario'),
+            'c.idRelatorio = a.idRelatorio',
+            array('c.dsBeneficiario', 'c.tpBeneficiario', 'c.nrCNPJ', 'c.nrCPF', 'CAST(c.dsPublicoAlvo AS TEXT) AS dsPublicoAlvo', 'CAST(c.dsEntrega AS TEXT) AS dsEntrega'),
+            'SAC.dbo'
         );
         $select->where("a.idPRONAC = '" . $idpronac . "'");
         $select->where("b.stRelatorioTrimestral = 1");
@@ -144,17 +165,25 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
      * @param integer $where
      * @return integer (quantidade de registros alterados)
      */
-    public function dadosGerais2($idpronac) {
+    public function dadosGerais2($idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('a' => $this->_name), array('a.idRelatorio')
+                array('a' => $this->_name),
+            array('a.idRelatorio')
         );
         $select->joinInner(
-                array('b' => 'tbRelatorioTrimestral'), 'b.idRelatorio = a.idRelatorio', array('b.dsObjetivosMetas'), 'SAC.dbo'
+                array('b' => 'tbRelatorioTrimestral'),
+            'b.idRelatorio = a.idRelatorio',
+            array('b.dsObjetivosMetas'),
+            'SAC.dbo'
         );
         $select->joinInner(
-                array('c' => 'tbBeneficiario'), 'c.idRelatorio = a.idRelatorio', array('c.dsBeneficiario', 'c.tpBeneficiario', 'c.nrCNPJ', 'c.nrCPF', 'c.dsPublicoAlvo', 'c.dsEntrega'), 'SAC.dbo'
+                array('c' => 'tbBeneficiario'),
+            'c.idRelatorio = a.idRelatorio',
+            array('c.dsBeneficiario', 'c.tpBeneficiario', 'c.nrCNPJ', 'c.nrCPF', 'c.dsPublicoAlvo', 'c.dsEntrega'),
+            'SAC.dbo'
         );
         $select->where("a.idPRONAC = '" . $idpronac . "'");
         $select->where("a.idAgenteAvaliador IS NOT NULL ");
@@ -170,17 +199,25 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
      * @param integer $where
      * @return integer (quantidade de registros alterados)
      */
-    public function DadosAcesso($idpronac, $tpAcesso) {
+    public function DadosAcesso($idpronac, $tpAcesso)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('a' => $this->_name), array('a.idRelatorio')
+                array('a' => $this->_name),
+            array('a.idRelatorio')
         );
         $select->joinInner(
-                array('b' => 'tbRelatorioTrimestral'), 'b.idRelatorio = a.idRelatorio', array(''), 'SAC.dbo'
+                array('b' => 'tbRelatorioTrimestral'),
+            'b.idRelatorio = a.idRelatorio',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-                array('c' => 'tbAcesso'), 'c.idRelatorio = a.idRelatorio', array('c.idAcesso', 'c.idRelatorio', 'CAST(c.dsAcesso AS TEXT) AS dsAcesso', 'CAST(c.dsPublicoAlvo AS TEXT) AS dsPublicoAlvo', 'c.qtPessoa', 'CAST(c.dsLocal AS TEXT) AS dsLocal', 'CAST(c.dsEstruturaSolucao AS TEXT) AS dsEstruturaSolucao', 'c.tpAcesso', 'c.stAcesso', 'c.stQtPessoa', 'c.stPublicoAlvo', 'c.stLocal', 'c.stEstrutura', 'c.dsJustificativaAcesso'), 'SAC.dbo'
+                array('c' => 'tbAcesso'),
+            'c.idRelatorio = a.idRelatorio',
+            array('c.idAcesso', 'c.idRelatorio', 'CAST(c.dsAcesso AS TEXT) AS dsAcesso', 'CAST(c.dsPublicoAlvo AS TEXT) AS dsPublicoAlvo', 'c.qtPessoa', 'CAST(c.dsLocal AS TEXT) AS dsLocal', 'CAST(c.dsEstruturaSolucao AS TEXT) AS dsEstruturaSolucao', 'c.tpAcesso', 'c.stAcesso', 'c.stQtPessoa', 'c.stPublicoAlvo', 'c.stLocal', 'c.stEstrutura', 'c.dsJustificativaAcesso'),
+            'SAC.dbo'
         );
         $select->where("a.idPRONAC = '" . $idpronac . "'");
         $select->where("a.tpRelatorio = 'T'");
@@ -190,14 +227,18 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function buscarRelatorioTrimestral($idpronac, $nrrelatorio) {
+    public function buscarRelatorioTrimestral($idpronac, $nrrelatorio)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('r' => $this->_name), array('r.idRelatorio')
+                array('r' => $this->_name),
+            array('r.idRelatorio')
         );
         $select->joinInner(
-                array('rt' => 'tbRelatorioTrimestral'), "rt.idRelatorio = r.idRelatorio", array()
+                array('rt' => 'tbRelatorioTrimestral'),
+            "rt.idRelatorio = r.idRelatorio",
+            array()
         );
         $select->where('r.IdPRONAC = ?', $idpronac);
         $select->where('r.tpRelatorio = ?', 'T');
@@ -205,14 +246,18 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function buscarRelatorioTrimestrais($idpronac) {
+    public function buscarRelatorioTrimestrais($idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('r' => $this->_name), array('*')
+                array('r' => $this->_name),
+            array('*')
         );
         $select->joinInner(
-                array('rt' => 'tbRelatorioTrimestral'), "rt.idRelatorio = r.idRelatorio", array('*')
+                array('rt' => 'tbRelatorioTrimestral'),
+            "rt.idRelatorio = r.idRelatorio",
+            array('*')
         );
         $select->where('r.IdPRONAC = ?', $idpronac);
         $select->where('r.tpRelatorio = ?', 'T');
@@ -220,18 +265,21 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function buscarRelatorioFinal($idpronac) {
+    public function buscarRelatorioFinal($idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('r' => $this->_name), array('*')
+                array('r' => $this->_name),
+            array('*')
         );
         $select->where('r.IdPRONAC = ?', $idpronac);
         $select->where('r.tpRelatorio = ?', 'C');
         return $this->fetchAll($select);
     }
 
-    public function buscarTecnicoAcompanhamento($idPronac, $idusuario=null){
+    public function buscarTecnicoAcompanhamento($idPronac, $idusuario=null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -283,7 +331,8 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function dadosRelatoriosAnteriores($idPronac){
+    public function dadosRelatoriosAnteriores($idPronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -309,7 +358,8 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function dadosAcessoAnteriores($idPronac, $tpAcesso){
+    public function dadosAcessoAnteriores($idPronac, $tpAcesso)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -328,7 +378,8 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function dadosBeneficiarioAnteriores($idPronac){
+    public function dadosBeneficiarioAnteriores($idPronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -347,7 +398,8 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function dadosRelatorioLiberacao($idPronac){
+    public function dadosRelatorioLiberacao($idPronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -371,6 +423,4 @@ class tbRelatorio extends MinC_Db_Table_Abstract {
 
         return $this->fetchAll($select);
     }
-
 }
-

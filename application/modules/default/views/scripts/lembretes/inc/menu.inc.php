@@ -34,9 +34,9 @@
 		</style>
 
 		<?php
-		// pega a variável com o id do pronac via get
-		$getPronac = isset($_GET['idPronac']) ? $_GET['idPronac'] : $_GET['pronac'];
-		?>
+        // pega a variável com o id do pronac via get
+        $getPronac = isset($_GET['idPronac']) ? $_GET['idPronac'] : $_GET['pronac'];
+        ?>
 
 		<div id="menuContexto">
 			<div class="top"></div>

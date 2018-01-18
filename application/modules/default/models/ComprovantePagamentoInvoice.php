@@ -13,7 +13,7 @@ class ComprovantePagamentoInvoice extends ComprovantePagamento
     protected $_schema = 'bdcorporativo.scSAC';
     protected $_name = 'tbComprovantePagamento';
 
-    function __construct(
+    public function __construct(
             $id,
             $fornecedor,
             $item,
@@ -24,8 +24,7 @@ class ComprovantePagamentoInvoice extends ComprovantePagamento
             $comprovanteData,
             $comprovanteValor,
             $justificativa
-            )
-    {
+            ) {
         parent::__construct();
         $this->comprovantePagamento = $id;
         $this->fornecedor = $fornecedor;
@@ -101,7 +100,8 @@ class ComprovantePagamentoInvoice extends ComprovantePagamento
                                 'dsEndereco' => $this->getFornecedor()->getEndereco(),
                                 'dsPais' => $this->getFornecedor()->getPais(),
                             )
-                    ));
+                    )
+            );
             $this->setComprovantePagamento($this->insert(
                 array(
                     'tpDocumento' => $this->getTipoDocumento(),
@@ -134,7 +134,7 @@ class ComprovantePagamentoInvoice extends ComprovantePagamento
 
     public function atualizar($status = 4, $atualizarArquivo = false)
     {
-    	$this->validarCadastrar(true);
+        $this->validarCadastrar(true);
         // somente mexer no arquivo se houver um arquivo
         if ($atualizarArquivo) {
             $arquivoModel = new ArquivoModel();
@@ -146,22 +146,21 @@ class ComprovantePagamentoInvoice extends ComprovantePagamento
         }
 
         $this->update(
-        	array(
+            array(
                 'idFornecedorExterior' => $this->fornecedor,
-        		'tpDocumento' => $this->tipo,
-        		'nrComprovante' => $this->nif,
-        		'nrSerie' => $this->serie,
-        		'dtEmissao' => $this->dataEmissao->format('Y-m-d h:i:s'),
-        		'idArquivo' => $arquivoId,
-        		'vlComprovacao' => $this->comprovanteValor,
-        		'dtPagamento' => $this->comprovanteData->format('Y-m-d h:i:s'),
-        		'dsJustificativa' => $this->comprovanteJustificativa,
-        		'tpFormaDePagamento' => $this->comprovanteTipo,
-        		'nrDocumentoDePagamento' => $this->comprovanteNumero,
-        	),
-        	array('idComprovantePagamento = ?' => $this->comprovantePagamento)
+                'tpDocumento' => $this->tipo,
+                'nrComprovante' => $this->nif,
+                'nrSerie' => $this->serie,
+                'dtEmissao' => $this->dataEmissao->format('Y-m-d h:i:s'),
+                'idArquivo' => $arquivoId,
+                'vlComprovacao' => $this->comprovanteValor,
+                'dtPagamento' => $this->comprovanteData->format('Y-m-d h:i:s'),
+                'dsJustificativa' => $this->comprovanteJustificativa,
+                'tpFormaDePagamento' => $this->comprovanteTipo,
+                'nrDocumentoDePagamento' => $this->comprovanteNumero,
+            ),
+            array('idComprovantePagamento = ?' => $this->comprovantePagamento)
         );
         $this->comprovarPlanilhaAtualizarStatus($status, $this->comprovanteValor, $this->comprovantePagamento);
     }
-
 }

@@ -5,16 +5,16 @@
         <a id="<?php echo $this->id; ?>"
            class="<?php echo ($currentUri == $this->url) ? 'active':''?>"
            href="<?php echo($this->url) ? $this->url : 'javascript:void(0);'; ?>"
-           title="Ir para <?php echo($this->label); ?>"><?php echo trim($this->label); ?></a>
+           title="Ir para <?php echo($this->label); ?>">
+            <?= !empty($this->icon) ? '<i class="material-icons left">' . $this->icon . '</i>' : ''; ?>
+            <?php echo trim($this->label); ?></a>
     <?php else : ?>
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
                 <a id="<?php echo $this->id; ?>"
                    class="collapsible-header waves-effect waves-cyan <?php echo (in_array($currentUri, array_column($this->menu,'url'))) ? 'active':''?>"
                    href="<?php echo($this->url) ? $this->url : 'javascript:void(0);'; ?>"><?php echo $this->label; ?>
-                    <?php if( !empty($this->icon) ) : ?>
-                        <i class="mdi-action-view-carousel"></i>
-                    <?php endif; ?>
+                    <?= !empty($this->icon) ? '<i class="material-icons left">' . $this->icon . '</i>' : ''; ?>
                 </a>
                 <div class="collapsible-body">
                     <ul>

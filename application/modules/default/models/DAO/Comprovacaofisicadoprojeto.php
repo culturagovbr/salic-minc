@@ -12,18 +12,18 @@
 
 class Comprovacaofisicadoprojeto extends Zend_Db_Table
 {
-	protected $_name = 'scSAC.dbo.tbComprovanteExecucao'; // nome da tabela
+    protected $_name = 'scSAC.dbo.tbComprovanteExecucao'; // nome da tabela
 
-	/**
-	 * Método aguardandoavaliacao()
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function aguardandoavaliacao($pronac = null, $status = null, $dt_inicio = null, $dt_fim = null)
-	{
-		// busca dados do arquivo
-		$sql = "SELECT 
+    /**
+     * Método aguardandoavaliacao()
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function aguardandoavaliacao($pronac = null, $status = null, $dt_inicio = null, $dt_fim = null)
+    {
+        // busca dados do arquivo
+        $sql = "SELECT 
 			      pro.IdPRONAC,
 			      pro.NomeProjeto,
 			      doc.stParecerComprovante AS StatusComprovante,
@@ -38,78 +38,67 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND doc.dtEnvioComprovante = tmp.dtEnvioComprovante 
 				AND stComprovante = 'A' ";
 
-		// consulta inicial (mostra todos os projetos com comprovantes em avaliação)
-		if (empty($pronac) && empty($status) && empty($dt_inicio) && empty($dt_fim))
-		{
-			$sql.= "AND doc.stParecerComprovante = 'AG' ";
-		}
-		// consulta pelo id do pronac
-		if (!empty($pronac))
-		{
-			$sql.= "AND doc.idPRONAC = '$pronac' ";
-		}
-		// consulta pelo status do pronac
-		if (!empty($status))
-		{
-			// se o projeto tiver pelo menos um comprovante 
-			// com o status 'Aguardando Avaliação'
-			if ($status == "AG")
-			{
-				$sql.= "AND doc.stParecerComprovante = 'AG' ";
-			}
+        // consulta inicial (mostra todos os projetos com comprovantes em avaliação)
+        if (empty($pronac) && empty($status) && empty($dt_inicio) && empty($dt_fim)) {
+            $sql.= "AND doc.stParecerComprovante = 'AG' ";
+        }
+        // consulta pelo id do pronac
+        if (!empty($pronac)) {
+            $sql.= "AND doc.idPRONAC = '$pronac' ";
+        }
+        // consulta pelo status do pronac
+        if (!empty($status)) {
+            // se o projeto tiver pelo menos um comprovante
+            // com o status 'Aguardando Avaliação'
+            if ($status == "AG") {
+                $sql.= "AND doc.stParecerComprovante = 'AG' ";
+            }
 
-			// se o projeto tiver pelo menos um comprovante 
-			// com o status 'Em Avaliação'
-			if ($status == "AV")
-			{
-				$sql.= "AND doc.stParecerComprovante = 'AV' ";
-			}
+            // se o projeto tiver pelo menos um comprovante
+            // com o status 'Em Avaliação'
+            if ($status == "AV") {
+                $sql.= "AND doc.stParecerComprovante = 'AV' ";
+            }
 
-			// se o projeto não tiver comprovantes  
-			// com os status 'Aguardando Avaliação' em 'Em Avaliação'
-			if ($status == "AA")
-			{
-				$sql.= "AND doc.stParecerComprovante <> 'AG' ";
-				$sql.= "AND doc.stParecerComprovante <> 'AV' ";
-			}
-		} // fecha if
+            // se o projeto não tiver comprovantes
+            // com os status 'Aguardando Avaliação' em 'Em Avaliação'
+            if ($status == "AA") {
+                $sql.= "AND doc.stParecerComprovante <> 'AG' ";
+                $sql.= "AND doc.stParecerComprovante <> 'AV' ";
+            }
+        } // fecha if
 
-		// busca pela data
-		if (!empty($dt_inicio) && !empty($dt_fim))
-		{
-			$sql.= "AND doc.dtEnvioComprovante BETWEEN '$dt_inicio' AND '$dt_fim' ";
-		}
-		else
-		{
-			if (!empty($dt_inicio))
-			{
-				$sql.= "AND doc.dtEnvioComprovante > '$dt_inicio' ";
-			}
-			if (!empty($dt_fim))
-			{
-				$sql.= "AND doc.dtEnvioComprovante < '$dt_fim' ";
-			}
-		}
+        // busca pela data
+        if (!empty($dt_inicio) && !empty($dt_fim)) {
+            $sql.= "AND doc.dtEnvioComprovante BETWEEN '$dt_inicio' AND '$dt_fim' ";
+        } else {
+            if (!empty($dt_inicio)) {
+                $sql.= "AND doc.dtEnvioComprovante > '$dt_inicio' ";
+            }
+            if (!empty($dt_fim)) {
+                $sql.= "AND doc.dtEnvioComprovante < '$dt_fim' ";
+            }
+        }
 
-		$sql.= "ORDER BY doc.dtEnvioComprovante DESC;";
-					
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		return $db->query($sql);
-	} // fecha aguardandoavaliacao()
-	
+        $sql.= "ORDER BY doc.dtEnvioComprovante DESC;";
+                    
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        return $db->query($sql);
+    } // fecha aguardandoavaliacao()
+    
 
-	
-	/**
-	 * Método comprovantesemavaliacao()
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function comprovantesemavaliacao($pronac)
-	{
-		// busca dados do arquivo
-		$sql = "SELECT 
+    
+    /**
+     * Método comprovantesemavaliacao()
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function comprovantesemavaliacao($pronac)
+    {
+        // busca dados do arquivo
+        $sql = "SELECT 
 				pro.IdPRONAC,
 				pro.NomeProjeto,
 				doc.idComprovante AS id,
@@ -133,23 +122,23 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND doc.idPRONAC = '$pronac' 
 			ORDER BY doc.dtEnvioComprovante DESC";
 
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		return $db->query($sql);
-	} // fecha comprovantesemavaliacao()
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        return $db->query($sql);
+    } // fecha comprovantesemavaliacao()
 
 
 
-	/**
-	 * Método subcomprovantesemavaliacao()
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function subcomprovantesemavaliacao($idPronac, $idComprovante)
-	{
-		// busca dados do arquivo
-		$sql = "SELECT 
+    /**
+     * Método subcomprovantesemavaliacao()
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function subcomprovantesemavaliacao($idPronac, $idComprovante)
+    {
+        // busca dados do arquivo
+        $sql = "SELECT 
 				doc.idComprovante AS id,
 				tipodoc.dsTipoDocumento,
 				doc.nmComprovante AS Nome,
@@ -168,23 +157,23 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND idComprovanteAnterior = $idComprovante 
 			ORDER BY doc.dtEnvioComprovante DESC";
 
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		return $db->query($sql);
-	} // fecha subcomprovantesemavaliacao()
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        return $db->query($sql);
+    } // fecha subcomprovantesemavaliacao()
 
 
 
-	/**
-	 * Método avaliarcomprovante()
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function avaliarcomprovante($idPronac, $idComprovante)
-	{
-// busca os dados do comprovante
-		$sql = "SELECT 
+    /**
+     * Método avaliarcomprovante()
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function avaliarcomprovante($idPronac, $idComprovante)
+    {
+        // busca os dados do comprovante
+        $sql = "SELECT 
 				doc.idComprovante,
 				pro.IdPRONAC, 
 				pro.NomeProjeto, 
@@ -205,17 +194,17 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND doc.idPRONAC = $idPronac 
 				AND doc.idComprovante = $idComprovante 
 			ORDER BY doc.dtEnvioComprovante DESC;";
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		return $db->query($sql);
-	} // fecha avaliarcomprovante()
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        return $db->query($sql);
+    } // fecha avaliarcomprovante()
 
 
 
-	public static function cadastraravaliarcomprovante($dados)
-	{
-// busca os dados do comprovante
-		$sql = "SELECT 
+    public static function cadastraravaliarcomprovante($dados)
+    {
+        // busca os dados do comprovante
+        $sql = "SELECT 
 				pro.IdPRONAC, 
 				pro.NomeProjeto, 
 				tipodoc.dsTipoDocumento, 
@@ -235,24 +224,24 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND doc.idPRONAC = $idPronac 
 				AND doc.idComprovante = $idComprovante 
 			ORDER BY doc.dtEnvioComprovante DESC;";
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		return $db->query($sql);
-	} // fecha avaliarcomprovante()
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        return $db->query($sql);
+    } // fecha avaliarcomprovante()
 
-	
-	
-	
-	/**
-	 * Método aprovarcomprovante()
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function aprovarcomprovante($idPronac, $idComprovante)
-	{
-// busca os dados do comprovante
-		$sql = "SELECT 
+    
+    
+    
+    /**
+     * Método aprovarcomprovante()
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function aprovarcomprovante($idPronac, $idComprovante)
+    {
+        // busca os dados do comprovante
+        $sql = "SELECT 
 				doc.idComprovante,
 				pro.IdPRONAC, 
 				pro.NomeProjeto, 
@@ -273,21 +262,21 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND doc.idPRONAC = $idPronac 
 				AND doc.idComprovante = $idComprovante 
 			ORDER BY doc.dtEnvioComprovante DESC;";
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		return $db->query($sql);
-	} // fecha aprovarcomprovante()
-	
-	
-	/**
-	 * Método avaliarcomprovantealterado()
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function avaliarcomprovantealterado($idPronac, $idComprovante)
-	{
-    $sql = "SELECT 
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        return $db->query($sql);
+    } // fecha aprovarcomprovante()
+    
+    
+    /**
+     * Método avaliarcomprovantealterado()
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function avaliarcomprovantealterado($idPronac, $idComprovante)
+    {
+        $sql = "SELECT 
 				pro.IdPRONAC, 
 				pro.NomeProjeto, 
 				tipodoc.dsTipoDocumento, 
@@ -307,24 +296,23 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND doc.idPRONAC = $idPronac 
 				AND doc.idComprovante = $idComprovante 
 			ORDER BY doc.dtEnvioComprovante DESC;";
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		return $db->query($sql);
-	} // fecha avaliarcomprovantealterado()
-	
-	
-	
-	/**
-	 * Método aprovarcomprovantealterado()
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function aprovarcomprovantealterado($idPronac, $idComprovante, $alterado = null)
-	{
-		if (empty($alterado))
-		{
- 		 $sql = "SELECT 
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        return $db->query($sql);
+    } // fecha avaliarcomprovantealterado()
+    
+    
+    
+    /**
+     * Método aprovarcomprovantealterado()
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function aprovarcomprovantealterado($idPronac, $idComprovante, $alterado = null)
+    {
+        if (empty($alterado)) {
+            $sql = "SELECT 
 				pro.IdPRONAC, 
 				pro.NomeProjeto, 
 				tipodoc.dsTipoDocumento, 
@@ -344,10 +332,8 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND doc.idPRONAC = $idPronac 
 				AND doc.idComprovante = $idComprovante 
 			ORDER BY doc.dtEnvioComprovante DESC;";
-		}
-		else
-		{
- 		 $sql = "SELECT 
+        } else {
+            $sql = "SELECT 
 				pro.IdPRONAC, 
 				pro.NomeProjeto, 
 				tipodoc.dsTipoDocumento, 
@@ -367,25 +353,25 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND doc.idPRONAC = $idPronac 
 				AND doc.idComprovanteAnterior = $idComprovante 
 			ORDER BY doc.dtEnvioComprovante DESC;";
-		}
+        }
 
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		return $db->query($sql);
-	} // fecha aprovarcomprovantealterado()
-	
-	
-	
-	/**
-	 * Método aguardandoaprovacao()
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function aguardandoaprovacao($pronac = null, $status = null, $dt_inicio = null, $dt_fim = null)
-	{
-		// busca dados do arquivo
-		$sql = "SELECT 
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        return $db->query($sql);
+    } // fecha aprovarcomprovantealterado()
+    
+    
+    
+    /**
+     * Método aguardandoaprovacao()
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function aguardandoaprovacao($pronac = null, $status = null, $dt_inicio = null, $dt_fim = null)
+    {
+        // busca dados do arquivo
+        $sql = "SELECT 
 			      pro.IdPRONAC,
 			      pro.NomeProjeto,
 			      doc.stParecerComprovante AS StatusComprovante,
@@ -401,73 +387,63 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND doc.dtEnvioComprovante = tmp.dtEnvioComprovante 
 				AND stComprovante = 'A' ";
 
-		// consulta pelo id do pronac
-		if (!empty($pronac))
-		{
-			$sql.= "AND doc.idPRONAC = '$pronac' ";
-		}
-		// consulta pelo status do pronac
-		if (!empty($status))
-		{
-			// se o projeto tiver pelo menos um comprovante 
-			// com o status 'Aguardando Avaliação'
-			if ($status == "AG")
-			{
-				$sql.= "AND doc.stParecerComprovante = 'AG' ";
-			}
+        // consulta pelo id do pronac
+        if (!empty($pronac)) {
+            $sql.= "AND doc.idPRONAC = '$pronac' ";
+        }
+        // consulta pelo status do pronac
+        if (!empty($status)) {
+            // se o projeto tiver pelo menos um comprovante
+            // com o status 'Aguardando Avaliação'
+            if ($status == "AG") {
+                $sql.= "AND doc.stParecerComprovante = 'AG' ";
+            }
 
-			// se o projeto tiver pelo menos um comprovante 
-			// com o status 'Em Avaliação'
-			if ($status == "AV")
-			{
-				$sql.= "AND doc.stParecerComprovante = 'AV' ";
-			}
+            // se o projeto tiver pelo menos um comprovante
+            // com o status 'Em Avaliação'
+            if ($status == "AV") {
+                $sql.= "AND doc.stParecerComprovante = 'AV' ";
+            }
 
-			// se o projeto não tiver comprovantes  
-			// com os status 'Aguardando Avaliação' em 'Em Avaliação'
-			if ($status == "AA")
-			{
-				$sql.= "AND doc.stParecerComprovante <> 'AG' ";
-				$sql.= "AND doc.stParecerComprovante <> 'AV' ";
-			}
-		} // fecha if
+            // se o projeto não tiver comprovantes
+            // com os status 'Aguardando Avaliação' em 'Em Avaliação'
+            if ($status == "AA") {
+                $sql.= "AND doc.stParecerComprovante <> 'AG' ";
+                $sql.= "AND doc.stParecerComprovante <> 'AV' ";
+            }
+        } // fecha if
 
-		// busca pela data
-		if (!empty($dt_inicio) && !empty($dt_fim))
-		{
-			$sql.= "AND doc.dtEnvioComprovante BETWEEN '$dt_inicio' AND '$dt_fim' ";
-		}
-		else
-		{
-			if (!empty($dt_inicio))
-			{
-				$sql.= "AND doc.dtEnvioComprovante > '$dt_inicio' ";
-			}
-			if (!empty($dt_fim))
-			{
-				$sql.= "AND doc.dtEnvioComprovante < '$dt_fim' ";
-			}
-		}
+        // busca pela data
+        if (!empty($dt_inicio) && !empty($dt_fim)) {
+            $sql.= "AND doc.dtEnvioComprovante BETWEEN '$dt_inicio' AND '$dt_fim' ";
+        } else {
+            if (!empty($dt_inicio)) {
+                $sql.= "AND doc.dtEnvioComprovante > '$dt_inicio' ";
+            }
+            if (!empty($dt_fim)) {
+                $sql.= "AND doc.dtEnvioComprovante < '$dt_fim' ";
+            }
+        }
 
-		$sql.= "ORDER BY doc.dtEnvioComprovante DESC;";
-					
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		return $db->query($sql);
-	} // fecha aguardandoaprovacao()
+        $sql.= "ORDER BY doc.dtEnvioComprovante DESC;";
+                    
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        return $db->query($sql);
+    } // fecha aguardandoaprovacao()
 
 
 
-	/**
-	 * Método comprovantesemaprovacao()
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function comprovantesemaprovacao($pronac)
-	{
-		// busca dados do arquivo
-		$sql = "SELECT 
+    /**
+     * Método comprovantesemaprovacao()
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function comprovantesemaprovacao($pronac)
+    {
+        // busca dados do arquivo
+        $sql = "SELECT 
 				pro.IdPRONAC,
 				pro.NomeProjeto,
 				doc.idComprovante AS id,
@@ -491,23 +467,23 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND doc.idPRONAC = '$pronac' 
 			ORDER BY doc.dtEnvioComprovante DESC";
 
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		return $db->query($sql);
-	} // fecha comprovantesemavaliacao()
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        return $db->query($sql);
+    } // fecha comprovantesemavaliacao()
 
 
 
-	/**
-	 * Método subcomprovantesemaprovacao()
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function subcomprovantesemaprovacao($idPronac, $idComprovante)
-	{
-		// busca dados do arquivo
-		$sql = "SELECT 
+    /**
+     * Método subcomprovantesemaprovacao()
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function subcomprovantesemaprovacao($idPronac, $idComprovante)
+    {
+        // busca dados do arquivo
+        $sql = "SELECT 
 				doc.idComprovante AS id,
 				tipodoc.dsTipoDocumento,
 				doc.nmComprovante AS Nome,
@@ -526,23 +502,23 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND idComprovanteAnterior = $idComprovante 
 			ORDER BY doc.dtEnvioComprovante DESC";
 
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		return $db->query($sql);
-	} // fecha subcomprovantesemavaliacao()
-	
-	
-	
-	/**
-	 * Método visualizarcomprovantedeferido()
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function visualizarcomprovantedeferido($idPronac, $idComprovante)
-	{
-		// busca os dados do comprovante
-		$sql = "SELECT 
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        return $db->query($sql);
+    } // fecha subcomprovantesemavaliacao()
+    
+    
+    
+    /**
+     * Método visualizarcomprovantedeferido()
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function visualizarcomprovantedeferido($idPronac, $idComprovante)
+    {
+        // busca os dados do comprovante
+        $sql = "SELECT 
 				pro.IdPRONAC, 
 				pro.NomeProjeto, 
 				tipodoc.dsTipoDocumento, 
@@ -562,23 +538,23 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND doc.idPRONAC = $idPronac 
 				AND doc.idComprovante = $idComprovante 
 			ORDER BY doc.dtEnvioComprovante DESC;";
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		return $db->query($sql);
-	} // fecha visualizarcomprovantedeferido()
-	
-	
-	
-	/**
-	 * Método visualizarcomprovanteindeferido()
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function visualizarcomprovanteindeferido($idPronac, $idComprovante)
-	{
-		// busca os dados do comprovante
-		$sql = "SELECT 
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        return $db->query($sql);
+    } // fecha visualizarcomprovantedeferido()
+    
+    
+    
+    /**
+     * Método visualizarcomprovanteindeferido()
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function visualizarcomprovanteindeferido($idPronac, $idComprovante)
+    {
+        // busca os dados do comprovante
+        $sql = "SELECT 
 				pro.IdPRONAC, 
 				pro.NomeProjeto, 
 				tipodoc.dsTipoDocumento, 
@@ -598,23 +574,23 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND doc.idPRONAC = $idPronac 
 				AND doc.idComprovante = $idComprovante 
 			ORDER BY doc.dtEnvioComprovante DESC;";
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		return $db->query($sql);
-	} // fecha visualizarcomprovanteindeferido()
-	
-	
-	
-	/**
-	 * Método visualizarcomprovantesubstituido()
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function visualizarcomprovantesubstituido($idPronac, $idComprovante)
-	{
-		// busca os dados do comprovante
-		$sql = "SELECT 
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        return $db->query($sql);
+    } // fecha visualizarcomprovanteindeferido()
+    
+    
+    
+    /**
+     * Método visualizarcomprovantesubstituido()
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function visualizarcomprovantesubstituido($idPronac, $idComprovante)
+    {
+        // busca os dados do comprovante
+        $sql = "SELECT 
 				pro.IdPRONAC, 
 				pro.NomeProjeto, 
 				tipodoc.dsTipoDocumento, 
@@ -633,9 +609,8 @@ class Comprovacaofisicadoprojeto extends Zend_Db_Table
 				AND doc.idPRONAC = $idPronac 
 				AND doc.idComprovante = $idComprovante 
 			ORDER BY doc.dtEnvioComprovante DESC;";
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		return $db->query($sql);
-	} // fecha visualizarcomprovantesubstituido()
-
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        return $db->query($sql);
+    } // fecha visualizarcomprovantesubstituido()
 } // fecha class

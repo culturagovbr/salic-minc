@@ -5,8 +5,8 @@
  *
  * @author 01129075125
  */
-class tbAcesso extends MinC_Db_Table_Abstract{
-
+class tbAcesso extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'SAC';
     protected $_schema = 'SAC';
     protected $_name = 'tbAcesso';
@@ -19,29 +19,28 @@ class tbAcesso extends MinC_Db_Table_Abstract{
      * @param integer $where
      * @return integer (quantidade de registros alterados)
      */
-    public function buscarDadosAcesso($idpronac) {
-            $select = $this->select();
-            $select->setIntegrityCheck(false);
-            $select->from(
+    public function buscarDadosAcesso($idpronac)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
                     array('a' => $this->_name)
             );
-            $select->joinInner(
+        $select->joinInner(
                     array('b' => 'tbRelatorioTrimestral'),
                     'b.idRelatorioTrimestral = a.idRelatorio',
                     array('*'),
                     'SAC.dbo'
                     );
-            $select->joinInner(
+        $select->joinInner(
                     array('c' => 'tbRelatorio'),
                     'c.idRelatorio = b.idRelatorio',
                     array(''),
                     'SAC.dbo'
                     );
 
-            $select->where('c.IdPRONAC = ?', $idpronac);
+        $select->where('c.IdPRONAC = ?', $idpronac);
 
-            return $this->fetchAll($select);
-
-        }
-
+        return $this->fetchAll($select);
+    }
 }

@@ -6,7 +6,8 @@
  * @link http://www.cultura.gov.br
  */
 
-class tbTermoAceiteObra extends MinC_Db_Table_Abstract {
+class tbTermoAceiteObra extends MinC_Db_Table_Abstract
+{
     protected $_banco  = "SAC";
     protected $_schema = "SAC";
     protected $_name   = "tbTermoAceiteObra";
@@ -17,7 +18,8 @@ class tbTermoAceiteObra extends MinC_Db_Table_Abstract {
      * @param array $dados
      * @return integer (retorna o �ltimo id cadastrado)
      */
-    public function cadastrarDados($dados) {
+    public function cadastrarDados($dados)
+    {
         return $this->insert($dados);
     } // fecha m�todo cadastrarDados()
 
@@ -29,13 +31,15 @@ class tbTermoAceiteObra extends MinC_Db_Table_Abstract {
      * @param integer $where
      * @return integer (quantidade de registros alterados)
      */
-    public function alterarDados($dados, $where) {
+    public function alterarDados($dados, $where)
+    {
         $where = "idTermoAceiteObra = " . $where;
         return $this->update($dados, $where);
     } // fecha m�todo alterarDados()
 
 
-    public function buscarTermoAceiteObra($where, $all = false, $order = array()) {
+    public function buscarTermoAceiteObra($where, $all = false, $order = array())
+    {
         // criando objeto do tipo select
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
@@ -56,14 +60,15 @@ class tbTermoAceiteObra extends MinC_Db_Table_Abstract {
         $slct->order($order);
 
         // retornando os registros
-        if($all){
+        if ($all) {
             return $this->fetchAll($slct);
         } else {
             return $this->fetchRow($slct);
         }
     } // fecha m�todo alterarDados()
 
-    public function buscarTermoAceiteObraArquivos($where, $all = false, $order = array()) {
+    public function buscarTermoAceiteObraArquivos($where, $all = false, $order = array())
+    {
         // criando objeto do tipo select
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
@@ -76,12 +81,16 @@ class tbTermoAceiteObra extends MinC_Db_Table_Abstract {
         );
 
         $slct->joinLeft(
-                array('b' => 'tbDocumento'), "a.idDocumentoTermo = b.idDocumento",
-                array(''), 'BDCORPORATIVO.scCorp'
+                array('b' => 'tbDocumento'),
+            "a.idDocumentoTermo = b.idDocumento",
+                array(''),
+            'BDCORPORATIVO.scCorp'
         );
         $slct->joinLeft(
-                array('c' => 'tbArquivo'), "b.idArquivo = c.idArquivo",
-                array('idArquivo','nmArquivo','sgExtensao','dtEnvio'), 'BDCORPORATIVO.scCorp'
+                array('c' => 'tbArquivo'),
+            "b.idArquivo = c.idArquivo",
+                array('idArquivo','nmArquivo','sgExtensao','dtEnvio'),
+            'BDCORPORATIVO.scCorp'
         );
 
         // adicionando clausulas where
@@ -93,12 +102,10 @@ class tbTermoAceiteObra extends MinC_Db_Table_Abstract {
         $slct->order($order);
 
         // retornando os registros
-        if($all){
+        if ($all) {
             return $this->fetchAll($slct);
         } else {
             return $this->fetchRow($slct);
         }
     } // fecha m�todo alterarDados()
-
-
 } // fecha class

@@ -23,8 +23,8 @@
 //CRIPTOGRAFA ID DO PRONAC
 $idPronac = $this->pronac;
 
-if (in_array($this->grupoAtivo, array(92,93,104,113,114,115,124,125,126,128,131,132,134,135,136,137,138,139,140,143))){
-    if($this->pagina == "alterarprojeto" ){
+if (in_array($this->grupoAtivo, array(92,93,104,113,114,115,124,125,126,128,131,132,134,135,136,137,138,139,140,143))) {
+    if ($this->pagina == "alterarprojeto") {
         header("Location: situacao?pronac=$idPronac");
     }
 }
@@ -185,8 +185,8 @@ if (in_array($this->grupoAtivo, array(92,93,104,113,114,115,124,125,126,128,131,
                     <select name="classificacao" id="classificacao" class="select_simples w300">
                         <option value="selecione">Selecione</option>
                         <?php foreach ($this->tiposDocumento as $tipo) {
-                            echo '<option class="cls" value="'.$tipo['idTipoDocumento'].'">'.$tipo['dsTipoDocumento'].'</option>';
-                        } ?>
+    echo '<option class="cls" value="'.$tipo['idTipoDocumento'].'">'.$tipo['dsTipoDocumento'].'</option>';
+} ?>
                     </select>
                     <span class="error" id="arquivoERRO3"> </span>
                 </td>
@@ -204,7 +204,8 @@ if (in_array($this->grupoAtivo, array(92,93,104,113,114,115,124,125,126,128,131,
 
 <?php
 $menu = !empty($_GET["menu"]) ? $_GET["menu"] : 1;
-if($menu != 0){ ?>
+if ($menu != 0) {
+    ?>
 
 <div id="menu">
 
@@ -219,11 +220,11 @@ if($menu != 0){ ?>
                 var fluidConteudo = janela - 253;
                 var fluidTitulo = janela - 252;
                 var fluidRodape = janela - 19;
-                $("#navglobal").css("width",fluidNavGlobal);
-                $("#conteudo").css("width",fluidConteudo);
-                $("#titulo").css("width",fluidTitulo);
-                $("#rodapeConteudo").css("width",fluidConteudo);
-                $("#rodape").css("width",fluidRodape);
+//                $("#navglobal").css("width",fluidNavGlobal);
+//                $("#conteudo").css("width",fluidConteudo);
+//                $("#titulo").css("width",fluidTitulo);
+//                $("#rodapeConteudo").css("width",fluidConteudo);
+//                $("#rodape").css("width",fluidRodape);
                 $("div#rodapeConteudo").attr("id", "rodapeConteudo_com_menu");
             }
         </script>
@@ -241,53 +242,75 @@ if($menu != 0){ ?>
             <div class="top"></div>
             <div id="qm0" class="qmmc sanfona">
 
-                <?php if(in_array($this->grupoAtivo, array(97,103,110,121,122,123,127))){ ?>
+                <?php if (in_array($this->grupoAtivo, array(97,103,110,121,122,123,127))) {
+        ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'alterarprojeto'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar nome do projeto">Nome do Projeto</a>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'proponente'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar proponente">Proponente</a>
-                <?php } ?>
+                <?php
+    } ?>
                 
-                <?php if(in_array($this->grupoAtivo, array(92,93,97,103,104,110,113,114,115,121,122,123,124,125,126,127,128,131,132,134,135,136,137,138,139,140,143))){ ?>
+                <?php if (in_array($this->grupoAtivo, array(92,93,97,103,104,110,113,114,115,121,122,123,124,125,126,127,128,131,132,134,135,136,137,138,139,140,143))) {
+        ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'situacao'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar situa&ccedil;&atilde;o">Situa&ccedil;&atilde;o</a>
-                <?php } ?>
+                <?php
+    } ?>
 
-                <?php if(in_array($this->grupoAtivo, array(97,103,110,121,122,123,127))){ ?>
+                <?php if (in_array($this->grupoAtivo, array(97,103,110,121,122,123,127))) {
+        ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'areasegmento'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar &aacute;rea/segmento">&Aacute;rea / Segmento</a>
-                <?php } ?>
+                <?php
+    } ?>
 
-                <?php if(in_array($this->grupoAtivo, array(97,103,110,121,122,123,127))){ ?>
+                <?php if (in_array($this->grupoAtivo, array(97,103,110,121,122,123,127))) {
+        ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'planodistribuicao'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para plano de distribui&ccedil;&atilde;o">Plano de distribui&ccedil;&atilde;o</a>
-                <?php } ?>
+                <?php
+    } ?>
 		
-                <?php if(in_array($this->grupoAtivo, array(97))){ ?>
+                <?php if (in_array($this->grupoAtivo, array(97))) {
+        ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'orgao'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar &oacute;rg&atilde;o">&Oacute;rg&atilde;o</a>
-                <?php } ?>
+                <?php
+    } ?>
 
-                <?php if(in_array($this->grupoAtivo, array(103))){ ?>
+                <?php if (in_array($this->grupoAtivo, array(103))) {
+        ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'sintese', 'pronac' => $this->pronac)); ?>" title="Ir para síntese do projeto">Síntese do Projeto</a>
-                <?php } ?>
+                <?php
+    } ?>
 
-                <?php if(in_array($this->grupoAtivo, array(97,103,122,123,125,126,127,134,138))){ ?>
+                <?php if (in_array($this->grupoAtivo, array(97,103,122,123,125,126,127,134,138))) {
+        ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'habilitarprojeto'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para habilitar projeto">Habilitar Projeto</a>
-                <?php } ?>
+                <?php
+    } ?>
 
-                <?php if(in_array($this->grupoAtivo, array(97,103,110,121,122,123,127)) && $this->parecer->Mecanismo == 1 ){ ?>
+                <?php if (in_array($this->grupoAtivo, array(97,103,110,121,122,123,127)) && $this->parecer->Mecanismo == 1) {
+        ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'enquadramento'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar enquadramento">Enquadramento</a>
-                <?php } ?>
+                <?php
+    } ?>
 
-                <?php if(in_array($this->grupoAtivo, array(97,103,110,121,122,123,127))){ ?>
+                <?php if (in_array($this->grupoAtivo, array(97,103,110,121,122,123,127))) {
+        ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'periododeexecucao'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para per&iacute;odo de execu&ccedil;&atilde;o">Período de Execu&ccedil;&atilde;o</a>
-                <?php } ?>
+                <?php
+    } ?>
 
                 <?php /*if(in_array('8', $menuAtor)){ ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'anexos')); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para documentos anexados">Documentos Anexados</a>
                 <?php }*/ ?>
 
-                <?php if(in_array($this->grupoAtivo, array(92,97,103,110,114,121,122,123,124,125,126,127,128,131,132,134,135,136,137,138,139,140,143)) && $this->pj == "true"){ ?>
+                <?php if (in_array($this->grupoAtivo, array(92,97,103,110,114,121,122,123,124,125,126,127,128,131,132,134,135,136,137,138,139,140,143)) && $this->pj == "true") {
+        ?>
                 <a class="last no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'dirigentes', 'pronac' => $this->pronac)); ?>" title="Ir para incluir dirigente">Dirigentes</a>
-                <?php } ?>
-                <?php if(in_array($this->grupoAtivo, array(92,93,97,103,104,110,113,114,115,121,122,123,124,125,126,127,128,131,132,134,135,136,137,138,139,140,143))){ ?>
+                <?php
+    } ?>
+                <?php if (in_array($this->grupoAtivo, array(92,93,97,103,104,110,113,114,115,121,122,123,124,125,126,127,128,131,132,134,135,136,137,138,139,140,143))) {
+        ?>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'execucao-imediata'), '', true); ?>?pronac=<?php echo $this->pronac ?>" title="Ir para alterar plano de execu&ccedil;&atilde;o imediata">Execu&ccedil;&atilde;o imediata</a>
-                <?php } ?>
+                <?php
+    } ?>
 
             </div>
 
@@ -298,7 +321,8 @@ if($menu != 0){ ?>
     </div>
 </div>
 
-<?php } ?>
+<?php
+} ?>
 
 <div id="confirmaExcluir" Title="Confima&ccedil;&atilde;o" style="display: none">Deseja realmente excluir sua proposta?</div>
 <div id="alerta" Title="Aten&ccedil;&atilde;o" style="display: none"></div>

@@ -2,7 +2,6 @@
 
 class ChecarRegularidadeController extends MinC_Controller_Action_Abstract
 {
-
     /**
      * Reescreve o método init()
      * @access public
@@ -11,22 +10,8 @@ class ChecarRegularidadeController extends MinC_Controller_Action_Abstract
      */
     public function init()
     {
-        // autenticação e permissï¿½es zend (AMBIENTE MINC)
-        // define as permissï¿½es
-        //$PermissoesGrupo = array();
-        //$PermissoesGrupo[] = 121; // Tï¿½cnico de Acompanhamento
-        //$PermissoesGrupo[] = 122; // Coordenador de Acompanhamento
-        //$PermissoesGrupo[] = 123; // Coordenador - Geral de Acompanhamento
-        //parent::perfil(1, $PermissoesGrupo);
-
-
-
         parent::init();
     }
-
-    // fecha método init()
-
-
 
     public function indexAction()
     {
@@ -34,79 +19,57 @@ class ChecarRegularidadeController extends MinC_Controller_Action_Abstract
         $this->_helper->layout->disableLayout();
         $buscaprojeto = new Regularidade();
         $CgcCpf = $_GET['CgcCpf'];
-        if (!empty($CgcCpf))
-        {
+        if (!empty($CgcCpf)) {
             $CgcCpf = str_replace(".", "", $CgcCpf);
             $CgcCpf = str_replace("-", "", $CgcCpf);
             $CgcCpf = str_replace("/", "", $CgcCpf);
             $valor = strlen($CgcCpf);
 
-            if ($valor == 14)
-            {
+            if ($valor == 14) {
                 $salic = $buscaprojeto->buscarSalic($CgcCpf);
-                if (!empty($salic))
-                {
+                if (!empty($salic)) {
                     $datasalic = $salic[0]->Habilitado;
-                }
-                else
-                {
+                } else {
                     $datasalic = 'S';
                 }
 
                 $cqte = $buscaprojeto->buscarCQTE($CgcCpf);
 
-                if (!empty($cqte))
-                {
+                if (!empty($cqte)) {
                     $datacqte = $cqte[0]->DtValidade;
                     $datacqte = data::tratarDataZend($datacqte, 'americano');
-                }
-                else
-                {
+                } else {
                     $datacqte = 'E';
                 }
                 $cqtf = $buscaprojeto->buscarCQTF($CgcCpf);
-                if (!empty($cqtf))
-                {
+                if (!empty($cqtf)) {
                     $datacqtf = $cqtf[0]->DtValidade;
                     $datacqtf = data::tratarDataZend($datacqtf, 'americano');
-                }
-                else
-                {
+                } else {
                     $datacqtf = 'E';
                 }
 
                 $fgts = $buscaprojeto->buscarFGTS($CgcCpf);
-                if (!empty($fgts))
-                {
+                if (!empty($fgts)) {
                     $datafgts = $fgts[0]->DtValidade;
                     $datafgts = data::tratarDataZend($datafgts, 'americano');
-                }
-                else
-                {
+                } else {
                     $datafgts = 'E';
                 }
                 $inss = $buscaprojeto->buscarINSS($CgcCpf);
-                if (!empty($inss))
-                {
-
+                if (!empty($inss)) {
                     $datainss = $inss[0]->DtValidade;
                     $datainss = data::tratarDataZend($datainss, 'americano');
-                }
-                else
-                {
+                } else {
                     $datainss = 'E';
                 }
 
                 $cadin = $buscaprojeto->buscarCADIN($CgcCpf);
 
-                if (!empty($cadin))
-                {
-
+                if (!empty($cadin)) {
                     $this->view->buscarcadin = $cadin;
-                }
-                else
-                {
-                    $this->view->buscarcadin = NULL;
+                } else {
+                    $this->view->buscarcadin = null;
                 }
 
                 $this->view->tipoCgcCpf = "CNPJ";
@@ -115,68 +78,47 @@ class ChecarRegularidadeController extends MinC_Controller_Action_Abstract
                 $this->view->buscarcqtf = $datacqtf;
                 $this->view->buscarfgts = $datafgts;
                 $this->view->buscarinss = $datainss;
-            }
-            else
-            {
+            } else {
                 $salic = $buscaprojeto->buscarSalic($CgcCpf);
-                if (!empty($salic))
-                {
+                if (!empty($salic)) {
                     $datasalic = $salic[0]->Habilitado;
-                }
-                else
-                {
+                } else {
                     $datasalic = 'S';
                 }
 
                 $cqtf = $buscaprojeto->buscarCQTF($CgcCpf);
-                if (!empty($cqtf))
-                {
+                if (!empty($cqtf)) {
                     $datacqtf = $cqtf[0]->DtValidade;
                     $datacqtf = data::tratarDataZend($datacqtf, 'americano');
-                }
-                else
-                {
+                } else {
                     $datacqtf = 'E';
                 }
                 $cadin = $buscaprojeto->buscarCADIN($CgcCpf);
 
-                if (!empty($cadin))
-                {
-
+                if (!empty($cadin)) {
                     $this->view->buscarcadin = $cadin;
-                }
-                else
-                {
-                    $this->view->buscarcadin = NULL;
+                } else {
+                    $this->view->buscarcadin = null;
                 }
 
                 $this->view->buscarsalic = $datasalic;
                 $this->view->buscarcqtf = $datacqtf;
             }
-        }
-        else
-        {
+        } else {
             parent::message("CPF ou CNPJ n&atilde;o Informado!", "checarregularidade/index", "ERROR");
         }
     }
 
     public static function compararData($dataatual, $databanco)
     {
-
-        if ($databanco != 'E')
-        {
+        if ($databanco != 'E') {
             $valor = Data::CompararDatas($dataatual, $databanco);
-            if ($valor >= 1)
-            {
+            if ($valor >= 1) {
                 return (int)$valor . "  Dias";
-            }
-            else
-            {
+            } else {
                 return "Vencida";
             }
-        }
-        else
-        {
+        } else {
             return "N&atilde;o Lan&ccedil;ada";
         }
     }
@@ -185,29 +127,20 @@ class ChecarRegularidadeController extends MinC_Controller_Action_Abstract
     {
         $valor = Data::CompararDatas($dataatual, $dtcadin);
 
-        if ($valor == 0)
-        {
-            if ($situacao == 0)
-            {
+        if ($valor == 0) {
+            if ($situacao == 0) {
                 return "Pendente";
-            }
-            else
-            {
+            } else {
                 return "N&atilde;o Pendente";
             }
-        }
-        else
-        {
+        } else {
             return "Vencida";
         }
     }
 
     public static function compararSalic($situacao)
     {
-
-
-        switch ($situacao)
-        {
+        switch ($situacao) {
             case 'N':
                 return "Inabilitado";
                 break;
@@ -216,5 +149,4 @@ class ChecarRegularidadeController extends MinC_Controller_Action_Abstract
                 break;
         }
     }
-
 }

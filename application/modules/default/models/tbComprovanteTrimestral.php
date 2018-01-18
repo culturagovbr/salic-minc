@@ -9,7 +9,8 @@
  * @link http://www.cultura.gov.br
  */
 
-class tbComprovanteTrimestral extends MinC_Db_Table_Abstract {
+class tbComprovanteTrimestral extends MinC_Db_Table_Abstract
+{
     protected $_banco  = "SAC";
     protected $_schema = "SAC";
     protected $_name   = "tbComprovanteTrimestral";
@@ -20,7 +21,8 @@ class tbComprovanteTrimestral extends MinC_Db_Table_Abstract {
      * @param array $dados
      * @return integer (retorna o �ltimo id cadastrado)
      */
-    public function cadastrarDados($dados) {
+    public function cadastrarDados($dados)
+    {
         return $this->insert($dados);
     } // fecha m�todo cadastrarDados()
 
@@ -32,16 +34,19 @@ class tbComprovanteTrimestral extends MinC_Db_Table_Abstract {
      * @param integer $where
      * @return integer (quantidade de registros alterados)
      */
-    public function alterarDados($dados, $where) {
+    public function alterarDados($dados, $where)
+    {
         $where = "idComprovanteTrimestral = " . $where;
         return $this->update($dados, $where);
     } // fecha m�todo alterarDados()
 
 
-    public function buscarComprovantes($where, $all = false, $order = array()) {
+    public function buscarComprovantes($where, $all = false, $order = array())
+    {
         // criando objeto do tipo select
         $slct = $this->select();
-        $slct->from( $this->_name,
+        $slct->from(
+            $this->_name,
                 array('idComprovanteTrimestral', 'IdPRONAC', 'dtComprovante','dtInicioPeriodo', 'dtFimPeriodo',
                     'CAST(dsEtapasExecutadas AS TEXT) AS dsEtapasExecutadas',
                     'CAST(dsAcessibilidade AS TEXT) AS dsAcessibilidade',
@@ -61,12 +66,10 @@ class tbComprovanteTrimestral extends MinC_Db_Table_Abstract {
         $slct->order($order);
 
         // retornando os registros
-        if($all){
+        if ($all) {
             return $this->fetchAll($slct);
         } else {
             return $this->fetchRow($slct);
         }
     } // fecha m�todo alterarDados()
-
-
 }

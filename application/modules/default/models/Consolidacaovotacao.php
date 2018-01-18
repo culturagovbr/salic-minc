@@ -5,14 +5,15 @@
  *
  * @author augusto
  */
-class Consolidacaovotacao extends MinC_Db_Table_Abstract{
+class Consolidacaovotacao extends MinC_Db_Table_Abstract
+{
     protected $_banco  = 'BDCORPORATIVO';
     protected $_schema = 'BDCORPORATIVO.scSAC';
     protected $_name   = 'tbConsolidacaoVotacao';
 
 
-    public function verificarConsolidacaoprojeto($idnrreuniao , $idpronac){
-
+    public function verificarConsolidacaoprojeto($idnrreuniao, $idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -40,7 +41,5 @@ class Consolidacaovotacao extends MinC_Db_Table_Abstract{
         $select->where('cv.IdPRONAC = ?', $idpronac);
 
         return $this->fetchAll($select);
-
     }
-
 }

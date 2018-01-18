@@ -1,18 +1,21 @@
 <?php
-class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
-
+class ManterorcamentoDAO extends MinC_Db_Table_Abstract
+{
     protected $_schema;
     protected $_name;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    public function init(){
+    public function init()
+    {
         parent::init();
     }
 
-    public static function buscarPlanilhaOrcamentariaP($idPreProjeto) {
+    public static function buscarPlanilhaOrcamentariaP($idPreProjeto)
+    {
         $sql = "SELECT
 					p.Codigo as CodigoProduto,
 					pp.idEtapa as idEtapa,
@@ -36,15 +39,15 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e) {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Etapas: " . $e->getMessage();
         }
         //die($sql);
         return $db->fetchAll($sql);
     }
 
-    public static function buscarPlanilhaOrcamentariaC($idPreProjeto) {
+    public static function buscarPlanilhaOrcamentariaC($idPreProjeto)
+    {
         $sql = "SELECT
                     pp.idEtapa as idEtapa,
                     te.Descricao as DescricaoEtapa,
@@ -68,15 +71,15 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e) {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Etapas: " . $e->getMessage();
         }
         
         return $db->fetchAll($sql);
     }
 
-    public static function buscarPlanilha($idPreProjeto) {
+    public static function buscarPlanilha($idPreProjeto)
+    {
         $sql = "SELECT
                     pp.idEtapa as idEtapa,
                     pp.idPlanilhaItem as idItem,
@@ -100,15 +103,27 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e) {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Etapas: " . $e->getMessage();
         }
         return $db->fetchAll($sql);
     }
 
-    public static function buscarDadosEditarProdutos($idPreProjeto = null, $idEtapa = null, $idProduto = null, $idItem = null, $idPlanilhaProposta=null, $idUf = null, $municipio = null,
-            														$unidade = null, $qtd = null, $ocorrencia = null, $valor = null, $qtdDias = null, $fonte = null) {
+    public static function buscarDadosEditarProdutos(
+        $idPreProjeto = null,
+        $idEtapa = null,
+        $idProduto = null,
+        $idItem = null,
+        $idPlanilhaProposta=null,
+        $idUf = null,
+        $municipio = null,
+                                                                    $unidade = null,
+        $qtd = null,
+        $ocorrencia = null,
+        $valor = null,
+        $qtdDias = null,
+        $fonte = null
+    ) {
         $sql = "
                 SELECT
                     pp.idPlanilhaProposta as idPlanilhaProposta,
@@ -143,48 +158,48 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
                     WHERE pp.idEtapa = $idEtapa ";
 
         //echo "<pre>"; die($sql);
-    	if($idPreProjeto){
+        if ($idPreProjeto) {
             $sql .= " AND pre.idPreProjeto = ".$idPreProjeto;
         }
-    	if($idProduto){
+        if ($idProduto) {
             $sql .= " AND p.Codigo = ".$idProduto;
         }
-    	if($idItem){
+        if ($idItem) {
             $sql .= " AND pp.idPlanilhaItem = ".$idItem;
         }
-        if($idPlanilhaProposta){
+        if ($idPlanilhaProposta) {
             $sql .= " AND pp.idPlanilhaProposta = ".$idPlanilhaProposta;
         }
 
-    	if($idUf){
+        if ($idUf) {
             $sql .= " AND pp.UfDespesa = ".$idUf;
         }
 
-       	if($municipio){
+        if ($municipio) {
             $sql .= " AND pp.MunicipioDespesa = ".$municipio;
         }
 
-        if($unidade){
+        if ($unidade) {
             $sql .= " AND pp.Unidade = ".$unidade;
         }
 
-        if($qtd){
+        if ($qtd) {
             $sql .= " AND pp.Quantidade = ".$qtd;
         }
 
-        if($ocorrencia){
+        if ($ocorrencia) {
             $sql .= " AND pp.Ocorrencia = ".$ocorrencia;
         }
 
-        if($valor){
+        if ($valor) {
             $sql .= " AND pp.ValorUnitario = ".$valor;
         }
 
-        if($qtdDias){
+        if ($qtdDias) {
             $sql .= " AND pp.QtdeDias = ".$qtdDias;
         }
 
-        if($fonte){
+        if ($fonte) {
             $sql .= " AND pp.FonteRecurso = ".$fonte;
         }
 
@@ -194,7 +209,8 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function buscarDadosCadastrarProdutos($idPreProjeto, $idProduto) {
+    public static function buscarDadosCadastrarProdutos($idPreProjeto, $idProduto)
+    {
         $sql = "
                 SELECT DISTINCT
                 pd.idProduto AS CodigoProduto,
@@ -208,14 +224,14 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
 //        return $db->fetchAll($select);
         throw new Exception("Método transferido para: Proposta_Model_DbTable_PlanoDistribuicaoProduto");
         return $db->fetchAll($sql);
-
     }
 
     /**
      * @todo Proposta_Model_DbTable_PlanilhaProposta
      * @deprecated  Proposta_Model_DbTable_PlanilhaProposta
      */
-    public static function buscarDadosCadastrarCustos($idPreProjeto) {
+    public static function buscarDadosCadastrarCustos($idPreProjeto)
+    {
         $sql = "
             SELECT TOP 1
             tpp.idProjeto as idProposta
@@ -229,7 +245,6 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         throw new Exception("Método transferido para: Proposta_Model_DbTable_PlanilhaProposta");
 
         return $db->fetchAll($sql);
-
     }
 
     public function listarDadosCadastrarCustos($idPreProjeto)
@@ -250,7 +265,8 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
      * @todo Utilizar buscarDadosCustos em Proposta_Model_DbTable_TbPlanilhaProposta
      * @deprecated Utilizar buscarDadosCustos em Proposta_Model_DbTable_TbPlanilhaProposta
      */
-    public static function buscarDadosCustos($array = array()) {
+    public static function buscarDadosCustos($array = array())
+    {
         $sql = "SELECT
                     pp.idEtapa as idEtapa,
                     pe.Descricao as DescricaoEtapa,
@@ -285,13 +301,11 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
 
         throw new Exception('Utilizar buscarDadosCustos em Proposta_Model_DbTable_TbPlanilhaProposta');
         return $db->fetchAll($sql);
-
     }
 
     public static function buscarEtapasProdutos($idPreProjeto)
     {
         throw new Exception('Método transferido para : Proposta_Model_DbTable_PreProjeto');
-
     }
 
     public function listarEtapasProdutos($idPreProjeto)
@@ -299,8 +313,8 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         throw new Exception('Método transferido para Proposta_Model_DbTable_TbPlanilhaEtapa');
     }
 
-    public static function buscarEtapasProdutosPlanilha($idPreProjeto) {
-
+    public static function buscarEtapasProdutosPlanilha($idPreProjeto)
+    {
         $sql = "SELECT
                 distinct
                 pp.idEtapa as idEtapa,
@@ -318,17 +332,15 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e) {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Etapas: " . $e->getMessage();
         }
         //die($sql);
         return $db->fetchAll($sql);
     }
 
-    public static function buscarPlanilhaEtapa($idPreProjeto) {
-
-
+    public static function buscarPlanilhaEtapa($idPreProjeto)
+    {
         $sql = "SELECT distinct
                 pp.idEtapa as idEtapa,
                 te.Descricao as DescricaoEtapa
@@ -342,8 +354,7 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e) {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Etapas: " . $e->getMessage();
         }
         
@@ -354,8 +365,8 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
      * @todo Utilizar buscarEtapasCadastrarProdutos em tbPlanilhaEtapa
      * @deprecated Utilizar buscarEtapasCadastrarProdutos em tbPlanilhaEtapa
      */
-    public static function buscarEtapasCadastrarProdutos() {
-
+    public static function buscarEtapasCadastrarProdutos()
+    {
         $sql = "SELECT
                 idplanilhaetapa ,
                 Descricao
@@ -367,8 +378,7 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e) {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Etapas: " . $e->getMessage();
         }
         throw new Exception('Método transferido para Proposta_Model_DbTable_TbPlanilhaEtapa');
@@ -380,7 +390,8 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
      * @todo Utilizar buscarEtapasCusto em tbPlanilhaEtapa
      * @deprecated Utilizar buscarEtapasCusto em tbPlanilhaEtapa
      */
-    public  function buscarEtapasCusto() {
+    public function buscarEtapasCusto()
+    {
         $sql = "SELECT
 		idplanilhaetapa ,
 		Descricao
@@ -391,8 +402,7 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e) {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Etapas: " . $e->getMessage();
         }
 
@@ -413,15 +423,14 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
             ;
 
         //$sql = "SELECT
-		//idplanilhaetapa ,
-		//Descricao
-		//FROM SAC..tbPlanilhaEtapa where tpcusto = 'A'";
+        //idplanilhaetapa ,
+        //Descricao
+        //FROM SAC..tbPlanilhaEtapa where tpcusto = 'A'";
 
         //$sql.= " ORDER BY Descricao ";
 
         try {
-        }
-        catch (Zend_Exception_Db $e) {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Etapas: " . $e->getMessage();
         }
 
@@ -433,8 +442,8 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
      * @todo utitilizar listarItensProdutos em Proposta_Model_DbtTable_PreProjeto
      * @deprecated  utitilizar listarItensProdutos em Proposta_Model_DbtTable_PreProjeto
      */
-    public function buscarItensProdutos($idPreProjeto, $idItem = null) {
-
+    public function buscarItensProdutos($idPreProjeto, $idItem = null)
+    {
         throw new Exception("Utitilizar listarItensProdutos em Proposta_Model_DbtTable_PreProjeto");
 
         $sql = "
@@ -468,19 +477,19 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
                 INNER JOIN SAC.dbo.Verificacao veri ON veri.idVerificacao = pp.FonteRecurso
             WHERE idPreProjeto = {$idPreProjeto} ";
 
-        if($idItem) {
+        if ($idItem) {
             $sql .= " and  pp.idPlanilhaItem = " . $idItem ;
         }
 
         $sql.= " ORDER BY ti.Descricao ";
 
-        echo $sql; exit;
+        echo $sql;
+        exit;
 
         try {
             $db  = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e) {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Etapas: " . $e->getMessage();
         }
         //die($sql);
@@ -517,27 +526,27 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
 
         $sql = $db->select()->distinct()
             ->from(array('pre' => 'preprojeto'), null, $this->getSchema('sac'))
-            ->join(array('pp' => 'tbplanilhaproposta'),  '(pre.idPreProjeto = pp.idProjeto)', $pp, $this->getSchema('sac'))
+            ->join(array('pp' => 'tbplanilhaproposta'), '(pre.idPreProjeto = pp.idProjeto)', $pp, $this->getSchema('sac'))
             ->join(array('p' => 'produto'), '(pp.idProduto = p.codigo)', array('p.codigo as CodigoProduto'), $this->getSchema('sac'))
             ->join(array('ti' => 'tbplanilhaitens'), 'ti.idplanilhaitens = pp.idplanilhaitem', array('ti.descricao as DescricaoItem'), $this->getSchema('sac'))
-            ->join(array('uf' => 'uf'),  'uf.codufibge = pp.ufdespesa', array('uf.descricao as DescricaoUf', 'uf.uf as SiglaUF'), $this->getSchema('sac'))
+            ->join(array('uf' => 'uf'), 'uf.codufibge = pp.ufdespesa', array('uf.descricao as DescricaoUf', 'uf.uf as SiglaUF'), $this->getSchema('sac'))
             ->join(array('municipio' => 'municipios'), 'municipio.idmunicipioibge = pp.municipiodespesa', array('municipio.descricao as Municipio'), $this->getSchema('agentes'))
             ->join(array('mec' => 'mecanismo'), 'mec.codigo = pre.mecanismo', array('mec.descricao as DescricaoMecanismo'), $this->getSchema('sac'))
-            ->join(array('un' => 'tbplanilhaunidade'),  'un.idunidade = pp.unidade', 'un.descricao as Unidade', $this->getSchema('sac'))
-            ->join(array('veri' => 'verificacao'),  'veri.idverificacao = pp.fonterecurso', array('veri.idverificacao as idFonteRecurso', 'veri.descricao as DescricaoFonteRecurso'), $this->getSchema('sac'))
+            ->join(array('un' => 'tbplanilhaunidade'), 'un.idunidade = pp.unidade', 'un.descricao as Unidade', $this->getSchema('sac'))
+            ->join(array('veri' => 'verificacao'), 'veri.idverificacao = pp.fonterecurso', array('veri.idverificacao as idFonteRecurso', 'veri.descricao as DescricaoFonteRecurso'), $this->getSchema('sac'))
             ->where('idpreprojeto = ?', $idPreProjeto)
             ->order('ti.descricao')
             ;
 
-        if($idItem) {
+        if ($idItem) {
             $sql->where("pp.idPlanilhaItem = ?", $idItem);
         }
 
         return $db->fetchAll($sql);
     }
 
-    public static function buscarItensPlanilhaOrcamentaria($idPreProjeto) {
-
+    public static function buscarItensPlanilhaOrcamentaria($idPreProjeto)
+    {
         $sql = "  SELECT
                 DISTINCT
                         p.Codigo as CodigoProduto,
@@ -578,16 +587,15 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e) {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Etapas: " . $e->getMessage();
         }
         //die($sql);
         return $db->fetchAll($sql);
     }
 
-    public static function excluirItemProdutos($idPreProjeto) {
-
+    public static function excluirItemProdutos($idPreProjeto)
+    {
         $sql = "SELECT
                     DISTINCT
                     p.Codigo as CodigoProduto,
@@ -610,8 +618,7 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e) {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Etapas: " . $e->getMessage();
         }
         //die($sql);
@@ -622,31 +629,32 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
      * @todo Utilizar buscarItens em tbItensPlanilhaProduto
      * @deprecated  Utilizar buscarItens em tbItensPlanilhaProduto
      */
-    public static function buscarItens($idEtapa, $idproduto = null) {
-    /*    $sql = "select distinct
-					pp.idPlanilhaItem as idPlanilhaItens,
-					right(i.Descricao,40) as Descricao
-				from SAC.dbo.tbPlanilhaProposta pp
-					inner join SAC.dbo.tbPlanilhaItens as i on pp.idPlanilhaItem = i.idPlanilhaItens
-					inner join SAC.dbo.tbPlanilhaEtapa as e on pp.idEtapa = e.idPlanilhaEtapa
-				where idEtapa = $idEtapa order by i.Descricao "; */
+    public static function buscarItens($idEtapa, $idproduto = null)
+    {
+        /*    $sql = "select distinct
+                        pp.idPlanilhaItem as idPlanilhaItens,
+                        right(i.Descricao,40) as Descricao
+                    from SAC.dbo.tbPlanilhaProposta pp
+                        inner join SAC.dbo.tbPlanilhaItens as i on pp.idPlanilhaItem = i.idPlanilhaItens
+                        inner join SAC.dbo.tbPlanilhaEtapa as e on pp.idEtapa = e.idPlanilhaEtapa
+                    where idEtapa = $idEtapa order by i.Descricao "; */
 
-       $sql = "select distinct a.idPlanilhaItens,b.Descricao
+        $sql = "select distinct a.idPlanilhaItens,b.Descricao
                FROM SAC..tbItensPlanilhaProduto a
                INNER JOIN SAC..tbPlanilhaItens b on (a.idPlanilhaItens = b.idPlanilhaItens)
                WHERE idPlanilhaEtapa = ".$idEtapa." ";
 
-       if ( !empty( $idproduto ) ) {
+        if (!empty($idproduto)) {
             $sql .= " and idProduto = ".$idproduto." ";
-       }
-       $sql .= " ORDER BY b.Descricao ";
+        }
+        $sql .= " ORDER BY b.Descricao ";
 
 //        if ( !empty( $idproduto ) ) {
 //            $sql .= " and tbipp.idProduto = $idproduto";
 //        }
 
         //$sql .= " order by 2 asc";
-		//
+        //
 
 
 
@@ -656,7 +664,8 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function buscarFonteRecurso() {
+    public static function buscarFonteRecurso()
+    {
         $sql = "select Verificacao.idVerificacao, ltrim(Verificacao.Descricao) as VerificacaoDescricao
                 from SAC.dbo.Verificacao as Verificacao
                 inner join SAC.dbo.Tipo as Tipo
@@ -670,7 +679,8 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function buscarFontePlanilha($idPreProjeto) {
+    public static function buscarFontePlanilha($idPreProjeto)
+    {
         $sql = "SELECT
                     DISTINCT
                         veri.idVerificacao as idFonteRecurso,
@@ -688,7 +698,8 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function buscarUnidade() {
+    public static function buscarUnidade()
+    {
         $sql = "select idUnidade, Sigla, Descricao
         FROM SAC.dbo.tbPlanilhaUnidade order by 3";
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -703,20 +714,26 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         $db = Zend_Db_Table::getDefaultAdapter();
 
         $select = $db->select()
-            ->from(array('pre' => 'PreProjeto'),
+            ->from(
+                array('pre' => 'PreProjeto'),
                 array(
                     new Zend_Db_Expr('p.Codigo AS CodigoProduto'),
                     new Zend_Db_Expr('idPreProjeto AS PreProjeto'),
                     new Zend_Db_Expr(' pre.idPreProjeto AS idProposta')),
-                'SAC.dbo')
-            ->joinInner(array('pd' => 'PlanoDistribuicaoProduto'),
+                'SAC.dbo'
+            )
+            ->joinInner(
+                array('pd' => 'PlanoDistribuicaoProduto'),
                 'pre.idPreProjeto = pd.idProjeto AND pd.stPlanoDistribuicaoProduto = 1',
                 array(''),
-                'SAC.dbo')
-            ->joinInner(array('p' => 'Produto'),
+                'SAC.dbo'
+            )
+            ->joinInner(
+                array('p' => 'Produto'),
                 'pd.idProduto = p.Codigo',
                 array(new Zend_Db_Expr('Descricao AS DescricaoProduto')),
-                'SAC.dbo')
+                'SAC.dbo'
+            )
             ->where('idPreProjeto = ?', $idPreProjeto)
             ->group('p.Codigo')
             ->group('p.Descricao')
@@ -731,7 +748,7 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
     public function listarProdutos($idPreProjeto)
     {
         echo '<pre>';
-        var_dump ('Método transferido para Proposta Model DbTable Preprojeto');
+        var_dump('Método transferido para Proposta Model DbTable Preprojeto');
         exit;
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -739,7 +756,7 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         $sql = $db->select()
             ->from(array('pre' => 'preprojeto'), array('pre.idpreprojeto as PreProjeto', 'pre.idpreprojeto as idProposta'), $this->getSchema('sac'))
             ->join(array('pd' => 'planodistribuicaoproduto'), '(pre.idpreprojeto = pd.idProjeto AND pd.stplanodistribuicaoproduto = 1)', null, $this->getSchema('sac'))
-            ->join(array('p' => 'produto'), '(pd.idproduto = p.codigo)', array('p.codigo as CodigoProduto', 'p.descricao as DescricaoProduto'),  $this->getSchema('sac'))
+            ->join(array('p' => 'produto'), '(pd.idproduto = p.codigo)', array('p.codigo as CodigoProduto', 'p.descricao as DescricaoProduto'), $this->getSchema('sac'))
             ->where('idpreprojeto = ?', $idPreProjeto)
             ->group(array('p.codigo', 'p.descricao', 'idpreprojeto'))
             ;
@@ -747,8 +764,8 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function buscarProdutosPlanilha($idPreProjeto) {
-
+    public static function buscarProdutosPlanilha($idPreProjeto)
+    {
         $sql = "SELECT
                     p.Codigo as CodigoProduto,
                     p.Descricao as DescricaoProduto,
@@ -770,8 +787,21 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function buscarCustos($idPreProjeto,$tipoCusto, $idEtapa = null, $idItem = null, $idUf = null, $idMunicipio = null,
-    									$fonte = null, $unidade = null, $quantidade = null, $ocorrencia = null, $vlunitario = null, $qtdDias = null, $dsJustificativa = null) {
+    public static function buscarCustos(
+        $idPreProjeto,
+        $tipoCusto,
+        $idEtapa = null,
+        $idItem = null,
+        $idUf = null,
+        $idMunicipio = null,
+                                        $fonte = null,
+        $unidade = null,
+        $quantidade = null,
+        $ocorrencia = null,
+        $vlunitario = null,
+        $qtdDias = null,
+        $dsJustificativa = null
+    ) {
         $sql = "select  tpp.idUsuario,
                         tpp.idProjeto as idProposta,
                         tpe.tpCusto as custo,
@@ -803,43 +833,43 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
                             INNER JOIN SAC.dbo.Verificacao veri ON veri.idVerificacao = tpp.FonteRecurso
                     WHERE tpe.tpCusto = '$tipoCusto' AND tpp.idProjeto = $idPreProjeto ";
 
-        if($idEtapa){
-        	$sql .= " AND tpe.idPlanilhaEtapa = $idEtapa";
+        if ($idEtapa) {
+            $sql .= " AND tpe.idPlanilhaEtapa = $idEtapa";
         }
-    	if($idItem){
-        	$sql .= " AND tpi.idPlanilhaItens = $idItem";
-        }
-
-        if($idUf){
-        	$sql .= " AND tpp.UfDespesa = $idUf";
+        if ($idItem) {
+            $sql .= " AND tpi.idPlanilhaItens = $idItem";
         }
 
-    	if($idMunicipio){
-        	$sql .= " AND tpp.MunicipioDespesa = $idMunicipio";
+        if ($idUf) {
+            $sql .= " AND tpp.UfDespesa = $idUf";
         }
 
-    	if($fonte){
-        	$sql .= " AND veri.idVerificacao = $fonte";
+        if ($idMunicipio) {
+            $sql .= " AND tpp.MunicipioDespesa = $idMunicipio";
         }
 
-    	if($unidade){
-        	$sql .= " AND un.idUnidade = $unidade";
+        if ($fonte) {
+            $sql .= " AND veri.idVerificacao = $fonte";
         }
 
-    	if($quantidade){
-        	$sql .= " AND tpp.Quantidade = $quantidade";
+        if ($unidade) {
+            $sql .= " AND un.idUnidade = $unidade";
         }
 
-    	if($ocorrencia){
-        	$sql .= " AND tpp.Ocorrencia = $ocorrencia";
+        if ($quantidade) {
+            $sql .= " AND tpp.Quantidade = $quantidade";
         }
 
-    	if($vlunitario){
-        	$sql .= " AND tpp.ValorUnitario = $vlunitario";
+        if ($ocorrencia) {
+            $sql .= " AND tpp.Ocorrencia = $ocorrencia";
         }
 
-    	if($qtdDias){
-        	$sql .= " AND tpp.QtdeDias = $qtdDias";
+        if ($vlunitario) {
+            $sql .= " AND tpp.ValorUnitario = $vlunitario";
+        }
+
+        if ($qtdDias) {
+            $sql .= " AND tpp.QtdeDias = $qtdDias";
         }
 
         $sql.= " ORDER BY tpe.Descricao ";
@@ -851,7 +881,8 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function buscarItensCustosAdministrativos($idPreProjeto,$tipoCusto) {
+    public static function buscarItensCustosAdministrativos($idPreProjeto, $tipoCusto)
+    {
         $sql = "select
                 tpp.idUsuario,
                 tpp.idProjeto as idProposta,
@@ -904,7 +935,7 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
     public function listarItensCustosAdministrativos($idPreProjeto, $tipoCusto)
     {
         echo '<pre>';
-        var_dump ('Método transferido para : Proposta->Model->DbTable->TbPlanilhaEtapa');
+        var_dump('Método transferido para : Proposta->Model->DbTable->TbPlanilhaEtapa');
         exit;
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -947,7 +978,7 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
             ->join(array('tpe' => 'tbplanilhaetapa'), 'tpe.idplanilhaetapa = tpp.idetapa', $tpe, $this->getSchema('sac'))
             ->join(array('tpi' => 'tbplanilhaitens'), 'tpi.idplanilhaitens = tpp.idplanilhaitem', $tpi, $this->getSchema('sac'))
             ->join(array('uf' => 'uf'), 'uf.iduf = tpp.ufdespesa', $uf, $this->getSchema('agentes'))
-            ->join(array('municipio' => 'municipios'), 'municipio.idmunicipioibge = tpp.municipiodespesa','municipio.descricao as Municipio', $this->getSchema('agentes'))
+            ->join(array('municipio' => 'municipios'), 'municipio.idmunicipioibge = tpp.municipiodespesa', 'municipio.descricao as Municipio', $this->getSchema('agentes'))
             ->join(array('prep' => 'preprojeto'), 'prep.idpreprojeto = tpp.idprojeto', null, $this->getSchema('sac'))
             ->join(array('mec' => 'mecanismo'), 'mec.codigo = prep.mecanismo', 'mec.descricao as mecanismo', $this->getSchema('sac'))
             ->join(array('un' => 'tbplanilhaunidade'), 'un.idunidade = tpp.unidade', 'un.descricao as Unidade', $this->getSchema('sac'))
@@ -971,7 +1002,7 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
             ;
 
         //$sql = "SELECT idPlanilhaEtapa as idEtapa, Descricao as DescricaoEtapa
-            //FROM SAC.dbo.tbPlanilhaEtapa WHERE tpCusto = 'A' AND idPlanilhaEtapa <> 6";
+        //FROM SAC.dbo.tbPlanilhaEtapa WHERE tpCusto = 'A' AND idPlanilhaEtapa <> 6";
 
         throw new Exception('Método transferido para Proposta_model_DbTable_TbPlanilhaEtapa');
         return $db->fetchAll($sql);
@@ -998,8 +1029,8 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function salvarNovoProduto($idProposta, $idProduto, $idEtapa, $idItem, $unidade, $quantidade, $ocorrencia, $vlunitario, $qtdDias, $fonte, $idUf, $idMunicipio, $justificativa,$idUsuario) {
-
+    public static function salvarNovoProduto($idProposta, $idProduto, $idEtapa, $idItem, $unidade, $quantidade, $ocorrencia, $vlunitario, $qtdDias, $fonte, $idUf, $idMunicipio, $justificativa, $idUsuario)
+    {
         try {
             $dados = array(
                     'idProjeto'=>$idProposta,
@@ -1018,45 +1049,40 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
                     'FonteRecurso'=>$fonte,
                     'UfDespesa'=>$idUf,
                     'MunicipioDespesa'=>$idMunicipio,
-                    'dsJustificativa'=> substr($justificativa,0,450),
+                    'dsJustificativa'=> substr($justificativa, 0, 450),
                     'idUsuario'=>$idUsuario
             );
             $db= Zend_Db_Table::getDefaultAdapter();
             
             $db->insert('SAC.dbo.tbPlanilhaProposta', $dados);
             return $db->lastInsertId();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
-
     }
 
-    public static function salvarNovoCusto($idProposta, $idEtapa, $idItem, $unidade, $quantidade, $ocorrencia, $vlunitario, $qtdDias, $fonte, $idUf, $idMunicipio, $dsJustificativa ) {
-
-
-
+    public static function salvarNovoCusto($idProposta, $idEtapa, $idItem, $unidade, $quantidade, $ocorrencia, $vlunitario, $qtdDias, $fonte, $idUf, $idMunicipio, $dsJustificativa)
+    {
     }
 
-    public static function updateProdutos($dados, $where) {
+    public static function updateProdutos($dados, $where)
+    {
         $sql = "UPDATE
                 SAC..tbPlanilhaProposta pp
                 SET ($idProposta, $idProduto, $idEtapa, $idItem, $unidade, $quantidade, $ocorrencia, $vlunitario, $qtdDias, $fonte, $idUf, $idMunicipio, $dsJustificativa, 462)
                         WHERE (pp.idProjeto = $idProposta and pp.idProduto = $idProduto and pp.idUsuario = 462) ";
 
         $db= Zend_Db_Table::getDefaultAdapter();
-        $db->update('SAC.dbo.tbPlanilhaProposta',$dados, $where);
-
-
+        $db->update('SAC.dbo.tbPlanilhaProposta', $dados, $where);
     }
 
-    public static function editarPlanilhaProdutos($dados, $where) {
+    public static function editarPlanilhaProdutos($dados, $where)
+    {
         try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
             $db->update('SAC.dbo.tbPlanilhaProposta', $dados, $where);
-        }
-        catch(Zend_Exception $e) {
+        } catch (Zend_Exception $e) {
             die("Erro:".$e->getMessage());
         }
     }
@@ -1064,7 +1090,8 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
     /**
      * @deprecated  utilizar buscarUltimosDadosCadastrados em Proposta_Model_DbTable_TbPlanilhaProposta
      */
-    public static function buscarUltimosDadosCadastrados() {
+    public static function buscarUltimosDadosCadastrados()
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_ASSOC);
 
@@ -1081,11 +1108,9 @@ class ManterorcamentoDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function excluirItensProdutos($idPlanilhaProposta) {
-
+    public static function excluirItensProdutos($idPlanilhaProposta)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
-        return $db->delete('SAC.dbo.tbPlanilhaProposta','idPlanilhaProposta =' .$idPlanilhaProposta);
+        return $db->delete('SAC.dbo.tbPlanilhaProposta', 'idPlanilhaProposta =' .$idPlanilhaProposta);
     }
-
 }
-

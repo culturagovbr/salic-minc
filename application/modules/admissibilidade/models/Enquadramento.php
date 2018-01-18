@@ -28,8 +28,7 @@ class Admissibilidade_Model_Enquadramento extends MinC_Db_Table_Abstract
         $idPronac = null,
         $pronac = null,
         $buscarTodos = true
-    )
-    {
+    ) {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from($this->_name);
@@ -59,10 +58,10 @@ class Admissibilidade_Model_Enquadramento extends MinC_Db_Table_Abstract
         if (!empty($idEnquadramento)) {
             $where = "IdEnquadramento = " . $idEnquadramento;
         } // altera pelo id do pronac
-        else if (!empty($idPronac)) {
+        elseif (!empty($idPronac)) {
             $where = "IdPRONAC = " . $idPronac;
         } // altera pelo pronac
-        else if (!empty($pronac)) {
+        elseif (!empty($pronac)) {
             $where = "AnoProjeto+Sequencial = " . $pronac;
         }
 
@@ -73,9 +72,9 @@ class Admissibilidade_Model_Enquadramento extends MinC_Db_Table_Abstract
     {
         if (!empty($idEnquadramento)) {
             $where = "IdEnquadramento = " . $idEnquadramento;
-        } else if (!empty($idPronac)) {
+        } elseif (!empty($idPronac)) {
             $where = "IdPRONAC = " . $idPronac;
-        } else if (!empty($pronac)) {
+        } elseif (!empty($pronac)) {
             $where = "AnoProjeto+Sequencial = " . $pronac;
         }
 
@@ -102,7 +101,7 @@ class Admissibilidade_Model_Enquadramento extends MinC_Db_Table_Abstract
         $select->setIntegrityCheck(false);
         $select->from(
             array("Projetos"),
-            array('pronac' => New Zend_Db_Expr('Projetos.AnoProjeto + Projetos.Sequencial'),
+            array('pronac' => new Zend_Db_Expr('Projetos.AnoProjeto + Projetos.Sequencial'),
                 'Projetos.nomeProjeto',
                 'Projetos.IdPRONAC',
                 'Projetos.CgcCpf',
@@ -124,7 +123,8 @@ class Admissibilidade_Model_Enquadramento extends MinC_Db_Table_Abstract
 //        $select->joinInner(array('PreProjeto' => 'PreProjeto'), 'PreProjeto.idPreProjeto = Projetos.idProjeto', array(), $this->_schema);
         $select->joinInner(array('Area' => 'Area'), 'Area.Codigo = Projetos.Area', array('Area.Descricao AS area'), $this->_schema);
         $select->joinLeft(array('Segmento' => 'Segmento'), 'Segmento.Codigo = Projetos.Segmento', array('Segmento.Descricao AS segmento'), $this->_schema);
-        $select->where("Projetos.situacao in ( ? )",
+        $select->where(
+            "Projetos.situacao in ( ? )",
             array(
                 'B01',
                 'B03',
@@ -150,7 +150,7 @@ class Admissibilidade_Model_Enquadramento extends MinC_Db_Table_Abstract
         $select->from(
             array("projetos"),
             array(
-                'pronac' => New Zend_Db_Expr('projetos.AnoProjeto + projetos.Sequencial'),
+                'pronac' => new Zend_Db_Expr('projetos.AnoProjeto + projetos.Sequencial'),
                 'projetos.nomeProjeto',
                 'projetos.IdPRONAC',
                 'projetos.CgcCpf',
@@ -199,7 +199,7 @@ class Admissibilidade_Model_Enquadramento extends MinC_Db_Table_Abstract
         $select->setIntegrityCheck(false);
         $select->from(
             array("Projetos"),
-            array('pronac' => New Zend_Db_Expr('Projetos.AnoProjeto + Projetos.Sequencial'),
+            array('pronac' => new Zend_Db_Expr('Projetos.AnoProjeto + Projetos.Sequencial'),
                 'Projetos.nomeProjeto',
                 'Projetos.IdPRONAC',
                 'Projetos.CgcCpf',
@@ -221,7 +221,8 @@ class Admissibilidade_Model_Enquadramento extends MinC_Db_Table_Abstract
         $select->joinInner(array('Area' => 'Area'), 'Area.Codigo = Projetos.Area', array('Area.Descricao AS area'), $this->_schema);
         $select->joinLeft(array('Segmento' => 'Segmento'), 'Segmento.Codigo = Projetos.Segmento', array('Segmento.Descricao AS segmento'), $this->_schema);
 
-        $select->where("Projetos.situacao in ( ? )",
+        $select->where(
+            "Projetos.situacao in ( ? )",
             array(
                 'B01',
                 'B03',

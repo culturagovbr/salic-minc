@@ -146,6 +146,4 @@ class Proposta_Model_TbCustosVinculados extends MinC_Db_Model
     {
         $this->_pcCalculo = $pcCalculo;
     }
-
-
 }

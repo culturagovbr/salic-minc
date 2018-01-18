@@ -1,0 +1,426 @@
+/*--------------------------------------------------------------
+x - FORMS (LEGADO)
+--------------------------------------------------------------*/
+#conteudo .input_simples,
+#conteudo .textarea_simples,
+#conteudo .select_simples,
+#conteudo .input_simples2,
+#conteudo .form .input {
+    display: inline-block;
+    /*width: 100%;*/
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #495057;
+    background: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.28);
+    border-radius: .15rem;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+#conteudo .input_simples2 {
+    width: 80px;
+}
+
+#conteudo .select_simples {
+    background: #f8f8f8;
+}
+
+#conteudo .input_simples:hover,
+#conteudo .input_simples:active,
+#conteudo .textarea_simples:hover,
+#conteudo .textarea_simples:active,
+#conteudo .select_simples:hover,
+#conteudo .select_simples:active {
+    border: 1px solid #777;
+}
+
+#conteudo label {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#conteudo .form .input {
+    /*background: url(../img/input-bg.gif) repeat-x #fff;*/
+    float: left;
+}
+
+#conteudo .form .select {
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 2px;
+}
+
+#conteudo .form .left, .form .right, .form .right_busca {
+    /*background: url(../img/input-borda-left.gif) no-repeat;*/
+    width: 5px;
+    height: 26px;
+    float: left;
+}
+
+#conteudo .form a .left, .form a .right {
+    background: none;
+}
+
+#conteudo .form .right {
+    /*background: url(../img/input-borda-right.gif) no-repeat;*/
+}
+
+#conteudo .form .right_busca {
+    width: 30px;
+    /*background: url(../img/input-borda-right-busca.gif) no-repeat;*/
+}
+
+#conteudo .right_busca a {
+    display: block;
+    width: 30px;
+    height: 26px;
+}
+
+/*.form-textarea .textarea {*/
+/*padding:3px;*/
+/*color:#333;*/
+/*border:1px solid #ccc;*/
+/*border-left:none;*/
+/*font:12px "Trebuchet MS", Georgia, "Times New Roman", Times, serif;*/
+/*}*/
+#conteudo .form .textarea {
+    /*background: url(../img/textarea-bg.gif) repeat-x #fff;*/
+    width: 500px;
+    height: 110px;
+}
+
+#conteudo .form-textarea .left {
+    /*background: url(../img/textarea-borda-left.gif) no-repeat;*/
+    width: 5px;
+    height: 118px;
+    float: left;
+}
+
+#conteudo .checkradio {
+    background: none;
+    border: 0;
+    float: none;
+    display: inline;
+    color: #777;
+    font-weight: bold;
+}
+
+#conteudo .total_itens {
+    font-size: 11px;
+}
+
+#conteudo #editor {
+    text-align: left;
+    overflow: auto;
+}
+
+#conteudo .input_font_pq {
+    font-size: 12px;
+}
+
+#conteudo .input_pq {
+    width: 100px;
+}
+
+/* formatando textfield para datas com calendario */
+#conteudo .data input {
+    width: 90px;
+}
+
+#conteudo .data img {
+    position: relative;
+    left: 6px;
+    top: 3px;
+}
+
+/* formatando textfield para busca */
+#conteudo .busca {
+    margin-bottom: 5px;
+}
+
+#conteudo .busca .campoBusca {
+    /*background: url(../img/buscar.gif) no-repeat;*/
+    width: 314px;
+}
+
+/* formatando elementos do formulario quando ativos */
+#conteudo .on .input {
+    background: #fff !important;
+    border-top: 1px solid #abda5d !important;
+    border-bottom: 1px solid #abda5d !important;
+}
+
+#conteudo .on .left {
+    background: url(../img/input-borda-left-on.gif) no-repeat !important;
+}
+
+#conteudo .on .right {
+    background: url(../img/input-borda-right-on.gif) no-repeat !important;
+}
+
+#conteudo .on-textarea .textarea {
+    background: #fff !important;
+    border: 1px solid #abda5d !important;
+    border-left: none !important;
+}
+
+#conteudo .on-textarea .left {
+    background: url(../img/textarea-borda-left-on.gif) no-repeat !important;
+}
+
+/* formatando elementos do formulario quando desabilitados */
+#conteudo .off .input {
+    background: #eaeaea !important;
+    border-top: 1px solid #ccc !important;
+    border-bottom: 1px solid #ccc !important;
+    color: #999;
+}
+
+#conteudo .off .left {
+    background: url(../img/input-borda-left-off.gif) no-repeat !important;
+}
+
+#conteudo .off .right {
+    background: url(../img/input-borda-right-off.gif) no-repeat !important;
+}
+
+#conteudo .off-textarea .textarea {
+    background: #eaeaea !important;
+    border: 1px solid #ccc !important;
+    border-left: none !important;
+    color: #999;
+}
+
+#conteudo .off-textarea .left {
+    background: url(../img/textarea-borda-left-off.gif) no-repeat !important;
+}
+
+
+/*--------------------------------------------------------------
+x - Forms
+--------------------------------------------------------------*/
+form fieldset {
+    margin: 10px 2px;
+    padding-top: 0.60em;
+}
+
+form legend {
+    color: #545454;
+    text-transform: uppercase;
+}
+
+form input.browser-default {
+    overflow: visible;
+    margin: 0;
+}
+
+form label {
+    display: inline-block;
+    margin-bottom: .5rem;
+    color: #212529;
+}
+
+form input[type="text"].browser-default,
+form .browser-default {
+    display: block;
+    width: 100%;
+    padding: .5rem .75rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #495057;
+    background-color: #fff;
+    background-image: none;
+    background-clip: padding-box;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: .15rem;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+form input.browser-default:active,
+form input.browser-default:focus {
+    box-shadow: none !important;
+}
+form input[type="text"]:disabled,
+form .browser-default:disabled,
+form .browser-default[readonly] {
+    border: 1px dotted rgba(0, 0, 0, 0.57);
+    background-color: #e9ecef;
+    opacity: 1;
+    color: #495057;
+}
+
+form small {
+    color: #868e96;
+    font-size: 80%;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+form span.spanError,
+form span.error {
+    color: #f44336;
+    font-size: 85%;
+    font-weight: bold;
+    margin-top: 10px;
+    padding: 0px 5px;
+}
+
+form input[type="radio"] {
+    background: none;
+    border: none;
+    float:none;
+    display:inline;
+}
+
+form .row {
+    margin-bottom: 5px;
+}
+form .select-wrapper input.select-dropdown {
+    margin-bottom: 5px;
+}
+
+form .caption {
+    color: #484545;
+}
+
+/*!*--------------------------------------------------------------*/
+/*x - FORMULÁRIOS*/
+/*--------------------------------------------------------------*!*/
+/*!* label color *!*/
+/*.input-field label {*/
+    /*color: #00481d;*/
+/*}*/
+
+/*!* label focus color *!*/
+/*.input-field input[type=text]:focus + label {*/
+    /*color: #00481d;*/
+/*}*/
+
+/*!* label underline focus color *!*/
+/*.input-field input[type=text]:focus, textarea.materialize-textarea:focus:not([readonly]) {*/
+    /*border-bottom: 1px solid #00481d;*/
+    /*box-shadow: 0 1px 0 0 #00481d;*/
+/*}*/
+
+/*textarea.materialize-textarea:focus:not([readonly]) + label {*/
+    /*color: #00481d;*/
+/*}*/
+
+/*!* valid color *!*/
+/*.input-field input[type=text].valid {*/
+    /*border-bottom: 1px solid #00481d;*/
+    /*box-shadow: 0 1px 0 0 #00481d;*/
+/*}*/
+
+/*!* invalid color *!*/
+/*.input-field input[type=text].invalid {*/
+    /*border-bottom: 1px solid #F44336;*/
+    /*box-shadow: 0 1px 0 0 #F44336;*/
+/*}*/
+
+/*!* icon prefix focus color *!*/
+/*.input-field .prefix.active {*/
+    /*color: #00481d;*/
+/*}*/
+
+
+/*input:not([type]).invalid, input:not([type]):focus.invalid,*/
+/*input[type=text].invalid,*/
+/*input[type=text]:focus.invalid,*/
+/*input[type=password].invalid,*/
+/*input[type=password]:focus.invalid,*/
+/*input[type=email].invalid,*/
+/*input[type=email]:focus.invalid,*/
+/*input[type=url].invalid,*/
+/*input[type=url]:focus.invalid,*/
+/*input[type=time].invalid,*/
+/*input[type=time]:focus.invalid,*/
+/*input[type=date].invalid,*/
+/*input[type=date]:focus.invalid,*/
+/*input[type=datetime].invalid,*/
+/*input[type=datetime]:focus.invalid,*/
+/*input[type=datetime-local].invalid,*/
+/*input[type=datetime-local]:focus.invalid,*/
+/*input[type=tel].invalid,*/
+/*input[type=tel]:focus.invalid,*/
+/*input[type=number].invalid,*/
+/*input[type=number]:focus.invalid,*/
+/*input[type=search].invalid,*/
+/*input[type=search]:focus.invalid,*/
+/*textarea.materialize-textarea.invalid,*/
+/*textarea.materialize-textarea:focus.invalid {*/
+    /*color: #F44336;*/
+/*}*/
+
+
+/*!* label color *!*/
+/*.input-field label {*/
+    /*color: #1b5e20;*/
+/*}*/
+/*.input-field {*/
+    /*color: #1b5e20;*/
+/*}*/
+/*!* label focus color *!*/
+/*.input-field input[type=text]:focus + label {*/
+    /*color: #1b5e20;*/
+/*}*/
+/*!* label underline focus color *!*/
+/*.input-field input[type=text]:focus {*/
+    /*border-bottom: 1px solid #1b5e20;*/
+    /*box-shadow: 0 1px 0 0 #1b5e20;*/
+/*}*/
+/*!* valid color *!*/
+/*.input-field input[type=text].valid {*/
+    /*border-bottom: 1px solid #4CAF50;*/
+    /*box-shadow: 0 1px 0 0 #4CAF50;*/
+/*}*/
+/*!* invalid color *!*/
+/*.input-field input[type=text].invalid {*/
+    /*border-bottom: 1px solid #F44336;*/
+    /*box-shadow: 0 1px 0 0 #F44336;*/
+/*}*/
+
+/*.input-field label[data-error] {*/
+    /*font-size: 0.8rem;*/
+    /*-webkit-transform: translateY(-140%);*/
+    /*-moz-transform: translateY(-140%);*/
+    /*-ms-transform: translateY(-140%);*/
+    /*-o-transform: translateY(-140%);*/
+    /*transform: translateY(-140%);*/
+/*}*/
+
+/*input:not([type]):focus:not([readonly]) + label[data-error],*/
+/*input[type=text]:focus:not([readonly]) + label[data-error],*/
+/*input[type=password]:focus:not([readonly]) + label[data-error],*/
+/*input[type=email]:focus:not([readonly]) + label[data-error],*/
+/*input[type=url]:focus:not([readonly]) + label[data-error],*/
+/*input[type=time]:focus:not([readonly]) + label[data-error],*/
+/*input[type=date]:focus:not([readonly]) + label[data-error],*/
+/*input[type=datetime]:focus:not([readonly]) + label[data-error],*/
+/*input[type=datetime-local]:focus:not([readonly]) + label[data-error],*/
+/*input[type=tel]:focus:not([readonly]) + label[data-error],*/
+/*input[type=number]:focus:not([readonly]) + label[data-error],*/
+/*input[type=search]:focus:not([readonly]) + label[data-error],*/
+/*textarea.materialize-textarea:focus:not([readonly]) + label[data-error] {*/
+    /*color: #F44336;*/
+/*}*/
+
+#frmProposta .input-field label {
+    color: #212121;
+    font-size: 16px;
+    line-height: 23px;
+}
+
+#frmProposta .input-field .caption {
+    color: #212121;
+}
+
+#frmProposta .mce-tinymce {
+    margin-bottom: 5px;
+
+}
+#tinymce  {
+    font-size: 14px !important;
+}

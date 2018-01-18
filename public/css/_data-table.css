@@ -1,0 +1,114 @@
+/*--------------------------------------------------------------
+x - DATATABLE
+--------------------------------------------------------------*/
+.mdl-button--raised.mdl-button--colored {
+    background: #4caf50 !important;
+    color: #fff;
+}
+
+/* TEMPORARIAMENTE - Sera retirado depois. */
+div.dataTables_wrapper div.dataTables_filter{text-align:right}
+div.dataTables_wrapper div.dataTables_filter input{margin-left:0.5em}
+div.dataTables_wrapper div.dataTables_info{padding-top:10px;white-space:nowrap}
+div.dataTables_wrapper div.dataTables_processing{
+    background: rgba(76, 175, 80, 0.8);
+    z-index: 1000;
+}
+
+.dataTables_wrapper .dataTables_processing {
+    background: rgba(0, 0, 0, 0) linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%) repeat scroll 0 0;
+    font-size: 2.5em !important;
+    height: 100% !important;
+    padding: 5%;
+    text-align: center !important;
+    vertical-align: middle !important;
+    top: 0% !important;
+    right: 0% !important;
+    width: 100% !important;
+    height: 105% !important;
+}
+
+div.dataTables_wrapper div.dataTables_paginate{text-align:right}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active{
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2) !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button{
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2) !important;
+}
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+    background: rgb(76, 175, 80) !important;
+    border: 1px solid #979797;
+    color: #333 !important;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+    background: rgb(76, 175, 80) !important;
+    border: 1px solid #979797;
+    color: #333 !important;
+}
+
+div.dataTables_wrapper div.mdl-grid.dt-table {
+    padding-top: 0;
+    padding-bottom: 0
+}
+
+div.dataTables_wrapper div.mdl-grid.dt-table > div.mdl-cell {
+    margin-top: 0;
+    margin-bottom: 0
+}
+table.dataTable thead th {
+    background-color: #4caf50;
+    color: #fff;
+    border-radius: 0;
+}
+table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting {
+    padding-right: 30px;
+}
+
+table.dataTable thead > tr > th:active, table.dataTable thead > tr > td:active {
+    outline: none
+}
+
+table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
+    cursor: pointer;
+    position: relative
+}
+
+table.dataTable thead .sorting:before, table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:before, table.dataTable thead .sorting_desc_disabled:after {
+    position: absolute;
+    bottom: 11px;
+    display: block;
+    opacity: 0.3;
+    font-size: 1.3em
+}
+
+table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before {
+    right: 1em;
+}
+
+table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
+    right: 0.5em;
+}
+
+table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:after {
+    opacity: 1
+}
+
+table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:after {
+    opacity: 0
+}
+
+div.dataTables_filter input {
+    border: 1px solid #ddd;
+}
+div.dataTables_length .select-wrapper {
+    max-width: 30px;
+}
+div.dataTables_length select {
+    height: 30px;
+}

@@ -22,7 +22,7 @@ class Verificacao extends MinC_Db_Table_Abstract
         return $this->insert($dados);
     }
 
-    function tipoDiligencia($consulta = array())
+    public function tipoDiligencia($consulta = array())
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -34,7 +34,6 @@ class Verificacao extends MinC_Db_Table_Abstract
         }
         
         return $this->fetchAll($select);
-
     }
 
 
@@ -49,16 +48,17 @@ class Verificacao extends MinC_Db_Table_Abstract
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from(array('v' => $this->_name)
-            , array('v.idVerificacao'
+        $select->from(
+            array('v' => $this->_name),
+            array('v.idVerificacao'
             , 'LTRIM(v.Descricao) AS dsVerificacao')
         );
         $select->joinInner(
-            array('t' => 'Tipo')
-            , 'v.idTipo = t.idTipo'
-            , array('t.idTipo'
-            , 't.Descricao AS dsTipo')
-            , 'SAC.dbo'
+            array('t' => 'Tipo'),
+            'v.idTipo = t.idTipo',
+            array('t.idTipo'
+            , 't.Descricao AS dsTipo'),
+            'SAC.dbo'
         );
 
         foreach ($where as $coluna => $valor) {
@@ -70,9 +70,8 @@ class Verificacao extends MinC_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
-    function combosNatureza($idTipo)
+    public function combosNatureza($idTipo)
     {
-
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -81,16 +80,17 @@ class Verificacao extends MinC_Db_Table_Abstract
         );
         $select->where('idTipo = ?', $idTipo);
         return $this->fetchAll($select);
-
     }
 
 
-    function buscarOrigemRecurso($where = array())
+    public function buscarOrigemRecurso($where = array())
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from(array($this->_name),
-            array('idVerificacao', 'Descricao'));
+        $select->from(
+            array($this->_name),
+            array('idVerificacao', 'Descricao')
+        );
 
         if ($where) {
             foreach ($where as $coluna => $valor) :
@@ -100,6 +100,4 @@ class Verificacao extends MinC_Db_Table_Abstract
 
         return $this->fetchAll($select);
     }
-
-
 }

@@ -22,7 +22,7 @@
   </tr>
  
  
-	  <?php foreach($this->proponente as $tbproponente): ?>
+	  <?php foreach ($this->proponente as $tbproponente): ?>
 <tr>
 <td class="fundo_linha2 center blue"><?php echo $this->escape($tbproponente->nmproponente);?></td>
 <td class="fundo_linha2 center blue"><?php echo $this->escape($tbproponente->pronac);?></td>

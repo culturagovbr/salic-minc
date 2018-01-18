@@ -5,8 +5,8 @@
  *
  * @author 01129075125
  */
-class tbRelatorioTrimestral extends MinC_Db_Table_Abstract{
-
+class tbRelatorioTrimestral extends MinC_Db_Table_Abstract
+{
     protected $_schema = 'SAC';
     protected $_name = 'tbRelatorioTrimestral';
 
@@ -18,7 +18,8 @@ class tbRelatorioTrimestral extends MinC_Db_Table_Abstract{
      * @param integer $where
      * @return integer (quantidade de registros alterados)
      */
-    public function buscarDadosRelatorio($idRelatorio) {
+    public function buscarDadosRelatorio($idRelatorio)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -32,7 +33,8 @@ class tbRelatorioTrimestral extends MinC_Db_Table_Abstract{
         return $this->fetchAll($select);
     }
 
-    public function buscarRelatorioTrimestral($idRelatorioTrimestral) {
+    public function buscarRelatorioTrimestral($idRelatorioTrimestral)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -63,7 +65,7 @@ class tbRelatorioTrimestral extends MinC_Db_Table_Abstract{
         $select->setIntegrityCheck(false);
         $select->from(
             array('a' => $this->_name),
-            NULL,
+            null,
             $this->_schema
         );
         $select->joinInner(
@@ -91,7 +93,7 @@ class tbRelatorioTrimestral extends MinC_Db_Table_Abstract{
         $select->setIntegrityCheck(false);
         $select->from(
             array('a' => $this->_name),
-            NULL,
+            null,
             $this->_schema
         );
         $select->joinInner(
@@ -196,5 +198,4 @@ class tbRelatorioTrimestral extends MinC_Db_Table_Abstract{
 
         return $this->fetchAll($select);
     }
-
 }

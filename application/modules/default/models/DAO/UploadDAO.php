@@ -1,6 +1,6 @@
 <?php
-class UploadDAO extends MinC_Db_Table_Abstract {
-
+class UploadDAO extends MinC_Db_Table_Abstract
+{
     protected $_schema = "SAC";
 
     /**
@@ -10,21 +10,25 @@ class UploadDAO extends MinC_Db_Table_Abstract {
      * @param integer $id
      * @return object || bool
      */
-    public static function abrir($id) {
+    public static function abrir($id)
+    {
         $table = Zend_Db_Table::getDefaultAdapter();
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
         $select = $table->select()
-            ->from('tbArquivo',
+            ->from(
+                'tbArquivo',
                 array('dsTipoPadronizado', 'nmArquivo'),
-                'BDCORPORATIVO.scCorp')
-            ->where('tbArquivo.idArquivo = ?',  $id)
+                'BDCORPORATIVO.scCorp'
+            )
+            ->where('tbArquivo.idArquivo = ?', $id)
             ->joinInner(
                 'tbArquivoImagem',
                 'tbArquivo.idArquivo = tbArquivoImagem.idArquivo',
                 array('biArquivo'),
-                'BDCORPORATIVO.scCorp');
+                'BDCORPORATIVO.scCorp'
+            );
 
         $resultado = $db->fetchAll('SET TEXTSIZE 2147483647');
         return $db->fetchAll($select);
@@ -37,57 +41,63 @@ class UploadDAO extends MinC_Db_Table_Abstract {
      * @param integer $id
      * @return object || bool
      */
-    public static function abrirdocumentosanexados($id, $busca) {
+    public static function abrirdocumentosanexados($id, $busca)
+    {
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
         if ($busca == "tbDocumentosAgentes") { //acrescentado-jass
-           // busca o arquivo
+            // busca o arquivo
 
             $select = $db->select()
-                ->from('tbDocumentosAgentes',
+                ->from(
+                    'tbDocumentosAgentes',
                     array('NoArquivo AS nmArquivo','imDocumento AS biArquivo',new Zend_db_Expr('1 AS biArquivo2')),
-                    'SAC.dbo')
+                    'SAC.dbo'
+                )
                 ->where('idDocumentosAgentes = ?', $id)
-                ->joinInner('DocumentosExigidos',
+                ->joinInner(
+                    'DocumentosExigidos',
                     'tbDocumentosAgentes.CodigoDocumento = DocumentosExigidos.Codigo',
                     array(''),
-                    'SAC.dbo');
-
-        }
-        else if ($busca == "tbDocumentosPreProjeto") { //acrescentado-jass
+                    'SAC.dbo'
+                );
+        } elseif ($busca == "tbDocumentosPreProjeto") { //acrescentado-jass
             // busca o arquivo
 
             $select = $db->select()
-                ->from('tbDocumentosPreprojeto',
+                ->from(
+                    'tbDocumentosPreprojeto',
                     array('NoArquivo AS nmArquivo','imDocumento AS biArquivo',new Zend_db_Expr('1 AS biArquivo2')),
-                    'SAC.dbo')
+                    'SAC.dbo'
+                )
                 ->where('idDocumentosPreprojetos = ?', $id)
-                ->joinInner('DocumentosExigidos',
+                ->joinInner(
+                    'DocumentosExigidos',
                     'tbDocumentosPreprojeto.CodigoDocumento = DocumentosExigidos.Codigo',
                     array(''),
-                    'SAC.dbo');
-
-        }
-        else if ($busca == "tbDocumento") { //acrescentado-jass
+                    'SAC.dbo'
+                );
+        } elseif ($busca == "tbDocumento") { //acrescentado-jass
             // busca o arquivo
 
             $select = $db->select()
-                ->from('tbDocumento',
+                ->from(
+                    'tbDocumento',
                     array('NoArquivo AS nmArquivo', 'imDocumento AS biArquivo', 'biDocumento AS biArquivo2'),
-                        'SAC.dbo')
-                ->where('tbDocumento.idDocumento = ?',  $id)
+                        'SAC.dbo'
+                )
+                ->where('tbDocumento.idDocumento = ?', $id)
                 ->joinInner(
                     'tbTipoDocumento',
                     'tbDocumento.idTipoDocumento = tbTipoDocumento.idTipoDocumento',
                      array(''),
-                    'SAC.dbo');
-
+                    'SAC.dbo'
+                );
         }
 
         $resultado = $db->fetchAll("SET TEXTSIZE 104857600");
         $resultado = $db->fetchAll($select);
         return $resultado;
     }
-
 }

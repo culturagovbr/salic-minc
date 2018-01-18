@@ -10,14 +10,15 @@
  * @link http://www.cultura.gov.br
  * @copyright 2010 - Minist�rio da Cultura - Todos os direitos reservados.
  */
-class AnexardocumentosmincController extends MinC_Controller_Action_Abstract {
-
+class AnexardocumentosmincController extends MinC_Controller_Action_Abstract
+{
     private $getIdAgente  = 0;
     private $getIdGrupo   = 0;
     private $getIdOrgao   = 0;
     private $intTamPag = 10;
 
-    public function init() {
+    public function init()
+    {
 
         // verifica as permiss�es
         $PermissoesGrupo = array();
@@ -53,7 +54,7 @@ class AnexardocumentosmincController extends MinC_Controller_Action_Abstract {
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
 
         //SE CAIU A SECAO REDIRECIONA
-        if(!$auth->hasIdentity()){
+        if (!$auth->hasIdentity()) {
             $url = Zend_Controller_Front::getInstance()->getBaseUrl();
             JS::redirecionarURL($url);
         }
@@ -68,23 +69,25 @@ class AnexardocumentosmincController extends MinC_Controller_Action_Abstract {
         parent::init();
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
         $tbTipoDocumento = new tbTipoDocumentoBDCORPORATIVO();
         $result = $tbTipoDocumento->buscar(array(), array(2));
         $this->view->tpDocumentos = $result;
     }
 
-    public function buscarProjetosAction() {
+    public function buscarProjetosAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $pronac = Mascara::delMaskCPFCNPJ($_POST['pronac']);
 
         $projetos = new Projetos();
         $result = $projetos->buscarIdPronac($pronac);
 
-        if(!empty($result)){
+        if (!empty($result)) {
             $dadosProjeto = $projetos->buscarTodosDadosProjeto($result->IdPRONAC);
             $dados = array();
-            if($dadosProjeto[0]->Orgao == $this->getIdOrgao) {
+            if ($dadosProjeto[0]->Orgao == $this->getIdOrgao) {
                 $dados['NomeProjeto'] = utf8_encode($dadosProjeto[0]['NomeProjeto']);
                 $jsonEncode = json_encode($dados);
                 $this->_helper->json(array('resposta'=>true,'conteudo'=>$dados));
@@ -100,7 +103,8 @@ class AnexardocumentosmincController extends MinC_Controller_Action_Abstract {
             $jsonEncode = json_encode($dados);
             $this->_helper->json(array('resposta'=>false,'conteudo'=>$dados));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE); ;
+        $this->_helper->viewRenderer->setNoRender(true);
+        ;
     }
 
     public function buscarProjetosAnexosAction()
@@ -111,10 +115,10 @@ class AnexardocumentosmincController extends MinC_Controller_Action_Abstract {
         $projetos = new Projetos();
         $result = $projetos->buscarIdPronac($pronac);
 
-        if(!empty($result)){
+        if (!empty($result)) {
             $dadosProjeto = $projetos->buscarTodosDadosProjeto($result->IdPRONAC);
             $dados = array();
-            if($dadosProjeto[0]->Orgao == $this->getIdOrgao) {
+            if ($dadosProjeto[0]->Orgao == $this->getIdOrgao) {
                 $dados['NomeProjeto'] = utf8_encode($dadosProjeto[0]['NomeProjeto']);
 
                 $tbDoc = new paDocumentos();
@@ -146,13 +150,15 @@ class AnexardocumentosmincController extends MinC_Controller_Action_Abstract {
             $jsonEncode = json_encode($dados);
             $this->_helper->json(array('resposta'=>false,'conteudo'=>$dados));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE); ;
+        $this->_helper->viewRenderer->setNoRender(true);
+        ;
     }
 
-    public function cadastrarDocumentoAction() {
+    public function cadastrarDocumentoAction()
+    {
         $pronac = $this->_request->getParam("Pronac");
         $tpDocumento = $this->_request->getParam("tpDocumento");
-        if(empty($pronac) || empty($tpDocumento)){
+        if (empty($pronac) || empty($tpDocumento)) {
             parent::message("Favor preencher os dados obrigat&oacute;rios!", "anexardocumentosminc", "ERROR");
         }
 
@@ -160,23 +166,23 @@ class AnexardocumentosmincController extends MinC_Controller_Action_Abstract {
             $projetos = new Projetos();
             $dadosProjeto = $projetos->buscarIdPronac($pronac);
 
-            if(!empty($_FILES['arquivo']['tmp_name'])){
+            if (!empty($_FILES['arquivo']['tmp_name'])) {
                 $arquivoNome     = $_FILES['arquivo']['name']; // nome
                 $arquivoTemp     = $_FILES['arquivo']['tmp_name']; // nome tempor�rio
                 $arquivoTipo     = $_FILES['arquivo']['type']; // tipo
                 $arquivoTamanho  = $_FILES['arquivo']['size']; // tamanho
 
-                if (!empty($arquivoNome) && !empty($arquivoTemp)){
+                if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                     $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
                     $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
                     $arquivoHash     = Upload::setHash($arquivoTemp); // hash
                 }
 
-                if(!isset($_FILES['arquivo'])){
+                if (!isset($_FILES['arquivo'])) {
                     parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "anexardocumentosminc", "ERROR");
                 }
 
-                if(empty($_FILES['arquivo']['tmp_name'])){
+                if (empty($_FILES['arquivo']['tmp_name'])) {
                     parent::message("Favor selecionar um arquivo.", "anexardocumentosminc", "ERROR");
                 }
 
@@ -202,30 +208,28 @@ class AnexardocumentosmincController extends MinC_Controller_Action_Abstract {
                 $Arquivo->inserirUploads($dadosArquivo);
             }
             parent::message("Anexo cadastrado com sucesso!", "anexardocumentosminc", "CONFIRM");
-
-        } catch (Exception $e){
+        } catch (Exception $e) {
             parent::message("Erro ao salvar os dados.", "anexardocumentosminc", "ERROR");
         }
     }
 
-    public function excluirAction() {
-
+    public function excluirAction()
+    {
     }
 
-    public function excluirArquivoAction(){
-
+    public function excluirArquivoAction()
+    {
         $this->_helper->layout->disableLayout();
         $post = Zend_Registry::get('post');
 
         $vwAnexarComprovantes = new vwAnexarComprovantes();
         $resultado = $vwAnexarComprovantes->excluirArquivo($post->id);
-        if($resultado){
+        if ($resultado) {
             $this->_helper->json(array('resposta'=>true));
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE); ;
-
+        $this->_helper->viewRenderer->setNoRender(true);
+        ;
     }
-
 }

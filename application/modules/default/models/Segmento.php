@@ -16,15 +16,20 @@ class Segmento extends MinC_Db_Table_Abstract
     protected $_schema = 'sac';
     protected $_name = 'Segmento';
 
-    public function buscaCompleta($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count=false){
+    public function buscaCompleta($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count=false)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
-        $slct->from(array('s'=>$this->_name),
+        $slct->from(
+            array('s'=>$this->_name),
                     array('id'=>'Codigo', 'descricao'=>'Descricao')
         );
 
-        $slct->joinInner(array('a'=>'Area'),'LEFT(s.Codigo, 1) = a.Codigo',
-                            array(),'SAC.dbo'
+        $slct->joinInner(
+            array('a'=>'Area'),
+            'LEFT(s.Codigo, 1) = a.Codigo',
+                            array(),
+            'SAC.dbo'
         );
 
         //adiciona quantos filtros foram enviados

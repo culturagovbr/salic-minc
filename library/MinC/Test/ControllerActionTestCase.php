@@ -129,6 +129,13 @@ abstract class MinC_Test_ControllerActionTestCase extends MinC_Test_Abstract
         $this->dispatch('/autenticacao/perfil/alterarperfil?codGrupo=131&codOrgao=262');
         $this->assertRedirectTo('/principal');
     }
+
+    protected function assertUrl($module, $controller, $action)
+    {
+        $this->assertModule($module);
+        $this->assertController($controller);
+        $this->assertAction($action);
+    }
 }
 
 

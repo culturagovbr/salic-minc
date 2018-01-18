@@ -1,4 +1,4 @@
-<head>
+
     <?php if(in_array($_SERVER["HTTP_HOST"], array('salic.cultura.gov.br', 'http://salic.cultura.gov.br'))){ ?>
         <!-- Piwik -->
         <script type="text/javascript">
@@ -68,8 +68,6 @@
     $this->headMeta()->appendName('description', 'Sistema de Apoio às Leis de Incentivo à Cultura');
     $this->headMeta()->appendName('viewport', 'width=device-width, user-scalable=no');
 
-//    if ($config->layout->meta->layoutName == true)
-//        $this->view->headMeta()->setName('Layout', $layout);
 
     // Titulo da pagina
     $this->headTitle()->setSeparator(' | ');
@@ -83,7 +81,7 @@
     // Adicionar o HeadTitle default caso exista apenas um registrado
     if (count($this->headTitle()) == 1)
         $this->headTitle($config->layout->headTitle);
-//
+
     if ($this->docType()->getDoctype() == Zend_View_Helper_Doctype::XHTML1_RDFA) {
         foreach ($this->view->FacebookOpenGraphTags()->getTags() as $k => $v) {
             if ($v == '') continue;
@@ -97,22 +95,3 @@
     echo $this->headTitle();
     ?>
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<!--    <noscript>-->
-<!--        <link type="text/css" rel="stylesheet" media="all" href="--><?php //echo $this->baseUrl(); ?><!--/public/css/noscript.css" />-->
-<!--    </noscript>-->
-
-    <!-- Jquery -->
-<!--    <link type="text/css" href="--><?php //echo $this->baseUrl(); ?><!--/public/css/custom-theme/jquery-ui-1.8.2.custom.css" rel="stylesheet" />-->
-<!--    <script type="text/javascript" src="--><?php //echo $this->baseUrl(); ?><!--/public/js/jquery-ui-1.8.2.custom.min.js"></script>-->
-<!--    <script type="text/javascript" src="--><?php //echo $this->baseUrl(); ?><!--/public/js/ui/i18n/jquery.ui.datepicker-pt-BR.js"></script>-->
-<!--    <style type="text/css">-->
-<!--        /*demo page css*/-->
-<!--        .demoHeaders { margin-top: 2em; }-->
-<!--        #dialog_link {padding: .4em 1em .4em 20px;text-decoration: none;position: relative;}-->
-<!--        #dialog_link span.ui-icon {margin: 0 5px 0 0;position: absolute;left: .2em;top: 50%;margin-top: -8px;}-->
-<!--        ul#icons {margin: 0; padding: 0;}-->
-<!--        ul#icons li {margin: 2px; position: relative; padding: 4px 0; cursor: pointer; float: left;  list-style: none;}-->
-<!--        ul#icons span.ui-icon {float: left; margin: 0 4px;}-->
-<!--    </style>-->
-
-</head>

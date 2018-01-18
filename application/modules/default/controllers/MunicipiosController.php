@@ -1,16 +1,7 @@
 <?php
-/**
- * MunicipiosController
- * @author Emanuel Sampaio <emanuelonline@gmail.com>
- * @since 18/04/2012
- * @version 1.0
- * @package application
- * @subpackage application.controllers
- * @copyright � 2012 - Minist�rio da Cultura - Todos os direitos reservados.
- * @link http://salic.cultura.gov.br
- */
 
-class MunicipiosController extends Zend_Controller_Action {
+class MunicipiosController extends Zend_Controller_Action
+{
     /**
      * M�todo para buscar as cidades de um estado
      * Busca como XML para o AJAX
@@ -18,7 +9,8 @@ class MunicipiosController extends Zend_Controller_Action {
      * @param void
      * @return void
      */
-    public function comboAction() {
+    public function comboAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         // recebe o idUF via post
@@ -31,7 +23,8 @@ class MunicipiosController extends Zend_Controller_Action {
     } // fecha comboAction()
 
 
-    public function comboAjaxAction() {
+    public function comboAjaxAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         // recebe o idUF via post
@@ -43,7 +36,7 @@ class MunicipiosController extends Zend_Controller_Action {
         $result = $Municipios->combo(array('idUFIBGE = ?' => $id));
 
         $a = 0;
-        if(count($result) > 0){
+        if (count($result) > 0) {
             foreach ($result as $registro) {
                 $arrayMunicipios[$a]['id'] = $registro['id'];
                 $arrayMunicipios[$a]['descricao'] = utf8_encode($registro['descricao']);
@@ -51,12 +44,9 @@ class MunicipiosController extends Zend_Controller_Action {
             }
             $jsonEncode = json_encode($arrayMunicipios);
             $this->_helper->json(array('resposta'=>true,'conteudo'=>$arrayMunicipios));
-
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
-
-
+        $this->_helper->viewRenderer->setNoRender(true);
     } // fecha comboAction()
 }

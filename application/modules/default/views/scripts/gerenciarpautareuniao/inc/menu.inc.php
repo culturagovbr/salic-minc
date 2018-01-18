@@ -51,7 +51,7 @@
                                     clearInterval(telaacompanhamentopresidente);
                                     $("#corfirma").html('<br><br><center>Encerrando votação...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center>');
                                     var idNrReuniao = $("input[name='idReuniao']").val();
-                                    //jqAjaxLinkSemLoading('<?php //echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'pa-encerrar-cnic')) ?>?idReuniao=' + idNrReuniao, '', 'corfirma');
+                                    //jqAjaxLinkSemLoading('<?php //echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'pa-encerrar-cnic'))?>?idReuniao=' + idNrReuniao, '', 'corfirma');
                                     $("form[name='form']").submit();
                                 }
 
@@ -93,7 +93,8 @@
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'readequacoes-nao-submetidas')); ?>" title="Ir para Não submetidos - readequa&ccedil;&otilde;es">Não submetidos - readequa&ccedil;&otilde;es</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'paineisdareuniao')); ?>" title="Ir para Painel de Reuni&otilde;es">Painel de Reuni&otilde;es</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'projetosvotados')); ?>" title="Ir para Painel de Projetos Votados">Projetos Votados</a>
-<?php } ?>
+<?php
+                } ?>
                 <?php
                 if ($this->grupoAtivo == 118 or $this->grupoAtivo == 133) { //118 = componente da comissao  133 = membros natos
                 ?>
@@ -107,9 +108,10 @@
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'paineisdareuniao')); ?>" title="Ir para Painel de Reuni&otilde;es">Painel de Reuni&otilde;es</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'projetosvotados')); ?>" title="Ir para Painel de Projetos Votados">Projetos Votados</a>
                     <span class="no_seta last">&nbsp;</span>
-<?php } ?>
 <?php
-                if ($this->grupoAtivo == 119 ) { //presidente CNIC
+                } ?>
+<?php
+                if ($this->grupoAtivo == 119) { //presidente CNIC
 ?>
                     <!--<a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao')); ?>" title="Ir para Projetos em Pauta">Projetos em Pauta</a>-->
                     <a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao', 'readequacao' => 'false', 'plenaria' => 'true')); ?>" title="Ir para Plenária - análise inicial">Plenária - análise inicial</a>
@@ -129,7 +131,8 @@
                     </div>
                     <?php */ ?>
                     <span class="no_seta last">&nbsp;</span>
-<?php } ?>
+<?php
+                } ?>
             </div>
             <div class="bottom"></div>
                 <?php
@@ -149,7 +152,7 @@
                         echo $this->reuniaoaberta['idNrReuniao'];
                         echo "'>";
                         echo "</div>";
-                    } else if ($this->reuniaoaberta['stPlenaria'] == 'A')  {
+                    } elseif ($this->reuniaoaberta['stPlenaria'] == 'A') {
                         echo "<div style='background:#f8f8f8; padding-bottom:10em;'>";
                         echo "<br><br><br>";
                         echo " <ul id='menuGerenciar' class='sumir'>";

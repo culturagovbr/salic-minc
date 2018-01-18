@@ -28,15 +28,20 @@ class Proposta_Model_DbTable_DocumentosProjeto extends MinC_Db_Table_Abstract
                 "NoArquivo as nome",
                 new Zend_Db_Expr("'antigo-agente' as tipoDocumento"),
                 new Zend_Db_Expr("'Anexado pelo Proponente' as Classificacao")
-            ), 'SAC.dbo'
+            ),
+            'SAC.dbo'
         );
         $a->joinInner(
-            array('ag' => 'Agentes'), "ag.idAgente = a1.idAgente",
-            array(), 'AGENTES.dbo'
+            array('ag' => 'Agentes'),
+            "ag.idAgente = a1.idAgente",
+            array(),
+            'AGENTES.dbo'
         );
         $a->joinInner(
-            array('pr' => 'Projetos'), "pr.CgcCpf = ag.CNPJCPF",
-            array("IdPRONAC as idpronac"), 'SAC.dbo'
+            array('pr' => 'Projetos'),
+            "pr.CgcCpf = ag.CNPJCPF",
+            array("IdPRONAC as idpronac"),
+            'SAC.dbo'
         );
         $a->where('pr.IdPRONAC = ?', $idPronac);
         $a->where('a1.NoArquivo != ?', '');
@@ -50,11 +55,14 @@ class Proposta_Model_DbTable_DocumentosProjeto extends MinC_Db_Table_Abstract
                 "NoArquivo as nome",
                 new Zend_Db_Expr("'antigo-preprojeto' as tipoDocumento"),
                 new Zend_Db_Expr("'Anexado pelo Proponente' as Classificacao")
-            ), 'SAC.dbo'
+            ),
+            'SAC.dbo'
         );
         $b->joinInner(
-            array('pr' => 'Projetos'), "pr.idProjeto = a2.idProjeto",
-            array("IdPRONAC as idpronac"), 'SAC.dbo'
+            array('pr' => 'Projetos'),
+            "pr.idProjeto = a2.idProjeto",
+            array("IdPRONAC as idpronac"),
+            'SAC.dbo'
         );
         $b->where('pr.IdPRONAC = ?', $idPronac);
         $b->where('a2.NoArquivo != ?', '');
@@ -69,7 +77,8 @@ class Proposta_Model_DbTable_DocumentosProjeto extends MinC_Db_Table_Abstract
                 new Zend_Db_Expr("'docProp' as tipoDocumento"),
                 new Zend_Db_Expr("'Anexado pelo Proponente' as Classificacao"),
                 "idPronac as idpronac"
-            ), 'SAC.dbo'
+            ),
+            'SAC.dbo'
         );
         $c->where('a3.idPronac = ?', $idPronac);
         $c->where('a3.NoArquivo != ?', '');
@@ -82,15 +91,20 @@ class Proposta_Model_DbTable_DocumentosProjeto extends MinC_Db_Table_Abstract
             array("idDocumento",
                 new Zend_Db_Expr("'antigo-preprojeto' as tipoDocumento"),
                 new Zend_Db_Expr("'Anexado pelo Proponente' as Classificacao")
-            ), 'BDCORPORATIVO.scCorp'
+            ),
+            'BDCORPORATIVO.scCorp'
         );
         $d->joinInner(
-            array('a5' => 'tbArquivo'), "a4.idArquivo = a5.idArquivo",
-            array("nmArquivo as nome"), 'BDCORPORATIVO.scCorp'
+            array('a5' => 'tbArquivo'),
+            "a4.idArquivo = a5.idArquivo",
+            array("nmArquivo as nome"),
+            'BDCORPORATIVO.scCorp'
         );
         $d->joinInner(
-            array('tap' => 'tbDocumentoProjeto'), "tap.idDocumento = a4.idDocumento",
-            array("idpronac"), 'BDCORPORATIVO.scCorp'
+            array('tap' => 'tbDocumentoProjeto'),
+            "tap.idDocumento = a4.idDocumento",
+            array("idpronac"),
+            'BDCORPORATIVO.scCorp'
         );
         $d->where('tap.idpronac = ?', $idPronac);
         $d->where('a5.nmArquivo != ?', '');
@@ -102,5 +116,3 @@ class Proposta_Model_DbTable_DocumentosProjeto extends MinC_Db_Table_Abstract
         return $this->fetchAll($slctUnion);
     }
 }
-
-?>

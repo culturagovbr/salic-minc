@@ -19,8 +19,9 @@ class Proposta_Model_DbTable_PreProjetoMeta extends MinC_Db_Table_Abstract
 
     public function buscarMeta($idPreProjeto, $metaKey)
     {
-        if (empty($idPreProjeto))
+        if (empty($idPreProjeto)) {
             return false;
+        }
 
         $db = Zend_Db_Table::getDefaultAdapter();
 
@@ -30,8 +31,9 @@ class Proposta_Model_DbTable_PreProjetoMeta extends MinC_Db_Table_Abstract
             ->from($this->_name, 'metaValue', $this->_schema)
             ->where('idPreProjeto = ?', $idPreProjeto);
 
-        if (!empty($metaKey))
+        if (!empty($metaKey)) {
             $sql->where('metaKey = ?', $metaKey);
+        }
 
         $sql->order('idPreProjetoMeta DESC');
         $sql->limit(1);
@@ -41,8 +43,9 @@ class Proposta_Model_DbTable_PreProjetoMeta extends MinC_Db_Table_Abstract
 
     public function salvarMeta($idPreProjeto, $metaKey, $valor)
     {
-        if (empty($idPreProjeto) || empty($metaKey))
+        if (empty($idPreProjeto) || empty($metaKey)) {
             return false;
+        }
 
         $dados = array(
             'idPreProjeto' => $idPreProjeto,
@@ -51,14 +54,12 @@ class Proposta_Model_DbTable_PreProjetoMeta extends MinC_Db_Table_Abstract
         );
 
         if ($this->buscarMeta($idPreProjeto, $metaKey)) {
-
             $where = array(
                 'idPreProjeto = ?' => $idPreProjeto,
                 'metaKey = ?' => $metaKey
             );
 
             return $this->update($dados, $where);
-
         } else {
             return $this->insert($dados);
         }
@@ -66,7 +67,8 @@ class Proposta_Model_DbTable_PreProjetoMeta extends MinC_Db_Table_Abstract
 
     public function deletarMeta($idPreProjeto, $metaKey)
     {
-        if (empty($idPreProjeto) || empty($metaKey))
+        if (empty($idPreProjeto) || empty($metaKey)) {
             return false;
+        }
     }
 }

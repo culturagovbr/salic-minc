@@ -1,12 +1,13 @@
 <?php
-Class Proponente extends MinC_Db_Table_Abstract {
-
+class Proponente extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'SAC';
     protected $_name = 'Projetos';
     protected $_schema = 'SAC';
     protected $_primary = 'idProjeto';
 
-    public function buscarProponenteProjetoDeUsuario($idUsuario){
+    public function buscarProponenteProjetoDeUsuario($idUsuario)
+    {
         $consulta = $this->select();
         $consulta->setIntegrityCheck(false);
         $consulta->from(array('a' => 'vwAgentesSeusProjetos'), array(
@@ -25,7 +26,8 @@ Class Proponente extends MinC_Db_Table_Abstract {
         return $listaResultado;
     }
 
-    public function buscarDados($pronac) {
+    public function buscarDados($pronac)
+    {
         $sql = "SELECT a.idAgente, a.CNPJCPF,n.Descricao AS Proponente,
 						   CASE
 						     WHEN LEN(a.CNPJCPF) = 11
@@ -96,7 +98,8 @@ Class Proponente extends MinC_Db_Table_Abstract {
         return $resultado;
     }
 
-    public function buscarEmail($pronac) {
+    public function buscarEmail($pronac)
+    {
         $sql1 = "SELECT
 CASE
 WHEN It.TipoInternet = 28
@@ -118,8 +121,8 @@ where Pr.IdPRONAC = " . $pronac . "";
     }
 
 
-        public function buscarTelefone($pronac)
-        {
+    public function buscarTelefone($pronac)
+    {
         $sql2 =  "SELECT
 CASE
 WHEN Tl.TipoTelefone = 22 or Tl.TipoTelefone = 24
@@ -155,8 +158,8 @@ where Pr.IdPRONAC = " . $pronac . "";
     }
 
 
-        public function buscarArquivados($pronac)
-        {
+    public function buscarArquivados($pronac)
+    {
         $sql3 = "SELECT
                                                 Pr.IdPRONAC,
                                                 Pr.NomeProjeto,
@@ -189,8 +192,8 @@ where Pr.IdPRONAC = " . $pronac . "";
     }
 
 
-        public function buscarInativos($pronac)
-        {
+    public function buscarInativos($pronac)
+    {
         $sql4 = "SELECT
                                                 Pr.IdPRONAC,
                                                 Pr.NomeProjeto,
@@ -222,7 +225,8 @@ where Pr.IdPRONAC = " . $pronac . "";
         return $resultado1;
     }
 
-    public function buscarAtivos($pronac) {
+    public function buscarAtivos($pronac)
+    {
         $sql5 = "SELECT
 							Pr.IdPRONAC,
 							Pr.NomeProjeto,
@@ -254,8 +258,7 @@ where Pr.IdPRONAC = " . $pronac . "";
         return $resultado1;
     }
 
-    public function mostrar() {
-
+    public function mostrar()
+    {
     }
-
 }

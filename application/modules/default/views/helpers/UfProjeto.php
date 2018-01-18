@@ -12,17 +12,16 @@
 
 class Zend_View_Helper_UfProjeto
 {
-	/**
-	 * M�todo para verificar a uf do projeto
-	 * @access public
-	 * @param string $cnpjcpf
-	 * @return string
-	 */
-	public function ufProjeto($cnpjcpf)
-	{
-		$Agentes = new Agente_Model_DbTable_Agentes();
-		$buscarUF = $Agentes->buscarUfMunicioAgente(array('a.CNPJCPF = ?' => $cnpjcpf));
-		return $buscarUF[0]['Sigla'];
-	} // fecha m�todo ufProjeto()
-
+    /**
+     * M�todo para verificar a uf do projeto
+     * @access public
+     * @param string $cnpjcpf
+     * @return string
+     */
+    public function ufProjeto($cnpjcpf)
+    {
+        $Agentes = new Agente_Model_DbTable_Agentes();
+        $buscarUF = $Agentes->buscarUfMunicioAgente(array('a.CNPJCPF = ?' => $cnpjcpf));
+        return $buscarUF[0]['Sigla'];
+    } // fecha m�todo ufProjeto()
 } // fecha class

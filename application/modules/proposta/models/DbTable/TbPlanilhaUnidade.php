@@ -10,12 +10,13 @@
  *
  * @author augusto
  */
-class Proposta_Model_DbTable_TbPlanilhaUnidade extends MinC_Db_Table_Abstract {
-
-	protected $_schema  = 'sac';
+class Proposta_Model_DbTable_TbPlanilhaUnidade extends MinC_Db_Table_Abstract
+{
+    protected $_schema  = 'sac';
     protected $_name = 'tbPlanilhaUnidade';
 
-    public function buscarUnidade() {
+    public function buscarUnidade()
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -32,7 +33,4 @@ class Proposta_Model_DbTable_TbPlanilhaUnidade extends MinC_Db_Table_Abstract {
         
         return $db->fetchAll($select);
     }
-
 }
-
-?>

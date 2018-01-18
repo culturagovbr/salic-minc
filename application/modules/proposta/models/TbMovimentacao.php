@@ -130,5 +130,4 @@ class Proposta_Model_TbMovimentacao extends MinC_Db_Model
         $this->_usuario = $usuario;
         return $this;
     }
-
 }

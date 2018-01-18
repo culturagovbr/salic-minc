@@ -756,9 +756,11 @@ if (isset ($auth['cpf'])) {
 
 </style>
 <div id="navbar-header">
-    <nav class="green darken-2">
+    <nav class="">
         <div class="nav-wrapper  container">
-            <a  href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+            <a id="menu-left" href="#" data-activates="sidenav" class="button-collapse left"><i class="material-icons">menu</i></a>
+            <a id="menu-right" href="#" data-activates="nav-mobile" class="button-collapse right"><i class="material-icons">menu</i></a>
+
             <ul class="left hide-on-med-and-down">
                 <?php echo $this->partialLoop('partials/menu/item.phtml', $arrMenu); ?>
             </ul>
@@ -768,6 +770,7 @@ if (isset ($auth['cpf'])) {
 <!--                <li><a class="white-text" href="sass.html"><i class="material-icons">power_settings_new</i></a></li>-->
 <!--                <li><a class="white-text" href="mobile.html"><i class="material-icons">more_vert</i></a></li>-->
             </ul>
+
             <ul class="side-nav" id="nav-mobile">
                 <?php echo $this->partialLoop('partials/menu/item-side-nav.phtml', $arrMenu); ?>
             </ul>
@@ -776,7 +779,12 @@ if (isset ($auth['cpf'])) {
     </nav>
 </div>
 <script>
-    $3(".button-collapse").sideNav();
+    $3(document).ready(function(){
+        $3("#menu-left").sideNav({edge: 'left', menuWidth: 250});
+        $3("#menu-right").sideNav({edge: 'right'});
+    });
+
+
 //    $3('.dropdown-button').dropdown({
 //            inDuration: 300,
 //            outDuration: 225,
@@ -789,12 +797,76 @@ if (isset ($auth['cpf'])) {
 //    );
     $3(document).ready(function(){
         $3(window).scroll(function(){
-            if($(window).scrollTop() > '94'){
-                $("#navbar-header").addClass('navbar-fixed');
+            if($3(window).scrollTop() > '59'){
+                $3("#navbar-header").addClass('navbar-fixed');
+                $3("body").addClass('nav-fixed');
             } else{
-                $("#navbar-header").removeClass('navbar-fixed');
+                $3("#navbar-header").removeClass('navbar-fixed');
+                $3("body").removeClass('nav-fixed');
             }
 
-        })
-    })
+        });
+
+        if($3(window).scrollTop() > '60'){
+            $3("#navbar-header").addClass('navbar-fixed');
+            $3("body").addClass('nav-fixed');
+        }
+
+        //@todo isso eh temporario, ate a migracao do layout
+        if ($3('#sidenav').length && $3('#sidenav').is(":visible")) {
+
+            $3('body').addClass(getCookie('menu'));
+
+            $3('#navbar-header nav').prepend('<a id="small-menu-button" href="#" class="left hide-on-med-and-down"><i class="material-icons">more_vert</i></a>');
+        }
+
+        // Ajuste na sidebar, quando faz scroll ela dá um bug
+        var height = $3('body').height();
+        $3('#sidenav, .qmmc').css('min-height', height - 100);
+
+        $3('#small-menu-button').on('click', function(){
+            $3(this).find('i').text('more_horiz');
+            $3('body').toggleClass('small-menu');
+
+            if($3('body.small-menu').is(':visible')){
+                $3(this).find('i').text('more_horiz');
+                setCookie("menu", 'small-menu', 365);
+            }else {
+                $3(this).find('i').text('more_vert');
+                setCookie("menu", 'large-menu', 365);
+            }
+
+            return false;
+        });
+
+        // menu legado
+        $3( ".sanfonaDiv:hidden" ).each(function(index){
+           if( $3(this).children().length > 0 ) {
+               $3(this).prev().addClass('submenu');
+           }
+        });
+
+    });
+
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires="+d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
 </script>

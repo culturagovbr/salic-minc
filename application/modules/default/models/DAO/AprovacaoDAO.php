@@ -12,7 +12,6 @@
  */
 class AprovacaoDAO extends Zend_Db_Table
 {
-
     protected $_name = 'BDCORPORATIVO.scSAC.tbPauta'; // nome da tabela
 
     #--verifica se tem algum componente na area e segmento selecionado--
@@ -53,13 +52,11 @@ class AprovacaoDAO extends Zend_Db_Table
                 INNER JOIN AGENTES..Agentes ag on ag.CNPJCPF = pr.CgcCpf
                 INNER JOIN AGENTES..Nomes nm on nm.idAgente = ag.idAgente ";
 
-        if ($situacao)
-        {
+        if ($situacao) {
             $sql .= " where pr.Situacao in ($situacao) ";
         }
 
-        if ($tipoaprovacao)
-        {
+        if ($tipoaprovacao) {
             $sql .= " and ap.TipoAprovacao in ($tipoaprovacao) ";
         }
 
@@ -67,9 +64,8 @@ class AprovacaoDAO extends Zend_Db_Table
 //        {
 //            $sql .= " and pr.orgao = $orgao" ;
 //        }
-//die('<pre>'.$sql);
-        if ($idpronac)
-        {
+        //die('<pre>'.$sql);
+        if ($idpronac) {
             $sql .= " where pr.idpronac = $idpronac ";
         }
         $db = Zend_Db_Table::getDefaultAdapter();
@@ -136,7 +132,6 @@ class AprovacaoDAO extends Zend_Db_Table
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_ASSOC);
         return $db->fetchRow($sql);
-
     }
     
     public static function SomarReadeqComplementacao($idpronac=null, $tipoaprovacao=null)
@@ -149,22 +144,17 @@ class AprovacaoDAO extends Zend_Db_Table
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_ASSOC);
         return $db->fetchRow($sql);
-
     }
 
     public static function alterarDadosProjetoAprovado($dados, $idpronac)
     {
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
             $where = "idpronac = $idpronac and dtAprovacao in (select max(dtAprovacao) from sac.dbo.aprovacao where idpronac = $idpronac)";
             $alterar = $db->update("SAC.dbo.Aprovacao", $dados, $where);
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
     }
-
 }

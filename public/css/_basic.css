@@ -1,0 +1,236 @@
+/*--------------------------------------------------------------
+x - ELEMENTOS BÁSICOS
+--------------------------------------------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    border: none;
+
+}
+
+html {
+    overflow-y: auto;
+}
+
+
+
+/*--------------------------------------------------------------
+x - BODY
+--------------------------------------------------------------*/
+body {
+    position: relative;
+    margin: 0;
+    color: #000;
+    line-height: 14pt;
+    font-size: 1rem;
+
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background: transparent;
+    width: 100%;
+}
+
+
+/*--------------------------------------------------------------
+x - MAIN
+--------------------------------------------------------------*/
+main {
+    /*flex: 1 0 auto;*/
+}
+
+main {
+    display: block;
+    clear: both;
+}
+
+p {
+    line-height: 14pt;
+    padding: 0 0 10px;
+}
+
+
+img {
+    border: none;
+}
+
+strong {
+    font-weight: bold;
+}
+
+.conteudo a:link,
+.conteudo a:active,
+.conteudo a:visited {
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+select {
+    min-height: 30px;
+}
+
+.sumir {
+    display:none;
+}
+
+.texto_maiusculo {
+    text-transform: uppercase
+}
+
+.identar {
+    text-indent: 40px;
+}
+
+/*--------------------------------------------------------------
+x - ARTICLE
+--------------------------------------------------------------*/
+article {
+    padding-bottom: 60px;
+    width: 900px;
+    margin: 0 auto;
+}
+
+
+/*--------------------------------------------------------------
+x - Elementos básicos
+--------------------------------------------------------------*/
+.no-border { border: 0px; }
+.padding20 { padding: 20px; }
+.padding10 { padding: 10px; }
+.no-margin { margin: 0px !important; }
+.margin0 { margin: 0px; }
+.margin5 { margin: 5px; }
+.margin-bottom20 { margin-bottom: 20px; }
+.margin-bottom30 { margin-bottom: 30px }
+
+.content h3,
+.content h4 {
+    clear: both;
+    display: block;
+    margin-bottom: 30px;
+}
+
+/*--------------------------------------------------------------
+x - ALINHAMENTOS
+--------------------------------------------------------------*/
+.float_left  { float:left; }
+.float_right { float:right; }
+.esquerda    { text-align:left; }
+.direita     { text-align:right; }
+.centro      { text-align:center; }
+.justificado { text-align:justify; }
+
+
+/*--------------------------------------------------------------
+x - CONTAINER
+--------------------------------------------------------------*/
+
+.container-salic {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1250px;
+}
+
+#breadcrumb,
+#titulo,
+#conteudo,
+.container-fluid {
+    margin: 0 auto;
+    width: 100%;
+    padding: 2rem;
+}
+
+
+#breadcrumb,
+#titulo,
+#conteudo {
+    width: 95%;
+    padding: 0px;
+    margin-bottom: 20px;
+}
+
+
+@media screen and (min-width: 990px) {
+    #menuContexto ~ div,
+    main > #menu ~ div,
+    .menu-lateral.container-fluid,
+    .large-menu .container-fluid {
+        transition: margin-left .3s ease;
+        margin-left: 250px;
+        width: auto;
+        overflow: hidden;
+    }
+}
+
+.container {
+    position: relative;
+}
+
+#container-progress {
+    top: 0px;
+}
+
+/*--------------------------------------------------------------
+x - CONTAINER
+--------------------------------------------------------------*/
+.container.fade {
+    display: none;
+}
+
+
+.content-area {
+    max-width: 1285px;
+}
+
+.site-content {
+    min-height: 500px;
+}
+
+
+/*--------------------------------------------------------------
+x - SANFONA
+--------------------------------------------------------------*/
+/* ajustes para ativaCAo do highlight no menu 'sanfona' */
+.qmactive { background:url(../img/seta-menu-contexto-on.png) no-repeat !important; }
+#space_menu {
+    background:#f8f8f8;
+    height:480px;
+}
+
+
+/*--------------------------------------------------------------
+x - Navegação
+--------------------------------------------------------------*/
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+
+/*--------------------------------------------------------------
+x - CARREGAMENTO
+--------------------------------------------------------------*/
+
+.progress .indeterminate {
+    background-color: #fb8c00;
+}
+.progress {
+    background-color: #ffe0b2;
+}
+
+/*--------------------------------------------------------------
+x - MODAL
+--------------------------------------------------------------*/
+.modal.height-fluid{
+    height: auto;
+}
+
+

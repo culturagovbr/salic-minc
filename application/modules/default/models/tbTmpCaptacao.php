@@ -10,59 +10,59 @@
 
 class tbTmpCaptacao extends MinC_Db_Table_Abstract
 {
-	/* dados da tabela */
-	protected $_banco   = "SAC";
-	protected $_schema  = "SAC";
-	protected $_name    = "tbTmpCaptacao";
+    /* dados da tabela */
+    protected $_banco   = "SAC";
+    protected $_schema  = "SAC";
+    protected $_name    = "tbTmpCaptacao";
 
 
 
-	/**
-	 * M�todo para buscar as inconsist�ncias do extrato de movimenta��o banc�ria
-	 * @param string $pronac
-	 * @param array $data_recibo
-	 * @param string $proponente
-	 * @param string $incentivador
-	 * @param array $data_credito
-	 * @return object
-	 */
-	public function buscarDados($pronac = null, $data_recibo = null, $proponente = null, $incentivador = null, $data_credito = null)
-	{
-		$select = $this->select();
-		$select->setIntegrityCheck(false);
+    /**
+     * M�todo para buscar as inconsist�ncias do extrato de movimenta��o banc�ria
+     * @param string $pronac
+     * @param array $data_recibo
+     * @param string $proponente
+     * @param string $incentivador
+     * @param array $data_credito
+     * @return object
+     */
+    public function buscarDados($pronac = null, $data_recibo = null, $proponente = null, $incentivador = null, $data_credito = null)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
 //                $select->distinct();
-		$select->from(
-			array("t" => $this->_name)
-			,array("(t.nrAnoProjeto+t.nrSequencial) AS pronac"
-				,"CONVERT(CHAR(10), t.dtChegadaRecibo, 103) AS dtChegadaRecibo"
-				,"t.nrCpfCnpjProponente"
-				,"t.nrCpfCnpjIncentivador"
-				//,"t.NomeIncentivador" SAC.dbo.Interessado
-				,"CONVERT(CHAR(10), t.dtCredito, 103) AS dtCredito"
-				,"t.vlValorCredito"
-				,"t.cdPatrocinio"
-				,"p.NomeProjeto"
-				,"c.Banco"
-				//,"c.Agencia"
-				//,"c.ContaBloqueada"
-				,"bc.Descricao AS nmBanco"
-				,"i.idTipoInconsistencia"
-				,"i.idTmpCaptacao")
-		);
-		$select->joinInner(
-			array("i" => "tbTmpInconsistenciaCaptacao")
-			,"t.idTmpCaptacao = i.idTmpCaptacao"
-			,array()
-		);
-		$select->joinLeft(
-			array("p" => "Projetos")
-			,"t.nrAnoProjeto = p.AnoProjeto AND t.nrSequencial = p.Sequencial"
-			,array()
-		);
-		$select->joinLeft(
-			array("c" => "ContaBancaria")
-			,"t.nrAnoProjeto = c.AnoProjeto AND t.nrSequencial = c.Sequencial"
-                        ,array('Agencia'=>new Zend_Db_Expr("case
+        $select->from(
+            array("t" => $this->_name),
+            array("(t.nrAnoProjeto+t.nrSequencial) AS pronac"
+                ,"CONVERT(CHAR(10), t.dtChegadaRecibo, 103) AS dtChegadaRecibo"
+                ,"t.nrCpfCnpjProponente"
+                ,"t.nrCpfCnpjIncentivador"
+                //,"t.NomeIncentivador" SAC.dbo.Interessado
+                ,"CONVERT(CHAR(10), t.dtCredito, 103) AS dtCredito"
+                ,"t.vlValorCredito"
+                ,"t.cdPatrocinio"
+                ,"p.NomeProjeto"
+                ,"c.Banco"
+                //,"c.Agencia"
+                //,"c.ContaBloqueada"
+                ,"bc.Descricao AS nmBanco"
+                ,"i.idTipoInconsistencia"
+                ,"i.idTmpCaptacao")
+        );
+        $select->joinInner(
+            array("i" => "tbTmpInconsistenciaCaptacao"),
+            "t.idTmpCaptacao = i.idTmpCaptacao",
+            array()
+        );
+        $select->joinLeft(
+            array("p" => "Projetos"),
+            "t.nrAnoProjeto = p.AnoProjeto AND t.nrSequencial = p.Sequencial",
+            array()
+        );
+        $select->joinLeft(
+            array("c" => "ContaBancaria"),
+            "t.nrAnoProjeto = c.AnoProjeto AND t.nrSequencial = c.Sequencial",
+            array('Agencia'=>new Zend_Db_Expr("case
 				when
                                     c.Agencia is not null then c.Agencia
 				else
@@ -70,90 +70,76 @@ class tbTmpCaptacao extends MinC_Db_Table_Abstract
                             'ContaBloqueada'=>new Zend_Db_Expr("case
 				when
 					c.ContaBloqueada is not null then c.ContaBloqueada
-				else t.nrContaProponente end"))
-			,array()
-		);
-		$select->joinLeft(
-			array("bc" => "bancos")
-			,"c.Banco = bc.Codigo"
-			,array()
-			,"AGENTES.dbo"
-		);
+				else t.nrContaProponente end")),
+            array()
+        );
+        $select->joinLeft(
+            array("bc" => "bancos"),
+            "c.Banco = bc.Codigo",
+            array(),
+            "AGENTES.dbo"
+        );
 
-		// busca pelo pronac
-		if (!empty($pronac))
-		{
-			$select->where("(t.nrAnoProjeto+t.nrSequencial) = ?", $pronac);
-		}
+        // busca pelo pronac
+        if (!empty($pronac)) {
+            $select->where("(t.nrAnoProjeto+t.nrSequencial) = ?", $pronac);
+        }
 
-		// busca pela data do recibo
-		if (!empty($data_recibo))
-		{
-			if (!empty($data_recibo[0]) && !empty($data_recibo[1]))
-			{
-				$select->where("t.dtChegadaRecibo >= ?", Data::dataAmericana($data_recibo[0]) . " 00:00:00");
-				$select->where("t.dtChegadaRecibo <= ?", Data::dataAmericana($data_recibo[1]) . " 23:59:59");
-			}
-			else
-			{
-				if (!empty($data_recibo[0]))
-				{
-					$select->where("t.dtChegadaRecibo >= ?", Data::dataAmericana($data_recibo[0]) . " 00:00:00");
-				}
-				if (!empty($data_recibo[1]))
-				{
-					$select->where("t.dtChegadaRecibo <= ?", Data::dataAmericana($data_recibo[1]) . " 23:59:59");
-				}
-			}
-		} // fecha if data do recibo
+        // busca pela data do recibo
+        if (!empty($data_recibo)) {
+            if (!empty($data_recibo[0]) && !empty($data_recibo[1])) {
+                $select->where("t.dtChegadaRecibo >= ?", Data::dataAmericana($data_recibo[0]) . " 00:00:00");
+                $select->where("t.dtChegadaRecibo <= ?", Data::dataAmericana($data_recibo[1]) . " 23:59:59");
+            } else {
+                if (!empty($data_recibo[0])) {
+                    $select->where("t.dtChegadaRecibo >= ?", Data::dataAmericana($data_recibo[0]) . " 00:00:00");
+                }
+                if (!empty($data_recibo[1])) {
+                    $select->where("t.dtChegadaRecibo <= ?", Data::dataAmericana($data_recibo[1]) . " 23:59:59");
+                }
+            }
+        } // fecha if data do recibo
 
-		// filtra pelo cpf/cnpj do proponente
-		if (!empty($proponente))
-		{
-			$select->where("t.nrCpfCnpjProponente = ?", $proponente);
-		}
+        // filtra pelo cpf/cnpj do proponente
+        if (!empty($proponente)) {
+            $select->where("t.nrCpfCnpjProponente = ?", $proponente);
+        }
 
-		// filtra pelo cpf/cnpj do incentivador
-		if (!empty($incentivador))
-		{
-			$select->where("t.nrCpfCnpjIncentivador = ?", $incentivador);
-		}
+        // filtra pelo cpf/cnpj do incentivador
+        if (!empty($incentivador)) {
+            $select->where("t.nrCpfCnpjIncentivador = ?", $incentivador);
+        }
 
-		// busca pela data do cr�dito
-		if (!empty($data_credito))
-		{
-			if (!empty($data_credito[0]) && !empty($data_credito[1]))
-			{
-				$select->where("t.dtCredito >= ?", Data::dataAmericana($data_credito[0]) . " 00:00:00");
-				$select->where("t.dtCredito <= ?", Data::dataAmericana($data_credito[1]) . " 23:59:59");
-			}
-			else
-			{
-				if (!empty($data_credito[0]))
-				{
-					$select->where("t.dtCredito >= ?", Data::dataAmericana($data_credito[0]) . " 00:00:00");
-				}
-				if (!empty($data_credito[1]))
-				{
-					$select->where("t.dtCredito <= ?", Data::dataAmericana($data_credito[1]) . " 23:59:59");
-				}
-			}
-		} // fecha if data do recibo
+        // busca pela data do cr�dito
+        if (!empty($data_credito)) {
+            if (!empty($data_credito[0]) && !empty($data_credito[1])) {
+                $select->where("t.dtCredito >= ?", Data::dataAmericana($data_credito[0]) . " 00:00:00");
+                $select->where("t.dtCredito <= ?", Data::dataAmericana($data_credito[1]) . " 23:59:59");
+            } else {
+                if (!empty($data_credito[0])) {
+                    $select->where("t.dtCredito >= ?", Data::dataAmericana($data_credito[0]) . " 00:00:00");
+                }
+                if (!empty($data_credito[1])) {
+                    $select->where("t.dtCredito <= ?", Data::dataAmericana($data_credito[1]) . " 23:59:59");
+                }
+            }
+        } // fecha if data do recibo
 
-		//$select->order("t.idTipoInconsistencia");
-		$select->order("(t.nrAnoProjeto+t.nrSequencial)");
-		$select->order("t.dtChegadaRecibo");
-		$select->order("t.dtCredito");
+        //$select->order("t.idTipoInconsistencia");
+        $select->order("(t.nrAnoProjeto+t.nrSequencial)");
+        $select->order("t.dtChegadaRecibo");
+        $select->order("t.dtCredito");
 
-		return $this->fetchAll($select);
-	} // fecha m�todo buscarDados()
+        return $this->fetchAll($select);
+    } // fecha m�todo buscarDados()
 
     public function listarProjetosInconsistentes($orgao, $idPronac = null, $order = array(), $tamanho = -1, $inicio = -1, $qtdeTotal = false)
     {
         $select = $this->select()
                 ->setIntegrityCheck(false)
                 ->from(
-                        array("tmpCaptacao" => $this->_name), array(
+                        array("tmpCaptacao" => $this->_name),
+                    array(
                             'pronac' => 'CONVERT(INT, (tmpCaptacao.nrAnoProjeto+tmpCaptacao.nrSequencial))',
                             'nrCpfCnpjProponente',
                         )
@@ -170,7 +156,8 @@ class tbTmpCaptacao extends MinC_Db_Table_Abstract
                 )
                 ->where('projetos.Orgao = ?', $orgao)
                 ->where('tmpCaptacao.tpValidacao in ?', new Zend_Db_Expr('(2, 3, 4, 5, 6, 7, 8, 9)'))
-                ->group(array(
+                ->group(
+                    array(
                     '(tmpCaptacao.nrAnoProjeto+tmpCaptacao.nrSequencial)',
                     'tmpCaptacao.nrCpfCnpjProponente',
                     'projetos.IdPRONAC',
@@ -214,7 +201,8 @@ class tbTmpCaptacao extends MinC_Db_Table_Abstract
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array("t" => $this->_name), array(
+                array("t" => $this->_name),
+            array(
                         "CONVERT(INT, (t.nrAnoProjeto+t.nrSequencial)) AS pronac",
                         "CONVERT(CHAR(10), t.dtChegadaRecibo, 103) AS dtChegadaRecibo",
                         'nrCpfCnpjProponente' => new Zend_Db_Expr("CASE
@@ -222,7 +210,8 @@ class tbTmpCaptacao extends MinC_Db_Table_Abstract
                             THEN SUBSTRING(nrCpfCnpjProponente,4,11)
                             ELSE nrCpfCnpjProponente
                             END"),
-                        'nrCpfCnpjIncentivador' => new Zend_Db_Expr("CASE
+                        'nrCpfCnpjIncentivador' => new Zend_Db_Expr(
+                            "CASE
                                 WHEN SUBSTRING(nrCpfCnpjIncentivador,1,3)='000' AND TABELAS.dbo.fnCNPJValido(SUBSTRING(nrCpfCnpjIncentivador,4,11))=0
                                 THEN SUBSTRING(nrCpfCnpjIncentivador,4,11)
                                 ELSE nrCpfCnpjIncentivador
@@ -237,26 +226,31 @@ class tbTmpCaptacao extends MinC_Db_Table_Abstract
                 )
         );
         $select->joinLeft(
-            array("p" => "Projetos"), "t.nrAnoProjeto = p.AnoProjeto AND t.nrSequencial = p.Sequencial",
+            array("p" => "Projetos"),
+            "t.nrAnoProjeto = p.AnoProjeto AND t.nrSequencial = p.Sequencial",
             array("p.NomeProjeto", "p.IdPRONAC")
         );
         $select->joinLeft(
-            array("c" => "ContaBancaria"), "t.nrAnoProjeto = c.AnoProjeto AND t.nrSequencial = c.Sequencial",
+            array("c" => "ContaBancaria"),
+            "t.nrAnoProjeto = c.AnoProjeto AND t.nrSequencial = c.Sequencial",
                 array(
                     'Agencia' => new Zend_Db_Expr("case when c.Agencia is not null then c.Agencia else t.nrAgenciaProponente end"),
                     'ContaBloqueada' => new Zend_Db_Expr("case when c.ContaBloqueada is not null then c.ContaBloqueada else t.nrContaProponente end"),
                     'c.Banco'
-            ), array()
+            ),
+            array()
         );
         $select->joinLeft(
-            array("bc" => "bancos"), "c.Banco = bc.Codigo",
+            array("bc" => "bancos"),
+            "c.Banco = bc.Codigo",
             array(
                 'bc.Codigo',
                 'bc.CNPJ',
                 'bc.Sufixo',
                 'bc.DV',
                 'bc.Descricao AS nmBanco'
-            ), "AGENTES.dbo"
+            ),
+            "AGENTES.dbo"
         );
         $select->joinLeft(array("i" => "Interessado"), "i.CgcCPf = t.nrCpfCnpjIncentivador", array('nomeIncentivador' => 'i.Nome'));
 
@@ -283,51 +277,52 @@ class tbTmpCaptacao extends MinC_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
-	/**
-	 * M�todo para cadastrar
-	 * @access public
-	 * @param array $dados
-	 * @return integer (retorna o �ltimo id cadastrado)
-	 */
-	public function cadastrarDados($dados)
-	{
-		return $this->insert($dados);
-	} // fecha m�todo cadastrarDados()
+    /**
+     * M�todo para cadastrar
+     * @access public
+     * @param array $dados
+     * @return integer (retorna o �ltimo id cadastrado)
+     */
+    public function cadastrarDados($dados)
+    {
+        return $this->insert($dados);
+    } // fecha m�todo cadastrarDados()
 
 
 
-	/**
-	 * M�todo para alterar
-	 * @access public
-	 * @param array $dados
-	 * @param integer $where
-	 * @return integer (quantidade de registros alterados)
-	 */
-	public function alterarDados($dados, $where)
-	{
-		$where = "idTmpCaptacao = " . $where;
-		return $this->update($dados, $where);
-	} // fecha m�todo alterarDados()
+    /**
+     * M�todo para alterar
+     * @access public
+     * @param array $dados
+     * @param integer $where
+     * @return integer (quantidade de registros alterados)
+     */
+    public function alterarDados($dados, $where)
+    {
+        $where = "idTmpCaptacao = " . $where;
+        return $this->update($dados, $where);
+    } // fecha m�todo alterarDados()
 
 
 
-	/**
-	 * M�todo para excluir
-	 * @access public
-	 * @param integer $where
-	 * @return integer (quantidade de registros exclu�dos)
-	 */
-	public function excluirDados($where)
-	{
-		$where = "idTmpCaptacao = " . $where;
-		return $this->delete($where);
-	} // fecha m�todo excluirDados()
+    /**
+     * M�todo para excluir
+     * @access public
+     * @param integer $where
+     * @return integer (quantidade de registros exclu�dos)
+     */
+    public function excluirDados($where)
+    {
+        $where = "idTmpCaptacao = " . $where;
+        return $this->delete($where);
+    } // fecha m�todo excluirDados()
 
 
-        public function buscarDadosParaRemanejamento($idTmpCaptacao){
-            $select = $this->select();
-            $select->setIntegrityCheck(false);
-            $select->from(
+    public function buscarDadosParaRemanejamento($idTmpCaptacao)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
                 array("a" => $this->_name),
                 array(
                     "a.nrAnoProjeto",
@@ -342,11 +337,9 @@ class tbTmpCaptacao extends MinC_Db_Table_Abstract
                     new Zend_Db_Expr("(SELECT idPronac FROM sac.dbo.Projetos AS p WHERE p.AnoProjeto+p.Sequencial = a.nrAnoProjeto + a.nrSequencial) AS idProjeto")
                 )
             );
-            $select->where('a.idTmpCaptacao = ?', $idTmpCaptacao);
+        $select->where('a.idTmpCaptacao = ?', $idTmpCaptacao);
 
             
-            return $this->fetchRow($select);
-
-	} // fecha m�todo buscarDados()
-
+        return $this->fetchRow($select);
+    } // fecha m�todo buscarDados()
 } // fecha class

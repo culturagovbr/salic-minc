@@ -5,17 +5,19 @@
  *
  * @author Andr� Nogueira Pereira
  */
-class RelatorioFiscalizacao extends MinC_Db_Table_Abstract {
-
+class RelatorioFiscalizacao extends MinC_Db_Table_Abstract
+{
     protected $_name = 'tbRelatorioFiscalizacao';
     protected $_schema = 'SAC';
     protected $_banco = 'SAC';
 
 
-    public function buscaRelatorioFiscalizacao($idFiscalizacao) {
+    public function buscaRelatorioFiscalizacao($idFiscalizacao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from( array('rf' => $this->_name),
+        $select->from(
+            array('rf' => $this->_name),
                 array( 'rf.idRelatorioFiscalizacao'
                 ,'CAST(rf.dsAcoesProgramadas AS TEXT) as dsAcoesProgramadas'
                 ,'CAST(rf.dsAcoesExecutadas AS TEXT) as dsAcoesExecutadas'
@@ -66,12 +68,14 @@ class RelatorioFiscalizacao extends MinC_Db_Table_Abstract {
                 ,'CAST(rf.dsJustificativaDevolucao AS TEXT) as dsJustificativaDevolucao')
         );
 
-        $select->joinLeft(array('af' => 'tbAvaliacaoFiscalizacao'),
+        $select->joinLeft(
+            array('af' => 'tbAvaliacaoFiscalizacao'),
                 'af.idRelatorioFiscalizacao = rf.idRelatorioFiscalizacao',
                 array('af.idAvaliacaoFiscalizacao','af.idAvaliador','af.dtAvaliacaoFiscalizacao','CAST(af.dsParecer AS TEXT) as dsParecer')
         );
 
-        $select->joinLeft(array('f' => 'tbFiscalizacao'),
+        $select->joinLeft(
+            array('f' => 'tbFiscalizacao'),
                 'f.idFiscalizacao = rf.idFiscalizacao',
                 array('f.dtInicioFiscalizacaoProjeto')
         );
@@ -81,17 +85,17 @@ class RelatorioFiscalizacao extends MinC_Db_Table_Abstract {
         return $this->fetchRow($select);
     }
 
-    public function insereRelatorio($dados) {
+    public function insereRelatorio($dados)
+    {
         return $this->insert($dados);
-
     }
 
-    public function alteraRelatorio($dados, $where) {
+    public function alteraRelatorio($dados, $where)
+    {
         try {
             return $this->update($dados, $where);
         } catch (Zend_Db_Table_Exception $e) {
             return 'RelatorioFiscalizacao -> alteraRelatorio. Erro:' . $e->getMessage();
         }
     }
-
 }

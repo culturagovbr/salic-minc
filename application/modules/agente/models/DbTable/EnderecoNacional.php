@@ -89,12 +89,9 @@ class Agente_Model_DbTable_EnderecoNacional extends MinC_Db_Table_Abstract
      */
     public function mudaCorrespondencia($idAgente)
     {
-        try
-        {
-            return $resultado = $this->update( array('status' => 0),array('idagente = ?' => $idAgente));
-        }
-        catch (Zend_Exception $e)
-        {
+        try {
+            return $resultado = $this->update(array('status' => 0), array('idagente = ?' => $idAgente));
+        } catch (Zend_Exception $e) {
             throw new Zend_Db_Exception("Erro ao alterar o Status dos endere&ccedil;os: " . $e->getMessage());
         }
     }
@@ -110,8 +107,7 @@ class Agente_Model_DbTable_EnderecoNacional extends MinC_Db_Table_Abstract
      */
     public function novaCorrespondencia($idAgente)
     {
-        try
-        {
+        try {
             $subSelect = $this->select()
                 ->from($this->_name, array(new Zend_Db_Expr('min(idendereco) as valor')), $this->_schema)
                 ->where('idagente = ?', $idAgente);
@@ -124,10 +120,7 @@ class Agente_Model_DbTable_EnderecoNacional extends MinC_Db_Table_Abstract
             $where['idendereco = ?']  = $subSelect;
 
             $this->update($dados, $where);
-
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao alterar o Status dos endere&ccedil;os: " . $e->getMessage();
         }
     }
@@ -145,5 +138,4 @@ class Agente_Model_DbTable_EnderecoNacional extends MinC_Db_Table_Abstract
     {
         return parent::delete(array('idEndereco = ? '=> $idEndereco));
     }
-
 }

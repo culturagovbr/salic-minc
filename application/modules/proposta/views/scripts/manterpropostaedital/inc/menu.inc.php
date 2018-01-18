@@ -113,11 +113,11 @@ function trocarproponente()
                 var fluidConteudo = janela - 253;
                 var fluidTitulo = janela - 252;
                 var fluidRodape = janela - 19;
-                $("#navglobal").css("width",fluidNavGlobal);
-                $("#conteudo").css("width",fluidConteudo);
-                $("#titulo").css("width",fluidTitulo);
-                $("#rodapeConteudo").css("width",fluidConteudo);
-                $("#rodape").css("width",fluidRodape);
+//                $("#navglobal").css("width",fluidNavGlobal);
+//                $("#conteudo").css("width",fluidConteudo);
+//                $("#titulo").css("width",100%);
+//                $("#rodapeConteudo").css("width",fluidConteudo);
+//                $("#rodape").css("width",fluidRodape);
                 $("div#rodapeConteudo").attr("id", "rodapeConteudo_com_menu");
             }
         </script>
@@ -135,9 +135,9 @@ function trocarproponente()
             $get = Zend_Registry::get("get");
             //define id do PreProjeto que sera passado as outras implementacoes
             $codProjeto = "?idPreProjeto=";
-            if(isset($this->idPreProjeto)){
+            if (isset($this->idPreProjeto)) {
                 $codProjeto .= $this->idPreProjeto;
-            }elseif(isset($get->idPreProjeto)){
+            } elseif (isset($get->idPreProjeto)) {
                 $codProjeto .= $get->idPreProjeto;
             }
         ?>
@@ -148,28 +148,32 @@ function trocarproponente()
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'manterpropostaedital', 'action' => 'dadospropostaedital')); ?><?php echo $codProjeto; ?>" title="localderealizacao">Proposta Atual</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'localderealizacao',    'action' => 'index')); ?><?php echo $codProjeto; ?>&edital=s">Local de realiza��o <!--/ Deslocamento --></a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'manterpropostaedital', 'action' => 'responderquestionarioedital')); ?><?php echo $codProjeto; ?> ">Responder Question�rio</a>
-                    <?php //if(isset($this->blnJaEnviadaAoMinc) && $this->blnJaEnviadaAoMinc >= 1): ?>
+                    <?php //if(isset($this->blnJaEnviadaAoMinc) && $this->blnJaEnviadaAoMinc >= 1):?>
                         <!--<a class="no_seta" href="#" onclick="return false;" style="color:#9d9d9d;">Anexar Documentos</a>-->
-                    <?php //else: ?>
+                    <?php //else:?>
                         <a class="no_seta" href="<?php echo $this->url(array('controller' => 'manterpropostaedital', 'action' => 'enviararquivoedital')); ?><?php echo $codProjeto; ?>&edital=s">Anexar Documentos</a>
-                    <?php //endif; ?>
-                    <?php //if($this->verificarmenu == 1){ ?>
+                    <?php //endif;?>
+                    <?php //if($this->verificarmenu == 1){?>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'manterpropostaedital', 'action' => 'documentospendentesedital')); ?><?php echo $codProjeto; ?>&edital=s">Documentos Pendentes</a>
-                    <?php //} ?>
+                    <?php //}?>
                     <!-- <a class="no_seta" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaproponente')); ?><?php echo $codProjeto; ?>&edital=s">Dilig&ecirc;ncias</a> -->
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'Gerarimprimirpdf', 'action' => 'index')); ?><?php echo $codProjeto; ?>">Imprimir/Gerar PDF</a>
-                    <?php //if(isset($this->blnPossuiDiligencias) && $this->blnPossuiDiligencias > 0): ?>
-                    <?php if($this->enviado != 'false'): ?>
+                    <?php //if(isset($this->blnPossuiDiligencias) && $this->blnPossuiDiligencias > 0):?>
+                    <?php if ($this->enviado != 'false'): ?>
                     <a class="no_seta" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaproponente')).$codProjeto; ?>&edital=s" title="Visualizar dilig&ecirc;ncias">Dilig&ecirc;ncias</a>
                     <?php endif; ?>
-                    <?php if($this->enviado == 'false'){ ?>
+                    <?php if ($this->enviado == 'false') {
+            ?>
                     <a class="no_seta" href="#" onclick="confirmaExcluir('<?php echo $this->url(array('controller' => 'manterpropostaedital', 'action' => 'exluirproposta')) ?><?php echo $codProjeto; ?>')">Excluir Proposta</a>
-                    <?php } ?>
-                    <?php if($this->enviado == 'false'){ ?>
+                    <?php
+        } ?>
+                    <?php if ($this->enviado == 'false') {
+            ?>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'manterpropostaedital', 'action' => 'enviar-proposta')); ?><?php echo $codProjeto; ?>&edital=s">Enviar Proposta ao MINC</a>
-                    <?php }?>
+                    <?php
+        }?>
 
-                    <?php if($this->siVinculoProponente): ?>
+                    <?php if ($this->siVinculoProponente): ?>
                     	<a class="no_seta" href="#" onclick="trocarproponente('<?php echo $codProjeto; ?>');">Trocar Proponente</a>
                 	<?php endif; ?>
                     <span class="no_seta last">&nbsp;</span>
@@ -200,7 +204,7 @@ function trocarproponente()
 				<?php $idAgente = 0; ?>
 				<?php foreach ($this->listaProponentes as $lp):?>
 
-					<?php if($lp->idAgenteProponente != $idAgente):?>
+					<?php if ($lp->idAgenteProponente != $idAgente):?>
 						<option value="<?php echo $lp->idVinculo;?>:<?php echo $lp->idAgenteProponente;?>"><?php echo $lp->NomeProponente;?></option>
 					<?php endif;?>
 

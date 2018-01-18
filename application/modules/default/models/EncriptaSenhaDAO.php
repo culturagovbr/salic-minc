@@ -123,7 +123,5 @@ class EncriptaSenhaDAO extends Zend_Db_Table
         } else {
             return md5($senha);
         }
-
     }
-
 }

@@ -12,23 +12,23 @@
 
 class tbTipoDocumentoBDCORPORATIVO extends MinC_Db_Table_Abstract
 {
-	/* dados da tabela */
-	protected $_banco   = "BDCORPORATIVO";
-	protected $_schema  = "BDCORPORATIVO.scCorp";
-	protected $_name    = "tbTipoDocumento";
+    /* dados da tabela */
+    protected $_banco   = "BDCORPORATIVO";
+    protected $_schema  = "BDCORPORATIVO.scCorp";
+    protected $_name    = "tbTipoDocumento";
 
     public function init()
     {
         parent::init();
     }
 
-        /**
-	 * M�todo para consultar
-	 * @access public
-	 * @param array $dados
-	 * @param integer $where
-	 * @return integer (quantidade de registros alterados)
-	 */
+    /**
+     * M�todo para consultar
+     * @access public
+     * @param array $dados
+     * @param integer $where
+     * @return integer (quantidade de registros alterados)
+     */
 
     public function buscar($where = array(), $order = array(), $tamanho = -1, $inicio = -1)
     {

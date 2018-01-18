@@ -1,11 +1,12 @@
 <?php
-class tbPauta extends MinC_Db_Table_Abstract {
-
+class tbPauta extends MinC_Db_Table_Abstract
+{
     protected $_banco = "BDCORPORATIVO";
     protected $_schema = "BDCORPORATIVO.scSAC";
     protected $_name = "tbPauta";
 
-    public function buscarProjetosAvaliados($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count=false, $bln_readequacao=false){
+    public function buscarProjetosAvaliados($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count=false, $bln_readequacao=false)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
 
@@ -91,7 +92,7 @@ class tbPauta extends MinC_Db_Table_Abstract {
                           );
 
         //=============== VALOR SOLICITADO ======================//
-        if(!$bln_readequacao){
+        if (!$bln_readequacao) {
             $slctVlSolicitado = $this->select();
             $slctVlSolicitado->setIntegrityCheck(false);
             $slctVlSolicitado->from(
@@ -100,7 +101,7 @@ class tbPauta extends MinC_Db_Table_Abstract {
                             "SAC.dbo"
                             );
             $slctVlSolicitado->where("idProjeto = p.idProjeto and idProduto <> '206'");
-        }else{
+        } else {
             $slctVlSolicitado = $this->select();
             $slctVlSolicitado->setIntegrityCheck(false);
             $slctVlSolicitado->from(
@@ -113,7 +114,7 @@ class tbPauta extends MinC_Db_Table_Abstract {
 
 
         //=============== VALOR SUGERIDO ======================//
-        if(!$bln_readequacao){
+        if (!$bln_readequacao) {
             $slctVlSugerido = $this->select();
             $slctVlSugerido->setIntegrityCheck(false);
             $slctVlSugerido->from(
@@ -122,7 +123,7 @@ class tbPauta extends MinC_Db_Table_Abstract {
                             "SAC.dbo"
                          );
             $slctVlSugerido->where("IdPRONAC = p.idPronac and idProduto <> '206'");
-        }else{
+        } else {
             $slctVlSugerido = $this->select();
             $slctVlSugerido->setIntegrityCheck(false);
             $slctVlSugerido->from(
@@ -155,8 +156,7 @@ class tbPauta extends MinC_Db_Table_Abstract {
             $slct->where($coluna, $valor);
         }
 
-        if($count){
-
+        if ($count) {
             $slct2 = $this->select();
             $slct2->setIntegrityCheck(false);
             $slct2->from(
@@ -237,7 +237,11 @@ class tbPauta extends MinC_Db_Table_Abstract {
 
 
             $rs = $this->fetchAll($slct2)->current();
-            if($rs){ return $rs->total; }else{ return 0; }
+            if ($rs) {
+                return $rs->total;
+            } else {
+                return 0;
+            }
         }
 
         //adicionando linha order ao select
@@ -255,7 +259,8 @@ class tbPauta extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function buscarProjetosVotoAlterado($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count=false){
+    public function buscarProjetosVotoAlterado($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count=false)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
 
@@ -331,7 +336,7 @@ class tbPauta extends MinC_Db_Table_Abstract {
             $slct->where($coluna, $valor);
         }
 
-        if($count){
+        if ($count) {
             $slct2 = $this->select();
             $slct2->setIntegrityCheck(false);
             $slct2->from(
@@ -399,7 +404,11 @@ class tbPauta extends MinC_Db_Table_Abstract {
 
 
             $rs = $this->fetchAll($slct2)->current();
-            if($rs){ return $rs->total; }else{ return 0; }
+            if ($rs) {
+                return $rs->total;
+            } else {
+                return 0;
+            }
         }
 
         //adicionando linha order ao select
@@ -418,7 +427,8 @@ class tbPauta extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function buscarProjetosEmPautaReuniaoCnic($where=array(),$order=array(), $tamanho=-1, $inicio=-1, $count=false) {
+    public function buscarProjetosEmPautaReuniaoCnic($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count=false)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -481,8 +491,7 @@ class tbPauta extends MinC_Db_Table_Abstract {
             $slct->where($coluna, $valor);
         }
 
-        if($count){
-
+        if ($count) {
             $slctContador = $this->select();
             $slctContador->setIntegrityCheck(false);
             $selectCount->from(
@@ -533,7 +542,11 @@ class tbPauta extends MinC_Db_Table_Abstract {
             );
 
             $rs = $this->fetchAll($slctContador)->current();
-            if($rs){ return $rs->total; }else{ return 0; }
+            if ($rs) {
+                return $rs->total;
+            } else {
+                return 0;
+            }
         }
         //adicionando linha order ao select
         $slct->order($order);
@@ -550,7 +563,8 @@ class tbPauta extends MinC_Db_Table_Abstract {
     }
 
 
-    public function buscarProjetosVotadosCnic($where=array(),$order=array(), $tamanho=-1, $inicio=-1, $count=false) {
+    public function buscarProjetosVotadosCnic($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count=false)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -621,7 +635,8 @@ class tbPauta extends MinC_Db_Table_Abstract {
                                                                 WHEN stAnalise = 'IC'
                                                                     THEN 'Indeferido pelo componente'
                                                                 END "),
-                ),'BDCORPORATIVO.scSAC'
+                ),
+            'BDCORPORATIVO.scSAC'
         );
         $slct->joinInner(
                 array('vt' => 'tbVotacao'),
@@ -642,8 +657,7 @@ class tbPauta extends MinC_Db_Table_Abstract {
             $slct->where($coluna, $valor);
         }
 
-        if($count){
-
+        if ($count) {
             $slctContador = $this->select();
             $slctContador->setIntegrityCheck(false);
             $selectCount->from(
@@ -706,7 +720,11 @@ class tbPauta extends MinC_Db_Table_Abstract {
             );
 
             $rs = $this->fetchAll($slctContador)->current();
-            if($rs){ return $rs->total; }else{ return 0; }
+            if ($rs) {
+                return $rs->total;
+            } else {
+                return 0;
+            }
         }
         //adicionando linha order ao select
         $slct->order($order);
@@ -723,7 +741,8 @@ class tbPauta extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function buscarProjetosTermoAprovacao($where=array(),$order=array(), $tamanho=-1, $inicio=-1, $count=false) {
+    public function buscarProjetosTermoAprovacao($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count=false)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -771,7 +790,7 @@ class tbPauta extends MinC_Db_Table_Abstract {
                     'r.NrReuniao',
                     'r.DtInicio',
                     'r.DtFinal',
-                    'DtAssinatura' => New Zend_Db_Expr("CASE DATEPART(DW, r.DtFinal)
+                    'DtAssinatura' => new Zend_Db_Expr("CASE DATEPART(DW, r.DtFinal)
                                                              WHEN 6 THEN DATEADD(D,3,r.DtFinal) -- SEXTA-FEIRA (ADICIONA TRES DIAS)
                                                              WHEN 7 THEN DATEADD(D,2,r.DtFinal) -- SABADO (ADICIONA DOIS DIAS)
                                                              ELSE  DATEADD(D,1,r.DtFinal) -- OTROS DIAS DA SEMNA (ADICIONA UM DIA)
@@ -790,8 +809,7 @@ class tbPauta extends MinC_Db_Table_Abstract {
             $slct->where($coluna, $valor);
         }
 
-        if($count){
-
+        if ($count) {
             $slctContador = $this->select();
             $slctContador->setIntegrityCheck(false);
             $selectCount->from(
@@ -823,7 +841,11 @@ class tbPauta extends MinC_Db_Table_Abstract {
                     "BDCORPORATIVO.scSAC"
             );
             $rs = $this->fetchAll($slctContador)->current();
-            if($rs){ return $rs->total; }else{ return 0; }
+            if ($rs) {
+                return $rs->total;
+            } else {
+                return 0;
+            }
         }
         //adicionando linha order ao select
         $slct->order($order);
@@ -842,7 +864,6 @@ class tbPauta extends MinC_Db_Table_Abstract {
 
     public function parecerDoComponenteComissao($idPronac)
     {
-
         $cols = [
             'p.idPronac',
             new Zend_Db_Expr('x.AnoProjeto+x.Sequencial as PRONAC'),
@@ -862,16 +883,17 @@ class tbPauta extends MinC_Db_Table_Abstract {
             ->from(array('p' => 'tbPauta'), $cols, 'BDCORPORATIVO.scSAC')
             ->join(array('pa' => 'Parecer'), '(p.IdPRONAC = pa.IdPRONAC)', null, 'sac.dbo')
             ->join(array('x' => 'Projetos'), '(x.IdPRONAC = pa.IdPRONAC)', null, 'sac.dbo')
-            ->join(array('r' => 'tbReuniao'), '(p.idNrReuniao = r.idNrReuniao)', null, 'sac.dbo' )
-            ->join(array('n' => 'Usuarios'), '(n.usu_codigo = pa.Logon)', null,'Tabelas.dbo')
+            ->join(array('r' => 'tbReuniao'), '(p.idNrReuniao = r.idNrReuniao)', null, 'sac.dbo')
+            ->join(array('n' => 'Usuarios'), '(n.usu_codigo = pa.Logon)', null, 'Tabelas.dbo')
             ->where('p.idPronac = ?', $idPronac)
             ->where('pa.idTipoAgente = 6')
             ;
 
-            return $db->fetchAll($select);
+        return $db->fetchAll($select);
     }
 
-    public function buscaProjetosAprovados($idNrReuniao) {
+    public function buscaProjetosAprovados($idNrReuniao)
+    {
 
         //PROJETOS NORMAIS DA CNIC
         $slct1 = $this->select();
@@ -887,12 +909,16 @@ class tbPauta extends MinC_Db_Table_Abstract {
             )
         );
         $slct1->joinInner(
-            array('b' => 'Projetos'), "a.IdPRONAC = b.IdPRONAC",
-            array(), "SAC.dbo"
+            array('b' => 'Projetos'),
+            "a.IdPRONAC = b.IdPRONAC",
+            array(),
+            "SAC.dbo"
         );
         $slct1->joinInner(
-            array('c' => 'tbConsolidacaoVotacao'), "b.IdPRONAC = c.idPRONAC",
-            array(), "BDCORPORATIVO.scSAC"
+            array('c' => 'tbConsolidacaoVotacao'),
+            "b.IdPRONAC = c.idPRONAC",
+            array(),
+            "BDCORPORATIVO.scSAC"
         );
         $slct1->where('a.stEnvioPlenario = ?', 'S');
         $slct1->where('a.idNrReuniao = ?', $idNrReuniao);
@@ -909,15 +935,20 @@ class tbPauta extends MinC_Db_Table_Abstract {
                 new Zend_Db_Expr("(SELECT COUNT(e.stVoto) FROM BDCORPORATIVO.scSAC.tbVotacao e WHERE e.stVoto = 'B' and e.idPronac = a.IdPRONAC) as QtdeVotoAbstencao"),
                 new Zend_Db_Expr("(SELECT COUNT(f.stVoto) FROM BDCORPORATIVO.scSAC.tbVotacao f WHERE f.stVoto = 'I' and f.idPronac = a.IdPRONAC) as QtdeVotoIndeferimento"),
                 'c.dsConsolidacao'
-            ), 'SAC.dbo'
+            ),
+            'SAC.dbo'
         );
         $slct2->joinInner(
-            array('b' => 'Projetos'), "a.IdPRONAC = b.IdPRONAC",
-            array(), "SAC.dbo"
+            array('b' => 'Projetos'),
+            "a.IdPRONAC = b.IdPRONAC",
+            array(),
+            "SAC.dbo"
         );
         $slct2->joinInner(
-            array('c' => 'tbConsolidacaoVotacao'), "b.IdPRONAC = c.idPRONAC",
-            array(), "BDCORPORATIVO.scSAC"
+            array('c' => 'tbConsolidacaoVotacao'),
+            "b.IdPRONAC = c.idPRONAC",
+            array(),
+            "BDCORPORATIVO.scSAC"
         );
         $slct2->where('a.siRecurso = ?', 8);
         $slct2->where('a.idNrReuniao = ?', $idNrReuniao);
@@ -935,19 +966,26 @@ class tbPauta extends MinC_Db_Table_Abstract {
                 new Zend_Db_Expr("(SELECT COUNT(e.stVoto) FROM BDCORPORATIVO.scSAC.tbVotacao e WHERE e.stVoto = 'B' and e.idPronac = a.IdPRONAC and e.tpTipoReadequacao = a.idTipoReadequacao) as QtdeVotoAbstencao"),
                 new Zend_Db_Expr("(SELECT COUNT(f.stVoto) FROM BDCORPORATIVO.scSAC.tbVotacao f WHERE f.stVoto = 'I' and f.idPronac = a.IdPRONAC and f.tpTipoReadequacao = a.idTipoReadequacao) as QtdeVotoIndeferimento"),
                 'c.dsConsolidacao'
-            ), 'SAC.dbo'
+            ),
+            'SAC.dbo'
         );
         $slct3->joinInner(
-            array('b' => 'Projetos'), "a.IdPRONAC = b.IdPRONAC",
-            array(), "SAC.dbo"
+            array('b' => 'Projetos'),
+            "a.IdPRONAC = b.IdPRONAC",
+            array(),
+            "SAC.dbo"
         );
         $slct3->joinInner(
-            array('c' => 'tbConsolidacaoVotacao'), "b.IdPRONAC = c.idPRONAC AND a.idTipoReadequacao = c.tpTipoReadequacao",
-            array(), "BDCORPORATIVO.scSAC"
+            array('c' => 'tbConsolidacaoVotacao'),
+            "b.IdPRONAC = c.idPRONAC AND a.idTipoReadequacao = c.tpTipoReadequacao",
+            array(),
+            "BDCORPORATIVO.scSAC"
         );
         $slct3->joinInner(
-            array('d' => 'tbTipoReadequacao'), "a.idTipoReadequacao = d.idTipoReadequacao",
-            array(), "SAC.dbo"
+            array('d' => 'tbTipoReadequacao'),
+            "a.idTipoReadequacao = d.idTipoReadequacao",
+            array(),
+            "SAC.dbo"
         );
         $slct3->where('a.siEncaminhamento = ?', 8);
         $slct3->where('a.idNrReuniao = ?', $idNrReuniao);
@@ -960,5 +998,4 @@ class tbPauta extends MinC_Db_Table_Abstract {
 
         return $this->fetchAll($slctUnion);
     }
-
 }

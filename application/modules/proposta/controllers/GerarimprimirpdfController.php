@@ -33,7 +33,7 @@ class Proposta_GerarimprimirpdfController extends Proposta_GenericController
 
         function data($data)
         {
-            if (!empty ($data)) {
+            if (!empty($data)) {
                 $dataF = new data($data);
                 return $dataF->dataBrasileira($dataF->tratarDataZend($data, "americano"));
             }
@@ -41,13 +41,11 @@ class Proposta_GerarimprimirpdfController extends Proposta_GenericController
 
         function tratatexto($valor)
         {
-
             $valor = str_replace('<br>', '|br|', $valor);
             $valor = str_replace('</p>', '|br|', $valor);
             $valor = strip_tags($valor);
             $valor = str_replace('|br|', '<br>', $valor);
             return $valor;
-
         }
 
         $id_projeto = $this->getRequest()->getParam('idPreProjeto');
@@ -80,7 +78,7 @@ class Proposta_GerarimprimirpdfController extends Proposta_GenericController
         $tblPlanilhaProposta = new Proposta_Model_DbTable_PlanilhaProposta;
         $this->view->rsOrcamento = $tblPlanilhaProposta->Orcamento($id_projeto);
 
-        if (($rsDadosProjeto['mecanismo'] == "1") AND ($rsDadosProjeto['idedital'] == NULL OR ($rsDadosProjeto['idedital'] == "0"))) {
+        if (($rsDadosProjeto['mecanismo'] == "1") and ($rsDadosProjeto['idedital'] == null or ($rsDadosProjeto['idedital'] == "0"))) {
             $this->view->mecanismo = 'Incentivo Fiscal';
         } else {
             $this->view->mecanismo = 'FNC';
@@ -94,6 +92,6 @@ class Proposta_GerarimprimirpdfController extends Proposta_GenericController
 
         $pdf->gerarRelatorio();
 
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 }

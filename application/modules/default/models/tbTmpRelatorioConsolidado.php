@@ -8,23 +8,23 @@
 
 class tbTmpRelatorioConsolidado extends MinC_Db_Table_Abstract
 {
-	protected $_banco  = "SAC";
-	protected $_schema = "SAC";
-	protected $_name   = "tbTmpRelatorioConsolidado";
+    protected $_banco  = "SAC";
+    protected $_schema = "SAC";
+    protected $_name   = "tbTmpRelatorioConsolidado";
     protected $_primary = "idPronac";
 
 
-	/**
-	 * M�todo para cadastrar
-	 * @access public
-	 * @param array $dados
-	 * @return integer (retorna o �ltimo id cadastrado)
-	 */
-	public function buscarDados($idpronac)
-	{
-            $select = $this->select();
-            $select->setIntegrityCheck(false);
-            $select->from(
+    /**
+     * M�todo para cadastrar
+     * @access public
+     * @param array $dados
+     * @return integer (retorna o �ltimo id cadastrado)
+     */
+    public function buscarDados($idpronac)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
                     array('a' => $this->_name),
                     array(
                         'idPronac',
@@ -74,10 +74,8 @@ class tbTmpRelatorioConsolidado extends MinC_Db_Table_Abstract
                         )
             );
 
-            $select->where('a.idPronac = ?', $idpronac);
+        $select->where('a.idPronac = ?', $idpronac);
 
-            return $this->fetchAll($select);
-
-	} // fecha m�todo cadastrarDados()
-
+        return $this->fetchAll($select);
+    } // fecha m�todo cadastrarDados()
 }

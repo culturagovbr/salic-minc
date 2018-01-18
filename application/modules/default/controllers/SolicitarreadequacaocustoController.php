@@ -6,7 +6,8 @@
  * @author 01373930160
  */
 
-class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstract {
+class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstract
+{
 
     /**
      * Reescreve o m�todo init()
@@ -14,27 +15,28 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
      * @param void
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         parent::perfil(4);
-//		parent::perfil(3);
+        //		parent::perfil(3);
 
         parent::init(); // chama o init() do pai GenericControllerNew
     }
 
     // fecha m�todo init()
 
-    public function indexAction() {
-
+    public function indexAction()
+    {
         if (isset($_POST['atualizar'])) {
             try {
                 $dados = array('stPedidoAlteracao' => $_POST['acao']);
                 $atualizaPedido = SolicitarReadequacaoCustoDAO::atualizaPedidoAlteracao($dados, $_POST['idPedidoAlteracao']);
                 $this->_helper->json(array('error' => false));
-                $this->_helper->viewRenderer->setNoRender(TRUE); 
+                $this->_helper->viewRenderer->setNoRender(true);
             } catch (Zend_Exception $e) {
                 die('Erro:' . $e->getMessage());
                 $this->_helper->json(array('error' => true));
-                $this->_helper->viewRenderer->setNoRender(TRUE); 
+                $this->_helper->viewRenderer->setNoRender(true);
             }
         }
         $idPronac = $_GET['idpronac'];
@@ -49,16 +51,13 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
         $totalPlanilhaSolicitada = !empty($totalPlanilhaAprovada) ? number_format(($totalPlanilhaAprovada + $totalPlanilhaSolicitada) - $verificarReadequacao[0]['totalSolicitadoExcluido'], 2, '.', '') : $totalPlanilhaSolicitada;
 
         if (!empty($verificarReadequacao[0]['totalSolicitado']) || !empty($verificarReadequacao[0]['totalSolicitadoExcluido'])) :
-            $this->view->existirPlanilhaCusto = 'ok';
-        else :
+            $this->view->existirPlanilhaCusto = 'ok'; else :
             $this->view->existirPlanilhaCusto = '';
         endif;
 
         if ($totalPlanilhaAprovada > $totalPlanilhaSolicitada) :
-            $tipoReadeq = 'redu��o';
-        elseif ($totalPlanilhaAprovada < $totalPlanilhaSolicitada) :
-            $tipoReadeq = 'complementa��o';
-        else :
+            $tipoReadeq = 'redu��o'; elseif ($totalPlanilhaAprovada < $totalPlanilhaSolicitada) :
+            $tipoReadeq = 'complementa��o'; else :
             $tipoReadeq = 'remanejamento';
         endif;
         // ========== FIM MENSAGEM DE REDU��O, COMPLEMENTO OU REMANEJAMENTO ==========
@@ -126,21 +125,21 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
         }
     }
 
-    public function incluirprodutoAction() {
+    public function incluirprodutoAction()
+    {
         $buscaPedido = new SolicitarReadequacaoCustoDAO;
 
         if (isset($_POST['verifica']) && $_POST['verifica']) {
             if ($_POST['verifica'] == "SI") {
-
                 $status = $_POST['status'];
                 $idPronac = $_POST['idpronac'];
                 $atualizaPedido = SolicitarReadequacaoCustoDAO::controlaStatus($status, $idPronac);
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             } else {
                 $status = $_POST['status'];
                 $idPronac = $_POST['idpronac'];
                 $atualizaPedido = SolicitarReadequacaoCustoDAO::controlaStatus($status, $idPronac);
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             }
         }
 
@@ -167,7 +166,7 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
                 $municipio['error'] = true;
             }
             $this->_helper->json($municipio);
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
 
         if (isset($_POST['idEtapa'])) {
@@ -186,11 +185,10 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
             }
 
             $this->_helper->json($itemEtapa);
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
         //se o produto estiver setado
         if (isset($_POST['acao'])) {
-
             $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
             $verificapedido = $buscaPedido->verificaPedidoAlteracao($_POST['idpronac']);
 
@@ -230,19 +228,17 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
                 $buscarPlanilhaAprovacaoPai = $PA->buscar(array('idPlanilhaAprovacaoPai = ?' => $_POST['idPlanilhaAP'], 'tpPlanilha = ?' => 'SR'));
                 if (count($buscarPlanilhaAprovacaoPai) > 0) :
                     $acaoSR = 'A';
-                    $colunaSR = 'idPlanilhaAprovacaoPai';
-                    $idPlanilhaAprovacaoPai = !empty($_POST['idPlanilhaAP']) ? $_POST['idPlanilhaAP'] : null;
-                else :
+                $colunaSR = 'idPlanilhaAprovacaoPai';
+                $idPlanilhaAprovacaoPai = !empty($_POST['idPlanilhaAP']) ? $_POST['idPlanilhaAP'] : null; else :
                     $buscarPlanilhaAprovacaoSR = $PA->buscar(array('idPlanilhaAprovacao = ?' => $_POST['idPlanilhaAP'], 'tpPlanilha = ?' => 'SR'));
-                    if (count($buscarPlanilhaAprovacaoSR) > 0) :
+                if (count($buscarPlanilhaAprovacaoSR) > 0) :
                         $acaoSR = 'A';
-                        $colunaSR = 'idPlanilhaAprovacao';
-                        $idPlanilhaAprovacaoPai = $buscarPlanilhaAprovacaoSR[0]->idPlanilhaAprovacaoPai;
-                    else :
+                $colunaSR = 'idPlanilhaAprovacao';
+                $idPlanilhaAprovacaoPai = $buscarPlanilhaAprovacaoSR[0]->idPlanilhaAprovacaoPai; else :
                         $acaoSR = 'I';
-                        $colunaSR = 'idPlanilhaAprovacaoPai';
-                        $idPlanilhaAprovacaoPai = !empty($_POST['idPlanilhaAP']) ? $_POST['idPlanilhaAP'] : null;
-                    endif;
+                $colunaSR = 'idPlanilhaAprovacaoPai';
+                $idPlanilhaAprovacaoPai = !empty($_POST['idPlanilhaAP']) ? $_POST['idPlanilhaAP'] : null;
+                endif;
                 endif;
 
                 $dados = array(
@@ -301,10 +297,10 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
                     $insertItem = SolicitarReadequacaoCustoDAO::inserirNovoProduto($dados);
                 }
                 $this->_helper->json(array('error' => false));
-                $this->_helper->viewRenderer->setNoRender(TRUE); 
+                $this->_helper->viewRenderer->setNoRender(true);
             } catch (Zend_Exception $e) {
                 $this->_helper->json(array('error' => true, 'descricao:' => $e->getMessage()));
-                $this->_helper->viewRenderer->setNoRender(TRUE); 
+                $this->_helper->viewRenderer->setNoRender(true);
             }
         }
 
@@ -316,7 +312,7 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
             );
 
             $alterarpedido = SolicitarReadequacaoCustoDAO::alterarPedidoAlterado($dados);
-            $this->_helper->viewRenderer->setNoRender(TRUE); 
+            $this->_helper->viewRenderer->setNoRender(true);
         }
 
         if (isset($_POST['verificaPlanilha']) and $_POST['verificaPlanilha'] == "S") {
@@ -349,11 +345,10 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
             }
             $json = json_encode($valorjson);
             echo $json;
-            $this->_helper->viewRenderer->setNoRender(TRUE); 
+            $this->_helper->viewRenderer->setNoRender(true);
         }
 
         if (isset($_GET['idpronac'])) {
-
             $idPronac = $_GET['idpronac'];
             $idProduto = isset($_GET['idProduto']) ? $_GET['idProduto'] : 0;
             $tipoproduto = isset($_GET['idProduto']) ? 'P' : 'A';
@@ -376,7 +371,7 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
 
             $resultadoProduto = $buscaInformacoes->buscarProdutos($idPronac);
 
-//            Zend_Debug::dump($resultadoProduto); $this->_helper->viewRenderer->setNoRender(TRUE); 
+//            Zend_Debug::dump($resultadoProduto); $this->_helper->viewRenderer->setNoRender(TRUE);
 //            $this->view->buscaproduto = $resultadoProduto;
             $resultadoItensCadastrados = $buscaInformacoes->buscarItensCadastrados($idPronac);
 
@@ -419,7 +414,7 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
             }
 
             $resultadoEtapa = $buscaInformacoes->buscarEtapa($tipoproduto);
-//            Zend_Debug::dump($resultadoEtapa);$this->_helper->viewRenderer->setNoRender(TRUE); 
+//            Zend_Debug::dump($resultadoEtapa);$this->_helper->viewRenderer->setNoRender(TRUE);
             $this->view->buscaetapa = $resultadoEtapa;
 
             $resultadoFonteRecurso = $buscaInformacoes->buscarFonteRecurso();
@@ -461,7 +456,8 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
         }
     }
 
-    public function planilhareadequadaAction() {
+    public function planilhareadequadaAction()
+    {
         $buscaPedido = new SolicitarReadequacaoCustoDAO;
 
         /* if (isset($_POST['idEtapa'])) {
@@ -512,11 +508,12 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
             }
             $json = json_encode($valorjson);
             echo $json;
-            $this->_helper->viewRenderer->setNoRender(TRUE); 
+            $this->_helper->viewRenderer->setNoRender(true);
         }
     }
 
-    public function existirPlanilhaProduto($idPronac = 0, $idPedidoAlteracao = 0) {
+    public function existirPlanilhaProduto($idPronac = 0, $idPedidoAlteracao = 0)
+    {
         $buscaProjetoProduto = new SolicitarReadequacaoCustoDAO();
         $buscaReadequacaoProduto = new ReadequacaoProjetos();
         $resultadoItensCadastrados = $buscaProjetoProduto->buscarItensCadastrados($idPronac);
@@ -571,31 +568,31 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
             }
         }
         $this->view->Xitens = $p2;
-//x($qtdPlanilhaAprovada);
-//x(count($produtosxitens) .'-'. count($itensxprodutos));
-//x($qtProdutos .'-'. $qtItens);
+        //x($qtdPlanilhaAprovada);
+        //x(count($produtosxitens) .'-'. count($itensxprodutos));
+        //x($qtProdutos .'-'. $qtItens);
         if (count($produtosxitens) < count($itensxprodutos) || $qtdPlanilhaAprovada <= 0) {
             return false;
-        } else if (($qtProdutos > $qtItens && count($itensxprodutos) <= 0) && $qtdPlanilhaAprovada <= 0) {
+        } elseif (($qtProdutos > $qtItens && count($itensxprodutos) <= 0) && $qtdPlanilhaAprovada <= 0) {
             return false;
-        } else if ($qtProdutos > $qtItens && count($itensxprodutos) <= 0 && count($produtosxitens) <= 0) {
+        } elseif ($qtProdutos > $qtItens && count($itensxprodutos) <= 0 && count($produtosxitens) <= 0) {
             return false;
         } else {
             return true;
         }
     }
 
-// fecha m�todo existirPlanilhaProduto()
+    // fecha m�todo existirPlanilhaProduto()
 
-    public function validarPercentualAction() {
-
+    public function validarPercentualAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o layout
         $this->_helper->viewRenderer->setNoRender(true);
         $buscaPedido = new SolicitarReadequacaoCustoDAO;
         $verificapedido = $buscaPedido->verificaPedidoAlteracao($_POST['idpronac']);
 
         //REGRA DOS 15% ***********************************************
-        //soma valor total do projeto        
+        //soma valor total do projeto
         $planilhaAprovacao = new PlanilhaAprovacao();
         $ProjetoAprovado = new Projetos();
         $AprovadoReal = $ProjetoAprovado->buscarProjetosAprovados(array('pr.IdPRONAC = ?' => $_POST['idpronac'], 'ap.TipoAprovacao = ?' => 1))->current();
@@ -606,13 +603,13 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
         $arrWhereCustoAdm['idPronac = ?'] = $_POST['idpronac'];
         $arrWhereCustoAdm['idProduto = ?'] = 0; //custos administrativos
         $arrWhereCustoAdm['tpPlanilha = ? '] = 'SR'; //
-        $valoracustosadministrativos = $planilhaAprovacao->somarItensPlanilhaAprovacao($arrWhereCustoAdm); 
+        $valoracustosadministrativos = $planilhaAprovacao->somarItensPlanilhaAprovacao($arrWhereCustoAdm);
 
-        $valoracustosadministrativos = $valoracustosadministrativos['soma']; 
+        $valoracustosadministrativos = $valoracustosadministrativos['soma'];
         //$valoracustosadministrativos += (float) $_POST['qtd'] * $_POST['ocorrencia'] * $_POST['vlUnitario']; //
-        $valorquinzeporceto = ($AprovadoReal * 0.15); //pegando o valor de 15% do projeto para incluir na msg abaixo    
+        $valorquinzeporceto = ($AprovadoReal * 0.15); //pegando o valor de 15% do projeto para incluir na msg abaixo
         
-        //***REGRA 20% DIVULGA��O/COMERCIALIZA��O  *****************************************************************************/                        
+        //***REGRA 20% DIVULGA��O/COMERCIALIZA��O  *****************************************************************************/
         //soma valor dos custos DIVULGA��O / COMERCIALIZA��O
         $arrWhereCustoDC = array();
         $arrWhereCustoDC['idPronac = ?'] = $_POST['idpronac'];
@@ -621,37 +618,34 @@ class SolicitarReadequacaoCustoController extends MinC_Controller_Action_Abstrac
         $valoracustosdivulgacaocomercializacao = $planilhaAprovacao->somarItensPlanilhaAprovacao($arrWhereCustoDC);
         $valoracustosdivulgacaocomercializacao = (!empty($valoracustosdivulgacaocomercializacao['soma'])) ? $valoracustosdivulgacaocomercializacao['soma'] : 0;
 //        $valoracustosdivulgacaocomercializacao += (float) $_POST['qtd'] * $_POST['ocorrencia'] * $_POST['vlUnitario'];
-        $valorvinteporcento = ($AprovadoReal * 0.20);   
+        $valorvinteporcento = ($AprovadoReal * 0.20);
         
         
-        $novos_valores = array(); 
+        $novos_valores = array();
         $dados = array('stPedidoAlteracao' => $_POST['acao']);
         
-       if ($valoracustosdivulgacaocomercializacao > $valorvinteporcento) {
-
-           $atualizaPedido = SolicitarReadequacaoCustoDAO::atualizaPedidoAlteracao($dados, $_POST['idPedidoAlteracao']);
+        if ($valoracustosdivulgacaocomercializacao > $valorvinteporcento) {
+            $atualizaPedido = SolicitarReadequacaoCustoDAO::atualizaPedidoAlteracao($dados, $_POST['idPedidoAlteracao']);
             $msg = 'Favor ajustar os custos de Divulga��o / Comercializa��o que excedem <b>'. number_format($valorvinteporcento, '2', ',', '.') .'</b>, valor para que possa enviar sua solicita��o de readequa��o.';
 //            $msg = 'Na readequa&ccedil;�o de planilha or&ccedil;ament�ria, o sistema deve bloquear envio planilha com custos administrativos superior a 15% do valor total do projeto.';
             $novos_valores['error'] = true;
             $novos_valores['descricao'] = utf8_encode($msg);
             $this->_helper->json($novos_valores);
-            $this->_helper->viewRenderer->setNoRender(TRUE); 
-        } else  if ($valoracustosadministrativos > $valorquinzeporceto) {
-
+            $this->_helper->viewRenderer->setNoRender(true);
+        } elseif ($valoracustosadministrativos > $valorquinzeporceto) {
             $atualizaPedido = SolicitarReadequacaoCustoDAO::atualizaPedidoAlteracao($dados, $_POST['idPedidoAlteracao']);
 
             $msg = 'Favor ajustar os Custos Administrativos que excedem <b>'. number_format($valorquinzeporceto, '2', ',', '.') .'</b>, valor para que possa enviar sua solicita��o de readequa��o.';
             $novos_valores['error'] = true;
             $novos_valores['descricao'] = utf8_encode($msg);
             $this->_helper->json($novos_valores);
-            $this->_helper->viewRenderer->setNoRender(TRUE); 
+            $this->_helper->viewRenderer->setNoRender(true);
         } else {
             $novos_valores['error'] = false;
             $this->_helper->json($novos_valores);
-            $this->_helper->viewRenderer->setNoRender(TRUE); 
+            $this->_helper->viewRenderer->setNoRender(true);
         }
-        //***FINAL REGRA 15% CUSTOS ADMINISRATIVOS *****************************************************************************/       
+        //***FINAL REGRA 15% CUSTOS ADMINISRATIVOS *****************************************************************************/
         //***FINAL REGRA 20% DIVULGA��O/COMERCIALIZA��O*****************************************************************************/
     }
-
 }

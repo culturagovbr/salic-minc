@@ -10,23 +10,23 @@
  *
  * @author augusto
  */
-class HistoricoDocumento extends MinC_Db_Table_Abstract {
-
+class HistoricoDocumento extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'SAC';
     protected $_name = 'tbHistoricoDocumento';
 
     /*
-	public function pesquisarLotes($lote) {
-		
-		$select = $this->select();
+    public function pesquisarLotes($lote) {
+
+        $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
                 array('h' => $this->_name),
                 array(
                     'h.idUnidade as idDestino',
                     'h.idLote as lote',
-                	'h.idOrigem',
-                	'h.Acao'
+                    'h.idOrigem',
+                    'h.Acao'
                 )
         );
         $select->where('h.idLote = ?', $lote);
@@ -34,12 +34,12 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
 
 
         $select->group(array('h.idLote','h.idUnidade','h.idOrigem', 'h.Acao'));
-        
+
         return $this->fetchAll($select);
     }
-    
-    
-	public function pesquisarLotesAnexo( $usu_codigo=null, $orgao = null) {
+
+
+    public function pesquisarLotesAnexo( $usu_codigo=null, $orgao = null) {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -47,12 +47,12 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
                 array(
                     'h.idUnidade as idDestino',
                     'h.idLote as lote',
-                	'h.idOrigem',
+                    'h.idOrigem',
                     '(select Sigla from SAC.dbo.Orgaos where Codigo = '.$orgao.') as nomeDestino'
                 )
         );
         $select->where('h.Acao = ?', 6);
-        
+
         //$select->where('h.idLote is not null');
 
 
@@ -62,11 +62,12 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
         }
 
         $select->group(array('h.idLote','h.idUnidade','h.idOrigem'));
-        
+
         return $this->fetchAll($select);
     }
     */
-    public function pesquisarOrgaosPorAcao($acaoA=null, $acaoB=null, $usu_codigo=null, $orgao=null) {
+    public function pesquisarOrgaosPorAcao($acaoA=null, $acaoB=null, $usu_codigo=null, $orgao=null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -74,23 +75,23 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
                 array(
                     'h.idUnidade as idDestino',
                     'h.idLote as lote',
-                	'h.idOrigem',
+                    'h.idOrigem',
                     '(select Sigla from SAC.dbo.Orgaos where Codigo = '.$orgao.') as nomeDestino'
                 )
         );
         $select->where('h.stEstado = ?', 1);
         $select->where('h.idDocumento = ?', 0);
 
-        if(($acaoA) and !($acaoB)){
-        	$select->where("h.Acao = ?", $acaoA);
+        if (($acaoA) and !($acaoB)) {
+            $select->where("h.Acao = ?", $acaoA);
         }
-        if(($acaoA) and ($acaoB)){
-        	$select->where("(h.Acao = ? or h.Acao = $acaoB)", $acaoA);
+        if (($acaoA) and ($acaoB)) {
+            $select->where("(h.Acao = ? or h.Acao = $acaoB)", $acaoA);
         }
         if ($usu_codigo) {
             $select->where("h.idUsuarioEmissor = ?", $usu_codigo);
         }
-    	if ($orgao) {
+        if ($orgao) {
             $select->where("h.idOrigem = ?", $orgao);
         }
         $select->group(array('h.idLote','h.idUnidade','h.idOrigem'));
@@ -98,7 +99,8 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
     
-    public function pesquisarOrgaosPorDestino($acaoA = null, $acaoB = null, $usu_codigo=null, $orgao = null) {
+    public function pesquisarOrgaosPorDestino($acaoA = null, $acaoB = null, $usu_codigo=null, $orgao = null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -106,23 +108,23 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
                 array(
                     'h.idUnidade as idDestino',
                     'h.idLote as lote',
-                	'h.idOrigem',
+                    'h.idOrigem',
                     '(select Sigla from SAC.dbo.Orgaos where Codigo = '.$orgao.') as nomeDestino'
                 )
         );
         $select->where('h.stEstado = ?', 1);
         $select->where('h.idDocumento = ?', 0);
 
-        if(($acaoA) and !($acaoB)){
-        	$select->where("h.Acao = ?", $acaoA);
+        if (($acaoA) and !($acaoB)) {
+            $select->where("h.Acao = ?", $acaoA);
         }
-        if(($acaoA) and ($acaoB)){
-        	$select->where("(h.Acao = ? or h.Acao = $acaoB)", $acaoA);
+        if (($acaoA) and ($acaoB)) {
+            $select->where("(h.Acao = ? or h.Acao = $acaoB)", $acaoA);
         }
 //        if ($usu_codigo) {
 //            $select->where("h.idUsuarioEmissor = ?", $usu_codigo);
 //        }
-    	if ($orgao) {
+        if ($orgao) {
             $select->where("h.idUnidade = ?", $orgao);
         }
         $select->where("h.idOrigem is not null");
@@ -131,7 +133,8 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
     
-    public function pesquisarOrgaosPorDestinoRecebimento($acaoA = null, $acaoB = null, $usu_codigo=null, $orgao = null) {
+    public function pesquisarOrgaosPorDestinoRecebimento($acaoA = null, $acaoB = null, $usu_codigo=null, $orgao = null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -139,23 +142,23 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
                 array(
                     'h.idUnidade as idDestino',
                     'h.idLote as lote',
-                	'h.idOrigem',
+                    'h.idOrigem',
                     '(select Sigla from SAC.dbo.Orgaos where Codigo = '.$orgao.') as nomeDestino'
                 )
         );
         $select->where('h.stEstado = ?', 1);
         $select->where('h.idDocumento = ?', 0);
 
-        if(($acaoA) and !($acaoB)){
-        	$select->where("h.Acao = ?", $acaoA);
+        if (($acaoA) and !($acaoB)) {
+            $select->where("h.Acao = ?", $acaoA);
         }
-        if(($acaoA) and ($acaoB)){
-        	$select->where("(h.Acao = ? or h.Acao = $acaoB)", $acaoA);
+        if (($acaoA) and ($acaoB)) {
+            $select->where("(h.Acao = ? or h.Acao = $acaoB)", $acaoA);
         }
 //        if ($usu_codigo) {
 //            $select->where("h.idUsuarioEmissor = ?", $usu_codigo);
 //        }
-    	if ($orgao) {
+        if ($orgao) {
             $select->where("h.idUnidade = ?", $orgao);
         }
         $select->group(array('h.idLote','h.idUnidade','h.idOrigem'));
@@ -163,8 +166,8 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function projetosDespachados($acao = array(), $idDestino = null, $lote = null, $idpronac=null, $orgaologado=null) {
-    	
+    public function projetosDespachados($acao = array(), $idDestino = null, $lote = null, $idpronac=null, $orgaologado=null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         //$select->distinct();
@@ -172,17 +175,17 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
         $select->from(
                 array('h' => $this->_name),
                 array(
-                	"h.idHistorico",
+                    "h.idHistorico",
                     "h.meDespacho as despacho",
                     "h.idUnidade AS idDestino",
-                	"h.idOrigem",
+                    "h.idOrigem",
                     "h.idUsuarioReceptor",
                     "h.idUsuarioEmissor",
                     "h.idLote as idLote",
                     "h.Acao as Acao",
-                	"p.Orgao as Orgao",
+                    "p.Orgao as Orgao",
                     "dtEnvio" => "(CONVERT(CHAR(10), h.dtTramitacaoEnvio,103) + ' ' + CONVERT(CHAR(8), h.dtTramitacaoEnvio,108))",
-                	"dtRecebida" =>"(CONVERT(CHAR(10), h.dtTramitacaoRecebida,103) + ' ' + CONVERT(CHAR(8), h.dtTramitacaoRecebida,108))",
+                    "dtRecebida" =>"(CONVERT(CHAR(10), h.dtTramitacaoRecebida,103) + ' ' + CONVERT(CHAR(8), h.dtTramitacaoRecebida,108))",
                     "dtSituacao" => "(CONVERT(CHAR(10), p.DtSituacao,103) + ' ' + CONVERT(CHAR(8), p.DtSituacao,108))",
                     "Situacao" => new Zend_Db_Expr(
                             "CASE
@@ -192,7 +195,8 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
                               WHEN h.Acao = 3 THEN 'Recebido'
                               WHEN h.Acao = 4 THEN 'Recusado'
                               WHEN h.Acao = 6 THEN 'Anexado'
-                              END"),
+                              END"
+                    ),
                     "h.stEstado"
                 )
         );
@@ -229,21 +233,19 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
         $select->where('h.idDocumento = ?', 0);
         $select->where(' h.stEstado = ?', 1);
 
-        if ($acao){
-	        if (count($acao) == 1) {
-	            $select->where(' h.Acao = ? ', $acao[0]);
-	            
-	        }
-	        if (count($acao) == 2) {
-	        	
-	            $select->where('( h.Acao = ? ', $acao[0]);
-	            $select->orWhere(' h.Acao = ? )', $acao[1]);
-	        }
+        if ($acao) {
+            if (count($acao) == 1) {
+                $select->where(' h.Acao = ? ', $acao[0]);
+            }
+            if (count($acao) == 2) {
+                $select->where('( h.Acao = ? ', $acao[0]);
+                $select->orWhere(' h.Acao = ? )', $acao[1]);
+            }
         }
         if ($idDestino) {
             $select->where(' h.idUnidade = ? ', $idDestino);
         }
-    	if ($lote) {
+        if ($lote) {
             $select->where(' h.idLote = ? ', $lote);
         }
         if ($idpronac) {
@@ -257,8 +259,8 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
     
-    public function projetosDespachadosListagem($acao = array(), $idDestino = null, $lote = null, $idpronac=null, $idUsuario=null) {
-    	
+    public function projetosDespachadosListagem($acao = array(), $idDestino = null, $lote = null, $idpronac=null, $idUsuario=null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         //$select->distinct();
@@ -266,18 +268,18 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
         $select->from(
                 array('h' => $this->_name),
                 array(
-                	"h.idHistorico",
+                    "h.idHistorico",
                         "h.meDespacho as despacho",
                         "h.idUnidade AS idDestino",
-                	"h.idOrigem",
+                    "h.idOrigem",
                         "h.idUsuarioReceptor",
                         "h.idUsuarioEmissor",
                         "h.idLote as idLote",
                         "h.Acao as Acao",
                         "h.dsJustificativa",
-                	"p.Orgao as Orgao",
+                    "p.Orgao as Orgao",
                         "dtEnvio" => "(CONVERT(CHAR(10), h.dtTramitacaoEnvio,103) + ' ' + CONVERT(CHAR(8), h.dtTramitacaoEnvio,108))",
-                	"dtRecebida" =>"(CONVERT(CHAR(10), h.dtTramitacaoRecebida,103) + ' ' + CONVERT(CHAR(8), h.dtTramitacaoRecebida,108))",
+                    "dtRecebida" =>"(CONVERT(CHAR(10), h.dtTramitacaoRecebida,103) + ' ' + CONVERT(CHAR(8), h.dtTramitacaoRecebida,108))",
                         "dtSituacao" => "(CONVERT(CHAR(10), p.DtSituacao,103) + ' ' + CONVERT(CHAR(8), p.DtSituacao,108))",
                         "Situacao" => new Zend_Db_Expr(
                             "CASE
@@ -287,7 +289,8 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
                               WHEN h.Acao = 3 THEN 'Recebido'
                               WHEN h.Acao = 4 THEN 'Recusado'
                               WHEN h.Acao = 6 THEN 'Anexado'
-                              END"),
+                              END"
+                        ),
                         "h.stEstado"
                 )
         );
@@ -325,21 +328,19 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
         $select->where('h.idDocumento = ?', 0);
         $select->where('h.stEstado = ?', 1);
 
-        if ($acao){
-	        if (count($acao) == 1) {
-	            $select->where(' h.Acao = ? ', $acao[0]);
-	            
-	        }
-	        if (count($acao) == 2) {
-	        	
-	            $select->where('( h.Acao = ? ', $acao[0]);
-	            $select->orWhere(' h.Acao = ? )', $acao[1]);
-	        }
+        if ($acao) {
+            if (count($acao) == 1) {
+                $select->where(' h.Acao = ? ', $acao[0]);
+            }
+            if (count($acao) == 2) {
+                $select->where('( h.Acao = ? ', $acao[0]);
+                $select->orWhere(' h.Acao = ? )', $acao[1]);
+            }
         }
         if ($idDestino) {
             $select->where(' h.idUnidade = ? ', $idDestino);
         }
-    	if ($lote) {
+        if ($lote) {
             $select->where(' h.idLote = ? ', $lote);
         }
         if ($idpronac) {
@@ -351,20 +352,17 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract {
         $select->order('h.idHistorico');
         
         return $this->fetchAll($select);
-        
     }
 
-    public function alterarHistoricoDocumento($dados, $where) {
+    public function alterarHistoricoDocumento($dados, $where)
+    {
         $update = $this->update($dados, $where);
         return $update;
     }
 
-    public function inserirHistoricoDocumento($dados) {
+    public function inserirHistoricoDocumento($dados)
+    {
         $inserir = $this->insert($dados);
         return $inserir;
     }
-    
-
 }
-
-?>

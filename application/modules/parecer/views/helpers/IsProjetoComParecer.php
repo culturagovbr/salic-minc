@@ -5,13 +5,13 @@
 
 class Zend_View_Helper_IsProjetoComParecer
 {
-	/**
-	 * Método para verificar se o projeto tem parecer
-	 * @access public
-	 * @param integer $idPronac
-	 * @return string
-	 */
-	public function IsProjetoComParecer($idPronac, $idUsuario = null)
+    /**
+     * Método para verificar se o projeto tem parecer
+     * @access public
+     * @param integer $idPronac
+     * @return string
+     */
+    public function IsProjetoComParecer($idPronac, $idUsuario = null)
     {
         $parecerDAO	= new Parecer();
         $buscaParecer = $parecerDAO->buscarParecer($idUsuario, $idPronac);

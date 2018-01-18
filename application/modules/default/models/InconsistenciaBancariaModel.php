@@ -9,7 +9,7 @@ class InconsistenciaBancariaModel
 {
 
     /**
-     * 
+     *
      * @param string $cpfCnpj
      * @param int $idInconsistencia
      * @throws Exception
@@ -35,5 +35,4 @@ class InconsistenciaBancariaModel
             throw new Exception('Não foi possível resolver a inconsistência de incentivador e proponente iguais', null, $exception);
         }
     }
-
 }

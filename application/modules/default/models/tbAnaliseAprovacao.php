@@ -9,12 +9,12 @@
 
 class tbAnaliseAprovacao extends MinC_Db_Table_Abstract
 {
-	protected $_banco  = "SAC";
-	protected $_schema = "SAC";
-	protected $_name   = "tbAnaliseAprovacao";
+    protected $_banco  = "SAC";
+    protected $_schema = "SAC";
+    protected $_name   = "tbAnaliseAprovacao";
 
-    public function copiandoPlanilhaRecurso($idPronac){
-
+    public function copiandoPlanilhaRecurso($idPronac)
+    {
         $sql = "INSERT INTO SAC.dbo.tbAnaliseAprovacao
                      (tpAnalise,dtAnalise,idAnaliseConteudo,IdPRONAC,idProduto,stLei8313,stArtigo3,nrIncisoArtigo3,dsAlineaArt3,stArtigo18,dsAlineaArtigo18,stArtigo26,stLei5761,
                       stArtigo27,stIncisoArtigo27_I,stIncisoArtigo27_II,stIncisoArtigo27_III,stIncisoArtigo27_IV,stAvaliacao,dsAvaliacao,idAgente,idAnaliseAprovacaoPai)
@@ -23,12 +23,11 @@ class tbAnaliseAprovacao extends MinC_Db_Table_Abstract
                 FROM SAC.dbo.tbAnaliseDeConteudo WHERE IdPRONAC='$idPronac'
 
         ";
-//        
+//
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // retornando os registros conforme objeto select
         return $db->fetchAll($sql);
     }
-
 }

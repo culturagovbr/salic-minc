@@ -12,19 +12,19 @@
 
 class Pronac extends Zend_Db_Table
 {
-	protected $_name = 'BDCORPORATIVO.scSAC.Projetos'; // nome da tabela
+    protected $_name = 'BDCORPORATIVO.scSAC.Projetos'; // nome da tabela
 
 
 
-	/**
-	 * M�todo para buscar PRONAC
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function buscar($id = null)
-	{
-		$sql = "SELECT AnoProjeto+Sequencial as nrpronac
+    /**
+     * M�todo para buscar PRONAC
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function buscar($id = null)
+    {
+        $sql = "SELECT AnoProjeto+Sequencial as nrpronac
 							,IdPRONAC
 					      ,AnoProjeto
 					      ,Sequencial
@@ -61,37 +61,33 @@ class Pronac extends Zend_Db_Table
 					      ,idProjeto
 					FROM SAC.dbo.Projetos  ";
 
-		if (!empty($id)) // busca de acordo com um id
-		{
-			$sql.= "WHERE IdPRONAC = '" . $id . "' ";
-		}
+        if (!empty($id)) { // busca de acordo com um id
+            $sql.= "WHERE IdPRONAC = '" . $id . "' ";
+        }
 
-		$sql.= "ORDER BY IdPRONAC;";
+        $sql.= "ORDER BY IdPRONAC;";
 
 //                die('<pre>'.$sql);
-		try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			return $db->fetchAll($sql);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao buscar PRONAC: " . $e->getMessage();
-		}
-	} // fecha buscar()
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+            return $db->fetchAll($sql);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar PRONAC: " . $e->getMessage();
+        }
+    } // fecha buscar()
 
 
 
-	/**
-	 * M�todo para buscar o PRONAC com a an�lise de conte�do
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function buscarPronacAnaliseConteudo($idPRONAC = null, $idPRODUTO = null)
-	{
-		$sql = "SELECT proj.IdPRONAC 
+    /**
+     * M�todo para buscar o PRONAC com a an�lise de conte�do
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function buscarPronacAnaliseConteudo($idPRONAC = null, $idPRODUTO = null)
+    {
+        $sql = "SELECT proj.IdPRONAC 
 					,proj.NomeProjeto
 					,prod.Descricao AS DescricaoProduto
 				FROM SAC.dbo.Produto prod
@@ -101,25 +97,19 @@ class Pronac extends Zend_Db_Table
 				WHERE prod.Codigo = ana.idProduto 
 					AND ana.IdPRONAC = proj.IdPRONAC ";
 
-		if (!empty($idPRONAC)) // busca de acordo com um id do pronac
-		{
-			$sql.= "AND ana.IdPRONAC = '" . $idPRONAC . "' ";
-		}
-		if (!empty($idPRODUTO)) // busca de acordo com um id do produto
-		{
-			$sql.= "AND ana.idProduto = '" . $idPRODUTO . "' ";
-		}
+        if (!empty($idPRONAC)) { // busca de acordo com um id do pronac
+            $sql.= "AND ana.IdPRONAC = '" . $idPRONAC . "' ";
+        }
+        if (!empty($idPRODUTO)) { // busca de acordo com um id do produto
+            $sql.= "AND ana.idProduto = '" . $idPRODUTO . "' ";
+        }
 
-		try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			return $db->fetchAll($sql);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao buscar Projetos: " . $e->getMessage();
-		}
-	} // fecha buscarPronacAnaliseConteudo()
-
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+            return $db->fetchAll($sql);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar Projetos: " . $e->getMessage();
+        }
+    } // fecha buscarPronacAnaliseConteudo()
 } // fecha class

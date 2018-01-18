@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,8 +9,8 @@
  *
  * @author augusto
  */
-class Reuniao extends MinC_Db_Table_Abstract{
-
+class Reuniao extends MinC_Db_Table_Abstract
+{
     protected $_schema = 'SAC';
     protected $_name  = 'tbReuniao';
 
@@ -18,12 +18,12 @@ class Reuniao extends MinC_Db_Table_Abstract{
      * Retorna a Ultima Reiniao Aberta
      * @return null|Zend_Db_Table_Row_Abstract
      */
-    public function buscarReuniaoAberta(){
+    public function buscarReuniaoAberta()
+    {
         $select = $this->select();
         $select->from(
                         $this,
-                        array
-                            (
+                        array(
                                 "idNrReuniao",
                                 "NrReuniao",
                                 "stPlenaria",
@@ -40,12 +40,12 @@ class Reuniao extends MinC_Db_Table_Abstract{
      * @param $nrReuniao
      * @return null|Zend_Db_Table_Row_Abstract
      */
-    public function buscarReuniaoPorNumero($nrReuniao){
+    public function buscarReuniaoPorNumero($nrReuniao)
+    {
         $select = $this->select();
         $select->from(
             $this,
-            array
-            (
+            array(
                 "idNrReuniao",
                 "NrReuniao",
                 "stPlenaria",
@@ -57,12 +57,12 @@ class Reuniao extends MinC_Db_Table_Abstract{
         return $this->fetchRow($select);
     }
 
-    public function buscarTodasReunioes($order = array()){
+    public function buscarTodasReunioes($order = array())
+    {
         $select = $this->select();
         $select->from(
             $this,
-            array
-            (
+            array(
                 "idNrReuniao",
                 "NrReuniao",
                 "stPlenaria",
@@ -77,12 +77,12 @@ class Reuniao extends MinC_Db_Table_Abstract{
         return $this->fetchAll($select);
     }
 
-    public function buscarReuniaoPorId($idNrReuniao){
+    public function buscarReuniaoPorId($idNrReuniao)
+    {
         $select = $this->select();
         $select->from(
             $this,
-            array
-            (
+            array(
                 "idNrReuniao",
                 "NrReuniao",
                 "stPlenaria",
@@ -93,6 +93,4 @@ class Reuniao extends MinC_Db_Table_Abstract{
         $select->where("idNrReuniao = ?", $idNrReuniao);
         return $this->fetchRow($select);
     }
-    
 }
-

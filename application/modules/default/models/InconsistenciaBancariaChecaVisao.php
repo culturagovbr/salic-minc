@@ -9,7 +9,7 @@ class InconsistenciaBancariaChecaVisao
 {
 
     /**
-     * 
+     *
      * @param type $cpfCnpj
      * @param type $tipoVisao
      */
@@ -18,5 +18,4 @@ class InconsistenciaBancariaChecaVisao
         $visaoModel = new VisaoModel();
         $visaoModel->adicionaVisao($cpfCnpj, TipoVisaoModel::INCENTIVADOR);
     }
-
 }

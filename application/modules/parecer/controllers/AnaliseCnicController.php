@@ -4,7 +4,8 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
 {
     private $idPronac;
 
-    private function validarPerfis() {
+    private function validarPerfis()
+    {
         $auth = Zend_Auth::getInstance();
 
         $PermissoesGrupo = array();
@@ -33,7 +34,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
             $url_get_iddocumentoassinatura = preg_split('/\=([0-9]*)\&/', $url, -1, PREG_SPLIT_DELIM_CAPTURE);
             if (is_numeric($url_get_iddocumentoassinatura[1])) {
                 $idDocumentoAssinatura = $url_get_iddocumentoassinatura[1];
-                $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();                
+                $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
                 
                 $result = $objModelDocumentoAssinatura->find(
                     array(
@@ -50,8 +51,8 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         if ($idPronac) {
             $this->redirect("/parecer/analise-cnic/emitirparecer/idpronac/$idPronac");
         } else {
-                $this->redirect("/areadetrabalho");
-        }        
+            $this->redirect("/areadetrabalho");
+        }
     }
 
     public function encaminharAssinaturaAction()
@@ -73,7 +74,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                 $idDocumentoAssinatura = $this->getIdDocumentoAssinatura($idPronac, $idTipoDoAtoAdministrativo);
                 
                 $this->redirect("/assinatura/index/visualizar-projeto/?idDocumentoAssinatura=" . $idDocumentoAssinatura . "&origin=" . $origin);
-            } elseif(isset($post['IdPRONAC']) && is_array($post['IdPRONAC']) && count($post['IdPRONAC']) > 0) {
+            } elseif (isset($post['IdPRONAC']) && is_array($post['IdPRONAC']) && count($post['IdPRONAC']) > 0) {
                 // ainda nao implementado o encaminhamento de vários para pareceres
             }
         } catch (Exception $objException) {
@@ -98,9 +99,9 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
     /**
      * @return Parecer_AnaliseCnicDocumentoAssinaturaController
      */
-    function obterServicoDocumentoAssinatura()
+    public function obterServicoDocumentoAssinatura()
     {
-        if(!isset($this->servicoDocumentoAssinatura)) {
+        if (!isset($this->servicoDocumentoAssinatura)) {
             require_once __DIR__ . DIRECTORY_SEPARATOR . "AnaliseCnicDocumentoAssinaturaController.php";
             $this->servicoDocumentoAssinatura = new Parecer_AnaliseCnicDocumentoAssinaturaController($this->getRequest()->getPost());
         }
@@ -173,7 +174,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
             $this->fecharAssinatura($idPronac);
             
             $this->readequarProjetoAprovadoNaCNIC();
-        }        
+        }
         
         //FINALIZAR ANALISE - JUSTIFICATIVA DE PLENARIA - INICIO
         if (isset($_POST['justificativaenvioplenaria'])) {
@@ -186,15 +187,12 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
             /**** FIM CODIGO DE READEQUACAO ****/
 
             $this->incluirNaPauta($idPronac, $ConsultaReuniaoAberta);
-            
         } // fecha if
         // =================================================================
         // ========= CARREGANDO TELA DE EMISSAO DE PARECER =================
         else {
-
             $this->carregarEmissaoParecer();
         } // fecha else
-       
     }
 
 
@@ -212,7 +210,6 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
 
         //troca planilhas apenas se a decisao do componente for de aprovar a readequacao  //Se a planilha atual � SE significa que voltou da plenaria e nao entra na opcao de desativar a antiga e ativar a nova
         if ($post->decisao = 'AC' && $this->view->tpPlanilha != 'SE') {
-
             try {
                 //ATIVA PLANILHA CO READEQUADA
                 $tblPlanilhaAprovacao = new PlanilhaAprovacao();
@@ -235,10 +232,8 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                     $planilhaR->stAtivo = 'S';
                     $planilhaR->save();
                 }
-
             }// fecha try
             catch (Exception $e) {
-
                 parent::message("Erro ao ativar Planilha readequada. " . $e->getMessage(), "parecer/analise-cnic/emitirparecer/idpronac/" . $idPronac, "ERROR");
             }
         }
@@ -269,10 +264,11 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         $tblProjetos->alterar($dados, $where);
         
         parent::message("Projeto readequado com sucesso!", "areadetrabalho/index", "CONFIRM");
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
     
-    private function incluirNaPauta($idPronac, $ConsultaReuniaoAberta) {
+    private function incluirNaPauta($idPronac, $ConsultaReuniaoAberta)
+    {
         $post = Zend_Registry::get('post');
 
         $codSituacao = ($this->bln_readequacao == "false") ? 'D50' : 'D02';
@@ -308,7 +304,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                 $ProvidenciaTomada = 'Projeto apreciado pela Comissão Nacional de Incentivo à Cultura - ';
                 $tblProjetos->alterarSituacao($idPronac, '', $situacao, $ProvidenciaTomada);
                 parent::message("Projeto cadastrado na Pauta com sucesso!", "areadetrabalho/index", "CONFIRM");
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             } else {
                 // altera o projeto na pauta
                 $dados = array(
@@ -355,9 +351,8 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                     }
                 }
                 parent::message("Projeto j&aacute; est&aacute; em Pauta, sendo alterado com sucesso!", "areadetrabalho/index", "CONFIRM");
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             }
-            
         } // fecha try
         catch (Exception $e) {
             parent::message("Erro ao incluir projeto na Pauta. " . $e->getMessage(), "parecer/analise-cnic/emitirparecer/idpronac/" . $idPronac, "ERROR");
@@ -504,7 +499,6 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
             $valorretirarplanilhaItemCaptacaoRecurso = $valorItemCaptacaoRecurso['soma'] - $dezcentovalorretirar; //(correcao V2 - V6)
             $this->view->valorReadequar10porcento = $valorretirarplanilhaItemCaptacaoRecurso;
             $this->view->totalcaptacaorecurso = "true";
-
         } elseif ($verificacaonegativo20porcento > 0 || $verificacaonegativo > 0 || $verificacaonegativo10porcento > 0) {
 
             //Calculo dos 20%
@@ -572,7 +566,6 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
             } else {
                 $this->view->verifica15porcento = $valoracustosadministrativos['soma'];
             }
-
         } else {
             //Calculo dos 20%
             $this->view->totaldivulgacao = "false";
@@ -595,7 +588,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
 
     
     private function carregarEmissaoParecer()
-    {      
+    {
         // recebe os dados via get
         $idpronac = $this->_request->getParam("idpronac");
         $projetos = new Projetos();
@@ -685,13 +678,13 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                     $arrWhereSomaPlanilha['stAtivo = ? '] = 'N';
                 } else {
                     $arrWhereSomaPlanilha['stAtivo = ? '] = 'S';
-                }        
+                }
                 $valorProjeto = $planilhaAprovacao->somarItensPlanilhaAprovacao($arrWhereSomaPlanilha);
                 $this->view->totalsugerido = $valorProjeto['soma'] ? $valorProjeto['soma'] : 0; //valor total do projeto (Planilha Aprovacao)
                 
                 if (!$IN2017) {
                     $this->validacao1520($idpronac);
-                }                    
+                }
                 
                 if (!$IN2017) {
                     $this->validacao50($idpronac, $projetoAtual);
@@ -702,10 +695,10 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                 $verificaEnquadramento = RealizarAnaliseProjetoDAO::verificaEnquadramento($idpronac, $tpPlanilha, $IN2017);
                 if ($IN2017) {
                     $this->view->enquadramento = $verificaEnquadramento[0]->stArtigo;
-                } else if (!$IN2017) {
+                } elseif (!$IN2017) {
                     if (isset($verificaEnquadramento[0]->stArtigo18) && $verificaEnquadramento[0]->stArtigo18 == true) {
                         $this->view->enquadramento = 'Artigo 18';
-                    } else if (isset($verificaEnquadramento[0]->stArtigo26) && $verificaEnquadramento[0]->stArtigo26 == true) {
+                    } elseif (isset($verificaEnquadramento[0]->stArtigo26) && $verificaEnquadramento[0]->stArtigo26 == true) {
                         $this->view->enquadramento = 'Artigo 26';
                     } else {
                         $this->view->enquadramento = 'NAO ENQUADRADO';
@@ -817,22 +810,20 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                 } catch (Exception $e) {
                     $this->_helper->json(array('error' => true, 'descricao' => $e->getMessage()));
                 }
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             } else {
                 try {
                     $where = "idparecer = " . $idparecer;
                     $update = $tblParecer->alterar($dados, $where);
                     $this->_helper->json(array('error' => false));
-
                 } catch (Zend_Exception $e) {
                     $this->_helper->json(array('error' => true, 'descricao' => $e->getMessage()));
                 }
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             }
         } else {
-
             $this->_helper->json(array('error' => true, 'descricao' => 'N&atilde;o foi encontrado parecer v&aacute;lido da an&aacute;lise t&eacute;cnica.'));
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
     }
 
@@ -847,7 +838,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         try {
             $tbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();
             $objAtoAdministrativo = $tbAtoAdministrativo->obterAtoAdministrativoAtual($idTipoDoAtoAdministrativo, $idPerfilDoAssinante, $idOrgaoDoAssinante);
-            if (count($objAtoAdministrativo) > 0) { 
+            if (count($objAtoAdministrativo) > 0) {
                 $idAtoAdministrativo = $objAtoAdministrativo['idAtoAdministrativo'];
                 
                 $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();

@@ -1,22 +1,22 @@
 <?php
-class Termo extends Zend_Db_Table{
-
-                   
-                 public function buscarReuniao() {
-                   $sql0 = " select MAX(NrReuniao) as NrReuniao
+class Termo extends Zend_Db_Table
+{
+    public function buscarReuniao()
+    {
+        $sql0 = " select MAX(NrReuniao) as NrReuniao
                             from
                             SAC.dbo.tbReuniao as reuniao
                             where
                             reuniao.stEstado = 1 and reuniao.stPlenaria = 'E'";
-                    $db= Zend_Db_Table::getDefaultAdapter();
-                    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-			return $db->fetchAll($sql0);
-                    }
+        return $db->fetchAll($sql0);
+    }
         
-		public function buscarTermo($NrReuniao) {
-       		       			
-$sql = "select  tr.idNrReuniao, 
+    public function buscarTermo($NrReuniao)
+    {
+        $sql = "select  tr.idNrReuniao, 
 		tr.NrReuniao, 
 		tr.stEstado,
 		tr.DtFinal,
@@ -34,16 +34,16 @@ $sql = "select  tr.idNrReuniao,
         and tr.stEstado = 1 
         and ap.dtaprovacao in(select max(dtaprovacao) from sac.dbo.aprovacao where idpronac=pr.IdPRONAC);";
 
-			$db= Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-			return $db->fetchAll($sql);
-                }
+        return $db->fetchAll($sql);
+    }
 
 
-                public function gerarTermo($pronac) {
-
-$sql = "        SELECT
+    public function gerarTermo($pronac)
+    {
+        $sql = "        SELECT
               tr.idNrReuniao,
               pr.AnoProjeto+pr.Sequencial as pronac,
 		    tr.NrReuniao,
@@ -79,11 +79,8 @@ $sql = "        SELECT
 		    ;
 			" ;
 
-			$db= Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			return $db->fetchAll($sql);
-       	}
-        
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    }
 }
-
-?>

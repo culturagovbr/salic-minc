@@ -9,27 +9,32 @@
  *
  * @author 01610881125
  */
-class Cotacaoxagentes extends MinC_Db_Table_Abstract {
+class Cotacaoxagentes extends MinC_Db_Table_Abstract
+{
     protected $_banco   = 'bdcorporativo';
     protected $_name    = 'tbCotacaoxAgentes';
     protected $_schema  = 'scSAC';
 
-    public function inserirCotacaoxAgentes($data){
+    public function inserirCotacaoxAgentes($data)
+    {
         $insert = $this->insert($data);
         return $insert;
     }
 
-    public function alterarCotacaoxAgentes($data, $where){
+    public function alterarCotacaoxAgentes($data, $where)
+    {
         $update = $this->update($data, $where);
         return $update;
     }
 
-    public function deletarCotacaoxAgentes($where){
+    public function deletarCotacaoxAgentes($where)
+    {
         $delete = $this->delete($where);
         return $delete;
     }
 
-    public function buscarAgentes($where){
+    public function buscarAgentes($where)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -55,7 +60,8 @@ class Cotacaoxagentes extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function verificarAgenteXCotacao($idcotacao, $idAgente){
+    public function verificarAgenteXCotacao($idcotacao, $idAgente)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -68,4 +74,3 @@ class Cotacaoxagentes extends MinC_Db_Table_Abstract {
         return $this->fetchRow($select);
     }
 }
-?>

@@ -37,13 +37,11 @@ class SolicitarRecursoDecisaoDAO extends Zend_Db_Table
              WHERE pr.Situacao in ('A14','A16','A17','A20','A23','A24','A41','D02','D03','D14','B02')";
 
         // caso o id do pronac seja informado
-        if (!empty($idPronac))
-        {
+        if (!empty($idPronac)) {
             $sql.= "AND Pr.IdPRONAC = '". $idPronac ."' ";
         }
         // caso o cpf/cnpj seja informado
-        if (!empty($cpf_cnpj))
-        {
+        if (!empty($cpf_cnpj)) {
             $sql.= "AND Pr.CgcCpf = '". $cpf_cnpj ."' ";
         }
 
@@ -94,33 +92,27 @@ class SolicitarRecursoDecisaoDAO extends Zend_Db_Table
                     AND PP.FonteRecurso = 109
                     AND PAP.stAtivo = 'S'";
 
-        if (!empty($idRecurso))
-        {
+        if (!empty($idRecurso)) {
             $sql.= " AND Rec.idRecurso = $idRecurso";
         }
         // busca de acordo com o pronac
-        if (!empty($idPronac))
-        {
+        if (!empty($idPronac)) {
             $sql.= " AND PAP.IdPRONAC = $idPronac";
         }
         // busca de acordo com o produto
-        if (!empty($idProduto) || $buscarPorProduto == true)
-        {
+        if (!empty($idProduto) || $buscarPorProduto == true) {
             $sql.= " AND PAP.idProduto = $idProduto";
         }
         // busca de acordo com a etapa
-        if (!empty($idEtapa))
-        {
+        if (!empty($idEtapa)) {
             $sql.= " AND PAP.idEtapa = $idEtapa";
         }
         // busca de acordo com a uf
-        if (!empty($idUF))
-        {
+        if (!empty($idUF)) {
             $sql.= " AND PAP.idUFDespesa = $idUF";
         }
         // busca de acordo com a cidade
-        if (!empty($idCidade))
-        {
+        if (!empty($idCidade)) {
             $sql.= " AND PAP.idMunicipioDespesa = $idCidade";
         }
 
@@ -129,7 +121,6 @@ class SolicitarRecursoDecisaoDAO extends Zend_Db_Table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-
     } // fecha m�todo buscarPlanilhaOrcamento()
 
 
@@ -150,9 +141,9 @@ class SolicitarRecursoDecisaoDAO extends Zend_Db_Table
 
 
 
-	public static function buscarproponentes($cpf)
-	{
-		$sql = "SELECT Pr.AnoProjeto+Pr.Sequencial as pronac ,
+    public static function buscarproponentes($cpf)
+    {
+        $sql = "SELECT Pr.AnoProjeto+Pr.Sequencial as pronac ,
 			Pr.idPRONAC,
 			Pr.NomeProjeto,
 			CASE WHEN N.Descricao IS NULL
@@ -165,17 +156,17 @@ class SolicitarRecursoDecisaoDAO extends Zend_Db_Table
 			INNER JOIN SAC.dbo.Interessado I ON Pr.CgcCpf = I.CgcCpf
 			where A.CNPJCPF = " . $cpf . "";
 
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		$resultado = $db->fetchAll($sql);
-		return $resultado;
-	} // fecha m�todo buscarproponentes()
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        $resultado = $db->fetchAll($sql);
+        return $resultado;
+    } // fecha m�todo buscarproponentes()
 
 
 
-	public static function buscaprojetosaprovados($idpronac = null, $cpf = null)
-	{
-		$sql = "SELECT
+    public static function buscaprojetosaprovados($idpronac = null, $cpf = null)
+    {
+        $sql = "SELECT
 				Pr.AnoProjeto+Pr.Sequencial as nrpronac, Pr.NomeProjeto as nmprojeto,
 				Pr.IdPRONAC, a.CNPJCPF,
 				St.descricao as situacao,
@@ -192,26 +183,24 @@ class SolicitarRecursoDecisaoDAO extends Zend_Db_Table
 				INNER JOIN AGENTES.dbo.Nomes N ON N.idAgente = A.idAgente
 				INNER JOIN SAC.dbo.Interessado I ON Pr.CgcCpf = I.CgcCpf		";
 
-		if (!empty($idpronac))
-		{
-			$sql.= "where Pr.IdPRONAC = '". $idpronac ."'";
-		}
-		if (!empty($cpf))
-		{
-			$sql.= "where Pr.CgcCpf = '". $cpf ."'";
-		}
+        if (!empty($idpronac)) {
+            $sql.= "where Pr.IdPRONAC = '". $idpronac ."'";
+        }
+        if (!empty($cpf)) {
+            $sql.= "where Pr.CgcCpf = '". $cpf ."'";
+        }
 
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		$resultado = $db->fetchAll($sql);
-		return $resultado;
-	} // fecha m�todo buscaprojetosaprovados()
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        $resultado = $db->fetchAll($sql);
+        return $resultado;
+    } // fecha m�todo buscaprojetosaprovados()
 
 
 
-	public static function buscaprojetosnaoaprovados($idpronac = null, $cpf = null)
-	{
-		$sql = "SELECT
+    public static function buscaprojetosnaoaprovados($idpronac = null, $cpf = null)
+    {
+        $sql = "SELECT
 				Pr.AnoProjeto+Pr.Sequencial as nrpronac, Pr.NomeProjeto as nmprojeto,
 				Pr.IdPRONAC, a.CNPJCPF,
 				St.descricao as situacao,
@@ -228,73 +217,69 @@ class SolicitarRecursoDecisaoDAO extends Zend_Db_Table
 				INNER JOIN AGENTES.dbo.Nomes N ON N.idAgente = A.idAgente
 				INNER JOIN SAC.dbo.Interessado I ON Pr.CgcCpf = I.CgcCpf ";
 
-		if (!empty($idpronac))
-		{
-			$sql.= "where Pr.IdPRONAC = '". $idpronac ."'";
-		}
-		if (!empty($cpf))
-		{
-			$sql.= "where Pr.CgcCpf = '". $cpf ."'";
-		}
+        if (!empty($idpronac)) {
+            $sql.= "where Pr.IdPRONAC = '". $idpronac ."'";
+        }
+        if (!empty($cpf)) {
+            $sql.= "where Pr.CgcCpf = '". $cpf ."'";
+        }
 
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		$resultado = $db->fetchAll($sql);
-		return $resultado;
-	} // fecha m�todo buscaprojetosnaoaprovados()
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        $resultado = $db->fetchAll($sql);
+        return $resultado;
+    } // fecha m�todo buscaprojetosnaoaprovados()
 
 
 
-	public function reintegrarecursoorc($idrecurso, $idplanilhaaprovacao, $justificativa)
+    public function reintegrarecursoorc($idrecurso, $idplanilhaaprovacao, $justificativa)
     {
-       	$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
-	 	$sql = "INSERT INTO SAC.dbo.tbRecursoXPlanilhaAprovacao (idRecurso, idPlanilhaAprovacao, stRecursoAprovacao, dsJustificativa)
+        $sql = "INSERT INTO SAC.dbo.tbRecursoXPlanilhaAprovacao (idRecurso, idPlanilhaAprovacao, stRecursoAprovacao, dsJustificativa)
      VALUES ('$idrecurso', '$idplanilhaaprovacao', 'N', '$justificativa')";
 
-		$resultado = $db->query($sql);
-		return $resultado;
-
+        $resultado = $db->query($sql);
+        return $resultado;
     } // fecha m�todo reintegrarecursoorc()
 
 
 
 
-			public function projetonaoaprovado($idpronac, $recurso, $idagente)
+    public function projetonaoaprovado($idpronac, $recurso, $idagente)
     {
-       	$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
-      	$sql = "INSERT INTO SAC.dbo.tbRecurso (IdPRONAC, dtSolicitacaoRecurso, dsSolicitacaoRecurso, idAgenteSolicitante, stAtendimento, tpSolicitacao)
+        $sql = "INSERT INTO SAC.dbo.tbRecurso (IdPRONAC, dtSolicitacaoRecurso, dsSolicitacaoRecurso, idAgenteSolicitante, stAtendimento, tpSolicitacao)
 				VALUES ('$idpronac', GETDATE(), '$recurso', '$idagente', 'E', 'NA')";
 
-		$resultado = $db->query($sql);
-		return $resultado;
-	}
+        $resultado = $db->query($sql);
+        return $resultado;
+    }
 
 
 
 
-			public function projetoaprovado($idpronac, $recurso, $idagente)
+    public function projetoaprovado($idpronac, $recurso, $idagente)
     {
-       	$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
-      	$sql = "INSERT INTO SAC.dbo.tbRecurso (IdPRONAC, dtSolicitacaoRecurso, dsSolicitacaoRecurso, idAgenteSolicitante, stAtendimento, tpSolicitacao)
+        $sql = "INSERT INTO SAC.dbo.tbRecurso (IdPRONAC, dtSolicitacaoRecurso, dsSolicitacaoRecurso, idAgenteSolicitante, stAtendimento, tpSolicitacao)
 				VALUES ('$idpronac', GETDATE(), '$recurso', '$idagente', 'E', 'AE')";
 
-		$resultado = $db->query($sql);
-		return $resultado;
-	}
+        $resultado = $db->query($sql);
+        return $resultado;
+    }
 
 
 
 
-			public function planilhaproposta($idplanilha)
-	{
-
-		$sql = "SELECT     (tbPlanilhaProposta.Quantidade * tbPlanilhaProposta.Ocorrencia * tbPlanilhaProposta.ValorUnitario) AS Total, tbPlanilhaItens.Descricao AS Itens,
+    public function planilhaproposta($idplanilha)
+    {
+        $sql = "SELECT     (tbPlanilhaProposta.Quantidade * tbPlanilhaProposta.Ocorrencia * tbPlanilhaProposta.ValorUnitario) AS Total, tbPlanilhaItens.Descricao AS Itens,
                       Produto.Descricao AS Produto, tbPlanilhaEtapa.Descricao AS Etapa
 FROM         tbPlanilhaProposta INNER JOIN
                       tbPlanilhaItens ON tbPlanilhaProposta.idPlanilhaItem = tbPlanilhaItens.idPlanilhaItens INNER JOIN
@@ -302,27 +287,22 @@ FROM         tbPlanilhaProposta INNER JOIN
                       Produto ON tbPlanilhaProposta.idProduto = Produto.Codigo";
 
 
-	     if (!empty($idplanilha))
-        {
+        if (!empty($idplanilha)) {
             $sql.= " AND tbPlanilhaProposta.idPlanilhaItem = $idplanilha";
-	            			$db = Zend_Db_Table::getDefaultAdapter();
-									$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-									$resultado = $db->fetchAll($sql);
-									return $resultado;
-	}
-
-
-	}
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+            $resultado = $db->fetchAll($sql);
+            return $resultado;
+        }
+    }
 
 
 
 
 
-	public function planilhaorcamento()
-
-	{
-
-	}
+    public function planilhaorcamento()
+    {
+    }
 
 
 
@@ -400,33 +380,27 @@ FROM         tbPlanilhaProposta INNER JOIN
 					AND PAP.stAtivo = 'S'";
 
         // busca de acordo com o pronac
-        if (!empty($idPronac))
-        {
+        if (!empty($idPronac)) {
             $sql.= " AND PAP.IdPRONAC = $idPronac";
         }
 
-       if (!empty($idRecurso))
-        {
+        if (!empty($idRecurso)) {
             $sql.= " AND Rec.idRecurso = $idRecurso";
         }
         // busca de acordo com o produto
-        if (!empty($idProduto) || $buscarPorProduto == true)
-        {
+        if (!empty($idProduto) || $buscarPorProduto == true) {
             $sql.= " AND PAP.idProduto = $idProduto";
         }
         // busca de acordo com a etapa
-        if (!empty($idEtapa))
-        {
+        if (!empty($idEtapa)) {
             $sql.= " AND PAP.idEtapa = $idEtapa";
         }
         // busca de acordo com a uf
-        if (!empty($idUF))
-        {
+        if (!empty($idUF)) {
             $sql.= " AND PAP.idUFDespesa = $idUF";
         }
         // busca de acordo com a cidade
-        if (!empty($idCidade))
-        {
+        if (!empty($idCidade)) {
             $sql.= " AND PAP.idMunicipioDespesa = $idCidade";
         }
 
@@ -441,9 +415,9 @@ FROM         tbPlanilhaProposta INNER JOIN
 
 
 
-	 public static function analiseDeCustosBuscarProduto($idPronac)
+    public static function analiseDeCustosBuscarProduto($idPronac)
     {
-		$sql = "SELECT DISTINCT PD.Descricao,
+        $sql = "SELECT DISTINCT PD.Descricao,
 					CASE
 						WHEN PAP.idProduto = 0
 							THEN 'Administra��o do Projeto'
@@ -467,8 +441,7 @@ FROM         tbPlanilhaProposta INNER JOIN
 					AND PAP.tpPlanilha = 'CO' ";
 
         // busca de acordo com o pronac
-        if (!empty($idPronac))
-        {
+        if (!empty($idPronac)) {
             $sql.= " AND PAP.IdPRONAC = $idPronac";
         }
 
@@ -491,7 +464,7 @@ FROM         tbPlanilhaProposta INNER JOIN
      */
     public static function analiseDeCustosBuscarEtapa($idPronac, $idProduto = null, $buscarPorProduto = null)
     {
-		$sql = "SELECT DISTINCT PP.idEtapa AS idEtapa
+        $sql = "SELECT DISTINCT PP.idEtapa AS idEtapa
 					,PAP.IdPRONAC
 					,PAP.idProduto
 
@@ -510,12 +483,10 @@ FROM         tbPlanilhaProposta INNER JOIN
 					AND PAP.tpPlanilha = 'CO' ";
 
         // busca de acordo com o pronac
-        if (!empty($idPronac))
-        {
+        if (!empty($idPronac)) {
             $sql.= " AND PAP.IdPRONAC = $idPronac";
         }
-        if (!empty($idProduto) || $buscarPorProduto == true)
-        {
+        if (!empty($idProduto) || $buscarPorProduto == true) {
             $sql.= " AND PAP.idProduto = $idProduto";
         }
 
@@ -526,7 +497,4 @@ FROM         tbPlanilhaProposta INNER JOIN
         $resultado = $db->fetchAll($sql);
         return $resultado;
     } // fecha m�todo analiseDeCustosBuscarEtapa()
-
-
-
 }

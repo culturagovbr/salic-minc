@@ -5,8 +5,8 @@
  *
  * @author rafael.gloria@cultura.gov.br
  */
-class Mensagem extends GenericModel{
-
+class Mensagem extends GenericModel
+{
     protected $_primary = '';
     protected $_name = 'tbMensagem';
     protected $_schema = 'SAC';
@@ -16,8 +16,9 @@ class Mensagem extends GenericModel{
      *
      * @param Zend_Db_Table_Row_Abstract $messageRow
      */
-    public function saveListDevice(Zend_Db_Table_Row_Abstract $messageRow, $listDeviceId = array()) {
-        if($listDeviceId){
+    public function saveListDevice(Zend_Db_Table_Row_Abstract $messageRow, $listDeviceId = array())
+    {
+        if ($listDeviceId) {
             $modelMensagemDispositivo = new MensagemDispositivoMovel();
             foreach ($listDeviceId as $deviceId) {
                 $messageDeviceRow = $modelMensagemDispositivo->createRow();
@@ -35,20 +36,22 @@ class Mensagem extends GenericModel{
      * @param stdClass $objParam
      * @return Zend_Db_Table_Select
      */
-    public function montarFiltrosListarDeDispositivo($consulta, stdClass $objParam){
+    public function montarFiltrosListarDeDispositivo($consulta, stdClass $objParam)
+    {
         $consulta
             ->where('m.dtExclusao IS NULL')
             ->where('md.dtExclusao IS NULL')
             ->where('d.idRegistration = ?', $objParam->idRegistration? $objParam->idRegistration: '');
 
-        if($objParam->new) {
+        if ($objParam->new) {
             $consulta->where('m.dtAcesso IS NULL');
         }
 
         return $consulta;
     }
 
-    public function buscarTotalListarDeDispositivo(stdClass $objParam){
+    public function buscarTotalListarDeDispositivo(stdClass $objParam)
+    {
         $total = 0;
         $consulta = $this->select();
         $consulta->setIntegrityCheck(false);
@@ -59,7 +62,7 @@ class Mensagem extends GenericModel{
         $this->montarFiltrosListarDeDispositivo($consulta, $objParam);
 
         $rs = $this->fetchRow($consulta);
-        if($rs){
+        if ($rs) {
             $total = (int)$rs->total;
         }
 
@@ -72,7 +75,8 @@ class Mensagem extends GenericModel{
      * @param stdClass $objParam
      * @return Zend_Db_Table_Rowset_Abstract
      */
-    public function listarDeDispositivo(stdClass $objParam){
+    public function listarDeDispositivo(stdClass $objParam)
+    {
         $consulta = $this->select();
         $consulta->setIntegrityCheck(false);
         $consulta
@@ -104,11 +108,9 @@ class Mensagem extends GenericModel{
 
         $consulta = $this->montarFiltrosListarDeDispositivo($consulta, $objParam);
 
-        if($objParam->next) {
+        if ($objParam->next) {
             $consulta->limit($objParam->next, (int)$objParam->offset);
         }
         return $this->fetchAll($consulta);
     }
-
-
 }

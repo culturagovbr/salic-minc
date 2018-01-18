@@ -1,13 +1,5 @@
 <?php
 
-/** VerificarReadequacaoDeProjetoController
- * @author Equipe RUP - Politec
- * @author wouerner <wouerner@gmail.com>
- * @since 17/05/2010
- * @version 1.0
- * @package application
- * @subpackage application.controllers
- */
 class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericController
 {
 
@@ -22,7 +14,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
         parent::init();
 
         if (!empty($this->idPreProjeto)) {
-
             $this->view->idPreProjeto = $this->idPreProjeto;
 
             $this->verificarPermissaoAcesso(true, false, false);
@@ -33,7 +24,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
             $this->view->blnPossuiDiligencias = $rsDiligencias->count();
 
             $this->view->acao = $this->_urlPadrao . "/proposta/manterpropostaincentivofiscal/salvar";
-
         }
 
         // Busca na tabela apoio ExecucaoImediata
@@ -97,7 +87,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
      */
     public function declaracaonovapropostaAction()
     {
-
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
 
@@ -157,8 +146,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
 
-        $get = Zend_Registry::get('get');
-        $agencia = $get->agencia;
+        $agencia = $this->getParam('agencia');
 
         if ($agencia > 0) {
             $tblProposta = new Proposta_Model_DbTable_PreProjeto();
@@ -180,7 +168,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
      */
     public function salvarAction()
     {
-
         $post = array_change_key_case($this->getRequest()->getPost());
 
         if (empty($post['idagente'])) {
@@ -224,7 +211,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
         }
 
         if (!empty($idPreProjeto)) {
-
             $arrBusca['idPreProjeto = ?'] = $idPreProjeto;
 
             $tblPreProjeto = new Proposta_Model_DbTable_PreProjeto();
@@ -319,7 +305,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
             }
 
             if (!empty($idDocumento)) {
-
                 $arrayFile = array(
                     'idPreProjeto' => $idPreProjeto,
                     'documento' => $idDocumento,
@@ -332,9 +317,9 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
                 $mapperTbDocumentoAgentes->saveCustom($arrayFile, $file);
             }
             if ($acao != 'atualizacao_automatica') {
-
-                if (empty($url))
+                if (empty($url)) {
                     $url = "/proposta/manterpropostaincentivofiscal/identificacaodaproposta/idPreProjeto/" . $idPreProjeto;
+                }
 
                 parent::message($mesagem, $url, "CONFIRM");
             }
@@ -367,10 +352,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
         $arrDados = array("proposta" => $rsPreProjeto,
             "proponente" => $rsProponente);
         return $arrDados;
-        //METODO QUE MONTA TELA DO USUARIO ENVIANDO TODOS OS PARAMETROS NECESSARIOS DENTRO DO ARRAY
-        $this->montaTela("manterpropostaincentivofiscal/identificacaodaproposta.phtml", array("acao" => $this->_urlPadrao . "/proposta/manterpropostaincentivofiscal/salvar",
-            "proposta" => $rsPreProjeto,
-            "proponente" => $rsProponente));
     }
 
     /**
@@ -381,105 +362,16 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
      */
     public function editarAction()
     {
-        /* ==== VERIFICA PERMISSAO DE ACESSO DO PROPONENTE A PROPOSTA OU AO PROJETO ====== */
         $this->verificarPermissaoAcesso(true, false, false);
 
         $idPreProjeto = $this->idPreProjeto;
 
         $this->redirect("/proposta/manterpropostaincentivofiscal/identificacaodaproposta/idPreProjeto/" . $this->idPreProjeto);
-
-        $this->view->idPreProjeto = $idPreProjeto;
-
-        if (!empty($idPreProjeto)) {
-
-            $arrBusca['idPreProjeto = ?'] = $idPreProjeto;
-
-            $tblPreProjeto = new Proposta_Model_DbTable_PreProjeto();
-            $rsPreProjeto = $tblPreProjeto->buscar($arrBusca)->current();
-
-            if ($rsPreProjeto) {
-                $rsPreProjeto = $rsPreProjeto->toArray();
-                $stProposta = $rsPreProjeto["stProposta"];
-            }
-
-            $arrBuscaProponete['a.idagente = ?'] = $rsPreProjeto['idAgente'];
-            $tblAgente = new Agente_Model_DbTable_Agentes();
-            $rsProponente = $tblAgente->buscarAgenteENome($arrBuscaProponete)->current();
-            if ($rsProponente) {
-                $rsProponente = ($rsProponente->toArray());
-            }
-
-            $ag = new Agente_Model_DbTable_Agentes();
-            $verificarvinculo = $ag->buscarAgenteVinculoProponente(array('vprp.idpreprojeto = ?' => $idPreProjeto, 'vprp.sivinculoproposta = ?' => 2));
-
-            $verificarvinculoCount = $ag->buscarAgenteVinculoProponente(array('vprp.idpreprojeto = ?' => $idPreProjeto))->count();
-
-            if ($verificarvinculoCount > 0) {
-                $this->view->verificarsolicitacaovinculo = true;
-            } else {
-                $this->view->verificarsolicitacaovinculo = false;
-            }
-
-            // I Love you @
-            if (@$verificarvinculo[0]->sivinculo != 2) {
-                $this->view->siVinculoProponente = true;
-            } else {
-                $this->view->siVinculoProponente = false;
-            }
-
-            $idAgente = $this->idResponsavel;
-
-            $tblVinculo = new Agente_Model_DbTable_TbVinculo();
-
-            $arrBuscaP['vp.idpreprojeto = ?'] = $idPreProjeto;
-            $arrBuscaP['vi.idusuarioresponsavel = ?'] = $this->idResponsavel;
-            $rsVinculoP = $tblVinculo->buscarVinculoProponenteResponsavel($arrBuscaP);
-
-            $arrBuscaN['vi.sivinculo IN (0,2)'] = '';
-            $arrBuscaN['vi.idusuarioresponsavel = ?'] = $this->idResponsavel;
-            $rsVinculoN = $tblVinculo->buscarVinculoProponenteResponsavel($arrBuscaN);
-            //METODO QUE MONTA TELA DO USUARIO ENVIANDO TODOS OS PARAMENTROS NECESSARIO DENTRO DO ARRAY
-
-
-            $idDocumento = "";
-
-            if (!empty($stProposta)) {
-
-                $tbl = new Proposta_Model_DbTable_TbDocumentosPreProjeto();
-
-                // Plano de execução imediata #novain
-                if ($stProposta == '618') { // proposta execucao imediata edital
-                    $idDocumento = 248;
-                } elseif ($stProposta == '619') { // proposta execucao imediata contrato de patrocínio
-                    $idDocumento = 162;
-                }
-                if (!empty($idDocumento))
-                    $arquivoExecucaoImediata = $tbl->buscarDocumentos(array("idprojeto = ?" => $idPreProjeto, "CodigoDocumento = ?" => $idDocumento));
-            }
-
-            $this->montaTela(
-                "manterpropostaincentivofiscal/identificacaodaproposta.phtml",
-                array("acao" => $this->_urlPadrao . "/proposta/manterpropostaincentivofiscal/salvar",
-                    "proposta" => $rsPreProjeto,
-                    "solicitacaovinculo" => $verificarvinculo,
-                    "idResponsavel" => $idAgente,
-                    "dadosVinculo" => $rsVinculoP,
-                    "listaProponentes" => $rsVinculoN,
-                    "idPreProjeto" => $idPreProjeto,
-                    "arquivoExecucaoImediata" => $arquivoExecucaoImediata,
-                    "proponente" => $rsProponente)
-            );
-        } else {
-            //chama o metodo index
-            $this->_forward("index", "manterpropostaincentivofiscal", 'proposta');
-        }
     }
 
     public function identificacaodapropostaAction()
     {
-
         if (empty($this->_proposta["idpreprojeto"])) {
-
             $post = Zend_Registry::get('post');
 
             $arrBusca = array();
@@ -499,7 +391,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
                     "acao" => $this->_urlPadrao . "/proposta/manterpropostaincentivofiscal/salvar"));
             }
         } else {
-
             $tbl = new Proposta_Model_DbTable_TbDocumentosPreProjeto();
 
             // Plano de execução imediata #novain
@@ -508,15 +399,15 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
             } elseif ($this->_proposta["stproposta"] == '619') { // proposta execucao imediata contrato de patrocínio
                 $idDocumento = 162;
             }
-            if (!empty($idDocumento))
+            if (!empty($idDocumento)) {
                 $arquivoExecucaoImediata = $tbl->buscarDocumentos(array("idprojeto = ?" => $this->idPreProjeto, "CodigoDocumento = ?" => $idDocumento));
+            }
 
             $this->view->arquivoExecucaoImediata = $arquivoExecucaoImediata;
         }
 
 
         if ($this->isEditarProjeto($this->idPreProjeto)) {
-
             $tblProjetos = new Projetos();
             $projeto = $tblProjetos->findBy(array('idprojeto = ?' => $this->idPreProjeto));
 
@@ -533,7 +424,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
             $this->view->valorsolicitadoincentivo = !empty($fonteincentivo['soma']) ? $fonteincentivo['soma'] : 0;
             $this->view->valoroutrasfontes = !empty($outrasfontes['soma']) ? $outrasfontes['soma'] : 0;
         }
-
     }
 
     public function responsabilidadesocialAction()
@@ -579,7 +469,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
         $listaValidacao = array();
 
         if (!empty($idPreProjeto)) {
-
             $tbPreProjeto = new Proposta_Model_DbTable_PreProjeto();
 
             if (!$tbPreProjeto->getAdapter() instanceof Zend_Db_Adapter_Pdo_Mssql) {
@@ -593,7 +482,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
             $idPronac = $projeto['idpronac'];
 
             if ($arrResultado->Observacao === true) {
-
                 $planilhaproposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
                 $ValorTotalPlanilha = $planilhaproposta->somarPlanilhaProposta($idPreProjeto)->toArray();
 
@@ -611,7 +499,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
 
 
             if ($params['confirmarenvioaominc'] == true && $arrResultado->Observacao === true) {
-
                 if ($projeto['area'] == 2) {
                     $orgaoUsuario = 171; # 171 - SAV/DAP
                 } else {
@@ -637,7 +524,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
                 $this->view->resultado = $listaValidacao;
             }
         }
-
     }
 
 
@@ -648,7 +534,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
      */
     public function excluirAction()
     {
-
         if ($this->isEditarProjeto) {
             parent::message("N&atilde;o foi possível realizar a opera&ccedil;&atilde;o!", "/proposta/manterpropostaincentivofiscal/listarproposta", "ERROR");
         }
@@ -673,7 +558,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
      *
      * @access public
      * @return void
-     * @author wouerner <wouerner@gmail.com>
      */
     public function enviarPropostaAction()
     {
@@ -684,7 +568,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
         $idPreProjeto = $this->getRequest()->getParam('idPreProjeto');
 
         if (!empty($idPreProjeto)) {
-
             $tbPreProjeto = new Proposta_Model_DbTable_PreProjeto();
 
             if (!$tbPreProjeto->getAdapter() instanceof Zend_Db_Adapter_Pdo_Mssql) {
@@ -708,13 +591,11 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
                 $insert = $tbMovimentacao->insert($dados);
 
                 parent::message("Proposta encaminhada com sucesso para an&aacute;lise no Minist&eacute;rio da Cultura.", "/proposta/manterpropostaincentivofiscal/identificacaodaproposta/idPreProjeto/" . $idPreProjeto, "CONFIRM");
-
             } else {
                 $this->view->resultado = $arrResultado;
             }
 
             $this->view->acao = $this->_urlPadrao . "/proposta/manterpropostaincentivofiscal/enviar-proposta/idPreProjeto/" . $this->idPreProjeto;
-
         } else {
             parent::message("Necess&aacute;rio informar o n&uacute;mero da proposta.", "/proposta/manterpropostaincentivofiscal/listarproposta", "ERROR");
         }
@@ -753,11 +634,9 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
             }
 
             return $arrResultado;
-
         } catch (Zend_Exception $ex) {
             parent::message("N&atilde;o foi poss&iacute;vel realizar a opera&ccedil;&atilde;o! (comsp)" . $ex->getMessage(), "/proposta/manterpropostaincentivofiscal/index?idPreProjeto=" . $idPreProjeto, "ERROR");
         }
-
     }
 
     /**
@@ -770,12 +649,10 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
     public function validarEnvioPropostaSemSp($idPreProjeto)
     {
         try {
-
             $tbPreProjeto = new Proposta_Model_DbTable_PreProjeto();
             $arrResultado = $tbPreProjeto->checklistEnvioPropostaSemSp($idPreProjeto);
 
             return $arrResultado;
-
         } catch (Zend_Exception $ex) {
             parent::message("N&atilde;o foi poss&iacute;vel realizar a opera&ccedil;&atilde;o! (semsp)" . $ex->getMessage(), "/proposta/manterpropostaincentivofiscal/index?idPreProjeto=" . $idPreProjeto, "ERROR");
         }
@@ -783,12 +660,8 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
 
     public function confirmarEnvioPropostaAoMincAction()
     {
-
-        /* =============================================================================== */
         /* ==== VERIFICA PERMISSAO DE ACESSO DO PROPONENTE A PROPOSTA OU AO PROJETO ====== */
-        /* =============================================================================== */
         $this->verificarPermissaoAcesso(true, false, false);
-
     }
 
     /**
@@ -812,7 +685,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
 
         //VERIFICA SE DATA INICIO E MAIOR QUE DATA FINAL
         if (!empty($get->dtInicio) && !empty($get->dtFim) && strlen($get->dtInicio) == 10 && strlen($get->dtFim) == 10) {
-
             $dtTemp = explode("/", $get->dtInicio);
             $dtInicio = $dtTemp[2] . $dtTemp[1] . $dtTemp[0];
 
@@ -836,7 +708,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
                 $mensagem = "<br><font color='red'>O per&iacute;odo de execu&ccedil;&atilde;o de projetos de plano anual dever ser posterior ao ano vigente</font>";
                 $bln = "false";
             }
-
         }
 
         //VERIFICA SE DATA INICIO E MAIOR QUE 90 DIAS DA DATA ATUAL
@@ -1065,7 +936,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
      */
     public function novoresponsavelAction()
     {
-
     }
 
     /**
@@ -1079,7 +949,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
      */
     public function respnovoresponsavelAction()
     {
-
         $this->_helper->layout->disableLayout();
 
         $cnpjcpf = Mascara::delMaskCPF($this->_request->getParam("cnpjcpf"));
@@ -1093,7 +962,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
 					    <td class='red' align='center'>Voc&ecirc; deve preencher pelo menos um campo!</td>
 					</tr>
 				</table>";
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         } elseif (!empty($cnpjcpf)) {
             $where['SGA.Cpf = ?'] = $cnpjcpf;
         } elseif (!empty($nome)) {
@@ -1114,7 +983,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
      */
     public function atualizarDadosPessoaJuridicaVerificandoCNAECultural($idPreProjeto)
     {
-
         $TbPreProjeto = new Proposta_Model_DbTable_PreProjeto();
         $proponente = $TbPreProjeto->buscarProponenteProposta($idPreProjeto);
 
@@ -1124,9 +992,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
         $segmentosIsentos = array('4D', '5A', '5D', '5E', '5S', '6I');
 
         if (isCnpjValid($proponente->CNPJCPF) && isset($produtoPrincipal['Segmento'])) {
-
             if (!in_array($produtoPrincipal['Segmento'], $segmentosIsentos)) {
-
                 $cnae = $TbPreProjeto->verificarCNAEProponenteComProdutoPrincipal($idPreProjeto);
 
                 # Se o CNAE estiver vazio, forçar atualização do proponente com os dados do webservice da receita
@@ -1141,5 +1007,4 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
         }
         return true; #pf
     }
-
 }

@@ -9,15 +9,16 @@
 
 class tbReadequacaoXParecer extends MinC_Db_Table_Abstract
 {
-	protected $_banco  = "SAC";
-	protected $_schema = "SAC";
-	protected $_name   = "tbReadequacaoXParecer";
+    protected $_banco  = "SAC";
+    protected $_schema = "SAC";
+    protected $_name   = "tbReadequacaoXParecer";
 
     /*
      * Criada em 13/03/2014
      * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
      */
-    public function buscarPareceresReadequacao($where=array(), $order=array()) {
+    public function buscarPareceresReadequacao($where=array(), $order=array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -34,12 +35,16 @@ class tbReadequacaoXParecer extends MinC_Db_Table_Abstract
             )
         );
         $select->joinInner(
-            array('b' => 'Parecer'), 'b.IdParecer = a.idParecer',
-            array(''), 'SAC.dbo'
+            array('b' => 'Parecer'),
+            'b.IdParecer = a.idParecer',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('c' => 'Usuarios'), 'c.usu_codigo = b.Logon',
-            array(''), 'TABELAS.dbo'
+            array('c' => 'Usuarios'),
+            'c.usu_codigo = b.Logon',
+            array(''),
+            'TABELAS.dbo'
         );
 
         //adiciona quantos filtros foram enviados

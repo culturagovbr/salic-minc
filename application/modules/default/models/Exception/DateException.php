@@ -5,6 +5,4 @@
  */
 class DateException extends Exception
 {
-    
 }
-

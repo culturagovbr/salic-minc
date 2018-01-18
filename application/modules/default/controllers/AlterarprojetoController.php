@@ -83,7 +83,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
         $pronac = $this->_request->getParam("pronac");
 
         if (!empty($pronac)) {
-
             if (strlen($pronac) > 7) {
                 $pronac = Seguranca::dencrypt($pronac);
             }
@@ -91,7 +90,7 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
             $ano = addslashes(substr($pronac, 0, 2));
             $sequencial = addslashes(substr($pronac, 2, strlen($pronac)));
 
-            $tbProjeto = New Projetos();
+            $tbProjeto = new Projetos();
             $buscaProjeto = $tbProjeto->buscar(array("AnoProjeto = ?" => $ano, "Sequencial = ?" => $sequencial));
 
             if (!empty($buscaProjeto[0])) {
@@ -119,7 +118,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
             $qtdDirigentes = '';
             if (isset($idAgente)) {
-
                 $dados = Agente_Model_ManterAgentesDAO::buscarAgentes(null, null, $idAgente);
 
                 if (!$dados) {
@@ -139,7 +137,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
                 }
 
                 if ($dados[0]->TipoPessoa == 1) {
-
                     $dirigentes = Agente_Model_ManterAgentesDAO::buscarVinculados(null, null, null, null, $idAgente);
                     $qtdDirigentes = count($dirigentes);
                     $this->view->dirigentes = $dirigentes;
@@ -164,7 +161,7 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
         parent::init(); // chama o init() do pai GenericControllerNew
     }
 
-// fecha metodo init()
+    // fecha metodo init()
 
     public function dirigentesAction()
     {
@@ -190,7 +187,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
         $validapronac = $projeto->VerificaPronac($arrBusca);
 
         if (count($validapronac) > 0) {
-
             $tblAprovacao = new Aprovacao();
             $rsAprovacao = $tblAprovacao->buscar(array("AnoProjeto = ?" => $ano, "Sequencial = ?" => $sequencial));
 //               if($rsAprovacao->count() <= 0){
@@ -245,7 +241,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
         $validapronac = $projeto->VerificaPronac($arrBusca);
 
         if (count($validapronac) > 0) {
-
             $tblAprovacao = new Aprovacao();
             $rsAprovacao = $tblAprovacao->buscar(array("AnoProjeto = ?" => $ano, "Sequencial = ?" => $sequencial));
 //               if($rsAprovacao->count() <= 0){
@@ -273,8 +268,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
     public function salvadirigentegeralAction()
     {
-
-
         $pronac = $this->_request->getParam("pronac");
 
         $Usuario = $this->getIdUsuario; // id do usuario logado
@@ -328,56 +321,56 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
                 'Usuario' => $Usuario,
                 'stAtivo' => 'A');
 
-            try {
-                $visaoTable = new Agente_Model_DbTable_Visao();
-                $busca = $visaoTable->buscarVisao($idAgente, $Visao);
-                if (!$busca) {
-                    $i = $visaoTable->cadastrarVisao($GravarVisao);
-                }
-            } catch (Exception $e) {
-                parent::message("Erro ao salvar a vis&atilde;o: " . $e->getMessage(), "alterarprojeto/incluirdirigente/pronac/" . $pronac, "ERROR");
+        try {
+            $visaoTable = new Agente_Model_DbTable_Visao();
+            $busca = $visaoTable->buscarVisao($idAgente, $Visao);
+            if (!$busca) {
+                $i = $visaoTable->cadastrarVisao($GravarVisao);
             }
+        } catch (Exception $e) {
+            parent::message("Erro ao salvar a vis&atilde;o: " . $e->getMessage(), "alterarprojeto/incluirdirigente/pronac/" . $pronac, "ERROR");
+        }
 
 
-            // ================================================ FIM SALVAR VISAO ======================================================
-            // ===================== INICIO SALVAR TITULACAO (AREA/SEGMENTO DO COMPONENTE DA COMISSAO) ================================
+        // ================================================ FIM SALVAR VISAO ======================================================
+        // ===================== INICIO SALVAR TITULACAO (AREA/SEGMENTO DO COMPONENTE DA COMISSAO) ================================
 
 
-            $titular = $this->_request->getParam("titular");
-            $areaCultural = $this->_request->getParam("areaCultural");
-            $segmentoCultural = $this->_request->getParam("segmentoCultural");
+        $titular = $this->_request->getParam("titular");
+        $areaCultural = $this->_request->getParam("areaCultural");
+        $segmentoCultural = $this->_request->getParam("segmentoCultural");
 
-            // so salva area e segmento para a visao de Componente da Comissao e se os campos titular e areaCultural forem informados
-            if ((int)$Visao == 210 && ((int)$titular == 0 || (int)$titular == 1) && !empty($areaCultural)) {
-                $GravarComponente = array(// insert
+        // so salva area e segmento para a visao de Componente da Comissao e se os campos titular e areaCultural forem informados
+        if ((int)$Visao == 210 && ((int)$titular == 0 || (int)$titular == 1) && !empty($areaCultural)) {
+            $GravarComponente = array(// insert
                     'idAgente' => $idAgente,
                     'cdArea' => $areaCultural,
                     'cdSegmento' => $segmentoCultural,
                     'stTitular' => $titular,
                     'stConselheiro' => 'A');
 
-                $AtualizarComponente = array(// update
+            $AtualizarComponente = array(// update
                     'cdArea' => $areaCultural,
                     'cdSegmento' => $segmentoCultural,
                     'stTitular' => $titular
                     //'stConselheiro' => 'A' -- Qual caso de uso vai ativa e desativar?
                 );
 
-                try {
-                    // busca a titulacao do agente (titular/suplente de area cultural)
-                    $busca = TitulacaoConselheiroDAO::buscarComponente($idAgente, $Visao);
+            try {
+                // busca a titulacao do agente (titular/suplente de area cultural)
+                $busca = TitulacaoConselheiroDAO::buscarComponente($idAgente, $Visao);
 
-                    if (!$busca) {
-                        $i = TitulacaoConselheiroDAO::gravarComponente($GravarComponente);
-                    } else {
-                        $i = TitulacaoConselheiroDAO::atualizaComponente($idAgente, $AtualizarComponente);
-                    }
-                } catch (Exception $e) {
-                    parent::message("Erro ao salvar a &aacute;rea e segmento: " . $e->getMessage(), $e->getMessage(), "alterarprojeto/incluirdirigente/pronac/" . $pronac, "ERROR");
+                if (!$busca) {
+                    $i = TitulacaoConselheiroDAO::gravarComponente($GravarComponente);
+                } else {
+                    $i = TitulacaoConselheiroDAO::atualizaComponente($idAgente, $AtualizarComponente);
                 }
+            } catch (Exception $e) {
+                parent::message("Erro ao salvar a &aacute;rea e segmento: " . $e->getMessage(), $e->getMessage(), "alterarprojeto/incluirdirigente/pronac/" . $pronac, "ERROR");
             }
+        }
 
-            // ============================= FIM SALVAR TITULACAO (AREA/SEGMENTO DO COMPONENTE DA COMISSAO) ===========================
+        // ============================= FIM SALVAR TITULACAO (AREA/SEGMENTO DO COMPONENTE DA COMISSAO) ===========================
 
         endif; // Fecha o if da regra do componente da comissao
         // =========================================== INICIO SALVAR ENDERECOS ====================================================
@@ -395,7 +388,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
         $enderecoCorrespodencia = 1;
 
         try {
-
             $arrayEnderecos = array(
                 'idAgente' => $idAgente,
                 'Cep' => str_replace(".", "", str_replace("-", "", $cepEndereco)),
@@ -493,13 +485,11 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
     public function desvinculadirigenteAction()
     {
-
         $pronac = $this->_request->getParam("pronac");
         $idAgenteGeral = $this->_request->getParam("id");
         $idDirigente = $this->_request->getParam("idDirigente");
 
         try {
-
             $vincular = new Agente_Model_DbTable_Vinculacao();
 
             $where = array('idAgente = ' . $idDirigente,
@@ -515,7 +505,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
     public function visualizadirigenteAction()
     {
-
         $idAgente = $this->_request->getParam("id");
         $pronac = $this->_request->getParam("pronac");
         $idDirigente = $this->_request->getParam("idDirigente");
@@ -538,12 +527,8 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
         $validapronac = $projeto->VerificaPronac($arrBusca);
 
         if (count($validapronac) > 0) {
-
             $tblAprovacao = new Aprovacao();
             $rsAprovacao = $tblAprovacao->buscar(array("AnoProjeto = ?" => $ano, "Sequencial = ?" => $sequencial));
-//               if($rsAprovacao->count() <= 0){
-//                    parent::message("Este Projeto ainda n&atilde;o foi aprovado", "Alterarprojeto/consultarprojeto", "ERROR");
-//               }
 
             $listaparecer = $projeto->buscarTodosDadosProjeto($validapronac[0]->IdPRONAC);
             $this->view->parecer = $listaparecer[0];
@@ -565,7 +550,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
 
         if (isset($idAgente)) {
-
             $dadosDirigenteD = Agente_Model_ManterAgentesDAO::buscarVinculados(null, null, $idDirigente, null, $idAgente);
             $dados = Agente_Model_ManterAgentesDAO::buscarAgentes(null, null, $idDirigente);
             $this->view->dadosD = $dados;
@@ -601,7 +585,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
     public function mandatoAction()
     {
-
         if (!empty($_POST)) {
             $idAgente = $this->_request->getParam("id");
             $idDirigente = $this->_request->getParam("idDirigente");
@@ -627,7 +610,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
             }
 
             if (count($_FILES) > 0) {
-
                 foreach ($_FILES['arquivo']['name'] as $key => $val) {
                     $arquivoNome = $_FILES['arquivo']['name'][$key];
                     $arquivoTemp = $_FILES['arquivo']['tmp_name'][$key];
@@ -681,7 +663,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
                 $buscarMandato = $tbDirigenteMandato->buscar(array('idAgentesxVerificacao = ?' => $salvarMandato));
 
                 if (!empty($buscarMandato)) {
-
                     $dadosBuscar['idVerificacao'] = $buscarMandato[0]->idVerificacao;
                     $dadosBuscar['dsNumeroDocumento'] = $buscarMandato[0]->dsNumeroDocumento;
                     $dadosBuscar['dtInicioMandato'] = $buscarMandato[0]->dtInicioMandato;
@@ -690,8 +671,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
                     $dadosBuscar['idEmpresa'] = $buscarMandato[0]->idEmpresa;
                     $dadosBuscar['idDirigente'] = $buscarMandato[0]->idDirigente;
                     $dadosBuscar['idArquivo'] = $buscarMandato[0]->idArquivo;
-//                $this->_helper->json($dadosBuscar);
-//                $this->_helper->viewRenderer->setNoRender(TRUE);
                 }
 
                 parent::message("Cadastro realizado com sucesso!", "alterarprojeto/visualizadirigente/id/" . $idAgente . "/idDirigente/" . $idDirigente . "/pronac/" . $pronac, "CONFIRM");
@@ -710,7 +689,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
     public function excluirmandatoAction()
     {
-
         $tbDirigenteMandato = new tbAgentesxVerificacao();
 
         $idAgente = $this->_request->getParam("id");
@@ -776,17 +754,17 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
                 // validacao dos campos
                 if (empty($cpf) && empty($nome)) {
                     throw new Exception("Dados obrigat&aacute;rios n&atilde;o informados:<br /><br />&Eacute; necess&aacute;rio informar o CPF/CNPJ ou o Nome!");
-                } else if (!empty($cpf) && strlen($cpf) != 11 && strlen($cpf) != 14) { // valida cnpj/cpf
+                } elseif (!empty($cpf) && strlen($cpf) != 11 && strlen($cpf) != 14) { // valida cnpj/cpf
                     throw new Exception("O CPF/CNPJ informado &eacute; inv&aacute;lido!");
-                } else if (!empty($cpf) && strlen($cpf) == 11 && !Validacao::validarCPF($cpf)) { // valida cpf
+                } elseif (!empty($cpf) && strlen($cpf) == 11 && !Validacao::validarCPF($cpf)) { // valida cpf
                     throw new Exception("O CPF informado &eacute; inv&aacute;lido!");
-                } else if (!empty($cpf) && strlen($cpf) == 14 && !Validacao::validarCNPJ($cpf)) { // valida cnpj
+                } elseif (!empty($cpf) && strlen($cpf) == 14 && !Validacao::validarCNPJ($cpf)) { // valida cnpj
                     throw new Exception("O CNPJ informado &eacute; inv&aacute;lido!");
                 } else {
                     // redireciona para a pagina com a busca dos dados com paginacao
                     $this->_redirect("agentes/listaragente?cpf=" . $cpf . "&nome=" . $nome);
                 } // fecha else
-            } // fecha try
+            } 
             catch (Exception $e) {
                 $this->view->message = $e->getMessage();
                 $this->view->message_type = "ERROR";
@@ -798,7 +776,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
     public function agentecadastradoAction()
     {
-        //$this->autenticacao();
         $this->_helper->layout->disableLayout(); // desabilita o layout
         $this->_helper->viewRenderer->setNoRender(true);
         $cpf = $_REQUEST['cpf'];
@@ -824,11 +801,8 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
         $this->_helper->json($novos_valores);
     }
 
-// fecha metodo buscaragentedirigenteAction()
-
     public function vinculadirigenteAction()
     {
-
         $Usuario = $this->getIdUsuario; // id do usuario logado
         $pronac = $this->_request->getParam("pronac");
         $idAgenteGeral = $this->_request->getParam("id");
@@ -870,7 +844,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
     public function alterarprojetoAction()
     {
-
         $post = Zend_Registry::get('post');
 
         //$pronac = addslashes($post->pronac);
@@ -894,7 +867,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
         $validapronac = $projeto->VerificaPronac($arrBusca);
 
         if (count($validapronac) > 0) {
-
             $tblAprovacao = new Aprovacao();
             $rsAprovacao = $tblAprovacao->buscar(array("AnoProjeto = ?" => $ano, "Sequencial = ?" => $sequencial));
 
@@ -1036,7 +1008,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
             if (($dadosprojeto[0]->Orgao != $this->codOrgao) || $this->codGrupo != 103) {
                 parent::message("Usu&aacute;rio sem autoriza&ccedil;&atilde;o no org&atilde;o do projeto!", "alterarprojeto/consultarprojeto", "ERROR");
             }
-
         } else {
             parent::message("Dados obrigat&oacute;rios n&atilde;o informados.", "alterarprojeto/consultarprojeto", "ERROR");
         }
@@ -1284,7 +1255,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
     public function proponenteAction()
     {
-
         $get = Zend_Registry::get('get');
         $pronac = addslashes($get->pronac);
         $pronac = Seguranca::dencrypt($pronac);
@@ -1351,9 +1321,9 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
             if (count($buscarInabilitadoAtual) > 0) {
                 echo "<font color='#FF0000'><b>Proponente atual est&aacute; Inabilitado</b></font><input type='hidden' name='nome' id='nome' value=''>";
-            } else if (count($buscarInabilitado) > 0) {
+            } elseif (count($buscarInabilitado) > 0) {
                 echo "<font color='#FF0000'><b>Proponente Inabilitado</b></font><input type='hidden' name='nome' id='nome' value=''>";
-            } else if (count($agente) > 0) {
+            } elseif (count($agente) > 0) {
                 echo utf8_encode($agente[0]->Descricao) . "<input type='hidden' name='nome' id='nome' value='" . utf8_encode($agente[0]->Descricao) . "'>";
             } else {
                 echo "<font color='#FF0000'><b>Proponente n&atilde;o cadastrado</b></font><input type='hidden' name='nome' id='nome' value=''>";
@@ -1408,14 +1378,14 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
             $msg = 'O proponente não pode ser habilitado à presente data. Para habilitá-lo, favor anexar documento.';
             if ((count($retorno) > 0) && ($retorno[0]->idTipoInabilitado > 0) && ($retorno[0]->idTipoInabilitado <= 7) && ($retorno[0]->Anos < 1)) {
                 parent::message($msg, "alterarprojeto/" . $post->pagina . "?pronac=" . Seguranca::encrypt($dadosProjeto->pronac) . "&menu=" . $post->menu, "ALERT");
-            } else if ((count($retorno) > 0) && ($retorno[0]->idTipoInabilitado >= 4) && ($retorno[0]->idTipoInabilitado <= 5) && ($retorno[0]->Anos < 2)) {
+            } elseif ((count($retorno) > 0) && ($retorno[0]->idTipoInabilitado >= 4) && ($retorno[0]->idTipoInabilitado <= 5) && ($retorno[0]->Anos < 2)) {
                 parent::message($msg, "alterarprojeto/" . $post->pagina . "?pronac=" . Seguranca::encrypt($dadosProjeto->pronac) . "&menu=" . $post->menu, "ALERT");
-            } else if ((count($retorno) > 0) && ($retorno[0]->idTipoInabilitado >= 6) && ($retorno[0]->idTipoInabilitado <= 7) && ($retorno[0]->Anos < 3)) {
+            } elseif ((count($retorno) > 0) && ($retorno[0]->idTipoInabilitado >= 6) && ($retorno[0]->idTipoInabilitado <= 7) && ($retorno[0]->Anos < 3)) {
                 parent::message($msg, "alterarprojeto/" . $post->pagina . "?pronac=" . Seguranca::encrypt($dadosProjeto->pronac) . "&menu=" . $post->menu, "ALERT");
             }
         }
 
-        $dados = Null;
+        $dados = null;
         $dados = array(//Monta dados para o historico
             'idPRONAC' => $dadosProjeto->IdPRONAC,
             'idLogon' => $auth->getIdentity()->usu_codigo,
@@ -1714,7 +1684,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
         } catch (Zend_Exception_Db $e) {
             $this->view->erro = "erro " . $e;
         }
-
     }
 
     public function alterarplanodistribuicaoAction()
@@ -1749,7 +1718,7 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
             parent::message("Dados obrigat&oacute;rios n&atilde;o informados", "/alterarprojeto/planodistribuicao?pronac=" . $pronac, "ERROR");
         }
 
-        $dados = Null;
+        $dados = null;
         $dados = array(//Monta dados para o historico
             'idPlanoDistribuicao' => $post->idPlanoDistribuicao,
             'idProjeto' => $post->idProjeto,
@@ -1778,10 +1747,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
         }
     }
 
-
-    /*
-     *
-     */
     public function planodistribuicaoAction()
     {
         $pronac = $this->_request->getParam("pronac");
@@ -1804,7 +1769,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
         $validapronac = $Projetos->VerificaPronac($arrBusca);
 
         if (count($validapronac) > 0) {
-
             $tblAprovacao = new Aprovacao();
             $rsAprovacao = $tblAprovacao->buscar(array("AnoProjeto = ?" => $ano, "Sequencial = ?" => $sequencial));
 
@@ -1825,7 +1789,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
                 $planoDistribuicao = RealizarAnaliseProjetoDAO::planodedistribuicao($idPronac);
                 $this->view->planoDistribuicao = $planoDistribuicao;
             }
-
         } else {
             parent::message("PRONAC n&atilde;o localizado!", "Alterarprojeto/consultarprojeto", "ALERT");
         }
@@ -1836,7 +1799,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
     private function validasituacao($dadosProjeto)
     {
-
         $post = Zend_Registry::get('post');
         $tbl = new Captacao();
         $capitacao = $tbl->listaCaptacao($dadosProjeto->AnoProjeto, $dadosProjeto->Sequencial);
@@ -1951,7 +1913,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
     public function execucaoImediataAction()
     {
-
         $this->view->menu = isset($params['menu']) ? $params['menu'] : '';
 
         $pronac = $this->_request->getParam("pronac");
@@ -1980,7 +1941,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
             $tableVerificacao = new Proposta_Model_DbTable_Verificacao();
             $this->view->listaExecucaoImediata = $tableVerificacao->fetchPairs('idVerificacao', 'Descricao', array('idTipo' => 23), array('idVerificacao'));
-
         } else {
             parent::message("Dados obrigat&oacute;rios n&atilde;o informados", "alterarprojeto/consultarprojeto", "ERROR");
         }
@@ -1991,17 +1951,15 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
     public function salvarExecucaoImediataAction()
     {
-
         if ($this->getRequest()->isPost()) {
-
             $this->_helper->layout->disableLayout();
             $this->_helper->viewRenderer->setNoRender(true);
             $post = $this->getRequest()->getPost();
 
             try {
-
-                if (empty($post['idPreProjeto']) || empty($post['idPronac']))
+                if (empty($post['idPreProjeto']) || empty($post['idPronac'])) {
                     throw new Exception("Dados obrigat&oacute;rios n&atilde;o informados!");
+                }
 
                 $arrBusca = array(
                     'tbr.idPronac =?' => $post['idPronac'],
@@ -2010,8 +1968,9 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
                 $tbProjetos = new Projetos();
                 $projeto = $tbProjetos->VerificaPronac($arrBusca)->current();
-                if (empty($projeto))
+                if (empty($projeto)) {
                     throw new Exception("Dados informados inválidos");
+                }
 
                 //persiste os dados do Pre Projeto
                 $tblPreProjeto = new Proposta_Model_DbTable_PreProjeto();
@@ -2032,5 +1991,4 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
             }
         }
     }
-
 }

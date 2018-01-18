@@ -204,5 +204,4 @@ class Proposta_Model_TbDocumentosPreProjeto extends MinC_Db_Model
         $this->_imdocumento = $imdocumento;
         return $this;
     }
-
 }

@@ -12,17 +12,16 @@
 
 class Zend_View_Helper_CorLinhaOnMouseOver
 {
-	/**
-	 * Cor do registro de uma tabela ao passar o mouse em cima
-	 * @access public
-	 * @param string $bg
-	 * @return string
-	 */
-	public function corLinhaOnMouseOver($bg = "#ffffcc")
-	{
-		$linha = "onmouseover=\"this.style.backgroundColor='". $bg ."'\" onfocus=\" \" ";
-		$linha.= "onmouseout=\"this.style.backgroundColor=''\"   onblur=\" \"";
-		return $linha;
-	} // fecha método corLinhaOnMouserOver()
-
+    /**
+     * Cor do registro de uma tabela ao passar o mouse em cima
+     * @access public
+     * @param string $bg
+     * @return string
+     */
+    public function corLinhaOnMouseOver($bg = "#ffffcc")
+    {
+        $linha = "onmouseover=\"this.style.backgroundColor='". $bg ."'\" onfocus=\" \" ";
+        $linha.= "onmouseout=\"this.style.backgroundColor=''\"   onblur=\" \"";
+        return $linha;
+    } // fecha método corLinhaOnMouserOver()
 } // fecha class

@@ -101,5 +101,4 @@ class Agente_Model_TbTitulacaoConselheiro extends MinC_Db_Model
     {
         $this->_stconselheiro = $stconselheiro;
     }
-
 }

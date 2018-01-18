@@ -5,13 +5,14 @@
  *
  * @author 01610881125
  */
-class PlanilhaItens   extends MinC_Db_Table_Abstract
+class PlanilhaItens extends MinC_Db_Table_Abstract
 {
     protected $_banco = "SAC";
     protected $_schema = "SAC";
     protected $_name = "tbPlanilhaItens";
 
-    public function buscarItemContrato($idpronac,$idproduto,$idetapa){
+    public function buscarItemContrato($idpronac, $idproduto, $idetapa)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
 
@@ -63,7 +64,7 @@ class PlanilhaItens   extends MinC_Db_Table_Abstract
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
         $select->where('pAprovacao.idProduto = ?', $idproduto);
         $select->where('pEtapa.idPlanilhaEtapa = ?', $idetapa);
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
         $select->where('cxpa.idContrato is null');
 //        $select->where('pAprovacao.idPlanilhaAprovacao in (?)', new Zend_Db_Expr('select idPlanilhaAprovacao  from  SAC.dbo.tbDeParaPlanilhaAprovacao'));
 
@@ -75,9 +76,9 @@ class PlanilhaItens   extends MinC_Db_Table_Abstract
         $select->group('pItens.Descricao');*/
 
         return $this->fetchAll($select);
-
     }
-    public function buscarItemComprovacao($idpronac,$idproduto,$idetapa,$ckItens){
+    public function buscarItemComprovacao($idpronac, $idproduto, $idetapa, $ckItens)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         /*
@@ -122,14 +123,15 @@ class PlanilhaItens   extends MinC_Db_Table_Abstract
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
         $select->where('pAprovacao.idProduto = ?', $idproduto);
         $select->where('pEtapa.idPlanilhaEtapa = ?', $idetapa);
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
         //$select->where('pAprovacao.idPlanilhaAprovacao in (?)', new Zend_Db_Expr('select idPlanilhaAprovacao  from  SAC.dbo.tbDeParaPlanilhaAprovacao'));
         /*
         if(is_array($ckItens) and count(is_array($ckItens))>0)
             $select->where('pAprovacao.idPlanilhaItem in ('.implode(',',$ckItens).')');
         */
-        if(is_array($ckItens) and count(is_array($ckItens))>0)
-            $select->where('pAprovacao.idPlanilhaAprovacao in ('.implode(',',$ckItens).')');
+        if (is_array($ckItens) and count(is_array($ckItens))>0) {
+            $select->where('pAprovacao.idPlanilhaAprovacao in ('.implode(',', $ckItens).')');
+        }
 
 
         $select->order('pItens.Descricao');
@@ -142,9 +144,9 @@ class PlanilhaItens   extends MinC_Db_Table_Abstract
         
 
         return $this->fetchAll($select);
-
     }
-    public function buscarItem($idpronac,$idproduto,$idetapa){
+    public function buscarItem($idpronac, $idproduto, $idetapa)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -209,7 +211,7 @@ class PlanilhaItens   extends MinC_Db_Table_Abstract
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
         $select->where('pAprovacao.idProduto = ?', $idproduto);
         $select->where('pEtapa.idPlanilhaEtapa = ?', $idetapa);
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
         //$select->where('cxpa.idCotacao is null');
         //$select->where('dlxpa.idDispensaLicitacao is null');
         //$select->where('lxpa.idLicitacao is null');
@@ -225,10 +227,10 @@ class PlanilhaItens   extends MinC_Db_Table_Abstract
 
 
         return $this->fetchAll($select);
-
     }
 
-    public function carregarItem($idpronac,$idproduto,$idetapa,$idCotacao,$idDispensaLicitacao,$idLicitacao,$idContrato){
+    public function carregarItem($idpronac, $idproduto, $idetapa, $idCotacao, $idDispensaLicitacao, $idLicitacao, $idContrato)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         /* erro 26
@@ -268,7 +270,7 @@ class PlanilhaItens   extends MinC_Db_Table_Abstract
                             array(),
                             'SAC.dbo'
                            );
-        if($idCotacao){
+        if ($idCotacao) {
             $select->joinInner(
                             array('ctxpa'=>'tbCotacaoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = ctxpa.idPlanilhaAprovacao and ctxpa.idCotacao = '$idCotacao' ",
@@ -288,29 +290,32 @@ class PlanilhaItens   extends MinC_Db_Table_Abstract
                             'AGENTES.dbo'
                            );
         }
-        if($idDispensaLicitacao)
-        $select->joinInner(
+        if ($idDispensaLicitacao) {
+            $select->joinInner(
                             array('dlxpa'=>'tbDispensaLicitacaoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = dlxpa.idPlanilhaAprovacao and dlxpa.idDispensaLicitacao  = '$idDispensaLicitacao' ",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
-        if($idLicitacao)
-        $select->joinInner(
+        }
+        if ($idLicitacao) {
+            $select->joinInner(
                             array('lxpa'=>'tbLicitacaoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = lxpa.idPlanilhaAprovacao and lxpa.idLicitacao  = '$idLicitacao' ",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
-        if($idContrato)
-        $select->joinInner(
+        }
+        if ($idContrato) {
+            $select->joinInner(
                             array('cnxpa'=>'tbContratoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = cnxpa.idPlanilhaAprovacao and cnxpa.idContrato = '$idContrato' ",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
+        }
 
-        $select->where('pAprovacao.IdPRONAC = ?',$idpronac);
+        $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
         $select->where('pAprovacao.idProduto = ?', $idproduto);
         $select->where('pEtapa.idPlanilhaEtapa = ?', $idetapa);
         $select->where('pAprovacao.idPlanilhaAprovacao in (?)', new Zend_Db_Expr('select idPlanilhaAprovacao  from  SAC.dbo.tbDeParaPlanilhaAprovacao'));
@@ -328,47 +333,49 @@ class PlanilhaItens   extends MinC_Db_Table_Abstract
     }
 
 
-	/**
-	 * Busca os itens de acordo com uma etapa para as combos
-	 * @access public
-	 * @param array $where (filtros)
-	 * @param array $order (ordena��o)
-	 * @return object
-	 */
-	public function combo($where = array(), $order = array())
-	{
-		$select = $this->select();
-		$select->setIntegrityCheck(false);
-		$select->distinct();
-		$select->from(array('tpi' => $this->_name)
-			,array('tpi.idPlanilhaItens AS id'
-				,'tpi.Descricao AS descricao'
-			)
-			,'SAC.dbo'
-		);
-		$select->joinInner(array('tipp' => 'tbItensPlanilhaProduto')
-			,'tpi.idPlanilhaItens = tipp.idPlanilhaItens'
-			,array()
-			,'SAC.dbo'
-		);
+    /**
+     * Busca os itens de acordo com uma etapa para as combos
+     * @access public
+     * @param array $where (filtros)
+     * @param array $order (ordena��o)
+     * @return object
+     */
+    public function combo($where = array(), $order = array())
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->distinct();
+        $select->from(
+            array('tpi' => $this->_name),
+            array('tpi.idPlanilhaItens AS id'
+                ,'tpi.Descricao AS descricao'
+            ),
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            array('tipp' => 'tbItensPlanilhaProduto'),
+            'tpi.idPlanilhaItens = tipp.idPlanilhaItens',
+            array(),
+            'SAC.dbo'
+        );
 
-		// adiciona quantos filtros foram enviados
-		foreach ($where as $coluna => $valor) :
-			$select->where($coluna, $valor);
-		endforeach;
+        // adiciona quantos filtros foram enviados
+        foreach ($where as $coluna => $valor) :
+            $select->where($coluna, $valor);
+        endforeach;
 
-		// adicionando linha order ao select
-		$select->order($order);
+        // adicionando linha order ao select
+        $select->order($order);
 
                 
-		return $this->fetchAll($select);
-	} // fecha m�todo combo()
+        return $this->fetchAll($select);
+    } // fecha m�todo combo()
 
-        public function buscarItens(){
-            $select = $this->select();
-            $select->setIntegrityCheck(false);
-            //$select->assemble();
+    public function buscarItens()
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        //$select->assemble();
         return $this->fetchAll($select);
     }
-
 }

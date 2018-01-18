@@ -22,7 +22,6 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
      */
     public function init()
     {
-
         parent::init();
 
         //*******************************************
@@ -55,12 +54,11 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
         $this->verificarPermissaoAcesso(true, false, false);
 
         //recupera ID do pre projeto (proposta)
-        if (!empty ($this->idPreProjeto)) {
+        if (!empty($this->idPreProjeto)) {
             $this->view->idPreProjeto = $this->idPreProjeto;
         } else {
             parent::message("Necess&aacute;rio informar o n&uacute;mero da proposta.", "/proposta/manterpropostaincentivofiscal/listarproposta", "ERROR");
         }
-
     }
 
     /**
@@ -88,7 +86,6 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
 
         //METODO QUE MONTA TELA DO USUARIO ENVIANDO TODOS OS PARAMENTROS NECESSARIO DENTRO DO ARRAY DADOS
         $this->montaTela("localderealizacao/index.phtml", $arrDados);
-
     }
 
     /**
@@ -161,14 +158,12 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
         $locaisinvalidos = array();
         xd($post);
         for ($i = 1; $i <= $qtdeLocais; $i++) {
-
             $pais = $post->__get("pais_" . $i);
             $uf = $post->__get("uf_" . $i);
             $municipio = $post->__get("cidade_" . $i);
             $local_c = $pais . $uf . $municipio;
 
             if (!in_array($local_c, $locaisinvalidos) || empty($local_c)) {
-
                 $locais[$i]["idPais"] = $post->__get("pais_" . $i);
 
                 if ($locais[$i]["idPais"] == 31) {
@@ -182,7 +177,6 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
                 parent::message("Registro j&aacute; cadastrado, transa&ccedil;&atilde;o cancelada!", "/proposta/localderealizacao/index?idPreProjeto=" . $this->idPreProjeto . $edital, "ALERT");
             }
             $locaisinvalidos[$i] = $local_c;
-
         }
 
 //        try {
@@ -192,9 +186,7 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
             //APAGA TODOS OS REGISTROS PARA CADASTRA-LOS NOVAMENTE
             // $tblAbrangencia->deleteBy(array('idprojeto' => $this->idPreProjeto, 'stabrangencia' => 1));
         } else {
-
             foreach ($locais as $d) {
-
                 $p = $d['idPais'];
                 if ($p == 31) {
                     $u = (int)$d['idUF'];
@@ -203,7 +195,6 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
                     $u = 0;
                     $m = 0;
                 }
-
             }
 
             $resultado = $tblAbrangencia->verificarIgual($p, $u, $m, $this->idPreProjeto);
@@ -212,7 +203,6 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
                 parent::message("Registro j&aacute; cadastrado, transa&ccedil;&atilde;o cancelada!", "/proposta/localderealizacao/index?idPreProjeto=" . $this->idPreProjeto . $edital, "ALERT");
                 return;
             }
-
         }
 
 
@@ -230,7 +220,6 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
 
 
             if (!empty($dados["idProjeto"]) && !empty($dados["idPais"])) {
-
                 $retorno = $tblAbrangencia->salvar($dados);
             }
         }
@@ -238,13 +227,11 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
             parent::message("Altera&ccedil;&atilde;o realizada com sucesso!", "/proposta/localderealizacao/index?idPreProjeto=" . $this->idPreProjeto . $edital, "CONFIRM");
         } else {
             parent::message("Cadastro realizado com sucesso!", "/proposta/localderealizacao/index?idPreProjeto=" . $this->idPreProjeto . $edital, "CONFIRM");
-
         }
 
 //        }catch(Zend_Exception $ex) {
 //            parent::message("N&atilde;o foi poss&iacute;vel realizar a opera&ccedil;&atilde;o! <br>", "/proposta/localderealizacao/index?idPreProjeto=".$this->idPreProjeto.$edital, "ERROR");
 //        }
-
     }
 
     /**
@@ -254,7 +241,6 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
      */
     public function excluirAction()
     {
-
         $excluir = false;
 
         $this->verificarPermissaoAcesso(true, false, false);
@@ -278,12 +264,10 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
 
             //Exclui registro da tabela abrangencia
             $excluir = $tblAbrangencia->delete(array('idabrangencia = ?' => $params['cod']));
-
         }
 
         if ($excluir) {
             parent::message("Exclus&atilde;o realizada com sucesso!", "/proposta/localderealizacao/index/idPreProjeto/" . $this->idPreProjeto, "CONFIRM");
-
         } else {
             parent::message("N&atilde;o foi poss&iacute;vel realizar a opera&ccedil;&atilde;o!", "/proposta/localderealizacao/index/idPreProjeto/" . $this->idPreProjeto, "ERROR");
         }
@@ -345,7 +329,7 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
     public function cidadesAction()
     {
         $this->_helper->layout->disableLayout();
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
         $post = Zend_Registry::get('post');
         $idEstado = $post->idEstado;
 
@@ -381,7 +365,6 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
         if ($post->pais == 31) {
             $arrBusca['u.idUF'] = $post->estados;
             $arrBusca['m.idMunicipioIBGE'] = $post->cidades;
-
         }
 
         $rsAbrangencia = $tblAbrangencia->buscar($arrBusca);
@@ -417,7 +400,6 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
         $msg = "Local de realiza&ccedil;&atilde;o cadastrado com sucesso!";
 
         if (!empty($dadosAbrangencia["idprojeto"]) && !empty($dadosAbrangencia["idpais"])) {
-
             if (empty($idAbrangencia)) {
                 $retorno = $tblAbrangencia->insert($dadosAbrangencia);
             } else {
@@ -440,7 +422,6 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
 
         // atualizar itens orcamentarios desta abrangencia
         if (!empty($abrangencia)) {
-
             $dadosAbrangenciaPlanilha = array(
                 'UfDespesa' => $idUf,
                 'MunicipioDespesa' => $idMunicipio

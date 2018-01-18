@@ -24,9 +24,8 @@ class Agente_Model_DbTable_Verificacao extends MinC_Db_Table_Abstract
     const PROPOSTA_EM_CONFORMIDADE_VISUAL_OU_ANÁLISE_DOCUMENTAL = 97;
     const PROPOSTA_EM_ANALISE_FINAL = 128;
 
-    function combosNatureza($idTipo)
+    public function combosNatureza($idTipo)
     {
-
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -35,7 +34,5 @@ class Agente_Model_DbTable_Verificacao extends MinC_Db_Table_Abstract
         );
         $select->where('idTipo = ?', $idTipo);
         return $this->fetchAll($select);
-
     }
-
 }

@@ -12,14 +12,14 @@
 
 class Zend_View_Helper_BaseUrl
 {
-	/**
-	 * Pega o diretório raiz do sistema
-	 * @access public
-	 * @param void
-	 * @return string
-	 */
-	public function baseUrl()
-	{
-		return Zend_Controller_Front::getInstance()->getBaseUrl();
-	}
+    /**
+     * Pega o diretório raiz do sistema
+     * @access public
+     * @param void
+     * @return string
+     */
+    public function baseUrl()
+    {
+        return Zend_Controller_Front::getInstance()->getBaseUrl();
+    }
 }

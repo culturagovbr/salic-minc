@@ -2,12 +2,22 @@
 /**
  * Proposta_PlanoDistribuicaoController
  *
- * @uses GenericControllerNew
  * @package
  * @author wouerner <wouerner@gmail.com>
  */
 class PlanoDistribuicaoControllerTest extends MinC_Test_ControllerActionTestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
+    /**
+     * Proposta_PlanoDistribuicaoController
+     *
+     * @package
+     * @author wouerner <wouerner@gmail.com>
+     */
     public function testIndexAction()
     {
         $this->autenticar();
@@ -18,7 +28,9 @@ class PlanoDistribuicaoControllerTest extends MinC_Test_ControllerActionTestCase
 
         // Busca na SGCAcesso
         $sgcAcesso = new Autenticacao_Model_Sgcacesso();
+        /* var_dump($sgcAcesso);die; */
         $acessos = $sgcAcesso->findBy(['cpf' => $usuarioCpf]);
+        var_dump($acessos);
 
         // Buscar projetos do Usuario Logado.
         $where['stestado = ?'] = 1;

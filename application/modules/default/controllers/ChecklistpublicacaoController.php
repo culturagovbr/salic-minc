@@ -21,8 +21,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $Usuario = new UsuarioDAO(); // objeto usuario
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
 
-        if ($auth->hasIdentity()) // caso o usuario esteja autenticado
-        {
+        if ($auth->hasIdentity()) { // caso o usuario esteja autenticado
             // verifica as permissoes
             $PermissoesGrupo = array();
             $PermissoesGrupo[] = 103;
@@ -35,14 +34,12 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = 151;
             $PermissoesGrupo[] = 148;
 
-            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) // verifica se o grupo ativo esta no array de permissoes
-            {
+            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo esta no array de permissoes
                 parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
             }
 
-            if ( $GrupoAtivo->codGrupo == 103 || $GrupoAtivo->codGrupo == 122 || $GrupoAtivo->codGrupo == 127  || $GrupoAtivo->codGrupo == 123 )
-            {
-                 $this->view->coordenador = "true";
+            if ($GrupoAtivo->codGrupo == 103 || $GrupoAtivo->codGrupo == 122 || $GrupoAtivo->codGrupo == 127  || $GrupoAtivo->codGrupo == 123) {
+                $this->view->coordenador = "true";
             }
 
             // pega as unidades autorizadas, orgaos e grupos do usuario (pega todos os grupos)
@@ -58,13 +55,11 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
 
             $tblAgente = new Agente_Model_DbTable_Agentes();
             $rsAgente = $tblAgente->buscar(array('CNPJCPF = ?'=>$auth->getIdentity()->usu_identificacao))->current();
-            if(!empty($rsAgente)){
+            if (!empty($rsAgente)) {
                 $this->getIdAgenteLogado = $rsAgente->idAgente;
             }
-
         } // fecha if
-        else // caso o usu�rio n�o esteja autenticado
-        {
+        else { // caso o usu�rio n�o esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
@@ -75,17 +70,17 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $this->codOrgao       = $_SESSION['GrupoAtivo']['codOrgao'];
         $this->view->codOrgao = $_SESSION['GrupoAtivo']['codOrgao'];
 
-        if($this->codGrupo == 103 || $this->codGrupo == 110  || $this->codGrupo == 127 ){ //103=Coord. de Analise  110=Tecnico de Analise   127=Coord. Geral de Analise
+        if ($this->codGrupo == 103 || $this->codGrupo == 110  || $this->codGrupo == 127) { //103=Coord. de Analise  110=Tecnico de Analise   127=Coord. Geral de Analise
             $this->view->tipoAnalise = "inicial";
             $this->tipoAnalise = "inicial";
-            if($this->codGrupo == 103 || $this->codGrupo == 127 ){
+            if ($this->codGrupo == 103 || $this->codGrupo == 127) {
                 $this->blnCoordenador = "true";
                 $this->view->blnCoordenador = "true";
             }
-        }elseif($this->codGrupo == 122 || $this->codGrupo == 121  || $this->codGrupo == 123 ){ //121=Cood. de Acompanhamento  121=Tecnico Acompanhamento  123=Cood. Geral de Acompanhamento
+        } elseif ($this->codGrupo == 122 || $this->codGrupo == 121  || $this->codGrupo == 123) { //121=Cood. de Acompanhamento  121=Tecnico Acompanhamento  123=Cood. Geral de Acompanhamento
             $this->view->tipoAnalise = "readequados";
             $this->tipoAnalise = "readequados";
-            if($this->codGrupo == 121 || $this->codGrupo == 123 ){
+            if ($this->codGrupo == 121 || $this->codGrupo == 123) {
                 $this->view->blnCoordenador = "true";
                 $this->view->blnCoordenador = "true";
             }
@@ -94,37 +89,37 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $this->codOrgaoSuperior = (!empty($auth->getIdentity()->usu_org_max_superior))?$auth->getIdentity()->usu_org_max_superior:$auth->getIdentity()->usu_orgao;
     }
 
-    public function indexAction(){
-
+    public function indexAction()
+    {
     }
 
-    public function listasAction(){
+    public function listasAction()
+    {
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
         } else {
             $campo = null;
             $order = array(1); //NomeProjeto
@@ -133,18 +128,20 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         /* ================== PAGINACAO ======================*/
         $where = array();
         $where['pr.Orgao = ?'] = $this->codOrgao;
 
-        if($this->blnCoordenador == 'false'){
+        if ($this->blnCoordenador == 'false') {
             $where['vp.idUsuario = ?'] = $this->getIdUsuario;
         }
 
-        if(isset($_POST['tipoFiltro']) || isset($_GET['tipoFiltro'])){
+        if (isset($_POST['tipoFiltro']) || isset($_GET['tipoFiltro'])) {
             $filtro = isset($_POST['tipoFiltro']) ? $_POST['tipoFiltro'] : $_GET['tipoFiltro'];
             $this->view->filtro = $filtro;
             switch ($filtro) {
@@ -190,23 +187,23 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
             $where['NOT EXISTS(SELECT TOP 1 * FROM SAC.dbo.tbDiligencia WHERE idPronac = pr.idPronac AND idTipoDiligencia = 181 AND DtSolicitacao IS NOT NULL AND DtResposta IS NULL AND stEstado = 0 AND stEnviado = \'S\')'] = '';
         }
 
-        if($this->view->filtro == 'finalizados'){
+        if ($this->view->filtro == 'finalizados') {
             $where['vp.stAnaliseProjeto = ?'] = 3;
         } else {
             $where['vp.stAnaliseProjeto != ?'] = 3;
         }
 
-        if((isset($_POST['pronacPesquisa']) && !empty($_POST['pronacPesquisa'])) || (isset($_GET['pronacPesquisa']) && !empty($_GET['pronacPesquisa']))){
+        if ((isset($_POST['pronacPesquisa']) && !empty($_POST['pronacPesquisa'])) || (isset($_GET['pronacPesquisa']) && !empty($_GET['pronacPesquisa']))) {
             $where['pr.AnoProjeto+pr.Sequencial = ?'] = isset($_POST['pronacPesquisa']) ? $_POST['pronacPesquisa'] : $_GET['pronacPesquisa'];
             $this->view->pronacProjeto = isset($_POST['pronacPesquisa']) ? $_POST['pronacPesquisa'] : $_GET['pronacPesquisa'];
         }
 
-        if((isset($_POST['nrReuniaoPesquisa']) && !empty($_POST['nrReuniaoPesquisa'])) || (isset($_GET['nrReuniaoPesquisa']) && !empty($_GET['nrReuniaoPesquisa']))){
+        if ((isset($_POST['nrReuniaoPesquisa']) && !empty($_POST['nrReuniaoPesquisa'])) || (isset($_GET['nrReuniaoPesquisa']) && !empty($_GET['nrReuniaoPesquisa']))) {
             $where['tr.NrReuniao = ?'] = isset($_POST['nrReuniaoPesquisa']) ? $_POST['nrReuniaoPesquisa'] : $_GET['nrReuniaoPesquisa'];
             $this->view->nrReuniaoPesquisa = isset($_POST['nrReuniaoPesquisa']) ? $_POST['nrReuniaoPesquisa'] : $_GET['nrReuniaoPesquisa'];
         }
 
-        $projetos = New Projetos();
+        $projetos = new Projetos();
         $total = $projetos->painelAguardandoAnaliseDocumental($where, $order, null, null, true);
         $fim = $inicio + $this->intTamPag;
 
@@ -236,33 +233,33 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $this->view->intTamPag     = $this->intTamPag;
     }
 
-    public function imprimirChecklistPublicacaoAction(){
+    public function imprimirChecklistPublicacaoAction()
+    {
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
         } else {
             $campo = null;
             $order = array(1); //NomeProjeto
@@ -271,7 +268,9 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
 
         $pag = 1;
         $get = Zend_Registry::get('post');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         /* ================== PAGINACAO ======================*/
@@ -279,11 +278,11 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $where['pr.Situacao = ?'] = 'D03';
         $where['pr.Orgao = ?'] = $this->codOrgao;
 
-        if($this->blnCoordenador == 'false'){
+        if ($this->blnCoordenador == 'false') {
             $where['vp.idUsuario = ?'] = $this->getIdUsuario;
         }
 
-        if(isset($_POST['tipoFiltro']) || isset($_GET['tipoFiltro'])){
+        if (isset($_POST['tipoFiltro']) || isset($_GET['tipoFiltro'])) {
             $filtro = isset($_POST['tipoFiltro']) ? $_POST['tipoFiltro'] : $_GET['tipoFiltro'];
             $this->view->filtro = $filtro;
             switch ($filtro) {
@@ -311,47 +310,45 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
             }
         }
 
-        if($this->view->filtro == 'finalizados'){
+        if ($this->view->filtro == 'finalizados') {
             $where['vp.stAnaliseProjeto = ?'] = 3;
         } else {
             $where['vp.stAnaliseProjeto != ?'] = 3;
         }
 
-        if((isset($_POST['pronac']) && !empty($_POST['pronac'])) || (isset($_GET['pronac']) && !empty($_GET['pronac']))){
+        if ((isset($_POST['pronac']) && !empty($_POST['pronac'])) || (isset($_GET['pronac']) && !empty($_GET['pronac']))) {
             $where['pr.AnoProjeto+pr.Sequencial = ?'] = isset($_POST['pronac']) ? $_POST['pronac'] : $_GET['pronac'];
             $this->view->pronacProjeto = isset($_POST['pronac']) ? $_POST['pronac'] : $_GET['pronac'];
         }
 
-        $projetos = New Projetos();
+        $projetos = new Projetos();
         $busca = $projetos->painelAguardandoAnaliseDocumental($where, $order);
 
         $this->view->dados = $busca;
         $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
     }
 
-    public function localizarAction(){
-
+    public function localizarAction()
+    {
     }
 
     public function aguardandoAnaliseDocumentaloldAction()
     {
-
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
         $tipoAnalise = $this->_request->getParam("tipoAnalise");
         $post = Zend_Registry::get('post');
 
-        $projetos = New Projetos();
-        $diligencia = New tbDiligencia();
+        $projetos = new Projetos();
+        $diligencia = new tbDiligencia();
 
         /* ============== AGUARDANDO ANALISE DOCUMENTAL - D03 =============================*/
-        if($tipoAnalise == "inicial"){
-
+        if ($tipoAnalise == "inicial") {
             $arrBusca = array();
             $arrBusca['pr.Situacao = ?'] = 'D03';
             $arrBusca['pr.Orgao = ?'] = $this->codOrgao;
             $arrBusca['ap.TipoAprovacao = ?'] = 1;
 
-            if($this->codGrupo == 110 ){ // 110=Tecnico de Analise  - Inclui projetos que estao direcionados ao tecnico
+            if ($this->codGrupo == 110) { // 110=Tecnico de Analise  - Inclui projetos que estao direcionados ao tecnico
                 $arrBusca['vp.idUsuario = ?'] = $this->getIdUsuario;
                 $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
             }
@@ -359,14 +356,13 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         }
 
         /* ============== AGUARDANDO ANALISE DOCUMENTAL - D02 =============================*/
-        if($tipoAnalise == "readequados"){
-
+        if ($tipoAnalise == "readequados") {
             $arrBusca = array();
             $arrBusca['pr.Situacao = ?'] = 'D02';
             $arrBusca['pr.Orgao = ?']    = $this->codOrgao;
             $arrBusca['ap.TipoAprovacao = ?'] = 1;
 
-            if($this->codGrupo == 121 ){ //121=Tecnico Acompanhamento  - Inclui projetos que estao direcionados ao tecnico
+            if ($this->codGrupo == 121) { //121=Tecnico Acompanhamento  - Inclui projetos que estao direcionados ao tecnico
                 $arrBusca['vp.idUsuario = ?'] = $this->getIdUsuario;
                 $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
             }
@@ -382,9 +378,8 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
     //ESTE METODO DEIXOU DE SER UTILIZADO - MANTIDO AQUI COMO REFERENCIA ATE QUE A DEMANDA SEJA HOMOLOGADA
     public function coordenadoracompanhamentoAction()
     {
-
-        $diligencia = New tbDiligencia();
-        $projetos = New Projetos();
+        $diligencia = new tbDiligencia();
+        $projetos = new Projetos();
 
         /* ================================================================================*/
         /* ============== AGUARDANDO ANALISE DOCUMENTAL - D02 =============================*/
@@ -394,7 +389,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $arrBusca['pr.Situacao = ?'] = 'D02';
         $arrBusca['pr.Orgao = ?']    = $this->codOrgao;
 
-         if($this->codGrupo == 121 ){ //121=Tecnico Acompanhamento  - Inclui projetos que estao direcionados ao tecnico
+        if ($this->codGrupo == 121) { //121=Tecnico Acompanhamento  - Inclui projetos que estao direcionados ao tecnico
             $arrBusca['vp.idUsuario = ?'] = $this->getIdUsuario;
             $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
         }
@@ -411,7 +406,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $arrBusca['pr.Situacao = ?'] = 'D33';
         $arrBusca['pr.Orgao = ?']    = $this->codOrgao;
 
-         if($this->codGrupo == 121 ){ //121=Tecnico Acompanhamento  - Inclui projetos que estao direcionados ao tecnico
+        if ($this->codGrupo == 121) { //121=Tecnico Acompanhamento  - Inclui projetos que estao direcionados ao tecnico
             $arrBusca['vp.idUsuario = ?'] = $this->getIdUsuario;
             $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
         }
@@ -428,7 +423,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $arrBusca['pr.Situacao = ?'] = 'D11';
         $arrBusca['pr.Orgao = ?']    = $this->codOrgao;
 
-         if($this->codGrupo == 121 ){ //121=Tecnico Acompanhamento  - Inclui projetos que estao direcionados ao tecnico
+        if ($this->codGrupo == 121) { //121=Tecnico Acompanhamento  - Inclui projetos que estao direcionados ao tecnico
             $arrBusca['vp.idUsuario = ?'] = $this->getIdUsuario;
             $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
         }
@@ -440,15 +435,13 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         //busca areas culturais
         $areaCultura = AreaSegmentoDAO::consultaAreaCultural();
         $this->view->BuscarAreaCultura = $areaCultura;
-
     }
 
     //ESTE METODO DEIXOU DE SER UTILIZADO - MANTIDO AQUI COMO REFERENCIA ATE QUE A DEMANDA SEJA HOMOLOGADA
     public function coordenadoranaliseAction()
     {
-
-        $diligencia = New tbDiligencia();
-        $projetos = New Projetos();
+        $diligencia = new tbDiligencia();
+        $projetos = new Projetos();
 
         /* ================================================================================*/
         /* ============== AGUARDANDO ANALISE DOCUMENTAL - D03 =============================*/
@@ -461,7 +454,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $arrBusca['ap.DtPublicacaoAprovacao IS NULL']   = '?';
         $arrBusca['ap.PortariaAprovacao IS NULL']       = '?';*/
 
-         if($this->codGrupo == 110 ){ // 110=Tecnico de Analise  - Inclui projetos que estao direcionados ao tecnico
+        if ($this->codGrupo == 110) { // 110=Tecnico de Analise  - Inclui projetos que estao direcionados ao tecnico
             $arrBusca['vp.idUsuario = ?'] = $this->getIdUsuario;
             $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
         }
@@ -478,7 +471,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $arrBusca['pr.Situacao = ?'] = 'D25';
         $arrBusca['pr.Orgao = ?']    = $this->codOrgao;
 
-         if($this->codGrupo == 110 ){ // 110=Tecnico de Analise  - Inclui projetos que estao direcionados ao tecnico
+        if ($this->codGrupo == 110) { // 110=Tecnico de Analise  - Inclui projetos que estao direcionados ao tecnico
             $arrBusca['vp.idUsuario = ?'] = $this->getIdUsuario;
             $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
         }
@@ -497,7 +490,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $arrBusca['ap.DtPublicacaoAprovacao IS NULL']   = '?';
         $arrBusca['ap.PortariaAprovacao IS NULL']       = '?';
 
-         if($this->codGrupo == 110 ){ // 110=Tecnico de Analise  - Inclui projetos que estao direcionados ao tecnico
+        if ($this->codGrupo == 110) { // 110=Tecnico de Analise  - Inclui projetos que estao direcionados ao tecnico
             $arrBusca['vp.idUsuario = ?'] = $this->getIdUsuario;
             $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
         }
@@ -513,47 +506,50 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
 
     public function proponenteDiligenciadoAction()
     {
-
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
         $tipoAnalise = $this->_request->getParam("tipoAnalise");
         $post = Zend_Registry::get('post');
 
-        $projetos = New Projetos();
-        $diligencia = New tbDiligencia();
+        $projetos = new Projetos();
+        $diligencia = new tbDiligencia();
 
         /* ============== PROPONENTE DILIGENCIADO - D25  ==================================*/
-        if($tipoAnalise == "inicial"){
+        if ($tipoAnalise == "inicial") {
             $arrBusca = array();
             $arrBusca['pr.Situacao = ?'] = 'D25';
             $arrBusca['pr.Orgao = ?']    = $this->codOrgao;
             $arrBusca["EXISTS(SELECT TOP 1 * FROM SAC.dbo.tbDiligencia WHERE idPronac = pr.idPronac AND idTipoDiligencia = 181 AND DtSolicitacao IS NOT NULL AND DtResposta IS NULL)"] = '(?)';
 
-            if($this->codGrupo == 110 ){ // 110=Tecnico de Analise  - Inclui projetos que estao direcionados ao tecnico
+            if ($this->codGrupo == 110) { // 110=Tecnico de Analise  - Inclui projetos que estao direcionados ao tecnico
                 $arrBusca['vp.idUsuario = ?'] = $this->getIdUsuario;
                 $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
             }
 
             //calcula o total de registros
-            $totalProponenteDiligenciado = $projetos->buscarProjetosCheckList($arrBusca,null,null,null,true);
+            $totalProponenteDiligenciado = $projetos->buscarProjetosCheckList($arrBusca, null, null, null, true);
             $this->view->totalProponenteDiligenciado = $totalProponenteDiligenciado;
             $this->view->codDiligencia = 181;
         }
 
         /* ============== PROPONENTE DILIGENCIADO - D33 ===================================*/
-        if($tipoAnalise == "readequados"){
+        if ($tipoAnalise == "readequados") {
             $arrBusca = array();
             $arrBusca['pr.Situacao = ?'] = 'D33';
             $arrBusca['pr.Orgao = ?']    = $this->codOrgao;
             $arrBusca["EXISTS(SELECT TOP 1 * FROM SAC.dbo.tbDiligencia WHERE idPronac = pr.idPronac AND idTipoDiligencia = 182 AND DtSolicitacao IS NOT NULL AND DtResposta IS NULL)"] = '(?)';
 
-            if($this->codGrupo == 121 ){ //121=Tecnico Acompanhamento  - Inclui projetos que estao direcionados ao tecnico
+            if ($this->codGrupo == 121) { //121=Tecnico Acompanhamento  - Inclui projetos que estao direcionados ao tecnico
                 $arrBusca['vp.idUsuario = ?'] = $this->getIdUsuario;
                 $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
             }
             $this->view->codDiligencia = 182;
         }
 
-        if(!empty($post->ordenacaoPD)){ $ordem[] = "{$post->ordenacaoPD} {$post->tipoOrdenacaoPD}"; }else{$ordem = array('1 ASC');}
+        if (!empty($post->ordenacaoPD)) {
+            $ordem[] = "{$post->ordenacaoPD} {$post->tipoOrdenacaoPD}";
+        } else {
+            $ordem = array('1 ASC');
+        }
         $rsDiligenciados = $projetos->buscarProjetosCheckList($arrBusca, $ordem);
         $arrDiligenciados = $rsDiligenciados->toArray();
         $this->view->proponenteDiligenciado = $arrDiligenciados;
@@ -562,16 +558,15 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
 
     public function proponenteIrregularAction()
     {
-
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
         $tipoAnalise = $this->_request->getParam("tipoAnalise");
         $post = Zend_Registry::get('post');
 
-        $projetos = New Projetos();
-        $diligencia = New tbDiligencia();
+        $projetos = new Projetos();
+        $diligencia = new tbDiligencia();
 
         /* ============== PROPONENTE IRREGULAR - D11 - ANALISE INICIAL ====================*/
-        if($tipoAnalise == "inicial"){
+        if ($tipoAnalise == "inicial") {
             $arrBusca = array();
             $arrBusca['pr.Situacao = ?'] = 'D11';
             $arrBusca['pr.Orgao = ?']    = $this->codOrgao;
@@ -579,31 +574,34 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
             $arrBusca['ap.DtPublicacaoAprovacao IS NULL']   = '?';
             $arrBusca['ap.PortariaAprovacao IS NULL']       = '?';
 
-            if($this->codGrupo == 110 ){ // 110=Tecnico de Analise  - Inclui projetos que estao direcionados ao tecnico
+            if ($this->codGrupo == 110) { // 110=Tecnico de Analise  - Inclui projetos que estao direcionados ao tecnico
                 $arrBusca['vp.idUsuario = ?'] = $this->getIdUsuario;
                 $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
             }
 
             //calcula o total e retorna para a tela original
-            $totalProponenteIrregular = $projetos->buscarProjetosCheckList($arrBusca,null,null,null,true);
+            $totalProponenteIrregular = $projetos->buscarProjetosCheckList($arrBusca, null, null, null, true);
             $this->view->totalProponenteIrregular = $totalProponenteIrregular;
             $this->view->codDiligencia = 181;
         }
         /* ============== PROPONENTE IRREGULAR - D11 - READEQUACAO ========================*/
-        if($tipoAnalise == "readequados"){
+        if ($tipoAnalise == "readequados") {
             $arrBusca = array();
             $arrBusca['pr.Situacao = ?'] = 'D11';
             $arrBusca['pr.Orgao = ?']    = $this->codOrgao;
 
-                if($this->codGrupo == 121 ){ //121=Tecnico Acompanhamento  - Inclui projetos que estao direcionados ao tecnico
+            if ($this->codGrupo == 121) { //121=Tecnico Acompanhamento  - Inclui projetos que estao direcionados ao tecnico
                 $arrBusca['vp.idUsuario = ?'] = $this->getIdUsuario;
                 $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
             }
             $this->view->codDiligencia = 182;
-
         }
 
-        if(!empty($post->ordenacaoPI)){ $ordem[] = "{$post->ordenacaoPI} {$post->tipoOrdenacaoPI}"; }else{$ordem = array('1 ASC');}
+        if (!empty($post->ordenacaoPI)) {
+            $ordem[] = "{$post->ordenacaoPI} {$post->tipoOrdenacaoPI}";
+        } else {
+            $ordem = array('1 ASC');
+        }
         $rsProponenteIrregular = $projetos->buscarProjetosCheckList($arrBusca);
         $arrProponenteIrregular = $rsProponenteIrregular->toArray();
         $this->view->proponenteIrregular = $arrProponenteIrregular;
@@ -615,61 +613,64 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
      */
     public function solicitacaoReadequacaoAction()
     {
-            $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
-            $tipoAnalise = $this->_request->getParam("tipoAnalise");
-            $post = Zend_Registry::get('post');
+        $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
+        $tipoAnalise = $this->_request->getParam("tipoAnalise");
+        $post = Zend_Registry::get('post');
 
-            $projetos = new tbPedidoAlteracaoProjeto();
+        $projetos = new tbPedidoAlteracaoProjeto();
 
-            if ($tipoAnalise == "readequados") :
+        if ($tipoAnalise == "readequados") :
                     $arrBusca = array();
-                    $arrBusca['re.siVerificacao IN (?)'] = array('1');
-                    $arrBusca['rex.tpAlteracaoProjeto IN (?)'] = array('1', '2', '5', '7', '8', '9', '10');
-                    $arrBusca['pr.Situacao NOT IN (?)'] = array('D27', 'D28');
-                    if ($this->codGrupo == 121) : // 121 = Tecnico Acompanhamento - Inclui projetos que estao direcionados ao tecnico
+        $arrBusca['re.siVerificacao IN (?)'] = array('1');
+        $arrBusca['rex.tpAlteracaoProjeto IN (?)'] = array('1', '2', '5', '7', '8', '9', '10');
+        $arrBusca['pr.Situacao NOT IN (?)'] = array('D27', 'D28');
+        if ($this->codGrupo == 121) : // 121 = Tecnico Acompanhamento - Inclui projetos que estao direcionados ao tecnico
                             $arrBusca['vp.idUsuario = ?'] = $this->getIdUsuario;
-                            $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
-                    endif;
-            endif;
-            if (!empty($post->ordenacaoR)) { $ordem[] = "{$post->ordenacaoR} {$post->tipoOrdenacaoR}"; }else{$ordem = array('1 ASC');}
-            $rsProponente  = $projetos->buscarProjetosCheckList($arrBusca, array('rex.tpAlteracaoProjeto'));
-            $arrProponente = $rsProponente->toArray();
-            $this->view->proponenteR      = $arrProponente;
-            $this->view->parametrosBuscaR = $_POST;
+        $arrBusca['vp.stAnaliseProjeto NOT IN (?)'] = array('3','4'); //Analise Finalizada e Encaminhado para portaria
+        endif;
+        endif;
+        if (!empty($post->ordenacaoR)) {
+            $ordem[] = "{$post->ordenacaoR} {$post->tipoOrdenacaoR}";
+        } else {
+            $ordem = array('1 ASC');
+        }
+        $rsProponente  = $projetos->buscarProjetosCheckList($arrBusca, array('rex.tpAlteracaoProjeto'));
+        $arrProponente = $rsProponente->toArray();
+        $this->view->proponenteR      = $arrProponente;
+        $this->view->parametrosBuscaR = $_POST;
     } // fecha metodo solicitacaoReadequacaoAction()
 
 
-    function gravarEncaminhamentoPortariaAction()
+    public function gravarEncaminhamentoPortariaAction()
     {
         $idpronac = $this->_request->getParam("idpronac");
         $post = Zend_Registry::get('post');
         $idAprovacao = $post->idAprovacao;
-        if(!empty ($idpronac)){
-            try
-            {
-                if($this->codGrupo == 103 || $this->codGrupo == 127){ //103=Coord. de Analise   103=Coord. Geral de Analise
+        if (!empty($idpronac)) {
+            try {
+                if ($this->codGrupo == 103 || $this->codGrupo == 127) { //103=Coord. de Analise   103=Coord. Geral de Analise
                     $situacao = "D27";
-                }elseif($this->codGrupo == 122 || $this->codGrupo == 123 ){ //121=Cood. de Acompanhamento    123=Cood. Geral de Acompanhamento
+                } elseif ($this->codGrupo == 122 || $this->codGrupo == 123) { //121=Cood. de Acompanhamento    123=Cood. Geral de Acompanhamento
                     $situacao = "D28";
                 }
 
                 $providencia = '';
                 $tblSituacao = new Situacao();
                 $rsSituacao = $tblSituacao->buscar(array('Codigo=?'=>$situacao))->current();
-                if(!empty($rsSituacao)){
+                if (!empty($rsSituacao)) {
                     $providencia = $rsSituacao->Descricao;
                 }
                 // altera a situacao do projeto
                 $tblProjeto = new Projetos();
                 $rsProjeto = $tblProjeto->buscar(array('IdPRONAC=?'=>$idpronac))->current();
                 $nrPronac = $rsProjeto->AnoProjeto.$rsProjeto->Sequencial;
-                $tblProjeto->alterarSituacao($idpronac,'',$situacao,$providencia);
+                $tblProjeto->alterarSituacao($idpronac, '', $situacao, $providencia);
 
                 //STATUS AVALIACAO
                 $tblVerificaProjeto = new tbVerificaProjeto();
                 $rsVP = $tblVerificaProjeto->buscar(array('idPronac=?'=>$idpronac))->current();
                 $dadosVP = array();
-                if(empty($rsVP)){
+                if (empty($rsVP)) {
                     $dadosVP['idPronac']    = $idpronac;
                     $dadosVP['idOrgao']     = $this->codOrgao;
                     $dadosVP['idAprovacao'] = $idAprovacao;
@@ -679,13 +680,12 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
                     $dadosVP['dtPortaria']  = date('Y-m-d H:i:s');
                     $dadosVP['stAtivo']     = 1;
                     $tblVerificaProjeto->inserir($dadosVP);
-                }else{
+                } else {
                     $rsVP->stAnaliseProjeto = '4';
                     $rsVP->dtPortaria       = date('Y-m-d H:i:s');
                     $rsVP->save();
                 }
                 parent::message("Projeto encaminhando com sucesso!", "checklistpublicacao/listas?tipoFiltro=finalizados", "CONFIRM");
-
             } catch (Exception $e) {
                 parent::message("O Projeto {$nrPronac} n&atilde;o pode ser encaminhado para Portaria, pois o proponente est&aacute; irregular.", "checklistpublicacao/listas?tipoFiltro=finalizados", "ERROR");
             }
@@ -693,14 +693,16 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         parent::message("O Projeto {$nrPronac} n&atilde;o pode ser encaminhado para Portaria, pois o proponente est&aacute; irregular.", "checklistpublicacao/listas?tipoFiltro=finalizados", "ERROR");
     }
 
-    function assinaturasImprimirChecklistAction() {
+    public function assinaturasImprimirChecklistAction()
+    {
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
         $nomeUsuario = $auth->getIdentity()->usu_nome;
         $this->view->nomeUsuario = $nomeUsuario;
         $this->view->idPronac = $this->_request->getParam("idPronac");
     }
 
-    function imprimirChecklistAction() {
+    public function imprimirChecklistAction()
+    {
         $Projetos = new Projetos();
         $dadosProjeto = $Projetos->buscarDadosUC75($_POST['idPronac'])->current();
 
@@ -709,7 +711,8 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
     }
 
-    function gravarFinalizacaoAnaliseAction() {
+    public function gravarFinalizacaoAnaliseAction()
+    {
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
         $usuario = $auth->getIdentity()->usu_codigo;
 
@@ -720,10 +723,8 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $dtIniCaptacao = Data::dataAmericana($post->dataCaptacaoIni);
         $dtFimCaptacao = Data::dataAmericana($post->dataCaptacaoFim);
 
-        if(!empty ($idpronac)){
-
-            try
-            {
+        if (!empty($idpronac)) {
+            try {
                 $tblProjeto = new Projetos();
                 $rsProjeto = $tblProjeto->buscarProjetosCheckList(array('pr.IdPRONAC=?'=>$idpronac))->current();
 
@@ -741,7 +742,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
                 $tblVerificaProjeto = new tbVerificaProjeto();
                 $rsVP = $tblVerificaProjeto->buscar(array('idPronac=?'=>$idpronac))->current();
                 $dadosVP = array();
-                if(empty($rsVP)){
+                if (empty($rsVP)) {
                     $dadosVP['idPronac'] = $idpronac;
                     $dadosVP['idOrgao'] = $this->codOrgao;
                     $dadosVP['idAprovacao'] = $idAprovacao;
@@ -750,21 +751,20 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
                     $dadosVP['dtFinalizado'] = new Zend_Db_Expr('GETDATE()');
                     $dadosVP['stAtivo'] = 1;
                     $tblVerificaProjeto->inserir($dadosVP);
-                }else{
+                } else {
                     $rsVP->stAnaliseProjeto = '3';
                     $rsVP->dtFinalizado = new Zend_Db_Expr('GETDATE()');
                     $rsVP->save();
                 }
                 parent::message("An&aacute;lise finalizada com sucesso!", "checklistpublicacao/listas", "CONFIRM");
-
-            } catch (Exception $e){
+            } catch (Exception $e) {
                 parent::message("Erro ao atualizar informa&ccedil;&otilde;es! Opera&ccedil;&atilde;o n&atilde;o realizada.", "checklistpublicacao/listas", "ERROR");
             }
         }
         parent::message("Erro ao atualizar informa&ccedil;&otilde;es! Pronac n&atilde;o encontrado.", "checklistpublicacao/listas", "ERROR");
     }
 
-    function gravarAlteracaoProjetoAction()
+    public function gravarAlteracaoProjetoAction()
     {
         $this->_helper->layout->disableLayout();
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
@@ -786,8 +786,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $usuario = $auth->getIdentity()->usu_codigo;
         //$urlRetorno = "index.php";
         // Alterar projetos
-        try
-        {
+        try {
             //DADOS DO PROJETO
             $dadosProjeto = array(
                 "Area"              => $areacultural,
@@ -822,7 +821,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
             $tblVerificaProjeto = new tbVerificaProjeto();
             $rsVP = $tblVerificaProjeto->buscar(array('idPronac=?'=>$idpronac))->current();
             $dadosVP = array();
-            if(empty($rsVP)){
+            if (empty($rsVP)) {
                 $dadosVP['idPronac']    = $idpronac;
                 $dadosVP['idOrgao']     = $this->codOrgao;
                 $dadosVP['idAprovacao'] = $idAprovacao;
@@ -833,26 +832,22 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
                 //$dadosVP['dtPortaria']  = $idpronac;
                 $dadosVP['stAtivo']     = 1;
                 $tblVerificaProjeto->inserir($dadosVP);
-            }else{
+            } else {
                 $rsVP->stAnaliseProjeto = '2';
                 $rsVP->save();
             }
             $this->_helper->json(array('error' => false, "msg" => "Projeto alterado com sucesso!"));
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
             //parent::message("Projeto alterado com sucesso!!", "checklistpublicacao/", "CONFIRM");
-
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             $this->_helper->json(array('error' => true, "msg" => "Erro ao atualizar informa&ccedil;&otilde;es! As altera&ccedil;&otilde;es n&atilde;o foram salvas. ".$e->getMessage()));
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
             //parent::message("Erro ao atualizar informacoes! Operacao nao realizada. ".$e->getMessage(), "checklistpublicacao/", "ERROR");
         }
     }
 
-    function alterarProjetoAction()
+    public function alterarProjetoAction()
     {
-
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
         $post = Zend_Registry::get('post');
         $idpronac = $post->idpronac;
@@ -923,25 +918,21 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
             /*$aprovadoReal = AprovacaoDAO::SomarAprovacao($idpronac);
             $dadosDoProjeto['AprovadoReal'] = number_format($aprovadoReal['soma'], '2', ',', '.');*/
 
-            $tipoaprovacaoComplementacao = AprovacaoDAO::SomarReadeqComplementacao($idpronac, 2);
-            $tipoaprovacaoReadequacao    = AprovacaoDAO::SomarReadeqComplementacao($idpronac, 4);
+        $tipoaprovacaoComplementacao = AprovacaoDAO::SomarReadeqComplementacao($idpronac, 2);
+        $tipoaprovacaoReadequacao    = AprovacaoDAO::SomarReadeqComplementacao($idpronac, 4);
 
-            if (count($tipoaprovacaoComplementacao) > 0)
-            {
-                $dadosReadequacao['Tipo'] = ('Valor Complementa&ccedil;&atilde;o (R$):');
-                $dadosReadequacao['ReadCompl'] = number_format($tipoaprovacaoComplementacao['soma'], '2', ',', '.');
+        if (count($tipoaprovacaoComplementacao) > 0) {
+            $dadosReadequacao['Tipo'] = ('Valor Complementa&ccedil;&atilde;o (R$):');
+            $dadosReadequacao['ReadCompl'] = number_format($tipoaprovacaoComplementacao['soma'], '2', ',', '.');
+        } else {
+            if (count($tipoaprovacaoReadequacao) > 0) {
+                $dadosReadequacao['Tipo'] = ('Valor Readequa&ccedil;&atilde;o (R$):');
+                $dadosReadequacao['ReadCompl'] = number_format($tipoaprovacaoReadequacao['soma'], '2', ',', '.');
             }
-            else
-            {
-                if (count($tipoaprovacaoReadequacao) > 0)
-                {
-                    $dadosReadequacao['Tipo'] = ('Valor Readequa&ccedil;&atilde;o (R$):');
-                    $dadosReadequacao['ReadCompl'] = number_format($tipoaprovacaoReadequacao['soma'], '2', ',', '.');
-                }
-            }
-            $this->view->dadosReadequacao = $dadosReadequacao;
+        }
+        $this->view->dadosReadequacao = $dadosReadequacao;
 
-            //$dadosDoProjeto['idAprovacao'] = $projeto->idAprovacao;
+        //$dadosDoProjeto['idAprovacao'] = $projeto->idAprovacao;
 
         /*}*/
 
@@ -950,7 +941,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $this->view->BuscarAreaCultura = $areaCultura->buscar(array('Codigo != ?'=>7));
     }
 
-    function alterarProjetoReadequacaoAction()
+    public function alterarProjetoReadequacaoAction()
     {
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
         $post = Zend_Registry::get('post');
@@ -968,15 +959,11 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $tipoaprovacaoComplementacao = AprovacaoDAO::SomarReadeqComplementacao($idpronac, 2);
         $tipoaprovacaoReadequacao    = AprovacaoDAO::SomarReadeqComplementacao($idpronac, 4);
 
-        if (count($tipoaprovacaoComplementacao) > 0)
-        {
+        if (count($tipoaprovacaoComplementacao) > 0) {
             $dadosReadequacao['Tipo'] = ('Valor Complementa&ccedil;&atilde;o (R$):');
             $dadosReadequacao['ReadCompl'] = number_format($tipoaprovacaoComplementacao['soma'], '2', ',', '.');
-        }
-        else
-        {
-            if (count($tipoaprovacaoReadequacao) > 0)
-            {
+        } else {
+            if (count($tipoaprovacaoReadequacao) > 0) {
                 $dadosReadequacao['Tipo'] = ('Valor Readequa&ccedil;&atilde;o (R$):');
                 $dadosReadequacao['ReadCompl'] = number_format($tipoaprovacaoReadequacao['soma'], '2', ',', '.');
             }
@@ -988,7 +975,7 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $this->view->BuscarAreaCultura = $areaCultura;
     }
 
-    function recuperaAreaCulturalAction()
+    public function recuperaAreaCulturalAction()
     {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $cdarea = $this->_request->getParam("area");
@@ -998,9 +985,8 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $objSegmentocultural = new Segmentocultural();
         $dadosSegmento = $objSegmentocultural->buscarSegmento($cdarea);
         $i = 0;
-        if(count($dadosSegmento)>0){
-            foreach ($dadosSegmento as $segmento)
-            {
+        if (count($dadosSegmento)>0) {
+            foreach ($dadosSegmento as $segmento) {
                 $vSegmento[$i]['cdsegmento'] = $segmento->id;
                 $vSegmento[$i]['descsegmento'] = utf8_encode($segmento->descricao);
                 $i++;
@@ -1008,17 +994,16 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         }
         $jsonSegmento = json_encode($vSegmento);
         echo $jsonSegmento;
-        $this->_helper->viewRenderer->setNoRender(TRUE);
-
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    function formRedistribuirProjetoAction()
+    public function formRedistribuirProjetoAction()
     {
         $arrBusca = array();
-        if($this->tipoAnalise == "inicial"){
+        if ($this->tipoAnalise == "inicial") {
             $arrBusca['g.gru_codigo = ?'] = 110;
             //$arrBusca['g.gru_codigo = ?'] = $this->codOrgao;
-        }else{
+        } else {
             $arrBusca['g.gru_codigo = ?'] = 121;
         }
         //$arrBusca[" TABELAS.dbo.fnCodigoOrgaoEstrutura(o.org_codigo, 1) = ? "] = $this->codOrgaoSuperior;
@@ -1028,10 +1013,9 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $tblTecnicos = new Usuariosorgaosgrupos();
         $rsTecnicos = $tblTecnicos->buscarUsuariosOrgaosGrupos($arrBusca, array('u.usu_nome ASC', 'g.gru_nome ASC'));
         $this->view->tecnicos = $rsTecnicos;
-
     }
 
-    function buscarTecnicosRedistribuicaoAction()
+    public function buscarTecnicosRedistribuicaoAction()
     {
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
         $post = Zend_Registry::get('post');
@@ -1040,16 +1024,23 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         $nrReuniao = $post->reuniao;
 
         $arrBusca = array();
-        if(!empty($idTecnico)){
-            $arrBusca['vp.idUsuario = ?'] = $idTecnico;}
-        if(!empty($pronac)){
-            $arrBusca['(pr.AnoProjeto + pr.Sequencial) = ?'] = $pronac;}
-        if(!empty($nrReuniao)){
-            $arrBusca['tr.NrReuniao = ?'] = $nrReuniao;}
+        if (!empty($idTecnico)) {
+            $arrBusca['vp.idUsuario = ?'] = $idTecnico;
+        }
+        if (!empty($pronac)) {
+            $arrBusca['(pr.AnoProjeto + pr.Sequencial) = ?'] = $pronac;
+        }
+        if (!empty($nrReuniao)) {
+            $arrBusca['tr.NrReuniao = ?'] = $nrReuniao;
+        }
         $arrBusca['vp.stAnaliseProjeto IN (?)'] = array('1','2','3');
         $arrBusca['vp.stAnaliseProjeto in (SELECT TOP 1 max(stAnaliseProjeto) from SAC..tbVerificaProjeto where IdPRONAC = pr.IdPRONAC)'] = '?';
 
-        if(!empty($post->ordenacao)){ $ordem[] = "{$post->ordenacao} {$post->tipoOrdenacao}"; }else{$ordem = array('32 ASC');}
+        if (!empty($post->ordenacao)) {
+            $ordem[] = "{$post->ordenacao} {$post->tipoOrdenacao}";
+        } else {
+            $ordem = array('32 ASC');
+        }
 
         $tblProjeto = new Projetos();
         $rsProjetos = $tblProjeto->buscarProjetosCheckList($arrBusca, $ordem);
@@ -1058,26 +1049,25 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
 
         //BUSCAR TECNICOS PARA DISTRIBUIR
         $arrBusca = array();
-        if($this->tipoAnalise == "inicial"){
+        if ($this->tipoAnalise == "inicial") {
             $arrBusca['g.gru_codigo = ?'] = 110;
             //$arrBusca['g.gru_codigo = ?'] = $this->codOrgao;
-        }else{
+        } else {
             $arrBusca['g.gru_codigo = ?'] = 121;
         }
         //$arrBusca[" TABELAS.dbo.fnCodigoOrgaoEstrutura(o.org_codigo, 1) = ? "] = $this->codOrgaoSuperior;
         $arrBusca['ug.uog_orgao = ? '] = $this->codOrgao;
         $arrBusca['ug.uog_status = ?'] = 1; //usuarios ativos
-        if(!empty($idTecnico)){
+        if (!empty($idTecnico)) {
             $arrBusca['u.usu_codigo <> ?'] = $idTecnico; //tecnico atual
         }
 
         $tblTecnicos = new Usuariosorgaosgrupos();
         $rsTecnicos = $tblTecnicos->buscarUsuariosOrgaosGrupos($arrBusca, array('u.usu_nome ASC', 'g.gru_nome ASC'));
         $this->view->tecnicos = $rsTecnicos;
-        
     }
 
-    function redistribuirProjetoAction()
+    public function redistribuirProjetoAction()
     {
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
         $post = Zend_Registry::get('post');
@@ -1086,22 +1076,19 @@ class ChecklistPublicacaoController extends MinC_Controller_Action_Abstract
         
 
         $tblVerificaProjeto = new tbVerificaProjeto();
-        try{
-            foreach($arrPronacs as $idPronac){
+        try {
+            foreach ($arrPronacs as $idPronac) {
                 $rsVerificaProjeto = $tblVerificaProjeto->buscar(array('idPronac = ?'=>$idPronac))->current();
-                if(!empty($rsVerificaProjeto)){
+                if (!empty($rsVerificaProjeto)) {
                     $rsVerificaProjeto->idUsuario = $idTecnico;
                     $rsVerificaProjeto->stAnaliseProjeto = 1; //aguardando analise
                     $rsVerificaProjeto->save();
                 }
             }
-            parent::message("Projeto(s) redistribu&iacute;do(s) com sucesso!", "checklistpublicacao/listas" , "CONFIRM");
+            parent::message("Projeto(s) redistribu&iacute;do(s) com sucesso!", "checklistpublicacao/listas", "CONFIRM");
             return;
-
         } // fecha try
-        catch (Exception $e)
-        {
-            
+        catch (Exception $e) {
             parent::message("Erro ao redistribuir projeto(s). ".$e->getMessage(), "checklistpublicacao/listas", "ERROR");
             return;
         }

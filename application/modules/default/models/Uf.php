@@ -5,17 +5,19 @@
  *
  * @author 01610881125
  */
-class Uf extends MinC_Db_Table_Abstract {
-
+class Uf extends MinC_Db_Table_Abstract
+{
     protected $_primary = "idUF";
     protected $_name = 'Uf';
     protected $_schema = 'agentes';
 
-    public function buscarRegiao() {
+    public function buscarRegiao()
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array($this->_name), array(
+                array($this->_name),
+            array(
             'Regiao'
                 )
         );
@@ -24,13 +26,16 @@ class Uf extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function buscaRegiaoPorPRONAC($PRONAC) {
+    public function buscaRegiaoPorPRONAC($PRONAC)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('uf'=>$this->_name), array(
+                array('uf'=>$this->_name),
+            array(
             'Regiao'
-                ), $this->_schema
+                ),
+            $this->_schema
         );
         $select->joinInner(array('p' => 'Projetos'), 'uf.Sigla = p.UfProjeto', array(), 'SAC.dbo');
 
@@ -51,11 +56,13 @@ class Uf extends MinC_Db_Table_Abstract {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-            array('uf'=>$this->_name), array(
+            array('uf'=>$this->_name),
+            array(
             'idUF',
             'Sigla',
             'Regiao'
-        ), $this->_schema
+        ),
+            $this->_schema
         );
         $select->order('Sigla ASC');
 

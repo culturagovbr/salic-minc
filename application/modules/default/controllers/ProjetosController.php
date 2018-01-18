@@ -10,7 +10,8 @@
  * @link http://www.politec.com.br
  * @copyright 2010 - Politec - Todos os direitos reservados.
  */
-class ProjetosController extends MinC_Controller_Action_Abstract {
+class ProjetosController extends MinC_Controller_Action_Abstract
+{
 
     /**
      * Reescreve o metodo init()
@@ -18,12 +19,13 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         // autenticacao scriptcase (AMBIENTE PROPONENTE)
         parent::init();
     }
 
-// fecha metodo init()
+    // fecha metodo init()
 
     /**
      * Metodo que chama a view projetos (nehuma funcionalidade)
@@ -31,8 +33,8 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function projetosAction() {
-        
+    public function projetosAction()
+    {
     }
 
     /**
@@ -41,7 +43,8 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function balancearAction() {
+    public function balancearAction()
+    {
         $auth 		 = Zend_Auth::getInstance(); // pega a autenticacao
         $idPronac 	 = $this->_request->getParam("idpronac"); // pega o id do pronac via get
         $servico 	 = $this->_request->getParam("servico"); // pega o id do pronac via get
@@ -56,8 +59,8 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
         $w2['a.FecharAnalise in (?)'] = array(1,2);
         $qntdProdValidados = $tbDistParecer->QntdProdutosXValidados($w2);
         
-        if($qntdProdValidados != $qntdProd){ //Se não houver validação para cada produto, o sistema não deixa continuar.
-            parent::message("Produto sem validação do Coordenador da Vinculada!", "gerenciarpareceres/index","ERROR");
+        if ($qntdProdValidados != $qntdProd) { //Se não houver validação para cada produto, o sistema não deixa continuar.
+            parent::message("Produto sem validação do Coordenador da Vinculada!", "gerenciarpareceres/index", "ERROR");
         }
                 
         $planilhaAprovacao = new PlanilhaAprovacao();
@@ -134,21 +137,19 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
                     );
                     
                     //zera valores de produto desfavorecido
-                    if(isset($arrParecerProduto[$resu->idProduto]))
-                    {
-                        if($arrParecerProduto[$resu->idProduto] == '1') 
-                        {
+                    if (isset($arrParecerProduto[$resu->idProduto])) {
+                        if ($arrParecerProduto[$resu->idProduto] == '1') {
                             //produto favorecido
                             $data['qtItem']       = $resu->Quantidade;
                             $data['nrOcorrencia'] = $resu->Ocorrencia;
                             $data['vlUnitario']   = $resu->ValorUnitario;
-                        }else{ 
+                        } else {
                             //produto desfavorecido
                             $data['qtItem']       = 0;
                             $data['nrOcorrencia'] = 0;
                             $data['vlUnitario']   = 0;
                         }
-                    }else{ //condicao para a Admistracao do Projeto, que nao possui codigo de produto
+                    } else { //condicao para a Admistracao do Projeto, que nao possui codigo de produto
                         $data['qtItem']       = $resu->Quantidade;
                         $data['nrOcorrencia'] = $resu->Ocorrencia;
                         $data['vlUnitario']   = $resu->ValorUnitario;
@@ -160,9 +161,9 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
                 //VERIFICA QUANTOS PRODUTOS O PROJETO POSSUI POR AREA
                 $rsProdutos = $tbDistParecer->BuscarQtdAreasProjetos($idPronac);
                 $totalArea = $rsProdutos->QDTArea;
-                if($totalArea >= '2'){
+                if ($totalArea >= '2') {
                     $area = 7; //Area = Artes integradas
-                }else{
+                } else {
                     //BUSCA AREA DO PROJETO
                     $areaProjeto = $projetos->BuscarAreaSegmentoProjetos($idPronac);
                     $area = $areaProjeto['area']; //Area do projeto
@@ -186,18 +187,14 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
                 $projetos->alterar($data, $where);
                 //echo 'Conselheiro = ' . $Rtitulacao->idAgente . '<br/>';
                 
-                parent::message("Projeto encaminhado para o Componente da Comissão. Conselheiro: ".$Rtitulacao->Nome, "gerenciarpareceres/index","CONFIRM");
-                
+                parent::message("Projeto encaminhado para o Componente da Comissão. Conselheiro: ".$Rtitulacao->Nome, "gerenciarpareceres/index", "CONFIRM");
             } // fecha try
-            catch (Exception $e) 
-            {
-                parent::message("Error: ".$e->getMessage(), "gerenciarpareceres/index","ERROR");
-            	die($e->getMessage());
+            catch (Exception $e) {
+                parent::message("Error: ".$e->getMessage(), "gerenciarpareceres/index", "ERROR");
+                die($e->getMessage());
             }
-        }
-        else 
-        {
-        	parent::message("Planilhas já copiadas.", "gerenciarpareceres/index","ALERT");
+        } else {
+            parent::message("Planilhas já copiadas.", "gerenciarpareceres/index", "ALERT");
         }
         
         // colocar um else aqui!!!
@@ -219,30 +216,29 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
         }
         //die('fim');
         */
-        
     }
 
-// fecha metodo balancearAction()
+    // fecha metodo balancearAction()
 
-        /**
-	 * M?todo que chama as fun??es de balancear projeto, copiar tabelas e alterar a situa??o do projeto
-	 * @access public
-	 * @param void
-	 * @return void
-	 */
-	public function aprovacaodiretaAction() {
-
-            $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess?o com o grupo ativo
+    /**
+     * M?todo que chama as fun??es de balancear projeto, copiar tabelas e alterar a situa??o do projeto
+     * @access public
+     * @param void
+     * @return void
+     */
+    public function aprovacaodiretaAction()
+    {
+        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess?o com o grupo ativo
             $codOrgao = $GrupoAtivo->codOrgao; //  Órg?o ativo na sess?o
             $this->view->codOrgao = $codOrgao;
 
-            $idPronac = $_POST['idpronac'];
-            $idusuario = $_POST['idusuario'];
-            $tipo_doc = $_POST['tipo_doc'];
-            //$cod_ect = $_POST['cod_ect'];
-            $cod_ect = null;
+        $idPronac = $_POST['idpronac'];
+        $idusuario = $_POST['idusuario'];
+        $tipo_doc = $_POST['tipo_doc'];
+        //$cod_ect = $_POST['cod_ect'];
+        $cod_ect = null;
 
-            //pega as informaç?es do arquivo
+        //pega as informaç?es do arquivo
             $arquivoNome 	= $_FILES['documento']['name']; // nome
             $arquivoTemp 	= $_FILES['documento']['tmp_name']; // nome temporário
             $arquivoTipo 	= $_FILES['documento']['type']; // tipo
@@ -251,12 +247,12 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
             if (!empty($arquivoNome)) {
                 $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens?o
             }
-            if (!empty($arquivoTemp)) {
-                $arquivoBinario = Upload::setBinario($arquivoTemp); // binário
+        if (!empty($arquivoTemp)) {
+            $arquivoBinario = Upload::setBinario($arquivoTemp); // binário
                 $arquivoHash 	= Upload::setHash($arquivoTemp); // hash
-            }
+        }
 
-            $tbDoc = array(
+        $tbDoc = array(
                 'idPronac' 		=> $idPronac,
                 'stEstado' 		=> 0,
                 'imDocumento' 	=> null,
@@ -272,24 +268,24 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
                 'biDocumento' 	=> $arquivoBinario
             );
 
-            $dados = "Insert into SAC.dbo.tbDocumento
+        $dados = "Insert into SAC.dbo.tbDocumento
                   (idPronac, stEstado, imDocumento, idTipoDocumento, idUsuario, dtDocumento, NoArquivo, TaArquivo, idUsuarioJuntada, dtJuntada, idUnidadeCadastro, CodigoCorreio, biDocumento)
                   values
                   (".$idPronac.", 0, null, ".$tipo_doc.", ".$idusuario.", GETDATE(), '".$arquivoNome."', ".$arquivoTamanho.", null, null, ".$codOrgao.", '".$cod_ect."', ".$arquivoBinario.")
             ";
 
-            $db = Zend_Db_Table::getDefaultAdapter();
-            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-            try {
+        try {
 //                $db->beginTransaction();
-                if (empty($arquivoTemp)){ // nome do arquivo
+                if (empty($arquivoTemp)) { // nome do arquivo
                     parent::message("Por favor, informe o arquivo!!", "gerenciarpareceres/index", "ALERT");
-                } else if (empty($arquivoTemp)){ // nome do arquivo
+                } elseif (empty($arquivoTemp)) { // nome do arquivo
                     parent::message("Por favor, informe o arquivo!", "gerenciarpareceres/index", "ALERT");
-                } else if ($arquivoExtensao != 'pdf'){ // extens?o do arquivo
+                } elseif ($arquivoExtensao != 'pdf') { // extens?o do arquivo
                     parent::message("O arquivo deve ser PDF!", "gerenciarpareceres/index", "ALERT");
-                } else if ($arquivoTamanho > 10485760){ // tamanho do arquivo: 10MB
+                } elseif ($arquivoTamanho > 10485760) { // tamanho do arquivo: 10MB
                     parent::message("O arquivo n?o pode ser maior do que 10MB!", "gerenciarpareceres/index", "ALERT");
                 } else {
                     $resultado = TramitarDocumentosDAO::cadDocumento($dados);
@@ -306,29 +302,29 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
                             'Acao'                  => 1,
                             'stEstado'              => 1
                     );
-                    $resultado2 = TramitarDocumentosDAO::cadHistorico('SAC.dbo.tbHistoricoDocumento',$tbHistoricoDoc);
+                    $resultado2 = TramitarDocumentosDAO::cadHistorico('SAC.dbo.tbHistoricoDocumento', $tbHistoricoDoc);
                 }
 
-                $this->_helper->viewRenderer->setNoRender();
-                //$servico   = $this->_request->getParam("servico"); // pega o id do pronac via get
+            $this->_helper->viewRenderer->setNoRender();
+            //$servico   = $this->_request->getParam("servico"); // pega o id do pronac via get
 
-                $aprovacao = new Aprovacao();
-                $parecer = new Parecer();
-                $planilhaaprovacao = new PlanilhaAprovacao();
-                $projeto = new Projetos();
-                $planilhaProjeto = new PlanilhaProjeto();
-                $analiseConteudo = new Analisedeconteudo();
-                $analiseaprovacao = new AnaliseAprovacao();
-                $Distribuicao = new DistribuicaoProjetoComissao();
-                $reuniao = new Reuniao();
-                $pauta = new Pauta();
-                $sp = new paVerificarAtualizarSituacaoAprovacao();
+            $aprovacao = new Aprovacao();
+            $parecer = new Parecer();
+            $planilhaaprovacao = new PlanilhaAprovacao();
+            $projeto = new Projetos();
+            $planilhaProjeto = new PlanilhaProjeto();
+            $analiseConteudo = new Analisedeconteudo();
+            $analiseaprovacao = new AnaliseAprovacao();
+            $Distribuicao = new DistribuicaoProjetoComissao();
+            $reuniao = new Reuniao();
+            $pauta = new Pauta();
+            $sp = new paVerificarAtualizarSituacaoAprovacao();
 
-                // copia as tabelas
-                $buscarParecer = $parecer->buscar(array('idPronac = ?'=>$idPronac, 'stAtivo = ?'=>1))->current()->toArray();
-                $Rplanilhaprojeto = $planilhaProjeto->buscar(array('idPRONAC = ?'=> $idPronac));
-                foreach($Rplanilhaprojeto as $resu) {
-                    $data = array(
+            // copia as tabelas
+            $buscarParecer = $parecer->buscar(array('idPronac = ?'=>$idPronac, 'stAtivo = ?'=>1))->current()->toArray();
+            $Rplanilhaprojeto = $planilhaProjeto->buscar(array('idPRONAC = ?'=> $idPronac));
+            foreach ($Rplanilhaprojeto as $resu) {
+                $data = array(
                         'tpPlanilha'=>'CO',
                         'dtPlanilha'=> date('Y-m-d H:i:s'),
                         'idPlanilhaProjeto'=>$resu->idPlanilhaProjeto,
@@ -352,12 +348,12 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
                         'dsJustificativa'=>$resu->Justificativa,
                         'stAtivo'=>'S'
                     );
-                    $inserirPlanilhaAprovacao = $planilhaaprovacao->inserir($data);
-                }
+                $inserirPlanilhaAprovacao = $planilhaaprovacao->inserir($data);
+            }
 
-                $RanaliseConteudo = $analiseConteudo->buscar(array('IdPRONAC = ?'=> $idPronac));
-                foreach($RanaliseConteudo as $resu) {
-                    $data = array(
+            $RanaliseConteudo = $analiseConteudo->buscar(array('IdPRONAC = ?'=> $idPronac));
+            foreach ($RanaliseConteudo as $resu) {
+                $data = array(
                         'tpAnalise'=>'CO',
                         'dtAnalise'=>date('Y-m-d H:i:s'),
                         'idAnaliseConteudo'=>$resu->idAnaliseDeConteudo,
@@ -380,15 +376,15 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
                         'dsAvaliacao'=>$resu->ParecerDeConteudo
                     );
                     
-                    $analiseaprovacao->inserir($data);
-                }
+                $analiseaprovacao->inserir($data);
+            }
 
-                $consolidarAprovacao = TratarString::escapeString($buscarParecer['ResumoParecer']);
-                $somaPlanilhaAprovacao = $planilhaaprovacao->somarPlanilhaAprovacao($idPronac);
-                $valoraprovacao = $somaPlanilhaAprovacao['soma'];
-                $tipoAprovacao = $buscarParecer['TipoParecer'];
-                $buscarprojetos = $projeto->buscar(array('IdPRONAC = ?'=>$idPronac))->current()->toArray();
-                $dados = array(
+            $consolidarAprovacao = TratarString::escapeString($buscarParecer['ResumoParecer']);
+            $somaPlanilhaAprovacao = $planilhaaprovacao->somarPlanilhaAprovacao($idPronac);
+            $valoraprovacao = $somaPlanilhaAprovacao['soma'];
+            $tipoAprovacao = $buscarParecer['TipoParecer'];
+            $buscarprojetos = $projeto->buscar(array('IdPRONAC = ?'=>$idPronac))->current()->toArray();
+            $dados = array(
                     'IdPRONAC'=>$idPronac,
                     'AnoProjeto'=>$buscarprojetos['AnoProjeto'],
                     'Sequencial'=>$buscarprojetos['Sequencial'],
@@ -406,10 +402,10 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
                     'ContraPartidaReal'=> 0,
                     'Logon'=> $idusuario,
                 );
-                $inserir = $aprovacao->inserir($dados);
-                $buscarReuniaoAberta = $reuniao->buscarReuniaoAberta();
+            $inserir = $aprovacao->inserir($dados);
+            $buscarReuniaoAberta = $reuniao->buscarReuniaoAberta();
 
-                $dadosPauta = array(
+            $dadosPauta = array(
                     "idNrReuniao"=>$buscarReuniaoAberta['idNrReuniao'],
                     "IdPRONAC"=>$idPronac,
                     "dtEnvioPauta"=>date("Y-m-d H:i:s"),
@@ -419,20 +415,18 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
                     "dsAnalise"=> 'AD Referendum'
                 );
 
-                $inserirProjetoPauta = $pauta->inserir($dadosPauta);
+            $inserirProjetoPauta = $pauta->inserir($dadosPauta);
 
-                $verificarSituacao = $sp->expaVerificarAtualizarSituacaoAprovacao($idPronac);
+            $verificarSituacao = $sp->expaVerificarAtualizarSituacaoAprovacao($idPronac);
 //                $db->commit();
-                parent::message("Projeto aprovado com sucesso!", "gerenciarpareceres/index", "CONFIRM");
-            }
-            catch(Zend_Exception $ex) {
+            parent::message("Projeto aprovado com sucesso!", "gerenciarpareceres/index", "CONFIRM");
+        } catch (Zend_Exception $ex) {
 //                $db->rollBack();
-                parent::message("Erro ao realizar cadastro", "gerenciarpareceres/index", "ERROR");
-            }
+            parent::message("Erro ao realizar cadastro", "gerenciarpareceres/index", "ERROR");
+        }
+    } // fecha m?todo balancearAction()
 
-        } // fecha m?todo balancearAction()
-
-// fecha metodo balancearAction()
+    // fecha metodo balancearAction()
 
     /**
      * Metodo que chama as funcoes de balancear projeto, copiar tabelas e alterar a situacao do projeto
@@ -441,7 +435,8 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function enviarcomponentedacomissaoAction() {
+    public function enviarcomponentedacomissaoAction()
+    {
         $idPronac = $this->_request->getParam("idpronac"); // pega o id do pronac via get
         $servico = $this->_request->getParam("servico"); // pega o id do pronac via get
         //$tipousuario   = $this->_request->getParam("idusuario"); // pega o id do pronac via get
@@ -515,16 +510,16 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
             // chama a funcao para fazer o balanceamento
             
             //VERIFICA QUANTOS PRODUTOS O PROJETO POSSUI POR AREA
-                $tbDistParecer = new tbDistribuirParecer();
-                $rsProdutos = $tbDistParecer->BuscarQtdAreasProjetos($idPronac);
-                $totalArea = $rsProdutos->QDTArea;
-                if($totalArea >= '2'){
-                    $area = 7; //Area = Artes integradas
-                }else{
-                    //BUSCA AREA DO PROJETO
-                    $areaProjeto = $projetos->BuscarAreaSegmentoProjetos($idPronac);
-                    $area = $areaProjeto['area']; //Area do projeto
-                }
+            $tbDistParecer = new tbDistribuirParecer();
+            $rsProdutos = $tbDistParecer->BuscarQtdAreasProjetos($idPronac);
+            $totalArea = $rsProdutos->QDTArea;
+            if ($totalArea >= '2') {
+                $area = 7; //Area = Artes integradas
+            } else {
+                //BUSCA AREA DO PROJETO
+                $areaProjeto = $projetos->BuscarAreaSegmentoProjetos($idPronac);
+                $area = $areaProjeto['area']; //Area do projeto
+            }
             
             $Rtitulacao = $titulacaoConselheiro->buscarComponenteBalanceamento($area);
             $dados = array(
@@ -551,7 +546,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-// fecha metodo enviarcomponentedacomissaoAction()
+    // fecha metodo enviarcomponentedacomissaoAction()
 }
 
 // fecha class

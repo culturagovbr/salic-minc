@@ -8,14 +8,15 @@
 
 class tbDistribuicaoProduto extends MinC_Db_Table_Abstract
 {
-	protected $_banco  = "SAC";
-	protected $_schema = "SAC";
-	protected $_name   = "tbDistribuicaoProduto";
+    protected $_banco  = "SAC";
+    protected $_schema = "SAC";
+    protected $_name   = "tbDistribuicaoProduto";
 
-        public function buscarDistribuicaoProduto($idDistribuicaoProduto){
-            $slct = $this->select();
-            $slct->setIntegrityCheck(false);
-            $slct->from(
+    public function buscarDistribuicaoProduto($idDistribuicaoProduto)
+    {
+        $slct = $this->select();
+        $slct->setIntegrityCheck(false);
+        $slct->from(
                         array('dp'=>$this->_name),
                         array(
                             'dp.qtDistribuicao',
@@ -28,7 +29,7 @@ class tbDistribuicaoProduto extends MinC_Db_Table_Abstract
                             '*'
                             )
                         );
-            $slct->joinInner(
+        $slct->joinInner(
                             array('pdp'=>'PlanoDistribuicaoProduto'),
                             'dp.idPlanoDistribuicao = pdp.idPlanoDistribuicao AND pdp.stPlanoDistribuicaoProduto = 1',
                             array(
@@ -36,22 +37,22 @@ class tbDistribuicaoProduto extends MinC_Db_Table_Abstract
                                     '(pdp.QtdePatrocinador+pdp.QtdeProponente+pdp.QtdeProponente) as DistribuicaoGratuita'
                                  )
                             );
-            $slct->joinInner(
+        $slct->joinInner(
                              array('pd'=>'Produto'),
                              "pd.Codigo = pdp.idProduto",
                              array('pd.Descricao')
                             );
-            $slct->where('dp.idDistribuicaoProduto = ?', $idDistribuicaoProduto);
+        $slct->where('dp.idDistribuicaoProduto = ?', $idDistribuicaoProduto);
 
-            return $this->fetchAll($slct);
+        return $this->fetchAll($slct);
+    }
 
-        }
 
-
-        public function buscarDistribuicaoProduto2($idPlanoDistribuicao){
-            $slct = $this->select();
-            $slct->setIntegrityCheck(false);
-            $slct->from(
+    public function buscarDistribuicaoProduto2($idPlanoDistribuicao)
+    {
+        $slct = $this->select();
+        $slct->setIntegrityCheck(false);
+        $slct->from(
                         array('dp'=>$this->_name),
                         array(
                             'dp.qtDistribuicao',
@@ -64,7 +65,7 @@ class tbDistribuicaoProduto extends MinC_Db_Table_Abstract
                             '*'
                             )
                         );
-            $slct->joinInner(
+        $slct->joinInner(
                             array('pdp'=>'PlanoDistribuicaoProduto'),
                             'dp.idPlanoDistribuicao = pdp.idPlanoDistribuicao AND pdp.stPlanoDistribuicaoProduto = 1',
                             array(
@@ -72,15 +73,13 @@ class tbDistribuicaoProduto extends MinC_Db_Table_Abstract
                                     '(pdp.QtdePatrocinador+pdp.QtdeProponente+pdp.QtdeProponente) as DistribuicaoGratuita'
                                  )
                             );
-            $slct->joinInner(
+        $slct->joinInner(
                              array('pd'=>'Produto'),
                              "pd.Codigo = pdp.idProduto",
                              array('pd.Descricao')
                             );
-            $slct->where('dp.idPlanoDistribuicao = ?', $idPlanoDistribuicao);
+        $slct->where('dp.idPlanoDistribuicao = ?', $idPlanoDistribuicao);
 
-            return $this->fetchAll($slct);
-
-        }
-
+        return $this->fetchAll($slct);
+    }
 }

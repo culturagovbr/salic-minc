@@ -7,7 +7,8 @@
  *
  */
 
-class Proposta_Model_DbTable_PlanoDistribuicaoProduto extends MinC_Db_Table_Abstract {
+class Proposta_Model_DbTable_PlanoDistribuicaoProduto extends MinC_Db_Table_Abstract
+{
     protected $_schema = 'sac';
     protected $_name   = 'PlanoDistribuicaoProduto';
     protected $_primary = 'idPlanoDistribuicao';
@@ -18,12 +19,14 @@ class Proposta_Model_DbTable_PlanoDistribuicaoProduto extends MinC_Db_Table_Abst
      * @param array $dados
      * @return integer (retorna o ultimo id cadastrado)
      */
-    public function cadastrarDados($dados) {
+    public function cadastrarDados($dados)
+    {
         return $this->insert($dados);
     } // fecha metodo cadastrarDados()
 
 
-    public function buscarPlanoDeDistribuicao($idPronac) {
+    public function buscarPlanoDeDistribuicao($idPronac)
+    {
         $a = $this->select();
         $a->setIntegrityCheck(false);
         $a->from(
@@ -31,18 +34,23 @@ class Proposta_Model_DbTable_PlanoDistribuicaoProduto extends MinC_Db_Table_Abst
                 array('idPlanoDistribuicao','idProduto','QtdePatrocinador','QtdeProponente','QtdeOutros')
         );
         $a->joinInner(
-                array('b' => 'Projetos'), "a.idProjeto = b.idProjeto",
-                array('IdPRONAC'), 'SAC.dbo'
+                array('b' => 'Projetos'),
+            "a.idProjeto = b.idProjeto",
+                array('IdPRONAC'),
+            'SAC.dbo'
         );
         $a->joinInner(
-                array('c' => 'Produto'), "a.idProduto = c.Codigo",
-                array('Descricao as Produto'), 'SAC.dbo'
+                array('c' => 'Produto'),
+            "a.idProduto = c.Codigo",
+                array('Descricao as Produto'),
+            'SAC.dbo'
         );
         $a->where('b.IdPRONAC = ?', $idPronac);
         return $this->fetchAll($a);
     }
 
-    public function buscarProdutosProjeto($idPronac) {
+    public function buscarProdutosProjeto($idPronac)
+    {
         $a = $this->select();
         $a->setIntegrityCheck(false);
         $a->from(
@@ -50,16 +58,22 @@ class Proposta_Model_DbTable_PlanoDistribuicaoProduto extends MinC_Db_Table_Abst
                 array('stPrincipal','idProduto')
         );
         $a->joinInner(
-                array('b' => 'Projetos'), "a.idProjeto = b.idProjeto",
-                array(''), 'SAC.dbo'
+                array('b' => 'Projetos'),
+            "a.idProjeto = b.idProjeto",
+                array(''),
+            'SAC.dbo'
         );
         $a->joinInner(
-                array('c' => 'Produto'), "a.idProduto = c.Codigo",
-                array('Descricao as Produto'), 'SAC.dbo'
+                array('c' => 'Produto'),
+            "a.idProduto = c.Codigo",
+                array('Descricao as Produto'),
+            'SAC.dbo'
         );
         $a->joinInner(
-                array('d' => 'tbAnaliseDeConteudo'), "a.idProduto = d.idProduto AND b.IdPRONAC = d.idPronac",
-                array('*'), 'SAC.dbo'
+                array('d' => 'tbAnaliseDeConteudo'),
+            "a.idProduto = d.idProduto AND b.IdPRONAC = d.idPronac",
+                array('*'),
+            'SAC.dbo'
         );
         $a->where('b.IdPRONAC = ?', $idPronac);
         $a->where('d.idPronac = ?', $idPronac);
@@ -68,7 +82,8 @@ class Proposta_Model_DbTable_PlanoDistribuicaoProduto extends MinC_Db_Table_Abst
         return $this->fetchAll($a);
     }
 
-    public function comboProdutosParaInclusaoReadequacao($idPronac) {
+    public function comboProdutosParaInclusaoReadequacao($idPronac)
+    {
         $a = $this->select();
         $a->setIntegrityCheck(false);
         $a->from(
@@ -76,12 +91,16 @@ class Proposta_Model_DbTable_PlanoDistribuicaoProduto extends MinC_Db_Table_Abst
             array('idProduto')
         );
         $a->joinInner(
-            array('b' => 'Produto'), "a.idProduto = b.codigo",
-            array('Descricao AS Produto'), 'SAC.dbo'
+            array('b' => 'Produto'),
+            "a.idProduto = b.codigo",
+            array('Descricao AS Produto'),
+            'SAC.dbo'
         );
         $a->joinInner(
-            array('c' => 'Projetos'), "a.idProjeto = c.idProjeto",
-            array(''), 'SAC.dbo'
+            array('c' => 'Projetos'),
+            "a.idProjeto = c.idProjeto",
+            array(''),
+            'SAC.dbo'
         );
         $a->where('c.IdPRONAC = ?', $idPronac);
 
@@ -95,20 +114,23 @@ class Proposta_Model_DbTable_PlanoDistribuicaoProduto extends MinC_Db_Table_Abst
             )
         );
         $b->joinInner(
-            array('c' => 'Projetos'), "a.idProjeto = c.idProjeto",
-            array(''), 'SAC.dbo'
+            array('c' => 'Projetos'),
+            "a.idProjeto = c.idProjeto",
+            array(''),
+            'SAC.dbo'
         );
         $b->where('c.IdPRONAC = ?', $idPronac);
 
 
         $slctUnion = $this->select()
             ->union(array('('.$a.')', '('.$b.')'))
-            ->order('1','2');
+            ->order('1', '2');
 
         return $this->fetchAll($slctUnion);
     }
 
-    public function buscarDadosCadastrarProdutos($idPreProjeto, $idProduto) {
+    public function buscarDadosCadastrarProdutos($idPreProjeto, $idProduto)
+    {
         $select = $this->select();
 
         $select->setIntegrityCheck(false);
@@ -123,9 +145,9 @@ class Proposta_Model_DbTable_PlanoDistribuicaoProduto extends MinC_Db_Table_Abst
             $this->_schema
         );
 
-        $select->where('idproduto = ?',$idProduto);
+        $select->where('idproduto = ?', $idProduto);
 
-        $select->where('idprojeto = ?',$idPreProjeto);
+        $select->where('idprojeto = ?', $idPreProjeto);
 
         $select->where('pd.stplanodistribuicaoproduto = ?', 1);
 
@@ -162,7 +184,8 @@ class Proposta_Model_DbTable_PlanoDistribuicaoProduto extends MinC_Db_Table_Abst
                 'sac.dbo'
             )
             ->where('idPlanoDistribuicao = ?', $idPlanoDistribuicao);
-        echo $sql;die;
+        echo $sql;
+        die;
         return $this->fetchRow($sql);
     }
 }

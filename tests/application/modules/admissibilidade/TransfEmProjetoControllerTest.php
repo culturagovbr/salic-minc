@@ -13,7 +13,6 @@ class TransfEmProjetoControllerTest extends MinC_Test_ControllerActionTestCase
     {
         $this->autenticar();
 
-
         $this->mudarPerfil2();
 
         //reset para garantir respostas.
@@ -21,7 +20,7 @@ class TransfEmProjetoControllerTest extends MinC_Test_ControllerActionTestCase
             ->resetResponse();
 
         $this->dispatch('/admissibilidade/admissibilidade/exibirpropostacultural?idPreProjeto=237778');
-        $this->assertModule('default');
+        $this->assertModule('admissibilidade');
         $this->assertController('admissibilidade');
         $this->assertAction('exibirpropostacultural');
     }

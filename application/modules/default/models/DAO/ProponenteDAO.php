@@ -1,15 +1,14 @@
 <?php
 
-Class ProponenteDAO extends Zend_Db_Table
+class ProponenteDAO extends Zend_Db_Table
 {
-
     protected $_name = 'Projetos';
     protected $_schema = 'SAC';
     protected $_primary = 'IdPRONAC';
 
     public function execPaProponente($idPronac)
     {
-        $idPronac = preg_replace("/[^0-9]/","", $idPronac); //REMOVE injections
+        $idPronac = preg_replace("/[^0-9]/", "", $idPronac); //REMOVE injections
         $sql = "exec SAC.dbo.paAgente $idPronac";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -35,25 +34,33 @@ Class ProponenteDAO extends Zend_Db_Table
         $table = Zend_Db_Table::getDefaultAdapter();
 
         $select = $table->select()
-            ->from(array('pr' => 'Projetos'),
+            ->from(
+                array('pr' => 'Projetos'),
                 array(new Zend_Db_Expr('
                     case
                         when ag.tipoPessoa = 0 then \'Pessoa F�sica\'
                         when ag.tipoPessoa = 1 then \'Pessoa Jur�dica\'
                     end as tipoPessoa')),
-                'SAC.dbo')
-            ->joinInner(array('itn' => 'Interessado'),
+                'SAC.dbo'
+            )
+            ->joinInner(
+                array('itn' => 'Interessado'),
                 'pr.CgcCpf = itn.CgcCpf',
                 array('Nome', 'Endereco', 'CgcCpf', 'Uf', 'Cidade', 'Esfera', 'Responsavel', 'Cep', 'Administracao', 'Utilidade'),
-                'SAC.dbo')
-            ->joinLeft(array('ag' => 'Agentes'),
+                'SAC.dbo'
+            )
+            ->joinLeft(
+                array('ag' => 'Agentes'),
                 'ag.CNPJCPF = pr.CgcCpf',
                 array(''),
-                'Agentes.dbo')
-            ->joinLeft(array('nat' => 'Natureza'),
+                'Agentes.dbo'
+            )
+            ->joinLeft(
+                array('nat' => 'Natureza'),
                 'nat.idAgente = ag.idAgente',
                 array('Direito'),
-                'AGENTES.dbo')
+                'AGENTES.dbo'
+            )
             ->where('pr.IdPRONAC = ?', $idpronac);
 
         $db = Zend_Db_Table::getDefaultAdapter();
@@ -69,7 +76,8 @@ Class ProponenteDAO extends Zend_Db_Table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
         $select = $db->select()
-            ->from('Internet',
+            ->from(
+                'Internet',
                 array(new Zend_db_Expr('*'),new Zend_db_Expr("
                     CASE
                     WHEN Internet.TipoInternet = 28
@@ -79,16 +87,21 @@ Class ProponenteDAO extends Zend_Db_Table
                     End as TipoInternet,
                     Internet.Descricao as Email    
                 ")),
-                'AGENTES.dbo')
+                'AGENTES.dbo'
+            )
             ->where('Projetos.IdPRONAC = ?', $idpronac)
-            ->joinLeft('Agentes',
+            ->joinLeft(
+                'Agentes',
                 'Agentes.IdAgente = Internet.IdAgente',
                 array(''),
-                'AGENTES.dbo')
-            ->joinLeft('Projetos',
+                'AGENTES.dbo'
+            )
+            ->joinLeft(
+                'Projetos',
                 'Agentes.CNPJCPF = Projetos.CgcCpf',
                 array(''),
-                'SAC.dbo');
+                'SAC.dbo'
+            );
 
         $resultado = $db->fetchAll($select);
 
@@ -101,7 +114,8 @@ Class ProponenteDAO extends Zend_Db_Table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
         $select = $db->select()
-            ->from('Telefones',
+            ->from(
+                'Telefones',
                 array(new Zend_db_Expr("
                     CASE
                         WHEN Telefones.TipoTelefone = 22 or Telefones.TipoTelefone = 24
@@ -123,20 +137,27 @@ Class ProponenteDAO extends Zend_Db_Table
                             THEN 'N�o'
                     end as Divulgar
                 ")),
-                'AGENTES.dbo')
+                'AGENTES.dbo'
+            )
             ->where('Projetos.IdPRONAC = ?', $idpronac)
-            ->joinInner('Uf',
+            ->joinInner(
+                'Uf',
                 'Uf.idUF = Telefones.UF',
                 array(''),
-                'AGENTES.dbo')
-            ->joinInner('Agentes',
+                'AGENTES.dbo'
+            )
+            ->joinInner(
+                'Agentes',
                 'Agentes.IdAgente = Telefones.IdAgente',
                 array(''),
-                'AGENTES.dbo')
-            ->joinInner('Projetos',
+                'AGENTES.dbo'
+            )
+            ->joinInner(
+                'Projetos',
                 'Agentes.CNPJCPF = Projetos.CgcCpf',
                 array(''),
-                'SAC.dbo');
+                'SAC.dbo'
+            );
 
         $resultado = $db->fetchAll($select);
 
@@ -272,5 +293,4 @@ Class ProponenteDAO extends Zend_Db_Table
 
         return $resultado;
     }
-
 }

@@ -1,17 +1,6 @@
 <?php 
-
-/**
- * Controller Disvincular Agentes
- * @author Equipe RUP - Politec
- * @since 07/06/2010
- * @version 1.0
- * @package application
- * @subpackage application.controller
- * @link http://www.cultura.gov.br
- * @copyright 2010 - Minist�rio da Cultura - Todos os direitos reservados.
- */
-class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
-
+class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract
+{
     private $getIdAgente  = 0;
     private $getIdGrupo   = 0;
     private $getIdOrgao   = 0;
@@ -23,7 +12,8 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         // verifica as permiss�es
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 97;  // Gestor do SALIC
@@ -40,7 +30,6 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         $this->getIdOrgao  = $GrupoAtivo->codOrgao;
 
         parent::init();
-
     }
 
     /**
@@ -49,7 +38,8 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function filtroconsultaAction() {
+    public function filtroconsultaAction()
+    {
         if (isset($_POST['periodo'])) {
             $this->_helper->layout->disableLayout();
             $anoatual = date('Y');
@@ -78,7 +68,7 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
                     $periodo[$a]['valor'] = '01-10-' . $anoperiodo . '/' . date('d-m-Y');
                     $periodo[$a]['descricao'] = "Relatorio 4 - " . $anoperiodo;
                     $a++;
-                } else if ($mesperiodo >= 4 and $mesperiodo <= 6 and $anoperiodo) {
+                } elseif ($mesperiodo >= 4 and $mesperiodo <= 6 and $anoperiodo) {
                     $periodo[$a]['valor'] = '01-04-' . $anoperiodo . '/' . date('d-m-Y');
                     $periodo[$a]['descricao'] = "Relatorio 1 - " . $anoperiodo;
                     $a++;
@@ -88,14 +78,14 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
                     $periodo[$a]['valor'] = '01-10-' . $anoperiodo . '/' . date('d-m-Y');
                     $periodo[$a]['descricao'] = "Relatorio 3 - " . $anoperiodo;
                     $a++;
-                } else if ($mesperiodo >= 7 and $mesperiodo <= 9 and $anoperiodo) {
+                } elseif ($mesperiodo >= 7 and $mesperiodo <= 9 and $anoperiodo) {
                     $periodo[$a]['valor'] = '01-07-' . $anoperiodo . '/' . date('d-m-Y');
                     $periodo[$a]['descricao'] = "Relatorio 1 - " . $anoperiodo;
                     $a++;
                     $periodo[$a]['valor'] = '01-10-' . $anoperiodo. '/' . date('d-m-Y');
                     $periodo[$a]['descricao'] = "Relatorio 2 - " . $anoperiodo;
                     $a++;
-                } else if ($mesperiodo >= 10 and $anoperiodo < $anoatual) {
+                } elseif ($mesperiodo >= 10 and $anoperiodo < $anoatual) {
                     $periodo[$a]['valor'] = '01-10-' . $anoperiodo . '/' . date('d-m-Y');
                     $periodo[$a]['descricao'] = "Relatorio 1 - " . $anoperiodo;
                     $a++;
@@ -104,7 +94,7 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
                     $periodo[$a]['valor'] = '01-01-' . $anoperiodo . '/' . date('d-m-Y');
                     $periodo[$a]['descricao'] = "Relatorio 1 - " . $anoperiodo;
                     $a++;
-                } else if ($mesatual >= 4 and $mesatual <= 6 and $anoperiodo == $anoatual) {
+                } elseif ($mesatual >= 4 and $mesatual <= 6 and $anoperiodo == $anoatual) {
                     $periodo[$a]['valor'] = '01-01-' . $anoperiodo . '/' . date('d-m-Y');
                     $periodo[$a]['descricao'] = "Relatorio 1 - " . $anoperiodo;
                     $a++;
@@ -112,7 +102,7 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
                     $periodo[$a]['valor'] = '01-03-' . $anoperiodo . '/' . date('d-m-Y');
                     $periodo[$a]['descricao'] = "Relatorio 2 - " . $anoperiodo;
                     $a++;
-                } else if ($mesatual >= 7 and $mesatual <= 9 and $anoperiodo == $anoatual) {
+                } elseif ($mesatual >= 7 and $mesatual <= 9 and $anoperiodo == $anoatual) {
                     $periodo[$a]['valor'] = '01-01-' . $anoperiodo . '/' . date('d-m-Y');
                     $periodo[$a]['descricao'] = "Relatorio 1 - " . $anoperiodo;
                     $a++;
@@ -124,7 +114,7 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
                     $periodo[$a]['valor'] = '01-07-' . $anoperiodo . '/' . date('d-m-Y');
                     $periodo[$a]['descricao'] = "Relatorio 3 - " . $anoperiodo;
                     $a++;
-                } else if ($mesatual >= 10 and $anoperiodo == $anoatual) {
+                } elseif ($mesatual >= 10 and $anoperiodo == $anoatual) {
                     $periodo[$a]['valor'] = '01-01-' . $anoperiodo . '/' . date('d-m-Y');
                     $periodo[$a]['descricao'] = "Relatorio 1 - " . $anoperiodo;
                     $a++;
@@ -144,7 +134,7 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
                 $anogravado = $anoperiodo;
             }
             $this->_helper->json($periodo);
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
 
 
@@ -161,10 +151,10 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         $mecanismo2 = $mecanismo->buscar(array('Status = ?' => 1));
         $this->view->estados = $rsEstados;
         $this->view->mecanismo = $mecanismo2;
-
     }
 
-    public function projetosAction() {
+    public function projetosAction()
+    {
         //** Usuario Logado ************************************************/
         $auth               = Zend_Auth::getInstance(); // pega a autentica��o
         $idusuario          = $auth->getIdentity()->usu_codigo;
@@ -176,31 +166,30 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         /******************************************************************/
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
-        }else {
+        } else {
             $campo = null;
             $order = array('NomeProjeto','nrComprovanteTrimestral');
             $ordenacao = null;
@@ -208,14 +197,16 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         /* ================== PAGINACAO ======================*/
         $where = array();
         $where['a.Orgao = ?'] = $codOrgao;
 
-        if((isset($_POST['pronac']) && !empty($_POST['pronac'])) || (isset($_GET['pronac']) && !empty($_GET['pronac']))){
+        if ((isset($_POST['pronac']) && !empty($_POST['pronac'])) || (isset($_GET['pronac']) && !empty($_GET['pronac']))) {
             $where['Pronac = ?'] = isset($_POST['pronac']) ? $_POST['pronac'] : $_GET['pronac'];
             $this->view->pronacProjeto = isset($_POST['pronac']) ? $_POST['pronac'] : $_GET['pronac'];
         }
@@ -255,7 +246,8 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         $this->view->Usuarios = $usuarios;
     }
 
-    public function encaminharRelatorioAction() {
+    public function encaminharRelatorioAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         $post = Zend_Registry::get('post');
@@ -270,16 +262,16 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         $tbComprovanteTrimestral = new tbComprovanteTrimestral();
         $return = $tbComprovanteTrimestral->update($dados, $where);
 
-        if($return){
+        if ($return) {
             $this->_helper->json(array('resposta'=>true));
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function visualizarRelatorioAction() {
-
+    public function visualizarRelatorioAction()
+    {
         $idpronac = $this->_request->getParam("idPronac");
         $nrrelatorio = $this->_request->getParam("relatorio");
         if (strlen($idpronac) > 7) {
@@ -294,7 +286,7 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         $tbComprovanteTrimestral = new tbComprovanteTrimestral();
         $DadosRelatorio = $tbComprovanteTrimestral->buscarComprovantes(array('IdPRONAC = ?' => $idpronac, 'nrComprovanteTrimestral=?'=>$nrrelatorio, 'siComprovanteTrimestral in (?)'=>array(2,5)));
         $this->view->DadosRelatorio = $DadosRelatorio;
-        if(count($DadosRelatorio)==0){
+        if (count($DadosRelatorio)==0) {
             parent::message("Relat�rio n�o encontrado!", "analisarexecucaofisica/projetos", "ERROR");
         }
 
@@ -323,7 +315,8 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         $this->view->DadosComprovantes = $dadosComprovantes;
     }
 
-    public function finalizarRelatorioAction() {
+    public function finalizarRelatorioAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         $post = Zend_Registry::get('post');
@@ -337,16 +330,16 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         $tbComprovanteTrimestral = new tbComprovanteTrimestral();
         $return = $tbComprovanteTrimestral->update($dados, $where);
 
-        if($return){
+        if ($return) {
             $this->_helper->json(array('resposta'=>true));
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function imprimirAction() {
-
+    public function imprimirAction()
+    {
         $idpronac = $this->_request->getParam("pronac"); //idPronac
         $nrrelatorio = $this->_request->getParam("relatorio");
         if (strlen($idpronac) > 7) {
@@ -361,7 +354,7 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         $tbComprovanteTrimestral = new tbComprovanteTrimestral();
         $DadosRelatorio = $tbComprovanteTrimestral->buscarComprovantes(array('IdPRONAC = ?' => $idpronac, 'nrComprovanteTrimestral=?'=>$nrrelatorio, 'siComprovanteTrimestral in (?)'=>array(2,5)));
         $this->view->DadosRelatorio = $DadosRelatorio;
-        if(count($DadosRelatorio)==0){
+        if (count($DadosRelatorio)==0) {
             parent::message("Relat�rio n�o encontrado!", "analisarexecucaofisica/projetos", "ERROR");
         }
 
@@ -394,7 +387,8 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
 
 
 
-    public function relatoriotrimestralAction() {
+    public function relatoriotrimestralAction()
+    {
         $r = new tbRelatorio();
         $pr = new Projetos();
         $rt = new tbRelatorioTrimestral();
@@ -411,8 +405,8 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         $idPronac = $this->_request->getParam('idPronac');
         $idRelatorio = $rt->buscar(array('idRelatorioTrimestral = ?' => $idRelatorioTrimestral));
 
-        if(count($idRelatorio) > 0){
-            if($idRelatorio[0]->stRelatorioTrimestral == 1){
+        if (count($idRelatorio) > 0) {
+            if ($idRelatorio[0]->stRelatorioTrimestral == 1) {
                 parent::message('Relat&oacute;rio n&atilde;o finalizado pelo Proponente!', "analisarexecucaofisicatecnico", "ALERT");
             }
         }
@@ -451,7 +445,7 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         $this->view->distribuicaoproduto = $buscarprodutos;
 
         $planodivulgacao = array();
-        if(count($buscarprodutos) > 0){
+        if (count($buscarprodutos) > 0) {
             $buscarprodutos = $buscarprodutos->current();
             $buscarplanodivulgacao = $pd->buscarPlanoDivulgacao($buscarprodutos->idProjeto);
 
@@ -509,7 +503,8 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         $this->view->idAgenteAvaliador = $buscarrelatorio[0]->idAgenteAvaliador;
     }
 
-    public function encaminharprojetoanaliseAction() {
+    public function encaminharprojetoanaliseAction()
+    {
         $justificativaenvio = $_POST['justificativaenvio'];
         $destinatario = $_POST['destinatario'];
         $idRelatorio = $_POST['idRelatorio'];
@@ -531,7 +526,8 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         parent::message("Projeto encaminhado com sucesso!", "analisarexecucaofisica/projetos", "CONFIRM");
     }
 
-    public function diligenciaAction() {
+    public function diligenciaAction()
+    {
         $this->view->idpronac = $this->_request->getParam('idpronac');
         $Usuario = new Autenticacao_Model_Usuario(); // objeto usu�rio
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
@@ -556,7 +552,7 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
                 $dadosalterar = array('Situacao' => 'E61');
                 $p->alterar($dadosalterar, $where);
                 $db->commit();
-                 echo "<script>history.go(-1);</script>";
+                echo "<script>history.go(-1);</script>";
             } catch (Zend_Exception $e) {
                 $db->rollBack();
                 echo $e->getMessage();
@@ -564,7 +560,8 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function detalharrelatoriosAction(){
+    public function detalharrelatoriosAction()
+    {
         $idPronac = $this->_request->getParam('idPronac');
         $r = new tbRelatorio();
         $buscarRelatorios = $r->buscarRelatorioTrimestrais($idPronac);
@@ -579,7 +576,7 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         
         // busca os t�cnicos do �rg�o logado
         $Tecnicos = new Usuariosorgaosgrupos();
-        $buscarTecnicos = $Tecnicos->buscardadosAgentesArray(array('uog.uog_orgao = ?' => $this->getIdOrgao, 'uog.gru_codigo IN (?)' => array('121', '129')) );
+        $buscarTecnicos = $Tecnicos->buscardadosAgentesArray(array('uog.uog_orgao = ?' => $this->getIdOrgao, 'uog.gru_codigo IN (?)' => array('121', '129')));
 
         $this->view->tecnicos = $buscarTecnicos;
         $this->view->dadosRelatorios = $buscarRelatorios;
@@ -587,8 +584,7 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
 
     public function salvaranaliseAction()
     {
-        if ($_POST)
-        {
+        if ($_POST) {
             $where = array('idRelatorio = ?' => $_POST['idRelatorio'], 'idRelatorioTrimestral = ?' => $_POST['idRelatorioTrimestral']);
             $dados = array('stRelatorioTrimestral' => $_POST['stRelatorio'], 'dsParecer' => $_POST['justificativa']);
 
@@ -616,14 +612,10 @@ class AnalisarexecucaofisicaController extends MinC_Controller_Action_Abstract {
         $Projeto = new Projetos();
         $buscar = $Projeto->buscar(array('IdPRONAC = ?' => $idPronac, 'Orgao = ?' => $this->getIdOrgao))->current();
 
-        if (count($buscar) > 0)
-        {
+        if (count($buscar) > 0) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
-
 }

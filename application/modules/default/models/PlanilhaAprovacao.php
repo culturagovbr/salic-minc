@@ -5,8 +5,8 @@
  *
  * @author augusto
  */
-class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
-
+class PlanilhaAprovacao extends MinC_Db_Table_Abstract
+{
     protected $_name = 'tbPlanilhaAprovacao';
     protected $_schema = 'SAC';
     protected $_banco = 'SAC';
@@ -15,14 +15,19 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
     const TIPO_PLANILHA_REMANEJADA = 5;
     const TIPO_PLANILHA_COMPLEMENTACAO_REDUCAO = 6;
     
-    public function somarPlanilhaAprovacao($idpronac, $elaboracao=null, $tpPlanilha=null, $where=array()) {
+    public function somarPlanilhaAprovacao($idpronac, $elaboracao=null, $tpPlanilha=null, $where=array())
+    {
         $somar = $this->select();
-        $somar->from(array('PAP' => $this->_name), array(
+        $somar->from(
+            array('PAP' => $this->_name),
+            array(
                 'sum(PAP.qtItem*PAP.nrOcorrencia*PAP.vlUnitario) as soma'
                 )
                 )
                 ->joinLeft(
-                array('aa' => 'tbAnaliseAprovacao'), "aa.idPronac = PAP.idPronac and PAP.idProduto = aa.idProduto and aa.tpAnalise = '{$tpPlanilha}'", array()
+                array('aa' => 'tbAnaliseAprovacao'),
+                    "aa.idPronac = PAP.idPronac and PAP.idProduto = aa.idProduto and aa.tpAnalise = '{$tpPlanilha}'",
+                    array()
                 )
                 ->where('PAP.IdPRONAC = ?', $idpronac)
                 ->where('PAP.NrFonteRecurso = ?', '109');
@@ -33,7 +38,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         if ($tpPlanilha) {
             $somar->where('PAP.tpPlanilha = ? ', $tpPlanilha);
         }
-           //adiciona quantos filtros foram enviados
+        //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $somar->where($coluna, $valor);
         }
@@ -42,7 +47,8 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         return $this->fetchRow($somar);
     }
 
-    public function somarItensPlanilhaAprovacao($where=array()) {
+    public function somarItensPlanilhaAprovacao($where=array())
+    {
         $somar = $this->select();
         $somar->from($this->_name, array('sum(qtItem*nrOcorrencia*vlUnitario) as soma'));
         //adiciona quantos filtros foram enviados
@@ -53,10 +59,12 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         return $this->fetchRow($somar);
     }
 
-    public function somarItensPlanilhaAprovacaoProdutosFavoraveis($where=array()) {
+    public function somarItensPlanilhaAprovacaoProdutosFavoraveis($where=array())
+    {
         $somar = $this->select();
         $somar->from(array('pa' => $this->_name), array('sum(qtItem*nrOcorrencia*vlUnitario) as soma'));
-        $somar->joinLeft(array("aa" => "tbAnaliseAprovacao"),
+        $somar->joinLeft(
+            array("aa" => "tbAnaliseAprovacao"),
                                "aa.idPronac = pa.idPronac and pa.idProduto = aa.idProduto",
                          array()
                          );
@@ -68,9 +76,11 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         return $this->fetchRow($somar);
     }
 
-    public function somarPlanilhaPropostaDivulgacao($idpronac, $fonte=null, $outras=null) {
+    public function somarPlanilhaPropostaDivulgacao($idpronac, $fonte=null, $outras=null)
+    {
         $somar = $this->select();
-        $somar->from($this,
+        $somar->from(
+            $this,
                         array(
                             'sum(qtItem*nrOcorrencia*vlUnitario) as soma'
                         )
@@ -87,7 +97,8 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         return $this->fetchRow($somar);
     }
 
-    public function InserirPlanilhaAprovacao($data) {
+    public function InserirPlanilhaAprovacao($data)
+    {
         try {
             $inserir = $this->insert($data);
             return $inserir;
@@ -96,14 +107,18 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         }
     }
 
-    public function CompararPlanilha($idpronac, $tpplanilha) {
+    public function CompararPlanilha($idpronac, $tpplanilha)
+    {
         $buscar = $this->select();
         $buscar->setIntegrityCheck(false);
         $buscar->from(
-                array('tpa' => $this->_name), array('(tpa.qtItem*tpa.nrOcorrencia*tpa.vlUnitario) as planilhaaprovacao')
+                array('tpa' => $this->_name),
+            array('(tpa.qtItem*tpa.nrOcorrencia*tpa.vlUnitario) as planilhaaprovacao')
         );
         $buscar->joinInner(
-                array('tpp' => 'tbPlanilhaProposta'), 'tpp.idPlanilhaProposta = tpa.idPlanilhaProposta', array('(tpp.Quantidade * tpp.Ocorrencia * tpp.ValorUnitario) as planilhaprojeto')
+                array('tpp' => 'tbPlanilhaProposta'),
+            'tpp.idPlanilhaProposta = tpa.idPlanilhaProposta',
+            array('(tpp.Quantidade * tpp.Ocorrencia * tpp.ValorUnitario) as planilhaprojeto')
         );
         $buscar->where('tpa.idpronac = ?', $idpronac);
         $buscar->where('tpa.tpPlanilha = ?', $tpplanilha);
@@ -111,7 +126,8 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($buscar);
     }
 
-    public function valoresAgrupados($idpronac,$retornaSelect = false){
+    public function valoresAgrupados($idpronac, $retornaSelect = false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -127,15 +143,17 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                               )
                       );
         $select->where('pa.IdPRONAC = ?', $idpronac);
-        $select->where('pa.stAtivo = ?','S');
+        $select->where('pa.stAtivo = ?', 'S');
 
-        if($retornaSelect)
+        if ($retornaSelect) {
             return $select;
-        else
+        } else {
             return $this->fetchAll($select);
+        }
     }
 
-    public function agruparPlanilhaAprovacao($idpronac){
+    public function agruparPlanilhaAprovacao($idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -144,7 +162,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                                 'idPlanilhaAprovacaoFilho'=>'pa.idPlanilhaAprovacao'
                               )
                       );
-        $planilhaPai = $this->valoresAgrupados($idpronac,true);
+        $planilhaPai = $this->valoresAgrupados($idpronac, true);
         $select->joinInner(
                             array('pa2'=>$planilhaPai),
                             'pa2.idPlanilhaItem = pa.idPlanilhaItem and pa2.idEtapa = pa.idEtapa and pa2.idProduto = pa.idProduto and pa2.idUnidade = pa.idUnidade',
@@ -152,7 +170,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                            );
 
         $select->where('pa.IdPRONAC = ?', $idpronac);
-        $select->where('pa.stAtivo = ?','S');
+        $select->where('pa.stAtivo = ?', 'S');
         $select->where('pa.idPlanilhaAprovacao not in (?)', new Zend_Db_Expr('select idPlanilhaAprovacaoFilho  from  SAC.dbo.tbDeParaPlanilhaAprovacao'));
 
         return $this->fetchAll($select);
@@ -259,7 +277,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
             'BDCORPORATIVO.scSAC'
         );
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
         $select->where('pAprovacao.nrFonteRecurso = ?', 109); //Incentivo Fiscal Federal
         $select->where('pAprovacao.tpAcao IS NULL OR pAprovacao.tpAcao <> ? ', 'E'); //Adicionado para n�o listar as que ja foram excluidas
         $select->where('(pAprovacao.qtItem*pAprovacao.nrOcorrencia*pAprovacao.vlUnitario) > 0');
@@ -275,16 +293,17 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
 
         if ($itemAvaliadoFilter == 1) {
             $select->where('cppa.stItemAvaliado = ?', 4);
-        } elseif($itemAvaliadoFilter == 2) {
+        } elseif ($itemAvaliadoFilter == 2) {
             $select->where('cppa.stItemAvaliado != ?', 4);
-        } elseif($itemAvaliadoFilter == 3) {
+        } elseif ($itemAvaliadoFilter == 3) {
             $select->where('cppa.stItemAvaliado = ?', 3);
         }
         /* echo $select;die; */
         return $this->fetchAll($select);
     }
 
-    public function buscarVinculoContrato($idPlanilhaAprovacao){
+    public function buscarVinculoContrato($idPlanilhaAprovacao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -303,9 +322,9 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         $select->group('cpa.idContrato');
 
         return $this->fetchAll($select);
-
     }
-    public function buscarVinculo($idPlanilhaAprovacao){
+    public function buscarVinculo($idPlanilhaAprovacao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -331,7 +350,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                             'BDCORPORATIVO.scSAC'
                            );
         $select->where('pAprovacao.idPlanilhaAprovacao = ?', $idPlanilhaAprovacao);
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
         $select->Where('(cpa.idCotacao is not null');
         $select->orWhere('dlpa.idDispensaLicitacao is not null');
         $select->orWhere('lpa.idLicitacao is not null)');
@@ -342,10 +361,10 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         $select->group('lpa.idLicitacao');
 
         return $this->fetchAll($select);
-
     }
 
-    public function descricaoitem($idpronac,$idProduto,$idEtapa,$idPlanilhaItem){
+    public function descricaoitem($idpronac, $idProduto, $idEtapa, $idPlanilhaItem)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -353,7 +372,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                         array('pAprovacao.idPlanilhaAprovacao','pAprovacao.qtItem','pAprovacao.nrOcorrencia','pAprovacao.vlUnitario')
                       );
 
-        $valores = $this->valoresAgrupados($idpronac,true);
+        $valores = $this->valoresAgrupados($idpronac, true);
         $select->joinInner(
                             array('pa'=>$valores),
                             'pAprovacao.idPlanilhaItem = pa.idPlanilhaItem and pAprovacao.idEtapa = pa.idEtapa and pAprovacao.idProduto = pa.idProduto and pAprovacao.idUnidade = pa.idUnidade and pa.idPlanilhaAprovacao = pAprovacao.idPlanilhaAprovacao ',
@@ -393,7 +412,8 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
     }
 
 
-    public function buscarFornecedor($idpronac,$ckItens){
+    public function buscarFornecedor($idpronac, $ckItens)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -449,7 +469,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                             'BDCORPORATIVO.scSAC'
                            );
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
         $select->where('pAprovacao.idPlanilhaItem in ('.implode(',', $ckItens).')');
         $select->where('(cpa.idCotacao is not null');
         $select->orWhere('dlpa.idDispensaLicitacao is not null');
@@ -462,10 +482,10 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         $select->group('ctxa.idAgente');
 
         return $this->fetchAll($select);
-
     }
 
-    public function buscaComprovantePagamento($idpronac,$ckItens){
+    public function buscaComprovantePagamento($idpronac, $ckItens)
+    {
         $select = $this->select()->setIntegrityCheck(false)
             ->from(array('pAprovacao'=>$this->_name), array())
             ->joinLeft(
@@ -497,14 +517,15 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                 array('tpi.Descricao AS NomeItem', 'tpi.idPlanilhaItens', 'tpi.idPlanilhaItens'),
                 'SAC.dbo'
             )->where('pAprovacao.IdPRONAC = ?', $idpronac)
-            ->where('pAprovacao.stAtivo = ?','S')
+            ->where('pAprovacao.stAtivo = ?', 'S')
             ->where('pAprovacao.idPlanilhaAprovacao in (?)', $ckItens)
             ->order('xp.Descricao')->order('xe.Descricao')->order('tpi.Descricao')->order('cp.dtEmissao')
         ;
         return $this->fetchAll($select);
     }
 
-    public function buscarcomprovantepagamento($idpronac, $idPlanilhaItem){
+    public function buscarcomprovantepagamento($idpronac, $idPlanilhaItem)
+    {
         $select = $this->select()->setIntegrityCheck(false);
         $select->from(array('pAprovacao'=>$this->_name), array());
         $select->joinInner(
@@ -562,15 +583,16 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                             'SAC.dbo'
                            );
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
-        $select->where('pAprovacao.stAtivo = ?','S');
-        $select->where('pAprovacao.idPlanilhaAprovacao = ?',$idPlanilhaItem);
+        $select->where('pAprovacao.stAtivo = ?', 'S');
+        $select->where('pAprovacao.idPlanilhaAprovacao = ?', $idPlanilhaItem);
         /* $select->where('pAprovacao.idPlanilhaItem = ?',$idPlanilhaItem); */
         /* $select->where(' cppa.stItemAvaliado is not null '); */
 
         return $this->fetchAll($select);
     }
 
-    public function verificarComprovacao($idpronac){
+    public function verificarComprovacao($idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -656,7 +678,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
 //        $select->where("pEtapa.tpCusto = 'P'");
 //        $select->where('cppa.vlComprovado is not null');
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
 
 //        $select->group('pAprovacao.vlUnitario');
 //        $select->group('pAprovacao.qtItem');
@@ -675,7 +697,8 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
     }
 
 
-    public function carregarProdutos($idpronac,$idCotacao,$idDispensaLicitacao,$idLicitacao,$idContrato){
+    public function carregarProdutos($idpronac, $idCotacao, $idDispensaLicitacao, $idLicitacao, $idContrato)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -692,37 +715,41 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                             'SAC.dbo'
                            );
 
-        if($idCotacao)
-        $select->joinInner(
+        if ($idCotacao) {
+            $select->joinInner(
                             array('ctxpa'=>'tbCotacaoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = ctxpa.idPlanilhaAprovacao and ctxpa.idCotacao = '$idCotacao' ",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
-        if($idDispensaLicitacao)
-        $select->joinInner(
+        }
+        if ($idDispensaLicitacao) {
+            $select->joinInner(
                             array('dlxpa'=>'tbDispensaLicitacaoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = dlxpa.idPlanilhaAprovacao and dlxpa.idDispensaLicitacao  = '$idDispensaLicitacao' ",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
-        if($idLicitacao)
-        $select->joinInner(
+        }
+        if ($idLicitacao) {
+            $select->joinInner(
                             array('lxpa'=>'tbLicitacaoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = lxpa.idPlanilhaAprovacao and lxpa.idLicitacao  = '$idLicitacao' ",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
-        if($idContrato)
-        $select->joinInner(
+        }
+        if ($idContrato) {
+            $select->joinInner(
                             array('cnxpa'=>'tbContratoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = cnxpa.idPlanilhaAprovacao and cnxpa.idContrato = '$idContrato' ",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
+        }
 
 
-        $select->where('pAprovacao.IdPRONAC = ?',$idpronac);
+        $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
 
         $select->order('prod.Descricao');
 
@@ -730,10 +757,9 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         $select->group('prod.Descricao');
 
         return $this->fetchAll($select);
-
     }
 
-    public function dadosdoitem($idPlanilhaAprovacao,$idpronac)
+    public function dadosdoitem($idPlanilhaAprovacao, $idpronac)
     {
         $cpxpaDAO = new ComprovantePagamentoxPlanilhaAprovacao();
         $selectAux = $cpxpaDAO->valorComprovadoItem(true);
@@ -751,7 +777,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         );
 
         $select->join(
-            array('paux' => new Zend_Db_Expr('('.$this->valoresAgrupados($idpronac,true).')')),
+            array('paux' => new Zend_Db_Expr('('.$this->valoresAgrupados($idpronac, true).')')),
             'pa.idPlanilhaItem = paux.idPlanilhaItem AND
             pa.idEtapa = paux.idEtapa AND
             pa.idProduto = paux.idProduto AND
@@ -887,11 +913,12 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         );
 
         $select->where('pa.idPlanilhaAprovacao = ?', $idPlanilhaAprovacao);
-         /* echo $select;die; */
+        /* echo $select;die; */
         return $db->fetchAll($select);
     }
 
-    public function buscarProdutosComprovacao($idpronac,$ckItens){
+    public function buscarProdutosComprovacao($idpronac, $ckItens)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(array('pAprovacao'=>$this->_name), array('id'=>'pAprovacao.idProduto'));
@@ -906,15 +933,16 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         $select->group('prod.Descricao');
 
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
 
-        if(is_array($ckItens) and count(is_array($ckItens))>0)
-            $select->where('pAprovacao.idPlanilhaAprovacao in ('.implode(',',$ckItens).')');
+        if (is_array($ckItens) and count(is_array($ckItens))>0) {
+            $select->where('pAprovacao.idPlanilhaAprovacao in ('.implode(',', $ckItens).')');
+        }
 
         return $this->fetchAll($select);
-
     }
-    public function buscarProdutosContrato($idpronac){
+    public function buscarProdutosContrato($idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -942,7 +970,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                            );
 
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
         $select->where('cxpa.idContrato is null');
 
         $select->order('prod.Descricao');
@@ -951,10 +979,10 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         $select->group('prod.Descricao');
 
         return $this->fetchAll($select);
-
     }
 
-    public function buscarProdutos($idpronac){
+    public function buscarProdutos($idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->distinct();
@@ -993,30 +1021,31 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                            );
 
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
         //$select->where('cxpa.idCotacao is null');
         //$select->where('dlxpa.idDispensaLicitacao is null');
         //$select->where('lxpa.idLicitacao is null');
 
-       // $select->order('prod.Descricao');
-       $select->order('2');
+        // $select->order('prod.Descricao');
+        $select->order('2');
 
         $select->group('pAprovacao.idProduto');
         $select->group('prod.Descricao');
 
         return $this->fetchAll($select);
-
     }
 
     /*===========================================================================*/
     /*====================== ABAIXO - METODOS DA CNIC ===========================*/
     /*===========================================================================*/
 
-    public function buscarAnaliseConta($idpronac, $tpplanilha, $where=array()) {
+    public function buscarAnaliseConta($idpronac, $tpplanilha, $where=array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('pap' => $this->_name), array(
+                array('pap' => $this->_name),
+            array(
                 'pap.qtItem as qtdRelator',
                 'pap.nrFonteRecurso',
                 'pap.qtDias as diasRelator',
@@ -1030,7 +1059,9 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                 )
         );
         $select->joinInner(
-                array('pp' => 'tbPlanilhaProposta'), 'pp.idPlanilhaProposta = pap.idPlanilhaProposta', array(
+                array('pp' => 'tbPlanilhaProposta'),
+            'pp.idPlanilhaProposta = pap.idPlanilhaProposta',
+            array(
                 'pp.Quantidade as qtdSolicitado',
                 'pp.Ocorrencia as ocoSolicitado',
                 'pp.ValorUnitario as vlSolicitado',
@@ -1038,7 +1069,9 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                 )
         );
         $select->joinInner(
-                array('ppj' => 'tbPlanilhaProjeto'), 'ppj.idPlanilhaProjeto = pap.idPlanilhaProjeto', array(
+                array('ppj' => 'tbPlanilhaProjeto'),
+            'ppj.idPlanilhaProjeto = pap.idPlanilhaProjeto',
+            array(
                 'ppj.Quantidade as qtdParecer',
                 'ppj.Ocorrencia as ocoParecer',
                 'ppj.ValorUnitario as vlParecer',
@@ -1047,33 +1080,47 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                 )
         );
         $select->joinLeft(
-                array('aa' => 'tbAnaliseAprovacao'), "aa.idPronac = PAP.idPronac and PAP.idProduto = aa.idProduto and aa.tpAnalise = '{$tpplanilha}'", array()
+                array('aa' => 'tbAnaliseAprovacao'),
+            "aa.idPronac = PAP.idPronac and PAP.idProduto = aa.idProduto and aa.tpAnalise = '{$tpplanilha}'",
+            array()
         );
 
         $select->joinInner(
-                array('UNI' => 'tbPlanilhaUnidade'), new Zend_Db_Expr('PAP.idUnidade = UNI.idUnidade'), array(
+                array('UNI' => 'tbPlanilhaUnidade'),
+            new Zend_Db_Expr('PAP.idUnidade = UNI.idUnidade'),
+            array(
                 'UNI.Descricao AS Unidade'
                 )
         );
         $select->joinInner(
-                array('UNIPP' => 'tbPlanilhaUnidade'), new Zend_Db_Expr('PP.Unidade = UNIPP.idUnidade'), array(
+                array('UNIPP' => 'tbPlanilhaUnidade'),
+            new Zend_Db_Expr('PP.Unidade = UNIPP.idUnidade'),
+            array(
                 'UNIPP.Descricao AS UnidadeProposta'
                 )
         );
         $select->joinInner(
-                array('UNIPJ' => 'tbPlanilhaUnidade'), new Zend_Db_Expr('PPJ.idUnidade = UNIPJ.idUnidade'), array(
+                array('UNIPJ' => 'tbPlanilhaUnidade'),
+            new Zend_Db_Expr('PPJ.idUnidade = UNIPJ.idUnidade'),
+            array(
                 'UNIPJ.Descricao AS UnidadeProjeto'
                 )
         );
 
         $select->joinInner(
-                array('i' => 'tbPlanilhaItens'), 'pap.idPlanilhaItem  = i.idPlanilhaItens', array('i.Descricao as Item')
+                array('i' => 'tbPlanilhaItens'),
+            'pap.idPlanilhaItem  = i.idPlanilhaItens',
+            array('i.Descricao as Item')
         );
         $select->joinInner(
-                array('e' => 'tbPlanilhaEtapa'), 'pap.idEtapa  = e.idPlanilhaEtapa', array('e.Descricao as Etapa')
+                array('e' => 'tbPlanilhaEtapa'),
+            'pap.idEtapa  = e.idPlanilhaEtapa',
+            array('e.Descricao as Etapa')
         );
         $select->joinLeft(
-                array('prod' => 'produto'), 'pap.idProduto = prod.Codigo', array('prod.Descricao as produto')
+                array('prod' => 'produto'),
+            'pap.idProduto = prod.Codigo',
+            array('prod.Descricao as produto')
         );
         $select->where('pap.nrFonteRecurso = ?', 109);
         $select->where('CASE WHEN PAP.idPRODUTO <> 0 THEN aa.stAvaliacao ELSE 1 END  = ?', 1);
@@ -1087,12 +1134,14 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function buscarAnaliseCustos($idpronac=null, $tpPlanilha=null, $where=array()) {
+    public function buscarAnaliseCustos($idpronac=null, $tpPlanilha=null, $where=array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
 //        $select->distinct();
         $select->from(
-                array('PAP' => $this->_name), array(
+                array('PAP' => $this->_name),
+            array(
                 'PAP.idProduto',
                 'PAP.idUnidade',
                 'PAP.nrFonteRecurso',
@@ -1112,7 +1161,9 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                 )
         );
         $select->joinInner(
-                array('PP' => 'tbPlanilhaProposta'), new Zend_Db_Expr('PAP.idPlanilhaProposta = PP.idPlanilhaProposta'), array(
+                array('PP' => 'tbPlanilhaProposta'),
+            new Zend_Db_Expr('PAP.idPlanilhaProposta = PP.idPlanilhaProposta'),
+            array(
                 '(PP.Quantidade * PP.Ocorrencia * PP.ValorUnitario) AS VlSolicitado',
                 //'CAST(PP.dsJustificativa as TEXT) as justificitivaproponente',
                 'CONVERT(varchar(8000), PP.dsJustificativa) as justificitivaproponente',
@@ -1123,7 +1174,9 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                 )
         );
         $select->joinInner(
-                array('PPJ' => 'tbPlanilhaProjeto'), new Zend_Db_Expr('PPJ.idPlanilhaProjeto= PAP.idPlanilhaProjeto'), array(
+                array('PPJ' => 'tbPlanilhaProjeto'),
+            new Zend_Db_Expr('PPJ.idPlanilhaProjeto= PAP.idPlanilhaProjeto'),
+            array(
                 '(PPJ.Quantidade * PPJ.Ocorrencia * PPJ.ValorUnitario) AS VlSugeridoParecerista',
                 //'CAST(PPJ.Justificativa as TEXT) as dsJustificativaParecerista',
                 'CONVERT(varchar(8000), PPJ.Justificativa) as dsJustificativaParecerista',
@@ -1134,50 +1187,72 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                 )
         );
         $select->joinInner(
-                array('I' => 'tbPlanilhaItens'), new Zend_Db_Expr('PAP.idPlanilhaItem = I.idPlanilhaItens'), array(
+                array('I' => 'tbPlanilhaItens'),
+            new Zend_Db_Expr('PAP.idPlanilhaItem = I.idPlanilhaItens'),
+            array(
                 'I.Descricao AS Item'
                 )
         );
         $select->joinInner(
-                array('E' => 'tbPlanilhaEtapa'), new Zend_Db_Expr('PAP.idEtapa = E.idPlanilhaEtapa'), array(
+                array('E' => 'tbPlanilhaEtapa'),
+            new Zend_Db_Expr('PAP.idEtapa = E.idPlanilhaEtapa'),
+            array(
                 'E.Descricao AS Etapa'
                 )
         );
         $select->joinInner(
-                array('UNI' => 'tbPlanilhaUnidade'), new Zend_Db_Expr('PAP.idUnidade = UNI.idUnidade'), array(
+                array('UNI' => 'tbPlanilhaUnidade'),
+            new Zend_Db_Expr('PAP.idUnidade = UNI.idUnidade'),
+            array(
                 'UNI.Descricao AS Unidade'
                 )
         );
         $select->joinInner(
-                array('UNIPP' => 'tbPlanilhaUnidade'), new Zend_Db_Expr('PP.Unidade = UNIPP.idUnidade'), array(
+                array('UNIPP' => 'tbPlanilhaUnidade'),
+            new Zend_Db_Expr('PP.Unidade = UNIPP.idUnidade'),
+            array(
                 'UNIPP.Descricao AS UnidadeProposta'
                 )
         );
         $select->joinInner(
-                array('UNIPJ' => 'tbPlanilhaUnidade'), new Zend_Db_Expr('PPJ.idUnidade = UNIPJ.idUnidade'), array(
+                array('UNIPJ' => 'tbPlanilhaUnidade'),
+            new Zend_Db_Expr('PPJ.idUnidade = UNIPJ.idUnidade'),
+            array(
                 'UNIPJ.Descricao AS UnidadeProjeto'
                 )
         );
         $select->joinInner(
-                array('TI' => 'Verificacao'), new Zend_Db_Expr('TI.idverificacao = PAP.nrFonteRecurso'), array(
+                array('TI' => 'Verificacao'),
+            new Zend_Db_Expr('TI.idverificacao = PAP.nrFonteRecurso'),
+            array(
                 'TI.Descricao as FonteRecurso'
                 )
         );
         $select->joinInner(
-                array('CID' => 'Municipios'), new Zend_Db_Expr('CID.idMunicipioIBGE = PAP.idMunicipioDespesa'), array(
+                array('CID' => 'Municipios'),
+            new Zend_Db_Expr('CID.idMunicipioIBGE = PAP.idMunicipioDespesa'),
+            array(
                 'CID.Descricao as Cidade'
-                ), 'Agentes.dbo'
+                ),
+            'Agentes.dbo'
         );
         $select->joinInner(
-                array('FED' => 'UF'), new Zend_Db_Expr('PAP.idUFDespesa = FED.idUF'), array(
+                array('FED' => 'UF'),
+            new Zend_Db_Expr('PAP.idUFDespesa = FED.idUF'),
+            array(
                 'FED.Sigla as UF'
-                ), 'Agentes.dbo'
+                ),
+            'Agentes.dbo'
         );
         $select->joinLeft(
-                array('aa' => 'tbAnaliseAprovacao'), "aa.idPronac = PAP.idPronac and PAP.idProduto = aa.idProduto and aa.tpAnalise = '{$tpPlanilha}'", array('aa.stAvaliacao')
+                array('aa' => 'tbAnaliseAprovacao'),
+            "aa.idPronac = PAP.idPronac and PAP.idProduto = aa.idProduto and aa.tpAnalise = '{$tpPlanilha}'",
+            array('aa.stAvaliacao')
         );
         $select->joinLeft(
-                array('PD' => 'Produto'), new Zend_Db_Expr('PAP.idProduto = PD.Codigo'), array(
+                array('PD' => 'Produto'),
+            new Zend_Db_Expr('PAP.idProduto = PD.Codigo'),
+            array(
                 'PD.Descricao as Produto'
                 )
         );
@@ -1206,14 +1281,19 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function somaDadosPlanilha($dados=array()) {
+    public function somaDadosPlanilha($dados=array())
+    {
         $somar = $this->select();
-        $somar->from(array('PAP' => $this->_name), array(
+        $somar->from(
+            array('PAP' => $this->_name),
+            array(
                 'sum(PAP.qtItem*PAP.nrOcorrencia*PAP.vlUnitario) as soma'
                 )
                 )
                 ->joinLeft(
-                array('aa' => 'tbAnaliseAprovacao'), 'aa.idPronac = PAP.idPronac and PAP.idProduto = aa.idProduto', array()
+                array('aa' => 'tbAnaliseAprovacao'),
+                    'aa.idPronac = PAP.idPronac and PAP.idProduto = aa.idProduto',
+                    array()
                 )
                 ->where('PAP.NrFonteRecurso = ?', '109');
         $somar->where('CASE WHEN PAP.idPRODUTO <> 0 THEN aa.stAvaliacao ELSE 1 END  = ?', 1);
@@ -1224,12 +1304,14 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
     }
 
     //BUSCA ANALISE DE CUSTO
-    public function buscarAnaliseCustosPlanilhaAprovacao($idpronac=null, $tpPlanilha=null, $where=array()) {
+    public function buscarAnaliseCustosPlanilhaAprovacao($idpronac=null, $tpPlanilha=null, $where=array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->distinct();
         $select->from(
-                array('PAP' => $this->_name), array(
+                array('PAP' => $this->_name),
+            array(
                 'PAP.tpPlanilha',
                 'PAP.idProduto',
                 'PAP.idUnidade',
@@ -1250,35 +1332,49 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         );
 
         $select->joinInner(
-                array('I' => 'tbPlanilhaItens'), new Zend_Db_Expr('PAP.idPlanilhaItem = I.idPlanilhaItens'), array(
+                array('I' => 'tbPlanilhaItens'),
+            new Zend_Db_Expr('PAP.idPlanilhaItem = I.idPlanilhaItens'),
+            array(
                 'I.Descricao AS Item'
                 )
         );
         $select->joinInner(
-                array('E' => 'tbPlanilhaEtapa'), new Zend_Db_Expr('PAP.idEtapa = E.idPlanilhaEtapa'), array(
+                array('E' => 'tbPlanilhaEtapa'),
+            new Zend_Db_Expr('PAP.idEtapa = E.idPlanilhaEtapa'),
+            array(
                 'E.Descricao AS Etapa'
                 )
         );
         $select->joinInner(
-                array('UNI' => 'tbPlanilhaUnidade'), new Zend_Db_Expr('PAP.idUnidade = UNI.idUnidade'), array(
+                array('UNI' => 'tbPlanilhaUnidade'),
+            new Zend_Db_Expr('PAP.idUnidade = UNI.idUnidade'),
+            array(
                 'UNI.Descricao AS Unidade'
                 )
         );
 
         $select->joinInner(
-                array('TI' => 'Verificacao'), new Zend_Db_Expr('TI.idverificacao = PAP.nrFonteRecurso'), array(
+                array('TI' => 'Verificacao'),
+            new Zend_Db_Expr('TI.idverificacao = PAP.nrFonteRecurso'),
+            array(
                 'TI.Descricao as FonteRecurso'
                 )
         );
         $select->joinInner(
-                array('CID' => 'Municipios'), new Zend_Db_Expr('CID.idMunicipioIBGE = PAP.idMunicipioDespesa'), array(
+                array('CID' => 'Municipios'),
+            new Zend_Db_Expr('CID.idMunicipioIBGE = PAP.idMunicipioDespesa'),
+            array(
                 'CID.Descricao as Cidade'
-                ), 'Agentes.dbo'
+                ),
+            'Agentes.dbo'
         );
         $select->joinInner(
-                array('FED' => 'UF'), new Zend_Db_Expr('PAP.idUFDespesa = FED.idUF'), array(
+                array('FED' => 'UF'),
+            new Zend_Db_Expr('PAP.idUFDespesa = FED.idUF'),
+            array(
                 'FED.Sigla as UF'
-                ), 'Agentes.dbo'
+                ),
+            'Agentes.dbo'
         );
         $select->joinLeft(
                 array('aa' => 'tbAnaliseAprovacao'),
@@ -1286,7 +1382,9 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                 array('aa.stAvaliacao')
         );
         $select->joinLeft(
-                array('PD' => 'Produto'), new Zend_Db_Expr('PAP.idProduto = PD.Codigo'), array(
+                array('PD' => 'Produto'),
+            new Zend_Db_Expr('PAP.idProduto = PD.Codigo'),
+            array(
                 'PD.Descricao as Produto'
                 )
         );
@@ -1329,8 +1427,9 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->distinct();
-        $select->from(array('PAP' => $this->_name)
-            ,array(
+        $select->from(
+            array('PAP' => $this->_name),
+            array(
                 'PAP.tpPlanilha'
                 ,'PAP.idProduto'
                 ,'PAP.idUnidade'
@@ -1353,58 +1452,64 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                 ,'PAP.tpDespesa'
                 ,'PAP.tpPessoa'
                 ,'PAP.nrContraPartida'
-                ,'PAP.tpAcao')
-            ,'SAC.dbo'
+                ,'PAP.tpAcao'),
+            'SAC.dbo'
         );
-        $select->joinInner(array('I' => 'tbPlanilhaItens')
-            ,new Zend_Db_Expr('PAP.idPlanilhaItem = I.idPlanilhaItens')
-            ,array(
+        $select->joinInner(
+            array('I' => 'tbPlanilhaItens'),
+            new Zend_Db_Expr('PAP.idPlanilhaItem = I.idPlanilhaItens'),
+            array(
                 'I.Descricao AS Item'
-            )
-            ,'SAC.dbo'
+            ),
+            'SAC.dbo'
         );
-        $select->joinInner(array('E' => 'tbPlanilhaEtapa')
-            ,new Zend_Db_Expr('PAP.idEtapa = E.idPlanilhaEtapa')
-            ,array(
+        $select->joinInner(
+            array('E' => 'tbPlanilhaEtapa'),
+            new Zend_Db_Expr('PAP.idEtapa = E.idPlanilhaEtapa'),
+            array(
                 'E.Descricao AS Etapa'
-            )
-            ,'SAC.dbo'
+            ),
+            'SAC.dbo'
         );
-        $select->joinInner(array('UNI' => 'tbPlanilhaUnidade')
-            ,new Zend_Db_Expr('PAP.idUnidade = UNI.idUnidade')
-            ,array(
+        $select->joinInner(
+            array('UNI' => 'tbPlanilhaUnidade'),
+            new Zend_Db_Expr('PAP.idUnidade = UNI.idUnidade'),
+            array(
                 'UNI.Descricao AS Unidade'
-            )
-            ,'SAC.dbo'
+            ),
+            'SAC.dbo'
         );
-        $select->joinInner(array('TI' => 'Verificacao')
-            ,new Zend_Db_Expr('TI.idverificacao = PAP.nrFonteRecurso')
-            ,array(
+        $select->joinInner(
+            array('TI' => 'Verificacao'),
+            new Zend_Db_Expr('TI.idverificacao = PAP.nrFonteRecurso'),
+            array(
                 'TI.Descricao as FonteRecurso'
-            )
-            ,'SAC.dbo'
+            ),
+            'SAC.dbo'
         );
-        $select->joinInner(array('CID' => 'Municipios')
-            ,new Zend_Db_Expr('CID.idMunicipioIBGE = PAP.idMunicipioDespesa')
-            ,array(
+        $select->joinInner(
+            array('CID' => 'Municipios'),
+            new Zend_Db_Expr('CID.idMunicipioIBGE = PAP.idMunicipioDespesa'),
+            array(
                 'CID.Descricao as Cidade'
-            )
-            ,'AGENTES.dbo'
+            ),
+            'AGENTES.dbo'
         );
-        $select->joinInner(array('FED' => 'UF')
-            ,new Zend_Db_Expr('PAP.idUFDespesa = FED.idUF')
-            ,array(
+        $select->joinInner(
+            array('FED' => 'UF'),
+            new Zend_Db_Expr('PAP.idUFDespesa = FED.idUF'),
+            array(
                 'FED.Sigla as UF'
-            )
-            ,'AGENTES.dbo'
+            ),
+            'AGENTES.dbo'
         );
         $select->joinLeft(
-            array('PD' => 'Produto')
-            ,new Zend_Db_Expr('PAP.idProduto = PD.Codigo')
-            ,array(
+            array('PD' => 'Produto'),
+            new Zend_Db_Expr('PAP.idProduto = PD.Codigo'),
+            array(
                 'PD.Descricao as Produto'
-            )
-            ,'SAC.dbo'
+            ),
+            'SAC.dbo'
         );
 
         // adiciona quantos filtros foram enviados
@@ -1415,7 +1520,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         // adicionando linha order ao select
         $select->order($order);
 
-                //x($select->assemble());
+        //x($select->assemble());
         return $this->fetchAll($select);
     } // fecha m�todo buscarCustosReadequacao()
 
@@ -1432,8 +1537,9 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from(array('h' => $this->_name)
-            ,array(
+        $select->from(
+            array('h' => $this->_name),
+            array(
                 'h.tpPlanilha'
                 ,'h.idProduto'
                 ,'h.idUnidade'
@@ -1456,98 +1562,104 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
                 ,'h.tpDespesa'
                 ,'h.tpPessoa'
                 ,'h.nrContraPartida'
-                ,'h.tpAcao')
-            ,'SAC.dbo'
-        );
-        $select->joinInner(array('I' => 'tbPlanilhaItens')
-            ,new Zend_Db_Expr('h.idPlanilhaItem = I.idPlanilhaItens')
-            ,array(
-                'I.Descricao AS Item'
-            )
-            ,'SAC.dbo'
-        );
-        $select->joinInner(array('E' => 'tbPlanilhaEtapa')
-            ,new Zend_Db_Expr('h.idEtapa = E.idPlanilhaEtapa')
-            ,array(
-                'E.Descricao AS Etapa'
-            )
-            ,'SAC.dbo'
-        );
-        $select->joinInner(array('UNI' => 'tbPlanilhaUnidade')
-            ,new Zend_Db_Expr('h.idUnidade = UNI.idUnidade')
-            ,array(
-                'UNI.Descricao AS Unidade'
-            )
-            ,'SAC.dbo'
-        );
-        $select->joinInner(array('TI' => 'Verificacao')
-            ,new Zend_Db_Expr('TI.idverificacao = h.nrFonteRecurso')
-            ,array(
-                'TI.Descricao as FonteRecurso'
-            )
-            ,'SAC.dbo'
-        );
-        $select->joinInner(array('CID' => 'Municipios')
-            ,new Zend_Db_Expr('CID.idMunicipioIBGE = h.idMunicipioDespesa')
-            ,array(
-                'CID.Descricao as Cidade'
-            )
-            ,'AGENTES.dbo'
-        );
-        $select->joinInner(array('FED' => 'UF')
-            ,new Zend_Db_Expr('h.idUFDespesa = FED.idUF')
-            ,array(
-                'FED.Sigla as UF'
-            )
-            ,'AGENTES.dbo'
-        );
-        $select->joinLeft(
-            array('PD' => 'Produto')
-            ,new Zend_Db_Expr('h.idProduto = PD.Codigo')
-            ,array(
-                'PD.Descricao as Produto'
-            )
-            ,'SAC.dbo'
+                ,'h.tpAcao'),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('p' => 'tbPedidoAlteracaoProjeto')
-            ,'p.idPedidoAlteracao = h.idPedidoAlteracao'
-            ,array(
+            array('I' => 'tbPlanilhaItens'),
+            new Zend_Db_Expr('h.idPlanilhaItem = I.idPlanilhaItens'),
+            array(
+                'I.Descricao AS Item'
+            ),
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            array('E' => 'tbPlanilhaEtapa'),
+            new Zend_Db_Expr('h.idEtapa = E.idPlanilhaEtapa'),
+            array(
+                'E.Descricao AS Etapa'
+            ),
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            array('UNI' => 'tbPlanilhaUnidade'),
+            new Zend_Db_Expr('h.idUnidade = UNI.idUnidade'),
+            array(
+                'UNI.Descricao AS Unidade'
+            ),
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            array('TI' => 'Verificacao'),
+            new Zend_Db_Expr('TI.idverificacao = h.nrFonteRecurso'),
+            array(
+                'TI.Descricao as FonteRecurso'
+            ),
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            array('CID' => 'Municipios'),
+            new Zend_Db_Expr('CID.idMunicipioIBGE = h.idMunicipioDespesa'),
+            array(
+                'CID.Descricao as Cidade'
+            ),
+            'AGENTES.dbo'
+        );
+        $select->joinInner(
+            array('FED' => 'UF'),
+            new Zend_Db_Expr('h.idUFDespesa = FED.idUF'),
+            array(
+                'FED.Sigla as UF'
+            ),
+            'AGENTES.dbo'
+        );
+        $select->joinLeft(
+            array('PD' => 'Produto'),
+            new Zend_Db_Expr('h.idProduto = PD.Codigo'),
+            array(
+                'PD.Descricao as Produto'
+            ),
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            array('p' => 'tbPedidoAlteracaoProjeto'),
+            'p.idPedidoAlteracao = h.idPedidoAlteracao',
+            array(
                 'p.idPedidoAlteracao'
                 ,'p.idSolicitante'
                 ,'CONVERT(CHAR(10), p.dtSolicitacao, 103) AS dtSolicitacao'
-                ,'CONVERT(CHAR(10), p.dtSolicitacao, 108) AS hrSolicitacao')
-            ,'BDCORPORATIVO.scSAC'
+                ,'CONVERT(CHAR(10), p.dtSolicitacao, 108) AS hrSolicitacao'),
+            'BDCORPORATIVO.scSAC'
         );
         $select->joinInner(
-            array('j' => 'tbPedidoAlteracaoXTipoAlteracao')
-            ,'p.idPedidoAlteracao = j.idPedidoAlteracao'
-            ,array(
+            array('j' => 'tbPedidoAlteracaoXTipoAlteracao'),
+            'p.idPedidoAlteracao = j.idPedidoAlteracao',
+            array(
                 'CAST(j.dsJustificativa AS TEXT) AS dsProponente'
-                ,'j.tpAlteracaoProjeto')
-            ,'BDCORPORATIVO.scSAC'
+                ,'j.tpAlteracaoProjeto'),
+            'BDCORPORATIVO.scSAC'
         );
         $select->joinInner(
-            array('a' => 'tbAvaliacaoItemPedidoAlteracao')
-            ,'p.idPedidoAlteracao = a.idPedidoAlteracao AND j.tpAlteracaoProjeto = a.tpAlteracaoProjeto'
-            ,array(
+            array('a' => 'tbAvaliacaoItemPedidoAlteracao'),
+            'p.idPedidoAlteracao = a.idPedidoAlteracao AND j.tpAlteracaoProjeto = a.tpAlteracaoProjeto',
+            array(
                 'a.idAgenteAvaliador'
                 ,'CONVERT(CHAR(10), a.dtInicioAvaliacao, 103) AS dtInicioAvaliacao'
                 ,'CONVERT(CHAR(10), a.dtInicioAvaliacao, 108) AS hrInicioAvaliacao'
                 ,'CONVERT(CHAR(10), a.dtFimAvaliacao, 103) AS dtFimAvaliacao'
                 ,'CONVERT(CHAR(10), a.dtFimAvaliacao, 108) AS hrFimAvaliacao'
                 ,'a.stAvaliacaoItemPedidoAlteracao AS stAvaliacao'
-                ,'CAST(a.dsAvaliacao AS TEXT) AS dsAvaliacao')
-            ,'BDCORPORATIVO.scSAC'
+                ,'CAST(a.dsAvaliacao AS TEXT) AS dsAvaliacao'),
+            'BDCORPORATIVO.scSAC'
         );
         $select->joinInner(
-            array('ai' => 'tbAvaliacaoSubItemPedidoAlteracao')
-            ,'ai.idAvaliacaoItemPedidoAlteracao = a.idAvaliacaoItemPedidoAlteracao'
-            ,array(
+            array('ai' => 'tbAvaliacaoSubItemPedidoAlteracao'),
+            'ai.idAvaliacaoItemPedidoAlteracao = a.idAvaliacaoItemPedidoAlteracao',
+            array(
                 'ai.idAvaliacaoSubItemPedidoAlteracao AS idAvaliacaoItem'
                 ,'ai.stAvaliacaoSubItemPedidoAlteracao AS stAvaliacaoItem'
-                ,'CAST(ai.dsAvaliacaoSubItemPedidoAlteracao AS TEXT) AS dsAvaliacaoItem')
-            ,'BDCORPORATIVO.scSAC'
+                ,'CAST(ai.dsAvaliacaoSubItemPedidoAlteracao AS TEXT) AS dsAvaliacaoItem'),
+            'BDCORPORATIVO.scSAC'
         );
 
         // adiciona quantos filtros foram enviados
@@ -1564,11 +1676,13 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
 
 
     //BUSCA CORTES SUGERIDOS
-    public function buscarAnaliseContaPlanilhaAprovacao($idpronac, $tpplanilha, $where=array()) {
+    public function buscarAnaliseContaPlanilhaAprovacao($idpronac, $tpplanilha, $where=array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('pap' => $this->_name), array(
+                array('pap' => $this->_name),
+            array(
                 'pap.qtItem',
                 'pap.nrFonteRecurso',
                 'pap.qtDias',
@@ -1587,19 +1701,27 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         );
         */
         $select->joinInner(
-                array('UNI' => 'tbPlanilhaUnidade'), new Zend_Db_Expr('PAP.idUnidade = UNI.idUnidade'), array(
+                array('UNI' => 'tbPlanilhaUnidade'),
+            new Zend_Db_Expr('PAP.idUnidade = UNI.idUnidade'),
+            array(
                 'UNI.Descricao AS Unidade'
                 )
         );
 
         $select->joinInner(
-                array('i' => 'tbPlanilhaItens'), 'pap.idPlanilhaItem  = i.idPlanilhaItens', array('i.Descricao as Item')
+                array('i' => 'tbPlanilhaItens'),
+            'pap.idPlanilhaItem  = i.idPlanilhaItens',
+            array('i.Descricao as Item')
         );
         $select->joinInner(
-                array('e' => 'tbPlanilhaEtapa'), 'pap.idEtapa  = e.idPlanilhaEtapa', array('e.Descricao as Etapa')
+                array('e' => 'tbPlanilhaEtapa'),
+            'pap.idEtapa  = e.idPlanilhaEtapa',
+            array('e.Descricao as Etapa')
         );
         $select->joinLeft(
-                array('prod' => 'produto'), 'pap.idProduto = prod.Codigo', array('prod.Descricao as produto')
+                array('prod' => 'produto'),
+            'pap.idProduto = prod.Codigo',
+            array('prod.Descricao as produto')
         );
         $select->where('pap.nrFonteRecurso = ?', 109);
         //$select->where('CASE WHEN PAP.idPRODUTO <> 0 THEN aa.stAvaliacao ELSE 1 END  = ?', 1);
@@ -1615,33 +1737,43 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
     }
 
     //Criado no dia 07/10/2013 - Jefferson Alessandro
-    public function buscarDadosAvaliacaoDeItem($idPlanilhaAprovacao){
+    public function buscarDadosAvaliacaoDeItem($idPlanilhaAprovacao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
                 array('a' => $this->_name),
                 array(
-                    New Zend_Db_Expr('a.idPRONAC, a.idPlanilhaAprovacao, a.idPlanilhaProposta, a.idPlanilhaProjeto, a.idProduto, b.Descricao as descProduto, a.idEtapa,
+                    new Zend_Db_Expr(
+                        'a.idPRONAC, a.idPlanilhaAprovacao, a.idPlanilhaProposta, a.idPlanilhaProjeto, a.idProduto, b.Descricao as descProduto, a.idEtapa,
                         c.Descricao as descEtapa, a.idPlanilhaItem, d.Descricao as descItem, a.idUnidade, e.Descricao as descUnidade,
                         a.qtItem as Quantidade, a.nrOcorrencia as Ocorrencia, a.vlUnitario as ValorUnitario, a.qtDias as QtdeDias, CAST(a.dsJustificativa as TEXT) as dsJustificativa'
                     )
                 )
         );
         $select->joinLeft(
-            array('b' => 'Produto'), "a.idProduto = b.Codigo",
-            array(), 'SAC.dbo'
+            array('b' => 'Produto'),
+            "a.idProduto = b.Codigo",
+            array(),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('c' => 'tbPlanilhaEtapa'), "a.idEtapa = c.idPlanilhaEtapa",
-            array(), 'SAC.dbo'
+            array('c' => 'tbPlanilhaEtapa'),
+            "a.idEtapa = c.idPlanilhaEtapa",
+            array(),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('d' => 'tbPlanilhaItens'), "a.idPlanilhaItem = d.idPlanilhaItens",
-            array(), 'SAC.dbo'
+            array('d' => 'tbPlanilhaItens'),
+            "a.idPlanilhaItem = d.idPlanilhaItens",
+            array(),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('e' => 'tbPlanilhaUnidade'), "a.idUnidade = e.idUnidade",
-            array(), 'SAC.dbo'
+            array('e' => 'tbPlanilhaUnidade'),
+            "a.idUnidade = e.idUnidade",
+            array(),
+            'SAC.dbo'
         );
         $select->where('a.idPlanilhaAprovacao = ?', $idPlanilhaAprovacao);
 
@@ -1676,7 +1808,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function dadosdoitemArray($idPlanilhaAprovacao,$idpronac)
+    public function dadosdoitemArray($idPlanilhaAprovacao, $idpronac)
     {
         $cpxpaDAO = new ComprovantePagamentoxPlanilhaAprovacao();
         $selectAux = $cpxpaDAO->valorComprovadoItem(true);
@@ -1691,7 +1823,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
             'SAC.dbo'
         );
         $select->join(
-            array('paux' => new Zend_Db_Expr('('.$this->valoresAgrupados($idpronac,true).')')),
+            array('paux' => new Zend_Db_Expr('('.$this->valoresAgrupados($idpronac, true).')')),
             'pa.idPlanilhaItem = paux.idPlanilhaItem AND
             pa.idEtapa = paux.idEtapa AND
             pa.idProduto = paux.idProduto AND
@@ -1832,9 +1964,14 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
      * @param null $itemAvaliadoFilter
      * @return Zend_Db_Table_Rowset_Abstract
      */
-	public function buscarItensPagamentoCustoProduto($idpronac, $itemAvaliadoFilter = null, $uf = null,
-		$idPlanilhaEtapa = null, $codigoProduto = null, $idMunicicpio = null)
-    {
+    public function buscarItensPagamentoCustoProduto(
+        $idpronac,
+        $itemAvaliadoFilter = null,
+        $uf = null,
+        $idPlanilhaEtapa = null,
+        $codigoProduto = null,
+        $idMunicicpio = null
+    ) {
         $select = $this->select()->distinct();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -1929,14 +2066,14 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
             'BDCORPORATIVO.scSAC'
         );
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
         $select->where('pAprovacao.nrFonteRecurso = ?', 109); //Incentivo Fiscal Federal
         $select->where('pAprovacao.tpAcao IS NULL OR pAprovacao.tpAcao <> ? ', 'E'); //Adicionado para n�o listar as que ja foram excluidas
         $select->where('(pAprovacao.qtItem*pAprovacao.nrOcorrencia*pAprovacao.vlUnitario) > 0');
         $select->where("UFT.Sigla = ?", $uf);
         $select->where("CID.idMunicipioIBGE = ?", $idMunicicpio);
         $select->where("pEtapa.idPlanilhaEtapa = ?", $idPlanilhaEtapa);
-        if ($codigoProduto){
+        if ($codigoProduto) {
             $select->where("prod.Codigo = ?", $codigoProduto);
         }
 
@@ -1951,9 +2088,9 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
 
         if ($itemAvaliadoFilter == 1) {
             $select->where('cppa.stItemAvaliado = ?', 4);
-        } elseif($itemAvaliadoFilter == 2) {
+        } elseif ($itemAvaliadoFilter == 2) {
             $select->where('cppa.stItemAvaliado != ?', 4);
-        } elseif($itemAvaliadoFilter == 3) {
+        } elseif ($itemAvaliadoFilter == 3) {
             $select->where('cppa.stItemAvaliado = ?', 3);
         }
 
@@ -2000,7 +2137,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         );
 
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
         $select->where('pAprovacao.nrFonteRecurso = ?', 109); //Incentivo Fiscal Federal
         $select->where('pAprovacao.tpAcao IS NULL OR pAprovacao.tpAcao <> ? ', 'E'); //Adicionado para n�o listar as que ja foram excluidas
         $select->where('(pAprovacao.qtItem*pAprovacao.nrOcorrencia*pAprovacao.vlUnitario) > 0');
@@ -2016,9 +2153,9 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
 
         if ($itemAvaliadoFilter == 1) {
             $select->where('cppa.stItemAvaliado = ?', 4);
-        } elseif($itemAvaliadoFilter == 2) {
+        } elseif ($itemAvaliadoFilter == 2) {
             $select->where('cppa.stItemAvaliado != ?', 4);
-        } elseif($itemAvaliadoFilter == 3) {
+        } elseif ($itemAvaliadoFilter == 3) {
             $select->where('cppa.stItemAvaliado = ?', 3);
         }
         /* echo $select;die; */
@@ -2191,9 +2328,15 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function vwComprovacaoFinanceiraProjeto($idpronac, $uf = null, $idPlanilhaEtapa = null, $codigoProduto = null, 
-        $idMunicipio = null, $tpCusto = null, $idPlanilhaItem = null)
-    {
+    public function vwComprovacaoFinanceiraProjeto(
+        $idpronac,
+        $uf = null,
+        $idPlanilhaEtapa = null,
+        $codigoProduto = null,
+        $idMunicipio = null,
+        $tpCusto = null,
+        $idPlanilhaItem = null
+    ) {
         $select = $this->select()->distinct();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -2204,23 +2347,23 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
 
         $select->where('IdPRONAC = ?', $idpronac);
 
-        if($uf){
+        if ($uf) {
             $select->where('Uf = ?', $uf);
         }
 
-        if($idMunicipio){
+        if ($idMunicipio) {
             $select->where('cdCidade = ?', $idMunicipio);
         }
 
-        if($idPlanilhaEtapa){
+        if ($idPlanilhaEtapa) {
             $select->where('cdEtapa = ?', $idPlanilhaEtapa);
         }
 
-        if($tpCusto){
+        if ($tpCusto) {
             $select->where('tpCusto = ?', $tpCusto);
         }
 
-        if($idPlanilhaItem){
+        if ($idPlanilhaItem) {
             $select->where('idPlanilhaItens = ?', $idPlanilhaItem);
         }
 
@@ -2234,7 +2377,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
     }
 
 
-	public function vwComprovacaoProjetoSemAnalise($idpronac, $uf = null, $idPlanilhaEtapa = null, $codigoProduto = null, $idMunicipio = null, $tpCusto=null)
+    public function vwComprovacaoProjetoSemAnalise($idpronac, $uf = null, $idPlanilhaEtapa = null, $codigoProduto = null, $idMunicipio = null, $tpCusto=null)
     {
         $select = $this->select()->distinct();
         $select->setIntegrityCheck(false);
@@ -2246,18 +2389,18 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
 
         $select->where('IdPRONAC = ?', $idpronac);
 
-        if($uf){
+        if ($uf) {
             $select->where('Uf = ?', $uf);
         }
 
-        if($idMunicipio){
+        if ($idMunicipio) {
             $select->where('cdCidade = ?', $idMunicipio);
         }
 
-        if($idPlanilhaEtapa){
+        if ($idPlanilhaEtapa) {
             $select->where('cdEtapa = ?', $idPlanilhaEtapa);
         }
-        if($tpCusto){
+        if ($tpCusto) {
             $select->where('tpCusto = ?', $tpCusto);
         }
 
@@ -2270,7 +2413,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-	public function vwComprovacaoProjetoAvaliada($idpronac, $uf = null, $idPlanilhaEtapa = null, $codigoProduto = null, $idMunicipio = null, $tpCusto=null)
+    public function vwComprovacaoProjetoAvaliada($idpronac, $uf = null, $idPlanilhaEtapa = null, $codigoProduto = null, $idMunicipio = null, $tpCusto=null)
     {
         $select = $this->select()->distinct();
         $select->setIntegrityCheck(false);
@@ -2380,14 +2523,14 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract {
         $select->from(
             array($this->_name),
             array(
-                'total' => New Zend_Db_Expr('count(idPlanilhaAprovacao)'),
+                'total' => new Zend_Db_Expr('count(idPlanilhaAprovacao)'),
             ),
             $this->_schema
         );
         
         $select->where('idPronac = ?', $idPronac);
-        $select->where( 'tpPlanilha = ?', 'RP');
-        $select->where( 'stAtivo = ?', 'N');
+        $select->where('tpPlanilha = ?', 'RP');
+        $select->where('stAtivo = ?', 'N');
         
         return $this->fetchAll($select);
     }

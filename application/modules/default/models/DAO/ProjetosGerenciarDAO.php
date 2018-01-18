@@ -10,29 +10,26 @@
  * @copyright � 2010 - Politec - Todos os direitos reservados.
  */
 
-class ProjetosGerenciarDAO extends Zend_Db_Table {
+class ProjetosGerenciarDAO extends Zend_Db_Table
+{
+    protected $_name = 'dbo.Agentes';
 
-	protected $_name = 'dbo.Agentes';
-
-	/**************************************************************************************************************************
-	* Fun��o que ret orna o sql desejado
-	* ************************************************************************************************************************/
-	public static function retornaSQL($sqlDesejado) {
-
-		$sql = '';
-		if ($sqlDesejado == "sqlAreaCmp") {
-			$sql = "Select C.idAgente,
+    /**************************************************************************************************************************
+    * Fun��o que ret orna o sql desejado
+    * ************************************************************************************************************************/
+    public static function retornaSQL($sqlDesejado)
+    {
+        $sql = '';
+        if ($sqlDesejado == "sqlAreaCmp") {
+            $sql = "Select C.idAgente,
                                 Ar.Descricao Area,
                                 Nm.Descricao Nome
                                 From AGENTES.dbo.tbTitulacaoConselheiro C
                                 INNER JOIN SAC.dbo.Area Ar on ar.Codigo = C.cdArea
                                 INNER JOIN AGENTES.dbo.Nomes Nm on Nm.idAgente = C.idAgente
                                 Order by Ar.Descricao, Nm.Descricao";
-
-		} else
-			if ($sqlDesejado == "sqlComponentes") {
-
-				$sql = "SELECT T.idAgente,
+        } elseif ($sqlDesejado == "sqlComponentes") {
+            $sql = "SELECT T.idAgente,
                                         N.Descricao Nome,
                                         A.Descricao Area,
                                         (SELECT COUNT(SDPC.idPronac) as QTD
@@ -42,10 +39,8 @@ class ProjetosGerenciarDAO extends Zend_Db_Table {
                                         INNER JOIN AGENTES.dbo.Nomes N on N.idAgente =   T.idAgente
                                         INNER JOIN SAC.dbo.Area A on A.Codigo =  T.cdArea
                                         WHERE T.stConselheiro = 'A' ORDER BY Nome";
-			} else
-				if ($sqlDesejado == "sqlDesabilitados") {
-
-					$sql = "Select C.idAgente,
+        } elseif ($sqlDesejado == "sqlDesabilitados") {
+            $sql = "Select C.idAgente,
 					                                N.Descricao Nome,
 					                                A.Descricao Area,
 					                                H.dsJustificativa Just,
@@ -63,21 +58,20 @@ class ProjetosGerenciarDAO extends Zend_Db_Table {
 					                                                            AND H.idConselheiro = N.idAgente
 					                                                            AND HT.dtHistorico = H.dtHistorico
 					                                                            AND C.stConselheiro = 'I'";
+        }
+        return $sql;
+    }
 
-				}
-		return $sql;
-	}
+    /**************************************************************************************************************************
+    * Fun��o para buscar os projetos do componente da comiss�o
+    * ************************************************************************************************************************/
 
-	/**************************************************************************************************************************
-	* Fun��o para buscar os projetos do componente da comiss�o
-	* ************************************************************************************************************************/
+    public static function buscaProjetos($idAgente)
+    {
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
-	public static function buscaProjetos($idAgente) {
-
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-
-		$sqlProjetosDoComponente = "SELECT
+        $sqlProjetosDoComponente = "SELECT
                     P.idPRONAC,
                     D.idAgente,
                     P.AnoProjeto + P.Sequencial AS PRONAC,
@@ -91,122 +85,121 @@ class ProjetosGerenciarDAO extends Zend_Db_Table {
                     AND P.Situacao = 'C10'
                     AND D.idAgente = $idAgente
                     and not exists (select idpronac from BDCORPORATIVO.scSAC.tbPauta where idpronac = P.idPRONAC)";
-		$projetos = $db->fetchAll($sqlProjetosDoComponente);
-		return $projetos;
+        $projetos = $db->fetchAll($sqlProjetosDoComponente);
+        return $projetos;
+    }
 
-	}
+    /**************************************************************************************************************************
+    * Fun��o para encaminhar o projeto para outro componente da comiss�o
+    * ************************************************************************************************************************/
 
-	/**************************************************************************************************************************
-	* Fun��o para encaminhar o projeto para outro componente da comiss�o
-	* ************************************************************************************************************************/
+    public static function encaminharProjeto($idPronac, $data, $justificativa, $agenteAtual, $agenteNovo)
+    {
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
-	public static function encaminharProjeto($idPronac, $data, $justificativa, $agenteAtual, $agenteNovo) {
-
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-
-		$dados = "Update BDCORPORATIVO.scSAC.tbDistribuicaoProjetoComissao " .
-		" Set idAgente = $agenteNovo, dtDistribuicao = GETDATE(),  dsJustificativa='" . $justificativa . "'" .
-		" Where idAgente =" . $agenteAtual . " AND idPronac=" . $idPronac;
+        $dados = "Update BDCORPORATIVO.scSAC.tbDistribuicaoProjetoComissao " .
+        " Set idAgente = $agenteNovo, dtDistribuicao = GETDATE(),  dsJustificativa='" . $justificativa . "'" .
+        " Where idAgente =" . $agenteAtual . " AND idPronac=" . $idPronac;
 //                die($dados);
 
-		$atualiza = $db->query($dados);
-		return true;
-	}
+        $atualiza = $db->query($dados);
+        return true;
+    }
 
-	/**************************************************************************************************************************
-	* Fun��o para desativar o componente da comiss�o
-	* ************************************************************************************************************************/
+    /**************************************************************************************************************************
+    * Fun��o para desativar o componente da comiss�o
+    * ************************************************************************************************************************/
 
-	public function desativarComponente($idAgente, $justificativa) {
+    public function desativarComponente($idAgente, $justificativa)
+    {
 
-		// Busca os projetos que estavam alocados para o componente atual
-		$sqlBuscaProjetosdoComponente = "SELECT D.idPRONAC, D.idAgente, CONVERT(CHAR(10), D.dtDistribuicao,103) AS Data
+        // Busca os projetos que estavam alocados para o componente atual
+        $sqlBuscaProjetosdoComponente = "SELECT D.idPRONAC, D.idAgente, CONVERT(CHAR(10), D.dtDistribuicao,103) AS Data
 		                                        From BDCORPORATIVO.scSAC.tbDistribuicaoProjetoComissao D
 		                                        where D.stDistribuicao = 'A' AND idAgente=" . $idAgente;
-		$result = $db->fetchAll($sqlBuscaProjetosdoComponente);
+        $result = $db->fetchAll($sqlBuscaProjetosdoComponente);
 
-		foreach ($result as $dado) {
-			// Deletar todos os dados da duas tabelas abaixo
-			$whereDelete = "idPRONAC=" . $dado->idPRONAC;
-			$deletaDasTabelas = $db->delete('SAC.dbo.Aprovacao', $whereDelete);
-			$deletaDasTabelas2 = $db->delete('SAC.dbo.Enquadramento', $whereDelete);
+        foreach ($result as $dado) {
+            // Deletar todos os dados da duas tabelas abaixo
+            $whereDelete = "idPRONAC=" . $dado->idPRONAC;
+            $deletaDasTabelas = $db->delete('SAC.dbo.Aprovacao', $whereDelete);
+            $deletaDasTabelas2 = $db->delete('SAC.dbo.Enquadramento', $whereDelete);
 
-			// Atualiza a situa��o do projeto para Inativo
-			$dados = "Update BDCORPORATIVO.scSAC.tbDistribuicaoProjetoComissao " .
-			"Set stDistribuicao = 'I',  dsJustificativa='" . $justificativa . "'" .
-			"Where idAgente =" . $idAgente . " AND idPronac=" . $dado->idPRONAC . " AND dtDistribuicao='" . $dado->Data . "'";
+            // Atualiza a situa��o do projeto para Inativo
+            $dados = "Update BDCORPORATIVO.scSAC.tbDistribuicaoProjetoComissao " .
+            "Set stDistribuicao = 'I',  dsJustificativa='" . $justificativa . "'" .
+            "Where idAgente =" . $idAgente . " AND idPronac=" . $dado->idPRONAC . " AND dtDistribuicao='" . $dado->Data . "'";
 
-			$atualiza = $db->query($dados);
+            $atualiza = $db->query($dados);
 
-			// Faz o rebalanceamento de todos os projetos
-			$up = ProjetosGerenciarDAO :: balancear($dado->idPRONAC);
+            // Faz o rebalanceamento de todos os projetos
+            $up = ProjetosGerenciarDAO :: balancear($dado->idPRONAC);
+        }
+        return true;
+    }
 
-		}
-		return true;
-	}
+    /**************************************************************************************************************************
+    * Fun��o para habilitar o componente da comiss�o para o balanceamento
+    * ************************************************************************************************************************/
 
-	/**************************************************************************************************************************
-	* Fun��o para habilitar o componente da comiss�o para o balanceamento
-	* ************************************************************************************************************************/
+    public static function ativarComponente($idAgente, $justificativa, $usucodigo)
+    {
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
-	public static function ativarComponente($idAgente, $justificativa, $usucodigo) {
+        // Mudar a situa��o do componente da comiss�o para inativo 'I'
+        $dadosUpdateSituacao = array(
+            'stConselheiro' => 'A'
+        );
+        $whereUpdateSituacao = "idAgente =" . $idAgente;
+        $UpdateSituacao = $db->update('AGENTES.dbo.tbTitulacaoConselheiro', $dadosUpdateSituacao, $whereUpdateSituacao);
 
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        // Grava na tabela de historico
+        $dadosInsereHistorico = "Insert into BDCORPORATIVO.scAGENTES.tbHistoricoConselheiro " .
+        "(idConselheiro, dtHistorico, dsJustificativa, stConselheiro, idResponsavel)" .
+        "values " .
+        "($idAgente, GETDATE(), '$justificativa', 'A', $usucodigo)";
 
-		// Mudar a situa��o do componente da comiss�o para inativo 'I'
-		$dadosUpdateSituacao = array (
-			'stConselheiro' => 'A'
-		);
-		$whereUpdateSituacao = "idAgente =" . $idAgente;
-		$UpdateSituacao = $db->update('AGENTES.dbo.tbTitulacaoConselheiro', $dadosUpdateSituacao, $whereUpdateSituacao);
+        $InsereHistorico = $db->query($dadosInsereHistorico);
+        return true;
+    }
 
-		// Grava na tabela de historico
-		$dadosInsereHistorico = "Insert into BDCORPORATIVO.scAGENTES.tbHistoricoConselheiro " .
-		"(idConselheiro, dtHistorico, dsJustificativa, stConselheiro, idResponsavel)" .
-		"values " .
-		"($idAgente, GETDATE(), '$justificativa', 'A', $usucodigo)";
+    /**************************************************************************************************************************
+    * Fun��o para fazer o rebalanceamento dos projetos
+    * ************************************************************************************************************************/
 
-		$InsereHistorico = $db->query($dadosInsereHistorico);
-		return true;
-	}
+    public static function balancear($idPronac)
+    {
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
-	/**************************************************************************************************************************
-	* Fun��o para fazer o rebalanceamento dos projetos
-	* ************************************************************************************************************************/
-
-	public static function balancear($idPronac) {
-
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-
-		$sqlProjetoAreaSegmento = "SELECT P.idPRONAC, A.Codigo as area, S.Codigo as segmento
+        $sqlProjetoAreaSegmento = "SELECT P.idPRONAC, A.Codigo as area, S.Codigo as segmento
 		                                      FROM SAC.dbo.Projetos P, SAC.dbo.Area A, SAC.dbo.Segmento S
 		                                      WHERE P.idPRONAC = " . $idPronac . "  AND  P.Area = A.Codigo  AND  P.Segmento = S.Codigo";
 
-		// Busca a �rea e seguimento do projeto
-		$PAS = $db->fetchAll($sqlProjetoAreaSegmento);
-		foreach ($PAS as $dados) {
-			$areaP = $dados->area;
-			$segmentoP = $dados->segmento;
-		}
+        // Busca a �rea e seguimento do projeto
+        $PAS = $db->fetchAll($sqlProjetoAreaSegmento);
+        foreach ($PAS as $dados) {
+            $areaP = $dados->area;
+            $segmentoP = $dados->segmento;
+        }
 
-		// Busca para verificar se existe algum componente para a area e segmento do projeto
-		$sqlComponenteAreaSegmento = "SELECT C.idAgente, C.cdArea, C.cdSegmento, C.stTitular " .
-		"FROM AGENTES.dbo.tbTitulacaoConselheiro C " .
-		"WHERE C.stConselheiro = 'A' AND C.cdArea = " . $areaP . " AND C.cdSegmento = " . $segmentoP;
+        // Busca para verificar se existe algum componente para a area e segmento do projeto
+        $sqlComponenteAreaSegmento = "SELECT C.idAgente, C.cdArea, C.cdSegmento, C.stTitular " .
+        "FROM AGENTES.dbo.tbTitulacaoConselheiro C " .
+        "WHERE C.stConselheiro = 'A' AND C.cdArea = " . $areaP . " AND C.cdSegmento = " . $segmentoP;
 
-		$AAS = $db->fetchAll($sqlComponenteAreaSegmento);
-		foreach ($AAS as $dados) {
-			$agenteP = $dados->idAgente;
-		}
+        $AAS = $db->fetchAll($sqlComponenteAreaSegmento);
+        foreach ($AAS as $dados) {
+            $agenteP = $dados->idAgente;
+        }
 
-		// Se n�o tiver componente com a Area e Segmento do projeto ele faz...
-		if (!isset ($agenteP) && $agenteP == '') {
+        // Se n�o tiver componente com a Area e Segmento do projeto ele faz...
+        if (!isset($agenteP) && $agenteP == '') {
 
-			//aqui j� est� buscando o id do agente que tem a menor quantidade de projetos
-			$sqlMenor = "SELECT TC.idAgente as agente,
+            //aqui j� est� buscando o id do agente que tem a menor quantidade de projetos
+            $sqlMenor = "SELECT TC.idAgente as agente,
 			                           PXC.Qtd
 			                    FROM AGENTES.dbo.tbTitulacaoConselheiro TC
 			                    INNER JOIN (SELECT ATC.idAgente, COUNT(DPC.idPronac) Qtd
@@ -233,35 +226,34 @@ class ProjetosGerenciarDAO extends Zend_Db_Table {
 			                    WHERE TC.cdArea = " . $areaP . "
 			                    ORDER BY PXC.Qtd, TC.idAgente ";
 
-			$projetos = $db->fetchAll($sqlMenor);
+            $projetos = $db->fetchAll($sqlMenor);
 
-			if (!empty ($projetos)) {
-				foreach ($projetos as $dados) {
-					$menor = $dados->agente;
-				}
-	        if (!empty ($agenteP)) {
-				$dados = "Insert into BDCORPORATIVO.scSAC.tbDistribuicaoProjetoComissao " .
-				"(idPRONAC, idAgente, dtDistribuicao, idResponsavel)" .
-				"values" .
-				"($idPronac, $agenteP, GETDATE(), 7522)";
+            if (!empty($projetos)) {
+                foreach ($projetos as $dados) {
+                    $menor = $dados->agente;
+                }
+                if (!empty($agenteP)) {
+                    $dados = "Insert into BDCORPORATIVO.scSAC.tbDistribuicaoProjetoComissao " .
+                "(idPRONAC, idAgente, dtDistribuicao, idResponsavel)" .
+                "values" .
+                "($idPronac, $agenteP, GETDATE(), 7522)";
 
-				$insere = $db->query($dados);
-				$db->closeConnection();
-	            }
+                    $insere = $db->query($dados);
+                    $db->closeConnection();
+                }
 
-				// Se tiver componente com a Area e Segmento do projeto ele faz...
-			} else {
+                // Se tiver componente com a Area e Segmento do projeto ele faz...
+            } else {
+                if (!empty($menor)) {
+                    $dados = "Insert into BDCORPORATIVO.scSAC.tbDistribuicaoProjetoComissao " .
+                    "(idPRONAC, idAgente, dtDistribuicao, idResponsavel)" .
+                    "values" .
+                    "($idPronac, $menor, GETDATE(), 7522)";
 
-				if (!empty ($menor)) {
-					$dados = "Insert into BDCORPORATIVO.scSAC.tbDistribuicaoProjetoComissao " .
-					"(idPRONAC, idAgente, dtDistribuicao, idResponsavel)" .
-					"values" .
-					"($idPronac, $menor, GETDATE(), 7522)";
-
-					$insere = $db->query($dados);
-					$db->closeConnection();
-				}
-			}
-		}
-	}
+                    $insere = $db->query($dados);
+                    $db->closeConnection();
+                }
+            }
+        }
+    }
 }

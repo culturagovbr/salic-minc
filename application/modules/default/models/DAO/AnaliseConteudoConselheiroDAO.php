@@ -13,13 +13,11 @@
     
      public function alterar($dados, $id)
      {
-
-        $obj = new AnaliseConteudoConselheiroDAO();
+         $obj = new AnaliseConteudoConselheiroDAO();
        
-        $db = Zend_Db_Table::getDefaultAdapter();
-        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+         $db = Zend_Db_Table::getDefaultAdapter();
+         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
-        return $obj->update($dados, $id);
+         return $obj->update($dados, $id);
      }
-
-}
+ }

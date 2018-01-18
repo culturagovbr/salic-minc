@@ -8,7 +8,6 @@ class Assinatura_Model_DbTable_TbAtoAdministrativo extends MinC_Db_Table_Abstrac
 
     public function obterPerfilAssinante($idOrgaoDoAssinante, $idPerfilDoAssinante, $idTipoDoAto)
     {
-
         $objQuery = $this->select();
         $objQuery->setIntegrityCheck(false);
         $objQuery->from(
@@ -45,7 +44,7 @@ class Assinatura_Model_DbTable_TbAtoAdministrativo extends MinC_Db_Table_Abstrac
         }
     }
 
-    public function obterQuantidadeMinimaAssinaturas($idTipoDoAto, $idOrgaoSuperiorDoAssinante, $idOrgaoDoAssinante = NULL)
+    public function obterQuantidadeMinimaAssinaturas($idTipoDoAto, $idOrgaoSuperiorDoAssinante, $idOrgaoDoAssinante = null)
     {
         $objQuery = $this->select();
         $objQuery->setIntegrityCheck(false);
@@ -79,9 +78,7 @@ class Assinatura_Model_DbTable_TbAtoAdministrativo extends MinC_Db_Table_Abstrac
         $idTipoDoAto,
         $idOrdemDaAssinaturaAtual,
         $idOrgaoSuperiorDoAssinante
-    )
-    {
-
+    ) {
         $objQuery = $this->select();
         $objQuery->setIntegrityCheck(false);
         $objQuery->from(
@@ -234,7 +231,6 @@ class Assinatura_Model_DbTable_TbAtoAdministrativo extends MinC_Db_Table_Abstrac
 
     public function obterOrgaos($idOrgaoSuperior)
     {
-
         $objQuery = $this->select();
         $objQuery->setIntegrityCheck(false);
         $objQuery->from(

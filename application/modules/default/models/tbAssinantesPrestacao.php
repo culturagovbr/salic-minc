@@ -8,9 +8,9 @@
 
 class tbAssinantesPrestacao extends MinC_Db_Table_Abstract
 {
-	protected $_banco  = "SAC";
-	protected $_schema = "SAC";
-	protected $_name   = "tbAssinantesPrestacao";
+    protected $_banco  = "SAC";
+    protected $_schema = "SAC";
+    protected $_name   = "tbAssinantesPrestacao";
 
     /*
      * Criada em 10/02/2015
@@ -41,7 +41,6 @@ class tbAssinantesPrestacao extends MinC_Db_Table_Abstract
         }
 
         if ($qtdeTotal) {
-
             return $this->fetchAll($select)->count();
         }
 
@@ -60,6 +59,4 @@ class tbAssinantesPrestacao extends MinC_Db_Table_Abstract
         
         return $this->fetchAll($select);
     }
-
-
 }

@@ -50,6 +50,4 @@ class Agente_Model_Area extends MinC_Db_Model
     {
         $this->_descricao = $descricao;
     }
-
-
 }

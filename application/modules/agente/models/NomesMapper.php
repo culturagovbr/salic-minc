@@ -21,7 +21,7 @@ class Agente_Model_NomesMapper extends MinC_Db_Mapper
         parent::setDbTable('Agente_Model_DbTable_Nomes');
     }
 
-    public function saveCustom( $arrData )
+    public function saveCustom($arrData)
     {
         $arrNome = $this->findBy(array('idagente' => $arrData['idagente']));
         $arrData = array(

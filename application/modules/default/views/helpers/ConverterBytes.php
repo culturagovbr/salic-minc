@@ -12,26 +12,23 @@
 
 class Zend_View_Helper_ConverterBytes
 {
-	/**
-	 * Método para converter os bytes
-	 * @access public
-	 * @param string $bytes
-	 * @param string $casas (casas decimais)
-	 * @return string
-	 */
-	public function converterBytes($bytes, $casas = 2)
-	{
-		$unidades = array('', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
-		$unidade  = 0;
+    /**
+     * Método para converter os bytes
+     * @access public
+     * @param string $bytes
+     * @param string $casas (casas decimais)
+     * @return string
+     */
+    public function converterBytes($bytes, $casas = 2)
+    {
+        $unidades = array('', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+        $unidade  = 0;
 
-		do
-		{
-			$bytes /= 1024;
-			$unidade++;
-		}
-		while ($bytes > 1024);
+        do {
+            $bytes /= 1024;
+            $unidade++;
+        } while ($bytes > 1024);
 
-		return sprintf("%1.{$casas}f%s", $bytes, $unidades[$unidade]);
-	} // fecha método converterBytes()
-
+        return sprintf("%1.{$casas}f%s", $bytes, $unidades[$unidade]);
+    } // fecha método converterBytes()
 } // fecha class

@@ -9,7 +9,6 @@
  */
 class tbRecursoXPlanilhaAprovacao extends MinC_Db_Table_Abstract
 {
-
     protected $_banco = "SAC";
     protected $_schema = "SAC";
     protected $_name = "tbRecursoXPlanilhaAprovacao";
@@ -55,11 +54,10 @@ class tbRecursoXPlanilhaAprovacao extends MinC_Db_Table_Abstract
         }
 
         // exclui um determinado recurso
-        else if (!empty($idRecurso)) {
+        elseif (!empty($idRecurso)) {
             $where = "idRecurso = " . $idRecurso;
         }
 
         return $this->delete($where);
     }
-
 }

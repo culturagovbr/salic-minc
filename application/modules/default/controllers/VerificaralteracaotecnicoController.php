@@ -45,43 +45,38 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $Result['AltProrPrazC']  = array();
         $Result['AltProrPrazE']  = array();
         $validardata             = array();
-        foreach($resultadobusca as $ResultAltBusca)
-        {
-            switch ($ResultAltBusca->tpAlteracaoProjeto)
-            {
-                case 1 :
+        foreach ($resultadobusca as $ResultAltBusca) {
+            switch ($ResultAltBusca->tpAlteracaoProjeto) {
+                case 1:
                     {
                         $Result['AltNmProp'][]                  = $ResultAltBusca;
                         break;
                     }
-                case 2 :
+                case 2:
                     {
                         $Result['AltRaz'][]                     = $ResultAltBusca;
                         break;
                     }
-                case 3 :
+                case 3:
                     {
                         $Result['FicTec'][]                     = $ResultAltBusca;
                         break;
                     }
-                case 4 :
+                case 4:
                     {
                         $Result['LocRel'][]                     = $ResultAltBusca;
                         break;
                     }
-                case 5 :
+                case 5:
                     {
                         $Result['AltNomProj'][]                  = $ResultAltBusca;
                         break;
                     }
-                case 6 :
+                case 6:
                     {
-                        if($ResultAltBusca->tpProrrogacao == 'C')
-                        {
+                        if ($ResultAltBusca->tpProrrogacao == 'C') {
                             $Result['AltProrPrazC'][]                  = $ResultAltBusca;
-                        }
-                        else
-                        {
+                        } else {
                             $Result['AltProrPrazE'][]                  = $ResultAltBusca;
                         }
                         break;
@@ -105,27 +100,25 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
     */
     public function solaltnomprojAction()
     {
-        if($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
             
-            if($recebidoPost->solicitacao)
-            {
-                if(self::PropostaDiligenciar()){
-                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltnomproj?idpedidoalteracao=$recebidoPost->IdPronac" ,"CONFIRM");
+            if ($recebidoPost->solicitacao) {
+                if (self::PropostaDiligenciar()) {
+                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltnomproj?idpedidoalteracao=$recebidoPost->IdPronac", "CONFIRM");
                 } else {
                     //parent::message("Erro ao diligenciar a solicita��o", "verificaralteracaotecnico/solaltnomproj?idpedidoalteracao=$recebidoPost->IdPronac" ,"ERROR");
-                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltnomproj?idpedidoalteracao=$recebidoPost->IdPronac" ,"CONFIRM");
+                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltnomproj?idpedidoalteracao=$recebidoPost->IdPronac", "CONFIRM");
                 }
             }
         }
 
-        if(isset($_GET['opcao'])){
+        if (isset($_GET['opcao'])) {
             $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
             $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM AN�LISE
             $IdPronac = $_GET['idpedidoalteracao'];
 
-            self::streadequacaoprodutosAction($idPedidoAlteracao,$opcao,$IdPronac,'solaltnomproj');
+            self::streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, 'solaltnomproj');
         }
 
 
@@ -133,7 +126,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $idpedidoalteracao = $recebidoGet->idpedidoalteracao;
         $resultadoDadosAlteracaoNomeProjeto = PedidoAlteracaoDAO::buscarAlteracaoNomeProjeto($idpedidoalteracao);
         $resultadoBuscaPedidoAlteracao = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idpedidoalteracao, $resultadoDadosAlteracaoNomeProjeto['idPedidoAlteracao']);
-        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao,5, $resultadoDadosAlteracaoNomeProjeto['idPedidoAlteracao']);
+        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao, 5, $resultadoDadosAlteracaoNomeProjeto['idPedidoAlteracao']);
         $this->view->resultArquivo = $arquivos;
         $this->view->resultAlteracaoNomeProjeto = $resultadoDadosAlteracaoNomeProjeto;
         $this->view->resultConsulta = $resultadoBuscaPedidoAlteracao;
@@ -148,9 +141,9 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // Chama o SQL
-        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao,5, null, $resultadoDadosAlteracaoNomeProjeto['idPedidoAlteracao']);
+        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao, 5, null, $resultadoDadosAlteracaoNomeProjeto['idPedidoAlteracao']);
         $dados = $db->fetchAll($sqlproposta);
-        if($dados){
+        if ($dados) {
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
@@ -174,34 +167,32 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
     */
     public function solaltrazsocAction()
     {
-        if($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
             
-            if($recebidoPost->solicitacao)
-            {
-                if(self::PropostaDiligenciar()){
-                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltrazsoc?idpedidoalteracao=$recebidoPost->IdPronac" ,"CONFIRM");
+            if ($recebidoPost->solicitacao) {
+                if (self::PropostaDiligenciar()) {
+                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltrazsoc?idpedidoalteracao=$recebidoPost->IdPronac", "CONFIRM");
                 } else {
                     //parent::message("Erro ao diligenciar a solicita��o", "verificaralteracaotecnico/solaltrazsoc?idpedidoalteracao=$recebidoPost->IdPronac" ,"ERROR");
-                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltrazsoc?idpedidoalteracao=$recebidoPost->IdPronac" ,"CONFIRM");
+                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltrazsoc?idpedidoalteracao=$recebidoPost->IdPronac", "CONFIRM");
                 }
             }
         }
 
-        if(isset($_GET['opcao'])){
+        if (isset($_GET['opcao'])) {
             $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
             $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM AN�LISE
             $IdPronac = $_GET['idpedidoalteracao'];
 
-            self::streadequacaoprodutosAction($idPedidoAlteracao,$opcao,$IdPronac,'solaltrazsoc');
+            self::streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, 'solaltrazsoc');
         }
 
         $recebidoGet = Zend_Registry::get('get');
         $idpedidoalteracao    = $recebidoGet->idpedidoalteracao;
         $resultadoDadosAlteracaoRazaoSocial = PedidoAlteracaoDAO::buscarAlteracaoRazaoSocial($idpedidoalteracao);
         $resultadoBuscaPedidoAlteracao = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idpedidoalteracao, $resultadoDadosAlteracaoRazaoSocial['idPedidoAlteracao']);
-        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao,2, $resultadoDadosAlteracaoRazaoSocial['idPedidoAlteracao']);
+        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao, 2, $resultadoDadosAlteracaoRazaoSocial['idPedidoAlteracao']);
         $this->view->resultArquivo = $arquivos;
         $this->view->resultAlteracaoRazaoSocial = $resultadoDadosAlteracaoRazaoSocial;
         $this->view->resultProjeto  = AlteracaoNomeProponenteDAO::buscarProjPorProp($resultadoBuscaPedidoAlteracao['CgcCpf']);
@@ -217,9 +208,9 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // Chama o SQL
-        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao,2, null,$resultadoDadosAlteracaoRazaoSocial['idPedidoAlteracao']);
+        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao, 2, null, $resultadoDadosAlteracaoRazaoSocial['idPedidoAlteracao']);
         $dados = $db->fetchAll($sqlproposta);
-        if($dados){
+        if ($dados) {
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
@@ -236,20 +227,18 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $this->view->resultArquivo  = tbpedidoaltprojetoxarquivoDAO::buscarArquivos($idpedidoalteracao);
         $this->view->resultParecerTecnico   = tbalteracaonomeprojetoDAO::buscarDadosParecerTecnico($idpedidoalteracao);*/
         
-	    $proponenteHabilitado = true;
-		
-		$inabilitadoDAO = new Inabilitado();
-		$where['CgcCpf 		= ?'] = $resultadoDadosAlteracaoRazaoSocial['CgcCpf'];
-		$where['Habilitado 	= ?'] = 'N';
-		$busca = $inabilitadoDAO->Localizar($where);
+        $proponenteHabilitado = true;
+        
+        $inabilitadoDAO = new Inabilitado();
+        $where['CgcCpf 		= ?'] = $resultadoDadosAlteracaoRazaoSocial['CgcCpf'];
+        $where['Habilitado 	= ?'] = 'N';
+        $busca = $inabilitadoDAO->Localizar($where);
 
-		if(count($busca) > 0)
-		{
-			$proponenteHabilitado = false;
-		}
+        if (count($busca) > 0) {
+            $proponenteHabilitado = false;
+        }
         
         $this->view->novoproponentehabilitado = $proponenteHabilitado;
-        
     }
 
     /*
@@ -257,27 +246,25 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
     */
     public function solaltnomprpAction()
     {
-        if($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
 
-            if($recebidoPost->solicitacao)
-            {
-                if(self::PropostaDiligenciar()){
-                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltnomprp?idpedidoalteracao=$recebidoPost->IdPronac" ,"CONFIRM");
+            if ($recebidoPost->solicitacao) {
+                if (self::PropostaDiligenciar()) {
+                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltnomprp?idpedidoalteracao=$recebidoPost->IdPronac", "CONFIRM");
                 } else {
                     //parent::message("Erro ao diligenciar a solicita��o", "verificaralteracaotecnico/solaltnomprp?idpedidoalteracao=$recebidoPost->IdPronac" ,"ERROR");
-                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltnomprp?idpedidoalteracao=$recebidoPost->IdPronac" ,"CONFIRM");
+                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltnomprp?idpedidoalteracao=$recebidoPost->IdPronac", "CONFIRM");
                 }
             }
         }
 
-        if(isset($_GET['opcao'])){
+        if (isset($_GET['opcao'])) {
             $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
             $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM AN�LISE
             $IdPronac = $_GET['idpedidoalteracao'];
 
-            self::streadequacaoprodutosAction($idPedidoAlteracao,$opcao,$IdPronac,'solaltnomprp');
+            self::streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, 'solaltnomprp');
         }
 
 
@@ -285,7 +272,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $idpedidoalteracao    = $recebidoGet->idpedidoalteracao;
         $resultadoDadosAlteracaoNomeProponente = PedidoAlteracaoDAO::buscarAlteracaoNomeProponente($idpedidoalteracao);
         $resultadoBuscaPedidoAlteracao = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idpedidoalteracao, $resultadoDadosAlteracaoNomeProponente['idPedidoAlteracao']);
-        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao,1, $resultadoDadosAlteracaoNomeProponente['idPedidoAlteracao']);
+        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao, 1, $resultadoDadosAlteracaoNomeProponente['idPedidoAlteracao']);
         $this->view->resultArquivo = $arquivos;
         $this->view->resultAlteracaoNomeProponente = $resultadoDadosAlteracaoNomeProponente;
         $this->view->resultConsulta = $resultadoBuscaPedidoAlteracao;
@@ -301,9 +288,9 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // Chama o SQL
-        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao,1, null, $resultadoDadosAlteracaoNomeProponente['idPedidoAlteracao']);
+        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao, 1, null, $resultadoDadosAlteracaoNomeProponente['idPedidoAlteracao']);
         $dados = $db->fetchAll($sqlproposta);
-        if($dados){
+        if ($dados) {
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
@@ -328,27 +315,25 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
     {
         $tbAbrangencia = new Proposta_Model_DbTable_Abrangencia();
 
-        if($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
             
-            if($recebidoPost->solicitacao)
-            {
-                if(self::PropostaDiligenciar()){
-                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltlocrel?idpedidoalteracao=$recebidoPost->IdPronac" ,"CONFIRM");
+            if ($recebidoPost->solicitacao) {
+                if (self::PropostaDiligenciar()) {
+                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltlocrel?idpedidoalteracao=$recebidoPost->IdPronac", "CONFIRM");
                 } else {
                     //parent::message("Erro ao diligenciar a solicita��o", "verificaralteracaotecnico/solaltlocrel?idpedidoalteracao=$recebidoPost->IdPronac" ,"ERROR");
-                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltlocrel?idpedidoalteracao=$recebidoPost->IdPronac" ,"CONFIRM");
+                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltlocrel?idpedidoalteracao=$recebidoPost->IdPronac", "CONFIRM");
                 }
             }
         }
 
-        if(isset($_GET['opcao'])){
+        if (isset($_GET['opcao'])) {
             $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
             $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM AN�LISE
             $IdPronac = $_GET['idpedidoalteracao'];
 
-            self::streadequacaoprodutosAction($idPedidoAlteracao,$opcao,$IdPronac,'solaltlocrel');
+            self::streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, 'solaltlocrel');
         }
 
         $recebidoGet = Zend_Registry::get('get');
@@ -356,16 +341,13 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $buscaAb = $tbAbrangencia->buscarDadosAbrangenciaSolicitadaLocal($idpedidoalteracao);
         $resultadoBuscaPedidoAlteracao = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idpedidoalteracao, $buscaAb[0]->idPedidoAlteracao);
 
-        if (AvaliacaoSubItemPedidoAlteracaoDAO::buscar($resultadoBuscaPedidoAlteracao['idAvaliacao']))
-        {
+        if (AvaliacaoSubItemPedidoAlteracaoDAO::buscar($resultadoBuscaPedidoAlteracao['idAvaliacao'])) {
             $resultadoDadosAlteracaoLocalRealizacao = $tbAbrangencia->buscarDadosAbrangenciaAlteracao($idpedidoalteracao, 'COM_AVALIACAO');
-        }
-        else
-        {
+        } else {
             $resultadoDadosAlteracaoLocalRealizacao = $tbAbrangencia->buscarDadosAbrangenciaAlteracao($idpedidoalteracao, 'SEM_AVALIACAO');
         }
 
-        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao,4, $buscaAb[0]->idPedidoAlteracao);
+        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao, 4, $buscaAb[0]->idPedidoAlteracao);
         $this->view->resultLocalRel     = $tbAbrangencia->buscarDadosAbrangencia($idpedidoalteracao);
         $this->view->resultArquivo = $arquivos;
         $this->view->resultAbrangencia = $resultadoDadosAlteracaoLocalRealizacao;
@@ -381,9 +363,9 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // Chama o SQL
-        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao,4, null, $buscaAb[0]->idPedidoAlteracao);
+        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao, 4, null, $buscaAb[0]->idPedidoAlteracao);
         $dados = $db->fetchAll($sqlproposta);
-        if($dados){
+        if ($dados) {
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
@@ -393,14 +375,14 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
             $this->view->stResult = $db->fetchAll($sqlStatusReadequacao);
         }
 
-       /* $recebidoGet = Zend_Registry::get('get');
-        $idpedidoalteracao    = $recebidoGet->idpedidoalteracao;
-        $resultadoBuscaPedidoAlteracao  = tbPedidoAlteracaoProjetoDAO::buscarDadosPedidoAlteracao($idpedidoalteracao);
-        $this->view->resultConsulta     = $resultadoBuscaPedidoAlteracao;
-        $this->view->resultAbrangencia  = tbAbrangenciaDAO::buscarDadosAbrangencia($resultadoBuscaPedidoAlteracao[0]->idprojeto);
-        $this->view->resultLocalRel     = tbalteracaolocalrealizacaoDAO::buscarDadosAltLocRel($idpedidoalteracao);
-        $this->view->resultArquivo      = tbpedidoaltprojetoxarquivoDAO::buscarArquivos($idpedidoalteracao);
-        $this->view->resultParecerTecnico   = tbalteracaonomeprojetoDAO::buscarDadosParecerTecnico($idpedidoalteracao);*/
+        /* $recebidoGet = Zend_Registry::get('get');
+         $idpedidoalteracao    = $recebidoGet->idpedidoalteracao;
+         $resultadoBuscaPedidoAlteracao  = tbPedidoAlteracaoProjetoDAO::buscarDadosPedidoAlteracao($idpedidoalteracao);
+         $this->view->resultConsulta     = $resultadoBuscaPedidoAlteracao;
+         $this->view->resultAbrangencia  = tbAbrangenciaDAO::buscarDadosAbrangencia($resultadoBuscaPedidoAlteracao[0]->idprojeto);
+         $this->view->resultLocalRel     = tbalteracaolocalrealizacaoDAO::buscarDadosAltLocRel($idpedidoalteracao);
+         $this->view->resultArquivo      = tbpedidoaltprojetoxarquivoDAO::buscarArquivos($idpedidoalteracao);
+         $this->view->resultParecerTecnico   = tbalteracaonomeprojetoDAO::buscarDadosParecerTecnico($idpedidoalteracao);*/
     }
 
     /*
@@ -408,27 +390,25 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
     */
     public function solaltfictecAction()
     {
-        if($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
             
-            if($recebidoPost->solicitacao)
-            {
-                if(self::PropostaDiligenciar()){
-                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltfictec?idpedidoalteracao=$recebidoPost->IdPronac" ,"CONFIRM");
+            if ($recebidoPost->solicitacao) {
+                if (self::PropostaDiligenciar()) {
+                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltfictec?idpedidoalteracao=$recebidoPost->IdPronac", "CONFIRM");
                 } else {
                     //parent::message("Erro ao diligenciar a solicita��o", "verificaralteracaotecnico/solaltfictec?idpedidoalteracao=$recebidoPost->IdPronac" ,"ERROR");
-                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltfictec?idpedidoalteracao=$recebidoPost->IdPronac" ,"CONFIRM");
+                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltfictec?idpedidoalteracao=$recebidoPost->IdPronac", "CONFIRM");
                 }
             }
         }
 
-         if(isset($_GET['opcao'])){
+        if (isset($_GET['opcao'])) {
             $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
             $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM AN�LISE
             $IdPronac = $_GET['idpedidoalteracao'];
 
-            self::streadequacaoprodutosAction($idPedidoAlteracao,$opcao,$IdPronac,'solaltfictec');
+            self::streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, 'solaltfictec');
         }
 
         $recebidoGet = Zend_Registry::get('get');
@@ -436,7 +416,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $resultadoDadosAlteracaoFichaTecnica     = PedidoAlteracaoDAO::buscarAlteracaoFichaTecnica($idpedidoalteracao);
         $resultadoBuscaPedidoAlteracao           = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idpedidoalteracao, $resultadoDadosAlteracaoFichaTecnica['idPedidoAlteracao']);
         $fichatecnica                            = FichaTecnicaDAO::buscarFichaTecnica($idpedidoalteracao, $resultadoDadosAlteracaoFichaTecnica['idPedidoAlteracao']);
-        $arquivos                                = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao,3, $resultadoDadosAlteracaoFichaTecnica['idPedidoAlteracao']);
+        $arquivos                                = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao, 3, $resultadoDadosAlteracaoFichaTecnica['idPedidoAlteracao']);
         $this->view->resultArquivo               = $arquivos;
         $this->view->fichaTecnica                = $fichatecnica;
         $this->view->resultAlteracaoFichaTecnica = $resultadoDadosAlteracaoFichaTecnica;
@@ -452,9 +432,9 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // Chama o SQL
-        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao,3, null, $resultadoDadosAlteracaoFichaTecnica['idPedidoAlteracao']);
+        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao, 3, null, $resultadoDadosAlteracaoFichaTecnica['idPedidoAlteracao']);
         $dados = $db->fetchAll($sqlproposta);
-        if($dados){
+        if ($dados) {
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
@@ -477,35 +457,33 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
     */
     public function solaltprogprazcapAction()
     {
-        if($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
             
-            if($recebidoPost->solicitacao)
-            {
-                if(self::PropostaDiligenciar()){
-                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltprogprazcap?idpedidoalteracao=$recebidoPost->IdPronac" ,"CONFIRM");
+            if ($recebidoPost->solicitacao) {
+                if (self::PropostaDiligenciar()) {
+                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltprogprazcap?idpedidoalteracao=$recebidoPost->IdPronac", "CONFIRM");
                 } else {
                     //parent::message("Erro ao diligenciar a solicita��o", "verificaralteracaotecnico/solaltprogprazcap?idpedidoalteracao=$recebidoPost->IdPronac" ,"ERROR");
-                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltprogprazcap?idpedidoalteracao=$recebidoPost->IdPronac" ,"CONFIRM");
+                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltprogprazcap?idpedidoalteracao=$recebidoPost->IdPronac", "CONFIRM");
                 }
             }
         }
 
-        if(isset($_GET['opcao'])){
+        if (isset($_GET['opcao'])) {
             $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
             $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM AN�LISE
             $IdPronac = $_GET['idpedidoalteracao'];
 
-            self::streadequacaoprodutosAction($idPedidoAlteracao,$opcao,$IdPronac,'solaltprogprazcap');
+            self::streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, 'solaltprogprazcap');
         }
 
         $recebidoGet = Zend_Registry::get('get');
         $idpedidoalteracao                        = $recebidoGet->idpedidoalteracao;
         $resultadoDadosAlteracaoPrazoCaptacao     = PedidoAlteracaoDAO::buscarAlteracaoPrazoCaptacao($idpedidoalteracao);
         $resultadoBuscaPedidoAlteracao            = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idpedidoalteracao, $resultadoDadosAlteracaoPrazoCaptacao['idPedidoAlteracao']);
-        $arquivos                                 = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao,8,$resultadoDadosAlteracaoPrazoCaptacao['idPedidoAlteracao']);
-        $porcentagem                              = porcentagemCaptacaoDao::buscarDadosProrrogacaoPrazo($resultadoBuscaPedidoAlteracao['ano'],$resultadoBuscaPedidoAlteracao['seq']);
+        $arquivos                                 = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao, 8, $resultadoDadosAlteracaoPrazoCaptacao['idPedidoAlteracao']);
+        $porcentagem                              = porcentagemCaptacaoDao::buscarDadosProrrogacaoPrazo($resultadoBuscaPedidoAlteracao['ano'], $resultadoBuscaPedidoAlteracao['seq']);
         $this->view->resultDadosBanc              = ContaBancariaDAO::buscarDadosContaBancaria($resultadoBuscaPedidoAlteracao['pronac']);
         $this->view->porcentagem                  = ($porcentagem[0]->computed == '')?'0%':$porcentagem[0]->computed.'%';
         $this->view->resultArquivo                = $arquivos;
@@ -522,9 +500,9 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // Chama o SQL
-        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao,8,null,$resultadoDadosAlteracaoPrazoCaptacao['idPedidoAlteracao']);
+        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao, 8, null, $resultadoDadosAlteracaoPrazoCaptacao['idPedidoAlteracao']);
         $dados = $db->fetchAll($sqlproposta);
-        if($dados){
+        if ($dados) {
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
@@ -549,27 +527,25 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
     */
     public function solaltprogprazexecAction()
     {
-        if($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
 
-            if($recebidoPost->solicitacao)
-            {
-                if(self::PropostaDiligenciar()){
-                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltprogprazexec?idpedidoalteracao=$recebidoPost->IdPronac" ,"CONFIRM");
+            if ($recebidoPost->solicitacao) {
+                if (self::PropostaDiligenciar()) {
+                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltprogprazexec?idpedidoalteracao=$recebidoPost->IdPronac", "CONFIRM");
                 } else {
                     //parent::message("Erro ao diligenciar a solicita��o", "verificaralteracaotecnico/solaltprogprazexec?idpedidoalteracao=$recebidoPost->IdPronac" ,"ERROR");
-                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltprogprazexec?idpedidoalteracao=$recebidoPost->IdPronac" ,"CONFIRM");
+                    parent::message("Dilig�ncia enviada com sucesso!", "verificaralteracaotecnico/solaltprogprazexec?idpedidoalteracao=$recebidoPost->IdPronac", "CONFIRM");
                 }
             }
         }
 
-        if(isset($_GET['opcao'])){
+        if (isset($_GET['opcao'])) {
             $idPedidoAlteracao = $_GET['id']; //idPedido Altera��o � o idAvaliacaoItemPedidoAlteracao da tabela tbAvaliacaoItemPedidoAlteracao
             $opcao = $_GET['opcao']; //op��o escolhida no select - APROVADO, INDEFERIDO ou EM AN�LISE
             $IdPronac = $_GET['idpedidoalteracao'];
 
-            self::streadequacaoprodutosAction($idPedidoAlteracao,$opcao,$IdPronac,'solaltprogprazexec');
+            self::streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, 'solaltprogprazexec');
         }
 
 
@@ -577,9 +553,9 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $idpedidoalteracao                      = $recebidoGet->idpedidoalteracao;
         $resultadoDadosAlteracaoexecucao        = PedidoAlteracaoDAO::buscarAlteracaoPrazoExecucao($idpedidoalteracao);
         $resultadoBuscaPedidoAlteracao          = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idpedidoalteracao, $resultadoDadosAlteracaoexecucao['idPedidoAlteracao']);
-        $arquivos                               = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao,9, $resultadoDadosAlteracaoexecucao['idPedidoAlteracao']);
+        $arquivos                               = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao, 9, $resultadoDadosAlteracaoexecucao['idPedidoAlteracao']);
         $this->view->resultDadosBanc            = ContaBancariaDAO::buscarDadosContaBancaria($resultadoBuscaPedidoAlteracao['pronac']);
-        $porcentagem                            = porcentagemCaptacaoDao::buscarDadosProrrogacaoPrazo($resultadoBuscaPedidoAlteracao['ano'],$resultadoBuscaPedidoAlteracao['seq']);
+        $porcentagem                            = porcentagemCaptacaoDao::buscarDadosProrrogacaoPrazo($resultadoBuscaPedidoAlteracao['ano'], $resultadoBuscaPedidoAlteracao['seq']);
         $this->view->porcentagem                = ($porcentagem[0]->computed == '')?'0%':$porcentagem[0]->computed.'%';
         $this->view->resultArquivo              = $arquivos;
         $this->view->resultAlteracaoExecucao    = $resultadoDadosAlteracaoexecucao;
@@ -595,9 +571,9 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // Chama o SQL
-        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao,9, null, $resultadoDadosAlteracaoexecucao['idPedidoAlteracao']);
+        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao, 9, null, $resultadoDadosAlteracaoexecucao['idPedidoAlteracao']);
         $dados = $db->fetchAll($sqlproposta);
-        if($dados){
+        if ($dados) {
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
@@ -616,7 +592,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $this->view->resultParecerTecnico   = tbalteracaonomeprojetoDAO::buscarDadosParecerTecnico($idpedidoalteracao);*/
     }
     
-    public function InserirAvalizacao($post,$action)
+    public function InserirAvalizacao($post, $action)
     {
         $idpedidoalteracao = $post->idpedidoalteracao;
         $dsParecerTecnico  = TratarString::escapeString($post->editor1);
@@ -626,8 +602,7 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
                 "dsParecerTecnico"   => $dsParecerTecnico);
         $query = PedidoAlteracaoDAO::BuscaDsEspecificacaoTecnica($parecerTecnico);
 
-        if($query)
-        {
+        if ($query) {
             $this->_redirect('verificaralteracaotecnico/'.$action);
         }
     }
@@ -635,9 +610,8 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
     {
         $retorno = '';
         $qtdcarecteres = strlen($dado);
-        switch ($qtdcarecteres)
-        {
-            case 11 :
+        switch ($qtdcarecteres) {
+            case 11:
                  $retorno = Mascara::addMaskCPF($dado);
                  break;
 
@@ -648,23 +622,19 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         return  $retorno;
     }
 
-    public static function porcentagemcaptacao($ano,$seq)
+    public static function porcentagemcaptacao($ano, $seq)
     {
         $resultado = porcentagemCaptacaoDao::buscarDadosProrrogacaoPrazo($ano, $seq);
-        if($resultado[0]->computed)
-        {
+        if ($resultado[0]->computed) {
             return $resultado[0]->computed."%";
-        }
-        else{
+        } else {
             return "0%";
         }
-
     }
 
     public static function BuscarDadosTabelasAlt($idpedidoalteracao, $tpalteracao)
     {
-        switch ($tpalteracao)
-        {
+        switch ($tpalteracao) {
             case 1:
                 {
                     $nomProp = tbalteracaonomeproponenteDAO::buscarDadosAltNomProp($idpedidoalteracao);
@@ -698,74 +668,73 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         }
     }
 
-    private function streadequacaoprodutosAction($idPedidoAlteracao , $opcao , $IdPronac , $action){
-                //retorna o id do agente logado
+    private function streadequacaoprodutosAction($idPedidoAlteracao, $opcao, $IdPronac, $action)
+    {
+        //retorna o id do agente logado
                 $auth = Zend_Auth::getInstance(); // pega a autentica��o
                 $agente = GerenciarPautaReuniaoDAO::consultaAgenteUsuario($auth->getIdentity()->usu_codigo);
-                $idAgente = $agente['idAgente'];
+        $idAgente = $agente['idAgente'];
 
-                $db = Zend_Db_Table::getDefaultAdapter();
-                $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
-                //SQL PARA TRAZER OD DADOS DO REGISTRO EM QUEST�O
-                $registro = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlteracao);
-                $reg = $db->fetchAll($registro);
-                $idPedido = $reg[0]->idAvaliacaoItemPedidoAlteracao;
+        //SQL PARA TRAZER OD DADOS DO REGISTRO EM QUEST�O
+        $registro = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlteracao);
+        $reg = $db->fetchAll($registro);
+        $idPedido = $reg[0]->idAvaliacaoItemPedidoAlteracao;
 
-                if($opcao == 1){
-                    // Chama o SQL
-                    $sqlstReadequacao = ReadequacaoProjetos::stReadequacaoInicio("readequacaoEA",$idPedidoAlteracao,$idAgente);
-                    $dados = $db->fetchAll($sqlstReadequacao);
+        if ($opcao == 1) {
+            // Chama o SQL
+            $sqlstReadequacao = ReadequacaoProjetos::stReadequacaoInicio("readequacaoEA", $idPedidoAlteracao, $idAgente);
+            $dados = $db->fetchAll($sqlstReadequacao);
 
-                //SQL PARA ALTERAR O STATUS DO CAMPO stVerificacao da tabela tbPedidoAlteracaoXTipoAlteracao
-                    $registro2 = ReadequacaoProjetos::readequacaoAltCampo($idPedido);
-                    $reg2 = $db->fetchAll($registro2);
-                }
-                else if($opcao == 2){
-                    // Chama o SQL
-                    $sqlstReadequacao = ReadequacaoProjetos::stReadequacaoInicio("readequacaoAP",$idPedidoAlteracao,$idAgente);
-                    $dados = $db->fetchAll($sqlstReadequacao);
-                }
-                else if($opcao == 3){
-                    // Chama o SQL
-                    $sqlstReadequacao = ReadequacaoProjetos::stReadequacaoInicio("readequacaoIN",$idPedidoAlteracao,$idAgente);
-                    $dados = $db->fetchAll($sqlstReadequacao);
-                }
-
-                if ($sqlstReadequacao != ""){
-                    parent::message("Situa��o alterada com sucesso!", "verificaralteracaotecnico/".$action."?idpedidoalteracao=$IdPronac" ,"CONFIRM");
-                }
-                else{
-                    parent::message("Erro ao alterar o status da solicita��o", "verificaralteracaotecnico/".$action."?idpedidoalteracao=$IdPronac" ,"ERROR");
-                }
+            //SQL PARA ALTERAR O STATUS DO CAMPO stVerificacao da tabela tbPedidoAlteracaoXTipoAlteracao
+            $registro2 = ReadequacaoProjetos::readequacaoAltCampo($idPedido);
+            $reg2 = $db->fetchAll($registro2);
+        } elseif ($opcao == 2) {
+            // Chama o SQL
+            $sqlstReadequacao = ReadequacaoProjetos::stReadequacaoInicio("readequacaoAP", $idPedidoAlteracao, $idAgente);
+            $dados = $db->fetchAll($sqlstReadequacao);
+        } elseif ($opcao == 3) {
+            // Chama o SQL
+            $sqlstReadequacao = ReadequacaoProjetos::stReadequacaoInicio("readequacaoIN", $idPedidoAlteracao, $idAgente);
+            $dados = $db->fetchAll($sqlstReadequacao);
         }
 
+        if ($sqlstReadequacao != "") {
+            parent::message("Situa��o alterada com sucesso!", "verificaralteracaotecnico/".$action."?idpedidoalteracao=$IdPronac", "CONFIRM");
+        } else {
+            parent::message("Erro ao alterar o status da solicita��o", "verificaralteracaotecnico/".$action."?idpedidoalteracao=$IdPronac", "ERROR");
+        }
+    }
 
-        public function finalizapropAction(){
-         //retorna o id do agente logado
+
+    public function finalizapropAction()
+    {
+        //retorna o id do agente logado
          $auth = Zend_Auth::getInstance(); // pega a autentica��o
          $agente = GerenciarPautaReuniaoDAO::consultaAgenteUsuario($auth->getIdentity()->usu_codigo);
-         $idAgenteRemetente = $agente['idAgente'];
-         $idPerfilRemetente = $this->codGrupo;
+        $idAgenteRemetente = $agente['idAgente'];
+        $idPerfilRemetente = $this->codGrupo;
 
-         $especificacao = $_POST['editor1'];
-         $IdPRONAC = $_POST['idPronac'];
-         $idAcao = $_POST['idAcao'];
-         $idAvaliacao = $_POST['idAvaliacao'];
-         $idPedidoAlteracao = $_POST['idPedidoAlteracao'];
-         $tpAlteracaoProjeto = $_POST['tpAlteracaoProjeto'];
-         $IdProposta = $_POST['IdProposta'];
-         $idOrgao = $_POST['idOrgao'];
-         $parecer = $_POST['status'];
-             if($parecer == 2){
-                $status = 'AP';
-             } else {
-                 $status = 'IN';
-             }
+        $especificacao = $_POST['editor1'];
+        $IdPRONAC = $_POST['idPronac'];
+        $idAcao = $_POST['idAcao'];
+        $idAvaliacao = $_POST['idAvaliacao'];
+        $idPedidoAlteracao = $_POST['idPedidoAlteracao'];
+        $tpAlteracaoProjeto = $_POST['tpAlteracaoProjeto'];
+        $IdProposta = $_POST['IdProposta'];
+        $idOrgao = $_POST['idOrgao'];
+        $parecer = $_POST['status'];
+        if ($parecer == 2) {
+            $status = 'AP';
+        } else {
+            $status = 'IN';
+        }
 
-            $db = Zend_Db_Table::getDefaultAdapter();
-            $db->setFetchMode(Zend_DB :: FETCH_OBJ);
-        try{
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        try {
             $db->beginTransaction();
 
             /*//UPDATE - CAMPOS: dsEstrategiaExecucao E dsEspecificacaoTecnica NA TABELA SAC.dbo.tbProposta
@@ -773,11 +742,11 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
             $finalproped = $db->fetchAll($sqlfinalproped);*/
 
             //UPDATE - CAMPO: stVerificacao NA TABELA tbPedidoAlteracaoXTipoAlteracao
-            $sqlfinalproped1 = ReadequacaoProjetos::retornaSQLfinalprop1($idPedidoAlteracao,$tpAlteracaoProjeto);
+            $sqlfinalproped1 = ReadequacaoProjetos::retornaSQLfinalprop1($idPedidoAlteracao, $tpAlteracaoProjeto);
             $db->fetchAll($sqlfinalproped1);
 
             //UPDATE - CAMPO: dtFimAvaliacao NA TABELA tbAvaliacaoItemPedidoAlteracao
-            $sqlfinalproped2 = ReadequacaoProjetos::retornaSQLfinalprop2($idAvaliacao,$especificacao,$status, $tpAlteracaoProjeto);
+            $sqlfinalproped2 = ReadequacaoProjetos::retornaSQLfinalprop2($idAvaliacao, $especificacao, $status, $tpAlteracaoProjeto);
             $db->fetchAll($sqlfinalproped2);
 
             //UPDATE - CAMPO: stAtivo NA TABELA tbAcaoAvaliacaoItemPedidoAlteracao
@@ -785,151 +754,137 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
             $db->fetchAll($sqlfinalproped3);
 
             //INSERT NA TABELA tbAcaoAvaliacaoItemPedidoAlteracao
-            $sqlfinalproped4 = ReadequacaoProjetos::retornaSQLfinalprop4($idAvaliacao,$idOrgao,$idAgenteRemetente,$idPerfilRemetente);
+            $sqlfinalproped4 = ReadequacaoProjetos::retornaSQLfinalprop4($idAvaliacao, $idOrgao, $idAgenteRemetente, $idPerfilRemetente);
             $db->fetchAll($sqlfinalproped4);
 
             $db->commit();
-            parent::message("Projeto finalizado com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetotecnico" ,"CONFIRM");
-            
-        } catch (Zend_Exception $e){
+            parent::message("Projeto finalizado com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetotecnico", "CONFIRM");
+        } catch (Zend_Exception $e) {
             $db->rollBack();
-            parent::message("Erro ao finalizar projeto", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetotecnico" ,"ERROR");
-	}
-             /*if ( $sqlfinalproped1 != "" && $sqlfinalproped2 != "" && $sqlfinalproped3 != "" && $sqlfinalproped4 != "" ){
-                    parent::message("A proposta foi finalizada com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetotecnico" ,"CONFIRM");
-                }
-            else{
-                    parent::message("Erro ao finalizar proposta.", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetotecnico" ,"ERROR");
-                }*/
-     }
-
-      /**************************************************************************************************************************
-        * Fun��o para diligenciar  - EDITAR (perfil t�cnico)
-        * ************************************************************************************************************************/
-        public function PropostaDiligenciar(){
-
-            $auth = Zend_Auth::getInstance(); // pega a autentica��o
-            $agente = GerenciarPautaReuniaoDAO::consultaAgenteUsuario($auth->getIdentity()->usu_codigo);
-            $AgenteLogin = $agente['idAgente'];
-//Zend_Debug::dump($AgenteLogin);exit;
-            $IdPronac = $_POST['IdPronac'];
-            $solicitacao = $_POST['solicitacao'];
-
-            $db = Zend_Db_Table::getDefaultAdapter();
-            $db->setFetchMode(Zend_DB :: FETCH_OBJ);
-
-            // Chama o SQL
-            $sqlDiligenciarproposta = ReadequacaoProjetos::diligenciarProposta($IdPronac,$solicitacao,$AgenteLogin);
-            try{
-                $db->fetchAll($sqlDiligenciarproposta);
-                return true;
-            } catch(Zend_Exception $e){
-                return false;
-            }
-            
-
+            parent::message("Erro ao finalizar projeto", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetotecnico", "ERROR");
         }
+        /*if ( $sqlfinalproped1 != "" && $sqlfinalproped2 != "" && $sqlfinalproped3 != "" && $sqlfinalproped4 != "" ){
+               parent::message("A proposta foi finalizada com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetotecnico" ,"CONFIRM");
+           }
+            else{
+               parent::message("Erro ao finalizar proposta.", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetotecnico" ,"ERROR");
+           }*/
+    }
+
+    /**************************************************************************************************************************
+      * Fun��o para diligenciar  - EDITAR (perfil t�cnico)
+      * ************************************************************************************************************************/
+    public function PropostaDiligenciar()
+    {
+        $auth = Zend_Auth::getInstance(); // pega a autentica��o
+        $agente = GerenciarPautaReuniaoDAO::consultaAgenteUsuario($auth->getIdentity()->usu_codigo);
+        $AgenteLogin = $agente['idAgente'];
+        //Zend_Debug::dump($AgenteLogin);exit;
+        $IdPronac = $_POST['IdPronac'];
+        $solicitacao = $_POST['solicitacao'];
+
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+
+        // Chama o SQL
+        $sqlDiligenciarproposta = ReadequacaoProjetos::diligenciarProposta($IdPronac, $solicitacao, $AgenteLogin);
+        try {
+            $db->fetchAll($sqlDiligenciarproposta);
+            return true;
+        } catch (Zend_Exception $e) {
+            return false;
+        }
+    }
 
 
 
-	/**
-	 * M�todo para avalia��o dos locais de realiza��o
-	 * @param void
-	 * @return void
-	 */
-	public function avaliarlocalrealizacaoAction()
-	{
-	    $tbAbrangencia = new Proposta_Model_DbTable_Abrangencia();
-		// recebe os dados do formul�rio
-		$post                           = Zend_Registry::get('post');
-		$idPronac                       = $post->idPronac;
-		$idAbrangencia                  = $post->idAbrangencia;
-		$idAvaliacaoItemPedidoAlteracao = $post->idAvaliacaoItemPedidoAlteracao;
-		$avaliacao                      = $post->avaliacao;
-		$dsAvaliacao                    = $post->dsAvaliacao;
+    /**
+     * M�todo para avalia��o dos locais de realiza��o
+     * @param void
+     * @return void
+     */
+    public function avaliarlocalrealizacaoAction()
+    {
+        $tbAbrangencia = new Proposta_Model_DbTable_Abrangencia();
+        // recebe os dados do formul�rio
+        $post                           = Zend_Registry::get('post');
+        $idPronac                       = $post->idPronac;
+        $idAbrangencia                  = $post->idAbrangencia;
+        $idAvaliacaoItemPedidoAlteracao = $post->idAvaliacaoItemPedidoAlteracao;
+        $avaliacao                      = $post->avaliacao;
+        $dsAvaliacao                    = $post->dsAvaliacao;
 
 
-		try
-		{
-			// valida os campos
-			if (empty($idPronac) || empty($idAbrangencia) || empty($idAvaliacaoItemPedidoAlteracao) || empty($avaliacao) || empty($dsAvaliacao))
-			{
-				throw new Exception("As informa��es abaixo s�o obrigat�rias:
+        try {
+            // valida os campos
+            if (empty($idPronac) || empty($idAbrangencia) || empty($idAvaliacaoItemPedidoAlteracao) || empty($avaliacao) || empty($dsAvaliacao)) {
+                throw new Exception("As informa��es abaixo s�o obrigat�rias:
 					<br />- Pronac
 					<br />- Abrang�ncia
 					<br />- C�digo da Avaliacao do Item de Pedido de Alteracao
 					<br />- A avalia��o (Deferido / Indeferido)
 					<br />- A justificativa da avalia��o");
-			}
-			// envia pro banco
-			else
-			{
-				// monta o array com os dados
-				$dados = array(
-					'idAvaliacaoItemPedidoAlteracao'     => $idAvaliacaoItemPedidoAlteracao
-					//,'idAvaliacaoSubItemPedidoAlteracao' => $idAbrangencia
-					,'stAvaliacaoSubItemPedidoAlteracao' => $avaliacao
-					,'dsAvaliacaoSubItemPedidoAlteracao' => $dsAvaliacao);
+            }
+            // envia pro banco
+            else {
+                // monta o array com os dados
+                $dados = array(
+                    'idAvaliacaoItemPedidoAlteracao'     => $idAvaliacaoItemPedidoAlteracao
+                    //,'idAvaliacaoSubItemPedidoAlteracao' => $idAbrangencia
+                    ,'stAvaliacaoSubItemPedidoAlteracao' => $avaliacao
+                    ,'dsAvaliacaoSubItemPedidoAlteracao' => $dsAvaliacao);
 
-				// cadastra a avalia��o
-				$dao = $tbAbrangencia->avaliarLocalRealizacao($dados);
+                // cadastra a avalia��o
+                $dao = $tbAbrangencia->avaliarLocalRealizacao($dados);
 
-                                // pega o �ltimo idAvaliacaoSubItemPedidoAlteracao inserido
-                                $ultimoId = AvaliacaoSubItemPedidoAlteracaoDAO::buscarUltimo();
-                                $ultimoId = $ultimoId[0]->id;
+                // pega o �ltimo idAvaliacaoSubItemPedidoAlteracao inserido
+                $ultimoId = AvaliacaoSubItemPedidoAlteracaoDAO::buscarUltimo();
+                $ultimoId = $ultimoId[0]->id;
 
-                                // vincula a abrangencia
-                                $dados_abrangencia = array(
+                // vincula a abrangencia
+                $dados_abrangencia = array(
                                     'idAvaliacaoItemPedidoAlteracao'     => $idAvaliacaoItemPedidoAlteracao
                                     ,'idAvaliacaoSubItemPedidoAlteracao' => $ultimoId
                                     ,'idAbrangencia'                     => $idAbrangencia);
-                                $cadastrar_abrangencia = AvaliacaoSubItemAbrangenciaDAO::cadastrar($dados_abrangencia);
+                $cadastrar_abrangencia = AvaliacaoSubItemAbrangenciaDAO::cadastrar($dados_abrangencia);
 
-				// caso seja cadastrado
-				if ($dao && $dados_abrangencia)
-				{
-					parent::message("Avalia��o efetuada com sucesso!", "verificaralteracaotecnico/solaltlocrel?idpedidoalteracao=" . $idPronac, "CONFIRM");
-				}
-				else
-				{
-					throw new Exception("Erro ao tentar efetuar avalia��o!");
-				}
-			} // fecha else
-		} // fecha try
-		catch (Exception $e)
-		{
-			parent::message($e->getMessage(), "verificaralteracaotecnico/solaltlocrel?idpedidoalteracao=" . $idPronac, "ERROR");
-		}
-
-	} // fecha m�todo avaliarlocalrealizacaoAction()
-	
-	
-	public function planilhasolicitadaAction() {
-		if (isset($_GET['v']) && $_GET['v'] == 'fim') :
-			$this->_helper->viewRenderer->setNoRender(TRUE);
-		endif;
-		
+                // caso seja cadastrado
+                if ($dao && $dados_abrangencia) {
+                    parent::message("Avalia��o efetuada com sucesso!", "verificaralteracaotecnico/solaltlocrel?idpedidoalteracao=" . $idPronac, "CONFIRM");
+                } else {
+                    throw new Exception("Erro ao tentar efetuar avalia��o!");
+                }
+            } // fecha else
+        } // fecha try
+        catch (Exception $e) {
+            parent::message($e->getMessage(), "verificaralteracaotecnico/solaltlocrel?idpedidoalteracao=" . $idPronac, "ERROR");
+        }
+    } // fecha m�todo avaliarlocalrealizacaoAction()
+    
+    
+    public function planilhasolicitadaAction()
+    {
+        if (isset($_GET['v']) && $_GET['v'] == 'fim') :
+            $this->_helper->viewRenderer->setNoRender(true);
+        endif;
+        
         $idPronac = isset($_POST['idpronac']) ? $_POST['idpronac'] : '';
         $auth = Zend_Auth::getInstance();
 
         if (empty($_POST)) {
-             $resultadoItem = VerificarSolicitacaodeReadequacoesDAO::verificaPlanilhaAprovacao($idPronac);
+            $resultadoItem = VerificarSolicitacaodeReadequacoesDAO::verificaPlanilhaAprovacao($idPronac);
 
-	        if ( empty ( $resultadoItem )  )
-	        {
-	            $inserirCopiaPlanilha = VerificarSolicitacaodeReadequacoesDAO::inserirCopiaPlanilha($idPronac);
-	        }
+            if (empty($resultadoItem)) {
+                $inserirCopiaPlanilha = VerificarSolicitacaodeReadequacoesDAO::inserirCopiaPlanilha($idPronac);
+            }
+        }
 
-         }
-
-         $buscaInformacoes = new VerificarSolicitacaodeReadequacoesDAO;
-         if (isset($_POST['finaliza'])) {
-
+        $buscaInformacoes = new VerificarSolicitacaodeReadequacoesDAO;
+        if (isset($_POST['finaliza'])) {
             $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
             $idpronac = $_POST['idpronac'];
             $dsObservacao = $_POST['dsObservacao'];
             try {
-            	
                 $verificaIdPedidoAlteracao = VerificarSolicitacaodeReadequacoesDAO::verificaPedidoAlteracao($idpronac);
                 $idpedidoalteracao = $verificaIdPedidoAlteracao[0]->idPedidoAlteracao;
                 $where = " idPedidoAlteracao = $idpedidoalteracao";
@@ -951,10 +906,10 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
                 $orgao = $verificaridorgao['idorgao'];
 
                 //retorna o id do agente logado
-                 $agente = GerenciarPautaReuniaoDAO::consultaAgenteUsuario($auth->getIdentity()->usu_codigo);
-                 $idAgenteRemetente = $agente['idAgente'];
-                 $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
-                 $idPerfilRemetente = $GrupoAtivo->codGrupo;
+                $agente = GerenciarPautaReuniaoDAO::consultaAgenteUsuario($auth->getIdentity()->usu_codigo);
+                $idAgenteRemetente = $agente['idAgente'];
+                $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
+                $idPerfilRemetente = $GrupoAtivo->codGrupo;
 
                 $dadosinserir = array(
                     'idAvaliacaoItemPedidoAlteracao' => $idAvaliacaoItemPedidoAlteracao,
@@ -981,10 +936,10 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
                     $alterarStatus = $buscaInformacoes->atualizarStatus($dados, $where);
                 }
                 $this->_helper->json(array('Ok' => true));
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             } catch (Exception $e) {
                 $this->_helper->json(array('error' => false, 'Descricao' => $e->getMessage()));
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             }
         }
         
@@ -1004,12 +959,9 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
 
         $resultadoProduto = $SolicitarReadequacaoCustoDAO->buscarProdutos($idPronac)->toArray();
         
-        if ( empty ( $resultadoProduto ) )
-        {
+        if (empty($resultadoProduto)) {
             $resultadoProduto = $SolicitarReadequacaoCustoDAO->buscarProdutosAprovados($idPronac);
-        }
-        else
-        {
+        } else {
             $resultadoProduto = $SolicitarReadequacaoCustoDAO->buscarProdutos($idPronac);
         }
 
@@ -1020,9 +972,9 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
 
         foreach ($resultadoProduto as $idProduto) {
             foreach ($resultadoEtapa as $idEtapa) {
-                $resultadoProdutosItens = $buscaInformacoes->buscarProdutosItens($idPronac, $idEtapa->idPlanilhaEtapa, NULL, "N", $idProduto->idProduto);
+                $resultadoProdutosItens = $buscaInformacoes->buscarProdutosItens($idPronac, $idEtapa->idPlanilhaEtapa, null, "N", $idProduto->idProduto);
                 $valorProduto[$idProduto->idProduto][$idEtapa->idPlanilhaEtapa] = $resultadoProdutosItens;
-                $resultadoProdutosItensAdm = $buscaInformacoes->buscarProdutosItensSemProduto($idPronac, $idEtapa->idPlanilhaEtapa, NULL, "N");
+                $resultadoProdutosItensAdm = $buscaInformacoes->buscarProdutosItensSemProduto($idPronac, $idEtapa->idPlanilhaEtapa, null, "N");
                 $valorProdutoAdm[$idEtapa->idPlanilhaEtapa] = $resultadoProdutosItensAdm;
             }
         }
@@ -1038,51 +990,40 @@ class VerificarAlteracaoTecnicoController extends MinC_Controller_Action_Abstrac
         $verificaStatus = VerificarSolicitacaodeReadequacoesDAO::verificaStatus($idPedidoAlteracao);
         $idAvaliacaoItemPedidoAlteracao = $verificaStatus[0]->stAvaliacaoItemPedidoAlteracao;
 
-        if ( $idAvaliacaoItemPedidoAlteracao == "EA" )
-        {
+        if ($idAvaliacaoItemPedidoAlteracao == "EA") {
             $this->view->status = "EA";
         }
-        if ( $idAvaliacaoItemPedidoAlteracao == "AP" )
-        {
+        if ($idAvaliacaoItemPedidoAlteracao == "AP") {
             $this->view->status = "AP";
         }
-        if ( $idAvaliacaoItemPedidoAlteracao == "IN" )
-        {
+        if ($idAvaliacaoItemPedidoAlteracao == "IN") {
             $this->view->status = "IN";
         }
 
         $verificaIdPedidoAlteracao = VerificarSolicitacaodeReadequacoesDAO::verificaPedidoAlteracao($idPronac);
         $idpedidoalteracao = $verificaIdPedidoAlteracao[0]->idPedidoAlteracao;
         $buscaIdAvaliacaoItemPedidoAlteracao = VerificarSolicitacaodeReadequacoesDAO::buscaIdAvaliacaoItemPedidoAlteracao($idPedidoAlteracao);
-        foreach ($buscaIdAvaliacaoItemPedidoAlteracao as $itemAvaliacaoItemPedido)
-        {
+        foreach ($buscaIdAvaliacaoItemPedidoAlteracao as $itemAvaliacaoItemPedido) {
             $idItemAvaliacaoItemPedidoAlteracao = $itemAvaliacaoItemPedido->idAvaliacaoItemPedidoAlteracao;
         }
 
         $verificaSubItemPedidoAlteracao = VerificarSolicitacaodeReadequacoesDAO::verificaStatusFinal($idPedidoAlteracao);
         $stAvaliacaoSubItemPedidoAlteracao = $verificaSubItemPedidoAlteracao[0]->stAvaliacao;
 
-        if ( $stAvaliacaoSubItemPedidoAlteracao == "AG" )
-        {
+        if ($stAvaliacaoSubItemPedidoAlteracao == "AG") {
             $this->view->statusAnalise = "Aguardando An�lise";
         }
-        if ( $stAvaliacaoSubItemPedidoAlteracao == "EA" )
-        {
+        if ($stAvaliacaoSubItemPedidoAlteracao == "EA") {
             $this->view->statusAnalise = "Em An�lise";
         }
-        if ( $stAvaliacaoSubItemPedidoAlteracao == "AP" )
-        {
+        if ($stAvaliacaoSubItemPedidoAlteracao == "AP") {
             $this->view->statusAnalise = "Aprovado";
         }
-        if ( $stAvaliacaoSubItemPedidoAlteracao == "IN" )
-        {
+        if ($stAvaliacaoSubItemPedidoAlteracao == "IN") {
             $this->view->statusAnalise = "Indeferido";
         }
 
-         $resultadoAvaliacaoAnalise = $buscaInformacoes->verificaAvaliacaoAnalise();
+        $resultadoAvaliacaoAnalise = $buscaInformacoes->verificaAvaliacaoAnalise();
         $this->view->AvaliacaoAnalise = $resultadoAvaliacaoAnalise;
-        	
-        	
-        }
-
+    }
 } // fecha class

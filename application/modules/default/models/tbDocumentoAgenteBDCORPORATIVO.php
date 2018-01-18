@@ -12,18 +12,17 @@
 
 class tbDocumentoAgenteBDCORPORATIVO extends MinC_Db_Table_Abstract
 {
-	/* dados da tabela */
-	protected $_banco   = "BDCORPORATIVO";
-	protected $_schema  = "scCorp";
-	protected $_name    = "tbDocumentoAgente";
+    /* dados da tabela */
+    protected $_banco   = "BDCORPORATIVO";
+    protected $_schema  = "scCorp";
+    protected $_name    = "tbDocumentoAgente";
 
 
-        /**
-	 * M�todo para consultar
-	 * @access public
-	 * @param array $dados
-	 * @param integer $where
-	 * @return integer (quantidade de registros alterados)
-	 */
-    
+    /**
+     * M�todo para consultar
+     * @access public
+     * @param array $dados
+     * @param integer $where
+     * @return integer (quantidade de registros alterados)
+     */
 } // fecha class

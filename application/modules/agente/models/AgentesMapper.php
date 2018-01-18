@@ -16,7 +16,6 @@
  */
 class Agente_Model_AgentesMapper extends MinC_Db_Mapper
 {
-
     public function __construct()
     {
         $this->setDbTable('Agente_Model_DbTable_Agentes');
@@ -38,7 +37,7 @@ class Agente_Model_AgentesMapper extends MinC_Db_Mapper
         return ($this->findBy(array("cnpjcpf" => $value))) ? true : false;
     }
 
-    public function save( $model)
+    public function save($model)
     {
         if (self::isUniqueCpfCnpj($model->getCnpjcpf())) {
             throw new Exception('CNPJ ou CPF j&aacute; cadastrado.');

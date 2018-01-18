@@ -18,7 +18,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
         parent::init();
 
         $this->verificarPermissaoAcesso(true, false, false);
-
     }
 
     /**
@@ -50,7 +49,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
         $this->view->idPreProjeto = $this->idPreProjeto;
 
         $this->view->charset = Zend_Registry::get('config')->db->params->charset;
-
     }
 
     /**
@@ -104,9 +102,9 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
      */
     public function reordenaretapas($etapas)
     {
-
-        if (empty($etapas))
+        if (empty($etapas)) {
             return false;
+        }
 
         $newListaEtapa = $etapas;
         $newListaEtapa[3] = $etapas[2];
@@ -195,7 +193,7 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
 
         $this->view->idPreProjeto = $this->idPreProjeto;
 
-        if (isset ($_GET['idPreProjeto']) && isset ($_GET['produto'])) {
+        if (isset($_GET['idPreProjeto']) && isset($_GET['produto'])) {
             $idPreProjeto = $_GET['idPreProjeto'];
             $idProduto = $_GET['produto'];
             $TDP = new Proposta_Model_DbTable_PlanoDistribuicaoProduto();
@@ -292,7 +290,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
         try {
             foreach ($custosVinculados as $key => $item) {
                 if (in_array($key, array_column($arrayCustosVinculados, 'idPlanilhaItens'))) {
-
                     $dados = array(
                         'idCustosVinculados' => $item['idCustosVinculados'],
                         'idProjeto' => $params['idPreProjeto'],
@@ -335,14 +332,12 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
         $valorEtapa = array();
 
         if ($itens) {
-
             foreach ($itens as $item) {
                 $valorTotalItem = $item['Quantidade'] * $item['Ocorrencia'] * $item['ValorUnitario'];
                 $valorEtapa[$item['idEtapa']] = $valorTotalItem + $valorEtapa[$item['idEtapa']];
             }
 
             foreach ($listaEtapa as $etapa) {
-
                 if (isset($valorEtapa[$etapa['idEtapa']])) {
                     $etapa['valorTotal'] = $valorEtapa[$etapa['idEtapa']];
                 }
@@ -362,7 +357,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
      */
     public function formitemAction()
     {
-
         $this->_helper->layout->disableLayout();
 
         $this->view->idPreProjeto = $this->idPreProjeto;
@@ -386,7 +380,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
             $buscaDados = $tblanilhaProposta->buscarDadosEditarProdutos($idProposta, $idEtapa, $idProduto, $idItem, $idPlanilhaProposta, $iduf, $idMunicipio);
 
             $this->view->Dados = $buscaDados;
-
         } else { // novo item
             if (!empty($idPreProjeto) && !empty($idProduto)) {
                 $TDP = new Proposta_Model_DbTable_PlanoDistribuicaoProduto();
@@ -396,7 +389,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
 
             $tbLocaisDeRealizacao = new Proposta_Model_DbTable_Abrangencia();
             $this->view->locaisRealizacao = $tbLocaisDeRealizacao->buscar(['idProjeto' => $params['idPreProjeto']]);
-
         }
 
         $uf = new Agente_Model_DbTable_UF();
@@ -421,7 +413,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
 
         $buscarProduto = new Proposta_Model_DbTable_PreProjeto();
         $this->view->Produtos = $buscarProduto->buscarProdutos($this->idPreProjeto);
-
     }
 
     /**
@@ -469,8 +460,9 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
 
         if ($outrasLocalidades && count($outrasLocalidades) > 0) {
             foreach ($outrasLocalidades as $localidade) {
-
-                if ($localidade == 'all') continue;
+                if ($localidade == 'all') {
+                    continue;
+                }
 
                 $custoPraticado = isset($params['stCustoPraticado_' . $localidade]) ? $params['stCustoPraticado_' . $localidade] : 0;
 
@@ -492,7 +484,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
                 $dados['MunicipioDespesa'] = $estadoMunicipio[1];
 
                 $retorno[] = self::salvarItemPlanilha($dados, null, true);
-
             }
         }
 
@@ -504,13 +495,25 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
 
     private function salvarItemPlanilha($dados, $idPlanilhaProposta = null, $outraLocalidade = false)
     {
-
         $resultAlterarProjeto = true;
         $idPreProjeto = $dados['idProjeto'];
 
         $tbPlanilhaProposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
-        $buscarProdutos = $tbPlanilhaProposta->buscarDadosEditarProdutos($idPreProjeto, $dados['idEtapa'], $dados['idProduto'], $dados['idPlanilhaItem'], null,
-            $dados['UfDespesa'], $dados['MunicipioDespesa'], null, null, null, null, null, $dados['FonteRecurso']);
+        $buscarProdutos = $tbPlanilhaProposta->buscarDadosEditarProdutos(
+            $idPreProjeto,
+            $dados['idEtapa'],
+            $dados['idProduto'],
+            $dados['idPlanilhaItem'],
+            null,
+            $dados['UfDespesa'],
+            $dados['MunicipioDespesa'],
+            null,
+            null,
+            null,
+            null,
+            null,
+            $dados['FonteRecurso']
+        );
 
         $buscarProdutos = converterObjetosParaArray($buscarProdutos);
 
@@ -519,9 +522,7 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
             $retorno['close'] = false;
             $retorno['status'] = false;
         } else {
-
             if ($this->isEditarProjeto($idPreProjeto)) {
-
                 $verifica = $this->verificarSeUltrapassaValorOriginal($idPreProjeto, $dados, $idPlanilhaProposta);
 
                 if ($verifica && $dados['FonteRecurso'] == 109) {
@@ -549,13 +550,10 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
                             $retorno['status'] = true;
                             $retorno['action'] = 'insert';
                         }
-
                     }
-
                 } else { #update
 
                     if (isset($dados['idProduto'])) {
-
                         $where = "idPlanilhaProposta = " . $idPlanilhaProposta;
 
                         $result = $tbPlanilhaProposta->update($dados, $where);
@@ -573,7 +571,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
 
             if (isset($retorno['idPlanilhaProposta']) && !empty($retorno['idPlanilhaProposta'])) {
                 $retorno['html'] = self::criarItemHtml($dados, $retorno['idPlanilhaProposta']);
-
             }
         }
 
@@ -624,7 +621,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
             . '</tr>';
 
         return $html;
-
     }
 
     /*
@@ -653,7 +649,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
 
         # Se tiver editando um item, tem que subtrair o valor anterior
         if (!empty($idPlanilhaProposta)) {
-
             $item = $tbPlanilhaProposta->findBy(array("idPlanilhaProposta = ?" => $idPlanilhaProposta));
 
             if ($item) {
@@ -718,7 +713,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
         $restaurar = false;
 
         if (!empty($idPreProjeto)) {
-
             if ($this->isEditarProjeto($idPreProjeto)) {
 
                 # restaura o local de realizacao
@@ -745,7 +739,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
 
     public function resumorestaurarplanilhaAction()
     {
-
     }
 
     /**
@@ -782,7 +775,7 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', APPLICATION_ENV);
         $this->view->charset = $config->resources->db->params->charset;
 
-        if (isset ($_GET['idPreProjeto'])) {
+        if (isset($_GET['idPreProjeto'])) {
             $idPreProjeto = $_GET['idPreProjeto'];
 
             $manterOrcamento = new Proposta_Model_DbTable_TbPlanilhaProposta();
@@ -805,7 +798,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
 
             $itens = new tbItensPlanilhaProduto();
             $this->view->item = $itens->buscarItens($dados_cadastrados[0]['idEtapa']);
-
         } else {
             $this->view->dados_cadastrados = array();
         }
@@ -870,13 +862,11 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
      */
     public function editarprodutosAction()
     {
-
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $tblanilhaProposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
         $mun = new Agente_Model_DbTable_Municipios();
 
         if (isset($_POST['produto'])) {
-
             $idProposta = $_POST['proposta'];
             $idProduto = $_POST['produto'];
             $idUf = $_POST['uf'];
@@ -919,7 +909,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
         }
 
         if (!empty($_GET)) {
-
             $idProposta = $_GET['idPreProjeto'];
             $idEtapa = $_GET['etapa'];
             $idProduto = $_GET['produto'];
@@ -1007,12 +996,10 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
         $tbPlanilhaProposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
 
         if (!empty($_GET) && count($_GET) > 0) {
-
             $buscaDados = $tbPlanilhaProposta->buscarDadosCustos($_GET);
             $this->view->Dados = $buscaDados;
         }
         if (isset($_POST['iduf'])) {
-
             $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
             $iduf = $_POST['iduf'];
 
@@ -1087,8 +1074,7 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
      */
     public function salvarprodutosAction()
     {
-        if (isset ($_POST)) {
-
+        if (isset($_POST)) {
             $tbPlanilhaProposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
 
             $idProposta = $_POST['idPreProjeto'];
@@ -1111,11 +1097,26 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
                 echo "Cadastro duplicado de Produto na mesma etapa envolvendo o mesmo Item! Deseja cadastrar um novo item?";
                 die;
             } else {
-                $this->view->SalvarNovo = $tbPlanilhaProposta->salvarNovoProduto($idProposta, $idProduto, $idEtapa, $idItem,
-                    $unidade, $quantidade, $ocorrencia, $vlunitario, $qtdDias, $fonte, $idUf, $idMunicipio, $justificativa, $this->idUsuario);
+                $this->view->SalvarNovo = $tbPlanilhaProposta->salvarNovoProduto(
+                    $idProposta,
+                    $idProduto,
+                    $idEtapa,
+                    $idItem,
+                    $unidade,
+                    $quantidade,
+                    $ocorrencia,
+                    $vlunitario,
+                    $qtdDias,
+                    $fonte,
+                    $idUf,
+                    $idMunicipio,
+                    $justificativa,
+                    $this->idUsuario
+                );
 
-                if ($this->view->SalvarNovo)
+                if ($this->view->SalvarNovo) {
                     $this->atualizarcustosvinculadosdaplanilha($idProposta);
+                }
 
                 $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
                 echo "Item cadastrado com sucesso. Deseja cadastrar um novo item?";
@@ -1136,8 +1137,7 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
      */
     public function salvarcustosAction()
     {
-        if (isset ($_POST)) {
-
+        if (isset($_POST)) {
             $idProposta = $_POST['idPreProjeto'];
             $idUf = $_POST['uf'];
             $idMunicipio = $_POST['municipio'];
@@ -1173,7 +1173,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
             );
 
             if ($_POST['acao'] == 'alterar') {
-
                 $buscarCustos = new Proposta_Model_DbTable_TbPlanilhaProposta();
                 $where = 'idPlanilhaProposta = ' . $_POST['idPlanilhaProposta'];
 
@@ -1210,7 +1209,7 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
      */
     public function salvarmesmoprodutoAction()
     {
-        if (isset ($_POST)) {
+        if (isset($_POST)) {
             $dados = array(
                 'idProjeto' => $_POST['proposta'],
                 'idProduto' => $_POST['produto'],
@@ -1266,7 +1265,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
 
     public function buscarValorMedianaAjaxAction()
     {
-
         $params = $idPreProjeto = $this->getRequest()->getParams();
 
         $tbPlaninhaProposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
@@ -1290,5 +1288,4 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
         $this->_helper->json($return);
         die;
     }
-
 }

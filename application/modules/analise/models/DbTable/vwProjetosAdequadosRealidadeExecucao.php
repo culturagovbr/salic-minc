@@ -15,8 +15,7 @@ class Analise_Model_DbTable_vwProjetosAdequadosRealidadeExecucao extends MinC_Db
             ->from('vwProjetosAdequadosRealidadeExecucao', '*', $this->_schema)
         ;
 
-        foreach ($where as $coluna=>$valor)
-        {
+        foreach ($where as $coluna=>$valor) {
             $sql->where($coluna, $valor);
         }
 
@@ -44,8 +43,7 @@ class Analise_Model_DbTable_vwProjetosAdequadosRealidadeExecucao extends MinC_Db
             ->from('vwProjetosAdequadosRealidadeExecucao', 'count(*) as total', $this->_schema)
         ;
 
-        foreach ($where as $coluna=>$valor)
-        {
+        foreach ($where as $coluna=>$valor) {
             $sql->where($coluna, $valor);
         }
 
@@ -63,6 +61,4 @@ class Analise_Model_DbTable_vwProjetosAdequadosRealidadeExecucao extends MinC_Db
 
         return $db->fetchOne($sql);
     }
-
 }
-

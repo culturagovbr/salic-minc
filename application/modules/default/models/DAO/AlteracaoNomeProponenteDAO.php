@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,9 +9,10 @@
  *
  * @author 01129075125
  */
-class AlteracaoNomeProponenteDAO  extends Zend_Db_Table{
-
-    public static function buscarProjPorProp($cgccpf){
+class AlteracaoNomeProponenteDAO extends Zend_Db_Table
+{
+    public static function buscarProjPorProp($cgccpf)
+    {
         $sql = "select
                     prop.Sequencial+prop.AnoProjeto as IdPRONAC,
                     prop.NomeProjeto,
@@ -23,16 +24,16 @@ class AlteracaoNomeProponenteDAO  extends Zend_Db_Table{
                     CgcCpf = '{$cgccpf}'
                     ";
 
-            $db = Zend_Db_Table::getDefaultAdapter();
-            $db->setFetchMode(Zend_DB::FETCH_OBJ);
-            $resultado = $db->fetchAll($sql);
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $resultado = $db->fetchAll($sql);
 
-            return $resultado;
-
+        return $resultado;
     }
 
 
-    public static function buscarDadosParecerTecnico($idpedidoalteracao){
+    public static function buscarDadosParecerTecnico($idpedidoalteracao)
+    {
         $sql = "select
                     aipa.dsAvaliacao as dsparecertecnico,
                     aipa.dtFimAvaliacao as dtparecertecnico,
@@ -45,13 +46,10 @@ class AlteracaoNomeProponenteDAO  extends Zend_Db_Table{
                 where
                     pap.IdPRONAC = {$idpedidoalteracao} and pt.tpAlteracaoProjeto = 1
                 ";
-         $db = Zend_Db_Table::getDefaultAdapter();
+        $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
 
         return $resultado;
-
     }
-
 }
-?>

@@ -8,7 +8,7 @@
 <br />
 <?php
 if ($this->projetosPagos) {
-?>
+    ?>
 <table class="tabela" style="width: 100%">
     <tr>
         <td colspan="7" align="center">
@@ -18,16 +18,18 @@ if ($this->projetosPagos) {
         </td>
     </tr>
 </table>
-<?php $proj_atual = 0; $proj_anterior = 0;?>
+<?php $proj_atual = 0;
+    $proj_anterior = 0; ?>
 <?php foreach ($this->projetosPagos as $projetosP):?>
-<?php $proj_atual = $projetosP['IdPRONAC'];?>
-			<?php $ok = 1;?>
-			<?php if($proj_anterior){
-				if($proj_atual == $proj_anterior){
-					$ok = 0;
-				}
-			}?>
-<?php if($ok){?>
+<?php $proj_atual = $projetosP['IdPRONAC']; ?>
+			<?php $ok = 1; ?>
+			<?php if ($proj_anterior) {
+        if ($proj_atual == $proj_anterior) {
+            $ok = 0;
+        }
+    } ?>
+<?php if ($ok) {
+        ?>
 <div class="projeto">
     <table class="tabela" style="width: 95%">
 	    <tr>
@@ -57,22 +59,35 @@ if ($this->projetosPagos) {
         </th>
     </tr>
     <?php foreach ($this->produtos as $produto):?>
-    	<?php if ($produto->idPronac == $projetosP['IdPRONAC']): $pronac = $projetosP['Pronac']; $idPronac = $produto->idPronac; ?>
+    	<?php if ($produto->idPronac == $projetosP['IdPRONAC']): $pronac = $projetosP['Pronac'];
+        $idPronac = $produto->idPronac; ?>
 			<tr style='text-align: center;'>
 		        <td><?php echo $produto->Descricao; ?></td>
-		        <td><?php if ($produto->stPrincipal == 1) { echo 'Sim'; } else { echo 'Nâo'; }  ?></td>
+		        <td><?php if ($produto->stPrincipal == 1) {
+            echo 'Sim';
+        } else {
+            echo 'Nâo';
+        } ?></td>
 		        <td><?php echo $produto->OrdemPagamento; ?></td>
-		        <td><?php echo $produto->memorando.' / '; if($produto->TipoParecer != 4) echo 'Pendente'; elseif ($produto->TipoParecer == 4) echo 'Gerado' ?></td>
+		        <td><?php echo $produto->memorando.' / ';
+        if ($produto->TipoParecer != 4) {
+            echo 'Pendente';
+        } elseif ($produto->TipoParecer == 4) {
+            echo 'Gerado';
+        } ?></td>
 	        </tr>
-        <?php endif;?>
-    <?php endforeach;?>
-    <?php $proj_anterior = $projetosP['IdPRONAC'];?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <?php $proj_anterior = $projetosP['IdPRONAC']; ?>
 </table>
 </div>
 </div>
-<?php }?>
-<?php endforeach;?>
-<?php } else {?>
+<?php
+    } ?>
+<?php endforeach; ?>
+<?php
+} else {
+        ?>
 <table class="tabela" style="text-align: left;width: 95%">
     <tr>
         <td>
@@ -80,14 +95,15 @@ if ($this->projetosPagos) {
         </td>
     </tr>
 </table>
-<?php }?>
+<?php
+    }?>
 <br />
 
 
 
 <?php
 if ($this->projetosLiberados) {
-?>
+        ?>
 <table class="tabela" style="width: 100%">
     <tr>
         <td colspan="7" align="center">
@@ -97,16 +113,18 @@ if ($this->projetosLiberados) {
         </td>
     </tr>
 </table>
-<?php $proj_atual = 0; $proj_anterior = 0;?>
+<?php $proj_atual = 0;
+        $proj_anterior = 0; ?>
 <?php foreach ($this->projetosLiberados as $projetosL):?>
-<?php $proj_atual = $projetosL['IdPRONAC'];?>
-			<?php $ok2 = 1;?>
-			<?php if($proj_anterior){
-				if($proj_atual == $proj_anterior){
-					$ok2 = 0;
-				}
-			}?>
-<?php if($ok2){?>
+<?php $proj_atual = $projetosL['IdPRONAC']; ?>
+			<?php $ok2 = 1; ?>
+			<?php if ($proj_anterior) {
+            if ($proj_atual == $proj_anterior) {
+                $ok2 = 0;
+            }
+        } ?>
+<?php if ($ok2) {
+            ?>
 <div class="projeto">
     <table class="tabela" style="width: 95%">
 	    <tr>
@@ -136,22 +154,35 @@ if ($this->projetosLiberados) {
         </th>
     </tr>
     <?php foreach ($this->produtos as $produto): ?>
-    	<?php if ($produto->idPronac == $projetosL['IdPRONAC']): $pronac = $projetosL['Pronac']; $idPronac = $produto->idPronac; ?>
+    	<?php if ($produto->idPronac == $projetosL['IdPRONAC']): $pronac = $projetosL['Pronac'];
+            $idPronac = $produto->idPronac; ?>
 			<tr style='text-align: center;'>
 		        <td><?php echo $produto->Descricao; ?></td>
-		        <td><?php if ($produto->stPrincipal == 1) { echo 'Sim'; } else { echo 'Nâo'; }  ?></td>
+		        <td><?php if ($produto->stPrincipal == 1) {
+                echo 'Sim';
+            } else {
+                echo 'Nâo';
+            } ?></td>
 		        <td><?php echo $produto->OrdemPagamento; ?></td>
-		        <td><?php echo $produto->memorando.' / '; if($produto->TipoParecer != 4) echo 'Pendente'; elseif ($produto->TipoParecer == 4) echo 'Gerado' ?></td>
+		        <td><?php echo $produto->memorando.' / ';
+            if ($produto->TipoParecer != 4) {
+                echo 'Pendente';
+            } elseif ($produto->TipoParecer == 4) {
+                echo 'Gerado';
+            } ?></td>
 	        </tr>
-        <?php endif;?>
-    <?php endforeach;?>
-    <?php $proj_anterior = $projetosL['IdPRONAC'];?>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <?php $proj_anterior = $projetosL['IdPRONAC']; ?>
 </table>
 </div>
 </div>
-<?php }?>
-<?php endforeach;?>
-<?php } else {?>
+<?php
+        } ?>
+<?php endforeach; ?>
+<?php
+    } else {
+        ?>
 <table class="tabela" style="text-align: left;width: 95%">
     <tr>
         <td>
@@ -159,4 +190,5 @@ if ($this->projetosLiberados) {
         </td>
     </tr>
 </table>
-<?php }?>
+<?php
+    }?>

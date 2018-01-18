@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,12 +9,11 @@
  *
  * @author 01373930160
  */
-class ConsultaReuniao {
-
+class ConsultaReuniao
+{
     public static function listaReuniao()
     {
-
-    $sql = "SELECT
+        $sql = "SELECT
                  SAC.dbo.tbReuniao.idNrReuniao,
                  BDCORPORATIVO.scSAC.tbPauta.IdPRONAC,
                  SAC.dbo.tbReuniao.NrReuniao, tbReuniao.DtInicio,
@@ -27,19 +26,15 @@ class ConsultaReuniao {
                       BDCORPORATIVO.scSAC.tbPauta.idNrReuniao = SAC.dbo.tbReuniao.idNrReuniao
             WHERE SAC.dbo.tbReuniao.stEstado = 0";
 
-                try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-		}
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
 
-		return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
-
 }
 
 ?>

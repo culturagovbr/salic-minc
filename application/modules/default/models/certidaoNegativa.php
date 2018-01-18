@@ -1,13 +1,15 @@
 <?php
 
-class certidaoNegativa extends MinC_Db_Table_Abstract {
-
+class certidaoNegativa extends MinC_Db_Table_Abstract
+{
     protected $_schema = 'SAC';
     protected $_name  = 'CertidoesNegativas';
 
-    public function buscarCertidaoNegativa($cpfcnpj){
+    public function buscarCertidaoNegativa($cpfcnpj)
+    {
         $select = $this->select();
-        $select->from(array('c' => $this->_name),
+        $select->from(
+            array('c' => $this->_name),
             array(new Zend_Db_Expr("
                 CASE
                         WHEN c.CodigoCertidao = '49'
@@ -35,7 +37,8 @@ class certidaoNegativa extends MinC_Db_Table_Abstract {
                     ELSE DateDiff(dy,getdate(),c.DtValidade)
                 END AS qtDias
             ")),
-            $this->_schema)
+            $this->_schema
+        )
         ->where('c.CgcCpf = ?', trim($cpfcnpj))
         ->order(2);
         return $this->fetchAll($select);

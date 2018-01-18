@@ -9,8 +9,8 @@
  *
  * @author tisomar
  */
-class Internet extends MinC_Db_Table_Abstract {
-
+class Internet extends MinC_Db_Table_Abstract
+{
     protected $_banco = "AGENTES";
     protected $_name = "Internet";
     protected $_schema = "AGENTES";

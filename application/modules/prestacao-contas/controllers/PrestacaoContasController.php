@@ -1,6 +1,6 @@
 <?php
 
-class PrestacaoContas_PrestacaoContasController extends  MinC_Controller_Action_Abstract
+class PrestacaoContas_PrestacaoContasController extends MinC_Controller_Action_Abstract
 {
     public function init()
     {
@@ -18,7 +18,6 @@ class PrestacaoContas_PrestacaoContasController extends  MinC_Controller_Action_
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
 
         if (isset($auth->getIdentity()->usu_codigo)) {
-
             $this->codGrupo = $GrupoAtivo->codGrupo;
             $this->codOrgao = $GrupoAtivo->codOrgao;
             $this->codOrgaoSuperior = (!empty($auth->getIdentity()->usu_org_max_superior)) ? $auth->getIdentity()->usu_org_max_superior : null;

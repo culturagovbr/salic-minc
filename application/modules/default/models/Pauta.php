@@ -10,12 +10,13 @@
  *
  * @author augusto
  */
-class Pauta extends MinC_Db_Table_Abstract {
-
+class Pauta extends MinC_Db_Table_Abstract
+{
     protected $_schema = 'BDCORPORATIVO.scsac';
     protected $_name = 'tbPauta';
 
-    public function PautaAprovada($idNrReuniao, $idpronac=null) {
+    public function PautaAprovada($idNrReuniao, $idpronac=null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -81,7 +82,8 @@ class Pauta extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function PautaReuniaoAtual($idNrReuniao) {
+    public function PautaReuniaoAtual($idNrReuniao)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -140,7 +142,8 @@ class Pauta extends MinC_Db_Table_Abstract {
     }
 
 
-    public function pronacVotacaoAtual($idnrreuniao, $idpronac, $idTipoReadequacao) {
+    public function pronacVotacaoAtual($idnrreuniao, $idpronac, $idTipoReadequacao)
+    {
         //INICIAL
         $a = $this->select();
         $a->setIntegrityCheck(false);
@@ -159,7 +162,8 @@ class Pauta extends MinC_Db_Table_Abstract {
                     '(pr.AnoProjeto+pr.Sequencial) as pronac',
                     'pr.NomeProjeto',
                     'pr.IdPRONAC'
-                ), 'SAC.dbo'
+                ),
+            'SAC.dbo'
         );
         $a->where('tp.idPRONAC = ?', $idpronac);
         $a->where('tp.idNrReuniao = ?', $idnrreuniao);
@@ -174,7 +178,8 @@ class Pauta extends MinC_Db_Table_Abstract {
                     new Zend_Db_Expr('2 as tpConsolidacaoVotacao'),
                     'a.stAnalise',
                     'a.idNrReuniao'
-                ), 'SAC.dbo'
+                ),
+            'SAC.dbo'
         );
         $b->joinInner(
                 array('b' => 'projetos'),
@@ -183,7 +188,8 @@ class Pauta extends MinC_Db_Table_Abstract {
                     '(b.AnoProjeto+b.Sequencial) as pronac',
                     'b.NomeProjeto',
                     'b.IdPRONAC'
-                ), 'SAC.dbo'
+                ),
+            'SAC.dbo'
         );
         $b->where('b.idPRONAC = ?', $idpronac);
         $b->where('a.idNrReuniao = ?', $idnrreuniao);
@@ -198,7 +204,8 @@ class Pauta extends MinC_Db_Table_Abstract {
                     new Zend_Db_Expr('3 as tpConsolidacaoVotacao'),
                     'a.stAnalise',
                     'a.idNrReuniao'
-                ), 'SAC.dbo'
+                ),
+            'SAC.dbo'
         );
         $c->joinInner(
                 array('b' => 'projetos'),
@@ -207,9 +214,10 @@ class Pauta extends MinC_Db_Table_Abstract {
                     '(b.AnoProjeto+b.Sequencial) as pronac',
                     'b.NomeProjeto',
                     'b.IdPRONAC'
-                ), 'SAC.dbo'
+                ),
+            'SAC.dbo'
         );
-        if(empty($idTipoReadequacao)){
+        if (empty($idTipoReadequacao)) {
             $idTipoReadequacao = 0;
         }
         
@@ -223,7 +231,8 @@ class Pauta extends MinC_Db_Table_Abstract {
         return $this->fetchRow($slctUnion);
     }
 
-    public function buscarpautacomponente($idAgente, $aprovacao=false) {
+    public function buscarpautacomponente($idAgente, $aprovacao=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -244,7 +253,8 @@ class Pauta extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function dadosiniciaistermoaprovacao($idpronac = array()) {
+    public function dadosiniciaistermoaprovacao($idpronac = array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -293,7 +303,8 @@ class Pauta extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function PautaProximaReuniao($NrReuniao) {
+    public function PautaProximaReuniao($NrReuniao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -316,8 +327,8 @@ class Pauta extends MinC_Db_Table_Abstract {
     }
 
     //reescrevendo metodo generico devido a necessidade de realizar o CAST para o cmapo descricao que era retornado incompleto
-    public function buscar($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
-
+    public function buscar($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -346,5 +357,3 @@ class Pauta extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 }
-
-?>

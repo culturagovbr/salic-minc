@@ -27,13 +27,10 @@ class Cidade extends MinC_Db_Table_Abstract
         $sql.= " WHERE idUFIBGE = " . $idUF . " ";
         $sql.= " ORDER BY Descricao;";
 
-        try
-        {
+        try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Cidades: " . $e->getMessage();
         }
 

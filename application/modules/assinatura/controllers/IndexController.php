@@ -79,8 +79,8 @@ class Assinatura_IndexController extends Assinatura_GenericController
         $this->view->codGrupo = $this->grupoAtivo->codGrupo;
     }
 
-    protected function obterDocumentoAssinado($idDocumentoAssinatura) {
-
+    protected function obterDocumentoAssinado($idDocumentoAssinatura)
+    {
         try {
             try {
                 if (!filter_input(INPUT_GET, 'idDocumentoAssinatura')) {
@@ -145,7 +145,6 @@ class Assinatura_IndexController extends Assinatura_GenericController
             $moduleAndControllerArray = explode('/', $this->view->origin);
             $this->view->moduleOrigin = $moduleAndControllerArray[0];
             $this->view->controllerOrigin = $moduleAndControllerArray[1];
-
         } catch (Exception $objException) {
             parent::message($objException->getMessage(), "/{$this->moduleName}/index/visualizar-documento-assinado?idDocumentoAssinatura={$idDocumentoAssinatura}&origin={$this->view->origin}");
         }
@@ -157,7 +156,6 @@ class Assinatura_IndexController extends Assinatura_GenericController
         $idDocumentoAssinatura = $get->idDocumentoAssinatura;
 
         self::obterDocumentoAssinado($idDocumentoAssinatura);
-
     }
 
     public function visualizarDocumentoAssinadoAction()
@@ -193,7 +191,6 @@ class Assinatura_IndexController extends Assinatura_GenericController
         $idDocumentoAssinatura = $get->idDocumentoAssinatura;
 
         self::obterDocumentoAssinado($idDocumentoAssinatura);
-
     }
 
     public function assinarProjetoAction()
@@ -225,7 +222,7 @@ class Assinatura_IndexController extends Assinatura_GenericController
             );
 
             if (!$this->view->perfilAssinante) {
-                throw new Exception ("Usu&aacute;rio sem autoriza&ccedil;&atilde;o para assinar o documento.");
+                throw new Exception("Usu&aacute;rio sem autoriza&ccedil;&atilde;o para assinar o documento.");
             }
 
             if (is_array($get->IdPRONAC)) {
@@ -236,7 +233,7 @@ class Assinatura_IndexController extends Assinatura_GenericController
             $this->view->IdPRONAC = $get->IdPRONAC;
             $arrayIdPronacs = explode(',', $get->IdPRONAC);
             if (count($arrayIdPronacs) < 1) {
-                throw new Exception ("Identificador do projeto &eacute; necess&aacute;rio para acessar essa funcionalidade.");
+                throw new Exception("Identificador do projeto &eacute; necess&aacute;rio para acessar essa funcionalidade.");
             }
 
             $post = $this->getRequest()->getPost();
@@ -256,7 +253,6 @@ class Assinatura_IndexController extends Assinatura_GenericController
             $idDocumentoAssinatura = $this->view->documentoAssinatura['idDocumentoAssinatura'];
 
             if ($post) {
-
                 if ($get->isMovimentarAssinatura == 'true') {
                     $objAssinatura->isMovimentarProjetoPorOrdemAssinatura = true;
                 }
@@ -264,7 +260,6 @@ class Assinatura_IndexController extends Assinatura_GenericController
                 try {
                     $this->view->dsManifestacao = $post['dsManifestacao'];
                     foreach ($arrayIdPronacs as $idPronac) {
-
                         $documentoAssinatura = $objModelDocumentoAssinatura->findBy(
                             array(
                                 'IdPRONAC' => $idPronac,
@@ -326,7 +321,7 @@ class Assinatura_IndexController extends Assinatura_GenericController
             ));
 
             if ($assinaturaExistente->current()) {
-                throw new Exception ("O documento j&aacute; foi assinado pelo usu&aacute;rio logado nesta fase atual.");
+                throw new Exception("O documento j&aacute; foi assinado pelo usu&aacute;rio logado nesta fase atual.");
             }
 
             $objProjeto = new Projeto_Model_DbTable_Projetos();
@@ -353,9 +348,7 @@ class Assinatura_IndexController extends Assinatura_GenericController
             $moduleAndControllerArray = explode('/', $this->view->origin);
             $this->view->moduleOrigin = $moduleAndControllerArray[0];
             $this->view->controllerOrigin = $moduleAndControllerArray[1];
-
         } catch (Exception $objException) {
-
             parent::message(
                 $objException->getMessage(),
                 "/{$this->view->origin}/gerenciar-assinaturas"
@@ -406,14 +399,14 @@ class Assinatura_IndexController extends Assinatura_GenericController
             $servicoAssinatura->movimentarProjetoAssinadoPorOrdemDeAssinatura($modelAssinatura);
 
             parent::message(
-                'Projeto Movimentado com sucesso!'
-                , "/{$this->view->origin}/gerenciar-assinaturas"
-                , 'CONFIRM'
+                'Projeto Movimentado com sucesso!',
+                "/{$this->view->origin}/gerenciar-assinaturas",
+                'CONFIRM'
             );
         } catch (Exception $objException) {
             parent::message(
-                $objException->getMessage()
-                , "/{$this->view->origin}/gerenciar-assinaturas"
+                $objException->getMessage(),
+                "/{$this->view->origin}/gerenciar-assinaturas"
             );
         }
     }

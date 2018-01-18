@@ -61,16 +61,19 @@ class Proposta_Model_DbTable_DocumentosExigidos extends MinC_Db_Table_Abstract
     {
         $select = $this->select()
             ->setIntegrityCheck(false)
-            ->from($this->getName('vwdocumentosexigidosapresentacaoproposta'),
+            ->from(
+                $this->getName('vwdocumentosexigidosapresentacaoproposta'),
                 array('codigo', 'descricao'),
-                $this->_schema)
+                $this->_schema
+            )
             ->where('opcao = ?', $idOpcao)
             ->order('descricao');
         $result = $this->fetchAll($select);
         return ($result)? $result->toArray() : array();
     }
 
-    public function buscarDocumentoPendente($idPreProjeto){
+    public function buscarDocumentoPendente($idPreProjeto)
+    {
         $selectProponente = $this->select()
             ->setIntegrityCheck(false)
 //            ->from(['dp' => 'documentosproponente'], ['idprojeto', 'contador', 'codigodocumento', 'opcao'], $this->_schema)

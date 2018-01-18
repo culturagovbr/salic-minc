@@ -19,9 +19,9 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
     /**
      * @return Admissibilidade_EnquadramentoDocumentoAssinaturaController
      */
-    function obterServicoDocumentoAssinatura()
+    public function obterServicoDocumentoAssinatura()
     {
-        if(!isset($this->servicoDocumentoAssinatura)) {
+        if (!isset($this->servicoDocumentoAssinatura)) {
             require_once __DIR__ . DIRECTORY_SEPARATOR . "EnquadramentoDocumentoAssinatura.php";
             $this->servicoDocumentoAssinatura = new Admissibilidade_EnquadramentoDocumentoAssinaturaController(
                 $this->getRequest()->getPost()
@@ -46,7 +46,7 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
         $this->view->dados = array();
         $ordenacao = array("projetos.DtSituacao asc");
 
-        if($this->grupoAtivo->codGrupo == Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE) {
+        if ($this->grupoAtivo->codGrupo == Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE) {
             $this->view->dados = $enquadramento->obterProjetosParaEnquadramento(
                 $this->grupoAtivo->codOrgao,
                 $ordenacao
@@ -60,7 +60,6 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
         }
 
         $this->view->codGrupo = $this->grupoAtivo->codGrupo;
-
     }
 
 
@@ -90,7 +89,6 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
             } else {
                 $this->salvarEnquadramentoProjeto($projeto);
             }
-
         } catch (Exception $objException) {
             parent::message($objException->getMessage(), '/admissibilidade/enquadramento/gerenciar-enquadramento');
         }
@@ -102,7 +100,7 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
             $auth = Zend_Auth::getInstance();
             $post = $this->getRequest()->getPost();
             $observacao = trim($post['observacao']);
-            if(empty($observacao)) {
+            if (empty($observacao)) {
                 throw new Exception("O campo 'Justificativa' é de preenchimento obrigatório.");
             }
 
@@ -121,7 +119,7 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
             );
 
             $objEnquadramento = new Admissibilidade_Model_Enquadramento();
-            if(!$arrayDadosEnquadramento) {
+            if (!$arrayDadosEnquadramento) {
                 $objEnquadramento->inserir($arrayArmazenamentoEnquadramento);
             } else {
                 $objEnquadramento->update($arrayArmazenamentoEnquadramento, array(
@@ -132,7 +130,7 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
             $situacaoFinalProjeto = 'B02';
             $orgaoDestino = null;
             $providenciaTomada = 'Projeto enquadrado ap&oacute;s avalia&ccedil;&atilde;o t&eacute;cnica.';
-            if($projeto['Situacao'] == 'B03') {
+            if ($projeto['Situacao'] == 'B03') {
                 $situacaoFinalProjeto = Projeto_Model_Situacao::PROJETO_ENQUADRADO_COM_RECURSO;
                 $objOrgaos = new Orgaos();
                 $dadosOrgaoSuperior = $objOrgaos->obterOrgaoSuperior($projeto['Orgao']);
@@ -156,14 +154,14 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
                 'logon' => $authIdentity['usu_codigo']
             );
 
-            if($orgaoDestino) {
+            if ($orgaoDestino) {
                 $arrayDadosProjeto['Orgao'] = $orgaoDestino;
             }
 
             $arrayWhere = array('IdPRONAC  = ?' => $projeto['IdPRONAC']);
             $objProjeto->update($arrayDadosProjeto, $arrayWhere);
 
-            if($projeto['Situacao'] == 'B03') {
+            if ($projeto['Situacao'] == 'B03') {
                 $tbRecurso = new tbRecurso();
                 $tbRecurso->finalizarRecurso($projeto['IdPRONAC']);
             }
@@ -215,14 +213,15 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
         $arrayEnquadramento = $objEnquadramento->findBy($arrayPesquisa);
 
         $this->view->observacao = $arrayEnquadramento['Observacao'];
-        if($projeto['Situacao'] == 'B03') {
+        if ($projeto['Situacao'] == 'B03') {
             $objRecurso = new tbRecurso();
             $this->view->avaliacaoRecurso = trim($objRecurso->buscarAvaliacaoRecurso($projeto['IdPRONAC']));
         }
         $this->view->codGrupo = $this->grupoAtivo->codGrupo;
     }
 
-    public function encaminharAssinaturaAction() {
+    public function encaminharAssinaturaAction()
+    {
         try {
             $get = $this->getRequest()->getParams();
             $post = $this->getRequest()->getPost();
@@ -232,8 +231,8 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
                 $servicoDocumentoAssinatura->idPronac = $get['IdPRONAC'];
                 $servicoDocumentoAssinatura->encaminharProjetoParaAssinatura();
                 parent::message('Projeto encaminhado com sucesso.', '/admissibilidade/enquadramento/encaminhar-assinatura', 'CONFIRM');
-            } elseif(isset($post['IdPRONAC']) && is_array($post['IdPRONAC']) && count($post['IdPRONAC']) > 0) {
-                foreach($post['IdPRONAC'] as $idPronac) {
+            } elseif (isset($post['IdPRONAC']) && is_array($post['IdPRONAC']) && count($post['IdPRONAC']) > 0) {
+                foreach ($post['IdPRONAC'] as $idPronac) {
                     $servicoDocumentoAssinatura->idPronac = $idPronac;
                     $servicoDocumentoAssinatura->encaminharProjetoParaAssinatura();
                 }
@@ -245,7 +244,8 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
         }
     }
 
-    private function carregarListaEncaminhamentoAssinatura() {
+    private function carregarListaEncaminhamentoAssinatura()
+    {
         $this->view->idUsuarioLogado = $this->auth->getIdentity()->usu_codigo;
         $enquadramento = new Admissibilidade_Model_Enquadramento();
 
@@ -262,12 +262,12 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
         $this->view->codOrgao = $this->grupoAtivo->codOrgao;
     }
 
-    public function visualizarDevolucaoAssinaturaAction() {
+    public function visualizarDevolucaoAssinaturaAction()
+    {
         try {
-
             $get = $this->getRequest()->getParams();
 
-            if(!$get['IdPRONAC']) {
+            if (!$get['IdPRONAC']) {
                 throw new Exception("Identificador do projeto n&atilde;o informado.");
             }
 

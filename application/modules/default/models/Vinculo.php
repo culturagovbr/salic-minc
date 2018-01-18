@@ -10,8 +10,8 @@
  *
  * @author tisomar
  */
-class Vinculo extends MinC_Db_Table_Abstract {
-
+class Vinculo extends MinC_Db_Table_Abstract
+{
     protected $_banco = "AGENTES";
     protected $_name = "tbVinculo";
 
@@ -20,7 +20,8 @@ class Vinculo extends MinC_Db_Table_Abstract {
      * @param array $dados - array com dados referentes as colunas da tabela no formato "nome_coluna_1"=>"valor_1","nome_coluna_2"=>"valor_2"
      * @return ID do registro inserido/alterado ou FALSE em caso de erro
      */
-    public function salvar($dados) {
+    public function salvar($dados)
+    {
         //INSTANCIANDO UM OBJETO DE ACESSO AOS DADOS DA TABELA
         $tmpTblVinculo = new Vinculo();
 
@@ -62,13 +63,15 @@ class Vinculo extends MinC_Db_Table_Abstract {
         }
     }
 
-    public function verificaPermissaoAcessoProposta($idPreProjeto) {
+    public function verificaPermissaoAcessoProposta($idPreProjeto)
+    {
         $tblProposta = new Proposta_Model_DbTable_PreProjeto();
         $rs = $tblProposta->buscar(array("idPreProjeto = ? " => $idPreProjeto, "1=1 OR idEdital IS NULL OR idEdital > 0" => "?", "idUsuario =?" => $this->idUsuario));
         return $rs->count();
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
         $arrBusca = array();
         $arrBusca['stEstado = ?'] = 1;
         $arrBusca['idUsuario = ?'] = $this->idUsuario;
@@ -82,8 +85,8 @@ class Vinculo extends MinC_Db_Table_Abstract {
             "dados" => $rsPreProjeto));
     }
 
-    public function declaracaonovapropostaAction() {
-
+    public function declaracaonovapropostaAction()
+    {
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
 
@@ -100,7 +103,8 @@ class Vinculo extends MinC_Db_Table_Abstract {
             "agente" => $post->propronente));
     }
 
-    public function buscaproponenteAction() {
+    public function buscaproponenteAction()
+    {
         //recupera parametros
         $post = Zend_Registry::get('post');
 
@@ -132,13 +136,12 @@ class Vinculo extends MinC_Db_Table_Abstract {
             $this->montaTela("manterpropostaincentivofiscal/identificacaodaproposta.phtml", array("proponente" => $rsProponente,
                 "acao" => $this->_urlPadrao . "/manterpropostaincentivofiscal/salvar"));
         } else {
-
             $this->_redirect("/agente/manteragentes/agentes");
         }
     }
 
-    public function validaagenciaAction() {
-
+    public function validaagenciaAction()
+    {
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
 
@@ -163,7 +166,8 @@ class Vinculo extends MinC_Db_Table_Abstract {
      * @param void
      * @return objeto
      */
-    public function salvarAction() {
+    public function salvarAction()
+    {
         $post = Zend_Registry::get("post");
         $idPreProjeto = $post->idPreProjeto;
         $acao = $post->acao;
@@ -285,7 +289,8 @@ class Vinculo extends MinC_Db_Table_Abstract {
      * @param $idPreProjeto
      * @return objeto
      */
-    public function carregaProposta($idPreProjeto) {
+    public function carregaProposta($idPreProjeto)
+    {
         $arrBusca = array();
         $arrBusca['idPreProjeto = ?'] = $idPreProjeto;
 
@@ -385,7 +390,8 @@ class Vinculo extends MinC_Db_Table_Abstract {
      * @param void
      * @return objeto
      */
-    public function editarAction() {
+    public function editarAction()
+    {
         //recupera parametros
         $get = Zend_Registry::get('get');
         $idPreProjeto = $get->idPreProjeto;
@@ -425,7 +431,8 @@ class Vinculo extends MinC_Db_Table_Abstract {
      * @param void
      * @return objeto
      */
-    public function excluirAction() {
+    public function excluirAction()
+    {
         $get = Zend_Registry::get("get");
         $idPreProjeto = $get->idPreProjeto;
 
@@ -442,7 +449,8 @@ class Vinculo extends MinC_Db_Table_Abstract {
         }
     }
 
-    public function enviarPropostaAction() {
+    public function enviarPropostaAction()
+    {
         //recupera parametros
         $get = Zend_Registry::get('get');
         $idPreProjeto = $get->idPreProjeto;
@@ -458,12 +466,12 @@ class Vinculo extends MinC_Db_Table_Abstract {
                 "erro" => $arrResultado['erro'],
                 "resultado" => $arrResultado));
         } else {
-
             parent::message("Necess�rio informar o n�mero da proposta.", "/manterpropostaincentivofiscal/index", "ERROR");
         }
     }
 
-    public function validarEnvioPropostaAoMinc($idPreProjeto) {
+    public function validarEnvioPropostaAoMinc($idPreProjeto)
+    {
 
         //BUSCA DADOS DO PROJETO
         $arrBusca = array();
@@ -602,7 +610,6 @@ class Vinculo extends MinC_Db_Table_Abstract {
 
             //DIRIGENTE
             if ($rsProponente->TipoPessoa == 1) {
-
                 if (count($dadosDirigente) > 0) {
                     $arrResultado['dirigente']['erro'] = false;
                     $arrResultado['dirigente']['msg'] = "Cadastro de Dirigente";
@@ -635,7 +642,6 @@ class Vinculo extends MinC_Db_Table_Abstract {
 
             //PLANO DE DISTRIBUICAO
             if (count($dadosPlanoDistribuicao) > 0) {
-
                 $arrResultado['planodistribuicao']['erro'] = false;
                 $arrResultado['planodistribuicao']['msg'] = "Plano Distribui&ccedil;&atilde;o de Produto";
 
@@ -664,7 +670,7 @@ class Vinculo extends MinC_Db_Table_Abstract {
 
                         //realiza calculo para encontrar valor do projeto
                         for ($i = 0; $i < sizeof($planilhaOrcamentaria); $i++) {
-                            $valorProjeto += ( $planilhaOrcamentaria[$i]->Quantidade * $planilhaOrcamentaria[$i]->Ocorrencia * $planilhaOrcamentaria[$i]->ValorUnitario);
+                            $valorProjeto += ($planilhaOrcamentaria[$i]->Quantidade * $planilhaOrcamentaria[$i]->Ocorrencia * $planilhaOrcamentaria[$i]->ValorUnitario);
                         }
                     } else {
                         $arrProdutoPlanilhaOrcamentaria['NAO_CONTEM'][] = $idProduto;
@@ -695,7 +701,7 @@ class Vinculo extends MinC_Db_Table_Abstract {
 
                     //realiza calculo para encontrar custo administrativo do projeto
                     for ($i = 0; $i < sizeof($planilhaCustoAdmin); $i++) {
-                        $valorCustoAdmin += ( $planilhaCustoAdmin[$i]->Quantidade * $planilhaCustoAdmin[$i]->Ocorrencia * $planilhaCustoAdmin[$i]->ValorUnitario);
+                        $valorCustoAdmin += ($planilhaCustoAdmin[$i]->Quantidade * $planilhaCustoAdmin[$i]->Ocorrencia * $planilhaCustoAdmin[$i]->ValorUnitario);
                     }
                 } else {
                     $arrResultado['erro'] = true;
@@ -746,7 +752,8 @@ class Vinculo extends MinC_Db_Table_Abstract {
         return $arrResultado;
     }
 
-    public function confirmarEnvioPropostaAoMincAction() {
+    public function confirmarEnvioPropostaAoMincAction()
+    {
         //recupera parametros
         $get = Zend_Registry::get('get');
         $idPreProjeto = $get->idPreProjeto;
@@ -880,7 +887,6 @@ class Vinculo extends MinC_Db_Table_Abstract {
                 die();
             }
         } else {
-            
             parent::message("A Proposta n&atilde;o foi enviado ao Minist&eacute;rio da Cultura.", "/manterpropostaincentivofiscal/enviar-proposta?idPreProjeto=" . $idPreProjeto . $edital, "ERROR");
         }
     }
@@ -890,7 +896,8 @@ class Vinculo extends MinC_Db_Table_Abstract {
      * @param void
      * @return objeto
      */
-    public function validaDatasAction() {
+    public function validaDatasAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         //recupera parametros
         $get = Zend_Registry::get('get');
@@ -905,7 +912,6 @@ class Vinculo extends MinC_Db_Table_Abstract {
 
         //VERIFICA SE DATA INICIO E MAIOR QUE DATA FINAL
         if (!empty($get->dtInicio) && !empty($get->dtFim) && strlen($get->dtInicio) == 10 && strlen($get->dtFim) == 10) {
-
             $dtTemp = explode("/", $get->dtInicio);
             $dtInicio = $dtTemp[2] . $dtTemp[1] . $dtTemp[0];
 
@@ -961,7 +967,8 @@ class Vinculo extends MinC_Db_Table_Abstract {
             "script" => $script));
     }
 
-    public function listarPropostasAction() {
+    public function listarPropostasAction()
+    {
 
 
         //BUSCA idAgente DO USUARIO LOGADO, que � o Responsavel ou o Proponente
@@ -979,8 +986,8 @@ class Vinculo extends MinC_Db_Table_Abstract {
             "idResponsavel" => $idAgente));
     }
 
-    public function buscarProponentesVinculadosAction() {
-
+    public function buscarProponentesVinculadosAction()
+    {
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
 
@@ -1046,8 +1053,8 @@ class Vinculo extends MinC_Db_Table_Abstract {
         echo $options;
     }
 
-    public function localizarPropostaAction() {
-
+    public function localizarPropostaAction()
+    {
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
 
@@ -1092,6 +1099,4 @@ class Vinculo extends MinC_Db_Table_Abstract {
             echo "<br><br><div class='centro'><font color='red'>Informe um Proponente</font></div><br>";
         }
     }
-
 }
-

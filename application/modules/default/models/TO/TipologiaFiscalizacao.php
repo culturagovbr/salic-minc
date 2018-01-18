@@ -8,17 +8,16 @@
  
  class TipologiaFiscalizacao
  {
- 	private $tipoFiscalizacao;
- 	
- 	// $tipoFiscalizacao
-	public function setTipoFiscalizacao($tipoFiscalizacao)
-	{
-		$this->tipoFiscalizacao = $tipoFiscalizacao;
-	}
-	
-	public function getTipoFiscalizacao()
-	{
-		return $this->tipoFiscalizacao;
-	}
+     private $tipoFiscalizacao;
+    
+     // $tipoFiscalizacao
+     public function setTipoFiscalizacao($tipoFiscalizacao)
+     {
+         $this->tipoFiscalizacao = $tipoFiscalizacao;
+     }
+    
+     public function getTipoFiscalizacao()
+     {
+         return $this->tipoFiscalizacao;
+     }
  }
-?>

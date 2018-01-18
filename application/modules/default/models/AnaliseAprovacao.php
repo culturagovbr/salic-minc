@@ -5,13 +5,14 @@
  *
  * @author augusto
  */
-class AnaliseAprovacao extends MinC_Db_Table_Abstract {
-
+class AnaliseAprovacao extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'SAC';
     protected $_schema = 'SAC';
     protected $_name = 'tbAnaliseAprovacao';
 
-    public function inserirAnaliseAprovacao($data) {
+    public function inserirAnaliseAprovacao($data)
+    {
         try {
             $inserir = $this->insert($data);
             return $inserir;
@@ -20,8 +21,8 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
         }
     }
 
-    public function buscarAnaliseProduto($tpanalise, $idpronac, $order=array(), $where=array(), $tamanho=-1, $inicio=-1, $count=false) {
-
+    public function buscarAnaliseProduto($tpanalise, $idpronac, $order=array(), $where=array(), $tamanho=-1, $inicio=-1, $count=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -95,13 +96,14 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
             $select->where($coluna, $valor);
         }
 
-        if($count){
-
+        if ($count) {
             $slctContador = $this->select();
             $slctContador->setIntegrityCheck(false);
-            $slctContador->from(array("aa"=>$this->_name),
+            $slctContador->from(
+                array("aa"=>$this->_name),
                             array("total" => "count(*)"),
-                                  "SAC.dbo");
+                                  "SAC.dbo"
+            );
             $slctContador->joinInner(
                     array('prod' => 'Produto'),
                     'aa.idProduto = prod.Codigo',
@@ -131,7 +133,11 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
                 $slctContador->where($coluna, $valor);
             }
             $rs = $this->fetchAll($slctContador)->current();
-            if($rs){ return $rs->total; }else{ return 0; }
+            if ($rs) {
+                return $rs->total;
+            } else {
+                return 0;
+            }
         }
 
         //adicionando linha order ao select
@@ -150,7 +156,8 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
     }
 
 
-    public function buscarAnalises($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false) {
+    public function buscarAnalises($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -183,19 +190,26 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
                 )
         );
         $select->joinInner(
-                array('prod' => 'Produto'), 'aa.idProduto = prod.Codigo',
-                array('prod.Descricao as produto'), 'SAC.dbo'
+                array('prod' => 'Produto'),
+            'aa.idProduto = prod.Codigo',
+                array('prod.Descricao as produto'),
+            'SAC.dbo'
         );
         $select->joinInner(
-                array('proj' => 'Projetos'), 'proj.IdPRONAC = aa.idPRONAC',
-                array(), 'SAC.dbo'
+                array('proj' => 'Projetos'),
+            'proj.IdPRONAC = aa.idPRONAC',
+                array(),
+            'SAC.dbo'
         );
         $select->joinInner(
-                array('PDP' => 'PlanoDistribuicaoProduto'), 'PDP.idProjeto = proj.idProjeto and PDP.idProduto = aa.idProduto',
-                array('PDP.stPrincipal'), 'SAC.dbo'
+                array('PDP' => 'PlanoDistribuicaoProduto'),
+            'PDP.idProjeto = proj.idProjeto and PDP.idProduto = aa.idProduto',
+                array('PDP.stPrincipal'),
+            'SAC.dbo'
         );
         $select->joinInner(
-                array('AC' => 'tbAnaliseDeConteudo'), 'aa.idAnaliseConteudo = AC.idAnaliseDeConteudo',
+                array('AC' => 'tbAnaliseDeConteudo'),
+            'aa.idAnaliseConteudo = AC.idAnaliseDeConteudo',
                 array(
                     'TipoParecer',
                     'Lei8313 AS stLei8313_Antigo',
@@ -242,4 +256,3 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 }
-

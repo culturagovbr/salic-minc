@@ -22,7 +22,7 @@ class ErrorController extends Zend_Controller_Action
      * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
      * @since  25/08/2016
      */
-    public function noauthAction ()
+    public function noauthAction()
     {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setRender('error');
@@ -41,7 +41,7 @@ class ErrorController extends Zend_Controller_Action
      * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
      * @since  25/08/2016
      */
-    public function notallowedAction ()
+    public function notallowedAction()
     {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setRender('error');
@@ -58,7 +58,7 @@ class ErrorController extends Zend_Controller_Action
      * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
      * @since  25/08/2016
      */
-    public function notfoundAction ()
+    public function notfoundAction()
     {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setRender('error');
@@ -95,8 +95,9 @@ class ErrorController extends Zend_Controller_Action
             return;
         }
 
-        if ($errors->type != 'pagina' || $errors->type != 'permissao' || $errors->type != 'login')
+        if ($errors->type != 'pagina' || $errors->type != 'permissao' || $errors->type != 'login') {
             $this->_helper->layout()->setLayout('error');
+        }
 
         switch ($errors->type) {
             case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ROUTE:
@@ -130,7 +131,6 @@ class ErrorController extends Zend_Controller_Action
         }
 
         $this->view->request   = $errors->request;
-
     }
 
     /**
@@ -146,24 +146,24 @@ class ErrorController extends Zend_Controller_Action
     {
         $bootstrap = $this->getInvokeArg('bootstrap');
 
-        if (!$bootstrap->hasResource('Log'))
+        if (!$bootstrap->hasResource('Log')) {
             return false;
+        }
 
         $log = $bootstrap->getResource('Log');
 
         return $log;
     }
 
-	/**
-	 * Trata as excecoes para os usuarios
-	 * @access public
-	 * @param void
-	 * @return void
-	 */
-	public function errorAction()
-	{
-
-	    if (APPLICATION_ENV === 'development') {
+    /**
+     * Trata as excecoes para os usuarios
+     * @access public
+     * @param void
+     * @return void
+     */
+    public function errorAction()
+    {
+        if (APPLICATION_ENV === 'development') {
             $this->_helper->viewRenderer->setNoRender();
             $request = clone $this->getRequest();
             // Don't set controller or module; use current values
@@ -171,29 +171,28 @@ class ErrorController extends Zend_Controller_Action
             return $this->_helper->actionStack($request);
         }
 
-		// limpa o conte�do gerado antes do erro
-		$this->getResponse()->clearBody();
+        // limpa o conte�do gerado antes do erro
+        $this->getResponse()->clearBody();
 
-		// pega a excecao e manda para o template
-		$this->_helper->viewRenderer->setViewSuffix('phtml');
-		$error = $this->_getParam('error_handler');
-		$this->view->ambiente     = APPLICATION_ENV;
-		$this->view->exception    = $error->exception;
-		$this->view->request      = $error->request;
-		$this->view->message_type = "ERROR";
+        // pega a excecao e manda para o template
+        $this->_helper->viewRenderer->setViewSuffix('phtml');
+        $error = $this->_getParam('error_handler');
+        $this->view->ambiente     = APPLICATION_ENV;
+        $this->view->exception    = $error->exception;
+        $this->view->request      = $error->request;
+        $this->view->message_type = "ERROR";
 
-		switch ($error->type)
-		{
-			case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ROUTE:
-			case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
-			case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
-				$this->getResponse()->setHttpResponseCode(404);
-				$this->view->message = 'P&aacute;gina n&atilde;o encontrada!';
-				break;
+        switch ($error->type) {
+            case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ROUTE:
+            case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_CONTROLLER:
+            case Zend_Controller_Plugin_ErrorHandler::EXCEPTION_NO_ACTION:
+                $this->getResponse()->setHttpResponseCode(404);
+                $this->view->message = 'P&aacute;gina n&atilde;o encontrada!';
+                break;
 
-			default:
-				$this->view->message = 'Desculpe, ocorreu algum erro no sistema, tente novamente mais tarde!';
-				break;
-		}
-	} // fecha errorAction()
+            default:
+                $this->view->message = 'Desculpe, ocorreu algum erro no sistema, tente novamente mais tarde!';
+                break;
+        }
+    } // fecha errorAction()
 } // fecha class

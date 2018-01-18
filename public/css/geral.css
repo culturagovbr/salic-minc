@@ -1,4 +1,3 @@
-<!--
 /**
  * Folha de estilo principal do sistema
  * @version 1.0
@@ -91,7 +90,7 @@ a:hover {
 }
 
 select {
-	min-height: 30px;
+    min-height: 30px;
 }
 
 .sumir {
@@ -1251,49 +1250,49 @@ x - GRID ANTIGO
 x - CORES
 --------------------------------------------------------------*/
 #conteudo .red:not(.btn),
-#conteudo .red a, 
+#conteudo .red a,
 #conteudo table.tabela td.red
-{ 
-    color:#c30; 
+{
+    color:#c30;
     background: white !important;
 }
 
 #conteudo .green:not(.btn),
 #conteudo .green a,
 #conteudo table.tabela td.green
-{ 
-    color:#096; 
+{
+    color:#096;
     background: white !important;
 }
 
 #conteudo .blue:not(.btn),
-#conteudo .blue a ,    
+#conteudo .blue a ,
 #conteudo table.tabela td.blue
-{ 
-    color:#06c; 
+{
+    color:#06c;
     background: white !important;
 }
 
 #conteudo .orange:not(.btn),
 #conteudo .orange a ,
 #conteudo table.tabela td.orange
-{ 
-    color:#f90; 
+{
+    color:#f90;
     background: white !important;
 }
 
 #conteudo .black:not(.btn),
 #conteudo .black a,
 #conteudo table.tabela td.black
-{ 
-    color:#000; 
+{
+    color:#000;
     background: white !important;
 }
 
 #conteudo .white,
-#conteudo .white a   
-{ 
-    color:#fff; 
+#conteudo .white a
+{
+    color:#fff;
 }
 
 #conteudo .bg_red     { background:#c30; }
@@ -1318,40 +1317,40 @@ x - CORES
 x - PLANILHAS
 --------------------------------------------------------------*/
 .planilha_incentivo div.plan, .total_planilha_incentivo {
-	color:#c30;
-	font-size:17pt;
-	font-weight:bold;
-	width:96%;
+    color:#c30;
+    font-size:17pt;
+    font-weight:bold;
+    width:96%;
 }
 .planilha_produto div.plan, .total_planilha_produto {
-	color:#096;
-	font-size:15pt;
-	font-weight:bold;
-	width:94%;
-	margin-left:2%;
+    color:#096;
+    font-size:15pt;
+    font-weight:bold;
+    width:94%;
+    margin-left:2%;
 }
 .planilha_etapa div.plan, .total_planilha_etapa {
-	color:#f90;
-	font-size:13pt;
-	font-weight:bold;
-	width:92%;
-	margin-left:4%;
+    color:#f90;
+    font-size:13pt;
+    font-weight:bold;
+    width:92%;
+    margin-left:4%;
 }
 .planilha_uf div.plan, .total_planilha_uf {
-	color:#000;
-	font-size:11pt;
-	font-weight:bold;
-	width:90%;
-	margin-left:6%;
+    color:#000;
+    font-size:11pt;
+    font-weight:bold;
+    width:90%;
+    margin-left:6%;
 }
 div.plan {
-	cursor:pointer;
+    cursor:pointer;
 }
 div.plan span {
-	margin-left:2%;
+    margin-left:2%;
 }
 .total_planilha_incentivo, .total_planilha_produto, .total_planilha_etapa, .total_planilha_uf {
-	cursor:auto;
+    cursor:auto;
 }
 
 .valor_maior_que_praticado,
@@ -1364,41 +1363,41 @@ div.plan span {
 x - REGULARIDADE
 --------------------------------------------------------------*/
 #regularidade {
-	width:200px;
-	height:auto;
+    width:200px;
+    height:auto;
 }
 #regularidade table {
-	width:200px;
-	height:auto;
-	margin:0 auto;
-	background:#ccc;
-	font-size:10px;
-	text-align:center;
-	color:#000;
-	font-family:Arial, Helvetica, sans-serif;
-	font-weight: bold;
+    width:200px;
+    height:auto;
+    margin:0 auto;
+    background:#ccc;
+    font-size:10px;
+    text-align:center;
+    color:#000;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bold;
 }
 #regularidade table tr.linha:hover td {
-	background:#eef8de;
+    background:#eef8de;
 }
 #regularidade table td a {
-	color:#333 !important;
+    color:#333 !important;
 }
 #regularidade table th {
-	background:#abda5d;
-	color:#3a7300;
-	text-transform:uppercase;
-	font-size:9px;
-	font-weight:bold;
+    background:#abda5d;
+    color:#3a7300;
+    text-transform:uppercase;
+    font-size:9px;
+    font-weight:bold;
 }
 #regularidade table td {
-	padding:8px;
-	background:#f3f3f3;
-	text-align:center;
-	color:black;
-	border-top:1px solid #fff;
-	border-bottom:1px solid #b0b0b0;
-	font-weight:bold;
+    padding:8px;
+    background:#f3f3f3;
+    text-align:center;
+    color:black;
+    border-top:1px solid #fff;
+    border-bottom:1px solid #b0b0b0;
+    font-weight:bold;
 }
 
 /*--------------------------------------------------------------
@@ -1406,39 +1405,39 @@ x - BOTOES
 --------------------------------------------------------------*/
 
 .btn_close, .btn_help {
-	float:right;
-	cursor:pointer;
-	width:20px;
-	height:20px;
-	border:0;
-	background:url(../img/btn_fechar.png) center center no-repeat;
+    float:right;
+    cursor:pointer;
+    width:20px;
+    height:20px;
+    border:0;
+    background:url(../img/btn_fechar.png) center center no-repeat;
 }
 .btnHelp {
-	cursor:help;
-	background:url(../img/btn_ajuda.gif) center center no-repeat;
+    cursor:help;
+    background:url(../img/btn_ajuda.gif) center center no-repeat;
 }
 .conteudo .btn {
-	cursor:pointer;
-	width:auto;
-	padding:2px;
-	font-weight:bold;
-	color:green;
-	background:#ccc url(../img/bg-celulas2.gif) repeat-x;
-	border:1px solid #ccc;
+    cursor:pointer;
+    width:auto;
+    padding:2px;
+    font-weight:bold;
+    color:green;
+    background:#ccc url(../img/bg-celulas2.gif) repeat-x;
+    border:1px solid #ccc;
 }
 .conteudo .btn:hover {
-	border:1px solid #777;
-	color:#fff;
+    border:1px solid #777;
+    color:#fff;
 }
 .icn_mais, .icn_menos, .icn_vazio {
-	width:auto;
-	display:block;
-	cursor:pointer;
-	float:left;
-	padding:2px;
+    width:auto;
+    display:block;
+    cursor:pointer;
+    float:left;
+    padding:2px;
 }
 .icn_mais span, .icn_menos span, .icn_vazio span {
-	margin-left:18px;
+    margin-left:18px;
 }
 
 /* botoes de formularios */
@@ -1564,23 +1563,23 @@ x - BOTOES
 .btn_registrar_ordem_bancaria,
 .btn_historico
 {
-	border-top:1px solid #efefef;
-	border-left:1px solid #efefef;
-	border-right:1px solid #aaa;
-	border-bottom:1px solid #aaa;
-	margin:0 5px 0 0;
-	width:20px;
-	height:21px;
-	text-align:center;
-	cursor:pointer;
+    border-top:1px solid #efefef;
+    border-left:1px solid #efefef;
+    border-right:1px solid #aaa;
+    border-bottom:1px solid #aaa;
+    margin:0 5px 0 0;
+    width:20px;
+    height:21px;
+    text-align:center;
+    cursor:pointer;
 }
 
 .btn_encaminhar
 {
-	width:20px;
-	height:21px;
-	text-align:center;
-	cursor:pointer;
+    width:20px;
+    height:21px;
+    text-align:center;
+    cursor:pointer;
 }
 
 .btn_vincular:hover,
@@ -1698,11 +1697,11 @@ x - BOTOES
 .btn_visualizar2:hover,
 .btn_historico:hover
 {
-	background-color:#fff;
-	border-top:1px solid #aaa;
-	border-left:1px solid #aaa;
-	border-right:1px solid #efefef;
-	border-bottom:1px solid #efefef;
+    background-color:#fff;
+    border-top:1px solid #aaa;
+    border-left:1px solid #aaa;
+    border-right:1px solid #efefef;
+    border-bottom:1px solid #efefef;
 }
 .btn_move_down,
 .btn_move_left,
@@ -1710,12 +1709,12 @@ x - BOTOES
 .btn_move_right,
 .btn_move_right_all,
 .btn_move_up {
-	width:16px;
-	height:16px;
+    width:16px;
+    height:16px;
 }
 .btn_xls,
 .btn_pdf {
-	width:44px;
+    width:44px;
 }
 .btn_adicionar,
 .btn_remover,
@@ -1785,20 +1784,20 @@ x - BOTOES
 .btn_historico,
 .btn_encaminhar
 {
-	width:87px;
+    width:87px;
 }
 .btn_novo_produto,
 .btn_descrever_item,
 .btn_visualizar2
 {
-	width:100px;
+    width:100px;
 }
 .btn_solicitarvinculo
 {
-	width:105px;
+    width:105px;
 }
 .btn_retirar_pauta {
-	width:106px;
+    width:106px;
 
 }
 .btn_excluir_tudo,
@@ -1808,44 +1807,44 @@ x - BOTOES
 .btn_oficializar_e_enviar,
 .btn_oficializar_e_enviar-off
 {
-	width:110px;
+    width:110px;
 }
 .btn_deposito_equivocado
 {
-	width:117px;
+    width:117px;
 }
 .btn_analise_projeto, .btn_enviar_solicitacao
 {
-	width:121px;
+    width:121px;
 }
 .btn_devolver_tecnico,
 .btn_devolver_tecnico-off
 {
-	width:127px;
+    width:127px;
 }
 .btn_redistribuir_projetos,
 .btn_redistribuir_projetos
 {
-	width:127px;
+    width:127px;
 }
 .btn_cadastrar_proponente
 {
-	width:130px;
+    width:130px;
 }
 .btn_comprovar_pagamento
 {
-	width:144px;
+    width:144px;
 }
 .btn_devolver_vinculada {
-	width:145px;
+    width:145px;
 }
 .btn_visualizar_comprovacao
 {
-	width:147px;
+    width:147px;
 }
 .btn_finalizar_recurso, .btn_cancelar_solicitacao, .btn_cancelar_retirar_pauta
 {
-	width:160px;
+    width:160px;
 }
 .btn_gerar_despachos{
     width: 120px;
@@ -1858,29 +1857,29 @@ x - BOTOES
 .btn_pesquisar_projeto,
 .btn_pesquisar_projeto-off
 {
-	width:180px;
+    width:180px;
 }
 #btn_down, #btn_up {
-	width:12px;
-	height:15px;
-	float:left;
+    width:12px;
+    height:15px;
+    float:left;
 }
 .btn_validarItem {
-	width:100px;
-	cursor:pointer;
-	background:url(../img/validarItem.png) 86px 4px no-repeat;
+    width:100px;
+    cursor:pointer;
+    background:url(../img/validarItem.png) 86px 4px no-repeat;
 }
 .btn_calendario, .btn_calendario:hover, .btn_calendario-off, .btn_relogio {
-	width:100px;
-	cursor:pointer;
-	background:#f8f8f8 url(../img/data.png) 86px 4px no-repeat;
+    width:100px;
+    cursor:pointer;
+    background:#f8f8f8 url(../img/data.png) 86px 4px no-repeat;
 }
 .btn_relogio {
-	background:#f8f8f8 url(../img/hour.gif) 86px 4px no-repeat;
+    background:#f8f8f8 url(../img/hour.gif) 86px 4px no-repeat;
 }
 .btn_calendario-off, .btn_calendario-off:hover {
-	cursor:auto;
-	background:#dfdfdf url(../img/data.png) 86px 4px no-repeat;
+    cursor:auto;
+    background:#dfdfdf url(../img/data.png) 86px 4px no-repeat;
 }
 .btn_validarItem                                { background:url(../img/validarItem.png) center center no-repeat; }
 .btn_aprovar                                    { background:url(../img/aprovar.gif) center center no-repeat; }
@@ -2054,7 +2053,7 @@ x - TOOLTIP
 }
 
 .texto_maiusculo {
-	text-transform: uppercase
+    text-transform: uppercase
 }
 
 /*--------------------------------------------------------------
@@ -2065,27 +2064,27 @@ x - DATE PICKER
     color: #fff;
 }
 .ui-datepicker .ui-datepicker-title {
-	font-size: 20px;
+    font-size: 20px;
 }
 
 .ui-datepicker td span, .ui-datepicker td a {
-	padding: 0.5em;
-	font-size: 18px;
+    padding: 0.5em;
+    font-size: 18px;
 }
 
 .ui-dialog .ui-dialog-titlebar {
-	background: rgb(76,175,80);
+    background: rgb(76,175,80);
 }
 .ui-dialog .ui-dialog-buttonpane button {
-	background-color: rgb(76,175,80);
-	box-shadow: none;
-	border: none;
-	padding: 10px 20px !important;
+    background-color: rgb(76,175,80);
+    box-shadow: none;
+    border: none;
+    padding: 10px 20px !important;
 }
 
 .ui-dialog .ui-dialog-buttonpane button:hover,
 .ui-dialog .ui-dialog-buttonpane button:active {
-	background-color: #2bbbad;
+    background-color: #2bbbad;
 }
 
 .ui-dialog table {
@@ -2150,21 +2149,21 @@ x - DATE PICKER
 }
 
 .ui-datepicker .ui-datepicker-header {
-	background: #388e3c;
-	color: #fff;
-	font-weight: bold;
+    background: #388e3c;
+    color: #fff;
+    font-weight: bold;
 }
 
 .ui-state-default, .ui-widget-content .ui-state-default {
-	border: 1px solid transparent;
+    border: 1px solid transparent;
 }
 
 .ui-datepicker table > tbody > tr{
-	background: #388e3c;
+    background: #388e3c;
 }
 
 .ui-datepicker th, .ui-datepicker td {
-	border-radius: 0;
+    border-radius: 0;
 }
 
 /*--------------------------------------------------------------

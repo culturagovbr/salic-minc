@@ -6,21 +6,22 @@
  * @version 1.0 - 17/01/2014
  */
 
-class CidadaoController extends MinC_Controller_Action_Abstract {
-
-    public function init() {
+class CidadaoController extends MinC_Controller_Action_Abstract
+{
+    public function init()
+    {
         parent::init(); // chama o init() do pai GenericControllerNew
         $this->intTamPag = 10;
         $this->usuarioInterno = false;
         $this->view->usuarioInterno = false;
 
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
-        if(isset($auth->getIdentity()->usu_codigo)){
+        if (isset($auth->getIdentity()->usu_codigo)) {
 
             //Recupera todos os grupos do Usuario
             $Usuario = new Autenticacao_Model_Usuario(); // objeto usu�rio
             $grupos = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21);
-            foreach ($grupos as $grupo){
+            foreach ($grupos as $grupo) {
                 $PermissoesGrupo[] = $grupo->gru_codigo;
             }
         }
@@ -35,16 +36,18 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         parent::init();
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->_redirect('/cidadao/consultar');
     }
 
-    public function consultarAction() {
+    public function consultarAction()
+    {
 
         #Pedro - Criando a variavel de Sessao para Usar na impressao PDF
         $sess = new Zend_Session_Namespace('Filtro_de_Pesquisa');
 
-        if(!$this->usuarioInterno){
+        if (!$this->usuarioInterno) {
             //Zend_Layout::startMvc(array('layout' => 'layout_login'));
             Zend_Layout::startMvc(array('layout' => 'open'));
         }
@@ -52,7 +55,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $idNrReuniaoConsulta = $this->_request->getParam("idNrReuniaoConsulta") ? $this->_request->getParam("idNrReuniaoConsulta") : null;
         $reuniao = new Reuniao();
         //Alysson - Na Primeira Consulta exibe dados da ultima reuniao aberta
-        if(!$idNrReuniaoConsulta){
+        if (!$idNrReuniaoConsulta) {
             $raberta = null;  // Fernao: permite n�o filtrar
             $this->view->idNrReuniaoConsulta = null;
         } else {
@@ -68,11 +71,11 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $urlComplement = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "DESC") {
+            if ($ordem == "DESC") {
                 $novaOrdem = "ASC";
-            }else {
+            } else {
                 $novaOrdem = "DESC";
             }
         } else {
@@ -84,12 +87,12 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $sess->ordem = $ordem;
 
         if ($this->_request->getParam("pag")) {
-           $pag = $this->_request->getParam("pag");
-           $urlComplement[] = "pag=" . $pag;
-           $sess->pag = $pag;
+            $pag = $this->_request->getParam("pag");
+            $urlComplement[] = "pag=" . $pag;
+            $sess->pag = $pag;
         }
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $ordenacao = "&campo=".$campo;
             $urlComplement[] = "campo=$campo";
@@ -114,7 +117,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         // Fernao: adicionando filtros
         if ($this->_request->getParam("NrPronacConsulta")) {
             $nrPronac = $this->_request->getParam("NrPronacConsulta");
-	    $sess->nrPronac = $nrPronac;
+            $sess->nrPronac = $nrPronac;
             $where["p.AnoProjeto+p.Sequencial = ?"] = $nrPronac;
             $this->view->nrPronac = $nrPronac;
             $urlComplement[] = "NrPronac=$nrPronac";
@@ -126,25 +129,25 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
             $this->view->cnpjCpf = $CnpjCpf;
             $urlComplement[] = "CNPJCPF=$CnpjCpf";
             $sess->CnpjCpf = $CnpjCpf;
-         }
+        }
         if ($this->_request->getParam("ProponenteConsulta")) {
             $ProponenteConsulta = $this->_request->getParam("ProponenteConsulta");
             $where["y.Descricao LIKE ?"] = "%" . $ProponenteConsulta. "%";
             $this->view->proponente = $ProponenteConsulta;
             $urlComplement[] = "ProponenteConsulta=$ProponenteConsulta";
-	    $sess->ProponenteConsulta = $ProponenteConsulta;
+            $sess->ProponenteConsulta = $ProponenteConsulta;
         }
         if ($this->_request->getParam("NomeProjetoConsulta")) {
             $NomeProjetoConsulta = $this->_request->getParam("NomeProjetoConsulta");
             $where["p.NomeProjeto LIKE ?"] = "%" . $NomeProjetoConsulta . "%";
             $this->view->nomeProjeto = $NomeProjetoConsulta;
             $urlComplement[] = "NomeProjetoConsulta=$NomeProjetoConsulta";
-	    $sess->NomeProjetoConsulta = $NomeProjetoConsulta;
+            $sess->NomeProjetoConsulta = $NomeProjetoConsulta;
         }
 
         $Projetos = new Projetos();
 
-        if(!$idNrReuniaoConsulta){
+        if (!$idNrReuniaoConsulta) {
             $idNrReuniao = null;
         } else {
             $idNrReuniao = $raberta->idNrReuniao;
@@ -152,14 +155,16 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         }
 
         // pagina��o
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
             $urlComplement[] = 'qtde=' . $this->intTamPag;
             $sess->qtde = $this->intTamPag;
         }
         $pag = 1;
         $post  = Zend_Registry::get('get');
-        if (isset($post->pag)) $pag = $post->pag;
+        if (isset($post->pag)) {
+            $pag = $post->pag;
+        }
         $offset = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
         $objTotal = $Projetos->countProjetosCnicOpinioesPorIdReuniao($idNrReuniao, $where, $ordem, false, false);
         $total = $objTotal['total'];
@@ -210,20 +215,21 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $this->view->intTamPag     = $this->intTamPag;
 
         $this->view->intranet = false;
-        if(isset($_GET['intranet'])){
+        if (isset($_GET['intranet'])) {
             $this->view->intranet = true;
         }
     }
 
-    public function imprimirListagemAction() {
+    public function imprimirListagemAction()
+    {
 
-	#Pedro - recuperando a Sessao Salva da pesquisa
-	$sess = new Zend_Session_Namespace('Filtro_de_Pesquisa');
+    #Pedro - recuperando a Sessao Salva da pesquisa
+        $sess = new Zend_Session_Namespace('Filtro_de_Pesquisa');
 
         $idNrReuniaoConsulta = $this->_request->getParam("idNrReuniaoConsulta") ? $this->_request->getParam("idNrReuniaoConsulta") : null;
         $reuniao = new Reuniao();
 
-        if(!$idNrReuniaoConsulta){
+        if (!$idNrReuniaoConsulta) {
             $raberta = null;
             $this->view->idNrReuniaoConsulta = null;
         } else {
@@ -234,24 +240,23 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($sess->ordem) {
+        if ($sess->ordem) {
             $ordem = $sess->ordem;
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($sess->campo) {
+        if ($sess->campo) {
             $campo = $sess->campo;
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
         } else {
             $campo = null;
             $order = array('2 DESC');
@@ -286,14 +291,14 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
 
         $Projetos = new Projetos();
 
-        if(!$idNrReuniaoConsulta){
+        if (!$idNrReuniaoConsulta) {
             $idNrReuniao = null;
         } else {
             $idNrReuniao = $raberta->idNrReuniao;
         }
 
         // pagina��o
-        if($sess->qtde){
+        if ($sess->qtde) {
             $this->intTamPag = $sess->qtde;
         }
 
@@ -303,7 +308,9 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $pag = 1;
         $post  = Zend_Registry::get('get');
 
-        if (isset($sess->pag)) $pag = $sess->pag;
+        if (isset($sess->pag)) {
+            $pag = $sess->pag;
+        }
         $offset = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
         $fim = $offset + $this->intTamPag;
         $totalPag = (int)(($total % $this->intTamPag == 0)?($total/$this->intTamPag):(($total/$this->intTamPag)+1));
@@ -317,18 +324,19 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $this->view->campo = $sess->campo;
 
         $this->view->intranet = false;
-        if(isset($_GET['intranet'])){
+        if (isset($_GET['intranet'])) {
             $this->view->intranet = true;
         }
 
         $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
     }
 
-    public function xlsListagemAction() {
+    public function xlsListagemAction()
+    {
         $idNrReuniaoConsulta = $this->_request->getParam("idNrReuniaoConsulta") ? $this->_request->getParam("idNrReuniaoConsulta") : null;
         $reuniao = new Reuniao();
 
-        if(!$idNrReuniaoConsulta){
+        if (!$idNrReuniaoConsulta) {
             $raberta = null;
             $this->view->idNrReuniaoConsulta = null;
         } else {
@@ -339,24 +347,23 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
         } else {
             $campo = null;
             $order = array('2 DESC'); //Vl.Sugerido
@@ -386,14 +393,14 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
 
         $Projetos = new Projetos();
 
-        if(!$idNrReuniaoConsulta){
+        if (!$idNrReuniaoConsulta) {
             $idNrReuniao = null;
         } else {
             $idNrReuniao = $raberta->idNrReuniao;
         }
 
         // pagina��o
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
 
@@ -402,7 +409,9 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
 
         $pag = 1;
         $post  = Zend_Registry::get('get');
-        if (isset($post->pag)) $pag = $post->pag;
+        if (isset($post->pag)) {
+            $pag = $post->pag;
+        }
         $offset = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
         $fim = $offset + $this->intTamPag;
         $totalPag = (int)(($total % $this->intTamPag == 0)?($total/$this->intTamPag):(($total/$this->intTamPag)+1));
@@ -432,20 +441,20 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $TotalAprovado = 0;
         $TotalCaptado = 0;
 
-        foreach($busca as $d){
-            if(!empty($d->vlSolicitado)){
+        foreach ($busca as $d) {
+            if (!empty($d->vlSolicitado)) {
                 $vl1 = @number_format($d->vlSolicitado, 2, ",", ".");
             } else {
                 $vl1 = '';
             }
 
-            if(!empty($d->vlAprovado)){
+            if (!empty($d->vlAprovado)) {
                 $vl2 = @number_format($d->vlAprovado, 2, ",", ".");
             } else {
                 $vl2 = '';
             }
 
-            if(!empty($d->vlCaptado)){
+            if (!empty($d->vlCaptado)) {
                 $vl3 = @number_format($d->vlCaptado, 2, ",", ".");
             } else {
                 $vl3 = '';
@@ -485,12 +494,13 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
     }
 
-    public function cadastrarOpiniaoAction(){
-        if(!$this->usuarioInterno){
+    public function cadastrarOpiniaoAction()
+    {
+        if (!$this->usuarioInterno) {
             Zend_Layout::startMvc(array('layout' => 'layout_login'));
         }
 
-        if(isset($_GET['idPronac']) && !empty($_GET['idPronac'])){
+        if (isset($_GET['idPronac']) && !empty($_GET['idPronac'])) {
             $idPronac = $_GET['idPronac'];
             if (strlen($idPronac) > 7) {
                 $idPronac = Seguranca::dencrypt($idPronac);
@@ -505,7 +515,8 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $this->view->DadosProjeto = $DadosProjeto;
     }
 
-    public function inserirOpiniaoAction(){
+    public function inserirOpiniaoAction()
+    {
         //INSERT NA TABELA SAC.dbo.tbOpinarProjeto
         $dados = array(
             'idPronac' => $_POST['idPronac'],
@@ -521,19 +532,20 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $tbOpinarProjeto = new tbOpinarProjeto();
         $insert = $tbOpinarProjeto->inserir($dados);
 
-        if($insert){
+        if ($insert) {
             parent::message("Sua opini�o foi cadastrada com sucesso!", "cidadao/index", "CONFIRM");
         } else {
             parent::message("N�o foi poss�vel cadastrar a sua opini�o!", "cidadao/index", "ERROR");
         }
     }
 
-    public function visualizarOpinioesAction(){
-        if(!$this->usuarioInterno){
+    public function visualizarOpinioesAction()
+    {
+        if (!$this->usuarioInterno) {
             Zend_Layout::startMvc(array('layout' => 'layout_login'));
         }
 
-        if(isset($_GET['idPronac']) && !empty($_GET['idPronac'])){
+        if (isset($_GET['idPronac']) && !empty($_GET['idPronac'])) {
             $idPronac = $_GET['idPronac'];
             if (strlen($idPronac) > 7) {
                 $idPronac = Seguranca::dencrypt($idPronac);
@@ -570,12 +582,13 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $this->view->qst3n = $qst3n;
     }
 
-    public function dadosProjetoAction(){
-        if(!$this->usuarioInterno){
+    public function dadosProjetoAction()
+    {
+        if (!$this->usuarioInterno) {
             Zend_Layout::startMvc(array('layout' => 'layout_login'));
         }
 
-        if(isset($_GET['idPronac']) && !empty($_GET['idPronac'])){
+        if (isset($_GET['idPronac']) && !empty($_GET['idPronac'])) {
             $idPronac = $_GET['idPronac'];
             if (strlen($idPronac) > 7) {
                 $idPronac = Seguranca::dencrypt($idPronac);
@@ -596,12 +609,13 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $this->view->tipoPlanilha = 2;
     }
 
-    public function parecerConsolidadoAction(){
-        if(!$this->usuarioInterno){
+    public function parecerConsolidadoAction()
+    {
+        if (!$this->usuarioInterno) {
             Zend_Layout::startMvc(array('layout' => 'layout_login'));
         }
 
-        if(isset($_GET['idPronac']) && !empty($_GET['idPronac'])){
+        if (isset($_GET['idPronac']) && !empty($_GET['idPronac'])) {
             $idPronac = $_GET['idPronac'];
             if (strlen($idPronac) > 7) {
                 $idPronac = Seguranca::dencrypt($idPronac);
@@ -626,5 +640,4 @@ class CidadaoController extends MinC_Controller_Action_Abstract {
         $this->view->planilha = $planilha;
         $this->view->tipoPlanilha = 2;
     }
-
 }

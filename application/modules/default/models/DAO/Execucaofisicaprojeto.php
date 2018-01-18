@@ -12,16 +12,16 @@
 
 class Execucaofisicaprojeto extends Zend_Db_Table
 {
-	/**
-	 * Método para buscar documentos de um PRONAC
-	 * @access public
-	 * @static
-	 * @param integer $idPronac
-	 * @return object
-	 */
-	public static function buscardocumentos($idPronac)
-	{
-		$sql = "SELECT doc.idComprovante AS id, 
+    /**
+     * Método para buscar documentos de um PRONAC
+     * @access public
+     * @static
+     * @param integer $idPronac
+     * @return object
+     */
+    public static function buscardocumentos($idPronac)
+    {
+        $sql = "SELECT doc.idComprovante AS id, 
 				doc.idTipoDocumento, 
 				tipodoc.dsTipoDocumento, 
 				doc.nmComprovante AS Nome,
@@ -46,59 +46,50 @@ class Execucaofisicaprojeto extends Zend_Db_Table
 				AND proj.AnoProjeto+proj.Sequencial  = '" . $idPronac . "' 
 			ORDER BY doc.dtEnvioComprovante DESC;";
 
-		try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-			return $db->fetchAll($sql);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao buscar Comprovantes: " . $e->getMessage();
-		}
-
-	} // fecha método buscar()
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+            return $db->fetchAll($sql);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar Comprovantes: " . $e->getMessage();
+        }
+    } // fecha método buscar()
 
 
 
-	/**
-	 * Método para cadastrar documentos do PRONAC
-	 * @access public
-	 * @param void
-	 * @return object
-	 */
-	public static function cadastrar($dados)
-	{
-		/*$sql = "INSERT INTO BDCORPORATIVO.scSAC.tbComprovanteExecucao ";
-		$sql.= "VALUES ($dados['idPRONAC'], $dados['idTipoDocumento'], $dados['nmComprovante'], $dados['dsComprovante'], $dados['idArquivo'], $dados['idSolicitante'], $dados['dtEnvioComprovante'], $dados['stComprovante'], $dados['stComprovante'], $dados['idComprovanteAnterior'])";*/
-
-	} // fecha método cadastrar()
-
-
-
-	/**
-	 * Método para alterar documentos do PRONAC
-	 * @access public
-	 * @param void
-	 * @return object
-	 */
-	public static function alterar()
-	{
-		
-	} // fecha método alterar()
+    /**
+     * Método para cadastrar documentos do PRONAC
+     * @access public
+     * @param void
+     * @return object
+     */
+    public static function cadastrar($dados)
+    {
+        /*$sql = "INSERT INTO BDCORPORATIVO.scSAC.tbComprovanteExecucao ";
+        $sql.= "VALUES ($dados['idPRONAC'], $dados['idTipoDocumento'], $dados['nmComprovante'], $dados['dsComprovante'], $dados['idArquivo'], $dados['idSolicitante'], $dados['dtEnvioComprovante'], $dados['stComprovante'], $dados['stComprovante'], $dados['idComprovanteAnterior'])";*/
+    } // fecha método cadastrar()
 
 
 
-	/**
-	 * Método para excluir documentos do PRONAC
-	 * @access public
-	 * @param void
-	 * @return object
-	 */
-	public static function excluir()
-	{
-		
-	} // fecha método excluir()
+    /**
+     * Método para alterar documentos do PRONAC
+     * @access public
+     * @param void
+     * @return object
+     */
+    public static function alterar()
+    {
+    } // fecha método alterar()
 
+
+
+    /**
+     * Método para excluir documentos do PRONAC
+     * @access public
+     * @param void
+     * @return object
+     */
+    public static function excluir()
+    {
+    } // fecha método excluir()
 } // fecha class
-?>

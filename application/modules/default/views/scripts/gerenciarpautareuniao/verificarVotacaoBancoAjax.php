@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -15,7 +15,3 @@ print_r("1");die;
 $idpronac    = $_GET['idpronac'];
 $idagente    = $_GET['idagente'];
 $idnrreuniao = $_GET['idnrreuniao'];
-
-
-
-?>

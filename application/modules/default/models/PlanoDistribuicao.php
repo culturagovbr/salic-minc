@@ -15,29 +15,63 @@ class PlanoDistribuicao extends MinC_Db_Table_Abstract
         $tmpTblPlanoDistribuicao = new PlanoDistribuicao();
 
         //DECIDINDO SE SERA FEITA UM INSERT OU UPDATE
-        if(!empty($dados['idPlanoDistribuicao'])){
+        if (!empty($dados['idPlanoDistribuicao'])) {
             $tmpRsPlanoDistribuicao = $tmpTblPlanoDistribuicao->find($dados['idPlanoDistribuicao'])->current();
-        }else{
+        } else {
             $tmpRsPlanoDistribuicao = $tmpTblPlanoDistribuicao->createRow();
         }
         //ATRIBUINDO VALORES AOS CAMPOS QUE FORAM PASSADOS
-        if(isset($dados['idProjeto'])){ $tmpRsPlanoDistribuicao->idProjeto = $dados['idProjeto']; }
-        if(isset($dados['idProduto'])){ $tmpRsPlanoDistribuicao->idProduto = $dados['idProduto']; }
-        if(isset($dados['Area'])){ $tmpRsPlanoDistribuicao->Area = $dados['Area']; }
-        if(isset($dados['Segmento'])){ $tmpRsPlanoDistribuicao->Segmento = $dados['Segmento']; }
-        if(isset($dados['idPosicaoDaLogo'])){ $tmpRsPlanoDistribuicao->idPosicaoDaLogo = $dados['idPosicaoDaLogo']; }
-        if(isset($dados['QtdeProduzida'])){ $tmpRsPlanoDistribuicao->QtdeProduzida = $dados['QtdeProduzida']; }
-        if(isset($dados['QtdePatrocinador'])){ $tmpRsPlanoDistribuicao->QtdePatrocinador = $dados['QtdePatrocinador']; }
-        if(isset($dados['QtdeProponente'])){ $tmpRsPlanoDistribuicao->QtdeProponente = $dados['QtdeProponente']; }
-        if(isset($dados['QtdeOutros'])){ $tmpRsPlanoDistribuicao->QtdeOutros = $dados['QtdeOutros']; }
-        if(isset($dados['QtdeVendaNormal'])){ $tmpRsPlanoDistribuicao->QtdeVendaNormal = $dados['QtdeVendaNormal']; }
-        if(isset($dados['QtdeVendaPromocional'])){ $tmpRsPlanoDistribuicao->QtdeVendaPromocional = $dados['QtdeVendaPromocional']; }
-        if(isset($dados['PrecoUnitarioNormal'])){ $tmpRsPlanoDistribuicao->PrecoUnitarioNormal = $dados['PrecoUnitarioNormal']; }
-        if(isset($dados['PrecoUnitarioPromocional'])){ $tmpRsPlanoDistribuicao->PrecoUnitarioPromocional = $dados['PrecoUnitarioPromocional']; }
-        if(isset($dados['stPrincipal'])){ $tmpRsPlanoDistribuicao->stPrincipal = $dados['stPrincipal']; }
-        if(isset($dados['Usuario'])){ $tmpRsPlanoDistribuicao->Usuario = $dados['Usuario']; }
-        if(isset($dados['dsJustificativaPosicaoLogo'])){ $tmpRsPlanoDistribuicao->dsJustificativaPosicaoLogo = $dados['dsJustificativaPosicaoLogo'] ; }
-        if(isset($dados['stPlanoDistribuicaoProduto'])){ $tmpRsPlanoDistribuicao->stPlanoDistribuicaoProduto = $dados['stPlanoDistribuicaoProduto'] ; }
+        if (isset($dados['idProjeto'])) {
+            $tmpRsPlanoDistribuicao->idProjeto = $dados['idProjeto'];
+        }
+        if (isset($dados['idProduto'])) {
+            $tmpRsPlanoDistribuicao->idProduto = $dados['idProduto'];
+        }
+        if (isset($dados['Area'])) {
+            $tmpRsPlanoDistribuicao->Area = $dados['Area'];
+        }
+        if (isset($dados['Segmento'])) {
+            $tmpRsPlanoDistribuicao->Segmento = $dados['Segmento'];
+        }
+        if (isset($dados['idPosicaoDaLogo'])) {
+            $tmpRsPlanoDistribuicao->idPosicaoDaLogo = $dados['idPosicaoDaLogo'];
+        }
+        if (isset($dados['QtdeProduzida'])) {
+            $tmpRsPlanoDistribuicao->QtdeProduzida = $dados['QtdeProduzida'];
+        }
+        if (isset($dados['QtdePatrocinador'])) {
+            $tmpRsPlanoDistribuicao->QtdePatrocinador = $dados['QtdePatrocinador'];
+        }
+        if (isset($dados['QtdeProponente'])) {
+            $tmpRsPlanoDistribuicao->QtdeProponente = $dados['QtdeProponente'];
+        }
+        if (isset($dados['QtdeOutros'])) {
+            $tmpRsPlanoDistribuicao->QtdeOutros = $dados['QtdeOutros'];
+        }
+        if (isset($dados['QtdeVendaNormal'])) {
+            $tmpRsPlanoDistribuicao->QtdeVendaNormal = $dados['QtdeVendaNormal'];
+        }
+        if (isset($dados['QtdeVendaPromocional'])) {
+            $tmpRsPlanoDistribuicao->QtdeVendaPromocional = $dados['QtdeVendaPromocional'];
+        }
+        if (isset($dados['PrecoUnitarioNormal'])) {
+            $tmpRsPlanoDistribuicao->PrecoUnitarioNormal = $dados['PrecoUnitarioNormal'];
+        }
+        if (isset($dados['PrecoUnitarioPromocional'])) {
+            $tmpRsPlanoDistribuicao->PrecoUnitarioPromocional = $dados['PrecoUnitarioPromocional'];
+        }
+        if (isset($dados['stPrincipal'])) {
+            $tmpRsPlanoDistribuicao->stPrincipal = $dados['stPrincipal'];
+        }
+        if (isset($dados['Usuario'])) {
+            $tmpRsPlanoDistribuicao->Usuario = $dados['Usuario'];
+        }
+        if (isset($dados['dsJustificativaPosicaoLogo'])) {
+            $tmpRsPlanoDistribuicao->dsJustificativaPosicaoLogo = $dados['dsJustificativaPosicaoLogo'] ;
+        }
+        if (isset($dados['stPlanoDistribuicaoProduto'])) {
+            $tmpRsPlanoDistribuicao->stPlanoDistribuicaoProduto = $dados['stPlanoDistribuicaoProduto'] ;
+        }
 
 //        echo "<pre>";
 
@@ -45,9 +79,9 @@ class PlanoDistribuicao extends MinC_Db_Table_Abstract
 
         $id = $tmpRsPlanoDistribuicao->save();
 
-        if($id){
+        if ($id) {
             return $id;
-        }else{
+        } else {
             return false;
         }
     }
@@ -62,12 +96,12 @@ class PlanoDistribuicao extends MinC_Db_Table_Abstract
      */
     public function buscar($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
     {
-            // criando objeto do tipo select
-            $slct = $this->select();
+        // criando objeto do tipo select
+        $slct = $this->select();
 
-            $slct->setIntegrityCheck(false);
+        $slct->setIntegrityCheck(false);
 
-            $cols = array_merge($this->_getCols(), array(
+        $cols = array_merge($this->_getCols(), array(
                 "FORMAT(a.QtdeProponente, '0,0','pt-br') as QtdeProponente",
                 "FORMAT(a.QtdeProduzida, '0,0','pt-br') as QtdeProduzida",
                 "FORMAT(a.QtdePatrocinador, '0,0','pt-br') as QtdePatrocinador",
@@ -87,46 +121,51 @@ class PlanoDistribuicao extends MinC_Db_Table_Abstract
                 "FORMAT( a.ReceitaPopularPromocional, 'N', 'pt-br') AS ValorMedioProponente"
             ));
 
-            $slct->from(array("a"=> $this->_name), $cols, $this->_schema);
-            $slct->joinInner(array("b"=>"produto"),
+        $slct->from(array("a"=> $this->_name), $cols, $this->_schema);
+        $slct->joinInner(
+                array("b"=>"produto"),
                             "a.idproduto = b.codigo",
                             array("Produto"=>"b.descricao"),
-                            $this->_schema);
-            $slct->joinInner(array("ar"=>"area"),
+                            $this->_schema
+            );
+        $slct->joinInner(
+                array("ar"=>"area"),
                             "a.area = ar.codigo",
-                            array("DescricaoArea"=>"ar.descricao"),  $this->_schema);
-            $slct->joinInner(array("s"=>"segmento"),
+                            array("DescricaoArea"=>"ar.descricao"),
+                $this->_schema
+            );
+        $slct->joinInner(
+                array("s"=>"segmento"),
                             "a.segmento = s.codigo",
-                            array("DescricaoSegmento"=>"s.descricao"),  $this->_schema);
+                            array("DescricaoSegmento"=>"s.descricao"),
+                $this->_schema
+            );
 
-            $slct->where('a.stplanodistribuicaoproduto = ?', '1');
+        $slct->where('a.stplanodistribuicaoproduto = ?', '1');
 
-            // adicionando clausulas where
-            foreach ($where as $coluna=>$valor)
-            {
-                    $slct->where($coluna, $valor);
+        // adicionando clausulas where
+        foreach ($where as $coluna=>$valor) {
+            $slct->where($coluna, $valor);
+        }
+
+        // adicionando linha order ao select
+        $slct->order($order);
+
+        // paginacao
+        if ($tamanho > -1) {
+            $tmpInicio = 0;
+            if ($inicio > -1) {
+                $tmpInicio = $inicio;
             }
-
-            // adicionando linha order ao select
-            $slct->order($order);
-
-            // paginacao
-            if ($tamanho > -1)
-            {
-                    $tmpInicio = 0;
-                    if ($inicio > -1)
-                    {
-                            $tmpInicio = $inicio;
-                    }
-                    $slct->limit($tamanho, $tmpInicio);
-            }
+            $slct->limit($tamanho, $tmpInicio);
+        }
 //            echo $slct;die;
 
-            //SETANDO A QUANTIDADE DE REGISTROS
-            $this->_totalRegistros = $this->pegaTotal($where);
-            //$this->_totalRegistros = 100;
-            // retornando os registros conforme objeto select
-            return $this->fetchAll($slct);
+        //SETANDO A QUANTIDADE DE REGISTROS
+        $this->_totalRegistros = $this->pegaTotal($where);
+        //$this->_totalRegistros = 100;
+        // retornando os registros conforme objeto select
+        return $this->fetchAll($slct);
     }
 
     /**
@@ -166,8 +205,7 @@ class PlanoDistribuicao extends MinC_Db_Table_Abstract
                 $this->_schema
         );
 
-        foreach ($where as $coluna=>$valor)
-        {
+        foreach ($where as $coluna=>$valor) {
             $slct->where($coluna, $valor);
         }
 
@@ -184,57 +222,62 @@ class PlanoDistribuicao extends MinC_Db_Table_Abstract
      */
     public function pegaTotal($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
     {
-            // criando objeto do tipo select
-            $slct = $this->select();
+        // criando objeto do tipo select
+        $slct = $this->select();
 
-            $slct->setIntegrityCheck(false);
+        $slct->setIntegrityCheck(false);
 
-            $slct->from(array("a"=> $this->_name), '*', $this->_schema);
-            $slct->joinInner(array("b"=>"Produto"),
+        $slct->from(array("a"=> $this->_name), '*', $this->_schema);
+        $slct->joinInner(
+                array("b"=>"Produto"),
                             "a.idProduto = b.Codigo",
-                            array("Produto"=>"b.Descricao"),  $this->_schema);
-            $slct->joinLeft(array("c"=>"verificacao"),
+                            array("Produto"=>"b.Descricao"),
+                $this->_schema
+            );
+        $slct->joinLeft(
+                array("c"=>"verificacao"),
                             "a.idPosicaoDaLogo = c.idVerificacao",
-                            array("PosicaoLogomarca"=>"c.Descricao"),  $this->_schema);
+                            array("PosicaoLogomarca"=>"c.Descricao"),
+                $this->_schema
+            );
 
-			$slct->where('a.stPlanoDistribuicaoProduto = ?', '1');
+        $slct->where('a.stPlanoDistribuicaoProduto = ?', '1');
 
-            // adicionando clausulas where
-            foreach ($where as $coluna=>$valor)
-            {
-                    $slct->where($coluna, $valor);
+        // adicionando clausulas where
+        foreach ($where as $coluna=>$valor) {
+            $slct->where($coluna, $valor);
+        }
+
+        // adicionando linha order ao select
+        $slct->order($order);
+
+        // paginacao
+        if ($tamanho > -1) {
+            $tmpInicio = 0;
+            if ($inicio > -1) {
+                $tmpInicio = $inicio;
             }
-
-            // adicionando linha order ao select
-            $slct->order($order);
-
-            // paginacao
-            if ($tamanho > -1)
-            {
-                    $tmpInicio = 0;
-                    if ($inicio > -1)
-                    {
-                            $tmpInicio = $inicio;
-                    }
-                    $slct->limit($tamanho, $tmpInicio);
-            }
-            try{
-                        $rows = $this->fetchAll($slct);
-                        return $rows->count();
-            }catch(Exception $e){
-                echo ($slct->assemble());die;
-            }
+            $slct->limit($tamanho, $tmpInicio);
+        }
+        try {
+            $rows = $this->fetchAll($slct);
+            return $rows->count();
+        } catch (Exception $e) {
+            echo($slct->assemble());
+            die;
+        }
     }
 
-    public function apagar($id){
+    public function apagar($id)
+    {
         $objApagar = $this->find($id)->current();
 
         return $objApagar->delete();
     }
 
-    public function atualizarAreaESegmento($area, $segmento, $idProjeto) {
+    public function atualizarAreaESegmento($area, $segmento, $idProjeto)
+    {
         try {
-
             $arrayDadosPlanoDistribuicaoProduto = array(
                 'Area' => $area,
                 'Segmento' => $segmento
@@ -252,30 +295,40 @@ class PlanoDistribuicao extends MinC_Db_Table_Abstract
 
     public function buscarPlanoDistribuicaoDetalhadoByIdProjeto($idPreProjeto, $where = array(), $order = null)
     {
-
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(array("p" => 'PlanoDistribuicaoProduto'), $this->_getCols(), $this->_schema);
 
-        $slct->joinInner(array("d" => "tbDetalhaPlanoDistribuicao"),
+        $slct->joinInner(
+            array("d" => "tbDetalhaPlanoDistribuicao"),
             "p.idPlanoDistribuicao = d.idPlanoDistribuicao",
-            '*', $this->_schema);
+            '*',
+            $this->_schema
+        );
 
         $slct->joinInner(array('uf' => 'uf'), 'uf.CodUfIbge = d.idUF', 'uf.descricao AS DescricaoUf', $this->_schema);
 
-        $slct->joinInner(array('mun' => 'municipios'), 'mun.idmunicipioibge = d.idMunicipio','mun.descricao as DescricaoMunicipio', $this->getSchema('agentes'));
+        $slct->joinInner(array('mun' => 'municipios'), 'mun.idmunicipioibge = d.idMunicipio', 'mun.descricao as DescricaoMunicipio', $this->getSchema('agentes'));
 
-        $slct->joinInner(array("b"=>"produto"),
+        $slct->joinInner(
+            array("b"=>"produto"),
             "p.idproduto = b.codigo",
             array("Produto"=>"b.descricao"),
-            $this->_schema);
+            $this->_schema
+        );
 
-        $slct->joinInner(array("ar"=>"area"),
+        $slct->joinInner(
+            array("ar"=>"area"),
             "p.area = ar.codigo",
-            array("DescricaoArea"=>"ar.descricao"),  $this->_schema);
-        $slct->joinInner(array("s"=>"segmento"),
+            array("DescricaoArea"=>"ar.descricao"),
+            $this->_schema
+        );
+        $slct->joinInner(
+            array("s"=>"segmento"),
             "p.segmento = s.codigo",
-            array("DescricaoSegmento"=>"s.descricao"),  $this->_schema);
+            array("DescricaoSegmento"=>"s.descricao"),
+            $this->_schema
+        );
 
         $slct->where('p.idProjeto = ?', $idPreProjeto);
 
@@ -287,7 +340,6 @@ class PlanoDistribuicao extends MinC_Db_Table_Abstract
 
         try {
             return $this->fetchAll($slct)->toArray();
-
         } catch (Exception $e) {
             echo($slct->assemble());
             die;
@@ -303,7 +355,6 @@ class PlanoDistribuicao extends MinC_Db_Table_Abstract
      */
     public function updateConsolidacaoPlanoDeDistribuicao($idPlanoDistribuicao)
     {
-
         $cols = array(
             'COALESCE(sum(qtExemplares),0) as QtdeProduzida',
             'COALESCE(sum(qtGratuitaDivulgacao), 0) as QtdeProponente',
@@ -336,7 +387,8 @@ class PlanoDistribuicao extends MinC_Db_Table_Abstract
         $db->update('planodistribuicaoproduto', $dados, "idPlanoDistribuicao = " . $idPlanoDistribuicao);
     }
 
-    public function buscarIdVinculada($idPreProjeto) {
+    public function buscarIdVinculada($idPreProjeto)
+    {
         $sqlVinculada = "SELECT idOrgao as idVinculada
                                     FROM sac.dbo.PlanoDistribuicaoProduto t
                                     INNER JOIN vSegmento s on (t.Segmento = s.Codigo)
@@ -345,5 +397,4 @@ class PlanoDistribuicao extends MinC_Db_Table_Abstract
         $db = Zend_Db_Table::getDefaultAdapter();
         return $db->fetchOne($sqlVinculada);
     }
-
 }

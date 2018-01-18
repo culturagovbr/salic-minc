@@ -29,7 +29,7 @@ class Autenticacao_PerfilController extends MinC_Controller_Action_Abstract
         $GrupoAtivo->codOrgao = $codOrgao; // armazena o órgão ativo na sessão
 
 
-        if($GrupoAtivo->codGrupo == "1111" && $GrupoAtivo->codOrgao == "2222"){
+        if ($GrupoAtivo->codGrupo == "1111" && $GrupoAtivo->codOrgao == "2222") {
             $tblSGCacesso = new Autenticacao_Model_Sgcacesso();
             $cpf = $auth->getIdentity()->usu_identificacao;
             $rsSGCacesso = $tblSGCacesso->buscar(array("Cpf = ? " => $cpf))->current()->toArray();

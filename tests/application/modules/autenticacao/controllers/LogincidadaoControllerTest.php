@@ -12,14 +12,14 @@
  */
 class LogincidadaoControllerTest extends MinC_Test_ControllerActionTestCase {
 
-    public function testIndex()
-    {
-        $this->dispatch('/autenticacao/logincidadao');
-        $this->assertModule('autenticacao');
-        $this->assertController('logincidadao');
-        $this->assertAction('index');
-        $this->assertRedirect('/autenticacao/logincidadao/oauth2callback');
-    }
+    /* public function testIndex() */
+    /* { */
+    /*     $this->dispatch('/autenticacao/logincidadao'); */
+    /*     $this->assertModule('autenticacao'); */
+    /*     $this->assertController('logincidadao'); */
+    /*     $this->assertAction('index'); */
+    /*     $this->assertRedirect('/autenticacao/logincidadao/oauth2callback'); */
+    /* } */
 
     /*
      * @todo: Tomar como base OPAuth/tests/Opauth/OpauthTest.php

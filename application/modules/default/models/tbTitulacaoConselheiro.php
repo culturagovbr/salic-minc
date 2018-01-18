@@ -6,7 +6,8 @@ class tbTitulacaoConselheiro extends MinC_Db_Table_Abstract
     protected $_schema  = "agentes";
     protected $_name    = "tbtitulacaoconselheiro";
 
-    public function buscarTitulacao($retornaSQL = false){
+    public function buscarTitulacao($retornaSQL = false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -22,16 +23,18 @@ class tbTitulacaoConselheiro extends MinC_Db_Table_Abstract
                            );
         $select->order('nm.Descricao');
 
-        if($retornaSQL)
+        if ($retornaSQL) {
             return $select;
-        else
+        } else {
             return $this->fetchAll($select);
+        }
     }
 
     /*
      * Buscar os conselheiros trazendo os dados da tabela Agentes.
      */
-    public function buscarConselheirosTitulares(){
+    public function buscarConselheirosTitulares()
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -40,8 +43,10 @@ class tbTitulacaoConselheiro extends MinC_Db_Table_Abstract
             $this->_schema
         );
         $select->joinInner(
-            array('b'=>'Nomes'), 'a.idAgente = b.idAgente',
-            array('Nome'=>'b.Descricao AS nome'), 'agentes'
+            array('b'=>'Nomes'),
+            'a.idAgente = b.idAgente',
+            array('Nome'=>'b.Descricao AS nome'),
+            'agentes'
         );
         $select->where('a.stConselheiro = ?', "A");
         $select->order('b.descricao');
@@ -52,7 +57,8 @@ class tbTitulacaoConselheiro extends MinC_Db_Table_Abstract
     /*
      * Buscar os conselheiros trazendo os dados da tabela de Usuario.
      */
-    public function buscarConselheirosTitularesTbUsuarios(){
+    public function buscarConselheirosTitularesTbUsuarios()
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -63,12 +69,16 @@ class tbTitulacaoConselheiro extends MinC_Db_Table_Abstract
             $this->_schema
         );
         $select->joinInner(
-            array('b'=>'Agentes'), 'a.idAgente = b.idAgente',
-            array(), 'AGENTES.dbo'
+            array('b'=>'Agentes'),
+            'a.idAgente = b.idAgente',
+            array(),
+            'AGENTES.dbo'
         );
         $select->joinInner(
-            array('c'=>'Usuarios'), 'c.usu_identificacao = b.CNPJCPF',
-            array(), 'TABELAS.dbo'
+            array('c'=>'Usuarios'),
+            'c.usu_identificacao = b.CNPJCPF',
+            array(),
+            'TABELAS.dbo'
         );
         $select->where('a.stConselheiro = ?', "A");
         $select->order('c.usu_nome');

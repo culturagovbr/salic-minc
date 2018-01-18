@@ -81,7 +81,6 @@ class Agente_Model_DbTable_Visao extends MinC_Db_Table_Abstract
             }
             $objSelect->order("2");
             $dados = $db->fetchAll($objSelect);
-
         }
         return $dados;
     }
@@ -97,8 +96,8 @@ class Agente_Model_DbTable_Visao extends MinC_Db_Table_Abstract
         return $insert ? true : false;
     }
 
-    public function buscarVisoes($visao = null) {
-
+    public function buscarVisoes($visao = null)
+    {
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_ASSOC);
 

@@ -9,7 +9,8 @@
  * @link http://www.cultura.gov.br
  */
 
-class vwProjetoDistribuidoVinculada extends MinC_Db_Table_Abstract {
+class vwProjetoDistribuidoVinculada extends MinC_Db_Table_Abstract
+{
 
     /* dados da tabela */
     protected $_banco  = 'SAC';
@@ -18,7 +19,8 @@ class vwProjetoDistribuidoVinculada extends MinC_Db_Table_Abstract {
     protected $_primary = 'Pronac';
 
 
-    public function buscarUnidades($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false) {
+    public function buscarUnidades($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -26,7 +28,7 @@ class vwProjetoDistribuidoVinculada extends MinC_Db_Table_Abstract {
             array('*')
         );
 
-       //adiciona quantos filtros foram enviados
+        //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
@@ -50,5 +52,4 @@ class vwProjetoDistribuidoVinculada extends MinC_Db_Table_Abstract {
         
         return $this->fetchAll($select);
     }
-
 } // fecha class

@@ -12,7 +12,6 @@
  */
 class ConsultaReuniaoDAO
 {
-
     public static function listaReuniao($idreuniao=null)
     {
         $sql = "SELECT
@@ -24,22 +23,16 @@ class ConsultaReuniaoDAO
                      tbr.stEstado
                      FROM SAC.dbo.tbReuniao tbr
                      JOIN BDCORPORATIVO.scSAC.tbPauta tp ON tp.idNrReuniao = tbr.idNrReuniao";
-        if (!empty($idreuniao))
-        {
+        if (!empty($idreuniao)) {
             $sql .= " where tbr.idnrreuniao=$idreuniao";
-        }
-        else
-        {
+        } else {
             $sql .= " where tbr.stEstado = 0";
         }
 
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
         }
 
@@ -60,13 +53,10 @@ class ConsultaReuniaoDAO
                      JOIN BDCORPORATIVO.scSAC.tbPauta tp ON tp.idNrReuniao = tbr.idNrReuniao
                WHERE tbr.stEstado = 0";
 
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro: " . $e->getMessage();
         }
 
@@ -93,13 +83,10 @@ class ConsultaReuniaoDAO
                 and  ((ap.DtAprovacao in (select max(DtAprovacao) as dtaprovacao from SAC.dbo.Aprovacao where IdPRONAC=pr.IdPRONAC)) or tp.stAnalise = 'IS')
                 order by 7 asc";
 
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = " Erro: " . $e->getMessage();
         }
         return $db->fetchAll($sql);
@@ -123,13 +110,10 @@ class ConsultaReuniaoDAO
                      tbr.DtFechamento,
                      tbr.DtFinal";
 
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro: " . $e->getMessage();
         }
 
@@ -140,20 +124,16 @@ class ConsultaReuniaoDAO
     {
         $sql = "SELECT idNrReuniao, stEstado from SAC.dbo.tbReuniao WHERE stEstado = 0";
 
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro: " . $e->getMessage();
         }
 
 //        return $sql; die;
         return $db->fetchAll($sql);
     }
-
 }
 ?>
 

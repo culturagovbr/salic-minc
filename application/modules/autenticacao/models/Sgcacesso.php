@@ -2,7 +2,6 @@
 
 class Autenticacao_Model_Sgcacesso extends MinC_Db_Table_Abstract
 {
-
     protected $_name = 'sgcacesso';
     protected $_schema = 'controledeacesso';
     protected $_primary = 'Cpf';
@@ -44,13 +43,13 @@ class Autenticacao_Model_Sgcacesso extends MinC_Db_Table_Abstract
 
         if ($conexao == "conexao_01") {
             $conexao_scriptcase = "conexao_scriptcase_01";
-        } else if ($conexao == "conexao_02") {
+        } elseif ($conexao == "conexao_02") {
             $conexao_scriptcase = "conexao_scriptcase_02";
-        } else if ($conexao == "conexao_03") {
+        } elseif ($conexao == "conexao_03") {
             $conexao_scriptcase = "conexao_scriptcase_03";
-        } else if ($conexao == "conexao_04") {
+        } elseif ($conexao == "conexao_04") {
             $conexao_scriptcase = "conexao_scriptcase_04";
-        } else if ($conexao == "conexao_05") {
+        } elseif ($conexao == "conexao_05") {
             $conexao_scriptcase = "conexao_scriptcase";
         }
 
@@ -109,8 +108,9 @@ class Autenticacao_Model_Sgcacesso extends MinC_Db_Table_Abstract
         $scriptSenha = $this->fetchRow($objSgcAcesso);
         $sql = $this->select();
         $sql->setIntegrityCheck(false);
-        $sql->from($this, array
-            (
+        $sql->from(
+            $this,
+            array(
                 'cpf',
                 'senha',
             )
@@ -141,20 +141,23 @@ class Autenticacao_Model_Sgcacesso extends MinC_Db_Table_Abstract
         }
     }
 
-    public function loginSemCript($username, $password) {
+    public function loginSemCript($username, $password)
+    {
         // busca o usu?rio de acordo com o login e a senha
 
 
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from($this, array(
+        $select->from(
+            $this,
+            array(
                 'cpf',
                 'senha',
             )
         );
         $select->where('cpf = ?', $username);
         /* if ($password != MinC_Controller_Action_Abstract::validarSenhaInicial()) { */
-            $select->where("senha  = ?", $password);
+        $select->where("senha  = ?", $password);
         /* } */
 
         $buscar = $this->fetchRow($select);
@@ -205,15 +208,33 @@ class Autenticacao_Model_Sgcacesso extends MinC_Db_Table_Abstract
                 $objSgcAcesso = $this->createRow();
             }
 
-            if (isset($dados['Cpf'])) $objSgcAcesso->Cpf = $dados['Cpf'];
-            if (isset($dados['Nome'])) $objSgcAcesso->Nome = $dados['Nome'];
-            if (isset($dados['DtNascimento'])) $objSgcAcesso->DtNascimento = $dados['DtNascimento'];
-            if (isset($dados['Email'])) $objSgcAcesso->Email = $dados['Email'];
-            if (isset($dados['Senha'])) $objSgcAcesso->Senha = $dados['Senha'];
-            if (isset($dados['DtCadastro'])) $objSgcAcesso->DtCadastro = $dados['DtCadastro'];
-            if (isset($dados['Situacao'])) $objSgcAcesso->Situacao = $dados['Situacao'];
-            if (isset($dados['DtSituacao'])) $objSgcAcesso->DtSituacao = $dados['DtSituacao'];
-            if (isset($dados['id_login_cidadao'])) $objSgcAcesso->id_login_cidadao = $dados['id_login_cidadao'];
+            if (isset($dados['Cpf'])) {
+                $objSgcAcesso->Cpf = $dados['Cpf'];
+            }
+            if (isset($dados['Nome'])) {
+                $objSgcAcesso->Nome = $dados['Nome'];
+            }
+            if (isset($dados['DtNascimento'])) {
+                $objSgcAcesso->DtNascimento = $dados['DtNascimento'];
+            }
+            if (isset($dados['Email'])) {
+                $objSgcAcesso->Email = $dados['Email'];
+            }
+            if (isset($dados['Senha'])) {
+                $objSgcAcesso->Senha = $dados['Senha'];
+            }
+            if (isset($dados['DtCadastro'])) {
+                $objSgcAcesso->DtCadastro = $dados['DtCadastro'];
+            }
+            if (isset($dados['Situacao'])) {
+                $objSgcAcesso->Situacao = $dados['Situacao'];
+            }
+            if (isset($dados['DtSituacao'])) {
+                $objSgcAcesso->DtSituacao = $dados['DtSituacao'];
+            }
+            if (isset($dados['id_login_cidadao'])) {
+                $objSgcAcesso->id_login_cidadao = $dados['id_login_cidadao'];
+            }
             return $objSgcAcesso->save();
         } catch (Exception $objException) {
             throw new Exception($objException->getMessage(), 0, $objException);
@@ -256,7 +277,7 @@ class Autenticacao_Model_Sgcacesso extends MinC_Db_Table_Abstract
     public function hasCPFCadastrado($cpf)
     {
         $sgcAcessoBuscaCpf = $this->buscar(array("Cpf = ?" => $cpf))->toArray();
-        if (!empty ($sgcAcessoBuscaCpf)) {
+        if (!empty($sgcAcessoBuscaCpf)) {
             return false;
         }
         return true;
@@ -265,10 +286,18 @@ class Autenticacao_Model_Sgcacesso extends MinC_Db_Table_Abstract
     public function hasEmailCadastrado($email)
     {
         $sgcAcessoBuscaEmail = $this->buscar(array("Email = ?" => $email))->toArray();
-        if (!empty ($sgcAcessoBuscaEmail)) {
+        if (!empty($sgcAcessoBuscaEmail)) {
             return false;
         }
         return true;
     }
-}
 
+    public function porCPF($cpf)
+    {
+        $objSgcAcesso = $this->select();
+        $objSgcAcesso->where('cpf = ?', $cpf);
+
+        $resultado = $this->fetchRow($objSgcAcesso);
+        return $resultado;
+    }
+}

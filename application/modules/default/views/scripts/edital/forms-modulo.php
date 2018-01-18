@@ -69,22 +69,26 @@
                 <td class="destacar bold " style="width: 15%">Regra para o campo</td>
                 <td class="destacar bold centro" style="width: 15%">Ações</td>
             </tr>
-            <?php if(empty($this->criterioparticipacao)){?>
+            <?php if (empty($this->criterioparticipacao)) {
+    ?>
             <tr id="trCriterio_zero">
                 <td colspan="3" class="centro"><em>Nenhum critério adicionado</em></td>
             </tr>
-            <?php } else { ?>
-            <?php foreach($this->criterioParticipacao as $critP): ?>
+            <?php
+} else {
+        ?>
+            <?php foreach ($this->criterioParticipacao as $critP): ?>
             <tr id="trCriterio_zero">
                 <td class="centro"><?php echo $critP['dsCriterioParticipacao']; ?></td>
                 <td class="centro"><?php echo $critP['rgCampo']; ?></td>
                 <td class="centro">
-                    <input type="button" class="btn_editar"     onclick="editarCriterioParticipacao('<?php echo $critP['idCriterioParticipacao'];?>');" />
-                    <input type="button" class="btn_exclusao"   onclick="excluirCriterioParticipacao('<?php echo $critP['idCriterioParticipacao'];?>');" />
+                    <input type="button" class="btn_editar"     onclick="editarCriterioParticipacao('<?php echo $critP['idCriterioParticipacao']; ?>');" />
+                    <input type="button" class="btn_exclusao"   onclick="excluirCriterioParticipacao('<?php echo $critP['idCriterioParticipacao']; ?>');" />
                 </td>
             </tr>
             <?php endforeach; ?>
-            <?php }?>
+            <?php
+    }?>
         </tbody></table>
 
     <br clear="all">

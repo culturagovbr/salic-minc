@@ -4,13 +4,14 @@
  *
  * @author Danilo Lisboa
  */
-class Prorrogacao extends MinC_Db_Table_Abstract {
-
+class Prorrogacao extends MinC_Db_Table_Abstract
+{
     protected $_banco   = 'SAC';
     protected $_name    = 'prorrogacao';
 
 
-    public function buscar($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
+    public function buscar($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slctQtdeMeses = "(SELECT DATEDIFF(MONTH,(SELECT max(DtRecibo) FROM SAC.dbo.Captacao WHERE Anoprojeto = pr.AnoProjeto and Sequencial = pr.Sequencial), getdate()) as qtdeMeses WHERE (SELECT max(DtRecibo) FROM SAC.dbo.Captacao WHERE Anoprojeto = pr.AnoProjeto and Sequencial = pr.Sequencial)<>'1900-01-01 00:00:00.000')";
@@ -45,7 +46,8 @@ class Prorrogacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function pegaTotal($where=array()) {
+    public function pegaTotal($where=array())
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -67,7 +69,8 @@ class Prorrogacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct)->current();
     }
 
-    public function buscarDadosProrrogacao($idProrrogacao) {
+    public function buscarDadosProrrogacao($idProrrogacao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -79,7 +82,8 @@ class Prorrogacao extends MinC_Db_Table_Abstract {
         return $this->fetchRow($select);
     }
 
-    public function buscarProrrogacoes($idPronac){
+    public function buscarProrrogacoes($idPronac)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -102,13 +106,12 @@ class Prorrogacao extends MinC_Db_Table_Abstract {
         $slct->joinLeft(
                 array('b'=>'Usuarios'),
                 'a.Logon = b.usu_codigo',
-                array('usu_nome as Usuario'), 'TABELAS.dbo'
+                array('usu_nome as Usuario'),
+            'TABELAS.dbo'
         );
         $slct->where('idPronac = ?', $idPronac);
 
         
         return $this->fetchAll($slct);
     }
-
 }
-?>

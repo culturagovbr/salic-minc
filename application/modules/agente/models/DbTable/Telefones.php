@@ -92,5 +92,4 @@ class Agente_Model_DbTable_Telefones extends MinC_Db_Table_Abstract
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
     }
-
 }

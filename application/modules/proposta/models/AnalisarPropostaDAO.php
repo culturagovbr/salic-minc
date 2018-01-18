@@ -1,13 +1,4 @@
 <?php
-
-/**
- * Proposta_Model_AnalisarPropostaDAO
- *
- * @uses Zend
- * @uses _Db_Table
- * @package
- * @author  wouerner <wouerner@gmail.com>
- */
 class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
 {
     /**
@@ -17,7 +8,6 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
     {
         die('enviado para o dbtable documentosexigidos');
         $sql = "select codigo, descricao from SAC.dbo.vwDocumentosExigidosApresentacaoProposta where opcao = {$idOpcao} order by descricao ";
-        //$sql = "select codigo,descricao from SAC.dbo.DocumentosExigidos where opcao=$idOpcao order by descricao";
 
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -351,7 +341,6 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
 
     public static function buscarHistorico($idPreProjeto)
     {
-
         $sql = "
         SELECT 'Proposta' as tipo,idProjeto,idTecnico,usu_Nome, convert(varchar(30),DtAvaliacao, 120 ) as DtAvaliacao, Avaliacao
             FROM       SAC.dbo.tbAvaliacaoProposta p
@@ -393,13 +382,9 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
 
             $db->fetchRow($sql);
-
-
         } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
-
-
     }
 
     public static function verificarAvaliacao($idPreProjeto)
@@ -426,7 +411,6 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
 
             $db->fetchRow($sql);
-
         } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
@@ -445,8 +429,6 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             $db->fetchRow($sql);
-
-
         } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
@@ -455,7 +437,6 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
     public static function inserirMovimentacao($dado)
     {
         try {
-
             $sql = "INSERT INTO sac.dbo.tbMovimentacao
                 (idProjeto,Movimentacao,DtMovimentacao,stEstado,Usuario)
                 VALUES (" . $dado['idPreProjeto'] . "," . $dado['movimentacao'] . ",getdate(),0," . $dado['idTecnico'] . ");";
@@ -463,13 +444,9 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             $db->fetchRow($sql);
-
-
         } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
-
-
     }
 
     public static function buscarDespacho($idPreProjeto)
@@ -499,7 +476,8 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
         try {
             $sql = "INSERT INTO sac.dbo.tbDespacho
                 (idProposta,Tipo,Data,Despacho,stEstado,idUsuario)
-                VALUES (" . $dado['idPreProjeto'] . ",129,getdate(),'" . $dado['despacho'] . "',0," . $dado['idTecnico'] . ");";;
+                VALUES (" . $dado['idPreProjeto'] . ",129,getdate(),'" . $dado['despacho'] . "',0," . $dado['idTecnico'] . ");";
+            ;
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             $db->fetchRow($sql);
@@ -522,7 +500,6 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
     public static function updateEstadoDespacho($IdProjeto)
     {
         try {
-
             $sql = "UPDATE SAC.dbo.tbDespacho
                      SET stEstado = 1
                      WHERE idProposta = $IdProjeto AND stEstado <> 1;";
@@ -530,13 +507,9 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             $db->fetchRow($sql);
-
-
         } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
-
-
     }
 
     public static function verificarMovimentcaoDespacho($idPreProjeto)
@@ -563,35 +536,27 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
         } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
-
-
     }
 
     public static function inserirDocumentoProjeto($dado)
     {
         try {
-
             $sql = "INSERT INTO sac.dbo.DocumentosProjeto
                 (idProjeto,CodigoDocumento)
                 VALUES (" . $dado['idPreProjeto'] . "," . $dado['CodigoDocumento'] . ");
-                ";;
+                ";
+            ;
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             $db->fetchRow($sql);
-
-
         } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
-
-
     }
 
     public static function updateDocumentoProponente($dado)
     {
         try {
-
-
             $sql = "UPDATE sac.dbo.DocumentosProponente
         SET CodigoDocumento = " . $dado['CodigoDocumento'] . "
         WHERE idProjeto=" . $dado['idPreProjeto'] . " and CodigoDocumento=" . $dado['iddocantigo'] . "";
@@ -599,20 +564,14 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             $db->fetchRow($sql);
-
-
         } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
-
-
     }
 
     public static function updateDocumentoProjeto($dado)
     {
         try {
-
-
             $sql = "UPDATE sac.dbo.DocumentosProjeto
         SET CodigoDocumento = " . $dado['CodigoDocumento'] . "
         WHERE idProjeto=" . $dado['idPreProjeto'] . " and CodigoDocumento=" . $dado['iddocantigo'] . "";
@@ -621,91 +580,63 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             $db->fetchRow($sql);
-
-
         } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
-
-
     }
 
     public static function deleteDocumentoProponente($idcontador)
     {
         try {
-
-
             $sql = "DELETE FROM sac.dbo.DocumentosProponente WHERE Contador = $idcontador";
 
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             $db->fetchRow($sql);
-
-
         } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
-
-
     }
 
     public static function deleteDocumentoProponentePeloProjeto($idProjeto)
     {
         try {
-
-
             $sql = "DELETE FROM sac.dbo.DocumentosProponente WHERE IdProjeto = $idProjeto";
 
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             $db->fetchRow($sql);
-
-
         } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
-
-
     }
 
     public static function deleteDocumentoProjeto($idcontador)
     {
         try {
-
-
             $sql = "DELETE FROM sac.dbo.DocumentosProjeto WHERE Contador = $idcontador";
 
 
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             $db->fetchRow($sql);
-
-
         } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
-
-
     }
 
     public static function deleteDocumentoProjetoPeloProjeto($idProjeto)
     {
         try {
-
-
             $sql = "DELETE FROM sac.dbo.DocumentosProjeto WHERE idProjeto = $idProjeto";
 
 
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             $db->fetchRow($sql);
-
-
         } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
-
-
     }
 
     public static function buscarFonte($idfonte)
@@ -782,7 +713,6 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
 
     public function recuperarQtdePropostaTecnicoOrgao($idTecnico, $idOrgao)
     {
-
         $sql = "
                 SELECT count(*) as qtdePropostas
                 FROM tbAvaliacaoProposta a

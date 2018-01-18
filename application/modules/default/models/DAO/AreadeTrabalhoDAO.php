@@ -1,13 +1,13 @@
 <?php
-Class AreadeTrabalhoDAO extends Zend_Db_Table{
+class AreadeTrabalhoDAO extends Zend_Db_Table
+{
+    protected $_name    = 'SAC.dbo.Projetos';
 
-       	protected $_name    = 'SAC.dbo.Projetos';
 
 
-
-       	public function buscarAnalise($idagente)
-       	{
-       		$sql = "
+    public function buscarAnalise($idagente)
+    {
+        $sql = "
                                 SELECT Pr.idPRONAC
        					,Pr.AnoProjeto + Pr.Sequencial AS PRONAC
 						,Pr.NomeProjeto
@@ -29,18 +29,18 @@ Class AreadeTrabalhoDAO extends Zend_Db_Table{
                                                 AND not exists(select 1 from BDCORPORATIVO.scSAC.tbPauta where idpronac = Pr.idPRONAC )
                                                 AND Pa.stAtivo = 1
 			";
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			$resultado = $db->fetchAll($sql);
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $resultado = $db->fetchAll($sql);
 
-			return $resultado;
-		}
+        return $resultado;
+    }
 
 
 
-       	public function buscarResposta($idagente)
-       	{
-       		$sql1 = "SELECT Pr.idPRONAC
+    public function buscarResposta($idagente)
+    {
+        $sql1 = "SELECT Pr.idPRONAC
        					,Pr.AnoProjeto + Pr.Sequencial AS PRONAC
 						,Pr.NomeProjeto
 						,CASE WHEN Pa.ParecerFavoravel in ('2','3')
@@ -56,21 +56,21 @@ Class AreadeTrabalhoDAO extends Zend_Db_Table{
                                         AND  D.idSolicitante = $idagente
                                         And D.DtResposta is not null
 			";
-			//AND d.idSolicitante = idParametro";
+        //AND d.idSolicitante = idParametro";
 //                die('<pre>'.$sql1);
 
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			$resultado1 = $db->fetchAll($sql1);
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $resultado1 = $db->fetchAll($sql1);
 
-			return $resultado1;
-       	}
+        return $resultado1;
+    }
 
 
 
-		public function buscarDiligencia($idagente)
-       	{
-       		$sql2 = "SELECT Pr.idPRONAC
+    public function buscarDiligencia($idagente)
+    {
+        $sql2 = "SELECT Pr.idPRONAC
 						,Pr.AnoProjeto + Pr.Sequencial AS PRONAC
 						,Pr.NomeProjeto
 						,CASE WHEN Pa.ParecerFavoravel in ('2','3')
@@ -86,18 +86,18 @@ Class AreadeTrabalhoDAO extends Zend_Db_Table{
                                         and D.idSolicitante = $idagente
 					AND Pr.Situacao = 'B14'
 			";
-			//AND d.idSolicitante = idParametro";
-//die('<pre>'.$sql2);
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			$resultado2 = $db->fetchAll($sql2);
+        //AND d.idSolicitante = idParametro";
+        //die('<pre>'.$sql2);
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $resultado2 = $db->fetchAll($sql2);
 
-			return $resultado2;
-       	}
-       	
-       	
-       	
-       	public function mostrar(){
-       		
-       	}
+        return $resultado2;
+    }
+           
+           
+           
+    public function mostrar()
+    {
+    }
 }

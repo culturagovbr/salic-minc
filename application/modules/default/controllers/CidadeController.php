@@ -1,16 +1,4 @@
 <?php
-/**
- * CidadeController
- * @author Equipe RUP - Politec
- * @since 29/03/2010
- * @version 1.0
- * @package application
- * @subpackage application.controllers
- * @copyright c 2010 - Ministerio da Cultura - Todos os direitos reservados.
- * @link http://www.cultura.gov.br
- *
- * @todo verificar em qual modulo ficara este controller.
- */
 
 class CidadeController extends Zend_Controller_Action
 {

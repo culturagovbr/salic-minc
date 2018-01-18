@@ -12,16 +12,15 @@
 
 class Zend_View_Helper_FormatarReal
 {
-	/**
-	 * Formatar moeda em real
-	 * @access public
-	 * @param string $moeda
-	 * @return void
-	 */
-	function formatarReal($moeda)
-	{
-		$moeda = number_format($moeda, 2, ',', '.');
-		return "R$ " . $moeda;
-	} // fecha método formatarReal()
-
+    /**
+     * Formatar moeda em real
+     * @access public
+     * @param string $moeda
+     * @return void
+     */
+    public function formatarReal($moeda)
+    {
+        $moeda = number_format($moeda, 2, ',', '.');
+        return "R$ " . $moeda;
+    } // fecha método formatarReal()
 } // fecha class

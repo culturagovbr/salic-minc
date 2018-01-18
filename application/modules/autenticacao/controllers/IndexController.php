@@ -22,7 +22,6 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
         if ($this->view->from) {
             $this->view->from = base64_decode($this->view->from);
         }
-
     }
 
     /**
@@ -42,9 +41,9 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
 
             if (empty($username) || empty($password)) {
                 throw new Exception("Login ou Senha inv&aacute;lidos!");
-            } else if (strlen($username) == 11 && !Validacao::validarCPF($username)) {
+            } elseif (strlen($username) == 11 && !Validacao::validarCPF($username)) {
                 throw new Exception("O CPF informado &eacute; inv&aacute;lido!");
-            } else if (strlen($username) == 14 && !Validacao::validarCNPJ($username)) {
+            } elseif (strlen($username) == 14 && !Validacao::validarCNPJ($username)) {
                 throw new Exception("O CPF informado &eacute; inv&aacute;lido!");
             } else {
                 $Usuario = new Autenticacao_Model_Usuario();
@@ -74,7 +73,6 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
 //                        throw new Exception("Usuario inexistente!");
                 }
             }
-
         } catch (Exception $objException) {
             $this->_helper->json(array('status' => false, 'msg' => $objException->getMessage()));
         }
@@ -101,11 +99,10 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
             if (empty($username) || empty($password)) {
                 # verifica se os campos foram preenchidos
                 throw new Exception("Senha ou login inv&aacute;lidos");
-            } else if (strlen($username) == 11 && !Validacao::validarCPF($username)) {
+            } elseif (strlen($username) == 11 && !Validacao::validarCPF($username)) {
                 # verifica se o CPF e valido
                 throw new Exception("CPF inv&aacute;lido");
-            } else if (strlen($username) == 14 && !Validacao::validarCNPJ($username)) // verifica se o CNPJ e valido
-            {
+            } elseif (strlen($username) == 14 && !Validacao::validarCNPJ($username)) { // verifica se o CNPJ e valido
                 throw new Exception("CNPJ inv&aacute;lido");
             } else {
 
@@ -211,7 +208,7 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
 
             $sgcAcessoBuscaCpfArray = $sgcAcessoBuscaCpf->toArray();
 
-            if (!empty ($sgcAcessoBuscaCpfArray)) {
+            if (!empty($sgcAcessoBuscaCpfArray)) {
 //                parent::message("CPF j&aacute; cadastrado", "/autenticacao/index/cadastrarusuario", "ALERT");
                 $this->_helper->viewRenderer->setNoRender(true);
                 $this->_helper->json(array('status' => false, 'msg' => "CPF j&aacute; cadastrado"));
@@ -219,12 +216,12 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
                 $sgcAcessoBuscaEmail = $sgcAcesso->buscar(array("Email = ?" => $post->email));
                 $sgcAcessoBuscaEmailArray = $sgcAcessoBuscaEmail->toArray();
 
-                if (!empty ($sgcAcessoBuscaEmailArray)) {
+                if (!empty($sgcAcessoBuscaEmailArray)) {
 //                    parent::message("E-mail j&aacute; cadastrado", "/autenticacao/index/cadastrarusuario", "ALERT");
                     $this->_helper->viewRenderer->setNoRender(true);
                     $this->_helper->json(array('status' => false, 'msg' => 'E-mail j&aacute; cadastrado'));
                 } else {
-                    if (empty ($sgcAcessoBuscaCpfArray) && empty ($sgcAcessoBuscaEmailArray)) {
+                    if (empty($sgcAcessoBuscaCpfArray) && empty($sgcAcessoBuscaEmailArray)) {
                         /**
                          * ==============================================================
                          * INICIO DO VINCULO DO RESPONSAVEL COM ELE MESMO (PROPONENTE)
@@ -298,7 +295,7 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
 
             $sgcAcessoBuscaCpf = $sgcAcesso->buscar(array("Cpf = ?" => $cpf, "Email = ?" => $email, "DtNascimento = ?" => $dataNasc));
             $verificaUsuario = $sgcAcessoBuscaCpf->toArray();
-            if (empty ($verificaUsuario)) {
+            if (empty($verificaUsuario)) {
 //                parent::message("Dados incorretos!", "/autenticacao", "ALERT");
                 $this->_helper->viewRenderer->setNoRender(true);
                 $this->_helper->json(array('status' => false, 'msg' => 'Dados incorretos!'));
@@ -384,11 +381,9 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
             $dataFormatada = data::formatarDataMssql($auth->getIdentity()->DtNascimento);
             $this->view->dtNascimento = $dataFormatada;
             $this->view->email = $auth->getIdentity()->Email;
-
         }
 
         if ($_POST) {
-
             $post = Zend_Registry::get('post');
             $senhaAtual = $post->senhaAtual;
             $senhaNova = $post->senhaNova;
@@ -401,14 +396,14 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
             $sgcAcesso = new Autenticacao_Model_Sgcacesso();
 
             $idUsuario = $_POST['idUsuario'];
-            if (empty ($_POST['idUsuario'])) {
+            if (empty($_POST['idUsuario'])) {
                 $idUsuario = $_POST['idUsuarioGet'];
             }
 
             $buscarSenha = $sgcAcesso->findBy(array('idUsuario' => $idUsuario));
             $senhaAtualBanco = $buscarSenha['Senha'];
 
-            if (empty ($cpf)) {
+            if (empty($cpf)) {
                 $cpf = $buscarSenha['Cpf'];
             }
 
@@ -446,8 +441,7 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
                 }
             }
             if (trim($senhaNova) == trim($repeteSenha) && !empty($senhaNova) && !empty($repeteSenha)) {
-
-                if (empty ($idUsuario)) {
+                if (empty($idUsuario)) {
                     $post = Zend_Registry::get('post');
                     $idUsuario = $post->idUsuario;
                 }
@@ -497,7 +491,6 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
             $this->getIdUsuario = ($idUsuario) ? $idUsuario['idagente'] : $auth->getIdentity()->usu_codigo;
             //$this->getIdUsuario = empty($this->getIdUsuario) ? 0 : $this->getIdUsuario;
             /* ========== FIM ID DO USUARIO LOGADO ========== */
-
         }
 
         Zend_Layout::startMvc(array('layout' => 'layout'));
@@ -514,11 +507,9 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
             $this->view->idUsuario = $auth->getIdentity()->usu_codigo;
             $this->view->cpf = $auth->getIdentity()->usu_identificacao;
             $this->view->nome = $auth->getIdentity()->usu_nome;
-
         }
 
         if ($_POST) {
-
             $post = Zend_Registry::get('post');
 
             $senhaAtual = $post->senhaAtual; // recebe senha atua
@@ -530,7 +521,7 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
             $senhaAtual = str_replace("##aspa##", "'", $senhaAtual);
 
             $idUsuario = $_POST['idUsuario'];
-            if (empty ($_POST['idUsuario'])) {
+            if (empty($_POST['idUsuario'])) {
                 $idUsuario = $_POST['idUsuarioGet'];
             }
             $buscarSenha = $Usuario->buscar(array('usu_codigo = ?' => $idUsuario))->toArray();
@@ -575,7 +566,9 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
 
         $buscaUsuario = new Usuariosorgaosgrupos();
         $buscaUsuarioRs = $buscaUsuario->buscarUsuariosOrgaosGrupos(
-            array('gru_status > ?' => 0, 'sis_codigo = ?' => 21), array('usu_nome asc'));
+            array('gru_status > ?' => 0, 'sis_codigo = ?' => 21),
+            array('usu_nome asc')
+        );
 
         $this->view->buscaUsuario = $buscaUsuarioRs->toArray();
 
@@ -596,9 +589,10 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
                 array('usu_identificacao = ?' => $username, 'usu_senha = ?' => $senhaFinal)
             );
 
-            if (!empty ($usuarioRs)) {
+            if (!empty($usuarioRs)) {
                 $usuarioRs = $usuario->buscar(
-                    array('usu_identificacao = ?' => $idLogarComo))->current();
+                    array('usu_identificacao = ?' => $idLogarComo)
+                )->current();
                 $senha = $usuarioRs->usu_senha;
 
                 $Usuario = new Autenticacao_Model_Usuario();

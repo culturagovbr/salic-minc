@@ -10,16 +10,16 @@
  * @link http://www.cultura.gov.br
  */
 
-class tbTmpDepositoIdentificado extends MinC_Db_Table_Abstract{
+class tbTmpDepositoIdentificado extends MinC_Db_Table_Abstract
+{
     
     /* dados da tabela */
-	protected $_schema  = "sac";
-	protected $_name    = "tbTmpDepositoIdentificado";
+    protected $_schema  = "sac";
+    protected $_name    = "tbTmpDepositoIdentificado";
         
         
-        public function deletar($where){
-             $delete = $this->delete($where);
-        }
-    
+    public function deletar($where)
+    {
+        $delete = $this->delete($where);
+    }
 }
-?>

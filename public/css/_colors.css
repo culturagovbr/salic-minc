@@ -1,0 +1,353 @@
+/*
+Ajustes materialize com o SALIC
+
+Sugestão de organização do css, ajustar conforme o uso
+
+Paleta de cores by Jamile
+    Verde claro: #81C784
+    Verde médio: #4CAF50
+    Verde escuro: #1B5E20
+    Rosa: #FF8A80
+    Azul: #039BE5
+    Laranja: #FB8C00
+    Amarelo: #FDD835
+    Cinza claro: #FAFAFA
+    Cinza médio: #EEEEEE
+    Cinza escuro: #212121
+/*--------------------------------------------------------------
+x - CORES (legado)
+--------------------------------------------------------------*/
+#conteudo .red:not(.btn),
+#conteudo .red a,
+#conteudo table.tabela td.red {
+    color: #c30;
+    background: white !important;
+}
+
+#conteudo .green:not(.btn),
+#conteudo .green a,
+#conteudo table.tabela td.green {
+    color: #096;
+    background: white !important;
+}
+
+#conteudo .blue:not(.btn),
+#conteudo .blue a,
+#conteudo table.tabela td.blue {
+    color: #06c;
+    background: white !important;
+}
+
+#conteudo .orange:not(.btn),
+#conteudo .orange a,
+#conteudo table.tabela td.orange {
+    color: #f90;
+    background: white !important;
+}
+
+#conteudo .black:not(.btn),
+#conteudo .black a,
+#conteudo table.tabela td.black {
+    color: #000;
+    background: white !important;
+}
+
+#conteudo .white,
+#conteudo .white a {
+    color: #fff;
+}
+
+#conteudo .bg_red {
+    background: #c30;
+}
+
+#conteudo .bg_green {
+    background: #096;
+}
+
+#conteudo .bg_blue {
+    background: #06c;
+}
+
+#conteudo .bg_orange {
+    background: #f90;
+}
+
+#conteudo .bg_black {
+    background: #000;
+}
+
+#conteudo .bg_white {
+    background: #fff;
+}
+
+#conteudo .bold {
+    font-weight: bold;
+}
+
+#conteudo .del_link a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#conteudo label.error {
+    color: red;
+}
+
+/* cores conforme situacao */
+.AG {
+    color: #000;
+}
+
+.AV {
+    color: #000;
+}
+
+.EA {
+    color: #000;
+}
+
+.AD {
+    color: #096;
+}
+
+.AI {
+    color: #f00;
+}
+
+.CS {
+    color: #06f;
+}
+
+/*--------------------------------------------------------------
+x - CORES azul
+--------------------------------------------------------------*/
+/*body { background: #f8f8f8; }*/
+/*header #topo { background-color: #35839f; }*/
+/*#navbar-header nav { background-color: #2a6b81; }*/
+/*footer.page-footer { background-color: #2a6b81; }*/
+
+/*header #atalhos #combousuario {color: #fff}*/
+
+/*#titulo {*/
+/*background: linear-gradient(to bottom, #2a6b81 0%,rgba(53, 131, 159, 0) 0%,rgba(53, 131, 159, 0.15) 100%);*/
+/*color: #3c3b3b;*/
+/*}*/
+
+/*#conteudo .titulo_tabela,*/
+/*#conteudo table tr.destacar td,*/
+/*#conteudo table td.destacar,*/
+/*#conteudo table th {*/
+/*background-color: rgb(65, 129, 150);*/
+/*border: 1px solid #cacaca;*/
+/*background-color: rgb(236, 236, 236);*/
+/*color: #212121;*/
+/*}*/
+
+/*table.dataTable thead th,*/
+/*table.dataTable thead td {*/
+/*background: transparent;*/
+/*color: #212121;*/
+/*border-bottom: 3px solid #dddddd !important;*/
+/*}*/
+
+/*.btn,*/
+/*.btn-large,*/
+/*.btn-default,*/
+/*.btn-sucess,*/
+/*.btn-default,*/
+/*.btn-success {*/
+/*background-color: #2a6b81;*/
+/*color: #fff;*/
+/*}*/
+
+/*.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,*/
+/*.dataTables_wrapper .dataTables_paginate .paginate_button.current {*/
+/*background: #2a6b81 !important;*/
+/*color: #fff !important;*/
+/*}*/
+
+/*--------------------------------------------------------------
+x - sidebar verde dark
+--------------------------------------------------------------*/
+/*#sidenav,*/
+/*#qm0, #qm0.qmmc, #legado*/
+/*.small-menu #sidenav li:hover a,*/
+/*.small-menu #sidenav a.collapsible-header,*/
+/*.small-menu #sidenav.fixed a.collapsible-header,*/
+/*.small-menu #sidenav li > a.collapsible-header,*/
+/*.small-menu #sidenav li > a {*/
+/*background-color: #1B1F1B;*/
+/*}*/
+
+/*#sidenav .sidebar-info,*/
+/*.small-menu #sidenav > li.sidebar-info div {*/
+/*background-color: #2D342E;*/
+/*}*/
+
+/*!* submenu *!*/
+/*#sidenav li.active,*/
+/*#qm0.qmmc div {*/
+/*background-color: #223223;*/
+/*}*/
+
+/*!* small menu:hover*!*/
+/*.small-menu #sidenav a.collapsible-header:hover,*/
+/*.small-menu #sidenav.fixed a.collapsible-header:hover,*/
+/*.small-menu #sidenav li > a.collapsible-header:hover,*/
+/*.small-menu #sidenav .collapsible:hover a,*/
+/*.small-menu #sidenav li > a:hover,*/
+/*#qm0.qmmc a:hover {*/
+/*background-color: #436645;*/
+/*}*/
+
+/*!* small menu submenu:hover open *!*/
+/*.small-menu #sidenav li .collapsible-body li > a:hover {*/
+/*background-color: #5C875E;*/
+/*}*/
+
+/*--------------------------------------------------------------
+x - CORES verde
+--------------------------------------------------------------*/
+body {
+    background: #f8f8f8;
+}
+
+header #topo {
+    background-color: #4E9353;
+}
+
+#navbar-header nav {
+    background-color: #1B5E20;
+}
+
+footer.page-footer {
+    background-color: #1B5E20;
+}
+
+#sidenav,
+#qm0, #qm0.qmmc, #legado
+.small-menu #sidenav li:hover a,
+.small-menu #sidenav a.collapsible-header,
+.small-menu #sidenav.fixed a.collapsible-header,
+.small-menu #sidenav li > a.collapsible-header,
+.small-menu #sidenav li > a {
+    background-color: #f1f1f1;
+    border-right: 1px solid #e4e4e4;
+}
+
+#qm0.qmmc a.submenu,
+#qm0.qmmc .sanfonaDiv > a.sanfona,
+#qm0.qmmc a.sanfona,
+#qm0.qmmc a,
+#sidenav a.collapsible-header,
+#sidenav.fixed a.collapsible-header,
+#sidenav li > a.collapsible-header, #sidenav li > a {
+    color: #4a4949;
+}
+
+#sidenav .sidebar-info,
+.small-menu #sidenav > li.sidebar-info:hover div {
+    background-color: #2D342E;
+}
+
+/* submenu */
+#sidenav li.active,
+#qm0.qmmc div {
+    background-color: #e9e8e8;
+}
+
+/* small menu:hover*/
+.small-menu #sidenav a.collapsible-header:hover,
+.small-menu #sidenav.fixed a.collapsible-header:hover,
+.small-menu #sidenav li > a.collapsible-header:hover,
+.small-menu #sidenav .collapsible:hover a,
+.small-menu #sidenav li > a:hover,
+#qm0.qmmc a:hover {
+    background-color: #e5e5e5;
+}
+
+/* small menu submenu:hover open */
+.small-menu #sidenav li .collapsible-body li > a:hover {
+    background-color: #e7e6e6;
+}
+
+header #atalhos #combousuario {
+    color: #fff
+}
+
+#titulo {
+    background: linear-gradient(to bottom, #2a6b81 0%, rgba(53, 131, 159, 0) 0%, rgba(53, 131, 159, 0.15) 100%);
+    color: #3c3b3b;
+}
+
+#conteudo .titulo_tabela,
+#conteudo table tr.destacar td,
+#conteudo table td.destacar,
+#conteudo table th {
+    background-color: rgb(65, 129, 150);
+    border: 1px solid #cacaca;
+    background-color: rgb(236, 236, 236);
+    color: #212121;
+}
+
+table.dataTable thead th,
+table.dataTable thead td {
+    background: transparent;
+    color: #212121;
+    border-bottom: 3px solid #dddddd !important;
+}
+
+/*.btn,*/
+/*.btn-large,*/
+/*.btn-default,*/
+/*.btn-sucess,*/
+/*.btn-default,*/
+/*.btn-success {*/
+    /*background-color: #2a6b81;*/
+    /*color: #fff;*/
+/*}*/
+
+/*.dataTables_wrapper .dataTables_paginate .paginate_button.current:hover,*/
+/*.dataTables_wrapper .dataTables_paginate .paginate_button.current {*/
+    /*background: #2a6b81 !important;*/
+    /*color: #fff !important;*/
+/*}*/
+
+/*!*--------------------------------------------------------------*/
+/*x - CORES contraste*/
+/*--------------------------------------------------------------*!*/
+/*body { background: #f8f8f8; }*/
+/*header #topo { background-color: #212121; }*/
+/*#navbar-header nav { background-color: #000; }*/
+/*footer.page-footer { background-color: #000; }*/
+
+/*header #atalhos #combousuario {color: #fff}*/
+
+/*#titulo {*/
+/*background: linear-gradient(to bottom, #2a6b81 0%,rgba(53, 131, 159, 0) 0%,rgba(53, 131, 159, 0.15) 100%);*/
+/*color: #3c3b3b;*/
+/*}*/
+
+/*!*--------------------------------------------------------------*/
+/*x - Sidebar (cinza)*/
+/*--------------------------------------------------------------*!*/
+/*#sidenav {*/
+/*background-color: #eeeeee;*/
+
+/*}*/
+
+/*#sidenav .sidebar-info {*/
+/*!*background-color: green;*!*/
+/*}*/
+
+/*#sidenav a.collapsible-header,*/
+/*#sidenav.fixed a.collapsible-header,*/
+/*#sidenav li > a.collapsible-header,*/
+/*#sidenav li > a {*/
+/*color: #404040;*/
+/*}*/
+
+/*#sidenav li .collapsible-body a.active {*/
+/*background-color: #e4e4e4;*/
+/*}*/

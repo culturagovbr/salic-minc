@@ -5,8 +5,9 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
     protected $_name = 'vwComprovacaoFinanceiraProjetoPorItemOrcamentario';
     protected $_schema = 'sac';
     protected $_primary = 'IdPRONAC';
-/* --COMPROVAÇÃO CONSOLIDADA POR PRODUTO */
-    public function consolidacaoPorProduto($idPronac) {
+    /* --COMPROVAÇÃO CONSOLIDADA POR PRODUTO */
+    public function consolidacaoPorProduto($idPronac)
+    {
         $cols ="
             CASE WHEN cdProduto = 0
                 THEN 'Administra&ccedil;&atilde;o do Projeto'
@@ -32,7 +33,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             $this->schema
         );
 
-        $select->where('IdPRONAC = ?',$idPronac);
+        $select->where('IdPRONAC = ?', $idPronac);
 
         $select->group('IdPRONAC');
         $select->group('b.Descricao');
@@ -49,7 +50,8 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
     /*         WHERE IdPRONAC = 168849 */
     /*         GROUP BY IdPRONAC,b.Descricao,b.nrOrdenacao */
     /*         ORDER BY b.nrOrdenacao */
-    public function consolidadoPorEtapa($idPronac) {
+    public function consolidadoPorEtapa($idPronac)
+    {
         $cols ="
             IdPRONAC,
             b.Descricao,
@@ -73,7 +75,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             $this->schema
         );
 
-        $select->where('IdPRONAC = ?',$idPronac);
+        $select->where('IdPRONAC = ?', $idPronac);
 
         $select->group('IdPRONAC');
         $select->group('b.Descricao');
@@ -92,7 +94,8 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
     /*             WHERE IdPRONAC = 185898 */
     /*             GROUP BY a.IdPRONAC,b.Descricao */
     /*             ORDER BY SUM(vlComprovacao) DESC */
-    public function maioresItensComprovados($idPronac) {
+    public function maioresItensComprovados($idPronac)
+    {
         $cols ="
             TOP 30 IdPRONAC,
             b.Descricao,
@@ -109,7 +112,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             $this->_schema
         );
 
-    /*             INNER JOIN sac.dbo.tbPlanilhaItens b on (a.idPlanilhaItem = b.idPlanilhaItens) */
+        /*             INNER JOIN sac.dbo.tbPlanilhaItens b on (a.idPlanilhaItem = b.idPlanilhaItens) */
         $select->joinLeft(
             array('b'=>'tbPlanilhaItens'),
             '(a.idPlanilhaItem = b.idPlanilhaItens)',
@@ -117,9 +120,9 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             $this->schema
         );
 
-        $select->where('IdPRONAC = ?',$idPronac);
-    /*             GROUP BY a.IdPRONAC,b.Descricao */
-    /*             ORDER BY SUM(vlComprovacao) DESC */
+        $select->where('IdPRONAC = ?', $idPronac);
+        /*             GROUP BY a.IdPRONAC,b.Descricao */
+        /*             ORDER BY SUM(vlComprovacao) DESC */
 
         $select->group('a.IdPRONAC');
         $select->group('b.Descricao');
@@ -136,7 +139,8 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
     /*                 INNER JOIN Agentes.dbo.vUFMunicipio b on (a.cdUF = b.idUF AND a.cdCidade = b.idMunicipio) */
     /*                 WHERE IdPRONAC = 185898 */
     /*                 GROUP BY IdPRONAC,b.UF,b.Municipio */
-    public function comprovacaoConsolidadaUfMunicipio($idPronac) {
+    public function comprovacaoConsolidadaUfMunicipio($idPronac)
+    {
         $cols ="
             IdPRONAC,
             b.UF,
@@ -154,7 +158,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             $this->_schema
         );
 
-    /*                 INNER JOIN Agentes.dbo.vUFMunicipio b on (a.cdUF = b.idUF AND a.cdCidade = b.idMunicipio) */
+        /*                 INNER JOIN Agentes.dbo.vUFMunicipio b on (a.cdUF = b.idUF AND a.cdCidade = b.idMunicipio) */
         $select->join(
             array('b'=>'vUFMunicipio'),
             '(a.cdUF = b.idUF AND a.cdCidade = b.idMunicipio)',
@@ -162,9 +166,9 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             'Agentes'
         );
 
-        $select->where('IdPRONAC = ?',$idPronac);
+        $select->where('IdPRONAC = ?', $idPronac);
 
-    /*                 GROUP BY IdPRONAC,b.UF,b.Municipio */
+        /*                 GROUP BY IdPRONAC,b.UF,b.Municipio */
         $select->group('IdPRONAC');
         $select->group('b.UF');
         $select->group('b.Municipio');
@@ -181,7 +185,8 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
     /*                     WHERE IdPRONAC = 185898 */
     /*                     GROUP BY IdPRONAC,tpDocumento,nrComprovante,c.Descricao */
     /*                     ORDER BY SUM(vlComprovacao) DESC */
-    public function maioresComprovacaoTipoDocumento($idPronac) {
+    public function maioresComprovacaoTipoDocumento($idPronac)
+    {
         $cols ="
             TOP 10 IdPRONAC,
             tpDocumento,
@@ -206,7 +211,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             null,
             'Agentes'
         );
-    /*                     INNER JOIN Agentes.dbo.Nomes   c on (b.idAgente = c.idAgente) */
+        /*                     INNER JOIN Agentes.dbo.Nomes   c on (b.idAgente = c.idAgente) */
         $select->join(
             array('c'=>'Nomes'),
             '(b.idAgente = c.idAgente)',
@@ -214,9 +219,9 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             'Agentes'
         );
 
-        $select->where('IdPRONAC = ?',$idPronac);
-    /*                     GROUP BY IdPRONAC,tpDocumento,nrComprovante,c.Descricao */
-    /*                     ORDER BY SUM(vlComprovacao) DESC */
+        $select->where('IdPRONAC = ?', $idPronac);
+        /*                     GROUP BY IdPRONAC,tpDocumento,nrComprovante,c.Descricao */
+        /*                     ORDER BY SUM(vlComprovacao) DESC */
 
         $select->group('IdPRONAC');
         $select->group('tpDocumento');
@@ -239,7 +244,8 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
     /*                     WHERE IdPRONAC = 185898 */
     /*                     GROUP BY IdPRONAC,tpFormaDePagamento,nrDocumentoDePagamento,c.Descricao */
     /*                     ORDER BY SUM(vlComprovacao) DESC */
-    public function comprovacaoTipoDocumentoPagamento($idPronac) {
+    public function comprovacaoTipoDocumentoPagamento($idPronac)
+    {
         $cols ="
             TOP 10 IdPRONAC,
             tpFormaDePagamento, 
@@ -258,7 +264,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             $this->_schema
         );
 
-    /*                     INNER JOIN Agentes.dbo.Agentes b on (a.nrCNPJCPF = b.CNPJCPF) */
+        /*                     INNER JOIN Agentes.dbo.Agentes b on (a.nrCNPJCPF = b.CNPJCPF) */
 
         $select->join(
             array('b'=>'Agentes'),
@@ -266,7 +272,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             null,
             'Agentes'
         );
-    /*                     INNER JOIN Agentes.dbo.Nomes   c on (b.idAgente = c.idAgente) */
+        /*                     INNER JOIN Agentes.dbo.Nomes   c on (b.idAgente = c.idAgente) */
         $select->join(
             array('c'=>'Nomes'),
             '(b.idAgente = c.idAgente)',
@@ -274,10 +280,10 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             'Agentes'
         );
 
-        $select->where('IdPRONAC = ?',$idPronac);
+        $select->where('IdPRONAC = ?', $idPronac);
 
-    /*                     GROUP BY IdPRONAC,tpFormaDePagamento,nrDocumentoDePagamento,c.Descricao */
-    /*                     ORDER BY SUM(vlComprovacao) DESC */
+        /*                     GROUP BY IdPRONAC,tpFormaDePagamento,nrDocumentoDePagamento,c.Descricao */
+        /*                     ORDER BY SUM(vlComprovacao) DESC */
         $select->group('IdPRONAC');
         $select->group('tpFormaDePagamento');
         $select->group('nrDocumentoDePagamento');
@@ -297,7 +303,8 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
     /*                         WHERE IdPRONAC = 185898 */
     /*                         GROUP BY IdPRONAC,nrCNPJCPF,c.Descricao */
     /*                         ORDER BY SUM(vlComprovacao) DESC */
-    public function maioresFornecedoresProjeto($idPronac) {
+    public function maioresFornecedoresProjeto($idPronac)
+    {
         $cols ="
             TOP 20 IdPRONAC,
             nrCNPJCPF,
@@ -316,14 +323,14 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         );
 
 
-    /*                         INNER JOIN Agentes.dbo.Agentes b on (a.nrCNPJCPF = b.CNPJCPF) */
+        /*                         INNER JOIN Agentes.dbo.Agentes b on (a.nrCNPJCPF = b.CNPJCPF) */
         $select->join(
             array('b'=>'Agentes'),
             '(a.nrCNPJCPF = b.CNPJCPF)',
             null,
             'Agentes'
         );
-    /*                         INNER JOIN Agentes.dbo.Nomes   c on (b.idAgente = c.idAgente) */
+        /*                         INNER JOIN Agentes.dbo.Nomes   c on (b.idAgente = c.idAgente) */
         $select->join(
             array('c'=>'Nomes'),
             '(b.idAgente = c.idAgente)',
@@ -331,7 +338,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             'Agentes'
         );
 
-        $select->where('IdPRONAC = ?',$idPronac);
+        $select->where('IdPRONAC = ?', $idPronac);
 
         $select->group('IdPRONAC');
         $select->group('nrCNPJCPF');
@@ -355,7 +362,8 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
     /*                             AND b.CNPJCPF = d.CgcCpf */
     /*                             GROUP BY a.IdPRONAC,nrCNPJCPF,c.Descricao,e.Descricao ,Item */
     /*                             ORDER BY e.Descricao,Item */
-    public function fornecedorItemProjeto($idPronac) {
+    public function fornecedorItemProjeto($idPronac)
+    {
         $cols ="
             a.IdPRONAC,
             nrCNPJCPF,
@@ -374,7 +382,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             $cols,
             $this->_schema
         );
-    /*                             INNER JOIN Agentes.dbo.Agentes     b on (a.nrCNPJCPF = b.CNPJCPF) */
+        /*                             INNER JOIN Agentes.dbo.Agentes     b on (a.nrCNPJCPF = b.CNPJCPF) */
 
         $select->join(
             array('b'=>'Agentes'),
@@ -382,21 +390,21 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             null,
             'Agentes'
         );
-    /*                             INNER JOIN Agentes.dbo.Nomes       c on (b.idAgente  = c.idAgente) */
+        /*                             INNER JOIN Agentes.dbo.Nomes       c on (b.idAgente  = c.idAgente) */
         $select->join(
             array('c'=>'Nomes'),
             '(b.idAgente  = c.idAgente)',
             null,
             'Agentes'
         );
-    /*                             INNER JOIN sac.dbo.Projetos        d on (a.IdPRONAC  = d.IdPRONAC) */
+        /*                             INNER JOIN sac.dbo.Projetos        d on (a.IdPRONAC  = d.IdPRONAC) */
         $select->join(
             array('d'=>'Projetos'),
             '(a.IdPRONAC  = d.IdPRONAC)',
             null,
             'sac'
         );
-    /*                             INNER JOIN sac.dbo.tbPlanilhaEtapa e on (a.cdEtapa = e.idPlanilhaEtapa) */
+        /*                             INNER JOIN sac.dbo.tbPlanilhaEtapa e on (a.cdEtapa = e.idPlanilhaEtapa) */
         $select->join(
             array('e'=>'tbPlanilhaEtapa'),
             '(a.cdEtapa = e.idPlanilhaEtapa)',
@@ -404,7 +412,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             'sac'
         );
 
-        $select->where('a.IdPRONAC = ?',$idPronac);
+        $select->where('a.IdPRONAC = ?', $idPronac);
         $select->where('b.CNPJCPF = d.CgcCpf');
 
         $select->group('a.IdPRONAC');
@@ -419,7 +427,8 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         return $this->fetchAll($select);
     }
 
-    public function itensOrcamentariosImpugnados($idPronac) {
+    public function itensOrcamentariosImpugnados($idPronac)
+    {
         $cols =[
             'IdPRONAC',
             'Pronac',
@@ -444,7 +453,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             $this->_schema
         );
 
-        $select->where('IdPRONAC = ?',$idPronac);
+        $select->where('IdPRONAC = ?', $idPronac);
 
         $select->order('Produto');
         $select->order('Etapa');
@@ -452,5 +461,4 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
 
         return $this->fetchAll($select);
     }
-
 }

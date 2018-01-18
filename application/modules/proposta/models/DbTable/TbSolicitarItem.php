@@ -5,14 +5,15 @@
  * @version 1.0 - 08/01/2013
  */
 
-class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
+class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract
+{
+    protected $_schema = 'sac';
+    protected $_name   = 'tbsolicitaritem';
+    protected $_primary = 'idSolicitarItem';
 
-    protected  $_schema = 'sac';
-    protected  $_name   = 'tbsolicitaritem';
-    protected  $_primary = 'idSolicitarItem';
 
-
-    public function listaSolicitacoesItens($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false) {
+    public function listaSolicitacoesItens($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -40,19 +41,25 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
                 )
         );
         $select->joinInner(
-            array('p' => 'Produto'), "s.idProduto = p.Codigo",
-            array('Codigo as idProduto', 'Descricao as Produto'), 'SAC.dbo'
+            array('p' => 'Produto'),
+            "s.idProduto = p.Codigo",
+            array('Codigo as idProduto', 'Descricao as Produto'),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('e' => 'tbPlanilhaEtapa'), "s.idEtapa = e.idPlanilhaEtapa",
-            array('idPlanilhaEtapa', 'Descricao as Etapa'), 'SAC.dbo'
+            array('e' => 'tbPlanilhaEtapa'),
+            "s.idEtapa = e.idPlanilhaEtapa",
+            array('idPlanilhaEtapa', 'Descricao as Etapa'),
+            'SAC.dbo'
         );
         $select->joinLeft(
-            array('i' => 'tbPlanilhaItens'), "s.idPlanilhaItens = i.idPlanilhaItens",
-            array(''), 'SAC.dbo'
+            array('i' => 'tbPlanilhaItens'),
+            "s.idPlanilhaItens = i.idPlanilhaItens",
+            array(''),
+            'SAC.dbo'
         );
 
-       //adiciona quantos filtros foram enviados
+        //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
@@ -76,7 +83,8 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function buscarDadosItem($idItem) {
+    public function buscarDadosItem($idItem)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -102,30 +110,33 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
                 new Zend_Db_Expr("(CASE WHEN  sol.IdPlanilhaItens > 0 THEN it.Descricao ELSE sol.NomeDoItem END) as ItemSolicitado"),
                 "sol.Descricao as Justificativa",
                 "sol.stEstado",
-                new Zend_Db_Expr( "(CASE sol.stEstado WHEN 0 THEN 'Solicitado' WHEN 1 THEN 'Atendido' ELSE 'Negado' END) as Estado"),
+                new Zend_Db_Expr("(CASE sol.stEstado WHEN 0 THEN 'Solicitado' WHEN 1 THEN 'Atendido' ELSE 'Negado' END) as Estado"),
                 "Resposta"
             ),
             $this->_schema
         );
         $select->joinInner(
-            array('prod' => 'Produto'), 'sol.idProduto = prod.Codigo',
+            array('prod' => 'Produto'),
+            'sol.idProduto = prod.Codigo',
             null,
             $this->_schema
         );
 
         $select->joinInner(
-            array('et' => 'tbPlanilhaEtapa'), 'sol.idEtapa = et.idPlanilhaEtapa',
+            array('et' => 'tbPlanilhaEtapa'),
+            'sol.idEtapa = et.idPlanilhaEtapa',
             null,
             $this->_schema
         );
 
         $select->joinLeft(
-            array('it' => 'TbPlanilhaItens'), 'sol.idPlanilhaItens = it.idPlanilhaItens',
+            array('it' => 'TbPlanilhaItens'),
+            'sol.idPlanilhaItens = it.idPlanilhaItens',
             null,
             $this->_schema
         );
 
-       //adiciona quantos filtros foram enviados
+        //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             if (!empty($valor)) {
                 $select->where($coluna, $valor);
@@ -151,7 +162,8 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public  function exibirprodutoetapaitem($item=null,$nomeItem=null,$idEtapa=null,$idProduto=null) {
+    public function exibirprodutoetapaitem($item=null, $nomeItem=null, $idEtapa=null, $idProduto=null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -167,35 +179,38 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
 
 
         $select->joinInner(
-            array('pr'=>'Produto'),'sol.idProduto = pr.Codigo',
+            array('pr'=>'Produto'),
+            'sol.idProduto = pr.Codigo',
             null,
             $this->_schema
         );
 
         $select->joinInner(
-            array('i' => 'TbPlanilhaItens'),'sol.idPlanilhaItens = i.idPlanilhaItens',
+            array('i' => 'TbPlanilhaItens'),
+            'sol.idPlanilhaItens = i.idPlanilhaItens',
             null,
             $this->_schema
         );
 
         $select->joinInner(
-            array('e' => 'tbPlanilhaEtapa'),'sol.idEtapa = e.idPlanilhaEtapa',
+            array('e' => 'tbPlanilhaEtapa'),
+            'sol.idEtapa = e.idPlanilhaEtapa',
             null,
             $this->_schema
         );
 
 
-        if(!empty($nomeItem)){
-            $select->where('i.Descricao = ' , $nomeItem);
+        if (!empty($nomeItem)) {
+            $select->where('i.Descricao = ', $nomeItem);
         }
-        if(!empty($item)){
-            $select->where('i.idPlanilhaItens = ?' , $item);
+        if (!empty($item)) {
+            $select->where('i.idPlanilhaItens = ?', $item);
         }
-        if(!empty($idEtapa)){
-            $select->where('e.idPlanilhaEtapa = ' , $idEtapa);
+        if (!empty($idEtapa)) {
+            $select->where('e.idPlanilhaEtapa = ', $idEtapa);
         }
-        if(!empty($idProduto)){
-            $select->where('pr.Codigo = ' , $idProduto);
+        if (!empty($idProduto)) {
+            $select->where('pr.Codigo = ', $idProduto);
         }
         $select->order('pr.codigo Asc');
 
@@ -205,8 +220,8 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
     } // fecha metodo buscaprodutoetapaitem()
 
 
-    public  function exibirEtapa($idProduto) {
-
+    public function exibirEtapa($idProduto)
+    {
         $sql = "SELECT distinct  e.idPlanilhaEtapa as idEtapa, e.Descricao as Etapa
 					FROM SAC.tbItensPlanilhaProduto p
 					INNER JOIN SAC.Produto pr on (p.idProduto = pr.Codigo)
@@ -221,7 +236,8 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public  function exibirItem($idProduto, $idEtapa) {
+    public function exibirItem($idProduto, $idEtapa)
+    {
         $sql = "SELECT i.idPlanilhaItens as idItem,	i.Descricao as NomeDoItem
 				FROM SAC.tbItensPlanilhaProduto p
 				INNER JOIN SAC.Produto pr on (p.idProduto = pr.Codigo)
@@ -238,8 +254,8 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
     /*********************************************************************************************************/
 
 
-    public  function buscaprodutoetapaitem($item=null,$nomeItem=null) {
-
+    public function buscaprodutoetapaitem($item=null, $nomeItem=null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
 
@@ -257,21 +273,30 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
         );
 
         $select->joinInner(
-            array('pr' => 'Produto'), 'pr.Codigo = p.idProduto' , array() , $this->_schema
+            array('pr' => 'Produto'),
+            'pr.Codigo = p.idProduto',
+            array(),
+            $this->_schema
         );
 
         $select->joinInner(
-            array('e' => 'TbPlanilhaEtapa'), 'e.idPlanilhaEtapa = p.idPlanilhaEtapa', array() , $this->_schema
+            array('e' => 'TbPlanilhaEtapa'),
+            'e.idPlanilhaEtapa = p.idPlanilhaEtapa',
+            array(),
+            $this->_schema
         );
 
         $select->joinInner(
-            array('i' => 'TbPlanilhaItens'), 'i.idPlanilhaItens = p.idPlanilhaItens', array() , $this->_schema
+            array('i' => 'TbPlanilhaItens'),
+            'i.idPlanilhaItens = p.idPlanilhaItens',
+            array(),
+            $this->_schema
         );
 
-        if(!empty($item)){
+        if (!empty($item)) {
             $select->where('i.idPlanilhaItens = ?', $item);
         }
-        if(!empty($nomeItem)){
+        if (!empty($nomeItem)) {
             $select->where('i.Descricao = ?', $nomeItem);
         }
 
@@ -284,8 +309,8 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
     } // fecha metodo buscaprodutoetapaitem()
 
 
-    public  function buscaproduto($where=null) {
-
+    public function buscaproduto($where=null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
 
@@ -302,8 +327,8 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
 
         $select->order('produto');
 
-        if(!empty($where)){
-            $select->where('Descricao = ?' , $nomeItem);
+        if (!empty($where)) {
+            $select->where('Descricao = ?', $nomeItem);
         }
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -313,7 +338,8 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
 
 
 
-    public  function buscaetapa() {
+    public function buscaetapa()
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
 
@@ -336,7 +362,8 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
 
 
 
-    public  function buscaitem() {
+    public function buscaitem()
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
 
@@ -360,8 +387,8 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
 
 
 
-    public  function solicitacoes($idAgente) {
-
+    public function solicitacoes($idAgente)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -374,26 +401,29 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
                 "sol.idSolicitarItem",
                 new Zend_Db_Expr("(CASE WHEN sol.IdPlanilhaItens > 0 THEN it.Descricao ELSE sol.NomeDoItem END) as ItemSolicitado"),
                 "sol.Descricao as Justificativa",
-                new Zend_Db_Expr( "(CASE sol.stEstado WHEN 0 THEN 'Solicitado' WHEN 1 THEN 'Atendido' ELSE 'Negado' END) as Estado"),
+                new Zend_Db_Expr("(CASE sol.stEstado WHEN 0 THEN 'Solicitado' WHEN 1 THEN 'Atendido' ELSE 'Negado' END) as Estado"),
                 "Resposta"
             ),
             $this->_schema
         );
 
         $select->joinInner(
-            array('prod'=>'Produto'), 'sol.idProduto = prod.Codigo',
+            array('prod'=>'Produto'),
+            'sol.idProduto = prod.Codigo',
             null,
             $this->_schema
         );
 
         $select->joinInner(
-            array('et'=>'tbPlanilhaEtapa'), 'sol.idEtapa = et.idPlanilhaEtapa',
+            array('et'=>'tbPlanilhaEtapa'),
+            'sol.idEtapa = et.idPlanilhaEtapa',
             null,
             $this->_schema
         );
 
         $select->joinLeft(
-            array('it' => 'TbPlanilhaItens'), 'sol.idPlanilhaItens = it.idPlanilhaItens',
+            array('it' => 'TbPlanilhaItens'),
+            'sol.idPlanilhaItens = it.idPlanilhaItens',
             null,
             $this->_schema
         );
@@ -410,8 +440,8 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
 
 
 
-    public function cadastraritem($dadosassociar) {
-
+    public function cadastraritem($dadosassociar)
+    {
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
@@ -424,8 +454,7 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
 
         if ($cadastrar) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
 
@@ -435,7 +464,8 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
 
 
 
-    public  function buscarItem($idAgente) {
+    public function buscarItem($idAgente)
+    {
         $sql = "SELECT TOP 1 idPlanilhaItens FROM SAC.tbPlanilhaItens where idUsuario = ".$idAgente." order by idPlanilhaItens desc";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_ASSOC);
@@ -444,26 +474,21 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
 
 
 
-    public  function associaritem($dadosassociar) {
-
-
+    public function associaritem($dadosassociar)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $cadastrar = $db->insert("SAC.tbSolicitarItem", $dadosassociar);
 
         if ($cadastrar) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
-
-
     }
 
-    public  function buscarSolicitacoes($where=array(),$nomeItem=null) {
-
-
+    public function buscarSolicitacoes($where=array(), $nomeItem=null)
+    {
         $sql = "SELECT prod.Codigo as idProduto,
                         prod.Descricao as Produto,
 			et.idPlanilhaEtapa,
@@ -485,15 +510,15 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
 			      LEFT JOIN SAC.TbPlanilhaItens it ON sol.idPlanilhaItens = it.idPlanilhaItens";
 
         $ct=1;
-        foreach ($where as $coluna=>$valor)
-        {
-            if($ct==1)
+        foreach ($where as $coluna=>$valor) {
+            if ($ct==1) {
                 $sql .= " WHERE ".$coluna." = '".$valor."'";
-            else
+            } else {
                 $sql .= " AND ".$coluna." = '".$valor."'";
+            }
             $ct++;
         }
-        if(!empty($nomeItem)){
+        if (!empty($nomeItem)) {
             $sql .="AND (sol.NomeDoItem = '{$nomeItem}' OR it.Descricao = '{$nomeItem}')";
         }
         $sql .= " ORDER BY sol.idSolicitarItem";
@@ -502,9 +527,5 @@ class Proposta_Model_DbTable_TbSolicitarItem extends MinC_Db_Table_Abstract {
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
         return $db->fetchAll($sql);
-
-
     }
-
-
 }

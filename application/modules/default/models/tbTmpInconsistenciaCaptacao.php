@@ -63,5 +63,4 @@ class tbTmpInconsistenciaCaptacao extends MinC_Db_Table_Abstract
 
         return $this->fetchAll($sql);
     }
-
 }

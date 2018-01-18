@@ -1,17 +1,7 @@
 <?php 
-/**
- * Controller Manter bloqueio conta
- * @author XTI
- * @since 14/06/2012
- * @version 1.0
- * @package application
- * @subpackage application.controller
- * @link http://www.cultura.gov.br
- * @copyright @ 2012 - Ministerio da Cultura - Todos os direitos reservados.
- */
 
-class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
-
+class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract
+{
     private $getIdUsuario = 0; // c�digo do usu�rio logado
     private $getIdGrupo   = 0; // c�digo do grupo logado
     private $getIdOrgao   = 0; // c�digo do �rg�o logado
@@ -23,7 +13,8 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function init() {
+    public function init()
+    {
 
         // pega o idAgente do usu�rio logado
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
@@ -42,14 +33,11 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
         //$PermissoesGrupo[] = 126; // Coordenador - Geral de Presta��o de Contas
         parent::perfil(1, $PermissoesGrupo); // perfil novo salic
 
-        if (isset($auth->getIdentity()->usu_codigo)) // autenticacao novo salic
-        {
-                $this->getIdUsuario = UsuarioDAO::getIdUsuario($auth->getIdentity()->usu_codigo);
-                $this->getIdUsuario = ($this->getIdUsuario) ? $this->getIdUsuario['idAgente'] : 0;
-        }
-        else // autenticacao espaco proponente
-        {
-                $this->getIdUsuario = 0;
+        if (isset($auth->getIdentity()->usu_codigo)) { // autenticacao novo salic
+            $this->getIdUsuario = UsuarioDAO::getIdUsuario($auth->getIdentity()->usu_codigo);
+            $this->getIdUsuario = ($this->getIdUsuario) ? $this->getIdUsuario['idAgente'] : 0;
+        } else { // autenticacao espaco proponente
+            $this->getIdUsuario = 0;
         }
         /* ========== FIM PERFIL ==========*/
 
@@ -69,23 +57,24 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
     */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->_forward("form-pesquisar-conta");
     }
 
-    public function formPesquisarContaAction() {
-        
+    public function formPesquisarContaAction()
+    {
     }
     
-    public function formBloquearContaAction() {
-        
+    public function formBloquearContaAction()
+    {
         $post = Zend_Registry::get('post');
         $pronac = $post->pronac;
         
         $tbProjeto = new Projetos();
         $rsProjeto = $tbProjeto->buscar(array('Anoprojeto+Sequencial=?'=>$pronac))->current();
         
-        if(!empty($rsProjeto)){
+        if (!empty($rsProjeto)) {
             $tbContaBloqueada = new tbContaBloqueada();
             $where = array();
             $where['IdPRONAC = ?'] = $rsProjeto->IdPRONAC;
@@ -101,39 +90,39 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
             $this->view->projeto  = $rsProjeto;
             $this->view->contaCapatacaoBloqueada = $rsCBCaptacao;
             $this->view->contaMovimentoBloqueada = $rsCBMovimento;
-        }else{
+        } else {
             parent::message("Nenhum projeto encontrado com o Pronac informado", "/manterbloqueioconta/form-pesquisar-conta", "ALERT");
         }
     }
 
-    public function gravarBloqueioContaAction() {
-        
+    public function gravarBloqueioContaAction()
+    {
         $post = Zend_Registry::get('post');
         $idPronac       = $post->idPronac;
         $tipoConta      = $post->tipoConta;
         $justificativa  = $post->justificativa;
         
-        if(empty($idPronac) || empty($tipoConta) || empty($justificativa)){
+        if (empty($idPronac) || empty($tipoConta) || empty($justificativa)) {
             parent::message("Dados obrigat&oacute;rios n&atilde;o informados!", "manterbloqueioconta/listar-contas-desbloqueio", "ALERT");
         }
         
         $tbContaBloqueada = new tbContaBloqueada();
-        try{
+        try {
             //============== INATIVA REGISTROS ===============
             $where = array();
             $where['IdPRONAC = ?'] = $idPronac;
             $where['stEstado = ?'] = 1; //registro ativo
-            if($tipoConta != "3"){ //3 = ambas as contas
+            if ($tipoConta != "3") { //3 = ambas as contas
                 $where['tpIdentificacaoConta = ?'] = $tipoConta;
             }
             $rsContaBloqueada = $tbContaBloqueada->buscar($where);
-            foreach($rsContaBloqueada as $conta){
+            foreach ($rsContaBloqueada as $conta) {
                 $conta->stEstado = 0; //passa registro ativo para historico
                 $conta->save();
             }
 
             //============== FAZ UPLOAD DO ARQUIVO ============
-            if(count($_FILES) > 0) {
+            if (count($_FILES) > 0) {
                 $idArquivo = $this->gravarArquivoJudicialBloqueioConta($_FILES);
             }//fecha if FILES
 
@@ -147,7 +136,7 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
             $dados['stEstado']          = 1;
             //$dados['idArquivo']       = $idArquivo;
 
-            if($tipoConta == "3"){ //3 = ambas as contas
+            if ($tipoConta == "3") { //3 = ambas as contas
                 //bloqueia conta captacao
                 $dados['tpIdentificacaoConta'] = 1;
                 $tbContaBloqueada->inserir($dados);
@@ -155,45 +144,39 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
                 //bloqueia conta movimento
                 $dados['tpIdentificacaoConta'] = 2;
                 $tbContaBloqueada->inserir($dados);
-            }else{
+            } else {
                 //bloqueia conta enviada
                 $dados['tpIdentificacaoConta'] = $tipoConta;
                 $tbContaBloqueada->inserir($dados);
             }
             
             parent::message("Conta(s) bloqueada(s) com sucesso!", "manterbloqueioconta", "CONFIRM");
-            
-        }catch(Exception $e){
-            
+        } catch (Exception $e) {
             parent::message("Erro ao realizar opera&ccedil;&atilde;o. ".$e->getMessage(), "manterbloqueioconta", "ERROR");
         }
     }
     
-    public function gravarArquivoJudicialBloqueioConta() {
-        
-        try{
-            
+    public function gravarArquivoJudicialBloqueioConta()
+    {
+        try {
             $arquivoNome     = $_FILES['arqDecisaoJudicial']['name']; // nome
             $arquivoTemp     = $_FILES['arqDecisaoJudicial']['tmp_name']; // nome tempor�rio
             $arquivoTipo     = $_FILES['arqDecisaoJudicial']['type']; // tipo
             $arquivoTamanho  = $_FILES['arqDecisaoJudicial']['size']; // tamanho
 
-            if (!empty($arquivoNome) && !empty($arquivoTemp))
-            {
-                    $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
+            if (!empty($arquivoNome) && !empty($arquivoTemp)) {
+                $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
                     $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
                     $arquivoHash     = Upload::setHash($arquivoTemp); // hash
             }
 
             //VALIDA TAMANHO ARQUIVO
-            if($arquivoTamanho > 1024 * 1024 * 10)
-            {
+            if ($arquivoTamanho > 1024 * 1024 * 10) {
                 parent::message("O arquivo deve ser menor que 10 MB", "manterbloqueioconta", "ERROR");
             }
 
             //VALIDA EXTENSAO ARQUIVO
-            if(!in_array($arquivoExtensao,explode(',','pdf,PDF,doc,docx')))
-            {
+            if (!in_array($arquivoExtensao, explode(',', 'pdf,PDF,doc,docx'))) {
                 parent::message("Arquivo com extens&atilde;o Inv&aacute;lida", "manterbloqueioconta", "ERROR");
             }
 
@@ -230,16 +213,14 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
             $idDocumento = $idDocumento['idDocumento'];*/
         
             return $idArquivo;
-            $this->_helper->viewRenderer->setNoRender(TRUE);
-
-        }catch(Exception $e){
+            $this->_helper->viewRenderer->setNoRender(true);
+        } catch (Exception $e) {
             parent::message("Erro ao enviar o arquivo anexado.", "manterbloqueioconta", "ERROR");
         }
-        
     }
     
-    public function listarContasDesbloqueioAction() {
-        
+    public function listarContasDesbloqueioAction()
+    {
         $tbContaBloqueada = new tbContaBloqueada();
         $arrBusca = array();
         $arrBusca['cb.stEstado = ?'] = 1; //registro ativo
@@ -254,8 +235,8 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
         $this->view->bloqueioJudicial   = $rsBloqueioJudicial;
     }
     
-    public function formDesbloquearContaAction() {
-        
+    public function formDesbloquearContaAction()
+    {
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
         
         $post = Zend_Registry::get('post');
@@ -265,7 +246,7 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
         $tbProjeto = new Projetos();
         $rsProjeto = $tbProjeto->buscar(array('IdPRONAC=?'=>$idPronac))->current();
         
-        if(!empty($rsProjeto)){
+        if (!empty($rsProjeto)) {
             $tbContaBloqueada = new tbContaBloqueada();
             $where = array();
             $where['IdPRONAC = ?'] = $rsProjeto->IdPRONAC;
@@ -281,39 +262,39 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
             $this->view->contaCapatacaoBloqueada = $rsCBCaptacao;
             $this->view->contaMovimentoBloqueada = $rsCBMovimento;
             $this->view->tipoDesbloqueio = $tipoDesbloqueio;
-        }else{
+        } else {
             parent::message("Nenhum projeto encontrado com o Pronac informado", "/manterbloqueioconta/form-pesquisar-conta", "ALERT");
         }
     }
     
-    public function gravarDesbloqueioContaAction() {
-        
+    public function gravarDesbloqueioContaAction()
+    {
         $post = Zend_Registry::get('post');
         $idPronac       = $post->idPronac;
         $tipoConta      = $post->tipoConta;
         $justificativa  = $post->justificativa;
         
-        if(empty($idPronac) || empty($tipoConta) || empty($justificativa)){
+        if (empty($idPronac) || empty($tipoConta) || empty($justificativa)) {
             parent::message("Dados obrigat&oacute;rios n&atilde;o informados!", "manterbloqueioconta/listar-contas-desbloqueio", "ALERT");
         }
         
         $tbContaBloqueada = new tbContaBloqueada();
-        try{
+        try {
             //============== INATIVA REGISTROS ===============
             $where = array();
             $where['IdPRONAC = ?'] = $idPronac;
             $where['stEstado = ?'] = 1; //registro ativo
-            if($tipoConta != "3"){ //3 = ambas as contas
+            if ($tipoConta != "3") { //3 = ambas as contas
                 $where['tpIdentificacaoConta = ?'] = $tipoConta;
             }
             $rsContaBloqueada = $tbContaBloqueada->buscar($where);
-            foreach($rsContaBloqueada as $conta){
+            foreach ($rsContaBloqueada as $conta) {
                 $conta->stEstado = 0; //passa registro ativo para historico
                 $conta->save();
             }
 
             //============== FAZ UPLOAD DO ARQUIVO ============
-            if(count($_FILES) > 0) {
+            if (count($_FILES) > 0) {
                 $idArquivo = $this->gravarArquivoJudicialBloqueioConta($_FILES);
             }//fecha if FILES
 
@@ -327,7 +308,7 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
             $dados['stEstado']  = 1;
             //$dados['idArquivo']       = $idArquivo;
 
-            if($tipoConta == "3"){ //3 = ambas as contas
+            if ($tipoConta == "3") { //3 = ambas as contas
                 //desbloqueia conta captacao
                 $dados['tpIdentificacaoConta'] = 1;
                 $tbContaBloqueada->inserir($dados);
@@ -335,22 +316,20 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
                 //desbloqueia conta movimento
                 $dados['tpIdentificacaoConta'] = 2;
                 $tbContaBloqueada->inserir($dados);
-            }else{
+            } else {
                 //desbloqueia conta enviada
                 $dados['tpIdentificacaoConta'] = $tipoConta;
                 $tbContaBloqueada->inserir($dados);
             }
             
             parent::message("Conta(s) desbloqueada(s) com sucesso!", "manterbloqueioconta/listar-contas-desbloqueio", "CONFIRM");
-            
-        }catch(Exception $e){
-            
+        } catch (Exception $e) {
             parent::message("Erro ao realizar opera&ccedil;&atilde;o. ".$e->getMessage(), "manterbloqueioconta/listar-contas-desbloqueio", "ERROR");
         }
     }
     
-    public function listarContasBloqueadasAction() {
-        
+    public function listarContasBloqueadasAction()
+    {
         $tbContaBloqueada = new tbContaBloqueada();
         //BUSCA AS CONTAS QUE PODEM SER DESBLOQUEADAS
         $arrBusca = array();
@@ -360,13 +339,15 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
         $rsContasDesbloqueioSistemico = $tbContaBloqueada->queryContasDesbloqueioSistemico($arrBusca);
         
         $arrIdsContasDesbloqueio = array();
-        foreach($rsContasDesbloqueioSistemico as $projeto){
+        foreach ($rsContasDesbloqueioSistemico as $projeto) {
             $arrIdsContasDesbloqueio[] = $projeto->idContaBloqueada;
         }
         
         //BUSCA AS CONTAS QUE NAO PODEM SER DESBLOQUEADAS
         $arrBusca = array();
-        if(count($arrIdsContasDesbloqueio)>0){$arrBusca['cb.idContaBloqueada NOT IN (?)'] = $arrIdsContasDesbloqueio;} //id das contas que podem ser desbloqueadas
+        if (count($arrIdsContasDesbloqueio)>0) {
+            $arrBusca['cb.idContaBloqueada NOT IN (?)'] = $arrIdsContasDesbloqueio;
+        } //id das contas que podem ser desbloqueadas
         $arrBusca['cb.stEstado = ?']         = 1; //registro ativo
         $arrBusca['cb.tpIdentificacaoConta in (select TOP 1 max(tpIdentificacaoConta) from SAC..tbcontabloqueada where IdPRONAC = pr.IdPRONAC and stestado=1)'] = "(?)"; //pega apenas um registro por pronac
         $arrBusca['cb.tpAcao = ?']           = 1; //bloqueio sistemico
@@ -374,8 +355,8 @@ class ManterbloqueiocontaController extends MinC_Controller_Action_Abstract {
         $this->view->contasBloqueadas = $rsContasBloqueadas;
     }
     
-    public function imprimirAction(){
-        
+    public function imprimirAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $this->view->titulo = $_POST['titulo'];
         $this->view->html = $_POST['html'];

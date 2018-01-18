@@ -1,36 +1,12 @@
 <?php
-/**
- * @author Caio Lucena <caioflucena@gmail.com>
- */
 class GuiaController extends MinC_Controller_Action_Abstract
 {
     /**
      * (non-PHPdoc)
      * @see GenericControllerNew::init()
      */
-    public function init() {
-        /** /
-        $auth = Zend_Auth::getInstance(); // instancia da autenticacao;
-        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
-        $codGrupo = $GrupoAtivo->codGrupo; //  Grupo ativo na sessao
-        $codOrgao = $GrupoAtivo->codOrgao; //  Orgao ativo na sessao
-        $this->view->codOrgao = $codOrgao;
-        //Da permissao de acesso a todos os grupos do usuario logado afim de atender o UC72
-        if (isset($auth->getIdentity()->usu_codigo)) {
-            //Recupera todos os grupos do Usuario
-            $Usuario = new Autenticacao_Model_Usuario(); // objeto usuário
-            $grupos = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21);
-            foreach ($grupos as $grupo) {
-                $PermissoesGrupo[] = $grupo->gru_codigo;
-            }
-            $this->idusuario = $auth->getIdentity()->usu_codigo;
-            $this->view->idUsuarioLogado = $this->idusuario;
-            isset($auth->getIdentity()->usu_codigo) ? parent::perfil(1, $PermissoesGrupo) : parent::perfil(4, $PermissoesGrupo);
-        } else {
-            $this->idusuario = $auth->getIdentity()->IdUsuario;
-        }
-        parent::init();
-        /**/
+    public function init()
+    {
         $this->_helper->getHelper('contextSwitch')
             ->addActionContext('cadastrar', 'json')
             ->addActionContext('atualizar', 'json')
@@ -44,10 +20,12 @@ class GuiaController extends MinC_Controller_Action_Abstract
      * (non-PHPdoc)
      * @see GenericControllerNew::postDispatch()
      */
-    public function postDispatch(){;}
+    public function postDispatch()
+    {
+    }
 
     /**
-     * 
+     *
      */
     public function cadastrarAction()
     {
@@ -60,14 +38,14 @@ class GuiaController extends MinC_Controller_Action_Abstract
             );
             $guia->cadastrar();
             $this->view->guia = $guia->toStdClass();
-        } catch(Exception $e) {
-        	xd($e);
+        } catch (Exception $e) {
+            xd($e);
             $this->view->error = $e->getMessage();
         }
     }
 
     /**
-     * 
+     *
      */
     public function atualizarAction()
     {
@@ -91,7 +69,7 @@ class GuiaController extends MinC_Controller_Action_Abstract
     }
 
     /**
-     * 
+     *
      */
     public function pesquisarAction()
     {

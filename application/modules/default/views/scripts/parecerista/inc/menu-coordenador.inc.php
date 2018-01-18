@@ -14,11 +14,11 @@
                 var fluidConteudo = janela - 253;
                 var fluidTitulo = janela - 252;
                 var fluidRodape = janela - 19;
-                $("#navglobal").css("width",fluidNavGlobal);
-                $("#conteudo").css("width",fluidConteudo);
-                $("#titulo").css("width",fluidTitulo);
-                $("#rodapeConteudo").css("width",fluidConteudo);
-                $("#rodape").css("width",fluidRodape);
+//                $("#navglobal").css("width",fluidNavGlobal);
+//                $("#conteudo").css("width",fluidConteudo);
+//                $("#titulo").css("width",fluidTitulo);
+//                $("#rodapeConteudo").css("width",fluidConteudo);
+//                $("#rodape").css("width",fluidRodape);
                 $("div#rodapeConteudo").attr("id", "rodapeConteudo_com_menu");
             }
         </script>
@@ -36,7 +36,7 @@
             <div id="qm0" class="qmmc sanfona">
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'configurar-pagamento-parecerista'), '', true); ?>" title="Configurar Despacho">Configurar Despacho</a>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'solicitar-pagamento-parecerista'), '', true); ?>" title="Solicitar pagamento de parecerista">Solicitar Pagamentos</a>
-                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'registrar-ordem-bancaria'), '', true); ?>" title="Registrar ordem bancária">Registrar ordem bancária</a>
+                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'registrar-ordem-bancaria'), '', true); ?>" title="Registrar ordem bancï¿½ria">Registrar ordem bancï¿½ria</a>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'finalizar-pagamento-parecerista'), '', true); ?>" title="Finalizar pagamento de parecerista">Finalizar pagamentos</a>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'parecerista', 'action' => 'index'), '', true); ?>" title="Consulta">Consulta</a>
             </div>

@@ -6,8 +6,8 @@
  * @link http://www.cultura.gov.br
  */
 
-class tbManterPortaria extends MinC_Db_Table_Abstract {
-
+class tbManterPortaria extends MinC_Db_Table_Abstract
+{
     protected $_banco = "SAC";
     protected $_schema = "SAC";
     protected $_name = "tbManterPortaria";
@@ -18,7 +18,8 @@ class tbManterPortaria extends MinC_Db_Table_Abstract {
      * @param array $dados
      * @return integer (retorna o �ltimo id cadastrado)
      */
-    public function cadastrarDados($dados) {
+    public function cadastrarDados($dados)
+    {
         return $this->insert($dados);
     }
 
@@ -30,12 +31,14 @@ class tbManterPortaria extends MinC_Db_Table_Abstract {
      * @param integer $where
      * @return integer (quantidade de registros alterados)
      */
-    public function alterarDados($dados, $where) {
+    public function alterarDados($dados, $where)
+    {
         $where = "idManterPortaria = " . $where;
         return $this->update($dados, $where);
     }
 
-    public function listaSecretarios($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false) {
+    public function listaSecretarios($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -69,5 +72,4 @@ class tbManterPortaria extends MinC_Db_Table_Abstract {
         
         return $this->fetchAll($select);
     }
-
 }

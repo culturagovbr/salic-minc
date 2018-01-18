@@ -10,11 +10,11 @@
  *
  * @author 01373930160
  */
-class SolicitarReadequacaoCustoDAO extends MinC_Db_Table_AbstractScriptCase {
-
+class SolicitarReadequacaoCustoDAO extends MinC_Db_Table_AbstractScriptCase
+{
     public function verificarreadequacao($idPronac)
     {
-    	$sql = "SELECT 
+        $sql = "SELECT 
 					replace(CAST((SELECT SUM (qtItem * nrOcorrencia * vlUnitario)
 						FROM SAC.dbo.tbPlanilhaAprovacao
 						WHERE IdPRONAC = $idPronac AND stAtivo= 'S' AND tpplanilha != 'SR') AS money), ',', '.') AS totalAprovadoPlanilha
@@ -32,34 +32,40 @@ class SolicitarReadequacaoCustoDAO extends MinC_Db_Table_AbstractScriptCase {
         return $db->fetchAll($sql);
     }
 
-    public function buscarProjetos($idPronac) {
+    public function buscarProjetos($idPronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from(array('pr' => 'Projetos'),
+        $select->from(
+            array('pr' => 'Projetos'),
                         array(
                             'pr.IdPRONAC',
                             '(AnoProjeto+Sequencial) as nrpronac',
                             'pr.NomeProjeto',
                             'pr.CgcCpf'
-                        )
-                        , 'SAC.dbo'
+                        ),
+            'SAC.dbo'
                 )
-                ->joinInner(array('ar' => 'Area'),
+                ->joinInner(
+                    array('ar' => 'Area'),
                         "ar.Codigo = pr.Area",
                         array('Descricao as area'),
                         'SAC.dbo'
                 )
-                ->joinInner(array('a' => 'Agentes'),
+                ->joinInner(
+                    array('a' => 'Agentes'),
                         "a.CNPJCPF = pr.CgcCpf",
                         array('idAgente'),
                         'Agentes.dbo'
                 )
-                ->joinInner(array('nm' => 'Nomes'),
+                ->joinInner(
+                    array('nm' => 'Nomes'),
                         "a.idAgente = nm.idAgente",
                         array('Descricao as Nome'),
                         "Agentes.dbo"
                 )
-                ->joinLeft(array('seg' => 'Segmento'),
+                ->joinLeft(
+                    array('seg' => 'Segmento'),
                         "seg.Codigo = pr.Segmento",
                         array('Descricao as segmento'),
                         'SAC.dbo'
@@ -69,24 +75,26 @@ class SolicitarReadequacaoCustoDAO extends MinC_Db_Table_AbstractScriptCase {
         return $this->fetchAll($select);
     }
 
-    public function buscarProdutos($idPronac) {
+    public function buscarProdutos($idPronac)
+    {
 
 //        SELECT "pr"."IdPRONAC",
-//"prep"."idPreprojeto",
-//"ag"."TipoPessoa",
-//"ag"."idAgente",
-//"pd"."Descricao" AS "produto"
-//FROM "SAC"."dbo"."Projetos" AS "pr"
-//INNER JOIN "SAC"."dbo"."PreProjeto" AS "prep" ON prep.idPreProjeto = pr.idProjeto
-//INNER JOIN "Agentes"."dbo"."Agentes" AS "ag" ON ag.idAgente = prep.idAgente
-//LEFT JOIN BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto tpap on tpap.idpronac = pr.idpronac
-//LEFT JOIN "SAC"."dbo"."tbPlanoDistribuicao" AS tpd ON tpd.idPedidoAlteracao = tpap.idPedidoAlteracao
-//LEFT JOIN "SAC"."dbo"."Produto" AS "pd" ON tpd.idProduto = pd.Codigo WHERE (pr.IdPRONAC= '127152')
+        //"prep"."idPreprojeto",
+        //"ag"."TipoPessoa",
+        //"ag"."idAgente",
+        //"pd"."Descricao" AS "produto"
+        //FROM "SAC"."dbo"."Projetos" AS "pr"
+        //INNER JOIN "SAC"."dbo"."PreProjeto" AS "prep" ON prep.idPreProjeto = pr.idProjeto
+        //INNER JOIN "Agentes"."dbo"."Agentes" AS "ag" ON ag.idAgente = prep.idAgente
+        //LEFT JOIN BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto tpap on tpap.idpronac = pr.idpronac
+        //LEFT JOIN "SAC"."dbo"."tbPlanoDistribuicao" AS tpd ON tpd.idPedidoAlteracao = tpap.idPedidoAlteracao
+        //LEFT JOIN "SAC"."dbo"."Produto" AS "pd" ON tpd.idProduto = pd.Codigo WHERE (pr.IdPRONAC= '127152')
                 
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->distinct();
-        $slct->from(array('pr' => 'Projetos'),
+        $slct->from(
+            array('pr' => 'Projetos'),
                         array('IdPRONAC'),
                         "SAC.dbo"
                 )
@@ -133,17 +141,16 @@ class SolicitarReadequacaoCustoDAO extends MinC_Db_Table_AbstractScriptCase {
                 ->where("tpd.tpAcao != 'E'");
 
 
-       return $this->fetchAll($slct);
+        return $this->fetchAll($slct);
     }
 
-    public function buscarProdutosAprovados($idPronac) {
-
-
-
+    public function buscarProdutosAprovados($idPronac)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->distinct();
-        $slct->from(array('pr' => 'Projetos'),
+        $slct->from(
+            array('pr' => 'Projetos'),
                         array('IdPRONAC'),
                         "SAC.dbo"
                 )
@@ -188,10 +195,11 @@ class SolicitarReadequacaoCustoDAO extends MinC_Db_Table_AbstractScriptCase {
                 ->where('pd.Descricao IS NOT NULL');
 
     
-       return $this->fetchAll($slct);
+        return $this->fetchAll($slct);
     }
 
-    public function buscarProdutosIndex($idPronac) {
+    public function buscarProdutosIndex($idPronac)
+    {
         $sql = "SELECT  TOP 1   SAC.dbo.Projetos.IdPRONAC, AGENTES.dbo.Agentes.idAgente, AGENTES.dbo.Agentes.TipoPessoa, SAC.dbo.Produto.Descricao, SAC.dbo.Produto.Codigo AS idProduto
 FROM         SAC.dbo.Projetos INNER JOIN
                       SAC.dbo.PreProjeto ON SAC.dbo.Projetos.idProjeto = SAC.dbo.PreProjeto.idPreProjeto INNER JOIN
@@ -206,10 +214,12 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public function buscarProdutosItens($idPronac=null, $idEtapa=null, $idProduto=null, $idaprovacao=null) {
+    public function buscarProdutosItens($idPronac=null, $idEtapa=null, $idProduto=null, $idaprovacao=null)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
-        $slct->from(array('tpa' => 'tbPlanilhaAprovacao'),
+        $slct->from(
+            array('tpa' => 'tbPlanilhaAprovacao'),
                         array('IdPRONAC',
                             'idProduto',
                             'idPlanilhaItem',
@@ -230,34 +240,41 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
                         ),
                         "SAC.dbo"
                 )
-                ->joinInner(array('tpe' => 'tbPlanilhaEtapa'),
+                ->joinInner(
+                    array('tpe' => 'tbPlanilhaEtapa'),
                         'tpa.idEtapa = tpe.idPlanilhaEtapa',
                         array('Etapa' => 'tpe.Descricao'),
-                        "SAC.dbo")
-                ->joinInner(array('tpu' => 'tbPlanilhaUnidade'),
+                        "SAC.dbo"
+                )
+                ->joinInner(
+                    array('tpu' => 'tbPlanilhaUnidade'),
                         'tpa.idUnidade = tpu.idUnidade',
                         array('Unidade' => 'tpu.Descricao'),
                         "SAC.dbo"
                 )
-                ->joinInner(array('tpi' => 'tbPlanilhaItens'),
+                ->joinInner(
+                    array('tpi' => 'tbPlanilhaItens'),
                         'tpa.idPlanilhaItem = tpi.idPlanilhaItens',
                         array('tpi.Descricao as Item'),
                         "SAC.dbo"
                 )
-                ->joinInner(array('uf' => 'UF'),
+                ->joinInner(
+                    array('uf' => 'UF'),
                         'tpa.idUFDespesa = uf.idUF',
                         array('uf.Descricao as uf'),
                         "AGENTES.dbo"
                 )
-                ->joinInner(array('mun' => 'Municipios'),
+                ->joinInner(
+                    array('mun' => 'Municipios'),
                         'tpa.idMunicipioDespesa = mun.idMunicipioIBGE',
                         array('mun.Descricao as Municipio'),
                         'AGENTES.dbo'
                 )
-                ->joinInner(array('vf' => 'Verificacao'),
+                ->joinInner(
+                    array('vf' => 'Verificacao'),
                         'tpa.nrFonteRecurso = vf.idVerificacao',
-                        array('vf.Descricao as FonteRecurso')
-                        , 'SAC.dbo'
+                        array('vf.Descricao as FonteRecurso'),
+                    'SAC.dbo'
                 )
                 ->where('tpa.stAtivo = ?', 'S');
         if (!empty($idPronac)) {
@@ -277,10 +294,12 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $this->fetchAll($slct);
     }
 
-    public function buscarProdutosItensInseridos($idPronac, $idEtapa = null, $idProduto = null, $idPlanilhaAprovacao = null) {
+    public function buscarProdutosItensInseridos($idPronac, $idEtapa = null, $idProduto = null, $idPlanilhaAprovacao = null)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
-        $slct->from(array('tpa' => 'tbPlanilhaAprovacao'),
+        $slct->from(
+            array('tpa' => 'tbPlanilhaAprovacao'),
                         array('IdPRONAC',
                             'idProduto',
                             'idPlanilhaItem',
@@ -301,57 +320,65 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
                         ),
                         "SAC.dbo"
                 )
-                ->joinInner(array('tpe' => 'tbPlanilhaEtapa'),
+                ->joinInner(
+                    array('tpe' => 'tbPlanilhaEtapa'),
                         'tpa.idEtapa = tpe.idPlanilhaEtapa',
                         array('Etapa' => 'tpe.Descricao'),
-                        "SAC.dbo")
-                ->joinInner(array('tpu' => 'tbPlanilhaUnidade'),
+                        "SAC.dbo"
+                )
+                ->joinInner(
+                    array('tpu' => 'tbPlanilhaUnidade'),
                         'tpa.idUnidade = tpu.idUnidade',
                         array('Unidade' => 'tpu.Descricao'),
                         "SAC.dbo"
                 )
-                ->joinInner(array('tpi' => 'tbPlanilhaItens'),
+                ->joinInner(
+                    array('tpi' => 'tbPlanilhaItens'),
                         'tpa.idPlanilhaItem = tpi.idPlanilhaItens',
                         array('tpi.Descricao as Item'),
                         "SAC.dbo"
                 )
-                ->joinInner(array('uf' => 'UF'),
+                ->joinInner(
+                    array('uf' => 'UF'),
                         'tpa.idUFDespesa = uf.idUF',
                         array('uf.Descricao as uf'),
                         "AGENTES.dbo"
                 )
-                ->joinInner(array('mun' => 'Municipios'),
+                ->joinInner(
+                    array('mun' => 'Municipios'),
                         'tpa.idMunicipioDespesa = mun.idMunicipioIBGE',
                         array('mun.Descricao as Municipio'),
                         'AGENTES.dbo'
                 )
-                ->joinInner(array('vf' => 'Verificacao'),
+                ->joinInner(
+                    array('vf' => 'Verificacao'),
                         'tpa.nrFonteRecurso = vf.idVerificacao',
-                        array('vf.Descricao as FonteRecurso')
-                        , 'SAC.dbo'
+                        array('vf.Descricao as FonteRecurso'),
+                    'SAC.dbo'
                 )
                 ->where('tpa.stAtivo = ?', 'N')
                 ->where('tpa.tpPlanilha = ?', 'SR')
                 ->where('tpa.IdPRONAC = ?', $idPronac)
                 ->where('tpa.idPedidoAlteracao is not null');
 
-		if (!empty($idProduto) && $idProduto != 0) :
-			$slct->where('tpa.idProduto = ?', $idProduto);
-		endif;
+        if (!empty($idProduto) && $idProduto != 0) :
+            $slct->where('tpa.idProduto = ?', $idProduto);
+        endif;
 
-		if (!empty($idEtapa)) :
-			$slct->where('tpa.idEtapa = ?', $idEtapa);
-		endif;
+        if (!empty($idEtapa)) :
+            $slct->where('tpa.idEtapa = ?', $idEtapa);
+        endif;
 
-		if (!empty($idPlanilhaAprovacao)) :
-			$slct->where('tpa.idPlanilhaAprovacao = ?', $idPlanilhaAprovacao);
-		endif;
+        if (!empty($idPlanilhaAprovacao)) :
+            $slct->where('tpa.idPlanilhaAprovacao = ?', $idPlanilhaAprovacao);
+        endif;
 
 
         return $this->fetchAll($slct);
     }
 
-    public static function inserirCopiaPlanilha($idPronac, $idPedidoAlteracao) {
+    public static function inserirCopiaPlanilha($idPronac, $idPedidoAlteracao)
+    {
         $sql = "insert into SAC.dbo.tbPlanilhaAprovacao
                     SELECT
                     'tpPlanilha' = 'SR',
@@ -391,7 +418,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->query($sql);
     }
 
-    public static function inserirProdutosItens($post, $idPedido, $idProduto = null) {
+    public static function inserirProdutosItens($post, $idPedido, $idProduto = null)
+    {
         try {
             $idCodigoProduto = isset($post['idProduto']) ? $post['idProduto'] : 0;
             $item = isset($post['item']) ? $post['item'] : 0;
@@ -435,26 +463,29 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         }
     }
 
-    public static function inserirNovoProduto($dados) {
+    public static function inserirNovoProduto($dados)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->insert('SAC.dbo.tbPlanilhaAprovacao', $dados);
     }
 
-    public function inserirPedido($dados) {
-
+    public function inserirPedido($dados)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $db->insert('BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto', $dados);
         return $db->lastInsertId();
     }
 
-    public static function alterarPedidoAlterado($post) {
+    public static function alterarPedidoAlterado($post)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $db->update('BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto', $dados, $where);
     }
 
-    public static function atualizaPedidoAlteracao($dados, $idPedido) {
+    public static function atualizaPedidoAlteracao($dados, $idPedido)
+    {
         try {
             $where = " idPedidoAlteracao = $idPedido";
 
@@ -466,8 +497,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         }
     }
 
-    public static function atualizaPedidoAlteracaoStatusTemporario($post, $idPedido) {
-
+    public static function atualizaPedidoAlteracaoStatusTemporario($post, $idPedido)
+    {
         $idPronac = $post['idpronac'];
         $idAgente = $post['idAgente'];
         $acao = $post['acao'];
@@ -484,8 +515,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public static function atualizaPedidoAlteracaoStatusAlterado($post, $idPedido) {
-
+    public static function atualizaPedidoAlteracaoStatusAlterado($post, $idPedido)
+    {
         $idPronac = $post['idpronac'];
         $idAgente = $post['idAgente'];
         $acao = $post['acao'];
@@ -502,10 +533,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public static function controlaStatus($status, $idPronac) {
-
-
-
+    public static function controlaStatus($status, $idPronac)
+    {
         $sql = "UPDATE    BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto SET
                     stPedidoAlteracao = '$status' WHERE IdPRONAC =  $idPronac ";
 
@@ -518,7 +547,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public static function atualizaItem($dados, $where) {
+    public static function atualizaItem($dados, $where)
+    {
         try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->update('SAC.dbo.tbPlanilhaAprovacao', $dados, $where);
@@ -528,7 +558,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         }
     }
 
-    public static function buscaUltimaPlanilhaAprovada($where) {
+    public static function buscaUltimaPlanilhaAprovada($where)
+    {
         $sql = "SELECT TOP 1 idPlanilhaAprovacao FROM SAC.dbo.tbPlanilhaAprovacao
                 WHERE $where ORDER BY  idPlanilhaAprovacao DESC
 
@@ -539,7 +570,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public static function alterarItem($dados, $where) {
+    public static function alterarItem($dados, $where)
+    {
         try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->update('SAC.dbo.tbPlanilhaAprovacao', $dados, $where);
@@ -549,9 +581,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         }
     }
 
-    public static function atualizaPedidoAlteracaoIndex($idPronac, $idPedido, $idSolicitante, $acao) {
-
-
+    public static function atualizaPedidoAlteracaoIndex($idPronac, $idPedido, $idSolicitante, $acao)
+    {
         $sql = "UPDATE    BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto SET
                     stPedidoAlteracao = '$acao' WHERE IdPRONAC =  $idPronac and idSolicitante =  $idSolicitante and idPedidoAlteracao = $idPedido ";
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -560,7 +591,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public static function inserirPedidoTipo($dados) {
+    public static function inserirPedidoTipo($dados)
+    {
         try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -570,9 +602,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         }
     }
 
-    public static function atualizaPedidoTipoAlteracao($idPedidoAlteracao, $justificativa) {
-
-
+    public static function atualizaPedidoTipoAlteracao($idPedidoAlteracao, $justificativa)
+    {
         $sql = "update BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao set dsJustificativa = '$justificativa'
                 where idPedidoAlteracao = $idPedidoAlteracao and tpAlteracaoProjeto = 10    ";
 
@@ -586,7 +617,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public static function verificaPedidoTipoAlteracao($idPedidoAlteracao, $tpalteracaoprojeto) {
+    public static function verificaPedidoTipoAlteracao($idPedidoAlteracao, $tpalteracaoprojeto)
+    {
         $sql = "select 1 from BDCORPORATIVO.scSAC.tbPedidoAlteracaoXTipoAlteracao WHERE idPedidoAlteracao = '$idPedidoAlteracao' and tpAlteracaoProjeto = $tpalteracaoprojeto";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -594,8 +626,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public static function atualizaPedidoAlteracaoTipo($post, $idPedido) {
-
+    public static function atualizaPedidoAlteracaoTipo($post, $idPedido)
+    {
         $idPronac = $post['idpronac'];
         $idAgente = $post['idAgente'];
         $acao = $post['acao'];
@@ -608,8 +640,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public function verificaPedidoAlteracao($idPronac) {
-    
+    public function verificaPedidoAlteracao($idPronac)
+    {
         $sql = "Select idPedidoAlteracao, stPedidoAlteracao  from BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto
                     WHERE IdPRONAC = $idPronac order by idPedidoAlteracao Desc ";
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -617,7 +649,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchRow($sql);
     }
 
-    public static function verificaItem($post) {
+    public static function verificaItem($post)
+    {
         $etapa = $post['etapa'];
         $item = $post['item'];
 
@@ -632,7 +665,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public static function verificaTipoAcao($idPronac) {
+    public static function verificaTipoAcao($idPronac)
+    {
         $sql = "SELECT TOP 1    tpAcao
                 FROM         SAC.dbo.tbPlanilhaAprovacao where IdPRONAC = $idPronac order by idPlanilhaAprovacao desc";
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -640,8 +674,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public static function buscaIdPedidoAlteracao($idPronac) {
-
+    public static function buscaIdPedidoAlteracao($idPronac)
+    {
         $sql = "select MAX(idPedidoAlteracao) as idpedidoalteracao from  BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto where idpronac = $idPronac";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -649,7 +683,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public function buscarPlanilhaAprovacao($idPronac, $idCodigoProduto = null) {
+    public function buscarPlanilhaAprovacao($idPronac, $idCodigoProduto = null)
+    {
         $buscarPlanilhaAprovacao = $this->select();
         $buscarPlanilhaAprovacao->setIntegrityCheck(false);
         $buscarPlanilhaAprovacao->from(
@@ -669,7 +704,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $this->fetchAll($buscarPlanilhaAprovacao);
     }
 
-    public function buscarProdutoAprovacao($idPronac) {
+    public function buscarProdutoAprovacao($idPronac)
+    {
         $buscarPlanilhaAprovacao = $this->select();
         $buscarPlanilhaAprovacao->setIntegrityCheck(false);
         $buscarPlanilhaAprovacao->from(
@@ -710,7 +746,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $this->fetchAll($buscarPlanilhaAprovacao);
     }
 
-        public function buscarProdutoAprovacaoSemProposta($idPronac) {
+    public function buscarProdutoAprovacaoSemProposta($idPronac)
+    {
         $buscarPlanilhaAprovacao = $this->select();
         $buscarPlanilhaAprovacao->setIntegrityCheck(false);
         $buscarPlanilhaAprovacao->from(
@@ -762,10 +799,12 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $this->fetchAll($buscarPlanilhaAprovacao);
     }
 
-    public function buscarEtapa($tipoproduto) {
+    public function buscarEtapa($tipoproduto)
+    {
         $slctEtapa = $this->select();
         $slctEtapa->setIntegrityCheck(false);
-        $slctEtapa->from('tbPlanilhaEtapa',
+        $slctEtapa->from(
+            'tbPlanilhaEtapa',
                 array(),
                 'SAC.dbo'
         );
@@ -773,7 +812,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $this->fetchAll($slctEtapa);
     }
     
-        public function buscarItensCadastrados($idPronac) {
+    public function buscarItensCadastrados($idPronac)
+    {
         $slctItens = $this->select();
         $slctItens->setIntegrityCheck(false);
         $slctItens->from(
@@ -808,7 +848,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $this->fetchAll($slctItens);
     }
 
-    public static function buscarItens($idEtapa, $idproduto = null) {
+    public static function buscarItens($idEtapa, $idproduto = null)
+    {
         $sql = " select distinct tpi.idPlanilhaItens,
                 tpi.Descricao
                 from SAC.dbo.tbPlanilhaItens tpi
@@ -828,15 +869,18 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public function buscarFonteRecurso() {
+    public function buscarFonteRecurso()
+    {
         $fonte = $this->select();
         $fonte->setIntegrityCheck(false);
-        $fonte->from(array('ver' => 'Verificacao'),
+        $fonte->from(
+            array('ver' => 'Verificacao'),
                         array(
                             'ver.idVerificacao',
                             '(ltrim(ver.Descricao)) as VerificacaoDescricao'
                         ),
-                        'SAC.dbo')
+                        'SAC.dbo'
+        )
                 ->joinInner(
                         array('tp' => 'Tipo'),
                         'ver.idTipo = tp.idTipo',
@@ -847,7 +891,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $this->fetchAll($fonte);
     }
 
-    public function buscarUnidade() {
+    public function buscarUnidade()
+    {
         $sql = "select idUnidade, Sigla, Descricao  from SAC.dbo.tbPlanilhaUnidade";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -855,7 +900,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public function buscarUF() {
+    public function buscarUF()
+    {
         $sql = "select idUF,Sigla,Descricao,Regiao from AGENTES.dbo.UF order by 3 asc";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -863,7 +909,8 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public static function buscarMunicipio($iduf) {
+    public static function buscarMunicipio($iduf)
+    {
         $sql = "select idMunicipioIBGE, idUFIBGE, Descricao from AGENTES.dbo.Municipios where idUFIBGE = $iduf";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -871,17 +918,19 @@ WHERE     SAC.dbo.Projetos.IdPRONAC = $idPronac AND SAC.dbo.PlanoDistribuicaoPro
         return $db->fetchAll($sql);
     }
 
-    public function verificarPlanilhaCriada($idpronac, $tpplanilha) {
+    public function verificarPlanilhaCriada($idpronac, $tpplanilha)
+    {
         $verifica = $this->select();
         $verifica->setIntegrityCheck(false);
-        $verifica->from('tbPlanilhaAprovacao',
+        $verifica->from(
+            'tbPlanilhaAprovacao',
                         array(),
-                        'SAC.dbo')
+                        'SAC.dbo'
+        )
                 ->where('idPRONAC = ?', $idpronac)
                 ->where('tpPlanilha = ?', $tpplanilha);
         return $this->fetchAll($verifica)->current();
     }
-
 }
 ?>
 

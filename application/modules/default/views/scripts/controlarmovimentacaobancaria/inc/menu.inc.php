@@ -70,12 +70,12 @@
                 <a href="<?php echo $this->url(array('controller' => 'movimentacaodeconta', 'action' => 'upload'), '', true); ?>" title="Ir para Arquivo da Conta Capta&ccedil;&atilde;o" class="no_seta">Atualizar arquivo de conta capta&ccedil;&atilde;o</a>
                 
                 <?php
-					#removendo UCS nao concluidos do menu
-					/** /
-	                <a href="<?php echo $this->url(array('controller' => 'manterbloqueioconta', 'action' => 'form-pesquisar-conta'), '', true); ?>" title="Ir para Bloquear contas" class="no_seta">Bloquear contas</a>
-	                <a href="<?php echo $this->url(array('controller' => 'manterbloqueioconta', 'action' => 'listar-contas-desbloqueio'), '', true); ?>" title="Ir para Desbloquear" class="no_seta">Desbloquear contas</a>
-	                /**/
-				?>
+                    #removendo UCS nao concluidos do menu
+                    /** /
+                    <a href="<?php echo $this->url(array('controller' => 'manterbloqueioconta', 'action' => 'form-pesquisar-conta'), '', true); ?>" title="Ir para Bloquear contas" class="no_seta">Bloquear contas</a>
+                    <a href="<?php echo $this->url(array('controller' => 'manterbloqueioconta', 'action' => 'listar-contas-desbloqueio'), '', true); ?>" title="Ir para Desbloquear" class="no_seta">Desbloquear contas</a>
+                    /**/
+                ?>
 
                 <a href="#" title="Relat&oacute;rios" class="relatorio">Relat&oacute;rios</a>
                 <div id="qm0" class="sanfona sanfonaDiv" style="display: none;">
@@ -88,7 +88,7 @@
                 </div>
                 <a href="<?php echo $this->url(array('controller' => 'controlarmovimentacaobancaria', 'action' => ''), '', true); ?>" title="Ir para Relat&oacute;rio da Conta Movimenta&ccedil;&atilde;o" class="no_seta">Relat&oacute;rio da Conta Movimenta&ccedil;&atilde;o</a>
 
-		<?php if ($this->grupoAtivo == 122 || $this->grupoAtivo == 123) : // só Coordenador de Acompanhamento e Coord. Geral de Acompanhamento que pode acessar ?>
+		<?php if ($this->grupoAtivo == 122 || $this->grupoAtivo == 123) : // só Coordenador de Acompanhamento e Coord. Geral de Acompanhamento que pode acessar?>
                 <a href="<?php echo $this->url(array('controller' => 'dbf', 'action' => ''), '', true); ?>" title="Ir para Gerar DBF" class="no_seta">Gerar DBF</a>
                 <?php endif; ?>
 

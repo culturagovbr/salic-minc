@@ -1,4 +1,5 @@
-<?php if(isset($_GET['idPronac']) && !empty($_GET['idPronac'])){ ?>
+<?php if (isset($_GET['idPronac']) && !empty($_GET['idPronac'])) {
+    ?>
 <!-- ========== INÍCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 
@@ -88,4 +89,5 @@ function carregaPagina(){
     </div>
 </div>
 <!-- ========== FIM MENU ========== -->
-<?php } ?>
+<?php
+} ?>

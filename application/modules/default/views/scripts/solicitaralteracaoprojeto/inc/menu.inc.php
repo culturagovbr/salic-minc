@@ -42,9 +42,11 @@
                 <a id="abrir_projetos" href="#" title="Projetos">Projetos</a>
                 <div class="sanfonaDiv">
                 </div>
-                <?php if(count($this->buscaPlanilhaCusto) > 0){?>
+                <?php if (count($this->buscaPlanilhaCusto) > 0) {
+    ?>
                 <a href="#" title="Proponente">Custo</a>
-                <?php } ?>
+                <?php
+} ?>
                 <div class="sanfonaDiv">
                 </div>
 

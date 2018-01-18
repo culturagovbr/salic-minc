@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,11 +9,10 @@
  *
  * @author 01373930160
  */
-class GerarRelatorioReuniaoDAO extends Zend_Db_Table {
-
+class GerarRelatorioReuniaoDAO extends Zend_Db_Table
+{
     public static function geraRelatorioReuniao()
     {
-
         $sql = "SELECT
                     tbReuniao.idNrReuniao,
                     BDCORPORATIVO.scSAC.tbPauta.IdPRONAC,
@@ -29,35 +28,28 @@ class GerarRelatorioReuniaoDAO extends Zend_Db_Table {
                    ON BDCORPORATIVO.scSAC.tbPauta.idNrReuniao = tbReuniao.idNrReuniao
                 WHERE     (tbReuniao.stEstado = 0)";
 
-        try
-        {
-                $db = Zend_Db_Table::getDefaultAdapter();
-                $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
-                $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
         }
 
         return $db->fetchAll($sql);
-        
     }
 
-    public static  function consultaAreaCultural()
+    public static function consultaAreaCultural()
     {
         $sql = "SELECT * FROM SAC.dbo.Area ";
 
-                try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-		}
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
 
-		return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
 
     public static function consultaProjetosPautaReuniao($idReuniao = null)
@@ -73,26 +65,21 @@ FROM         SAC.dbo.Projetos AS pr INNER JOIN
                       SAC.dbo.Area AS ar ON pr.Area = ar.Codigo INNER JOIN
                       SAC.dbo.tbReuniao AS tr ON par.idPRONAC = pr.IdPRONAC where stEnvioPlenario = 'S'
 and     (tr.stEstado = 0)";
-        if($idReuniao != 0)
-        {
+        if ($idReuniao != 0) {
             $sql .=" and tr.NrReuniao = $idReuniao";
         }
 
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
         }
 
         return $db->fetchAll($sql);
-
     }
 
-    public static  function consultaValorAprovado($idPronac = null)
+    public static function consultaValorAprovado($idPronac = null)
     {
         $sql = "SELECT DISTINCT
                       SAC.dbo.Projetos.IdPRONAC AS Pronac,
@@ -119,23 +106,17 @@ and     (tr.stEstado = 0)";
                       SAC.dbo.Area ON  SAC.dbo.Projetos.Area =  SAC.dbo.Area.Codigo
                 WHERE     SAC.dbo.tbReuniao.stEstado = 0 ";
 
-                   if (!empty($idPronac))
-                   {
-                      $sql.= " AND SAC.dbo.Projetos.IdPRONAC = $idPronac ";
-                   }
+        if (!empty($idPronac)) {
+            $sql.= " AND SAC.dbo.Projetos.IdPRONAC = $idPronac ";
+        }
 
-                try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-		}
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
 
-		return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
-
 }
-?>

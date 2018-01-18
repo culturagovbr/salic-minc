@@ -30,16 +30,10 @@ class tbalteracaoaltrazDAO extends Zend_Db_Table
         $where = "idagente = ".$idagente;
         $alterar = $db->update("AGENTES.dbo.Nomes", $dados, $where);
 
-        if ($alterar)
-        {
+        if ($alterar) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
-
 }
-
-?>

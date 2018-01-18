@@ -25,7 +25,6 @@ class QuestaoController extends MinC_Controller_Action_Abstract
      */
     public function postDispatch()
     {
-
     }
 
     /**
@@ -50,19 +49,24 @@ class QuestaoController extends MinC_Controller_Action_Abstract
             $respostas = $this->getRequest()->getParam('respostaNome') ?: array();
             foreach ($respostas as $resposta) {
                 $respostaModel = new RespostaModel(
-                    null, $this->getRequest()->getParam('tipoResposta'), $this->view->questao->questao, $resposta
+                    null,
+                    $this->getRequest()->getParam('tipoResposta'),
+                    $this->view->questao->questao,
+                    $resposta
                 );
                 $respostaModel->cadastrar();
                 $this->view->questao->resposta[] = $respostaModel->toStdClass();
             }
-        } catch(Exception $e) {
-            echo '<pre>'; print_r($e);die;
+        } catch (Exception $e) {
+            echo '<pre>';
+            print_r($e);
+            die;
             $this->view->error = $e;
         }
     }
 
     /**
-     * 
+     *
      */
     public function atualizarAction()
     {
@@ -86,7 +90,10 @@ class QuestaoController extends MinC_Controller_Action_Abstract
         $respostas = $this->getRequest()->getParam('respostaNome') ?: array();
         foreach ($respostas as $resposta) {
             $respostaModel = new RespostaModel(
-                null, $this->getRequest()->getParam('tipoResposta'), $this->view->questao->questao, $resposta
+                null,
+                $this->getRequest()->getParam('tipoResposta'),
+                $this->view->questao->questao,
+                $resposta
             );
             $respostaModel->cadastrar();
             $this->view->questao->resposta[] = $respostaModel->toStdClass();
@@ -103,7 +110,7 @@ class QuestaoController extends MinC_Controller_Action_Abstract
     }
 
     /**
-     * 
+     *
      */
     public function pesquisarAction()
     {

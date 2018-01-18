@@ -1,24 +1,39 @@
 <?php
 
-class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
-
+class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'Tabelas';
     protected $_schema = 'Tabelas';
     protected $_name = 'UsuariosXOrgaosXGrupos';
 
-    public function buscarUsuariosOrgaosGrupos($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
+    public function buscarUsuariosOrgaosGrupos($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->distinct();
-        $slct->from(array('ug' => $this->_name), array()
+        $slct->from(
+            array('ug' => $this->_name),
+            array()
         );
-        $slct->joinInner(array('g' => 'Grupos'), 'ug.uog_grupo = g.gru_codigo', array('g.gru_nome', 'g.gru_codigo')
+        $slct->joinInner(
+            array('g' => 'Grupos'),
+            'ug.uog_grupo = g.gru_codigo',
+            array('g.gru_nome', 'g.gru_codigo')
         );
-        $slct->joinInner(array('s' => 'Sistemas'), 'g.gru_sistema = s.sis_codigo', array('s.sis_codigo')
+        $slct->joinInner(
+            array('s' => 'Sistemas'),
+            'g.gru_sistema = s.sis_codigo',
+            array('s.sis_codigo')
         );
-        $slct->joinInner(array('u' => 'Usuarios'), 'ug.uog_usuario = u.usu_codigo', array('u.usu_codigo', 'u.usu_identificacao', 'u.usu_nome')
+        $slct->joinInner(
+            array('u' => 'Usuarios'),
+            'ug.uog_usuario = u.usu_codigo',
+            array('u.usu_codigo', 'u.usu_identificacao', 'u.usu_nome')
         );
-        $slct->joinInner(array('o' => 'Orgaos'), 'ug.uog_orgao = o.org_codigo', array('o.org_sigla', 'o.org_codigo')
+        $slct->joinInner(
+            array('o' => 'Orgaos'),
+            'ug.uog_orgao = o.org_codigo',
+            array('o.org_sigla', 'o.org_codigo')
         );
 
         foreach ($where as $coluna => $valor) {
@@ -29,19 +44,34 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function buscarUsuariosOrgaosGruposNomes($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
+    public function buscarUsuariosOrgaosGruposNomes($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->distinct();
-        $slct->from(array('ug' => $this->_name), array()
+        $slct->from(
+            array('ug' => $this->_name),
+            array()
         );
-        $slct->joinInner(array('g' => 'Grupos'), 'ug.uog_grupo = g.gru_codigo', array()
+        $slct->joinInner(
+            array('g' => 'Grupos'),
+            'ug.uog_grupo = g.gru_codigo',
+            array()
         );
-        $slct->joinInner(array('s' => 'Sistemas'), 'g.gru_sistema = s.sis_codigo', array('s.sis_codigo')
+        $slct->joinInner(
+            array('s' => 'Sistemas'),
+            'g.gru_sistema = s.sis_codigo',
+            array('s.sis_codigo')
         );
-        $slct->joinInner(array('u' => 'Usuarios'), 'ug.uog_usuario = u.usu_codigo', array('u.usu_identificacao', 'u.usu_nome')
+        $slct->joinInner(
+            array('u' => 'Usuarios'),
+            'ug.uog_usuario = u.usu_codigo',
+            array('u.usu_identificacao', 'u.usu_nome')
         );
-        $slct->joinInner(array('o' => 'Orgaos'), 'ug.uog_orgao = o.org_codigo', array('u.usu_identificacao', 'u.usu_nome', 'u.usu_codigo', 'o.org_sigla', 'o.org_codigo')
+        $slct->joinInner(
+            array('o' => 'Orgaos'),
+            'ug.uog_orgao = o.org_codigo',
+            array('u.usu_identificacao', 'u.usu_nome', 'u.usu_codigo', 'o.org_sigla', 'o.org_codigo')
         );
 
         foreach ($where as $coluna => $valor) {
@@ -52,19 +82,34 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function buscarUsuariosOrgaosGruposSistemas($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
+    public function buscarUsuariosOrgaosGruposSistemas($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->distinct();
-        $slct->from(array('ug' => $this->_name), array()
+        $slct->from(
+            array('ug' => $this->_name),
+            array()
         );
-        $slct->joinInner(array('g' => 'Grupos'), 'ug.uog_grupo = g.gru_codigo', array('g.gru_nome', 'g.gru_codigo')
+        $slct->joinInner(
+            array('g' => 'Grupos'),
+            'ug.uog_grupo = g.gru_codigo',
+            array('g.gru_nome', 'g.gru_codigo')
         );
-        $slct->joinInner(array('s' => 'Sistemas'), 'g.gru_sistema = s.sis_codigo', array()
+        $slct->joinInner(
+            array('s' => 'Sistemas'),
+            'g.gru_sistema = s.sis_codigo',
+            array()
         );
-        $slct->joinInner(array('u' => 'Usuarios'), 'ug.uog_usuario = u.usu_codigo', array()
+        $slct->joinInner(
+            array('u' => 'Usuarios'),
+            'ug.uog_usuario = u.usu_codigo',
+            array()
         );
-        $slct->joinInner(array('o' => 'Orgaos'), 'ug.uog_orgao = o.org_codigo', array()
+        $slct->joinInner(
+            array('o' => 'Orgaos'),
+            'ug.uog_orgao = o.org_codigo',
+            array()
         );
 
         foreach ($where as $coluna => $valor) {
@@ -75,19 +120,34 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function buscarUsuariosOrgaosGruposUnidades($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
+    public function buscarUsuariosOrgaosGruposUnidades($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->distinct();
-        $slct->from(array('ug' => $this->_name), array()
+        $slct->from(
+            array('ug' => $this->_name),
+            array()
         );
-        $slct->joinInner(array('g' => 'Grupos'), 'ug.uog_grupo = g.gru_codigo', array()
+        $slct->joinInner(
+            array('g' => 'Grupos'),
+            'ug.uog_grupo = g.gru_codigo',
+            array()
         );
-        $slct->joinInner(array('s' => 'Sistemas'), 'g.gru_sistema = s.sis_codigo', array()
+        $slct->joinInner(
+            array('s' => 'Sistemas'),
+            'g.gru_sistema = s.sis_codigo',
+            array()
         );
-        $slct->joinInner(array('u' => 'Usuarios'), 'ug.uog_usuario = u.usu_codigo', array()
+        $slct->joinInner(
+            array('u' => 'Usuarios'),
+            'ug.uog_usuario = u.usu_codigo',
+            array()
         );
-        $slct->joinInner(array('o' => 'Orgaos'), 'ug.uog_orgao = o.org_codigo', array('o.org_sigla', 'o.org_codigo')
+        $slct->joinInner(
+            array('o' => 'Orgaos'),
+            'ug.uog_orgao = o.org_codigo',
+            array('o.org_sigla', 'o.org_codigo')
         );
 
         foreach ($where as $coluna => $valor) {
@@ -97,7 +157,8 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
 
         return $this->fetchAll($slct);
     }
-    public function buscarViewUsuariosOrgaoGrupos($where=array(), $orWhere=array()) {
+    public function buscarViewUsuariosOrgaoGrupos($where=array(), $orWhere=array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(array('uog' => 'vwUsuariosOrgaosGrupos'));
@@ -112,17 +173,29 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function buscarUsuariosOrgaosGruposSigla($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $total=null) {
+    public function buscarUsuariosOrgaosGruposSigla($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $total=null)
+    {
         $slct = $this->select();
         $slct->distinct();
         $slct->setIntegrityCheck(false);
-        $slct->from(array('ug' => $this->_name), array()
+        $slct->from(
+            array('ug' => $this->_name),
+            array()
         );
-        $slct->joinInner(array('g' => 'Grupos'), 'ug.uog_grupo = g.gru_codigo', array('g.gru_codigo', 'g.gru_nome', 'ug.uog_status', 'ug.uog_orgao')
+        $slct->joinInner(
+            array('g' => 'Grupos'),
+            'ug.uog_grupo = g.gru_codigo',
+            array('g.gru_codigo', 'g.gru_nome', 'ug.uog_status', 'ug.uog_orgao')
         );
-        $slct->joinInner(array('s' => 'Sistemas'), 'g.gru_sistema = s.sis_codigo', array()
+        $slct->joinInner(
+            array('s' => 'Sistemas'),
+            'g.gru_sistema = s.sis_codigo',
+            array()
         );
-        $slct->joinInner(array('u' => 'Usuarios'), 'ug.uog_usuario = u.usu_codigo', array('u.usu_orgao', 'u.usu_identificacao', 'u.usu_nome', 'u.usu_telefone', 'u.usu_status', 'usu_codigo',
+        $slct->joinInner(
+            array('u' => 'Usuarios'),
+            'ug.uog_usuario = u.usu_codigo',
+            array('u.usu_orgao', 'u.usu_identificacao', 'u.usu_nome', 'u.usu_telefone', 'u.usu_status', 'usu_codigo',
             new Zend_Db_Expr('tabelas.dbo.fnEstruturaOrgao(ug.uog_orgao, 0) AS org_siglaautorizado'),
             new Zend_Db_Expr('tabelas.dbo.fnEstruturaOrgao(u.usu_orgao, 0) AS usu_orgaolotacao'))
         );
@@ -148,17 +221,29 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         }
     }
 
-    public function buscarUnidades($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
+    public function buscarUnidades($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->distinct();
         $slct->setIntegrityCheck(false);
-        $slct->from(array('ug' => $this->_name), array()
+        $slct->from(
+            array('ug' => $this->_name),
+            array()
         );
-        $slct->joinInner(array('g' => 'Grupos'), 'ug.uog_grupo = g.gru_codigo', array('')
+        $slct->joinInner(
+            array('g' => 'Grupos'),
+            'ug.uog_grupo = g.gru_codigo',
+            array('')
         );
-        $slct->joinInner(array('s' => 'Sistemas'), 'g.gru_sistema = s.sis_codigo', array()
+        $slct->joinInner(
+            array('s' => 'Sistemas'),
+            'g.gru_sistema = s.sis_codigo',
+            array()
         );
-        $slct->joinInner(array('u' => 'Usuarios'), 'ug.uog_usuario = u.usu_codigo', array(new Zend_Db_Expr('tabelas.dbo.fnEstruturaOrgao(u.usu_orgao, 0) AS usu_orgaolotacao'), 'u.usu_orgao')
+        $slct->joinInner(
+            array('u' => 'Usuarios'),
+            'ug.uog_usuario = u.usu_codigo',
+            array(new Zend_Db_Expr('tabelas.dbo.fnEstruturaOrgao(u.usu_orgao, 0) AS usu_orgaolotacao'), 'u.usu_orgao')
         );
 
         foreach ($where as $coluna => $valor) {
@@ -177,17 +262,29 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function buscarUnidadesAutorizadas($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
+    public function buscarUnidadesAutorizadas($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->distinct();
         $slct->setIntegrityCheck(false);
-        $slct->from(array('ug' => $this->_name), array()
+        $slct->from(
+            array('ug' => $this->_name),
+            array()
         );
-        $slct->joinInner(array('g' => 'Grupos'), 'ug.uog_grupo = g.gru_codigo', array('')
+        $slct->joinInner(
+            array('g' => 'Grupos'),
+            'ug.uog_grupo = g.gru_codigo',
+            array('')
         );
-        $slct->joinInner(array('s' => 'Sistemas'), 'g.gru_sistema = s.sis_codigo', array()
+        $slct->joinInner(
+            array('s' => 'Sistemas'),
+            'g.gru_sistema = s.sis_codigo',
+            array()
         );
-        $slct->joinInner(array('u' => 'Usuarios'), 'ug.uog_usuario = u.usu_codigo', array(new Zend_Db_Expr('tabelas.dbo.fnEstruturaOrgao(ug.uog_orgao, 0) AS org_siglaautorizado'))
+        $slct->joinInner(
+            array('u' => 'Usuarios'),
+            'ug.uog_usuario = u.usu_codigo',
+            array(new Zend_Db_Expr('tabelas.dbo.fnEstruturaOrgao(ug.uog_orgao, 0) AS org_siglaautorizado'))
         );
 
         foreach ($where as $coluna => $valor) {
@@ -206,17 +303,29 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function buscarPerfil($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
+    public function buscarPerfil($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->distinct();
         $slct->setIntegrityCheck(false);
-        $slct->from(array('ug' => $this->_name), array()
+        $slct->from(
+            array('ug' => $this->_name),
+            array()
         );
-        $slct->joinInner(array('g' => 'Grupos'), 'ug.uog_grupo = g.gru_codigo', array('g.gru_nome', 'g.gru_codigo')
+        $slct->joinInner(
+            array('g' => 'Grupos'),
+            'ug.uog_grupo = g.gru_codigo',
+            array('g.gru_nome', 'g.gru_codigo')
         );
-        $slct->joinInner(array('s' => 'Sistemas'), 'g.gru_sistema = s.sis_codigo', array()
+        $slct->joinInner(
+            array('s' => 'Sistemas'),
+            'g.gru_sistema = s.sis_codigo',
+            array()
         );
-        $slct->joinInner(array('u' => 'Usuarios'), 'ug.uog_usuario = u.usu_codigo', array()
+        $slct->joinInner(
+            array('u' => 'Usuarios'),
+            'ug.uog_usuario = u.usu_codigo',
+            array()
         );
 
         foreach ($where as $coluna => $valor) {
@@ -236,17 +345,29 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function buscarStatus($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
+    public function buscarStatus($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->distinct();
         $slct->setIntegrityCheck(false);
-        $slct->from(array('ug' => $this->_name), array()
+        $slct->from(
+            array('ug' => $this->_name),
+            array()
         );
-        $slct->joinInner(array('g' => 'Grupos'), 'ug.uog_grupo = g.gru_codigo', array()
+        $slct->joinInner(
+            array('g' => 'Grupos'),
+            'ug.uog_grupo = g.gru_codigo',
+            array()
         );
-        $slct->joinInner(array('s' => 'Sistemas'), 'g.gru_sistema = s.sis_codigo', array()
+        $slct->joinInner(
+            array('s' => 'Sistemas'),
+            'g.gru_sistema = s.sis_codigo',
+            array()
         );
-        $slct->joinInner(array('u' => 'Usuarios'), 'ug.uog_usuario = u.usu_codigo', array()
+        $slct->joinInner(
+            array('u' => 'Usuarios'),
+            'ug.uog_usuario = u.usu_codigo',
+            array()
         );
 
         foreach ($where as $coluna => $valor) {
@@ -265,22 +386,21 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function salvar($dados, $comando) {
+    public function salvar($dados, $comando)
+    {
         //INSTANCIANDO UM OBJETO DE ACESSO AOS DADOS DA TABELA
         $tmpTblUsuariosOrgaosGrupos = new Usuariosorgaosgrupos();
 
-        if ($comando == 1)
-        {
+        if ($comando == 1) {
             $tmpTblUsuariosOrgaosGrupos = $tmpTblUsuariosOrgaosGrupos->createRow();
-        }
-        else
-        {
+        } else {
             $tmpTblUsuariosOrgaosGrupos = $this->buscar(
                             array('uog_usuario = ?' => $dados['uog_usuario'],
                                   'uog_orgao   = ?' => $dados['uog_orgao'],
                                   'uog_grupo   = ?' => $dados['uog_grupo']//,
-                            	  //'uog_status  = ?' => $dados['uog_status']
-                    ))->current();
+                                  //'uog_status  = ?' => $dados['uog_status']
+                    )
+            )->current();
         }
 
         //ATRIBUINDO VALORES AOS CAMPOS QUE FORAM PASSADOS
@@ -306,11 +426,13 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         }
     }
 
-    public function buscardadosAgentes($idorgao, $idgrupo=129) {
+    public function buscardadosAgentes($idorgao, $idgrupo=129)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('uog' => 'vwUsuariosOrgaosGrupos'), array(
+                array('uog' => 'vwUsuariosOrgaosGrupos'),
+            array(
             'uog.usu_codigo',
             'uog.usu_nome',
             'uog.gru_nome as perfil',
@@ -318,8 +440,10 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
                 )
         );
         $select->joinInner(
-                array('ag' => 'Agentes'), 'ag.CNPJCPF = uog.usu_identificacao', array('ag.idAgente')
-                , "Agentes.dbo"
+                array('ag' => 'Agentes'),
+            'ag.CNPJCPF = uog.usu_identificacao',
+            array('ag.idAgente'),
+            "Agentes.dbo"
         );
         $select->where('uog.sis_codigo = ?', 21);
         //$select->where('uog.org_superior = ?', $idorgao);
@@ -329,11 +453,13 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function buscardadosAgentesArray($where) {
+    public function buscardadosAgentesArray($where)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('uog' => 'vwUsuariosOrgaosGrupos'), array(
+                array('uog' => 'vwUsuariosOrgaosGrupos'),
+            array(
             'uog.usu_codigo',
             'uog.usu_nome',
             'uog.gru_nome as perfil',
@@ -341,8 +467,10 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
                 )
         );
         $select->joinInner(
-                array('ag' => 'Agentes'), 'ag.CNPJCPF = uog.usu_identificacao', array('ag.idAgente')
-                , "Agentes.dbo"
+                array('ag' => 'Agentes'),
+            'ag.CNPJCPF = uog.usu_identificacao',
+            array('ag.idAgente'),
+            "Agentes.dbo"
         );
 
         //adiciona quantos filtros foram enviados
@@ -359,11 +487,13 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function buscarOrgaoSuperior($idorgao) {
+    public function buscarOrgaoSuperior($idorgao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('uog' => 'vwUsuariosOrgaosGrupos'), array(
+                array('uog' => 'vwUsuariosOrgaosGrupos'),
+            array(
             'uog.org_superior',
                 )
         );
@@ -371,7 +501,8 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function buscarOrgaoSuperiorUnico($idorgao) {
+    public function buscarOrgaoSuperiorUnico($idorgao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -383,10 +514,11 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         return $this->fetchRow($select);
     }
 
-    public function obterGruposPorUsuarioEOrgao($usu_codigo, $usu_orgao) {
+    public function obterGruposPorUsuarioEOrgao($usu_codigo, $usu_orgao)
+    {
 //        select * --grupos.
 //    from tabelas.dbo.UsuariosXOrgaosXGrupos associativa
-//   inner join tabelas.dbo.Grupos grupos on grupos.gru_codigo = associativa.uog_grupo
+        //   inner join tabelas.dbo.Grupos grupos on grupos.gru_codigo = associativa.uog_grupo
 
         $objQuery = $this->select();
         $objQuery->setIntegrityCheck(false);
@@ -406,9 +538,8 @@ class Usuariosorgaosgrupos extends MinC_Db_Table_Abstract {
         $objQuery->where('usuariosOrgaoGrupo.uog_status = ?', 1);
         $objQuery->order('grupos.gru_nome ASC');
         $resultado = $this->fetchAll($objQuery);
-        if($resultado) {
+        if ($resultado) {
             return $resultado->toArray();
         }
     }
 }
-

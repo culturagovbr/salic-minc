@@ -10,7 +10,8 @@ class Proposta_Model_DbTable_PlanilhaUnidade extends MinC_Db_Table_Abstract
     protected $_schema  = "sac";
     protected $_name   = "planilhaunidade";
 
-    public function buscarUnidade() {
+    public function buscarUnidade()
+    {
 
 //        $sql = "select idUnidade, Sigla, Descricao
 //        FROM SAC.dbo.tbPlanilhaUnidade order by 3";

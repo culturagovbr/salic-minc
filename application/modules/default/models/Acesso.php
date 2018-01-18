@@ -9,14 +9,14 @@
  *
  * @author 01129075125
  */
-class Acesso extends MinC_Db_Table_Abstract {
-
+class Acesso extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'SAC';
     protected $_schema = 'SAC';
     protected $_name  = 'tbAcesso';
 
-    public function consultarAcessoPronac ($idPronac, $tpAcesso) {
-
+    public function consultarAcessoPronac($idPronac, $tpAcesso)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -67,5 +67,4 @@ class Acesso extends MinC_Db_Table_Abstract {
 
         return $this->fetchAll($select);
     }
-
 }

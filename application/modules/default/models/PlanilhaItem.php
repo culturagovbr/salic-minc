@@ -1,5 +1,5 @@
 <?php
-class PlanilhaItem   extends MinC_Db_Table_Abstract
+class PlanilhaItem extends MinC_Db_Table_Abstract
 {
     protected $_banco = "SAC";
     protected $_schema = "SAC";

@@ -1,7 +1,9 @@
 <!-- ========== INÍCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
-    <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') { ?>Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>.<br /><br /><?php } ?>Tem certeza que deseja Enviar e Finalizar?</div>
+    <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') {
+    ?>Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>.<br /><br /><?php
+} ?>Tem certeza que deseja Enviar e Finalizar?</div>
     <div style="display:none" id="validarPlan">Antes de enviar a solicitação é necessário cadastrar os Itens de Custos para os Produtos sem planilha orçamentária!</div>
     <div style="display:none" id="dialog-alerta">Solicitação realizada com sucesso!</div>
     <div style="display:none" id="dialog-em-analise">Há pedido de readequação em análise. Favor aguardar.</div>
@@ -72,13 +74,15 @@
 
                 <div style="padding-top:50px; text-align:center; background:#f8f8f8;">
                     <p>
-    <!--					<a href="<?php //echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index')) . '?idPronac=' . $_GET['idpronac']    ?>" title="Abrir menu principal">Voltar para o menu principal</a>-->
+    <!--					<a href="<?php //echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index')) . '?idPronac=' . $_GET['idpronac']?>" title="Abrir menu principal">Voltar para o menu principal</a>-->
                     </p>
                 </div>
             </div>
-        <?php } ?>
+        <?php
+        } ?>
 
-        <?php if ($menu == "Com Menu" || $menu == "Botão") { ?>
+        <?php if ($menu == "Com Menu" || $menu == "Botão") {
+            ?>
             <div id="menuContexto">
                 <div class="top"></div>
                 <div id="qm0" class="qmmc">
@@ -94,14 +98,17 @@
                         <a href='#' class='abrir_fechar9'>Prorrogar Prazos de Captação</a>
                         <a href='#' id='abrir_fechar2'>Proposta Pedagógica</a>
                     </div>
-                    <?php if (count($this->buscaPlanilhaCusto) > 0) { ?>
+                    <?php if (count($this->buscaPlanilhaCusto) > 0) {
+                ?>
                         <a href='<?php echo $this->url(array('controller' => 'solicitarreadequacaocusto', 'action' => 'index')); ?>?idpronac=<?php echo $idPronac; ?>' title="Custo">Custo</a>
-                    <?php } ?>
+                    <?php
+            } ?>
                 </div>
                 <div class="sanfonaDiv"></div>
                 <div class="bottom"></div>
 
-                <?php if ($menu == "Botão") { ?>
+                <?php if ($menu == "Botão") {
+                ?>
                     <div style='background:#f8f8f8; padding-top: 3.5em;'>
                         <ul id='menuGerenciar' style="border:0; width:auto;">
                             <li style="text-align: center;">
@@ -113,15 +120,17 @@
                             </li>
                         </ul>
                     </div>
-                <?php } ?>
+                <?php
+            } ?>
 
                 <div style="padding-top:50px; text-align:center; background:#f8f8f8;">
                     <p>
-    <!--					<a href="<?php //echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index')) . '?idPronac=' . $_GET['idpronac']    ?>" title="Abrir menu principal">Voltar para o menu principal</a>-->
+    <!--					<a href="<?php //echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index')) . '?idPronac=' . $_GET['idpronac']?>" title="Abrir menu principal">Voltar para o menu principal</a>-->
                     </p>
                 </div>
             </div>
-        <?php } ?>
+        <?php
+        } ?>
 
 
         <?php /* if($menu=="Botão"){ ?>

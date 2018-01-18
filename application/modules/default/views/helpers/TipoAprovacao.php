@@ -12,35 +12,25 @@
 
 class Zend_View_Helper_TipoAprovacao
 {
-	/**
-	 * Método com a descrição dos tipos de parecer
-	 * @access public
-	 * @param string $parecer
-	 * @return string $descricao
-	 */
-	public function tipoAprovacao($parecer)
-	{
-		if ($parecer == 'AC')
-		{
-			$descricao = "Aprovado pelo Componente";
-		}
-		else if ($parecer == 'IC')
-		{
-			$descricao = "Indeferido pelo Componente";
-		}
-		else if ($parecer == 'AS')
-		{
-			$descricao = "Aprovado pela CNIC";
-		}
-		else if ($parecer == 'IS')
-		{
-			$descricao = "Indeferido pela CNIC";
-		}
-		else if ($parecer == 'AR')
-		{
-			$descricao = "Aprovado por AD-REFERENDUM";
-		}
-		return $descricao;
-	} // fecha método tipoParecer()
-
+    /**
+     * Método com a descrição dos tipos de parecer
+     * @access public
+     * @param string $parecer
+     * @return string $descricao
+     */
+    public function tipoAprovacao($parecer)
+    {
+        if ($parecer == 'AC') {
+            $descricao = "Aprovado pelo Componente";
+        } elseif ($parecer == 'IC') {
+            $descricao = "Indeferido pelo Componente";
+        } elseif ($parecer == 'AS') {
+            $descricao = "Aprovado pela CNIC";
+        } elseif ($parecer == 'IS') {
+            $descricao = "Indeferido pela CNIC";
+        } elseif ($parecer == 'AR') {
+            $descricao = "Aprovado por AD-REFERENDUM";
+        }
+        return $descricao;
+    } // fecha método tipoParecer()
 } // fecha class

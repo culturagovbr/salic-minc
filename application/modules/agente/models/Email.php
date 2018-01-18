@@ -9,62 +9,56 @@
 
 class Agente_Model_Email extends MinC_Db_Table_Abstract
 {
-	/**
-	 * @var nome da tabela
-	 */
-	protected $_name = 'internet'; // nome da tabela
-	protected $_schema = 'agentes'; // nome da tabela
+    /**
+     * @var nome da tabela
+     */
+    protected $_name = 'internet'; // nome da tabela
+    protected $_schema = 'agentes'; // nome da tabela
 
-	/**
-	 * M�todo para buscar todos os e-mails de um conselheiro
-	 * @access public
-	 * @param integer $idAgente
-	 * @return object $db->fetchAll($sql)
-	 */
-	public  function buscar($idAgente)
-	{
-		$sql = "SELECT * ";
-		$sql.= "FROM AGENTES.dbo.Internet ";
-		$sql.= "WHERE idAgente = '" . $idAgente . "'";
+    /**
+     * M�todo para buscar todos os e-mails de um conselheiro
+     * @access public
+     * @param integer $idAgente
+     * @return object $db->fetchAll($sql)
+     */
+    public function buscar($idAgente)
+    {
+        $sql = "SELECT * ";
+        $sql.= "FROM AGENTES.dbo.Internet ";
+        $sql.= "WHERE idAgente = '" . $idAgente . "'";
 
-		try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao buscar E-mails do Proponente: " . $e->getMessage();
-		}
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar E-mails do Proponente: " . $e->getMessage();
+        }
 
-		return $db->fetchAll($sql);
-	} // fecha buscar()
+        return $db->fetchAll($sql);
+    } // fecha buscar()
 
 
 
-	/**
-	 * M�todo para cadastrar todos os e-mails de um conselheiro
-	 * @access public
-	 * @param array $dados
-	 * @return boolean
-	 */
-	public static function cadastrar($dados)
-	{
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+    /**
+     * M�todo para cadastrar todos os e-mails de um conselheiro
+     * @access public
+     * @param array $dados
+     * @return boolean
+     */
+    public static function cadastrar($dados)
+    {
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		try
-		{
-			$inserir = $db->insert('AGENTES.dbo.Internet', $dados);
-			$db->closeConnection();
-			return true;
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao cadastrar E-mails do Proponente: " . $e->getMessage();
-			return false;
-		}
-	}
+        try {
+            $inserir = $db->insert('AGENTES.dbo.Internet', $dados);
+            $db->closeConnection();
+            return true;
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao cadastrar E-mails do Proponente: " . $e->getMessage();
+            return false;
+        }
+    }
 
     /**
      * inserir
@@ -77,14 +71,11 @@ class Agente_Model_Email extends MinC_Db_Table_Abstract
     {
         $db = Zend_Db_Table::getDefaultAdapter();
 
-        try
-        {
+        try {
             $schema = $this->getSchema($this->_schema) .'.'. $this->_name;
             $inserir = $db->insert($schema, $dados);
             return true;
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao cadastrar E-mails do Proponente: " . $e->getMessage();
             return false;
         }
@@ -92,51 +83,44 @@ class Agente_Model_Email extends MinC_Db_Table_Abstract
 
 
 
-	/**
-	 * M�todo para excluir e-mail de um conselheiro
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function excluir($id)
-	{
-		try
-		{
-			$sql = "DELETE FROM AGENTES.dbo.Internet WHERE idInternet = '$id'";
+    /**
+     * M�todo para excluir e-mail de um conselheiro
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function excluir($id)
+    {
+        try {
+            $sql = "DELETE FROM AGENTES.dbo.Internet WHERE idInternet = '$id'";
 
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao excluir E-mail do Proponente: " . $e->getMessage();
-		}
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao excluir E-mail do Proponente: " . $e->getMessage();
+        }
 
-		return $db->fetchAll($sql);
-	} // fecha m�todo excluir()
+        return $db->fetchAll($sql);
+    } // fecha m�todo excluir()
 
 
 
-	/**
-	 * M�todo para excluir todos os emails de um conselheiro
-	 * @access public
-	 * @param integer $id
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function excluirTodos($idAgente)
-	{
-		try
-		{
-			$sql = "DELETE FROM AGENTES.dbo.Internet WHERE idAgente =".$idAgente;
+    /**
+     * M�todo para excluir todos os emails de um conselheiro
+     * @access public
+     * @param integer $id
+     * @return object $db->fetchAll($sql)
+     */
+    public static function excluirTodos($idAgente)
+    {
+        try {
+            $sql = "DELETE FROM AGENTES.dbo.Internet WHERE idAgente =".$idAgente;
 
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-			$i = $db->query($sql);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao excluir E-mail do Proponente: " . $e->getMessage();
-		}
-	} // fecha m�todo excluirTodos()
-
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+            $i = $db->query($sql);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao excluir E-mail do Proponente: " . $e->getMessage();
+        }
+    } // fecha m�todo excluirTodos()
 } // fecha class

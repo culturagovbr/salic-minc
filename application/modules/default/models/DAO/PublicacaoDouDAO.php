@@ -2,7 +2,6 @@
 
 class PublicacaoDouDAO extends Zend_Db_Table
 {
-
     public static function buscarPortaria()
     {
         $sql = "SELECT distinct PortariaAprovacao
@@ -279,7 +278,6 @@ class PublicacaoDouDAO extends Zend_Db_Table
 
     public static function retornaSeqPortaria($idAprovacao)
     {
-
         $sql = "select PortariaAprovacao from SAC.dbo.Aprovacao where idAprovacao = $idAprovacao";
 
         $db = Zend_Db_Table::getDefaultAdapter();
@@ -504,7 +502,8 @@ class PublicacaoDouDAO extends Zend_Db_Table
         return $db->fetchAll($sql);
     }
 
-    public static function cadastrarportaria($dados, $id) {
+    public static function cadastrarportaria($dados, $id)
+    {
         $db = Zend_Db_Table::getDefaultAdapter();
 
         $where = "idAprovacao = " . (int)$id;
@@ -520,8 +519,8 @@ class PublicacaoDouDAO extends Zend_Db_Table
 
     public static function gerarportaria($dados, $idAprovacao)
     {
-//		$db= Zend_Db_Table::getDefaultAdapter();
-//		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        //		$db= Zend_Db_Table::getDefaultAdapter();
+        //		$db->setFetchMode(Zend_DB::FETCH_OBJ);
 
         $sql = "UPDATE SAC.dbo.Aprovacao SET PortariaAprovacao = '$PortariaAprovacao', DtPortariaAprovacao = '$DtPortariaAprovacao' where idAprovacao = $idAprovacao";
 
@@ -534,13 +533,12 @@ class PublicacaoDouDAO extends Zend_Db_Table
     public static function situcaopublicacaodou($TipoAprovacao, $Portaria, $novaSituacao, $situacaoAtual, $usuarioLogado, $orgaoSuperior)
     {
         try {
-
             $ProvidenciaTomada = 'Projeto aprovado e publicado no Di&aacute;rio Oficial da Uni&atilde;o.';
             if ($TipoAprovacao == 2) {
                 $ProvidenciaTomada = 'Complementa&ccedil;&atilde;o aprovada e publicada no Di&aacute;rio Oficial da Uni&atilde;o.';
-            } else if ($TipoAprovacao == 3) {
+            } elseif ($TipoAprovacao == 3) {
                 $ProvidenciaTomada = 'Prorroga&ccedil;&atilde;o aprovada e publicada no Di&aacute;rio Oficial da Uni&atilde;o.';
-            } else if ($TipoAprovacao == 4) {
+            } elseif ($TipoAprovacao == 4) {
                 $ProvidenciaTomada = 'Redu&ccedil;&atilde;o aprovada e publicada no Di&aacute;rio Oficial da Uni&atilde;o.';
             }
 
@@ -574,7 +572,6 @@ class PublicacaoDouDAO extends Zend_Db_Table
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             $alterar = $db->fetchRow($sql);
         } catch (exception $e) {
-
         }
     }
 
@@ -591,7 +588,6 @@ class PublicacaoDouDAO extends Zend_Db_Table
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             $alterar = $db->fetchRow($sql);
         } catch (exception $e) {
-
         }
     }
 
@@ -626,13 +622,13 @@ class PublicacaoDouDAO extends Zend_Db_Table
 
     public static function alterarsitucaopublicar($idPronac)
     {
-        $valida = FALSE;
+        $valida = false;
 
         $sql = "UPDATE SAC.dbo.Projetos SET Situacao = 'E10' WHERE IdPRONAC = $idPronac";
 
         $db = Zend_Db_Table::getDefaultAdapter();
         if ($db->setFetchMode(Zend_DB::FETCH_ASSOC)) {
-            $valida = TRUE;
+            $valida = true;
         }
         return $valida;
     }
@@ -663,5 +659,4 @@ class PublicacaoDouDAO extends Zend_Db_Table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
     }
-
 }

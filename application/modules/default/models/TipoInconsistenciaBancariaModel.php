@@ -14,8 +14,7 @@ class TipoInconsistenciaBancariaModel
     const SEM_VISAO_INCENTIVADOR = 3;
 
     /**
-     * 
+     *
      */
     const PROPONENTE_INCENTIVADOR_IGUAIS = 5;
-
 }

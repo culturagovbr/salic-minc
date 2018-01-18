@@ -1,11 +1,11 @@
 <?php
-Class DadosprojetoDAO extends Zend_Db_Table{
+class DadosprojetoDAO extends Zend_Db_Table
+{
+    protected $_name    = 'SAC.dbo.Projetos';
 
-       	protected $_name    = 'SAC.dbo.Projetos';
-
-       	public static function buscar($pronac)
-       	{
-			$sql = "SELECT
+    public static function buscar($pronac)
+    {
+        $sql = "SELECT
 			Pr.AnoProjeto+Pr.Sequencial as pronac ,
 			Pr.idPRONAC,
 			Tp.Emissor, 
@@ -61,13 +61,10 @@ Class DadosprojetoDAO extends Zend_Db_Table{
 			JOIN SAC.dbo.Interessado I ON Pr.CgcCpf = I.CgcCpf
 			WHERE Pr.idPRONAC = ". $pronac ."" ;
 
-                        $db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			$resultado = $db->fetchAll($sql);
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $resultado = $db->fetchAll($sql);
 
-			return $resultado;
-       	}
-
-       	
+        return $resultado;
+    }
 }
-

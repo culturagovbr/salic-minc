@@ -16,11 +16,13 @@ class Cep extends MinC_Db_Table_Abstract
     protected $_schema = 'bddne.scdne';
     protected $_name = 'vw_endereco';
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    public function init(){
+    public function init()
+    {
         parent::init();
     }
 

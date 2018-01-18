@@ -5,13 +5,14 @@
  *
  * @author Andr� Nogueira Pereira
  */
-class tbFiscalizacao extends MinC_Db_Table_Abstract {
-
+class tbFiscalizacao extends MinC_Db_Table_Abstract
+{
     protected $_name = 'tbFiscalizacao';
     protected $_schema = 'SAC';
     protected $_banco = 'SAC';
 
-    public function buscarAtoresFiscalizacao($idPronac, $idusuario=null){
+    public function buscarAtoresFiscalizacao($idPronac, $idusuario=null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -103,5 +104,4 @@ class tbFiscalizacao extends MinC_Db_Table_Abstract {
 
         return $this->fetchAll($select);
     }
-
 }

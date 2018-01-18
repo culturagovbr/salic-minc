@@ -9,18 +9,20 @@
  *
  * @author guilherme
  */
-class Licitacao extends MinC_Db_Table_Abstract {
-
+class Licitacao extends MinC_Db_Table_Abstract
+{
     protected $_banco   = 'bdcorporativo';
     protected $_name    = 'tbLicitacao';
     protected $_schema  = 'bdcorporativo.scSAC';
 
-    public function inserirLicitacao($data){
+    public function inserirLicitacao($data)
+    {
         $insert = $this->insert($data);
         return $insert;
     }
 
-    public function alterarLicitacao($data, $where){
+    public function alterarLicitacao($data, $where)
+    {
         $update = $this->update($data, $where);
         return $update;
     }
@@ -34,8 +36,8 @@ class Licitacao extends MinC_Db_Table_Abstract {
         return $this->getAdapter()->query($query, array((int)$where));
     }
 
-    public function buscarLicitacaoProjeto($idpronac){
-
+    public function buscarLicitacaoProjeto($idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(array('lic'=>$this->_name), array('lic.idLicitacao','lic.nrLicitacao','lic.tpModalidade','lic.dtAberturaLicitacao'));
@@ -48,10 +50,12 @@ class Licitacao extends MinC_Db_Table_Abstract {
     }
 
 
-    public function buscarLicitacao($idLicitacao){
+    public function buscarLicitacao($idLicitacao)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
-        $slct->from(array('lic'=>$this->_name),
+        $slct->from(
+            array('lic'=>$this->_name),
                     array('idLicitacao',
                           'tpCompra',
                           'tpModalidade',
@@ -82,11 +86,8 @@ class Licitacao extends MinC_Db_Table_Abstract {
                     array('Descricao as dsMunicipio'),
                     'AGENTES.dbo'
                );
-        $slct->where('idlicitacao = ?',$idLicitacao);
+        $slct->where('idlicitacao = ?', $idLicitacao);
 
         return $this->fetchAll($slct);
-
     }
-
 }
-?>

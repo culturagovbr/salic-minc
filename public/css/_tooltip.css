@@ -1,0 +1,41 @@
+/*--------------------------------------------------------------
+x - TOOLTIP
+--------------------------------------------------------------*/
+.tooltip{
+    display: inline;
+    position: relative;
+}
+
+.tooltip:hover:after {
+    background: #ddd;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    bottom: 26px;
+    color: #333;
+    content: attr(title);
+    left: 50%;
+    padding: 10px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 320px;
+    font-size: 14px;
+    line-height: 1.5em;
+}
+
+.tooltip:hover:before{
+    border: solid;
+    border-color: #ddd transparent;
+    border-width: 6px 6px 0 6px;
+    bottom: 20px;
+    content: "";
+    left: 10%;
+    position: absolute;
+    z-index: 99;
+}
+
+.gerenciar_pareceres .tooltip:hover:after{
+    left: -300%;
+    font-size: 12px;
+    line-height: 1.3em;
+}
+

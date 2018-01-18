@@ -33,10 +33,10 @@ class Proposta_Model_DbTable_TbMovimentacao extends MinC_Db_Table_Abstract
     public function salvar($dados)
     {
         //DECIDINDO SE INCLUI OU ALTERA UM REGISTRO
-        if(isset($dados['idMovimentacao']) && !empty ($dados['idMovimentacao'])){
+        if (isset($dados['idMovimentacao']) && !empty($dados['idMovimentacao'])) {
             //UPDATE
             $rsAbrangencia = $this->find($dados['idMovimentacao'])->current();
-        }else{
+        } else {
             //INSERT
             $dados['idMovimentacao'] = null;
             return $this->insert($dados);
@@ -53,9 +53,9 @@ class Proposta_Model_DbTable_TbMovimentacao extends MinC_Db_Table_Abstract
         //SALVANDO O OBJETO
         $id = $rsMovimentacao->save();
 
-        if($id){
+        if ($id) {
             return $id;
-        }else{
+        } else {
             return false;
         }
     }
@@ -79,7 +79,8 @@ class Proposta_Model_DbTable_TbMovimentacao extends MinC_Db_Table_Abstract
         $slct->from(
             array('mov' => $this->_name),
             $this->_getCols(),
-            $this->_schema);
+            $this->_schema
+        );
 
         $slct->joinInner(
             array('ver' => 'verificacao'),
@@ -95,13 +96,14 @@ class Proposta_Model_DbTable_TbMovimentacao extends MinC_Db_Table_Abstract
         return ($arrResult) ? $arrResult->toArray() : array();
     }
 
-    public function buscarTecCoordAdmissibilidade($idPronac, $idusuario=null) {
-
+    public function buscarTecCoordAdmissibilidade($idPronac, $idusuario=null)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->distinct();
         $slct->from(
-                array('mov' => $this->_name), array()
+                array('mov' => $this->_name),
+            array()
         );
 
         $slct->joinInner(
@@ -163,7 +165,8 @@ class Proposta_Model_DbTable_TbMovimentacao extends MinC_Db_Table_Abstract
         return $this->fetchAll($slct);
     }
 
-    public function alterarConformidadeProposta($idPreProjeto, $idUsuario, $idVerificacao) {
+    public function alterarConformidadeProposta($idPreProjeto, $idUsuario, $idVerificacao)
+    {
         $arrayInclusao = array(
             'idProjeto' => $idPreProjeto,
             'Movimentacao' => $idVerificacao,

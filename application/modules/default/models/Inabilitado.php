@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,8 +9,8 @@
  *
  * @author tisomar
  */
-class Inabilitado extends MinC_Db_Table_Abstract {
-
+class Inabilitado extends MinC_Db_Table_Abstract
+{
     protected $_banco = "SAC";
     protected $_name = "Inabilitado";
 
@@ -19,11 +19,12 @@ class Inabilitado extends MinC_Db_Table_Abstract {
         //INSTANCIANDO UM OBJETO DE ACESSO AOS DADOS DA TABELA
         $tabela = new Inabilitado();
         
-	$insert = $tabela->insert($dados); // cadastra
+        $insert = $tabela->insert($dados); // cadastra
         return $insert;
     }
 
-    public function BuscarInabilitado($CgcCpf, $AnoProjeto, $Sequencial) {
+    public function BuscarInabilitado($CgcCpf, $AnoProjeto, $Sequencial)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -37,24 +38,25 @@ class Inabilitado extends MinC_Db_Table_Abstract {
         return $this->fetchRow($slct);
     }
     
-    public function Localizar($where) {
+    public function Localizar($where)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
-	                array('I' => $this->_name),
-	                array(	'CgcCpf',
-	                		'AnoProjeto',
-	                		'Sequencial',
-	                		'Orgao',
-	                		'Logon',
-	                		'Habilitado',
-	                		'idProjeto',
-	                		'idTipoInabilitado',
-	                		'dtInabilitado',
-	                	  	'DATEDIFF(DAY, dtInabilitado, GETDATE()) / 365 AS Anos')
+                    array('I' => $this->_name),
+                    array(	'CgcCpf',
+                            'AnoProjeto',
+                            'Sequencial',
+                            'Orgao',
+                            'Logon',
+                            'Habilitado',
+                            'idProjeto',
+                            'idTipoInabilitado',
+                            'dtInabilitado',
+                            'DATEDIFF(DAY, dtInabilitado, GETDATE()) / 365 AS Anos')
         );
         
-    	//adiciona quantos filtros foram enviados
+        //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $slct->where($coluna, $valor);
         }
@@ -62,7 +64,8 @@ class Inabilitado extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function updateTbl($dados){
+    public function updateTbl($dados)
+    {
     
         //INSTANCIANDO UM OBJETO DE ACESSO AOS DADOS DA TABELA
         $tmpTbl = new Inabilitado();
@@ -76,21 +79,20 @@ class Inabilitado extends MinC_Db_Table_Abstract {
     			 			WHERE  
     			 			AnoProjeto 		= '".$dados['AnoProjeto']."'
                          	AND Sequencial 	= '".$dados['Sequencial']."'";
-		
+        
         
         //Retirado, n�o pode ter mais de um registro de um �nico projeto
         //AND CgcCpf 		= '".$dados['CgcCpf']."'
         
         
         $db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $db->query($sql);
     }
 
     
-    public function listainabilitados($CNPJCPF){
-    
-
+    public function listainabilitados($CNPJCPF)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -113,11 +115,5 @@ class Inabilitado extends MinC_Db_Table_Abstract {
         $select->where("I.CgcCpf = ?", $CNPJCPF);
 
         return $this->fetchAll($select);
-
-
     }
-
-
-
 }
-?>

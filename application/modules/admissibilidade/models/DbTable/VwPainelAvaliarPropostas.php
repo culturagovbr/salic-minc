@@ -5,7 +5,8 @@
  *
  * @link http://salic.cultura.gov.br
  */
-class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Table_Abstract{
+class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Table_Abstract
+{
     protected $_schema    = 'sac';
     protected $_name      = 'vwPainelAvaliarPropostas';
 
@@ -18,8 +19,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
             ->from('vwPainelAvaliarPropostas', '*', $this->_schema)
             ;
 
-        foreach ($where as $coluna=>$valor)
-        {
+        foreach ($where as $coluna=>$valor) {
             $sql->where($coluna, $valor);
         }
 
@@ -47,8 +47,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
             ->from('vwPainelAvaliarPropostas', 'count(*) as total', $this->_schema)
             ;
 
-        foreach ($where as $coluna=>$valor)
-        {
+        foreach ($where as $coluna=>$valor) {
             $sql->where($coluna, $valor);
         }
 
@@ -63,7 +62,7 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
             $limit = (int)$limit;
             $sql->limitPage($start, $limit);
         }
-//echo $sql;
+        //echo $sql;
 
         return $db->fetchRow($sql);
     }

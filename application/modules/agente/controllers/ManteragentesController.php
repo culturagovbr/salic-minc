@@ -64,7 +64,7 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
         # pega do readequacao
         if (isset($arrAuth['cpf']) && !empty($arrAuth['cpf']) && !isset($_GET['acao']) && !isset($_GET['cpf']) && empty($_GET['cpf'])) {
             parent::perfil(4, $PermissoesGrupo); // migracao e novo salic
-        } else if (isset($arrAuth['usu_codigo']) && !empty($arrAuth['usu_codigo'])) {
+        } elseif (isset($arrAuth['usu_codigo']) && !empty($arrAuth['usu_codigo'])) {
             parent::perfil(1, $PermissoesGrupo); // migracao e novo salic
         } else {
             parent::perfil(4, $PermissoesGrupo); // migracao e novo salic
@@ -87,7 +87,7 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
         $this->view->comboestados = $mapperUF->fetchPairs('idUF', 'Sigla');
         $this->view->combotiposenderecos = $mapperVerificacao->fetchPairs('idVerificacao', 'Descricao', array('idtipo' => 2));
         $this->view->combotiposlogradouros = $mapperVerificacao->fetchPairs('idVerificacao', 'Descricao', array('idtipo' => 13));
-        $this->view->comboareasculturais = $mapperArea->fetchPairs('codigo',  'descricao');
+        $this->view->comboareasculturais = $mapperArea->fetchPairs('codigo', 'descricao');
         $this->view->combotipostelefones = $mapperVerificacao->fetchPairs('idVerificacao', 'Descricao', array('idtipo' => 3));
         $this->view->combotiposemails = $mapperVerificacao->fetchPairs('idVerificacao', 'Descricao', array('idtipo' => 4, 'idverificacao' => array(28, 29)));
 
@@ -99,7 +99,7 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
         $GrupoAtivo = $GrupoAtivo->codGrupo;
 
         $viesoesNew = array();
-        if (isset ($arrAuth['cpf'])) {
+        if (isset($arrAuth['cpf'])) {
             $viesoesNew[144] = 'Proponente';
             $this->view->grupoativo = 144;
         } else {
@@ -137,7 +137,6 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
      */
     public function indexAction()
     {
-
     } // fecha metodo indexAction()
 
 
@@ -160,14 +159,11 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
                 // validacao dos campos
                 if (empty($cpf) && empty($nome)) {
                     throw new Exception("Dados obrigatórios não informados:<br /><br />É necessário informar o CPF/CNPJ ou o Nome!");
-                } else if (!empty($cpf) && strlen($cpf) != 11 && strlen($cpf) != 14) // valida cnpj/cpf
-                {
+                } elseif (!empty($cpf) && strlen($cpf) != 11 && strlen($cpf) != 14) { // valida cnpj/cpf
                     throw new Exception("O CPF/CNPJ informado é inválido!");
-                } else if (!empty($cpf) && strlen($cpf) == 11 && !Validacao::validarCPF($cpf)) // valida cpf
-                {
+                } elseif (!empty($cpf) && strlen($cpf) == 11 && !Validacao::validarCPF($cpf)) { // valida cpf
                     throw new Exception("O CPF informado é inválido!");
-                } else if (!empty($cpf) && strlen($cpf) == 14 && !Validacao::validarCNPJ($cpf)) // valida cnpj
-                {
+                } elseif (!empty($cpf) && strlen($cpf) == 14 && !Validacao::validarCNPJ($cpf)) { // valida cnpj
                     throw new Exception("O CNPJ informado é inválido!");
                 } else {
                     // redireciona para a pagina com a busca dos dados com paginacao
@@ -344,7 +340,7 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
                         'Visao' => $visao,
                         'Usuario' => $this->getIdUsuario, // código do usuario logado
                         'stAtivo' => 'A');
-                    $cadastrar = $visaoTable->cadastrarVisao($dados);
+                $cadastrar = $visaoTable->cadastrarVisao($dados);
                 endforeach;
 
                 if ($cadastrar) {
@@ -399,7 +395,7 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
             //$this->_helper->json($result);
             $this->_helper->json($result);
         } else {
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
     }
 
@@ -419,8 +415,7 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
         $novos_valores = array(); // array com os dados do agente
         $v = ''; // flag verificadora de dados validos/invalidos
 
-        if ($_REQUEST['cpf'] && $_REQUEST['idAgenteGeral']) // caso o cpf/cnpj tenha sido informado
-        {
+        if ($_REQUEST['cpf'] && $_REQUEST['idAgenteGeral']) { // caso o cpf/cnpj tenha sido informado
             $cpf = Mascara::delMaskCPF(Mascara::delMaskCNPJ($_REQUEST['cpf'])); // deleta as mascaras
             $idAgenteGeral = $_REQUEST['idAgenteGeral']; // idVinculoPrincipal
 
@@ -428,8 +423,7 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
             if ((strlen($cpf) == 11 && !Validacao::validarCPF($cpf)) || (strlen($cpf) == 14 && !Validacao::validarCNPJ($cpf))) {
                 $v = 'not';
                 $novos_valores[$i]['msgCPF'] = utf8_encode($v);
-            } else // cpf/cnpj validos
-            {
+            } else { // cpf/cnpj validos
                 $v = 'ok';
                 $novos_valores[$i]['msgCPF'] = utf8_encode($v);
 
@@ -448,8 +442,7 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
                     );
                     $insere = Agente_Model_ManterAgentesDAO::cadastrarAgente($arrayCNPJCPF);
                     $novos_valores[$i]['Agente'] = utf8_encode('novo');
-                } else // o agente ja encontra-se cadastrado, realizara a alteracao
-                {
+                } else { // o agente ja encontra-se cadastrado, realizara a alteracao
                     $novos_valores[$i]['Agente'] = utf8_encode('cadastrado');
                 }
 
@@ -458,32 +451,32 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
 
                 foreach ($novosdados as $dado) :
                     $novos_valores[$i]['idAgente'] = utf8_encode($dado->idAgente);
-                    $novos_valores[$i]['Nome'] = utf8_encode($dado->Nome);
-                    $novos_valores[$i]['CEP'] = !empty($dado->CEP) ? utf8_encode(Mascara::addMaskCEP($dado->CEP)) : ' ';
-                    $novos_valores[$i]['UF'] = utf8_encode($dado->UF);
-                    $novos_valores[$i]['Cidade'] = utf8_encode($dado->Cidade);
-                    $novos_valores[$i]['dsCidade'] = utf8_encode($dado->dsCidade);
-                    $novos_valores[$i]['TipoEndereco'] = utf8_encode($dado->TipoEndereco);
-                    $novos_valores[$i]['TipoLogradouro'] = utf8_encode($dado->TipoLogradouro);
-                    $novos_valores[$i]['Logradouro'] = utf8_encode($dado->Logradouro);
-                    $novos_valores[$i]['Numero'] = utf8_encode($dado->Numero);
-                    $novos_valores[$i]['Complemento'] = utf8_encode($dado->Complemento);
-                    $novos_valores[$i]['Bairro'] = utf8_encode($dado->Bairro);
-                    $novos_valores[$i]['DivulgarEndereco'] = utf8_encode($dado->DivulgarEndereco);
-                    $novos_valores[$i]['EnderecoCorrespondencia'] = utf8_encode($dado->EnderecoCorrespondencia);
+                $novos_valores[$i]['Nome'] = utf8_encode($dado->Nome);
+                $novos_valores[$i]['CEP'] = !empty($dado->CEP) ? utf8_encode(Mascara::addMaskCEP($dado->CEP)) : ' ';
+                $novos_valores[$i]['UF'] = utf8_encode($dado->UF);
+                $novos_valores[$i]['Cidade'] = utf8_encode($dado->Cidade);
+                $novos_valores[$i]['dsCidade'] = utf8_encode($dado->dsCidade);
+                $novos_valores[$i]['TipoEndereco'] = utf8_encode($dado->TipoEndereco);
+                $novos_valores[$i]['TipoLogradouro'] = utf8_encode($dado->TipoLogradouro);
+                $novos_valores[$i]['Logradouro'] = utf8_encode($dado->Logradouro);
+                $novos_valores[$i]['Numero'] = utf8_encode($dado->Numero);
+                $novos_valores[$i]['Complemento'] = utf8_encode($dado->Complemento);
+                $novos_valores[$i]['Bairro'] = utf8_encode($dado->Bairro);
+                $novos_valores[$i]['DivulgarEndereco'] = utf8_encode($dado->DivulgarEndereco);
+                $novos_valores[$i]['EnderecoCorrespondencia'] = utf8_encode($dado->EnderecoCorrespondencia);
 
-                    // areas e segmentos
-                    $novos_valores[$i]['cdArea'] = utf8_encode($dado->cdArea);
-                    $novos_valores[$i]['dsArea'] = utf8_encode($dado->dsArea);
-                    $novos_valores[$i]['cdSegmento'] = utf8_encode($dado->cdSegmento);
-                    $novos_valores[$i]['dsSegmento'] = utf8_encode($dado->dsSegmento);
+                // areas e segmentos
+                $novos_valores[$i]['cdArea'] = utf8_encode($dado->cdArea);
+                $novos_valores[$i]['dsArea'] = utf8_encode($dado->dsArea);
+                $novos_valores[$i]['cdSegmento'] = utf8_encode($dado->cdSegmento);
+                $novos_valores[$i]['dsSegmento'] = utf8_encode($dado->dsSegmento);
                 endforeach;
             } // fecha else
 
             $this->_helper->json($novos_valores);
         } // fecha if
         else {
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
     } // fecha metodo salvardirigenteAction()
 
@@ -507,18 +500,17 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
             $e = 0;
             foreach ($Emails as $dado) :
                 $novos_emails[$e]['idInternet'] = utf8_encode($dado->idInternet);
-                $novos_emails[$e]['idAgente'] = utf8_encode($dado->idAgente);
-                $novos_emails[$e]['TipoInternet'] = utf8_encode($dado->TipoInternet);
-                $novos_emails[$e]['tipo'] = utf8_encode($dado->tipo);
-                $novos_emails[$e]['Descricao'] = utf8_encode($dado->Descricao);
-                $novos_emails[$e]['Status'] = utf8_encode($dado->Status);
-                $novos_emails[$e]['Divulgar'] = utf8_encode($dado->Divulgar);
-                $e++;
+            $novos_emails[$e]['idAgente'] = utf8_encode($dado->idAgente);
+            $novos_emails[$e]['TipoInternet'] = utf8_encode($dado->TipoInternet);
+            $novos_emails[$e]['tipo'] = utf8_encode($dado->tipo);
+            $novos_emails[$e]['Descricao'] = utf8_encode($dado->Descricao);
+            $novos_emails[$e]['Status'] = utf8_encode($dado->Status);
+            $novos_emails[$e]['Divulgar'] = utf8_encode($dado->Divulgar);
+            $e++;
             endforeach;
 
             $this->_helper->json($novos_emails);
         } // fecha if
-
     } // fecha metodo buscaremailsAction()
 
 
@@ -541,19 +533,18 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
             $f = 0;
             foreach ($Fones as $dado) :
                 $novos_fones[$f]['TipoTelefone'] = utf8_encode($dado->TipoTelefone);
-                $novos_fones[$f]['dsTelefone'] = utf8_encode($dado->dsTelefone);
-                $novos_fones[$f]['UF'] = utf8_encode($dado->UF);
-                $novos_fones[$f]['ufSigla'] = utf8_encode($dado->ufSigla);
-                $novos_fones[$f]['DDD'] = utf8_encode($dado->DDD);
-                $novos_fones[$f]['Codigo'] = utf8_encode($dado->Codigo);
-                $novos_fones[$f]['Numero'] = utf8_encode($dado->Numero);
-                $novos_fones[$f]['Divulgar'] = utf8_encode($dado->Divulgar);
-                $f++;
+            $novos_fones[$f]['dsTelefone'] = utf8_encode($dado->dsTelefone);
+            $novos_fones[$f]['UF'] = utf8_encode($dado->UF);
+            $novos_fones[$f]['ufSigla'] = utf8_encode($dado->ufSigla);
+            $novos_fones[$f]['DDD'] = utf8_encode($dado->DDD);
+            $novos_fones[$f]['Codigo'] = utf8_encode($dado->Codigo);
+            $novos_fones[$f]['Numero'] = utf8_encode($dado->Numero);
+            $novos_fones[$f]['Divulgar'] = utf8_encode($dado->Divulgar);
+            $f++;
             endforeach;
 
             $this->_helper->json($novos_fones);
         } // fecha if
-
     } // fecha metodo buscarfonesAction()
 
 
@@ -570,26 +561,25 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
             $E = 0;
             foreach ($Enderecos as $dado) :
                 $enderecos[$E]['Logradouro'] = utf8_encode($dado->Logradouro);
-                $enderecos[$E]['TipoLogradouro'] = $dado->TipoLogradouro;
-                $enderecos[$E]['Numero'] = $dado->Numero;
-                $enderecos[$E]['Bairro'] = utf8_encode($dado->Bairro);
-                $enderecos[$E]['Complemento'] = utf8_encode($dado->Complemento);
-                $enderecos[$E]['Cep'] = $dado->Cep;
-                $enderecos[$E]['Status'] = utf8_encode($dado->Status);
-                $enderecos[$E]['Divulgar'] = utf8_encode($dado->Divulgar);
-                $enderecos[$E]['Usuario'] = utf8_encode($dado->Usuario);
-                $enderecos[$E]['TipoEndereco'] = utf8_encode($dado->TipoEndereco);
-                $enderecos[$E]['CodTipoEndereco'] = $dado->CodTipoEndereco;
-                $enderecos[$E]['Municipio'] = utf8_encode($dado->Municipio);
-                $enderecos[$E]['CodMun'] = $dado->CodMun;
-                $enderecos[$E]['UF'] = utf8_encode($dado->UF);
-                $enderecos[$E]['CodUF'] = $dado->CodUF;
-                $E++;
+            $enderecos[$E]['TipoLogradouro'] = $dado->TipoLogradouro;
+            $enderecos[$E]['Numero'] = $dado->Numero;
+            $enderecos[$E]['Bairro'] = utf8_encode($dado->Bairro);
+            $enderecos[$E]['Complemento'] = utf8_encode($dado->Complemento);
+            $enderecos[$E]['Cep'] = $dado->Cep;
+            $enderecos[$E]['Status'] = utf8_encode($dado->Status);
+            $enderecos[$E]['Divulgar'] = utf8_encode($dado->Divulgar);
+            $enderecos[$E]['Usuario'] = utf8_encode($dado->Usuario);
+            $enderecos[$E]['TipoEndereco'] = utf8_encode($dado->TipoEndereco);
+            $enderecos[$E]['CodTipoEndereco'] = $dado->CodTipoEndereco;
+            $enderecos[$E]['Municipio'] = utf8_encode($dado->Municipio);
+            $enderecos[$E]['CodMun'] = $dado->CodMun;
+            $enderecos[$E]['UF'] = utf8_encode($dado->UF);
+            $enderecos[$E]['CodUF'] = $dado->CodUF;
+            $E++;
             endforeach;
 
             $this->_helper->json($enderecos);
         } // fecha if
-
     } // fecha metodo buscarenderecosAction()
 
 
@@ -651,7 +641,7 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
             // caso nao existam mais vagas para titular e suplentes
             if ($Q_titulares[0]->QTD >= 1 && $Q_suplentes[0]->QTD >= 2) {
                 $novos_dados[$i]['msgAS'] = utf8_encode('A Área Cultural selecionada já conta com 1 Titular e 2 Suplentes!');
-            } else if ($Q_titulares[0]->QTD == 0 && $Q_suplentes[0]->QTD == 0) {
+            } elseif ($Q_titulares[0]->QTD == 0 && $Q_suplentes[0]->QTD == 0) {
                 $novos_dados[0]['Nome'] = 'Sem cadastro';
                 $novos_dados[0]['Titular'] = '';
                 $novos_dados[0]['msgAS'] = utf8_encode('Você pode cadastrar <strong> 1 </strong> Titular e <strong>  2 </strong> Suplente(s)!');
@@ -664,8 +654,8 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
             // pega os nomes de titulares e suplentes cadastrados
             foreach ($dados as $dado) :
                 $novos_dados[$i]['Nome'] = utf8_encode($dado->Nome);
-                $novos_dados[$i]['Titular'] = (utf8_encode($dado->stTitular) == 1) ? '(Titular)' : '(Suplente)';
-                $i++;
+            $novos_dados[$i]['Titular'] = (utf8_encode($dado->stTitular) == 1) ? '(Titular)' : '(Suplente)';
+            $i++;
             endforeach;
 
             $this->_helper->json($novos_dados);
@@ -695,10 +685,10 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
 
             foreach ($dados as $dado) :
                 $novos_dados[$i]['Visao'] = utf8_encode($dado->Visao);
-                $novos_dados[$i]['Descricao'] = utf8_encode($dado->Descricao);
-                $novos_dados[$i]['verificacao'] = utf8_encode($dado->idVerificacao);
-                $novos_dados[$i]['area'] = ($dado->area) ? utf8_encode($dado->area) : 'false';
-                $i++;
+            $novos_dados[$i]['Descricao'] = utf8_encode($dado->Descricao);
+            $novos_dados[$i]['verificacao'] = utf8_encode($dado->idVerificacao);
+            $novos_dados[$i]['area'] = ($dado->area) ? utf8_encode($dado->area) : 'false';
+            $i++;
             endforeach;
 
             $this->_helper->json($novos_dados);
@@ -752,7 +742,6 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
                 $mprNomes->beginTransaction();
                 $mprInternet->saveCustom($arrPost);
                 $mprNomes->commit();
-
             } catch (Exception $e) {
                 $mprNomes->rollBack();
                 parent::message("Erro ao salvar: " . $e->getMessage(), "/agente/manteragentes/agentes?acao=cc", "ERROR");
@@ -789,11 +778,9 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
                 // busca o nome do agente
                 $busca = NomesDAO::buscarNome($idAgente);
 
-                if (!$busca) // faz a insercao do nome
-                {
+                if (!$busca) { // faz a insercao do nome
                     $i = NomesDAO::gravarNome($idAgente, $TipoNome, $nome, 0, $Usuario);
-                } else // faz a alteracao do nome
-                {
+                } else { // faz a alteracao do nome
                     $i = NomesDAO::atualizaNome($idAgente, $TipoNome, $nome, 0, $Usuario);
                 }
             } // fecha try
@@ -849,11 +836,9 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
                 // busca o endereco do agente
                 $busca = Agente_Model_EnderecoNacionalDAO::buscarEnderecoNacional($idAgente);
 
-                if (!$busca) // faz a insercao do endereco
-                {
+                if (!$busca) { // faz a insercao do endereco
                     $i = Agente_Model_EnderecoNacionalDAO::gravarEnderecoNacional($GravarEnderecoNacional);
-                } else // faz a alteracao do endereco
-                {
+                } else { // faz a alteracao do endereco
                     $i = Agente_Model_EnderecoNacionalDAO::atualizaEnderecoNacional($idAgente, $AtualizarEnderecoNacional);
                 }
             } // fecha try
@@ -877,8 +862,7 @@ class Agente_ManterAgentesController extends MinC_Controller_Action_Abstract
                 $visaoTable = new Agente_Model_DbTable_Visao();
                 $busca = $visaoTable->buscarVisao($idAgente, $Visao);
 
-                if (!$busca) // faz a insercao da visao
-                {
+                if (!$busca) { // faz a insercao da visao
                     $i = $visaoTable->cadastrarVisao($GravarVisao);
                 }
             } // fecha try

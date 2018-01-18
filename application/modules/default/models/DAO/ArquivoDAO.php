@@ -55,7 +55,7 @@ class ArquivoDAO extends Zend_Db_Table
     }
 
     /**
-     * 
+     *
      */
     public static function deletar($idArquivo)
     {
@@ -95,7 +95,6 @@ class ArquivoDAO extends Zend_Db_Table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
     }
-
 }
 
 /**

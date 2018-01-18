@@ -12,7 +12,6 @@
  */
 class ServicosSEI
 {
-
     private $caminhoWSDLSEI;
 
     private static $objSoapCliente;
@@ -55,7 +54,7 @@ class ServicosSEI
      * @param null $nrIdSerie
      * @return mixed
      */
-    public function wsListarUnidades($txSiglaSistema, $txIdentificacaoServico, $nrIdTipoProcedimento = NULL, $nrIdSerie = NULL)
+    public function wsListarUnidades($txSiglaSistema, $txIdentificacaoServico, $nrIdTipoProcedimento = null, $nrIdSerie = null)
     {
         $objSoapCliente = self::getSoapClient();
         //Nome do M�todo Remoto a ser Chamado
@@ -257,5 +256,4 @@ class ServicosSEI
         $nrProcessoSemFormatacao = str_replace($chars,"",$arrRetornoGerarProcedimento->ProcedimentoFormatado);
         $nrProcesso = $nrProcessoSemFormatacao;
      */
-
 } // end Utils_Wsdne
