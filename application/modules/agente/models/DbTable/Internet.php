@@ -104,7 +104,6 @@ class Agente_Model_DbTable_Internet extends MinC_Db_Table_Abstract
     public function buscarEmails($idAgente = null)
     {
         $tblAgentes = new Agente_Model_DbTable_Agentes();
-        $db = Zend_Db_Table::getDefaultAdapter();
 
         $i = array(
             'i.idinternet',
@@ -115,7 +114,8 @@ class Agente_Model_DbTable_Internet extends MinC_Db_Table_Abstract
             'i.divulgar'
         );
 
-        $sql = $db->select()
+        $sql = $this->select()
+            ->setIntegrityCheck(false)
             ->from(array('i' => 'internet'), $i, $this->_schema)
             ->join(array('v' => 'verificacao'), 'i.tipointernet = v.idverificacao', 'v.descricao as tipo', $this->_schema)
             ->join(array('t' => 'tipo'), 't.idtipo = v.idtipo', null, $this->_schema);
@@ -125,8 +125,7 @@ class Agente_Model_DbTable_Internet extends MinC_Db_Table_Abstract
             $sql->where('i.idagente = ?', $idAgente);
         }
 
-        $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        return $db->fetchAll($sql);
+        return $this->fetchAll($sql);
     }
 
     /**

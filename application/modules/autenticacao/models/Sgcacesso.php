@@ -300,4 +300,29 @@ class Autenticacao_Model_Sgcacesso extends MinC_Db_Table_Abstract
         $resultado = $this->fetchRow($objSgcAcesso);
         return $resultado;
     }
+
+    public function buscarUsuario($where = array(), $order = array(), $tamanho = -1, $inicio = -1)
+    {
+        $slct = $this->select();
+        $slct->from(
+            $this->_name,
+            array("nome", "cpf"),
+            $this->_schema
+        );
+
+        foreach ($where as $coluna => $valor) {
+            $slct->where($coluna, $valor);
+        }
+
+        $slct->order($order);
+
+        if ($tamanho > -1) {
+            $tmpInicio = 0;
+            if ($inicio > -1) {
+                $tmpInicio = $inicio;
+            }
+            $slct->limit($tamanho, $tmpInicio);
+        }
+        return $this->fetchAll($slct);
+    }
 }

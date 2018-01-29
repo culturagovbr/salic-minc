@@ -34,7 +34,7 @@ h1 {
 
 h2 {
     /*color: #424242;*/
-    /*font-size: 26px;*/
+    font-size: 26px;
 }
 
 @media only screen and (max-width: 993px) {
@@ -45,7 +45,7 @@ h2 {
 
 h3 {
     /*color: #424242;*/
-    /*font-size: 25px;*/
+    font-size: 24px;
 }
 
 
@@ -58,7 +58,7 @@ h3 {
 h4 {
     /*color: #424242;*/
     /*text-transform: uppercase;*/
-    /*font-size: 20px;*/
+    font-size: 22px;
 }
 
 @media only screen and (max-width: 993px) {
@@ -70,7 +70,7 @@ h4 {
 
 h5 {
     /*color: #424242;*/
-    /*font-size: 17px;*/
+    font-size: 20px;
 }
 
 @media only screen and (max-width: 993px) {
@@ -81,7 +81,7 @@ h5 {
 
 h6 {
     /*color: #424242;*/
-    /*font-size: 15px;*/
+    font-size: 18px;
 }
 
 td,
@@ -112,4 +112,11 @@ hr {
 #conteudo fieldset legend,
 fieldset legend {
     color: black;
+}
+
+.content h3,
+.content h4 {
+    clear: both;
+    display: block;
+    /*margin-bottom: 30px;*/
 }

@@ -376,7 +376,10 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
             );
             $this->view->avaliacoesAnteriores = $avaliacoesAnteriores;
         }
-        
+
+        $tbPreProjetoMapper = new Proposta_Model_TbPreProjetoMetaMapper();
+        $this->view->existeVersionamentoProposta = $tbPreProjetoMapper->verificarSeExisteVersaoDaProposta($this->idPreProjeto, 'diligencia');
+
     }
 
     public function salvaravaliacaoAction()
@@ -407,6 +410,11 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
         if ($dados['ConformidadeOK'] == 1) {
             $objTbMovimentacao = new Proposta_Model_DbTable_TbMovimentacao();
             $objTbMovimentacao->alterarConformidadeProposta($post->idPreProjeto, $this->idUsuario, Agente_Model_DbTable_Verificacao::PROPOSTA_EM_ANALISE_FINAL);
+        } else {
+
+            $tbPreProjetoMetaMapper = new Proposta_Model_TbPreProjetoMetaMapper();
+            $tbPreProjetoMetaMapper->salvarPropostaCulturalSerializada($post->idPreProjeto, 'diligencia');
+
         }
 
         parent::message("Conformidade visual finalizada com sucesso!", "/admissibilidade/admissibilidade/exibirpropostacultural?idPreProjeto=" . $post->idPreProjeto . "&gravado=sim", "CONFIRM");
@@ -2867,6 +2875,22 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
             $this->montaTela("admissibilidade/proposta-por-edital.phtml");
         } else {
             $this->montaTela("admissibilidade/proposta-por-incentivo-fiscal-ajax.phtml");
+        }
+    }
+
+    function analisarAlteracoesDaDiligenciaAction()
+    {
+        $idPreProjeto = $this->getRequest()->getParam('idPreProjeto');
+
+        try {
+            if (empty($idPreProjeto)) {
+                throw new Exception("N&uacute;mero do projeto &eacute; obrigat&oacute;rio");
+            }
+            $this->view->idPreProjeto = $idPreProjeto;
+            $this->view->tipo = $this->getRequest()->getParam('tipo', 'diligencia');
+
+        } catch(Exception $e) {
+            parent::message($e->getMessage(), "/admissibilidade/admissibilidade/listar-propostas", "INFO");
         }
     }
 }

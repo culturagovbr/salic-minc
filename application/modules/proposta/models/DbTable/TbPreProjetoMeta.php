@@ -3,10 +3,10 @@
 /**
  * Class Proposta_Model_DbTable_PreProjeto
  */
-class Proposta_Model_DbTable_PreProjetoMeta extends MinC_Db_Table_Abstract
+class Proposta_Model_DbTable_TbPreProjetoMeta extends MinC_Db_Table_Abstract
 {
     protected $_schema = "sac";
-    protected $_name = "tbpreprojetometa";
+    protected $_name = "tbPreProjetoMeta";
     protected $_primary = "idPreProjetoMeta";
 
     /**
@@ -41,6 +41,33 @@ class Proposta_Model_DbTable_PreProjetoMeta extends MinC_Db_Table_Abstract
         return $db->fetchOne($sql);
     }
 
+    public function buscarMetas($idPreProjeto, $metaKey = null, $prefix = null) {
+
+        if (empty($idPreProjeto)) {
+            return false;
+        }
+
+        $db = Zend_Db_Table::getDefaultAdapter();
+
+        $db->query('SET TEXTSIZE 2147483647');
+
+        $sql = $db->select()
+            ->from($this->_name, ['metaKey', 'metaValue'], $this->_schema)
+            ->where('idPreProjeto = ?', $idPreProjeto);
+
+        if (!empty($metaKey)) {
+            $sql->where('metaKey = ?', $metaKey);
+        }
+
+        if (!empty($prefix)) {
+            $sql->where('metaKey like ?',  "$prefix%");
+        }
+
+        $sql->order('idPreProjetoMeta DESC');
+
+        return $db->fetchAll($sql);
+    }
+
     public function salvarMeta($idPreProjeto, $metaKey, $valor)
     {
         if (empty($idPreProjeto) || empty($metaKey)) {
@@ -70,5 +97,12 @@ class Proposta_Model_DbTable_PreProjetoMeta extends MinC_Db_Table_Abstract
         if (empty($idPreProjeto) || empty($metaKey)) {
             return false;
         }
+
+        $where = array(
+            'idPreProjeto = ?' => $idPreProjeto,
+            'metaKey = ?' => $metaKey
+        );
+
+        return $this->delete($where);
     }
 }

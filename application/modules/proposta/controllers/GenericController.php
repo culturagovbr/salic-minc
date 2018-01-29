@@ -123,6 +123,7 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
         $this->idPreProjeto = $this->getRequest()->getParam('idPreProjeto');
 
         if (!empty($this->idPreProjeto)) {
+
             $this->_proposta = $this->buscarProposta($this->idPreProjeto);
             $this->_proponente = $this->buscarProponente($this->_proposta['idagente']);
 
@@ -275,151 +276,6 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
     }
 
     /**
-     * @param $object
-     * @param $where
-     * @return bool|string
-     */
-    public function serializarObjeto($object, $where)
-    {
-        $result = $object->findAll($where);
-
-        if (!$result) {
-            return false;
-        }
-
-        return serialize($result);
-    }
-
-    /**
-     * @param $result
-     * @param null $where
-     * @return bool|mixed
-     */
-    public function unserializarObjeto($object, $idPreProjeto, $metakey = null)
-    {
-        if (empty($idPreProjeto)) {
-            return false;
-        }
-
-        # se não passar o metakey, tenta recuperar a tabela do objeto
-        if (empty($metakey)) {
-            $metakey = str_replace('dbo.', '', $object->getTableName());
-        }
-
-        $PPM = new Proposta_Model_DbTable_PreProjetoMeta();
-        $result = $PPM->buscarMeta($idPreProjeto, $metakey);
-
-        return unserialize($result);
-    }
-
-    /**
-     * @param $object
-     * @param $idPreProjeto
-     * @param null $metakey
-     * @return bool|int|mixed
-     */
-    public function salvarObjetoSerializado($object, $idPreProjeto, $metakey = null, $where = null)
-    {
-        if (empty($where)) {
-            $where = array('idProjeto' => $idPreProjeto);
-        }
-
-        $serializado = $this->serializarObjeto($object, $where);
-
-        # se não passar o metakey, salva o nome da tabela do objeto
-        if (empty($metakey)) {
-            $metakey = str_replace('dbo.', '', $object->getTableName());
-        }
-
-        $PPM = new Proposta_Model_DbTable_PreProjetoMeta();
-        return $PPM->salvarMeta($idPreProjeto, $metakey, $serializado);
-    }
-
-    /**
-     * @param $array
-     * @param $idPreProjeto
-     * @param $metakey
-     * @return bool|int|mixed
-     */
-    public function salvarArraySerializado($array, $idPreProjeto, $metakey)
-    {
-        if (empty($metakey)) {
-            return false;
-        }
-
-        $serializado = serialize($array);
-
-        $PPM = new Proposta_Model_DbTable_PreProjetoMeta();
-        return $PPM->salvarMeta($idPreProjeto, $metakey, $serializado);
-    }
-
-    /**
-     * @param $object
-     * @param $idPreProjeto
-     * @param $metakey
-     * @param null $whereDelete
-     * @return bool
-     */
-    public function restaurarObjetoSerializadoParaTabela($object, $idPreProjeto, $metakey, $whereDelete = null)
-    {
-        if (empty($idPreProjeto)) {
-            return false;
-        }
-
-        if (empty($metakey)) {
-            return false;
-        }
-
-        # metakey de backup para o objeto atual
-        $tableName = str_replace('dbo.', '', $object->getTableName());
-
-        if ($tableName == 'preprojeto' || $tableName == 'tbplanodistribuicao') {
-            return false;
-        }
-
-        # recupera e verifica se os itens existem
-        $itens = $this->unserializarObjeto($object, $idPreProjeto, $metakey);
-
-        # se não tiver itens, não eh pra restaurar
-        if (empty($itens) || !is_array($itens)) {
-            return false;
-        }
-
-        # metakey de backup para o objeto atual
-        $metakeybkp = $metakey . "_bkp";
-
-        # salvar objeto atual
-        $salvarBkp = $this->salvarObjetoSerializado($object, $idPreProjeto, $metakeybkp);
-
-        # excluir itens atuais
-        if ($salvarBkp) {
-            if (empty($whereDelete)) {
-                $whereDelete = array('idProjeto' => $idPreProjeto);
-            }
-
-            $delete = $object->deleteBy($whereDelete);
-        }
-
-        #incluir os novos itens
-        if ($delete >= 0) {
-            foreach ($itens as $item) {
-                $PK = $object->getPrimary();
-                $PK = $PK[1];
-
-                if ($item[$PK]) {
-                    unset($item[$PK]);
-                }
-
-                $object->insert($item);
-            }
-
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      *
      * Metodo para salvar uma copia das informacoes da proposta antes do proponente alterar o projeto(proposta)
      * Salva a tbplanilhaproposta, abrangencia, planodistribuicaoproduto e tbdetalhaplanodistribuicao
@@ -437,79 +293,84 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
             return false;
         }
 
-        $PPM = new Proposta_Model_DbTable_PreProjetoMeta();
+        $this->salvarPropostaSerializadaAlterarProjeto($idPreProjeto);
+
+        return true;
+    }
+
+    /**
+     * @todo utilizar o metodo generico para salvar a proposta cultural serializada na Proposta_Model_TbPreProjetoMetaMapper
+     */
+    public function salvarPropostaSerializadaAlterarProjeto($idPreProjeto) {
 
         # Recupera informações da proposta atual
         $proposta = $this->_proposta;
 
+        $PPM = new Proposta_Model_DbTable_TbPreProjetoMeta();
+        $tbPreProjetoMeta = new Proposta_Model_TbPreProjetoMetaMapper();
 
         # Planilha orcamentaria
         $metaPlanilha = $PPM->buscarMeta($idPreProjeto, 'alterarprojeto_tbplanilhaproposta');
+        $this->view->PlanilhaSalvo = true;
         if (!$metaPlanilha) {
             $TPP = new Proposta_Model_DbTable_TbPlanilhaProposta();
             $dadosPlanilhaCompleta = $TPP->buscarPlanilhaCompleta($idPreProjeto);
 
-            $this->view->PlanilhaSalvo = $this->salvarArraySerializado($dadosPlanilhaCompleta, $idPreProjeto, 'alterarprojeto_tbplanilhaproposta');
-        } else {
-            $this->view->PlanilhaSalvo = true;
+            $this->view->PlanilhaSalvo = $tbPreProjetoMeta->salvarArraySerializado($dadosPlanilhaCompleta, $idPreProjeto, 'alterarprojeto_tbplanilhaproposta');
         }
 
         # Local de realizacao (abrangencia)
         $metaAbrangencia = $PPM->buscarMeta($idPreProjeto, 'alterarprojeto_abrangencia');
+        $this->view->AbrangenciaSalvo = true;
         if (!$metaAbrangencia) {
             $TPA = new Proposta_Model_DbTable_Abrangencia();
             $abrangenciaCompleta = $TPA->buscar(array('idProjeto' => $idPreProjeto));
-            $this->view->AbrangenciaSalvo = $this->salvarArraySerializado($abrangenciaCompleta, $idPreProjeto, 'alterarprojeto_abrangencia');
-        } else {
-            $this->view->AbrangenciaSalvo = true;
+            $this->view->AbrangenciaSalvo = $tbPreProjetoMeta->salvarArraySerializado($abrangenciaCompleta, $idPreProjeto, 'alterarprojeto_abrangencia');
         }
 
         # Deslocamento
         $metaDeslocamento = $PPM->buscarMeta($idPreProjeto, 'alterarprojeto_deslocamento');
+        $this->view->DeslocamentoSalvo = true;
         if (!$metaDeslocamento) {
             $TPD = new Proposta_Model_DbTable_TbDeslocamento();
             $deslocamentoCompleto = $TPD->buscarDeslocamentosGeral(array('idProjeto' => $idPreProjeto));
-            $this->view->DeslocamentoSalvo = $this->salvarArraySerializado($deslocamentoCompleto, $idPreProjeto, 'alterarprojeto_deslocamento');
-        } else {
-            $this->view->DeslocamentoSalvo = true;
+            $this->view->DeslocamentoSalvo = $tbPreProjetoMeta->salvarArraySerializado($deslocamentoCompleto, $idPreProjeto, 'alterarprojeto_deslocamento');
         }
 
         # Plano distribuicao
         $metaPlanoDistribuicao = $PPM->buscarMeta($idPreProjeto, 'alterarprojeto_planodistribuicaoproduto');
+        $this->view->PlanoDistribuicaoSalvo = true;
         if (!$metaPlanoDistribuicao) {
             $TPDC = new PlanoDistribuicao();
             $planoDistribuicaoCompleto = $TPDC->buscar(array('idProjeto = ?' => $idPreProjeto))->toArray();
-            $this->view->PlanoDistribuicaoSalvo = $this->salvarArraySerializado($planoDistribuicaoCompleto, $idPreProjeto, 'alterarprojeto_planodistribuicaoproduto');
-        } else {
-            $this->view->PlanoDistribuicaoSalvo = true;
+            $this->view->PlanoDistribuicaoSalvo = $tbPreProjetoMeta->salvarArraySerializado($planoDistribuicaoCompleto, $idPreProjeto, 'alterarprojeto_planodistribuicaoproduto');
         }
 
         # Plano de distribuicao Detalhado
         $metaPlanoDistribuicaoDetalha = $PPM->buscarMeta($idPreProjeto, 'alterarprojeto_tbdetalhaplanodistribuicao');
+        $this->view->PlanoDistribuicaoDetalhadoSalvo = true;
         if (!$metaPlanoDistribuicaoDetalha) {
             $TPD = new PlanoDistribuicao();
             $PlanoDetalhado = $TPD->buscarPlanoDistribuicaoDetalhadoByIdProjeto($idPreProjeto);
 
-            $this->view->PlanoDistribuicaoDetalhadoSalvo = $this->salvarArraySerializado($PlanoDetalhado, $idPreProjeto, 'alterarprojeto_tbdetalhaplanodistribuicao');
-        } else {
-            $this->view->PlanoDistribuicaoDetalhadoSalvo = true;
+            $this->view->PlanoDistribuicaoDetalhadoSalvo = $tbPreProjetoMeta->salvarArraySerializado($PlanoDetalhado, $idPreProjeto, 'alterarprojeto_tbdetalhaplanodistribuicao');
         }
 
         # identificacao da proposta
         $metaIdentificacaoProposta = $PPM->buscarMeta($idPreProjeto, 'alterarprojeto_identificacaoproposta');
+        $this->view->IdentificaoPropostaSalvo = true;
         if (!$metaIdentificacaoProposta) {
             $identificacaoProposta = array(
                 'dtiniciodeexecucao' => $proposta['dtiniciodeexecucaoform'],
                 'dtfinaldeexecucao' => $proposta['dtfinaldeexecucaoform']
             );
 
-            $this->view->IdentificaoPropostaSalvo = $this->salvarArraySerializado($identificacaoProposta, $idPreProjeto, 'alterarprojeto_identificacaoproposta');
-        } else {
-            $this->view->IdentificaoPropostaSalvo = true;
+            $this->view->IdentificaoPropostaSalvo = $tbPreProjetoMeta->salvarArraySerializado($identificacaoProposta, $idPreProjeto, 'alterarprojeto_identificacaoproposta');
         }
 
         # responsabilidade social
         $metaResponsabilidadeSocial = $PPM->buscarMeta($idPreProjeto, 'alterarprojeto_responsabilidadesocial');
+        $this->view->ResponsabilidadeSocialSalvo = true;
         if (!$metaResponsabilidadeSocial) {
             $responsabilidadeSocial = array(
                 'Acessibilidade' => $proposta['acessibilidade'],
@@ -517,13 +378,12 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
                 'ImpactoAmbiental' => $proposta['impactoambiental']
             );
 
-            $this->view->ResponsabilidadeSocialSalvo = $this->salvarArraySerializado($responsabilidadeSocial, $idPreProjeto, 'alterarprojeto_responsabilidadesocial');
-        } else {
-            $this->view->ResponsabilidadeSocialSalvo = true;
+            $this->view->ResponsabilidadeSocialSalvo = $tbPreProjetoMeta->salvarArraySerializado($responsabilidadeSocial, $idPreProjeto, 'alterarprojeto_responsabilidadesocial');
         }
 
         # detalhes técnicos
         $metadetalhesTecnicos = $PPM->buscarMeta($idPreProjeto, 'alterarprojeto_detalhestecnicos');
+        $this->view->DetalhesTecnicosSalvo = true;
         if (!$metadetalhesTecnicos) {
             $detalhesTecnicos = array(
                 'EtapaDeTrabalho' => $proposta['etapadetrabalho'],
@@ -531,98 +391,18 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
                 'Sinopse' => $proposta['sinopse'],
                 'EspecificacaoTecnica' => $proposta['especificacaotecnica']
             );
-            $this->view->DetalhesTecnicosSalvo = $this->salvarArraySerializado($detalhesTecnicos, $idPreProjeto, 'alterarprojeto_detalhestecnicos');
-        } else {
-            $this->view->DetalhesTecnicosSalvo = true;
+            $this->view->DetalhesTecnicosSalvo = $tbPreProjetoMeta->salvarArraySerializado($detalhesTecnicos, $idPreProjeto, 'alterarprojeto_detalhestecnicos');
         }
 
         # outras informacoes
         $metaOutrasInformacoes = $PPM->buscarMeta($idPreProjeto, 'alterarprojeto_outrasinformacoes');
+        $this->view->OutrasInformacoesSalvo = true;
         if (!$metaOutrasInformacoes) {
             $outrasInformacoes = array(
                 'EstrategiadeExecucao' => $proposta['estrategiadeexecucao']
             );
 
-            $this->view->OutrasInformacoesSalvo = $this->salvarArraySerializado($outrasInformacoes, $idPreProjeto, 'alterarprojeto_outrasinformacoes');
-        } else {
-            $this->view->OutrasInformacoesSalvo = true;
+            $this->view->OutrasInformacoesSalvo = $tbPreProjetoMeta->salvarArraySerializado($outrasInformacoes, $idPreProjeto, 'alterarprojeto_outrasinformacoes');
         }
-
-        return true;
-    }
-
-    /**
-     *  Devido ao desenho do banco para a tabela tbdetalhaplanodistribuicao, para restaurar o detalhamento dos produtos,
-     *  eu tenho que saber o novo id dos produtos inseridos. Tendo em isso em mente, quando for salvar o Plano de distribuicao
-     *  do produto, pega o id dele e salva os detalhamentos referentes a ele.
-     *
-     * @param $idPreProjeto
-     * @return bool
-     */
-    public function restaurarPlanoDistribuicaoDetalhado($idPreProjeto)
-    {
-        if (empty($idPreProjeto)) {
-            return false;
-        }
-
-        $TPD = new PlanoDistribuicao();
-        $produtos = $this->unserializarObjeto($TPD, $idPreProjeto, 'alterarprojeto_planodistribuicaoproduto');
-
-        $TPDD = new Proposta_Model_DbTable_TbDetalhamentoPlanoDistribuicaoProduto();
-        $detalhamentoProdutos = $this->unserializarObjeto($TPDD, $idPreProjeto, 'alterarprojeto_tbdetalhaplanodistribuicao');
-
-        # se não tiver itens, não eh pra restaurar
-        if (empty($produtos) || !is_array($produtos)) {
-            return false;
-        }
-
-        if (empty($detalhamentoProdutos) || !is_array($detalhamentoProdutos)) {
-            return false;
-        }
-
-        # metakey de backup para os objetos atuais
-        $bkpPDP = "alterarprojeto_planodistribuicaoproduto_bkp";
-        $bkpPDPD = "alterarprojeto_tbdetalhaplanodistribuicao_bkp";
-
-        # salvar os objetos atuais
-        $salvarPDP = $this->salvarObjetoSerializado($TPD, $idPreProjeto, $bkpPDP);
-
-        $PlanoDetalhado = $TPD->buscarPlanoDistribuicaoDetalhadoByIdProjeto($idPreProjeto);
-        $salvarPDPD = $this->salvarArraySerializado($PlanoDetalhado, $idPreProjeto, $bkpPDPD);
-
-        # excluir itens atuais
-        if ($salvarPDP && $salvarPDPD) {
-            $TPD->delete(array('idProjeto = ?' => $idPreProjeto)); # produto
-            $TPDD->excluirByIdPreProjeto($idPreProjeto); # detalhamento
-        }
-
-        foreach ($produtos as $produto) {
-            # Guarda a chave primeira antiga do plano de distribuicao
-            $oldIdPlanoDistribuicao = $produto['idPlanoDistribuicao'];
-
-            # Remove a chave primaria antiga
-            unset($produto['idPlanoDistribuicao']);
-
-            # Salva como um novo item
-            $novoID = $TPD->insert($produto);
-
-            # Varre os detalhamentos do plano de distribuicao anterior e substitui o id pelo atual
-            if ($novoID) {
-                foreach ($detalhamentoProdutos as $detalhamento) {
-                    if ($oldIdPlanoDistribuicao == $detalhamento['idPlanoDistribuicao']) {
-                        $detalhamento['idPlanoDistribuicao'] = $novoID;
-                        $novosDetalhamento[] = $detalhamento;
-                    }
-                }
-            }
-        }
-        if ($novosDetalhamento) {
-            # Salva o detalhamento dos produtos
-            foreach ($novosDetalhamento as $detalhamento) {
-                unset($detalhamento['idDetalhaPlanoDistribuicao']);
-                $TPDD->insert($detalhamento);
-            }
-        }
-        return true;
     }
 }

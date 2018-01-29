@@ -95,4 +95,39 @@ class Proposta_Model_DbTable_TbDocumentosPreProjeto extends MinC_Db_Table_Abstra
 
         return $this->fetchAll($slct);
     }
+
+    public function buscarDadosDocumentos($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
+        $slct = $this->select();
+        $slct->setIntegrityCheck(false);
+        $slct->from(
+            array("a"=>$this->_name),
+            array("CodigoDocumento", new Zend_Db_Expr('(2) as tpDoc'), 'idprojeto as Codigo',
+                'Data', 'NoArquivo', 'TaArquivo', 'idDocumentosPreProjetos'),
+            $this->_schema
+        );
+        $slct->joinInner(
+            array("b"=> "documentosexigidos"), "a.codigodocumento = b.codigo",
+            array("Descricao"), $this->getSchema('sac')
+        );
+
+        //adiciona quantos filtros foram enviados
+        foreach ($where as $coluna => $valor) {
+            $slct->where($coluna, $valor);
+        }
+
+        //adicionando linha order ao select
+        $slct->order($order);
+
+        // paginacao
+        if ($tamanho > -1) {
+            $tmpInicio = 0;
+            if ($inicio > -1) {
+                $tmpInicio = $inicio;
+            }
+            $slct->limit($tamanho, $tmpInicio);
+        }
+
+        $result = $this->fetchAll($slct);
+        return $result ? $result->toArray() : array();
+    }
 }

@@ -184,7 +184,7 @@ class Analise_AnaliseController extends Analise_GenericController
             $this->view->atual = $atual;
 
             # informacoes do historico
-            $PPM = new Proposta_Model_DbTable_PreProjetoMeta();
+            $PPM = new Proposta_Model_DbTable_TbPreProjetoMeta();
             $historico['planilhaProjeto'] = unserialize($PPM->buscarMeta($idPreProjeto, 'alterarprojeto_tbplanilhaproposta'));
             $historico['itensLocalRealizacao'] = unserialize($PPM->buscarMeta($idPreProjeto, 'alterarprojeto_abrangencia'));
             $historico['itensDeslocamento'] = unserialize($PPM->buscarMeta($idPreProjeto, 'alterarprojeto_deslocamento'));

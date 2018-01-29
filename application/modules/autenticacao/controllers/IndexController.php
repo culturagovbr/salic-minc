@@ -688,4 +688,19 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
             parent::message("Dados alterados com sucesso", "/{$module}/{$controller}/alterardados", "CONFIRM");
         }
     }
+
+    public function obterDadosUsuarioAction()
+    {
+        $this->_helper->layout->disableLayout();
+
+        $idUsuario = $this->_request->getParam('idUsuario');
+
+        $tbSgcAcesso = new Autenticacao_Model_Sgcacesso();
+        $this->debugMode = true;
+        $dados = $tbSgcAcesso->buscarUsuario(['IdUsuario = ?' => $idUsuario])->current()->toArray();
+
+        $dados = array_map('utf8_encode', $dados);
+
+        $this->_helper->json(array('data' => $dados, 'success' => 'true'));
+    }
 }

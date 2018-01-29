@@ -559,15 +559,16 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
                 if ($this->isEditarProjeto($idPreProjeto)) {
 
                     # restaura o local de realizacao
+                    $tbPreProjetoMeta = new Proposta_Model_TbPreProjetoMetaMapper();
                     $TA = new Proposta_Model_DbTable_Abrangencia();
-                    $this->restaurarObjetoSerializadoParaTabela($TA, $idPreProjeto, 'alterarprojeto_abrangencia');
+                    $tbPreProjetoMeta->restaurarObjetoSerializadoParaTabela($TA, $idPreProjeto, 'alterarprojeto_abrangencia');
 
                     # restaura o plano de distribuicao e o plano de distribuicao detalhado
-                    $this->restaurarPlanoDistribuicaoDetalhado($idPreProjeto);
+                    $tbPreProjetoMeta->restaurarPlanoDistribuicaoDetalhado($idPreProjeto);
 
                     # restaura o orcamento
                     $TPP = new Proposta_Model_DbTable_TbPlanilhaProposta();
-                    $restaurar = $this->restaurarObjetoSerializadoParaTabela($TPP, $idPreProjeto, 'alterarprojeto_tbplanilhaproposta');
+                    $restaurar = $tbPreProjetoMeta->restaurarObjetoSerializadoParaTabela($TPP, $idPreProjeto, 'alterarprojeto_tbplanilhaproposta');
                 }
 
                 if ($restaurar) {

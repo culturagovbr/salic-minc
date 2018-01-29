@@ -630,11 +630,11 @@ class Proposta_Model_DbTable_TbPlanilhaProposta extends MinC_Db_Table_Abstract
 
         $sacSchema = $this->_schema;
         $sql = $db->select()->from(array('pp' => 'tbplanilhaproposta'), $this->_getCols(), $sacSchema)
-            ->join(array('p' => 'produto'), 'pp.idproduto = p.codigo', array('p.codigo AS CodigoProduto', 'p.Descricao as DescricaoProduto'), $sacSchema)
+            ->joinLeft(array('p' => 'produto'), 'pp.idproduto = p.codigo', array('p.codigo AS CodigoProduto', 'p.Descricao as DescricaoProduto'), $sacSchema)
             ->join(array('ti' => 'tbplanilhaitens'), 'ti.idplanilhaitens = pp.idplanilhaitem', 'ti.descricao as DescricaoItem', $sacSchema)
-            ->join(array('uf' => 'uf'), 'uf.CodUfIbge = pp.ufdespesa', 'uf.descricao AS DescricaoUf', $sacSchema)
-            ->join(array('mun' => 'municipios'), 'mun.idmunicipioibge = pp.municipiodespesa', 'mun.descricao as DescricaoMunicipio', $this->getSchema('agentes'))
-            ->join(array('pe' => 'tbplanilhaetapa'), 'pp.idetapa = pe.idplanilhaetapa', 'pe.descricao as DescricaoEtapa', $sacSchema)
+            ->joinLeft(array('uf' => 'uf'), 'uf.CodUfIbge = pp.ufdespesa', 'uf.descricao AS DescricaoUf', $sacSchema)
+            ->joinLeft(array('mun' => 'municipios'), 'mun.idmunicipioibge = pp.municipiodespesa', 'mun.descricao as DescricaoMunicipio', $this->getSchema('agentes'))
+            ->join(array('pe' => 'tbplanilhaetapa'), 'pp.idetapa = pe.idplanilhaetapa', ['pe.descricao as DescricaoEtapa',' pe.nrOrdenacao as OrdemEtapa'], $sacSchema)
             ->join(array('rec' => 'verificacao'), 'rec.idverificacao = pp.fonterecurso', 'rec.descricao as DescricaoRecurso', $sacSchema)
             ->join(array('uni' => 'tbplanilhaunidade'), 'uni.idunidade = pp.unidade', 'uni.descricao as DescricaoUnidade', $sacSchema)
         ;
@@ -686,7 +686,7 @@ class Proposta_Model_DbTable_TbPlanilhaProposta extends MinC_Db_Table_Abstract
             $sql->where('pp.fonterecurso = ?', $fonte);
         }
 
-        $sql->order(array('DescricaoRecurso', 'DescricaoProduto', 'DescricaoEtapa', 'DescricaoUf', 'DescricaoItem'));
+        $sql->order(array('DescricaoRecurso', 'DescricaoProduto DESC', 'DescricaoUf', 'OrdemEtapa ASC', 'DescricaoItem'));
 
         $db->setFetchMode(Zend_DB::FETCH_ASSOC);
 
@@ -739,5 +739,25 @@ class Proposta_Model_DbTable_TbPlanilhaProposta extends MinC_Db_Table_Abstract
 
         return $this->fetchRow($select);
 
+    }
+
+    public function buscarFontesDeRecursos($idPreProjeto)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            array('tpp'=>$this->_name),
+            array(
+                'Valor' => new Zend_Db_Expr('sum(tpp.Quantidade*tpp.Ocorrencia*tpp.ValorUnitario)')
+            ),
+            $this->_schema
+        );
+
+        $select->joinInner(array('ver' => 'Verificacao'), 'tpp.FonteRecurso = ver.idVerificacao', array('ver.Descricao'), $this->_schema);
+        $select->where('tpp.idProjeto = ?',$idPreProjeto);
+        $select->group(['ver.Descricao', 'tpp.idProjeto']);
+
+        $db = Zend_Db_Table::getDefaultAdapter();
+        return $db->fetchAll($select);
     }
 }

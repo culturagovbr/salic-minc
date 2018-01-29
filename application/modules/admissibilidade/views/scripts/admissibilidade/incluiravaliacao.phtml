@@ -79,6 +79,28 @@
                             <?php echo $this->nomeProjeto ?>
 			</td>
                     </tr>
+
+			<?php if($this->existeVersionamentoProposta) : ?>
+				<tr>
+					<td align="center">
+						<a
+							class="waves-effect waves-light btn"
+							target="_blank"
+							href="<?= $this->url(
+								array(
+									'module' => 'admissibilidade',
+									'controller' => 'admissibilidade',
+									'action' => 'analisar-alteracoes-da-diligencia',
+									'idPreProjeto' => $this->idPreProjeto,
+									'tipo' => 'diligencia'
+								)
+							); ?>"
+						><i class="material-icons left">history</i>Avaliar altera&ccedil;&otilde;es</a>
+					</td>
+				</tr>
+			<?php endif; ?>
+
+
                     <tr>
 			<td align="center">
                             Data da Avalia&ccedil;&atilde;o: <?php echo $this->dataAtual ?><br/><br/>
