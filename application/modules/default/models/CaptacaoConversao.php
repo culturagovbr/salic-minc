@@ -1,10 +1,4 @@
 <?php
-/**
- * Description of Sgcacesso
- *
- * @author augusto
- */
-
 class CaptacaoConversao extends MinC_Db_Table_Abstract
 {
     protected $_banco  = "SAC";
@@ -21,8 +15,6 @@ class CaptacaoConversao extends MinC_Db_Table_Abstract
         return $this->fetchAll($select);
     } // fecha m�todo buscarCaptacaoConversao()
 
-
-
     public function BuscarTotalCaptacaoConversao($retornaSelect = false, $where = array())
     {
         $select = $this->select();
@@ -31,7 +23,8 @@ class CaptacaoConversao extends MinC_Db_Table_Abstract
             array($this->_name),
             array('AnoProjeto'
                 ,'Sequencial'
-                ,'Conv' => 'ISNULL(sum(valor), 0)')
+                ,'Conv' => new Zend_Db_Expr('ISNULL(sum(valor), 0)')
+            )
         );
 
         $select->group('AnoProjeto');
@@ -46,5 +39,5 @@ class CaptacaoConversao extends MinC_Db_Table_Abstract
         } else {
             return $this->fetchAll($select);
         }
-    } // fecha m�todo BuscarTotalCaptacaoConversao()
-} // fecha class
+    }
+}

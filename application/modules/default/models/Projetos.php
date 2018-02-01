@@ -736,7 +736,7 @@ class Projetos extends MinC_Db_Table_Abstract
                                                                  WHEN vp.stAnaliseProjeto = '3' THEN 'An&aacute;lise Finalizada'
                                                                  WHEN vp.stAnaliseProjeto = '4' THEN 'Encaminhado para portaria'
                                                                  END "),
-            "DATEDIFF(day, vp.DtRecebido, GETDATE()) AS tempoAnalise",
+                new Zend_Db_Expr("DATEDIFF(day, vp.DtRecebido, GETDATE()) AS tempoAnalise"),
             "vp.dtRecebido"
         ),
             "SAC.dbo"
@@ -2172,8 +2172,8 @@ class Projetos extends MinC_Db_Table_Abstract
         $slct->joinInner(
             array('dp' => 'tbDistribuirParecer'),
             "dp.idPronac = a.idPronac AND dp.idProduto = a.idProduto",
-            array('CONVERT(CHAR(23), dp.DtDevolucao, 120) AS DtDevolucao',
-                'CONVERT(CHAR(23), dp.DtRetorno, 120) AS DtRetorno', 'dp.idOrgao')
+            array(new Zend_Db_Expr('CONVERT(CHAR(23), dp.DtDevolucao, 120) AS DtDevolucao'),
+                new Zend_Db_Expr('CONVERT(CHAR(23), dp.DtRetorno, 120) AS DtRetorno', 'dp.idOrgao'))
         );
 
         $slct->joinLeft(
@@ -2283,9 +2283,9 @@ class Projetos extends MinC_Db_Table_Abstract
         $select->setIntegrityCheck(false);
         $select->from(
             $this->_name,
-            array("DATEDIFF(DAY, DtInicioExecucao, DtFimExecucao) AS qtdDias"
-            , "CONVERT(CHAR(10), DtInicioExecucao, 103) AS DtInicioExecucao"
-            , "CONVERT(CHAR(10), DtFimExecucao, 103) AS DtFimExecucao")
+            array(new Zend_Db_Expr("DATEDIFF(DAY, DtInicioExecucao, DtFimExecucao) AS qtdDias")
+            , new Zend_Db_Expr("CONVERT(CHAR(10), DtInicioExecucao, 103) AS DtInicioExecucao")
+            , new Zend_Db_Expr("CONVERT(CHAR(10), DtFimExecucao, 103) AS DtFimExecucao"))
         );
 
         // busca pelo $idPronac
@@ -2326,9 +2326,9 @@ class Projetos extends MinC_Db_Table_Abstract
         $select->setIntegrityCheck(false);
         $select->from(
             "Aprovacao",
-            array("DATEDIFF(DAY, DtInicioCaptacao, DtFimCaptacao) AS qtdDias"
-            , "CONVERT(CHAR(10), DtInicioCaptacao, 103) AS DtInicioCaptacao"
-            , "CONVERT(CHAR(10), DtFimCaptacao, 103) AS DtFimCaptacao")
+            array(new Zend_Db_Expr("DATEDIFF(DAY, DtInicioCaptacao, DtFimCaptacao) AS qtdDias")
+            , new Zend_Db_Expr("CONVERT(CHAR(10), DtInicioCaptacao, 103) AS DtInicioCaptacao")
+            , new Zend_Db_Expr("CONVERT(CHAR(10), DtFimCaptacao, 103) AS DtFimCaptacao"))
         );
 
         // busca pelo $idPronac
@@ -2392,7 +2392,7 @@ class Projetos extends MinC_Db_Table_Abstract
                         'p.Segmento',
                         '(p.AnoProjeto + p.Sequencial) AS PRONAC',
                         'p.NomeProjeto as NomeProjeto',
-                        'CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise',
+                        new Zend_Db_Expr('CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise'),
                         'p.situacao as situacao',
                         'p.Orgao as idOrgao',
                         "DtSolicitacao" => new Zend_Db_Expr('(select top 1 DtSolicitacao from tbDiligencia dili1 where dili1.idPronac = p.idPronac and dili1.idProduto = d.idProduto order by dili1.DtSolicitacao desc)'),
@@ -2410,7 +2410,7 @@ class Projetos extends MinC_Db_Table_Abstract
                         'p.NomeProjeto as NomeProjeto',
                         'p.Area',
                         'p.Segmento',
-                        'CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise',
+                        new Zend_Db_Expr('CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise'),
                         'p.situacao as situacao',
                         'p.Orgao as idOrgao',
                         "DtSolicitacao" => new Zend_Db_Expr('(select top 1 DtSolicitacao from tbDiligencia dili1 where dili1.idPronac = p.idPronac and dili1.idProduto = d.idProduto order by dili1.DtSolicitacao desc)'),
@@ -2429,7 +2429,7 @@ class Projetos extends MinC_Db_Table_Abstract
                 "d.DtDistribuicao",
                 "d.stDiligenciado",
                 "d.DtDevolucao",
-                "CONVERT(CHAR(10), d.DtEnvio, 103) as DtEnvio",
+                new Zend_Db_Expr("CONVERT(CHAR(10), d.DtEnvio, 103) as DtEnvio"),
                 "d.idAgenteParecerista",
                 'tempoFimParecer' => new Zend_Db_Expr('CASE WHEN d.stPrincipal = 1 THEN 20 ELSE 10 END'),
             ));
@@ -2509,7 +2509,7 @@ class Projetos extends MinC_Db_Table_Abstract
                         'p.IdPRONAC',
                         '(p.AnoProjeto + p.Sequencial) AS PRONAC',
                         'p.NomeProjeto as NomeProjeto',
-                        'CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise',
+                        new Zend_Db_Expr('CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise'),
                         'p.situacao as situacao',
                         'p.Orgao as idOrgao',
                         "DtSolicitacao" => new Zend_Db_Expr('(select top 1 DtSolicitacao from tbDiligencia dili1 where dili1.idPronac = p.idPronac and dili1.idProduto = d.idProduto order by dili1.DtSolicitacao desc)'),
@@ -2525,7 +2525,7 @@ class Projetos extends MinC_Db_Table_Abstract
                     array(new Zend_Db_Expr("TOP $soma  p.IdPRONAC"),
                         '(p.AnoProjeto + p.Sequencial) AS PRONAC',
                         'p.NomeProjeto as NomeProjeto',
-                        'CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise',
+                        new Zend_Db_Expr('CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise'),
                         'p.situacao as situacao',
                         'p.Orgao as idOrgao',
                         "DtSolicitacao" => new Zend_Db_Expr('(select top 1 DtSolicitacao from tbDiligencia dili1 where dili1.idPronac = p.idPronac and dili1.idProduto = d.idProduto order by dili1.DtSolicitacao desc)'),
@@ -2542,7 +2542,7 @@ class Projetos extends MinC_Db_Table_Abstract
                 "d.DtDistribuicao",
                 "d.stDiligenciado",
                 "d.DtDevolucao",
-                "CONVERT(CHAR(10), d.DtEnvio, 103) as DtEnvio",
+                new Zend_Db_Expr("CONVERT(CHAR(10), d.DtEnvio, 103) as )DtEnvio"),
                 "d.idAgenteParecerista",
                 'tempoFimParecer' => new Zend_Db_Expr('CASE WHEN d.stPrincipal = 1 THEN 20 ELSE 10 END'),
             ));
@@ -2621,7 +2621,7 @@ class Projetos extends MinC_Db_Table_Abstract
                         'p.IdPRONAC',
                         '(p.AnoProjeto + p.Sequencial) AS PRONAC',
                         'p.NomeProjeto as NomeProjeto',
-                        'CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise',
+                        new Zend_Db_Expr('CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise'),
                         'p.situacao as situacao',
                         'p.Orgao as idOrgao',
                         "DtSolicitacao" => new Zend_Db_Expr('(select top 1 DtSolicitacao from tbDiligencia dili1 where dili1.idPronac = p.idPronac and dili1.idProduto = d.idProduto order by dili1.DtSolicitacao desc)'),
@@ -2637,7 +2637,7 @@ class Projetos extends MinC_Db_Table_Abstract
                     array(new Zend_Db_Expr("TOP $soma  p.IdPRONAC"),
                         '(p.AnoProjeto + p.Sequencial) AS PRONAC',
                         'p.NomeProjeto as NomeProjeto',
-                        'CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise',
+                        new Zend_Db_Expr('CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise'),
                         'p.situacao as situacao',
                         'p.Orgao as idOrgao',
                         "DtSolicitacao" => new Zend_Db_Expr('(select top 1 DtSolicitacao from tbDiligencia dili1 where dili1.idPronac = p.idPronac and dili1.idProduto = d.idProduto order by dili1.DtSolicitacao desc)'),
@@ -2654,7 +2654,7 @@ class Projetos extends MinC_Db_Table_Abstract
                 "d.DtDistribuicao",
                 "d.stDiligenciado",
                 "d.DtDevolucao",
-                "CONVERT(CHAR(10), d.DtEnvio, 103) as DtEnvio",
+                new Zend_Db_Expr("CONVERT(CHAR(10), d.DtEnvio, 103) as )DtEnvio"),
                 "d.idAgenteParecerista",
                 'tempoFimParecer' => new Zend_Db_Expr('CASE WHEN d.stPrincipal = 1 THEN 20 ELSE 10 END'),
             ));
@@ -2737,7 +2737,7 @@ class Projetos extends MinC_Db_Table_Abstract
                         'p.IdPRONAC',
                         '(p.AnoProjeto + p.Sequencial) AS PRONAC',
                         'p.NomeProjeto as NomeProjeto',
-                        'CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise',
+                        new Zend_Db_Expr('CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise'),
                         'p.situacao as situacao',
                         'p.Orgao as idOrgao',
                         "DtSolicitacao" => new Zend_Db_Expr('(select top 1 DtSolicitacao from tbDiligencia dili1 where dili1.idPronac = p.idPronac and dili1.idProduto = d.idProduto order by dili1.DtSolicitacao desc)'),
@@ -2753,7 +2753,7 @@ class Projetos extends MinC_Db_Table_Abstract
                     array(new Zend_Db_Expr("TOP $soma  p.IdPRONAC"),
                         '(p.AnoProjeto + p.Sequencial) AS PRONAC',
                         'p.NomeProjeto as NomeProjeto',
-                        'CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise',
+                        new Zend_Db_Expr('CONVERT(CHAR(10), p.DtAnalise, 103)  AS DtAnalise'),
                         'p.situacao as situacao',
                         'p.Orgao as idOrgao',
                         "DtSolicitacao" => new Zend_Db_Expr('(select top 1 DtSolicitacao from tbDiligencia dili1 where dili1.idPronac = p.idPronac and dili1.idProduto = d.idProduto order by dili1.DtSolicitacao desc)'),
@@ -2770,7 +2770,7 @@ class Projetos extends MinC_Db_Table_Abstract
                 "d.DtDistribuicao",
                 "d.stDiligenciado",
                 "d.DtDevolucao",
-                "CONVERT(CHAR(10), d.DtEnvio, 103) as DtEnvio",
+                new Zend_Db_Expr("CONVERT(CHAR(10), d.DtEnvio, 103) as )DtEnvio"),
                 "d.idAgenteParecerista",
                 'tempoFimParecer' => new Zend_Db_Expr('CASE WHEN d.stPrincipal = 1 THEN 20 ELSE 10 END'),
             ));
@@ -2842,8 +2842,8 @@ class Projetos extends MinC_Db_Table_Abstract
                 'd.idProduto',
                 'd.idAgenteParecerista',
                 'd.idOrgao',
-                'CONVERT(CHAR(10),d.DtDistribuicao,103) AS DtDistribuicao2',
-                'DATEDIFF(day, d.DtDistribuicao, GETDATE()) AS NrDias',
+                new Zend_Db_Expr('CONVERT(CHAR(10),d.DtDistribuicao,103) AS DtDistribuicao2'),
+                new Zend_Db_Expr('DATEDIFF(day, d.DtDistribuicao, GETDATE()) AS NrDias'),
                 'd.Observacao',
                 'DescricaoAnalise' => new Zend_Db_Expr('CASE WHEN TipoAnalise = 0 THEN \'Cont?udo\' WHEN TipoAnalise = 1 THEN \'Custo do Produto\' ELSE \'Custo Administrativo\' END'),
                 'd.TipoAnalise',
@@ -3048,7 +3048,7 @@ class Projetos extends MinC_Db_Table_Abstract
         $select->setIntegrityCheck(false);
         $select->from(
             array('p' => $this->_name),
-            array('SAC.dbo.fnchecarDiligencia(p.IdPRONAC) AS Diligencia',
+            array(new Zend_Db_Expr('SAC.dbo.fnchecarDiligencia(p.IdPRONAC) AS Diligencia'),
                 'p.IdPRONAC',
                 '(p.AnoProjeto + p.Sequencial) AS PRONAC',
                 'p.NomeProjeto')
@@ -3061,8 +3061,8 @@ class Projetos extends MinC_Db_Table_Abstract
                 'd.idProduto',
                 'd.idAgenteParecerista',
                 'd.idOrgao',
-                'CONVERT(CHAR(10),d.DtDistribuicao,103) AS DtDistribuicao2',
-                'DATEDIFF(day, d.DtDistribuicao, GETDATE()) AS NrDias',
+                new Zend_Db_Expr('CONVERT(CHAR(10),d.DtDistribuicao,103) AS DtDistribuicao2'),
+                new Zend_Db_Expr('DATEDIFF(day, d.DtDistribuicao, GETDATE()) AS NrDias'),
                 'd.Observacao',
                 'DescricaoAnalise' => new Zend_Db_Expr('CASE WHEN TipoAnalise = 0 THEN \'Cont?udo\' WHEN TipoAnalise = 1 THEN \'Custo do Produto\' ELSE \'Custo Administrativo\' END'),
                 'd.TipoAnalise',
@@ -3139,8 +3139,8 @@ class Projetos extends MinC_Db_Table_Abstract
                 'b.idProduto',
                 'b.idPlanilhaProjeto',
                 'b.idUsuario',
-                'CAST(b.Justificativa AS TEXT) AS Justificativa',
-                'ROUND(b.Quantidade * b.Ocorrencia * b.ValorUnitario, 2) AS Sugerido',
+                new Zend_Db_Expr('CAST(b.Justificativa AS TEXT) AS Justificativa'),
+                new Zend_Db_Expr('ROUND(b.Quantidade * b.Ocorrencia * b.ValorUnitario, 2) AS Sugerido'),
                 'Produto' => new Zend_Db_Expr('CASE WHEN b.idProduto = 0 THEN \'Administra??o do Projeto\' ELSE c.Descricao END'),
                 'b.FonteRecurso AS idFonte')
         );
@@ -3155,21 +3155,23 @@ class Projetos extends MinC_Db_Table_Abstract
         $select->joinLeft(
             array('PAP' => 'tbPlanilhaAprovacao'),
             'PAP.idPlanilhaProposta = z.idPlanilhaProposta',
-            array('CAST(PAP.dsJustificativa AS TEXT) as dsJustificativaConselheiro',
+            array(
+                new Zend_Db_Expr('CAST(PAP.dsJustificativa AS TEXT) as dsJustificativaConselheiro'),
                 '(PAP.qtItem * PAP.nrOcorrencia * PAP.vlUnitario) AS VlSugeridoConselheiro')
         );
 
         $select->joinLeft(
             array('c' => 'Produto'),
             'b.idProduto = c.Codigo',
-            array('CAST(PAP.dsJustificativa AS TEXT) as dsJustificativaConselheiro',
+            array(
+                new Zend_Db_Expr('CAST(PAP.dsJustificativa AS TEXT) as dsJustificativaConselheiro'),
                 '(PAP.qtItem * PAP.nrOcorrencia * PAP.vlUnitario) AS VlSugeridoConselheiro')
         );
 
         $select->joinInner(
             array('d' => 'tbPlanilhaEtapa'),
             'b.idEtapa = d.idPlanilhaEtapa',
-            array('CONVERT(varchar(8), d.idPlanilhaEtapa) + \' - \' + d.Descricao AS Etapa',
+            array(new Zend_Db_Expr('CONVERT(varchar(8), d.idPlanilhaEtapa) + \' - \' + d.Descricao AS Etapa'),
                 'd.idPlanilhaEtapa')
         );
 
@@ -4022,7 +4024,7 @@ class Projetos extends MinC_Db_Table_Abstract
         $select->joinInner(
             array('pa' => 'Parecer'),
             "p.IdPRONAC = pa.idPRONAC AND pa.TipoParecer = '1' AND pa.stAtivo = '1'",
-            array('DtConsolidacao' => 'CONVERT(CHAR(11),pa.DtParecer,103) + CONVERT(CHAR(20),pa.DtParecer,108)')
+            array('DtConsolidacao' => new Zend_Db_Expr('CONVERT(CHAR(11),pa.DtParecer,103) + CONVERT(CHAR(20),pa.DtParecer,108)'))
         );
         $select->joinInner(
             array('o' => 'Orgaos'),
@@ -4729,8 +4731,8 @@ class Projetos extends MinC_Db_Table_Abstract
                 "pr.IdPRONAC", "pr.AnoProjeto", "pr.Sequencial",
                 "pr.NomeProjeto", "pr.Area", "pr.Segmento",
                 "pr.Mecanismo", "pr.Processo", "pr.UFProjeto",
-                "DtProtocolo" => "CONVERT(CHAR(11),pr.DtProtocolo,120)", "pr.Orgao", "pr.OrgaoOrigem",
-                "pr.Situacao", "DtSituacao" => "CONVERT(CHAR(11),pr.DtSituacao,120)", "pr.ResumoProjeto",
+                "DtProtocolo" => new Zend_Db_Expr("CONVERT(CHAR(11),pr.DtProtocolo,120)"), "pr.Orgao", "pr.OrgaoOrigem",
+                "pr.Situacao", "DtSituacao" => new Zend_Db_Expr("CONVERT(CHAR(11),pr.DtSituacao,120)"), "pr.ResumoProjeto",
                 "pr.ProvidenciaTomada", "pr.CgcCpf",
                 "NrPortaria" => new Zend_Db_Expr("SAC.dbo.fnNrPortariaAprovacao(AnoProjeto,Sequencial)"),
                 "DtPortaria" => new Zend_Db_Expr("CONVERT(CHAR(11),SAC.dbo.fnDtPortariaAprovacao(AnoProjeto,Sequencial),120)"),
@@ -5496,10 +5498,10 @@ class Projetos extends MinC_Db_Table_Abstract
                     'd.idAgenteParecerista',
                     'd.idOrgao',
                     'org.Sigla as nmOrgao',
-                    'CONVERT(CHAR(10), p.DtProtocolo,103) as DtPrimeiroEnvio',
-                    'CONVERT(CHAR(10), d.DtEnvio,103) as DtUltimoEnvio',
-                    'CONVERT(CHAR(10), d.DtDistribuicao,103) as DtDistribuicao',
-                    'CONVERT(CHAR(10), d.dtDevolucao,103) as dtDevolucao'
+                    new Zend_Db_Expr('CONVERT(CHAR(10), p.DtProtocolo,103) as DtPrimeiroEnvio'),
+                    new Zend_Db_Expr('CONVERT(CHAR(10), d.DtEnvio,103) as DtUltimoEnvio'),
+                    new Zend_Db_Expr('CONVERT(CHAR(10), d.DtDistribuicao,103) as DtDistribuicao'),
+                    new Zend_Db_Expr('CONVERT(CHAR(10), d.dtDevolucao,103) as dtDevolucao)')
                 )
             );
         } else {
@@ -5569,10 +5571,10 @@ class Projetos extends MinC_Db_Table_Abstract
                     'd.idAgenteParecerista',
                     'd.idOrgao',
                     'org.Sigla as nmOrgao',
-                    'CONVERT(CHAR(10), p.DtProtocolo,103) as DtPrimeiroEnvio',
-                    'CONVERT(CHAR(10), d.DtEnvio,103) as DtUltimoEnvio',
-                    'CONVERT(CHAR(10), d.DtDistribuicao,103) as DtDistribuicao',
-                    'CONVERT(CHAR(10), d.dtDevolucao,103) as dtDevolucao'
+                    new Zend_Db_Expr('CONVERT(CHAR(10), p.DtProtocolo,103) as DtPrimeiroEnvio'),
+                    new Zend_Db_Expr('CONVERT(CHAR(10), d.DtEnvio,103) as DtUltimoEnvio'),
+                    new Zend_Db_Expr('CONVERT(CHAR(10), d.DtDistribuicao,103) as DtDistribuicao'),
+                    new Zend_Db_Expr('CONVERT(CHAR(10), d.dtDevolucao,103) as dtDevolucao)')
                 )
             );
         }
@@ -5738,7 +5740,7 @@ class Projetos extends MinC_Db_Table_Abstract
                     'IdPRONAC',
                     'PRONAC' => '(AnoProjeto + Sequencial)',
                     'NomeProjeto',
-                    'DtAnalise' => 'CONVERT(CHAR(10), DtAnalise, 103)',
+                    'DtAnalise' => new Zend_Db_Expr('CONVERT(CHAR(10), DtAnalise, 103)'),
                     'situacao',
                     'idOrgao' => 'Orgao',
                     'DtSolicitacao' => new Zend_Db_Expr('(select top 1 DtSolicitacao from sac.dbo.tbDiligencia dili1 where dili1.idPronac = projeto.idPronac and dili1.idProduto = distribuirParecer.idProduto order by dili1.DtSolicitacao desc)'),
@@ -5759,7 +5761,7 @@ class Projetos extends MinC_Db_Table_Abstract
                     'DtDistribuicao',
                     'stDiligenciado',
                     'DtDevolucao',
-                    'DtEnvio' => 'CONVERT(CHAR(10), DtEnvio, 103)',
+                    'DtEnvio' => new Zend_Db_Expr('CONVERT(CHAR(10), DtEnvio, 103)'),
                     'idAgenteParecerista',
                 ),
                 $this->_schema

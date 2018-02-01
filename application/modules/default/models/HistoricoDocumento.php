@@ -1,71 +1,10 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of tbHistoricoDocumento
- *
- * @author augusto
- */
 class HistoricoDocumento extends MinC_Db_Table_Abstract
 {
     protected $_banco = 'SAC';
     protected $_name = 'tbHistoricoDocumento';
 
-    /*
-    public function pesquisarLotes($lote) {
-
-        $select = $this->select();
-        $select->setIntegrityCheck(false);
-        $select->from(
-                array('h' => $this->_name),
-                array(
-                    'h.idUnidade as idDestino',
-                    'h.idLote as lote',
-                    'h.idOrigem',
-                    'h.Acao'
-                )
-        );
-        $select->where('h.idLote = ?', $lote);
-        //$select->where('h.idLote is not null');
-
-
-        $select->group(array('h.idLote','h.idUnidade','h.idOrigem', 'h.Acao'));
-
-        return $this->fetchAll($select);
-    }
-
-
-    public function pesquisarLotesAnexo( $usu_codigo=null, $orgao = null) {
-        $select = $this->select();
-        $select->setIntegrityCheck(false);
-        $select->from(
-                array('h' => $this->_name),
-                array(
-                    'h.idUnidade as idDestino',
-                    'h.idLote as lote',
-                    'h.idOrigem',
-                    '(select Sigla from SAC.dbo.Orgaos where Codigo = '.$orgao.') as nomeDestino'
-                )
-        );
-        $select->where('h.Acao = ?', 6);
-
-        //$select->where('h.idLote is not null');
-
-
-
-        if ($usu_codigo) {
-            $select->where("h.idUsuarioEmissor = ?", $usu_codigo);
-        }
-
-        $select->group(array('h.idLote','h.idUnidade','h.idOrigem'));
-
-        return $this->fetchAll($select);
-    }
-    */
     public function pesquisarOrgaosPorAcao($acaoA=null, $acaoB=null, $usu_codigo=null, $orgao=null)
     {
         $select = $this->select();
@@ -76,7 +15,7 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract
                     'h.idUnidade as idDestino',
                     'h.idLote as lote',
                     'h.idOrigem',
-                    '(select Sigla from SAC.dbo.Orgaos where Codigo = '.$orgao.') as nomeDestino'
+                    new Zend_Db_Expr('(select Sigla from SAC.dbo.Orgaos where Codigo = '.$orgao.') as nomeDestino')
                 )
         );
         $select->where('h.stEstado = ?', 1);
@@ -109,7 +48,7 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract
                     'h.idUnidade as idDestino',
                     'h.idLote as lote',
                     'h.idOrigem',
-                    '(select Sigla from SAC.dbo.Orgaos where Codigo = '.$orgao.') as nomeDestino'
+                    new Zend_Db_Expr('(select Sigla from SAC.dbo.Orgaos where Codigo = '.$orgao.') as nomeDestino')
                 )
         );
         $select->where('h.stEstado = ?', 1);
@@ -121,15 +60,12 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract
         if (($acaoA) and ($acaoB)) {
             $select->where("(h.Acao = ? or h.Acao = $acaoB)", $acaoA);
         }
-//        if ($usu_codigo) {
-//            $select->where("h.idUsuarioEmissor = ?", $usu_codigo);
-//        }
         if ($orgao) {
             $select->where("h.idUnidade = ?", $orgao);
         }
         $select->where("h.idOrigem is not null");
         $select->group(array('h.idLote','h.idUnidade','h.idOrigem'));
-        //x($select->assemble());
+
         return $this->fetchAll($select);
     }
     
@@ -143,7 +79,7 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract
                     'h.idUnidade as idDestino',
                     'h.idLote as lote',
                     'h.idOrigem',
-                    '(select Sigla from SAC.dbo.Orgaos where Codigo = '.$orgao.') as nomeDestino'
+                    new Zend_Db_Expr('(select Sigla from SAC.dbo.Orgaos where Codigo = '.$orgao.') as nomeDestino')
                 )
         );
         $select->where('h.stEstado = ?', 1);
@@ -155,14 +91,12 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract
         if (($acaoA) and ($acaoB)) {
             $select->where("(h.Acao = ? or h.Acao = $acaoB)", $acaoA);
         }
-//        if ($usu_codigo) {
-//            $select->where("h.idUsuarioEmissor = ?", $usu_codigo);
-//        }
+
         if ($orgao) {
             $select->where("h.idUnidade = ?", $orgao);
         }
         $select->group(array('h.idLote','h.idUnidade','h.idOrigem'));
-        //x($select->assemble());
+
         return $this->fetchAll($select);
     }
 
@@ -170,8 +104,7 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        //$select->distinct();
-        //$select->limit(5);
+
         $select->from(
                 array('h' => $this->_name),
                 array(
@@ -263,8 +196,7 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        //$select->distinct();
-        //$select->limit(5);
+
         $select->from(
                 array('h' => $this->_name),
                 array(
@@ -278,9 +210,9 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract
                         "h.Acao as Acao",
                         "h.dsJustificativa",
                     "p.Orgao as Orgao",
-                        "dtEnvio" => "(CONVERT(CHAR(10), h.dtTramitacaoEnvio,103) + ' ' + CONVERT(CHAR(8), h.dtTramitacaoEnvio,108))",
-                    "dtRecebida" =>"(CONVERT(CHAR(10), h.dtTramitacaoRecebida,103) + ' ' + CONVERT(CHAR(8), h.dtTramitacaoRecebida,108))",
-                        "dtSituacao" => "(CONVERT(CHAR(10), p.DtSituacao,103) + ' ' + CONVERT(CHAR(8), p.DtSituacao,108))",
+                        "dtEnvio" =>  new Zend_Db_Expr("(CONVERT(CHAR(10), h.dtTramitacaoEnvio,103) + ' ' + CONVERT(CHAR(8), h.dtTramitacaoEnvio,108))"),
+                    "dtRecebida" => new Zend_Db_Expr("(CONVERT(CHAR(10), h.dtTramitacaoRecebida,103) + ' ' + CONVERT(CHAR(8), h.dtTramitacaoRecebida,108))"),
+                        "dtSituacao" =>  new Zend_Db_Expr("(CONVERT(CHAR(10), p.DtSituacao,103) + ' ' + CONVERT(CHAR(8), p.DtSituacao,108))"),
                         "Situacao" => new Zend_Db_Expr(
                             "CASE
                               WHEN h.Acao = 0 THEN 'Bloqueado'
@@ -301,7 +233,6 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract
                     'p.IdPRONAC as idPronac',
                     '(p.AnoProjeto + p.Sequencial) AS Pronac',
                     'p.NomeProjeto',
-                    //'p.Processo'
                     'SAC.dbo.fnFormataProcesso(p.IdPRONAC) AS Processo'
                 )
         );
