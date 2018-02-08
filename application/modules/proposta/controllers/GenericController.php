@@ -63,7 +63,7 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
 
     private $_movimentacaoAlterarProposta = '95';
     private $_situacaoAlterarProjeto = Projeto_Model_Situacao::PROJETO_LIBERADO_PARA_AJUSTES;
-    private $_diasParaAlterarProjeto = 10;
+    private $_diasParaAlterarProjeto = 30;
 
     public function init()
     {
@@ -162,8 +162,13 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
                     'prazoAlterarProjeto' => $this->contagemRegressivaSegundos($projeto['dtsituacao'], $this->_diasParaAlterarProjeto)
                 );
 
-                $this->salvarDadosPropostaSerializada($this->idPreProjeto);
+
+                $tbPreProjetoMetaMapper = new Proposta_Model_TbPreProjetoMetaMapper();
+                $tbPreProjetoMetaMapper->salvarPropostaCulturalSerializada($this->idPreProjeto, 'alterarprojeto');
+//                $this->salvarDadosPropostaSerializada($this->idPreProjeto);
+
             }
+
             $this->view->layout = $layout;
 
             # VERIFICA SE A PROPOSTA ESTA COM O MINC

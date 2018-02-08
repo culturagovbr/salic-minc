@@ -346,16 +346,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
             $retorno['close'] = false;
             $retorno['status'] = false;
         } else {
-            if ($this->isEditarProjeto($idPreProjeto)) {
-                $verifica = $this->verificarSeUltrapassaValorOriginal($idPreProjeto, $dados, $idPlanilhaProposta);
-
-                if ($verifica && $dados['FonteRecurso'] == Mecanismo::INCENTIVO_FISCAL) {
-                    $retorno['msg'] = "O item cadastrado ultrapassa o valor original do projeto!";
-                    $retorno['close'] = false;
-                    $retorno['status'] = false;
-                    $resultAlterarProjeto = false;
-                }
-            }
 
             if ($resultAlterarProjeto == true) {
                 if (empty($idPlanilhaProposta)) { #insert
@@ -445,58 +435,6 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
             . '</tr>';
 
         return $html;
-    }
-
-    /*
-    * Quando o sistema abre a opcao de alterar projeto, o proponente
-    * nao pode ultrapassar o valor total inicialmente solicitado para incentivo fiscal(Fonte Recurso=109)
-    * @todo, apos atualizacao dos custos vinculados este item deve ser refatorado
-    */
-    public function verificarSeUltrapassaValorOriginal($idPreProjeto, $dados, $idPlanilhaProposta = null)
-    {
-        $tbPlanilhaProposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
-        $tbCustosVinculadosMapper = new Proposta_Model_TbCustosVinculadosMapper();
-
-        $totalItemSalvo = 0;
-
-        # Busca o valor total solicitado inicialmente
-        $tblProjetos = new Projetos();
-        $projeto = $tblProjetos->findBy(array('idProjeto = ?' => $idPreProjeto));
-        $valorTotalIncentivoOriginal = $projeto['SolicitadoReal'];
-
-        $TPP = new Proposta_Model_DbTable_TbPlanilhaProposta();
-
-        # Faz a soma da planilha da proposta
-        $somaPlanilhaPropostaProdutos = $TPP->somarPlanilhaPropostaPorEtapa(
-            $idPreProjeto,
-            Mecanismo::INCENTIVO_FISCAL,
-            null,
-            ['e.tpCusto = ?' => 'P']
-        );
-
-        # Item atual
-        $totalItemAtual = $dados['Quantidade'] * $dados['ValorUnitario'] * $dados['Ocorrencia'];
-
-        # Se tiver editando um item, tem que subtrair o valor anterior
-        if (!empty($idPlanilhaProposta)) {
-            $item = $tbPlanilhaProposta->findBy(array("idPlanilhaProposta = ?" => $idPlanilhaProposta));
-
-            if ($item) {
-                $totalItemSalvo = $item['Quantidade'] * $item['Ocorrencia'] * $item['ValorUnitario'];
-
-
-                $custosDesteItem = $tbCustosVinculadosMapper->somarTotalCustosVinculados($idPreProjeto, $totalItemSalvo);
-                $totalItemSalvo = $totalItemSalvo + $custosDesteItem;
-            }
-        }
-
-        # eh necessario calcular os custos vinculados com o novo item
-        $valorTotaldosProdutosIncentivados = $somaPlanilhaPropostaProdutos + ($totalItemAtual - $totalItemSalvo);
-        $custosvinculados = $tbCustosVinculadosMapper->somarTotalCustosVinculados($idPreProjeto, $valorTotaldosProdutosIncentivados);
-
-        $valorTotalProjetoIncentivo = $valorTotaldosProdutosIncentivados + $custosvinculados;
-
-        return ($valorTotalIncentivoOriginal < $valorTotalProjetoIncentivo);
     }
 
     public function excluirItemAction()
