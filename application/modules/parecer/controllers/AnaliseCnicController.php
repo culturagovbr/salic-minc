@@ -168,15 +168,15 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
         $tblProjetos = new Projetos();
         $tblPreProjeto = new Proposta_Model_DbTable_PreProjeto();
+
+        //CASO O COMPONENTE QUEIRA SALVAR O SEU PARECER - FIM
+        $ConsultaReuniaoAberta = ReuniaoDAO::buscarReuniaoAberta();
+        $numeroReuniao = $ConsultaReuniaoAberta['NrReuniao'];
         
         //CASO O COMPONENTE QUEIRA APENAS SALVAR O SEU PARECER - INICIO
         if (isset($_POST['usu_codigo'])) {
             $this->salvarParecerComponente($numeroReuniao);
         }
-        
-        //CASO O COMPONENTE QUEIRA SALVAR O SEU PARECER - FIM
-        $ConsultaReuniaoAberta = ReuniaoDAO::buscarReuniaoAberta();
-        $numeroReuniao = $ConsultaReuniaoAberta['NrReuniao'];
         
         if (isset($_POST['idpronac'])) {
             $this->fecharAssinatura($idPronac);
