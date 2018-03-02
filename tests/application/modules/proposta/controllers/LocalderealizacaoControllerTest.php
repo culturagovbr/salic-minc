@@ -7,9 +7,27 @@
 
 class LocalderealizacaoControllerTest extends MinC_Test_ControllerActionTestCase
 {
+     public function setUp()
+     {
+        parent::setUp();
+
+        $this->idPreProjeto = '276031';
+        $this->autenticar();
+
+        //reset para garantir respostas.
+        $this->resetRequest()
+            ->resetResponse();
+
+        // trocar para perfil Proponente
+        $this->perfilParaProponente();
+
+        //reset para garantir respostas.
+        $this->resetRequest()
+            ->resetResponse();
+     }
+
     public function testIndex()
     {
-        $this->autenticar();
         $auth = Zend_Auth::getInstance();
         $usuarioCpf = $auth->getIdentity()->usu_identificacao;
         /* var_dump($usuarioCpf);die; */
@@ -39,4 +57,24 @@ class LocalderealizacaoControllerTest extends MinC_Test_ControllerActionTestCase
         $this->assertController('localderealizacao');
         $this->assertAction('index');
     }
+
+    public function testLocalderealizacaoAction()
+    {
+        $this->dispatch('/proposta/localderealizacao/index/idPreProjeto/' . $this->idPreProjeto);
+        $this->assertUrl('proposta','localderealizacao', 'index');
+    }
+
+    public function testLocalderealizacaoNovoAction()
+    {
+        $this->dispatch('/proposta/localderealizacao/form-inserir/idPreProjeto/' . $this->idPreProjeto);
+        $this->assertUrl('proposta','localderealizacao', 'form-inserir');
+    }
+
+    public function testLocalderealizacaoEditarAction()
+    {
+        $this->dispatch('/proposta/localderealizacao/form-local-de-realizacao/idPreProjeto/' . $this->idPreProjeto . '?cod=540779');
+        $this->assertUrl('proposta','localderealizacao', 'form-local-de-realizacao');
+    }        
+
+    
 }

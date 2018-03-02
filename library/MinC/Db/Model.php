@@ -31,9 +31,15 @@ class MinC_Db_Model
     {
         $methods = get_class_methods($this);
         foreach ($options as $key => $value) {
-            $method = 'set' . ucfirst($key);
-            if (in_array($method, $methods)) {
-                $this->$method($value);
+            foreach ($methods as $methodKey => $method) {
+                $metodoTratado = 'set' . strtolower(str_replace(
+                        '_',
+                        '',
+                        $key
+                    ));
+                if (strtolower($method) == $metodoTratado) {
+                    $this->$method($value);
+                }
             }
         }
         return $this;

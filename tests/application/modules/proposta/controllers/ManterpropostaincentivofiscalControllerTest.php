@@ -5,7 +5,7 @@ class ManterpropostaincentivofiscalControllerTest extends MinC_Test_ControllerAc
      {
         parent::setUp();
 
-        $this->idPreProjeto = '240102';
+        $this->idPreProjeto = '276031';
         $this->autenticar();
 
         //reset para garantir respostas.
@@ -38,15 +38,17 @@ class ManterpropostaincentivofiscalControllerTest extends MinC_Test_ControllerAc
 
     public function testIdentificacaodapropostaAction()
     {
-        $this->dispatch('/proposta/manterpropostaincentivofiscal/identificacaodaproposta' . '/idPreProjeto/240102');
-        $this->assertModule('proposta');
-        $this->assertController('manterpropostaincentivofiscal');
-        $this->assertAction('identificacaodaproposta');
-
-        $this->assertQuery('#nomeProjeto');
-        $this->assertQuery('#objetivos');
-        $this->assertQuery('#justificativa');
+        $this->dispatch('/proposta/manterpropostaincentivofiscal/identificacaodaproposta' . '/idPreProjeto/' . $this->idPreProjeto);
+        $this->assertResponseCode('200');
+        
+        $this->assertQuery('#identificacaodiv');
     }
+
+    public function testIdentificacaodapropostaActionRedirect()
+    {
+        $this->dispatch('/proposta/manterpropostaincentivofiscal/identificacaodaproposta');
+        $this->assertResponseCode('302');
+    }    
 
     public function testResponsabilidadesocialAction() 
     {

@@ -2,8 +2,11 @@
 <phpunit bootstrap="application/Bootstrap.php" onvertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true" colors="true">
-    <testsuite name="Salic br">
+    <testsuite name="Todos">
         <directory>application/modules</directory>
+    </testsuite>
+    <testsuite name="Admissibilidade">
+        <directory>application/modules/admissibilidade</directory>
     </testsuite>
 
     <filter>

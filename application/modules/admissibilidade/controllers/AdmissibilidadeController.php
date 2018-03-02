@@ -53,6 +53,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
         $PermissoesGrupo[] = 148;
         $PermissoesGrupo[] = 151;
         $PermissoesGrupo[] = Autenticacao_Model_Grupos::COMPONENTE_COMISSAO;
+        $PermissoesGrupo[] = Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE;
 
         isset($auth->getIdentity()->usu_codigo) ? parent::perfil(1, $PermissoesGrupo) : parent::perfil(4, $PermissoesGrupo);
         parent::init();
@@ -71,7 +72,6 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
             $this->codOrgao = $GrupoAtivo->codOrgao;
             $this->codOrgaoSuperior = (!empty($auth->getIdentity()->usu_org_max_superior)) ? $auth->getIdentity()->usu_org_max_superior : null;
         }
-
     }
 
     public function indexAction()
@@ -263,10 +263,41 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
             $this->montaTela("admissibilidade/proposta-por-edital.phtml");
         } else {
-            $isPropostaEnquadrada = new tbAvaliacaoProposta();
-            $this->view->isPropostaEmConformidade = $isPropostaEnquadrada->isPropostaEmConformidade(
+            $tbAvaliacaoProposta = new tbAvaliacaoProposta();
+            $this->view->isPropostaEmConformidade = $tbAvaliacaoProposta->isPropostaEmConformidade(
                 $this->idPreProjeto
             );
+
+            $orgaoDbTable = new Orgaos();
+            $orgao = $orgaoDbTable->codigoOrgaoSuperior($this->codOrgao);
+
+            if(count($orgao) < 1 || !$orgao[0]['Superior']) {
+                throw new Exception('N&atilde;o foi poss&iacute;vel obter o &Oacute;rg&atilde;o Superior');
+            }
+
+            $orgaoSuperior = $orgao[0]['Superior'];
+            $distribuicaoAvaliacaoPropostaDbTable = new Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta();
+            $distribuicaoAvaliacaoPropostaAtual = $distribuicaoAvaliacaoPropostaDbTable->findBy(
+                [
+                    'id_preprojeto' => $this->idPreProjeto,
+                    'id_orgao_superior' => $orgaoSuperior,
+                    'id_perfil' => $this->codGrupo,
+                    'avaliacao_atual' => Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta::AVALIACAO_ATUAL_ATIVA
+                ]
+            );
+            $this->view->possuiAvaliacaoCnic = $distribuicaoAvaliacaoPropostaDbTable->propostaPossuiAvaliacao(
+                $this->idPreProjeto,
+                Autenticacao_Model_Grupos::COMPONENTE_COMISSAO,
+                $orgaoSuperior
+            );
+
+            $sugestaoEnquadramentoDbTable = new Admissibilidade_Model_DbTable_SugestaoEnquadramento();
+            $sugestaoEnquadramento = new Admissibilidade_Model_SugestaoEnquadramento(
+                ['id_distribuicao_avaliacao_proposta' => $distribuicaoAvaliacaoPropostaAtual['id_distribuicao_avaliacao_prop']]
+            );
+
+            $this->view->isPropostaEnquadrada = $sugestaoEnquadramentoDbTable->isPropostaEnquadrada($sugestaoEnquadramento);
+
             $this->montaTela("admissibilidade/proposta-por-incentivo-fiscal.phtml");
         }
     }
@@ -2690,17 +2721,17 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
         $recordsFiltered = 0;
         if (!empty($propostas)) {
             $zDate = new Zend_Date();
-            $sugestaoEnquadramento = new Admissibilidade_Model_DbTable_SugestaoEnquadramento();
+            $sugestaoEnquadramentoDbTable = new Admissibilidade_Model_DbTable_SugestaoEnquadramento();
+            $sugestaoEnquadramento = new Admissibilidade_Model_SugestaoEnquadramento();
             foreach ($propostas as $key => $proposta) {
                 $zDate->set($proposta->DtMovimentacao);
                 $proposta->NomeProposta = utf8_encode($proposta->NomeProposta);
                 $proposta->Tecnico = utf8_encode($proposta->Tecnico);
                 $proposta->DtMovimentacao = $zDate->toString('dd/MM/y h:m');
-                $proposta->isEnquadrada = $sugestaoEnquadramento->isPropostaEnquadrada(
-                    $proposta->idProjeto,
-                    $this->grupoAtivo->codOrgao,
-                    $this->grupoAtivo->codGrupo
-                );
+                $sugestaoEnquadramento->setIdPreprojeto($proposta->idProjeto);
+                $sugestaoEnquadramento->setIdOrgao($this->grupoAtivo->codOrgao);
+                $sugestaoEnquadramento->setIdPerfilUsuario($this->grupoAtivo->codGrupo);
+                $proposta->isEnquadrada = $sugestaoEnquadramentoDbTable->isPropostaEnquadrada($sugestaoEnquadramento);
 
                 $aux[$key] = $proposta;
             }

@@ -70,19 +70,33 @@ class Admissibilidade_Model_DbTable_SugestaoEnquadramento extends MinC_Db_Table_
         }
     }
 
-    public function isPropostaEnquadrada($id_preprojeto, $id_orgao, $id_perfil_usuario)
+    /**
+     * @param Admissibilidade_Model_SugestaoEnquadramento $sugestaoEnquadramento
+     * @return bool|null
+     */
+    public function isPropostaEnquadrada(Admissibilidade_Model_SugestaoEnquadramento $sugestaoEnquadramento)
     {
-        $resultado = $this->findAll(
-            [
-                'id_preprojeto' => $id_preprojeto,
-                'id_orgao' => $id_orgao,
-                'id_perfil_usuario' => $id_perfil_usuario
-            ]
-        );
-        if (count($resultado) > 0) {
-            return true;
+        $arrayPesquisa = [];
+        if ($sugestaoEnquadramento->getIdDistribuicaoAvaliacaoProposta()) {
+            $arrayPesquisa['id_distribuicao_avaliacao_proposta'] = $sugestaoEnquadramento->getIdDistribuicaoAvaliacaoProposta();
+        }
+        if ($sugestaoEnquadramento->getIdPreprojeto()
+            && $sugestaoEnquadramento->getIdOrgao()
+            && $sugestaoEnquadramento->getIdPerfilUsuario()) {
+            $arrayPesquisa['id_preprojeto'] = $sugestaoEnquadramento->getIdPreprojeto();
+            $arrayPesquisa['id_orgao'] = $sugestaoEnquadramento->getIdOrgao();
+            $arrayPesquisa['id_perfil_usuario'] = $sugestaoEnquadramento->getIdPerfilUsuario();
+        }
+
+        if (count($arrayPesquisa) > 0) {
+            $resultado = $this->findAll($arrayPesquisa);
+            if (count($resultado) > 0) {
+                return true;
+            }
+            return false;
         }
     }
+
 
     public function inativarSugestoes($id_preprojeto)
     {
@@ -101,4 +115,5 @@ class Admissibilidade_Model_DbTable_SugestaoEnquadramento extends MinC_Db_Table_
             ]
         );
     }
+
 }

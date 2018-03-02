@@ -107,7 +107,11 @@
     </script>
     <div class="col s10">
         <form method="get" id="formGerarPdf" target="_blank"
-              action="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'imprimirpropostacultural')); ?>"
+              action="<?php echo $this->url([
+                  'module' => 'admissibilidade',
+                  'controller' => 'admissibilidade',
+                  'action' => 'imprimirpropostacultural'
+              ]); ?>"
               style="display:none">
             <textarea name="html" id="html"></textarea>
             <input type="hidden" name="idPreProjeto" id="idPreProjeto" value="<?php echo $this->idPreProjeto; ?>"/>
@@ -121,16 +125,16 @@
                 Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE == $this->codGrupo
                 || Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE == $this->codGrupo
                 || Autenticacao_Model_Grupos::COMPONENTE_COMISSAO == $this->codGrupo
+                || Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo
             ) :
                 ?>
-
                 <?php if (
-
                 isset($_GET['realizar_analise'])
                 && $_GET['realizar_analise'] == "sim"
                 && (
                     Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE == $this->codGrupo
                     || Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE == $this->codGrupo
+                    || Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo
                 )
             ): ?>
                 <button class="btn waves-effect waves-light avaliarProposta" type="button" name="action">
@@ -138,7 +142,7 @@
                 </button>
             <?php endif; ?>
 
-            <?php if ($this->isPropostaEmConformidade): ?>
+                <?php if ($this->isPropostaEmConformidade): ?>
                 <button class="btn waves-effect waves-light enquadrarProposta" type="button" name="action">
                     Enquadrar <i class="material-icons right">assignment</i>
                 </button>
@@ -151,9 +155,9 @@
                 <i class="material-icons ">print</i>
             </button>
 
-            <?php if (Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE == $this->codGrupo ||
-                Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE == $this->codGrupo ||
-                Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo
+            <?php if (Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE == $this->codGrupo
+                || Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE == $this->codGrupo
+                || Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo
             ) : ?>
 
                 <a class="btn white black-text"
@@ -163,21 +167,29 @@
                 <i class="material-icons right ">work</i>Outras Propostas</a>
             <?php endif; ?>
 
-            <?php if (Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo ||
-                Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE == $this->codGrupo) : ?>
-                <button
-                    <?php if ($this->movimentacao != Agente_Model_DbTable_Verificacao::PROPOSTA_EM_ANALISE_FINAL): ?>
-                        disabled
-                    <?php endif ?>
-                        id="transformarPropostaEmProjeto" class=" waves-effect waves-light btn blue white-text"
-                        title="Transformar Proposta em Projeto" alt="Transformar Proposta em Projeto"
-                        data-id-pre-projeto="<?php echo $this->itensGeral[0]->idPreProjeto ?>">
-                    <i class="material-icons right ">transform</i> Transformar em Projeto
-                </button>
-                <a class="btn black white-text" title="Arquivar Proposta" alt="Arquivar Proposta"
-                   href="/admissibilidade/admissibilidade/confirmararquivarproposta?idPreProjeto=<?php echo $this->itensGeral[0]->idPreProjeto ?>">
-                    <i class="material-icons right">archive</i>Arquivar
-                </a>
+            <?php if (Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo
+            || Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE == $this->codGrupo
+            || Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo): ?>
+            <button
+
+                <?php if (!(
+                        Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE == $this->codGrupo
+                        || Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo
+                    )
+                    || $this->possuiAvaliacaoCnic === false
+                    || $this->isPropostaEnquadrada !== true
+                ): ?>
+                    disabled
+                <?php endif; ?>
+                    id="transformarPropostaEmProjeto" class=" waves-effect waves-light btn blue white-text"
+                    title="Transformar Proposta em Projeto" alt="Transformar Proposta em Projeto"
+                    data-id-pre-projeto="<?php echo $this->itensGeral[0]->idPreProjeto ?>">
+                <i class="material-icons right ">transform</i> Transformar em Projeto
+            </button>
+            <a class="btn black white-text" title="Arquivar Proposta" alt="Arquivar Proposta"
+               href="/admissibilidade/admissibilidade/confirmararquivarproposta?idPreProjeto=<?php echo $this->itensGeral[0]->idPreProjeto ?>">
+                <i class="material-icons right">archive</i>Arquivar
+            </a>
             <?php endif; ?>
 
             <?php if (!$this->menu): ?>
