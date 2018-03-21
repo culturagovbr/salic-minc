@@ -79,6 +79,14 @@ class TbPlanilhaAprovacaoTest extends MinC_Test_ModelTestCase
         $this->assertNotEmpty($planilhaAtiva);
     }
 
+    public function testBuscarPlanilhaAtivaNaoExcluidos() {
+        
+        $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
+        $planilhaAtiva = $tbPlanilhaAprovacao->buscarPlanilhaAtivaNaoExcluidos($this->idPronac);
+        
+        $this->assertNotEmpty($planilhaAtiva);
+    }
+
     public function testBuscarPlanilhaReadequadaEmEdicao() {
         
         $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
