@@ -33,6 +33,7 @@ DECLARE @vlDiferenca          DECIMAL(18,2)
 DECLARE @vlCorretoRemuneracao DECIMAL(18,2)
 
 SET @Flag = 0
+
 --============================================================================================================
 -- Tabela temporária
 --============================================================================================================
@@ -51,7 +52,7 @@ CREATE TABLE #Verificacao
 --============================================================================================================
 SET @TotalSemCustoAdm = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario) 
                                        FROM sac.dbo.tbPlanilhaAprovacao a
-									   INNER JOIN tbReadequacao         b on (a.idPronac = b.idPronac)
+									   INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao) 
                                        WHERE     a.idPronac          = @idPronac 
 									         AND a.idEtapa          <> 4 
 											 AND a.nrFonteRecurso    = 109 
@@ -64,7 +65,7 @@ SET @TotalSemCustoAdm = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnita
 
 SET @CustoAdm = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario) 
                                FROM sac.dbo.tbPlanilhaAprovacao a
-							   INNER JOIN tbReadequacao         b on (a.idPronac = b.idPronac)
+							   INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao)
                                WHERE     a.idPronac          = @idPronac 
 							         AND a.idEtapa           = 4 
 									 AND a.idPlanilhaItem   <> 5249 
@@ -78,7 +79,7 @@ SET @CustoAdm = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario)
 
 SET @TotalSemRemuneracao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario) 
                                           FROM sac.dbo.tbPlanilhaAprovacao a
-							              INNER JOIN tbReadequacao         b on (a.idPronac = b.idPronac)
+							              INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao)
                                           WHERE     a.idPronac          = @idPronac 
 										        AND a.idPlanilhaItem   <> 5249 
 												AND a.nrFonteRecurso    = 109 
@@ -91,7 +92,7 @@ SET @TotalSemRemuneracao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUn
 
 SET @RemuneracaoCaptacao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario) 
                                           FROM sac.dbo.tbPlanilhaAprovacao a
-							              INNER JOIN tbReadequacao         b on (a.idPronac = b.idPronac) 
+							              INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao)
                                           WHERE     a.idPronac          = @idPronac 
 										        AND a.idPlanilhaItem    = 5249 
 												AND a.nrFonteRecurso    = 109 
@@ -104,7 +105,7 @@ SET @RemuneracaoCaptacao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUn
 
 SET @TotalSemDivulgacao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario) 
                                          FROM sac.dbo.tbPlanilhaAprovacao a
-							             INNER JOIN tbReadequacao         b on (a.idPronac = b.idPronac) 
+							             INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao) 
                                          WHERE     a.idPronac          = @idPronac  
 										       AND a.idEtapa          <> 3 
 											   AND a.nrFonteRecurso    = 109 
@@ -117,7 +118,7 @@ SET @TotalSemDivulgacao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUni
 
 SET @Divulgacao = ISNULL((SELECT SUM(a.qtItem * a.nrOcorrencia * a.vlUnitario) 
                                  FROM sac.dbo.tbPlanilhaAprovacao a
-							     INNER JOIN tbReadequacao         b on (a.idPronac = b.idPronac) 
+							     INNER JOIN tbReadequacao         b on (a.idReadequacao = b.idReadequacao) 
                                  WHERE     a.idPronac          = @idPronac 
 								       AND a.idEtapa           = 3 
 									   AND a.nrFonteRecurso    = 109 

@@ -315,18 +315,7 @@ class IndexController extends MinC_Controller_Action_Abstract
         $view_edicao = ($this->_request->getParam('view_edicao')) ? true : false;
         
         $this->view->idPronac = $idPronac;
-
-        $auth = Zend_Auth::getInstance();
-        $proj = new Projetos();
-        $cpf = $proj->buscarProponenteProjeto($this->view->idPronac);
-        $cpf = $cpf->CgcCpf;
         
-        $tblAgente = new Agente_Model_DbTable_Agentes();
-        $rsAgente = $tblAgente->buscar(array('CNPJCPF = ?'=>$auth->getIdentity()->Cpf));
-        if ($rsAgente->count() > 0) {
-            $this->view->idAgente = $rsAgente[0]->idAgente;
-        }
-
         if ($tipoPlanilha == 6
             &&
             ($link || $view_edicao)

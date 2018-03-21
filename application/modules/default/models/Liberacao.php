@@ -408,7 +408,13 @@ class Liberacao extends MinC_Db_Table_Abstract
         
         return $this->fetchRow($select);
     }
-    
+
+    /**
+     * Método que diz se a conta para um projeto buscado está liberada
+     * 
+     * @param integer $idPronac
+     * @return bool
+     */
     public function contaLiberada($idPronac)
     {
         $select = $this->select();

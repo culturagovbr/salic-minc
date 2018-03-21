@@ -216,25 +216,22 @@
                                 </button>
                             <?php } ?>
 
-                            <?php if ($this->isPermitidoSugerirEnquadramento): ?>
+                            <?php if ($this->isPermitidoSugerirEnquadramento) { ?>
                                 <button class="btn waves-effect waves-light enquadrarProposta" type="button"
                                         name="action">
                                     Enquadrar <i class="material-icons right">assignment</i>
                                 </button>
+                            <?php } ?>
 
                                 <iframe name="esconde" id="esconde" class="sumir"></iframe>
-
 
                                 <a class="btn white black-text"
                                    href="/admissibilidade/admissibilidade/proposta-por-proponente?agente=<?php echo $this->itensGeral[0]->idAgente ?>&idPreProjeto=<?php echo $this->idPreProjeto; ?>&realizar_analise=<?php echo !empty($_GET['realizar_analise']) ? 's' : 'n' ?>"
                                    title="Vizualizar outras Propostas deste Proponente"
                                    alt="Vizualizar outras Propostas deste Proponente"/>
                                 <i class="material-icons right ">work</i>Outras Propostas</a>
-                            <?php endif; ?>
 
-                            <?php if (Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo
-                                || Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE == $this->codGrupo
-                                || Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo): ?>
+                            <?php if ($this->isPermitidoAvaliarProposta){ ?>
                                 <button
 
                                     <?php if (!(
@@ -252,26 +249,28 @@
                                         data-id-pre-projeto="<?php echo $this->itensGeral[0]->idPreProjeto ?>">
                                     <i class="material-icons right ">transform</i> Transformar em Projeto
                                 </button>
+                                <?php if(Autenticacao_Model_Grupos::COMPONENTE_COMISSAO != $this->codGrupo) { ?>
                                 <a class="btn black white-text" title="Arquivar Proposta" alt="Arquivar Proposta"
                                    href="/admissibilidade/admissibilidade/confirmararquivarproposta?idPreProjeto=<?php echo $this->itensGeral[0]->idPreProjeto ?>">
                                     <i class="material-icons right">archive</i>Arquivar
                                 </a>
-                                <button title="Imprimir"
-                                        class="btn waves-effect waves-light imprimirProposta white black-text"
-                                        type="button" name="action">
-                                    <i class="material-icons ">print</i>
-                                </button>
-                                <?php if ($this->isPropostaEnquadrada
-                                    && Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE != $this->codGrupo) { ?>
-                                    <a class="btn waves-effect waves-light btn modal-trigger pulse cyan valign-wrapper"
-                                       data-id_preprojeto="<?php echo $this->idPreProjeto; ?>"
-                                       href="#dialogoEncaminharProposta">
-                                        Encaminhar <i class="material-icons"
-                                                      title="Encaminhar An&aacute;lise de Proposta"
-                                                      alt="Encaminhar An&aacute;lise de Proposta">forward</i></button>
-                                    </a>
                                 <?php } ?>
-                            <?php endif; ?>
+                            <?php } ?>
+                            <button title="Imprimir"
+                                    class="btn waves-effect waves-light imprimirProposta white black-text"
+                                    type="button" name="action">
+                                <i class="material-icons ">print</i>
+                            </button>
+                            <?php if ($this->isPropostaEnquadrada
+                                && Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE != $this->codGrupo) { ?>
+                                <a class="btn waves-effect waves-light btn modal-trigger pulse cyan valign-wrapper"
+                                   data-id_preprojeto="<?php echo $this->idPreProjeto; ?>"
+                                   href="#dialogoEncaminharProposta">
+                                    Encaminhar <i class="material-icons"
+                                                  title="Encaminhar An&aacute;lise de Proposta"
+                                                  alt="Encaminhar An&aacute;lise de Proposta">forward</i></button>
+                                </a>
+                            <?php } ?>
                         </div>
                     </div>
 

@@ -259,6 +259,15 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
         return $db->fetchAll($sql);
     }
 
+    /**
+     * Método que retorna uma lista de itens filtrados pela etapa, produto, município e projeto
+     *
+     * @param integer $idEtapa
+     * @param integer $idProduto
+     * @param integer $idMunicipio
+     * @param integer $idPronac
+     * @return array
+     */
     public function itensPorProdutoItemEtapaMunicipioReadequacao($idEtapa, $idProduto, $idMunicipio, $idPronac)
     {
         $select = $this->select();

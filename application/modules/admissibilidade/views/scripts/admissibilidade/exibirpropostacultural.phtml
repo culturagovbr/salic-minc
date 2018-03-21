@@ -80,19 +80,23 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
     function AbrirFecharPlanilha (elemento) {
         $('.' + elemento).toggle()
 
+        $('#' + elemento).addClass('icn_mais')
+        $('#' + elemento).removeClass('icn_menos')
         if ($('#' + elemento).hasClass('icn_mais')) {
             $('#' + elemento).addClass('icn_menos')
             $('#' + elemento).removeClass('icn_mais')
-        }
-        else {
-            $('#' + elemento).addClass('icn_mais')
-            $('#' + elemento).removeClass('icn_menos')
         }
     }
 </script>
 <div id="conteudo">
     <form method="POST" id="formGerarPdf"
-          action="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'gerarpdf')); ?>"
+          action="<?php echo $this->url(
+              [
+                  'module' => 'admissibilidade',
+                  'controller' => 'admissibilidade',
+                  'action' => 'gerarpdf'
+              ]
+          ); ?>"
           style="display:none">
         <textarea name="html" id="html"></textarea>
     </form>
@@ -940,7 +944,7 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                     </table>
                 </td>
             </tr>
-            <tr onclick="abrirDinamico('#localRealizacao', $(this)) abrirDinamico('#deslocamento', $(this))"
+            <tr onclick="abrirDinamico('#localRealizacao', $(this)); abrirDinamico('#deslocamento', $(this))"
                 style="cursor:pointer">
                 <th>
                     <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica"
