@@ -466,7 +466,7 @@
                                                         class="center"><?php echo $historico['segmento'] ? $historico['segmento'] : '-' ?></td>
                                                     <td align="center" class="center">
                                                         <?php
-                                                        if ($tp_enquadramento) {
+                                                        if (!empty($historico['tp_enquadramento'])) {
                                                             $tp_enquadramento = $historico['tp_enquadramento'] == 1 ? 'Artigo 26' : 'Artigo 18';
                                                         } else {
                                                             $tp_enquadramento = '-';
