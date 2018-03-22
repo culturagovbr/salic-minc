@@ -313,19 +313,14 @@ class IndexController extends MinC_Controller_Action_Abstract
         $tipoPlanilha = $this->_request->getParam('tipoPlanilha');
         $link = ($this->_request->getParam('link')) ? true : false;
         $view_edicao = ($this->_request->getParam('view_edicao')) ? true : false;
-        
         $this->view->idPronac = $idPronac;
+
+        $params = [];
+        $params['link'] = $link;
+        $params['view_edicao'] = $view_edicao;
         
-        if ($tipoPlanilha == 6
-            &&
-            ($link || $view_edicao)
-        ) {
-            $spPlanilhaOrcamentaria = new spPlanilhaOrcamentaria();
-            $planilhaOrcamentaria = $spPlanilhaOrcamentaria->exec($idPronac, $tipoPlanilha);            
-        } else {
-            $spVisualizarPlanilhaOrcamentariaPlanilhaOrcamentaria = new spVisualizarPlanilhaOrcamentaria();
-            $planilhaOrcamentaria = $spVisualizarPlanilhaOrcamentariaPlanilhaOrcamentaria->exec($idPronac);
-        }
+        $spPlanilhaOrcamentaria = new spPlanilhaOrcamentaria();
+        $planilhaOrcamentaria = $spPlanilhaOrcamentaria->exec($idPronac, $tipoPlanilha, $params);
         
         $planilha = $this->montarPlanilhaOrcamentaria($planilhaOrcamentaria, $tipoPlanilha);
         // tipoPlanilha = 0 : Planilha Orcamentaria da Proposta

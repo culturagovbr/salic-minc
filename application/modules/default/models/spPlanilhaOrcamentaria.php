@@ -13,7 +13,16 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract
      *  tipoPlanilha = 5 : Remanejamento menor que 20%
      *  tipoPlanilha = 6 : Readequacao
      */
-    public function exec($idPronac, $tipoPlanilha)
+
+    /**
+     * Retorna planilha orçamentária
+     * 
+     * @param integer $idPronac
+     * @param integer $tipoPlanilha
+     * @param array $params
+     * @return mixed
+     */
+    public function exec($idPronac, $tipoPlanilha, $params = [])
     {
         switch ($tipoPlanilha) {
             case 0:
@@ -27,7 +36,15 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract
             case 4:
             case 5:
             case 6:
-                return $this->readequacao($idPronac);
+                if ($params['link'] || $params['view_edicao']) {
+                    $planilhaOrcamentaria = $this->readequacao($idPronac);
+                } else {
+                    $spVisualizarPlanilhaOrcamentariaPlanilhaOrcamentaria = new spVisualizarPlanilhaOrcamentaria();
+                    $planilhaOrcamentaria = $spVisualizarPlanilhaOrcamentariaPlanilhaOrcamentaria->exec($idPronac);
+                }
+
+                return $planilhaOrcamentaria;
+                break;
             default:
                 return $this->execSpPlanilhaOrcamentaria($idPronac, $tipoPlanilha);
                 break;
