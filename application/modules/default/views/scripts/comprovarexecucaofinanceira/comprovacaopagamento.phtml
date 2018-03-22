@@ -620,6 +620,7 @@
                     if (fornecedor.retorno) {
                         $('#' + $(este).attr('idAgente')).val(fornecedor.idAgente);
                         $('#' + $(este).attr('idDescricao')).val(fornecedor.descricao).attr('readonly', true);
+                        $('#' + $(este).attr('idDescricao')).next().addClass('active');
 
                     } else {
                         $('html').css('overflow', 'hidden');
