@@ -30,7 +30,7 @@ class Autenticacao_Model_FnVerificarPermissao extends MinC_Db_Table_Abstract
      */
     public function verificarPermissaoProposta($idPreProjeto, $idUsuarioLogado, $validarSeTemProjeto = true)
     {
-        $db = Zend_Db_Table::getAdapter();
+        $db = Zend_Db_Table::getDefaultAdapter();
 
         $permissao = 0;
 
