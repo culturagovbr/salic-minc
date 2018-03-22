@@ -68,8 +68,6 @@ class Autenticacao_Model_FnVerificarPermissao extends MinC_Db_Table_Abstract
 
             $queryProposta->where(new Zend_Db_Expr("NOT EXISTS({$queryPropostaComProjeto})"));
         }
-
-        $db->setFetchMode(Zend_DB::FETCH_ASSOC);
         $proposta = $db->fetchRow($queryProposta);
 
         if (empty($proposta)) {
