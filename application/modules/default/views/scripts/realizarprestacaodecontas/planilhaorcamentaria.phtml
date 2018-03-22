@@ -268,7 +268,25 @@
                          </fieldset>
                 <?php endif ?>
         </div>
+        <div class="row">
+            <div class="col s12">
+                <button data-target="modal1" class="btn modal-trigger">Diligenciar</button>
+            </div>
+        </div>
     </div>
+
+    <div id="modal1" class="modal bottom-sheet">
+        <div class="modal-content">
+            <?php echo $this->partial("diligencia/cadastrar.phtml", 'diligencia', $this); ?>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $3('.modal').modal();
+        });
+    </script>
+
     <?php $analisarItemHref   =   $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'analisaritem'));?>
     <script type="text/javascript">
         <?php if(isset($_GET['tipoMsg'])):?>
