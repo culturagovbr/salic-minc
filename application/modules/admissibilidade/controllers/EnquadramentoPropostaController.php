@@ -67,23 +67,17 @@ class Admissibilidade_EnquadramentoPropostaController extends MinC_Controller_Ac
 
         $this->view->id_perfil_usuario = $this->grupoAtivo->codGrupo;
 
-        $sugestaoEnquadramento = new Admissibilidade_Model_DbTable_SugestaoEnquadramento;
 
-        $ultimaSugestaoPerfil = [];
-        if($this->view->id_perfil_usuario){
-            $sugestaoEnquadramento->sugestaoEnquadramento->setIdPreprojeto($preprojeto['idPreProjeto']);
-            $sugestaoEnquadramento->sugestaoEnquadramento->setIdPerfilUsuario($this->view->id_perfil_usuario);
-            $ultimaSugestaoPerfil = $sugestaoEnquadramento->obterHistoricoEnquadramento();
-            $ultimaSugestaoPerfil = count($ultimaSugestaoPerfil) >= 1 ? current($ultimaSugestaoPerfil) : $ultimaSugestaoPerfil;
+        $ultimaSugestaoPerfil = $this->_recuperarUltimaSugestaoPerfil($preprojeto['idPreProjeto'], $this->view->id_perfil_usuario);
 
-            if(!empty($ultimaSugestaoPerfil['id_area'])){
-                $Segmento = new Segmento();
-                $combosegmentos = $Segmento->combo(array("a.codigo = ?" => $ultimaSugestaoPerfil['id_area']), array('s.segmento ASC'));
-            }
+        if(!empty($ultimaSugestaoPerfil['id_area'])){
+            $Segmento = new Segmento();
+            $combosegmentos = $Segmento->combo(array("a.codigo = ?" => $ultimaSugestaoPerfil['id_area']), array('s.segmento ASC'));
         }
 
         $this->view->combosegmentos = !empty($combosegmentos) ? $combosegmentos : [];
-        $this->view->ultimaSugestaoPerfil = $sugestaoEnquadramento->createRow($ultimaSugestaoPerfil)->toArray();
+        $this->view->ultimaSugestaoPerfil = $ultimaSugestaoPerfil;
+        
 //        $this->view->historicoEnquadramento = $this->obterHistoricoSugestaoEnquadramento($preprojeto['idPreProjeto']);
     }
 
@@ -185,4 +179,26 @@ class Admissibilidade_EnquadramentoPropostaController extends MinC_Controller_Ac
             $distribuicaoAvaliacaoPropostaDbTable->inserir((array)$avaliacaoVencida);
         }
     }
+
+    private function _recuperarUltimaSugestaoPerfil($idPreProjeto, $idPerfilUsuario)
+    {
+        $sugestaoEnquadramento = new Admissibilidade_Model_DbTable_SugestaoEnquadramento;
+
+        $ultimaSugestaoPerfil = [];
+        if($this->view->id_perfil_usuario){
+            $sugestaoEnquadramento->sugestaoEnquadramento->setIdPreprojeto($idPreProjeto);
+            $sugestaoEnquadramento->sugestaoEnquadramento->setIdPerfilUsuario($idPerfilUsuario);
+            $ultimaSugestaoPerfil = $sugestaoEnquadramento->obterHistoricoEnquadramento();
+            $ultimaSugestaoPerfil = count($ultimaSugestaoPerfil) >= 1 ? current($ultimaSugestaoPerfil) : $ultimaSugestaoPerfil;
+
+            if(empty($ultimaSugestaoPerfil['id_area'])){
+                $planoDistribuicao = (new Proposta_Model_DbTable_PlanoDistribuicaoProduto())->buscar(['stPrincipal = ?'=>1, 'idProjeto = ?' => $idPreProjeto]);
+                $ultimaSugestaoPerfil['id_area'] = !empty($planoDistribuicao[0]['Area']) ? $planoDistribuicao[0]['Area'] : null;
+                $ultimaSugestaoPerfil['id_segmento'] = !empty($planoDistribuicao[0]['Segmento']) ? $planoDistribuicao[0]['Segmento'] : null;
+            }
+        }
+
+        return $sugestaoEnquadramento->createRow($ultimaSugestaoPerfil)->toArray();
+    }
+
 }
