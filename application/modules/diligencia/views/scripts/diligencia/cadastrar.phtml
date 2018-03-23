@@ -51,7 +51,7 @@
               <label for="solicaitacao">Solicita&ccedil;&atilde;o</label>
             </div>
           </div>
-          <button type="button" v-on:click="save" class="btn modal-action waves-effect waves-green">enviar</button>
+          <button type="button" v-on:click="save" :disabled="button" class="btn modal-action waves-effect waves-green">enviar</button>
           <a href="#!" class="btn modal-action modal-close waves-effect waves-green btn-flat">cancelar</a>
         </form>
     </div>
@@ -69,7 +69,8 @@ Vue.component(
                    'solicitacao':'',
                    'idPronac' : 0,
                    'tpDiligencia': 0
-                }
+                },
+                button: false
             }
         },
         computed:{},
@@ -79,6 +80,7 @@ Vue.component(
         },
         methods: {
             save: function() {
+                this.button = true;
                 var vue = this;
                 console.info(this.diligencia);
 
@@ -89,8 +91,13 @@ Vue.component(
                   data: this.diligencia
                 })
                 .done(function(data) {
+                    $3('#modal1').modal('close');
                 })
-                .fail(function(){ alert('error'); });
+                .fail(function(jqXHR) { 
+                    message = jqXHR.responseJSON.data.message;
+                    Materialize.toast(message, 3000, 'red');
+                    $3('#modal1').modal('close');
+                });
             }
         }
     }

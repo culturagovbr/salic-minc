@@ -36,17 +36,7 @@ class Diligencia_DiligenciaController extends Zend_Rest_Controller
         $diligenciaDAO = new Diligencia();
         $auth = Zend_Auth::getInstance();
 
-        /* @todo implementar regras */
-        // caso ja tenha diligencia para o pronac
-        $buscarDiligenciaResp = $diligenciaDAO->buscar(
-            array(
-                'idPronac = ?' => $idPronac,
-                'DtResposta ?' => array(new Zend_Db_Expr('IS NULL')),
-                'stEnviado = ?'=>'S' ),
-            array('idDiligencia DESC'), 0, 0,
-            $this->getRequest()->getParam('idProduto')
-        );
-        if (count($buscarDiligenciaResp) > 0) {
+        if ($diligenciaDAO->existeDiligenciaAberta($idPronac)) {
             $this->view->assign('data',['message' => 'Existe dilig&ecirc;ncia aguardando resposta!']);
             $this->getResponse()->setHttpResponseCode(405);
             return;

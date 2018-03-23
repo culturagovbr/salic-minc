@@ -2154,6 +2154,9 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
         $this->view->vlComprovacaoImpugnado = $vlTotalImpugnado;
         $this->view->incFiscaisA = array(utf8_encode('Administra&ccedil;&atilde;o do Projeto') =>$arrayA);
         $this->view->incFiscaisP = $arrayP;
+
+        $diligencia = new Diligencia();
+        $this->view->existeDiligenciaAberta = $diligencia->existeDiligenciaAberta($this->view->idPronac, null);
     }
 
     public function emitirparecertecnicoAction()
