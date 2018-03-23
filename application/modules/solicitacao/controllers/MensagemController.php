@@ -202,6 +202,7 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
 
             $tbSolicitacoes = new Solicitacao_Model_DbTable_TbSolicitacao();
             $dataForm = $tbSolicitacoes->obterSolicitacoes($where)->current()->toArray();
+
             if (empty($dataForm))
                 throw new Exception("Nenhuma solicita&ccedil;&atilde;o encontrada!");
 
@@ -223,9 +224,9 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
                 }
             }
 
-            if($dataForm['idPronac']){
+            if ($dataForm['idPronac']) {
                 $condicoesMenu = self::liberarOpcoesMenuLateral($dataForm['idPronac']);
-                foreach($condicoesMenu as $condicao => $valor){
+                foreach ($condicoesMenu as $condicao => $valor) {
                     $this->view->{$condicao} = $valor;
                 }
             }
@@ -276,9 +277,9 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
                 $this->redirect($this->_urlPadrao . '/solicitacao/mensagem/visualizar/id/' . $dataForm['idSolicitacao']);
             }
 
-            if($this->idPronac){
+            if ($this->idPronac) {
                 $condicoesMenu = self::liberarOpcoesMenuLateral($this->idPronac);
-                foreach($condicoesMenu as $condicao => $valor){
+                foreach ($condicoesMenu as $condicao => $valor) {
                     $this->view->{$condicao} = $valor;
                 }
             }
@@ -328,9 +329,9 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
                 if ($arrayForm['siEncaminhamento'] == 1 && $idSolicitacao) {
                     $strUrl = '/solicitacao/mensagem/visualizar/id/' . $idSolicitacao . $strParams;
                     $status = true;
-                } elseif($idSolicitacao == 0){
+                } elseif ($idSolicitacao == 0) {
                     $status = false;
-                }else{
+                } else {
                     $strUrl = '/solicitacao/mensagem/solicitar' . $strParams;
                     $status = true;
                 }
@@ -354,7 +355,7 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
                 (new Solicitacao_Model_TbSolicitacaoMapper)->deletarArquivo($arrayForm);
                 (new Arquivo_Model_DbTable_TbDocumento)->excluir("idDocumento = {$arrayForm['idDocumento']}");
 
-            } catch(Exception $objException) {
+            } catch (Exception $objException) {
                 echo $objException->getMessage();
             }
         }
@@ -373,8 +374,8 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
 
             $where['idSolicitacao = ?'] = $idSolicitacao;
 
-            $tbSolicitacoes = new Solicitacao_Model_DbTable_TbSolicitacao();
-            $solicitacao = $tbSolicitacoes->buscar($where)->current()->toArray();
+            $tbSolicitacao = new Solicitacao_Model_DbTable_TbSolicitacao();
+            $solicitacao = $tbSolicitacao->obterSolicitacoes($where)->current()->toArray();
 
             if (empty($solicitacao))
                 throw new Exception("Nenhuma solicita&ccedil;&atilde;o encontrada!");

@@ -24,7 +24,7 @@ class Solicitacao_Model_DbTable_TbSolicitacao extends MinC_Db_Table_Abstract
                     'dtSolicitacao',
                     'CAST(dsSolicitacao AS TEXT) AS dsSolicitacao',
                     'dtResposta',
-                    'dsResposta',
+                    'CAST(dsResposta AS TEXT) AS dsResposta',
                     'idDocumento',
                     'siEncaminhamento',
                     'idTecnico',
