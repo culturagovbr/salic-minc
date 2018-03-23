@@ -277,4 +277,21 @@ class Admissibilidade_Model_Enquadramento extends MinC_Db_Table_Abstract
         $result = $db->fetchRow($select);
         return $result;
     }
+
+    public function salvar(array $arrayArmazenamentoEnquadramento)
+    {
+        $objEnquadramento = new Admissibilidade_Model_Enquadramento();
+        $arrayDadosEnquadramento = $objEnquadramento->findBy(
+            ['IdPRONAC = ?' => $arrayArmazenamentoEnquadramento['IdPRONAC']]
+        );
+
+        $objEnquadramento = new Admissibilidade_Model_Enquadramento();
+        if (!$arrayDadosEnquadramento) {
+            $objEnquadramento->inserir($arrayArmazenamentoEnquadramento);
+        } else {
+            $objEnquadramento->update($arrayArmazenamentoEnquadramento, [
+                'IdEnquadramento = ?' => $arrayDadosEnquadramento['IdEnquadramento']
+            ]);
+        }
+    }
 }

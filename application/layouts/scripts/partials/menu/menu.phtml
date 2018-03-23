@@ -421,12 +421,35 @@ $arrMenu['admissibilidade']['menu'][] = array(
     'title' => 'Ir para Encaminhar para assinatura',
     'label' => 'Encaminhar para assinatura'
 );
+
 $arrMenu['admissibilidade']['menu'][] = array(
     'grupo' => array(92, 131),
     'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'desarquivarpropostas')),
     'title' => 'Desarquivar Proposta',
     'label' => 'Desarquivar Proposta'
 );
+
+$arrMenu['admissibilidade']['menu'][] = [
+    'grupo' => [
+        Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE,
+        Autenticacao_Model_Grupos::GESTOR_SALIC,
+        Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE,
+        Autenticacao_Model_Grupos::COMPONENTE_COMISSAO,
+        Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE,
+    ],
+    'url' => $this->url(
+        [
+            'module' => 'admissibilidade',
+            'controller' => 'admissibilidade',
+            'action' => 'alterarunianalisepropostaconsulta'
+        ],
+        '',
+        true
+    ),
+    'title' => 'Ir para Alterar Unidade da an&aacute;lise da Proposta',
+    'label' => 'Alterar Uni. da an&aacute;lise da Proposta'
+];
+
 $arrMenu['admissibilidade']['menu'][] = array(
     'grupo' => array(97, 131, 148, 151),
     'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'redistribuiranalise')),

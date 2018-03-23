@@ -88,7 +88,9 @@ jQuery(function ($) {
     })
 
     $.validator.addMethod('validarPreenchimento', function (value, element) {
-        if (editorRico.contarCaracteres() > 0) {
+        if (editorRico.contarCaracteres() > 0
+            && $3('#id_area').val() != ""
+            && $3('#id_segmento').val()) {
             return true
         }
     })

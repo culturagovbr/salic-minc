@@ -154,4 +154,66 @@ class Projeto_Model_DbTable_Projetos extends MinC_Db_Table_Abstract
         }
         return $db->fetchRow($exec);
     }
+
+    public function atualizarProjetoEnquadrado($projeto, $id_usuario_logado) {
+        $situacaoFinalProjeto = 'B02';
+        $orgaoDestino = null;
+        $providenciaTomada = 'Projeto enquadrado ap&oacute;s avalia&ccedil;&atilde;o t&eacute;cnica.';
+        if ($projeto['Situacao'] == 'B03') {
+            $situacaoFinalProjeto = Projeto_Model_Situacao::PROJETO_ENQUADRADO_COM_RECURSO;
+            $objOrgaos = new Orgaos();
+            $dadosOrgaoSuperior = $objOrgaos->obterOrgaoSuperior($projeto['Orgao']);
+            $orgaoDestino = Orgaos::ORGAO_SAV_DAP;
+            if ($dadosOrgaoSuperior['Codigo'] == Orgaos::ORGAO_SUPERIOR_SEFIC) {
+                $orgaoDestino = Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI;
+            }
+            $providenciaTomada = 'Projeto enquadrado ap&oacute;s avalia&ccedil;&atilde;o t&eacute;cnica do recurso.';
+        }
+
+        $objPlanoDistribuicaoProduto = new PlanoDistribuicao();
+        $objPlanoDistribuicaoProduto->atualizarAreaESegmento(
+            $projeto['Area'],
+            $projeto['Segmento'],
+            $projeto['idProjeto']
+        );
+
+        $objProjeto = new Projetos();
+        $arrayDadosProjeto = array(
+            'Situacao' => $situacaoFinalProjeto,
+            'DtSituacao' => $objProjeto->getExpressionDate(),
+            'ProvidenciaTomada' => $providenciaTomada,
+            'Area' => $projeto['Area'],
+            'Segmento' => $projeto['Segmento'],
+            'logon' => $id_usuario_logado
+        );
+
+        if ($orgaoDestino) {
+            $arrayDadosProjeto['Orgao'] = $orgaoDestino;
+        }
+
+        $arrayWhere = array('IdPRONAC  = ?' => $projeto['IdPRONAC']);
+        $objProjeto->update($arrayDadosProjeto, $arrayWhere);
+
+        if ($projeto['Situacao'] == 'B03') {
+            $tbRecurso = new tbRecurso();
+            $tbRecurso->finalizarRecurso($projeto['IdPRONAC']);
+        }
+
+        $objVerificacao = new Verificacao();
+        $verificacao = $objVerificacao->findBy(array(
+            'idVerificacao = ?' => 620
+        ));
+
+        $tbTextoEmailDAO = new tbTextoEmail();
+        $textoEmail = $tbTextoEmailDAO->findBy(array(
+            'idTextoEmail = ?' => 23
+        ));
+
+        $objInternet = new Agente_Model_DbTable_Internet();
+        $arrayEmails = $objInternet->obterEmailProponentesPorPreProjeto($projeto['idProjeto']);
+
+        foreach ($arrayEmails as $email) {
+            EmailDAO::enviarEmail($email->Descricao, $verificacao['Descricao'], $textoEmail['dsTexto']);
+        }
+    }
 }

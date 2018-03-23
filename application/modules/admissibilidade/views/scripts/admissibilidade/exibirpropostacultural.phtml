@@ -6,7 +6,8 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
     <div>Admissibilidade de propostas - Proposta cultural
         <span class="voltar">
             <?php if (isset($_GET['gravado']) && $_GET["gravado"] == "sim") : ?>
-                <a href="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'listar-propostas')) . "?idPreProjeto=" . $this->idPreProjeto; ?>" title="Ir para p&aacute;gina anterior">Voltar</a>
+                <a href="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'listar-propostas')) . "?idPreProjeto=" . $this->idPreProjeto; ?>"
+                   title="Ir para p&aacute;gina anterior">Voltar</a>
             <?php else: ?>
                 <a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a>
             <?php endif; ?>
@@ -25,86 +26,91 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
      * Fun&ccedil;&atilde;o respons�vel pela exibi&ccedil;&atilde;o ou ocultamento de conte�do,
      * mudando a imagem.
      **/
-    $(document).ready(function(){
-        $('#novo').click(function(){
-            $('#preProjeto').attr('action','<?php echo $IncluirAvaliacao; ?>');
-            $('#preProjeto').submit();
-        });
-        $('#novo1').click(function(){
-            $('#preProjeto').attr('action','<?php echo $IncluirAvaliacao; ?>');
-            $('#preProjeto').submit();
-        });
-        $('.btn_imprimir').click(function(){
-            $("#html").html($(".conteudoImprimir").html());
-            $("#formGerarPdf").submit();
-        });
-    });
-    function abrirDinamico(elemento, obj) {
-        if($(elemento).css('display') == 'none') {
-            $(elemento).fadeIn('fast', function() {
-                $('img', $(obj)).attr('src','<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png');
-            });
+    $(document).ready(function () {
+        $('#novo').click(function () {
+            $('#preProjeto').attr('action', '<?php echo $IncluirAvaliacao; ?>')
+            $('#preProjeto').submit()
+        })
+        $('#novo1').click(function () {
+            $('#preProjeto').attr('action', '<?php echo $IncluirAvaliacao; ?>')
+            $('#preProjeto').submit()
+        })
+        $('.btn_imprimir').click(function () {
+            $('#html').html($('.conteudoImprimir').html())
+            $('#formGerarPdf').submit()
+        })
+    })
+
+    function abrirDinamico (elemento, obj) {
+        if ($(elemento).css('display') == 'none') {
+            $(elemento).fadeIn('fast', function () {
+                $('img', $(obj)).attr('src', '<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png')
+            })
         } else {
-            $(elemento).fadeOut('fast', function() {
-                $('img', $(obj)).attr('src','<?php echo $this->baseUrl(); ?>/public/img/navigation-baixo.PNG');
-            });
+            $(elemento).fadeOut('fast', function () {
+                $('img', $(obj)).attr('src', '<?php echo $this->baseUrl(); ?>/public/img/navigation-baixo.PNG')
+            })
         }
     }
-    function toogleAjax(id, url){
-        if(!url) {
-            $('#'+id).toggle('slow');
+
+    function toogleAjax (id, url) {
+        if (!url) {
+            $('#' + id).toggle('slow')
         } else {
-            elemento = '#'+id;
-            if($(elemento).css('display') == 'none') {
-                $(elemento).html('<img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /> ');
-                $(elemento).fadeIn('fast');
+            elemento = '#' + id
+            if ($(elemento).css('display') == 'none') {
+                $(elemento).html('<img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /> ')
+                $(elemento).fadeIn('fast')
                 $.ajax({
-                    type: "POST",
+                    type: 'POST',
                     data: {
                         teste: 'testando'
                     },
                     url: url,
-                    success: function(data) {
-                        $(elemento).html(data);
+                    success: function (data) {
+                        $(elemento).html(data)
                     }
-                });
+                })
             } else {
-                $(elemento).fadeOut('fast');
+                $(elemento).fadeOut('fast')
             }
         }
-    };
+    }
 
-    function AbrirFecharPlanilha(elemento)
-    {
-        $('.' + elemento).toggle();
+    function AbrirFecharPlanilha (elemento) {
+        $('.' + elemento).toggle()
 
-        if ($('#' + elemento).hasClass('icn_mais'))
-        {
-            $('#' + elemento).addClass('icn_menos');
-            $('#' + elemento).removeClass('icn_mais');
-        }
-        else
-        {
-            $('#' + elemento).addClass('icn_mais');
-            $('#' + elemento).removeClass('icn_menos');
+        $('#' + elemento).addClass('icn_mais')
+        $('#' + elemento).removeClass('icn_menos')
+        if ($('#' + elemento).hasClass('icn_mais')) {
+            $('#' + elemento).addClass('icn_menos')
+            $('#' + elemento).removeClass('icn_mais')
         }
     }
 </script>
 <div id="conteudo">
-    <form method="POST" id="formGerarPdf" action="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'gerarpdf')); ?>" style="display:none">
+    <form method="POST" id="formGerarPdf"
+          action="<?php echo $this->url(
+              [
+                  'module' => 'admissibilidade',
+                  'controller' => 'admissibilidade',
+                  'action' => 'gerarpdf'
+              ]
+          ); ?>"
+          style="display:none">
         <textarea name="html" id="html"></textarea>
     </form>
     <form id="preProjeto" method="post">
-        <input type="hidden" name="idPreProjeto" id="idPreProjeto" value="<?php echo $this->idPreProjeto; ?>" />
+        <input type="hidden" name="idPreProjeto" id="idPreProjeto" value="<?php echo $this->idPreProjeto; ?>"/>
     </form>
-    <br />
+    <br/>
     <div align="center">
         <?php if ((isset($_GET['realizar_analise']) && $_GET['realizar_analise'] == "sim")): ?>
             <input type="button" id="novo" class="btn_novo"/>
         <?php endif; ?>
-        <iframe name="esconde" id="esconde" class="sumir"> </iframe>
+        <iframe name="esconde" id="esconde" class="sumir"></iframe>
 
-        <input type="button" class="btn_imprimir" title="Imprimir" />
+        <input type="button" class="btn_imprimir" title="Imprimir"/>
         <a class="btn" href="#"><i class="material-icons">archive</i></a>
     </div>
 
@@ -112,7 +118,8 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
         <table class="tabela">
             <tr onclick="abrirDinamico('#proponente', $(this))" style="cursor:pointer">
                 <th>
-                    <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica" align="left"/>
+                    <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica"
+                         align="left"/>
                     Proponente
                 </th>
             </tr>
@@ -149,7 +156,7 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                                 <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) {
                                     foreach ($this->itensGeral as $endereco) {
                                         ?>
-                                            <?php if ($endereco->CEP != $auxEndCEP || $endereco->Logradouro != $auxEndLogra): ?>
+                                        <?php if ($endereco->CEP != $auxEndCEP || $endereco->Logradouro != $auxEndLogra): ?>
                                             <tr>
                                                 <td><?php echo $endereco->endereco ?></td>
                                                 <td><?php echo $endereco->logradouro ?></td>
@@ -164,8 +171,8 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                                         <?php endif; ?>
                                         <?php $auxEndCEP = $endereco->CEP; ?>
                                         <?php $auxEndLogra = $endereco->Logradouro; ?>
-                                        <?php }
-                                        } ?>
+                                    <?php }
+                                } ?>
                             </table>
                         </fieldset>
                         <fieldset>
@@ -179,8 +186,8 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                                     <td><b>Divulgar</b></td>
                                 </tr>
                                 <?php if (is_array($this->itensTelefone) and count($this->itensTelefone) > 0) {
-                                foreach ($this->itensTelefone as $telefone) {
-                                    ?>
+                                    foreach ($this->itensTelefone as $telefone) {
+                                        ?>
                                         <tr>
                                             <td><?php echo $telefone->Descricao ?></td>
                                             <td><?php echo $telefone->Sigla ?></td>
@@ -188,8 +195,8 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                                             <td><?php echo $telefone->Numero ?></td>
                                             <td><?php if ($telefone->Divulgar == 1) echo "Sim"; else echo "Nao"; ?></td>
                                         </tr>
-                                 <?php }
-                                    }?>
+                                    <?php }
+                                } ?>
                             </table>
                         </fieldset>
                         <fieldset>
@@ -202,7 +209,7 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                                     <td><b>Posso divulgar?</b></td>
                                 </tr>
                                 <?php $auxEmail = array();
-                                    $auxEmailTipo = array(); ?>
+                                $auxEmailTipo = array(); ?>
                                 <?php foreach ($this->itensGeral as $email) { ?>
                                     <?php if (!in_array($email->agente, $auxEmail) || !in_array($email->email, $auxEmailTipo)): ?>
                                         <tr>
@@ -211,10 +218,10 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                                             <td><?php if ($email->divulgarEmail == 1) echo "Sim"; else echo "Nao"; ?></td>
                                             <td><?php if ($email->divulgarEmail == 1) echo "Sim"; else echo "Nao"; ?></td>
                                         </tr>
-                                     <?php endif; ?>
-                                        <?php $auxEmail[] = $email->agente; ?>
+                                    <?php endif; ?>
+                                    <?php $auxEmail[] = $email->agente; ?>
                                     <?php $auxEmailTipo[] = $email->email; ?>
-                                        <?php } ?>
+                                <?php } ?>
                             </table>
                         </fieldset>
                         <fieldset>
@@ -240,51 +247,52 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                         </fieldset>
                         <fieldset>
                             <legend>Dirigente</legend>
-                                <table class="tabela">
-                                    <?php if ($this->dirigentes && count($this->dirigentes)>0) { ?>
-                                        <tr class="destacar">
-                                            <td width="20%" align="center"><b>CPF</b></td>
-                                            <td align="center"><b>Nome</b></td>
-                                        </tr>
-                                            <?php foreach ($this->dirigentes as $tbdirigentes): ?>
-                                                <?php if($tbdirigentes->CNPJCPFDirigente != '00000000000000'): ?>
-                                                    <tr>
-                                                        <td align="center"><?php echo empty($tbdirigentes->CNPJCPFDirigente) ? '<em>Dados n&atilde;o informados!</em>' : aplicaMascara($tbdirigentes->CNPJCPFDirigente, "999.999.999-99"); ?>
-                                                        <td align="left"><?php echo $tbdirigentes->NomeDirigente; ?></td>
+                            <table class="tabela">
+                                <?php if ($this->dirigentes && count($this->dirigentes) > 0) { ?>
+                                    <tr class="destacar">
+                                        <td width="20%" align="center"><b>CPF</b></td>
+                                        <td align="center"><b>Nome</b></td>
+                                    </tr>
+                                    <?php foreach ($this->dirigentes as $tbdirigentes): ?>
+                                        <?php if ($tbdirigentes->CNPJCPFDirigente != '00000000000000'): ?>
+                                            <tr>
+                                                <td align="center"><?php echo empty($tbdirigentes->CNPJCPFDirigente) ? '<em>Dados n&atilde;o informados!</em>' : aplicaMascara($tbdirigentes->CNPJCPFDirigente, "999.999.999-99"); ?>
+                                                <td align="left"><?php echo $tbdirigentes->NomeDirigente; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td>
+                                                    <table class='tabela'>
+                                                        <tr class="destacar">
+                                                            <td class="centro" colspan="4">Mandatos</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td></td>
-                                                            <td>
-                                                                <table class='tabela'>
-                                                                    <tr class="destacar">
-                                                                        <td class="centro" colspan="4">Mandatos</td>
-                                                                    </tr>
-                                                                    <?php if(count($this->mandatos[$tbdirigentes->NomeDirigente]) > 0)
-:                                                                            foreach ($this->mandatos[$tbdirigentes->NomeDirigente] as $mandato): ?>
-                                                                        <tr>
-                                                                        <td>
-                                                                           <b>Tipo de documento</b><br>
-                                                                            <?php echo $mandato->Descricao;?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <b>N� do documento</b><br>
-                                                                            <?php echo $mandato->dsNumeroDocumento;?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <b>Per&iacute;odo de vig&ecirc;ncia</b><br>
-                                                                            <?php echo date('d/m/Y',strtotime($mandato->dtInicioMandato)).' � '.date('d/m/Y',strtotime($mandato->dtFimMandato)); ?>
-                                                                        </td>
-                                                                        <td>
-                                                                            <b>Arquivo</b><br>
-                                                                            <a href="<?php echo $this->url(array('controller'=>'upload','action'=>'abrir')); ?>?id=<?php echo $mandato->idArquivo; ?>"><?php echo $mandato->nmArquivo ?></a>
-                                                                        </td>
-                                                                    </tr>
-                                                                    <?php endforeach; ?>
-                                                           <?php else: ?>
-                                                                <tr>
-                                                                    <td class="centro" colspan="4"><em>N&atilde;o existem mandatos cadastrados!</em></td>
-                                                                </tr>
-                                                           <?php endif; ?>
+                                                        <?php if (count($this->mandatos[$tbdirigentes->NomeDirigente]) > 0)
+                                                            : foreach ($this->mandatos[$tbdirigentes->NomeDirigente] as $mandato): ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <b>Tipo de documento</b><br>
+                                                                    <?php echo $mandato->Descricao; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <b>N� do documento</b><br>
+                                                                    <?php echo $mandato->dsNumeroDocumento; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <b>Per&iacute;odo de vig&ecirc;ncia</b><br>
+                                                                    <?php echo date('d/m/Y', strtotime($mandato->dtInicioMandato)) . ' � ' . date('d/m/Y', strtotime($mandato->dtFimMandato)); ?>
+                                                                </td>
+                                                                <td>
+                                                                    <b>Arquivo</b><br>
+                                                                    <a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $mandato->idArquivo; ?>"><?php echo $mandato->nmArquivo ?></a>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                        <?php else: ?>
+                                                            <tr>
+                                                                <td class="centro" colspan="4"><em>N&atilde;o existem
+                                                                        mandatos cadastrados!</em></td>
+                                                            </tr>
+                                                        <?php endif; ?>
                                                     </table>
                                                 </td>
                                             </tr>
@@ -292,383 +300,400 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                                     <?php endforeach; ?>
                                 <?php } else { ?>
                                     <tr>
-                                        <td colspan="2" align="center"><em>N&atilde;o existem Dirigentes cadastrados!</em></td>
+                                        <td colspan="2" align="center"><em>N&atilde;o existem Dirigentes
+                                                cadastrados!</em></td>
                                     </tr>
-                            <?php } ?>
-                        </table>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Usu&aacute;rio SalicWEB</legend>
-                        <table class="tabela">
-                            <tr>
-                                    <?php if (is_array($this->itensGeral) and !empty($this->itensGeral[0]->nomeUsuario)) { ?>
-                                    <td width="10%" class="esquerda destacar"><b>CPF</b></td>
-                                    <td class="esquerda"><?php echo aplicaMascara($this->itensGeral[0]->Cpf, "999.999.999-99") ?></td>
-                                    <td width="10%" class="esquerda destacar"><b>Nome</b></td>
-                                    <td class="esquerda"><?php echo $this->itensGeral[0]->nomeUsuario ?></td>
-                                    <?php } ?>
-                            </tr>
-                        </table>
-                    </fieldset>
-                </div><!-- fecha div proponente -->
-            </td>
-        </tr>
-        <tr onclick="abrirDinamico('#projetoCultural', $(this))" style="cursor:pointer">
-            <th align="center">
-                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica" align="left"/>
-                Proposta cultural
-            </th>
-        </tr>
-        <tr>
-            <td>
-                <div id="projetoCultural">
-                    <fieldset>
-                        <legend>Identifica&ccedil;&atilde;o</legend>
-                        <table class="tabela">
-                            <tr>
-                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
-                                    <td width="10%" class="destacar"><b>N&ordm; da Proposta</b></td>
-                                    <td><?php echo $this->itensGeral[0]->idPreProjeto ?></td>
-                                    <td width="10%" nowrap class="destacar"><b>T&iacute;tulo da Proposta</b></td>
-                                    <td><?php echo $this->itensGeral[0]->NomeProjeto ?></td>
                                 <?php } ?>
-                            </tr>
-                        </table>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Informa�&otilde;es Complementares</legend>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Usu&aacute;rio SalicWEB</legend>
+                            <table class="tabela">
+                                <tr>
+                                    <?php if (is_array($this->itensGeral) and !empty($this->itensGeral[0]->nomeUsuario)) { ?>
+                                        <td width="10%" class="esquerda destacar"><b>CPF</b></td>
+                                        <td class="esquerda"><?php echo aplicaMascara($this->itensGeral[0]->Cpf, "999.999.999-99") ?></td>
+                                        <td width="10%" class="esquerda destacar"><b>Nome</b></td>
+                                        <td class="esquerda"><?php echo $this->itensGeral[0]->nomeUsuario ?></td>
+                                    <?php } ?>
+                                </tr>
+                            </table>
+                        </fieldset>
+                    </div><!-- fecha div proponente -->
+                </td>
+            </tr>
+            <tr onclick="abrirDinamico('#projetoCultural', $(this))" style="cursor:pointer">
+                <th align="center">
+                    <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica"
+                         align="left"/>
+                    Proposta cultural
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <div id="projetoCultural">
+                        <fieldset>
+                            <legend>Identifica&ccedil;&atilde;o</legend>
+                            <table class="tabela">
+                                <tr>
+                                    <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                                        <td width="10%" class="destacar"><b>N&ordm; da Proposta</b></td>
+                                        <td><?php echo $this->itensGeral[0]->idPreProjeto ?></td>
+                                        <td width="10%" nowrap class="destacar"><b>T&iacute;tulo da Proposta</b></td>
+                                        <td><?php echo $this->itensGeral[0]->NomeProjeto ?></td>
+                                    <?php } ?>
+                                </tr>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Informa�&otilde;es Complementares</legend>
+                            <table class="tabela">
+                                <tr class="destacar">
+                                    <td><b>&Eacute; proposta de audiovisual?</b></td>
+                                    <td><b>Mecanismo</b></td>
+                                    <td><b>Ag&ecirc;ncia Banc&aacute;ria</b></td>
+                                    <td><b>Dt. In&iacute;cio Execu�&atilde;o</b></td>
+                                    <td><b>Dt. Final Execu&ccedil;&atilde;o</b></td>
+                                    <td><b>Dt. Fixa</b></td>
+                                    <td><b>Plano Atual</b></td>
+                                </tr>
+                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                                    <tr>
+                                        <td><?php if ($this->itensGeral[0]->AreaAbrangencia == 1) echo "Sim"; else echo "Nao"; ?></td>
+                                        <td><?php if ($this->itensGeral[0]->Mecanismo == 1) echo "Incentivo Fiscal Federal"; ?></td>
+                                        <td><?php echo $this->itensGeral[0]->AgenciaBancaria ?></td>
+                                        <td><?php echo substr($this->itensGeral[0]->DtInicioDeExecucao, 0, 10) ?></td>
+                                        <td><?php echo substr($this->itensGeral[0]->DtFinalDeExecucao, 0, 10) ?></td>
+                                        <td><?php if ($this->itensGeral[0]->stDataFixa == 1) echo "Sim"; else echo "Nao"; ?></td>
+                                        <td><?php if ($this->itensGeral[0]->stPlanoAnual == 1) echo "Sim"; else echo "Nao"; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Informa�&otilde;es sobre tombamento</legend>
+                            <table class="tabela">
+                                <tr class="destacar">
+                                    <td><b>N&ordm; Ato Tombamento</b></td>
+                                    <td><b>Dt. Ato Tombamento</b></td>
+                                    <td><b>Esfera Tombamento</b></td>
+                                </tr>
+                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                                    <tr>
+                                        <td><?php echo $this->itensGeral[0]->NrAtoTombamento ?></td>
+                                        <td><?php echo $this->itensGeral[0]->DtAtoTombamento ?></td>
+
+
+                                        <?php $esferaTombamento = array('', 'Municipal', 'Estadual', 'Federal') ?>
+
+                                        <td><?php echo $esferaTombamento[$this->itensGeral[0]->EsferaTombamento] ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>Resumo do Projeto</legend>
+                            <table class="tabela">
+                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                                    <tr>
+                                        <td><?php echo (strip_tags($this->itensGeral[0]->ResumoDoProjeto)) ? strip_tags($this->itensGeral[0]->ResumoDoProjeto, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Objetivos</legend>
+                            <table class="tabela">
+                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                                    <tr>
+                                        <td><?php echo (trim(strip_tags($this->itensGeral[0]->Objetivos)) != "") ? strip_tags($this->itensGeral[0]->Objetivos, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Justificativa</legend>
+                            <table class="tabela">
+                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                                    <tr>
+                                        <td><?php echo (trim(strip_tags($this->itensGeral[0]->Justificativa)) != "") ? strip_tags($this->itensGeral[0]->Justificativa, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Acessibilidade</legend>
+                            <table class="tabela">
+                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                                    <tr>
+                                        <td><?php echo (trim(strip_tags($this->itensGeral[0]->Acessibilidade)) != "") ? strip_tags($this->itensGeral[0]->Acessibilidade, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Democratiza�&atilde;o de Acesso</legend>
+                            <table class="tabela">
+                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                                    <tr>
+                                        <td><?php echo (trim(strip_tags($this->itensGeral[0]->DemocratizacaoDeAcesso)) != "") ? strip_tags($this->itensGeral[0]->DemocratizacaoDeAcesso, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Etapa de Trabalho</legend>
+                            <table class="tabela">
+                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                                    <tr>
+                                        <td><?php echo (trim(strip_tags($this->itensGeral[0]->EtapaDeTrabalho)) != "") ? strip_tags($this->itensGeral[0]->EtapaDeTrabalho, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Ficha T�cnica</legend>
+                            <table class="tabela">
+                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                                    <tr>
+                                        <td><?php echo (trim(strip_tags($this->itensGeral[0]->FichaTecnica)) != "") ? strip_tags($this->itensGeral[0]->FichaTecnica, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Sinopse de obra</legend>
+                            <table class="tabela">
+                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                                    <tr>
+                                        <td><?php echo (trim(strip_tags($this->itensGeral[0]->Sinopse)) != "") ? strip_tags($this->itensGeral[0]->Sinopse, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Impacto Ambiental</legend>
+                            <table class="tabela">
+                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                                    <tr>
+                                        <td><?php echo (trim(strip_tags($this->itensGeral[0]->ImpactoAmbiental)) != "") ? strip_tags($this->itensGeral[0]->ImpactoAmbiental, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Especifica�&otilde;es t�cnicas do produto</legend>
+                            <table class="tabela">
+                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                                    <tr>
+                                        <td><?php echo (trim(strip_tags($this->itensGeral[0]->EstrategiaDeExecucao)) != "") ? strip_tags($this->itensGeral[0]->EstrategiaDeExecucao, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        </fieldset>
+                        <fieldset>
+                            <legend>Outras Informa�&otilde;es</legend>
+                            <table class="tabela">
+                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                                    <tr>
+                                        <td><?php echo (trim(strip_tags($this->itensGeral[0]->EspecificacaoTecnica)) != "") ? strip_tags($this->itensGeral[0]->EspecificacaoTecnica, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        </fieldset>
+
+                    </div><!-- fecha div proposta cultural -->
+                </td>
+            </tr>
+
+            <tr onclick="abrirDinamico('#planoDistribuicaoProduto', $(this))" style="cursor:pointer">
+                <th align="center">
+                    <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica"
+                         align="left"/>
+                    Plano de Distribui�&atilde;o do Produto
+                </th>
+            </tr>
+            <tr>
+                <td align="center">
+                    <div id="planoDistribuicaoProduto">
                         <table class="tabela">
                             <tr class="destacar">
-                                <td><b>&Eacute; proposta de audiovisual?</b></td>
-                                <td><b>Mecanismo</b></td>
-                                <td><b>Ag&ecirc;ncia Banc&aacute;ria</b></td>
-                                <td><b>Dt. In&iacute;cio Execu�&atilde;o</b></td>
-                                <td><b>Dt. Final Execu&ccedil;&atilde;o</b></td>
-                                <td><b>Dt. Fixa</b></td>
-                                <td><b>Plano Atual</b></td>
+                                <td style="font-size:11px">Nome do Evento / Produto</td>
+                                <td style="font-size:11px">�rea</td>
+                                <td style="font-size:11px">Segmento</td>
+                                <td style="font-size:11px">Posi�&atilde;o da Logomarca</td>
+                                <td style="font-size:11px">N&ordm; Exemplares / Ingressos</td>
+                                <td style="font-size:11px">Distribu��&atilde;o / Patrocinador</td>
+                                <td style="font-size:11px">Distribu��&atilde;o / Divulga�&atilde;o</td>
+                                <td style="font-size:11px">Distribu��&atilde;o / Benefici�rios</td>
+                                <td style="font-size:11px">Total Venda Normal</td>
+                                <td style="font-size:11px">Total Venda Promocional</td>
+                                <td style="font-size:11px">Pre�o Unit�rio Normal</td>
+                                <td style="font-size:11px">Pre�o Unit�rio Promocional</td>
+                                <td style="font-size:11px">Receita Prevista Venda Normal (R$)</td>
+                                <td style="font-size:11px">Receita Prevista Venda Promocional (R$)</td>
+                                <td style="font-size:10px">Total de Receita Prevista (R$)</td>
                             </tr>
-                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
-                                <tr>
-                                    <td><?php if ($this->itensGeral[0]->AreaAbrangencia == 1) echo "Sim"; else echo "Nao"; ?></td>
-                                    <td><?php if ($this->itensGeral[0]->Mecanismo == 1) echo "Incentivo Fiscal Federal"; ?></td>
-                                    <td><?php echo $this->itensGeral[0]->AgenciaBancaria ?></td>
-                                    <td><?php echo substr($this->itensGeral[0]->DtInicioDeExecucao, 0, 10) ?></td>
-                                    <td><?php echo substr($this->itensGeral[0]->DtFinalDeExecucao, 0, 10) ?></td>
-                                    <td><?php if ($this->itensGeral[0]->stDataFixa == 1) echo "Sim"; else echo "Nao"; ?></td>
-                                    <td><?php if ($this->itensGeral[0]->stPlanoAnual == 1) echo "Sim"; else echo "Nao"; ?></td>
-                                </tr>
-                            <?php } ?>
-                        </table>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Informa�&otilde;es sobre tombamento</legend>
-                        <table class="tabela">
-                            <tr class="destacar">
-                                <td><b>N&ordm; Ato Tombamento</b></td>
-                                <td><b>Dt. Ato Tombamento</b></td>
-                                <td><b>Esfera Tombamento</b></td>
+                            <?php
+                            $vlQtdeProduzida = 0;
+                            $vlQtdePatrocinador = 0;
+                            $vlQtdeProponente = 0;
+                            $vlQtdeOutros = 0;
+                            $vlQtdeVendaNormal = 0;
+                            $vlQtdeVendaPromocional = 0;
+                            $vlPrecoUnitarioNormal = 0;
+                            $vlPrecoUnitarioPromocional = 0;
+                            $vlReceitaNormal = 0;
+                            $vlReceitaPro = 0;
+                            $vlReceitaPrevista = 0;
+
+                            if (is_array($this->itensPlanosDistribuicao) and count($this->itensPlanosDistribuicao) > 0)
+                                foreach ($this->itensPlanosDistribuicao as $distribuicao) {
+                                    $destacar = "";
+                                    if ($distribuicao->stPrincipal == 1) {
+                                        $destacar = 'style="color:#FF0000"';
+                                    }
+                                    ?>
+                                    <tr>
+                                        <td align="left" <?php echo $destacar ?>><?php echo $distribuicao->produto ?></td>
+                                        <td align="center" <?php echo $destacar ?>><?php echo $distribuicao->area ?></td>
+                                        <td align="center" <?php echo $destacar ?>><?php echo $distribuicao->segmento ?></td>
+                                        <td align="center" <?php echo $destacar ?>><?php echo $distribuicao->posicaoLogo ?></td>
+                                        <td align="center" <?php echo $destacar ?>><?php $vlQtdeProduzida += $distribuicao->QtdeProduzida;
+                                            echo $distribuicao->QtdeProduzida; ?></td>
+                                        <td align="center" <?php echo $destacar ?>><?php $vlQtdePatrocinador += $distribuicao->QtdePatrocinador;
+                                            echo $distribuicao->QtdePatrocinador; ?></td>
+                                        <td align="center" <?php echo $destacar ?>><?php $vlQtdeProponente += $distribuicao->QtdeProponente;
+                                            echo $distribuicao->QtdeProponente; ?></td>
+                                        <td align="center" <?php echo $destacar ?>><?php $vlQtdeOutros += $distribuicao->QtdeOutros;
+                                            echo $distribuicao->QtdeOutros; ?></td>
+                                        <td align="center" <?php echo $destacar ?>><?php $vlQtdeVendaNormal += $distribuicao->QtdeVendaNormal;
+                                            echo $distribuicao->QtdeVendaNormal; ?></td>
+                                        <td align="center" <?php echo $destacar ?>><?php $vlQtdeVendaPromocional += $distribuicao->QtdeVendaPromocional;
+                                            echo $distribuicao->QtdeVendaPromocional; ?></td>
+                                        <td align="center" <?php echo $destacar ?>><?php $vlPrecoUnitarioNormal += $distribuicao->PrecoUnitarioNormal;
+                                            echo number_format($distribuicao->PrecoUnitarioNormal, 2, ',', '.'); ?></td>
+                                        <td align="center" <?php echo $destacar ?>><?php $vlPrecoUnitarioPromocional += $distribuicao->PrecoUnitarioPromocional;
+                                            echo number_format($distribuicao->PrecoUnitarioPromocional, 2, ',', '.'); ?></td>
+                                        <td align="center" <?php echo $destacar ?>><?php $vlReceitaNormal += $distribuicao->ReceitaNormal;
+                                            echo number_format($distribuicao->ReceitaNormal, 2, ',', '.'); ?></td>
+                                        <td align="center" <?php echo $destacar ?>><?php $vlReceitaPro += $distribuicao->ReceitaPro;
+                                            echo number_format($distribuicao->ReceitaPro, 2, ',', '.'); ?></td>
+                                        <td align="center" <?php echo $destacar ?>><?php $vlReceitaPrevista += $distribuicao->ReceitaPrevista;
+                                            echo number_format($distribuicao->ReceitaPrevista, 2, ',', '.'); ?></td>
+                                    </tr>
+                                <?php } ?>
+                            <tr>
+                                <td align="center" colspan="4"><b>Total Geral</b></td>
+                                <td align="center"><?php echo $vlQtdeProduzida; ?></td>
+                                <td align="center"><?php echo $vlQtdePatrocinador; ?></td>
+                                <td align="center"><?php echo $vlQtdeProponente; ?></td>
+                                <td align="center"><?php echo $vlQtdeOutros; ?></td>
+                                <td align="center"><?php echo $vlQtdeVendaNormal; ?></td>
+                                <td align="center"><?php echo $vlQtdeVendaPromocional; ?></td>
+                                <td align="center"><?php echo number_format($vlPrecoUnitarioNormal, 2, ',', '.'); ?></td>
+                                <td align="center"><?php echo number_format($vlPrecoUnitarioPromocional, 2, ',', '.'); ?></td>
+                                <td align="center"><?php echo number_format($vlReceitaNormal, 2, ',', '.'); ?></td>
+                                <td align="center"><?php echo number_format($vlReceitaPro, 2, ',', '.'); ?></td>
+                                <td align="center"><?php echo number_format($vlReceitaPrevista, 2, ',', '.'); ?></td>
                             </tr>
-                                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
-                                <tr>
-                                    <td><?php echo $this->itensGeral[0]->NrAtoTombamento ?></td>
-                                    <td><?php echo $this->itensGeral[0]->DtAtoTombamento ?></td>
-
-
-                                    <?php $esferaTombamento = array('', 'Municipal', 'Estadual', 'Federal') ?>
-
-                                    <td><?php echo $esferaTombamento[$this->itensGeral[0]->EsferaTombamento] ?></td>
-                                </tr>
-                            <?php } ?>
                         </table>
-                    </fieldset>
-
-                    <fieldset>
-                        <legend>Resumo do Projeto</legend>
-                        <table class="tabela">
-                            <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
-                                <tr>
-                                    <td><?php echo (strip_tags($this->itensGeral[0]->ResumoDoProjeto)) ? strip_tags($this->itensGeral[0]->ResumoDoProjeto, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
-                                </tr>
-                            <?php } ?>
-                        </table>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Objetivos</legend>
-                        <table class="tabela">
-                            <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
-                                <tr>
-                                    <td><?php echo (trim(strip_tags($this->itensGeral[0]->Objetivos)) != "") ? strip_tags($this->itensGeral[0]->Objetivos, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
-                                </tr>
-                            <?php } ?>
-                        </table>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Justificativa</legend>
-                        <table class="tabela">
-                            <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
-                                <tr>
-                                    <td><?php echo (trim(strip_tags($this->itensGeral[0]->Justificativa)) != "") ? strip_tags($this->itensGeral[0]->Justificativa, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
-                                </tr>
-                            <?php } ?>
-                        </table>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Acessibilidade</legend>
-                        <table class="tabela">
-                            <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
-                                <tr>
-                                    <td><?php echo (trim(strip_tags($this->itensGeral[0]->Acessibilidade)) != "") ? strip_tags($this->itensGeral[0]->Acessibilidade, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
-                                </tr>
-                            <?php } ?>
-                        </table>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Democratiza�&atilde;o de Acesso</legend>
-                        <table class="tabela">
-                            <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
-                                <tr>
-                                    <td><?php echo (trim(strip_tags($this->itensGeral[0]->DemocratizacaoDeAcesso)) != "") ? strip_tags($this->itensGeral[0]->DemocratizacaoDeAcesso, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
-                                </tr>
-                            <?php } ?>
-                        </table>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Etapa de Trabalho</legend>
-                        <table class="tabela">
-    <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
-                                <tr>
-                                    <td><?php echo (trim(strip_tags($this->itensGeral[0]->EtapaDeTrabalho)) != "") ? strip_tags($this->itensGeral[0]->EtapaDeTrabalho, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
-                                </tr>
-                            <?php } ?>
-                        </table>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Ficha T�cnica</legend>
-                        <table class="tabela">
-<?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
-                                <tr>
-                                    <td><?php echo (trim(strip_tags($this->itensGeral[0]->FichaTecnica)) != "") ? strip_tags($this->itensGeral[0]->FichaTecnica, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
-                                </tr>
-                            <?php } ?>
-                        </table>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Sinopse de obra</legend>
-                        <table class="tabela">
-<?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
-                                <tr>
-                                    <td><?php echo (trim(strip_tags($this->itensGeral[0]->Sinopse)) != "") ? strip_tags($this->itensGeral[0]->Sinopse, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
-                                </tr>
-                            <?php } ?>
-                        </table>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Impacto Ambiental</legend>
-                        <table class="tabela">
-<?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
-                                <tr>
-                                    <td><?php echo (trim(strip_tags($this->itensGeral[0]->ImpactoAmbiental)) != "") ? strip_tags($this->itensGeral[0]->ImpactoAmbiental, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
-                                </tr>
-                            <?php } ?>
-                        </table>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Especifica�&otilde;es t�cnicas do produto</legend>
-                        <table class="tabela">
-<?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
-                                <tr>
-                                    <td><?php echo (trim(strip_tags($this->itensGeral[0]->EstrategiaDeExecucao)) != "") ? strip_tags($this->itensGeral[0]->EstrategiaDeExecucao, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
-                                </tr>
-                            <?php } ?>
-                        </table>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Outras Informa�&otilde;es</legend>
-                        <table class="tabela">
-<?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
-                                <tr>
-                                    <td><?php echo (trim(strip_tags($this->itensGeral[0]->EspecificacaoTecnica)) != "") ? strip_tags($this->itensGeral[0]->EspecificacaoTecnica, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
-                                </tr>
-<?php } ?>
-                        </table>
-                    </fieldset>
-
-                </div><!-- fecha div proposta cultural -->
-            </td>
-        </tr>
-
-        <tr onclick="abrirDinamico('#planoDistribuicaoProduto', $(this))" style="cursor:pointer">
-            <th align="center">
-                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica" align="left"/>
-                Plano de Distribui�&atilde;o do Produto
-            </th>
-        </tr>
-        <tr>
-            <td align="center">
-                <div id="planoDistribuicaoProduto">
-                    <table class="tabela">
-                        <tr class="destacar">
-                            <td style="font-size:11px">Nome do Evento / Produto</td>
-                            <td style="font-size:11px">�rea</td>
-                            <td style="font-size:11px">Segmento</td>
-                            <td style="font-size:11px">Posi�&atilde;o da Logomarca</td>
-                            <td style="font-size:11px">N&ordm; Exemplares / Ingressos</td>
-                            <td style="font-size:11px">Distribu��&atilde;o / Patrocinador</td>
-                            <td style="font-size:11px">Distribu��&atilde;o / Divulga�&atilde;o</td>
-                            <td style="font-size:11px">Distribu��&atilde;o / Benefici�rios</td>
-                            <td style="font-size:11px">Total Venda Normal</td>
-                            <td style="font-size:11px">Total Venda Promocional</td>
-                            <td style="font-size:11px">Pre�o Unit�rio Normal</td>
-                            <td style="font-size:11px">Pre�o Unit�rio Promocional</td>
-                            <td style="font-size:11px">Receita Prevista Venda Normal (R$)</td>
-                            <td style="font-size:11px">Receita Prevista Venda Promocional (R$)</td>
-                            <td style="font-size:10px">Total de Receita Prevista (R$)</td>
-                        </tr>
+                    </div>
+                </td>
+            </tr>
+            <tr onclick="abrirDinamico('#planilhaOrcamentaria', $(this))" style="cursor:pointer">
+                <th align="center">
+                    <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica"
+                         align="left"/>
+                    Planilha Or�ament�ria
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <table class="tabela" id="planilhaOrcamentaria">
                         <?php
-                        $vlQtdeProduzida = 0;
-                        $vlQtdePatrocinador = 0;
-                        $vlQtdeProponente = 0;
-                        $vlQtdeOutros = 0;
-                        $vlQtdeVendaNormal = 0;
-                        $vlQtdeVendaPromocional = 0;
-                        $vlPrecoUnitarioNormal = 0;
-                        $vlPrecoUnitarioPromocional = 0;
-                        $vlReceitaNormal = 0;
-                        $vlReceitaPro = 0;
-                        $vlReceitaPrevista = 0;
+                        $item = 1;
 
-                        if (is_array($this->itensPlanosDistribuicao) and count($this->itensPlanosDistribuicao) > 0)
-                            foreach ($this->itensPlanosDistribuicao as $distribuicao) {
-                                $destacar = "";
-                                if ($distribuicao->stPrincipal == 1) {
-                                    $destacar = 'style="color:#FF0000"';
-                                }
-                                ?>
-                                <tr>
-                                    <td align="left" <?php echo $destacar ?>><?php echo $distribuicao->produto ?></td>
-                                    <td align="center" <?php echo $destacar ?>><?php echo $distribuicao->area ?></td>
-                                    <td align="center" <?php echo $destacar ?>><?php echo $distribuicao->segmento ?></td>
-                                    <td align="center" <?php echo $destacar ?>><?php echo $distribuicao->posicaoLogo ?></td>
-                                    <td align="center" <?php echo $destacar ?>><?php $vlQtdeProduzida += $distribuicao->QtdeProduzida;
-                                echo $distribuicao->QtdeProduzida; ?></td>
-                                    <td align="center" <?php echo $destacar ?>><?php $vlQtdePatrocinador += $distribuicao->QtdePatrocinador;
-                                echo $distribuicao->QtdePatrocinador; ?></td>
-                                    <td align="center" <?php echo $destacar ?>><?php $vlQtdeProponente += $distribuicao->QtdeProponente;
-                        echo $distribuicao->QtdeProponente; ?></td>
-                                    <td align="center" <?php echo $destacar ?>><?php $vlQtdeOutros += $distribuicao->QtdeOutros;
-                        echo $distribuicao->QtdeOutros; ?></td>
-                                    <td align="center" <?php echo $destacar ?>><?php $vlQtdeVendaNormal += $distribuicao->QtdeVendaNormal;
-                        echo $distribuicao->QtdeVendaNormal; ?></td>
-                                    <td align="center" <?php echo $destacar ?>><?php $vlQtdeVendaPromocional += $distribuicao->QtdeVendaPromocional;
-                        echo $distribuicao->QtdeVendaPromocional; ?></td>
-                                    <td align="center" <?php echo $destacar ?>><?php $vlPrecoUnitarioNormal += $distribuicao->PrecoUnitarioNormal;
-                        echo number_format($distribuicao->PrecoUnitarioNormal, 2, ',', '.'); ?></td>
-                                    <td align="center" <?php echo $destacar ?>><?php $vlPrecoUnitarioPromocional += $distribuicao->PrecoUnitarioPromocional;
-                        echo number_format($distribuicao->PrecoUnitarioPromocional, 2, ',', '.'); ?></td>
-                                    <td align="center" <?php echo $destacar ?>><?php $vlReceitaNormal += $distribuicao->ReceitaNormal;
-                        echo number_format($distribuicao->ReceitaNormal, 2, ',', '.'); ?></td>
-                                    <td align="center" <?php echo $destacar ?>><?php $vlReceitaPro += $distribuicao->ReceitaPro;
-                        echo number_format($distribuicao->ReceitaPro, 2, ',', '.'); ?></td>
-                                    <td align="center" <?php echo $destacar ?>><?php $vlReceitaPrevista += $distribuicao->ReceitaPrevista;
-                        echo number_format($distribuicao->ReceitaPrevista, 2, ',', '.'); ?></td>
-                                </tr>
-    <?php } ?>
-                        <tr>
-                            <td align="center" colspan="4"><b>Total Geral</b></td>
-                            <td align="center"><?php echo $vlQtdeProduzida; ?></td>
-                            <td align="center"><?php echo $vlQtdePatrocinador; ?></td>
-                            <td align="center"><?php echo $vlQtdeProponente; ?></td>
-                            <td align="center"><?php echo $vlQtdeOutros; ?></td>
-                            <td align="center"><?php echo $vlQtdeVendaNormal; ?></td>
-                            <td align="center"><?php echo $vlQtdeVendaPromocional; ?></td>
-                            <td align="center"><?php echo number_format($vlPrecoUnitarioNormal, 2, ',', '.'); ?></td>
-                            <td align="center"><?php echo number_format($vlPrecoUnitarioPromocional, 2, ',', '.'); ?></td>
-                            <td align="center"><?php echo number_format($vlReceitaNormal, 2, ',', '.'); ?></td>
-                            <td align="center"><?php echo number_format($vlReceitaPro, 2, ',', '.'); ?></td>
-                            <td align="center"><?php echo number_format($vlReceitaPrevista, 2, ',', '.'); ?></td>
-                        </tr>
-                    </table>
-                </div>
-            </td>
-        </tr>
-        <tr onclick="abrirDinamico('#planilhaOrcamentaria', $(this));" style="cursor:pointer">
-            <th align="center">
-                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica" align="left"/>
-                Planilha Or�ament�ria
-            </th>
-        </tr>
-        <tr>
-            <td>
-                <table class="tabela" id="planilhaOrcamentaria">
-                    <?php
-                    $item = 1;
+                        $totalVal_01_Fonte = (float)0;
+                        $totalVal_02_Fonte = (float)0;
 
-                    $totalVal_01_Fonte = (float) 0;
-                    $totalVal_02_Fonte = (float) 0;
+                        // inicializa valor total por produto
+                        $totalVal_01_Produto = (float)0;
+                        $totalVal_02_Produto = (float)0;
+                        $totalVal_03_Produto = (float)0;
 
-                    // inicializa valor total por produto
-                    $totalVal_01_Produto = (float) 0;
-                    $totalVal_02_Produto = (float) 0;
-                    $totalVal_03_Produto = (float) 0;
+                        // inicializa valor total por etapa
+                        $totalVal_01_Etapa = (float)0;
+                        $totalVal_02_Etapa = (float)0;
+                        $totalVal_03_Etapa = (float)0;
 
-                    // inicializa valor total por etapa
-                    $totalVal_01_Etapa = (float) 0;
-                    $totalVal_02_Etapa = (float) 0;
-                    $totalVal_03_Etapa = (float) 0;
+                        // inicializa valor total por uf
+                        $totalVal_01_UF = (float)0;
+                        $totalVal_02_UF = (float)0;
+                        $totalVal_03_UF = (float)0;
 
-                    // inicializa valor total por uf
-                    $totalVal_01_UF = (float) 0;
-                    $totalVal_02_UF = (float) 0;
-                    $totalVal_03_UF = (float) 0;
+                        // arrays que servem para armazenar os elementos, e, posteriormente,
+                        // verificar se o elemento j&aacute; encontra-se no array e evitar a sua "impress�o" duplicada na tela
+                        $arrayIncentivo = array();
+                        $arrayProdutos = array();
+                        $arrayEtapas = array();
+                        $arrayUFs = array();
 
-                    // arrays que servem para armazenar os elementos, e, posteriormente,
-                    // verificar se o elemento j&aacute; encontra-se no array e evitar a sua "impress�o" duplicada na tela
-                    $arrayIncentivo = array();
-                    $arrayProdutos = array();
-                    $arrayEtapas = array();
-                    $arrayUFs = array();
-
-                    // total geral
-                    $totalVal_01_Geral = (float) 0;
-                    $totalVal_02_Geral = (float) 0;
+                        // total geral
+                        $totalVal_01_Geral = (float)0;
+                        $totalVal_02_Geral = (float)0;
 
 
-                    foreach ($this->AnaliseCustos as $resposta) :
-                        // contador dos itens
-                        /**
-                         * IN�CIO FOREACH PRODUTOS
-                         * Percorre todos os produtos
-                         */
-                        // vari&aacute;veis que servir�o para fazer compara&ccedil;�o dos itens j&aacute; existentes,
-                        // e, evitar "imprimir" um iten j&aacute; "impresso"
-                        $comparadorIncentivo = $resposta->idFonte;
-                        $comparadorProdutos = $resposta->idFonte . $resposta->idProduto;
-                        $comparadorEtapas = $resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa;
-                        $comparadorUFs = $resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa . $resposta->idUF . $resposta->idMunicipio;
-                        ?>
+                        foreach ($this->AnaliseCustos as $resposta) :
+                            // contador dos itens
+                            /**
+                             * IN�CIO FOREACH PRODUTOS
+                             * Percorre todos os produtos
+                             */
+                            // vari&aacute;veis que servir�o para fazer compara&ccedil;�o dos itens j&aacute; existentes,
+                            // e, evitar "imprimir" um iten j&aacute; "impresso"
+                            $comparadorIncentivo = $resposta->idFonte;
+                            $comparadorProdutos = $resposta->idFonte . $resposta->idProduto;
+                            $comparadorEtapas = $resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa;
+                            $comparadorUFs = $resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa . $resposta->idUF . $resposta->idMunicipio;
+                            ?>
 
-                        <!-- ========== IN�CIO T�TULO INCENTIVO FISCAL FEDERAL ========== -->
-    <?php if (!in_array($comparadorIncentivo, $arrayIncentivo)): ?>
+                            <!-- ========== IN�CIO T�TULO INCENTIVO FISCAL FEDERAL ========== -->
+                            <?php if (!in_array($comparadorIncentivo, $arrayIncentivo)): ?>
                             <tr>
                                 <td colspan="9">
                                     <strong>
-                                        <div><a href="#IFF<?php echo $comparadorIncentivo; ?>" onclick="AbrirFecharPlanilha('IFF<?php echo $comparadorIncentivo; ?>');" onkeypress=" "><div id="IFF<?php echo $comparadorIncentivo; ?>" class="icn_menos" style="width:90%"><span class="red del_link" style="font-size: 18pt;"><?php echo utf8_decode(htmlentities($resposta->FonteRecurso)); ?></span></div></a></div>
+                                        <div><a href="#IFF<?php echo $comparadorIncentivo; ?>"
+                                                onclick="AbrirFecharPlanilha('IFF<?php echo $comparadorIncentivo; ?>')"
+                                                onkeypress=" ">
+                                                <div id="IFF<?php echo $comparadorIncentivo; ?>" class="icn_menos"
+                                                     style="width:90%"><span class="red del_link"
+                                                                             style="font-size: 18pt;"><?php echo utf8_decode(htmlentities($resposta->FonteRecurso)); ?></span>
+                                                </div>
+                                            </a></div>
                                     </strong>
                                 </td>
                             </tr>
                         <?php endif; ?>
-                        <!-- ========== FIM T�TULO INCENTIVO FISCAL FEDERAL ========== -->
+                            <!-- ========== FIM T�TULO INCENTIVO FISCAL FEDERAL ========== -->
 
 
+                            <!-- ========== IN�CIO BUSCA POR PRODUTO ========== -->
 
-                        <!-- ========== IN�CIO BUSCA POR PRODUTO ========== -->
-
-    <?php if (!in_array($comparadorProdutos, $arrayProdutos)): ?>
+                            <?php if (!in_array($comparadorProdutos, $arrayProdutos)): ?>
                             <!-- ========== IN�CIO T�TULO PRODUTOS ========== -->
                             <tr class="IFF<?php echo $comparadorIncentivo; ?> linha">
                                 <td colspan="9">
                                     <strong>
-                                        <div><a href="#IFF_PRODUTO<?php echo $comparadorProdutos; ?>" onclick="AbrirFecharPlanilha('IFF_PRODUTO<?php echo $comparadorProdutos; ?>');" onkeypress=" "><div id="IFF_PRODUTO<?php echo $comparadorProdutos; ?>" class="icn_menos" style="width:98%; margin-left:2%;"><span class="green del_link"><?php echo utf8_decode(htmlentities($resposta->Produto)); ?></span></div></a></div>
+                                        <div><a href="#IFF_PRODUTO<?php echo $comparadorProdutos; ?>"
+                                                onclick="AbrirFecharPlanilha('IFF_PRODUTO<?php echo $comparadorProdutos; ?>')"
+                                                onkeypress=" ">
+                                                <div id="IFF_PRODUTO<?php echo $comparadorProdutos; ?>"
+                                                     class="icn_menos" style="width:98%; margin-left:2%;"><span
+                                                            class="green del_link"><?php echo utf8_decode(htmlentities($resposta->Produto)); ?></span>
+                                                </div>
+                                            </a></div>
                                     </strong>
                                 </td>
                             </tr>
@@ -676,27 +701,41 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                         <?php endif; ?>
 
 
-
-    <?php if (!in_array($comparadorEtapas, $arrayEtapas)): ?>
+                            <?php if (!in_array($comparadorEtapas, $arrayEtapas)): ?>
                             <!-- ========== IN�CIO T�TULO ETAPAS ========== -->
                             <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?>">
                                 <td colspan="9">
                                     <strong style="margin-left:2%;">
-                                        <div><a href="#IFF_ETAPA<?php echo $comparadorEtapas; ?>" onclick="AbrirFecharPlanilha('IFF_ETAPA<?php echo $comparadorEtapas; ?>');" onkeypress=" "><div id="IFF_ETAPA<?php echo $comparadorEtapas; ?>" class="icn_menos" style="width:90%; margin-left:4%;"><span class="orange del_link"><?php echo $resposta->idPlanilhaEtapa; ?> - <?php echo utf8_decode(htmlentities($resposta->Etapa)); ?></span></div></a></div>
+                                        <div><a href="#IFF_ETAPA<?php echo $comparadorEtapas; ?>"
+                                                onclick="AbrirFecharPlanilha('IFF_ETAPA<?php echo $comparadorEtapas; ?>')"
+                                                onkeypress=" ">
+                                                <div id="IFF_ETAPA<?php echo $comparadorEtapas; ?>" class="icn_menos"
+                                                     style="width:90%; margin-left:4%;"><span
+                                                            class="orange del_link"><?php echo $resposta->idPlanilhaEtapa; ?>
+                                                        - <?php echo utf8_decode(htmlentities($resposta->Etapa)); ?></span>
+                                                </div>
+                                            </a></div>
                                     </strong>
                                 </td>
                             </tr>
                             <!-- ========== IN�CIO T�TULO ETAPAS ========== -->
-    <?php endif; ?>
+                        <?php endif; ?>
 
 
-
-    <?php if (!in_array($comparadorUFs, $arrayUFs)): ?>
+                            <?php if (!in_array($comparadorUFs, $arrayUFs)): ?>
                             <!-- ========== IN�CIO T�TULO UF ========== -->
                             <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?>">
                                 <td colspan="9">
                                     <strong style="margin-left:3%;">
-                                        <div><a href="#IFF_UF<?php echo $comparadorUFs; ?>" onclick="AbrirFecharPlanilha('IFF_UF<?php echo $comparadorUFs; ?>');" onkeypress=" "><div id="IFF_UF<?php echo $comparadorUFs; ?>" class="icn_menos" style="width:90%; margin-left:6%"><span class="black del_link"><?php echo $resposta->UF; ?> - <?php echo utf8_decode(htmlentities($resposta->Municipio)); ?></span></div></a></div>
+                                        <div><a href="#IFF_UF<?php echo $comparadorUFs; ?>"
+                                                onclick="AbrirFecharPlanilha('IFF_UF<?php echo $comparadorUFs; ?>')"
+                                                onkeypress=" ">
+                                                <div id="IFF_UF<?php echo $comparadorUFs; ?>" class="icn_menos"
+                                                     style="width:90%; margin-left:6%"><span
+                                                            class="black del_link"><?php echo $resposta->UF; ?>
+                                                        - <?php echo utf8_decode(htmlentities($resposta->Municipio)); ?></span>
+                                                </div>
+                                            </a></div>
                                     </strong>
                                 </td>
                             </tr>
@@ -720,363 +759,383 @@ $IncluirAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller'
                                 <th>Justificativa do Relator</th>-->
                             </tr>
                             <!-- ========== FIM TITULO �TENS ========== -->
-    <?php endif; ?>
+                        <?php endif; ?>
 
-                        <!-- ========== IN�CIO �TENS ========== -->
+                            <!-- ========== IN�CIO �TENS ========== -->
+                            <?php
+                            $totalItens = 0;
+
+                            //$i = $resposta->idPlanilhaProjeto; // criar&aacute; id �nico
+                            ?>
+
+                            <tr onmouseover="over_tr(this)" onfocus="over_tr(this)" onmouseout="out_tr(this)"
+                                onblur="out_tr(this)" onclick="click_tr(this)" onkeypress="click_tr(this)"
+                                class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?> IFF_UF<?php echo $comparadorUFs; ?>
     <?php
-    $totalItens = 0;
-
-    //$i = $resposta->idPlanilhaProjeto; // criar&aacute; id �nico
-    ?>
-
-                        <tr onmouseover="over_tr(this);" onfocus="over_tr(this);" onmouseout="out_tr(this);" onblur="out_tr(this);" onclick="click_tr(this);" onkeypress="click_tr(this);"
-                            class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?> IFF_UF<?php echo $comparadorUFs; ?>
-    <?php
-    $totalItens--;
-    ?>
+                                $totalItens--;
+                                ?>
                             ">
-                            <td><?php echo $item; ?></td>
-                            <td><?php echo $this->escape($resposta->Item); ?></td>
-                            <td class="direita"><?php echo $this->escape($resposta->QtdeDias); ?></td>
-                            <td class="centro"><?php echo $this->escape($resposta->Unidade); ?></td>
-                            <td class="direita"><?php echo $this->escape($resposta->Quantidade); ?></td>
-                            <td class="direita"><?php echo $this->escape($resposta->Ocorrencia); ?></td>
-                            <td class="direita"><?php echo $this->formatarReal($this->escape($resposta->ValorUnitario)); ?></td>
-                            <td class="direita blue"><?php echo $this->formatarReal($this->escape($resposta->VlSolicitado)); ?></td>
-                            <td class="direita"><?php echo strip_tags($this->escape($resposta->JustificativaProponente)); ?></td>
-                            <td><?php //echo $this->escape($this->LimitadorCaracteres($resposta->dsJustificativaConselheiro));  ?></td>-->
-                        </tr>
-                        <?php
-                        // ===== CALCULA TOTAL UFS =====
-                        $totalVal_01_UF += (float) $resposta->VlSolicitado;
-                        $totalVal_02_UF += (float) $resposta->Sugerido;
-
-                        $ultimaUF = isset($this->AnaliseCustos[$item]->idMunicipio) ? $this->AnaliseCustos[$item]->idFonte . $this->AnaliseCustos[$item]->idProduto . $this->AnaliseCustos[$item]->idPlanilhaEtapa . $this->AnaliseCustos[$item]->idUF . $this->AnaliseCustos[$item]->idMunicipio : null;
-
-                        // compara a uf atual com a pr�xima uf para poder exibir o valor total
-                        if ($resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa . $resposta->idUF . $resposta->idMunicipio != $ultimaUF) :
-                            ?>
-                            <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?> IFF_UF<?php echo $comparadorUFs; ?>">
-                                <td colspan="8"><strong>Total de UF</strong></td>
-                                <td class="direita"><strong><?php echo $this->formatarReal($totalVal_01_UF); ?></strong></td>
+                                <td><?php echo $item; ?></td>
+                                <td><?php echo $this->escape($resposta->Item); ?></td>
+                                <td class="direita"><?php echo $this->escape($resposta->QtdeDias); ?></td>
+                                <td class="centro"><?php echo $this->escape($resposta->Unidade); ?></td>
+                                <td class="direita"><?php echo $this->escape($resposta->Quantidade); ?></td>
+                                <td class="direita"><?php echo $this->escape($resposta->Ocorrencia); ?></td>
+                                <td class="direita"><?php echo $this->formatarReal($this->escape($resposta->ValorUnitario)); ?></td>
+                                <td class="direita blue"><?php echo $this->formatarReal($this->escape($resposta->VlSolicitado)); ?></td>
+                                <td class="direita"><?php echo strip_tags($this->escape($resposta->JustificativaProponente)); ?></td>
+                                <td><?php //echo $this->escape($this->LimitadorCaracteres($resposta->dsJustificativaConselheiro));
+                                    ?></td>
+                                -->
                             </tr>
                             <?php
-                            // ===== ZERA TOTAL UFS =====
-                            $totalVal_01_UF = (float) 0;
-                            $totalVal_02_UF = (float) 0;
-                        endif;
-                        ?>
-                        <!-- ========== FIM TOTAL UF ========== -->
+                            // ===== CALCULA TOTAL UFS =====
+                            $totalVal_01_UF += (float)$resposta->VlSolicitado;
+                            $totalVal_02_UF += (float)$resposta->Sugerido;
 
+                            $ultimaUF = isset($this->AnaliseCustos[$item]->idMunicipio) ? $this->AnaliseCustos[$item]->idFonte . $this->AnaliseCustos[$item]->idProduto . $this->AnaliseCustos[$item]->idPlanilhaEtapa . $this->AnaliseCustos[$item]->idUF . $this->AnaliseCustos[$item]->idMunicipio : null;
 
-
-                        <!-- ========== IN�CIO TOTAL ETAPAS ========== -->
-                        <?php
-                        // ===== CALCULA TOTAL ETAPAS =====
-                        $totalVal_01_Etapa += (float) $resposta->VlSolicitado;
-                        $totalVal_02_Etapa += (float) $resposta->Sugerido;
-
-                        $ultimaEtapa = isset($this->AnaliseCustos[$item]->idPlanilhaEtapa) ? $this->AnaliseCustos[$item]->idFonte . $this->AnaliseCustos[$item]->idProduto . $this->AnaliseCustos[$item]->idPlanilhaEtapa : null;
-
-                        // compara a etapa atual com a pr�xima etapa para poder exibir o valor total
-                        if ($resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa != $ultimaEtapa) :
+                            // compara a uf atual com a pr�xima uf para poder exibir o valor total
+                            if ($resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa . $resposta->idUF . $resposta->idMunicipio != $ultimaUF) :
+                                ?>
+                                <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?> IFF_UF<?php echo $comparadorUFs; ?>">
+                                    <td colspan="8"><strong>Total de UF</strong></td>
+                                    <td class="direita">
+                                        <strong><?php echo $this->formatarReal($totalVal_01_UF); ?></strong></td>
+                                </tr>
+                                <?php
+                                // ===== ZERA TOTAL UFS =====
+                                $totalVal_01_UF = (float)0;
+                                $totalVal_02_UF = (float)0;
+                            endif;
                             ?>
-                            <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?>">
-                                <td colspan="8" class="orange"><strong>Total da Etapa</strong></td>
-                                <td class="direita orange"><strong><?php echo $this->formatarReal($totalVal_01_Etapa); ?></strong></td>
-                            </tr>
+                            <!-- ========== FIM TOTAL UF ========== -->
+
+
+                            <!-- ========== IN�CIO TOTAL ETAPAS ========== -->
                             <?php
-                            // ===== ZERA TOTAL ETAPAS =====
-                            $totalVal_01_Etapa = (float) 0;
-                            $totalVal_02_Etapa = (float) 0;
-                        endif;
-                        ?>
-                        <!-- ========== FIM TOTAL ETAPAS ========== -->
+                            // ===== CALCULA TOTAL ETAPAS =====
+                            $totalVal_01_Etapa += (float)$resposta->VlSolicitado;
+                            $totalVal_02_Etapa += (float)$resposta->Sugerido;
 
-                        <!-- ========== IN�CIO TOTAL PRODUTOS ========== -->
-                        <?php
-                        // ===== CALCULA TOTAL PRODUTOS =====
-                        $totalVal_01_Produto += (float) $resposta->VlSolicitado;
-                        $totalVal_02_Produto += (float) $resposta->Sugerido;
+                            $ultimaEtapa = isset($this->AnaliseCustos[$item]->idPlanilhaEtapa) ? $this->AnaliseCustos[$item]->idFonte . $this->AnaliseCustos[$item]->idProduto . $this->AnaliseCustos[$item]->idPlanilhaEtapa : null;
 
-                        $ultimoProduto = isset($this->AnaliseCustos[$item]->idProduto) ? $this->AnaliseCustos[$item]->idFonte . $this->AnaliseCustos[$item]->idProduto : null;
-
-                        // compara o produto atual com o pr�ximo produto para poder exibir o valor total
-                        if ($resposta->idFonte . $resposta->idProduto != $ultimoProduto) :
+                            // compara a etapa atual com a pr�xima etapa para poder exibir o valor total
+                            if ($resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa != $ultimaEtapa) :
+                                ?>
+                                <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?> IFF_ETAPA<?php echo $comparadorEtapas; ?>">
+                                    <td colspan="8" class="orange"><strong>Total da Etapa</strong></td>
+                                    <td class="direita orange">
+                                        <strong><?php echo $this->formatarReal($totalVal_01_Etapa); ?></strong></td>
+                                </tr>
+                                <?php
+                                // ===== ZERA TOTAL ETAPAS =====
+                                $totalVal_01_Etapa = (float)0;
+                                $totalVal_02_Etapa = (float)0;
+                            endif;
                             ?>
-                            <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?>">
-                                <td colspan="8" class="green"><strong>Total dos Custos Administrativos ou do Produto</strong></td>
-                                <td class="direita green"><strong><?php echo $this->formatarReal($totalVal_01_Produto); ?></strong></td>
-                                <!--<td>&nbsp;</td>-->
-                                <!--<td>&nbsp;</td>-->
-                            </tr>
+                            <!-- ========== FIM TOTAL ETAPAS ========== -->
+
+                            <!-- ========== IN�CIO TOTAL PRODUTOS ========== -->
                             <?php
-                            // ===== ZERA TOTAL PRODUTOS =====
-                            $totalVal_01_Produto = (float) 0;
-                            $totalVal_02_Produto = (float) 0;
-                        endif;
+                            // ===== CALCULA TOTAL PRODUTOS =====
+                            $totalVal_01_Produto += (float)$resposta->VlSolicitado;
+                            $totalVal_02_Produto += (float)$resposta->Sugerido;
+
+                            $ultimoProduto = isset($this->AnaliseCustos[$item]->idProduto) ? $this->AnaliseCustos[$item]->idFonte . $this->AnaliseCustos[$item]->idProduto : null;
+
+                            // compara o produto atual com o pr�ximo produto para poder exibir o valor total
+                            if ($resposta->idFonte . $resposta->idProduto != $ultimoProduto) :
+                                ?>
+                                <tr class="IFF<?php echo $comparadorIncentivo; ?> IFF_PRODUTO<?php echo $comparadorProdutos; ?>">
+                                    <td colspan="8" class="green"><strong>Total dos Custos Administrativos ou do
+                                            Produto</strong></td>
+                                    <td class="direita green">
+                                        <strong><?php echo $this->formatarReal($totalVal_01_Produto); ?></strong></td>
+                                    <!--<td>&nbsp;</td>-->
+                                    <!--<td>&nbsp;</td>-->
+                                </tr>
+                                <?php
+                                // ===== ZERA TOTAL PRODUTOS =====
+                                $totalVal_01_Produto = (float)0;
+                                $totalVal_02_Produto = (float)0;
+                            endif;
+                            ?>
+                            <!-- ========== FIM TOTAL PRODUTOS ========== -->
+
+                            <!-- ========== INICIO TOTAL GERAL ========== -->
+                            <?php
+                            // ===== CALCULA TOTAL UFS =====
+                            $totalVal_01_Fonte += (float)$resposta->VlSolicitado;
+                            $totalVal_02_Fonte += (float)$resposta->Sugerido;
+
+                            $ultimaFonte = isset($this->AnaliseCustos[$item]->idFonte) ? $this->AnaliseCustos[$item]->idFonte : null;
+
+                            // compara a etapa atual com a pr�xima etapa para poder exibir o valor total
+                            if ($resposta->idFonte != $ultimaFonte) :
+                                ?>
+                                <tr class="IFF<?php echo $comparadorIncentivo; ?>">
+                                    <td colspan="8" class="red" style="font-size: 12pt;"><strong>Total da Fonte de
+                                            Recurso</strong></td>
+                                    <td class="direita red" style="font-size: 12pt;">
+                                        <strong><?php echo $this->formatarReal($totalVal_01_Fonte); ?></strong></td>
+                                    <!--<td colspan="4">&nbsp;</td>-->
+                                </tr>
+                                <?php
+                                // ===== ZERA TOTAL FONTE =====
+                                $totalVal_01_Fonte = (float)0;
+                                $totalVal_02_Fonte = (float)0;
+                            endif;
+
+                            // total geral
+                            $totalVal_01_Geral += (float)$resposta->VlSolicitado;
+                            $totalVal_02_Geral += (float)$resposta->Sugerido;
+                            ?>
+                            <!-- ========== FIM TOTAL PRODUTOS ========== -->
+
+                            <?php
+                            // adiciona os elementos no array para guardar no hist�rico
+                            $arrayIncentivo[] = $resposta->idFonte;
+                            $arrayProdutos[] = $resposta->idFonte . $resposta->idProduto;
+                            $arrayEtapas[] = $resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa;
+                            $arrayUFs[] = $resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa . $resposta->idUF . $resposta->idMunicipio;
+
+                            $item++; // incrementa o contador de itens
+
+                        endforeach;
+                        /**
+                         * FIM FOREACH PRODUTOS
+                         */
                         ?>
-                        <!-- ========== FIM TOTAL PRODUTOS ========== -->
+                        <!-- ========== FIM BUSCA POR PRODUTO ========== -->
 
                         <!-- ========== INICIO TOTAL GERAL ========== -->
-                        <?php
-                        // ===== CALCULA TOTAL UFS =====
-                        $totalVal_01_Fonte += (float) $resposta->VlSolicitado;
-                        $totalVal_02_Fonte += (float) $resposta->Sugerido;
-
-                        $ultimaFonte = isset($this->AnaliseCustos[$item]->idFonte) ? $this->AnaliseCustos[$item]->idFonte : null;
-
-                        // compara a etapa atual com a pr�xima etapa para poder exibir o valor total
-                        if ($resposta->idFonte != $ultimaFonte) :
-                            ?>
-                            <tr class="IFF<?php echo $comparadorIncentivo; ?>">
-                                <td colspan="8" class="red" style="font-size: 12pt;"><strong>Total da Fonte de Recurso</strong></td>
-                                <td class="direita red" style="font-size: 12pt;"><strong><?php echo $this->formatarReal($totalVal_01_Fonte); ?></strong></td>
-                                <!--<td colspan="4">&nbsp;</td>-->
-                            </tr>
-                            <?php
-                            // ===== ZERA TOTAL FONTE =====
-                            $totalVal_01_Fonte = (float) 0;
-                            $totalVal_02_Fonte = (float) 0;
-                        endif;
-
-                        // total geral
-                        $totalVal_01_Geral += (float) $resposta->VlSolicitado;
-                        $totalVal_02_Geral += (float) $resposta->Sugerido;
-                        ?>
-                        <!-- ========== FIM TOTAL PRODUTOS ========== -->
-
-    <?php
-    // adiciona os elementos no array para guardar no hist�rico
-    $arrayIncentivo[] = $resposta->idFonte;
-    $arrayProdutos[] = $resposta->idFonte . $resposta->idProduto;
-    $arrayEtapas[] = $resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa;
-    $arrayUFs[] = $resposta->idFonte . $resposta->idProduto . $resposta->idPlanilhaEtapa . $resposta->idUF . $resposta->idMunicipio;
-
-    $item++; // incrementa o contador de itens
-
-endforeach;
-/**
- * FIM FOREACH PRODUTOS
- */
-?>
-                    <!-- ========== FIM BUSCA POR PRODUTO ========== -->
-
-                    <!-- ========== INICIO TOTAL GERAL ========== -->
-                    <tr class="destacar">
-                        <td class="left" colspan="8" style="font-size: 12pt;"><strong>Total Geral</strong></td>
-                        <td class="direita red" style="font-size: 12pt;"><strong><?php echo $this->formatarReal($totalVal_01_Geral); ?></strong></td>
-                        <!--<th colspan="4">&nbsp;</th>-->
-                    </tr>
-                </table>
-            </td>
-        </tr>
-        <tr onclick="abrirDinamico('#fonteRecurso', $(this))" style="cursor:pointer">
-            <th>
-                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica" align="left"/>
-                Fonte de Recurso
-            </th>
-        </tr>
-        <tr>
-            <td>
-                <table class="tabela" id="fonteRecurso">
-                    <tr class="destacar">
-                        <td align="left"><b>Fonte de Recurso</b></td>
-                        <td align="right"><b>Valor</b></td>
-                    </tr>
-<?php if (is_array($this->itensFonteRecurso) and count($this->itensFonteRecurso) > 0)
-    foreach ($this->itensFonteRecurso as $fonte) {
-        ?>
-                            <tr>
-                                <td><?php echo $fonte->Descricao ?></td>
-                                <td align="right"><?php echo number_format($fonte->valor, 2, ',', '.') ?></td>
-                            </tr>
-    <?php } ?>
-                </table>
-            </td>
-        </tr>
-        <tr onclick="abrirDinamico('#localRealizacao', $(this)); abrirDinamico('#deslocamento', $(this));" style="cursor:pointer">
-            <th>
-                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica" align="left"/>
-                Local de Realiza&ccedil;&atilde;o / Deslocamento
-            </th>
-        </tr>
-        <tr>
-            <td>
-                <fieldset id="localRealizacao">
-                    <legend>Local de Realiza&ccedil;&atilde;o</legend>
-                    <table class="tabela" id="localRealizacao">
                         <tr class="destacar">
-                            <td align="left"><b>Pais</b></td>
-                            <td align="left"><b>UF</b></td>
-                            <td align="left"><b>Cidade</b></td>
+                            <td class="left" colspan="8" style="font-size: 12pt;"><strong>Total Geral</strong></td>
+                            <td class="direita red" style="font-size: 12pt;">
+                                <strong><?php echo $this->formatarReal($totalVal_01_Geral); ?></strong></td>
+                            <!--<th colspan="4">&nbsp;</th>-->
                         </tr>
-<?php
-if (is_array($this->itensLocalRealiazacao) and count($this->itensLocalRealiazacao) > 0) {
-    foreach ($this->itensLocalRealiazacao as $itensLocalRealizacao) {
-        ?>
-                                <tr>
-                                    <td><?php echo $itensLocalRealizacao->Pais ?></td>
-                                    <td><?php echo $itensLocalRealizacao->UF ?></td>
-                                    <td><?php echo $itensLocalRealizacao->Cidade ?></td>
-                                    <!--<td align="center"><?php //echo $itensLocalRealizacao->DtInicioDeExecucao  ?></td>
-                                    <td align="center"><?php //echo $itensLocalRealizacao->DtFinalDeExecucao  ?></td>-->
-                                </tr>
-                            <?php }
-                        } else {
-                            ?>
-                            <td colspan="5" align="center">N&atilde;o informado</td>
-<?php } ?>
                     </table>
-                </fieldset>
-                <fieldset id="deslocamento">
-                    <legend>Deslocamento</legend>
-                    <table class="tabela" id="deslocamento">
-                        <tr class="destacar">
-                            <td align='left'><b>Pais de Origem</b></td>
-                            <td align='left'><b>UF de Origem</b></td>
-                            <td align='left'><b>Cidade de Origem</b></td>
-                            <td align='left'><b>Pais de Destino</b></td>
-                            <td align='left'><b>UF de Destino</b></td>
-                            <td align='left'><b>Cidade de Destino</b></td>
-                            <td>Quantidade</td>
-                        </tr>
-<?php if (is_array($this->itensDeslocamento) and count($this->itensDeslocamento) > 0) {
-    foreach ($this->itensDeslocamento as $deslocamento) {
-        ?>
-                                <tr>
-                                    <td class="esquerda"><?php echo $deslocamento->paisOrigem ?></td>
-                                    <td class="esquerda"><?php echo $deslocamento->ufOrigem ?></td>
-                                    <td class="esquerda"><?php echo $deslocamento->municipioOrigem ?></td>
-                                    <td class="esquerda"><?php echo $deslocamento->paisDestino ?></td>
-                                    <td class="esquerda"><?php echo $deslocamento->ufDestino ?></td>
-                                    <td class="esquerda"><?php echo $deslocamento->municipioDestino ?></td>
-                                    <td align="center" ><?php echo $deslocamento->Qtde ?></td>
-                                </tr>
-        <?php
-    }
-} else {
-    ?>
-                            <td colspan="7" align="center">N&atilde;o informado</td>
-<?php } ?>
-                    </table>
-                </fieldset>
-            </td>
-        </tr>
-        <?php if(!empty($this->itensPlanoDivulgacao)): ?>
-            <tr onclick="abrirDinamico('#planoDivulgacao', $(this))" style="cursor:pointer">
+                </td>
+            </tr>
+            <tr onclick="abrirDinamico('#fonteRecurso', $(this))" style="cursor:pointer">
                 <th>
-                    <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica" align="left"/>
-                    Plano de Divulga&ccedil;&atilde;o
+                    <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica"
+                         align="left"/>
+                    Fonte de Recurso
                 </th>
             </tr>
             <tr>
                 <td>
-                    <table class="tabela" id="planoDivulgacao">
+                    <table class="tabela" id="fonteRecurso">
                         <tr class="destacar">
-                            <td align="left"><b>Peça de Divulga&ccedil;&atilde;o</b></td>
-                            <td align="left"><b>Veículo de Divulga&ccedil;&atilde;o</b></td>
+                            <td align="left"><b>Fonte de Recurso</b></td>
+                            <td align="right"><b>Valor</b></td>
                         </tr>
-                        <?php if (is_array($this->itensPlanoDivulgacao) and count($this->itensPlanoDivulgacao) > 0)
-                            foreach ($this->itensPlanoDivulgacao as $divulgacao) {
+                        <?php if (is_array($this->itensFonteRecurso) and count($this->itensFonteRecurso) > 0)
+                            foreach ($this->itensFonteRecurso as $fonte) {
                                 ?>
                                 <tr>
-                                    <td align="left"><?php echo $divulgacao->Peca ?></td>
-                                    <td align="left"><?php echo $divulgacao->Veiculo ?></td>
+                                    <td><?php echo $fonte->Descricao ?></td>
+                                    <td align="right"><?php echo number_format($fonte->valor, 2, ',', '.') ?></td>
                                 </tr>
-                                <?php } ?>
+                            <?php } ?>
                     </table>
                 </td>
             </tr>
-        <?php endif ?>
-        <tr onclick="abrirDinamico('#documentosProponente', $(this)); abrirDinamico('#documentosProposta', $(this));" style="cursor:pointer">
-            <th>
-                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica" align="left"/>
-                Documentos Anexados
-            </th>
-        </tr>
-        <tr>
-            <td>
+            <tr onclick="abrirDinamico('#localRealizacao', $(this)); abrirDinamico('#deslocamento', $(this))"
+                style="cursor:pointer">
+                <th>
+                    <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica"
+                         align="left"/>
+                    Local de Realiza&ccedil;&atilde;o / Deslocamento
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <fieldset id="localRealizacao">
+                        <legend>Local de Realiza&ccedil;&atilde;o</legend>
+                        <table class="tabela" id="localRealizacao">
+                            <tr class="destacar">
+                                <td align="left"><b>Pais</b></td>
+                                <td align="left"><b>UF</b></td>
+                                <td align="left"><b>Cidade</b></td>
+                            </tr>
+                            <?php
+                            if (is_array($this->itensLocalRealiazacao) and count($this->itensLocalRealiazacao) > 0) {
+                                foreach ($this->itensLocalRealiazacao as $itensLocalRealizacao) {
+                                    ?>
+                                    <tr>
+                                        <td><?php echo $itensLocalRealizacao->Pais ?></td>
+                                        <td><?php echo $itensLocalRealizacao->UF ?></td>
+                                        <td><?php echo $itensLocalRealizacao->Cidade ?></td>
+                                        <!--<td align="center"><?php //echo $itensLocalRealizacao->DtInicioDeExecucao  ?></td>
+                                    <td align="center"><?php //echo $itensLocalRealizacao->DtFinalDeExecucao  ?></td>-->
+                                    </tr>
+                                <?php }
+                            } else {
+                                ?>
+                                <td colspan="5" align="center">N&atilde;o informado</td>
+                            <?php } ?>
+                        </table>
+                    </fieldset>
+                    <fieldset id="deslocamento">
+                        <legend>Deslocamento</legend>
+                        <table class="tabela" id="deslocamento">
+                            <tr class="destacar">
+                                <td align='left'><b>Pais de Origem</b></td>
+                                <td align='left'><b>UF de Origem</b></td>
+                                <td align='left'><b>Cidade de Origem</b></td>
+                                <td align='left'><b>Pais de Destino</b></td>
+                                <td align='left'><b>UF de Destino</b></td>
+                                <td align='left'><b>Cidade de Destino</b></td>
+                                <td>Quantidade</td>
+                            </tr>
+                            <?php if (is_array($this->itensDeslocamento) and count($this->itensDeslocamento) > 0) {
+                                foreach ($this->itensDeslocamento as $deslocamento) {
+                                    ?>
+                                    <tr>
+                                        <td class="esquerda"><?php echo $deslocamento->paisOrigem ?></td>
+                                        <td class="esquerda"><?php echo $deslocamento->ufOrigem ?></td>
+                                        <td class="esquerda"><?php echo $deslocamento->municipioOrigem ?></td>
+                                        <td class="esquerda"><?php echo $deslocamento->paisDestino ?></td>
+                                        <td class="esquerda"><?php echo $deslocamento->ufDestino ?></td>
+                                        <td class="esquerda"><?php echo $deslocamento->municipioDestino ?></td>
+                                        <td align="center"><?php echo $deslocamento->Qtde ?></td>
+                                    </tr>
+                                    <?php
+                                }
+                            } else {
+                                ?>
+                                <td colspan="7" align="center">N&atilde;o informado</td>
+                            <?php } ?>
+                        </table>
+                    </fieldset>
+                </td>
+            </tr>
+            <?php if (!empty($this->itensPlanoDivulgacao)): ?>
+                <tr onclick="abrirDinamico('#planoDivulgacao', $(this))" style="cursor:pointer">
+                    <th>
+                        <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica"
+                             align="left"/>
+                        Plano de Divulga&ccedil;&atilde;o
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="tabela" id="planoDivulgacao">
+                            <tr class="destacar">
+                                <td align="left"><b>Peça de Divulga&ccedil;&atilde;o</b></td>
+                                <td align="left"><b>Veículo de Divulga&ccedil;&atilde;o</b></td>
+                            </tr>
+                            <?php if (is_array($this->itensPlanoDivulgacao) and count($this->itensPlanoDivulgacao) > 0)
+                                foreach ($this->itensPlanoDivulgacao as $divulgacao) {
+                                    ?>
+                                    <tr>
+                                        <td align="left"><?php echo $divulgacao->Peca ?></td>
+                                        <td align="left"><?php echo $divulgacao->Veiculo ?></td>
+                                    </tr>
+                                <?php } ?>
+                        </table>
+                    </td>
+                </tr>
+            <?php endif ?>
+            <tr onclick="abrirDinamico('#documentosProponente', $(this)) abrirDinamico('#documentosProposta', $(this))"
+                style="cursor:pointer">
+                <th>
+                    <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica"
+                         align="left"/>
+                    Documentos Anexados
+                </th>
+            </tr>
+            <tr>
+                <td>
 
-                <fieldset id="documentosProponente">
-                    <legend>Documentos Proponente</legend>
-<?php if (is_array($this->itensDocumentoAgente) and count($this->itensDocumentoAgente) > 0) { ?>
+                    <fieldset id="documentosProponente">
+                        <legend>Documentos Proponente</legend>
+                        <?php if (is_array($this->itensDocumentoAgente) and count($this->itensDocumentoAgente) > 0) { ?>
+                            <table class="tabela" id="documentosAnexados">
+                                <tr class="destacar">
+                                    <td><b>Tipo de Documento</b></td>
+                                    <td><b>Nome do Documento</b></td>
+                                    <td><b>Data</b></td>
+                                </tr>
+                                <?php foreach ($this->itensDocumentoAgente as $docAgente) { ?>
+                                    <tr>
+                                        <td align="center"><?php echo $docAgente->TipoArqui ?></td>
+                                        <td align="center"><a
+                                                    href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrirdocumentosanexados')); ?>?id=<?php echo $docAgente->idDocumentosAgentes; ?>&busca=documentosanexadosminc"><?php echo $docAgente->NomeArqui ?></a>
+                                        </td>
+                                        <td align="center"><?php echo $docAgente->Data ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </table>
+                        <?php } ?><br>
+                    </fieldset>
+
+                    <fieldset id="documentosProposta">
+                        <legend>Documentos Proposta</legend>
                         <table class="tabela" id="documentosAnexados">
                             <tr class="destacar">
                                 <td><b>Tipo de Documento</b></td>
                                 <td><b>Nome do Documento</b></td>
                                 <td><b>Data</b></td>
+                                <td><b>Observa&ccedil;&atilde;o</b></td>
                             </tr>
-    <?php foreach ($this->itensDocumentoAgente as $docAgente) { ?>
+                            <?php foreach ($this->itensDocumentoPreProjeto as $docPreProjeto) { ?>
                                 <tr>
-                                    <td align="center"><?php echo $docAgente->TipoArqui ?></td>
-                                    <td align="center"><a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrirdocumentosanexados')); ?>?id=<?php echo $docAgente->idDocumentosAgentes; ?>&busca=documentosanexadosminc"><?php echo $docAgente->NomeArqui ?></a></td>
-                                    <td align="center"><?php echo $docAgente->Data ?></td>
+                                    <td align="left"><?php echo $docPreProjeto->TipoDocumento ?></td>
+                                    <td align="left"><a
+                                                href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir-documentos-pre-projeto')); ?>?id=<?php echo $docPreProjeto->idDocumentosPreprojetos; ?>"><?php echo $docPreProjeto->NoArquivo ?></a>
+                                    </td>
+                                    <td align="left"><?php echo ConverteData($docPreProjeto->Data, 5) ?></td>
+                                    <td align="left"><?php echo $docPreProjeto->dsDocumento ?></td>
                                 </tr>
                             <?php } ?>
                         </table>
-                    <?php } ?><br>
-                </fieldset>
-
-                <fieldset id="documentosProposta">
-                    <legend>Documentos Proposta</legend>
-                    <table class="tabela" id="documentosAnexados">
+                    </fieldset>
+                </td>
+            </tr>
+            <tr onclick="abrirDinamico('#historicoAvaliacoes', $(this))" style="cursor:pointer">
+                <th>
+                    <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica"
+                         align="left"/>
+                    Hist&oacute;rico de Avalia&ccedil;&otilde;es
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    <table class="tabela" id="historicoAvaliacoes">
                         <tr class="destacar">
-                            <td><b>Tipo de Documento</b></td>
-                            <td><b>Nome do Documento</b></td>
-                            <td><b>Data</b></td>
-                            <td><b>Observa&ccedil;&atilde;o</b></td>
+                            <td align="left"><b>Data</b></td>
+                            <td align="left"><b>Avalia&ccedil;&atilde;o</b></td>
                         </tr>
-<?php foreach ($this->itensDocumentoPreProjeto as $docPreProjeto) { ?>
-                            <tr>
-                                <td align="left"><?php echo $docPreProjeto->TipoDocumento ?></td>
-                                <td align="left"><a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir-documentos-pre-projeto')); ?>?id=<?php echo $docPreProjeto->idDocumentosPreprojetos; ?>"><?php echo $docPreProjeto->NoArquivo ?></a></td>
-                                <td align="left"><?php echo ConverteData($docPreProjeto->Data, 5) ?></td>
-                                <td align="left"><?php echo $docPreProjeto->dsDocumento ?></td>
-                            </tr>
-<?php } ?>
+                        <?php
+                        if (is_array($this->itensHistorico) and count($this->itensHistorico) > 0)
+                            foreach ($this->itensHistorico as $historico) { ?>
+                                <tr>
+                                    <td align="left" nowrap><?php echo $historico->DtAvaliacao ?></td>
+                                    <td align="left"><?php echo $historico->Perfil ?></td>
+                                    <td align="left"><?php echo $historico->Avaliacao ?></td>
+                                </tr>
+                            <?php } ?>
                     </table>
-                </fieldset>
-            </td>
-        </tr>
-        <tr onclick="abrirDinamico('#historicoAvaliacoes', $(this))" style="cursor:pointer">
-            <th>
-                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica" align="left"/>
-                Hist&oacute;rico de Avalia&ccedil;&otilde;es
-            </th>
-        </tr>
+                </td>
+            </tr>
+        </table>
+    </div><!-- fecha div de impressao -->
+    <br/>
+    <table class="tabela">
         <tr>
-            <td>
-                <table class="tabela" id="historicoAvaliacoes">
-                    <tr class="destacar">
-                        <td align="left"><b>Data</b></td>
-                        <td align="left"><b>Avalia&ccedil;&atilde;o</b></td>
-                    </tr>
-                    <?php
-                    if (is_array($this->itensHistorico) and count($this->itensHistorico) > 0)
-                        foreach ($this->itensHistorico as $historico) { ?>
-                    <tr>
-                        <td align="left" nowrap><?php echo $historico->DtAvaliacao ?></td>
-			<td align="left"><?php echo $historico->Perfil ?></td>
-                        <td align="left"><?php echo $historico->Avaliacao ?></td>
-                    </tr>
-                    <?php } ?>
-                </table>
+            <td class="centro">
+                <?php if ((isset($_GET['realizar_analise']) && $_GET['realizar_analise'] == "sim")): ?>
+                    <input type="button" id="novo1" class="btn_novo" title="Novo"/>
+                <?php endif; ?>
+                <input type="button" class="btn_imprimir" title="Imprimir"/>
             </td>
         </tr>
     </table>
-</div><!-- fecha div de impressao -->
-<br />
-<table class="tabela">
-    <tr>
-        <td class="centro">
-<?php if ((isset($_GET['realizar_analise']) && $_GET['realizar_analise'] == "sim")): ?>
-                <input type="button" id="novo1" class="btn_novo" title="Novo" />
-<?php endif; ?>
-            <input type="button" class="btn_imprimir" title="Imprimir" />
-        </td>
-    </tr>
-</table>
 </div>
 <div id="rodapeConteudo"><span></span></div>
-<br clear="all" />
+<br clear="all"/>

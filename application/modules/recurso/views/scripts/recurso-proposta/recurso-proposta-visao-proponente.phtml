@@ -1,0 +1,29 @@
+<?php
+if(count($this->historicoEnquadramento) > 0):
+?>
+<h4></h4>
+<div class="row">
+    <table class="tabela striped" id="" style="border: 0px solid gray">
+        <thead>
+        <tr class="destacar">
+            <td class="center" width="10%"><b>a</b></td>
+            <td class="center" width="10%"><b>b</b></td>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        foreach ($this->array as $indice => $valor) :
+            ?>
+            <tr>
+                <td align="left"><?php echo ++$indice ?></td>
+                <td align="left"><?php echo Data::dataBrasileira($valor['data_avaliacao']) ?></td>
+            </tr>
+            <?php
+        endforeach;
+        ?>
+        </tbody>
+    </table>
+</div>
+<?php
+    endif;
+?>
