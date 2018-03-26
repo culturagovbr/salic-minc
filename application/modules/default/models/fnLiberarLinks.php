@@ -142,10 +142,10 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
         $Diligencia = ($vDiligencia->idDiligencia) ? 1 : 0;
 
         //Verificar se h� recurso @TODO FAZER ESSA PARTE E DEIXAR PRO FIM
-        $data = new Zend_Db_Expr("SELECT DATEDIFF(DAY, '$dadosCnic->DtReuniao', GETDATE()) AS dado");
+        $data = new Zend_Db_Expr("SELECT DATEDIFF(DAY, '$dadosProjeto->DtSituacao', GETDATE()) AS dado");
         $data = $db->fetchOne($data);
 
-        $situacoesRecurso = array('A14', 'A16', 'A17', 'A20', 'A23', 'A24', 'A41', 'A42', 'D02', 'D03','D14');
+        $situacoesRecurso = array('A14', 'A16', 'A17', 'A20', 'A23', 'A24', 'A41', 'A42', 'D02', 'D03','D14', 'D52');
 
         $recurso1 = $db->select()
            ->from(

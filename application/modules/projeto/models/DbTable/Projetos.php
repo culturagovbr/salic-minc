@@ -52,11 +52,6 @@ class Projeto_Model_DbTable_Projetos extends MinC_Db_Table_Abstract
         return $this->_db->fetchRow($objQuery);
     }
 
-    /**
-     * @param $idPronac
-     * @return array
-     * @deprecated Utilizar a model fnVerificarProjetoAprovadoIN2017, metodo verificar
-     */
     public function verificarIN2017($idPronac)
     {
         $retorno = 0;

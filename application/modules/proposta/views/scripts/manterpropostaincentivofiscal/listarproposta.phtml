@@ -91,7 +91,6 @@
                             <th>Nome da Proposta</th>
                             <th>Nome do Proponente</th>
                             <th>Situa&ccedil;&atilde;o</th>
-                            <th class="right-align">A&ccedil;&otilde;es</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -105,6 +104,10 @@
 
 
 <style type="text/css">
+    /*label.error {*/
+        /*color: red;*/
+        /*font-weight: normal;*/
+    /*}*/
     select {
         height: 35px;
         font-size: 15px;
@@ -149,6 +152,7 @@
                 jqAjaxForm(form, 'propostasCadastradas');
             }
         });
+
     });
 </script>
 
@@ -177,7 +181,7 @@
                     "serverSide": true,
                     "bFilter": false,
                     "aoColumnDefs": [
-                        {'bSortable': false, 'aTargets': [2, 3,4]}
+                        {'bSortable': false, 'aTargets': [3]}
                     ],
                     "order": [[ 0, 'desc' ], [ 1, 'asc' ]],
                     "columns": [
@@ -190,12 +194,8 @@
                             }
                         },
                         {
-                            data: null,
                             "name": "nomeprojeto",
-                            render: function (data, type, row) {
-                                return '<a class="" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'identificacaodaproposta')); ?>/idPreProjeto/' + data.idpreprojeto + '">'
-                                    + data.nomeprojeto + '</a>'
-                            }
+                            "data": "nomeprojeto"
 
                         },
                         {
@@ -207,31 +207,13 @@
                             "name": "situacao",
                             "data": "situacao"
 
-                        },
-                        {
-                            data: null,
-                            "name": "actions",
-                            render: function (data, type, row) {
-                                return '<div style="position: relative; height: 60px;">'
-                                        + '<div class="fixed-action-btn horizontal" style="position: absolute; top: 0px; right: 0; z-index: 996; padding: 15px 0 0 15px;">'
-                                        + '<a class="btn btn-primary small">'
-                                        + '<i class="material-icons">more_vert</i></a>'
-                                        + '<ul>'
-                                        + '<li>'
-                                        + '<a class="btn-floating red" title="Ir para solicita&ccedil;&otilde;es" href="/solicitacao/mensagem/index/idPreProjeto/' + data.idpreprojeto + '">'
-                                        + '<i class="material-icons">message</i>'
-                                        + '</a></li>'
-                                        + '</ul>'
-                                        + '</div></div>'
-                            }
                         }
                     ]
                 }
             );
 
-            $3('.tooltipped').tooltip({delay: 50});
 
-            $("#proponente").change(function () {
+            $("#localizar").click(function () {
                 table.ajax.reload();
             });
 

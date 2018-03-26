@@ -41,11 +41,13 @@ function d() {
             <fieldset>
                 <legend>Par&acirc;metros</legend>
 HTML;
+echo '<pre>';
     for ($i = 0; $i < func_num_args(); $i++) {
         $value = func_get_arg($i);
-        var_dump($value);
         print_r($value);
+        var_dump($value);
     }
+echo '</pre>';
     echo <<<HTML
             </fieldset>
             <fieldset>

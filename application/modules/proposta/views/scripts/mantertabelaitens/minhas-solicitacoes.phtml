@@ -36,9 +36,9 @@
                             <td class="destacar bold w50">Estado</td>
                             <td>
                                 <select name="tipoFiltro" style="width: 160px;" class="input_simples">
-                                    <option value="atendido" <?php echo ($this->tipoFiltro =='atendido') ? 'selected="selected"':''; ?>>Atendido</option>
-                                    <option value="negado" <?php echo ($this->tipoFiltro =='negado') ? 'selected="selected"':''; ?>>Negado</option>
-                                    <option value="solicitado" <?php echo ($this->tipoFiltro =='solicitado') ? 'selected="selected"':''; ?>>Solicitado</option>
+                                    <option value="atendido" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] =='atendido') ? 'selected="selected"':''; ?>>Atendido</option>
+                                    <option value="negado" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] =='negado') ? 'selected="selected"':''; ?>>Negado</option>
+                                    <option value="solicitado" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] =='solicitado') ? 'selected="selected"':''; ?>>Solicitado</option>
                                 </select>
                                 <button type="button" name="btn" id="btn_pesquisar" class="btn" value="">pesquisar</button>
                                 <input type="hidden" name="idPreProjeto" value="<?php echo $this->idPreProjeto; ?>">
