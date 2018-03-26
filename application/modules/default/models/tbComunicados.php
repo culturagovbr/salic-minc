@@ -32,15 +32,15 @@ class tbComunicados extends MinC_Db_Table_Abstract
         $slct->setIntegrityCheck(false);
         $slct->from(
                 array("c" => $this->_name),
-                array("idComunicado",
-                      "Comunicado",
-                      "idSistema",
-                      "stOpcao",
-                      "stEstado",
+                array("idcomunicado",
+                      "comunicado",
+                      "idsistema",
+                      "stopcao",
+                      "stestado",
                       "dtiniciovigencia",
                       "dtterminovigencia",
-                      new Zend_Db_Expr("dtiniciovigencia AS dtInicioVigenciaPT"),
-                          new Zend_Db_Expr("dtterminovigencia AS dtTerminoVigenciaPT")),
+                      new Zend_Db_Expr("dtiniciovigencia AS dtiniciovigenciapt"),
+                          new Zend_Db_Expr("dtterminovigencia AS dtterminovigenciapt")),
                 $this->_schema
 //					  "CONVERT(CHAR(10),dtInicioVigencia,103) AS dtInicioVigenciaPT",
 //					  "CONVERT(CHAR(10),dtTerminoVigencia, 103) AS dtTerminoVigenciaPT")
