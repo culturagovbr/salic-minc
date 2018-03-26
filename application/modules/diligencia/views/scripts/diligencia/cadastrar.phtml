@@ -4,25 +4,6 @@
             <h3><?php echo $this->pronac;?> - <?php echo $this->nomeProjeto;?></h3>
         </div>
     </div>
-    <div class="row">
-     <div class="s12">
-        <table class="bordered">
-            <thead>
-                <tr>
-                    <th>TIPO DA DILIG&Ecirc;NCIA</th>
-                    <th>DATA DA SOLICITA&Ccedil;&Atilde;O</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><?php echo $this->tipoDiligencia;?></td>
-                    <td><?php echo $this->dataSolicitacao;?></td>
-                </tr>
-            </tbody>
-        </table>
-     </div>
-    </div>
-
     <form  action="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => $link)); ?>" method="post">
         <input type="hidden" name="idPronac" value="<?php echo $this->idPronac;?>" />
         <input type="hidden" name="idPreProjeto" value="<?php echo $this->idPreProjeto;?>" />
@@ -36,7 +17,6 @@
          <div class="row">
             <sl-cadastrar-diligencia
                 idpronac="<?php echo $this->idPronac;?>"
-                tpdiligencia="174"
             ></sl-cadastrar-diligencia>
           </div>
     </form>
@@ -45,6 +25,17 @@
 <script type="text/x-template" id="sl-cadastrar-diligencia">
     <div>
         <form class="col s12">
+          <p>
+            Tipo de Diligencia
+          </p>
+          <p>
+            <input v-model="diligencia.tpDiligencia" value="174" name="tpDiligencia" type="radio" id="test2" />
+            <label for="test2">Somente Itens Recusados</label>
+          </p>
+          <p>
+            <input v-model="diligencia.tpDiligencia" value="644" name="tpDiligencia" type="radio" id="test1" />
+            <label for="test1">Todos os itens orçamentarios</label>
+          </p>
           <div class="row">
             <div class="input-field col s12">
               <textarea v-model="diligencia.solicitacao" name="solicitacao" id="solicitacao"class="materialize-textarea"></textarea>
@@ -68,7 +59,7 @@ Vue.component(
                'diligencia': {
                    'solicitacao':'',
                    'idPronac' : 0,
-                   'tpDiligencia': 0
+                   'tpDiligencia': 174
                 },
                 button: false
             }
@@ -76,7 +67,7 @@ Vue.component(
         computed:{},
         mounted: function() {
             this.diligencia.idPronac = this.idpronac;
-            this.diligencia.tpDiligencia = this.tpdiligencia;
+            /* this.diligencia.tpDiligencia = this.tpdiligencia; */
         },
         methods: {
             save: function() {
