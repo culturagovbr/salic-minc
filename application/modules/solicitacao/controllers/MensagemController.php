@@ -159,6 +159,7 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
         $cpf = $projeto->CgcCpf;
 
         $links = new fnLiberarLinks();
+
         $linksXpermissao = $links->links(2, $cpf, $idUsuarioLogado, $idPronac);
         $linksGeral = str_replace(' ', '', explode('-', $linksXpermissao->links));
 
@@ -183,7 +184,8 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
         return [
             'blnProponente' => true,
             'fnLiberarLinks' => $arrayLinks,
-            'pronac' => $projeto->AnoProjeto . $projeto->Sequencial
+            'pronac' => $projeto->AnoProjeto . $projeto->Sequencial,
+            'usuarioInterno' => false
         ];
     }
 
@@ -205,7 +207,6 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
 
             if (empty($dataForm))
                 throw new Exception("Nenhuma solicita&ccedil;&atilde;o encontrada!");
-
             $permissao = parent::verificarPermissaoAcesso($dataForm['idProjeto'], $dataForm['idPronac'], false, true);
 
             if ($permissao['status'] === false)
@@ -224,11 +225,15 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
                 }
             }
 
-            if ($dataForm['idPronac']) {
-                $condicoesMenu = self::liberarOpcoesMenuLateral($dataForm['idPronac']);
-                foreach ($condicoesMenu as $condicao => $valor) {
-                    $this->view->{$condicao} = $valor;
+            if (!isset(Zend_Auth::getInstance()->getIdentity()->usu_codigo)) {
+                if ($dataForm['idPronac']) {
+                    $condicoesMenu = self::liberarOpcoesMenuLateral($dataForm['idPronac']);
+                    foreach ($condicoesMenu as $condicao => $valor) {
+                        $this->view->{$condicao} = $valor;
+                    }
                 }
+            }else{
+                $this->view->usuarioInterno = true;
             }
 
             $arrConfig['dsResposta']['show'] = true;

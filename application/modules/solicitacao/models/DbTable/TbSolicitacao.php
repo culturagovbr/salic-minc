@@ -28,6 +28,14 @@ class Solicitacao_Model_DbTable_TbSolicitacao extends MinC_Db_Table_Abstract
                     'idDocumento',
                     'siEncaminhamento',
                     'idTecnico',
+                    new Zend_Db_Expr("
+                        CASE
+                            WHEN a.dtSolicitacao IS NOT NULL AND a.dtResposta IS NULL
+                                THEN datediff(day,a.dtSolicitacao,GETDATE())
+                            WHEN a.dtSolicitacao IS NULL OR a.dtResposta IS NOT NULL
+                                THEN 0
+                            END as diasSemResposta
+                    "),
                     new Zend_Db_Expr(
                         "CASE
                             WHEN e.NomeProjeto IS NOT NULL
@@ -39,7 +47,7 @@ class Solicitacao_Model_DbTable_TbSolicitacao extends MinC_Db_Table_Abstract
                 $this->_schema
             )
         ;
-        
+
         $select->joinInner(
             ['b' => 'Orgaos'],
             'a.idOrgao = b.Codigo',      
