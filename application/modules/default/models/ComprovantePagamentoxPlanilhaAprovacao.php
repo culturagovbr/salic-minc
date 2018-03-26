@@ -5,6 +5,10 @@ class ComprovantePagamentoxPlanilhaAprovacao extends MinC_Db_Table_Abstract
     protected $_name    = 'tbComprovantePagamentoxPlanilhaAprovacao';
     protected $_schema  = 'bdcorporativo.scSAC';
 
+    const VALIDADO = 1; 
+    const RECUSADO = 3; 
+    const AGUARDANDO = 4; 
+
     public function inserirItemCustoxComprovantePagamento($data)
     {
         $insert = $this->insert($data);

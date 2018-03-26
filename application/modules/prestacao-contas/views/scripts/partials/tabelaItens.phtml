@@ -5,6 +5,7 @@
                         <table id="tabelaComprovantePagamento" class="bordered">
                             <thead>
                             <tr>
+                                <th>Situa&ccedil;&atilde;o</th>
                                 <th>Produto</th>
                                 <th>Etapa</th>
                                 <th>Item</th>
@@ -28,6 +29,17 @@
                             <?php else: ?>
                                 <?php foreach ($this->comprovantes as $comprovante) : ?>
                                     <tr>
+                                        <td>
+                                            <?php switch ($comprovante->stItemAvaliado) : case ComprovantePagamentoxPlanilhaAprovacao::VALIDADO: ?>
+                                                    Aprovado 
+                                                    <?php break; ?>
+                                                <?php case ComprovantePagamentoxPlanilhaAprovacao::RECUSADO: ?>
+                                                   Recusado 
+                                                   <?php break; ?>
+                                                <?php default: ?>
+                                                   Aguardando Analise
+                                            <?php endswitch ?>
+                                        </td>
                                         <td><?php echo $comprovante->produtonome; ?></td>
                                         <td><?php echo $comprovante->etapanome; ?></td>
                                         <td><?php echo $comprovante->itemnome; ?></td>
@@ -48,49 +60,53 @@
                                         </td>
                                         <td><?php echo $this->currency($comprovante->vlComprovacao); ?></td>
                                         <?php
-                                        $comprovacaoTexto = array(
-                                            1 => 'Comprova¿¿o validada',
-                                            3 => 'Comprova¿¿o recusada',
-                                        );
+                                            $comprovacaoTexto = array(
+                                                1 => 'Comprova¿¿o validada',
+                                                3 => 'Comprova¿¿o recusada',
+                                            );
                                         ?>
                                         <?php if ($comprovante->stItemAvaliado == 4 || $comprovante->stItemAvaliado == 3): /* n¿o analisado ou recusado */ ?>
-                                        <?php if ($comprovante->stItemAvaliado == 3): ?>
-                                            <span
-                                                class="bold"><?php echo $comprovacaoTexto[$comprovante->stItemAvaliado]; ?></span>
-                                        <?php endif; ?>
+                                            <?php if ($comprovante->stItemAvaliado == 3): ?>
+                                                <span class="bold"> <?php echo $comprovacaoTexto[$comprovante->stItemAvaliado]; ?></span>
+                                            <?php endif; ?>
                                         <td>
-                                            <a
-                                                class="small btn btn-primary"
-                                                href="
-                                                    <?php echo $this->url(
-                                                    array(
-                                                        'controller' => 'comprovarexecucaofinanceira',
-                                                        'action' => 'comprovacaopagamento',
-                                                        'idComprovantePagamento' => $comprovante->idComprovantePagamento,
-                                                    )
-                                                );
-                                                ?>"
-                                            >
-                                                <i class="material-icons">edit</i>
-                                            </a>
+                                            <?php if ($comprovante->stItemAvaliado == ComprovantePagamentoxPlanilhaAprovacao::RECUSADO): ?>
+                                                <a
+                                                    class="small btn btn-primary"
+                                                    href="
+                                                        <?php echo $this->url(
+                                                        array(
+                                                            'module' => 'prestacao-contas',
+                                                            'controller' => 'gerenciar',
+                                                            'action' => 'comprovar',
+                                                            'idComprovantePagamento' => $comprovante->idComprovantePagamento,
+                                                        )
+                                                    );
+                                                    ?>"
+                                                >
+                                                    <i class="material-icons">edit</i>
+                                                </a>
+                                            <?php endif; ?>
                                         </td>
                                         <td>
-                                            <a
-                                                class="small waves-effect waves-darken btn  btn-danger exclusao"
-                                                href="
-                                                    <?php echo $this->url(
-                                                    array(
-                                                        'controller' => 'comprovar-pagamento',
-                                                        'action' => 'deletar',
-                                                        'comprovante' => $comprovante->idComprovantePagamento,
-                                                    )
-                                                );
-                                                ?>">
-                                                <i class="material-icons">delete</i>
-                                                <?php else: ?>
-                                                    <span
-                                                        class="bold"><?php echo $comprovacaoTexto[$comprovante->stItemAvaliado]; ?></span>
-                                                <?php endif; ?>
+                                            <?php if(!$this->diligenciaTodosItens): ?>
+                                                <a
+                                                    class="small waves-effect waves-darken btn  btn-danger exclusao"
+                                                    href="
+                                                        <?php echo $this->url(
+                                                        array(
+                                                            'controller' => 'comprovar-pagamento',
+                                                            'action' => 'deletar',
+                                                            'comprovante' => $comprovante->idComprovantePagamento,
+                                                        )
+                                                    );
+                                                    ?>">
+                                                    <i class="material-icons">delete</i>
+                                                    <?php else: ?>
+                                                        <span
+                                                            class="bold"><?php echo $comprovacaoTexto[$comprovante->stItemAvaliado]; ?></span>
+                                                    <?php endif; ?>
+                                            <?php endif  ?>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>

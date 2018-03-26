@@ -28,12 +28,6 @@ class PrestacaoContas_PrestacaoContasController extends MinC_Controller_Action_A
 
     public function indexAction()
     {
-        $fooModel = new Foo_Model_Foo();
-
-        $this->view->foos = $fooModel->listar();
-
-        $tooModel = new Foo_Model_Too();
-
-        $this->view->toos = $tooModel->listar();
     }
+
 }

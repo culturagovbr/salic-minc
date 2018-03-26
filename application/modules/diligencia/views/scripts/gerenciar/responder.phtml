@@ -76,8 +76,9 @@
                         $cont2=0;
                         $cont3=0;
                         $urlComprovarItemArray = array(
-                            'controller' => 'comprovarexecucaofinanceira',
-                            'action' => 'comprovacaopagamento',
+                            'module' => 'prestacao-contas',
+                            'controller' => 'gerenciar',
+                            'action' => 'comprovar',
                             'idusuario' => $this->idusuario,
                             'idpronac' => $this->idpronac,
                             );
@@ -109,7 +110,7 @@
                                                     if ($this->vrSituacao) :
                                                         $html .= "<td>{$valor[0]}</td>";
                                                     else :
-                                                        $html .= "<td><a href='{$this->url($urlComprovarItemArray)}'>{$valor[0]}</a></td>";
+                                                        $html .= "<td><a href='{$this->url($urlComprovarItemArray,'default',true)}'>{$valor[0]}</a></td>";
                                                     endif;
                                                     $html .= "<td align='right'>{$this->formatarReal($valor[1])}</td>";
                                                     $html .= "<td align='right'>{$this->formatarReal($valor[3])}</td>";
