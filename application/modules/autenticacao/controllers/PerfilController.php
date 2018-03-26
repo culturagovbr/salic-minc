@@ -29,7 +29,7 @@ class Autenticacao_PerfilController extends MinC_Controller_Action_Abstract
         $GrupoAtivo->codOrgao = $codOrgao; // armazena o órgão ativo na sessão
 
 
-        if($GrupoAtivo->codGrupo == "1111" && $GrupoAtivo->codOrgao == "2222"){
+        if ($GrupoAtivo->codGrupo == "1111" && $GrupoAtivo->codOrgao == "2222") {
             $tblSGCacesso = new Autenticacao_Model_Sgcacesso();
             $cpf = $auth->getIdentity()->usu_identificacao;
             $rsSGCacesso = $tblSGCacesso->buscar(array("Cpf = ? " => $cpf))->current()->toArray();
@@ -37,7 +37,7 @@ class Autenticacao_PerfilController extends MinC_Controller_Action_Abstract
 
             $_SESSION["GrupoAtivo"]["codGrupo"] = $GrupoAtivo->codGrupo;
             $_SESSION["GrupoAtivo"]["codOrgao"] = $GrupoAtivo->codOrgao;
-            parent::message("Seu perfil foi alterado no sistema. Voc&ecirc; ter&aacute; acesso a outras funcionalidades!", "principalproponente", "ALERT");
+            parent::message("Seu perfil foi alterado no sistema. Voc&ecirc; ter&aacute; acesso a outras funcionalidades!", "principalproponente", "INFO");
         } else {
             //Reescreve a sessao com o novo orgao superior
             $tblUsuario = new Autenticacao_Model_Usuario();
@@ -45,7 +45,7 @@ class Autenticacao_PerfilController extends MinC_Controller_Action_Abstract
             $_SESSION['Zend_Auth']['storage']->usu_org_max_superior = $codOrgaoMaxSuperior;
 
             // redireciona para a página inicial do sistema
-            parent::message("Seu perfil foi alterado no sistema. Voc&ecirc; ter&aacute; acesso a outras funcionalidades!", "principal", "ALERT");
+            parent::message("Seu perfil foi alterado no sistema. Voc&ecirc; ter&aacute; acesso a outras funcionalidades!", "principal", "INFO");
         }
     }
 }

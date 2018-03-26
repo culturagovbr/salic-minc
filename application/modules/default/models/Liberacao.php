@@ -5,14 +5,15 @@
  * Description of Liberacao
  * @author 01610881125
  */
-class Liberacao extends MinC_Db_Table_Abstract {
-    protected   $_banco = 'SAC';
-    protected   $_schema = 'SAC';
-    protected   $_name = 'Liberacao';
-    protected   $_base = 'SAC.dbo.Liberacao';
+class Liberacao extends MinC_Db_Table_Abstract
+{
+    protected $_banco = 'SAC';
+    protected $_schema = 'SAC';
+    protected $_name = 'Liberacao';
+    protected $_base = 'SAC.dbo.Liberacao';
 
-    public function liberacaoPorProjeto($idPronac){
-
+    public function liberacaoPorProjeto($idPronac)
+    {
         $slct = $this->select();
         $slct->distinct();
         $slct->setIntegrityCheck(false);
@@ -40,13 +41,14 @@ class Liberacao extends MinC_Db_Table_Abstract {
                 );
 
 
-        $slct->where('p.IdPRONAC = ?',$idPronac );
+        $slct->where('p.IdPRONAC = ?', $idPronac);
 
         
         return $this->fetchAll($slct)->current();
     }
 
-    public function dadosRelatorioLib($idPronac){
+    public function dadosRelatorioLib($idPronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -65,7 +67,8 @@ class Liberacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function buscarProjetosLiberados($pronac){
+    public function buscarProjetosLiberados($pronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -78,21 +81,27 @@ class Liberacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function buscaProjetosInabilitados($orgao = null, $cpf = null) {
+    public function buscaProjetosInabilitados($orgao = null, $cpf = null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->distinct();
         $select->from(
-                array('p' => 'Projetos'), array(
+                array('p' => 'Projetos'),
+            array(
             'Pronac' => new Zend_Db_Expr('p.AnoProjeto+p.Sequencial'), "p.IdPRONAC", "p.NomeProjeto", "p.Situacao",
-            "sac.dbo.fnPercentualCaptado(p.AnoProjeto, p.Sequencial) as captacao"
+                new Zend_Db_Expr("sac.dbo.fnPercentualCaptado(p.AnoProjeto, p.Sequencial) as captacao")
                 )
         );
 
         $select->joinInner(
-                array('i' => 'Inabilitado'), 'i.AnoProjeto+i.Sequencial = p.AnoProjeto+p.Sequencial', array(
-            "i.Habilitado as Status", "i.Orgao as idOrgao", "TABELAS.dbo.fnEstruturaOrgao(i.Orgao, 0) AS Orgao", "i.CgcCpf"
-                ), array(), 'SAC.dbo'
+                array('i' => 'Inabilitado'),
+            'i.AnoProjeto+i.Sequencial = p.AnoProjeto+p.Sequencial',
+            array(
+            "i.Habilitado as Status", "i.Orgao as idOrgao", new Zend_Db_Expr("TABELAS.dbo.fnEstruturaOrgao(i.Orgao, 0) AS Orgao"), "i.CgcCpf"
+                ),
+            array(),
+            'SAC.dbo'
         );
 
         /*$select->joinInner(
@@ -180,8 +189,8 @@ class Liberacao extends MinC_Db_Table_Abstract {
     }*/
 
     //public function buscaProjetoLiberacao($orgao = null, $cpf = null, $inicio = null, $fim = null, $count = false) {
-    public function buscaProjetoLiberacao($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count = false) {
-
+    public function buscaProjetoLiberacao($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count = false)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -193,17 +202,17 @@ class Liberacao extends MinC_Db_Table_Abstract {
                     'p.NomeProjeto',
                     'p.Situacao',
                     'p.CgcCpf',
-                    'Inabilitado' => New Zend_Db_Expr("CASE
+                    'Inabilitado' => new Zend_Db_Expr("CASE
                                                             WHEN (SELECT TOP 1 Habilitado FROM Inabilitado i WHERE p.CgcCpf = i.CgcCpf) = 'N'
                                                             THEN 'SIM'
                                                             ELSE 'N�O'
                                                             END "),
-                    'Certidao' => New Zend_Db_Expr("CASE
+                    'Certidao' => new Zend_Db_Expr("CASE
                                                             WHEN EXISTS(SELECT top 1 CONVERT(CHAR(8),DtValidade,112) FROM CertidoesNegativas c WHERE p.CgcCpf = c.CgcCpf AND CodigoCertidao <> 244 AND CodigoCertidao <> 70 AND CONVERT(CHAR(8),DtValidade,112) <  GETDATE())
                                                             THEN 'VENCIDA'
                                                             ELSE 'VALIDA'
                                                             END "),
-                    'Cadin' => New Zend_Db_Expr("CASE
+                    'Cadin' => new Zend_Db_Expr("CASE
                                                             WHEN (SELECT TOP 1 cdSituacaoCertidao FROM CertidoesNegativas c WHERE p.CgcCpf = c.CgcCpf) = '1'
                                                             THEN 'CADIN REGULAR'
                                                             ELSE 'CADIN PENDENTE'
@@ -226,8 +235,7 @@ class Liberacao extends MinC_Db_Table_Abstract {
             $slct->where($coluna, $valor);
         }
 
-        if($count){
-
+        if ($count) {
             $slctContador = $this->select();
             $slctContador->setIntegrityCheck(false);
             $slctContador->from(
@@ -240,7 +248,11 @@ class Liberacao extends MinC_Db_Table_Abstract {
                 $slctContador->where($coluna, $valor);
             }
             $rs = $this->fetchAll($slctContador)->current();
-            if($rs){ return $rs->total; }else{ return 0; }
+            if ($rs) {
+                return $rs->total;
+            } else {
+                return 0;
+            }
         }
         //adicionando linha order ao select
         $slct->order($order);
@@ -257,10 +269,11 @@ class Liberacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function buscarCaptacao($pronac) {
+    public function buscarCaptacao($pronac)
+    {
         $sql = "SELECT sac.dbo.fnPercentualCaptado(p.AnoProjeto, p.Sequencial) AS captacao
 				FROM Sac.dbo.Projetos AS p where p.AnoProjeto+p.Sequencial = '$pronac'";
-//    	
+//
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
@@ -270,7 +283,8 @@ class Liberacao extends MinC_Db_Table_Abstract {
         return $resultado;
     }
 
-    public function buscarCertidoesVencidas($cpf) {
+    public function buscarCertidoesVencidas($cpf)
+    {
         $sql = "select CONVERT(CHAR(10), DtValidade,103) as DtValidade from SAC.dbo.CertidoesNegativas where CgcCpf = '$cpf'";
 
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -282,8 +296,8 @@ class Liberacao extends MinC_Db_Table_Abstract {
         return $resultado;
     }
 
-    public function liberarProjeto($dados) {
-
+    public function liberarProjeto($dados)
+    {
         $sql = "insert into SAC.dbo.Liberacao
 				values
 				('$dados[AnoProjeto]', '$dados[Sequencial]', 1, '$dados[DtLiberacao]', '$dados[DtDocumento]', '$dados[NumeroDocumento]', '$dados[VlOutrasFontes]', '$dados[Observacao]', '$dados[CgcCpf]', '$dados[Permissao]', $dados[Logon])";
@@ -295,7 +309,8 @@ class Liberacao extends MinC_Db_Table_Abstract {
         return $db->lastInsertId();
     }
 
-    public function consultarLiberacoes($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false) {
+    public function consultarLiberacoes($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -303,23 +318,31 @@ class Liberacao extends MinC_Db_Table_Abstract {
                 array( new Zend_Db_Expr("CONVERT(CHAR(10), l.DtLiberacao,103) as DtLiberacao"), 'vlLiberado' )
         );
         $select->joinInner(
-            array('p' => 'Projetos'), 'l.AnoProjeto=p.AnoProjeto AND l.Sequencial=p.Sequencial',
-            array( 'IdPRONAC', new Zend_Db_Expr('p.AnoProjeto+p.Sequencial AS Pronac'), 'NomeProjeto' ), 'SAC.dbo'
+            array('p' => 'Projetos'),
+            'l.AnoProjeto=p.AnoProjeto AND l.Sequencial=p.Sequencial',
+            array( 'IdPRONAC', new Zend_Db_Expr('p.AnoProjeto+p.Sequencial AS Pronac'), 'NomeProjeto' ),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('a' => 'Agentes'), 'p.CgcCpf = a.CNPJCPF',
-            array( 'CNPJCPF' ), 'AGENTES.dbo'
+            array('a' => 'Agentes'),
+            'p.CgcCpf = a.CNPJCPF',
+            array( 'CNPJCPF' ),
+            'AGENTES.dbo'
         );
         $select->joinInner(
-            array('n' => 'Nomes'), 'a.idAgente = n.idAgente',
-            array( 'Descricao as Proponente' ), 'AGENTES.dbo'
+            array('n' => 'Nomes'),
+            'a.idAgente = n.idAgente',
+            array( 'Descricao as Proponente' ),
+            'AGENTES.dbo'
         );
         $select->joinInner(
-            array('u' => 'Usuarios'), 'l.Logon=u.usu_Codigo',
-            array(), 'TABELAS.dbo'
+            array('u' => 'Usuarios'),
+            'l.Logon=u.usu_Codigo',
+            array(),
+            'TABELAS.dbo'
         );
 
-       //adiciona quantos filtros foram enviados
+        //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
@@ -344,31 +367,40 @@ class Liberacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function consultarLiberacoesTotalValorGrid($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false) {
+    public function consultarLiberacoesTotalValorGrid($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
                 array('l' => $this->_name),
-                array('vlLiberado' => New Zend_Db_Expr("SUM(l.vlLiberado)"))
+                array('vlLiberado' => new Zend_Db_Expr("SUM(l.vlLiberado)"))
         );
         $select->joinInner(
-            array('p' => 'Projetos'), 'l.AnoProjeto=p.AnoProjeto AND l.Sequencial=p.Sequencial',
-            array(), 'SAC.dbo'
+            array('p' => 'Projetos'),
+            'l.AnoProjeto=p.AnoProjeto AND l.Sequencial=p.Sequencial',
+            array(),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('a' => 'Agentes'), 'p.CgcCpf = a.CNPJCPF',
-            array(), 'AGENTES.dbo'
+            array('a' => 'Agentes'),
+            'p.CgcCpf = a.CNPJCPF',
+            array(),
+            'AGENTES.dbo'
         );
         $select->joinInner(
-            array('n' => 'Nomes'), 'a.idAgente = n.idAgente',
-            array(), 'AGENTES.dbo'
+            array('n' => 'Nomes'),
+            'a.idAgente = n.idAgente',
+            array(),
+            'AGENTES.dbo'
         );
         $select->joinInner(
-            array('u' => 'Usuarios'), 'l.Logon=u.usu_Codigo',
-            array(), 'TABELAS.dbo'
+            array('u' => 'Usuarios'),
+            'l.Logon=u.usu_Codigo',
+            array(),
+            'TABELAS.dbo'
         );
 
-       //adiciona quantos filtros foram enviados
+        //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
@@ -376,5 +408,4 @@ class Liberacao extends MinC_Db_Table_Abstract {
         
         return $this->fetchRow($select);
     }
-
 }

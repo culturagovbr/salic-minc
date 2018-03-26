@@ -52,11 +52,13 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
 <script type="text/javascript">
     function tipo(tipo) {
         if(tipo =='1') {
+            $('#tableCombo').show();
             $('#parecerista').show();
             $('#entidades').hide();
             $('#pareceristaCombo').show();
             $('#entidadesCombo').hide();
         } else {
+            $('#tableCombo').show();
             $('#parecerista').hide();
             $('#entidades').show();
             $('#pareceristaCombo').hide();
@@ -134,15 +136,11 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-
-
 <!-- ========== INÍCIO TÍTULO ========== -->
 <div id="titulo">
     <div>Distribuir Projeto <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
 </div>
 <!-- ========== FIM TÍTULO ========== -->
-
-
 <!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
     <form id="form" action="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'distribuiu')); ?>" method="POST" >
@@ -151,7 +149,8 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
         <table class="tabela">
             <tr>
                 <th colspan="4" style="font-family: sans-serif; font-size: 13px;">
-                    <input type="radio" value="1" name="tipodistribuir" id="distribuir" checked="checked" onclick="tipo(1);" />
+                    <input type="radio" value="1" name="tipodistribuir" id="distribuir" 
+                        onclick="tipo(1);" />
                     <label for="distribuir">Distribuir</label>
                     <b style="margin-left: 30px; margin-right: 30px;">|</b>
                     <input type="radio" value="2" name="tipodistribuir" id="encaminhar"  onclick="tipo(2);" />
@@ -176,14 +175,14 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
             </tr>
         </table>
         
-        <table class="tabela">
+        <table id="tableCombo" class="tabela" style="display:none">
             <tr>
                 <td class="destacar bold sumir" id="entidades" width="120" align="right">Destino <span style="color: red;">*</span></td>
                 <td class="destacar bold" id="parecerista" width="120" align="right">Parecerista <span style="color: red;">*</span></td>
                 <td width="1">
                     <select name="orgao" class="input_simples sumir" id="entidadesCombo">
                         <?php foreach($this->orgaos as $p):?>
-                        <option value="<?php echo $p->Codigo; ?>"><?php echo $p->Sigla; ?></option>
+                        <option value="<?php echo $p['Codigo']; ?>"><?php echo $p['Sigla']; ?></option>
                         <?php endforeach; ?>
                     </select>
                     
@@ -220,11 +219,5 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
         </table>
     </form>
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
 <div id="confirma"></div>
-
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
-
-<br clear="all" />

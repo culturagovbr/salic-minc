@@ -1,7 +1,4 @@
 <?php
-/**
- * @author Mikhail Cavalcanti <mikhailcavalcanti@gmail.com>
- */
 class FornecedorInvoice extends MinC_Db_Table_Abstract
 {
     private $id = null;
@@ -13,7 +10,7 @@ class FornecedorInvoice extends MinC_Db_Table_Abstract
     protected $_schema = 'bdcorporativo.scSAC';
     protected $_name = 'tbFonecedorExterior';
 
-    function __construct($id = null, $nome = null, $endereco = null, $pais = null)
+    public function __construct($id = null, $nome = null, $endereco = null, $pais = null)
     {
         parent::__construct();
         $this->id = $id;
@@ -61,6 +58,4 @@ class FornecedorInvoice extends MinC_Db_Table_Abstract
     {
         $this->pais = $pais;
     }
-
-
 }

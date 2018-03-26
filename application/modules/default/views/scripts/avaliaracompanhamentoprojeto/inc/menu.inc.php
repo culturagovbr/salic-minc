@@ -1,11 +1,11 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== INï¿½CIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
 
-    <!-- início: conteúdo principal #container -->
+    <!-- inï¿½cio: conteï¿½do principal #container -->
     <div id="container">
 
-        <!-- início: navegação local #qm0 -->
+        <!-- inï¿½cio: navegaï¿½ï¿½o local #qm0 -->
         <script type="text/javascript">
             function layout_fluido()
             {
@@ -16,11 +16,11 @@
                 var fluidTitulo = janela - 252;
                 var fluidRodape = janela - 19;
 
-                $("#navglobal").css("width",fluidNavGlobal);
-                $("#conteudo").css("width",fluidConteudo);
-                $("#titulo").css("width",fluidTitulo);
-                $("#rodapeConteudo").css("width",fluidConteudo);
-                $("#rodape").css("width",fluidRodape);
+//                $("#navglobal").css("width",fluidNavGlobal);
+//                $("#conteudo").css("width",fluidConteudo);
+//                $("#titulo").css("width",100%);
+//                $("#rodapeConteudo").css("width",fluidConteudo);
+//                $("#rodape").css("width",fluidRodape);
 
                 $("div#rodapeConteudo").attr("id", "rodapeConteudo_com_menu");
             }

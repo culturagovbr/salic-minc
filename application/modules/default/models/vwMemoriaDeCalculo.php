@@ -9,15 +9,16 @@
  * @link http://www.cultura.gov.br
  */
 
-class vwMemoriaDeCalculo extends MinC_Db_Table_Abstract {
+class vwMemoriaDeCalculo extends MinC_Db_Table_Abstract
+{
 
     /* dados da tabela */
     protected $_banco  = 'SAC';
     protected $_schema = 'SAC';
     protected $_name   = 'vwMemoriaDeCalculo';
 
-    public function busca($idPronac) {
-
+    public function busca($idPronac)
+    {
         $select =  new Zend_Db_Expr("
                 SELECT idPronac,PRONAC,ValorProposta,OutrasFontes,ValorSolicitado,
                        Elaboracao,ValorParecer,ValorSugerido
@@ -31,5 +32,4 @@ class vwMemoriaDeCalculo extends MinC_Db_Table_Abstract {
         }
         return $db->fetchAll($select);
     }
-
 }

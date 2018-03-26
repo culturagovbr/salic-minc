@@ -1,10 +1,6 @@
 <?php
-/**
- * Description of Agentes
- *
- * @author augusto
- */
-class Edital extends MinC_Db_Table_Abstract{
+class Edital extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'SAC';
     protected $_name = 'Edital';
     protected $_schema  = 'SAC';
@@ -14,26 +10,46 @@ class Edital extends MinC_Db_Table_Abstract{
         //INSTANCIANDO UM OBJETO DE ACESSO AOS DADOS DA TABELA
         $tmpTblEdital = new Edital();
 
-
-
-        if(isset($dados['idEdital'])){
+        if (isset($dados['idEdital'])) {
             $tmpRsEdital = $tmpTblEdital->find($dados['idEdital'])->current();
-        }else{
+        } else {
             $tmpRsEdital = $tmpTblEdital->createRow();
         }
 
         //ATRIBUINDO VALORES AOS CAMPOS QUE FORAM PASSADOS
-        if(isset($dados['idOrgao'])){ $tmpRsEdital->idOrgao = $dados['idOrgao']; }
-        if(isset($dados['NrEdital'])){ $tmpRsEdital->NrEdital = $dados['NrEdital']; }
-        if(isset($dados['DtEdital'])){ $tmpRsEdital->DtEdital = $dados['DtEdital']; }
-        if(isset($dados['CelulaOrcamentaria'])){ $tmpRsEdital->CelulaOrcamentaria = $dados['CelulaOrcamentaria']; }
-        if(isset($dados['Objeto'])){ $tmpRsEdital->Objeto = $dados['Objeto']; }
-        if(isset($dados['Logon'])){ $tmpRsEdital->Logon = $dados['Logon']; }
-        if(isset($dados['qtAvaliador'])){ $tmpRsEdital->qtAvaliador = $dados['qtAvaliador']; }
-        if(isset($dados['stDistribuicao'])){ $tmpRsEdital->stDistribuicao = $dados['stDistribuicao']; }
-        if(isset($dados['stAdmissibilidade'])){ $tmpRsEdital->stAdmissibilidade = $dados['stAdmissibilidade']; }
-        if(isset($dados['cdTipoFundo'])){ $tmpRsEdital->cdTipoFundo = $dados['cdTipoFundo']; }
-    	if(isset($dados['idAti'])){ $tmpRsEdital->idAti = $dados['idAti']; }
+        if (isset($dados['idOrgao'])) {
+            $tmpRsEdital->idOrgao = $dados['idOrgao'];
+        }
+        if (isset($dados['NrEdital'])) {
+            $tmpRsEdital->NrEdital = $dados['NrEdital'];
+        }
+        if (isset($dados['DtEdital'])) {
+            $tmpRsEdital->DtEdital = $dados['DtEdital'];
+        }
+        if (isset($dados['CelulaOrcamentaria'])) {
+            $tmpRsEdital->CelulaOrcamentaria = $dados['CelulaOrcamentaria'];
+        }
+        if (isset($dados['Objeto'])) {
+            $tmpRsEdital->Objeto = $dados['Objeto'];
+        }
+        if (isset($dados['Logon'])) {
+            $tmpRsEdital->Logon = $dados['Logon'];
+        }
+        if (isset($dados['qtAvaliador'])) {
+            $tmpRsEdital->qtAvaliador = $dados['qtAvaliador'];
+        }
+        if (isset($dados['stDistribuicao'])) {
+            $tmpRsEdital->stDistribuicao = $dados['stDistribuicao'];
+        }
+        if (isset($dados['stAdmissibilidade'])) {
+            $tmpRsEdital->stAdmissibilidade = $dados['stAdmissibilidade'];
+        }
+        if (isset($dados['cdTipoFundo'])) {
+            $tmpRsEdital->cdTipoFundo = $dados['cdTipoFundo'];
+        }
+        if (isset($dados['idAti'])) {
+            $tmpRsEdital->idAti = $dados['idAti'];
+        }
 
         echo "<pre>";
 
@@ -41,14 +57,15 @@ class Edital extends MinC_Db_Table_Abstract{
         //SALVANDO O OBJETO CRIADO
         $id = $tmpRsEdital->save();
 
-        if($id){
+        if ($id) {
             return $id;
-        }else{
+        } else {
             return false;
         }
     }
 
-     public function listaAvaliadores($where=array()) {
+    public function listaAvaliadores($where=array())
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -60,12 +77,14 @@ class Edital extends MinC_Db_Table_Abstract{
                 'ava.idEdital = edi.idEdital',
                 array('ava.idAvaliador')
         );
-        $slct->joinInner(array('age' => 'Agentes'),
+        $slct->joinInner(
+            array('age' => 'Agentes'),
                 'age.idAgente = ava.idAvaliador',
                 array(''),
                 'Agentes.dbo'
         );
-        $slct->joinInner(array('nom' => 'Nomes'),
+        $slct->joinInner(
+            array('nom' => 'Nomes'),
                 'nom.idAgente = age.idAgente',
                 array('age.Descricao'),
                 'Agentes.dbo'
@@ -76,22 +95,26 @@ class Edital extends MinC_Db_Table_Abstract{
 
         
         //return $this->fetchAll($slct);
-
     }
 
 
-    public function buscaEditalFormDocumento($idusuario, $idEdital=null) {
+    public function buscaEditalFormDocumento($idusuario, $idEdital=null)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
                 array('edi' => $this->_name),
-                array('CONVERT(CHAR(10), edi.DtEdital, 103) AS DtEdital', 'edi.Objeto', 'edi.CelulaOrcamentaria', 'edi.idOrgao',
+                array(
+                    new Zend_Db_Expr('CONVERT(CHAR(10), edi.DtEdital, 103) AS DtEdital'),
+                    'edi.Objeto', 'edi.CelulaOrcamentaria', 'edi.idOrgao',
                 'edi.cdTipoFundo', 'edi.Logon', 'edi.NrEdital', 'edi.qtAvaliador', 'edi.idAti')
         );
         $slct->joinInner(
                 array('tfd' => 'tbFormDocumento'),
                 'tfd.idEdital = edi.idEdital',
-                array('tfd.nmFormDocumento', 'tfd.stModalidadeDocumento','tfd.idClassificaDocumento', 'tfd.nrFormDocumento', 'tfd.nrVersaoDocumento'  ),
+                array('tfd.nmFormDocumento', 
+                'tfd.stModalidadeDocumento','tfd.idClassificaDocumento', 
+                'tfd.nrFormDocumento', 'tfd.nrVersaoDocumento'  ),
                 'BDCORPORATIVO.scQuiz'
         );
         $slct->joinInner(
@@ -103,25 +126,22 @@ class Edital extends MinC_Db_Table_Abstract{
         $slct->joinInner(
                 array('ati' => 'atividade'),
                 'ati.atiid = edi.idAti',
-                array("ati.atianopi + RIGHT('00000' + CONVERT(VARCHAR(5),ati.atiseqpi),5) as pi"),
+                array(new Zend_Db_Expr("ati.atianopi + RIGHT('00000' + CONVERT(VARCHAR(5),ati.atiseqpi),5) as pi")),
                 'BDSIMEC.pde'
         );
-        $slct->where('tfd.idClassificaDocumento not in (23,24,25)');
+        $slct->where(new Zend_Db_Expr('tfd.idClassificaDocumento not in (23,24,25)'));
         $slct->where('exf.idFaseEdital = 1');
         $slct->where('edi.Logon = ?', $idusuario);
-        if ( !empty ( $idEdital ) )
-        {
+        if (!empty($idEdital)) {
             $slct->where('edi.idEdital = ?', $idEdital);
         }
 
         return $this->fetchAll($slct);
-
     }
 
-
-        public function buscar($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
+    public function buscar($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
-
 
         //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
@@ -144,9 +164,10 @@ class Edital extends MinC_Db_Table_Abstract{
     }
 
 
-	public static function saldoPi($idAti){
-        $valorGasto = NULL;
-        $saldoPi = NULL;
+    public static function saldoPi($idAti)
+    {
+        $valorGasto = null;
+        $saldoPi = null;
 
         $sql = "SELECT
 					SUM(pg.vlParcela) as parcelas
@@ -161,36 +182,32 @@ class Edital extends MinC_Db_Table_Abstract{
 				WHERE
 					ed.idAti=$idAti";
 
-//		
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $resultado = $db->fetchAll("SET TEXTSIZE 104857600");
+        $resultado = $db->fetchAll($sql);
 
-		$resultado = $db->fetchAll("SET TEXTSIZE 104857600");
-		$resultado = $db->fetchAll($sql);
-
-		return $resultado;
+        return $resultado;
     }
 
-	public static function recuperaValorPi($idAti){
+    public static function recuperaValorPi($idAti)
+    {
+        $sql = "SELECT ati.atiorcamento/100 as valor FROM BDSIMEC.pde.atividade ati WHERE ati.atiid = $idAti";
 
-		$sql = "SELECT ati.atiorcamento/100 as valor FROM BDSIMEC.pde.atividade ati WHERE ati.atiid = $idAti";
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-//		
+        $resultado = $db->fetchAll("SET TEXTSIZE 104857600");
+        $resultado = $db->fetchAll($sql);
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-
-		$resultado = $db->fetchAll("SET TEXTSIZE 104857600");
-		$resultado = $db->fetchAll($sql);
-
-		return $resultado;
-
+        return $resultado;
     }
 
-	public static function recuperaIdEdital($nrFormDocumento){
+    public static function recuperaIdEdital($nrFormDocumento)
+    {
         $conexao = new Conexao;
-        $idEdital = NULL;
+        $idEdital = null;
 
         $queryIdEdital = "select idEdital FROM BDCORPORATIVO.scQuiz.tbFormDocumento
         where BDCORPORATIVO.scQuiz.tbFormDocumento.nrFormDocumento = ?";
@@ -200,33 +217,25 @@ class Edital extends MinC_Db_Table_Abstract{
 
         $codFormDocumento = $nrFormDocumento;
 
-        if($preparedStatement->execute()){
-
-            if($edital = $preparedStatement->fetch()){
-
+        if ($preparedStatement->execute()) {
+            if ($edital = $preparedStatement->fetch()) {
                 $idEdital = $edital[0];
-
             }
-
         }
 
         return $idEdital;
-
     }
 
-	public static function buscarIdPi($idEdital){
+    public static function buscarIdPi($idEdital)
+    {
         $sql = "SELECT idAti FROM SAC.dbo.Edital where idEdital = $idEdital";
 
-//		
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $resultado = $db->fetchAll("SET TEXTSIZE 104857600");
+        $resultado = $db->fetchAll($sql);
 
-		$resultado = $db->fetchAll("SET TEXTSIZE 104857600");
-		$resultado = $db->fetchAll($sql);
-
-		return $resultado;
-
+        return $resultado;
     }
-
 }

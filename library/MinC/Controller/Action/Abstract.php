@@ -94,6 +94,8 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
         }
 
         $this->moduleName = $this->getRequest()->getModuleName();
+
+        $this->view->bodyClass = $this->getBodyClass();
     }
 
     /**
@@ -948,5 +950,35 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
         } catch (Exception $e) {
             throw $e;
         }
+    }
+
+    function getBodyClass($class = '') {
+        return join(' ', $this->getArrayBodyClass( $class ));
+    }
+
+    function getArrayBodyClass( $class = '' ) {
+        $classes = array();
+
+        $classes[] = $this->getRequest()->getCookie('menu');
+
+        $classes[] = $this->getRequest()->getModuleName();
+
+        $classes[] = $this->getRequest()->getControllerName();
+
+        $classes[] = $this->getRequest()->getActionName();
+
+        if (!empty($class)) {
+
+            if (!is_array( $class)) {
+                $class = preg_split( '#\s+#', $class );
+            }
+
+            $classes = array_merge( $classes, $class );
+        } else {
+            $class = array();
+        }
+
+        return array_unique( $classes );
+
     }
 }

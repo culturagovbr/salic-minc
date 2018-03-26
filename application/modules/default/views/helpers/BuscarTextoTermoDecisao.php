@@ -12,51 +12,50 @@
 
 class Zend_View_Helper_BuscarTextoTermoDecisao
 {
-	
-	public function buscarTextoTermoDecisao()
-	{
-                return $this;
-        }
+    public function buscarTextoTermoDecisao()
+    {
+        return $this;
+    }
         
-	public function buscarDadosTermoDecisao($idPronac = null, $idOrgao = null, $idTipoTermo = null, $idTipoParecer = null, $arrDados=array() )
-	{
-            $tipoTermo   = $this->retornarCodigoTipoTermo($idTipoTermo);
-            $tipoParecer = $this->retornarCodigoTipoParecer($idTipoParecer);
+    public function buscarDadosTermoDecisao($idPronac = null, $idOrgao = null, $idTipoTermo = null, $idTipoParecer = null, $arrDados=array())
+    {
+        $tipoTermo   = $this->retornarCodigoTipoTermo($idTipoTermo);
+        $tipoParecer = $this->retornarCodigoTipoParecer($idTipoParecer);
 
-            $textoTermo = null;
+        $textoTermo = null;
             
-            if(!empty($idOrgao) && !empty($idTipoTermo) && !empty($idTipoParecer)){
-                $tbTermoDecisao = new tbModeloTermoDecisao();
-                $arrBusca['idVerificacao = ?']          = $tipoTermo;
-                $arrBusca['stModeloTermoDecisao = ?']   = $tipoParecer;
-                $arrBusca['idOrgao = ?']                = $idOrgao;
-                $rsTermo = $tbTermoDecisao->buscarTermoDecisao($arrBusca)->current();
-                $textoTermo = (!empty($rsTermo->meModeloTermoDecisao)) ? $this->parseTag($rsTermo->meModeloTermoDecisao,$arrDados) : "";
-            }
+        if (!empty($idOrgao) && !empty($idTipoTermo) && !empty($idTipoParecer)) {
+            $tbTermoDecisao = new tbModeloTermoDecisao();
+            $arrBusca['idVerificacao = ?']          = $tipoTermo;
+            $arrBusca['stModeloTermoDecisao = ?']   = $tipoParecer;
+            $arrBusca['idOrgao = ?']                = $idOrgao;
+            $rsTermo = $tbTermoDecisao->buscarTermoDecisao($arrBusca)->current();
+            $textoTermo = (!empty($rsTermo->meModeloTermoDecisao)) ? $this->parseTag($rsTermo->meModeloTermoDecisao, $arrDados) : "";
+        }
             
-            return $textoTermo;
-	}
+        return $textoTermo;
+    }
         
-        //retorna codigo do termo no banco de dados
-        public function parseTag($textoTermo,$arrDados)
-	{
-            $prefixoSugestaoPlenaria = "<b>c) Sugestão da Plenária da CNIC</b><br><br>";
-            $sugestaoPlenaria = (!empty($arrDados['parecerCNIC'])) ? $prefixoSugestaoPlenaria.$arrDados['parecerCNIC'] : "";
+    //retorna codigo do termo no banco de dados
+    public function parseTag($textoTermo, $arrDados)
+    {
+        $prefixoSugestaoPlenaria = "<b>c) Sugestão da Plenária da CNIC</b><br><br>";
+        $sugestaoPlenaria = (!empty($arrDados['parecerCNIC'])) ? $prefixoSugestaoPlenaria.$arrDados['parecerCNIC'] : "";
             
-            $arr1 = array("{@SUGESTAO_PARECER@}",//====== 1
+        $arr1 = array("{@SUGESTAO_PARECER@}",//====== 1
                           "{@NUMERO_PLENARIA@}",//======= 2
                           "{@DIA_INICIO_PLENARIA@}",//=== 3
                           "{@DT_FIM_PLENARIA@}",//======= 4
                           "{@NUMERO_PRONAC@}",//========= 5
                           "{@NOME_PROJETO@}",//========== 6
-                          "{@SUGESTAO_MEMBRO_RELATOR@}",//== 7 
+                          "{@SUGESTAO_MEMBRO_RELATOR@}",//== 7
                           "{@SUGESTAO_PLENARIA@}",//======== 8
                           "{@NOME_SECRETARIO@}",//========== 9
                           "{@CARGO_SECRETARIO@}",//========= 10
                           "{@DATA_ASS_TERMO@}",//=============== 11
                         );
             
-            $arr2 = array($arrDados['parecerParecerista'],//===== 1
+        $arr2 = array($arrDados['parecerParecerista'],//===== 1
                           $arrDados['numReuniao'], //============ 2
                           $arrDados['diaInicioReuniao'],//======= 3
                           $arrDados['dtFinalReuniao'], //======== 4
@@ -69,16 +68,15 @@ class Zend_View_Helper_BuscarTextoTermoDecisao
                           $arrDados['dtAssinatura']//============ 11
                         );
             
-            $textoTermoAlterado = str_replace($arr1, $arr2, $textoTermo);
+        $textoTermoAlterado = str_replace($arr1, $arr2, $textoTermo);
 
-            return $textoTermoAlterado;
-        }
+        return $textoTermoAlterado;
+    }
         
-        //retorna codigo do termo no banco de dados
-        public function retornarCodigoTipoTermo($idTipoTermo)
-	{        
-            switch ($idTipoTermo) //ANALISE INICIAL / READEQUACAO / RECURSO
-            {
+    //retorna codigo do termo no banco de dados
+    public function retornarCodigoTipoTermo($idTipoTermo)
+    {
+        switch ($idTipoTermo) { //ANALISE INICIAL / READEQUACAO / RECURSO
                 case('AN'): //ANALISE INICIAL
                 {
                     return Constantes::cteIdVerificacaoTipoTermoAnaliseInicial;
@@ -94,13 +92,12 @@ class Zend_View_Helper_BuscarTextoTermoDecisao
                 default: //
                     return 0;
             }
-        }
+    }
         
-        //retorna codigo do termo no banco de dados
-        public function retornarCodigoTipoParecer($idTipoParecer)
-	{        
-            switch ($idTipoParecer) //APROVADO / INDEFERIDO
-            {
+    //retorna codigo do termo no banco de dados
+    public function retornarCodigoTipoParecer($idTipoParecer)
+    {
+        switch ($idTipoParecer) { //APROVADO / INDEFERIDO
                 case('A'): //APROVADO
                 {
                     return '1';
@@ -112,7 +109,5 @@ class Zend_View_Helper_BuscarTextoTermoDecisao
                 default: //
                     return 0;
             }
-        }
-        
-
+    }
 } // fecha class

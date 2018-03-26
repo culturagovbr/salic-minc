@@ -8,24 +8,25 @@ class Parecer_AnaliseInicialDocumentoAssinaturaController implements MinC_Assina
 
     const ID_TIPO_AGENTE_PARCERISTA = 1;
     
-    function __construct($post)
+    public function __construct($post)
     {
         $this->post = $post;
     }
 
-    function encaminharProjetoParaAssinatura() {
-        if(!$this->idPronac) {
+    public function encaminharProjetoParaAssinatura()
+    {
+        if (!$this->idPronac) {
             throw new Exception("Identificador do Projeto não informado.");
         }
         
         $objTbProjetos = new Projeto_Model_DbTable_Projetos();
         $dadosProjeto = $objTbProjetos->findBy(array('IdPRONAC' => $this->idPronac));
 
-        if(!$dadosProjeto) {
+        if (!$dadosProjeto) {
             throw new Exception("Projeto n&atilde;o encontrado.");
         }
         
-        $fnVerificarProjetoAprovadoIN2017 = new fnVerificarProjetoAprovadoIN2017();       
+        $fnVerificarProjetoAprovadoIN2017 = new fnVerificarProjetoAprovadoIN2017();
         $IN2017 = $fnVerificarProjetoAprovadoIN2017->verificar($this->idPronac);
         
         if (!$IN2017) {
@@ -34,7 +35,7 @@ class Parecer_AnaliseInicialDocumentoAssinaturaController implements MinC_Assina
             $pareceresProjeto = $this->verificaParecer($this->idPronac);
             $diligenciasProjeto = $this->projetoPossuiDiligenciasDiligencias($this->idPronac);
             
-            if( (!$secundariosAnalisados) &&
+            if ((!$secundariosAnalisados) &&
                 (!$principalConsolidacao) &&
                 (!$pareceresProjeto) &&
                 ($diligenciasProjeto)) {
@@ -48,12 +49,12 @@ class Parecer_AnaliseInicialDocumentoAssinaturaController implements MinC_Assina
             Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL
         );
 
-        if(!$isProjetoDisponivelParaAssinatura) {
+        if (!$isProjetoDisponivelParaAssinatura) {
             $auth = Zend_Auth::getInstance();
             $objDocumentoAssinatura = new MinC_Assinatura_Servico_Assinatura($this->post, $auth->getIdentity());
             $idTipoDoAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL;
 
-            $parecer = new Parecer();           
+            $parecer = new Parecer();
             $idAtoAdministrativo = $parecer->getIdAtoAdministrativoParecerTecnico($this->idPronac, self::ID_TIPO_AGENTE_PARCERISTA)->current()['idParecer'];
             
             $objModelDocumentoAssinatura = new Assinatura_Model_TbDocumentoAssinatura();
@@ -74,14 +75,14 @@ class Parecer_AnaliseInicialDocumentoAssinaturaController implements MinC_Assina
     /**
      * @return string
      */
-    function gerarDocumentoAssinatura()
+    public function gerarDocumentoAssinatura()
     {
         $view = new Zend_View();
         $view->setScriptPath(__DIR__ . DIRECTORY_SEPARATOR . '../views/scripts/analise-inicial-documento-assinatura');
 
         $view->titulo = 'Parecer T&eacute;cnico do Projeto';
         
-        $view->IdPRONAC = $this->idPronac;        
+        $view->IdPRONAC = $this->idPronac;
 
         $objPlanoDistribuicaoProduto = new Projeto_Model_vwPlanoDeDistribuicaoProduto();
         $view->dadosProducaoProjeto = $objPlanoDistribuicaoProduto->obterProducaoProjeto(array(
@@ -130,12 +131,13 @@ class Parecer_AnaliseInicialDocumentoAssinaturaController implements MinC_Assina
             $view->dadosAlcance = $dadosProjeto['alcance'][0];
         }
         
-        $view->dadosParecer = $dadosProjeto['parecer'];        
+        $view->dadosParecer = $dadosProjeto['parecer'];
         
         return $view->render('documento-assinatura.phtml');
     }
 
-    private function validacao20($idPronac, $stPrincipal, $somaValorProjeto) {
+    private function validacao20($idPronac, $stPrincipal, $somaValorProjeto)
+    {
         $totalDivulgacao = 0;
         
         if ($somaValorProjeto > 0 && $stPrincipal == "1") {
@@ -170,18 +172,17 @@ class Parecer_AnaliseInicialDocumentoAssinaturaController implements MinC_Assina
             } else {
                 return true;
             }
-
         } else {
             return true;
         }
     }
     
 
-    private function validacao15($stPrincipal, $idPronac, $somaValorProjeto) {
+    private function validacao15($stPrincipal, $idPronac, $somaValorProjeto)
+    {
         $verifica15porcento = 0;
         
         if ($stPrincipal == "1") {
-            
             $V1 = '';
             $V2 = '';
             $V3 = '';
@@ -221,7 +222,6 @@ class Parecer_AnaliseInicialDocumentoAssinaturaController implements MinC_Assina
                     $valorretirarplanilha = $valoracustosadministrativos['soma'] - $quinzecentovalorretirar;
                     $verifica15porcento = $valorretirarplanilha;
                 }
-
             } else {
                 $verifica15porcento = $valoracustosadministrativos['soma'];
             }
@@ -280,8 +280,8 @@ class Parecer_AnaliseInicialDocumentoAssinaturaController implements MinC_Assina
         $where['IdPRONAC = ?'] = $idPronac;
         $where['idProduto = ?'] = $idProduto;
         $where['ParecerDeConteudo = ?'] = '';
-        $naoAnalisados = $tbAnaliseDeConteudoDAO->dadosAnaliseconteudo(null,$where);
+        $naoAnalisados = $tbAnaliseDeConteudoDAO->dadosAnaliseconteudo(null, $where);
         
         return count($naoAnalisados);
-    }    
+    }
 }

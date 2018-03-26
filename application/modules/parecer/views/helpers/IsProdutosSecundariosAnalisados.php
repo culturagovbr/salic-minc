@@ -5,14 +5,14 @@
 
 class Zend_View_Helper_IsProdutosSecundariosAnalisados
 {
-	/**
-	 * Método para verificar se há produtos secundários analisados
-	 * @access public
-	 * @param integer $idPronac
-	 * @param integer $idTipoDoAtoAdministrativo
-	 * @return string
-	 */
-	public function IsProdutosSecundariosAnalisados($idPronac)
+    /**
+     * Método para verificar se há produtos secundários analisados
+     * @access public
+     * @param integer $idPronac
+     * @param integer $idTipoDoAtoAdministrativo
+     * @return string
+     */
+    public function IsProdutosSecundariosAnalisados($idPronac)
     {
 
 //        $tbDistribuirParecer = new tbDistribuirParecer();

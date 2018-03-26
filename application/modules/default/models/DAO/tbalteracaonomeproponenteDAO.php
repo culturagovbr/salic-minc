@@ -43,15 +43,10 @@ class tbalteracaonomeproponenteDAO extends Zend_Db_Table
         $where = "idpronac = ".$idpronac;
         $alterar = $db->update("sac.dbo.projetos", $dados, $where);
 
-        if ($alterar)
-        {
+        if ($alterar) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 }
-
-?>

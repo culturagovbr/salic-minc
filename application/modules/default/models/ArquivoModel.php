@@ -7,7 +7,6 @@
  */
 class ArquivoModel
 {
-
     private $id;
 
     public function getId()
@@ -21,7 +20,7 @@ class ArquivoModel
     }
 
     /**
-     * 
+     *
      * @throws Exception
      */
     public function cadastrar($inputName)
@@ -60,7 +59,7 @@ class ArquivoModel
     }
 
     /**
-     * 
+     *
      */
     public function deletar($idArquivo)
     {
@@ -68,7 +67,7 @@ class ArquivoModel
     }
 
     /**
-     * 
+     *
      * @return Zend_Db_Table_Row
      * @throws BadMethodCallException
      */
@@ -83,5 +82,4 @@ class ArquivoModel
             return $arquivoRowset->current();
         }
     }
-
 }

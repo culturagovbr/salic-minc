@@ -73,7 +73,7 @@ class Admissibilidade_MensagemController extends MinC_Controller_Action_Abstract
         parent::init();
 
         //recupera ID do pre projeto (proposta)
-        if (!empty ($_REQUEST['idPreProjeto'])) {
+        if (!empty($_REQUEST['idPreProjeto'])) {
             $this->idPreProjeto = $_REQUEST['idPreProjeto'];
         }
 
@@ -81,7 +81,6 @@ class Admissibilidade_MensagemController extends MinC_Controller_Action_Abstract
         //$this->idUsuario = $auth->getIdentity()->usu_codigo;
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         if (isset($auth->getIdentity()->usu_codigo)) {
-
             $this->codGrupo = $GrupoAtivo->codGrupo; // manda o grupo ativo do usu�rio para a vis�o
             $this->codOrgao = $GrupoAtivo->codOrgao; // manda o �rg�o ativo do usu�rio para a vis�o
 
@@ -144,7 +143,7 @@ class Admissibilidade_MensagemController extends MinC_Controller_Action_Abstract
         $intIdPronac = $this->getRequest()->getParam('idPronac', null);
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
 
-        $arrAuth = array_change_key_case((array)$auth->getIdentity());
+        $arrAuth = array_change_key_case((array) $auth->getIdentity());
         $intUsuCodigo = $arrAuth['usu_codigo'];
         $grupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
 
@@ -170,14 +169,14 @@ class Admissibilidade_MensagemController extends MinC_Controller_Action_Abstract
         $this->_helper->layout->disableLayout();
         $intIdPronac = $this->getRequest()->getParam('idPronac', null);
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
-        $arrAuth = array_change_key_case((array)$auth->getIdentity());
+        $arrAuth = array_change_key_case((array) $auth->getIdentity());
         $intUsuCodigo = $arrAuth['usu_codigo'];
         $grupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
         $intUsuOrgao = $grupoAtivo->codOrgao;
         //$intUsuOrgao = $grupoAtivo->codGrupo;
         //var_dump($intUsuOrgao, $grupoAtivo->codOrgao);die;
         $dbTable = new Admissibilidade_Model_DbTable_VwPainelDeMensagens();
-        $this->view->arrResult = $dbTable->carregarPerguntasSemResposta($intUsuCodigo, $intUsuOrgao);
+        $this->view->arrResult =  $dbTable->carregarPerguntasSemResposta($intUsuCodigo, $intUsuOrgao);
         $this->view->usuCodigo = $intUsuCodigo;
         $this->view->usuOrgao = $intUsuOrgao;
         $this->view->idPronac = $intIdPronac;

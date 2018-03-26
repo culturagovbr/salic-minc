@@ -10,12 +10,13 @@
  *
  * @author augusto
  */
-class Pauta extends MinC_Db_Table_Abstract {
-
+class Pauta extends MinC_Db_Table_Abstract
+{
     protected $_schema = 'BDCORPORATIVO.scsac';
     protected $_name = 'tbPauta';
 
-    public function PautaAprovada($idNrReuniao, $idpronac=null) {
+    public function PautaAprovada($idNrReuniao, $idpronac=null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -30,7 +31,7 @@ class Pauta extends MinC_Db_Table_Abstract {
                 'pr.IdPRONAC = tp.IdPRONAC',
                 array(
                     'pr.Area',
-                    '(pr.AnoProjeto+pr.Sequencial) as pronac',
+                    new Zend_Db_Expr('(pr.AnoProjeto+pr.Sequencial) as pronac'),
                     'pr.NomeProjeto',
                     'pr.DtProtocolo',
                     new Zend_Db_Expr('SAC.dbo.fnDtAprovacao(pr.AnoProjeto,pr.Sequencial) as DtAprovacao')
@@ -61,13 +62,17 @@ class Pauta extends MinC_Db_Table_Abstract {
         $select->joinLeft(
                 array('cv' => 'tbConsolidacaoVotacao'),
                 'cv.IdPRONAC = pr.IdPRONAC',
-                array('Cast(cv.dsConsolidacao as TEXT) as dsConsolidacao'),
+                array(
+                    new Zend_Db_Expr('Cast(cv.dsConsolidacao as TEXT) as dsConsolidacao')
+                ),
                 'BDCORPORATIVO.scSAC'
         );
         $select->joinLeft(
                 array('ap' => 'aprovacao'),
                 'ap.IdPRONAC = tp.IdPRONAC',
-                array('ap.AprovadoReal'),
+                array(
+                    'ap.AprovadoReal'
+                ),
                 'SAC.dbo'
         );
         $select->where('tp.idNrReuniao = ?', $idNrReuniao);
@@ -81,7 +86,8 @@ class Pauta extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function PautaReuniaoAtual($idNrReuniao) {
+    public function PautaReuniaoAtual($idNrReuniao)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -96,7 +102,7 @@ class Pauta extends MinC_Db_Table_Abstract {
                 array('pr' => 'Projetos'),
                 "pr.IdPRONAC = tp.IdPRONAC",
                 array(
-                    '(pr.AnoProjeto+pr.Sequencial) as pronac',
+                    new Zend_Db_Expr('(pr.AnoProjeto+pr.Sequencial) as pronac'),
                     'pr.NomeProjeto',
                     'pr.IdPRONAC'
                 ),
@@ -140,7 +146,8 @@ class Pauta extends MinC_Db_Table_Abstract {
     }
 
 
-    public function pronacVotacaoAtual($idnrreuniao, $idpronac, $idTipoReadequacao) {
+    public function pronacVotacaoAtual($idnrreuniao, $idpronac, $idTipoReadequacao)
+    {
         //INICIAL
         $a = $this->select();
         $a->setIntegrityCheck(false);
@@ -156,10 +163,11 @@ class Pauta extends MinC_Db_Table_Abstract {
                 array('pr' => 'projetos'),
                 'pr.IdPRONAC = tp.idPRONAC',
                 array(
-                    '(pr.AnoProjeto+pr.Sequencial) as pronac',
+                    new Zend_Db_Expr('(pr.AnoProjeto+pr.Sequencial) as pronac'),
                     'pr.NomeProjeto',
                     'pr.IdPRONAC'
-                ), 'SAC.dbo'
+                ),
+            'SAC.dbo'
         );
         $a->where('tp.idPRONAC = ?', $idpronac);
         $a->where('tp.idNrReuniao = ?', $idnrreuniao);
@@ -174,16 +182,18 @@ class Pauta extends MinC_Db_Table_Abstract {
                     new Zend_Db_Expr('2 as tpConsolidacaoVotacao'),
                     'a.stAnalise',
                     'a.idNrReuniao'
-                ), 'SAC.dbo'
+                ),
+            'SAC.dbo'
         );
         $b->joinInner(
                 array('b' => 'projetos'),
                 'a.IdPRONAC = b.idPRONAC',
                 array(
-                    '(b.AnoProjeto+b.Sequencial) as pronac',
+                    new Zend_Db_Expr('(b.AnoProjeto+b.Sequencial) as pronac'),
                     'b.NomeProjeto',
                     'b.IdPRONAC'
-                ), 'SAC.dbo'
+                ),
+            'SAC.dbo'
         );
         $b->where('b.idPRONAC = ?', $idpronac);
         $b->where('a.idNrReuniao = ?', $idnrreuniao);
@@ -198,18 +208,20 @@ class Pauta extends MinC_Db_Table_Abstract {
                     new Zend_Db_Expr('3 as tpConsolidacaoVotacao'),
                     'a.stAnalise',
                     'a.idNrReuniao'
-                ), 'SAC.dbo'
+                ),
+            'SAC.dbo'
         );
         $c->joinInner(
                 array('b' => 'projetos'),
                 'a.IdPRONAC = b.idPRONAC',
                 array(
-                    '(b.AnoProjeto+b.Sequencial) as pronac',
+                    new Zend_Db_Expr('(b.AnoProjeto+b.Sequencial) as pronac'),
                     'b.NomeProjeto',
                     'b.IdPRONAC'
-                ), 'SAC.dbo'
+                ),
+            'SAC.dbo'
         );
-        if(empty($idTipoReadequacao)){
+        if (empty($idTipoReadequacao)) {
             $idTipoReadequacao = 0;
         }
         
@@ -222,8 +234,10 @@ class Pauta extends MinC_Db_Table_Abstract {
         
         return $this->fetchRow($slctUnion);
     }
+    
 
-    public function buscarpautacomponente($idAgente, $aprovacao=false) {
+    public function buscarpautacomponente($idAgente, $aprovacao=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -238,13 +252,14 @@ class Pauta extends MinC_Db_Table_Abstract {
         );
         $select->where("dp.idAgente = ?", $idAgente);
         if ($aprovacao) {
-            $select->where('(tp.idPRONAC not in (select idpronac from sac.dbo.aprovacao where idpronac = tp.idPRONAC))', '');
+            $select->where(new Zend_Db_Expr('(tp.idPRONAC not in (select idpronac from sac.dbo.aprovacao where idpronac = tp.idPRONAC))'), '');
         }
 
         return $this->fetchAll($select);
     }
 
-    public function dadosiniciaistermoaprovacao($idpronac = array()) {
+    public function dadosiniciaistermoaprovacao($idpronac = array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -258,7 +273,7 @@ class Pauta extends MinC_Db_Table_Abstract {
                 array('pr' => 'Projetos'),
                 "pt.IdPRONAC = pr.IdPRONAC",
                 array(
-                    '(pr.AnoProjeto+pr.Sequencial) as pronac',
+                    new Zend_Db_Expr('(pr.AnoProjeto+pr.Sequencial) as pronac'),
                     'pr.NomeProjeto',
                     'pr.Orgao',
                     'pr.Area'
@@ -282,10 +297,12 @@ class Pauta extends MinC_Db_Table_Abstract {
                 'SAC.dbo'
         );
         $select->joinLeft(
-                array('cv' => 'tbConsolidacaoVotacao'),
-                "cv.IdPRONAC = pt.IdPRONAC and cv.IdNrReuniao = pt.IdNrReuniao",
-                array('CAST(cv.dsConsolidacao as TEXT) as dsConsolidacao'),
-                "BDCORPORATIVO.scSAC"
+            array('cv' => 'tbConsolidacaoVotacao'),
+            "cv.IdPRONAC = pt.IdPRONAC and cv.IdNrReuniao = pt.IdNrReuniao",
+            array(
+                new Zend_Db_Expr('CAST(cv.dsConsolidacao as TEXT) as dsConsolidacao')
+            ),
+            "BDCORPORATIVO.scSAC"
         );
         foreach ($idpronac as $resu) {
             $select->orwhere('pt.IdPRONAC = ?', $resu);
@@ -293,7 +310,8 @@ class Pauta extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function PautaProximaReuniao($NrReuniao) {
+    public function PautaProximaReuniao($NrReuniao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -316,14 +334,14 @@ class Pauta extends MinC_Db_Table_Abstract {
     }
 
     //reescrevendo metodo generico devido a necessidade de realizar o CAST para o cmapo descricao que era retornado incompleto
-    public function buscar($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
-
+    public function buscar($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
                 array($this->_name),
                 array('*',
-                    'CAST(dsAnalise AS TEXT) AS dsAnalise'
+                      new Zend_Db_Expr('CAST(dsAnalise AS TEXT) AS dsAnalise')
                 )
         );
         //adiciona quantos filtros foram enviados
@@ -346,5 +364,3 @@ class Pauta extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 }
-
-?>

@@ -2,7 +2,6 @@
 
 class Segmentocultural extends MinC_Db_Table_Abstract
 {
-
     protected $_name = 'Segmento';
     protected $_schema = 'sac';
     protected $_primary = 'Codigo';
@@ -92,8 +91,6 @@ class Segmentocultural extends MinC_Db_Table_Abstract
             $objSelect->order("order by 2 desc");
 
             return $db->fetchAll($objSelect);
-
-
         } catch (Zend_Exception_Db $e) {
             throw new Exception("Erro ao buscar Segmento Cultural: " . $e->getMessage());
         }

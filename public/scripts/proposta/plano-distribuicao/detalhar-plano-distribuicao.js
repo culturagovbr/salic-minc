@@ -158,7 +158,7 @@ Vue.component('my-component', {
             activeForm : false
         }
     },
-    props:['idpreprojeto','idplanodistribuicao', 'idmunicipioibge', 'iduf', 'disabled'],
+    props:['idpreprojeto','idplanodistribuicao', 'idmunicipioibge', 'iduf', 'disabled', 'canalaberto'],
     computed:{
         // Limite: preço popular: Quantidade de Inteira
         qtPrecoPopularValorIntegralLimite: function() {
@@ -393,6 +393,26 @@ Vue.component('my-component', {
                 total.add(parseFloat(vl));
             }
             return total.format();
+        },
+        valorMedioProponente: function() {
+            var vlReceitaProponenteIntegral = numeral();
+            var vlReceitaProponenteParcial = numeral();
+            var qtProponenteIntegral = numeral();
+            var qtProponenteParcial = numeral();
+
+            for ( var i = 0 ; i < this.produtos.length ; i++){
+                vlReceitaProponenteIntegral.add(this.produtos[i]['vlReceitaProponenteIntegral']);
+                vlReceitaProponenteParcial.add(parseFloat(this.produtos[i]['vlReceitaProponenteParcial']))  ;
+                qtProponenteIntegral.add(parseFloat(this.produtos[i]['qtProponenteIntegral']));
+                qtProponenteParcial.add(parseFloat(this.produtos[i]['qtProponenteParcial']));
+            }
+
+            var media = numeral(parseFloat(vlReceitaProponenteIntegral.value() + vlReceitaProponenteParcial.value()) / (qtProponenteIntegral.value() +qtProponenteParcial.value()));
+
+            return media;
+        },
+        valorMedioProponenteFormatado: function() {
+            return this.valorMedioProponente.format();
         }
     },
     watch:{
@@ -454,9 +474,9 @@ Vue.component('my-component', {
         vlUnitarioPopularIntegral: function() {
 
             if (this.distribuicaoGratuita == 'n') {
-                if (this.converterParaMoedaAmericana(this.vlUnitarioPopularIntegral) > 50.00) {
-                    this.vlUnitarioPopularIntegral = numeral(50.00).format();
-                    alert('O valor n\xE3o pode ser maior que 50.00');
+                if (this.converterParaMoedaAmericana(this.vlUnitarioPopularIntegral) > 75.00) {
+                    this.vlUnitarioPopularIntegral = numeral(75.00).format();
+                    alert('O valor n\xE3o pode ser maior que 75.00');
                 }
                 return;
             }
@@ -524,7 +544,6 @@ Vue.component('my-component', {
     },
     mounted: function() {
         this.t();
-        // console.log(this.disabled);
         this.$refs.add.disabled = !this.disabled;
     },
     methods: {
@@ -569,6 +588,7 @@ Vue.component('my-component', {
                     return;
                 }
             }
+
             if(this.qtGratuitaPopulacao < this.qtGratuitaPopulacaoMinimo) {
                 this.mensagemAlerta("Quantidade para popula\xE7\xE3o n\xE3o pode ser menor que "+ this.qtGratuitaPopulacaoMinimo);
                 this.qtGratuitaPopulacao = this.qtGratuitaPopulacaoMinimo;
@@ -576,7 +596,7 @@ Vue.component('my-component', {
                 return;
             }
 
-            this.visualizarFormulario = false;
+
 
             p = {
                 idPlanoDistribuicao: this.idplanodistribuicao,
@@ -602,6 +622,17 @@ Vue.component('my-component', {
                 tpLocal: this.tpLocal,
                 tpEspaco: this.tpEspaco
             };
+
+            this.$data.produtos.push(p);
+
+            if((numeral(this.valorMedioProponente).value() > 225
+		&& (this.canalaberto == 0))) {
+                this.mensagemAlerta("O valor medio:" + this.valorMedioProponenteFormatado + ", n\xE3o pode ultrapassar: 225,00");
+                this.$data.produtos.splice(-1,1)
+            }
+
+            this.visualizarFormulario = false;
+
             var vue = this;
             $3.ajax({
               type: "POST",
@@ -617,7 +648,6 @@ Vue.component('my-component', {
 
         },
         excluir: function(index){
-            //this.produtos.splice(index, 1)
 
             var vue = this;
             $3.ajax({

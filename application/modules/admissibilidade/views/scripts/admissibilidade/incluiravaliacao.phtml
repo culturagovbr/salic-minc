@@ -13,83 +13,129 @@
     <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/tinymce/js/tinymce/tinymce.min.js"></script>
     <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/jquery/plugins/editorRico.js"></script>
     <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/_samples/sample.js"></script>
-    <h4>Incluir avalia&ccedil;&atilde;o </h4>
+    
     <div class="col s10">
-        <form id="formEncaminhar" name="formEncaminhar" method="post" action="<?php echo $SalvarAvaliacao; ?>" onsubmit="return false;">
-            <table class="tabela">
-                <tr>
-                    <th>
-                        <input type="hidden" name="idPreProjeto" id="idPreProjeto"
-                               value="<?php echo $this->idPreProjeto ?>"/>
-                        Proposta Nr: <?php echo $this->idPreProjeto ?>
-                    </th>
-                </tr>
-                <tr>
-                    <td align="center">
-                        <input type="hidden" name="nomeProjeto" id="nomeProjeto" value="<?php echo $this->nomeProjeto ?>"/>
-                        <?php echo $this->nomeProjeto ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="center">
-                        Data da Avalia&ccedil;&atilde;o: <?php echo $this->dataAtual ?><br/><br/>
-                        <b>A proposta est&aacute; em CONFORMIDADE VISUAL ?</b>
-                        <select id="conformidade" name="conformidade" class="input_simples">
-                            <option value="0">N&atilde;o, devolver para o proponente</option>
-                            <option value="1">Sim, salvar an&aacute;lise visual</option>
-                        </select>
-                        <input type="hidden" name="dataAtual" id="dataAtual" value="<?php echo $this->dataAtualBd ?>"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td align="left">
-                        <b>Avalia&ccedil;&atilde;o</b> *
-                        <textarea cols="80" id="despacho" name="despacho" class="despacho mceEditor" rows="10"></textarea>
-                    </td>
-                </tr>
-            </table>
-            <table class="tabela">
-                <tr>
-                    <td class="centro">
-                        <button class="btn waves-effect waves-light avaliarProposta" type="submit" name="salvar" title="Salvar">
-                            Salvar
-                        </button>
-                        <a href="/admissibilidade/admissibilidade/exibirpropostacultural?idPreProjeto=<?php echo $this->idPreProjeto ?>&realizar_analise=sim"
-                            class="btn waves-effect waves-light white red-text"  name="cancelar" title="Cancelar">
-                            cancelar
-                        </a>
-                    </td>
-                </tr>
-            </table>
-        </form>
+	<?php if ($this->codGrupo == Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE): ?>
+	<?php
+	$perfis = array(
+	Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE => 'Coordenador de Admissibilidade',
+	Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE => 'T&eacute;cnico de Admissibilidade'
+	)
+	?>
+	<div class="col s10">
+	    <h4>Avalia&ccedil;&otilde;es anteriores</h4>    
+	    
+	    <table>
+		<tr onclick="abrirDinamico('#avaliacoesAnteriores', $(this))" style="cursor:pointer">
+		    <th>
+			<img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica" align="left"/>
+			Visualizar avalia&ccedil;&otilde;es anteriores
+		    </th>
+		</tr>
+		<tr>
+		    <td>
+			<table class="bordered striped responsive-table" id="avaliacoesAnteriores" style="display:none">
+			    <tr class="destacar">
+				<td align="left"><b>Data</b></td>
+				<td align="left"><b>Perfil</b></td>
+				<td align="left"><b>Avalia&ccedil;&atilde;o</b></td>
+			    </tr>
+			    <?php
+			    if (is_object($this->avaliacoesAnteriores) and count($this->avaliacoesAnteriores) > 0)
+			    foreach ($this->avaliacoesAnteriores as $avaliacaoAnterior) { ?>
+			    <tr>
+				<td align="left" nowrap><?php echo $avaliacaoAnterior->DtAvaliacao ?></td>
+				<td align="left"><?php echo $perfis[$avaliacaoAnterior->idPerfil] ?></td>
+				<td align="left"><?php echo $avaliacaoAnterior->Avaliacao ?></td>
+			    </tr>
+			    <?php } else { ?>
+			    <tr>
+				<td colspan="3">
+				    N&atilde;o h&aacute; avalia&ccedil;&otilde;es anteriores.
+				</td>
+			    </tr>
+			    <?php } ?>
+			</table>
+		    </td>
+		</tr>
+	    </table>
+	</div>
+	<?php endif; ?>
+
+	<div class="col s10">
+	    <h4>Incluir avalia&ccedil;&atilde;o </h4>    	    
+	    <form id="formEncaminhar" name="formEncaminhar" method="post" action="<?php echo $SalvarAvaliacao; ?>" onsubmit="return false;">
+		<table class="tabela">
+                    <tr>
+			<th>
+                            <input type="hidden" name="idPreProjeto" id="idPreProjeto"
+				   value="<?php echo $this->idPreProjeto ?>"/>
+                            Proposta Nr: <?php echo $this->idPreProjeto ?>
+			</th>
+                    </tr>
+                    <tr>
+			<td align="center">
+                            <input type="hidden" name="nomeProjeto" id="nomeProjeto" value="<?php echo $this->nomeProjeto ?>"/>
+                            <?php echo $this->nomeProjeto ?>
+			</td>
+                    </tr>
+
+			<?php if($this->existeVersionamentoProposta) : ?>
+				<tr>
+					<td align="center">
+						<a
+							class="waves-effect waves-light btn"
+							target="_blank"
+							href="<?= $this->url(
+								array(
+									'module' => 'admissibilidade',
+									'controller' => 'admissibilidade',
+									'action' => 'analisar-alteracoes-da-diligencia',
+									'idPreProjeto' => $this->idPreProjeto,
+									'tipo' => 'diligencia'
+								)
+							); ?>"
+						><i class="material-icons left">history</i>Avaliar altera&ccedil;&otilde;es</a>
+					</td>
+				</tr>
+			<?php endif; ?>
+
+
+                    <tr>
+			<td align="center">
+                            Data da Avalia&ccedil;&atilde;o: <?php echo $this->dataAtual ?><br/><br/>
+                            <b>A proposta est&aacute; em CONFORMIDADE VISUAL ?</b>
+                            <select id="conformidade" name="conformidade" class="input_simples">
+				<option value="0">N&atilde;o, devolver para o proponente</option>
+				<option value="1">Sim, salvar an&aacute;lise visual</option>
+                            </select>
+                            <input type="hidden" name="dataAtual" id="dataAtual" value="<?php echo $this->dataAtualBd ?>"/>
+			</td>
+                    </tr>
+                    <tr>
+			<td align="left">
+                            <b>Avalia&ccedil;&atilde;o</b> *
+                            <textarea cols="80" id="despacho" name="despacho" class="despacho mceEditor" rows="10"></textarea>
+			</td>
+                    </tr>
+		</table>
+		<table class="tabela">
+                    <tr>
+			<td class="centro">
+                            <button class="btn waves-effect waves-light avaliarProposta" type="submit" name="salvar" title="Salvar">
+				Salvar
+                            </button>
+                            <a href="/admissibilidade/admissibilidade/exibirpropostacultural?idPreProjeto=<?php echo $this->idPreProjeto ?>&realizar_analise=sim"
+                               class="btn waves-effect waves-light white red-text"  name="cancelar" title="Cancelar">
+				cancelar
+                            </a>
+			</td>
+                    </tr>
+		</table>
+            </form>
+	</div>
     </div>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var editorRico = $("#despacho").editorRico({
-                altura: 200,
-                isLimitarCarateres : true
-            });
-
-            $("#formEncaminhar").validate({
-                rules: {
-                    despacho : {
-                        validarDespacho: true
-                    }
-                },
-                messages: {
-                    despacho: "Dado obrigat&oacute;rio n&atilde;o informado"
-                },
-                submitHandler: function (form) {
-                    form.submit();
-                }
-            });
-
-            $.validator.addMethod("validarDespacho", function(value, element) {
-                if(editorRico.contarCaracteres() > 0) {
-                    return true;
-                }
-            });
-        });
-    </script>
+    </div>
 </div>
-</div>
+<script type="text/javascript"
+        src="/public/scripts/admissibilidade/admissibilidade/incluiravaliacao.js"></script>

@@ -1,6 +1,7 @@
 <?php
 
-class MarcasController extends MinC_Controller_Action_Abstract {
+class MarcasController extends MinC_Controller_Action_Abstract
+{
 
     /**
      * Reescreve o m�todo init()
@@ -53,7 +54,7 @@ class MarcasController extends MinC_Controller_Action_Abstract {
         $rsUsuario = $tblUsuario->buscarOrgaoSuperior($this->codOrgao);
         $idOrgaoSuperior = $rsUsuario->idSecretaria;
 
-        if($idOrgaoSuperior == Orgaos::ORGAO_SUPERIOR_SEFIC){
+        if ($idOrgaoSuperior == Orgaos::ORGAO_SUPERIOR_SEFIC) {
             $lista = $tbArquivoImagem->listarMarcasAcompanhamentoArea('p.Area <> 2');
         } else {
             $lista = $tbArquivoImagem->listarMarcasAcompanhamentoArea('p.Area = 2');
@@ -63,15 +64,14 @@ class MarcasController extends MinC_Controller_Action_Abstract {
 
     public function processarMarcasAction()
     {
-        if($_POST['justificativa'] != ''){
-
+        if ($_POST['justificativa'] != '') {
             $dados = array('stAtivoDocumentoProjeto' => $_POST['stAtivo']);
             $where = array('idDocumento = ?' => $_POST['documento']);
 
             $tbDocumentoProjeto = new tbDocumentoProjeto();
             $resultado = $tbDocumentoProjeto->update($dados, $where);
-            if($resultado){
-                if($_POST['stAtivo'] == 'D'){
+            if ($resultado) {
+                if ($_POST['stAtivo'] == 'D') {
                     $msg = 'A Marca foi DEFERIDA com sucesso!';
                     $assunto = 'SALIC - Marca Deferida';
                 } else {
@@ -87,21 +87,19 @@ class MarcasController extends MinC_Controller_Action_Abstract {
                 $projetos = new Projetos();
                 $ListaEmails = $projetos->buscarProjetoEmails($_POST['pronacId']);
 
-                if(count($ListaEmails)>0){
+                if (count($ListaEmails)>0) {
                     foreach ($ListaEmails as $lista) {
                         $EnviarEmails = new EmailDAO();
                         $EnviarEmails->enviarEmail($lista->Email, $assunto, utf8_decode($_POST['justificativa']));
                     }
                 }
                 $this->_helper->json(array('resposta'=>true, 'mensagem'=>$msg));
-
             } else {
                 $this->_helper->json(array('resposta'=>false));
             }
-
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 }

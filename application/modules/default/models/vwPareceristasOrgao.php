@@ -9,8 +9,8 @@
  * @link http://www.cultura.gov.br
  */
 
-class vwPareceristasOrgao extends MinC_Db_Table_Abstract {
-
+class vwPareceristasOrgao extends MinC_Db_Table_Abstract
+{
     protected $_banco  = 'SAC';
     protected $_schema = 'SAC';
     protected $_name   = 'vwPareceristasOrgao';

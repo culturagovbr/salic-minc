@@ -174,6 +174,4 @@ class Assinatura_Model_TbDocumentoAssinatura extends MinC_Db_Model
         $this->_idCriadorDocumento = $idCriadorDocumento;
         return $this;
     }
-
-
 }

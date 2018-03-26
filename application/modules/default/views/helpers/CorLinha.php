@@ -11,24 +11,21 @@
 
 class Zend_View_Helper_CorLinha
 {
-	/**
-	 * Método com as cores alternativas das linhas da tabela
-	 * @access public
-	 * @param integer $i
-	 * @return string
-	 */
-	public function corLinha($i)
-	{
+    /**
+     * Método com as cores alternativas das linhas da tabela
+     * @access public
+     * @param integer $i
+     * @return string
+     */
+    public function corLinha($i)
+    {
         die(1);
-		if ($i % 2 == 0)
-		{
-			$bg = "fundo_linha1";
-		}
-		else
-		{
-			$bg = "fundo_linha2";
-		}
+        if ($i % 2 == 0) {
+            $bg = "fundo_linha1";
+        } else {
+            $bg = "fundo_linha2";
+        }
 
-		return $bg;
-	}
+        return $bg;
+    }
 }

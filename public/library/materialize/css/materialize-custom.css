@@ -1,143 +1,7 @@
-/*
-Ajustes materialize com o SALIC
-
-Sugestão de organização do css, ajustar conforme o uso
-
-Paleta de cores by Jamile
-    Verde claro: #81C784
-    Verde médio: #4CAF50
-    Verde escuro: #1B5E20
-    Rosa: #FF8A80
-    Azul: #039BE5
-    Laranja: #FB8C00
-    Amarelo: #FDD835
-    Cinza claro: #FAFAFA
-    Cinza médio: #EEEEEE
-    Cinza escuro: #212121
-
-----------------------------------------------------------------
->>> ÍNDICE:
-----------------------------------------------------------------
-
---------------------------------------------------------------*/
-
-
 /*--------------------------------------------------------------
-x - Forms
---------------------------------------------------------------*/
-form fieldset {
-    margin: 10px 2px;
-    padding-top: 0.60em;
-}
-
-form legend {
-    color: #545454;
-    text-transform: uppercase;
-}
-
-form input.browser-default {
-    overflow: visible;
-    margin: 0;
-}
-
-form select.browser-default {
-    /*padding: 5px;*/
-    /*width: 100%;*/
-}
-
-
-form label {
-    display: inline-block;
-    margin-bottom: .5rem;
-    color: #212529;
-}
-
-form input[type="text"].browser-default,
-form .browser-default {
-    display: block;
-    width: 100%;
-    padding: .5rem .75rem;
-    font-size: 1rem;
-    line-height: 1.25;
-    /*color: #495057;*/
-    color: #141517;
-    background-color: #fff;
-    background-image: none;
-    background-clip: padding-box;
-    border: 1px solid rgba(0,0,0,.15);
-    border-radius: .15rem;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-}
-
-form input.browser-default:active,
-form input.browser-default:focus {
-    box-shadow: none !important;
-}
-form input[type="text"]:disabled,
-form .browser-default:disabled,
-form .browser-default[readonly] {
-    border: 1px dotted rgba(0, 0, 0, 0.57);
-    background-color: #e9ecef;
-    opacity: 1;
-    color: #495057;
-}
-
-form small {
-    color: #868e96;
-    font-size: 80%;
-    font-weight: 400;
-    line-height: 1.5;
-}
-
-form span.spanError,
-form span.error {
-    color: #f44336;
-    font-size: 85%;
-    font-weight: bold;
-    margin-top: 10px;
-    padding: 0px 5px;
-}
-
-form input[type="radio"] {
-   background: none;
-    border: none;
-    float:none;
-    display:inline;
-}
-
-form .row {
-    margin-bottom: 5px;
-}
-form .select-wrapper input.select-dropdown {
-    margin-bottom: 5px;
-}
-
-/*--------------------------------------------------------------
-x - Elementos básicos
+ Esse codigo e para compatibilidade com o login, pensar em migrar
 --------------------------------------------------------------*/
 
-.ui-dialog {
-    font-size: 14px;
-}
-
-.no-border { border: 0px; }
-.padding20 { padding: 20px; }
-.padding10 { padding: 10px; }
-.no-margin { margin: 0px !important; }
-.margin0 { margin: 0px; }
-.margin5 { margin: 5px; }
-.margin-bottom20 { margin-bottom: 20px; }
-.margin-bottom30 { margin-bottom: 30px }
-
-.content h3,
-.content h4 {
-    clear: both;
-    display: block;
-    margin-bottom: 30px;
-}
-/*--------------------------------------------------------------
-x - BODY
---------------------------------------------------------------*/
 body {
     display: flex;
     min-height: 100vh;
@@ -145,196 +9,31 @@ body {
     background: transparent;
     width: 100%;
 }
-/*--------------------------------------------------------------
-x - HEADER
---------------------------------------------------------------*/
-header {
-    margin-bottom: 1em;
-    position: relative;
-    display: block;
-    clear: both;
-}
 
-/*--------------------------------------------------------------
-x - MAIN
---------------------------------------------------------------*/
-main {
-    display: block;
-    clear: both;
+body.open #container-progress {
+    bottom: 0px;
 }
 
 main {
     flex: 1 0 auto;
 }
 
-/*--------------------------------------------------------------
-x - CONTAINER
---------------------------------------------------------------*/
-.container-fluid {
-    margin: 0 auto;
-    width: 98%;
+.toast {
+    font-weight: 500;
 }
 
-.container.fade {
-    display: none;
+label {
+    color: #0e0e0e;
 }
 
-/*--------------------------------------------------------------
-x - BREADCRUMB
---------------------------------------------------------------*/
-.breadcrumb a {
-    font-size: 13px;
-}
-/*--------------------------------------------------------------
-x - ARTICLE
---------------------------------------------------------------*/
-article {
-    padding-bottom: 60px;
-    width: 900px;
-    margin: 0 auto;
-}
-
-/*--------------------------------------------------------------
-x -  NAVEGAÇÃO
---------------------------------------------------------------*/
-/** fim ajustes materialize com o salic **/
-
-nav .nav-wrapper {
-    color: #fff;
-    width: 100%;
-    height: 56px;
-    line-height: 56px;
-}
-nav.breadcrumb {
-    height: 30px;
-    /*background-color: #388E3C;*/
-}
-nav.breadcrumb .nav-wrapper {
-    color: #fff;
-    background-color: #388E3C;
-    /*background-color: #3c763d;*/
-    /*background-color: #1B5E20;*/
-    width: 100%;
-    height: 30px;
-    line-height: 30px;
-}
-
-
-/*--------------------------------------------------------------
-x - Navegação
---------------------------------------------------------------*/
-ul, menu, dir {
-    display: block;
-    list-style-type: disc;
-    -webkit-margin-before: 1em;
-    -webkit-margin-after: 1em;
-    -webkit-margin-start: 0px;
-    -webkit-margin-end: 0px;
-    -webkit-padding-start: 40px;
-}
-/*Inherited from nav.nav-extended*/
-/*@media only screen and (min-width: 601px)*/
-nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
-    height: 56px;
-    line-height: 56px;
-}
-nav {
-    color: #fff;
-    background-color: #ee6e73;
-    width: 100%;
-    height: 56px;
-    line-height: 56px;
-}
-nav ul a {
-    transition: background-color .3s;
-    font-size: 1rem;
-    color: #fff;
-    display: block;
-    padding: 0 15px;
-    cursor: pointer;
-}
 #sidenav-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 120vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 996;
-    will-change: opacity;
+    z-index: 988;
 }
 
-/*--------------------------------------------------------------
-x - Botões
---------------------------------------------------------------*/
-.btn-default,
-.btn-success  {
-    background: #4caf50;
-    color: #fff !important;
-}
-
-.btn-default:focus,
-.btn-sucess:focus,
-.btn-default:hover,
-.btn-success:hover {
-    background: #388e3c;
-}
-
-.btn-primary {
-    background-color: #29b6f6;
-    color: #fff !important;
-}
-
-.btn-primary:focus,
-.btn-primary:hover {
-    background: #0277bd;
-}
-
-.btn-danger {
-    background: #FF8A80;
-    color: #fff !important;
-}
-
-.btn-danger:focus,
-.btn-danger:hover {
-    background: #ff5252;
-
-}
-
-.btn-warning {}
-
-.btn-success {}
-
-.btn-info {
-    background: #212121;
-    color: #fff;
-}
-.btn-info:focus,
-.btn-info:hover {
-    background: #757575;
-}
-
-.btn.small{
-    padding: 0 1rem;
-}
-
-.btn-floating.small {
-    width: 30px;
-    height: 30px;
-}
-.btn-floating.small i {
-    line-height: 32px;
-}
-
-.btn.loading {
-    background-image: url(../../../img/loader-mini.gif);
-    background-position: 50% 50%;
-    background-repeat: no-repeat;
-    background-color: transparent;
-    cursor: none;
-    box-shadow: none;
-    border: none;
-    text-indent: -2000px;
+@media screen and (min-width: 768px) {
+    #toast-container {
+        top: 15%;
+    }
 }
 
 /*--------------------------------------------------------------
@@ -377,13 +76,6 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
     color: #00481d;
 }
 
-.dropdown-content li > a, .dropdown-content li > span {
-    font-size: 16px;
-    color: #00481d;
-    display: block;
-    line-height: 22px;
-    padding: 14px 16px;
-}
 
 input:not([type]).invalid, input:not([type]):focus.invalid,
 input[type=text].invalid,
@@ -466,289 +158,74 @@ textarea.materialize-textarea:focus:not([readonly]) + label[data-error] {
     color: #F44336;
 }
 
-#frmProposta .input-field label {
-    color: #212121;
-    font-size: 16px;
-    line-height: 23px;
+.divider {
+    margin-bottom: 20px;
 }
 
-#frmProposta .input-field .caption {
-    color: #212121;
+/** @todo migrar pro lugar correto - alteracoes da diligencia **/
+.collapsible td.historico {
+    border-right: 1px solid #ddd;
 }
 
-#frmProposta .mce-tinymce {
-    margin-bottom: 5px;
-
-}
-#tinymce  {
-    font-size: 14px !important;
-}
-
-/*--------------------------------------------------------------
-x - CARREGAMENTO
---------------------------------------------------------------*/
-
-.progress .indeterminate {
-    background-color: #fb8c00;
-}
-.progress {
-    background-color: #ffe0b2;
-}
-
-/*--------------------------------------------------------------
-x - MODAL
---------------------------------------------------------------*/
-.modal.height-fluid{
-    height: auto;
-}
-
-
-/*--------------------------------------------------------------
-x - Tabelas
---------------------------------------------------------------*/
-
-.bordered {
-    border: 1px solid #d0d0d0;
-    border-left: 1px solid #d0d0d0;
-}
-
-table > tbody > tr:nth-child(odd) {
-    /*background-color: #f2f2f2;*/
-}
-
-table > tbody > tr {
-    transition: background-color .25s ease;
-}
-
-table > tbody > tr:hover {
-    /*background-color: #f2f2f2;*/
-}
-
-/*--------------------------------------------------------------
-x - Sidebar
---------------------------------------------------------------*/
-ul.sidebar-nav {
-    border-radius: 5px;
-    background: #fff;
-    box-shadow: 0px 1px 4px #9e9e9e;
-    overflow: hidden;
-    min-width: 100px;
-}
-
-ul.sidebar-nav ul {
-    margin: 0px;
-    padding: 0px;
-}
-.sidebar-nav .collapsible-header,
-.sidebar-nav .collapsible-body,
-.sidebar-nav .collapsible {
-    box-shadow: none;
-    border: none;
-    margin: 0;
-    padding-bottom: 0px;
-    padding-top: 0px;
-    padding: 0px;
-}
-
-.sidebar-nav a.collapsible-header,
-.sidebar-nav li a {
+.collapsible .card table td.historico,
+.collapsible .card table td.atual,
+.collapsible div.historico .card,
+.collapsible div.atual .card {
+    margin-top: 30px;
     position: relative;
-    font-size: 12px;
-    /*color: #565656;*/
-    color: #212121;
-    line-height: 44px;
-    height: 44px;
-    padding: 0 30px;
-    display: block;
-    border: none;
-    border-bottom: 1px solid #D2D2D2;
-    overflow: hidden;
 }
 
-.sidebar-nav li a.active:before,
-.sidebar-nav a.collapsible-header:before {
-    content: "";
-    display: block;
+.collapsible td.historico:before,
+.collapsible td.atual:before,
+.collapsible div.atual .card:before,
+.collapsible div.historico .card:before {
     position: absolute;
-    right: 16px;
-    top: 18px;
-    width: 0;
-    border-width: 6px 0 6px 6px;
-    border-style: solid;
-    border-color: transparent #666;
+    padding: 1px 5px;
+    background: #e8e6e3;
+    top: -22px;
+    left: 0px;
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: #555;
+    content: "Anterior";
+    font-size: .9rem;
+    border: solid 1px rgba(51,51,51,0.12);
+    border-top: none;
+    border-left: none;
 }
 
-.sidebar-nav li a.active:before {
-    border-color: transparent #afaaaa;
+.collapsible td.atual:before,
+.collapsible div.atual .card:before {
+    content: "Atual";
 }
 
-.sidebar-nav a.collapsible-header.active:before {
-    border-width: 6px 6px 0px 6px;
-    border-color: #666 transparent;
-    top: 20px
+
+ins {
+    background-color: #c6ffc6;
+    text-decoration: none;
+    padding: 2px;
 }
 
-.sidebar-nav a.collapsible-header.active,
-.sidebar-nav li a.active,
-.sidebar-nav a.collapsible-header:hover,
-.sidebar-nav li a:hover {
-    background: rgba(0, 0, 0, 0.11);
-}
-
-.sidebar-nav li .collapsible-body a {
-    border: none;
-    font-weight: normal;
-    color: #212121;
-    padding-left: 50px;
-
-}
-.sidebar-nav li .collapsible-body{
-    border-bottom: 1px solid #D2D2D2;
-}
-
-.sidebar-nav .detalhes-proposta .row {
-    margin-bottom: 0px;
-}
-
-.sidebar-nav .detalhes-proposta p {
-    line-height: 12pt;
-    padding: 0 0 2px;
-    font-size: 13px;
-    margin: 10px 0px;
-}
-
-.sidebar-nav .detalhes-proposta i {
-    margin-right: 5px;
-}
-
-@media screen and (max-width: 1300px) {
-    .sidebar-nav a.collapsible-header, .sidebar-nav li a {
-        padding: 0 10px;
-    }
-
-    .sidebar-nav li .collapsible-body a {
-        padding-left: 15px;
-    }
-}
-
-/*--------------------------------------------------------------
-x - DATATABLE
---------------------------------------------------------------*/
-.mdl-button--raised.mdl-button--colored {
-    background: #4caf50 !important;
-    color: #fff;
-}
-
-/* TEMPORARIAMENTE - Sera retirado depois. */
-div.dataTables_wrapper div.dataTables_filter{text-align:right}
-div.dataTables_wrapper div.dataTables_filter input{margin-left:0.5em}
-div.dataTables_wrapper div.dataTables_info{padding-top:10px;white-space:nowrap}
-div.dataTables_wrapper div.dataTables_processing{
-    background: rgba(76, 175, 80, 0.8);
-    z-index: 1000;
-}
-
-.dataTables_wrapper .dataTables_processing {
-    background: rgba(0, 0, 0, 0) linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%) repeat scroll 0 0;
-    font-size: 2.5em !important;
-    height: 100% !important;
-    padding: 5%;
-    text-align: center !important;
-    vertical-align: middle !important;
-    top: 0% !important;
-    right: 0% !important;
-    width: 100% !important;
-    height: 105% !important;
-}
-
-div.dataTables_wrapper div.dataTables_paginate{text-align:right}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active{
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2) !important;
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button{
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2) !important;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button:hover{
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2) !important;
-}
-.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current {
-    background: rgb(76, 175, 80) !important;
-    border: 1px solid #979797;
-    color: #333 !important;
-}
-
-.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    background: rgb(76, 175, 80) !important;
-    border: 1px solid #979797;
-    color: #333 !important;
-}
-
-div.dataTables_wrapper div.mdl-grid.dt-table {
-    padding-top: 0;
-    padding-bottom: 0
-}
-
-div.dataTables_wrapper div.mdl-grid.dt-table > div.mdl-cell {
-    margin-top: 0;
-    margin-bottom: 0
-}
-table.dataTable thead th {
-    background-color: #4caf50;
-    color: #fff;
-    border-radius: 0;
-}
-table.dataTable thead > tr > th.sorting_asc, table.dataTable thead > tr > th.sorting_desc, table.dataTable thead > tr > th.sorting, table.dataTable thead > tr > td.sorting_asc, table.dataTable thead > tr > td.sorting_desc, table.dataTable thead > tr > td.sorting {
-    padding-right: 30px;
-}
-
-table.dataTable thead > tr > th:active, table.dataTable thead > tr > td:active {
-    outline: none
-}
-
-table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
-    cursor: pointer;
-    position: relative
-}
-
-table.dataTable thead .sorting:before, table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:before, table.dataTable thead .sorting_desc_disabled:after {
-    position: absolute;
-    bottom: 11px;
+ins br {
     display: block;
-    opacity: 0.3;
-    font-size: 1.3em
 }
 
-table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before {
-    right: 1em;
+del {
+    background-color: #ffc6c6;
+    text-decoration: none;
+    padding: 2px;
 }
 
-table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
-    right: 0.5em;
-}
-
-table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:after {
-    opacity: 1
-}
-
-table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:after {
-    opacity: 0
-}
-
-div.dataTables_filter input {
-    border: 1px solid #ddd;
-}
-div.dataTables_length .select-wrapper {
-    max-width: 30px;
-}
-div.dataTables_length select {
-    height: 30px;
+td.original,
+td.changed {
+    width: 50%;
+    vertical-align: top;
 }
 /*--------------------------------------------------------------
 x - FOOTER
 --------------------------------------------------------------*/
-footer {
+footer,
+footer.page-footer {
     background-color: #1B5E20;
     color: #fff;
     position: inherit;
@@ -768,7 +245,6 @@ footer.green a {
 footer.page-footer {
     margin-top: 0;
     padding-top: 0;
-    background-color: #ee6e73;
 }
 
 footer a{

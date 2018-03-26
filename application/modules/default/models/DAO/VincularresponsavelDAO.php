@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,25 +9,20 @@
  *
  * @author tisomar
  */
-class VincularresponsavelDAO extends Zend_Db_Table {
-
-
+class VincularresponsavelDAO extends Zend_Db_Table
+{
     public static function buscaragentes($proponente=null, $cnpjcpfsuperior=null)
-       {
-
-               $sql = "SELECT a.CNPJCPF,n.Descricao AS NomeAgente, a.idAgente
+    {
+        $sql = "SELECT a.CNPJCPF,n.Descricao AS NomeAgente, a.idAgente
                        FROM Agentes.dbo.Agentes as a
                            INNER JOIN Agentes.dbo.Nomes as n on (a.idAgente = n.idAgente) 
                            ";
 
-               if ( !empty ( $proponenteFinal ) )
-               {
-                    $sql .= " WHERE n.Descricao = '$proponenteFinal'";
-               }
-               else
-               {
-                    $sql .= " WHERE a.CNPJCPF =  '$cnpjcpfsuperior' ";
-               }
+        if (!empty($proponenteFinal)) {
+            $sql .= " WHERE n.Descricao = '$proponenteFinal'";
+        } else {
+            $sql .= " WHERE a.CNPJCPF =  '$cnpjcpfsuperior' ";
+        }
 
 
 //               $slct = $this->select();
@@ -51,15 +46,9 @@ class VincularresponsavelDAO extends Zend_Db_Table {
 
 
 
-               $db= Zend_Db_Table::getDefaultAdapter();
-               $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-               return $db->fetchAll($sql);
-
-       }
-
-
-
-
+        return $db->fetchAll($sql);
+    }
 }
-?>

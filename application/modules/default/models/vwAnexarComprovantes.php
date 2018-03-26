@@ -9,16 +9,17 @@
  * @link http://www.cultura.gov.br
  */
 
-class vwAnexarComprovantes extends MinC_Db_Table_Abstract {
+class vwAnexarComprovantes extends MinC_Db_Table_Abstract
+{
 
     /* dados da tabela */
     protected $_banco  = 'SAC';
     protected $_schema = 'SAC';
     protected $_name   = 'vwAnexarComprovantes';
 
-    public function excluirArquivo($idArquivo) {
+    public function excluirArquivo($idArquivo)
+    {
         $where = "idArquivo = " . $idArquivo;
         return $this->delete($where);
     }
-
 }

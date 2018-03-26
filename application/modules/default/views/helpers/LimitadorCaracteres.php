@@ -12,28 +12,23 @@
 
 class Zend_View_Helper_LimitadorCaracteres
 {
-	/**
-	 * Metodo que limita a quantidade dos carateres.
-	 * @access public
-	 * @param Varchar $string
-	 * @return string
-	 */
-	public function LimitadorCaracteres($string)
-	{
-                if(strlen($string) > 0)
-                {
-                    $string = substr($string, 0 , 80);
-                    if(strlen($string) >=  80)
-                    {
-                    $string = $string.' ...';
-                    }
-                }
-                else
-                {
-                    $string = '';
-                }
+    /**
+     * Metodo que limita a quantidade dos carateres.
+     * @access public
+     * @param Varchar $string
+     * @return string
+     */
+    public function LimitadorCaracteres($string)
+    {
+        if (strlen($string) > 0) {
+            $string = substr($string, 0, 80);
+            if (strlen($string) >=  80) {
+                $string = $string.' ...';
+            }
+        } else {
+            $string = '';
+        }
 
-		return $string;
-	} // fecha método corLinha()
-
+        return $string;
+    } // fecha método corLinha()
 } // fecha class

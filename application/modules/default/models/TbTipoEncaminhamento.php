@@ -1,9 +1,9 @@
 <?php 
 
-class TbTipoEncaminhamento extends MinC_Db_Table_Abstract {
-    
-    protected  $_banco = 'SAC';
-    protected  $_name = 'tbTipoEncaminhamento';
+class TbTipoEncaminhamento extends MinC_Db_Table_Abstract
+{
+    protected $_banco = 'SAC';
+    protected $_name = 'tbTipoEncaminhamento';
 
     const DESISTENCIA_DO_PRAZO_RECURSAL = 0;
     const SOLICITACAO_ENCAMINHADA_AO_MINC = 1;
@@ -23,4 +23,3 @@ class TbTipoEncaminhamento extends MinC_Db_Table_Abstract {
     const SOLICITACAO_FINALIZADA_PELO_MINC = 15;
     const SOLICITACAO_DEVOLVIDA_AO_PROPONENTE_PARA_AJUSTES = 16;
 }
-?>

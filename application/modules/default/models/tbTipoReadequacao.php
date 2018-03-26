@@ -9,11 +9,12 @@
 
 class tbTipoReadequacao extends MinC_Db_Table_Abstract
 {
-	protected $_banco  = "SAC";
-	protected $_schema = "SAC";
-	protected $_name   = "tbTipoReadequacao";
+    protected $_banco  = "SAC";
+    protected $_schema = "SAC";
+    protected $_name   = "tbTipoReadequacao";
 
-    public function buscarTiposReadequacoesPermitidos($idPronac) {
+    public function buscarTiposReadequacoesPermitidos($idPronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -24,14 +25,13 @@ class tbTipoReadequacao extends MinC_Db_Table_Abstract
         );
 
         $select->where('stReadequacao = ?', 0);
-        $select->orWhere("stReadequacao = 1 and idTipoReadequacao not in (
+        $select->orWhere(new Zend_Db_Expr("stReadequacao = 1 and idTipoReadequacao not in (
             select idTipoReadequacao from SAC.dbo.tbReadequacao where idPronac = $idPronac AND siEncaminhamento != 12
-        )");
+        )"));
 
         $select->order('2');
 
         
         return $this->fetchAll($select);
     }
-
 }

@@ -1,0 +1,236 @@
+
+/*--------------------------------------------------------------
+x - HEADER
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+x - Logo
+--------------------------------------------------------------*/
+header {
+    position: relative;
+    display: block;
+    clear: both;
+}
+
+header #topo {
+    height: 60px;
+    background-color: #acda5d;
+}
+
+header #topo #logo {
+    width: 224px;
+    display: inline-block;
+}
+
+header #topo #logo h1 {
+    height: 60px;
+
+    font-size: 12px;
+    margin: 0;
+    text-indent: -1000px;
+    background: url(../img/logo_salic.png) center no-repeat;
+    background-size: 150px;
+    cursor: pointer;
+}
+
+header #topo #logo-homolog h1 {
+    height: 60px;
+    font-size: 12px;
+    margin: 0;
+    text-indent: -1000px;
+    background: url(../img/logo_salic_homolog.png) center no-repeat;
+    background-size: 150px;
+    cursor: pointer;
+}
+
+header #topo  #logo h1 a {
+    display: block;
+    height: 58px;
+}
+
+/*--------------------------------------------------------------
+x - Atalhos
+--------------------------------------------------------------*/
+header #atalhos {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    width: 80%;
+    text-align: right;
+    min-height: 45px;
+    z-index: 1001;
+}
+
+header #atalhos a {
+    color: #fff;
+    display: block;
+    font-size: 13px;
+    min-width: 150px;
+    line-height: 2;
+    font-weight: bold;
+}
+
+header #atalhos a i {
+    text-align: center;
+}
+
+header #atalhos ul li {
+    display: inline-block;
+}
+
+
+header #atalhos ul ul li {
+    display: block;
+}
+
+header #atalhos ul ul {
+    min-width: 200px;
+}
+
+header #atalhos ul ul li a{
+    color: #27360d;
+    width: 100%;
+}
+
+header #atalhos ul ul li:last-child a{
+    text-align: right;
+    padding-right: 30px;
+}
+
+header #atalhos #combousuario {
+    min-width: 530px;
+    color: #212121;
+    margin-right: 20px;
+}
+
+header #atalhos #combousuario input.select-dropdown {
+    padding: 0px;
+    margin: 0px;
+    text-align: right;
+    padding-right: 15px;
+    border-bottom: none;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+    height: 2rem;
+    line-height: 2rem;
+}
+
+header #atalhos #combousuario select {
+    display: none;
+}
+
+header #atalhos #combousuario li {
+    min-height: 25px;
+}
+
+header #atalhos #combousuario li span {
+    font-size: 13px;
+    line-height: 14px;
+    padding: 8px 5px;
+    margin: 0px;
+    color: #27360d;
+}
+header #atalhos #combousuario span.caret {
+    color: #fff;
+    line-height: 8px;
+    margin-left: 10px;
+    right: -15px;
+    top: 3px;
+}
+
+header #atalhos #combousuario select.perfilXgrupo {
+
+    background: transparent;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    /*font-size: 12px;*/
+}
+
+header #atalhos #combousuario select.perfilXgrupo option {
+    color: #27360d;
+}
+
+/*--------------------------------------------------------------
+x - Menu principal
+--------------------------------------------------------------*/
+header #navglobal {
+    background: #36963f;
+    display: block;
+    height: 35px;
+    float: left;
+    width: 100% !important;
+    clear: both;
+}
+
+header #navglobal ul li {
+    list-style-type: none;
+    text-align: center;
+    float: left;
+}
+
+header #navglobal ul li a {
+    /*font-size: 11px;*/
+    padding: 11px 20px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    line-height: 34px;
+}
+
+header #navglobal ul li a:hover,
+header #navglobal ul li.ativo a {
+    color: #fff !important;
+    background: #4CAF50;
+}
+
+
+header #navglobal ul li a.home {
+    background: url(../img/home.png) center no-repeat;
+    padding: 2px;
+}
+
+header #navglobal ul li a.home span {
+    visibility: hidden;
+}
+
+header nav .nav-wrapper {
+    color: #fff;
+    height: 40px;
+    line-height: 40px;
+}
+
+header nav,
+header nav .nav-wrapper i,
+header nav a.button-collapse,
+header nav a.button-collapse i {
+    height: 40px;
+    line-height: 40px;
+}
+
+header nav {
+    color: #fff;
+    background-color: #388E3C;
+    width: 100%;
+    height: 40px;
+    z-index: 1000;
+    position: relative;
+}
+
+header nav ul a {
+    transition: background-color .3s;
+    /*font-size: 1rem;*/
+    color: #fff;
+    display: block;
+    padding: 0 15px;
+    cursor: pointer;
+}
+
+header .dropdown-content li > a, .dropdown-content li > span {
+    /*font-size: 16px;*/
+    color: #1f1e1e;
+    display: block;
+    line-height: 22px;
+    padding: 14px 16px;
+}

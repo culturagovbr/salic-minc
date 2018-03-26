@@ -1,100 +1,118 @@
-<div class="container-fluid white">
+<?php echo $this->partial("inc/menu.phtml", $this); ?>
+
+<div class="container-fluid">
     <div class="row">
-        <?= $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto)); ?>
-        <div class="col s10 m12 l10">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Custos vinculados / Remunera&ccedil;&atilde;o</h1>
 
-            <?php
-            gerarBreadCrumb(array(
-                $this->layout['listagem'],
-                array('Detalhes t&eacute;cnicos' => '')
-            ));
-            ?>
-
-            <div id="titulo" style="width: 100%;">
-                <div><?php echo $this->layout['titleFull']; ?> - Custos vinculados</div>
+                    <?php
+                    gerarNovoBreadCrumb(array(
+                        $this->layout['listagem'],
+                        array('Custos vinculados/Remunera&ccedil;&atilde;o' => '')
+                    ));
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
             </div>
-            <div class="clear-fix"></div>
-            <div id="conteudo" class="section">
-                <div class="row">
-                    <form action="<?php echo $this->acao; ?>" method="post" id="frmProposta" name="frmProposta"
-                          enctype="multipart/form-data">
-                        <input type="hidden" name="idPreProjeto" id="idPreProjeto"
-                               value="<?php echo isset($this->proposta['idpreprojeto']) ? $this->proposta['idpreprojeto'] : '' ?>">
-                        <input type="hidden" name="acao" id="acao" value="alterar">
-                        <input type="hidden" name="idagente"
-                               value="<?php echo isset($this->proponente['idagente']) ? $this->proponente['idagente'] : '' ?>">
-                        <input type="hidden" name="url"
-                               value="<?php echo isset($this->url) ? $this->url : '' ?>">
+        </div>
+
+        <div class="content">
+            <div class="card-panel">
+                <form action="<?php echo $this->acao; ?>" method="post" id="frmProposta" name="frmProposta"
+                      enctype="multipart/form-data">
+                    <input type="hidden" name="idPreProjeto" id="idPreProjeto"
+                           value="<?php echo isset($this->proposta['idpreprojeto']) ? $this->proposta['idpreprojeto'] : '' ?>">
+                    <input type="hidden" name="acao" id="acao" value="alterar">
+                    <input type="hidden" name="idagente"
+                           value="<?php echo isset($this->proponente['idagente']) ? $this->proponente['idagente'] : '' ?>">
+                    <input type="hidden" name="url"
+                           value="<?php echo isset($this->url) ? $this->url : '' ?>">
+
+                    <?php if ($this->localRealizacao) : ?>
 
                         <div class="row">
                             <div class="col s12">
-                                <p>Aqui voc&ecirc; pode definir os percentuais para c&aacute;lculo dos custos vinculados
+                                <p>Aqui voc&ecirc; pode definir os percentuais para c&aacute;lculo dos Custos Vinculados
+                                    /
+                                    Remuneração
                                     do seu projeto, essas escolhas ir&atilde;o influenciar no or&ccedil;amento do seu
                                     projeto.</p>
-                                <p>Ao clicar em salvar, o sistema ir&aacute; atualizar sua planilha or&ccedil;ament&aacute;ria com os novos c&aacute;lculos.</p>
+                                <p>Ao clicar em salvar, o sistema ir&aacute; atualizar sua planilha or&ccedil;ament&aacute;ria
+                                    com os novos c&aacute;lculos.</p>
                             </div>
-                            <?php if ($this->localRealizacao) : ?>
-                                <?php foreach ($this->itensCustosVinculados as $item) : ?>
-                                    <div class="row">
-                                        <input type="hidden"
-                                               name="itensCustosVinculados[<?= $item['idPlanilhaItens']; ?>][idCustosVinculados]"
-                                               value="<?= $item['idCustosVinculados']; ?>">
+                        </div>
 
-                                        <div class="input-field col s6">
-                                            <select
-                                                name="itensCustosVinculados[<?= $item['idPlanilhaItens']; ?>][percentual]" class="validate" required>
-                                                <option value="" disabled selected>Selecione</option>
-                                                <?php $percentual = $item['Percentual']; ?>
-                                                <?php while ($percentual >= 0) : ?>
-                                                    <option
-                                                        <?= (isset($item['PercentualProponente']) && $item['PercentualProponente'] == $percentual) ? 'selected' : '' ?>
-                                                        value="<?= $percentual; ?>"><?= $percentual; ?>%
-                                                    </option>
-                                                    <?php $percentual--; ?>
-                                                <?php endwhile; ?>
-                                            </select>
-                                            <label><?= $item['Descricao']; ?></label>
-                                        </div>
-                                        <div class="col s6">
-                                            <p>
-                                                <br>
-                                            <?php if( $item['Percentual'] ) : ?>
-                                                   Percentual padrão: <?= $item['Percentual']; ?>%
-                                            <?php endif; ?>
-                                            <?php if( $item['Limite'] ) : ?>
-                                                <br>
-                                                    Limite: R$ <?= number_format($item['Limite'], 2, ",", "."); ?>
+                        <?php foreach ($this->itensCustosVinculados as $item) : ?>
+                            <div class="row">
+                                <input type="hidden"
+                                       name="itensCustosVinculados[<?= $item['idPlanilhaItens']; ?>][idCustosVinculados]"
+                                       value="<?= $item['idCustosVinculados']; ?>">
 
-                                            <?php endif; ?>
-                                               </p>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            <?php else: ?>
+                                <div class="input-field col s6">
+                                    <select
+                                        name="itensCustosVinculados[<?= $item['idPlanilhaItens']; ?>][percentual]"
+                                        class="validate" required>
+                                        <option value="" disabled selected>Selecione</option>
+                                        <?php $percentual = $item['percentualPadrao']; ?>
+                                        <?php while ($percentual >= 0) : ?>
+                                            <option
+                                                <?= (isset($item['percentualProponente']) && $item['percentualProponente'] == $percentual) ? 'selected' : '' ?>
+                                                <?= (!isset($item['percentualProponente']) && $item['percentualPadrao'] == $percentual) ? 'selected' : '' ?>
+                                                value="<?= $percentual; ?>"><?= $percentual; ?>%
+                                            </option>
+                                            <?php
+                                            $percentual = is_float($percentual) ? $percentual - 0.5 : $percentual - 1;
+                                            ?>
+                                        <?php endwhile; ?>
+                                    </select>
+                                    <label><?= $item['Descricao']; ?></label>
+                                </div>
+                                <div class="col s6">
+                                    <p>
+                                        <br>
+                                        <?php if ($item['percentualPadrao']) : ?>
+                                            Percentual padrão: <?= $item['percentualPadrao']; ?>%
+                                        <?php endif; ?>
+                                        <?php if ($item['limitePadrao']) : ?>
+                                            <br>
+                                            Limite: R$ <?= number_format($item['limitePadrao'], 2, ",", "."); ?>
+
+                                        <?php endif; ?>
+                                    </p>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
+                        <?php if ($this->isEditavel) : ?>
+                            <div class="row">
+                                <div class="input-field col s12 center">
+                                    <button class="btn waves-effect white-text waves-light btn-salvar" type="submit"
+                                            name="action">
+                                        Salvar
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <div class="row">
                             <div class="col s12">
                                 <div class="valign-wrapper">
-                                    <p class="valign"> Para preencher os custos vinculados, &eacute; necess&aacute;rio informar o
+                                    <p class="valign"> Para preencher os custos vinculados, &eacute; necess&aacute;rio
+                                        informar o
                                         <a href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'localderealizacao', 'action' => 'index', 'idPreProjeto' => $this->idPreProjeto)); ?>"
                                            titlte="Preencher local de reali&ccedil;&atilde;o">local de realiza&ccedil;&atilde;o</a>.
                                     </p>
                                 </div>
-                                <div>
-                                    <?php endif; ?>
-                                </div>
-
-                                <?php if ($this->isEditavel) : ?>
-                                    <div class="row">
-                                        <div class="input-field col s12 center">
-                                            <button class="btn waves-effect white-text waves-light btn-salvar" type="submit" name="action">
-                                                Salvar
-                                                <i class="material-icons right">send</i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                <?php endif; ?>
                             </div>
-                    </form>
-                </div>
+                        </div>
+                    <?php endif; ?>
+                </form>
             </div>
         </div>
     </div>
@@ -105,31 +123,12 @@
     $(document).ready(function ($) {
 
         <?php if (!$this->isEditavel) : ?>
-        //DESABILITA ALTERACOES NOS DADOS DO FORMULARIO (INCLUIR/ALTERAR/EXCLUIR)
         JSBloquearAlteracaoFormulario();
         <?php endif; ?>
-
-
     });
 
     $3(document).ready(function () {
         $3('select').material_select();
     });
-
-//    $3('body').on('click', 'button, .btn-salvar', function () {
-//        var validar = true;
-//        $3('.validate').each(function () {
-//            if ($3(this).val() == '') {
-//                validar = false;
-//            }
-//        });
-//
-//        if (validar == false) {
-//            Materialize.toast("Todos os campos s&atilde;o obrigat&oacute;rios!", 4000);
-//            return false;
-//        } else {
-//            $3('#form').submit();
-//        }
-//    });
 
 </script>

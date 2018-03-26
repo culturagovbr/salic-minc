@@ -1,19 +1,14 @@
 <?php
-/**
- * Description of GerarRelatorioReuniao
- *
- * @author 01373930160
- */
-class GerarRelatorioReuniaoExternoController extends MinC_Controller_Action_Abstract {
-
-    public function init() {
-    	Zend_Layout::startMvc(array('layout' => 'layout_scriptcase'));
+class GerarRelatorioReuniaoExternoController extends MinC_Controller_Action_Abstract
+{
+    public function init()
+    {
+        Zend_Layout::startMvc(array('layout' => 'layout_scriptcase'));
         parent::init(); // chama o init() do pai GenericControllerNew
     }
 
-// fecha método init()
-
-    public function gerarrelatorioreuniaoAction() {
+    public function gerarrelatorioreuniaoAction()
+    {
         $reuniao = new Reuniao();
         $pauta = new Pauta();
         $area = new Area();
@@ -51,7 +46,7 @@ class GerarRelatorioReuniaoExternoController extends MinC_Controller_Action_Abst
                 $projetos[$projetosCNIC->Area][$num]['dsConselheiro'] = $projetosCNIC->ResumoParecer;
                 if ($projetosCNIC->stAnalise == 'AS') {
                     $projetos[$projetosCNIC->Area][$num]['stAnalisePlenaria'] = 'Aprovar';
-                } else if ($projetosCNIC->stAnalise == 'IS') {
+                } elseif ($projetosCNIC->stAnalise == 'IS') {
                     $projetos[$projetosCNIC->Area][$num]['stAnalisePlenaria'] = 'Indeferir';
                 } else {
                     $projetos[$projetosCNIC->Area][$num]['stAnalisePlenaria'] = '';
@@ -68,9 +63,9 @@ class GerarRelatorioReuniaoExternoController extends MinC_Controller_Action_Abst
         }
     }
 
-    public function gerarpdfAction() {
+    public function gerarpdfAction()
+    {
         $this->_helper->layout->disableLayout();
         $this->view->dadosprojetos = $_POST['dadospdf'];
     }
-
 }

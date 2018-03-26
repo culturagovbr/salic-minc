@@ -23,14 +23,11 @@ class AnexardocumentosDAO extends Zend_Db_Table
     public static function buscarprojeto($idpronac)
     {
         $sql = "SELECT idProjeto FROM sac.dbo.Projetos WHERE idPronac = $idpronac";
-        try
-        {
+        try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB :: FETCH_ASSOC);
             return $db->fetchRow($sql);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Documentos anexados: " . $e->getMessage();
         }
     }
@@ -46,19 +43,16 @@ class AnexardocumentosDAO extends Zend_Db_Table
     {
         $sql = "SELECT idAgente FROM sac.dbo.PreProjeto WHERE idPreProjeto = $projeto";
 
-        try
-        {
+        try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB :: FETCH_ASSOC);
             return $db->fetchRow($sql);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Documentos anexados: " . $e->getMessage();
         }
     }
 
-// fecha m�todo buscar()
+    // fecha m�todo buscar()
 
     /**
      * M�todo para buscar documentos de um PRONAC
@@ -108,7 +102,7 @@ class AnexardocumentosDAO extends Zend_Db_Table
 //                        INNER JOIN sac.dbo.tbTipoDocumento e on (d.idTipoDocumento = e.idTipoDocumento)
 //                        WHERE idPronac = $idpronac and NoArquivo not in ('')
 //                        ORDER BY Data";
-////        die("<pre>".$sql);
+    ////        die("<pre>".$sql);
 //
 //
 //        try
@@ -179,8 +173,7 @@ class AnexardocumentosDAO extends Zend_Db_Table
 
         // busca o arquivo
 
-        if ($tipo == 'antigo-agente')
-        {
+        if ($tipo == 'antigo-agente') {
             $sql = " SELECT
                        imdocumento,
                        noarquivo
@@ -188,24 +181,21 @@ class AnexardocumentosDAO extends Zend_Db_Table
                 where idDocumentosAgentes=$id
         ";
         }
-        if ($tipo == 'antigo-preprojeto')
-        {
+        if ($tipo == 'antigo-preprojeto') {
             $sql = "SELECT
                        imdocumento,
                        noarquivo
                 FROM sac.dbo.tbDocumentosPreProjeto
                 where idDocumentosPreprojetos=$id";
         }
-        if ($tipo == 'antigo-documento')
-        {
+        if ($tipo == 'antigo-documento') {
             $sql = " SELECT
                        imdocumento,
                        noarquivo
                 FROM sac.dbo.tbDocumento
                 where idDocumento=$id";
         }
-        if ($tipo == 'docProp')
-        {
+        if ($tipo == 'docProp') {
             $sql = "SELECT
                       biArquivo
                 FROM BDCORPORATIVO.scCorp.tbArquivoImagem
@@ -217,8 +207,8 @@ class AnexardocumentosDAO extends Zend_Db_Table
         return $resultado;
     }
 
-// fecha m�todo abrir()
-// fecha m�todo buscar()
+    // fecha m�todo abrir()
+    // fecha m�todo buscar()
 
     /**
      * M�todo para cadastrar documentos do PRONAC
@@ -232,8 +222,7 @@ class AnexardocumentosDAO extends Zend_Db_Table
           $sql.= "VALUES ($dados['idPRONAC'], $dados['idTipoDocumento'], $dados['nmComprovante'], $dados['dsComprovante'], $dados['idArquivo'], $dados['idSolicitante'], $dados['dtEnvioComprovante'], $dados['stComprovante'], $dados['stComprovante'], $dados['idComprovanteAnterior'])"; */
     }
 
-// fecha m�todo cadastrar()
+    // fecha m�todo cadastrar()
 }
 
 // fecha class
-?>

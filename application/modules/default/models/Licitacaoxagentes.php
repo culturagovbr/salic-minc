@@ -5,27 +5,32 @@
  *
  * @author 01610881125
  */
-class Licitacaoxagentes extends MinC_Db_Table_Abstract {
+class Licitacaoxagentes extends MinC_Db_Table_Abstract
+{
     protected $_banco   = 'bdcorporativo';
     protected $_name    = 'tbLicitacaoxAgentes';
     protected $_schema  = 'scSAC';
 
-    public function inserirLicitacaoxAgentes($data){
+    public function inserirLicitacaoxAgentes($data)
+    {
         $insert = $this->insert($data);
         return $insert;
     }
 
-    public function alterarLicitacaoxAgentes($data, $where){
+    public function alterarLicitacaoxAgentes($data, $where)
+    {
         $update = $this->update($data, $where);
         return $update;
     }
 
-    public function deletarLicitacaoxAgentes($where){
+    public function deletarLicitacaoxAgentes($where)
+    {
         $delete = $this->delete($where);
         return $delete;
     }
 
-    public function buscarFornecedoresLicitacao($idLicitacao){
+    public function buscarFornecedoresLicitacao($idLicitacao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(

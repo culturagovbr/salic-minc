@@ -7,7 +7,8 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
 
     const ID_TIPO_AGENTE_PARCERISTA = 1;
 
-    private function validarPerfis() {
+    private function validarPerfis()
+    {
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = Autenticacao_Model_Grupos::COORDENADOR_DE_PARECERISTA;
         $PermissoesGrupo[] = Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA;
@@ -43,7 +44,7 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
     {
     }
 
-    function obterServicoDocumentoAssinatura()
+    public function obterServicoDocumentoAssinatura()
     {
     }
 
@@ -64,7 +65,7 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
         $this->view->idPerfilDoAssinante = $GrupoAtivo->codGrupo;
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
@@ -85,7 +86,6 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
             $campo = $this->_request->getParam("campo");
             $order = array($campo . " " . $ordem);
             $ordenacao = "&campo=" . $campo . "&ordem=" . $ordem;
-
         } else {
             $campo = null;
             $order = array('DtEnvioMincVinculada', 'NomeProjeto', 'stPrincipal desc');
@@ -95,7 +95,9 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag > 1) ? ($pag - 1) * $this->intTamPag : 0;
 
         $where = array();
@@ -107,7 +109,7 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
             $this->view->pronacProjeto = $pronac;
         }
 
-        if(!$this->_request->getParam("tipoFiltro")){
+        if (!$this->_request->getParam("tipoFiltro")) {
             $tipoFiltro = 'aguardando_distribuicao';
         } else {
             $tipoFiltro = $this->_request->getParam("tipoFiltro");
@@ -209,13 +211,13 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
                         }
                         $fecharAnalise = 3;
                     }
-                } else if ($tipoFiltro == 'devolvida') {
+                } elseif ($tipoFiltro == 'devolvida') {
                     $fecharAnalise = 0;
                 } else {
                     $fecharAnalise = $dp->FecharAnalise;
                 }
 
-                    //colocar IN2017 fecharanalise = 1 , caso caontrario 3
+                //colocar IN2017 fecharanalise = 1 , caso caontrario 3
                 if ($tipoFiltro == 'validados') {
                     if (!$projetos->verificarIN2017($idPronac) && !$orgaos->isVinculadaIphan($dp->idOrgao)) {
                         $fecharAnalise    = 1;
@@ -245,7 +247,6 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
                 $whereD['idDistribuirParecer = ?'] = $idDistribuirParecer;
                 $salvar = $tbDistribuirParecer->alterar(array('stEstado' => 1), $whereD);
                 $insere = $tbDistribuirParecer->inserir($dados);
-
             }
 
             /** Grava o Parecer nas Tabelas tbPlanilhaProjeto e Parecer e altera a situa��o do Projeto para  ***************/
@@ -266,13 +267,13 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
                         // dentro das unidades abaixo
                         if (in_array($dp->idOrgao, array(91,92,93,94,95,160,171,335))) {
                             if ($tipoFiltro == 'validados' || $tipoFiltro == 'devolvida') {
-                                $projeto->alterarSituacao($idPronac, null, 'C20', 'Anlise tcnica concluda');
-                            } else if ($tipoFiltro == 'em_validacao') {
-                                $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando validao do parecer tcnico');
+                                $projeto->alterarSituacao($idPronac, null, 'C20', 'Anlise t&eacute;cnica conclu&iacute;da');
+                            } elseif ($tipoFiltro == 'em_validacao') {
+                                $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando valida&ccedil;&atilde;o do parecer t&eacute;cnico');
                             }
                         } else {
-                                // fora das unidades acima
-                                $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando validao do parecer tcnico');
+                            // fora das unidades acima
+                            $projeto->alterarSituacao($idPronac, null, 'B11', 'Aguardando valida&ccedil;&atilde;o do parecer t&eacute;cnico');
                         }
                     } else {
                         // inabilitado
@@ -299,12 +300,10 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
             }
             $db->commit();
             parent::message("Conclu&iacute;do com sucesso!", "parecer/gerenciar-parecer?tipoFiltro=" . $tipoFiltro, "CONFIRM");
-
         } catch (Zend_Exception $ex) {
             $db->rollBack();
             parent::message("Erro ao concluir " . $ex->getMessage(), "gerenciarparecer/concluir/idDistribuirParecer/" . $idDistribuirParecer . "/tipoFiltro/" . $tipoFiltro, "ERROR");
         }
-
     }
 
     public function finalizarParecerAction()
@@ -384,7 +383,6 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
             $buscaDadosProjeto = $tbDistribuirParecer->dadosParaDistribuir($dadosWhere);
 
             foreach ($buscaDadosProjeto as $dp) {
-
                 if ($orgaos->isVinculadaIphan($dp->idOrgao)) {
                     $idOrgao = Orgaos::ORGAO_IPHAN_PRONAC;
                 } else {
@@ -413,7 +411,6 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
                 $whereD['idDistribuirParecer = ?'] = $idDistribuirParecer;
                 $salvar = $tbDistribuirParecer->alterar(array('stEstado' => 1), $whereD);
                 $insere = $tbDistribuirParecer->inserir($dados);
-
             }
 
             $wherePro['IdPRONAC = ?'] = $idPronac;
@@ -437,12 +434,10 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
 
             $db->commit();
             parent::message("Conclu&iacute;do com sucesso!", "parecer/gerenciar-parecer/finalizar-parecer", "CONFIRM");
-
         } catch (Zend_Exception $ex) {
             $db->rollBack();
             parent::message("Erro ao concluir " . $ex->getMessage(), "parecer/gerenciar-parecer/finalizar-parecer", "ERROR");
         }
-
     }
 
     private function fecharAssinatura($idPronac)

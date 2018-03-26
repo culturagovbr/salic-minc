@@ -2,18 +2,13 @@
 
 /**
  * Classe do componente de SEI que gerencia a
- * comunicacao via webservice entre o NovoSalic e o servi�o do Corporativo
+ * comunicacao via webservice entre o NovoSalic e o servico do Corporativo
  * que consome o Webservice da Receita Federal
  * Este Servico eh do tipo REST
  *
- * @copyright Ministerio da Cultura
- * @author Hepta/Minc - Alysson Vicuña de Oliveira
- * @since 18/04/2016
- * @version 1.0
  */
 class ServicosReceitaFederal
 {
-
     const urlPessoaFisica = "pessoa_fisica/consultar/";
     const urlPessoaJuridica = "pessoa_juridica/consultar/";
     const urlForcar = "?forcarBuscaNaReceita=true";
@@ -120,7 +115,6 @@ class ServicosReceitaFederal
     }
 
     /**
-     * @author Alysson Vicuña de Oliveira
      *
      * @param $cpf - CPF a ser consultado
      * @param bool $returnJSON - Define se o retorno sera um JSON ou Array de Objetos
@@ -204,5 +198,4 @@ class ServicosReceitaFederal
     {
         debug("O m&eacute;todo " . $strMethod . " n&atilde;o foi encontrado na classe " . get_class($this) . ".<br />" . __FILE__ . "(linha " . __LINE__ . ")", 1);
     }
-
 }

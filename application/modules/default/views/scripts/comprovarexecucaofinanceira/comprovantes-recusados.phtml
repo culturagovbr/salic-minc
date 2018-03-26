@@ -1,6 +1,15 @@
 <div id="divPerguntaEnviar" class="sumir"></div>
 <div id="titulo">
-    <div>Comprovação Enviada<span class="voltar"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idpronac); ?>" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
+    <div>Comprovantes recusados na avaliação financeira
+        <span class="voltar">
+            <a href="<?php echo $this->url(
+                array('controller' => 'consultardadosprojeto',
+                'action' => 'index'), '', true);
+                ?>?idPronac=<?php echo Seguranca::encrypt($this->idpronac); ?>"
+                title="Ir para p&aacute;gina anterior"
+            >Voltar</a>
+        </span>
+    </div>
 </div>
 
 <div id="conteudo" align="center">

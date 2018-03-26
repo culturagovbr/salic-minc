@@ -2,21 +2,17 @@
 
     $somaProjetosSubmetidos = 0;
     
-    foreach ( $this->consultaGeraInfo as $valueReuniao )
-    {
+    foreach ($this->consultaGeraInfo as $valueReuniao) {
         $numeroReuniao = $valueReuniao->NrReuniao;
         $dataInicio = $valueReuniao->DtInicio;
         $dataFechamento = $valueReuniao->DtFechamento;
         
-        if( $valueReuniao->stEnvioPlenario == "S" )
-        {
+        if ($valueReuniao->stEnvioPlenario == "S") {
             $somaProjetosSubmetidos++;
         }
     }
 
-    if(isset($numeroReuniao))
-    {
-
+    if (isset($numeroReuniao)) {
         echo "<div id='Jquery'>";
         echo "<table style=\"margin-left:10px; border:0; background:none;\">";
         echo "<tr colspan=1>";
@@ -45,11 +41,4 @@
         echo "</tr>";
         echo "</table>";
         echo "</div>";
-
     }
-
-
-
-   
-
-?>

@@ -9,9 +9,9 @@
  *
  * @author augusto
  */
-class HistoricoConselheiro extends MinC_Db_Table_Abstract {
+class HistoricoConselheiro extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'BDCORPORATIVO';
     protected $_schema = 'BDCORPORATIVO.scAGENTES';
     protected $_name   = 'tbHistoricoConselheiro';
-
 }

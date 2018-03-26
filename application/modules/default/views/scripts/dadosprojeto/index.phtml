@@ -1,4 +1,6 @@
 <script>
+    var isIn2017 =  <?= ($this->in2017); ?>;
+
     $(document).ready(function (){
         $('.btnAbrirDiv').click(function(){
             var idpronac = '<?php echo $this->idpronac ?>';
@@ -6,7 +8,19 @@
             dadosOb = {
                 idpronac : idpronac,
                 tipo : tipo
+            };
+
+            var idDiv = "#"+tipo;
+
+            if (tipo == 'plano') {
+                if (isIn2017) {
+                    $(idDiv).toggle('fast');
+                    return;
+                } else {
+                    $(idDiv).html('');
+                }
             }
+
             ajax(dadosOb, tipo);
         });
         
@@ -303,7 +317,17 @@
             </td>
         </tr>
     </table>
-    <div id="plano"  class="sumir abrirdiv"></div>
+    <div id="plano"  class="sumir abrirdiv">
+        <?php if($this->in2017) : ?>
+            <div id="container-vue">
+                <salic-proposta-plano-distribuicao
+                    idPreProjeto="<?= $this->dadosprojeto['idProjeto']; ?>"
+                >
+                </salic-proposta-plano-distribuicao>
+
+            </div>
+        <?php endif; ?>
+    </div>
     <br>
 
 
@@ -323,3 +347,47 @@
 <!-- ========== FIM RODAPï¿½ DO CONTEï¿½DO ========== -->
 
 <br clear="all" />
+<?php if($this->in2017) : ?>
+    <script src="/public/js/vue.js" type="text/javascript"></script>
+    <script src="/public/scripts/proposta/visualizar/salic-proposta-plano-distribuicao.vue.js" type="text/javascript"></script>
+    <script src="/public/scripts/proposta/visualizar/salic-proposta-detalhamento-plano-distribuicao.vue.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+        (function (global, factory) {
+            if (typeof define === 'function' && define.amd) {
+                define(['../numeral'], factory);
+            } else if (typeof module === 'object' && module.exports) {
+                factory(require('../numeral'));
+            } else {
+                factory(global.numeral);
+            }
+        }(this, function (numeral) {
+            numeral.register('locale', 'pt-br', {
+                delimiters: {
+                    thousands: '.',
+                    decimal: ','
+                },
+                abbreviations: {
+                    thousand: 'mil',
+                    million: 'milhões',
+                    billion: 'b',
+                    trillion: 't'
+                },
+                ordinal: function (number) {
+                    return '$';
+                },
+                currency: {
+                    symbol: 'R$'
+                }
+            });
+        }));
+
+        numeral.locale('pt-br');
+
+        new Vue({
+            el: '#container-vue'
+        });
+
+    </script>
+<?php endif; ?>

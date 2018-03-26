@@ -1,21 +1,12 @@
 <?php 
-/**
- * 
- */
 class RespostaModel
 {
-    /**
-     * 
-     */
     const TEXT = 4;
     const TEXTAREA = 5;
     const RADIO = 6;
     const CHECKBOX = 7;
     const ANEXO = 9;
 
-    /**
-     * 
-     */
     protected $resposta;
     protected $tipoResposta;
     protected $questao;
@@ -65,7 +56,7 @@ class RespostaModel
 
     /**
      * Efetua o cadastro da resposta
-     * 
+     *
      * @return integer
      */
     public function cadastrar()
@@ -82,7 +73,7 @@ class RespostaModel
 
     /**
      * Efetua a atualizacao da resposta
-     * 
+     *
      * @return integer
      */
     public function atualizar()
@@ -99,7 +90,7 @@ class RespostaModel
 
     /**
      * Efetua a delecao da resposta usando como filtro o identificador da mesma
-     * 
+     *
      * @return integer
      */
     public function deletar()
@@ -109,7 +100,7 @@ class RespostaModel
 
     /**
      * Efetua a delecao da resposta usando como filtro questao
-     * 
+     *
      * @return integer
      */
     public function deletarPorQuestao()
@@ -119,7 +110,7 @@ class RespostaModel
 
     /**
      * Pesquisar a resposta pelo identificador
-     * 
+     *
      * @return array
      */
     public function pesquisar($resposta)
@@ -128,7 +119,7 @@ class RespostaModel
     }
 
     /**
-     * 
+     *
      */
     public function pesquisarPorTipoQuestao($tipoResposta = null, $questao = null)
     {
@@ -144,9 +135,6 @@ class RespostaModel
         return $this->table->fetchAll($select)->toArray();
     }
 
-    /**
-     * 
-     */
     public function toStdClass()
     {
         $obj = new stdClass();

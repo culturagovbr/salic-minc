@@ -21,10 +21,13 @@ class RespostaController extends MinC_Controller_Action_Abstract
      * (non-PHPdoc)
      * @see GenericControllerNew::postDispatch()
      */
-    public function postDispatch(){;}
+    public function postDispatch()
+    {
+        ;
+    }
 
     /**
-     * 
+     *
      */
     public function cadastrarAction()
     {
@@ -37,8 +40,10 @@ class RespostaController extends MinC_Controller_Action_Abstract
             );
             $resposta->cadastrar();
             $this->view->resposta = $resposta->toStdClass();
-        } catch(Exception $e) {
-            echo '<pre>'; print_r($e);die;
+        } catch (Exception $e) {
+            echo '<pre>';
+            print_r($e);
+            die;
             $this->view->error = $e;
         }
     }

@@ -1,0 +1,224 @@
+
+/*--------------------------------------------------------------
+x - RESET - Ajustes para compatibilidade com materialize
+--------------------------------------------------------------*/
+
+#imagemRodapeTelaMenorQueMenu span,
+#imagemRodape span,
+#rodapeConteudo span,
+#rodapeConteudo_com_menu span,
+#rodapeConteudo,
+#rodapeConteudo_com_menu,
+#rodapeSemSolicitacao,
+#conteudo {
+    background: none;
+}
+
+#rodapeConteudo,
+#rodapeConteudo_com_menu {
+    display: none;
+}
+
+
+.conteudoImprimir table,
+#conteudo table.tabela {
+    background: #fff;
+    /*font-size: 12px;*/
+    margin: 10px !important;
+    width: 98%;
+}
+
+.conteudoImprimir table th,
+#conteudo table.tabela th {
+    border-radius: 0px;
+    padding: 10px 10px;
+
+}
+
+.exibir-proposta-cultural .collapsible > li > .collapsible-header {
+    background: #e8ebef;
+}
+
+.exibir-proposta-cultural .collapsible .collapsible li > .collapsible-header,
+.exibir-proposta-cultural table tr th {
+    background-color: #f2f2f2;
+
+}
+.exibir-proposta-cultural table > tbody > tr > th {
+    background: #dee2e7;
+    border: 1px solid #ddd;
+}
+
+.exibir-proposta-cultural .collapsible > .collapsible-header.active {
+    border-bottom: none;
+}
+
+.conteudoImprimir table td,
+#conteudo table.tabela td {
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+table.tabela td.destacar span,
+#conteudo #planilhaOrcamentariaMontada table.tabela td,
+#conteudo #planilhaOrcamentariaMontada table.tabela td span {
+    background: transparent !important;
+}
+
+#conteudo table.cke_editor {
+    background: transparent;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+}
+
+#conteudo table.cke_editor .cke_top {
+    display: none;
+}
+
+#conteudo table.cke_editor .cke_contents {
+    padding: 0px;
+    margin: 0px;
+}
+
+
+#conteudo table.cke_editor .cke_bottom {
+    padding: 5px;
+    margin: 0px;
+    background: transparent;
+}
+
+#conteudo table.tabela th,
+#conteudo p[align="center"],
+#conteudo table.tabela th[align="center"],
+#conteudo table.tabela td[align="center"] {
+    text-align: center !important;
+}
+
+#conteudo table.tabela tr a:not(.btn) {
+    text-decoration: underline;
+    /*color: #fff;*/
+    color: #404040;
+}
+
+#conteudo table.tabela {
+    width: 100% !important;
+    margin: 0px auto 20px auto !important;
+
+}
+#conteudo > fieldset,
+#conteudo > div > fieldset {
+    margin: 5px 0 0 0;
+}
+
+
+#conteudo table caption {
+    color: #404040;
+    border: 1px solid #cacaca;
+    background-color: rgb(236, 236, 236);
+}
+
+
+/*Customizando o radio para ficar sempre ao lado do outro.*/
+[type="radio"] + label:before,
+[type="radio"] + label:after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: -1px;
+    margin: 0;
+    width: 16px;
+    height: 16px;
+    z-index: 0;
+    transition: .28s ease;
+}
+[type="radio"]:not(:checked) + label,
+[type="radio"]:checked + label {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    /*display: inline-block;*/
+    display: inline;
+    height: 25px;
+    line-height: 25px;
+    /*font-size: 15px;*/
+    transition: .28s ease;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#conteudo [type="checkbox"]:not(:checked),
+#conteudo [type="checkbox"]:checked,
+#conteudo [type="radio"]:not(:checked),
+#conteudo [type="radio"]:checked,
+#conteudo table.tabela [type="radio"]:not(:checked),
+#conteudo table.tabela [type="radio"]:checked {
+    position: relative;
+    left: 0px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+#conteudo [type="radio"] + label:before,
+#conteudo [type="radio"] + label:after {
+    display: none;
+}
+
+#conteudo table.tabela label {
+    /*font-size: 0.8rem;*/
+    /*color: #212121;*/
+}
+
+#conteudo table.tabela label.error {
+    color: red;
+}
+
+#conteudo .btn_calendario,
+#conteudo .btn_calendario:hover,
+#conteudo .btn_calendario-off,
+#conteudo  .btn_relogio {
+    width: 110px;
+}
+
+#space_menu {
+    height: auto;
+}
+
+#menu {
+    float: left;
+    min-height: 300px;
+}
+
+
+#conteudoImpressao .tabela tr td span.red,
+#conteudoImpressao .tabela tr td.red,
+#conteudoImpressao .tabela tr td span.blue,
+#conteudoImpressao .tabela tr td.blue,
+#conteudoImpressao .tabela tr td.orange,
+#conteudoImpressao .tabela tr td span.orange,
+#conteudoImpressao .tabela tr td.black,
+#conteudoImpressao .tabela tr td span.black,
+#conteudoImpressao .tabela tr td span.green,
+#conteudoImpressao .tabela tr td.green,
+#planilhaOrcamentaria .tabela tr td span.red,
+#planilhaOrcamentaria .tabela tr td.red,
+#planilhaOrcamentaria .tabela tr td span.blue,
+#planilhaOrcamentaria .tabela tr td.blue,
+#planilhaOrcamentaria .tabela tr td.orange,
+#planilhaOrcamentaria .tabela tr td span.orange,
+#planilhaOrcamentaria .tabela tr td.black,
+#planilhaOrcamentaria .tabela tr td span.black,
+#planilhaOrcamentaria .tabela tr td span.green,
+#planilhaOrcamentaria .tabela tr td.green {
+    background: transparent !important;
+}
+
+.assinar_parecer .produtos td {
+    text-align: right;
+}
+
+input#stEnvioPlenaria {
+    display: none;
+}

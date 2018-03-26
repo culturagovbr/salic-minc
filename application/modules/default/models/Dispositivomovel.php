@@ -7,7 +7,6 @@
  */
 class Dispositivomovel extends MinC_Db_Table_Abstract
 {
-
     protected $_name = 'tbDispositivoMovel';
     protected $_schema = 'SAC';
     protected $_primary = 'idDispositivoMovel';
@@ -24,17 +23,18 @@ class Dispositivomovel extends MinC_Db_Table_Abstract
      * @param string $cpf Optional
      * @return array $dispositivo Dados do dispositivo
      */
-    public function salvar($registrationId, $cpf = NULL){
+    public function salvar($registrationId, $cpf = null)
+    {
         $dispositivo = array();
 
-        if(!empty($registrationId)){
+        if (!empty($registrationId)) {
             $dispositivoRow = $this->fetchRow("idRegistration = '{$registrationId}'");
-            if(!$dispositivoRow){
+            if (!$dispositivoRow) {
                 $dispositivoRow = $this->createRow(array(
                     'idRegistration' => $registrationId
                 ));
             }
-            if($cpf){
+            if ($cpf) {
                 $dispositivoRow->nrCPF = $cpf;
             }
             $dispositivoRow->dtAcesso = new Zend_Db_Expr('getdate()');
@@ -51,8 +51,9 @@ class Dispositivomovel extends MinC_Db_Table_Abstract
      * @param integer $idPronac
      * @return array
      */
-    public function listarPorIdPronac($idPronac){
-        if($idPronac){
+    public function listarPorIdPronac($idPronac)
+    {
+        if ($idPronac) {
             $consulta = $this->select();
             $consulta->setIntegrityCheck(false);
             $consulta
@@ -81,7 +82,8 @@ class Dispositivomovel extends MinC_Db_Table_Abstract
      * @param array $listaResultadoDispositivo
      * @return array
      */
-    public function listarIdRegistration($listaResultadoDispositivo) {
+    public function listarIdRegistration($listaResultadoDispositivo)
+    {
         $listaDispositivos = array();
         foreach ($listaResultadoDispositivo as $dispositivo) {
             $listaDispositivos[] = $dispositivo->idRegistration;
@@ -96,7 +98,8 @@ class Dispositivomovel extends MinC_Db_Table_Abstract
      * @param array $listaResultadoDispositivo
      * @return array
      */
-    public function listarIdDispositivoMovel($listaResultadoDispositivo) {
+    public function listarIdDispositivoMovel($listaResultadoDispositivo)
+    {
         $listaDispositivos = array();
         foreach ($listaResultadoDispositivo as $dispositivo) {
             $listaDispositivos[] = $dispositivo->idDispositivoMovel;
@@ -104,5 +107,4 @@ class Dispositivomovel extends MinC_Db_Table_Abstract
 
         return $listaDispositivos;
     }
-
 }

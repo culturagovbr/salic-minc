@@ -118,7 +118,7 @@
                 idPronac: idPronac
             },
             success: function (data) {
-                console.log(data);
+                    console.log(data);
                 if (data.status == true) {
                     var url = "<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'identificacaodaproposta')); ?>" + '/idPreProjeto/' + data.idPreProjeto;
 
@@ -193,12 +193,10 @@ gerarBreadCrumb($links);
                     CPF/CNPJ Proponente: &nbsp;&nbsp;
                     <select name="idProponente" id="idProponente" class="input_simples">
                         <option value="">Selecione</option>
-                        <?php foreach ($this->buscaProponente as $proponente) : ?>
+                        <?php foreach ($this->buscaProponente as $proponente) { ?>
                             <option class="results"
-                                    value="<?= $proponente['idAgenteProponente'] ?>"
-                                <?= ($this->agenteId == $proponente['idAgenteProponente']) ? 'selected="selected"' : ''; ?>
-                            ><?php echo "[" . Validacao::mascaraCPFCNPJ($proponente['CPF']) . "] - " . $proponente['Nome'] ?></option>
-                        <?php endforeach; ?>
+                                    value="<?php echo $proponente['idAgenteProponente'] ?>" <?php echo ($this->agenteId == $proponente['idAgenteProponente']) ? 'selected="selected"' : ''; ?>><?php echo "[" . Validacao::mascaraCPFCNPJ($proponente['CPF']) . "] - " . $proponente['Nome'] ?></option>
+                        <?php } ?>
                     </select>
                 </td>
             </tr>
@@ -219,28 +217,28 @@ gerarBreadCrumb($links);
         $idAgente = 0;
         if (!empty ($this->listarprojetos)) : ?>
 
-<!--            <fieldset>-->
-<!--                <legend>Registros</legend>-->
+            <fieldset>
+                <legend>Registros</legend></fieldset>
 
-                <?php if (count($this->listarprojetos) > 0) :
-                    $ct = 0;
-                    foreach ($this->listarprojetos as $projeto): $ct++;
+            <?php if (count($this->listarprojetos) > 0) :
+                $ct = 0;
+                foreach ($this->listarprojetos as $projeto): $ct++;
 
-                        $cpfCnpj = $projeto["CgcCpf"];
-                        if (strlen($cpfCnpj) == 11) {
-                            $projeto["CgcCpf"] = aplicaMascara($projeto["CgcCpf"], "999.999.999 - 99");
+                    $cpfCnpj = $projeto["CgcCpf"];
+                    if (strlen($cpfCnpj) == 11) {
+                        $projeto["CgcCpf"] = aplicaMascara($projeto["CgcCpf"], "999.999.999 - 99");
 
-                        } else {
-                            $projeto["CgcCpf"] = aplicaMascara($projeto["CgcCpf"], "99.999.999 / 9999 - 99");
-                        }
-                        ?>
+                    } else {
+                        $projeto["CgcCpf"] = aplicaMascara($projeto["CgcCpf"], "99.999.999 / 9999 - 99");
+                    }
+                    ?>
 
-                        <?php if ($idAgente != $projeto["idAgente"] && $idAgente != 0): ?>
-                            </table></td></tr>
-                        <?php endif; ?>
+                    <?php if ($idAgente != $projeto["idAgente"] && $idAgente != 0): ?>
+                        </table></td></tr>
+                    <?php endif; ?>
 
-                        <?php if ($idAgente != $projeto["idAgente"]): ?>
-                            <table class="tabela">
+                    <?php if ($idAgente != $projeto["idAgente"]): ?>
+                        <table class="tabela">
                             <tr>
                                 <td class="esquerda">
                                     <input type="button" class="btn_remover expandir"
@@ -258,110 +256,88 @@ gerarBreadCrumb($links);
                                     } else if ($projeto["Ordem"] == 2) {
                                         echo 'Dirigente';
                                     }
-                                    ?>)
+                                    ?>
                                 </td>
                             </tr>
 
                             <tr class="mostraProposta_<?php echo $projeto["idAgente"]; ?>">
-                            <td>
-                            <table class="tabela">
-                            <thead
-                            <tr>
-                                <th>Pronac</th>
-                                <th>Nome do Projeto</th>
-                                <th>Situa&ccedil;&atilde;o do Projeto</th>
-                                <th>Per&iacute;odo de Execu&ccedil;&atilde;o</th>
-                                <th>Mecanismo</th>
-                                <th width="70px">A&ccedil;&otilde;es</th>
-                            </tr>
+                                <td>
+                                    <table class="tabela">
+                                    <tr>
+                                        <th>Pronac</th>
+                                        <th>Nome do Projeto</th>
+                                        <th>Situa&ccedil;&atilde;o do Projeto</th>
+                                        <th>Per&iacute;odo de Execu&ccedil;&atilde;o</th>
+                                        <th>Mecanismo</th>
+                                        <th>A&ccedil;&otilde;es</th>
+                                    </tr>
 
-                        <?php endif; ?>
-                        <tr>
-                            <td>
-                                <a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index')); ?>?idPronac=<?php echo Seguranca::encrypt($this->escape($projeto["IdPRONAC"])); ?>"
-                                   target="_blanck" style="padding: 0 1rem">
-                                    <?php echo $this->escape($projeto["Pronac"]); ?>
-                                </a>
-                            <td><?php echo $projeto["NomeProjeto"]; ?></td>
-                            <td><?php echo $projeto["Situacao"] . ' - ' . $projeto["Descricao"]; ?></td>
-                            <td>
-                                <?php
-                                if (!empty($projeto["DtInicioDeExecucao"]) && !empty($projeto["DtFinalDeExecucao"])) {
-                                    echo Data::tratarDataZend($projeto["DtInicioDeExecucao"], 'brasileiro') . ' a ' . Data::tratarDataZend($projeto["DtFinalDeExecucao"], 'brasileiro');
-                                }
-                                ?>
-                            <td>
-                                <?php if ($projeto["Mecanismo"] == 1) {
-                                    echo 'Incentivo Fiscal Federal';
-                                } else if ($projeto["Mecanismo"] == 2) {
-                                    echo 'FNC';
-                                } else if ($projeto["Mecanismo"] == 6) {
-                                    echo 'Recurso do Tesouro';
-                                }
-                                ?></td>
-                            <td>
-                                <p>
-                                <div style="position: relative; height: 50px;">
-                                    <div class="fixed-action-btn horizontal"
-                                         style="position: absolute; top: -10px; right: 0; padding: 15px 0 15px 15px; z-index: 996;">
-                                        <a class="btn btn-primary small" style="margin-left: 15px;">
-                                            <i class="material-icons">more_vert</i>
-                                        </a>
-                                        <ul>
-                                            <li>
-                                                <a class="btn btn-floating red tooltipped"
-                                                   data-tooltip="Solicita&ccedil;&otilde;es"
-                                                   href="/solicitacao/mensagem/index/idPronac/<?= $this->escape($projeto["IdPRONAC"]); ?>">
-                                                    <i class="material-icons">message</i>
-                                                </a>
-                                            </li>
-                                            <?php if ($projeto["projetoPossuiProposta"]) : ?>
-                                                <li><a class="clonar-projeto btn btn-floating tooltipped btn-primary"
-                                                       data-tooltip="Clonar Projeto" target="_blank"
-                                                       href="javascript:void(0)"
-                                                       id-pronac="<?= $this->escape($projeto["IdPRONAC"]); ?>"
-                                                       pronac="<?= $this->escape($projeto["Pronac"]); ?>"
-                                                       titulo="<?= $projeto["NomeProjeto"]; ?>">
-                                                        <i class="material-icons">content_copy</i>
-                                                    </a>
-                                                </li>
-                                            <?php endif; ?>
+                    <?php endif; ?>
+                    <tr>
+                        <td>
+                            <a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index')); ?>?idPronac=<?php echo Seguranca::encrypt($this->escape($projeto["IdPRONAC"])); ?>"
+                               target="_blanck" style="padding: 0 1rem">
+                                <?php echo $this->escape($projeto["Pronac"]); ?>
+                            </a>
+                        <td><?php echo $projeto["NomeProjeto"]; ?></td>
+                        <td><?php echo $projeto["Situacao"] . ' - ' . $projeto["Descricao"]; ?></td>
+                        <td>
+                            <?php
+                            if (!empty($projeto["DtInicioDeExecucao"]) && !empty($projeto["DtFinalDeExecucao"])) {
+                                echo Data::tratarDataZend($projeto["DtInicioDeExecucao"], 'brasileiro') . ' a ' . Data::tratarDataZend($projeto["DtFinalDeExecucao"], 'brasileiro');
+                            }
+                            ?>
+                        <td>
+                            <?php if ($projeto["Mecanismo"] == 1) {
+                                echo 'Incentivo Fiscal Federal';
+                            } else if ($projeto["Mecanismo"] == 2) {
+                                echo 'FNC';
+                            } else if ($projeto["Mecanismo"] == 6) {
+                                echo 'Recurso do Tesouro';
+                            }
+                            ?></td>
+                        <td>
+                            <p>
+                                <?php if ($projeto["projetoPossuiProposta"]) : ?>
+                                    <a class="clonar-projeto btn small waves-effect waves-light tooltipped btn-primary"
+                                       data-tooltip="Clonar Projeto" target="_blank"
+                                       href="javascript:void(0)"
+                                       id-pronac="<?= $this->escape($projeto["IdPRONAC"]); ?>"
+                                       pronac="<?= $this->escape($projeto["Pronac"]); ?>"
+                                       titulo="<?= $projeto["NomeProjeto"]; ?>">
+                                        <i class="material-icons">content_copy</i>
+                                    </a>
+                                <?php endif; ?>
 
-                                            <?php if ($projeto["liberarEdicao"]) : ?>
-                                                <li>
-                                                    <a class="btn btn-floating waves-effect waves-light tooltipped btn-default"
-                                                       data-tooltip="Alterar projeto" target="_blank"
-                                                       href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'identificacaodaproposta', 'idPreProjeto' => $projeto["idProjeto"])); ?>">
-                                                        <i class="material-icons">edit</i>
-                                                    </a>
-                                                </li>
-                                            <?php endif; ?>
-                                        </ul>
-                                    </div
-                                </div>
-                                </p>
-                            </td>
-                        </tr>
-
-                        <?php $idAgente = $projeto["idAgente"]; ?>
-
-                    <?php endforeach; ?>
-                    </table>
-                    </td>
+                                <?php if ($projeto["liberarEdicao"]) : ?>
+                                    <a class="btn small waves-effect waves-light tooltipped btn-default"
+                                       data-tooltip="Adequar à realidade ou Encaminhar para o MinC" target="_blank"
+                                       href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'identificacaodaproposta', 'idPreProjeto' => $projeto["idProjeto"])); ?>">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                <?php endif; ?>
+                            </p>
+                        </td>
                     </tr>
-                    </table>
 
-                <?php else : ?>
-                    <table class="tabela">
-                        <tr>
-                            <td>
-                                <div><font color='red'>Nenhum projeto encontrado.</font></div>
-                            </td>
-                        </tr>
-                    </table>
-                <?php endif; ?>
-<!--            </fieldset>-->
-        <?php else :
+                    <?php $idAgente = $projeto["idAgente"]; ?>
+
+                <?php endforeach; ?>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+
+            <?php else : ?>
+                <table class="tabela">
+                    <tr>
+                        <td>
+                            <div><font color='red'>Nenhum projeto encontrado.</font></div>
+                        </td>
+                    </tr>
+                </table>
+            <?php endif;
+        else :
             if (isset($_POST) && !empty($_POST)) {
                 echo '<fieldset style="text-align:center">N&atilde;o existem projetos cadastrados.</fieldset>';
             }
@@ -412,13 +388,3 @@ gerarBreadCrumb($links);
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-//        $("#localizar").hide();
-//        $("#idProponente").change(function () {
-////            $("form#localiza").submit();
-//        });
-
-    });
-</script>

@@ -1,0 +1,984 @@
+
+/*********************************************************************************
+ * Formatando Botoes (legado)
+ *********************************************************************************/
+
+.botao_texto {
+    width: 87px;
+    height: 21px;
+    overflow: hidden;
+    float: left;
+}
+
+.botao_texto a {
+    width: 87px;
+    height: 21px;
+    display: block;
+    text-indent: -9000px;
+}
+
+.botao_icone {
+    width: 20px;
+    height: 21px;
+    overflow: hidden;
+}
+
+.botao_icone a {
+    width: 20px;
+    height: 21px;
+    display: block;
+    text-indent: -9000px;
+}
+
+.botao_extensao {
+    width: 44px;
+    height: 21px;
+    overflow: hidden;
+}
+
+.botao_extensao a {
+    width: 44px;
+    height: 21px;
+    display: block;
+    text-indent: -9000px;
+}
+
+
+.botao_texto .anterior {
+    background: url("../img/buttons/anterior.gif") 0 0 no-repeat;
+}
+
+.botao_texto .anterior_off {
+    background: url("../img/buttons/anterior-off.gif") 0 0 no-repeat;
+}
+
+
+.botao_texto .cancelar {
+    background: url("../img/buttons/cancelar.gif") 0 0 no-repeat;
+}
+
+.botao_texto .cancelar_off {
+    background: url("../img/buttons/cancelar-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .editar {
+    background: url("../img/buttons/editar.gif") 0 0 no-repeat;
+}
+
+.botao_texto .editar_off {
+    background: url("../img/buttons/editar-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .confirmar {
+    background: url("../img/buttons/confirmar.gif") 0 0 no-repeat;
+}
+
+.botao_texto .confirmar_off {
+    background: url("../img/buttons/confirmar-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .excluir {
+    background: url("../img/buttons/excluir.gif") 0 0 no-repeat;
+}
+
+.botao_texto .excluir_off {
+    background: url("../img/buttons/excluir-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .gerar_grafico {
+    background: url("../img/buttons/gerargrafico.gif") 0 0 no-repeat;
+}
+
+.botao_texto .gerar_grafico_off {
+    background: url("../img/buttons/gerargrafico-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .imprimir {
+    background: url("../img/buttons/imprimir.gif") 0 0 no-repeat;
+}
+
+.botao_texto .imprimir_off {
+    background: url("../img/buttons/imprimir-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .incluir {
+    background: url("../img/buttons/incluir.gif") 0 0 no-repeat;
+}
+
+.incluir_dirigente {
+    width:150px;
+    height:21px;
+    display:block;
+    background: url("../img/buttons/incluir-dirigente.gif") 0 0 no-repeat;
+}
+
+.botao_texto .incluir_off {
+    background: url("../img/buttons/incluir-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .inicio {
+    background: url("../img/buttons/inicio.gif") 0 0 no-repeat;
+}
+
+.botao_texto .inicio_off {
+    background: url("../img/buttons/inicio-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .limpar {
+    background: url("../img/buttons/limpar.gif") 0 0 no-repeat;
+}
+
+.botao_texto .limpar_off {
+    background: url("../img/buttons/limpar-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .localizar {
+    background: url("../img/buttons/localizar.gif") 0 0 no-repeat;
+}
+
+.botao_texto .localizar_off {
+    background: url("../img/buttons/localizar-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .montar_consulta {
+    background: url("../img/buttons/montarconsulta.gif") 0 0 no-repeat;
+}
+
+.botao_texto .montar_consulta_off {
+    background: url("../img/buttons/montarconsulta-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .novo {
+    background: url("../img/buttons/novo.gif") 0 0 no-repeat;
+}
+
+.botao_texto .novo_off {
+    background: url("../img/buttons/novo-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .ordenar {
+    background: url("../img/buttons/ordenar.gif") 0 0 no-repeat;
+}
+
+.botao_texto .ordenar_off {
+    background: url("../img/buttons/ordenar-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .proximo {
+    background: url("../img/buttons/proximo.gif") 0 0 no-repeat;
+}
+
+.botao_texto .proximo_off {
+    background: url("../img/buttons/proximo-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .recarregar {
+    background: url("../img/buttons/recarregar.gif") 0 0 no-repeat;
+}
+
+.botao_texto .recarregar_off {
+    background: url("../img/buttons/recarregar-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .resumo {
+    background: url("../img/buttons/resumo.gif") 0 0 no-repeat;
+}
+
+.botao_texto .resumo_off {
+    background: url("../img/buttons/resumo-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .sair {
+    background: url("../img/buttons/sair.gif") 0 0 no-repeat;
+}
+
+.botao_texto .sair_off {
+    background: url("../img/buttons/sair-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .salvar {
+    background: url("../img/buttons/salvar.gif") 0 0 no-repeat;
+}
+
+.botao_texto .salvar_off {
+    background: url("../img/buttons/salvar-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .ultimo {
+    background: url("../img/buttons/ultimo.gif") 0 0 no-repeat;
+}
+
+.botao_texto .ultimo_off {
+    background: url("../img/buttons/ultimo-off.gif") 0 0 no-repeat;
+}
+
+.botao_texto .voltar {
+    background: url("../img/buttons/voltar.gif") 0 0 no-repeat;
+}
+
+.botao_texto .voltar_off {
+    background: url("../img/buttons/voltar-off.gif") 0 0 no-repeat;
+}
+
+.botao_icone .cancelar_ico {
+    background: url("../img/buttons/cancelar-p.gif") 0 0 no-repeat;
+}
+
+.botao_icone .cancelar_ico_off {
+    background: url("../img/buttons/cancelar-p-off.gif") 0 0 no-repeat;
+}
+
+.botao_icone .excluir_ico {
+    background: url("../img/buttons/excluir-p.gif") 0 0 no-repeat;
+}
+
+.botao_icone .excluir_ico_off {
+    background: url("../img/buttons/excluir-p-off.gif") 0 0 no-repeat;
+}
+
+.botao_icone .novo_ico {
+    background: url("../img/buttons/novo-p.gif") 0 0 no-repeat;
+}
+
+.botao_icone .novo_ico_off {
+    background: url("../img/buttons/novo-p-off.gif") 0 0 no-repeat;
+}
+
+.botao_icone .sair_ico {
+    background: url("../img/buttons/sair-p.gif") 0 0 no-repeat;
+}
+
+.botao_icone .sair_ico_off {
+    background: url("../img/buttons/sair-p-off.gif") 0 0 no-repeat;
+}
+
+.botao_icone .salvar_ico {
+    background: url("../img/buttons/salvar-p.gif") 0 0 no-repeat;
+}
+
+.botao_icone .salvar_ico_off {
+    background: url("../img/buttons/salvar-p-off.gif") 0 0 no-repeat;
+}
+
+.botao_extensao .csv_ext {
+    background: url("../img/buttons/csv.gif") 0 0 no-repeat;
+}
+
+.botao_extensao .csv_ext_off {
+    background: url("../img/buttons/csv-off.gif") 0 0 no-repeat;
+}
+
+.botao_extensao .pdf_ext {
+    background: url("../img/buttons/pdf.gif") 0 0 no-repeat;
+}
+
+.botao_extensao .pdf_ext_off {
+    background: url("../img/buttons/pdf-off.gif") 0 0 no-repeat;
+}
+
+.botao_extensao .rtf_ext {
+    background: url("../img/buttons/rtf.gif") 0 0 no-repeat;
+}
+
+.botao_extensao .rtf_ext_off {
+    background: url("../img/buttons/rtf-off.gif") 0 0 no-repeat;
+}
+
+.botao_extensao .xls_ext {
+    background: url("../img/buttons/xls.gif") 0 0 no-repeat;
+}
+
+.botao_extensao .xls_ext_off {
+    background: url("../img/buttons/xls-off.gif") 0 0 no-repeat;
+}
+
+.botao_extensao .xml_ext {
+    background: url("../img/buttons/xls.gif") 0 0 no-repeat;
+}
+
+.botao_extensao .xls_ext_off {
+    background: url("../img/buttons/xls-off.gif") 0 0 no-repeat;
+}
+
+/*--------------------------------------------------------------
+x - BOTOES (legado) 2
+--------------------------------------------------------------*/
+
+.btn_close, .btn_help {
+    float:right;
+    cursor:pointer;
+    width:20px;
+    height:20px;
+    border:0;
+    background:url(../img/btn_fechar.png) center center no-repeat;
+}
+.btnHelp {
+    cursor:help;
+    background:url(../img/btn_ajuda.gif) center center no-repeat;
+}
+.conteudo .btn {
+    cursor:pointer;
+    width:auto;
+    padding:2px;
+    font-weight:bold;
+    color:green;
+    background:#ccc url(../img/bg-celulas2.gif) repeat-x;
+    border:1px solid #ccc;
+}
+.conteudo .btn:hover {
+    border:1px solid #777;
+    color:#fff;
+}
+.icn_mais, .icn_menos, .icn_vazio {
+    width:auto;
+    display:block;
+    cursor:pointer;
+    float:left;
+    padding:2px;
+}
+.icn_mais span, .icn_menos span, .icn_vazio span {
+    margin-left:18px;
+}
+
+/* botoes de formularios */
+.btn_vincular,
+.btn_desvincular,
+.btn_rejeitar,
+.btn_editar,
+.btn_editar-off,
+.btn_desarquivar,
+.btn_excluir,
+.btn_exclusao,
+.btn_exclusao-off,
+.btn_off,
+.btn_on,
+.btn_senha,
+.btn_visualizar,
+.btn_busca,
+.btn_npublicar,
+.btn_publicar,
+.btn_gerarpublicacao,
+.btn_adicionar,
+.btn_remover,
+.btn_cadastrar,
+.btn_alterar,
+.btn_incluir,
+.btn_cancelar,
+.btn_reintegrar,
+.btn_reintegrar-off,
+.btn_imprimir,
+.btn_imprimir_guia,
+.btn_pdf,
+.btn_xls,
+.btn_excluir_tudo,
+.btn_enviar,
+.btn_buscar,
+.btn_localizar,
+.btn_limpar,
+.btn_marcar,
+.btn_desmarcar,
+.btn_p_anterior,
+.btn_p_proximo,
+.btn_p_anterior-off,
+.btn_p_proximo-off,
+.btn_descrever_item,
+.btn_comprovar_pagamento,
+.btn_p_pri_pag,
+.btn_p_ult_pag,
+.btn_ok,
+.btn_sim,
+.btn_nao,
+.btn_sair,
+.btn_ord_up,
+.btn_ord_down,
+.btn_reprovar,
+.btn_salvar,
+.btn_salvar-off,
+.btn_deposito_equivocado,
+.btn_confirmar,
+.btn_gerar_grafico,
+.btn_inicio,
+.btn_montarconsulta,
+.btn_novo,
+.btn_novo-off,
+.btn_novoproponente,
+.btn_cadastrar_proponente,
+.btn_solicitarvinculo,
+.btn_novaproposta,
+.btn_ordenar,
+.btn_recarregar,
+.btn_resumo,
+.btn_ultimo,
+.btn_voltar,
+.btn_pesquisar,
+.btn_finalizar,
+.btn_finalizar-off,
+.btn_abrir,
+.btn_ver,
+.btn_avaliar,
+.btn_analisar,
+.btn_aprovar,
+.btn_aprovar-off,
+.btn_perfil,
+.btn_validarItem,
+.btn_upload,
+.btn_anexar,
+.btn_cancelar-off,
+.btn_enviar-off,
+.btn_novo_produto,
+.btn_gerar_extrato,
+.btn_novo_recurso,
+.btn_novo_recurso-off,
+.btn_configurar_grafico,
+.btn_aprovar,
+.btn_oficializar_e_enviar,
+.btn_devolver_tecnico,
+.btn_redistribuir_projetos,
+.btn_pesquisar_projeto,
+.btn_finalizar_recurso,
+.btn_aprovar-off,
+.btn_oficializar_e_enviar-off,
+.btn_devolver_tecnico-off,
+.btn_redistribuir_projetos-off,
+.btn_pesquisar_projeto-off,
+.btn_analise_projeto,
+.btn_move_down,
+.btn_move_left,
+.btn_move_left_all,
+.btn_move_right,
+.btn_move_right_all,
+.btn_move_up,
+.btn_enviar_solicitacao,
+.btn_visualizar_comprovacao,
+.btn_retirar_pauta,
+.btn_cancelar_solicitacao,
+.btn_cancelar_retirar_pauta,
+.btn_devolver_vinculada,
+.btn_transferir,
+.btn_transferir-off,
+.btn_gerar_despachos,
+.btn_imprimir_despacho,
+.btn_enviar_para_pagamento,
+.btn_visualizar2,
+.btn_registrar_ordem_bancaria,
+.btn_historico
+{
+    border-top:1px solid #efefef;
+    border-left:1px solid #efefef;
+    border-right:1px solid #aaa;
+    border-bottom:1px solid #aaa;
+    margin:0 5px 0 0;
+    width:20px;
+    height:21px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.btn_encaminhar
+{
+    width:20px;
+    height:21px;
+    text-align:center;
+    cursor:pointer;
+}
+
+.btn_vincular:hover,
+.btn_rejeitar:hover,
+.btn_desvincular:hover,
+.btn_editar:hover,
+.btn_editar-off:hover,
+.btn_desarquivar:hover,
+.btn_excluir:hover,
+.btn_exclusao:hover,
+.btn_exclusao-off:hover,
+.btn_off:hover,
+.btn_on:hover,
+.btn_senha:hover,
+.btn_visualizar:hover,
+.btn_adicionar:hover,
+.btn_remover:hover,
+.btn_busca,
+.btn_npublicar:hover,
+.btn_publicar:hover,
+.btn_gerarpublicacao:hover,
+.btn_cadastrar:hover,
+.btn_alterar:hover,
+.btn_incluir:hover,
+.btn_cancelar:hover,
+.btn_reintegrar:hover,
+.btn_imprimir:hover,
+.btn_xls:hover,
+.btn_pdf:hover,
+.btn_excluir_tudo:hover,
+.btn_reintegrar-off:hover,
+.btn_enviar:hover,
+.btn_buscar:hover,
+.btn_localizar:hover,
+.btn_limpar:hover,
+.btn_marcar:hover,
+.btn_desmarcar:hover,
+.btn_p_anterior:hover,
+.btn_descrever_item:hover,
+.btn_comprovar_pagamento:hover,
+.btn_p_proximo:hover,
+.btn_p_pri_pag:hover,
+.btn_p_ult_pag:hover,
+.btn_ok:hover,
+.btn_sim:hover,
+.btn_nao:hover,
+.btn_ord_up:hover,
+.btn_ord_down:hover,
+.btn_sair:hover,
+.btn_reprovar:hover,
+.btn_salvar:hover,
+.btn_deposito_equivocado:hover,
+.btn_confirmar:hover,
+.btn_gerar_grafico:hover,
+.btn_inicio:hover,
+.btn_montarconsulta:hover,
+.btn_novo:hover,
+.btn_novo-off:hover,
+.btn_novoproponente:hover,
+.btn_cadastrar_proponente:hover,
+.btn_solicitarvinculo:hover,
+.btn_novaproposta:hover,
+.btn_ordenar:hover,
+.btn_recarregar:hover,
+.btn_resumo:hover,
+.btn_ultimo:hover,
+.btn_voltar:hover,
+.btn_pesquisar:hover,
+.btn_finalizar:hover,
+.btn_finalizar-off:hover,
+.btn_abrir:hover,
+.btn_ver:hover,
+.btn_avaliar:hover,
+.btn_analisar:hover,
+.btn_aprovar:hover,
+.btn_aprovar-off:hover,
+.btn_perfil:hover,
+.btn_upload:hover,
+.btn_anexar:hover,
+.btn_cancelar-off:hover,
+.btn_novo_produto:hover,
+.btn_gerar_extrato:hover,
+.btn_novo_recurso:hover,
+.btn_novo_recurso-off:hover,
+.btn_configurar_grafico:hover,
+.btn_aprovar:hover,
+.btn_oficializar_e_enviar:hover,
+.btn_devolver_tecnico:hover,
+.btn_redistribuir_projetos:hover,
+.btn_pesquisar_projeto:hover,
+.btn_finalizar_recurso:hover,
+.btn_aprovar-off:hover,
+.btn_oficializar_e_enviar-off:hover,
+.btn_devolver_tecnico-off:hover,
+.btn_redistribuir_projetos-off:hover,
+.btn_pesquisar_projeto-off:hover,
+.btn_analise_projeto:hover,
+.btn_move_down:hover,
+.btn_move_left:hover,
+.btn_move_left_all:hover,
+.btn_move_right:hover,
+.btn_move_right_all:hover,
+.btn_move_up:hover,
+.btn_enviar_solicitacao:hover,
+.btn_retirar_pauta:hover,
+.btn_cancelar_solicitacao:hover,
+.btn_cancelar_retirar_pauta:hover,
+.btn_devolver_vinculada:hover,
+.btn_transferir:hover,
+.btn_transferir-off:hover,
+.btn_gerar_despachos:hover,
+.btn_imprimir_despacho:hover,
+.btn_enviar_para_pagamento:hover,
+.btn_registrar_ordem_bancaria:hover,
+.btn_visualizar2:hover,
+.btn_historico:hover
+{
+    background-color:#fff;
+    border-top:1px solid #aaa;
+    border-left:1px solid #aaa;
+    border-right:1px solid #efefef;
+    border-bottom:1px solid #efefef;
+}
+.btn_move_down,
+.btn_move_left,
+.btn_move_left_all,
+.btn_move_right,
+.btn_move_right_all,
+.btn_move_up {
+    width:16px;
+    height:16px;
+}
+.btn_xls,
+.btn_pdf {
+    width:44px;
+}
+.btn_adicionar,
+.btn_remover,
+.btn_cadastrar,
+.btn_alterar,
+.btn_incluir,
+.btn_cancelar,
+.btn_reintegrar,
+.btn_reintegrar-off,
+.btn_imprimir,
+.btn_imprimir_guia,
+.btn_enviar,
+.btn_p_anterior,
+.btn_p_proximo,
+.btn_p_anterior-off,
+.btn_p_proximo-off,
+.btn_buscar,
+.btn_localizar,
+.btn_limpar,
+.btn_ok,
+.btn_sim,
+.btn_nao,
+.btn_sair,
+.btn_reprovar,
+.btn_salvar,
+.btn_salvar-off,
+.btn_editar,
+.btn_gerar_grafico,
+.btn_inicio,
+.btn_montarconsulta,
+.btn_novo,
+.btn_novo-off,
+.btn_novoproponente,
+.btn_novaproposta,
+.btn_ordenar,
+.btn_exclusao,
+.btn_exclusao-off,
+.btn_editar-off,
+.btn_recarregar,
+.btn_resumo,
+.btn_ultimo,
+.btn_voltar,
+.btn_pesquisar,
+.btn_gerarpublicacao,
+.btn_upload,
+.btn_anexar,
+.btn_finalizar,
+.btn_finalizar-off,
+.btn_avaliar,
+.btn_analisar,
+.btn_aprovar,
+.btn_aprovar-off,
+.btn_abrir,
+.btn_ver,
+.btn_cancelar-off,
+.btn_enviar-off,
+.btn_gerar_extrato,
+.btn_configurar_grafico,
+.btn_aprovar,
+.btn_aprovar-off,
+.btn_confirmar,
+.btn_vincular,
+.btn_rejeitar,
+.btn_desvincular,
+.btn_transferir,
+.btn_transferir-off,
+.btn_historico,
+.btn_encaminhar
+{
+    width:87px;
+}
+.btn_novo_produto,
+.btn_descrever_item,
+.btn_visualizar2
+{
+    width:100px;
+}
+.btn_solicitarvinculo
+{
+    width:105px;
+}
+.btn_retirar_pauta {
+    width:106px;
+
+}
+.btn_excluir_tudo,
+.btn_marcar,
+.btn_desmarcar,
+.btn_descrever_item,
+.btn_oficializar_e_enviar,
+.btn_oficializar_e_enviar-off
+{
+    width:110px;
+}
+.btn_deposito_equivocado
+{
+    width:117px;
+}
+.btn_analise_projeto, .btn_enviar_solicitacao
+{
+    width:121px;
+}
+.btn_devolver_tecnico,
+.btn_devolver_tecnico-off
+{
+    width:127px;
+}
+.btn_redistribuir_projetos,
+.btn_redistribuir_projetos
+{
+    width:127px;
+}
+.btn_cadastrar_proponente
+{
+    width:130px;
+}
+.btn_comprovar_pagamento
+{
+    width:144px;
+}
+.btn_devolver_vinculada {
+    width:145px;
+}
+.btn_visualizar_comprovacao
+{
+    width:147px;
+}
+.btn_finalizar_recurso, .btn_cancelar_solicitacao, .btn_cancelar_retirar_pauta
+{
+    width:160px;
+}
+.btn_gerar_despachos{
+    width: 120px;
+}
+.btn_registrar_ordem_bancaria, .btn_imprimir_despacho, .btn_enviar_para_pagamento{
+    width: 160px;
+}
+.btn_novo_recurso,
+.btn_novo_recurso-off,
+.btn_pesquisar_projeto,
+.btn_pesquisar_projeto-off
+{
+    width:180px;
+}
+#btn_down, #btn_up {
+    width:12px;
+    height:15px;
+    float:left;
+}
+.btn_validarItem {
+    width:100px;
+    cursor:pointer;
+    background:url(../img/validarItem.png) 86px 4px no-repeat;
+}
+.btn_calendario, .btn_calendario:hover, .btn_calendario-off, .btn_relogio {
+    width:100px;
+    cursor:pointer;
+    background:#f8f8f8 url(../img/data.png) 86px 4px no-repeat;
+}
+.btn_relogio {
+    background:#f8f8f8 url(../img/hour.gif) 86px 4px no-repeat;
+}
+.btn_calendario-off, .btn_calendario-off:hover {
+    cursor:auto;
+    background:#dfdfdf url(../img/data.png) 86px 4px no-repeat;
+}
+.btn_validarItem                                { background:url(../img/validarItem.png) center center no-repeat; }
+.btn_aprovar                                    { background:url(../img/aprovar.gif) center center no-repeat; }
+.btn_oficializar_e_enviar                       { background:url(../img/oficializar_e_enviar.gif) center center no-repeat; }
+.btn_devolver_tecnico                           { background:url(../img/redistribuir_projetos.gif) center center no-repeat; }
+.btn_redistribuir_projetos                      { background:url(../img/devolver_tecnico.gif) center center no-repeat; }
+.btn_pesquisar_projeto                          { background:url(../img/pesquisar_projeto.gif) center center no-repeat; }
+.btn_aprovar-off                                { background:url(../img/aprovar-off.gif) center center no-repeat; }
+.btn_oficializar_e_enviar-off                   { background:url(../img/oficializar_e_enviar-off.gif) center center no-repeat; }
+.btn_devolver_tecnico-off                       { background:url(../img/devolver_tecnico-off.gif) center center no-repeat; }
+.btn_redistribuir_projetos-off                  { background:url(../img/redistribuir_projetos-off.gif) center center no-repeat; }
+.btn_pesquisar_projeto-off                      { background:url(../img/pesquisar_projeto-off.gif) center center no-repeat; }
+.btn_editar                                     { background:url(../img/buttons/editar.gif) center center no-repeat; }
+.btn_editar-off                                 { background:url(../img/buttons/editar-off.gif) center center no-repeat;}
+.btn_excluir                                    { background:url(../img/buttons/excluir.gif) center center no-repeat; }
+.btn_exclusao                                   { background:url(../img/buttons/excluir.gif) center center no-repeat; }
+.btn_exclusao-off                               { background:url(../img/buttons/excluir-off.gif) center center no-repeat; }
+/*.btn_off                                        { background:url(../img/btn_off.gif) center center no-repeat; }*/
+/*.btn_on                                         { background:url(../img/btn_on.gif) center center no-repeat; }*/
+/*.btn_senha                                      { background:url(../img/btn_senha.gif) center center no-repeat; }*/
+/*.btn_visualizar                                 { background:url(../img/btn_visualizar.gif) center center no-repeat; }*/
+.btn_busca                                      { background:url(../img/btn_busca.gif) center center no-repeat; }
+.btn_npublicar                                  { background:url(../img/btn_npublicar.gif) center center no-repeat; }
+.btn_gerarpublicacao                            { background:url(../img/btn_gerarpublicacao.gif) center center no-repeat; }
+.btn_publicar                                   { background:url(../img/btn_publicar.gif) center center no-repeat; }
+.btn_add                                        { background:url(../img/btn_add.gif) center center no-repeat; }
+.btn_adicionar                                  { background:url(../img/btn_adicionar.gif) center center no-repeat; }
+.btn_remover                                    { background:url(../img/buttons/btn_remover.gif) center center no-repeat; }
+/*.btn_cadastrar                                  { background:url(../img/btn_cadastrar.gif) center center no-repeat; }*/
+.btn_alterar                                    { background:url(../img/buttons/alterar.gif) center center no-repeat; }
+.btn_incluir                                    { background:url(../img/buttons/incluir.gif) center center no-repeat; }
+.btn_reintegrar                                 { background:url(../img/buttons/reintegrar.gif) center center no-repeat; }
+.btn_reintegrar-off                             { background:url(../img/buttons/reintegrar-off.gif) center center no-repeat; }
+.btn_cancelar                                   { background:url(../img/buttons/cancelar.gif) center center no-repeat; }
+.btn_imprimir                                   { background:url(../img/buttons/imprimir.gif) center center no-repeat; }
+.btn_imprimir_guia                              { background:url(../img/buttons/imprimir_guia.gif) center center no-repeat; }
+.btn_pdf                                        { background:url(../img/btn_pdf.gif) center center no-repeat; }
+.btn_xls                                        { background:url(../img/buttons/xls.gif) center center no-repeat; }
+/*.btn_excluir_tudo                               { background:url(../img/btn_excluir_tudo.gif) center center no-repeat; }*/
+.btn_enviar                                     { background:url(../img/buttons/enviar.gif) center center no-repeat; }
+.btn_p_anterior                                 { background:url(../img/buttons/anterior.gif) center center no-repeat; }
+.btn_p_proximo                                  { background:url(../img/buttons/proximo.gif) center center no-repeat; }
+.btn_p_anterior-off                             { background:url(../img/buttons/anterior-off.gif) center center no-repeat; }
+.btn_p_proximo-off                              { background:url(../img/buttons/proximo-off.gif) center center no-repeat; }
+/*.btn_p_pri_pag                                  { background:url(../img/btn_p_pri_pag.gif) center center no-repeat; }*/
+/*.btn_p_ult_pag                                  { background:url(../img/btn_p_ult_pag.gif) center center no-repeat; }*/
+/*#btn_down                                       { background:url(../img/btn_down.gif) center center no-repeat; }*/
+/*#btn_up                                         { background:url(../img/btn_up.gif) center center no-repeat; }*/
+.btn_localizar                                  { background:url(../img/buttons/localizar.gif) center center no-repeat; }
+/*.btn_buscar                                     { background:url(../img/btn_buscar.gif) center center no-repeat; }*/
+.btn_limpar                                     { background:url(../img/buttons/limpar.gif) center center no-repeat; }
+/*.btn_ok                                         { background:url(../img/btn_ok.gif) center center no-repeat; }*/
+/*.btn_sim                                        { background:url(../img/btn_sim.gif) center center no-repeat; }*/
+/*.btn_nao                                        { background:url(../img/btn_nao.gif) center center no-repeat; }*/
+/*.btn_marcar                                     { background:url(../img/btn_marcar.gif) center center no-repeat; }*/
+/*.btn_desmarcar                                  { background:url(../img/btn_desmarcar.gif) center center no-repeat; }*/
+/*.btn_ord_up                                     { background:url(../img/seta_preta_up.gif) center center no-repeat; }*/
+/*.btn_ord_down                                   { background:url(../img/seta_preta_down.gif) center center no-repeat; }*/
+.btn_sair                                       { background:url(../img/buttons/sair.gif) center center no-repeat; }
+.btn_reprovar                                   { background:url(../img/buttons/reprovar.png) left center no-repeat; }
+.btn_salvar                                     { background:url(../img/buttons/salvar.gif) center center no-repeat; }
+.btn_salvar-off                                 { background:url(../img/buttons/salvar-off.gif) center center no-repeat; }
+.btn_deposito_equivocado                        { background:url(../img/buttons/deposito_equivocado.png) center center no-repeat; }
+.icn_mais                                       { background:url(../img/icn_mais.gif) left center no-repeat; }
+.icn_menos                                      { background:url(../img/icn_menos.gif) left center no-repeat; }
+.btn_confirmar                                  { background:url(../img/buttons/confirmar.gif) left center no-repeat; }
+.btn_rejeitar                                   { background:url(../img/buttons/rejeitar.gif) left center no-repeat; }
+.btn_vincular                                   { background:url(../img/buttons/vincular.gif) left center no-repeat; }
+.btn_desvincular                                { background:url(../img/buttons/desvincular.gif) left center no-repeat; }
+.btn_gerar_grafico                              { background:url(../img/buttons/gerargrafico.gif) left center no-repeat; }
+.btn_inicio                                     { background:url(../img/buttons/inicio.gif) left center no-repeat; }
+.btn_montarconsulta                             { background:url(../img/buttons/montarconsulta.gif) left center no-repeat; }
+.btn_novo                                       { background:url(../img/buttons/novo.gif) left center no-repeat; }
+.btn_novo-off                                   { background:url(../img/buttons/novo-off.gif) left center no-repeat; }
+.btn_novoproponente                             { background:url(../img/buttons/novo_proponente.gif) left center no-repeat; }
+.btn_cadastrar_proponente                       { background:url(../img/buttons/cadastrar-proponente.gif) left center no-repeat; }
+.btn_solicitarvinculo                           { background:url(../img/buttons/solicitar_vinculo.gif) left center no-repeat; }
+.btn_novaproposta                               { background:url(../img/buttons/nova_proposta.gif) left center no-repeat; }
+.btn_ordenar                                    { background:url(../img/buttons/ordenar.gif) left center no-repeat; }
+.btn_recarregar                                 { background:url(../img/buttons/recarregar.gif) left center no-repeat; }
+.btn_resumo                                     { background:url(../img/buttons/resumo.gif) left center no-repeat; }
+.btn_ultimo                                     { background:url(../img/buttons/ultimo.gif) left center no-repeat; }
+.btn_voltar                                     { background:url(../img/buttons/voltar.gif) left center no-repeat; }
+.btn_pesquisar                                  { background:url(../img/buttons/pesquisar.gif) left center no-repeat; }
+.btn_abrir                                      { background:url(../img/buttons/abrir.gif) left center no-repeat; }
+.btn_ver                                        { background:url(../img/buttons/ver.gif) left center no-repeat; }
+.btn_avaliar                                    { background:url(../img/buttons/avaliar.gif) left center no-repeat; }
+.btn_analisar                                   { background:url(../img/buttons/analisar.gif) left center no-repeat; }
+.btn_aprovar                                    { background:url(../img/buttons/aprovar.gif) left center no-repeat; }
+.btn_aprovar-off                                { background:url(../img/buttons/aprovar-off.gif) left center no-repeat; }
+.btn_perfil                                     { background:url(../img/buttons/perfil-p.gif) left center no-repeat; }
+.btn_cancelar-off                               { background:url(../img/buttons/cancelar-off.gif) left center no-repeat; }
+.btn_enviar-off                                 { background:url(../img/buttons/enviar-off.gif) left center no-repeat; }
+.btn_novo_produto                               { background:url(../img/buttons/novo-produto.gif) left center no-repeat; }
+.btn_gerar_extrato                              { background:url(../img/buttons/gerarextrato.gif) left center no-repeat; }
+.btn_gerar_extrato:hover                        { background:url(../img/buttons/gerarextrato-off.gif) left center no-repeat; }
+.btn_novo_recurso                               { background:url(../img/buttons/novo-recurso.gif) left center no-repeat; }
+.btn_novo_recurso:hover, .btn_novo_recurso-off  { background:url(../img/buttons/novo-recurso-off.gif) left center no-repeat; }
+.btn_configurar_grafico                         { background:url(../img/buttons/configurargrafico.gif) left center no-repeat; }
+.btn_upload                                     { background:url(../img/buttons/upload.gif) left center no-repeat; }
+.btn_upload                                     { background:url(../img/buttons/upload.gif) left center no-repeat; }
+.btn_anexar                                     { background:url(../img/buttons/anexar.gif) left center no-repeat; }
+.btn_finalizar                                  { background:url(../img/buttons/finalizar.gif) left center no-repeat; }
+.btn_finalizar-off                              { background:url(../img/buttons/finalizar-off.gif) left center no-repeat; }
+.btn_descrever_item                             { background:url(../img/buttons/descrever-item.gif) left center no-repeat; }
+.btn_comprovar_pagamento                        { background:url(../img/buttons/comprovar-pagamento.gif) left center no-repeat; }
+.btn_visualizar_comprovacao                     { background:url(../img/visualizar_comprovacao.gif) left center no-repeat; }
+.btn_analise_projeto                            { background:url(../img/buttons/analise-projeto.gif) left center no-repeat; }
+.btn_finalizar_recurso                          { background:url(../img/buttons/finalizar-recurso.gif) left center no-repeat; }
+.btn_move_down                                  { background:url(../img/img_move_down.gif) center center no-repeat; }
+.btn_move_left                                  { background:url(../img/img_move_left.gif) center center no-repeat; }
+.btn_move_left_all                              { background:url(../img/img_move_left_all.gif) center center no-repeat; }
+.btn_move_right                                 { background:url(../img/img_move_right.gif) center center no-repeat; }
+.btn_move_right_all                             { background:url(../img/img_move_right_all.gif) center center no-repeat; }
+.btn_move_up                                    { background:url(../img/img_move_up.gif) center center no-repeat; }
+.btn_desarquivar                                { background:url(../img/desarquivar.gif) center center no-repeat; }
+.btn_enviar_solicitacao                         { background:url(../img/buttons/enviar-solicitacao.gif) center center no-repeat; }
+.btn_retirar_pauta                              { background:url(../img/buttons/retirar-pauta.gif) center center no-repeat; }
+.btn_cancelar_solicitacao                       { background:url(../img/buttons/cancelar-solicitacao.gif) center center no-repeat; }
+.btn_cancelar_retirar_pauta                     { background:url(../img/buttons/cancelar-retirada-pauta.gif) center center no-repeat; }
+.btn_devolver_vinculada                         { background:url(../img/buttons/devolver-vinculada.gif) center center no-repeat; }
+.btn_transferir                                 { background:url(../img/buttons/transferir.gif) center center no-repeat; }
+.btn_transferir-off                             { background:url(../img/buttons/transferir-off.gif) center center no-repeat; }
+.btn_gerar_despachos                            { background:url(../img/buttons/gerar-despachos.gif) center center no-repeat; }
+.btn_imprimir_despacho                          { background:url(../img/buttons/imprimir-despacho.gif) center center no-repeat; }
+.btn_registrar_ordem_bancaria                   { background:url(../img/buttons/registrar-ordem-bancaria.gif) center center no-repeat; }
+.btn_enviar_para_pagamento                      { background:url(../img/buttons/enviar-para-pagamento.gif) center center no-repeat; }
+.btn_visualizar2                                { background:url(../img/buttons/visualizar.gif) center center no-repeat; }
+.btn_historico                                  { background:url(../img/buttons/historico.gif) center center no-repeat; }
+.btn_encaminhar                                 { background:url(../img/user_gray.png) center center no-repeat; }
+
+/*--------------------------------------------------------------
+ Botões
+--------------------------------------------------------------*/
+.btn-default,
+.btn-success  {
+    background: #4caf50;
+    color: #fff !important;
+}
+
+.btn-default:focus,
+.btn-sucess:focus,
+.btn-default:hover,
+.btn-success:hover {
+    background: #388e3c;
+}
+
+.btn-primary {
+    background-color: #29b6f6;
+    color: #fff !important;
+}
+
+.btn-primary:focus,
+.btn-primary:hover {
+    background: #0277bd;
+}
+
+.btn-danger {
+    background: #FF8A80;
+    color: #fff !important;
+}
+
+.btn-danger:focus,
+.btn-danger:hover {
+    background: #ff5252;
+
+}
+
+.btn-warning {}
+
+.btn-info {
+    background: #212121;
+    color: #fff;
+}
+
+.btn-info:focus,
+.btn-info:hover {
+    background: #757575;
+}
+
+.btn.small{
+    padding: 0 1rem;
+}
+
+.btn-floating.small {
+    width: 30px;
+    height: 30px;
+}
+.btn-floating.small i {
+    line-height: 32px;
+}
+
+.btn.loading {
+    background-image: url(../../../img/loader-mini.gif);
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    cursor: none;
+    box-shadow: none;
+    border: none;
+    text-indent: -2000px;
+}

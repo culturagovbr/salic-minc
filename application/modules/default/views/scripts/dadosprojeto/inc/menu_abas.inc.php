@@ -15,44 +15,29 @@ $pronac = $this->idpronac;
 <!-- ========== MENU ========== -->
 <table class="tabela">
     <tr>
-        <th class="<?php if (strstr($this->url(), 'parecerconsolidado') == 'parecerconsolidado')
-{
+        <th class="<?php if (strstr($this->url(), 'parecerconsolidado') == 'parecerconsolidado') {
     echo "fundo_linha4";
-}
-else
-{
+} else {
     echo "fundo_linha2";
 } ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'parecerconsolidado')); ?>?idPronac=<?php echo $pronac; ?>">Parecer Técnico Consolidado</a></th>
-        <th class="<?php if (strstr($this->url(), 'analisedeconta') == 'analisedeconta')
-{
+        <th class="<?php if (strstr($this->url(), 'analisedeconta') == 'analisedeconta') {
     echo "fundo_linha4";
-}
-else
-{
+} else {
     echo "fundo_linha2";
 } ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedeconta')); ?>?idPronac=<?php echo $pronac; ?>">Análise de Cortes Sugeridos</a></th>
-        <th class="<?php if (strstr($this->url(), 'analisedeconteudo') == 'analisedeconteudo')
-{
+        <th class="<?php if (strstr($this->url(), 'analisedeconteudo') == 'analisedeconteudo') {
     echo "fundo_linha4";
-}
-else
-{
+} else {
     echo "fundo_linha2";
 } ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedeconteudo')); ?>?idPronac=<?php echo $pronac; ?>">Análise de Conteúdo</a></th>
-        <th class="<?php if (strstr($this->url(), 'analisedecustos') == 'analisedecustos')
-{
+        <th class="<?php if (strstr($this->url(), 'analisedecustos') == 'analisedecustos') {
     echo "fundo_linha4";
-}
-else
-{
+} else {
     echo "fundo_linha2";
 } ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'analisedecustos')); ?>?idPronac=<?php echo $pronac; ?>" id="custos">Análise de Custos</a></th>
-        <th class="<?php if (strstr($this->url(), 'emitirparecer') == 'emitirparecer')
-{
+        <th class="<?php if (strstr($this->url(), 'emitirparecer') == 'emitirparecer') {
     echo "fundo_linha4";
-}
-else
-{
+} else {
     echo "fundo_linha2";
 } ?>"><a href="<?php echo $this->url(array('controller' => 'realizaranaliseprojeto', 'action' => 'emitirparecer')); ?>?idPronac=<?php echo $pronac; ?>">Emitir parecer</a></th>
     </tr>

@@ -14,7 +14,7 @@
             <div class="col s10">
                 <a type="button"
                    href="#modalConfirmacao"
-                   class="btn white-text"
+                   class="modal-trigger btn white-text"
                    data-acao="Novo"
                    id="btn_novo">+ Novo</a>
             </div>
@@ -49,7 +49,7 @@
                                 <?php
                                 $parametrosVisualicacao = "?idAtoAdministrativo={$dado['idAtoAdministrativo']}";
                                 ?>
-                                <a class="btn waves-effect waves-light tooltipped small "
+                                <a class="modal-trigger btn waves-effect waves-light tooltipped small "
                                    href="#modalConfirmacao"
                                    data-link="<?php echo $this->url(array(
                                            'module' => 'assinatura',
@@ -75,7 +75,7 @@
                                 <?php
                                 $parametrosVisualicacao = "?idAtoAdministrativo={$dado['idAtoAdministrativo']}";
                                 ?>
-                                <a class="btn waves-effect waves-light tooltipped small"
+                                <a class="modal-trigger btn waves-effect waves-light tooltipped small"
                                    href="#modalConfirmacao"
                                    data-position="top"
                                    data-delay="50"

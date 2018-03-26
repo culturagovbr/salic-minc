@@ -1,14 +1,8 @@
 <?php
-
-/**
- * Description of Fiscalizarprojetocultural
- *
- * @author André Nogueira Pereira
- */
-class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstract {
-
-    public function init() {
-
+class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstract
+{
+    public function init()
+    {
         $this->view->title = "Salic - Sistema de Apoio às Leis de Incentivo à Cultura"; // título da página
         $auth = Zend_Auth::getInstance(); // pega a autenticação
         $Usuario = new UsuarioDAO(); // objeto usuário
@@ -41,10 +35,10 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
         parent::init(); // chama o init() do pai GenericControllerNew
     }
 
-// fecha método init()*/
+    // fecha método init()*/
 
-    public function painelcontroletecnicofiscalizacaoAction() {
-
+    public function painelcontroletecnicofiscalizacaoAction()
+    {
         $auth = Zend_Auth::getInstance(); // instancia da autenticação
         $idUsuario = $auth->getIdentity()->usu_codigo;
 
@@ -59,7 +53,12 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
         $selectAb = $abrangenciaDao->abrangenciaProjeto(true);
         $projetosDao = new Projetos();
 
-        $resp = $projetosDao->buscaProjetosFiscalizacao($selectAb, $selectAp, false, false, array(
+        $resp = $projetosDao->buscaProjetosFiscalizacao(
+            $selectAb,
+            $selectAp,
+            false,
+            false,
+            array(
                     'tbFiscalizacao.idUsuarioInterno = ?' => $idUsuario
                         )
         );
@@ -91,10 +90,11 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
                     $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Segmento'] = $val->dsSegmento;
                     $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Valor'] = number_format($val->TotalAprovado, 2, ',', '.');
                     $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Mecanismo'] = $val->dsMecanismo;
-                    if ($val->stPlanoAnual == 0)
+                    if ($val->stPlanoAnual == 0) {
                         $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Plano Anual'] = 'N&atilde;o';
-                    else
+                    } else {
                         $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Plano Anual'] = 'Sim';
+                    }
 
                     $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Data Inicio'] = date('d/m/Y', strtotime($val->dtInicioFiscalizacaoProjeto));
                     $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Data Fim'] = date('d/m/Y', strtotime($val->dtFimFiscalizacaoProjeto));
@@ -123,8 +123,8 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
         }
     }
 
-    public function parecerdotecnicoAction() {
-
+    public function parecerdotecnicoAction()
+    {
         $idFiscalizacao = $this->_getParam('idFiscalizacao');
         $ProjetosDAO = new Projetos();
         $Projeto = $ProjetosDAO->buscarProjetosFiscalizacao($idFiscalizacao);
@@ -149,11 +149,10 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
                 $this->view->historicoDevolucao = array();
             }
         }
-        
     }
 
-    public function parecerdocoordenadorAction() {
-
+    public function parecerdocoordenadorAction()
+    {
         $this->_forward('parecerdotecnico', 'fiscalizarprojetocultural');
         $idFiscalizacao = $this->_getParam('idFiscalizacao');
 
@@ -186,7 +185,8 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
         }
     }
 
-    public function cadastraranexo($arquivoNome, $arquivoTemp, $arquivoTipo, $arquivoTamanho) {
+    public function cadastraranexo($arquivoNome, $arquivoTemp, $arquivoTipo, $arquivoTamanho)
+    {
         if (!empty($arquivoNome) && !empty($arquivoTemp)) {
             $arquivoExtensao = Upload::getExtensao($arquivoNome); // extensão
             $arquivoBinario = Upload::setBinario($arquivoTemp); // binário
@@ -217,10 +217,11 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
         return $idUltimoArquivo;
     }
 
-    public function salvarelatoriotecnicoAction() {
+    public function salvarelatoriotecnicoAction()
+    {
 //        $post = Zend_Registry::get('post');
         $idFiscalizacao = $_POST['idFiscalizacao'];
-        $anexardocumentos = TRUE;
+        $anexardocumentos = true;
         $ArquivoFiscalizacaoDao = new ArquivoFiscalizacao();
 
         if (count($_FILES) > 0) {
@@ -285,11 +286,12 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
         }
     }
 
-    public function salvarelatoriocoordenadorAction() {
+    public function salvarelatoriocoordenadorAction()
+    {
         $auth = Zend_Auth::getInstance(); // instancia da autenticação
         $dados = $_POST;
 
-        $anexardocumentos = FALSE;
+        $anexardocumentos = false;
         $idUsuario = $auth->getIdentity()->usu_codigo;
         $idFiscalizacao = $dados['idFiscalizacao'];
         $dsParecer = $dados['dsParecer'];
@@ -303,8 +305,12 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
         unset($dados['stAprovar']);
         unset($dados['idPronac']);
 
-        if(isset($dados['qtEmpregoDireto'])){ $dados['qtEmpregoDireto'] = str_replace('.', '', $dados['qtEmpregoDireto']); }
-        if(isset($dados['qtEmpregoIndireto'])){ $dados['qtEmpregoIndireto'] = str_replace('.', '', $dados['qtEmpregoIndireto']); }
+        if (isset($dados['qtEmpregoDireto'])) {
+            $dados['qtEmpregoDireto'] = str_replace('.', '', $dados['qtEmpregoDireto']);
+        }
+        if (isset($dados['qtEmpregoIndireto'])) {
+            $dados['qtEmpregoIndireto'] = str_replace('.', '', $dados['qtEmpregoIndireto']);
+        }
 
         $AvaliacaoFiscalizacaoDAO = new AvaliacaoFiscalizacao();
         $FiscalizacaoDAO = new Fiscalizacao();
@@ -329,15 +335,16 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
         if (!empty($idRelatorioFiscalizacao)) {
             $AvaliacaoFisc = $AvaliacaoFiscalizacaoDAO->buscaAvaliacaoFiscalizacao($idRelatorioFiscalizacao);
         }
-        if ($AvaliacaoFisc || is_object($AvaliacaoFisc))
+        if ($AvaliacaoFisc || is_object($AvaliacaoFisc)) {
             $foiAvaliado = 1;
+        }
 
-        if (count($_FILES) > 0)
-            $anexardocumentos = TRUE;
+        if (count($_FILES) > 0) {
+            $anexardocumentos = true;
+        }
         $ArquivoFiscalizacaoDao = new ArquivoFiscalizacao();
 
         if (count($_FILES) > 0) {
-
             foreach ($_FILES['arquivo']['name'] as $key => $val) {
                 $arquivoNome = $_FILES['arquivo']['name'][$key];
                 $arquivoTemp = $_FILES['arquivo']['tmp_name'][$key];
@@ -351,7 +358,7 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
             }
         }
         //este o codigo foi comentado porque quando o coordenador devolvia a fiscalizacao para o tecnico o parecer do tecnico estava sendo apagado
-        if(isset($dados['dsParecerTecnico'])){
+        if (isset($dados['dsParecerTecnico'])) {
             //$dados['dsParecerTecnico'] = Seguranca::tratarVarEditor($dados['dsParecerTecnico']);
         }
 
@@ -373,14 +380,18 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
                 $AvaliacaoFiscalizacaoDAO->alteraAvaliacaoFiscalizacao(
                         array('idAvaliador' => $idAvaliador,
                     'dtAvaliacaoFiscalizacao' => date('Y-m-d H:i:s'),
-                    'dsParecer' => $dsParecer), array('idRelatorioFiscalizacao = ?' => $idRelatorioFiscalizacao));
+                    'dsParecer' => $dsParecer),
+                    array('idRelatorioFiscalizacao = ?' => $idRelatorioFiscalizacao)
+                );
 
                 $FiscalizacaoDAO->alteraSituacaoProjeto(3, $idFiscalizacao);
             } else {
                 $AvaliacaoFiscalizacaoDAO->alteraAvaliacaoFiscalizacao(
                         array('idAvaliador' => $idAvaliador,
                     'dtAvaliacaoFiscalizacao' => date('Y-m-d H:i:s'),
-                    'dsParecer' => $dsParecer), array('idRelatorioFiscalizacao = ?' => $idRelatorioFiscalizacao));
+                    'dsParecer' => $dsParecer),
+                    array('idRelatorioFiscalizacao = ?' => $idRelatorioFiscalizacao)
+                );
             }
         } else {
             if ($stAprovar) {
@@ -390,32 +401,35 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
                             'idAvaliador' => $idAvaliador,
                             'dtAvaliacaoFiscalizacao' => date('Y-m-d H:i:s'),
                             'dsParecer' => $dsParecer
-                ));
+                )
+                );
                 $FiscalizacaoDAO->alteraSituacaoProjeto(3, $idFiscalizacao);
             } else {
-                if(!empty($dsParecer)){
+                if (!empty($dsParecer)) {
                     $AvaliacaoFiscalizacaoDAO->insereAvaliacaoFiscalizacao(
                             array('idRelatorioFiscalizacao' => $idRelatorioFiscalizacao,
                                 'idAvaliador' => $idAvaliador,
                                 'dtAvaliacaoFiscalizacao' => date('Y-m-d H:i:s'),
                                 'dsParecer' => $dsParecer
-                    ));
+                    )
+                    );
                 }
             }
         }
-        if($dados['stAvaliacao']==0){
+        if ($dados['stAvaliacao']==0) {
             $FiscalizacaoDAO->alteraSituacaoProjeto(1, $idFiscalizacao);
             parent::message("Retornado ao técnico com sucesso!", "pesquisarprojetofiscalizacao/grid?tipoFiltro=analisados", "CONFIRM");
         }
 
-        if($stAprovar) {
+        if ($stAprovar) {
             parent::message("Fiscalizaç&atilde;o aprovada com sucesso!", "pesquisarprojetofiscalizacao/grid?tipoFiltro=analisados", "CONFIRM");
         } else {
             parent::message("Dados salvos com sucesso!", "fiscalizarprojetocultural/parecerdocoordenador?idFiscalizacao=" . $idFiscalizacao, "CONFIRM");
         }
     }
 
-    public function gravaHistoricoDevolucao($dsJustificativa, $idRelatorioFiscalizacao) {
+    public function gravaHistoricoDevolucao($dsJustificativa, $idRelatorioFiscalizacao)
+    {
         $dados = array('idRelatorioFiscalizacao' => $idRelatorioFiscalizacao, 'dsJustificativaDevolucao' => $dsJustificativa, 'dtEnvioDevolucao' => new Zend_Db_Expr('GETDATE()'));
         $where = array('idRelatorioFiscalizacao = ?' => $idRelatorioFiscalizacao);
 
@@ -424,7 +438,8 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
         $HistoricoDevolucaoDAO->insereHistoricoDevolucaoFiscalizacao($dados);
     }
 
-    public function excluirAction() {
+    public function excluirAction()
+    {
         $this->_helper->layout->disableLayout();
         $this->_helper->ViewRenderer->setNoRender(true);
 
@@ -455,9 +470,9 @@ class FiscalizarprojetoculturalController extends MinC_Controller_Action_Abstrac
         $this->_helper->json($resposta);
     }
 
-    public function url(array $urlOptions = array(), $name = null, $reset = false, $encode = true) {
+    public function url(array $urlOptions = array(), $name = null, $reset = false, $encode = true)
+    {
         $router = Zend_Controller_Front::getInstance()->getRouter();
         return $router->assemble($urlOptions, $name, $reset, $encode);
     }
-
 }

@@ -12,24 +12,20 @@
 
 class Zend_View_Helper_PatrocinioBancario
 {
-	/**
-	 * Método com os tipos de Patrocinio Bancario
-	 * @access public
-	 * @param integer $tipo
-	 * @return string $dsTipo
-	 */
-	function patrocinioBancario($tipo)
-	{
-		if ($tipo == '2')
-		{
-			$dsTipo = "Doação";
-		}
-		else
-		{
-			$dsTipo = "Patrocínio";
-		}
+    /**
+     * Método com os tipos de Patrocinio Bancario
+     * @access public
+     * @param integer $tipo
+     * @return string $dsTipo
+     */
+    public function patrocinioBancario($tipo)
+    {
+        if ($tipo == '2') {
+            $dsTipo = "Doação";
+        } else {
+            $dsTipo = "Patrocínio";
+        }
 
-		return $dsTipo;
-	} // fecha método patrocinioBancario()
-
+        return $dsTipo;
+    } // fecha método patrocinioBancario()
 } // fecha class

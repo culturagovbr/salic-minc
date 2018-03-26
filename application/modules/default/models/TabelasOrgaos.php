@@ -1,28 +1,20 @@
 <?php
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Orgaos
- *
- * @author augusto
- */
-class TabelasOrgaos extends MinC_Db_Table_Abstract{
-
+class TabelasOrgaos extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'TABELAS';
     protected $_name  = 'Orgaos';
 
-    public  function pesquisarUsuariosExterno($where=array(), $order=array(), $tamanho=-1, $inicio=-1){
-
-
+    public function pesquisarUsuariosExterno($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from(array('o'=>$this->_name),
+        $select->from(
+            array('o'=>$this->_name),
                 array('o.org_codigo',
-                new Zend_Db_Expr('Tabelas.dbo.fnEstruturaOrgao(o.org_codigo, 0) + '."':'".' + SUBSTRING(pid_identificacao, 1, 60) orgao_nome'),));
-         $select->joinInner(array('p'=>'Pessoa_Identificacoes'),
+                new Zend_Db_Expr('Tabelas.dbo.fnEstruturaOrgao(o.org_codigo, 0) + '."':'".' + SUBSTRING(pid_identificacao, 1, 60) orgao_nome'),)
+        );
+        $select->joinInner(
+             array('p'=>'Pessoa_Identificacoes'),
                 'p.pid_pessoa = o.org_pessoa',
                  array('o.org_pessoa'),
                  'Tabelas.dbo'
@@ -46,7 +38,6 @@ class TabelasOrgaos extends MinC_Db_Table_Abstract{
         }
 
 
-       return $this->fetchAll($select);
+        return $this->fetchAll($select);
     }
 }
-?>

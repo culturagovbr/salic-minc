@@ -18,7 +18,7 @@ class Proposta_DivulgacaoController extends Proposta_GenericController
     /**
      * @var Proposta_Model_DbTable_PlanoDeDivulgacao
      */
-    var $table;
+    public $table;
 
     /**
      * Reescreve o metodo init()
@@ -35,7 +35,6 @@ class Proposta_DivulgacaoController extends Proposta_GenericController
         parent::init();
 
         $this->table = new Proposta_Model_DbTable_PlanoDeDivulgacao();
-
     }
 
     /**

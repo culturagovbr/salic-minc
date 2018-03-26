@@ -37,9 +37,9 @@
         $get = Zend_Registry::get("get");
         //define id do PreProjeto que sera passado as outras implementacoes
         $codPronac = "?idPronac=";
-        if(isset($this->idPronac)) {
+        if (isset($this->idPronac)) {
             $codPronac .= $this->idPronac;
-        }elseif(isset($get->idPronac)) {
+        } elseif (isset($get->idPronac)) {
             $codPronac .= $get->idPronac;
         }
 

@@ -1,18 +1,13 @@
 <?php
-/**
- * Modelo Estado
- * @since 29/03/2010
- */
-
 class EstadoDAO extends MinC_Db_Table_Abstract
 {
-	protected $_name = 'uf'; // nome da tabela
-	protected $_schema = 'agentes'; // nome da tabela
+    protected $_name = 'uf'; // nome da tabela
+    protected $_schema = 'agentes'; // nome da tabela
 
     public function listar($id = null)
     {
         echo '<pre>';
-        var_dump ('Método transferido para Agente Model Dbtable UF');
+        var_dump('Método transferido para Agente Model Dbtable UF');
         exit;
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);

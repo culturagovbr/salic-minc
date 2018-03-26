@@ -11,7 +11,6 @@
 
 class tbCumprimentoObjeto extends MinC_Db_Table_Abstract
 {
-
     const SITUACAO_PROPONENTE = 1;
 
     protected $_banco = "SAC";
@@ -60,8 +59,7 @@ class tbCumprimentoObjeto extends MinC_Db_Table_Abstract
             $medidasAcessibilidadeImagens = null,
             $medidasFruicaoImagens = null,
             $medidasPreventivasImagens = null
-            )
-    {
+            ) {
         parent::__construct();
         $this->idPronac = $idPronac;
         $this->idUsuario = $idUsuario;
@@ -287,10 +285,10 @@ class tbCumprimentoObjeto extends MinC_Db_Table_Abstract
     private function validarCadastrar()
     {
         if (!$this->idPronac) {
-            throw new InvalidArgumentException('Necess�rio fornecer o Pronac');
+            throw new InvalidArgumentException('Necess&aacute;rio fornecer o Pronac');
         }
         if (!$this->idUsuario) {
-            throw new InvalidArgumentException('Necess�rio fornecer o usu�rio logado no sistema');
+            throw new InvalidArgumentException('Necess&aacute;rio fornecer o usu&aacute;rio logado no sistema');
         }
     }
 
@@ -307,7 +305,7 @@ class tbCumprimentoObjeto extends MinC_Db_Table_Abstract
                     'siCumprimentoObjeto=?' => self::SITUACAO_PROPONENTE)
                 );
 
-        if(empty($cumprimentoObjetoRow)){
+        if (empty($cumprimentoObjetoRow)) {
             $cumprimentoObjetoRow = $this->createRow();
             $cumprimentoObjetoRow->idPronac = $this->getIdPronac();
             $cumprimentoObjetoRow->dtCadastro = new Zend_Db_Expr('GETDATE()');
@@ -368,7 +366,7 @@ class tbCumprimentoObjeto extends MinC_Db_Table_Abstract
         $select->order($order);
 
         // retornando os registros
-        if($all) {
+        if ($all) {
             return $this->fetchAll($select);
         } else {
             $cumprimentoObjetoRow = $this->fetchRow($select);
@@ -403,21 +401,24 @@ class tbCumprimentoObjeto extends MinC_Db_Table_Abstract
         $select->joinInner(
                 array('b' => 'Projetos'),
                 'a.idPronac = b.IdPRONAC',
-                array(),'SAC.dbo'
+                array(),
+            'SAC.dbo'
         );
         $select->joinInner(
                 array('c' => 'Situacao'),
                 'b.Situacao = c.Codigo',
-                array(),'SAC.dbo'
+                array(),
+            'SAC.dbo'
         );
 
         $select->joinInner(
                  array('co' => 'tbCumprimentoObjeto'),
                  ' b.IdPRONAC = co.idPronac',
-                 array(),'SAC.dbo'
+                 array(),
+            'SAC.dbo'
         );
 
-       //adiciona quantos filtros foram enviados
+        //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
@@ -441,5 +442,4 @@ class tbCumprimentoObjeto extends MinC_Db_Table_Abstract
 
         return $this->fetchAll($select);
     }
-
 }

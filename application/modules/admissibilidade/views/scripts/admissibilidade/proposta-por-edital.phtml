@@ -567,7 +567,8 @@ $IncluirAvaliacao                 = $this->url(array('module' => 'admissibilidad
                     <tr class="destacar">
                         <!--<td align="left"><b>Ator</b></td>-->
                         <td align="left"><b>Data</b></td>
-                        <td align="left"><b>Avalia&ccedil;&atilde;o</b></td>
+                        <td align="left"><b>Perfil</b></td>
+			<td align="left"><b>Avalia&ccedil;&atilde;o</b></td>
                     </tr>
                     <?php
                         if(is_array($this->itensHistorico) and count($this->itensHistorico)>0):
@@ -575,12 +576,14 @@ $IncluirAvaliacao                 = $this->url(array('module' => 'admissibilidad
                     <tr>
                         <!--<td align="left" nowrap><?php echo $historico->usu_Nome ?></td>-->
                         <td align="left" nowrap><?php echo ConverteData($historico->DtAvaliacao, 25) ?></td>
+			<td align="left"><?php echo $historico->Perfil ?></td>
                         <td align="left"><?php echo $historico->Avaliacao ?></td>
                     </tr>
                     <?php if($historico->dtResposta != "" && strlen(strip_tags($historico->dsResposta)) > 1): ?>
                     <tr>
                         <!--<td align="left" nowrap><?php echo $historico->usu_Nome ?></td>-->
                         <td align="left" nowrap><?php echo ConverteData($historico->dtResposta, 25) ?></td>
+			<td align="left"><?php echo $historico->Perfil ?></td>
                         <td align="left"><?php echo strip_tags($historico->dsResposta) ?></td>
                     </tr>
                     <?php endif; ?>

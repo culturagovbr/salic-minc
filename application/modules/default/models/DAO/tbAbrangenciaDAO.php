@@ -4,7 +4,7 @@ class tbAbrangenciaDAO extends MinC_Db_Table_Abstract
     protected $_schema = 'sac';
     protected $_name = 'abrangencia';
 
-    public static function buscarDadosAbrangencia($idprojeto=null,$idpedidoalteracao=null)
+    public static function buscarDadosAbrangencia($idprojeto=null, $idpedidoalteracao=null)
     {
         $sql = "select
                 mun.Descricao as mun,
@@ -14,13 +14,11 @@ class tbAbrangenciaDAO extends MinC_Db_Table_Abstract
                 join AGENTES.dbo.Municipios mun on mun.idMunicipioIBGE = ab.idMunicipioIBGE
                 join AGENTES.dbo.UF uf on uf.idUF = ab.idUF
                 join AGENTES.dbo.Pais pais on pais.idPais = ab.idPais";
-        if($idprojeto)
-        {
+        if ($idprojeto) {
             $sql .= " where ab.idProjeto =".$idprojeto." and ab.stAbrangencia = 1 order by pais, uf , mun asc";
         }
         
-        if($idpedidoalteracao)
-        {
+        if ($idpedidoalteracao) {
             $sql .=" join SAC.dbo.Projetos pr on pr.idProjeto = ab.idProjeto and ab.stAbrangencia = 1
                      join BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto pap on pap.idPRONAC = pr.IdPRONAC
                      where pap.idPedidoAlteracao = ".$idpedidoalteracao;
@@ -28,10 +26,9 @@ class tbAbrangenciaDAO extends MinC_Db_Table_Abstract
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
-
     }
 
-    public static function buscarDadosTbAbrangencia($idprojeto=null,$idpedidoalteracao=null)
+    public static function buscarDadosTbAbrangencia($idprojeto=null, $idpedidoalteracao=null)
     {
         $sql = "SELECT c.idPais, c.idUF, c.idMunicipioIBGE, c.idAbrangenciaAntiga, c.tpAcao
                     FROM BDCORPORATIVO.scSAC.tbAvaliacaoSubItemAbragencia               AS a
@@ -42,8 +39,5 @@ class tbAbrangenciaDAO extends MinC_Db_Table_Abstract
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
-
     }
-
 }
-?>

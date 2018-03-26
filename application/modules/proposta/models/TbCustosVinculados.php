@@ -20,20 +20,23 @@ class Proposta_Model_TbCustosVinculados extends MinC_Db_Model
     const ID_REMUNERACAO_CAPTACAO = 5249;
 
     const PERCENTUAL_CUSTO_ADMINISTRATIVO = 15;
-    const PERCENTUAL_DIREITOS_AUTORAIS = 10;
-    const PERCENTUAL_CONTROLE_E_AUDITORIA = 10;
-    const LIMITE_CONTROLE_E_AUDITORIA = 100000;
+//    const LIMITE_CONTROLE_E_AUDITORIA = 100000;
+//    const PERCENTUAL_DIREITOS_AUTORAIS = 10;
+//    const PERCENTUAL_CONTROLE_E_AUDITORIA = 10;
 
-    # SUL E SUDESTE
-    const PERCENTUAL_DIVULGACAO_SUL_SUDESTE = 20;                       # custo de divulgacao 20%
-    const PERCENTUAL_REMUNERACAO_CAPTACAO_DE_RECURSOS_SUL_SUDESTE = 10; # custo para captação 10%
-    const LIMITE_CAPTACAO_DE_RECURSOS_SUL_SUDESTE = 100000;              # valor máximo para captação 100.000,00
+    const PERCENTUAL_DIVULGACAO_ATE_VALOR_LIMITE = 30;
+    const PERCENTUAL_DIVULGACAO_MAIOR_QUE_VALOR_LIMITE = 20;
+    const VALOR_LIMITE_DIVULGACAO = 300000;
 
-    # OUTRAS REGIOES
-    const PERCENTUAL_DIVULGACAO_OUTRAS_REGIOES = 30;                        # custo de divulgação 30%
-    const PERCENTUAL_REMUNERACAO_CAPTACAO_DE_RECURSOS_OUTRAS_REGIOES = 15; # custo para captação 15%
-    const LIMITE_CAPTACAO_DE_RECURSOS_OUTRAS_REGIOES = 150000;               # valor máximo para captação 150.000,00
+    # PADRAO
+    const PERCENTUAL_PADRAO_REMUNERACAO_CAPTACAO_DE_RECURSOS = 10;
+    const LIMITE_PADRAO_CAPTACAO_DE_RECURSOS = 150000;
 
+    # NORTE NORDESTE E CENTRO-OESTE
+    const PERCENTUAL_REGIOES_N_NE_CO_REMUNERACAO_CAPTACAO_DE_RECURSOS = 15;
+
+    # SUL E ESTADOS MINAS GERAIS E ESPIRITO SANTO
+    const PERCENTUAL_UFS_RS_PR_SC_MG_ES_REMUNERACAO_CAPTACAO_DE_RECURSOS = 12.5;
 
     /**
      * @return mixed
@@ -146,6 +149,4 @@ class Proposta_Model_TbCustosVinculados extends MinC_Db_Model
     {
         $this->_pcCalculo = $pcCalculo;
     }
-
-
 }

@@ -67,7 +67,8 @@ class Agente_Model_TbVinculoPropostaMapper extends MinC_Db_Mapper
      * @author Cleber Santos <oclebersantos@gmail.com>
      * @since 14/10/2016
      */
-    public function save(Agente_Model_TbVinculoProposta $model) {
+    public function save(Agente_Model_TbVinculoProposta $model)
+    {
         return parent::save($model);
     }
 }

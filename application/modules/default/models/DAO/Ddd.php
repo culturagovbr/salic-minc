@@ -13,32 +13,30 @@
  */
 class Ddd extends MinC_Db_Table_Abstract
 {
-	protected $_name = 'AGENTES.dbo.DDD'; // nome da tabela
+    protected $_name = 'AGENTES.dbo.DDD'; // nome da tabela
 
 
-	/**
-	 * Metodo para buscar os ddds de um determinado estado
-	 * @access public
-	 * @param integer $idUF
-	 * @return object $db->fetchAll($sql)
-	 */
-	public function buscar($idUF)
-	{
-		$sql = "SELECT AGENTES.dbo.DDD.idDDD AS id, AGENTES.dbo.DDD.Codigo AS descricao ";
-		$sql.= "FROM AGENTES.dbo.DDD ";
-		$sql.= "WHERE AGENTES.dbo.DDD.idUF = " . $idUF . " ";
-		$sql.= "ORDER BY AGENTES.dbo.DDD.Codigo;";
+    /**
+     * Metodo para buscar os ddds de um determinado estado
+     * @access public
+     * @param integer $idUF
+     * @return object $db->fetchAll($sql)
+     */
+    public function buscar($idUF)
+    {
+        $sql = "SELECT AGENTES.dbo.DDD.idDDD AS id, AGENTES.dbo.DDD.Codigo AS descricao ";
+        $sql.= "FROM AGENTES.dbo.DDD ";
+        $sql.= "WHERE AGENTES.dbo.DDD.idUF = " . $idUF . " ";
+        $sql.= "ORDER BY AGENTES.dbo.DDD.Codigo;";
 
-		try {
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao buscar DDDs: " . $e->getMessage();
-		}
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar DDDs: " . $e->getMessage();
+        }
 
         
-		return $db->fetchAll($sql);
-	} // fecha buscar()
+        return $db->fetchAll($sql);
+    } // fecha buscar()
 } // fecha class

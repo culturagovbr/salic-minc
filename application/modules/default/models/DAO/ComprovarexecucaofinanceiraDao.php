@@ -1,18 +1,17 @@
 <?php
 class ComprovarexecucaofinanceiraDao extends Zend_Db_Table
 {
-    public function selectTable($tabela,$atributos,$where = array(),$order = array()){
-
-        
+    public function selectTable($tabela, $atributos, $where = array(), $order = array())
+    {
         $atributosAux = implode(",", $atributos);
 
         $whereAux = '';
-        foreach ($where as $key=>$atributo){
+        foreach ($where as $key=>$atributo) {
             $whereAux .=  $key.$atributo;
         }
         $orderAux = '';
-        if(count($order)>0){
-            $orderAux= 'order by '.implode(',',$order);
+        if (count($order)>0) {
+            $orderAux= 'order by '.implode(',', $order);
         }
         
         $sql = "Select {$atributosAux} From {$tabela} Where {$whereAux} {$orderAux}";
@@ -20,50 +19,56 @@ class ComprovarexecucaofinanceiraDao extends Zend_Db_Table
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-        $dados =  $db->fetchAll($sql);	
+        $dados =  $db->fetchAll($sql);
 
         return $dados;
     }
 
-    public function insertTable($tabela, $cadastro) {
+    public function insertTable($tabela, $cadastro)
+    {
         $coluna = '';
         $value  = '';
-        foreach ($cadastro as $key=>$atributo){
-            if($coluna!='')
+        foreach ($cadastro as $key=>$atributo) {
+            if ($coluna!='') {
                 $coluna = ',';
+            }
             $coluna .=  $key;
-            if($value!='')
+            if ($value!='') {
                 $value = ',';
+            }
             $value .=  $atributo;
-        }      
+        }
         
 
         $sql = "insert into $tabela ($coluna)
                 values ($value)";
-        $db = Zend_Registry::get ( 'db' );
-        $db->setFetchMode ( Zend_DB::FETCH_OBJ );
-        return $db->fetchAll ($sql);
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
         //return true;
     }
-    public function updateTable($tabela,$update,$where){
+    public function updateTable($tabela, $update, $where)
+    {
         $whereAux = '';
         $value    = '';
-        foreach ($cadastro as $key=>$atributo){
-            if($value!='')
+        foreach ($cadastro as $key=>$atributo) {
+            if ($value!='') {
                 $value = ',';
+            }
             $value .=  $key.' = '.$atributo;
         }
-        foreach ($where as $key=>$atributo){
+        foreach ($where as $key=>$atributo) {
             $whereAux .=  $key.' = '.$atributo;
         }
 
         $sql = "update $tabela set $value where $whereAux";
-        $db = Zend_Registry::get ( 'db' );
-        $db->setFetchMode ( Zend_DB::FETCH_OBJ );
-        return $db->fetchAll ($sql);
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
         //return true;
     }
-    public function deleteTable($tabela,$where){
+    public function deleteTable($tabela, $where)
+    {
         /*$whereAux = '';
         foreach ($where as $key=>$atributo){
             $whereAux .=  $key.' = '.$atributo;
@@ -76,7 +81,8 @@ class ComprovarexecucaofinanceiraDao extends Zend_Db_Table
         return true;
     }
 
-    public function retornaUltimoIdentity() {
+    public function retornaUltimoIdentity()
+    {
         /*$sql = "select  @@IDENTITY";
 
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -87,38 +93,36 @@ class ComprovarexecucaofinanceiraDao extends Zend_Db_Table
         return $dados;*/
         return 1;
     }
-    public function  anexarArquivo(Arquivo $dados){
+    public function anexarArquivo(Arquivo $dados)
+    {
+        try {
+            // ver se vai ser assim no banco
 
-                    try
-                    {
-                        // ver se vai ser assim no banco
+            // cadastra dados do arquivo
 
-                        // cadastra dados do arquivo
-
-                        $sql = "";
-                        $db = Zend_Db_Table::getDefaultAdapter();
-                        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
-                        $db->query($sql);
+            $sql = "";
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+            $db->query($sql);
 
                         
 
-                        // insere o bin�rio do arquivo select insert
-                        $sql = "";
-                        $db->query($sql);
+            // insere o bin�rio do arquivo select insert
+            $sql = "";
+            $db->query($sql);
 
-                        // insere informa��es do documento select insert
-                        $sql = "";
-                        $db->query($sql);
-                        return true;
-                    }
-                    catch (Zend_Exception_Db $e)
-                    {
-                        $this->view->message = "Erro ao inserir o arquivo: " . $e->getMessage();
-                        return false;
-                    }
+            // insere informa��es do documento select insert
+            $sql = "";
+            $db->query($sql);
+            return true;
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao inserir o arquivo: " . $e->getMessage();
+            return false;
+        }
     }
 
-    public function inserirNomeFornecedor($array = array()) {
+    public function inserirNomeFornecedor($array = array())
+    {
         $sql = "insert into tbFornecedorPagamento (idCotacao,
                                                    idDispensa,
                                                    idContrato,
@@ -129,10 +133,8 @@ class ComprovarexecucaofinanceiraDao extends Zend_Db_Table
                                                    {$array['idContrato']},
                                                    {$array['idLicitacao']},
                                                    {$array['idComprovantePagamento']})";
-        $db = Zend_Registry::get ( 'db' );
-        $db->setFetchMode ( Zend_DB::FETCH_OBJ );
-        return $db->fetchAll ($sql);
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
     }
 }
-
-?>

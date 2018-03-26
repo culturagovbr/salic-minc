@@ -6,25 +6,25 @@ class Admissibilidade_EnquadramentoDocumentoAssinaturaController implements MinC
 
     private $post;
 
-    function __construct($post)
+    public function __construct($post)
     {
         $this->post = $post;
     }
 
-    function encaminharProjetoParaAssinatura() {
-
-        if(!$this->idPronac) {
+    public function encaminharProjetoParaAssinatura()
+    {
+        if (!$this->idPronac) {
             throw new Exception("Identificador do Projeto não informado.");
         }
 
         $objTbProjetos = new Projeto_Model_DbTable_Projetos();
         $dadosProjeto = $objTbProjetos->findBy(array('IdPRONAC' => $this->idPronac));
 
-        if(!$dadosProjeto) {
+        if (!$dadosProjeto) {
             throw new Exception("Projeto n&atilde;o encontrado.");
         }
 
-        if($dadosProjeto['Situacao'] != 'B02' && $dadosProjeto['Situacao'] != 'B03') {
+        if ($dadosProjeto['Situacao'] != 'B02' && $dadosProjeto['Situacao'] != 'B03') {
             throw new Exception("Situa&ccedil;&atilde;o do projeto inv&aacute;lida!");
         }
 
@@ -34,7 +34,7 @@ class Admissibilidade_EnquadramentoDocumentoAssinaturaController implements MinC
             $this->idTipoDoAtoAdministrativo
         );
 
-        if(!$isProjetoDisponivelParaAssinatura) {
+        if (!$isProjetoDisponivelParaAssinatura) {
             $auth = Zend_Auth::getInstance();
             $objDocumentoAssinatura = new MinC_Assinatura_Servico_Assinatura($this->post, $auth->getIdentity());
             $idTipoDoAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ENQUADRAMENTO;
@@ -71,7 +71,7 @@ class Admissibilidade_EnquadramentoDocumentoAssinaturaController implements MinC
     /**
      * @return string
      */
-    function gerarDocumentoAssinatura()
+    public function gerarDocumentoAssinatura()
     {
         $view = new Zend_View();
         $view->setScriptPath(__DIR__ . DIRECTORY_SEPARATOR . '../views/scripts/enquadramento-documento-assinatura');

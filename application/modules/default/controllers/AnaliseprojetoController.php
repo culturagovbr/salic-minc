@@ -16,16 +16,14 @@ class AnaliseprojetoController extends Zend_Controller_Action
         $Usuario = new UsuarioDAO(); // objeto usuário
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessão com o grupo ativo
 
-        if ($auth->hasIdentity()) // caso o usuário esteja autenticado
-        {
+        if ($auth->hasIdentity()) { // caso o usuário esteja autenticado
             // verifica as permissões
             $PermissoesGrupo = array();
             $PermissoesGrupo[] = 93;
             $PermissoesGrupo[] = 118;
             $PermissoesGrupo[] = 119;
             $PermissoesGrupo[] = 120;
-            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) // verifica se o grupo ativo está no array de permissões
-            {
+            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo está no array de permissões
                 parent::message("Você não tem permissão para acessar essa área do sistema!", "principal/index", "ALERT");
             }
 
@@ -38,8 +36,7 @@ class AnaliseprojetoController extends Zend_Controller_Action
             $this->view->grupoAtivo = $GrupoAtivo->codGrupo; // manda o grupo ativo do usuário para a visão
             $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o órgão ativo do usuário para a visão
         } // fecha if
-        else // caso o usuário não esteja autenticado
-        {
+        else { // caso o usuário não esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
@@ -51,12 +48,10 @@ class AnaliseprojetoController extends Zend_Controller_Action
 
     public function analiseprojetoAction()
     {
-
     }
 
     public function indexAction()
     {
-
         $get = Zend_Registry::get('get');
         $pronac = $get->pronac;
 
@@ -64,5 +59,4 @@ class AnaliseprojetoController extends Zend_Controller_Action
 
         $this->view->analiseprojeto = $tbanaliseprojeto;
     }
-
 }

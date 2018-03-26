@@ -2,10 +2,8 @@
 
 class AdmissibilidadeDAO extends Zend_Db_Table
 {
-
     public static function gerenciarAnalistas(stdClass $params)
     {
-
         $retorno = false;
         $sql = "SELECT
                     usu_codigo as usu_cod,
@@ -44,7 +42,6 @@ class AdmissibilidadeDAO extends Zend_Db_Table
 
     public static function gerenciarAnalista(stdClass $params)
     {
-
         $sql = " select uog.uog_usuario as usu_cod,
                         u.usu_nome + ' - ' + u.usu_identificacao as usu_nome,
                         uog.uog_orgao   as usu_orgao,
@@ -218,7 +215,6 @@ class AdmissibilidadeDAO extends Zend_Db_Table
 
     public static function consultarGerenciamentoProposta($where = array(), $order = array())
     {
-
         $meuWhere = "";
         // adicionando clausulas where
         foreach ($where as $coluna => $valor) {
@@ -285,7 +281,6 @@ class AdmissibilidadeDAO extends Zend_Db_Table
 
     public static function buscarAnalistas($where = array(), $order = array())
     {
-
         $meuWhere = "";
         // adicionando clausulas where
         foreach ($where as $coluna => $valor) {
@@ -329,7 +324,6 @@ class AdmissibilidadeDAO extends Zend_Db_Table
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
-
     }
 
 

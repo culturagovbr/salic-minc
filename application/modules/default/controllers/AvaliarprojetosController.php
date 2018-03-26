@@ -22,15 +22,15 @@ class AvaliarprojetosController extends MinC_Controller_Action_Abstract
      * @param void
      * @return void
      */
-     public function init() {
+    public function init()
+    {
         $auth = Zend_Auth::getInstance(); // pega a autenticaç?o
         $this->view->title = "Salic - Sistema de Apoio ?s Leis de Incentivo ? Cultura"; // título da página
 
         $auth = Zend_Auth::getInstance();// instancia da autenticação
-        if (isset($auth->getIdentity()->usu_codigo)) // autenticacao novo salic
-        {
+        if (isset($auth->getIdentity()->usu_codigo)) { // autenticacao novo salic
               $this->getIdUsuario = UsuarioDAO::getIdUsuario($auth->getIdentity()->usu_codigo);
-              $this->getIdUsuario = ($this->getIdUsuario) ? $this->getIdUsuario["idAgente"] : 0;
+            $this->getIdUsuario = ($this->getIdUsuario) ? $this->getIdUsuario["idAgente"] : 0;
         }
 
         $this->idusuario = $this->getIdUsuario;
@@ -56,19 +56,18 @@ class AvaliarprojetosController extends MinC_Controller_Action_Abstract
             $this->getIdUsuario = UsuarioDAO::getIdUsuario($auth->getIdentity()->usu_codigo);
             if ($this->getIdUsuario) {
                 $this->getIdUsuario = $this->getIdUsuario["idAgente"];
-            }
-            else {
+            } else {
                 $this->getIdUsuario = 0;
             }
-        }
-        else {
+        } else {
             $this->getIdUsuario = $auth->getIdentity()->IdUsuario;
         }
 
         parent::init(); // chama o init() do pai GenericControllerNew
     } // fecha método init()
 
-    public function indexAction(){
+    public function indexAction()
+    {
         $IdOrgao = $this->codOrgao;
         $idusuario = $this->idusuario;
 
@@ -86,22 +85,21 @@ class AvaliarprojetosController extends MinC_Controller_Action_Abstract
         $this->view->listaProjetos = $listaProjetos;
     }
 
-    public function avaliarAction(){
+    public function avaliarAction()
+    {
+        if (!empty($_GET['nrFormDocumento']) && !empty($_GET['nrVersaoDocumento']) && !empty($_GET['idPreProjeto'])) {
+            $idusuario = $this->idusuario;
+            $IdOrgao = $this->codOrgao;
 
-        if(!empty($_GET['nrFormDocumento']) && !empty($_GET['nrVersaoDocumento']) && !empty($_GET['idPreProjeto'])){
+            //x($idusuario);
+            //x($IdOrgao);
 
-        $idusuario = $this->idusuario;
-        $IdOrgao = $this->codOrgao;
+            $tbprojetos = new Projetos();
+            $nrFormDocumento = $_GET['nrFormDocumento'];
+            $nrVersaoDocumento = $_GET['nrVersaoDocumento'];
+            $idPreProjeto = $_GET['idPreProjeto'];
 
-        //x($idusuario);
-        //x($IdOrgao);
-
-        $tbprojetos = new Projetos();
-        $nrFormDocumento = $_GET['nrFormDocumento'];
-        $nrVersaoDocumento = $_GET['nrVersaoDocumento'];
-        $idPreProjeto = $_GET['idPreProjeto'];
-
-        $where = array(
+            $where = array(
             'Situacao = ?'          =>  $this->COD_SITUACAO_PROJETO_ATUALIZA,
             'stTipoDemanda = ?'     =>  $this->COD_STTIPODEMANDA_PREPROJETO,
             'idOrgao = ?'           =>  $IdOrgao,
@@ -112,14 +110,14 @@ class AvaliarprojetosController extends MinC_Controller_Action_Abstract
         );
 
 
-        $dadosFD = array('nrFormDocumento = ?' => $nrFormDocumento, 'nrVersaoDocumento = ?' => $nrVersaoDocumento);
-        $FD = new tbFormDocumento();
-        $buscarFD = $FD->buscar($dadosFD)->toArray();
-        $idEdital = $buscarFD[0]['idEdital'];
+            $dadosFD = array('nrFormDocumento = ?' => $nrFormDocumento, 'nrVersaoDocumento = ?' => $nrVersaoDocumento);
+            $FD = new tbFormDocumento();
+            $buscarFD = $FD->buscar($dadosFD)->toArray();
+            $idEdital = $buscarFD[0]['idEdital'];
 
 
-        $listaProjetos = $tbprojetos->listaProjetosPainelAvaliador($where)->current();
-        $this->view->listaProjetos = $listaProjetos;
+            $listaProjetos = $tbprojetos->listaProjetosPainelAvaliador($where)->current();
+            $this->view->listaProjetos = $listaProjetos;
 
             $where = array(
                 'b.nrFormDocumento = ?' => $nrFormDocumento,
@@ -127,55 +125,56 @@ class AvaliarprojetosController extends MinC_Controller_Action_Abstract
                 'f.idEdital = ?' => $idEdital
             );
 
-            if(!empty($_GET['$nrPergunta'])) {
-               $where['b.nrPergunta = ?'] = $_GET['$nrPergunta'];
+            if (!empty($_GET['$nrPergunta'])) {
+                $where['b.nrPergunta = ?'] = $_GET['$nrPergunta'];
             }
             $order = "b.nrOrdemPergunta asc";
             $tbpergunta = new tbPergunta();
             $perguntas = $tbpergunta->listaCompleta($where, $order);
 
             $this->view->perguntas = $perguntas;
-        }else{
+        } else {
             parent::message("Dados inv&aacute;lidos", "Avaliarprojetos/index", "ERROR");
         }
-
     }
 
-    public function salvarprojetoAction(){
+    public function salvarprojetoAction()
+    {
         $idusuario = $this->idusuario;
         $tblRes = new tbResposta();
 
-        if($_POST){
-			// pega o id do edital
-			$tbFormDocumento = new tbFormDocumento();
-			$idEdital = $tbFormDocumento->buscar( array('nrFormDocumento = ?' => $_POST['nrFormDocumento']
-				,'nrVersaoDocumento = ?' => $_POST['nrVersaoDocumento']) )->current()->toArray();
-			$idEdital = $idEdital['idEdital'];
+        if ($_POST) {
+            // pega o id do edital
+            $tbFormDocumento = new tbFormDocumento();
+            $idEdital = $tbFormDocumento->buscar(array('nrFormDocumento = ?' => $_POST['nrFormDocumento']
+                ,'nrVersaoDocumento = ?' => $_POST['nrVersaoDocumento']))->current()->toArray();
+            $idEdital = $idEdital['idEdital'];
 
-			// pega os documentos de critérios
-			$criterios = $tbFormDocumento->buscar(array(
-					'idEdital = ?'               => $idEdital
-					,'idClassificaDocumento = ?' => 25
-				))->toArray();;
+            // pega os documentos de critérios
+            $criterios = $tbFormDocumento->buscar(array(
+                    'idEdital = ?'               => $idEdital
+                    ,'idClassificaDocumento = ?' => 25
+                ))->toArray();
+            ;
 
-			// varre todos os critérios e adiciona na tbFormDocumentoProjeto
-			$tbFormDocumentoProjeto = new tbFormDocumentoProjeto();
+            // varre todos os critérios e adiciona na tbFormDocumentoProjeto
+            $tbFormDocumentoProjeto = new tbFormDocumentoProjeto();
 
-			/*foreach ($criterios as $c) {
-				$buscarFormDocumentoProjeto = $tbFormDocumentoProjeto->buscar( array('nrFormDocumento = ?' => $c['nrFormDocumento']) )->toArray();
+            /*foreach ($criterios as $c) {
+                $buscarFormDocumentoProjeto = $tbFormDocumentoProjeto->buscar( array('nrFormDocumento = ?' => $c['nrFormDocumento']) )->toArray();
 
-				if (count($buscarFormDocumentoProjeto) <= 0) : // cadastra na tbFormDocumentoProjeto
-					$dadosFormDocumentoProjeto = array(
-						'nrFormDocumento'    => $c['nrFormDocumento']
-						,'nrVersaoDocumento' => $_POST['nrVersaoDocumento']
-						,'idProjeto'         => $_POST['idPreProjeto']
-						,'idPessoaCadastro'  => $idusuario
-						,'dtIniValidade'     => '1900-01-01'
-						,'dtFimValidade'     => '1900-01-01'
-					);
-					$tbFormDocumentoProjeto->inserir($dadosFormDocumentoProjeto);
-				endif;
-			} // endforeach*/
+                if (count($buscarFormDocumentoProjeto) <= 0) : // cadastra na tbFormDocumentoProjeto
+                    $dadosFormDocumentoProjeto = array(
+                        'nrFormDocumento'    => $c['nrFormDocumento']
+                        ,'nrVersaoDocumento' => $_POST['nrVersaoDocumento']
+                        ,'idProjeto'         => $_POST['idPreProjeto']
+                        ,'idPessoaCadastro'  => $idusuario
+                        ,'dtIniValidade'     => '1900-01-01'
+                        ,'dtFimValidade'     => '1900-01-01'
+                    );
+                    $tbFormDocumentoProjeto->inserir($dadosFormDocumentoProjeto);
+                endif;
+            } // endforeach*/
 
 
             $where = array(
@@ -183,30 +182,28 @@ class AvaliarprojetosController extends MinC_Controller_Action_Abstract
                  'idPessoaCadastro = ?' => $idusuario
             );
 
-			$notas = 0;
-			$contPeso = 0;
-			$totalPeso = 0;
-           foreach ($_POST['perguntas'] as $value) {
-				$notas += (float) $_POST['nota_'.$value] * (float) $_POST['nrPeso'][$contPeso];
-				$totalPeso += (float) $_POST['nrPeso'][$contPeso];
-				$contPeso++;
+            $notas = 0;
+            $contPeso = 0;
+            $totalPeso = 0;
+            foreach ($_POST['perguntas'] as $value) {
+                $notas += (float) $_POST['nota_'.$value] * (float) $_POST['nrPeso'][$contPeso];
+                $totalPeso += (float) $_POST['nrPeso'][$contPeso];
+                $contPeso++;
 
                 $where['nrOpcao = ?'] = $_POST['Opcao_'.$value];
                 $verifica = $tblRes->buscar($where);
-                if(count($verifica) >= 1){
-
+                if (count($verifica) >= 1) {
                     $dados = array(
                         'dtResposta' => date('Y-m-d H:i:s'),
                         'dsRespostaSubj' => $_POST['nota_'.$value]
                     );
 
-                    try{
+                    try {
                         $tblRes->alterar($dados, $where);
-                        }catch (Exception $e){
+                    } catch (Exception $e) {
                         parent::message("Falha ao salvar avalia&ccedil;&atilde;o", "Avaliarprojetos/index", "ERROR");
                     }
-
-                }else{
+                } else {
                     /*$dados = array(
                         'nrFormDocumento'   => $_POST['nrFormDocumento'],
                         'nrVersaoDocumento' => $_POST['nrVersaoDocumento'],
@@ -223,33 +220,28 @@ class AvaliarprojetosController extends MinC_Controller_Action_Abstract
                         parent::message("Falha ao salvar avalia&ccedil;&atilde;o", "avaliarprojetos/index", "ERROR");
                     }*/
                 }
-
             }
 //           parent::message("Dados salvos com sucesso!", "avaliarprojetos/index", "CONFIRM");
-                    $tbAvaliacaoPreProjeto = new tbAvaliacaoPreProjeto();
-                    $dadosAvaliacao = array(
-                    	'idPreProjeto' => $_POST['idPreProjeto']
-                    	,'idAvaliador' => $this->idusuario
-                    	,'nrNotaFinal' => number_format($notas/$totalPeso , 2, '.', '')
-                    	,'dtAvaliacao' => new Zend_Db_Expr('GETDATE()')
-                    	,'stAvaliacao' => 0);
-					try
-					{
-                    	$tbAvaliacaoPreProjeto->inserir($dadosAvaliacao);
-						parent::message("Dados salvos com sucesso!", "avaliarprojetos/index", "CONFIRM");
-                    }
-                    catch (Exception $e)
-                    {
-                        parent::message("Falha ao salvar avalia&ccedil;&atilde;o", "avaliarprojetos/index", "ERROR");
-                    }
-
-        }else{
+            $tbAvaliacaoPreProjeto = new tbAvaliacaoPreProjeto();
+            $dadosAvaliacao = array(
+                        'idPreProjeto' => $_POST['idPreProjeto']
+                        ,'idAvaliador' => $this->idusuario
+                        ,'nrNotaFinal' => number_format($notas/$totalPeso, 2, '.', '')
+                        ,'dtAvaliacao' => new Zend_Db_Expr('GETDATE()')
+                        ,'stAvaliacao' => 0);
+            try {
+                $tbAvaliacaoPreProjeto->inserir($dadosAvaliacao);
+                parent::message("Dados salvos com sucesso!", "avaliarprojetos/index", "CONFIRM");
+            } catch (Exception $e) {
+                parent::message("Falha ao salvar avalia&ccedil;&atilde;o", "avaliarprojetos/index", "ERROR");
+            }
+        } else {
             parent::message("Dados inv&aacute;lidos", "avaliarprojetos/index", "ERROR");
         }
     }
 
-    public function enviaravaliacaoAction(){
-
+    public function enviaravaliacaoAction()
+    {
         $idPreProjeto = !empty($_GET['idPreProjeto']) ? $_GET['idPreProjeto'] : 0;
         $idusuario = $this->idusuario;
 
@@ -263,10 +255,10 @@ class AvaliarprojetosController extends MinC_Controller_Action_Abstract
         );
         $tblAvaliacao = new tbAvaliacaoPreProjeto();
 
-        try{
+        try {
             $tblAvaliacao->alterar($dados, $where);
-        }catch (Exception $e){
-             parent::message("Falha ao enviar avaliza&ccedil;&atilde;o", "avaliarprojetos/index", "ERROR");
+        } catch (Exception $e) {
+            parent::message("Falha ao enviar avaliza&ccedil;&atilde;o", "avaliarprojetos/index", "ERROR");
         }
         $tbDistribuicao = new tbDistribuicao();
         $tblProjetos    = new Projetos();
@@ -277,32 +269,28 @@ class AvaliarprojetosController extends MinC_Controller_Action_Abstract
             'stAvaliacao = ?' => '1'
         );
         $enviados = $tbDistribuicao->QTDAvaliadorXenvio($where);
-        if(count($enviados) > 0){
-           if(count($enviados) >= $enviados[0]->qtAvaliador){
-               try{
+        if (count($enviados) > 0) {
+            if (count($enviados) >= $enviados[0]->qtAvaliador) {
+                try {
                     $dadosprojeto    = $tblProjetos->listaProjetosDistribuidos(array('idPreProjeto = ?' => $idPreProjeto))->current();
                     $tblProjetos->alterarSituacao($dadosprojeto->idPronac, $dadosprojeto->AnoProjeto.$dadosprojeto->Sequencial, $this->COD_SITUACAO_PROJETO_COMISSAO, "Projeto encaminhado para comiss?o");
-               }catch (Exception $e){
-                   $dados = array(
+                } catch (Exception $e) {
+                    $dados = array(
                                   'stAvaliacao' => 0
                                 );
 
-                                $where = array(
+                    $where = array(
                                   'idPreprojeto = ?' => $idPreProjeto,
                                   'idAvaliador = ?' => $idusuario
                                 );
-                   $tblAvaliacao->alterar($dados, $where);
-                   parent::message("Falha ao enviar avaliza&ccedil;&atilde;o", "avaliarprojetos/index", "ERROR");
+                    $tblAvaliacao->alterar($dados, $where);
+                    parent::message("Falha ao enviar avaliza&ccedil;&atilde;o", "avaliarprojetos/index", "ERROR");
                 }
-
-           }
+            }
         }
 
 
-       // $COD_SITUACAO_PROJETO_COMISSAO
+        // $COD_SITUACAO_PROJETO_COMISSAO
         parent::message("Avalia&ccedil;&atilde;o enviada com sucesso!", "avaliarprojetos/index", "CONFIRM");
-
     }
- }
-
-?>
+}

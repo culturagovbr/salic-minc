@@ -1,18 +1,7 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of titulacaoConselheiro
- *
- * @author 01373930160
- */
 class ConsultaTitulacaoConselheiroDAO extends Zend_Db_Table
 {
-
     public static function exibeVotantes($area, $sttilular)
     {
         $sql = "SELECT ttc.cdArea AS CodigoArea,
@@ -22,13 +11,10 @@ class ConsultaTitulacaoConselheiroDAO extends Zend_Db_Table
                 FROM AGENTES.dbo.tbTitulacaoConselheiro ttc
                 JOIN AGENTES.dbo.Nomes nm ON ttc.idAgente = nm.idAgente
                 where ttc.cdarea = $area and ttc.stTitular = $sttilular ORDER BY ttc.cdArea, ttc.stTitular DESC";
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
         }
 
@@ -38,13 +24,10 @@ class ConsultaTitulacaoConselheiroDAO extends Zend_Db_Table
     public static function excluirComponente($idnrreuniao)
     {
         $sql = "delete from bdcorporativo.scsac.tbvotante where idreuniao=$idnrreuniao";
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = $e->getMessage();
         }
         return $db->fetchAll($sql);
@@ -59,13 +42,10 @@ class ConsultaTitulacaoConselheiroDAO extends Zend_Db_Table
                 JOIN AGENTES.dbo.Visao vis on vis.idAgente = ag.idAgente
                 where vis.visao = 212 and nm.TipoNome=18
                 ";
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = $e->getMessage();
         }
         return $db->fetchAll($sql);
@@ -85,22 +65,16 @@ class ConsultaTitulacaoConselheiroDAO extends Zend_Db_Table
                 JOIN AGENTES.dbo.Nomes nm ON tdpc.idAgente = nm.idAgente
                 WHERE tdpc.stDistribuicao = 'A'";
 
-        if (!empty($idPronac))
-        {
+        if (!empty($idPronac)) {
             $sql.= " AND pr.IdPRONAC = $idPronac ";
         }
 
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
         }
         return $db->fetchAll($sql);
     }
-
 }
-

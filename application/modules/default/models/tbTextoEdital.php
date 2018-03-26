@@ -1,12 +1,13 @@
 <?php
 
-class tbTextoEdital extends MinC_Db_Table_Abstract {
+class tbTextoEdital extends MinC_Db_Table_Abstract
+{
+    protected $_banco = 'SAC';
+    protected $_name = 'tbTextoEdital';
+    protected $_schema  = 'SAC';
 
-    protected  $_banco = 'SAC';
-    protected  $_name = 'tbTextoEdital';
-    protected  $_schema  = 'SAC';
-
-    public function buscarTextoEdital($idEdital){
+    public function buscarTextoEdital($idEdital)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->where('idEdital = ?', $idEdital);
@@ -14,7 +15,8 @@ class tbTextoEdital extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function buscarUltimaOrdem($idEdital){
+    public function buscarUltimaOrdem($idEdital)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->where('idEdital = ?', $idEdital);
@@ -22,6 +24,4 @@ class tbTextoEdital extends MinC_Db_Table_Abstract {
         $select->order('nrTexto DESC');
         return $this->fetchAll($select)->toArray();
     }
-
 }
-

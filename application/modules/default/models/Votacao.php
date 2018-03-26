@@ -10,18 +10,19 @@
  *
  * @author augusto
  */
-class Votacao extends MinC_Db_Table_Abstract {
-
+class Votacao extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'BDCORPORATIVO';
     protected $_schema = 'BDCORPORATIVO.scSAC';
     protected $_name = 'tbVotacao';
 
-    public function resultadovotacao($idNrReuniao, $idPRONAC, $stvoto = null, $tipoReadequacao = null) {
+    public function resultadovotacao($idNrReuniao, $idPRONAC, $stvoto = null, $tipoReadequacao = null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
                 $this,
-                array('count(stVoto) as qtdvotos')
+                array(new Zend_Db_Expr('count(stVoto) as qtdvotos'))
         );
         $select->where('idNrReuniao = ?', $idNrReuniao);
         $select->where('idPRONAC = ?', $idPRONAC);
@@ -34,13 +35,14 @@ class Votacao extends MinC_Db_Table_Abstract {
         return $this->fetchRow($select);
     }
 
-    public function votantesjustificativavoto($idNrReuniao, $idPRONAC, $tipoReadequacao = null) {
+    public function votantesjustificativavoto($idNrReuniao, $idPRONAC, $tipoReadequacao = null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
                     array('tv'=>$this->_name),
                     array(
-                            '(cast(tv.dsJustificativa AS TEXT)) as justificativa',
+                            new Zend_Db_Expr('(cast(tv.dsJustificativa AS TEXT)) as justificativa'),
                             'tv.stVoto'
                         )
                     );
@@ -58,6 +60,4 @@ class Votacao extends MinC_Db_Table_Abstract {
         }
         return $this->fetchAll($select);
     }
-
 }
-

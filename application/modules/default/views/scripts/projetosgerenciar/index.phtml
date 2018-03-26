@@ -372,13 +372,14 @@
         <div class="sumir" id="devolverprojeto"></div>
         <table class="tabela" border="0">
             <tr>
-                <th colspan="6">Habilitados</th>
+                <th colspan="7">Habilitados</th>
             </tr>
             <tr class="destacar">
                 <td width="5%"></td>
                 <td width="50%"><b>Nome</b></td>
-                <td width="15%" align="center"><b>&Aacute;rea Cultural</b></td>
-                <td width="10%" align="center"><b>Qtd. Projetos</b></td>
+                <td width="10%" class="center"><b>CPF</b></td>
+                <td width="10%" align="center"><b>&Aacute;rea Cultural</b></td>
+                <td width="5%" align="center"><b>Qtd. Projetos</b></td>
                 <td width="10%" align="center"><b>Solicita&ccedil;&atilde;o de Retirada de Pauta</b></td>
                 <td width="10%" align="center"><b>Desabilitar</b></td>
             </tr>
@@ -386,6 +387,7 @@
             <tr>
                 <td class="centro"><img style="cursor: pointer;" class="expandir" idAgente="<?php echo $habilitados['idAgente']; ?>" src='<?php echo $this->baseUrl(); ?>/public/img/buttons/btn_adicionar.gif'/></td>
                 <td><?php echo $habilitados['Nome'] ?></td>
+                <td class="centro"><?php echo $habilitados['CNPJCPF'] ?></td>
                 <td class="centro"><?php echo $habilitados['Area'] ?></td>
                 <td class="centro"><?php echo $habilitados['QtdProjetos'] ?></td>
                 <td class="centro"><?php echo $habilitados['QtdRetirarPauta']; ?></td>
@@ -443,11 +445,12 @@
     </table>
     <table class="tabela">
         <tr>
-            <th colspan="4">Desabilitados</th>
+            <th colspan="5">Desabilitados</th>
         </tr>
         <tr class="destacar">
             <td></td>
             <td><b>Nome</b></td>
+            <td align="center"><b>CPF</b></td>
             <td><b>&Aacute;rea Cultural</b></td>
             <td><b>Habilitar</b></td>
         </tr>
@@ -455,6 +458,7 @@
             <tr>
                 <td class="centro"><img style="cursor: pointer;" class="expandir" idAgente="<?php echo $desabilitados->idAgente; ?>"src='<?php echo $this->baseUrl(); ?>/public/img/buttons/btn_adicionar.gif'/></td>
                 <td><?php echo $desabilitados->Nome ?></td>
+                <td align="center"><?php echo $desabilitados->CNPJCPF ?></td>
                 <td class="centro"><?php echo $desabilitados->Area ?></td>
                 <td class="centro"><img style="cursor: pointer;" class="statuscomponente" status="habilitar" idAgente="<?php echo $desabilitados->idAgente; ?>" src='<?php echo $this->baseUrl(); ?>/public/img/passed.gif'/></td>
             </tr>

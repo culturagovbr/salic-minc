@@ -1,17 +1,8 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of DocumentosrecebidosController
- *
- * @author tisomar
- */
-class DocumentosrecebidosController extends MinC_Controller_Action_Abstract {
-
-    public function init() {
+class DocumentosrecebidosController extends MinC_Controller_Action_Abstract
+{
+    public function init()
+    {
         // verifica as permissões
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 93;  // Coordenador de Parecerista
@@ -24,12 +15,7 @@ class DocumentosrecebidosController extends MinC_Controller_Action_Abstract {
         // chama o init() do pai GenericControllerNew
     }
 
-
     public function indexAction()
     {
-
-
     }
-
-
 }

@@ -1,0 +1,35 @@
+
+/*--------------------------------------------------------------
+x - FOOTER
+--------------------------------------------------------------*/
+footer,
+footer.page-footer {
+    background-color: #1B5E20;
+    color: #fff;
+    position: inherit;
+    bottom: 0;
+    width: 100%;
+
+    display: block;
+    text-align: center;
+    margin-top: 30px;
+}
+
+footer.green,
+footer.green a {
+    color: #ffcc80;
+}
+
+footer.page-footer {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+footer a{
+    color: #ffcc80;
+}
+
+footer {
+    color: #FFFFFF;
+    background-color: rgb(93, 64, 55);
+}

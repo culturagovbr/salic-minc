@@ -1,13 +1,29 @@
-<div class="container-fluid white">
+<?php echo $this->partial("inc/menu.phtml", $this); ?>
+
+<div class="container-fluid">
     <div class="row">
-        <?= $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto)); ?>
-        <div class="col s10 m12 l10">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Encaminhar Proposta Cultural ao Minist&eacute;rio da Cultura</h1>
 
-            <div id="titulo">
-                <div>Encaminhar Proposta Cultural ao Minist&eacute;rio da Cultura</div>
+                    <?php
+                    gerarNovoBreadCrumb(array(
+                        $this->layout['listagem'],
+                        array('Encaminhar para o MinC' => '')
+                    ));
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
             </div>
+        </div>
 
-            <div id="conteudo">
+        <div class="content">
+            <div id="conteudo" class="card-panel">
                 <?php if(!$this->resultado->Observacao) : ?>
                     <table class="tabela">
                         <tr>

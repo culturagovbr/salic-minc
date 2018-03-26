@@ -1,53 +1,53 @@
 <div class="container-fluid">
     <div class="row">
-        <?php //echo $this->partial("analise/inc/menu.phtml", $this); ?>
-        <div class="col s12 m12 l12">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Avaliar adequa&ccedil;&atilde;o de projetos</h1>
 
-            <h4>Avaliar adequa&ccedil;&atilde;o de projetos</h4>
-            <br>
+                    <?php
+                    gerarNovoBreadCrumb(
+                        [
+                            ['Avaliar adequa&ccedil;&atilde;o de projetos' => '']
+                        ]
+                    );
+                    ?>
+                </div>
 
-            <table class="bordered striped conteudoImprimivel" id="tabelaAnaliseFinal">
-                <thead>
-                <tr>
-                    <th>Pronac</th>
-                    <th>Nome do projeto</th>
-                    <th>Proponente</th>
-                    <th>UF</th>
-                    <th>&Aacute;rea Cultural</th>
-                    <th>Segmento Cultural</th>
-                    <th>Dias</th>
-                    <th>Enquadramento</th>
-                    <th>Vl. Projeto</th>
-                    <th>T&eacute;cnico</th>
-                    <th title="Redistribuir">Redist.</th>
-                    <th title="Avaliar">Avaliar</th>
-                </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="/analise/analise/listarprojetos"
+                       title="Voltar para lista de projetos"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle">
+                        <i class="material-icons">undo</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content card">
+            <div class="card-content">
+                <table class="bordered striped conteudoImprimivel" id="tabelaAnaliseFinal">
+                    <thead>
+                        <tr>
+                            <th>Pronac</th>
+                            <th>Nome do projeto</th>
+                            <th>Proponente</th>
+                            <th>UF</th>
+                            <th>&Aacute;rea Cultural</th>
+                            <th>Segmento Cultural</th>
+                            <th>Dias</th>
+                            <th>Enquadramento</th>
+                            <th>Vl. Projeto</th>
+                            <th>T&eacute;cnico</th>
+                            <th title="Redistribuir">Redist.</th>
+                            <th title="Avaliar">Avaliar</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
-
-<div id="modalTransformarProposta" class="modal modal-fixed-footer">
-    <div class="modal-content">
-        <h5>Deseja Transformar a proposta Nr. <span id="idPreProjeto"></span>, em Projeto?</h5>
-    </div>
-    <div class="modal-footer">
-        <button class="btn waves-effect waves-light "
-                id="botaoTransformarPropostaEmProjeto"
-                type="button">
-            Sim
-        </button>
-        <a class="btn waves-effect waves-dark red-text white modal-close">
-            Cancelar
-        </a>
-    </div>
-</div>
-
-<br clear="all"/>
-<iframe name="gerarPDF" style="display: none;"></iframe>
 
 <input id="PROPOSTA_EM_ANALISE_FINAL" type="hidden"
        value="<?php echo Agente_Model_DbTable_Verificacao::PROPOSTA_EM_ANALISE_FINAL ?>">

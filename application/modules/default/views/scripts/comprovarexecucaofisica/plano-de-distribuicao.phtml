@@ -26,7 +26,7 @@
                 if(preenchimento){
                     mensagem = 'Favor preencher os dados obrig&aacute;torios e cadastrar o Agente.';
                 } else {
-                    mensagem = '… necess·rio cadastrar o Agente!';
+                    mensagem = '√â necess√°rio cadastrar o Agente!';
                 }
                 preenchimento = true;
             }
@@ -73,7 +73,7 @@
                         }
                     });
                     if(parseInt($('#totalDivulgacao'+id).val()) < vlDivulgacao){
-                        alertaModal('Ultrapassou a quantidade de Produtos aprovados destinados ‡ DivulgaÁ„o.');
+                        alertaModal('Ultrapassou a quantidade de Produtos aprovados destinados √† Divulga√ß√£o.');
                         return false;
                     }
                 } else if($('#tipoDocumento').val() == 21){
@@ -83,7 +83,7 @@
                         }
                     });
                     if(vlBeneficiario > parseInt($('#totalBeneficiario'+id).val())){
-                        alertaModal('Ultrapassou a quantidade de Produtos aprovados destinados ao Benefici·rio.');
+                        alertaModal('Ultrapassou a quantidade de Produtos aprovados destinados ao Benefici√°rio.');
                         return false;
                     }
                 }
@@ -143,7 +143,7 @@
                                 modal: true,
                                 autoOpen:true,
                                 draggable:false,
-                                title: 'Cadastrar Benefici·rio',
+                                title: 'Cadastrar Benefici√°rio',
                                 buttons: {
                                     'Fechar': function() {
                                         $("#divDinamicaAgentes").remove();
@@ -177,7 +177,7 @@
             var id = $(this).attr('idBenPrdCult'),
                 arquivo = $(this).attr('idArquivo');
             $("#modalPerguntas").dialog("destroy");
-            $("#modalPerguntas").html("Tem certeza que deseja excluir os dados do Plano de DistribuiÁao?");
+            $("#modalPerguntas").html("Tem certeza que deseja excluir os dados do Plano de Distribui√ßao?");
             $("#modalPerguntas").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -185,7 +185,7 @@
                 height:180,
                 modal: true,
                 buttons : {
-                    'N„o' : function(){
+                    'N√£o' : function(){
                         $(this).dialog('close');
                     },
                     'Sim' : function(){
@@ -211,7 +211,7 @@
                                     $('.ui-dialog-titlebar-close').remove();
                                     window.setTimeout('location.reload()', 1000);
                                 } else {
-                                    alertaModal("N„o foi possÌvel excluir o Plano de DistribuiÁ„o.");
+                                    alertaModal("N√£o foi poss√≠vel excluir o Plano de Distribui√ß√£o.");
                                 }
                             },
                             dataType : 'json'
@@ -226,7 +226,7 @@
 
     function outroAgente(){
         $("#divPerguntaCadastro").dialog('close');
-        $("#divPerguntaCadastro").html('Deseja utilizar este agente no cadastro do Plano de DistribuiÁ„o?');
+        $("#divPerguntaCadastro").html('Deseja utilizar este agente no cadastro do Plano de Distribui√ß√£o?');
         $("#divPerguntaCadastro").dialog('open');
         $("#divPerguntaCadastro").dialog({
             resizable: false,
@@ -236,7 +236,7 @@
             draggable:false,
             title: 'Alerta!',
             buttons: {
-                'N„o': function(){
+                'N√£o': function(){
                     $("#idAgente").val('');
                     $('#cnpjcpf').val('');
                     $('#cnpjcpf').focus();
@@ -294,20 +294,20 @@
         <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
         <li class="second"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Consultar dados do Projeto">Consultar dados do Projeto</a></li>
         <li class="second"><a href="<?php echo $this->baseUrl(); ?>/comprovarexecucaofisica/relatoriotrimestral/idpronac/<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Relat&oacute;rio Trimestral">Relat&oacute;rio Trimestral</a></li>
-        <li class="last">Plano de DistribuiÁ„o</li>
+        <li class="last">Plano de Distribui√ß√£o</li>
     </ul>
 </div>
 
 
 <div id="titulo">
-    <div>Plano de DistribuiÁ„o <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/comprovarexecucaofisica/relatoriotrimestral/idpronac/<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Voltar">Voltar</a></span></div>
+    <div>Plano de Distribui√ß√£o <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/comprovarexecucaofisica/relatoriotrimestral/idpronac/<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Voltar">Voltar</a></span></div>
 </div>
 
 
 <div id="conteudo">
     <table class="tabela">
         <tr>
-            <th align="center" width="30%">N∫ PRONAC:</th>
+            <th align="center" width="30%">N¬∫ PRONAC:</th>
             <th align="center">Nome do Projeto:</th>
         </tr>
         <tr class="linha">
@@ -328,13 +328,13 @@
 
     <table class="tabela">
         <tr align="center">
-            <th colspan="4">Comprovar DistribuiÁ„o de Produto</th>
+            <th colspan="4">Comprovar Distribui√ß√£o de Produto</th>
         </tr>
         <tr align="center">
             <td class="destacar bold">Produto</td>
             <td class="destacar bold">Patrocionador</td>
-            <td class="destacar bold">DivulgaÁ„o</td>
-            <td class="destacar bold">PopulaÁ„o de Baixa Renda</td>
+            <td class="destacar bold">Divulga√ß√£o</td>
+            <td class="destacar bold">Popula√ß√£o de Baixa Renda</td>
         </tr>
         <?php foreach ($this->PlanoDeDistribuicao as $PlanoDeDistribuicao) { ?>
         <tr>
@@ -361,7 +361,7 @@
         <table class="tabela">
             <tr align="center">
                 <td class="destacar bold">Produto</td>
-                <td class="destacar bold">Benefici·rio do Produto Cultural</td>
+                <td class="destacar bold">Benefici√°rio do Produto Cultural</td>
                 <td class="destacar bold">CNPJ/CPF</td>
                 <td class="destacar bold">Quantidade</td>
                 <td class="destacar bold">Arquivo</td>
@@ -369,7 +369,7 @@
             </tr>
             <tr>
                 <td>
-                    <select class="select_simples obrigatorio input_font_pq" id="produto" name="produto">
+                    <select class="select_simples obrigatorio input_font_pq browser-default" id="produto" name="produto">
                         <option value=""> - Selecione - </option>
                         <?php foreach ($this->PlanoDeDistribuicao as $PlanoDeDistribuicao) { ?>
                         <option value="<?php echo $PlanoDeDistribuicao->idPlanoDistribuicao; ?>"><?php echo $PlanoDeDistribuicao->Produto; ?></option>
@@ -377,11 +377,11 @@
                     </select>
                 </td>
                 <td>
-                    <select class="select_simples obrigatorio input_font_pq" id="tipoDocumento" name="tipoDocumento">
+                    <select class="select_simples obrigatorio input_font_pq  browser-default" id="tipoDocumento" name="tipoDocumento">
                         <option value=""> - Selecione - </option>
                         <option value="19">Patrocinador</option>
-                        <option value="20">DivulgaÁ„o</option>
-                        <option value="21">PopulaÁ„o de Baixa Renda</option>
+                        <option value="20">Divulga√ß√£o</option>
+                        <option value="21">Popula√ß√£o de Baixa Renda</option>
                     </select>
                 </td>
                 <td align="center">
@@ -401,16 +401,16 @@
     <?php if(count($this->PlanosCadastrados)>0) { ?>
     <table class="tabela">
         <tr align="center">
-            <th colspan="7">Benefici·rios de Produto Cultural</th>
+            <th colspan="7">Benefici√°rios de Produto Cultural</th>
         </tr>
         <tr align="center">
             <td class="destacar bold">Produto</td>
-            <td class="destacar bold">Tipo Benefici·rio</td>
+            <td class="destacar bold">Tipo Benefici√°rio</td>
             <td class="destacar bold">CNPJ/CPF</td>
             <td class="destacar bold">Nome</td>
             <td class="destacar bold">Quantidade</td>
             <td class="destacar bold">Arquivo</td>
-            <td class="destacar bold" width="1%">AÁ„o</td>
+            <td class="destacar bold" width="1%">A√ß√£o</td>
         </tr>
         <?php foreach ($this->PlanosCadastrados as $PlanosCadastrados) { ?>
         <tr>
@@ -421,10 +421,10 @@
                         echo 'Patrocinador';
                         $classNomeCampo = 'qtdPatrocinador'.$PlanosCadastrados->idPlanoDistribuicao;
                     } else if($PlanosCadastrados->idTipoBeneficiario == 20){
-                        echo 'DivulgaÁ„o';
+                        echo 'Divulga√ß√£o';
                         $classNomeCampo = 'qtdDivulgacao'.$PlanosCadastrados->idPlanoDistribuicao;
                     } else {
-                        echo 'Benefici·rio';
+                        echo 'Benefici√°rio';
                         $classNomeCampo = 'qtdBeneficiario'.$PlanosCadastrados->idPlanoDistribuicao;
                     }
                 ?>
@@ -444,7 +444,7 @@
 
 </div>
 
-<!-- inÔøΩcio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- in√Ø¬ø¬Ωcio: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"><span></span></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

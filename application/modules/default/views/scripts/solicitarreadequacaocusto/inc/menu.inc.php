@@ -61,7 +61,9 @@
         </style>
         <div style="display:none" id="dialog-alert">Solicitação realizada com sucesso!</div>
         <div style="display:none" id="produtoDesativado">Não há produtos cadastrados para este projeto!</div>
-        <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') { ?>Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>.<br /><br /><?php } ?>Tem certeza que deseja Enviar e Finalizar?</div>
+        <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') {
+    ?>Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>.<br /><br /><?php
+} ?>Tem certeza que deseja Enviar e Finalizar?</div>
         <div style="display:none" id="validarPlan">Antes de enviar a solicitação é necessário cadastrar os Itens de Custos para os Produtos sem planilha orçamentária!</div>
         <div style="display:none" id="validar15pct"></div>
         <div style="display:none" id="dialog-em-analise">Há pedido de readequação em análise. Favor aguardar.</div>
@@ -85,21 +87,25 @@
                     <?php
                     if (!empty($this->buscaPlanilhaCusto)) {
                         echo '<a href="#" title="Proponente">Custo</a>';
-                        echo '<div class="sanfonaDiv" style="width: 90%;">';
-                        ?>
-                        <?php if (sizeof($this->buscaPlanilhaCusto) > 0) { ?>
+                        echo '<div class="sanfonaDiv" style="width: 90%;">'; ?>
+                        <?php if (sizeof($this->buscaPlanilhaCusto) > 0) {
+                            ?>
                             <!-- <a href="#" id="abrir_produto" class="no_seta abrir_fechar4">Custo por Produtos</a> -->
                             <a id="abrir_adm" href="<?php echo $this->url(array('controller' => 'solicitarreadequacaocusto', 'action' => 'incluirproduto')); ?>?idpronac=<?php echo $idpronac; ?>&idAgente=<?php echo $idAgente; ?>&idPessoa=<?php echo $tipoPessoa; ?>&menu=produtos" title="Custo por Produtos">Custo por Produtos</a>
                             <a id="abrir_adm" href="<?php echo $this->url(array('controller' => 'solicitarreadequacaocusto', 'action' => 'incluirproduto')); ?>?idpronac=<?php echo $idpronac; ?>&idAgente=<?php echo $idAgente; ?>&idPessoa=<?php echo $tipoPessoa; ?>" title="Custo Administrativo">Custo Administrativo</a>
-                        <?php } else { ?>
+                        <?php
+                        } else {
+                            ?>
 
                             <a href="#" class="Desativado">Custo por Produtos</a>
                             <a href="#" class="Desativado" title="Custo Administrativo">Custo Administrativo</a>
 
-                        <?php } ?>
+                        <?php
+                        } ?>
 
                         <?php
-                    } echo '</div></div>';
+                    }
+                    echo '</div></div>';
                 } else {
                     if ($this->buscastatus['stPedidoAlteracao'] == "I") {
                         ?>
@@ -127,18 +133,21 @@
                         <?php
                         if (!empty($this->buscaPlanilhaCusto)) {
                             echo '<a href="#" title="Proponente">Custo</a>';
-                            echo '<div class="sanfonaDiv" style="width: 90%;">';
-                            ?>
-                            <?php if (sizeof($this->buscaPlanilhaCusto) > 0) { ?>
+                            echo '<div class="sanfonaDiv" style="width: 90%;">'; ?>
+                            <?php if (sizeof($this->buscaPlanilhaCusto) > 0) {
+                                ?>
                                 <!-- <a href="#" id="abrir_produto" class="no_seta abrir_fechar4">Custo por Produtos</a> -->
                                 <a id="abrir_adm" href="<?php echo $this->url(array('controller' => 'solicitarreadequacaocusto', 'action' => 'incluirproduto')); ?>?idpronac=<?php echo $idpronac; ?>&idAgente=<?php echo $idAgente; ?>&idPessoa=<?php echo $tipoPessoa; ?>&menu=produtos" title="Custo por Produtos">Custo por Produtos</a>
                                 <a id="abrir_adm" href="<?php echo $this->url(array('controller' => 'solicitarreadequacaocusto', 'action' => 'incluirproduto')); ?>?idpronac=<?php echo $idpronac; ?>&idAgente=<?php echo $idAgente; ?>&idPessoa=<?php echo $tipoPessoa; ?>" title="Custo Administrativo">Custo Administrativo</a>
-                            <?php } else { ?>
+                            <?php
+                            } else {
+                                ?>
 
                                 <a href="#" class="Desativado">Custo por Produtos</a>
                                 <a href="#" class="Desativado" title="Custo Administrativo">Custo Administrativo</a>
 
-                            <?php } ?>
+                            <?php
+                            } ?>
 
                             <?php
                         }
@@ -151,18 +160,20 @@
                 <div class="bottom"></div>
 
 
-                <?php if ($this->buscastatus['stPedidoAlteracao'] == "A") { ?>
+                <?php if ($this->buscastatus['stPedidoAlteracao'] == "A") {
+                    ?>
                     <div style='background:#f8f8f8;text-align: center'><br /><br /><br />
                         <!--<input id="menunovo"  class="btn" value="Enviar Solicitação" style="text-align: center">-->
                         <input type="button" id="menunovo" class="btn_enviar_solicitacao" />
                     </div>
 
-                <?php } ?>
+                <?php
+                } ?>
 
 
                 <div style="padding-top:50px; text-align:center; background:#f8f8f8;">
                     <p>
-<!--						<a href="<?php //echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'));     ?>?idPronac=<?php //echo $_GET['idpronac'];     ?>" title="Abrir menu principal">Voltar para o menu principal</a>-->
+<!--						<a href="<?php //echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'));?>?idPronac=<?php //echo $_GET['idpronac'];?>" title="Abrir menu principal">Voltar para o menu principal</a>-->
                     </p>
                 </div>
 
@@ -174,7 +185,8 @@
 </div>
 <!-- ========== FIM MENU ========== -->
 
-<?php if (isset($_GET['idAgente'])) { ?>
+<?php if (isset($_GET['idAgente'])) {
+                    ?>
 
     <script>
         var existirPlanilhaProduto = '<?php echo $this->existirPlanilhaProduto; ?>';
@@ -378,4 +390,5 @@
 
     </script>
 
-<?php } ?>
+<?php
+                } ?>

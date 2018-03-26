@@ -47,8 +47,18 @@
             dataType : 'json'
         });
     }
-    
+
+    // Pegando eventos ajax e exibindo informacao de carregamento.
+    $(document).ajaxStart(function () {
+        $('#container-loading').fadeIn('fast');
+    });
+
+    $(document).ajaxComplete(function () {
+        $('#container-loading').fadeOut('fast');
+    });
+
     $(document).ready(function(){
+
         
         atualizaDadosGrupos();
         
@@ -341,13 +351,16 @@
                                         erros++;
                                         var vlComp = parseInt(vlComprovadoDoItemValidacao+'00');
                                         if(vlComp < data.dadosPlanilhaAtiva.ValorMinimoProItemValidacao){
-                                            mensagem += '- O valor total do item n&atilde;o pode ser menor que '+data.dadosPlanilhaAtiva.ValorMinimoProItemValidacao+'.<br/>';
+                                            mensagem += '- O valor total do item n&atilde;o pode ser menor que o originalmente aprovado ('+data.dadosPlanilhaAtiva.ValorMinimoProItemValidacao+'). ' +
+                                                '<br/>Para ajuste inferior &agrave; ' + data.dadosPlanilhaAtiva.ValorMinimoProItemValidacao + ' fa&ccedil;a na planilha or&ccedil;ament&aacute;ria';
                                         }
                                     }
                                     
                                     if(parseInt($('#TotalCalculado').html().replace(/[^\d]/g, "")) > parseInt(valorMaximoValidacao)){
                                         var valorMaximoFormatado = moeda.formatar(data.dadosPlanilhaAtiva.ValorMaximoProItemValidacao/100);
-                                        mensagem += '- O valor total do item n&atilde;o pode ser maior que R$ '+ valorMaximoFormatado +'.<br/>';
+                                        mensagem += '- O valor total do item n&atilde;o pode ser maior que o originalmente aprovado (R$ '+ valorMaximoFormatado +'). ' +
+                                                '<br/>Para ajuste superior &agrave; R$' + valorMaximoFormatado + ' fa&ccedil;a na planilha or&ccedil;ament&aacute;ria';
+
                                         erros++;
                                     }
 
@@ -378,7 +391,7 @@
                                             url: '<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'salvar-avaliacao-do-item-remanejamento'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
                                             data: {
                                                 idPlanilha: idPlanilhaAprovacao,
-						idPlanilhaAprovacaoPai: idPlanilhaAprovacaoPai,
+						                        idPlanilhaAprovacaoPai: idPlanilhaAprovacaoPai,
                                                 Quantidade: Quantidade,
                                                 Ocorrencia: Ocorrencia,
                                                 ValorUnitario: ValorUnitario,
@@ -436,7 +449,7 @@
                                                     itemClicado.parent().parent().find('.textQuantidade').html(Quantidade);
                                                     itemClicado.parent().parent().find('.textOcorrencia').html(Ocorrencia);
                                                     itemClicado.parent().parent().find('.textValorUnitario').html(ValorUnitario);
-						    itemClicado.parent().parent().find('.textValorAprovado').html(Total);
+						                            itemClicado.parent().parent().find('.textValorAprovado').html(Total);
                                                     itemClicado.parent().parent().find('.textValorTotalSugerido').html(Total);
                                                     itemClicado.parent().parent().find('.textJustificativa').html(Justificativa);
                                                     atualizarDiferencaDeValores();
@@ -691,7 +704,7 @@
                                     ?>
                                     <tr>
                                         <td colspan="6" class="black-text" style="font-size: 14pt;">Total da UF</td>
-                                        <td class="black-text" style="font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorAprovadoTotalUf, 2, ",", "."); ?></td>
+                                        <td class="black-text right-align" style="font-size: 12pt; font-weight: 600;" ><?php echo @number_format($valorAprovadoTotalUf, 2, ",", "."); ?></td>
                                         <td colspan="3"></td>
                                     </tr>
                                 </table>
@@ -705,7 +718,7 @@
                             <table class="tabela">
                                 <tr>
                                     <td colspan="6" class="orange-text" style="width: 18%; font-size: 14pt;" nowrap>Total da Etapa</td>
-                                    <td class="orange-text" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorAprovadoTotalEtapa, 2, ",", "."); ?></td>
+                                    <td class="orange-text right-align" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorAprovadoTotalEtapa, 2, ",", "."); ?></td>
                                     <td colspan="3" style="width: 40%;">&nbsp;</td>
                                 </tr>
                             </table>
@@ -720,7 +733,7 @@
                         <table class="tabela">
                             <tr>
                                 <td colspan="6" class="green-text" style="width: 18%; font-size: 14pt;">Total da <?php echo $produto; ?></td>
-                                <td class="green-text" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorAprovadoTotalProduto, 2, ",", "."); ?></td>
+                                <td class="green-text right-align" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorAprovadoTotalProduto, 2, ",", "."); ?></td>
                                 <td style="width: 40%" colspan="2">&nbsp;</td>
                             </tr>
                         </table>
@@ -734,7 +747,7 @@
                     <table class="tabela">
                         <tr>
                             <td colspan="6" class="red-text" style="width: 18%; font-size: 14pt;">Total do <?php echo $fonte; ?></td>
-                            <td class="red-text" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($valorAprovadoTotalIncentivo, 2, ",", "."); ?></td>
+                            <td class="red-text right-align" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($valorAprovadoTotalIncentivo, 2, ",", "."); ?></td>
                             <td style="width: 40%" colspan="2">&nbsp;</td>
                         </tr>
                     </table>
@@ -749,7 +762,7 @@
                 <table class="tabela">
                     <tr>
                         <td colspan="6" class="blue-text" style="width: 18%; font-size: 14pt;">Total do Projeto</td>
-                        <td class="blue-text" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($TotalAprovado, 2, ",", "."); ?></td>
+                        <td class="blue-text right-align" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($TotalAprovado, 2, ",", "."); ?></td>
                         <td style="width: 40%" colspan="2">&nbsp;</td>
                     </tr>
                 </table>
@@ -797,9 +810,9 @@
         </tr>
         <tr class="centro">
             <td class="destacar bold">Unidade</td>
-            <td class="destacar bold">Qtd</td>
+            <td class="destacar bold">Quantidade</td>
             <td class="destacar bold">Ocorr&ecirc;ncia</td>
-	    <td class="destacar bold">Vl. Unit&aacute;rio</td>
+	        <td class="destacar bold">Vl. Unit&aacute;rio</td>
             <td class="destacar bold">Dias</td>
             <td class="destacar bold">Total</td>
             <td class="destacar bold" style="width: 1px;">Reintegrar</td>

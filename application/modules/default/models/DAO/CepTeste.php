@@ -1,11 +1,12 @@
 <?php
-class CepTeste{
-  protected $_name = 'tbLogradouroUf';
+class CepTeste
+{
+    protected $_name = 'tbLogradouroUf';
              
         
-		public static function buscarCepTeste($cep) {
-       		       			
-		$sql = "SELECT 
+    public static function buscarCepTeste($cep)
+    {
+        $sql = "SELECT 
 					lor.cdCep,
 					lor.nmLogradouro,
 				    lor.nrLote,
@@ -27,11 +28,9 @@ class CepTeste{
 						on bro.nrBairro = lor.nrInicioBairro 
 						or bro.nrBairro = lor.nrFimBairro ";
 
-			$db= Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-			return $db->fetchAll($sql);
-       	}
+        return $db->fetchAll($sql);
+    }
 }
-
-?>

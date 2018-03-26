@@ -9,6 +9,10 @@ class Verificacao extends MinC_Db_Table_Abstract
     const DEVOLUCAO_FUNDO_NACIONAL_CULTURA = 350;
     const OUTRAS_DEVOLUCOES_DE_RECURSOS_CAPTADOS = 351;
     const APROVACAO_INICIAL_DO_PROJETO = 626;
+    const PROJETO_NORMAL = 610;
+    const PROJETO_APROVADO_EM_EDITAIS = 618;
+    const PROJETO_COM_CONTRATOS_DE_PATROCINIOS = 619;
+
 
     protected $_schema = "sac";
     protected $_name = "verificacao";
@@ -22,7 +26,7 @@ class Verificacao extends MinC_Db_Table_Abstract
         return $this->insert($dados);
     }
 
-    function tipoDiligencia($consulta = array())
+    public function tipoDiligencia($consulta = array())
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -34,7 +38,6 @@ class Verificacao extends MinC_Db_Table_Abstract
         }
         
         return $this->fetchAll($select);
-
     }
 
 
@@ -49,16 +52,17 @@ class Verificacao extends MinC_Db_Table_Abstract
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from(array('v' => $this->_name)
-            , array('v.idVerificacao'
+        $select->from(
+            array('v' => $this->_name),
+            array('v.idVerificacao'
             , 'LTRIM(v.Descricao) AS dsVerificacao')
         );
         $select->joinInner(
-            array('t' => 'Tipo')
-            , 'v.idTipo = t.idTipo'
-            , array('t.idTipo'
-            , 't.Descricao AS dsTipo')
-            , 'SAC.dbo'
+            array('t' => 'Tipo'),
+            'v.idTipo = t.idTipo',
+            array('t.idTipo'
+            , 't.Descricao AS dsTipo'),
+            'SAC.dbo'
         );
 
         foreach ($where as $coluna => $valor) {
@@ -70,9 +74,8 @@ class Verificacao extends MinC_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
-    function combosNatureza($idTipo)
+    public function combosNatureza($idTipo)
     {
-
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -81,16 +84,17 @@ class Verificacao extends MinC_Db_Table_Abstract
         );
         $select->where('idTipo = ?', $idTipo);
         return $this->fetchAll($select);
-
     }
 
 
-    function buscarOrigemRecurso($where = array())
+    public function buscarOrigemRecurso($where = array())
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from(array($this->_name),
-            array('idVerificacao', 'Descricao'));
+        $select->from(
+            array($this->_name),
+            array('idVerificacao', 'Descricao')
+        );
 
         if ($where) {
             foreach ($where as $coluna => $valor) :
@@ -100,6 +104,4 @@ class Verificacao extends MinC_Db_Table_Abstract
 
         return $this->fetchAll($select);
     }
-
-
 }

@@ -12,20 +12,21 @@
 
 class tbTipoDocumento extends MinC_Db_Table_Abstract
 {
-	/* dados da tabela */
-	protected $_banco   = "SAC";
-	protected $_schema  = "SAC";
-	protected $_name    = "tbTipoDocumento";
+    /* dados da tabela */
+    protected $_banco   = "SAC";
+    protected $_schema  = "SAC";
+    protected $_name    = "tbTipoDocumento";
 
 
-        /**
-	 * M�todo para consultar
-	 * @access public
-	 * @param array $dados
-	 * @param integer $where
-	 * @return integer (quantidade de registros alterados)
-	 */
-        public function consultarDados($idTipoDocumento = null) {
+    /**
+     * M�todo para consultar
+     * @access public
+     * @param array $dados
+     * @param integer $where
+     * @return integer (quantidade de registros alterados)
+     */
+    public function consultarDados($idTipoDocumento = null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -39,5 +40,4 @@ class tbTipoDocumento extends MinC_Db_Table_Abstract
 
         return $this->fetchAll($select);
     }
-    
 } // fecha class

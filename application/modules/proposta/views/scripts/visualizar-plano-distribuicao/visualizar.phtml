@@ -14,6 +14,7 @@
                                 <th>&Aacute;rea</th>
                                 <th>Segmento</th>
                                 <th>Principal</th>
+                                <th>Canal aberto?</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -21,6 +22,7 @@
                                 <td><?php echo $planoDistribuicao->DescricaoArea; ?></td>
                                 <td><?php echo $planoDistribuicao->DescricaoSegmento; ?></td>
                                 <td><?php echo ($planoDistribuicao->stPrincipal == 0) ? 'N&atilde;o' : 'Sim'; ?></td>
+                                <td><?php echo ($planoDistribuicao->canalAberto == 0) ? 'N&atilde;o' : 'Sim'; ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -370,8 +372,7 @@ Vue.component('visualizar-plano-distribuicao', {
                 url:url
             }).done(function(data) {
                     vue.$data.produtos = data.data;
-            })
-            .fail(function(){ alert('Erro ao buscar detalhamento'); });
+            });
 
         },
         converterParaMoedaAmericana: function(valor) {

@@ -12,44 +12,30 @@
 
 class Zend_View_Helper_StatusComprovacaoFisicaDoProjeto
 {
-	/**
-	 * Método com os status dos comprovantes de status do projeto
-	 * @access public
-	 * @param string $status
-	 * @return string $nomeStatus
-	 */
-	function statusComprovacaoFisicaDoProjeto($status)
-	{
-		if ($status == 'AG')
-		{
-			$nomeStatus = "Aguardando Avaliação";
-		}
-		else if ($status == 'AV')
-		{
-			$nomeStatus = "Em Avaliação";
-		}
-		else if ($status == 'EA')
-		{
-			$nomeStatus = "Em Aprovação";
-		}
-		else if ($status == 'AD')
-		{
-			$nomeStatus = "Avaliado - Deferido";
-		}
-		else if ($status == 'AI')
-		{
-			$nomeStatus = "Avaliado - Indeferido";
-		}
-		else if ($status == 'CS')
-		{
-			$nomeStatus = "Comprovante Substituído";
-		}
-		else
-		{
-			$nomeStatus = "Avaliado";
-		}
+    /**
+     * Método com os status dos comprovantes de status do projeto
+     * @access public
+     * @param string $status
+     * @return string $nomeStatus
+     */
+    public function statusComprovacaoFisicaDoProjeto($status)
+    {
+        if ($status == 'AG') {
+            $nomeStatus = "Aguardando Avaliação";
+        } elseif ($status == 'AV') {
+            $nomeStatus = "Em Avaliação";
+        } elseif ($status == 'EA') {
+            $nomeStatus = "Em Aprovação";
+        } elseif ($status == 'AD') {
+            $nomeStatus = "Avaliado - Deferido";
+        } elseif ($status == 'AI') {
+            $nomeStatus = "Avaliado - Indeferido";
+        } elseif ($status == 'CS') {
+            $nomeStatus = "Comprovante Substituído";
+        } else {
+            $nomeStatus = "Avaliado";
+        }
 
-		return $nomeStatus;
-	} // fecha método statusComprovacaoFisicaDoProjeto()
-
+        return $nomeStatus;
+    } // fecha método statusComprovacaoFisicaDoProjeto()
 } // fecha class

@@ -1,4 +1,4 @@
-<?php echo $this->partial('parecerista/inc/menu-assinantes.inc.php', $this); ?>
+<?php echo $this->partial('parecerista/inc/menu-assinantes.php', $this); ?>
 
 <!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
@@ -30,7 +30,7 @@
                 <td class="centro" valign="top">
 
                     <label for="assinate"> </label>
-                    <select class="select w500" name="assinante" id="assinante" multiple="multiple" size="10">
+                    <select class="select select_simples w500" name="assinante" id="assinante" multiple="multiple" size="10" style="height: 200px">
                         <?php foreach ($this->listaNaoAssinantes as $ass) : ?>
                             <option value="<?php echo $ass->idAgente; ?>"><?php echo $ass->Nome; ?></option>
                         <?php endforeach; ?>
@@ -38,7 +38,7 @@
                 </td>
                 <td class="centro" valign="top">
                     <label for="cargo"> </label>
-                    <select class="select w500" name="cargo" id="cargo" multiple="multiple" size="10">
+                    <select class="select select_simples w500" name="cargo" id="cargo" multiple="multiple" size="10" style="height: 200px">
                         <?php foreach ($this->listaCargos as $c) : ?>
                             <option value="<?php echo $c->idCargo; ?>"><?php echo $c->Cargo; ?></option>
                         <?php endforeach; ?>

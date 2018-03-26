@@ -14,11 +14,11 @@
                 var fluidConteudo = janela - 253;
                 var fluidTitulo = janela - 252;
                 var fluidRodape = janela - 19;
-                $("#navglobal").css("width",fluidNavGlobal);
-                $("#conteudo").css("width",fluidConteudo);
-                $("#titulo").css("width",fluidTitulo);
-                $("#rodapeConteudo").css("width",fluidConteudo);
-                $("#rodape").css("width",fluidRodape);
+//                $("#navglobal").css("width",fluidNavGlobal);
+//                $("#conteudo").css("width",fluidConteudo);
+//                $("#titulo").css("width",fluidTitulo);
+//                $("#rodapeConteudo").css("width",fluidConteudo);
+//                $("#rodape").css("width",fluidRodape);
                 $("div#rodapeConteudo").attr("id", "rodapeConteudo_com_menu");
             }
         </script>
@@ -38,7 +38,7 @@
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'efetivar-pagamento-parecerista'), '', true); ?>" title="Efetivar pagamento de parecerista">Efetivar Pagamento</a>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'confirmar-pagamento-parecerista'), '', true); ?>" title="Confirmar pagamento de parecerista">Confirmar Pagamento</a>
                
-                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'confirmacao-pagamento-parecerista'), '', true); ?>" title="Confirmar pagamento de parecerista">Confirmação Pagamento</a>
+                <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'confirmacao-pagamento-parecerista'), '', true); ?>" title="Confirmar pagamento de parecerista">Confirmaï¿½ï¿½o Pagamento</a>
             </div>
 
             <div class="bottom"></div>

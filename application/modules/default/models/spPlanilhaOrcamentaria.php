@@ -1,13 +1,6 @@
 <?php
-
-/**
- * spPlanilhaOrcamentaria
- *
- * @uses GenericModel
- * @author
- */
-class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract {
-
+class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract
+{
     protected $_schema = 'sac';
     protected $_name  = 'spPlanilhaOrcamentaria';
 
@@ -72,7 +65,8 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract {
             'a.idpreprojeto as idPronac',
             new Zend_Db_Expr("' ' AS PRONAC"),
             'a.nomeprojeto',
-            new Zend_Db_Expr(" CASE WHEN idproduto = 0
+            new Zend_Db_Expr(" 
+            CASE WHEN idproduto = 0
                        THEN 'Administra&ccedil;&atilde;o do Projeto'
                        ELSE c.descricao
                   END as Produto"),
@@ -85,7 +79,7 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract {
             'b.quantidade as Quantidade',
             'b.ocorrencia as Ocorrencia',
             'b.valorunitario as vlUnitario',
-            'ROUND((b.quantidade * b.ocorrencia * b.valorunitario),2) as vlSolicitado',
+            new Zend_Db_Expr('ROUND((b.quantidade * b.ocorrencia * b.valorunitario),2) as vlSolicitado'),
             'b.fonterecurso as idFonte',
             'b.qtdedias as QtdeDias',
             'b.stCustoPraticado as stCustoPraticado',
@@ -107,12 +101,12 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract {
             ->joinInner(array('e' => 'tbplanilhaunidade'), '(b.unidade = e.idunidade)', 'e.descricao as Unidade', $sac)
             ->joinInner(array('i' => 'tbplanilhaitens'), '(b.idplanilhaitem=i.idplanilhaitens)', 'i.descricao as Item', $sac)
             ->joinInner(array('x' => 'verificacao'), '(b.fonterecurso = x.idverificacao)', 'x.descricao as FonteRecurso', $sac)
-            ->joinLeft(array('f' => 'municipios'), '(b.municipiodespesa = f.idmunicipioibge)',array('u.sigla as UF'),$this->getSchema('agentes'))
-            ->joinLeft(array('u' => 'uf'), '(f.idufibge = u.iduf and b.ufdespesa = u.iduf)',array('f.descricao as Municipio'),$this->getSchema('agentes'))
+            ->joinLeft(array('f' => 'municipios'), '(b.municipiodespesa = f.idmunicipioibge)', array('u.sigla as UF'), $this->getSchema('agentes'))
+            ->joinLeft(array('u' => 'uf'), '(f.idufibge = u.iduf and b.ufdespesa = u.iduf)', array('f.descricao as Municipio'), $this->getSchema('agentes'))
             ->where('a.idpreprojeto = ? ', $idPronac)
             ->order("x.descricao")
             ->order("c.descricao DESC")
-            ->order("$convert  $concat '-'  $concat d.descricao")
+            ->order(new Zend_Db_Expr("$convert  $concat '-'  $concat d.descricao"))
             ->order('u.sigla')
             ->order('f.descricao')
             ->order('i.descricao');
@@ -177,7 +171,7 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract {
             ->where('a.idpronac = ? ', $idPronac)
             ->order("x.Descricao")
             ->order("c.Descricao DESC")
-            ->order("CONVERT(VARCHAR(8),d.idPlanilhaEtapa) $concat ' - '$concat  d.Descricao")
+            ->order(new Zend_Db_Expr("CONVERT(VARCHAR(8),d.idPlanilhaEtapa) $concat ' - '$concat  d.Descricao"))
             ->order('f.UF')
             ->order('f.Municipio')
             ->order('i.Descricao');
@@ -300,7 +294,7 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract {
             ->group("a1.idPlanilhaAprovacao")
         ;
 
-//echo $subSQLB;die;
+        //echo $subSQLB;die;
 
         $a = array(
             new Zend_Db_Expr("
@@ -311,10 +305,10 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract {
                     ($subSQLB)
             END as vlComprovado"),
         new Zend_Db_Expr("CASE WHEN k.idProduto = 0 THEN 'Administra&ccedil;&atilde;o do Projeto' ELSE c.Descricao END as Produto"),
-        'CONVERT(varchar(max), k.dsJustificativa) as JustComponente',
-        'ROUND((b.Quantidade * b.Ocorrencia * b.ValorUnitario),2) as vlSugerido',
-        'ROUND((k.QtItem * k.nrOcorrencia * k.VlUnitario),2) as vlAprovado',
-        'ROUND((z.Quantidade * z.Ocorrencia * z.ValorUnitario),2) as vlSolicitado',
+        new Zend_Db_Expr('CONVERT(varchar(max), k.dsJustificativa) as JustComponente'),
+        new Zend_Db_Expr('ROUND((b.Quantidade * b.Ocorrencia * b.ValorUnitario),2) as vlSugerido'),
+        new Zend_Db_Expr('ROUND((k.QtItem * k.nrOcorrencia * k.VlUnitario),2) as vlAprovado'),
+        new Zend_Db_Expr('ROUND((z.Quantidade * z.Ocorrencia * z.ValorUnitario),2) as vlSolicitado'),
         new Zend_Db_Expr('a.AnoProjeto+a.Sequencial as PRONAC'),
         'a.NomeProjeto',
         'a.idPronac',
@@ -381,17 +375,17 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract {
 
         $a = array(
             new Zend_Db_Expr("CASE WHEN k.idProduto = 0 THEN 'Administra&ccedil;&atilde;o do Projeto' ELSE c.Descricao END as Produto"),
-            'ROUND((b.Quantidade * b.Ocorrencia * b.ValorUnitario),2) as vlSugerido',
-            'ROUND((k.QtItem * k.nrOcorrencia * k.VlUnitario),2) as vlAprovado',
-            'ROUND((z.Quantidade * z.Ocorrencia * z.ValorUnitario),2) as vlSolicitado',
+            new Zend_Db_Expr('ROUND((b.Quantidade * b.Ocorrencia * b.ValorUnitario),2) as vlSugerido'),
+            new Zend_Db_Expr('ROUND((k.QtItem * k.nrOcorrencia * k.VlUnitario),2) as vlAprovado'),
+            new Zend_Db_Expr('ROUND((z.Quantidade * z.Ocorrencia * z.ValorUnitario),2) as vlSolicitado'),
             new Zend_Db_Expr('a.AnoProjeto+a.Sequencial as PRONAC'),
             'a.NomeProjeto',
             'a.idPronac',
             'b.idEtapa',
             'b.idPlanilhaProjeto',
-            'convert(varchar(max),k.dsJustificativa) as JustComponente',
-            'convert(varchar(max),b.Justificativa) as JustParecerista',
-            'convert(varchar(max),z.dsJustificativa) as JustProponente',
+            new Zend_Db_Expr('convert(varchar(max),k.dsJustificativa) as JustComponente'),
+            new Zend_Db_Expr('convert(varchar(max),b.Justificativa) as JustParecerista'),
+            new Zend_Db_Expr('convert(varchar(max),z.dsJustificativa) as JustProponente'),
             'd.Descricao as Etapa',
             'e.Descricao as Unidade',
             'f.Municipio',
@@ -516,7 +510,6 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract {
                 ->order('i.Descricao')
             ;
         } else {
-
             $subA = array(
                 "sum(b1.vlComprovacao) AS vlPagamento",
             );

@@ -10,13 +10,14 @@
  *
  * @author augusto
  */
-class Analisedeconteudo extends MinC_Db_Table_Abstract {
-
+class Analisedeconteudo extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'sac';
     protected $_schema = 'sac';
     protected $_name = 'tbAnaliseDeConteudo';
 
-    public function dadosAnaliseconteudo($idpronac, $where = array()) {
+    public function dadosAnaliseconteudo($idpronac, $where = array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -38,18 +39,16 @@ class Analisedeconteudo extends MinC_Db_Table_Abstract {
                 'IncisoArtigo27_III',
                 'IncisoArtigo27_IV',
                 'ParecerFavoravel',
-                'cast(ParecerDeConteudo as TEXT) as ParecerDeConteudo'
+                new Zend_Db_Expr('cast(ParecerDeConteudo as TEXT) as ParecerDeConteudo')
                 )
         );
-        if($idpronac){
-            $select->where('IdPRONAC = ?',$idpronac );
+        if ($idpronac) {
+            $select->where('IdPRONAC = ?', $idpronac);
         } else {
-            foreach($where as $key=>$val)
-            {
-                $select->where($key,$val);
+            foreach ($where as $key=>$val) {
+                $select->where($key, $val);
             }
         }
         return $this->fetchAll($select);
     }
-
 }

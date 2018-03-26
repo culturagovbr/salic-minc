@@ -66,8 +66,8 @@
     <tr class="destacar">
         <td align="center"><b>Vl. Solicitado Inicial</b></td>
         <td align="center"><b>Vl. Solicitado Atual (A)</b></td>
-        <td align="center"><b>Vl. Outras Fontes (B)</b></td>
-        <td align="center"><b>Vl. Proposta (C = A + B)</b></td>
+        <td align="center"><b>Vl. Outras Fontes Atual (B)</b></td>
+        <td align="center"><b>Vl. Adequa&ccedil;&atilde;o (C = A + B)</b></td>
         <td align="center"><b>Vl.Captado (E)</b></td>
     </tr>
     <tr>
@@ -105,23 +105,10 @@
     </tr>
     <tr>
         <td colspan="5">
-            <?php if (isset($this->proposta['resumodoprojeto'])) echo $this->proposta['resumodoprojeto']; ?>
-        </td>
-    </tr>
-    <tr class="destacar centro">
-        <td colspan="5"><b>Objetivos *</b></td>
-    </tr>
-    <tr>
-        <td>
-            <?php if (isset($this->proposta['objetivos'])) echo $this->proposta['objetivos']; ?>
-        </td>
-    </tr>
-    <tr class="destacar centro">
-        <td colspan="5"><b>Justificativa *</b></td>
-    </tr>
-    <tr>
-        <td>
-            <?php if (isset($this->proposta['justificativa'])) echo $this->proposta['justificativa']; ?>
+            <textarea id="resumodoprojeto" class="browser-default"
+                      name="resumodoprojeto" <?php echo isset($this->arrConfig['resumodoprojeto']['disabled']) ? 'disabled="disabled"' : '' ?>>
+                                             <?php if (isset($this->proposta['resumodoprojeto'])) echo $this->proposta['resumodoprojeto']; ?>
+                                            </textarea>
         </td>
     </tr>
 </table>

@@ -1,0 +1,221 @@
+<div class="container-fluid">
+    <div class="page-title">
+	<div class="row">
+	    <div class="col s12 m9 l10">
+		<h1>Listar Solicita&ccedil;&atilde;oes de desarquivamento</h1>
+	    </div>
+	    <div class="col s12 m3 l2 right-align">
+		<a href="javascript:voltar();" title="P·gina Anterior"title="P·gina Anterior" class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">keyboard_return</i>
+		</a>
+	    </div>
+	</div>
+    </div>
+    <div class="content">
+	<div class="row">
+	    <div class="col s12 m12 l12">
+		<div  id="propostasCadastradas">
+		    <div class="card z-depth-2">
+			<div class="card-content">
+			    <table class="bordered striped conteudoImprimivel" id="tabelaSolicitacoesDesarquivamento">
+                    <thead>
+                        <tr>
+                            <th>Proposta</th>
+                            <th>Nome</th>
+                            <th>Data da Solicita&ccedil;&atilde;o</th>
+                            <th>Analisar</th>
+                        </tr>
+                    </thead>
+				<tbody>
+				</tbody>
+			    </table>
+			</div>
+		    </div>
+		</div>
+	    </div>
+	</div>
+    </div>
+</div>
+<div id="modal_solicitacao" class="modal bottom-sheet" style="max-height:95%; height:95%">
+    <div class="modal-content">
+      <div class="row">
+        <div class=" col s12">
+          <h3>Analisar Desarquivamento</h3>
+          <h4 id="titulo_proposta"></h4>
+          <div class="card">
+            <div class="card-content ">
+              <span class="card-title">Motivo Arquivamento</span>
+              <p id="motivoarquivamento"></p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content ">
+              <span class="card-title">Solicita√ß√£o Desarquivamento</span>
+              <p id="solicitacao"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <input type="hidden" id="idpreprojeto" value="">
+      <a href="#!" id="aprovar" class="modal-action modal-close waves-effect waves-green btn-flat green white-text">Aprovar</a>
+      <a href="#!" id="reprovar" class="modal-action modal-close waves-effect waves-red btn-flat red white-text">Reprovar</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat red-text">Cancelar</a>
+    </div>
+</div>
+<script type="text/javascript">
+ $(document).ready(function () {
+     $('.expandir').live('click', function () {
+         var elemento = $(this),
+             idAgente = elemento.attr('idAgente');
+
+         $('.mostraProposta_' + idAgente).toggle();
+         if (elemento.hasClass('btn_adicionar')) {
+             elemento.addClass('btn_remover');
+             elemento.removeClass('btn_adicionar');
+         } else {
+             elemento.addClass('btn_adicionar');
+             elemento.removeClass('btn_remover');
+         }
+     });
+
+ });
+</script>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>
+<script type="text/javascript">
+ (function ($) {
+     $(document).ready(function () {
+         $3('.modal').modal();
+
+         var table =  $('#tabelaSolicitacoesDesarquivamento').DataTable(
+             {
+                 "language": {
+                     "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                 }
+                 , "lengthChange": true
+                 , "ajax": {
+                     url: "/proposta/pre-projeto-arquivado/listar-solicitacoes",
+                     data: {},
+                     type: "POST"
+                 },
+                 "processing": true,
+                 "serverSide": true,
+                 "bFilter": false,
+                 "aoColumnDefs": [
+                     {'bSortable': false, 'aTargets': [1]}
+                 ],
+                 "order": [[ 2, 'desc' ]],
+                 "columns": [
+                     {
+                         data: null,
+                         "name": "idpreprojeto",
+                         "data": "idpreprojeto"
+                     },
+                     {
+                         "name": "nomeprojeto",
+                         "data": "nomeprojeto"
+                     },
+                     {
+                         "name": "Data da Solicita&ccedil;&atilde;o",
+                         "data": "dtSolicitacaoDesarquivamento"
+                     },
+                     {
+                        data: null,
+                        "name": "idpreprojeto",
+                        render: function (data, type, row) {
+                            var motivo = data.MotivoArquivamento;
+                            motivo = motivo.replace(/\"/g,'&#34;'); // aspa dupla
+                            motivo = motivo.replace(/\'/g,'&#39;'); // aspa simples
+                            motivo = motivo.replace(/\n/g,'<br/>');
+                            data.MotivoArquivamento = motivo;
+
+                            var solicitacao = data.SolicitacaoDesarquivamento;
+                            solicitacao = solicitacao.replace(/\"/g,'&#34;'); // aspa dupla
+                            solicitacao = solicitacao.replace(/\n/g,'<br/>');
+                            solicitacao = solicitacao.replace(/\'/g,'&#39;'); // aspa simples
+                            data.SolicitacaoDesarquivamento = solicitacao;
+
+                            console.log(data.stEstado);
+                            if (data.stEstado == 0) {
+
+                                if (data.stDecisao == 1){
+                                    return 'Aprovado';
+                                }
+                                return 'Reprovado';
+                            }
+                            return '<button data-target="modal_solicitacao" class="modal-trigger btn waves-effect waves-dark white black-text small"' +
+                                    'data-idpreprojeto="' + data.idpreprojeto + '"' +
+                                    'data-solicitacao="' + data.SolicitacaoDesarquivamento + '"' +
+                                    'data-motivoarquivamento="' + data.MotivoArquivamento + '"' +
+                                    'data-nome="' + data.nomeprojeto + '">' +
+                                    '<i class="material-icons">remove_red_eye</i>' +
+                                    '</button>'
+                        }
+                     }
+                 ]
+             }
+         );
+
+         $("tbody").on('click','button', function () {
+             let idpreprojeto = $3(this).data('idpreprojeto');
+             let nome = $3(this).data('nome');
+             let motivoarquivamento = $3(this).data('motivoarquivamento');
+             let solicitacao = $3(this).data('solicitacao');
+             console.log(idpreprojeto);
+
+             $3('#idpreprojeto').val(idpreprojeto);
+             $3('#titulo_proposta').text(idpreprojeto + ' ' + nome);
+             $3('#motivoarquivamento').html(motivoarquivamento);
+             $3('#solicitacao').html(solicitacao);
+         });
+
+        $3("#aprovar").on('click', function () {
+            $3.ajax({
+                url:'/proposta/pre-projeto-arquivado/update',
+                data: {
+                    idpreprojeto: $3('#idpreprojeto').val(),
+                    /* SolicitacaoDesarquivamento: $3('#SolicitacaoDesarquivamento').val() */
+                    stDecisao: 1,
+                    stEstado: 0
+                },
+                method:'POST'
+            })
+            .done(function(data) {
+                console.log(data);
+                table.ajax.reload();
+            });
+
+            $3.ajax({
+                url:'/proposta/pre-projeto/update',
+                data: {
+                    idPreProjeto: $3('#idpreprojeto').val(),
+                    stEstado: 1
+                },
+                method:'POST'
+            })
+            .done(function(data) {
+                console.log(data);
+            });
+        });
+
+        $3("#reprovar").on('click', function () {
+            $3.ajax({
+                url:'/proposta/pre-projeto-arquivado/update',
+                data: {
+                    idpreprojeto: $3('#idpreprojeto').val(),
+                    stDecisao: 0,
+                    stEstado: 0
+                },
+                method:'POST'
+            })
+            .done(function(data) {
+                console.log(data);
+            });
+        });
+     });
+ }($.noConflict(true)));
+</script>

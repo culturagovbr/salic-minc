@@ -1,45 +1,39 @@
 <?php
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Cotacao
- *
- * @author augusto
- */
-class Cotacao extends MinC_Db_Table_Abstract {
-
+class Cotacao extends MinC_Db_Table_Abstract
+{
     protected $_banco   = 'bdcorporativo';
     protected $_name    = 'tbCotacao';
     protected $_schema  = 'bdcorporativo.scSAC';
 
-
-
-    public function inserirCotacao($data){
+    public function inserirCotacao($data)
+    {
         $insert = $this->insert($data);
         return $insert;
     }
 
-    public function alterarCotacao($data, $where){
+    public function alterarCotacao($data, $where)
+    {
         $update = $this->update($data, $where);
         return $update;
     }
 
-    public function deletarCotacao($where){
+    public function deletarCotacao($where)
+    {
         $delete = $this->delete($where);
         return $delete;
     }
 
-    public function buscarCotacaoProjeto($idpronac){
-
+    public function buscarCotacaoProjeto($idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
                         array('cot'=>$this->_name),
                         array(
-                                'cot.idCotacao','cot.nrCotacao','CAST(cot.dsCotacao AS TEXT) AS dsCotacao','cot.dtCotacao'
+                            'cot.idCotacao',
+                            'cot.nrCotacao',
+                            new Zend_Db_Expr('CAST(cot.dsCotacao AS TEXT) AS dsCotacao'),
+                            'cot.dtCotacao'
                               )
                       );
 
@@ -63,11 +57,11 @@ class Cotacao extends MinC_Db_Table_Abstract {
 
 
         return $this->fetchAll($select);
-
     }
 
 
-    public function buscarCotacao($cotacao){
+    public function buscarCotacao($cotacao)
+    {
         $slct = $this->select();
         $slct->from(
                  array('cot'=>$this->_name),
@@ -75,9 +69,7 @@ class Cotacao extends MinC_Db_Table_Abstract {
                     'cot.idCotacao','cot.nrCotacao','CAST(cot.dsCotacao AS TEXT) AS dsCotacao','cot.dtCotacao'
                  )
         );
-        $slct->where(' idCotacao = ? ',$cotacao);
+        $slct->where(' idCotacao = ? ', $cotacao);
         return $this->fetchAll($slct);
     }
-
 }
-?>

@@ -1,50 +1,34 @@
 <?php
 
-
 class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstract
 {
 
-    /**
-     * Reescreve o m�todo init()
-     * @access public
-     * @param void
-     * @return void
-     */
     public function init()
     {
-        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
-        $auth = Zend_Auth::getInstance(); // pega a autentica��o
-        $Usuario = new UsuarioDAO(); // objeto usu�rio
+        $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // t�tulo da p�gina
+        $auth = Zend_Auth::getInstance();
+        $Usuario = new UsuarioDAO();
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
 
-        if ($auth->hasIdentity()) // caso o usu�rio esteja autenticado
-        {
-            // verifica as permiss�es
+        if ($auth->hasIdentity()) {
             $PermissoesGrupo = array();
             $PermissoesGrupo[] = 93;
             $PermissoesGrupo[] = 103;
-            // $PermissoesGrupo[] = 119;
-            // $PermissoesGrupo[] = 120;
-            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) // verifica se o grupo ativo est� no array de permiss�es
-            {
-                parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
+            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) {
+                parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
             }
 
-            // pega as unidades autorizadas, org�os e grupos do usu�rio (pega todos os grupos)
             $grupos = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21);
 
-            // manda os dados para a vis�o
-            $this->view->usuario = $auth->getIdentity(); // manda os dados do usu�rio para a vis�o
-            $this->view->arrayGrupos = $grupos; // manda todos os grupos do usu�rio para a vis�o
-            $this->view->grupoAtivo = $GrupoAtivo->codGrupo; // manda o grupo ativo do usu�rio para a vis�o
-            $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o �rg�o ativo do usu�rio para a vis�o
-        } // fecha if
-        else // caso o usu�rio n�o esteja autenticado
-        {
+            $this->view->usuario = $auth->getIdentity();
+            $this->view->arrayGrupos = $grupos;
+            $this->view->grupoAtivo = $GrupoAtivo->codGrupo;
+            $this->view->orgaoAtivo = $GrupoAtivo->codOrgao;
+        } else {
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
-        parent::init(); // chama o init() do pai GenericControllerNew
+        parent::init();
     }
 
     public function paineltecnicoAction()
@@ -58,46 +42,38 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
         $Result['ProrrogacaoPrazoCaptacao'] = array();
         $Result['ProrrogacaoPrazoExecucao'] = array();
 
-        foreach ($resultadobusca as $ResultAltBusca)
-        {
-            switch ($ResultAltBusca->tpAlteracaoProjeto)
-            {
-                case 1 :
-                    {
-                        $Result['NomeProponente'][] = $ResultAltBusca;
-                        break;
-                    }
-                case 2 :
-                    {
-                        $Result['RazaoSocial'][] = $ResultAltBusca;
-                        break;
-                    }
-                case 3 :
-                    {
-                        $Result['FichaTecnica'][] = $ResultAltBusca;
-                        break;
-                    }
-                case 4 :
-                    {
-                        $Result['LocalRealizacao'][] = $ResultAltBusca;
-                        break;
-                    }
-                case 5 :
-                    {
-                        $Result['NomeProjeto'][] = $ResultAltBusca;
-                        break;
-                    }
-                case 9 :
-                    {
-                        $Result['ProrrogacaoPrazoCaptacao'][] = $ResultAltBusca;
-                        break;
-                    }
-                case 10 :
-                    {
-                        $Result['ProrrogacaoPrazoExecucao'][] = $ResultAltBusca;
-                        break;
-                    }
-                default: break;
+        foreach ($resultadobusca as $ResultAltBusca) {
+            switch ($ResultAltBusca->tpAlteracaoProjeto) {
+                case 1: {
+                    $Result['NomeProponente'][] = $ResultAltBusca;
+                    break;
+                }
+                case 2: {
+                    $Result['RazaoSocial'][] = $ResultAltBusca;
+                    break;
+                }
+                case 3: {
+                    $Result['FichaTecnica'][] = $ResultAltBusca;
+                    break;
+                }
+                case 4: {
+                    $Result['LocalRealizacao'][] = $ResultAltBusca;
+                    break;
+                }
+                case 5: {
+                    $Result['NomeProjeto'][] = $ResultAltBusca;
+                    break;
+                }
+                case 9: {
+                    $Result['ProrrogacaoPrazoCaptacao'][] = $ResultAltBusca;
+                    break;
+                }
+                case 10: {
+                    $Result['ProrrogacaoPrazoExecucao'][] = $ResultAltBusca;
+                    break;
+                }
+                default:
+                    break;
             }
         }
         $Total['NomeProponente'] = count($Result['NomeProponente']);
@@ -107,28 +83,19 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
         $Total['NomeProjeto'] = count($Result['NomeProjeto']);
         $Total['ProrrogacaoPrazoCaptacao'] = count($Result['ProrrogacaoPrazoCaptacao']);
         $Total['ProrrogacaoPrazoExecucao'] = count($Result['ProrrogacaoPrazoExecucao']);
-//        echo "<pre>"; print_r($Total); die;
         $this->view->resultBusca = $Result;
         $this->view->resultTotal = $Total;
     }
 
-    /*
-     *  View: Solicita��o de Altera��o do Nome do Projeto
-     */
 
     public function nomeprojetoAction()
     {
-        if ($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
-            if ($recebidoPost->stAprovacao == 'RT')
-            {
+            if ($recebidoPost->stAprovacao == 'RT') {
                 $this->RetornoTecnico($_POST);
-            }
-            else
-            {
-                if ($recebidoPost->stAprovacao == 'D')
-                {
+            } else {
+                if ($recebidoPost->stAprovacao == 'D') {
                     $recDadosParaAlteracao = tbalteracaonomeprojetoDAO::buscarDadosNmProj($_POST['idpedidoalteracao']);
                     $dadosalterar = array("nomeProjeto" => $recDadosParaAlteracao[0]->nmprojeto);
                     tbalteracaonomeprojetoDAO::alterarNomeProjeto($dadosalterar, $recDadosParaAlteracao[0]->idPRONAC);
@@ -146,23 +113,14 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
         $this->view->resultConsulta = $resultadoBuscaPedidoAlteracao;
     }
 
-    /*
-     *  View: Solicita��o de Altera��o Raz�o Social
-     */
-
     public function solaltrazsocAction()
     {
-        if ($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
-            if ($recebidoPost->stAprovacao == 'RT')
-            {
+            if ($recebidoPost->stAprovacao == 'RT') {
                 $this->RetornoTecnico($_POST);
-            }
-            else
-            {
-                if ($recebidoPost->stAprovacao == 'D')
-                {
+            } else {
+                if ($recebidoPost->stAprovacao == 'D') {
                     $recDadosParaAlteracao = tbalteracaoaltrazDAO::buscarDadosAltRaz($_POST['idpedidoalteracao']);
                     $dadosalterar = array("descricao" => $recDadosParaAlteracao[0]->nmrazaosocial);
                     tbalteracaoaltrazDAO::alterarRazaoSocialProjeto($dadosalterar, $recDadosParaAlteracao[0]->idAgente);
@@ -173,29 +131,20 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
         $recebidoGet = Zend_Registry::get('get');
         $idpedidoalteracao = $recebidoGet->idpedidoalteracao;
         $resultadoBuscaPedidoAlteracao = tbPedidoAlteracaoProjetoDAO::buscarDadosPedidoAlteracao($idpedidoalteracao);
-        
+
         $this->view->resultConsulta = $resultadoBuscaPedidoAlteracao;
         $this->view->resultArquivo = tbpedidoaltprojetoxarquivoDAO::buscarArquivos($idpedidoalteracao);
         $this->view->resultParecerTecnico = tbalteracaonomeprojetoDAO::buscarDadosParecerTecnico($idpedidoalteracao);
     }
 
-    /*
-     *  View: Solicita��o de Altera��o do Nome do Proponente
-     */
-
     public function solaltnomprpAction()
     {
-        if ($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
-            if ($recebidoPost->stAprovacao == 'RT')
-            {
+            if ($recebidoPost->stAprovacao == 'RT') {
                 $this->RetornoTecnico($_POST);
-            }
-            else
-            {
-                if ($recebidoPost->stAprovacao == 'D')
-                {
+            } else {
+                if ($recebidoPost->stAprovacao == 'D') {
                     $recDadosParaAlteracao = tbalteracaonomeproponenteDAO::buscarDadosAltNomProp($_POST['idpedidoalteracao']);
                     $dadosalterar = array("cgccpf" => $recDadosParaAlteracao[0]->nrCNPJCPF);
                     tbalteracaonomeproponenteDAO::alterarNomeProponente($dadosalterar, $recDadosParaAlteracao[0]->idPRONAC);
@@ -212,32 +161,18 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
         $this->view->resultParecerTecnico = tbalteracaonomeprojetoDAO::buscarDadosParecerTecnico($idpedidoalteracao);
     }
 
-    /*
-     *  View: Solicita��o de Altera��o do Local de Realiza��o
-     */
-
     public function solaltlocrelAction()
     {
-
-        if ($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
-            if ($recebidoPost->stAprovacao == 'RT')
-            {
+            if ($recebidoPost->stAprovacao == 'RT') {
                 $this->RetornoTecnico($_POST);
-            }
-            else
-            {
-                if ($recebidoPost->stAprovacao == 'D')
-                {
+            } else {
+                if ($recebidoPost->stAprovacao == 'D') {
                     $recDadosParaAlteracaoAltLocalRel = tbalteracaolocalrealizacaoDAO::buscarDadosAltLocRel($_POST['idpedidoalteracao']);
-                    foreach ($recDadosParaAlteracaoAltLocalRel as $dados)
-                    {
-                        
+                    foreach ($recDadosParaAlteracaoAltLocalRel as $dados) {
                     }
-                }
-                else
-                {
+                } else {
                     $this->InserirStatusAvaliacaoProjeto($_POST);
                 }
             }
@@ -252,21 +187,13 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
         $this->view->resultParecerTecnico = tbalteracaonomeprojetoDAO::buscarDadosParecerTecnico($idpedidoalteracao);
     }
 
-    /*
-     *  View: Solicita��o de Altera��o da Ficha t�cnica
-     */
-
     public function solaltfictecAction()
     {
-        if ($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
-            if ($recebidoPost->stAprovacao == 'RT')
-            {
+            if ($recebidoPost->stAprovacao == 'RT') {
                 $this->RetornoTecnico($_POST);
-            }
-            else
-            {
+            } else {
                 $this->InserirStatusAvaliacaoProjeto($_POST);
             }
         }
@@ -278,35 +205,23 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
         $this->view->resultParecerTecnico = tbalteracaonomeprojetoDAO::buscarDadosParecerTecnico($idpedidoalteracao);
     }
 
-    /*
-     *  View: Solicita��o de Prorrogacao de Prazos - Capta��o
-     */
-
     public function solaltprogprazcapAction()
     {
-        if ($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
-            if ($recebidoPost->stAprovacao == 'RT')
-            {
+            if ($recebidoPost->stAprovacao == 'RT') {
                 $this->RetornoTecnico($_POST);
-            }
-            else
-            {
-                if ($recebidoPost->stAprovacao == 'D')
-                {
+            } else {
+                if ($recebidoPost->stAprovacao == 'D') {
                     $recDadosParaAlteracao = tbprorrogacaoprazoDao::buscarDadosProrrogacaoPrazo($_POST['idpedidoalteracao']);
                     $datainicioprazo = Data::tratarDataZend($recDadosParaAlteracao[0]->dtinicioprazo, 'americano');
                     $datafimprazo = Data::tratarDataZend($recDadosParaAlteracao[0]->dtfimprazo, 'americano');
                     $dadosalterar = array("dtiniciocaptacao" => $datainicioprazo, "dtfimcaptacao" => $datafimprazo);
                     $result = tbprorrogacaoprazoDao::alterarProrrogracaoPrazoCap($dadosalterar, $recDadosParaAlteracao[0]->idPRONAC);
-                    if ($result)
-                    {
+                    if ($result) {
                         $this->InserirStatusAvaliacaoProjeto($_POST);
                     };
-                }
-                else
-                {
+                } else {
                     $this->InserirStatusAvaliacaoProjeto($_POST);
                 }
             }
@@ -320,35 +235,23 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
         $this->view->resultParecerTecnico = tbalteracaonomeprojetoDAO::buscarDadosParecerTecnico($idpedidoalteracao);
     }
 
-    /*
-     *  View: Solicita��o de Prorrogacao de Prazos - Execu��o
-     */
-
     public function solaltprogprazexecAction()
     {
-        if ($_POST)
-        {
+        if ($_POST) {
             $recebidoPost = Zend_Registry::get('post');
-            if ($recebidoPost->stAprovacao == 'RT')
-            {
+            if ($recebidoPost->stAprovacao == 'RT') {
                 $this->RetornoTecnico($_POST);
-            }
-            else
-            {
-                if ($recebidoPost->stAprovacao == 'D')
-                {
+            } else {
+                if ($recebidoPost->stAprovacao == 'D') {
                     $recDadosParaAlteracao = tbprorrogacaoprazoDao::buscarDadosProrrogacaoPrazo($_POST['idpedidoalteracao']);
                     $datainicioprazo = Data::tratarDataZend($recDadosParaAlteracao[0]->dtinicioprazo, 'americano');
                     $datafimprazo = Data::tratarDataZend($recDadosParaAlteracao[0]->dtfimprazo, 'americano');
                     $dadosalterar = array("dtinicioexecucao" => $datainicioprazo, "dtfimexecucao" => $datafimprazo);
                     tbprorrogacaoprazoDao::alterarProrrogracaoPrazoExec($dadosalterar, $recDadosParaAlteracao[0]->idPRONAC);
-                    if ($result)
-                    {
+                    if ($result) {
                         $this->InserirStatusAvaliacaoProjeto($_POST);
                     };
-                }
-                else
-                {
+                } else {
                     $this->InserirStatusAvaliacaoProjeto($_POST);
                 }
             }
@@ -364,7 +267,6 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
 
     public function InserirStatusAvaliacaoProjeto($post)
     {
-
         $idpedidoalteracao = $post['idpedidoalteracao'];
         $dsJustificativaAvaliacao = $post['dsJustificativaAvaliacao'];
         $stDeferimentoAvaliacao = $post['stAprovacao'];
@@ -376,10 +278,9 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
             "stDeferimentoAvaliacao" => $stDeferimentoAvaliacao);
 
         $query = tbPedidoAlteracaoProjetoCoordDAO::updateDadosProjeto($parecerCoordenador, $idpedidoalteracao);
-        if ($query)
-        {
+        if ($query) {
             $this->_redirect('verificaralteracaocoordenador/');
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
     }
 
@@ -396,61 +297,49 @@ class VerificarAlteracaoProjetoController extends MinC_Controller_Action_Abstrac
 
         $query = tbPedidoAlteracaoProjetoCoordDAO::UpdateAvaliacaoProjeto($parecerCoordenador, $idpedidoalteracao, $dtparecertecnico);
 
-        if ($query)
-        {
+        if ($query) {
             $this->_redirect('verificaralteracaocoordenador/');
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
     }
 
     public static function VerificarCpfCnpj($dado)
     {
         $qtdcarecteres = strlen($dado);
-        switch ($qtdcarecteres)
-        {
-            case 11 :
-                {
-                    $retorno = Mascara::addMaskCPF($dado);
-                }
-            case 14:
-                {
-                    $retorno = Mascara::addMaskCNPJ($dado);
-                }
+        switch ($qtdcarecteres) {
+            case 11: {
+                $retorno = Mascara::addMaskCPF($dado);
+            }
+            case 14: {
+                $retorno = Mascara::addMaskCNPJ($dado);
+            }
         }
         return $retorno;
     }
 
     public static function BuscarDadosTabelasAlt($idpedidoalteracao, $tpalteracao)
     {
-        switch ($tpalteracao)
-        {
-            case 1:
-                {
-                    $nomProp = tbalteracaonomeproponenteDAO::buscarDadosAltNomProp($idpedidoalteracao);
-                    return $nomProp[0];
-                }
-            case 2:
-                {
-                    $altRazSoc = tbalteracaoaltrazDAO::buscarDadosAltRaz($idpedidoalteracao);
-                    return $altRazSoc[0];
-                }
-            case 3:
-                {
-                    $altFicTec = tbalteracaofictecDAO::buscarDadosFicTec($idpedidoalteracao);
-                    return $altFicTec[0];
-                }
-            case 4:
-                {
-                    $altLolRel = tbalteracaolocalrealizacaoDAO::buscarDadosAltLocRel($idpedidoalteracao);
-                    return $altLolRel[0];
-                }
-            case 5:
-                {
-                    $altNomProj = tbalteracaonomeprojetoDAO::buscarDadosNmProj($idpedidoalteracao);
-                    return $altNomProj[0];
-                }
+        switch ($tpalteracao) {
+            case 1: {
+                $nomProp = tbalteracaonomeproponenteDAO::buscarDadosAltNomProp($idpedidoalteracao);
+                return $nomProp[0];
+            }
+            case 2: {
+                $altRazSoc = tbalteracaoaltrazDAO::buscarDadosAltRaz($idpedidoalteracao);
+                return $altRazSoc[0];
+            }
+            case 3: {
+                $altFicTec = tbalteracaofictecDAO::buscarDadosFicTec($idpedidoalteracao);
+                return $altFicTec[0];
+            }
+            case 4: {
+                $altLolRel = tbalteracaolocalrealizacaoDAO::buscarDadosAltLocRel($idpedidoalteracao);
+                return $altLolRel[0];
+            }
+            case 5: {
+                $altNomProj = tbalteracaonomeprojetoDAO::buscarDadosNmProj($idpedidoalteracao);
+                return $altNomProj[0];
+            }
         }
     }
-
 }
-

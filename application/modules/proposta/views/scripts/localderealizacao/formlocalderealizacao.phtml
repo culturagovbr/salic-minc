@@ -1,10 +1,7 @@
-<div class="container-fluid">
-
+<?php echo $this->partial("inc/menu.phtml", $this); ?>
+<div class="container-fluid tem-menu-lateral">
     <div class="row">
-
-        <?= $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto)); ?>
-
-        <div class="content col s10 m12 l10 planilha-produtos">
+        <div class="content col s12 m12 l12 planilha-produtos">
 
             <?php
             $links = array(

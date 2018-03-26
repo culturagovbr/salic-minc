@@ -1,0 +1,189 @@
+
+/*--------------------------------------------------------------
+x - ABAS (LEGADO)
+--------------------------------------------------------------*/
+#conteudo #tabs {
+    color: #212121;
+}
+
+#conteudo div.simpleTabs {
+    padding: 0 2px 0 0;
+    position: relative;
+    top: 21px;
+    left: 0;
+}
+
+#conteudo ul.simpleTabsNavigation {
+    position: relative;
+    z-index: 20;
+}
+
+#conteudo ul.simpleTabsNavigation li {
+    list-style: none;
+    display: block;
+    float: left;
+    height: 32px;
+    margin: 0;
+}
+
+#conteudo ul.simpleTabsNavigation li span {
+    background: url(../img/tab-left.gif) no-repeat left top;
+    display: block;
+    height: 26px;
+    padding: 5px 0 0 30px;
+}
+
+#conteudo ul.simpleTabsNavigation li a {
+    background: url(../img/tab-right.gif) no-repeat right top;
+    color: #6b7262 !important;
+    text-decoration: none;
+    border-bottom: 1px solid #8a9979;
+    height: 31px;
+    padding: 0 30px 0 0;
+    display: block;
+}
+
+#conteudo ul.simpleTabsNavigation li a.current {
+    background: url(../img/tab-right-on.gif) no-repeat right top;
+    color: #435f20 !important;
+    border-bottom: 1px solid #fff;
+}
+
+#conteudo ul.simpleTabsNavigation li a.current span {
+    background: url(../img/tab-left-on.gif) no-repeat left top;
+}
+
+#conteudo div.simpleTabsContent {
+    border-top: 1px solid #8a9979;
+    padding: 15px 15px 5px;
+    display: none;
+    position: relative;
+    z-index: 10;
+    margin-top: -1px;
+}
+
+#conteudo div.simpleTabsContent.currentTab {
+    display: block;
+}
+
+
+#conteudo #tabs {
+    border: none;
+    background-color: transparent !important;
+    width: 100% !important;
+}
+
+#conteudo .ui-tabs-panel {
+    border: 1px solid #DEE1EC;
+    background-color: #fff;
+}
+
+#conteudo #tabs ul {
+    margin: 0px;
+    background-color: transparent;
+
+}
+
+#conteudo #tabs ul li {
+    background-color: rgb(236, 236, 236);
+    border: 1px solid #DEE1EC;
+}
+
+#conteudo #tabs ul li.ui-state-active,
+#conteudo #tabs ul li:active,
+#conteudo #tabs ul li:hover {
+    background-color: rgb(218, 216, 216);
+}
+
+#conteudo #tabs ul li a {
+    color: #404040;
+    padding-top: 11px;
+}
+
+
+
+
+/*--------------------------------------------------------------
+x - INICIO ABAS
+--------------------------------------------------------------*/
+#conteudo #tabs {
+    color: #212121;
+}
+
+#conteudo div.simpleTabs {
+    padding: 0 2px 0 0;
+    position: relative;
+    top: 21px;
+    left: 0;
+}
+
+#conteudo ul.simpleTabsNavigation {
+    position: relative;
+    z-index: 20;
+}
+
+#conteudo ul.simpleTabsNavigation li {
+    list-style: none;
+    display: block;
+    float: left;
+    height: 32px;
+    margin: 0;
+}
+
+#conteudo ul.simpleTabsNavigation li span {
+    background: url(../img/tab-left.gif) no-repeat left top;
+    display: block;
+    height: 26px;
+    padding: 5px 0 0 30px;
+}
+
+#conteudo ul.simpleTabsNavigation li a {
+    background: url(../img/tab-right.gif) no-repeat right top;
+    color: #6b7262 !important;
+    text-decoration: none;
+    border-bottom: 1px solid #8a9979;
+    height: 31px;
+    padding: 0 30px 0 0;
+    display: block;
+}
+
+#conteudo ul.simpleTabsNavigation li a.current {
+    background: url(../img/tab-right-on.gif) no-repeat right top;
+    color: #435f20 !important;
+    border-bottom: 1px solid #fff;
+}
+
+#conteudo ul.simpleTabsNavigation li a.current span {
+    background: url(../img/tab-left-on.gif) no-repeat left top;
+}
+
+#conteudo div.simpleTabsContent {
+    border-top: 1px solid #8a9979;
+    padding: 15px 15px 5px;
+    display: none;
+    position: relative;
+    z-index: 10;
+    margin-top: -1px;
+}
+
+#conteudo div.simpleTabsContent.currentTab {
+    display: block;
+}
+
+/*--------------------------------------------------------------
+ TABS (MATERIALIZE)
+--------------------------------------------------------------*/
+.tabs .tab a {
+    background: #fff;
+    color: #212121;
+}
+
+.tabs .tab a:hover,
+.tabs .tab a.active {
+    background-color: #c8e6c9;
+    color: #212121;
+}
+
+.tabs .indicator {
+    background-color: #4caf50;
+}

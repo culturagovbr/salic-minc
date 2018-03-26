@@ -12,27 +12,26 @@
 
 class TipoDocumentoDAO extends Zend_Db_Table
 {
-	/* dados da tabela */
-	protected $_schema  = "";
-	protected $_name    = "BDCORPORATIVO.scSAC.tbTipoDocumento";
-	protected $_primary = "idTipoDocumento";
+    /* dados da tabela */
+    protected $_schema  = "";
+    protected $_name    = "BDCORPORATIVO.scSAC.tbTipoDocumento";
+    protected $_primary = "idTipoDocumento";
 
 
 
-	/**
-	 * M�todo para buscar os tipos de documentos
-	 * @access public
-	 * @static
-	 * @param void
-	 * @return object || bool
-	 */
-	public static function buscar()
-	{
-		$sql = "SELECT * FROM SAC.dbo.tbTipoDocumento ORDER BY dsTipoDocumento";
+    /**
+     * M�todo para buscar os tipos de documentos
+     * @access public
+     * @static
+     * @param void
+     * @return object || bool
+     */
+    public static function buscar()
+    {
+        $sql = "SELECT * FROM SAC.dbo.tbTipoDocumento ORDER BY dsTipoDocumento";
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		return $db->fetchAll($sql);
-	} // fecha m�todo buscar()
-
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    } // fecha m�todo buscar()
 } // fecha class

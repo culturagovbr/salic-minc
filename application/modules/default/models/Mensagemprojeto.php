@@ -4,13 +4,14 @@
  *
  * @author augusto
  */
-class Mensagemprojeto extends MinC_Db_Table_Abstract {
-
+class Mensagemprojeto extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'BDCORPORATIVO';
     protected $_name = 'BDCORPORATIVO.tbmensagemprojeto';
     protected $_schema = 'scSAC';
 
-    public function buscarMensagemProjeto($where = array(), $orwhere=array()) {
+    public function buscarMensagemProjeto($where = array(), $orwhere=array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -46,9 +47,9 @@ class Mensagemprojeto extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function inserirMensagemProjeto($dados) {
+    public function inserirMensagemProjeto($dados)
+    {
         try {
-
             $inserir = $this->insert($dados);
             return $inserir;
         } catch (Zend_Db_Adapter_Exception $e) {
@@ -56,13 +57,12 @@ class Mensagemprojeto extends MinC_Db_Table_Abstract {
         }
     }
 
-    public function alterarMensagemProjeto($dados, $where) {
+    public function alterarMensagemProjeto($dados, $where)
+    {
         try {
             $update = $this->update($dados, $where);
         } catch (Zend_Db_Adapter_Exception $e) {
             return 'Mensagemprojeto->alterarMensagemProjeto . Erro:' . $e->getChainedException();
         }
     }
-
 }
-

@@ -1,6 +1,7 @@
 <?php
 
-class ManterAvaliadorDto {
+class ManterAvaliadorDto
+{
     private $nome;
     private $email;
     private $cpf;
@@ -9,54 +10,67 @@ class ManterAvaliadorDto {
     private $idEdital;
     private $arrayEditais;
     
-    public function setNome($nome){
+    public function setNome($nome)
+    {
         $this->nome = utf8_decode($nome);
     }
-    public function getNome(){
+    public function getNome()
+    {
         return $this->nome;
     }
 
-    public function setEmail($email){
+    public function setEmail($email)
+    {
         $this->email = $email;
     }
-    public function getEmail(){
+    public function getEmail()
+    {
         return $this->email;
     }
 
 
-    public function setCpf($cpf){
+    public function setCpf($cpf)
+    {
         $this->cpf = $cpf;
     }
-    public function getCpf(){
+    public function getCpf()
+    {
         return $this->cpf;
     }
 
-    public function setIdUsuario($idUsuario){
+    public function setIdUsuario($idUsuario)
+    {
         $this->idUsuario = $idUsuario;
     }
-    public function getIdUsuario(){
+    public function getIdUsuario()
+    {
         return $this->idUsuario;
     }
 
-    public function setIdAgente($idAgente){
+    public function setIdAgente($idAgente)
+    {
         $this->idAgente = $idAgente;
     }
-    public function getIdAgente(){
+    public function getIdAgente()
+    {
         return $this->idAgente;
     }
 
-    public function setIdEdital($idEdital){
+    public function setIdEdital($idEdital)
+    {
         $this->idEdital = $idEdital;
     }
-    public function getIdEdital(){
+    public function getIdEdital()
+    {
         return $this->idEdital;
     }
 
-    public function setArrayEditais($arrayEditais){
+    public function setArrayEditais($arrayEditais)
+    {
         $this->arrayEditais = $arrayEditais;
     }
-    public function getArrayEditais(){
+    public function getArrayEditais()
+    {
         return $this->arrayEditais;
     }
 }
-?>

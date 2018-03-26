@@ -19,7 +19,7 @@ class Parecer_IndexController extends MinC_Controller_Action_Abstract implements
     /**
      * @return Parecer_DocumentoAssinaturaController
      */
-    function obterServicoDocumentoAssinatura()
+    public function obterServicoDocumentoAssinatura()
     {
     }
 
@@ -32,7 +32,7 @@ class Parecer_IndexController extends MinC_Controller_Action_Abstract implements
         case Autenticacao_Model_Grupos::COORDENADOR_DE_PARECERISTA:
             $this->redirect("/{$this->moduleName}/gerenciar-parecer/index");
             break;
-        }               
+        }
     }
 
     public function gerenciarAssinaturasAction()
@@ -44,10 +44,11 @@ class Parecer_IndexController extends MinC_Controller_Action_Abstract implements
         case Autenticacao_Model_Grupos::COORDENADOR_DE_PARECERISTA:
             $this->redirect("/{$this->moduleName}/gerenciar-parecer/index");
             break;
-        }               
+        }
     }
 
 
-    public function encaminharAssinaturaAction() {
+    public function encaminharAssinaturaAction()
+    {
     }
 }

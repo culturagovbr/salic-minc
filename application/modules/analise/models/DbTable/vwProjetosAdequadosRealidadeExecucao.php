@@ -15,8 +15,7 @@ class Analise_Model_DbTable_vwProjetosAdequadosRealidadeExecucao extends MinC_Db
             ->from('vwProjetosAdequadosRealidadeExecucao', '*', $this->_schema)
         ;
 
-        foreach ($where as $coluna=>$valor)
-        {
+        foreach ($where as $coluna=>$valor) {
             $sql->where($coluna, $valor);
         }
 
@@ -24,7 +23,9 @@ class Analise_Model_DbTable_vwProjetosAdequadosRealidadeExecucao extends MinC_Db
             $sql->where('Pronac like ? OR NomeProjeto like ? OR Tecnico like ? OR  Proponente like ?', '%'.$search['value'].'%');
         }
 
-        $sql->order($order);
+        if (!empty($order)) {
+            $sql->order($order);
+        }
 
         if (!is_null($start) && $limit) {
             $start = (int)$start;
@@ -44,8 +45,7 @@ class Analise_Model_DbTable_vwProjetosAdequadosRealidadeExecucao extends MinC_Db
             ->from('vwProjetosAdequadosRealidadeExecucao', 'count(*) as total', $this->_schema)
         ;
 
-        foreach ($where as $coluna=>$valor)
-        {
+        foreach ($where as $coluna=>$valor) {
             $sql->where($coluna, $valor);
         }
 
@@ -63,6 +63,4 @@ class Analise_Model_DbTable_vwProjetosAdequadosRealidadeExecucao extends MinC_Db
 
         return $db->fetchOne($sql);
     }
-
 }
-

@@ -20,7 +20,8 @@ $(document).ready(function(){
     </tr>
 </table>
 
-<?php if (isset($this->histFerias) && ($this->histFerias != 1)){ ?>
+<?php if (isset($this->histFerias) && ($this->histFerias != 1)) {
+    ?>
 <?php $qtd = 1; ?>
 <table class="tabela" style="text-align: left;width: 95%">
     <tr>
@@ -43,10 +44,13 @@ $(document).ready(function(){
     	<td><?php echo $ferias->dtInicio; ?></td>
     	<td><?php echo $ferias->dtFim; ?></td>
     </tr>
-    <?php $qtd++; endforeach;?>
+    <?php $qtd++;
+    endforeach; ?>
 </table>
 
-<?php } elseif($this->histFerias != 1) { ?>
+<?php
+} elseif ($this->histFerias != 1) {
+        ?>
 <table class="tabela" style="text-align: left;width: 95%">
     <tr>
         <td>
@@ -54,9 +58,11 @@ $(document).ready(function(){
         </td>
     </tr>
 </table>
-<?php }?>
+<?php
+    }?>
 
-<?php if (!empty($this->feriasAgend) && ($this->feriasAgend != 1)){?>
+<?php if (!empty($this->feriasAgend) && ($this->feriasAgend != 1)) {
+        ?>
 <?php $qtd = 1; ?>
 <table class="tabela" style="text-align: left;width: 95%">
     <tr>
@@ -79,9 +85,12 @@ $(document).ready(function(){
     	<td><?php echo $agendadas->dtInicio; ?></td>
     	<td><?php echo $agendadas->dtFim; ?></td>
     </tr>
-    <?php $qtd++; endforeach;?>
+    <?php $qtd++;
+        endforeach; ?>
 </table>
-<?php } elseif($this->feriasAgend != 1) {?>
+<?php
+    } elseif ($this->feriasAgend != 1) {
+        ?>
 <table class="tabela" style="text-align: left;width: 95%">
     <tr>
         <td>
@@ -89,9 +98,11 @@ $(document).ready(function(){
         </td>
     </tr>
 </table>
-<?php }?>
+<?php
+    }?>
 
-<?php if (isset($this->atestados) && ($this->atestados != 1)){?>
+<?php if (isset($this->atestados) && ($this->atestados != 1)) {
+        ?>
 <?php $qtd = 1; ?>
 <table class="tabela" style="text-align: left;width: 95%">
     <tr>
@@ -114,9 +125,12 @@ $(document).ready(function(){
     	<td><?php echo $atestados->dtInicio; ?></td>
     	<td><?php echo $atestados->dtFim; ?></td>
     </tr>
-    <?php $qtd++; endforeach;?>
+    <?php $qtd++;
+        endforeach; ?>
 </table>
-<?php } elseif($this->atestados != 1) {?>
+<?php
+    } elseif ($this->atestados != 1) {
+        ?>
 <table class="tabela" style="text-align: left;width: 95%">
     <tr>
         <td>
@@ -124,9 +138,11 @@ $(document).ready(function(){
         </td>
     </tr>
 </table>
-<?php }?>
+<?php
+    }?>
 
-<?php if($this->projetos && ($this->projetos != 1)){?>
+<?php if ($this->projetos && ($this->projetos != 1)) {
+        ?>
 <!--<table class="tabela" style="width: 95%">-->
 <!--	<tr>-->
 <!--		<th colspan="6" align="center">-->
@@ -174,18 +190,28 @@ $(document).ready(function(){
 					<tr style='text-align: center;'>
 				        <td><?php echo $produto->Produto; ?></td>
 				        <td><?php echo $produto->nrDias; ?></td>
-				        <td><?php if ($produto->stPrincipal == 1) { echo 'Sim'; } else { echo 'Nâo'; }  ?></td>
-				        <td><?php echo $this->formatarReal($produto->vlPagamento);  ?></td>
-				        <td><?php if ($produto->siPagamento == 4) { echo 'Pago'; } else { echo 'N&atilde;o Pago'; }  ?></td>
+				        <td><?php if ($produto->stPrincipal == 1) {
+            echo 'Sim';
+        } else {
+            echo 'Nâo';
+        } ?></td>
+				        <td><?php echo $this->formatarReal($produto->vlPagamento); ?></td>
+				        <td><?php if ($produto->siPagamento == 4) {
+            echo 'Pago';
+        } else {
+            echo 'N&atilde;o Pago';
+        } ?></td>
 				        <td><?php echo $produto->memorando; ?></td>
 			        </tr>
-		        <?php endif;?>
-		    <?php endforeach;?>
+		        <?php endif; ?>
+		    <?php endforeach; ?>
 		</table>
 	</div>
 </div>
-<?php endforeach;?>
-<?php } elseif($this->projetos != 1) {?>
+<?php endforeach; ?>
+<?php
+    } elseif ($this->projetos != 1) {
+        ?>
 <table class="tabela" style="text-align: left;width: 95%">
     <tr>
         <td>
@@ -193,4 +219,5 @@ $(document).ready(function(){
         </td>
     </tr>
 </table>
-<?php } ?>
+<?php
+    } ?>

@@ -1,6 +1,6 @@
 <?php
 
-include_once APPLICATION_PATH.'/../library/Zend/Rest/Client.php';
+/* include_once APPLICATION_PATH.'/../library/Zend/Rest/Client.php'; */
 
 /**
  * Classe para controlar As notificações enviadas para os dispositivos móveis.

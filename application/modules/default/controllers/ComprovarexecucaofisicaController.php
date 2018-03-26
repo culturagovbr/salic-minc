@@ -2,7 +2,6 @@
 
 class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
 {
-
     private $getCgcCpf = 0;
 
     public function init()
@@ -23,7 +22,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->idPronac = $idpronac;
         $this->view->menumsg = 'true';
 
-        if(!isset($_SESSION["Zend_Auth"]["storage"]->usu_codigo)){
+        if (!isset($_SESSION["Zend_Auth"]["storage"]->usu_codigo)) {
             $proj = new Projetos();
             $r = new tbRelatorio();
             $rt = new tbRelatorioTrimestral();
@@ -34,7 +33,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             $fnDtInicioRelatorioTrimestral = new fnDtInicioRelatorioTrimestral();
             $DtLiberacao = $fnDtInicioRelatorioTrimestral->dtInicioRelatorioTrimestral($idpronac);
 
-            $intervalo = round(Data::CompararDatas($DtLiberacao->dtLiberacao,$resp->DtFimExecucao));
+            $intervalo = round(Data::CompararDatas($DtLiberacao->dtLiberacao, $resp->DtFimExecucao));
 
             $qtdRelatorioEsperado = round($intervalo/90);
             $this->view->qtdRelatorioEsperado = $qtdRelatorioEsperado;
@@ -63,8 +62,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
 
         $busca = new Projetos();
         $result = $busca->buscar(array('IdPRONAC = ?'=>$idpronac))->current();
-        if(!empty ($result)) {
-            if(empty($result->idProjeto)) {
+        if (!empty($result)) {
+            if (empty($result->idProjeto)) {
                 parent::message("Somente ser&aacute; permitido comprovar execu&ccedil;&atilde;o do objeto de Projetos por meio do sistema para aqueles cadastrados a partir de Janeiro de 2009. Os outros casos dever&atilde;o ser solicitados por meio de of�Zcio.", "/consultardadosprojeto/?idPronac={$idpronac}", "ERROR");
                 return;
             }
@@ -73,7 +72,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         parent::init(); // chama o init() do pai GenericControllerNew
     }
 
-    public function relatoriotrimestralAction() {
+    public function relatoriotrimestralAction()
+    {
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
 
@@ -91,11 +91,11 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $rsLib = $tblLib->buscar(array('AnoProjeto =?'=>$anoProjeto,'Sequencial =?'=>$sequencial));
         $liberacao = $rsLib->count();
         $this->view->liberacao = $liberacao;
-        if($liberacao) {
-            $intervalo = round(Data::CompararDatas($rsLib[0]['DtLiberacao'],$dadosProj->DtFimExecucao));
+        if ($liberacao) {
+            $intervalo = round(Data::CompararDatas($rsLib[0]['DtLiberacao'], $dadosProj->DtFimExecucao));
             $inicioPeriodo = $rsLib[0]['DtLiberacao'];
         } else {
-            $intervalo = round(Data::CompararDatas($dadosProj->DtInicioExecucao,$dadosProj->DtFimExecucao));
+            $intervalo = round(Data::CompararDatas($dadosProj->DtInicioExecucao, $dadosProj->DtFimExecucao));
             $inicioPeriodo = $dadosProj->DtInicioExecucao;
         }
         $this->view->inicioPeriodo = $inicioPeriodo;
@@ -115,11 +115,11 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->DadosProjeto = $DadosProjeto;
 
         $liberaCadastro = false;
-        if($qtdRelatorioEsperado > $qtdRelCadastrados){
+        if ($qtdRelatorioEsperado > $qtdRelCadastrados) {
             $liberaCadastro = true;
             foreach ($qtdRelatorioCadastrados as $rel) {
                 // se algum relatorio cadastrado estiver apenas salvo, n�o libera novo cadastro
-                if($rel->siComprovanteTrimestral == 1){
+                if ($rel->siComprovanteTrimestral == 1) {
                     $liberaCadastro = false;
                 }
             }
@@ -147,7 +147,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->DadosProjeto = $DadosProjeto;
     }
 
-    public function metasComprovadasAction() {
+    public function metasComprovadasAction()
+    {
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
 
@@ -166,7 +167,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->DadosCompMetas = $DadosCompMetas;
     }
 
-    public function itensComprovadosAction() {
+    public function itensComprovadosAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -185,7 +187,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->DadosItensOrcam = $DadosItensOrcam;
     }
 
-    public function localDeRealizacaoAction() {
+    public function localDeRealizacaoAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -215,7 +218,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
     public function cadastrarLocalRealizacaoAction()
     {
         $linkFinal = '';
-        if(filter_input(INPUT_POST, 'relatorofinal')) {
+        if (filter_input(INPUT_POST, 'relatorofinal')) {
             $linkFinal = '-final';
         }
 
@@ -247,7 +250,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
                     $dsJustificativa = filter_input(INPUT_POST, 'justificativaNovo');
 
                     //se for Brasil, o usuario deve informar a cidade e o municipio
-                    if(empty($idPais) || empty($idUF) || empty($idMunicipio)) {
+                    if (empty($idPais) || empty($idUF) || empty($idMunicipio)) {
                         parent::message("N�o foi poss�vel cadastrar o novo local de realiza��o do Projeto!", "comprovarexecucaofisica/local-de-realizacao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                     }
                 } else {
@@ -268,7 +271,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
                         $dtInicioNovo = Data::dataAmericana(filter_input(INPUT_POST, 'novoDtInicioRealizacao'));
                         $dtFimNovo = Data::dataAmericana(filter_input(INPUT_POST, 'novoDtFimRealizacao'));
                         $validacaoNovaInicio = Data::validarData(filter_input(INPUT_POST, 'novoDtInicioRealizacao'));
-			$validacaoNovaFim = Data::validarData(filter_input(INPUT_POST, 'novoDtFimRealizacao'));
+                        $validacaoNovaFim = Data::validarData(filter_input(INPUT_POST, 'novoDtFimRealizacao'));
                         if (!$validacaoNovaInicio || !$validacaoNovaFim) {
                             parent::message('Data inv�lida.', $redirectUrl, 'ERROR');
                         }
@@ -284,25 +287,24 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
                         'siAbrangencia' => filter_input(INPUT_POST, 'novoRealizado'),
                         'dsJustificativa' => $dsJustificativa,
                         'dtInicioRealizacao' => $dtInicioNovo,
-			            'dtFimRealizacao' => $dtFimNovo
+                        'dtFimRealizacao' => $dtFimNovo
                     );
-                   $success = $AbrangenciaDAO->cadastrar($dados);
+                    $success = $AbrangenciaDAO->cadastrar($dados);
                 } else {
                     parent::message('Não é possível salvar o mesmo local mais de uma vez. '
                             . '(País, Uf, Município)', $redirectUrl, 'ERROR');
                 }
             }
 
-            if(!$success) {
+            if (!$success) {
                 parent::message('Erro ao salvar os dados.', $redirectUrl, 'ERROR');
             }
 
 
             parent::message('Dados salvos com sucesso!', $redirectUrl, 'CONFIRM');
-        } catch (Exception $e){
+        } catch (Exception $e) {
             parent::message('Erro ao salvar os dados.', $redirectUrl, 'ERROR');
         }
-
     }
 
     /**
@@ -310,7 +312,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
      *
      * @return mixed|string
      */
-    protected function buscarIdPronac(){
+    protected function buscarIdPronac()
+    {
         $idpronac = $this->_request->getParam("idpronac");
         if (strlen($idpronac) > 7) {
             $idpronac = Seguranca::dencrypt($idpronac);
@@ -318,51 +321,52 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         return $idpronac;
     }
 
-    public function salvarLocalRealizacaoAction(){
+    public function salvarLocalRealizacaoAction()
+    {
         $idpronac = $this->buscarIdPronac();
 
         $linkFinal = '';
-        if(filter_input(INPUT_POST, 'relatoriofinal')) {
+        if (filter_input(INPUT_POST, 'relatoriofinal')) {
             $linkFinal = '-final';
-        }elseif($this->_request->getParam('relatoriofinal')){
+        } elseif ($this->_request->getParam('relatoriofinal')) {
             $linkFinal = '-final';
         }
 //
 
-        try{
+        try {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
-        $this->verificarPermissaoAcesso(false, true, false);
+            $this->verificarPermissaoAcesso(false, true, false);
 
 
-        $redirectUrl = "comprovarexecucaofisica/local-de-realizacao$linkFinal/idpronac/".Seguranca::encrypt($idpronac);
-        $redirectUrlErroData = "comprovarexecucaofisica/manter-local-de-realizacao-final/idpronac/".Seguranca::encrypt($idpronac);
+            $redirectUrl = "comprovarexecucaofisica/local-de-realizacao$linkFinal/idpronac/".Seguranca::encrypt($idpronac);
+            $redirectUrlErroData = "comprovarexecucaofisica/manter-local-de-realizacao-final/idpronac/".Seguranca::encrypt($idpronac);
 
-        $AbrangenciaDAO = new Proposta_Model_DbTable_Abrangencia();
+            $AbrangenciaDAO = new Proposta_Model_DbTable_Abrangencia();
 
-        $abrangenciaId = $this->_request->getParam('idAbrangencia');
-        $abrangenciaSituacao = $this->_request->getParam('siAbrangencia');
+            $abrangenciaId = $this->_request->getParam('idAbrangencia');
+            $abrangenciaSituacao = $this->_request->getParam('siAbrangencia');
 
 
-        $dtInicio = null;
-        $dtFim = null;
-        if (filter_input(INPUT_POST, 'dtInicioRealizacao')) {
-            $dtInicio = Data::dataAmericana(filter_input(INPUT_POST, 'dtInicioRealizacao'));
-            $validacaoInicio = Data::validarData(filter_input(INPUT_POST, 'dtInicioRealizacao'));
-            $dtFim = Data::dataAmericana(filter_input(INPUT_POST, 'dtFimRealizacao'));
-            $validacaoFim = Data::validarData(filter_input(INPUT_POST, 'dtFimRealizacao'));
+            $dtInicio = null;
+            $dtFim = null;
+            if (filter_input(INPUT_POST, 'dtInicioRealizacao')) {
+                $dtInicio = Data::dataAmericana(filter_input(INPUT_POST, 'dtInicioRealizacao'));
+                $validacaoInicio = Data::validarData(filter_input(INPUT_POST, 'dtInicioRealizacao'));
+                $dtFim = Data::dataAmericana(filter_input(INPUT_POST, 'dtFimRealizacao'));
+                $validacaoFim = Data::validarData(filter_input(INPUT_POST, 'dtFimRealizacao'));
 
-            if (!$validacaoInicio || !$validacaoFim) {
-                parent::message('Data inv�lida.', $redirectUrlErroData, 'ERROR');
+                if (!$validacaoInicio || !$validacaoFim) {
+                    parent::message('Data inv�lida.', $redirectUrlErroData, 'ERROR');
+                }
             }
-        }
 
-            if(strlen(filter_input(INPUT_POST,'dsJustificativa')) > 500){ //limite m�ximo de caracteres
+            if (strlen(filter_input(INPUT_POST, 'dsJustificativa')) > 500) { //limite m�ximo de caracteres
                 parent::message('N�mero de caracteres inv�lido. Limite de 500 caracteres!', $redirectUrlErroData, 'ERROR');
             }
 
 
-        $abrangenciaRow = $AbrangenciaDAO->find($abrangenciaId)->current();
+            $abrangenciaRow = $AbrangenciaDAO->find($abrangenciaId)->current();
 
             if ($abrangenciaRow) {
                 if ($abrangenciaRow->siAbrangencia != 2 && $abrangenciaSituacao == 2) {
@@ -382,13 +386,13 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
                     $abrangenciaRow->dsJustificativa = null;
                 }
 
-                if($abrangenciaSituacao == 2){
+                if ($abrangenciaSituacao == 2) {
                     $abrangenciaRow->dtInicioRealizacao = $dtInicio;
                     $abrangenciaRow->dtFimRealizacao = $dtFim;
                 }
 
-                if(strtotime($abrangenciaRow->dtInicioRealizacao) > strtotime($abrangenciaRow->dtFimRealizacao)){
-                    parent::message('Data inv�lida.', $redirectUrlErroData , 'ERROR');
+                if (strtotime($abrangenciaRow->dtInicioRealizacao) > strtotime($abrangenciaRow->dtFimRealizacao)) {
+                    parent::message('Data inv�lida.', $redirectUrlErroData, 'ERROR');
                 }
 
 
@@ -398,28 +402,29 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             }
 
             parent::message('Dados salvos com sucesso!', $redirectUrl, 'CONFIRM');
-        } catch (Exception $e){
+        } catch (Exception $e) {
             parent::message('Erro ao salvar os dados.', $redirectUrl, 'ERROR');
         }
-
     }
 
-    public function excluirAbrangenciaAjaxAction() {
+    public function excluirAbrangenciaAjaxAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         $post = Zend_Registry::get('post');
         $idAbrangencia = (int) $post->abrg;
 
         $tblAbrangencia = new Proposta_Model_DbTable_Abrangencia();
-        if($tblAbrangencia->excluir($idAbrangencia)){
+        if ($tblAbrangencia->excluir($idAbrangencia)) {
             $this->_helper->json(array('resposta'=>true));
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function planoDeDivulgacaoAction() {
+    public function planoDeDivulgacaoAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -445,9 +450,10 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->Veiculo = $Veiculo;
     }
 
-    public function cadastrarPlanoDivulgacaoAction() {
+    public function cadastrarPlanoDivulgacaoAction()
+    {
         $linkFinal = '';
-        if(isset($_POST['relatorofinal']) && $_POST['relatorofinal']){
+        if (isset($_POST['relatorofinal']) && $_POST['relatorofinal']) {
             $linkFinal = '-final';
         }
 
@@ -464,35 +470,35 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             $dadosProj = $Projetos->buscar(array('IdPRONAC = ?' => $idpronac))->current();
             $idProjeto = $dadosProj->idProjeto;
 
-            if(empty($idProjeto)){
+            if (empty($idProjeto)) {
                 parent::message("N�o existe idProjeto.", "comprovarexecucaofisica/plano-de-divulgacao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
             }
 
             $PlanoDeDivulgacao = new PlanoDeDivulgacao();
-            foreach($_POST['siPlanoDeDivulgacao'] as $valores) {
+            foreach ($_POST['siPlanoDeDivulgacao'] as $valores) {
                 $pldiv = array();
                 $x = explode(':', $valores);
                 $where = 'idPlanoDivulgacao = '.$x[1];
                 $pldiv['siPlanoDeDivulgacao'] = $x[0];
                 $pldiv['Usuario'] = $this->IdUsuario;
 
-                if(!empty($_FILES['arquivo'.$x[1]]['tmp_name'])){
+                if (!empty($_FILES['arquivo'.$x[1]]['tmp_name'])) {
                     $arquivoNome     = $_FILES['arquivo'.$x[1]]['name']; // nome
                     $arquivoTemp     = $_FILES['arquivo'.$x[1]]['tmp_name']; // nome tempor�rio
                     $arquivoTipo     = $_FILES['arquivo'.$x[1]]['type']; // tipo
                     $arquivoTamanho  = $_FILES['arquivo'.$x[1]]['size']; // tamanho
 
-                    if (!empty($arquivoNome) && !empty($arquivoTemp)){
+                    if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                         $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
                         $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
                         $arquivoHash     = Upload::setHash($arquivoTemp); // hash
                     }
 
-                    if(!isset($_FILES['arquivo'.$x[1]])){
+                    if (!isset($_FILES['arquivo'.$x[1]])) {
                         parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "comprovarexecucaofisica/plano-de-divulgacao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                     }
 
-                    if(empty($_FILES['arquivo'.$x[1]]['tmp_name'])){
+                    if (empty($_FILES['arquivo'.$x[1]]['tmp_name'])) {
                         parent::message("Favor selecionar um arquivo.", "comprovarexecucaofisica/plano-de-divulgacao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                     }
 
@@ -524,36 +530,35 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
                 $PlanoDeDivulgacao->alterar($pldiv, $where);
             }
 
-            if(!empty($_POST['novoPeca'])){
+            if (!empty($_POST['novoPeca'])) {
                 $idPeca = $_POST['novoPeca'];
                 $idVeiculo = $_POST['novoVeiculo'];
                 $siPlanoDeDivulgacao = $_POST['novoExecutado'];
 
                 //se for Brasil, o usuario deve informar a cidade e o municipio
-                if(empty($idPeca) || empty($idVeiculo)){
+                if (empty($idPeca) || empty($idVeiculo)) {
                     parent::message("N&atilde;o foi poss&iacute;vel cadastrar o novo plano de divulga&ccedil;&atilde;o do Projeto!", "comprovarexecucaofisica/plano-de-divulgacao/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                 }
 
                 $planos = $PlanoDeDivulgacao->buscar(array('idProjeto = ?'=>$idProjeto, 'idPeca = ?'=>$idPeca, 'idVeiculo = ?'=>$idVeiculo));
-                if(count($planos)==0){
-
-                    if(!empty($_FILES['arquivoNovo']['tmp_name'])){
+                if (count($planos)==0) {
+                    if (!empty($_FILES['arquivoNovo']['tmp_name'])) {
                         $arquivoNome     = $_FILES['arquivoNovo']['name']; // nome
                         $arquivoTemp     = $_FILES['arquivoNovo']['tmp_name']; // nome tempor�rio
                         $arquivoTipo     = $_FILES['arquivoNovo']['type']; // tipo
                         $arquivoTamanho  = $_FILES['arquivoNovo']['size']; // tamanho
 
-                        if (!empty($arquivoNome) && !empty($arquivoTemp)){
+                        if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                             $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
                             $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
                             $arquivoHash     = Upload::setHash($arquivoTemp); // hash
                         }
 
-                        if(!isset($_FILES['arquivoNovo'])){
+                        if (!isset($_FILES['arquivoNovo'])) {
                             parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "comprovarexecucaofisica/plano-de-divulgacao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                         }
 
-                        if(empty($_FILES['arquivoNovo']['tmp_name'])){
+                        if (empty($_FILES['arquivoNovo']['tmp_name'])) {
                             parent::message("Favor selecionar um arquivo para o novo Plano de Divulgação.", "comprovarexecucaofisica/plano-de-divulgacao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                         }
 
@@ -593,17 +598,17 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
                     } else {
                         parent::message("Não foi poss&iacute;vel cadastrar o novo Plano de Divulga&ccedil;&atilde;o!", "comprovarexecucaofisica/plano-de-divulgacao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                     }
-
                 }
             }
 
             parent::message("Dados salvos com sucesso!", "comprovarexecucaofisica/plano-de-divulgacao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "CONFIRM");
-        } catch (Exception $e){
+        } catch (Exception $e) {
             parent::message("Erro ao salvar os dados.", "comprovarexecucaofisica/plano-de-divulgacao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
         }
     }
 
-    public function excluirPlanoDivulgacaoAction() {
+    public function excluirPlanoDivulgacaoAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         $post = Zend_Registry::get('post');
@@ -617,23 +622,24 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         );
 
         $divulgacao = $PlanoDeDivulgacao->buscar(array('idPlanoDivulgacao=?'=>$idPlanoDeDivulgacao))->current();
-        if($divulgacao->siPlanoDeDivulgacao == 3){
+        if ($divulgacao->siPlanoDeDivulgacao == 3) {
             $return = $PlanoDeDivulgacao->delete('idPlanoDivulgacao='.$idPlanoDeDivulgacao); //($dados, $idPlanoDeDivulgacao);
         } else {
             $return = $PlanoDeDivulgacao->alterarDados($dados, $idPlanoDeDivulgacao);
         }
 
-        if($return){
+        if ($return) {
             $vw = new vwAnexarComprovantes();
             $resutado = $vw->excluirArquivo($idArquivo);
             $this->_helper->json(array('resposta'=>true));
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function planoDeDistribuicaoAction() {
+    public function planoDeDistribuicaoAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -657,10 +663,10 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->PlanosCadastrados = $PlanosCadastrados;
     }
 
-    public function cadastrarPlanoDistribuicaoAction() {
-
+    public function cadastrarPlanoDistribuicaoAction()
+    {
         $linkFinal = '';
-        if(isset($_POST['relatorofinal']) && $_POST['relatorofinal']){
+        if (isset($_POST['relatorofinal']) && $_POST['relatorofinal']) {
             $linkFinal = '-final';
         }
 
@@ -676,7 +682,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             $Visao = new Visao();
             $visaoBeneficiario = $Visao->buscar(array('idAgente=?'=>$_POST['idAgente'],'Visao=?'=>199));
 
-            if(count($visaoBeneficiario)==0){
+            if (count($visaoBeneficiario)==0) {
                 $dadosAgente = array(
                     'idAgente' => $_POST['idAgente'],
                     'Visao' => 199,
@@ -689,27 +695,26 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             $tbBeneficiarioProdutoCultural = new tbBeneficiarioProdutoCultural();
             $produtoBeneficiario = $tbBeneficiarioProdutoCultural->buscar(array('IdPRONAC=?'=>$idpronac,'idAgente=?'=>$_POST['idAgente'],'idPlanoDistribuicao=?'=>$_POST['produto'],'idTipoBeneficiario=?'=>$_POST['tipoDocumento']));
 
-            if(count($produtoBeneficiario)>0){
+            if (count($produtoBeneficiario)>0) {
                 parent::message("J&aacute; foi cadastrado o mesmo agente para este produto!", "comprovarexecucaofisica/plano-de-distribuicao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
-
             } else {
-                if(!empty($_FILES['arquivo']['tmp_name'])){
+                if (!empty($_FILES['arquivo']['tmp_name'])) {
                     $arquivoNome     = $_FILES['arquivo']['name']; // nome
                     $arquivoTemp     = $_FILES['arquivo']['tmp_name']; // nome tempor�rio
                     $arquivoTipo     = $_FILES['arquivo']['type']; // tipo
                     $arquivoTamanho  = $_FILES['arquivo']['size']; // tamanho
 
-                    if (!empty($arquivoNome) && !empty($arquivoTemp)){
+                    if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                         $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
                         $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
                         $arquivoHash     = Upload::setHash($arquivoTemp); // hash
                     }
 
-                    if(!isset($_FILES['arquivo'])){
+                    if (!isset($_FILES['arquivo'])) {
                         parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "comprovarexecucaofisica/plano-de-distribuicao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                     }
 
-                    if(empty($_FILES['arquivo']['tmp_name'])){
+                    if (empty($_FILES['arquivo']['tmp_name'])) {
                         parent::message("Favor selecionar um arquivo para o novo Plano de Distribui&ccedil;&atilde;o.", "comprovarexecucaofisica/plano-de-distribuicao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                     }
 
@@ -746,19 +751,19 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
                         'idTipoBeneficiario' => $_POST['tipoDocumento'],
                     );
                     $tbBeneficiarioProdutoCultural->inserir($dados);
-
                 } else {
                     parent::message("N&atilde;o foi poss&iacute;vel cadastrar os dados do Plano de Distribui&ccedil;&atilde;o!", "comprovarexecucaofisica/plano-de-distribuicao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                 }
             }
 
             parent::message("Dados salvos com sucesso!", "comprovarexecucaofisica/plano-de-distribuicao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "CONFIRM");
-        } catch (Exception $e){
+        } catch (Exception $e) {
             parent::message("Erro ao salvar os dados.", "comprovarexecucaofisica/plano-de-distribuicao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
         }
     }
 
-    public function excluirPlanoDistribuicaoAction() {
+    public function excluirPlanoDistribuicaoAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         $post = Zend_Registry::get('post');
@@ -768,17 +773,18 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $tbBeneficiarioProdutoCultural = new tbBeneficiarioProdutoCultural();
         $return = $tbBeneficiarioProdutoCultural->delete('idBeneficiarioProdutoCultural='.$idBeneficiario);
 
-        if($return){
+        if ($return) {
             $vw = new vwAnexarComprovantes();
             $resutado = $vw->excluirArquivo($idArquivo);
             $this->_helper->json(array('resposta'=>true));
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function buscarAgenteAction() {
+    public function buscarAgenteAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $cnpjcpf = Mascara::delMaskCPF($_POST['cnpjcpf']);
 
@@ -789,7 +795,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $result = $agentes->buscarAgenteENome($dados);
 
         $a = 0;
-        if(count($result) > 0){
+        if (count($result) > 0) {
             foreach ($result as $registro) {
                 $dadosAgente[$a]['idAgente'] = $registro['idAgente'];
                 $dadosAgente[$a]['CNPJCPF'] = $registro['CNPJCPF'];
@@ -798,14 +804,14 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             }
             $jsonEncode = json_encode($dadosAgente);
             $this->_helper->json(array('resposta'=>true,'conteudo'=>$dadosAgente));
-
         } else {
             $this->_helper->json(array('resposta'=>false,'CNPJCPF'=>$cnpjcpf));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function comprovantesDeExecucaoAction() {
+    public function comprovantesDeExecucaoAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -825,10 +831,10 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->DadosComprovantes = $dadosComprovantes;
     }
 
-    public function cadastrarComprovanteExecucaoAction() {
-
+    public function cadastrarComprovanteExecucaoAction()
+    {
         $linkFinal = '';
-        if(isset($_POST['relatorofinal']) && $_POST['relatorofinal']){
+        if (isset($_POST['relatorofinal']) && $_POST['relatorofinal']) {
             $linkFinal = '-final';
         }
 
@@ -841,23 +847,23 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         }
 
         try {
-            if(!empty($_FILES['arquivo']['tmp_name'])){
+            if (!empty($_FILES['arquivo']['tmp_name'])) {
                 $arquivoNome     = $_FILES['arquivo']['name']; // nome
                 $arquivoTemp     = $_FILES['arquivo']['tmp_name']; // nome tempor�rio
                 $arquivoTipo     = $_FILES['arquivo']['type']; // tipo
                 $arquivoTamanho  = $_FILES['arquivo']['size']; // tamanho
 
-                if (!empty($arquivoNome) && !empty($arquivoTemp)){
+                if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                     $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
                     $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
                     $arquivoHash     = Upload::setHash($arquivoTemp); // hash
                 }
 
-                if(!isset($_FILES['arquivo'])){
+                if (!isset($_FILES['arquivo'])) {
                     parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "comprovarexecucaofisica/comprovantes-de-execucao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                 }
 
-                if(empty($_FILES['arquivo']['tmp_name'])){
+                if (empty($_FILES['arquivo']['tmp_name'])) {
                     parent::message("Favor selecionar um arquivo.", "comprovarexecucaofisica/comprovantes-de-execucao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                 }
 
@@ -881,18 +887,18 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
 
                 $Arquivo = new Arquivo();
                 $Arquivo->inserirUploads($dadosArquivo);
-
             } else {
                 parent::message("N&atilde;o foi poss&iacute;vel cadastrar o Comprovante de Execu&ccedil;&atilde;o!", "comprovarexecucaofisica/comprovantes-de-execucao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
             }
 
             parent::message("Dados salvos com sucesso!", "comprovarexecucaofisica/comprovantes-de-execucao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "CONFIRM");
-        } catch (Exception $e){
+        } catch (Exception $e) {
             parent::message("Erro ao salvar os dados.", "comprovarexecucaofisica/comprovantes-de-execucao$linkFinal/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
         }
     }
 
-    public function excluirComprovanteExecucaoAction() {
+    public function excluirComprovanteExecucaoAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         $post = Zend_Registry::get('post');
@@ -900,7 +906,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
 
         $vw = new vwAnexarComprovantes();
         $resutado = $vw->excluirArquivo($idArquivo);
-        if($resutado){
+        if ($resutado) {
             $this->_helper->viewRenderer->setNoRender(true);
             $this->_helper->flashMessenger->addMessage('Comprovante exclu&iacute;do com sucesso!');
             $this->_helper->flashMessengerType->addMessage('CONFIRM');
@@ -908,10 +914,11 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function enviarRelatorioAction() {
+    public function enviarRelatorioAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -929,17 +936,17 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $dsAcessibilidade = trim($DadosRelatorio['dsAcessibilidade']);
         $dsDemocratizacaoAcesso = trim($DadosRelatorio['dsDemocratizacaoAcesso']);
 
-        if(empty($dsEtapasExecutadas)){
+        if (empty($dsEtapasExecutadas)) {
             $erros[] = 'Etapas Executadas n&atilde;o foi informado.';
         }
-        if(empty($dsAcessibilidade)){
+        if (empty($dsAcessibilidade)) {
             $erros[] = 'Acessibilidade n&atilde;o foi informado.';
         }
-        if(empty($dsDemocratizacaoAcesso)){
+        if (empty($dsDemocratizacaoAcesso)) {
             $erros[] = 'Democratiza&ccedil;&atilde;o de Acesso n&atilde;o foi informado.';
         }
 
-        if(count($erros)>0){
+        if (count($erros)>0) {
             //****** Dados do Projeto - Cabecalho *****//
             $projetos = new Projetos();
             $DadosProjeto = $projetos->buscarProjetoXProponente(array('idPronac = ?' => $idpronac))->current();
@@ -954,7 +961,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
     }
 
 
-    public function cadastrarTrimestralAction() {
+    public function cadastrarTrimestralAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -977,21 +985,21 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             $tblLib = new Liberacao();
             $rsLib = $tblLib->buscar(array('AnoProjeto =?'=>$anoProjeto,'Sequencial =?'=>$sequencial));
             $liberacao = $rsLib->count();
-            if($liberacao) {
-                $intervalo = round(Data::CompararDatas($rsLib[0]['DtLiberacao'],$dadosProj->DtFimExecucao));
+            if ($liberacao) {
+                $intervalo = round(Data::CompararDatas($rsLib[0]['DtLiberacao'], $dadosProj->DtFimExecucao));
                 $inicioPeriodo = $rsLib[0]['DtLiberacao'];
             } else {
-                $intervalo = round(Data::CompararDatas($resp->DtInicioExecucao,$dadosProj->DtFimExecucao));
+                $intervalo = round(Data::CompararDatas($resp->DtInicioExecucao, $dadosProj->DtFimExecucao));
                 $inicioPeriodo = $resp->DtInicioExecucao;
             }
 
-            if($nrRelatorio == 1){
+            if ($nrRelatorio == 1) {
                 $dtInicioPeriodo = $inicioPeriodo;
                 $inicioPeriodo = Data::tratarDataZend($inicioPeriodo, 'Brasileira');
                 list($dia, $mes, $ano) = explode('/', $inicioPeriodo);
                 $dias = 90*$nrRelatorio;
                 $inicioPeriodo = mktime(24*$dias, 0, 0, $mes, $dia, $ano);
-                $dataFormatada = date('Y-m-d',$inicioPeriodo);
+                $dataFormatada = date('Y-m-d', $inicioPeriodo);
                 $dtFimPeriodo = $dataFormatada;
             } else {
                 $inicioPeriodo = $rsTotal[count($rsTotal)-1]['dtFimPeriodo'];
@@ -999,14 +1007,14 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
                 list($dia, $mes, $ano) = explode('/', $inicioPeriodo);
                 $inicio = mktime(24*1, 0, 0, $mes, $dia, $ano); //comecao no dia seguinte
                 $fim = mktime(24*91, 0, 0, $mes, $dia, $ano); //termina 90 dias a contar do dia seguinte, por isso 91.
-                $dtInicioPeriodo = date('Y-m-d',$inicio);
-                $dtFimPeriodo = date('Y-m-d',$fim);
+                $dtInicioPeriodo = date('Y-m-d', $inicio);
+                $dtFimPeriodo = date('Y-m-d', $fim);
             }
 
             $rs = $tbComprovanteTrimestral->buscarComprovantes(array('idPronac=?'=>$idpronac, 'siComprovanteTrimestral=?'=>1));
 
             $arrayDados = array();
-            if(empty($rs)){
+            if (empty($rs)) {
                 $arrayDados['IdPRONAC'] = $idpronac;
                 $arrayDados['dtComprovante'] = new Zend_Db_Expr('GETDATE()');
                 $arrayDados['dtInicioPeriodo'] = $dtInicioPeriodo;
@@ -1029,13 +1037,13 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             }
 
             parent::message("Dados salvos com sucesso!", "comprovarexecucaofisica/etapas-de-trabalho/idpronac/".Seguranca::encrypt($idpronac), "CONFIRM");
-        } catch (Exception $e){
+        } catch (Exception $e) {
             parent::message("Erro ao salvar os dados.", "comprovarexecucaofisica/etapas-de-trabalho/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
         }
-
     }
 
-    public function visualizarRelatorioTrimestralAction() {
+    public function visualizarRelatorioTrimestralAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -1054,7 +1062,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $tbComprovanteTrimestral = new tbComprovanteTrimestral();
         $DadosRelatorio = $tbComprovanteTrimestral->buscarComprovantes(array('idPronac = ?' => $idpronac, 'idComprovanteTrimestral=?'=>$idrelatorio, 'siComprovanteTrimestral!=?'=>1));
         $this->view->DadosRelatorio = $DadosRelatorio;
-        if(count($DadosRelatorio)==0){
+        if (count($DadosRelatorio)==0) {
             parent::message("Relat&oacute;rio n&atilde;o encontrado!", "comprovarexecucaofisica/relatoriotrimestral/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
         }
 
@@ -1083,7 +1091,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->DadosComprovantes = $dadosComprovantes;
     }
 
-    public function buscarDadosItensAction() {
+    public function buscarDadosItensAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $idPlanilhaAprovacao = $_POST['idPlanilhaAprovacao'];
         $idPronac = $_POST['idpronac'];
@@ -1092,9 +1101,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $result = $tbComprovante->buscarDadosItens($idPronac, $idPlanilhaAprovacao);
 
         $a = 0;
-        if(count($result) > 0){
+        if (count($result) > 0) {
             foreach ($result as $registro) {
-
                 $tipoDocumento = null;
                 switch ($registro['tpDocumento']) {
                     case 1:
@@ -1141,14 +1149,14 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             }
             $jsonEncode = json_encode($dadosItem);
             $this->_helper->json(array('resposta'=>true,'conteudo'=>$dadosItem));
-
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function imprimirAction() {
+    public function imprimirAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -1167,7 +1175,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $tbComprovanteTrimestral = new tbComprovanteTrimestral();
         $DadosRelatorio = $tbComprovanteTrimestral->buscarComprovantes(array('idPronac = ?' => $idpronac, 'idComprovanteTrimestral=?'=>$idrelatorio, 'siComprovanteTrimestral!=?'=>1));
         $this->view->DadosRelatorio = $DadosRelatorio;
-        if(count($DadosRelatorio)==0){
+        if (count($DadosRelatorio)==0) {
             parent::message("Relat&oacute;rio n&atilde;o encontrado!", "comprovarexecucaofisica/relatoriotrimestral/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
         }
 
@@ -1195,7 +1203,6 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $dadosComprovantes = $Arquivo->buscarComprovantesExecucao($idpronac);
         $this->view->DadosComprovantes = $dadosComprovantes;
         $this->_helper->layout->disableLayout();// Desabilita o Zend Layout
-
     }
 
     public function etapasDeTrabalhoFinalAction()
@@ -1270,7 +1277,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $DadosProjeto = $projetos->buscarProjetoXProponente(array('idPronac = ?' => $idpronac))->current();
         $this->view->DadosProjeto = $DadosProjeto;
 
-        $LocaisDeRealizacao = $projetos->buscarLocaisDeRealizacao($idpronac,$idLocal);
+        $LocaisDeRealizacao = $projetos->buscarLocaisDeRealizacao($idpronac, $idLocal);
         $this->view->LocaisDeRealizacao = $LocaisDeRealizacao;
 
       
@@ -1312,7 +1319,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->Veiculo = $Veiculo;
     }
 
-    public function planoDeDistribuicaoFinalAction() {
+    public function planoDeDistribuicaoFinalAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -1336,7 +1344,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->PlanosCadastrados = $PlanosCadastrados;
     }
 
-    public function metasComprovadasFinalAction() {
+    public function metasComprovadasFinalAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -1356,7 +1365,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->DadosCompMetas = $DadosCompMetas;
     }
 
-    public function itensComprovadosFinalAction() {
+    public function itensComprovadosFinalAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -1375,7 +1385,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->DadosItensOrcam = $DadosItensOrcam;
     }
 
-    public function comprovantesDeExecucaoFinalAction() {
+    public function comprovantesDeExecucaoFinalAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -1395,7 +1406,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->DadosComprovantes = $dadosComprovantes;
     }
 
-    public function aceiteDeObraFinalAction() {
+    public function aceiteDeObraFinalAction()
+    {
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
 
@@ -1414,7 +1426,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->DadosRelatorio = $DadosRelatorio;
     }
 
-    public function cadastrarAceiteObraAction() {
+    public function cadastrarAceiteObraAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -1425,23 +1438,23 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         }
 
         try {
-            if(!empty($_FILES['arquivo']['tmp_name'])){
+            if (!empty($_FILES['arquivo']['tmp_name'])) {
                 $arquivoNome     = $_FILES['arquivo']['name']; // nome
                 $arquivoTemp     = $_FILES['arquivo']['tmp_name']; // nome tempor�rio
                 $arquivoTipo     = $_FILES['arquivo']['type']; // tipo
                 $arquivoTamanho  = $_FILES['arquivo']['size']; // tamanho
 
-                if (!empty($arquivoNome) && !empty($arquivoTemp)){
+                if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                     $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
                     $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
                     $arquivoHash     = Upload::setHash($arquivoTemp); // hash
                 }
 
-                if(!isset($_FILES['arquivo'])){
+                if (!isset($_FILES['arquivo'])) {
                     parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "comprovarexecucaofisica/aceite-de-obra-final/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                 }
 
-                if(empty($_FILES['arquivo']['tmp_name'])){
+                if (empty($_FILES['arquivo']['tmp_name'])) {
                     parent::message("Favor selecionar um arquivo para o novo Plano de Distribui&ccedil;&atilde;o.", "comprovarexecucaofisica/aceite-de-obra-final/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                 }
 
@@ -1474,7 +1487,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             $rs = $tbTermoAceiteObra->buscarTermoAceiteObra(array('idPronac=?'=>$idpronac));
 
             $arrayDados = array();
-            if(empty($rs)){
+            if (empty($rs)) {
                 $arrayDados['idPronac'] = $idpronac;
                 $arrayDados['dtCadastroTermo'] = new Zend_Db_Expr('GETDATE()');
                 $arrayDados['dsDescricaoTermoAceite'] = $_POST['descricaoTermoAceite'];
@@ -1482,9 +1495,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
                 $arrayDados['idDocumentoTermo'] = $dadosDocumento[0]->idDocumento;
                 $arrayDados['idUsuarioCadastrador'] = $this->IdUsuario;
                 $tbTermoAceiteObra->inserir($arrayDados);
-
             } else {
-                if(isset($_POST['idArquivo']) && !empty($_POST['idArquivo'])){
+                if (isset($_POST['idArquivo']) && !empty($_POST['idArquivo'])) {
                     $vw = new vwAnexarComprovantes();
                     $resutado = $vw->excluirArquivo($_POST['idArquivo']);
                 }
@@ -1496,12 +1508,13 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             }
 
             parent::message("Dados salvos com sucesso!", "comprovarexecucaofisica/aceite-de-obra-final/idpronac/".Seguranca::encrypt($idpronac), "CONFIRM");
-        } catch (Exception $e){
+        } catch (Exception $e) {
             parent::message("Erro ao salvar os dados.", "comprovarexecucaofisica/aceite-de-obra-final/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
         }
     }
 
-    public function bensFinalAction() {
+    public function bensFinalAction()
+    {
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
 
@@ -1524,7 +1537,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->BensCadastrados = $BensCadastrados;
     }
 
-    public function cadastrarBensMoveisAction() {
+    public function cadastrarBensMoveisAction()
+    {
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
 
@@ -1534,23 +1548,23 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         }
 
         try {
-            if(!empty($_FILES['documentoDoacao']['tmp_name'])){
+            if (!empty($_FILES['documentoDoacao']['tmp_name'])) {
                 $arquivoNome     = $_FILES['documentoDoacao']['name']; // nome
                 $arquivoTemp     = $_FILES['documentoDoacao']['tmp_name']; // nome tempor�rio
                 $arquivoTipo     = $_FILES['documentoDoacao']['type']; // tipo
                 $arquivoTamanho  = $_FILES['documentoDoacao']['size']; // tamanho
 
-                if (!empty($arquivoNome) && !empty($arquivoTemp)){
+                if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                     $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
                     $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
                     $arquivoHash     = Upload::setHash($arquivoTemp); // hash
                 }
 
-                if(!isset($_FILES['documentoDoacao'])){
+                if (!isset($_FILES['documentoDoacao'])) {
                     parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "comprovarexecucaofisica/bens-final/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                 }
 
-                if(empty($_FILES['documentoDoacao']['tmp_name'])){
+                if (empty($_FILES['documentoDoacao']['tmp_name'])) {
                     parent::message("Favor selecionar um arquivo para a Doa&ccedil;&atilde;o do Bem M&oacute;vel.", "comprovarexecucaofisica/bens-final/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                 }
 
@@ -1579,23 +1593,23 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
                 $DocumentoDoacao = $DocumentoProjeto->buscar(array('idPronac=?'=>$idpronac,'idTipoDocumento=?'=>26), array('idDocumento DESC'));
             }
 
-            if(!empty($_FILES['documentoAceite']['tmp_name'])){
+            if (!empty($_FILES['documentoAceite']['tmp_name'])) {
                 $arquivoNome     = $_FILES['documentoAceite']['name']; // nome
                 $arquivoTemp     = $_FILES['documentoAceite']['tmp_name']; // nome tempor�rio
                 $arquivoTipo     = $_FILES['documentoAceite']['type']; // tipo
                 $arquivoTamanho  = $_FILES['documentoAceite']['size']; // tamanho
 
-                if (!empty($arquivoNome) && !empty($arquivoTemp)){
+                if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                     $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
                     $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
                     $arquivoHash     = Upload::setHash($arquivoTemp); // hash
                 }
 
-                if(!isset($_FILES['documentoAceite'])){
+                if (!isset($_FILES['documentoAceite'])) {
                     parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "comprovarexecucaofisica/bens-final/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                 }
 
-                if(empty($_FILES['documentoAceite']['tmp_name'])){
+                if (empty($_FILES['documentoAceite']['tmp_name'])) {
                     parent::message("Favor selecionar um arquivo para a Aceite do Bem M&oacute;vel.", "comprovarexecucaofisica/bens-final/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                 }
 
@@ -1641,12 +1655,13 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             $insert = $tbBensDoados->inserir($dadosItem);
 
             parent::message("Dados salvos com sucesso!", "comprovarexecucaofisica/bens-final/idpronac/".Seguranca::encrypt($idpronac), "CONFIRM");
-        } catch (Exception $e){
+        } catch (Exception $e) {
             parent::message("Erro ao salvar os dados.", "comprovarexecucaofisica/bens-final/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
         }
     }
 
-    public function cadastrarBensImoveisAction() {
+    public function cadastrarBensImoveisAction()
+    {
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
 
@@ -1656,23 +1671,23 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         }
 
         try {
-            if(!empty($_FILES['documentoDoacao']['tmp_name'])){
+            if (!empty($_FILES['documentoDoacao']['tmp_name'])) {
                 $arquivoNome     = $_FILES['documentoDoacao']['name']; // nome
                 $arquivoTemp     = $_FILES['documentoDoacao']['tmp_name']; // nome tempor�rio
                 $arquivoTipo     = $_FILES['documentoDoacao']['type']; // tipo
                 $arquivoTamanho  = $_FILES['documentoDoacao']['size']; // tamanho
 
-                if (!empty($arquivoNome) && !empty($arquivoTemp)){
+                if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                     $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
                     $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
                     $arquivoHash     = Upload::setHash($arquivoTemp); // hash
                 }
 
-                if(!isset($_FILES['documentoDoacao'])){
+                if (!isset($_FILES['documentoDoacao'])) {
                     parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "comprovarexecucaofisica/bens-final/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                 }
 
-                if(empty($_FILES['documentoDoacao']['tmp_name'])){
+                if (empty($_FILES['documentoDoacao']['tmp_name'])) {
                     parent::message("Favor selecionar um arquivo para a Doa&ccedil;&atilde;o do Bem Im&oacute;vel.", "comprovarexecucaofisica/bens-final/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                 }
 
@@ -1701,23 +1716,23 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
                 $DocumentoDoacao = $DocumentoProjeto->buscar(array('idPronac=?'=>$idpronac,'idTipoDocumento=?'=>26), array('idDocumento DESC'));
             }
 
-            if(!empty($_FILES['documentoAceite']['tmp_name'])){
+            if (!empty($_FILES['documentoAceite']['tmp_name'])) {
                 $arquivoNome     = $_FILES['documentoAceite']['name']; // nome
                 $arquivoTemp     = $_FILES['documentoAceite']['tmp_name']; // nome tempor�rio
                 $arquivoTipo     = $_FILES['documentoAceite']['type']; // tipo
                 $arquivoTamanho  = $_FILES['documentoAceite']['size']; // tamanho
 
-                if (!empty($arquivoNome) && !empty($arquivoTemp)){
+                if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                     $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
                     $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
                     $arquivoHash     = Upload::setHash($arquivoTemp); // hash
                 }
 
-                if(!isset($_FILES['documentoAceite'])){
+                if (!isset($_FILES['documentoAceite'])) {
                     parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "comprovarexecucaofisica/bens-final/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                 }
 
-                if(empty($_FILES['documentoAceite']['tmp_name'])){
+                if (empty($_FILES['documentoAceite']['tmp_name'])) {
                     parent::message("Favor selecionar um arquivo para a Aceite do Bem Im&oacute;vel.", "comprovarexecucaofisica/bens-final/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
                 }
 
@@ -1763,12 +1778,13 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             $insert = $tbBensDoados->inserir($dadosItem);
 
             parent::message("Dados salvos com sucesso!", "comprovarexecucaofisica/bens-final/idpronac/".Seguranca::encrypt($idpronac), "CONFIRM");
-        } catch (Exception $e){
+        } catch (Exception $e) {
             parent::message("Erro ao salvar os dados.", "comprovarexecucaofisica/bens-final/idpronac/".Seguranca::encrypt($idpronac), "ERROR");
         }
     }
 
-    public function excluirBemDoadoAction() {
+    public function excluirBemDoadoAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         $post = Zend_Registry::get('post');
@@ -1792,7 +1808,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
     public function cadastrarFinalAction()
@@ -1809,7 +1825,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             $Projetos = new Projetos();
             $dadosProj = $Projetos->buscar(array('IdPRONAC = ?' => $idpronac))->current();
 
-            if(!$dadosProj) {
+            if (!$dadosProj) {
                 parent::message('Projeto n�o foi encontrado!', $url, 'ERROR');
             }
 
@@ -1829,12 +1845,13 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             $tbCumprimentoObjeto->saveOrUpdate();
 
             parent::message('Dados salvos com sucesso!', $url, 'CONFIRM');
-        } catch (InvalidArgumentException $exeption){
+        } catch (InvalidArgumentException $exeption) {
             parent::message('Erro ao salvar os dados.!', $url, 'ERROR');
         }
     }
 
-    public function enviarRelatorioFinalAction() {
+    public function enviarRelatorioFinalAction()
+    {
 
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
@@ -1854,7 +1871,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $this->view->DadosProjeto = $DadosProjeto;
     }
 
-    public function finalizarCadastroRelatorioAction() {
+    public function finalizarCadastroRelatorioAction()
+    {
         //** Verifica se o usu�rio logado tem permiss�o de acesso **//
         $this->verificarPermissaoAcesso(false, true, false);
 
@@ -1864,9 +1882,8 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             $idpronac = Seguranca::dencrypt($idpronac);
         }
 
-        try{
+        try {
             if ($confirmacao) {
-
                 $auth = Zend_Auth::getInstance(); // pega a autentica��o
                 $idUsuario = $auth->getIdentity()->IdUsuario; // usu�rio logado
 
@@ -1883,14 +1900,14 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
                 $dados = array();
                 $dados['siCumprimentoObjeto'] = 2;
 
-              /*
-                1 - Salvo pelo proponente;
-                2 - Enviado pelo proponente;
-                3 - Encaminhado para T�cnico de Acompanhamento;
-                4 - Em an�lise pelo T�cnico;
-                5 - Finalizado pelo T�cnico;
-                6 - Finalizado pelo Coordenador.
-              */
+                /*
+                  1 - Salvo pelo proponente;
+                  2 - Enviado pelo proponente;
+                  3 - Encaminhado para T�cnico de Acompanhamento;
+                  4 - Em an�lise pelo T�cnico;
+                  5 - Finalizado pelo T�cnico;
+                  6 - Finalizado pelo Coordenador.
+                */
 
                 $dados['DtEnvioDaPrestacaoContas'] = new Zend_Db_Expr('GETDATE()');
                 $where = "idPronac = $idpronac ";
@@ -1904,10 +1921,9 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
                     throw new Exception("Erro ao enviar a comprova&ccedil;&atilde;o!");
                 }
             } // fecha try
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             parent::message($e->getMessage(), "consultardadosprojeto/index?idPronac=".Seguranca::encrypt($idpronac), "ERROR");
         }
-
     }
 
     public function deletarImagemCumprimentoDoObjetoAction()
@@ -1915,7 +1931,7 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
         $url = '/comprovarexecucaofisica/etapas-de-trabalho-final/idpronac/' .
             $this->getRequest()->getParam('idpronac');
         try {
-                    Seguranca::encrypt($this->getRequest()->getParam('idpronac'));
+            Seguranca::encrypt($this->getRequest()->getParam('idpronac'));
             $cumprimentoObjetoArquivoModel = new CumprimentoObjetoXArquivo(
                     null,
                     $this->getRequest()->getParam('idCumprimentoDoObjeto'),
@@ -1927,5 +1943,4 @@ class ComprovarexecucaofisicaController extends MinC_Controller_Action_Abstract
             parent::message('N&atilde;o foi poss&iacute;vel deletar a imagem', $url, 'ERROR');
         }
     }
-
 }

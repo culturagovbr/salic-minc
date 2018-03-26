@@ -32,20 +32,16 @@ class Agente_Model_DbTable_Municipios extends MinC_Db_Table_Abstract
             $this->_schema
         );
 
-        if (!empty($idCidade))
-        {
-            $select->where('idMunicipioIBGE = ?' , $idCidade);
+        if (!empty($idCidade)) {
+            $select->where('idMunicipioIBGE = ?', $idCidade);
         }
 
         $select->order('Descricao');
 
-        try
-        {
+        try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Cidades: " . $e->getMessage();
         }
 
@@ -63,22 +59,18 @@ class Agente_Model_DbTable_Municipios extends MinC_Db_Table_Abstract
             $this->_schema
         );
 
-        $select->where('idufibge = ?' , $idUF);
+        $select->where('idufibge = ?', $idUF);
 
-        if (!empty($idCidade))
-        {
-            $select->where('idMunicipioIBGE = ?' , $idCidade);
+        if (!empty($idCidade)) {
+            $select->where('idMunicipioIBGE = ?', $idCidade);
         }
 
         $select->order('Descricao');
 
-        try
-        {
+        try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Cidades: " . $e->getMessage();
         }
 

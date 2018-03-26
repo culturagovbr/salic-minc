@@ -44,13 +44,15 @@
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'despacharprojetos')); ?>" title="Ir para Cadastrar projetos">Cadastrar</a>
                 <!--<a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'enviarprojetos')); ?>?projetoEnviado=true" title="Ir para Enviar documentos">Enviar</a>-->
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'receberprojetos')); ?>?projetoRecebido=true" title="Ir para Receber documentos">Receber</a>
-                <?php if(in_array($this->grupoAtivo, array(109))){ ?>
+                <?php if (in_array($this->grupoAtivo, array(109))) {
+    ?>
 		<a href="#" title="Abrir menu arquivamento" class="saf">Arquivamento</a>
                 <div id="qm0" class="sanfona sanfonaDiv" style="display: none;">
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'arquivar')); ?>" title="Ir para Arquivar">Arquivar</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'desarquivar')); ?>" title="Ir para Desarquivar">Desarquivar</a>
                 </div>
-                <?php } ?>
+                <?php
+} ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'consultarprojetosarquivados')); ?>" title="Ir para Consultar projetos arquivados">Consultar Projetos Arquivados</a>
                 <!--<a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'solicitacoes')); ?>" title="Ir para Solicitações">Solicitações</a>-->
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'tramitarprojetos', 'action' => 'guias')); ?>" title="Ir para Guias de tramitação">Guias de Tramitação</a>

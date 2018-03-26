@@ -71,11 +71,14 @@ class Proposta_Model_DbTable_TbDetalhamentoPlanoDistribuicaoProduto extends MinC
     {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
-        $slct->from(array("d" => $this->_name) , array('d.idDetalhaPlanoDistribuicao'), $this->_schema);
+        $slct->from(array("d" => $this->_name), array('d.idDetalhaPlanoDistribuicao'), $this->_schema);
 
-        $slct->joinInner(array("p" => 'planodistribuicaoproduto'),
+        $slct->joinInner(
+            array("p" => 'planodistribuicaoproduto'),
             "p.idPlanoDistribuicao = d.idPlanoDistribuicao",
-            array(), $this->_schema);
+            array(),
+            $this->_schema
+        );
 
         $slct->where('p.idProjeto = ?', $idPreProjeto);
 
@@ -86,6 +89,5 @@ class Proposta_Model_DbTable_TbDetalhamentoPlanoDistribuicaoProduto extends MinC
         $slct->order($order);
 
         $this->delete(new Zend_Db_Expr('idDetalhaPlanoDistribuicao IN (' . $slct .')'));
-
     }
 }

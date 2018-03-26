@@ -1,0 +1,143 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>An&aacute;lise de altera&ccedil;&otilde;es da Proposta</h1>
+
+                    <?php
+                    gerarNovoBreadCrumb(array(
+                        array('An&aacute;lise de altera&ccedil;&otilde;es da Proposta' => '',
+                        )
+                    ));
+                    ?>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div id="container-vue">
+                <salic-proposta-diff idpreprojeto="<?= $this->idPreProjeto; ?>" tipo="<?= $this->tipo; ?>"></salic-proposta-diff>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/public/js/vue.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.1.0/addon/merge/dep/diff_match_patch.js" type="text/javascript"></script>
+<script src="/public/js/jquery.pretty-text-diff.js" type="text/javascript"></script>
+<script src="http://momentjs.com/downloads/moment-with-locales.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js" type="text/javascript"></script>
+
+<script src="/public/js/componentes/salic-table-easy.js" type="text/javascript"></script>
+<script src="/public/js/componentes/salic-texto-simples.vue.js" type="text/javascript"></script>
+
+<script src="/public/scripts/proposta/visualizar/salic-proposta-diff.vue.js" type="text/javascript"></script>
+<script src="/public/scripts/proposta/visualizar/salic-proposta.vue.js" type="text/javascript"></script>
+<script src="/public/scripts/proposta/visualizar/salic-proposta-identificacao.vue.js" type="text/javascript"></script>
+<script src="/public/scripts/proposta/visualizar/salic-proposta-documentos.vue.js" type="text/javascript"></script>
+<script src="/public/scripts/proposta/visualizar/salic-proposta-fontes-de-recursos.vue.js"
+        type="text/javascript"></script>
+<script src="/public/scripts/proposta/visualizar/salic-proposta-historico-avaliacoes.vue.js"
+        type="text/javascript"></script>
+<script src="/public/scripts/proposta/visualizar/salic-proposta-local-realizacao-deslocamento.vue.js"
+        type="text/javascript"></script>
+<script src="/public/scripts/proposta/visualizar/salic-proposta-planilha-orcamentaria.vue.js"
+        type="text/javascript"></script>
+<script src="/public/scripts/proposta/visualizar/salic-proposta-plano-distribuicao.vue.js"
+        type="text/javascript"></script>
+<script src="/public/scripts/proposta/visualizar/salic-proposta-detalhamento-plano-distribuicao.vue.js"
+        type="text/javascript"></script>
+<script src="/public/scripts/proposta/visualizar/salic-proposta-custos-vinculados.vue.js"
+        type="text/javascript"></script>
+<script src="/public/scripts/agente/visualizar/salic-agente-proponente.vue.js" type="text/javascript"></script>
+<script src="/public/scripts/autenticacao/index/salic-autenticacao-usuario.vue.js" type="text/javascript"></script>
+
+
+<script type="text/javascript">
+
+    new Vue({
+        el: '#container-vue'
+    });
+
+</script>
+
+
+<div class="fixed-action-btn vertical">
+    <a class="btn-floating btn-large red">
+        <i class="large material-icons">add</i>
+    </a>
+    <ul>
+        <li>
+            <a id="ir-para-o-topo" class="btn-floating yellow darken-1 tooltipped" data-tooltip="Ir para o topo">
+                <i class="material-icons">arrow_upward</i>
+            </a>
+        </li>
+        <li>
+            <a class="expandall btn-floating waves-effect waves-light btn tooltipped btn-info" onClick="expandAll();" data-tooltip="Expandir tudo"><i class="material-icons left">fullscreen</i></a>
+            <a class="collapseall btn-floating waves-effect waves-light btn tooltipped btn-info " onClick="collapseAll();" data-tooltip="Fechar tudo"><i class="material-icons left">fullscreen_exit</i></a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    $3(document).ready(function ($) {
+
+        $3("#visualizar-form").on('click', function () {
+            tinymce.remove();
+        });
+
+        if ($3('#ir-para-o-topo').length) {
+            var scrollTrigger = 100, // px
+                backToTop = function () {
+                    var scrollTop = $3(window).scrollTop();
+                    if (scrollTop > scrollTrigger) {
+                        $3('#ir-para-o-topo').parent().show();
+                    } else {
+                        $3('#ir-para-o-topo').parent().hide();
+                    }
+                };
+            backToTop();
+
+            $3(window).on('scroll', function () {
+                backToTop();
+            });
+
+            $3('#ir-para-o-topo').on('click', function (e) {
+                e.preventDefault();
+                $3('html,body').animate({
+                    scrollTop: 0
+                }, 700);
+            });
+        }
+
+        collapseAll();
+
+        $3(".container-fluid .collapsible-header").on('click', function () {
+            $3(".expandall").hide();
+            $3(".collapseall").show();
+        });
+
+    });
+
+    function expandAll(){
+
+        $3(".expandall").hide();
+        $3(".collapseall").show();
+
+        $3(".container-fluid .collapsible-header").addClass("active");
+        $3(".container-fluid .collapsible").collapsible({accordion: false});
+    }
+
+    function collapseAll(){
+        $3(".expandall").show();
+        $3(".collapseall").hide();
+
+        $3(".container-fluid .collapsible-header").removeClass(function(){
+            return "active";
+        });
+        $3(".container-fluid .collapsible").collapsible({accordion: true});
+        $3(".container-fluid .collapsible").collapsible({accordion: false});
+
+    }
+</script>

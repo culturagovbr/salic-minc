@@ -1,20 +1,31 @@
+<?php echo $this->partial("inc/menu.phtml", $this); ?>
+
 <div class="container-fluid">
     <div class="row">
-        <?= $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto)); ?>
-        <div class="content col s10 m12 l10 planilha-produtos">
-            <?php
-            $links = array(
-                $this->layout['listagem'],
-                array('Tabelas de Itens' => array())
-            );
-            gerarBreadCrumb($links);
-            ?>
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Tabelas de Itens</h1>
 
-            <div id="titulo">
-                <div>Tabelas de Itens <?php echo montaBotaoVoltar($controller, $links); ?></div>
+                    <?php
+
+                    $links = array(
+                        $this->layout['listagem'],
+                        array('Tabelas de Itens' => array())
+                    );
+                    gerarNovoBreadCrumb($links);
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
             </div>
+        </div>
 
-            <div id="conteudo">
+        <div class="content">
+            <div id="conteudo" class="card-panel">
                 <form id="formBuscar" name="formBuscar" method="post"
                       action="<?php echo $this->url(array('controller' => 'mantertabelaitens', 'action' => 'exibirdados', 'idPreProjeto' => $this->idPreProjeto)); ?>">
                     <table class="tabela">
@@ -74,7 +85,6 @@
                     </table>
                 </form>
             </div>
-            <br clear="all"/>
         </div>
     </div>
 </div>

@@ -13,14 +13,15 @@
  * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
  * @since 21/09/2016
  */
-class Proposta_Model_DbTable_PlanoDeDivulgacao extends MinC_Db_Table_Abstract{
-
+class Proposta_Model_DbTable_PlanoDeDivulgacao extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'sac';
     protected $_schema = 'sac';
     protected $_name  = 'planodedivulgacao';
     protected $_primary  = 'idPlanoDivulgacao';
 
-    public static function buscarDigulgacao($idPreProjeto){
+    public static function buscarDigulgacao($idPreProjeto)
+    {
         $sql = "SELECT
                 pd.idPlanoDivulgacao,
                 pd.idProjeto,
@@ -39,66 +40,55 @@ class Proposta_Model_DbTable_PlanoDeDivulgacao extends MinC_Db_Table_Abstract{
 
 
         $db = Zend_Db_Table::getDefaultAdapter();
-	$db->setFetchMode(Zend_DB::FETCH_OBJ);
-	$resultado = $db->fetchAll($sql);
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $resultado = $db->fetchAll($sql);
         //Zend_Debug::dump($resultado);
-	return $resultado;
+        return $resultado;
     }
 
 
-    public static function UpdateDivulgacao($idPlanoDivulgacao, $idPeca, $idVeiculo){
-         try
-        {
+    public static function UpdateDivulgacao($idPlanoDivulgacao, $idPeca, $idVeiculo)
+    {
+        try {
             $sql = "update  sac.dbo.PlanoDeDivulgacao set idPeca = $idPeca, idVeiculo = $idVeiculo where idPlanoDivulgacao = $idPlanoDivulgacao";
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             $resultado = $db->fetchRow($sql);
-
-
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
-
-
     }
-     public static function inserirDivulgacao($divulgacao)
+    public static function inserirDivulgacao($divulgacao)
     {
-          try
-        {
-        $db= Zend_Db_Table::getDefaultAdapter();
-        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        try {
+            $db= Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-        $cadastrar = $db->insert("SAC.dbo.PlanoDeDivulgacao", $divulgacao);
-
-        } catch (Exception $e){
+            $cadastrar = $db->insert("SAC.dbo.PlanoDeDivulgacao", $divulgacao);
+        } catch (Exception $e) {
             die("ERRO" . $e->getMessage());
         }
-
     }
-    public static function  excluirdivulgacao($idPlanoDivulgacao){
-
-        try{
-
-        $sql = "delete sac.dbo.PlanoDeDivulgacao where idPlanoDivulgacao = $idPlanoDivulgacao";
-        $db= Zend_Db_Table::getDefaultAdapter();
-        $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        $resultado = $db->fetchAll($sql);
-        }catch (Exception $e){
-
-           die("ERRO" . $e->getMessage());
-
+    public static function excluirdivulgacao($idPlanoDivulgacao)
+    {
+        try {
+            $sql = "delete sac.dbo.PlanoDeDivulgacao where idPlanoDivulgacao = $idPlanoDivulgacao";
+            $db= Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+            $resultado = $db->fetchAll($sql);
+        } catch (Exception $e) {
+            die("ERRO" . $e->getMessage());
         }
     }
 
-    public static function consultarDivulgacao(){
+    public static function consultarDivulgacao()
+    {
         $sql = "select idVerificacao, Descricao from SAC.dbo.Verificacao where idTipo = 1 order by Descricao";
 
 
         $db = Zend_Db_Table::getDefaultAdapter();
-	$db->setFetchMode(Zend_DB::FETCH_OBJ);
-	$resultado = $db->fetchAll($sql);
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $resultado = $db->fetchAll($sql);
         ///Zend_Debug::dump($resultado);
         return $resultado;
     }
@@ -144,8 +134,8 @@ class Proposta_Model_DbTable_PlanoDeDivulgacao extends MinC_Db_Table_Abstract{
     /**
      * @todo verificar onde esta sendo utilizado e deletar depois, usando apenas os metodos da abstract.
      */
-       public function localiza($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
-       {
+    public function localiza($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(array('tbr' => $this->_name));

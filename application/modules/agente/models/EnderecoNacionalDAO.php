@@ -10,8 +10,8 @@
  */
 class Agente_Model_EnderecoNacionalDAO extends MinC_Db_Table_Abstract
 {
-	protected $_name = 'endereconacional';
-	protected $_schema = 'agentes';
+    protected $_name = 'endereconacional';
+    protected $_schema = 'agentes';
 
     /**
      * buscarendereconacional
@@ -76,7 +76,7 @@ class Agente_Model_EnderecoNacionalDAO extends MinC_Db_Table_Abstract
         $db = Zend_Db_Table::getDefaultAdapter();
 
         $schema = $this->getSchema($this->_schema). '.' .$this->_name;
-        $db->insert( $schema, $dados);
+        $db->insert($schema, $dados);
     }
 
     /**
@@ -111,14 +111,10 @@ class Agente_Model_EnderecoNacionalDAO extends MinC_Db_Table_Abstract
      */
     public static function deletarEnderecoNacional($idEndereco)
     {
-        try
-        {
+        try {
             $db = Zend_Db_Table::getDefaultAdapter();
             return $resultado = $db->delete('AGENTES.dbo.EnderecoNacional', array('idEndereco = ? '=> $idEndereco));
-
-        }
-        catch (Zend_Exception $e)
-        {
+        } catch (Zend_Exception $e) {
             throw new Zend_Db_Exception("Erro ao excluir Telefone do Proponente: " . $e->getMessage());
         }
     }
@@ -134,14 +130,11 @@ class Agente_Model_EnderecoNacionalDAO extends MinC_Db_Table_Abstract
      */
     public static function mudaCorrespondencia($idAgente)
     {
-        try
-        {
+        try {
             $db = Zend_Db_Table::getDefaultAdapter();
 
             return $resultado = $db->update('AGENTES.dbo.EnderecoNacional', array('Status = ?' => 0), array('idAgente = ?' => $idAgente));
-        }
-        catch (Zend_Exception $e)
-        {
+        } catch (Zend_Exception $e) {
             throw new Zend_Db_Exception("Erro ao alterar o Status dos endere�os: " . $e->getMessage());
         }
     }
@@ -157,8 +150,7 @@ class Agente_Model_EnderecoNacionalDAO extends MinC_Db_Table_Abstract
      */
     public static function novaCorrespondencia($idAgente)
     {
-        try
-        {
+        try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $sql = "UPDATE AGENTES.dbo.EnderecoNacional set Status = 1
                     WHERE idAgente = ".$idAgente."
@@ -166,9 +158,7 @@ class Agente_Model_EnderecoNacionalDAO extends MinC_Db_Table_Abstract
 
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB :: FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao alterar o Status dos endere�os: " . $e->getMessage();
         }
 

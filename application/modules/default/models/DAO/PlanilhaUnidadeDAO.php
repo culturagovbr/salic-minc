@@ -11,23 +11,22 @@
 
 class PlanilhaUnidadeDAO extends Zend_Db_Table
 {
-	protected $_name = 'SAC.dbo.tbPlanilhaUnidade';
+    protected $_name = 'SAC.dbo.tbPlanilhaUnidade';
 
 
 
-	/**
-	 * Busca a planilha com as unidades
-	 * @access public
-	 * @static
-	 * @param void
-	 * @return object
-	 */
-	public static function buscar()
-	{
-		$sql = "SELECT * FROM SAC.dbo.tbPlanilhaUnidade ORDER BY Descricao";
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		return $db->fetchAll($sql);
-	} // fecha m�todo buscar()
-
+    /**
+     * Busca a planilha com as unidades
+     * @access public
+     * @static
+     * @param void
+     * @return object
+     */
+    public static function buscar()
+    {
+        $sql = "SELECT * FROM SAC.dbo.tbPlanilhaUnidade ORDER BY Descricao";
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    } // fecha m�todo buscar()
 } // fecha class

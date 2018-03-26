@@ -12,44 +12,46 @@
 
 class Municipios extends MinC_Db_Table_Abstract
 {
-	protected $_banco  = 'agentes';
-	protected $_name   = 'Municipios';
-	protected $_schema = 'agentes';
+    protected $_banco  = 'agentes';
+    protected $_name   = 'Municipios';
+    protected $_schema = 'agentes';
 
 
-	/**
-	 * Busca os munic�pios para as combos
-	 * @access public
-	 * @param array $where (filtros)
-	 * @param array $order (ordena��o)
-	 * @return object
-	 */
-	public function combo($where = array(), $order = array())
-	{
-		$select = $this->select();
-		$select->setIntegrityCheck(false);
-		$select->from($this->_name
-			,array('idMunicipioIBGE AS id'
-				,'Descricao AS descricao'
-			)
-		);
+    /**
+     * Busca os munic�pios para as combos
+     * @access public
+     * @param array $where (filtros)
+     * @param array $order (ordena��o)
+     * @return object
+     */
+    public function combo($where = array(), $order = array())
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            $this->_name,
+            array('idMunicipioIBGE AS id'
+                ,'Descricao AS descricao'
+            )
+        );
 
-		// adiciona quantos filtros foram enviados
-		foreach ($where as $coluna => $valor) :
-			$select->where($coluna, $valor);
-		endforeach;
+        // adiciona quantos filtros foram enviados
+        foreach ($where as $coluna => $valor) :
+            $select->where($coluna, $valor);
+        endforeach;
 
-		// adicionando linha order ao select
-		$select->order($order);
-		return $this->fetchAll($select);
-	} // fecha m�todo combo()
+        // adicionando linha order ao select
+        $select->order($order);
+        return $this->fetchAll($select);
+    } // fecha m�todo combo()
 
 
-	public function buscaCompleta($where = array(), $order = array(), $dbg = null){
-
-            $select = $this->select();
-            $select->setIntegrityCheck(false);
-            $select->from(array('mu' => $this->_name),
+    public function buscaCompleta($where = array(), $order = array(), $dbg = null)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+                array('mu' => $this->_name),
                             array('mu.idMunicipioIBGE',
                                   'mu.IdMeso',
                                   'mu.idMicro',
@@ -58,25 +60,27 @@ class Municipios extends MinC_Db_Table_Abstract
                                   'mu.Longitude')
             );
 
-            $select->joinInner(array('uf' => 'UF'),'mu.idUFIBGE = uf.idUF',
+        $select->joinInner(
+                array('uf' => 'UF'),
+                'mu.idUFIBGE = uf.idUF',
                                 array('uf.idUF',
                                       'uf.Sigla',
                                       'uf.Descricao as dsUF',
                                       'uf.Regiao')
             );
 
-            foreach ($where as $coluna => $valor) :
+        foreach ($where as $coluna => $valor) :
                     $select->where($coluna, $valor);
-            endforeach;
+        endforeach;
 
-            $select->order($order);
+        $select->order($order);
 
-            if($dbg){
-                xd($select->assemble());
-            }
+        if ($dbg) {
+            xd($select->assemble());
+        }
 
-            return $this->fetchAll($select);
-	}
+        return $this->fetchAll($select);
+    }
 
     /**
      * Metodo para buscar as cidades de um determinado estado
@@ -96,15 +100,13 @@ class Municipios extends MinC_Db_Table_Abstract
         //$sql.= "WHERE idUFIBGE = " . $idUF . " ";
         //$sql.= "ORDER BY Descricao;";
 
-        try
-        {
+        try {
             $this->_db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Cidades: " . $e->getMessage();
         }
-    echo $sql;die;
+        echo $sql;
+        die;
         return $this->_db->fetchAll($sql);
     }
 }

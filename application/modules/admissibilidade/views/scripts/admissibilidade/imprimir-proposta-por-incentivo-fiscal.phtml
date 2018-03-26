@@ -635,11 +635,11 @@
                     </table>
                 </fieldset>
                 <fieldset>
-                    <legend>Impacto Ambiental</legend>
+                    <legend>Descri&ccedil;&atilde;o da Atividade</legend>
                     <table class="tabela">
                         <?php if(is_array($this->itensGeral) and count($this->itensGeral)>0){ ?>
                             <tr>
-                                <td><?php echo (trim(strip_tags($this->itensGeral[0]->ImpactoAmbiental)) != "")?strip_tags($this->itensGeral[0]->ImpactoAmbiental,"<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>"):"N&atilde;o informado.";  ?></td>
+                                <td><?php echo (trim(strip_tags($this->itensGeral[0]->DescricaoAtividade)) != "")?strip_tags($this->itensGeral[0]->DescricaoAtividade,"<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>"):"N&atilde;o informado.";  ?></td>
                             </tr>
                         <?php }?>
                     </table>

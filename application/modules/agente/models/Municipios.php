@@ -101,5 +101,4 @@ class Agente_Model_Municipios extends MinC_Db_Model
     {
         $this->_Descricao = $Descricao;
     }
-
 }

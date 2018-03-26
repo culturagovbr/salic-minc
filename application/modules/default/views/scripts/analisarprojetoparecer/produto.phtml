@@ -14,109 +14,793 @@
 <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/_samples/sample.js"></script>
 <link type="text/css" rel="stylesheet" href="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/_samples/sample.css" />
 
-<div class="container-fluid">
-    <!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
-    <div class="row" >
-        <div class="col s12">
-            <div id="breadcrumb">
-                <ul>
-                    <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para P&aacute;gina Inicial">In&iacute;cio</a></li>
-                    <li class="second">An&aacute;lise T&eacute;cnica Inicial</li>
-                    <li class="second"><a href="<?php echo $this->url(array('module' => 'parecer', 'controller' => 'analise-inicial', 'action' => 'index'), '', true); ?>" title="Ir para P&aacute;gina Inicial">Projetos/Produtos para An&aacute;lise</a></li>
-                    <li class="last">An&aacute;lise do Produtos</li>
-                </ul>
-            </div>
-        </div>
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<div id="breadcrumb">
+    <ul>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para P&aacute;gina Inicial">In&iacute;cio</a></li>
+        <li class="second">An&aacute;lise T&eacute;cnica Inicial</li>
+        <li class="second"><a href="<?php echo $this->url(array('module' => 'parecer', 'controller' => 'analise-inicial', 'action' => 'index'), '', true); ?>" title="Ir para P&aacute;gina Inicial">Projetos/Produtos para An&aacute;lise</a></li>
+        <li class="last">An&aacute;lise do Produtos</li>
+    </ul>
+</div>
+<div id="titulo">
+    <div>An&aacute;lise do Produto <span class="voltar"><a href="javascript:voltar();" title="P&aacute;gina Anterior">Voltar</a></span></div>
+</div>
+<div id="dialog-valor" class="sumir" title="Valor Inv&aacute;lido">
+    <div class="msgERROR">
+        <div>Valor de remanejamento maior que o permitido! M&aacute;ximo : <span id="valorpossivelApresentacao"></span></div>
     </div>
-    <div class="row" >
-        <div class="col s12">
-            <h3 class="left">An&aacute;lise do Produto </h3>
-            <a class="btn right" href="javascript:voltar();" title="P&aacute;gina Anterior">Voltar</a>
-        </div>
-    </div>
-    <div id="dialog-valor" class="sumir" title="Valor Inv&aacute;lido">
-        <div class="msgERROR">
-            <div>Valor de remanejamento maior que o permitido! M&aacute;ximo : <span id="valorpossivelApresentacao"></span></div>
-        </div>
-    </div>
-    <div class="row" >
-        <div class="col s12">
-            <h4>An&aacute;lise de Conte&uacute;do do Projeto Nr: <?php echo $this->projeto->PRONAC; ?> - <?php echo $this->projeto->NomeProjeto; ?></h4>
-            <h5>Produto
-                <?php if ($this->projeto->stPrincipal): ?>
-                    Principal
-                <?php else:  ?>
-                    Secundario
-                <?php endif;  ?>
-               : <?php echo $this->projeto->dsProduto; ?>
-            </h5>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
-          <ul class="tabs">
-            <li class="tab col s3"><a class="active" href="#test1">An&aacute;lise de conte&uacute;do</a></li>
-            <li class="tab col s3"><a href="#test2">An&aacute;lise de custos</a></li>
-                <li
-                    class="tab col s3
-                            <?php if(!(($this->stPrincipal == 1) && ($this->grupoAtivo == Autenticacao_Model_Grupos::PARECERISTA))): ?>
-                                disabled text-gray grey lighten-2
-                            <?php endif; ?>
-                ">
-                    <a href="#test3">Dados dos Produtos Secund&aacute;rios</a></li>
-                <li class="tab col s3
-                            <?php if(!(($this->stPrincipal == 1) && ($this->produtosSecundariosEmAnalise == 0))): ?>
-                                disabled grey lighten-2
-                            <?php endif; ?>
-                ">
-                    <a href="#test4">Consolida&ccedil;&atilde;o do Parecer T&eacute;cnico</a>
-                </li>
-          </ul>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col s12">
-            <div id="test1" class="col s12">
-                <?php echo $this->partial('produto/analise-conteudo.phtml', 'parecer', $this); ?>
-            </div>
-            <div id="test2" class="col s12">
-                <?php echo $this->partial('produto/analise-custo.phtml', 'parecer', $this); ?>
-            </div>
-            <?php if(($this->stPrincipal == 1) && ($this->grupoAtivo == Autenticacao_Model_Grupos::PARECERISTA)): ?>
-                <div id="test3" class="col s12">
-                    <?php echo $this->partial('produto/secundarios.phtml', 'parecer', $this); ?>
-                </div>
+</div>
+<!-- ========== INÍCIO CONTE¿DO ========== -->
+<div id="conteudo">
+    <table class="tabela" >
+        <tr>
+            <th>
+                An&aacute;lise de Conte&uacute;do do Projeto Nr: <?php echo $this->projeto->PRONAC; ?> - <?php echo $this->projeto->NomeProjeto; ?>
+                <br/>Produto <?php
+                if ($this->projeto->stPrincipal) {
+                    echo 'Principal';
+                } else {
+                    echo 'Secundario';
+                }
+                ?>: <?php echo $this->projeto->dsProduto; ?>
+            </th>
+        </tr>
+    </table>
+    <!-- FIM ANALISE DE CONTE&UACUTE;DO  -->
+    <table class="tabela">
+        <tr>
+            <td><input type="button" id="abaAnaliseConteudo" class="btn_adicionar" />An&aacute;lise de conte&uacute;do</td>
+        </tr>
+    </table>
+    <!-- Formulario -->
+    <div id="divAnaliseConteudo" style="display:none;">
+        <form name="formAnaliseConteudo" id="formAnaliseConteudo" action="<?php echo $this->url(array('controller' => 'analisarprojetoparecer', 'action' => 'analisedeconteudo')); ?>" method="post">
+            <input type="hidden" id="stAcao" name="stAcao" value="0"/>
+            <input type="hidden" name="idPRONAC" value="<?php echo $this->projeto->IdPRONAC; ?>"/>
+            <input type="hidden" name="idProduto" value="<?php echo $this->projeto->idProduto; ?>"/>
+            <input type="hidden" id="stPrincipal" name="stPrincipal" value="<?php echo $this->projeto->stPrincipal; ?>"/>
+            <input type="hidden" id="idD" name="idD" value="<?php echo $this->idD; ?>"/>
+
+            <table class="tabela" style="width: 95%; <?php if ($this->IN2017) { echo 'display:none'; }; ?>">
+                <tr>
+                    <th colspan="5" class="center">Enquadramento</th>
+                </tr>
+                <tr>
+                    <td colspan="5">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td rowspan="2" id="Lei8313" colspan="2">
+                        <b>Lei 8.313/91 alterada pela Lei 9.874/1999 * </b>
+                        <p style="margin-top: 10px;">
+                            <input type="radio" style="margin-right: 5px;" value="1" name="Lei8313" onclick="APPescolherLei_8313();"/>Sim &nbsp;&nbsp;
+                            <input type="radio" style="margin-right: 5px;" value="0" name="Lei8313" onclick="APPescolherLei_8313();" />N&atilde;o
+                        </p>
+                    </td>
+                    <td id="Artigo3"><b>Artigo 3&deg;</b>
+                        <p style="margin-top: 10px;">
+                            <input type="radio" style="margin-right: 5px;" value="1" name="Artigo3" onclick="APPescolherArtigo3();" />Sim &nbsp;&nbsp;
+                            <input type="radio" style="margin-right: 5px;" value="0" name="Artigo3" onclick="APPescolherArtigo3();" />N&atilde;o
+                        </p>
+                    </td>
+                    <td><b>Inciso</b>
+                        <p>
+                            <select class="campo select_simples" id="IncisoArtigo3" name="IncisoArtigo3">
+                                <option value="0" >Selecione</option>
+                                <option value="1">I</option>
+                                <option value="2" >II</option>
+                                <option value="3" >III</option>
+                                <option value="4" >IV</option>
+                                <option value="5" >V</option>
+                            </select>
+                        </p>
+                    </td>
+                    <td id="AlineaArtigo3">
+                        <b>Alinea Artigo 3</b>
+                        <p style="margin-top: 10px;">
+                            <input type="text" class="input_simples" name="AlineaArtigo3" id="AlineaArtigo3" />
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td id="Artigo18">
+                        <b>Artigo 18&deg;</b>
+                        <p style="margin-top: 10px;">
+                            <input type="radio" style="margin-right: 5px;" value="1" name="Artigo18" onclick="APPescolherArt_18();" />Sim &nbsp;&nbsp;
+                            <input type="radio" style="margin-right: 5px;" value="0" name="Artigo18" onclick="APPescolherArt_18();" />N&atilde;o
+                        </p>
+                    </td>
+                    <td id="AlineaArtigo18">
+                        <b>Alinea Artigo 18</b>
+                        <p style="margin-top: 10px;">
+                            <input type="text" class="input_simples" name="AlineaArtigo18" />
+                            <input type="hidden" name="AlineaArt18" id="AlineaArt18" />
+                        </p>
+                    </td>
+                    <td id="Artigo26">
+                        <b>Artigo 26&deg;</b>
+                        <p style="margin-top: 10px;">
+                            <input type="radio" style="margin-right: 5px;" value="1" name="Artigo26" onclick="APPescolherArt_26();" />Sim &nbsp;&nbsp;
+                            <input type="radio" style="margin-right: 5px;" value="0" name="Artigo26" onclick="APPescolherArt_26();" />N&atilde;o
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <b>Decreto 5761/2006 *</b>
+                        <p style="margin-top: 10px;">
+                            <input type="radio" style="margin-right: 5px;" value="1" name="Lei5761" onclick="APPescolherDecreto5761();" />Sim &nbsp;&nbsp;
+                            <input type="radio" style="margin-right: 5px;" value="0" name="Lei5761" onclick="APPescolherDecreto5761();" />N&atilde;o
+                        </p>
+                    </td>
+                    <td id="Artigo27">
+                        <b>Artigo 27&deg;</b>
+                        <p style="margin-top: 10px;">
+                            <input type="radio" style="margin-right: 5px;"  value="1" name="Artigo27" />Sim &nbsp;&nbsp;
+                            <input type="radio" style="margin-right: 5px;"  value="0" name="Artigo27" />N&atilde;o
+                        </p>
+                    </td>
+                    <td id="IncisoArtigo27">
+                        <b>Inciso(s)</b>
+                        <p style="margin-top: 10px;">
+                            <input type="checkbox" style="margin-right: 3px;" value="1" name="IncisoArtigo27_I" />I &nbsp;&nbsp;&nbsp;
+                            <input type="checkbox" style="margin-right: 3px;" value="1" name="IncisoArtigo27_II" />II &nbsp;&nbsp;&nbsp;
+                            <input type="checkbox" style="margin-right: 3px;" value="1" name="IncisoArtigo27_III" />III &nbsp;&nbsp;&nbsp;
+                            <input type="checkbox" style="margin-right: 3px;" value="1" name="IncisoArtigo27_IV" />IV
+                        </p>
+                    </td>
+                </tr>
+            </table>
+            <table class="tabela" style="width: 95%;">
+            <tr>
+              <td colspan="5">
+                <b>Parecer de Conteúdo do Produto*</b>
+                <p>
+                  <center>
+                    <textarea class="textarea_simples" id="ParecerDeConteudo" name="ParecerDeConteudo" rows="10" style="width: 98%;"></textarea>
+                  </center>
+              </td>
+	    </tr>
+
+	    <tr>
+              <td colspan="5">
+                <b>Parecer Favor&aacute;vel? *</b>
+                <p style="margin-top: 10px;">
+                  <input type="radio" style="margin-right: 5px;" value="1" class="ParecerFavoravel" id="ParecerFavoravel" name="ParecerFavoravel" checked="checked" />Sim &nbsp;&nbsp;
+                  <input type="radio" style="margin-right: 5px;" value="0" class="ParecerFavoravel" id="ParecerDesfavoravel" name="ParecerFavoravel" />N&atilde;o
+                </p>
+              </td>
+            </tr>
+
+	    <?php if($this->grupoAtivo == 93):?>
+
+            <?php else: ?>
+            <tr id="btSalvar">
+              <td colspan="6" align="center">
+                <input type="button" id="btSalvarAnaliseDeConteudo" value=" " class="btn_salvar"/>
+              </td>
+            </tr>
             <?php endif; ?>
-            <?php if(($this->stPrincipal == 1) && ($this->produtosSecundariosEmAnalise == 0)): ?>
-                <div id="test4" class="col s12">
-                    <?php echo $this->partial('produto/consolidacao.phtml', 'parecer', $this); ?>
-               </div>
-            <?php endif; ?>
-        </div>
-        <!-- MODAL -->
-        <div id="alteraritemsolicitado" link="<?php echo $hrefAlteraritemsolicitado; ?>" style="display: none;"></div>
-        <div id="confirmacao" style="display: none;"></div>
-        <!-- FIM MODAL -->
+
+            </table>
+        </form>
     </div>
+
+    <table class="tabela">
+        <tr>
+            <td><input type="button" id="abaAnaliseCusto" class="btn_adicionar" />An&aacute;lise de custos</td>
+        </tr>
+    </table>
+    <div id="divAnaliseCusto" style="display:none;">
+        <table class="tabela" style="width: 95%;" width="95%">
+            <tr>
+                <th colspan="13">Planilha de Or&ccedil;amento Sugerido <input id="valorpossivel" value="<?php echo $this->valorpossivel;?>" type="hidden"/></th>
+            </tr>
+            <?php
+            $nrfonte = 0;
+            $item = 1;
+            //ForeachFonteIncentivo
+            foreach ($this->itens['fonte'] as $fonte => $arrayProdutos) {
+                ?>
+            <tr>
+                <td colspan="11">
+                    <div tipo="fonte" fonte="<?php echo $nrfonte; ?>" aberto="true" class="icn_menos" style="width:90%"><span class="red-text del_link" style="font-size: 20pt; font-weight: 800;"><?php echo $fonte; ?></span></div>
+                </td>
+            </tr>
+            <?php
+                $nrproduto = 0;
+                foreach ($arrayProdutos as $produto => $arrayEtapas) {
+                    ?>
+            <tr class='master' fonte="<?php echo $nrfonte; ?>">
+                <td class='master' colspan="11">
+                    <div  tipo="produto" aberto="true" fonte="<?php echo $nrfonte; ?>" produto ="<?php echo $nrproduto; ?>" class="icn_menos clickproduto" style="width:98%; margin-left:2%;"><span class="green-text del_link" style="font-size: 16pt; font-weight: 800;"><?php echo $produto; ?></span></div>
+                </td>
+            </tr>
+        <?php
+        $nretapa = 0;
+                    foreach ($arrayEtapas as $etapa => $arrayCidades) {
+                        ?>
+            <tr class="master produto" produto="<?php echo $nrproduto; ?>"  fonte="<?php echo $nrfonte; ?>" >
+                <td colspan="11">
+                    <div tipo="etapa" fonte="<?php echo $nrfonte; ?>" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>" aberto="true" class="icn_menos" style="width:94%; margin-left:4%;"><span class="orange-text del_link" style="font-size: 14pt; font-weight: 800;"><?php echo $etapa; ?></span></div>
+                </td>
+            </tr>
+            <?php
+                $nrcidade = 0;
+                foreach ($arrayCidades as $cidade => $planilha) {
+            ?>
+            <tr class="master produto etapa" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>"  fonte="<?php echo $nrfonte; ?>" >
+                <td colspan="11">
+                    <div tipo="cidade" fonte="<?php echo $nrfonte; ?>" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>" cidade="<?php echo $nrcidade; ?>" aberto="true" class="icn_menos" style="width:94%; margin-left:6%;">
+                        <span class="black-text del_link" style="font-size: 12pt; font-weight: 800;"><?php echo $cidade; ?></span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>"  fonte="<?php echo $nrfonte; ?>" cidade="<?php echo $nrcidade; ?>">
+                <td colspan="11">
+                    <table class="tabela">
+                        <?php
+                            /* INICIO PLANILHA DE ITENS */
+                            $primeiro = 0;
+                            foreach ($planilha['itens'] as $idPlanilhaProjeto => $valPlanilha) {
+                                $valorprodutosolicitado = 0;
+                                $valorprodutoparecerista = 0;
+                                $estiloCustoPraticado = ($valPlanilha['Custo praticado'] == 0) ? '' : 'valor_maior_que_praticado';
+
+                                $trCampo = "<tr>";
+                                $conteudo = "<tr class='item $estiloCustoPraticado' idPlanilhaProjeto='{$idPlanilhaProjeto}' id='item{$idPlanilhaProjeto}'>";
+                                unset($valPlanilha['Custo praticado']);
+
+                                foreach ($valPlanilha as $camp => $cont) {
+                                    $trCampo .= "<th>{$camp}</th>";
+                                    if ($camp == 'Valor Unitário' || $camp == 'Valor Solicitado' || $camp == 'Valor Sugerido pelo Parecerista') {
+                                        if ($camp == 'Valor Sugerido pelo Parecerista') {
+                                            $conteudo .= "<td class='ValorSugerido right-align'>{$this->formatarReal($cont)}</td>";
+                                        }
+                                        else {
+                                            $conteudo .= "<td class='right-align'>{$this->formatarReal($cont)}</td>";
+                                        }
+                                    }
+                                    else {
+                                        if ($camp == 'Justificativas do Parecerista') {
+                                            $conteudo .= "<td class='JustParecerista'>{$cont}</td>";
+                                        }
+                                        else {
+                                            $conteudo .= "<td>{$cont}</td>";
+                                        }
+                                    }
+                                }
+                                $trCampo .= "</tr>";
+                                $conteudo .= "</tr>";
+
+                                if ($primeiro == 0) {
+                                    echo $trCampo;
+                                }
+
+                                echo $conteudo;
+                                $primeiro++;
+                            }
+                        ?>
+                        <tr style="font-weight: bold;">
+                            <td class="left-align black-text" style="font-size: 12pt; " colspan="7">Total de UF</td>
+                            <td class="right-align black-text" style="font-size: 12pt; "><?php echo $planilha['totalUfSolicitado']; ?></td>
+                            <td class="right-align black-text" style="font-size: 12pt;">&nbsp;</td>
+                            <td class="valorUfSugerido  right-align" style="font-size: 12pt; width: 15%;"><?php echo $planilha['totalUfSugerido']; ?></td>
+                            <td class="left-align black-text" style="font-size: 12pt; width: 12%;">&nbsp;</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+                                        <?php
+                                        /* FIM PLANILHA DE ITENS */
+                                    }
+            $nretapa++;
+        } //fechaForeachetapa
+        $nrproduto++;
+    } //fechaForeachproduto
+    $nrfonte++;
+}//fechaForeachFonteIncentivo
+?>
+            <tr>
+                <td colspan="11">
+                    <table class="tabela">
+                        <tr>
+                            <th colspan="5">Total Solicitado do produto - Todas as fontes de incentivo</th>
+                            <th colspan="6">Total Sugerido do produto - Todas as fontes de incentivo</th>
+                        </tr>
+                        <tr>
+                            <td class="centro black-text" style="font-size: 12pt; width: 12%; font-weight: bold;" colspan="5"><?php echo $this->itens['totalSolicitado']; ?></td>
+                            <td class="centro valorTotalSugerido esquerda black-text" style="font-size: 12pt; width: 12%; font-weight: bold;" colspan="6"><?php echo $this->itens['totalSugerido']; ?></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+    </div>
+
+    <?php if(($this->stPrincipal == 1) && ($this->grupoAtivo == Autenticacao_Model_Grupos::PARECERISTA)){ ?>
+    <table class="tabela">
+        <tr>
+            <td><input type="button" id="abaProdutosSecundarios" class="btn_adicionar" onclick="abrirfechar('produtosSecundarios');"/>Dados dos Produtos Secund&aacute;rios</td>
+        </tr>
+    </table>
+    <table class="tabela sumir" id="produtosSecundarios" style="width:95%" width="95%">
+        <?php if (count($this->produtosSecundarios)){ ?>
+        <tr>
+            <th align="left">PRODUTO</th>
+        </tr>
+        <?php if (!empty($this->produtosSecundarios) ) {?>
+            <?php foreach($this->produtosSecundarios as $ps){ ?>
+            <tr>
+                <td class="" align="left">
+                    <a target="_blanck" href="<?php echo $this->url(array('controller'=> 'analisarprojetoparecer','action' =>'produto'));?>?idPronac=<?php echo $ps['IdPRONAC']; ?>&idProduto=<?php echo $ps['idProduto']; ?>&stPrincipal=<?php echo $ps['stPrincipal'];?>">
+                        <?php echo $ps['Produto'] ;?>
+                    </a>
+                </td>
+            </tr>
+            <?php } ?>
+        <?php } ?>
+
+        <?php } else { ?>
+            <tr>
+                <td align="center" style="color: red-text; font-size: 16px;">N&atilde;o h&aacute; produto secund&aacute;rio.</td>
+            </tr>
+        <?php } ?>
+    </table>
+    <?php } ?>
+
+    <?php if(($this->stPrincipal == 1) && ($this->produtosSecundariosEmAnalise == 0)){ ?>
+    <table class="tabela">
+        <tr>
+            <td><input type="button" id="abaConsolidacao" class="btn_adicionar" onclick="abrirfechar('consolidacao');" />Consolida&ccedil;&atilde;o do Parecer T&eacute;cnico</td>
+        </tr>
+    </table>
+
+    <form id="formConsolidacao" action="<?php echo $this->url(array('controller' => 'analisarprojetoparecer', 'action' => 'consolidacaoprojeto')); ?>" method="post">
+
+        <input type="hidden" name="idPronacP" 	 value="<?php echo $_GET['idPronac']; ?>" />
+        <input type="hidden" name="AnoProjeto" 	 value="<?php echo $this->projeto->AnoProjeto; ?>" />
+        <input type="hidden" name="Sequencial" 	 value="<?php echo $this->projeto->Sequencial; ?>" />
+        <input type="hidden" name="sugeridoReal" value="<?php echo $this->itens['totalSugerido']; ?>" />
+        <input type="hidden" name="stPrincipal"  value="<?php echo $_GET['stPrincipal']; ?>" />
+        <input type="hidden" name="idProduto" 	 value="<?php echo $_GET['idProduto']; ?>" />
+        <?php if ($this->IN2017 && $this->stPrincipal): ?>
+        <input type="hidden" name="dsAcaoAlcanceProduto" id="consolidacaoDsAcaoAlcanceProduto" value="" />
+	<?php endif; ?>
+
+        <table class="tabela sumir" id="consolidacao" style="width:95%" width="95%">
+<?php if($this->Perfil == Autenticacao_Model_Grupos::PARECERISTA) { ?>
+            <tr>
+                <th colspan="5">Consolida&ccedil;&atilde;o do Parecer T&eacute;cnico</th>
+            </tr>
+            <tr>
+                <td align="left" class="destacar bold" width="180">Parecer Favor&aacute;vel?</td>
+                <td colspan="5">
+                    <input class="obrigatorioRadio" <?php if(count($this->consolidacao) > 0){ echo ($this->consolidacao[0]['ParecerFavoravel'] == 2) ? 'checked="checked"' : ''; } ?> type="radio" name="parecerProjeto" id="parecerProjeto1" value="2" /> <label for="parecerProjeto2" style="margin-right:25px;">Sim</label>
+                    <input class="obrigatorioRadio" <?php if(count($this->consolidacao) > 0){ echo ($this->consolidacao[0]['ParecerFavoravel'] == 1) ? 'checked="checked"' : ''; } ?> type="radio" name="parecerProjeto" id="parecerProjeto1" value="1" /> <label for="parecerProjeto1">N&atilde;o</label>
+                </td>
+            </tr>
+	    <?php $escondeLinha = ($this->IN2017) ? "display:none;" : ""; ?>
+            <tr style="<?php echo $escondeLinha; ?>">
+                <td align="left" class="destacar bold">&Aacute;rea / Segmento do Projeto</td>
+                <td valign="top" width="300px">
+                    <label for="areaCultural">&Aacute;rea Cultural</label>
+                    <select name="areaCultural" id="areaCultural" class="input_simples obrigatorio" style="width: 160px;">
+
+                        <option value=""> - Selecione - </option>
+                        <?php foreach ($this->comboareasculturais as $key => $value){ ?>
+                        <option value="<?php echo $key; ?>" <?php if ($this->projeto->Area == $key) echo "selected=\"selected\""; ?>><?php echo $value ; ?></option>
+                        <?php } ?>
+
+                    </select>
+                    &nbsp; <span id="erroAreaCultural" class="spanError"></span>
+
+                </td>
+                <td>
+                    <label for="segmentoCultural">Segmento Cultural</label>
+                    <select name="segmentoCultural" id="segmentoCultural" class="input_simples obrigatorio">
+
+                        <?php if (!isset($this->projeto->Area) || empty($this->projeto->Area)) { ?>
+                            <option value=""> - Selecione uma &Aacute;rea Cultural - </option>
+                        <?php } else { ?>
+
+                            <?php if (!isset($this->projeto->Segmento) || empty($this->projeto->Segmento)) { ?>
+                            <option value=""> - Selecione - </option>
+                            <?php } ?>
+
+                            <?php foreach ($this->combosegmentosculturais as $combosegmentocultural){ ?>
+                            <option value="<?php echo $combosegmentocultural->id; ?>" <?php if ($this->projeto->Segmento == $combosegmentocultural->id) echo "selected=\"selected\""; ?>>
+                            <?php echo $combosegmentocultural->descricao; ?>
+                            </option>
+                            <?php } ?>
+
+                        <?php } ?>
+
+                    </select>
+                    &nbsp; <span id="erroSegmentoCultural" class="spanError"></span>
+                </td>
+            </tr>
+            <tr style="<?php echo $escondeLinha; ?>">
+                <td align="left" class="destacar bold">Enquadramento</td>
+                <td width="250" colspan="2">
+                    <input type="hidden" name="enquadramentoProjeto" id="enquadramentoProjeto" value="" class="obrigatorio" />
+                    <span id="enquadramentoText" class="bold"></span>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" class="destacar bold">Sugerido</td>
+                <td align="left" colspan="2"><?php echo $this->itens['totalSugerido']; ?></td>
+            </tr>
+
+            <?php if ($this->IN2017 && $this->stPrincipal): ?>
+	    <tr>
+	      <td class="destacar bold" colspan="5">
+                A&ccedil;&otilde;es relevantes para o sucesso do projeto*
+	      </td>
+	    </tr>
+            <tr>
+	      <td colspan="5">
+                <p>
+                  <center>
+								    <textarea class="textarea_simples" id="dsAcaoAlcanceProduto" name="dsAcaoAlcanceProduto" rows="10" style="width: 98%;"><?php echo $this->AcoesRelevantes; ?></textarea>
+                  </center>
+	      </td>
+	    </tr>
+	    <?php endif; ?>
+
+	    <tr>
+	      <td class="destacar bold" colspan="5">
+                Parecer t&eacute;cnico*
+	      </td>
+	    </tr>
+            <tr>
+              <td colspan="5">
+		<p>
+
+                  <textarea cols="80" id="dsConsolidacao" name="dsConsolidacao" rows="10" class="textarea_simples" style="width: 99%"><?php echo isset($this->consolidacao[0]['ResumoParecer']) ? $this->consolidacao[0]['ResumoParecer'] : ''; ?></textarea>
+              </td>
+	      </p>
+            </tr>
+            <td colspan="5" align="center">
+                <input type="button" id="btSalvarConsolidacao" value=" " class="btn_salvar"/>
+            </td>
+
+<?php } else if ($this->Perfil != Autenticacao_Model_Grupos::PARECERISTA) { ?>
+
+            <tr>
+                <th colspan="2">Parecer</th>
+            </tr>
+            <tr>
+                <td colspan="2"><?php echo isset($this->consolidacao[0]['ResumoParecer']) ? $this->consolidacao[0]['ResumoParecer'] : '';
+                ?></td>
+            </tr>
+            <tr>
+                <th width="250" align="left">Sugerido</th>
+                <td><?php echo isset($this->consolidacao[0]['SugeridoReal']) ? $this->formatarReal($this->consolidacao[0]['SugeridoReal']) : ''; ?></td>
+            </tr>
+            <tr>
+                <th align="left">Enquadramentos</th>
+                <td><?php echo $this->enquadramento['Enquadramento'] == '1' ? 'Artigo 26' : 'Artigo 18'; ?></td>
+            </tr>
+	    <?php if (!$this->IN2017) { ?>
+            <tr>
+                <th align="left">&Aacute;rea / Segmento do Projeto</th>
+                <td><?php echo $this->dsArea.' - '.$this->dsSegmento; ?></td>
+            </tr>
+	    <?php } ?>
+            <tr align="left">
+                <th>Parecer favor&aacute;vel</th>
+                <td><?php echo isset($this->consolidacao[0]['ParecerFavoravel']) ? $this->consolidacao[0]['ParecerFavoravel'] == '2' ? 'SIM' : 'N&Atilde;O' : ''; ?></td>
+            </tr>
+        <?php } ?>
+        </table>
+    </form>
+    <?php } ?>
+
+    <!-- MODAL -->
+    <div id="alteraritemsolicitado" link="<?php echo $hrefAlteraritemsolicitado; ?>" style="display: none;"></div>
+    <div id="confirmacao" style="display: none;"></div>
+    <!-- FIM MODAL -->
 </div>
 <!-- ========== FIM CONTE&UACUTE;DO ========== -->
 
 <div id="confirma" class="sumir"></div>
 <div id="camposObrigatorios" class="sumir"></div>
 
+<!-- ========== FIM RODAP¿ DO CONTE&UACUTE;DO ========== -->
 <input type="hidden" name="grupoAtivo" id="grupoAtivo" value="<?php echo $this->grupoAtivo; ?>" />
-<input type="hidden" name="somenteLeitura" id="somenteLeitura" value="<?php echo $this->somenteLeitura ? 1 : 0; ?>" />
-<input type="hidden" name="IN2017" id="IN2017" value="<?php echo ($this->IN2017 == 1)? 1 : 0; ?>" />
-<input type="hidden" name="stPrincipal" id="stPrincipal" value="<?php echo ($this->stPrincipal == 1) ? 1 : 0; ?>" />
-<input type="hidden" name="produtosSecundariosEmAnalise" id="produtosSecundariosEmAnalise" value="<?php echo ($this->produtosSecundariosEmAnalise > 0 ) ? 1 : 0; ?>" />
-<input type="hidden" name="valorpossivelApresentacao" id="valorpossivelApresentacao" value="<?php echo $this->formatarReal($this->valorpossivel);?>" />
-<input type="hidden" name="IdPRONAC" id="IdPRONAC" value="<?php echo $this->projeto->IdPRONAC; ?>" />
-<input type="hidden" name="baseUrl" id="baseUrl" value="<?php echo $this->baseUrl(); ?>" />
-<input type="hidden" name="vlSolicitado" id="vlSolicitado" value="<?php echo $this->vlSolicitado;?>" />
-<input type="hidden" name="idProduto" id="idProduto" value="<?php echo $this->projeto->idProduto; ?>" />
 
-<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/tinymce/js/tinymce/tinymce.min.js"></script>
-<script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/jquery/plugins/editorRico.js"></script>
+<script type="text/javascript">
+    /*todo retirar php*/
+    function carregarTextAreaCKEditor(){
+        <?php if (!$this->somenteLeitura) : ?>
+            CKEDITOR.replace( 'ParecerDeConteudo', { toolbar: [] } );
+        <?php else : ?>
+            var parecer = $('#ParecerDeConteudo').val();
+            $('#ParecerDeConteudo').before(parecer).remove();
+            $('#ParecerFavoravel').attr('disabled', 1);
+            $('#ParecerDesfavoravel').attr('disabled', 1);
+            $('#btSalvarAnaliseDeConteudo').remove();
+            <?php if ($this->IN2017 && $this->stPrincipal && ($this->produtosSecundariosEmAnalise == 0)): ?>
+            var dsAcaoAlcanceProduto = $('#dsAcaoAlcanceProduto').val();
+                $('#dsAcaoAlcanceProduto').before(dsAcaoAlcanceProduto).remove();
+            <?php endif; ?>
+        <?php endif; ?>
 
+        <?php if(($this->stPrincipal == 1) && ($this->produtosSecundariosEmAnalise == 0)){ ?>
+            <?Php if ($this->IN2017 && $this->stPrincipal): ?>
+                CKEDITOR.replace( 'dsAcaoAlcanceProduto', { toolbar: [] } );
+            <?php endif; ?>
+
+            CKEDITOR.replace( 'dsConsolidacao', { toolbar: [] } );
+        <?php } ?>
+    }
+
+    /*todo retirar php*/
+    $(document).ready(function(){
+
+        carregarAnaliseDeConteudo();
+
+        $('#btSalvarAnaliseDeConteudo').click(function()
+        {
+            <?php if (!$this->somenteLeitura) : ?>
+                var parecer = CKEDITOR.instances['ParecerDeConteudo'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g,''),
+            <?php endif; ?>
+            erros = 0;
+
+            <?php if ($this->IN2017 && $this->stPrincipal && ($this->produtosSecundariosEmAnalise == 0)): ?>
+                var acoesRelevantes = CKEDITOR.instances['dsAcaoAlcanceProduto'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g,'');
+                if( acoesRelevantes.length  < 11){
+                    alertar('As a\xE7\xF5es relevantes devem ter no m\xEDnimo 11 caracteres!');
+                    erros ++;
+                }
+            <?php endif; ?>
+
+            if( parecer.length  < 11){
+                alertar('O parecer t&eacute;cnico deve ter no m\xEDnimo 11 caracteres!');
+                erros ++;
+            }
+
+            if (!erros) {
+                $('#formAnaliseConteudo').submit();
+            }
+            return false;
+        });
+
+        window.setTimeout('carregarTextAreaCKEditor()', 1000);
+
+        $('#areaCultural').change(function() {
+            carregarSegmento();
+        });
+
+        $('#segmentoCultural').change(function() {
+            carregarEnquadramento();
+        });
+
+        $('#btSalvarConsolidacao').click(function() {
+            <?php if ($this->IN2017 && $this->stPrincipal && ($this->produtosSecundariosEmAnalise == 0)) : ?>
+                $('#consolidacaoDsAcaoAlcanceProduto').val($('#dsAcaoAlcanceProduto').val());
+            <?php endif; ?>
+
+            var i = 0;
+            $('.obrigatorio').each(function(){
+                if($.trim($(this).val()) == ''){
+                    i++;
+                }
+            });
+
+            var boolValid = false;
+            $('.obrigatorioRadio').each(function() {
+                if ($(this).is(':checked') ) {
+                    boolValid = true;
+                }
+            });
+
+            var texto = CKEDITOR.instances['dsConsolidacao'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g,'');
+            if (texto == '' || texto == 'Digiteseutextoaqui...'){
+                i++;
+            }
+
+            if(i > 0 || !boolValid) {
+                $("#camposObrigatorios").dialog("destroy");
+                $("#camposObrigatorios").html("Favor preencher os dados obrig&aacute;torios!");
+                $("#camposObrigatorios").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width:320,
+                    height:160,
+                    modal: true,
+                    buttons : {
+                        'OK' : function(){
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+
+            } else {
+                $('#formConsolidacao').submit();
+            }
+        });
+
+        $("#valorpossivelApresentacao").html('<?php echo $this->formatarReal($this->valorpossivel);?>');
+        var grupoAtivo = $("#grupoAtivo").val();
+        if(grupoAtivo == "93"){
+            desabilitaFormConteudo(true);
+            $("#divAnaliseCusto a").click(function() { return false; });
+        }
+
+        var cont = 0;
+        $('.class_relatorio').each(function(){
+            var contAux = cont;
+            $('#abrir_fechar'+contAux).click(function(){
+                $('#div_relatorio'+contAux).toggle('slow');
+            });
+            cont++;
+        });
+
+        $('.linkrelatorio').click(function(){
+            var este = this;
+            var cont = $(este).attr('cont');
+            $('#div_relatorio'+cont).html('<table class="tabelaRelatorio" cellspacing="1" style="margin: 0;margin-left: 52px; width: 90%;  padding: 0px;"><tr><td align="center"><img src="../public/img/ajax.gif"/>&nbsp;Carregando...</td><tr></table>');
+            $('#div_relatorio'+cont).css('display','');
+            $.post($(este).attr('link'),{nrRelatorio: cont,idPRONAC:<?php echo $this->projeto->IdPRONAC; ?>},function(data){
+                $('#div_relatorio'+$(este).attr('cont')).html(data);
+            });
+        });
+        $(".icn_menos").click(function(){
+            var tipo = $(this).attr('tipo');
+            var aberto = $(this).attr('aberto');
+            if(aberto == 'true'){
+                adisplay = 'none';
+                $(this).attr('aberto','false');
+                $(this).removeClass('icn_menos').addClass('icn_mais');
+            }
+            else{
+                adisplay = '';
+                $(this).attr('aberto','true');
+                $(this).removeClass('icn_mais').addClass('icn_menos');
+            }
+            if(tipo == 'fonte'){
+                fonte = $(this).attr('fonte');
+                $(".master[fonte='"+fonte+"']").css('display', adisplay);
+                $(".clickproduto").removeClass('icn_mais').addClass('icn_menos');
+            }
+            if(tipo == 'produto'){
+                fonte = $(this).attr('fonte');
+                produto = $(this).attr('produto');
+                $(".produto[produto='"+produto+"'][fonte='"+fonte+"']").css('display', adisplay);
+            }
+            if(tipo == 'etapa'){
+                fonte = $(this).attr('fonte');
+                produto = $(this).attr('produto');
+                etapa = $(this).attr('etapa');
+                $(".etapa[produto='"+produto+"'][etapa='"+etapa+"'][fonte='"+fonte+"']").css('display', adisplay);
+            }
+            if(tipo == 'cidade'){
+                fonte = $(this).attr('fonte');
+                produto = $(this).attr('produto');
+                etapa = $(this).attr('etapa');
+                cidade = $(this).attr('cidade');
+                $(".cidade[produto='"+produto+"'][etapa='"+etapa+"'][cidade='"+cidade+"'][fonte='"+fonte+"']").css('display', adisplay);
+            }
+        });
+        $(".item").mouseover(function(){
+            $(this).addClass('fundo_linha3');
+        });
+        $(".item").mouseout(function(){
+            $(this).removeClass('fundo_linha3');
+        });
+        $(".item").click(function(){
+            if($(this).hasClass('fundo_linha4')){
+                $(this).removeClass('fundo_linha4');
+            }
+            else{
+                $(this).addClass('fundo_linha4');
+            }
+        });
+
+        APPescolherLei_8313();
+
+        carregarEnquadramento();
+    }); //fecha document.ready
+
+    function AlterarItem(idPlanilhaProjeto,idPronac,idProduto,stPrincipal)
+    {
+        //$('html').css('overflow', 'hidden');
+        var este = $('#alteraritemsolicitado');
+        este.html('<br><br><br><br><br><br><br><center>Aguarde, carregando dados...<br><img src="/public/img/ajax.gif" /></center><br>');
+	
+        este.dialog(
+            {
+                title:"Alterar Item",
+                resizable: false,
+                width:800,
+                height:600,
+                modal: false,
+                autoOpen:true,
+                closeOnEscape:true
+            }
+        );
+
+        $.post(
+            este.attr('link'),
+            {idPlanilhaProjeto:idPlanilhaProjeto,idPronac:idPronac,idProduto:idProduto,stPrincipal:stPrincipal},
+            function(data)
+                {
+                    este.html(data);
+                    este.dialog(
+                    {
+                        title:"Alterar Item",
+                        resizable: false,
+                        width:800,
+                        height:600,
+                        modal: false,
+                        autoOpen:true,
+                        closeOnEscape:true,
+                        buttons:
+                            {
+                            'Cancelar': function() {
+                                    $(this).dialog('close');
+                            },
+                            'Salvar': function() {
+                                var texto = $('#justificativa'+$('#idPlanilhaProjeto').val()).val();
+                                texto = texto.replace(/^\s+|\s+$/g,""); //retirando espa¿os
+                                if (texto.length <= 0 || texto=="")
+                                {
+                                    alertar('Dados obrigat\xF3rios n\xE3o informados.');
+                                    return false;
+                                }
+                                else
+                                {
+                                    var vlSugerido = $('#calcular_total'+$('#idPlanilhaProjeto').val()).html().replace(/\R\$\s+/g, '');
+                                    $('#totalcalculos'+$('#idPlanilhaProjeto').val()).val(vlSugerido);
+
+                                    var dados = $('#formSalvarItem').serialize();
+                                    $(this).append('<br><center>Aguarde, salvando informa\xE7\xF5es...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center><br>');
+                                    $.post($('#formSalvarItem').attr('action'),dados
+                                    ,function(data)
+                                    {
+                                        var resposta = data;
+                                        $('#item'+$('#idPlanilhaProjeto').val()+' .JustParecerista').html($("#justificativa"+$('#idPlanilhaProjeto').val()).val());
+                                        $('#item'+$('#idPlanilhaProjeto').val()+' .ValorSugerido').html($("#calcular_total"+$('#idPlanilhaProjeto').val()).html());
+                                        somarValores();
+
+                                        //atualiza novo valor possivel de remanejamento
+                                        var vlSolicitado = '<?php echo $this->vlSolicitado;?>';
+                                        var vlTotalSugerido = recuperaTotalSugerido();
+                                        var valorpossivel = vlSolicitado - vlTotalSugerido;
+                                        
+                                        $("#valorpossivel").val(valorpossivel);
+
+                                        //atualiza campo de apresentacao do novo valor possivel de remanejamento
+                                        var valorpossivelApresentacao = formatarParaReal(valorpossivel);
+                                        $("#valorpossivelApresentacao").html(valorpossivelApresentacao);
+
+                                        este.dialog('close');
+                                        janelaAlerta('Informa&ccedil;&otilde;es salvas com sucesso');
+                                    });
+                                }
+                            }
+                        }
+                    });
+                });
+    }
+
+    /*todo retirar php*/
+    function carregarAnaliseDeConteudo()
+    {
+        obj = {
+                stAcao: 1,
+                idPRONAC: <?php echo $this->projeto->IdPRONAC; ?>,
+                idProduto: <?php echo $this->projeto->idProduto; ?>,
+                stPrincipal: <?php echo $this->projeto->stPrincipal; ?>
+        };
+
+        recuperaFormulario($('#formAnaliseConteudo').attr('action'), obj);
+        return true;
+    }
+</script>
 <script type="text/javascript" src="/public/scripts/default/analisarprojetoparecer/produto.js"></script>
 <script type="text/javascript">APPescolherArt_18(); APPescolherArt_26(); APPescolherLei_8313(); APPescolherArtigo3();</script>

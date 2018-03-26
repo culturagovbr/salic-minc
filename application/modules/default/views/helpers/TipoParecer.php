@@ -12,36 +12,26 @@
 
 class Zend_View_Helper_TipoParecer
 {
-	/**
-	 * Método com a descrição dos tipos de parecer
-	 * @access public
-	 * @param string $parecer
-	 * @return string $descricao
-	 */
-	public function tipoParecer($parecer)
-	{
-		if ($parecer == 1)
-		{
-			$descricao = "Aprovação Inicial";
-		}
-		else if ($parecer == 2)
-		{
-			$descricao = "Complementação";
-		}
-		else if ($parecer == 3)
-		{
-			$descricao = "Prorrogação";
-		}
-		else if ($parecer == 4)
-		{
-			$descricao = "Redução";
-		}
-		else
-		{
-			$descricao = "";
-		}
+    /**
+     * Método com a descrição dos tipos de parecer
+     * @access public
+     * @param string $parecer
+     * @return string $descricao
+     */
+    public function tipoParecer($parecer)
+    {
+        if ($parecer == 1) {
+            $descricao = "Aprovação Inicial";
+        } elseif ($parecer == 2) {
+            $descricao = "Complementação";
+        } elseif ($parecer == 3) {
+            $descricao = "Prorrogação";
+        } elseif ($parecer == 4) {
+            $descricao = "Redução";
+        } else {
+            $descricao = "";
+        }
 
-		return $descricao;
-	} // fecha método tipoParecer()
-
+        return $descricao;
+    } // fecha método tipoParecer()
 } // fecha class

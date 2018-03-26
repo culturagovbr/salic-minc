@@ -12,16 +12,15 @@
 
 class Zend_View_Helper_FormatarMilhar
 {
-	/**
-	 * Formatar Milhar
-	 * @access public
-	 * @param string $valor
-	 * @return void
-	 */
-	function formatarMilhar($valor)
-	{
-		$valor = number_format($valor, 0, '.', '.');
-		return $valor;
-	} // fecha método formatarMilhar()
-
+    /**
+     * Formatar Milhar
+     * @access public
+     * @param string $valor
+     * @return void
+     */
+    public function formatarMilhar($valor)
+    {
+        $valor = number_format($valor, 0, '.', '.');
+        return $valor;
+    } // fecha método formatarMilhar()
 } // fecha class

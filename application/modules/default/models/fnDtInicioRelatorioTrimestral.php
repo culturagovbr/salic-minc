@@ -1,11 +1,12 @@
 <?php
 
-class fnDtInicioRelatorioTrimestral extends MinC_Db_Table_Abstract {
-
+class fnDtInicioRelatorioTrimestral extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'SAC';
     protected $_name = 'dbo.fnDtInicioRelatorioTrimestral';
 
-    public function dtInicioRelatorioTrimestral($idPronac) {
+    public function dtInicioRelatorioTrimestral($idPronac)
+    {
         $select = new Zend_Db_Expr("SELECT SAC.dbo.fnDtInicioRelatorioTrimestral($idPronac) as dtLiberacao");
         try {
             $db= Zend_Db_Table::getDefaultAdapter();
@@ -15,7 +16,4 @@ class fnDtInicioRelatorioTrimestral extends MinC_Db_Table_Abstract {
         }
         return $db->fetchRow($select);
     }
-    
 }
-
-?>

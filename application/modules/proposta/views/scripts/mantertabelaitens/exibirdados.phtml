@@ -1,15 +1,29 @@
+<?php echo $this->partial("inc/menu.phtml", $this); ?>
+
 <div class="container-fluid">
     <div class="row">
-        <?= $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto)); ?>
-        <div class="content col s10 m12 l10 planilha-produtos">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Produtos / Etapas / Itens j&aacute; cadastrados</h1>
 
-            <div id="titulo">
-                <div>
-                    Produtos / Etapas / Itens j&aacute; cadastrados
-                    <span class="voltar"><a href="#" onclick="voltar();">Voltar</a></span>
+                    <?php
+                    gerarNovoBreadCrumb(array(
+                        $this->layout['listagem'],
+                        array('Produtos / Etapas / Itens j&aacute; cadastrados' => '')
+                    ));
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
                 </div>
             </div>
-            <div id="conteudo">
+        </div>
+
+        <div class="content">
+            <div id="conteudo" class="card-panel">
                 <?php if ($this->itemBuscado) : ?>
                     <div class="padding10">Item buscado: "<?= $this->itemBuscado; ?>"</div>
                     <input id="itemBuscado" type="hidden" name="itemBuscado" value="<?= $this->itemBuscado; ?>">

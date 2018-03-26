@@ -12,42 +12,30 @@
 
 class Zend_View_Helper_TipoSolicitacaoRecurso
 {
-	/**
-	 * Método com os tipos de solicitações dos recursos
-	 * @access public
-	 * @param string $tp
-	 * @return string
-	 */
-	public function tipoSolicitacaoRecurso($tp)
-	{
-		$tp = trim($tp);
+    /**
+     * Método com os tipos de solicitações dos recursos
+     * @access public
+     * @param string $tp
+     * @return string
+     */
+    public function tipoSolicitacaoRecurso($tp)
+    {
+        $tp = trim($tp);
 
-		if ($tp == 'PI')
-		{
-			$ds = "Projeto Indeferido";
-		}
-		else if ($tp == 'EN')
-		{
-			$ds = "Projeto Aprovado - Enquadramento";
-		}
-		else if ($tp == 'OR')
-		{
-			$ds = "Projeto Aprovado - Orçamento";
-		}
-		else if ($tp == 'PP')
-		{
-			$ds = "Prorrogação de Prazo de Captação";
-		}
-		else if ($tp == 'PE')
-		{
-			$ds = "Prorrogação de Prazo de Execução";
-		}
-		else if ($tp == 'PC')
-		{
-			$ds = "Prestação de Contas";
-		}
+        if ($tp == 'PI') {
+            $ds = "Projeto Indeferido";
+        } elseif ($tp == 'EN') {
+            $ds = "Projeto Aprovado - Enquadramento";
+        } elseif ($tp == 'OR') {
+            $ds = "Projeto Aprovado - Orçamento";
+        } elseif ($tp == 'PP') {
+            $ds = "Prorrogação de Prazo de Captação";
+        } elseif ($tp == 'PE') {
+            $ds = "Prorrogação de Prazo de Execução";
+        } elseif ($tp == 'PC') {
+            $ds = "Prestação de Contas";
+        }
 
-		return $ds;
-	} // fecha método tipoSolicitacaoRecurso()
-
+        return $ds;
+    } // fecha método tipoSolicitacaoRecurso()
 } // fecha class

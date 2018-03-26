@@ -10,8 +10,8 @@
  * @author Equipe RUP - Politec
  * @author Vinícius Feitosa da Silva <viniciusfesil@gmail.com>
  */
-class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_Action_Abstract {
-
+class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_Action_Abstract
+{
     private $bln_readequacao = "false";
 
     /**
@@ -19,15 +19,14 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
      * @param void
      * @return void
      */
-    public function init(){
-        
-    	$this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
+    public function init()
+    {
+        $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
 
-        if ($auth->hasIdentity()) // caso o usu�rio esteja autenticado
-        {
+        if ($auth->hasIdentity()) { // caso o usu�rio esteja autenticado
             // verifica as permiss�es
             $PermissoesGrupo = array();
             $PermissoesGrupo[] = 131; // Coordenador de Admissibilidade
@@ -38,8 +37,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             $PermissoesGrupo[] = 121; // Tecnico
             $PermissoesGrupo[] = 122; // Coordenador de Acompanhamento
             $PermissoesGrupo[] = 103;
-            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) // verifica se o grupo ativo est� no array de permiss�es
-            {
+            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
                 parent::message("Voc� n�o tem permiss�o para acessar essa �rea do sistema!", "principal/index", "ALERT");
             }
 
@@ -51,13 +49,11 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             $this->view->grupoAtivo = $GrupoAtivo->codGrupo; // manda o grupo ativo do usu�rio para a vis�o
             $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o �rg�o ativo do usu�rio para a vis�o
         } // fecha if
-        else // caso o usu�rio n�o esteja autenticado
-        {
+        else { // caso o usu�rio n�o esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
         parent::init(); // chama o init() do pai GenericControllerNew
-       
     }
 
     // fecha m�todo init()
@@ -67,48 +63,46 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
      * @param void
      * @return void
      */
-    public function indexAction() 
+    public function indexAction()
     {
-    	/** Usuario Logado ************************************************/
-            $auth = Zend_Auth::getInstance(); // instancia da autentica��o
-            $idusuario = $auth->getIdentity()->usu_codigo;
-            //$idorgao = $auth->getIdentity()->usu_orgao;
+        /** Usuario Logado ************************************************/
+        $auth = Zend_Auth::getInstance(); // instancia da autentica��o
+        $idusuario = $auth->getIdentity()->usu_codigo;
+        //$idorgao = $auth->getIdentity()->usu_orgao;
             
-            $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
+        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
             //$codGrupo = $GrupoAtivo->codGrupo; //  Grupo ativo na sess�o
             $codOrgao = $GrupoAtivo->codOrgao; //  �rg�o ativo na sess�o
             
             $this->view->codOrgao = $codOrgao;
-            $this->view->idUsuarioLogado = $idusuario;
-            //$this->view->idorgao = $idorgao;
+        $this->view->idUsuarioLogado = $idusuario;
+        //$this->view->idorgao = $idorgao;
             /******************************************************************/
-    	
     }
     
-    public function parecertecnicoAction ()
+    public function parecertecnicoAction()
     {
-    	
     }
 
     public function novoparecerAction()
     {
-        if($_REQUEST){
-           //$post = Zend_Registry::get('request');
-           $pronac = $this->_request->getParam('pronac');
-           $ano = addslashes(substr($pronac,0,2));
-           $sequencial = addslashes(substr($pronac,2,strlen($pronac)));
+        if ($_REQUEST) {
+            //$post = Zend_Registry::get('request');
+            $pronac = $this->_request->getParam('pronac');
+            $ano = addslashes(substr($pronac, 0, 2));
+            $sequencial = addslashes(substr($pronac, 2, strlen($pronac)));
 
 
-           $arrBusca = array(
+            $arrBusca = array(
                'tbr.anoprojeto =?' => $ano,
                'tbr.sequencial =?' => $sequencial,
            );
-           $parecer = new Admissibilidade_Model_DbTable_Gerenciarparecertecnico();
-           $validapronac = $parecer->VerificaPronac($arrBusca);
-           if($validapronac > 0){
-               $listaparecer = $parecer->listar_parecer($arrBusca);
-               $this->view->parecer = $listaparecer;
-           }else{
+            $parecer = new Admissibilidade_Model_DbTable_Gerenciarparecertecnico();
+            $validapronac = $parecer->VerificaPronac($arrBusca);
+            if ($validapronac > 0) {
+                $listaparecer = $parecer->listar_parecer($arrBusca);
+                $this->view->parecer = $listaparecer;
+            } else {
                 parent::message("PRONAC n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
             }
         }
@@ -119,47 +113,43 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
     {
         $pronac = null;
         $idpronac = null;
-    	if (isset( $_POST['vpronac'] ) or isset( $_GET['idPronac'] )){
+        if (isset($_POST['vpronac']) or isset($_GET['idPronac'])) {
+            $pronac = $_POST['vpronac'];
+            $etiquetaApenas = $_POST['etiqueta'];
+            if (!empty($_GET['etiqueta'])) {
+                $etiquetaApenas = $_GET['etiqueta'];
+            }
+            $this->view->etiquetaApenas = $etiquetaApenas;
 
-            	$pronac = $_POST['vpronac'];
-                $etiquetaApenas = $_POST['etiqueta'];
-                if(!empty($_GET['etiqueta'])){
-                    $etiquetaApenas = $_GET['etiqueta'];
-                }
-                $this->view->etiquetaApenas = $etiquetaApenas;
+            /*if(isset( $_GET['idPronac'] )){
+                $idpronac = $_GET['idPronac'];
+            }*/
 
-                /*if(isset( $_GET['idPronac'] )){
-                    $idpronac = $_GET['idPronac'];
-                }*/
-
-    		//$busca = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::BuscaProjeto($pronac);
-                $tblProjeto = new Projetos();
-                if(!empty($pronac)){
-                    $rsProjeto = $tblProjeto->buscar(array('AnoProjeto + Sequencial=?'=>$pronac))->current();
-                    if ( empty ( $rsProjeto ) ){
-                            parent::message("Pronac inexistente na base de dados!", "/admissibilidade/gerenciarparecertecnico/imprimiretiqueta", "ERROR");
-                    }
-                    else 
-                    {
-                            $this->_redirect('/admissibilidade/gerenciarparecertecnico/dadosetiqueta?pronac='.$pronac.'&etiqueta='.$etiquetaApenas);
-                    }
-                }else{
+            //$busca = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::BuscaProjeto($pronac);
+            $tblProjeto = new Projetos();
+            if (!empty($pronac)) {
+                $rsProjeto = $tblProjeto->buscar(array('AnoProjeto + Sequencial=?'=>$pronac))->current();
+                if (empty($rsProjeto)) {
                     parent::message("Pronac inexistente na base de dados!", "/admissibilidade/gerenciarparecertecnico/imprimiretiqueta", "ERROR");
+                } else {
+                    $this->_redirect('/admissibilidade/gerenciarparecertecnico/dadosetiqueta?pronac='.$pronac.'&etiqueta='.$etiquetaApenas);
                 }
-
-    	}
-        
+            } else {
+                parent::message("Pronac inexistente na base de dados!", "/admissibilidade/gerenciarparecertecnico/imprimiretiqueta", "ERROR");
+            }
+        }
     }
     
-    public function dadosetiquetaAction() {
+    public function dadosetiquetaAction()
+    {
         //ini_set('max_execution_time', 500);
 
         $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
 
-        if (isset( $_GET['pronac'] )) {
+        if (isset($_GET['pronac'])) {
             $pronac = $_GET['pronac'];
             $etiquetaApenas = "nao";
-            if(!empty($_GET['etiqueta'])) {
+            if (!empty($_GET['etiqueta'])) {
                 $etiquetaApenas = $_GET['etiqueta'];
             }
             $this->view->etiquetaApenas = $etiquetaApenas;
@@ -172,7 +162,10 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             $caminho = $documentRoot."/public/barcode/imagem-".$pronac.".jpg";
 //            $caminho = "../public/barcode/imagem-".$pronac.".jpg";
             $imageResource = Zend_Barcode::draw(
-                'code39', 'image', $barcodeOptions, $rendererOptions
+                'code39',
+                'image',
+                $barcodeOptions,
+                $rendererOptions
             );
             imagejpeg($imageResource, $caminho);
 
@@ -183,10 +176,11 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             $consulta = array('pro.AnoProjeto + pro.Sequencial = ?'=>$pronac);
             $resp = $projetosDAO->buscarEditalProjeto($consulta);
             $idPreProjeto = $resp->idPreProjeto;
-            if(!empty ($resp->idEdital))
+            if (!empty($resp->idEdital)) {
                 $this->view->edital = true;
-            else
+            } else {
                 $this->view->edital = false;
+            }
 
             //DADOS DA ETIQUETA
             $dados = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::dadosEtiqueta($pronac);
@@ -195,7 +189,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             $dao = new Proposta_Model_AnalisarPropostaDAO();
             $this->view->itensGeral                 = $dao->buscarGeral($idPreProjeto);
             $propostaPorEdital = false;
-            if($this->view->itensGeral[0]->idEdital && $this->view->itensGeral[0]->idEdital != 0) {
+            if ($this->view->itensGeral[0]->idEdital && $this->view->itensGeral[0]->idEdital != 0) {
                 $propostaPorEdital = true;
             }
 
@@ -246,11 +240,11 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
 
             $arrWhereSomaPlanilha = array();
             $arrWhereSomaPlanilha['idPronac = ?']=$idPronac;
-            if($this->bln_readequacao == "false"){
+            if ($this->bln_readequacao == "false") {
                 $fonteincentivo = $planilhaproposta->somarPlanilhaProposta($idPreProjeto, 109);
                 $outrasfontes   = $planilhaproposta->somarPlanilhaProposta($idPreProjeto, false, 109);
                 $parecerista    = $planilhaprojeto->somarPlanilhaProjeto($idPreProjeto, 109);
-            }else{
+            } else {
                 $arrWhereFontesIncentivo = $arrWhereSomaPlanilha;
                 $arrWhereFontesIncentivo['idPlanilhaItem <> ? ']='206'; //elaboracao e agenciamento
                 $arrWhereFontesIncentivo['tpPlanilha = ? ']='SR';
@@ -301,7 +295,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             /***************** FIM  - MODO NOVO ********************/
 
 
-            if($propostaPorEdital) {
+            if ($propostaPorEdital) {
                 $tbFormDocumentoDAO = new tbFormDocumento();
                 $edital = $tbFormDocumentoDAO->buscar(array('idEdital = ?'=>$this->view->itensGeral[0]->idEdital,'idClassificaDocumento not in (?,24,25)'=>23));
 
@@ -310,10 +304,10 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
                 $tbPerguntaDAO = new tbPergunta();
                 $tbRespostaDAO = new tbResposta();
 
-                foreach($edital as $registro) {
-                    $questoes = $tbPerguntaDAO->montarQuestionario($registro["nrFormDocumento"],$registro["nrVersaoDocumento"]);
+                foreach ($edital as $registro) {
+                    $questoes = $tbPerguntaDAO->montarQuestionario($registro["nrFormDocumento"], $registro["nrVersaoDocumento"]);
                     $questionario = '';
-                    if(is_object($questoes) and count($questoes) > 0) {
+                    if (is_object($questoes) and count($questoes) > 0) {
                         foreach ($questoes as $questao) {
                             $resposta = '';
                             $where = array(
@@ -333,7 +327,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
                 $this->view->respostas = $arrRespostas;
             }
         }
-    	
+        
         if (isset($_POST['html']) && isset($_POST['pronac'])&& isset($_POST['caminho'])) {
             ini_set('max_execution_time', 500);
             $this->_helper->layout->disableLayout();
@@ -364,105 +358,102 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
             $html = $_POST['html'];
             $pdf = new PDF($html, 'pdf');
             echo $pdf->gerarRelatorio();*/
-    	}
+        }
     }
     
-    public function gerarcodigodebarrasAction(){
-    	//$this->_helper->layout->disableLayout();
+    public function gerarcodigodebarrasAction()
+    {
+        //$this->_helper->layout->disableLayout();
         
-    	$pronac = $_GET['pronac'];
-    	$barcodeOptions = array('text' => $pronac);
-    		$rendererOptions = array();
+        $pronac = $_GET['pronac'];
+        $barcodeOptions = array('text' => $pronac);
+        $rendererOptions = array();
 
    
-         $codigo = Zend_Barcode::factory(
-    			'code39', 'image', $barcodeOptions, $rendererOptions
-			)->draw();
-          copy($codigo, 'D:/imagem' );
+        $codigo = Zend_Barcode::factory(
+                'code39',
+   
+             'image',
+   
+             $barcodeOptions,
+   
+             $rendererOptions
+            )->draw();
+        copy($codigo, 'D:/imagem');
     }
     
     public function imprimirparecertecnicoAction()
     {
-    	   
-    	if (isset( $_POST['vpronac'] )){
-    		
-    		$pronac = $_POST['vpronac'];
-    		$busca = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::BuscaProjeto($pronac);
-    		if ( empty ( $busca ) )
-    		{
-    			parent::message("Pronac Inexistente na Base de Dados!", "/admissibilidade/gerenciarparecertecnico/imprimirparecertecnico", "ALERT");
-    			
-    		}
-    		else 
-    		{
-    			$this->_redirect('/admissibilidade/gerenciarparecertecnico/dadoshtml?pronac='.$pronac);
-    		}
-
-    	}
+        if (isset($_POST['vpronac'])) {
+            $pronac = $_POST['vpronac'];
+            $busca = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::BuscaProjeto($pronac);
+            if (empty($busca)) {
+                parent::message("Pronac Inexistente na Base de Dados!", "/admissibilidade/gerenciarparecertecnico/imprimirparecertecnico", "ALERT");
+            } else {
+                $this->_redirect('/admissibilidade/gerenciarparecertecnico/dadoshtml?pronac='.$pronac);
+            }
+        }
         
-   		 
+         
 //     	echo $_POST['html'];
 //      die();
-    	
     }
     
     public function dadoshtmlAction()
     {
-    	if (isset( $_GET['pronac'] )){
-    		$pronac = $_GET['pronac'];
+        if (isset($_GET['pronac'])) {
+            $pronac = $_GET['pronac'];
 
-    		$parecer = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::ParecerTecnico($pronac);
-    		$this->view->ParecerTecnico = $parecer;
-    		
-    		$analise = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::AnaliseConteudo($pronac);
-    		$this->view->AnaliseConteudo = $analise; 
+            $parecer = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::ParecerTecnico($pronac);
+            $this->view->ParecerTecnico = $parecer;
+            
+            $analise = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::AnaliseConteudo($pronac);
+            $this->view->AnaliseConteudo = $analise;
 
-	    	$fonte = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::FonteRecurso($pronac);
-	        $this->view->FonteRecurso = $fonte; 
-	        $produto = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Produto($pronac);
-	        $this->view->Produto = $produto;
-	        
-	        $etapa = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Etapa($pronac);
-	        $this->view->Etapa = $etapa;
-	        
-	        $uf = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Uf($pronac);
-	        $this->view->Uf = $uf;
-	        
-	        $item = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Item($pronac);
-	        $this->view->Item = $item;
-	        
-	        $unidade = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Unidade($pronac);
-	        $this->view->Unidade = $unidade; 
-    	}
-    	
-    if (isset( $_POST['html'] )){
-    	//echo ($_POST['html']);die;
-
-    		$html = $_POST['html'];
-
-	    	$this->_helper->layout->disableLayout();       
-	        $this->_helper->viewRenderer->setNoRender(); 
-	
-	        $pdf = new PDF($html, 'pdf');       
-	        $pdf->gerarRelatorio();
+            $fonte = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::FonteRecurso($pronac);
+            $this->view->FonteRecurso = $fonte;
+            $produto = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Produto($pronac);
+            $this->view->Produto = $produto;
+            
+            $etapa = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Etapa($pronac);
+            $this->view->Etapa = $etapa;
+            
+            $uf = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Uf($pronac);
+            $this->view->Uf = $uf;
+            
+            $item = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Item($pronac);
+            $this->view->Item = $item;
+            
+            $unidade = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::Unidade($pronac);
+            $this->view->Unidade = $unidade;
+        }
         
-	        //$this->_redirect('/gerenciarparecertecnico/imprimirparecertecnico');
-    	}
-	        
+        if (isset($_POST['html'])) {
+            //echo ($_POST['html']);die;
+
+            $html = $_POST['html'];
+
+            $this->_helper->layout->disableLayout();
+            $this->_helper->viewRenderer->setNoRender();
+    
+            $pdf = new PDF($html, 'pdf');
+            $pdf->gerarRelatorio();
+        
+            //$this->_redirect('/gerenciarparecertecnico/imprimirparecertecnico');
+        }
     }
 
 
     public function incluirparecerAction()
     {
-
-        if($_POST){
+        if ($_POST) {
             $auth = Zend_Auth::getInstance();                            //pega a autentica��o do usuario
             $Parecerista = $auth->getIdentity()->usu_nome;               //nome do usuario logado no sistema
             $Usuario = $auth->getIdentity()->usu_codigo;                 //codigo do usuario
             $post = Zend_Registry::get('post');                          //pega os post
             $pronac = addslashes($_POST['pronac']);                         //pega o post pronac
-            $ano = addslashes(substr($pronac,0,2));                      //separa o ano do pronac
-            $sequencial = addslashes(substr($pronac,2,strlen($pronac))); //separa a sequencia
+            $ano = addslashes(substr($pronac, 0, 2));                      //separa o ano do pronac
+            $sequencial = addslashes(substr($pronac, 2, strlen($pronac))); //separa a sequencia
 
 
             $arrBusca = array( //busca para pegar os dados do projeto
@@ -472,21 +463,21 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
 
             $parecer = new Admissibilidade_Model_DbTable_Gerenciarparecertecnico();
             $validapronac = $parecer->VerificaPronac($arrBusca);
-                if($validapronac = 1){
-                    $arrBusca = array( //busca para pegar os dados do projeto
+            if ($validapronac = 1) {
+                $arrBusca = array( //busca para pegar os dados do projeto
                         'tbr.anoprojeto =?' => $ano,
                         'tbr.sequencial =?' => $sequencial,
                     );
-                    $dados = $parecer->listar_parecer($arrBusca);
+                $dados = $parecer->listar_parecer($arrBusca);
 
-                    $dados_inserir = array(
+                $dados_inserir = array(
                         "idPronac"              => $dados[0]->idPronac,
                         "idEnquadramento"       => $dados[0]->idEnquadramento,
                         "AnoProjeto"            => $dados[0]->AnoProjeto ,
                         "Sequencial"            => $dados[0]->Sequencial ,
                         "TipoParecer"           => $post->TipoParecer ,
                         "ParecerFavoravel"      => $post->ParecerFavoravel ,
-                        "DtParecer"             => ConverteData(date("d/m/Y H:i:s"),6) ,
+                        "DtParecer"             => ConverteData(date("d/m/Y H:i:s"), 6) ,
                         "Parecerista"           => $Parecerista ,
                         "NumeroReuniao"         => $dados[0]->NumeroReuniao ,
                         "ResumoParecer"         => $post->ResumoParecer ,
@@ -497,57 +488,55 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
                         "stAtivo"               => 1 ,
                         "idTipoAgente"          => 1
                     );
-                    $inserirparecer = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::inserirparecer($dados_inserir);
-                    if($inserirparecer){
+                $inserirparecer = Admissibilidade_Model_DbTable_Gerenciarparecertecnico::inserirparecer($dados_inserir);
+                if ($inserirparecer) {
                     parent::message("Parecer inserido com sucesso!", "/admissibilidade/gerenciarparecertecnico/listaparecer?pronac=".$dados[0]->AnoProjeto."".$dados[0]->Sequencial."", "CONFIRM");
-                    }else{
-                     parent::message("Ocorreu error em salvar Parecer", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
-                    }
-                }else{
-                    parent::message("PRONAC n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
+                } else {
+                    parent::message("Ocorreu error em salvar Parecer", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
                 }
-
-        }else{
-           parent::message("PRONAC n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
+            } else {
+                parent::message("PRONAC n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
+            }
+        } else {
+            parent::message("PRONAC n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
         }
-
     }
 
     public function listaparecerAction()
     {
         $pronac = 0;
         
-        if(!empty($_GET['pronac'])){
+        if (!empty($_GET['pronac'])) {
             $pronac = addslashes($_GET['pronac']);
-        }else{
-            if(!empty($_POST['pronac'])){
+        } else {
+            if (!empty($_POST['pronac'])) {
                 $pronac = addslashes($_POST['pronac']);
-            }else{
+            } else {
                 parent::message("Informe o PRONAC", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ALERT");
             }
         }
         
-        if((int)$pronac > 0){
-           $ano = substr($pronac,0,2);
-           $sequencial = addslashes(substr($pronac,2,strlen($pronac)));
+        if ((int)$pronac > 0) {
+            $ano = substr($pronac, 0, 2);
+            $sequencial = addslashes(substr($pronac, 2, strlen($pronac)));
 
-           $arrBusca = array(
+            $arrBusca = array(
                'tbr.anoprojeto =?' => $ano,
                'tbr.sequencial =?' => $sequencial,
            );
-           $parecer = new Admissibilidade_Model_DbTable_Gerenciarparecertecnico();
-           $validapronac = $parecer->VerificaPronac($arrBusca);
-           if($validapronac > 0){
-               $listaparecer = $parecer->listar_parecer($arrBusca);
-               $this->view->listaparecer = $listaparecer;
-           }else{
+            $parecer = new Admissibilidade_Model_DbTable_Gerenciarparecertecnico();
+            $validapronac = $parecer->VerificaPronac($arrBusca);
+            if ($validapronac > 0) {
+                $listaparecer = $parecer->listar_parecer($arrBusca);
+                $this->view->listaparecer = $listaparecer;
+            } else {
                 parent::message("PRONAC n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
             }
-
+        }
     }
-    }
 
-    public function dadosdoparecerAction(){
+    public function dadosdoparecerAction()
+    {
         $post = Zend_Registry::get('get');
         $parecer = addslashes($post->parecer);
 
@@ -557,45 +546,45 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
         $parecer = new Admissibilidade_Model_DbTable_Gerenciarparecertecnico();
         $validaparecer = $parecer->VerificaParecer($arrBusca);
 
-        if($validaparecer > 0){
+        if ($validaparecer > 0) {
             $exibeparecer = $parecer->listar_parecer($arrBusca);
             $this->view->dados = $exibeparecer;
-        }else{
+        } else {
             parent::message("Parecer n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
         }
     }
 
-    public function gerarpdfparecerAction(){
-        $this->_helper->layout->disableLayout ();
+    public function gerarpdfparecerAction()
+    {
+        $this->_helper->layout->disableLayout();
         $post = Zend_Registry::get('get');
         $pronac = addslashes($post->pronac);
-        $ano = addslashes(substr($pronac,0,2));
-        $sequencial = addslashes(substr($pronac,2,strlen($pronac)));
+        $ano = addslashes(substr($pronac, 0, 2));
+        $sequencial = addslashes(substr($pronac, 2, strlen($pronac)));
 
         $arrBusca = array(
                'tbr.anoprojeto =?' => $ano,
                'tbr.sequencial =?' => $sequencial,
            );
-           $parecer = new Admissibilidade_Model_DbTable_Gerenciarparecertecnico();
-           $validapronac = $parecer->VerificaPronac($arrBusca);
-           if($validapronac > 0){
-               $listaparecer = $parecer->listar_parecer($arrBusca);
-               $this->view->listaparecer = $listaparecer;
+        $parecer = new Admissibilidade_Model_DbTable_Gerenciarparecertecnico();
+        $validapronac = $parecer->VerificaPronac($arrBusca);
+        if ($validapronac > 0) {
+            $listaparecer = $parecer->listar_parecer($arrBusca);
+            $this->view->listaparecer = $listaparecer;
 
-               $campo = array("Nome do Projeto","Area","Segmento","Resumo do Parecer","Tipo de Parecer","Parecer Favoravel","Data do Parecer","SugeridoReal","SugeridoCusteioReal","SugeridoCapitalReal","idParecer","idEnquadramento","AnoProjeto","Sequencial","Parecerista","SugeridoUfir","Atendimento");
-              $html = "<html>";
-              $html .= "<style> table{width:800px; font-size:9pt} td, th{border-bottom:1px #EEE solid;}th{background-color: #EEE;}</style>";
-              $html .= "<center><h2>Impress�o Parecer</h2></center>";
-               for($x=0;$x < count($listaparecer);$x++){
+            $campo = array("Nome do Projeto","Area","Segmento","Resumo do Parecer","Tipo de Parecer","Parecer Favoravel","Data do Parecer","SugeridoReal","SugeridoCusteioReal","SugeridoCapitalReal","idParecer","idEnquadramento","AnoProjeto","Sequencial","Parecerista","SugeridoUfir","Atendimento");
+            $html = "<html>";
+            $html .= "<style> table{width:800px; font-size:9pt} td, th{border-bottom:1px #EEE solid;}th{background-color: #EEE;}</style>";
+            $html .= "<center><h2>Impress�o Parecer</h2></center>";
+            for ($x=0;$x < count($listaparecer);$x++) {
+                $html .= "<h4>Parecer n.".($x+1)."</h4>";
+                $html .= "<table>";
 
-               $html .= "<h4>Parecer n.".($x+1)."</h4>";
-               $html .= "<table>";
-
-               for($i=0;$i < count($campo);$i++){
+                for ($i=0;$i < count($campo);$i++) {
                     $html .= "<tr>
                                 <td><b>".$campo[$i]."</b></td>
                                 <td>";
-                      switch ($i){
+                    switch ($i) {
                         case 0:
                             $html .= $listaparecer[$x]->NomeProjeto;
                             break;
@@ -615,16 +604,16 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
                             $html .= $listaparecer[$x]->ParecerFavoravel;
                             break;
                         case 6:
-                            $html .= ConverteData(strtotime($listaparecer[$x]->DtParecer),5);
+                            $html .= ConverteData(strtotime($listaparecer[$x]->DtParecer), 5);
                             break;
                         case 7:
-                            $html .= number_format($listaparecer[$x]->SugeridoReal,2,',','.');
+                            $html .= number_format($listaparecer[$x]->SugeridoReal, 2, ',', '.');
                             break;
                         case 8:
-                            $html .= number_format($listaparecer[$x]->SugeridoCusteioReal,2,',','.');
+                            $html .= number_format($listaparecer[$x]->SugeridoCusteioReal, 2, ',', '.');
                             break;
                         case 9:
-                            $html .= number_format($listaparecer[$x]->SugeridoCapitalReal,2,',','.');
+                            $html .= number_format($listaparecer[$x]->SugeridoCapitalReal, 2, ',', '.');
                             break;
                         case 10:
                             $html .= $listaparecer[$x]->idParecer;
@@ -642,7 +631,7 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
                             $html .= $listaparecer[$x]->Parecerista;
                             break;
                         case 15:
-                            $html .= number_format($listaparecer[$x]->SugeridoUfir,2,',','.');
+                            $html .= number_format($listaparecer[$x]->SugeridoUfir, 2, ',', '.');
                             break;
                         case 16:
                             $html .= $listaparecer[$x]->Atendimento;
@@ -651,19 +640,16 @@ class Admissibilidade_GerenciarparecertecnicoController extends MinC_Controller_
 
 
                     $html .="</td></tr>";
-               }
+                }
 
-               $html .= "</table><br>";
-              }
-               //x($html);
-              $html .= "</html>";
-              $pdf = new PDF($html,"pdf");
-               xd($pdf->gerarRelatorio());
-
-           }else{
-                parent::message("PRONAC n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
+                $html .= "</table><br>";
             }
-
+            //x($html);
+            $html .= "</html>";
+            $pdf = new PDF($html, "pdf");
+            xd($pdf->gerarRelatorio());
+        } else {
+            parent::message("PRONAC n�o localizado", "/admissibilidade/gerenciarparecertecnico/parecertecnico", "ERROR");
+        }
     }
-
 }

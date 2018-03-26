@@ -15,103 +15,118 @@
         padding: 8px 5px
     }
 </style>
+
+<?php echo $this->partial("inc/menu.phtml", $this); ?>
+
 <div class="container-fluid">
     <div class="row">
-        <?= $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto)); ?>
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Plano de Distribui&ccedil;&atilde;o</h1>
 
-        <div class="content col s10 m10 l10 planilha-produtos">
-            <?php if ( $this->localRealizacao) : ?>
-                <div id="confirm" title="Confirma&ccedil;&atilde;o" style="display: none">Tem certeza que deseja excluir o registro?</div>
-                <?php
-                    gerarBreadCrumb(array(
+                    <?php
+                    gerarNovoBreadCrumb(array(
                         $this->layout['listagem'],
                         array('Plano de Distribui&ccedil;&atilde;o' => '')
                     ));
-                ?>
-                <h3>Plano de Distribui&ccedil;&atilde;o</h3>
-                <div>
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="card-panel">
+                <?php if ( $this->localRealizacao) : ?>
+                    <div id="confirm" title="Confirma&ccedil;&atilde;o" style="display: none">Tem certeza que deseja excluir o registro?</div>
+
                     <div id="div_form"></div>
                     <?php if (!empty($this->planosDistribuicao)) : ?>
                         <table class="bordered responsive-talbe">
                             <thead>
-                                <tr class="titulo_tabela">
-                                    <th>Nome do Evento / Produto</th>
-                                    <th>&Aacute;rea</th>
-                                    <th>Segmento</th>
-                                    <th>Principal</th>
-                                    <th width="25%" class="center-align">A&ccedil;&otilde;es</th>
-                                </tr>
+                            <tr class="titulo_tabela">
+                                <th>Nome do Evento / Produto</th>
+                                <th>&Aacute;rea</th>
+                                <th>Segmento</th>
+                                <th>Principal</th>
+                                <th width="25%" class="center-align">A&ccedil;&otilde;es</th>
+                            </tr>
                             </thead>
                             <tbody>
-                                <?php foreach ($this->planosDistribuicao as $planoDistribuicao) : ?>
+                            <?php foreach ($this->planosDistribuicao as $planoDistribuicao) : ?>
 
-                                    <tr id="produto_<?= $planoDistribuicao->idPlanoDistribuicao; ?>" class="produto-header" produto_id="<?= $planoDistribuicao->idPlanoDistribuicao; ?>">
-                                        <td><?php echo $planoDistribuicao->Produto; ?></td>
-                                        <td><?php echo $planoDistribuicao->DescricaoArea; ?></td>
-                                        <td><?php echo $planoDistribuicao->DescricaoSegmento; ?></td>
-                                        <td><?php echo ($planoDistribuicao->stPrincipal == 0) ? 'N&atilde;o' : 'Sim'; ?></td>
-                                        <td class="action center-align" >
+                                <tr id="produto_<?= $planoDistribuicao->idPlanoDistribuicao; ?>" class="produto-header" produto_id="<?= $planoDistribuicao->idPlanoDistribuicao; ?>">
+                                    <td><?php echo $planoDistribuicao->Produto; ?></td>
+                                    <td><?php echo $planoDistribuicao->DescricaoArea; ?></td>
+                                    <td><?php echo $planoDistribuicao->DescricaoSegmento; ?></td>
+                                    <td><?php echo ($planoDistribuicao->stPrincipal == 0) ? 'N&atilde;o' : 'Sim'; ?></td>
+                                    <td class="action center-align" >
 
-                                            <a class="btn small waves-effect waves-light tooltipped" id="btn_editar" onclick="mostrarResumo(<?php echo $planoDistribuicao->idPlanoDistribuicao; ?>)" data-position="top" data-delay="50" data-tooltip="Visualizar resumo">
-                                                <i class="material-icons">visibility</i>
+                                        <a class="btn small waves-effect waves-light tooltipped" id="btn_editar" onclick="mostrarResumo(<?php echo $planoDistribuicao->idPlanoDistribuicao; ?>)" data-position="top" data-delay="50" data-tooltip="Visualizar resumo">
+                                            <i class="material-icons">visibility</i>
+                                        </a>
+                                        <a href="/proposta/plano-distribuicao/detalhar-plano-distribuicao/idPreProjeto/<?= $this->idPreProjeto; ?>/idPlanoDistribuicao/<?= $planoDistribuicao->idPlanoDistribuicao; ?>" class="btn small waves-effect waves-light tooltipped" data-position="top" data-delay="50" data-tooltip="Detalhar produto">
+                                            <i class="material-icons">zoom_in</i>
+                                        </a>
+
+                                        <?php if ($this->isEditarProposta || ($this->isEditarProjeto && $planoDistribuicao->stPrincipal != 1)) : ?>
+                                            <a class="btn small waves-effect waves-light tooltipped btn-primary" id="btn_editar" onclick="editar(<?php echo $planoDistribuicao->idPlanoDistribuicao; ?>)" data-position="top" data-delay="50" data-tooltip="Editar Produto">
+                                                <i class="material-icons">edit</i>
                                             </a>
-                                            <a href="/proposta/plano-distribuicao/detalhar-plano-distribuicao/idPreProjeto/<?= $this->idPreProjeto; ?>/idPlanoDistribuicao/<?= $planoDistribuicao->idPlanoDistribuicao; ?>" class="btn small waves-effect waves-light tooltipped" data-position="top" data-delay="50" data-tooltip="Detalhar produto">
-                                                <i class="material-icons">zoom_in</i>
+                                            <a class="btn small waves-effect waves-light tooltipped btn-danger" id="btn_excluir" onclick="confirma('<?php echo $this->urlApagar; ?>&idPlanoDistribuicao=<?php echo $planoDistribuicao['idPlanoDistribuicao']; ?>')" data-position="top"  data-tooltip="Excluir Produto e Detalhamentos">
+                                                <i class="material-icons">delete</i>
                                             </a>
-
-                                            <?php if ($this->isEditarProposta || ($this->isEditarProjeto && $planoDistribuicao->stPrincipal != 1)) : ?>
-                                                <a class="btn small waves-effect waves-light tooltipped btn-primary" id="btn_editar" onclick="editar(<?php echo $planoDistribuicao->idPlanoDistribuicao; ?>)" data-position="top" data-delay="50" data-tooltip="Editar Produto">
-                                                    <i class="material-icons">edit</i>
-                                                </a>
-                                                <a class="btn small waves-effect waves-light tooltipped btn-danger" id="btn_excluir" onclick="confirma('<?php echo $this->urlApagar; ?>&idPlanoDistribuicao=<?php echo $planoDistribuicao['idPlanoDistribuicao']; ?>')" data-position="top"  data-tooltip="Excluir Produto e Detalhamentos">
-                                                    <i class="material-icons">delete</i>
-                                                </a>
-                                            <?php endif; ?>
-                                        </td>
-                                    </tr>
-                                    <tr style="display: none;">
-                                        <td colspan="5">
-                                            <table class="resumo-distribuicao planoDistribuicao bordered responsive-table ">
-                                                <caption>Resumo do detalhamento</caption>
-                                                <thead>
-                                                    <tr>
-                                                        <th class="center-align" rowspan="2">Quantidade</th>
-                                                        <th colspan="3" class="proponente">Proponente</th>
-                                                        <th colspan="3" class="popular">Pre&ccedil;o Popular</th>
-                                                        <th colspan="3" class="gratuito">Distribui&ccedil;&atilde;o Gratuita</th>
-                                                        <th class="right-align" rowspan="2" width="8%">Receita Prevista total</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th class="proponente">Qtd. de Inteira</th>
-                                                        <th class="proponente">Qtd. de Meia</th>
-                                                        <th class="proponente">Valor m&eacute;dio</th>
-                                                        <th class="popular">Qtd. de Inteira</th>
-                                                        <th class="popular">Qtd. de Meia</th>
-                                                        <th class="popular">Valor m&eacute;dio</th>
-                                                        <th class="gratuito">Divulga&ccedil;&atilde;o</th>
-                                                        <th class="gratuito">Patrocinador</th>
-                                                        <th class="gratuito">Popula&ccedil;&atilde;o</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="center-align"><?php echo $planoDistribuicao->QtdeProduzida; ?></td>
-                                                        <td class="proponente"><?php echo $planoDistribuicao->QtdeVendaNormal; ?></td>
-                                                        <td class="proponente"><?php echo $planoDistribuicao->QtdeVendaPromocional; ?></td>
-                                                        <td class="proponente"><?php echo $planoDistribuicao->PrecoUnitarioNormal; ?></td>
-                                                        <td class="popular"><?php echo $planoDistribuicao->QtdeVendaPopularNormal; ?></td>
-                                                        <td class="popular"><?php echo $planoDistribuicao->QtdeVendaPopularPromocional; ?></td>
-                                                        <td class="popular"><?php echo $planoDistribuicao->ReceitaPopularNormal; ?>	</td>
-                                                        <td class="gratuito"><?php echo $planoDistribuicao->QtdeProponente;	?></td>
-                                                        <td class="gratuito"><?php echo $planoDistribuicao->QtdePatrocinador; ?></td>
-                                                        <td class="gratuito"><?php echo $planoDistribuicao->QtdeOutros; ?></td>
-                                                        <td class="right-align"><?php echo $planoDistribuicao->Receita; ?></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                <?php endforeach; ?>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                                <tr style="display: none;">
+                                    <td colspan="5">
+                                        <table class="resumo-distribuicao planoDistribuicao bordered responsive-table ">
+                                            <caption>Resumo do detalhamento</caption>
+                                            <thead>
+                                            <tr>
+                                                <th class="center-align" rowspan="2">Quantidade</th>
+                                                <th colspan="3" class="proponente">Proponente</th>
+                                                <th colspan="3" class="popular">Pre&ccedil;o Popular</th>
+                                                <th colspan="3" class="gratuito">Distribui&ccedil;&atilde;o Gratuita</th>
+                                                <th class="right-align" rowspan="2" width="8%">Receita Prevista total</th>
+                                            </tr>
+                                            <tr>
+                                                <th class="proponente">Qtd. de Inteira</th>
+                                                <th class="proponente">Qtd. de Meia</th>
+                                                <th class="proponente">Valor m&eacute;dio</th>
+                                                <th class="popular">Qtd. de Inteira</th>
+                                                <th class="popular">Qtd. de Meia</th>
+                                                <th class="popular">Valor m&eacute;dio</th>
+                                                <th class="gratuito">Divulga&ccedil;&atilde;o</th>
+                                                <th class="gratuito">Patrocinador</th>
+                                                <th class="gratuito">Popula&ccedil;&atilde;o</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td class="center-align"><?php echo $planoDistribuicao->QtdeProduzida; ?></td>
+                                                <td class="proponente"><?php echo $planoDistribuicao->QtdeVendaNormal; ?></td>
+                                                <td class="proponente"><?php echo $planoDistribuicao->QtdeVendaPromocional; ?></td>
+                                                <td class="proponente"><?php echo $planoDistribuicao->PrecoUnitarioNormal; ?></td>
+                                                <td class="popular"><?php echo $planoDistribuicao->QtdeVendaPopularNormal; ?></td>
+                                                <td class="popular"><?php echo $planoDistribuicao->QtdeVendaPopularPromocional; ?></td>
+                                                <td class="popular"><?php echo $planoDistribuicao->ReceitaPopularNormal; ?>	</td>
+                                                <td class="gratuito"><?php echo $planoDistribuicao->QtdeProponente;	?></td>
+                                                <td class="gratuito"><?php echo $planoDistribuicao->QtdePatrocinador; ?></td>
+                                                <td class="gratuito"><?php echo $planoDistribuicao->QtdeOutros; ?></td>
+                                                <td class="right-align"><?php echo $planoDistribuicao->Receita; ?></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
                             <tbody>
                         </table>
                     <?php endif; ?>
@@ -131,9 +146,13 @@
                 <?php else: ?>
                     <div class="row">
                         <div class="col s12">
-                            <p>Preencher primeiro o <a href="<?php echo $this->url(array('module'=>'proposta', 'controller'=>'localderealizacao', 'action'=> 'index')) ?>">
-                                local de realiza&ccedil;&atilde;o</a>
-                             </p>
+                            <p>Preencher primeiro o <a href="<?php echo $this->url(
+                                array(
+                                    'module'=>'proposta',
+                                    'controller'=>'localderealizacao',
+                                    'action'=> 'index'
+                                )) ?>">local de realiza&ccedil;&atilde;o</a>
+                            </p>
                         </div>
                     </div>
                 <?php endif; ?>

@@ -9,8 +9,7 @@ class TipoVisaoModel
 {
 
     /**
-     * 
+     *
      */
     const INCENTIVADOR = 145;
-
 }

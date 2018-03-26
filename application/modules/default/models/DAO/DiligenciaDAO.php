@@ -12,35 +12,31 @@
 
 class DiligenciaDAO extends Zend_Db_Table
 {
-	/* dados da tabela */
-	protected $_schema  = "";
-	protected $_name    = "SAC.dbo.tbDiligencia";
-	protected $_primary = "idDiligencia";
+    /* dados da tabela */
+    protected $_schema  = "";
+    protected $_name    = "SAC.dbo.tbDiligencia";
+    protected $_primary = "idDiligencia";
 
 
 
-	/**
-	 * M�todo para cadastrar informa��es da diligencia
-	 * @access public
-	 * @static
-	 * @param array $dados
-	 * @return bool
-	 */
-	public static function cadastrar($dados)
-	{
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+    /**
+     * M�todo para cadastrar informa��es da diligencia
+     * @access public
+     * @static
+     * @param array $dados
+     * @return bool
+     */
+    public static function cadastrar($dados)
+    {
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		$cadastrar = $db->insert("SAC.dbo.tbDiligencia", $dados);
+        $cadastrar = $db->insert("SAC.dbo.tbDiligencia", $dados);
 
-		if ($cadastrar)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		} 
-	} // fecha m�todo cadastrar()
-
+        if ($cadastrar) {
+            return true;
+        } else {
+            return false;
+        }
+    } // fecha m�todo cadastrar()
 } // fecha class DiligenciaDAO

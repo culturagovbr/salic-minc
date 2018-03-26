@@ -1,35 +1,29 @@
 <?php
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Contratoxagentes
- *
- * @author 01610881125
- */
-class Contratoxagentes extends MinC_Db_Table_Abstract {
-    protected $_banco   = 'bdcorporativo';
+class Contratoxagentes extends MinC_Db_Table_Abstract
+{
     protected $_name    = 'tbContratoxAgentes';
-    protected $_schema  = 'scSAC';
+    protected $_schema  = 'bdcorporativo.scSAC';
 
-    public function inserirContratoxAgentes($data){
+    public function inserirContratoxAgentes($data)
+    {
         $insert = $this->insert($data);
         return $insert;
     }
 
-    public function alterarContratoxAgentes($data, $where){
+    public function alterarContratoxAgentes($data, $where)
+    {
         $update = $this->update($data, $where);
         return $update;
     }
 
-    public function deletarContratoxAgentes($where){
+    public function deletarContratoxAgentes($where)
+    {
         $delete = $this->delete($where);
         return $delete;
     }
 
-    public function buscarAgentes($where){
+    public function buscarAgentes($where)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(

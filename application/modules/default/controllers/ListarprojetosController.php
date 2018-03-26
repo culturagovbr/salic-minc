@@ -2,7 +2,6 @@
 
 class ListarprojetosController extends MinC_Controller_Action_Abstract
 {
-
     private $getIdUsuario = 0;
     private $getCNPJCPF = 0;
     private $idResponsavel = 0;
@@ -141,7 +140,6 @@ class ListarprojetosController extends MinC_Controller_Action_Abstract
                             $permissao = $fnVerificarPermissao->verificarPermissaoProposta($idPreProjeto, $this->getIdUsuario);
 
                             $projeto['projetoPossuiProposta'] = ($permissao == 1) ? true : false;
-
                         } else {
                             $projeto['projetoPossuiProposta'] = false;
                         }
@@ -185,11 +183,10 @@ class ListarprojetosController extends MinC_Controller_Action_Abstract
             }
             $jsonEncode = json_encode($dadosCombo);
             $this->_helper->json(array('resposta' => true, 'conteudo' => $dadosCombo));
-
         } else {
             $this->_helper->json(array('resposta' => false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
     public function gerarpdfAction()
@@ -238,7 +235,6 @@ class ListarprojetosController extends MinC_Controller_Action_Abstract
         $idPreProjeto = $tbProjetos->verificarSeProjetoPossuiProposta($idPronac);
 
         if (!empty($idPreProjeto)) {
-
             $permissaoProposta = $this->verificarPermissaoAcesso($idPreProjeto, false, false, true);
 
             if (true !== $permissaoProposta['status']) {
@@ -256,7 +252,6 @@ class ListarprojetosController extends MinC_Controller_Action_Abstract
                 $return['msg'] = $retorno['Mensagem'];
                 $return['status'] = false;
             }
-
         } else {
             $return['msg'] = 'Esse projeto n&atilde;o pode ser clonado!';
             $return['status'] = false;
@@ -265,5 +260,4 @@ class ListarprojetosController extends MinC_Controller_Action_Abstract
         $this->_helper->json($return);
         die;
     }
-
 }

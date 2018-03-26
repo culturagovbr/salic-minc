@@ -40,7 +40,6 @@ class Agente_Model_DbTable_UF extends MinC_Db_Table_Abstract
         } catch (Zend_Exception_Db $objException) {
             throw new Exception("Erro ao buscar Estados: " . $objException->getMessage(), 0, $objException);
         }
-
     }
 
     public function listar($id = null)

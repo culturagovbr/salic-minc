@@ -11,17 +11,17 @@
 
 class HistoricoInsert extends MinC_Db_Table_Abstract
 {
-	protected $_schema  = "SAC";
-	protected $_name    = "sysobjects";
-	protected $_primary = "Id";
+    protected $_schema  = "SAC";
+    protected $_name    = "sysobjects";
+    protected $_primary = "Id";
 
-	/**
-	 * Metodo para verificar se a trigger HISTORICO_INSERT esta habilitada
-	 * @access public
-	 * @param void
-	 * @return integer (0 = Habilitado e 1 = desabilitado)
-	 */
-	public function statusHISTORICO_INSERT()
+    /**
+     * Metodo para verificar se a trigger HISTORICO_INSERT esta habilitada
+     * @access public
+     * @param void
+     * @return integer (0 = Habilitado e 1 = desabilitado)
+     */
+    public function statusHISTORICO_INSERT()
     {
         $db = Zend_Db_Table::getDefaultAdapter();
         $objQuery = $db->select();
@@ -40,5 +40,4 @@ class HistoricoInsert extends MinC_Db_Table_Abstract
         $resultado = $db->fetchRow($objQuery->assemble());
         return $resultado->Habilitado;
     }
-
 }

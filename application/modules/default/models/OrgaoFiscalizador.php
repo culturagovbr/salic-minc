@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,12 +9,13 @@
  *
  * @author 01610881125
  */
-class OrgaoFiscalizador  extends MinC_Db_Table_Abstract{
-
+class OrgaoFiscalizador extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'SAC';
     protected $_name  = 'tbOrgaoFiscalizador';
 
-    function buscarOrgao($where){
+    public function buscarOrgao($where)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -33,12 +34,13 @@ class OrgaoFiscalizador  extends MinC_Db_Table_Abstract{
         return $this->fetchAll($select);
     }
 
-     function dadosOrgaos($where){
+    public function dadosOrgaos($where)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
                         array('tbOF'=>$this->_name),
-                        array('CAST(tbOF.dsObservacao as TEXT) as dsObservacao')
+                        array(new Zend_Db_Expr('CAST(tbOF.dsObservacao as TEXT) as dsObservacao'))
                      );
         $select->joinLeft(
                             array('org'=>'Orgaos'),
@@ -54,7 +56,7 @@ class OrgaoFiscalizador  extends MinC_Db_Table_Abstract{
         $select->joinLeft(
                             array('tbNmOF'=>'Nomes'),
                             "tbOF.idParecerista = tbNmOF.idAgente",
-                            array('CAST(tbNmOF.Descricao AS TEXT) as Descricao'),
+                            array(new Zend_Db_Expr('CAST(tbNmOF.Descricao AS TEXT) as Descricao')),
                             'AGENTES.dbo'
                           );
         foreach ($where as $coluna => $valor) {
@@ -63,4 +65,3 @@ class OrgaoFiscalizador  extends MinC_Db_Table_Abstract{
         return $this->fetchAll($select);
     }
 }
-?>

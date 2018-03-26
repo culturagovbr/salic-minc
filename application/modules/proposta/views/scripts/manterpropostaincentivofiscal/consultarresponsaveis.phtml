@@ -118,7 +118,7 @@
                 </td>
                 <td align="center">
                     <?php if($this->cpfLogado != $v['CPFResponsavel']){ ?>
-                    <button type="button" value=" " class="btn white-text red" onclick="confirmaracao('<?php echo $v['idVinculo']; ?>','3','<?php echo $v['idUsuarioResponsavel']; ?>');" >desvincular</button>
+                    <button type="button" value=" " class="btn btn-default" onclick="confirmaracao('<?php echo $v['idVinculo']; ?>','3','<?php echo $v['idUsuarioResponsavel']; ?>');" >desvincular</button>
                     <?php } else {
                         if($v['siVinculo'] == 0){
                             echo "V&iacute;nculo Solicitado";

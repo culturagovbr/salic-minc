@@ -12,30 +12,26 @@
 
 class Zend_View_Helper_VerificarDiligenciaProjeto
 {
-	/**
-	 * Método para verificar a diligencia do projeto
-	 * @access public
-	 * @param integer $idPronac
-	 * @return string
-	 */
-	public function verificarDiligenciaProjeto($idPronac = null)
-	{
-		if (isset($idPronac) && !empty($idPronac)) :
+    /**
+     * Método para verificar a diligencia do projeto
+     * @access public
+     * @param integer $idPronac
+     * @return string
+     */
+    public function verificarDiligenciaProjeto($idPronac = null)
+    {
+        if (isset($idPronac) && !empty($idPronac)) :
 
-			$Diligencia = new Diligencia();
+            $Diligencia = new Diligencia();
 
-			// busca a situação do projeto
-			$buscarDiligencia = $Diligencia->buscar(array('IdPRONAC = ?' => $idPronac))->current();
+        // busca a situação do projeto
+        $buscarDiligencia = $Diligencia->buscar(array('IdPRONAC = ?' => $idPronac))->current();
 
-			if (count($buscarDiligencia) > 0) :
-				return $buscarDiligencia->idTipoDiligencia;
-			else :
-				return 0;
-			endif;
-
-		else :
-			return 0;
-		endif;
-	} // fecha método verificarDiligenciaProjeto()
-
+        if (count($buscarDiligencia) > 0) :
+                return $buscarDiligencia->idTipoDiligencia; else :
+                return 0;
+        endif; else :
+            return 0;
+        endif;
+    } // fecha método verificarDiligenciaProjeto()
 } // fecha class

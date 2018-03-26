@@ -1,12 +1,6 @@
 <?php
-/**
- *
- */
 class PlanilhaItemController extends Zend_Controller_Action
 {
-    /**
-     * 
-     */
     public function init()
     {
         parent::init();
@@ -17,9 +11,6 @@ class PlanilhaItemController extends Zend_Controller_Action
         ;
     }
 
-    /**
-     * 
-     */
     public function pesquisarAction()
     {
         $planilhaItemModel = new PlanilhaItem();

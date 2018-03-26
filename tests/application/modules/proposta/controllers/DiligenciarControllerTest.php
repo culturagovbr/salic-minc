@@ -16,7 +16,7 @@ class DiligenciarControllerTest extends MinC_Test_ControllerActionTestCase
 
         // Busca na SGCAcesso
         $sgcAcesso = new Autenticacao_Model_Sgcacesso();
-        $acessos = $sgcAcesso->findBy(['cpf' => $usuarioCpf]);
+        $acessos = $sgcAcesso->porCPF($usuarioCpf);
 
         // Buscar projetos do Usuario Logado.
         $where['stestado = ?'] = 1;

@@ -11,14 +11,14 @@
 
 class tbDistribuirProjeto extends MinC_Db_Table_Abstract
 {
-	protected $_banco  = "SAC";
-	protected $_schema = "SAC";
-	protected $_name   = "tbDistribuirProjeto";
-	protected $_primary   = "idDistribuirProjeto";
+    protected $_banco  = "SAC";
+    protected $_schema = "SAC";
+    protected $_name   = "tbDistribuirProjeto";
+    protected $_primary   = "idDistribuirProjeto";
 
-    public function painelRecursos($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false, $idPerfil=0) {
-
-        if($idPerfil == 110){
+    public function painelRecursos($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false, $idPerfil=0)
+    {
+        if ($idPerfil == 110) {
             $nome = 'c.usu_nome AS Parecerista';
         } else {
             $nome = 'c.Descricao AS Parecerista';
@@ -34,27 +34,35 @@ class tbDistribuirProjeto extends MinC_Db_Table_Abstract
         );
 
         $select->joinInner(
-            array('b' => 'Projetos'), 'a.IdPRONAC = b.IdPRONAC',
-            array(''), 'SAC.dbo'
+            array('b' => 'Projetos'),
+            'a.IdPRONAC = b.IdPRONAC',
+            array(''),
+            'SAC.dbo'
         );
 
-        if($idPerfil == 110){
+        if ($idPerfil == 110) {
             $select->joinLeft(
-                array('c' => 'Usuarios'), 'a.idAvaliador = c.usu_codigo',
-                array(''), 'TABELAS.dbo'
+                array('c' => 'Usuarios'),
+                'a.idAvaliador = c.usu_codigo',
+                array(''),
+                'TABELAS.dbo'
             );
         } else {
             $select->joinLeft(
-                array('c' => 'Nomes'), 'a.idAvaliador = c.idAgente',
-                array(''), 'AGENTES.dbo'
+                array('c' => 'Nomes'),
+                'a.idAvaliador = c.idAgente',
+                array(''),
+                'AGENTES.dbo'
             );
         }
         $select->joinInner(
-            array('d' => 'tbRecurso'), 'a.IdPRONAC = d.IdPRONAC',
-            array(''), 'SAC.dbo'
+            array('d' => 'tbRecurso'),
+            'a.IdPRONAC = d.IdPRONAC',
+            array(''),
+            'SAC.dbo'
         );
 
-       //adiciona quantos filtros foram enviados
+        //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }

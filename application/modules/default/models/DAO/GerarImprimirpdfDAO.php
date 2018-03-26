@@ -1,7 +1,6 @@
 <?php
 class GerarImprimirpdfDAO
 {
-
     public static function ConsultaDadosProjeto($id_projeto)
     {
         $sql = "SELECT
@@ -17,19 +16,16 @@ class GerarImprimirpdfDAO
 
                 WHERE p.idPreProjeto=".$id_projeto ;
 
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             return $db->fetchRow($sql);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = $e->getMessage();
         }
     }
 
-        public static function AbrangenciaGeografica($id_projeto)
+    public static function AbrangenciaGeografica($id_projeto)
     {
         $sql = "SELECT CASE a.idPais
                 WHEN 0 THEN 'N&atilde;o &eacute; possivel informar o local de realiza&ccedil;&atilde;o do projeto'
@@ -45,13 +41,10 @@ class GerarImprimirpdfDAO
 
 
 
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = $e->getMessage();
         }
 
@@ -88,17 +81,13 @@ class GerarImprimirpdfDAO
 
 
 
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = $e->getMessage();
         }
 
         return $db->fetchAll($sql);
     }
 }
-?>

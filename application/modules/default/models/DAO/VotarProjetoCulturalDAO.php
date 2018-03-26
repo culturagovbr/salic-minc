@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
 */
@@ -9,10 +9,11 @@
  *
  * @author 01373930160
  */
-class VotarProjetoCulturalDAO extends Zend_Db_table {
-	
-	public static function verificaDadosProponente($idpronac = null, $idAgente = null) {
-		$sql = "SELECT  DISTINCT
+class VotarProjetoCulturalDAO extends Zend_Db_table
+{
+    public static function verificaDadosProponente($idpronac = null, $idAgente = null)
+    {
+        $sql = "SELECT  DISTINCT
                 nm.Descricao as nomes,
                 nm.idagente,
                 pr.IdPRONAC,
@@ -35,26 +36,27 @@ class VotarProjetoCulturalDAO extends Zend_Db_table {
                 left join AGENTES.dbo.Natureza nat on nat.idAgente = ag.idAgente
                 left join AGENTES.dbo.Municipios mun on mun.idMunicipioIBGE = endn.Cidade
                 left join AGENTES.dbo.UF uf on uf.idUF = endn.UF";
-		
-		if (! empty ( $idpronac )) {
-			$sql .= " where pr.idpronac=$idpronac";
-		}
-		if ($idAgente) {
-			$sql .= " where ag.idAgente=$idAgente";
-		}
-		
-		try {
-			$db = Zend_Registry::get ( 'db' );
-			$db->setFetchMode ( Zend_DB::FETCH_OBJ );
-		} catch ( Zend_Exception_Db $e ) {
-			$this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage ();
-		}
-		//        return $sql; die;
-		return $db->fetchAll ( $sql );
-	}
-	
-	public static function buscarTelefones($idpronac) {
-		$sql = "SELECT
+        
+        if (! empty($idpronac)) {
+            $sql .= " where pr.idpronac=$idpronac";
+        }
+        if ($idAgente) {
+            $sql .= " where ag.idAgente=$idAgente";
+        }
+        
+        try {
+            $db = Zend_Registry::get('db');
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
+        //        return $sql; die;
+        return $db->fetchAll($sql);
+    }
+    
+    public static function buscarTelefones($idpronac)
+    {
+        $sql = "SELECT
                 tel.TipoTelefone,
                 uf.Descricao as uf,
                 tel.DDD,
@@ -65,29 +67,31 @@ class VotarProjetoCulturalDAO extends Zend_Db_table {
                 join AGENTES.dbo.UF uf on uf.idUF = tel.UF
                 join SAC.dbo.Projetos pr on pr.CgcCpf = ag.CNPJCPF
                 where pr.IdPRONAC = " . $idpronac;
-		
-		$db = Zend_Registry::get ( 'db' );
-		$db->setFetchMode ( Zend_DB::FETCH_OBJ );
-		
-		return $db->fetchAll ( $sql );
-	}
-	
-	public static function buscarEmail($idpronac) {
-		$sql = "select
+        
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        
+        return $db->fetchAll($sql);
+    }
+    
+    public static function buscarEmail($idpronac)
+    {
+        $sql = "select
                 inte.TipoInternet as tpemail,
                 inte.Descricao as email
                 from AGENTES.dbo.Internet inte
                 join AGENTES.dbo.Agentes ag on ag.idAgente = inte.idAgente
                 join SAC.dbo.Projetos pr on pr.CgcCpf = ag.CNPJCPF
                 WHERE pr.idpronac =" . $idpronac;
-		
-		$db = Zend_Registry::get ( 'db' );
-		$db->setFetchMode ( Zend_DB::FETCH_OBJ );
-		return $db->fetchAll ( $sql );
-	}
-	
-	public static function consultaValorAprovado($id = null) {
-		$sql = "SELECT DISTINCT
+        
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    }
+    
+    public static function consultaValorAprovado($id = null)
+    {
+        $sql = "SELECT DISTINCT
                       SAC.dbo.Projetos.IdPRONAC AS Pronac,
                       BDCORPORATIVO.scSAC.tbPauta.idNrReuniao AS NumeroReuniao,
                       Projetos.NomeProjeto AS NomeProjeto,
@@ -108,103 +112,106 @@ class VotarProjetoCulturalDAO extends Zend_Db_table {
                       SAC.dbo.tbPlanilhaAprovacao ON Projetos.IdPRONAC = tbPlanilhaAprovacao.IdPRONAC INNER JOIN
                       SAC.dbo.Area ON Projetos.Area = Area.Codigo
                 WHERE     tbReuniao.stEstado = 0 ";
-		
-		if (! empty ( $id )) {
-			$sql .= " AND SAC.dbo.Projetos.IdPRONAC = $id ";
-		}
-		
-		try {
-			$db = Zend_Registry::get ( 'db' );
-			$db->setFetchMode ( Zend_DB::FETCH_OBJ );
-		} catch ( Zend_Exception_Db $e ) {
-			$this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage ();
-		}
-		
-		return $db->fetchAll ( $sql );
-	}
-	
-	public static function atualizaVotacao($dados, $idpronac, $idagente, $idnrreuniao) {
-		$db = Zend_Registry::get ( 'db' );
-		$db->setFetchMode ( Zend_DB::FETCH_OBJ );
-		
-		$where = "idpronac = " . $idpronac . " and idagente=" . $idagente . " and idnrreuniao=" . $idnrreuniao;
-		$alterar = $db->update ( "BDCORPORATIVO.scSAC.tbVotacao", $dados, $where );
-		
-		if ($alterar) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	public static function resultadoVotacao($idnrreuniao, $idpronac, $stvoto) {
-		$sql = "select
+        
+        if (! empty($id)) {
+            $sql .= " AND SAC.dbo.Projetos.IdPRONAC = $id ";
+        }
+        
+        try {
+            $db = Zend_Registry::get('db');
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
+        
+        return $db->fetchAll($sql);
+    }
+    
+    public static function atualizaVotacao($dados, $idpronac, $idagente, $idnrreuniao)
+    {
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        
+        $where = "idpronac = " . $idpronac . " and idagente=" . $idagente . " and idnrreuniao=" . $idnrreuniao;
+        $alterar = $db->update("BDCORPORATIVO.scSAC.tbVotacao", $dados, $where);
+        
+        if ($alterar) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static function resultadoVotacao($idnrreuniao, $idpronac, $stvoto)
+    {
+        $sql = "select
                 count(stVoto) as qtdvotos
                 from BDCORPORATIVO.scSAC.tbVotacao
                 where idNrReuniao=" . $idnrreuniao . " and IdPRONAC=" . $idpronac;
-		if ($stvoto) {
-			$sql .= " and stVoto = '" . $stvoto . "'";
-		}
-		$db = Zend_Registry::get ( 'db' );
-		$db->setFetchMode ( Zend_DB::FETCH_OBJ );
-		
-		return $db->fetchAll ( $sql );
-	}
-	
-	public static function resultadodescricao($idnrreuniao, $idpronac) {
-		$sql = "select
+        if ($stvoto) {
+            $sql .= " and stVoto = '" . $stvoto . "'";
+        }
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        
+        return $db->fetchAll($sql);
+    }
+    
+    public static function resultadodescricao($idnrreuniao, $idpronac)
+    {
+        $sql = "select
                 nm.Descricao as nome,
                 cast(tv.dsJustificativa AS TEXT) as justificativa
                 from BDCORPORATIVO.scSAC.tbVotacao tv
                 join Agentes.dbo.Nomes nm on nm.idAgente = tv.idAgente
                 where nm.tiponome=18 and tv.dsjustificativa is not null and tv.idNrReuniao=" . $idnrreuniao . " and tv.IdPRONAC=" . $idpronac;
-		
-		$db = Zend_Registry::get ( 'db' );
-		$db->setFetchMode ( Zend_DB::FETCH_OBJ );
-		return $db->fetchAll ( $sql );
-	}
-	
-	public static function atualizarreuniao($dados, $idnrreuniao, $idpronac) {
-		$db = Zend_Registry::get ( 'db' );
-		$db->setFetchMode ( Zend_DB::FETCH_OBJ );
-		
-		$where = "IdPRONAC = " . $idpronac . " and IdNrReuniao=" . $idnrreuniao;
-		$alterar = $db->update ( "BDCORPORATIVO.scSAC.tbPauta", $dados, $where );
-		
-		if ($alterar) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+        
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    }
+    
+    public static function atualizarreuniao($dados, $idnrreuniao, $idpronac)
+    {
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        
+        $where = "IdPRONAC = " . $idpronac . " and IdNrReuniao=" . $idnrreuniao;
+        $alterar = $db->update("BDCORPORATIVO.scSAC.tbPauta", $dados, $where);
+        
+        if ($alterar) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-        public static function inserirConsolidacao($dados) {
-		$db = Zend_Registry::get ( 'db' );
-		$db->setFetchMode ( Zend_DB::FETCH_OBJ );
+    public static function inserirConsolidacao($dados)
+    {
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		$alterar = $db->insert ( "BDCORPORATIVO.scSAC.tbconsolidacaovotacao", $dados );
+        $alterar = $db->insert("BDCORPORATIVO.scSAC.tbconsolidacaovotacao", $dados);
 
-		if ($alterar) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	public static function atualizarparaproximareuniao($dados, $idnrreuniao) {
-		
-		$db = Zend_Registry::get ( 'db' );
-		$db->setFetchMode ( Zend_DB::FETCH_OBJ );
-		
-		$where = "stAnalise = 'AC' or stAnalise = 'IC' and IdNrReuniao=" . $idnrreuniao;
-		$alterar = $db->update ( "BDCORPORATIVO.scSAC.tbPauta", $dados, $where );
-		
-		if ($alterar) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
+        if ($alterar) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public static function atualizarparaproximareuniao($dados, $idnrreuniao)
+    {
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        
+        $where = "stAnalise = 'AC' or stAnalise = 'IC' and IdNrReuniao=" . $idnrreuniao;
+        $alterar = $db->update("BDCORPORATIVO.scSAC.tbPauta", $dados, $where);
+        
+        if ($alterar) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
-?>

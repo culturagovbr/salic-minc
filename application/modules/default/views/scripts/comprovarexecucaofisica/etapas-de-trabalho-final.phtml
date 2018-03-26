@@ -254,6 +254,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
                 medidasAcessibilidade = CountCharacters('medidasAcessibilidade'),
                 medidasFruicao = CountCharacters('medidasFruicao'),
                 empregosGerados = CountCharacters('empregosGerados');
+            console.log(medidasPreventivas);
 
             if (
                 etapasConcluidas >= 20 &&
@@ -306,26 +307,28 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
                 }
             }
 
-            if(medidasPreventivas > 0) {
-                if ($('#arquivoImpactosAmbientais').val().length > 0 ){
-                    if ($('#arquivoImpactosAmbientais').val() != null) {
-                        preenchimentouploadcampo3 = true;
-                    }else{
-                        preenchimentouploadcampo3 = false;
-                    }
-                }
-                if ($('#validacaoImpactosAmbientais').val() != undefined) {
-                    if ($('#validacaoImpactosAmbientais').val().length == 4) {
-                        preenchimentouploadcampo3 = true;
-                    }else{
-                        preenchimentouploadcampo3 = false;
-                    }
-                }
-            }
+            console.log(medidasPreventivas);
+            /* if(medidasPreventivas > 0) { */
+            /*     if ($('#arquivoImpactosAmbientais').val().length > 0 ){ */
+            /*         if ($('#arquivoImpactosAmbientais').val() != null) { */
+            /*             preenchimentouploadcampo3 = true; */
+            /*         }else{ */
+            /*             preenchimentouploadcampo3 = false; */
+            /*         } */
+            /*     } */
+
+            /*     if ($('#validacaoImpactosAmbientais').val() != undefined) { */
+            /*         if ($('#validacaoImpactosAmbientais').val().length == 4) { */
+            /*             preenchimentouploadcampo3 = true; */
+            /*         }else{ */
+            /*             preenchimentouploadcampo3 = false; */
+            /*         } */
+            /*     } */
+            /* } */
 
 
 
-            if(!preenchimento || !preenchimentouploadcampo1 || !preenchimentouploadcampo2 || !preenchimentouploadcampo3 || uploadEstourado) {
+            if(!preenchimento || !preenchimentouploadcampo1 || !preenchimentouploadcampo2 /*|| !preenchimentouploadcampo3*/ || uploadEstourado) {
                 $("#camposObrigatorios").dialog("destroy");
                 if(!preenchimento) {
                     $("#camposObrigatorios").html("Favor preencher corretamente os campos obrigat&oacute;rios!");
@@ -553,40 +556,33 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
             </tr>
             <tr>
                 <td>
-
-<!--                    <input class="input_simples" type="file" id="arquivoImpactosAmbientais" name="imagensImpactosAmbientais" style="width:350px;" />-->
-                    <!-- Alysson -->
-
                     <?php
-                    if ($this->cumprimentoDoObjeto->getMedidasPreventivasImagens()) {
-                        echo $this->partial(
+                        if ($this->cumprimentoDoObjeto->getMedidasPreventivasImagens()) {
+                            echo $this->partial(
+                                '/comprovarexecucaofisica/partial/imagens-cumprimento-do-objeto.phtml',
+                                array(
+                                    'idPronac' => $idPronac,
+                                    'idCumprimentoDoObjeto' => $this->cumprimentoDoObjeto->getIdCumprimentoObjeto(),
+                                    'imagens' => $this->cumprimentoDoObjeto->getMedidasPreventivasImagens(),
+                                )
+                            );
+                        }
+                        if (!$this->partial(
                             '/comprovarexecucaofisica/partial/imagens-cumprimento-do-objeto.phtml',
                             array(
                                 'idPronac' => $idPronac,
                                 'idCumprimentoDoObjeto' => $this->cumprimentoDoObjeto->getIdCumprimentoObjeto(),
                                 'imagens' => $this->cumprimentoDoObjeto->getMedidasPreventivasImagens(),
                             )
-                        );
+                        )){
 
-
-                    }
-                    if(!$this->partial(
-                        '/comprovarexecucaofisica/partial/imagens-cumprimento-do-objeto.phtml',
-                        array(
-                            'idPronac' => $idPronac,
-                            'idCumprimentoDoObjeto' => $this->cumprimentoDoObjeto->getIdCumprimentoObjeto(),
-                            'imagens' => $this->cumprimentoDoObjeto->getMedidasPreventivasImagens(),
-                        )
-                    )){
-
-                        echo 'Documento:
-                    <br clear="all" />';
-                        echo '<input class="input_simples obrigatorio" type="file" id="arquivoImpactosAmbientais" name="imagensImpactosAmbientais" style="width:350px;" /> &nbsp; <input type="button" class="btn_excluir" id="btn_rmfile3">';
-                    }else{
-                        echo '<input id="validacaoImpactosAmbientais" value="true" hidden></input>';
-                        echo '<input class="input_simples obrigatorio" type="file" id="arquivoImpactosAmbientais" name="imagensImpactosAmbientais" style="width:350px;" hidden/>';
-                    }
-
+                            echo 'Documento:
+                        <br clear="all" />';
+                            echo '<input class="input_simples " type="file" id="arquivoImpactosAmbientais" name="imagensImpactosAmbientais" style="width:350px;" /> &nbsp; <input type="button" class="btn_excluir" id="btn_rmfile3">';
+                        }else{
+                            echo '<input id="validacaoImpactosAmbientais" value="true" hidden></input>';
+                            echo '<input class="input_simples " type="file" id="arquivoImpactosAmbientais" name="imagensImpactosAmbientais" style="width:350px;" hidden/>';
+                        }
                     ?>
                     <br clear="all" />
                     <textarea
@@ -595,8 +591,8 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
                         cols=""
                         rows="7"
                         style="width: 99%;"
-                        class="textarea_simples obrigatorio"><?php echo $this->cumprimentoDoObjeto->getMedidasPreventivas(); ?></textarea>
-		    <div id="contadormedidasPreventivas"></div>
+                        class="textarea_simples "><?php echo $this->cumprimentoDoObjeto->getMedidasPreventivas(); ?></textarea>
+                    <div id="contadormedidasPreventivas"></div>
                 </td>
             </tr>
             <tr align="center">

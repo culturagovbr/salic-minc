@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of ComprovarPagamentoServiceController
- *
- * @author mikhail
- */
 class ComprovarPagamentoServiceController extends ServicoController
 {
 
@@ -16,5 +11,4 @@ class ComprovarPagamentoServiceController extends ServicoController
     {
         $this->setServiceClass('ComprovantePagamentoService');
     }
-
 }

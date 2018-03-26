@@ -144,5 +144,4 @@ class Assinatura_Model_TbAssinatura extends MinC_Db_Model
     {
         $this->_IdCargo = $IdCargo;
     }
-
 }

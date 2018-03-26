@@ -1,22 +1,24 @@
 <?php
 
 
-class tbLoginTentativasAcesso extends GenericModel {
-
+class tbLoginTentativasAcesso extends GenericModel
+{
     protected $_banco = 'SAC';
     protected $_schema = 'sac.dbo';
     protected $_name = 'tbLoginTentativasAcesso';
 
-    public function consultarAcessoCpf($cpf,$ip)
+    public function consultarAcessoCpf($cpf, $ip)
     {
         $table = Zend_Db_Table::getDefaultAdapter();
 
         $select = $table->select()
-            ->from('tbLoginTentativasAcesso',
+            ->from(
+                'tbLoginTentativasAcesso',
                 array('*'),
-                'SAC.dbo')
+                'SAC.dbo'
+            )
             ->where('nrCPF = ?', $cpf)
-            ->where('nrIP = ?',$ip);
+            ->where('nrIP = ?', $ip);
 
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -25,7 +27,7 @@ class tbLoginTentativasAcesso extends GenericModel {
         return $db->fetchRow($select);
     }
 
-    public function insereTentativa($cpf,$ip,$data)
+    public function insereTentativa($cpf, $ip, $data)
     {
         $dados = array('nrCPF'       => $cpf,
                        'nrIP'        => $ip,
@@ -39,10 +41,10 @@ class tbLoginTentativasAcesso extends GenericModel {
     {
         $novatentativa = $atualtentativa+1;
 
-            $dados = array('nrTentativa' => new Zend_Db_Expr("$novatentativa"), 'dtTentativa' => $data);
-            $where = array('nrCPF = ?'=> $cpf, 'nrIP = ?' => $ip);
+        $dados = array('nrTentativa' => new Zend_Db_Expr("$novatentativa"), 'dtTentativa' => $data);
+        $where = array('nrCPF = ?'=> $cpf, 'nrIP = ?' => $ip);
 
-            return $this->update($dados, $where);
+        return $this->update($dados, $where);
     }
 
     public function removeTentativa($cpf, $ip)
@@ -51,5 +53,4 @@ class tbLoginTentativasAcesso extends GenericModel {
 
         return $this->delete($where);
     }
-
 }

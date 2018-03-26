@@ -2,10 +2,10 @@
 
 class Proposta_VisualizarPlanoDistribuicaoController extends Proposta_GenericController
 {
-	public function init()
-	{
+    public function init()
+    {
         parent::init();
-	}
+    }
 
     public function visualizarAction()
     {
@@ -39,5 +39,4 @@ class Proposta_VisualizarPlanoDistribuicaoController extends Proposta_GenericCon
 
         $this->_helper->json(array('data' => $dados->toArray(), 'success' => 'true'));
     }
-
 }

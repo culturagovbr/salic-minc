@@ -68,10 +68,10 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
     /**
      * @todo verificar um tipo de SET TEXTSIZE 2147483647 para usar com o Postgres tambem.
      */
-    public function __construct()
+    public function __construct($config = array())
     {
         $this->createConnection();
-        parent::__construct();
+        parent::__construct($config);
     }
 
     private function createConnection () {
@@ -107,6 +107,7 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
                                     'host'     => $arrConfig['host'],
                                     'port'     => $arrConfig['port'],
                                     'charset'     => $arrConfig['charset'],
+                                    'pdoType'     => $arrConfig['pdoType'],
                                 )
                             )
                         )

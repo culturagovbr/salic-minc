@@ -85,7 +85,11 @@ function mascara ($val, $mask) {
         <tr>
             <td align="center"><?php echo $this->projeto->AnoProjeto.$this->projeto->Sequencial; ?></td>
             <td align="center"><?php echo $this->projeto->NomeProjeto; ?></td>
-            <td align="center"><?php echo mascara($this->dados[0]['Agencia'],'####-#');?></td>
+            <td align="center">
+                <?php if(count($this->dados)>0) {
+                    echo mascara($this->dados[0]['Agencia'],'####-#');
+                } ?>
+            </td>
         </tr>
     </table>
 <!-- ========== INÍCIO MENU PESQUISA ========= -->

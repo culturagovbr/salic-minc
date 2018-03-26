@@ -1,11 +1,12 @@
 <?php
-class PlanilhaEtapa  extends MinC_Db_Table_Abstract
+class PlanilhaEtapa extends MinC_Db_Table_Abstract
 {
     protected $_banco = "SAC";
     protected $_schema = "SAC";
     protected $_name = "tbPlanilhaEtapa";
 
-    public function buscarEtapaContrato($idpronac,$idproduto){
+    public function buscarEtapaContrato($idpronac, $idproduto)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -35,15 +36,15 @@ class PlanilhaEtapa  extends MinC_Db_Table_Abstract
 
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
 
-        if($idproduto == '0'){
+        if ($idproduto == '0') {
             $select->where('prod.Codigo is null');
-        } else if(!empty($idproduto)) {
+        } elseif (!empty($idproduto)) {
             $select->where('prod.Codigo = ?', $idproduto);
         }
 
         //$select->where('pEtapa.tpCusto = ?','P');
 
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
         $select->where('cxpa.idContrato is null');
 
         $select->order('pEtapa.Descricao');
@@ -52,9 +53,9 @@ class PlanilhaEtapa  extends MinC_Db_Table_Abstract
         $select->group('pEtapa.Descricao');
 
         return $this->fetchAll($select);
-
     }
-    public function buscarEtapaComprovacao($idpronac,$idproduto,$ckItens){
+    public function buscarEtapaComprovacao($idpronac, $idproduto, $ckItens)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -81,14 +82,15 @@ class PlanilhaEtapa  extends MinC_Db_Table_Abstract
 
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
 
-        if($idproduto > 0){
+        if ($idproduto > 0) {
             $select->where('prod.Codigo = ?', $idproduto);
         } else {
             $select->where('prod.Codigo is null');
         }
-        $select->where('pAprovacao.stAtivo = ?','S');
-        if(is_array($ckItens) and count(is_array($ckItens))>0)
-            $select->where('pAprovacao.idPlanilhaAprovacao in ('.implode(',',$ckItens).')');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
+        if (is_array($ckItens) and count(is_array($ckItens))>0) {
+            $select->where('pAprovacao.idPlanilhaAprovacao in ('.implode(',', $ckItens).')');
+        }
 
         $select->order('pEtapa.Descricao');
 
@@ -97,10 +99,9 @@ class PlanilhaEtapa  extends MinC_Db_Table_Abstract
         $select->group('pEtapa.Descricao');
 
         return $this->fetchAll($select);
-
     }
-    public function buscarEtapa($idpronac,$idproduto){
-
+    public function buscarEtapa($idpronac, $idproduto)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -142,13 +143,13 @@ class PlanilhaEtapa  extends MinC_Db_Table_Abstract
 
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
 
-        if($idproduto == '0'){
+        if ($idproduto == '0') {
             $select->where('prod.Codigo is null');
-        } else if(!empty($idproduto)) {
+        } elseif (!empty($idproduto)) {
             $select->where('prod.Codigo = ?', $idproduto);
         }
 
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
         //$select->where('cxpa.idCotacao is null');
         //$select->where('dlxpa.idDispensaLicitacao is null');
         //$select->where('lxpa.idLicitacao is null');
@@ -161,10 +162,10 @@ class PlanilhaEtapa  extends MinC_Db_Table_Abstract
 
 
         return $this->fetchAll($select);
-
     }
 
-    public function carregarEtapa($idpronac,$idproduto,$idCotacao,$idDispensaLicitacao,$idLicitacao,$idContrato){
+    public function carregarEtapa($idpronac, $idproduto, $idCotacao, $idDispensaLicitacao, $idLicitacao, $idContrato)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -184,41 +185,45 @@ class PlanilhaEtapa  extends MinC_Db_Table_Abstract
                             array(),
                             'SAC.dbo'
                            );
-        if($idCotacao)
-        $select->joinInner(
+        if ($idCotacao) {
+            $select->joinInner(
                             array('ctxpa'=>'tbCotacaoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = ctxpa.idPlanilhaAprovacao and ctxpa.idCotacao = '$idCotacao' ",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
-        if($idDispensaLicitacao)
-        $select->joinInner(
+        }
+        if ($idDispensaLicitacao) {
+            $select->joinInner(
                             array('dlxpa'=>'tbDispensaLicitacaoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = dlxpa.idPlanilhaAprovacao and dlxpa.idDispensaLicitacao  = '$idDispensaLicitacao'",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
-        if($idLicitacao)
-        $select->joinInner(
+        }
+        if ($idLicitacao) {
+            $select->joinInner(
                             array('lxpa'=>'tbLicitacaoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = lxpa.idPlanilhaAprovacao and lxpa.idLicitacao  = '$idLicitacao' ",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
-        if($idContrato)
-        $select->joinInner(
+        }
+        if ($idContrato) {
+            $select->joinInner(
                             array('cnxpa'=>'tbContratoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = cnxpa.idPlanilhaAprovacao and cnxpa.idContrato = '$idContrato' ",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
+        }
 
 
-        $select->where('pAprovacao.IdPRONAC = ?',$idpronac);
+        $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
 
-        if($idproduto == '0'){
+        if ($idproduto == '0') {
             $select->where('prod.Codigo is null');
-        } else if(!empty($idproduto)) {
+        } elseif (!empty($idproduto)) {
             $select->where('prod.Codigo = ?', $idproduto);
         }
 
@@ -228,15 +233,14 @@ class PlanilhaEtapa  extends MinC_Db_Table_Abstract
         $select->group('pEtapa.Descricao');
 
         return $this->fetchAll($select);
-
     }
 
-    public function buscarEtapas(){
+    public function buscarEtapas()
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->where("tpCusto = 'P'");
         //$select->assemble();
         return $this->fetchAll($select);
     }
-
 }

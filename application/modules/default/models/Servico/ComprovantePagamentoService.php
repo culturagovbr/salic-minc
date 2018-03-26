@@ -56,13 +56,12 @@ class ComprovantePagamentoService
         $comprovanteNumero,
         $serie = null,
         $comprovanteJustificativa = null
-    )
-    {
+    ) {
         try {
             /**
              *  @todo mover este trecho de buscar fornecedor para um model
              */
-            $cnpjcpf = preg_replace('/\.|-|\//','', $fornecedorCpfCnpj);
+            $cnpjcpf = preg_replace('/\.|-|\//', '', $fornecedorCpfCnpj);
             $agentesDao = new Agente_Model_DbTable_Agentes();
             $fornecedores = $agentesDao->buscarFornecedor(array(' A.CNPJCPF = ? ' => $cnpjcpf));
             if (!$fornecedores->count()) {

@@ -1,4 +1,17 @@
 <div class="container-fluid">
+    <input type="hidden" id="perfil_atual" value="<?php echo $this->grupo ?>"/>
+    <input type="hidden" id="perfil_tecnico_admissibilidade"
+           value="<?php echo Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE ?>"/>
+    <input type="hidden" id="perfil_coordenador_admissibilidade"
+           value="<?php echo Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE ?>"/>
+    <input type="hidden" id="perfil_componente_comissao"
+           value="<?php echo Autenticacao_Model_Grupos::COMPONENTE_COMISSAO ?>"/>
+    <input type="hidden" id="liberar_encaminhamento"
+           value="<?php echo ($this->liberarEncaminhamento === true) ? 'sim' : 'nao' ?>"/>
+    <input type="hidden" id="base_url"
+           value="<?php echo $this->baseUrl() ?>"/>
+    <input id="PROPOSTA_EM_ANALISE_FINAL" type="hidden"
+           value="<?php echo Agente_Model_DbTable_Verificacao::PROPOSTA_EM_ANALISE_FINAL ?>">
     <div class="row">
         <?php echo $this->partial("admissibilidade/inc/menu.inc.php", $this); ?>
         <div class="col s10 m10 l10">
@@ -11,8 +24,9 @@
             <table>
                 <tr>
                     <td class="center-align">
-                        <button class="black-text btn waves-effect waves-dark white tooltipped" data-tooltip="Imprimir" name="imprimir"  id="imprimir" type="button">
-                                Imprimir<i class="material-icons right">print</i>
+                        <button class="black-text btn waves-effect waves-dark white tooltipped" data-tooltip="Imprimir"
+                                name="imprimir" id="imprimir" type="button">
+                            Imprimir<i class="material-icons right">print</i>
                         </button>
                     </td>
                 </tr>
@@ -21,26 +35,38 @@
             <table class="bordered striped conteudoImprimivel" id="tabelaAnaliseFinal">
                 <thead>
                 <tr>
-                    <th  title="Clique aqui para ordenar">Nr. Proposta</th>
-                    <th  title="Clique aqui para ordenar">Nome da Proposta</th>
+                    <th class="tooltipped" data-position="top" data-delay="50" data-tooltip="Clique aqui para ordenar">Nr. Proposta</th>
+                    <th class="tooltipped" data-position="top" data-delay="50" data-tooltip="Clique aqui para ordenar">Nome da Proposta</th>
                     <th>Dt. Admiss&atilde;o</th>
                     <th>Dias em An&aacute;lise</th>
-                    <th>Outras Propostas</th>
-                    <th>T&eacute;cnico</th>
-                    <th>Analisado</th>
+                    <?php if ($this->grupo != Autenticacao_Model_Grupos::COMPONENTE_COMISSAO): ?>
+                        <th>Outras Propostas</th>
+                        <th>T&eacute;cnico</th>
+                        <th>Analisado</th>
+                    <?php else: ?>
+                        <th class="tooltipped" data-position="top" data-delay="50" data-tooltip="Dias restantes para avalia&ccedil;&atilde;o">
+                            Dias Restantes
+                        </th>
+                    <?php endif; ?>
+                    <th>Enquadrado</th>
                     <th>Analisar</th>
+                    <?php
+                    if ($this->liberarEncaminhamento === true) : ?>
+                        <th>Encaminhar</th>
+                        <?php
+                    endif;
+                    ?>
                 </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    if ($propostaFinal->diasCorridos < 11) {
-                        $cor = 'style = "color: #228B22"';
-                    } else if ($propostaFinal->diasCorridos > 10 && $propostaFinal->diasCorridos < 21) {
-                        $cor = 'style = "color: #FFD700"';
-                    } else {
-                        $cor = 'style = "color: #FF0000"';
-                    }
-                    ?>
+                <?php
+                $cor = 'style = "color: #FF0000"';
+                if ($propostaFinal->diasCorridos < 11) {
+                    $cor = 'style = "color: #228B22"';
+                } else if ($propostaFinal->diasCorridos > 10 && $propostaFinal->diasCorridos < 21) {
+                    $cor = 'style = "color: #FFD700"';
+                }
+                ?>
                 </tbody>
             </table>
         </div>
@@ -64,145 +90,46 @@
     </div>
 </div>
 
+<div id="dialogEncaminharProposta" class="modal bottom-sheet">
+    <form method="post"
+          action="<?php echo $this->url(
+              [
+                  'module' => 'admissibilidade',
+                  'controller' => 'distribuicao-avaliacao-proposta',
+                  'action' => 'encaminhar-proposta-ajax'
+              ]
+          ); ?>" onsubmit="return false">
+        <div class="modal-content">
+            <h4>Proposta Nr. <span id="span_id_preprojeto"></span> - Encaminhar Avalia&ccedil;&atilde;o</h4>
+            <div class="input-field col s12" style="margin-top: 35px">
+                <select id="id_perfil" name="id_perfil">
+                    <?php foreach ($this->perfis as $perfil) { ?>
+                        <option value="<?php echo $perfil['gru_codigo'] ?>"><?php echo $perfil['gru_nome'] ?></option>
+                    <?php } ?>
+                </select>
+                <label>Selecione o pr&oacute;ximo perfil avaliador</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+
+            <input type="hidden" id="id_preprojeto" name="id_preprojeto"/>
+            <a class="btn waves-effect waves-dark red-text white modal-close">
+                Cancelar
+            </a>
+            <button class="btn waves-effect waves-light "
+                    id="botaoEnviarAvaliacaoProposta"
+                    type="button">
+                Enviar
+            </button>
+        </div>
+    </form>
+</div>
 <br clear="all"/>
 <iframe name="gerarPDF" style="display: none;"></iframe>
-
-<input id="PROPOSTA_EM_ANALISE_FINAL" type="hidden" value="<?php echo Agente_Model_DbTable_Verificacao::PROPOSTA_EM_ANALISE_FINAL ?>">
-<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+        crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>
-    <script type="text/javascript" >
-        (function ($) {
-            $(document).ready(function () {
-                $('#tabelaAnaliseFinal').DataTable(
-                    {
-                        "language": {
-                            "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                        }
-                        , "order": [0, 1]
-                        , "searching": true
-                        , "lengthChange": true
-                        , columnDefs: [
-                            {
-                                targets: [0, 1],
-                                //className: 'mdl-data-table__cell--non-numeric'
-                            }
-                        ]
-                        ,
-                        "aoColumnDefs": [
-                            {'bSortable': false, 'aTargets': [4,6,7]}
-                        ]
-                        , "ajax": {
-                            url : "/admissibilidade/admissibilidade/listar-propostas-ajax",
-                            type: "POST"
-                        },
-                        "processing": true,
-                        "serverSide": true,
-                        "createdRow": function ( row, data, index ) {
-                                    if (data.CodSituacao == $('#PROPOSTA_EM_ANALISE_FINAL').val()) {
-                                        $(row).addClass('green lighten-5');
-                                    }
-                        },
-                        "columns": [
-                            {
-                                data: null,
-                                name: 'idProjeto',
-                                render: function ( data, type, row ) {
-                                   return  '<a class="waves-effect waves-dark btn white black-text" href="/admissibilidade/admissibilidade/exibirpropostacultural?idPreProjeto='+data.idProjeto+'">'
-                                             +data.idProjeto+' </a>';
-                                }
-                            },
-                            {
-                                "name": "NomeProposta",
-                                "data": "NomeProposta"
+<script type="text/javascript"
+        src="<?php echo $this->baseUrl(); ?>/public/js/admissibilidade/admissibilidade/listarpropostas.js"></script>
 
-                            },
-                            {
-                                "name": "DtMovimentacao",
-                                "data": "DtMovimentacao"
-                            },
-                            {
-                                "name": "diasCorridos",
-                                "data": "diasCorridos"
-                            },
-                            {
-                                data: null,
-                                render: function ( data, type, row ) {
-                                   return  '<a class="btn waves-effect waves-darrk white black-text" href="<?php echo $this->baseUrl(); ?>/admissibilidade/admissibilidade/proposta-por-proponente?agente='+data.idAgente+'">'
-                                        +'<i class="material-icons"'
-                                             +'title="Vizualizar outras Propostas deste Proponente" alt="Vizualizar outras Propostas deste Proponente">search</i> </a>';
-                                }
-                            },
-                            {
-                                "name": "Tecnico",
-                                "data": "Tecnico"
-                            },
-                            {
-                                data: null,
-                                render: function ( data, type, row ) {
-                                    if (data.CodSituacao == $('#PROPOSTA_EM_ANALISE_FINAL').val()) {
-                                        return '<i class="material-icons">done</i>'+
-                                             '';
-                                    }
-                                    return '';
-                                }
-                            },
-                            {
-                                data: null,
-                                render: function ( data, type, row ) {
-                                    return '<a class="btn waves-effect waves-darrk white black-text" href="<?php echo $this->baseUrl(); ?>/admissibilidade/admissibilidade/exibirpropostacultural?idPreProjeto='+data.idProjeto+'&realizar_analise=sim">'
-                                            +'<i class="material-icons" '
-                                            +'title="Fazer An&aacute;lise Visual da Proposta" alt="Fazer An&aacute;lise Visual da Proposta">visibility</i></a>'
-                                }
-                            },
-                        ]
-                    }
-                );
-            });
-        }($.noConflict(true)));
-    </script>
-    <script type="text/javascript">
-
-        $3("#imprimir").on('click', function(){
-            console.log('teste');
-            $3("#conteudoImprimir").val($3(".conteudoImprimivel").html());
-            $3("#formGerarPdf").submit();
-        });
-
-                $("#tabelaAnaliseFinal").ready(function () {
-
-                    $3("#modalTransformarProposta").modal();
-                    $3("tbody").on('click', '.transformarPropostaEmProjeto', function () {
-                        $3("#idPreProjeto").html($3(this).data("id-pre-projeto"));
-                        $3("#modalTransformarProposta").modal('open');
-                    });
-
-                    $("#botaoTransformarPropostaEmProjeto").click(function () {
-                        var idPreProjeto = parseInt($("#idPreProjeto").html(), 10);
-
-                        Materialize.toast('Gerando PRONAC...', 2000, '', function () {
-                            $.post('<?php echo $this->baseUrl(); ?>/admissibilidade/admissibilidade/transformar-proposta-em-projeto?idPreProjeto=' + idPreProjeto,
-                                {},
-                                function (data) {
-                                    Materialize.toast('PRONAC gerado com sucesso.', 2000, '', function () {
-                                        window.location = "";
-                                    });
-                                }
-                            );
-                        });
-                    });
-                });
-
-                function abrirDinamico(elemento, obj) {
-                    if ($(elemento).css('display') == 'none') {
-                        $(elemento).fadeIn('fast', function () {
-                            $('img', $(obj)).attr('src', '<?php echo $this->baseUrl();?>/public/img/navigation-right.png');
-                        });
-                    } else {
-                        $(elemento).fadeOut('fast', function () {
-                            $('img', $(obj)).attr('src', '<?php echo $this->baseUrl();?>/public/img/navigation-baixo.PNG');
-                        });
-                    }
-                }
-
-            </script>

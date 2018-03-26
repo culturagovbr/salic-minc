@@ -1,13 +1,6 @@
 <?php
-/**
- * MantertabelaitensController
- * @author wouerner <wouerner@gmail.com>
- * @since 10/12/2010
- * @link http://www.cultura.gov.br
- */
 class MantertabelaitensController  extends MinC_Test_ControllerActionTestCase
 {
-
     public function testIndexAction()
     {
         $this->autenticar();

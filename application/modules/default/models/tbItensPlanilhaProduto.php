@@ -1,7 +1,6 @@
 <?php
 class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
 {
-
     protected $_schema = 'sac';
     protected $_name = 'tbitensplanilhaproduto';
     protected $_primary = 'idItensPlanilhaProduto';
@@ -15,7 +14,6 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
      */
     public function buscaItemProduto($where = array())
     {
-
         try {
             $this->_db->beginTransaction();
 
@@ -28,17 +26,20 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
             );
 
             $select->joinInner(
-                array('pr' => 'Produto'), 'p.idProduto = pr.Codigo',
+                array('pr' => 'Produto'),
+                'p.idProduto = pr.Codigo',
                 array('pr.Descricao as Produto')
             );
 
             $select->joinInner(
-                array('e' => 'TbPlanilhaEtapa'), 'p.idPlanilhaEtapa = e.idPlanilhaEtapa',
+                array('e' => 'TbPlanilhaEtapa'),
+                'p.idPlanilhaEtapa = e.idPlanilhaEtapa',
                 array('e.Descricao as Etapa')
             );
 
             $select->joinInner(
-                array('i' => 'TbPlanilhaItens'), 'p.idPlanilhaItens = i.idPlanilhaItens',
+                array('i' => 'TbPlanilhaItens'),
+                'p.idPlanilhaItens = i.idPlanilhaItens',
                 array('i.Descricao as Item')
             );
 
@@ -59,7 +60,6 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
 
     public function totalBuscaPaginacao($where = array())
     {
-
         try {
             $this->_db->beginTransaction();
 
@@ -72,17 +72,20 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
             );
 
             $select->joinInner(
-                array('pr' => 'Produto'), 'p.idProduto = pr.Codigo',
+                array('pr' => 'Produto'),
+                'p.idProduto = pr.Codigo',
                 array('pr.Descricao as Produto')
             );
 
             $select->joinInner(
-                array('e' => 'TbPlanilhaEtapa'), 'p.idPlanilhaEtapa = e.idPlanilhaEtapa',
+                array('e' => 'TbPlanilhaEtapa'),
+                'p.idPlanilhaEtapa = e.idPlanilhaEtapa',
                 array('e.Descricao as Etapa')
             );
 
             $select->joinInner(
-                array('i' => 'TbPlanilhaItens'), 'p.idPlanilhaItens = i.idPlanilhaItens',
+                array('i' => 'TbPlanilhaItens'),
+                'p.idPlanilhaItens = i.idPlanilhaItens',
                 array('i.Descricao as Item')
             );
 
@@ -100,7 +103,6 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
 
     public function buscarEtapasDoItem($where = array(), $order = array())
     {
-
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->distinct();
@@ -122,13 +124,12 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
         }
 
         $select->order($order);
-        
+
         return $this->fetchAll($select);
     }
 
     public function itensPorItemEEtapaReadequacao($idEtapa, $idProduto)
     {
-
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -137,7 +138,8 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
         );
 
         $select->joinInner(
-            array('b' => 'tbPlanilhaItens'), 'a.idPlanilhaItens = b.idPlanilhaItens',
+            array('b' => 'tbPlanilhaItens'),
+            'a.idPlanilhaItens = b.idPlanilhaItens',
             array('Descricao as Item')
         );
 
@@ -146,11 +148,11 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
 
         $select->order('2'); // Descricao
 
-        
+
         return $this->fetchAll($select);
     }
 
-    public function buscarItens($idEtapa, $idproduto = null, $fetchMode = Zend_DB::FETCH_OBJ)
+    public function buscarItens($where = array(), $idEtapa = null, $idproduto = null, $fetchMode = Zend_DB::FETCH_OBJ)
     {
         $select = $this->select()->distinct();
         $select->setIntegrityCheck(false);
@@ -158,29 +160,38 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
             array('a' => $this->_name),
             array(
                 'a.idPlanilhaItens',
-                'b.Descricao'
+                'a.idPlanilhaEtapa'
             ),
             $this->_schema
         );
         $select->joinInner(
-            array('b' => 'tbplanilhaitens'), 'a.idPlanilhaItens = b.idPlanilhaItens',
-            array(''), $this->_schema
+            array('b' => 'tbPlanilhaItens'),
+            'a.idPlanilhaItens = b.idPlanilhaItens',
+            array('b.Descricao'),
+            $this->_schema
         );
-        $select->where('idPlanilhaEtapa = ?',$idEtapa);
+
+        if (!empty($idEtapa)) {
+            $select->where('a.idPlanilhaEtapa = ?', $idEtapa);
+        }
 
         if (!empty($idproduto)) {
-            $select->where('idProduto = ?',$idproduto);
+            $select->where('idProduto = ?', $idproduto);
         }
         $select->order('b.Descricao');
 
+        foreach ($where as $coluna => $valor) {
+            $select->where($coluna, $valor);
+        }
+
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode($fetchMode);
+
         return $db->fetchAll($select);
     }
 
     public function buscarItem($where = array(), $order = array())
     {
-
         $select = $this->select()->distinct();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -204,7 +215,7 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
         return $db->fetchRow($select);
     }
 
-    public function listarProdutoEtapaItem ($idplanilhaitens=null, $nomeItem=null, $idEtapa=null, $idProduto=null, $where=array())
+    public function listarProdutoEtapaItem($idplanilhaitens=null, $nomeItem=null, $idEtapa=null, $idProduto=null, $where=array())
     {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -224,20 +235,20 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
             ->join(array('i' => 'tbplanilhaitens'), '(p.idplanilhaitens = i.idplanilhaitens)', array("i.descricao AS Item"), $this->_schema)
         ;
 
-        if(!empty($nomeItem)) {
+        if (!empty($nomeItem)) {
             $sql->where('i.descricao = ?', $nomeItem);
         }
-        if(!empty($item)) {
+        if (!empty($item)) {
             $sql->where('i.idplanilhaitens = ?', $idplanilhaitens);
         }
-        if(!empty($idEtapa)) {
+        if (!empty($idEtapa)) {
             $sql->where('e.idplanilhaetapa = ?', $idEtapa);
         }
-        if(!empty($idProduto)) {
+        if (!empty($idProduto)) {
             $sql->where('pr.codigo = ?', $idProduto);
         }
 
-        if(!empty($where)){
+        if (!empty($where)) {
             foreach ($where as $coluna => $valor) {
                 $sql->where($coluna, $valor);
             }
@@ -248,4 +259,3 @@ class tbItensPlanilhaProduto extends MinC_Db_Table_Abstract
         return $db->fetchAll($sql);
     }
 }
-?>

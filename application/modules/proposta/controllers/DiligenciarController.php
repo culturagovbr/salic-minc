@@ -7,8 +7,8 @@
  * @package Proposta
  * @author  wouerner <wouerner@gmail.com>
  */
-class Proposta_DiligenciarController extends Proposta_GenericController {
-
+class Proposta_DiligenciarController extends Proposta_GenericController
+{
     private $idPronac = null;
     private $idProduto = null;
     private $situacao = null;
@@ -51,8 +51,6 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
         }
 
         $this->view->btnVoltar = $this->btnVoltar; // botao voltar dinamico
-
-
     }
 
     /**
@@ -61,7 +59,8 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
      * @access public
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         $this->_forward("listardiligenciaproponente");
     }
 
@@ -86,7 +85,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
         $idagente = $idagente['idAgente'];
 
         $utl = $diligenciaDAO->buscarUltDiligencia(array('idPronac = ?' => $this-> idPronac, 'stEnviado = ?' => 'N', 'stEstado  = ?' => 0, 'idSolicitante = ?' => new Zend_Db_Expr("isnull((SELECT usu_codigo FROM tabelas..usuarios WHERE usu_identificacao='".$usu_identificacao."'), (SELECT idAgente FROM Agentes.dbo.Agentes WHERE CNPJCPF='".$usu_identificacao."'))")))->current();
-        if(count($utl) > 0) {
+        if (count($utl) > 0) {
             $this->view->ultimo     = $utl;
         }
         $this->view->idPronac       = $this->idPronac;
@@ -110,7 +109,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
         if (isset($resp) && is_object($resp) && count($resp)>0) {
             $this->view->pronac         =   $resp[0]->pronac;
             $this->view->nomeProjeto    =   $resp[0]->nomeProjeto;
-        } else{
+        } else {
             $this->view->pronac         =   '';
             $this->view->nomeProjeto    =   '';
         }
@@ -154,14 +153,14 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
                 $idPreProjeto   = $projeto[0]->idProjeto;
             }
 
-            if ($this->idPreProjeto)
+            if ($this->idPreProjeto) {
                 $idPreProjeto   = $this->idPreProjeto;
+            }
             $resp = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $idPreProjeto, ' aval.idAvaliacaoProposta = ?' => $this->view->idAvaliacaoProposta));
 
             $this->view->nmCodigo   = 'Nr PROPOSTA';
             $this->view->nmTipo     = 'DA PROPOSTA';
             $this->view->Descricao  = $resp[0]->Descricao;
-
         }
 
         $this->view->stEnviado      = $resp[0]->stEnviado;
@@ -169,8 +168,9 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
         $this->view->nomeProjeto    = $resp[0]->nomeProjeto;
         //$this->view->Proponente = $rd[0]->Proponente;
         $this->view->dataSolicitacao    = date('d/m/Y H:i', strtotime($resp[0]->dataSolicitacao));
-        if ($resp[0]->dataResposta          != '')
+        if ($resp[0]->dataResposta          != '') {
             $this->view->dataResposta       = date('d/m/Y H:i', strtotime($resp[0]->dataResposta));
+        }
         $this->view->solicitacao        = $resp[0]->Solicitacao;
         $this->view->resposta           = $resp[0]->Resposta;
         if ($resp[0]->idCodigoDocumentosExigidos) {
@@ -179,7 +179,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
             $this->view->Opcao              = $documento[0]->Opcao;
         }
 
-        if($this->view->idDiligencia) {
+        if ($this->view->idDiligencia) {
             $arquivo = new Arquivo();
             $arquivos = $arquivo->buscarAnexosDiligencias($this->view->idDiligencia);
             $this->view->arquivos = $arquivos;
@@ -192,7 +192,8 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
      * @access public
      * @return void
      */
-    public function imprimirdiligenciaAction() {
+    public function imprimirdiligenciaAction()
+    {
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
         $verificacaodao         = new Verificacao();
         $Projetosdao            = new Projetos();
@@ -219,27 +220,28 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
                 $idPreProjeto   = $projeto[0]->idProjeto;
             }
 
-            if ($this->idPreProjeto)
-                 $idPreProjeto   = $this->idPreProjeto;
-                 $resp           = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $idPreProjeto, ' aval.idAvaliacaoProposta = ?' => $this->view->idAvaliacaoProposta));
+            if ($this->idPreProjeto) {
+                $idPreProjeto   = $this->idPreProjeto;
+            }
+            $resp           = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $idPreProjeto, ' aval.idAvaliacaoProposta = ?' => $this->view->idAvaliacaoProposta));
 
-                $this->view->nmCodigo   = 'Nr PROPOSTA';
-                $this->view->nmTipo     = 'DA PROPOSTA';
-                $this->view->Descricao  = $resp[0]->Descricao;
-
-          }
-                $this->view->stEnviado      = $resp[0]->stEnviado;
-                $this->view->pronac         = $resp[0]->pronac;
-                $this->view->nomeProjeto    = $resp[0]->nomeProjeto;
-                $this->view->dataSolicitacao    = date('d/m/Y H:i', strtotime($resp[0]->dataSolicitacao));
-            if ($resp[0]->dataResposta          != '')
-                $this->view->dataResposta       = date('d/m/Y H:i', strtotime($resp[0]->dataResposta));
-                $this->view->solicitacao        = $resp[0]->Solicitacao;
-                $this->view->resposta           = $resp[0]->Resposta;
-            if ($resp[0]->idCodigoDocumentosExigidos) {
-                $documento                      = $DocumentosExigidosDao->listarDocumentosExigido($resp[0]->idCodigoDocumentosExigidos);
-                $this->view->DocumentosExigido  = $documento[0]->Descricao;
-                $this->view->Opcao              = $documento[0]->Opcao;
+            $this->view->nmCodigo   = 'Nr PROPOSTA';
+            $this->view->nmTipo     = 'DA PROPOSTA';
+            $this->view->Descricao  = $resp[0]->Descricao;
+        }
+        $this->view->stEnviado      = $resp[0]->stEnviado;
+        $this->view->pronac         = $resp[0]->pronac;
+        $this->view->nomeProjeto    = $resp[0]->nomeProjeto;
+        $this->view->dataSolicitacao    = date('d/m/Y H:i', strtotime($resp[0]->dataSolicitacao));
+        if ($resp[0]->dataResposta          != '') {
+            $this->view->dataResposta       = date('d/m/Y H:i', strtotime($resp[0]->dataResposta));
+        }
+        $this->view->solicitacao        = $resp[0]->Solicitacao;
+        $this->view->resposta           = $resp[0]->Resposta;
+        if ($resp[0]->idCodigoDocumentosExigidos) {
+            $documento                      = $DocumentosExigidosDao->listarDocumentosExigido($resp[0]->idCodigoDocumentosExigidos);
+            $this->view->DocumentosExigido  = $documento[0]->Descricao;
+            $this->view->Opcao              = $documento[0]->Opcao;
         }
 
         if ($this->view->idDiligencia) {
@@ -255,8 +257,8 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
      * @access public
      * @return void
      */
-    public function cadastrarrespostadiligenciaAction() {
-
+    public function cadastrarrespostadiligenciaAction()
+    {
         $post = Zend_Registry::get('post');
         $idArquivo = '';
         $Mensagem = '';
@@ -266,7 +268,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
             $arquivoTipo     = $_FILES['arquivo']['type']; // tipo
             $arquivoTamanho  = $_FILES['arquivo']['size']; // tamanho
 
-            if (!empty($arquivoNome) && !empty($arquivoTemp)){
+            if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                 $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
                 $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
                 $arquivoHash     = Upload::setHash($arquivoTemp); // hash
@@ -277,8 +279,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
                 parent::message("Favor selecionar o arquivo no formato PDF!", "/proposta/diligenciar/listardiligenciaproponente?idPronac=$this->idPronac", "ALERT");
             }
 
-            if(!empty ($this->idPronac) && $this->idPronac != "0"){
-
+            if (!empty($this->idPronac) && $this->idPronac != "0") {
                 $dataString = file_get_contents($arquivoTemp);
                 $arrData = unpack("H*hex", $dataString);
                 $data = "0x".$arrData['hex'];
@@ -331,8 +332,9 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
                 $projeto = $Projetosdao->buscar(array('IdPRONAC = ?' => $this->idPronac));
                 $idPreProjeto = $projeto[0]->idProjeto;
             }
-            if ($this->idPreProjeto)
+            if ($this->idPreProjeto) {
                 $idPreProjeto       = $this->idPreProjeto;
+            }
             $resp = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $idPreProjeto, ' aval.idAvaliacaoProposta = ?' => $this->view->idAvaliacaoProposta));
             $this->view->nmCodigo   = 'Nr PROPOSTA';
             $this->view->nmTipo     = 'DA PROPOSTA';
@@ -346,13 +348,13 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
         $this->view->pronac                  = $resp[0]->pronac;
         $this->view->nomeProjeto             = $resp[0]->nomeProjeto;
         $this->view->dataSolicitacao         = date('d/m/Y H:i', strtotime($resp[0]->dataSolicitacao));
-        if ($resp[0]->dataResposta          != '')
-        $this->view->dataResposta            = date('d/m/Y H:i', strtotime($resp[0]->dataResposta));
+        if ($resp[0]->dataResposta          != '') {
+            $this->view->dataResposta            = date('d/m/Y H:i', strtotime($resp[0]->dataResposta));
+        }
         $this->view->solicitacao             = $resp[0]->Solicitacao;
         $this->view->resposta                = $resp[0]->Resposta;
 
-        if ($resp[0]->idCodigoDocumentosExigidos)
-        {
+        if ($resp[0]->idCodigoDocumentosExigidos) {
             $documento                       = $DocumentosExigidosDao->listarDocumentosExigido($resp[0]->idCodigoDocumentosExigidos);
             $this->view->DocumentosExigido   = $documento[0]->Descricao;
             $this->view->Opcao               = $documento[0]->Opcao;
@@ -373,13 +375,14 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
      * @access public
      * @return void
      */
-    public function excluirarquivoAction(){
+    public function excluirarquivoAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         $Arquivo = new vwAnexarDocumentoDiligencia();
         $result = $Arquivo->excluirArquivo($_POST['arquivo'], $_POST['diligencia']);
 
-        if(count($result) > 0){
+        if (count($result) > 0) {
             $this->_helper->json(array('resposta'=>true));
         } else {
             $this->_helper->json(array('resposta'=>false));
@@ -387,7 +390,8 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
         die();
     }
 
-    public function listardiligenciaproponenteAction() {
+    public function listardiligenciaproponenteAction()
+    {
 
         //$this->operacoesDiligencia();
         //$post                     = Zend_Registry::get('post');
@@ -400,10 +404,9 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
         $this->view->idProduto      = $this->idProduto;
 
         if ($this->view->idPronac) {
-
-            if ($this->view->idProduto)
+            if ($this->view->idProduto) {
                 $this->view->diligencias            = $Projetosdao->listarDiligencias(array('pro.IdPRONAC = ?' => $this->view->idPronac, 'dil.idProduto = ?' => $this->view->idProduto));
-            else {
+            } else {
                 $projeto                            = $Projetosdao->buscar(array('IdPRONAC = ?' => $this->idPronac));
                 $_idProjeto                         = isset($projeto[0]->idProjeto) && !empty($projeto[0]->idProjeto) ? $projeto[0]->idProjeto : 0;
                 $this->view->diligenciasProposta    = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $_idProjeto,'aval.ConformidadeOK = ? '=>0));
@@ -469,9 +472,8 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
      * @access private
      * @return void
      */
-    private function situacaoProjeto($situacoes, $idPronac, $texto = '') {
-
-
+    private function situacaoProjeto($situacoes, $idPronac, $texto = '')
+    {
         $ProjetoDAO             = new Projetos();
         $SituacaoDAO            = new Situacao();
         $HistoricoSituacaoDAO   = new HistoricoSituacao();
@@ -483,10 +485,11 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
 
                     $historico = $HistoricoSituacaoDAO->buscar(array('AnoProjeto = ?' => $projeto[0]->AnoProjeto, 'Sequencial = ?' => $projeto[0]->Sequencial), array('Contador Desc'));
 
-                    if ($historico)
+                    if ($historico) {
                         $situacao = $historico[0]->Situacao;
-                    else
+                    } else {
                         $situacao = false;
+                    }
                     break;
                 case 'mantem':
                     $situacao = false;
@@ -497,8 +500,9 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
             }
             if ($situacao) {
                 $situacaoDesc = $SituacaoDAO->buscar(array('Codigo = ?' => $situacao));
-                if ($texto == '')
+                if ($texto == '') {
                     $texto = $situacaoDesc[0]->Descricao;
+                }
                 $data = array(
                     'Situacao' => $situacaoDesc[0]->Codigo,
                     'DtSituacao' => new Zend_Db_Expr('GETDATE()'),
@@ -514,7 +518,8 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
      * @access public
      * @return void
      */
-    public function updatediligenciaAction() {
+    public function updatediligenciaAction()
+    {
         $post = Zend_Registry::get('post');
         $diligenciaDAO = new Diligencia();
         $AvaliacaoPropostaDAO = new AvaliacaoProposta();
@@ -525,13 +530,12 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
         $idArquivo = '';
         $Mensagem = '';
         if (is_file($_FILES['arquivo']['tmp_name'])) {
-
             $arquivoNome     = $_FILES['arquivo']['name']; // nome
             $arquivoTemp     = $_FILES['arquivo']['tmp_name']; // nome temporario
             $arquivoTipo     = $_FILES['arquivo']['type']; // tipo
             $arquivoTamanho  = $_FILES['arquivo']['size']; // tamanho
 
-            if (!empty($arquivoNome) && !empty($arquivoTemp)){
+            if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                 $arquivoExtensao = Upload::getExtensao($arquivoNome); // extensao
                 $arquivoBinario  = Upload::setBinario($arquivoTemp); // binario
                 $arquivoHash     = Upload::setHash($arquivoTemp); // hash
@@ -542,8 +546,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
                 parent::message("Favor selecionar o arquivo no formato PDF!", "/proposta/diligenciar/listardiligenciaproponente?idPronac=$this->idPronac", "ALERT");
             }
 
-            if(!empty ($this->idPronac) && $this->idPronac != "0"){
-
+            if (!empty($this->idPronac) && $this->idPronac != "0") {
                 $dataString = file_get_contents($arquivoTemp);
                 $arrData = unpack("H*hex", $dataString);
                 $data = "0x".$arrData['hex'];
@@ -563,25 +566,25 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
             }
         }
 
-        if(!empty ($retorno['Mensagem'])){
+        if (!empty($retorno['Mensagem'])) {
             $post->verificaEnviado = 'N';
         }
 
         if ($post->idDiligencia) {
-
             $rsProjeto = $tblProjeto->buscar(array("IdPRONAC = ?"=>$this->idPronac))->current();
-            if(isset($rsProjeto->idProjeto) && !empty($rsProjeto->idProjeto)){
+            if (isset($rsProjeto->idProjeto) && !empty($rsProjeto->idProjeto)) {
                 $rsPreProjeto = $tblPreProjeto->buscar(array("idPreProjeto = ?"=>$rsProjeto->idProjeto))->current();
                 $paramEdital = "";
-                if($rsPreProjeto->idEdital && $rsPreProjeto->idEdital != 0){
+                if ($rsPreProjeto->idEdital && $rsPreProjeto->idEdital != 0) {
                     $paramEdital = "&edital=sim";
                 }
             }
 
-            if ($post->idCodigoDocumentosExigidos)
+            if ($post->idCodigoDocumentosExigidos) {
                 $idCodigoDocumentosExigidos = $post->idCodigoDocumentosExigidos;
-            else
+            } else {
                 $idCodigoDocumentosExigidos = new Zend_Db_Expr('null');
+            }
 
             $dados = array(
                 'DtResposta' => new Zend_Db_Expr('GETDATE()'),
@@ -592,21 +595,20 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
             $where = "idDiligencia = $post->idDiligencia";
             $resp = $diligenciaDAO->update($dados, $where);
 
-            if ($post->verificaEnviado == 'S')
+            if ($post->verificaEnviado == 'S') {
                 $this->situacaoProjeto($this->situacaoProjetoResposta, $this->idPronac, 'Diligência respondida pelo proponente, esperando decisão.');
+            }
             $aux = "?idPronac={$this->idPronac}&idDiligencia={$this->idDiligencia}&idProduto={$this->idProduto}{$paramEdital}";
-
         }
 
         if ($post->idAvaliacaoProposta) {
-
             $rsPreProjeto = $tblPreProjeto->buscar(array("idPreProjeto = ?"=>$this->idPreProjeto))->current();
             $paramEdital = "";
-            if($rsPreProjeto->idEdital && $rsPreProjeto->idEdital != 0){
+            if ($rsPreProjeto->idEdital && $rsPreProjeto->idEdital != 0) {
                 $paramEdital = "&edital=sim";
             }
 
-            if(!empty ($idArquivo)){
+            if (!empty($idArquivo)) {
                 $dados = array(
                     'dtResposta' => new Zend_Db_Expr('GETDATE()'),
                     'dsResposta' => $post->resposta,
@@ -614,8 +616,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
                     'idCodigoDocumentosExigidos' => $post->idCodigoDocumentosExigidos,
                     'stEnviado' => $post->verificaEnviado
                 );
-            }
-            else{
+            } else {
                 $dados = array(
                     'dtResposta' => new Zend_Db_Expr('GETDATE()'),
                     'dsResposta' => $post->resposta,
@@ -629,8 +630,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
             $aux = "?idPreProjeto={$this->idPreProjeto}&idAvaliacaoProposta={$this->idAvaliacaoProposta}{$paramEdital}";
         }
 
-        if(empty ($retorno['Mensagem'])){
-
+        if (empty($retorno['Mensagem'])) {
             if ($resp) {
                 if ($post->verificaEnviado == 'S') {
                     parent::message("Mensagem enviada com sucesso!", "/proposta/diligenciar/listardiligenciaproponente{$aux}", "CONFIRM");
@@ -643,8 +643,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
                 parent::message('N&atildeo foi possivel realizar a opera&ccedil;&atildeo solicitada!', "/proposta/diligenciar/listardiligenciaproponente{$aux}", "ERROR");
                 //$this->view->mensagem = 'N&atildeo foi possivel tente mais tarde!';
             }
-        }
-        else{
+        } else {
             parent::message($retorno['Mensagem'], "/proposta/diligenciar/cadastrarrespostadiligencia{$aux}", "ERROR");
         }
     }
@@ -675,7 +674,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
 
         // caso ja tenha diligencia para o pronac
         if (isset($this->idPronac) && !empty($this->idPronac)) {
-            $buscarDiligenciaResp = $diligenciaDAO->buscar(array('idPronac = ?' => $this->idPronac, 'DtResposta ?' => array(new Zend_Db_Expr('IS NULL')), 'stEnviado = ?'=>'S' ), array('idDiligencia DESC'),0,0, $this->getRequest()->getParam('idProduto'));
+            $buscarDiligenciaResp = $diligenciaDAO->buscar(array('idPronac = ?' => $this->idPronac, 'DtResposta ?' => array(new Zend_Db_Expr('IS NULL')), 'stEnviado = ?'=>'S' ), array('idDiligencia DESC'), 0, 0, $this->getRequest()->getParam('idProduto'));
             if (count($buscarDiligenciaResp) > 0) {
                 $queryString = '?idPronac=' . $this->idPronac . '&situacao=' . $this->getRequest()->getParam('situacao') . '&tpDiligencia=' . $this->getRequest()->getParam('tpDiligencia');
                 parent::message('Existe dilig&ecirc;ncia aguardando resposta!', '/proposta/diligenciar/cadastrardiligencia' . $queryString, 'ALERT');
@@ -696,7 +695,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
             'stEnviado'         => 'N'
         );
 
-        if($this->getRequest()->getParam('btnEnvio') == 1){
+        if ($this->getRequest()->getParam('btnEnvio') == 1) {
             $dados['DtSolicitacao'] = new Zend_Db_Expr('GETDATE()');
             $dados['idSolicitante'] = $idagente;
             $dados['stEnviado'] = 'S';
@@ -716,7 +715,8 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
         parent::message(
             "Dilig&ecirc;ncia enviada com sucesso!",
             "/proposta/diligenciar/listardiligenciaanalista/idPronac/{$this->getRequest()->getParam('idPronac')}/situacao/{$this->getRequest()->getParam('situacao')}/tpDiligencia/{$this->getRequest()->getParam('tpDiligencia')}",
-            "CONFIRM");
+            "CONFIRM"
+        );
     }
 
     /**
@@ -725,7 +725,8 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
      * @access public
      * @return void
      */
-    protected function enviarNotificacao(stdClass $projeto) {
+    protected function enviarNotificacao(stdClass $projeto)
+    {
         $modelDispositivo = new Dispositivomovel();
         $listaDispositivos = $modelDispositivo->listarPorIdPronac($projeto->idPronac);
         $notification = new Minc_Notification_Message();
@@ -741,8 +742,8 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
         ;
     }
 
-    public function salvardiligenciaAction() {
-
+    public function salvardiligenciaAction()
+    {
         $post                   = Zend_Registry::get('post');
         $diligenciaDAO          = new Diligencia();
         $ProjetoDAO             = new Projetos();
@@ -753,16 +754,17 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
 
         if ($this->idPronac) {
             $agente = $ProjetoDAO->buscarAgenteProjeto(array(' pro.IdPRONAC = ?' => $this->idPronac))->current();
-            if ($post->idProduto)
+            if ($post->idProduto) {
                 $idProduto = $post->idProduto;
-            else
+            } else {
                 $idProduto = new Zend_Db_Expr('null');
+            }
 
             $Usuario = new Autenticacao_Model_Usuario();
             $idagente = $auth->getIdentity()->usu_codigo;
 
             $stEnviado = 'N';
-            if($_POST['btnEnvio'] == 1){
+            if ($_POST['btnEnvio'] == 1) {
                 $stEnviado = 'S';
             }
 
@@ -788,7 +790,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
         }
 
 
-        if($_POST['btnEnvio'] == 1){
+        if ($_POST['btnEnvio'] == 1) {
             $msgAlert = 'Enviado com sucesso!';
         } else {
             $msgAlert = 'Salvo com sucesso!';
@@ -797,7 +799,6 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
         $aux = "?idPronac={$this->idPronac}&situacao={$this->situacao}&tpDiligencia={$post->tpDiligencia}";
         //parent::message("$msgAlert", "/proposta/diligenciar/cadastrardiligencia{$aux}", "CONFIRM");
         parent::message("$msgAlert", "/proposta/diligenciar/listardiligenciaanalista{$aux}", "CONFIRM");
-
     }
 
     /**
@@ -808,7 +809,8 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
      * @access private
      * @return void
      */
-    private function eviarEmail($idPronac,$tpDiligencia){
+    private function eviarEmail($idPronac, $tpDiligencia)
+    {
         $auth = Zend_Auth::getInstance();
         $tbTextoEmailDAO    =   new tbTextoEmail();
         $projetosDAO        =   new Projetos();
@@ -828,7 +830,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
 
 
         $assunto = 'Diligencia na fase de ';
-        switch ($tpDiligencia){
+        switch ($tpDiligencia) {
             case 124:
                 $assunto .= ' Analise Tecnica Inicial';
                 break;
@@ -879,8 +881,6 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
                  );
 
         $tbHistoricoEmailDAO->inserir($dados);
-
-
     }
 
     /**
@@ -889,8 +889,8 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
      * @access private
      * @return void
      */
-    private function operacoesDiligencia() {
-
+    private function operacoesDiligencia()
+    {
     }
 
     /**
@@ -899,28 +899,28 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
      * @access private
      * @return void
      */
-    private function anexararquivo() {
+    private function anexararquivo()
+    {
         // pega as informa��es do arquivo
         $idArquivo = '';
         $Mensagem = '';
         if (is_file($_FILES['arquivo']['tmp_name'])) {
-
             $arquivoNome     = $_FILES['arquivo']['name']; // nome
             $arquivoTemp     = $_FILES['arquivo']['tmp_name']; // nome tempor�rio
             $arquivoTipo     = $_FILES['arquivo']['type']; // tipo
             $arquivoTamanho  = $_FILES['arquivo']['size']; // tamanho
 
-            if (!empty($arquivoNome) && !empty($arquivoTemp)){
+            if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                 $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
                 $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
                 $arquivoHash     = Upload::setHash($arquivoTemp); // hash
             }
 
-            if(!isset($_FILES['arquivo'])){
+            if (!isset($_FILES['arquivo'])) {
                 parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "upload/form-enviar-arquivo-marca?idPronac=$idPronac", "ERROR");
             }
 
-            if(empty($_FILES['arquivo']['tmp_name'])){
+            if (empty($_FILES['arquivo']['tmp_name'])) {
                 parent::message("Favor selecionar um arquivo.", "upload/form-enviar-arquivo-marca?idPronac=$idPronac", "ERROR");
             }
 
@@ -929,8 +929,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
                 parent::message("Favor selecionar o arquivo de Marca no formato BMP, GIF, JPEG, JPG, PNG, RAW, TIF ou PDF!", "upload/form-enviar-arquivo-marca?idPronac=$idPronac", "ERROR");
             }
 
-            if(!empty ($idPronac) && $idPronac != "0"){
-
+            if (!empty($idPronac) && $idPronac != "0") {
                 $dataString = file_get_contents($arquivoTemp);
                 $arrData = unpack("H*hex", $dataString);
                 $data = "0x".$arrData['hex'];
@@ -957,7 +956,8 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
      * @access public
      * @return void
      */
-    public function imprimirAction() {
+    public function imprimirAction()
+    {
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
         $verificacaodao         = new Verificacao();
         $Projetosdao            = new Projetos();
@@ -985,7 +985,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
                 $idPreProjeto = $projeto[0]->idProjeto;
             }
 
-            if ($projeto[0]->idProjeto){
+            if ($projeto[0]->idProjeto) {
                 $idPreProjeto = $projeto[0]->idProjeto;
             }
 
@@ -1017,7 +1017,8 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
      * @access public
      * @return void
      */
-    public function prorrogarAction() {
+    public function prorrogarAction()
+    {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
         $post                   = Zend_Registry::get('post');
@@ -1029,7 +1030,6 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
         );
         if ($post->idPronac != '') {
             if ($post->idDiligencia) {
-
                 $where = array(
                     'idPronac = ?'      => $post->idPronac,
                     'idDiligencia = ?'  => $post->idDiligencia
@@ -1068,7 +1068,8 @@ class Proposta_DiligenciarController extends Proposta_GenericController {
      * @access public
      * @return void
      */
-    public function checarprazorespostaAction() {
+    public function checarprazorespostaAction()
+    {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
 

@@ -15,7 +15,7 @@ class Autenticacao_LogincidadaoController extends MinC_Auth_Controller_AOAuth
     public function successAction()
     {
         $sgcAcesso = new Autenticacao_Model_Sgcacesso();
-        $sgcAcesso->loginSemCript(1,1);
+        $sgcAcesso->loginSemCript(1, 1);
 
 
         $this->_helper->viewRenderer->setNoRender(true);
@@ -31,7 +31,7 @@ class Autenticacao_LogincidadaoController extends MinC_Auth_Controller_AOAuth
             $arraySGCAcesso = $objSgcAcesso->buscar(array('cpf = ?' => $cpf))->toArray();
 
             $senhaCriptografada = EncriptaSenhaDAO::encriptaSenha($cpf, $id);
-            if($senhaCriptografada != $arraySGCAcesso[0]['Senha']) {
+            if ($senhaCriptografada != $arraySGCAcesso[0]['Senha']) {
                 $senhaCriptografada = $arraySGCAcesso[0]['Senha'];
             }
 
@@ -62,7 +62,7 @@ class Autenticacao_LogincidadaoController extends MinC_Auth_Controller_AOAuth
      */
     public function cadastrarusuarioAction()
     {
-       try {
+        try {
             if (!$_POST) {
                 throw new Exception("Tentativa de acesso inv&aacute;lido.");
             }
@@ -97,7 +97,7 @@ class Autenticacao_LogincidadaoController extends MinC_Auth_Controller_AOAuth
             $objVisao = new Visao();
             $buscarVisao = $objVisao->buscar(array('visao = ?' => 144, 'stativo = ?' => 'A', 'idagente = ?' => $idAgenteProp));
 
-            if (count($buscarVisao->toArray()) > 0)  {
+            if (count($buscarVisao->toArray()) > 0) {
                 $tbVinculo = new Agente_Model_DbTable_TbVinculo();
                 $idResp = $sgcAcesso->buscar(array('Cpf = ?' => $pkSgcAcessoSave));
                 $dadosVinculo = array(
@@ -110,7 +110,6 @@ class Autenticacao_LogincidadaoController extends MinC_Auth_Controller_AOAuth
             }
 
             parent::message("Bem vindo!", "/principalproponente", "CONFIRM");
-
         } catch (Exception $objException) {
             parent::message($objException->getMessage(), "/autenticacao", "ALERT");
         }
@@ -128,18 +127,18 @@ class Autenticacao_LogincidadaoController extends MinC_Auth_Controller_AOAuth
             throw new Exception('CNPJ ou CPF j&aacute; cadastrado.');
         }
 
-        if(!$objSgcAcesso->hasEmailCadastrado($dados['email'])) {
+        if (!$objSgcAcesso->hasEmailCadastrado($dados['email'])) {
             throw new Exception('E-mail j&aacute; cadastrado');
         }
     }
 
     private function validarAcesso(array $dados)
     {
-        if(!$dados['cpf']) {
+        if (!$dados['cpf']) {
             throw new Exception('O sistema precisa que seja concedido acesso ao CPF.');
         }
 
-        if(!$dados['email']) {
+        if (!$dados['email']) {
             throw new Exception('O sistema precisa que seja concedido acesso ao E-Mail.');
         }
     }

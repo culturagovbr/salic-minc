@@ -10,9 +10,10 @@
  *
  * @author 01129075125
  */
-class ListarprojetosDAO extends Zend_Db_Table {
-
-    public static function buscarProjetos($idAgente = null, $dataInicio = null, $dataFim = null, $idAgenteLogado , $tipoProponente = null) {
+class ListarprojetosDAO extends Zend_Db_Table
+{
+    public static function buscarProjetos($idAgente = null, $dataInicio = null, $dataFim = null, $idAgenteLogado, $tipoProponente = null)
+    {
         $sql = "
         	SELECT ag.CNPJCPF as CgcCpf, a.idPreProjeto, a.idAgente, p.AnoProjeto+p.Sequencial as Pronac, a.NomeProjeto, p.IdPRONAC,
 			        CONVERT(CHAR(10),a.DtInicioDeExecucao,103) AS DtInicioDeExecucao, 
@@ -25,23 +26,20 @@ class ListarprojetosDAO extends Zend_Db_Table {
 				 INNER JOIN SAC.dbo.Projetos p on p.idProjeto = a.idPreProjeto
 				 INNER JOIN SAC.dbo.Situacao si on si.Codigo = p.Situacao";
         
-        		
-			 $where = " WHERE (a.stEstado = 1) AND (a.idEdital is null or a.idEdital = 0) AND (a.idAgente IN (".$idAgenteLogado.")) ";
-        	if (!empty($tipoProponente))
-        	{
-        		
-        		$sql .= " INNER JOIN AGENTES.dbo.tbVinculo VI ON AG.idAgente = VI.idAgenteProponente
+                
+        $where = " WHERE (a.stEstado = 1) AND (a.idEdital is null or a.idEdital = 0) AND (a.idAgente IN (".$idAgenteLogado.")) ";
+        if (!empty($tipoProponente)) {
+            $sql .= " INNER JOIN AGENTES.dbo.tbVinculo VI ON AG.idAgente = VI.idAgenteProponente
 						  INNER JOIN AGENTES.dbo.tbVinculoProposta VP ON VI.idVinculo = VP.idVinculo
 						  INNER JOIN AGENTES.dbo.tbProcuracao PRO ON VP.idVinculoProposta = PRO.idVinculoProposta ";
-        		
-        		$where =  " WHERE (a.stEstado = 1) AND (a.idEdital is null or a.idEdital = 0) AND (a.idAgente IN (".$idAgente.")) AND PRO.siProcuracao = 1 "; 
-        		
-        	}
+                
+            $where =  " WHERE (a.stEstado = 1) AND (a.idEdital is null or a.idEdital = 0) AND (a.idAgente IN (".$idAgente.")) AND PRO.siProcuracao = 1 ";
+        }
 
-        	$sql .= $where;
-        	
+        $sql .= $where;
+            
 
-			// $sql .= " WHERE (a.stEstado = 1) AND (a.idEdital is null or a.idEdital = 0) AND (a.idAgente IN (".$idAgente.")) ";
+        // $sql .= " WHERE (a.stEstado = 1) AND (a.idEdital is null or a.idEdital = 0) AND (a.idAgente IN (".$idAgente.")) ";
         
         
         if (!empty($dataInicio)) {
@@ -59,7 +57,8 @@ class ListarprojetosDAO extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function buscarProjetosEdital($idAgente = null, $dataInicio = null, $dataFim = null, $fundo = null, $classificacao = null, $idAgenteLogado, $tipoProponente = null) {
+    public static function buscarProjetosEdital($idAgente = null, $dataInicio = null, $dataFim = null, $fundo = null, $classificacao = null, $idAgenteLogado, $tipoProponente = null)
+    {
         $sql = "SELECT 
         			p.CgcCpf,
 					a.idPreProjeto, a.idAgente, p.AnoProjeto+p.Sequencial as Pronac, a.NomeProjeto, p.IdPRONAC,
@@ -80,43 +79,40 @@ class ListarprojetosDAO extends Zend_Db_Table {
 							INNER JOIN SAC.dbo.Verificacao v on v.idVerificacao = ed.cdTipoFundo
 							INNER JOIN BDCORPORATIVO.scQuiz.tbFormDocumento f ON f.idEdital = a.idEdital
 							INNER JOIN BDCORPORATIVO.scSAC.tbClassificaDocumento c on c.idClassificaDocumento = f.idClassificaDocumento";
-		
-		
-		 $where = " WHERE (a.stEstado = 1) 
+        
+        
+        $where = " WHERE (a.stEstado = 1) 
 			 		AND (a.idAgente IN (".$idAgenteLogado.")) 
 			 		AND a.idEdital is not null and c.idClassificaDocumento != 23 
 			 		and c.idClassificaDocumento != 24 
 			 		and c.idClassificaDocumento != 25";
-		 
-        	if (!empty($tipoProponente))
-        	{
-        		
-        		$sql .= " INNER JOIN AGENTES.dbo.tbVinculo VI ON AG.idAgente = VI.idAgenteProponente
+         
+        if (!empty($tipoProponente)) {
+            $sql .= " INNER JOIN AGENTES.dbo.tbVinculo VI ON AG.idAgente = VI.idAgenteProponente
 						  INNER JOIN AGENTES.dbo.tbVinculoProposta VP ON VI.idVinculo = VP.idVinculo
 						  INNER JOIN AGENTES.dbo.tbProcuracao PRO ON VP.idVinculoProposta = PRO.idVinculoProposta ";
-        		
-        		$where =  " WHERE (a.stEstado = 1) 
+                
+            $where =  " WHERE (a.stEstado = 1) 
         					AND a.idEdital is not null 
         					AND c.idClassificaDocumento != 23 
 			 				AND c.idClassificaDocumento != 24 
 			 				AND c.idClassificaDocumento != 25 
 			 				AND (a.idAgente IN (".$idAgente.")) 
-			 				AND PRO.siProcuracao = 1 "; 
-        		
-        	}
+			 				AND PRO.siProcuracao = 1 ";
+        }
 
-        	$sql .= $where;
-        	
-        	
-		
+        $sql .= $where;
+            
+            
+        
 
 
-		
-		
-		
-		
-		
-		
+        
+        
+        
+        
+        
+        
         if (!empty($dataInicio)) {
             $sql .= " AND CONVERT(CHAR(10), a.DtInicioExecucao, 103) =  '$dataInicio'";
         }
@@ -133,14 +129,15 @@ class ListarprojetosDAO extends Zend_Db_Table {
             $sql .= " AND c.idClassificaDocumento =  $classificacao";
         }
 
-       $sql .= " ORDER BY m.Descricao, a.NomeProjeto ASC";
+        $sql .= " ORDER BY m.Descricao, a.NomeProjeto ASC";
 
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
     }
 
-    public static function buscarTodosProjetos($idAgente = null, $idAgenteLogado = null, $tipoProponente = null, $idResponsavel = null) {
+    public static function buscarTodosProjetos($idAgente = null, $idAgenteLogado = null, $tipoProponente = null, $idResponsavel = null)
+    {
         $sql = "
         	SELECT ag.CNPJCPF as CgcCpf, a.idPreProjeto, a.idAgente, p.AnoProjeto+p.Sequencial as Pronac, a.NomeProjeto, p.IdPRONAC,
 			        CONVERT(CHAR(10),a.DtInicioDeExecucao,103) AS DtInicioDeExecucao, 
@@ -152,20 +149,17 @@ class ListarprojetosDAO extends Zend_Db_Table {
 				 INNER JOIN AGENTES.dbo.Nomes AS m ON a.idAgente = m.idAgente
 				 INNER JOIN SAC.dbo.Projetos p on p.idProjeto = a.idPreProjeto
 				 INNER JOIN SAC.dbo.Situacao si on si.Codigo = p.Situacao";
-			 
-			$where = " WHERE a.idAgente IN (" . $idAgenteLogado . ")";
-        	if (!empty($tipoProponente))
-        	{
-        		
-        		$sql .= " INNER JOIN AGENTES.dbo.tbVinculo VI ON AG.idAgente = VI.idAgenteProponente
+             
+        $where = " WHERE a.idAgente IN (" . $idAgenteLogado . ")";
+        if (!empty($tipoProponente)) {
+            $sql .= " INNER JOIN AGENTES.dbo.tbVinculo VI ON AG.idAgente = VI.idAgenteProponente
 						  INNER JOIN AGENTES.dbo.tbVinculoProposta VP ON VI.idVinculo = VP.idVinculo
 						  INNER JOIN AGENTES.dbo.tbProcuracao PRO ON VP.idVinculoProposta = PRO.idVinculoProposta ";
-        		
-        		$where =  " WHERE (a.idAgente IN (".$idAgente.")) AND PRO.siProcuracao = 1 "; 
-        		
-        	}
+                
+            $where =  " WHERE (a.idAgente IN (".$idAgente.")) AND PRO.siProcuracao = 1 ";
+        }
 
-        	$sql .= $where;
+        $sql .= $where;
 
         $sql .= " ORDER BY m.Descricao, a.NomeProjeto ASC";
 
@@ -174,7 +168,8 @@ class ListarprojetosDAO extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function buscarTodosProjetosResponsavel($idResponsavel, $idProponente, $mecanismo = false) {
+    public static function buscarTodosProjetosResponsavel($idResponsavel, $idProponente, $mecanismo = false)
+    {
         $sql = "(SELECT  0 as Ordem,a.CgcCpf as CNPJCPF, b.idAgente, dbo.fnNome(b.idAgente) AS NomeProponente,a.AnoProjeto+a.Sequencial as Pronac,a.NomeProjeto,
                     a.Situacao + ' - ' + d.Descricao as Situacao
                 FROM SAC.dbo.Projetos                      a
@@ -196,11 +191,11 @@ class ListarprojetosDAO extends Zend_Db_Table {
                 INNER JOIN SAC.dbo.Situacao                g on (a.Situacao     =   g.Codigo)
                 WHERE c.siEstado = 2 and e.IdUsuario = $idResponsavel ";
 
-            if($mecanismo){
-                $sql .= " and a.Mecanismo = $mecanismo";
-            }
+        if ($mecanismo) {
+            $sql .= " and a.Mecanismo = $mecanismo";
+        }
 
-            $sql .=")
+        $sql .=")
             
                 UNION ALL
 
@@ -214,18 +209,19 @@ class ListarprojetosDAO extends Zend_Db_Table {
                 INNER JOIN SAC.dbo.Situacao                f on (a.Situacao     = f.Codigo)
                 WHERE e.IdUsuario = $idResponsavel ";
 
-            if($mecanismo){
-                $sql .= " and a.Mecanismo = $mecanismo";
-            }
+        if ($mecanismo) {
+            $sql .= " and a.Mecanismo = $mecanismo";
+        }
 
-            $sql .=" ) ORDER BY 1,6 ";
+        $sql .=" ) ORDER BY 1,6 ";
 
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
     }
 
-    public static function buscarTodosProjetosExecucao($idAgente = null) {
+    public static function buscarTodosProjetosExecucao($idAgente = null)
+    {
         $sql = "
         	SELECT top 100 p.CgcCpf, a.idPreProjeto, a.idAgente, p.AnoProjeto+p.Sequencial as Pronac, a.NomeProjeto, p.IdPRONAC,
 			        CONVERT(CHAR(10),a.DtInicioDeExecucao,103) AS DtInicioDeExecucao, 
@@ -247,7 +243,8 @@ class ListarprojetosDAO extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function buscaProponentes($cpf = null) {
+    public static function buscaProponentes($cpf = null)
+    {
         $sql = "SELECT  DISTINCT p.CgcCpf as CNPJCPF,  n.Descricao, a.idAgente
         FROM SAC.dbo.Projetos as p
         INNER JOIN SAC.dbo.Situacao as s on (p.Situacao = s.Codigo)
@@ -268,7 +265,8 @@ class ListarprojetosDAO extends Zend_Db_Table {
         return $resultado;
     }
 
-    public static function buscaProponentesVinculados($idResponsavel) {
+    public static function buscaProponentesVinculados($idResponsavel)
+    {
         $sql = "SELECT AG.idAgente, AG.CNPJCPF, NM.Descricao as Nome , VI.idVinculo, VI.siVinculo 
 				FROM AGENTES.dbo.Agentes AG
 				INNER JOIN AGENTES.dbo.Nomes NM ON AG.idAgente = NM.idAgente
@@ -284,7 +282,8 @@ class ListarprojetosDAO extends Zend_Db_Table {
         return $resultado;
     }
 
-    public static function buscaProponentes2($cpf = null) {
+    public static function buscaProponentes2($cpf = null)
+    {
         $sql = "SELECT  DISTINCT a.CNPJCPF,  n.Descricao, a.idAgente
         FROM AGENTES.dbo.Agentes as a
         INNER JOIN AGENTES.dbo.Nomes n on (a.idAgente = n.idAgente) ";
@@ -300,7 +299,4 @@ class ListarprojetosDAO extends Zend_Db_Table {
 
         return $resultado;
     }
-
 }
-
-?>

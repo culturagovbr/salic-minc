@@ -12,27 +12,26 @@
 
 class Zend_View_Helper_StProcuracao
 {
-	/**
-	 * Método com as cores alternativas das linhas da tabela
-	 * @access public
-	 * @param integer $i
-	 * @return string
-	 */
-	public function stVinculo($stvinculo)
-	{
-            if($stvinculo == 0){
-                $return =  "Aguardando V&iacute;nculo";
-            }
-            if($stvinculo == 1){
-                $return =  "Rejeitado";
-            }
-            if($stvinculo == 2){
-                $return =  "Vinculado";
-            }
-            if($stvinculo == 3){
-                $return =  "Desvinculado";
-            }
-            return $return;
-	} // fecha método corLinha()
-
+    /**
+     * Método com as cores alternativas das linhas da tabela
+     * @access public
+     * @param integer $i
+     * @return string
+     */
+    public function stVinculo($stvinculo)
+    {
+        if ($stvinculo == 0) {
+            $return =  "Aguardando V&iacute;nculo";
+        }
+        if ($stvinculo == 1) {
+            $return =  "Rejeitado";
+        }
+        if ($stvinculo == 2) {
+            $return =  "Vinculado";
+        }
+        if ($stvinculo == 3) {
+            $return =  "Desvinculado";
+        }
+        return $return;
+    } // fecha método corLinha()
 } // fecha class

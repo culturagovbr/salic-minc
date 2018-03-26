@@ -1,21 +1,11 @@
 <?php
 
-
-/**
- * Controller Manter Conta Bancaria
- * @author Equipe RUP - Politec
- * @since 07/06/2010
- * @version 1.0
- * @package application
- * @subpackage application.controller
- * @link http://www.cultura.gov.br
- * @copyright 2010 - Minist�rio da Cultura - Todos os direitos reservados.
- */
-class MantercontabancariaController extends MinC_Controller_Action_Abstract {
-
+class MantercontabancariaController extends MinC_Controller_Action_Abstract
+{
     private $modal = "n";
 
-    public function init() {
+    public function init()
+    {
         $PermissoesGrupo[] = 121; // T�cnico de Acompanhamento
         $PermissoesGrupo[] = 129; // T�cnico de Acompanhamento
         $PermissoesGrupo[] = 122; // Coordenador de Acompanhamento
@@ -32,20 +22,15 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract {
             $this->modal = "n";
             $this->view->modal = "n";
         }
-
     }
 
-// fecha m�todo init()
-
-
-    public function consultarAction() {
-
+    public function consultarAction()
+    {
     }
 
-    public function alterarAction() {
-
-        if(isset($_POST['verifica']) and $_POST['verifica'] == 'a')
-        {
+    public function alterarAction()
+    {
+        if (isset($_POST['verifica']) and $_POST['verifica'] == 'a') {
             $agencia = $_POST['agencia'];
 
             $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
@@ -53,12 +38,12 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract {
             $AgenciaDados = $ba->buscar(array('Agencia = ?' => $_POST['agencia']))->current();
 
             $a = 0;
-            if(count($AgenciaDados)>0){
+            if (count($AgenciaDados)>0) {
                 $this->_helper->json(array('resposta'=>true));
-            } else{
+            } else {
                 $this->_helper->json(array('resposta'=>false));
             }
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
 
 
@@ -76,32 +61,32 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract {
 
         $tblProjeto = new Projetos();
         $rsProjeto = $tblProjeto->buscar(array('AnoProjeto+Sequencial=?'=>$pronac))->current();
-        if(empty($rsProjeto)){
+        if (empty($rsProjeto)) {
             if ($this->modal == "s") {
                 echo "<br/><br/><br/><br/><center><font color='red'>N&uacute;mero de Pronac inv&aacute;lido!!</font></center>";
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             } else {
                 parent::message("N&uacute;mero de Pronac inv&aacute;lido!", "mantercontabancaria/consultar", "ALERT");
             }
         }
 
-        if(count($resp) < 1 && count($PronacExistente) > 0){
+        if (count($resp) < 1 && count($PronacExistente) > 0) {
             if ($this->modal == "s") {
                 echo "<br/><br/><br/><br/><center><font color='red'>Voc� n�o tem acesso a esta unidade!</font></center>";
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             } else {
                 parent::message("Voc� n�o tem acesso a esta unidade!", "mantercontabancaria/consultar", "ALERT");
             }
         }
 
-        if(count($resp) > 0){
+        if (count($resp) > 0) {
             $hd = new tbHistoricoExclusaoConta();
             $historicos = $hd->buscar(array('idContaBancaria = ?' => $resp->IdContaBancaria), array('idHistoricoExclusaoConta Desc'));
             $this->view->Historicos = $historicos;
         } else {
             if ($this->modal == "s") {
                 echo "<br/><br/><br/><br/><center><font color='red'>Conta banc�ria inexistente!</font></center>";
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             } else {
                 parent::message("Conta banc�ria inexistente!", "mantercontabancaria/consultar", "ALERT");
             }
@@ -111,16 +96,15 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract {
         $resultado = $cap->buscar(array('AnoProjeto+Sequencial = ?' => $pronac));
         $resultado2 = $cap->TotalCaptacaoReal($pronac)->current();
 
-        if(count($resultado)>0){
-            if($resultado2->Soma > 0){
+        if (count($resultado)>0) {
+            if ($resultado2->Soma > 0) {
                 $this->view->captacao = true;
             }
         }
-
     }
 
-    public function imprimirContaBancariaCadastradaAction() {
-
+    public function imprimirContaBancariaCadastradaAction()
+    {
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $orgao = $GrupoAtivo->codOrgao;
         $pronac = $this->_request->getParam("pronac");
@@ -129,17 +113,17 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract {
         $resp = $cb->consultarDadosPorPronac($pronac, $orgao)->current();
         $this->view->DadosBancarios = $resp;
 
-        if(count($resp) > 0){
+        if (count($resp) > 0) {
             $hd = new tbHistoricoExclusaoConta();
             $historicos = $hd->buscar(array('idContaBancaria = ?' => $resp->IdContaBancaria), array('idHistoricoExclusaoConta Desc'));
             $this->view->Historicos = $historicos;
         }
 
         $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
-
     }
 
-    public function salvarAction() {
+    public function salvarAction()
+    {
         $Usuario = new Autenticacao_Model_Usuario(); // objeto usu�rio
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $idagente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
@@ -155,7 +139,7 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract {
         $ba = new BancoAgencia();
         $AgenciaDados = $ba->buscar(array('Agencia = ?' => $this->_request->getParam('Agencia')));
         
-        if(count($AgenciaDados) > 0){
+        if (count($AgenciaDados) > 0) {
             
             //INSERE OS DADOS NA TABELA DE HIST�RICO - SAC.dbo.tbHistoricoExclusaoConta
             $dadosInsert = array(
@@ -185,37 +169,36 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract {
             
             //parent::message("Cadastro realizado com sucesso!", "mantercontabancaria/alterar?pronac=$pronac", "CONFIRM");
             
-            if ( !empty($caminho) ){
+            if (!empty($caminho)) {
                 parent::message("Cadastro realizado com sucesso!", $caminho, "CONFIRM");
-            }else{
+            } else {
                 parent::message("Cadastro realizado com sucesso!", "mantercontabancaria/alterar?pronac=" . $pronac, "CONFIRM");
             }
-            
         } else {
-            if ( !empty($caminho) ){
+            if (!empty($caminho)) {
                 parent::message("Ag&ecirc;ncia n&atilde;o cadastrada!", $caminho, "ALERT");
-            }else{
+            } else {
                 parent::message("Ag&ecirc;ncia n&atilde;o cadastrada!", "mantercontabancaria/alterar?pronac=$pronac", "ALERT");
             }
         }
     }
 
-    public function regularidadeProponenteAction(){
-
+    public function regularidadeProponenteAction()
+    {
     }
 
-    public function consultarregularidadeproponenteAction() {
-
+    public function consultarregularidadeproponenteAction()
+    {
         if (isset($_POST['cpfCnpj']) || isset($_GET['cpfCnpj'])) {
             if (isset($_POST['cpfCnpj'])) {
                 $cnpjcpf = str_replace("/", "", str_replace("-", "", str_replace(".", "", $_POST['cpfCnpj'])));
                 $cnpjcpf = Mascara::delMaskCPFCNPJ($cnpjcpf);
-            } else if (isset($_GET['cpfCnpj'])) {
+            } elseif (isset($_GET['cpfCnpj'])) {
                 $cnpjcpf = $_GET['cpfCnpj'];
                 $cnpjcpf = Mascara::delMaskCPFCNPJ($cnpjcpf);
             }
 
-            if (strlen($cnpjcpf) == 11){
+            if (strlen($cnpjcpf) == 11) {
                 $this->proponente = "PF";
             } else {
                 $this->proponente = "PJ";
@@ -233,7 +216,7 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract {
 
             $this->view->cgccpf = $cnpjcpf;
             $agentes = new Agente_Model_DbTable_Agentes();
-            $interessados = New Interessado();
+            $interessados = new Interessado();
             $buscaAgentes = $agentes->buscar(array('CNPJCPF = ?' => $cnpjcpf));
 
             $buscaInteressados = $interessados->buscar(array('CgcCpf = ?' => $cnpjcpf));
@@ -242,40 +225,39 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract {
                 parent::message("O Agente n&atilde;o est&aacute; cadastrado!", 'mantercontabancaria/regularidade-proponente', "ERROR");
             }
 
-            $nomes = New Nomes();
+            $nomes = new Nomes();
             $buscaNomes = $nomes->buscar(array('idAgente = ?' => $buscaAgentes[0]->idAgente));
             $nomeProponente = $buscaNomes[0]->Descricao;
             $this->view->nomeProponente = $nomeProponente;
 
-            $paRegularidade = New paRegularidade();
+            $paRegularidade = new paRegularidade();
             $consultaRegularidade = $paRegularidade->exec($cnpjcpf);
             $this->view->resultadoRegularidade = $consultaRegularidade;
 
             $auth = Zend_Auth::getInstance(); // instancia da autentica��o
-            if (strlen(trim($auth->getIdentity()->usu_identificacao)) == 11){
+            if (strlen(trim($auth->getIdentity()->usu_identificacao)) == 11) {
                 $cpfcnpjUsuario = Mascara::addMaskCPF(trim($auth->getIdentity()->usu_identificacao));
             } else {
                 $cpfcnpjUsuario = Mascara::addMaskCNPJ(trim($auth->getIdentity()->usu_identificacao));
             }
             $this->view->dadosUsuarioConsulta = '( '. $cpfcnpjUsuario .' ) '.$auth->getIdentity()->usu_nome.' - '.date('d/m/Y').' �s '.date('h:i:s');
-
         } else {
             parent::message("Por favor, informe o campo CPF/CNPJ!", 'mantercontabancaria/regularidade-proponente', "ERROR");
         }
     }
 
-    public function imprimirConsultaRegularidadeAction() {
-
+    public function imprimirConsultaRegularidadeAction()
+    {
         if (isset($_POST['cpfCnpj']) || isset($_GET['cpfCnpj'])) {
             if (isset($_POST['cpfCnpj'])) {
                 $cnpjcpf = str_replace("/", "", str_replace("-", "", str_replace(".", "", $_POST['cpfCnpj'])));
                 $cnpjcpf = Mascara::delMaskCPFCNPJ($cnpjcpf);
-            } else if (isset($_GET['cpfCnpj'])) {
+            } elseif (isset($_GET['cpfCnpj'])) {
                 $cnpjcpf = $_GET['cpfCnpj'];
                 $cnpjcpf = Mascara::delMaskCPFCNPJ($cnpjcpf);
             }
 
-            if (strlen($cnpjcpf) == 11){
+            if (strlen($cnpjcpf) == 11) {
                 $this->proponente = "PF";
             } else {
                 $this->proponente = "PJ";
@@ -293,7 +275,7 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract {
 
             $this->view->cgccpf = $cnpjcpf;
             $agentes = new Agente_Model_DbTable_Agentes();
-            $interessados = New Interessado();
+            $interessados = new Interessado();
             $buscaAgentes = $agentes->buscar(array('CNPJCPF = ?' => $cnpjcpf));
 
             $buscaInteressados = $interessados->buscar(array('CgcCpf = ?' => $cnpjcpf));
@@ -302,27 +284,25 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract {
                 parent::message("O Agente n&atilde;o est&aacute; cadastrado!", 'mantercontabancaria/regularidade-proponente', "ERROR");
             }
 
-            $nomes = New Nomes();
+            $nomes = new Nomes();
             $buscaNomes = $nomes->buscar(array('idAgente = ?' => $buscaAgentes[0]->idAgente));
             $nomeProponente = $buscaNomes[0]->Descricao;
             $this->view->nomeProponente = $nomeProponente;
 
-            $paRegularidade = New paRegularidade();
+            $paRegularidade = new paRegularidade();
             $consultaRegularidade = $paRegularidade->exec($cnpjcpf);
             $this->view->resultadoRegularidade = $consultaRegularidade;
 
             $auth = Zend_Auth::getInstance(); // instancia da autentica��o
-            if (strlen(trim($auth->getIdentity()->usu_identificacao)) == 11){
+            if (strlen(trim($auth->getIdentity()->usu_identificacao)) == 11) {
                 $cpfcnpjUsuario = Mascara::addMaskCPF(trim($auth->getIdentity()->usu_identificacao));
             } else {
                 $cpfcnpjUsuario = Mascara::addMaskCNPJ(trim($auth->getIdentity()->usu_identificacao));
             }
             $this->view->dadosUsuarioConsulta = '( '. $cpfcnpjUsuario .' ) '.$auth->getIdentity()->usu_nome.' - '.date('d/m/Y').' �s '.date('H:i:s');
             $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
-
         } else {
             parent::message("Por favor, informe o campo CPF/CNPJ!", 'mantercontabancaria/regularidade-proponente', "ERROR");
         }
     }
-
 }

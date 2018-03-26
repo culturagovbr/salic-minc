@@ -1,111 +1,102 @@
 <div class="container-fluid">
     <div class="row">
-        <?php echo $this->partial("admissibilidade/inc/menu.inc.php", $this); ?>
-        <div class="col s10 m10 l10">
-            <?php
-            $SalvarAvaliacao = $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'arquivarproposta'));
-            ?>
-            <script type="text/javascript"
-                    src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/ckeditor.js"></script>
-            <script type="text/javascript"
-                    src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/_samples/sample.js"></script>
-            <h4>Admissibilidade de propostas - Arquivar proposta
-            </h4>
-
-
-            <div id="">
-                <form id="formEncaminhar" name="formEncaminhar" method="post" action="<?php echo $SalvarAvaliacao; ?>">
-
-                    <table class="tabela">
-                        <tr>
+        <div class="col s12 m12 l12">
+            <h4>Admissibilidade de propostas - Arquivar proposta</h4>
+            <div class="card z-depth-2">
+                <form id="formEncaminhar" name="formEncaminhar" method="post"
+                    action="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'arquivarproposta')) ?>">
+                    <input type="hidden" name="idPreProjeto" id="idPreProjeto"
+                       value="<?php echo $this->idPreProjeto ?>"/>
+                    <input type="hidden" name="nomeProjeto" id="nomeProjeto"
+                           value="<?php echo $this->nomeProjeto ?>"/>
+                <div class="card-content">
+                    <table class="">
+                        <thead>
                             <th>
-                                <input type="hidden" name="idPreProjeto" id="idPreProjeto"
-                                       value="<?php echo $this->idPreProjeto ?>"/>
-                                Proposta Nr: <?php echo $this->idPreProjeto ?>
+                               Numero:
                             </th>
-                        </tr>
-                        <tr>
-                            <td align="center">
-                                <input type="hidden" name="nomeProjeto" id="nomeProjeto"
-                                       value="<?php echo $this->nomeProjeto ?>"/>
-                                <?php echo $this->nomeProjeto ?>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <th>Justificativa *</th>
-                        </tr>
-                        <tr>
-                            <td align="left">
-                                <textarea cols="80" id="justificativa" name="justificativa" rows="10"></textarea>
-                                <script type="text/javascript">
-                                    //<![CDATA[
-                                    CKEDITOR.replace('justificativa', {fullPage: true});
-                                    //]]>
-                                </script>
-                            </td>
-                        </tr>
+                            <th>
+                               Nome:
+                            </th>
+                            <th>
+                              E-mail:
+                            </th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <?php echo $this->idPreProjeto ?>
+                                </td>
+                                <td>
+                                    <?php echo $this->nomeProjeto ?>
+                                </td>
+                                <td>
+                                    <?php echo $this->emailProponente ?>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
-                    <table class="tabela">
-                        <tr>
-                            <td align="center">
-                                <a class="btn waves-effect waves-dark red-text white" type="button"
-                                   href="javascript:voltar();">
-                                    Voltar
-                                </a>
-                                <button class="btn waves-effect waves-light" type="submit">
-                                    Salvar <i class="material-icons right">send</i>
-                                </button>
-                            </td>
-                        </tr>
-                    </table>
-                </form>
+                        <div class="input-field">
+                            <textarea id="MotivoArquivamento" name="MotivoArquivamento" class="materialize-textarea">
+Sr(a) Proponente,
+
+Informa-se que a proposta n&deg; <?php echo $this->idPreProjeto ?> foi arquivada no exame preliminar de admissibilidade pelo seguinte motivo:
+
+[Motivo do arquivamento]
+
+O proponente pode pedir o desarquivamento da proposta uma &uacute;nica vez acessando a listagem das propostas arquivadas e clicando no bot&atilde;o "solicitar desarquivamento". O pedido deve ser motivado, ou seja, conter as justificativas necess&aacute;rias para o desarquivamento.
+                            </textarea>
+                            <label class="actived" form="MotivoArquivamento">Justificativa *</label>
+                        </div>
+                </div>
+                <div class="card-action">
+                    <a class="btn waves-effect waves-dark red-text white" type="button"
+                       href="javascript:voltar();">
+                        Voltar
+                    </a>
+                    <button class="btn waves-effect waves-light" type="button" id="salvar">
+                        Salvar <i class="material-icons right">send</i>
+                    </button>
+                </div>
+                    </form>
             </div>
         </div>
     </div>
 </div>
-
-<br clear="all"/>
+<style>
+    textarea.materialize-textarea{
+        height: 10rem;
+    }
+</style>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
 <script type="text/javascript">
-    <!--
-    $(document).ready(function () {
-        /*$('.salvar').click(function(){
+    $3('#salvar')
+        .on('click', function() {
+            $3('#salvar').prop('disabled', true);
 
-         $('#formEncaminhar').attr('action','<?php echo $SalvarAvaliacao;?>');
-         $('#formEncaminhar').submit();
-
-         });*/
-
-        $("#formEncaminhar").validate({
-            rules: {
-                justificativa: {validarjustificativa: true}
-            },
-            messages: {
-                justificativa: {validarjustificativa: "Dado obrigat&oacute;rio n&atilde;o informado"}
-            },
-            submitHandler: function (form) {
-                form.submit();
-            }
-        });
-
-        //VALIDA CAMPO RESUMO DA PROPOSTA
-        jQuery.validator.addMethod("validarjustificativa", function (value, element) {
-            var texto = CKEDITOR.instances['justificativa'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g, '');
-
-            if (texto.length > 0) {
-                // verifica se o usu�rio clicou no bot�o 'Reintegra��o'
-
-                $('#justificativa').val(CKEDITOR.instances['justificativa'].getData());
-                return true;
-            }
-            else {
-                //apresentarDialog();
-                //$("#divMsg").show();
-                return false;
-            }
-        });
+            $3.ajax({
+                  url: "/proposta/pre-projeto/update",
+                  method: 'POST',
+                  data: {
+                      idPreProjeto: $3('#idPreProjeto').val(),
+                      stEstado: 0,
+                      DtArquivamento: moment().format('YYYY/MM/DD H:mm')
+                  }
+            })
+            .done(function( data ) {
+                Materialize.toast(data.message, 4000,'green white-text');
+                $3.ajax({
+                      url: "/proposta/pre-projeto-arquivado/store",
+                      method: 'POST',
+                      data: {
+                          idPreProjeto: $3('#idPreProjeto').val(),
+                          MotivoArquivamento: $3('#MotivoArquivamento').val()
+                      }
+                })
+                .done(function( data ) {
+                    Materialize.toast(data.message, 4000, 'green white-text');
+                    window.location = "/admissibilidade/admissibilidade/exibirpropostacultural?idPreProjeto=" + $3('#idPreProjeto').val();
+                });
+            });
     });
-    //-->
 </script>

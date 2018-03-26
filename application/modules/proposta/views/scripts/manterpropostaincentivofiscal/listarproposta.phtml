@@ -1,26 +1,26 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col s12 m12 l12">
-            <?php
-            gerarBreadCrumb(array(
-                array('Listar propostas' => '')
-            ));
-            ?>
+    <div class="page-title">
+        <div class="row">
+            <div class="col s12 m9 l10">
+                <h1>Listar propostas</h1>
 
-            <div id="alerta" title="Alerta"></div>
-            <div id="erro" title="Erro"></div>
-            <div id="resultado"></div>
-<!--            <div class="clearfix"></div>-->
-<!--            <h4 id="novo-titulo" class="light">-->
-<!--                Listar propostas <a href="#!" class="voltar secondary-content small" onclick="voltar();"><i class="material-icons left">arrow_back</i>Voltar</a>-->
-<!--            </h4>-->
+                <?php
+                gerarNovoBreadCrumb(array(
+                    array('Listar propostas' => '')
+                ));
+                ?>
+            </div>
+            <div class="col s12 m3 l2 right-align">
+                <a href="javascript:voltar();" title="Página Anterior"title="Página Anterior" class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">keyboard_return</i>
+                </a>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col s12 m12 l12">
-            <form name="frmNovaProposta" id="frmNovaProposta"
-                  action="<?php echo $this->url(array('module'=>'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'declaracaonovaproposta')); ?>"
-                  method="post">
+
+    <div class="content">
+        <form name="frmNovaProposta" id="frmNovaProposta"
+              action="<?php echo $this->url(array('module'=>'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'declaracaonovaproposta')); ?>"
+              method="post">
 
                 <table class="tabela">
                     <tr class="centro">
@@ -65,6 +65,18 @@
                         </td>
                     </tr>
                 </table>
+                <table class="tabela">
+                    <tr class="centro">
+                        <th class="centro">Filtro</th>
+                    </tr>
+                    <tr>
+                        <td class="center" align="center">
+                            <a id="localizar" class="btn-localizar waves-effect waves-light btn btn-default small">
+                                <i class="material-icons left">search</i>Localizar
+                            </a>
+                        </td>
+                    </tr>
+                </table>
             </form>
         </div>
     </div>
@@ -79,7 +91,6 @@
                             <th>Nome da Proposta</th>
                             <th>Nome do Proponente</th>
                             <th>Situa&ccedil;&atilde;o</th>
-                            <th class="right-align">A&ccedil;&otilde;es</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -93,6 +104,10 @@
 
 
 <style type="text/css">
+    /*label.error {*/
+        /*color: red;*/
+        /*font-weight: normal;*/
+    /*}*/
     select {
         height: 35px;
         font-size: 15px;
@@ -137,6 +152,7 @@
                 jqAjaxForm(form, 'propostasCadastradas');
             }
         });
+
     });
 </script>
 
@@ -165,7 +181,7 @@
                     "serverSide": true,
                     "bFilter": false,
                     "aoColumnDefs": [
-                        {'bSortable': false, 'aTargets': [2, 3,4]}
+                        {'bSortable': false, 'aTargets': [3]}
                     ],
                     "order": [[ 0, 'desc' ], [ 1, 'asc' ]],
                     "columns": [
@@ -178,12 +194,8 @@
                             }
                         },
                         {
-                            data: null,
                             "name": "nomeprojeto",
-                            render: function (data, type, row) {
-                                return '<a class="" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'identificacaodaproposta')); ?>/idPreProjeto/' + data.idpreprojeto + '">'
-                                    + data.nomeprojeto + '</a>'
-                            }
+                            "data": "nomeprojeto"
 
                         },
                         {
@@ -195,31 +207,13 @@
                             "name": "situacao",
                             "data": "situacao"
 
-                        },
-                        {
-                            data: null,
-                            "name": "actions",
-                            render: function (data, type, row) {
-                                return '<div style="position: relative; height: 60px;">'
-                                        + '<div class="fixed-action-btn horizontal" style="position: absolute; top: 0px; right: 0; z-index: 996; padding: 15px 0 0 15px;">'
-                                        + '<a class="btn btn-primary small">'
-                                        + '<i class="material-icons">more_vert</i></a>'
-                                        + '<ul>'
-                                        + '<li>'
-                                        + '<a class="btn-floating red" title="Encaminhar solicita&ccedil;&atilde;o" href="/solicitacao/mensagem/index/idPreProjeto/' + data.idpreprojeto + '">'
-                                        + '<i class="material-icons">message</i>'
-                                        + '</a></li>'
-                                        + '</ul>'
-                                        + '</div></div>'
-                            }
                         }
                     ]
                 }
             );
 
-            $3('.tooltipped').tooltip({delay: 50});
 
-            $("#proponente").change(function () {
+            $("#localizar").click(function () {
                 table.ajax.reload();
             });
 

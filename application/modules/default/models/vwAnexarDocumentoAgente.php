@@ -9,7 +9,8 @@
  * @link http://www.cultura.gov.br
  */
 
-class vwAnexarDocumentoAgente extends MinC_Db_Table_Abstract {
+class vwAnexarDocumentoAgente extends MinC_Db_Table_Abstract
+{
 
     /* dados da tabela */
     protected $_banco  = 'SAC';
@@ -18,13 +19,14 @@ class vwAnexarDocumentoAgente extends MinC_Db_Table_Abstract {
     protected $_primary = 'idArquivo';
 
 
-    public function excluirArquivo($arquivo) {
+    public function excluirArquivo($arquivo)
+    {
         $where = "idArquivo = " . $arquivo;
         return $this->delete($where);
     }
 
-    public function inserirUploads($dados) {
-
+    public function inserirUploads($dados)
+    {
         $name                   = $dados['nmArquivo'];
         $fileType               = $dados['sgExtensao'];
         $nrTamanho              = $dados['nrTamanho']; // Null
@@ -43,6 +45,4 @@ class vwAnexarDocumentoAgente extends MinC_Db_Table_Abstract {
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->query($sql);
     }
-
-
 }

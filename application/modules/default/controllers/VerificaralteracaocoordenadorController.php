@@ -1,12 +1,11 @@
 <?php
 class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abstract
 {
-
     public function init()
     {
-       /* $PermissoesGrupo[] = 93;  // Coordenador de Parecerista
-        $PermissoesGrupo[] = 94;  // Parecerista
-        $PermissoesGrupo[] = 121; // T�cnico*/
+        /* $PermissoesGrupo[] = 93;  // Coordenador de Parecerista
+         $PermissoesGrupo[] = 94;  // Parecerista
+         $PermissoesGrupo[] = 121; // T�cnico*/
         $PermissoesGrupo[] = 122; // Coordenador de Acompanhamento
         $PermissoesGrupo[] = 123; // Coordenador Geral de Acompanhamento
         parent::perfil(1, $PermissoesGrupo);
@@ -29,43 +28,38 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $Result['AltProrPrazC']  = array();
         $Result['AltProrPrazE']  = array();
         $validardata             = array();
-        foreach($resultadobusca as $ResultAltBusca)
-        {
-            switch ($ResultAltBusca->tpAlteracaoProjeto)
-            {
-                case 1 :
+        foreach ($resultadobusca as $ResultAltBusca) {
+            switch ($ResultAltBusca->tpAlteracaoProjeto) {
+                case 1:
                     {
                         $Result['AltNmProp'][]                  = $ResultAltBusca;
                         break;
                     }
-                case 2 :
+                case 2:
                     {
                         $Result['AltRaz'][]                     = $ResultAltBusca;
                         break;
                     }
-                case 3 :
+                case 3:
                     {
                         $Result['FicTec'][]                     = $ResultAltBusca;
                         break;
                     }
-                case 4 :
+                case 4:
                     {
                         $Result['LocRel'][]                     = $ResultAltBusca;
                         break;
                     }
-                case 5 :
+                case 5:
                     {
                         $Result['AltNomProj'][]                  = $ResultAltBusca;
                         break;
                     }
-                case 6 :
+                case 6:
                     {
-                        if($ResultAltBusca->tpProrrogacao == 'C')
-                        {
+                        if ($ResultAltBusca->tpProrrogacao == 'C') {
                             $Result['AltProrPrazC'][]                  = $ResultAltBusca;
-                        }
-                        else
-                        {
+                        } else {
                             $Result['AltProrPrazE'][]                  = $ResultAltBusca;
                         }
                         break;
@@ -89,8 +83,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
     */
     public function solaltnomprojAction()
     {
-        if($_POST)
-        {
+        if ($_POST) {
             $recebidoPost  = Zend_Registry::get('post');
             $dados['Solicitacao'] = $recebidoPost->editor1;
             $dados['idPronac'] = $recebidoPost->idPronac;
@@ -106,10 +99,10 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
 
             $dados['idSolicitante'] =  $idagente;
 
-            if(PedidoAlteracaoDAO::salvarComentarioAlteracaoProj($dados)){
-                parent::message("Os dados foram salvos com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento" ,"CONFIRM");
+            if (PedidoAlteracaoDAO::salvarComentarioAlteracaoProj($dados)) {
+                parent::message("Os dados foram salvos com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "CONFIRM");
             } else {
-                parent::message("Erro na opera��o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento" ,"ERROR");
+                parent::message("Erro na opera&ccedil;&atilde;o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "ERROR");
             }
             /*if($recebidoPost->stAprovacao == 'RT')
             {
@@ -132,11 +125,11 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $idpedidoalteracao = $recebidoGet->idpedidoalteracao;
         $resultadoDadosAlteracaoNomeProjeto = PedidoAlteracaoDAO::buscarAlteracaoNomeProjeto($idpedidoalteracao);
         $resultadoBuscaPedidoAlteracao = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idpedidoalteracao, $resultadoDadosAlteracaoNomeProjeto['idPedidoAlteracao']);
-        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao,5,$resultadoDadosAlteracaoNomeProjeto['idPedidoAlteracao']);
+        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao, 5, $resultadoDadosAlteracaoNomeProjeto['idPedidoAlteracao']);
         $this->view->resultArquivo = $arquivos;
         $this->view->resultAlteracaoNomeProjeto = $resultadoDadosAlteracaoNomeProjeto;
         $this->view->resultConsulta = $resultadoBuscaPedidoAlteracao;
-        $this->view->resultParecerTecnico   = VerificarAlteracaoProjetoDAO::buscarDadosParecerTecnico($idpedidoalteracao,5, $resultadoDadosAlteracaoNomeProjeto['idPedidoAlteracao']);
+        $this->view->resultParecerTecnico   = VerificarAlteracaoProjetoDAO::buscarDadosParecerTecnico($idpedidoalteracao, 5, $resultadoDadosAlteracaoNomeProjeto['idPedidoAlteracao']);
 
         //UC 13 - MANTER MENSAGENS (Habilitar o menu superior)
         $this->view->idPronac = $idpedidoalteracao;
@@ -147,9 +140,9 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // Chama o SQL
-        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao,5, null, $resultadoDadosAlteracaoNomeProjeto['idPedidoAlteracao']);
+        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao, 5, null, $resultadoDadosAlteracaoNomeProjeto['idPedidoAlteracao']);
         $dados = $db->fetchAll($sqlproposta);
-        if($dados){
+        if ($dados) {
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
@@ -176,8 +169,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
     */
     public function solaltrazsocAction()
     {
-        if($_POST)
-        {
+        if ($_POST) {
             /*$recebidoPost  = Zend_Registry::get('post');
             if($recebidoPost->stAprovacao == 'RT')
             {
@@ -204,10 +196,10 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
 
             $dados['idSolicitante'] =  $idagente;
 
-            if(PedidoAlteracaoDAO::salvarComentarioAlteracaoProj($dados)){
-                parent::message("Os dados foram salvos com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento" ,"CONFIRM");
+            if (PedidoAlteracaoDAO::salvarComentarioAlteracaoProj($dados)) {
+                parent::message("Os dados foram salvos com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "CONFIRM");
             } else {
-                parent::message("Erro na opera��o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento" ,"ERROR");
+                parent::message("Erro na opera&ccedil;&atilde;o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "ERROR");
             }
         }
 
@@ -215,14 +207,14 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $idPronac = $recebidoGet->id;
         $idpedidoalteracao = $recebidoGet->idpedidoalteracao;
 
-        $resultadoBuscaPedidoAlteracao = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idPronac,$idpedidoalteracao);
+        $resultadoBuscaPedidoAlteracao = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idPronac, $idpedidoalteracao);
         $resultadoDadosAlteracaoRazaoSocial = PedidoAlteracaoDAO::buscarAlteracaoRazaoSocial($idPronac);
-        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idPronac,2,$idpedidoalteracao);
+        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idPronac, 2, $idpedidoalteracao);
         $this->view->resultArquivo = $arquivos;
         $this->view->resultAlteracaoRazaoSocial = $resultadoDadosAlteracaoRazaoSocial;
         $this->view->resultConsulta = $resultadoBuscaPedidoAlteracao;
         $this->view->resultProjeto  = AlteracaoNomeProponenteDAO::buscarProjPorProp($resultadoBuscaPedidoAlteracao['CgcCpf']);
-        $this->view->resultParecerTecnico   = VerificarAlteracaoProjetoDAO::buscarDadosParecerTecnico($idPronac,2,$idpedidoalteracao);
+        $this->view->resultParecerTecnico   = VerificarAlteracaoProjetoDAO::buscarDadosParecerTecnico($idPronac, 2, $idpedidoalteracao);
 
         //UC 13 - MANTER MENSAGENS (Habilitar o menu superior)
         $this->view->idPronac = $idpedidoalteracao;
@@ -233,9 +225,9 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // Chama o SQL
-        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao,2);
+        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao, 2);
         $dados = $db->fetchAll($sqlproposta);
-        if($dados){
+        if ($dados) {
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
@@ -243,7 +235,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
             $sqlStatusReadequacao = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlt);
 
             $this->view->stResult = $db->fetchAll($sqlStatusReadequacao);
-        }else {
+        } else {
             $dados['stAvaliacaoItemPedidoAlteracao'] = null;
             $this->view->dados = (object) $dados;
         }
@@ -255,15 +247,9 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $this->view->resultParecerTecnico   = tbalteracaonomeprojetoDAO::buscarDadosParecerTecnico($idpedidoalteracao);*/
     }
 
-    /*
-    *  View: Solicita��o de Altera��o do Nome do Proponente
-    */
     public function solaltnomprpAction()
     {
-        
-        if($_POST)
-        {
-            
+        if ($_POST) {
             $recebidoPost  = Zend_Registry::get('post');
             $dados['Solicitacao'] = $recebidoPost->editor1;
             $dados['idPronac'] = $recebidoPost->idPronac;
@@ -274,10 +260,10 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
 
             $dados['idSolicitante'] =  $idagente;
 
-            if(PedidoAlteracaoDAO::salvarComentarioAlteracaoProj($dados)){
-                parent::message("Os dados foram salvos com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento" ,"CONFIRM");
+            if (PedidoAlteracaoDAO::salvarComentarioAlteracaoProj($dados)) {
+                parent::message("Os dados foram salvos com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "CONFIRM");
             } else {
-                parent::message("Erro na opera��o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento" ,"ERROR");
+                parent::message("Erro na opera&ccedil;&atilde;o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "ERROR");
             }
             
             
@@ -302,12 +288,12 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $idpedidoalteracao    = $recebidoGet->idpedidoalteracao;
         $resultadoDadosAlteracaoNomeProponente = PedidoAlteracaoDAO::buscarAlteracaoNomeProponente($idpedidoalteracao);
         $resultadoBuscaPedidoAlteracao = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idpedidoalteracao, $resultadoDadosAlteracaoNomeProponente['idPedidoAlteracao']);
-        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao,1, $resultadoDadosAlteracaoNomeProponente['idPedidoAlteracao']);
+        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao, 1, $resultadoDadosAlteracaoNomeProponente['idPedidoAlteracao']);
         $this->view->resultArquivo = $arquivos;
         $this->view->resultAlteracaoNomeProponente = $resultadoDadosAlteracaoNomeProponente;
         $this->view->resultConsulta = $resultadoBuscaPedidoAlteracao;
         $this->view->resultProjeto  = AlteracaoNomeProponenteDAO::buscarProjPorProp($resultadoBuscaPedidoAlteracao['CgcCpf']);
-        $this->view->resultParecerTecnico   = VerificarAlteracaoProjetoDAO::buscarDadosParecerTecnico($idpedidoalteracao,1, $resultadoDadosAlteracaoNomeProponente['idPedidoAlteracao']);
+        $this->view->resultParecerTecnico   = VerificarAlteracaoProjetoDAO::buscarDadosParecerTecnico($idpedidoalteracao, 1, $resultadoDadosAlteracaoNomeProponente['idPedidoAlteracao']);
 
         //UC 13 - MANTER MENSAGENS (Habilitar o menu superior)
         $this->view->idPronac = $idpedidoalteracao;
@@ -318,17 +304,16 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // Chama o SQL
-        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao,1, null, $resultadoDadosAlteracaoNomeProponente['idPedidoAlteracao']);
+        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao, 1, null, $resultadoDadosAlteracaoNomeProponente['idPedidoAlteracao']);
         $dados = $db->fetchAll($sqlproposta);
-        if($dados){
+        if ($dados) {
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
-            //VERIFICA O STATUS DA SOLICITA��O
             $sqlStatusReadequacao = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlt);
 
             $this->view->stResult = $db->fetchAll($sqlStatusReadequacao);
-        }else {
+        } else {
             $dados['stAvaliacaoItemPedidoAlteracao'] = null;
             $this->view->dados = (object) $dados;
         }
@@ -348,8 +333,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
     {
         $tbAbrangencia = new Proposta_Model_DbTable_Abrangencia();
 
-        if($_POST)
-        {
+        if ($_POST) {
             /*$recebidoPost  = Zend_Registry::get('post');
             if($recebidoPost->stAprovacao == 'RT')
             {
@@ -362,7 +346,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
                     $recDadosParaAlteracaoAltLocalRel = tbalteracaolocalrealizacaoDAO::buscarDadosAltLocRel($_POST['idpedidoalteracao']);
                     foreach($recDadosParaAlteracaoAltLocalRel as $dados)
                     {
-                        
+
                     }
                 }
                 else
@@ -381,36 +365,31 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
 
             $dados['idSolicitante'] =  $idagente;
 
-            if(PedidoAlteracaoDAO::salvarComentarioAlteracaoProj($dados)){
-                parent::message("Os dados foram salvos com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento" ,"CONFIRM");
+            if (PedidoAlteracaoDAO::salvarComentarioAlteracaoProj($dados)) {
+                parent::message("Os dados foram salvos com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "CONFIRM");
             } else {
-                parent::message("Erro na opera��o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento" ,"ERROR");
+                parent::message("Erro na opera&ccedil;&atilde;o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "ERROR");
             }
-
         }
 
 
         $recebidoGet = Zend_Registry::get('get');
         $idpedidoalteracao    = $recebidoGet->idpedidoalteracao;
-		$buscaAb = $tbAbrangencia->buscarDadosAbrangenciaSolicitadaLocal($idpedidoalteracao);
+        $buscaAb = $tbAbrangencia->buscarDadosAbrangenciaSolicitadaLocal($idpedidoalteracao);
         $resultadoBuscaPedidoAlteracao = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idpedidoalteracao, $buscaAb[0]->idPedidoAlteracao);
         //$resultadoDadosAlteracaoLocalRealizacao = AbrangenciaDAO::buscarDadosAbrangenciaAlteracao($idpedidoalteracao);
-        if (AvaliacaoSubItemPedidoAlteracaoDAO::buscar($resultadoBuscaPedidoAlteracao['idAvaliacao']))
-        {
+        if (AvaliacaoSubItemPedidoAlteracaoDAO::buscar($resultadoBuscaPedidoAlteracao['idAvaliacao'])) {
             $resultadoDadosAlteracaoLocalRealizacao = $tbAbrangencia->buscarDadosAbrangenciaAlteracaoCoord($idpedidoalteracao, 'COM_AVALIACAO');
-           
-        }
-        else
-        {
+        } else {
             $resultadoDadosAlteracaoLocalRealizacao = $tbAbrangencia->buscarDadosAbrangenciaAlteracaoCoord($idpedidoalteracao, 'SEM_AVALIACAO');
         }
 
-        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao,4,$buscaAb[0]->idPedidoAlteracao);
-         $this->view->resultLocalRel     = $tbAbrangencia->buscarDadosAbrangenciaSolicitadaLocal($idpedidoalteracao, 'N');
+        $arquivos = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao, 4, $buscaAb[0]->idPedidoAlteracao);
+        $this->view->resultLocalRel     = $tbAbrangencia->buscarDadosAbrangenciaSolicitadaLocal($idpedidoalteracao, 'N');
         $this->view->resultArquivo = $arquivos;
         $this->view->resultAbrangencia = $resultadoDadosAlteracaoLocalRealizacao;
         $this->view->resultConsulta = $resultadoBuscaPedidoAlteracao;
-        $this->view->resultParecerTecnico   = VerificarAlteracaoProjetoDAO::buscarDadosParecerTecnico($idpedidoalteracao,4,$buscaAb[0]->idPedidoAlteracao);
+        $this->view->resultParecerTecnico   = VerificarAlteracaoProjetoDAO::buscarDadosParecerTecnico($idpedidoalteracao, 4, $buscaAb[0]->idPedidoAlteracao);
 
         //UC 13 - MANTER MENSAGENS (Habilitar o menu superior)
         $this->view->idPronac = $idpedidoalteracao;
@@ -421,10 +400,10 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // Chama o SQL
-        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao,4,null,$buscaAb[0]->idPedidoAlteracao);
+        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao, 4, null, $buscaAb[0]->idPedidoAlteracao);
         $dados = $db->fetchAll($sqlproposta);
-      //  Zend_Debug::dump($dados);exit;
-        if($dados){
+        //  Zend_Debug::dump($dados);exit;
+        if ($dados) {
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
@@ -432,7 +411,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
             $sqlStatusReadequacao = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlt);
 
             $this->view->stResult = $db->fetchAll($sqlStatusReadequacao);
-        }else {
+        } else {
             $dados['stAvaliacaoItemPedidoAlteracao'] = null;
             $this->view->dados = (object) $dados;
         }
@@ -452,8 +431,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
     */
     public function solaltfictecAction()
     {
-        if($_POST)
-        {
+        if ($_POST) {
             /*$recebidoPost  = Zend_Registry::get('post');
             if($recebidoPost->stAprovacao == 'RT')
             {
@@ -474,10 +452,10 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
 
             $dados['idSolicitante'] =  $idagente;
 
-            if(PedidoAlteracaoDAO::salvarComentarioAlteracaoProj($dados)){
-                parent::message("Os dados foram salvos com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento" ,"CONFIRM");
+            if (PedidoAlteracaoDAO::salvarComentarioAlteracaoProj($dados)) {
+                parent::message("Os dados foram salvos com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "CONFIRM");
             } else {
-                parent::message("Erro na opera��o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento" ,"ERROR");
+                parent::message("Erro na opera&ccedil;&atilde;o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "ERROR");
             }
         }
 
@@ -486,12 +464,12 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $resultadoDadosAlteracaoFichaTecnica     = PedidoAlteracaoDAO::buscarAlteracaoFichaTecnica($idpedidoalteracao);
         $resultadoBuscaPedidoAlteracao           = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idpedidoalteracao, $resultadoDadosAlteracaoFichaTecnica['idPedidoAlteracao']);
         $fichatecnica                            = FichaTecnicaDAO::buscarFichaTecnica($idpedidoalteracao, $resultadoDadosAlteracaoFichaTecnica['idPedidoAlteracao']);
-        $arquivos                                = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao,3, $resultadoDadosAlteracaoFichaTecnica['idPedidoAlteracao']);
+        $arquivos                                = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao, 3, $resultadoDadosAlteracaoFichaTecnica['idPedidoAlteracao']);
         $this->view->resultArquivo               = $arquivos;
         $this->view->fichaTecnica                = $fichatecnica;
         $this->view->resultAlteracaoFichaTecnica = $resultadoDadosAlteracaoFichaTecnica;
         $this->view->resultConsulta              = $resultadoBuscaPedidoAlteracao;
-        $this->view->resultParecerTecnico        = VerificarAlteracaoProjetoDAO::buscarDadosParecerTecnico($idpedidoalteracao,3, $resultadoDadosAlteracaoFichaTecnica['idPedidoAlteracao']);
+        $this->view->resultParecerTecnico        = VerificarAlteracaoProjetoDAO::buscarDadosParecerTecnico($idpedidoalteracao, 3, $resultadoDadosAlteracaoFichaTecnica['idPedidoAlteracao']);
 
         //UC 13 - MANTER MENSAGENS (Habilitar o menu superior)
         $this->view->idPronac = $idpedidoalteracao;
@@ -502,9 +480,9 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // Chama o SQL
-        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao,3, null, $resultadoDadosAlteracaoFichaTecnica['idPedidoAlteracao']);
+        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao, 3, null, $resultadoDadosAlteracaoFichaTecnica['idPedidoAlteracao']);
         $dados = $db->fetchAll($sqlproposta);
-        if($dados){
+        if ($dados) {
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
@@ -512,7 +490,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
             $sqlStatusReadequacao = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlt);
 
             $this->view->stResult = $db->fetchAll($sqlStatusReadequacao);
-        }else {
+        } else {
             $dados['stAvaliacaoItemPedidoAlteracao'] = null;
             $this->view->dados = (object) $dados;
         }
@@ -530,8 +508,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
     */
     public function solaltprogprazcapAction()
     {
-        if($_POST)
-        {
+        if ($_POST) {
             /*$recebidoPost  = Zend_Registry::get('post');
             if($recebidoPost->stAprovacao == 'RT')
             {
@@ -567,10 +544,10 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
 
             $dados['idSolicitante'] =  $idagente;
 
-            if(PedidoAlteracaoDAO::salvarComentarioAlteracaoProj($dados)){
-                parent::message("Os dados foram salvos com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento" ,"CONFIRM");
+            if (PedidoAlteracaoDAO::salvarComentarioAlteracaoProj($dados)) {
+                parent::message("Os dados foram salvos com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "CONFIRM");
             } else {
-                parent::message("Erro na opera��o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento" ,"ERROR");
+                parent::message("Erro na opera&ccedil;&atilde;o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "ERROR");
             }
         }
 
@@ -578,8 +555,8 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $idpedidoalteracao                        = $recebidoGet->idpedidoalteracao;
         $resultadoDadosAlteracaoPrazoCaptacao     = PedidoAlteracaoDAO::buscarAlteracaoPrazoCaptacao($idpedidoalteracao);
         $resultadoBuscaPedidoAlteracao            = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idpedidoalteracao, $resultadoDadosAlteracaoPrazoCaptacao['idPedidoAlteracao']);
-        $arquivos                                 = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao,8, $resultadoDadosAlteracaoPrazoCaptacao['idPedidoAlteracao']);
-        $porcentagem                              = porcentagemCaptacaoDao::buscarDadosProrrogacaoPrazo($resultadoBuscaPedidoAlteracao['ano'],$resultadoBuscaPedidoAlteracao['seq']);
+        $arquivos                                 = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao, 8, $resultadoDadosAlteracaoPrazoCaptacao['idPedidoAlteracao']);
+        $porcentagem                              = porcentagemCaptacaoDao::buscarDadosProrrogacaoPrazo($resultadoBuscaPedidoAlteracao['ano'], $resultadoBuscaPedidoAlteracao['seq']);
 
         $contaBancaria = new ContaBancaria();
         $this->view->resultDadosBanc              = $contaBancaria->buscarDadosBancarios($resultadoBuscaPedidoAlteracao['pronac']);
@@ -587,7 +564,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $this->view->resultArquivo                = $arquivos;
         $this->view->resultAlteracaoPrazoCaptacao = $resultadoDadosAlteracaoPrazoCaptacao;
         $this->view->resultConsulta               = $resultadoBuscaPedidoAlteracao;
-        $this->view->resultParecerTecnico         = VerificarAlteracaoProjetoDAO::buscarDadosParecerTecnico($idpedidoalteracao,8, $resultadoDadosAlteracaoPrazoCaptacao['idPedidoAlteracao']);
+        $this->view->resultParecerTecnico         = VerificarAlteracaoProjetoDAO::buscarDadosParecerTecnico($idpedidoalteracao, 8, $resultadoDadosAlteracaoPrazoCaptacao['idPedidoAlteracao']);
 
         //UC 13 - MANTER MENSAGENS (Habilitar o menu superior)
         $this->view->idPronac = $idpedidoalteracao;
@@ -598,9 +575,9 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // Chama o SQL
-        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao,8, null, $resultadoDadosAlteracaoPrazoCaptacao['idPedidoAlteracao']);
+        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao, 8, null, $resultadoDadosAlteracaoPrazoCaptacao['idPedidoAlteracao']);
         $dados = $db->fetchAll($sqlproposta);
-        if($dados){
+        if ($dados) {
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
@@ -608,7 +585,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
             $sqlStatusReadequacao = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlt);
 
             $this->view->stResult = $db->fetchAll($sqlStatusReadequacao);
-        }else {
+        } else {
             $dados['stAvaliacaoItemPedidoAlteracao'] = null;
             $this->view->dados = (object) $dados;
         }
@@ -627,8 +604,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
     */
     public function solaltprogprazexecAction()
     {
-        if($_POST)
-        {
+        if ($_POST) {
             /*$recebidoPost  = Zend_Registry::get('post');
             if($recebidoPost->stAprovacao == 'RT')
             {
@@ -664,10 +640,10 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
 
             $dados['idSolicitante'] =  $idagente;
 
-            if(PedidoAlteracaoDAO::salvarComentarioAlteracaoProj($dados)){
-                parent::message("Os dados foram salvos com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento" ,"CONFIRM");
+            if (PedidoAlteracaoDAO::salvarComentarioAlteracaoProj($dados)) {
+                parent::message("Os dados foram salvos com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "CONFIRM");
             } else {
-                parent::message("Erro na opera��o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento" ,"ERROR");
+                parent::message("Erro na opera&ccedil;&atilde;o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetocoordacompanhamento", "ERROR");
             }
         }
 
@@ -675,17 +651,17 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $idpedidoalteracao                      = $recebidoGet->idpedidoalteracao;
         $resultadoDadosAlteracaoexecucao        = PedidoAlteracaoDAO::buscarAlteracaoPrazoExecucao($idpedidoalteracao);
         $resultadoBuscaPedidoAlteracao          = VerificarAlteracaoProjetoDAO::BuscarDadosGenericos($idpedidoalteracao, $resultadoDadosAlteracaoexecucao['idPedidoAlteracao']);
-        $arquivos                               = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao,9, $resultadoDadosAlteracaoexecucao['idPedidoAlteracao']);
+        $arquivos                               = VerificarAlteracaoProjetoDAO::buscarArquivosSolicitacao($idpedidoalteracao, 9, $resultadoDadosAlteracaoexecucao['idPedidoAlteracao']);
 
         $contaBancaria = new ContaBancaria();
         $this->view->resultDadosBanc            = $contaBancaria->buscarDadosBancarios($resultadoBuscaPedidoAlteracao['pronac']);
 //        $this->view->resultDadosBanc            = ContaBancariaDAO::buscarDadosContaBancaria($resultadoBuscaPedidoAlteracao['pronac']);
-        $porcentagem                            = porcentagemCaptacaoDao::buscarDadosProrrogacaoPrazo($resultadoBuscaPedidoAlteracao['ano'],$resultadoBuscaPedidoAlteracao['seq']);
+        $porcentagem                            = porcentagemCaptacaoDao::buscarDadosProrrogacaoPrazo($resultadoBuscaPedidoAlteracao['ano'], $resultadoBuscaPedidoAlteracao['seq']);
         $this->view->porcentagem                = ($porcentagem[0]->computed == '')?'0%':$porcentagem[0]->computed.'%';
         $this->view->resultArquivo              = $arquivos;
         $this->view->resultAlteracaoExecucao    = $resultadoDadosAlteracaoexecucao;
         $this->view->resultConsulta             = $resultadoBuscaPedidoAlteracao;
-        $this->view->resultParecerTecnico       = VerificarAlteracaoProjetoDAO::buscarDadosParecerTecnico($idpedidoalteracao,9, $resultadoDadosAlteracaoexecucao['idPedidoAlteracao']);
+        $this->view->resultParecerTecnico       = VerificarAlteracaoProjetoDAO::buscarDadosParecerTecnico($idpedidoalteracao, 9, $resultadoDadosAlteracaoexecucao['idPedidoAlteracao']);
 
         //UC 13 - MANTER MENSAGENS (Habilitar o menu superior)
         $this->view->idPronac = $idpedidoalteracao;
@@ -696,9 +672,9 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         // Chama o SQL
-        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao,9,null, $resultadoDadosAlteracaoexecucao['idPedidoAlteracao']);
+        $sqlproposta = ReadequacaoProjetos::retornaSQLproposta("sqlConsultaNomeProjEditar", $idpedidoalteracao, 9, null, $resultadoDadosAlteracaoexecucao['idPedidoAlteracao']);
         $dados = $db->fetchAll($sqlproposta);
-        if($dados){
+        if ($dados) {
             $this->view->dados = $dados[0];
             $idPedidoAlt = $dados[0]->idAvaliacaoItemPedidoAlteracao;
 
@@ -706,7 +682,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
             $sqlStatusReadequacao = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlt);
 
             $this->view->stResult = $db->fetchAll($sqlStatusReadequacao);
-        }else {
+        } else {
             $dados['stAvaliacaoItemPedidoAlteracao'] = null;
             $this->view->dados = (object) $dados;
         }
@@ -723,7 +699,6 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
 
     public function InserirStatusAvaliacaoProjeto($post)
     {
-
         $idpedidoalteracao          = $post['idpedidoalteracao'];
         $dsJustificativaAvaliacao   = $post['dsJustificativaAvaliacao'];
         $stDeferimentoAvaliacao     = $post['stAprovacao'];
@@ -734,11 +709,10 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
                 "dsJustificativaAvaliacao"       => $dsJustificativaAvaliacao,
                 "stDeferimentoAvaliacao"         => $stDeferimentoAvaliacao);
 
-        $query = tbPedidoAlteracaoProjetoCoordDAO::updateDadosProjeto($parecerCoordenador,$idpedidoalteracao);
-        if($query)
-        {
+        $query = tbPedidoAlteracaoProjetoCoordDAO::updateDadosProjeto($parecerCoordenador, $idpedidoalteracao);
+        if ($query) {
             $this->_redirect('verificaralteracaocoordenador/');
-            $this->_helper->viewRenderer->setNoRender(TRUE); 
+            $this->_helper->viewRenderer->setNoRender(true);
         }
     }
 
@@ -755,19 +729,17 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
 
         $query = tbPedidoAlteracaoProjetoCoordDAO::UpdateAvaliacaoProjeto($parecerCoordenador, $idpedidoalteracao, $dtparecertecnico);
 
-        if($query)
-        {
+        if ($query) {
             $this->_redirect('verificaralteracaocoordenador/');
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
     }
 
     public static function VerificarCpfCnpj($dado)
     {
         $qtdcarecteres = strlen($dado);
-        switch ($qtdcarecteres)
-        {
-            case 11 :
+        switch ($qtdcarecteres) {
+            case 11:
                 {
                     $retorno = Mascara::addMaskCPF($dado);
                 }
@@ -781,8 +753,7 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
 
     public static function BuscarDadosTabelasAlt($idpedidoalteracao, $tpalteracao)
     {
-        switch ($tpalteracao)
-        {
+        switch ($tpalteracao) {
             case 1:
                 {
                     $nomProp = tbalteracaonomeproponenteDAO::buscarDadosAltNomProp($idpedidoalteracao);
@@ -811,4 +782,3 @@ class VerificarAlteracaoCoordenadorController extends MinC_Controller_Action_Abs
         }
     }
 }
-

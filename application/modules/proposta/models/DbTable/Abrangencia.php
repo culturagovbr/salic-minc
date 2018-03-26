@@ -106,7 +106,7 @@ class Proposta_Model_DbTable_Abrangencia extends MinC_Db_Table_Abstract
 
         //DECIDINDO SE INCLUI OU ALTERA UM REGISTRO
         $dados['stAbrangencia'] = 1;
-        if (isset($dados['idAbrangencia']) && !empty ($dados['idAbrangencia'])) {
+        if (isset($dados['idAbrangencia']) && !empty($dados['idAbrangencia'])) {
             //UPDATE
             $rsAbrangencia = $this->find($dados['idAbrangencia'])->current();
         } else {
@@ -157,7 +157,6 @@ class Proposta_Model_DbTable_Abrangencia extends MinC_Db_Table_Abstract
         } else {
             return false;
         }
-
     }
 
     /**
@@ -170,7 +169,6 @@ class Proposta_Model_DbTable_Abrangencia extends MinC_Db_Table_Abstract
      */
     public function abrangenciaProjeto($retornaSelect = false)
     {
-
         $selectAbrangencia = $this->select();
         $selectAbrangencia->setIntegrityCheck(false);
         $selectAbrangencia->from(
@@ -186,10 +184,11 @@ class Proposta_Model_DbTable_Abrangencia extends MinC_Db_Table_Abstract
         $selectAbrangencia->group('idUF');
         $selectAbrangencia->group('idMunicipioIBGE');
 
-        if ($retornaSelect)
+        if ($retornaSelect) {
             return $selectAbrangencia;
-        else
+        } else {
             return $this->fetchAll($selectAbrangencia);
+        }
     }
 
     /**
@@ -203,7 +202,6 @@ class Proposta_Model_DbTable_Abrangencia extends MinC_Db_Table_Abstract
      */
     public function abrangenciaProjetoPesquisa($retornaSelect = false, $where = array())
     {
-
         $selectAbrangencia = $this->select();
         $selectAbrangencia->setIntegrityCheck(false);
         $selectAbrangencia->from(
@@ -234,10 +232,11 @@ class Proposta_Model_DbTable_Abrangencia extends MinC_Db_Table_Abstract
 
         $selectAbrangencia->group('idProjeto');
 
-        if ($retornaSelect)
+        if ($retornaSelect) {
             return $selectAbrangencia;
-        else
+        } else {
             return $this->fetchAll($selectAbrangencia);
+        }
     }
 
     /**
@@ -277,7 +276,7 @@ class Proposta_Model_DbTable_Abrangencia extends MinC_Db_Table_Abstract
         $where = array("idAbrangencia = ? " => $where, "stAbrangencia = ?" => 1);
 
         // limpa a associa��o antes de excluir
-        $alterar = $db->update("SAC.dbo.tbAbrangencia", array("idAbrangenciaAntiga" => NULL), array("idAbrangenciaAntiga = ? " => $where));
+        $alterar = $db->update("SAC.dbo.tbAbrangencia", array("idAbrangenciaAntiga" => null), array("idAbrangenciaAntiga = ? " => $where));
 
         $excluir = $db->delete("SAC.dbo.Abrangencia", $where);
 
@@ -299,9 +298,8 @@ class Proposta_Model_DbTable_Abrangencia extends MinC_Db_Table_Abstract
      */
     public function alterar($dados, $where, $dbg = false)
     {
-
         $where = "idAbrangencia = $where";
-        $alterar = $this->update( $dados, $where);
+        $alterar = $this->update($dados, $where);
 
         if ($alterar) {
             return true;
@@ -329,7 +327,7 @@ class Proposta_Model_DbTable_Abrangencia extends MinC_Db_Table_Abstract
     }
 
 
-    public  function buscarDadosAbrangenciaAlteracao($idpedidoalteracao, $avaliacao)
+    public function buscarDadosAbrangenciaAlteracao($idpedidoalteracao, $avaliacao)
     {
         if ($avaliacao == "SEM_AVALIACAO") {
             $sql = "
@@ -373,7 +371,6 @@ LEFT JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao asipa ON (taipa.
             ";
         } // fecha if
         else {
-
             $sql = "
             SELECT *, CAST(dsjustificativa AS text) as dsjustificativa FROM
             (
@@ -427,7 +424,7 @@ LEFT JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao tasipa ON (tasip
     }
 
 
-    public  function buscarDadosAbrangenciaAlteracaoCoord($idpedidoalteracao, $avaliacao)
+    public function buscarDadosAbrangenciaAlteracaoCoord($idpedidoalteracao, $avaliacao)
     {
         if ($avaliacao == "SEM_AVALIACAO") {
             $sql = "SELECT * , CAST(dsjustificativa AS text) AS dsjustificativa , CAST(dsjustificativa AS text) AS dsjustificativa  FROM  (
@@ -465,7 +462,6 @@ LEFT JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao asipa ON (taipa.
                ) AS TABELA ORDER BY pais, uf, mun, idAvaliacaoItemPedidoAlteracao DESC ";
         } // fecha if
         else {
-
             $sql = "SELECT * , CAST(dsjustificativa AS text) AS dsjustificativa, CAST(dsAvaliacao AS text) AS dsAvaliacao  FROM  (
                     SELECT
                     distinct (abran.idAbrangencia),
@@ -514,7 +510,7 @@ LEFT JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao tasipa ON (tasip
     }
 
 
-    public  function buscarDadosAbrangencia($idpedidoalteracao)
+    public function buscarDadosAbrangencia($idpedidoalteracao)
     {
         $sql = "select
                     distinct (abran.idAbrangencia),
@@ -541,7 +537,7 @@ LEFT JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao tasipa ON (tasip
         return $resultado;
     }
 
-    public  function buscarDadosAbrangenciaSolicitada($idpedidoalteracao)
+    public function buscarDadosAbrangenciaSolicitada($idpedidoalteracao)
     {
         $sql = "SELECT pais.Descricao pais,
                             uf.Descricao uf,
@@ -571,7 +567,7 @@ LEFT JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao tasipa ON (tasip
         return $resultado;
     }
 
-    public  function buscarDadosAbrangenciaSolicitadaLocal($idpedidoalteracao, $tpAcao = null)
+    public function buscarDadosAbrangenciaSolicitadaLocal($idpedidoalteracao, $tpAcao = null)
     {
         $sql = "SELECT tpa.idPedidoAlteracao,
             				pais.Descricao pais,
@@ -614,7 +610,7 @@ LEFT JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao tasipa ON (tasip
      * @param $dados array
      * @return boolean
      */
-    public  function avaliarLocalRealizacao($dados)
+    public function avaliarLocalRealizacao($dados)
     {
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -632,7 +628,7 @@ LEFT JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao tasipa ON (tasip
     /**
      * M�todo para verificar se o loca de realiza��o j� existe
      */
-    public  function verificarLocalRealizacao($idProjeto, $idMunicipio)
+    public function verificarLocalRealizacao($idProjeto, $idMunicipio)
     {
         $sql = "SELECT idMunicip�oIBGE FROM Abrangencia WHERE idProjeto=$idProjeto AND stAbrangencia = 1 AND idMunicipioIBGE=$idMunicipio";
         return $sql;
@@ -676,25 +672,29 @@ LEFT JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao tasipa ON (tasip
         );
 
         $select->joinInner(
-            array('x' => 'PreProjeto'), 'a.idProjeto = x.idPreProjeto',
+            array('x' => 'PreProjeto'),
+            'a.idProjeto = x.idPreProjeto',
             null,
             $this->_schema
         );
 
         $select->joinLeft(
-            array('p' => $this->getName('Pais')), 'a.idPais = p.idPais',
+            array('p' => $this->getName('Pais')),
+            'a.idPais = p.idPais',
             null,
             $this->getSchema('agentes')
         );
 
         $select->joinLeft(
-            array('u' => $this->getName('Uf')), 'a.idUF = u.idUF',
+            array('u' => $this->getName('Uf')),
+            'a.idUF = u.idUF',
             null,
             $this->getSchema('agentes')
         );
 
         $select->joinLeft(
-            array('m' => $this->getName('Municipios')), 'a.idMunicipioIBGE = m.idMunicipioIBGE',
+            array('m' => $this->getName('Municipios')),
+            'a.idMunicipioIBGE = m.idMunicipioIBGE',
             null,
             $this->getSchema('agentes')
         );
@@ -713,7 +713,7 @@ LEFT JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao tasipa ON (tasip
         return $db->fetchAll($select);
     }
 
-    public function buscarUfRegionalizacao( $idPreProjeto )
+    public function buscarRegiaoUFMunicipio($idPreProjeto, $where = array())
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -724,16 +724,28 @@ LEFT JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao tasipa ON (tasip
             ),
             $this->_schema
         );
-        $select->joinInner(array('uf' => 'UF'), 'uf.idUF = a.idUF', array('idUF'=>'uf.idUF', 'UF'=>'uf.Sigla'), $this->getSchema('agentes'));
-        $select->joinInner(array('mun' => 'Municipios'), 'mun.idMunicipioIBGE = a.idMunicipioIBGE', array('idMunicipio'=>'mun.idMunicipioIBGE', 'Municipio'=>'mun.Descricao'), $this->getSchema('agentes'));
+        $select->joinInner(
+            array('uf' => 'UF'),
+            'uf.idUF = a.idUF',
+            array('idUF'=>'uf.idUF', 'UF'=>'uf.Sigla', 'uf.Regiao'),
+            $this->getSchema('agentes')
+        );
+
+        $select->joinInner(array('mun' => 'Municipios'), 'mun.idMunicipioIBGE = a.idMunicipioIBGE', array(
+            'idMunicipio'=>'mun.idMunicipioIBGE',
+            'Municipio'=>'mun.Descricao'),
+            $this->getSchema('agentes')
+        );
         $select->where('a.idProjeto = ?', $idPreProjeto);
-        $select->where("uf.Regiao = 'Sul' OR uf.Regiao = 'Sudeste'");
         $select->order('a.idProjeto DESC');
-        $select->limit(1);
+
+        foreach ($where as $coluna => $valor) {
+            $select->where($coluna, $valor);
+        }
 
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
-//
-        return $db->fetchRow($select);
+
+        return $db->fetchAll($select);
     }
 } // fecha class AvaliacaoSubItemPlanoDistribuicaoDAO

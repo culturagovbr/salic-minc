@@ -1,12 +1,8 @@
 <?php
-/**
- * Description of ImprimirController
- *
- * @author tisomar
- */
-class ImprimirController extends MinC_Controller_Action_Abstract {
-
-    public function init() {
+class ImprimirController extends MinC_Controller_Action_Abstract
+{
+    public function init()
+    {
         // verifica as permissões
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 93;  // Coordenador de Parecerista
@@ -27,7 +23,4 @@ class ImprimirController extends MinC_Controller_Action_Abstract {
     public function imprimirAction()
     {
     }
-
-
-    
 }

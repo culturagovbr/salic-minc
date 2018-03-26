@@ -7,13 +7,11 @@
 //    if($this->idPreProjeto)
 //        echo $this->partial( "diligenciar/inc/menu.inc.php"); // menu de manter proposta por incentivo fiscal
 ?>
-<div class="container-fluid">
+<?php echo $this->idPreProjeto ? $this->partial("inc/menu.phtml", $this): ''; ?>
+<?php echo $this->idPronac ? $this->partial("diligenciar/inc/menu.inc.php", $this): ''; ?>
+<div class="container-fluid tem-menu-lateral">
     <div class="row">
-        <?php if($this->idPreProjeto) : ?>
-            <?= $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto)); ?>
-        <?php endif; ?>
-        <?php echo $this->idPronac ? $this->partial("diligenciar/inc/menu.inc.php", $this): ''; ?>
-        <div class="content col s10 m12 l10 planilha-produtos">
+        <div class="content col s12 m12 l12 planilha-produtos">
             <h4> Listagem das Dilig&ecirc;ncias </h4>
             <div id="">
                 <form id="frImprimir" action="<?php echo $this->url(array('controller'=>'diligenciar', 'action'=>'imprimir')); ?>" method="post" target="_blank" >

@@ -9,7 +9,8 @@
  * @link http://www.cultura.gov.br
  */
 
-class vwAnexarDocumentoDiligencia extends MinC_Db_Table_Abstract {
+class vwAnexarDocumentoDiligencia extends MinC_Db_Table_Abstract
+{
 
     /* dados da tabela */
     protected $_banco  = 'SAC';
@@ -18,12 +19,14 @@ class vwAnexarDocumentoDiligencia extends MinC_Db_Table_Abstract {
     protected $_primary = 'idDiligencia';
 
 
-    public function excluirArquivo($arquivo, $diligencia) {
+    public function excluirArquivo($arquivo, $diligencia)
+    {
         $where = "idArquivo = " . $arquivo. " AND idDiligencia = " . $diligencia;
         return $this->delete($where);
     }
 
-    public function inserirUploads($dados) {
+    public function inserirUploads($dados)
+    {
         $name = $dados['nmArquivo'];
         $fileType = $dados['sgExtensao'];
         $data = $dados['biArquivo'];
@@ -40,6 +43,4 @@ class vwAnexarDocumentoDiligencia extends MinC_Db_Table_Abstract {
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
     }
-
-
 } // fecha class

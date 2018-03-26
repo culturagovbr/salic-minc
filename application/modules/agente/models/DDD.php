@@ -67,5 +67,4 @@ class Agente_Model_DDD extends MinC_Db_Model
     {
         $this->_Codigo = $Codigo;
     }
-
 }

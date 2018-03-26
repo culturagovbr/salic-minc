@@ -4,19 +4,19 @@
  *
  * @author 01610881125
  */
-class ArquivoFiscalizacao extends MinC_Db_Table_Abstract {
-
+class ArquivoFiscalizacao extends MinC_Db_Table_Abstract
+{
     protected $_name = 'tbArquivoFiscalizacao';
     protected $_schema = 'SAC';
     protected $_banco = 'SAC';
 
-    public function buscarArquivo($where) {
-
+    public function buscarArquivo($where)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                array('arqfis'=>$this->_name)
-                ,array('arqfis.idArquivoFiscalizacao')
+                array('arqfis'=>$this->_name),
+            array('arqfis.idArquivoFiscalizacao')
         );
         $select->joinInner(
                 array('arq'=>'tbArquivo'),

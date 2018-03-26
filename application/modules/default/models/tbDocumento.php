@@ -4,8 +4,8 @@
  *
  * @author tisomar
  */
-class tbDocumento extends MinC_Db_Table_Abstract {
-
+class tbDocumento extends MinC_Db_Table_Abstract
+{
     protected $_banco = "BDCORPORATIVO";
     protected $_schema = 'BDCORPORATIVO.scCorp';
     protected $_name = "tbDocumento";
@@ -19,7 +19,7 @@ class tbDocumento extends MinC_Db_Table_Abstract {
      */
     public function cadastrarDados($dados)
     {
-            return $this->insert($dados);
+        return $this->insert($dados);
     } // fecha metodo cadastrarDados()
 
 
@@ -28,8 +28,8 @@ class tbDocumento extends MinC_Db_Table_Abstract {
      * @param array $dados - array com dados referentes as colunas da tabela no formato "nome_coluna_1"=>"valor_1","nome_coluna_2"=>"valor_2"
      * @return ID do registro inserido/alterado ou FALSE em caso de erro
      */
-    public function ultimodocumento($where=array()) {
-
+    public function ultimodocumento($where=array())
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from($this);
@@ -49,7 +49,8 @@ class tbDocumento extends MinC_Db_Table_Abstract {
         return $this->fetchRow($slct);
     }
 
-    public function buscardocumentosrelatorio($idnrdocumento = null) {
+    public function buscardocumentosrelatorio($idnrdocumento = null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -91,4 +92,3 @@ class tbDocumento extends MinC_Db_Table_Abstract {
         return $this->delete($where);
     }
 }
-

@@ -12,28 +12,24 @@
 
 class Zend_View_Helper_NomeAgente
 {
-	/**
-	 * Nome do agente
-	 * @access public
-	 * @param string $valor
-	 * @return void
-	 */
-	function nomeAgente($idAgente)
-	{
-            if (!empty($idAgente))
-            {
-                $Nome = new Nomes();
-                $buscar = $Nome->buscar(array('idAgente = ?' => $idAgente));
-                if(count($buscar) > 0){
-                    return $buscar[0]->Descricao;
-                } else {
-                    return 'Usuário não encontrado.';
-                }
+    /**
+     * Nome do agente
+     * @access public
+     * @param string $valor
+     * @return void
+     */
+    public function nomeAgente($idAgente)
+    {
+        if (!empty($idAgente)) {
+            $Nome = new Nomes();
+            $buscar = $Nome->buscar(array('idAgente = ?' => $idAgente));
+            if (count($buscar) > 0) {
+                return $buscar[0]->Descricao;
+            } else {
+                return 'Usuário não encontrado.';
             }
-            else
-            {
-                return ;
-            }
-	} // fecha método formatarMilhar()
-
+        } else {
+            return ;
+        }
+    } // fecha método formatarMilhar()
 } // fecha class

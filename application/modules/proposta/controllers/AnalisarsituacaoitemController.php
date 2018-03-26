@@ -10,8 +10,8 @@
  * @link http://www.cultura.gov.br
  * @copyright 2010 - Ministerio da Cultura - Todos os direitos reservados.
  */
-class Proposta_AnalisarsituacaoitemController extends MinC_Controller_Action_Abstract {
-
+class Proposta_AnalisarsituacaoitemController extends MinC_Controller_Action_Abstract
+{
     private $getIdAgente  = 0;
     private $getIdGrupo   = 0;
     private $getIdOrgao   = 0;
@@ -23,7 +23,8 @@ class Proposta_AnalisarsituacaoitemController extends MinC_Controller_Action_Abs
      * @param void
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         // verifica as permissoes
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 97;  // Gestor do SALIC
@@ -40,34 +41,34 @@ class Proposta_AnalisarsituacaoitemController extends MinC_Controller_Action_Abs
         parent::init();
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
-        }else {
+        } else {
             $campo = null;
             $order = array('Produto', 'Estado');
             $ordenacao = null;
@@ -75,7 +76,9 @@ class Proposta_AnalisarsituacaoitemController extends MinC_Controller_Action_Abs
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         /* ================== PAGINACAO ======================*/
@@ -111,9 +114,10 @@ class Proposta_AnalisarsituacaoitemController extends MinC_Controller_Action_Abs
         $this->view->intTamPag     = $this->intTamPag;
     }
 
-    public function detalharAction() {
+    public function detalharAction()
+    {
         $item = 0;
-        if($this->_request->getParam("item")) {
+        if ($this->_request->getParam("item")) {
             $item = $this->_request->getParam("item");
         } else {
             parent::message("Item n&atilde;o encontrado!", "/proposta/analisarsituacaoitem", "ERROR");
@@ -128,7 +132,7 @@ class Proposta_AnalisarsituacaoitemController extends MinC_Controller_Action_Abs
         $solicitacao = $tbSolicitarItem->listaSolicitacoesItens($where, array(), null, null);
 
         # Associacao
-        if($solicitacao[0]->idPlanilhaItens > 0) {
+        if ($solicitacao[0]->idPlanilhaItens > 0) {
             $itemPesquisa = [];
             $itemPesquisa['idProduto'] = $solicitacao[0]->idProduto;
             $itemPesquisa['idPlanilhaEtapa'] = $solicitacao[0]->idPlanilhaEtapa;
@@ -142,8 +146,8 @@ class Proposta_AnalisarsituacaoitemController extends MinC_Controller_Action_Abs
         $this->view->dados = $solicitacao;
     }
 
-    public function avaliarItemAction() {
-
+    public function avaliarItemAction()
+    {
         $params = $this->getRequest()->getParams();
 
         $tbSolicitarItem = new Proposta_Model_DbTable_TbSolicitarItem();
@@ -154,7 +158,7 @@ class Proposta_AnalisarsituacaoitemController extends MinC_Controller_Action_Abs
         $busca->stEstado = $params['avaliacao'];
         $busca->save();
 
-        if($params['avaliacao']){
+        if ($params['avaliacao']) {
             $msg = 'rejeitado';
         } else {
             $msg = 'aprovado';
@@ -164,5 +168,4 @@ class Proposta_AnalisarsituacaoitemController extends MinC_Controller_Action_Abs
         $pa->incluirRecusarItem($params['idItem'], $this->getIdUsuario, $params['avaliacao']);
         parent::message("Item $msg com sucesso!", "/proposta/analisarsituacaoitem", "CONFIRM");
     }
-
 }

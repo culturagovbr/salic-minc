@@ -1,7 +1,7 @@
 <?php
 
-class ProcuracaoController extends MinC_Controller_Action_Abstract {
-
+class ProcuracaoController extends MinC_Controller_Action_Abstract
+{
     private $idResponsavel = 0;
     private $idAgente      = 0;
     private $idUsuario     = 0;
@@ -34,7 +34,6 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
             $orgao = new Orgaos();
             $orgaoSuperior = $orgao->codigoOrgaoSuperior($orgaoSuperiorLogado);
             @$this->orgaoSuperior = $orgaoSuperior[0]->Superior;
-
         } else {
             parent::perfil(4, $PermissoesGrupo);
         }
@@ -54,11 +53,18 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
         $agentesDAO = new Agente_Model_DbTable_Agentes();
         $buscaAgente = $agentesDAO->BuscaAgente($cpf);
 
-        if( count($buscaAcesso) > 0){ $this->idResponsavel = $buscaAcesso[0]->IdUsuario; $this->view->nomeproponente = $buscaAcesso[0]->Nome; }
-        if( count($buscaAgente) > 0 ){ $this->idAgente        = $buscaAgente[0]->idAgente; }
-        if( count($buscaUsuario) > 0 ){ $this->idUsuario   = $buscaUsuario[0]->usu_codigo; }
+        if (count($buscaAcesso) > 0) {
+            $this->idResponsavel = $buscaAcesso[0]->IdUsuario;
+            $this->view->nomeproponente = $buscaAcesso[0]->Nome;
+        }
+        if (count($buscaAgente) > 0) {
+            $this->idAgente        = $buscaAgente[0]->idAgente;
+        }
+        if (count($buscaUsuario) > 0) {
+            $this->idUsuario   = $buscaUsuario[0]->usu_codigo;
+        }
 
-        if($this->idAgente != 0){
+        if ($this->idAgente != 0) {
             $this->usuarioProponente = "S";
         }
 
@@ -91,61 +97,54 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
         $buscaResponsavel = $tbVinculo->buscarProponenteResponsavel($whereResponsavel, $this->idResponsavel);
 
         $whereProponente['a.idAgente != ?'] = $this->idAgente;
-    	$buscaProponente = $tbVinculo->buscarProponenteResponsavel($whereProponente, $this->idResponsavel);
+        $buscaProponente = $tbVinculo->buscarProponenteResponsavel($whereProponente, $this->idResponsavel);
 
-    	$this->view->responsaveis 	= $buscaResponsavel;
-    	$this->view->proponentes 	= $buscaProponente;
-    	$this->view->proponente 	= $this->idAgente;
-
+        $this->view->responsaveis 	= $buscaResponsavel;
+        $this->view->proponentes 	= $buscaProponente;
+        $this->view->proponente 	= $this->idAgente;
     }
 
     public function listarprojetosAction()
     {
-    	$this->_helper->layout->disableLayout();
+        $this->_helper->layout->disableLayout();
 
-    	$propostas = new Proposta_Model_DbTable_PreProjeto();
-    	$whereProjetos['pp.idAgente = ?'] 			=  $this->_request->getParam("idProponente");//$this->idAgente;
-    	$whereProjetos['pr.idProjeto IS NOT NULL'] 	=  '';
-    	$listaProjetos = $propostas->buscarPropostaProjetos($whereProjetos);
+        $propostas = new Proposta_Model_DbTable_PreProjeto();
+        $whereProjetos['pp.idAgente = ?'] 			=  $this->_request->getParam("idProponente");//$this->idAgente;
+        $whereProjetos['pr.idProjeto IS NOT NULL'] 	=  '';
+        $listaProjetos = $propostas->buscarPropostaProjetos($whereProjetos);
 
-    	$procuracaoDAO = new Procuracao();
+        $procuracaoDAO = new Procuracao();
 
-    	$listacerta = array();
-    	$i = 0;
+        $listacerta = array();
+        $i = 0;
 
-    	foreach($listaProjetos as $pj)
-    	{
-    		$where['p.siProcuracao IN (0,1)'] 	= '';
-    		$where['vprp.idPreProjeto = ?'] 	= $pj->idPreProjeto ;
-    		$buscaProcuracao = $procuracaoDAO->buscarProcuracaoAceita($where);
+        foreach ($listaProjetos as $pj) {
+            $where['p.siProcuracao IN (0,1)'] 	= '';
+            $where['vprp.idPreProjeto = ?'] 	= $pj->idPreProjeto ;
+            $buscaProcuracao = $procuracaoDAO->buscarProcuracaoAceita($where);
 
-    		if(count($buscaProcuracao) > 0)
-    		{
-    			$listacerta[$i]['visualiza'] 	=  'N';
-    		}
-    		else
-    		{
-    			$listacerta[$i]['visualiza'] 	=  'S';
-    		}
+            if (count($buscaProcuracao) > 0) {
+                $listacerta[$i]['visualiza'] 	=  'N';
+            } else {
+                $listacerta[$i]['visualiza'] 	=  'S';
+            }
 
-    		$listacerta[$i]['PRONAC'] 		= $pj->PRONAC;
-    		$listacerta[$i]['NomeProjeto'] 	= $pj->NomeProjeto;
-    		$listacerta[$i]['idProjeto'] 	= $pj->idProjeto;
-    		$listacerta[$i]['idPreProjeto'] = $pj->idPreProjeto;
+            $listacerta[$i]['PRONAC'] 		= $pj->PRONAC;
+            $listacerta[$i]['NomeProjeto'] 	= $pj->NomeProjeto;
+            $listacerta[$i]['idProjeto'] 	= $pj->idProjeto;
+            $listacerta[$i]['idPreProjeto'] = $pj->idPreProjeto;
 
-    		$i++;
-    	}
+            $i++;
+        }
 
-    	$this->view->projetos 		= $listacerta;
-    	//$this->view->projetos 		= $listaProjetos;
-
-
+        $this->view->projetos 		= $listacerta;
+        //$this->view->projetos 		= $listaProjetos;
     }
 
 
     public function uploadAction()
     {
-    	//======================= INSTANCIA AS DAO ===========================
+        //======================= INSTANCIA AS DAO ===========================
         $tbArquivoDAO 			= new tbArquivo();
         $tbArquivoImagemDAO 	= new tbArquivoImagem();
         $tbDocumentoDAO 		= new tbDocumento();
@@ -176,14 +175,12 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
 
 
         //================= VALIDA O RESPONSAVEL E PROPONENTE ================
-        if($responsavel == 0)
-        {
-        	$responsavel = $this->idResponsavel;
+        if ($responsavel == 0) {
+            $responsavel = $this->idResponsavel;
         }
 
-        if($proponente == 0)
-        {
-        	$proponente = $this->idAgente;
+        if ($proponente == 0) {
+            $proponente = $this->idAgente;
         }
 
         //========= BUSCA O IDVINCULO COM AS INFORMA��ES PASSADAS =============
@@ -191,142 +188,135 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
         $whereVinculo['idAgenteProponente = ?']   = $proponente;
         $buscarVinculo = $tbVinculoDAO->buscar($whereVinculo);
 
-        try{
+        try {
 
-	        // ==================== Insere na Tabela tbArquivo ===============================
-	        $dadosArquivo = array(
-						           'nmArquivo' 			=> $arquivoNome,
-						           'sgExtensao' 		=> $arquivoExtensao,
-						           'dsTipoPadronizado' 	=> $arquivoTipo,
-						           'nrTamanho' 			=> $arquivoTamanho,
-						           'dtEnvio' 			=> new Zend_Db_Expr('GETDATE()'),
-						           'dsHash' 			=> $arquivoHash,
-						           'stAtivo' 			=> 'A'
-	        );
+            // ==================== Insere na Tabela tbArquivo ===============================
+            $dadosArquivo = array(
+                                   'nmArquivo' 			=> $arquivoNome,
+                                   'sgExtensao' 		=> $arquivoExtensao,
+                                   'dsTipoPadronizado' 	=> $arquivoTipo,
+                                   'nrTamanho' 			=> $arquivoTamanho,
+                                   'dtEnvio' 			=> new Zend_Db_Expr('GETDATE()'),
+                                   'dsHash' 			=> $arquivoHash,
+                                   'stAtivo' 			=> 'A'
+            );
 
-	        $idArquivo = $tbArquivoDAO->inserir($dadosArquivo);
+            $idArquivo = $tbArquivoDAO->inserir($dadosArquivo);
 
-	        // ==================== Insere na Tabela tbArquivoImagem ===============================
-	        $dadosBinario = array(
-						          'idArquivo' => $idArquivo,
-						          'biArquivo' => new Zend_Db_Expr("CONVERT(varbinary(MAX), {$arquivoBinario})")
-	        );
+            // ==================== Insere na Tabela tbArquivoImagem ===============================
+            $dadosBinario = array(
+                                  'idArquivo' => $idArquivo,
+                                  'biArquivo' => new Zend_Db_Expr("CONVERT(varbinary(MAX), {$arquivoBinario})")
+            );
 
-	        $idArquivo = $tbArquivoImagemDAO->inserir($dadosBinario);
+            $idArquivo = $tbArquivoImagemDAO->inserir($dadosBinario);
 
-	        // ==================== Insere na Tabela tbDocumento ===============================
-	        $dados = array(
-				           'idTipoDocumento' 		=> 17,
-				           'idArquivo' 				=> $idArquivo,
-				           'dsDocumento' 			=> $_POST['dsObservacao'],
-				           'dtEmissaoDocumento' 	=> NULL,
-				           'dtValidadeDocumento' 	=> NULL,
-				           'idTipoEventoOrigem' 	=> NULL,
-				           'nmTitulo' 				=> 'Procuracao'
-	        );
+            // ==================== Insere na Tabela tbDocumento ===============================
+            $dados = array(
+                           'idTipoDocumento' 		=> 17,
+                           'idArquivo' 				=> $idArquivo,
+                           'dsDocumento' 			=> $_POST['dsObservacao'],
+                           'dtEmissaoDocumento' 	=> null,
+                           'dtValidadeDocumento' 	=> null,
+                           'idTipoEventoOrigem' 	=> null,
+                           'nmTitulo' 				=> 'Procuracao'
+            );
 
-	        $idDocumento = $tbDocumentoDAO->inserir($dados);
-	        $idDocumento = $idDocumento['idDocumento'];
-
-
-	        //======== MONTA UM ARRAY COM AS INFORMA��ES DO VINCULO PROPOSTA========
-	        for ($i = 0; $i < sizeof($arrayProjetos); $i++)
-			{
-
-					$arrayVinculoProposta = array('idVinculo' 	  	  => $buscarVinculo[0]->idVinculo,
-												  'idPreProjeto' 	  => $arrayProjetos[$i],
-												  'siVinculoProposta' => 0
-					);
-
-					// Salva as informa��es retornando o idVinculo Proposta
-					$idVinculoProposta = $tbVinculoPropostaDAO->inserir($arrayVinculoProposta);
-
-			        // ==================== Insere na Tabela Procuracao ===============================
-			        $dadosVinculoProjeto = array(
-										         'idVinculoProposta' 	=> $idVinculoProposta,
-										         'idDocumento' 			=> $idDocumento,
-										         'siProcuracao' 		=> 0,
-										         'dsObservacao' 		=> $dsObservacao,
-										         'dsJustificativa'      => ''
-			        );
-
-		            $inserirproposta = $ProcuracaoDAO->inserir($dadosVinculoProjeto);
-
-			}
+            $idDocumento = $tbDocumentoDAO->inserir($dados);
+            $idDocumento = $idDocumento['idDocumento'];
 
 
-			// ======== CADASTRA A VIS�O DE PROCURADOR PARA O RESPONS�VEL CASO A MESMA N�O EXISTA ========
-			$buscarDadosResponsavel = $Sgcacesso->buscar(array('IdUSuario = ?' => $responsavel))->current(); // busca os dados do respons�vel
-			$buscarDadosAgente      = $Agentes->buscar(array('CNPJCPF = ?' => $buscarDadosResponsavel['Cpf']))->current(); // verifica se o respons�vel � um agente
+            //======== MONTA UM ARRAY COM AS INFORMA��ES DO VINCULO PROPOSTA========
+            for ($i = 0; $i < sizeof($arrayProjetos); $i++) {
+                $arrayVinculoProposta = array('idVinculo' 	  	  => $buscarVinculo[0]->idVinculo,
+                                                  'idPreProjeto' 	  => $arrayProjetos[$i],
+                                                  'siVinculoProposta' => 0
+                    );
 
-			if ($buscarDadosAgente) :
-				// verifica se tem vis�o de procurador
-				$buscarVisao = $Visao->buscar(array('idAgente = ?' => $buscarDadosAgente['idAgente'], 'Visao = ?' => 247))->current();
-				if (!$buscarVisao) :
-					$dadosVisao = array(
-						'idAgente' => $buscarDadosAgente['idAgente']
-						,'Visao'   => 247
-						,'Usuario' => empty($this->idUsuario) ? $this->idAgente : $this->idUsuario
-						,'stAtivo' => 'A'
-					);
-					$Visao->inserir($dadosVisao); // cadastra a vis�o de procurador
-				endif;
+                // Salva as informa��es retornando o idVinculo Proposta
+                $idVinculoProposta = $tbVinculoPropostaDAO->inserir($arrayVinculoProposta);
 
-			else : // cadastra como agente
+                // ==================== Insere na Tabela Procuracao ===============================
+                $dadosVinculoProjeto = array(
+                                                 'idVinculoProposta' 	=> $idVinculoProposta,
+                                                 'idDocumento' 			=> $idDocumento,
+                                                 'siProcuracao' 		=> 0,
+                                                 'dsObservacao' 		=> $dsObservacao,
+                                                 'dsJustificativa'      => ''
+                    );
 
-				$dadosNovoAgente = array(
-					'CNPJCPF'     => $buscarDadosResponsavel['Cpf']
-					,'TipoPessoa' => 0
-					,'Status'     => 0
-					,'Usuario'    => empty($this->idUsuario) ? $this->idAgente : $this->idUsuario
-				);
-				$Agentes->inserir($dadosNovoAgente); // cadastra o agente
-
-				$idAgenteNovo = $Agentes->BuscaAgente($buscarDadosResponsavel['Cpf']);
-				$idAgenteNovo = $idAgenteNovo[0]->idAgente; // pega o id do agente cadastrado
-
-				$dadosNome = array(
-					'idAgente'   => $idAgenteNovo
-					,'TipoNome'  => 18
-					,'Descricao' => $buscarDadosResponsavel['Nome']
-					,'Status'    => 0
-					,'Usuario'   => empty($this->idUsuario) ? $this->idAgente : $this->idUsuario
-				);
-				$Nomes->inserir($dadosNome); // cadastra o nome do agente
-
-				$dadosVisao = array(
-					'idAgente' => $idAgenteNovo
-					,'Visao'   => 247
-					,'Usuario' => empty($this->idUsuario) ? $this->idAgente : $this->idUsuario
-					,'stAtivo' => 'A'
-				);
-				$Visao->inserir($dadosVisao); // cadastra a vis�o de procurador
-
-				$dadosInternet = array(
-					'idAgente'      => $idAgenteNovo
-					,'TipoInternet' => 28 // particular
-					,'Descricao'    => $buscarDadosResponsavel['Email']
-					,'Status'       => 1 // sim para correspond�ncia
-					,'Divulgar'     => 1 // sim para divulgar
-					,'Usuario'      => empty($this->idUsuario) ? $this->idAgente : $this->idUsuario
-				);
-				$Internet->inserir($dadosInternet); // cadastra o email do procurador
-			endif;
+                $inserirproposta = $ProcuracaoDAO->inserir($dadosVinculoProjeto);
+            }
 
 
-			parent::message("Procura&ccedil;&atilde;o cadastrada com sucesso!", "procuracao/cadastramento", "CONFIRM");
-	    }
-		catch(Zend_Exception $e)
-		{
-	    	parent::message("Error".$e->getMessage(), "procuracao/cadastramento", "ERROR");
-//	            parent::message("&Eacute; necess&aacute;rio um v&iacute;nculo para enviar o cadastramento da procura&ccedil;&atilde;o", "procuracao/index?idPreProjeto=" . $idpreprojeto, "ERROR");
-		}
+            // ======== CADASTRA A VIS�O DE PROCURADOR PARA O RESPONS�VEL CASO A MESMA N�O EXISTA ========
+            $buscarDadosResponsavel = $Sgcacesso->buscar(array('IdUSuario = ?' => $responsavel))->current(); // busca os dados do respons�vel
+            $buscarDadosAgente      = $Agentes->buscar(array('CNPJCPF = ?' => $buscarDadosResponsavel['Cpf']))->current(); // verifica se o respons�vel � um agente
 
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+            if ($buscarDadosAgente) :
+                // verifica se tem vis�o de procurador
+                $buscarVisao = $Visao->buscar(array('idAgente = ?' => $buscarDadosAgente['idAgente'], 'Visao = ?' => 247))->current();
+            if (!$buscarVisao) :
+                    $dadosVisao = array(
+                        'idAgente' => $buscarDadosAgente['idAgente']
+                        ,'Visao'   => 247
+                        ,'Usuario' => empty($this->idUsuario) ? $this->idAgente : $this->idUsuario
+                        ,'stAtivo' => 'A'
+                    );
+            $Visao->inserir($dadosVisao); // cadastra a vis�o de procurador
+                endif; else : // cadastra como agente
+
+                $dadosNovoAgente = array(
+                    'CNPJCPF'     => $buscarDadosResponsavel['Cpf']
+                    ,'TipoPessoa' => 0
+                    ,'Status'     => 0
+                    ,'Usuario'    => empty($this->idUsuario) ? $this->idAgente : $this->idUsuario
+                );
+            $Agentes->inserir($dadosNovoAgente); // cadastra o agente
+
+            $idAgenteNovo = $Agentes->BuscaAgente($buscarDadosResponsavel['Cpf']);
+            $idAgenteNovo = $idAgenteNovo[0]->idAgente; // pega o id do agente cadastrado
+
+            $dadosNome = array(
+                    'idAgente'   => $idAgenteNovo
+                    ,'TipoNome'  => 18
+                    ,'Descricao' => $buscarDadosResponsavel['Nome']
+                    ,'Status'    => 0
+                    ,'Usuario'   => empty($this->idUsuario) ? $this->idAgente : $this->idUsuario
+                );
+            $Nomes->inserir($dadosNome); // cadastra o nome do agente
+
+            $dadosVisao = array(
+                    'idAgente' => $idAgenteNovo
+                    ,'Visao'   => 247
+                    ,'Usuario' => empty($this->idUsuario) ? $this->idAgente : $this->idUsuario
+                    ,'stAtivo' => 'A'
+                );
+            $Visao->inserir($dadosVisao); // cadastra a vis�o de procurador
+
+            $dadosInternet = array(
+                    'idAgente'      => $idAgenteNovo
+                    ,'TipoInternet' => 28 // particular
+                    ,'Descricao'    => $buscarDadosResponsavel['Email']
+                    ,'Status'       => 1 // sim para correspond�ncia
+                    ,'Divulgar'     => 1 // sim para divulgar
+                    ,'Usuario'      => empty($this->idUsuario) ? $this->idAgente : $this->idUsuario
+                );
+            $Internet->inserir($dadosInternet); // cadastra o email do procurador
+            endif;
+
+
+            parent::message("Procura&ccedil;&atilde;o cadastrada com sucesso!", "procuracao/cadastramento", "CONFIRM");
+        } catch (Zend_Exception $e) {
+            parent::message("Error".$e->getMessage(), "procuracao/cadastramento", "ERROR");
+            //	            parent::message("&Eacute; necess&aacute;rio um v&iacute;nculo para enviar o cadastramento da procura&ccedil;&atilde;o", "procuracao/index?idPreProjeto=" . $idpreprojeto, "ERROR");
+        }
+
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function analisarAction() {
-
+    public function analisarAction()
+    {
         $tbProcuracao = new tbProcuracao();
         $resultado = $tbProcuracao->listarProcuracoesPendentes();
         $this->view->procuracoes = $resultado;
@@ -349,12 +339,12 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
 //        $this->view->orgaos = $buscarorgaos;
     }
 
-    public function verificarprocuracaoAction(){
+    public function verificarprocuracaoAction()
+    {
+        $p = new Procuracao();
+        $where = array();
 
-    	$p = new Procuracao();
-    	$where = array();
-
-        if (isset($_POST) ) {
+        if (isset($_POST)) {
             if (!empty($_POST['nprojeto'])) {
                 $where['(vprp.idPreProjeto = ? or pr.AnoProjeto+pr.Sequencial = ?)'] = $_POST['nprojeto'];
             }
@@ -370,7 +360,7 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
             if (!empty($_POST['dataenvio'])) {
                 $where['a.dtEnvio = ?'] = $_POST['dataenvio'];
             }
-            if ( ($_POST['situacao'] != "") && isset($_POST['situacao']) ) {
+            if (($_POST['situacao'] != "") && isset($_POST['situacao'])) {
                 $where['p.siProcuracao = ?'] = $_POST['situacao'];
             }
 
@@ -381,7 +371,8 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function avaliarAction() {
+    public function avaliarAction()
+    {
         $procuracaoDAO = new Procuracao();
         $idDocumento = $this->_request->getParam("idDocumento");
         $where['p.idDocumento = ?'] 	= $idDocumento;
@@ -390,7 +381,8 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
         $this->view->procuracao = $buscar;
     }
 
-    public function visualizarAction() {
+    public function visualizarAction()
+    {
         $projetos = new Projetos();
         $idDocumento = $this->_request->getParam("idDocumento");
         $buscar = $projetos->visualizarProcuracoes($idDocumento);
@@ -415,7 +407,7 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
         $situacaoPR = 0;
         $situacaoMSG = "";
 
-    	if($situacao == 0) {
+        if ($situacao == 0) {
             $situacaoVI = 1;
             $situacaoPR = 2;
             $situacaoMSG = "Rejeitada";
@@ -425,7 +417,7 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
             $situacaoMSG = "Aprovada";
         }
 
-    	try {
+        try {
             for ($i = 0; $i < sizeof($idProcuracao); $i++) {
                 $dadosPR = array('siProcuracao' => $situacaoPR, 'dsJustificativa' => $justificativa);
                 $wherePR['idProcuracao = ?'] = $idProcuracao[$i];
@@ -440,7 +432,6 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
                 $alteraPRO = $preProjetoDAO->alteraresponsavel($idVinculoProposta[$i], $responsavel) ;
             }
             parent::message("Procura&ccedil;&atilde;o ".$situacaoMSG." com sucesso!", "procuracao/analisar", "CONFIRM");
-
         } catch (Exception $e) {
             parent::message("Error".$e->getMessage(), "procuracao/avaliar/idDocumento/".$idDocumento, "ERROR");
         }
@@ -448,15 +439,15 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
         $where['p.idDocumento = ?'] = $idDocumento;
         $buscar = $procuracaoDAO->buscarProcuracaoProjeto($where);
         $this->view->procuracao = $buscar;
-
     }
 
-    public function buscarProjetosProcuracaoAction() {
+    public function buscarProjetosProcuracaoAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $cpf = Mascara::delMaskCPFCNPJ($_POST['cpf']);
 
         $dados = array();
-        if(!empty($cpf)){
+        if (!empty($cpf)) {
             $dados['p.CgcCpf = ?'] = $cpf;
         }
 
@@ -464,7 +455,7 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
         $result = $projetos->buscarProjProcuracao($dados);
 
         $a = 0;
-        if(count($result) > 0){
+        if (count($result) > 0) {
             foreach ($result as $registro) {
                 $dadosAgente[$a]['Pronac'] = $registro['Pronac'];
                 $dadosAgente[$a]['CgcCpf'] = strlen($cpf) == 11 ? Mascara::addMaskCPF($registro['CgcCpf']) : Mascara::addMaskCNPJ($registro['CgcCpf']);
@@ -476,14 +467,14 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
             }
             $jsonEncode = json_encode($dadosAgente);
             $this->_helper->json(array('resposta'=>true,'conteudo'=>$dadosAgente));
-
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function buscarProcuradorAction() {
+    public function buscarProcuradorAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $cpf = Mascara::delMaskCPF($_POST['cpf']);
 
@@ -494,7 +485,7 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
         $result = $agentes->buscarAgenteENome($dados);
 
         $a = 0;
-        if(count($result) > 0){
+        if (count($result) > 0) {
             foreach ($result as $registro) {
                 $dadosAgente[$a]['idAgente'] = $registro['idAgente'];
                 $dadosAgente[$a]['CNPJCPF'] = $registro['CNPJCPF'];
@@ -503,14 +494,14 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
             }
             $jsonEncode = json_encode($dadosAgente);
             $this->_helper->json(array('resposta'=>true,'conteudo'=>$dadosAgente));
-
         } else {
             $this->_helper->json(array('resposta'=>false,'CNPJCPF'=>$cpf));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function cadastrarProcuracaoAction(){
+    public function cadastrarProcuracaoAction()
+    {
         $auth = Zend_Auth::getInstance();
         $idUsuarioAtivo = $auth->getIdentity()->IdUsuario;
 
@@ -524,7 +515,7 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
         $arquivoBinario  = Upload::setBinario($arquivoTemp); // binario
         $arquivoHash     = Upload::setHash($arquivoTemp); // hash
 
-        if(!isset($_FILES['arquivoProcuracao'])){
+        if (!isset($_FILES['arquivoProcuracao'])) {
             parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "procuracao/cadastramento", "ERROR");
         }
 
@@ -538,11 +529,11 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
 //            parent::message("Favor selecionar o arquivo da Procura&ccedil;&atilde;o em formato PDF!", "procuracao/cadastramento", "ERROR");
 //        }
 
-        if(!isset($_POST['idPronac'])){
+        if (!isset($_POST['idPronac'])) {
             parent::message("Nenhum projeto foi selecionado!", "procuracao/cadastramento", "ERROR");
         }
 
-        try{
+        try {
             $tbArquivoDAO       = new tbArquivo();
             $tbArquivoImagemDAO = new tbArquivoImagem();
             $tbDocumentoDAO     = new tbDocumento();
@@ -572,10 +563,10 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
             $dados = array(
                'idTipoDocumento'     => 17,
                'idArquivo'           => $idArquivo,
-               'dsDocumento'         => NULL,
-               'dtEmissaoDocumento'  => NULL,
-               'dtValidadeDocumento' => NULL,
-               'idTipoEventoOrigem'  => NULL,
+               'dsDocumento'         => null,
+               'dtEmissaoDocumento'  => null,
+               'dtValidadeDocumento' => null,
+               'idTipoEventoOrigem'  => null,
                'nmTitulo'            => 'Procuracao'
             );
             $idDocumento = $tbDocumentoDAO->inserir($dados);
@@ -602,14 +593,14 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
                 $tbProcuradorProjeto->inserir($dadosProcuradorProjeto);
             }
             parent::message("Procura&ccedil;&atilde;o cadastrada com sucesso!", "procuracao/index", "CONFIRM");
-        }
-        catch(Zend_Exception $e) {
+        } catch (Zend_Exception $e) {
             parent::message("Error".$e->getMessage(), "procuracao/index", "ERROR");
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function desvincluarProjetoProcuracaoAction() {
+    public function desvincluarProjetoProcuracaoAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $idProcProj = $_POST['idProcProj'];
         $idProc = $_POST['idProc'];
@@ -625,16 +616,16 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
 
         $desvincularProcuracao = false;
         $todosProjetos = $tbProcuradorProjeto->buscar(array('idProcuracao = ?' => $idProc));
-        if(count($todosProjetos) > 0){
+        if (count($todosProjetos) > 0) {
             $desvincularProcuracao = true;
             foreach ($todosProjetos as $proj) {
                 //Se algum projeto nao estiver desvinculado, nao rejeita a Procuracao
-                if($proj->siEstado != 3){
+                if ($proj->siEstado != 3) {
                     $desvincularProcuracao = false;
                 }
             }
             //Se todos os projetos foram desvinculados, rejeita a Procuracao tambem
-            if($desvincularProcuracao){
+            if ($desvincularProcuracao) {
                 $dados = array('siProcuracao' => 2);
                 $where = array('idProcuracao = ?' => $idProc);
                 $tbProcuracao = new tbProcuracao();
@@ -642,15 +633,16 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
             }
         }
 
-        if($result){
+        if ($result) {
             $this->_helper->json(array('resposta'=>true));
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function avaliarProcuracaoAction() {
+    public function avaliarProcuracaoAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $idProcuracao = $_POST['id'];
 
@@ -660,14 +652,14 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
         $dadostbProcuracao = array(
             'siProcuracao' => $_POST['siProcuracao']
         );
-        if($_POST['siProcuracao'] == 2){
+        if ($_POST['siProcuracao'] == 2) {
             $dadostbProcuracao['dsObservacao'] = utf8_decode($_POST['justificativa']);
         }
         $tbProcuracao = new tbProcuracao();
         $result1 = $tbProcuracao->update($dadostbProcuracao, array("idProcuracao = ?" => $idProcuracao));
 
 
-        if($_POST['siProcuracao'] == 1){
+        if ($_POST['siProcuracao'] == 1) {
             $dadostbProcuradorProjeto = array(
                 'siEstado' => 2, //Vinculado
                 'dtVinculacao' => new Zend_Db_Expr('GETDATE()') //Vinculado
@@ -680,17 +672,17 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
         $tbProcuradorProjeto = new tbProcuradorProjeto();
         $result2 = $tbProcuradorProjeto->update($dadostbProcuradorProjeto, array("idProcuracao = ?" => $idProcuracao));
 
-        if($result1 && $result2){
+        if ($result1 && $result2) {
             $this->_helper->json(array('resposta'=>true));
-
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
 
-    public function listarProjetosProcuracaoAction() {
+    public function listarProjetosProcuracaoAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $idProcuracao = $_POST['id'];
 
@@ -698,7 +690,7 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
         $result = $projetos->detalharProjetosProcuracao($idProcuracao);
 
         $i = 0;
-        if(count($result) > 0){
+        if (count($result) > 0) {
             foreach ($result as $registro) {
                 $dadosProjeto[$i]['Pronac'] = $registro['Pronac'];
                 $dadosProjeto[$i]['NomeProjeto'] = utf8_encode($registro['NomeProjeto']);
@@ -706,15 +698,15 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
             }
             $jsonEncode = json_encode($dadosProjeto);
             $this->_helper->json(array('resposta'=>true,'conteudo'=>$dadosProjeto));
-
         } else {
             $this->_helper->json(array('resposta'=>false,'CNPJCPF'=>$cpf));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
 
-    public function verificarDirigenteAction() {
+    public function verificarDirigenteAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $cpfPropoenente = Mascara::delMaskCPFCNPJ($_POST['cpfProponente']);
         $cpfProcurador = Mascara::delMaskCPFCNPJ($_POST['cpfProcurador']);
@@ -722,11 +714,11 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract {
         $Vinculacao = new Agente_Model_DbTable_Vinculacao();
         $result = $Vinculacao->verificarDirigente($cpfPropoenente, $cpfProcurador);
 
-        if(count($result) > 0){
+        if (count($result) > 0) {
             $this->_helper->json(array('resposta'=>true));
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 }

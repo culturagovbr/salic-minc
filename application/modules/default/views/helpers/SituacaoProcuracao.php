@@ -12,24 +12,23 @@
 
 class Zend_View_Helper_SituacaoProcuracao
 {
-	/**
-	 * Informa a situação da procuração
-	 * @access public
-	 * @param integer $stvinculo
-	 * @return string
-	 */
-	public function situacaoProcuracao($stvinculo)
-	{
-            if($stvinculo == 0){
-                $return =  "Aguardando An&aacute;lise";
-            }
-            if($stvinculo == 1){
-                $return =  "Aprovado";
-            }
-            if($stvinculo == 2){
-                $return =  "Rejeitado";
-            }
-            return $return;
-	} 
-
-} 
+    /**
+     * Informa a situação da procuração
+     * @access public
+     * @param integer $stvinculo
+     * @return string
+     */
+    public function situacaoProcuracao($stvinculo)
+    {
+        if ($stvinculo == 0) {
+            $return =  "Aguardando An&aacute;lise";
+        }
+        if ($stvinculo == 1) {
+            $return =  "Aprovado";
+        }
+        if ($stvinculo == 2) {
+            $return =  "Rejeitado";
+        }
+        return $return;
+    }
+}

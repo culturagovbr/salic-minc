@@ -1,5 +1,5 @@
 <?php if ( !empty($this->Produtos) ) : ?>
-    <p class="right-align" style="position: absolute; top: 167px; right: 20px">
+    <p class="right-align" style="position: absolute; top: 162px; right: 32px">
         <a class="expandall btn-floating waves-effect waves-light btn tooltipped btn-info" onClick="expandAll();" data-tooltip="Expandir tudo"><i class="material-icons left">fullscreen</i></a>
         <a class="collapseall btn-floating waves-effect waves-light btn tooltipped btn-info " onClick="collapseAll();" data-tooltip="Fechar tudo"><i class="material-icons left">fullscreen_exit</i></a>
     </p>
@@ -7,25 +7,21 @@
         <ul class="collapsible coll-produto produto-<?php echo $produto->CodigoProduto; ?>" data-collapsible="accordion">
             <li>
                 <div class="collapsible-header produto"><i class="material-icons">more_vert</i><?php echo $produto->DescricaoProduto; ?> <?php echo ( $produto->ProdutoPrincipal) ? '<span class="badge">Produto Principal</span>' : ''; ?></div>
-                <div class="collapsible-body">
+                <div class="collapsible-body padding10">
                     <div class="row">
                         <div class="col s12">
                             <?php if ( !empty($this->localRealizacao) ) : ?>
                                 <?php if ( !empty($this->custoVinculadoProponente)  ) : ?>
                                     <?php foreach ($this->localRealizacao as $local) : ?>
-                                        <ul class="collapsible coll-local popout localizacao local-<?php echo $local['idMunicipioIBGE']; ?>" data-collapsible="expandable">
+                                        <ul class="collapsible coll-local localizacao local-<?php echo $local['idMunicipioIBGE']; ?>" data-collapsible="expandable">
                                             <li>
                                                 <div class="collapsible-header"><i class="material-icons">place</i><?php echo $local['cidade']; ?> - <?php echo $local['uf']; ?></div>
-                                                <div class="collapsible-body">
-                                                    <div class="rosw">
-                                                        <div class="csol s1s2">
-                                                            <ul class="tabs tab-demo z-depth-1">
-                                                                <?php foreach ($this->EtapasProduto as $key => $etapa) : ?>
-                                                                    <li class="tab"><a href="#etapa<?php echo $produto->CodigoProduto . $etapa->idEtapa . $local['idMunicipioIBGE']; ?>"><?php echo $etapa->DescricaoEtapa; ?></a></li>
-                                                                <?php endforeach; ?>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
+                                                <div class="collapsible-body no-padding">
+                                                    <ul class="tabs z-depth-1">
+                                                        <?php foreach ($this->EtapasProduto as $key => $etapa) : ?>
+                                                            <li class="tab"><a href="#etapa<?php echo $produto->CodigoProduto . $etapa->idEtapa . $local['idMunicipioIBGE']; ?>"><?php echo $etapa->DescricaoEtapa; ?></a></li>
+                                                        <?php endforeach; ?>
+                                                    </ul>
 
                                                     <?php foreach ($this->EtapasProduto as $etapa) : //idEtapa ?>
 
@@ -43,7 +39,7 @@
 
                                                         ?>
 
-                                                        <div id="etapa<?php echo $verificador ?>" class="col s12 etapa-<?php echo $etapa->idEtapa; ?> coluna-etapa">
+                                                        <div id="etapa<?php echo $verificador ?>" class="etapa-<?php echo $etapa->idEtapa; ?> coluna-etapa">
 
                                                             <table class="itens bordered striped centered" style="margin: 0px;">
 
@@ -55,7 +51,9 @@
                                                                         <th>Ocorr&ecirc;ncia</th>
                                                                         <th class="right-align" width="12%" title="Valor Unit&aacute;rio">Vlr Unit&aacute;rio (R$)</th>
                                                                         <th class="right-align" width="12%">Total (R$)</th>
-                                                                        <?php if ($this->isEditavel) : ?><th colspan="2" width="10%">A&ccedil;&otilde;es</th><?php endif; ?>
+                                                                        <?php if ($this->isEditavel) : ?>
+                                                                            <th colspan="2" width="10%">A&ccedil;&otilde;es</th>
+                                                                        <?php endif; ?>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -86,7 +84,8 @@
                                                                                             );
                                                                                         ?>
 
-                                                                                        <tr id="item-planilha-<?php echo $item['idPlanilhaProposta']; ?>" class="<?php echo ($item['idFonteRecurso'] != '109') ? 'outrasfontes' : 'incentivo';?>">
+                                                                                        <tr id="item-planilha-<?php echo $item['idPlanilhaProposta']; ?>"
+                                                                                            class="<?php echo ($item['idFonteRecurso'] != '109') ? 'outrasfontes' : 'incentivo';?>">
                                                                                             <td class="left-align"><?php echo $item['DescricaoItem']; ?></td>
                                                                                             <td><?php echo $item['Unidade']; ?></td>
                                                                                             <td><?php echo number_format($item['Quantidade'],0) ?></td>
@@ -95,12 +94,24 @@
                                                                                             <td class="right-align"><?php echo number_format(($item['Quantidade'] * $item['ValorUnitario']) * $item['Ocorrencia'], 2, ",", ".") ?></td>
                                                                                             <?php if ($this->isEditavel) : ?>
                                                                                                 <td class="action right-align">
-                                                                                                    <a data-ajax-modal="<?php echo $this->url($editarProduto); ?>" href="javascript:void(0);" class="btn small waves-effect waves-light tooltipped btn-primary" data-position="top" data-delay="50" data-tooltip="Editar" data-ajax-modal-type="bottom-sheet" >
+                                                                                                    <a data-ajax-modal="<?php echo $this->url($editarProduto); ?>"
+                                                                                                       href="javascript:void(0);"
+                                                                                                       class="btn small waves-effect waves-light tooltipped btn-primary"
+                                                                                                       data-position="top"
+                                                                                                       data-delay="50"
+                                                                                                       data-tooltip="Editar"
+                                                                                                       data-ajax-modal-type="bottom-sheet">
                                                                                                         <i class="material-icons">edit</i>
                                                                                                     </a>
                                                                                                 </td>
                                                                                                 <td class="action left-align">
-                                                                                                    <a class="btn small waves-effect waves-light tooltipped btn-danger btn-excluir-item" href="javascript:void(0);" data-tooltip="Excluir" data-ajax="<?php echo $item['idPlanilhaProposta'];?>" ><i class="material-icons">delete</i></a>
+                                                                                                    <a
+                                                                                                        class="btn small waves-effect waves-light tooltipped btn-danger btn-excluir-item"
+                                                                                                        href="javascript:void(0);"
+                                                                                                        data-tooltip="Excluir"
+                                                                                                        data-ajax="<?php echo $item['idPlanilhaProposta'];?>">
+                                                                                                        <i class="material-icons">delete</i>
+                                                                                                    </a>
                                                                                                 </td>
                                                                                             <?php endif; ?>
                                                                                         </tr>
@@ -109,8 +120,8 @@
                                                                             <?php endif; ?>
                                                                         <?php endforeach; ?>
                                                                     <?php else : ?>
-                                                                        <div class="info valign-wrapper center-align">
-                                                                            <p class="valign center-align">Nenhum item cadastrado em <?php echo $etapa->DescricaoEtapa; ?>.</p>
+                                                                        <div class="padding10">
+                                                                            <p class="center-align">Nenhum item cadastrado em <?php echo $etapa->DescricaoEtapa; ?>.</p>
                                                                         </div>
                                                                     <?php endif; ?>
                                                                 </tbody>
@@ -132,7 +143,14 @@
                                                                 <div class="row">
                                                                     <div class="col s12 center-align">
                                                                         <p>
-                                                                            <a class="waves-effect waves-light btn tooltipped btn_default" data-ajax-modal="<?php echo $this->url($novoProduto)?>" href="javascript:void(0);" class="waves-effect waves-light btn tooltipped" data-position="top" data-delay="50" data-tooltip="Cadastrar novo item" data-ajax-modal-type="bottom-sheet">
+                                                                            <a
+                                                                                class="waves-effect waves-light btn tooltipped btn_default"
+                                                                                data-ajax-modal="<?php echo $this->url($novoProduto)?>"
+                                                                                href="javascript:void(0);"
+                                                                                data-position="top"
+                                                                                data-delay="50"
+                                                                                data-tooltip="Cadastrar novo item"
+                                                                                data-ajax-modal-type="bottom-sheet">
                                                                                 Novo item
                                                                             </a>
                                                                         </p>
@@ -140,7 +158,6 @@
                                                                 </div>
                                                             <?php endif; ?>
                                                         </div>
-
                                                     <?php endforeach; ?>
                                                 </div>
                                             </li>
@@ -148,12 +165,32 @@
                                     <?php endforeach; ?>
                                 <?php else: ?>
                                     <div class="valign-wrapper">
-                                        <p class="valign"> Para preencher a planilha, &eacute; necess&aacute;rio informar os <a href="<?php echo $this->url( array('module' => 'proposta', 'controller' => 'manterorcamento', 'action' =>'custosvinculados','idPreProjeto' => $this->idPreProjeto)); ?>" titlte="Preencher Custos Vinculados">percentuais de custos vinculados</a>.</p>
+                                        <p class="valign"> Para preencher a planilha, &eacute; necess&aacute;rio informar os
+                                            <a href="<?php echo $this->url(
+                                                array('module' => 'proposta',
+                                                    'controller' => 'manterorcamento',
+                                                    'action' =>'custosvinculados',
+                                                    'idPreProjeto' => $this->idPreProjeto
+                                                )); ?>"
+                                               titlte="Preencher Custos Vinculados">percentuais de custos vinculados
+                                            </a>.
+                                        </p>
                                     </div>
                                 <?php endif; ?>
                             <?php else: ?>
                                 <div class="valign-wrapper">
-                                    <p class="valign"> Para preencher a planilha, &eacute; necess&aacute;rio informar o <a href="<?php echo $this->url( array('module' => 'proposta', 'controller' => 'localderealizacao', 'action' =>'index','idPreProjeto' => $this->idPreProjeto)); ?>" titlte="Preencher local de reali&ccedil;&atilde;o">local de realiza&ccedil;&atilde;o</a>.</p>
+                                    <p class="valign"> Para preencher a planilha, &eacute; necess&aacute;rio informar o
+                                        <a href="<?php echo $this->url(
+                                            array(
+                                                'module' => 'proposta',
+                                                'controller' => 'localderealizacao',
+                                                'action' =>'index',
+                                                'idPreProjeto' => $this->idPreProjeto
+                                            )
+                                        ); ?>"
+                                       titlte="Preencher local de reali&ccedil;&atilde;o"
+                                        >local de realiza&ccedil;&atilde;o</a>.
+                                    </p>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -166,9 +203,31 @@
 <?php else: ?>
     <div class="valign-wrapper">
         <?php if (empty($this->localRealizacao) ) : ?>
-            <p class="valign"> Para preencher a planilha, &eacute; necess&aacute;rio informar o <a href="<?php echo $this->url( array('module' => 'proposta', 'controller' => 'localderealizacao', 'action' =>'index','idPreProjeto' => $this->idPreProjeto)); ?>" titlte="Preencher local de reali&ccedil;&atilde;o">local de realiza&ccedil;&atilde;o</a>.</p>
+            <p class="valign"> Para preencher a planilha, &eacute; necess&aacute;rio informar o
+                <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'proposta',
+                        'controller' => 'localderealizacao',
+                        'action' =>'index',
+                        'idPreProjeto' => $this->idPreProjeto
+                    )
+                ); ?>"
+                   title="Preencher local de reali&ccedil;&atilde;o"
+                >local de realiza&ccedil;&atilde;o
+                </a>.
+            </p>
         <?php else : ?>
-            <p class="valign">Para preencher a planilha, &eacute; necess&aacute;rio <a href="<?php echo $this->url( array('module' => 'proposta', 'controller' => 'plano-distribuicao', 'action' => 'index', 'idPreProjeto' => $this->idPreProjeto)); ?>" titlte="Cadastrar produto">cadastrar um produto</a>.</p>
+            <p class="valign">Para preencher a planilha, &eacute; necess&aacute;rio
+                <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'proposta',
+                        'controller' => 'plano-distribuicao',
+                        'action' => 'index',
+                        'idPreProjeto' => $this->idPreProjeto)
+                ); ?>"
+               title="Cadastrar produto"
+                >cadastrar um produto</a>.
+            </p>
         <?php endif; ?>
     </div>
 <?php endif; ?>
@@ -226,7 +285,7 @@
                     $(this).dialog('close');
                 },
                 'Sim': function () {
-                    var urlAction = "<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterorcamento', 'action' => 'excluiritem')); ?>";
+                    var urlAction = "<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterorcamento', 'action' => 'excluir-item')); ?>";
                     var dados = {idPlanilhaProposta: idPlanilhaProposta, idPreProjeto: idPlanilhaProposta};
 
                     $.post(urlAction, dados, function (result) {

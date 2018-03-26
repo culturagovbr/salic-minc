@@ -12,14 +12,14 @@
 
 class Zend_View_Helper_UrlRelativa
 {
-	/**
-	 * Pega o diretório raiz do sistema
-	 * @access public
-	 * @param void
-	 * @return string
-	 */
-	public function UrlRelativa()
-	{
-		return getcwd();
-	}
+    /**
+     * Pega o diretório raiz do sistema
+     * @access public
+     * @param void
+     * @return string
+     */
+    public function UrlRelativa()
+    {
+        return getcwd();
+    }
 }

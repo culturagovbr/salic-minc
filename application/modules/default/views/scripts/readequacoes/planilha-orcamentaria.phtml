@@ -15,7 +15,7 @@
         });
 
 	$('#IncluirReadequacao').click(function(){
-            $("#msgAlerta").html('Deseja incluir essa solicita��o de readequa��o?');
+            $("#msgAlerta").html('Deseja incluir essa solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o?');
             $("#msgAlerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
@@ -23,7 +23,7 @@
                 height:170,
                 modal: true,
                 buttons : {
-		    'N�o' : function(){
+		    'N\xE3o' : function(){
                         $(this).dialog('close');
                     },
                     'Sim' : function(){
@@ -43,14 +43,14 @@
         $('.btn_exclusao').click(function(){
             var idReadequacao = $(this).attr('readequacao');
             $("#msgAlerta").dialog("destroy");
-            $("#msgAlerta").html('Deseja excluir a solicita��o de readequa��o?');
+            $("#msgAlerta").html('Deseja excluir a solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o?');
             $("#msgAlerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
                 width:360,
                 modal: true,
                 buttons : {
-                    'N�o' : function(){
+                    'N\xE3o' : function(){
                         $(this).dialog('close');
                     },
                     'Sim' : function(){
@@ -108,7 +108,7 @@
                         });
 
                         if(obrigatorios > 0){
-                            mensagem += '- Favor preencher os dados obrigat�rios.<br/>';
+                            mensagem += '- Favor preencher os dados obrigatorios.<br/>';
                         }
 
                         //SE HOUVER ALGO DE ERRADO, EXIBE MENSAGEM DE ALERTA.
@@ -218,7 +218,7 @@
         });
         
         $('.btn_finalizar').click(function(){
-	    $('#mensagens').html('<span style="font-weigth: bold; color: grey">Verificando limites or�ament�rios...</span>');
+	    $('#mensagens').html('<span style="font-weigth: bold; color: grey">Verificando limites or&ccedil;amentarios...</span>');
 	    // verifica limites or�ament�rios
             $.ajax({
                 type: 'POST',
@@ -240,14 +240,14 @@
 			// sem problemas de limites orcamentarios
 			
 			$("#msgAlerta").dialog("destroy");
-			$("#msgAlerta").html('Deseja realmente finalizar as solicita��es de readequa��o cadastradas?<br /><br />Ao finalizar, todas as solicita��es ser�o encaminhadas ao MinC.');
+			$("#msgAlerta").html('Deseja realmente finalizar as solicita&ccedil;&otilde;es de readequa&ccedil;&atilde;o cadastradas?<br /><br />Ao finalizar, todas as solicita&ccedil;&otilde;es ser&atilde;o encaminhadas ao MinC.');
 			$("#msgAlerta").dialog({
 				resizable: false,
 				title: 'Alerta!',
 				width:360,
 				modal: true,
 				buttons : {
-				    'N�o' : function(){
+				    'Cancelar' : function(){
 					$(this).dialog('close');
 				    },
 				    'Sim' : function(){
@@ -269,7 +269,7 @@
 			$('.ui-dialog-titlebar-close').remove();
 			
 		    } else {
-			var saidaHtml = "<table class='tabela'><thead><th colspan='2'>Verifica��o de limites or�ament�rios</th></thead>";
+			var saidaHtml = "<table class='tabela'><thead><th colspan='2'>Verifica&ccedil;&atilde;o de limites or&ccedil;amentarios</th></thead>";
 			
 			for (var m = 0; m < resposta.mensagens.length; m++) {
 			    var item = resposta.mensagens[m];
@@ -342,9 +342,10 @@
             }
         });
         
-        $('.editarItem').live('click', function(){
-            var idPlanilhaAprovacao = $(this).attr('idPlanilhaAprovacao'),
-                itemClicado = $(this);
+        $('#planilhaOrcamentariaMontada').on('click', '.editarItem', function(){
+            var idPlanilhaAprovacao = $(this).attr('idPlanilhaAprovacao'), itemClicado = $(this);
+
+            console.log(idPlanilhaAprovacao);
                 
             //AO ABRIR A MODAL, LIMPA TODOS OS CAMPOS EDIT�VEIS
             $('.modalObrigatorios').each(function(){
@@ -359,7 +360,7 @@
             //BUSCA OS DADOS DO ITEM PARA VISUALIZA��O DOS NA MODAL
             $.ajax({
                 type: 'POST',
-                url: '<?php echo $this->url(array('controller' => 'readequacoes', 'action' => 'alterar-item-solicitacao'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
+                url: '<?php echo $this->url(array('module' => 'default', 'controller' => 'readequacoes', 'action' => 'alterar-item-solicitacao'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
                 data: {
                     idPlanilha: idPlanilhaAprovacao
                 },
@@ -507,7 +508,7 @@
                 height:170,
                 modal: true,
                 buttons : {
-                    'N�o' : function(){
+                    'Cancelar' : function(){
                         itemClicado.parent().parent().removeClass('fundo_linha4');
                         $(this).dialog('close');
                     },
@@ -645,7 +646,7 @@
                     modal: true,
                     title: 'Alerta!',
                     buttons : {
-                        'N�o' : function(){
+                        'N&atilde;o' : function(){
                             $(this).dialog('close');
                         },
                         'Sim' : function(){
@@ -674,7 +675,7 @@
         var descJustificativa = CKEDITOR.instances['descJustificativa'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g,''),
             texto = CKEDITOR.instances['descJustificativa'].getData(),
             erro = 0,
-            msg = 'Favor preencher os dados obrigat�rios!';
+            msg = 'Favor preencher os dados obrigat&oacute;rios!';
         
         if (descJustificativa == ''){
             erro++;
@@ -682,7 +683,7 @@
         
         if(texto.length > 6000){
             erro++;
-            msg = 'O campo s� permite 5.000 caracteres!';
+            msg = 'O campo so permite 5.000 caracteres!';
         }
         if (erro > 0) {
             $("#msgAlerta").dialog("destroy");
@@ -844,7 +845,7 @@
 	      </td>
             </tr>
             <tr>
-                <td><span class="red-text">* Campo obrigat�rio e permite o m�ximo de 5.000 caracteres</span></td>
+                <td><span class="red-text">* Campo obrigatorio e permite o maximo de 5.000 caracteres</span></td>
             </tr>
         </table>
         
@@ -878,7 +879,7 @@
             <tr>
                 <td class="centro">
                   <input type="button" class="btn_finalizar sumir" id="btn_finalizar" title="Finalizar" />
-                  <input type="button" class="btn_exclusao sumir" id="btn_excluir" readequacao="<?php echo $this->readequacao[0]->idReadequacao; ?>" />
+                  <input type="button" class="btn_exclusao sumir" id="btn_excluir" readequacao="<?php echo count($this->readequacao) > 0 ? $this->readequacao[0]->idReadequacao : ''; ?>" />
                   <input type="button" class="btn_cancelar" id="btn_voltar" title="Voltar" />
                 </td>
             </tr>
@@ -911,8 +912,8 @@
             <tr class="centro">
                 <td class="destacar bold">Unidade</td>
                 <td class="destacar bold">Qtd</td>
-                <td class="destacar bold">Ocorr�ncia</td>
-                <td class="destacar bold">Vl. Unit�rio</td>
+                <td class="destacar bold">Ocorrencia</td>
+                <td class="destacar bold">Vl. Unitario</td>
                 <td class="destacar bold">Dias</td>
                 <td class="destacar bold">Total</td>
                 <!--<td class="destacar bold" style="width: 1px;">Reintegrar</td>-->
@@ -929,13 +930,13 @@
         
         <table class="tabela">
             <tr>
-                <th colspan="6">Dados para a readequa��o</th>
+                <th colspan="6">Dados para a readequa&ccedil;&atilde;o</th>
             </tr>
             <tr class="centro">
                 <td class="destacar bold">Unidade</td>
                 <td class="destacar bold">Qtd</td>
-                <td class="destacar bold">Ocorr�ncia</td>
-                <td class="destacar bold">Vl. Unit�rio</td>
+                <td class="destacar bold">Ocorrencia</td>
+                <td class="destacar bold">Vl. Unitario</td>
                 <td class="destacar bold">Dias</td>
                 <td class="destacar bold">Total</td>
             </tr>
@@ -955,7 +956,7 @@
                 <td id="TotalCalculado" class="direita" style="width: 125px;"></td>
             </tr>
             <tr>
-                <td colspan="6" class="destacar bold centro">Justificativa da Readequa��o <span class="red-text">*</span> <span id="textoErroValores" style="float:right; color: red;"></span></td>
+                <td colspan="6" class="destacar bold centro">Justificativa da Readequa&ccedil;&atilde;o <span class="red-text">*</span> <span id="textoErroValores" style="float:right; color: red;"></span></td>
             </tr>
             <tr>
                 <td colspan="6" class="centro">
@@ -972,7 +973,7 @@
             <tr>
                 <td class="destacar bold" style="width: 33%">Recursos</td>
                 <td class="destacar bold" style="width: 33%">UF</td>
-                <td class="destacar bold" style="width: 33%">Munic�pio</td>
+                <td class="destacar bold" style="width: 33%">Munic&iacute;pio</td>
             </tr>
             <tr>
                 <td>
@@ -1034,8 +1035,8 @@
             <tr class="centro">
                 <td class="destacar bold w150">Unidade</td>
                 <td class="destacar bold">Qtd</td>
-                <td class="destacar bold">Ocorr�ncia</td>
-                <td class="destacar bold">Vl. Unit�rio</td>
+                <td class="destacar bold">Ocorr&ecirc;ncia</td>
+                <td class="destacar bold">Vl. Unitario</td>
                 <td class="destacar bold">Dias</td>
                 <td class="destacar bold">Total</td>
             </tr>
@@ -1065,11 +1066,6 @@
         </table>
     </div>
     <?php //MODAL DE INCLUS�O DE ITEM ?>
-
 </div>
-<!-- ========== FIM CONTE�DO ========== -->
-
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
 <br clear="all" />

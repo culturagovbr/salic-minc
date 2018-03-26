@@ -9,10 +9,10 @@ function layout_fluido() {
 	var fluidRodape = janela - 19;	
 	
 	// $("#navglobal").css("width",fluidNavGlobal);
-	$("#conteudo").css("width","98%");
-	$("#titulo").css("width","98%");
-	$("#conteudo, #titulo").css("left", "0");
-	$("#conteudo, #titulo").css("margin", "0 auto");
+	// $("#conteudo").css("width","98%");
+	// $("#titulo").css("width","98%");
+	// $("#conteudo, #titulo").css("left", "0");
+	// $("#conteudo, #titulo").css("margin", "0 auto");
 	// $("#rodapeConteudo").css("width","100%");
 	// $("#rodape").css("width","100%");
 

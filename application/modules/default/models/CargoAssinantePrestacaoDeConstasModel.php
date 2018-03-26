@@ -1,16 +1,11 @@
 <?php
 
-/**
- * Description of CargoAssinantePrestacaoDeConstas
- *
- * @author Mikhail Cavalcanti <mikhail.leite@xti.com.br>
- */
 class CargoAssinantePrestacaoDeConstasModel implements ModelInterface
 {
 
     /**
      *
-     * @var type 
+     * @var type
      */
     private $table = null;
 
@@ -33,7 +28,7 @@ class CargoAssinantePrestacaoDeConstasModel implements ModelInterface
     private $justificativa = null;
 
     /**
-     * 
+     *
      */
     public function __construct()
     {
@@ -76,7 +71,7 @@ class CargoAssinantePrestacaoDeConstasModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @param int $id
      */
     public function buscar($id = null)
@@ -88,7 +83,7 @@ class CargoAssinantePrestacaoDeConstasModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @param type $id
      * @throws Exception
      */
@@ -98,7 +93,7 @@ class CargoAssinantePrestacaoDeConstasModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @throws Exception
      */
     public function salvar()
@@ -111,7 +106,7 @@ class CargoAssinantePrestacaoDeConstasModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      */
     public function atualizar()
     {
@@ -119,7 +114,7 @@ class CargoAssinantePrestacaoDeConstasModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @throws InvalidArgumentException
      */
     private function validar()
@@ -129,5 +124,4 @@ class CargoAssinantePrestacaoDeConstasModel implements ModelInterface
             throw new InvalidArgumentException('Cargo obrigatório');
         }
     }
-
 }

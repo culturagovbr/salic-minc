@@ -89,7 +89,7 @@
 <!-- ========== INICIO CONTEUDO ========== -->
 <div id="confirma" class="sumir"></div>
 <div id="msgAlerta" class="sumir"></div>
-<div class="row card">
+<div class="row card-panel">
     <div class="col s12">
     <form action="<?php echo $this->acaoSalvar; ?>" name="frmPlanoDistribuicao" id="frmPlanoDistribuicao" method="post" class="">
         <input type="hidden" name="idPlanoDistribuicao" id="idPlanoDistribuicao" value="<?php echo $this->planoDistribuicao['idPlanoDistribuicao']; ?>">
@@ -146,6 +146,15 @@
                     </select>
                 </td>
             </tr>
+	    <tr>
+		<td class="destacar bold" style="width: 1px;">Transmiss&atilde;o em canal aberto? <span style="color: red;">*</span></td>
+                <td>
+                    <select class="input_simples obrigatorio" name="canalAberto" id="canalAberto">
+                        <option value="0" <?php echo ($this->planoDistribuicao['canalAberto'] == "0") ? " selected='selected'" : ""; ?>>N&atilde;o</option>
+                        <option value="1" <?php echo ($this->planoDistribuicao['canalAberto'] == "1") ? " selected='selected'" : ""; ?>>Sim</option>
+                    </select>
+		</td>
+	    </tr>
         </table>
         <div class="row">
             <div class="col s12 center-align">

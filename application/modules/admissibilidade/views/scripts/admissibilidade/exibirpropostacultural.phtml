@@ -1042,7 +1042,7 @@ if (is_array($this->itensLocalRealiazacao) and count($this->itensLocalRealiazaca
         <tr onclick="abrirDinamico('#historicoAvaliacoes', $(this))" style="cursor:pointer">
             <th>
                 <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png" id="imgDinamica" align="left"/>
-                Hist�rico de Avalia&ccedil;&otilde;es
+                Hist&oacute;rico de Avalia&ccedil;&otilde;es
             </th>
         </tr>
         <tr>
@@ -1057,6 +1057,7 @@ if (is_array($this->itensLocalRealiazacao) and count($this->itensLocalRealiazaca
                         foreach ($this->itensHistorico as $historico) { ?>
                     <tr>
                         <td align="left" nowrap><?php echo $historico->DtAvaliacao ?></td>
+			<td align="left"><?php echo $historico->Perfil ?></td>
                         <td align="left"><?php echo $historico->Avaliacao ?></td>
                     </tr>
                     <?php } ?>

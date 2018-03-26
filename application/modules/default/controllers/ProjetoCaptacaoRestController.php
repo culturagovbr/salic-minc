@@ -2,20 +2,25 @@
 
 /**
  * Dados do proponente via REST
- * 
+ *
  * @version 1.0
  * @package application
  * @subpackage application.controller
  * @link http://www.cultura.gov.br
  * @copyright © 2016 - Ministério da Cultura - Todos os direitos reservados.
  */
-class ProjetoCaptacaoRestController extends MinC_Controller_Rest_Abstract {
-
-    public function postAction(){}
+class ProjetoCaptacaoRestController extends MinC_Controller_Rest_Abstract
+{
+    public function postAction()
+    {
+    }
     
-    public function indexAction(){}
+    public function indexAction()
+    {
+    }
     
-    public function getAction(){
+    public function getAction()
+    {
         $projeto = $this->_request->getParam('id');
         
         $ProjetoCaptacao = new stdClass();
@@ -34,8 +39,11 @@ class ProjetoCaptacaoRestController extends MinC_Controller_Rest_Abstract {
         $this->getResponse()->setHttpResponseCode(200)->setBody(json_encode($ProjetoCaptacao));
     }
 
-    public function putAction(){}
+    public function putAction()
+    {
+    }
 
-    public function deleteAction(){}
-
+    public function deleteAction()
+    {
+    }
 }

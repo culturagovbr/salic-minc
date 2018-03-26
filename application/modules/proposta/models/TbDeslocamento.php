@@ -186,5 +186,4 @@ class Proposta_Model_TbDeslocamento extends MinC_Db_Model
     {
         $this->_idusuario = $idusuario;
     }
-
 }

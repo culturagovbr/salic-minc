@@ -28,302 +28,321 @@
     }
 
 </style>
+<?php
+if (isset($this->proposta['idpreprojeto'])) {
+    echo $this->partial("inc/menu.phtml", $this); // menu
+}
 
-<div class="<?php echo isset($this->proposta['idpreprojeto']) ? 'container-fluid ' : 'container' ?>">
+?>
+<div class="container-fluid">
     <div class="row">
-        <?php if (isset($this->proposta['idpreprojeto'])) : ?>
-            <?= $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto)); ?>
-        <?php endif; ?>
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>
+                        <?php if (!isset($this->proposta['idpreprojeto'])) {
+                            echo "Nova Proposta";
+                        } else {
+                            echo $this->layout['titleFull'];
+                        }
+                        ?>
+                    </h1>
 
-
-        <div class="col <?php echo isset($this->proposta['idpreprojeto']) ? 's10 m12 l10 ' : 's12 m12 l12' ?>">
-            <?php if (isset($this->proposta['idpreprojeto'])) {
-                gerarBreadCrumb(array(
-                    $this->layout['listagem'],
-                    array('Identifica&ccedil;&atilde;o' => '')
-                ));
-            }
-            ?>
-
-            <!-- ========== INICIO TITULO ========== -->
-            <div id="titulo">
-                <div>
-                    <?php if (!isset($this->proposta['idpreprojeto'])) {
-                        echo "Nova Proposta";
-                    } else {
-                        echo $this->layout['titleFull'];
-                    }
-                    ?>
+                    <?php if (isset($this->proposta['idpreprojeto'])) {
+                        gerarNovoBreadCrumb(array(
+                            $this->layout['listagem'],
+                            array('Identifica&ccedil;&atilde;o' => '')
+                        ));
+                    } ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
                 </div>
             </div>
+        </div>
+        <div class="card-panel">
+            <div id="conteudo">
 
-            <div id="alerta" title="Alerta"></div>
-            <div id="erro" title="Erro"></div>
-            <div id="resultado"></div>
-            <!-- ========== FIM TITULO ========== -->
-            <div id="conteudo" class="section">
-                <div id="confirmacao"></div>
-                <div id="confirm"></div>
-                <div class="error centro"><span></span></div>
+                <div id="alerta" title="Alerta"></div>
+                <div id="erro" title="Erro"></div>
+                <div id="resultado"></div>
+                <!-- ========== FIM TITULO ========== -->
+                <div class="content">
+                    <div id="confirmacao"></div>
+                    <div id="confirm"></div>
+                    <div class="error centro"><span></span></div>
 
-                <form action="<?php echo $this->acao; ?>" method="post" id="frmProposta" name="frmProposta"
-                      enctype="multipart/form-data">
-                    <input type="hidden" name="idPreProjeto" id="idPreProjeto"
-                           value="<?php echo isset($this->proposta['idpreprojeto']) ? $this->proposta['idpreprojeto'] : '' ?>">
-                    <input type="hidden" name="acao" id="acao" value="alterar">
+                    <form action="<?php echo $this->acao; ?>" method="post" id="frmProposta" name="frmProposta"
+                          enctype="multipart/form-data">
+                        <input type="hidden" name="idPreProjeto" id="idPreProjeto"
+                               value="<?php echo isset($this->proposta['idpreprojeto']) ? $this->proposta['idpreprojeto'] : '' ?>">
+                        <input type="hidden" name="acao" id="acao" value="alterar">
 
-                    <input type="hidden" name="acao" id="acao"
-                           value="<?php echo isset($this->proposta['idpreprojeto']) ? 'alterar' : 'incluir' ?>">
-                    <input type="hidden" name="idagente"
-                           value="<?php echo isset($this->proponente['idagente']) ? $this->proponente['idagente'] : '' ?>">
-                    <input type="hidden" name="url"
-                           value="<?php echo isset($this->url) ? $this->url : '' ?>">
+                        <input type="hidden" name="acao" id="acao"
+                               value="<?php echo isset($this->proposta['idpreprojeto']) ? 'alterar' : 'incluir' ?>">
+                        <input type="hidden" name="idagente"
+                               value="<?php echo isset($this->proponente['idagente']) ? $this->proponente['idagente'] : '' ?>">
+                        <input type="hidden" name="url"
+                               value="<?php echo isset($this->url) ? $this->url : '' ?>">
 
-                    <div id="identificacaodiv" class="divChave">
+                        <div id="identificacaodiv" class="divChave">
 
-                        <?php if ($this->projeto) : ?>
-                            <?php echo $this->partial("/manterpropostaincentivofiscal/partials/identificacaoalterarprojeto.phtml", $this); ?>
-                        <?php else : ?>
+                            <?php if ($this->projeto) : ?>
+                                <?php echo $this->partial("/manterpropostaincentivofiscal/partials/identificacaoalterarprojeto.phtml", $this); ?>
+                            <?php else : ?>
 
-                            <table class="tabela" cellpadding="1" cellspacing="1">
-                                <tr class="destacar centro">
-                                    <td colspan="5"><b>Identifica&ccedil;&atilde;o da Proposta Cultural</b></td>
-                                </tr>
-                                <tr>
-                                    <td class="esquerda" colspan="5">
-                                        <div style="width: 95%">
-                                            <div style="float:left; width: 85%">
-                                                Proponente:
-                                                <span
-                                                    style="color: blue;"><?php echo $this->proponente['descricao']; ?></span>
+                                <table class="tabela" cellpadding="1" cellspacing="1">
+                                    <tr class="destacar centro">
+                                        <td colspan="5"><b>Identifica&ccedil;&atilde;o da Proposta Cultural</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="esquerda" colspan="5">
+                                            <div style="width: 95%">
+                                                <div style="float:left; width: 85%">
+                                                    Proponente:
+                                                    <span
+                                                        style="color: blue;"><?php echo $this->proponente['descricao']; ?></span>
+                                                </div>
+                                                <div style="float:left; width: 15%">
+                                                    Nr da Proposta:<br/>
+                                                    <span style="color: blue;">
+                                                            <?php
+                                                            if (isset($this->proposta['idpreprojeto']))
+                                                                echo $this->proposta['idpreprojeto'];
+                                                            ?>
+                                                        </span>
+                                                </div>
                                             </div>
-                                            <div style="float:left; width: 15%">
-                                                Nr da Proposta:<br/>
-                                                <span style="color: blue;">
+                                        </td>
+                                    </tr>
+                                    <tr class="esquerda">
+                                        <td colspan="5">Nome da Proposta Cultural *
+                                            <input type="text" class="input_simples" name="nomeProjeto" id="nomeProjeto"
+                                                   maxlength="500" title="Nome da Proposta Cultural" style="width:50em;"
+                                                   value="<?php
+                                                   if (isset($this->proposta['idpreprojeto']))
+                                                       echo str_replace("'", "", str_replace("\"", "", ($this->proposta['nomeprojeto'])));
+                                                   ?>"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table class="tabela" cellpadding="1" cellspacing="1">
+                                    <tr class="destacar centro">
+                                        <td colspan="5"><b>Resumo da Proposta Cultural</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="5">
+                                            <p class="caption">
+                                                No campo Resumo deve-se descrever o objetivo do projeto em no m&aacute;ximo
+                                                5 linhas. O texto
+                                                deve ser conciso e apresentar de forma clara os produtos que comp&otilde;em
+                                                a proposta.
+                                                <br/>
+                                                Pergunta-chave: O QU&Ecirc;? *</p>
+
+                                            <textarea id="resumodoprojeto" class="browser-default"
+                                                      name="resumodoprojeto" <?php echo isset($this->arrConfig['resumodoprojeto']['disabled']) ? 'disabled="disabled"' : '' ?>>
+                                             <?php if (isset($this->proposta['resumodoprojeto'])) echo $this->proposta['resumodoprojeto']; ?>
+                                            </textarea>
+                                            <!--                                <label for="resumodoprojeto" class="active">Justificativa *</label>-->
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table class="tabela" cellpadding="1" cellspacing="1">
+                                    <tr class="destacar centro">
+                                        <td colspan="5"><b>Informa&ccedil;&otilde;es Complementares</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="centro" width="150px;" nowrap>Mecanismo: <b>Incentivo Fiscal</b></td>
+                                        <td class="centro">
+                                            <label for="stDataFixa">Data Fixa</label>
+                                            <select class="select_simples" name="stDataFixa" id="stDataFixa"
+                                                    style="width: 5em">
+                                                <option value="0" <?php
+                                                if (isset($this->proposta['idpreprojeto']))
+                                                    if ($this->proposta['stdatafixa'] == "0") {
+                                                        echo "selected";
+                                                    }
+                                                ?>>N&atilde;o
+                                                </option>
+                                                <option value="1" <?php
+                                                if (isset($this->proposta['idpreprojeto']))
+                                                    if ($this->proposta['stdatafixa'] == "1") {
+                                                        echo "selected";
+                                                    }
+                                                ?>>Sim
+                                                </option>
+                                            </select>
+                                        </td>
+                                        <td class="centro">
+                                            <label for="agenciaBancaria">Ag&ecirc;ncia Banc&aacute;ria *</label>
+                                            <input type="text" class="input_simples" name="agenciaBancaria"
+                                                   id="agenciaBancaria"
+                                                   maxlength="12" style="width:70px;"
+                                                   value="<?php echo $this->proposta['agenciabancaria']; ?>"/>
+                                            <div id="ValidaAgencia" name="ValidaAgencia" style="color:#FF0000"></div>
+                                        </td>
+                                        <td colspan="2" class="centro">
+                                            <label for="areaabrangencia">&Eacute; proposta de audiovisual? </label>
+                                            <select class="select_simples" name="areaabrangencia" id="areaabrangencia"
+                                                    style="width: 5em">
+                                                <option value="0" <?php
+                                                if (isset($this->proposta['idpreprojeto']))
+                                                    if ($this->proposta['areaabrangencia'] == "0") {
+                                                        echo "selected";
+                                                    }
+                                                ?>>N&atilde;o
+                                                </option>
+                                                <option value="1" <?php
+                                                if (isset($this->proposta['idpreprojeto']))
+                                                    if ($this->proposta['areaabrangencia'] == "1") {
+                                                        echo "selected";
+                                                    }
+                                                ?>>Sim
+                                                </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" class="">
+                                            <label for="stProposta">Plano Execu&ccedil;&atilde;o Imediata</label>
+                                            <select name="stProposta" id="stProposta"
+                                                    class="select_simples" <?php echo (!empty($this->arquivoExecucaoImediata[0])) ? 'readonly' : ''; ?>>
+                                                <?php foreach ($this->listaExecucaoImediata as $key => $execucao) : ?>
+                                                    <option value="<?php echo $key; ?>"
                                                         <?php
                                                         if (isset($this->proposta['idpreprojeto']))
-                                                            echo $this->proposta['idpreprojeto'];
-                                                        ?>
-                                                    </span>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr class="esquerda">
-                                    <td colspan="5">Nome da Proposta Cultural *
-                                        <input type="text" class="input_simples" name="nomeProjeto" id="nomeProjeto"
-                                               maxlength="500" title="Nome da Proposta Cultural" style="width:50em;"
-                                               value="<?php
-                                               if (isset($this->proposta['idpreprojeto']))
-                                                   echo str_replace("'", "", str_replace("\"", "", ($this->proposta['nomeprojeto'])));
-                                               ?>"/>
-                                    </td>
-                                </tr>
-                            </table>
-                            <table class="tabela" cellpadding="1" cellspacing="1">
-                                <tr class="destacar centro">
-                                    <td colspan="5"><b>Resumo da Proposta Cultural</b></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="5">
-                                        <p class="caption">No resumo do projeto, o resumo deve descrever o que se pretende
-                                            realizar, limitado ao m&aacute;ximo de 1000 caracteres. Trata-se de uma s&iacute;ntese
-                                            com as
-                                            informa&ccedil;&otilde;es essenciais fazendo refer&ecirc;ncia ao(s) produto(s)
-                                            cadastrado(s) no Plano de Distribui&ccedil;&atilde;o.<br/> A leitura do resumo
-                                            deve
-                                            responder &agrave; quest&atilde;o: O QU&Ecirc;? *</p>
-
-                                        <textarea id="resumodoprojeto" class="browser-default editor"
-                                                  name="resumodoprojeto" <?php echo isset($this->arrConfig['resumodoprojeto']['disabled']) ? 'disabled="disabled"' : '' ?>>
-                                         <?php if (isset($this->proposta['resumodoprojeto'])) echo $this->proposta['resumodoprojeto']; ?>
-                                        </textarea>
-                                        <!--                                <label for="resumodoprojeto" class="active">Justificativa *</label>-->
-                                    </td>
-                                </tr>
-                            </table>
-                            <table class="tabela" cellpadding="1" cellspacing="1">
-                                <tr class="destacar centro">
-                                    <td colspan="5"><b>Informa&ccedil;&otilde;es Complementares</b></td>
-                                </tr>
-                                <tr>
-                                    <td class="centro" width="150px;" nowrap>Mecanismo: <b>Incentivo Fiscal</b></td>
-                                    <td class="centro">
-                                        <label for="stDataFixa">Data Fixa</label>
-                                        <select class="select_simples" name="stDataFixa" id="stDataFixa" style="width: 5em">
-                                            <option value="0" <?php
-                                            if (isset($this->proposta['idpreprojeto']))
-                                                if ($this->proposta['stdatafixa'] == "0") {
-                                                    echo "selected";
-                                                }
-                                            ?>>N&atilde;o
-                                            </option>
-                                            <option value="1" <?php
-                                            if (isset($this->proposta['idpreprojeto']))
-                                                if ($this->proposta['stdatafixa'] == "1") {
-                                                    echo "selected";
-                                                }
-                                            ?>>Sim
-                                            </option>
-                                        </select>
-                                    </td>
-                                    <td class="centro">
-                                        <label for="agenciaBancaria">Ag&ecirc;ncia Banc&aacute;ria *</label>
-                                        <input type="text" class="input_simples" name="agenciaBancaria" id="agenciaBancaria"
-                                               maxlength="12" style="width:50px;"
-                                               value="<?php echo $this->proposta['agenciabancaria']; ?>"/>
-                                        <div id="ValidaAgencia" name="ValidaAgencia" style="color:#FF0000"></div>
-                                    </td>
-                                    <td colspan="2" class="centro">
-                                        <label for="areaabrangencia">&Eacute; proposta de audiovisual? </label>
-                                        <select class="select_simples" name="areaabrangencia" id="areaabrangencia"
-                                                style="width: 5em">
-                                            <option value="0" <?php
-                                            if (isset($this->proposta['idpreprojeto']))
-                                                if ($this->proposta['areaabrangencia'] == "0") {
-                                                    echo "selected";
-                                                }
-                                            ?>>N&atilde;o
-                                            </option>
-                                            <option value="1" <?php
-                                            if (isset($this->proposta['idpreprojeto']))
-                                                if ($this->proposta['areaabrangencia'] == "1") {
-                                                    echo "selected";
-                                                }
-                                            ?>>Sim
-                                            </option>
-                                        </select>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" class="">
-                                        <label for="stProposta">Plano Execu&ccedil;&atilde;o Imediata</label>
-                                        <select name="stProposta" id="stProposta"
-                                                class="select_simples" <?php echo (!empty($this->arquivoExecucaoImediata[0])) ? 'readonly' : ''; ?>>
-                                            <?php foreach ($this->listaExecucaoImediata as $key => $execucao) : ?>
-                                                <option value="<?php echo $key; ?>"
+                                                            if ($this->proposta['stproposta'] == $key) {
+                                                                echo "selected";
+                                                            }
+                                                        ?>><?php echo $execucao; ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                            <div id="ValidaStProposta" name="ValidaStProposta"
+                                                 style="color:#FF0000"></div>
+                                        </td>
+                                        <td colspan="2">
+                                            <div id="comprovanteplanodeexecucao" style="display: none">
+                                                <?php if (!empty($this->arquivoExecucaoImediata[0])) : ?>
                                                     <?php
-                                                    if (isset($this->proposta['idpreprojeto']))
-                                                        if ($this->proposta['stproposta'] == $key) {
-                                                            echo "selected";
-                                                        }
-                                                    ?>><?php echo $execucao; ?>
-                                                </option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                        <div id="ValidaStProposta" name="ValidaStProposta" style="color:#FF0000"></div>
-                                    </td>
-                                    <td colspan="2">
-                                        <div id="comprovanteplanodeexecucao" style="display: none">
-                                            <?php if (!empty($this->arquivoExecucaoImediata[0])) : ?>
-                                                <?php
                                                     $currentUrl = Zend_Controller_Front::getInstance()->getRequest()->getRequestUri();
-                                                ?>
-                                                <div id="comprovanteDocumentoAnexado"
-                                                     class="doc<?php echo $this->arquivoExecucaoImediata[0]['codigodocumento']; ?>">
-                                                    <label for="arquivo"
-                                                           style="width: 50px; "><?php echo $this->arquivoExecucaoImediata[0]['descricao']; ?> </label>
-                                                    <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'upload', 'action' => 'abrir-documentos-pre-projeto')); ?>?id=<?php echo $this->arquivoExecucaoImediata[0]['iddocumentospreprojetos']; ?>">
-                                                        <?php echo $this->arquivoExecucaoImediata[0]['noarquivo']; ?>
-                                                    </a>
-                                                    <input type="button" class="btn_excluir"
-                                                           onclick="excluirAnexos(<?php echo $this->arquivoExecucaoImediata[0]['iddocumentospreprojetos']; ?>, <?php echo trim($this->proposta['idpreprojeto']); ?>, 'proposta', '<?php echo $currentUrl; ?>');"/>
-                                                </div>
-                                            <?php else : ?>
-                                                <div id="anexarDocumento">
-                                                    <label for="arquivo" style="width: 50px; ">Comprovante do Plano de Execu&ccedil;&atilde;o
-                                                        Imediata </label>
-                                                    <input type="file" name="arquivo" id="arquivo" class="input_simples">
-                                                    <div id="arquivoinvalido" style="color:#FF0000"></div>
-                                                </div>
-                                            <?php endif; ?>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </table>
+                                                    ?>
+                                                    <div id="comprovanteDocumentoAnexado"
+                                                         class="doc<?php echo $this->arquivoExecucaoImediata[0]['codigodocumento']; ?>">
+                                                        <label for="arquivo"
+                                                               style=""><?php echo $this->arquivoExecucaoImediata[0]['descricao']; ?> </label>
+                                                        <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'upload', 'action' => 'abrir-documentos-pre-projeto')); ?>?id=<?php echo $this->arquivoExecucaoImediata[0]['iddocumentospreprojetos']; ?>">
+                                                            <?php echo $this->arquivoExecucaoImediata[0]['noarquivo']; ?>
+                                                        </a>
+                                                        <input type="button" class="btn_excluir"
+                                                               onclick="excluirAnexos(<?php echo $this->arquivoExecucaoImediata[0]['iddocumentospreprojetos']; ?>, <?php echo trim($this->proposta['idpreprojeto']); ?>, 'proposta', '<?php echo $currentUrl; ?>');"/>
+                                                    </div>
+                                                <?php else : ?>
+                                                    <div id="anexarDocumento">
+                                                        <label for="arquivo" style="">Comprovante do Plano de Execu&ccedil;&atilde;o
+                                                            Imediata </label>
+                                                        <input type="file" name="arquivo" id="arquivo"
+                                                               class="input_simples">
+                                                        <div id="arquivoinvalido" style="color:#FF0000"></div>
+                                                    </div>
+                                                <?php endif; ?>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
 
-                            <table class="tabela" cellpadding="1" cellspacing="1">
-                                <tr class="destacar centro">
-                                    <td colspan="3"><b>Per&iacute;odo de Realiza&ccedil;&atilde;o</b></td>
-                                    <td colspan="2"><b>No caso de bem tombado</b></td>
-                                </tr>
-                                <tr>
-                                    <td class="centro"><label for="dtInicioDeExecucao">Data de In&iacute;cio *</label></td>
-                                    <td>
-                                        <input type="text" name="dtInicioDeExecucao" id="dtInicioDeExecucao" maxlength="10"
-                                               class="input_simples btn_calendario"
-                                               value="<?php if (isset($this->proposta['idpreprojeto'])) echo $this->proposta['dtiniciodeexecucaoform']; ?>"/>
-                                    </td>
-                                    <td>
-                                        <label for="tpProrrogacao">Prorroga&ccedil;&atilde;o
-                                            autom&aacute;tica?</label><br>
-                                        <select class="select_simples" name="tpProrrogacao" id="tpProrrogacao"
-                                                style="width: 5em">
-                                            <option
-                                                value="1" <?php echo ($this->proposta['tpprorrogacao'] == "1") ? "selected" : ""; ?>>
-                                                Sim
-                                            </option>
-                                            <option
-                                                value="0" <?php echo ($this->proposta['tpprorrogacao'] === "0") ? "selected" : ""; ?>>
-                                                N&atilde;o
-                                            </option>
-                                        </select>
-                                    </td>
-                                    <td><label for="nrAtoTombamento">N&uacute;mero do Ato </label></td>
-                                    <td><input type="text" class="input_simples" name="nrAtoTombamento" id="nrAtoTombamento"
-                                               maxlength="12" onkeyup="ativarDesativarObrigatoriedadeDtAto()"
-                                               value="<?php if (isset($this->proposta['idpreprojeto'])) echo trim($this->proposta['nratotombamento']); ?>"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="centro"><label for="dtFinalDeExecucao">Data Final *</label></td>
-                                    <td>
-                                        <input type="text" name="dtFinalDeExecucao" id="dtFinalDeExecucao" maxlength="10"
-                                               class="input_simples btn_calendario"
-                                               value="<?php if (isset($this->proposta['idpreprojeto'])) echo $this->proposta['dtfinaldeexecucaoform']; ?>"/>
-                                    </td>
-                                    <td></td>
-                                    <td><label for="dtAtoTombamento">Data do Ato </label></td>
-                                    <td>
-                                        <input type="text" name="dtAtoTombamento" id="dtAtoTombamento" maxlength="10"
-                                               class="input_simples btn_calendario"
-                                               value="<?php if (isset($this->proposta['idpreprojeto'])) echo $this->proposta['dtatotombamentoform']; ?>"/>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3">
-                                        <span id="msgValidaData"></span>
-                                        <input type="hidden" name="blnDatasValidas" id="blnDatasValidas" value="true">
-                                    </td>
-                                    <td><label for="esferaTombamento">Esfera do Ato </label></td>
-                                    <td><select class="select_simples" name="esferaTombamento" id="esferaTombamento"
-                                                style="width: 10em">
-                                            <option value="" selected>- Selecione-</option>
-                                            <option value="1" <?php
-                                            if (isset($this->proposta['idpreprojeto']))
-                                                if ($this->proposta['esferatombamento'] == "1") {
-                                                    echo "selected";
-                                                }
-                                            ?>>Municipal
-                                            </option>
-                                            <option value="2" <?php
-                                            if (isset($this->proposta['idpreprojeto']))
-                                                if ($this->proposta['esferatombamento'] == "2") {
-                                                    echo "selected";
-                                                }
-                                            ?>>Estadual
-                                            </option>
-                                            <option value="3" <?php
-                                            if (isset($this->proposta['idpreprojeto']))
-                                                if ($this->proposta['esferatombamento'] == "3") {
-                                                    echo "selected";
-                                                }
-                                            ?>>Federal
-                                            </option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </table>
+                                <table class="tabela" cellpadding="1" cellspacing="1">
+                                    <tr class="destacar centro">
+                                        <td colspan="3"><b>Per&iacute;odo de Realiza&ccedil;&atilde;o</b></td>
+                                        <td colspan="2"><b>No caso de bem tombado</b></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="centro"><label for="dtInicioDeExecucao">Data de In&iacute;cio
+                                                *</label></td>
+                                        <td>
+                                            <input type="text" name="dtInicioDeExecucao" id="dtInicioDeExecucao"
+                                                   maxlength="10"
+                                                   class="input_simples btn_calendario"
+                                                   value="<?php if (isset($this->proposta['idpreprojeto'])) echo $this->proposta['dtiniciodeexecucaoform']; ?>"/>
+                                        </td>
+                                        <td>
+                                            <label for="tpProrrogacao">Prorroga&ccedil;&atilde;o
+                                                autom&aacute;tica?</label><br>
+                                            <select class="select_simples" name="tpProrrogacao" id="tpProrrogacao"
+                                                    style="width: 5em">
+                                                <option
+                                                    value="1" <?php echo ($this->proposta['tpprorrogacao'] == "1") ? "selected" : ""; ?>>
+                                                    Sim
+                                                </option>
+                                                <option
+                                                    value="0" <?php echo ($this->proposta['tpprorrogacao'] === "0") ? "selected" : ""; ?>>
+                                                    N&atilde;o
+                                                </option>
+                                            </select>
+                                        </td>
+                                        <td><label for="nrAtoTombamento">N&uacute;mero do Ato </label></td>
+                                        <td><input type="text" class="input_simples" name="nrAtoTombamento"
+                                                   id="nrAtoTombamento"
+                                                   maxlength="12" onkeyup="ativarDesativarObrigatoriedadeDtAto()"
+                                                   value="<?php if (isset($this->proposta['idpreprojeto'])) echo trim($this->proposta['nratotombamento']); ?>"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="centro"><label for="dtFinalDeExecucao">Data Final *</label></td>
+                                        <td>
+                                            <input type="text" name="dtFinalDeExecucao" id="dtFinalDeExecucao"
+                                                   maxlength="10"
+                                                   class="input_simples btn_calendario"
+                                                   value="<?php if (isset($this->proposta['idpreprojeto'])) echo $this->proposta['dtfinaldeexecucaoform']; ?>"/>
+                                        </td>
+                                        <td></td>
+                                        <td><label for="dtAtoTombamento">Data do Ato </label></td>
+                                        <td>
+                                            <input type="text" name="dtAtoTombamento" id="dtAtoTombamento"
+                                                   maxlength="10"
+                                                   class="input_simples btn_calendario"
+                                                   value="<?php if (isset($this->proposta['idpreprojeto'])) echo $this->proposta['dtatotombamentoform']; ?>"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <span id="msgValidaData"></span>
+                                            <input type="hidden" name="blnDatasValidas" id="blnDatasValidas"
+                                                   value="true">
+                                        </td>
+                                        <td><label for="esferaTombamento">Esfera do Ato </label></td>
+                                        <td><select class="select_simples" name="esferaTombamento" id="esferaTombamento"
+                                                    style="width: 10em">
+                                                <option value="" selected>- Selecione-</option>
+                                                <option value="1" <?php
+                                                if (isset($this->proposta['idpreprojeto']))
+                                                    if ($this->proposta['esferatombamento'] == "1") {
+                                                        echo "selected";
+                                                    }
+                                                ?>>Municipal
+                                                </option>
+                                                <option value="2" <?php
+                                                if (isset($this->proposta['idpreprojeto']))
+                                                    if ($this->proposta['esferatombamento'] == "2") {
+                                                        echo "selected";
+                                                    }
+                                                ?>>Estadual
+                                                </option>
+                                                <option value="3" <?php
+                                                if (isset($this->proposta['idpreprojeto']))
+                                                    if ($this->proposta['esferatombamento'] == "3") {
+                                                        echo "selected";
+                                                    }
+                                                ?>>Federal
+                                                </option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                </table>
+                            <?php endif; ?>
 
                             <table class="tabela" cellpadding="1" cellspacing="1">
                                 <tr class="destacar centro">
@@ -331,20 +350,27 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p class="caption">Os objetivos devem ser formulados com intuito de especificar aquilo
-                                            que
-                                            se quer atingir a partir da realiza&ccedil;&atilde;o do projeto de seus produtos
-                                            finais, bem como os
-                                            benef&iacute;cios da a&ccedil;&atilde;o cultural, se poss&iacute;vel, a curto, m&eacute;dio
-                                            e a longo prazo. &Eacute; fundamental que os objetivos do projetos possam ser
-                                            medidos quantitativamente e/ou qualitativamente;</br>
-                                            </br><b>Objetivo Geral</b></br>
-                                            Descreve de forma clara e precisa a ideia central da proposta e seu produto final:
-                                            PARA QU&Ecirc; realizar o projeto?</br> </br><b>Objetivo Espec&iacute;fico</b></br>
-                                            Elenca as diversas a&ccedil;&otilde;es que concorrem para a efetiva&ccedil;&atilde;o
-                                            do
-                                            objetivo geral. &Eacute; descrito de forma mais detalhada do que o objetivo geral:
-                                            Qual(is) o(s) produto(s) e o(s) resultado(s) do projeto?</p>
+                                        <p class="caption">
+                                            O campo Objetivos deve conter os objetivos gerais e espec&iacute;ficos
+                                            de forma separada,
+                                            especificando cada categoria (geral e espec&iacute;fico).
+                                            </br></br><b>Objetivo Geral</b></br>
+                                            No Objetivo Geral deve-se descrever, resumidamente, qual o principal
+                                            resultado que o
+                                            projeto pretende alcan&ccedil;ar, qual a sua finalidade.
+                                            <br/>
+                                            Pergunta-chave: PARA QU&Ecirc;?
+                                            </br></br><b>Objetivo espec&iacute;fico</b></br>
+                                            Nos Objetivos espec&iacute;ficos deve-se citar todas as a&ccedil;&otilde;es
+                                            que ser&atilde;o realizadas
+                                            no projeto, ou seja, quais os produtos espec&iacute;ficos que ser&atilde;o
+                                            oferecidos &agrave;
+                                            popula&ccedil;&atilde;o. Os objetivos espec&iacute;ficos devem ser
+                                            mensur&aacute;veis e
+                                            devidamente comprovados na presta&ccedil;&atilde;o de contas.
+                                            <br/>
+                                            Pergunta-chave: QUAIS? QUANTOS?
+                                        </p>
 
                                         <textarea id="objetivos" class="browser-default editor"
                                                   name="objetivos" <?php echo isset($this->arrConfig['objetivos']['disabled']) ? 'disabled="disabled"' : '' ?>>
@@ -360,10 +386,17 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p class="caption">Inserir a justificativa do projeto, destacando os motivos para sua
-                                            realiza&ccedil;&atilde;o bem como a necessidade do uso do Mecanismo Incentivo a
-                                            Projetos
-                                            Culturais para realiza&ccedil;&atilde;o do mesmo.</p>
+                                        <p class="caption">
+                                            Destaque a necessidade do uso do Mecanismo Incentivo a Projetos
+                                            Culturais para
+                                            financiamento deste, apresentando em quais incisos do Art. 1&ordm; da
+                                            Lei 8313/91 o
+                                            projeto se enquadra, bem como quais objetivos do Art. 3&ordm; da
+                                            referida norma
+                                            ser&atilde;o alcan&ccedil;ados.
+                                            <br/><br/>
+                                            Pergunta-chave: POR QUE A LEI ROUANET?
+                                        </p>
 
                                         <textarea id="justificativa" class="browser-default editor"
                                                   name="justificativa" <?php echo isset($this->arrConfig['justificativa']['disabled']) ? 'disabled="disabled"' : '' ?>>
@@ -373,19 +406,20 @@
                                     </td>
                                 </tr>
                             </table>
-                        <?php endif; ?>
-                    </div>
 
-                    <?php if ($this->isEditavel || empty($this->idPreProjeto)) : ?>
-                        <div class="row">
-                            <div class="input-field col s12 center">
-                                <button class="btn waves-effect waves-light" type="submit" name="action">Salvar
-                                    <i class="material-icons right">send</i>
-                                </button>
-                            </div>
                         </div>
-                    <?php endif; ?>
-                </form>
+
+                        <?php if ($this->isEditavel || empty($this->idPreProjeto)) : ?>
+                            <div class="row">
+                                <div class="input-field col s12 center">
+                                    <button class="btn waves-effect waves-light" type="submit" name="action">Salvar
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -401,25 +435,26 @@
     }
 
     $(document).ready(function () {
+        var desabilitarEdicao = 0;
 
-        <?php if (!$this->isEditavel && !empty($this->idPreProjeto)) : ?>
-            JSBloquearAlteracaoFormulario();
+        <?php if (!$this->isEditavel) : ?>
+        desabilitarEdicao = true;
         <?php endif; ?>
 
         $("#resumodoprojeto").editorRico({
             altura: 200,
             maxchar: 1000,
-            isLimitarCarateres : true,
-            isDesabilitarEdicao: 0
+            isLimitarCarateres: true,
+            isDesabilitarEdicao: desabilitarEdicao
         });
 
-        $("textarea.editor:not(#resumodoprojeto)").each(function () {
+        $("textarea.editor").each(function () {
 
             $(this).editorRico({
                 altura: 400,
                 maxchar: 8000,
-                isLimitarCarateres : true,
-                isDesabilitarEdicao: 0
+                isLimitarCarateres: true,
+                isDesabilitarEdicao: desabilitarEdicao
             });
         });
 
@@ -518,23 +553,25 @@
                     $("#msgValidaData").focusin();
                     return false;
                 }
-                //valida data do ano anual
-                if ($("#stProposta").val() == '4' && $("#dtInicioDeExecucao").val().length == 10) {
-                    ano_vigente = <?php echo date('Y')?>;
-                    ano_execucao = new Number($('#dtInicioDeExecucao').val().substr(6, 4));
-                    if (ano_vigente >= ano_execucao) {
-//                        JSMostraOcultaObj('identificacaodiv');
-                        $("#ValidaStProposta").html("<font color='red'>O per&iacute;odo de execu&ccedil;&atilde;o de projetos de plano anual dever ser posterior ao ano vigente</font>");
-                        $("#dtInicioDeExecucao").focusin();
-                        return false;
+
+                <?php if (!$this->projeto) : ?>
+                    //valida data do ano anual
+                    if ($("#stProposta").val() == '614' && $("#dtInicioDeExecucao").val().length == 10) {
+                        ano_vigente = <?php echo date('Y')?>;
+                        ano_execucao = new Number($('#dtInicioDeExecucao').val().substr(6, 4));
+                        if (ano_vigente >= ano_execucao) {
+                            $("#ValidaStProposta").html("<font color='red'>O per&iacute;odo de execu&ccedil;&atilde;o de projetos de plano anual dever ser posterior ao ano vigente</font>");
+                            $("#dtInicioDeExecucao").focusin();
+                            return false;
+
+                        } else {
+                            $("#ValidaStProposta").html("");
+                        }
 
                     } else {
                         $("#ValidaStProposta").html("");
                     }
-
-                } else {
-                    $("#ValidaStProposta").html("");
-                }
+                <?php endif; ?>
 
                 form.submit();
 
@@ -669,11 +706,11 @@
         function layout_fluido() {
             var janela = $(window).width();
 
-            $("#navglobal").css("width", "100%");
-            $("#conteudo").css("width", "100%");
-            $("#titulo").css("width", "100%");
-            $("#rodapeConteudo").css("width", "100%");
-            $("#rodape").css("width", "100%");
+//            $("#navglobal").css("width", "100%");
+//            $("#conteudo").css("width", "100%");
+//            $("#titulo").css("width", "100%");
+//            $("#rodapeConteudo").css("width", "100%");
+//            $("#rodape").css("width", "100%");
             $("div#rodapeConteudo").attr("id", "rodapeConteudo_com_menu");
         }
 

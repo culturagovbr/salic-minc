@@ -8,13 +8,15 @@
  * @subpackage application.controller
  * @link http://www.cultura.gov.br
  */
-class PublicacaoDouController extends MinC_Controller_Action_Abstract {
+class PublicacaoDouController extends MinC_Controller_Action_Abstract
+{
 
     /**
      * @var integer (variavel com o id do usuario logado)
      * @access privacte
      */
-    public function init() {
+    public function init()
+    {
         // verifica as permissoes
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 128; // Tecnico de Portaria
@@ -31,8 +33,8 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function indexAction() {
-
+    public function indexAction()
+    {
         $tblOrgao = new Orgaos();
         $rsOrgao  = $tblOrgao->buscar(array(), array("Sigla ASC"));
         $this->view->orgaos = $rsOrgao;
@@ -41,30 +43,29 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
 //        $this->intTamPag = 10;
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
         } else {
             $campo = null;
             $order = array(1); //NomeProjeto
@@ -73,7 +74,9 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         /* ================== PAGINACAO ======================*/
@@ -85,7 +88,7 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
 
         $wherenaopublicados = array();
 
-        if($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC){
+        if ($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC) {
             $wherenaopublicados['pr.Area <> ?'] = 2;
         } else {
             $wherenaopublicados['pr.Area = ?'] = 2;
@@ -94,17 +97,17 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
         //$wherenaopublicados['YEAR(ap.DtInicioCaptacao) = YEAR(GETDATE())'] = '';
 
 
-        if((isset($_GET['pronac']) && !empty($_GET['pronac']))){
+        if ((isset($_GET['pronac']) && !empty($_GET['pronac']))) {
             $this->view->pronac = $_GET['pronac'];
             $wherenaopublicados['pr.AnoProjeto+pr.Sequencial = ?'] = $_GET['pronac'];
         }
 
-        if((isset($_GET['orgaoFiltro']) && !empty($_GET['orgaoFiltro']))){
+        if ((isset($_GET['orgaoFiltro']) && !empty($_GET['orgaoFiltro']))) {
             $this->view->orgaoFiltro = $_GET['orgaoFiltro'];
             $wherenaopublicados['pr.Orgao = ?'] = $_GET['orgaoFiltro'];
         }
 
-        if(isset($_GET['situacao'])){
+        if (isset($_GET['situacao'])) {
             $filtro = $_GET['situacao'];
             $this->view->filtro = $filtro;
             switch ($filtro) {
@@ -149,8 +152,8 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
             $wherenaopublicados['ap.TipoAprovacao = ?'] = 1;
         }
 
-        $projetos = New Projetos();
-        if($this->_getParam('situacao') == 'readequacao'){
+        $projetos = new Projetos();
+        if ($this->_getParam('situacao') == 'readequacao') {
             $total = $projetos->buscarProjetosReadequacoes($wherenaopublicados, $order, null, null, true);
         } else {
             $total = $projetos->buscarProjetosAprovados($wherenaopublicados, $order, null, null, true);
@@ -160,7 +163,7 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
         $totalPag = (int)(($total % $this->intTamPag == 0)?($total/$this->intTamPag):(($total/$this->intTamPag)+1));
         $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
 
-        if($this->_getParam('situacao') == 'readequacao'){
+        if ($this->_getParam('situacao') == 'readequacao') {
             $busca = $projetos->buscarProjetosReadequacoes($wherenaopublicados, $order, $tamanho, $inicio);
         } else {
             $busca = $projetos->buscarProjetosAprovados($wherenaopublicados, $order, $tamanho, $inicio);
@@ -194,14 +197,14 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
 
 
         $wherepublicados["ap.dtPortariaAprovacao IS NOT NULL OR DtPublicacaoAprovacao IS NOT NULL or ap.PortariaAprovacao <> ''"] = '';
-        if($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC){
+        if ($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC) {
             $wherepublicados['pr.Area <> ?'] = 2;
         } else {
             $wherepublicados['pr.Area = ?'] = 2;
         }
         //$wherepublicados['YEAR(ap.DtInicioCaptacao) = YEAR(GETDATE())'] = '';
 
-        if(isset($_GET['situacao'])){
+        if (isset($_GET['situacao'])) {
             $filtro = $_GET['situacao'];
             switch ($filtro) {
                 case 'aprovacaoInicial':
@@ -243,7 +246,6 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
 
         ini_set('memory_limit', '-1');
         if (isset($_POST['datapublicacao'])) {
-
             $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
             $datapublicacao = $_POST['datapublicacao'];
             $portaria = $_POST['portaria'];
@@ -253,10 +255,10 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
             try {
                 PublicacaoDouDAO::alterardatapublicacao($dados, $portaria);
                 $this->_helper->json(array('error' => false, 'datagravada' => $datapublicacao));
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             } catch (Exception $e) {
                 $this->_helper->json(array('error' => true));
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             }
         }
 
@@ -294,12 +296,13 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
 
             $table.= '<table>';
             echo $table;
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
     }
 
 
-    public function gerarportariaAction() {
+    public function gerarportariaAction()
+    {
         ini_set('memory_limit', '-1');
         $aprovacao = new Aprovacao();
         $projeto = new Projetos();
@@ -354,7 +357,7 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
                     $DtPublicacaoAprovacao = strftime("%Y-%m-%d %H:%M:%S", strtotime("+4 days"));
                 }
                 // feriado na sexta e na segunda
-                else if (in_array(strftime("%Y-%m-%d", strtotime("+1 days")), $feriados) && in_array(strftime("%Y-%m-%d", strtotime("+4 days")), $feriados)) {
+                elseif (in_array(strftime("%Y-%m-%d", strtotime("+1 days")), $feriados) && in_array(strftime("%Y-%m-%d", strtotime("+4 days")), $feriados)) {
                     $DtPublicacaoAprovacao = strftime("%Y-%m-%d %H:%M:%S", strtotime("+5 days"));
                 } else {
                     $DtPublicacaoAprovacao = strftime("%Y-%m-%d %H:%M:%S", strtotime("+1 days"));
@@ -374,11 +377,11 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
                     $dtInicioExecucao = $resultado->DtInicioExecucao;
 
                     //se a data final de execucao estiver em branco (projetos antigos) o sistema considera o 31/12/ano em quest�o
-                    if($resultado->DtFimExecucao == '' || empty($resultado->DtFimExecucao)){
+                    if ($resultado->DtFimExecucao == '' || empty($resultado->DtFimExecucao)) {
                         $dtFimCaptacao = date("Y", strtotime($DtPublicacaoAprovacao)) . '-12-31 ' . date("H:i:s");
                     } else {
                         //se o ano da data final de execucao for maior do que o ano em questao, o fim de captacao vai ate 31/12/ano em questao
-                        if(date("Y", strtotime($dtFimCaptacao)) > date("Y", strtotime($DtPublicacaoAprovacao))){
+                        if (date("Y", strtotime($dtFimCaptacao)) > date("Y", strtotime($DtPublicacaoAprovacao))) {
                             $dtFimCaptacao = date("Y", strtotime($DtPublicacaoAprovacao)) . '-12-31 ' . date("H:i:s");
                         }
                     }
@@ -391,16 +394,16 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
                         'DtFimCaptacao' => $dtFimCaptacao
                     );
 
-                    if($tipoPublicacao == 'prorrogacao'){
+                    if ($tipoPublicacao == 'prorrogacao') {
                         $pronac = $resultado->AnoProjeto.$resultado->Sequencial;
                         $datas = $aprovacao->buscarDatasCaptacao($pronac, $buscaridpronac->idProrrogacao);
                         $dadosPortaria['DtInicioCaptacao'] = $datas[0]->DtInicio;
                         $dadosPortaria['DtFimCaptacao'] = $datas[0]->DtFinal;
 
-                        if(strtotime($dtFimExecucao) < strtotime($datas[0]->DtFinal)){
+                        if (strtotime($dtFimExecucao) < strtotime($datas[0]->DtFinal)) {
                             $dtFimExecucao = $datas[0]->DtFinal;
                         }
-                    } else if ($tipoPublicacao == 'reducao' || $tipoPublicacao == 'complementacao') {
+                    } elseif ($tipoPublicacao == 'reducao' || $tipoPublicacao == 'complementacao') {
                         $dadosPortaria['DtInicioCaptacao'] = null;
                         $dadosPortaria['DtFimCaptacao'] = null;
                     }
@@ -429,10 +432,10 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
                             'DtFimExecucao' => $dtFimExecucao
                         );
 
-                        if($tipoPublicacao == 'prorrogacao' && (empty($dtInicioExecucao) || $dtInicioExecucao == '')){
+                        if ($tipoPublicacao == 'prorrogacao' && (empty($dtInicioExecucao) || $dtInicioExecucao == '')) {
                             $dadosSituacao['DtInicioExecucao'] = $datas[0]->DtInicio;
                         }
-                        if(isset($tipoPublicacao)){
+                        if (isset($tipoPublicacao)) {
                             switch ($tipoPublicacao) {
                                 case 'aprovacaoInicial':
                                     $dadosSituacao['Situacao'] = 'D09';
@@ -471,49 +474,44 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
 
 
                 // @todo pelo amor dos meus filhinhos, tirar esse if bizarro abaixo e armazenar numa tabela!
-                if($nome == 1){ //Ana Cristina da Cunha Wanzeler
+                if ($nome == 1) { //Ana Cristina da Cunha Wanzeler
                     $textoPortaria = '426 de 28 de maio de 2014 e o art. 4&ordm; da Portaria n&ordm; 120, de 30 de mar&ccedil;o de 2010';
                     $nm = 'Ivan Domingues das Neves';
-
-                } else if($nome == 2) { //Joao Batista da Silva
+                } elseif ($nome == 2) { //Joao Batista da Silva
                     $textoPortaria = '805 de 09 de outubro de 2013, e em cumprimento ao disposto na Lei 8.313, de 23 de dezembro de 1991, Decreto n� 5.761, de 27 de abril de 2006, Medida Provis�ria n� 2.228-1, de 06 de setembro de 2001, alterada pela Lei n� 10.454 de 13 de maio de 2002';
                     $nm = 'Jo&atilde;o Batista da Silva';
-
-                } else if($nome == 3) { //Kleber da Silva Rocha
+                } elseif ($nome == 3) { //Kleber da Silva Rocha
                     $textoPortaria = '909 de 19 de novembro de 2013 e o art. 4&ordm; da Portaria n&ordm; 120, de 30 de Mar&ccedil;o de 2010';
                     $nm = 'Kleber da Silva Rocha';
-
-                } else if($nome == 4) { //Mario Henrique Costa Borgneth
+                } elseif ($nome == 4) { //Mario Henrique Costa Borgneth
                     $textoPortaria = '846 de 07 de novembro de 2013, e em cumprimento ao disposto na Lei 8.313, de 23 de dezembro de 1991, Decreto n� 5.761, de 27 de abril de 2006, Medida Provis�ria n� 2.228-1, de 06 de setembro de 2001, alterada pela Lei n� 10.454 de 13 de maio de 2002';
                     $nm = 'M&aacute;rio Henrique Costa Borgneth';
-
                 } else {
                     $textoPortaria = '17 de 12 de janeiro de 2010 e o art. 4&ordm; da Portaria n&ordm; 120, de 30 de Mar&ccedil;o de 2010';
                     $nm = 'Ivan Domingues das Neves';
                 }
-                $this->view->cargo = strtoupper(strtr($cargo ,"áéíóúâêôãõàèìòùç","ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
-                $this->view->nome = strtoupper(strtr($nm ,"áéíóúâêôãõàèìòùç","ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
+                $this->view->cargo = strtoupper(strtr($cargo, "áéíóúâêôãõàèìòùç", "ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
+                $this->view->nome = strtoupper(strtr($nm, "áéíóúâêôãõàèìòùç", "ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
 
                 $this->view->tipoPublicacao = $tipoPublicacao;
                 $this->view->textoPortaria = $textoPortaria;
 
                 parent::message("Portaria n&deg; ".$nrPortaria."/".$ano2Digitos." foi gerada com sucesso!", "publicacaodou/consultar-portaria?portaria=".$nrPortaria."/".$ano2Digitos."&situacao=".$tipoPublicacao, "CONFIRM");
-
-            }
-            catch (Exception $e) {
+            } catch (Exception $e) {
                 parent::message($e->getMessage(), "publicacaodou?situacao=".$tipoPublicacao, "ERROR");
             }
         }
     }
 
-    public function retirarportariaAction() {
+    public function retirarportariaAction()
+    {
         ini_set('memory_limit', '-1');
 
         if ($_GET['PortariaAprovacao']) {
             $PortariaAprovacao = $_GET['PortariaAprovacao'];
 
             $dados = array();
-            if(isset($_GET['tipo'])){
+            if (isset($_GET['tipo'])) {
                 switch ($_GET['tipo']) {
                     case 'aprovacaoInicial':
                         $dados['Situacao'] = 'D27';
@@ -564,7 +562,7 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
                     $dados['DtSituacao'] = date('Y-m-d');
                     $dados['ProvidenciaTomada'] = 'Projeto encaminhado para a inclus&atilde;o em portaria.';
 
-                    if($tipoPublicacao == 8){ //Se for readequacao, nao altera os dados da Situacao
+                    if ($tipoPublicacao == 8) { //Se for readequacao, nao altera os dados da Situacao
                         $dados['Situacao'] = $dadosProjeto->Situacao;
                         $dados['DtSituacao'] = $dadosProjeto->DtSituacao;
                     }
@@ -587,13 +585,14 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
     /**
      * Faz a publica&ccedil;&atilde;o na portaria
      */
-    public function publicarportariaAction() {
+    public function publicarportariaAction()
+    {
         ini_set('memory_limit', '-1');
 
         if ($_GET['PortariaAprovacao']) {
             $PortariaAprovacao = $_GET['PortariaAprovacao'];
 
-            if(isset($_GET['tipo'])){
+            if (isset($_GET['tipo'])) {
                 switch ($_GET['tipo']) {
                     case 'aprovacaoInicial':
                         $TipoAprovacao = 1;
@@ -639,66 +638,64 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
             $usuarioLogado = $auth->getIdentity()->usu_codigo;
 
             try {
-	        // REDUCAO OU COMPLEMENTACAO
-                if($TipoAprovacao == 2 || $TipoAprovacao == 4) {
-		  $where = array();
-		  if($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC){
-		    $where['a.Area <> ?'] = 2;
-		  } else {
-		    $where['a.Area = ?'] = 2;
-		  }
-		  $where['b.TipoAprovacao = ?'] = $TipoAprovacao;
-		  $where['b.PortariaAprovacao = ?'] = $PortariaAprovacao;
-
-		  $ap = new Aprovacao();
-		  $projetos = $ap->consultaPortariaReadequacoes($where);
-
-		  foreach ($projetos as $p) {
-		    // entra em cada projeto e atualiza tbReadequacao e troca planilha
-		    $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
-		    //BUSCAR VALOR TOTAL DA PLANILHA ATIVA
-		    $where = array();
-		    $where['a.IdPRONAC = ?'] = $p->IdPRONAC;
-		    $where['a.stAtivo = ?'] = 'S';
-		    $PlanilhaAtiva = $tbPlanilhaAprovacao->valorTotalPlanilha($where)->current();
-
-		    //BUSCAR VALOR TOTAL DA PLANILHA DE READEQUADA
-		    $where = array();
-		    $where['a.IdPRONAC = ?'] = $p->IdPRONAC;
-		    $where['a.tpPlanilha = ?'] = 'SR';
-		    $where['a.stAtivo = ?'] = 'N';
-		    $PlanilhaReadequada = $tbPlanilhaAprovacao->valorTotalPlanilha($where)->current();
-
-		    if($PlanilhaAtiva->Total != $PlanilhaReadequada->Total){
-		      // quando atualiza portaria na dou, troca planilhas e muda status na tbReadequacao
-		      //Atualiza a tabela tbReadequacao
-		      $tbReadequacao = new tbReadequacao();
-
-		      $dados = array();
-		      $dados['siEncaminhamento'] = 15; //Finalizam sem a necessidade de passar pela publica&ccedil;&atilde;o no DOU.
-		      $dados['stEstado'] = 1;
-		      $where = "idReadequacao = " . $p->idReadequacao;
-		      $return = $tbReadequacao->update($dados, $where);
-
-		      $spAtivarPlanilhaOrcamentaria = new spAtivarPlanilhaOrcamentaria();
-		      $ativarPlanilhaOrcamentaria = $spAtivarPlanilhaOrcamentaria->exec($p->IdPRONAC);
-		    }
-
-		    // PUBLICA NO DOU
-                    PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'E10', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
-                    PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'E12', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
-
-		    // fim da atualizacao da complementacao / reducao
-		  }
-
-                } else if($TipoAprovacao == 5){
-                    PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'E19', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
-                } else if($TipoAprovacao == 6){
-                    PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'L05', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
-                } else if($TipoAprovacao == 8){
-
+                // REDUCAO OU COMPLEMENTACAO
+                if ($TipoAprovacao == 2 || $TipoAprovacao == 4) {
                     $where = array();
-                    if($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC){
+                    if ($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC) {
+                        $where['a.Area <> ?'] = 2;
+                    } else {
+                        $where['a.Area = ?'] = 2;
+                    }
+                    $where['b.TipoAprovacao = ?'] = $TipoAprovacao;
+                    $where['b.PortariaAprovacao = ?'] = $PortariaAprovacao;
+
+                    $ap = new Aprovacao();
+                    $projetos = $ap->consultaPortariaReadequacoes($where);
+
+                    foreach ($projetos as $p) {
+                        // entra em cada projeto e atualiza tbReadequacao e troca planilha
+                        $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
+                        //BUSCAR VALOR TOTAL DA PLANILHA ATIVA
+                        $where = array();
+                        $where['a.IdPRONAC = ?'] = $p->IdPRONAC;
+                        $where['a.stAtivo = ?'] = 'S';
+                        $PlanilhaAtiva = $tbPlanilhaAprovacao->valorTotalPlanilha($where)->current();
+
+                        //BUSCAR VALOR TOTAL DA PLANILHA DE READEQUADA
+                        $where = array();
+                        $where['a.IdPRONAC = ?'] = $p->IdPRONAC;
+                        $where['a.tpPlanilha = ?'] = 'SR';
+                        $where['a.stAtivo = ?'] = 'N';
+                        $PlanilhaReadequada = $tbPlanilhaAprovacao->valorTotalPlanilha($where)->current();
+
+                        if ($PlanilhaAtiva->Total != $PlanilhaReadequada->Total) {
+                            // quando atualiza portaria na dou, troca planilhas e muda status na tbReadequacao
+                            //Atualiza a tabela tbReadequacao
+                            $tbReadequacao = new tbReadequacao();
+
+                            $dados = array();
+                            $dados['siEncaminhamento'] = 15; //Finalizam sem a necessidade de passar pela publica&ccedil;&atilde;o no DOU.
+                            $dados['stEstado'] = 1;
+                            $where = "idReadequacao = " . $p->idReadequacao;
+                            $return = $tbReadequacao->update($dados, $where);
+
+                            $spAtivarPlanilhaOrcamentaria = new spAtivarPlanilhaOrcamentaria();
+                            $ativarPlanilhaOrcamentaria = $spAtivarPlanilhaOrcamentaria->exec($p->IdPRONAC);
+                        }
+
+                        // PUBLICA NO DOU
+                        PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'E10', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
+                        PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'E12', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
+
+                        // fim da atualizacao da complementacao / reducao
+                    }
+                } elseif ($TipoAprovacao == 5) {
+                    PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'E19', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
+                } elseif ($TipoAprovacao == 6) {
+                    PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'L05', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
+                } elseif ($TipoAprovacao == 8) {
+                    $where = array();
+                    if ($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC) {
                         $where['a.Area <> ?'] = 2;
                     } else {
                         $where['a.Area = ?'] = 2;
@@ -710,8 +707,7 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
                     $projetos = $ap->consultaPortariaReadequacoes($where);
                     foreach ($projetos as $p) {
                         // READEQUACAO DE ALTERACAO DE RAZAO SOCIAL
-			if($p->idTipoReadequacao == 3){
-
+                        if ($p->idTipoReadequacao == 3) {
                             $Projetos = new Projetos();
                             $dadosPrj = $Projetos->find(array('IdPRONAC=?'=>$p->IdPRONAC))->current();
 
@@ -723,9 +719,8 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
                             $dadosNomes->Descricao = $p->dsSolicitacao;
                             $dadosNomes->save();
 
-                        // READEQUACAO DE ALTERACAO DE PROPONENTE
-                        } else if($p->idTipoReadequacao == 10){
-
+                            // READEQUACAO DE ALTERACAO DE PROPONENTE
+                        } elseif ($p->idTipoReadequacao == 10) {
                             $Projetos = new Projetos();
                             $dadosPrj = $Projetos->find(array('IdPRONAC=?'=>$p->IdPRONAC))->current();
 
@@ -733,9 +728,8 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
                             $dadosPrj->CgcCpf = $cnpjcpf;
                             $dadosPrj->save();
 
-                        // READEQUACAO DE NOME DO PROJETO
-                        } else if($p->idTipoReadequacao == 12){
-
+                            // READEQUACAO DE NOME DO PROJETO
+                        } elseif ($p->idTipoReadequacao == 12) {
                             $Projetos = new Projetos();
                             $dadosPrj = $Projetos->find(array('IdPRONAC=?'=>$p->IdPRONAC))->current();
                             $dadosPrj->NomeProjeto = $p->dsSolicitacao;
@@ -743,9 +737,8 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
                             $dadosPrj->Logon = $usuarioLogado;
                             $dadosPrj->save();
 
-                        // READEQUACAO DE RESUMO DO PROJETO
-                        } else if($p->idTipoReadequacao == 15){
-
+                            // READEQUACAO DE RESUMO DO PROJETO
+                        } elseif ($p->idTipoReadequacao == 15) {
                             $Projetos = new Projetos();
                             $dadosPrj = $Projetos->find(array('IdPRONAC=?'=>$p->IdPRONAC))->current();
                             $dadosPrj->ResumoProjeto = $p->dsSolicitacao;
@@ -761,7 +754,6 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
                         $dadosReadequacao->save();
                     }
                     parent::message("Portaria publicada com sucesso!", "publicacaodou/index?pronac=&situacao=".$this->_getParam('tipo'), "CONFIRM");
-
                 } else {
                     PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'E10', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
                     PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'E12', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
@@ -770,11 +762,11 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
             } catch (Exception $e) {
                 parent::message("Erro ao atualizar a portaria!" . $e->getMessage(), "publicacaodou/index?pronac=&situacao=".$_GET['tipo'], "ERROR");
             }
-
         } // fecha if
     }
 
-    public function imprimirPublicadosAction(){
+    public function imprimirPublicadosAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $pr = new Projetos();
         $portaria = str_replace('-', '/', $_GET['portaria']);
@@ -783,18 +775,16 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
         $buscarprojetos = $pr->buscarProjetosAprovados($where);
         $this->view->dados = $buscarprojetos;
         $this->view->portaria = $portaria;
-        
     }
 
-    public function consultarPortariaAction(){
-
+    public function consultarPortariaAction()
+    {
         $numeroPortaria = $this->_getParam('portaria');
         $situacao = $this->_getParam('situacao');
 
         //Se foi feito a pesquisa pelo filtro
-        if($_GET){
-
-            if(isset($numeroPortaria) && empty($numeroPortaria)){
+        if ($_GET) {
+            if (isset($numeroPortaria) && empty($numeroPortaria)) {
                 parent::message("Favor informar o n&uacute;mero da portaria!", "publicacaodou/consultar-portaria", "ALERT");
             }
 
@@ -805,14 +795,14 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
             $orgaoSuperior = $Orgaos->codigoOrgaoSuperior($orgaoAtivo)->current();
 
             $where = array();
-            if($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC){
+            if ($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC) {
                 $where['a.Area <> ?'] = 2;
             } else {
                 $where['a.Area = ?'] = 2;
             }
 
             $this->view->filtro = $situacao;
-            if(isset($situacao)){
+            if (isset($situacao)) {
                 $filtro = $situacao;
                 switch ($filtro) {
                     case 'aprovacaoInicial':
@@ -851,7 +841,7 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
 
             // busca os projetos publicados
             $ap = new Aprovacao();
-            if($filtro == 'readequacao'){
+            if ($filtro == 'readequacao') {
                 $buscaportaria = $ap->consultaPortariaReadequacoes($where);
             } else {
                 $buscaportaria = $ap->consultaPortaria($where);
@@ -865,7 +855,8 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function gerarArquivoRtfAction(){
+    public function gerarArquivoRtfAction()
+    {
         ini_set('memory_limit', '-1');
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
@@ -874,8 +865,8 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
         $textoPortaria = trim(strip_tags($dados->dsPortaria));
         $nm = $dados->dsAssinante;
 
-        $this->view->cargo = strtoupper(strtr($dados->dsCargo ,"áéíóúâêôãõàèìòùç","ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
-        $this->view->nome = strtoupper(strtr($nm ,"áéíóúâêôãõàèìòùç","ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
+        $this->view->cargo = strtoupper(strtr($dados->dsCargo, "áéíóúâêôãõàèìòùç", "ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
+        $this->view->nome = strtoupper(strtr($nm, "áéíóúâêôãõàèìòùç", "ÁÉÍÓÚÂÊÔÃÕÀÈÌÒÙÇ"));
         $this->view->tipoPublicacao = isset($_POST['imprimitipoPublicacao']) && !empty($_POST['imprimitipoPublicacao']) ? $_POST['imprimitipoPublicacao'] : '';
         $this->view->textoPortaria = $textoPortaria;
 
@@ -885,7 +876,7 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
         $Orgaos = new Orgaos();
         $orgaoSuperior = $Orgaos->codigoOrgaoSuperior($orgaoAtivo)->current();
 
-        if($this->view->tipoPublicacao == 'readequacao'){
+        if ($this->view->tipoPublicacao == 'readequacao') {
             $portaria = PublicacaoDouDAO::ProjetoPortariaGerarRTFReadequacoes($_POST['nrportaria'], $orgaoSuperior);
         } else {
             $portaria = PublicacaoDouDAO::ProjetoPortariaGerarRTF($_POST['nrportaria'], $orgaoSuperior);
@@ -893,7 +884,8 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
         $this->view->portaria = $portaria;
     }
 
-    public function imprimirTabelaPortariaAction(){
+    public function imprimirTabelaPortariaAction()
+    {
         ini_set('memory_limit', '-1');
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
@@ -904,14 +896,14 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
         $orgaoSuperior = $Orgaos->codigoOrgaoSuperior($orgaoAtivo)->current();
 
         $where = array();
-        if($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC){
+        if ($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC) {
             $where['a.Area <> ?'] = 2;
         } else {
             $where['a.Area = ?'] = 2;
         }
 
         $this->view->filtro = $_POST['filtro'];
-        if(isset($_POST['filtro'])){
+        if (isset($_POST['filtro'])) {
             $filtro = $_POST['filtro'];
             switch ($filtro) {
                 case 'aprovacaoInicial':
@@ -951,6 +943,4 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract {
         $this->view->projetos = $buscaportaria;
         $this->view->portaria = $_POST['nrportaria'];
     }
-
 }
-

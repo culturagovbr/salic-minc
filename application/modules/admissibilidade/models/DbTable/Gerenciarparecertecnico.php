@@ -4,7 +4,8 @@
  * @author Vinícius Feitosa da Silva <viniciusfesil@mail.com>
  * @since 02/12/2016 15:05
  */
-class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Table_Abstract{
+class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Table_Abstract
+{
     protected $_banco   = 'SAC';
     protected $_schema  = 'SAC';
     protected $_name    = 'Projetos';
@@ -12,22 +13,22 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 
     public static function BuscaProjeto($pronac)
     {
-    	$sql = "select
+        $sql = "select
 					AnoProjeto+Sequencial as pronac,
 					Situacao
 				from SAC.dbo.Projetos" ;
 
-   		/*$sql .= "where AnoProjeto+Sequencial = '$pronac' and
-   		(Situacao = 'E12' or Situacao = 'C16' or Situacao = 'D11' or Situacao = 'A14' or Situacao = 'D25' or Situacao = 'E23')";*/
+        /*$sql .= "where AnoProjeto+Sequencial = '$pronac' and
+        (Situacao = 'E12' or Situacao = 'C16' or Situacao = 'D11' or Situacao = 'A14' or Situacao = 'D25' or Situacao = 'E23')";*/
 
-    $db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
-    return $db->fetchAll($sql);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
     }
 
-	public static function dadosEtiqueta($pronac)
+    public static function dadosEtiqueta($pronac)
     {
-    	$sql = "SELECT
+        $sql = "SELECT
 				    p.AnoProjeto + p.Sequencial AS NrProjeto,
 					p.NomeProjeto,
 					p.UfProjeto,
@@ -69,16 +70,15 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 				    sac.dbo.Mecanismo AS m ON p.Mecanismo = m.Codigo INNER JOIN
 				    sac.dbo.Situacao AS si ON p.Situacao = si.Codigo
 				WHERE p.AnoProjeto + p.Sequencial = '$pronac'";
-	$db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-    return $db->fetchAll($sql);
-
+        return $db->fetchAll($sql);
     }
 
-    public static function ParecerTecnico ($pronac)
+    public static function ParecerTecnico($pronac)
     {
-    	$sql = "SELECT
+        $sql = "SELECT
 				   idPRONAC,
 				   AnoProjeto+Sequencial as Pronac,
 				   p.NomeProjeto as NomeProjeto,
@@ -96,15 +96,15 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 				     INNER JOIN sac.dbo.Segmento s             on (p.Segmento = s.Codigo)
 				     INNER JOIN sac.dbo.Mecanismo m            on (p.Mecanismo = m.Codigo)
 				WHERE p.Anoprojeto+p.Sequencial='$pronac'";
-	$db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-    return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
 
-    public static function AnaliseConteudo ($pronac)
+    public static function AnaliseConteudo($pronac)
     {
-    	$sql = "SELECT
+        $sql = "SELECT
 					p.IdPRONAC,
 					p.AnoProjeto + p.Sequencial AS Pronac,
 					p.NomeProjeto,
@@ -168,15 +168,15 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 				WHERE (a.idUsuario IS NOT NULL) and p.AnoProjeto + p.Sequencial='$pronac'";
 
 
-    $db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-    return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
 
     public static function Deslocamento($pronac)
     {
-    	$sql = "select
+        $sql = "select
 					idDeslocamento,
 					d.idProjeto,
 					d.idPaisOrigem,
@@ -199,16 +199,15 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 					WHERE p.AnoProjeto+p.Sequencial = '$pronac' order by d.idDeslocamento";
 
 
-    $db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-    return $db->fetchAll($sql);
-
+        return $db->fetchAll($sql);
     }
 
-    public static function InformacoesProjeto ($pronac)
+    public static function InformacoesProjeto($pronac)
     {
-    	$sql = "SELECT
+        $sql = "SELECT
 					p.idPronac,
 					p.idProjeto,
 					p.AnoProjeto+p.Sequencial as Pronac,
@@ -230,30 +229,30 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 				       INNER JOIN sac.dbo.Projetos p on (pr.idPreProjeto = p.idProjeto)
 				WHERE p.AnoProjeto+p.Sequencial ='$pronac'";
 
-    $db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-    return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
 
-    public static function Divulgacao ($pronac)
+    public static function Divulgacao($pronac)
     {
-    	$sql = "SELECT v1.Descricao as Peca,v2.Descricao as Veiculo
+        $sql = "SELECT v1.Descricao as Peca,v2.Descricao as Veiculo
 					FROM sac.dbo.PlanoDeDivulgacao d
 					INNEr JOIN sac.dbo.Projetos p on (d.idProjeto = p.idProjeto)
 					INNER JOIN sac.dbo.Verificacao v1 on (d.idPeca = v1.idVerificacao)
 					INNER JOIN sac.dbo.Verificacao v2 on (d.idVeiculo = v2.idVerificacao)
 					WHERE p.AnoProjeto+p.Sequencial='$pronac'";
 
-    $db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-    return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
 
-    public static function LocalRealizacao ($pronac)
+    public static function LocalRealizacao($pronac)
     {
-    	$sql = "SELECT CASE a.idPais
+        $sql = "SELECT CASE a.idPais
 			            WHEN 0 THEN 'N�o � poss�vel informar o local de realiza��o do projeto'
 			            ELSE p.Descricao
 			            END as Pais,u.Descricao as UF,m.Descricao as Cidade,x.DtInicioDeExecucao,x.DtFinalDeExecucao
@@ -265,15 +264,15 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 			LEFT JOIN agentes.dbo.Municipios m on (a.idMunicipioIBGE=m.idMunicipioIBGE)
 			WHERE y.AnoProjeto+y.Sequencial = '$pronac' AND a.stAbrangencia = 1";
 
-    $db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-    return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
 
     public static function PlanoDistribuicao($pronac)
     {
-    	$sql = "SELECT
+        $sql = "SELECT
 					idPlanoDistribuicao,
 					x.idProjeto,
 					idProduto,
@@ -297,15 +296,15 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 
 				WHERE y.AnoProjeto+y.Sequencial='$pronac' AND x.stPlanoDistribuicaoProduto = 1";
 
-    $db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-    return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
 
     public static function FonteRecurso($pronac)
     {
-    	$sql = "SELECT distinct
+        $sql = "SELECT distinct
 					x.idVerificacao,
 					x.idTipo,
 				    x.Descricao AS FonteRecurso
@@ -315,15 +314,15 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 				     AGENTES.dbo.vUFMunicipio AS f ON b.UfDespesa = f.idUF AND b.MunicipioDespesa = f.idMunicipio
 				WHERE AnoProjeto+Sequencial = '$pronac'";
 
-    $db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-    return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
 
     public static function Produto($pronac)
     {
-    	$sql = "SELECT  distinct
+        $sql = "SELECT  distinct
 					x.idTipo,
 					b.idProduto,
 					CASE
@@ -335,15 +334,15 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 				     INNER JOIN sac.dbo.Verificacao AS x ON b.FonteRecurso = x.idVerificacao
 				WHERE a.AnoProjeto+a.Sequencial = '$pronac' ORDER BY b.idProduto";
 
-    $db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-    return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
 
     public static function Etapa($pronac)
     {
-    	$sql = "SELECT distinct
+        $sql = "SELECT distinct
 					b.idProduto,
 					b.idEtapa,
 					CONVERT(varchar(8), d.idPlanilhaEtapa)+ ' - ' + d.Descricao AS Etapa
@@ -352,10 +351,10 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 				     LEFT OUTER JOIN sac.dbo.tbPlanilhaEtapa AS d ON b.idEtapa = d.idPlanilhaEtapa
 				WHERE a.AnoProjeto+a.Sequencial = '$pronac' ORDER BY idProduto";
 
-    $db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-    return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
 
     /**
@@ -368,7 +367,7 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
      */
     public static function Uf($pronac)
     {
-    	$sql = "SELECT distinct
+        $sql = "SELECT distinct
 					b.idProduto,
 					b.idEtapa,
 					f.idUF,
@@ -379,16 +378,16 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 				     AGENTES.dbo.vUFMunicipio AS f ON b.UfDespesa = f.idUF AND b.MunicipioDespesa = f.idMunicipio
 				WHERE a.AnoProjeto+a.Sequencial = '$pronac' ORDER BY idProduto";
 
-    $db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-    return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
 
 
     public static function Item($pronac)
     {
-    	$sql = "SELECT distinct
+        $sql = "SELECT distinct
 					b.idProduto,
 					b.idEtapa,
     				b.UfDespesa,
@@ -399,15 +398,15 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 				     INNER JOIN sac.dbo.tbPlanilhaItens AS i ON b.idPlanilhaItem = i.idPlanilhaItens
 				WHERE a.AnoProjeto+a.Sequencial = '$pronac' ORDER BY idProduto";
 
-    $db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-    return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
 
-	public static function Unidade($pronac)
+    public static function Unidade($pronac)
     {
-    	$sql = "SELECT distinct
+        $sql = "SELECT distinct
     				b.idProduto,
     				b.idEtapa,
     				b.UfDespesa,
@@ -425,23 +424,24 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
 				     INNER JOIN AGENTES.dbo.vUFMunicipio AS f ON b.UfDespesa = f.idUF AND b.MunicipioDespesa = f.idMunicipio
 				WHERE a.AnoProjeto+a.Sequencial = '$pronac' ORDER BY idProduto";
 
-    $db= Zend_Db_Table::getDefaultAdapter();
-    $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-    return $db->fetchAll($sql);
+        return $db->fetchAll($sql);
     }
 
 
-       public function inserirparecer($dados){
-            $db= Zend_Db_Table::getDefaultAdapter();
-            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+    public function inserirparecer($dados)
+    {
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-            return $db->insert("SAC.dbo.Parecer",$dados);
-       }
+        return $db->insert("SAC.dbo.Parecer", $dados);
+    }
 
 
-       public function listar_parecer($where=array(), $order=array(), $tamanho=-1, $inicio=-1){
-
+    public function listar_parecer($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(array('tbr' => $this->_name));
@@ -449,17 +449,20 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
         $slct->joinInner(
                 array('v2' => 'Parecer'),
                 'v2.idPronac = tbr.idPronac',
-                array('v2.TipoParecer','v2.Atendimento','v2.idParecer','v2.ParecerFavoravel','v2.DtParecer','v2.ResumoParecer','v2.SugeridoReal','v2.SugeridoCusteioReal','v2.SugeridoCapitalReal','v2.idEnquadramento','v2.Parecerista','v2.SugeridoUfir','v2.idPronac','v2.NumeroReuniao'));
+                array('v2.TipoParecer','v2.Atendimento','v2.idParecer','v2.ParecerFavoravel','v2.DtParecer','v2.ResumoParecer','v2.SugeridoReal','v2.SugeridoCusteioReal','v2.SugeridoCapitalReal','v2.idEnquadramento','v2.Parecerista','v2.SugeridoUfir','v2.idPronac','v2.NumeroReuniao')
+        );
 
         $slct->joinInner(
                 array('v3' => 'Area'),
                 'v3.Codigo = tbr.Area',
-                array('v3.Descricao as AreaDescricao'));
+                array('v3.Descricao as AreaDescricao')
+        );
 
         $slct->joinInner(
                 array('v4' => 'Segmento'),
                 'v4.Codigo = tbr.Segmento',
-                array('v3.Descricao as SegmentoDescricao'));
+                array('v3.Descricao as SegmentoDescricao')
+        );
 
         $slct->joinInner(
                 array('v5' => 'Mecanismo'),
@@ -489,50 +492,46 @@ class Admissibilidade_Model_DbTable_Gerenciarparecertecnico extends MinC_Db_Tabl
     }
 
 
-   public function VerificaPronac($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    public function VerificaPronac($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
     {
-            // criando objeto do tipo select
-            $slct = $this->select();
+        // criando objeto do tipo select
+        $slct = $this->select();
 
-            $slct->setIntegrityCheck(false);
+        $slct->setIntegrityCheck(false);
 
-            $slct->from(array('tbr' => $this->_name));
-
-
-
-            // adicionando clausulas where
-            foreach ($where as $coluna=>$valor)
-            {
-                    $slct->where($coluna, $valor);
-            }
+        $slct->from(array('tbr' => $this->_name));
 
 
 
-            $rows = $this->fetchAll($slct);
-            return $rows->count();
+        // adicionando clausulas where
+        foreach ($where as $coluna=>$valor) {
+            $slct->where($coluna, $valor);
+        }
+
+
+
+        $rows = $this->fetchAll($slct);
+        return $rows->count();
     }
 
-            public function VerificaParecer($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    public function VerificaParecer($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
     {
-            // criando objeto do tipo select
-            $slct = $this->select();
+        // criando objeto do tipo select
+        $slct = $this->select();
 
-            $slct->setIntegrityCheck(false);
+        $slct->setIntegrityCheck(false);
 
-            $slct->from(array('v2' => 'Parecer'));
-
-
-            // adicionando clausulas where
-            foreach ($where as $coluna=>$valor)
-            {
-                    $slct->where($coluna, $valor);
-            }
+        $slct->from(array('v2' => 'Parecer'));
 
 
+        // adicionando clausulas where
+        foreach ($where as $coluna=>$valor) {
+            $slct->where($coluna, $valor);
+        }
 
-            $rows = $this->fetchAll($slct);
-            return $rows->count();
+
+
+        $rows = $this->fetchAll($slct);
+        return $rows->count();
     }
-
-
 }

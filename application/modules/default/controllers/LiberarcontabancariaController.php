@@ -1,10 +1,11 @@
 <?php
 
-class LiberarcontabancariaController extends MinC_Controller_Action_Abstract {
-
+class LiberarcontabancariaController extends MinC_Controller_Action_Abstract
+{
     private $intTamPag = 10;
 
-    public function init() {
+    public function init()
+    {
         //recupera ID do pre projeto (proposta)
         $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // ttulo da pgina
         $auth = Zend_Auth::getInstance(); // pega a autenticao
@@ -40,29 +41,30 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract {
         parent::init(); // chama o init() do pai GenericControllerNew
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
@@ -74,7 +76,9 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract {
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         /* ================== PAGINACAO ======================*/
@@ -86,7 +90,7 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract {
         $where['PercentualCaptado > ?'] = 20; //Percentual maior do que 20%
         //$where['SAC.dbo.fnpercentualCaptado (AnoProjeto, Sequencial) >= ?'] = 20;
 
-        if(isset($get->pronac) && !empty($get->pronac)){
+        if (isset($get->pronac) && !empty($get->pronac)) {
             $where['AnoProjeto+Sequencial = ?'] = $this->view->pronac = $get->pronac;
         }
 
@@ -119,32 +123,32 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract {
         $this->view->intTamPag     = $this->intTamPag;
     }
 
-    public function imprimirProjetosALiberarAction() {
-
+    public function imprimirProjetosALiberarAction()
+    {
         $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
         $post = Zend_Registry::get('post');
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
@@ -158,7 +162,7 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract {
         $where = array();
         $where['idOrgao = ?'] = $this->cod_orgao;
 
-        if(isset($post->pronac) && !empty($post->pronac)){
+        if (isset($post->pronac) && !empty($post->pronac)) {
             $where['AnoProjeto+Sequencial = ?'] = $post->pronac;
         }
 
@@ -211,8 +215,8 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract {
 //        $this->view->parametrosBusca= $_POST;
 //    }
 
-    public function imprimirListaProjetosAction() {
-
+    public function imprimirListaProjetosAction()
+    {
         $orgao = $this->cod_orgao;
         $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
 
@@ -222,7 +226,8 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract {
         $this->view->registros = $rs;
     }
 
-    public function liberacaoAction() {
+    public function liberacaoAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $pronac = isset($_POST['pronac']) ? $_POST['pronac'] : 0;
         $vlCaptado = isset($_POST['vlCaptado']) ? $_POST['vlCaptado'] : 0.00;
@@ -263,44 +268,45 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract {
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function inabilitadosAction() {
-
+    public function inabilitadosAction()
+    {
         $cpf = $_GET['Cpf'];
         $busca = new Liberacao();
         $projetos = $busca->buscaProjetosInabilitados(null, $cpf);
         $this->view->projetos = $projetos;
     }
 
-    public function contasLiberadasAction() {
-
+    public function contasLiberadasAction()
+    {
     }
 
-    public function localizarprojetosAction() {
+    public function localizarprojetosAction()
+    {
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
@@ -312,41 +318,43 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract {
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         /* ================== PAGINACAO ======================*/
         $where = array();
         $where['n.TipoNome in (?)'] = array(18,19);
 
-        if(isset($get->pronac) && !empty($get->pronac)){
+        if (isset($get->pronac) && !empty($get->pronac)) {
             $where['p.AnoProjeto+p.Sequencial = ?'] = $this->view->pronac = $get->pronac;
         }
-        if(isset($get->cnpjcpf) && !empty($get->cnpjcpf)){
+        if (isset($get->cnpjcpf) && !empty($get->cnpjcpf)) {
             $where['a.CNPJCPF = ?'] = $this->view->cnpjcpf = Mascara::delMaskCPFCNPJ($get->cnpjcpf);
         }
-        if (isset($get->dtI)  && !empty($get->dtI)){
+        if (isset($get->dtI)  && !empty($get->dtI)) {
             $this->view->tipo_dt = $get->tipo_dt;
             $this->view->dtI = $get->dtI;
             $this->view->dtF = $get->dtF;
             $d1 = Data::dataAmericana($get->dtI);
-            if($get->tipo_dt == 1){
+            if ($get->tipo_dt == 1) {
                 $where["l.DtLiberacao BETWEEN '$d1' AND '$d1 23:59:59.999'"] = '';
-            } else if($get->tipo_dt == 2){
+            } elseif ($get->tipo_dt == 2) {
                 $d2 = Data::dataAmericana($get->dtF);
                 $where["l.DtLiberacao BETWEEN '$d1' AND '$d2'"] = '';
             }
         }
-        if(isset($get->secretaria) && !empty($get->secretaria)){
+        if (isset($get->secretaria) && !empty($get->secretaria)) {
             $this->view->secretaria = $get->secretaria;
-            if($get->secretaria == 1){
+            if ($get->secretaria == 1) {
                 $where['p.Area <> ?'] = 2;
             } else {
                 $where['p.Area = ?'] = 2;
             }
         }
 
-        $Liberacao = New Liberacao();
+        $Liberacao = new Liberacao();
         $total = $Liberacao->consultarLiberacoes($where, $order, null, null, true);
         $fim = $inicio + $this->intTamPag;
 
@@ -377,32 +385,32 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract {
         $this->view->vlrTotalGrid = $Liberacao->consultarLiberacoesTotalValorGrid($where);
     }
 
-    public function imprimirProjetosLiberadosAction() {
-
+    public function imprimirProjetosLiberadosAction()
+    {
         $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
         $post = Zend_Registry::get('post');
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
@@ -415,30 +423,30 @@ class LiberarcontabancariaController extends MinC_Controller_Action_Abstract {
         $where = array();
         $where['n.TipoNome in (?)'] = array(18,19);
 
-        if(isset($post->pronac) && !empty($post->pronac)){
+        if (isset($post->pronac) && !empty($post->pronac)) {
             $where['p.AnoProjeto+p.Sequencial = ?'] = $post->pronac;
         }
-        if(isset($post->cnpjcpf) && !empty($post->cnpjcpf)){
+        if (isset($post->cnpjcpf) && !empty($post->cnpjcpf)) {
             $where['a.CNPJCPF = ?'] = Mascara::delMaskCPFCNPJ($post->cnpjcpf);
         }
-        if (isset($post->dtI)  && !empty($post->dtI)){
+        if (isset($post->dtI)  && !empty($post->dtI)) {
             $d1 = Data::dataAmericana($post->dtI);
-            if($post->tipo_dt == 1){
+            if ($post->tipo_dt == 1) {
                 $where["l.DtLiberacao BETWEEN '$d1' AND '$d1 23:59:59:999'"] = '';
-            } else if($post->tipo_dt == 2){
+            } elseif ($post->tipo_dt == 2) {
                 $d2 = Data::dataAmericana($post->dtF);
                 $where["l.DtLiberacao BETWEEN '$d1' AND '$d2'"] = '';
             }
         }
-        if(isset($post->secretaria) && !empty($post->secretaria)){
-            if($post->secretaria == 1){
+        if (isset($post->secretaria) && !empty($post->secretaria)) {
+            if ($post->secretaria == 1) {
                 $where['p.Area <> ?'] = 2;
             } else {
                 $where['p.Area = ?'] = 2;
             }
         }
 
-        $Liberacao = New Liberacao();
+        $Liberacao = new Liberacao();
         $busca = $Liberacao->consultarLiberacoes($where, $order);
         
         $this->view->dados = $busca;

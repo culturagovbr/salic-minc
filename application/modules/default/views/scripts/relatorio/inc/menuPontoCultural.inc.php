@@ -1,4 +1,4 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== INï¿½CIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <script type="text/javascript">
     function layout_fluido()
@@ -8,16 +8,16 @@
     	var fluidConteudo  = janela - 253;
     	var fluidTitulo    = janela - 252;
     	var fluidRodape    = janela - 19;
-    	$("#navglobal").css("width", fluidNavGlobal);
-    	$("#conteudo").css("width", fluidConteudo);
-    	$("#titulo").css("width", fluidTitulo);
-    	$("#rodapeConteudo").css("width", fluidConteudo);
-    	$("#imagemRodape").css("width", fluidConteudo);
-    	$("#rodape").css("width", fluidRodape);
-    	$("#conteudo").css("min-height", $('#menuContexto').height()); // altura minima do conteudo
-    	$("#rodapeConteudo").css("margin-left", "225px");
-    	$(".sanfonaDiv").css("clear", "both");
-    	$(".sanfonaDiv").css("width", "91%");
+//    	$("#navglobal").css("width", fluidNavGlobal);
+//    	$("#conteudo").css("width", fluidConteudo);
+//    	$("#titulo").css("width", fluidTitulo);
+//    	$("#rodapeConteudo").css("width", fluidConteudo);
+//    	$("#imagemRodape").css("width", fluidConteudo);
+//    	$("#rodape").css("width", fluidRodape);
+//    	$("#conteudo").css("min-height", $('#menuContexto').height()); // altura minima do conteudo
+//    	$("#rodapeConteudo").css("margin-left", "225px");
+//    	$(".sanfonaDiv").css("clear", "both");
+//    	$(".sanfonaDiv").css("width", "91%");
     }    
     $(document).ready(function()
     	    {
@@ -54,16 +54,16 @@
     }
 </script>
 
-        <!-- início: navegação local #qm0 -->
+        <!-- inï¿½cio: navegaï¿½ï¿½o local #qm0 -->
         <?php
 
             $get = Zend_Registry::get("get");
             //define id do PreProjeto que sera passado as outras implementacoes
             $codProjeto = "?idPreProjeto=";
-            if(isset($this->proposta->idPreProjeto)){
+            if (isset($this->proposta->idPreProjeto)) {
                 $codProjeto .= $this->proposta->idPreProjeto;
                 $idPreProjeto = $this->proposta->idPreProjeto;
-            }elseif(isset($get->idPreProjeto)){
+            } elseif (isset($get->idPreProjeto)) {
                 $codProjeto .= $get->idPreProjeto;
                 $idPreProjeto = $get->idPreProjeto;
             }
@@ -77,7 +77,7 @@
             <div class="bottom"></div>
         </div>
         <div id="alertar"></div>
-        <!-- final: navegação local #qm0 -->
+        <!-- final: navegaï¿½ï¿½o local #qm0 -->
    
 <div id="modalExcluirProposta" style="display:none"></div>
 <!-- ========== FIM MENU ========== -->

@@ -12,15 +12,15 @@
 
 class Zend_View_Helper_BotaoPesquisar
 {
-	/**
-	 * Método botão pesquisar
-	 * @access public
-	 * @param string $form (nome do formulário)
-	 * @return string $botao
-	 */
-	public function botaoPesquisar($form)
-	{
-		$botao = "
+    /**
+     * Método botão pesquisar
+     * @access public
+     * @param string $form (nome do formulário)
+     * @return string $botao
+     */
+    public function botaoPesquisar($form)
+    {
+        $botao = "
 			<script type=\"text/javascript\">
 			<!--
 				document.write('<div class=\"right_busca\"><a href=\"#\" onclick=\"document.$form.submit();\" title=\" Pesquisar \"></a></div>');
@@ -31,7 +31,6 @@ class Zend_View_Helper_BotaoPesquisar
 				<input type=\"submit\" title=\" Pesquisar \" class=\"btn_pesquisar\" value=\" \" />
 			</noscript>";
 
-		return $botao;
-	} // fecha método botaoPesquisar()
-
+        return $botao;
+    } // fecha método botaoPesquisar()
 } // fecha class

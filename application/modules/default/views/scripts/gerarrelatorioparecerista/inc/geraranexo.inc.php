@@ -6,16 +6,15 @@ $geraranexoHREF =   $this->url(array('controller' => 'gerarrelatorioparecerista'
     <input type="hidden" name="tela"    value="<?php echo $this->tela;?>" />
     <input type="hidden" name="filtro"  value="<?php echo $this->filtro;?>" />
     <?php
-    foreach ($this->post as $key=>$info){
-        if(!is_array($info)){
+    foreach ($this->post as $key=>$info) {
+        if (!is_array($info)) {
             ?>
-            <input type="hidden" name="<?php echo $key;?>" value="<?php echo $info;?>"/>
+            <input type="hidden" name="<?php echo $key; ?>" value="<?php echo $info; ?>"/>
             <?php
-        }
-        else{
-            foreach ($info as $key2=>$info2){
+        } else {
+            foreach ($info as $key2=>$info2) {
                 ?>
-                <input type="hidden" name="cpconsulta_dest[]" value="<?php echo $info2;?>"/>
+                <input type="hidden" name="cpconsulta_dest[]" value="<?php echo $info2; ?>"/>
                 <?php
             }
         }

@@ -12,24 +12,20 @@
 
 class Zend_View_Helper_TipoPessoa
 {
-	/**
-	 * Método com as cores alternativas das linhas da tabela
-	 * @access public
-	 * @param integer $i
-	 * @return string
-	 */
-	public function tipopessoa($tipopessoa)
-	{
-		if ($tipopessoa == 1)
-		{
-			$bg = "Pessoa Física";
-		}
-		else
-		{
-			$bg = "Pessoa Júridica";
-		}
+    /**
+     * Método com as cores alternativas das linhas da tabela
+     * @access public
+     * @param integer $i
+     * @return string
+     */
+    public function tipopessoa($tipopessoa)
+    {
+        if ($tipopessoa == 1) {
+            $bg = "Pessoa Física";
+        } else {
+            $bg = "Pessoa Júridica";
+        }
 
-		return $bg;
-	} // fecha método corLinha()
-
+        return $bg;
+    } // fecha método corLinha()
 } // fecha class

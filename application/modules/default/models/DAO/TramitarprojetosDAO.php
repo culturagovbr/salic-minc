@@ -1,39 +1,21 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Desciption of TramitarprojetosDAO
- *
- * @author tisomar
- */
-class TramitarprojetosDAO extends Zend_Db_Table {
-
-    public static function buscaOrgao($idOrigem = null) {
+class TramitarprojetosDAO extends Zend_Db_Table
+{
+    public static function buscaOrgao($idOrigem = null)
+    {
         $sql = "select Sigla from SAC.dbo.Orgaos 
 		where Codigo = $idOrigem
 		";
 
-        /*
-          $sql = "select Sigla from SAC.dbo.Orgaos o
-          INNER JOIN  SAC.dbo.tbHistoricoDocumento th ON  th.Acao  != 6 AND th.idPronac != '' AND th.idDocumento is NUll
-          where o.Codigo = $idOrigem
-          ";
-
-
-         */
-
-        
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
         return $db->fetchAll($sql);
     }
 
-    public static function atualizaProjeto($idPronac, $idDestino) {
+    public static function atualizaProjeto($idPronac, $idDestino)
+    {
         $sql = "UPDATE 
 					SAC.dbo.Projetos SET Orgao = $idDestino where IdPRONAC = $idPronac";
 
@@ -43,11 +25,12 @@ class TramitarprojetosDAO extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function buscaProjeto($pronac) {
+    public static function buscaProjeto($pronac)
+    {
         $sql = "SELECT org.Sigla, p.*, p.IdPRONAC as idPronac
 				FROM SAC.dbo.Projetos p, SAC.dbo.Orgaos org
 				WHERE p.Orgao = org.Codigo AND (AnoProjeto+Sequencial) = '" . $pronac . "'";
-        			
+                    
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
@@ -56,11 +39,12 @@ class TramitarprojetosDAO extends Zend_Db_Table {
         return $resultado;
     }
 
-    public static function buscaProjetoPDF($pronac) {
+    public static function buscaProjetoPDF($pronac)
+    {
         $sql = "SELECT org.Sigla, p.*, p.IdPRONAC as idPronac, p.AnoProjeto+Sequencial as pronacp
 				FROM SAC.dbo.Projetos p, SAC.dbo.Orgaos org
 				WHERE p.Orgao = org.Codigo AND p.IdPRONAC = '" . $pronac . "'";
-        			
+                    
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
@@ -69,7 +53,8 @@ class TramitarprojetosDAO extends Zend_Db_Table {
         return $resultado;
     }
 
-    public static function buscaProjetoUnidade($idPronac) {
+    public static function buscaProjetoUnidade($idPronac)
+    {
         $sql = " SELECT AnoProjeto+Sequencial as pronac, NomeProjeto, p.IdPRONAC, Situacao, ProvidenciaTomada, Orgao, ar.stAcao, stEstado, ar.idArquivamento
 				 FROM SAC.dbo.Projetos p
 				 INNER JOIN SAC.dbo.tbArquivamento ar on ar.idPronac = p.IdPRONAC
@@ -84,7 +69,8 @@ class TramitarprojetosDAO extends Zend_Db_Table {
         return $resultado;
     }
 
-    public static function buscaProjetoExistente($idPronac) {
+    public static function buscaProjetoExistente($idPronac)
+    {
         $sql = " SELECT AnoProjeto+Sequencial as pronac, NomeProjeto, p.IdPRONAC, Situacao, ProvidenciaTomada, Orgao
 				 FROM SAC.dbo.Projetos p
 				 WHERE p.IdPRONAC = $idPronac";
@@ -98,8 +84,8 @@ class TramitarprojetosDAO extends Zend_Db_Table {
         return $resultado;
     }
 
-    public static function alterarSituacao($situacao, $providenciaTomada, $idPronac) {
-
+    public static function alterarSituacao($situacao, $providenciaTomada, $idPronac)
+    {
         $sql = "UPDATE SAC.dbo.Projetos SET Situacao = '$situacao', ProvidenciaTomada = '$providenciaTomada' 
 				WHERE idPronac =  $idPronac";
 
@@ -107,29 +93,30 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao Arquivar: " . $e->getMessage();
+            xd("Erro ao Arquivar: " . $e->getMessage());
         }
         return $db->fetchAll($sql);
     }
 
-    public static function alterarStatusArquivamento($idPronac) {
+    public static function alterarStatusArquivamento($idPronac)
+    {
         $sql = "UPDATE SAC.dbo.tbArquivamento 
 					SET stEstado = 0 
 				WHERE idPronac =  $idPronac and stEstado = 1";
 
-        //print_r($sql);die;
-        
+
         try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao Arquivar: " . $e->getMessage();
+            xd("Erro ao Arquivar: " . $e->getMessage());
         }
         
         return $db->fetchAll($sql);
     }
 
-    public static function arquivarProjeto($idPronac = null, $stAcao, $cxInicio = null, $cxFinal = null, $idusuario, $idArquivamento = null, $x = null) {
+    public static function arquivarProjeto($idPronac = null, $stAcao, $cxInicio = null, $cxFinal = null, $idusuario, $idArquivamento = null, $x = null)
+    {
         if ($x) {
             $sql = "INSERT INTO 
 						sac.dbo.tbArquivamento (idPronac, Data, Edificio, CaixaInicio, CaixaFinal, stAcao, stEstado, idUsuario) 
@@ -151,20 +138,18 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             }
         }
 
-        //print_r($sql);die;
-        
         try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao Arquivar: " . $e->getMessage();
+            xd("Erro ao Arquivar: " . $e->getMessage());
         }
 
         return $db->fetchAll($sql);
     }
 
-    public static function projetosArquivados($idusuario, $pronac = null, $tipo_nome = null, $nome = null, $tipo_processo = null, $processo = null, $tipo_dtArquivo = null, $dtArquivI = null, $dtArquivInull = null, $dtArquivF = null, $tipo_cxInicio = null, $cxInicio = null, $tipo_cxFinal = null, $cxFinal = null) {
-
+    public static function projetosArquivados($idusuario, $pronac = null, $tipo_nome = null, $nome = null, $tipo_processo = null, $processo = null, $tipo_dtArquivo = null, $dtArquivI = null, $dtArquivInull = null, $dtArquivF = null, $tipo_cxInicio = null, $cxInicio = null, $tipo_cxFinal = null, $cxFinal = null)
+    {
         $sql = " SELECT top 1000
 					ar.idArquivamento,
 					--p.Processo,
@@ -212,13 +197,12 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             }
         }
 
-        if (($dtArquivI <> '// 00:00:00.000' and $dtArquivI <> '// 23:59:59.999' and !empty($dtArquivI)) OR ($dtArquivF <> '// 00:00:00.000' and $dtArquivF <> '// 23:59:59.999' and !empty($dtArquivF))) {
+        if (($dtArquivI <> '// 00:00:00.000' and $dtArquivI <> '// 23:59:59.999' and !empty($dtArquivI)) or ($dtArquivF <> '// 00:00:00.000' and $dtArquivF <> '// 23:59:59.999' and !empty($dtArquivF))) {
             if ($tipo_dtArquivo == 1) {
                 $sql .= " AND Data >= '$dtArquivI' AND Data <= '$dtArquivInull'";
-            } else if ($tipo_dtArquivo == 2) {
+            } elseif ($tipo_dtArquivo == 2) {
                 $sql .= " AND Data >= '$dtArquivI' AND Data <= '$dtArquivF'";
             }
-            
         }
 
         if ($cxInicio) {
@@ -255,12 +239,13 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao buscar Projetos: " . $e->getMessage();
+            xd("Erro ao buscar Projetos: " . $e->getMessage());
         }
         return $db->fetchAll($sql);
     }
 
-    public static function pesquisarTodosDestinos() {
+    public static function pesquisarTodosDestinos()
+    {
         $sql = "Select distinct 
 				Codigo, 
 				Sigla, 
@@ -270,19 +255,18 @@ class TramitarprojetosDAO extends Zend_Db_Table {
 				WHERE org.sis_codigo = 21 AND org.uog_status = 1
 				ORDER BY Sigla";
 
-        //$sql .= "ORDER BY org_siglaautorizado";
-
         try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao buscar Projetos: " . $e->getMessage();
+            xd("Erro ao buscar Projetos: " . $e->getMessage());
         }
 
         return $db->fetchAll($sql);
     }
 
-    public static function pesquisarDestinos($situacao) {
+    public static function pesquisarDestinos($situacao)
+    {
         $sql = "SELECT distinct 
 					h.idUnidade as idDestino,
 					org.org_siglaautorizado as siglaDestino,
@@ -295,8 +279,7 @@ class TramitarprojetosDAO extends Zend_Db_Table {
 					WHERE (h.Acao = $situacao or h.Acao = 4) and h.stEstado = 1";
 
         $sql .= "ORDER BY siglaDestino";
-        //print_r($sql);die();
-        
+
         $db= Zend_Db_Table::getDefaultAdapter();
 
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -304,7 +287,8 @@ class TramitarprojetosDAO extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function buscaEmissor($situacao1, $situacao2) {
+    public static function buscaEmissor($situacao1, $situacao2)
+    {
         $sql = "SELECT distinct 
 					
 					h.idUsuarioEmissor as idEmissor,
@@ -317,12 +301,10 @@ class TramitarprojetosDAO extends Zend_Db_Table {
 
         if ($situacao1 && !$situacao2) {
             $sql .= " AND h.Acao = $situacao1";
-        } else if ($situacao1 && $situacao2) {
+        } elseif ($situacao1 && $situacao2) {
             $sql .= " AND(h.Acao = $situacao1 OR h.Acao = $situacao2)";
         }
 
-        //print_r($sql);die();
-        //die($sql);
         $db= Zend_Db_Table::getDefaultAdapter();
 
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -330,8 +312,8 @@ class TramitarprojetosDAO extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function projetosDespachados($situacao1 = null, $situacao2 = null, $idUsuario = null, $idLote = null) {
-
+    public static function projetosDespachados($situacao1 = null, $situacao2 = null, $idUsuario = null, $idLote = null)
+    {
         $sql = "SELECT distinct 
 					p.IdPRONAC as idPronac,
 					p.AnoProjeto + p.Sequencial AS Pronac,
@@ -368,7 +350,7 @@ class TramitarprojetosDAO extends Zend_Db_Table {
         //die($sql);
         if ($situacao1 && !$situacao2) {
             $sql .= " AND h.Acao = $situacao1";
-        } else if ($situacao1 && $situacao2) {
+        } elseif ($situacao1 && $situacao2) {
             $sql .= " AND(h.Acao = $situacao1 OR h.Acao = $situacao2)";
         }
 
@@ -384,13 +366,14 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao buscar Projetos: " . $e->getMessage();
+            xd("Erro ao buscar Projetos: " . $e->getMessage());
         }
         
         return $db->fetchAll($sql);
     }
 
-    public static function setProjeto($pronac, $acao) {
+    public static function setProjeto($pronac, $acao)
+    {
         $sql = " SELECT DISTINCT	top 1 MAX(idHistorico) as idHistorico,
 					AnoProjeto+Sequencial as pronac, 
 					p.IdPRONAC, 
@@ -407,15 +390,14 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao buscar Projetos: " . $e->getMessage();
+            xd("Erro ao buscar Projetos: " . $e->getMessage());
         }
         
         return $db->fetchAll($sql);
     }
 
-    public static function tramitarProjeto($idPronac, $idDestino, $idLote, $acaoA, $acaoB, $despacho) {
-
-
+    public static function tramitarProjeto($idPronac, $idDestino, $idLote, $acaoA, $acaoB, $despacho)
+    {
         $sql = "INSERT INTO 
 					SAC.dbo.tbHistoricoDocumento (idPronac, idUnidade, dtTramitacaoEnvio, idUsuarioEmissor, idUsuarioReceptor, idLote, Acao, stEstado, meDespacho)
 					SELECT IdPRONAC, idUnidade = $idDestino, dtTramitacaoEnvio = GETDATE(), idUsuarioEmissor, idUsuarioReceptor, idLote = $idLote, Acao = $acaoB, stEstado = 1, meDespacho = '$despacho'
@@ -429,25 +411,27 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao buscar Projetos: " . $e->getMessage();
+            xd("Erro ao buscar Projetos: " . $e->getMessage());
         }
         //die($sql);
         return $db->fetchAll($sql);
     }
 
-    public static function buscaUltimoLote() {
+    public static function buscaUltimoLote()
+    {
         $sql = "select max(idLote) as idLote from SAC.dbo.tbLote ";
 
         try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao buscar Projetos: " . $e->getMessage();
+            xd("Erro ao buscar Projetos: " . $e->getMessage());
         }
         return $db->fetchAll($sql);
     }
     
-    public static function verificaTramitacoesRepetidas() {
+    public static function verificaTramitacoesRepetidas()
+    {
         $sql = "SELECT COUNT(idPronac) AS contador, idPronac
                 FROM SAC.dbo.tbHistoricoDocumento
                 WHERE stEstado = 1 AND idDocumento = 0
@@ -459,37 +443,40 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao buscar Projetos: " . $e->getMessage();
+            xd("Erro ao buscar Projetos: " . $e->getMessage());
         }
         return $db->fetchAll($sql);
     }
 
-    public static function verificaHistoricoDocumento($idPronac, $acao) {
+    public static function verificaHistoricoDocumento($idPronac, $acao)
+    {
         $sql = "select top 1 * from SAC.dbo.tbHistoricoDocumento where idDocumento = 0 and idPronac = '$idPronac' order by Acao desc";
 
         try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao buscar Projetos: " . $e->getMessage();
+            xd("Erro ao buscar Projetos: " . $e->getMessage());
         }
         return $db->fetchAll($sql);
     }
 
-    public static function insereLote() {
+    public static function insereLote()
+    {
         $sql = "INSERT INTO SAC.dbo.tbLote (dtLote) Values (GETDATE()) ";
 
         try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao buscar Projetos: " . $e->getMessage();
+            xd("Erro ao buscar Projetos: " . $e->getMessage());
         }
 
         return $db->fetchAll($sql);
     }
 
-    public static function buscarDadosPronac($pronac) {
+    public static function buscarDadosPronac($pronac)
+    {
         $sql = "select 
 					 p.IdPRONAC,
 					 p.Processo,
@@ -505,13 +492,14 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao buscar Projetos: " . $e->getMessage();
+            xd("Erro ao buscar Projetos: " . $e->getMessage());
         }
         
         return $db->fetchAll($sql);
     }
 
-    public static function mudaStatus($idPronac, $destino, $pronac, $processo, $usuarios, $DtSituacao, $despacho, $origem = null) {
+    public static function mudaStatus($idPronac, $destino, $pronac, $processo, $usuarios, $DtSituacao, $despacho, $origem = null)
+    {
         if ($origem) {
             $sql = "insert into SAC.dbo.tbHistoricoDocumento 
 				(IdPRONAC, idOrigem, idUnidade, idUsuarioEmissor, Acao, stEstado, meDespacho, dtTramitacaoEnvio) 
@@ -530,13 +518,14 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao salvar Projeto: " . $e->getMessage();
+            xd("Erro ao salvar Projeto: " . $e->getMessage());
         }
 
         return $db->fetchAll($sql);
     }
 
-    public static function atualizaStatus($idPronac, $destino, $despacho) {
+    public static function atualizaStatus($idPronac, $destino, $despacho)
+    {
         $sql = "UPDATE SAC.dbo.tbHistoricoDocumento 
 				SET idUnidade = $destino, meDespacho = '$despacho', Acao = 1
 				WHERE idPronac = $idPronac";
@@ -545,16 +534,15 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao salvar Projeto: " . $e->getMessage();
+            xd("Erro ao salvar Projeto: " . $e->getMessage());
         }
         //die($sql);
         $db->fetchAll($sql);
         return true;
     }
 
-    public static function atualizaDados($idPronac) {
-
-
+    public static function atualizaDados($idPronac)
+    {
         $sql = "UPDATE SAC.dbo.tbHistoricoDocumento SET stEstado = 0 WHERE IdPRONAC =  $idPronac and (idDocumento is NULL or idDocumento = 0)";
 
         //print_r($sql);die;
@@ -562,13 +550,14 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao salvar Projeto: " . $e->getMessage();
+            xd("Erro ao salvar Projeto: " . $e->getMessage());
         }
         //die($sql);
         return $db->fetchAll($sql);
     }
 
-    public static function atualizaEstado($idPronac) {
+    public static function atualizaEstado($idPronac)
+    {
         $sql = "UPDATE SAC.dbo.tbHistoricoDocumento SET stEstado = 0 WHERE idPronac =  $idPronac and (idDocumento is NULL or idDocumento = 0)";
 
         //print_r($sql);die;
@@ -576,13 +565,14 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao salvar Projeto: " . $e->getMessage();
+            xd("Erro ao salvar Projeto: " . $e->getMessage());
         }
         //die($sql);
         return $db->fetchAll($sql);
     }
 
-    public static function atualizaEstadoRecusa($idPronac) {
+    public static function atualizaEstadoRecusa($idPronac)
+    {
         $sql = "UPDATE SAC.dbo.tbHistoricoDocumento SET stEstado = 0 WHERE idPronac =  $idPronac";
 
         //print_r($sql);die;
@@ -590,13 +580,14 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao salvar Projeto: " . $e->getMessage();
+            xd("Erro ao salvar Projeto: " . $e->getMessage());
         }
         //die($sql);
         return $db->fetchAll($sql);
     }
 
-    public static function recusarProjeto($idPronac, $acao, $codOrgao, $despacho = null) {
+    public static function recusarProjeto($idPronac, $acao, $codOrgao, $despacho = null)
+    {
         $sql = "INSERT INTO 
 					SAC.dbo.tbHistoricoDocumento (idPronac, idUnidade, dtTramitacaoEnvio, idLote, idUsuarioEmissor, Acao, stEstado, meDespacho)
 					SELECT IdPRONAC, idUnidade = $codOrgao, dtTramitacaoEnvio = GETDATE(), idLote, idUsuarioEmissor, Acao = $acao, stEstado = 1, meDespacho = '$despacho' 
@@ -608,14 +599,14 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao salvar Projeto: " . $e->getMessage();
+            xd("Erro ao salvar Projeto: " . $e->getMessage());
         }
         //die($sql);
         return $db->fetchAll($sql);
     }
 
-    public static function consultarProjetos($idusuario, $tipo_origem, $origem, $tipo_dtEnvio, $dtEnvioI, $dtEnvioF, $tipo_dtRecebida, $dtRecebidoI, $dtRecebidoF, $lote, $tipo_destino, $destino, $tipo_situacao, $situacao) {
-
+    public static function consultarProjetos($idusuario, $tipo_origem, $origem, $tipo_dtEnvio, $dtEnvioI, $dtEnvioF, $tipo_dtRecebida, $dtRecebidoI, $dtRecebidoF, $lote, $tipo_destino, $destino, $tipo_situacao, $situacao)
+    {
         $sql = "SELECT distinct top 1000
 					h.idOrigem AS idOrigem,
 					h.idPronac,
@@ -650,23 +641,22 @@ class TramitarprojetosDAO extends Zend_Db_Table {
         if ($origem) {
             if ($tipo_origem == 1) {
                 $sql .= " AND h.idOrigem = " . $origem;
-            } else if ($tipo_origem == 2) {
+            } elseif ($tipo_origem == 2) {
                 $sql .= " AND h.idOrigem <> " . $origem;
             }
         }
         if ($dtEnvioI && $dtEnvioI <> "//") {
             if ($tipo_dtEnvio == 1) {
                 $sql .= " AND CONVERT(CHAR(10), h.dtTramitacaoEnvio,103) = '$dtEnvioI'";
-            } else if ($tipo_dtEnvio == 2) {
+            } elseif ($tipo_dtEnvio == 2) {
                 $sql .= " AND CONVERT(CHAR(10), h.dtTramitacaoEnvio,103) >= '$dtEnvioI' AND CONVERT(CHAR(10), h.dtTramitacaoEnvio,103) <= '$dtEnvioF'";
             }
-            
         }
 
         if ($dtRecebidoI && $dtRecebidoI <> "//") {
             if ($tipo_dtRecebida == 1) {
                 $sql .= " AND CONVERT(CHAR(10), h.dtTramitacaoRecebida,103) = '$dtRecebidoI'";
-            } else if ($tipo_dtRecebida == 2) {
+            } elseif ($tipo_dtRecebida == 2) {
                 $sql .= " AND CONVERT(CHAR(10), h.dtTramitacaoRecebida,103) >= '$dtRecebidoI' AND CONVERT(CHAR(10), h.dtTramitacaoRecebida,103) <= '$dtRecebidoF'";
             }
         }
@@ -677,7 +667,7 @@ class TramitarprojetosDAO extends Zend_Db_Table {
         if ($destino) {
             if ($tipo_destino == 1) {
                 $sql .= " AND h.idUnidade = " . $destino;
-            } else if ($tipo_destino == 2) {
+            } elseif ($tipo_destino == 2) {
                 $sql .= " AND h.idUnidade <> " . $destino;
             }
         }
@@ -685,7 +675,7 @@ class TramitarprojetosDAO extends Zend_Db_Table {
         if ($situacao) {
             if ($tipo_situacao == 1) {
                 $sql .= " AND h.Acao = " . $situacao;
-            } else if ($tipo_situacao == 2) {
+            } elseif ($tipo_situacao == 2) {
                 $sql .= " AND h.Acao <> " . $situacao;
             }
         }
@@ -695,7 +685,8 @@ class TramitarprojetosDAO extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function inserirSolicitacaoArquivamento($idPronac, $justificativa, $idusuario, $cxInicio, $cxFinal, $acao, $stEstado) {
+    public static function inserirSolicitacaoArquivamento($idPronac, $justificativa, $idusuario, $cxInicio, $cxFinal, $acao, $stEstado)
+    {
         $sql = "insert into SAC.dbo.tbArquivamento 
 				(idPronac, Data, Edificio, CaixaInicio, CaixaFinal, stAcao, stEstado, idUsuario, dsJustificativa) 
 				values 
@@ -706,13 +697,14 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao salvar Projeto: " . $e->getMessage();
+            xd("Erro ao salvar Projeto: " . $e->getMessage());
         }
 
         return $db->fetchAll($sql);
     }
 
-    public static function buscarCancelamento($codOrgao = null) {
+    public static function buscarCancelamento($codOrgao = null)
+    {
         $sql = "select h.*, p.Processo, p.AnoProjeto+p.Sequencial as pronac, p.NomeProjeto as NomeProjeto,
 						CASE
 				          WHEN h.Acao = 0 THEN 'Bloqueado'
@@ -736,13 +728,14 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao salvar Projeto: " . $e->getMessage();
+            xd("Erro ao salvar Projeto: " . $e->getMessage());
         }
         
         return $db->fetchAll($sql);
     }
 
-    public static function buscarDesarquivar() {
+    public static function buscarDesarquivar()
+    {
         $sql = "  select top 100 ar.* , p.AnoProjeto+p.Sequencial as pronac, p.NomeProjeto, p.Processo, ar.dsJustificativa
 					 from SAC.dbo.tbArquivamento ar
 					 inner join SAC.dbo.Projetos p on p.IdPRONAC = ar.idPronac
@@ -754,13 +747,14 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao salvar Projeto: " . $e->getMessage();
+            xd("Erro ao salvar Projeto: " . $e->getMessage());
         }
 
         return $db->fetchAll($sql);
     }
 
-    public static function buscarCancelOrgao($codOrgao = null) {
+    public static function buscarCancelOrgao($codOrgao = null)
+    {
         $sql = "select distinct idUnidade as idDestino, Sigla as Destino, idLote 
 				from SAC.dbo.tbHistoricoDocumento h
 				inner join SAC.dbo.Orgaos org on org.Codigo = h.idUnidade
@@ -774,13 +768,13 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao salvar Projeto: " . $e->getMessage();
+            xd("Erro ao salvar Projeto: " . $e->getMessage());
         }
         return $db->fetchAll($sql);
     }
     
-    public static function projetosImprimirGuia($idUsuario, $idLote) {
-
+    public static function projetosImprimirGuia($idUsuario, $idLote)
+    {
         $sql = "SELECT 
 					p.AnoProjeto + p.Sequencial AS Pronac,
 					p.NomeProjeto,
@@ -801,12 +795,9 @@ class TramitarprojetosDAO extends Zend_Db_Table {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao buscar Projetos: " . $e->getMessage();
+            xd("Erro ao buscar Projetos: " . $e->getMessage());
         }
         
         return $db->fetchAll($sql);
     }
-
 }
-
-?>

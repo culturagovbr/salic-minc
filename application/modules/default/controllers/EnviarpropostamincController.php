@@ -1,13 +1,8 @@
 <?php
-/**
- * Description of Enviarpropostaminc
- *
- * @author tisomar
- */
-class EnviarpropostamincController extends MinC_Controller_Action_Abstract {
-
-
-    public function init() {
+class EnviarpropostamincController extends MinC_Controller_Action_Abstract
+{
+    public function init()
+    {
         // verifica as permissões
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 97;  // Coordenador de Parecerista
@@ -18,15 +13,9 @@ class EnviarpropostamincController extends MinC_Controller_Action_Abstract {
         parent::perfil(1, $PermissoesGrupo);
 
         parent::init();
-        // chama o init() do pai GenericControllerNew
     }
-
 
     public function indexAction()
     {
-
-
     }
-
-
 }

@@ -1,13 +1,7 @@
 <?php
 
-/**
- * Description of CumprimentoObjetoXArquivo
- *
- * @author xti
- */
 class CumprimentoObjetoXArquivo extends MinC_Db_Table_Abstract
 {
-
     const ACESSIBILIDADE_FISICA = 0;
     const FRUICAO_DE_DEMOCRATIZACAO_AO_ACESSO_PUBLICO = 1;
     const IMPACTOS_AMBIENTAIS = 2;
@@ -33,8 +27,7 @@ class CumprimentoObjetoXArquivo extends MinC_Db_Table_Abstract
             $idCumprimentoObjeto = null,
             $arquivo = null,
             $posicao = null
-            )
-    {
+            ) {
         parent::__construct();
         $this->idCumprimentoObjetoXArquivo = $idCumprimentoObjetoXArquivo;
         $this->idCumprimentoObjeto = $idCumprimentoObjeto;
@@ -95,7 +88,7 @@ class CumprimentoObjetoXArquivo extends MinC_Db_Table_Abstract
     {
         $arquivoModel = new ArquivoModel();
         $cumprimentoObjetoArquivo = $this;
-        array_walk($_FILES, function($file, $filename) use ($idCumprimentoDoObjeto, $arquivoModel, $cumprimentoObjetoArquivo) {
+        array_walk($_FILES, function ($file, $filename) use ($idCumprimentoDoObjeto, $arquivoModel, $cumprimentoObjetoArquivo) {
             // Se n�o houve nenhum erro pode persistir o arquivo no banco
             if (UPLOAD_ERR_OK === $file['error']) {
                 $arquivoModel->cadastrar($filename);

@@ -12,14 +12,14 @@
 
 class TitulacaoConselheiroDAO extends Zend_Db_Table
 {
-	protected $_name = 'AGENTES.dbo.tbTitulacaoConselheiro'; // nome da tabela
+    protected $_name = 'AGENTES.dbo.tbTitulacaoConselheiro'; // nome da tabela
 
 
 
-	#--verifica se tem algum componente na area e segmento selecionado--
-	public static function buscaAreaSegmento($area, $segmento = null)
-	{
-		$sql = "SELECT A.idAgente
+    #--verifica se tem algum componente na area e segmento selecionado--
+    public static function buscaAreaSegmento($area, $segmento = null)
+    {
+        $sql = "SELECT A.idAgente
 					,N.Descricao Nome
 					,A.cdArea
 					,AC.Descricao Area
@@ -34,74 +34,72 @@ class TitulacaoConselheiroDAO extends Zend_Db_Table
 
 				WHERE A.cdArea = " . $area . " AND stConselheiro = 'A' ";
 
-		if (!empty($segmento))
-		{
-			$sql.= " AND A.cdSegmento = " . $segmento;
-		}
+        if (!empty($segmento)) {
+            $sql.= " AND A.cdSegmento = " . $segmento;
+        }
 
-		$sql.= " ORDER BY A.stTitular DESC, N.Descricao";
+        $sql.= " ORDER BY A.stTitular DESC, N.Descricao";
 
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
-		return $db->fetchAll($sql);
-	}
-
-
-
-	#--Buscando quanto titulares tem na area x
-	public static function buscaTitularArea($area)
-	{
-		$sql = "Select COUNT(*) as QTD FROM AGENTES.dbo.tbTitulacaoConselheiro where cdArea = ".$area." AND stTitular = 1 AND stConselheiro = 'A'";
-
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-
-		return $db->fetchAll($sql);
-	}
+        return $db->fetchAll($sql);
+    }
 
 
 
-	#--Buscando quantos suplentes tem na area x--
-	public static function buscaSuplentesArea($area)
-	{
-		$sql = "Select COUNT(*) as QTD FROM AGENTES.dbo.tbTitulacaoConselheiro where cdArea = ".$area." AND stTitular = 0 AND stConselheiro = 'A'";
+    #--Buscando quanto titulares tem na area x
+    public static function buscaTitularArea($area)
+    {
+        $sql = "Select COUNT(*) as QTD FROM AGENTES.dbo.tbTitulacaoConselheiro where cdArea = ".$area." AND stTitular = 1 AND stConselheiro = 'A'";
 
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
-		return $db->fetchAll($sql);
-	}
-
-
-
-	public static function buscarComponente($idAgente)
-	{
-		$sql = "Select * From AGENTES.dbo.tbTitulacaoConselheiro where idAgente = ".$idAgente;
-
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-
-		return $db->fetchAll($sql);
-	}
+        return $db->fetchAll($sql);
+    }
 
 
 
-	public static function atualizaComponente($idAgente, $dados)
-	{
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		$where = "idAgente =".$idAgente;
-		$i = $db->update('AGENTES.dbo.tbTitulacaoConselheiro', $dados, $where);
-	}
+    #--Buscando quantos suplentes tem na area x--
+    public static function buscaSuplentesArea($area)
+    {
+        $sql = "Select COUNT(*) as QTD FROM AGENTES.dbo.tbTitulacaoConselheiro where cdArea = ".$area." AND stTitular = 0 AND stConselheiro = 'A'";
+
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+
+        return $db->fetchAll($sql);
+    }
 
 
 
-	public static function gravarComponente($dados)
-	{
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-		$i = $db->insert('AGENTES.dbo.tbTitulacaoConselheiro', $dados);
-	}
+    public static function buscarComponente($idAgente)
+    {
+        $sql = "Select * From AGENTES.dbo.tbTitulacaoConselheiro where idAgente = ".$idAgente;
 
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+
+        return $db->fetchAll($sql);
+    }
+
+
+
+    public static function atualizaComponente($idAgente, $dados)
+    {
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        $where = "idAgente =".$idAgente;
+        $i = $db->update('AGENTES.dbo.tbTitulacaoConselheiro', $dados, $where);
+    }
+
+
+
+    public static function gravarComponente($dados)
+    {
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        $i = $db->insert('AGENTES.dbo.tbTitulacaoConselheiro', $dados);
+    }
 } // fecha class

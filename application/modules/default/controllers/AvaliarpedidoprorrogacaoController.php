@@ -1,16 +1,6 @@
 <?php 
-
-/**
- * @author Equipe RUP - Politec
- * @since 09/01/2013
- * @version 1.0
- * @package application
- * @subpackage application.controller
- * @link http://www.cultura.gov.br
- * @copyright 2010 - Ministério da Cultura - Todos os direitos reservados.
- */
-class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract {
-
+class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
+{
     private $getIdAgente  = 0;
     private $getIdGrupo   = 0;
     private $getIdOrgao   = 0;
@@ -22,7 +12,8 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
      * @param void
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         // verifica as permissões
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 121;  // Técnico de Acompanhamento
@@ -40,34 +31,34 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
         parent::init();
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
-        }else {
+        } else {
             $campo = null;
             $order = array(6);
             $ordenacao = null;
@@ -75,7 +66,9 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         $Usuariosorgaosgrupos = new Usuariosorgaosgrupos();
@@ -92,7 +85,7 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
         $where['p.Situacao in (?)'] = array('E10','E11','E12','E15','E16','E23');
         $where['o.idSecretaria = ?'] = $dadosOrgaos->org_superior;
 
-        if ($this->_request->getParam('pronac')) {           
+        if ($this->_request->getParam('pronac')) {
             $where['CONCAT(p.AnoProjeto, p.Sequencial) = ?'] = $this->_request->getParam('pronac');
             $this->view->pronac = $this->_request->getParam('pronac');
         }
@@ -126,33 +119,33 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
         $this->view->intTamPag     = $this->intTamPag;
     }
 
-    public function imprimirAction(){
+    public function imprimirAction()
+    {
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
-        }else {
+        } else {
             $campo = null;
             $order = array(6);
             $ordenacao = null;
@@ -160,7 +153,9 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         $Usuariosorgaosgrupos = new Usuariosorgaosgrupos();
@@ -177,7 +172,7 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
         $where['p.Situacao in (?)'] = array('E10','E11','E12','E15','E16','E23');
         $where['o.idSecretaria = ?'] = $dadosOrgaos->org_superior;
 
-        if ($this->_request->getParam('pronac')) {           
+        if ($this->_request->getParam('pronac')) {
             $where['CONCAT(p.AnoProjeto, p.Sequencial) = ?'] = $this->_request->getParam('pronac');
             $this->view->pronac = $this->_request->getParam('pronac');
         }
@@ -198,9 +193,10 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
     }
     
     
-    public function detalharAction() {
+    public function detalharAction()
+    {
         $prorrogacao = 0;
-        if($this->_request->getParam("prorrogacao")) {
+        if ($this->_request->getParam("prorrogacao")) {
             $prorrogacao = $this->_request->getParam("prorrogacao");
         } else {
             parent::message("Item n&atilde;o encontrado!", "analisarsituacaoitem", "ERROR");
@@ -239,8 +235,8 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
         $this->view->justificativa = $this->getRequest()->getParam('justificativa');
         $prorrogacaoModel = new ProrrogacaoModel();
         try {
-            if(ProrrogacaoModel::DEFERIDO == $this->getRequest()->getParam('analise')) {
-                if(empty($opcaoDeferimento) && PerfilModel::TECNICO_DE_ACOMPANHAMENTO == $this->getIdGrupo){
+            if (ProrrogacaoModel::DEFERIDO == $this->getRequest()->getParam('analise')) {
+                if (empty($opcaoDeferimento) && PerfilModel::TECNICO_DE_ACOMPANHAMENTO == $this->getIdGrupo) {
                     parent::message("Ao dererir, escolha uma das opções antes de salvar a sua avaliação!", "avaliarpedidoprorrogacao/detalhar/prorrogacao/{$idProrrogacao}", "ERROR");
                 }
                 $prorrogacaoModel->deferir(
@@ -252,14 +248,14 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
                     $this->getRequest()->getParam('dtFinal'),
                     $this->getRequest()->getParam('opcaoDeferimento', ProrrogacaoModel::ENCAMINHAR_COORDENADOR)
                 );
-            } else if(ProrrogacaoModel::INDEFERIDO == $this->getRequest()->getParam('analise')) {
+            } elseif (ProrrogacaoModel::INDEFERIDO == $this->getRequest()->getParam('analise')) {
                 $prorrogacaoModel->indeferir(
                     $idProrrogacao,
                     $this->getRequest()->getParam('justificativa'),
                     $this->getRequest()->getParam('analise'),
                     $this->getIdUsuario
                 );
-            } else if(ProrrogacaoModel::PROCESSADO == $this->getRequest()->getParam('analise')) {
+            } elseif (ProrrogacaoModel::PROCESSADO == $this->getRequest()->getParam('analise')) {
                 $prorrogacaoModel->indeferir(
                     $idProrrogacao,
                     $this->getRequest()->getParam('justificativa'),
@@ -291,5 +287,4 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
         $prorrogacaoModel->deletar($this->getRequest()->getParam('idProrrogacao'));
         parent::message("Prorrogação excluída com sucesso!", "avaliarpedidoprorrogacao", "CONFIRM");
     }
-
 }

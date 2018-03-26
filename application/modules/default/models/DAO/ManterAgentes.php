@@ -9,14 +9,13 @@
  */
 class ManterAgentes extends MinC_Db_Table_Abstract
 {
-	protected $_name = 'area';
-	protected $_schema = 'sac';
+    protected $_name = 'area';
+    protected $_schema = 'sac';
 
 
-	public static function buscaAgentes($cnpjcpf = null, $nome = null, $idAgente = null)
-	{
-
-		$sql = "SELECT DISTINCT A.idAgente, A.CNPJCPF, A.CNPJCPFSuperior, A.TipoPessoa, N.Descricao Nome, E.Cep CEP, E.UF, U.Sigla dsUF, E.Cidade, M.Descricao dsCidade, E.TipoEndereco,
+    public static function buscaAgentes($cnpjcpf = null, $nome = null, $idAgente = null)
+    {
+        $sql = "SELECT DISTINCT A.idAgente, A.CNPJCPF, A.CNPJCPFSuperior, A.TipoPessoa, N.Descricao Nome, E.Cep CEP, E.UF, U.Sigla dsUF, E.Cidade, M.Descricao dsCidade, E.TipoEndereco,
 					   VE.Descricao dsTipoEndereco, E.TipoLogradouro, VL.Descricao dsTipoLogradouro, E.Logradouro, E.Numero,
 					   E.Complemento, E.Bairro, T.stTitular, E.Divulgar DivulgarEndereco, E.Status EnderecoCorrespondencia,
 					   T.cdArea, SA.Descricao dsArea, T.cdSegmento, SS.Descricao dsSegmento
@@ -33,32 +32,29 @@ class ManterAgentes extends MinC_Db_Table_Abstract
 						LEFT join SAC.dbo.Segmento SS on SS.Codigo = T.cdSegmento
 				WHERE (A.TipoPessoa = 0 OR A.TipoPessoa = 1) ";
 
-		if (!empty($cnpjcpf))
-		{
-			$sql.= " AND A.CNPJCPF = '$cnpjcpf'";
-		}
-		if (!empty($nome))
-		{
-			$sql.= " AND N.Descricao LIKE '$nome%'";
-		}
-		if (!empty($idAgente))
-		{
-			$sql.= " AND A.idAgente = $idAgente";
-		}
+        if (!empty($cnpjcpf)) {
+            $sql.= " AND A.CNPJCPF = '$cnpjcpf'";
+        }
+        if (!empty($nome)) {
+            $sql.= " AND N.Descricao LIKE '$nome%'";
+        }
+        if (!empty($idAgente)) {
+            $sql.= " AND A.idAgente = $idAgente";
+        }
 
-		$sql.= " ORDER BY N.Descricao ASC";
+        $sql.= " ORDER BY N.Descricao ASC";
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		return $db->fetchAll($sql);
-	} // fecha m�todo buscaAgentes()
+        return $db->fetchAll($sql);
+    } // fecha m�todo buscaAgentes()
 
 
 
-	public static function buscaDirigentes($cnpjcpf = null, $nome = null)
-	{
-		$sql = "SELECT a.idAgente
+    public static function buscaDirigentes($cnpjcpf = null, $nome = null)
+    {
+        $sql = "SELECT a.idAgente
 				,a.CNPJCPF
 				,a.CNPJCPFSuperior
 				,n.Descricao AS Nome
@@ -79,82 +75,76 @@ class ManterAgentes extends MinC_Db_Table_Abstract
 				AND (n.TipoNome = '18' OR n.TipoNome = '19')
 				AND vis.Visao = '198' ";
 
-		if (!empty($cnpjcpf))
-		{
-			$sql.= " AND a.CNPJCPFSuperior = '$cnpjcpf'";
-		}
-		if (!empty($nome))
-		{
-			$sql.= " AND n.Descricao = '$nome'";
-		}
+        if (!empty($cnpjcpf)) {
+            $sql.= " AND a.CNPJCPFSuperior = '$cnpjcpf'";
+        }
+        if (!empty($nome)) {
+            $sql.= " AND n.Descricao = '$nome'";
+        }
 
-		$sql.= " ORDER BY n.Descricao";
+        $sql.= " ORDER BY n.Descricao";
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		return $db->fetchAll($sql);
-	} // fecha m�todo buscaDirigentes()
+        return $db->fetchAll($sql);
+    } // fecha m�todo buscaDirigentes()
 
 
 
-	public static function buscaEmails($idAgente)
-	{
-
-		$Sql = "SELECT I.idInternet, " .
-						"I.idAgente, " .
-						"I.TipoInternet, " .
-						"V.Descricao tipo, " .
-						"I.Descricao, " .
-						"I.Status, " .
-						"I.Divulgar
+    public static function buscaEmails($idAgente)
+    {
+        $Sql = "SELECT I.idInternet, " .
+                        "I.idAgente, " .
+                        "I.TipoInternet, " .
+                        "V.Descricao tipo, " .
+                        "I.Descricao, " .
+                        "I.Status, " .
+                        "I.Divulgar
 							FROM " .
-							"AGENTES.dbo.Internet I, " .
-							"AGENTES.dbo.Tipo T, " .
-							"AGENTES.dbo.Verificacao V
+                            "AGENTES.dbo.Internet I, " .
+                            "AGENTES.dbo.Tipo T, " .
+                            "AGENTES.dbo.Verificacao V
 								WHERE  I.TipoInternet = V.idVerificacao " .
-									"AND T.idTipo = V.IdTipo " .
-									"AND I.idAgente =".$idAgente;
+                                    "AND T.idTipo = V.IdTipo " .
+                                    "AND I.idAgente =".$idAgente;
 
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		return $db->fetchAll($Sql);
-
-	}
-
+        return $db->fetchAll($Sql);
+    }
 
 
-	public static function buscaFones($idAgente)
-	{
 
-		$Sql = "SELECT F.idTelefone, " .
-					  "F.DDD, " .
-					  "D.Codigo,  " .
-					  "F.idAgente, " .
-					  "F.TipoTelefone, " .
-					  "V.Descricao dsTelefone, " .
-					  "F.UF, " .
-					  "UF.Sigla ufSigla, " .
-					  "F.Numero, " .
-					  "F.Divulgar " .
-					  		"FROM AGENTES.dbo.Telefones F, " .
-					  			 "AGENTES.dbo.Verificacao V, " .
-					  			 "AGENTES.dbo.DDD D, " .
-					  			 "AGENTES.dbo.UF UF	" .
-					  			 	"WHERE F.TipoTelefone = V.idVerificacao " .
-					  			 	"AND F.UF = UF.idUF	" .
-					  			 	"AND F.DDD = D.idDDD " .
-					  			 	"AND F.idAgente =".$idAgente;
+    public static function buscaFones($idAgente)
+    {
+        $Sql = "SELECT F.idTelefone, " .
+                      "F.DDD, " .
+                      "D.Codigo,  " .
+                      "F.idAgente, " .
+                      "F.TipoTelefone, " .
+                      "V.Descricao dsTelefone, " .
+                      "F.UF, " .
+                      "UF.Sigla ufSigla, " .
+                      "F.Numero, " .
+                      "F.Divulgar " .
+                            "FROM AGENTES.dbo.Telefones F, " .
+                                 "AGENTES.dbo.Verificacao V, " .
+                                 "AGENTES.dbo.DDD D, " .
+                                 "AGENTES.dbo.UF UF	" .
+                                    "WHERE F.TipoTelefone = V.idVerificacao " .
+                                    "AND F.UF = UF.idUF	" .
+                                    "AND F.DDD = D.idDDD " .
+                                    "AND F.idAgente =".$idAgente;
 
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		return $db->fetchAll($Sql);
-
-	}
+        return $db->fetchAll($Sql);
+    }
 
 
 
@@ -165,13 +155,10 @@ class ManterAgentes extends MinC_Db_Table_Abstract
         $sql.= "WHERE Codigo <> 7 ";
         $sql.= "ORDER BY Descricao;";
 
-        try
-        {
+        try {
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Área Cultural: " . $e->getMessage();
         }
 
@@ -197,105 +184,83 @@ class ManterAgentes extends MinC_Db_Table_Abstract
         return $db->fetchAll($sql);
     }
 
-// ************************** Cadatros Gerais ***************************************
+    // ************************** Cadatros Gerais ***************************************
 
 
-	public static function cadastraAgente($cnpjcpf){
+    public static function cadastraAgente($cnpjcpf)
+    {
+        $sqlInsert = "Insert Into Agentes.dbo.Agentes (CNPJCPF) values ('".$cnpjcpf."')";
 
-		$sqlInsert = "Insert Into Agentes.dbo.Agentes (CNPJCPF) values ('".$cnpjcpf."')";
-
-		try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			$i = $db->query($sqlInsert);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao cadastrar o Agente: " . $e->getMessage();
-		}
-
-	}
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+            $i = $db->query($sqlInsert);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao cadastrar o Agente: " . $e->getMessage();
+        }
+    }
 
 
 
 
-	public static function cadastraDirigente($cnpjcpf, $cnpjSuperior){
+    public static function cadastraDirigente($cnpjcpf, $cnpjSuperior)
+    {
+        $sqlInsert = "Insert Into Agentes.dbo.Agentes (CNPJCPF, CNPJCPFSuperior) values ('".$cnpjcpf."', '".$cnpjSuperior."')";
 
-		$sqlInsert = "Insert Into Agentes.dbo.Agentes (CNPJCPF, CNPJCPFSuperior) values ('".$cnpjcpf."', '".$cnpjSuperior."')";
-
-		try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			$i = $db->query($sqlInsert);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao cadastrar o Dirigente: " . $e->getMessage();
-		}
-
-	}
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+            $i = $db->query($sqlInsert);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao cadastrar o Dirigente: " . $e->getMessage();
+        }
+    }
 
 
 
 
-	public static function associarAgenteDirigente($idAgente, $CNPJSuperior){
+    public static function associarAgenteDirigente($idAgente, $CNPJSuperior)
+    {
+        $sql = "UPDATE Agentes.dbo.Agentes SET CNPJCPFSuperior = $CNPJSuperior WHERE idAgente = $idAgente";
 
-		$sql = "UPDATE Agentes.dbo.Agentes SET CNPJCPFSuperior = $CNPJSuperior WHERE idAgente = $idAgente";
-
-		try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			$i = $db->query($sql);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao associar o Dirigente: " . $e->getMessage();
-		}
-
-	}
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+            $i = $db->query($sql);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao associar o Dirigente: " . $e->getMessage();
+        }
+    }
 
 
 
-	public static function verificarVincularDirigente($idAgente, $idVinculado, $idVinculoPrincipal){
+    public static function verificarVincularDirigente($idAgente, $idVinculado, $idVinculoPrincipal)
+    {
+        $sql = "SELECT * FROM AGENTES.dbo.Vinculacao WHERE idAgente = $idAgente AND idVinculado = $idVinculado AND idVinculoPrincipal = $idVinculoPrincipal";
 
-		$sql = "SELECT * FROM AGENTES.dbo.Vinculacao WHERE idAgente = $idAgente AND idVinculado = $idVinculado AND idVinculoPrincipal = $idVinculoPrincipal";
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao verificar dirigente vinculado: " . $e->getMessage();
+        }
 
-		try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao verificar dirigente vinculado: " . $e->getMessage();
-		}
-
-		return $db->fetchAll($sql);
-
-	}
+        return $db->fetchAll($sql);
+    }
 
 
 
-	public static function vincularDirigente($idAgente, $idVinculado, $idVinculoPrincipal, $Usuario){
+    public static function vincularDirigente($idAgente, $idVinculado, $idVinculoPrincipal, $Usuario)
+    {
+        $sql = "INSERT INTO AGENTES.dbo.Vinculacao (idAgente, idVinculado, idVinculoPrincipal, Usuario) " .
+                "VALUES($idAgente, $idVinculado, $idVinculoPrincipal, $Usuario)";
 
-		$sql = "INSERT INTO AGENTES.dbo.Vinculacao (idAgente, idVinculado, idVinculoPrincipal, Usuario) " .
-				"VALUES($idAgente, $idVinculado, $idVinculoPrincipal, $Usuario)";
-
-		try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			$i = $db->query($sql);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao vincular o Dirigente: " . $e->getMessage();
-		}
-
-	}
-
-
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+            $i = $db->query($sql);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao vincular o Dirigente: " . $e->getMessage();
+        }
+    }
 } // fecha class

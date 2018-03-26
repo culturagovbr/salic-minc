@@ -4,13 +4,14 @@
  *
  * @author 01610881125
  */
-class Arquivodispensalicitacao  extends MinC_Db_Table_Abstract{
-
+class Arquivodispensalicitacao extends MinC_Db_Table_Abstract
+{
     protected $_banco   = 'BDCORPORATIVO';
     protected $_name    = 'tbArquivoDispensaLicitacao';
     protected $_schema  = 'BDCORPORATIVO.scSAC';
 
-    public function buscarArquivos($iddispensalicitacao){
+    public function buscarArquivos($iddispensalicitacao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(

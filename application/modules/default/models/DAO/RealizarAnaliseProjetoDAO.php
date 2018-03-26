@@ -1,23 +1,12 @@
 <?php
-/* DAO RealizarAnaliseProjeto
- * @author Equipe RUP - Politec
- * @since 07/06/2010
- * @version 1.0
- * @package application
- * @subpackage application.model.DAO
- * @link http://www.politec.com.br
- * @copyright � 2010 - Politec - Todos os direitos reservados.
-*/
-
 class RealizarAnaliseProjetoDAO extends Zend_db_table
 {
-    public static function somarOrcamentoSolicitado($idpronac){
-
-       $sele = "select sum(VlTotal) as somatudo from SAC.dbo.vwOrcamentoSolicitado where idpronac = $idpronac";
-       $db = Zend_Db_Table::getDefaultAdapter();
-       $db->setFetchMode(Zend_DB::FETCH_ASSOC);
-       return $db->fetchRow($sele);
-
+    public static function somarOrcamentoSolicitado($idpronac)
+    {
+        $sele = "select sum(VlTotal) as somatudo from SAC.dbo.vwOrcamentoSolicitado where idpronac = $idpronac";
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_ASSOC);
+        return $db->fetchRow($sele);
     }
 
     /**
@@ -29,36 +18,43 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
      */
     public static function verificaEnquadramento($idpronac=null, $tpAnalise=null, $IN2017=false)
     {
-
         $table = Zend_Db_Table::getDefaultAdapter();
 
         if ($IN2017) {
             $select = $table->select()
-                            ->from(array('e' =>'Enquadramento'),
+                            ->from(
+                                array('e' =>'Enquadramento'),
                             array('stArtigo' => new Zend_Db_Expr(
                                 "CASE WHEN Enquadramento = 1 
 			                       THEN 'Artigo 26' 
 				                 WHEN Enquadramento = 2 
 				                   THEN 'Artigo 18' 
-                                 ELSE 'Não enquadrado'
+                                 ELSE 'N&atilde;o enquadrado'
                                  END"
                             )),
-                            'SAC.dbo')
+                            'SAC.dbo'
+                            )
                             ->where('e.idpronac = ?', $idpronac);
         } else {
             // LEGADO - MANTENDO PARA FINS DE COMPATIBILIDADE
             $select = $table->select()
-                            ->from(array('taa' =>'tbAnaliseAprovacao'),
+                            ->from(
+                                array('taa' =>'tbAnaliseAprovacao'),
                             array('stArtigo18','stArtigo26'),
-                            'SAC.dbo')
-                            ->joinInner(array('pr' => 'projetos'),
+                            'SAC.dbo'
+                            )
+                            ->joinInner(
+                                array('pr' => 'projetos'),
                             'pr.idpronac = taa.idpronac',
                             array(''),
-                            'SAC.dbo')
-                            ->joinInner(array('pdp' => 'PlanoDistribuicaoProduto'),
+                            'SAC.dbo'
+                            )
+                            ->joinInner(
+                                array('pdp' => 'PlanoDistribuicaoProduto'),
                             'pdp.idproduto=taa.idproduto and pdp.idprojeto = pr.idprojeto',
                             array(''),
-                            'SAC.dbo')
+                            'SAC.dbo'
+                            )
                             ->where('taa.idpronac = ?', $idpronac)
                             ->where('pdp.stPrincipal = 1')
                             ->where('taa.tpanalise = ?', $tpAnalise)
@@ -67,26 +63,24 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($select);
-
     }
-     /**
-     * M�todo para Verificar se o parecer � favoravel ou n�o
-     * @access public
-     * @static
-     * @param integer $idPronac
-     * @return object
-     */
-        public static function verificaParecerFavoravel($idpronac)
+    /**
+    * M�todo para Verificar se o parecer � favoravel ou n�o
+    * @access public
+    * @static
+    * @param integer $idPronac
+    * @return object
+    */
+    public static function verificaParecerFavoravel($idpronac)
     {
-            $sql = "select
+        $sql = "select
                     case
                     when sac.dbo.fnParecerFavoravel($idpronac) = 1 then 'N�o'
                     when sac.dbo.fnParecerFavoravel($idpronac) = 2 then 'Sim'
                     end as parecer";
-            $db = Zend_Db_Table::getDefaultAdapter();
-            $db->setFetchMode(Zend_DB::FETCH_OBJ);
-            return $db->fetchAll($sql);
-
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
     }
 
     /**
@@ -96,9 +90,9 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
      * @param integer $idPronac
      * @return object
      */
-        public static function verificaItem($idpronac, $codigoitem)
+    public static function verificaItem($idpronac, $codigoitem)
     {
-            $sql = "SELECT  TOP 1 1
+        $sql = "SELECT  TOP 1 1
                     FROM sac.dbo.tbPlanilhaAprovacao
                     WHERE idPronac = $idpronac
                     and idProduto = 0
@@ -107,10 +101,9 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
                     AND stAtivo = 'S'
                     AND tpPlanilha = 'CO'
                    ";
-            $db = Zend_Db_Table::getDefaultAdapter();
-            $db->setFetchMode(Zend_DB::FETCH_OBJ);
-            return $db->fetchAll($sql);
-
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
     }
 
     /**
@@ -120,9 +113,9 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
      * @param integer $idPronac
      * @return object
      */
-        public static function BuscarItem($idpronac, $codigoitem)
+    public static function BuscarItem($idpronac, $codigoitem)
     {
-            $sql = "SELECT  idPlanilhaProposta,
+        $sql = "SELECT  idPlanilhaProposta,
                             idPronac,
                             idProduto,
                             idEtapa,
@@ -147,110 +140,102 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
                             AND stAtivo = 'S'
                             AND tpPlanilha = 'CO'
                    ";
-            $db = Zend_Db_Table::getDefaultAdapter();
-            $db->setFetchMode(Zend_DB::FETCH_OBJ);
-            return $db->fetchAll($sql);
-
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
     }
-        /**
-             * M�todo que altera o o altera a planilha aprovacao
-             * @access public
-             * @param array $dados
-             * @param integer $idPronac
-             * @param integer $idplanilhaitem
-             * @static
-             * @return object
-             */
-            public static function alterarplanilhaaprovacao($dados, $idPronac, $idplanilhaitem)
-            {
-                $where   = "IdPRONAC = $idPronac
+    /**
+         * M�todo que altera o o altera a planilha aprovacao
+         * @access public
+         * @param array $dados
+         * @param integer $idPronac
+         * @param integer $idplanilhaitem
+         * @static
+         * @return object
+         */
+    public static function alterarplanilhaaprovacao($dados, $idPronac, $idplanilhaitem)
+    {
+        $where   = "IdPRONAC = $idPronac
                             and idproduto = 0
                             and idplanilhaitem = $idplanilhaitem
                             and nrfonterecurso = 109
                             and stAtivo='S'
                             and tpplanilha='CO'";
-                try{
-                $db= Zend_Db_Table::getDefaultAdapter();
-                $db->setFetchMode(Zend_DB::FETCH_OBJ);
-                $alterar = $db->update("SAC.dbo.tbPlanilhaAprovacao", $dados, $where);
-                return true;
-                }
-                catch (Exception $e){
-                    return false;
-                }
-            }
+        try {
+            $db= Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+            $alterar = $db->update("SAC.dbo.tbPlanilhaAprovacao", $dados, $where);
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
 
 
-                /**
-                 * M�todo que insere os dados na tabela tbplanilhaaprovacao
-                 * @access public
-                 * @param array $dados
-                 * @static
-                 * @return object
-                 */
-                public static function inserirplanilhaaprovacao($dados)
-                {
-                    try{
-                    $db= Zend_Db_Table::getDefaultAdapter();
-                    $db->setFetchMode(Zend_DB::FETCH_OBJ);
-                    $cadastrar = $db->insert("BSAC.dbo.tbPlanilhaAprovacao", $dados);
-                    return true;
-                    }
-                    catch (Exception $e){
-                    return false;
-                    }
-
-                } // fecha m�todo cadastrarSubmeterCNIC()
-
-     /**
-     * M�todo para trazer a Elabora��o, Valor do Componente da Comissao
+    /**
+     * M�todo que insere os dados na tabela tbplanilhaaprovacao
      * @access public
+     * @param array $dados
      * @static
-     * @param integer $idPronac, $tipoBusca = S: Sugerido pelo componente da comissao, E: Elaboracao e agenciamento
      * @return object
      */
-        public static function valoresSugerido($idpronac, $tipo)
+    public static function inserirplanilhaaprovacao($dados)
     {
-            $sql = "SELECT SUM(qtItem * nrOcorrencia * vlUnitario) as valor
+        try {
+            $db= Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+            $cadastrar = $db->insert("BSAC.dbo.tbPlanilhaAprovacao", $dados);
+            return true;
+        } catch (Exception $e) {
+            return false;
+        }
+    } // fecha m�todo cadastrarSubmeterCNIC()
+
+    /**
+    * M�todo para trazer a Elabora��o, Valor do Componente da Comissao
+    * @access public
+    * @static
+    * @param integer $idPronac, $tipoBusca = S: Sugerido pelo componente da comissao, E: Elaboracao e agenciamento
+    * @return object
+    */
+    public static function valoresSugerido($idpronac, $tipo)
+    {
+        $sql = "SELECT SUM(qtItem * nrOcorrencia * vlUnitario) as valor
                     FROM sac.dbo.tbPlanilhaAprovacao p
                     INNER JOIN sac.dbo.tbPlanilhaItens i on (p.idPlanilhaItem = i.idPlanilhaItens)
                     WHERE idPronac = $idpronac and nrFonteRecurso = 109";
-            if($tipo == 'S')
-                {
-                $sql .= " and
+        if ($tipo == 'S') {
+            $sql .= " and
                         (idPlanilhaItem <> 206 and idPlanilhaItem <> 1238)
                         AND p.stAtivo = 'S' AND p.tpPlanilha = 'CO'
                         ";
-                }
-            if($tipo == 'E')
-                {
-                $sql .= " and
+        }
+        if ($tipo == 'E') {
+            $sql .= " and
                         (idPlanilhaItem = 206 and idPlanilhaItem = 1238)
                         AND p.stAtivo = 'S' AND p.tpPlanilha = 'CO'
                         ";
-                }
-            $db = Zend_Db_Table::getDefaultAdapter();
-            $db->setFetchMode(Zend_DB::FETCH_OBJ);
-            return $db->fetchAll($sql);
-
+        }
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
     }
-     /**
-     * M�todo para trazer a Elabora��o
-     * @access public
-     * @static
-     * @param integer
-     * @return object
-     */
-        public static function valorElaboracaoAgenciamento($idpronac)
+    /**
+    * M�todo para trazer a Elabora��o
+    * @access public
+    * @static
+    * @param integer
+    * @return object
+    */
+    public static function valorElaboracaoAgenciamento($idpronac)
     {
-            $sql = "SELECT sac.dbo.fnCalcularValorElaboracaoAgenciamento($idpronac,'CO') /
+        $sql = "SELECT sac.dbo.fnCalcularValorElaboracaoAgenciamento($idpronac,'CO') /
                          sac.dbo.fnQtElaboracaoAgenciamento($idpronac,'CO') as valor
 ";
 
-            $db = Zend_Db_Table::getDefaultAdapter();
-            $db->setFetchMode(Zend_DB::FETCH_OBJ);
-            return $db->fetchAll($sql);
-
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
     }
 
 
@@ -335,9 +320,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } // fecha m�todo analiseDeConta()
-
-
+    }
 
     /**
      * M�todo que busca as informa��es da an�lise do parecer consolidado
@@ -358,15 +341,15 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
 			,par.SugeridoReal
             ,par.ResumoParecer
             , case
-                  when par.ParecerFavoravel = 1 then 'N�o'
+                  when par.ParecerFavoravel = 1 then 'N&atilde;o'
                   when par.ParecerFavoravel = 2 then 'Sim'
             end as parecerfavoravel,
             par.TipoParecer
             ,case
-			      when par.TipoParecer = 1 then 'Aprova��o Inicial'
-			      when par.TipoParecer = 2 then 'Complementa��o'
-			      when par.TipoParecer = 3 then 'Prorroga��o'
-			      when par.TipoParecer = 4 then 'Redu��o'
+			      when par.TipoParecer = 1 then 'Aprova&ccedil;&atilde;o Inicial'
+			      when par.TipoParecer = 2 then 'Complementa&ccedil;&atilde;o'
+			      when par.TipoParecer = 3 then 'Prorroga&ccedil;&atilde;o'
+			      when par.TipoParecer = 4 then 'Redu&ccedil;&atilde;o'
 			end as tipoparecer
             ,case
 			when par.idEnquadramento = 1 then 'Artigo 26'
@@ -376,7 +359,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
 			left JOIN SAC.dbo.Enquadramento enq on enq.IdPRONAC  = PRO.IdPRONAC
             WHERE PAR.idTipoAgente = 1 and PRO.IdPRONAC=" . $idPronac;
         // busca de acordo com o pronac
-
+        
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
@@ -386,7 +369,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
 
     public static function valoresanaliseparecertecnicoconsolidade($idpronac)
     {
-            $sql = " SELECT idPronac,AnoProjeto+Sequencial as PRONAC,
+        $sql = " SELECT idPronac,AnoProjeto+Sequencial as PRONAC,
                      isnull(ROUND(sac.dbo.fnValorDaProposta(idProjeto),2),
                      ROUND(sac.dbo.fnValorSolicitado(AnoProjeto,Sequencial),2)) as ValorProposta,
                      ROUND(sac.dbo.fnOutrasFontes(idPronac),2) as OutrasFontes,
@@ -410,10 +393,9 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
                      FROM sac.dbo.Projetos
                          WHERE sac.dbo.fnValorDaProposta(idProjeto) > 0 and IdPRONAC=$idpronac
 ";
-//            echo '<pre>'.$sql; die;
-            $db = Zend_Db_Table::getDefaultAdapter();
-            $db->setFetchMode(Zend_DB::FETCH_OBJ);
-            return $db->fetchAll($sql);
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
     }
 
     /**
@@ -427,12 +409,10 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     {
         $sql = "SELECT ";
 
-        if($outrasfontes == 'S')
-        {
+        if ($outrasfontes == 'S') {
             $sql .= " SUM(PP.Quantidade * PP.Ocorrencia * PP.ValorUnitario) AS SOMAVlSolicitado";
         }
-        if($outrasfontes == 'C')
-        {
+        if ($outrasfontes == 'C') {
             $sql .= "SUM(PP.Quantidade * PP.Ocorrencia * PP.ValorUnitario) AS SOMAVlSolicitado
                        ,SUM((PP.Quantidade * PP.Ocorrencia * PP.ValorUnitario) - (PPJ.Quantidade * PPJ.Ocorrencia * PPJ.ValorUnitario)) AS SOMAVlReduzidoParecerista
 		       ,SUM(PPJ.Quantidade * PPJ.Ocorrencia * PPJ.ValorUnitario) AS VlSugeridoParecerista
@@ -446,20 +426,16 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
 		 WHERE PAP.IdPRONAC = PRO.IdPRONAC
 		 AND (PPJ.Quantidade * PPJ.Ocorrencia * PPJ.ValorUnitario) <> (PP.Quantidade * PP.Ocorrencia * PP.ValorUnitario)
 		 AND (PAP.qtItem * PAP.nrOcorrencia * PAP.vlUnitario) <> (PP.Quantidade * PP.Ocorrencia * PP.ValorUnitario)";
-        if($outrasfontes == 'S')
-        {
+        if ($outrasfontes == 'S') {
             $sql .=" AND PP.FonteRecurso <> 109";
         }
-        if($outrasfontes == 'C')
-        {
+        if ($outrasfontes == 'C') {
             $sql .=" AND PP.FonteRecurso = 109";
         }
-        if($elaboracao=='S')
-        {
+        if ($elaboracao=='S') {
             $sql .= " AND PP.idPlanilhaItem <> '206' and PP.idPlanilhaItem <> '1238' ";
         }
-        if($elaboracao=='C')
-        {
+        if ($elaboracao=='C') {
             $sql .= " AND PP.idPlanilhaItem = '206' and PP.idPlanilhaItem = '1238' ";
         }
         $sql .=" AND PAP.tpPlanilha = 'CO'
@@ -468,13 +444,8 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
-//        echo "<pre>".$sql; die;
         return $resultado;
-    } // fecha o metodo analiseparecerConsolidado
-
-
-
-
+    } 
 
     /**
      * M�todo que busca as informa��es da an�lise de conte�do
@@ -537,18 +508,15 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
 				INNER JOIN SAC.dbo.PlanoDistribuicaoProduto PDP on PDP.idProjeto = PROJ.idProjeto  and PDP.idProduto = AP.idProduto AND PDP.stPlanoDistribuicaoProduto = 1 ";
 
         // busca de acordo com o pronac
-        if (!empty($idPronac))
-        {
+        if (!empty($idPronac)) {
             $sql.= " WHERE AP. tpAnalise = '$tpAnalise' and AC.idPronac = $idPronac";
         }
-//
+
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } // fecha m�todo analiseDeConteudo()
-
-
+    } 
 
     /**
      * M�todo que busca os produtos dos projetos da an�lise de custos
@@ -560,11 +528,9 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
     public static function JustificativaComponente($idpronac)
     {
         $sql = "select dsAnalise from BDCORPORATIVO.scSAC.tbPauta where idpronac = $idpronac ";
-//die($sql);
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_ASSOC);
         $resultado = $db->fetchRow($sql);
-//        die($sql);
         return $resultado;
     }
 
@@ -578,7 +544,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
 
     public static function analiseDeCustosBuscarProduto($idPronac)
     {
-		$sql = "SELECT DISTINCT PD.Descricao,
+        $sql = "SELECT DISTINCT PD.Descricao,
 					CASE
 						WHEN PAP.idProduto = 0
 							THEN 'Administra��o do Projeto'
@@ -604,8 +570,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
                                         AND I.idplanilhaitens <> 1238";
 
         // busca de acordo com o pronac
-        if (!empty($idPronac))
-        {
+        if (!empty($idPronac)) {
             $sql.= " AND PAP.IdPRONAC = $idPronac";
         }
         $sql.= " ORDER BY PD.Descricao";
@@ -613,9 +578,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } // fecha m�todo analiseDeCustosBuscarProduto()
-
-
+    } 
 
     /**
      * M�todo que busca as etapas dos projetos da an�lise de custos
@@ -626,7 +589,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
      */
     public static function analiseDeCustosBuscarEtapa($idPronac, $idProduto = null, $buscarPorProduto = null)
     {
-		$sql = "SELECT DISTINCT PP.idEtapa AS idEtapa
+        $sql = "SELECT DISTINCT PP.idEtapa AS idEtapa
 					,PAP.IdPRONAC
 					,PAP.idProduto
 
@@ -647,12 +610,10 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
                         AND I.idplanilhaitens <> 1238";
 
         // busca de acordo com o pronac
-        if (!empty($idPronac))
-        {
+        if (!empty($idPronac)) {
             $sql.= " AND PAP.IdPRONAC = $idPronac";
         }
-        if (!empty($idProduto) || $buscarPorProduto == true)
-        {
+        if (!empty($idProduto) || $buscarPorProduto == true) {
             $sql.= " AND PAP.idProduto = $idProduto";
         }
 
@@ -662,9 +623,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } // fecha m�todo analiseDeCustosBuscarEtapa()
-
-
+    }
 
     /**
      * M�todo que busca os estados dos projetos da an�lise de custos
@@ -675,7 +634,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
      */
     public static function analiseDeCustosBuscarUF($idPronac, $idProduto = null, $idEtapa = null, $buscarPorProduto = null)
     {
-		$sql = "SELECT DISTINCT PAP.idUFDespesa AS idUFDespesa
+        $sql = "SELECT DISTINCT PAP.idUFDespesa AS idUFDespesa
 					,PAP.IdPRONAC
 					,PAP.idProduto
 					,PP.idEtapa
@@ -699,16 +658,13 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
                         AND I.idplanilhaitens <> 1238";
 
         // busca de acordo com o pronac
-        if (!empty($idPronac))
-        {
+        if (!empty($idPronac)) {
             $sql.= " AND PAP.IdPRONAC = $idPronac";
         }
-        if (!empty($idProduto) || $buscarPorProduto == true)
-        {
+        if (!empty($idProduto) || $buscarPorProduto == true) {
             $sql.= " AND PAP.idProduto = $idProduto";
         }
-        if (!empty($idEtapa))
-        {
+        if (!empty($idEtapa)) {
             $sql.= " AND PAP.idEtapa = $idEtapa";
         }
 
@@ -718,8 +674,7 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } // fecha m�todo analiseDeCustosBuscarUF()
-
+    } 
 
     /**
      * M�todo que emite parecer (grava na tabela de aprova��o)
@@ -735,15 +690,12 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
 
         $cadastrar = $db->insert("SAC.dbo.Aprovacao", $valores);
 
-        if ($cadastrar)
-        {
+        if ($cadastrar) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
-    } // fecha m�todo emitirParecer()
+    }
 
     /**
      * M�todo que verifica a tabela aprovacao
@@ -754,11 +706,11 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
      */
     public static function verificaraprovacao($idpronac)
     {
-		$sql = "SELECT 1 FROM SAC.dbo.aprovacao WHERE idpronac = $idpronac";
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		return $db->fetchAll($sql);
-    } // fecha verificaraprovacao
+        $sql = "SELECT 1 FROM SAC.dbo.aprovacao WHERE idpronac = $idpronac";
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    }
 
     /**
      * M�todo que verifica a tabela aprovacao
@@ -774,12 +726,9 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
 
         $where = " idpronac = ".$idpronac;
         $alterar = $db->update("sac.dbo.aprovacao", $dados, $where);
-        if ($alterar)
-        {
+        if ($alterar) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -790,13 +739,13 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
      * @static
      * @return object
      */
-	public static function buscarUltimaReuniao()
-	{
-		$sql = "SELECT * FROM SAC.dbo.tbReuniao WHERE stEstado = 0";
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		return $db->fetchAll($sql);
-	} // fecha buscarUltimaReuniao()
+    public static function buscarUltimaReuniao()
+    {
+        $sql = "SELECT * FROM SAC.dbo.tbReuniao WHERE stEstado = 0";
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    } // fecha buscarUltimaReuniao()
 
 
 
@@ -809,19 +758,15 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
      */
     public static function cadastrarSubmeterCNIC($dados)
     {
-        try{
-        $db= Zend_Db_Table::getDefaultAdapter();
-        $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        $cadastrar = $db->insert("BDCORPORATIVO.scSAC.tbPauta", $dados);
-        return true;
+        try {
+            $db= Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+            $cadastrar = $db->insert("BDCORPORATIVO.scSAC.tbPauta", $dados);
+            return true;
+        } catch (Exception $e) {
+            return false;
         }
-        catch (Exception $e){
-        return false;
-        }
-
-    } // fecha m�todo cadastrarSubmeterCNIC()
-
-
+    }
 
     /**
      * M�todo que altera o projeto na pauta
@@ -834,24 +779,20 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
      */
     public static function alterarSubmeterCNIC($dados, $idPronac, $idnrreuniao=null)
     {
-
-	$where   = "IdPRONAC = $idPronac";
-        if(!empty($idnrreuniao) ){
+        $where   = "IdPRONAC = $idPronac";
+        if (!empty($idnrreuniao)) {
             $where .= " and idnrreuniao=".$idnrreuniao;
         }
-        try{
-        $db= Zend_Db_Table::getDefaultAdapter();
-        $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        $alterar = $db->update("BDCORPORATIVO.scSAC.tbPauta", $dados, $where);
-        return true;
-        }
-        catch (Exception $e){
+        try {
+            $db= Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+            $alterar = $db->update("BDCORPORATIVO.scSAC.tbPauta", $dados, $where);
+            return true;
+        } catch (Exception $e) {
             die($e->getMessage());
             return false;
         }
-    } // fecha m�todo cadastrarSubmeterCNIC()
-
-
+    }
 
     /**
      * M�todo que altera o projeto na pauta
@@ -862,27 +803,22 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
      */
     public static function submeterCnic($idPronac, $idReuniao, $justificativa)
     {
-    	$sql = "UPDATE BDCORPORATIVO.scSAC.tbPauta
+        $sql = "UPDATE BDCORPORATIVO.scSAC.tbPauta
 				SET dsAnalise = '$justificativa',
 					stEnvioPlenario = 'S'
 				WHERE IdPRONAC = $idPronac AND idNrReuniao = $idReuniao";
 
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		$alterar = $db->fetchAll($sql);
+        $alterar = $db->fetchAll($sql);
 
-		if ($alterar)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-    } // fecha m�todo submeterCnic()
-
-
+        if ($alterar) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * M�todo que busca os projetos em pauta
@@ -892,26 +828,21 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
      * @static
      * @return object
      */
-    public static  function retornaRegistro($idPronac, $idReuniao)
+    public static function retornaRegistro($idPronac, $idReuniao)
     {
         $sql = "SELECT idPRONAC, idNrReuniao, stEnvioPlenario FROM BDCORPORATIVO.scSAC.tbPauta WHERE idPRONAC = $idPronac AND idNrReuniao = $idReuniao";
-        try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-		}
-		return $db->fetchAll($sql);
-
-    } // retornaRegistro()
-
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
+        return $db->fetchAll($sql);
+    }
 
     public static function retornaIndeferimento()
     {
-         $sql = "select * from SAC.dbo.Situacao where Codigo in ('A13', 'A14', 'A16', 'A17', 'A20', 'A23', 'A24', 'D14','A41') and StatusProjeto <> 0";
+        $sql = "select * from SAC.dbo.Situacao where Codigo in ('A13', 'A14', 'A16', 'A17', 'A20', 'A23', 'A24', 'D14','A41') and StatusProjeto <> 0";
 
         try {
             $db= Zend_Db_Table::getDefaultAdapter();
@@ -920,29 +851,27 @@ class RealizarAnaliseProjetoDAO extends Zend_db_table
             $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
         }
         return $db->fetchAll($sql);
-
     }
 
-     public static function updateSituacao($idPronac,$situacao)
+    public static function updateSituacao($idPronac, $situacao)
     {
-	$where   = "IdPRONAC = $idPronac";
-        try{
-        $db= Zend_Db_Table::getDefaultAdapter();
-        $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        $dados = array('situacao'=>$situacao);
+        $where   = "IdPRONAC = $idPronac";
+        try {
+            $db= Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+            $dados = array('situacao'=>$situacao);
 
-        $alterar = $db->update("sac.dbo.projetos", $dados, $where);
-        return true;
-        }
-        catch (Exception $e){
-            parent::message("Error: ".$e->getMessage(), "realizaranaliseprojeto/emitirparecer?idPronac=".$idPronac , "CONFIRM");
+            $alterar = $db->update("sac.dbo.projetos", $dados, $where);
+            return true;
+        } catch (Exception $e) {
+            parent::message("Error: ".$e->getMessage(), "realizaranaliseprojeto/emitirparecer?idPronac=".$idPronac, "CONFIRM");
             return false;
         }
     } // fech
 
-public static  function outrasinformacoes($idpronac)
-	    {
-	      $sql = " SELECT p.idPronac,
+    public static function outrasinformacoes($idpronac)
+    {
+        $sql = " SELECT p.idPronac,
 	      				  p.idProjeto,
 	      				  p.AnoProjeto+p.Sequencial as Pronac,
 	      				  ResumoProjeto,
@@ -963,50 +892,57 @@ public static  function outrasinformacoes($idpronac)
 	                      INNER JOIN SAC.dbo.Projetos p on (pr.idPreProjeto = p.idProjeto)
 	                where p.idPronac =$idpronac";
 
-	      try
-			{
-				$db = Zend_Db_Table::getDefaultAdapter();
-				$db->setFetchMode(Zend_DB::FETCH_ASSOC);
-			}
-			catch (Zend_Exception_Db $e)
-			{
-				$this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-			}
-			return $db->fetchRow($sql);
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_ASSOC);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
+        return $db->fetchRow($sql);
+    } 
 
-	} // fecha class
-
-	public static function localrealizacao($idpronac)
+    public static function localrealizacao($idpronac)
     {
         $table = Zend_Db_Table::getDefaultAdapter();
 
         $select = $table->select()
-            ->from('Abrangencia',
+            ->from(
+                'Abrangencia',
                 array('idPais'),
-                'SAC.dbo')
-            ->where('Projetos.IdPRONAC = ? AND Abrangencia.stAbrangencia = \'1\'',  $idpronac)
-            ->joinInner('PreProjeto',
+                'SAC.dbo'
+            )
+            ->where('Projetos.IdPRONAC = ? AND Abrangencia.stAbrangencia = \'1\'', $idpronac)
+            ->joinInner(
+                'PreProjeto',
                 'Abrangencia.idProjeto = PreProjeto.idPreProjeto',
                 array(new Zend_Db_Expr('
                     CONVERT(CHAR(10), PreProjeto.DtInicioDeExecucao, 103) AS DtInicioDeExecucao,
                     CONVERT(CHAR(10), PreProjeto.DtFinalDeExecucao, 103) AS DtFinalDeExecucao
                 ')),
-                'SAC.dbo')
-            ->joinInner('Projetos',
+                'SAC.dbo'
+            )
+            ->joinInner(
+                'Projetos',
                 'PreProjeto.idPreProjeto = Projetos.idProjeto',
                 array(''),
-                'SAC.dbo')
-            ->joinLeft('Pais',
+                'SAC.dbo'
+            )
+            ->joinLeft(
+                'Pais',
                 'Abrangencia.idPais = Pais.idPais',
                 array('Descricao'),
-                'agentes.dbo')
-            ->joinLeft('Uf',
+                'agentes.dbo'
+            )
+            ->joinLeft(
+                'Uf',
                 'Abrangencia.idUF= Uf.idUF',
                 array(new Zend_Db_Expr('
                     Uf.Descricao AS UF
                 ')),
-                'agentes.dbo')
-            ->joinLeft('Municipios',
+                'agentes.dbo'
+            )
+            ->joinLeft(
+                'Municipios',
                 'Abrangencia.idMunicipioIBGE = Municipios.idMunicipioIBGE',
                 array(new Zend_Db_Expr('
                     Municipios.Descricao AS Cidade
@@ -1014,182 +950,203 @@ public static  function outrasinformacoes($idpronac)
                 'agentes.dbo'
                 );
 
-		try
-			{
-				$db = Zend_Db_Table::getDefaultAdapter();
-				$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-			    return $db->fetchAll($select);
-			}
-			catch (Zend_Exception_Db $e)
-			{
-				$this->view->message = $e->getMessage();
-			}
+            return $db->fetchAll($select);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = $e->getMessage();
+        }
+    } 
 
-
-	} // fecha class
-
-public static function deslocamento($pronac)
-{
+    public static function deslocamento($pronac)
+    {
         $table = Zend_Db_Table::getDefaultAdapter();
 
         $select = $table->select()
-            ->from('tbDeslocamento',
+            ->from(
+                'tbDeslocamento',
                 array('idDeslocamento','idProjeto','Qtde'),
-                'SAC.dbo')
-            ->where('Projetos.IdPRONAC = ?',$pronac)
-            ->joinInner('Projetos',
+                'SAC.dbo'
+            )
+            ->where('Projetos.IdPRONAC = ?', $pronac)
+            ->joinInner(
+                'Projetos',
                 'tbDeslocamento.idProjeto = Projetos.idProjeto',
                 array(''),
-                'SAC.dbo')
-            ->joinInner('Pais',
+                'SAC.dbo'
+            )
+            ->joinInner(
+                'Pais',
                 'tbDeslocamento.idPaisOrigem = Pais.idPais',
                 array(new Zend_Db_Expr('Pais.Descricao AS PaisOrigem')),
-                'Agentes.dbo')
-            ->joinInner('uf',
+                'Agentes.dbo'
+            )
+            ->joinInner(
+                'uf',
                 'tbDeslocamento.idUFOrigem = uf.iduf',
                 array(new Zend_Db_Expr('uf.Descricao AS UFOrigem')),
-                'Agentes.dbo')
-            ->joinInner('Municipios',
+                'Agentes.dbo'
+            )
+            ->joinInner(
+                'Municipios',
                 'tbDeslocamento.idMunicipioOrigem = Municipios.idMunicipioIBGE',
                 array(new Zend_Db_Expr('Municipios.Descricao AS MunicipioOrigem')),
-                'Agentes.dbo')
-            ->joinInner('Pais',
+                'Agentes.dbo'
+            )
+            ->joinInner(
+                'Pais',
                 'tbDeslocamento.idPaisDestino = Pais_2.idPais',
                 array(new Zend_Db_Expr('Pais_2.Descricao AS PaisDestino')),
-                'Agentes.dbo')
-            ->joinInner('uf',
+                'Agentes.dbo'
+            )
+            ->joinInner(
+                'uf',
                 'tbDeslocamento.idUFDestino = uf_2.iduf',
                 array(new Zend_Db_Expr('uf_2.Descricao AS UFDestino')),
-                'Agentes.dbo')
-            ->joinInner('Municipios',
+                'Agentes.dbo'
+            )
+            ->joinInner(
+                'Municipios',
                 'tbDeslocamento.idMunicipioDestino = Municipios_2.idMunicipioIBGE',
                 array(new Zend_Db_Expr('Municipios_2.Descricao AS MunicipioDestino')),
-                'Agentes.dbo');
+                'Agentes.dbo'
+            );
 
 
-		try
-			{
-				$db = Zend_Db_Table::getDefaultAdapter();
-				$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-                return $db->fetchAll($select);
-            }
-			catch (Zend_Exception_Db $e)
-			{
-                $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-            }
-}
+            return $db->fetchAll($select);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
+    }
 
-public static function divulgacao($pronac)
-{
-    $table = Zend_Db_Table::getDefaultAdapter();
-    $select = $table->select()
-        ->from('PlanoDeDivulgacao',
+    public static function divulgacao($pronac)
+    {
+        $table = Zend_Db_Table::getDefaultAdapter();
+        $select = $table->select()
+        ->from(
+            'PlanoDeDivulgacao',
             array(''),
-            'SAC.dbo')
-        ->where('Projetos.IdPRONAC = ? AND PlanoDeDivulgacao.stPlanoDivulgacao = 1 ',$pronac)
-        ->joinInner('Projetos',
+            'SAC.dbo'
+        )
+        ->where('Projetos.IdPRONAC = ? AND PlanoDeDivulgacao.stPlanoDivulgacao = 1 ', $pronac)
+        ->joinInner(
+            'Projetos',
             'PlanoDeDivulgacao.idProjeto = Projetos.idProjeto',
             array(''),
-            'SAC.dbo')
-        ->joinInner('Verificacao',
+            'SAC.dbo'
+        )
+        ->joinInner(
+            'Verificacao',
             'PlanoDeDivulgacao.idPeca = Verificacao.idVerificacao',
             array(new Zend_Db_Expr('Verificacao.Descricao AS Peca')),
-            'SAC.dbo')
-        ->joinInner('Verificacao',
+            'SAC.dbo'
+        )
+        ->joinInner(
+            'Verificacao',
             'PlanoDeDivulgacao.idVeiculo = Verificacao_2.idVerificacao',
             array(new Zend_Db_Expr('Verificacao_2.Descricao AS Veiculo')),
-            'SAC.dbo')
+            'SAC.dbo'
+        )
          ->order('Peca ASC')
          ->order('Veiculo ASC');
 
-	try
-			{
-				$db = Zend_Db_Table::getDefaultAdapter();
-				$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-                return $db->fetchAll($select);
-            }
-			catch (Zend_Exception_Db $e)
-			{
-                $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-            }
-}
+            return $db->fetchAll($select);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
+    }
 
 
-public static function divulgacaoProjetos($pronac){
-
-	$sql = "
+    public static function divulgacaoProjetos($pronac)
+    {
+        $sql = "
 		    SELECT DISTINCT v.idVerificacao as idVeiculo, v.Descricao as Veiculo
                     FROM sac.dbo.PlanoDeDivulgacao d
                     INNEr JOIN sac.dbo.Projetos p on (d.idProjeto = p.idProjeto)
                     INNER JOIN sac.dbo.Verificacao v on (d.idVeiculo = v.idVerificacao)
                     WHERE p.IdPRONAC ='$pronac' AND d.stPlanoDivulgacao = 1";
 
-	try
-			{
-				$db = Zend_Db_Table::getDefaultAdapter();
-				$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			}
-			catch (Zend_Exception_Db $e)
-			{
-				$this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-			}
-			return $db->fetchAll($sql);
-}
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
+        return $db->fetchAll($sql);
+    }
 
-public static function divulgacaoProjetosGeral($pronac){
+    public static function divulgacaoProjetosGeral($pronac)
+    {
+        $table = Zend_Db_Table::getDefaultAdapter();
 
-    $table = Zend_Db_Table::getDefaultAdapter();
-
-    $select = $table->select()
-        ->from(array('d' => 'PlanoDeDivulgacao'),
+        $select = $table->select()
+        ->from(
+            array('d' => 'PlanoDeDivulgacao'),
             array('idPlanoDivulgacao', 'idPeca'),
-            'SAC.dbo')
-        ->joinInner(array('p' => 'Projetos'),
+            'SAC.dbo'
+        )
+        ->joinInner(
+            array('p' => 'Projetos'),
             'd.idProjeto = p.idProjeto',
             array(''),
-            'SAC.dbo')
-        ->joinInner(array('v' => 'Verificacao'),
+            'SAC.dbo'
+        )
+        ->joinInner(
+            array('v' => 'Verificacao'),
             'd.idVeiculo = v.idVerificacao',
             array(new Zend_Db_Expr('v.idVerificacao AS idVeiculo'), new Zend_Db_Expr('v.Descricao AS Veiculo')),
-            'SAC.dbo')
-        ->joinInner(array('v2' => 'Verificacao'),
+            'SAC.dbo'
+        )
+        ->joinInner(
+            array('v2' => 'Verificacao'),
             'd.idPeca = v2.idVerificacao',
             array(new Zend_Db_Expr('v2.Descricao AS Peca')),
-            'SAC.dbo')
-        ->joinLeft(array('logo' => 'tbLogomarca'),
+            'SAC.dbo'
+        )
+        ->joinLeft(
+            array('logo' => 'tbLogomarca'),
             'logo.idPlanoDivulgacao = d.idPlanoDivulgacao',
             array('dsPosicao'),
-            'SAC.dbo')
-        ->joinLeft(array('doc' => 'tbDocumento'),
+            'SAC.dbo'
+        )
+        ->joinLeft(
+            array('doc' => 'tbDocumento'),
             'doc.idDocumento = logo.idDocumento',
             array('idArquivo'),
-            'BDCORPORATIVO.scCorp')
-        ->joinLeft(array('arq' => 'tbArquivo'),
+            'BDCORPORATIVO.scCorp'
+        )
+        ->joinLeft(
+            array('arq' => 'tbArquivo'),
             'arq.idArquivo = doc.idArquivo',
             array('nmArquivo'),
-            'BDCORPORATIVO.scCorp')
+            'BDCORPORATIVO.scCorp'
+        )
         ->where('p.IdPRONAC = ?', $pronac)
         ->where('d.stPlanoDivulgacao = 1');
 
 
-	try
-			{
-				$db = Zend_Db_Table::getDefaultAdapter();
-				$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			}
-			catch (Zend_Exception_Db $e)
-			{
-				$this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-			}
-			return $db->fetchAll($select);
-}
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
+        return $db->fetchAll($select);
+    }
 
-public static function divulgacaoProjetosGeral2($pronac){
-
-	$sql = "
+    public static function divulgacaoProjetosGeral2($pronac)
+    {
+        $sql = "
 		    SELECT d.idPlanoDivulgacao, v.idVerificacao as idVeiculo, v.Descricao as Veiculo, d.idPeca, v2.Descricao as Peca
                     FROM sac.dbo.PlanoDeDivulgacao d
                     INNER JOIN sac.dbo.Projetos p on (d.idProjeto = p.idProjeto)
@@ -1197,22 +1154,19 @@ public static function divulgacaoProjetosGeral2($pronac){
                     INNER JOIN sac.dbo.Verificacao v2 on (d.idPeca = v2.idVerificacao)
                     WHERE p.IdPRONAC = '$pronac' AND d.stPlanoDivulgacao = 1";
 
-	try
-			{
-				$db = Zend_Db_Table::getDefaultAdapter();
-				$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-                return $db->fetchAll($sql);
-            }
-			catch (Zend_Exception_Db $e)
-			{
-                $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-            }
-}
+            return $db->fetchAll($sql);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
+    }
 
-public static function divulgacaoProjetosCadastrados($pronac){
-
-	$sql = "
+    public static function divulgacaoProjetosCadastrados($pronac)
+    {
+        $sql = "
 		    select d.idPosicaoDaLogo, g.Descricao as PosicaoLogo, e.*, f.* from SAC.dbo.Projetos as a
                     inner join SAC.dbo.tbRelatorio as b on b.idPRONAC = a.IdPRONAC
                     inner join SAC.dbo.tbRelatorioTrimestral as c on c.idRelatorio = b.idRelatorio
@@ -1222,27 +1176,24 @@ public static function divulgacaoProjetosCadastrados($pronac){
                     left join SAC.dbo.Verificacao as g on g.idVerificacao = d.idPosicaoDaLogo
                     where a.idPRONAC = '$pronac' AND d.stPlanoDistribuicaoProduto = 1 ";
 
-	try
-			{
-				$db = Zend_Db_Table::getDefaultAdapter();
-				$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-                return $db->fetchAll($sql);
-            }
-			catch (Zend_Exception_Db $e)
-			{
-                $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-            }
-}
+            return $db->fetchAll($sql);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
+    }
 
 
-public static function planodedistribuicao ($pronac, $idproduto=null)
-{
+    public static function planodedistribuicao($pronac, $idproduto=null)
+    {
+        $table = Zend_Db_Table::getDefaultAdapter();
 
-    $table = Zend_Db_Table::getDefaultAdapter();
-
-    $sql = $table->select()
-        ->from(array('x' =>'PlanoDistribuicaoProduto'),
+        $sql = $table->select()
+        ->from(
+            array('x' =>'PlanoDistribuicaoProduto'),
             array(new Zend_Db_Expr('idPlanoDistribuicao'),'idProjeto','idProduto','stPrincipal','QtdeProduzida','QtdeProponente','QtdeVendaNormal','QtdePatrocinador','QtdeOutros', 'QtdeVendaPromocional','PrecoUnitarioNormal','PrecoUnitarioPromocional',
                 new Zend_Db_Expr('
                  QtdeVendaNormal*PrecoUnitarioNormal as ReceitaNormal,
@@ -1252,53 +1203,60 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
                  a.Codigo as idArea,
                  b.Codigo as idSegmento
                 ')),
-            'SAC.dbo')
-        ->joinInner(array('y' => 'Projetos'),
+            'SAC.dbo'
+        )
+        ->joinInner(
+            array('y' => 'Projetos'),
              'x.idProjeto = y.idProjeto',
              array('Localizacao'),
-             'SAC.dbo')
-        ->joinInner(array('p' => 'Produto'),
+             'SAC.dbo'
+        )
+        ->joinInner(
+            array('p' => 'Produto'),
             'x.idProduto = p.Codigo',
             array(new Zend_Db_Expr('p.Descricao AS Produto')),
-            'SAC.dbo')
-        ->joinInner(array('a' => 'Area'),
+            'SAC.dbo'
+        )
+        ->joinInner(
+            array('a' => 'Area'),
             'x.Area = a.Codigo',
             array(new Zend_Db_Expr('a.Descricao AS Area'),new Zend_Db_Expr('b.Descricao AS Segmento')),
-            'SAC.dbo')
-        ->joinInner(array('b' => 'Segmento'),
+            'SAC.dbo'
+        )
+        ->joinInner(
+            array('b' => 'Segmento'),
             'x.Segmento = b.Codigo',
             array(''),
-            'SAC.dbo')
-        ->joinInner(array('v' => 'Verificacao'),
+            'SAC.dbo'
+        )
+        ->joinLeft(
+            array('v' => 'Verificacao'),
             'x.idPosicaoDaLogo = v.idVerificacao',
             array(new Zend_Db_Expr('v.Descricao AS PosicaoDaLogo')),
-            'SAC.dbo')
-        ->where('y.IdPRONAC = ?',$pronac)
+            'SAC.dbo'
+        )
+        ->where('y.IdPRONAC = ?', $pronac)
         ->where('x.stPlanoDistribuicaoProduto = 1');
 
 
-                if ($idproduto) {
-                    $sql .= sprintf(' AND x.idProduto = %d', $idproduto);
-                }
-                $sql .= " order by x.stPrincipal DESC";
+        if ($idproduto) {
+            $sql .= sprintf(' AND x.idProduto = %d', $idproduto);
+        }
+        $sql .= " order by x.stPrincipal DESC";
 
-	try
-			{
-				$db = Zend_Db_Table::getDefaultAdapter();
-				$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-                return $db->fetchAll($sql);
-            }
-			catch (Zend_Exception_Db $e)
-			{
-                $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-            }
+            return $db->fetchAll($sql);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
+    }
 
-}
-
-	public static  function documentosanexados($idpronac) // anexado pelo proponente
-	    {
-	      $sql = "
+    public static function documentosanexados($idpronac) // anexado pelo proponente
+    {
+        $sql = "
 					  SELECT CodigoDocumento,
 					         Descricao,
 					         'Anexado pelo Proponente' as Classificacao,
@@ -1310,48 +1268,40 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
 					  INNER JOIN SAC.dbo.DocumentosExigidos e on (d.CodigoDocumento = e.Codigo)
 					  --WHERE d.idPRONAC = $idpronac";
 
-	      try
-			{
-				$db = Zend_Db_Table::getDefaultAdapter();
-				$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			}
-			catch (Zend_Exception_Db $e)
-			{
-				$this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-			}
-			return $db->fetchAll($sql);
-
-	} // fecha class
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
+        return $db->fetchAll($sql);
+    } // fecha class
 
 
 
-	public static  function documentosanexadosproponente($idpronac) // anexado pelo proponente
-	    {
-	      $sql = "SELECT NoArquivo AS nmArquivo,
+    public static function documentosanexadosproponente($idpronac) // anexado pelo proponente
+    {
+        $sql = "SELECT NoArquivo AS nmArquivo,
 						imDocumento AS biArquivo
 					  FROM SAC.dbo.tbDocumentosPreProjeto d
 					  INNER JOIN SAC.dbo.DocumentosExigidos e on (d.CodigoDocumento = e.Codigo)
 					  WHERE idDocumentosPreprojetos =  $idpronac
 	      ";
 
-	      try
-			{
-				$db = Zend_Db_Table::getDefaultAdapter();
-				$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			}
-			catch (Zend_Exception_Db $e)
-			{
-				$this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-			}
-			return $db->fetchAll($sql);
-
-	} // fecha class
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
+        return $db->fetchAll($sql);
+    } // fecha class
 
 
 
-	public static  function documentosanexadosminc($idpronac) // anexado pelo minc
-	    {
-	      $sql = "
+    public static function documentosanexadosminc($idpronac) // anexado pelo minc
+    {
+        $sql = "
 					  SELECT d.idTipoDocumento,
 					         e.dsTipoDocumento as Descricao,
 					         'Anexado no MinC' as Classificacao,
@@ -1368,29 +1318,14 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
 
 	      ";
 
-	      try
-			{
-				$db = Zend_Db_Table::getDefaultAdapter();
-				$db->setFetchMode(Zend_DB::FETCH_OBJ);
-			}
-			catch (Zend_Exception_Db $e)
-			{
-				$this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-			}
-			return $db->fetchAll($sql);
-
-	} // fecha class
-
-
-
-
-
-
-
-
-
-
-
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
+        return $db->fetchAll($sql);
+    } 
 
     /**
      * Planilha de Or�amento
@@ -1399,7 +1334,8 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
      * @param integer $idPronac
      * @return object
      */
-    public static function planilhaOrcamento($idPronac = null, $idProduto = null, $Etapa = null, $UF = null, $Cidade = null, $buscarPorProduto = null){
+    public static function planilhaOrcamento($idPronac = null, $idProduto = null, $Etapa = null, $UF = null, $Cidade = null, $buscarPorProduto = null)
+    {
         $sql = "SELECT
 			    idPronac,
 			    AnoProjeto,
@@ -1431,23 +1367,19 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
         $sql.= " WHERE idPronac = $idPronac";
 
         // busca de acordo com o produto
-        if (!empty($idProduto) || $buscarPorProduto == true)
-        {
+        if (!empty($idProduto) || $buscarPorProduto == true) {
             $sql.= " AND idProduto = $idProduto";
         }
         // busca de acordo com a etapa
-        if (!empty($Etapa))
-        {
+        if (!empty($Etapa)) {
             $sql.= " AND Etapa = '$Etapa'";
         }
         // busca de acordo com a uf
-        if (!empty($UF))
-        {
+        if (!empty($UF)) {
             $sql.= " AND UF = '$UF'";
         }
         // busca de acordo com a cidade
-        if (!empty($Cidade))
-        {
+        if (!empty($Cidade)) {
             $sql.= " AND Municipio = '$Cidade'";
         }
 
@@ -1457,9 +1389,7 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } // fecha m�todo planilhaOrcamento()
-
-
+    }
 
     /**
      * M�todo que busca os produtos da planilha or�amento
@@ -1470,8 +1400,7 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
      */
     public static function planilhaOrcamentoBuscarProduto($idPronac)
     {
-
-		$sql = "SELECT DISTINCT Produto AS Produto,
+        $sql = "SELECT DISTINCT Produto AS Produto,
 				    idPronac,
 				    idProduto
 
@@ -1484,9 +1413,7 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } // fecha m�todo planilhaOrcamentoBuscarProduto()
-
-
+    }
 
     /**
      * M�todo que busca as etapas da planilhaOrcamento
@@ -1497,7 +1424,7 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
      */
     public static function planilhaOrcamentoBuscarEtapa($idPronac, $idProduto = null, $buscarPorProduto = null)
     {
-		$sql = "SELECT DISTINCT Etapa AS Etapa,
+        $sql = "SELECT DISTINCT Etapa AS Etapa,
 			    idPronac,
 			    idProduto
 
@@ -1505,10 +1432,9 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
 			    SAC.dbo.vwOrcamentoSolicitado";
 
 
-            $sql.= " WHERE idPronac = $idPronac";
+        $sql.= " WHERE idPronac = $idPronac";
 
-        if (!empty($idProduto) || $buscarPorProduto == true)
-        {
+        if (!empty($idProduto) || $buscarPorProduto == true) {
             $sql.= " AND idProduto = $idProduto";
         }
 
@@ -1518,9 +1444,7 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } // fecha m�todo planilhaOrcamentoBuscarEtapa()
-
-
+    } 
 
     /**
      * M�todo que busca os estados da planilhaOrcamento
@@ -1531,7 +1455,7 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
      */
     public static function planilhaOrcamentoBuscarUF($idPronac, $idProduto = null, $Etapa = null, $buscarPorProduto = null)
     {
-		$sql = "SELECT DISTINCT UF AS UF, Municipio,
+        $sql = "SELECT DISTINCT UF AS UF, Municipio,
 			    idPronac,
 			    idProduto,
 			    Etapa
@@ -1540,14 +1464,12 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
 			    SAC.dbo.vwOrcamentoSolicitado";
 
 
-            $sql.= " WHERE idPronac = $idPronac";
+        $sql.= " WHERE idPronac = $idPronac";
 
-        if (!empty($idProduto) || $buscarPorProduto == true)
-        {
+        if (!empty($idProduto) || $buscarPorProduto == true) {
             $sql.= " AND idProduto = $idProduto";
         }
-        if (!empty($Etapa))
-        {
+        if (!empty($Etapa)) {
             $sql.= " AND Etapa = '$Etapa'";
         }
 
@@ -1557,10 +1479,9 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } // fecha m�todo planilhaOrcamentoBuscarUF()
+    } 
 
-
-        /**
+    /**
      * M�todo que busca o valor total de custo administrativo
      * @access public
      * @static
@@ -1568,10 +1489,6 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
      */
     public static function ValorTotalAdministrativo($idPronac = null, $tpAprovacao=null)
     {
-
-        /*$sql = "select sum((qtItem * nrOcorrencia * vlUnitario)) as valorTotaladministrativo from SAC.dbo.tbPlanilhaAprovacao where tpPlanilha = '$tpAprovacao'
-                and idproduto=0 and idplanilhaitem not in (5249, 206, 1238)";*/
-
         $sql = "select sum((qtItem * nrOcorrencia * vlUnitario)) as valorTotaladministrativo from SAC.dbo.tbPlanilhaAprovacao
         where tpPlanilha = '$tpAprovacao'
         and idproduto=0
@@ -1579,12 +1496,10 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
         and idplanilhaitem not in (5249, 206, 1238)
         and NrFonteRecurso = 109";
 
-        if($idPronac){
-
+        if ($idPronac) {
             $sql .= " and idpronac = $idPronac";
-
         }
-//die($sql);
+        //die($sql);
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_ASSOC);
         $resultado = $db->fetchRow($sql);
@@ -1599,7 +1514,7 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
      */
     public static function analiseDeCustos($idPronac = null, $tpPlanilha = null)
     {
-		$sql = "SELECT    distinct PAP.idProduto,
+        $sql = "SELECT    distinct PAP.idProduto,
 					PD.Descricao
 					,CASE
 						WHEN PAP.idProduto = 0
@@ -1666,16 +1581,13 @@ public static function planodedistribuicao ($pronac, $idproduto=null)
                                         AND PAP.idPlanilhaItem not in (206)
  ";
 
-		if (!empty($idPronac))
-		{
-			$sql.= "AND PRO.idpronac = $idPronac ";
-		}
+        if (!empty($idPronac)) {
+            $sql.= "AND PRO.idpronac = $idPronac ";
+        }
 
-		//$sql.= "ORDER BY PAP.nrFonteRecurso, PD.Descricao, PAP.idEtapa, E.Descricao, UF.Sigla, CID.Descricao, I.Descricao";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } // fecha m�todo analiseDeCustos()
-
+    } 
 }

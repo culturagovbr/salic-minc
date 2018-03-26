@@ -25,7 +25,7 @@
                     <input type="hidden" name="valorMediana" id="valorMediana" value=""/>
 
                     <div class="row">
-                        <div class="col s4">
+                        <div class="col s12 m3 l3">
                             <label for="planilhaitem">Item</label>
                             <select class="valida browser-default" id="planilhaitem" name="planilhaitem">
                                 <option disabled selected> - Selecione -</option>
@@ -37,7 +37,7 @@
                             <br>
                         </div>
 
-                        <div class="col s3">
+                        <div class="col s12 m2 l2">
                             <label for="unidade">Unidade</label>
                             <select class="valida browser-default" id="unidade" name="unidade">
                                 <option disabled selected> - Selecione -</option>
@@ -48,41 +48,41 @@
                             </select>
                         </div>
 
-                        <div class="input-field col s1">
+                        <div class="input-field col s12 m1 l1">
                             <input placeholder="0" type="number" maxlength="4" class="valida numero" size="4"
                                    value="<?php echo isset($dados->QtdDias) ? $dados->QtdDias : ''; ?>" name='qtdDias'
                                    id='qtdDias'/>
                             <label for="qtdDias">Qtd de dias</label>
                         </div>
 
-                        <div class="input-field col s1">
+                        <div class="input-field col s12 m1 l1">
                             <input placeholder="0" type="number" class="valida soma numero" size="3" id="qtd"
                                    maxlength="10" name="qtd"
                                    value="<?php echo isset($dados->Quantidade) ? (int)$dados->Quantidade : ''; ?>">
                             <label for="qtd">Quantidade</label>
                         </div>
 
-                        <div class="input-field col s1">
+                        <div class="input-field col s12 m1 l1">
                             <input placeholder="0" type="number" maxlength="4" class="valida soma numero" size="3"
                                    id="ocorrencia" maxlength="10" name="ocorrencia"
                                    value="<?php echo isset($dados->Ocorrencia) ? (int)$dados->Ocorrencia : ''; ?>">
                             <label for="ocorrencia">Ocorr&ecirc;ncia</label>
                         </div>
-                        <div class="input-field col s1">
+                        <div class="input-field col s12 m2 l2">
                             <input placeholder="R$" type="text" maxlength="13" class="valida soma numero" size="10"
                                    id="vlunitario" name="vlunitario"
                                    value="<?php echo isset($dados->ValorUnitario) ? number_format($dados->ValorUnitario, 2, ",", ".") : ''; ?>">
                             <label for="vlunitario">Valor Unit&aacute;rio</label>
                         </div>
-                        <div class="input-field col s1">
+                        <div class="input-field col s12 m2 l2">
                             <input placeholder="R$" type="text" value="" maxlength="6" class="disabled" size="15"
                                    name="total" id="total" disabled>
                             <label for="total">Total</label>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col s4">
-                            <label for="fonterecurso">Fonte de recurso</label><br><br><br>
+                        <div class="col s12 m4 l4">
+                            <label for="fonterecurso">Fonte de recurso</label>
                             <select class="valida browser-default" id="fonterecurso" name="fonterecurso">
                                 <?php
                                 if (isset($dados->Recurso))
@@ -90,14 +90,14 @@
                                 else
                                     $selected = 109;
                                 ?>
-                                <?php foreach ($this->Recurso as $recurso) { ?>
+                                <?php foreach ($this->Recurso as $recurso) : ?>
                                     <option <?php echo ($recurso->idverificacao == $selected) ? 'selected' : ''; ?>
                                         value="<?php echo $recurso->idverificacao ?>"><?php echo $recurso->verificacaodescricao ?></option>
-                                <?php } ?>
+                                <?php endforeach; ?>
                             </select>
                         </div>
 
-                        <div id="justificativa_current_item" class="input-field col s8 justificativa">
+                        <div id="justificativa_current_item" class="input-field col s11 m8 l8 justificativa">
                             <label for="justificativa">Detalhamento / Justificativa / Observa&ccedil;&otilde;es
                                 (Opcional)</label>
                             <textarea cols="80" id="justificativa" name="justificativa" rows="7"
@@ -109,7 +109,7 @@
                     </div>
                     <?php if (!empty($this->locaisRealizacao) && count($this->locaisRealizacao) > 1) : ?>
                         <div class="row">
-                            <div class="col s4">
+                            <div class="col s12 m4 l4">
                                 <div class="input-field">
                                     <select id="combo_cidades" multiple="multiple" name="comboOutrasCidades[]"
                                             class="comboOutrasCidades">

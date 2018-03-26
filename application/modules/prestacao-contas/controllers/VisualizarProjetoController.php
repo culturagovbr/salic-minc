@@ -1,8 +1,8 @@
 <?php
 
-class PrestacaoContas_VisualizarProjetoController extends  MinC_Controller_Action_Abstract
+class PrestacaoContas_VisualizarProjetoController extends MinC_Controller_Action_Abstract
 {
-    public function init ()
+    public function init()
     {
         $PermissoesGrupo = [
             Autenticacao_Model_Grupos::TECNICO_PRESTACAO_DE_CONTAS,
@@ -18,7 +18,6 @@ class PrestacaoContas_VisualizarProjetoController extends  MinC_Controller_Actio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
 
         if (isset($auth->getIdentity()->usu_codigo)) {
-
             $this->codGrupo = $GrupoAtivo->codGrupo;
             $this->codOrgao = $GrupoAtivo->codOrgao;
             $this->codOrgaoSuperior = (!empty($auth->getIdentity()->usu_org_max_superior)) ? $auth->getIdentity()->usu_org_max_superior : null;
@@ -43,7 +42,7 @@ class PrestacaoContas_VisualizarProjetoController extends  MinC_Controller_Actio
         $itensAux = [];
         $totalAux = [];
         $json = [];
-        foreach($consolidacaoPorProduto as $k => $item){
+        foreach ($consolidacaoPorProduto as $k => $item) {
             $itensAux[$k]['dsProduto'] = utf8_encode($item->dsProduto);
             $itensAux[$k]['qtComprovantes'] = number_format($item->qtComprovantes, 0, ',', '.');
             $itensAux[$k]['vlComprovado'] = number_format($item->vlComprovado, 2, ',', '.');
@@ -69,7 +68,7 @@ class PrestacaoContas_VisualizarProjetoController extends  MinC_Controller_Actio
         $consolidadoPorEtapa = $itens->consolidadoPorEtapa($idPronac);
         $itensAux = [];
         $totalAux = [];
-        foreach($consolidadoPorEtapa as $k => $item){
+        foreach ($consolidadoPorEtapa as $k => $item) {
             $itensAux[$k]['Descricao'] = utf8_encode($item->Descricao);
             $itensAux[$k]['qtComprovantes'] = number_format($item->qtComprovantes, 0, ',', '.');
             $itensAux[$k]['vlComprovado'] = number_format($item->vlComprovado, 2, ',', '.');
@@ -94,7 +93,7 @@ class PrestacaoContas_VisualizarProjetoController extends  MinC_Controller_Actio
         $maioresItensComprovados = $itens->maioresItensComprovados($idPronac);
         $itensAux = [];
         $totalAux = [];
-        foreach($maioresItensComprovados as $k => $item){
+        foreach ($maioresItensComprovados as $k => $item) {
             $itensAux[$k]['Descricao'] = utf8_encode($item->Descricao);
             $itensAux[$k]['qtComprovantes'] = number_format($item->qtComprovantes, 0, ',', '.');
             $itensAux[$k]['vlComprovado'] = number_format($item->vlComprovado, 2, ',', '.');
@@ -119,7 +118,7 @@ class PrestacaoContas_VisualizarProjetoController extends  MinC_Controller_Actio
         $comprovacaoConsolidadaUfMunicipio = $itens->comprovacaoConsolidadaUfMunicipio($idPronac);
         $itensAux = [];
         $totalAux = [];
-        foreach($comprovacaoConsolidadaUfMunicipio as $k => $item){
+        foreach ($comprovacaoConsolidadaUfMunicipio as $k => $item) {
             $itensAux[$k]['UF'] = utf8_encode($item->UF);
             $itensAux[$k]['qtComprovantes'] = number_format($item->qtComprovantes, 0, ',', '.');
             $itensAux[$k]['Municipio'] = utf8_encode($item->Municipio);
@@ -146,7 +145,7 @@ class PrestacaoContas_VisualizarProjetoController extends  MinC_Controller_Actio
         $maioresComprovacaoTipoDocumento = $itens->maioresComprovacaoTipoDocumento($idPronac);
         $itensAux = [];
         $totalAux = [];
-        foreach($maioresComprovacaoTipoDocumento as $k => $item){
+        foreach ($maioresComprovacaoTipoDocumento as $k => $item) {
             $itensAux[$k]['tpDocumento'] = utf8_encode($item->tpDocumento);
             $itensAux[$k]['nrComprovante'] = utf8_encode($item->nrComprovante);
             $itensAux[$k]['nmFornecedor'] = utf8_encode($item->nmFornecedor);
@@ -176,7 +175,7 @@ class PrestacaoContas_VisualizarProjetoController extends  MinC_Controller_Actio
         $comprovacaoTipoDocumentoPagamento = $itens->comprovacaoTipoDocumentoPagamento($idPronac);
         $itensAux = [];
         $totalAux = [];
-        foreach($comprovacaoTipoDocumentoPagamento as $k => $item){
+        foreach ($comprovacaoTipoDocumentoPagamento as $k => $item) {
             $itensAux[$k]['tpFormaDePagamento'] = utf8_encode($item->tpFormaDePagamento);
             $itensAux[$k]['nrDocumentoDePagamento'] = utf8_encode($item->nrDocumentoDePagamento);
             $itensAux[$k]['nmFornecedor'] = utf8_encode($item->nmFornecedor);
@@ -204,7 +203,7 @@ class PrestacaoContas_VisualizarProjetoController extends  MinC_Controller_Actio
         //maioresFornecedoresProjeto
         $maioresFornecedoresProjeto = $itens->maioresFornecedoresProjeto($idPronac);
         $itensAux = [];
-        foreach($maioresFornecedoresProjeto as $k => $item){
+        foreach ($maioresFornecedoresProjeto as $k => $item) {
             if (strlen($item->nrCNPJCPF) > 11) {
                 $itensAux[$k]['nrCNPJCPF'] = $this->view->Mask($item->nrCNPJCPF, '##.###.###/####-##');
             } else {
@@ -236,7 +235,7 @@ class PrestacaoContas_VisualizarProjetoController extends  MinC_Controller_Actio
 
         $fornecedorItemProjeto = $itens->fornecedorItemProjeto($idPronac);
         $itensAux = [];
-        foreach($fornecedorItemProjeto as $k => $item){
+        foreach ($fornecedorItemProjeto as $k => $item) {
             if (strlen($item->nrCNPJCPF) > 11) {
                 $itensAux[$k]['nrCNPJCPF'] = $this->view->Mask($item->nrCNPJCPF, '##.###.###/####-##');
             } else {

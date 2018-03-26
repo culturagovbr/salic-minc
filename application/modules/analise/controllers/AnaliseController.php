@@ -10,6 +10,8 @@ class Analise_AnaliseController extends Analise_GenericController
     private $codOrgao = null;
 
     const PERCENTUAL_MINIMO_CAPTACAO_PARA_ANALISE = 10;
+    const PARECER_NAO_FAVORAVEL = 0;
+    const PARECER_FAVORAVEL = 1;
 
     public function init()
     {
@@ -20,25 +22,21 @@ class Analise_AnaliseController extends Analise_GenericController
         $PermissoesGrupo[] = Autenticacao_Model_Grupos::COORDENADOR_ANALISE;
         $PermissoesGrupo[] = Autenticacao_Model_Grupos::TECNICO_ANALISE;
 
-        if (!empty ($_REQUEST['idPreProjeto'])) {
-            $this->idPreProjeto = $_REQUEST['idPreProjeto'];
+        if (!empty($this->getRequest()->getParam('idPreProjeto'))) {
+            $this->idPreProjeto = $this->getRequest()->getParam('idPreProjeto');
         }
-        $auth = Zend_Auth::getInstance(); // instancia da autenticacao
+        $auth = Zend_Auth::getInstance();
 
-        //parent::perfil(1, $PermissoesGrupo);
         isset($auth->getIdentity()->usu_codigo) ? parent::perfil(1, $PermissoesGrupo) : parent::perfil(4, $PermissoesGrupo);
 
         $this->idUsuario = isset($auth->getIdentity()->usu_codigo) ? $auth->getIdentity()->usu_codigo : $auth->getIdentity()->IdUsuario;
 
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
         if (isset($auth->getIdentity()->usu_codigo)) {
-            // LEMBRAR :
-            // $this->grupoAtivo->codOrgao  => Orgão logado   ==== Projetos.Orgao
             $this->codGrupo = $GrupoAtivo->codGrupo;
             $this->codOrgao = $GrupoAtivo->codOrgao;
             $this->codOrgaoSuperior = (!empty($auth->getIdentity()->usu_org_max_superior)) ? $auth->getIdentity()->usu_org_max_superior : null;
         }
-
     }
 
     public function listarprojetosAction()
@@ -52,6 +50,9 @@ class Analise_AnaliseController extends Analise_GenericController
 
     public function listarProjetosAjaxAction()
     {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
         $start = $this->getRequest()->getParam('start');
         $length = $this->getRequest()->getParam('length');
         $draw = (int)$this->getRequest()->getParam('draw');
@@ -59,7 +60,7 @@ class Analise_AnaliseController extends Analise_GenericController
         $order = $this->getRequest()->getParam('order');
         $columns = $this->getRequest()->getParam('columns');
 
-        $order = ($order[0]['dir'] != 1) ? array($columns[$order[0]['column']]['name'] . ' ' . $order[0]['dir']) : array("DtSituacao DESC");
+        $order = ($order[0]['dir'] != 1 && isset($order)) ? array($columns[$order[0]['column']]['name'] . ' ' . $order[0]['dir']) : array("DtSituacao DESC");
 
         $vwPainelAvaliar = new Analise_Model_DbTable_vwProjetosAdequadosRealidadeExecucao();
 
@@ -104,142 +105,27 @@ class Analise_AnaliseController extends Analise_GenericController
 
         try {
             if (empty($idPronac)) {
-                throw new Exception ("Identificador do projeto &eacute; necess&aacute;rio para acessar essa funcionalidade.");
+                throw new Exception("Identificador do projeto &eacute; necess&aacute;rio para acessar essa funcionalidade.");
             }
 
-            $objTbProjetos = new Projeto_Model_DbTable_Projetos();
-            $projeto = $objTbProjetos->findBy(array(
-                'IdPRONAC' => $idPronac
-            ));
-            $this->view->projeto = $projeto;
+            if (empty($idPreProjeto)) {
+                $objTbProjetos = new Projeto_Model_DbTable_Projetos();
+                $projeto = $objTbProjetos->findBy(array(
+                    'IdPRONAC' => $idPronac
+                ));
 
-            $idPreProjeto = $projeto['idProjeto'];
-            $dados = Proposta_Model_AnalisarPropostaDAO::buscarGeral($idPreProjeto);
-            $this->view->itensGeral = $dados;
-
-            $movimentacao = new Proposta_Model_DbTable_TbMovimentacao();
-            $movimentacao = $movimentacao->buscarStatusAtualProposta($idPreProjeto);
-            $this->view->movimentacao = $movimentacao['Movimentacao'];
-
-            //========== inicio codigo dirigente ================
-            $arrMandatos = array();
-            $this->view->mandatos = $arrMandatos;
-            $preProjeto = new Proposta_Model_DbTable_PreProjeto();
-            $rsDirigentes = array();
-
-            $Empresa = $preProjeto->buscar(array('idPreProjeto = ?' => $idPreProjeto))->current();
-            $idEmpresa = $Empresa->idAgente;
-
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('idProjeto = ?' => $idPreProjeto))->current();
-
-            // Busca na tabela apoio ExecucaoImediata stproposta
-            $tableVerificacao = new Proposta_Model_DbTable_Verificacao();
-            if (!empty($this->view->itensGeral[0]->stProposta))
-                $this->view->ExecucaoImediata = $tableVerificacao->findBy(array('idVerificacao' => $this->view->itensGeral[0]->stProposta));
-
-            $Pronac = null;
-            if (count($dadosProjeto) > 0) {
-                $Pronac = $dadosProjeto->AnoProjeto . $dadosProjeto->Sequencial;
-            }
-            $this->view->Pronac = $Pronac;
-
-            if (isset($dados[0]->CNPJCPFdigirente) && $dados[0]->CNPJCPFdigirente != "") {
-                $tblAgente = new Agente_Model_DbTable_Agentes();
-                $tblNomes = new Nomes();
-                foreach ($dados as $v) {
-                    $rsAgente = $tblAgente->buscarAgenteENome(array('CNPJCPF=?' => $v->CNPJCPFdigirente))->current();
-                    $rsDirigentes[$rsAgente->idAgente]['CNPJCPFDirigente'] = $rsAgente->CNPJCPF;
-                    $rsDirigentes[$rsAgente->idAgente]['idAgente'] = $rsAgente->idAgente;
-                    $rsDirigentes[$rsAgente->idAgente]['NomeDirigente'] = $rsAgente->Descricao;
-                }
-
-                $tbDirigenteMandato = new tbAgentesxVerificacao();
-                foreach ($rsDirigentes as $dirigente) {
-                    $rsMandato = $tbDirigenteMandato->listarMandato(array('idEmpresa = ?' => $idEmpresa, 'idDirigente = ?' => $dirigente['idAgente'], 'stMandato = ?' => 0));
-                    $NomeDirigente = $dirigente['NomeDirigente'];
-                    $arrMandatos[$NomeDirigente] = $rsMandato;
-                }
+                $this->view->projeto = $projeto;
+                $this->view->idPreProjeto = $projeto['idProjeto'];
+                $this->view->tipo = 'alterarprojeto';
             }
 
-            $this->view->dirigentes = $rsDirigentes;
-            $this->view->mandatos = $arrMandatos;
-            //============== fim codigo dirigente ================
-
-            $this->view->itensTelefone = Proposta_Model_AnalisarPropostaDAO::buscarTelefone($this->view->itensGeral[0]->idAgente);
-            $this->view->itensPlanosDistribuicao = Proposta_Model_AnalisarPropostaDAO::buscarPlanoDeDistribucaoProduto($idPreProjeto);
-            $this->view->itensFonteRecurso = Proposta_Model_AnalisarPropostaDAO::buscarFonteDeRecurso($idPreProjeto);
-            $this->view->itensLocalRealiazacao = Proposta_Model_AnalisarPropostaDAO::buscarLocalDeRealizacao($idPreProjeto);
-            $this->view->itensDeslocamento = Proposta_Model_AnalisarPropostaDAO::buscarDeslocamento($idPreProjeto);
-
-            # informacoes atuais
-            $TPDC = new PlanoDistribuicao();
-            $TPP = new Proposta_Model_DbTable_TbPlanilhaProposta();
-            $TPA = new Proposta_Model_DbTable_Abrangencia();
-            $TPD = new Proposta_Model_DbTable_TbDeslocamento();
-            $atual['itensPlanosDistribuicao'] = $TPDC->buscar(array('idProjeto = ?' => $idPreProjeto))->toArray();
-            $atual['planilhaProjeto'] = $TPP->buscarPlanilhaCompleta($idPreProjeto);
-            $atual['itensLocalRealizacao'] = $TPA->buscar(array('idProjeto' => $idPreProjeto));
-            $atual['itensDeslocamento'] = $TPD->buscarDeslocamentosGeral(array('idProjeto' => $idPreProjeto));
-            $this->view->atual = $atual;
-
-            # informacoes do historico
-            $PPM = new Proposta_Model_DbTable_PreProjetoMeta();
-            $historico['planilhaProjeto'] = unserialize($PPM->buscarMeta($idPreProjeto, 'alterarprojeto_tbplanilhaproposta'));
-            $historico['itensLocalRealizacao'] = unserialize($PPM->buscarMeta($idPreProjeto, 'alterarprojeto_abrangencia'));
-            $historico['itensDeslocamento'] = unserialize($PPM->buscarMeta($idPreProjeto, 'alterarprojeto_deslocamento'));
-            $historico['itensPlanosDistribuicao'] = unserialize($PPM->buscarMeta($idPreProjeto, 'alterarprojeto_planodistribuicaoproduto'));
-            $historico['tbdetalhaplanodistribuicao'] = unserialize($PPM->buscarMeta($idPreProjeto, 'alterarprojeto_tbdetalhaplanodistribuicao'));
-            $historico['geral'] = unserialize($PPM->buscarMeta($idPreProjeto, 'alterarprojeto_identificacaoproposta'));
-            $historico['geral'] += unserialize($PPM->buscarMeta($idPreProjeto, 'alterarprojeto_responsabilidadesocial'));
-            $historico['geral'] += unserialize($PPM->buscarMeta($idPreProjeto, 'alterarprojeto_detalhestecnicos'));
-            $historico['geral'] += unserialize($PPM->buscarMeta($idPreProjeto, 'alterarprojeto_outrasinformacoes'));
-
-            $this->view->historico = $historico;
-
-            # documentos anexados proposta
-            $tbl = new Proposta_Model_DbTable_TbDocumentosPreProjeto();
-            $rs = $tbl->buscarDocumentos(array("idProjeto = ?" => $idPreProjeto));
-            $this->view->arquivosProposta = $rs;
-
-            # documentos anexados proponente
-            $tbA = new Proposta_Model_DbTable_TbDocumentosAgentes();
-            $rsA = $tbA->buscarDocumentos(array("idAgente = ?" => $dados[0]->idAgente));
-            $this->view->arquivosProponente = $rsA;
-
-            # documentos anexados na diligencia
-            $tblAvaliacaoProposta = new AvaliacaoProposta();
-            $rsAvaliacaoProposta = $tblAvaliacaoProposta->buscar(array("idProjeto = ?" => $idPreProjeto, "idArquivo ?" => new Zend_Db_Expr("IS NOT NULL")));
-            $tbArquivo = new tbArquivo();
-            $arrDadosArquivo = array();
-            $arrRelacionamentoAvaliacaoDocumentosExigidos = array();
-            if (count($rsAvaliacaoProposta) > 0) {
-                foreach ($rsAvaliacaoProposta as $avaliacao) {
-                    $arrDadosArquivo[$avaliacao->idArquivo] = $tbArquivo->buscar(array("idArquivo = ?" => $avaliacao->idArquivo));
-                    $arrRelacionamentoAvaliacaoDocumentosExigidos[$avaliacao->idArquivo] = $avaliacao->idCodigoDocumentosExigidos;
-                }
-            }
-            $this->view->relacionamentoAvaliacaoDocumentosExigidos = $arrRelacionamentoAvaliacaoDocumentosExigidos;
-            $this->view->itensDocumentoPreProjeto = $arrDadosArquivo;
-
-            # pegando relacao de documentos exigidos(geral)
-            $tblDocumentosExigidos = new DocumentosExigidos();
-            $rsDocumentosExigidos = $tblDocumentosExigidos->buscar()->toArray();
-            $arrDocumentosExigidos = array();
-            foreach ($rsDocumentosExigidos as $documentoExigido) {
-                $arrDocumentosExigidos[$documentoExigido["Codigo"]] = $documentoExigido;
-            }
-            $this->view->documentosExigidos = $arrDocumentosExigidos;
-            $this->view->itensHistorico = Proposta_Model_AnalisarPropostaDAO::buscarHistorico($idPreProjeto);
         } catch (Exception $objException) {
             parent::message($objException->getMessage(), "/{$this->moduleName}/analise/listarprojetos", "ERROR");
         }
-
     }
 
     public function formavaliaradequacaoAction()
     {
-
         $this->_helper->layout->disableLayout();
 
         $idPronac = $this->getRequest()->getParam('idpronac');
@@ -250,33 +136,25 @@ class Analise_AnaliseController extends Analise_GenericController
         ));
 
         $this->view->projeto = $projeto;
-
     }
 
     public function salvaravaliacaadequacaoAction()
     {
-        $auth = Zend_Auth::getInstance();
-        $Logon = $auth->getIdentity()->usu_codigo;
-
         $params = $this->getRequest()->getParams();
-
         $idPronac = $params['idpronac'];
+
         try {
+
             if (empty($idPronac)) {
-                throw new Exception ("Identificador do projeto &eacute; necess&aacute;rio para acessar essa funcionalidade.");
+                throw new Exception("Identificador do projeto &eacute; necess&aacute;rio para acessar essa funcionalidade.");
             }
 
-            # alterar a situacao do projeto
             $tbProjetos = new Projetos();
 
-            # verificar se o projeto já possui avaliador
             $tbAvaliacao = new Analise_Model_DbTable_TbAvaliarAdequacaoProjeto();
             $avaliacao = $tbAvaliacao->buscarUltimaAvaliacao($idPronac);
 
-            if ($params['conformidade'] == 0) {
-
-                # emcaminha e-mail para o proponente com o despacho do avaliador.
-                $this->enviarEmail($idPronac, $params['observacao']);
+            if ($params['conformidade'] == self::PARECER_NAO_FAVORAVEL) {
 
                 $situacao = Projeto_Model_Situacao::PROJETO_LIBERADO_PARA_AJUSTES;
                 $providenciaTomada = 'Projeto liberado para o proponente adequar &agrave; realidade de execu&ccedil;&atilde;o, n&atilde;o podendo representar aumento de custo e observando as veda&ccedil;&otilde;es do Art. 42, conforme o Art. 72 da Instru&ccedil;&atilde;o Normativa.';
@@ -287,79 +165,91 @@ class Analise_AnaliseController extends Analise_GenericController
                     $tbAvaliacao->atualizarAvaliacaoNegativa($idPronac, $avaliacao['idTecnico'], $params['observacao']);
                 }
 
+                # emcaminha e-mail para o proponente com o despacho do avaliador.
+                $this->enviarEmail($idPronac, $params['observacao']);
+
                 parent::message($providenciaTomada, "{$this->moduleName}/analise/listarprojetos", "CONFIRM");
 
-            } else if ($params['conformidade'] == 1) {
+            } elseif ($params['conformidade'] == self::PARECER_FAVORAVEL) {
 
                 $dadosProjeto = $tbProjetos->buscar(array('idPronac = ?' => $idPronac))->current();
                 $idPreProjeto = $dadosProjeto['idProjeto'];
 
-                if (!empty($avaliacao)) {
-
-                    $tbAvaliacao->atualizarAvaliacaoPositiva($idPronac, $avaliacao['idTecnico'], $params['observacao']);
-
-                    $tbPlanoDistribuicao = new PlanoDistribuicao();
-                    $idVinculada = $tbPlanoDistribuicao->buscarIdVinculada($idPreProjeto);
-
-                    $tbDistribuirParecer = new tbDistribuirParecer();
-                    $jaExiste = $tbDistribuirParecer->buscar(array('idPronac = ?' => $idPronac))->current();
-                    if (empty($jaExiste))
-                        $tbDistribuirParecer->inserirDistribuicaoParaParecer($idPreProjeto, $idPronac, $idVinculada);
-
-                    $tbAnaliseDeConteudo = new tbAnaliseDeConteudo();
-                    $jaExiste = $tbAnaliseDeConteudo->buscar(array('idPronac = ?' => $idPronac))->current();
-                    if (empty($jaExiste))
-                          $tbAnaliseDeConteudo->inserirAnaliseConteudoParaParecerista($idPreProjeto, $idPronac);
-
-                    $PlanilhaProjeto = new PlanilhaProjeto();
-                    $jaExiste = $PlanilhaProjeto->buscar(array('idPronac = ?' => $idPronac))->current();
-                    if (empty($jaExiste))
-                        $PlanilhaProjeto->inserirPlanilhaParaParecerista($idPreProjeto, $idPronac);
-
-                    # Consultar percentual de valor captado
-                    $percentualCaptado = $this->percentualCaptadoByProposta($idPreProjeto, $idPronac);
-
-                    $providenciaTomada = "O Projeto aguardar&aacute; o percentual m&iacute;nimo de capta&ccedil;&atilde;o e depois ser&aacute; encaminhado para unidade vinculada!";
-
-                    $preProjeto = new Proposta_Model_DbTable_PreProjeto();
-                    $dadosPreProjeto = $preProjeto->findBy(array('idPreProjeto' => $idPreProjeto));
-
-
-                    if (($percentualCaptado >= self::PERCENTUAL_MINIMO_CAPTACAO_PARA_ANALISE)
-                        OR (!empty($dadosPreProjeto['stProposta']) && $dadosPreProjeto['stProposta'] != 610)) {
-
-                        # alterar a situacao do projeto
-                        $situacao = Projeto_Model_Situacao::ENCAMINHADO_PARA_ANALISE_TECNICA;
-                        $providenciaTomada = 'Projeto encamihado &agrave; unidade vinculada para an&aacute;lise e emiss&atilde;o de parecer t&eacute;cnico';
-
-                        $tbProjetos->alterarSituacao($idPronac, '', $situacao, $providenciaTomada);
-                    }
-
-                    $tbProposta = new Proposta_Model_DbTable_PreProjeto();
-                    $proposta = $tbProposta->findBy(array('idpreprojeto' => $idPreProjeto));
-
-                    # Faz a soma da planilha da proposta
-//                    $TPP = new Proposta_Model_DbTable_TbPlanilhaProposta();
-//                    $somaPlanilhaPropostaProdutos = $TPP->somarPlanilhaPropostaProdutos($idPreProjeto, 109);
-
-                    $dados = array(
-                        'DtInicioExecucao' => $proposta['DtInicioDeExecucao'],
-                        'DtFimExecucao' => $proposta['DtFinalDeExecucao'],
-                        'SolicitadoReal' => $tbProposta->valorTotalSolicitadoNaProposta($idPreProjeto),
-                        'Logon' => $Logon
-                    );
-
-                    if (!empty($idPronac)) {
-                        $where = array("IdPRONAC = ?" => $idPronac);
-                    }
-
-                    if (!empty($where))
-                        $tbProjetos->update($dados, $where);
+                if (empty($idPreProjeto)) {
+                    throw new Exception("Proposta do projeto n&atilde;o foi encontrada!");
                 }
+
+                /**
+                 * Adequacao já deve chegar aqui preenchida
+                 * 1 - Quando o proponente envia o projeto readequado para o MinC o sistema registra a primeira avaliacao
+                 * 2 - Existe uma rotina que pega os projetos na situacao E90 com prazo de adequacao expirado,
+                 * a rotina escolhe o tecnico e registra uma nova avaliacao.
+                 */
+                if (empty($avaliacao)) {
+                    throw new Exception("Projeto n&atilde;o possui avalia&ccedil;&atilde;o!");
+                }
+
+                $tbPlanoDistribuicao = new Proposta_Model_DbTable_PlanoDistribuicaoProduto();
+                $unidadeVinculada = $tbPlanoDistribuicao->buscarIdVinculada($idPreProjeto);
+
+                if (empty($unidadeVinculada)) {
+                    throw new Exception("Unidade vinculada n&atilde;o foi encontrada! Entre em contato com o administrador do sistema!");
+                }
+
+                $tbDistribuirParecer = new tbDistribuirParecer();
+                $jaExisteParecer = $tbDistribuirParecer->buscar(array('idPronac = ?' => $idPronac))->current();
+
+                if (empty($jaExisteParecer)) {
+                    $tbDistribuirParecer->inserirDistribuicaoParaParecer($idPreProjeto, $idPronac, $unidadeVinculada->idVinculada);
+                }
+
+                $tbAnaliseDeConteudo = new tbAnaliseDeConteudo();
+                $jaExisteAnaliseConteudo = $tbAnaliseDeConteudo->buscar(array('idPronac = ?' => $idPronac))->current();
+                if (empty($jaExisteAnaliseConteudo)) {
+                    $tbAnaliseDeConteudo->inserirAnaliseConteudoParaParecerista($idPreProjeto, $idPronac);
+                }
+
+                $PlanilhaProjeto = new PlanilhaProjeto();
+                $jaExistePlanilhaDoParecerista = $PlanilhaProjeto->buscar(array('idPronac = ?' => $idPronac))->current();
+                if (empty($jaExistePlanilhaDoParecerista)) {
+                    $PlanilhaProjeto->inserirPlanilhaParaParecerista($idPreProjeto, $idPronac);
+                }
+
+                $percentualJaCaptado = $this->percentualCaptadoByProposta($idPreProjeto, $idPronac);
+
+                $providenciaTomada = "O Projeto aguardar&aacute; o percentual m&iacute;nimo de capta&ccedil;&atilde;o
+                 e depois ser&aacute; encaminhado para unidade vinculada({$unidadeVinculada->Vinculada})!";
+
+                $preProjeto = new Proposta_Model_DbTable_PreProjeto();
+                $dadosPreProjeto = $preProjeto->findBy(array('idPreProjeto' => $idPreProjeto));
+
+                if (($percentualJaCaptado >= self::PERCENTUAL_MINIMO_CAPTACAO_PARA_ANALISE)
+                    or (!empty($dadosPreProjeto['stProposta']) && $dadosPreProjeto['stProposta'] != Verificacao::PROJETO_NORMAL)
+                ) {
+
+                    $situacao = Projeto_Model_Situacao::ENCAMINHADO_PARA_ANALISE_TECNICA;
+                    $providenciaTomada = "Projeto encaminhado &agrave; unidade vinculada para an&aacute;lise 
+                    e emiss&atilde;o de parecer t&eacute;cnico";
+
+                    $tbProjetos->alterarSituacao($idPronac, '', $situacao, $providenciaTomada);
+                }
+
+                $tbAvaliacao->atualizarAvaliacaoPositiva($idPronac, $avaliacao['idTecnico'], $params['observacao']);
+
+                $dados = array(
+                    'NomeProjeto' => $dadosPreProjeto['NomeProjeto'],
+                    'ResumoProjeto' => $dadosPreProjeto['ResumoDoProjeto'],
+                    'DtInicioExecucao' => $dadosPreProjeto['DtInicioDeExecucao'],
+                    'DtFimExecucao' => $dadosPreProjeto['DtFinalDeExecucao'],
+                    'SolicitadoReal' => $preProjeto->valorTotalSolicitadoNaProposta($idPreProjeto),
+                    'Logon' => $this->idUsuario
+                );
+
+                $where = array("IdPRONAC = ?" => $idPronac);
+                $tbProjetos->update($dados, $where);
 
                 parent::message($providenciaTomada, "{$this->moduleName}/analise/listarprojetos", "CONFIRM");
             }
-
         } catch (Exception $objException) {
             parent::message($objException->getMessage(), "{$this->moduleName}/analise/listarprojetos", "ERROR");
         }
@@ -402,14 +292,24 @@ class Analise_AnaliseController extends Analise_GenericController
     {
         $params = $this->getRequest()->getParams();
         try {
+            if (empty($params['idpronac'])) {
+                throw new Exception("Identificador do projeto &eacute; necess&aacute;rio para acessar essa funcionalidade.");
+            }
 
-            if (empty($params['idpronac']))
-                throw new Exception ("Identificador do projeto &eacute; necess&aacute;rio para acessar essa funcionalidade.");
+            $vwPainelAvaliar = new Analise_Model_DbTable_vwProjetosAdequadosRealidadeExecucao();
+            $where['idpronac = ?'] = $params['idpronac'];
+            $projetos = $vwPainelAvaliar->projetos($where, array(), 0, 1);
+
+            if (empty($projetos)) {
+                throw new Exception("Projeto n&atilde;o dispon&iacute;vel para redistribui&ccedil;&atilde;o!");
+            }
+
+            $this->view->projeto = $projetos[0];
 
             if ($this->getRequest()->isPost()) {
-
-                if (empty($params['idNovoTecnico']) || empty($params['tecnicoAtual']))
-                    throw new Exception ("Id do t&eacute;cnico &eacute; necess&aacute;rio para acessar essa funcionalidade.");
+                if (empty($params['idNovoTecnico']) || empty($params['tecnicoAtual'])) {
+                    throw new Exception("Id do t&eacute;cnico &eacute; necess&aacute;rio para acessar essa funcionalidade.");
+                }
 
                 $dados = array(
                     'idTecnico' => $params['idNovoTecnico'],
@@ -425,17 +325,8 @@ class Analise_AnaliseController extends Analise_GenericController
             } else {
 
                 $vw = new vwUsuariosOrgaosGrupos();
-
-                $vwPainelAvaliar = new Analise_Model_DbTable_vwProjetosAdequadosRealidadeExecucao();
-
-                $where['idpronac = ?'] = $params['idpronac'];
-
-                $projetos = $vwPainelAvaliar->projetos($where, array(), 0, 1);
-                $this->view->projeto = $projetos[0];
-
                 $this->view->novosAnalistas = $vw->carregarTecnicosPorUnidadeEGrupo($this->codOrgao, 110);
             }
-
         } catch (Exception $objException) {
             parent::message($objException->getMessage(), "/{$this->moduleName}/analise/listarprojetos", "ERROR");
         }
@@ -443,16 +334,18 @@ class Analise_AnaliseController extends Analise_GenericController
 
     public function calcularPercentualCaptado($valorTotal, $valorCaptado)
     {
-        if (empty($valorCaptado) || $valorCaptado <= 0)
+        if (empty($valorCaptado) || $valorCaptado <= 0) {
             return 0;
+        }
 
         return number_format(($valorCaptado * 100) / $valorTotal, 2, ",", ".");
     }
 
     public function percentualCaptadoByProposta($idPreProjeto, $idProjeto)
     {
-        if (empty($idProjeto) || empty($idPreProjeto))
+        if (empty($idProjeto) || empty($idPreProjeto)) {
             return false;
+        }
 
         $planilhaproposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
         $total = $planilhaproposta->somarPlanilhaProposta($idPreProjeto)->toArray();

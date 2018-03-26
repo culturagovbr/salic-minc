@@ -1,26 +1,17 @@
 <?php
-/**
- * Modelo Cep
- * @author Equipe RUP - Politec
- * @author wouerner <wouerner@gmail.com>
- * @since 29/03/2010
- * @subpackage application.models
- * @link http://www.cultura.gov.br
- *
- * @todo model nao funciona com o $this, pois o zend_db nao esta reconhecendo a view para mapeamento. Verificar futuramente.
- */
 class Cep extends MinC_Db_Table_Abstract
 {
 
-//    protected $_schema = 'bddne.scdne';
     protected $_schema = 'bddne.scdne';
     protected $_name = 'vw_endereco';
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    public function init(){
+    public function init()
+    {
         parent::init();
     }
 
