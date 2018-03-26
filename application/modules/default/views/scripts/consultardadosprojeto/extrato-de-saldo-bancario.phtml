@@ -110,28 +110,28 @@ function mascara ($val, $mask) {
                 <td class="destacar bold w100">Tipo da Conta</td>
                 <td>
                    <?php
-                    $tipo = Zend_Controller_Front::getInstance()->getRequest()->getParam('TipoConta');
-                    $selecione = "";
-                    $captacao = "";
-                    $movimentacao = "";
-                    if($tipo == ""){
-                        $selecione = "selected";
-                    }
+                        $tipo = Zend_Controller_Front::getInstance()->getRequest()->getParam('TipoConta');
+                        $selecione = "";
+                        $captacao = "";
+                        $movimentacao = "";
+                        if($tipo == ""){
+                            $selecione = "selected";
+                        }
 
-		    if($tipo == "Captação"){
-                        $captacao = "selected";
-                    }
+                        if($tipo == "Captação"){
+                            $captacao = "selected";
+                        }
 
-		    if($tipo == "Movimentação"){
-                        $movimentacao = "selected";
-                    }
-
+                        if($tipo == "Movimentação"){
+                            $movimentacao = "selected";
+                        }
                    ?>
-                    <select name="TipoConta">
+                    <select class="browser-default" name="TipoConta">
                         <option value="" <?php echo $selecione?>>Selecione</option>
                         <option value="Captação" <?php echo $captacao ?>>Captação</option>
                         <option value="Movimentação"<?php echo $movimentacao ?>>Movimentação</option>
                     </select>
+                    <script> </script>
                 </td>
             </tr>
         </table>

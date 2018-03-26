@@ -265,7 +265,7 @@ if ($this->isEditavel) {
 
         var text = 'Deseja realmente excluir sua proposta?';
 
-        $('<div id="modalExcluirProposta"></div>').appendTo($("#left-sidebar-nav")).html(text)
+        $('<div id="modalExcluirProposta"></div>').appendTo($("#sidenav")).html(text)
 
         $("#modalExcluirProposta").dialog("destroy");
         $("#modalExcluirProposta").dialog
@@ -289,7 +289,7 @@ if ($this->isEditavel) {
 
     function trocarproponente() {
 
-        $('<div id="trocarproponente"></div>').appendTo($("#left-sidebar-nav")).html(text)
+        $('<div id="trocarproponente"></div>').appendTo($("#sidenav")).html(text)
 
         $("#trocarproponente").dialog("destroy");
         $("#trocarproponente").dialog
@@ -319,7 +319,7 @@ if ($this->isEditavel) {
     function JSPrazoDeAlterarExpirado() {
         var text = 'O prazo para alterar o projeto expirou!';
 
-        $('<div id="modalEnviarProposta"></div>').appendTo($("#left-sidebar-nav")).html(text)
+        $('<div id="modalEnviarProposta"></div>').appendTo($("#sidenav")).html(text)
 
         $("#modalEnviarProposta").dialog("destroy");
         $("#modalEnviarProposta").dialog

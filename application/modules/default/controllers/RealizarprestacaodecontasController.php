@@ -2801,8 +2801,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
                         )
                     )
                     ->current();
-                /* var_dump($rsComprovantePag); */
-                /* die(); */
+
                 $rsComprovantePag->dtValidacao = date('Y/m/d H:i:s');
                 $rsComprovantePag->dsJustificativa = isset($comprovantePagamento['observacao']) ? $comprovantePagamento['observacao'] : null;
                 $rsComprovantePag->stItemAvaliado = $comprovantePagamento['situacao'];

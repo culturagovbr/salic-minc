@@ -193,7 +193,18 @@ class Proposta_Model_DbTable_PreProjeto extends MinC_Db_Table_Abstract
         foreach ($where as $coluna=>$valor) {
             $slct->where($coluna, $valor);
         }
-        $slct->where(new Zend_Db_Expr("NOT EXISTS(select 1 from " . $this->getSchema('sac') . ".projetos pr where a.idPreProjeto = pr.idProjeto and pr.Situacao != 'E90')")); //@todo alterar quando Rômulo enviar a situacao correta
+
+        $queryPropostaComProjeto = $this->select()
+            ->setIntegrityCheck(false)
+            ->from(
+                ['pr' => 'projetos'],
+                ['idPronac'],
+                $this->_schema)
+            ->where('a.idPreProjeto = pr.idProjeto', '')
+            ->where('pr.Situacao != ?', Projeto_Model_Situacao::PROJETO_LIBERADO_PARA_AJUSTES)
+        ;
+
+        $slct->where(new Zend_Db_Expr("NOT EXISTS({$queryPropostaComProjeto})"));
 
         $slct->order($order);
 

@@ -2498,7 +2498,6 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract
                 '*',
                 'nmFornecedor as Descricao',
                 'nrCNPJCPF as CNPJCPF',
-                'dtPagamento as dtEmissao' ,
                 'dsJustificativaProponente as dsJustificativa',
                 'dsOcorrenciaDoTecnico as ocorrencia'
             ],

@@ -46,6 +46,7 @@
             <th>Documento</th>
             <th>N&ordm; Comprovante</th>
             <th>Dt.<br />Pagamento</th>
+            <th>Dt.<br />Emiss&atilde;o</th>
             <th>Forma de Pagamento</th>
             <th>N&ordm; Doc. Pagamento</th>
             <th>Justificativa</th>
@@ -69,6 +70,7 @@
             <td><?php echo $relPagamentos->tbDocumento; ?></td>
             <td class="right-align"><?php echo $relPagamentos->nrComprovante; ?></td>
             <td align="center"><?php echo Data::tratarDataZend($relPagamentos->DtPagamento, 'Brasileira'); ?></td>
+            <td align="center"><?php echo Data::tratarDataZend($relPagamentos->DtEmissao, 'Brasileira'); ?></td>
             <td><?php echo $relPagamentos->tpFormaDePagamento; ?></td>
             <td class="right-align"><?php echo $relPagamentos->nrDocumentoDePagamento; ?></td>
 

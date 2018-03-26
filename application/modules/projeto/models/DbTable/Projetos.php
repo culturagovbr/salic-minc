@@ -118,7 +118,7 @@ class Projeto_Model_DbTable_Projetos extends MinC_Db_Table_Abstract
     *
     * Substitui a fnVerificarExistenciaDaProposta
     */
-    public function verificarSeProjetoPossuiProposta($idPronac)
+    public function obterIdPreProjetoDoProjeto($idPronac)
     {
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);

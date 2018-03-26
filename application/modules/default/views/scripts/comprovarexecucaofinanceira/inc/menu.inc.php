@@ -63,8 +63,6 @@ $finalizadoHref              =   $this->url(array('controller' => 'comprovarexec
                 <span class="no_seta last">&nbsp;</span>
             </div>
             <div class="bottom"></div>
-
-
         </div>
     </div>
 </div>

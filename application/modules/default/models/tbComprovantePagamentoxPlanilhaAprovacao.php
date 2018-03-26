@@ -1,13 +1,4 @@
 <?php
-/**
- * DAO tbComprovantePagamentoxPlanilhaAprovacao
- * @since 27/08/2013
- * @version 1.0
- * @package application
- * @subpackage application.model
- * @copyright � 2011 - Minist�rio da Cultura - Todos os direitos reservados.
- * @link http://www.cultura.gov.br
- */
 
 class tbComprovantePagamentoxPlanilhaAprovacao extends MinC_Db_Table_Abstract
 {
@@ -93,6 +84,7 @@ class tbComprovantePagamentoxPlanilhaAprovacao extends MinC_Db_Table_Abstract
                             g.CNPJCPF,
                             e.Descricao as Fornecedor,
                             b.DtPagamento as DtComprovacao,
+                            b.DtPagamento,
                             CASE tpDocumento
                                 WHEN 1 THEN ('Cupom Fiscal')
                                 WHEN 2 THEN ('Guia de Recolhimento')
@@ -102,7 +94,7 @@ class tbComprovantePagamentoxPlanilhaAprovacao extends MinC_Db_Table_Abstract
                                 ELSE ''
                             END as tbDocumento,
                             b.nrComprovante,
-                            b.dtEmissao as DtPagamento,
+                            b.dtEmissao as DtEmissao,
                             CASE
                               WHEN b.tpFormaDePagamento = '1'
                                  THEN 'Cheque'
@@ -124,11 +116,8 @@ class tbComprovantePagamentoxPlanilhaAprovacao extends MinC_Db_Table_Abstract
 
         $select->joinInner(
                 array("b" => "tbComprovantePagamento"),
-
                 "a.idComprovantePagamento = b.idComprovantePagamento",
-
                 array(),
-
                 "BDCORPORATIVO.scSAC"
             );
         $select->joinLeft(
@@ -171,7 +160,7 @@ class tbComprovantePagamentoxPlanilhaAprovacao extends MinC_Db_Table_Abstract
         $select->order("e.Descricao");
 
         return $this->fetchAll($select);
-    } // fecha m�todo buscarDados()
+    }
 
     public function pagamentosPorUFMunicipio($idPronac)
     {

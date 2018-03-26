@@ -23,11 +23,9 @@
         <li class="last">Pagamento</li>
     </ul>
 </div> <!-- final: #breadcrumb -->
-
 <div id="titulo">
     <div>Pagamento<span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
 </div>
-
 <div id="conteudo" align="center">
     <div>
         <table class="tabela">
@@ -206,13 +204,7 @@
     </div>
     <br clear="left" />
 </div>
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
-<div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
-<br clear="all" />
-
 <div id="desc_item"></div>
-
 <style type="text/css">
     img {
         margin-right: 4px;
@@ -238,8 +230,6 @@
             }
         });
     });
-
-
 
     $(".btn_descrever_item").click(function(){
 
@@ -315,6 +305,7 @@
 
         return false;
     });
+
     $('#finalizar').click(function(){
         var este = this;
        var nomeJanelaAlerta =   janelaObj({
@@ -349,6 +340,7 @@
         nomeJanelaAlerta.divConteudo.html('Deseja finalizar a Comprova&ccedil;&atilde;o?');
         nomeJanelaAlerta.abrirJanela();
     });
+
     function carregaDados(url,divRetorno) {
         $("#conteudo").html('<br><br><center>Aguarde, carregando dados...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center><br><br>');
         $.ajax({

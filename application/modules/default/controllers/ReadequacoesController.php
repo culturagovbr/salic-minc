@@ -4057,7 +4057,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
         $planilhaSR = array();
         
         try {
-            $planilhaAtiva = $tbPlanilhaAprovacao->buscarPlanilhaAtiva($idPronac);
+            $planilhaAtiva = $tbPlanilhaAprovacao->buscarPlanilhaAtivaNaoExcluidos($idPronac);
             
             foreach ($planilhaAtiva as $value) {
                 $planilhaSR['tpPlanilha'] = 'SR';

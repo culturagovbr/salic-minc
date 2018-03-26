@@ -76,6 +76,29 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
     }
 
     /**
+     * Função para buscar a planilha ativa sem excluidos ou zerados
+     * @param integer $idPronac
+     * @return mixed
+     */
+    public function buscarPlanilhaAtivaNaoExcluidos($idPronac)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+
+        $select->from(
+            array('a' => $this->_name),
+            '*'
+        );
+        
+        $select->where('a.IdPRONAC = ?', $idPronac);
+        $select->where('a.StAtivo = ?', 'S');
+        $select->where(new Zend_Db_Expr('a.tpAcao <> ? OR a.tpAcao IS NULL'), 'E');
+        $select->where(new Zend_Db_Expr('(a.qtItem * a.nrOcorrencia * a.vlUnitario) > ?'), '0');
+        
+        return $this->fetchAll($select);        
+    }
+
+    /**
      * Função para buscar a planilha ativa
      * @param integer $idPronac
      * @param integer $idReadequacao
