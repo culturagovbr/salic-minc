@@ -361,6 +361,7 @@ class ComprovantePagamento extends MinC_Db_Table_Abstract
                     comp.tbComprovantePagamento,
                     arq.nmArquivo,
                     convert(char(10), comp.dtEmissao, 103) as dtEmissao,
+                    convert(char(10), comp.dtPagamento, 103) as dtPagamento,
                     (
                         CASE pa.idProduto
                             WHEN 0 THEN ('Administra&ccedil;&atilde;o do projeto')
