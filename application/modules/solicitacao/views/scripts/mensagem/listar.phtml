@@ -71,18 +71,19 @@
                         <td>
                             <?= $arrValue['Tecnico']; ?>
                         </td>
-                    <?php endif; ?>
+                    <?php endif;?>
                     <td>
                         <?= $arrValue['dsEncaminhamento']; ?>
                     </td>
                     <td class="center-align"><?= date('d/m/Y', strtotime($arrValue['dtSolicitacao'])); ?></td>
 
                     <td class="center-align">
-                        <?= ($arrValue['dtResposta']) ?
-                                date('d/m/Y', strtotime($arrValue['dtSolicitacao'])) :
+                        <?= (!$arrValue['dtResposta']) ?
                                 ($arrValue['diasSemResposta'] == 0) ?
                                     "Não respondida" :
-                                    "Não respondida à {$arrValue['diasSemResposta']} dias"; ?>
+                                    "Não respondida à {$arrValue['diasSemResposta']} dias":
+                                date('d/m/Y', strtotime($arrValue['dtSolicitacao']))
+                                 ?>
                     </td>
 
                     <td>
