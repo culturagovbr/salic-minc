@@ -113,7 +113,7 @@
             ?>
         </div>
         <div class="col s10" id="pagina">
-            <div class="row">
+            <!-- div class="row">
                 <div class="col s12" id="breadcrumb">
                     <ul>
                         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para p&aacute;gina inicial">Início</a></li>
@@ -129,8 +129,8 @@
                         <li class="last">Planilha or&ccedil;ament&aacute;ria comprovada</li>
                     </ul>
                 </div>
-            </div>
-                <h5 class="left">Planilha or&ccedil;ament&aacute;ria comprovada</h5>
+            </div-->
+                <h5 class="left">Presta&ccedil;&atilde;o de Contas: Planilha or&ccedil;ament&aacute;ria comprovada</h5>
                 <a class="btn right" href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a>
             <table class="bordered responsive-table">
                 <thead>
@@ -172,8 +172,8 @@
                                     <table id="planilhaItem" class="tabela bordered">
                                         <tr>
                                             <td>
-                                                <?php if($this->incFiscaisA): ?> 
-                                                    <?php foreach($this->incFiscaisA as $titulo => $item): ?> 
+                                                <?php if($this->incFiscaisA): ?>
+                                                    <?php foreach($this->incFiscaisA as $titulo => $item): ?>
                                                         <div>
                                                         <span class='green-text'><?php echo $titulo ?></span>
                                                         <?php if(!empty($item)): ?>
@@ -184,11 +184,11 @@
                                                                         <?php foreach($subItem as $titulo => $tabelaItem): ?>
                                                                             <div style="padding:3px; margin-left: 15px;">
                                                                                 <?php $id =  rand(); ?>
-                                                                                <button class="waves-effect waves-light btn btn-flat btnToggleCustos"  
-                                                                                    uf="<?php echo $tabelaItem['uf']; unset($tabelaItem['uf']) ?>" 
-                                                                                    idmunicipio="<?php echo $tabelaItem['idMunicipio']; ?>" 
-                                                                                    produto="<?php echo $tabelaItem['cdProduto']; ?>" 
-                                                                                    id="<?php echo $id; ?>" 
+                                                                                <button class="waves-effect waves-light btn btn-flat btnToggleCustos"
+                                                                                    uf="<?php echo $tabelaItem['uf']; unset($tabelaItem['uf']) ?>"
+                                                                                    idmunicipio="<?php echo $tabelaItem['idMunicipio']; ?>"
+                                                                                    produto="<?php echo $tabelaItem['cdProduto']; ?>"
+                                                                                    id="<?php echo $id; ?>"
                                                                                 >
                                                                                     <i class="material-icons left">chevron_right</i><?php echo $titulo ?>
                                                                                 </button>
@@ -218,11 +218,11 @@
                                                                             <?php if(!empty($subItem)): ?>
                                                                                 <?php $id =  rand(); ?>
                                                                                 <div style="padding:3px; margin-left: 15px;">
-                                                                                    <button class="waves-effect waves-light btn-flat btn btnToggle" 
-                                                                                            id="<?php echo $id; ?>" 
-                                                                                            uf="<?php echo $tabelaItem['uf']; ?>" 
-                                                                                            idmunicipio="<?php echo $tabelaItem['idMunicipio']; ?>" 
-                                                                                            produto="<?php echo $tabelaItem['cdProduto']; ?>" 
+                                                                                    <button class="waves-effect waves-light btn-flat btn btnToggle"
+                                                                                            id="<?php echo $id; ?>"
+                                                                                            uf="<?php echo $tabelaItem['uf']; ?>"
+                                                                                            idmunicipio="<?php echo $tabelaItem['idMunicipio']; ?>"
+                                                                                            produto="<?php echo $tabelaItem['cdProduto']; ?>"
                                                                                             idPlanilhaEtapa="<?php echo $tabelaItem['cdEtapa']; ?>">
                                                                                         <i class="material-icons left">chevron_right</i><?php echo $titulo ?>
                                                                                     </button>
@@ -269,6 +269,38 @@
                 <?php endif ?>
         </div>
     </div>
+
+     <div class="fixed-action-btn ">
+        <a class="btn-floating btn-large red">
+          <i class="large material-icons">menu</i>
+        </a>
+        <ul>
+          <li>
+            <button <?php echo ($this->existeDiligenciaAberta  == true) ? 'disabled="true"': ''  ?>
+                data-target="modal1" data-position="left" data-delay="50" data-tooltip="Diligenciar"
+                 class=" tooltipped btn-floating modal-trigger ">
+                <i class="material-icons left">warning</i> Diligenciar
+            </button>
+          </li>
+          <li class="waves-effect waves-light">
+            <a data-position="left" data-delay="50" data-tooltip="Emitir Parecer"
+                class=" tooltipped btn-floating " href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'emitirparecertecnico')).'?idPronac=' . $id; ?>" title="Ir para Emitir Parecer">
+                <i class="material-icons">gavel</i></a>
+          </li>
+        </ul>
+      </div>
+
+    <div id="modal1" class="modal full" style="">
+        <div class="modal-content">
+            <?php echo $this->partial("diligencia/cadastrar.phtml", 'diligencia', $this); ?>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $3('.modal').modal();
+        });
+    </script>
+
     <?php $analisarItemHref   =   $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'analisaritem'));?>
     <script type="text/javascript">
         <?php if(isset($_GET['tipoMsg'])):?>
@@ -434,8 +466,8 @@
                 produto = 0;
             }
 
-            url = '/realizarprestacaodecontas/planilha-orcamentaria-custos-produto' 
-                +'/idPronac/' + idPronac 
+            url = '/realizarprestacaodecontas/planilha-orcamentaria-custos-produto'
+                +'/idPronac/' + idPronac
                 + '/uf/' + btn.attr('uf')
                 + '/idplanilhaetapa/' + btn.attr('idplanilhaetapa')
                 + '/idmunicipio/' + btn.attr('idmunicipio')
@@ -445,7 +477,7 @@
             btnAjax(url, this);
         });
 
-        function btnAjax(url, btn) 
+        function btnAjax(url, btn)
         {
             btn = jQuery(btn);
             btnId = btn.attr('id');

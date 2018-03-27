@@ -182,17 +182,26 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
         $this->view->nomeProjeto    = $resposta[0]->NomeProjeto;
     }
 
-    /*
-     * P�gina de pagamento
-     * @access public
-     * @param void
-     * @return void
-     */
     public function pagamentoAction()
     {
         /* ==== VERIFICA PERMISSAO DE ACESSO DO PROPONENTE A PROPOSTA OU AO PROJETO ====== */
         $this->verificarPermissaoAcesso(false, true, false);
         $this->dadosProjeto();
+
+        $diligencia = new Diligencia();
+        $auth = Zend_Auth::getInstance();
+
+        $diligencia = $diligencia->aberta($this->getRequest()->getParam('idpronac'));
+        if ($diligencia->idTipoDiligencia == 644) {
+            $this->_helper->getHelper('Redirector')
+                ->setGotoSimple(
+                    'responder',
+                    'gerenciar',
+                    'diligencia',
+                    ['idpronac' => $this->getRequest()->getParam('idpronac')]
+            );
+            return;
+        }
 
         // se nao estiver no periodo de comprovaco, limitar a comprovantes recusados
         if ($this->view->vrSituacao) {
@@ -2639,12 +2648,6 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
         $this->_redirect(str_replace($this->view->baseUrl(), '', $url));
     }
 
-    /*
-     * P�gina de comprovantes recusados
-     * @access public
-     * @param void
-     * @return void
-     */
     public function comprovantesRecusadosAction()
     {
         $this->verificarPermissaoAcesso(false, true, false);
