@@ -6,11 +6,11 @@ var ExecucaoDaFuncaoLimiterPag = function(fieldName, minchar){
     var minchar,
 	countChars  = CountCharacters(fieldName);
     
-    //Atualização para os contadores de caracteres
+    //Atualizaï¿½ï¿½o para os contadores de caracteres
     $('#contador-' + fieldName).html("Caracteres: " + countChars);
     //document.getElementById("contador-" + fieldName).innerHTML = "Caracteres: " + countChars;
     
-    //mudança de cor caso ultrapasse o numero de caracteres
+    //mudanï¿½a de cor caso ultrapasse o numero de caracteres
     if (countChars <= minchar){
 	$('#contador-' + fieldName).css('color', 'red');
     } else{
@@ -18,7 +18,7 @@ var ExecucaoDaFuncaoLimiterPag = function(fieldName, minchar){
     }
 }
 
-//Onde é feita a contagem do elemento do contador
+//Onde ï¿½ feita a contagem do elemento do contador
 var CountCharacters = function(contador) {
     var bodyHTML = tinymce.get(contador).getBody(),
         contentHTML = tinymce.trim(bodyHTML.innerText || bodyHTML.textContent);
@@ -37,7 +37,7 @@ var verificaTipo = function(tipo, count){
     }
 }
 
-// consulta parecerista para verificar se está habilitado 
+// consulta parecerista para verificar se estï¿½ habilitado 
 var infoparecerista = function(idAgente){
     var idpronac = $("#idpronac").val();
     
@@ -65,7 +65,7 @@ var infoparecerista = function(idAgente){
                 }
             },
             error: function (data){
-                $("#infoparecerista").html("Falha na recuperação dos dados.\nNão foi possível carregar agente!");
+                $("#infoparecerista").html("Falha na recupera&ccedil;&atilde;o dos dados.\nN&atilde;o foi poss&iacute;vel carregar agente!");
             }
         });
     } else {
@@ -75,7 +75,7 @@ var infoparecerista = function(idAgente){
     }
 }
 
-// inicializa funções
+// inicializa funï¿½ï¿½es
  $(document).ready(function(){    
      $('#idAgenteParecerista').change(function() {
 	 infoparecerista(this.value);
@@ -84,7 +84,7 @@ var infoparecerista = function(idAgente){
      <?php // inicializa loop ?>
      <?php $c = 0; ?>
      <?php foreach($this->dadosProjeto as $p) { ?>
-     // associa eventos a botão distribuir
+     // associa eventos a botï¿½o distribuir
      $('#distribuir<?php echo $c; ?>').click(function() {
 	 verificaTipo(1, <?php echo $c; ?>);
      });
@@ -93,7 +93,7 @@ var infoparecerista = function(idAgente){
 	 verificaTipo(2, <?php echo $c; ?>);
      });
      
-     //inicializao e configuração do editor tinyMCE
+     //inicializao e configuraï¿½ï¿½o do editor tinyMCE
      tinymce.init({
 	 plugins:"paste,textcolor",
 	 language: "pt_BR",
@@ -115,10 +115,10 @@ var infoparecerista = function(idAgente){
  });
  
 </script>
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INï¿½CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para Início">Início</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
         <li><a href="<?php echo $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index'),'',true); ?>" title="Localizar Parecer">Gerenciar Pareceres</a></li>
         <li class="last">Distribuir por produto</li>
     </ul>
@@ -126,15 +126,15 @@ var infoparecerista = function(idAgente){
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INï¿½CIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Distribuir por produto <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
 
 
 <div id="confirma"></div>
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INï¿½CIO CONTEï¿½DO ========== -->
 <div id="conteudo">
     <table class="tabela">
         <tr>
@@ -169,15 +169,15 @@ var infoparecerista = function(idAgente){
             <input name="idDistribuirParecer" type="hidden" value="<?php echo $dp->idDistribuirParecer; ?>" />
             <table class="tabela">
                 <tr>
-                    <th colspan="3" style="font-family: sans-serif; font-size: 13px;">PRODUTO <?php echo $dp->stPrincipal == 1 ? 'PRINCIPAL' : 'SECUNDÁRIO'; ?>: <?php echo $dp->Produto; ?></th>
+                    <th colspan="3" style="font-family: sans-serif; font-size: 13px;">PRODUTO <?php echo $dp->stPrincipal == 1 ? 'PRINCIPAL' : 'SECUNDï¿½RIO'; ?>: <?php echo $dp->Produto; ?></th>
                 </tr>
                 <tr>
-                    <td align="center" class="destacar bold">
+                    <td align="center" class="destacar bold" width="50%">
                         <input type="radio" value="1" name="tipodistribuir" id="distribuir<?php echo $count; ?>" checked="checked" />
                         <label for="distribuir<?php echo $count; ?>">Distribuir</label>
                         <b style="margin-left: 15px; margin-right: 15px;">|</b>
                         <input type="radio" value="2" name="tipodistribuir" id="encaminhar<?php echo $count; ?>" />
-                        <label for="encaminhar<?php echo $count; ?>">Encaminhar</label>
+                        <label for="encaminhar<?php echo $count; ?>">Encaminhar para outra unidade vinculada</label>
                     </td>
                     <td>
                         <div id="entidades<?php echo $count; ?>" class="sumir">Destino <span style="color: red;">*</span>
@@ -227,10 +227,10 @@ var infoparecerista = function(idAgente){
     <?php } ?>
 
 </div>
-<!-- ========== FIM CONTEÚDO ========== -->
+<!-- ========== FIM CONTEï¿½DO ========== -->
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INï¿½CIO RODAPï¿½ DO CONTEï¿½DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPï¿½ DO CONTEï¿½DO ========== -->
 
 <br clear="all" />
