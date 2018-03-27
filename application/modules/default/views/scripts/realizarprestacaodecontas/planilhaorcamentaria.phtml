@@ -270,17 +270,19 @@
         </div>
         <div class="row">
             <div class="col s12">
-                <button <?php echo ($this->existeDiligenciaAberta  == true) ? 'disabled="true"': ''  ?> data-target="modal1" class="btn modal-trigger">Diligenciar</button>
+                <button <?php echo ($this->existeDiligenciaAberta  == true) ? 'disabled="true"': ''  ?> 
+                    data-target="modal1" class="btn modal-trigger ">
+                    <i class="material-icons left">warning</i>Diligenciar
+                </button>
             </div>
         </div>
     </div>
 
-    <div id="modal1" class="modal bottom-sheet">
+    <div id="modal1" class="modal full" style="">
         <div class="modal-content">
             <?php echo $this->partial("diligencia/cadastrar.phtml", 'diligencia', $this); ?>
         </div>
     </div>
-
     <script>
         $(document).ready(function(){
             $3('.modal').modal();
