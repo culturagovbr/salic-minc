@@ -133,7 +133,7 @@ class tbTmpCaptacao extends MinC_Db_Table_Abstract
         return $this->fetchAll($select);
     } // fecha m�todo buscarDados()
 
-    public function listarProjetosInconsistentes($orgao, $idPronac = null, $order = array(), $tamanho = -1, $inicio = -1, $qtdeTotal = false)
+    public function listarProjetosInconsistentes($orgaoSuperior, $idPronac = null, $order = array(), $tamanho = -1, $inicio = -1, $qtdeTotal = false)
     {
         $select = $this->select()
                 ->setIntegrityCheck(false)
@@ -154,7 +154,12 @@ class tbTmpCaptacao extends MinC_Db_Table_Abstract
                         'tmpCaptacao.nrAnoProjeto = contaBancaria.AnoProjeto AND tmpCaptacao.nrSequencial = contaBancaria.Sequencial',
                         array('Agencia', 'ContaBloqueada')
                 )
-                ->where('projetos.Orgao = ?', $orgao)
+                ->join(
+                        array('orgao' => 'Orgaos'),
+                        'projetos.Orgao = orgao.Codigo',
+                        []
+                )
+                ->where('orgao.idSecretaria = ?', $orgaoSuperior)
                 ->where('tmpCaptacao.tpValidacao in ?', new Zend_Db_Expr('(2, 3, 4, 5, 6, 7, 8, 9)'))
                 ->group(
                     array(
@@ -182,7 +187,6 @@ class tbTmpCaptacao extends MinC_Db_Table_Abstract
             }
             $select->limit($tamanho, $tmpInicio);
         }
-
 
         return $this->fetchAll($select);
     }

@@ -234,13 +234,14 @@ class MovimentacaodecontaController extends MinC_Controller_Action_Abstract
         }
 
         $tbTmpCaptacao = new tbTmpCaptacao();
-        $total = $tbTmpCaptacao->listarProjetosInconsistentes($this->getIdOrgao, $pronac, null, null, null)->count();
+        
+        $total = $tbTmpCaptacao->listarProjetosInconsistentes($this->view->usuario->usu_org_max_superior, $pronac, null, null, null)->count();
         $fim = $inicio + $this->intTamPag;
 
         $totalPag = (int)(($total % $this->intTamPag == 0)?($total/$this->intTamPag):(($total/$this->intTamPag)+1));
         $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
 
-        $busca = $tbTmpCaptacao->listarProjetosInconsistentes($this->getIdOrgao, $pronac, $order, $tamanho, $inicio);
+        $busca = $tbTmpCaptacao->listarProjetosInconsistentes($this->view->usuario->usu_org_max_superior, $pronac, $order, $tamanho, $inicio);
         $paginacao = array(
                 "pag"=>$pag,
                 "qtde"=>$this->intTamPag,
@@ -317,13 +318,13 @@ class MovimentacaodecontaController extends MinC_Controller_Action_Abstract
         }
 
         $tbTmpCaptacao = new tbTmpCaptacao();
-        $total = $tbTmpCaptacao->listarProjetosInconsistentes($this->getIdOrgao, $pronac, null, null, null)->count();
+        $total = $tbTmpCaptacao->listarProjetosInconsistentes($this->view->usuario->usu_org_max_superior, $pronac, null, null, null)->count();
         $fim = $inicio + $this->intTamPag;
 
         $totalPag = (int)(($total % $this->intTamPag == 0)?($total/$this->intTamPag):(($total/$this->intTamPag)+1));
         $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
 
-        $busca = $tbTmpCaptacao->listarProjetosInconsistentes($this->getIdOrgao, $pronac, $order, $tamanho, $inicio);
+        $busca = $tbTmpCaptacao->listarProjetosInconsistentes($this->view->usuario->usu_org_max_superior, $pronac, $order, $tamanho, $inicio);
 
         if (isset($post->xls) && $post->xls) {
             $html = '';
