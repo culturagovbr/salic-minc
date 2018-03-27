@@ -78,4 +78,33 @@ class Analise_Model_DbTable_TbAvaliarAdequacaoProjeto extends MinC_Db_Table_Abst
 
         return $this->update($dados, $where);
     }
+
+    public function obterAvaliacoes($where = array())
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            array('a' => $this->_name),
+            array(
+                'a.idAvaliarAdequacaoProjeto',
+                'a.idTecnico',
+                'a.idPronac',
+                new Zend_Db_Expr('convert(varchar(30), dtAvaliacao, 120) as dtAvaliacao'),
+                new Zend_Db_Expr("CAST(A.dsAvaliacao AS TEXT) AS dsAvaliacao"),
+            ),
+            $this->_schema
+        );
+
+        foreach ($where as $coluna => $valor) {
+            $select->where($coluna, $valor);
+        }
+
+        $select->where('a.stEstado = ?', 0);
+//        $select->where('a.stAvaliacao = ?', 2);
+//        $select->where('a.siEncaminhamento = ?', 0);
+
+        $select->order('a.DtAvaliacao DESC');
+
+        return $this->fetchAll($select);
+    }
 }
