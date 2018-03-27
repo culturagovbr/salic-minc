@@ -34,7 +34,7 @@
           </p>
           <p>
             <input v-model="diligencia.tpDiligencia" value="644" name="tpDiligencia" type="radio" id="test1" />
-            <label for="test1">Todos os itens orçamentarios</label>
+            <label for="test1">Todos os itens or&ccedil;amentarios</label>
           </p>
           <div class="row">
             <div class="input-field col s12">
@@ -83,11 +83,13 @@ Vue.component(
                 })
                 .done(function(data) {
                     $3('#modal1').modal('close');
+                    location.reload();
                 })
                 .fail(function(jqXHR) { 
                     message = jqXHR.responseJSON.data.message;
                     Materialize.toast(message, 3000, 'red');
                     $3('#modal1').modal('close');
+                    location.reload();
                 });
             }
         }
