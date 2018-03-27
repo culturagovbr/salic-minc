@@ -424,6 +424,13 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             $Fase = 5;
         }
 
+        //Fases que não pode liberar menu Análise Técnica
+        if (in_array($dadosProjeto->Situacao, array('B11', 'B14', 'C10', 'C30', 'C20', 'D50', 'D51'))) {
+            $Analise = 0;
+        }else{
+            $Analise = 1;
+        }
+
         $permissao = array('links'=>"$Permissao - $Fase - $Diligencia - $Recursos - $Readequacao - $ComprovacaoFinanceira - $RelatorioTrimestral - $RelatorioFinal - $Analise - $Execucao - $PrestacaoDeContas - $Readequacao_50 - $Marcas - $SolicitarProrrogacao - $ReadequacaoPlanilha");
 
         return (object) $permissao;

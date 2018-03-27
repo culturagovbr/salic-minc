@@ -166,7 +166,7 @@
                 </div>
                 <!-- ==================== FIM - Outras Informações  =======================   -->
 
-                <?php if (($this->fnLiberarLinks['Analise'] && in_array($this->fnLiberarLinks['FaseDoProjeto'], array('2','3','4'))) || $this->usuarioInterno) {
+                <?php if ($this->fnLiberarLinks['Analise'] || $this->usuarioInterno) {
             ?>
                 <!-- ======================= Análise e Aprovação  =======================   -->
                 <div class="sanfonaDiv" style="display:none;"></div>
