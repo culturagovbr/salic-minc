@@ -8,7 +8,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
     /* --COMPROVAÇÃO CONSOLIDADA POR PRODUTO */
     public function consolidacaoPorProduto($idPronac)
     {
-        $cols ="
+        $cols = new Zend_Db_Expr("
             CASE WHEN cdProduto = 0
                 THEN 'Administra&ccedil;&atilde;o do Projeto'
                 ELSE b.Descricao END
@@ -16,7 +16,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
                 COUNT(*) AS qtComprovantes,
                 SUM(vlComprovacao) AS vlComprovado,
                 (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(idPronac)) * 100 AS PercComprovado
-        ";
+        ");
 
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -38,27 +38,20 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         $select->group('IdPRONAC');
         $select->group('b.Descricao');
         $select->group('cdProduto');
+        /* echo $select;die; */
 
         return $this->fetchAll($select);
     }
 
-    /* --COMPROVAÇÃO CONSOLIDADA POR ETAPA */
-    /*     SELECT IdPRONAC,b.Descricao,COUNT AS qtComprovantes,SUM(vlComprovacao) AS vlComprovado, */
-    /*         (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(idPronac)) * 100 AS PercComprovado */
-    /*         FROM       sac.dbo.vwComprovacaoFinanceiraProjetoPorItemOrcamentario a */
-    /*         INNER JOIN sac.dbo.tbPlanilhaEtapa b on (a.cdEtapa = b.idPlanilhaEtapa) */
-    /*         WHERE IdPRONAC = 168849 */
-    /*         GROUP BY IdPRONAC,b.Descricao,b.nrOrdenacao */
-    /*         ORDER BY b.nrOrdenacao */
     public function consolidadoPorEtapa($idPronac)
     {
-        $cols ="
+        $cols = new Zend_Db_Expr("
             IdPRONAC,
             b.Descricao,
             COUNT(*) AS qtComprovantes,
             SUM(vlComprovacao) AS vlComprovado,
             (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(idPronac)) * 100 AS PercComprovado
-        ";
+        ");
 
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -86,23 +79,16 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         return $this->fetchAll($select);
     }
 
-    /*         -- MAIORES ITENS ORCÇAMENTÁRIOS COMPROVADOS */
-    /*         SELECT TOP 30 IdPRONAC,b.Descricao,COUNT AS qtComprovantes ,SUM(vlComprovacao) AS vlComprovado, */
-    /*             (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(idPronac)) * 100 AS PercComprovado */
-    /*             FROM       sac.dbo.vwComprovacaoFinanceiraProjetoPorItemOrcamentario a */
-    /*             INNER JOIN sac.dbo.tbPlanilhaItens b on (a.idPlanilhaItem = b.idPlanilhaItens) */
-    /*             WHERE IdPRONAC = 185898 */
-    /*             GROUP BY a.IdPRONAC,b.Descricao */
-    /*             ORDER BY SUM(vlComprovacao) DESC */
+    /* MAIORES ITENS ORCÇAMENTÁRIOS COMPROVADOS */
     public function maioresItensComprovados($idPronac)
     {
-        $cols ="
+        $cols = new Zend_Db_Expr("
             TOP 30 IdPRONAC,
             b.Descricao,
             COUNT(*) AS qtComprovantes,
             SUM(vlComprovacao) AS vlComprovado,
             (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(idPronac)) * 100 AS PercComprovado
-        ";
+        ");
 
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -112,7 +98,6 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             $this->_schema
         );
 
-        /*             INNER JOIN sac.dbo.tbPlanilhaItens b on (a.idPlanilhaItem = b.idPlanilhaItens) */
         $select->joinLeft(
             array('b'=>'tbPlanilhaItens'),
             '(a.idPlanilhaItem = b.idPlanilhaItens)',
@@ -121,8 +106,6 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         );
 
         $select->where('IdPRONAC = ?', $idPronac);
-        /*             GROUP BY a.IdPRONAC,b.Descricao */
-        /*             ORDER BY SUM(vlComprovacao) DESC */
 
         $select->group('a.IdPRONAC');
         $select->group('b.Descricao');
@@ -132,23 +115,17 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         return $this->fetchAll($select);
     }
 
-    /*             --COMPROVAÇÃO CONSOLIDADA POR UF E MUNICIPIO */
-    /*             SELECT IdPRONAC,b.UF,b.Municipio,COUNT AS qtComprovantes ,SUM(vlComprovacao) AS vlComprovado, */
-    /*                 (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(idPronac)) * 100 AS PercComprovado */
-    /*                 FROM vwComprovacaoFinanceiraProjetoPorItemOrcamentario a */
-    /*                 INNER JOIN Agentes.dbo.vUFMunicipio b on (a.cdUF = b.idUF AND a.cdCidade = b.idMunicipio) */
-    /*                 WHERE IdPRONAC = 185898 */
-    /*                 GROUP BY IdPRONAC,b.UF,b.Municipio */
+    /* COMPROVAÇÃO CONSOLIDADA POR UF E MUNICIPIO */
     public function comprovacaoConsolidadaUfMunicipio($idPronac)
     {
-        $cols ="
+        $cols =new Zend_Db_Expr("
             IdPRONAC,
             b.UF,
             b.Municipio,
             COUNT(*) AS qtComprovantes ,
             SUM(vlComprovacao) AS vlComprovado,
             (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(idPronac)) * 100 AS PercComprovado
-        ";
+        ");
 
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -158,7 +135,6 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             $this->_schema
         );
 
-        /*                 INNER JOIN Agentes.dbo.vUFMunicipio b on (a.cdUF = b.idUF AND a.cdCidade = b.idMunicipio) */
         $select->join(
             array('b'=>'vUFMunicipio'),
             '(a.cdUF = b.idUF AND a.cdCidade = b.idMunicipio)',
@@ -168,7 +144,6 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
 
         $select->where('IdPRONAC = ?', $idPronac);
 
-        /*                 GROUP BY IdPRONAC,b.UF,b.Municipio */
         $select->group('IdPRONAC');
         $select->group('b.UF');
         $select->group('b.Municipio');
@@ -176,18 +151,10 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         return $this->fetchAll($select);
     }
 
-    /*                 --MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS COMPROBATÓRIO */
-    /*                 SELECT TOP 10 IdPRONAC,tpDocumento,nrComprovante,c.Descricao AS nmFornecedor,COUNT AS qtComprovacoes,SUM(vlComprovacao) AS vlComprovado, */
-    /*                     (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(idPronac)) * 100 AS PercComprovado */
-    /*                     FROM vwComprovacaoFinanceiraProjetoPorItemOrcamentario a */
-    /*                     INNER JOIN Agentes.dbo.Agentes b on (a.nrCNPJCPF = b.CNPJCPF) */
-    /*                     INNER JOIN Agentes.dbo.Nomes   c on (b.idAgente = c.idAgente) */
-    /*                     WHERE IdPRONAC = 185898 */
-    /*                     GROUP BY IdPRONAC,tpDocumento,nrComprovante,c.Descricao */
-    /*                     ORDER BY SUM(vlComprovacao) DESC */
+    /* MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS COMPROBATÓRIO */
     public function maioresComprovacaoTipoDocumento($idPronac)
     {
-        $cols ="
+        $cols =new Zend_Db_Expr("
             TOP 10 IdPRONAC,
             tpDocumento,
             nrComprovante,
@@ -195,7 +162,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             COUNT(*) AS qtComprovacoes,
             SUM(vlComprovacao) AS vlComprovado,
             (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(idPronac)) * 100 AS PercComprovado
-        ";
+        ");
 
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -211,7 +178,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             null,
             'Agentes'
         );
-        /*                     INNER JOIN Agentes.dbo.Nomes   c on (b.idAgente = c.idAgente) */
+
         $select->join(
             array('c'=>'Nomes'),
             '(b.idAgente = c.idAgente)',
@@ -220,8 +187,6 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         );
 
         $select->where('IdPRONAC = ?', $idPronac);
-        /*                     GROUP BY IdPRONAC,tpDocumento,nrComprovante,c.Descricao */
-        /*                     ORDER BY SUM(vlComprovacao) DESC */
 
         $select->group('IdPRONAC');
         $select->group('tpDocumento');
@@ -233,20 +198,10 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         return $this->fetchAll($select);
     }
 
-    /*                     --MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS DE PAGAMENTO */
-    /*                     SELECT TOP 10 IdPRONAC,tpFormaDePagamento,nrDocumentoDePagamento, */
-    /*                     c.Descricao AS nmFornecedor,COUNT AS qtComprovacoes,SUM(vlComprovacao) AS vlComprovado, */
-    /*                     (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(idPronac)) * 100 AS PercComprovado */
-    /*                     FROM vwComprovacaoFinanceiraProjetoPorItemOrcamentario a */
-
-    /*                     INNER JOIN Agentes.dbo.Agentes b on (a.nrCNPJCPF = b.CNPJCPF) */
-    /*                     INNER JOIN Agentes.dbo.Nomes   c on (b.idAgente = c.idAgente) */
-    /*                     WHERE IdPRONAC = 185898 */
-    /*                     GROUP BY IdPRONAC,tpFormaDePagamento,nrDocumentoDePagamento,c.Descricao */
-    /*                     ORDER BY SUM(vlComprovacao) DESC */
+    /* MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS DE PAGAMENTO */
     public function comprovacaoTipoDocumentoPagamento($idPronac)
     {
-        $cols ="
+        $cols =new Zend_Db_Expr("
             TOP 10 IdPRONAC,
             tpFormaDePagamento, 
             nrDocumentoDePagamento,
@@ -254,7 +209,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             COUNT(*) AS qtComprovacoes,
             SUM(vlComprovacao) AS vlComprovado,
             (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(idPronac)) * 100 AS PercComprovado
-        ";
+        ");
 
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -264,15 +219,13 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             $this->_schema
         );
 
-        /*                     INNER JOIN Agentes.dbo.Agentes b on (a.nrCNPJCPF = b.CNPJCPF) */
-
         $select->join(
             array('b'=>'Agentes'),
             '(a.nrCNPJCPF = b.CNPJCPF)',
             null,
             'Agentes'
         );
-        /*                     INNER JOIN Agentes.dbo.Nomes   c on (b.idAgente = c.idAgente) */
+
         $select->join(
             array('c'=>'Nomes'),
             '(b.idAgente = c.idAgente)',
@@ -282,8 +235,6 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
 
         $select->where('IdPRONAC = ?', $idPronac);
 
-        /*                     GROUP BY IdPRONAC,tpFormaDePagamento,nrDocumentoDePagamento,c.Descricao */
-        /*                     ORDER BY SUM(vlComprovacao) DESC */
         $select->group('IdPRONAC');
         $select->group('tpFormaDePagamento');
         $select->group('nrDocumentoDePagamento');
@@ -294,25 +245,17 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         return $this->fetchAll($select);
     }
 
-    /*                     -- MAIORES POR FORNECEDORES DO PROJETO CULTURAL */
-    /*                     SELECT TOP 20 IdPRONAC,nrCNPJCPF,c.Descricao AS nmFornecedor,COUNT AS qtComprovacoes,SUM(vlComprovacao) AS vlComprovado, */
-    /*                         (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(idPronac)) * 100 AS PercComprovado */
-    /*                         FROM vwComprovacaoFinanceiraProjetoPorItemOrcamentario a */
-    /*                         INNER JOIN Agentes.dbo.Agentes b on (a.nrCNPJCPF = b.CNPJCPF) */
-    /*                         INNER JOIN Agentes.dbo.Nomes   c on (b.idAgente = c.idAgente) */
-    /*                         WHERE IdPRONAC = 185898 */
-    /*                         GROUP BY IdPRONAC,nrCNPJCPF,c.Descricao */
-    /*                         ORDER BY SUM(vlComprovacao) DESC */
+    /* MAIORES POR FORNECEDORES DO PROJETO CULTURAL */
     public function maioresFornecedoresProjeto($idPronac)
     {
-        $cols ="
+        $cols =new Zend_Db_Expr("
             TOP 20 IdPRONAC,
             nrCNPJCPF,
             c.Descricao AS nmFornecedor,
             COUNT(*) AS qtComprovacoes,
             SUM(vlComprovacao) AS vlComprovado,
             (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(idPronac)) * 100 AS PercComprovado
-        ";
+        ");
 
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -322,15 +265,13 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             $this->_schema
         );
 
-
-        /*                         INNER JOIN Agentes.dbo.Agentes b on (a.nrCNPJCPF = b.CNPJCPF) */
         $select->join(
             array('b'=>'Agentes'),
             '(a.nrCNPJCPF = b.CNPJCPF)',
             null,
             'Agentes'
         );
-        /*                         INNER JOIN Agentes.dbo.Nomes   c on (b.idAgente = c.idAgente) */
+
         $select->join(
             array('c'=>'Nomes'),
             '(b.idAgente = c.idAgente)',
@@ -349,22 +290,10 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
         return $this->fetchAll($select);
     }
 
-    /*                         -- PROPONENTE FORNECEDOR DE ITEM PARA O PROJETO CULTURAL */
-    /*                         SELECT  a.IdPRONAC,nrCNPJCPF,c.Descricao AS nmFornecedor,e.Descricao as Etapa,Item,COUNT AS qtComprovacoes,SUM(vlComprovacao) AS vlComprovado, */
-    /*                             (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(a.idPronac)) * 100 AS PercComprovado */
-
-    /*                             FROM  sac.dbo.vwComprovacaoFinanceiraProjetoPorItemOrcamentario a */
-    /*                             INNER JOIN Agentes.dbo.Agentes     b on (a.nrCNPJCPF = b.CNPJCPF) */
-    /*                             INNER JOIN Agentes.dbo.Nomes       c on (b.idAgente  = c.idAgente) */
-    /*                             INNER JOIN sac.dbo.Projetos        d on (a.IdPRONAC  = d.IdPRONAC) */
-    /*                             INNER JOIN sac.dbo.tbPlanilhaEtapa e on (a.cdEtapa = e.idPlanilhaEtapa) */
-    /*                             WHERE a.IdPRONAC = 168849 */
-    /*                             AND b.CNPJCPF = d.CgcCpf */
-    /*                             GROUP BY a.IdPRONAC,nrCNPJCPF,c.Descricao,e.Descricao ,Item */
-    /*                             ORDER BY e.Descricao,Item */
+    /* PROPONENTE FORNECEDOR DE ITEM PARA O PROJETO CULTURAL */
     public function fornecedorItemProjeto($idPronac)
     {
-        $cols ="
+        $cols =new Zend_Db_Expr("
             a.IdPRONAC,
             nrCNPJCPF,
             c.Descricao AS nmFornecedor,
@@ -373,7 +302,7 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             COUNT(*) AS qtComprovacoes,
             SUM(vlComprovacao) AS vlComprovado,
             (SUM(vlComprovacao) / sac.dbo.fnVlComprovadoProjeto(a.idPronac)) * 100 AS PercComprovado
-        ";
+        ");
 
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -382,7 +311,6 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             $cols,
             $this->_schema
         );
-        /*                             INNER JOIN Agentes.dbo.Agentes     b on (a.nrCNPJCPF = b.CNPJCPF) */
 
         $select->join(
             array('b'=>'Agentes'),
@@ -390,21 +318,21 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             null,
             'Agentes'
         );
-        /*                             INNER JOIN Agentes.dbo.Nomes       c on (b.idAgente  = c.idAgente) */
+
         $select->join(
             array('c'=>'Nomes'),
             '(b.idAgente  = c.idAgente)',
             null,
             'Agentes'
         );
-        /*                             INNER JOIN sac.dbo.Projetos        d on (a.IdPRONAC  = d.IdPRONAC) */
+
         $select->join(
             array('d'=>'Projetos'),
             '(a.IdPRONAC  = d.IdPRONAC)',
             null,
             'sac'
         );
-        /*                             INNER JOIN sac.dbo.tbPlanilhaEtapa e on (a.cdEtapa = e.idPlanilhaEtapa) */
+
         $select->join(
             array('e'=>'tbPlanilhaEtapa'),
             '(a.cdEtapa = e.idPlanilhaEtapa)',
