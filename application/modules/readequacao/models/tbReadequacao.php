@@ -10,7 +10,7 @@
  * @copyright � 2011 - Minist�rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
-class tbReadequacao extends MinC_Db_Table_Abstract
+class Readequacao_Model_tbReadequacao extends MinC_Db_Table_Abstract
 {
     protected $_schema = "sac";
     protected $_name = "tbReadequacao";
@@ -301,7 +301,7 @@ class tbReadequacao extends MinC_Db_Table_Abstract
         
         $select->where('a.stEstado = ?', self::ST_ESTADO_EM_ANDAMENTO);
         $select->where('a.idPronac = ?' , $idPronac);
-        $select->where('siEncaminhamento <> ?', tbTipoEncaminhamento::SI_ENCAMINHAMENTO_FINALIZADA_SEM_PORTARIA);
+        $select->where('siEncaminhamento <> ?', Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_FINALIZADA_SEM_PORTARIA);
         $select->where('a.idTipoReadequacao = ?', $idTipoReadequacao);
         
         $result = $this->fetchAll($select);
@@ -1013,21 +1013,20 @@ class tbReadequacao extends MinC_Db_Table_Abstract
      */
     public function painelReadequacoesCoordenadorAcompanhamentoCount($where=array(), $filtro = null)
     {
-        $tbReadequacao = new tbReadequacao();
         $total = null;
         
         switch ($filtro) {
             case 'aguardando_distribuicao':
-                $total = $tbReadequacao->count('vwPainelCoordenadorReadequacaoAguardandoAnalise', $where);
+                $total = $this->count('vwPainelCoordenadorReadequacaoAguardandoAnalise', $where);
                 break;
             case 'em_analise':
-                $total = $tbReadequacao->count('vwPainelCoordenadorReadequacaoEmAnalise', $where);
+                $total = $this->count('vwPainelCoordenadorReadequacaoEmAnalise', $where);
                 break;
             case 'analisados':
-                $total = $tbReadequacao->count('vwPainelCoordenadorReadequacaoAnalisados', $where);
+                $total = $this->count('vwPainelCoordenadorReadequacaoAnalisados', $where);
                 break;
             case 'aguardando_publicacao':
-                $total = $tbReadequacao->count('vwPainelReadequacaoAguardandoPublicacao', $where);
+                $total = $this->count('vwPainelReadequacaoAguardandoPublicacao', $where);
                 break;
         }
 
@@ -1117,8 +1116,6 @@ class tbReadequacao extends MinC_Db_Table_Abstract
 
     public function existeRemanejamento50EmAndamento($idPronac)
     {
-        $tbReadequacao = new tbReadequacao();
-
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -1127,13 +1124,13 @@ class tbReadequacao extends MinC_Db_Table_Abstract
         );
 
         $select->where('a.idPronac = ?', $idPronac);
-        $select->where('a.idTipoReadequacao=?', tbReadequacao::TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL);
+        $select->where('a.idTipoReadequacao=?', self::TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL);
         $select->where('a.stAtendimento=?', 'D');
         $select->where('a.stEstado=?', self::ST_ESTADO_EM_ANDAMENTO);
-        $select->where('a.siEncaminhamento=?', tbTipoEncaminhamento::SI_ENCAMINHAMENTO_NAO_ENVIA_MINC);
+        $select->where('a.siEncaminhamento=?', Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_NAO_ENVIA_MINC);
         
         $remanejamentos = $this->fetchAll($select);
-        
+
         if (count($remanejamentos) > 0) {
             return true;
         } else {
@@ -1195,7 +1192,7 @@ class tbReadequacao extends MinC_Db_Table_Abstract
             'r.idReadequacao'
         );
         $select->where('r.idPronac = ?', $idPronac);
-        $select->where('r.siEncaminhamento = ?', tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE);
+        $select->where('r.siEncaminhamento = ?', Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE);
         $select->where('r.idTipoReadequacao = ?', self::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
         $select->where('r.stEstado=?', self::ST_ESTADO_EM_ANDAMENTO);
         
@@ -1223,7 +1220,7 @@ class tbReadequacao extends MinC_Db_Table_Abstract
             'r.idReadequacao'
         );
         $select->where('r.idPronac = ?', $idPronac);
-        $select->where('r.siEncaminhamento = ?', tbTipoEncaminhamento::SI_ENCAMINHAMENTO_NAO_ENVIA_MINC);
+        $select->where('r.siEncaminhamento = ?', Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_NAO_ENVIA_MINC);
         $select->where('r.idTipoReadequacao = ?', self::TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL);
         $select->where('r.stEstado=?', self::ST_ESTADO_EM_ANDAMENTO);
         
@@ -1261,6 +1258,37 @@ class tbReadequacao extends MinC_Db_Table_Abstract
         }        
     }
 
+    /**
+     * Método para verificar se está o projeto está disponivel para edição do remanejamento de planilha
+     * @access public
+     * @param integer $idPronac
+     * @return boolean
+     */
+    public function disponivelParaEdicaoRemanejamentoPlanilha($idPronac)
+    {
+        $liberacao = new Liberacao();
+        $projeto = new Projetos();
+        $tbCumprimentoObjeto = new tbCumprimentoObjeto();
+        
+        $existeReadequacaoEmAndamento = $this->existeReadequacaoEmAndamento($idPronac);
+        $contaLiberada = $liberacao->contaLiberada($idPronac);
+        $periodoExecucaoVigente = $projeto->verificarPeriodoExecucaoVigente($idPronac);
+        $possuiRelatorioDeCumprimento = $tbCumprimentoObjeto->possuiRelatorioDeCumprimento($idPronac);
+        
+        if (
+            $existeReadequacaoEmAndamento &&
+            $periodoExecucaoVigente &&
+            (
+                $contaLiberada ||
+                (!$contaLiberada && !$possuiRelatorioDeCumprimento)
+            )
+        ) {
+            return true;
+        } else {
+            return false;
+        }        
+    }
+    
     /**
      * Método para verificar se está o projeto está disponivel para adição de itens da readequacao de planilha
      * @access public

@@ -241,7 +241,7 @@
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <?php if ($this->fnLiberarLinks['Readequacao_50']) {
                 ?>
-                    <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'remanejamento-menor'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Ir para Remanejamento &le; 50%">Remanejamento &le; 50%</a>
+                    <a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'remanejamento-menor', 'action' => 'index'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Ir para Remanejamento &le; 50%">Remanejamento &le; 50%</a>
                     <?php
             } ?>
 

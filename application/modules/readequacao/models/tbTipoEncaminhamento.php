@@ -5,7 +5,7 @@
  * @author fernao.lara@cultura.gov.br
  * @since 14/03/2018
  */
-class tbTipoEncaminhamento extends MinC_Db_Table_Abstract
+class Readequacao_Model_tbTipoEncaminhamento extends MinC_Db_Table_Abstract
 {
     protected $_schema = "sac";
     protected $_name = "tbTipoEncaminhamento";

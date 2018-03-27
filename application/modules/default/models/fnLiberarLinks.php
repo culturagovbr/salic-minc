@@ -307,10 +307,11 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             $SolicitarProrrogacao = 1;
             $Marcas = 1;
 
-            $tbReadequacao = new tbReadequacao();
-            $existeReadequacaoEmAndamento = $tbReadequacao->existeReadequacaoEmAndamento($idPronac);
-            $existeReadequacaoPlanilhaEmEdicao = $tbReadequacao->existeReadequacaoPlanilhaEmEdicao($idPronac);
-            $existeReadequacaoParcialEmEdicao = $tbReadequacao->existeReadequacaoParcialEmEdicao($idPronac);
+            $objTbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();
+            $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
+            $existeReadequacaoEmAndamento = $Readequacao_Model_tbReadequacao->existeReadequacaoEmAndamento($idPronac);
+            $existeReadequacaoPlanilhaEmEdicao = $Readequacao_Model_tbReadequacao->existeReadequacaoPlanilhaEmEdicao($idPronac);
+            $existeReadequacaoParcialEmEdicao = $Readequacao_Model_tbReadequacao->existeReadequacaoParcialEmEdicao($idPronac);
             
             if (!$existeReadequacaoEmAndamento && !$existeReadequacaoEmAndamento) {
                 $Readequacao_50 = 1;
@@ -397,12 +398,12 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
                         $this->_schema
                     )
                     ->where('a.idPronac = ?', $idPronac)
-                                  ->where('b.idTipoReadequacao = ?', tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA)
+                                  ->where('b.idTipoReadequacao = ?', Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA)
                                   ->where(
                                       'a.siEncaminhamento NOT IN (?)',
                                       array(
-                                          tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_INDEFERIDA,
-                                          tbTipoEncaminhamento::SI_ENCAMINHAMENTO_FINALIZADA_SEM_PORTARIA
+                                          Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_INDEFERIDA,
+                                          Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_FINALIZADA_SEM_PORTARIA
                                       )
                                   )
                     ->where('a.stEstado = ?', 0);

@@ -415,8 +415,8 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract
                     // verifica se eh readequacao
                     if (isset($buscaridpronac['IDREADEQUACAO']) && ! empty($buscaridpronac['IDREADEQUACAO'])) {
                         $naoAlteraSituacao = array(3, 10, 12, 15);  // tipos de readequacoes para as quais nao e necessario alterar a situacao do projeto
-                        $tbReadequacao = new tbReadequacao();
-                        $readequacao = $tbReadequacao->buscarReadequacao($buscaridpronac['IDREADEQUACAO']);
+                        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
+                        $readequacao = $Readequacao_Model_tbReadequacao->buscarReadequacao($buscaridpronac['IDREADEQUACAO']);
                         if (in_array($readequacao->current()->idTipoReadequacao, $naoAlteraSituacao)) {
                             $atualizarSituacao = false;
                         } else {
@@ -657,10 +657,10 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract
                         
                         $PlanilhaAtiva = $tbPlanilhaAprovacao->valorTotalPlanilhaAtiva($p->IdPRONAC);
                         
-                        $tbReadequacao = new tbReadequacao();
-                        $idReadequacao = $tbReadequacao->buscarIdReadequacaoAtiva(
+                        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
+                        $idReadequacao = $Readequacao_Model_tbReadequacao->buscarIdReadequacaoAtiva(
                             $p->IdPRONAC,
-                            tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA
+                            Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA
                         );
                         
                         $PlanilhaReadequada = $tbPlanilhaAprovacao->valorTotalPlanilhaReadequada(
@@ -669,14 +669,14 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract
                         );
                         
                         if ($PlanilhaAtiva['Total'] != $PlanilhaReadequada['Total']) {
-                            // quando atualiza portaria na dou, troca planilhas e muda status na tbReadequacao
-                            //Atualiza a tabela tbReadequacao
+                            // quando atualiza portaria na dou, troca planilhas e muda status na Readequacao_Model_tbReadequacao
+                            //Atualiza a tabela Readequacao_Model_tbReadequacao
 
                             $dados = array();
                             $dados['siEncaminhamento'] = 15; //Finalizam sem a necessidade de passar pela publica&ccedil;&atilde;o no DOU.
                             $dados['stEstado'] = 1;
                             $where = "idReadequacao = " . $p->idReadequacao;
-                            $return = $tbReadequacao->update($dados, $where);
+                            $return = $Readequacao_Model_tbReadequacao->update($dados, $where);
 
                             $spAtivarPlanilhaOrcamentaria = new spAtivarPlanilhaOrcamentaria();
                             $ativarPlanilhaOrcamentaria = $spAtivarPlanilhaOrcamentaria->exec($p->IdPRONAC);
@@ -746,8 +746,8 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract
                             $dadosPrj->save();
                         }
 
-                        $tbReadequacao = new tbReadequacao();
-                        $dadosReadequacao = $tbReadequacao->buscar(array('idReadequacao = ?' => $p->idReadequacao))->current();
+                        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
+                        $dadosReadequacao = $Readequacao_Model_tbReadequacao->buscar(array('idReadequacao = ?' => $p->idReadequacao))->current();
                         $dadosReadequacao->siEncaminhamento = 15;
                         $dadosReadequacao->stEstado = 1;
                         $dadosReadequacao->save();

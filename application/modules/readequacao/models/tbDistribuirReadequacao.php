@@ -10,7 +10,7 @@
  * @link http://www.cultura.gov.br
  */
 
-class tbDistribuirReadequacao extends MinC_Db_Table_Abstract
+class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
 {
     protected $_schema = "sac";
     protected $_name   = "tbDistribuirReadequacao";
