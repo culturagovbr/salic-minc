@@ -150,4 +150,38 @@ class tbArquivo extends MinC_Db_Table_Abstract
     {
         return $this->delete($where);
     }
+
+    /**
+     * Apagar todos os Arquivos e relacionamentos das tabelas
+     * @access public
+     * @param integer $idArquivo
+     * @param integer $idDocumento
+     * @return bool
+     */
+    public function excluirArquivosDocumentais($idArquivo, $idDocumento)
+    {
+        if (empty($idArquivo) || empty($idArquivo)) {
+            return false;
+        }
+
+        try{
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+            $db->beginTransaction();
+
+            $db->delete("BDCORPORATIVO.scCorp.tbDocumento","idArquivo = {$idArquivo} and idDocumento= {$idDocumento} ");
+
+            $db->delete("BDCORPORATIVO.scCorp.tbArquivoImagem","idArquivo =  {$idArquivo} ");
+
+            $db->delete("{$this->_schema}.{$this->_name}", "idArquivo = {$idArquivo} ");
+
+            $db->commit();
+            
+            return true;
+        }catch (Exception $e) {
+            $db->rollBack();
+
+            return false;
+        }
+    }
 }

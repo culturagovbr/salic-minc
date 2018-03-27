@@ -1440,7 +1440,8 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
 
         //VERIFICA SE JA POSSUI OS PLANOS DE DISTRIBUIÇÃO NA TABELA tbPlanoDistribuicao (READEQUACAO), SE NÃO TIVER, COPIA DA ORIGINAL, E DEPOIS INCLUI O ITEM DESEJADO.
         $tbPlanoDistribuicao = new tbPlanoDistribuicao();
-        $readequacaoPDDist = $tbPlanoDistribuicao->buscar(array('idPronac=?'=>$idPronac, 'stAtivo=?'=>'S'));
+        $readequacaoPDDist = $tbPlanoDistribuicao->buscar(array('idPronac=?'=>$idPronac, 'stAtivo=?'=>'S'));
+
         $planosAtivos = $tbPlanoDistribuicao->buscarPlanosDistribuicaoReadequacao($idPronac);
 
         if (count($readequacaoPDDist)==0) {
@@ -1777,19 +1778,10 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
             if (!empty($dados->idDocumento)) {
                 $tbDocumento = new tbDocumento();
                 $dadosArquivo = $tbDocumento->buscar(array('idDocumento =?'=>$dados->idDocumento))->current();
-
                 if ($dadosArquivo) {
-//                    $vwAnexarComprovantes = new vwAnexarComprovantes();
-//                    $x = $vwAnexarComprovantes->excluirArquivo($dadosArquivo->idArquivo);
-
-                    $tbDocumento = new tbDocumento();
-                    $tbDocumento->excluir("idArquivo = {$dadosArquivo->idArquivo} and idDocumento= {$dados->idDocumento} ");
-
-                    $tbArquivoImagem = new tbArquivoImagem();
-                    $tbArquivoImagem->excluir("idArquivo =  {$dadosArquivo->idArquivo} ");
-
                     $tbArquivo = new tbArquivo();
-                    $tbArquivo->excluir("idArquivo = {$dadosArquivo->idArquivo} ");
+                    $exclusaoArquivos = $tbArquivo->excluirArquivosDocumentais($dadosArquivo->idArquivo, $dados->idDocumento);
+                    if (!$exclusaoArquivos) throw new Exception("Erro ao excluir o tipo de readequa&ccedil;&atilde;o!");
                 }
             }
 
