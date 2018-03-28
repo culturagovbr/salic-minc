@@ -139,6 +139,7 @@
                     <?php if($this->itemAvaliadoFilter == 2 || $this->codGrupo == 132){ ?>
                         <th>Valor Impugnado</th>
                     <?php } ?>
+                    <th>RESUMO</th>
                 </thead>
                 <tbody>
                     <tr>
@@ -147,6 +148,26 @@
                         <?php if($this->itemAvaliadoFilter == 2 || $this->codGrupo == 132): ?>
                             <td align="center"><?php echo $this->formatarReal($this->vlComprovacaoImpugnado); ?></td>
                         <?php endif ?>
+                        <td>
+                            <div id="btn_consolidacao">
+                                <sl-btn-visualizar
+                                    idpronac="<?php echo $this->idPronac;?>"
+                                    pronac="Resumo: <?php echo $this->pronac; ?>"
+                                    nome="<?php echo $this->nomeProjeto; ?>"
+                                ></sl-btn-visualizar>
+                                <!-- Modal Structure -->
+                                <div id="abrirModal" class="modal modal-fixed-footer">
+                                    <div class="modal-content">
+                                        <h3>Visualizar consolida&ccedil;&atilde;o</h3>
+                                       <sl-collapse-visualizar></sl-collapse-visualizar>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Fechar</a>
+                                    </div>
+                                </div>
+                                <!-- Modal Structure -->
+                            </div>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -506,3 +527,14 @@
         }
     </script>
 </div>
+
+<script type="text/javascript" src="/public/js/componentes/sl-btn-visualizar.js" ></script>
+<script type="text/javascript" src="/public/js/componentes/sl-collapse-visualizar.js" ></script>
+<script type="text/javascript" src="/public/js/componentes/salic-table-easy.js" ></script>
+
+<script type="text/javascript">
+    var bus = new Vue({});
+    var app = new Vue({
+        el: '#btn_consolidacao'
+    });
+</script>
