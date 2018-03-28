@@ -1,8 +1,8 @@
 <?php
 if(isset($this->readequacao->idReadequacao)){
-    $idReadequacao = $this->readequacao->idReadequacao;
+$idReadequacao = $this->readequacao->idReadequacao;
 } else {
-    $idReadequacao = 0;
+$idReadequacao = 0;
 }
 ?><script type="text/javascript">
    function getIdReadequacao() {
@@ -159,7 +159,7 @@ if(isset($this->readequacao->idReadequacao)){
            });
        });
        
-       $('#reintegrar-planilha').click(function(){
+       $('.reintegrar-planilha').click(function(){
            var idPronac = $(this).attr('idPronac');
            $("#modalItem").dialog('close');
            $("#msgAlerta").dialog("destroy");
@@ -593,7 +593,7 @@ if(isset($this->readequacao->idReadequacao)){
             <?php /****** FIM VALOR ENTRE AS PLANILHAS ATIVA E REMANEJADA ******/ ?>
             </td>
             <td class="acoes centro <?php if (!isset($this->readequacao->idReadequacao)): ?>sumir<?php endif; ?>">
-		<a class="waves-effect waves-light btn white-text btn-incluir-novo-item small" id="reintegrar-planilha" idPronac="<?php echo $this->idPronac; ?>">
+		<a class="waves-effect waves-light btn white-text btn-incluir-novo-item small reintegrar-planilha" idPronac="<?php echo $this->idPronac; ?>">
 		    <i class="material-icons center">autorenew</i>
 		</a>
             </td>
@@ -621,7 +621,14 @@ if(isset($this->readequacao->idReadequacao)){
 	
         <tr id="finalizar" class="sumir">
             <td class="centro">
-		<button class="waves-effect waves-light btn small" id="finalizarRemanejamento" name="finalizar">finalizar</button>
+		<button class="waves-effect waves-light btn small reintegrar-planilha" name="excluir">
+		    <i class="material-icons left">delete</i>
+		    excluir
+		</button>
+		<button class="waves-effect waves-light btn small" id="finalizarRemanejamento" name="finalizar">
+		    <i class="material-icons left">send</i>
+		    finalizar
+		</button>
             </td>
         </tr>	
     </table>
