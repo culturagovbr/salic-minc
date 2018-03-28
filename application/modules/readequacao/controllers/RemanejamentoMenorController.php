@@ -116,33 +116,15 @@ class Readequacao_RemanejamentoMenorController extends MinC_Controller_Action_Ab
         $DadosProjeto = $projetos->buscarProjetoXProponente(array('idPronac = ?' => $idPronac))->current();
         $this->view->DadosProjeto = $DadosProjeto;
         
-        $readequacao = new Readequacao_Model_tbReadequacao();
-        $existeRemanejamento50EmAndamento = $readequacao->existeRemanejamento50EmAndamento($idPronac);
+        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
+        $this->view->readequacao = $Readequacao_Model_tbReadequacao->buscar(
+            array(
+                'idPronac = ?' => $idPronac,
+                'stEstado =?' => Readequacao_Model_tbReadequacao::ST_ESTADO_EM_ANDAMENTO,
+                'idTipoReadequacao=?' => Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL
+            )
+        )->current();
         
-        if ($existeRemanejamento50EmAndamento) {
-            $tbPlanilhaAprovacao = new PlanilhaAprovacao();
-            $planilhaOrcamentaria = $tbPlanilhaAprovacao->visualizarPlanilhaEmRemanejamento($idPronac);
-            
-            $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-            $this->view->readequacao = $Readequacao_Model_tbReadequacao->buscar(
-                array(
-                    'idPronac = ?' => $idPronac,
-                    'stEstado =?' => Readequacao_Model_tbReadequacao::ST_ESTADO_EM_ANDAMENTO,
-                    'idTipoReadequacao=?' => Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL
-                )
-            )->current();
-        } elseif (!$existeRemanejamento50EmAndamento) {
-            $db = Zend_Db_Table::getDefaultAdapter();
-            $db->setFetchMode(Zend_DB :: FETCH_OBJ);
-            $countTpPlanilhaRemanej = $db->fetchOne($sql);
-            
-            $spVisualizarPlanilhaOrcamentaria = new spVisualizarPlanilhaOrcamentaria();
-            $planilhaOrcamentaria = $spVisualizarPlanilhaOrcamentaria->exec($idPronac);
-        }
-        
-        $planilha = $this->montarPlanilhaOrcamentaria($planilhaOrcamentaria, PlanilhaAprovacao::TIPO_PLANILHA_REMANEJADA);
-        
-        $this->view->planilha = $planilha;
         $this->view->tipoPlanilha = PlanilhaAprovacao::TIPO_PLANILHA_REMANEJADA;
     }
 

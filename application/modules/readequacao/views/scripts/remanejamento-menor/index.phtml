@@ -419,7 +419,8 @@ if(isset($this->readequacao->idReadequacao)){
 					       
 
 					       if(data.resposta){
-                                                   itemClicado.parent().parent().addClass('red');
+						   itemClicado.parent().parent().css('color', 'blue');
+						   itemClicado.attr('style', 'color: blue !important');
                                                    itemClicado.parent().parent().addClass('fundo_linha4');
                                                    itemClicado.parent().parent().find('.textDias').html(QtdeDias);
                                                    itemClicado.parent().parent().find('.textQuantidade').html(Quantidade);
