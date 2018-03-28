@@ -247,6 +247,11 @@ form select.browser-default{
     height: 34px;
 }
 
+form select.browser-default[multiple="multiple"] {
+    min-height: 100px;
+    height: 100%;
+}
+
 form input.browser-default:active,
 form input.browser-default:focus {
     box-shadow: none !important;

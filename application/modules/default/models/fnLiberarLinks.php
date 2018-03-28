@@ -142,10 +142,10 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
         $Diligencia = ($vDiligencia->idDiligencia) ? 1 : 0;
 
         //Verificar se h� recurso @TODO FAZER ESSA PARTE E DEIXAR PRO FIM
-        $data = new Zend_Db_Expr("SELECT DATEDIFF(DAY, '$dadosCnic->DtReuniao', GETDATE()) AS dado");
+        $data = new Zend_Db_Expr("SELECT DATEDIFF(DAY, '$dadosProjeto->DtSituacao', GETDATE()) AS dado");
         $data = $db->fetchOne($data);
 
-        $situacoesRecurso = array('A14', 'A16', 'A17', 'A20', 'A23', 'A24', 'A41', 'A42', 'D02', 'D03','D14');
+        $situacoesRecurso = array('A14', 'A16', 'A17', 'A20', 'A23', 'A24', 'A41', 'A42', 'D02', 'D03','D14', 'D52');
 
         $recurso1 = $db->select()
            ->from(
@@ -423,6 +423,13 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             }
             
             $Fase = 5;
+        }
+
+        //Fases que não pode liberar menu Análise Técnica
+        if (in_array($dadosProjeto->Situacao, array('B11', 'B14', 'C10', 'C30', 'C20', 'D50', 'D51'))) {
+            $Analise = 0;
+        }else{
+            $Analise = 1;
         }
 
         $permissao = array('links'=>"$Permissao - $Fase - $Diligencia - $Recursos - $Readequacao - $ComprovacaoFinanceira - $RelatorioTrimestral - $RelatorioFinal - $Analise - $Execucao - $PrestacaoDeContas - $Readequacao_50 - $Marcas - $SolicitarProrrogacao - $ReadequacaoPlanilha");

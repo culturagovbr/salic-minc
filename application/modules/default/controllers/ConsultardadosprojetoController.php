@@ -3336,6 +3336,9 @@ class ConsultarDadosProjetoController extends MinC_Controller_Action_Abstract
                 $this->view->diligenciasProposta = $tblPreProjeto->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $projeto->idProjeto,'aval.ConformidadeOK = ? '=>0));
             }
             $this->view->diligencias = $tblProjeto->listarDiligencias(array('pro.IdPRONAC = ?' => $idPronac, 'dil.stEnviado = ?' => 'S'));
+
+            $tbAvaliarAdequacaoProjeto = new Analise_Model_DbTable_TbAvaliarAdequacaoProjeto();
+            $this->view->diligenciasAdequacao = $tbAvaliarAdequacaoProjeto->obterAvaliacoes(['a.idPronac = ?' => $idPronac]);
         }
     }
 

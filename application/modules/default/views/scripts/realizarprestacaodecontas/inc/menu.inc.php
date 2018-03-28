@@ -177,8 +177,8 @@
                         <!--<a class="no_seta" href="<?php echo $this->url(array('controller' => 'avaliaracompanhamentoprojeto', 'action' => 'relatoriofinal')).'?idPronac='.$id.'&status=1'; ?>" title="Ir para Relatorio de Execução do Objeto">Relatório de Comprovação do Objeto</a>-->
                         <!--<a class="no_seta" href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'relatorio-final')).'?idPronac='.$id; ?>" title="Ir para Relatorio de Execução do Objeto">Relatório de Comprovação do Objeto</a>-->
                         <a class="no_seta" href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'planilhaorcamentaria')).'?idPronac='.$id; ?>" title="Ir para Execução Financeira Comprovada">Execução Financeira Comprovada</a>
-                        <a class="no_seta" href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'emitirparecertecnico')).'?idPronac=' . $id; ?>" title="Ir para Emitir Parecer">Emitir Parecer</a>
-                        <a class="no_seta" target="_blank" href="<?php echo $diligenciaUrl; ?>" title="Ir para Diligenciar Proponente">Diligenciar Proponente</a>
+                        <!-- a class="no_seta" href="<?php echo $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'emitirparecertecnico')).'?idPronac=' . $id; ?>" title="Ir para Emitir Parecer">Emitir Parecer</a-->
+                        <!-- a class="no_seta" target="_blank" href="<?php echo $diligenciaUrl; ?>" title="Ir para Diligenciar Proponente">Diligenciar Proponente</a-->
                         <!--<a class="no_seta" target="_blank" href="<?php echo $this->url(array('controller' => 'mantermensagens', 'action' => 'consultarmensagem', 'idpronac' => $this->idPronac), null, true); ?>">Mensagens</a>-->
                         <a class="no_seta" target="_blank" href="#" id="lnkDespacho">Finalizar Análise</a>
                         <span class="no_seta last">&nbsp;</span>

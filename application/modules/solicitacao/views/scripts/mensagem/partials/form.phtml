@@ -17,7 +17,12 @@ if (!empty($this->dataForm['Pronac'])){
     <div class="row">
         <div class="col s12">
             <?php if (!empty($this->dataForm['Pronac'])) : ?>
-                <b>Pronac:</b> <?= $this->dataForm['Pronac']; ?><br>
+                <b>Pronac: </b><a
+                        target="_blank"
+                        href="<?= $this->url($arrayLinkProjeto, null, true); ?>"
+                        data-tooltip="Visualizar projeto"
+                        class="waves-effect waves-teal btn small white tooltipped black-text"
+                ><?= $this->dataForm['Pronac']; ?></a>
             <?php elseif (!empty($this->dataForm['idProjeto'])) : ?>
                 <b>Nº Proposta: </b><a
                         data-ajax-modal="<?= $this->url($arrayLinkProjeto); ?>"
@@ -32,7 +37,7 @@ if (!empty($this->dataForm['Pronac'])){
             <?php endif; ?>
         </div>
         <div class="col s12">
-            <b>Título: </b><?= $this->dataForm['NomeProjeto']; ?>
+            <b>Proposta/Projeto: </b><?= $this->dataForm['NomeProjeto']; ?>
         </div>
     </div>
 

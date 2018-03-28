@@ -28,63 +28,42 @@ class Projeto_Model_TbHomologacaoMapper extends MinC_Db_Mapper
     {
         $booStatus = true;
         $arrData = $model->toArray();
-        $arrRequired = array(
+        $arrRequired = [
             'idPronac',
             'tpHomologacao',
             'dsHomologacao',
-        );
+        ];
         foreach ($arrRequired as $strValue) {
             if (!isset($arrData[$strValue]) || empty($arrData[$strValue])) {
                 $this->setMessage('Campo obrigat&oacute;rio!', $strValue);
                 $booStatus = false;
             }
         }
-        return $booStatus;
-    }
 
-    public function salvar($arrData)
-    {
-        $booStatus = false;
-        if (!empty($arrData)) {
-            $model = new Projeto_Model_TbHomologacao($arrData);
-            try {
-                $auth = Zend_Auth::getInstance(); // pega a autenticacao
-                $arrAuth = array_change_key_case((array)$auth->getIdentity());
-                $grupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
-                $intUsuOrgao = $grupoAtivo->codOrgao;
-                //$intUsuOrgao = $grupoAtivo->codGrupo;
-                //var_dump($intUsuOrgao, $grupoAtivo->codOrgao);die;
-                $model->setDtHomologacao(date('Y-m-d h:i:s'));
-                $model->setIdUsuario($arrAuth['usu_codigo']);
-
-                echo '<pre>';
-                var_dump('$model');
-                exit;
-//                $model->setIdRemetenteUnidade($intUsuOrgao);
-//                $model->setIdDestinatario($arrAuth['usu_codigo']);
-//                $model->setCdTipoMensagem('E');
-//                $model->setStAtivo(1);
-                if ($intId = parent::save($model)) {
-                    $booStatus = 1;
-                    $this->setMessage('Pergunta enviada com sucesso!');
-                } else {
-                    $this->setMessage('Nao foi possivel enviar mensagem!');
-                }
-            } catch (Exception $e) {
-                $this->setMessage($e->getMessage());
+        if ($booStatus) {
+            $arrProjectDb = $this->findBy(['IdPRONAC' => $model->getIdPRONAC()]);
+            if (!$arrProjectDb) {
+                $this->setMessage('Projeto n&atilde;o encontrado para ser homologado.', 'IdPRONAC');
+                $booStatus = false;
             }
         }
+
         return $booStatus;
     }
 
+    /*
+     * @todo Verificar por que não está alterando a sitacao.
+     */
     public function save($arrData)
     {
         $booStatus = false;
         if (!empty($arrData)) {
+
             $model = new Projeto_Model_TbHomologacao($arrData);
             try {
-                $auth = Zend_Auth::getInstance(); // pega a autenticacao
-                $arrAuth = array_change_key_case((array)$auth->getIdentity());
+                 // pega a autenticacao
+                $auth = Zend_Auth::getInstance();
+                $arrAuth = array_change_key_case((array) $auth->getIdentity());
                 if (!isset($arrData['idHomologacao']) || empty($arrData['idHomologacao'])) {
                     $model->setDtHomologacao(date('Y-m-d h:i:s'));
                 }
@@ -93,10 +72,66 @@ class Projeto_Model_TbHomologacaoMapper extends MinC_Db_Mapper
                     $booStatus = 1;
                     $this->setMessage('Salvo com sucesso!');
                 } else {
-                    $this->setMessage('Nao foi possivel salvar!');
+                    $this->setMessage('N&atilde;o foi poss&iacute;vel salvar!');
                 }
             } catch (Exception $e) {
                 $this->setMessage($e->getMessage());
+            }
+
+        }
+        return $booStatus;
+    }
+
+    /**
+     * Assina o projeto apos ser homologado.
+     */
+    public function encaminhar($arrData)
+    {
+        $booStatus = true;
+        $intIdPronac = $arrData['idPronac'];
+        if (!$intIdPronac) {
+            $this->setMessage('Identificador do Projeto não informado.');
+            $booStatus = true;
+        } else {
+            $objTbProjetos = new Projeto_Model_DbTable_Projetos();
+            if (!$objTbProjetos->findBy(['IdPRONAC' => $intIdPronac])) {
+                $this->setMessage('Projeto n&atilde;o encontrado.');
+                $booStatus = false;
+            } else {
+                $auth = Zend_Auth::getInstance();
+                $arrAuth = array_change_key_case((array) $auth->getIdentity());
+                $arrProjeto = [
+                    'idPRONAC' => $arrData['idPronac'],
+                    'situacao' => Projeto_Model_Situacao::ANALISE_TECNICA,
+                    'dtSituacao' => $this->_dbTable->getExpressionDate(),
+                    'providenciaTomada' => 'Projeto em an&aacute;lise documental.',
+                    'logon' => $arrAuth['usu_codigo']
+                ];
+                $tbProjetosMapper = new Projeto_Model_TbProjetosMapper();
+                $modelTbProjetos = new Projeto_Model_TbProjetos($arrProjeto);
+                if ($tbProjetosMapper->save($modelTbProjetos)) {
+                    $objModelDocumentoAssinatura = new Assinatura_Model_TbDocumentoAssinatura();
+                    $objModelDocumentoAssinatura
+                        ->setIdPRONAC($intIdPronac)
+                        ->setIdTipoDoAtoAdministrativo(Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ADMINISTRATIVO)
+                        ->setIdAtoDeGestao($arrData['IdEnquadramento'])
+                        ->setConteudo($arrData['conteudo'])
+                        ->setIdCriadorDocumento($auth->getIdentity()->usu_codigo)
+                        ->setCdSituacao(Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA)
+                        ->setStEstado(Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO)
+                        ->setDtCriacao($objTbProjetos->getExpressionDate());
+
+                    $objDocumentoAssinatura = new MinC_Assinatura_Servico_Assinatura($this->post, $auth->getIdentity());
+                    $servicoDocumento = $objDocumentoAssinatura->obterServicoDocumento();
+                    $servicoDocumento->registrarDocumentoAssinatura($objModelDocumentoAssinatura);
+
+                    $this->setMessage('Documento gerado e encaminhado com sucesso!');
+                    $booStatus = true;
+                } else {
+                    $this->setMessage('N&atilde;o foi poss&iacute;vel alterar a situa&ccedil;&atilde;o do projeto.', 'IdPRONAC');
+                    $this->setMessage($tbProjetosMapper->getMessages());
+                    $booStatus = false;
+                }
             }
         }
         return $booStatus;

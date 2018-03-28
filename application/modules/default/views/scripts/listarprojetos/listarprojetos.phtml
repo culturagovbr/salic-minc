@@ -118,7 +118,6 @@
                 idPronac: idPronac
             },
             success: function (data) {
-                console.log(data);
                 if (data.status == true) {
                     var url = "<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'identificacaodaproposta')); ?>" + '/idPreProjeto/' + data.idPreProjeto;
 

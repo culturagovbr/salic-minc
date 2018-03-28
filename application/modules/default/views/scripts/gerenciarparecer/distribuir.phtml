@@ -5,10 +5,10 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
 	var minchar;
 
         countChars  = CountCharacters(fieldName);
-        //Atualização para os contadores de caracteres
+        //Atualizaï¿½ï¿½o para os contadores de caracteres
         document.getElementById("contador" + fieldName).innerHTML = "Caracteres: " + countChars;
                      
-        //mudança de cor caso ultrapasse o numero de caracteres
+        //mudanï¿½a de cor caso ultrapasse o numero de caracteres
         if (countChars <= minchar){
 	    document.getElementById("contador" + fieldName).style.color = "red";
         }else{
@@ -16,9 +16,11 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
         }
 }
 
-   $(document).ready(function(){    
+   $(document).ready(function(){
 
-        //inicializao e configuração do editor tinyMCE
+       tipo(1);
+
+        //inicializao e configuraï¿½ï¿½o do editor tinyMCE
         tinymce.init({
 	    plugins:"paste,textcolor",
 	    language: "pt_BR",
@@ -39,7 +41,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
 
     });
     
-    //Onde é feita a contagem do elemento do contador
+    //Onde ï¿½ feita a contagem do elemento do contador
     function CountCharacters(contador) {
         var body = tinymce.get(contador).getBody();
         var content = tinymce.trim(body.innerText || body.textContent);
@@ -72,13 +74,13 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
         var texto = CountCharacters('obs');
         var validacao = true;
         if (texto < 11) {
-            alertar('O campo justificativa deve ter no mínimo 11 caracteres!');
+            alertar('O campo justificativa deve ter no m&iacute;nimo 11 caracteres!');
             return false;
 	    validacao = false;
         }
 
         if($('#distribuir').is(':checked') && $('#pareceristaCombo').val()==0) {
-            alertar('Favor preencher os dados obrigatórios!');
+            alertar('Favor preencher os dados obrigat&oacute;rios!');
             return false;
 	    validacao = false;
         }
@@ -116,7 +118,7 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
                     }
                 },
                 error: function (data){
-                    $("#infoparecerista").html("Falha na recuperação dos dados.\nNão foi possível carregar agente!");
+                    $("#infoparecerista").html("Falha na recuperaï¿½ï¿½o dos dados.\nNï¿½o foi possï¿½vel carregar agente!");
                 }
             });
         } else {
@@ -127,35 +129,28 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
     }
 </script>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INï¿½CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para Início">Início</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'index'),'',true); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
         <li><a href="<?php echo $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index'),'',true); ?>" title="Localizar Parecer">Gerenciar Pareceres</a></li>
         <li class="last">Distribuir projeto</li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INï¿½CIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Distribuir Projeto <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== FIM Tï¿½TULO ========== -->
+<!-- ========== INï¿½CIO CONTEï¿½DO ========== -->
 <div id="conteudo">
     <form id="form" action="<?php echo $this->url(array('controller' => 'gerenciarparecer', 'action' => 'distribuiu')); ?>" method="POST" >
         <input id="idpronac" name="idpronac"  type="hidden" value="<?php echo $this->idpronac; ?>" />
 	<input id="tipoFiltro" name="tipoFiltro"  type="hidden" value="<?php echo $this->tipoFiltro; ?>" />
         <table class="tabela">
             <tr>
-                <th colspan="4" style="font-family: sans-serif; font-size: 13px;">
-                    <input type="radio" value="1" name="tipodistribuir" id="distribuir" 
-                        onclick="tipo(1);" />
-                    <label for="distribuir">Distribuir</label>
-                    <b style="margin-left: 30px; margin-right: 30px;">|</b>
-                    <input type="radio" value="2" name="tipodistribuir" id="encaminhar"  onclick="tipo(2);" />
-                    <label for="encaminhar">Encaminhar para outra unidade vinculada</label>
-                </th>
+                <th colspan="2" style="font-family: sans-serif; font-size: 13px;">Dados do Projeto</th>
             </tr>
             <tr>
                 <td class="destacar bold">PRONAC</td>
@@ -175,9 +170,17 @@ function ExecucaoDaFuncaoLimiterPag(fieldName, minchar){
             </tr>
         </table>
         
-        <table id="tableCombo" class="tabela" style="display:none">
+        <table id="tableCombo" class="tabela">
             <tr>
-                <td class="destacar bold sumir" id="entidades" width="120" align="right">Destino <span style="color: red;">*</span></td>
+                <td width="50%" style="font-family: sans-serif; font-size: 13px;">
+                    <input type="radio" value="1" name="tipodistribuir" id="distribuir" checked="checked"
+                           onclick="tipo(1);" />
+                    <label for="distribuir">Distribuir</label>
+                    <b style="margin-left: 30px; margin-right: 30px;">|</b>
+                    <input type="radio" value="2" name="tipodistribuir" id="encaminhar"  onclick="tipo(2);" />
+                    <label for="encaminhar">Encaminhar para outra unidade vinculada</label>
+                </td>
+                <td class="destacar bold" id="entidades" width="120" align="right">Destino <span style="color: red;">*</span></td>
                 <td class="destacar bold" id="parecerista" width="120" align="right">Parecerista <span style="color: red;">*</span></td>
                 <td width="1">
                     <select name="orgao" class="input_simples sumir" id="entidadesCombo">

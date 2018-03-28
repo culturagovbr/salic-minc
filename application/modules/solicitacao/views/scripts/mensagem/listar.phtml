@@ -4,13 +4,14 @@
             <thead class="">
             <tr>
                 <th data-field="" class="messagem-numero left-align">Nº</th>
-                <th data-field="" class="messagem-titulo left-align">Título</th>
+                <th data-field="" class="messagem-titulo left-align">Proposta/Projeto</th>
                 <th data-field="" class="mensagem-texto left-align">Solicita&ccedil;&atilde;o</th>
                 <?php if (!$this->isProponente)  : ?>
                     <th data-field="" class="left-align">T&eacute;cnico</th>
                 <?php endif; ?>
-                <th data-field="" class="mensagem-situacao left-align">Situa&ccedil;&atilde;o</th>
-                <th data-field="id" class="mensagem-data center-align">Data</th>
+                <th data-field="" class="mensagem-situacao left-align">Estado</th>
+                <th data-field="id" class="mensagem-data center-align">Dt. Solicita&ccedil;&atilde;o</th>
+                <th data-field="id" class="mensagem-data center-align">Dt. Resposta</th>
                 <th class="center-align">#</th>
             </tr>
             </thead>
@@ -60,33 +61,34 @@
                         <?php endif; ?>
                     </td>
                     <td>
-                        <a href="<?php echo $this->url($arrayUrl, null, true); ?>">
-                            <?= $arrValue['NomeProjeto']; ?>
-                        </a>
+                        <?= $arrValue['NomeProjeto']; ?>
                     </td>
                     <td>
-                        <a href="<?php echo $this->url($arrayUrl, null, true); ?>">
-                            <?= substr(strip_tags($arrValue['dsSolicitacao']), 0 , 95); ?>
-                            <?= (strlen($arrValue['dsSolicitacao'])>=95) ? '...' : ''; ?>
-                        </a>
+                        <?= substr(strip_tags($arrValue['dsSolicitacao']), 0 , 65); ?>
+                        <?= (strlen($arrValue['dsSolicitacao'])>=65) ? '...' : ''; ?>
                     </td>
                     <?php if (!$this->isProponente) : ?>
                         <td>
-                            <a href="<?php echo $this->url($arrayUrl, null, true); ?>">
-                                <?= $arrValue['Tecnico']; ?>
-                            </a>
+                            <?= $arrValue['Tecnico']; ?>
                         </td>
-                    <?php endif; ?>
+                    <?php endif;?>
                     <td>
-                        <a href="<?php echo $this->url($arrayUrl, null, true); ?>">
-                            <?= $arrValue['dsEncaminhamento']; ?>
-                        </a>
+                        <?= $arrValue['dsEncaminhamento']; ?>
                     </td>
                     <td class="center-align"><?= date('d/m/Y', strtotime($arrValue['dtSolicitacao'])); ?></td>
 
+                    <td class="center-align">
+                        <?= (!$arrValue['dtResposta']) ?
+                                ($arrValue['diasSemResposta'] == 0) ?
+                                    "Não respondida" :
+                                    "Não respondida à {$arrValue['diasSemResposta']} dias":
+                                date('d/m/Y', strtotime($arrValue['dtSolicitacao']))
+                                 ?>
+                    </td>
+
                     <td>
                         <a class="btn blue small white-text tooltipped"
-                           data-tooltip="Responder solicita&ccedil;&atilde;o"
+                           data-tooltip="Visualizar"
                            href="<?php echo $this->url($arrayUrl, null, true); ?>">
                             <i class="material-icons">visibility</i>
                         </a>

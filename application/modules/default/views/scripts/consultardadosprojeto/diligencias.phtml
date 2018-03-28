@@ -121,3 +121,30 @@
         </table>
     </fieldset>
 <?php } ?>
+
+<?php if(count($this->diligenciasAdequacao) > 0) : ?>
+    <fieldset>
+        <legend>Avalia&ccedil;&otilde;es da Adequa&ccedil;&atilde;o do Projeto</legend>
+        <table class="bordered striped responsive-table">
+            <thead>
+                <tr>
+                    <th>Data da Avalia&ccedil;&atilde;o</th>
+                    <th>Avalia&ccedil;&atilde;o</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($this->diligenciasAdequacao as $diligencia) : ?>
+                <tr>
+                    <td align="center"><?php echo date('d/m/Y',strtotime($diligencia->dtAvaliacao));?></td>
+                    <td><?php echo $diligencia->dsAvaliacao; ?></td>
+                </tr>
+                <tr class="sumir" id="linhaAdequacao<?php echo $diligencia->idAvaliarAdequacaoProjeto;?>">
+                    <td colspan="9" id="resultado<?php echo $diligencia->idAvaliarAdequacaoProjeto;?>">
+                        <?php echo $diligencia->dsAvaliacao; ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </fieldset>
+<?php endif; ?>

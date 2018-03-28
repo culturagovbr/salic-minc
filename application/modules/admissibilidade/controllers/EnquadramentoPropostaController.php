@@ -4,7 +4,7 @@ class Admissibilidade_EnquadramentoPropostaController extends MinC_Controller_Ac
 {
     public function init()
     {
-//        parent::perfil();
+        parent::perfil();
         parent::init();
         $this->auth = Zend_Auth::getInstance();
         $this->grupoAtivo = new Zend_Session_Namespace('GrupoAtivo');

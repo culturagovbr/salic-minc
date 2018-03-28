@@ -1,0 +1,102 @@
+<div id="cadastrar_diligencia" class="container-fluid">
+    <div class="row">
+        <div class="s12">
+            <h3><?php echo $this->pronac;?> - <?php echo $this->nomeProjeto;?></h3>
+        </div>
+    </div>
+    <form  action="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => $link)); ?>" method="post">
+        <input type="hidden" name="idPronac" value="<?php echo $this->idPronac;?>" />
+        <input type="hidden" name="idPreProjeto" value="<?php echo $this->idPreProjeto;?>" />
+        <input type="hidden" name="idProduto" value="<?php echo $this->idProduto;?>" />
+        <input type="hidden" name="situacao" value="<?php echo $this->situacao;?>" />
+        <input type="hidden" name="tpDiligencia" value="<?php echo $this->tpDiligencia;?>" />
+        <input type="hidden" name="btnEnvio" id="btnEnvio" value="" />
+        <?php if(isset($this->ultimo)) { ?>
+            <input type="hidden" name="idDiligencia" id="idDiligencia" value="<?php echo $this->ultimo->idDiligencia; ?>" />
+        <?php } ?>
+         <div class="row">
+            <sl-cadastrar-diligencia
+                idpronac="<?php echo $this->idPronac;?>"
+            ></sl-cadastrar-diligencia>
+          </div>
+    </form>
+</div>
+<script src="/public/js/vue.js"></script>
+<script type="text/x-template" id="sl-cadastrar-diligencia">
+    <div>
+        <form class="col s12">
+          <p>
+            Tipo de Diligencia
+          </p>
+          <p>
+            <input v-model="diligencia.tpDiligencia" value="174" name="tpDiligencia" type="radio" id="test2" />
+            <label for="test2">Somente Itens Recusados</label>
+          </p>
+          <p>
+            <input v-model="diligencia.tpDiligencia" value="644" name="tpDiligencia" type="radio" id="test1" />
+            <label for="test1">Todos os itens or&ccedil;amentarios</label>
+          </p>
+          <div class="row">
+            <div class="input-field col s12">
+              <textarea v-model="diligencia.solicitacao" name="solicitacao" id="solicitacao"class="materialize-textarea"></textarea>
+              <label for="solicaitacao">Solicita&ccedil;&atilde;o</label>
+            </div>
+          </div>
+          <button type="button" v-on:click="save" :disabled="button" class="btn modal-action waves-effect waves-green">enviar</button>
+          <a href="#!" class="btn modal-action modal-close waves-effect waves-green btn-flat">cancelar</a>
+        </form>
+    </div>
+</script>
+
+<script>
+Vue.component(
+    'sl-cadastrar-diligencia',
+    {
+        template: '#sl-cadastrar-diligencia',
+        props:['idpronac','tpdiligencia'],
+        data: function() {
+           return {
+               'diligencia': {
+                   'solicitacao':'',
+                   'idPronac' : 0,
+                   'tpDiligencia': 174
+                },
+                button: false
+            }
+        },
+        computed:{},
+        mounted: function() {
+            this.diligencia.idPronac = this.idpronac;
+            /* this.diligencia.tpDiligencia = this.tpdiligencia; */
+        },
+        methods: {
+            save: function() {
+                this.button = true;
+                var vue = this;
+                console.info(this.diligencia);
+
+                url = '/diligencia/diligencia';
+                $3.ajax({
+                  type: "POST",
+                  url:url,
+                  data: this.diligencia
+                })
+                .done(function(data) {
+                    $3('#modal1').modal('close');
+                    location.reload();
+                })
+                .fail(function(jqXHR) { 
+                    message = jqXHR.responseJSON.data.message;
+                    Materialize.toast(message, 3000, 'red');
+                    $3('#modal1').modal('close');
+                    location.reload();
+                });
+            }
+        }
+    }
+);
+
+    var app6 = new Vue({
+            el: '#cadastrar_diligencia',
+        })
+</script>

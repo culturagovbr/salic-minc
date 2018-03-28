@@ -14,4 +14,5 @@ class Projeto_Model_Situacao extends MinC_Db_Table_Abstract
     const AGUARDANDO_ELABORACAO_DE_PORTARIA_DE_PRORROGACAO = 'D22';
     const PROJETO_APROVADO_AGUARDANDO_ANALISE_DOCUMENTAL = 'D03';
     const PROJETO_LIBERADO_PARA_AJUSTES = 'E90';
+    const ANALISE_TECNICA = 'D51';
 }

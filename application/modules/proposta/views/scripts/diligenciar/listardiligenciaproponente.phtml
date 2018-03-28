@@ -17,7 +17,7 @@
                 <form id="frImprimir" action="<?php echo $this->url(array('controller'=>'diligenciar', 'action'=>'imprimir')); ?>" method="post" target="_blank" >
                     <input type="hidden" name="idPronac" value="<?php echo $this->idPronac;?>"/>
                     <input type="hidden" name="idPreProjeto" value="<?php echo $this->idPreProjeto;?>"/>
-                    <?php if($this->diligenciasProposta) : ?>
+                    <?php if(count($this->diligenciasProposta) > 0) : ?>
                         <table class="tabela">
                             <tr>
                                 <td><input type="button" name="grid1" id="g1_1" class="btn_remover" title="Expandir" />Dilig&ecirc;ncia Proposta</td>
@@ -139,13 +139,44 @@
                             </table>
                         </div>
                     <?php endif ?>
-                    <table class="tabela">
-                        <tr align="center">
-                            <td><button type="submit" class="btn" value="" />Imprimir</button></td>
-                        </tr>
-                    </table>
+
+                    <?php if(count($this->diligenciasProposta) == 0 && !$this->diligencias) : ?>
+                        <div class="padding20 center-align">
+                            Nenhuma dilig&ecirc;ncia
+                        </div>
+                    <?php else: ?>
+                        <table class="tabela">
+                            <tr align="center">
+                                <td><button type="submit" class="btn" value="" />Imprimir</button></td>
+                            </tr>
+                        </table>
+                    <?php endif; ?>
                 </form>
             </div>
+
+            <?php if(count($this->diligenciasAdequacao) > 0) : ?>
+                <fieldset>
+                    <legend>Avalia&ccedil;&otilde;es da Adequa&ccedil;&atilde;o do Projeto</legend>
+                    <table class="tabela">
+                        <tr>
+                            <th>Data da Avalia&ccedil;&atilde;o</th>
+                            <th>Avalia&ccedil;&atilde;o</th>
+                        </tr>
+                        <?php foreach ($this->diligenciasAdequacao as $diligencia) : ?>
+                            <tr>
+                                <td align="center"><?php echo date('d/m/Y',strtotime($diligencia->dtAvaliacao));?></td>
+                                <td align="center"><?php echo $diligencia->dsAvaliacao; ?></td>
+                            </tr>
+                            <tr class="sumir" id="linhaAdequacao<?php echo $diligencia->idAvaliarAdequacaoProjeto;?>">
+                                <td colspan="9" id="resultado<?php echo $diligencia->idAvaliarAdequacaoProjeto;?>">
+                                    <?php echo $diligencia->dsAvaliacao; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+                </fieldset>
+            <?php endif; ?>
+
             <br clear="all" />
             <form id="encaminhar" method="post">
                 <input type="hidden" name="idPronac" value="<?php echo $this->idPronac;?>"/>

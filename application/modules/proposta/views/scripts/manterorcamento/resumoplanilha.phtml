@@ -1,71 +1,76 @@
-<?php if($this->EtapaCusto) : ?>
-        <?php //foreach ($this->EtapaCusto as $etapaCusto) : ?>
-            <?php  if($this->ItensEtapaCusto) : ?>
-                <table class="bordered striped centered" width="98%" >
-                    <thead>
-                    <tr class="title">
-                        <th colspan="2">Custos Vinculados / Remuneração
+<?php if ($this->EtapaCusto) : ?>
+    <?php if ($this->ItensEtapaCusto) : ?>
+        <table class="bordered striped centered" width="98%">
+            <thead>
+            <tr class="title">
+                <th colspan="2">Custos Vinculados / Remuneração
 
-                            <?php if ($this->isEditavel) : ?>
-                                <a  href="<?php echo $this->url( array('module' => 'proposta', 'controller' => 'manterorcamento', 'action' =>'custosvinculados','idPreProjeto' => $this->idPreProjeto)); ?>"
-                                    class="waves-effect waves-darken black-text small">
-                                    <i class="material-icons">edit</i></a>
-                            <?php endif; ?>
-                        </th>
-
-                    </tr>
-
-                    </thead>
-                    <tbody>
-                    <?php $valorTotalCustosVinculados = null; ?>
-                    <?php foreach ($this->ItensEtapaCusto as $itemEtapaCusto) : ?>
-                        <?php// if ($etapaCusto->idEtapa == $itemEtapaCusto->idEtapa) :  ?>
-                            <tr>
-                                <td class="left-align"><?php echo $itemEtapaCusto->DescricaoItem; ?></td>
-                                <td class="right-align">R$ <?php echo number_format($itemEtapaCusto->valorunitario, 2, ",", ".") ?></td>
-                                <?php $valorTotalCustosVinculados = $itemEtapaCusto->valorunitario + $valorTotalCustosVinculados; ?>
-                            </tr>
-                        <?php //endif; ?>
-
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
-            <?php endif; ?>
-        <?php //endforeach; ?>
-        <br>
-        <?php if( $this->EtapasProduto ) : ?>
-            <table style="margin: 0px;" class="bordered striped">
-                <thead>
-                <tr class="title">
-                    <th colspan="2"><?php echo "Resumo da Planilha Or&ccedil;ament&aacute;ria"; ?></th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($this->EtapasProduto as $etapa) : ?>
-
-                    <?php
-                        if ($etapa['tpGrupo'] == 'A') {
-                            $valorProjeto = $valorProjeto + $etapa['valorTotal'];
-                        }
-                    ?>
-                    <tr>
-                        <td class="">Valor total <?php echo $etapa['DescricaoEtapa']; ?></td>
-                        <td class="right-align">R$ <?php echo number_format($etapa['valorTotal'], 2, ",", "."); ?></td>
-                    </tr>
-                <?php endforeach; ?>
+                    <?php if ($this->isEditavel) : ?>
+                        <a href="<?php echo $this->url(
+                            array(
+                                'module' => 'proposta',
+                                'controller' => 'manterorcamento',
+                                'action' => 'custosvinculados',
+                                'idPreProjeto' => $this->idPreProjeto)
+                            ); ?>"
+                           class="waves-effect waves-darken black-text small">
+                            <i class="material-icons">edit</i>
+                        </a>
+                    <?php endif; ?>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php $valorTotalCustosVinculados = null; ?>
+            <?php foreach ($this->ItensEtapaCusto as $itemEtapaCusto) : ?>
                 <tr>
-                    <td><b>Valor do Projeto<b/></td>
-                    <td class="right-align"><b>R$ <?php echo number_format($valorProjeto, 2, ",", "."); ?></b></td>
+                    <td class="left-align"><?php echo $itemEtapaCusto->DescricaoItem; ?></td>
+                    <td class="right-align">
+                        R$ <?php echo number_format($itemEtapaCusto->valorunitario, 2, ",", ".") ?></td>
+                    <?php $valorTotalCustosVinculados = $itemEtapaCusto->valorunitario + $valorTotalCustosVinculados; ?>
                 </tr>
-                <tr">
-                    <td>Valor total Custos Vinculados / Remuneração </td>
-                    <td class="right-align">R$ <?php echo number_format($valorTotalCustosVinculados, 2, ",", "."); ?></td>
-                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
+    <br>
+    <?php if ($this->EtapasProduto) : ?>
+        <table style="margin: 0px;" class="bordered striped">
+            <thead>
+            <tr class="title">
+                <th colspan="2"><?php echo "Resumo da Planilha Or&ccedil;ament&aacute;ria"; ?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($this->EtapasProduto as $etapa) : ?>
+
+                <?php
+                if ($etapa['tpGrupo'] == 'A' || $etapa['tpGrupo'] == 'D') {
+                    $valorProjeto = $valorProjeto + $etapa['valorTotal'];
+                }
+                ?>
                 <tr>
-                    <td><b>Custo Total <b></b><small>(Custo do Projeto + Valores de Outras Leis + Valores de Outras Fontes)</small></td>
-                    <td class="right-align"><b>R$ <?php echo number_format($valorTotalCustosVinculados + $valorProjeto, 2, ",", "."); ?></b></td>
+                    <td class="">Valor total <?php echo $etapa['DescricaoEtapa']; ?></td>
+                    <td class="right-align">R$ <?php echo number_format($etapa['valorTotal'], 2, ",", "."); ?></td>
                 </tr>
-                </tbody>
-            </table>
-        <?php endif; ?>
+            <?php endforeach; ?>
+            <tr>
+                <td><b>Valor do Projeto<b/></td>
+                <td class="right-align"><b>R$ <?php echo number_format($valorProjeto, 2, ",", "."); ?></b></td>
+            </tr>
+            <tr
+            ">
+            <td>Valor total Custos Vinculados / Remuneração</td>
+            <td class="right-align">R$ <?php echo number_format($valorTotalCustosVinculados, 2, ",", "."); ?></td>
+            </tr>
+            <tr>
+                <td><b>Custo Total <b></b>
+                        <small>(Custo do Projeto + Valores de Outras Leis + Valores de Outras Fontes)</small></td>
+                <td class="right-align">
+                    <b>R$ <?php echo number_format($valorTotalCustosVinculados + $valorProjeto, 2, ",", "."); ?></b>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    <?php endif; ?>
 <?php endif; ?>

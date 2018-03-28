@@ -81,8 +81,8 @@ class Projeto_HomologacaoController extends Proposta_GenericController {
     {
         $dbTable = new Projeto_Model_DbTable_VwPainelDeHomologacaoDeProjetos();
         $this->_helper->layout->disableLayout();
-//        $this->view->arrResult = $dbTable->findAll(['idUnidade' => $_SESSION['GrupoAtivo']['codOrgao']], ['NrReuniao', 'Pronac']);
-        $this->view->arrResult = $dbTable->findAll([], ['NrReuniao', 'Pronac']);
+       $this->view->arrResult = $dbTable->findAll(['idUnidade' => $_SESSION['GrupoAtivo']['codOrgao']], ['NrReuniao', 'Pronac']);
+        // $this->view->arrResult = $dbTable->findAll([], ['NrReuniao', 'Pronac']);
     }
 
     /**
@@ -103,48 +103,17 @@ class Projeto_HomologacaoController extends Proposta_GenericController {
      * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
      * @since  17/11/2017
      *
-     * @todo $idTipoDoAtoAdministrativo = Precisa verificar com o rocumlo
      * @todo confirmar se setIdAtoDeGestao e o IdEnquadramento.
      */
     public function encaminharAction()
     {
         $this->_helper->layout->disableLayout();
-
         if ($this->getRequest()->isPost()) {
             $this->_helper->viewRenderer->setNoRender(true);
+            $mapper = new Projeto_Model_TbHomologacaoMapper();
             $arrPost = $this->getRequest()->getPost();
-            $intIdPronac = $arrPost['idPronac'];
-            $idTipoDoAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ENQUADRAMENTO;
-            if(!$intIdPronac) {
-                $this->_helper->json(array('status' => false, 'msg' => 'Identificador do Projeto não informado.'));
-            }
-            $objTbProjetos = new Projeto_Model_DbTable_Projetos();
-            $dadosProjeto = $objTbProjetos->findBy(array('IdPRONAC' => $intIdPronac));
-            if(!$dadosProjeto) {
-                $this->_helper->json(array('status' => false, 'msg' => 'Projeto n&atilde;o encontrado.'));
-            }
-            $strConteudo = self::gerarDocumentoAssinatura($intIdPronac);
-
-            $auth = Zend_Auth::getInstance();
-            $objModelDocumentoAssinatura = new Assinatura_Model_TbDocumentoAssinatura();
-            $objModelDocumentoAssinatura->setIdPRONAC($intIdPronac);
-            $objModelDocumentoAssinatura->setIdTipoDoAtoAdministrativo($idTipoDoAtoAdministrativo);
-            $objModelDocumentoAssinatura->setIdAtoDeGestao($arrPost['IdEnquadramento']);
-//                $objModelDocumentoAssinatura->setConteudo($this->gerarDocumentoAssinatura());
-            $objModelDocumentoAssinatura->setConteudo($strConteudo);
-            $objModelDocumentoAssinatura->setIdCriadorDocumento($auth->getIdentity()->usu_codigo);
-            $objModelDocumentoAssinatura->setCdSituacao(Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA);
-            $objModelDocumentoAssinatura->setStEstado(Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO);
-            $objModelDocumentoAssinatura->setDtCriacao($objTbProjetos->getExpressionDate());
-
-            $objDocumentoAssinatura = new MinC_Assinatura_Servico_Assinatura($this->post, $auth->getIdentity());
-            $servicoDocumento = $objDocumentoAssinatura->obterServicoDocumento();
-            $servicoDocumento->registrarDocumentoAssinatura($objModelDocumentoAssinatura);
-
-//            $objProjeto = new Projetos();
-//            $objProjeto->alterarSituacao($this->idPronac, null, 'B04', 'Projeto em an&aacute;lise documental.');
-
-            $this->_helper->json(array('status' => true, 'msg' => 'Documento gerado e encaminhado com sucesso!', 'close' => 1));
+            $arrPost['conteudo'] = self::gerarDocumentoAssinatura($arrPost['idPronac']);
+            $this->_helper->json(array('status' => $mapper->encaminhar($arrPost), 'msg' => $mapper->getMessages(), 'close' => 1));
         } else {
             self::prepareData($this->getRequest()->getParam('id'));
             $this->view->urlAction = '/projeto/homologacao/encaminhar';

@@ -49,7 +49,7 @@ if ($this->listarTudo == true) {
                                 <b>Pronac: </b><?= $this->projeto->AnoProjeto . $this->projeto->Sequencial; ?><br>
                             </div>
                             <div class="col s12">
-                                <b>Título: </b><?= $this->projeto->NomeProjeto; ?>
+                                <b>Proposta/Projeto: </b><?= $this->projeto->NomeProjeto; ?>
                             </div>
                         </div>
                     <?php elseif ($this->idPreProjeto) : ?>
@@ -58,7 +58,7 @@ if ($this->listarTudo == true) {
                                 <b>Nº Proposta: </b><?= $this->proposta->idPreProjeto; ?><br>
                             </div>
                             <div class="col s12">
-                                <b>Título: </b><?= $this->proposta->NomeProjeto; ?>
+                                <b>Proposta/Projeto: </b><?= $this->proposta->NomeProjeto; ?>
                             </div>
                         </div>
                     <?php endif; ?>

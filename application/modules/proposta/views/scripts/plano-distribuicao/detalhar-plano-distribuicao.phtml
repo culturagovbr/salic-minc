@@ -2,106 +2,121 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col s12" id="example">
-            <?php
-            gerarBreadCrumb(array(
-                $this->layout['listagem'],
-                array('Detalhamento do Plano de Distribui&ccedil;&atilde;o' => '')
-            )); ?>
-
+        <div class="page-title">
             <div class="row">
-                <div class="col s12 center">
-                    <a class="btn white black-text"
-                       href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'plano-distribuicao', 'action' => 'index')) ?>">Voltar</a>
+                <div class="col s12 m9 l10">
+                    <h1>
+                        Detalhamento do Plano de Distribui&ccedil;&atilde;o
+                    </h1>
+
+                    <?php
+                    gerarNovoBreadCrumb(array(
+                        $this->layout['listagem'],
+                        array('Detalhamento do Plano de Distribui&ccedil;&atilde;o' => '')
+                    ));
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
                 </div>
             </div>
+        </div>
+
+        <div class="col s12" id="container-vue">
+
             <?php $totalExemplares = 0;
             $totalReceita = 0; ?>
             <?php foreach ($this->planosDistribuicao as $planoDistribuicao) : ?>
-                <div class="row">
-                    <div id="detalhamento-plano" class="col s12">
-                        <table class="bordered">
-                            <thead>
-                            <tr>
-                                <th>Nome do Evento / Produto</th>
-                                <th>&Aacute;rea</th>
-                                <th>Segmento</th>
-                                <th>Principal</th>
-				<?php if ($planoDistribuicao->canalAberto): ?>
-				    <th>Canal aberto</th>
-				<?php endif; ?>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><?php echo $planoDistribuicao->Produto; ?></td>
-                                <td><?php echo $planoDistribuicao->DescricaoArea; ?></td>
-                                <td><?php echo $planoDistribuicao->DescricaoSegmento; ?></td>
-                                <td><?php echo ($planoDistribuicao->stPrincipal == 0) ? 'N&atilde;o' : 'Sim'; ?></td>
-				<?php if ($planoDistribuicao->canalAberto): ?>
-				    <td>Sim</td>
-				<?php endif; ?>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <div class="row">
+                <div id="detalhamento-plano" class="col s12">
+                    <table class="bordered">
+                        <thead>
+                        <tr>
+                            <th>Nome do Evento / Produto</th>
+                            <th>&Aacute;rea</th>
+                            <th>Segmento</th>
+                            <th>Principal</th>
+                            <?php if ($planoDistribuicao->canalAberto): ?>
+                                <th>Canal aberto</th>
+                            <?php endif; ?>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><?php echo $planoDistribuicao->Produto; ?></td>
+                            <td><?php echo $planoDistribuicao->DescricaoArea; ?></td>
+                            <td><?php echo $planoDistribuicao->DescricaoSegmento; ?></td>
+                            <td><?php echo ($planoDistribuicao->stPrincipal == 0) ? 'N&atilde;o' : 'Sim'; ?></td>
+                            <?php if ($planoDistribuicao->canalAberto): ?>
+                                <td>Sim</td>
+                            <?php endif; ?>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
 
-                <div class="row">
-                    <div class="col s12">
-                        <ul class="collapsible" data-collapsible="accordion">
-                            <?php foreach ($this->abrangencias as $abrangencia): ?>
-                                <li>
-                                    <div class="collapsible-header"><i class="material-icons">add</i>
-                                        <?= isset($abrangencia['uf']) ? $abrangencia['uf'] : 'Exterior' ?> <?= isset($abrangencia['cidade']) ? ' - ' . $abrangencia['cidade'] : '' ?>
-                                   </div>
-                                    <div class="collapsible-body">
-                                        <my-component
-                                            disabled="<?php echo $this->isEditavel; ?>"
-                                            idplanodistribuicao="<?php echo $planoDistribuicao->idPlanoDistribuicao; ?>"
-                                            idpreprojeto="<?php echo $this->idPreProjeto; ?>"
-                                            iduf="<?php echo $abrangencia['idUF']; ?>"
-                                            idmunicipioibge="<?php echo $abrangencia['idMunicipioIBGE']; ?>"
-					    canalaberto="<?php echo $planoDistribuicao->canalAberto; ?>"
-                                        ></my-component>
-                                    </div>
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                    </div>
-            <?php endforeach ?>
+            <div class="row">
+                <div class="col s12">
+                    <ul class="collapsible" data-collapsible="accordion">
+                        <?php foreach ($this->abrangencias as $abrangencia): ?>
+                            <li>
+                                <div class="collapsible-header"><i class="material-icons">add</i>
+                                    <?= isset($abrangencia['uf']) ? $abrangencia['uf'] : 'Exterior' ?> <?= isset($abrangencia['cidade']) ? ' - ' . $abrangencia['cidade'] : '' ?>
+                                </div>
+                                <div class="collapsible-body">
+                                    <proposta-plano-distribuicao-form-detalhamento
+                                        disabled="<?php echo $this->isEditavel; ?>"
+                                        idplanodistribuicao="<?php echo $planoDistribuicao->idPlanoDistribuicao; ?>"
+                                        idpreprojeto="<?php echo $this->idPreProjeto; ?>"
+                                        iduf="<?php echo $abrangencia['idUF']; ?>"
+                                        idmunicipioibge="<?php echo $abrangencia['idMunicipioIBGE']; ?>"
+                                        canalaberto="<?php echo $planoDistribuicao->canalAberto; ?>"
+                                    ></proposta-plano-distribuicao-form-detalhamento>
+                                </div>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <?php endforeach ?>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col s12 center">
-            <a class="btn white black-text"
-               href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'plano-distribuicao', 'action' => 'index')) ?>">Voltar</a>
-        </div>
-    </div>
-</div>
-
-<script>
-    $3(document).ready(function(){
-
-        $3('.collapsible').collapsible({
-            accordion: true,
-            onOpen: function(el) { el.find('.material-icons:first').html('remove'); },
-            onClose: function(el) { el.find('.material-icons:first').html('add'); }
-        });
-    });
-
-</script>
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js"></script>
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-
-<!-- my_component -->
-<script type="text/x-template" id="app-6">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 10px;">
         <div class="row">
-            <div class="center">
-                <table class="bordered">
-                    <thead v-if="produtos.length > 0">
+            <div class="col s12 center">
+                <a class="btn white black-text"
+                   href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'plano-distribuicao', 'action' => 'index')) ?>">Voltar</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $3(document).ready(function () {
+
+            $3('.collapsible').collapsible({
+                accordion: true,
+                onOpen: function (el) {
+                    el.find('.material-icons:first').html('remove');
+                },
+                onClose: function (el) {
+                    el.find('.material-icons:first').html('add');
+                }
+            });
+        });
+
+    </script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.4/numeral.min.js"></script>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+    <!-- my_component -->
+    <script type="text/x-template" id="app-6">
+        <div style="max-width: 1200px; margin: 0 auto; padding: 10px;">
+            <div class="row">
+                <div class="center">
+                    <table class="bordered">
+                        <thead v-if="produtos.length > 0">
                         <tr>
                             <th rowspan="2">Categoria</th>
                             <th rowspan="2">Quantidade</th>
@@ -125,8 +140,8 @@
                             <th class="popular">Qtd. Meia</th>
                             <th class="popular">Pre&ccedil;o <br> Unitario</th>
                         </tr>
-                    </thead>
-                    <tbody v-if="produtos.length > 0">
+                        </thead>
+                        <tbody v-if="produtos.length > 0">
                         <tr v-for="( produto, index ) in produtos">
                             <td>{{ produto.dsProduto }}</td>
                             <td class="center-align">{{ produto.qtExemplares }}</td>
@@ -150,13 +165,13 @@
                                 </button>
                             </td>
                         </tr>
-                    </tbody>
-                    <tbody v-else>
+                        </tbody>
+                        <tbody v-else>
                         <tr>
                             <td colspan="12" class="center-align">Sem dados</td>
                         </tr>
-                    </tbody>
-                    <tfoot v-if="produtos.length > 0" style="opacity: 0.5">
+                        </tbody>
+                        <tfoot v-if="produtos.length > 0" style="opacity: 0.5">
                         <tr>
                             <td><b>Totais</b></td>
                             <td class="center-align"><b>{{ qtExemplaresTotal }}</b></td>
@@ -176,28 +191,33 @@
                         </tr>
                         <tr>
                             <th class=""><b>Valor m&eacute;dio </b></th>
-                            <td class="center-align red" v-if="((valorMedioProponente.value() > 225) && (this.canalaberto == 0))">{{valorMedioProponenteFormatado}}</td>
+                            <td class="center-align red"
+                                v-if="((valorMedioProponente.value() > 225) && (this.canalaberto == 0))">
+                                {{valorMedioProponenteFormatado}}
+                            </td>
                             <td class="center-align " v-else>{{valorMedioProponenteFormatado}}</td>
                         </tr>
-                    </tfoot>
-                </table>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
-        </div>
-        <?php if($this->isEditavel) :  ?>
-            <div class="row mostrar-forn center-align">
-                <br>
-                <button class="btn waves-effect waves-light" ref="mostrarForm" v-on:click.prevent="mostrarFormulario(_uid + '_form_detalhamento')">Novo
-                    detalhamento
-                    <i class="material-icons right">edit</i>
-                </button>
-            </div>
+            <?php if ($this->isEditavel) : ?>
+                <div class="row mostrar-forn center-align">
+                    <br>
+                    <button class="btn waves-effect waves-light" ref="mostrarForm"
+                            v-on:click.prevent="mostrarFormulario(_uid + '_form_detalhamento')">Novo
+                        detalhamento
+                        <i class="material-icons right">edit</i>
+                    </button>
+                </div>
 
-            <div :id="_uid + '_form_detalhamento'">
-	      <form v-show="visualizarFormulario" class="card" style="max-width: 1200px; margin: 0 auto; padding: 10px;">
-                    <div class="row">
-                        <h5 class="light center-align">Cadastrar novo detalhamento</h5>
+                <div :id="_uid + '_form_detalhamento'">
+                    <form v-show="visualizarFormulario" class="card"
+                          style="max-width: 1200px; margin: 0 auto; padding: 10px;">
                         <div class="row">
-                            <div class="col s6">
+                            <h5 class="light center-align">Cadastrar novo detalhamento</h5>
+                            <div class="row">
+                                <div class="col s6">
                                 <span><b>Tipo de venda</b><br>
                                     <input name="tipoVenda" type="radio" :id="_uid + 'tipoVendaIngresso'" value="i"
                                            v-model="tpVenda"/>
@@ -206,8 +226,8 @@
                                            v-model="tpVenda"/>
                                     <label :for=" _uid + 'tipoVendaExemplar'">Exemplar</label>
                                 </span>
-                            </div>
-                            <div class="col s6">
+                                </div>
+                                <div class="col s6">
                                 <span><b>Distribui&ccedil;&atilde;o ser&aacute; totalmente gratuita?</b><br>
                                     <input name="group1" type="radio" :id="_uid + '1' " value="s"
                                            v-model="distribuicaoGratuita"/>
@@ -216,11 +236,11 @@
                                            v-model="distribuicaoGratuita"/>
                                     <label :for="_uid + '2'">N&atilde;o</label>
                                 </span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row" v-if="tpVenda == 'i'">
-                            <div class="col s6">
+                            <div class="row" v-if="tpVenda == 'i'">
+                                <div class="col s6">
                                 <span><b>Tipo do local de apresenta&ccedil;&atilde;o</b><br>
                                     <input name="tipoLocalRealizacao" type="radio" :id="_uid + 'tipoAberto'" value="a"
                                            v-model="tpLocal"/>
@@ -229,8 +249,8 @@
                                            v-model="tpLocal"/>
                                     <label :for=" _uid + 'tipoFechado'">Fechado</label>
                                 </span>
-                            </div>
-                            <div class="col s6">
+                                </div>
+                                <div class="col s6">
                                 <span><b>Espa&ccedil;o p&uacute;blico</b><br>
                                     <input type="radio" :id="_uid + 'espacoPublicoSim'" value="s" v-model="tpEspaco"/>
                                     <label :for="_uid + 'espacoPublicoSim'">Sim</label>
@@ -238,287 +258,252 @@
                                            v-model="tpEspaco"/>
                                     <label :for="_uid + 'espacoPublicoNao'">N&atilde;o</label>
                                 </span>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="input-field col s6">
-                                <input :id="_uid + 'dsProduto'" type="text" class="validate" ref="dsProduto"
-                                       placeholder="Ex: Arquibancada" v-model="dsProduto">
-                                <label class="active" :for="_uid + 'dsProduto'">Categoria</label>
-                            </div>
-                            <div class="input-field col s2">
-                                <input :id="_uid + 'qtExemplares'" type="number" class="validate browser-default" ref="qtExemplares"
-                                       placeholder="0" v-model.lazy="qtExemplares">
-                                <label class="active" :for="_uid + 'qtExemplares'">Quantidade</label>
-                            </div>
-                        </div>
-
-                        <div class="proponente-s">
-                            <div class="row">
-                                <div class="input-field col s12 center-align">
-                                    <strong>Proponente </strong>(at&eacute; {{ percentualProponentePadrao * 100 }}%)
-                                    <select-percent
-                                        v-bind:disabled="distribuicaoGratuita =='s'? true: false"
-                                        v-bind:maximoCombo="(percentualProponentePadrao *  100)"
-                                        v-on:evento="percentualProponente = $event/100">
-                                    </select-percent>
-                                    </span>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="input-field col s6 l2">
-                                    <input-money
-                                        v-bind:disabled="distribuicaoGratuita =='s'? true: false"
-                                        v-bind:value="vlUnitarioProponenteIntegral"
-                                        v-on:ev="vlUnitarioProponenteIntegral = $event">
-                                    </input-money>
-                                    <label class="active" :for="_uid + 'vlUnitarioProponenteIntegral'">Pre&ccedil;o Unit&aacute;rio
-                                        R$</label>
-                                </div>
-                                <div class="input-field col s6 l2">
-                                    <input class="disabled" disabled v-model="qtProponenteIntegral"
-                                           ref="qtProponenteIntegral">
-                                    <label class="active" :for="_uid + 'qtProponenteIntegral'">Quantidade
-                                        {{labelInteira}}</label>
-                                </div>
-                                <div class="input-field col s6 l2" v-if="tpVenda == 'i'">
-                                    <input class="disabled" disabled v-model="qtProponenteParcial">
-                                    <label class="active" :for="_uid + 'qtProponenteParcial'">Quantidade Meia</label>
-                                </div>
-                                <div class="input-field col s6 l2">
-                                    <input class="disabled" disabled v-model="vlReceitaProponenteIntegral">
-                                    <label class="active" :for="_uid + 'vlReceitaProponenteIntegral'">Valor
-                                        {{labelInteira}} R$</label>
-                                </div>
-                                <div class="input-field col s6 l2" v-if="tpVenda == 'i'">
-                                    <input class="disabled" disabled v-model="vlReceitaProponenteParcial">
-                                    <label class="active" :for="_uid + 'vlReceitaProponenteParcial'">Valor meia
-                                        R$</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Preço popular-->
-                        <div class="preco-popular">
-                            <div class="row">
-                                <div class="input-field col s12 center-align">
-                                    <b>Pre&ccedil;o Popular</b> (Padr&atilde;o: {{ percentualPrecoPopularPadrao * 100
-                                    }}%)
-                                    <select-percent
-                                        v-bind:disabled="distribuicaoGratuita =='s'? true: false"
-                                        v-bind:maximoCombo="(percentualMaximoPrecoPopular *  100)"
-                                        v-on:evento="percentualPrecoPopular = $event/100"
-                                    >
-                                    </select-percent>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s6 l2">
-                                    <input-money
-                                        v-bind:disabled="distribuicaoGratuita=='s' ? true: false"
-                                        v-bind:value="vlUnitarioPopularIntegral"
-                                        v-on:ev="vlUnitarioPopularIntegral = $event"
-                                    >
-                                    </input-money>
-                                    <label class="active" v-bind:disabled="distribuicaoGratuita=='s' ? true: false"
-                                           :for="_uid + 'vlUnitarioPopularIntegral'">Pre&ccedil;o Unit&aacute;rio <br>(At&eacute;
-                                        R$ 75,00)</label>
-                                </div>
-                                <div class="input-field col s6 l2">
-                                    <input type="number" class="right-align disabled" disabled
-                                           v-model="qtPopularIntegral" ref="qtPopularIntegral">
-                                    <label class="active" :for="_uid + 'qtPopularIntegral'">Quantidade {{labelInteira}}
-                                        (At&eacute; {{ qtPrecoPopularValorIntegralLimite }})</label>
-                                </div>
-                                <div class="input-field col s6 l2" v-if="tpVenda == 'i'">
-                                    <input type="number" class="right-align disabled" disabled
-                                           v-model="qtPopularParcial" ref="qtPopularParcial">
-                                    <label class="active" :for="_uid + 'qtPopularParcial'">Quantidade Meia (At&eacute;
-                                        {{ qtPrecoPopularValorParcialLimite }})</label>
-                                </div>
-                                <div class="input-field col s6 l2">
-                                    <input class="disabled" disabled v-model="vlReceitaPopularIntegral">
-                                    <label class="active" :for="_uid + 'vlReceitaPopularIntegral'">Valor
-                                        {{labelInteira}} R$</label>
-                                </div>
-                                <div class="input-field col s6 l2" v-if="tpVenda == 'i'">
-                                    <input class="disabled" disabled v-model="vlReceitaPopularParcial">
-                                    <label class="active" :for="_uid + 'vlReceitaPopularParcial'">Valor meia R$</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="distribuicao-gratuita">
-                            <div class="row">
-                                <div class="input-field col s12 center-align">
-                                    <b>Distribui&ccedil;&atilde;o Gratuita</b> (m&iacute;nimo {{
-                                    percentualGratuitoPadrao * 100 }}%)
-                                    <span v-if="percentualGratuitoPadrao !== percentualGratuito"> Atual {{ parseInt(percentualGratuito *  100) }}%</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12 m3 l2">
-                                    <input type="number" class="right-align" v-model.number="qtGratuitaDivulgacao"
-                                           ref="divulgacao">
-                                    <label class="active" :for="_uid + 'qtGratuitaDivulgacao'">Divulga&ccedil;&atilde;o
-                                        (At&eacute; {{ parseInt(qtExemplares * 0.1) }})</label>
-                                </div>
-                                <div class="input-field col s12 m3 l2">
-                                    <input type="number" class="right-align" v-model="qtGratuitaPatrocinador"
-                                           ref="patrocinador">
-                                    <label class="active" :for="_uid + 'qtGratuitaPatrocinador'">Patrocinador (At&eacute;
-                                        {{ parseInt(qtExemplares * 0.1) }})</label>
-                                </div>
-                                <div class="input-field col s12 m3 l2">
-                                    <input type="number" class="right-align" v-model="qtGratuitaPopulacao"
-                                           ref="populacao" v-on:blur="populacaoValidate(qtGratuitaPopulacao)">
-                                    <label class="active" :for="_uid + 'qtGratuitaPopulacao'">Popula&ccedil;&atilde;o (m&iacute;nimo
-                                        {{ qtGratuitaPopulacaoMinimo }})</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row receita-prevista center-align">
-                            <div class="col s12 l12 offset-l6">
-                                <p><strong>Receita Prevista: </strong>  {{vlReceitaPrevista}}</p>
-                            </div>
-                        </div>
-                        <div class="row salvar center-align">
                             <br>
-                            <button class="btn waves-effect waves-light" ref="add" v-on:click.prevent="salvar">Salvar
-                                <i class="material-icons right">send</i>
-                            </button>
+                            <div class="row">
+                                <div class="input-field col s6">
+                                    <input :id="_uid + 'dsProduto'" type="text" class="validate" ref="dsProduto"
+                                           placeholder="Ex: Arquibancada" v-model="dsProduto">
+                                    <label class="active" :for="_uid + 'dsProduto'">Categoria</label>
+                                </div>
+                                <div class="input-field col s2">
+                                    <input :id="_uid + 'qtExemplares'" type="number" class="validate browser-default"
+                                           ref="qtExemplares"
+                                           placeholder="0" v-model.lazy="qtExemplares">
+                                    <label class="active" :for="_uid + 'qtExemplares'">Quantidade</label>
+                                </div>
+                            </div>
+
+                            <div class="proponente-s">
+                                <div class="row">
+                                    <div class="col s12 center-align">
+                                        <strong>Proponente </strong>(at&eacute; {{ percentualProponentePadrao * 100 }}%)
+                                        <select-percent
+                                            v-bind:disabled="distribuicaoGratuita =='s'? true: false"
+                                            v-bind:maximoCombo="(percentualProponentePadrao *  100)"
+                                            v-on:evento="percentualProponente = $event/100">
+                                        </select-percent>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6 l2">
+                                        <input-money
+                                            v-bind:disabled="distribuicaoGratuita =='s'? true: false"
+                                            v-bind:value="vlUnitarioProponenteIntegral"
+                                            v-on:ev="vlUnitarioProponenteIntegral = $event">
+                                        </input-money>
+                                        <label class="active" :for="_uid + 'vlUnitarioProponenteIntegral'">Pre&ccedil;o
+                                            Unit&aacute;rio
+                                            R$</label>
+                                    </div>
+                                    <div class="input-field col s6 l2">
+                                        <input class="disabled" disabled v-model="qtProponenteIntegral"
+                                               ref="qtProponenteIntegral">
+                                        <label class="active" :for="_uid + 'qtProponenteIntegral'">Quantidade
+                                            {{labelInteira}}</label>
+                                    </div>
+                                    <div class="input-field col s6 l2" v-if="tpVenda == 'i'">
+                                        <input class="disabled" disabled v-model="qtProponenteParcial">
+                                        <label class="active" :for="_uid + 'qtProponenteParcial'">Quantidade
+                                            Meia</label>
+                                    </div>
+                                    <div class="input-field col s6 l2">
+                                        <input class="disabled" disabled v-model="vlReceitaProponenteIntegral">
+                                        <label class="active" :for="_uid + 'vlReceitaProponenteIntegral'">Valor
+                                            {{labelInteira}} R$</label>
+                                    </div>
+                                    <div class="input-field col s6 l2" v-if="tpVenda == 'i'">
+                                        <input class="disabled" disabled v-model="vlReceitaProponenteParcial">
+                                        <label class="active" :for="_uid + 'vlReceitaProponenteParcial'">Valor meia
+                                            R$</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Preço popular-->
+                            <div class="preco-popular">
+                                <div class="row">
+                                    <div class="col s12 center-align">
+                                        <b>Pre&ccedil;o Popular</b> (Padr&atilde;o: {{ percentualPrecoPopularPadrao *
+                                        100
+                                        }}%)
+                                        <select-percent
+                                            v-bind:disabled="distribuicaoGratuita =='s'? true: false"
+                                            v-bind:maximoCombo="(percentualMaximoPrecoPopular *  100)"
+                                            v-on:evento="percentualPrecoPopular = $event/100"
+                                        >
+                                        </select-percent>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6 l2">
+                                        <input-money
+                                            v-bind:disabled="distribuicaoGratuita=='s' ? true: false"
+                                            v-bind:value="vlUnitarioPopularIntegral"
+                                            v-on:ev="vlUnitarioPopularIntegral = $event"
+                                        >
+                                        </input-money>
+                                        <label class="active" v-bind:disabled="distribuicaoGratuita=='s' ? true: false"
+                                               :for="_uid + 'vlUnitarioPopularIntegral'">Pre&ccedil;o Unit&aacute;rio
+                                            <br>(At&eacute;
+                                            R$ 75,00)</label>
+                                    </div>
+                                    <div class="input-field col s6 l2">
+                                        <input type="number" class="right-align disabled" disabled
+                                               v-model="qtPopularIntegral" ref="qtPopularIntegral">
+                                        <label class="active" :for="_uid + 'qtPopularIntegral'">Quantidade
+                                            {{labelInteira}}
+                                            (At&eacute; {{ qtPrecoPopularValorIntegralLimite }})</label>
+                                    </div>
+                                    <div class="input-field col s6 l2" v-if="tpVenda == 'i'">
+                                        <input type="number" class="right-align disabled" disabled
+                                               v-model="qtPopularParcial" ref="qtPopularParcial">
+                                        <label class="active" :for="_uid + 'qtPopularParcial'">Quantidade Meia (At&eacute;
+                                            {{ qtPrecoPopularValorParcialLimite }})</label>
+                                    </div>
+                                    <div class="input-field col s6 l2">
+                                        <input class="disabled" disabled v-model="vlReceitaPopularIntegral">
+                                        <label class="active" :for="_uid + 'vlReceitaPopularIntegral'">Valor
+                                            {{labelInteira}} R$</label>
+                                    </div>
+                                    <div class="input-field col s6 l2" v-if="tpVenda == 'i'">
+                                        <input class="disabled" disabled v-model="vlReceitaPopularParcial">
+                                        <label class="active" :for="_uid + 'vlReceitaPopularParcial'">Valor meia
+                                            R$</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="distribuicao-gratuita">
+                                <div class="row">
+                                    <div class="input-field col s12 center-align">
+                                        <b>Distribui&ccedil;&atilde;o Gratuita</b> (m&iacute;nimo {{
+                                        percentualGratuitoPadrao * 100 }}%)
+                                        <span v-if="percentualGratuitoPadrao !== percentualGratuito"> <b>Atual {{ parseInt(percentualGratuito *  100) }}%</b></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12 m3 l2">
+                                        <input type="number" class="right-align" v-model.number="qtGratuitaDivulgacao"
+                                               ref="divulgacao">
+                                        <label class="active" :for="_uid + 'qtGratuitaDivulgacao'">Divulga&ccedil;&atilde;o
+                                            (At&eacute; {{ parseInt(qtExemplares * 0.1) }})</label>
+                                    </div>
+                                    <div class="input-field col s12 m3 l2">
+                                        <input type="number" class="right-align" v-model="qtGratuitaPatrocinador"
+                                               ref="patrocinador">
+                                        <label class="active" :for="_uid + 'qtGratuitaPatrocinador'">Patrocinador (At&eacute;
+                                            {{ parseInt(qtExemplares * 0.1) }})</label>
+                                    </div>
+                                    <div class="input-field col s12 m3 l2">
+                                        <input type="number" class="right-align" v-model="qtGratuitaPopulacao"
+                                               ref="populacao" v-on:blur="populacaoValidate(qtGratuitaPopulacao)">
+                                        <label class="active" :for="_uid + 'qtGratuitaPopulacao'">Popula&ccedil;&atilde;o
+                                            (m&iacute;nimo
+                                            {{ qtGratuitaPopulacaoMinimo }})</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row receita-prevista center-align">
+                                <div class="col s12 l12 offset-l6">
+                                    <p><strong>Receita Prevista: </strong> {{vlReceitaPrevista}}</p>
+                                </div>
+                            </div>
+                            <div class="row salvar center-align">
+                                <br>
+                                <button class="btn waves-effect waves-light" ref="add" v-on:click.prevent="salvar">
+                                    Salvar
+                                    <i class="material-icons right">send</i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-        <?php endif; ?>
-    </div>
-</script>
-<!-- /my_component -->
-<script type="text/javascript"
-        src="/public/scripts/proposta/plano-distribuicao/detalhar-plano-distribuicao.js"></script>
-<style>
-
-    .gratuito,
-    .proponente {
-        background-color: #e6e6e6;
-        text-align: center
-    }
-
-    .popular {
-        background-color: #dcdcdc;
-        text-align: center
-    }
-
-    .input-field label.active {
-        font-size: 1rem;
-    }
-
-    input:not([type]):disabled + label,
-    input:not([type])[readonly="readonly"] + label,
-    input[type=text]:disabled + label,
-    input[type=text][readonly="readonly"] + label,
-    input[type=password]:disabled + label,
-    input[type=password][readonly="readonly"] + label,
-    input[type=email]:disabled + label,
-    input[type=email][readonly="readonly"] + label,
-    input[type=url]:disabled + label,
-    input[type=url][readonly="readonly"] + label,
-    input[type=time]:disabled + label,
-    input[type=time][readonly="readonly"] + label,
-    input[type=date]:disabled + label,
-    input[type=date][readonly="readonly"] + label,
-    input[type=datetime]:disabled + label,
-    input[type=datetime][readonly="readonly"] + label,
-    input[type=datetime-local]:disabled + label,
-    input[type=datetime-local][readonly="readonly"] + label,
-    input[type=tel]:disabled + label,
-    input[type=tel][readonly="readonly"] + label,
-    input[type=number]:disabled + label,
-    input[type=number][readonly="readonly"] + label,
-    input[type=search]:disabled + label,
-    input[type=search][readonly="readonly"] + label,
-    textarea.materialize-textarea:disabled + label,
-    textarea.materialize-textarea[readonly="readonly"] + label {
-        color: rgba(0, 0, 0, 0.64);
-    }
-
-    input:not([type]):disabled,
-    input:not([type])[readonly="readonly"],
-    input[type=text]:disabled,
-    input[type=text][readonly="readonly"],
-    input[type=password]:disabled,
-    input[type=password][readonly="readonly"],
-    input[type=email]:disabled,
-    input[type=email][readonly="readonly"],
-    input[type=url]:disabled,
-    input[type=url][readonly="readonly"],
-    input[type=time]:disabled,
-    input[type=time][readonly="readonly"],
-    input[type=date]:disabled,
-    input[type=date][readonly="readonly"],
-    input[type=datetime]:disabled,
-    input[type=datetime][readonly="readonly"],
-    input[type=datetime-local]:disabled,
-    input[type=datetime-local][readonly="readonly"],
-    input[type=tel]:disabled,
-    input[type=tel][readonly="readonly"],
-    input[type=number]:disabled,
-    input[type=number][readonly="readonly"],
-    input[type=search]:disabled,
-    input[type=search][readonly="readonly"],
-    textarea.materialize-textarea:disabled,
-    textarea.materialize-textarea[readonly="readonly"] {
-        color: rgba(0, 0, 0, 0.64);
-        border-bottom: 1px dotted rgba(0, 0, 0, 0.26);
-    }
-
-    .modal {
-        height: 200px;
-        width: 300px;
-        background-color: #FFFFFF;
-        border: white 3px solid;
-        position: fixed;
-        top: 40%;
-        z-index: 999;
-    }
-
-    .modal .modal-pre-loader {
-        width: 300px;
-        height: 180px;
-        padding: 10px;
-    }
-
-    .modal.modal-pre-loader .modal-content {
-        padding: 10px;
-    }
-
-</style>
-
-
-<div id="modal-pre-loader" class="modal modal-pre-loader" style="display: none">
-    <div class="modal-header center valign"><h5>Aguarde!</h5></div>
-    <div class="modal-content">
-        <div class="row">
-            <div class="col s4">
-                <div class="preloader-wrapper small active">
-                    <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
+                    </form>
                 </div>
-            </div>
-            <div class="col s8">
-                <p>Carregando...</p>
-            </div>
+            <?php endif; ?>
         </div>
-    </div>
-</div>
+    </script>
+    <!-- /my_component -->
+    <script type="text/javascript"
+            src="/public/scripts/proposta/plano-distribuicao/detalhar-plano-distribuicao.js"></script>
+    <style>
+
+        .gratuito,
+        .proponente {
+            background-color: #e6e6e6;
+            text-align: center
+        }
+
+        .popular {
+            background-color: #dcdcdc;
+            text-align: center
+        }
+
+        .input-field label.active {
+            font-size: 1rem;
+        }
+
+        input:not([type]):disabled + label,
+        input:not([type])[readonly="readonly"] + label,
+        input[type=text]:disabled + label,
+        input[type=text][readonly="readonly"] + label,
+        input[type=password]:disabled + label,
+        input[type=password][readonly="readonly"] + label,
+        input[type=email]:disabled + label,
+        input[type=email][readonly="readonly"] + label,
+        input[type=url]:disabled + label,
+        input[type=url][readonly="readonly"] + label,
+        input[type=time]:disabled + label,
+        input[type=time][readonly="readonly"] + label,
+        input[type=date]:disabled + label,
+        input[type=date][readonly="readonly"] + label,
+        input[type=datetime]:disabled + label,
+        input[type=datetime][readonly="readonly"] + label,
+        input[type=datetime-local]:disabled + label,
+        input[type=datetime-local][readonly="readonly"] + label,
+        input[type=tel]:disabled + label,
+        input[type=tel][readonly="readonly"] + label,
+        input[type=number]:disabled + label,
+        input[type=number][readonly="readonly"] + label,
+        input[type=search]:disabled + label,
+        input[type=search][readonly="readonly"] + label,
+        textarea.materialize-textarea:disabled + label,
+        textarea.materialize-textarea[readonly="readonly"] + label {
+            color: rgba(0, 0, 0, 0.64);
+        }
+
+        input:not([type]):disabled,
+        input:not([type])[readonly="readonly"],
+        input[type=text]:disabled,
+        input[type=text][readonly="readonly"],
+        input[type=password]:disabled,
+        input[type=password][readonly="readonly"],
+        input[type=email]:disabled,
+        input[type=email][readonly="readonly"],
+        input[type=url]:disabled,
+        input[type=url][readonly="readonly"],
+        input[type=time]:disabled,
+        input[type=time][readonly="readonly"],
+        input[type=date]:disabled,
+        input[type=date][readonly="readonly"],
+        input[type=datetime]:disabled,
+        input[type=datetime][readonly="readonly"],
+        input[type=datetime-local]:disabled,
+        input[type=datetime-local][readonly="readonly"],
+        input[type=tel]:disabled,
+        input[type=tel][readonly="readonly"],
+        input[type=number]:disabled,
+        input[type=number][readonly="readonly"],
+        input[type=search]:disabled,
+        input[type=search][readonly="readonly"],
+        textarea.materialize-textarea:disabled,
+        textarea.materialize-textarea[readonly="readonly"] {
+            color: rgba(0, 0, 0, 0.64);
+            border-bottom: 1px dotted rgba(0, 0, 0, 0.26);
+        }
+
+    </style>
+
+
+

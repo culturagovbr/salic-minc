@@ -10,7 +10,7 @@
  * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
  */
 
-echo $this->partial('inc/menu.inc.phtml', $this)// menu lateral
+echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
 ?>
 
 <script type="text/javascript">
@@ -130,25 +130,25 @@ echo $this->partial('inc/menu.inc.phtml', $this)// menu lateral
 	<form name="formnovo" id="formnovo" action="<?php echo $this->url(array('controller' => 'comunicados', 'action' => 'salvar')); ?>" method="POST">
 	<?php foreach($this->comunicado as $c): ?>
 	
-	<input type="hidden" name="idComunicado" id="idComunicado" value="<?php echo $c->idComunicado;?>" />
+	<input type="hidden" name="idComunicado" id="idComunicado" value="<?php echo $c->idcomunicado;?>" />
 	
 		<table class="tabela">
 			<tr>
 				<td align="center">
 					<label for="stOpcao0">Opção: </label>&nbsp;&nbsp;&nbsp;
 					<label for="stOpcao0">SALIC</label>&nbsp;
-					<input type="radio" name="stOpcao" id="stOpcao0" value="0" class="input_simples" <?php if($c->stOpcao == 0){echo 'checked="checked"';} ?> />
+					<input type="radio" name="stOpcao" id="stOpcao0" value="0" class="input_simples" <?php if($c->stopcao == 0){echo 'checked="checked"';} ?> />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<label for="stOpcao1">PROPOSTA</label>&nbsp;
-					<input type="radio" name="stOpcao" id="stOpcao1" value="1" class="input_simples" <?php if($c->stOpcao == 1){echo 'checked="checked"';} ?> />
+					<input type="radio" name="stOpcao" id="stOpcao1" value="1" class="input_simples" <?php if($c->stopcao == 1){echo 'checked="checked"';} ?> />
 				</td>
 				<td align="center">
 					<label for="stOpcao0">Estado: </label>&nbsp;&nbsp;&nbsp;
 					<label for="stEstado1">Ativado</label>&nbsp;
-					<input type="radio" name="stEstado" id="stEstado1" value="1" class="input_simples" <?php if($c->stEstado == 1){echo 'checked="checked"';} ?> />
+					<input type="radio" name="stEstado" id="stEstado1" value="1" class="input_simples" <?php if($c->stestado == 1){echo 'checked="checked"';} ?> />
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<label for="stEstado0">Desativado</label>&nbsp;
-					<input type="radio" name="stEstado" id="stEstado0" value="0" class="input_simples" <?php if($c->stEstado == 0){echo 'checked="checked"';} ?> />
+					<input type="radio" name="stEstado" id="stEstado0" value="0" class="input_simples" <?php if($c->stestado == 0){echo 'checked="checked"';} ?> />
 				</td>
 			</tr>
 		</table>
@@ -156,17 +156,17 @@ echo $this->partial('inc/menu.inc.phtml', $this)// menu lateral
 			<tr>
 				<td align="center" colspan="2">
 					<label for="comunicado">Comunicado</label><br />
-					<textarea name="comunicado" id="comunicado" class="textarea_simples w400 h200"><?php echo $c->Comunicado;?></textarea>
+					<textarea name="comunicado" id="comunicado" class="textarea_simples w400 h200"><?php echo $c->comunicado;?></textarea>
 				</td>
 			</tr>
 			<tr>
 				<td align="">
 					<label for="dataInicio">In&iacute;cio de vigência </label>&nbsp;
-					<input type="text" name="dtInicioVigencia" id="dtInicioVigencia" maxlength="10" class="input_simples btn_calendario" value="<?php echo $c->dtInicioVigenciaPT;?>" />
+					<input type="text" name="dtInicioVigencia" id="dtInicioVigencia" maxlength="10" class="input_simples btn_calendario" value="<?php echo $c->dtiniciovigenciapt;?>" />
 				</td>
 				<td align="">
 					<label for="dataFim">Fim de vigência</label>&nbsp;
-					<input type="text" name="dtTerminoVigencia" id="dtTerminoVigencia" maxlength="10" class="input_simples btn_calendario" value="<?php echo $c->dtTerminoVigenciaPT;?>" />
+					<input type="text" name="dtTerminoVigencia" id="dtTerminoVigencia" maxlength="10" class="input_simples btn_calendario" value="<?php echo $c->dtterminovigenciapt;?>" />
 				</td>
 			</tr>
 		</table>

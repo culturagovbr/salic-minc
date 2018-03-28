@@ -1,13 +1,6 @@
 <?php
 /**
  * Helper para verificar a diligencia do projeto
- * @author XTI
- * @since 19/03/2012
- * @version 1.0
- * @package application
- * @subpackage application.view.helpers
- * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
- * @link http://www.cultura.gov.br
  */
 
 class Zend_View_Helper_PrazoRespostaDiligencia

@@ -1000,6 +1000,7 @@ function fornecedores(){
             $("#idAgente").val(agente.id);
             $("#Descricao").val(agente.nome).attr('disabled', 'true');
             $("#divDinamicaAgentes").dialog('destroy').remove();
+            $("#" + $("#CNPJCPF").attr('idDescricao')).next().addClass('active');
             $('html').css('overflow', 'auto');
         });
     });
