@@ -337,17 +337,22 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
             <td>
                 <select class="input_simples obrigatorio" name="areaCultural" id="areaCultural-<?php echo $planoDistribuicao->idPlanoDistribuicao; ?>" value="<?php echo $planoDistribuicao->idArea; ?>">
                     <option value=""> - Selecione uma área cultural - </option>
-                    <?php foreach ($this->comboareasculturais as $comboareacultural): ?>
-                        <option value="<?php echo $comboareacultural->id; ?>" <?php echo ($comboareacultural->id == $planoDistribuicao->idArea) ? " selected='selected'" : ""; ?>>
-                            <?php echo $comboareacultural->descricao; ?>
+                    <?php foreach ($this->comboareasculturais as $key => $value): ?>
+                        <option value="<?php echo $key; ?>" <?php echo ($key == $planoDistribuicao->idArea) ? " selected='selected'" : ""; ?>>
+                            <?php echo $value; ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
             </td>
             <td class="destacar bold" style="width: 1px;">Segmento <span style="color: red;">*</span></td>
             <td>
-                <select class="input_simples obrigatorio" name="segmentoCultural" id="segmentoCultural-<?php echo $planoDistribuicao->idPlanoDistribuicao; ?>">
+		<select class="input_simples obrigatorio" name="segmentoCultural" id="segmentoCultural-<?php echo $planoDistribuicao->idPlanoDistribuicao; ?>">
                     <option value=""> <?php echo " - Selecione um segmento cultural - "; ?> </option>
+                    <?php foreach ($this->combosegmentosculturais as $segmento): ?>
+                        <option value="<?php echo $segmento->id; ?>" <?php if ($planoDistribuicao->idPlanoDistribuicao == $segmento->id) echo "selected=\"selected\""; ?>>
+                            <?php echo $segmento->descricao; ?>
+                        </option>
+                    <?php endforeach ?>
                 </select>
             </td>
         </tr>
