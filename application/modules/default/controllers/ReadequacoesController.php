@@ -109,8 +109,6 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
             $Projetos = new Projetos();
             $this->view->projeto = $Projetos->buscar(array('IdPRONAC = ?'=>$idPronac))->current();
 
-//            $buscarRecurso = ManterorcamentoDAO::buscarFonteRecurso();
-
             $tbVerificao = new Proposta_Model_DbTable_Verificacao();
             $buscarRecurso = $tbVerificao->buscarFonteRecurso();
 
