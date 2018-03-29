@@ -102,6 +102,7 @@ function mascara ($val, $mask) {
             </tr>
             <tr class="divFiltroPesquisa">
                 <td class="destacar bold w100">Tipo da Conta</td>
+                <input type="hidden" class="input_simples" name="idPronac" value="<?php echo $this->idPronac; ?>">
                 <td>
                    <?php
 //                    $tipo = Zend_Controller_Front::getInstance()->getRequest()->getParam('TipoConta');
@@ -112,11 +113,11 @@ function mascara ($val, $mask) {
                         $selecione = "selected";
                     }
 
-		    if( Zend_Controller_Front::getInstance()->getRequest()->getParam('TipoConta')== "Capta??o"){
+		    if( Zend_Controller_Front::getInstance()->getRequest()->getParam('TipoConta')== "Captação"){
                         $captacao = "selected";
                     }
 
-		    if( Zend_Controller_Front::getInstance()->getRequest()->getParam('TipoConta')== "Movimenta??o"){
+		    if( Zend_Controller_Front::getInstance()->getRequest()->getParam('TipoConta')== "Movimentação"){
                         $movimentacao = "selected";
                     }
 
@@ -125,8 +126,8 @@ function mascara ($val, $mask) {
                    ?>
                     <select name="TipoConta" class="browser-default" style="width: 200px;">
                         <option value="" <?php echo $selecione; ?>>Selecione</option>
-                        <option value="Capta??o" <?php echo $captacao; ?>>capta&#231;&#227;o</option>
-                        <option value="Movimenta??o"<?php echo $movimentacao; ?>>movimenta&#231;&#227;o</option>
+                        <option value="Captação" <?php echo $captacao; ?>>Capta&#231;&#227;o</option>
+                        <option value="Movimentação"<?php echo $movimentacao; ?>>Movimenta&#231;&#227;o</option>
                     </select>
                 </td>
             </tr>
