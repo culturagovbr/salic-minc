@@ -154,29 +154,50 @@
                 </form>
             </div>
 
-            <?php if(count($this->diligenciasAdequacao) > 0) : ?>
-                <fieldset>
-                    <legend>Avalia&ccedil;&otilde;es da Adequa&ccedil;&atilde;o do Projeto</legend>
-                    <table class="tabela">
+            <?php if (count($this->diligenciasAdequacao) > 0) : ?>
+                <fieldset style="margin-top: 20px;">
+                    <legend>Dilig&ecirc;ncias da Adequa&ccedil;&atilde;o do Projeto</legend>
+                    <table class="bordered striped responsive-table">
+                        <thead>
                         <tr>
+                            <th>Visualizar</th>
                             <th>Data da Avalia&ccedil;&atilde;o</th>
-                            <th>Avalia&ccedil;&atilde;o</th>
+                            <th>Tipo de dilig&ecirc;ncia</th>
                         </tr>
+                        </thead>
+                        <tbody>
                         <?php foreach ($this->diligenciasAdequacao as $diligencia) : ?>
                             <tr>
-                                <td align="center"><?php echo date('d/m/Y',strtotime($diligencia->dtAvaliacao));?></td>
-                                <td align="center"><?php echo $diligencia->dsAvaliacao; ?></td>
+                                <td style="text-align: center;">
+                                    <button
+                                        onclick="$('#linha_adequacao_<?php echo $diligencia->idAvaliarAdequacaoProjeto; ?>').toggleClass('sumir')"
+                                        class="waves-effect waves-darken btn white black-text">
+                                        <i class="material-icons">visibility</i>
+                                    </button>
+                                </td>
+                                <td align="center"><?php echo date('d/m/Y', strtotime($diligencia->dtAvaliacao)); ?></td>
+                                <td>Dilig&ecirc;ncia na An&aacute;lise da adequa&ccedil;&atilde;o &agrave; realidade do projeto.
+                                </td>
                             </tr>
-                            <tr class="sumir" id="linhaAdequacao<?php echo $diligencia->idAvaliarAdequacaoProjeto;?>">
-                                <td colspan="9" id="resultado<?php echo $diligencia->idAvaliarAdequacaoProjeto;?>">
-                                    <?php echo $diligencia->dsAvaliacao; ?>
+                            <tr class="sumir" id="linha_adequacao_<?php echo $diligencia->idAvaliarAdequacaoProjeto; ?>">
+                                <td colspan="3" id="resultado<?php echo $diligencia->idAvaliarAdequacaoProjeto; ?>">
+                                    <table class="tabela">
+                                        <tbody>
+                                        <tr>
+                                            <th>Solicita&ccedil;&atilde;o</th>
+                                        </tr>
+                                        <td>
+                                            <?php echo $diligencia->dsAvaliacao; ?>
+                                        </td>
+                                        </tbody>
+                                    </table>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
+                        </tbody>
                     </table>
                 </fieldset>
             <?php endif; ?>
-
             <br clear="all" />
             <form id="encaminhar" method="post">
                 <input type="hidden" name="idPronac" value="<?php echo $this->idPronac;?>"/>
