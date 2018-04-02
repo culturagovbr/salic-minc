@@ -274,7 +274,7 @@ class Readequacao_RemanejamentoMenorController extends MinC_Controller_Action_Ab
             
             $PlanilhaAtivaGrupoA = $tbPlanilhaAprovacao->valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, array(1, 2))->current();
             $PlanilhaAtivaGrupoB = $tbPlanilhaAprovacao->valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, array(3))->current();
-            $PlanilhaAtivaGrupoC = $tbPlanilhaAprovacao->valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, array(4))->current();
+            $PlanilhaAtivaGrupoC = $tbPlanilhaAprovacao->valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, array(4, 8))->current();
             $PlanilhaAtivaGrupoD = $tbPlanilhaAprovacao->valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, array(5))->current();
             
             $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
@@ -300,9 +300,9 @@ class Readequacao_RemanejamentoMenorController extends MinC_Controller_Action_Ab
             //PLANILHA ATIVA - GRUPO B
             $where['a.idEtapa in (?)'] = array(3);
             $PlanilhaRemanejadaGrupoB = $tbPlanilhaAprovacao->valorTotalPlanilha($where)->current();
-
+            
             //PLANILHA ATIVA - GRUPO C
-            $where['a.idEtapa in (?)'] = array(4);
+            $where['a.idEtapa in (?)'] = array(4, 8);
             $PlanilhaRemanejadaGrupoC = $tbPlanilhaAprovacao->valorTotalPlanilha($where)->current();
 
             //PLANILHA ATIVA - GRUPO D
