@@ -1697,7 +1697,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
             if ($idTipoReadequacao == Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA) {
                 $descJustificativa = $this->_request->getParam('descJustificativa');
 
-                // se for tipo planilha orçamentaria, somente atualiza tbReadequacao
+                // se for tipo planilha orçamentaria, somente atualiza Readequacao_Model_tbReadequacao
                 $dadosReadequacao = array();
                 $dadosReadequacao['dsJustificativa'] = $descJustificativa;
 
@@ -1708,7 +1708,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
                 $readequacaoWhere = "idReadequacao = $idReadequacao";
                 $tbReadequacao->update($dadosReadequacao, $readequacaoWhere);
             } else {
-                // outros casos: insere tbReadequacao e altera tbPlanilhaAprovacao
+                // outros casos: insere Readequacao_Model_tbReadequacao e altera tbPlanilhaAprovacao
                 $dados = array();
                 $dados['idPronac'] = $idPronac;
                 $dados['idTipoReadequacao'] = $idTipoReadequacao;
@@ -2465,12 +2465,12 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
             $tbDistribuirReadequacao = new tbDistribuirReadequacao();
             $return = $tbDistribuirReadequacao->update($dados, $where);
 
-            //Atualiza a tabela tbReadequacao
+            //Atualiza a tabelaReadequacao_Model_tbReadequacao
             $dados = array();
             $dados['siEncaminhamento'] = tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
             $where = array();
             $where['idReadequacao = ?'] = $idReadequacao;
-            $tbReadequacao = new tbReadequacao();
+            $tbReadequacao = new Readequacao_Model_tbReadequacao();
             $return2 = $tbReadequacao->update($dados, $where);
 
             if ($return && $return2) {
@@ -2515,7 +2515,8 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
         
         $this->view->idReadequacao = $idReadequacao;
 
-        $tbReadequacao = new tbReadequacao();
+        $tbReadequacao = new Readequacao_Model_tbReadequacao();
+        
         $dados = $tbReadequacao->buscarDadosReadequacoes(array('idReadequacao = ?'=>$idReadequacao))->current();
         if (!$dados) {
             parent::message("Readequa&ccedil;&atilde;o n&atilde;o encontrada!", "readequacoes/painel-readequacoes", "ERROR");
@@ -2561,7 +2562,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
         $campoTipoParecer = 8;
         $vlPlanilha = 0;
 
-        $tbReadequacao = new tbReadequacao();
+        $tbReadequacao = new Readequacao_Model_tbReadequacao();
         $dadosRead = $tbReadequacao->buscar(array('idReadequacao=?'=>$idReadequacao))->current();
 
         //SE FOR READEQUAÇÃO DE PLANILHA ORÇAMENTÁRIA, O CAMPO TipoParecer DA TABELA SAC.dbo.Parecer MUDAR.
@@ -2670,7 +2671,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
                     if ($this->idPerfil == Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO) {
                         $siEncaminhamento = tbTipoEncaminhamento::SI_ENCAMINHAMENTO_DEVOLVIDA_COORDENADOR_TECNICO;
                     }
-                    //ATUALIZA A TABELA tbReadequacao
+                    //ATUALIZA A TABELA Readequacao_Model_tbReadequacao
                     $dados = array();
                     $dados['siEncaminhamento'] = $siEncaminhamento;
                     $where = "idReadequacao = $idReadequacao";
@@ -2693,11 +2694,12 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
         $post = Zend_Registry::get('post');
         $idReadequacao = (int) $post->idReadequacao;
 
-        //Atualiza a tabela tbReadequacao
+        //Atualiza a tabela Readequacao_Model_tbReadequacao
         $dados = array();
         $dados['siEncaminhamento'] = tbTipoEncaminhamento::SI_ENCAMINHAMENTO_DEVOLVIDA_AO_MINC;
         $where = "idReadequacao = $idReadequacao";
-        $tbReadequacao = new tbReadequacao();
+        
+        $tbReadequacao = new Readequacao_Model_tbReadequacao();
         $return = $tbReadequacao->update($dados, $where);
 
         if ($return) {
@@ -2719,7 +2721,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
         $get = Zend_Registry::get('get');
         $idReadequacao = (int) $get->id;
 
-        $tbReadequacao = new tbReadequacao();
+        $tbReadequacao = new Readequacao_Model_tbReadequacao();
         $dadosReadequacao = $tbReadequacao->find(array('idReadequacao=?'=>$idReadequacao))->current();
 
         $siEncaminhamento = $dadosReadequacao->siEncaminhamento;
@@ -2751,7 +2753,8 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
         $idComponente = (int) $post->componente;
         $idReadequacao = (int) $post->idReadequacao;
 
-        $tbReadequacao = new tbReadequacao();
+        $tbReadequacao = new Readequacao_Model_tbReadequacao();
+
         $dadosReadequacao = $tbReadequacao->buscar(array('idReadequacao = ?'=>$idReadequacao))->current();
         $idPronac = $dadosReadequacao->idPronac;
 
@@ -2778,7 +2781,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
         $raberta = $reuniao->buscarReuniaoAberta();
         $idNrReuniao = ($raberta['stPlenaria'] == 'A') ? $raberta['idNrReuniao']+1 : $raberta['idNrReuniao'];
 
-        //Atualiza a tabela tbReadequacao
+        //Atualiza a tabela Readequacao_Model_tbReadequacao
         $dados = array();
         $dados['siEncaminhamento'] = tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_CNIC;
         $dados['idNrReuniao'] = $idNrReuniao;
@@ -2854,7 +2857,8 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
             $this->view->pronac = $_GET['pronac'];
         }
 
-        $tbReadequacao = new tbReadequacao();
+        $tbReadequacao = new Readequacao_Model_tbReadequacao();
+        
         $total = $tbReadequacao->painelReadequacoesComponente($where, $order, null, null, true);
         $fim = $inicio + $this->intTamPag;
 
@@ -2897,7 +2901,8 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
         $get = Zend_Registry::get('get');
         $idReadequacao = (int) Seguranca::dencrypt($get->id);
 
-        $tbReadequacao = new tbReadequacao();
+        $tbReadequacao = new Readequacao_Model_tbReadequacao();
+        
         $dados = $tbReadequacao->buscarDadosReadequacoesCnic(array('a.idReadequacao = ?'=>$idReadequacao, 'f.idUnidade != ?'=>400))->current();
 
         if (!$dados) {
@@ -2943,7 +2948,8 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
         $campoTipoParecer = 8;
         $vlPlanilha = 0;
 
-        $tbReadequacao = new tbReadequacao();
+        $tbReadequacao = new Readequacao_Model_tbReadequacao();
+        
         $dadosRead = $tbReadequacao->buscar(array('idReadequacao=?'=>$idReadequacao))->current();
 
         //SE FOR READEQUAÇÃO DE PLANILHA ORÇAMENTÁRIA, O CAMPO TipoParecer DA TABELA SAC.dbo.Parecer MUDAR.
@@ -3066,7 +3072,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
                         }
                     }
 
-                    //ATUALIZA A TABELA tbReadequacao
+                    //ATUALIZA A TABELA Readequacao_Model_tbReadequacao
                     $dados = array();
                     $dados['siEncaminhamento'] = $campoSiEncaminhamento; // Devolvido da análise técnica
                     $dados['idNrReuniao'] = $idNrReuniao;
@@ -3078,7 +3084,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
                     }
 
                     $where = "idReadequacao = $idReadequacao";
-                    $tbReadequacao = new tbReadequacao();
+                    $tbReadequacao = new Readequacao_Model_tbReadequacao();
                     $tbReadequacao->update($dados, $where);
 
                     if ($campoSiEncaminhamento != tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_PLENARIA) {
@@ -3503,7 +3509,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
         $Parecer = new Parecer();
         $parecerTecnico = $Parecer->buscar(array('IdParecer=(?)'=>$pareceres), array('IdParecer'))->current();
 
-        $tbReadequacao = new tbReadequacao();
+        $tbReadequacao = new Readequacao_Model_tbReadequacao();
         $read = $tbReadequacao->buscarReadequacao(array('idReadequacao =?'=>$idReadequacao))->current();
 
         if ($parecerTecnico->ParecerFavoravel == 2) { //Se for parecer favorável, atualiza os dados solicitados na readequação
@@ -3898,7 +3904,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
             }
         }
 
-        //Atualiza a tabela tbReadequacao
+        //Atualiza a tabela Readequacao_Model_tbReadequacao
         $dados = array();
         $dados['siEncaminhamento'] = tbTipoEncaminhamento::SI_ENCAMINHAMENTO_FINALIZADA_SEM_PORTARIA;
         $dados['stEstado'] = 1;
@@ -4021,7 +4027,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
             $buscarUnidade = $TbPlanilhaUnidade->buscarUnidade();
             $this->view->Unidade = $buscarUnidade;
 
-            $tbReadequacao = new tbReadequacao();
+            $tbReadequacao = new Readequacao_Model_tbReadequacao();
             $this->view->readequacao = $tbReadequacao->readequacoesCadastradasProponente(array(
                 'a.idPronac = ?'=>$idPronac,
                 'a.siEncaminhamento = ?' => tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE,
@@ -4098,7 +4104,8 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
         $tblAgente = new Agente_Model_DbTable_Agentes();
         $rsAgente = $tblAgente->buscar(array('CNPJCPF=?'=>$auth->getIdentity()->Cpf))->current();
         
-        $tbReadequacao = new tbReadequacao();
+        $tbReadequacao = new Readequacao_Model_tbReadequacao();
+        
         $dados = array();
         $dados['idPronac'] = $idPronac;
         $dados['idTipoReadequacao'] = Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA;
@@ -4199,7 +4206,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
         }
 
         try {
-            $tbReadequacao = new tbReadequacao();
+            $tbReadequacao = new Readequacao_Model_tbReadequacao();
             $readequacoes = $tbReadequacao->buscarDadosReadequacoes($where);
 
             // prepara sada json
@@ -4238,7 +4245,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
         $idReadequacao = Seguranca::dencrypt($this->_request->getParam('id'));
         $cnic = $this->_request->getParam('cnic');
 
-        $tbReadequacao = new tbReadequacao();
+        $tbReadequacao = new Readequacao_Model_tbReadequacao();
         $r = $tbReadequacao->buscarDadosReadequacoes(array('idReadequacao = ?'=>$idReadequacao))->current();
 
         if ($r) {
@@ -4297,8 +4304,8 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
 
                 $u = $tbDistribuirReadequacao->update($dados, $where);
 
-                // atualizar tbReadequacao
-                $tbReadequacao = new tbReadequacao();
+                // atualizar Readequacao_Model_tbReadequacao
+                $tbReadequacao = new Readequacao_Model_tbReadequacao();
                 $dados = array(
                     'siEncaminhamento' => tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA
                 );
@@ -4328,7 +4335,7 @@ class ReadequacoesController extends MinC_Controller_Action_Abstract
 
                 $tbDistribuirReadequacao->update($dados, $where);
 
-                $tbReadequacao = new tbReadequacao();
+                $tbReadequacao = new Readequacao_Model_tbReadequacao();
                 $dadosReadequacao = array(
                     'siEncaminhamento' => tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE
                 );
