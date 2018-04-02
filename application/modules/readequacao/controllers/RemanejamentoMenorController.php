@@ -268,14 +268,20 @@ class Readequacao_RemanejamentoMenorController extends MinC_Controller_Action_Ab
             $idPronac = Seguranca::dencrypt($idPronac);
         }
         $idReadequacao = $this->_request->getParam("idReadequacao");
+
+        $tiposEtapa = [];
+        $tiposEtapa['A'] = [1,2];
+        $tiposEtapa['B'] = [3];
+        $tiposEtapa['C'] = [4, 8, 9, 10];
+        $tiposEtapa['D'] = [5];
         
         try {
             $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
             
-            $PlanilhaAtivaGrupoA = $tbPlanilhaAprovacao->valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, array(1, 2))->current();
-            $PlanilhaAtivaGrupoB = $tbPlanilhaAprovacao->valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, array(3))->current();
-            $PlanilhaAtivaGrupoC = $tbPlanilhaAprovacao->valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, array(4, 8))->current();
-            $PlanilhaAtivaGrupoD = $tbPlanilhaAprovacao->valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, array(5))->current();
+            $PlanilhaAtivaGrupoA = $tbPlanilhaAprovacao->valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, $tiposEtapa['A'])->current();
+            $PlanilhaAtivaGrupoB = $tbPlanilhaAprovacao->valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, $tiposEtapa['B'])->current();
+            $PlanilhaAtivaGrupoC = $tbPlanilhaAprovacao->valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, $tiposEtapa['C'])->current();
+            $PlanilhaAtivaGrupoD = $tbPlanilhaAprovacao->valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, $tiposEtapa['D'])->current();
             
             $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
             $readequacaoAtiva = $Readequacao_Model_tbReadequacao->buscar(
@@ -294,19 +300,19 @@ class Readequacao_RemanejamentoMenorController extends MinC_Controller_Action_Ab
             $PlanilhaRemanejada = $tbPlanilhaAprovacao->valorTotalPlanilha($where)->current();
             
             //PLANILHA ATIVA - GRUPO A
-            $where['a.idEtapa in (?)'] = array(1,2);
+            $where['a.idEtapa in (?)'] = $tiposEtapa['A'];
             $PlanilhaRemanejadaGrupoA = $tbPlanilhaAprovacao->valorTotalPlanilha($where)->current();
             
             //PLANILHA ATIVA - GRUPO B
-            $where['a.idEtapa in (?)'] = array(3);
+            $where['a.idEtapa in (?)'] = $tiposEtapa['B'];
             $PlanilhaRemanejadaGrupoB = $tbPlanilhaAprovacao->valorTotalPlanilha($where)->current();
             
             //PLANILHA ATIVA - GRUPO C
-            $where['a.idEtapa in (?)'] = array(4, 8);
+            $where['a.idEtapa in (?)'] = $tiposEtapa['C'];
             $PlanilhaRemanejadaGrupoC = $tbPlanilhaAprovacao->valorTotalPlanilha($where)->current();
 
             //PLANILHA ATIVA - GRUPO D
-            $where['a.idEtapa in (?)'] = array(5);
+            $where['a.idEtapa in (?)'] = $tiposEtapa['D'];
             $PlanilhaRemanejadaGrupoD = $tbPlanilhaAprovacao->valorTotalPlanilha($where)->current();
 
             //Os grupos est�o relacionados na tabela SAC.dbo.tbPlanilhaEtapa
