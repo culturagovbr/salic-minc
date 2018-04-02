@@ -92,10 +92,10 @@
                                     <th>Vl. Unit&aacute;rio</th>
                                     <th>Vl. Aprovado</th>
                                     <th>Vl. Comprovado</th>
-                                    <th>Justif. Readequação</th>
+				    <th>Justif. Readequa&ccedil;&atilde;o</th>
 
                                     <?php //if($this->link && $this->idPerfil == 1111){ ?>
-                                        <th>Ação</th>
+                                        <th>A&ccedil;&atilde;o</th>
                                     <?php //} ?>
                                 </tr>
                                 <?php
@@ -179,11 +179,11 @@
                                             <?php $title = '';
                                                 switch ($planilha['tpAcao']) {
                                                     case 'E':
-                                                        echo 'Excluído';
+                                                        echo 'Exclu&iacute;do';
                                                         $title = 'restaurar item';
                                                         break;
                                                     case 'I':
-                                                        echo 'Incluído';
+                                                        echo 'Inclu&iacute;do';
                                                         $title = 'recusar inclusão de item';
                                                         break;
                                                     case 'A':
@@ -210,8 +210,8 @@
                                 $nrcidade++;
                                 ?>
                                 <tr>
-                                    <td colspan="6" class="black" style="font-size: 14pt;">Total da UF</td>
-                                    <td class="black" style="font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorAprovadoTotalUf, 2, ",", "."); ?></td>
+                                    <td colspan="6" class="black" style="font-size: 14pt;" align="right">Total da UF</td>
+                                    <td class="black" style="font-size: 12pt; font-weight: 600; text-align: right"><?php echo @number_format($valorAprovadoTotalUf, 2, ",", "."); ?></td>
                                     <td colspan="3"></td>
                                 </tr>
                             </table>
@@ -224,9 +224,9 @@
                     <td>
                         <table class="tabela">
                             <tr>
-                                <td colspan="2" class="orange-text" style="width: 18%; font-size: 14pt;" nowrap>Total da Etapa</td>
+                                <td colspan="2" class="orange-text" style="width: 18%; font-size: 14pt;" align="right" nowrap>Total da Etapa</td>
                                 <td colspan="4">&nbsp;</td>
-                                <td class="orange-text" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorAprovadoTotalEtapa, 2, ",", "."); ?></td>
+                                <td class="orange-text" style="width: 1px; font-size: 12pt; font-weight: 600; text-align: right"><?php echo @number_format($valorAprovadoTotalEtapa, 2, ",", "."); ?></td>
                                 <td colspan="3" style="width: 40%;">&nbsp;</td>
                             </tr>
                         </table>
@@ -239,9 +239,9 @@
                 <td>
                     <table class="tabela">
                         <tr>
-                            <td colspan="2" class="green-text" style="width: 18%; font-size: 14pt;">Total da <?php echo $produto; ?></td>
+                            <td colspan="2" class="green-text" style="width: 18%; font-size: 14pt;" align="right">Total da <?php echo $produto; ?></td>
                             <td colspan="4">&nbsp;</td>
-                            <td class="green-text" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorAprovadoTotalProduto, 2, ",", "."); ?></td>
+                            <td class="green-text" style="width: 1px; font-size: 12pt; font-weight: 600; text-align: right"><?php echo @number_format($valorAprovadoTotalProduto, 2, ",", "."); ?></td>
                             <td style="width: 40%" colspan="1">&nbsp;</td>
                         </tr>
                     </table>
@@ -254,9 +254,9 @@
             <td>
                 <table class="tabela">
                     <tr>
-                        <td colspan="2" class="red-text" style="width: 18%; font-size: 14pt;">Total do <?php echo $fonte; ?></td>
+                        <td colspan="2" class="red-text" style="width: 18%; font-size: 14pt;" align="right">Total do <?php echo $fonte; ?></td>
                         <td colspan="4">&nbsp;</td>
-                        <td class="red-text" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($valorAprovadoTotalIncentivo, 2, ",", "."); ?></td>
+                        <td class="red-text" style="width: 1px; font-size: 12pt; font-weight: 800; text-align: right"><?php echo @number_format($valorAprovadoTotalIncentivo, 2, ",", "."); ?></td>
                         <td style="width: 40%" colspan="1">&nbsp;</td>
                     </tr>
                 </table>
