@@ -84,6 +84,7 @@ class Admissibilidade_EnquadramentoPropostaController extends MinC_Controller_Ac
     public function salvarSugestaoEnquadramento(array $dadosSugetaoEnquadramento)
     {
         try {
+
             $sugestaoEnquadramentoDbTable = new Admissibilidade_Model_DbTable_SugestaoEnquadramento();
             $sugestaoEnquadramentoDbTable->salvarSugestaoEnquadramento($dadosSugetaoEnquadramento);
 
@@ -152,9 +153,7 @@ class Admissibilidade_EnquadramentoPropostaController extends MinC_Controller_Ac
         }
 
         $distribuicaoAvaliacaoPropostaDbTable = new Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta();
-        $distribuicaoAvaliacaoProposta = new Admissibilidade_Model_DistribuicaoAvaliacaoProposta();
-        $distribuicaoAvaliacaoProposta->setIdPerfil(Autenticacao_Model_Grupos::COMPONENTE_COMISSAO);
-        $distribuicaoAvaliacaoPropostaDbTable->setDistribuicaoAvaliacaoProposta($distribuicaoAvaliacaoProposta);
+        $distribuicaoAvaliacaoPropostaDbTable->setDistribuicaoAvaliacaoProposta(['id_perfil' => Autenticacao_Model_Grupos::COMPONENTE_COMISSAO]);
 
         $avaliacoesVencidas = $distribuicaoAvaliacaoPropostaDbTable->obterAvaliacoesVencidas(5);
 

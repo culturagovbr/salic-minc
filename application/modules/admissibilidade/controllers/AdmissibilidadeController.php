@@ -289,7 +289,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
                     'id_preprojeto' => $this->idPreProjeto,
                     'id_orgao_superior' => $orgaoSuperior,
                     'id_perfil' => $this->codGrupo,
-                    'avaliacao_atual' => Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta::AVALIACAO_ATUAL_ATIVA
+                    'avaliacao_atual' => Admissibilidade_Model_DistribuicaoAvaliacaoProposta::AVALIACAO_ATUAL_ATIVA
                 ]
             );
             $this->view->possuiAvaliacaoCnic = $distribuicaoAvaliacaoPropostaDbTable->propostaPossuiAvaliacao(

@@ -10,6 +10,9 @@ class Admissibilidade_Model_DistribuicaoAvaliacaoProposta extends MinC_Db_Model
     protected $_data_distribuicao;
     protected $_avaliacao_atual;
 
+    const AVALIACAO_ATUAL_INATIVA = 0;
+    const AVALIACAO_ATUAL_ATIVA = 1;
+
     /**
      * @return mixed
      */

@@ -104,30 +104,10 @@ function mascara ($val, $mask) {
                 <td class="destacar bold w100">Tipo da Conta</td>
                 <input type="hidden" class="input_simples" name="idPronac" value="<?php echo $this->idPronac; ?>">
                 <td>
-                   <?php
-//                    $tipo = Zend_Controller_Front::getInstance()->getRequest()->getParam('TipoConta');
-                    $selecione = "";
-                    $captacao = "";
-                    $movimentacao = "";
-                    if(Zend_Controller_Front::getInstance()->getRequest()->getParam('TipoConta')==""){
-                        $selecione = "selected";
-                    }
-
-		    if( Zend_Controller_Front::getInstance()->getRequest()->getParam('TipoConta')== "Captação"){
-                        $captacao = "selected";
-                    }
-
-		    if( Zend_Controller_Front::getInstance()->getRequest()->getParam('TipoConta')== "Movimentação"){
-                        $movimentacao = "selected";
-                    }
-
-
-
-                   ?>
                     <select name="TipoConta" class="browser-default" style="width: 200px;">
-                        <option value="" <?php echo $selecione; ?>>Selecione</option>
-                        <option value="Captação" <?php echo $captacao; ?>>Capta&#231;&#227;o</option>
-                        <option value="Movimentação"<?php echo $movimentacao; ?>>Movimenta&#231;&#227;o</option>
+                        <option value="">Selecione</option>
+                        <option value="captacao" <?= ($this->TipoConta=='captacao') ? 'selected' : ''; ?>>Capta&#231;&#227;o</option>
+                        <option value="movimentacao"<?= ($this->TipoConta=='movimentacao') ? 'selected' : ''; ?>>Movimenta&#231;&#227;o</option>
                     </select>
                 </td>
             </tr>
