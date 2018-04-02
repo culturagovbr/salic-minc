@@ -296,7 +296,7 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
         # FASE 4 - DA LIBERA��O DA CONTA AT� A DATA FINAL DO PER�ODO DE EXECUCAO
         $sqlDataAtualBanco = new Zend_Db_Expr('SELECT CONVERT( CHAR(8), GETDATE(), 112)');
         $dataAtualBanco = $db->fetchOne($sqlDataAtualBanco);
-        
+
         if ($contaLiberada == 'S' and $dadosProjeto->DtFinalExecucao >= $dataAtualBanco) {
             $Analise = 1;
             $Execucao = 1;
@@ -311,7 +311,7 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             $existeReadequacaoEmAndamento = $tbReadequacao->existeReadequacaoEmAndamento($idPronac);
             $existeReadequacaoPlanilhaEmEdicao = $tbReadequacao->existeReadequacaoPlanilhaEmEdicao($idPronac);
             $existeReadequacaoParcialEmEdicao = $tbReadequacao->existeReadequacaoParcialEmEdicao($idPronac);
-            
+
             if (!$existeReadequacaoEmAndamento && !$existeReadequacaoEmAndamento) {
                 $Readequacao_50 = 1;
                 $ReadequacaoPlanilha = 1;
@@ -325,10 +325,10 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
                 $Readequacao_50 = 0;
                 $ReadequacaoPlanilha = 0;
             }
-                        
+
             $tbCumprimentoObjeto = new tbCumprimentoObjeto();
             $possuiRelatorioDeCumprimento = $tbCumprimentoObjeto->possuiRelatorioDeCumprimento($idPronac);
-            
+
             if ($possuiRelatorioDeCumprimento) {
                 $Readequacao_50 = 0;
                 $Readequacao = 0;
@@ -349,10 +349,10 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
 
             $Fase = 4;
         }
-        
+
         # FASE 5 - PRESTA��O DE CONTAS DO PROPONENTE - RELAT�RIO DE CUMPRIMENTO DO OBJETO
         if ($contaLiberada == 'S' and $dataAtualBanco > $dadosProjeto->DtFinalExecucao) {
-        $Analise = 1;
+            $Analise = 1;
             $Execucao = 1;
             $PrestacaoDeContas = 1;
             $Marcas = 0;
@@ -362,7 +362,7 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             $ComprovacaoFinanceira = 1;
             $RelatorioTrimestral = 0;
             $RelatorioFinal = 1;
-            
+
             /* ===== EXCE��O PARA AJUSTAR PLANILHA PARA PRESTAR CONTAS ===== */
 
             $situacoesPlanilha = array('E13', 'E15', 'E23', 'E74', 'E75');
@@ -407,7 +407,7 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
                                   )
                     ->where('a.stEstado = ?', 0);
                 $readequacaoFase5 = $db->fetchRow($readequacaoFase5);
-                
+
                 if ($readequacaoFase5->idTipoReadequacao) {
                     $Readequacao_50 = 0;
                 } else {
@@ -420,7 +420,13 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             } else if ($existeReadequacaoEmAndamento && !$existeReadequacaoPlanilhaEmEdicao)  {
                 $Readequacao_50 = 0;
             }
-            
+
+            // caso projeto tenha diligencia de prestacao de contas não mostrar menu readequacão
+            if ($dadosProjeto->Situacao == 'E17') {
+                $Readequacao = 0;
+                $Readequacao_50 = 0;
+            }
+
             $Fase = 5;
         }
 
