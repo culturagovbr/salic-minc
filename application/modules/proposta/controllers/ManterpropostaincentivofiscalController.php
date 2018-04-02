@@ -15,6 +15,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
 
         if (!empty($this->idPreProjeto)) {
             $this->view->idPreProjeto = $this->idPreProjeto;
+            $this->view->addScriptPath(APPLICATION_PATH . '/modules/proposta/views/scripts/manterpropostaincentivofiscal');
 
             $this->verificarPermissaoAcesso(true, false, false);
 

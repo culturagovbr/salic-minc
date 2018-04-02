@@ -5,17 +5,80 @@ class Recurso_Model_TbRecursoProposta extends MinC_Db_Model
     protected $_idRecursoProposta;
     protected $_idPreProjeto;
     protected $_dtRecursoProponente;
+    /**
+     * @var $_dsRecursoProponente Motivo da solicitação do Proponente
+     */
     protected $_dsRecursoProponente;
+    /**
+     * @var $_idProponente Proponente que está solicitando o recurso (idAgente)
+     */
     protected $_idProponente;
+    /**
+     * @var $_idAvaliadorTecnico C&oacute;digo do usuário que está avaliando o recurso (Tabelas.dbo.Usuarios.usu_codigo)
+     */
     protected $_idAvaliadorTecnico;
     protected $_dtAvaliacaoTecnica;
     protected $_dsAvaliacaoTecnica;
+    /**
+     * @var $_tpRecurso
+            tpRecurso => 1 - Pedido de reconsideração
+            tpRecurso => 2 - Recurso
+     */
     protected $_tpRecurso;
+    /**
+     * @var $_tpSolicitacao
+            DR => Desistência do Prazo Recursal
+            EN => Enquadramento
+     */
     protected $_tpSolicitacao;
+    /**
+     * @var $_stAtendimento
+            'N' => Sem avaliação
+            'I' => Quando é indeferido
+            'D' => Quando é deferido (movimenta para frente)
+     */
     protected $_stAtendimento;
     protected $_idArquivo;
-    protected $_stEstado;
+    /**
+     * @var $_stAtivo
+             0 - Registro Atual
+             1 - Registro Inativo
+     */
+    protected $_stAtivo;
 
+    /**
+     * @var $_stRascunho
+     *      0 - Enviado
+     *      1 - Rascunho Salvo
+     */
+    protected $_stRascunho;
+
+    /**
+     * Quando o proponente o proponente não concordar com o enquadramento
+     * ele poderá entrar um pedido de reconsideração.
+     */
+    const TIPO_RECURSO_PEDIDO_DE_RECONSIDERACAO = 1;
+    /**
+     * Quando o Avalialiador não concordar com o pedido de reconsideração
+     * (faz o indeferimento) o proponente poderá entrar com outro pedido.
+     */
+    const TIPO_RECURSO_RECURSO = 2;
+    const TIPO_SOLICITACAO_DESISTENCIA_DO_PRAZO_RECURSAL = 'DR';
+    const TIPO_SOLICITACAO_ENQUADRAMENTO = 'EN';
+    const SITUACAO_RECURSO_ATIVO = 0;
+    const SITUACAO_RECURSO_INATIVO = 1;
+    const SITUACAO_ATENDIMENTO_SEM_AVALIACAO = 'N';
+    const SITUACAO_ATENDIMENTO_INDEFERIDO = 'I';
+    const SITUACAO_ATENDIMENTO_DEFERIDO = 'D';
+    const SITUACAO_RASCUNHO_SALVO = 1;
+    const SITUACAO_RASCUNHO_ENVIADO = 0;
+
+    /*
+     *  'N' => Sem avaliação
+        'I' => Quando é indeferido
+        'D' => Quando é deferido (movimenta para frente)
+     */
+    
     /**
      * @return mixed
      */
@@ -235,20 +298,37 @@ class Recurso_Model_TbRecursoProposta extends MinC_Db_Model
     /**
      * @return mixed
      */
-    public function getStEstado()
+    public function getStAtivo()
     {
-        return $this->_stEstado;
+        return $this->_stAtivo;
     }
 
     /**
      * @param mixed $stEstado
      * @return Recurso_Model_TbRecursoProposta
      */
-    public function setStEstado($stEstado)
+    public function setStAtivo($stEstado)
     {
-        $this->_stEstado = $stEstado;
+        $this->_stAtivo = $stEstado;
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getStRascunho()
+    {
+        return $this->_stRascunho;
+    }
+
+    /**
+     * @param mixed $stRascunho
+     * @return Recurso_Model_TbRecursoProposta
+     */
+    public function setStRascunho($stRascunho)
+    {
+        $this->_stRascunho = $stRascunho;
+        return $this;
+    }
 
 }

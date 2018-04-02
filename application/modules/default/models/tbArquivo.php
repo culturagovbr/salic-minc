@@ -184,4 +184,157 @@ class tbArquivo extends MinC_Db_Table_Abstract
             return false;
         }
     }
+
+    public function removerAnexoDoRecursoDaPropostaVisaoProponente(array $recursoProposta, $idProponente)
+    {
+        try {
+            $tbArquivoDbTable = new tbArquivo();
+
+            if (!$recursoProposta['idPreProjeto']) {
+                throw new Exception("Identificador da Proposta n&atilde;o foi localizado.");
+            }
+
+            if (!$recursoProposta['idArquivo']) {
+                throw new Exception("Identificador do Arquivo n&atilde;o informado.");
+            }
+
+            if (is_null($idProponente) || empty($idProponente)) {
+                throw new Exception("Identificador do Proponente n&atilde;o localizado.");
+            }
+
+            $tbArquivoDbTable->findBy([
+                'idArquivo' => $recursoProposta['idArquivo'],
+                'idUsuario' => $idProponente
+            ]);
+
+            $tbArquivoImagemDAO = new tbArquivoImagem();
+            $tbArquivoImagemDAO->delete("idArquivo = {$recursoProposta['idArquivo']}");
+            $tbArquivoDbTable->delete("idArquivo = {$recursoProposta['idArquivo']}");
+            $recursoPropostaDbTable = new Recurso_Model_DbTable_TbRecursoProposta();
+            $recursoPropostaDbTable->update([
+                'idArquivo' => new Zend_Db_Expr('NULL')
+            ], [
+                'idRecursoProposta = ?' => $recursoProposta['idRecursoProposta'],
+                'idPreProjeto = ?' => $recursoProposta['idPreProjeto']
+            ]);
+            return true;
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
+
+    /**
+     * @param string $nomeArquivoUpload
+     * @param int $tamanhoMaximoUpload
+     * @return int|null $idArquivo
+     */
+    public function uploadAnexoSqlServer(
+        $idUsuario,
+        $nomeArquivoUpload = 'arquivo',
+        $tamanhoMaximoUpload = 10485760
+    )
+    {
+        $idArquivo = null;
+        $file = new Zend_File_Transfer();
+        if ($file->isUploaded() && !empty($file->getFileInfo())) {
+            $fileInformation = $file->getFileInfo();
+
+            $arquivoNome = $fileInformation[$nomeArquivoUpload]['name'];
+            $arquivoTemp = $fileInformation[$nomeArquivoUpload]['tmp_name'];
+            $arquivoTamanho = $fileInformation[$nomeArquivoUpload]['size'];
+            $arquivoHash = '';
+
+            if (!empty($arquivoNome) && !empty($arquivoTemp)) {
+                $arquivoExtensao = Upload::getExtensao($arquivoNome);
+                $arquivoBinario = Upload::setBinario($arquivoTemp);
+                $arquivoHash = Upload::setHash($arquivoTemp);
+            }
+
+            if ($arquivoTamanho > $tamanhoMaximoUpload) {
+                throw new Exception("O arquivo n&atilde;o pode ser maior do que 10MB!");
+            }
+
+            $tbArquivoDbTable = new tbArquivo();
+            $dadosArquivo = [];
+            $dadosArquivo['nmArquivo'] = $arquivoNome;
+            $dadosArquivo['sgExtensao'] = $arquivoExtensao;
+            $dadosArquivo['nrTamanho'] = $arquivoTamanho;
+            $dadosArquivo['dtEnvio'] = $tbArquivoDbTable->getExpressionDate();
+            $dadosArquivo['stAtivo'] = 'A';
+            $dadosArquivo['dsHash'] = $arquivoHash;
+            $dadosArquivo['idUsuario'] = $idUsuario;
+            $idArquivo = $tbArquivoDbTable->insert($dadosArquivo);
+
+            $tbArquivoImagemDAO = new tbArquivoImagem();
+            $dadosBinario = array(
+                'idArquivo' => $idArquivo,
+                'biArquivo' => new Zend_Db_Expr("CONVERT(varbinary(MAX), {$arquivoBinario})")
+            );
+            $idArquivo = $tbArquivoImagemDAO->inserir($dadosBinario);
+        }
+        return $idArquivo;
+    }
+
+    public function abrirdocumentosanexadosbinarioAction()
+    {
+        // recebe o id do arquivo via get
+//        $get = Zend_Registry::get('get');
+//        $id = (int)$get->id;
+//        $busca = $this->_request->getParam('busca'); //$get->busca;
+//        // Configuracao o php.ini para 10MB
+//        @ini_set("mssql.textsize", 10485760);
+//        @ini_set("mssql.textlimit", 10485760);
+//        @ini_set("upload_max_filesize", "10M");
+//
+//        $response = new Zend_Controller_Response_Http;
+//
+//        // busca o arquivo
+//        $resultado = UploadDAO::abrirdocumentosanexados($id, $busca);
+//        if (!$resultado) {
+//            if ($busca == "documentosanexadosminc") {
+//                $resultado = UploadDAO::abrirdocumentosanexados($id, "documentosanexadosminc");
+//            } else {
+//                $resultado = UploadDAO::abrirdocumentosanexados($id, "documentosanexados");
+//            }
+//        }
+//
+//        // erro ao abrir o arquivo
+//        if (!$resultado) {
+//            $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
+//            $this->_helper->viewRenderer->setNoRender();    // Desabilita o Zend Render
+//            die("N&atilde;o existe o arquivo especificado");
+//            $this->view->message = 'N&atilde;o foi poss&iacute;vel abrir o arquivo!';
+//            $this->view->message_type = 'ERROR';
+//        } else {
+//            // os cabecalhos formatado
+//            foreach ($resultado as $r) {
+//                $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
+//                $this->_helper->viewRenderer->setNoRender();    // Desabilita o Zend Render
+//                Zend_Layout::getMvcInstance()->disableLayout(); // Desabilita o Zend MVC
+//                $this->_response->clearBody();                  // Limpa o corpo html
+//                $this->_response->clearHeaders();               // Limpa os headers do Zend
+//
+//                $hashArquivo = ($r->biArquivo) ? $r->biArquivo : $r->biArquivo2;
+//
+//                $this->getResponse()
+//                    ->setHeader('Content-Type', 'application/pdf')
+//                    ->setHeader('Content-Disposition', 'attachment; filename="' . $r->nmArquivo . '"')
+//                    ->setHeader("Connection", "close")
+//                    ->setHeader("Content-transfer-encoding", "binary")
+//                    ->setHeader("Cache-control", "private");
+//
+//                if ($r->biArquivo2 == 1) {
+//                    if (strtolower(substr($r->biArquivo, 0, 4)) == '%pdf') {
+//                        $this->getResponse()->setBody($hashArquivo);
+//                    } else {
+//                        $this->getResponse()->setBody(base64_decode($hashArquivo));
+//                    }
+//                } else {
+//                    $this->getResponse()->setBody($hashArquivo);
+//                }
+//                        $this->getResponse()->setBody($hashArquivo);
+                //->setBody(base64_decode($hashArquivo));
+//            } // fecha foreach
+//        }
+    }
 }
