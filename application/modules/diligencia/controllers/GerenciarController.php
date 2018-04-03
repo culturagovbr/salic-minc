@@ -9,23 +9,9 @@ class Diligencia_GerenciarController extends MinC_Controller_Action_Abstract
 
     public function responderAction()
     {
-        /* $this->getRequest()->resetRequest(); */
         $idPronac = $this->getRequest()->getParam('idpronac');
         $this->verificarPermissaoAcesso(false, true, false);
         $this->dadosProjeto();
-        # comprovantes recusados
-        
-        /* $planilhaAprovacaoModel = new PlanilhaAprovacao(); */
-        /* $comprovantes = $planilhaAprovacaoModel->buscarItensPagamentos($idPronac); //Alysson - Altera��o da Query para n�o mostrar os itens excluidos */
-
-        /* $comprovantePagamentoModel = new ComprovantePagamento(); */
-        /* $this->view->comprovantesDePagamento = $comprovantePagamentoModel->pesquisarComprovanteRecusado( */
-        /*     $this->getRequest()->getParam('idpronac') */
-        /* ); */
-
-        /* $this->view->comprovantesDePagamento = $comprovantes; */
-        /* $this->view->idpronac = $this->getRequest()->getParam('idpronac'); */
-        /* $this->view->idusuario = Zend_Auth::getInstance()->getIdentity()->IdUsuario; */
 
         $this->view->idpronac   = $this->getRequest()->getParam('idpronac');
 
