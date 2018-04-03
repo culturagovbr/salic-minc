@@ -15,7 +15,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
 
         if (!empty($this->idPreProjeto)) {
             $this->view->idPreProjeto = $this->idPreProjeto;
-            $this->view->addScriptPath(APPLICATION_PATH . '/modules/proposta/views/scripts/manterpropostaincentivofiscal');
 
             $this->verificarPermissaoAcesso(true, false, false);
 
@@ -619,7 +618,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
     {
         try {
             $validacao = new stdClass();
-            $listaValidacao = [];
 
             $this->atualizarDadosPessoaJuridicaVerificandoCNAECultural($idPreProjeto);
 
@@ -627,16 +625,11 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
             $arrResultado = $tbPreProjeto->spChecklistParaApresentacaoDeProposta($idPreProjeto);
 
             $validado = true;
-
-            foreach ($arrResultado as &$item) {
+            foreach ($arrResultado as $item) {
                 if ($item->Observacao == 'PENDENTE') {
                     $validado = false;
+                    break;
                 }
-
-                $validacao->dsInconsistencia = $item->dsInconsistencia;
-                $validacao->Observacao = $item->Observacao;
-                $validacao->Url = $this->obterUrlDaPendencia($item->dsChamada);
-                $listaValidacao[] = clone($validacao);
             }
 
             if ($validado) {
@@ -646,48 +639,11 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
                 return $validacao;
             }
 
-            return $listaValidacao;
-
+            return $arrResultado;
         } catch (Exception $objExcetion) {
             throw $objExcetion;
+//            parent::message("N&atilde;o foi poss&iacute;vel realizar a opera&ccedil;&atilde;o! (comsp)" . $ex->getMessage(), "/proposta/manterpropostaincentivofiscal/index?idPreProjeto=" . $idPreProjeto, "ERROR");
         }
-    }
-
-    private function obterUrlDaPendencia($nome)
-    {
-
-        $url = '';
-        switch ($nome) {
-            case 'local_realizacao':
-                $url = array('module' => 'proposta', 'controller' => 'localderealizacao', 'idPreProjeto' => $this->idPreProjeto);
-                break;
-            case 'orcamento':
-                $url = array('module' => 'proposta', 'controller' => 'manterorcamento', 'action' => 'produtoscadastrados', 'idPreProjeto' => $this->idPreProjeto);
-                break;
-            case 'endereco':
-                $url = array('module' => 'agente', 'controller' => 'agentes', 'action' => 'enderecos', 'id' => $this->_proposta['idagente']);
-                break;
-            case 'email':
-                $url = array('module' => 'agente', 'controller' => 'agentes', 'action' => 'emails', 'id' => $this->_proposta['idagente']);
-                break;
-            case 'nascimento':
-                $url = array('module' => 'agente', 'controller' => 'agentes', 'action' => 'info-adicionais', 'id' => $this->_proposta['idagente']);
-                break;
-            case 'natureza':
-                $url = array('module' => 'agente', 'controller' => 'agentes', 'action' => 'natureza', 'id' => $this->_proposta['idagente']);
-                break;
-            case 'dirigente':
-                $url = array('module' => 'agente', 'controller' => 'agentes', 'action' => 'dirigentes', 'id' => $this->_proposta['idagente']);
-                break;
-            case 'periodo_execucao':
-                $url = array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'identificacaodaproposta', 'idPreProjeto' => $this->idPreProjeto);
-                break;
-            case 'plano_distribuicao':
-                $url = array('module' => 'proposta', 'controller' => 'plano-distribuicao', 'action' => 'index', 'idPreProjeto' => $this->idPreProjeto);;
-                break;
-        }
-
-        return $url;
     }
 
     /**
@@ -839,8 +795,8 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
         $search = $this->getRequest()->getParam('search');
         $order = $this->getRequest()->getParam('order');
         $columns = $this->getRequest()->getParam('columns');
+        $order = ($order[0]['dir'] != 1) ? array($columns[$order[0]['column']]['name'] . ' ' . $order[0]['dir']) : array("idpreprojeto DESC");
 
-        $order = ($order[0]['dir'] != 1) ? array($columns[$order[0]['column']]['name'] . ' ' . $order[0]['dir']) : ["idpreprojeto desc"];
 
         $idAgente = ((int)$idAgente == 0) ? $this->idAgente : (int)$idAgente;
 
@@ -850,12 +806,12 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
                 'recordsTotal' => 0,
                 'draw' => 0,
                 'recordsFiltered' => 0));
+            die;
         }
 
         $tblPreProjeto = new Proposta_Model_DbTable_PreProjeto();
 
         $rsPreProjeto = $tblPreProjeto->propostas($this->idAgente, $this->idResponsavel, $idAgente, array(), $order, $start, $length, $search);
-
         $Movimentacao = new Proposta_Model_DbTable_TbMovimentacao();
 
         $recordsTotal = 0;
@@ -879,9 +835,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
             "data" => !empty($aux) ? $aux : 0,
             'recordsTotal' => $recordsTotal ? $recordsTotal : 0,
             'draw' => $draw,
-            'recordsFiltered' => $recordsFiltered ? $recordsFiltered : 0,
-            'teste' =>[$this->idAgente, $this->idResponsavel, $idAgente, array(), $order, $start, $length, $search]
-        ));
+            'recordsFiltered' => $recordsFiltered ? $recordsFiltered : 0));
     }
 
     /**

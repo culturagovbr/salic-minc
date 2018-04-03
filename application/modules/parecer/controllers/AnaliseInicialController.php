@@ -50,7 +50,6 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
         } catch (Exception $objException) {
             parent::message($objException->getMessage(), "/{$this->moduleName}/analise-inicial/index");
         }
-
     }
 
     public function obterServicoDocumentoAssinatura()
@@ -119,8 +118,8 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
 
         $this->view->qtdRegistro = count($resp);
         $this->view->situacao = $situacao;
-        /* $this->view->buscar = $paginator; */
-        $this->view->buscar = $resp;
+        $this->view->buscar = $paginator;
+//        $this->view->buscar = $resp;
     }
 
 
@@ -200,6 +199,7 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
         /* $dadosProjetoProduto = $projetos->dadosFechar($this->getIdUsuario, $idPronac, $idDistribuirParecer); */
         $dadosProjetoProduto = $projetos->dadosFechar($this->idUsuario, $idPronac, $idDistribuirParecer);
         $this->view->dados = $dadosProjetoProduto;
+        /* var_dump($dadosProjetoProduto); */
 
         $this->view->IN2017 = $projetos->verificarIN2017($idPronac);
 

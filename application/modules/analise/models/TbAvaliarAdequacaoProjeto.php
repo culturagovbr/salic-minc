@@ -12,10 +12,6 @@ class Analise_Model_TbAvaliarAdequacaoProjeto extends MinC_Db_Model
     protected $_stAvaliacao;
     protected $_stEstado;
 
-    const ENVIADO_AO_MINC = 0;
-    const ADEQUACAO_APROVADA = 1;
-    const ADEQUACAO_NAO_APROVADA = 2;
-
     /**
      * @return mixed
      */

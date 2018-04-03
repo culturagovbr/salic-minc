@@ -807,9 +807,6 @@ class UploadController extends MinC_Controller_Action_Abstract
         }
     }
 
-    /**
-     * @todo mover este metodo para a classe generica, pode ser usado em outros lugares
-     */
     public function faseDoProjeto($idPronac)
     {
         if (!empty($idPronac)) {

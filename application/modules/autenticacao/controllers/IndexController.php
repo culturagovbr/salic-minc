@@ -350,7 +350,7 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
     {
 
         // autenticacao proponente (Novo Salic)
-        parent::perfil(4);
+        //parent::perfil(4);
 
         /* ========== INICIO ID DO USUARIO LOGADO ========== */
         $auth = (array)Zend_Auth::getInstance()->getIdentity();

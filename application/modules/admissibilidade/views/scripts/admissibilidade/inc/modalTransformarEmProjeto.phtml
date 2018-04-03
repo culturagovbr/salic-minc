@@ -27,6 +27,7 @@
                 $.post('<?php echo $this->baseUrl(); ?>/admissibilidade/admissibilidade/transformar-proposta-em-projeto?idPreProjeto=' + idPreProjeto,
                     {},
                     function (response) {
+//console.log(response);
                         var resposta = response.sucesso;
                         if(response.hasOwnProperty("erro")){
                             resposta = response.erro;

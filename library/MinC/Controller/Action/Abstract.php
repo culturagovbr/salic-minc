@@ -37,7 +37,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
         //$auth = Zend_Auth::getInstance();
 
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
-        $arrAuth = array_change_key_case((array)$auth->getIdentity());
+        $arrAuth = array_change_key_case((array) $auth->getIdentity());
 
         $this->_msg = $this->_helper->getHelper('FlashMessenger');
         $this->_url = $this->_helper->getHelper('Redirector');
@@ -150,7 +150,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
         # Convertendo os objetos da sessao em array, transformando as chaves em minusculas.
         $auth = Zend_Auth::getInstance();
         $objIdentity = $auth->getIdentity();
-        $arrAuth = array_change_key_case((array)$objIdentity);
+        $arrAuth = array_change_key_case((array) $objIdentity);
 
         $objModelUsuario = new Autenticacao_Model_Usuario(); // objeto usuario
         $UsuarioAtivo = new Zend_Session_Namespace('UsuarioAtivo'); // cria a sessao com o usuario ativo
@@ -195,19 +195,19 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 );
 
             }
-            # autenticacao e permissoes zend (AMBIENTE MINC)
+        # autenticacao e permissoes zend (AMBIENTE MINC)
         } else if ($tipo === 1) {
             # Caso o usuario esteja autenticado
             if ($auth->hasIdentity()) {
-                if (empty($permissoes)) {
-                    return $this->_helper->redirector->goToRoute(
-                        array(
-                            'controller' => 'index',
-                            'action' => 'logout',
-                            'module' => 'autenticacao'
-                        ),
-                        null,
-                        true);
+                if(empty($permissoes)) {
+                   return $this->_helper->redirector->goToRoute(
+                       array(
+                           'controller' => 'index',
+                           'action' => 'logout',
+                           'module' => 'autenticacao'
+                       ),
+                       null,
+                       true);
                 }
 
                 # Verifica se o grupo ativo esta no array de permissoes
@@ -225,7 +225,9 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 $this->view->arrayGrupos = $grupos; // manda todos os grupos do usu?rio para a vis?o
                 $this->view->grupoAtivo = $GrupoAtivo->codGrupo; // manda o grupo ativo do usu?rio para a vis?o
                 $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o ?rg?o ativo do usu?rio para a vis?o
-            } else {
+            }
+            else
+            {
                 return $this->_helper->redirector->goToRoute(
                     array(
                         'controller' => 'index',
@@ -238,7 +240,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 );
             }
 
-            # autenticacao scriptcase (AMBIENTE PROPONENTE)
+        # autenticacao scriptcase (AMBIENTE PROPONENTE)
         } else if ($tipo == 2) {
             // configuracoes do layout padr?o para o scriptcase
             Zend_Layout::startMvc(array('layout' => 'layout_scriptcase'));
@@ -267,7 +269,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "index", "ALERT");
             }
 
-            # autenticacao scriptcase e autenticacao/permissao zend (AMBIENTE PROPONENTE E MINC)
+        # autenticacao scriptcase e autenticacao/permissao zend (AMBIENTE PROPONENTE E MINC)
         } else if ($tipo == 3) {
 
             // ========== INICIO AUTENTICACAO SCRIPTCASE ==========
@@ -294,7 +296,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                     $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "index", "ALERT");
                 }
                 // ========== FIM AUTENTICACAO SCRIPTCASE ==========
-            } else {
+            } else  {
                 // ========== INICIO AUTENTICACAO ZEND ==========
                 # Caso o usuario nao esteja autenticado pelo scriptcase
 
@@ -319,7 +321,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
 
         } else if ($tipo == 4) {
             # autenticacao migracao e autenticacao/permissao zend (AMBIENTE DE MIGRACAO E MINC)
-            $codUsuario = isset($arrAuth['idusuario']) ? (int)$arrAuth['idusuario'] : $UsuarioAtivo->codusuario;
+            $codUsuario = isset($arrAuth['idusuario']) ? (int) $arrAuth['idusuario'] : $UsuarioAtivo->codusuario;
 
             if (isset($codUsuario) && !empty($codUsuario)) {
 
@@ -344,7 +346,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 # caso o usuario nao esteja autenticado pelo scriptcase
                 # verifica se o grupo ativo esta no array de permissoes
 
-                if (!$objIdentity) {
+                if(!$objIdentity) {
                     return self::perfil(0, $permissoes);
                 } else {
                     if (!in_array($GrupoAtivo->codGrupo, $permissoes)) {
@@ -612,13 +614,13 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
      * @param int
      * @return mixed
      */
-    public function verificarPermissaoAcesso($idPreProjeto = null, $idProjeto = null, $administrativo = false, $callback = false)
+    public function verificarPermissaoAcesso($idPreProjeto = null, $idProjeto = null, $administrativo = false, $callback=false)
     {
         $msgERRO = "Usu&aacute;rio com permiss&atilde;o";
         $permissao = 0;
         $auth = Zend_Auth::getInstance()->getIdentity();
 
-        $arrAuth = array_change_key_case((array)$auth);
+        $arrAuth = array_change_key_case((array) $auth);
         if (!isset($arrAuth['usu_codigo'])) {
             $idUsuarioLogado = $arrAuth['idusuario'];
 
@@ -655,14 +657,14 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
             // exibe a msg de alerta ou retorna um array
             if (!$permissao) {
 
-                if ($callback) {
+                if( $callback ) {
                     return ['status' => false, 'msg' => $msgERRO];
                 }
 
                 $this->message($msgERRO, 'principalproponente', 'ALERT');
             }
 
-            if ($callback) {
+            if( $callback ) {
                 return ['status' => true, 'msg' => $msgERRO];
             }
         }
@@ -692,7 +694,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idPlanilhaProposta'] = $resuplanilha->idPlanilhaProposta;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Item'] = $resuplanilha->Item;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['vlSolicitado'] = $resuplanilha->vlSolicitado;
-                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['JustProponente'] = $resuplanilha->JustProponente;
+                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['JustProponente'] =$resuplanilha->JustProponente;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['QtdeDias'] = $resuplanilha->QtdeDias;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Quantidade'] = $resuplanilha->Quantidade;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Ocorrencia'] = $resuplanilha->Ocorrencia;
@@ -798,7 +800,6 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['QtdeDias'] = $resuplanilha->QtdeDias;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['dsJustificativa'] = $resuplanilha->dsJustificativa;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idAgente'] = $resuplanilha->idAgente;
-                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['tpAcao'] = $resuplanilha->tpAcao;
                 $count++;
                 $seq++;
             }
@@ -839,8 +840,8 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
             $arrayOAuth = $objIdentity->auth['raw'];
             $objSGCacesso = new Autenticacao_Model_Sgcacesso();
             $arraySGCacesso = $objSGCacesso->findBy(array("cpf" => $arrayOAuth['cpf']));
-            if ($arraySGCacesso) {
-                if (!$arraySGCacesso['id_login_cidadao']) {
+            if($arraySGCacesso) {
+                if(!$arraySGCacesso['id_login_cidadao']) {
                     $arraySGCacesso['id_login_cidadao'] = $arrayOAuth['id'];
                     $objSGCacesso->salvar($arraySGCacesso);
                 }
@@ -887,8 +888,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
      * @throws Exception
      * @return void
      */
-    public function postRedirector($url, array $data, array $headers = null)
-    {
+    public function postRedirector($url, array $data, array $headers = null) {
         $params = array(
             'http' => array(
                 'method' => 'POST',
@@ -919,42 +919,24 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
     protected function getOPAuthConfiguration()
     {
         $oauthConfigArray = Zend_Registry::get("config")->toArray();
-        if ($oauthConfigArray && $oauthConfigArray['OAuth']['servicoHabilitado'] == true) {
+        if($oauthConfigArray && $oauthConfigArray['OAuth']['servicoHabilitado'] == true) {
             return $oauthConfigArray['OAuth'];
         }
     }
 
-    protected function abrirDocumento($idDocumento)
-    {
-        // Configuracao o php.ini para 10MB
-        @ini_set("mssql.textsize", 10485760);
-        @ini_set("mssql.textlimit", 10485760);
-        @ini_set("upload_max_filesize", "10M");
+    /**
+     * @param $objects
+     * @return array
+     * @deprecated Utilizar funcao com o nome converterObjetosParaArray localizada em FuncoesGerais.php
+     */
+    protected function objectsToArray($objects){
 
-        try {
-            $tbDocumento = new Arquivo_Model_DbTable_TbDocumento();
-            $resultado = $tbDocumento->abrir($idDocumento);
-
-            $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
-            $this->_helper->viewRenderer->setNoRender();    // Desabilita o Zend Render
-            Zend_Layout::getMvcInstance()->disableLayout(); // Desabilita o Zend MVC
-            $this->_response->clearBody();                  // Limpa o corpo html
-            $this->_response->clearHeaders();               // Limpa os headers do Zend
-
-            if (!$resultado) {
-                throw new Exception("O documento n&atilde;o existe!");
-            } else {
-                foreach ($resultado as $r) {
-                    $this->getResponse()
-                        ->setHeader('Content-Type', $r->dsTipoPadronizado)
-                        ->setHeader('Content-Disposition', 'attachment; filename="' . $r->nmArquivo . '"')
-                        ->setBody($r->biArquivo);
-                }
-            }
-
-        } catch (Exception $e) {
-            throw $e;
+        foreach($objects as $object)
+        {
+            $itens[] = get_object_vars( $object );
         }
+        return $itens;
+
     }
 
     function getBodyClass($class = '') {

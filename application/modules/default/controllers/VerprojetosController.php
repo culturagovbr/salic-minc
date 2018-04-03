@@ -945,8 +945,8 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
             $pronac = $rsProjeto->AnoProjeto.$rsProjeto->Sequencial;
             $this->view->projeto = $rsProjeto;
 
-            $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-            $dadosReadequacoes = $Readequacao_Model_tbReadequacao->buscarDadosReadequacoes(array('a.idPronac = ?'=>$idPronac, 'a.siEncaminhamento <> ?'=>12))->toArray();
+            $tbReadequacao = new tbReadequacao();
+            $dadosReadequacoes = $tbReadequacao->buscarDadosReadequacoes(array('a.idPronac = ?'=>$idPronac, 'a.siEncaminhamento <> ?'=>12))->toArray();
 
             $tbReadequacaoXParecer = new tbReadequacaoXParecer();
             foreach ($dadosReadequacoes as &$dr) {
@@ -2314,7 +2314,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
             $tblAgente = new Agente_Model_DbTable_Agentes();
             $rsAgente = $tblAgente->buscar(array('CNPJCPF=?'=>$auth->getIdentity()->Cpf))->current();
 
-            $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
+            $tbReadequacao = new tbReadequacao();
             $dadosReadequacao = array();
             $dadosReadequacao['idPronac'] = $idPronac;
             $dadosReadequacao['idTipoReadequacao'] = 1;
@@ -2324,7 +2324,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
             $dadosReadequacao['stAtendimento'] = 'D';
             $dadosReadequacao['siEncaminhamento'] = 11;
             $dadosReadequacao['stEstado'] = 0;
-            $idReadequacao = $Readequacao_Model_tbReadequacao->inserir($dadosReadequacao);
+            $idReadequacao = $tbReadequacao->inserir($dadosReadequacao);
 
             /*if($idReadequacao > 0){
                 $tbReadequacaoXtbTipoReadequacao = new tbReadequacaoXtbTipoReadequacao();

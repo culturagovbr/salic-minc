@@ -11,8 +11,8 @@ class ReadequacoesControllerTest extends MinC_Test_ControllerActionTestCase
     {
         parent::setUp();
         
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $this->idPronac = $Readequacao_Model_tbReadequacao->buscarIdPronacReadequacaoEmAndamento(Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
+        $tbReadequacao = new tbReadequacao();
+        $this->idPronac = $tbReadequacao->buscarIdPronacReadequacaoEmAndamento(tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
 
         $projetos = new Projetos();
         
@@ -88,8 +88,8 @@ class ReadequacoesControllerTest extends MinC_Test_ControllerActionTestCase
      */    
     public function testPlanilhaOrcamentariaCondicoesNaoSatisfeitas()
     {
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $possuiReadequacao = $Readequacao_Model_tbReadequacao->existeReadequacaoEmAndamento($this->idPronac);
+        $tbReadequacao = new tbReadequacao();
+        $possuiReadequacao = $tbReadequacao->existeReadequacaoEmAndamento($this->idPronac);
         
         $this->assertTrue($possuiReadequacao);
 

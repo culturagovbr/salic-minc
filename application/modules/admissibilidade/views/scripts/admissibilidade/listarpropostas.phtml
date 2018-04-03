@@ -1,142 +1,135 @@
 <div class="container-fluid">
-    <div class="page-title">
-        <div class="row">
-            <div class="col s12 m9 l10">
-                <h1>Admissibilidade de propostas</h1>
-                <?php
-                $links = [
-                    [
-                        'Admissibilidade de propostas' => [
-                            'controller' => 'admissibilidade',
-                            'action' => 'listar-propostas'
-                        ]
-                    ]
-                ];
-                gerarBreadCrumb($links, 'migalhas');
-                ?>
-            </div>
-            <div class="col s12 m3 l2 right-align">
-                <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
-                   class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">keyboard_return</i>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="content">
-        <div class="container-fluid">
-            <input type="hidden" id="perfil_atual" value="<?php echo $this->grupo ?>"/>
-            <input type="hidden" id="perfil_tecnico_admissibilidade"
-                   value="<?php echo Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE ?>"/>
-            <input type="hidden" id="perfil_coordenador_admissibilidade"
-                   value="<?php echo Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE ?>"/>
-            <input type="hidden" id="perfil_componente_comissao"
-                   value="<?php echo Autenticacao_Model_Grupos::COMPONENTE_COMISSAO ?>"/>
-            <input type="hidden" id="liberar_encaminhamento"
-                   value="<?php echo ($this->liberarEncaminhamento === true) ? 'sim' : 'nao' ?>"/>
-            <input type="hidden" id="base_url"
-                   value="<?php echo $this->baseUrl() ?>"/>
-            <input id="PROPOSTA_EM_ANALISE_FINAL" type="hidden"
-                   value="<?php echo Agente_Model_DbTable_Verificacao::PROPOSTA_EM_ANALISE_FINAL ?>">
-            <div class="row">
-                <div class="col s12 m12 l12">
-                    <form method="POST" id="formGerarPdf" name="formGerarPdf"
-                          action="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'gerarpdf')); ?>"
-                          target="gerarPDF" style="display:none">
-                        <textarea name="html" id="conteudoImprimir"></textarea>
-                    </form>
-<!--
-                    <div class="row">
-                        <div class="col s12">
-                            <a class="waves-effect waves-light btn filtro-avaliacao">Todas</a>
-                            <a class="waves-effect waves-light btn filtro-avaliacao" data-filtro="inicial">Inicial</a>
-                            <a class="waves-effect waves-light btn filtro-avaliacao" data-filtro="reavaliacao">Reavalia&ccedil;&atilde;o</a>
-                            <a class="waves-effect waves-light btn filtro-avaliacao"
-                               data-filtro="vinculada">Vinculada</a>
-                            <a class="waves-effect waves-light btn filtro-avaliacao" data-filtro="avaliada">Avaliada</a>
-                            <input type="hidden" id="filtro" value=""/>
-                        </div>
-                    </div>
--->
-                    <table>
-                        <tr>
-                            <td class="center-align">
-                                <button class="black-text btn waves-effect waves-dark white tooltipped"
-                                        data-tooltip="Imprimir"
-                                        name="imprimir" id="imprimir" type="button">
-                                    Imprimir<i class="material-icons right">print</i>
-                                </button>
-                            </td>
-                        </tr>
-                    </table>
-                    <!-- ============ ANALISE Unificada  ============== -->
-                    <table class="bordered striped conteudoImprimivel" id="tabelaAnaliseFinal">
-                        <thead>
-                        <tr>
-                            <th class="tooltipped" data-position="top" data-delay="50"
-                                data-tooltip="Clique aqui para ordenar">Nr. Proposta
-                            </th>
-                            <th class="tooltipped" data-position="top" data-delay="50"
-                                data-tooltip="Clique aqui para ordenar">Nome da Proposta
-                            </th>
-                            <th>Dt. Admiss&atilde;o</th>
-                            <th>Dias em An&aacute;lise</th>
-                            <?php if ($this->grupo != Autenticacao_Model_Grupos::COMPONENTE_COMISSAO): ?>
-                                <th>Outras Propostas</th>
-                                <th>T&eacute;cnico</th>
-                                <th>Analisado</th>
-                            <?php else: ?>
-                                <th class="tooltipped" data-position="top" data-delay="50"
-                                    data-tooltip="Dias restantes para avalia&ccedil;&atilde;o">
-                                    Dias Restantes
-                                </th>
-                            <?php endif; ?>
-                            <th>&Aacute;rea</th>
-                            <th>Segmento</th>
-                            <th>Enquadramento</th>
-                            <th>Analisar</th>
-                        </tr>
-                        </thead>
-                        <tbody>
+    <input type="hidden" id="perfil_atual" value="<?php echo $this->grupo ?>"/>
+    <input type="hidden" id="perfil_tecnico_admissibilidade"
+           value="<?php echo Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE ?>"/>
+    <input type="hidden" id="perfil_coordenador_admissibilidade"
+           value="<?php echo Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE ?>"/>
+    <input type="hidden" id="perfil_componente_comissao"
+           value="<?php echo Autenticacao_Model_Grupos::COMPONENTE_COMISSAO ?>"/>
+    <input type="hidden" id="liberar_encaminhamento"
+           value="<?php echo ($this->liberarEncaminhamento === true) ? 'sim' : 'nao' ?>"/>
+    <input type="hidden" id="base_url"
+           value="<?php echo $this->baseUrl() ?>"/>
+    <input id="PROPOSTA_EM_ANALISE_FINAL" type="hidden"
+           value="<?php echo Agente_Model_DbTable_Verificacao::PROPOSTA_EM_ANALISE_FINAL ?>">
+    <div class="row">
+        <?php echo $this->partial("admissibilidade/inc/menu.inc.php", $this); ?>
+        <div class="col s10 m10 l10">
+            <h4>Admissibilidade de propostas</h4>
+            <form method="POST" id="formGerarPdf" name="formGerarPdf"
+                  action="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'gerarpdf')); ?>"
+                  target="gerarPDF" style="display:none">
+                <textarea name="html" id="conteudoImprimir"></textarea>
+            </form>
+            <table>
+                <tr>
+                    <td class="center-align">
+                        <button class="black-text btn waves-effect waves-dark white tooltipped" data-tooltip="Imprimir"
+                                name="imprimir" id="imprimir" type="button">
+                            Imprimir<i class="material-icons right">print</i>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <!-- ============ ANALISE Unificada  ============== -->
+            <table class="bordered striped conteudoImprimivel" id="tabelaAnaliseFinal">
+                <thead>
+                <tr>
+                    <th class="tooltipped" data-position="top" data-delay="50" data-tooltip="Clique aqui para ordenar">Nr. Proposta</th>
+                    <th class="tooltipped" data-position="top" data-delay="50" data-tooltip="Clique aqui para ordenar">Nome da Proposta</th>
+                    <th>Dt. Admiss&atilde;o</th>
+                    <th>Dias em An&aacute;lise</th>
+                    <?php if ($this->grupo != Autenticacao_Model_Grupos::COMPONENTE_COMISSAO): ?>
+                        <th>Outras Propostas</th>
+                        <th>T&eacute;cnico</th>
+                        <th>Analisado</th>
+                    <?php else: ?>
+                        <th class="tooltipped" data-position="top" data-delay="50" data-tooltip="Dias restantes para avalia&ccedil;&atilde;o">
+                            Dias Restantes
+                        </th>
+                    <?php endif; ?>
+                    <th>Enquadrado</th>
+                    <th>Analisar</th>
+                    <?php
+                    if ($this->liberarEncaminhamento === true) : ?>
+                        <th>Encaminhar</th>
                         <?php
-                        $cor = 'style = "color: #FF0000"';
-                        if ($propostaFinal->diasCorridos < 11) {
-                            $cor = 'style = "color: #228B22"';
-                        } else if ($propostaFinal->diasCorridos > 10 && $propostaFinal->diasCorridos < 21) {
-                            $cor = 'style = "color: #FFD700"';
-                        }
-                        ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                    endif;
+                    ?>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                $cor = 'style = "color: #FF0000"';
+                if ($propostaFinal->diasCorridos < 11) {
+                    $cor = 'style = "color: #228B22"';
+                } else if ($propostaFinal->diasCorridos > 10 && $propostaFinal->diasCorridos < 21) {
+                    $cor = 'style = "color: #FFD700"';
+                }
+                ?>
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
+</div>
 
-    <div id="modalTransformarProposta" class="modal modal-fixed-footer">
+<div id="modalTransformarProposta" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h5>Deseja Transformar a proposta Nr. <span id="idPreProjeto"></span>, em Projeto?</h5>
+    </div>
+    <div class="modal-footer">
+        <button class="btn waves-effect waves-light "
+                id="botaoTransformarPropostaEmProjeto"
+                type="button">
+            Sim
+        </button>
+        <a class="btn waves-effect waves-dark red-text white modal-close">
+            Cancelar
+        </a>
+    </div>
+</div>
+
+<div id="dialogEncaminharProposta" class="modal bottom-sheet">
+    <form method="post"
+          action="<?php echo $this->url(
+              [
+                  'module' => 'admissibilidade',
+                  'controller' => 'distribuicao-avaliacao-proposta',
+                  'action' => 'encaminhar-proposta-ajax'
+              ]
+          ); ?>" onsubmit="return false">
         <div class="modal-content">
-            <h5>Deseja Transformar a proposta Nr. <span id="idPreProjeto"></span>, em Projeto?</h5>
+            <h4>Proposta Nr. <span id="span_id_preprojeto"></span> - Encaminhar Avalia&ccedil;&atilde;o</h4>
+            <div class="input-field col s12" style="margin-top: 35px">
+                <select id="id_perfil" name="id_perfil">
+                    <?php foreach ($this->perfis as $perfil) { ?>
+                        <option value="<?php echo $perfil['gru_codigo'] ?>"><?php echo $perfil['gru_nome'] ?></option>
+                    <?php } ?>
+                </select>
+                <label>Selecione o pr&oacute;ximo perfil avaliador</label>
+            </div>
         </div>
         <div class="modal-footer">
-            <button class="btn waves-effect waves-light "
-                    id="botaoTransformarPropostaEmProjeto"
-                    type="button">
-                Sim
-            </button>
+
+            <input type="hidden" id="id_preprojeto" name="id_preprojeto"/>
             <a class="btn waves-effect waves-dark red-text white modal-close">
                 Cancelar
             </a>
+            <button class="btn waves-effect waves-light "
+                    id="botaoEnviarAvaliacaoProposta"
+                    type="button">
+                Enviar
+            </button>
         </div>
-    </div>
-
-    <br clear="all"/>
-    <iframe name="gerarPDF" style="display: none;"></iframe>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"
-            integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>
-    <script type="text/javascript"
-            src="<?php echo $this->baseUrl(); ?>/public/js/admissibilidade/admissibilidade/listarpropostas.js"></script>
-
+    </form>
 </div>
+<br clear="all"/>
+<iframe name="gerarPDF" style="display: none;"></iframe>
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>
+<script type="text/javascript"
+        src="<?php echo $this->baseUrl(); ?>/public/js/admissibilidade/admissibilidade/listarpropostas.js"></script>
+

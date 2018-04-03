@@ -130,10 +130,7 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
         $fim = $inicio + $this->intTamPag;
         $totalPag = (int)(($total % $this->intTamPag == 0) ? ($total / $this->intTamPag) : (($total / $this->intTamPag) + 1));
         $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
-        /* $busca = $tbDistribuirParecer->painelAnaliseTecnica($where, $order, $tamanho, $inicio, false, $tipoFiltro); */
-
-        // teste
-        $busca = $tbDistribuirParecer->painelAnaliseTecnica($where, $order, null, null, false, $tipoFiltro);
+        $busca = $tbDistribuirParecer->painelAnaliseTecnica($where, $order, $tamanho, $inicio, false, $tipoFiltro);
 
         $checarValidacaoSecundarios = array();
         foreach ($busca as $chave => $item) {

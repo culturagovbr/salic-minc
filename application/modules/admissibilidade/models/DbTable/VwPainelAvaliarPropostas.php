@@ -135,30 +135,9 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
                     and sugestao_enquadramento.id_perfil_usuario = {$distribuicaoAvaliacaoProposta->getIdPerfil()}"
             , [
                 'sugestao_enquadramento.id_area',
-                'sugestao_enquadramento.id_segmento',
                 'sugestao_enquadramento.id_sugestao_enquadramento',
             ]
             , $this->getSchema('sac')
-        );
-        $select->joinLeft(
-            ['Segmento'],
-            'Segmento.Codigo = sugestao_enquadramento.id_segmento',
-            [
-                'enquadramento' => new Zend_Db_Expr(
-                    "CASE WHEN Segmento.tp_enquadramento = 1 THEN 'Artigo 26' "
-                    . " WHEN Segmento.tp_enquadramento = 2 THEN 'Artigo 18' END"
-                ),
-                'descricao_segmento' => 'Segmento.Descricao'
-            ],
-            $this->getSchema('sac')
-        );
-        $select->joinLeft(
-            ['Area'],
-            'Area.Codigo = sugestao_enquadramento.id_area',
-            [
-                'descricao_area' => 'Area.Descricao'
-            ],
-            $this->getSchema('sac')
         );
         if ($distribuicaoAvaliacaoProposta->getIdPerfil() == Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE
             || $distribuicaoAvaliacaoProposta->getIdPerfil() == Autenticacao_Model_Grupos::COMPONENTE_COMISSAO) {

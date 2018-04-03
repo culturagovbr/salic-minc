@@ -11,7 +11,7 @@ class EmailDAO extends Zend_Db_Table
         $mail = new Zend_Mail();
 
         $mail->setBodyHtml($texto);
-        $mail->setFrom($emailDefault['email'], 'Salic');
+        $mail->setFrom($emailDefault['email'], 'Salic BR');
         $mail->addTo($email);
         $mail->setSubject($assunto);
         return $mail->send($transport);

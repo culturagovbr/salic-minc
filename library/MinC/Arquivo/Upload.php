@@ -607,7 +607,7 @@ class Upload
 		$extensao = str_replace('\'', '', $extensao[0]);
 
 		return $extensao;
-	}
+	} // fecha getExtensao()
 
 
 
@@ -625,7 +625,7 @@ class Upload
 		$arquivo       = "0x".$arquivoData['hex'];
 
 		return $arquivo;
-	}
+	} // fecha setBinario()
 
 
 

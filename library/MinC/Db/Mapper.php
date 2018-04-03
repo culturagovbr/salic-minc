@@ -45,6 +45,7 @@ class MinC_Db_Mapper
         return $this;
     }
 
+
     public function setDbTable($dbTable)
     {
         if (!$this->_dbTable && is_string($dbTable)) {
@@ -162,29 +163,22 @@ class MinC_Db_Mapper
 //            $data = array_filter($model->toArray(), 'strlen');
             $data = array_filter($model->toArray(), function($value){return ($value !== null);});
 //            $data = array_filter($model->toArray());($model->toArray());
-            try {
-                if ($table->getSequence()) {
-                    unset($data[$pk]);
-                    if (empty($pkValue)) {
-                        return $table->insert($data);
-                    } else {
-                        $data = array_change_key_case($data, CASE_LOWER); // Por causa do IdPronac e idPronac foi preciso fazer essa implementacao.
-                        unset($data[strtolower($pk)]); 
-                        $table->update($data, array($pk . ' = ?' => $pkValue));
-                        return $pkValue;
-                    }
+
+            if ($table->getSequence()) {
+                unset($data[$pk]);
+                if (empty($pkValue)) {
+                    return $table->insert($data);
                 } else {
-                    $row = $table->find($pkValue)->current();
-                    if (!$row) $row = $table->createRow();
-                    unset($data[$pk]);
-                    $row->setFromArray($data)->save();
+                    $table->update($data, array($pk . ' = ?' => $pkValue));
                     return $pkValue;
                 }
-            } catch (Exception $e) {
-                $this->setMessage($e->getMessage());
+            } else {
+                $row = $table->find($pkValue)->current();
+                if (!$row) $row = $table->createRow();
+                $row->setFromArray($data)->save();
+                return $pkValue;
             }
-        } else {
-            return false;
+
         }
     }
 

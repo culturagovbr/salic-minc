@@ -58,10 +58,6 @@ $arrMenu['analise']['menu'][] = array('label' => 'Gerenciar Componente da Comiss
     'url' => $this->url(array('controller' => 'projetosgerenciar', 'action' => 'index'), '', true),
     'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_ANALISE,148,151)
 );
-$arrMenu['analise']['menu'][] = array('label' => 'Homologar Projetos', 'title' => 'Ir para Homologa&ccedil;&atilde;o dos Projetos',
-    'url' => $this->url(array('module' => 'projeto', 'controller' => 'homologacao', 'action' => 'index'), '', true),
-    'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_ANALISE,148,151)
-);
 $arrMenu['analise']['menu'][] = array('label' => 'Gerar Termo de Decis&atilde;o', 'title' => 'Ir para Gerar Termo de Decis&atilde;o',
     'url' => $this->url(array('controller' => 'gerartermodeaprovacao', 'action' => 'index'), '', true),
     'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_ANALISE,Autenticacao_Model_Grupos::TECNICO_ANALISE,Autenticacao_Model_Grupos::COORDENADOR_CNIC,Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO)

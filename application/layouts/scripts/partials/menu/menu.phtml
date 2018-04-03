@@ -58,18 +58,6 @@ $arrMenuProponente['projeto']['menu'][] = array('label' => 'Listar Projetos', 't
     'url' => $this->url(array('controller' => 'listarprojetos', 'action' => 'index'), '', true),
     'grupo' => array()
 );
-$arrMenuProponente['solicitacoes'] = array(
-    'id' => 'solicitacoes',
-    'label' => 'Solicita&ccedil;&otilde;es',
-    'title' => 'Ir para Solicitacoes',
-    'menu' => array(),
-    'grupo' => []
-);
-$arrMenuProponente['solicitacoes']['menu'][] = [
-    'label' => 'Listar Solicita&ccedil;&otilde;es', 'title' => 'Ir para Listar Solicita&ccedil;&otilde;es',
-    'url' => $this->url(['module' => 'solicitacao', 'controller' => 'mensagem', 'action' => 'index'], null, true),
-    'grupo' => []
-];
 // ========== FIM MENU PROJETO ==========
 // ========== INICIO MENU PROTOCOLO ==========
 $arrMenuProponente['usuario'] = array(
@@ -139,27 +127,6 @@ $arrMenu['assinatura']['menu'][] = array(
         ), '', true),
     'title' => 'Ir para Gerir Atos Administrativos',
     'label' => 'Gerir Atos Administrativos'
-);
-
-// ========== INICIO MENU ATENDIMENTO ==========
-$arrMenu['atendimento'] = array(
-    'id' => 'atendimento',
-    'label' => 'Atendimento',
-    'title' => 'Ir para Assinatura',
-    'menu' => array(),
-    'grupo' => [Autenticacao_Model_Grupos::TECNICO_DE_ATENDIMENTO]
-);
-
-$arrMenu['atendimento']['menu'][] = array(
-    'url' => $this->url(
-        array(
-            'module' => 'solicitacao',
-            'controller' => 'mensagem',
-            'action' => 'index'
-        ), '', true),
-    'title' => 'Ir para Solicita&ccedil;&otilde;es',
-    'label' => 'Solicita&ccedil;&otilde;es Proponente',
-    'grupo' => [Autenticacao_Model_Grupos::TECNICO_DE_ATENDIMENTO]
 );
 
 $arrMenu['acompanhamento'] = array(
@@ -454,35 +421,12 @@ $arrMenu['admissibilidade']['menu'][] = array(
     'title' => 'Ir para Encaminhar para assinatura',
     'label' => 'Encaminhar para assinatura'
 );
-
 $arrMenu['admissibilidade']['menu'][] = array(
     'grupo' => array(92, 131),
     'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'desarquivarpropostas')),
     'title' => 'Desarquivar Proposta',
     'label' => 'Desarquivar Proposta'
 );
-
-$arrMenu['admissibilidade']['menu'][] = [
-    'grupo' => [
-        Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE,
-        Autenticacao_Model_Grupos::GESTOR_SALIC,
-        Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE,
-        Autenticacao_Model_Grupos::COMPONENTE_COMISSAO,
-        Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE,
-    ],
-    'url' => $this->url(
-        [
-            'module' => 'admissibilidade',
-            'controller' => 'admissibilidade',
-            'action' => 'alterarunianalisepropostaconsulta'
-        ],
-        '',
-        true
-    ),
-    'title' => 'Ir para Alterar Unidade da an&aacute;lise da Proposta',
-    'label' => 'Alterar Uni. da an&aacute;lise da Proposta'
-];
-
 $arrMenu['admissibilidade']['menu'][] = array(
     'grupo' => array(97, 131, 148, 151),
     'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'redistribuiranalise')),
@@ -645,22 +589,6 @@ $arrMenu['relatorios']['menu'][] = array(
     'title' => 'Ir para Listar Selecionados',
     'label' => 'Listar Selecionados'
 );
-
-
-
-
-$arrMenu['solicitacoes'] = array(
-    'id' => 'solicitacoes',
-    'label' => 'Solicita&ccedil;&otilde;es',
-    'title' => 'Ir para Solicitacoes',
-    'menu' => array(),
-    'grupo' => []
-);
-$arrMenu['solicitacoes']['menu'][] = [
-    'label' => 'Listar Solicita&ccedil;&otilde;es', 'title' => 'Ir para Listar Solicita&ccedil;&otilde;es',
-    'url' => $this->url(['module' => 'solicitacao', 'controller' => 'mensagem', 'action' => 'index'], null, true),
-    'grupo' => []
-];
 
 // ========== INICIO MENU ASSINATURA ==========
 //$arrMenu['assinatura'] = array(
@@ -884,17 +812,16 @@ if (isset ($auth['cpf'])) {
         <div class="nav-wrapper  container">
             <a id="menu-left" href="#" data-activates="sidenav" class="button-collapse left"><i class="material-icons">menu</i></a>
             <a id="menu-right" href="#" data-activates="nav-mobile" class="button-collapse right"><i
-                    class="material-icons">menu</i></a>
+                        class="material-icons">menu</i></a>
 
             <ul class="left hide-on-med-and-down">
                 <?php echo $this->partialLoop('partials/menu/item.phtml', $arrMenu); ?>
             </ul>
-            <ul class="menu-apoio right">
+            <ul class="right">
                 <?php echo $this->partial('partials/menu/notificacao-mensagem.phtml') ?>
-<!--                --><?php //echo $this->partial('partials/menu/notificacoes.phtml') ?>
-
-<!--                <li><a class="white-text" href="sass.html"><i class="material-icons">power_settings_new</i></a></li>-->
-<!--                <li><a class="white-text" href="mobile.html"><i class="material-icons">more_vert</i></a></li>-->
+                <!--                <li><a class="white-text" href="sass.html"><i class="material-icons">home</i></a></li>-->
+                <!--                <li><a class="white-text" href="sass.html"><i class="material-icons">power_settings_new</i></a></li>-->
+                <!--                <li><a class="white-text" href="mobile.html"><i class="material-icons">more_vert</i></a></li>-->
             </ul>
 
             <ul class="side-nav" id="nav-mobile">

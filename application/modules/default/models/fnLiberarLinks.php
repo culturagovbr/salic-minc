@@ -142,10 +142,10 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
         $Diligencia = ($vDiligencia->idDiligencia) ? 1 : 0;
 
         //Verificar se h� recurso @TODO FAZER ESSA PARTE E DEIXAR PRO FIM
-        $data = new Zend_Db_Expr("SELECT DATEDIFF(DAY, '$dadosProjeto->DtSituacao', GETDATE()) AS dado");
+        $data = new Zend_Db_Expr("SELECT DATEDIFF(DAY, '$dadosCnic->DtReuniao', GETDATE()) AS dado");
         $data = $db->fetchOne($data);
 
-        $situacoesRecurso = array('A14', 'A16', 'A17', 'A20', 'A23', 'A24', 'A41', 'A42', 'D02', 'D03','D14', 'D52');
+        $situacoesRecurso = array('A14', 'A16', 'A17', 'A20', 'A23', 'A24', 'A41', 'A42', 'D02', 'D03','D14');
 
         $recurso1 = $db->select()
            ->from(
@@ -307,13 +307,10 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             $SolicitarProrrogacao = 1;
             $Marcas = 1;
 
-
-            $objTbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();
-            $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-            $existeReadequacaoEmAndamento = $Readequacao_Model_tbReadequacao->existeReadequacaoEmAndamento($idPronac);
-            $existeReadequacaoPlanilhaEmEdicao = $Readequacao_Model_tbReadequacao->existeReadequacaoPlanilhaEmEdicao($idPronac);
-            $existeReadequacaoParcialEmEdicao = $Readequacao_Model_tbReadequacao->existeReadequacaoParcialEmEdicao($idPronac);
-            
+            $tbReadequacao = new tbReadequacao();
+            $existeReadequacaoEmAndamento = $tbReadequacao->existeReadequacaoEmAndamento($idPronac);
+            $existeReadequacaoPlanilhaEmEdicao = $tbReadequacao->existeReadequacaoPlanilhaEmEdicao($idPronac);
+            $existeReadequacaoParcialEmEdicao = $tbReadequacao->existeReadequacaoParcialEmEdicao($idPronac);
 
             if (!$existeReadequacaoEmAndamento && !$existeReadequacaoEmAndamento) {
                 $Readequacao_50 = 1;
@@ -400,12 +397,12 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
                         $this->_schema
                     )
                     ->where('a.idPronac = ?', $idPronac)
-                                  ->where('b.idTipoReadequacao = ?', Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA)
+                                  ->where('b.idTipoReadequacao = ?', tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA)
                                   ->where(
                                       'a.siEncaminhamento NOT IN (?)',
                                       array(
-                                          Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_INDEFERIDA,
-                                          Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_FINALIZADA_SEM_PORTARIA
+                                          tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_INDEFERIDA,
+                                          tbTipoEncaminhamento::SI_ENCAMINHAMENTO_FINALIZADA_SEM_PORTARIA
                                       )
                                   )
                     ->where('a.stEstado = ?', 0);
@@ -431,13 +428,6 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
             }
 
             $Fase = 5;
-        }
-
-        //Fases que não pode liberar menu Análise Técnica
-        if (in_array($dadosProjeto->Situacao, array('B11', 'B14', 'C10', 'C30', 'C20', 'D50', 'D51'))) {
-            $Analise = 0;
-        }else{
-            $Analise = 1;
         }
 
         $permissao = array('links'=>"$Permissao - $Fase - $Diligencia - $Recursos - $Readequacao - $ComprovacaoFinanceira - $RelatorioTrimestral - $RelatorioFinal - $Analise - $Execucao - $PrestacaoDeContas - $Readequacao_50 - $Marcas - $SolicitarProrrogacao - $ReadequacaoPlanilha");

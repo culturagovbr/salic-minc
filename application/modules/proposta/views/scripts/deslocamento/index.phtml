@@ -1,7 +1,7 @@
 <?php if (isset ($this->s)) { ?>
 
     <?php if (isset($this->id)) : ?>
-        <?php echo $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto));  // menu ?>
+        <?php echo $this->partial("inc/menu.phtml", $this); // menu ?>
     <?php endif; ?>
 <div class="container-fluid">
     <div class="row">

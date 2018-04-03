@@ -39,16 +39,3 @@ x - MENSAGENS
     color:#000;
     background:#f96 url(../img/msgERROR.png) 3px 3px no-repeat;
 }
-
-.message {
-    width: 100%;
-    text-align: center;
-}
-.message span {
-    text-align: center;
-    padding: 10px 10px;
-    display: inline-block;
-    color: #fff;
-    border-radius: 3px;
-    background-color: #323232;
-}

@@ -94,21 +94,19 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
      */
     public function dadospropostaeditalAction()
     {
-        $params = $this->getRequest()->getParams();
-
-        if (isset($params['idPreProjeto']) && !empty($params['idPreProjeto'])) {
+        if (isset($_REQUEST['idPreProjeto']) && !empty($_REQUEST['idPreProjeto'])) {
 
             /* ==== VERIFICA PERMISSAO DE ACESSO DO PROPONENTE A PROPOSTA OU AO PROJETO ====== */
             $this->verificarPermissaoAcesso(true, false, false);
 
-            $_SESSION['idPreProjeto'] = $params['idPreProjeto'];
+            $_SESSION['idPreProjeto'] = $_REQUEST['idPreProjeto'];
 
             $where = array();
             $where['p.stTipoDemanda NOT LIKE ?'] = 'NA';
             $where['NOT EXISTS (?)'] = new Zend_Db_Expr('select * from SAC.dbo.projetos pr where p.idPreProjeto = pr.idProjeto');
             $where['p.stestado = ?'] = 1;
             $where['fd.idClassificaDocumento not in (?)'] = array(23, 24, 25);
-            $where['p.idPreProjeto = ?'] = $params['idPreProjeto'];
+            $where['p.idPreProjeto = ?'] = $_REQUEST['idPreProjeto'];
 
             $tblPreProjeto = new Proposta_Model_DbTable_PreProjeto();
             $dados = $tblPreProjeto->buscarPropostaEditalCompleto($where);
@@ -176,7 +174,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
             $this->view->dadosVinculo = $rsVinculoP;
         } else {
             $dados = array();
-            if (isset($params['idAgente']) && !empty($params['idAgente'])) {
+            if (isset($_REQUEST['idAgente']) && !empty($_REQUEST['idAgente'])) {
                 $dados = ManterpropostaeditalDAO::buscarNomeAgente($_REQUEST);
             }
             if ($dados) {
@@ -206,34 +204,33 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
     public function inserirdadospropostaeditalAction()
     {
         $array = array('mensagem' => '');
-        $params = $this->getRequest()->getParams();
 
-        if ($params['idAgente'] && $params['idEdital'] && $params['nomeProjeto'] && $params['resumoProjeto']) {
+        if ($_REQUEST['idAgente'] && $_REQUEST['idEdital'] && $_REQUEST['nomeProjeto'] && $_REQUEST['resumoProjeto']) {
             try {
                 if (strlen(trim($_REQUEST['resumoProjeto'])) > 1000) {
                     $array['mensagem'] = 'Quantidade de caracteres maior que o permitido. Limite: 1000 caracteres.';
                     $array['tpmensagem'] = 'msgERROR';
-                    $this->_redirect('/manterpropostaedital/dadospropostaedital?idPreProjeto=' . $params['idPreProjeto'] . '&idAgente=' . $_REQUEST['idAgente'] . '&idEdital=' . $_REQUEST['idEdital'] . '&mensagem=' . $array['mensagem'] . '&tpmensagem=' . $array['tpmensagem']);
+                    $this->_redirect('/manterpropostaedital/dadospropostaedital?idPreProjeto=' . $_REQUEST['idPreProjeto'] . '&idAgente=' . $_REQUEST['idAgente'] . '&idEdital=' . $_REQUEST['idEdital'] . '&mensagem=' . $array['mensagem'] . '&tpmensagem=' . $array['tpmensagem']);
                 }
 
                 $array = array();
                 $array['Mecanismo'] = 2; // Adicionado, Edital deve ser Mecanismo 2
-                $array['idAgente'] = $params['idAgente'];
-                $array['idEdital'] = $params['idEdital'];
-                $array['AgenciaBancaria'] = $params['agencia'];
-                $datainicio = explode('/',$params['dtIniExec']);
+                $array['idAgente'] = $_REQUEST['idAgente'];
+                $array['idEdital'] = $_REQUEST['idEdital'];
+                $array['AgenciaBancaria'] = $_REQUEST['agencia'];
+                $datainicio = explode('/', $_REQUEST['dtIniExec']);
                 $array['DtInicioDeExecucao'] = $datainicio['2'].'-'.$datainicio['1'].'-'.$datainicio['0'];
-                $datafim = explode('/',$params['dtFimExec']);
+                $datafim = explode('/', $_REQUEST['dtFimExec']);
                 $array['DtFinalDeExecucao'] = $datafim['2'].'-'.$datafim['1'].'-'.$datafim['0'];
-                $array['NomeProjeto'] = TratarString::escapeString($params['nomeProjeto']);
+                $array['NomeProjeto'] = TratarString::escapeString($_REQUEST['nomeProjeto']);
                 $array['stTipoDemanda'] = 'ED';
-                $array['ResumoDoProjeto'] = trim(TratarString::escapeString($params['resumoProjeto']));
+                $array['ResumoDoProjeto'] = trim(TratarString::escapeString($_REQUEST['resumoProjeto']));
 
                 // Salvar o responsavel
                 $array['idUsuario'] = $this->idResponsavel;
 
-                if (isset($params['idPreProjeto']) ) {
-                    $array['idPreProjeto'] 	= $params['idPreProjeto'];
+                if (isset($_REQUEST['idPreProjeto'])) {
+                    $array['idPreProjeto'] 	= $_REQUEST['idPreProjeto'];
                     $dados = ManterpropostaeditalDAO::alterarDadosProposta($array);
                     $array['mensagem'] 		= 'Alteração realizada com sucesso!';
                     $array['tpmensagem'] 	= 'msgCONFIRM';
@@ -257,17 +254,16 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
                     $tbVinculoDAO 		  = new Agente_Model_DbTable_TbVinculo();
                     $tbVinculoPropostaDAO = new Agente_Model_DbTable_TbVinculoProposta();
 
-	                $whereVinculo['idUsuarioResponsavel = ?'] = $this->idResponsavel;
-	                $whereVinculo['idAgenteProponente   = ?'] = $params['idAgente'];
-	                $vinculo = $tbVinculoDAO->buscar($whereVinculo);
+                    $whereVinculo['idUsuarioResponsavel = ?'] = $this->idResponsavel;
+                    $whereVinculo['idAgenteProponente   = ?'] = $_REQUEST['idAgente'];
+                    $vinculo = $tbVinculoDAO->buscar($whereVinculo);
 
-	                if(count($vinculo) == 0)
-	                {
-						$dadosV = array( 'idAgenteProponente'		=> $params['idAgente'],
-	    				   				'dtVinculo' 				=> MinC_Db_Expr::date(),
-	    				   				'siVinculo' 				=> 2,
-	    				   				'idUsuarioResponsavel' 		=> $this->idResponsavel
-	    				);
+                    if (count($vinculo) == 0) {
+                        $dadosV = array( 'idAgenteProponente'		=> $_REQUEST['idAgente'],
+                                        'dtVinculo' 				=> MinC_Db_Expr::date(),
+                                        'siVinculo' 				=> 2,
+                                        'idUsuarioResponsavel' 		=> $this->idResponsavel
+                        );
 
                         $insere = $tbVinculoDAO->inserir($dadosV);
                     }
@@ -316,9 +312,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
      */
     public function responderquestionarioeditalAction()
     {
-        $params = $this->getRequest()->getParams();
-
-        if (isset($params['idPreProjeto'])) {
+        if (isset($_REQUEST['idPreProjeto'])) {
 
             /* ==== VERIFICA PERMISSAO DE ACESSO DO PROPONENTE A PROPOSTA OU AO PROJETO ====== */
             $this->verificarPermissaoAcesso(true, false, false);
@@ -328,7 +322,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
             $where['NOT EXISTS (?)'] = new Zend_Db_Expr('select * from SAC.dbo.projetos pr where p.idPreProjeto = pr.idProjeto');
             $where['p.stestado = ?'] = 1;
             $where['fd.idClassificaDocumento not in (?)'] = array(23, 24, 25);
-            $where['p.idPreProjeto = ?'] = $params['idPreProjeto'];
+            $where['p.idPreProjeto = ?'] = $_REQUEST['idPreProjeto'];
 
             $tblPreProjeto = new Proposta_Model_DbTable_PreProjeto();
             $dados = $tblPreProjeto->buscarPropostaEditalCompleto($where);
@@ -373,8 +367,6 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
         $rsA = $tbA->buscarDadosDocumentos(array("idagente = ?" => $dadosProjeto['idAgente']));
         $this->view->arquivosProponente = $rsA;
 
-        $this->view->idPreProjeto = $idPreProjeto;
-
 //        $tblDocumentos = new DocumentosExigidos();
 //
 //        $where = array(
@@ -404,9 +396,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
      */
     public function listararquivosAction()
     {
-        $params = $this->getRequest()->getParams();
-
-        $opcao = !empty($params['classificao']) ? $params['classificao'] : -1;
+        $opcao = !empty($_GET['classificao']) ? $_GET['classificao'] : -1;
         $where = array(
             'Opcao = ?' => $opcao
         );

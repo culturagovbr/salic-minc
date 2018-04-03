@@ -41,7 +41,7 @@ class Admissibilidade_DistribuicaoAvaliacaoPropostaController extends MinC_Contr
                 'id_orgao_superior' => $orgaoSuperior,
                 'id_perfil' => $id_perfil,
                 'data_distribuicao' => $orgaoDbTable->getExpressionDate(),
-                'avaliacao_atual' => Admissibilidade_Model_DistribuicaoAvaliacaoProposta::AVALIACAO_ATUAL_ATIVA
+                'avaliacao_atual' => Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta::AVALIACAO_ATUAL_ATIVA
             );
 
             $distribuicaoAvaliacaoPropostaDbTable = new Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta();

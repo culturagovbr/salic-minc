@@ -1,0 +1,891 @@
+<script type="text/javascript">
+    function AbrirFecharPlanilha(elemento) {
+        $('.' + elemento).toggle();
+        if ($('#' + elemento).hasClass('icn_mais')) {
+            $('#' + elemento).addClass('icn_menos');
+            $('#' + elemento).removeClass('icn_mais');
+        } else {
+            $('#' + elemento).addClass('icn_mais');
+            $('#' + elemento).removeClass('icn_menos');
+        }
+    }
+    
+    function atualizarDiferencaDeValores(){
+        $('#valorEntrePlanilhas').html('&nbsp;');
+        jqAjaxLinkSemLoading('<?php echo $this->Url(array('controller' => 'consultardadosprojeto', 'action' => 'carregar-valor-entre-planilhas'), '', true) ?>?idPronac=<?php echo $this->idPronac; ?>', '', 'valorEntrePlanilhas');
+    }
+    
+    function atualizaDadosGrupos(){
+        $.ajax({
+            url : '<?php echo $this->Url(array('controller' => 'consultardadosprojeto', 'action' => 'carregar-valor-por-grupo-remanejamento'), '', true) ?>?idPronac=<?php echo $this->idPronac; ?>',
+            success: function(data){
+                if(data.resposta){
+                    $("#td-grupo-a").html(data.dadosPlanilha.GrupoA);
+                    $("#td-grupo-b").html(data.dadosPlanilha.GrupoB);
+                    $("#td-grupo-c").html(data.dadosPlanilha.GrupoC);
+                    $("#td-grupo-d").html(data.dadosPlanilha.GrupoD);
+                    $("#td-somatoria").html(data.dadosPlanilha.Somatoria);
+                } else {
+                    $("#alerta").dialog("destroy");
+                    $("#alerta").html("N&atilde;o foi poss&iacute;vel fazer os c&aacute;lculos da planilha.<br />Tente novamente mais tarde!");
+                    $("#alerta").dialog({
+                        resizable: false,
+                        title: 'Alerta!',
+                        width:340,
+                        height:170,
+                        modal: true,
+                        buttons : {
+                            'OK' : function(){
+                                $(this).dialog('close');
+                            }
+                        }
+                    });
+                    $('.ui-dialog-titlebar-close').remove();
+                }
+            },
+            type : 'post',
+            dataType : 'json'
+        });
+    }
+
+    // Pegando eventos ajax e exibindo informacao de carregamento.
+    $(document).ajaxStart(function () {
+        $('#container-loading').fadeIn('fast');
+    });
+
+    $(document).ajaxComplete(function () {
+        $('#container-loading').fadeOut('fast');
+    });
+
+    $(document).ready(function(){
+
+        
+        atualizaDadosGrupos();
+        
+        $(".icn_menos").click(function(){
+            var tipo = $(this).attr('tipo');
+            var aberto = $(this).attr('aberto');
+            if(aberto == 'true'){
+                adisplay = 'none';
+                $(this).attr('aberto','false')
+                $(this).removeClass('icn_menos').addClass('icn_mais')
+            }
+            else{
+                adisplay = '';
+                $(this).attr('aberto','true')
+                $(this).removeClass('icn_mais').addClass('icn_menos')
+            }
+            if(tipo == 'fonte'){
+                fonte = $(this).attr('fonte');
+                $(".master[fonte='"+fonte+"']").css('display', adisplay);
+                $(".clickproduto").removeClass('icn_mais').addClass('icn_menos');
+            }
+            if(tipo == 'produto'){
+                fonte = $(this).attr('fonte');
+                produto = $(this).attr('produto');
+                $(".produto[produto='"+produto+"'][fonte='"+fonte+"']").css('display', adisplay);
+            }
+            if(tipo == 'etapa'){
+                fonte = $(this).attr('fonte');
+                produto = $(this).attr('produto');
+                etapa = $(this).attr('etapa');
+                $(".etapa[produto='"+produto+"'][etapa='"+etapa+"'][fonte='"+fonte+"']").css('display', adisplay);
+            }
+            if(tipo == 'cidade'){
+                fonte = $(this).attr('fonte');
+                produto = $(this).attr('produto');
+                etapa = $(this).attr('etapa');
+                cidade = $(this).attr('cidade');
+                $(".cidade[produto='"+produto+"'][etapa='"+etapa+"'][cidade='"+cidade+"'][fonte='"+fonte+"']").css('display', adisplay);
+            }
+        });
+        $(".item").mouseover(function(){
+            $(this).addClass('fundo_linha3');
+        });
+        $(".item").mouseout(function(){
+            $(this).removeClass('fundo_linha3');
+        });
+        $(".item").click(function(){
+            if($(this).hasClass('fundo_linha4')){
+                $(this).removeClass('fundo_linha4');
+            }
+            else{
+                $(this).addClass('fundo_linha4');
+            }
+        });
+        
+        $('#finalizarRemanejamento').click(function(){
+            $("#alerta").dialog("destroy");
+            $("#alerta").html('Deseja realmente finalizar o remanejamento?<br /><br />');
+            $("#alerta").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width:370,
+                modal: true,
+                buttons : {
+                    'N\xE3o' : function(){
+                        $(this).dialog('close');
+                    },
+                    'Sim' : function(){
+                        redirecionar('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'remanejamento-menor-finalizar'), null, true); ?>?idPronac=<?php echo $this->idPronac; ?>")');
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+        });
+        
+        $('.reintegrar').click(function(){
+            var idPlanilha = $(this).attr('idPlanilha'),
+		idPlanilhaAprovacaoPai = $(this).attr('idPlanilhaAprovacaoPai');
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'remanejamento-reintegrar-item'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
+                data: {
+                    idPlanilha: idPlanilha,
+                    idPlanilhaAprovacaoPai: idPlanilhaAprovacaoPai
+                },
+                success: function(data){
+                    if(data.resposta){
+                        $('#modalQuantidade').val(data.dadosPlanilhaEditavel.Quantidade);
+                        $('#modalOcorrencia').val(data.dadosPlanilhaEditavel.Ocorrencia);
+                        $('#modalValorUnitario').val(data.dadosPlanilhaEditavel.ValorUnitario.replace('R$ ',''));
+                        $('#modalJustificativa').val(data.dadosPlanilhaEditavel.Justificativa);
+                        $('#TotalCalculado').html(data.dadosPlanilhaEditavel.TotalSolicitado);
+                        
+                        var itemClicado = $('.editarItem[idPlanilhaAprovacao="'+idPlanilha+'"]');
+                        
+                        itemClicado.parent().parent().removeClass('red');
+                        itemClicado.parent().parent().removeClass('fundo_linha4');
+                        itemClicado.parent().parent().find('.textQuantidade').html(data.dadosPlanilhaEditavel.Quantidade);
+                        itemClicado.parent().parent().find('.textOcorrencia').html(data.dadosPlanilhaEditavel.Ocorrencia);
+                        itemClicado.parent().parent().find('.textValorUnitario').html(data.dadosPlanilhaEditavel.ValorUnitario);
+                        itemClicado.parent().parent().find('.textValorTotalSugerido').html(data.dadosPlanilhaEditavel.TotalSolicitado);
+                        itemClicado.parent().parent().find('.textJustificativa').html('');
+                        atualizarDiferencaDeValores();
+                        atualizaDadosGrupos();
+                        window.location.reload();
+                    } else {
+                        //ABRE O MODAL DE CONFIRMA��O DA A��O REALIZADA
+                        $("#modalItem").dialog('close');
+                        $("#alerta").dialog("destroy");
+                        $("#alerta").html('Ocorreu um erro durante o processo.<br />Favor entrar em contato com o administrador do sistema!');
+                        $("#alerta").dialog({
+                            resizable: false,
+                            title: 'Alerta!',
+                            width:420,
+                            modal: true,
+                            buttons : {
+                                'OK' : function(){
+                                    $(this).dialog('close');
+                                }
+                            }
+                        });
+                        $('.ui-dialog-titlebar-close').remove();
+                    }
+                },
+                dataType : 'json'
+            });
+        });
+        
+        $('#reintegrar-planilha').click(function(){
+            var idPronac = $(this).attr('idPronac');
+            $("#modalItem").dialog('close');
+            $("#alerta").dialog("destroy");
+            $("#alerta").html('Deseja realmente cancelar todas as modifica&ccedil;&atilde;es feitas nos itens da planilha?');
+            $("#alerta").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width:330,
+                modal: true,
+                buttons : {
+                    'N\xE3o' : function(){
+                        $(this).dialog('close');
+                    },
+                    'Sim' : function(){
+                        $(".ui-dialog-buttonpane").html('<br/>');                            
+                        $("#alerta").html("Aguarde, reintegrando a planilha...");
+                        
+                        $.ajax({
+                            type: 'POST',
+                            url: '<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'remanejamento-reintegrar-planilha'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
+                            data: {
+                                id: idPronac
+                            },
+                            success: function(data){
+                                if(data.resposta){
+                                    location.reload();
+                                } else {
+                                    //ABRE O MODAL DE CONFIRMA��O DA A��O REALIZADA
+                                    $("#modalItem").dialog('close');
+                                    $("#alerta").dialog("destroy");
+                                    $("#alerta").html(data.msg);
+                                    $("#alerta").dialog({
+                                        resizable: false,
+                                        title: 'Alerta!',
+                                        width:320,
+                                        modal: true,
+                                        buttons : {
+                                            'OK' : function(){
+                                                $(this).dialog('close');
+                                            }
+                                        }
+                                    });
+                                    $('.ui-dialog-titlebar-close').remove();
+                                }
+                            },
+                            dataType : 'json'
+                        });
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+        });
+        
+        $('.editarItem').click(function(){
+            var idPlanilhaAprovacao = $(this).attr('idPlanilhaAprovacao'),
+                idPlanilhaAprovacaoPai = $(this).attr('idPlanilhaAprovacaoPai'),
+                itemClicado = $(this);
+                
+           //AO ABRIR A MODAL, LIMPA TODOS OS CAMPOS EDIT�VEIS
+            $('.modalObrigatorios').each(function(){
+                $(this).css('border-color', '#CCCCCC');
+                $(this).val('');
+            });
+            $('#TotalCalculado').html('R$ 0,00');
+            $('#campoTotal').css('color','#222222');
+            $('#TotalCalculado').css('color','#222222');
+            $('#textoErroValores').html('');
+
+            //BUSCA OS DADOS DO ITEM PARA VISUALIZA��O DOS NA MODAL
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'remanejamento-alterar-item'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
+                data: {
+                  idPlanilha: idPlanilhaAprovacao,
+                    idPlanilhaAprovacaoPai: idPlanilhaAprovacaoPai
+                },
+                success: function(data){
+                    
+                    if(data.resposta){
+                        $('#campoPronac').html(data.dadosProjeto.PRONAC);
+                        $('#campoNomeProjeto').html(data.dadosProjeto.NomeProjeto);
+
+                        $('#campoProduto').html(data.dadosPlanilhaAtiva.descProduto);
+                        $('#campoEtapa').html(data.dadosPlanilhaAtiva.descEtapa);
+                        $('#campoItem').html(data.dadosPlanilhaAtiva.descItem);
+
+                        $('#campoUnidadeSolicitado').html(data.dadosPlanilhaAtiva.descUnidade);
+                        $('#campoQtdSolicitado').html(data.dadosPlanilhaAtiva.Quantidade);
+                        $('#campoOcorrenciaSolicitado').html(data.dadosPlanilhaAtiva.Ocorrencia);
+                        $('#campoVlUnitarioSolicitado').html(data.dadosPlanilhaAtiva.ValorUnitario);
+                        $('#campoDiasSolicitado').html(data.dadosPlanilhaAtiva.QtdeDias);
+                        $('#campoTotalSolicitado').html(data.dadosPlanilhaAtiva.TotalSolicitado);
+                        
+                        $('#campoValorMinimo').html(data.dadosPlanilhaOriginal.ValorMinimoProItem);
+                        $('#campoValorMaximo').html(data.dadosPlanilhaOriginal.ValorMaximoProItem);
+                        $('#campoValorComprovado').html(data.valoresDoItem.vlComprovadoDoItem);
+
+                        //$('#modalUnidade').val(data.dadosPlanilhaEditavel.idUnidade);
+                        $('#modalQuantidade').val(data.dadosPlanilhaEditavel.Quantidade);
+                        $('#modalOcorrencia').val(data.dadosPlanilhaEditavel.Ocorrencia);
+                        $('#modalValorUnitario').val(data.dadosPlanilhaEditavel.ValorUnitario.replace('R$ ',''));
+                        //$('#modalQtdeDias').val(data.dadosPlanilhaEditavel.QtdeDias);
+                        $('#modalJustificativa').val(data.dadosPlanilhaEditavel.Justificativa);
+                        $('#TotalCalculado').html(data.dadosPlanilhaEditavel.TotalSolicitado);
+                        
+                        $('#campoIdPlanilha').attr('idPlanilha', idPlanilhaAprovacao);
+                        $('#campoIdPlanilha').attr('idPlanilhaAprovacaoPai', idPlanilhaAprovacaoPai);
+
+                        var valorMinimoValidacao = data.dadosPlanilhaOriginal.ValorMinimoProItemValidacao,
+                            valorMaximoValidacao = data.dadosPlanilhaOriginal.ValorMaximoProItemValidacao,
+                            vlComprovadoDoItemValidacao = data.valoresDoItem.vlComprovadoDoItemValidacao,
+                            valorParaMsgErro = data.dadosPlanilhaAtiva.TotalSolicitado,
+                            mensagem = '';
+                    
+                        //MOSTRA OS DADOS NA MODAL APOS ABRI-LA
+                        //$("#modalItem").dialog("destroy");
+                        $("#modalItem").dialog({
+                            resizable: false,
+                            title: 'Alterar Item!',
+                            width: 800,
+                            modal: true,
+                            buttons : {
+                                'Cancelar' : function(){
+                                    $(this).dialog('close');
+                                },
+                                'Salvar' : function(){
+                                    var Quantidade = $('#modalQuantidade').val(),
+                                        Ocorrencia = $('#modalOcorrencia').val(),
+                                        ValorUnitario = $('#modalValorUnitario').val(),
+                                        QtdeDias = $('#modalQtdeDias').val(),
+                                        Unidade = $('#modalUnidade').val(),
+                                        Justificativa = $('#modalJustificativa').val(),
+                                        obrigatorios = 0,
+                                        erros = 0;
+
+                                    //VERIFICA SE OS CAMPOS FORAM PREENCHIDOS
+                                    $('.modalObrigatorios').each(function(){
+                                        if($.trim($(this).val()) == ''){
+                                            obrigatorios++;
+                                            erros++;
+                                            $(this).css('border-color', 'red');
+                                        } else {
+                                            $(this).css('border-color', '#CCCCCC');
+                                        }
+                                    });
+                                    
+                                    if(obrigatorios > 0){
+                                        mensagem += '- Favor preencher os dados obrigat&oacute;rios.<br/>';
+                                    }
+
+                                    var TotalCalculadoComponente = $('#TotalCalculado').html().replace(/[^\d]/g, "");
+                                    
+                                    if(parseInt(TotalCalculadoComponente) < parseInt(vlComprovadoDoItemValidacao)){
+                                        //$('#TotalCalculado').css('color','red');
+                                        mensagem += '- O valor total do item n&atilde;o pode ser menor do que o valor comprovado de '+data.valoresDoItem.vlComprovadoDoItem+'.<br/>';
+                                        erros++;
+                                    }
+                                    
+                                    var TotalCalculadoComponente = $('#TotalCalculado').html().replace(/[^\d]/g, "")+'00';
+                                    if(parseInt(TotalCalculadoComponente) < parseInt(valorMinimoValidacao)){
+                                        erros++;
+                                        var vlComp = parseInt(vlComprovadoDoItemValidacao+'00');
+                                        if(vlComp < data.dadosPlanilhaAtiva.ValorMinimoProItemValidacao){
+                                            mensagem += '- O valor total do item n&atilde;o pode ser menor que o originalmente aprovado ('+data.dadosPlanilhaAtiva.ValorMinimoProItemValidacao+'). ' +
+                                                '<br/>Para ajuste inferior &agrave; ' + data.dadosPlanilhaAtiva.ValorMinimoProItemValidacao + ' fa&ccedil;a na planilha or&ccedil;ament&aacute;ria';
+                                        }
+                                    }
+                                    
+                                    if(parseInt($('#TotalCalculado').html().replace(/[^\d]/g, "")) > parseInt(valorMaximoValidacao)){
+                                        var valorMaximoFormatado = moeda.formatar(data.dadosPlanilhaAtiva.ValorMaximoProItemValidacao/100);
+                                        mensagem += '- O valor total do item n&atilde;o pode ser maior que o originalmente aprovado (R$ '+ valorMaximoFormatado +'). ' +
+                                                '<br/>Para ajuste superior &agrave; R$' + valorMaximoFormatado + ' fa&ccedil;a na planilha or&ccedil;ament&aacute;ria';
+
+                                        erros++;
+                                    }
+
+                                    //SE HOUVER ALGO DE ERRADO, EXIBE MENSAGEM DE ALERTA.
+                                    if(erros > 0){
+                                        $('#TotalCalculado').css('color','red');
+                                        $("#alerta").html(mensagem);
+                                        $("#alerta").dialog({
+                                            resizable: false,
+                                            title: 'Alerta!',
+                                            width:320,
+                                            modal: true,
+                                            buttons : {
+                                                'OK' : function(){
+                                                    $(this).dialog('close');
+                                                }
+                                            }
+                                        });
+                                        $('.ui-dialog-titlebar-close').remove();
+                                        erros = 0;
+                                        mensagem = '';
+                                        return false;
+                                        
+                                    //SE NENHUM CAMPO ESTIVER EM BRANCO, SALVA OS DADOS
+                                    } else {
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: '<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'salvar-avaliacao-do-item-remanejamento'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
+                                            data: {
+                                                idPlanilha: idPlanilhaAprovacao,
+						                        idPlanilhaAprovacaoPai: idPlanilhaAprovacaoPai,
+                                                Quantidade: Quantidade,
+                                                Ocorrencia: Ocorrencia,
+                                                ValorUnitario: ValorUnitario,
+                                                QtdeDias: QtdeDias,
+                                                Unidade: Unidade,
+                                                Justificativa: Justificativa,
+                                                valorSolicitado: valorParaMsgErro
+                                            },
+                                            success: function(data){
+                                                // recebe os valores do formul�rio
+                                                var qtd = Quantidade,
+                                                    ocorrencia = Ocorrencia,
+                                                    valor = ValorUnitario,
+                                                    Total = 0;
+
+                                                // retira os pontos e as v�rgulas, deixando somente n�meros
+                                                valor = valor.replace(/\D/g, "")
+                                                .replace(/(\d{0})(\d)/, "$1$2")
+                                                // adiciona o ponto na casa decimal
+                                                .replace(/(\d)(\d{2})$/, "$1.$2");
+
+                                                // converte para float e adiciona precis�o decimal
+                                                qtd = parseFloat(qtd).toFixed(2);
+                                                ocorrencia = parseFloat(ocorrencia).toFixed(2);
+                                                valor = parseFloat(valor).toFixed(2);
+
+                                                // vari�vel com o resultado
+                                                Total = parseFloat(qtd * ocorrencia * valor).toFixed(2); // armazena o resultado
+
+                                                // se n�o for n�mero
+                                                if (isNaN(Total)){
+                                                    Total = '';
+                                                }
+                                                // caso seja n�mero
+                                                else {
+                                                    // formata para real
+                                                    Total = Total.replace(/\D/g, "");
+                                                    Total = Total.replace(/(\d)(\d{2})$/, "$1,$2");
+                                                    Total = Total.replace(/(\d+)(\d{3},\d{2})$/g, "$1.$2");
+
+                                                    var q = (Total.length - 3) / 3; // quantidade caracteres
+                                                    var c = 0; // contador
+                                                    while (q > c){
+                                                        c++;
+                                                        Total = Total.replace(/(\d+)(\d{3}.*)/, "$1.$2");
+                                                    }
+                                                    Total = Total.replace(/^(0+)(\d)/g, "$2");
+                                                } // fecha else
+                                                
+
+                                                if(data.resposta){
+                                                    itemClicado.parent().parent().addClass('red');
+                                                    itemClicado.parent().parent().addClass('fundo_linha4');
+                                                    itemClicado.parent().parent().find('.textDias').html(QtdeDias);
+                                                    itemClicado.parent().parent().find('.textQuantidade').html(Quantidade);
+                                                    itemClicado.parent().parent().find('.textOcorrencia').html(Ocorrencia);
+                                                    itemClicado.parent().parent().find('.textValorUnitario').html(ValorUnitario);
+						                            itemClicado.parent().parent().find('.textValorAprovado').html(Total);
+                                                    itemClicado.parent().parent().find('.textValorTotalSugerido').html(Total);
+                                                    itemClicado.parent().parent().find('.textJustificativa').html(Justificativa);
+                                                    atualizarDiferencaDeValores();
+                                                    atualizaDadosGrupos();
+
+                                                    window.location.reload();    
+
+                                                    
+                                                }
+                                                
+                                                //ABRE O MODAL DE CONFIRMA��O DA A��O REALIZADA
+                                                $("#modalItem").dialog('close');
+                                                $("#alerta").dialog("destroy");
+                                                $("#alerta").html(data.msg);
+                                                $("#alerta").dialog({
+                                                    resizable: false,
+                                                    title: 'Alerta!',
+                                                    width:340,
+                                                    height:170,
+                                                    modal: true,
+                                                    buttons : {
+                                                        'OK' : function(){
+                                                            $(this).dialog('close');
+                                                        }
+                                                    }
+                                                });
+                                                $('.ui-dialog-titlebar-close').remove();
+                                            },
+                                            dataType : 'json'
+                                        });
+                                    }
+                                }
+                            }
+                        });
+                        $('.ui-dialog-titlebar-close').remove();
+                    }
+                },
+                dataType : 'json'
+            });
+
+            return false;
+        });
+        
+        $('.multiplicarValores').keyup(function(){
+            // recebe os valores do formul�rio
+            var qtd = $('#modalQuantidade').val(),
+                ocorrencia = $('#modalOcorrencia').val(),
+                valor = $('#modalValorUnitario').val();
+
+            // retira os pontos e as v�rgulas, deixando somente n�meros
+            valor = valor.replace(/\D/g, "")
+            .replace(/(\d{0})(\d)/, "$1$2")
+            // adiciona o ponto na casa decimal
+            .replace(/(\d)(\d{2})$/, "$1.$2");
+
+            // converte para float e adiciona precis�o decimal
+            qtd        = parseFloat(qtd).toFixed(2);
+            ocorrencia = parseFloat(ocorrencia).toFixed(2);
+            valor      = parseFloat(valor).toFixed(2);
+
+            // vari�vel com o resultado
+            resultado = parseFloat(qtd * ocorrencia * valor).toFixed(2); // armazena o resultado
+
+            // se n�o for n�mero
+            if (isNaN(resultado))
+            {
+                resultado = '';
+            }
+            // caso seja n�mero
+            else
+            {
+                // formata para real
+                resultado = resultado.replace(/\D/g, "");
+                resultado = resultado.replace(/(\d)(\d{2})$/, "$1,$2");
+                resultado = resultado.replace(/(\d+)(\d{3},\d{2})$/g, "$1.$2");
+
+                var q = (resultado.length - 3) / 3; // quantidade caracteres
+                var c = 0; // contador
+                while (q > c)
+                {
+                    c++;
+                    resultado = resultado.replace(/(\d+)(\d{3}.*)/, "$1.$2");
+                }
+                resultado = resultado.replace(/^(0+)(\d)/g, "$2");
+                resultado = 'R$ ' + resultado;
+            } // fecha else
+
+            $('#TotalCalculado').html(resultado);
+        });
+
+        $("#modalValorUnitario").priceFormat();
+
+    });
+
+</script>
+
+
+<!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
+<div id="breadcrumb">
+    <ul>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
+        <li class="second"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>" title="Consultar dados projeto">Consultar dados projeto</a></li>
+        <li class="last">Remanejamento &le; 50%</li>
+    </ul>
+</div>
+<!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
+
+<div id="alerta" class="sumir"></div>
+
+<div id="titulo">
+    <div>Remanejamento &le; 50% <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
+</div>
+
+<div id="conteudo">
+    <table class="tabela">
+        <tr class="destacar bold">
+            <td align="center">PRONAC</td>
+            <td align="center">Nome do Projeto</td>
+        </tr>
+        <tr>
+            <td align="center"><?php echo $this->DadosProjeto->pronac; ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProjeto; ?></td>
+        </tr>
+    </table>
+    
+    <table class="tabela">
+        <tr class="destacar">
+            <td align="center"><span class="bold">Grupo A</span><br /><span style="font-size: 12px;">Pr&eacute;-Produ&ccedil;ao / Prepara&ccedil;&atilde;o &AMP; Produ&ccedil;&atilde;o / Execu&ccedil;&atilde;o</span></td>
+            <td align="center"><span class="bold">Grupo B</span><br /><span style="font-size: 12px;">Divulga&ccedil;&atilde;o / Comercializa&ccedil;&atilde;o</span></td>
+            <td align="center"><span class="bold">Grupo C</span><br /><span style="font-size: 12px;">Custos / Administrativos</span></td>
+            <td align="center"><span class="bold">Grupo D</span><br /><span style="font-size: 12px;">Recolhimentos</span></td>
+            <td align="center" class="w200 bold">Valor da Planilha Remanejada (R$)<br />&nbsp;</td>
+            <td align="center" style="width: 4px;" class="bold">Reintegrar<br />&nbsp;</td>
+        </tr>
+        <tr>
+            <td align="center" id="td-grupo-a"><span class= "bold">R$ 0,00</span></td>
+            <td align="center" id="td-grupo-b"><span class= "bold">R$ 0,00</span></td>
+            <td align="center" id="td-grupo-c"><span class= "bold">R$ 0,00</span></td>
+            <td align="center" id="td-grupo-d"><span class= "bold">R$ 0,00</span></td>
+            <td align="center" id="td-somatoria"><span class= "bold">R$ 0,00</span></td>
+                <?php /****** FIM VALOR ENTRE AS PLANILHAS ATIVA E REMANEJADA ******/ ?>
+            </td>
+            <td class="centro">
+                <img idPronac="<?php echo $this->idPronac; ?>" src="<?php echo $this->baseUrl(); ?>/public/img/refresh.gif" title="Reintegrar Planilha" id="reintegrar-planilha" style="cursor: pointer; display:<?php if (isset($this->idReadequacao)) { echo 'inline-block'; } else { echo 'none'; } ?>">
+            </td>
+        </tr>
+    </table>
+    <div id="planilhaOrcamentariaMontada">
+    <table class="tabela">
+        <?php
+        $nrfonte = 0;
+        $TotalSolicitado = 0;
+        $TotalSugerido = 0;
+        $TotalUnitario = 0;
+        $TotalAprovado = 0;
+        if(is_array($this->planilha) && count($this->planilha)>0) foreach ($this->planilha as $fonte => $planilha) { //ForeachFonteIncentivo
+            ?>
+            <tr>
+                <td>
+                    <div tipo="fonte" fonte="<?php echo $nrfonte; ?>" aberto="true" class="icn_menos" style="width:90%"><span class="red-text del_link" style="font-size: 20pt; font-weight: 800;"><?php echo $fonte; ?></span></div>
+                </td>
+            </tr>
+            <?php
+            $nrproduto = 0;
+            $valorSolicitadoTotalIncentivo = 0;
+            $valorSugeridoTotalIncentivo = 0;
+            $valorUnitarioTotalIncentivo = 0;
+            $valorAprovadoTotalIncentivo = 0;
+            foreach ($this->planilha[$fonte] as $produto => $planilha) {
+                ?>
+                <tr class='master' fonte="<?php echo $nrfonte; ?>">
+                    <td class='master'>
+                        <div  tipo="produto" aberto="true" fonte="<?php echo $nrfonte; ?>" produto ="<?php echo $nrproduto; ?>" class="icn_menos clickproduto" style="width:98%; margin-left:2%;"><span class="green-text del_link" style="font-size: 16pt; font-weight: 800;"><?php echo $produto; ?></span></div>
+                    </td>
+                </tr>
+                <?php
+                $nretapa = 0;
+                $valorSolicitadoTotalProduto = 0;
+                $valorSugeridoTotalProduto = 0;
+                $valorUnitarioTotalProduto = 0;
+                $valorAprovadoTotalProduto = 0;
+                foreach ($this->planilha[$fonte][$produto] as $etapa => $planilha) {
+                    $valoretapasolicitado = 0;
+                    ?>
+                    <tr class="master produto" produto="<?php echo $nrproduto; ?>"  fonte="<?php echo $nrfonte; ?>" >
+                        <td>
+                            <div><div tipo="etapa" fonte="<?php echo $nrfonte; ?>" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>" aberto="true" class="icn_menos" style="width:94%; margin-left:4%;"><span class="orange-text del_link" style="font-size: 14pt; font-weight: 800;"><?php echo $etapa; ?></span></div></div>
+                        </td>
+                    </tr>
+                    <?php
+                    $nrcidade = 0;
+                    $valorSolicitadoTotalEtapa = 0;
+                    $valorSugeridoTotalEtapa = 0;
+                    $valorUnitarioTotalEtapa = 0;
+                    $valorAprovadoTotalEtapa = 0;
+                    foreach ($this->planilha[$fonte][$produto][$etapa] as $cidade => $planilha) {
+                        ?>
+                        <tr class="master produto etapa" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>"  fonte="<?php echo $nrfonte; ?>" >
+                            <td>
+                                <div tipo="cidade" fonte="<?php echo $nrfonte; ?>" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>" cidade="<?php echo $nrcidade; ?>" aberto="true" class="icn_menos" style="width:94%; margin-left:6%;"><span class="black-text del_link" style="font-size: 12pt; font-weight: 800;"><?php echo $cidade; ?></span></div>
+                            </td>
+                        </tr>
+                        <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>" cidade="<?php echo $nrcidade; ?>"  fonte="<?php echo $nrfonte; ?>">
+                            <td>
+                                <table class="tabela">
+                                    <tr>
+                                        <th>&nbsp;</th>
+                                        <th>Item</th>
+                                        <th>Dias</th>
+                                        <th>Qtde</th>
+                                        <th>Ocor.</th>
+                                        <th>Vl. Unit&aacute;rio</th>
+                                        <th>Vl. Aprovado</th>
+                                        <th>Vl. Comprovado</th>
+                                        <th>Justif. Remanejamento</th>
+                                    </tr>
+                                    <?php
+                                    $valorSolicitadoTotalUf = 0;
+                                    $valorSugeridoTotalUf = 0;
+                                    $valorAprovadoTotalUf = 0;
+                                    $vlSugerido = 0;
+                                    $vlUnitario = 0;
+                                    $vlAprovado = 0;
+                                    foreach ($this->planilha[$fonte][$produto][$etapa][$cidade] as $planilha) {
+                                        $vlAprovado += $planilha['vlAprovado'];
+                                        $valorAprovadoTotalUf += $planilha['vlAprovado'];
+                                        $valorAprovadoTotalEtapa += $planilha['vlAprovado'];
+                                        $valorAprovadoTotalProduto += $planilha['vlAprovado'];
+                                        $valorAprovadoTotalIncentivo += $planilha['vlAprovado'];
+                                        $TotalAprovado += $planilha['vlAprovado'];
+                                        ?>
+                                        <tr class="item <?php echo ($planilha['idAgente'] > 0) ? 'red' : ''; ?>">
+                                            <td style="width: 5%;"><?php echo $planilha['Seq']; ?></td>
+                                            <td style="width: 20%;">
+                                                <?php if($planilha['idEtapa'] != 6){ ?>
+                                                <a href="#" class="editarItem" idPlanilhaAprovacao="<?php echo $planilha['idPlanilhaAprovacao']; ?>" idPlanilhaAprovacaoPai="<?php echo $planilha['idPlanilhaAprovacaoPai']; ?>"><?php echo $planilha['Item']; ?></a>
+                                                <?php } else { ?>
+                                                    <?php echo $planilha['Item']; ?>
+                                                <?php } ?>
+                                            </td>
+                                            <td class="direita textDias"><?php echo $planilha['QtdeDias']; ?></td>
+                                            <td class="direita textQuantidade"><?php echo $planilha['Quantidade']; ?></td>
+                                            <td class="direita textOcorrencia"><?php echo $planilha['Ocorrencia']; ?></td>
+                                            <td class="direita textValorUnitario"><?php echo @number_format($planilha['vlUnitario'], 2, ",", "."); ?></td>
+                                            <td class="direita textValorAprovado"><?php echo @number_format($planilha['vlAprovado'], 2, ",", "."); ?></td>
+                                            <td class="direita textValorComprovado"><?php echo @number_format($planilha['vlComprovado'], 2, ",", "."); ?></td>
+                                            <td class="textJustificativa" style="width: 20%;"><?php echo $planilha['dsJustificativa']; ?></td>
+                                        </tr>
+                                        <?php
+                                    } //fechaForeachplanilha
+                                    $nrcidade++;
+                                    ?>
+                                    <tr>
+                                        <td colspan="6" class="black-text" style="font-size: 14pt;">Total da UF</td>
+                                        <td class="black-text right-align" style="font-size: 12pt; font-weight: 600;" ><?php echo @number_format($valorAprovadoTotalUf, 2, ",", "."); ?></td>
+                                        <td colspan="3"></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <?php
+                    } //fechaForeachcidade
+                    ?>
+                    <tr class="master produto etapa" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>"  fonte="<?php echo $nrfonte; ?>">
+                        <td>
+                            <table class="tabela">
+                                <tr>
+                                    <td colspan="6" class="orange-text" style="width: 18%; font-size: 14pt;" nowrap>Total da Etapa</td>
+                                    <td class="orange-text right-align" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorAprovadoTotalEtapa, 2, ",", "."); ?></td>
+                                    <td colspan="3" style="width: 40%;">&nbsp;</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <?php
+                    $nretapa++;
+                } //fechaForeachetapa
+                ?>
+                <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>"  fonte="<?php echo $nrfonte; ?>">
+                    <td>
+                        <table class="tabela">
+                            <tr>
+                                <td colspan="6" class="green-text" style="width: 18%; font-size: 14pt;">Total da <?php echo $produto; ?></td>
+                                <td class="green-text right-align" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorAprovadoTotalProduto, 2, ",", "."); ?></td>
+                                <td style="width: 40%" colspan="2">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <?php $nrproduto++; 
+            } //fechaForeachproduto
+            ?>
+            <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>"  fonte="<?php echo $nrfonte; ?>">
+                <td>
+                    <table class="tabela">
+                        <tr>
+                            <td colspan="6" class="red-text" style="width: 18%; font-size: 14pt;">Total do <?php echo $fonte; ?></td>
+                            <td class="red-text right-align" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($valorAprovadoTotalIncentivo, 2, ",", "."); ?></td>
+                            <td style="width: 40%" colspan="2">&nbsp;</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <?php $nrfonte++;
+        }//fechaForeachFonteIncentivo
+        ?>
+        <?php if(is_array($this->planilha) && count($this->planilha)>0){ ?>
+        <tr>
+            <td>
+                <table class="tabela">
+                    <tr>
+                        <td colspan="6" class="blue-text" style="width: 18%; font-size: 14pt;">Total do Projeto</td>
+                        <td class="blue-text right-align" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($TotalAprovado, 2, ",", "."); ?></td>
+                        <td style="width: 40%" colspan="2">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="centro">
+	      <button class="waves-effect waves-light btn small" id="finalizarRemanejamento" name="finalizar">finalizar</button>
+            </td>
+        </tr>
+        <?php } else { ?>
+        <tr>
+            <td align="center"><em>Dados n&atilde;o informados!</em></td>
+        </tr>
+        <?php } ?>
+    </table>
+    </div>
+</div>
+
+<?php //MODAL DE AVALIA��O DO ITEM ?>
+<div id="modalItem" class="sumir">
+    <table class="tabela">
+<!--        <tr>
+            <td class="destacar bold" style="width: 30%">PRONAC</td>
+            <td class="destacar bold" colspan="2">Nome do Projeto</td>
+        </tr>
+        <tr>
+            <td id="campoPronac" class="camposModal">&nbsp;</td>
+            <td id="campoNomeProjeto" colspan="2" class="camposModal">&nbsp;</td>
+        </tr>-->
+        <tr>
+            <td class="destacar bold">Produto</td>
+            <td class="destacar bold">Etapa</td>
+            <td class="destacar bold">Item</td>
+        </tr>
+        <tr>
+            <td id="campoProduto" class="camposModal">&nbsp;</td>
+            <td id="campoEtapa" class="camposModal">&nbsp;</td>
+            <td id="campoItem" class="camposModal">&nbsp;</td>
+        </tr>
+    </table>
+    <table class="tabela">
+        <tr>
+            <th colspan="7">Valores Solicitados</th>
+        </tr>
+        <tr class="centro">
+            <td class="destacar bold">Unidade</td>
+            <td class="destacar bold">Quantidade</td>
+            <td class="destacar bold">Ocorr&ecirc;ncia</td>
+	        <td class="destacar bold">Vl. Unit&aacute;rio</td>
+            <td class="destacar bold">Dias</td>
+            <td class="destacar bold">Total</td>
+            <td class="destacar bold" style="width: 1px;">Reintegrar</td>
+        </tr>
+        <tr>
+            <td id="campoUnidadeSolicitado" class="camposModal">&nbsp;</td>
+            <td id="campoQtdSolicitado" class="direita camposModal">&nbsp;</td>
+            <td id="campoOcorrenciaSolicitado" class="direita camposModal">&nbsp;</td>
+            <td id="campoVlUnitarioSolicitado" class="direita camposModal">&nbsp;</td>
+            <td id="campoDiasSolicitado" class="direita camposModal">&nbsp;</td>
+            <td id="campoTotalSolicitado" class="direita camposModal">&nbsp;</td>
+            <td class="centro">
+                <img idPlanilha="" idPlanilhaAprovacaoPai="" src="<?php echo $this->baseUrl(); ?>/public/img/refresh.gif" title="Reintegrar Item" class="reintegrar" id="campoIdPlanilha" style="cursor: pointer; display:<?php if (isset($this->idReadequacao)) { echo 'inline-block'; } else { echo 'none'; } ?>">
+            </td>
+        </tr>
+    </table>
+    <table class="tabela">
+        <tr class="centro">
+            <td class="destacar bold">Vl. M&iacute;nimo</td>
+            <td class="destacar bold">Vl. M&aacute;ximo</td>
+            <td class="destacar bold">Vl. Comprovado</td>
+        </tr>
+        <tr class="centro">
+            <td class="camposModal red-text bold"><span id="campoValorMinimo">&nbsp;</span></td>
+            <td class="camposModal blue-text bold"><span id="campoValorMaximo">&nbsp;</span></td>
+            <td class="camposModal green bold"><span id="campoValorComprovado">&nbsp;</span></td>
+        </tr>
+    </table>
+    <table class="tabela">
+        <tr>
+            <th colspan="6">Dados para o remanejamento</th>
+        </tr>
+        <tr class="centro">
+            <!--<td class="destacar bold">Unidade</td>-->
+            <td class="destacar bold">Qtd</td>
+            <td class="destacar bold">Ocorr&ecirc;ncia</td>
+            <td class="destacar bold">Vl. Unit&aacute;rio</td>
+            <!--<td class="destacar bold">Dias</td>-->
+            <td class="destacar bold">Total</td>
+<!--            <td class="destacar bold">Vl. M&iacute;nimo</td>
+            <td class="destacar bold">Vl. M&aacute;ximo</td>-->
+        </tr>
+        <tr>
+<!--            <td class="centro">
+                <?php /*$planilhaUnidade = PlanilhaUnidadeDAO::buscar(); ?>
+                <select id="modalUnidade" name="idUnidade" class="input_simples modalObrigatorios">
+                    <option value=""> - Selecione - </option>
+                    <?php foreach ($planilhaUnidade as $unidade){ ?>
+                    <option value="<?php echo $unidade->idUnidade; ?>"><?php echo $unidade->Descricao; ?></option>
+                    <?php }*/ ?>
+                </select>
+            </td>-->
+            <td class="centro"><input class="input_simples w50 multiplicarValores modalObrigatorios" id="modalQuantidade" type="text" maxlength="5" name="Quantidade" onkeyup="mascara(this, format_num_float);"></td>
+            <td class="centro"><input class="input_simples w50 multiplicarValores modalObrigatorios" id="modalOcorrencia" type="text" maxlength="5" name="Ocorrencia" onkeyup="mascara(this, format_num_float);"></td>
+            <td class="centro"><input class="input_simples w100 multiplicarValores modalValorUnitario modalObrigatorios" id="modalValorUnitario" type="text" maxlength="13" name="ValorUnitario"></td>
+            <!--<td class="centro"><input class="input_simples w50 modalObrigatorios" id="modalQtdeDias" type="text" maxlength="4" name="QtdeDias" onkeyup="mascara(this, format_num);"></td>-->
+            <td id="TotalCalculado" class="direita" style="width: 125px;"></td>
+<!--            <td class="direita camposModal red bold"><span id="campoValorMinimo">&nbsp;</span></td>
+            <td class="direita camposModal blue bold"><span id="campoValorMaximo">&nbsp;</span></td>-->
+        </tr>
+        <tr>
+            <td colspan="6" class="destacar bold centro">Justificativa do Remanejamento <span class="red">*</span> <span id="textoErroValores" style="float:right; color: red;"></span></td>
+        </tr>
+        <tr>
+            <td colspan="6" class="centro">
+                <textarea id="modalJustificativa" class="textarea_simples modalObrigatorios" rows="3" style="width:98%" name="Justificativa"></textarea>
+            </td>
+        </tr>
+    </table>
+</div>
+<?php //FIM MODAL DE AVALIA��O DO ITEM ?>
+
+<!-- ========== INICIO RODAPE DO CONTEUDO ========== -->
+<div id="rodapeConteudo"><span></span></div>
+<!-- ========== FIM RODAPE DO CONTEUDO ========== -->
+<br clear="all" />

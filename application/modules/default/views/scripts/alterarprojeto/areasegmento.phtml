@@ -16,8 +16,8 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
 <!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-	<li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In&iacute;cio</a></li>
-        <li><!--a href="<?php echo $this->baseUrl(); ?>" title="In&iacute;cio"-->Manuten&ccedil;&atilde;o<!--/a--></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para p&aacute;gina inicial">In�cio</a></li>
+        <li><!--a href="<?php echo $this->baseUrl(); ?>" title="In�cio"-->Manuten&ccedil;&atilde;o<!--/a--></li>
         <li><a href="<?php echo $this->url(array('controller' => 'alterarprojeto', 'action' => 'consultarprojeto')); ?>" title="Ir para alterar projeto">Alterar projeto</a></li>
         <li class="last">Alterar &aacute;rea/segmento</li>
     </ul>
@@ -76,13 +76,13 @@ echo $this->partial('alterarprojeto/inc/menu.inc.php', $this);
             // Define as mensagens de erro para cada regra
             messages:{
                 Area:{
-                    required: "<br>Dados obrigat&oacute;rios n&atilde;o informados"
+                    required: "<br>Dados obrigat�rios n&atilde;o informados"
                 },
                 Segmento:{
-                    required: "<br>Dados obrigat&oacute;rios n&atilde;o informados"
+                    required: "<br>Dados obrigat�rios n&atilde;o informados"
                 },
                 justificativa:{
-                    required: "<br>Dados obrigat&oacute;rios n&atilde;o informados"
+                    required: "<br>Dados obrigat�rios n&atilde;o informados"
                 }
             }
         });

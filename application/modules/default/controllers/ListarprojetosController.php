@@ -90,11 +90,14 @@ class ListarprojetosController extends MinC_Controller_Action_Abstract
 
     public function listarprojetosAction()
     {
+
         /***************************************************************************** */
         $tblVinculo = new Agente_Model_DbTable_TbVinculo();
         $dadosCombo = array();
+        $cpfCnpj = '';
 
         $rsVinculo = $tblVinculo->buscarProponenteResponsavel($this->idResponsavel);
+        $agente = array();
 
         $i = 1;
         foreach ($rsVinculo as $rs) {

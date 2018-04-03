@@ -120,7 +120,6 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
                 # Setar o campo texto maior que 4096 caracteres aceitaveis por padrao no PHP
                 //$db->query(' SET TEXTSIZE 2147483647 ');
                 ini_set('memory_limit', '-1');
-                ini_set ( 'mssql.textsize' , '65536');
             }
         } else if (is_int(strpos($this->_schema, 'scdne'))) {
             $this->_schema = str_replace('.scdne', '', $this->_schema);
@@ -294,7 +293,7 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
     /**
      *
      * @name findBy
-     * @param mixed $where
+     * @param array $where
      * @return array
      *
      * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>

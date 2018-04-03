@@ -185,7 +185,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
                             $tbRecurso->atualizarRecursosProximaPlenaria($recebidoPost->idReuniao);
                             $tbRecurso->atualizarStatusRecursosNaoSubmetidos($recebidoPost->idReuniao);
 
-                            $tbReadequacoes = new Readequacao_Model_tbReadequacao();
+                            $tbReadequacoes = new tbReadequacao();
                             $tbReadequacoes->atualizarReadequacoesProximaPlenaria($recebidoPost->idReuniao);
                             $tbReadequacoes->atualizarStatusReadequacoesNaoSubmetidos($recebidoPost->idReuniao);
 
@@ -1402,14 +1402,14 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
         $idPronac = $_POST['idpronac'];
         $idReadequacao = $_POST['idreadequacao'];
 
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $dadosReadequacao = $Readequacao_Model_tbReadequacao->buscar(array('idPronac=?'=>$idPronac, 'idReadequacao=?'=>$idReadequacao, 'siEncaminhamento in (?)'=>array(8,9), 'stEstado=?'=>0))->current();
+        $tbReadequacao = new tbReadequacao();
+        $dadosReadequacao = $tbReadequacao->buscar(array('idPronac=?'=>$idPronac, 'idReadequacao=?'=>$idReadequacao, 'siEncaminhamento in (?)'=>array(8,9), 'stEstado=?'=>0))->current();
 
         if ($dadosReadequacao) {
-            $dados = $Readequacao_Model_tbReadequacao->buscarDadosReadequacoes(array('idReadequacao = ?'=>$dadosReadequacao->idReadequacao))->current();
+            $dados = $tbReadequacao->buscarDadosReadequacoes(array('idReadequacao = ?'=>$dadosReadequacao->idReadequacao))->current();
             $this->view->dados = $dados;
 
-            $Readequacao_Model_tbReadequacaoXParecer = new tbReadequacaoXParecer();
+            $tbReadequacaoXParecer = new tbReadequacaoXParecer();
             $pareceres = $tbReadequacaoXParecer->buscarPareceresReadequacao(array('a.idReadequacao =?'=>$dados->idReadequacao), array('1'));
             $this->view->Pareceres = $pareceres;
         } else {
@@ -2120,7 +2120,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
         $raberta = $reuniao->buscarReuniaoAberta();
         $votacao = new Votacao();
         $tbRecurso = new tbRecurso();
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
+        $tbReadequacao = new tbReadequacao();
         $idNrReuniao = $raberta['idNrReuniao'];
         $ordenacao = array(10,4); //ORDENANDO POR NOME DO COMPONENTE E PRONAC
 
@@ -2138,7 +2138,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
             //GRID - PROJETO SUBMETIDOS A PLENARIA - READEQUA��O
         } elseif ($grid == "readequacao") {
             $view = "listar-projetos-plenaria-readequacao.phtml";
-            $projetosReadequacoes = $Readequacao_Model_tbReadequacao->buscarReadequacoesEnviadosPlenaria($idNrReuniao);
+            $projetosReadequacoes = $tbReadequacao->buscarReadequacoesEnviadosPlenaria($idNrReuniao);
             $qntdPlenariaReadequacoes = $projetosReadequacoes->count();
 
             //GRID - PROJETOS VOTADOS
@@ -2335,8 +2335,8 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
         $where['a.stEstado = ?'] = 0; // 0=Atual; 1=Historico
         $where['a.siEncaminhamento = ?'] = 9; // 9=N�o submetidos a plen�ria - Checklist Publica��o
 
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $readequacoes = $Readequacao_Model_tbReadequacao->readequacoesNaoSubmetidas($where, array());
+        $tbReadequacao = new tbReadequacao();
+        $readequacoes = $tbReadequacao->readequacoesNaoSubmetidas($where, array());
 
         //$tbTitulacaoConselheiro = new tbTitulacaoConselheiro();
         //$this->view->conselheiros = $tbTitulacaoConselheiro->buscarConselheirosTitulares();

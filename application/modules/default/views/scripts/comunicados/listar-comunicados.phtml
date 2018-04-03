@@ -33,19 +33,19 @@ function paginar(pag){
 	
 	<table class="tabela">
 		<tr>
-			<th align="left">Sistema: <?php echo $c->stopcao == 1 ? 'Proposta':'Salic'; ?></th>
-			<th align="left" width="300">Início da vigência: <?php echo $c->dtiniciovigenciapt; ?></th>
-			<th align="left" width="300">Fim da vigência: <?php echo $c->dtterminovigenciapt; ?></th>
+			<th align="left">Sistema: <?php echo $c->stOpcao == 1 ? 'Proposta':'Salic'; ?></th>
+			<th align="left" width="300">Início da vigência: <?php echo $c->dtInicioVigenciaPT; ?></th>
+			<th align="left" width="300">Fim da vigência: <?php echo $c->dtTerminoVigenciaPT; ?></th>
 		</tr>
 		<tr>
 			<td colspan="3" class="fundo_linha3" align="center">Comunicado</td>
 		</tr>
 		<tr>
-			<td colspan="3"><?php echo $c->comunicado; ?></td>
+			<td colspan="3"><?php echo $c->Comunicado; ?></td>
 		</tr>
 		<tr>
 			<td colspan="3" align="center">
-				<input type="button" value="" class="btn_editar" onclick="redirecionar('<?php echo $this->url(array('controller' => 'comunicados', 'action' => 'editar','idComunicado' => $c->idcomunicado, 'url'=> 'ativos'),'',true); ?>');">
+				<input type="button" value="" class="btn_editar" onclick="redirecionar('<?php echo $this->url(array('controller' => 'comunicados', 'action' => 'editar','idComunicado' => $c->idComunicado, 'url'=> 'ativos'),'',true); ?>');">
 			</td>
 		</tr>
 	</table>

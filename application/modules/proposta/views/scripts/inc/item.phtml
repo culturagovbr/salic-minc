@@ -1,6 +1,6 @@
 <?php $currentUri = Zend_Controller_Front::getInstance()->getRequest()->getRequestUri(); ?>
 
-<li class="<?php echo($this->menu) ? 'no-padding' : 'bold'; ?> <?php echo ($this->menuClass) ? $this->menuClass : ''; ?>">
+<li class="<?php echo($this->menu) ? 'no-padding' : 'bold'; ?>">
     <?php if( !$this->menu ) : ?>
         <a id="<?php echo $this->id; ?>"
            class="<?php echo ($currentUri == $this->url) ? 'active':''?>"

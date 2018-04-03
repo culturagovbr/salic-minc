@@ -11,17 +11,17 @@ class Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta extends MinC_D
     private $_distribuicaoAvaliacaoProposta;
 
     /**
-     * @param array $distribuicaoAvaliacaoProposta
+     * @param Admissibilidade_Model_DistribuicaoAvaliacaoProposta $distribuicaoAvaliacaoProposta
      * @return Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta
      */
-    public function setDistribuicaoAvaliacaoProposta(array $params)
+    public function setDistribuicaoAvaliacaoProposta(Admissibilidade_Model_DistribuicaoAvaliacaoProposta $distribuicaoAvaliacaoProposta)
     {
-        if(count($params) > 0) {
-            $this->_distribuicaoAvaliacaoProposta = new Admissibilidade_Model_DistribuicaoAvaliacaoProposta($params);
-        }
-
+        $this->_distribuicaoAvaliacaoProposta = $distribuicaoAvaliacaoProposta;
         return $this;
     }
+
+    const AVALIACAO_ATUAL_INATIVA = 0;
+    const AVALIACAO_ATUAL_ATIVA = 1;
 
     public function propostaPossuiAvaliacao(
         $id_preprojeto,
@@ -46,7 +46,7 @@ class Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta extends MinC_D
     {
 
         $this->alterar(
-            ['avaliacao_atual' => Admissibilidade_Model_DistribuicaoAvaliacaoProposta::AVALIACAO_ATUAL_INATIVA],
+            ['avaliacao_atual' => Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta::AVALIACAO_ATUAL_INATIVA],
             ['id_preprojeto = ?' => $id_preprojeto]
         );
     }
@@ -76,27 +76,9 @@ class Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta extends MinC_D
             $select->where("distribuicao_avaliacao_proposta.id_perfil = {$this->_distribuicaoAvaliacaoProposta->getIdPerfil()}");
         }
         $select->where(new Zend_Db_Expr("DATEDIFF(d, distribuicao_avaliacao_proposta.data_distribuicao, GETDATE()) > ?"), $prazoVencimentoEmDias);
-        $select->where("avaliacao_atual = ?", Admissibilidade_Model_DistribuicaoAvaliacaoProposta::AVALIACAO_ATUAL_ATIVA);
+        $select->where("avaliacao_atual = ?", Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta::AVALIACAO_ATUAL_ATIVA);
 
         return $db->fetchAll($select);
-    }
-
-    public function obterDistribuicaoAtiva() {
-        if(!$this->_distribuicaoAvaliacaoProposta->getIdPreprojeto()) {
-            throw new Exception("Identificador da Proposta não Informada.");
-        }
-        $tableSelect = $this->select();
-        $tableSelect->from(
-            [$this->_name],
-            '*',
-            $this->getSchema('sac')
-        );
-        $tableSelect->where('id_preprojeto = ?', $this->_distribuicaoAvaliacaoProposta->getIdPreprojeto());
-        $tableSelect->where('avaliacao_atual = ?', Admissibilidade_Model_DistribuicaoAvaliacaoProposta::AVALIACAO_ATUAL_ATIVA);
-        $resultado = $this->fetchRow($tableSelect);
-        if($resultado) {
-            return $resultado->toArray();
-        }
     }
 
 }

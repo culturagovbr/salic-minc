@@ -60,13 +60,9 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
      */
     protected $_proponente;
 
-    /**
-     * @var array
-     */
-    protected $_agenteUsuarioLogado;
-
 
     private $_movimentacaoAlterarProposta = '95';
+    private $_situacaoAlterarProjeto = Projeto_Model_Situacao::PROJETO_LIBERADO_PARA_AJUSTES;
     private $_diasParaAlterarProjeto = 30;
 
     public function init()
@@ -112,12 +108,13 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
          */
         $this->idResponsavel = $auth->getIdentity()->IdUsuario;
 
+
         /**
          * Agentes sao proponentes da proposta ou do projeto
          */
         $tblAgentes = new Agente_Model_DbTable_Agentes();
         $agente = $tblAgentes->findBy(array('cnpjcpf' => $this->cpfLogado));
-        $this->_agenteUsuarioLogado = $agente;
+
         if ($agente) {
             $this->idAgente = $agente['idAgente'];
             $this->view->idAgente = $agente['idAgente'];
@@ -138,8 +135,6 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
             $this->view->isEditarProposta = $this->isEditarProposta($this->idPreProjeto);
             $this->view->isEditarProjeto = $this->isEditarProjeto($this->idPreProjeto);
             $this->view->isEditavel = $this->isEditavel($this->idPreProjeto);
-            $this->view->recursoEnquadramentoVisaoProponente = $this->obterRecursoEnquadramentoVisaoProponente($this->idPreProjeto);
-
 
             $layout = array(
                 'titleShort' => 'Proposta',
@@ -149,30 +144,26 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
             );
 
             // Alterar projeto
-            if (!$this->view->isEditarProposta) {
+            if (!empty($this->view->isEditarProjeto)) {
                 $tblProjetos = new Projetos();
                 $projeto = array_change_key_case($tblProjetos->findBy(array('idprojeto = ?' => $this->idPreProjeto)));
 
-                if (!empty($projeto)) {
-
-                    if (!isset($projeto['nrprojeto'])) {
-                        $projeto['nrprojeto'] = $projeto['anoprojeto'] . $projeto['sequencial'];
-                    }
-
-                    $this->view->projeto = $projeto;
-
-                    $layout = array(
-                        'titleShort' => 'Projeto',
-                        'titleFull' => 'Alterar projeto',
-                        'projeto' => $projeto['nrprojeto'],
-                        'listagem' => array('Lista de projetos' => array('module' => 'default', 'controller' => 'Listarprojetos', 'action' => 'listarprojetos')),
-                        'prazoAlterarProjeto' => $this->contagemRegressivaSegundos($projeto['dtsituacao'], $this->_diasParaAlterarProjeto)
-                    );
-
-                    if (!empty($this->view->isEditarProjeto)) {
-                        $this->salvarDadosPropostaSerializada($this->idPreProjeto);
-                    }
+                if (!isset($projeto['nrprojeto'])) {
+                    $projeto['nrprojeto'] = $projeto['anoprojeto'] . $projeto['sequencial'];
                 }
+
+                $this->view->projeto = $projeto;
+
+                $layout = array(
+                    'titleShort' => 'Projeto',
+                    'titleFull' => 'Alterar projeto',
+                    'projeto' => $projeto['nrprojeto'],
+                    'listagem' => array('Lista de projetos' => array('module' => 'default', 'controller' => 'Listarprojetos', 'action' => 'listarprojetos')),
+                    'prazoAlterarProjeto' => $this->contagemRegressivaSegundos($projeto['dtsituacao'], $this->_diasParaAlterarProjeto)
+                );
+
+                $this->salvarDadosPropostaSerializada($this->idPreProjeto);
+
             }
 
             $this->view->layout = $layout;
@@ -247,11 +238,11 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
             return false;
         }
 
-        if ($projeto['Situacao'] != Projeto_Model_Situacao::PROJETO_LIBERADO_PARA_AJUSTES) {
-            return false;
+        if ($projeto['Situacao'] == $this->_situacaoAlterarProjeto) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     public function isEditavel($idPreProjeto)
@@ -321,11 +312,5 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
             $tbPreProjetoMetaMapper = new Proposta_Model_TbPreProjetoMetaMapper();
             $tbPreProjetoMetaMapper->salvarPropostaCulturalSerializada($this->idPreProjeto, 'alterarprojeto');
         }
-    }
-
-    private function obterRecursoEnquadramentoVisaoProponente($idPreProjeto)
-    {
-        $tbRecursoProposta = new Recurso_Model_DbTable_TbRecursoProposta();
-        return $tbRecursoProposta->obterRecursoAtualVisaoProponente($idPreProjeto);
     }
 }
