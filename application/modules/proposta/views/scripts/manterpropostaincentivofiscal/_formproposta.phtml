@@ -28,7 +28,7 @@
     <div class="row">
         <?php
             if (isset($this->proposta['idPreProjeto'])) {
-                echo $this->partial("inc/menu.phtml", $this); // menu
+                echo $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto));  // menu
             }
 
             $currentUrl = Zend_Controller_Front::getInstance()->getRequest()->getRequestUri();

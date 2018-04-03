@@ -28,9 +28,10 @@
     }
 
 </style>
+<!--$this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto));-->
 <?php
 if (isset($this->proposta['idpreprojeto'])) {
-    echo $this->partial("inc/menu.phtml", $this); // menu
+    echo $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto));  // menu
 }
 
 ?>
@@ -97,34 +98,37 @@ if (isset($this->proposta['idpreprojeto'])) {
                                     <tr class="destacar centro">
                                         <td colspan="5"><b>Identifica&ccedil;&atilde;o da Proposta Cultural</b></td>
                                     </tr>
-                                    <tr>
-                                        <td class="esquerda" colspan="5">
-                                            <div style="width: 95%">
-                                                <div style="float:left; width: 85%">
-                                                    Proponente:
-                                                    <span
-                                                        style="color: blue;"><?php echo $this->proponente['descricao']; ?></span>
-                                                </div>
-                                                <div style="float:left; width: 15%">
-                                                    Nr da Proposta:<br/>
-                                                    <span style="color: blue;">
+
+                                    <tr class="esquerda">
+                                        <td>
+                                            Nr da Proposta:<br/>
+                                            <span style="color: blue;">
                                                             <?php
                                                             if (isset($this->proposta['idpreprojeto']))
                                                                 echo $this->proposta['idpreprojeto'];
                                                             ?>
                                                         </span>
-                                                </div>
-                                            </div>
                                         </td>
-                                    </tr>
-                                    <tr class="esquerda">
-                                        <td colspan="5">Nome da Proposta Cultural *
+                                        <td colspan="4">
+                                            Nome da Proposta Cultural *
+                                            <br />
                                             <input type="text" class="input_simples" name="nomeProjeto" id="nomeProjeto"
                                                    maxlength="500" title="Nome da Proposta Cultural" style="width:50em;"
                                                    value="<?php
                                                    if (isset($this->proposta['idpreprojeto']))
                                                        echo str_replace("'", "", str_replace("\"", "", ($this->proposta['nomeprojeto'])));
                                                    ?>"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="esquerda" colspan="5">
+                                            <div style="width: 95%">
+                                                <div style="float:left; width: 100%">
+                                                    Proponente:
+                                                    <span
+                                                            style="color: blue;"><?php echo $this->proponente['descricao']; ?></span>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 </table>

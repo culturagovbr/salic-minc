@@ -1,0 +1,7 @@
+<?php if ($this->idPreProjeto && $this->isProponente){
+    echo $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto));
+    echo $this->partial('/mensagem/partials/proposta/conteudo-solicitar.phtml', 'solicitacao', $this);
+}else{
+    echo $this->partial('/mensagem/partials/projeto/conteudo-solicitar.phtml', 'solicitacao', $this);
+}
+

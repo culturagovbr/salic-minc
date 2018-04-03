@@ -42,14 +42,6 @@
     }
 </script>
 
-<style type="text/css">
-    .mensagem {
-        padding: 8px;
-        border: darkgreen;
-        background: #e3e3c7;
-    }
-</style>
-
 <?php
 echo $this->partial("consultardadosprojeto/inc/menu.inc.php", $this); // menu de consultar dados do projeto
 
@@ -59,8 +51,8 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=".Seguranca::encrypt($this->i
 ?>
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
-        <li class="second"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => '')); ?><?php echo $urlPronac;?>" title="Ir para In&iacute;cio">Consultar dados do Projeto</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
+        <li class="second"><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => '')); ?><?php echo $urlPronac;?>" title="Ir para In&iacute;cio">Consultar dados do Projeto</a></li>
         <li class="last" id="caminhoLocalAtual">Consultar dados do Projeto</li>
     </ul>
 </div>
@@ -174,12 +166,13 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=".Seguranca::encrypt($this->i
                 <td align="center"><b><font color="#CC0000"><?php echo @number_format($this->projeto->OutrasFontes, 2, ",", "."); ?></font></b></td>
 
                 <td align="center"><b><?php echo "<a href=\"#\" onclick=\"carregaDados('".$this->url(array(
+                    'module' => 'default',
                     'controller' => 'consultardadosprojeto',
                     'action' => 'planilha-orcamentaria'
                 ))."?idPronac=".$this->idPronac."','conteudo'); return false\" title=\"Ir para Planilha or&ccedil;ament&aacute;ria\"> <font color=\"#0000FF\">".@number_format(($this->projeto->ValorSolicitado + $this->projeto->OutrasFontes), 2, ",", ".")."</font></a>"; ?></b></td>
                 <td align="center"><b>
 		    <?php if ($this->projeto->ValorAprovado > 0): ?>
-		    <?php echo "<a href=\"#\" onclick=\"carregaDados('".$this->url(array('controller' => 'consultardadosprojeto', 'action' => 'planilha-orcamentaria-aprovada'))."?idPronac=".$this->idPronac."','conteudo'); return false\" title=\"Ir para Planilha or&ccedil;ament&aacute;ria\"> <font color=\"#0000FF\">".@number_format(($this->projeto->ValorAprovado), 2, ",", ".")."</font></a>"; ?>
+		    <?php echo "<a href=\"#\" onclick=\"carregaDados('".$this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'planilha-orcamentaria-aprovada'))."?idPronac=".$this->idPronac."','conteudo'); return false\" title=\"Ir para Planilha or&ccedil;ament&aacute;ria\"> <font color=\"#0000FF\">".@number_format(($this->projeto->ValorAprovado), 2, ",", ".")."</font></a>"; ?>
 		    <?php else : ?>
 		    <?php echo @number_format(($this->projeto->ValorAprovado), 2, ",", "."); ?>
 		    <?php endif; ?>
@@ -191,20 +184,20 @@ $urlPronac = (isset($this->idPronac)) ? "?idPronac=".Seguranca::encrypt($this->i
                 <?php if($this->projeto->idMecanismo != 2 && $this->projeto->idMecanismo != 6) { ?>
                 <td align="center"><b>
 		    <?php if ($this->projeto->ValorCaptado > 0): ?>
-		    <a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'dados-bancarios-captacao'));?>?idPronac=<?php echo $this->idPronac; ?>" style="color: blue !important;"><?php echo @number_format($this->projeto->ValorCaptado, 2, ",", "."); ?></a>
+		    <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'dados-bancarios-captacao'));?>?idPronac=<?php echo $this->idPronac; ?>" style="color: blue !important;"><?php echo @number_format($this->projeto->ValorCaptado, 2, ",", "."); ?></a>
 		    <?php else : ?>
 		    <?php echo @number_format($this->projeto->ValorCaptado, 2, ",", "."); ?>
 		    <?php endif; ?>
 		</b></td>
                 <?php } else { ?>
-                <td align="center"><b><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'dados-convenio'));?>?idPronac=<?php echo $this->idPronac; ?>" style="color: blue !important;"><?php echo @number_format($this->projeto->ValorCaptado, 2, ",", "."); ?></a></b></td>
+                <td align="center"><b><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'dados-convenio'));?>?idPronac=<?php echo $this->idPronac; ?>" style="color: blue !important;"><?php echo @number_format($this->projeto->ValorCaptado, 2, ",", "."); ?></a></b></td>
                 <?php } ?>
 
                 <?php if($this->projeto->idMecanismo != 2 && $this->projeto->idMecanismo != 6) { ?>
                 <td align="center"><b><?php echo @number_format((($this->projeto->ValorCaptado / $this->projeto->ValorAprovado)* 100), 2, ",", "."); ?></b></td>
                 <td align="center"><b>
 		    <?php if ($this->projeto->vlComprovado > 0): ?>
-		    <?php echo "<a href=\"#\" onclick=\"carregaDados('".$this->url(array('controller' => 'consultardadosprojeto', 'action' => 'dados-relacao-pagamentos'))."?idPronac=".$this->idPronac."','conteudo'); return false\" title=\"Ir para Rela&ccedil;&atilde;o de Pagamentos\"> <font color=\"#0000FF\">". @number_format($this->projeto->vlComprovado, 2, ",", ".") ."</font></a>" ?>
+		    <?php echo "<a href=\"#\" onclick=\"carregaDados('".$this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'dados-relacao-pagamentos'))."?idPronac=".$this->idPronac."','conteudo'); return false\" title=\"Ir para Rela&ccedil;&atilde;o de Pagamentos\"> <font color=\"#0000FF\">". @number_format($this->projeto->vlComprovado, 2, ",", ".") ."</font></a>" ?>
 		    <?php else : ?>
 		    <?php echo @number_format($this->projeto->vlComprovado, 2, ",", "."); ?>
 		    <?php endif; ?>

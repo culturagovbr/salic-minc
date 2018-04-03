@@ -1,0 +1,103 @@
+<div class="table-responsive mensagens bordered">
+    <?php if (count($this->arrResult) > 0) : ?>
+        <table class="table table-bordered striped" style="width: 100%">
+            <thead class="">
+            <tr>
+                <th data-field="" class="messagem-numero left-align">Nº</th>
+                <th data-field="" class="messagem-titulo left-align">Proposta/Projeto</th>
+                <th data-field="" class="mensagem-texto left-align">Solicita&ccedil;&atilde;o</th>
+                <?php if (!$this->isProponente)  : ?>
+                    <th data-field="" class="left-align">T&eacute;cnico</th>
+                <?php endif; ?>
+                <th data-field="" class="mensagem-situacao left-align">Estado</th>
+                <th data-field="id" class="mensagem-data center-align">Dt. Solicita&ccedil;&atilde;o</th>
+                <th data-field="id" class="mensagem-data center-align">Dt. Resposta</th>
+                <th class="center-align">#</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($this->arrResult as $int => $arrValue): ?>
+                <?php
+                $arrayUrl = ['module' => 'solicitacao', 'controller' => 'mensagem', 'action' => 'visualizar', 'id' => $arrValue['idSolicitacao']];
+
+                if (!empty($arrValue['idPronac'])) {
+                    $arrayUrl['idPronac'] = $arrValue['idPronac'];
+                    $arrayLinkProjeto = array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'index', 'idPronac' => Seguranca::encrypt($arrValue['idPronac']));
+                } elseif (!empty($arrValue['idProjeto'])) {
+                    $arrayUrl['idPreProjeto'] = $arrValue['idProjeto'];
+                    $arrayLinkProjeto = array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'exibirpropostacultural-ajax', 'idPreProjeto' => $arrValue['idProjeto']);
+                }
+
+                if ($arrValue['siEncaminhamento'] == 12) {
+                    $arrayUrl['action'] = 'solicitar';
+                    unset($arrayUrl['id']);
+                }
+
+                if ($arrValue['idTecnico'] == $this->idUsuario) {
+                    $arrayUrl['action'] = 'responder';
+                }
+                ?>
+                <tr class="<?= ($arrValue['stLeitura'] == 0 && !empty($arrValue['dtResposta'])) ? 'unread' : 'read'; ?>">
+                    <td>
+                        <?php if (!empty($arrValue['Pronac'])) : ?>
+                            <a
+                               target="_blank"
+                               href="<?= $this->url($arrayLinkProjeto, null, true); ?>"
+                               data-tooltip="Visualizar projeto"
+                               class="waves-effect waves-teal btn small white tooltipped black-text"
+                            ><?= $arrValue['Pronac']; ?></a>
+
+                        <?php elseif ($arrValue['idProjeto']) : ?>
+                            <a
+                                data-ajax-modal="<?= $this->url($arrayLinkProjeto); ?>"
+                                href="javascript:void(0);"
+                                data-position="top"
+                                data-delay="50"
+                                data-ajax-modal-height="96%"
+                                data-ajax-modal-width="98%"
+                                data-tooltip="Visualizar proposta"
+                                class="waves-effect waves-teal btn small white tooltipped black-text"
+                            ><?= $arrValue['idProjeto']; ?></a>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?= $arrValue['NomeProjeto']; ?>
+                    </td>
+                    <td>
+                        <?= substr(strip_tags($arrValue['dsSolicitacao']), 0 , 65); ?>
+                        <?= (strlen($arrValue['dsSolicitacao'])>=65) ? '...' : ''; ?>
+                    </td>
+                    <?php if (!$this->isProponente) : ?>
+                        <td>
+                            <?= $arrValue['Tecnico']; ?>
+                        </td>
+                    <?php endif;?>
+                    <td>
+                        <?= $arrValue['dsEncaminhamento']; ?>
+                    </td>
+                    <td class="center-align"><?= date('d/m/Y', strtotime($arrValue['dtSolicitacao'])); ?></td>
+
+                    <td class="center-align">
+                        <?= (!$arrValue['dtResposta']) ?
+                                ($arrValue['diasSemResposta'] == 0) ?
+                                    "Não respondida" :
+                                    "Não respondida à {$arrValue['diasSemResposta']} dias":
+                                date('d/m/Y', strtotime($arrValue['dtSolicitacao']))
+                                 ?>
+                    </td>
+
+                    <td>
+                        <a class="btn blue small white-text tooltipped"
+                           data-tooltip="Visualizar"
+                           href="<?php echo $this->url($arrayUrl, null, true); ?>">
+                            <i class="material-icons">visibility</i>
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <div class="padding20 green white-text">Sem solicita&ccedil;&otilde;es.</div>
+    <?php endif; ?>
+</div>

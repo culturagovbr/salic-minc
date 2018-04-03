@@ -231,4 +231,14 @@ class Admissibilidade_Model_SugestaoEnquadramento extends MinC_Db_Model
         return $this;
     }
 
+    public function isPermitidoSugerirEnquadramento()
+    {
+
+        if(!empty($this->getIdPerfilUsuario()) && !is_null($this->getIdPerfilUsuario())) {
+            return (Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE == $this->getIdPerfilUsuario()
+                || Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE == $this->getIdPerfilUsuario()
+                || Autenticacao_Model_Grupos::COMPONENTE_COMISSAO == $this->getIdPerfilUsuario()
+                || Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->getIdPerfilUsuario());
+        }
+    }
 }

@@ -41,11 +41,13 @@ function d() {
             <fieldset>
                 <legend>Par&acirc;metros</legend>
 HTML;
+echo '<pre>';
     for ($i = 0; $i < func_num_args(); $i++) {
         $value = func_get_arg($i);
-        var_dump($value);
         print_r($value);
+        var_dump($value);
     }
+echo '</pre>';
     echo <<<HTML
             </fieldset>
             <fieldset>
@@ -204,7 +206,7 @@ function aplicaMascara($valor, $mascara) {
     return $novoValor;
 }
 
-function gerarBreadCrumb($links = array()) {
+function gerarBreadCrumb($links = array(), $breadcrumbId = 'breadcrumb') {
     try {
         $router = Zend_Controller_Front::getInstance()->getRouter();
         $primeiroLink = null;
@@ -215,7 +217,7 @@ function gerarBreadCrumb($links = array()) {
             $primeiroLink =  $router->assemble(array('module' => 'default', 'controller' => 'principal', 'action' => ''));
         }
 
-        $guia = "<div id='breadcrumb'><ul>";
+        $guia = "<div id='{$breadcrumbId}'><ul>";
         $guia .= "<li class='first'><a href='{$primeiroLink}' title='In&iacute;cio'>In&iacute;cio</a></li>";
         $qtdLinks = count($links);
 

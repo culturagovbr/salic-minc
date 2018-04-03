@@ -1,0 +1,270 @@
+<table class="tabela">
+    <?php
+    $nrfonte = 0;
+    $TotalSolicitado = 0;
+    $TotalSugerido = 0;
+    $TotalUnitario = 0;
+    $TotalAprovado = 0;
+    $disponivelParaAdicaoItensReadequacaoPlanilha = $this->DisponivelParaAdicaoItensReadequacaoPlanilha($this->idPronac);
+    $disponivelParaEdicaoReadequacaoPlanilha = $this->DisponivelParaEdicaoReadequacaoPlanilha($this->idPronac);
+    
+    if(is_array($this->planilha) && count($this->planilha)>0) foreach ($this->planilha as $fonte => $planilha) { //ForeachFonteIncentivo
+        ?>
+        <tr>
+            <td>
+                <div tipo="fonte" fonte="<?php echo $nrfonte; ?>" aberto="true" class="icn_menos" style="width:90%"><span class="red del_link" style="font-size: 20pt; font-weight: 800;"><?php echo $fonte; ?></span></div>
+            </td>
+        </tr>
+        <?php
+        $nrproduto = 0;
+        $valorSolicitadoTotalIncentivo = 0;
+        $valorSugeridoTotalIncentivo = 0;
+        $valorUnitarioTotalIncentivo = 0;
+        $valorAprovadoTotalIncentivo = 0;
+        foreach ($this->planilha[$fonte] as $produto => $planilha) {
+            ?>
+            <tr class='master' fonte="<?php echo $nrfonte; ?>">
+                <td class='master'>
+                    <div  tipo="produto" aberto="true" fonte="<?php echo $nrfonte; ?>" produto ="<?php echo $nrproduto; ?>" class="icn_menos clickproduto" style="width:98%; margin-left:2%;"><span class="green del_link" style="font-size: 16pt; font-weight: 800;"><?php echo $produto; ?></span></div>
+                </td>
+            </tr>
+            <?php
+            $nretapa = 0;
+            $valorSolicitadoTotalProduto = 0;
+            $valorSugeridoTotalProduto = 0;
+            $valorUnitarioTotalProduto = 0;
+            $valorAprovadoTotalProduto = 0;
+            foreach ($this->planilha[$fonte][$produto] as $etapa => $planilha) {
+                $valoretapasolicitado = 0;
+                ?>
+                <tr class="master produto" produto="<?php echo $nrproduto; ?>"  fonte="<?php echo $nrfonte; ?>" >
+                    <td>
+                        <div><div tipo="etapa" fonte="<?php echo $nrfonte; ?>" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>" aberto="true" class="icn_menos" style="width:94%; margin-left:4%;"><span class="orange-text del_link" style="font-size: 14pt; font-weight: 800;"><?php echo $etapa; ?></span></div></div>
+                    </td>
+                </tr>
+                <?php
+                $nrcidade = 0;
+                $valorSolicitadoTotalEtapa = 0;
+                $valorSugeridoTotalEtapa = 0;
+                $valorUnitarioTotalEtapa = 0;
+                $valorAprovadoTotalEtapa = 0;
+                foreach ($this->planilha[$fonte][$produto][$etapa] as $cidade => $planilha) {
+                    $item = array_shift(array_slice($planilha, 0, 1));
+                    ?>
+                    <tr class="master produto etapa" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>"  fonte="<?php echo $nrfonte; ?>" >
+                        <td>
+                            <div tipo="cidade" fonte="<?php echo $nrfonte; ?>" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>" cidade="<?php echo $nrcidade; ?>" aberto="true" class="icn_menos" style="width:94%; margin-left:6%;"><span class="black del_link" style="font-size: 12pt; font-weight: 800;"><?php echo $cidade; ?></span></div>
+                        </td>
+                    </tr>
+
+                    <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>" cidade="<?php echo $nrcidade; ?>"  fonte="<?php echo $nrfonte; ?>">
+                        <td>
+			    <div class="center-align">
+                    <?php
+                    $podeAdicionarItem = (
+                        $this->idPerfil == Autenticacao_Model_Grupos::PROPONENTE &&
+                        $disponivelParaAdicaoItensReadequacaoPlanilha &&
+                        $this->link
+                    ) ? true : false;
+                    
+                    ?>
+                    
+                    <?php if ($podeAdicionarItem) : ?>                    
+				<a class="waves-effect waves-light btn white-text btn-incluir-novo-item"
+				   id_fonte="<?php echo $item['idFonte']; ?>"
+				   id_produto="<?php echo $item['idProduto']; ?>"
+				   id_etapa="<?php echo $item['idEtapa']; ?>"
+				   id_uf="<?php echo $item['idUF']; ?>"
+				   id_municipio="<?php echo $item['idMunicipio'] ?>" >
+				    <i class="material-icons left">add</i>
+				    incluir item neste munic&iacute;pio
+				</a>
+                    <?php endif; ?>
+			    </div>
+			    <br/>
+                            <table class="tabela">
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>Item</th>
+                                    <th>Dias</th>
+                                    <th>Qtde</th>
+                                    <th>Ocor.</th>
+                                    <th>Vl. Unit&aacute;rio</th>
+                                    <th>Vl. Aprovado</th>
+                                    <th>Vl. Comprovado</th>
+				    <th>Justif. Readequa&ccedil;&atilde;o</th>
+
+                                    <?php //if($this->link && $this->idPerfil == 1111){ ?>
+                                        <th>A&ccedil;&atilde;o</th>
+                                    <?php //} ?>
+                                </tr>
+                                <?php
+                                $valorSolicitadoTotalUf = 0;
+                                $valorSugeridoTotalUf = 0;
+                                $valorAprovadoTotalUf = 0;
+                                $vlSugerido = 0;
+                                $vlUnitario = 0;
+                                $vlAprovado = 0;
+                                foreach ($this->planilha[$fonte][$produto][$etapa][$cidade] as $planilha) {
+                                    $podeEditarItem =
+                                                    (
+                                                        $this->link &&
+                                                        $planilha['vlComprovado'] < $planilha['vlAprovado'] &&
+                                                        $disponivelParaEdicaoReadequacaoPlanilha &&
+                                                        (
+                                                            $planilha['tpAcao'] != 'E' &&
+                                                            $nrfonte == '0'
+                                                        )
+                                                    );
+                                    
+                                    $vlAprovado += $planilha['vlAprovado'];
+                                    // soma somente quando não tiver excluído o item
+                                    if($planilha['tpAcao'] != 'E'){
+                                        $valorAprovadoTotalUf += $planilha['vlAprovado'];
+                                        $valorAprovadoTotalEtapa += $planilha['vlAprovado'];
+                                        $valorAprovadoTotalProduto += $planilha['vlAprovado'];
+                                        $valorAprovadoTotalIncentivo += $planilha['vlAprovado'];
+                                        $TotalAprovado += $planilha['vlAprovado'];
+                                    }
+                                    ?>
+
+                                    <?php
+                                        $corLinha = '';
+                                        switch ($planilha['tpAcao']) {
+                                            case 'E':
+                                                $corLinha = 'red';
+                                                if($this->idPerfil == Autenticacao_Model_Grupos::PROPONENTE){
+                                                    $corLinha = 'silver';
+                                                }
+                                                break;
+                                            case 'I':
+                                                $corLinha = 'green';
+                                                break;
+                                            case 'A':
+                                                $corLinha = 'blue';
+                                                break;
+                                            default:
+                                                $corLinha = '';
+                                                break;
+                                        }
+                                    ?>
+                                    <tr class="item" style="color: <?php echo $corLinha; ?> !important;">
+                                        <td style="width: 5%;"><?php echo $planilha['Seq']; ?></td>
+                                        <td style="width: 20%;">
+					    <?php
+                                        if($podeEditarItem) { ?>
+                                                <a href="#" style="color: <?php echo $corLinha; ?> !important;" title="clique para alterar os dados do item" class="editarItem" idPlanilhaAprovacao="<?php echo $planilha['idPlanilhaAprovacao']; ?>"><?php echo $planilha['Item']; ?></a>
+                                            <?php } else {
+                                                echo $planilha['Item']; ?>
+                                            <?php } ?>
+
+                                        </td>
+                                        <td class="direita textDias"><?php echo $planilha['QtdeDias']; ?></td>
+                                        <td class="direita textQuantidade"><?php echo $planilha['Quantidade']; ?></td>
+                                        <td class="direita textOcorrencia"><?php echo $planilha['Ocorrencia']; ?></td>
+                                        <td class="direita textValorUnitario"><?php echo @number_format($planilha['vlUnitario'], 2, ",", "."); ?></td>
+                                        <td class="direita textValorAprovado"><?php echo @number_format($planilha['vlAprovado'], 2, ",", "."); ?></td>
+                                        <td class="direita textValorComprovado"><?php echo @number_format($planilha['vlComprovado'], 2, ",", "."); ?></td>
+                                        <td class="textJustificativa" style="width: 20%;"><?php echo $planilha['dsJustificativa']; ?></td>
+                                        <td class="excluirItem centro" style="width: 1%;">
+                                        <?php if($this->link && $this->idPerfil == Autenticacao_Model_Grupos::PROPONENTE){ ?>
+                                            <?php if($planilha['tpAcao'] == 'E'){ ?>
+                                                Item excluído
+                                                <img src="<?php echo $this->baseUrl(); ?>/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItem" tipo="<?php echo $planilha['tpAcao']; ?>" idPlanilha="<?php echo $planilha['idPlanilhaAprovacao']; ?>" title="<?php echo 'restaurar item'; ?>"/>
+                                            <?php } else { ?>
+                                                <?php if(empty($planilha['vlComprovado'])){ ?>
+                                                <input type="button" class="btn_excluir excluirItemPlanilha" title="Solicitar exclusão de item" idPlanilhaAprovacao="<?php echo $planilha['idPlanilhaAprovacao']; ?>">
+                                            <?php } } ?>
+                                        <?php } else { ?>
+                                            <?php $title = '';
+                                                switch ($planilha['tpAcao']) {
+                                                    case 'E':
+                                                        echo 'Exclu&iacute;do';
+                                                        $title = 'restaurar item';
+                                                        break;
+                                                    case 'I':
+                                                        echo 'Inclu&iacute;do';
+                                                        $title = 'recusar inclusão de item';
+                                                        break;
+                                                    case 'A':
+                                                        echo 'Alterado';
+                                                        $title = 'reintegrar valores do item';
+                                                        break;
+                                                    default:
+                                                        echo '';
+                                                        break;
+                                                    } ?>
+
+                                                <?php if(in_array($this->idPerfil, array(Autenticacao_Model_Grupos::PARECERISTA,Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO)) && $planilha['tpAcao'] != 'N'){ ?>
+                                                <img src="<?php echo $this->baseUrl(); ?>/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItem" tipo="<?php echo $planilha['tpAcao']; ?>" idPlanilha="<?php echo $planilha['idPlanilhaAprovacao']; ?>" title="<?php echo $title; ?>"/>
+                                                <?php } ?>
+
+                                                <?php if($this->idPerfil == Autenticacao_Model_Grupos::COMPONENTE_COMISSAO && $planilha['tpAcao'] != 'N' && $this->link){ ?>
+                                                <img src="<?php echo $this->baseUrl(); ?>/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItem" tipo="<?php echo $planilha['tpAcao']; ?>" idPlanilha="<?php echo $planilha['idPlanilhaAprovacao']; ?>" title="<?php echo $title; ?>"/>
+                                                <?php } ?>
+                                        <?php } ?>
+                                        </td>
+                                    </tr>
+                                    <?php
+                                } //fechaForeachplanilha
+                                $nrcidade++;
+                                ?>
+                                <tr>
+                                    <td colspan="6" class="black" style="font-size: 14pt;" align="right">Total da UF</td>
+                                    <td class="black" style="font-size: 12pt; font-weight: 600; text-align: right"><?php echo @number_format($valorAprovadoTotalUf, 2, ",", "."); ?></td>
+                                    <td colspan="3"></td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <?php
+                } //fechaForeachcidade
+		?>
+                <tr class="master produto etapa" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>"  fonte="<?php echo $nrfonte; ?>">
+                    <td>
+                        <table class="tabela">
+                            <tr>
+                                <td colspan="6" class="orange-text" style="width: 52%; font-size: 14pt;" align="right" nowrap>Total da Etapa</td>
+                                <td class="orange-text" style="width: 1px; font-size: 12pt; font-weight: 600; text-align: right"><?php echo @number_format($valorAprovadoTotalEtapa, 2, ",", "."); ?></td>
+                                <td style="width: 37%;">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <?php $nretapa++;
+            } //fechaForeachetapa
+            ?>
+            <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>"  fonte="<?php echo $nrfonte; ?>">
+                <td>
+                    <table class="tabela">
+                        <tr>
+                            <td colspan="6" class="green-text" style="width: 52%; font-size: 14pt;" align="right">Total da <?php echo $produto; ?></td>
+                            <td class="green-text" style="font-size: 12pt; font-weight: 600; text-align: right"><?php echo @number_format($valorAprovadoTotalProduto, 2, ",", "."); ?></td>
+                            <td style="width: 37%">&nbsp;</td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <?php $nrproduto++;
+        } //fechaForeachproduto
+        ?>
+        <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>"  fonte="<?php echo $nrfonte; ?>">
+            <td>
+                <table class="tabela">
+                    <tr>
+                        <td colspan="6" class="red-text" style="width: 52%; font-size: 14pt;" align="right">Total do <?php echo $fonte; ?></td>
+                        <td class="red-text" style="font-size: 12pt; font-weight: 800; text-align: right"><?php echo @number_format($valorAprovadoTotalIncentivo, 2, ",", "."); ?></td>
+                        <td style="width: 37%">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+	<?php $nrfonte++;
+    }//fechaForeachFonteIncentivo
+    ?>
+    <?php if(count($this->planilha)==0){ ?>
+    <tr>
+        <td align="center"><em>Dados n&atilde;o informados!</em></td>
+    </tr>
+    <?php } ?>
+</table>

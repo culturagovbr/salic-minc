@@ -1,0 +1,19 @@
+<style>
+    .bordered-all td {
+        border: solid 1px #c9c9c9 !important;
+    }
+</style>
+<div class="modal-content">
+    <h4>Visualizar</h4>
+    <div>
+        <ul class="collapsible popout" data-collapsible="accordion" >
+            <?php echo $this->partial('/homologacao/partials/visualizar.phtml', ['arrValue' => $this->arrValue]); ?>
+        </ul>
+    </div>
+</div>
+<div class="modal-footer">
+    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat green-text">Fechar</a>
+</div>
+<script>
+    $3('.collapsible').collapsible();
+</script>

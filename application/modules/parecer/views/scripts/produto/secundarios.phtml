@@ -1,0 +1,24 @@
+<?php if(($this->stPrincipal == 1) && ($this->grupoAtivo == Autenticacao_Model_Grupos::PARECERISTA)){ ?>
+    <table class="bordered" id="produtosSecundarios">
+        <?php if (count($this->produtosSecundarios)){ ?>
+            <tr>
+                <th align="left">PRODUTO</th>
+            </tr>
+            <?php if (!empty($this->produtosSecundarios) ) {?>
+                <?php foreach($this->produtosSecundarios as $ps){ ?>
+                <tr>
+                    <td class="" align="left">
+                        <a target="_blanck" href="<?php echo $this->url(array('controller'=> 'analisarprojetoparecer','action' =>'produto'));?>?idPronac=<?php echo $ps['IdPRONAC']; ?>&idProduto=<?php echo $ps['idProduto']; ?>&stPrincipal=<?php echo $ps['stPrincipal'];?>">
+                            <?php echo $ps['Produto'] ;?>
+                        </a>
+                    </td>
+                </tr>
+                <?php } ?>
+            <?php } ?>
+        <?php } else { ?>
+            <tr>
+                <td align="center" style="color: red-text; font-size: 16px;">N&atilde;o h&aacute; produto secund&aacute;rio.</td>
+            </tr>
+        <?php } ?>
+    </table>
+<?php } ?>

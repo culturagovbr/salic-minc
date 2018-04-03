@@ -116,7 +116,9 @@
 <table class="tabela" cellpadding="1" cellspacing="1">
     <tr class="destacar centro">
         <td colspan="3"><b>Per&iacute;odo de Realiza&ccedil;&atilde;o</b></td>
-        <td colspan="2"><b>No caso de bem tombado</b></td>
+        <?php if(trim($this->proposta['nratotombamento'])) : ?>
+            <td colspan="2"><b>No caso de bem tombado</b></td>
+        <?php endif; ?>
     </tr>
     <tr>
         <td class="centro"><label for="dtInicioDeExecucao">Data de In&iacute;cio *</label></td>
@@ -128,10 +130,12 @@
         <td>Prorroga&ccedil;&atilde;o autom&aacute;tica?
             <?php echo ($this->proposta['tpprorrogacao'] == "1") ? "Sim" : "N&atilde;o"; ?>
         </td>
-        <td><label for="nrAtoTombamento">N&uacute;mero do Ato </label></td>
-        <td>
-            <?php if (isset($this->proposta['idpreprojeto'])) echo trim($this->proposta['nratotombamento']); ?>
-        </td>
+        <?php if(trim($this->proposta['nratotombamento'])) : ?>
+            <td><label for="nrAtoTombamento">N&uacute;mero do Ato </label></td>
+            <td>
+                <?php if (isset($this->proposta['idpreprojeto'])) echo trim($this->proposta['nratotombamento']); ?>
+            </td>
+        <?php endif; ?>
     </tr>
     <tr>
         <td class="centro"><label for="dtFinalDeExecucao">Data Final *</label></td>
@@ -141,29 +145,33 @@
                    value="<?php if (isset($this->proposta['idpreprojeto'])) echo $this->proposta['dtfinaldeexecucaoform']; ?>"/>
         </td>
         <td></td>
-        <td><label for="dtAtoTombamento">Data do Ato </label></td>
-        <td>
-            <?php if (isset($this->proposta['idpreprojeto'])) echo $this->proposta['dtatotombamentoform']; ?>
-        </td>
+        <?php if(trim($this->proposta['nratotombamento'])) : ?>
+            <td><label for="dtAtoTombamento">Data do Ato </label></td>
+            <td>
+                <?php if (isset($this->proposta['idpreprojeto'])) echo $this->proposta['dtatotombamentoform']; ?>
+            </td>
+        <?php endif; ?>
     </tr>
     <tr>
         <td colspan="3">
             <span id="msgValidaData"></span>
             <input type="hidden" name="blnDatasValidas" id="blnDatasValidas" value="true">
         </td>
-        <td><label for="esferaTombamento">Esfera do Ato </label></td>
-        <td>
-            <?php
+        <?php if(trim($this->proposta['nratotombamento'])) : ?>
+            <td><label for="esferaTombamento">Esfera do Ato </label></td>
+            <td>
+                <?php
 
-            if ($this->proposta['esferatombamento'] == "1") {
-                echo "Municipal";
-            } else if ($this->proposta['esferatombamento'] == "2") {
-                echo "Estadual";
-            } else if ($this->proposta['esferatombamento'] == "3") {
-                echo "Federal";
-            }
-            ?>
-        </td>
+                if ($this->proposta['esferatombamento'] == "1") {
+                    echo "Municipal";
+                } else if ($this->proposta['esferatombamento'] == "2") {
+                    echo "Estadual";
+                } else if ($this->proposta['esferatombamento'] == "3") {
+                    echo "Federal";
+                }
+                ?>
+            </td>
+        <?php endif; ?>
     </tr>
 </table>
 
@@ -172,6 +180,26 @@
         <td colspan="5"><b>Informa&ccedil;&otilde;es Complementares</b></td>
     </tr>
     <tr>
+        <td class="">
+            <label for="stDataFixa">Data Fixa</label>
+            <select class="select_simples" name="stDataFixa" id="stDataFixa"
+                    style="width: 5em">
+                <option value="0" <?php
+                if (isset($this->proposta['idpreprojeto']))
+                    if ($this->proposta['stdatafixa'] == "0") {
+                        echo "selected";
+                    }
+                ?>>N&atilde;o
+                </option>
+                <option value="1" <?php
+                if (isset($this->proposta['idpreprojeto']))
+                    if ($this->proposta['stdatafixa'] == "1") {
+                        echo "selected";
+                    }
+                ?>>Sim
+                </option>
+            </select>
+        </td>
         <td colspan="3" class="">
             <label for="stProposta">Plano Execu&ccedil;&atilde;o Imediata</label>
             <select name="stProposta" id="stProposta"
@@ -207,7 +235,7 @@
                     </div>
                 <?php else : ?>
                     <div id="anexarDocumento">
-                        <label for="arquivo" style="width: 50px; ">Comprovante do Plano de Execu&ccedil;&atilde;o
+                        <label for="arquivo" >Comprovante do Plano de Execu&ccedil;&atilde;o
                             Imediata </label>
                         <input type="file" name="arquivo" id="arquivo" class="input_simples">
                         <div id="arquivoinvalido" style="color:#FF0000"></div>

@@ -1,0 +1,64 @@
+<div class="row">
+    <div class="col s12">
+        <table class="bordered striped highlight" style="width: 100%;">
+            <thead class="green darken-1 white-text">
+                <tr class="green darken-1 white-text">
+                    <th rowspan="2" class="center-align">#</th>
+                    <th rowspan="2" data-field="id" class="center-align">PRONAC</th>
+                    <th rowspan="2" data-field="id" class="center-align">Nome do projeto</th>
+                    <th rowspan="2" data-field="teste" class="center-align">Enquadramento</th>
+                    <th colspan="2" data-field="teste2" class="center-align">Per&iacute;odo de execu&ccedil;&atilde;o</th>
+                    <th rowspan="2" data-field="teste3" class="center-align">Nr.Reuni&atilde;o</th>
+                    <th rowspan="2" data-field="teste3" class="center-align">Vl.Homologado</th>
+                    <!-- <th rowspan="2" data-field="teste3" class="center-align">Visualizar pareceres</th>
+                    <th rowspan="2" data-field="teste3" class="center-align">t</th>
+                    <th rowspan="2" data-field="teste3" class="center-align">Dilig&ecirc;nciar</th>
+                    <th rowspan="2" data-field="teste3" class="center-align">Gerar documento</th>
+                    <th rowspan="2" data-field="teste3" class="center-align">Encaminhar</th> -->
+                    <th rowspan="2" data-field="teste3" class="center-align">A&ccedil;&atilde;o</th>
+                </tr>
+                <tr>
+                    <th data-field="id" class="center-align">Dt.Inicio</th>
+                    <th data-field="id" class="center-align">Dt.Final</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($this->arrResult as $int => $arrValue): ?>
+                <tr>
+                    <td class="center-align"><?php echo $int+1; ?></td>
+                    <td class="center-align"><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'index')) . "?idPronac={$arrValue['IdPRONAC']}"; ?>" target="_blank"><u><?php echo $arrValue['Pronac']; ?></td>
+                    <td class="center-align"><?php echo $arrValue['NomeProjeto']; ?></td>
+                    <td class="center-align"><?php echo $arrValue['Enquadramento']; ?></td>
+                    <td class="center-align"><?php echo reset(explode(' ', new Zend_Date($arrValue['DtInicioExecucao']))); ?></td>
+                    <td class="center-align"><?php echo reset(explode(' ', new Zend_Date($arrValue['DtFimExecucao']))); ?></td>
+                    <td class="center-align"><?php echo $arrValue['NrReuniao']; ?></td>
+                    <td class="right-align"><?php echo 'R$ ' . number_format($arrValue['vlHomologado'], 2, ',', '.'); ?></td>
+                    <td class="center-align">
+                        <a data-ajax-modal="<?php echo $this->url(array('module' => 'projeto', 'controller' => 'homologacao', 'action' => 'visualizar', 'id' => $arrValue['IdPRONAC']), null, true); ?>"
+                            href="javascript:void(0);"
+                            data-ajax-modal-width="90%" data-ajax-modal-heigth="90%"
+                            class="btn small waves-effect waves-light tooltipped" data-position="top"
+                            data-delay="50" data-tooltip="Visualizar pareceres"><i class="material-icons">zoom_in</i></a>
+                        <a data-ajax-modal="<?php echo $this->url(array('module' => 'projeto', 'controller' => 'homologacao', 'action' => 'homologar', 'id' => $arrValue['IdPRONAC']), null, true); ?>"
+                            href="javascript:void(0);"
+                            data-ajax-modal-width="90%" data-ajax-modal-heigth="90%"
+                            class="btn small waves-effect waves-light tooltipped" data-position="top"
+                            data-delay="50" data-tooltip="Homologar projeto"><i class="material-icons">assignment_turned_in</i></a>
+                        <a href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista', 'idPronac' => $this->idPronac, 'situacao' => 'D25', 'tpDiligencia' => '181', 'idProduto' => ''), null, true); ?>" target="_blank"
+                            class="btn small waves-effect waves-light tooltipped" data-position="top"
+                            data-delay="50" data-tooltip="Dilig&ecirc;nciar"><i class="material-icons">done</i></a>
+<!--                        <a href="javascript:$3.redirect('--><?php //echo $this->url(arr76ay('module' => 'admissibilidade', 'controller' => 'mensagem', 'action' => 'responder', 'id' => $arrValue['idMensagemProjeto'], 'idPronac' => $this->idPronac), null, true); ?><!--');"-->
+<!--                            class="btn small waves-effect waves-light tooltipped" data-position="top"-->
+<!--                            data-delay="50" data-tooltip="Gerar documento"><i class="material-icons">insert_drive_file</i></a>-->
+                        <a data-ajax-modal="<?php echo $this->url(array('module' => 'projeto', 'controller' => 'homologacao', 'action' => 'encaminhar', 'id' => $arrValue['IdPRONAC']), null, true); ?>"
+                            data-ajax-modal-width="90%" data-ajax-modal-heigth="90%"
+                            class="btn small waves-effect waves-light tooltipped" data-position="top"
+                            data-delay="50" data-tooltip="Gerar documento e encaminhar"><i class="material-icons">redo</i></a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+<!--                                                                                                                                                        /?idPronac=203042&idProduto=62&situacao=B11&tpDiligencia=124-->
+            </tbody>
+        </table>
+    </div>
+</div>

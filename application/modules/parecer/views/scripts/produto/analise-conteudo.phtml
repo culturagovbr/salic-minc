@@ -1,0 +1,128 @@
+<div class="row">
+    <div class="col s12" >
+        <div id="divAnaliseConteudo" >
+            <form name="formAnaliseConteudo" id="formAnaliseConteudo" action="<?php echo $this->url(array('controller' => 'analisarprojetoparecer', 'action' => 'analisedeconteudo')); ?>" method="post">
+                <input type="hidden" id="stAcao" name="stAcao" value="0"/>
+                <input type="hidden" name="idPRONAC" value="<?php echo $this->projeto->IdPRONAC; ?>"/>
+                <input type="hidden" name="idProduto" value="<?php echo $this->projeto->idProduto; ?>"/>
+                <input type="hidden" id="stPrincipal" name="stPrincipal" value="<?php echo $this->projeto->stPrincipal; ?>"/>
+                <input type="hidden" id="idD" name="idD" value="<?php echo $this->idD; ?>"/>
+
+                <table class="tabela" style="width: 95%; <?php if ($this->IN2017) { echo 'display:none'; }; ?>">
+                    <tr>
+                        <th colspan="5" class="center">Enquadramento</th>
+                    </tr>
+                    <tr>
+                        <td colspan="5">&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2" id="Lei8313" colspan="2">
+                            <b>Lei 8.313/91 alterada pela Lei 9.874/1999 * </b>
+                            <p style="margin-top: 10px;">
+                                <input type="radio" style="margin-right: 5px;" value="1" name="Lei8313" onclick="APPescolherLei_8313();"/>Sim &nbsp;&nbsp;
+                                <input type="radio" style="margin-right: 5px;" value="0" name="Lei8313" onclick="APPescolherLei_8313();" />N&atilde;o
+                            </p>
+                        </td>
+                        <td id="Artigo3"><b>Artigo 3&deg;</b>
+                            <p style="margin-top: 10px;">
+                                <input type="radio" style="margin-right: 5px;" value="1" name="Artigo3" onclick="APPescolherArtigo3();" />Sim &nbsp;&nbsp;
+                                <input type="radio" style="margin-right: 5px;" value="0" name="Artigo3" onclick="APPescolherArtigo3();" />N&atilde;o
+                            </p>
+                        </td>
+                        <td><b>Inciso</b>
+                            <p>
+                                <select class="campo select_simples" id="IncisoArtigo3" name="IncisoArtigo3">
+                                    <option value="0">Selecione</option>
+                                    <option value="1">I</option>
+                                    <option value="2">II</option>
+                                    <option value="3">III</option>
+                                    <option value="4">IV</option>
+                                    <option value="5">V</option>
+                                </select>
+                            </p>
+                        </td>
+                        <td id="AlineaArtigo3">
+                            <b>Alinea Artigo 3</b>
+                            <p style="margin-top: 10px;">
+                                <input type="text" class="input_simples" name="AlineaArtigo3" id="AlineaArtigo3" />
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td id="Artigo18">
+                            <b>Artigo 18&deg;</b>
+                            <p style="margin-top: 10px;">
+                                <input type="radio" style="margin-right: 5px;" value="1" name="Artigo18" onclick="APPescolherArt_18();" />
+                                Sim &nbsp;&nbsp;
+                                <input type="radio" style="margin-right: 5px;" value="0" name="Artigo18" onclick="APPescolherArt_18();" />
+                                N&atilde;o
+                            </p>
+                        </td>
+                        <td id="AlineaArtigo18">
+                            <b>Alinea Artigo 18</b>
+                            <p style="margin-top: 10px;">
+                                <input type="text" class="input_simples" name="AlineaArtigo18" />
+                                <input type="hidden" name="AlineaArt18" id="AlineaArt18" />
+                            </p>
+                        </td>
+                        <td id="Artigo26">
+                            <b>Artigo 26&deg;</b>
+                            <p style="margin-top: 10px;">
+                                <input type="radio" style="margin-right: 5px;" value="1" name="Artigo26" onclick="APPescolherArt_26();" />Sim &nbsp;&nbsp;
+                                <input type="radio" style="margin-right: 5px;" value="0" name="Artigo26" onclick="APPescolherArt_26();" />N&atilde;o
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3">
+                            <b>Decreto 5761/2006 *</b>
+                            <p style="margin-top: 10px;">
+                                <input type="radio" style="margin-right: 5px;" value="1" name="Lei5761" onclick="APPescolherDecreto5761();" />Sim &nbsp;&nbsp;
+                                <input type="radio" style="margin-right: 5px;" value="0" name="Lei5761" onclick="APPescolherDecreto5761();" />N&atilde;o
+                            </p>
+                        </td>
+                        <td id="Artigo27">
+                            <b>Artigo 27&deg;</b>
+                            <p style="margin-top: 10px;">
+                                <input type="radio" style="margin-right: 5px;"  value="1" name="Artigo27" />Sim &nbsp;&nbsp;
+                                <input type="radio" style="margin-right: 5px;"  value="0" name="Artigo27" />N&atilde;o
+                            </p>
+                        </td>
+                        <td id="IncisoArtigo27">
+                            <b>Inciso(s)</b>
+                            <p style="margin-top: 10px;">
+                                <input type="checkbox" style="margin-right: 3px;" value="1" name="IncisoArtigo27_I" />I &nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" style="margin-right: 3px;" value="1" name="IncisoArtigo27_II" />II &nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" style="margin-right: 3px;" value="1" name="IncisoArtigo27_III" />III &nbsp;&nbsp;&nbsp;
+                                <input type="checkbox" style="margin-right: 3px;" value="1" name="IncisoArtigo27_IV" />IV
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+                <div class="row">
+                    <div class="col s12">
+                        <label>Parecer de Conteúdo do Produto*</label>
+                        <textarea class="textarea_simples" id="ParecerDeConteudo" name="ParecerDeConteudo" rows="10" style="width: 98%;"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <label>Parecer Favor&aacute;vel? *</label>
+                        <p>
+                            <input type="radio" value="1" class="ParecerFavoravel" id="ParecerFavoravel" name="ParecerFavoravel" checked="checked" />
+                            <label for="ParecerFavoravel">Sim</label>
+                            <input type="radio" value="0" class="ParecerFavoravel" id="ParecerDesfavoravel" name="ParecerFavoravel" />
+                            <label for="ParecerDesfavoravel">N&atilde;o</label>
+                        </p>
+                        <?php if($this->grupoAtivo == 93):?>
+                        <?php else: ?>
+                            <button id="btSalvarAnaliseDeConteudo" value=" " class="btn">
+                                Salvar
+                            </button>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

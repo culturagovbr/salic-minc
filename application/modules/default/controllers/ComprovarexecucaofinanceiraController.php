@@ -703,10 +703,6 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
     {
         $dtPagamento = $this->getRequest()->getParam('dtPagamento') ? new DateTime(data::dataAmericana($this->getRequest()->getParam('dtPagamento'))) : null;
 
-        if (empty($dtPagamento)) {
-            throw new Exception('Erro no preenchimento.');
-        }
-
         try {
             $this->verificarPermissaoAcesso(false, true, false);
             $request = $this->getRequest();
@@ -714,16 +710,22 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
             $pais = $this->getRequest()->getParam('pais');
 
             if (empty($pais)) {
-                throw new Exception('Por favor inserir um arquivo com tamanho mÃ¡ximo de 5MB."');
+                throw new Exception('Pa&iacute;s &eacute; obrigat&oacute;rio."');
             }
 
             $arquivoModel = new ArquivoModel();
             if ($pais == 'Brasil') {
+
+                if (empty($dtPagamento)) {
+                    throw new Exception('A data do pagamento é obrigatória.');
+                }
+
                 $arquivoModel->cadastrar('arquivo');
                 $idArquivo = $arquivoModel->getId();
                 if (empty($idArquivo)) {
                     throw new Exception('O arquivo deve ser PDF.');
                 }
+
                 $comprovantePagamentoModel = new ComprovantePagamento(
                     null,
                     $request->getParam('idAgente'),
@@ -739,6 +741,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
                     $request->getParam('nrDocumentoDePagamento'),
                     $request->getParam('dsJustificativa')
                 );
+
             } else {
                 $arquivoModel->cadastrar('arquivoInternacional');
                 $idArquivo = $arquivoModel->getId();
@@ -765,6 +768,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
             }
 
             $comprovantePagamentoModel->cadastrar();
+
             $this->_helper->flashMessenger('Comprovante cadastrado com sucesso.');
             $this->_helper->flashMessengerType('CONFIRM');
             $this->_redirect(
@@ -1890,6 +1894,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
                 $this->view->nrDocumentoDePagamento = $comprovanteAtualizar['nrDocumentoDePagamento'];
                 $this->view->JustificativaTecnico = $comprovanteAtualizar['JustificativaTecnico'];
                 $this->view->dsJustificativa = $comprovanteAtualizar['dsJustificativa'];
+                $this->view->dtPagamento = $comprovanteAtualizar['dtPagamento'];
             } elseif ($comprovanteAtualizar['idFornecedorExterior']) {
                 $fornecedorInvoice = new FornecedorInvoice();
 
@@ -1912,6 +1917,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
                 $this->view->nrDocumentoDePagamento = $comprovanteAtualizar['nrDocumentoDePagamento'];
                 $this->view->JustificativaTecnico = $comprovanteAtualizar['JustificativaTecnico'];
                 $this->view->dsJustificativa = $comprovanteAtualizar['dsJustificativa'];
+                $this->view->dtPagamento = $comprovanteAtualizar['dtPagamento'];
             }
         }
 
@@ -2442,7 +2448,7 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
         $post = Zend_Registry::get('post');
         $agentesDao = new Agente_Model_DbTable_Agentes();
 
-        $cnpjcpf = preg_replace('/\.|-|\//', '', $post->cnpjcpf);
+        $cnpjcpf = preg_replace('/\.|-|\/|\?/', '', utf8_decode($post->cnpjcpf));
 
         $fornecedor = $agentesDao->buscarFornecedor(array(' A.CNPJCPF = ? '=>$cnpjcpf))->current();
         if ($fornecedor) {

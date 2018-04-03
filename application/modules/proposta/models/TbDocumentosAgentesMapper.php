@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class Proposta_Model_TbDocumentosAgentesMapper
+ * @todo mover para o módulo de agentes
+ */
+
 class Proposta_Model_TbDocumentosAgentesMapper extends MinC_Db_Mapper
 {
     public function __construct()

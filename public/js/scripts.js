@@ -1134,6 +1134,12 @@ function JSBloquearAlteracaoFormulario()
 
     $('.coll-produto').find('.btn').attr('disabled','disabled');
 
+    $("textarea.editor").each(function () {
+        $(this).editorRico({
+            isDesabilitarEdicao: 1
+        });
+    });
+
 }
 
 

@@ -1,0 +1,23 @@
+<style>
+    .bordered-all td {
+        border: solid 1px #c9c9c9 !important;
+    }
+</style>
+<div class="row">
+    <form id="form-mensagem" class="materialize" data-ajax-form="true" method="post"
+          action="<?php echo $this->urlAction ?>">
+        <input type="hidden" name="idPronac" value="<?= $this->arrValue['idPronac'] ?>"/>
+        <input type="hidden" name="IdEnquadramento" value="<?= $this->arrValue['enquadramentoProjeto']['IdEnquadramento'] ?>"/>
+        <div class="modal-content">
+            <?php echo $this->partial('/homologacao/partials/documento-assinatura.phtml', ['arrValue' => $this->arrValue]); ?>
+        </div>
+        <div class="modal-footer">
+            <button class="btn waves-effect waves-light" type="submit" name="action">Gerar e Encaminhar</button>
+            <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat orange-text" style="margin-right: 15px;">Fechar</a>
+        </div>
+    </form>
+</div>
+
+<script>
+    $3('.collapsible').collapsible();
+</script>

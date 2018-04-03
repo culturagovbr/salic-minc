@@ -1,0 +1,43 @@
+<li id="btn-solicitacoes" class="btn-notificacao" style="position: relative">
+    <a class="dropdown-button white-text tooltipped" data-activates="header_notificacoes"
+       data-position="left"
+       data-delay="50"
+       data-tooltip="Ir para Notifica&ccedil;&otilde;es" href="javascript:void(0)"
+       data-ajax-render='/solicitacao/mensagem/listar-ajax<?= $this->params; ?>'
+       data-ajax-target='#mensagem_content'
+    >
+        <i class="material-icons left">notifications</i>
+    </a>
+    <div id="header_notificacoes" class="dropdown-content black-text">
+        <div class="card-panel">
+            <div class="mensagem-heading">Notifica&ccedil;&otilde;es</div>
+            <div class="mensagem-footer">
+                <a href="<?= $this->url(['module' => 'solicitacao', 'controller' => 'mensagem', 'action' => 'index'], null, true); ?>">
+                    Ver todas
+                </a>
+            </div>
+            <div id="mensagem_content" class="mensagem-content"></div>
+        </div>
+    </div>
+</li>
+
+<script>
+
+    $3(document).ready(function () {
+        contarSolicitacoesNaoLidas();
+    });
+
+    function contarSolicitacoesNaoLidas() {
+        $3.ajax({
+            type: "post",
+            url: "<?php echo $this->url(array('module' => 'solicitacao', 'controller' => 'mensagem', 'action' => 'contar-solicitacoes-nao-lidas-ajax'), null, true); ?>",
+            success: function (data) {
+                if (data.status == true && data.msg > 0) {
+                    $3("#btn-solicitacoes > a").append('<span class="btn-floating waves-effect waves-light orange darken-1">' + data.msg + '</span>');
+                }
+            },
+            dataType: 'json'
+        });
+    }
+</script>
+

@@ -3,7 +3,7 @@ $buscarDocumento = $this->url(array('module' => 'admissibilidade', 'controller' 
 $edital='';
 ?>
 
-<?php echo $this->partial("inc/menu.phtml", $this); ?>
+<?php echo $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto));  ?>
 
 <div class="container-fluid">
     <div class="row">
@@ -32,7 +32,7 @@ $edital='';
             <div class="card-panel">
                 <?php if( $this->isEditavel) : ?>
                     <form method="post" action="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaedital', 'action' => 'incluir-anexo')) ?>" id="formulario"  enctype="multipart/form-data">
-                        <input type="hidden" name="idPreProjeto" value="<?php echo $_GET['idPreProjeto'] ?>" >
+                        <input type="hidden" name="idPreProjeto" value="<?php echo $this->idPreProjeto; ?>" >
                         <input type="hidden" name="edital" value="<?php echo $edital ?>" />
                          <fieldset>
                             <legend>Novo Arquivo</legend>

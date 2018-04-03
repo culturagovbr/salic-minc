@@ -1,0 +1,257 @@
+<?php
+if (isset($this->proposta['idpreprojeto'])) {
+    echo $this->partial("inc/menu.phtml", 'proposta', $this); // menu
+}
+?>
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col s12 m9 l10">
+                <h1>Enquadramento da Proposta</h1>
+                <?php
+                $links = [
+                    $this->layout['listagem'],
+                    [
+                        'An&aacute;lise de Proposta Cultural' => [
+                            'module' => 'admissibilidade',
+                            'controller' => 'admissibilidade',
+                            'action' => 'exibirpropostacultural',
+
+                        ]
+                    ],
+                ];
+                gerarBreadCrumb($links, 'migalhas');
+                ?>
+            </div>
+            <div class="col s12 m3 l2 right-align">
+                <?php if (!$this->menu): ?>
+                    <a href="javascript:voltar()"
+                       title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle">
+                        <i class="material-icons">keyboard_return</i>
+                    </a>
+                <?php endif ?>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <fieldset>
+            <legend class="">Identifica&ccedil;&atilde;o da Proposta Cultural</legend>
+            <table class="tabela" cellpadding="1" cellspacing="1">
+                <tr class="esquerda">
+                    <td class="">
+                        <b>Nr da Proposta:</b>
+                        <br/>
+                        <span style="color: blue;">
+                                <?php
+                                if (isset($this->proposta['idpreprojeto']))
+                                    echo $this->proposta['idpreprojeto'];
+                                ?>
+                            </span>
+                    </td>
+                    <td colspan="4" class="">
+                        <b>Nome da Proposta Cultural *</b>
+                        <br/>
+
+                        <?php
+                        if (isset($this->proposta['idpreprojeto']))
+                            echo str_replace("'", "", str_replace("\"", "", ($this->proposta['nomeprojeto'])));
+                        ?>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+        <br/>
+        <fieldset>
+            <legend class=""> Sugest&atilde;o de Enquadramento</legend>
+
+            <?php if (count($this->recursoEnquadramento) > 0
+                && !empty($this->recursoEnquadramento['area'])
+                && !empty($this->recursoEnquadramento['segmento'])
+                && !empty($this->recursoEnquadramento['enquadramento'])
+            ) { ?>
+                <table class="tabela">
+                    <tr class="destacar">
+                        <td class=""><b>&Aacute;rea</b></td>
+                        <td class=""><b>Segmento</b></td>
+                        <td class=""><b>Artigo</b></td>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->recursoEnquadramento['area'] ?> </td>
+                        <td><?php echo $this->recursoEnquadramento['segmento'] ?> </td>
+                        <td><?php echo $this->recursoEnquadramento['enquadramento'] ?> </td>
+                    </tr>
+                </table>
+            <?php } ?>
+        </fieldset>
+        <br/>
+        <fieldset>
+            <legend class=""> Recurso</legend>
+            <form id="form-mensagem"
+                  method="post"
+                  action="<?= $this->url([
+                      'module' => 'recurso',
+                      'controller' => 'recurso-proposta',
+                      'action' => 'visao-proponente-salvar'
+                  ]) ?>"
+                  enctype="multipart/form-data">
+                <input type="hidden"
+                       name="id_preprojeto"
+                       value="<?php echo $this->proposta['idpreprojeto'] ?>"
+                />
+                <div class="row">
+                    <div class="col s12">
+                        <label class="">
+                            Tipo de Solicita&ccedil;&atilde;o <b style="color: red">*</b>
+                        </label>
+                        <p>
+                        <span>
+                            <input name="tpSolicitacao"
+                                <?php echo (!$this->recursoEnquadramento['tpSolicitacao'] || $this->recursoEnquadramento['tpSolicitacao'] == 'DR') ? "checked='checked'" : '' ?>
+                                   type="radio"
+                                   value="DR"
+                                   id="desistencia_prazo_recursal"/>
+                            <label for="desistencia_prazo_recursal">Desist&ecirc;ncia do Prazo Recursal</label>
+                        </span>
+                            <span>
+                            <input name="tpSolicitacao"
+                                <?php echo ($this->recursoEnquadramento['tpSolicitacao'] && $this->recursoEnquadramento['tpSolicitacao'] == 'EN') ? "checked='checked'" : '' ?>
+                                   type="radio"
+                                   value="EN"
+                                   id="recurso"/>
+                            <label for="recurso">Recurso</label>
+                        </span>
+                        </p>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col s12">
+                        <label class="">
+                            Justificativa <b style="color: red">*</b>
+                        </label>
+                        <p>
+                            <textarea cols="80"
+                                      id="dsRecursoProponente"
+                                      name="dsRecursoProponente"
+                                      rows="10"
+                                      class="textarea_simples"
+                                      style="width: 99%"><?php echo $this->recursoEnquadramento['dsRecursoProponente'] ?></textarea>
+                        </p>
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col s12">
+
+                        <p>
+
+                        <ul class="collection">
+                            <li class="collection-item ">
+
+                                <?php if (!empty($this->recursoEnquadramento['idArquivo'])
+                                    && !is_null($this->recursoEnquadramento['idArquivo'])) { ?>
+                                    <label style="width: 100px; ">Arquivo anexo: </label>
+                                    <span id="file_name"
+                                          style="margin-right:20px"><?= utf8_decode(htmlentities($this->arquivoRecursoProponente['nmArquivo'])); ?></span>
+
+                                    <a class="waves-effect waves-light btn tooltipped"
+                                       data-position="top"
+                                       data-delay="50"
+                                       data-tooltip="Download"
+                                       href="<?= $this->url([
+                                           'module' => 'recurso',
+                                           'controller' => 'recurso-proposta',
+                                           'action' => 'download-anexo-proponente'
+                                       ],
+                                           null,
+                                           true); ?>/?id_preprojeto=<?php echo $this->proposta['idpreprojeto'] ?>&idArquivo=<?= $this->arquivoRecursoProponente['idArquivo']; ?>">
+                                        <i class="tiny material-icons">file_download</i></a>
+
+                                    <a class="waves-effect waves-light btn red darken-4  tooltipped"
+                                       data-position="top"
+                                       data-delay="50"
+                                       data-tooltip="Remover"
+                                       href="<?= $this->url([
+                                           'module' => 'recurso',
+                                           'controller' => 'recurso-proposta',
+                                           'action' => 'remover-anexo-proponente'
+                                       ],
+                                           null,
+                                           true); ?>/id_preprojeto/<?php echo $this->proposta['idpreprojeto'] ?>?idArquivo=<?= $this->arquivoRecursoProponente['idArquivo']; ?>">
+                                        <i class="tiny material-icons">delete_forever</i>
+                                    </a>
+                                <?php } else { ?>
+                                    <label>
+                                        Anexar Documento :
+                                    </label>
+                                    <input type="file"
+                                           name="arquivo"
+                                           id="arquivo"
+                                           class="hiddenfile"/>
+                                <?php } ?>
+                            </li>
+                        </ul>
+                        </p>
+
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col s12 center">
+                        <button class="btn" type="submit" name="acao_salvar" value="rascunho">Salvar</button>
+                        <button class="btn" type="submit" name="acao_salvar" value="enviar">Enviar</button>
+                    </div>
+                </div>
+            </form>
+        </fieldset>
+    </div>
+</div>
+<script type="text/javascript">
+    jQuery(function ($) {
+
+        var limiteMaximo = 8000
+        var editorRico = $('#dsRecursoProponente').editorRico({
+            altura: 200,
+            isLimitarCarateres: true,
+            maxchar: limiteMaximo
+        })
+
+        $('#formEnquadramentoProjeto').validate({
+            rules: {
+                dsRecursoProponente: {
+                    validarPreenchimento: true,
+                    validarPreenchimentoMaximo: true
+                }
+            },
+
+            messages: {
+                dsRecursoProponente: {
+                    validarPreenchimento: 'Dado obrigat&oacute;rio n&atilde;o informado',
+                    validarPreenchimentoMaximo: 'limite excedido'
+                }
+            },
+
+            submitHandler: function (form) {
+                $('#container-progress').show()
+                form.submit()
+            },
+
+            invalidHandler: function (event, validator) {
+                Materialize.toast(validator.submitted.dsRecursoProponente, 4000)
+            }
+        })
+
+        $.validator.addMethod('validarPreenchimento', function (value, element) {
+            if (editorRico.contarCaracteres() > 0) {
+                return true
+            }
+        })
+
+        $.validator.addMethod('validarPreenchimentoMaximo', function (value, element) {
+            if (editorRico.contarCaracteres() <= limiteMaximo) {
+                return true
+            }
+        })
+    })
+</script>

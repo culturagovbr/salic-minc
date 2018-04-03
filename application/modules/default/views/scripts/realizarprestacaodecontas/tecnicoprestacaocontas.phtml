@@ -51,7 +51,15 @@
                             <td><?php echo $projeto->UfProjeto; ?></td>
                             <td><?php $mecanismo = $projeto->Mecanismo; if ($mecanismo == 'Mecenato'){ echo "Incentivo Fiscal"; }else{ echo $projeto->Mecanismo;}?></td>
                             <td><?php echo Data::tratarDataZend($projeto->DtSituacao, 'brasileira');?></td>
-                            <td><img style="cursor: pointer;" src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" onclick="window.location='<?php echo $this->baseUrl(); ?>/realizarprestacaodecontas/planilhaorcamentaria/idPronac/<?php echo ($projeto->idPronac); ?>'" alt="Analisar"></td>
+                            <td>
+                                <a href="/prestacao-contas/prestacao-contas/tipo-avaliacao/idPronac/<?php echo ($projeto->idPronac); ?>" class="btn">
+                                    <i class="material-icons">compare_arrows</i>
+                                </a>
+                                <!-- img style="cursor: pointer;" 
+                                    src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" 
+                                    onclick="window.location='<?php echo $this->baseUrl(); ?>/realizarprestacaodecontas/planilhaorcamentaria/idPronac/<?php echo ($projeto->idPronac); ?>'" 
+                                    alt="Analisar"-->
+                            </td>
                             <td>
                                 <?php if ($projeto->RelatorioTecnico == "False") { ?>
                                     <img style="cursor: pointer;" src="<?php echo $this->baseUrl(); ?>/public/img/user_gray.png" onclick="return JSDevolverParaChefeDivisao('<?php echo $projeto->idPronac; ?>','<?php echo $this->codOrgao; ?>',true)" alt="Devolver para chefe de divisão" />

@@ -35,6 +35,15 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract
             case 3:
             case 4:
             case 5:
+                if ($params['link'] || $params['view_edicao']) {
+                    $planilhaOrcamentaria = $this->execSpPlanilhaOrcamentaria($idPronac, $tipoPlanilha);
+                } else {
+                    $spVisualizarPlanilhaOrcamentariaPlanilhaOrcamentaria = new spVisualizarPlanilhaOrcamentaria();
+                    $planilhaOrcamentaria = $spVisualizarPlanilhaOrcamentariaPlanilhaOrcamentaria->exec($idPronac);
+                }
+                
+                return $planilhaOrcamentaria;
+                break;
             case 6:
                 if ($params['link'] || $params['view_edicao']) {
                     $planilhaOrcamentaria = $this->readequacao($idPronac);
@@ -42,7 +51,7 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract
                     $spVisualizarPlanilhaOrcamentariaPlanilhaOrcamentaria = new spVisualizarPlanilhaOrcamentaria();
                     $planilhaOrcamentaria = $spVisualizarPlanilhaOrcamentariaPlanilhaOrcamentaria->exec($idPronac);
                 }
-
+                
                 return $planilhaOrcamentaria;
                 break;
             default:
@@ -767,7 +776,6 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract
     {
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
-
         $sql = "exec ".$this->_schema.".".$this->_name." $idPronac, $tipoPlanilha";
         return $db->fetchAll($sql);
     }

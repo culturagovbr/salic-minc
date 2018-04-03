@@ -1,0 +1,10 @@
+<?php $this->breadCrumb($this->arrBreadCrumb); ?>
+<br />
+<div id="container-list" class="container" style="width: 100%;max-width:100%;padding: 0 0.75rem;" data-ajax-render='/projeto/homologacao/listar'></div>
+<?php if (isset($this->idPronac)): ?>
+    <div class="fixed-action-btn animated bounceInUp">
+        <a href="javascript:$3.redirect('<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'mensagem', 'action' => 'salvar', 'idPronac' => $this->idPronac)); ?>');" class="btn-floating btn-large tooltipped waves-effect waves-light" data-position="left" data-delay="50" data-tooltip="Escrever pergunta">
+            <i class="large material-icons">create</i>
+        </a>
+    </div>
+<?php endif; ?>

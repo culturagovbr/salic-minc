@@ -1,18 +1,18 @@
 <?php
 /**
- * ReadequacoesControllerTest
+ * Default_IndexControllerTest
  *
  * @package
  * @author
  */
-class ReadequacoesControllerTest extends MinC_Test_ControllerActionTestCase
+class Default_IndexControllerTest extends MinC_Test_ControllerActionTestCase
 {
     public function setUp()
     {
         parent::setUp();
 
-        $tbReadequacao = new tbReadequacao();
-        $this->idPronac = $tbReadequacao->buscarIdPronacReadequacaoEmAndamento(tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
+        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
+        $this->idPronac = $Readequacao_Model_tbReadequacao->buscarIdPronacReadequacaoEmAndamento(Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
 
         $this->perfilParaProponente();
     }

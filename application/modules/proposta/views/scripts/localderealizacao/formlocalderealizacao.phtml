@@ -1,4 +1,4 @@
-<?php echo $this->partial("inc/menu.phtml", $this); ?>
+<?php echo $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto));  ?>
 <div class="container-fluid tem-menu-lateral">
     <div class="row">
         <div class="content col s12 m12 l12 planilha-produtos">

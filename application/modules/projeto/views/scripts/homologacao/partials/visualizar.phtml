@@ -1,0 +1,128 @@
+<li>
+    <div class="collapsible-header green white-text active">Parecer T&eacute;cnico do Projeto</div>
+    <div class="collapsible-body">
+        <table class="responsive-table bordered-all" style="width: 100%;">
+            <tbody>
+            <tr>
+                <td>PRONAC</td>
+                <td><?= $this->arrValue['Pronac'] ?></td>
+                <td colspan="2"><?= $this->arrValue['enquadramentoProjeto']['NomeProjeto'] ?></td>
+            </tr>
+            <tr>
+                <td>Proponente</td>
+                <td><?= Validacao::mascaraCPFCNPJ($this->arrValue['enquadramentoProjeto']['CNPJCPF']) ?></td>
+                <td colspan="2"><?= $this->arrValue['enquadramentoProjeto']['Proponente'] ?></td>
+            </tr>
+            <tr>
+                <td>&Aacute;rea: <?= $this->arrValue['enquadramentoProjeto']['Area'] ?></td>
+                <td colspan="3">Segmento: <?= $this->arrValue['enquadramentoProjeto']['Segmento'] ?></td>
+            </tr>
+            <tr>
+                <td>UF: <?= $this->arrValue['enquadramentoProjeto']['UfProjeto'] ?></td>
+                <td>Per&iacute;odo de execu&ccedil;&atilde;o: <?= Mascara::convertDateToView($this->arrValue['enquadramentoProjeto']['DtInicioExecucao']) ?>
+                    &agrave; <?= Mascara::convertDateToView($this->arrValue['enquadramentoProjeto']['DtFimExecucao']) ?></td>
+                <td>Enquadramento: <?= $this->arrValue['enquadramentoProjeto']['Enquadramento'] ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</li>
+<li>
+    <div class="collapsible-header green white-text <?= (isset($this->booShowAll) && $this->booShowAll === true)? 'active' : '' ?>">Resumo do Projeto</div>
+    <div class="collapsible-body">
+        <pre class="text-format"><?= $this->arrValue['enquadramentoProjeto']['ResumoProjeto'] ?></pre>
+    </div>
+</li>
+<li>
+    <div class="collapsible-header green white-text <?= (isset($this->booShowAll) && $this->booShowAll === true)? 'active' : '' ?>">Memoria de c&aacute;lculo</div>
+    <div class="collapsible-body">
+        <table class="responsive-table bordered-all" style="width: 100%;">
+            <tbody>
+            <tr>
+                <td colspan="2">Proponente</td>
+                <td colspan="2">Homologado</td>
+            </tr>
+            <tr>
+                <td>Vl.Solicitado</td>
+                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlSolicitado']) ?></td>
+                <td>Custo do Projeto</td>
+                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['CustoProjeto']) ?></td>
+            </tr>
+            <tr>
+                <td>Vl.Outras Fontes</td>
+                <td class="right-align"> <?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlOutrasFontes']) ?></td>
+                <td>Vl.Outras Fontes</td>
+                <td class="right-align"> <?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlOutrasFontesAprovado']) ?></td>
+            </tr>
+            <tr>
+                <td>Vl.Projeto</td>
+                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlProjeto']) ?></td>
+                <td>Custo Total</td>
+                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['CustoTotal']) ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</li>
+<li>
+    <div class="collapsible-header green white-text <?= (isset($this->booShowAll) && $this->booShowAll === true)? 'active' : '' ?>">Avalia&ccedil;&atilde;o T&eacute;cnica</div>
+    <div class="collapsible-body">
+        <table class="responsive-table bordered-all" style="width: 100%;">
+            <tbody>
+            <tr>
+                <td width="20%">Posicionamento T&eacute;cnico</td>
+                <td><?php if (!is_null($this->arrValue['parecer']['ParecerFavoravel'])) echo ($this->arrValue['parecer']['ParecerFavoravel'] == 1)? 'Desfavor&aacute;vel' : 'Far&aacute;vel' ?></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <pre class="text-format"><?= $this->arrValue['parecer']['ResumoParecer'] ?></pre>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</li>
+<li>
+    <div class="collapsible-header green white-text <?= (isset($this->booShowAll) && $this->booShowAll === true)? 'active' : '' ?>">A&ccedil;&otilde;es relevantes para o sucesso do projeto</div>
+    <div class="collapsible-body">
+        <table class="responsive-table bordered-all" style="width: 100%;">
+            <pre class="text-format"><?= $this->arrValue['acaoProjeto']['dsAcaoAlcanceProduto'] ?></pre>
+        </table>
+    </div>
+</li>
+<li>
+    <div class="collapsible-header green white-text <?= (isset($this->booShowAll) && $this->booShowAll === true)? 'active' : '' ?>">Aprecia&ccedil;&atilde;o do Comission&aacute;rio Relator</div>
+    <div class="collapsible-body">
+        <table class="responsive-table bordered-all" style="width: 100%;">
+            <tbody>
+            <tr>
+                <td width="30%">Posicionamento do Comiss&aacute;rio</td>
+                <td><?php if (!is_null($this->arrValue['aparicaoComissario']['ParecerFavoravel'])) echo ($this->arrValue['aparicaoComissario']['ParecerFavoravel'] == 1)? 'Desfavor&aacute;vel' : 'Far&aacute;vel' ?></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <pre class="text-format"><?= $this->arrValue['aparicaoComissario']['ResumoParecer'] ?></pre>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</li>
+<li>
+    <div class="collapsible-header green white-text <?= (isset($this->booShowAll) && $this->booShowAll === true)? 'active' : '' ?>">Parecer de Homologa&ccedil;&atilde;o</div>
+    <div class="collapsible-body">
+        <table class="responsive-table bordered-all" style="width: 100%;">
+            <tbody>
+            <tr>
+                <td width="20%">Decis&atilde;o</td>
+                <td><?php if (!is_null($this->arrValue['parecerHomologacao']['stDecisao'])) echo ($this->arrValue['parecerHomologacao']['stDecisao'] == 1)? 'Desfavor&aacute;vel' : 'Far&aacute;vel' ?></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <pre class="text-format"><?= $this->arrValue['parecerHomologacao']['dsHomologacao'] ?></pre>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</li>

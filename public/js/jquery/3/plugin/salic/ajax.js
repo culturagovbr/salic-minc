@@ -15,6 +15,10 @@
             if ($(this).attr('data-ajax-modal-height') !== '') {
                 objConfig.strHeight = $(this).attr('data-ajax-modal-height');
             }
+
+            if ($(this).attr('data-ajax-modal-width') !== '') {
+                objConfig.strWidth = $(this).attr('data-ajax-modal-width');
+            }
             $.ajaxModal(objConfig);
         });
 
@@ -50,9 +54,23 @@
             });
         });
 
+        elmBody.on('click', 'a[data-ajax-render]', function () {
+            var objTarget = '#' + $(this).attr('id');
+
+
+            if (typeof $(this).attr('data-ajax-target') !== 'undefined') {
+                objTarget = $(this).attr('data-ajax-target');
+            }
+
+            $.ajaxRender({strUrl: $(this).attr('data-ajax-render'), strTarget: objTarget});
+        });
+
         // Adicionando evento de renderizar automaticamente o ajax no elemento.
         $.each($('div[data-ajax-render]'), function () {
-            $.ajaxRender({strUrl: $(this).attr('data-ajax-render'), strTarget: '#' + $(this).attr('id')});
+
+            var objTarget = '#' + $(this).attr('id');
+
+            $.ajaxRender({strUrl: $(this).attr('data-ajax-render'), strTarget: objTarget});
         });
 
         // Adicionando evento de enviar o formulario via ajax caso tenha a tag data-ajax-form.
@@ -83,12 +101,12 @@
      * @since 28/12/2016
      */
     $.ajaxModal = function (objOption, callback) {
-        var objDefaults = {strUrl: '', strIdModal: 'modal', strType: 'modal-fixed-footer', strHeight: ''},
+        var objDefaults = {strUrl: '', strIdModal: 'modal', strType: 'modal-fixed-footer', strHeight: '', strWidth: ''},
             objSettings = $.extend({}, objDefaults, objOption),
             strIdModal = '#' + objSettings.strIdModal;
         // Removendo e criando elemento div para o modal.
         $(strIdModal).remove();
-        $('body').append('<div id="' + objSettings.strIdModal + '" class="modal ' + objSettings.strType + '" style="height: '+ objSettings.strHeight +'"></div>');
+        $('body').append('<div id="' + objSettings.strIdModal + '" class="modal ' + objSettings.strType + '" style="height: '+ objSettings.strHeight +'; width: '+ objSettings.strWidth +'"></div>');
         $(strIdModal).modal();
 
         // Renderizando ajax e abrindo a modal por callback.
@@ -121,7 +139,7 @@
         var time = true;
         setTimeout(function(){
             if (time) {
-                elmRender.hide().html('<div class="center-align" style="height: 100%;"><div class="preloader-wrapper big active valign ">' + elmProgress.html() + '</div></div>').fadeIn();
+                elmRender.hide().html('<div class="center-align padding10" style="height: 100%;"><div class="preloader-wrapper big active valign ">' + elmProgress.html() + '</div></div>').fadeIn();
             }
         }, 250);
         $.ajax({url: objSettings.strUrl}).done(function (result) {
@@ -192,6 +210,9 @@
                                 window.location.href = result.redirect;
                             }
                         }, 500);
+                        if (typeof result.close != 'undefined' && result.close != '0') {
+                            elmForm.closest('.modal').modal('close');
+                        }
                         booReturn = true;
                     } else {
                         if (typeof result.msg != 'string') {
@@ -202,6 +223,8 @@
                                 if (elm.length > 0) {
                                     elm.focus();
                                     Materialize.toast('Campo ' + strLabel + ' &eacute; obrigat&oacute;rio!', 8000, 'red accent-1');
+                                }else{
+                                    Materialize.toast(strMsg, 8000, 'red accent-1');
                                 }
                             });
                         } else {

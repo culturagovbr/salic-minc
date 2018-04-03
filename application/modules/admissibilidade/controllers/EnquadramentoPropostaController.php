@@ -30,14 +30,25 @@ class Admissibilidade_EnquadramentoPropostaController extends MinC_Controller_Ac
             if (!$preprojeto) {
                 throw new Exception("Proposta não encontrada.");
             }
+
+            $this->view->id_perfil_usuario = $this->grupoAtivo->codGrupo;
+            $this->view->id_orgao = $this->grupoAtivo->codOrgao;
+            $this->view->id_usuario_avaliador = $this->auth->getIdentity()->usu_codigo;
+
             $post = $this->getRequest()->getPost();
             if (!$post['descricao_motivacao']) {
                 $this->carregardadosEnquadramentoProposta($preprojeto);
             } else {
-                $this->salvarSugestaoEnquadramento();
+                $dadosSugestaoEnquadramento['id_orgao'] = $this->grupoAtivo->codOrgao;
+                $dadosSugestaoEnquadramento['id_perfil'] = $this->grupoAtivo->codGrupo;
+                $dadosSugestaoEnquadramento['id_usuario_avaliador'] = $this->auth->getIdentity()->usu_codigo;
+                $dadosSugestaoEnquadramento['id_preprojeto'] = $get['id_preprojeto'];
+                $dadosSugestaoEnquadramento['descricao_motivacao'] = $post['descricao_motivacao'];
+                $dadosSugestaoEnquadramento['id_area'] = $post['id_area'];
+                $dadosSugestaoEnquadramento['id_segmento'] = $post['id_segmento'];
+                $this->salvarSugestaoEnquadramento($dadosSugestaoEnquadramento);
             }
         } catch (Exception $objException) {
-
             parent::message($objException->getMessage(), '/admissibilidade/enquadramento/gerenciar-enquadramento');
         }
     }
@@ -47,6 +58,7 @@ class Admissibilidade_EnquadramentoPropostaController extends MinC_Controller_Ac
 
         $mapperArea = new Agente_Model_AreaMapper();
         $this->view->comboareasculturais = $mapperArea->fetchPairs('Codigo', 'Descricao');
+
         $this->view->preprojeto = $preprojeto;
 
         if (count($this->view->comboareasculturais) < 1) {
@@ -54,87 +66,38 @@ class Admissibilidade_EnquadramentoPropostaController extends MinC_Controller_Ac
         }
 
         $this->view->id_perfil_usuario = $this->grupoAtivo->codGrupo;
+
+
+        $ultimaSugestaoPerfil = $this->_recuperarUltimaSugestaoPerfil($preprojeto['idPreProjeto'], $this->view->id_perfil_usuario);
+
+        if(!empty($ultimaSugestaoPerfil['id_area'])){
+            $Segmento = new Segmento();
+            $combosegmentos = $Segmento->combo(array("a.codigo = ?" => $ultimaSugestaoPerfil['id_area']), array('s.segmento ASC'));
+        }
+
+        $this->view->combosegmentos = !empty($combosegmentos) ? $combosegmentos : [];
+        $this->view->ultimaSugestaoPerfil = $ultimaSugestaoPerfil;
+        
 //        $this->view->historicoEnquadramento = $this->obterHistoricoSugestaoEnquadramento($preprojeto['idPreProjeto']);
     }
 
-    private function salvarSugestaoEnquadramento()
+    public function salvarSugestaoEnquadramento(array $dadosSugetaoEnquadramento)
     {
         try {
-            $post = $this->getRequest()->getPost();
-            $descricao_motivacao = trim($post['descricao_motivacao']);
-            if (empty($descricao_motivacao)) {
-                throw new Exception("O campo 'Parecer de Enquadramento' é de preenchimento obrigatório.");
-            }
-            $get = $this->getRequest()->getParams();
 
-            $this->view->id_perfil_usuario = $this->grupoAtivo->codGrupo;
-            $this->view->id_orgao = $this->grupoAtivo->codOrgao;
-            $this->view->id_usuario_avaliador = $this->auth->getIdentity()->usu_codigo;
-
-            $id_area = ($post['id_area']) ? $post['id_area'] : null;
-            $id_segmento = ($post['id_segmento']) ? $post['id_segmento'] : null;
             $sugestaoEnquadramentoDbTable = new Admissibilidade_Model_DbTable_SugestaoEnquadramento();
+            $sugestaoEnquadramentoDbTable->salvarSugestaoEnquadramento($dadosSugetaoEnquadramento);
 
-            $orgaoDbTable = new Orgaos();
-            $resultadoOrgaoSuperior = $orgaoDbTable->codigoOrgaoSuperior($this->grupoAtivo->codOrgao);
-            $orgaoSuperior = $resultadoOrgaoSuperior[0]['Superior'];
-
-            $distribuicaoAvaliacaoPropostaDtTable = new Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta();
-            $distribuicaoAvaliacaoProposta = $distribuicaoAvaliacaoPropostaDtTable->findBy([
-                'id_preprojeto' => $get['id_preprojeto'],
-                'id_orgao_superior' => $orgaoSuperior,
-                'id_perfil' => $this->grupoAtivo->codGrupo
-            ]);
-
-            if (!$distribuicaoAvaliacaoProposta &&
-                (
-                    $this->grupoAtivo->codGrupo != Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE
-                    && $this->grupoAtivo->codGrupo != Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE
-                )
-            ) {
-                throw new Exception("Distribui&ccedil;&atilde;o n&atilde;o localizada para o perfil atual.");
-            }
-
-            $dadosNovaSugestaoEnquadramento = [
-                'id_orgao' => $this->grupoAtivo->codOrgao,
-                'id_preprojeto' => $get['id_preprojeto'],
-                'id_orgao_superior' => $orgaoSuperior,
-                'id_perfil_usuario' => $this->grupoAtivo->codGrupo,
-                'id_usuario_avaliador' => $this->auth->getIdentity()->usu_codigo,
-                'id_area' => $id_area,
-                'id_segmento' => $id_segmento,
-                'descricao_motivacao' => $descricao_motivacao,
-                'data_avaliacao' => $sugestaoEnquadramentoDbTable->getExpressionDate(),
-                'ultima_sugestao' => Admissibilidade_Model_DbTable_SugestaoEnquadramento::ULTIMA_SUGESTAO_ATIVA,
-            ];
-
-            $dadosBuscaPorSugestao = $sugestaoEnquadramentoDbTable->findBy(
-                [
-                    'id_orgao' => $this->grupoAtivo->codOrgao,
-                    'id_preprojeto' => $get['id_preprojeto'],
-                    'id_orgao_superior' => $orgaoSuperior,
-                    'id_perfil_usuario' => $this->grupoAtivo->codGrupo,
-                    'id_usuario_avaliador' => $this->auth->getIdentity()->usu_codigo
-                ]
+            parent::message(
+                'Enquadramento armazenado com sucesso!',
+                "/admissibilidade/admissibilidade/exibirpropostacultural?idPreProjeto={$dadosSugetaoEnquadramento['id_preprojeto']}&realizar_analise=sim",
+                'CONFIRM'
             );
-
-
-            if ($distribuicaoAvaliacaoProposta && $distribuicaoAvaliacaoProposta['id_distribuicao_avaliacao_prop']) {
-                $dadosNovaSugestaoEnquadramento['id_distribuicao_avaliacao_proposta'] = $distribuicaoAvaliacaoProposta['id_distribuicao_avaliacao_prop'];
-            }
-            if (count($dadosBuscaPorSugestao) < 1) {
-                $sugestaoEnquadramentoDbTable->inativarSugestoes($get['id_preprojeto']);
-                $sugestaoEnquadramentoDbTable->inserir($dadosNovaSugestaoEnquadramento);
-            } else {
-                $dadosBuscaPorSugestao['id_distribuicao_avaliacao_proposta'] = $distribuicaoAvaliacaoProposta['id_distribuicao_avaliacao_prop'];
-                $sugestaoEnquadramentoDbTable->update($dadosNovaSugestaoEnquadramento, [
-                    'id_sugestao_enquadramento = ?' => $dadosBuscaPorSugestao['id_sugestao_enquadramento']
-                ]);
-            }
-
-            parent::message('Enquadramento armazenado com sucesso!', "/admissibilidade/admissibilidade/exibirpropostacultural?idPreProjeto={$get['id_preprojeto']}&realizar_analise=sim", 'CONFIRM');
         } catch (Exception $objException) {
-            parent::message($objException->getMessage(), "/admissibilidade/enquadramento-proposta/sugerir-enquadramento?id_preprojeto={$get['id_preprojeto']}");
+            parent::message(
+                $objException->getMessage(),
+                "/admissibilidade/enquadramento-proposta/sugerir-enquadramento?id_preprojeto={$dadosSugetaoEnquadramento['id_preprojeto']}"
+            );
         }
     }
 
@@ -143,18 +106,16 @@ class Admissibilidade_EnquadramentoPropostaController extends MinC_Controller_Ac
         try {
             $this->_helper->layout->disableLayout();
 
-            $sugestaoEnquadramentoModel = new Admissibilidade_Model_DbTable_SugestaoEnquadramento();
+            $sugestaoEnquadramentoDbTable = new Admissibilidade_Model_DbTable_SugestaoEnquadramento();
 
             $get = $this->getRequest()->getParams();
             if (!isset($get['id_preprojeto']) || empty($get['id_preprojeto'])) {
                 throw new Exception("Identificador da proposta não informado.");
             }
+            $sugestaoEnquadramentoDbTable->sugestaoEnquadramento->setIdPreprojeto($get['id_preprojeto']);
+            $resultado = $sugestaoEnquadramentoDbTable->obterHistoricoEnquadramento();
 
-            $resultado = $sugestaoEnquadramentoModel->obterHistoricoEnquadramento(
-                $get['id_preprojeto']
-            );
-
-            $resultado = array_map(function($dado) {
+            $resultado = array_map(function ($dado) {
                 return array_map('utf8_encode', $dado);
             }, $resultado);
 
@@ -192,9 +153,7 @@ class Admissibilidade_EnquadramentoPropostaController extends MinC_Controller_Ac
         }
 
         $distribuicaoAvaliacaoPropostaDbTable = new Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta();
-        $distribuicaoAvaliacaoProposta = new Admissibilidade_Model_DistribuicaoAvaliacaoProposta();
-        $distribuicaoAvaliacaoProposta->setIdPerfil(Autenticacao_Model_Grupos::COMPONENTE_COMISSAO);
-        $distribuicaoAvaliacaoPropostaDbTable->setDistribuicaoAvaliacaoProposta($distribuicaoAvaliacaoProposta);
+        $distribuicaoAvaliacaoPropostaDbTable->setDistribuicaoAvaliacaoProposta(['id_perfil' => Autenticacao_Model_Grupos::COMPONENTE_COMISSAO]);
 
         $avaliacoesVencidas = $distribuicaoAvaliacaoPropostaDbTable->obterAvaliacoesVencidas(5);
 
@@ -219,4 +178,26 @@ class Admissibilidade_EnquadramentoPropostaController extends MinC_Controller_Ac
             $distribuicaoAvaliacaoPropostaDbTable->inserir((array)$avaliacaoVencida);
         }
     }
+
+    private function _recuperarUltimaSugestaoPerfil($idPreProjeto, $idPerfilUsuario)
+    {
+        $sugestaoEnquadramento = new Admissibilidade_Model_DbTable_SugestaoEnquadramento;
+
+        $ultimaSugestaoPerfil = [];
+        if($this->view->id_perfil_usuario){
+            $sugestaoEnquadramento->sugestaoEnquadramento->setIdPreprojeto($idPreProjeto);
+            $sugestaoEnquadramento->sugestaoEnquadramento->setIdPerfilUsuario($idPerfilUsuario);
+            $ultimaSugestaoPerfil = $sugestaoEnquadramento->obterHistoricoEnquadramento();
+            $ultimaSugestaoPerfil = count($ultimaSugestaoPerfil) >= 1 ? current($ultimaSugestaoPerfil) : $ultimaSugestaoPerfil;
+
+            if(empty($ultimaSugestaoPerfil['id_area'])){
+                $planoDistribuicao = (new Proposta_Model_DbTable_PlanoDistribuicaoProduto())->buscar(['stPrincipal = ?'=>1, 'idProjeto = ?' => $idPreProjeto]);
+                $ultimaSugestaoPerfil['id_area'] = !empty($planoDistribuicao[0]['Area']) ? $planoDistribuicao[0]['Area'] : null;
+                $ultimaSugestaoPerfil['id_segmento'] = !empty($planoDistribuicao[0]['Segmento']) ? $planoDistribuicao[0]['Segmento'] : null;
+            }
+        }
+
+        return $sugestaoEnquadramento->createRow($ultimaSugestaoPerfil)->toArray();
+    }
+
 }

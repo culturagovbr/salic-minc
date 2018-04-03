@@ -11,6 +11,7 @@
  * @since 29/09/2016
  *
  * @link http://salic.cultura.gov.br
+ * @todo mover para o modulo de agentes
  */
 class Proposta_Model_TbDocumentosAgentes extends MinC_Db_Model
 {

@@ -1,0 +1,8 @@
+<?php
+if ($this->arrPartial['dataForm']['idProjeto'] && $this->isProponente) {
+    echo $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->arrPartial['dataForm']['idProjeto']));
+    echo $this->partial('/mensagem/partials/proposta/conteudo-visualizar.phtml', 'solicitacao', $this);
+
+} else {
+    echo $this->partial('/mensagem/partials/projeto/conteudo-visualizar.phtml', 'solicitacao', $this);
+}
