@@ -117,29 +117,10 @@ function mascara ($val, $mask) {
             <tr class="divFiltroPesquisa">
                 <td class="destacar bold w100">Tipo da Conta</td>
                 <td>
-                   <?php
-                    $selecione = "";
-                    $captacao = "";
-                    $movimentacao = "";
-                    if(Zend_Controller_Front::getInstance()->getRequest()->getParam('tpConta')== ""){
-                        $selecione = "selected";
-                    }
-
-		    if(Zend_Controller_Front::getInstance()->getRequest()->getParam('tpConta')== "Captação"){
-                        $captacao = "selected";
-                    }
-
-		    if(Zend_Controller_Front::getInstance()->getRequest()->getParam('tpConta')== "Movimentação"){
-                        $movimentacao = "selected";
-                    }
-
-
-
-                   ?>
-                    <select name="tpConta">
-                        <option value="" <?php echo $selecione?>>Selecione</option>
-                        <option value="Captação" <?php echo $captacao ?>>Captação</option>
-                        <option value="Movimentação"<?php echo $movimentacao ?>>Movimentação</option>
+                    <select name="tipoConta" class="browser-default" style="width: 200px;">
+                        <option value="">Selecione</option>
+                        <option value="captacao" <?= ($this->tipoConta=='captacao') ? 'selected' : ''; ?>>Capta&#231;&#227;o</option>
+                        <option value="movimentacao"<?= ($this->tipoConta=='movimentacao') ? 'selected' : ''; ?>>Movimenta&#231;&#227;o</option>
                     </select>
                 </td>
             </tr>

@@ -248,44 +248,4 @@ class Diligencia extends MinC_Db_Table_Abstract
 
         return $this->fetchAll($select);
     }
-
-    public function existeDiligenciaAberta($idPronac, $idProduto = null)
-    {
-        $slct = $this->select();
-        $slct->setIntegrityCheck(false);
-        $slct->from(
-                ["d" => $this->_name],
-                'COUNT(idPronac) as total',
-                "SAC.dbo"
-        );
-
-        $slct->where('idPronac = ?', $idPronac);
-        $slct->where('DtResposta  IS NULL');
-        $slct->where('stEnviado = ? ', 'S');
-
-        $total = $this->fetchRow($slct)->toArray();
-
-        if ($total['total'] == 0) {
-            return false;
-        }
-
-        return true;
-    }
-
-    public function aberta($idPronac)
-    {
-        $slct = $this->select();
-        $slct->setIntegrityCheck(false);
-        $slct->from(
-                ["d" => $this->_name],
-                '*',
-                "SAC.dbo"
-        );
-
-        $slct->where('idPronac = ?', $idPronac);
-        $slct->where('DtResposta  IS NULL');
-        $slct->where('stEnviado = ? ', 'S');
-
-        return $this->fetchRow($slct);
-    }
 }

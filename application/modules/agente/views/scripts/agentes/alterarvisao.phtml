@@ -1,5 +1,5 @@
 <div class="row">
-    <?php echo $this->partial('agentes/inc/menu.inc.php', $this) // menu lateral ?>
+    <?php echo $this->partial('agentes/inc/menu.inc.php', $this); // menu lateral ?>
     <div class="col s12 m10 l10">
         <!-- ========== INICIO BREADCRUMB (LINKS TOPO) ========== -->
         <div id="breadcrumb">
@@ -42,7 +42,7 @@
                     <tr>
                         <td class="centro" valign="top">
                             <label for="visao"> </label>
-                            <select class="select w300" name="visao[]" id="visao" multiple="multiple" size="7">
+                            <select class="select w300 browser-default" name="visao[]" id="visao" multiple="multiple" size="7">
                                 <?php foreach ($this->visao as $visao) : ?>
                                     <?php if (!in_array($visao['idVerificacao'], $arrayIdVisao)) : // só mostra as visoes que o agente NAO possui ?>
                                         <option
@@ -63,7 +63,7 @@
                         </td>
                         <td class="centro" valign="top">
                             <label for="visaoAgente"> </label>
-                            <select class="select w300" name="visaoAgente[]" id="visaoAgente" multiple="multiple"
+                            <select class="select w300 browser-default" name="visaoAgente[]" id="visaoAgente" multiple="multiple"
                                     size="7">
                                 <?php if ($this->visaoAgente) : ?>
                                     <?php foreach ($this->visaoAgente as $visao) : ?>

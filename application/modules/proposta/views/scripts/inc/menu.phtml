@@ -90,7 +90,7 @@ $arrMenuProponente['itensorcamentario']['menu'][] = array('label' => 'Solicitar 
     'grupo' => array()
 );
 $arrMenuProponente['itensorcamentario']['menu'][] = array('label' => 'Minhas solicita&ccedil;&otilde;es', 'title' => 'Ir para Minhas solicita&ccedil;&otilde;es',
-    'url' => $this->url(array('module' => 'proposta', 'controller' => 'mantertabelaitens', 'action' => 'minhas-solicitacoes', 'idPreProjeto' => $idPreProjeto)).'?tipoFiltro=solicitado',
+    'url' => $this->url(array('module' => 'proposta', 'controller' => 'mantertabelaitens', 'action' => 'minhas-solicitacoes', 'idPreProjeto' => $idPreProjeto)) . '?tipoFiltro=solicitado',
     'grupo' => array()
 );
 
@@ -150,7 +150,7 @@ if ($this->isEditavel) {
     } else {
         $arrMenuProponente['encaminharprojetoaominc'] = array(
             'id' => 'encaminharprojetoaominc',
-            'label' => 'Encaminhar projeto ao MinC',
+            'label' => 'Devolver projeto ao MinC',
             'title' => '',
             'url' => $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'encaminharprojetoaominc', 'idPreProjeto' => $idPreProjeto)),
             'icon' => 'send',
@@ -175,13 +175,18 @@ if ($this->isEditavel) {
                 <p class="info-title">
                     <?php echo isset($this->proposta['nomeprojeto']) ? $this->proposta['nomeprojeto'] : ''; ?>
                 </p>
-            <?php if( isset($this->layout['prazoAlterarProjeto']) && $this->layout['prazoAlterarProjeto'] > 0 ) : ?>
-                <p class="">
-                    <?php $n = round($this->layout['prazoAlterarProjeto']); ?>
-                    <i class="material-icons left tiny">query_builder</i>
-                    <span id="cronometro"></span>
-                </p>
-            <?php endif; ?>
+                <?php if (isset($this->layout['prazoAlterarProjeto']) && $this->layout['prazoAlterarProjeto'] > 0) : ?>
+                    <p class="">
+                        <?php $n = round($this->layout['prazoAlterarProjeto']); ?>
+                        <i class="material-icons left tiny">query_builder</i>
+                        <span id="cronometro"></span>
+                    </p>
+                <?php elseif ($this->projeto): ?>
+                    <p class="">
+                        <i class="material-icons left tiny">query_builder</i>
+                        <span id="cronometro">Prazo de altera&ccedil;&atilde;o expirado</span>
+                    </p>
+                <? endif; ?>
             </div>
         </li>
         <?php echo $this->partialLoop('inc/item.phtml', $arrMenuProponente); ?>
@@ -242,13 +247,13 @@ if ($this->isEditavel) {
     $(document).ready(function () {
         <?php if (!$this->isEditavel) : ?>
         //DESABILITA ALTERACOES NOS DADOS DO FORMULARIO (INCLUIR/ALTERAR/EXCLUIR)
-             JSBloquearAlteracaoFormulario();
+        JSBloquearAlteracaoFormulario();
 
-            $("textarea.editor").each(function () {
-                $(this).editorRico({
-                    isDesabilitarEdicao: 1
-                });
+        $("textarea.editor").each(function () {
+            $(this).editorRico({
+                isDesabilitarEdicao: 1
             });
+        });
 
         <?php endif; ?>
         $('.planilha').click(function () {
@@ -341,42 +346,35 @@ if ($this->isEditavel) {
     }
 
     <?php if( isset($this->layout['prazoAlterarProjeto'])) : ?>
-        var segundos = new Number();
-        var segundos = <?php print $this->layout['prazoAlterarProjeto']; ?>;
+    var segundos = new Number();
+    var segundos = <?php print $this->layout['prazoAlterarProjeto']; ?>;
     <?php endif; ?>
 
-    function contagemregressiva()
-    {
+    function contagemregressiva() {
 
-        if( ( segundos - 1 ) >= 0 )
-        {
+        if (( segundos - 1 ) >= 0) {
             segundos = segundos - 1;
-            if( segundos > 86400 )
-            {
-                dias = Math.round( segundos / 86400 );
+            if (segundos > 86400) {
+                dias = Math.round(segundos / 86400);
                 cronometro.innerText = dias + ' dias para alterar';
             }
-            else if( segundos > 3600 )
-            {
-                horas = Math.round( segundos / 3600 );
+            else if (segundos > 3600) {
+                horas = Math.round(segundos / 3600);
                 cronometro.innerText = horas + ' horas para alterar';
             }
-            else if( segundos > 60 )
-            {
-                minutos = Math.round( segundos / 60 );
+            else if (segundos > 60) {
+                minutos = Math.round(segundos / 60);
                 cronometro.innerText = minutos + ' minutos para alterar';
             }
-            else if( segundos > 0 )
-            {
+            else if (segundos > 0) {
                 cronometro.innerText = segundos + ' segundos para alterar';
             }
-            else
-            {
+            else {
                 JSPrazoDeAlterarExpirado();
                 JSBloquearAlteracaoFormulario();
                 cronometro.innerText = 'Alterar projeto encerrado';
             }
-            setTimeout( 'contagemregressiva()', 1000 );
+            setTimeout('contagemregressiva()', 1000);
         }
     }
     <?php if( isset($this->layout['prazoAlterarProjeto'])) : ?>

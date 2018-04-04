@@ -157,7 +157,7 @@ class Analise_AnaliseController extends Analise_GenericController
             if ($params['conformidade'] == self::PARECER_NAO_FAVORAVEL) {
 
                 $situacao = Projeto_Model_Situacao::PROJETO_LIBERADO_PARA_AJUSTES;
-                $providenciaTomada = 'Projeto liberado para o proponente adequar &agrave; realidade de execu&ccedil;&atilde;o, n&atilde;o podendo representar aumento de custo e observando as veda&ccedil;&otilde;es do Art. 42, conforme o Art. 72 da Instru&ccedil;&atilde;o Normativa.';
+                $providenciaTomada = 'Projeto liberado para o proponente adequar &agrave; realidade de execu&ccedil;&atilde;o por 30 dias, conforme o Art. 26 da IN 5/2017.';
 
                 $tbProjetos->alterarSituacao($params['idpronac'], '', $situacao, $providenciaTomada);
 

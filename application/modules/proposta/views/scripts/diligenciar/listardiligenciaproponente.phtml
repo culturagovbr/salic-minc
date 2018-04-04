@@ -17,7 +17,7 @@
                 <form id="frImprimir" action="<?php echo $this->url(array('controller'=>'diligenciar', 'action'=>'imprimir')); ?>" method="post" target="_blank" >
                     <input type="hidden" name="idPronac" value="<?php echo $this->idPronac;?>"/>
                     <input type="hidden" name="idPreProjeto" value="<?php echo $this->idPreProjeto;?>"/>
-                    <?php if($this->diligenciasProposta) : ?>
+                    <?php if(count($this->diligenciasProposta) > 0) : ?>
                         <table class="tabela">
                             <tr>
                                 <td><input type="button" name="grid1" id="g1_1" class="btn_remover" title="Expandir" />Dilig&ecirc;ncia Proposta</td>
@@ -139,13 +139,65 @@
                             </table>
                         </div>
                     <?php endif ?>
-                    <table class="tabela">
-                        <tr align="center">
-                            <td><button type="submit" class="btn" value="" />Imprimir</button></td>
-                        </tr>
-                    </table>
+
+                    <?php if(count($this->diligenciasProposta) == 0 && !$this->diligencias) : ?>
+                        <div class="padding20 center-align">
+                            Nenhuma dilig&ecirc;ncia
+                        </div>
+                    <?php else: ?>
+                        <table class="tabela">
+                            <tr align="center">
+                                <td><button type="submit" class="btn" value="" />Imprimir</button></td>
+                            </tr>
+                        </table>
+                    <?php endif; ?>
                 </form>
             </div>
+
+            <?php if (count($this->diligenciasAdequacao) > 0) : ?>
+                <fieldset style="margin-top: 20px;">
+                    <legend>Dilig&ecirc;ncias da Adequa&ccedil;&atilde;o do Projeto</legend>
+                    <table class="bordered striped responsive-table">
+                        <thead>
+                        <tr>
+                            <th>Visualizar</th>
+                            <th>Data da Avalia&ccedil;&atilde;o</th>
+                            <th>Tipo de dilig&ecirc;ncia</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($this->diligenciasAdequacao as $diligencia) : ?>
+                            <tr>
+                                <td style="text-align: center;">
+                                    <button
+                                        onclick="$('#linha_adequacao_<?php echo $diligencia->idAvaliarAdequacaoProjeto; ?>').toggleClass('sumir')"
+                                        class="waves-effect waves-darken btn white black-text">
+                                        <i class="material-icons">visibility</i>
+                                    </button>
+                                </td>
+                                <td align="center"><?php echo date('d/m/Y', strtotime($diligencia->dtAvaliacao)); ?></td>
+                                <td>Dilig&ecirc;ncia na An&aacute;lise da adequa&ccedil;&atilde;o &agrave; realidade do projeto.
+                                </td>
+                            </tr>
+                            <tr class="sumir" id="linha_adequacao_<?php echo $diligencia->idAvaliarAdequacaoProjeto; ?>">
+                                <td colspan="3" id="resultado<?php echo $diligencia->idAvaliarAdequacaoProjeto; ?>">
+                                    <table class="tabela">
+                                        <tbody>
+                                        <tr>
+                                            <th>Solicita&ccedil;&atilde;o</th>
+                                        </tr>
+                                        <td>
+                                            <?php echo $diligencia->dsAvaliacao; ?>
+                                        </td>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </fieldset>
+            <?php endif; ?>
             <br clear="all" />
             <form id="encaminhar" method="post">
                 <input type="hidden" name="idPronac" value="<?php echo $this->idPronac;?>"/>

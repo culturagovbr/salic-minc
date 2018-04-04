@@ -1,6 +1,15 @@
 <?php
+/**
+ * DAO tbDiligencia
+ * @author emanuel.sampaio - Politec
+ * @since 17/02/2011
+ * @version 1.0
+ * @link http://www.cultura.gov.br
+ */
+
 class tbDiligencia extends MinC_Db_Table_Abstract
 {
+    /* dados da tabela */
     protected $_banco   = "SAC";
     protected $_schema  = "SAC";
     protected $_name    = "tbDiligencia";
@@ -14,7 +23,7 @@ class tbDiligencia extends MinC_Db_Table_Abstract
     public function cadastrarDados($dados)
     {
         return $this->insert($dados);
-    }
+    } // fecha m�todo cadastrarDados()
 
     /**
      * M�todo para buscarDados
@@ -106,8 +115,9 @@ class tbDiligencia extends MinC_Db_Table_Abstract
             }
         }
 
+
         return $this->fetchAll($select);
-    }
+    } // fecha m�todo buscaDiligencia()
 
 
     /**

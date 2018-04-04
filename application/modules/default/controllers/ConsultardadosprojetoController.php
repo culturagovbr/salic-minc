@@ -4189,6 +4189,9 @@ class ConsultarDadosProjetoController extends MinC_Controller_Action_Abstract
                 $this->view->diligenciasProposta = $tblPreProjeto->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $projeto->idProjeto,'aval.ConformidadeOK = ? '=>0));
             }
             $this->view->diligencias = $tblProjeto->listarDiligencias(array('pro.IdPRONAC = ?' => $idPronac, 'dil.stEnviado = ?' => 'S'));
+
+            $tbAvaliarAdequacaoProjeto = new Analise_Model_DbTable_TbAvaliarAdequacaoProjeto();
+            $this->view->diligenciasAdequacao = $tbAvaliarAdequacaoProjeto->obterAvaliacoesDiligenciadas(['a.idPronac = ?' => $idPronac]);
         }
     }
 
@@ -6010,7 +6013,9 @@ class ConsultarDadosProjetoController extends MinC_Controller_Action_Abstract
 
     public function extratosBancariosAction()
     {
-        $idPronac = $this->_request->getParam("idPronac");
+        $params = $this->_request->getParams();
+        $idPronac = $params["idPronac"];
+
         if (strlen($idPronac) > 7) {
             $idPronac = Seguranca::dencrypt($idPronac);
         }
@@ -6061,34 +6066,18 @@ class ConsultarDadosProjetoController extends MinC_Controller_Action_Abstract
             $where = array();
             $where['idPronac = ?'] = $idPronac;
 
-            if (isset($_GET['dtLancamento']) && !empty($_GET['dtLancamento']) && isset($_GET['dtLancamentoFim']) && empty($_GET['dtLancamentoFim'])) {
-                $di = ConverteData($_GET['dtLancamento'], 13)." 00:00:00";
-                $df = ConverteData($_GET['dtLancamentoFim'], 13)." 00:00:00";
+            if (isset($params['dtLancamento']) && !empty($params['dtLancamento']) && isset($params['dtLancamentoFim']) && empty($params['dtLancamentoFim'])) {
+                $di = ConverteData($params['dtLancamento'], 13)." 00:00:00";
+                $df = ConverteData($params['dtLancamentoFim'], 13)." 00:00:00";
                 $where["dtLancamento BETWEEN '$di' AND '$df'"] = '';
-                $this->view->dtLancamento = $_GET['dtLancamento'];
-                $this->view->dtLancamentoFim = $_GET['dtLancamentoFim'];
+                $this->view->dtLancamento = $params['dtLancamento'];
+                $this->view->dtLancamentoFim = $params['dtLancamentoFim'];
             }
 
-            if (isset($_GET['dtLancamento']) && !empty($_GET['dtLancamento']) && isset($_GET['dtLancamentoFim']) && !empty($_GET['dtLancamentoFim'])) {
-                $di = ConverteData($_GET['dtLancamento'], 13)." 00:00:00";
-                $df = ConverteData($_GET['dtLancamentoFim'], 13)." 00:00:00";
-                $where["dtLancamento BETWEEN '$di' AND '$df'"] = '';
-                $this->view->dtLancamento = $_GET['dtLancamento'];
-                $this->view->dtLancamentoFim = $_GET['dtLancamentoFim'];
+            if (isset($params['tipoConta']) && !empty($params['tipoConta'])) {
+                $where["stContaLancamento= ?"] = ($params['tipoConta'] == 'captacao') ? 0 : 1;
+                $this->view->tipoConta = $params['tipoConta'];
             }
-
-            if (isset($_GET['tpConta']) && !empty($_GET['tpConta'])) {
-                $tpConta = $_GET['tpConta'];
-                $where["Tipo = ?"] = $tpConta;
-                $this->view->tpConta = $_GET['tpConta'];
-            }
-
-            if (isset($_GET['tpConta']) && !empty($_GET['tpConta'])) {
-                $tpConta = $_GET['tpConta'];
-                $where["Tipo = ?"] = $tpConta ;
-                $this->view->tpConta = $_GET['tpConta'];
-            }
-
 
             $DadosExtrato = new Projetos();
             $total = $DadosExtrato->painelDadosBancariosExtrato($where, $order, null, null, true);
@@ -6571,7 +6560,9 @@ class ConsultarDadosProjetoController extends MinC_Controller_Action_Abstract
 
     public function extratoContaMovimentoConsolidadoAction()
     {
-        $idPronac = $this->_request->getParam("idPronac");
+        $params = $this->_request->getParams();
+        $idPronac = $params["idPronac"];
+
         if (strlen($idPronac) > 7) {
             $idPronac = Seguranca::dencrypt($idPronac);
         }
@@ -6621,20 +6612,12 @@ class ConsultarDadosProjetoController extends MinC_Controller_Action_Abstract
             /* ================== PAGINACAO ======================*/
             $where = array();
             $where['idPronac = ?'] = $idPronac;
+            $this->view->TipoConta = '';
 
-            if (isset($_GET['TipoConta']) && !empty($_GET['TipoConta'])) {
-                $tpConta = $_GET['TipoConta'];
-                $where["TipoConta= ?"] = $tpConta;
-                $this->view->TipoConta = $_GET['TipoConta'];
+            if (!empty($params['TipoConta'])) {
+                $where["stContaLancamento= ?"] = ($params['TipoConta'] == 'captacao') ? 0 : 1;
+                $this->view->TipoConta = $params['TipoConta'];
             }
-
-            if (isset($_GET['TipoConta']) && !empty($_GET['TipoConta'])) {
-                $tpConta = $_GET['TipoConta'];
-                $where["TipoConta = ?"] = $tpConta ;
-                $this->view->TipoConta = $_GET['TipoConta'];
-            }
-
-
 
             $Dados = new Projetos();
             $total = $Dados->extratoContaMovimentoConsolidado($where, $order, null, null, true);
@@ -6645,18 +6628,18 @@ class ConsultarDadosProjetoController extends MinC_Controller_Action_Abstract
 
             $busca = $Dados->extratoContaMovimentoConsolidado($where, $order, $tamanho, $inicio);
             $paginacao = array(
-                    "pag"=>$pag,
-                    "qtde"=>$this->intTamPag,
-                    "campo"=>$campo,
-                    "ordem"=>$ordem,
-                    "ordenacao"=>$ordenacao,
-                    "novaOrdem"=>$novaOrdem,
-                    "total"=>$total,
-                    "inicio"=>($inicio+1),
-                    "fim"=>$fim,
-                    "totalPag"=>$totalPag,
-                    "Itenspag"=>$this->intTamPag,
-                    "tamanho"=>$tamanho
+                "pag"=>$pag,
+                "qtde"=>$this->intTamPag,
+                "campo"=>$campo,
+                "ordem"=>$ordem,
+                "ordenacao"=>$ordenacao,
+                "novaOrdem"=>$novaOrdem,
+                "total"=>$total,
+                "inicio"=>($inicio+1),
+                "fim"=>$fim,
+                "totalPag"=>$totalPag,
+                "Itenspag"=>$this->intTamPag,
+                "tamanho"=>$tamanho
              );
 
             $this->view->paginacao = $paginacao;
