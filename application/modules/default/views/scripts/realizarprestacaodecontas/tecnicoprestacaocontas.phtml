@@ -35,8 +35,8 @@
                         <tr>
                             <td><?php echo $x; ?></td>
                             <td>
-                                <sl-btn-visualizar 
-                                    idpronac="<?php echo $projeto->idPronac; ?>" 
+                                <sl-btn-visualizar
+                                    idpronac="<?php echo $projeto->idPronac; ?>"
                                     pronac="<?php echo $projeto->Pronac; ?>"
                                     nome="<?php echo $projeto->NomeProjeto; ?>"
                                 >
@@ -51,15 +51,7 @@
                             <td><?php echo $projeto->UfProjeto; ?></td>
                             <td><?php $mecanismo = $projeto->Mecanismo; if ($mecanismo == 'Mecenato'){ echo "Incentivo Fiscal"; }else{ echo $projeto->Mecanismo;}?></td>
                             <td><?php echo Data::tratarDataZend($projeto->DtSituacao, 'brasileira');?></td>
-                            <td>
-                                <a href="/prestacao-contas/prestacao-contas/tipo-avaliacao/idPronac/<?php echo ($projeto->idPronac); ?>" class="btn">
-                                    <i class="material-icons">compare_arrows</i>
-                                </a>
-                                <!-- img style="cursor: pointer;" 
-                                    src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" 
-                                    onclick="window.location='<?php echo $this->baseUrl(); ?>/realizarprestacaodecontas/planilhaorcamentaria/idPronac/<?php echo ($projeto->idPronac); ?>'" 
-                                    alt="Analisar"-->
-                            </td>
+                            <td><img style="cursor: pointer;" src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" onclick="window.location='<?php echo $this->baseUrl(); ?>/realizarprestacaodecontas/planilhaorcamentaria/idPronac/<?php echo ($projeto->idPronac); ?>'" alt="Analisar"></td>
                             <td>
                                 <?php if ($projeto->RelatorioTecnico == "False") { ?>
                                     <img style="cursor: pointer;" src="<?php echo $this->baseUrl(); ?>/public/img/user_gray.png" onclick="return JSDevolverParaChefeDivisao('<?php echo $projeto->idPronac; ?>','<?php echo $this->codOrgao; ?>',true)" alt="Devolver para chefe de divisão" />
@@ -98,7 +90,7 @@
     <div id="abrirModal" class="modal modal-fixed-footer">
         <div class="modal-content">
             <h3>Visualizar consolida&ccedil;&atilde;o</h3>
-           <sl-collapse-visualizar></sl-collapse-visualizar> 
+           <sl-collapse-visualizar></sl-collapse-visualizar>
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Fechar</a>
@@ -113,7 +105,7 @@
 <script src="/public/scripts/prestacao-contas/tecnicoprestacaocontas.js" type="text/javascript"></script>
 
 <script src="/public/js/vue.js" type="text/javascript"></script>
-<script type="text/javascript" src="/public/js/componentes/sl-btn-visualizar.js" ></script>
+<script type="text/javascript" src="/public/js/componentes/sl-btn-visualizar.js"></script>
 <script type="text/javascript" src="/public/js/componentes/sl-collapse-visualizar.js" ></script>
 <script type="text/javascript" src="/public/js/componentes/salic-table-easy.js" ></script>
 

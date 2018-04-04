@@ -414,15 +414,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController
             }
         }
         if ($this->view->idPreProjeto) {
-
-            $projeto = $Projetosdao->buscar(array('idProjeto = ?' => $this->view->idPreProjeto))->current();
-
-            if ($projeto) {
-                $tbAvaliarAdequacaoProjeto = new Analise_Model_DbTable_TbAvaliarAdequacaoProjeto();
-                $this->view->diligenciasAdequacao = $tbAvaliarAdequacaoProjeto->obterAvaliacoesDiligenciadas(['a.idPronac = ?' => $projeto->IdPRONAC]);
-            }
-
-            $this->view->diligenciasProposta = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $this->view->idPreProjeto,'aval.ConformidadeOK <> ? '=>9));
+            $this->view->diligenciasProposta        = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $this->view->idPreProjeto,'aval.ConformidadeOK <> ? '=>9));
             //$this->view->diligenciasProposta = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $this->view->idPreProjeto));
         }
     }
@@ -520,12 +512,6 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         }
     }
 
-    /**
-     * updatediligenciaAction
-     *
-     * @access public
-     * @return void
-     */
     public function updatediligenciaAction()
     {
         $post = Zend_Registry::get('post');
@@ -797,7 +783,6 @@ class Proposta_DiligenciarController extends Proposta_GenericController
             );
         }
 
-
         if ($_POST['btnEnvio'] == 1) {
             $msgAlert = 'Enviado com sucesso!';
         } else {
@@ -805,18 +790,9 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         }
 
         $aux = "?idPronac={$this->idPronac}&situacao={$this->situacao}&tpDiligencia={$post->tpDiligencia}";
-        //parent::message("$msgAlert", "/proposta/diligenciar/cadastrardiligencia{$aux}", "CONFIRM");
         parent::message("$msgAlert", "/proposta/diligenciar/listardiligenciaanalista{$aux}", "CONFIRM");
     }
 
-    /**
-     * eviarEmail
-     *
-     * @param mixed $idPronac
-     * @param mixed $tpDiligencia
-     * @access private
-     * @return void
-     */
     private function eviarEmail($idPronac, $tpDiligencia)
     {
         $auth = Zend_Auth::getInstance();

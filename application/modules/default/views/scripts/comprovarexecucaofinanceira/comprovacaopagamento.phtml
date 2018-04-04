@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row">
         <?php
-        $buscarFornecedorComprovacaoHref = $this->url(array('controller' => 'comprovarexecucaofinanceira', 'action' => 'buscarfornecedor')) . '?idusuario=' . $this->idusuario;
+        $buscarFornecedorHref = $this->url(array('controller' => 'comprovarexecucaofinanceira', 'action' => 'buscarfornecedor')) . '?idusuario=' . $this->idusuario;
 
         $urlArray = array(
             'controller' => 'comprovarexecucaofinanceira',
@@ -66,7 +66,7 @@
                         Comprovar Pagamento
                         <?php if ($this->idComprovantePagamento): ?>
                             - editando item
-                        <?php else: ?>
+                        <?php else: ?> 
                             - cadastrar item
                         <?php endif; ?>
                     </h5>
@@ -83,11 +83,32 @@
             <div class="row">
                 <div class="col s12">
                     <div id="incluircomprovacaoAjax">
-                        <div class="card ">
-                            <div class="card-content">
-                                <h6>Vincular Item de Custo</h6>
-                                <table id="tabelaItem" class="bordered">
-                                    <thead>
+                        <form
+                            action="<?php echo $formUrl; ?>"
+                            id="frComprovarPagamento"
+                            name="frComprovarPagamento"
+                            enctype="multipart/form-data"
+                            method="post"
+                            class="browser-default"
+                        >
+                            <input type='hidden' name='idComprovantePagamento' id='idComprovantePagamento'
+                                   value='<?php echo $this->idComprovantePagamento; ?>'/>
+                            <input type='hidden' name='idpronac' id='idpronac' value='<?php echo $this->idpronac; ?>'/>
+
+                            <?php if ($this->idComprovantePagamento): ?>
+                                <input type='hidden' name='paginaRedirecionar' id='paginaRedirecionar'
+                                       value='comprovacaopagamento'/>
+                            <?php endif; ?>
+                            <input type='hidden' name='valorAprovado' id='valorAprovado'
+                                   value='<?php echo $this->itemPlanilhaAprovacao->valorAprovado; ?>'/>
+                            <input type='hidden' name='totalComprovado' id='totalComprovado'
+                                   value='<?php echo $this->itemPlanilhaAprovacao->vlComprovado ? $this->itemPlanilhaAprovacao->vlComprovado : '0'; ?>'/>
+
+                      <div class="card ">
+                        <div class="card-content">
+                            <table id="tabelaItem" class="bordered">
+                                <caption>Vincular Item de Custo</caption>
+                                <thead>
                                     <tr>
                                         <th class="">Produto</th>
                                         <th class="">Etapa</th>
@@ -95,8 +116,8 @@
                                         <th class="" id="campoValorAprovado">Valor Aprovado</th>
                                         <th class="" id="campoValorComprovado">Total Comprovado</th>
                                     </tr>
-                                    </thead>
-                                    <tbody>
+                                </thead>
+                                <tbody>
                                     <tr>
                                         <td><?php echo $this->produto->Sintese; ?></td>
                                         <td><?php echo $this->etapa->Descricao; ?></td>
@@ -104,424 +125,370 @@
                                         <td><?php echo $this->currency($this->itemPlanilhaAprovacao->valorAprovado); ?></td>
                                         <td><?php echo $this->currency($this->itemPlanilhaAprovacao->vlComprovado ? $this->itemPlanilhaAprovacao->vlComprovado : '0'); ?></td>
                                     </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="card" style="overflow-y: auto; padding-right: 20px;">
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
                             <?php if (!$this->vrSituacao) : ?>
-                                <?php echo $this->partial('partials/tabelaItens.phtml', 'prestacao-contas', $this) ?>
+                                <?php echo $this->partial('partials/tabelaItens.phtml', 'prestacao-contas', $this)?>
                             <?php endif; ?>
                         </div>
+                    </div>
 
-                        <div class="card ">
-                            <div class="card-content">
-                                <form
-                                    action="<?php echo $formUrl; ?>"
-                                    id="frComprovarPagamento"
-                                    name="frComprovarPagamento"
-                                    enctype="multipart/form-data"
-                                    method="post"
-                                >
-                                    <input type='hidden' name='idComprovantePagamento' id='idComprovantePagamento'
-                                           value='<?php echo $this->idComprovantePagamento; ?>'/>
-                                    <input type='hidden' name='idpronac' id='idpronac'
-                                           value='<?php echo $this->idpronac; ?>'/>
+                      <div class="card ">
+                        <div class="card-content">
 
-                                    <?php if ($this->idComprovantePagamento): ?>
-                                        <input type='hidden' name='paginaRedirecionar' id='paginaRedirecionar'
-                                               value='comprovacaopagamento'/>
-                                    <?php endif; ?>
-                                    <input type='hidden' name='valorAprovado' id='valorAprovado'
-                                           value='<?php echo $this->itemPlanilhaAprovacao->valorAprovado; ?>'/>
-                                    <input type='hidden' name='totalComprovado' id='totalComprovado'
-                                           value='<?php echo $this->itemPlanilhaAprovacao->vlComprovado ? $this->itemPlanilhaAprovacao->vlComprovado : '0'; ?>'/>
+                                <div id="tabelaComprovante">
+                                    <fieldset>
+                                        <legend>Identifica&ccedil;&atilde;o do Contratado</legend>
+                                        <input type="hidden" name="idAgente" id="idAgente" value="<?php echo $this->idAgente; ?>"/>
+                                        <div class="row">
+                                            <div class="input-field col s4">
+                                                <select
+                                                    id="pais"
+                                                    name="pais"
+                                                    class="left-align "
+                                                    onchange="toggleTabelaComprovacaoPagamentoInvoice();" >
+                                                    <?php foreach ($this->paises as $pais) : ?>
+                                                        <option value="<?php echo $pais->Descricao; ?>"
+                                                            <?= ($this->paisFornecedor == $pais->Descricao) ? 'selected="selected"' : ''; ?>
+                                                            <?= ($this->paisFornecedor == '' && $pais->Descricao == 'Brasil') ? 'selected="selected"' : ''; ?>
+                                                        ><?php echo $pais->Descricao; ?>
+                                                        </option>
+                                                    <?php endforeach; ?>
+                                                </select>
+                                                <label class="actived" for="pais">Nacionalidade do Fornecedor <span style='color:red'>*</span></label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class=" col s6">
+                                                <p>Tipo do Fornecedor <span style='color:red'>*</span></p>
+                                                <p>
+                                                    <input
+                                                        type="radio"
+                                                        id="tpFornecedorCpf"
+                                                        name="tpFornecedor"
+                                                        class="tpFornecedor"
+                                                        value="cpf"
+                                                        null="false"
+                                                        <?php echo $this->fornecedor && $this->fornecedor->usaCnpj ? '' : 'checked="checked"'; ?>
+                                                    />
+                                                    <label for="tpFornecedorCpf">CPF</label>
+                                                    <input
+                                                        type="radio"
+                                                        id="tpFornecedorCnpj"
+                                                        name="tpFornecedor"
+                                                        class="tpFornecedor"
+                                                        value="cnpj"
+                                                        <?php echo $this->fornecedor && $this->fornecedor->usaCnpj ? 'checked="checked"' : ''; ?>
+                                                    />
+                                                    <label for="tpFornecedorCnpj">CNPJ</label>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="input-field col s6">
+                                                <input
+                                                    type="text"
+                                                    autocomplete="off"
+                                                    name="CNPJCPF"
+                                                    id="CNPJCPF"
+                                                    idAgente="idAgente"
+                                                    idDescricao="Descricao"
+                                                    cnpjcpf="true"
+                                                    classaux="tpFornecedor"
+                                                    null="false"
+                                                    value="<?php echo $this->CNPJCPF; ?>"
+                                                />
+                                                <label for="CNPJCPF">CNPJ/CPF<span style='color:red'>*</span></label>
+                                            </div>
+                                            <div class="input-field col s6">
+                                                <input
+                                                    type="text"
+                                                    name="Descricao"
+                                                    id="Descricao"
+                                                    null="false"
+                                                    value="<?php echo $this->Descricao; ?>"
+                                                    <?php echo $this->CNPJCPF ? 'readonly="readonly"' : ''; ?>
+                                                />
+                                                <label>Nome/Raz&atilde;o Social<span style='color:red'>*</span></label>
+                                            </div>
+                                        </div>
+                                    </fieldset>
 
-
-                                    <div id="tabelaComprovante">
+                                    <!-- Identificação Nacional -->
+                                    <div id="bodyTabelaComprovante">
                                         <fieldset>
-                                            <legend>Identifica&ccedil;&atilde;o do Contratado</legend>
-                                            <input type="hidden" name="idAgente" id="idAgente"
-                                                   value="<?php echo $this->idAgente; ?>"/>
+                                            <legend>Dados da Comprova&ccedil;&atilde;o de Pagamento</legend>
                                             <div class="row">
-                                                <div class="input-field col s12 m4 l4">
-                                                    <select
-                                                        id="pais"
-                                                        name="pais"
-                                                        class="left-align "
-                                                        onchange="toggleTabelaComprovacaoPagamentoInvoice();">
-                                                        <?php foreach ($this->paises as $pais) : ?>
-                                                            <option value="<?php echo $pais->Descricao; ?>"
-                                                                <?= ($this->paisFornecedor == $pais->Descricao) ? 'selected="selected"' : ''; ?>
-                                                                <?= ($this->paisFornecedor == '' && $pais->Descricao == 'Brasil') ? 'selected="selected"' : ''; ?>
-                                                            ><?php echo $pais->Descricao; ?>
-                                                            </option>
-                                                        <?php endforeach; ?>
+                                                <div class="input-field col s4">
+                                                    <select name="tpDocumento" id="tpDocumento">
+                                                        <?php
+                                                        foreach ($this->tipoDocumentoConteudo as $key => $value) :
+                                                            $selected = $this->tpDocumento == $key ? 'selected="selected"' : null;
+                                                            echo "<option value='{$key}' {$selected}>{$value}</option>";
+                                                        endforeach
+                                                        ?>
                                                     </select>
-                                                    <label class="actived" for="pais">Nacionalidade do Fornecedor <span
+                                                    <label>Comprovante<span style='color:red'>*</span></label>
+                                                </div>
+                                                <div class="input-field col s4">
+                                                    <input type="text" name="nrComprovante" id="nrComprovante"
+                                                           maxlength="50" null="false"
+                                                           value="<?php echo $this->nrComprovante; ?>"/>
+                                                    <label>N&uacute;mero<span style='color:red'>*</span></label>
+                                                </div>
+                                                <div class="input-field col s4">
+                                                    <input type="text" name="nrSerie" id="nrSerie" maxlength="8"
+                                                           null="true"
+                                                           value="<?php echo $this->nrSerie; ?>"/>
+                                                    <label><b id="nmSerieTxt">S&eacute;rie</b></label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s3">
+                                                    <input type="text" name="dtEmissao" id="dtEmissao" null="false"
+                                                           data="true" value="<?php echo $this->dtEmissao; ?>"/>
+                                                    <label>Dt. de Emiss&atilde;o do comprovante de despesa<span style='color:red'>*</span></label>
+                                                </div>
+                                                <div class="input-field col s3">
+                                                    <input type="text" name="dtPagamento" id="dtPagamento" null="false"
+                                                           data="true" value="<?php echo $this->dtPagamento; ?>"/>
+                                                    <label>Data do pagamento<span style='color:red'>*</span></label>
+                                                </div>
+                                                <div class="input-field col s3">
+                                                    <select name="tpFormaDePagamento" id="tpFormaDePagamento"
+                                                            style="width: 180px;">
+                                                        <?php
+                                                        $selected1 = $this->tpFormaDePagamento == 1 ? 'selected="selected"' : null;
+                                                        $selected2 = $this->tpFormaDePagamento == 2 ? 'selected="selected"' : null;
+                                                        $selected3 = $this->tpFormaDePagamento == 3 ? 'selected="selected"' : null;
+                                                        ?>
+                                                        <option value="0"> - Selecione -</option>
+                                                        <option value="1" <?php echo $selected1; ?>>Cheque</option>
+                                                        <option value="2" <?php echo $selected2; ?>>Transfer&ecirc;ncia
+                                                            Banc&aacute;ria
+                                                        </option>
+                                                        <option value="3" <?php echo $selected3; ?>>Saque/Dinheiro
+                                                        </option>
+                                                    </select>
+                                                    <label>Forma de Pagamento<span style='color:red'>*</span></label>
+                                                </div>
+                                                <div class="input-field col s3">
+                                                    <input type="text" name="nrDocumentoDePagamento"
+                                                           id="nrDocumentoDePagamento" maxlength="10"
+                                                           null="false" sonumero="true"
+                                                           value="<?php echo $this->nrDocumentoDePagamento; ?>"/>
+                                                    <label for="nrDocumentoDePagamento">N&ordm; Documento Pagamento<span
                                                             style='color:red'>*</span></label>
                                                 </div>
                                             </div>
-                                            <div id="fornecedor_brasil">
-                                                <div class="row">
-                                                    <div class="col s12 m6 l6">
-                                                        <p>Tipo do Fornecedor <span style='color:red'>*</span></p>
-                                                        <p>
-                                                            <input
-                                                                type="radio"
-                                                                id="tpFornecedorCpf"
-                                                                name="tpFornecedor"
-                                                                class="tpFornecedor"
-                                                                value="cpf"
-                                                                null="false"
-                                                                <?php echo $this->fornecedor && $this->fornecedor->usaCnpj ? '' : 'checked="checked"'; ?>
-                                                            />
-                                                            <label for="tpFornecedorCpf">CPF</label>
-                                                            <input
-                                                                type="radio"
-                                                                id="tpFornecedorCnpj"
-                                                                name="tpFornecedor"
-                                                                class="tpFornecedor"
-                                                                value="cnpj"
-                                                                <?php echo $this->fornecedor && $this->fornecedor->usaCnpj ? 'checked="checked"' : ''; ?>
-                                                            />
-                                                            <label for="tpFornecedorCnpj">CNPJ</label>
-                                                        </p>
+                                            <div class="row">
+                                                <div class="input-field col s3">
+                                                    <input type="text" name="vlComprovado" size="10" id="vlComprovado"
+                                                           value="<?php echo $this->vlComprovacao; ?>"/>
+                                                    <label>Valor do Item <span style='color:red'>*</span></label>
+                                                </div>
+                                                <div class="file-field input-field col s4">
+                                                    <!-- input type="file" name="arquivo" id="arquivo" value=""/>
+                                                    <label>Anexar comprovante<span style='color:red'>*</span></label -->
+
+                                                    <div class="btn small">
+                                                        <input name="arquivo" id="arquivo" type="file">
+                                                        <span>Comprovante</span>
+                                                    </div>
+                                                    <div class="file-path-wrapper">
+                                                        <input class="file-path validate" type="text" placeholder="Selecionar arquivo">
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="input-field col s12 m6 l6">
-                                                        <input
-                                                            type="text"
-                                                            autocomplete="off"
-                                                            name="CNPJCPF"
-                                                            id="CNPJCPF"
-                                                            idAgente="idAgente"
-                                                            idDescricao="Descricao"
-                                                            cnpjcpf="true"
-                                                            classaux="tpFornecedor"
-                                                            null="false"
-                                                            value="<?php echo $this->CNPJCPF; ?>"
-                                                        />
-                                                        <label for="CNPJCPF">CNPJ/CPF<span
-                                                                style='color:red'>*</span></label>
-                                                    </div>
-                                                    <div class="input-field col s12 m6 l6">
-                                                        <input
-                                                            type="text"
-                                                            name="Descricao"
-                                                            id="Descricao"
-                                                            null="false"
-                                                            value="<?php echo $this->Descricao; ?>"
-                                                            <?php echo $this->CNPJCPF ? 'readonly="readonly"' : ''; ?>
-                                                        />
-                                                        <label>Nome/Raz&atilde;o Social<span
-                                                                style='color:red'>*</span></label>
-                                                    </div>
+                                                <?php if ($this->idComprovantePagamento): ?>
+                                                    <input type="hidden" name="arquivo_edit" id="arquivo_edit"
+                                                           value="<?php echo $this->idArquivo; ?>"/>
+                                                <?php endif; ?>
+                                                <a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir'), '', true); ?>?id=<?php echo $this->idArquivo; ?>"><?php echo $this->nomeArquivo; ?></a>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <textarea class="materialize-textarea" rows="5"
+                                                              name="dsJustificativa"
+                                                              id="dsJustificativa"><?php echo $this->dsJustificativa; ?></textarea>
+                                                    <label>
+                                                        <?php
+                                                        $auth = Zend_Auth::getInstance();
+                                                        if (isset($auth->getIdentity()->usu_codigo)) {
+                                                            echo 'Justificativa do Proponente';
+                                                        } else {
+                                                            echo 'Justificativa';
+                                                        }
+                                                        ?>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <p>Ocorr&ecirc;ncia do T&eacute;cnico</p>
+                                                    <p><?php echo $this->JustificativaTecnico; ?></p>
                                                 </div>
                                             </div>
                                         </fieldset>
+                                    </div>
 
-                                        <!-- Identificação Nacional -->
-                                        <div id="bodyTabelaComprovante">
-                                            <fieldset>
-                                                <legend>Dados do Comprovante de Despesa</legend>
-                                                <div class="row">
-                                                    <div class="input-field col s12 m3 l3">
-                                                        <select name="tpDocumento" id="tpDocumento">
-                                                            <?php
-                                                            foreach ($this->tipoDocumentoConteudo as $key => $value) :
-                                                                $selected = $this->tpDocumento == $key ? 'selected="selected"' : null;
-                                                                echo "<option value='{$key}' {$selected}>{$value}</option>";
-                                                            endforeach
-                                                            ?>
-                                                        </select>
-                                                        <label>Comprovante<span style='color:red'>*</span></label>
-                                                    </div>
-                                                    <div class="input-field col s12 m3 l3">
-                                                        <input type="text" name="dtEmissao" id="dtEmissao" null="false"
-                                                               data="true" value="<?php echo $this->dtEmissao; ?>"/>
-                                                        <label>Dt. Emiss&atilde;o<span
-                                                                style='color:red'>*</span></label>
-                                                    </div>
-                                                    <div class="input-field col s12 m3 l3">
-                                                        <input type="text" name="nrComprovante" id="nrComprovante"
-                                                               maxlength="50" null="false"
-                                                               value="<?php echo $this->nrComprovante; ?>"/>
-                                                        <label>N&uacute;mero<span style='color:red'>*</span></label>
-                                                    </div>
-                                                    <div class="input-field col s12 m3 l3">
-                                                        <input type="text" name="nrSerie" id="nrSerie" maxlength="8"
-                                                               null="true"
-                                                               value="<?php echo $this->nrSerie; ?>"/>
-                                                        <label><b id="nmSerieTxt">S&eacute;rie</b></label>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="file-field input-field col s12 m6 l6">
-                                                        <div class="btn small">
-                                                            <input name="arquivo" id="arquivo" type="file">
-                                                            <span>Comprovante</span>
-                                                        </div>
-                                                        <div class="file-path-wrapper">
-                                                            <input class="file-path validate" type="text"
-                                                                   placeholder="Selecionar arquivo">
-                                                        </div>
-                                                    </div>
-                                                    <div class="input-field col s12 m6 l6">
-                                                        <?php if ($this->idComprovantePagamento): ?>
-                                                            <input type="hidden" name="arquivo_edit" id="arquivo_edit"
-                                                                   value="<?php echo $this->idArquivo; ?>"/>
-
-                                                            <div class="padding20">
-                                                                <a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir'), '', true); ?>?id=<?php echo $this->idArquivo; ?>"><?php echo $this->nomeArquivo; ?></a>
-                                                            </div>
+                                    <!-- Comprovação internacional-->
+                                    <div id="bodyTabelaComprovanteInternacional">
+                                        <fieldset>
+                                            <legend>Dados da Comprova&ccedil;&atilde;o de Pagamento</legend>
+                                            <div class="row">
+                                                <div class="input-field col s6">
+                                                    <input
+                                                        type="text"
+                                                        id="nomeRazaoSocialInternacional"
+                                                        name="nomeRazaoSocialInternacional"
+                                                        null="false"
+                                                        <?php if ($this->exterior) : ?>
+                                                            value="<?php echo $this->fornecedor[0]->dsEndereco; ?>"
                                                         <?php endif; ?>
-                                                    </div>
+                                                    />
+                                                    <label for="nomeRazaoSocialInternacional">Nome da Empresa<span
+                                                            style='color:red'>*</span></label>
                                                 </div>
-                                            </fieldset>
-                                            <fieldset>
-                                                <legend>Dados do comprovante banc&aacute;rio</legend>
-                                                <div class="row">
-                                                    <div class="input-field col s12 m3 l3">
-                                                        <select name="tpFormaDePagamento" id="tpFormaDePagamento"
-                                                                style="width: 180px;">
+                                                <div class="input-field col s6">
+                                                    <input
+                                                        type="text"
+                                                        id="enderecoInternacional"
+                                                        name="enderecoInternacional"
+                                                        <?php if ($this->exterior) : ?>
+                                                            value="<?php echo $this->fornecedor[0]->dsPais; ?>"
+                                                        <?php endif; ?>
+                                                    />
+                                                    <label for="enderecoInternacional"> Endere&ccedil;o</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="input-field col s6">
+                                                    <input type="text" id="nif" name="nif" null="false"
+                                                           value="<?php echo $this->nrComprovante; ?>"/>
+                                                    <label> N&uacute;mero do documento<span
+                                                            style='color:red'>*</span></label>
+                                                </div>
+                                                <div class="input-field col s6">
+                                                    <p>
+                                                        <label><b id="nmSerieTxt" colspan="3">Tipo de
+                                                                Documento</b></label>
+                                                    </p>
+                                                    <p>
+                                                        <input type="radio" name="nrSerieInternacional"
+                                                               id="tipo_documento_invoice" value="6"
                                                             <?php
-                                                            $selected1 = $this->tpFormaDePagamento == 1 ? 'selected="selected"' : null;
-                                                            $selected2 = $this->tpFormaDePagamento == 2 ? 'selected="selected"' : null;
-                                                            $selected3 = $this->tpFormaDePagamento == 3 ? 'selected="selected"' : null;
+                                                            if (6 == $this->nrSerie || !$this->nrSerie) :
+                                                                echo 'checked="checked"';
+                                                            endif;
                                                             ?>
-                                                            <option value="0"> - Selecione -</option>
-                                                            <option value="1" <?php echo $selected1; ?>>Cheque</option>
-                                                            <option value="2" <?php echo $selected2; ?>>Transfer&ecirc;ncia
-                                                                Banc&aacute;ria
-                                                            </option>
-                                                            <option value="3" <?php echo $selected3; ?>>Saque/Dinheiro
-                                                            </option>
-                                                        </select>
-                                                        <label>Forma de Pagamento<span
-                                                                style='color:red'>*</span></label>
-                                                    </div>
-                                                    <div class="input-field col s12 m2 l2">
-                                                        <input type="text" name="dtPagamento" id="dtPagamento"
-                                                               null="false"
-                                                               data="true"
-                                                               value="<?php echo $this->dtPagamento; ?>"/>
-                                                        <label>Dt. Pagamento<span style='color:red'>*</span></label>
-                                                    </div>
-                                                    <div class="input-field col s12 m3 l3">
-                                                        <input type="text" name="nrDocumentoDePagamento"
-                                                               id="nrDocumentoDePagamento" maxlength="10"
-                                                               null="false" sonumero="true"
-                                                               value="<?php echo $this->nrDocumentoDePagamento; ?>"/>
-                                                        <label for="nrDocumentoDePagamento">Número<span
-                                                                style='color:red'>*</span></label>
-                                                    </div>
-                                                    <div class="input-field col s12 m3 l3">
-                                                        <input type="text" name="vlComprovado" size="10"
-                                                               id="vlComprovado"
-                                                               value="<?php echo $this->vlComprovacao; ?>"/>
-                                                        <label>Valor do Item <span style='color:red'>*</span></label>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-
-                                                </div>
-                                            </fieldset>
-                                            <fieldset>
-                                                <legend> <?php
-                                                    $auth = Zend_Auth::getInstance();
-                                                    if (isset($auth->getIdentity()->usu_codigo)) {
-                                                        echo 'Justificativa do Proponente';
-                                                    } else {
-                                                        echo 'Justificativa (opcional)';
-                                                    }
-                                                    ?></legend>
-                                                <div class="row">
-                                                    <div class="input-field col s12">
-                                                        <label>
-
-                                                        </label>
-
-                                                        <textarea rows="5"
-                                                                  name="dsJustificativa"
-                                                                  class="editor"
-                                                                  id="dsJustificativa"
-                                                        ><?php echo $this->dsJustificativa; ?></textarea>
-
-                                                    </div>
-                                                </div>
-                                                <?php if ($this->JustificativaTecnico) : ?>
-                                                    <div class="row">
-                                                        <div class="input-field col s12">
-                                                            <h6>Ocorr&ecirc;ncia do T&eacute;cnico</h6>
-                                                            <p><?php echo $this->JustificativaTecnico; ?></p>
-                                                        </div>
-                                                    </div>
-                                                <?php endif; ?>
-                                            </fieldset>
-                                        </div>
-
-                                        <!-- Comprovação internacional-->
-                                        <div id="bodyTabelaComprovanteInternacional">
-                                            <fieldset>
-                                                <legend>Dados da Comprova&ccedil;&atilde;o de Pagamento</legend>
-                                                <div class="row">
-                                                    <div class="input-field col s12 m6 l6">
-                                                        <input
-                                                            type="text"
-                                                            id="nomeRazaoSocialInternacional"
-                                                            name="nomeRazaoSocialInternacional"
-                                                            null="false"
-                                                            <?php if ($this->exterior) : ?>
-                                                                value="<?php echo $this->fornecedor[0]->dsEndereco; ?>"
-                                                            <?php endif; ?>
                                                         />
-                                                        <label for="nomeRazaoSocialInternacional">Nome da Empresa<span
-                                                                style='color:red'>*</span></label>
-                                                    </div>
-                                                    <div class="input-field col s12 m6 l6">
-                                                        <input
-                                                            type="text"
-                                                            id="enderecoInternacional"
-                                                            name="enderecoInternacional"
-                                                            <?php if ($this->exterior) : ?>
-                                                                value="<?php echo $this->fornecedor[0]->dsPais; ?>"
-                                                            <?php endif; ?>
+                                                        <label for="tipo_documento_invoice">Invoice </label>
+                                                        <input type="radio" name="nrSerieInternacional"
+                                                               id="tipo_documento_outros" value="7"
+                                                            <?php
+                                                            if (7 == $this->nrSerie) :
+                                                                echo 'checked="checked"';
+                                                            endif;
+                                                            ?>
                                                         />
-                                                        <label for="enderecoInternacional"> Endere&ccedil;o</label>
+                                                        <label for="tipo_documento_outros">Outros</label>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s6">
+                                                    <input
+                                                        type="text"
+                                                        id="dtEmissaoInternacional"
+                                                        name="dtEmissaoInternacional"
+                                                        null="false"
+                                                        data="true"
+                                                        value="<?php echo $this->dtEmissao; ?>"
+                                                    />
+                                                    <label for="dtEmissaoInternacional">Dt. do Documento<span
+                                                            style='color:red'>*</span></label>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s4">
+                                                    <input type="text" name="vlComprovadoInternacional" size="10"
+                                                           id="vlComprovadoInternacional"
+                                                           value="<?php echo $this->vlComprovacao; ?>"/>
+                                                    <label for="vlComprovadoInternacional">Valor do Item <span
+                                                            style='color:red'>*</span></label>
+                                                </div>
+                                                <div class="file-field input-field col s4">
+                                                    <!-- input type="file" id="arquivoInternacional" name="arquivoInternacional" value=""/>
+                                                    <label>Anexar comprovante<span style='color:red'>*</span></label-->
+                                                    <div class="btn">
+                                                        <span>Anexar comprovante</span>
+                                                        <input id="arquivoInternacional" name="arquivoInternacional"
+                                                               type="file">
+                                                    </div>
+                                                    <div class="file-path-wrapper">
+                                                        <input class="file-path validate" type="text">
                                                     </div>
                                                 </div>
-
-                                                <div class="row">
-                                                    <div class="input-field col s12 m6 l6">
-                                                        <input type="text" id="nif" name="nif" null="false"
-                                                               value="<?php echo $this->nrComprovante; ?>"/>
-                                                        <label> N&uacute;mero do documento<span
-                                                                style='color:red'>*</span></label>
-                                                    </div>
-                                                    <div class="col s12 m6 l6">
-                                                        <p><b id="nmSerieTxt" colspan="3">Tipo de Documento</b></p>
-                                                        <p>
-                                                            <input type="radio"
-                                                                   name="nrSerieInternacional"
-                                                                   id="tipo_documento_invoice"
-                                                                   value="6"
-                                                                <?php
-                                                                if (6 == $this->nrSerie || !$this->nrSerie) :
-                                                                    echo 'checked="checked"';
-                                                                endif;
-                                                                ?>
-                                                            />
-                                                            <label for="tipo_documento_invoice">Invoice</label>
-                                                            <input
-                                                                type="radio"
-                                                                name="nrSerieInternacional"
-                                                                id="tipo_documento_outros"
-                                                                value="7"
-                                                                <?php
-                                                                if (7 == $this->nrSerie) :
-                                                                    echo 'checked="checked"';
-                                                                endif;
-                                                                ?>
-                                                            />
-                                                            <label for="tipo_documento_outros">Outros</label>
-                                                        </p>
-                                                    </div>
+                                                <div class="input-field col s4">
+                                                    <a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir'), '', true); ?>?id=<?php echo $this->idArquivo; ?>"><?php echo $this->nomeArquivo; ?></a>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="input-field col s12 m6 l6">
-                                                        <input
-                                                            type="text"
-                                                            id="dtEmissaoInternacional"
-                                                            name="dtEmissaoInternacional"
-                                                            null="false"
-                                                            data="true"
-                                                            value="<?php echo $this->dtEmissao; ?>"
-                                                        />
-                                                        <label for="dtEmissaoInternacional">Dt. do Documento<span
-                                                                style='color:red'>*</span></label>
-                                                    </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="input-field col s12">
+                                                    <textarea id="dsJustificativaInternacionalId"
+                                                              class="materialize-textarea" rows="5"
+                                                              name="dsJustificativaInternacional"><?php echo $this->dsJustificativa; ?></textarea>
+                                                    <label for="dsJustificativaInternacionalId">Justificativa</label>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="input-field col s12 m4 l4">
-                                                        <input type="text" name="vlComprovadoInternacional" size="10"
-                                                               id="vlComprovadoInternacional"
-                                                               value="<?php echo $this->vlComprovacao; ?>"/>
-                                                        <label for="vlComprovadoInternacional">Valor do Item <span
-                                                                style='color:red'>*</span></label>
-                                                    </div>
-                                                    <div class="file-field input-field col s12 m4 l4">
-                                                        <!-- input type="file" id="arquivoInternacional" name="arquivoInternacional" value=""/>
-                                                        <label>Anexar comprovante<span style='color:red'>*</span></label-->
-                                                        <div class="btn">
-                                                            <span>Anexar comprovante</span>
-                                                            <input id="arquivoInternacional" name="arquivoInternacional"
-                                                                   type="file">
-                                                        </div>
-                                                        <div class="file-path-wrapper">
-                                                            <input class="file-path validate" type="text">
-                                                        </div>
-                                                    </div>
-                                                    <div class="input-field col s12 m4 l4">
-                                                        <a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir'), '', true); ?>?id=<?php echo $this->idArquivo; ?>"><?php echo $this->nomeArquivo; ?></a>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class=" col s12">
-                                                        <label
-                                                            for="dsJustificativaInternacionalId">Justificativa</label>
-                                                        <textarea id="dsJustificativaInternacionalId"
-                                                                  class="editor"
-                                                                  rows="5"
-                                                                  name="dsJustificativaInternacional"
-                                                        ><?php echo $this->dsJustificativa; ?></textarea>
-
-                                                    </div>
-                                                </div>
-                                            </fieldset>
-                                        </div>
+                                            </div>
+                                        </fieldset>
                                     </div>
-
-                                    <table id="tableItensCusto" class="tabela linhaMaior1 sumir">
-                                        <tr>
-                                            <td class="">Contrato</td>
-                                            <td class="">Produto</td>
-                                            <td class="">Etapa</td>
-                                            <td class="">Item</td>
-                                            <td class="">Valor do Item</td>
-                                            <td class="">Desvincular</td>
-                                        </tr>
-                                    </table>
-
-                                    <div class="row">
-                                        <div class="col s12 center-align">
-                                            <?php if (!$this->vrSituacao || !$this->pagCompRecusado) : ?>
-                                                <!--a href="<?php echo $voltarHref; ?>" id="btnVoltar" style="text-decoration:none;"><input type="button" class="btn_voltar" /></a-->
-                                                <a class="btn" href="<?php echo $voltarHref; ?>" id="btnVoltar"><i
-                                                        class="material-icons left">arrow_back</i>voltar</a>
-                                            <?php endif; ?>
-                                            <?php if ($this->idComprovantePagamento): ?>
-                                                <!-- input type="submit" name="frComprovarPagamentoSubmit" id="frComprovarPagamentoSubmit" value="" class="btn_salvar" /-->
-                                                <button type="submit" name="frComprovarPagamentoSubmit"
-                                                        id="frComprovarPagamentoSubmit" value="" class="btn">salvar
-                                                </button>
-                                                <!-- input type="button" name="incluirNovo" id="incluirNovo" value="" class="btn_novo" /-->
-                                                <button type="button" name="incluirNovo" id="incluirNovo" value=""
-                                                        class="btn">novo
-                                                </button>
-                                            <?php else: ?>
-                                                <!--input type="submit" name="frComprovarPagamentoSubmit" id="frComprovarPagamentoSubmit" value="" class="btn_incluir" /-->
-                                                <button type="submit" name="frComprovarPagamentoSubmit"
-                                                        id="frComprovarPagamentoSubmit" value="" class="btn">
-                                                    <i class="material-icons left ">add</i>incluir
-                                                </button>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
+
+                                <table id="tableItensCusto" class="tabela linhaMaior1 sumir">
+                                    <tr>
+                                        <td class="">Contrato</td>
+                                        <td class="">Produto</td>
+                                        <td class="">Etapa</td>
+                                        <td class="">Item</td>
+                                        <td class="">Valor do Item</td>
+                                        <td class="">Desvincular</td>
+                                    </tr>
+                                </table>
+
+                                <div class="row">
+                                    <div class="col s12 center-align">
+                                        <?php if (!$this->vrSituacao || !$this->pagCompRecusado) : ?>
+                                            <!--a href="<?php echo $voltarHref; ?>" id="btnVoltar" style="text-decoration:none;"><input type="button" class="btn_voltar" /></a-->
+                                            <a class="btn" href="<?php echo $voltarHref; ?>" id="btnVoltar"><i
+                                                    class="material-icons left">arrow_back</i>voltar</a>
+                                        <?php endif; ?>
+                                        <?php if ($this->idComprovantePagamento): ?>
+                                            <!-- input type="submit" name="frComprovarPagamentoSubmit" id="frComprovarPagamentoSubmit" value="" class="btn_salvar" /-->
+                                            <button type="submit" name="frComprovarPagamentoSubmit"
+                                                    id="frComprovarPagamentoSubmit" value="" class="btn">salvar
+                                            </button>
+                                            <!-- input type="button" name="incluirNovo" id="incluirNovo" value="" class="btn_novo" /-->
+                                            <button type="button" name="incluirNovo" id="incluirNovo" value=""
+                                                    class="btn">novo
+                                            </button>
+                                        <?php else: ?>
+                                            <!--input type="submit" name="frComprovarPagamentoSubmit" id="frComprovarPagamentoSubmit" value="" class="btn_incluir" /-->
+                                            <button type="submit" name="frComprovarPagamentoSubmit"
+                                                    id="frComprovarPagamentoSubmit" value="" class="btn">
+                                                <i class="material-icons left ">add</i>incluir
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -530,8 +497,7 @@
         </div>
     </div>
 </div>
-<iframe id="anexarArquivo" name="anexarArquivo" src="#"
-        style="width: 300px;height: 300px;display: none;"></iframe>
+<iframe id="anexarArquivo" name="anexarArquivo" src="#" style="width: 300px;height: 300px;display: none;"></iframe>
 
 <div id="alerta"></div>
 
@@ -551,16 +517,6 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
-        $("textarea.editor").each(function () {
-            $(this).editorRico({
-                altura: 200,
-                maxchar: 2000,
-                isLimitarCarateres: true,
-                isDesabilitarEdicao: 0
-            });
-        });
-
         // adiciona zeros a n&uacute;meros que n¿o tem todos os d¿gitos depois do zero (sen¿o quebra)
         $('#vlComprovado').val(parseFloat($('#vlComprovado').val()).toFixed(2));
         $('#vlComprovadoInternacional').val(parseFloat($('#vlComprovadoInternacional').val()).toFixed(2));
@@ -568,7 +524,6 @@
         // inicializa formata¿¿o de pre¿o
         $('#vlComprovado').priceFormat({limit: 8});
         $('#vlComprovadoInternacional').priceFormat({limit: 8});
-
     });
 </script>
 
@@ -576,458 +531,480 @@
 </script>
 
 <script type="text/javascript">
-    //    $(document).ready(function () {
-    // tratamento comum
-    var form = '#incluircomprovacaoAjax';
-    /* $('input[type!=button][type!=submit]').addClass('input_simples'); */
-    /* $('textarea').addClass('textarea_simples'); */
-    /* $('select[id!=perfilXgrupo]').addClass('select_simples'); */
+    $(document).ready(function () {
+        // tratamento comum
+        var form = '#incluircomprovacaoAjax';
+        /* $('input[type!=button][type!=submit]').addClass('input_simples'); */
+        /* $('textarea').addClass('textarea_simples'); */
+        /* $('select[id!=perfilXgrupo]').addClass('select_simples'); */
 
-    $(form).find('[data=true]').each(function () {
-        $(this).keyup(function () {
-            mascara(this, format_data);
+        $(form).find('[data=true]').each(function () {
+            $(this).keyup(function () {
+                mascara(this, format_data);
+                var este = this;
+                setTimeout(function () {
+                    $(este).val($(este).val().substr(0, 10));
+                }, 2);
+                if ($(este).val().length == 10) {
+                    validaDataCorreta(este, $(este).val().substr(6, 4), $(este).val().substr(3, 2), $(este).val().substr(0, 2));
+                }
+            });
+            $(this).datepicker({
+                showOn: 'button',
+                buttonImage: '<?php echo $this->baseUrl(); ?>/public/img/ico/calendar.gif',
+                buttonImageOnly: true,
+                dateFormat: 'dd/mm/yy',
+                maxDate: '0'
+            });
+        });
+        $(form).find('[sonumero=true]').keyup(function () {
+            mascara(this, format_num);
+        });
+        $(form).find('[dinheiro=true]').keyup(function () {
+            mascara(this, format_moeda);
+        });
+
+        $(form).find('[cnpjcpf=true]').each(function () {
+            console.log('teste1:');
             var este = this;
-            setTimeout(function () {
-                $(este).val($(este).val().substr(0, 10));
-            }, 2);
-            if ($(este).val().length == 10) {
-                validaDataCorreta(este, $(este).val().substr(6, 4), $(este).val().substr(3, 2), $(este).val().substr(0, 2));
+            /* $('.' + $(este).attr('classaux')).click(function () { */
+            $('.' + $(este).prop('classaux')).click(function () {
+                mascaraCNPJCPF(este);
+                buscarFornecedor(este);
+            });
+            /* $('#' + $(este).prop('idDescricao')).attr('readonly', true); */
+            $('#' + $(este).prop('idDescricao')).prop('readonly', true);
+        });
+
+        $(form).find('[cnpjcpf=true]').keyup(function () {
+            mascaraCNPJCPF(this);
+            buscarFornecedor(this);
+        });
+
+        function mascaraCNPJCPF(este) {
+            var marcado = buscarRadioMarcado(este);
+            console.log('teste');
+            switch (marcado) {
+                case 'cpf':
+                    $(este).val($(este).val().slice(0, 14));
+                    $(este).attr('maxlength', 14);
+                    mascara(este, format_cpf);
+                    break;
+                case 'cnpj':
+                    $(este).attr('maxlength', 18);
+                    mascara(este, format_cnpj);
+                    break;
+                default:
+                    janelaAlerta('Selecione o Tipo do Fornecedor');
+                    $(este).val('');
             }
-        });
-//        $(this).datepicker({
-//            showOn: 'button',
-//            buttonImage: '<?php //echo $this->baseUrl(); ?>///public/img/ico/calendar.gif',
-//            buttonImageOnly: true,
-//            dateFormat: 'dd/mm/yy',
-//            maxDate: '0'
-//        });
-    });
-    $(form).find('[sonumero=true]').keyup(function () {
-        mascara(this, format_num);
-    });
-    $(form).find('[dinheiro=true]').keyup(function () {
-        mascara(this, format_moeda);
-    });
-
-    $(form).find('[cnpjcpf=true]').each(function () {
-        var este = this;
-        /* $('.' + $(este).attr('classaux')).click(function () { */
-        $('.' + $(este).prop('classaux')).click(function () {
-            mascaraCNPJCPF(este);
-            buscarFornecedorComprovacao(este);
-        });
-        /* $('#' + $(este).prop('idDescricao')).attr('readonly', true); */
-        $('#' + $(este).prop('idDescricao')).prop('readonly', true);
-    });
-
-    $(form).find('[cnpjcpf=true]').keyup(function () {
-        mascaraCNPJCPF(this);
-        buscarFornecedorComprovacao(this);
-    });
-
-    $(form).find('.tpFornecedor').on("click", function () {
-        mascaraCNPJCPF(document.getElementById('CNPJCPF'));
-        buscarFornecedorComprovacao(document.getElementById('CNPJCPF'));
-    });
-
-    function mascaraCNPJCPF(este) {
-        var marcado = buscarRadioMarcado(este);
-        switch (marcado) {
-            case 'cpf':
-                $(este).val($(este).val().slice(0, 14));
-                $(este).attr('maxlength', 14);
-                mascara(este, format_cpf);
-                break;
-            case 'cnpj':
-                $(este).attr('maxlength', 18);
-                mascara(este, format_cnpj);
-                break;
-            default:
-                janelaAlerta('Selecione o Tipo do Fornecedor');
-                $(este).val('');
         }
-    }
 
-    function buscarRadioMarcado(este) {
-        var marcado = '';
-        $('.' + $(este).attr('classaux')).each(function () {
-            /* if ($(this).attr('checked')) { */
-            if ($(this).prop('checked')) {
-                marcado = $(this).val();
-            }
-        });
-        return marcado;
-    }
-
-    function buscarFornecedorComprovacao(elmCNPJCPF) {
-        if ($(elmCNPJCPF).attr('idAgente') != undefined && $(elmCNPJCPF).attr('idAgente') && $(elmCNPJCPF).attr('idDescricao') != undefined && $(elmCNPJCPF).attr('idDescricao')) {
-            var marcado = buscarRadioMarcado(elmCNPJCPF);
-            if ((marcado == 'cpf' && $(elmCNPJCPF).val().length == 14) || (marcado == 'cnpj' && $(elmCNPJCPF).val().length == 18)) {
-
-                var fornecedor = buscarJson('<?php echo $buscarFornecedorComprovacaoHref;?>', {cnpjcpf: $(elmCNPJCPF).val()});
-                if (fornecedor.retorno) {
-                    $('#' + $(elmCNPJCPF).attr('idAgente')).val(fornecedor.idAgente);
-                    $('#' + $(elmCNPJCPF).attr('idDescricao')).val(fornecedor.descricao).attr('readonly', true);
-                    $('#' + $(elmCNPJCPF).attr('idDescricao')).next().addClass('active');
-
-                } else {
-                    $('html').css('overflow', 'hidden');
-                    $("body").append("<div id='divDinamicaAgentes'></div>");
-                    $("#divDinamicaAgentes").html("");
-                    $('#divDinamicaAgentes').html("<br><br><center>Carregando dados...</center>");
-                    $.ajax({
-                        url: '<?php echo $this->url(array('module' => 'agente', 'controller' => 'agentes', 'action' => 'incluirfornecedor')); ?>',
-                        data: {
-                            cpf: fornecedor.CNPJCPF,
-                            caminho: "",
-                            modal: "s"
-                        },
-                        success: function (data) {
-                            if (data.error) {
-                                $('#divDinamicaAgentes').html(data.msg);
-                            } else {
-                                $('#divDinamicaAgentes').html(data);
-                            }
-                        },
-                        complete: function () {
-                            $("#resultadoFinalizar").html("");
-                        },
-                        type: 'post'
-
-                    });
-
-                    $("#divDinamicaAgentes").dialog({
-                        resizable: true,
-                        width: $(window).width() - 100,
-                        height: $(window).height() - 100,
-                        modal: true,
-                        autoOpen: true,
-                        draggable: false,
-                        title: 'Cadastrar Fornecedor',
-                        buttons: {
-                            'Fechar': function () {
-                                $("#divDinamicaAgentes").remove();
-                                $('#' + $(elmCNPJCPF).attr('idAgente')).val('');
-                                $('#' + $(elmCNPJCPF).attr('idDescricao')).val('');
-                                $(this).dialog('close');
-                                $('html').css('overflow', 'auto');
-                                outroFornecedorComprovacao(elmCNPJCPF);
-                            }
-                        }
-                    });
-                    $('.ui-dialog-titlebar-close').remove();
+        function buscarRadioMarcado(este) {
+            console.log('teste:');
+            var marcado = '';
+            $('.' + $(este).attr('classaux')).each(function () {
+                /* if ($(this).attr('checked')) { */
+                if ($(this).prop('checked')) {
+                    marcado = $(this).val();
                 }
-            }
-            else {
-                $('#' + $(elmCNPJCPF).attr('idAgente')).val('');
-                $('#' + $(elmCNPJCPF).attr('idDescricao')).val('');
-            }
+            });
+            return marcado;
         }
-        fornecedores();
-    }
 
-    function fornecedores() {
-        var conteudo = '<option value="">Selecione</option>';
-        conteudo += montagem(1);
-        conteudo += montagem(2);
-        conteudo += montagem(3);
-        $('#fornecedor').html(conteudo);
-    }
+        function buscarFornecedor(este) {
+            if ($(este).attr('idAgente') != undefined && $(este).attr('idAgente') && $(este).attr('idDescricao') != undefined && $(este).attr('idDescricao')) {
+                var marcado = buscarRadioMarcado(este);
+                if ((marcado == 'cpf' && $(este).val().length == 14) || (marcado == 'cnpj' && $(este).val().length == 18)) {
+                    var fornecedor = buscarJson('<?php echo $buscarFornecedorHref;?>', {cnpjcpf: $(este).val()});
+                    if (fornecedor.retorno) {
+                        $('#' + $(este).attr('idAgente')).val(fornecedor.idAgente);
+                        $('#' + $(este).attr('idDescricao')).val(fornecedor.descricao).attr('readonly', true);
 
-    function montagem(nr) {
-        var conteudo = '';
-        if ($('#Descricao' + nr).val() != undefined) {
-            if ($('#Descricao' + nr).val().replace(/\s+/g, '')) {
-                var idAgente = '';
-                if ($('#idAgente' + nr).val() == '')
-                    idAgente = '-' + nr;
-                else
-                    idAgente = $('#idAgente' + nr).val();
-                conteudo += '<option value="' + idAgente + '">' + $('#Descricao' + nr).val() + '</option>';
-                $('.fornecedor' + nr).each(function () {
-                    $(this).val(idAgente);
-                });
-                $('.td_fornecedor' + nr).each(function () {
-                    $(this).html($('#Descricao' + nr).val());
-                });
-            }
-        }
-        return conteudo;
-    }
-
-    function buscarJson(pagina, dados) {
-        var retorno = '';
-        var select = requisicaoAjaxObj();
-        select.executar({
-            pagina: pagina,
-            parametros: dados,
-            resposta: undefined,
-            async: false,
-            funcaoRetorno: function (resposta) {
-                retorno = resposta;
-            }
-            , dataType: 'json'
-        });
-        return retorno;
-    }
-
-    function requisicaoAjaxObj() {
-        var ajaxObj = {
-            pagina: '',
-            parametros: {},
-            type: 'post',
-            dataType: '',
-            resposta: '#conteudo',
-            async: true,
-            funcaoRetorno: function (resposta) {
-                $(this.resposta).html(resposta);
-            },
-            executar: function (dados) {
-                this.refineParametrosObj(dados);
-                var esteObj = this;
-                if (this.resposta != undefined && this.resposta != '')
-                    $(this.resposta).html('<img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" alt="carregando"><br/><br/>Carregando...<br>Por Favor, aguarde!!');
-                $.ajax({
-                    type: esteObj.type,
-                    url: esteObj.pagina,
-                    data: esteObj.parametros,
-                    async: esteObj.async,
-                    success: function (resp) {
-                        esteObj.funcaoRetorno(resp);
-                    }
-                    , dataType: esteObj.dataType
-                });
-            },
-            refineParametrosObj: function (data) {
-                if (data != undefined)
-                    for (var j in data) {
-
-                        this[j] = data[j];
-                    }
-            }
-        };
-        return ajaxObj;
-    }
-
-    // quando selecionar cheque, limita n&uacute;mero de caracteres do nrDocumentoDePagamento
-    $('#tpFormaDePagamento').change(function () {
-        if ($(this).val() == 1) {
-            $('#nrDocumentoDePagamento').attr('maxlength', 6);
-        } else {
-            $('#nrDocumentoDePagamento').attr('maxlength', 10)
-        }
-    });
-
-    $('#itens').change(function () {
-        // Recupera o fornecedor e preenche os dados do mesmo.
-        $.ajax({
-            url: '<?php echo $this->baseUrl();?>/fornecedor/pesquisar-fornecedor-item/format/json',
-            type: 'get',
-            data: {'item': $(this).val()},
-            dataType: 'json',
-            success: function (result) {
-                if (undefined != result.fornecedor) {
-                    if (11 == result.fornecedor.CNPJCPF.length) {
-                        var mask = '999.999.999-99';
                     } else {
-                        var mask = '99.999.999/9999-99';
-                    }
-                    $("#tabelaComprovante tbody:nth-child(1) tr:nth-child(2)").attr('style', 'display:none');
-                    $("#idAgente").val(result.fornecedor.idAgente);
-                    $("#CNPJCPF").val(result.fornecedor.CNPJCPF).mask(mask).attr('disabled', 'true');
-                    $("#Descricao").val(result.fornecedor.Fornecedor).attr('disabled', 'true');
-                }
-            }
-        });
-    });
+                        $('html').css('overflow', 'hidden');
+                        $("body").append("<div id='divDinamicaAgentes'></div>");
+                        $("#divDinamicaAgentes").html("");
+                        $('#divDinamicaAgentes').html("<br><br><center>Carregando dados...</center>");
+                        $.ajax({
+                            url: '<?php echo $this->url(array('module' => 'agente', 'controller' => 'agentes', 'action' => 'incluirfornecedor')); ?>',
+                            data: {
+                                cpf: fornecedor.CNPJCPF,
+                                caminho: "",
+                                modal: "s"
+                            },
+                            success: function (data) {
+                                if (data.error) {
+                                    $('#divDinamicaAgentes').html(data.msg);
+                                } else {
+                                    $('#divDinamicaAgentes').html(data);
+                                }
+                            },
+                            complete: function () {
+                                $("#resultadoFinalizar").html("");
+                            },
+                            type: 'post'
 
-    <?php if ($this->idComprovantePagamento): ?>
-    $("#incluirNovo").click(function () {
-        window.location = "<?php echo $this->url(array(
-            'controller' => 'comprovarexecucaofinanceira',
-            'action' => 'comprovacaopagamento',
-            'idusuario' => $this->idusuario,
-            'idpronac' => $this->idpronac,
-            'idPlanilhaAprovacao' => $this->idPlanilhaAprovacao
-        ), null, true); ?>";
-    });
-    <?php endif; ?>
+                        });
 
-    $("#frComprovarPagamentoSubmit").click(function () {
-        var msg = ';'
-        if (isInvoice()) {
-            msg = validarParametrosDeComprovacaoDePagamentoInvoice();
-        } else {
-            msg = validarParametrosDeComprovacaoDePagamento();
-        }
-
-        if (isInvoice()) {
-            valorComprovado = $('#vlComprovadoInternacional').val();
-        } else {
-            valorComprovado = $('#vlComprovado').val();
-        }
-
-        var valorItem = parseFloat(valorComprovado.replace(".", "").replace(".", "").replace(",", "."));
-        var valorAprovado = parseFloat($("#valorAprovado").val());
-        var valorComprovado = parseFloat($("#totalComprovado").val());
-
-        if (
-            (!$("#idComprovantePagamento").val() && (valorComprovado && (valorItem + valorComprovado).toFixed(2) > valorAprovado))
-            ||
-            ($("#idComprovantePagamento").val() && (valorComprovado && valorItem > valorAprovado))
-        ) {
-            msg += 'Valor comprovado maior que o valor aprovado.<br />';
-        }
-        if ('' != msg) {
-            $("#msgAlerta").dialog("destroy");
-            $("#msgAlerta").html('<center><p>' + msg + '</p></center>');
-            $("#msgAlerta").dialog({
-                resizable: false,
-                title: 'Alerta!',
-                width: 500,
-                height: 300,
-                modal: true,
-                buttons: {
-                    'OK': function () {
-                        $(this).dialog('close');
+                        $("#divDinamicaAgentes").dialog({
+                            resizable: true,
+                            width: $(window).width() - 100,
+                            height: $(window).height() - 100,
+                            modal: true,
+                            autoOpen: true,
+                            draggable: false,
+                            title: 'Cadastrar Fornecedor',
+                            buttons: {
+                                'Fechar': function () {
+                                    $("#divDinamicaAgentes").remove();
+                                    $('#' + $(este).attr('idAgente')).val('');
+                                    $('#' + $(este).attr('idDescricao')).val('');
+                                    $(this).dialog('close');
+                                    $('html').css('overflow', 'auto');
+                                    outroFornecedor(este);
+                                }
+                            }
+                        });
+                        $('.ui-dialog-titlebar-close').remove();
                     }
                 }
-            });
-            $('.ui-dialog-titlebar-close').remove();
-            return false;
-        }
-    });
-
-    function validarParametrosDeComprovacaoDePagamento() {
-        var msg = '';
-        if (!$("#vlComprovado").val()) {
-            msg += 'Informe o valor do item.<br />';
-        }
-        if (parseFloat($("#vlComprovado").val()) === 0) {
-            msg += 'O valor do item n&atilde;o pode ser igual a zero.<br />';
-        }
-        if (!$("#idAgente").val()) {
-            msg += 'Informe um fornecedor.<br />';
-        }
-        if (!$("#tpDocumento").val() || 0 == $("#tpDocumento").val()) {
-            msg += 'Selecione o tipo de comprovante.<br />';
-        }
-        if (!$("#nrComprovante").val()) {
-            msg += 'Informe o n&uacute;mero do comprovante.<br />';
-        }
-        if (!$("#dtEmissao").val()) {
-            msg += 'Informe a data de emiss&atilde;o do comprovante de despesa.<br />';
-        }
-        if (!$("#tpFormaDePagamento").val() || 0 == $("#tpFormaDePagamento").val()) {
-            msg += 'Selecione a forma de pagamento.<br />';
-        }
-        if (!$("#nrDocumentoDePagamento").val()) {
-            msg += 'Informe o n&uacute;mero do Documento de pagamento.<br />';
-        }
-        if (!$("#dtPagamento").val()) {
-            msg += 'Informe o n&uacute;mero do Data de pagamento.<br />';
+                else {
+                    $('#' + $(este).attr('idAgente')).val('');
+                    $('#' + $(este).attr('idDescricao')).val('');
+                }
+            }
+            fornecedores();
         }
 
-        if ($("#idComprovantePagamento").val()) {
-            if (!$("#arquivo_edit").val()) {
-                msg += 'Selecione um arquivo comprovante para envio.<br />';
-            }
-        } else {
-            if (!$("#arquivo").val()) {
-                msg += 'Selecione um arquivo comprovante para envio.<br />';
-            }
-        }
-        return msg;
-    }
-
-    function validarParametrosDeComprovacaoDePagamentoInvoice() {
-        var msg = '';
-        if (!$("#vlComprovadoInternacional").val()) {
-            msg += 'Informe o valor do item.<br />';
-        }
-        if (!$("#nomeRazaoSocialInternacional").val()) {
-            msg += 'Informe o Nome/Raz&atilde;o Social.<br />';
-        }
-        if (!$("#nif").val()) {
-            msg += 'Informe o NIF.<br />';
-        }
-        if (!$("#dtEmissaoInternacional").val()) {
-            msg += 'Informe a data de emiss&atilde;o do comprovante.<br />';
-        }
-        if ($("#arquivoInternacional").val() == '') {
-            if (!$("#arquivo_edit").val()) {
-                msg += 'Selecione um arquivo comprovante para envio.<br />';
-            }
-        } else {
-            if (!$("#arquivoInternacional").val()) {
-                msg += 'Selecione um arquivo comprovante para envio.<br />';
-            }
-        }
-        return msg;
-    }
-
-    $('#tabelaComprovantePagamento tbody tr td a.exclusao').closest('a').each(function () {
-        $(this).unbind('click').click(function (event) {
-            event.preventDefault();
-            $("#alerta").dialog("destroy");
-            $("#alerta").html('Deseja realmente excluir esse comprovante?');
-            $("#alerta").dialog({
+        //Mensagem para Utilizar este fornecedor para Comprova¿¿o Financeira, sim ou n¿o.
+        function outroFornecedor(este) {
+            $("#divPerguntaFornecedor").dialog('close');
+            $("#divPerguntaFornecedor").html('Deseja utilizar este fornecedor na comprova&ccedil;&atilde;o do pagamento?');
+            $("#divPerguntaFornecedor").dialog('open');
+            $("#divPerguntaFornecedor").dialog({
                 resizable: false,
-                title: 'Alerta!',
-                width: 340,
+                width: 320,
+                height: 180,
                 modal: true,
+                draggable: false,
+                title: 'Alerta!',
                 buttons: {
-                    'OK': function () {
-                        deletarItem($(event.target).parent());
-                        $(this).dialog('close');
+                    'N\xE2o': function () {
+                        $('#' + $(este).attr('idAgente')).val('');
+                        $('#' + $(este).attr('idDescricao')).val('');
+                        $('#CNPJCPF').val('');
+                        $("#divPerguntaFornecedor").dialog('close');
                     },
-                    'Cancelar': function () {
+                    'Sim': function () {
                         $(this).dialog('close');
+                        buscarFornecedor(este);
                     }
                 }
             });
             $('.ui-dialog-titlebar-close').remove();
-        });
-    });
+        }
 
-    deletarItem = function (elementLink) {
-        $.ajax({
-            url: elementLink.attr('href') + '/format/json',
-            dataType: 'json',
-            success: function (result) {
-                // remove a linha
-                elementLink.closest('tr').remove();
-                // atualiza as informacoes do item
-                $("campoValorAprovado").html('000').toNumber().formatCurrency({region: 'pt-BR'});
-                $("#campoValorComprovado").html('000').toNumber().formatCurrency({region: 'pt-BR'});
-                // Recupera o item e preenche os valores aprovado e comprovado.
-                $.ajax({
-                    url: '<?php echo $this->baseUrl();?>/planilha-item/pesquisar/format/json',
-                    type: 'get',
-                    data: {'item': planilhaItem},
-                    dataType: 'json',
-                    success: function (result) {
-                        if (result.item) {
-                            planilhaItem = result.item;
-                            $("campoValorAprovado").html(result.item.valorAprovado).toNumber().formatCurrency({region: 'pt-BR'});
-                            $("campoValorComprovado").html(result.item.valorComprovado).toNumber().formatCurrency({region: 'pt-BR'});
+        function fornecedores() {
+            var conteudo = '<option value="">Selecione</option>';
+            conteudo += montagem(1);
+            conteudo += montagem(2);
+            conteudo += montagem(3);
+            $('#fornecedor').html(conteudo);
+        }
+
+        function montagem(nr) {
+            var conteudo = '';
+            if ($('#Descricao' + nr).val() != undefined) {
+                if ($('#Descricao' + nr).val().replace(/\s+/g, '')) {
+                    var idAgente = '';
+                    if ($('#idAgente' + nr).val() == '')
+                        idAgente = '-' + nr;
+                    else
+                        idAgente = $('#idAgente' + nr).val();
+                    conteudo += '<option value="' + idAgente + '">' + $('#Descricao' + nr).val() + '</option>';
+                    $('.fornecedor' + nr).each(function () {
+                        $(this).val(idAgente);
+                    });
+                    $('.td_fornecedor' + nr).each(function () {
+                        $(this).html($('#Descricao' + nr).val());
+                    });
+                }
+            }
+            return conteudo;
+        }
+
+        function buscarJson(pagina, dados) {
+            var retorno = '';
+            var select = requisicaoAjaxObj();
+            select.executar({
+                pagina: pagina,
+                parametros: dados,
+                resposta: undefined,
+                async: false,
+                funcaoRetorno: function (resposta) {
+                    retorno = resposta;
+                }
+                , dataType: 'json'
+            });
+            return retorno;
+        }
+
+        function requisicaoAjaxObj() {
+            var ajaxObj = {
+                pagina: '',
+                parametros: {},
+                type: 'post',
+                dataType: '',
+                resposta: '#conteudo',
+                async: true,
+                funcaoRetorno: function (resposta) {
+                    $(this.resposta).html(resposta);
+                },
+                executar: function (dados) {
+                    this.refineParametrosObj(dados);
+                    var esteObj = this;
+                    if (this.resposta != undefined && this.resposta != '')
+                        $(this.resposta).html('<img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" alt="carregando"><br/><br/>Carregando...<br>Por Favor, aguarde!!');
+                    $.ajax({
+                        type: esteObj.type,
+                        url: esteObj.pagina,
+                        data: esteObj.parametros,
+                        async: esteObj.async,
+                        success: function (resp) {
+                            esteObj.funcaoRetorno(resp);
                         }
-                        message('Exclus&atilde;o realizada com sucesso!', 'CONFIRM');
+                        , dataType: esteObj.dataType
+                    });
+                },
+                refineParametrosObj: function (data) {
+                    if (data != undefined)
+                        for (var j in data) {
+
+                            this[j] = data[j];
+                        }
+                }
+            };
+            return ajaxObj;
+        }
+
+        // quando selecionar cheque, limita n&uacute;mero de caracteres do nrDocumentoDePagamento
+        $('#tpFormaDePagamento').change(function () {
+            if ($(this).val() == 1) {
+                $('#nrDocumentoDePagamento').attr('maxlength', 6);
+            } else {
+                $('#nrDocumentoDePagamento').attr('maxlength', 10)
+            }
+        });
+
+        $('#itens').change(function () {
+            // Recupera o fornecedor e preenche os dados do mesmo.
+            $.ajax({
+                url: '<?php echo $this->baseUrl();?>/fornecedor/pesquisar-fornecedor-item/format/json',
+                type: 'get',
+                data: {'item': $(this).val()},
+                dataType: 'json',
+                success: function (result) {
+                    if (undefined != result.fornecedor) {
+                        if (11 == result.fornecedor.CNPJCPF.length) {
+                            var mask = '999.999.999-99';
+                        } else {
+                            var mask = '99.999.999/9999-99';
+                        }
+                        $("#tabelaComprovante tbody:nth-child(1) tr:nth-child(2)").attr('style', 'display:none');
+                        $("#idAgente").val(result.fornecedor.idAgente);
+                        $("#CNPJCPF").val(result.fornecedor.CNPJCPF).mask(mask).attr('disabled', 'true');
+                        $("#Descricao").val(result.fornecedor.Fornecedor).attr('disabled', 'true');
+                    }
+                }
+            });
+        });
+
+        <?php if ($this->idComprovantePagamento): ?>
+        $("#incluirNovo").click(function () {
+            window.location = "<?php echo $this->url(array(
+                'controller' => 'comprovarexecucaofinanceira',
+                'action' => 'comprovacaopagamento',
+                'idusuario' => $this->idusuario,
+                'idpronac' => $this->idpronac,
+                'idPlanilhaAprovacao' => $this->idPlanilhaAprovacao
+            ), null, true); ?>";
+        });
+        <?php endif; ?>
+
+        $("#frComprovarPagamentoSubmit").click(function () {
+            var msg = ';'
+            if (isInvoice()) {
+                msg = validarParametrosDeComprovacaoDePagamentoInvoice();
+            } else {
+                msg = validarParametrosDeComprovacaoDePagamento();
+            }
+
+            if (isInvoice()) {
+                valorComprovado = $('#vlComprovadoInternacional').val();
+            } else {
+                valorComprovado = $('#vlComprovado').val();
+            }
+
+            var valorItem = parseFloat(valorComprovado.replace(".", "").replace(".", "").replace(",", "."));
+            var valorAprovado = parseFloat($("#valorAprovado").val());
+            var valorComprovado = parseFloat($("#totalComprovado").val());
+
+            if (
+                (!$("#idComprovantePagamento").val() && (valorComprovado && (valorItem + valorComprovado).toFixed(2) > valorAprovado))
+                ||
+                ($("#idComprovantePagamento").val() && (valorComprovado && valorItem > valorAprovado))
+            ) {
+                msg += 'Valor comprovado maior que o valor aprovado.<br />';
+            }
+            if ('' != msg) {
+                $("#msgAlerta").dialog("destroy");
+                $("#msgAlerta").html('<center><p>' + msg + '</p></center>');
+                $("#msgAlerta").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width: 500,
+                    height: 300,
+                    modal: true,
+                    buttons: {
+                        'OK': function () {
+                            $(this).dialog('close');
+                        }
                     }
                 });
+                $('.ui-dialog-titlebar-close').remove();
+                return false;
             }
         });
-    };
-    //    });
+
+        function validarParametrosDeComprovacaoDePagamento() {
+            var msg = '';
+            if (!$("#vlComprovado").val()) {
+                msg += 'Informe o valor do item.<br />';
+            }
+            if (parseFloat($("#vlComprovado").val()) === 0) {
+                msg += 'O valor do item n&atilde;o pode ser igual a zero.<br />';
+            }
+            if (!$("#idAgente").val()) {
+                msg += 'Informe um fornecedor.<br />';
+            }
+            if (!$("#tpDocumento").val() || 0 == $("#tpDocumento").val()) {
+                msg += 'Selecione o tipo de comprovante.<br />';
+            }
+            if (!$("#nrComprovante").val()) {
+                msg += 'Informe o n&uacute;mero do comprovante.<br />';
+            }
+            if (!$("#dtEmissao").val()) {
+                msg += 'Informe a data de emiss&atilde;o do comprovante de despesa.<br />';
+            }
+            if (!$("#tpFormaDePagamento").val() || 0 == $("#tpFormaDePagamento").val()) {
+                msg += 'Selecione a forma de pagamento.<br />';
+            }
+            if (!$("#nrDocumentoDePagamento").val()) {
+                msg += 'Informe o n&uacute;mero do Documento de pagamento.<br />';
+            }
+            if (!$("#dtPagamento").val()) {
+                msg += 'Informe o n&uacute;mero do Data de pagamento.<br />';
+            }
+
+            if ($("#idComprovantePagamento").val()) {
+                if (!$("#arquivo_edit").val()) {
+                    msg += 'Selecione um arquivo comprovante para envio.<br />';
+                }
+            } else {
+                if (!$("#arquivo").val()) {
+                    msg += 'Selecione um arquivo comprovante para envio.<br />';
+                }
+            }
+            return msg;
+        }
+
+        function validarParametrosDeComprovacaoDePagamentoInvoice() {
+            var msg = '';
+            if (!$("#vlComprovadoInternacional").val()) {
+                msg += 'Informe o valor do item.<br />';
+            }
+            if (!$("#nomeRazaoSocialInternacional").val()) {
+                msg += 'Informe o Nome/Raz&atilde;o Social.<br />';
+            }
+            if (!$("#nif").val()) {
+                msg += 'Informe o NIF.<br />';
+            }
+            if (!$("#dtEmissaoInternacional").val()) {
+                msg += 'Informe a data de emiss&atilde;o do comprovante.<br />';
+            }
+            if ($("#arquivoInternacional").val() == '') {
+                if (!$("#arquivo_edit").val()) {
+                    msg += 'Selecione um arquivo comprovante para envio.<br />';
+                }
+            } else {
+                if (!$("#arquivoInternacional").val()) {
+                    msg += 'Selecione um arquivo comprovante para envio.<br />';
+                }
+            }
+            return msg;
+        }
+
+        $('#tabelaComprovantePagamento tbody tr td a.exclusao').closest('a').each(function () {
+            $(this).unbind('click').click(function (event) {
+                event.preventDefault();
+                $("#alerta").dialog("destroy");
+                $("#alerta").html('Deseja realmente excluir esse comprovante?');
+                $("#alerta").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width: 340,
+                    modal: true,
+                    buttons: {
+                        'OK': function () {
+                            deletarItem($(event.target).parent());
+                            $(this).dialog('close');
+                        },
+                        'Cancelar': function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            });
+        });
+
+        deletarItem = function (elementLink) {
+            $.ajax({
+                url: elementLink.attr('href') + '/format/json',
+                dataType: 'json',
+                success: function (result) {
+                    // remove a linha
+                    elementLink.closest('tr').remove();
+                    // atualiza as informacoes do item
+                    $("campoValorAprovado").html('000').toNumber().formatCurrency({region: 'pt-BR'});
+                    $("#campoValorComprovado").html('000').toNumber().formatCurrency({region: 'pt-BR'});
+                    // Recupera o item e preenche os valores aprovado e comprovado.
+                    $.ajax({
+                        url: '<?php echo $this->baseUrl();?>/planilha-item/pesquisar/format/json',
+                        type: 'get',
+                        data: {'item': planilhaItem},
+                        dataType: 'json',
+                        success: function (result) {
+                            if (result.item) {
+                                planilhaItem = result.item;
+                                $("campoValorAprovado").html(result.item.valorAprovado).toNumber().formatCurrency({region: 'pt-BR'});
+                                $("campoValorComprovado").html(result.item.valorComprovado).toNumber().formatCurrency({region: 'pt-BR'});
+                            }
+                            message('Exclus&atilde;o realizada com sucesso!', 'CONFIRM');
+                        }
+                    });
+                }
+            });
+        };
+    });
 
     function toggleTabelaComprovacaoPagamentoInvoice() {
         if (isInvoice()) {
             $('#bodyTabelaComprovante').hide();
-            $('#fornecedor_brasil').hide();
             $('#bodyTabelaComprovanteInternacional').show();
         } else {
             $('#bodyTabelaComprovante').show();
-            $('#fornecedor_brasil').show();
             $('#bodyTabelaComprovanteInternacional').hide();
         }
     }
@@ -1042,49 +1019,11 @@
         mascaraCNPJCPF(cnpjcpf);
     }
 
-    //Mensagem para Utilizar este fornecedor para Comprova¿¿o Financeira, sim ou n¿o.
-    function outroFornecedorComprovacao(este) {
-        $("#divPerguntaFornecedor").dialog('close');
-        $("#divPerguntaFornecedor").html('Deseja utilizar este fornecedor na comprova&ccedil;&atilde;o do pagamento?');
-        $("#divPerguntaFornecedor").dialog('open');
-        $("#divPerguntaFornecedor").dialog({
-            resizable: false,
-            width: 320,
-            height: 180,
-            modal: true,
-            draggable: false,
-            title: 'Alerta!',
-            buttons: {
-                'N\xE2o': function () {
-                    $('#' + $(este).attr('idAgente')).val('');
-                    $('#' + $(este).attr('idDescricao')).val('');
-                    $('#CNPJCPF').val('');
-                    $("#divPerguntaFornecedor").dialog('close');
-                },
-                'Sim': function () {
-                    $(this).dialog('close');
-                    buscarFornecedorComprovacao(este);
-                }
-            }
-        });
-        $('.ui-dialog-titlebar-close').remove();
-    }
-
-
     /* $3('select').material_select(); */
 </script>
 <script>
-    $(document).ready(function () {
-        /* $3('select').material_select(); */
-        console.log($3('#tpFornecedorCpf :checked').val());
-
-        // cadastrar agente callback event heandler
-        $(document).bind('agenteJaCadastrado', function (response) {
-            let agente = response.detail;
-            let elementCNPJCPF = $("#frComprovarPagamento #CNPJCPF");
-            elementCNPJCPF.val(agente.cnpjcpf);
-            $(elementCNPJCPF.attr('idDescricao')).next().addClass('active');
-            mascaraCNPJCPF(document.getElementById('CNPJCPF'));
-        });
-    });
+  $(document).ready(function() {
+    /* $3('select').material_select(); */
+   console.log($3('#tpFornecedorCpf :checked').val());
+  });
 </script>

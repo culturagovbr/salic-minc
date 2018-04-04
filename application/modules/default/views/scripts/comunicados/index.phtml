@@ -1,51 +1,51 @@
 <?php
 /**
- * Exemplo de Utilizaï¿½ï¿½o do Layout
- * @author Tarcï¿½sio Angelo - XTI
+ * Exemplo de Utilização do Layout
+ * @author Tarcísio Angelo - XTI
  * @since 11/01/2012
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.comunicados
  * @link http://salic.cultura.gov.br
- * @copyright ï¿½ 2011 - Ministï¿½rio da Cultura - Todos os direitos reservados.
+ * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
  */
 
-echo $this->partial('comunicados/inc/menu.inc.phtml', $this)// menu lateral
+echo $this->partial('inc/menu.inc.phtml', $this)// menu lateral
 ?>
 
-<!-- ========== INï¿½CIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para Pï¿½gina Inicial">Inï¿½cio</a></li>
-		<li class="last"><a href="<?php echo $this->url(array('controller' => 'comunicados', 'action' => 'index'), '', true); ?>" title="Ir para Pï¿½gina Comunicados">Comunicados</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => ''), '', true); ?>" title="Ir para Página Inicial">Início</a></li>
+		<li class="last"><a href="<?php echo $this->url(array('controller' => 'comunicados', 'action' => 'index'), '', true); ?>" title="Ir para Página Comunicados">Comunicados</a></li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
 
-<!-- ========== INï¿½CIO Tï¿½TULO ========== -->
+<!-- ========== INÍCIO TÍTULO ========== -->
 <div id="titulo">
 	<div>
 		Comunicados
-		<span class="voltar"><a href="javascript:voltar();" title="Pï¿½gina Anterior">Voltar</a></span>
+		<span class="voltar"><a href="javascript:voltar();" title="Página Anterior">Voltar</a></span>
 	</div>
 </div>
-<!-- ========== FIM Tï¿½TULO ========== -->
+<!-- ========== FIM TÍTULO ========== -->
 
 
 
-<!-- ========== INï¿½CIO CONTEï¿½DO ========== -->
+<!-- ========== INÍCIO CONTEÚDO ========== -->
 <div id="conteudo">
 
 
 </div>
-<!-- ========== FIM CONTEï¿½DO ========== -->
+<!-- ========== FIM CONTEÚDO ========== -->
 
 
 
-<!-- ========== INï¿½CIO RODAPï¿½ DO CONTEï¿½DO ========== -->
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPï¿½ DO CONTEï¿½DO ========== -->
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
 
 <br clear="all" />

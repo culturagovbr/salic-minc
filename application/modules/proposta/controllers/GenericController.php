@@ -62,6 +62,7 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
 
 
     private $_movimentacaoAlterarProposta = '95';
+    private $_situacaoAlterarProjeto = Projeto_Model_Situacao::PROJETO_LIBERADO_PARA_AJUSTES;
     private $_diasParaAlterarProjeto = 30;
 
     public function init()
@@ -143,30 +144,26 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
             );
 
             // Alterar projeto
-            if (!$this->view->isEditarProposta) {
+            if (!empty($this->view->isEditarProjeto)) {
                 $tblProjetos = new Projetos();
                 $projeto = array_change_key_case($tblProjetos->findBy(array('idprojeto = ?' => $this->idPreProjeto)));
 
-                if (!empty($projeto)) {
-
-                    if (!isset($projeto['nrprojeto'])) {
-                        $projeto['nrprojeto'] = $projeto['anoprojeto'] . $projeto['sequencial'];
-                    }
-
-                    $this->view->projeto = $projeto;
-
-                    $layout = array(
-                        'titleShort' => 'Projeto',
-                        'titleFull' => 'Alterar projeto',
-                        'projeto' => $projeto['nrprojeto'],
-                        'listagem' => array('Lista de projetos' => array('module' => 'default', 'controller' => 'Listarprojetos', 'action' => 'listarprojetos')),
-                        'prazoAlterarProjeto' => $this->contagemRegressivaSegundos($projeto['dtsituacao'], $this->_diasParaAlterarProjeto)
-                    );
-
-                    if (!empty($this->view->isEditarProjeto)) {
-                        $this->salvarDadosPropostaSerializada($this->idPreProjeto);
-                    }
+                if (!isset($projeto['nrprojeto'])) {
+                    $projeto['nrprojeto'] = $projeto['anoprojeto'] . $projeto['sequencial'];
                 }
+
+                $this->view->projeto = $projeto;
+
+                $layout = array(
+                    'titleShort' => 'Projeto',
+                    'titleFull' => 'Alterar projeto',
+                    'projeto' => $projeto['nrprojeto'],
+                    'listagem' => array('Lista de projetos' => array('module' => 'default', 'controller' => 'Listarprojetos', 'action' => 'listarprojetos')),
+                    'prazoAlterarProjeto' => $this->contagemRegressivaSegundos($projeto['dtsituacao'], $this->_diasParaAlterarProjeto)
+                );
+
+                $this->salvarDadosPropostaSerializada($this->idPreProjeto);
+
             }
 
             $this->view->layout = $layout;
@@ -241,11 +238,11 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
             return false;
         }
 
-        if ($projeto['Situacao'] != Projeto_Model_Situacao::PROJETO_LIBERADO_PARA_AJUSTES) {
-            return false;
+        if ($projeto['Situacao'] == $this->_situacaoAlterarProjeto) {
+            return true;
         }
 
-        return true;
+        return false;
     }
 
     public function isEditavel($idPreProjeto)

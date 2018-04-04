@@ -1,13 +1,13 @@
 <?php
 /**
- * Exemplo de Utilizaï¿½ï¿½o do Layout
- * @author Tarcï¿½sio Angelo - XTI
+ * Exemplo de Utilização do Layout
+ * @author Tarcísio Angelo - XTI
  * @since 12/01/2012
  * @version 1.0
  * @package application
  * @subpackage application.views.scripts.comunicados
  * @link http://salic.cultura.gov.br
- * @copyright ï¿½ 2011 - Ministï¿½rio da Cultura - Todos os direitos reservados.
+ * @copyright © 2011 - Ministério da Cultura - Todos os direitos reservados.
  */
 
 ?>
@@ -35,13 +35,13 @@ function paginar(pag){
 			<th>Comunicado</th>
 		</tr>
 		<tr>
-			<td ><?php echo $c->comunicado; ?></td>
+			<td ><?php echo $c->Comunicado; ?></td>
 		</tr>
 	</table>
 	<br />
 <?php endforeach; ?>
 
-<!-- ========== PAGINAï¿½?O ========== -->
+<!-- ========== PAGINAÇ?O ========== -->
 <form action="<?php echo $this->url(array('controller' => 'principal', 'action' => 'listar-comunicados')); ?>" method="post" name="frmPaginacao" id="frmPaginacao">
 <?php foreach($this->parametrosBusca as $name=>$value):?>
     <?php if(!is_array($value)): ?>
@@ -80,4 +80,4 @@ function paginar(pag){
     </td>
 </tr>
 </table>
-<!-- ========== FIM PAGINAï¿½?O ========== -->
+<!-- ========== FIM PAGINAÇ?O ========== -->

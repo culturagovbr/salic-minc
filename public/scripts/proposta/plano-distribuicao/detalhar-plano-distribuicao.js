@@ -33,7 +33,7 @@ numeral.defaultFormat('0,0.00');
 
 // register
 Vue.component('select-percent', {
-    template: '<select style="width: 75px; display: inline-block; display: inline-block;" @change="valorSelecionado($event.target.value)" ref="combo" tabindex="-1" class="browser-default"><option v-for="item in items">{{ item }}%</option></select>',
+    template: '<select @change="valorSelecionado($event.target.value)" ref="combo" tabindex="-1"><option v-for="item in items">{{ item }}%</option></select>',
     props: {
         disabled: {
             type: Boolean,
@@ -124,7 +124,7 @@ Vue.component('input-money', {
 });
 
 // register
-Vue.component('proposta-plano-distribuicao-form-detalhamento', {
+Vue.component('my-component', {
   template: '#app-6',
     data: function() {
        return {
@@ -158,19 +158,12 @@ Vue.component('proposta-plano-distribuicao-form-detalhamento', {
             activeForm : false
         }
     },
-    props:[
-        'idpreprojeto',
-        'idplanodistribuicao',
-        'idmunicipioibge',
-        'iduf',
-        'disabled',
-        'canalaberto'
-    ],
+    props:['idpreprojeto','idplanodistribuicao', 'idmunicipioibge', 'iduf', 'disabled', 'canalaberto'],
     computed:{
         // Limite: preço popular: Quantidade de Inteira
         qtPrecoPopularValorIntegralLimite: function() {
 
-            var percentualPopularIntegral = 0.5;
+            var percentualPopularIntegral = 0.6;
 
             if(this.tpVenda == 'e') {
                 percentualPopularIntegral = 1;
@@ -181,7 +174,7 @@ Vue.component('proposta-plano-distribuicao-form-detalhamento', {
         // Limite: preço popular: Quantidade de meia entrada 40% de 50%
         qtPrecoPopularValorParcialLimite: function () {
 
-            var percentualPopularParcial = 0.5;
+            var percentualPopularParcial = 0.4;
 
             if(this.tpVenda == "e") {
                 percentualPopularParcial = 0
@@ -194,7 +187,7 @@ Vue.component('proposta-plano-distribuicao-form-detalhamento', {
         quantidadePopularIntegral: function() {
             if (this.distribuicaoGratuita == 'n') {
 
-                var percentualPopularIntegral = 0.5;
+                var percentualPopularIntegral = 0.6;
 
                 if(this.tpVenda == "e") {
                     percentualPopularIntegral = 1;
@@ -208,7 +201,7 @@ Vue.component('proposta-plano-distribuicao-form-detalhamento', {
         quantidadePopularParcial: function() {
             if (this.distribuicaoGratuita == 'n') {
 
-                var percentualPopularParcial = 0.5;
+                var percentualPopularParcial = 0.4;
 
                 if(this.tpVenda == "e") {
                     percentualPopularParcial = 0;
@@ -742,18 +735,18 @@ Vue.component('proposta-plano-distribuicao-form-detalhamento', {
 });
 
 var app6 = new Vue({
-        el: '#container-vue'
+        el: '#example'
     });
 
 
 $3(document).ready(function () {
-    $3('#container-loading').show();
+    $3('#modal-pre-loader').show();
 });
 
 $3(document).ajaxStart(function() {
-    $3('#container-loading').show();
+    $3('#modal-pre-loader').show();
 });
 
 $3(document).ajaxComplete(function () {
-    $3('#container-loading').hide();
+    $3('#modal-pre-loader').hide();
 });

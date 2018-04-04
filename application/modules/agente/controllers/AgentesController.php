@@ -157,7 +157,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
             $this->getIdUsuario = UsuarioDAO::getIdUsuario($arrAuth['usu_codigo']);
             $this->getIdUsuario = ($this->getIdUsuario) ? $this->getIdUsuario["idAgente"] : 0;
         } else { // autenticacao scriptcase
-            $this->getIdUsuario = (isset($arrAuth['idusuario'])) ? $arrAuth['idusuario'] : 0;
+            $this->getIdUsuario = (isset($params["idusuario"])) ? $params["idusuario"] : 0;
         }
 
         $Cpflogado = $this->getIdUsuario;
@@ -562,13 +562,12 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
      *
      * @access public
      * @return void
-     * @deprecated action nao utilizada (27/03/2018)
      */
-//    public function incluiragenteexternoAction()
-//    {
-//        Zend_Layout::startMvc(array('layout' => 'open'));
-//        $this->incluir();
-//    }
+    public function incluiragenteexternoAction()
+    {
+        Zend_Layout::startMvc(array('layout' => 'open'));
+        $this->incluir();
+    }
 
     /**
      * Metodo para visualizacao dos dados do agente
@@ -2207,13 +2206,11 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
         $this->autenticacao();
         $this->salvaragente();
     }
-    /**
-     * @deprecated action nao utilizada (27/03/2018)
-     */
-//    public function salvaagentegeralexternoAction()
-//    {
-//        $this->salvaragente();
-//    }
+
+    public function salvaagentegeralexternoAction()
+    {
+        $this->salvaragente();
+    }
 
     /**
      * salvarAgenteRedirect Metodo para efetuar o redirecionamento apos o cadastro de agentes

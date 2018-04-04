@@ -618,7 +618,6 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
     {
         try {
             $validacao = new stdClass();
-            $listaValidacao = [];
 
             $this->atualizarDadosPessoaJuridicaVerificandoCNAECultural($idPreProjeto);
 
@@ -626,16 +625,11 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
             $arrResultado = $tbPreProjeto->spChecklistParaApresentacaoDeProposta($idPreProjeto);
 
             $validado = true;
-
-            foreach ($arrResultado as &$item) {
+            foreach ($arrResultado as $item) {
                 if ($item->Observacao == 'PENDENTE') {
                     $validado = false;
+                    break;
                 }
-
-                $validacao->dsInconsistencia = $item->dsInconsistencia;
-                $validacao->Observacao = $item->Observacao;
-                $validacao->Url = $this->obterUrlDaPendencia($item->dsChamada);
-                $listaValidacao[] = clone($validacao);
             }
 
             if ($validado) {
@@ -645,48 +639,11 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
                 return $validacao;
             }
 
-            return $listaValidacao;
-
+            return $arrResultado;
         } catch (Exception $objExcetion) {
             throw $objExcetion;
+//            parent::message("N&atilde;o foi poss&iacute;vel realizar a opera&ccedil;&atilde;o! (comsp)" . $ex->getMessage(), "/proposta/manterpropostaincentivofiscal/index?idPreProjeto=" . $idPreProjeto, "ERROR");
         }
-    }
-
-    private function obterUrlDaPendencia($nome)
-    {
-
-        $url = '';
-        switch ($nome) {
-            case 'local_realizacao':
-                $url = array('module' => 'proposta', 'controller' => 'localderealizacao', 'idPreProjeto' => $this->idPreProjeto);
-                break;
-            case 'orcamento':
-                $url = array('module' => 'proposta', 'controller' => 'manterorcamento', 'action' => 'produtoscadastrados', 'idPreProjeto' => $this->idPreProjeto);
-                break;
-            case 'endereco':
-                $url = array('module' => 'agente', 'controller' => 'agentes', 'action' => 'enderecos', 'id' => $this->_proposta['idagente']);
-                break;
-            case 'email':
-                $url = array('module' => 'agente', 'controller' => 'agentes', 'action' => 'emails', 'id' => $this->_proposta['idagente']);
-                break;
-            case 'nascimento':
-                $url = array('module' => 'agente', 'controller' => 'agentes', 'action' => 'info-adicionais', 'id' => $this->_proposta['idagente']);
-                break;
-            case 'natureza':
-                $url = array('module' => 'agente', 'controller' => 'agentes', 'action' => 'natureza', 'id' => $this->_proposta['idagente']);
-                break;
-            case 'dirigente':
-                $url = array('module' => 'agente', 'controller' => 'agentes', 'action' => 'dirigentes', 'id' => $this->_proposta['idagente']);
-                break;
-            case 'periodo_execucao':
-                $url = array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'identificacaodaproposta', 'idPreProjeto' => $this->idPreProjeto);
-                break;
-            case 'plano_distribuicao':
-                $url = array('module' => 'proposta', 'controller' => 'plano-distribuicao', 'action' => 'index', 'idPreProjeto' => $this->idPreProjeto);;
-                break;
-        }
-
-        return $url;
     }
 
     /**
