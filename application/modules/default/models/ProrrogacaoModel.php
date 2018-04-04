@@ -4,32 +4,32 @@ class ProrrogacaoModel implements ModelInterface
 {
 
     /**
-     * 
+     *
      */
     const DEFERIDO = 'N';
 
     /**
-     * 
+     *
      */
     const INDEFERIDO = 'I';
 
     /**
-     * 
+     *
      */
     const EM_ANALISE = 'A';
 
     /**
-     * 
+     *
      */
     const PROCESSADO = 'S';
 
     /**
-     * 
+     *
      */
     const PUBLICAR_DOU = 'publicar_dou';
 
     /**
-     * 
+     *
      */
     const ENCAMINHAR_COORDENADOR = 'encaminhar_coordenador';
 
@@ -47,12 +47,12 @@ class ProrrogacaoModel implements ModelInterface
 
     /**
      *
-     * @var Prorrogacao 
+     * @var Prorrogacao
      */
     private $table = null;
 
     /**
-     * 
+     *
      */
     public function __construct()
     {
@@ -60,7 +60,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @return type
      */
     public function hasErros()
@@ -69,7 +69,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @return type
      */
     public function getErros()
@@ -78,7 +78,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @return type
      */
     public function setErros($erros)
@@ -88,7 +88,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      */
     public function salvar()
     {
@@ -96,7 +96,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      */
     public function atualizar()
     {
@@ -104,7 +104,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @param int $id
      */
     public function buscar($idProrrogacao = null)
@@ -116,7 +116,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @param int $id
      */
     public function deletar($idProrrogacao)
@@ -125,7 +125,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @throws InvalidArgumentException
      */
     private function validarIndeferimento()
@@ -138,7 +138,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @param type $id
      * @param type $observacao
      * @param type $atendimento
@@ -173,7 +173,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @param type $idProrrogacao
      * @param type $observacao
      * @param type $atendimento
@@ -191,7 +191,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @param int $idProrrogacao
      * @param string $observacao
      * @param string $atendimento
@@ -210,7 +210,7 @@ class ProrrogacaoModel implements ModelInterface
         if (!$this->hasErros()) {
             $grupoUsuarioLogado = new Zend_Session_Namespace('GrupoAtivo');
             if (self::PUBLICAR_DOU === $opcaoDeferimento || PerfilModel::COORDENADOR_DE_ACOMPANHAMENTO == $grupoUsuarioLogado->codGrupo) {
-                if(PerfilModel::COORDENADOR_DE_ACOMPANHAMENTO == $grupoUsuarioLogado->codGrupo){
+                if (PerfilModel::COORDENADOR_DE_ACOMPANHAMENTO == $grupoUsuarioLogado->codGrupo) {
                     //Se for o coordenador de acompanhamento deferindo a prorrogação, o campo Atendimento passará de 'N' para 'S' para que a rotina de banco não duplique a informação;
                     $atendimento = ProrrogacaoModel::PROCESSADO;
                 }
@@ -222,7 +222,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @param type $prorrogacaoRow
      * @param type $observacao
      * @param type $atendimento
@@ -241,7 +241,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @param Zend_Db_Table_Row $prorrogacaoRow
      * @param string $observacao
      * @param string $atendimento
@@ -273,7 +273,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @param Zend_Db_Table_Row $prorrogacaoRow
      * @param string $observacao
      * @param string $atendimento
@@ -287,7 +287,7 @@ class ProrrogacaoModel implements ModelInterface
     }
 
     /**
-     * 
+     *
      * @param int $idProrrogacao
      * @return object
      */
@@ -304,5 +304,4 @@ class ProrrogacaoModel implements ModelInterface
         $projetoTable->getDefaultAdapter()->setFetchMode(Zend_DB :: FETCH_OBJ);
         return $projetoTable->getDefaultAdapter()->fetchRow($select);
     }
-
 }

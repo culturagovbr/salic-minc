@@ -1,9 +1,10 @@
 <?php
 class DiligenciarDao extends Zend_Db_Table
 {
-    function listarDocumentosExigido($idCodigoDocumentosExigidos = ''){
+    public function listarDocumentosExigido($idCodigoDocumentosExigidos = '')
+    {
         $where = '';
-        if($idCodigoDocumentosExigidos){
+        if ($idCodigoDocumentosExigidos) {
             $where = ' and Codigo = '.$idCodigoDocumentosExigidos;
         }
 
@@ -23,9 +24,10 @@ class DiligenciarDao extends Zend_Db_Table
         $resultado = $db->fetchAll($sql);
         return $resultado;
     }
-    function montarConsulta($dadosConsulta,$adicional = ' where '){
+    public function montarConsulta($dadosConsulta, $adicional = ' where ')
+    {
         $where = '';
-        if(is_array($dadosConsulta) and count($dadosConsulta)>0){
+        if (is_array($dadosConsulta) and count($dadosConsulta)>0) {
             foreach ($dadosConsulta as $key => $value) {
                 $where .= ' '.$key.' '.$value.' ';
             }
@@ -34,8 +36,8 @@ class DiligenciarDao extends Zend_Db_Table
         return $where;
     }
 
-    function listarDiligencias($consulta = array()){
-
+    public function listarDiligencias($consulta = array())
+    {
         $where = $this->montarConsulta($consulta);
 
         $sql = "select dil.idDiligencia,pro.NomeProjeto as nomeProjeto,pro.AnoProjeto+pro.Sequencial as pronac,dil.DtSolicitacao as dataSolicitacao,dil.DtResposta as dataResposta,ver.Descricao as tipoDiligencia,dil.Solicitacao,dil.Resposta,arq.nmArquivo,arq.idArquivo,dil.idCodigoDocumentosExigidos
@@ -51,8 +53,8 @@ class DiligenciarDao extends Zend_Db_Table
 
         return $resultado;
     }
-    function listarDiligenciasPreProjeto($consulta = array()){
-
+    public function listarDiligenciasPreProjeto($consulta = array())
+    {
         $where = $this->montarConsulta($consulta);
 
         $sql = "select dil.idDiligencia,pre.NomeProjeto as nomeProjeto,pre.idPreProjeto as pronac,dil.DtSolicitacao as dataSolicitacao,dil.DtResposta as dataResposta,ver.Descricao as tipoDiligencia,dil.Solicitacao,dil.Resposta,arq.nmArquivo,arq.idArquivo,dil.idCodigoDocumentosExigidos
@@ -69,7 +71,8 @@ class DiligenciarDao extends Zend_Db_Table
         return $resultado;
     }
 
-    function dadosProjeto($consulta = array()){
+    public function dadosProjeto($consulta = array())
+    {
         $where = $this->montarConsulta($consulta);
 
         $sql = "select pro.NomeProjeto as nomeProjeto,pro.AnoProjeto+pro.Sequencial as pronac
@@ -81,9 +84,9 @@ class DiligenciarDao extends Zend_Db_Table
         $resultado = $db->fetchAll($sql);
 
         return $resultado;
-
     }
-    function dadosPreProjeto($consulta = array()){
+    public function dadosPreProjeto($consulta = array())
+    {
         $where = $this->montarConsulta($consulta);
 
         $sql = "select pre.NomeProjeto as nomeProjeto,idPreProjeto from SAC.dbo.PreProjeto pre
@@ -94,12 +97,12 @@ class DiligenciarDao extends Zend_Db_Table
         $resultado = $db->fetchAll($sql);
 
         return $resultado;
-
     }
 
 
-    function tipoDiligencia($consulta = array()){
-        $where = $this->montarConsulta($consulta,' and ');
+    public function tipoDiligencia($consulta = array())
+    {
+        $where = $this->montarConsulta($consulta, ' and ');
 
         $sql = "select idVerificacao,Descricao from SAC.dbo.Verificacao where idTipo = 8 and stEstado = 1 $where " ;
 
@@ -108,14 +111,14 @@ class DiligenciarDao extends Zend_Db_Table
         $resultado = $db->fetchAll($sql);
 
         return $resultado;
-
     }
 
-    function cadastrarDiligencia($dados){
+    public function cadastrarDiligencia($dados)
+    {
         $atributos  =   '';
         $valores    =   '';
-        foreach ($dados as $key=>$values){
-            if($atributos!='' and $valores!=''){
+        foreach ($dados as $key=>$values) {
+            if ($atributos!='' and $valores!='') {
                 $atributos  .=   ',';
                 $valores    .=   ',';
             }
@@ -128,18 +131,21 @@ class DiligenciarDao extends Zend_Db_Table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $dados =  $db->query($sql);
 
-        if ($dados)
-                return true;
-        else
-                return false;
+        if ($dados) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    function responderDiligencia($dados,$consulta){
+    public function responderDiligencia($dados, $consulta)
+    {
         $where = $this->montarConsulta($consulta);
         $valores    =   '';
-        foreach ($dados as $key=>$values){
-            if($valores!='')
+        foreach ($dados as $key=>$values) {
+            if ($valores!='') {
                 $valores    .=   ',';
+            }
             $valores    .=  ' '.$key.'='.$values.' ';
         }
         $sql = "update SAC.dbo.tbDiligencia set $valores $where";
@@ -148,13 +154,15 @@ class DiligenciarDao extends Zend_Db_Table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $dados =  $db->query($sql);
 
-        if ($dados)
-                return true;
-        else
-                return false;
+        if ($dados) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
-    function buscarAgenteProjeto($consulta = array()){
+    public function buscarAgenteProjeto($consulta = array())
+    {
         $where = $this->montarConsulta($consulta);
 
         $sql = "select pre.idAgente from SAC.dbo.Projetos pro
@@ -167,7 +175,8 @@ class DiligenciarDao extends Zend_Db_Table
         return $resultado;
     }
 
-    function buscarAgentePreProjeto($consulta = array()){
+    public function buscarAgentePreProjeto($consulta = array())
+    {
         $where = $this->montarConsulta($consulta);
 
         $sql = "select pre.idAgente from SAC.dbo.PreProjeto pre $where " ;
@@ -179,4 +188,3 @@ class DiligenciarDao extends Zend_Db_Table
         return $resultado;
     }
 }
-?>

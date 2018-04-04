@@ -1,31 +1,30 @@
+<?php echo $this->partial("inc/menu.phtml", $this); ?>
+
 <div class="container-fluid">
-
     <div class="row">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Planilha Or&ccedil;ament&aacute;ria Geral</h1>
 
-        <?php echo $this->partial("inc/menu.phtml", $this); ?>
-
-        <div class="content col s10 m12 l10 planilha-produtos">
-
-            <!-- ========== INCIO BREADCRUMB (LINKS TOPO) ========== -->
-            <?php if (isset($this->proposta['idpreprojeto'])) {
-                gerarBreadCrumb(array(
-                    array('Or&ccedil;amento do Projeto' => ''),
-                    array('Planilha Or&ccedil;ament&aacute;ria Geral' => '')
-                ));
-            }
-            ?>
-            <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-
-
-            <!-- ========== INCIO TTULO ========== -->
-            <div id="titulo" class="materialize">
-                <div>Planilha Or&ccedil;ament&aacute;ria Geral</div>
+                    <?php if (isset($this->proposta['idpreprojeto'])) {
+                        gerarNovoBreadCrumb(array(
+                            array('Or&ccedil;amento do Projeto' => ''),
+                            array('Planilha Or&ccedil;ament&aacute;ria Geral' => '')
+                        ));
+                    }
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
             </div>
-            <!-- ========== FIM TTULO ========== -->
+        </div>
 
-
-            <!-- ========== INCIO CONTEDO ========== -->
-            <div id="conteudo" class="materialize">
+        <div class="content">
+            <div id="conteudo" class="card-panel">
 
                 <?php /***** CARREGA A PLANILHA ORCAMENTARIA *****/ ?>
                 <script type="text/javascript">
@@ -33,39 +32,12 @@
                 </script>
                 <div id="planilhaOrcamentariaMontada"></div>
                 <?php /****** FIM DA PLANILHA ORCAMENTARIA ******/ ?>
-
-            </div> <!-- FIM CONTEUDO -->
-
-
-            <!-- ========== FIM CONTEDO ========== --> <!-- ========== INCIO RODAP DO CONTEDO ========== -->
-            <div id="rodapeConteudo"><span></span></div>
-            <!-- ========== FIM RODAP DO CONTEDO ========== -->
-
-            <br clear="all" />
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-
-//    function layout_fluido(){
-//        var janela = $(window).width();
-//        var fluidNavGlobal = janela - 245;
-//        var fluidConteudo = janela - 253;
-//        var fluidTitulo = janela - 252;
-//        var fluidRodape = janela - 19;
-//        $("#navglobal").css("width", fluidNavGlobal);
-//        $("#conteudo").css("width", fluidConteudo);
-//        $("#titulo").css("width", fluidTitulo);
-//        $("#rodapeConteudo").css("width", fluidConteudo);
-//        $("#imagemRodape").css("width", fluidConteudo);
-//        $("#rodape").css("width", fluidRodape);
-//        $("#conteudo").css("min-height", $('#menuContexto').height()); // altura minima do conteudo
-//        $("#rodapeConteudo").css("margin-left", "225px");
-//        $(".sanfonaDiv").css("clear", "both");
-//        $(".sanfonaDiv").css("width", "91%");
-//    } // fecha fun��o layout_fluido()
-
 
     function AbrirFecharPlanilha(elemento) {
         $('.' + elemento).toggle();

@@ -1,26 +1,40 @@
+<?php echo $this->partial("inc/menu.phtml", $this); ?>
+
 <div class="container-fluid">
     <div class="row">
-        <?php echo $this->partial("inc/menu.phtml", $this); ?>
-        <div class="content col s10 m12 l10">
-            <?php
-                $links = array(
-                    $this->layout['listagem'],
-                    array('Local de Realiza&ccedil;&atilde;o' => array())
-                );
-                gerarBreadCrumb($links);
-            ?>
-            <h4 class="ligthen">Local de Realiza&ccedil;&atilde;o <?php if (!isset($_GET['edital'])): ?>/ Deslocamento<?php endif; ?>
-                <?php //echo montaBotaoVoltar($controller, $links); ?>
-            </h4>
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Local de Realiza&ccedil;&atilde;o / Deslocamento</h1>
+
+                    <?php
+                    $links = array(
+                        $this->layout['listagem'],
+                        array('Local de Realiza&ccedil;&atilde;o' => array())
+                    );
+                    gerarNovoBreadCrumb($links);
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="card-panel">
+
             <div id="">
-                <?php if (!isset($_GET['edital'])): ?>
-                    <p style="margin-top: 30px;">
+                <?php if (empty($this->edital)): ?>
+                    <p>
                         <input id="local"
-                            type="radio" <?php echo (!isset($_GET['deslocamento'])) ? 'checked' : ''; ?>
+                            type="radio" <?php echo (empty($this->deslocamento)) ? 'checked' : ''; ?>
                             name="selecionar" id="selecionar1" value="realizacao" onclick="trocatela('1')"
                             /><label for="local">Local de Realiza&ccedil;&atilde;o</label>
                         <input id="desloc"
-                            type="radio" <?php echo (isset($_GET['deslocamento'])) ? 'checked' : ''; ?>
+                            type="radio" <?php echo (!empty($this->deslocamento)) ? 'checked' : ''; ?>
                             name="selecionar" id="selecionar2" value="deslocamento" onclick="trocatela('2')"/><label for="desloc">Deslocamento</label>
                     </p>
                 <?php endif; ?>
@@ -59,10 +73,19 @@
                                         <td><?php echo $localizacao['cidade']; ?></td>
                                         <td nowrap>
                                             <?php if ($this->isEditavel) : ?>
-                                                <a href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'localderealizacao', 'action' => 'form-local-de-realizacao')); ?>?cod=<?php echo $localizacao['idAbrangencia']; ?>&idPreProjeto=<?php echo $this->idPreProjeto; ?>&edit=1" class="btn white-text">Editar</a>
-                                                <button type="button"
-                                                       class=" btn white-text red"
-                                                       onclick="excluir(<?php echo $localizacao['idAbrangencia']; ?>);">Excluir</button></td>
+                                                <a href="<?php echo $this->url(
+                                                    array(
+                                                        'module' => 'proposta',
+                                                        'controller' => 'localderealizacao',
+                                                        'action' => 'form-local-de-realizacao')); ?>?cod=<?php echo $localizacao['idAbrangencia']; ?>&idPreProjeto=<?php echo $this->idPreProjeto; ?>&edit=1"
+                                                   class="btn small waves-effect waves-light tooltipped btn-primary"
+                                                   data-tooltip="Editar"
+                                                ><i class="material-icons">edit</i></a>
+                                                <a type="button"
+                                                   class="btn small waves-effect waves-light tooltipped btn-danger btn-excluir-item"
+                                                   data-tooltip="Excluir"
+                                                   onclick="excluir(<?php echo $localizacao['idAbrangencia']; ?>);"
+                                                ><i class="material-icons">delete</i></a>
                                             <?php endif; ?>
                                     </tr>
                                 <?php endforeach; ?>
@@ -85,7 +108,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        <?php if( isset($_GET['deslocamento']) ) : ?>
+        <?php if( !empty($this->deslocamento) ) : ?>
         trocatela(2);
         <?php endif; ?>
 

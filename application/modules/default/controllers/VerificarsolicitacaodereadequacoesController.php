@@ -2,7 +2,8 @@
 
 class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Action_Abstract
 {
-    public function init() {
+    public function init()
+    {
         // verifica as permiss�es
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 94;  // Parecerista
@@ -18,9 +19,8 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
         // chama o init() do pai GenericControllerNew
     }
 
-    public function indexAction() {
-
-        
+    public function indexAction()
+    {
         $idPronac = $_GET['idPronac'];
         
         $auth = Zend_Auth::getInstance();
@@ -36,14 +36,14 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
 
 
         foreach ($resultadoEtapa as $idEtapa) {
-            $resultadoProdutosItens = $buscaInformacoes->buscarProdutosItens($idPronac, $idEtapa->idPlanilhaEtapa, NULL, "N");
+            $resultadoProdutosItens = $buscaInformacoes->buscarProdutosItens($idPronac, $idEtapa->idPlanilhaEtapa, null, "N");
             $valorProduto[$idEtapa->idPlanilhaEtapa] = $resultadoProdutosItens;
         }
         $this->view->buscaprodutositens = $valorProduto;
     }
 
-    public function planilhaaprovadaAction() {
-
+    public function planilhaaprovadaAction()
+    {
         $idPronac = $_GET['idPronac'];
         $auth = Zend_Auth::getInstance();
         //$idSolicitante = $auth->getIdentity()->usu_codigo;
@@ -52,75 +52,76 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
         $this->view->buscaprojeto = $resultado;
 
 
-/*        $buscaInformacoes = new VerificarSolicitacaodeReadequacoesDAO;
-        $SolicitarReadequacaoCustoDAO = new SolicitarReadequacaoCustoDAO();
-        $resultadoEtapa = $buscaInformacoes->buscarEtapa();
-        $this->view->buscaetapa = $resultadoEtapa;
+        /*        $buscaInformacoes = new VerificarSolicitacaodeReadequacoesDAO;
+                $SolicitarReadequacaoCustoDAO = new SolicitarReadequacaoCustoDAO();
+                $resultadoEtapa = $buscaInformacoes->buscarEtapa();
+                $this->view->buscaetapa = $resultadoEtapa;
 
 
-        $resultadoProduto = $SolicitarReadequacaoCustoDAO->buscarProdutos($idPronac)->toArray();
+                $resultadoProduto = $SolicitarReadequacaoCustoDAO->buscarProdutos($idPronac)->toArray();
 
-        if ( empty ( $resultadoProduto ) )
-        {
-            $resultadoProduto = $SolicitarReadequacaoCustoDAO->buscarProdutosAprovados($idPronac);
-        }
-        else
-        {
-            $resultadoProduto = $SolicitarReadequacaoCustoDAO->buscarProdutos($idPronac);
-        }
+                if ( empty ( $resultadoProduto ) )
+                {
+                    $resultadoProduto = $SolicitarReadequacaoCustoDAO->buscarProdutosAprovados($idPronac);
+                }
+                else
+                {
+                    $resultadoProduto = $SolicitarReadequacaoCustoDAO->buscarProdutos($idPronac);
+                }
 
-        $this->view->buscaproduto = $resultadoProduto;
+                $this->view->buscaproduto = $resultadoProduto;
 
-        //var_dump($resultadoProduto);die;
+                //var_dump($resultadoProduto);die;
 
-        foreach ($resultadoProduto as $idProduto) {
-            foreach ($resultadoEtapa as $idEtapa) {
-                $resultadoProdutosItens = $buscaInformacoes->buscarProdutosItens($idPronac, $idEtapa->idPlanilhaEtapa, NULL, "S", $idProduto->idProduto);
-                $valorProduto[$idProduto->idProduto][$idEtapa->idPlanilhaEtapa] = $resultadoProdutosItens;
-                $resultadoProdutosItensAdm = $buscaInformacoes->buscarProdutosItensSemProduto($idPronac, $idEtapa->idPlanilhaEtapa, NULL, "S");
-                $valorProdutoAdm[$idEtapa->idPlanilhaEtapa] = $resultadoProdutosItensAdm;
-            }
-        }
-        $this->view->buscaprodutositens = $valorProduto;
-        $this->view->buscaprodutositensadm = $valorProdutoAdm;*/
+                foreach ($resultadoProduto as $idProduto) {
+                    foreach ($resultadoEtapa as $idEtapa) {
+                        $resultadoProdutosItens = $buscaInformacoes->buscarProdutosItens($idPronac, $idEtapa->idPlanilhaEtapa, NULL, "S", $idProduto->idProduto);
+                        $valorProduto[$idProduto->idProduto][$idEtapa->idPlanilhaEtapa] = $resultadoProdutosItens;
+                        $resultadoProdutosItensAdm = $buscaInformacoes->buscarProdutosItensSemProduto($idPronac, $idEtapa->idPlanilhaEtapa, NULL, "S");
+                        $valorProdutoAdm[$idEtapa->idPlanilhaEtapa] = $resultadoProdutosItensAdm;
+                    }
+                }
+                $this->view->buscaprodutositens = $valorProduto;
+                $this->view->buscaprodutositensadm = $valorProdutoAdm;*/
 
-			$orderPlanilha       = array('PAP.NrFonteRecurso ASC', 'PAP.idProduto ASC', 'PAP.idEtapa ASC', 'FED.Sigla ASC', 'CID.Descricao ASC', 'I.Descricao ASC');
-			$whereAP             = array('PAP.tpPlanilha = ?' => 'CO', 'PAP.stAtivo = ?' => 'S', 'PAP.IdPRONAC = ?' => $idPronac);
-			$tbPlanilhaAprovacao = new PlanilhaAprovacao();
-			$buscarAP            = $tbPlanilhaAprovacao->buscarCustosReadequacao($whereAP, $orderPlanilha);
+        $orderPlanilha       = array('PAP.NrFonteRecurso ASC', 'PAP.idProduto ASC', 'PAP.idEtapa ASC', 'FED.Sigla ASC', 'CID.Descricao ASC', 'I.Descricao ASC');
+        $whereAP             = array('PAP.tpPlanilha = ?' => 'CO', 'PAP.stAtivo = ?' => 'S', 'PAP.IdPRONAC = ?' => $idPronac);
+        $tbPlanilhaAprovacao = new PlanilhaAprovacao();
+        $buscarAP            = $tbPlanilhaAprovacao->buscarCustosReadequacao($whereAP, $orderPlanilha);
 
-			// monta a planilha aprovada
-			$planAP = array();
-			$cont = 0;
-			foreach ($buscarAP as $r) :
-				$produto = empty($r->Produto) ? 'Administra&ccedil;&atilde;o do Projeto' : $r->Produto;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['idPlanilhaAprovacao'] = $r->idPlanilhaAprovacao;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['nrFonteRecurso']      = $r->nrFonteRecurso;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['FonteRecurso']        = $r->FonteRecurso;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['idProduto']           = $r->idProduto;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['Produto']             = $r->Produto;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['idEtapa']             = $r->idEtapa;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['Etapa']               = $r->Etapa;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['UF']                  = $r->UF;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['Cidade']              = $r->Cidade;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['idPlanilhaItem']      = $r->idPlanilhaItem;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['Item']                = $r->Item;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['idUnidade']           = $r->idUnidade;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['Unidade']             = $r->Unidade;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['qtItem']              = (int) $r->qtItem;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['nrOcorrencia']        = (int) $r->nrOcorrencia;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['vlUnitario']          = $r->vlUnitario;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['vlTotal']             = $r->vlTotal;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['qtDias']              = $r->qtDias;
-				$planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['dsJustificativa']     = $r->dsJustificativa;
-				$cont++;
-			endforeach;
+        // monta a planilha aprovada
+        $planAP = array();
+        $cont = 0;
+        foreach ($buscarAP as $r) :
+                $produto = empty($r->Produto) ? 'Administra&ccedil;&atilde;o do Projeto' : $r->Produto;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['idPlanilhaAprovacao'] = $r->idPlanilhaAprovacao;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['nrFonteRecurso']      = $r->nrFonteRecurso;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['FonteRecurso']        = $r->FonteRecurso;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['idProduto']           = $r->idProduto;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['Produto']             = $r->Produto;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['idEtapa']             = $r->idEtapa;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['Etapa']               = $r->Etapa;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['UF']                  = $r->UF;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['Cidade']              = $r->Cidade;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['idPlanilhaItem']      = $r->idPlanilhaItem;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['Item']                = $r->Item;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['idUnidade']           = $r->idUnidade;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['Unidade']             = $r->Unidade;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['qtItem']              = (int) $r->qtItem;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['nrOcorrencia']        = (int) $r->nrOcorrencia;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['vlUnitario']          = $r->vlUnitario;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['vlTotal']             = $r->vlTotal;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['qtDias']              = $r->qtDias;
+        $planAP[$r->FonteRecurso][$produto][$r->idEtapa . ' - ' . $r->Etapa][$r->UF . ' - ' . $r->Cidade][$cont]['dsJustificativa']     = $r->dsJustificativa;
+        $cont++;
+        endforeach;
 
-			// manda as informa��es para a vis�o
-			$this->view->planAP = $planAP;
+        // manda as informa��es para a vis�o
+        $this->view->planAP = $planAP;
     }
 
-    public function planilhasolicitadaAction() {
+    public function planilhasolicitadaAction()
+    {
         $idPronac = isset($_GET['idPronac']) ? $_GET['idPronac'] : '';
         $auth = Zend_Auth::getInstance();
 
@@ -129,7 +130,7 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
 
         if (empty($_POST)) {
             $resultadoItem = VerificarSolicitacaodeReadequacoesDAO::verificaPlanilhaAprovacao($idPronac);
-            if (empty($resultadoItem)){
+            if (empty($resultadoItem)) {
                 $inserirCopiaPlanilha = VerificarSolicitacaodeReadequacoesDAO::inserirCopiaPlanilha($idPronac, $idpedidoalteracao);
             }
         }
@@ -152,10 +153,8 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
         $totalPlanilhaSolicitada = !empty($totalPlanilhaAprovada) ? number_format(($totalPlanilhaAprovada + $totalPlanilhaSolicitada) - $verificarReadequacao[0]['totalSolicitadoExcluido'], 2, '.', '') : $totalPlanilhaSolicitada;
 
         if ($totalPlanilhaAprovada > $totalPlanilhaSolicitada) :
-            $this->view->tipoReadeq = 'Solicita��o de Redu��o';
-        elseif ($totalPlanilhaAprovada < $totalPlanilhaSolicitada) :
-            $this->view->tipoReadeq = 'Solicita��o de Complementa��o';
-        else :
+            $this->view->tipoReadeq = 'Solicita��o de Redu��o'; elseif ($totalPlanilhaAprovada < $totalPlanilhaSolicitada) :
+            $this->view->tipoReadeq = 'Solicita��o de Complementa��o'; else :
             $this->view->tipoReadeq = 'Solicita��o de Remanejamento';
         endif;
         // ========== FIM MENSAGEM DE REDU��O, COMPLEMENTO OU REMANEJAMENTO ==========
@@ -166,7 +165,7 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
         $this->view->buscaetapa = $resultadoEtapa;
 
         $resultadoProduto = $SolicitarReadequacaoCustoDAO->buscarProdutos($idPronac)->toArray();
-        if (empty($resultadoProduto)){
+        if (empty($resultadoProduto)) {
             $resultadoProduto = $SolicitarReadequacaoCustoDAO->buscarProdutosAprovados($idPronac);
         } else {
             $resultadoProduto = $SolicitarReadequacaoCustoDAO->buscarProdutos($idPronac);
@@ -175,9 +174,9 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
 
         foreach ($resultadoProduto as $idProduto) {
             foreach ($resultadoEtapa as $idEtapa) {
-                $resultadoProdutosItens = $buscaInformacoes->buscarProdutosItensParecerista($idPronac, $idEtapa->idPlanilhaEtapa, NULL, "N", $idProduto->idProduto);
+                $resultadoProdutosItens = $buscaInformacoes->buscarProdutosItensParecerista($idPronac, $idEtapa->idPlanilhaEtapa, null, "N", $idProduto->idProduto);
                 $valorProduto[$idProduto->idProduto][$idEtapa->idPlanilhaEtapa] = $resultadoProdutosItens;
-                $resultadoProdutosItensAdm = $buscaInformacoes->buscarProdutosItensSemProduto($idPronac, $idEtapa->idPlanilhaEtapa, NULL, "N");
+                $resultadoProdutosItensAdm = $buscaInformacoes->buscarProdutosItensSemProduto($idPronac, $idEtapa->idPlanilhaEtapa, null, "N");
                 $valorProdutoAdm[$idEtapa->idPlanilhaEtapa] = $resultadoProdutosItensAdm;
             }
         }
@@ -185,28 +184,28 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
         $this->view->buscaprodutositensadm = $valorProdutoAdm;
 
         $verificaStatus = VerificarSolicitacaodeReadequacoesDAO::verificaStatusItemDeCusto($idpedidoalteracao, 10);
-        if(count($verificaStatus) <= 0){
+        if (count($verificaStatus) <= 0) {
             parent::message("Planilha or&ccedil;ament&atilde;ria n&atilde;o encontrada!", "/verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$idPronac", "ALERT");
         }
         $stAvaliacaoItemPedidoAlteracao = $verificaStatus->stAvaliacaoItemPedidoAlteracao;
         $this->view->status = $stAvaliacaoItemPedidoAlteracao;
 
-        if($stAvaliacaoItemPedidoAlteracao == "AG") {
+        if ($stAvaliacaoItemPedidoAlteracao == "AG") {
             $this->view->statusAnalise = "Aguardando An�lise";
-        } elseif($stAvaliacaoItemPedidoAlteracao == "EA"){
+        } elseif ($stAvaliacaoItemPedidoAlteracao == "EA") {
             $this->view->statusAnalise = "Em An�lise";
-        } elseif($stAvaliacaoItemPedidoAlteracao == "AP"){
+        } elseif ($stAvaliacaoItemPedidoAlteracao == "AP") {
             $this->view->statusAnalise = "Aprovado";
-        } elseif($stAvaliacaoItemPedidoAlteracao == "IN"){
+        } elseif ($stAvaliacaoItemPedidoAlteracao == "IN") {
             $this->view->statusAnalise = "Indeferido";
         }
 
         $resultadoAvaliacaoAnalise = $buscaInformacoes->verificaAvaliacaoAnalise();
         $this->view->AvaliacaoAnalise = $resultadoAvaliacaoAnalise;
-
     }
 
-    public function alterarStatusItensAction(){
+    public function alterarStatusItensAction()
+    {
         $idPronac = $_GET['idpronac'];
         $tbPedidoAlteracao = new tbPedidoAlteracaoProjeto();
         $resultado = $tbPedidoAlteracao->buscar(array('IdPRONAC = ?' => $idPronac))->current();
@@ -221,10 +220,10 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
 
         $alterarStatus = $tbAvaliacaoItemPedidoAlteracao->alterar($dados, $where);
         parent::message("Situa��o alterada com sucesso!", "verificarsolicitacaodereadequacoes/planilhasolicitada?idPronac=$idPronac", "CONFIRM");
-
     }
 
-    public function finalizarAvaliacaoItensAction(){
+    public function finalizarAvaliacaoItensAction()
+    {
         $idPronac = $_POST['idPronacProjeto'];
         $dsObservacao = $_POST['obervacaoDaAvaliacao'];
 
@@ -239,7 +238,7 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $idPerfilRemetente = $GrupoAtivo->codGrupo;
 
-        try{
+        try {
 //            $db->beginTransaction();
 
             $tbPedidoAlteracao = new tbPedidoAlteracaoProjeto();
@@ -303,21 +302,17 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
 
 
 //            $db->commit();
-            parent::message("Solicita&ccedil;&atilde;o enviada com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetoparecerista" ,"CONFIRM");
-
-         } catch(Zend_Exception $e){
+            parent::message("Solicita&ccedil;&atilde;o enviada com sucesso!", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetoparecerista", "CONFIRM");
+        } catch (Zend_Exception $e) {
 
 //            $db->rollBack();
-            parent::message("Erro na finaliza&ccedil;&atilde;o da solicita&ccedil;&atilde;o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetoparecerista" ,"ERROR");
-
-         }
-
+            parent::message("Erro na finaliza&ccedil;&atilde;o da solicita&ccedil;&atilde;o", "verificarreadequacaodeprojeto/verificarreadequacaodeprojetoparecerista", "ERROR");
+        }
     }
 
-    public function formularioAction() {
-
+    public function formularioAction()
+    {
         if ($_POST) {
-
             $idPronac = $_POST['idPronac'];
             $idProduto = $_POST['idProduto'];
             $idPlanilhaAprovacao = $_POST['planilhaAprovacao'];
@@ -332,8 +327,8 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
                 parent::message("Preencha todos os dados!", "/verificarsolicitacaodereadequacoes/formulario?idPronac=$idPronac&idAprovacao=$idPlanilhaAprovacao&idItem=$idItem&tpAcao=$tpAcaoVerifica", "ALERT");
             }
 
-            if(!empty($_POST['tipoaprovacao'])){
-                if ($_POST['tipoaprovacao'][0] == "AP"){
+            if (!empty($_POST['tipoaprovacao'])) {
+                if ($_POST['tipoaprovacao'][0] == "AP") {
                     $stDeferimento = "D";
                 } else {
                     $stDeferimento = "I";
@@ -343,7 +338,6 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
             $resultadoItem = VerificarSolicitacaodeReadequacoesDAO::verificaPlanilhaAprovacao($idPronac);
             foreach ($resultadoItem as $aprovacao) {
                 if ($stDeferimento == "D" || $stDeferimento == "I") {
-
                     $tbAvaliacaoItemPedidoAlteracao = new tbAvaliacaoItemPedidoAlteracao();
                     $resultado = $tbAvaliacaoItemPedidoAlteracao->buscar(array('idPedidoAlteracao = ?' => $idPedidoAlteracao, 'tpAlteracaoProjeto = ?' => 7, 'stAvaliacaoItemPedidoAlteracao = ?' => 'EA'))->current();
                     $idItemAvaliacaoItemPedidoAlteracao = $resultado->idAvaliacaoItemPedidoAlteracao;
@@ -365,12 +359,11 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
                     parent::message("Dados analisados e atualizados com sucesso!", "verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$idPronac", "CONFIRM");
                 }
                
-                if (  $_POST['tpAcao'] == "N" || empty ( $_POST['tpAcao'] )) {
+                if ($_POST['tpAcao'] == "N" || empty($_POST['tpAcao'])) {
                     parent::message("N&atilde;o h� solicita�&atilde;o de readequa�&atilde;o para este item.", "/verificarreadequacaodeprojeto/readequacaoitensdecustoeditar?id=$idPronac", "ALERT");
                 }
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             }
-            
         } else {
             $idPronac = $_GET['idPronac'];
             $idPlanilhaAprovacao = $_GET['idAprovacao'];
@@ -390,12 +383,9 @@ class VerificarSolicitacaoDeReadequacoesController extends MinC_Controller_Actio
             $dados = $tbAvaliacaoItemPedidoAlteracao->buscar(array('idPedidoAlteracao = ?'=>$resultadoItem[0]->idPedidoAlteracao, 'stAvaliacaoItemPedidoAlteracao = ?'=>'EA', 'tpAlteracaoProjeto = ?'=>7))->current();
 
             $resultados = $buscaInformacoes->buscaAvaliacoesSubItemPedidoAlteracao($resultadoItem[0]->idPedidoAlteracao, $idPlanilhaAprovacao, $dados->idAvaliacaoItemPedidoAlteracao);
-            if($resultados){
+            if ($resultados) {
                 $this->view->itemAvaliado = $resultados;
             }
-
         }
-
     }
-
 }

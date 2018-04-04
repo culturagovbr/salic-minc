@@ -135,6 +135,4 @@ class Agente_Model_Internet extends MinC_Db_Model
     {
         $this->_usuario = $usuario;
     }
-
-
 }

@@ -94,6 +94,8 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
         }
 
         $this->moduleName = $this->getRequest()->getModuleName();
+
+        $this->view->bodyClass = $this->getBodyClass();
     }
 
     /**
@@ -821,6 +823,10 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['dsJustificativa'] = $resuplanilha->dsJustificativa;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idAgente'] = $resuplanilha->idAgente;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['tpAcao'] = $resuplanilha->tpAcao;
+                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idUF'] = $resuplanilha->idUF;
+                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idMunicipio'] = $resuplanilha->idMunicipio;
+                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idProduto'] = $resuplanilha->idProduto;
+
                 $count++;
                 $seq++;
             }
@@ -930,6 +936,36 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
             $itens[] = get_object_vars( $object );
         }
         return $itens;
+
+    }
+
+    function getBodyClass($class = '') {
+        return join(' ', $this->getArrayBodyClass( $class ));
+    }
+
+    function getArrayBodyClass( $class = '' ) {
+        $classes = array();
+
+        $classes[] = $this->getRequest()->getCookie('menu');
+
+        $classes[] = $this->getRequest()->getModuleName();
+
+        $classes[] = $this->getRequest()->getControllerName();
+
+        $classes[] = $this->getRequest()->getActionName();
+
+        if (!empty($class)) {
+
+            if (!is_array( $class)) {
+                $class = preg_split( '#\s+#', $class );
+            }
+
+            $classes = array_merge( $classes, $class );
+        } else {
+            $class = array();
+        }
+
+        return array_unique( $classes );
 
     }
 }

@@ -1,0 +1,342 @@
+/* --------------------------------------------------------------------------
+ TABLES
+/*------------------------------------------------------------------------ */
+
+/*--------------------------------------------------------------
+x - TABELAS (legado)
+--------------------------------------------------------------*/
+#conteudo table caption {
+    border: 2px solid #cecece;
+    border-bottom-width: 0px;
+    padding: 10px;
+    font-weight: bold;
+    color: #3a7300;
+    text-transform: uppercase;
+    /*font-size: 11px;*/
+}
+
+#conteudo table {
+    margin: 0 auto;
+    background: #f8feff;
+    width: 100%;
+}
+
+#conteudo table td {
+    /*background:url(../img/bg-celulas.gif) repeat-x ;*/
+    background: #fff;
+    padding: 3px;
+    border: 1px solid #ccc;
+    /*color:auto;*/
+}
+
+#conteudo table tr.linha:hover td {
+    background: #f6f5f8;
+}
+
+#conteudo table tr.destacar td,
+#conteudo table td.destacar {
+    background: #dfefc2;
+}
+
+#conteudo table tr img {
+    margin-right: 10px;
+}
+
+#conteudo table td a:not(.btn) {
+    color: #333 !important;
+}
+
+#conteudo table th {
+    /*background: #4caf50;*/
+    padding: 5px;
+    /*color: #f8f8f8;*/
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+#conteudo table tfoot td {
+    background: #f3f3f3;
+    word-spacing: .8em;
+    color: #000;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #b0b0b0;
+}
+
+#conteudo tfoot td a {
+    text-decoration: none !important;
+    color: #999 !important;
+}
+
+#conteudo table tfoot td img {
+    position: relative;
+    top: 3px;
+}
+
+#conteudo table tfoot td strong {
+    color: #333;
+}
+
+#conteudo .tabela { /* tamanho de tabelas com registros */
+    margin: 10px auto;
+    width: 97%;
+}
+
+#conteudo .tabela_busca { /* tabela para consulta de dados centralizada na tela */
+    margin: 15px auto;
+}
+
+#conteudo .titulo_tabela { /* titulos de tabelas */
+    background: #36963f;
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+}
+
+#conteudo .titulo_campo { /* titulos de campos */
+    background: #F5F5F5;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+
+#conteudo .fundo_linha1,
+#conteudo .fundo_linha1 td {
+    background: #fff;
+}
+
+#conteudo .fundo_linha2,
+#conteudo .fundo_linha2 td {
+    background-color: #dcdcdc;
+}
+
+#conteudo .fundo_linha3,
+#conteudo .fundo_linha3 td {
+    /*background: #fff59d;*/
+    background: #FFFBD2;
+}
+
+#conteudo .fundo_linha4,
+#conteudo .fundo_linha4 td {
+    background: #f9a825;
+}
+
+#conteudo .fundo_linha5,
+#conteudo .fundo_linha5 td {
+    background: #a5d6a7;
+}
+
+#conteudo .delFormatTD { /* apaga a formata��o das celulas */
+    margin: 0 auto;
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+#conteudo table th {
+    color: #fff;
+}
+
+#detalhamento table th {
+    /*color: #000;*/
+    background: transparent;
+    text-transform: none;
+}
+
+
+/*--------------------------------------------------------------
+x - PLANILHAS
+--------------------------------------------------------------*/
+.planilha_incentivo div.plan, .total_planilha_incentivo {
+    color:#c30;
+    font-size:17pt;
+    font-weight:bold;
+    width:96%;
+}
+.planilha_produto div.plan, .total_planilha_produto {
+    color:#096;
+    font-size:15pt;
+    font-weight:bold;
+    width:94%;
+    margin-left:2%;
+}
+.planilha_etapa div.plan, .total_planilha_etapa {
+    color:#f90;
+    font-size:13pt;
+    font-weight:bold;
+    width:92%;
+    margin-left:4%;
+}
+.planilha_uf div.plan, .total_planilha_uf {
+    color:#000;
+    font-size:11pt;
+    font-weight:bold;
+    width:90%;
+    margin-left:6%;
+}
+div.plan {
+    cursor:pointer;
+}
+div.plan span {
+    margin-left:2%;
+}
+.total_planilha_incentivo, .total_planilha_produto, .total_planilha_etapa, .total_planilha_uf {
+    cursor:auto;
+}
+
+.valor_maior_que_praticado {
+    background-color: #ff9100;
+    color: #000;
+}
+
+
+/*--------------------------------------------------------------
+x - REGULARIDADE
+--------------------------------------------------------------*/
+#regularidade {
+    width:200px;
+    height:auto;
+}
+#regularidade table {
+    width:200px;
+    height:auto;
+    margin:0 auto;
+    background:#ccc;
+    /*font-size:10px;*/
+    text-align:center;
+    color:#000;
+    font-family:Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+#regularidade table tr.linha:hover td {
+    background:#eef8de;
+}
+#regularidade table td a {
+    color:#333 !important;
+}
+#regularidade table th {
+    background:#abda5d;
+    color:#3a7300;
+    text-transform:uppercase;
+    /*font-size:9px;*/
+    font-weight:bold;
+}
+#regularidade table td {
+    padding:8px;
+    background:#f3f3f3;
+    text-align:center;
+    color:black;
+    border-top:1px solid #fff;
+    border-bottom:1px solid #b0b0b0;
+    font-weight:bold;
+}
+
+
+/*--------------------------------------------------------------
+x - TABELAS
+--------------------------------------------------------------*/
+
+
+
+
+
+
+/*#conteudo .titulo_campo { !* titulos de campos *!*/
+    /*background: #fff url(../img/bg-celulas.gif) repeat-x;*/
+    /*font-weight: bold;*/
+    /*text-align: center;*/
+    /*cursor: pointer;*/
+/*}*/
+
+/*#conteudo .fundo_linha1,*/
+/*#conteudo .fundo_linha1 td {*/
+    /*background: #fff url(../img/bg-celulas1.gif) top left repeat-x;*/
+/*}*/
+
+/*#conteudo .fundo_linha2,*/
+/*#conteudo .fundo_linha2 td {*/
+    /*background: #e8e8e8 url(../img/bg-celulas2.gif) top left repeat-x;*/
+/*}*/
+
+/*#conteudo .fundo_linha3,*/
+/*#conteudo .fundo_linha3 td {*/
+    /*background: #ffffe8 url(../img/bg-celulas3.gif) top left repeat-x;*/
+/*}*/
+
+/*#conteudo .fundo_linha4,*/
+/*#conteudo .fundo_linha4 td {*/
+    /*background-color: #f9a825;*/
+/*}*/
+
+/*#conteudo .fundo_linha5,*/
+/*#conteudo .fundo_linha5 td {*/
+    /*background: #d5e5b4 url(../img/bg-celulas5.gif) top left repeat-x;*/
+/*}*/
+
+/*#conteudo .delFormatTD { !* apaga a formata��o das celulas *!*/
+    /*margin: 0 auto;*/
+    /*padding: 0;*/
+    /*border: none;*/
+    /*background: none;*/
+/*}*/
+
+/*#conteudo table th {*/
+    /*color: #fff;*/
+/*}*/
+
+/*#detalhamento table th {*/
+    /*!*color: #000;*!*/
+    /*background: transparent;*/
+    /*text-transform: none;*/
+/*}*/
+
+/*--------------------------------------------------------------
+ OrderTabela
+--------------------------------------------------------------*/
+
+table.tablesorter .header {
+    background-image: url("../img/bg.png");
+    background-repeat: no-repeat;
+    height: auto;
+    background-position: bottom;
+}
+
+table.tablesorter .headerSortUp {
+    background-image: url("../img/navigation-baixo.PNG");
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+table.tablesorter .headerSortDown {
+    background-image: url("../img/navigation-cima.PNG");
+    background-repeat: no-repeat;
+    background-position: bottom;
+}
+
+
+/*--------------------------------------------------------------
+x - Tabelas
+--------------------------------------------------------------*/
+
+.bordered {
+    /*border: 1px solid #d0d0d0;*/
+    /*border-left: 1px solid #d0d0d0;*/
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+table.bordered  > thead > tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+table > tbody > tr:nth-child(odd) {
+    /*background-color: #f2f2f2;*/
+}
+
+table > tbody > tr {
+    transition: background-color .25s ease;
+}
+
+table > tbody > tr:hover {
+    /*background-color: #f2f2f2;*/
+}
+
+

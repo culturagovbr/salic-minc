@@ -8,17 +8,16 @@
  
  class EstadoFiscalizacao
  {
- 	private $descricaoEstado;
- 	
- 	// $descricaoEstado
-	public function setDescricaoEstado($descricaoEstado)
-	{
-		$this->descricaoEstado = $descricaoEstado;
-	}
-	
-	public function getDescricaoEstado()
-	{
-		return $this->descricaoEstado;
-	}
+     private $descricaoEstado;
+    
+     // $descricaoEstado
+     public function setDescricaoEstado($descricaoEstado)
+     {
+         $this->descricaoEstado = $descricaoEstado;
+     }
+    
+     public function getDescricaoEstado()
+     {
+         return $this->descricaoEstado;
+     }
  }
-?>

@@ -10,7 +10,8 @@
  * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
  */
 
-class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract {
+class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract
+{
     /**
      * Variável com o id do usuário logado
      */
@@ -22,7 +23,8 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
      * @param void
      * @return void
      */
-    public function init() {
+    public function init()
+    {
 
         // verifica as permissoes
         $PermissoesGrupo = array();
@@ -50,7 +52,7 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
         }
 
         //SE CAIU A SECAO REDIRECIONA
-        if(!$auth->hasIdentity()){
+        if (!$auth->hasIdentity()) {
             $url = Zend_Controller_Front::getInstance()->getBaseUrl();
             JS::redirecionarURL($url);
         }
@@ -66,7 +68,8 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
      * @param void
      * @return void
      */
-    public function indexAction() {
+    public function indexAction()
+    {
         // despacha para recurso.phtml
         $this->_forward("recurso");
     }
@@ -78,7 +81,8 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
      * @param void
      * @return void
      */
-    public function recursoAction() {
+    public function recursoAction()
+    {
         // caso o formulário seja enviado via post
         if ($this->getRequest()->isPost()) {
             $post          	= Zend_Registry::get('post');
@@ -88,11 +92,11 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
             $auth           = Zend_Auth::getInstance();
 
             try {
-                if(isset($_POST['checkEnquadramento']) && !empty($_POST['checkEnquadramento']) && isset($_POST['checkOrcamento']) && !empty($_POST['checkOrcamento'])){
+                if (isset($_POST['checkEnquadramento']) && !empty($_POST['checkEnquadramento']) && isset($_POST['checkOrcamento']) && !empty($_POST['checkOrcamento'])) {
                     $tpSolicitacao = 'EO';
-                } else if(isset($_POST['checkEnquadramento']) && !empty($_POST['checkEnquadramento']) && !isset($_POST['checkOrcamento'])) {
+                } elseif (isset($_POST['checkEnquadramento']) && !empty($_POST['checkEnquadramento']) && !isset($_POST['checkOrcamento'])) {
                     $tpSolicitacao = 'EN';
-                } else if(isset($_POST['checkOrcamento']) && !empty($_POST['checkOrcamento']) && !isset($_POST['checkEnquadramento'])) {
+                } elseif (isset($_POST['checkOrcamento']) && !empty($_POST['checkOrcamento']) && !isset($_POST['checkEnquadramento'])) {
                     $tpSolicitacao = 'OR';
                 } else {
                     $tpSolicitacao = 'PI';
@@ -111,8 +115,8 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
                 $resultadoPesquisa = $tbRecurso->buscar(array('IdPRONAC = ?'=>$_POST['idPronac']));
 
                 $dados['tpRecurso'] = 1;
-                if(count($resultadoPesquisa)>0){
-                   $dados['tpRecurso'] = 2;
+                if (count($resultadoPesquisa)>0) {
+                    $dados['tpRecurso'] = 2;
                 }
 
                 // tenta cadastrar o recurso
@@ -127,12 +131,10 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
                 else {
                     throw new Exception("Erro ao cadastrar recurso!");
                 }
-            }
-            catch(Exception $e) {
+            } catch (Exception $e) {
                 parent::message($e->getMessage(), "solicitarrecursodecisao/recurso?idPronac=".$idPronac, "ERROR");
             }
-        }
-        else {
+        } else {
             $idPronac = $this->_request->getParam("idPronac"); // pega o id do pronac via get
             if (strlen($idPronac) > 7) {
                 $idPronac = Seguranca::dencrypt($idPronac);
@@ -144,8 +146,7 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
 
             if (!isset($idPronac) || empty($idPronac)) {
                 parent::message('É necessário o número do PRONAC para acessar essa página!', "consultardadosprojeto?idPronac=".$idPronac, "ERROR");
-            }
-            else {
+            } else {
                 // busca os projetos
                 $buscarProjetos = SolicitarRecursoDecisaoDAO::buscarProjetos($idPronac, $cpf_cnpj);
                 $this->view->projetos = $buscarProjetos;
@@ -158,18 +159,20 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
      * @author Jefferson Alessandro <jefferson.silva@cultura.gov.br>
      * @since 21/10/2013
      */
-    public function recursoDesistirAction() {
+    public function recursoDesistirAction()
+    {
         $idPronac = $this->_request->getParam("idPronac"); // pega o id do pronac via get
-            if (strlen($idPronac) > 7) {
-                $idPronac = Seguranca::dencrypt($idPronac);
-            }
+        if (strlen($idPronac) > 7) {
+            $idPronac = Seguranca::dencrypt($idPronac);
+        }
 
-            $Projetos = new Projetos();
-            $dadosProj = $Projetos->buscar(array('IdPRONAC = ?' => $idPronac))->current();
-            $this->view->projetos = $dadosProj;
+        $Projetos = new Projetos();
+        $dadosProj = $Projetos->buscar(array('IdPRONAC = ?' => $idPronac))->current();
+        $this->view->projetos = $dadosProj;
     }
 
-    public function recursoDesistirEnquadramentoAction() {
+    public function recursoDesistirEnquadramentoAction()
+    {
         $idPronac = $this->_request->getParam("idPronac");
 
         if (strlen($idPronac) > 7) {
@@ -187,7 +190,8 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
      * @author Jefferson Alessandro <jefferson.silva@cultura.gov.br>
      * @since 24/10/2013
      */
-    public function recursoDesistenciaAction() {
+    public function recursoDesistenciaAction()
+    {
         $post = Zend_Registry::get('post');
         $idPronac = $this->_request->getParam("idPronac"); // pega o id do pronac via get
         $auth = Zend_Auth::getInstance();
@@ -196,7 +200,7 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
             $idPronac = Seguranca::dencrypt($idPronac);
         }
 
-        if($post->deacordo){
+        if ($post->deacordo) {
             $dados = array(
                 'IdPRONAC'              => $post->idPronac,
                 'dtSolicitacaoRecurso'  => new Zend_Db_Expr('GETDATE()'),
@@ -214,8 +218,8 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
             $tbRecurso = new tbRecurso();
             $resultadoPesquisa = $tbRecurso->buscar(array('IdPRONAC = ?'=>$_POST['idPronac']));
 
-            if(count($resultadoPesquisa)>0){
-               $dados['tpRecurso'] = 2;
+            if (count($resultadoPesquisa)>0) {
+                $dados['tpRecurso'] = 2;
             }
 
             RecursoDAO::cadastrar($dados);
@@ -225,7 +229,8 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
         }
     }
 
-    public function recursoDesistenciaEnquadramentoAction() {
+    public function recursoDesistenciaEnquadramentoAction()
+    {
         $post = Zend_Registry::get('post');
         $idPronac = $this->_request->getParam("idPronac"); // pega o id do pronac via get
         $auth = Zend_Auth::getInstance();
@@ -234,7 +239,7 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
             $idPronac = Seguranca::dencrypt($idPronac);
         }
 
-        if($post->deacordo){
+        if ($post->deacordo) {
             $dados = array(
                 'IdPRONAC'              => $post->idPronac,
                 'dtSolicitacaoRecurso'  => new Zend_Db_Expr('GETDATE()'),
@@ -252,8 +257,8 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
             $tbRecurso = new tbRecurso();
             $resultadoPesquisa = $tbRecurso->buscar(array('IdPRONAC = ?'=>$_POST['idPronac']));
 
-            if(count($resultadoPesquisa)>0){
-               $dados['tpRecurso'] = 2;
+            if (count($resultadoPesquisa)>0) {
+                $dados['tpRecurso'] = 2;
             }
 
             RecursoDAO::cadastrar($dados);
@@ -269,7 +274,8 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
      * @param void
      * @return void
      */
-    public function proponenteprojetoAction() {
+    public function proponenteprojetoAction()
+    {
         // recebe os dados do formulário via get
         $get      = Zend_Registry::get('get');
         $idpronac = $get->idpronac;
@@ -314,7 +320,6 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
      */
     public function recursoEnquadramentoSalvarAction()
     {
-
         if ($this->getRequest()->isPost()) {
             $post = Zend_Registry::get('post');
             $idPronac = $post->idPronac;
@@ -345,8 +350,8 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
                 $resultadoPesquisa = $tbRecurso->existeRecursoIndeferido($_POST['idPronac']);
 
                 $dados['tpRecurso'] = 1;
-                if(count($resultadoPesquisa)>0){
-                   $dados['tpRecurso'] = 2;
+                if (count($resultadoPesquisa)>0) {
+                    $dados['tpRecurso'] = 2;
                 }
 
                 $cadastrar = $tbRecurso->insert($dados);
@@ -357,8 +362,7 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
                 } else {
                     throw new Exception("Erro ao cadastrar recurso!");
                 }
-            }
-            catch(Exception $e) {
+            } catch (Exception $e) {
                 parent::message($e->getMessage(), "solicitarrecursodecisao/recurso?idPronac=".$idPronac, "ERROR");
             }
         }
@@ -374,7 +378,7 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
             $idPronac = Seguranca::dencrypt($idPronac);
         }
 
-        if($idPronac){
+        if ($idPronac) {
             $dados = array(
                 'IdPRONAC'              => $idPronac,
                 'dtSolicitacaoRecurso'  => new Zend_Db_Expr('GETDATE()'),
@@ -399,9 +403,9 @@ class SolicitarRecursoDecisaoController extends MinC_Controller_Action_Abstract 
         }
     }
 
-    public function concordarDesistenciaRecursalModalAction(){
+    public function concordarDesistenciaRecursalModalAction()
+    {
         $this->_helper->layout->disableLayout();
-         $this->view->idPronac = $this->_request->getParam("idPronac");
+        $this->view->idPronac = $this->_request->getParam("idPronac");
     }
-
 }

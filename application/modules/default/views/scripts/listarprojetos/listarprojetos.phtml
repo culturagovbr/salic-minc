@@ -298,7 +298,7 @@ gerarBreadCrumb($links);
                             ?></td>
                         <td>
                             <p>
-                                <?php if ($projeto["projetoPossuiProposta"]) : ?>
+                                <?php if ($projeto["podeClonarProjeto"]) : ?>
                                     <a class="clonar-projeto btn small waves-effect waves-light tooltipped btn-primary"
                                        data-tooltip="Clonar Projeto" target="_blank"
                                        href="javascript:void(0)"
@@ -311,7 +311,7 @@ gerarBreadCrumb($links);
 
                                 <?php if ($projeto["liberarEdicao"]) : ?>
                                     <a class="btn small waves-effect waves-light tooltipped btn-default"
-                                       data-tooltip="Alterar projeto" target="_blank"
+                                       data-tooltip="Adequar à realidade ou Encaminhar para o MinC" target="_blank"
                                        href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'identificacaodaproposta', 'idPreProjeto' => $projeto["idProjeto"])); ?>">
                                         <i class="material-icons">edit</i>
                                     </a>

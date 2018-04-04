@@ -31,7 +31,7 @@
 
             },
             messages: {
-                usuario: '<br><font color="red">Informe usu�rio</font>',
+                usuario: '<br><font color="red">Informe usuario</font>',
                 unidade: '<br><font color="red">Informe unidade</font>',
                 perfil: '<font color="red">Informe perfil</font>',
                 status: '<font color="red">Informe status</font>'
@@ -143,11 +143,12 @@
                     <td>Perfil *</td>
                     <td>
                         <?php foreach ($this->resultadoGrupo as $resultadoGrupo): ?>
-                            <input type="radio" name="perfil" id="perfil"
+                            <input type="radio" name="perfil" id="perfil_<?php echo $resultadoGrupo['gru_codigo'] ?>"
                                    value="<?php echo $resultadoGrupo['gru_codigo'] ?>" <?php if ($resultadoGrupo['gru_codigo'] == $this->perfil) {
                                 echo 'checked="checked"';
                             } ?> />
-                            <?php echo $resultadoGrupo['gru_nome'] ?><br/>
+                            <label for="perfil_<?php echo $resultadoGrupo['gru_codigo'] ?>"><?php echo $resultadoGrupo['gru_nome'] ?></label>
+                            <br/>
                         <?php endforeach; ?>
                     </td>
                 </tr>

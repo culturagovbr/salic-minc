@@ -1,11 +1,12 @@
 <?php
 
-class fnTotalCaptadoProjeto extends MinC_Db_Table_Abstract {
-
+class fnTotalCaptadoProjeto extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'SAC';
     protected $_name = 'dbo.fnTotalCaptadoProjeto';
 
-    public function buscaCaptacao($AnoProjeto, $Sequencial) {
+    public function buscaCaptacao($AnoProjeto, $Sequencial)
+    {
         $select = new Zend_Db_Expr("SELECT SAC.dbo.fnTotalCaptadoProjeto('$AnoProjeto','$Sequencial') AS vlCaptacao");
         try {
             $db= Zend_Db_Table::getDefaultAdapter();
@@ -15,7 +16,4 @@ class fnTotalCaptadoProjeto extends MinC_Db_Table_Abstract {
         }
         return $db->fetchRow($select);
     }
-    
 }
-
-?>

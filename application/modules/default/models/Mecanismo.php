@@ -9,16 +9,20 @@
  *
  * @author 01610881125
  */
-class Mecanismo extends MinC_Db_Table_Abstract {
+class Mecanismo extends MinC_Db_Table_Abstract
+{
     protected $_banco   = 'SAC';
     protected $_name    = 'Mecanismo';
     protected $_schema  = 'SAC';
 
-     public function buscarMecanismo() {
-// criando objeto do tipo select
+    const INCENTIVO_FISCAL = 109;
+
+    public function buscarMecanismo()
+    {
+        // criando objeto do tipo select
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(array('mec' => $this->_name), array('*'));
         return $this->fetchAll($slct);
-     }
+    }
 }

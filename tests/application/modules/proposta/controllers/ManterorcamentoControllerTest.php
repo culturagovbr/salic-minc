@@ -2,8 +2,11 @@
 
 class ManterorcamentoControllerTest extends MinC_Test_ControllerActionTestCase {
 
-    public function testProdutoscadastrados()
+    public function setUp()
     {
+        parent::setUp();
+
+        $this->idPreProjeto = '240102';
         $this->autenticar();
 
         //reset para garantir respostas.
@@ -11,112 +14,34 @@ class ManterorcamentoControllerTest extends MinC_Test_ControllerActionTestCase {
             ->resetResponse();
 
         // trocar para perfil Proponente
-        $this->request->setMethod('GET');
-        $this->dispatch('/autenticacao/perfil/alterarperfil?codGrupo=1111&codOrgao=2222');
-        $this->assertRedirectTo('/principalproponente');
-
-        $auth = Zend_Auth::getInstance();
-        $usuarioCpf = $auth->getIdentity()->cpf;
-
-        // Busca na SGCAcesso
-        $sgcAcesso = new Autenticacao_Model_Sgcacesso();
-        $acessos = $sgcAcesso->findBy(['cpf' => $usuarioCpf]);
-
-        // Buscar projetos do Usuario Logado.
-        $where['stestado = ?'] = 1;
-        $where['idusuario = ?'] = $acessos['idusuario'];
-
-        $tblPreProjeto = new Proposta_Model_DbTable_PreProjeto();
-        $rsPreProjeto = $tblPreProjeto->buscar($where, array("idpreprojeto DESC"));
-
-        //id do Pre Projeto, necessario usuario ter um pre projeto
-        $idPreProjeto = $rsPreProjeto[0]->idPreProjeto;
+        $this->perfilParaProponente();
 
         //reset para garantir respostas.
         $this->resetRequest()
             ->resetResponse();
+    }
 
-        // Acessando local de realizacao
-        $url = '/proposta/manterorcamento/produtoscadastrados?idPreProjeto='. $idPreProjeto;
-        $this->request->setMethod('GET');
+    public function testProdutoscadastrados()
+    {
+        $this->idPreProjeto = '240102';
+
+        $url = '/proposta/manterorcamento/produtoscadastrados/idPreProjeto/'. $this->idPreProjeto;
         $this->dispatch($url);
         $this->assertNotRedirect();
 
         $this->assertModule('proposta');
         $this->assertController('manterorcamento');
         $this->assertAction('produtoscadastrados');
-        $this->assertQuery('html body div#titulo');
+
+        $this->assertQuery('div.container-fluid div');
     }
 
-    public function testCustosadministrativosAction()
-    {
-        $this->autenticar();
-
-        $this->perfilParaProponente();
-
-        $auth = Zend_Auth::getInstance();
-        $usuarioCpf = $auth->getIdentity()->cpf;
-
-        // Busca na SGCAcesso
-        $sgcAcesso = new Autenticacao_Model_Sgcacesso();
-        $acessos = $sgcAcesso->findBy(['cpf' => $usuarioCpf]);
-
-        // Buscar projetos do Usuario Logado.
-        $where['stestado = ?'] = 1;
-        $where['idusuario = ?'] = $acessos['idusuario'];
-
-        $tblPreProjeto = new Proposta_Model_DbTable_PreProjeto();
-        $rsPreProjeto = $tblPreProjeto->buscar($where, array("idpreprojeto DESC"));
-
-        //id do Pre Projeto, necessario usuario ter um pre projeto
-        $idPreProjeto = $rsPreProjeto[0]->idPreProjeto;
-
-        //reset para garantir respostas.
-        $this->resetRequest()
-            ->resetResponse();
-
-        // Acessando local de realizacao
-        $url = '/proposta/manterorcamento/custosadministrativos?idPreProjeto='. $idPreProjeto;
-        $this->request->setMethod('GET');
-        $this->dispatch($url);
-        $this->assertNotRedirect();
-
-        $this->assertModule('proposta');
-        $this->assertController('manterorcamento');
-        $this->assertAction('custosadministrativos');
-        $this->assertQueryContentContains('html body div#titulo div', 'Custos Administrativos');
-    }
 
     public function testPlanilhaorcamentariageralAction()
     {
-        $this->autenticar();
+        $this->idPreProjeto = '240102';
 
-        $this->perfilParaProponente();
-
-        $auth = Zend_Auth::getInstance();
-        $usuarioCpf = $auth->getIdentity()->cpf;
-
-        // Busca na SGCAcesso
-        $sgcAcesso = new Autenticacao_Model_Sgcacesso();
-        $acessos = $sgcAcesso->findBy(['cpf' => $usuarioCpf]);
-
-        // Buscar projetos do Usuario Logado.
-        $where['stestado = ?'] = 1;
-        $where['idusuario = ?'] = $acessos['idusuario'];
-
-        $tblPreProjeto = new Proposta_Model_DbTable_PreProjeto();
-        $rsPreProjeto = $tblPreProjeto->buscar($where, array("idpreprojeto DESC"));
-
-        //id do Pre Projeto, necessario usuario ter um pre projeto
-        $idPreProjeto = $rsPreProjeto[0]->idPreProjeto;
-
-        //reset para garantir respostas.
-        $this->resetRequest()
-            ->resetResponse();
-
-        // Acessando local de realizacao
-        $url = '/proposta/manterorcamento/planilhaorcamentariageral?idPreProjeto='. $idPreProjeto;
-        $this->request->setMethod('GET');
+        $url = '/proposta/manterorcamento/planilhaorcamentariageral/idPreProjeto/'. $this->idPreProjeto;
         $this->dispatch($url);
         $this->assertNotRedirect();
 
@@ -125,4 +50,20 @@ class ManterorcamentoControllerTest extends MinC_Test_ControllerActionTestCase {
         $this->assertAction('planilhaorcamentariageral');
         $this->assertQueryContentContains('html body div#titulo div', 'Planilha Orçamentária ');
     }
+
+    public function testCustosvinculadosAction()
+    {
+        $this->idPreProjeto = '240102';
+
+        $url = '/proposta/manterorcamento/custosvinculados/idPreProjeto/'. $this->idPreProjeto;
+        $this->dispatch($url);
+        $this->assertNotRedirect();
+
+        $this->assertModule('proposta');
+        $this->assertController('manterorcamento');
+        $this->assertAction('custosvinculados');
+        $this->assertQuery('div.container-fluid div');
+    }
+
+
 }

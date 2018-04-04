@@ -237,4 +237,30 @@
             <?php } ?>
         </table>
     </fieldset>
+
+    <fieldset>
+        <legend>Procurador</legend>
+        <table class="tabela">
+            <?php if ($this->procuradores && count($this->procuradores)>0) : ?>
+                <tr class="destacar">
+                    <td width="20%" align="center"><b>CPF</b></td>
+                    <td align="center"><b>Nome</b></td>
+                </tr>
+                <?php foreach ($this->procuradores as $procurador) : ?>
+                    <tr>
+                        <td align="center">
+                            <?= aplicaMascara($procurador->CNPJCPF, "999.999.999-99"); ?>
+                        </td>
+                        <td align="left">
+                            <?= strtoupper($procurador->nome); ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <tr>
+                    <td colspan="2" align="center"><em>N&atilde;o existe Procurador cadastrado</em></td>
+                </tr>
+            <?php endif; ?>
+        </table>
+    </fieldset>
 </div>

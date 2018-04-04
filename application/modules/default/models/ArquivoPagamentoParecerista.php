@@ -4,34 +4,36 @@
  *
  * @author Tarcisio Angelo
  */
-class ArquivoPagamentoParecerista extends MinC_Db_Table_Abstract {
-
+class ArquivoPagamentoParecerista extends MinC_Db_Table_Abstract
+{
     protected $_name = 'tbPagamentoPareceristaXArquivo';
     protected $_schema = 'SAC';
 //    protected $_banco = 'SAC';
     protected $_primary = 'idArquivo';
 
-    public function inserirArquivodePagamento($idGerarPagamentoParecerista, $idArquivo, $siArquivo){
-
+    public function inserirArquivodePagamento($idGerarPagamentoParecerista, $idArquivo, $siArquivo)
+    {
         $sql = "INSERT INTO ".$this->_schema.".".$this->_name." (idGerarPagamentoParecerista,idArquivo,siArquivo)
                 values ($idGerarPagamentoParecerista, $idArquivo,'$siArquivo')";
 
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->query($sql);
-
     }
 
 
-    public function buscarArquivo($where) {
-
+    public function buscarArquivo($where)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from(array('arqpa'=>$this->_name),
+        $select->from(
+            array('arqpa'=>$this->_name),
                         array('arqpa.idGerarPagamentoParecerista','arqpa.siArquivo')
         );
 
-        $select->joinInner(array('arq'=>'tbArquivo'), "arq.idArquivo = arqpa.idArquivo",
+        $select->joinInner(
+            array('arq'=>'tbArquivo'),
+            "arq.idArquivo = arqpa.idArquivo",
                             array('arq.idArquivo',
                                   'arq.nmArquivo',
                                   'arq.sgExtensao',
@@ -41,8 +43,11 @@ class ArquivoPagamentoParecerista extends MinC_Db_Table_Abstract {
             'BDCORPORATIVO.scCorp'
         );
 
-        $select->joinInner(array('aim'=>'tbArquivoImagem'), "arq.idArquivo = aim.idArquivo",
-                            array('aim.biArquivo'),'BDCORPORATIVO.scCorp'
+        $select->joinInner(
+            array('aim'=>'tbArquivoImagem'),
+            "arq.idArquivo = aim.idArquivo",
+                            array('aim.biArquivo'),
+            'BDCORPORATIVO.scCorp'
         );
 
         foreach ($where as $coluna => $valor) {
@@ -57,4 +62,3 @@ class ArquivoPagamentoParecerista extends MinC_Db_Table_Abstract {
         return $db->fetchAll($select);
     }
 }
-

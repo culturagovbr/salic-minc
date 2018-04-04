@@ -19,7 +19,8 @@ class Agente_Model_DbTable_Vinculacao extends MinC_Db_Table_Abstract
     protected $_schema = 'agentes';
     protected $_banco = 'agentes';
 
-    public function BuscarVinculos($idAgente) {
+    public function BuscarVinculos($idAgente)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -36,7 +37,8 @@ class Agente_Model_DbTable_Vinculacao extends MinC_Db_Table_Abstract
         return $this->fetchRow($slct);
     }
 
-    public function verificarDirigente($cpfPropoenente, $cpfProcurador) {
+    public function verificarDirigente($cpfPropoenente, $cpfProcurador)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -46,17 +48,20 @@ class Agente_Model_DbTable_Vinculacao extends MinC_Db_Table_Abstract
         $slct->joinInner(
                 array('b' => 'Agentes'),
                 'a.idAgente = b.idAgente',
-                array('idAgente'), 'AGENTES.dbo'
+                array('idAgente'),
+            'AGENTES.dbo'
         );
         $slct->joinInner(
                 array('c' => 'Agentes'),
                 'a.idVinculoPrincipal = c.idAgente',
-                array(), 'AGENTES.dbo'
+                array(),
+            'AGENTES.dbo'
         );
         $slct->joinInner(
                 array('d' => 'Visao'),
                 'd.idAgente = a.idAgente',
-                array(), 'AGENTES.dbo'
+                array(),
+            'AGENTES.dbo'
         );
         $slct->where('b.CNPJCPF = ? ', $cpfProcurador);
         $slct->where('c.CNPJCPF = ? ', $cpfPropoenente);
@@ -65,8 +70,8 @@ class Agente_Model_DbTable_Vinculacao extends MinC_Db_Table_Abstract
         return $this->fetchRow($slct);
     }
 
-    public function verificarDirigenteIdAgentes($cpfLogado) {
-
+    public function verificarDirigenteIdAgentes($cpfLogado)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -98,13 +103,8 @@ class Agente_Model_DbTable_Vinculacao extends MinC_Db_Table_Abstract
         return $this->fetchAll($slct);
     }
     
-    public function Desvincular($where) {
-        
+    public function Desvincular($where)
+    {
         return $this->delete($where);
     } // fecha m�todo excluirDados()
-    
-    
-  
-    
-               
 } // fecha class

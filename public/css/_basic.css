@@ -1,0 +1,274 @@
+/*--------------------------------------------------------------
+x - ELEMENTOS BÁSICOS
+--------------------------------------------------------------*/
+* {
+    /*margin: 0;*/
+    /*padding: 0;*/
+    /*border: none;*/
+
+}
+
+html {
+    overflow-y: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+/*--------------------------------------------------------------
+x - BODY
+--------------------------------------------------------------*/
+body {
+    position: relative;
+    margin: 0;
+    /*color: #000;*/
+    /*line-height: 14pt;*/
+    /*font-size: 1rem;*/
+
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background: transparent;
+    width: 100%;
+}
+
+
+/*--------------------------------------------------------------
+x - MAIN
+--------------------------------------------------------------*/
+main {
+    /*flex: 1 0 auto;*/
+}
+
+main {
+    display: block;
+    clear: both;
+}
+
+p {
+    /*line-height: 14px;*/
+    /*padding: 0 0 10px;*/
+}
+
+
+img {
+    border: none;
+}
+
+strong {
+    font-weight: bold;
+}
+
+.conteudo a:link,
+.conteudo a:active,
+.conteudo a:visited {
+    text-decoration: underline;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.sumir {
+    display:none;
+}
+
+.texto_maiusculo {
+    text-transform: uppercase
+}
+
+.identar {
+    text-indent: 40px;
+}
+
+/*--------------------------------------------------------------
+x - ARTICLE
+--------------------------------------------------------------*/
+article {
+    padding-bottom: 60px;
+    width: 900px;
+    margin: 0 auto;
+}
+
+
+/*--------------------------------------------------------------
+x - Elementos básicos
+--------------------------------------------------------------*/
+.no-border { border: 0px; box-shadow:none; }
+.padding20 { padding: 20px; }
+.padding10 { padding: 10px; }
+.no-margin { margin: 0px !important; }
+.margin0 { margin: 0px; }
+.margin5 { margin: 5px; }
+.margin10 { margin: 10px; }
+.margin20 { margin: 20px; }
+.margin-bottom20 { margin-bottom: 20px; }
+.margin-bottom30 { margin-bottom: 30px }
+
+
+/*--------------------------------------------------------------
+x - ALINHAMENTOS
+--------------------------------------------------------------*/
+.float_left  { float:left; }
+.float_right { float:right; }
+.esquerda    { text-align:left; }
+.direita     { text-align:right; }
+.centro      { text-align:center; }
+.justificado { text-align:justify; }
+
+
+/*--------------------------------------------------------------
+x - CONTAINER
+--------------------------------------------------------------*/
+
+.container-salic {
+    position: relative;
+    margin: 0 auto;
+    max-width: 1250px;
+}
+
+.container-fluid {
+    margin: 0 auto;
+    width: 100%;
+    padding: 2rem;
+}
+
+
+#breadcrumb,
+#titulo,
+#conteudo {
+    margin: 0 auto;
+    width: 98%;
+    padding: 0px;
+    margin-bottom: 20px;
+}
+
+.container {
+    position: relative;
+}
+
+#container-progress {
+    top: 0px;
+}
+
+/*--------------------------------------------------------------
+x - Ajustes do menu lateral com o container
+--------------------------------------------------------------*/
+
+/* remover apos migracao do layout de proposta */
+.small-menu .container-fluid .row .col.s2.m12.l2,
+.large-menu .container-fluid .row .col.s2.m12.l2 {
+    margin: 0;
+    width: 0;
+    padding: 0;
+}
+
+/* remover apos migracao do layout de proposta */
+@media only screen and (min-width: 993px) {
+    .large-menu .container-fluid > .row > .col.s10.m12.l10,
+    .large-menu .container-fluid > .row > .col.s10.m12.l10 {
+        width: 100% !important;
+    }
+
+    .small-menu .container-fluid > .row > .col.s10.m12.l10 #breadcrumb,
+    .small-menu .container-fluid > .row > .col.s10.m12.l10 #titulo,
+    .small-menu .container-fluid > .row > .col.s10.m12.l10 #conteudo,
+    .large-menu .container-fluid > .row > .col.s10.m12.l10 #breadcrumb,
+    .large-menu .container-fluid > .row > .col.s10.m12.l10 #titulo,
+    .large-menu .container-fluid > .row > .col.s10.m12.l10 #conteudo {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 993px) {
+    #menuContexto ~ div,
+    main > #menu ~ div,
+    aside ~ .container-fluid,
+    aside ~ .container-fluid,
+    aside ~ .container-fluid.tem-menu-lateral,
+    .container-fluid.tem-menu-lateral {
+        transition: margin-left .3s ease;
+        margin-left: 250px;
+        width: auto;
+        /*height: 100%;*/
+        /*overflow: hidden;*/
+    }
+
+    /*aside ~ footer,*/
+    /*aside ~ footer.page-footer {*/
+        /*margin-left: 100px;*/
+        /*width: auto;*/
+    /*}*/
+
+    /*.small-menu aside ~ footer.page-footer,*/
+    .small-menu aside ~ .container-fluid,
+    .small-menu .container-fluid.tem-menu-lateral {
+        margin-left: 70px;
+        width: auto;
+    }
+}
+
+
+/*--------------------------------------------------------------
+x - CONTAINER
+--------------------------------------------------------------*/
+.container.fade {
+    display: none;
+}
+
+
+.content-area {
+    max-width: 1285px;
+}
+
+.site-content {
+    min-height: 500px;
+}
+
+
+/*--------------------------------------------------------------
+x - SANFONA
+--------------------------------------------------------------*/
+/* ajustes para ativaCAo do highlight no menu 'sanfona' */
+.qmactive { background:url(../img/seta-menu-contexto-on.png) no-repeat !important; }
+#space_menu {
+    background:#f8f8f8;
+    height:480px;
+}
+
+
+/*--------------------------------------------------------------
+x - Navegação
+--------------------------------------------------------------*/
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+    -webkit-padding-start: 40px;
+}
+
+/*--------------------------------------------------------------
+x - CARREGAMENTO
+--------------------------------------------------------------*/
+
+.progress .indeterminate {
+    background-color: #fb8c00;
+}
+.progress {
+    background-color: #ffe0b2;
+}
+
+/*--------------------------------------------------------------
+x - MODAL
+--------------------------------------------------------------*/
+.modal.height-fluid{
+    height: auto;
+}
+
+.scroll-x,
+.collapsible-body .scroll .card-content {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+

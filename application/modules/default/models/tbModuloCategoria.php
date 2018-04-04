@@ -1,18 +1,12 @@
 <?php 
-/*
- * Classe: tbEditalModulo
- * Modulo: Editais
- * Criado por: Emanuel Melo 
- */
-class tbModuloCategoria extends MinC_Db_Table_Abstract {
+class tbModuloCategoria extends MinC_Db_Table_Abstract
+{
+    protected $_banco = 'SAC';
+    protected $_name = 'tbModuloCategoria';
     
-    protected  $_banco = 'SAC';
-    protected  $_name = 'tbModuloCategoria';
-    
-    public function inserirCategoria($dados){
+    public function inserirCategoria($dados)
+    {
         $insert = $this->insert($dados);
-        return $insert; 
+        return $insert;
     }
-
 }
-?>

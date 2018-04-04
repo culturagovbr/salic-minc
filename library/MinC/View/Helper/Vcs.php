@@ -29,7 +29,8 @@ class MinC_View_Helper_Vcs extends Zend_View_Helper_Abstract
         exec("git rev-parse --abbrev-ref HEAD", $branchName);
         exec("git rev-parse --short HEAD", $commit);
         
-        return "Branch|Tag: " . array_pop($branchName) . " - revis&atilde;o: <a class=\"tooltipped\" data-position=\"top\" data-delay=\"50\" data-tooltip=\"Ir para o changelog\" target=\"_blank\" href='https://github.com/culturagovbr/salic-minc/releases'>" . array_pop($tagNumber) . "</a> / <a  class=\"tooltipped\" data-position=\"top\" data-delay=\"50\" data-tooltip=\"Ir para os arquivos alterados\"  target=\"_blank\" href='https://github.com/culturagovbr/salic-minc/commit/" . current($commit) . "'>" . current($commit) . "</a>";
+        return "Vers&atilde;o: <a class=\"tooltipped\" data-position=\"top\" data-delay=\"50\" data-tooltip=\"Branch: ". array_pop($branchName) . "\" target=\"_blank\" href='https://github.com/culturagovbr/salic-minc/releases'>"
+        . array_pop($tagNumber) . "</a>";
     }
 
     /**

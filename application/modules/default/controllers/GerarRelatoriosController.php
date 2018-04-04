@@ -1,16 +1,7 @@
 <?php
 
-/**
- * ManterAgentesController
- * @author Equipe RUP - Politec
- * @since 09/08/2010
- * @version 1.0
- * @package application
- * @subpackage application.controllers
- * @link http://cultura.gov.br
- */
-
-class GerarRelatoriosController extends MinC_Controller_Action_Abstract {
+class GerarRelatoriosController extends MinC_Controller_Action_Abstract
+{
     /**
      * @var integer (vari�vel com o id do usu�rio logado)
      * @access private
@@ -18,7 +9,8 @@ class GerarRelatoriosController extends MinC_Controller_Action_Abstract {
     private $getIdUsuario = 0;
 
 
-    public function init() {
+    public function init()
+    {
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
 
 
@@ -58,12 +50,10 @@ class GerarRelatoriosController extends MinC_Controller_Action_Abstract {
             $this->getIdUsuario = UsuarioDAO::getIdUsuario($auth->getIdentity()->usu_codigo);
             if ($this->getIdUsuario) {
                 $this->getIdUsuario = $this->getIdUsuario["idAgente"];
-            }
-            else {
+            } else {
                 $this->getIdUsuario = 0;
             }
-        }
-        else {
+        } else {
             $this->getIdUsuario = $auth->getIdentity()->IdUsuario;
         }
 
@@ -76,11 +66,12 @@ class GerarRelatoriosController extends MinC_Controller_Action_Abstract {
     }
 
 
-    public function indexAction() {
-
+    public function indexAction()
+    {
     }
 
-    public function buscaAction() {
+    public function buscaAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         $relatorio    		= $this->_request->getParam("consulta");
@@ -95,31 +86,29 @@ class GerarRelatoriosController extends MinC_Controller_Action_Abstract {
         $this->view->relatorio = $relatorio;
         $this->view->nome = 'PROPOSTA';
 
-        if($relatorio == 1) {
+        if ($relatorio == 1) {
             $consulta = GerarRelatoriosDAO::relatorio1($idEdital, $idUf, $idMunicipio, $idFundo, $idClassificacao);
-        }
-        else if($relatorio == 2) {
+        } elseif ($relatorio == 2) {
             $consulta = GerarRelatoriosDAO::relatorio2($idEdital, $idUf, $idMunicipio, $idFundo, $idClassificacao);
-        }
-        else if($relatorio == 3) {
+        } elseif ($relatorio == 3) {
             $this->view->nome = 'PROJETO';
             $consulta = GerarRelatoriosDAO::relatorio3($idEdital, $idUf, $idMunicipio, $idFundo, $idClassificacao);
-        }
-        else if($relatorio == 4) {
+        } elseif ($relatorio == 4) {
             $consulta = GerarRelatoriosDAO::relatorio4($idEdital, $idUf, $idMunicipio, $idFundo, $idClassificacao);
         }
 
         $this->view->busca = $consulta;
-
     }
 
 
-    public function exportxlsAction() {
+    public function exportxlsAction()
+    {
         $this->_helper->layout->disableLayout();
     }
 
 
-    public function comboeditalAction() {
+    public function comboeditalAction()
+    {
         $this->_helper->layout->disableLayout();
 
         $valores = $this->_request->getParam("valores");
@@ -133,21 +122,20 @@ class GerarRelatoriosController extends MinC_Controller_Action_Abstract {
         $this->view->comboeditais   = GerarRelatoriosDAO::consultaEditais($idf, $idc);
     }
 
-    public function exportxls2Action() {
+    public function exportxls2Action()
+    {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
 
-        if($_POST) {
+        if ($_POST) {
             header("Content-type: application/msexcel");
             header("Content-Disposition: attachment; filename=documentos.ods");
             echo $_POST['htmlxls'];
-
         }
-
     }
 
-    public function listarselecionadosAction() {
-
+    public function listarselecionadosAction()
+    {
         $this->_helper->layout->disableLayout();
         /** Usuario Logado *********************************************** */
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
@@ -182,7 +170,7 @@ class GerarRelatoriosController extends MinC_Controller_Action_Abstract {
             //x($projetoEdital);
         }
 
-        if(isset($_POST['msg']) and $_POST['msg'] == 'ok') {
+        if (isset($_POST['msg']) and $_POST['msg'] == 'ok') {
             $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
             $post = Zend_Registry::get('post');
@@ -191,8 +179,8 @@ class GerarRelatoriosController extends MinC_Controller_Action_Abstract {
             $projetoEdital = ListareditaisDAO::buscaProjetosEdital($idEdital2);
 
             $x = 0;
-            if(is_array($projetoEdital) and count($projetoEdital) > 0) {
-                foreach($projetoEdital as $projeto) {
+            if (is_array($projetoEdital) and count($projetoEdital) > 0) {
+                foreach ($projetoEdital as $projeto) {
                     $dadosProjeto[$x]['PRONAC'] = utf8_encode($projeto->PRONAC);
                     $dadosProjeto[$x]['nmProjeto'] = utf8_encode($projeto->nmProjeto);
                     $dadosProjeto[$x]['nrNotaFinal'] = utf8_encode($projeto->nrNotaFinal);
@@ -205,9 +193,7 @@ class GerarRelatoriosController extends MinC_Controller_Action_Abstract {
                 $this->_helper->json(array('resposta'=>false));
             }
 
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
-
-
     }
 } // fecha class

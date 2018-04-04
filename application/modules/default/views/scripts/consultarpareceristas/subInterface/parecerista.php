@@ -6,17 +6,20 @@
         </td>
     </tr>
 </table>
-<?php if($this->projetos){?>
-<?php $proj_atual = 0; $proj_anterior = 0;?>
+<?php if ($this->projetos) {
+    ?>
+<?php $proj_atual = 0;
+    $proj_anterior = 0; ?>
 <?php foreach ($this->projetos as $projetos):?>
-<?php $proj_atual = $projetos['IdPRONAC'];?>
-			<?php $ok = 1;?>
-			<?php if($proj_anterior){
-				if($proj_atual == $proj_anterior){
-					$ok = 0;
-				}
-			}?>
-<?php if($ok){?>
+<?php $proj_atual = $projetos['IdPRONAC']; ?>
+			<?php $ok = 1; ?>
+			<?php if ($proj_anterior) {
+        if ($proj_atual == $proj_anterior) {
+            $ok = 0;
+        }
+    } ?>
+<?php if ($ok) {
+        ?>
 <div class="projeto">
 	<table class="tabela" style="width: 95%">
 	    <tr>
@@ -54,19 +57,26 @@
 		    	<?php if ($produto->idPronac == $projetos['IdPRONAC']):?>
 					<tr style='text-align: center;'>
 				        <td><?php echo $produto->Descricao; ?></td>
-				        <td><?php if ($produto->stPrincipal == 1) { echo 'Sim'; } else { echo 'Nâo'; }  ?></td>
+				        <td><?php if ($produto->stPrincipal == 1) {
+            echo 'Sim';
+        } else {
+            echo 'Nâo';
+        } ?></td>
 				        <td><?php echo $this->formatarReal($produto->vlPagamento); ?></td>
 				        <td><?php echo $produto->memorando; ?></td>
 			        </tr>
-		        <?php endif;?>
-		    <?php endforeach;?>
-		    <?php $proj_anterior = $projetos['IdPRONAC'];?>
+		        <?php endif; ?>
+		    <?php endforeach; ?>
+		    <?php $proj_anterior = $projetos['IdPRONAC']; ?>
 		</table>
 	</div>
 </div>
-<?php }?>
-<?php endforeach;?>
-<?php } else {?>
+<?php
+    } ?>
+<?php endforeach; ?>
+<?php
+} else {
+        ?>
 <table class="tabela" style="text-align: left;width: 95%">
     <tr>
         <td>
@@ -74,4 +84,5 @@
         </td>
     </tr>
 </table>
-<?php }?>
+<?php
+    }?>

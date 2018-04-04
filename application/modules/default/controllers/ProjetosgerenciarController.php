@@ -1,7 +1,7 @@
 <?php
 
-class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
-
+class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
+{
     private $bln_readequacao = "false";
     private $idAgente = 0;
 
@@ -9,8 +9,8 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
      * Funcao que inicia todas as funcionalidades da classe
      * *********************************************************************************************************************** */
 
-    public function init() {
-
+    public function init()
+    {
         $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // titulo da pagina
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
         $Usuario = new Autenticacao_Model_Usuario(); // objeto usuario
@@ -55,7 +55,8 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
         /**** FIM - CODIGO DE READEQUACAO ****/
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
         $ar = new Area();
         $titulacao = new TitulacaoConselheiro();
         $dpc = new DistribuicaoProjetoComissao();
@@ -85,9 +86,11 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
         $componentes = array();
         $areaComponente = $titulacao->buscarAreaConselheiro();
         $a = 0;
+
         foreach ($areaComponente as $dadosComponentes) {
             $componentes[$dadosComponentes->stConselheiro][$a]['idAgente'] = $dadosComponentes->idAgente;
             $componentes[$dadosComponentes->stConselheiro][$a]['Nome'] = $dadosComponentes->Nome;
+            $componentes[$dadosComponentes->stConselheiro][$a]['CNPJCPF'] = $dadosComponentes->CNPJCPF;
             $componentes[$dadosComponentes->stConselheiro][$a]['Area'] = $dadosComponentes->Area;
             $componentes[$dadosComponentes->stConselheiro][$a]['cdArea'] = $dadosComponentes->cdArea;
             $where['D.idAgente = ? '] = $dadosComponentes->idAgente;
@@ -129,7 +132,8 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
         $this->view->area = $buscarArea;
     }
 
-    public function encaminharprojetoAction() {
+    public function encaminharprojetoAction()
+    {
         $dpc = new DistribuicaoProjetoComissao();
         $idPronac = $this->_request->getPost('idPRONAC');
         $justificativa = $this->_request->getPost('justificativa');
@@ -165,7 +169,8 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
      * e faz o rebalanceamento de todos os projetos do mesmo quando ativos
      * *********************************************************************************************************************** */
 
-    public function desabilitarcomponenteAction() {
+    public function desabilitarcomponenteAction()
+    {
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
         $idresponsavel = $auth->getIdentity()->usu_codigo;
         //Tela de Dados
@@ -210,7 +215,8 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
      * Funcao que habilita o componente da comissao para receber projetos
      * *********************************************************************************************************************** */
 
-    public function habilitarcomponenteAction() {
+    public function habilitarcomponenteAction()
+    {
         $justificativa = $this->_request->getPost('justificativa');
         $idAgente = $this->_request->getPost('idAgente');
         $titulacaoConselheiro = new TitulacaoConselheiro();
@@ -239,13 +245,14 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function formDevolverParaAnaliseAction() {
+    public function formDevolverParaAnaliseAction()
+    {
         $this->_helper->layout->disableLayout();
         $idpronac = $this->_request->getParam("idpronac");
 
-        if($this->bln_readequacao == "true") {
+        if ($this->bln_readequacao == "true") {
             echo "<br><br><br><center><font color='red'><b>Este Projeto encontra-se em An�lise de Readequa��o.</b></font><center>";
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
 
         $arrBusca = array();
@@ -264,7 +271,8 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
     }
 
 
-    public function devolverProjetoParaAnaliseAction() {
+    public function devolverProjetoParaAnaliseAction()
+    {
 
         /** Usuario Logado ************************************************/
         $auth = Zend_Auth::getInstance(); // instancia da autenticacao
@@ -276,7 +284,6 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
         $observacao = $this->_request->getParam("observacao");
 
         try {
-
             $arrBusca = array();
             $arrBusca['p.IdPRONAC =?']= $idpronac;
             $arrBusca['t.stEstado =?']=0;
@@ -285,7 +292,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
             $rsProdutos = $tbDistParecer->buscarProdutos($arrBusca);
 
             //VOLTANDO TODOS OS PRODUTOS
-            foreach($rsProdutos as $produto) {
+            foreach ($rsProdutos as $produto) {
 
                 //$obs = ($produto->stPrincipal == 1) ? $observacao : NULL;
                 $rsDistParecer = $tbDistParecer->find($produto->idDistribuirParecer)->current();
@@ -326,7 +333,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
             //INATIVA DISTRIBUICAO FEITA PARA O COMPONENTE
             $tblDistProjComissao = new tbDistribuicaoProjetoComissao();
             $rsDistProjComissao = $tblDistProjComissao->buscar(array('IdPRONAC =?'=>$idpronac), array('dtDistribuicao DESC'))->current();
-            if(!empty($rsDistProjComissao)) {
+            if (!empty($rsDistProjComissao)) {
                 //codigo antigo
                 /*$where = " idPRONAC           = " . $idpronac .
                          " and idAgente       = " . $rsDistProjComissao->idAgente .
@@ -334,12 +341,10 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
 
                 $tblDistProjComissao->apagar($where);*/
                 try {
-
                     $where = "IdPRONAC = {$idpronac}";
                     $tblDistProjComissao->alterar(array('stDistribuicao'=>'I'), $where);
-                }
-                catch(Zend_Exception $ex) {
-                    parent::message("Erro ao inativar a distribui&ccedil;&atilde;o do Projeto para o Componente - ".$ex->getMessage(), "projetosgerenciar/index","ERROR");
+                } catch (Zend_Exception $ex) {
+                    parent::message("Erro ao inativar a distribui&ccedil;&atilde;o do Projeto para o Componente - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
                 }
             }
 
@@ -351,18 +356,17 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
             $arrBuscaPlanilha["stAtivo = ? "]    = 'S';
             $rsPlanilha = $tblPlanilha->buscar($arrBuscaPlanilha);
             $arrIdsPlanilha = array();
-            foreach($rsPlanilha as $planilha) {
+            foreach ($rsPlanilha as $planilha) {
                 $arrIdsPlanilha[]=$planilha->idPlanilhaAprovacao;
             }
-            if(count($arrIdsPlanilha)>0) {
+            if (count($arrIdsPlanilha)>0) {
                 $where = null;
                 $where = " idPRONAC           = " . $idpronac .
                         " and idPlanilhaAprovacao IN (" . implode(",", $arrIdsPlanilha) .")";
                 try {
                     $tblPlanilha->apagar($where);
-                }
-                catch(Zend_Exception $ex) {
-                    parent::message("Erro ao apagar a planilha do Componente - ".$ex->getMessage(), "projetosgerenciar/index","ERROR");
+                } catch (Zend_Exception $ex) {
+                    parent::message("Erro ao apagar a planilha do Componente - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
                 }
             }
 
@@ -370,35 +374,33 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
             $tblAnalise = new AnaliseAprovacao();
             $rsAnalise = $tblAnalise->buscar(array('IdPRONAC =?'=>$idpronac));
             $arrIdsAnalises = array();
-            foreach($rsAnalise as $analise) {
+            foreach ($rsAnalise as $analise) {
                 $arrIdsAnalises[]=$analise->idAnaliseAprovacao;
             }
-            if(count($arrIdsAnalises)>0) {
+            if (count($arrIdsAnalises)>0) {
                 $where = null;
                 $where = " IdPRONAC               = " . $idpronac .
                         " and idAnaliseAprovacao IN (" . implode(",", $arrIdsAnalises) . ")";
 
                 try {
                     $tblAnalise->apagar($where);
-                }
-                catch(Zend_Exception $ex) {
-                    parent::message("Erro ao apagar a an&aacute;lise  do Componente - ".$ex->getMessage(), "projetosgerenciar/index","ERROR");
+                } catch (Zend_Exception $ex) {
+                    parent::message("Erro ao apagar a an&aacute;lise  do Componente - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
                 }
             }
 
             //APAGA PARECER DO COMPONENTE
             $tblParecer = new Parecer();
             $rsParecer = $tblParecer->buscar(array('idPRONAC =?'=>$idpronac,'idTipoAgente =?'=>6))->current();
-            if(!empty ($rsParecer)) {
+            if (!empty($rsParecer)) {
                 $idparecer = isset($rsParecer->IdParecer) ? $rsParecer->IdParecer : $rsParecer->idParecer;
                 $where = null;
                 $where = " idPRONAC      = " . $idpronac .
                         " and idParecer = " . $idparecer;
                 try {
                     $tblParecer->apagar($where);
-                }
-                catch(Zend_Exception $ex) {
-                    parent::message("Erro ao excluir o parecer do Componente - ".$ex->getMessage(), "projetosgerenciar/index","ERROR");
+                } catch (Zend_Exception $ex) {
+                    parent::message("Erro ao excluir o parecer do Componente - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
                 }
             }
 
@@ -406,7 +408,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
             $rsParecer = array();
             $tblParecer = new Parecer();
             $rsParecer = $tblParecer->buscar(array('IdPRONAC =?'=>$idpronac,'idTipoAgente =?'=>1))->current();
-            if(!empty ($rsParecer)) {
+            if (!empty($rsParecer)) {
                 //$idParecer = $rsParecer->stAtivo = 1;
                 //$rsParecer->save();
                 $idparecer = isset($rsParecer->IdParecer) ? $rsParecer->IdParecer : $rsParecer->idParecer;
@@ -415,9 +417,8 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
                         " and idParecer = " . $idparecer;
                 try {
                     $tblParecer->apagar($where);
-                }
-                catch(Zend_Exception $ex) {
-                    parent::message("Erro ao excluir o parecer do Parecerista - ".$ex->getMessage(), "projetosgerenciar/index","ERROR");
+                } catch (Zend_Exception $ex) {
+                    parent::message("Erro ao excluir o parecer do Parecerista - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
                 }
             }
 
@@ -426,16 +427,13 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
                 $tblProjeto = new Projetos();
                 $ProvidenciaTomada = 'Projeto devolvido para an�lise t�cnica por solicita��o do Componente.';
                 $tblProjeto->alterarSituacao($idpronac, '', 'B11', $ProvidenciaTomada);
-
-            }
-            catch(Zend_Exception $ex) {
-                parent::message("Erro ao alterar a situa&ccedil;&atilde;o do Projeto - ".$ex->getMessage(), "projetosgerenciar/index","ERROR");
+            } catch (Zend_Exception $ex) {
+                parent::message("Erro ao alterar a situa&ccedil;&atilde;o do Projeto - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
             }
 
-            parent::message("Devolvido com sucesso!", "projetosgerenciar/index/","CONFIRM");
-        }
-        catch(Zend_Exception $ex) {
-            parent::message("Erro ao devolver projeto - ".$ex->getMessage(), "projetosgerenciar/index","ERROR");
+            parent::message("Devolvido com sucesso!", "projetosgerenciar/index/", "CONFIRM");
+        } catch (Zend_Exception $ex) {
+            parent::message("Erro ao devolver projeto - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
         }
     }
 
@@ -444,7 +442,8 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
     /**
      * Metodo para efetuar a retirada de pauta
      */
-    public function retirarDePautaAction() {
+    public function retirarDePautaAction()
+    {
         // recebe os dados via post
         $post = Zend_Registry::get('post');
         $idPronac         = $post->idPronacPauta;
@@ -478,8 +477,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
                     $rsProduto = $tbDistParecer->buscarProdutos($arrBusca);
                     if (count($rsProduto) <= 0) {
                         throw new Exception("Dados n&atilde;o encontrados.");
-                    }
-                    else {
+                    } else {
                         // usuario logado
                         $auth = Zend_Auth::getInstance(); // instancia da autenticacao
                         $idusuario  = $auth->getIdentity()->usu_codigo;
@@ -494,7 +492,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
                             $rsProdutos = $tbDistParecer->buscarProdutos($arrBusca);
 
                             //VOLTANDO TODOS OS PRODUTOS
-                            foreach($rsProdutos as $produto) {
+                            foreach ($rsProdutos as $produto) {
                                 $rsDistParecer = $tbDistParecer->find($produto->idDistribuirParecer)->current();
 
                                 //ALTERA REGISTROS ANTERIORES PARA SE TORNAR HISTORICO
@@ -531,9 +529,8 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
                                 try {
                                     $where = "IdPRONAC = {$idPronac}";
                                     $tblDistProjComissao->alterar(array('stDistribuicao' => 'I'), $where);
-                                }
-                                catch(Zend_Exception $ex) {
-                                    parent::message("Erro ao inativar a distribui&ccedil;&atilde;o do Projeto para o Componente - ".$ex->getMessage(), "projetosgerenciar/index","ERROR");
+                                } catch (Zend_Exception $ex) {
+                                    parent::message("Erro ao inativar a distribui&ccedil;&atilde;o do Projeto para o Componente - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
                                 }
                             }
 
@@ -554,9 +551,8 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
                                         " and idPlanilhaAprovacao IN (" . implode(",", $arrIdsPlanilha) .")";
                                 try {
                                     $tblPlanilha->apagar($where);
-                                }
-                                catch(Zend_Exception $ex) {
-                                    parent::message("Erro ao apagar a planilha do Componente - ".$ex->getMessage(), "projetosgerenciar/index","ERROR");
+                                } catch (Zend_Exception $ex) {
+                                    parent::message("Erro ao apagar a planilha do Componente - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
                                 }
                             }
 
@@ -574,16 +570,15 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
 
                                 try {
                                     $tblAnalise->apagar($where);
-                                }
-                                catch(Zend_Exception $ex) {
-                                    parent::message("Erro ao apagar a an&aacute;lise  do Componente - ".$ex->getMessage(), "projetosgerenciar/index","ERROR");
+                                } catch (Zend_Exception $ex) {
+                                    parent::message("Erro ao apagar a an&aacute;lise  do Componente - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
                                 }
                             }
 
                             //APAGA PARECER DO COMPONENTE
                             $tblParecer = new Parecer();
                             $rsParecer = $tblParecer->buscar(array('idPRONAC = ?' => $idPronac, 'idTipoAgente = ?' => 6))->current();
-                            if (!empty ($rsParecer)) {
+                            if (!empty($rsParecer)) {
                                 $idparecer = isset($rsParecer->IdParecer) ? $rsParecer->IdParecer : $rsParecer->idParecer;
                                 $where = null;
                                 $where = " idPRONAC      = " . $idPronac .
@@ -591,9 +586,8 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
 
                                 try {
                                     $tblParecer->apagar($where);
-                                }
-                                catch(Zend_Exception $ex) {
-                                    parent::message("Erro ao excluir o parecer do Componente - ".$ex->getMessage(), "projetosgerenciar/index","ERROR");
+                                } catch (Zend_Exception $ex) {
+                                    parent::message("Erro ao excluir o parecer do Componente - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
                                 }
                             }
 
@@ -601,7 +595,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
                             $rsParecer = array();
                             $tblParecer = new Parecer();
                             $rsParecer = $tblParecer->buscar(array('IdPRONAC =?' => $idPronac, 'idTipoAgente = ?' => 1))->current();
-                            if (!empty ($rsParecer)) {
+                            if (!empty($rsParecer)) {
                                 $idparecer = isset($rsParecer->IdParecer) ? $rsParecer->IdParecer : $rsParecer->idParecer;
                                 $where = null;
                                 $where = " idPRONAC      = " . $idPronac .
@@ -609,9 +603,8 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
 
                                 try {
                                     $tblParecer->apagar($where);
-                                }
-                                catch(Zend_Exception $ex) {
-                                    parent::message("Erro ao excluir o parecer do Parecerista - ".$ex->getMessage(), "projetosgerenciar/index","ERROR");
+                                } catch (Zend_Exception $ex) {
+                                    parent::message("Erro ao excluir o parecer do Parecerista - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
                                 }
                             }
 
@@ -620,29 +613,24 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract {
                                 $tblProjeto = new Projetos();
                                 $ProvidenciaTomada = 'Projeto devolvido para an�lise t�cnica por solicita��o do Componente.';
                                 $tblProjeto->alterarSituacao($idPronac, '', 'B11', $ProvidenciaTomada);
-                            }
-                            catch (Zend_Exception $ex) {
-                                parent::message("Erro ao alterar a situa&ccedil;&atilde;o do Projeto - ".$ex->getMessage(), "projetosgerenciar/index","ERROR");
+                            } catch (Zend_Exception $ex) {
+                                parent::message("Erro ao alterar a situa&ccedil;&atilde;o do Projeto - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
                             }
 
-                            parent::message("Devolvido com sucesso!", "projetosgerenciar/index/","CONFIRM");
-                        }
-                        catch(Zend_Exception $ex) {
-                            parent::message("Erro ao devolver projeto - ".$ex->getMessage(), "projetosgerenciar/index","ERROR");
+                            parent::message("Devolvido com sucesso!", "projetosgerenciar/index/", "CONFIRM");
+                        } catch (Zend_Exception $ex) {
+                            parent::message("Erro ao devolver projeto - ".$ex->getMessage(), "projetosgerenciar/index", "ERROR");
                         }
                     }
                 } // fecha if ($tpAcao == 3)
                 // fim devolver pra vinculada
 
                 parent::message("Solicita&ccedil;&atilde;o enviada com sucesso!", "projetosgerenciar/index", "CONFIRM");
-            }
-            else {
+            } else {
                 throw new Exception("Erro ao enviar solicita&ccedil;&atilde;o");
             }
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             parent::message($e->getMessage(), "projetosgerenciar/index", "ERROR");
         }
     } // fecha metodo retirarDePautaAction()
-
 }

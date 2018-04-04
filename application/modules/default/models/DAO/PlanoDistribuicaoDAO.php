@@ -9,7 +9,8 @@
  * @copyright � 2010 - Politec - Todos os direitos reservados.
 */
 
-class PlanoDistribuicaoDAO extends Zend_Db_Table {
+class PlanoDistribuicaoDAO extends Zend_Db_Table
+{
     /* dados da tabela */
     protected $_schema  = "SAC.dbo";
     protected $_name    = "tbPlanoDistribuicao";
@@ -24,7 +25,8 @@ class PlanoDistribuicaoDAO extends Zend_Db_Table {
      * @param integer $idPlano
      * @return object || bool
      */
-    public static function buscar($idPlano) {
+    public static function buscar($idPlano)
+    {
         $sql = "SELECT * FROM SAC.dbo.tbPlanoDistribuicao WHERE idPlano = $idPlano ";
 
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -41,7 +43,8 @@ class PlanoDistribuicaoDAO extends Zend_Db_Table {
      * @param void
      * @return object || bool
      */
-    public static function buscarUltimo() {
+    public static function buscarUltimo()
+    {
         $sql = "SELECT MAX(idPlano) AS id FROM SAC.dbo.tbPlanoDistribuicao ";
 
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -58,7 +61,8 @@ class PlanoDistribuicaoDAO extends Zend_Db_Table {
      * @param array $dados
      * @return bool
      */
-    public static function cadastrar($dados) {
+    public static function cadastrar($dados)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
@@ -66,8 +70,7 @@ class PlanoDistribuicaoDAO extends Zend_Db_Table {
 
         if ($cadastrar) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     } // fecha m�todo cadastrar()
@@ -82,7 +85,8 @@ class PlanoDistribuicaoDAO extends Zend_Db_Table {
      * @param integer $idPlano
      * @return bool
      */
-    public static function alterar($dados, $idPlano) {
+    public static function alterar($dados, $idPlano)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
@@ -92,19 +96,18 @@ class PlanoDistribuicaoDAO extends Zend_Db_Table {
 
         if ($alterar) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     } // fecha m�todo alterar()
-
 } // fecha class
 
 
 
 
 
-class PlanoDistribuicaoProdutoDAO extends Zend_Db_Table {
+class PlanoDistribuicaoProdutoDAO extends Zend_Db_Table
+{
     /* dados da tabela */
     protected $_schema  = "SAC.dbo";
     protected $_name    = "PlanoDistribuicaoProduto";
@@ -119,7 +122,8 @@ class PlanoDistribuicaoProdutoDAO extends Zend_Db_Table {
      * @param integer $idPlanoDistribuicao
      * @return object || bool
      */
-    public static function buscar($idPlanoDistribuicao) {
+    public static function buscar($idPlanoDistribuicao)
+    {
         $sql = "SELECT * FROM SAC.dbo.PlanoDistribuicaoProduto WHERE idPlanoDistribuicao = $idPlanoDistribuicao  AND stPlanoDistribuicaoProduto = 1";
 
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -136,7 +140,8 @@ class PlanoDistribuicaoProdutoDAO extends Zend_Db_Table {
      * @param array $dados
      * @return bool
      */
-    public static function cadastrar($dados) {
+    public static function cadastrar($dados)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
@@ -144,8 +149,7 @@ class PlanoDistribuicaoProdutoDAO extends Zend_Db_Table {
 
         if ($cadastrar) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     } // fecha m�todo cadastrar()
@@ -160,7 +164,8 @@ class PlanoDistribuicaoProdutoDAO extends Zend_Db_Table {
      * @param integer $idPlanoDistribuicao
      * @return bool
      */
-    public static function alterar($dados, $idPlanoDistribuicao) {
+    public static function alterar($dados, $idPlanoDistribuicao)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 

@@ -9,9 +9,10 @@
  * @subpackage application.controllers
  */
 
-class ResolverInconsistenciaController extends MinC_Controller_Action_Abstract {
-    
-    public function incentivadorProponenteIguaisAction() {
+class ResolverInconsistenciaController extends MinC_Controller_Action_Abstract
+{
+    public function incentivadorProponenteIguaisAction()
+    {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
         $model = new InconsistenciaBancariaModel();
@@ -21,5 +22,4 @@ class ResolverInconsistenciaController extends MinC_Controller_Action_Abstract {
             $this->getResponse()->setHttpResponseCode(500)->setBody(htmlentities(utf8_encode($exception->getMessage())));
         }
     }
-
 }

@@ -1,8 +1,9 @@
 <?php
 
-class AjaxController extends MinC_Controller_Action_Abstract {
-
-    public function municipioAction() {
+class AjaxController extends MinC_Controller_Action_Abstract
+{
+    public function municipioAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $iduf = $_POST['iduf'];
         try {
@@ -17,14 +18,15 @@ class AjaxController extends MinC_Controller_Action_Abstract {
                 $cont++;
             }
             $this->_helper->json($municipio);
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         } catch (Zend_Exception $e) {
             $this->_helper->json(array('error' => 'true'));
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
     }
 
-    public function agentesAction() {
+    public function agentesAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $idOrgao = $_POST['idorgao'];
 
@@ -46,16 +48,17 @@ class AjaxController extends MinC_Controller_Action_Abstract {
         } else {
             $this->_helper->json(array('error'=>true));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function fundoClassificacaoAction(){
+    public function fundoClassificacaoAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $id = $_POST["id"];
         $tbl = new tbClassificaDocumento();
         $rs = $tbl->fundoSetorialXClassificacao(array("f.stModalidadeDocumento is not null"=>"", "cdTipoFundo = ?"=>$id), array("dsClassificaDocumento ASC"));
 
-        try{
+        try {
             $dados = array();
             $cont = 0;
             foreach ($rs as $dado) {
@@ -65,21 +68,21 @@ class AjaxController extends MinC_Controller_Action_Abstract {
             }
             
             $this->_helper->json($dados);
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         } catch (Zend_Exception $e) {
             $this->_helper->json(array('error' => 'true'));
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
-
     }
 
-    public function classificacaoEditalAction(){
+    public function classificacaoEditalAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $id = $_POST["id"];
         $tbl = new tbFormDocumento();
-        $rs = $tbl->buscar(array("idClassificaDocumento = ?"=>$id),array("nmFormDocumento ASC"));
+        $rs = $tbl->buscar(array("idClassificaDocumento = ?"=>$id), array("nmFormDocumento ASC"));
 
-        try{
+        try {
             $dados = array();
             $cont = 0;
             foreach ($rs as $dado) {
@@ -90,12 +93,10 @@ class AjaxController extends MinC_Controller_Action_Abstract {
             
             //$dados = array_unique($dados);
             $this->_helper->json($dados);
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         } catch (Zend_Exception $e) {
             $this->_helper->json(array('error' => 'true'));
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
-
     }
-
 }

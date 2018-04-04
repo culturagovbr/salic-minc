@@ -4,13 +4,14 @@
  *
  * @author 01610881125
  */
-class Arquivocotacao  extends MinC_Db_Table_Abstract{
-
+class Arquivocotacao extends MinC_Db_Table_Abstract
+{
     protected $_banco   = 'BDCORPORATIVO';
     protected $_name    = 'tbArquivoCotacao';
     protected $_schema  = 'BDCORPORATIVO.scSAC';
 
-    public function buscarArquivos($idcotacao){
+    public function buscarArquivos($idcotacao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(

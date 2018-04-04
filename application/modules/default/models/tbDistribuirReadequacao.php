@@ -12,15 +12,13 @@
 
 class tbDistribuirReadequacao extends MinC_Db_Table_Abstract
 {
-	protected $_schema = "sac";
-	protected $_name   = "tbDistribuirReadequacao";
+    protected $_schema = "sac";
+    protected $_name   = "tbDistribuirReadequacao";
     protected $_primary = "idDistribuirReadequacao";
 
     public function buscarReadequacaoCoordenadorParecerAguardandoAnalise($where = array(), $order = array(), $tamanho = -1, $inicio = -1)
     {
-
         try {
-
             $select = $this->select();
             $select->setIntegrityCheck(false);
             $select->from(
@@ -42,16 +40,22 @@ class tbDistribuirReadequacao extends MinC_Db_Table_Abstract
             ")
             );
             $select->joinInner(
-                array('b' => 'tbReadequacao'), 'a.idReadequacao = b.idReadequacao ',
-                array(''), $this->_schema
+                array('b' => 'tbReadequacao'),
+                'a.idReadequacao = b.idReadequacao ',
+                array(''),
+                $this->_schema
             );
             $select->joinInner(
-                array('c' => 'Projetos'), 'c.IdPRONAC = b.IdPRONAC ',
-                array(''), $this->_schema
+                array('c' => 'Projetos'),
+                'c.IdPRONAC = b.IdPRONAC ',
+                array(''),
+                $this->_schema
             );
             $select->joinInner(
-                array('e' => 'tbTipoReadequacao'), 'e.idTipoReadequacao = b.idTipoReadequacao',
-                array(''), $this->_schema
+                array('e' => 'tbTipoReadequacao'),
+                'e.idTipoReadequacao = b.idTipoReadequacao',
+                array(''),
+                $this->_schema
             );
 
             $select->where('b.stEstado = ? ', 0);
@@ -75,7 +79,6 @@ class tbDistribuirReadequacao extends MinC_Db_Table_Abstract
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
             return $db->fetchAll($select);
-
         } catch (Exception $objException) {
             xd($objException->getMessage());
             throw new Exception($objException->getMessage(), 0, $objException);
@@ -85,7 +88,6 @@ class tbDistribuirReadequacao extends MinC_Db_Table_Abstract
 
     public function buscarReadequacaoCoordenadorParecerAnalisados($where = array(), $order = array(), $tamanho = -1, $inicio = -1)
     {
-
         try {
             $select = $this->select();
             $select->setIntegrityCheck(false);
@@ -122,22 +124,30 @@ class tbDistribuirReadequacao extends MinC_Db_Table_Abstract
             ")
             );
             $select->joinInner(
-                array('b' => 'tbReadequacao'), 'a.idReadequacao = b.idReadequacao',
-                array(''), $this->_schema
+                array('b' => 'tbReadequacao'),
+                'a.idReadequacao = b.idReadequacao',
+                array(''),
+                $this->_schema
             );
             $select->joinInner(
-                array('c' => 'Projetos'), 'c.IdPRONAC = b.IdPRONAC',
-                array(''), $this->_schema
+                array('c' => 'Projetos'),
+                'c.IdPRONAC = b.IdPRONAC',
+                array(''),
+                $this->_schema
             );
 
             $select->joinInner(
-                array('d' => 'Usuarios'), 'a.idAvaliador = d.usu_codigo',
-                array(''), $this->getSchema('Tabelas')
+                array('d' => 'Usuarios'),
+                'a.idAvaliador = d.usu_codigo',
+                array(''),
+                $this->getSchema('Tabelas')
             );
 
             $select->joinInner(
-                array('e' => 'tbTipoReadequacao'), 'e.idTipoReadequacao = b.idTipoReadequacao',
-                array(''), $this->_schema
+                array('e' => 'tbTipoReadequacao'),
+                'e.idTipoReadequacao = b.idTipoReadequacao',
+                array(''),
+                $this->_schema
             );
 
             $select->where('b.stEstado = ? ', 0);
@@ -161,11 +171,9 @@ class tbDistribuirReadequacao extends MinC_Db_Table_Abstract
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
             return $db->fetchAll($select);
-
         } catch (Exception $objException) {
             xd($objException->getMessage());
             throw new Exception($objException->getMessage(), 0, $objException);
         }
     }
-
 }

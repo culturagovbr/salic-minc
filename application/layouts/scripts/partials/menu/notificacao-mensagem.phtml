@@ -4,11 +4,6 @@ $dbTable = new Admissibilidade_Model_DbTable_TbMensagemProjeto();
 $auth = Zend_Auth::getInstance();
 $arrAuth = $auth->getIdentity();
 $intQtd = 0;
-//$arrResult = $dbTable->getAllBy(array(
-//    'tbMensagemProjeto.idDestinatario' => $arrAuth->usu_codigo,
-//    'tbMensagemProjeto.idMensagemOrigem IS NULL' => '',
-//    'dsMensagem IS NULL' => '',
-//));
 
 $grupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
 if (isset($arrAuth->usu_codigo) && isset($arrAuth->usu_orgao)) {
@@ -18,7 +13,7 @@ if (isset($arrAuth->usu_codigo) && isset($arrAuth->usu_orgao)) {
     if (isset($arrAuth->usu_codigo)) {
         $intQtd = count($arrResult);
     }
-//$intQtd = count($dbTable->getAllBy(array('idDestinatario' => $arrAuth->usu_codigo, 'tbMensagemProjeto.idUnidade => $arrAuth->usu_orgao')));
+
     if ($intQtd > 99) {
         $cssPadding = '1';
         $intQtd =  '99+';
@@ -31,46 +26,28 @@ if (isset($arrAuth->usu_codigo) && isset($arrAuth->usu_orgao)) {
 
 ?>
 <style>
-    .notificacao {
-        /*margin-left: 15px;*/
-        /*margin-top: 5px;*/
-
-        /*display: inline;*/
-    }
     .notificacao a {
         position: relative;
         padding: 0 !important;
         padding-top: 5px;
     }
     .notificacao .btn-floating {
-        /*background-color: rgb(76, 175, 80);*/
         border-radius: 50%;
         color: #fff;
         cursor: pointer;
         height: 20px !important;
         width: 20px !important;
         line-height: 21px;
-        /*overflow: hidden;*/
-        /*padding: 0;*/
         position: absolute;
-        left: 11px;
-        top: 27px;
+        left: 14px;
+        top: 0px;
         display: block;
         text-align: center;
-        /*transition: all 0.3s ease 0s;*/
         vertical-align: middle;
         z-index: 1;
         font-size: 9px !important;
     }
 
-    .notificacao .btn-floating p {
-/*        display: block;*/
-/*        text-align: center;*/
-/*        left: */<?php //echo $cssPadding ?>/*px;*/
-/*        line-height: 5pt;*/
-/*        padding: 0 0 10px;*/
-/*        position: absolute;*/
-    }
 </style>
 <?php if ($intQtd > 0): ?>
 <li class="notificacao">

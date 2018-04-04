@@ -1,19 +1,5 @@
 <?php
 
-/**
- * Class Proposta_Model_TbMovimentacao
- *
- * @name Proposta_Model_TbMovimentacao
- * @package Modules/Agente
- * @subpackage Models
- * @version $Id$
- *
- * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
- * @since 20/09/2016
- *
- * @copyright © 2012 - Ministerio da Cultura - Todos os direitos reservados.
- * @link http://salic.cultura.gov.br
- */
 class Proposta_Model_TbMovimentacao extends MinC_Db_Model
 {
     protected $_idmovimentacao;
@@ -22,6 +8,44 @@ class Proposta_Model_TbMovimentacao extends MinC_Db_Model
     protected $_dtmovimentacao;
     protected $_stestado;
     protected $_usuario;
+    protected $_id_orgao;
+    protected $_id_perfil;
+
+    /**
+     * @return mixed
+     */
+    public function getIdOrgao()
+    {
+        return $this->_id_orgao;
+    }
+
+    /**
+     * @param mixed $id_orgao
+     * @return Proposta_Model_TbMovimentacao
+     */
+    public function setIdOrgao($id_orgao)
+    {
+        $this->_id_orgao = $id_orgao;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdPerfil()
+    {
+        return $this->_id_perfil;
+    }
+
+    /**
+     * @param mixed $id_perfil
+     * @return Proposta_Model_TbMovimentacao
+     */
+    public function setIdPerfil($id_perfil)
+    {
+        $this->_id_perfil = $id_perfil;
+        return $this;
+    }
 
     /**
      * @return mixed
@@ -130,5 +154,4 @@ class Proposta_Model_TbMovimentacao extends MinC_Db_Model
         $this->_usuario = $usuario;
         return $this;
     }
-
 }

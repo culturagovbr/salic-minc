@@ -1,11 +1,4 @@
 <?php
-
-/**
- * @subpackage controller
- * @link http://www.cultura.gov.br
- *
- * @author wouerner <wouerner@gmail.com>
- */
 class DivulgacaoControllerTest extends MinC_Test_ControllerActionTestCase
 {
     public function testPlanodivulgacaoAction()

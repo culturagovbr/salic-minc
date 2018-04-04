@@ -12,13 +12,10 @@
  */
 class Zend_View_Helper_StatusLocalRealizacaoProjeto
 {
-
     public function StatusLocalRealizacaoProjeto($status)
     {
         $status = $status == 'I' ? 'Inclusão' : 'Exclusão';
 
         return $status;
     }
-
 }
-?>

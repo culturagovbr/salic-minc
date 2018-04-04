@@ -1,20 +1,15 @@
 <?php
 
-/**
- * Description of Pesquisarprojetofiscalizacao
- *
- * @author Andr� Nogueira Pereira
- */
 
-class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abstract {
-
+class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abstract
+{
     private $intTamPag = 10;
     private $codOrgao = null;
     private $grupoAtivo = null;
     private $codUsuario = 0;
 
-    public function init() {
-
+    public function init()
+    {
         $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
         $auth = Zend_Auth::getInstance(); // pega a autentica�?o
         $Usuario = new UsuarioDAO(); // objeto usu�rio
@@ -50,40 +45,40 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         parent::init(); // chama o init() do pai GenericControllerNew
     }
 
-// fecha m�todo init()*/
+    // fecha m�todo init()*/
 
-    public function indexAction() {
-
+    public function indexAction()
+    {
     }
 
-    public function gridAction(){
+    public function gridAction()
+    {
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
-        }else {
+        } else {
             $campo = null;
             $order = array('NomeProjeto');
             $ordenacao = null;
@@ -91,17 +86,19 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         /* ================== PAGINACAO ======================*/
         $where = array();
-        if((isset($_POST['pronac']) && !empty($_POST['pronac'])) || (isset($_GET['pronac']) && !empty($_GET['pronac']))){
+        if ((isset($_POST['pronac']) && !empty($_POST['pronac'])) || (isset($_GET['pronac']) && !empty($_GET['pronac']))) {
             $where['pr.AnoProjeto+pr.Sequencial = ?'] = isset($_POST['pronac']) ? $_POST['pronac'] : $_GET['pronac'];
             $this->view->pronacProjeto = isset($_POST['pronac']) ? $_POST['pronac'] : $_GET['pronac'];
         }
 
-        if($this->grupoAtivo == 134 && (isset($_POST['tipoFiltro']) || isset($_GET['tipoFiltro']))){
+        if ($this->grupoAtivo == 134 && (isset($_POST['tipoFiltro']) || isset($_GET['tipoFiltro']))) {
             //Coordenador
             $filtro = isset($_POST['tipoFiltro']) ? $_POST['tipoFiltro'] : $_GET['tipoFiltro'];
             $this->view->filtro = $filtro;
@@ -125,13 +122,13 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
             //$where['b.idUsuarioInterno = ?'] = $this->codUsuario;
         }
 
-        if( (isset($_POST['tecFiltro']) || isset($_GET['tecFiltro'])) && (!empty($_POST['tecFiltro']) || !empty($_GET['tecFiltro'])) ){
+        if ((isset($_POST['tecFiltro']) || isset($_GET['tecFiltro'])) && (!empty($_POST['tecFiltro']) || !empty($_GET['tecFiltro']))) {
             $tecnico = isset($_POST['tecFiltro']) ? $_POST['tecFiltro'] : $_GET['tecFiltro'];
             $this->view->tecnico = $tecnico;
             $where['b.idUsuarioInterno = ?'] = $tecnico;
         }
 
-        $projetos = New Projetos();
+        $projetos = new Projetos();
         $total = $projetos->painelFiscalizacaoProjetos($where, $order, null, null, true);
         $fim = $inicio + $this->intTamPag;
 
@@ -166,7 +163,8 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         $this->view->Usuarios = $usuarios;
     }
 
-    public function painelcontroleentidadeAction() {
+    public function painelcontroleentidadeAction()
+    {
         $auth = Zend_Auth::getInstance();
 
         $aprovacaoDao = new Aprovacao();
@@ -174,7 +172,7 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         /*$abrangenciaDao = new Abrangencia();
         $selectAb = $abrangenciaDao->abrangenciaProjeto(true);*/
         $tblAgentes = new Agente_Model_DbTable_Agentes();
-        $selectAb = $tblAgentes->buscarUfMunicioAgente(array(),null,null,null,true);
+        $selectAb = $tblAgentes->buscarUfMunicioAgente(array(), null, null, null, true);
         $projetosDao = new Projetos();
 
         $where = array('ofisc.idOrgao = ?' => $this->view->orgaoAtivo, "tbFiscalizacao.stFiscalizacaoProjeto in (?,'1')" => '0', 'dtConfirmacaoFiscalizacao is ?' => new Zend_Db_Expr('null'));
@@ -196,10 +194,11 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Segmento'] = $val->dsSegmento;
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Valor'] = number_format($val->somatorio, 2, ',', '.');
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Mecanismo'] = $val->dsMecanismo;
-            if ($val->stPlanoAnual == 0)
+            if ($val->stPlanoAnual == 0) {
                 $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Plano Anual'] = 'N&atilde;o';
-            else
+            } else {
                 $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Plano Anual'] = 'Sim';
+            }
 
             //$this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Qtde Dias']               = strtotime();
 
@@ -217,7 +216,8 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         }
     }
 
-    public function aceitacaofiscalizacaoAction() {
+    public function aceitacaofiscalizacaoAction()
+    {
         $post = Zend_Registry::get('post');
         $this->view->idPronac = $post->idPronac;
         $this->view->idFiscalizacao = $post->idFiscalizacao;
@@ -235,17 +235,20 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
             $OrgaoFiscalizadorDao->update(array('dtRecebimentoResposta' => new Zend_Db_Expr('GETDATE()')), array('dtRecebimentoResposta is ?' => new Zend_Db_Expr('null'), 'idFiscalizacao = ?' => $this->view->infoProjeto[0]->idFiscalizacao, 'idOrgao = ?' => $this->view->orgaoAtivo));
         }
         $ArquivoFiscalizacaoDao = new ArquivoFiscalizacao();
-        if ($this->view->infoProjeto[0]->idFiscalizacao)
+        if ($this->view->infoProjeto[0]->idFiscalizacao) {
             $this->view->arquivos = $ArquivoFiscalizacaoDao->buscarArquivo(array('arqfis.idFiscalizacao = ?' => $this->view->infoProjeto[0]->idFiscalizacao));
+        }
     }
 
-    public function consultadadosfiscalizacaoAction() {
+    public function consultadadosfiscalizacaoAction()
+    {
         $get = Zend_Registry::get('get');
 
-        if ($get->email)
+        if ($get->email) {
             $this->view->email = true;
-        else
+        } else {
             $this->view->email = false;
+        }
         $this->view->idPronac = $get->idPronac;
         $this->view->idFiscalizacao = $get->idFiscalizacao;
 
@@ -267,14 +270,16 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         $this->view->relatorioFiscalizacao = $RelatorioFiscalizacaoDAO->buscaRelatorioFiscalizacao($this->view->idFiscalizacao);
     }
 
-    public function imprimirAction() {
+    public function imprimirAction()
+    {
         $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
         $get = Zend_Registry::get('get');
 
-        if ($get->email)
+        if ($get->email) {
             $this->view->email = true;
-        else
+        } else {
             $this->view->email = false;
+        }
         $this->view->idPronac = $get->idPronac;
         $this->view->idFiscalizacao = $get->idFiscalizacao;
 
@@ -296,8 +301,8 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         $this->view->relatorioFiscalizacao = $RelatorioFiscalizacaoDAO->buscaRelatorioFiscalizacao($this->view->idFiscalizacao);
     }
 
-    public function painelcontrolecoordenadorAction() {
-
+    public function painelcontrolecoordenadorAction()
+    {
         $aprovacaoDao = new Aprovacao();
         $selectAp = $aprovacaoDao->totalAprovadoProjeto(true);
 
@@ -305,7 +310,7 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         //$selectAb = $abrangenciaDao->abrangenciaProjeto(true);
 
         $tblAgentes = new Agente_Model_DbTable_Agentes();
-        $selectAb = $tblAgentes->buscarUfMunicioAgente(array(),null,null,null,true);
+        $selectAb = $tblAgentes->buscarUfMunicioAgente(array(), null, null, null, true);
 
         $projetosDao = new Projetos();
 
@@ -341,10 +346,11 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Segmento'] = $val->dsSegmento;
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Valor'] = number_format($val->somatorio, 2, ',', '.');
             $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Mecanismo'] = $val->dsMecanismo;
-            if ($val->stPlanoAnual == 0)
+            if ($val->stPlanoAnual == 0) {
                 $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Plano Anual'] = 'N&atilde;o';
-            else
+            } else {
                 $this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Plano Anual'] = 'Sim';
+            }
 
             //$this->view->projetosFiscalizacao[$num]['projetos'][$val->IdPRONAC]['Qtde Dias']               = strtotime();
 
@@ -381,10 +387,10 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
                 }
             }
         }
-
     }
 
-    public function parametropesquisaAction() {
+    public function parametropesquisaAction()
+    {
         $ufDao = new Uf();
         $this->view->regiao = $ufDao->buscarRegiao();
         $mecanismoDao = new Mecanismo();
@@ -397,18 +403,19 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         $this->view->Segmento = $segmentoDao->buscar(array('stEstado = ?' => 1));
     }
 
-    public function resultadopesquisaAction() {
+    public function resultadopesquisaAction()
+    {
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
             } else {
                 $novaOrdem = "ASC";
@@ -419,11 +426,10 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
         } else {
             $campo = null;
             $order = array('AnoProjeto', 'Sequencial');
@@ -433,7 +439,9 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         $pag = 1;
         $get = Zend_Registry::get('get');
         $this->view->filtros = $get;
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         /* ================== PAGINACAO ======================*/
@@ -441,44 +449,53 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         if ($get->pronac != '') {
             $where['(p.AnoProjeto+p.Sequencial) = ?'] = $get->pronac;
         } else {
-            if ($get->regiaoFake != '' || $get->regiao != ''){
+            if ($get->regiaoFake != '' || $get->regiao != '') {
                 $where['u.Regiao = ?'] = isset($get->regiaoFake) ? $get->regiaoFake : $get->regiao;
             } else {
                 $where['u.Regiao ?'] = new Zend_Db_Expr('IS NOT NULL');
             }
         }
 
-        if ($get->uf != '')
+        if ($get->uf != '') {
             $where['u.idUF = ?'] = $get->uf;
+        }
 
-        if ($get->cidade != '')
+        if ($get->cidade != '') {
             $where['mu.idMunicipioIBGE = ?'] = $get->cidade;
+        }
 
-        if ($get->mecanismo != '')
+        if ($get->mecanismo != '') {
             $where['p.Mecanismo = ?'] = $get->mecanismo;
+        }
 
-        if ($get->planoAnual == 'sim')
+        if ($get->planoAnual == 'sim') {
             $where['pr.stPlanoAnual = ?'] = 1;
+        }
 
-        if ($get->situacaoprojeto != '')
+        if ($get->situacaoprojeto != '') {
             $where['p.Situacao = ?'] = $get->situacaoprojeto;
+        }
 
-        if ($get->area != '')
+        if ($get->area != '') {
             $where['p.Area = ?'] = $get->area;
+        }
 
-        if ($get->Segmento != '')
+        if ($get->Segmento != '') {
             $where['p.Segmento = ?'] = $get->Segmento;
+        }
 
-        if ($get->valorMenor != '')
+        if ($get->valorMenor != '') {
             $where['(sac.dbo.fnTotalAprovadoProjeto(p.AnoProjeto, p.Sequencial)) >= ?'] = $get->valorMenor;
+        }
 
-        if ($get->valorMaior != '')
+        if ($get->valorMaior != '') {
             $where['(sac.dbo.fnTotalAprovadoProjeto(p.AnoProjeto, p.Sequencial)) <= ?'] = $get->valorMaior;
+        }
 
         $where["p.IdPRONAC NOT IN (SELECT IdPRONAC FROM SAC.dbo.tbFiscalizacao where stFiscalizacaoProjeto IN ('0','1') )"] = '';
         //$where["e.Status = ?"] = 1;
 
-        $projetos = New Projetos();
+        $projetos = new Projetos();
         $total = $projetos->gridFiscalizacaoProjetoFiltro($where, $order, null, null, true);
         $fim = $inicio + $this->intTamPag;
 
@@ -586,7 +603,8 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         }*/
     }
 
-    public function oficializarfiscalizacaoAction() {
+    public function oficializarfiscalizacaoAction()
+    {
         $post = Zend_Registry::get('get');
         $this->view->idPronac = $post->idPronac;
 
@@ -597,17 +615,19 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
 
         $projetoDao = new Projetos();
         $this->view->infoProjeto = $projetoDao->projetosFiscalizacaoPesquisar(array('p.IdPRONAC = ?' => $this->view->idPronac));
-        if(count($this->view->infoProjeto)==0){
+        if (count($this->view->infoProjeto)==0) {
             parent::message("Projeto n�o encontrado!", "pesquisarprojetofiscalizacao/parametropesquisa", "ALERT");
         }
 
         $OrgaoFiscalizadorDao = new OrgaoFiscalizador();
-        if ($this->view->infoProjeto[0]->idFiscalizacao)
+        if ($this->view->infoProjeto[0]->idFiscalizacao) {
             $this->view->orgaoFisca = $OrgaoFiscalizadorDao->buscarOrgao(array('idFiscalizacao = ?' => $this->view->infoProjeto[0]->idFiscalizacao));
+        }
 
         $ArquivoFiscalizacaoDao = new ArquivoFiscalizacao();
-        if ($this->view->infoProjeto[0]->idFiscalizacao)
+        if ($this->view->infoProjeto[0]->idFiscalizacao) {
             $this->view->arquivos = $ArquivoFiscalizacaoDao->buscarArquivo(array('arqfis.idFiscalizacao = ?' => $this->view->infoProjeto[0]->idFiscalizacao));
+        }
 
 //        $pa = new paUsuariosDoPerfil();
         $vw = new vwUsuariosOrgaosGrupos();
@@ -615,7 +635,8 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         $this->view->Usuarios = $usuarios;
     }
 
-    public function cadastraranexo($arquivoNome, $arquivoTemp, $arquivoTipo, $arquivoTamanho) {
+    public function cadastraranexo($arquivoNome, $arquivoTemp, $arquivoTipo, $arquivoTamanho)
+    {
         // pega as informa�?es do arquivo
         /* $arquivoNome     = $_FILES['arquivo']['name']; // nome
           $arquivoTemp     = $_FILES['arquivo']['tmp_name']; // nome tempor�rio
@@ -623,7 +644,6 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
           $arquivoTamanho  = $_FILES['arquivo']['size']; // tamanho */
 
         if (!empty($arquivoNome) && !empty($arquivoTemp)) {
-            
             $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens?o
             $arquivoBinario = Upload::setBinario($arquivoTemp); // bin�rio
             $arquivoHash = Upload::setHash($arquivoTemp); // hash
@@ -653,7 +673,6 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
 
             return $idUltimoArquivo;
         } else {
-
         }
         /*
           else{
@@ -661,7 +680,8 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
           } */
     }
 
-    public function cadastraraceitacaofiscalizacaoAction() {
+    public function cadastraraceitacaofiscalizacaoAction()
+    {
         $post = Zend_Registry::get('post');
 
 
@@ -669,8 +689,8 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         $OrgaoFiscalizadorDao->update(array('dtConfirmacaoFiscalizacao' => new Zend_Db_Expr('GETDATE()'), 'dsObservacao' => $post->dsObservacao, 'idParecerista' => $post->idAgente), array('idFiscalizacao = ?' => $post->idFiscalizacao, 'idOrgao = ?' => $this->view->orgaoAtivo));
     }
 
-    public function cadastrarfiscalizacaoAction() {
-
+    public function cadastrarfiscalizacaoAction()
+    {
         $post = Zend_Registry::get('post');
         $this->view->idPronac = $post->idPronac;
 
@@ -689,8 +709,9 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
 
         $auth = Zend_Auth::getInstance();
         $tpDemandante = 0;
-        if ($auth->getIdentity()->usu_orgao == Orgaos::ORGAO_SUPERIOR_SAV)
-            $tpDemandante = 1; //'SAV';
+        if ($auth->getIdentity()->usu_orgao == Orgaos::ORGAO_SUPERIOR_SAV) {
+            $tpDemandante = 1;
+        } //'SAV';
         if ($post->oficializar) {
             $dados['stFiscalizacaoProjeto'] = 1;
             $this->view->tela = 'grid';
@@ -699,12 +720,15 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
             $this->view->tela = 'oficializarfiscalizacao';
         }
 
-        if ($post->dtInicio != '')
+        if ($post->dtInicio != '') {
             $dados['dtInicioFiscalizacaoProjeto'] = data::dataAmericana($post->dtInicio);
-        if ($post->dtFim != '')
+        }
+        if ($post->dtFim != '') {
             $dados['dtFimFiscalizacaoProjeto'] = data::dataAmericana($post->dtFim);
-        if ($post->dtResposta != '')
+        }
+        if ($post->dtResposta != '') {
             $dados['dtRespostaSolicitada'] = data::dataAmericana($post->dtResposta);
+        }
 
         $dados['dsFiscalizacaoProjeto'] = $post->dsFiscalizacaoProjeto;
         $dados['tpDemandante'] = $tpDemandante;
@@ -737,10 +761,10 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         } else {
             parent::message("Dados cadastrados com sucesso!", "pesquisarprojetofiscalizacao/oficializarfiscalizacao?idPronac=".$this->view->idPronac, "CONFIRM");
         }
-
     }
 
-    public function visualizaremailAction() {
+    public function visualizaremailAction()
+    {
         //comunicar proponente da fiscaliza�?o
         $post = Zend_Registry::get('get');
 
@@ -755,20 +779,22 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         $Pronac = $infoProjeto[0]->AnoProjeto . $infoProjeto[0]->Sequencial . " - ($nomeProjeto)";
         $nomeServidoresFiscalizadores = $infoProjeto[0]->nmTecnico;
         $periodo = date('d/m/Y', strtotime($infoProjeto[0]->dtInicioFiscalizacaoProjeto)) . ' a ' . date('d/m/Y', strtotime($infoProjeto[0]->dtFimFiscalizacaoProjeto));
-        if (is_object($dadosOrgaos))
+        if (is_object($dadosOrgaos)) {
             foreach ($dadosOrgaos as $key => $value) {
                 if ($value->Descricao != '') {
                     $nomeServidoresFiscalizadores .= ', ' . $value->Descricao;
                 }
             }
+        }
         $convenio = 'no Decreto n&deg; 6.170, de 25 de julho de 2007, e na PORTARIA INTERMINISTERIAL MP/MF/MCT N&deg; 127, DE 29 DE MAIO DE 2008';
         $incentivo = 'na Lei n. 8.313/91, e na INSTRU&Ccedil;&Atilde;O NORMATIVA n&deg; 1, DE 5 DE OUTUBRO DE 2010.';
-        if ($infoProjeto[0]->Mecanismo == 109)
+        if ($infoProjeto[0]->Mecanismo == 109) {
             $texto = $incentivo;
-        else
+        } else {
             $texto = $convenio;
-            $getBaseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
-            $brasao = $getBaseUrl."/public/img/brasaoArmas.jpg";
+        }
+        $getBaseUrl = Zend_Controller_Front::getInstance()->getBaseUrl();
+        $brasao = $getBaseUrl."/public/img/brasaoArmas.jpg";
         $textoenvio = " <center><img src=\"$brasao\"/></center>
                         <center>Minist&eacute;rio&nbsp;da&nbsp;Cultura</center>
                         <center>Secretaria&nbsp;de&nbsp;Incentivo&nbsp;e&nbsp;Fomento&nbsp;&agrave;&nbsp;Cultura</center>
@@ -804,8 +830,8 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         $this->view->idFiscalizacao = $post->idFiscalizacao;
     }
 
-    public function enviaremailAction() {
-
+    public function enviaremailAction()
+    {
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
@@ -820,13 +846,14 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         $textoenvio = $_POST['html'];
 
         //descomentar linha abaixo para produ�?o
-        $emailEnvio = implode(';',$emails);
+        $emailEnvio = implode(';', $emails);
         EmailDAO::enviarEmail($emailEnvio, 'Fiscalizacao in loco', $textoenvio);
 
         parent::message("Mensagem enviada com sucesso!", "pesquisarprojetofiscalizacao/grid", "CONFIRM");
     }
 
-    public function excluirAction() {
+    public function excluirAction()
+    {
         $this->_helper->layout->disableLayout();
         $this->_helper->ViewRenderer->setNoRender(true);
         $post = Zend_Registry::get('post');
@@ -863,7 +890,8 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         $this->_helper->json($resposta);
     }
 
-    public function buscartecnicoAction() {
+    public function buscartecnicoAction()
+    {
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $codOrgao = $GrupoAtivo->codOrgao; //  �rg�o ativo na sess�o
 
@@ -872,9 +900,9 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
 
         $post = Zend_Registry::get('post');
         $perfil = $post->perfil;
-        if(isset($post->cnpjcpf)){
-            $where = array('A.CNPJCPF = ?'=>preg_replace('/(\.|\-)/is','',$post->cnpjcpf),'U.gru_codigo = ?' => $perfil, 'A.Status = ?' => 0, 'U.uog_orgao = ?' => $this->view->orgaoAtivo);
-        }else{
+        if (isset($post->cnpjcpf)) {
+            $where = array('A.CNPJCPF = ?'=>preg_replace('/(\.|\-)/is', '', $post->cnpjcpf),'U.gru_codigo = ?' => $perfil, 'A.Status = ?' => 0, 'U.uog_orgao = ?' => $this->view->orgaoAtivo);
+        } else {
             $where = array('U.gru_codigo = ?' => $perfil, 'A.Status = ?' => 0, 'U.uog_orgao = ?' => $this->view->orgaoAtivo);
         }
 
@@ -893,7 +921,8 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         }
     }
 
-    public function carregadadosAction() {
+    public function carregadadosAction()
+    {
         $this->_helper->layout->disableLayout();
         $this->_helper->ViewRenderer->setNoRender(true);
         $post = Zend_Registry::get('post');
@@ -937,9 +966,9 @@ class PesquisarprojetofiscalizacaoController extends MinC_Controller_Action_Abst
         $this->_helper->json($retorno);
     }
 
-    public function url(array $urlOptions = array(), $name = null, $reset = false, $encode = true) {
+    public function url(array $urlOptions = array(), $name = null, $reset = false, $encode = true)
+    {
         $router = Zend_Controller_Front::getInstance()->getRouter();
         return $router->assemble($urlOptions, $name, $reset, $encode);
     }
-
 }

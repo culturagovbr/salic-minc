@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -11,13 +11,13 @@
  */
 class tbClassificaDocumento extends MinC_Db_Table_Abstract
 {
-
     protected $_banco  = "BDCORPORATIVO";
     protected $_schema = "BDCORPORATIVO.scSAC";
     protected $_name   = "tbClassificaDocumento";
 
 
-    public function fundoSetorialXClassificacao($where=array(), $order=array(), $tamanho=-1, $inicio=-1){
+    public function fundoSetorialXClassificacao($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->distinct();
@@ -59,6 +59,4 @@ class tbClassificaDocumento extends MinC_Db_Table_Abstract
         
         return $this->fetchAll($slct);
     }
-
 }
-?>

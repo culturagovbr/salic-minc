@@ -1,8 +1,4 @@
 <?php
-/**
- * @author Caio Lucena <caioflucena@gmail.com>
- */
-
 class FornecedorModel extends Minc_Db_Table_Abstract
 {
     protected $_banco = 'agentes';

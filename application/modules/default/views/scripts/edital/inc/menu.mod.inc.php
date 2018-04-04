@@ -1,7 +1,7 @@
 
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== INï¿½CIO MENU ========== -->
 
-<!-- ========== INÍCIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
+<!-- ========== INï¿½CIO AJUSTE DO LAYOUT PARA ACOPLAR MENU LATERAL ========== -->
  <style type="text/css">
             /*demo page css*/
             .demoHeaders { margin-top: 2em; }
@@ -52,11 +52,11 @@
                 var fluidTitulo = janela - 252;
                 var fluidRodape = janela - 19;
 
-                $("#navglobal").css("width", fluidNavGlobal);
-                $("#conteudo").css("width", fluidConteudo);
-                $("#titulo").css("width", fluidTitulo);
-                $("#rodapeConteudo").css("width", fluidConteudo);
-                $("#rodape").css("width", fluidRodape);
+//                $("#navglobal").css("width", fluidNavGlobal);
+//                $("#conteudo").css("width", fluidConteudo);
+//                $("#titulo").css("width", fluidTitulo);
+//                $("#rodapeConteudo").css("width", fluidConteudo);
+//                $("#rodape").css("width", fluidRodape);
                 $("div#rodapeConteudo").attr("id", "rodapeConteudo_com_menu");
             }
 
@@ -87,7 +87,7 @@
                 var conteudo = '';
                 conteudo += '<table class="tabela">';
                 conteudo += '<tr>';
-                conteudo += '   <td class="bold">Número</td>';
+                conteudo += '   <td class="bold">Nï¿½mero</td>';
                 conteudo += '   <td class="bold">Texto</td>';
                 conteudo += '</tr>';
                 conteudo += '<tr>';
@@ -106,23 +106,23 @@
                 var conteudo = '';
                 conteudo += '<table class="tabela">';
                 conteudo += '<tr>';
-                conteudo += '   <td class="bold">Número</td>';
-                conteudo += '   <td class="bold">Referência</td>';
+                conteudo += '   <td class="bold">Nï¿½mero</td>';
+                conteudo += '   <td class="bold">Referï¿½ncia</td>';
                 conteudo += '</tr>';
                 conteudo += '<tr>';
                 conteudo += '    <td style="vertical-align: top; text-align:center; width:5px;height"><input class="input_simples" type="text" size="2"></td>';
                 conteudo += '    <td style="vertical-align: top;"> ';
                 conteudo += '    <select class="input_simples">';
                 conteudo += '       <option>- Selecione -</option>';
-                conteudo += '       <option>Critérios de Admissibilidade</option>';
-                conteudo += '       <option>Critérios de Participação</option>';
+                conteudo += '       <option>Critï¿½rios de Admissibilidade</option>';
+                conteudo += '       <option>Critï¿½rios de Participaï¿½ï¿½o</option>';
                 conteudo += '       <option>Formas de Pagamento</option>';
-                conteudo += '       <option>Questionário</option>';
-                conteudo += '       <option>Planilha Orçamentária</option>';
-                conteudo += '       <option>Portifólio</option>';
+                conteudo += '       <option>Questionï¿½rio</option>';
+                conteudo += '       <option>Planilha Orï¿½amentï¿½ria</option>';
+                conteudo += '       <option>Portifï¿½lio</option>';
                 conteudo += '       <option>Plano de Viagem</option>';
-                conteudo += '       <option>Local de Realização</option>';
-                conteudo += '       <option>Beneficiários</option>';
+                conteudo += '       <option>Local de Realizaï¿½ï¿½o</option>';
+                conteudo += '       <option>Beneficiï¿½rios</option>';
                 conteudo += '    </select>';
                 conteudo += '    </td>';
                 conteudo += '</tr>';
@@ -236,12 +236,12 @@
                     var conteudo = '<div id="qm0" class="qmmc sanfona">';
                     conteudo += '<a href="#" class="nomeCategoria" onclick="JSSanfona($(this)); return false;">Categoria ' + numCategoriaMod + ' - <b>' + nomeCategoria + '</b></a>';
                     conteudo += '  <div class="sanfonaDiv2 sumir" style="width: 90%; margin-left: 20px;">';
-                    conteudo += '  <a href="#" class="no_seta" onclick="JSMostaConteudo(\'informacoesGerais\',\'' + nomModulo + '\',\'' + nomeCategoria + '\' ); $(\'#displayModulo\').fadeIn();">Informações do gerais</a>';
-                    conteudo += '  <a href="#" class="no_seta" onclick="JSMostaConteudo(\'criteriosAdmissibilidade\',\'' + nomModulo + '\',\'' + nomeCategoria + '\'); $(\'#displayModulo\').fadeIn();">Cirtérios de admissibilidade</a>';
-                    conteudo += '  <a href="#" class="no_seta" onclick="JSMostaConteudo(\'criteriosAvaliacao\',\'' + nomModulo + '\',\'' + nomeCategoria + '\'); $(\'#displayModulo\').fadeIn();">Cirtérios de participação</a>';
+                    conteudo += '  <a href="#" class="no_seta" onclick="JSMostaConteudo(\'informacoesGerais\',\'' + nomModulo + '\',\'' + nomeCategoria + '\' ); $(\'#displayModulo\').fadeIn();">Informaï¿½ï¿½es do gerais</a>';
+                    conteudo += '  <a href="#" class="no_seta" onclick="JSMostaConteudo(\'criteriosAdmissibilidade\',\'' + nomModulo + '\',\'' + nomeCategoria + '\'); $(\'#displayModulo\').fadeIn();">Cirtï¿½rios de admissibilidade</a>';
+                    conteudo += '  <a href="#" class="no_seta" onclick="JSMostaConteudo(\'criteriosAvaliacao\',\'' + nomModulo + '\',\'' + nomeCategoria + '\'); $(\'#displayModulo\').fadeIn();">Cirtï¿½rios de participaï¿½ï¿½o</a>';
                     conteudo += '  <a href="#" class="no_seta" onclick="JSMostaConteudo(\'formaPagamento\',\'' + nomModulo + '\',\'' + nomeCategoria + '\'); $(\'#displayModulo\').fadeIn();">Formas de pagamento</a>';
-                    conteudo += '  <a href="#" class="no_seta" onclick="JSMostaConteudo(\'questionario\',\'' + nomModulo + '\',\'' + nomeCategoria + '\');  $(\'#displayModulo\').fadeIn();">Questionário</a>';
-                    conteudo += '  <a href="#" class="no_seta" class="last" onclick="JSMostaConteudo(\'planilhaOrcamentaria\',\'' + nomModulo + '\',\'' + nomeCategoria + '\');  $(\'#displayModulo\').fadeIn();">Planilha Orçamentária</a>';
+                    conteudo += '  <a href="#" class="no_seta" onclick="JSMostaConteudo(\'questionario\',\'' + nomModulo + '\',\'' + nomeCategoria + '\');  $(\'#displayModulo\').fadeIn();">Questionï¿½rio</a>';
+                    conteudo += '  <a href="#" class="no_seta" class="last" onclick="JSMostaConteudo(\'planilhaOrcamentaria\',\'' + nomModulo + '\',\'' + nomeCategoria + '\');  $(\'#displayModulo\').fadeIn();">Planilha Orï¿½amentï¿½ria</a>';
                     conteudo += '   </div>';
                     conteudo += '</div>';
 
@@ -297,7 +297,7 @@
                 var inputContadorModulo = 'Num. Categoria Mod. ' + numModulo + ' <input type="text" name="numCategoriaMod_' + numModulo + '" id="numCategoriaMod_' + numModulo + '" value="1"/>';
                 $("#frmContadores").append(inputContadorModulo);
 
-                var optionSelectModulo = '<option value=" ' + numModulo + ' ">Módulo ' + numModulo + '</option>';
+                var optionSelectModulo = '<option value=" ' + numModulo + ' ">Mï¿½dulo ' + numModulo + '</option>';
                 $("#slcModulo").append(optionSelectModulo);
                 //return numModulo;
             }
@@ -306,7 +306,7 @@
             function  JSEcolherModulo()
             {
                 $("#boxInformaModulo").dialog({
-                    title: 'Informar o Módulo',
+                    title: 'Informar o Mï¿½dulo',
                     resizable: true,
                     width: 550,
                     height: 250,
@@ -334,7 +334,7 @@
             function  JSNomeiaModulo()
             {
                 $("#boxCriarModulo").dialog({
-                    title: 'Criar o Módulo',
+                    title: 'Criar o Mï¿½dulo',
                     resizable: true,
                     width: 550,
                     height: 250,
@@ -350,7 +350,7 @@
 //                                   $('#formularioModulo').submit();
                                 $(this).dialog('close');
                             } else {
-                                alert('Informe um nome para o módulo');
+                                alert('Informe um nome para o mï¿½dulo');
                             }
                         }
                     }
@@ -363,7 +363,7 @@
     <div class="top"></div>
     <div id="qm0" class="qmmc sanfona">
         <a href="#" class="" onclick="JSSanfona($(this)); return false;">
-            <span id="lbModulo" class="sumir"> Módulos </span>
+            <span id="lbModulo" class="sumir"> Mï¿½dulos </span>
             <span class="lbModulo"></span>
         </a>
         <div class="sanfonaDiv last" style="width: 90%; margin-left: 20px;">
@@ -395,11 +395,11 @@
     <input type="hidden" name="idEdital" value="<?php echo $this->idEdital;?>" />    
         <table class="tabela">
             <tr>
-                <td class="destacar bold w150 esquerdo">Nome do Módulo <span style="color: red;">*</span></td>
+                <td class="destacar bold w150 esquerdo">Nome do Mï¿½dulo <span style="color: red;">*</span></td>
                 <td><input maxlength="200" type="text" name="nomeModulo" id="nomeModulo" class="input_simples w300"></td>
             </tr>
             <tr>
-                <td class="destacar bold w150 esquerdo"> Reutilizar módulo </td>
+                <td class="destacar bold w150 esquerdo"> Reutilizar mï¿½dulo </td>
                 <td> <img src="public/img/botaoReutilizar.png" style="cursor: pointer;" onclick="JSReutilizar()"/>&nbsp;&nbsp;</th> </td>
             </tr>
         </table>

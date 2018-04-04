@@ -45,7 +45,8 @@ class Produto extends MinC_Db_Table_Abstract
         return $db->fetchAll($sql);
     }
 
-    public function buscarProdutosContrato($idpronac){
+    public function buscarProdutosContrato($idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -69,7 +70,7 @@ class Produto extends MinC_Db_Table_Abstract
                            );
 
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
         $select->where('cxpa.idContrato is null');
 
         $select->order('prod.Descricao');
@@ -78,9 +79,9 @@ class Produto extends MinC_Db_Table_Abstract
         $select->group('prod.Descricao');
 
         return $this->fetchAll($select);
-
     }
-    public function buscarProdutosComprovacao($idpronac,$ckItens){
+    public function buscarProdutosComprovacao($idpronac, $ckItens)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -97,14 +98,15 @@ class Produto extends MinC_Db_Table_Abstract
                            );
 
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
 
         /* erro 26
         if(is_array($ckItens) and count(is_array($ckItens))>0)
             $select->where('pAprovacao.idPlanilhaItem in ('.implode(',',$ckItens).')');
         */
-        if(is_array($ckItens) and count(is_array($ckItens))>0)
-            $select->where('pAprovacao.idPlanilhaAprovacao in ('.implode(',',$ckItens).')');
+        if (is_array($ckItens) and count(is_array($ckItens))>0) {
+            $select->where('pAprovacao.idPlanilhaAprovacao in ('.implode(',', $ckItens).')');
+        }
 
         $select->order('prod.Descricao');
 
@@ -112,10 +114,10 @@ class Produto extends MinC_Db_Table_Abstract
         $select->group('prod.Descricao');
 
         return $this->fetchAll($select);
-
     }
 
-    public function buscarProdutos($idpronac){
+    public function buscarProdutos($idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -151,7 +153,7 @@ class Produto extends MinC_Db_Table_Abstract
                            );
 
         $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
-        $select->where('pAprovacao.stAtivo = ?','S');
+        $select->where('pAprovacao.stAtivo = ?', 'S');
         $select->where('cxpa.idCotacao is null');
         $select->where('dlxpa.idDispensaLicitacao is null');
         $select->where('lxpa.idLicitacao is null');
@@ -162,11 +164,11 @@ class Produto extends MinC_Db_Table_Abstract
         $select->group('prod.Descricao');
 
         return $this->fetchAll($select);
-
     }
 
 
-    public function carregarProdutos($idpronac,$idCotacao,$idDispensaLicitacao,$idLicitacao,$idContrato){
+    public function carregarProdutos($idpronac, $idCotacao, $idDispensaLicitacao, $idLicitacao, $idContrato)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -182,37 +184,41 @@ class Produto extends MinC_Db_Table_Abstract
                             array(),
                             'SAC.dbo'
                            );
-        if($idCotacao)
-        $select->joinInner(
+        if ($idCotacao) {
+            $select->joinInner(
                             array('ctxpa'=>'tbCotacaoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = ctxpa.idPlanilhaAprovacao and ctxpa.idCotacao = '$idCotacao' ",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
-        if($idDispensaLicitacao)
-        $select->joinInner(
+        }
+        if ($idDispensaLicitacao) {
+            $select->joinInner(
                             array('dlxpa'=>'tbDispensaLicitacaoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = dlxpa.idPlanilhaAprovacao and dlxpa.idDispensaLicitacao  = '$idDispensaLicitacao' ",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
-        if($idLicitacao)
-        $select->joinInner(
+        }
+        if ($idLicitacao) {
+            $select->joinInner(
                             array('lxpa'=>'tbLicitacaoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = lxpa.idPlanilhaAprovacao and lxpa.idLicitacao  = '$idLicitacao' ",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
-        if($idContrato)
-        $select->joinInner(
+        }
+        if ($idContrato) {
+            $select->joinInner(
                             array('cnxpa'=>'tbContratoxPlanilhaAprovacao'),
                             "pAprovacao.idPlanilhaAprovacao = cnxpa.idPlanilhaAprovacao and cnxpa.idContrato = '$idContrato' ",
                             array(),
                             'BDCORPORATIVO.scSAC'
                            );
+        }
 
 
-        $select->where('pAprovacao.IdPRONAC = ?',$idpronac);
+        $select->where('pAprovacao.IdPRONAC = ?', $idpronac);
 
         $select->order('prod.Descricao');
 
@@ -220,10 +226,5 @@ class Produto extends MinC_Db_Table_Abstract
         $select->group('prod.Descricao');
 
         return $this->fetchAll($select);
-
     }
-
-
-
-
 }

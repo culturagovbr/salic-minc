@@ -1,5 +1,5 @@
 <?php 
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,45 +9,49 @@
  *
  * @author Emanuel Melo
  */
-class NovoEdital extends MinC_Db_Table_Abstract {
-    
-    protected  $_banco = 'SAC';
-    protected  $_name = 'tbEdital';
+class NovoEdital extends MinC_Db_Table_Abstract
+{
+    protected $_banco = 'SAC';
+    protected $_name = 'tbEdital';
 
     
-    public function buscarEdital(){
-        
+    public function buscarEdital()
+    {
     }
     
-    public function alterarEdital(){
-        
+    public function alterarEdital()
+    {
     }
     
-    public function salvarEdital($dados){
+    public function salvarEdital($dados)
+    {
         $insert = $this->insert($dados);
-        return $insert; 
+        return $insert;
     }
     
-    public function salvarFluxoEdital($dados){
+    public function salvarFluxoEdital($dados)
+    {
         $insert = $this->insert($dados);
-        return $insert; 
+        return $insert;
     }
     
-    public function salvardadosgerais($dados, $where){
+    public function salvardadosgerais($dados, $where)
+    {
         $update = $this->update($dados, $where);
         return $update;
     }
     
-    public function excluirEdital(){
-        
+    public function excluirEdital()
+    {
     }
     
-    public function buscarIdTipoEdital($idEdital){
-          $select = $this->select()
+    public function buscarIdTipoEdital($idEdital)
+    {
+        $select = $this->select()
                 ->setIntegrityCheck(false)
                 ->from('tbEdital', array('idTpEdital'))
                 ->where('idEdital = ?', $idEdital);
-         return $this->fetchRow($select);
+        return $this->fetchRow($select);
     }
     
     
@@ -77,9 +81,7 @@ class NovoEdital extends MinC_Db_Table_Abstract {
 //                        array('a'=>$this->_name),
 //                        array('a.*')
 //                     );
-//        
+//
 //        return $this->fetchAll($select);
 //    }
-
 }
-?>

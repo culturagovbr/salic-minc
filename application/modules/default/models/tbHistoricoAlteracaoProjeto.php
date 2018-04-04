@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,14 +9,13 @@
  *
  * @author tisomar
  */
-class tbHistoricoAlteracaoProjeto extends MinC_Db_Table_Abstract {
-
+class tbHistoricoAlteracaoProjeto extends MinC_Db_Table_Abstract
+{
     protected $_banco = "SAC";
     protected $_name = "tbHistoricoAlteracaoProjeto";
 
-    public function listadocumentosanexados($where=array()){
-
-       
+    public function listadocumentosanexados($where=array())
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -86,16 +85,11 @@ class tbHistoricoAlteracaoProjeto extends MinC_Db_Table_Abstract {
 
             
         return $this->fetchAll($slct);
-       
-
-
     }
 
-  //  SELECT * from SAC.dbo.tbHistoricoAlteracaoProjeto as P
+    //  SELECT * from SAC.dbo.tbHistoricoAlteracaoProjeto as P
   //inner join SAC.dbo.tbHistoricoAlteracaoDocumento as D on D.idHistoricoAlteracaoProjeto = P.idHistoricoAlteracaoProjeto
   //inner join BDCORPORATIVO.scCorp.tbDocumento as Doc on Doc.idDocumento = D.idDocumento
   //inner join BDCORPORATIVO.scCorp.tbArquivo as Arq on Arq.idArquivo = Doc.idArquivo
  // where idPRONAC = 124914 and cdSituacao is not null
-
 }
-?>

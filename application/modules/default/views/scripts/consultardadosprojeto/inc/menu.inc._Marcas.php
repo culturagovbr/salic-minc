@@ -62,7 +62,7 @@
                 $('#boxImprimirProjeto').html("<br><br><center>Carregando dados...</center>");
 
                 $.ajax({
-                    url : '<?php echo $this->url ( array ('controller' => 'consultardadosprojeto', 'action' => 'form-imprimir-projeto' ));?>?idPronac='+idPronac,
+                    url : '<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'form-imprimir-projeto' ));?>?idPronac='+idPronac,
                     data :
                         {
                         idPronac : idPronac
@@ -172,7 +172,7 @@
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'documentos-anexados')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Documentos anexados">Documentos anexados</a>
                     <!--<a href='<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista')); ?><?php echo $codPronac;?>' target="_blank" title="Ir para Dilig&ecirc;ncias do projeto">Dilig&ecirc;ncias do projeto</a>-->
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'diligencias')); ?><?php echo $codPronac;?>','conteudo'); return false"  title="Ir para Dilig&ecirc;ncias do projeto">Dilig&ecirc;ncias do projeto</a>
-                    <?php if(in_array($this->intFaseProjeto,array('2','3','4'))):?>
+                    <?php if (in_array($this->intFaseProjeto, array('2','3','4'))):?>
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'recurso')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Recursos">Recursos</a>
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'aprovacao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Aprova&ccedil;&atilde;o">Aprova&ccedil;&atilde;o</a>
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'analise-projeto')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para An&aacute;lise do projeto">An&aacute;lise do projeto</a>
@@ -180,13 +180,13 @@
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'dados-bancarios')); ?><?php echo $codPronac;?>','conteudo'); return false"  title="Ir para Dados banc&aacute;rios">Dados banc&aacute;rios</a>
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'relatorios-trimestrais')); ?><?php echo $codPronac;?>','conteudo'); return false"  title="Ir para Relat&oacute;rios trimestrais">Relat&oacute;rios trimestrais</a>
                     <?php endif;?>
-                    <?php if(in_array($this->intFaseProjeto,array('4'))):?>
+                    <?php if (in_array($this->intFaseProjeto, array('4'))):?>
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'relatorio-final')); ?><?php echo $codPronac;?>','conteudo'); return false"  title="Ir para Relat&oacute;rios final">Relat&oacute;rio final</a>
                     <?php endif;?>
-                    <?php if(in_array($this->intFaseProjeto,array('2','3','4'))):?>
+                    <?php if (in_array($this->intFaseProjeto, array('2','3','4'))):?>
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'dados-fiscalizacao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Dados da fiscaliza&ccedil;&atilde;o">Dados da fiscaliza&ccedil;&atilde;o</a>
                     <?php endif;?>
-                    <?php if(in_array($this->intFaseProjeto,array('4'))):?>
+                    <?php if (in_array($this->intFaseProjeto, array('4'))):?>
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'prestacao-de-contas')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Presta&ccedil;&atilde;o de Contas">Presta&ccedil;&atilde;o de contas</a>
                     <?php endif;?>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'tramitacao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Tramita&ccedil;&atilde;o">Tramita&ccedil;&atilde;o</a>
@@ -194,18 +194,22 @@
                 </div>
                 <!-- FIM - CONSULTAR DADOS DO PROJETO  -->
 				
-<?php //if(($this->respProponente == 'P') && ($this->inabilitado == 'N') OR (($this->respProponente == 'R') && ($this->procuracaoValida == 'S') && ($this->inabilitado == 'N') && ($this->intFaseProjeto == 2))): ?>
-<?php if($this->inabilitado == 'N'): ?>
+<?php //if(($this->respProponente == 'P') && ($this->inabilitado == 'N') OR (($this->respProponente == 'R') && ($this->procuracaoValida == 'S') && ($this->inabilitado == 'N') && ($this->intFaseProjeto == 2))):?>
+<?php if ($this->inabilitado == 'N'): ?>
 
                 <!-- ======================= DILIGENCIA ====================== -->
-                <?php if(in_array($this->intFaseProjeto,array('1','2','3'))):?>
-                    <?php if (($this->blnProponente) || (in_array($this->intFaseProjeto,array('1')) && $this->respProponente == 'R') || (!in_array($this->intFaseProjeto,array('1')) && $this->respProponente == 'R' && $this->procuracaoValida == 'S') ) { ?>
+                <?php if (in_array($this->intFaseProjeto, array('1','2','3'))):?>
+                    <?php if (($this->blnProponente) || (in_array($this->intFaseProjeto, array('1')) && $this->respProponente == 'R') || (!in_array($this->intFaseProjeto, array('1')) && $this->respProponente == 'R' && $this->procuracaoValida == 'S')) {
+            ?>
                         <a class="no_seta" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaproponente')); ?><?php echo $codPronac; ?>">Dilig&ecirc;ncias</a>
-                    <?php } else { ?>
+                    <?php
+        } else {
+            ?>
                         <!--<a class="no_seta" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista')); ?><?php echo $codPronac; ?>">Dilig&ecirc;ncias</a>
                         <div class="sanfonaDiv" style="display: none;"></div>-->
                         <a class="no_seta" target="_blank" href="<?php echo $this->url(array('controller' => 'mantermensagens', 'action' => 'consultarmensagem')); ?><?php echo $auxPronac; ?>">Mensagens</a>
-                    <?php } ?>
+                    <?php
+        } ?>
                 <?php endif;?>
                 <!-- FIM - DILIGENCIA -->
 
@@ -216,23 +220,27 @@
                     $arrSitIndef = array('A14','A16','A17','A41','D14');
                     $arrSitIndefAprov = array('A14','A16','A17','A41','D14','D09','D11','D25','D36','D38');
                 ?>
-                <?php if(in_array($this->intFaseProjeto,array('1','2'))):?>
-                        <?php if ($this->blnProponente || (in_array($this->intFaseProjeto,array('1')) && $this->respProponente == 'R') || (!in_array($this->intFaseProjeto,array('1')) && $this->respProponente == 'R' && $this->procuracaoValida == 'S')) { ?>
-                            <?php if (isset($this->resp->Situacao) && in_array($this->resp->Situacao,$arrSitIndef) && $this->intFaseProjeto == '1') : ?>
+                <?php if (in_array($this->intFaseProjeto, array('1','2'))):?>
+                        <?php if ($this->blnProponente || (in_array($this->intFaseProjeto, array('1')) && $this->respProponente == 'R') || (!in_array($this->intFaseProjeto, array('1')) && $this->respProponente == 'R' && $this->procuracaoValida == 'S')) {
+                    ?>
+                            <?php if (isset($this->resp->Situacao) && in_array($this->resp->Situacao, $arrSitIndef) && $this->intFaseProjeto == '1') : ?>
                                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'solicitarrecursodecisao', 'action' => 'recurso', 'idpronac' => $this->idPronac), '', true); ?>">Solicitar Recurso</a>
-                            <?php endif;?>
-                            <?php if (isset($this->resp->Situacao) && in_array($this->resp->Situacao,$arrSitIndefAprov) && $this->intFaseProjeto == '2') : ?>
+                            <?php endif; ?>
+                            <?php if (isset($this->resp->Situacao) && in_array($this->resp->Situacao, $arrSitIndefAprov) && $this->intFaseProjeto == '2') : ?>
                                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'solicitarrecursodecisao', 'action' => 'recurso', 'idpronac' => $this->idPronac), '', true); ?>">Solicitar Recurso</a>
-                            <?php endif;?>
-                        <?php } ?>
+                            <?php endif; ?>
+                        <?php
+                } ?>
                 <?php endif;?>
                 <!-- FIM - SOLICITAR RECURSO -->
 
                 <!-- ======================= SOLICITAR READEQUACAO  =======================   -->
-                <?php if(in_array($this->intFaseProjeto,array('2'))):?>
-                    <?php if ($this->blnProponente) { ?>
+                <?php if (in_array($this->intFaseProjeto, array('2'))):?>
+                    <?php if ($this->blnProponente) {
+                    ?>
                         <a class="no_seta" href="<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'index')); ?>?idusuario=<?php echo $this->usuario->IdUsuario; ?>&idpronac=<?php echo $this->idPronac; ?>">Solicitar Readequa&ccedil;&atilde;o</a>
-                    <?php } ?>
+                    <?php
+                } ?>
                 <?php endif;?>
                 <!-- FIM - SOLICITAR READEQUACAO -->
 
@@ -240,60 +248,76 @@
                 <?php
                     $arrSitComprov = array('E12','E13','E15','E50','E59','E61','E62');
                 ?>
-                <?php if(in_array($this->intFaseProjeto,array('2'))):?>
+                <?php if (in_array($this->intFaseProjeto, array('2'))):?>
                     <?php if ($this->blnProponente) {
-                            if (isset($this->liberacao) && $this->liberacao > 0) { ?>
+                    if (isset($this->liberacao) && $this->liberacao > 0) {
+                        ?>
                                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'comprovarexecucaofinanceira', 'action' => 'pagamento')); ?>?idusuario=<?php echo $this->usuario->IdUsuario; ?>&idpronac=<?php echo $this->idPronac; ?>" title="Realizar Comprova&ccedil;&atilde;o Financeira">Realizar Comprova&ccedil;&atilde;o Financeira</a>
-                            <?php }
-                    } ?>
+                            <?php
+                    }
+                } ?>
                 <?php endif; ?>
                 <!-- FIM - COMPROVACAO FINANCEIRA -->
 
 
                 <!-- ======================= COMPROVACAO FISICA  ======================= -->
-                <?php if(in_array($this->intFaseProjeto,array('2'))): ?>
+                <?php if (in_array($this->intFaseProjeto, array('2'))): ?>
                     <?php if ($this->blnProponente) {
-                            if (isset($this->liberacao) && $this->liberacao > 0) { //ANTIGO MODO DE VALIDAR A APRESENTACAO DO LINK ?>
+                    if (isset($this->liberacao) && $this->liberacao > 0) { //ANTIGO MODO DE VALIDAR A APRESENTACAO DO LINK?>
                                 <div class="sanfonaDiv" style="display:none;"></div>
                                 <a href="#" title="Realizar Comprova&ccedil;&atilde;o F&iacute;sica" class="ancoraComprovacaoFisica" onclick="return false;">Realizar Comprova&ccedil;&atilde;o F&iacute;sica</a>
                                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
-                                    <?php if ($this->TrimestraisCadastrados == $this->qtdRelatorioEsperado) { ?>
+                                    <?php if ($this->TrimestraisCadastrados == $this->qtdRelatorioEsperado) {
+                        ?>
                                         <a style="margin-left: 10px;" href="<?php echo $this->url(array('controller' => 'comprovarexecucaofisica', 'action' => 'relatoriotrimestralfinalizado', 'idpronac' => $this->idPronac), '', true); ?>" >Relat&oacute;rio Trimestral</a>
                                         <a style="margin-left: 10px;" href="<?php echo $this->url(array('controller' => 'comprovarexecucaofisica', 'action' => 'relatoriofinal', 'idpronac' => $this->idPronac), '', true); ?>">Comprovar Realiza&ccedil;&atilde;o do Objeto</a>
-                                    <?php } else { ?>
-                                        <?php if ($this->TrimestraisCadastrados <= $this->qtdHabilitado) { ?>
+                                    <?php
+                    } else {
+                        ?>
+                                        <?php if ($this->TrimestraisCadastrados <= $this->qtdHabilitado) {
+                            ?>
                                             <a style="margin-left: 10px;" href="<?php echo $this->url(array('controller' => 'comprovarexecucaofisica', 'action' => 'relatoriotrimestral', 'idpronac' => $this->idPronac), '', true); ?>">Relat&oacute;rio Trimestral</a>
                                             <a style="margin-left: 10px;" href="#" class="mensagem_alerta_bloqueio_consolidado">Comprovar Realiza&ccedil;&atilde;o do Objeto</a>
-                                        <?php } else { ?>
+                                        <?php
+                        } else {
+                            ?>
                                             <a style="margin-left: 10px;" href="<?php echo $this->url(array('controller' => 'comprovarexecucaofisica', 'action' => 'relatoriotrimestralfinalizado', 'idpronac' => $this->idPronac), '', true); ?>" >Relat&oacute;rio Trimestral</a>
                                             <a style="margin-left: 10px;" href="#" class="mensagem_alerta_trim">Comprovar Realiza&ccedil;&atilde;o do Objeto</a>
-                                        <?php } ?>
-                                    <?php } ?>
+                                        <?php
+                        } ?>
+                                    <?php
+                    } ?>
                                 </div>
-                            <?php } // FECHA O ANTIGO MODO DE VALIDAR A APRESENTACAO DO LINK
-                        } //bln_proponente ?>
+                            <?php
+                    } // FECHA O ANTIGO MODO DE VALIDAR A APRESENTACAO DO LINK
+                } //bln_proponente?>
                 <?php endif; ?>
                 <!-- FIM - COMPROVACAO FISICA -->
 
                 
 
                 <!--  ======================= PROCURACAO =======================  -->
-                <?php if ($this->blnProponente) { ?>
+                <?php if ($this->blnProponente) {
+                    ?>
                     <!-- 
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'procuracao', 'action' => 'index')); ?>?idPreProjeto=<?php echo $this->idprojeto; ?>">Procura&ccedil;&atilde;o</a>
                      -->
-                <?php } ?>
+                <?php
+                } ?>
                 <!-- FIM - PROCURACAO -->
 
 <?php endif;?>
 
-                <!--<?php if ($this->blnProponente) { ?><a class="no_seta" href="<?php echo $this->url(array('controller' => 'controlarmovimentacaobancaria', 'action' => 'form', 'idpronac' => $this->idPronac), '', true); ?>">Extrato da Movimenta&ccedil;&atilde;o Banc&aacute;ria</a><?php } ?>-->
+                <!--<?php if ($this->blnProponente) {
+                    ?><a class="no_seta" href="<?php echo $this->url(array('controller' => 'controlarmovimentacaobancaria', 'action' => 'form', 'idpronac' => $this->idPronac), '', true); ?>">Extrato da Movimenta&ccedil;&atilde;o Banc&aacute;ria</a><?php
+                } ?>-->
 
                 <!--  ======================= MARCAS =======================  -->
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'form-enviar-arquivo-marca')); ?><?php echo $codPronac;?>">Marcas</a>
                 <!-- FIM - MARCAS -->
 
-                <?php if ($this->blnProponente) { ?>
+                <?php if ($this->blnProponente) {
+                    ?>
                     <!--<a href="#" class="ancoraDadosbancarios" >Dados Banc&aacute;rios</a>
                     <div class="sanfonaDiv">
                         <a class="no_seta" href="<?php echo $this->url(array('controller' => 'dadobancario', 'action' => 'capitacao')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>">Capta&ccedil;&atilde;o</a>
@@ -305,22 +329,27 @@
 
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'listarprojetos', 'action' => 'listarprojetos')); ?>">Listar Projetos</a>
                 
-                <?php } ?>
+                <?php
+                } ?>
                 <!--<a class="no_seta" href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'imprimir-projeto')); ?><?php echo $codPronac;?>' target="_blank" title="Ir Imprimir Projeto">Imprimir Projeto</a>-->
                 <a class="no_seta" href='#' onclick="imprimirProjeto('<?php echo $this->idPronac;?>'); return false;" title="Ir Imprimir Projeto">Imprimir Projeto</a>
-                <?php if (isset($this->menumsg)) { ?>
+                <?php if (isset($this->menumsg)) {
+                    ?>
                     <div class="sanfonaDiv"></div>
-                    <!--<a class="no_seta" href="<?php //echo $this->url(array('controller' => 'mantermensagens', 'action' => 'consultarmensagem', 'idpronac' => $this->idPronac), '', true); ?>">Mensagens</a>-->
-                <?php } ?>
+                    <!--<a class="no_seta" href="<?php //echo $this->url(array('controller' => 'mantermensagens', 'action' => 'consultarmensagem', 'idpronac' => $this->idPronac), '', true);?>">Mensagens</a>-->
+                <?php
+                } ?>
             <!-- <a class="no_seta" href="<?php echo $this->url(array('controller' => 'controlarmovimentacaobancaria', 'action' => '')); ?>?idPronac=<?php echo $_GET['idPronac']; ?>">Extrato de Movimentaç?o Bancária</a> -->
             <!-- <a class="no_seta" href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'form-enviar-arquivo-marca')); ?><?php echo $codPronac; ?>">Marcas</a> -->
                     
              <!-- Manter Mensagens -->
             <?php 
                 $perfisMensagens  = array(131,92,93,122,123,121,129,94,103,110,118,126,125,124,132,136,134,135,138,139);
-                if(in_array($this->grupoAtivo,$perfisMensagens)){ ?>
+                if (in_array($this->grupoAtivo, $perfisMensagens)) {
+                    ?>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'mantermensagens', 'action' => 'consultarmensagem', 'idpronac' => $this->idPronac), '', true); ?>">Mensagens</a>
-            <?php } ?>
+            <?php
+                } ?>
              
                     
                     

@@ -157,5 +157,4 @@ class Assinatura_Model_TbAtoAdministrativo extends MinC_Db_Model
         $this->_idOrdemDaAssinatura = $idOrdemDaAssinatura;
         return $this;
     }
-
 }

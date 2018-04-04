@@ -1,14 +1,4 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
-*/
-
-/**
- * Description of tbpedidoaltprojetoxarquivo
- *
- * @author 01129075125
- */
 class tbpedidoaltprojetoxarquivoDAO extends Zend_Db_Table
 {
     protected $_name = "BDCORPORATIVO.scCORP.tbpedidoaltprojetoxarquivo";
@@ -27,6 +17,4 @@ class tbpedidoaltprojetoxarquivoDAO extends Zend_Db_Table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
     }
-    
 }
-?>

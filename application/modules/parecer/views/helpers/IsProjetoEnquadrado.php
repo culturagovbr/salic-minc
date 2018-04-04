@@ -5,13 +5,13 @@
 
 class Zend_View_Helper_IsProjetoEnquadrado
 {
-	/**
-	 * Método para verificar se o projeto já foi enquadrado
-	 * @access public
-	 * @param integer $idPronac
-	 * @return string
-	 */
-	public function IsProjetoEnquadrado($idPronac)
+    /**
+     * Método para verificar se o projeto já foi enquadrado
+     * @access public
+     * @param integer $idPronac
+     * @return string
+     */
+    public function IsProjetoEnquadrado($idPronac)
     {
         $enquadramentoDAO 		= new Admissibilidade_Model_Enquadramento();
         $buscaEnquadramento 	= $enquadramentoDAO->buscarDados($idPronac, null, false);
@@ -24,4 +24,3 @@ class Zend_View_Helper_IsProjetoEnquadrado
         }
     }
 }
-

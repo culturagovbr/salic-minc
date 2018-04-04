@@ -1,111 +1,74 @@
 <?php
-/**
- * DAO Recurso
- * @author Equipe RUP - Politec
- * @since 27/07/2010
- * @version 1.0
- * @package application
- * @subpackage application.model.DAO
- * @copyright � 2010 - Minist�rio da Cultura - Todos os direitos reservados.
- * @link http://www.cultura.gov.br
- */
-
 class RecursoDAO extends Zend_Db_Table
 {
-	/* dados da tabela */
-	protected $_schema  = "";
-	protected $_name    = "SAC.dbo.tbRecurso";
-	protected $_primary = "idRecurso";
+    protected $_schema  = "";
+    protected $_name    = "SAC.dbo.tbRecurso";
+    protected $_primary = "idRecurso";
+
+    public static function cadastrar($dados)
+    {
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+
+        $cadastrar = $db->insert("SAC.dbo.tbRecurso", $dados);
 
 
+        if ($cadastrar) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	/**
-	 * M�todo para cadastrar informa��es dos recursos
-	 * @access public
-	 * @static
-	 * @param array $dados
-	 * @return bool
-	 */
-	public static function cadastrar($dados)
-	{
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+    /**
+     * M�todo para alterar informa��es dos recursos
+     * @access public
+     * @static
+     * @param array $dados
+     * @param integer $id
+     * @return bool
+     */
+    public static function alterar($dados, $idPronac)
+    {
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		$cadastrar = $db->insert("SAC.dbo.tbRecurso", $dados);
+        $where   = "IdPRONAC = $idPronac";
+        $alterar = $db->update("SAC.dbo.Projetos", $dados, $where);
 
+        if ($alterar) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-		if ($cadastrar)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		} 
-	} // fecha m�todo cadastrar()
+    /**
+     * M�todo para buscar o id do �ltimo recurso cadastrado
+     * @access public
+     * @static
+     * @param void
+     * @return object || integer
+     */
+    public static function buscarIdRecurso()
+    {
+        $sql = "SELECT MAX(idRecurso) AS idRecurso from SAC.dbo.tbRecurso";
 
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    } // fecha m�todo buscarIdRecurso()
 
-
-	/**
-	 * M�todo para alterar informa��es dos recursos
-	 * @access public
-	 * @static
-	 * @param array $dados
-	 * @param integer $id
-	 * @return bool
-	 */
-	public static function alterar($dados, $idPronac)
-	{
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-
-		$where   = "IdPRONAC = $idPronac";
-		$alterar = $db->update("SAC.dbo.Projetos", $dados, $where);
-
-		if ($alterar)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	} // fecha m�todo alterar()
-
-
-
-	/**
-	 * M�todo para buscar o id do �ltimo recurso cadastrado
-	 * @access public
-	 * @static
-	 * @param void
-	 * @return object || integer
-	 */
-	public static function buscarIdRecurso()
-	{
-		$sql = "SELECT MAX(idRecurso) AS idRecurso from SAC.dbo.tbRecurso";
-
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		return $db->fetchAll($sql);
-	} // fecha m�todo buscarIdRecurso()
-
-
-
-
-
-
-
-	/**
-	 * M�todo para buscar o recurso cadastrado para Reenquadramento
-	 * @access public
-	 * @static
-	 * @param void
-	 * @return object || integer
-	 */
-	public static function buscarRecursoReenquadramento($idPronac = null)
-	{
-		$sql = "SELECT DISTINCT Pr.IdPRONAC,
+    /**
+     * M�todo para buscar o recurso cadastrado para Reenquadramento
+     * @access public
+     * @static
+     * @param void
+     * @return object || integer
+     */
+    public static function buscarRecursoReenquadramento($idPronac = null)
+    {
+        $sql = "SELECT DISTINCT Pr.IdPRONAC,
                         Pr.AnoProjeto+Pr.Sequencial as pronac,
                   		Pr.AnoProjeto,
 						Pr.Sequencial,
@@ -133,40 +96,37 @@ class RecursoDAO extends Zend_Db_Table
                               SAC.dbo.Projetos Pr ON Rec.IdPRONAC = Pr.IdPRONAC
                               INNER JOIN SAC.dbo.Segmento Seg on Seg.Codigo = Pr.Segmento
                               INNER JOIN SAC.dbo.Area Ar on Ar.Codigo = Pr.Area
-                              INNER JOIN SAC.dbo.Enquadramento Enq on Enq.IdPRONAC = Pr.IdPRONAC 
+                              INNER JOIN SAC.dbo.Enquadramento Enq on Enq.IdPRONAC = Pr.IdPRONAC
                               LEFT JOIN AGENTES.dbo.Agentes Ag on Ag.CNPJCPF = Pr.CgcCpf
                               LEFT JOIN AGENTES.dbo.Nomes N on N.idAgente = Ag.idAgente
                               INNER JOIN SAC.dbo.Interessado I on I.CgcCpf = Pr.CgcCpf
                               LEFT JOIN AGENTES.dbo.EnderecoNacional EN on EN.idAgente = Ag.idAgente
                                   INNER JOIN Agentes..Municipios mun on mun.idMunicipioIBGE = I.Cidade or mun.idMunicipioIBGE = EN.Cidade
                                   INNER JOIN Agentes..UF uf on uf.idUF = mun.idUFIBGE
-                            WHERE 
+                            WHERE
                             --Rec.stAtendimento = 'N' AND
                             Rec.tpSolicitacao = 'EN'";
 
-		// caso o id do pronac seja informado
-		if (!empty($idPronac))
-		{
-			$sql.= "AND Pr.IdPRONAC = '". $idPronac ."' ";
-		}
+        // caso o id do pronac seja informado
+        if (!empty($idPronac)) {
+            $sql.= "AND Pr.IdPRONAC = '". $idPronac ."' ";
+        }
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		return $db->fetchAll($sql);
-	} // fecha m�todo buscarRecursoReenquadramento()
-	
-	
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    }
 
-		/**
-	 * M�todo para buscar o recurso cadastrado para Or�amento
-	 * @access public
-	 * @static
-	 * @param void
-	 * @return object || integer
-	 */
-	public static function buscarRecursoOrcamento($idPronac = null, $idRecurso = null)
-	{
-		$sql = "SELECT DISTINCT Pr.IdPRONAC,
+    /**
+     * M�todo para buscar o recurso cadastrado para Or�amento
+     * @access public
+     * @static
+     * @param void
+     * @return object || integer
+     */
+    public static function buscarRecursoOrcamento($idPronac = null, $idRecurso = null)
+    {
+        $sql = "SELECT DISTINCT Pr.IdPRONAC,
                         Pr.AnoProjeto+Pr.Sequencial as pronac,
                         Rec.dsSolicitacaoRecurso,
                         Rec.dtSolicitacaoRecurso,
@@ -199,28 +159,25 @@ class RecursoDAO extends Zend_Db_Table
                               WHERE Rec.stAtendimento = 'N'
                               AND Rec.tpSolicitacao = 'OR'";
 
-		if (!empty($idPronac) && !empty($idRecurso))
-		{
-			$sql.= " AND Pr.IdPRONAC = $idPronac AND Rec.idRecurso = $idRecurso";
-		}
+        if (!empty($idPronac) && !empty($idRecurso)) {
+            $sql.= " AND Pr.IdPRONAC = $idPronac AND Rec.idRecurso = $idRecurso";
+        }
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		return $db->fetchAll($sql);
-	} // fecha m�todo buscarRecursoOrcamento()
-	
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    }
 
-		/**
-	 * M�todo para buscar o recurso cadastrado para Projetos Indeferidos
-	 * @access public
-	 * @static
-	 * @param void
-	 * @return object || integer
-	 */
-	
-	public static function buscarRecursoProjetosIndeferidos($idPronac = null)
-	{
-		$sql = "SELECT DISTINCT Pr.IdPRONAC,
+    /**
+     * M�todo para buscar o recurso cadastrado para Projetos Indeferidos
+     * @access public
+     * @static
+     * @param void
+     * @return object || integer
+     */
+    public static function buscarRecursoProjetosIndeferidos($idPronac = null)
+    {
+        $sql = "SELECT DISTINCT Pr.IdPRONAC,
                         Pr.AnoProjeto+Pr.Sequencial as pronac,
                         Rec.idRecurso,
                         Rec.dsSolicitacaoRecurso,
@@ -253,50 +210,29 @@ class RecursoDAO extends Zend_Db_Table
 		                 WHERE Rec.stAtendimento = 'N'
 		                  AND Rec.tpSolicitacao = 'PI'";
 
-		
-		
-		
-		
-		// caso o id do pronac seja informado
-		if (!empty($idPronac))
-		{
-			$sql.= "AND Pr.IdPRONAC = '". $idPronac ."' ";
-		}
+        // caso o id do pronac seja informado
+        if (!empty($idPronac)) {
+            $sql.= "AND Pr.IdPRONAC = '". $idPronac ."' ";
+        }
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		return $db->fetchAll($sql);
-	} // fecha m�todo buscarRecursoProjetosIndeferidos()
-	
-		
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    } // fecha m�todo buscarRecursoProjetosIndeferidos()
 
-	
-	public static function buscarParecer($idAgente, $idPronac)
-	{
-		/*$sql = "select Pr.IdPRONAC, Pa.ParecerFavoravel,Pa.Conselheiro, Pa.Parecerista, Pa.ResumoParecer, Pa.TipoParecer, Tpa.dsItem, Tpa.dsJustificativa, Tpa.dtPlanilha 
-from SAC.dbo.Parecer Pa
-INNER JOIN SAC.dbo.Projetos Pr on Pr.IdPRONAC = Pa.idPRONAC
-LEFT JOIN SAC.dbo.tbRecurso Re on Re.IdPRONAC = Pr.IdPRONAC
-INNER JOIN SAC.dbo.Aprovacao Ap on Ap.IdPRONAC = Pa.idPRONAC
-INNER JOIN SAC.dbo.Enquadramento En on En.IdEnquadramento = Pa.idEnquadramento
-LEFT JOIN SAC.dbo.tbPlanilhaAprovacao Tpa on Tpa.IdPRONAC = Pr.IdPRONAC";
 
-		// caso o id do pronac seja informado
-		if (!empty($idPronac))
-		{
-			$sql.= "AND Pr.IdPRONAC = '". $idPronac ."' ";
-		}*/
-		$sql = "SELECT * FROM SAC.dbo.tbPlanilhaAprovacao WHERE idAgente = $idAgente AND IdPRONAC = $idPronac";
+    public static function buscarParecer($idAgente, $idPronac)
+    {
+        $sql = "SELECT * FROM SAC.dbo.tbPlanilhaAprovacao WHERE idAgente = $idAgente AND IdPRONAC = $idPronac";
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		return $db->fetchAll($sql);
-	}
-	
-	
-	public static function buscarRecursoProjetosDeferidos()
-		{
-		$sql = "SELECT DISTINCT Pr.IdPRONAC,
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    }
+
+    public static function buscarRecursoProjetosDeferidos()
+    {
+        $sql = "SELECT DISTINCT Pr.IdPRONAC,
                             Pr.AnoProjeto+Pr.Sequencial as pronac,
                             Rec.dsSolicitacaoRecurso,
                             Rec.dtSolicitacaoRecurso,
@@ -328,192 +264,121 @@ LEFT JOIN SAC.dbo.tbPlanilhaAprovacao Tpa on Tpa.IdPRONAC = Pr.IdPRONAC";
 		                 WHERE Rec.stAtendimento = 'D'
 		                  AND Rec.tpSolicitacao = 'NA'";
 
-		
-		
-		
-		
-		// caso o id do pronac seja informado
-		if (!empty($idPronac))
-		{
-			$sql.= "AND Pr.IdPRONAC = '". $idPronac ."' ";
-		}
+        // caso o id do pronac seja informado
+        if (!empty($idPronac)) {
+            $sql.= "AND Pr.IdPRONAC = '". $idPronac ."' ";
+        }
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		return $db->fetchAll($sql);
-	} // fecha m�todo buscarRecursoProjetosIndeferidos()
-	
-	
-	
-	
-		public static function alterarSituacao($idPronac)
-	{
-		$sql = "UPDATE SAC.dbo.Projetos SET Situacao = 'D20' WHERE IdPRONAC = $idPronac";
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        return $db->fetchAll($sql);
+    }
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_ASSOC);
-		return $db->fetchRow($sql);
-	} 
+    public static function alterarSituacao($idPronac)
+    {
+        $sql = "UPDATE SAC.dbo.Projetos SET Situacao = 'D20' WHERE IdPRONAC = $idPronac";
 
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_ASSOC);
+        return $db->fetchRow($sql);
+    }
 
+    public static function alterarEnquadramento($idPronac, $enquadramento)
+    {
+        $sql = "UPDATE SAC.dbo.Enquadramento SET Enquadramento = '$enquadramento' WHERE IdPRONAC = $idPronac";
 
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_ASSOC);
+        return $db->fetchRow($sql);
+    }
 
-		public static function alterarEnquadramento($idPronac, $enquadramento)
-	{
-		$sql = "UPDATE SAC.dbo.Enquadramento SET Enquadramento = '$enquadramento' WHERE IdPRONAC = $idPronac";
+    public static function avaliarRecursoDef($idRecurso, $dtAvaliacao, $justificativa, $idAgenteAvaliador, $idPronac, $stAtendimento)
+    {
+        $sql = "UPDATE SAC.dbo.tbRecurso SET dtAvaliacao = '$dtAvaliacao', dsAvaliacao = '$justificativa', stAtendimento = 'D', idAgenteAvaliador = '469' WHERE idRecurso = $idRecurso";
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_ASSOC);
-		return $db->fetchRow($sql);
-	} 
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_ASSOC);
+        return $db->fetchRow($sql);
+    } // fecha m�todo avaliarRecurso()
 
-	
-	
-	
-		public static function avaliarRecursoDef($idRecurso, $dtAvaliacao, $justificativa, $idAgenteAvaliador, $idPronac, $stAtendimento)
-	
-	{
+    public static function avaliarEnquadramentoDef($dtAvaliacao, $idPronac)
+    {
+        $sql = "UPDATE SAC.dbo.tbRecurso SET dtAvaliacao = '$dtAvaliacao', stAtendimento = 'D', idAgenteAvaliador = '469' WHERE idRecurso = $idPronac";
 
-				$sql = "UPDATE SAC.dbo.tbRecurso SET dtAvaliacao = '$dtAvaliacao', dsAvaliacao = '$justificativa', stAtendimento = 'D', idAgenteAvaliador = '469' WHERE idRecurso = $idRecurso";
-		
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_ASSOC);
-		return $db->fetchRow($sql);
-		
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_ASSOC);
+        return $db->fetchRow($sql);
+    } // fecha m�todo avaliarRecurso()
 
-		
-	} // fecha m�todo avaliarRecurso()
-	
+    public static function avaliarEnquadramentoIndef($dtAvaliacao, $idPronac)
+    {
+        $sql = "UPDATE SAC.dbo.tbRecurso SET dtAvaliacao = '$dtAvaliacao', stAtendimento = 'I', idAgenteAvaliador = '469' WHERE idRecurso = $idPronac";
 
-	
-		
-		public static function avaliarEnquadramentoDef($dtAvaliacao, $idPronac)
-	
-	{
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_ASSOC);
+        return $db->fetchRow($sql);
+    } // fecha m�todo avaliarRecurso()
 
-				$sql = "UPDATE SAC.dbo.tbRecurso SET dtAvaliacao = '$dtAvaliacao', stAtendimento = 'D', idAgenteAvaliador = '469' WHERE idRecurso = $idPronac";
-		
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_ASSOC);
-		return $db->fetchRow($sql);
-		
+    public static function avaliarRecursoInd($idRecurso, $dtAvaliacao, $justificativa, $idAgenteAvaliador, $idPronac, $stAtendimento)
+    {
+        $sql = "UPDATE SAC.dbo.tbRecurso SET dtAvaliacao = '$dtAvaliacao', dsAvaliacao = '$justificativa', stAtendimento = 'I', idAgenteAvaliador = '469' WHERE idRecurso = $idRecurso";
 
-		
-	} // fecha m�todo avaliarRecurso()
-	
-	
-	
-			public static function avaliarEnquadramentoIndef($dtAvaliacao, $idPronac)
-	
-	{
-
-				$sql = "UPDATE SAC.dbo.tbRecurso SET dtAvaliacao = '$dtAvaliacao', stAtendimento = 'I', idAgenteAvaliador = '469' WHERE idRecurso = $idPronac";
-		
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_ASSOC);
-		return $db->fetchRow($sql);
-		
-
-		
-	} // fecha m�todo avaliarRecurso()
-	
-	
-	
-		public static function avaliarRecursoInd($idRecurso, $dtAvaliacao, $justificativa, $idAgenteAvaliador, $idPronac, $stAtendimento)
-	
-	{
-
-				$sql = "UPDATE SAC.dbo.tbRecurso SET dtAvaliacao = '$dtAvaliacao', dsAvaliacao = '$justificativa', stAtendimento = 'I', idAgenteAvaliador = '469' WHERE idRecurso = $idRecurso";
-
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_ASSOC);
-		return $db->fetchRow($sql);
-		
-
-		
-	} // fecha m�todo avaliarRecurso()
-	
-	
-	public static function cadastrarRecurso($dados)
-	{
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-
-		$cadastrar = $db->insert("SAC.dbo.tbRecurso", $dados);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_ASSOC);
+        return $db->fetchRow($sql);
+    } // fecha m�todo avaliarRecurso()
 
 
-		if ($cadastrar)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		} 
-	} // fecha m�todo cadastrar()
-	
-	
-	
-	
-	
-	
-	
+    public static function cadastrarRecurso($dados)
+    {
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-	
-		public static function recursoReenquadramento($dados, $id)
-	{
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		$where = "IdEnquadramento = $id";
-		$cadastrar = $db->update("SAC.dbo.Enquadramento", $dados, $where);
+        $cadastrar = $db->insert("SAC.dbo.tbRecurso", $dados);
 
-		if ($cadastrar)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		} 
-	} // fecha m�todo cadastrar()
 
-	
-	
-	
-	public static function alterarEnquadramento18($idPronac)
-	{
+        if ($cadastrar) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	$sql = "UPDATE SAC.dbo.Enquadramento SET Enquadramento = '1' WHERE idRecurso = $idRecurso";
+    public static function recursoReenquadramento($dados, $id)
+    {
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $where = "IdEnquadramento = $id";
+        $cadastrar = $db->update("SAC.dbo.Enquadramento", $dados, $where);
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_ASSOC);
-		return $db->fetchRow($sql);
-		
+        if ($cadastrar) {
+            return true;
+        } else {
+            return false;
+        }
+    } // fecha m�todo cadastrar()
 
-		
-	} // fecha m�todo alterarEnquadramento18()
-	
-	
-	
-	public static function alterarEnquadramento26($idPronac)
-	{
 
-	$sql = "UPDATE SAC.dbo.Enquadramento SET Enquadramento = '2' WHERE idRecurso = $idRecurso";
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_ASSOC);
-		return $db->fetchRow($sql);
-		
 
-		
-	} // fecha m�todo  alterarEnquadramento26()
-	
-	
+    public static function alterarEnquadramento18($idPronac)
+    {
+        $sql = "UPDATE SAC.dbo.Enquadramento SET Enquadramento = '1' WHERE idRecurso = $idRecurso";
 
-	
-	
-	
-	
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_ASSOC);
+        return $db->fetchRow($sql);
+    } // fecha m�todo alterarEnquadramento18()
+
+    public static function alterarEnquadramento26($idPronac)
+    {
+        $sql = "UPDATE SAC.dbo.Enquadramento SET Enquadramento = '2' WHERE idRecurso = $idRecurso";
+
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_ASSOC);
+        return $db->fetchRow($sql);
+    }
+
     /**
      * M�todo para recuperar os projetos em an�lise. (CONSELHEIRO)
      * S� efetua a busca se as fontes de recursos estiverem de acordo com o C�digo 109 � Incentivo Fiscal Federal,
@@ -525,7 +390,7 @@ LEFT JOIN SAC.dbo.tbPlanilhaAprovacao Tpa on Tpa.IdPRONAC = Pr.IdPRONAC";
      */
     public static function analiseDeConta($idPronac = null, $idProduto = null, $idEtapa = null, $idUF = null, $idCidade = null, $buscarPorProduto = null)
     {
-        $sql = "SELECT DISTINCT I.idPlanilhaItens AS idPlanilhaItens, 
+        $sql = "SELECT DISTINCT I.idPlanilhaItens AS idPlanilhaItens,
 					RPA.dsJustificativa as justificativa
 					,Rec.idRecurso
                     ,PRO.AnoProjeto+Sequencial as pronac
@@ -556,40 +421,34 @@ LEFT JOIN SAC.dbo.tbPlanilhaAprovacao Tpa on Tpa.IdPRONAC = Pr.IdPRONAC";
 					 LEFT JOIN SAC.dbo.tbRecursoXPlanilhaAprovacao RPA on RPA.idPlanilhaAprovacao = PAP.idPlanilhaAprovacao
 					 LEFT JOIN SAC.dbo.tbRecurso Rec on Rec.idRecurso = RPA.idRecurso
 
-				WHERE PAP.IdPRONAC = PRO.IdPRONAC 
+				WHERE PAP.IdPRONAC = PRO.IdPRONAC
 					AND (PPJ.Quantidade * PPJ.Ocorrencia * PPJ.ValorUnitario) <> (PP.Quantidade * PP.Ocorrencia * PP.ValorUnitario)
 					AND (PAP.qtItem * PAP.nrOcorrencia * PAP.vlUnitario) <> (PP.Quantidade * PP.Ocorrencia * PP.ValorUnitario)
-					AND PP.FonteRecurso = 109 
+					AND PP.FonteRecurso = 109
 					AND PAP.stAtivo = 'S'";
 
         // busca de acordo com o pronac
-        if (!empty($idPronac))
-        {
+        if (!empty($idPronac)) {
             $sql.= " AND PAP.IdPRONAC = $idPronac";
         }
-        
-       if (!empty($idRecurso))
-        {
+
+        if (!empty($idRecurso)) {
             $sql.= " AND Rec.idRecurso = $idRecurso";
         }
         // busca de acordo com o produto
-        if (!empty($idProduto) || $buscarPorProduto == true)
-        {
+        if (!empty($idProduto) || $buscarPorProduto == true) {
             $sql.= " AND PAP.idProduto = $idProduto";
         }
         // busca de acordo com a etapa
-        if (!empty($idEtapa))
-        {
+        if (!empty($idEtapa)) {
             $sql.= " AND PAP.idEtapa = $idEtapa";
         }
         // busca de acordo com a uf
-        if (!empty($idUF))
-        {
+        if (!empty($idUF)) {
             $sql.= " AND PAP.idUFDespesa = $idUF";
         }
         // busca de acordo com a cidade
-        if (!empty($idCidade))
-        {
+        if (!empty($idCidade)) {
             $sql.= " AND PAP.idMunicipioDespesa = $idCidade";
         }
 
@@ -599,14 +458,10 @@ LEFT JOIN SAC.dbo.tbPlanilhaAprovacao Tpa on Tpa.IdPRONAC = Pr.IdPRONAC";
         $resultado = $db->fetchAll($sql);
         return $resultado;
     } // fecha m�todo analiseDeConta()
-	
-	
-	
-	
-	
-	 public static function analiseDeCustosBuscarProduto($idPronac)
+
+    public static function analiseDeCustosBuscarProduto($idPronac)
     {
-		$sql = "SELECT DISTINCT PD.Descricao, 
+        $sql = "SELECT DISTINCT PD.Descricao,
 					CASE
 						WHEN PAP.idProduto = 0
 							THEN 'Administra��o do Projeto'
@@ -625,13 +480,12 @@ LEFT JOIN SAC.dbo.tbPlanilhaAprovacao Tpa on Tpa.IdPRONAC = Pr.IdPRONAC";
 
 				WHERE PAP.IdPRONAC = PRO.IdPRONAC
 					AND (PPJ.Quantidade * PPJ.Ocorrencia * PPJ.ValorUnitario) <> (PP.Quantidade * PP.Ocorrencia * PP.ValorUnitario)
-					AND (PAP.qtItem * PAP.nrOcorrencia * PAP.vlUnitario) <> (PP.Quantidade * PP.Ocorrencia * PP.ValorUnitario)			
-					AND PP.FonteRecurso = 109 
+					AND (PAP.qtItem * PAP.nrOcorrencia * PAP.vlUnitario) <> (PP.Quantidade * PP.Ocorrencia * PP.ValorUnitario)
+					AND PP.FonteRecurso = 109
 					AND PAP.tpPlanilha = 'CO' ";
 
         // busca de acordo com o pronac
-        if (!empty($idPronac))
-        {
+        if (!empty($idPronac)) {
             $sql.= " AND PAP.IdPRONAC = $idPronac";
         }
 
@@ -643,8 +497,6 @@ LEFT JOIN SAC.dbo.tbPlanilhaAprovacao Tpa on Tpa.IdPRONAC = Pr.IdPRONAC";
         return $resultado;
     } // fecha m�todo analiseDeCustosBuscarProduto()
 
-
-
     /**
      * M�todo que busca as etapas dos projetos da an�lise de custos
      * @access public
@@ -654,7 +506,7 @@ LEFT JOIN SAC.dbo.tbPlanilhaAprovacao Tpa on Tpa.IdPRONAC = Pr.IdPRONAC";
      */
     public static function analiseDeCustosBuscarEtapa($idPronac, $idProduto = null, $buscarPorProduto = null)
     {
-		$sql = "SELECT DISTINCT PP.idEtapa AS idEtapa
+        $sql = "SELECT DISTINCT PP.idEtapa AS idEtapa
 					,PAP.IdPRONAC
 					,PAP.idProduto
 
@@ -669,16 +521,14 @@ LEFT JOIN SAC.dbo.tbPlanilhaAprovacao Tpa on Tpa.IdPRONAC = Pr.IdPRONAC";
 				WHERE PAP.IdPRONAC = PRO.IdPRONAC
 					AND (PPJ.Quantidade * PPJ.Ocorrencia * PPJ.ValorUnitario) <> (PP.Quantidade * PP.Ocorrencia * PP.ValorUnitario)
 					AND (PAP.qtItem * PAP.nrOcorrencia * PAP.vlUnitario) <> (PP.Quantidade * PP.Ocorrencia * PP.ValorUnitario)
-					AND PP.FonteRecurso = 109 
+					AND PP.FonteRecurso = 109
 					AND PAP.tpPlanilha = 'CO' ";
 
         // busca de acordo com o pronac
-        if (!empty($idPronac))
-        {
+        if (!empty($idPronac)) {
             $sql.= " AND PAP.IdPRONAC = $idPronac";
         }
-        if (!empty($idProduto) || $buscarPorProduto == true)
-        {
+        if (!empty($idProduto) || $buscarPorProduto == true) {
             $sql.= " AND PAP.idProduto = $idProduto";
         }
 
@@ -690,108 +540,81 @@ LEFT JOIN SAC.dbo.tbPlanilhaAprovacao Tpa on Tpa.IdPRONAC = Pr.IdPRONAC";
         return $resultado;
     } // fecha m�todo analiseDeCustosBuscarEtapa()
 
-	
-	
-	
-		public static function Parecer($dados)
-	{
-	{
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+    public static function Parecer($dados)
+    {
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		$cadastrar = $db->insert("SAC.dbo.Parecer", $dados);
+        $cadastrar = $db->insert("SAC.dbo.Parecer", $dados);
 
 
-		if ($cadastrar)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		} 
-	} // fecha m�todo cadastrar()
+        if ($cadastrar) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	} 
- 
+    /**
+     * M�todo para avaliar o recurso
+     */
+    public static function avaliarRecurso($dados, $id)
+    {
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-	
-	/**
-	 * M�todo para avaliar o recurso
-	 */
-	public static function avaliarRecurso($dados, $id)
-	{
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $where   = "idRecurso = $id";
+        $alterar = $db->update("SAC.dbo.tbRecurso", $dados, $where);
 
-		$where   = "idRecurso = $id";
-		$alterar = $db->update("SAC.dbo.tbRecurso", $dados, $where);
+        if ($alterar) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-		if ($alterar)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	} // fecha m�todo avaliarRecurso()
+    /**
+     * Cadastra na planilha de aprova��o
+     */
+    public static function cadastrarPlanilhaAprovacao($dados)
+    {
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-	
-	
+        $cadastrar = $db->insert("SAC.dbo.tbPlanilhaAprovacao", $dados);
 
-	/**
-	 * Cadastra na planilha de aprova��o
-	 */
-	public static function cadastrarPlanilhaAprovacao($dados)
-	{
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        if ($cadastrar) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-		$cadastrar = $db->insert("SAC.dbo.tbPlanilhaAprovacao", $dados);
+    /**
+     * desativa a planilha de aprova��o
+     */
+    public static function desativarPlanilhaAprovacao($dados, $id)
+    {
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $where = "idPlanilhaAprovacao = $id";
+        $alterar = $db->update("SAC.dbo.tbPlanilhaAprovacao", $dados, $where);
 
-		if ($cadastrar)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	} // fecha m�todo cadastrarPlanilhaAprovacao()
+        if ($alterar) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-	
+    /**
+     * seleciona todos os dados da planilha de aprova��o
+     */
+    public static function buscarPlanilhaAprovacao($id)
+    {
+        $sql = "SELECT *
 
-	/**
-	 * desativa a planilha de aprova��o
-	 */
-	public static function desativarPlanilhaAprovacao($dados, $id)
-	{
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		$where = "idPlanilhaAprovacao = $id";
-		$alterar = $db->update("SAC.dbo.tbPlanilhaAprovacao", $dados, $where);
-
-		if ($alterar)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	} // fecha m�todo cadastrarPlanilhaAprovacao()
-
-	
-
-	/**
-	 * seleciona todos os dados da planilha de aprova��o
-	 */
-	public static function buscarPlanilhaAprovacao($id)
-	{
-		$sql = "SELECT * 
-
-				FROM SAC.dbo.tbPlanilhaAprovacao  
+				FROM SAC.dbo.tbPlanilhaAprovacao
 
 				WHERE idPlanilhaAprovacao = $id ";
 
@@ -799,20 +622,18 @@ LEFT JOIN SAC.dbo.tbPlanilhaAprovacao Tpa on Tpa.IdPRONAC = Pr.IdPRONAC";
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-	} // fecha m�todo buscarPlanilhaAprovacao()
-    
+    }
 
-
-	/**
-	 * busca a justificativa do proponente
-	 */
-	public static function buscarJustificativaProponente($idRecurso, $idPlanilha)
-	{
-		$sql = "SELECT dsJustificativa FROM SAC.dbo.tbRecursoXPlanilhaAprovacao WHERE idRecurso = " . (int)$idRecurso . " AND idPlanilhaAprovacao = " . (int)$idPlanilha;
+    /**
+     * busca a justificativa do proponente
+     */
+    public static function buscarJustificativaProponente($idRecurso, $idPlanilha)
+    {
+        $sql = "SELECT dsJustificativa FROM SAC.dbo.tbRecursoXPlanilhaAprovacao WHERE idRecurso = " . (int)$idRecurso . " AND idPlanilhaAprovacao = " . (int)$idPlanilha;
 
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-	} // fecha m�todo buscarJustificativaProponente()
+    } 
 }

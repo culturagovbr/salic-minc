@@ -1,7 +1,4 @@
 <?php 
-/**
- * 
- */
 class GuiaModel
 {
     private $guia;
@@ -52,7 +49,7 @@ class GuiaModel
 
     /**
      * Efetua o cadastro da guia
-     * 
+     *
      * @return integer
      */
     public function cadastrar()
@@ -69,7 +66,7 @@ class GuiaModel
 
     /**
      * Efetua a atualizacao da guia
-     * 
+     *
      * @return integer
      */
     public function atualizar()
@@ -87,7 +84,7 @@ class GuiaModel
 
     /**
      * Efetua a delecao da guia
-     * 
+     *
      * @return integer
      */
     public function deletar()
@@ -97,7 +94,7 @@ class GuiaModel
 
     /**
      * Pesquisar as guias usando como filtro o identificador da mesma
-     * 
+     *
      * @param integer guia
      * @return array
      */
@@ -108,24 +105,30 @@ class GuiaModel
 
     /**
      * Pesquisar as guias usando como filtros: edital, modulo e categoria
-     * 
+     *
      * @param integer categoria
      * @param integer modulo
      * @return array
      */
-    public function pesquisarPorEditalModuloCategoria($categoria = null, $modulo = null, $dbg = null){
-        
+    public function pesquisarPorEditalModuloCategoria($categoria = null, $modulo = null, $dbg = null)
+    {
         $select = $this->table->select();
         $select->setIntegrityCheck(false);
         
-        $select->from(array('g' => 'tbGuia'), 
+        $select->from(
+        
+            array('g' => 'tbGuia'),
                         array('g.idGuia',
                               'g.nmGuia',
                               'g.txAuxilio',
                               'g.orGuia')
         );
         
-        $select->joinInner(array('c' => 'tbCategoria'), 'c.idCategoria = g.idCategoria', 
+        $select->joinInner(
+        
+            array('c' => 'tbCategoria'),
+        
+            'c.idCategoria = g.idCategoria',
                             array('c.idCategoria',
                                   'c.idModulo',
                                   'c.nmCategoria')
@@ -141,7 +144,7 @@ class GuiaModel
         }
         
         if ($dbg) {
-          xd($select->assemble());
+            xd($select->assemble());
         }
         
         $select->order('idGuia ASC');
@@ -151,7 +154,7 @@ class GuiaModel
     }
 
     /**
-     * 
+     *
      */
     public function toStdClass()
     {

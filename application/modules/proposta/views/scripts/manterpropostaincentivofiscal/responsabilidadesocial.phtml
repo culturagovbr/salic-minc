@@ -1,20 +1,29 @@
-<div class="container-fluid white">
+<?php echo $this->partial("inc/menu.phtml", $this); ?>
+
+<div class="container-fluid">
     <div class="row">
-        <?php echo $this->partial("inc/menu.phtml", $this); // menu ?>
-        <div class="col s10 m12 l10">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Responsabilidade Social</h1>
 
-            <?php
-            gerarBreadCrumb(array(
-                $this->layout['listagem'],
-                array('Responsabilidade Social' => '')
-            ));
-            ?>
-
-            <div id="titulo" style="width: 100%;">
-                <div><?php echo $this->layout['titleFull']; ?> - Responsabilidade Social</div>
+                    <?php
+                    gerarNovoBreadCrumb(array(
+                        $this->layout['listagem'],
+                        array('Responsabilidade Social' => '')
+                    ));
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
             </div>
-            <div class="clear-fix"></div>
-            <div id="conteudo" class="section">
+        </div>
+
+        <div id="" class="content">
+            <div class="card-panel">
                 <div class="row">
                     <form action="<?php echo $this->acao; ?>" method="post" id="frmProposta" name="frmProposta"
                           enctype="multipart/form-data">
@@ -28,62 +37,41 @@
 
                         <div class="row">
                             <div class="input-field col s12">
-                                <p class="caption">O proponente deve informar
-                                    <b><u>quais</b></u> <b><u>a&ccedil;&otilde;es </u></b>ser&atilde;o adotadas (ou que
-                                    o local j&aacute; possui), no sentido de proporcionar condi&ccedil;&otilde;es de
-                                    acessibilidade a pessoas idosas, nos termos do art. 23 da Lei n&#176; 10.741, de 1&#176;
-                                    de
-                                    2003(*), e portadoras de defici&ecirc;ncia, conforme o disposto no art. 46 do
-                                    Decreto n&#176; 3.298, de 20 de dezembro de 1999(**). Os projetos culturais
-                                    financiados
-                                    com recursos federais, inclusive oriundos de programas especiais de
-                                    incentivo &agrave; cultura, dever&atilde;o facilitar o livre acesso da pessoa
-                                    portadora de
-                                    defici&ecirc;ncia e pessoas idosas de modo a possibilitar-lhe o pleno exerc&iacute;cio
-                                    dos seus direitos culturais.</p>
-
+                                <p class="caption">
+				  O campo Acessibilidade deve conter informa&ccedil;&otilde;es quanto &agrave; Acessibilidade
+				  F&iacute;sica e Acessibilidade de Conte&uacute;do.
+				  <br/>
+				  A Acessibilidade F&Iacute;SICA deve oferecer facilitadores para a locomo&ccedil;&atilde;o no
+				  espa&ccedil;o f&iacute;sico (banheiros, rampas, guias t&atilde;teis).
+				  <br/>
+				  A Acessibilidade de CONTE&Uacute;DO deve prever medidas para compreens&atilde;o do projeto
+				  (Libras, Braille, audiodescri&ccedil;&atilde;o, legenda descritiva, visita sensorial).
+                                </p>
+                                <label for="acessibilidade" class="">Acessibilidade *</label>
                                 <textarea id="acessibilidade" class="browser-default editor"
                                           name="acessibilidade" <?php echo isset($this->arrConfig['acessibilidade']['disabled']) ? 'disabled="disabled"' : '' ?>>
                                  <?php if (isset($this->proposta['acessibilidade'])) echo $this->proposta['acessibilidade']; ?>
                                 </textarea>
-                                <label for="acessibilidade" class="active">Acessibilidade *</label>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col s12">
-                                <p class="caption">O proponente deve
-                                    inserir de forma detalhada como ser&atilde;o doados ou vendidos os ingressos e
-                                    quaisquer outros produtos resultantes do projeto, com detalhamento do p&uacute;blico-alvo,
-                                    dos pre&ccedil;os, dos crit&eacute;rios, das estrat&eacute;gias e das etapas do
-                                    processo de distribui&ccedil;&atilde;o e dos resultados esperados com o acesso do p&uacute;blico.
-                                    Neste campo &eacute; essencial a identifica&ccedil;&atilde;o do p&uacute;blico-alvo
-                                    quer receber&iacute; os ingressos gratuitos.
+                                <p class="caption">
+				  Descreva no campo Democratiza&ccedil;&atilde;o de Acesso a forma de distribui&ccedil;&atilde;o e
+				  comercializa&ccedil;&atilde;o dos produtos da proposta.
+				  <br/>
+				  Apresente tamb&eacute;m outras medidas de amplia&ccedil;&atilde;o de acesso, tais como: ensaio
+				  aberto, oficinas paralelas ou transmiss&atilde;o pela internet.
                                 </p>
+                                <label for="democratizacaodeacesso" class="">Democratiza&ccedil;&atilde;o de
+                                    Acesso
+                                    *</label>
                                 <textarea id="democratizacaodeacesso" class="browser-default editor"
                                           name="democratizacaodeacesso" <?php echo isset($this->arrConfig['democratizacaodeacesso']['disabled']) ? 'disabled="disabled"' : '' ?>>
                                     <?php if (isset($this->proposta['democratizacaodeacesso'])) echo $this->proposta['democratizacaodeacesso']; ?>
                                 </textarea>
-                                <label for="democratizacaodeacesso" class="active">Democratiza&ccedil;&atilde;o de
-                                    Acesso
-                                    *</label>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="input-field col s12">
-
-                                <p class="caption">Inserir as especifica&ccedil;&otilde;es t&eacute;cnicas de todos os
-                                    produtos do projeto que necessitam desse datalhamento. Ou seja, especifica&ccedil;&otilde;es
-                                    t&eacute;cnicas das pe&ccedil;as gr&aacute;ficas, do s&iacute;tio de internet, dos
-                                    workshops com curta dura&ccedil;&atilde;o e dos cursos de longa dura&ccedil;&atilde;o
-                                    (projeto pedag&oacute;gico), entre outros.
-                                </p>
-                                <textarea id="impactoambiental" class="browser-default editor"
-                                          name="impactoambiental" <?php echo isset($this->arrConfig['impactoambiental']['disabled']) ? 'disabled="disabled"' : '' ?>>
-                                    <?php if (isset($this->proposta['impactoambiental'])) echo $this->proposta['impactoambiental']; ?>
-                                </textarea>
-                                <label for="impactoambiental" class="active">Impacto Ambiental *</label>
                             </div>
                         </div>
 

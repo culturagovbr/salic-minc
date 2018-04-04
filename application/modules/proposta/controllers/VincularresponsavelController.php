@@ -8,7 +8,6 @@
  */
 class Proposta_VincularresponsavelController extends Proposta_GenericController
 {
-
     public function init()
     {
         parent::init();
@@ -49,7 +48,7 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
                                     <td class='centro'><button type='button' class='btn' id='novoprop' onclick='novoproponente();'>cadastrar proponente</button></td>
                                 </tr>
                             </table>";
-                    $this->_helper->viewRenderer->setNoRender(TRUE);
+                    $this->_helper->viewRenderer->setNoRender(true);
                 }
             }
 
@@ -64,9 +63,8 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
                     <script>
                         alertModal(null, 'msgAgenteVinculado', null, 150);
                       </script>";
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
             }
-
         } else {
             $where = array();
             $where["vp.idUsuarioResponsavel = ?"] = $this->idUsuario;
@@ -95,7 +93,7 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
 
         /*Temos que ver aonde vamos buscar o email do cara?*/
         $buscarEmail = $tableInternet->buscarEmailAgente(null, $_POST['idAgente'], 1, null, false);
-        if ($buscarEmail){
+        if ($buscarEmail) {
             $buscarEmail = array_change_key_case($buscarEmail->toArray());
         }
 
@@ -112,7 +110,6 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
                 'sivinculo' => 0
             );
             try {
-
                 $where['idagenteproponente   = ?'] = $idAgenteProponente;
                 $where['idusuarioresponsavel = ?'] = $idUsuarioResponsavel;
                 $vinculocadastrado = $v->buscar($where);
@@ -129,7 +126,7 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
             } catch (Zend_Exception $e) {
                 echo '<pre>';
                 var_dump($e->getMessage());
-                $this->_helper->viewRenderer->setNoRender(TRUE);
+                $this->_helper->viewRenderer->setNoRender(true);
                 $this->_helper->json(array('error' => true));
             }
         }
@@ -177,7 +174,7 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
             }
         }
 
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
     /* }}} */
@@ -202,7 +199,6 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
 
     public function consultarresponsavelAction()
     {
-
     }
 
     public function mostraresponsavelAction()
@@ -249,9 +245,9 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
 
         if ($siVinculo == 1) {
             $msg = 'O responsável foi rejeitado.';
-        } else if ($siVinculo == 2) {
+        } elseif ($siVinculo == 2) {
             $msg = 'Responsável vinculado com sucesso!';
-        } else if ($siVinculo == 3) {
+        } elseif ($siVinculo == 3) {
             $msg = 'O responsável foi desvinculado.';
         }
 
@@ -287,7 +283,6 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
         );
 
         try {
-
             if (count($vinculo) > 0) {
                 $dadosUP['siVinculo'] = 2;
                 $whereUP['idVinculo = ?'] = $vinculo[0]->idVinculo;
@@ -298,12 +293,9 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
             }
 
             parent::message("vinculado com sucesso!", "proposta/manterpropostaincentivofiscal/novoresponsavel", "CONFIRM");
-
         } catch (Exception $e) {
             parent::message("Erro ao vincular! " . $e->getMessage(), "proposta/manterpropostaincentivofiscal/novoresponsavel", "ERROR");
         }
-
-
     }
 
     /**
@@ -330,7 +322,6 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
         $mecanismo = $this->_request->getParam("mecanismo");
 
         try {
-
             $dados['siVinculoProposta'] = 3;
             $where['idVinculoProposta = ?'] = $idVinculoProposta;
             $alteraVP = $tbVinculoPropostaDAO->alterar($dados, $where, false);
@@ -394,7 +385,6 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
         $idResponsavel = $this->idResponsavel;
 
         try {
-
             $dados['siVinculoProposta'] = 3;
             $where['idPreProjeto = ?'] = $idPreProjeto;
             $alteraVP = $tbVinculoPropostaDAO->alterar($dados, $where, false);
@@ -412,7 +402,6 @@ class Proposta_VincularresponsavelController extends Proposta_GenericController
             $alteraPP = $PreProjetoDAO->alteraresponsavel($idPreProjeto, $idResponsavel);
 
             parent::message("O responsável foi desvinculado.", "proposta/manterpropostaincentivofiscal/vincularprojetos", "CONFIRM");
-
         } catch (Exception $e) {
             parent::message("Erro. " . $e->getMessage(), "proposta/manterpropostaincentivofiscal/vincularprojetos", "ERROR");
         }

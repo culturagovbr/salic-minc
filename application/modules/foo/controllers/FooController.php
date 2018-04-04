@@ -8,7 +8,8 @@
  * @version 0.1
  * @author  wouerner <wouerner@gmail.com>
  */
-class Foo_FooController extends  Zend_Controller_Action{
+class Foo_FooController extends Zend_Controller_Action
+{
 
     /**
      * init Metodo de inicializacao da classe
@@ -16,8 +17,8 @@ class Foo_FooController extends  Zend_Controller_Action{
      * @access public
      * @return void
      */
-    public function init() {
-
+    public function init()
+    {
         parent::init();
     }
 
@@ -27,7 +28,8 @@ class Foo_FooController extends  Zend_Controller_Action{
      * @param void
      * @return void
      */
-    public function indexAction(){
+    public function indexAction()
+    {
         $fooModel = new Foo_Model_Foo();
 
         $this->view->foos = $fooModel->listar();

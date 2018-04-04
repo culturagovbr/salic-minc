@@ -5,14 +5,14 @@
  *
  * @author tisomar
  */
-class Pessoaidentificacoes extends MinC_Db_Table_Abstract {
-
+class Pessoaidentificacoes extends MinC_Db_Table_Abstract
+{
     protected $_banco = "TABELAS";
     protected $_name = "Pessoa_Identificacoes";
     protected $_schema = 'TABELAS';
 
-    public function pesquisarPessoasDados($where=array()){
-
+    public function pesquisarPessoasDados($where=array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -28,7 +28,7 @@ class Pessoaidentificacoes extends MinC_Db_Table_Abstract {
              array('pd.pdd_dado'),
              'Tabelas.dbo'
          );
-        foreach ($where as $coluna => $valor){
+        foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
 
@@ -43,16 +43,24 @@ class Pessoaidentificacoes extends MinC_Db_Table_Abstract {
         $tmpTblPessoasIdentificacoes = $tmpTblPessoasIdentificacoes->createRow();
 
         //ATRIBUINDO VALORES AOS CAMPOS QUE FORAM PASSADOS
-        if(isset($dados['pid_pessoa'])){ $tmpTblPessoasIdentificacoes->pid_pessoa = $dados['pid_pessoa']; }
-        if(isset($dados['pid_meta_dado'])){ $tmpTblPessoasIdentificacoes->pid_meta_dado = $dados['pid_meta_dado']; }
-        if(isset($dados['pid_sequencia'])){ $tmpTblPessoasIdentificacoes->pid_sequencia = $dados['pid_sequencia']; }
-        if(isset($dados['pid_identificacao'])){ $tmpTblPessoasIdentificacoes->pid_identificacao = $dados['pid_identificacao']; }
+        if (isset($dados['pid_pessoa'])) {
+            $tmpTblPessoasIdentificacoes->pid_pessoa = $dados['pid_pessoa'];
+        }
+        if (isset($dados['pid_meta_dado'])) {
+            $tmpTblPessoasIdentificacoes->pid_meta_dado = $dados['pid_meta_dado'];
+        }
+        if (isset($dados['pid_sequencia'])) {
+            $tmpTblPessoasIdentificacoes->pid_sequencia = $dados['pid_sequencia'];
+        }
+        if (isset($dados['pid_identificacao'])) {
+            $tmpTblPessoasIdentificacoes->pid_identificacao = $dados['pid_identificacao'];
+        }
 
         $id = $tmpTblPessoasIdentificacoes->save();
 
-        if($id){
+        if ($id) {
             return $id;
-        }else{
+        } else {
             return false;
         }
     }
@@ -61,7 +69,8 @@ class Pessoaidentificacoes extends MinC_Db_Table_Abstract {
     /*====================== ABAIXO - METODOS DA CNIC ===========================*/
     /*===========================================================================*/
 
-    public function buscarAssinatura() {
+    public function buscarAssinatura()
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -84,5 +93,4 @@ class Pessoaidentificacoes extends MinC_Db_Table_Abstract {
 
         return $this->fetchAll($select);
     }
-
 }

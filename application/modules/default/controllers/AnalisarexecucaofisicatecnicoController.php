@@ -1,17 +1,6 @@
 <?php
-
-/**
- * Controller Disvincular Agentes
- * @author Equipe RUP - Politec
- * @since 07/06/2010
- * @version 1.0
- * @package application
- * @subpackage application.controller
- * @link http://www.cultura.gov.br
- * @copyright 2010 - Minist�rio da Cultura - Todos os direitos reservados.
- */
-class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abstract {
-
+class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abstract
+{
     private $getIdAgente  = 0;
     private $getIdGrupo = 0;
     private $getIdOrgao = 0;
@@ -22,8 +11,8 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
      * @param void
      * @return void
      */
-    public function init() {
-
+    public function init()
+    {
         // verifica as permiss�es
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 97;  // Gestor do SALIC
@@ -42,7 +31,8 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         parent::init();
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
         //** Usuario Logado ************************************************/
         $auth               = Zend_Auth::getInstance(); // pega a autentica��o
         $idusuario          = $auth->getIdentity()->usu_codigo;
@@ -54,32 +44,31 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         /******************************************************************/
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
-        }else {
+        } else {
             $campo = null;
             $order = array('a.NomeProjeto','a.nrComprovanteTrimestral');
             $ordenacao = null;
@@ -87,7 +76,9 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         /* ================== PAGINACAO ======================*/
@@ -96,7 +87,7 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $where['a.idTecnicoAvaliador = ?'] = $idusuario;
 
 
-        if((isset($_POST['pronac']) && !empty($_POST['pronac'])) || (isset($_GET['pronac']) && !empty($_GET['pronac']))){
+        if ((isset($_POST['pronac']) && !empty($_POST['pronac'])) || (isset($_GET['pronac']) && !empty($_GET['pronac']))) {
             $where['Pronac = ?'] = isset($_POST['pronac']) ? $_POST['pronac'] : $_GET['pronac'];
             $this->view->pronacProjeto = isset($_POST['pronac']) ? $_POST['pronac'] : $_GET['pronac'];
         }
@@ -125,25 +116,25 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
                 "tamanho"=>$tamanho
          );
 
-	if(!$campo){
-	   $campo = 2; //Se o campo para ordenar for vazio ele ordena pelo campo 2 (pronac)
-	}
+        if (!$campo) {
+            $campo = 2; //Se o campo para ordenar for vazio ele ordena pelo campo 2 (pronac)
+        }
 
 
-        $this->view->campo = $campo;		
-	$this->view->pag = $pag;
-	$this->view->novaOrdem = $novaOrdem;
+        $this->view->campo = $campo;
+        $this->view->pag = $pag;
+        $this->view->novaOrdem = $novaOrdem;
         $this->view->paginacao     = $paginacao;
         $this->view->qtdRelatorios = $total;
         $this->view->dados         = $busca;
         $this->view->intTamPag     = $this->intTamPag;
-
     }
 
-    public function parecerTecnicoAction() {
+    public function parecerTecnicoAction()
+    {
 
         //** Usuario Logado ************************************************/
-        $auth               = Zend_Auth::getInstance(); // pega a autentica��o	
+        $auth               = Zend_Auth::getInstance(); // pega a autentica��o
         $idusuario          = $auth->getIdentity()->usu_codigo;
         $GrupoAtivo         = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $codOrgao           = $GrupoAtivo->codOrgao; //  �rg�o ativo na sess�o
@@ -166,7 +157,7 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $DadosRelatorio = $vw->listaRelatorios($where, array(), null, null, false);
 
         if (count($DadosRelatorio)==0) {
-            parent::message('Relat�rio n�o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
+            parent::message('Relat&oacute;rio n&atilde;o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
         }
 
         $this->view->DadosRelatorio = $DadosRelatorio;
@@ -181,10 +172,10 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $tbComprovante = new tbComprovanteTrimestral();
         $dadosParecer = $tbComprovante->buscarComprovantes(array('IdPRONAC=?'=>$idpronac,'nrComprovanteTrimestral=?'=>$idrelatorio,'idTecnicoAvaliador=?'=>$idusuario));
         $this->view->DadosParecer = $dadosParecer;
-
     }
 
-    public function etapasDeTrabalhoAction() {
+    public function etapasDeTrabalhoAction()
+    {
 
         //** Usuario Logado ************************************************/
         $auth               = Zend_Auth::getInstance(); // pega a autentica��o
@@ -209,7 +200,7 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $DadosRelatorio = $vw->listaRelatorios($where, array(), null, null, false);
 
         if (count($DadosRelatorio)==0) {
-            parent::message('Relat�rio n�o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
+            parent::message('Relat&oacute;rio n&atilde;o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
         }
 
         $tbComprovanteTrimestral = new tbComprovanteTrimestral();
@@ -224,8 +215,8 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $this->view->DadosProjeto = $DadosProjeto;
     }
 
-    public function localDeRealizacaoAction() {
-
+    public function localDeRealizacaoAction()
+    {
         //** Usuario Logado ************************************************/
         $auth               = Zend_Auth::getInstance(); // pega a autentica��o
         $idusuario          = $auth->getIdentity()->usu_codigo;
@@ -249,7 +240,7 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $DadosRelatorio = $vw->listaRelatorios($where, array(), null, null, false);
 
         if (count($DadosRelatorio)==0) {
-            parent::message('Relat�rio n�o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
+            parent::message('Relat&oacute;rio n&atilde;o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
         }
 
         //****** Dados do Projeto - Cabecalho *****//
@@ -264,7 +255,8 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $this->view->LocaisDeRealizacao = $LocaisDeRealizacao;
     }
 
-    public function planoDeDivulgacaoAction() {
+    public function planoDeDivulgacaoAction()
+    {
 
         //** Usuario Logado ************************************************/
         $auth               = Zend_Auth::getInstance(); // pega a autentica��o
@@ -289,7 +281,7 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $DadosRelatorio = $vw->listaRelatorios($where, array(), null, null, false);
 
         if (count($DadosRelatorio)==0) {
-            parent::message('Relat�rio n�o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
+            parent::message('Relat&oacute;rio n&atilde;o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
         }
 
         //****** Dados do Projeto - Cabecalho *****//
@@ -304,7 +296,8 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $this->view->PlanoDeDivulgacao = $PlanoDeDivulgacao;
     }
 
-    public function planoDeDistribuicaoAction() {
+    public function planoDeDistribuicaoAction()
+    {
 
         //** Usuario Logado ************************************************/
         $auth               = Zend_Auth::getInstance(); // pega a autentica��o
@@ -329,7 +322,7 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $DadosRelatorio = $vw->listaRelatorios($where, array(), null, null, false);
 
         if (count($DadosRelatorio)==0) {
-            parent::message('Relat�rio n�o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
+            parent::message('Relat&oacute;rio n&atilde;o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
         }
 
         //****** Dados do Projeto - Cabecalho *****//
@@ -349,7 +342,8 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $this->view->PlanosCadastrados = $PlanosCadastrados;
     }
 
-    public function metasComprovadasAction() {
+    public function metasComprovadasAction()
+    {
 
         //** Usuario Logado ************************************************/
         $auth               = Zend_Auth::getInstance(); // pega a autentica��o
@@ -374,7 +368,7 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $DadosRelatorio = $vw->listaRelatorios($where, array(), null, null, false);
 
         if (count($DadosRelatorio)==0) {
-            parent::message('Relat�rio n�o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
+            parent::message('Relat&oacute;rio n&atilde;o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
         }
 
         //****** Dados do Projeto - Cabecalho *****//
@@ -390,7 +384,8 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $this->view->DadosCompMetas = $DadosCompMetas;
     }
 
-    public function itensComprovadosAction() {
+    public function itensComprovadosAction()
+    {
 
         //** Usuario Logado ************************************************/
         $auth               = Zend_Auth::getInstance(); // pega a autentica��o
@@ -415,7 +410,7 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $DadosRelatorio = $vw->listaRelatorios($where, array(), null, null, false);
 
         if (count($DadosRelatorio)==0) {
-            parent::message('Relat�rio n�o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
+            parent::message('Relat&oacute;rio n&atilde;o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
         }
 
         //****** Dados do Projeto - Cabecalho *****//
@@ -430,7 +425,8 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $this->view->DadosItensOrcam = $DadosItensOrcam;
     }
 
-    public function comprovantesDeExecucaoAction() {
+    public function comprovantesDeExecucaoAction()
+    {
 
         //** Usuario Logado ************************************************/
         $auth               = Zend_Auth::getInstance(); // pega a autentica��o
@@ -455,7 +451,7 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $DadosRelatorio = $vw->listaRelatorios($where, array(), null, null, false);
 
         if (count($DadosRelatorio)==0) {
-            parent::message('Relat�rio n�o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
+            parent::message('Relat&oacute;rio n&atilde;o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
         }
 
         //****** Dados do Projeto - Cabecalho *****//
@@ -471,7 +467,8 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $this->view->DadosComprovantes = $dadosComprovantes;
     }
 
-    public function avaliarRelatorioTrimestralAction() {
+    public function avaliarRelatorioTrimestralAction()
+    {
 
         //** Usuario Logado ************************************************/
         $auth               = Zend_Auth::getInstance(); // pega a autentica��o
@@ -495,18 +492,18 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $DadosRelatorio = $vw->listaRelatorios($where, array(), null, null, false);
 
         if (count($DadosRelatorio)==0) {
-            parent::message('Relat�rio n�o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
+            parent::message('Relat&oacute;rio n&atilde;o encontrado!', "analisarexecucaofisicatecnico", "ALERT");
         }
 
         $tbComprovante = new tbComprovanteTrimestral();
         $dadosRel = $tbComprovante->buscarComprovantes(array('IdPRONAC=?'=>$idpronac,'nrComprovanteTrimestral=?'=>$DadosRelatorio[0]->nrComprovanteTrimestral,'idTecnicoAvaliador=?'=>$idusuario));
         
         $siComprovante = 4;
-        $msg = 'Relat�rio salvo com sucesso!';
+        $msg = 'Relat&oacute;rio salvo com sucesso!';
         $controller = "analisarexecucaofisicatecnico/parecer-tecnico?idpronac=".$idpronac."&relatorio=".$DadosRelatorio[0]->nrComprovanteTrimestral;
-        if(isset($_POST['finalizar']) && !empty($_POST['finalizar'])){
+        if (isset($_POST['finalizar']) && !empty($_POST['finalizar'])) {
             $siComprovante = 5;
-            $msg = 'Relat�rio finalizado com sucesso!';
+            $msg = 'Relat&oacute;rio finalizado com sucesso!';
             $controller = 'analisarexecucaofisicatecnico/';
         }
 
@@ -518,14 +515,15 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $whereFinal = 'idComprovanteTrimestral = '.$dadosRel->idComprovanteTrimestral;
         $resultado = $tbComprovante->alterar($dados, $whereFinal);
 
-        if($resultado){
+        if ($resultado) {
             parent::message($msg, $controller, "CONFIRM");
         } else {
-            parent::message('N�o foi poss�vel salvar o relat�rio!', "analisarexecucaofisicatecnico", "ERROR");
+            parent::message('N&atilde;o foi poss&iacute;vel salvar o relat&oacute;rio!', "analisarexecucaofisicatecnico", "ERROR");
         }
     }
 
-    public function devolverRelatorioAction() {
+    public function devolverRelatorioAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         //** Usuario Logado ************************************************/
@@ -545,12 +543,11 @@ class AnalisarexecucaofisicatecnicoController extends MinC_Controller_Action_Abs
         $tbComprovanteTrimestral = new tbComprovanteTrimestral();
         $return = $tbComprovanteTrimestral->update($dados, $where);
 
-        if($return){
+        if ($return) {
             $this->_helper->json(array('resposta'=>true));
         } else {
             $this->_helper->json(array('resposta'=>false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
-
 }

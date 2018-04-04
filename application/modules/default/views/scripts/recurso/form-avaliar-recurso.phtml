@@ -7,14 +7,14 @@
 
         $('#btn_finalizar_enquadramento').click(function () {
             $("#alerta").dialog("destroy");
-            $("#alerta").html('Deseja realmente finalizar a análise do recurso?<br /><br />Ao finalizar o recurso será devolvido ao coordenador.');
+            $("#alerta").html('Deseja realmente finalizar a an&aacute;lise do recurso?<br /><br />Ao finalizar o recurso ser&aacute; devolvido ao coordenador.');
             $("#alerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
                 width: 400,
                 modal: true,
                 buttons: {
-                    'N�o': function () {
+                    'N\u00e3o': function () {
                         $(this).dialog('close');
                     },
                     'Sim': function () {

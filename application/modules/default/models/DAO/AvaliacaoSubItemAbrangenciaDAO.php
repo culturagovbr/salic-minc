@@ -12,34 +12,30 @@
 
 class AvaliacaoSubItemAbrangenciaDAO extends MinC_Db_Table_Abstract
 {
-	/* dados da tabela */
-	protected $_schema  = "bdcorporativo.scsac";
-	protected $_name    = "tbavaliacaosubitemabrangencia";
+    /* dados da tabela */
+    protected $_schema  = "bdcorporativo.scsac";
+    protected $_name    = "tbavaliacaosubitemabrangencia";
 
 
 
-	/**
-	 * M�todo para cadastrar
-	 * @access public
-	 * @static
-	 * @param array $dados
-	 * @return bool
-	 */
-	public static function cadastrar($dados)
-	{
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+    /**
+     * M�todo para cadastrar
+     * @access public
+     * @static
+     * @param array $dados
+     * @return bool
+     */
+    public static function cadastrar($dados)
+    {
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		$cadastrar = $db->insert("BDCORPORATIVO.scSAC.tbAvaliacaoSubItemAbragencia", $dados);
+        $cadastrar = $db->insert("BDCORPORATIVO.scSAC.tbAvaliacaoSubItemAbragencia", $dados);
 
-		if ($cadastrar)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		} 
-	} // fecha m�todo cadastrar()
-
+        if ($cadastrar) {
+            return true;
+        } else {
+            return false;
+        }
+    } // fecha m�todo cadastrar()
 } // fecha class AvaliacaoSubItemPlanoDistribuicaoDAO

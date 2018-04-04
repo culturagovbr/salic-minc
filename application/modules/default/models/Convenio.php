@@ -1,19 +1,12 @@
 <?php
-/**
- * DAO Convenio
- * @author jefferson.silva - XTI
- * @since 15/01/2014
- * @version 1.0
- * @link http://www.cultura.gov.br
- */
-
 class Convenio extends MinC_Db_Table_Abstract
 {
-	protected $_banco  = "SAC";
-	protected $_schema = "SAC";
-	protected $_name   = "Convenio";
+    protected $_banco  = "SAC";
+    protected $_schema = "SAC";
+    protected $_name   = "Convenio";
 
-    public function buscarDadosConvenios($where=array(), $order=array()) {
+    public function buscarDadosConvenios($where=array(), $order=array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -31,7 +24,7 @@ class Convenio extends MinC_Db_Table_Abstract
         );
 
 
-       //adiciona quantos filtros foram enviados
+        //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
@@ -40,5 +33,4 @@ class Convenio extends MinC_Db_Table_Abstract
         
         return $this->fetchAll($select);
     }
-
 }

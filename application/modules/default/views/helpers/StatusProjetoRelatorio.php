@@ -12,25 +12,23 @@
  
 class Zend_View_Helper_StatusProjetoRelatorio
 {
-	/**
-	 * Método com a descrição dos tipos de parecer
-	 * @access public
-	 * @param string $parecer
-	 * @return string $descricao
-	 */
-	public function statusProjetoRelatorio($status)
-	{
-
-            if($status == 1){
-                $valor = 'N&atilde;o Analisado';
-            }
-            if($status == 2){
-                $valor = 'Em An&aacute;lise';
-            }
-            if($status == 3){
-                $valor = 'Analisado';
-            }
-            return $valor;
-	} // fecha método tipoParecer()
-
+    /**
+     * Método com a descrição dos tipos de parecer
+     * @access public
+     * @param string $parecer
+     * @return string $descricao
+     */
+    public function statusProjetoRelatorio($status)
+    {
+        if ($status == 1) {
+            $valor = 'N&atilde;o Analisado';
+        }
+        if ($status == 2) {
+            $valor = 'Em An&aacute;lise';
+        }
+        if ($status == 3) {
+            $valor = 'Analisado';
+        }
+        return $valor;
+    } // fecha método tipoParecer()
 } // fecha class

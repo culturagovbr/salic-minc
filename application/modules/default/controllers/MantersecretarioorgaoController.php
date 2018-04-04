@@ -1,13 +1,9 @@
 <?php
 
-/**
- * Description of Mantersecretarioorgao
- *
- * @author Tiago
- */
-class MantersecretarioorgaoController extends MinC_Controller_Action_Abstract {
-
-    public function init() {
+class MantersecretarioorgaoController extends MinC_Controller_Action_Abstract
+{
+    public function init()
+    {
         // verifica as permiss�es
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 97; // Gestor Salic
@@ -21,9 +17,9 @@ class MantersecretarioorgaoController extends MinC_Controller_Action_Abstract {
         $this->codGrupo = $GrupoAtivo->codGrupo;
     }
 
-    public function indexAction() {
-
-        $tbOrgao = New Orgaos();
+    public function indexAction()
+    {
+        $tbOrgao = new Orgaos();
         $buscaOrgaos = $tbOrgao->buscar(array(), array('Sigla'));
 
         if (!empty($buscaOrgaos[0])) {
@@ -31,12 +27,12 @@ class MantersecretarioorgaoController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function buscarsecretarioAction() {
-
+    public function buscarsecretarioAction()
+    {
         $orgao = $this->_request->getParam("orgao");
-        $orgao = (int) $orgao;              
+        $orgao = (int) $orgao;
 
-        $tbSecretario = New tbSecretario();
+        $tbSecretario = new tbSecretario();
         $buscarOrgaoSecretario = $tbSecretario->buscar(array('idOrgao = ?' => $orgao));
 
         if (!empty($buscarOrgaoSecretario[0])) {
@@ -44,21 +40,21 @@ class MantersecretarioorgaoController extends MinC_Controller_Action_Abstract {
             $result['nmSecretario'] = utf8_encode($buscarOrgaoSecretario[0]->nmSecretario);
             $result['dsCargo'] = utf8_encode($buscarOrgaoSecretario[0]->dsCargo);
             $this->_helper->json($result);
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         } else {
             $result['existe'] = false;
             $this->_helper->json($result);
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
     }
 
-    public function cadastrarsecretarioAction() {
-
+    public function cadastrarsecretarioAction()
+    {
         $orgao = $this->_request->getParam("orgao");
         $nomeSecretario = $this->_request->getParam("nomeSecretario");
         $cargo = $this->_request->getParam("cargo");
         
-        $tbSecretario = New tbSecretario();
+        $tbSecretario = new tbSecretario();
         $buscarOrgaoSecretario = $tbSecretario->buscar(array('idOrgao = ?' => $orgao));
 
         if (!empty($buscarOrgaoSecretario[0])) { //atualiza orgaosecretario

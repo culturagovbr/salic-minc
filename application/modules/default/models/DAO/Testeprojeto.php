@@ -1,27 +1,11 @@
 <?php
-/**
- * Modelo Execucaofisicaprojeto
- * @author Equipe RUP - Politec
- * @since 29/03/2010
- * @version 1.0
- * @package application
- * @subpackage application.models
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
- * @link http://www.cultura.gov.br
- */
 
 class Testeprojeto extends Zend_Db_Table
 {
-	/**
-	 * Método para buscar documentos de um PRONAC
-	 * @access public
-	 * @static
-	 * @param integer $idPronac
-	 * @return object
-	 */
-	public static function buscardocumentos($idPronac)
-	{
-		$sql = "SELECT doc.idComprovante AS id, 
+
+    public static function buscardocumentos($idPronac)
+    {
+        $sql = "SELECT doc.idComprovante AS id, 
 				doc.idTipoDocumento, 
 				tipodoc.dsTipoDocumento, 
 				doc.nmComprovante AS Nome,
@@ -44,36 +28,17 @@ class Testeprojeto extends Zend_Db_Table
 				AND doc.idPRONAC = " . $idPronac . " 
 			ORDER BY doc.dtEnvioComprovante DESC;";
 
-		try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB :: FETCH_OBJ);
-			return $db->fetchAll($sql);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao buscar Comprovantes: " . $e->getMessage();
-		}
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+            return $db->fetchAll($sql);
+        } catch (Zend_Exception_Db $e) {
+            xd("Erro ao buscar Comprovantes: " . $e->getMessage());
+        }
+    }
 
-	} // fecha método buscar()
+    public static function cadastrar($dados)
+    {
 
-
-
-	/**
-	 * Método para cadastrar documentos do PRONAC
-	 * @access public
-	 * @param void
-	 * @return object
-	 */
-	public static function cadastrar($dados)
-	{
-		/*$sql = "INSERT INTO BDCORPORATIVO.scSAC.tbComprovanteExecucao ";
-		$sql.= "VALUES ($dados['idPRONAC'], $dados['idTipoDocumento'], $dados['nmComprovante'], $dados['dsComprovante'], $dados['idArquivo'], $dados['idSolicitante'], $dados['dtEnvioComprovante'], $dados['stComprovante'], $dados['stComprovante'], $dados['idComprovanteAnterior'])";*/
-
-	} // fecha método cadastrar()
-
-
-
-
-} // fecha class
-?>
+    }
+}

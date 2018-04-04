@@ -12,15 +12,15 @@
 
 class Zend_View_Helper_TipoDocumento
 {
-	/**
-	 * Método com os status dos comprovantes de status do projeto
-	 * @access public
-	 * @param string $status
-	 * @return string $nomeStatus
-	 */
-	function tipoDocumento($status)
-	{
-		switch ($status){
+    /**
+     * Método com os status dos comprovantes de status do projeto
+     * @access public
+     * @param string $status
+     * @return string $nomeStatus
+     */
+    public function tipoDocumento($status)
+    {
+        switch ($status) {
                     case 1:
                         $status = 'Boleto Bancário';
                         break;
@@ -38,7 +38,6 @@ class Zend_View_Helper_TipoDocumento
                         break;
                 }
 
-		return $status;
-	} // fecha método statusComprovacaoFisicaDoProjeto()
-
+        return $status;
+    } // fecha método statusComprovacaoFisicaDoProjeto()
 } // fecha class

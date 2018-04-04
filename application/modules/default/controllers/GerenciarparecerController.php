@@ -16,17 +16,15 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         $Usuario = new UsuarioDAO(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
 
-        if ($auth->hasIdentity()) // caso o usu�rio esteja autenticado
-        {
+        if ($auth->hasIdentity()) { // caso o usu�rio esteja autenticado
             // verifica as permiss�es
             $PermissoesGrupo = array();
             $PermissoesGrupo[] = 94;
             $PermissoesGrupo[] = Autenticacao_Model_Grupos::COORDENADOR_DE_PARECERISTA;
             $PermissoesGrupo[] = 137;
-            $PermissoesGrupo[] = Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA;            
+            $PermissoesGrupo[] = Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA;
             
-            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) // verifica se o grupo ativo est� no array de permiss�es
-            {
+            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
                 parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
             }
 
@@ -39,12 +37,10 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
             $this->view->grupoAtivo = $GrupoAtivo->codGrupo; // manda o grupo ativo do usu�rio para a vis�o
             $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o �rg�o ativo do usu�rio para a vis�o
 
-            if (isset($auth->getIdentity()->usu_codigo)) // autenticacao novo salic
-            {
+            if (isset($auth->getIdentity()->usu_codigo)) { // autenticacao novo salic
                 $this->getIdUsuario = UsuarioDAO::getIdUsuario($auth->getIdentity()->usu_codigo);
                 $this->getIdUsuario = ($this->getIdUsuario) ? $this->getIdUsuario["idAgente"] : 0;
             }
-
         } else {
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
@@ -70,12 +66,12 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         $this->view->codOrgao = $codOrgao;
         $this->view->idUsuarioLogado = $idusuario;
 
-        if(!$this->_request->getParam("tipoFiltro")){
+        if (!$this->_request->getParam("tipoFiltro")) {
             $this->view->tipoFiltro = 'aguardando_distribuicao';
         }
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
@@ -96,7 +92,6 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
             $campo = $this->_request->getParam("campo");
             $order = array($campo . " " . $ordem);
             $ordenacao = "&campo=" . $campo . "&ordem=" . $ordem;
-
         } else {
             $campo = null;
             $order = array('DtEnvioMincVinculada', 'NomeProjeto', 'stPrincipal desc');
@@ -105,7 +100,9 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag > 1) ? ($pag - 1) * $this->intTamPag : 0;
 
         $where = array();
@@ -166,7 +163,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
     public function produtosdistribuidosAction()
     {
         $auth = Zend_Auth::getInstance();
-//		$idusuario          = $auth->getIdentity()->usu_codigo;
+        //		$idusuario          = $auth->getIdentity()->usu_codigo;
         $idusuario = $this->getIdUsuario;
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
         $codOrgao = $GrupoAtivo->codOrgao;
@@ -189,7 +186,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         //** Usuario Logado ************************************************/
 
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
-//		$idusuario          = $auth->getIdentity()->usu_codigo;
+        //		$idusuario          = $auth->getIdentity()->usu_codigo;
         $idusuario = $this->getIdUsuario;
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $codOrgao = $GrupoAtivo->codOrgao; //  �rg�o ativo na sess�o
@@ -216,7 +213,6 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
     public function historicoAction()
     {
-
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
 //        $idUsuario = $auth->getIdentity()->usu_codigo;
         $idusuario = $this->getIdUsuario;
@@ -241,11 +237,11 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         foreach ($resp as $key => $val) {
             $cont++;
 
-            if ($val->DtSolicitacao && $val->DtResposta == NULL) {
+            if ($val->DtSolicitacao && $val->DtResposta == null) {
                 $diligencia = 1;
-            } else if ($val->DtSolicitacao && $val->DtResposta != NULL) {
+            } elseif ($val->DtSolicitacao && $val->DtResposta != null) {
                 $diligencia = 2;
-            } else if ($val->DtSolicitacao && round(data::CompararDatas($val->DtDistribuicao)) > $val->tempoFimDiligencia) {
+            } elseif ($val->DtSolicitacao && round(data::CompararDatas($val->DtDistribuicao)) > $val->tempoFimDiligencia) {
                 $diligencia = 3;
             } else {
                 $diligencia = 0;
@@ -258,7 +254,6 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
             $Pareceres['pareceres'][$cont]['Observa&ccedil;&otilde;es'] = $val->Observacao;
             $Pareceres['pareceres'][$cont]['Nome do Remetente'] = $val->nmUsuario;
             $Pareceres['pareceres'][$cont]['Nome do Parecerista'] = $val->nmParecerista;
-
         }
 
         $this->view->Pareceres = $Pareceres;
@@ -293,7 +288,29 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         }
 
         $orgaos = new Orgaos();
-        $buscar = $orgaos->buscar(array("Codigo <> ?" => $codOrgao, "Status = ?" => 0, "Vinculo = ?" => 1), array(2));
+        $buscar = $orgaos->buscar(
+            array(
+                "Codigo <> ?" => $codOrgao, 
+                "Status = ?" => 0, 
+                "Vinculo = ?" => 1,
+                "stVinculada = ?" => 1,
+                "idsecretaria <> ?" => 251,
+            ), 
+            array(2)
+        );
+
+        // Apenas o IPHAN principal pode ter acesso as unidades vinculadas
+        if ($codOrgao == 91) {
+            $buscarIPHAN = $orgaos->buscar(
+                array(
+                    "Codigo <> ?" => $codOrgao,
+                    "Status = ?" => 0,
+                    "idSecretaria = ?" => 91 ,
+                )
+            );
+
+            $buscar = array_merge($buscar->toArray(), $buscarIPHAN->toArray());
+        }
 
         $this->view->idSegmentoProduto = $buscaDadosProjeto[0]->idSegmento;
         $this->view->idAreaProduto = $buscaDadosProjeto[0]->idArea;
@@ -304,7 +321,6 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         $this->view->idproduto = $idProduto;
         $this->view->tipoanalise = $TipoAnalise;
         $this->view->tipoFiltro = $tipoFiltro;
-
     }
 
     public function distribuiuAction()
@@ -329,9 +345,11 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         }
 
         if ((empty($idAgenteParecerista)) && ($tipoescolha == 1)) {
-            parent::message("Dados obrigat&aacute;rios n&atilde;o informados.",
+            parent::message(
+                "Dados obrigat&aacute;rios n&atilde;o informados.",
                 "gerenciarparecer/encaminhar/idproduto/" . $idProduto . "/tipoanalise/" . $TipoAnalise . "/idpronac/" . $idPronac . "/tipoFiltro/" . $tipoFiltro,
-                "ALERT");
+                "ALERT"
+            );
         }
         $tbDistribuirParecer = new tbDistribuirParecer();
 
@@ -440,7 +458,6 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
             
             parent::message($msg . ' '.$insere, "parecer/gerenciar-parecer/index?tipoFiltro=" . $tipoFiltro, "CONFIRM");
             /* $db->commit(); */
-
         } catch (Zend_Exception $ex) {
             /* $db->rollBack(); */
             parent::message("Error" . $ex->getMessage(), "gerenciarparecer/distribuir/idDistribuirParecer/" . $idDistribuirParecer . "/idproduto/" . $idProduto . "/tipoanalise/" . $TipoAnalise . "/idpronac/" . $idPronac . "/tipoFiltro/" . $tipoFiltro, "ERROR");
@@ -505,8 +522,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
             $pareceristas = $spSelecionarParecerista->exec($buscaDadosProjetoS[0]->idOrgao, $buscaDadosProjetoS[0]->idArea, $buscaDadosProjetoS[0]->idSegmento, $buscaDadosProjetoS[0]->Valor);
             $this->view->idSegmentoProduto = $buscaDadosProjetoS[0]->idSegmento;
             $this->view->idAreaProduto = $buscaDadosProjetoS[0]->idArea;
-
-        } else if (count($buscaDadosProjetoSA) > 0) {
+        } elseif (count($buscaDadosProjetoSA) > 0) {
             $pareceristas = $spSelecionarParecerista->exec($buscaDadosProjetoSA[0]->idOrgao, $buscaDadosProjetoSA[0]->idArea, $buscaDadosProjetoSA[0]->idSegmento, $buscaDadosProjetoSA[0]->Valor);
             $this->view->idSegmentoProduto = $buscaDadosProjetoSA[0]->idSegmento;
             $this->view->idAreaProduto = $buscaDadosProjetoSA[0]->idArea;
@@ -516,7 +532,29 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
             $this->view->idAreaProduto = $buscaDadosProjeto[0]->idArea;
         }
         $orgaos = new Orgaos();
-        $buscar = $orgaos->buscar(array("Codigo <> ?" => $codOrgao, "Status = ?" => 0, "Vinculo = ?" => 1));
+
+        $buscar = $orgaos->buscar(
+            array(
+                "Codigo <> ?" => $codOrgao, 
+                "Status = ?" => 0, 
+                "Vinculo = ?" => 1,
+                "stvinculada = ?" => 1,
+                "idSecretaria <> ?" => 251 ,
+            )
+        );
+
+        // Apenas o IPHAN principal pode ter acesso as unidades vinculadas
+        if ($codOrgao == 91) {
+            $buscarIPHAN = $orgaos->buscar(
+                array(
+                    "Codigo <> ?" => $codOrgao,
+                    "Status = ?" => 0,
+                    "idSecretaria = ?" => 91 ,
+                )
+            );
+
+            $buscar = array_merge($buscar->toArray(), $buscarIPHAN->toArray());
+        }
 
         $this->view->orgaos = $buscar;
         $this->view->idpronac = $idPronac;
@@ -543,14 +581,19 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         $tipoFiltro = $this->_request->getParam("tipoFiltro");
 
         if (strlen($observacao) < 11) {
-            parent::message("O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 11 caracteres!",
-                "gerenciarparecer/encaminhar/idproduto/" . $idProduto . "/idpronac/" . $idPronac, "ALERT");
+            parent::message(
+                "O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 11 caracteres!",
+                "gerenciarparecer/encaminhar/idproduto/" . $idProduto . "/idpronac/" . $idPronac,
+                "ALERT"
+            );
         }
 
         if ((empty($idAgenteParecerista)) && ($tipoescolha == 1)) {
-            parent::message("Selecione um Parecerista!",
+            parent::message(
+                "Selecione um Parecerista!",
                 "gerenciarparecer/encaminhar/idproduto/" . $idProduto . "/idpronac/" . $idPronac . "/tipoFiltro/" . $tipoFiltro,
-                "ALERT");
+                "ALERT"
+            );
         }
 
         $tbDistribuirParecer = new tbDistribuirParecer();
@@ -572,14 +615,12 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
             $whereDocumentoAssinatura = "idDocumentoAssinatura = $idDocumentoAssinatura";
             
             $objDocumentoAssinatura->update($dadosDocumentoAssinatura, $whereDocumentoAssinatura);
-        }     
+        }
         
         $error = '';
         $projetos = new Projetos();
 
         try {
-
-
             foreach ($buscaDadosProjeto as $dp) {
                 // invalida e redistribui
 
@@ -651,16 +692,14 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                     parent::message("Distribui&ccedil;&atilde;o Realizada com sucesso!  ", "parecer/gerenciar-parecer/index?tipoFiltro=" . $tipoFiltro, "CONFIRM");
                 }
             }
-
         } catch (Zend_Exception $ex) {
             parent::message("Error" . $ex->getMessage(), "gerenciarparecer/encaminhar/idpronac/" . $idPronac . "/tipoFiltro/" . $tipoFiltro . "/idproduto/" . $idProduto, "ERROR");
         }
-
     }
 
 
     /*
-     * DEPRECATED - tela removida / funcionalidades no módulo parecer 
+     * DEPRECATED - tela removida / funcionalidades no módulo parecer
      */
     public function concluirAction()
     {
@@ -682,11 +721,10 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
         $this->view->dadosProjeto = $buscaDadosProjeto;
         $this->view->idDistribuirParecer = $idDistribuirParecer;
-
     }
 
     /*
-     * DEPRECATED - movida para módulo parecer 
+     * DEPRECATED - movida para módulo parecer
      */
     public function concluiuAction()
     {
@@ -701,7 +739,6 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         $where = array('a.idUsuario IS NOT NULL' => '', 'p.IdPRONAC = ?' => $idPronac, 'a.idProduto = ?' => $idProduto);
         $dados = $projetos->vwAnaliseConteudo($where, $order = array(), $tamanho = -1, $inicio = -1);
         $this->view->dados = $dados;
-
     }
 
     public function visualizarplanilhadecustosAction()
@@ -713,7 +750,6 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
     public function planilhaAction()
     {
-
     }
 
     public function pareceristaAction()
@@ -843,7 +879,9 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         $post = Zend_Registry::get('get');
         $where = array();
 
-        if (!empty ($post->parecerista)) $where['dp.idAgenteParecerista = ?'] = $post->parecerista;
+        if (!empty($post->parecerista)) {
+            $where['dp.idAgenteParecerista = ?'] = $post->parecerista;
+        }
 
         $distribuirParecerDAO = new tbDistribuirParecer();
 
@@ -854,7 +892,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
             $retorno['nmParecerista'] = $val['nmParecerista'];
             $retorno['stPrincipal'] = $val['stPrincipal'];
 
-            if (!empty ($val->dtInicioAusencia)) {
+            if (!empty($val->dtInicioAusencia)) {
                 $dataini = date('d/m/Y', strtotime($val->dtInicioAusencia));
                 $datafim = date('d/m/Y', strtotime($val->dtFimAusencia));
                 $retorno['ferias'] = $dataini . ' a ' . $datafim;
@@ -872,7 +910,6 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                 $retorno['projetos'][$val['IdPRONAC']]['produtos'][$val['idProduto']]['distribuicao'][$val->idDistribuirParecer]['dtDistribuicao'] = date('d/m/Y', strtotime($val['DtDistribuicao']));
                 $retorno['projetos'][$val['IdPRONAC']]['produtos'][$val['idProduto']]['distribuicao'][$val->idDistribuirParecer]['nrDias'] = $val['nrDias'];
             }
-
         }
 
         $cProduto = 0;
@@ -906,7 +943,9 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         $post = Zend_Registry::get('get');
         $where = array();
 
-        if (!empty ($post->parecerista)) $where['dp.idAgenteParecerista = ?'] = $post->parecerista;
+        if (!empty($post->parecerista)) {
+            $where['dp.idAgenteParecerista = ?'] = $post->parecerista;
+        }
 
         $distribuirParecerDAO = new tbDistribuirParecer();
 
@@ -936,7 +975,6 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         }
 
         $this->view->parecerista = $retorno;
-
     }
 
     public function consolidacaopareceristaAction()
@@ -1062,10 +1100,11 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                     foreach ($resp2 as $val2) {
                         $retorno[$val['IdPRONAC']]['Orgaos'][$val2['idOrgao']]['nmOrgao'] = $val2['Sigla'];
                         $retorno[$val['IdPRONAC']]['Orgaos'][$val2['idOrgao']]['Produtos'][$val2['idProduto']]['nmProduto'] = $val2['Produto'];
-                        if ($val2['stPrincipal'])
+                        if ($val2['stPrincipal']) {
                             $retorno[$val['IdPRONAC']]['Orgaos'][$val2['idOrgao']]['Produtos'][$val2['idProduto']]['prodPrincipal'] = 'sim';
-                        else
+                        } else {
                             $retorno[$val['IdPRONAC']]['Orgaos'][$val2['idOrgao']]['Produtos'][$val2['idProduto']]['prodPrincipal'] = '';
+                        }
                         $retorno[$val['IdPRONAC']]['Orgaos'][$val2['idOrgao']]['Produtos'][$val2['idProduto']]['dtFechamento'] = date('d/m/Y', strtotime($val2['DtDevolucao']));
                         $retorno[$val['IdPRONAC']]['Orgaos'][$val2['idOrgao']]['Produtos'][$val2['idProduto']]['area'] = $val2['Area'];
                         $retorno[$val['IdPRONAC']]['Orgaos'][$val2['idOrgao']]['Produtos'][$val2['idProduto']]['segmento'] = $val2['Segmento'];
@@ -1119,28 +1158,26 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                     $retorno[$key]['Produtos'][$val['idProduto']]['nmOrgao'] = $val['nmOrgao'];
                     $retorno[$key]['Produtos'][$val['idProduto']]['perExecProj'] = $val['PeriodoExecucao'];
                     $retorno[$key]['Produtos'][$val['idProduto']]['qtDiasVencExecProj'] = $val['QtdeDiasVencido'];
-
                 }
                 break;
             case 'resconsolidacaoparecerista':
                 $zerado = false;
                 $resp = $distribuirParecerDAO->analisePorParecerista($where);
                 if ($resp->count() > 0) {
-
                     foreach ($resp as $val) {
-                        if (!empty ($post->stAnalise)) {
+                        if (!empty($post->stAnalise)) {
                             if ($post->stAnalise == 1) {
                                 if ($val->DtSolicitacao && round(data::CompararDatas($val->DtDistribuicao)) > $val->tempoFimDiligencia) {
                                     $retorno = $this->dadosResconsolidacaoparecerista($val, $retorno);
                                 }
                             }
                             if ($post->stAnalise == 2) {
-                                if ($val->DtSolicitacao && $val->DtResposta == NULL) {
+                                if ($val->DtSolicitacao && $val->DtResposta == null) {
                                     $retorno = $this->dadosResconsolidacaoparecerista($val, $retorno);
                                 }
                             }
                             if ($post->stAnalise == 3) {
-                                if (!($val->DtSolicitacao && round(data::CompararDatas($val->DtDistribuicao)) > $val->tempoFimDiligencia) and !($val->DtSolicitacao && $val->DtResposta == NULL)) {
+                                if (!($val->DtSolicitacao && round(data::CompararDatas($val->DtDistribuicao)) > $val->tempoFimDiligencia) and !($val->DtSolicitacao && $val->DtResposta == null)) {
                                     $retorno = $this->dadosResconsolidacaoparecerista($val, $retorno);
                                 }
                             }
@@ -1186,12 +1223,13 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
     private function dadosParecerista($val, $retorno)
     {
         $retorno['nmParecerista'] = $val['nmParecerista'];
-        if (!empty ($val->dtInicioAusencia)) {
+        if (!empty($val->dtInicioAusencia)) {
             $dataini = date('d/m/Y', strtotime($val->dtInicioAusencia));
             $datafim = date('d/m/Y', strtotime($val->dtFimAusencia));
             $retorno['ferias'] = $dataini . ' h? ' . $datafim;
-        } else
+        } else {
             $retorno['ferias'] = 'N&atilde;o agendada';
+        }
         $area = $val->Area;
         $segmento = $val->Segmento;
         $nivel = $this->nivelParecerista($val->qtPonto);
@@ -1218,21 +1256,21 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
     {
         $post = Zend_Registry::get('post');
         if ($post->tipo == 'pdf' or $post->tipo == 'xls') {
-            if ($val->DtSolicitacao && $val->DtResposta == NULL) {
+            if ($val->DtSolicitacao && $val->DtResposta == null) {
                 $diligencia = "<p style='text-align: center;'>Diligenciado</p>";//1
-            } else if ($val->DtSolicitacao && $val->DtResposta != NULL) {
+            } elseif ($val->DtSolicitacao && $val->DtResposta != null) {
                 $diligencia = "<p style='text-align: center;'>Dilig&ecirc;ncia respondida</p>";//2
-            } else if ($val->DtSolicitacao && round(data::CompararDatas($val->DtDistribuicao)) > $val->tempoFimDiligencia) {
+            } elseif ($val->DtSolicitacao && round(data::CompararDatas($val->DtDistribuicao)) > $val->tempoFimDiligencia) {
                 $diligencia = "<p style='text-align: center;'>Dilig&ecirc;ncia n&atilde;o respondida</p>";//3
             } else {
                 $diligencia = "<p style='text-align: center;'>A diligenciar</p>";//0
             }
         } else {
-            if ($val->DtSolicitacao && $val->DtResposta == NULL) {
+            if ($val->DtSolicitacao && $val->DtResposta == null) {
                 $diligencia = "<p style='text-align: center;'><img src='../public/img/notice.png' width='30px'/></p>";//1
-            } else if ($val->DtSolicitacao && $val->DtResposta != NULL) {
+            } elseif ($val->DtSolicitacao && $val->DtResposta != null) {
                 $diligencia = "<p style='text-align: center;'><img src='../public/img/notice2.png' width='30px'/></p>";//2
-            } else if ($val->DtSolicitacao && round(data::CompararDatas($val->DtDistribuicao)) > $val->tempoFimDiligencia) {
+            } elseif ($val->DtSolicitacao && round(data::CompararDatas($val->DtDistribuicao)) > $val->tempoFimDiligencia) {
                 $diligencia = "<p style='text-align: center;'><img src='../public/img/notice3.png' width='30px'/></p>";//3
             } else {
                 $diligencia = "<p style='text-align: center;'><img src='../public/img/notice1.png' width='30px'/></p>";//0
@@ -1261,16 +1299,13 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
     public function confirmapagamentopareceristaAction()
     {
-
         $dataAtual = date("Y-m-d h:i:s");
         $idProduto = $this->_request->getParam('confirmPagamento');
         $valor = $this->_request->getParam('valorPagamento');
         $idAgente = $this->_request->getParam('idAgente');
 
         try {
-
             for ($i = 0; $i < sizeof($idProduto); $i++) {
-
                 $arrayComprovante = array('idDocumento' => 0,
                     'nrOrdemPagamento' => 0,
                     'dtPagamento' => null
@@ -1293,22 +1328,16 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                 $TbPagamentoParecerista = new TbPagamentoParecerista();
 
                 $insere = $TbPagamentoParecerista->salvarPagamentoParecerista($arrayPagamento);
-
             }
 
             parent::message("Pagamentos enviados para aprova&ccedil;&atilde;o do coordenador PRONAC", "gerenciarparecer/enviarpagamento", "CONFIRM");
-
-
         } catch (Exception $e) {
             parent::message("Erro ao enviar pagamentos: " . $e->getMessage(), "gerenciarparecer/enviarpagamento", "ERROR");
         }
-
-
     }
 
     public function gerarmemorandoAction()
     {
-
         $dataAtual = date("Y-m-d h:i:s");
         $idProduto = $this->_request->getParam('confirmPagamento');
         $valor = $this->_request->getParam('valorPagamento');
@@ -1330,9 +1359,11 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         $this->view->cargoSecretario = $cargoSecretario;
 
         if (empty($idAgente)) {
-            parent::message("Dados obrigat&aacute;rios n&atilde;o informados.",
+            parent::message(
+                "Dados obrigat&aacute;rios n&atilde;o informados.",
                 "gerenciarparecer/enviarpagamento",
-                "ALERT");
+                "ALERT"
+            );
         }
 
 
@@ -1344,7 +1375,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
         if (($diaAtual > 10) and ($mesAtual < 12)) {
             $mesAtual = $mesAtual + 1;
-        } else if (($diaAtual > 10) and ($mesAtual == 12)) {
+        } elseif (($diaAtual > 10) and ($mesAtual == 12)) {
             $anoAtual = $anoAtual + 1;
             $mesAtual = 01;
         }
@@ -1374,7 +1405,6 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         try {
             $valorTotal = 0;
             for ($i = 0; $i < sizeof($idProduto); $i++) {
-
                 $valorTotal = $valorTotal + $valor[$i];
 
                 $dadosWhere = array('idDistribuirParecer = ?' => $idProduto[$i]);
@@ -1401,7 +1431,6 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
                 $arrayPagamento = array('siPagamento' => 1);
                 $alterar = $TbPagamentoParecerista->alterarPagamento($arrayPagamento, $idPagamentoParecerista[$i]);
-
             }
 
             $arrayParecerista = array('Nome' => $nomeParecerista, 'CPF' => Mascara::addMaskCPF($cpfParecerista), 'ValorTotal' => $valorTotal);
@@ -1409,12 +1438,8 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
             $this->view->dadosParecerista = $arrayParecerista;
             $this->view->dadosProduto = $arrayProdutosProjeto;
             $this->view->dataMemorando = $dataCertaM;
- 
-
         } catch (Exception $e) {
             parent::message("Erro ao enviar pagamentos: " . $e->getMessage(), "gerenciarparecer/enviarpagamento", "ERROR");
         }
-
-
     }
 }

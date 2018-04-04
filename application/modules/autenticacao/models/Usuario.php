@@ -12,7 +12,6 @@
  */
 class Autenticacao_Model_Usuario extends MinC_Db_Table_Abstract
 {
-
     protected $_banco = "tabelas";
     protected $_name = 'usuarios';
     protected $_schema = 'tabelas';
@@ -156,25 +155,30 @@ class Autenticacao_Model_Usuario extends MinC_Db_Table_Abstract
 
         $select = $this->select()
             ->setIntegrityCheck(false)
-            ->from($this->_name, array(
+            ->from(
+                $this->_name,
+                array(
                 'usu_codigo',
                 'usu_nome',
                 'usu_identificacao',
                 'usu_senha',
                 'usu_orgao'),
-                $this->_schema)
-            ->joinInner(array(
+                $this->_schema
+            )
+            ->joinInner(
+                array(
                 'uog' => 'usuariosxorgaosxgrupos'),
                 'uog.uog_usuario = usu_codigo AND uog_status = 1',
-                array(), $this->_schema)
+                array(),
+                $this->_schema
+            )
             ->where('usu_identificacao = ?', $username)
             ->where('usu_status  = ?', 1);
-            $select->where("usu_senha  = ?", $auxSenha);
+        $select->where("usu_senha  = ?", $auxSenha);
 
         $buscar = $this->fetchRow($select);
 
-        if ($buscar) // realiza a autenticacao
-        {
+        if ($buscar) { // realiza a autenticacao
             // configuracoes do banco
             $dbAdapter = Zend_Db_Table::getDefaultAdapter();
             // pegamos o zend_auth
@@ -223,9 +227,9 @@ class Autenticacao_Model_Usuario extends MinC_Db_Table_Abstract
         $criptSenha = $this->fetchRow($senha);
         $sql = $this->select();
         $sql->setIntegrityCheck(false);
-        $sql->from($this,
-            array
-            (
+        $sql->from(
+            $this,
+            array(
                 'usu_nome',
                 'usu_identificacao',
                 'usu_senha',
@@ -236,8 +240,7 @@ class Autenticacao_Model_Usuario extends MinC_Db_Table_Abstract
         $sql->where("usu_senha  = ?", $criptSenha['usu_senha']);
         $buscar = $this->fetchRow($sql);
 
-        if ($buscar) // realiza a autentica??o
-        {
+        if ($buscar) { // realiza a autentica??o
             // configuracoes do banco
             $dbAdapter = Zend_Db_Table::getDefaultAdapter();
             // pegamos o zend_auth
@@ -266,8 +269,7 @@ class Autenticacao_Model_Usuario extends MinC_Db_Table_Abstract
 
                 return true;
             } // fecha if
-            else // caso n?o tenha sido validado
-            {
+            else { // caso n?o tenha sido validado
                 return false;
             }
         } // fecha if
@@ -286,11 +288,12 @@ class Autenticacao_Model_Usuario extends MinC_Db_Table_Abstract
      */
     public function alterarSenha($username, $password)
     {
-
         try {
             $this->_db->beginTransaction();
             $senha = $this->select();
-            $senha->from($this, array("dbo.fnEncriptaSenha('" . $username . "', '" . $password . "') as senha")
+            $senha->from(
+                $this,
+                array("dbo.fnEncriptaSenha('" . $username . "', '" . $password . "') as senha")
             );
             $senha->where('usu_identificacao = ?', $username);
 
@@ -338,7 +341,6 @@ class Autenticacao_Model_Usuario extends MinC_Db_Table_Abstract
 
             $db->fetchAssoc($sql);
             return true;
-
         } catch (Exception $e) {
             $this->_db->rollBack();
             return false;
@@ -431,13 +433,11 @@ class Autenticacao_Model_Usuario extends MinC_Db_Table_Abstract
      */
     public function buscarUnidades($usu_codigo, $sis_codigo = null, $gru_codigo = null, $uog_orgao = null)
     {
-
         $sql = $this->select();
         $sql->setIntegrityCheck(false);
         $sql->from(
             'vwusuariosorgaosgrupos',
-            array
-            (
+            array(
                 'usu_orgao'
             , 'usu_orgaolotacao'
             , 'uog_orgao'
@@ -485,8 +485,7 @@ class Autenticacao_Model_Usuario extends MinC_Db_Table_Abstract
         $select->setIntegrityCheck(false);
         $select->from(
             array('u' => $this->_name),
-            array
-            (
+            array(
                 'u.usu_codigo',
                 'u.usu_identificacao'
             ),
@@ -933,9 +932,9 @@ class Autenticacao_Model_Usuario extends MinC_Db_Table_Abstract
 
         $sql = $this->select();
         $sql->setIntegrityCheck(false);
-        $sql->from($this->_name,
-            array
-            (
+        $sql->from(
+            $this->_name,
+            array(
                 'usu_codigo',
                 'usu_nome',
                 'usu_identificacao',

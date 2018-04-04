@@ -1,12 +1,4 @@
 <?php
-/**
- * CepController
- * @author Equipe RUP - Politec
- * @author wouerner <wouerner@gmail.com>
- * @since 29/03/2010
- * @link http://www.cultura.gov.br
- */
-
 class CepController extends MinC_Controller_Action_Abstract
 {
     /**
@@ -30,23 +22,19 @@ class CepController extends MinC_Controller_Action_Abstract
         $cepObj = new Cep();
         $resultado = $cepObj->buscarCEP($cep);
 
-        if ($resultado) // caso encontre o cep
-        {
+        if ($resultado) { // caso encontre o cep
             $_end         = $resultado['logradouro'];
             $_complemento = $resultado['tipo_logradouro'];
             $_bairro      = $resultado['bairro'];
             $_uf          = $resultado['uf'];
 
             // atribuica da cidade
-            if (empty($resultado['idcidademunicipios']) || empty($resultado['dscidademunicipios']))
-            {
+            if (empty($resultado['idcidademunicipios']) || empty($resultado['dscidademunicipios'])) {
                 // caso a cidade nao exista na tabela de municipios (tabela associada aos agentes)
                 // pega a primeira cidade do estado
                 $_cod_cidade = $resultado['idcidadeuf'];
                 $_cidade     = $resultado['dscidadeuf'];
-            }
-            else
-            {
+            } else {
                 // caso a cidade exista na tabela de municipios (tabela associada aos agentes)
                 // pega a cidade da tabela de municipios
                 $_cod_cidade = $resultado['idcidademunicipios'];
@@ -55,12 +43,8 @@ class CepController extends MinC_Controller_Action_Abstract
 
 
             $buscarCEP = $_end . ":" . $_complemento . ":" . $_bairro . ":" . $_cod_cidade . ":" . $_cidade . ":" . $_uf . ";";
-
-
-
         } // fecha if
-        else // caso nao ache o cep
-        {
+        else { // caso nao ache o cep
             $buscarCEP = "";
         }
 
@@ -79,18 +63,14 @@ class CepController extends MinC_Controller_Action_Abstract
         $cepObj = new Cep();
         $resultado = $cepObj->buscarCEP($cep);
 
-        if ($resultado) // caso encontre o cep
-        {
+        if ($resultado) { // caso encontre o cep
             // atribuica da cidade
-            if (empty($resultado['idcidademunicipios']) || empty($resultado['dscidademunicipios']))
-            {
+            if (empty($resultado['idcidademunicipios']) || empty($resultado['dscidademunicipios'])) {
                 // caso a cidade nao exista na tabela de municipios (tabela associada aos agentes)
                 // pega a primeira cidade do estado
                 $resultado['idCidade'] = $resultado['idcidadeuf'];
                 $resultado['cidade']  = $resultado['dscidadeuf'];
-            }
-            else
-            {
+            } else {
                 // caso a cidade exista na tabela de municipios (tabela associada aos agentes)
                 // pega a cidade da tabela de municipios
                 $resultado['idCidade'] = $resultado['idcidademunicipios'];
@@ -104,10 +84,8 @@ class CepController extends MinC_Controller_Action_Abstract
             $resultado['dscidademunicipios'] = utf8_encode($resultado['dscidademunicipios']);
             $resultado['dscidadeuf'] = utf8_encode($resultado['dscidadeuf']);
             $resultado['bairro'] = utf8_encode($resultado['bairro']);
-
         } // fecha if
-        else // caso nao ache o cep
-        {
+        else { // caso nao ache o cep
             $resultado['status'] = false;
         }
 

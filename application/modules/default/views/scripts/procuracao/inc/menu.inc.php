@@ -29,11 +29,11 @@
                 var fluidTitulo = janela - 252;
                 var fluidRodape = janela - 19;
 
-                $("#navglobal").css("width",fluidNavGlobal);
-                $("#conteudo").css("width",fluidConteudo);
-                $("#titulo").css("width",fluidTitulo);
-                $("#rodapeConteudo").css("width",fluidConteudo);
-                $("#rodape").css("width",fluidRodape);
+//                $("#navglobal").css("width",fluidNavGlobal);
+//                $("#conteudo").css("width",fluidConteudo);
+//                $("#titulo").css("width",fluidTitulo);
+//                $("#rodapeConteudo").css("width",fluidConteudo);
+//                $("#rodape").css("width",fluidRodape);
 
                 $("div#rodapeConteudo").attr("id", "rodapeConteudo_com_menu");
             }
@@ -42,8 +42,8 @@
         <div id="menuContexto">
             <div class="top"></div>
             <div id="qm0" class="qmmc sanfona">
-                <a class="no_seta" href='<?php echo $this->url(array('controller' => 'procuracao', 'action' => 'index'), '',true); ?>'>Procurações cadastradas</a>
-                <a class="no_seta" href='<?php echo $this->url(array('controller' => 'procuracao', 'action' => 'cadastramento'), '',true); ?>'>Cadastramento</a>
+                <a class="no_seta" href='<?php echo $this->url(array('controller' => 'procuracao', 'action' => 'index'), '', true); ?>'>Procurações cadastradas</a>
+                <a class="no_seta" href='<?php echo $this->url(array('controller' => 'procuracao', 'action' => 'cadastramento'), '', true); ?>'>Cadastramento</a>
             </div>
             <div class="bottom"></div>
         </div>

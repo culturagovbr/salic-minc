@@ -1,31 +1,30 @@
 <?php
 
-/**
- * Description of ItemCustoxComprovantePagamento
- *
- * @author 01610881125
- */
 class ComprovantePagamentoxPlanilhaAprovacao extends MinC_Db_Table_Abstract
 {
     protected $_name    = 'tbComprovantePagamentoxPlanilhaAprovacao';
     protected $_schema  = 'bdcorporativo.scSAC';
 
-    public function inserirItemCustoxComprovantePagamento($data){
+    public function inserirItemCustoxComprovantePagamento($data)
+    {
         $insert = $this->insert($data);
         return $insert;
     }
 
-    public function alterarItemCustoxComprovantePagamento($data, $where){
+    public function alterarItemCustoxComprovantePagamento($data, $where)
+    {
         $update = $this->update($data, $where);
         return $update;
     }
 
-    public function deletarItemCustoxComprovantePagamento($where){
+    public function deletarItemCustoxComprovantePagamento($where)
+    {
         $delete = $this->delete($where);
         return $delete;
     }
 
-    public function valorTotalPorItem($idPlanilhaAprovacao){
+    public function valorTotalPorItem($idPlanilhaAprovacao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -35,7 +34,7 @@ class ComprovantePagamentoxPlanilhaAprovacao extends MinC_Db_Table_Abstract
                               )
                       );
 
-        $select->where('cpa.idPlanilhaAprovacao = ?',$idPlanilhaAprovacao);
+        $select->where('cpa.idPlanilhaAprovacao = ?', $idPlanilhaAprovacao);
 
         return $this->fetchAll($select);
     }
@@ -54,10 +53,11 @@ class ComprovantePagamentoxPlanilhaAprovacao extends MinC_Db_Table_Abstract
         $select->where('stItemAvaliado = ?', 1);
         $select->group('idPlanilhaAprovacao');
 
-        if($retornaSelect)
+        if ($retornaSelect) {
             return $select;
-        else
+        } else {
             return $this->fetchAll($select);
+        }
     }
 
     /**
@@ -66,19 +66,19 @@ class ComprovantePagamentoxPlanilhaAprovacao extends MinC_Db_Table_Abstract
      */
     public function validarValorComprovado($idPronac, $idPlanilhaAprovacao, $idPlanilhaItem, $vlComprovado)
     {
-    	$planilhaAprovacaoModel = new PlanilhaAprovacao();
-    	$planilhaItem = $planilhaAprovacaoModel->buscar(array('idPlanilhaAprovacao = ?' => $idPlanilhaAprovacao))->current();
-    	$valorAprovado = $planilhaItem->qtItem * $planilhaItem->nrOcorrencia * $planilhaItem->vlUnitario;
+        $planilhaAprovacaoModel = new PlanilhaAprovacao();
+        $planilhaItem = $planilhaAprovacaoModel->buscar(array('idPlanilhaAprovacao = ?' => $idPlanilhaAprovacao))->current();
+        $valorAprovado = $planilhaItem->qtItem * $planilhaItem->nrOcorrencia * $planilhaItem->vlUnitario;
 
-    	$comprovantesPagamento = $planilhaAprovacaoModel->buscarcomprovantepagamento($idPronac, $idPlanilhaItem);
-    	$totalComprovado = 0;
-    	foreach ($comprovantesPagamento as $comprovante) {
-    		if (2 == $comprovante->stItemAvaliado) {
-    			$totalComprovado += $comprovante->vlComprovadoPlanilhaAprovacao;
-    		}
-    	}
-    	if ($valorAprovado < ($totalComprovado + $vlComprovado)) {
-    		throw new Exception('Comprova��o de pagamento do item acima do valor aprovado.');
-    	}
+        $comprovantesPagamento = $planilhaAprovacaoModel->buscarcomprovantepagamento($idPronac, $idPlanilhaItem);
+        $totalComprovado = 0;
+        foreach ($comprovantesPagamento as $comprovante) {
+            if (2 == $comprovante->stItemAvaliado) {
+                $totalComprovado += $comprovante->vlComprovadoPlanilhaAprovacao;
+            }
+        }
+        if ($valorAprovado < ($totalComprovado + $vlComprovado)) {
+            throw new Exception('Comprova��o de pagamento do item acima do valor aprovado.');
+        }
     }
 }

@@ -1,65 +1,86 @@
 <div id="divPerguntaEnviar" class="sumir"></div>
-<div id="titulo">
-    <div>Comprovação Enviada<span class="voltar"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idpronac); ?>" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
-</div>
-
-<div id="conteudo" align="center">
-    <div>
-        <table class="tabela">
-            <tr>
-                <th>PRONAC</th>
-                <th>NOME DO PROJETO</th>
-            </tr>
-            <tr>
-                <td><?php echo $this->pronac;?></td>
-                <td><?php echo $this->nomeProjeto;?></td>
-            </tr>
-        </table>
-        <br />
-        <table class="tabela">
-            <caption class="fundo_linha3">Comprovantes Recusados</caption>
+<div class="container-fluid" >
+    <div class="row">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Presta&ccedil;&atilde;o de Contas: Comprovantes recusados na avaliação financeira</h1>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href=" <?php echo $this->url(
+                                array('controller' => 'consultardadosprojeto',
+                                'action' => 'index'), '', true);
+                                ?>?idPronac=<?php echo Seguranca::encrypt($this->idpronac); ?>
+                            " 
+                            class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle">
+                        <i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table class="bordered">
             <thead>
-                <th>Produto</th>
-                <th>Etapa</th>
-                <th>Item</th>
+                <tr>
+                    <th>PRONAC</th>
+                    <th>NOME DO PROJETO</th>
+                </tr>
             </thead>
             <tbody>
-                <?php foreach ($this->comprovantesDePagamento as $comprovante) : ?>
-                    <tr>
-                        <td><?php echo $comprovante['produto']; ?></td>
-                        <td><?php echo $comprovante['etapa']; ?></td>
-                        <td>
-                        	<a href="<?php echo $this->url(array('controller' => 'comprovarexecucaofinanceira',
-                        		'action' => 'comprovacaopagamento-recusado',
-                        		'idpronac' => $this->idpronac, 
-                        		'idPlanilhaAprovacao' => $comprovante['idPlanilhaAprovacao'],
-                        		'idComprovantePagamento' => $comprovante['idComprovantePagamento'],
-                    			'idusuario' => $this->idusuario),
-                        		'', true); ?>"><?php echo $comprovante['item']; ?></a>
-
-                        </td>
-                    </tr>
-                <?php endforeach;?>
+                <tr>
+                    <td><?php echo $this->pronac;?></td>
+                    <td><?php echo $this->nomeProjeto;?></td>
+                </tr>
             </tbody>
         </table>
-	<?php if (!empty($this->comprovantesDePagamento)) { ?>
-	<div>
-	    <form id="frEnviarComprovantes" name="frEnviarComprovantes" method="post" action="<?php print $this->url(array('controller' => 'comprovarexecucaofinanceira', 'action' => 'enviarcomprovacaopagamento')); ?>">
-		<input type='hidden' name='idPronac' id='idPronac' value='<?php echo $this->idpronac; ?>' />
-		<input type="button" name="frComprovarPagamentoEnviar" id="frComprovarPagamentoEnviar" value="" class="btn_enviar" />
-	    </form>
-	</div>
-	<?php } ?>
+        <div class="card">
+            <div class="card-content">
+              <span class="card-title">Comprovantes Recusados</span>
+                <table class="bordered">
+                    <thead>
+                        <th>Produto</th>
+                        <th>Etapa</th>
+                        <th>Item</th>
+                        <th>A&ccedil;&otilde;es</th>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($this->comprovantesDePagamento as $comprovante) : ?>
+                            <tr>
+                                <td><?php echo $comprovante['produto']; ?></td>
+                                <td><?php echo $comprovante['etapa']; ?></td>
+                                <td><?php echo $comprovante['item']; ?></td>
+                                <td>
+                                    <a class="btn" href="<?php echo $this->url(array('controller' => 'comprovarexecucaofinanceira',
+                                        'action' => 'comprovacaopagamento-recusado',
+                                        'idpronac' => $this->idpronac, 
+                                        'idPlanilhaAprovacao' => $comprovante['idPlanilhaAprovacao'],
+                                        'idComprovantePagamento' => $comprovante['idComprovantePagamento'],
+                                        'idusuario' => $this->idusuario),
+                                        '', true); ?>">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+
+                                </td>
+                            </tr>
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-action">
+                <?php if (!empty($this->comprovantesDePagamento)) : ?>
+                    <div>
+                        <form id="frEnviarComprovantes" name="frEnviarComprovantes" method="post" action="<?php print $this->url(array('controller' => 'comprovarexecucaofinanceira', 'action' => 'enviarcomprovacaopagamento')); ?>">
+                            <input type='hidden' name='idPronac' id='idPronac' value='<?php echo $this->idpronac; ?>' />
+                            <button type="button" name="frComprovarPagamentoEnviar" id="frComprovarPagamentoEnviar" value="" class="btn">enviar</button>
+                        </form>
+                    </div>
+                <?php endif ?>
+            </div>
+        </div>
     </div>
-    <br clear="left" />
 </div>
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
-<div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
-<br clear="all" />
-
 <div id="popupComprovarPagamentoRecusado" class="sumir"></div>
-
 <script type="text/javascript">
  $(document).ready(function(){
 

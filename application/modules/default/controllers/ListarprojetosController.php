@@ -2,7 +2,6 @@
 
 class ListarprojetosController extends MinC_Controller_Action_Abstract
 {
-
     private $getIdUsuario = 0;
     private $getCNPJCPF = 0;
     private $idResponsavel = 0;
@@ -132,20 +131,9 @@ class ListarprojetosController extends MinC_Controller_Action_Abstract
 
                 if (count($ProjetosVinculados) > 0) {
                     foreach ($ProjetosVinculados as $projeto) {
-                        $projeto['projetoPossuiProposta'] = false;
 
-                        $idPreProjeto = $tbProjetos->verificarSeProjetoPossuiProposta($projeto['IdPRONAC']);
-
-                        if (!empty($idPreProjeto)) {
-                            $fnVerificarPermissao = new Autenticacao_Model_FnVerificarPermissao();
-                            $permissao = $fnVerificarPermissao->verificarPermissaoProposta($idPreProjeto, $this->getIdUsuario);
-
-                            $projeto['projetoPossuiProposta'] = ($permissao == 1) ? true : false;
-
-                        } else {
-                            $projeto['projetoPossuiProposta'] = false;
-                        }
-
+                        $idPreProjeto = $tbProjetos->obterIdPreProjetoDoProjeto($projeto['IdPRONAC']);
+                        $projeto['podeClonarProjeto'] = !empty($idPreProjeto) ? true : false;
                         $projeto['liberarEdicao'] = $tbProjetos->fnChecarLiberacaoDaAdequacaoDoProjeto($projeto['IdPRONAC']);
 
                         $projetos[] = $projeto;
@@ -185,11 +173,10 @@ class ListarprojetosController extends MinC_Controller_Action_Abstract
             }
             $jsonEncode = json_encode($dadosCombo);
             $this->_helper->json(array('resposta' => true, 'conteudo' => $dadosCombo));
-
         } else {
             $this->_helper->json(array('resposta' => false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
     public function gerarpdfAction()
@@ -225,8 +212,8 @@ class ListarprojetosController extends MinC_Controller_Action_Abstract
             die;
         }
 
-        if (empty($this->idAgente)) {
-            $return['msg'] = 'Agente inv&aacute;lido!';
+        if (empty($this->idResponsavel)) {
+            $return['msg'] = 'Usu&aacute;rio inv&aacute;lido!';
             $return['status'] = false;
 
             $this->_helper->json($return);
@@ -235,35 +222,28 @@ class ListarprojetosController extends MinC_Controller_Action_Abstract
 
         $tbProjetos = new Projeto_Model_DbTable_Projetos();
 
-        $idPreProjeto = $tbProjetos->verificarSeProjetoPossuiProposta($idPronac);
+        $idPreProjeto = $tbProjetos->obterIdPreProjetoDoProjeto($idPronac);
 
-        if (!empty($idPreProjeto)) {
-
-            $permissaoProposta = $this->verificarPermissaoAcesso($idPreProjeto, false, false, true);
-
-            if (true !== $permissaoProposta['status']) {
-                $this->_helper->json($permissaoProposta);
-                die;
-            }
-
-            $retorno = (array) $tbProjetos->spClonarProjeto($idPronac, $this->idAgente);
-
-            if ($retorno['stEstado'] == 'TRUE') {
-                $return['idPreProjeto'] = $retorno['Mensagem'];
-                $return['msg'] = 'Sucesso! Voc&ecirc; ser&aacute; redirecionado para a proposta!';
-                $return['status'] = true;
-            } else {
-                $return['msg'] = $retorno['Mensagem'];
-                $return['status'] = false;
-            }
-
-        } else {
-            $return['msg'] = 'Esse projeto n&atilde;o pode ser clonado!';
+        if (empty($idPreProjeto)) {
+            $return['msg'] = 'Erro ao Clonar! Este projeto n&atilde;o possui proposta!';
             $return['status'] = false;
+
+            $this->_helper->json($return);
+            die;
+        }
+
+        $retorno = (array) $tbProjetos->spClonarProjeto($idPronac, $this->idResponsavel);
+
+        $return['msg'] = $retorno['Mensagem'];
+        $return['status'] = false;
+
+        if ($retorno['stEstado'] == 'TRUE') {
+            $return['idPreProjeto'] = $retorno['Mensagem'];
+            $return['msg'] = 'Sucesso! Voc&ecirc; ser&aacute; redirecionado para a proposta!';
+            $return['status'] = true;
         }
 
         $this->_helper->json($return);
         die;
     }
-
 }

@@ -8,7 +8,6 @@
  */
 class VisaoModel implements ModelInterface
 {
-
     const SITUACAO_ATIVO = 'A';
 
     const PROPONENTE = 144;
@@ -99,5 +98,4 @@ class VisaoModel implements ModelInterface
             );
         }
     }
-
 }

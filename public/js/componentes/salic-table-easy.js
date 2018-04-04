@@ -2,7 +2,7 @@ Vue.component(
     'salic-table-easy',
     {
         template:`
-            <table class="">
+            <table :class="dados.class">
                 <template v-if="(dados.lines && dados.lines.length > 0)">
                     <thead v-show="thead">
                         <template v-for="cab in dados.cols">

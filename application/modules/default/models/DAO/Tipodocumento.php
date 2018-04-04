@@ -12,30 +12,25 @@
 
 class Tipodocumento
 {
-	/**
-	 * M�todo para buscar os tipos de documentos
-	 * @access public
-	 * @param void
-	 * @return object
-	 */
-	public static function buscar()
-	{
-		$sql = "SELECT DISTINCT dsTipoDocumento, idTipoDocumento ";
-		$sql.= "FROM BDCORPORATIVO.scSAC.tbTipoDocumento ";
-		$sql.= "ORDER BY dsTipoDocumento;";
+    /**
+     * M�todo para buscar os tipos de documentos
+     * @access public
+     * @param void
+     * @return object
+     */
+    public static function buscar()
+    {
+        $sql = "SELECT DISTINCT dsTipoDocumento, idTipoDocumento ";
+        $sql.= "FROM BDCORPORATIVO.scSAC.tbTipoDocumento ";
+        $sql.= "ORDER BY dsTipoDocumento;";
 
-		try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
-		}
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
+        }
 
-		return $db->fetchAll($sql);
-	} // fecha m�todo buscar()
-
+        return $db->fetchAll($sql);
+    } // fecha m�todo buscar()
 } // fecha class
-?>

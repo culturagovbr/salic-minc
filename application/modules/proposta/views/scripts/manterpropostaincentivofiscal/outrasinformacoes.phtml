@@ -1,20 +1,29 @@
-<div class="container-fluid white">
+<?php echo $this->partial("inc/menu.phtml", $this); ?>
+
+<div class="container-fluid">
     <div class="row">
-        <?php echo $this->partial("inc/menu.phtml", $this); // menu ?>
-        <div class="col s10 m12 l10">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Outras Informa&ccedil;&otilde;es</h1>
 
-            <?php
-            gerarBreadCrumb(array(
-                $this->layout['listagem'],
-                array('Outras Informa&ccedil;&otilde;es' => '')
-            ));
-            ?>
-
-            <div id="titulo" style="width: 100%;">
-                <div><?php echo $this->layout['titleFull']; ?> - Outras Informa&ccedil;&otilde;es</div>
+                    <?php
+                    gerarNovoBreadCrumb(array(
+                        $this->layout['listagem'],
+                        array('Outras Informa&ccedil;&otilde;es' => '')
+                    ));
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
             </div>
-            <div class="clear-fix"></div>
-            <div id="conteudo" class="section">
+        </div>
+
+        <div class="content">
+            <div class="card-panel">
                 <div class="row">
                     <form action="<?php echo $this->acao; ?>" method="post" id="frmProposta" name="frmProposta"
                           enctype="multipart/form-data">
@@ -28,10 +37,11 @@
 
                         <div class="row">
                             <div class="input-field col s12">
-                                <p class="caption">Apenas utilizar este campo caso tenha informa&ccedil;&atilde;o
-                                    complementar do projeto que n&atilde;o tenha sido abordada nos campos anteriores.
-                                    Como, por exemplo, algum apontamento acerca de rubricas no or&ccedil;amento da
-                                    Planilha Or&ccedil;ament&aacute;ria.</p>
+                                <p class="caption">
+				  Apresente neste campo informa&ccedil;&otilde;es complementares que n&atilde;o tenham sido
+				  abordadas nos campos anteriores, mas que s&atilde;o significativas para a avalia&ccedil;&atilde;o
+				  da proposta.
+                                </p>
 
                                 <textarea id="estrategiadeexecucao" class="browser-default editor"
                                           name="estrategiadeexecucao" <?php echo isset($this->arrConfig['estrategiadeexecucao']['disabled']) ? 'disabled="disabled"' : '' ?>>

@@ -1,0 +1,41 @@
+/*--------------------------------------------------------------
+x - MENSAGENS
+--------------------------------------------------------------*/
+.msg, .msgALERT, .msgCONFIRM, .msgERROR, .carregando_ajax, .carregando {
+    background:#ffc;
+    border:1px solid #ccc;
+    /*padding:5px;*/
+    margin:10px 10px 20px;
+    font:bold 12px Verdana, Arial, Helvetica, sans-serif;
+    color:#f03;
+    text-align:left;
+    clear: both;
+    padding: 12px;
+}
+
+.msgALERT, .msgCONFIRM, .msgERROR {
+    min-height:42px;
+}
+.msgALERT div, .msgCONFIRM div, .msgERROR div {
+    margin-left:40px;
+    font:normal 14px Arial, Helvetica, sans-serif;
+}
+.msgALERT a, .msgCONFIRM a, .msgERROR a {
+    color:navy;
+    font-weight:bold;
+}
+.msgALERT {
+    border:1px solid #fc0;
+    color:#000;
+    background:#ffc url(../img/msgALERT.png) 3px 3px no-repeat;
+}
+.msgCONFIRM {
+    border:1px solid #096;
+    color:#000;
+    background:#6c6 url(../img/msgCONFIRM.png) 3px 3px no-repeat;
+}
+.msgERROR {
+    border:1px solid #f00;
+    color:#000;
+    background:#f96 url(../img/msgERROR.png) 3px 3px no-repeat;
+}

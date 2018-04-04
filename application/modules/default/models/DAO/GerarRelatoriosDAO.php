@@ -1,11 +1,9 @@
 <?php
 
-class GerarRelatoriosDAO extends Zend_Db_Table {
-
-    /** CCONSULTAS ************************************************************************************ */
-    /* Todas propostas cadastradas */
-    public static function relatorio1($idEdital = null, $idUf = null, $idMunicipio = null, $idFundo = null, $idClassificacao = null) {
-
+class GerarRelatoriosDAO extends Zend_Db_Table
+{
+    public static function relatorio1($idEdital = null, $idUf = null, $idMunicipio = null, $idFundo = null, $idClassificacao = null)
+    {
         $sql = "select
                         uf.Sigla as c1,
                         mun.Descricao as c2,
@@ -71,9 +69,8 @@ class GerarRelatoriosDAO extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function relatorio2($idEdital = null, $idUf = null, $idMunicipio = null, $idFundo = null, $idClassificacao = null) {
-
-
+    public static function relatorio2($idEdital = null, $idUf = null, $idMunicipio = null, $idFundo = null, $idClassificacao = null)
+    {
         $sql = "select
                         uf.Sigla as c1,
                         mun.Descricao as c2,
@@ -125,8 +122,8 @@ class GerarRelatoriosDAO extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function relatorio3($idEdital = null, $idUf = null, $idMunicipio = null, $idFundo = null, $idClassificacao = null) {
-
+    public static function relatorio3($idEdital = null, $idUf = null, $idMunicipio = null, $idFundo = null, $idClassificacao = null)
+    {
         $sql = "select
                         uf.Sigla as c1,
                         mun.Descricao as c2,
@@ -192,9 +189,8 @@ class GerarRelatoriosDAO extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function relatorio4($idEdital = null, $idUf = null, $idMunicipio = null, $idFundo = null, $idClassificacao = null) {
-
-
+    public static function relatorio4($idEdital = null, $idUf = null, $idMunicipio = null, $idFundo = null, $idClassificacao = null)
+    {
         $sql = "select
                         uf.Sigla as c1,
                         mun.Descricao as c2,
@@ -247,7 +243,8 @@ class GerarRelatoriosDAO extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function consultaFundos() {
+    public static function consultaFundos()
+    {
         $sql = "select idVerificacao as idFundo, Descricao as nmFundo
                     from SAC..Verificacao
                     where idTipo = 15 order by nmFundo";
@@ -261,7 +258,8 @@ class GerarRelatoriosDAO extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function consultaClassificacoes() {
+    public static function consultaClassificacoes()
+    {
         $sql = "select cd.idClassificaDocumento as idClassificacao,cd.dsClassificaDocumento as nmClassificacao from BDCORPORATIVO.scSAC.tbClassificaDocumento cd
                     inner join BDCORPORATIVO.scQuiz.tbFormDocumento fd on fd.idClassificaDocumento = cd.idClassificaDocumento
                     where
@@ -278,7 +276,8 @@ class GerarRelatoriosDAO extends Zend_Db_Table {
         return $db->fetchAll($sql);
     }
 
-    public static function consultaEditais($idFundo = null, $idClassificacao = null) {
+    public static function consultaEditais($idFundo = null, $idClassificacao = null)
+    {
         $sql = "select e.idEdital as id, fd.nmFormDocumento as descricao, e.nrEdital
                 from SAC.dbo.Edital e
                     inner join BDCORPORATIVO.scQuiz.tbFormDocumento fd on e.idEdital = fd.idEdital and fd.idClassificaDocumento not in (23,24,25)
@@ -306,9 +305,4 @@ class GerarRelatoriosDAO extends Zend_Db_Table {
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
     }
-
-    /** ALTERA��ES ************************************************************************************ */
-    /** EXCLUS�ES ************************************************************************************* */
-    /** CADASTROS ************************************************************************************* */
-    /** EXEC ****************************************************************************************** */
 }

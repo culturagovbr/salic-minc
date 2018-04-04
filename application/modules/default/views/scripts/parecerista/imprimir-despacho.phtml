@@ -103,30 +103,32 @@
             <div id="topo-despacho" style="text-align: center; font-size: 13px; font-weight: 500;">
                 <img src="<?php echo $this->baseUrl();?>/public/img/brasaoArmas.jpg" />
                 <div>Ministério da Cultura</div>
-                <div>Secretaria de Fomento e Incentivo a Cultura</div>
-                <div>Coordenação Técnica do Pronac</div>
+                <div>Secretaria de Fomento e Incentivo &agrave; Cultura</div>
+                <div>Departamento de Incentivo &agrave; Produ&ccedil;&atilde;o Cultural</div>
+                <div>Coordenação da CNIC e Banco de Pareceristas</div>
             </div>
             <br />
             <br />
             <div id="topo-despacho-descricao" style="text-align: left; padding-left: 0px; font-size: 15px; font-weight: 500;">
-                <div style="margin-bottom: 4px;">DESPACHO <?php echo $this->listaDePagamentos[0]['nrDespacho']; ?>/COTEP/GAB/SEFIC/MINC</div>
+                <div style="margin-bottom: 4px;">DESPACHO
+                    <?php echo $this->listaDePagamentos[0]['nrDespacho']; ?>/<?php echo $this->listaDePagamentos[0]['anoGeracaoPagamento']; ?>/COCBP/DEIPC/SEFIC/MINC</div>
                 <div style="margin-bottom: 4px;">Assunto: Solicitação de Pagamento</div>
             </div>
             <br />
             <br />
             <div id="topo-despacho-data" style="text-align: right; font-size: 15px; font-weight: 500;">
-                <div style="padding-right: 10px;"><?php echo Data::DataporExtenso(date('d-m-Y'));?></div>
+                <div style="padding-right: 10px;"><?php echo Data::DataporExtenso(date('d-m-Y'));?>.</div>
             </div>
             <br />
             <br />  
-            <div style="padding-left: 0px;">À Coordenação-Geral de Execusão Orçamentária e Financeira</div>
+            <div style="padding-left: 0px;">&Agrave; Coordena&ccedil;&atilde;o-Geral de Execu&ccedil;&atilde;o Or&ccedil;ament&aacute;ria e Financeira</div>
 
             <table class="tabela" border="1">
                 <tr class="titulo_tabela">
                     <th width="10%">Item</th>
                     <th width="10%">PRONAC</th>
-                    <th width="55%">PROJETO</th>
-                    <th width="10%">Vinculada</th>
+                    <th width="50%">PROJETO</th>
+                    <th width="15%">Unidade de An&aacute;lise T&eacute;cnica</th>
                     <th width="15%">Valor a ser Pago</th>
                 </tr>
                 <?php $i = 1;?>
@@ -135,23 +137,22 @@
                     <td style="text-align: center;"><?php echo $i; ?></td>
                     <td style="text-align: center;"><?php echo $pag['pronac']; ?></td>
                     <td><?php echo $pag['NomeProjeto']; ?></td>
-                    <td><?php echo $pag['UnidadeAnalise']; ?></td>
+                    <td style="text-align: center"><?php echo $pag['UnidadeAnalise']; ?></td>
                     <td style="text-align: right;"><?php echo $this->formatarReal(round($pag['vlPagamento'],1)); ?></td>
                 </tr>
                 <?php $i++; ?>
                 <?php endforeach; ?>
 
                 <tr>
-                    <td style="text-align: right;" colspan="4">Total:</td>
-                    <td style="text-align: right;"><?php echo $this->formatarReal(round($this->listaDePagamentos[0]['vlTotalPagamento'],1)); ?></td>
+                    <td style="text-align: left;" colspan="4"><b>Total:</b></td>
+                    <td style="text-align: right;"><b><?php echo $this->formatarReal(round($this->listaDePagamentos[0]['vlTotalPagamento'],1)); ?></b></td>
                 </tr>
             </table>
 
             <p class="break" style="text-indent: 30px; text-align: justify;">
                Encaminho a V.Sa., Relação de Pareceres emitidos pelo(a) parecerista <strong><?php echo $this->pareceristaNome; ?></strong>, 
-               CPF: <?php echo Mascara::addMaskCPF($this->pareceristaCpf); ?>, cujo valor perfaz o montante de <?php echo $this->formatarReal($this->projetoValor); ?> 
-               (<?php echo $this->projetoValorExtenso; ?>), referente ao mês de <?php echo nome_do_mes($this->dataCompetencia->format('m')) ?> de 
-               <?php echo $this->dataCompetencia->format('Y') ?>.
+               CPF: <b><?php echo Mascara::addMaskCPF($this->pareceristaCpf); ?></b>, cujo valor perfaz o montante de <?php echo $this->formatarReal($this->projetoValor); ?>
+               (<?php echo ucfirst($this->projetoValorExtenso); ?>).
             </p>
 
             <p style="text-indent: 30px; text-align: justify;">
@@ -159,7 +160,7 @@
                 serviços foram devidamente realizados.
             </p>
             <p style="text-indent: 30px; text-align: justify;">
-                Realizado o pagamento, os respectivos Recibos de Pagamento Autônomo - RPA, serão encaminhados para a Secretaria de Fomento e 
+                Realizado o pagamento, os respectivos Recibos de Pagamento Autônomo - RPAs, serão encaminhados para a Secretaria de Fomento e
                 Incentivo à Cultura - SEFIC, para fins de registro e controle.
             </p>
 
@@ -168,7 +169,7 @@
                 foreach($this->assinantesConfigurados as $ass) :
                     switch ($counter) :
                         case 1:
-                            echo '<div style="padding: 10px 0px 10px 0px; text-align: left;">Atenciosamente,</div>';
+                            echo '<div style="padding: 10px 0px 10px 0px; text-align: left;">Respeitosamente,</div>';
                             break;
                         case 2:
                             echo '<div style="padding: 10px 0px 10px 0px; text-align: left;">De acordo, encaminhe-se ao Ordenador de Despesas.</div>';

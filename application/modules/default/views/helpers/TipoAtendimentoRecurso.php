@@ -12,30 +12,24 @@
 
 class Zend_View_Helper_TipoAtendimentoRecurso
 {
-	/**
-	 * Método com os tipos de atendimentos dos recursos
-	 * @access public
-	 * @param string $tp
-	 * @return string
-	 */
-	public function tipoAtendimentoRecurso($tp)
-	{
-		$tp = trim($tp);
+    /**
+     * Método com os tipos de atendimentos dos recursos
+     * @access public
+     * @param string $tp
+     * @return string
+     */
+    public function tipoAtendimentoRecurso($tp)
+    {
+        $tp = trim($tp);
 
-		if ($tp == 'D')
-		{
-			$ds = "Deferido";
-		}
-		else if ($tp == 'I')
-		{
-			$ds = "Indeferido";
-		}
-		else
-		{
-			$ds = "Não avaliado";
-		}
+        if ($tp == 'D') {
+            $ds = "Deferido";
+        } elseif ($tp == 'I') {
+            $ds = "Indeferido";
+        } else {
+            $ds = "Não avaliado";
+        }
 
-		return $ds;
-	} // fecha método tipoAtendimentoRecurso()
-
+        return $ds;
+    } // fecha método tipoAtendimentoRecurso()
 } // fecha class

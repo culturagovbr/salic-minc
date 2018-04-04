@@ -2,32 +2,31 @@
 
 class NomesDAO extends MinC_Db_Table_Abstract
 {
+    protected $_name = 'nomes';
+    protected $_schema = 'agentes';
 
-	protected $_name = 'nomes';
-	protected $_schema = 'agentes';
 
-
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
 
-    public function init() {
+    public function init()
+    {
         parent::init();
     }
 
-	public static function buscarNome($idAgente)
-	{
+    public static function buscarNome($idAgente)
+    {
+        $sql = "Select idNome, idAgente, TipoNome, Descricao, Status, Usuario From AGENTES.dbo.Nomes Where idAgente =".$idAgente;
 
-		$sql = "Select idNome, idAgente, TipoNome, Descricao, Status, Usuario From AGENTES.dbo.Nomes Where idAgente =".$idAgente;
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $dados =  $db->fetchAll($sql);
 
-		$dados =  $db->fetchAll($sql);
-
-		return $dados;
-
-	}
+        return $dados;
+    }
 
 
     /**
@@ -56,7 +55,6 @@ class NomesDAO extends MinC_Db_Table_Abstract
 
 
         $dados =  $db->query($sql);
-
     }
 
     /**
@@ -85,27 +83,23 @@ class NomesDAO extends MinC_Db_Table_Abstract
         return $this->insert($dados);
     }
 
-	public static function atualizaNome($idAgente, $TipoNome, $Descricao, $Status, $Usuario)
-	{
+    public static function atualizaNome($idAgente, $TipoNome, $Descricao, $Status, $Usuario)
+    {
+        $sql = "Update AGENTES.dbo.Nomes set TipoNome = ".$TipoNome.", Descricao = '".$Descricao."', Status = ".$Status.", Usuario = ".$Usuario."	Where idAgente = ".$idAgente;
 
-		$sql = "Update AGENTES.dbo.Nomes set TipoNome = ".$TipoNome.", Descricao = '".$Descricao."', Status = ".$Status.", Usuario = ".$Usuario."	Where idAgente = ".$idAgente;
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-
-		$dados =  $db->query($sql);
-
-	}
+        $dados =  $db->query($sql);
+    }
 
     public static function atualizaNomeReadequacao($idAgente, $Descricao)
-	{
-		$sql = "Update AGENTES.dbo.Nomes set Descricao = '".$Descricao."' Where idAgente = ".$idAgente;
+    {
+        $sql = "Update AGENTES.dbo.Nomes set Descricao = '".$Descricao."' Where idAgente = ".$idAgente;
 
-		$db= Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db= Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		return $db->query($sql);
-
-	}
-
+        return $db->query($sql);
+    }
 }

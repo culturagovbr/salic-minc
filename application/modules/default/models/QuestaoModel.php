@@ -1,6 +1,6 @@
 <?php 
 /**
- * 
+ *
  */
 class QuestaoModel
 {
@@ -54,7 +54,7 @@ class QuestaoModel
 
     /**
      * Efetua o cadastro da questao
-     * 
+     *
      * @return integer
      */
     public function cadastrar()
@@ -73,7 +73,7 @@ class QuestaoModel
 
     /**
      * Efetua a atualizacao da questao
-     * 
+     *
      * @return integer
      */
     public function atualizar()
@@ -90,7 +90,7 @@ class QuestaoModel
 
     /**
      * Efetua a delecao da guia
-     * 
+     *
      * @return integer
      */
     public function deletar()
@@ -102,7 +102,7 @@ class QuestaoModel
 
     /**
      * Pesquisar a questao usando como filtros o identificador da mesma
-     * 
+     *
      * @param integer questao
      * @return array
      */
@@ -113,13 +113,13 @@ class QuestaoModel
 
     /**
      * Pesquisar as questaos usando como filtros: edital, modulo e categoria
-     * 
+     *
      * @param integer categoria
      * @param integer modulo
      * @param integer edital
      * @return array
-     * 
-     * @todo apos remodelar para "tipo questao" remover esses campos via ZDExpr 
+     *
+     * @todo apos remodelar para "tipo questao" remover esses campos via ZDExpr
      */
     public function pesquisarPorGuiaCategoriaModuloEdital($guia = null, $categoria = null, $modulo = null, $edital = null)
     {
@@ -162,14 +162,20 @@ class QuestaoModel
         $select = $this->table->select();
         $select->setIntegrityCheck(false);
         
-        $select->from(array('q' => 'tbQuestao'),
+        $select->from(
+        
+            array('q' => 'tbQuestao'),
                         array('q.idQuestao',
                               'q.dsQuestao',
                               'q.dsAjuda',
                               'orQuestao' => new Zend_Db_Expr('isnull(q.orQuestao, 0)'))
         );
         
-        $select->joinInner(array('g' => 'tbGuia'), 'q.idGuia = g.idGuia', 
+        $select->joinInner(
+        
+            array('g' => 'tbGuia'),
+        
+            'q.idGuia = g.idGuia',
                             array('g.idGuia',
                                   'g.nmGuia',
                                   'g.txAuxilio',
@@ -177,7 +183,9 @@ class QuestaoModel
                                   'g.orGuia')
         );
 
-        $select->joinInner(array('tr' => 'tbTipoResposta'), 'q.idTpResposta = tr.idTpResposta', 
+        $select->joinInner(
+            array('tr' => 'tbTipoResposta'),
+            'q.idTpResposta = tr.idTpResposta',
                             array('tr.idTpResposta',
                                   'tr.dsTpResposta')
         );
@@ -187,7 +195,7 @@ class QuestaoModel
         $select->order('q.orQuestao');
         $select->order('q.idQuestao');
         
-        if($dbg){
+        if ($dbg) {
             xd($select->assemble());
         }
 
@@ -195,7 +203,7 @@ class QuestaoModel
     }
 
     /**
-     * 
+     *
      */
     public function toStdClass()
     {

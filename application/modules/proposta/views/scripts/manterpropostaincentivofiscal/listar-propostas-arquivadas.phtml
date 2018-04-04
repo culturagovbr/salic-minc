@@ -1,0 +1,228 @@
+<div class="container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col s12 m9 l10">
+                <h1>Listar Propostas Arquivadas</h1>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="card z-depth-2">
+            <div class="card-content">
+                <form name="frmNovaProposta" id="frmNovaProposta"
+                      action="<?php echo $this->url(array('module'=>'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'declaracaonovaproposta')); ?>"
+                      method="post">
+                        <label>Mecanismo:</label>
+                        <select name="mecanismo" id="mecanismo" class="input_simples w200">
+                            <option value="1" <?php echo ($this->mecanismo == 1) ? 'selected="selected"' : ''; ?>>Incentivo
+                                Fiscal Federal
+                            </option>
+                        </select>
+                        <label>CPF Proponente:</label>
+                        <select name="proponente" id="proponente" class="input_simples">
+                            <option>- Selecione -</option>
+                            <?php if (!empty($this->dadosCombo)): ?>
+                                <?php $idProponente = '' ?>
+                                <?php foreach ($this->dadosCombo as $dc): ?>
+                                    <?php if ($dc['idAgenteProponente'] != $idProponente): ?>
+                                        <option
+                                            <?= ($dc['idAgenteProponente'] == $this->idAgente) ? 'selected' : '' ?>
+                                            value="<?php echo $dc['idAgenteProponente']; ?>">[<?php echo $dc['CPF']; ?>]
+                                            - <?php echo $dc['Nome']; ?>
+                                        </option>
+                                    <?php endif; ?>
+                                    <?php $idProponente = $dc['idAgenteProponente']; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>&nbsp;
+                        <span id="msgValidaProponente"></span>&nbsp;&nbsp;&nbsp;
+
+                        <a id="localizar" class="btn-localizar waves-effect waves-light btn btn-default small">
+                            <i class="material-icons left">search</i>Localizar
+                        </a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div  id="propostasCadastradas">
+                <div class="card z-depth-2">
+                    <div class="card-content">
+                    <table class="bordered striped conteudoImprimivel" id="tabelaAnaliseFinal">
+                        <thead>
+                        <tr>
+                            <th>Proposta</th>
+                            <th>Nome</th>
+                            <th>Proponente</th>
+                            <th>Data Arquivamento</th>
+                            <th>Motivo arquivamento</th>
+                            <th>Desarquivar</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal_solicitar" class="modal bottom-sheet" style="max-height:95%; height:95%">
+    <div class="modal-content">
+      <h4>Solicitar Desarquivamento</h4>
+          <div class="row">
+            <div class=" col s12">
+	      <p class="motivo_arquivamento"></p>
+            </div>
+          </div>
+         <div class="row">
+            <form class="col s12">
+                <input type="hidden" name="idpreprojeto" id="idpreprojeto" value="">
+                <div class="input-field col s12">
+                  <textarea style="height:200px" class="materialize-textarea" id="SolicitacaoDesarquivamento" name="SolicitacaoDesarquivamento"></textarea>
+                  <label for="SolicitacaoDesarquivamento">Solicita&ccedil;&atilde;o Desarquivamento</label>
+                </div>
+            </form>
+          </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" id="enviarSolicitacao" class="modal-action modal-close waves-effect waves-green btn-flat green white-text">Solicitar</a>
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat red-text">Cancelar</a>
+    </div>
+</div>
+<div id="modal_visualizar" class="modal bottom-sheet" style="max-height:95%; height:95%">
+    <div class="modal-content">
+      <h4>Motivo do arquivamento</h4>
+          <div class="row">
+            <div class=" col s12">
+                <p class="motivo_arquivamento"></p>
+            </div>
+          </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat green white-text">OK</a>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>
+<script type="text/javascript">
+    (function ($) {
+        $(document).ready(function () {
+            $3('.modal').modal();
+
+            var table =  $('#tabelaAnaliseFinal').DataTable(
+                {
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                    }
+                    , "lengthChange": true
+                    , "ajax": {
+                        url: "/proposta/pre-projeto-arquivado/index",
+                        data: {
+                            "idagente": function (d) {
+                                return $('#proponente').val();
+                            },
+                            stestado: 0
+                        },
+                        type: "POST"
+                },
+                    "processing": true,
+                    "serverSide": true,
+                    "bFilter": false,
+                    "aoColumnDefs": [
+                        {'bSortable': false, 'aTargets': [3]},
+                        {'bSortable': false, 'aTargets': [4],  "orderable": false },
+                        {'bSortable': false, 'aTargets': [5],  "orderable": false },
+                    ],
+                    "order": [[ 0, 'desc' ], [ 1, 'asc']],
+                    "columns": [
+                        {
+                            data: null,
+                            "name": "idpreprojeto",
+                            render: function (data, type, row) {
+                                return '<a class="btn waves-effect waves-dark white black-text small" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'identificacaodaproposta')); ?>/idPreProjeto/' + data.idpreprojeto + '">'
+                                    + data.idpreprojeto + '</a>'
+                            }
+                        },
+                        {
+                            "name": "nomeprojeto",
+                            "data": "nomeprojeto"
+                        },
+                        {
+                            "name": "nomeproponente",
+                            "data": "nomeproponente"
+                        },
+                        {
+                            "name": "Data Arquivamento",
+                            "data": "DtArquivamento"
+                        },
+                        {
+                            data: null,
+                            "name": "visualizarmotivo",
+                            render: function (data, type, row) {
+                                if (data.MotivoArquivamento !== '') {
+				    
+                                    var motivo = data.MotivoArquivamento;
+                                    motivo = motivo.replace(/\"/g,'&#34;'); // aspa dupla
+                                    motivo = motivo.replace(/\'/g,'&#39;'); // aspa simples
+                                    motivo = motivo.replace(/\n/g,'<br/>');
+                                    data.MotivoArquivamento = motivo;
+
+                                    return '<button data-target="modal_visualizar" class="btnVisualizar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '" data-motivoarquivamento="' + data.MotivoArquivamento + '"><i class="material-icons">remove_red_eye</i></button>';
+                                } else {
+                                    return '';
+                                }
+                            }
+                        },
+                        {
+                            data: null,
+                            "name": "botao",
+                            render: function (data, type, row) {
+                                console.log();
+                                if (data.SolicitacaoDesarquivamento == null) {
+                                    return '<button data-target="modal_solicitar" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '">Solicitar</button>'
+                                } 
+                                return 'Solicita&ccedil;&atilde;o de desarquivamento em an&aacute;lise';
+                            }
+                        }
+                    ]
+                }
+            );
+
+            $("#localizar").click(function () {
+                table.ajax.reload();
+            });
+
+            $("tbody").on('click','button', function () {
+                let idpreprojeto = $3(this).data('idpreprojeto');
+                let motivoarquivamento = $3(this).data('motivoarquivamento');
+		
+                $3('#idpreprojeto').val(idpreprojeto);
+                $3('.motivo_arquivamento').html(motivoarquivamento);
+            });
+
+            $("#enviarSolicitacao").on('click', function () {
+                $3.ajax({
+                    url:'/proposta/pre-projeto-arquivado/update',
+                    data: {
+                        idpreprojeto: $3('#idpreprojeto').val(), 
+                        SolicitacaoDesarquivamento: $3('#SolicitacaoDesarquivamento').val() 
+                    },
+                    method:'POST'
+                }).
+                done(function(data) {
+                    table.ajax.reload();
+                    console.log(data);
+                });
+            });
+        });
+    }($.noConflict(true)));
+</script>

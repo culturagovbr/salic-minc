@@ -9,7 +9,9 @@ $menuExiste = false;
 
     <!-- início: conteúdo principal #container -->
     <div id="container">
-        <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') { ?>Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>.<br /><br /><?php } ?>Tem certeza que deseja Enviar e Finalizar?</div>
+        <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') {
+    ?>Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>.<br /><br /><?php
+} ?>Tem certeza que deseja Enviar e Finalizar?</div>
         <div style="display:none" id="validarPlan">Antes de enviar a solicitação é necessário cadastrar os Itens de Custos para os Produtos sem planilha orçamentária!</div>
         <div style="display:none" id="dialog-alerta">Solicitação realizada com sucesso!</div>
         <div style="display:none" id="dialog-em-analise">Há pedido de readequação em análise. Favor aguardar.</div>
@@ -51,7 +53,8 @@ $menuExiste = false;
 
         <?php $menu = SolicitarreadequacaodoprojetoController::Menu($idPronac); ?>
 
-        <?php if ($menu == "Sem Menu") { ?>
+        <?php if ($menu == "Sem Menu") {
+            ?>
             <script type="text/javascript">
                 <!--
                 $(document).ready(function(){
@@ -77,37 +80,44 @@ $menuExiste = false;
                 if (!$menuExiste) {
                     echo $html;
                     $menuExiste = true;
-                }
-                ?>
+                } ?>
             </div>
-        <?php } ?>
+        <?php
+        } ?>
 
 
 
 
-        <?php if ($menu == "Com Menu" || $menu == "Botão") { ?>
+        <?php if ($menu == "Com Menu" || $menu == "Botão") {
+            ?>
             <div id="menuContexto">
                 <div class="top"></div>
                 <div id="qm0" class="qmmc ">
                     <?php
                     $valor = strlen($valor);
-                    if ($valor == 14) {
-                        ?>
+            if ($valor == 14) {
+                ?>
                         <a id="abrir_fechar2" href="#" title="Proponente" class="no_seta abrir_fechar4">Proponente</a>
-                    <?php } else { ?>
+                    <?php
+            } else {
+                ?>
                         <a id="abrir_fechar2" href="#" title="Proponente" class="no_seta abrir_fechar4">Proponente</a>
-    <?php } ?>
+    <?php
+            } ?>
                     <div class="sanfonaDiv" style="display:none; width: 91%;"></div>
                     <a id="abrir_projetos" href="<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto', 'action' => 'index')); ?>?idpronac=<?php echo $idPronac; ?>" title="Projetos">Projetos</a>
                     <div class="sanfonaDiv" style="display:none; width: 91%;"></div>
-                    <?php if (count($this->buscaPlanilhaCusto) > 0) { ?>
+                    <?php if (count($this->buscaPlanilhaCusto) > 0) {
+                ?>
                         <a href="<?php echo $this->url(array('controller' => 'solicitarreadequacaocusto', 'action' => 'index')); ?>?idpronac=<?php echo $idPronac; ?>" title="Proponente">Custo</a>
-    <?php } ?>
+    <?php
+            } ?>
                 </div>
                 <div class="sanfonaDiv"></div>
                 <div class="bottom"></div>
 
-    <?php if ($menu == "Botão") { ?>
+    <?php if ($menu == "Botão") {
+                ?>
                     <div style='background:#f8f8f8;'><br><br><br>
                         <ul id='menuGerenciar' style="border:0">
                             <li>
@@ -119,16 +129,17 @@ $menuExiste = false;
                             </li>
                         </ul>
                     </div>
-                <?php } ?>
+                <?php
+            } ?>
 
                 <?php
                 if (!$menuExiste) {
                     echo $html;
                     $menuExiste = true;
-                }
-                ?>
+                } ?>
             </div>
-<?php } ?>
+<?php
+        } ?>
 
 
 
@@ -174,13 +185,17 @@ $menuExiste = false;
             $(this).next().toggle('fast');
         });
         
-<?php if ($menu != "Botão") { ?>
+<?php if ($menu != "Botão") {
+            ?>
 
             $('#div_teste2').toggle();
                 
-<?php } else { ?>
+<?php
+        } else {
+            ?>
             $('#div_teste2').hide();
-<?php } ?>
+<?php
+        } ?>
     });
     
 

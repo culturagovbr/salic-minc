@@ -1,24 +1,20 @@
 <?php
-/**
- * Description of GerarPagamentoParecerista
- *
- * @author Tarcisio Angelo
- */
-class ConfigurarPagamentoParecerista extends MinC_Db_Table_Abstract {
-
+class ConfigurarPagamentoParecerista extends MinC_Db_Table_Abstract
+{
     protected $_name = 'tbConfigurarPagamento';
     protected $_schema = 'SAC';
     protected $_banco = 'SAC';
 
-    public function buscarConfiguracoes($where = array()) {
-
+    public function buscarConfiguracoes($where = array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from(array('c'=> $this->_name),
+        $select->from(
+            array('c'=> $this->_name),
                         array('c.idConfigurarPagamento',
                                 'c.nrDespachoInicial',
                                 'c.nrDespachoFinal',
-                                'CONVERT(VARCHAR(10), c.dtConfiguracaoPagamento ,103) as dtConfiguracaoPagamento',
+                                new Zend_Db_Expr('CONVERT(VARCHAR(10), c.dtConfiguracaoPagamento ,103) as dtConfiguracaoPagamento'),
                                 'c.stEstado',
                                 'c.idUsuario')
         );
@@ -31,6 +27,4 @@ class ConfigurarPagamentoParecerista extends MinC_Db_Table_Abstract {
 
         return $this->fetchAll($select);
     }
-
 }
-

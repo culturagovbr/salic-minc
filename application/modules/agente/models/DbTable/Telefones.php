@@ -52,9 +52,6 @@ class Agente_Model_DbTable_Telefones extends MinC_Db_Table_Abstract
      */
     public function buscarFones($idAgente = null)
     {
-        $tblAgentes = new Agente_Model_DbTable_Agentes();
-        $db = Zend_Db_Table::getDefaultAdapter();
-
         $tl = array(
             'tl.idtelefone',
             'tl.tipotelefone',
@@ -79,7 +76,7 @@ class Agente_Model_DbTable_Telefones extends MinC_Db_Table_Abstract
             'ddd.codigo as codigo',
         );
 
-        $sql = $db->select()->distinct()
+        $sql = $this->select()->setIntegrityCheck(false)->distinct()
             ->from(array('tl' => $this->_name), $tl, $this->_schema)
             ->join(array('uf' => 'uf'), 'uf.iduf = tl.uf', array('uf.sigla as ufsigla'), $this->_schema)
             ->join(array('ag' => 'agentes'), 'ag.idagente = tl.idagente', array('ag.idagente'), $this->_schema)
@@ -89,8 +86,6 @@ class Agente_Model_DbTable_Telefones extends MinC_Db_Table_Abstract
             $sql->where('tl.idagente = ?', $idAgente);
         }
 
-        $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        return $db->fetchAll($sql);
+        return $this->fetchAll($sql);
     }
-
 }

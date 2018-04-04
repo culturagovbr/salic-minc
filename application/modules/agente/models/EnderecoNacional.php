@@ -288,5 +288,4 @@ class Agente_Model_EnderecoNacional extends MinC_Db_Model
     {
         $this->_usuario = $usuario;
     }
-
 }

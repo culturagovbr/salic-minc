@@ -1,9 +1,4 @@
 <?php
-
-//echo '<pre>';
-//var_dump($this->grupoAtivo);
-//exit;
-
 //@todo melhorar forma de montar menus sem esse monte de array.
 $arrMenuProponente = array();
 // Proponente
@@ -27,7 +22,7 @@ if ($this->idAgenteKeyLog != 0) {
     );
 }
 $arrMenuProponente['administrativo']['menu'][] = array('label' => 'Procura&ccedil;&atilde;o', 'title' => 'Ir para Procura&ccedil;&atilde;o',
-    'url' => $this->url(array('controller' => 'procuracao', 'action' => 'index'),'',true),
+    'url' => $this->url(array('controller' => 'procuracao', 'action' => 'index'), '', true),
     'grupo' => array()
 );
 // ========== FIM MENU ADMINISTRATIVO ==========
@@ -39,10 +34,17 @@ $arrMenuProponente['proposta'] = array(
     'menu' => array(),
     'grupo' => array(),
 );
-$arrMenuProponente['proposta']['menu'][] = array('label' => 'Listar Propostas', 'title' => 'Ir para Manter Proposta por Incentivo Fiscal',
+$arrMenuProponente['proposta']['menu'][] = array('label' => 'Listar', 'title' => 'Ir para Manter Proposta por Incentivo Fiscal',
     'url' => $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'listarproposta'), '', true),
     'grupo' => array()
 );
+
+$arrMenuProponente['proposta']['menu'][] = [
+    'label' => 'Arquivadas',
+    'title' => 'Propostas Arquivadas',
+    'url' => $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'listar-propostas-arquivadas'), '', true),
+    'grupo' => array()
+];
 // ========== FIM MENU PROPOSTA ==========
 // ========== INICIO MENU PROJETO ==========
 $arrMenuProponente['projeto'] = array(
@@ -132,24 +134,24 @@ $arrMenu['acompanhamento'] = array(
     'label' => 'Acompanhamento',
     'title' => 'Ir para Acompanhamento',
     'menu' => array(),
-    'grupo' => array(94,121,122,123,124,125,126,129,134,135,137,138,139,148,151),
+    'grupo' => array(94, 121, 122, 123, 124, 125, 126, 129, 134, 135, 137, 138, 139, 148, 151),
 );
 $arrMenu['acompanhamento']['menu'][] = array('label' => 'CheckList para Publica&ccedil;&atilde;o', 'title' => 'Ir para CheckList de Publica&ccedil;&atilde;o',
     'url' => $this->url(array('controller' => 'checklistpublicacao', 'action' => 'listas'), '', true),
-    'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_ANALISE,110,121,122,123,Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO)
+    'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_ANALISE, 110, 121, 122, 123, Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO)
 );
 $arrMenu['acompanhamento']['menu'][] = array('label' => 'Movimenta&ccedil;&atilde;o Banc&aacute;ria', 'title' => 'Ir para Movimenta&ccedil;&atilde;o Banc&aacute;ria',
     'url' => $this->url(array('controller' => 'movimentacaodeconta', 'action' => 'resultado-extrato-de-conta-captacao'), '', true),
-    'grupo' => array(272, 166, 121, 122, 123, 129,148,151) // restringe ao órgao SACAV && CAP
+    'grupo' => array(272, 166, 121, 122, 123, 129, 148, 151) // restringe ao órgao SACAV && CAP
 );
 //                        =======  TEC. DE ACOMPANHAMENTO / COORD. ADMISSIBLIDADE / TECNICO ADMISSBILIDADE ============
 $arrMenu['acompanhamento']['menu'][] = array('label' => 'Certid&otilde;es Negativas', 'title' => 'Ir para Certid&otilde;es Negativas',
-    'url' => $this->url(array('module'=> 'default' ,'controller' => 'manterregularidadeproponente', 'action' => 'index')),
-    'grupo' => array(108,121,122,123,124,125,134,135,138,139)
+    'url' => $this->url(array('module' => 'default', 'controller' => 'manterregularidadeproponente', 'action' => 'index')),
+    'grupo' => array(108, 121, 122, 123, 124, 125, 134, 135, 138, 139)
 );
 $arrMenu['acompanhamento']['menu'][] = array('label' => 'Analisar Relat&oacute;rios Trimestrais', 'title' => 'Analisar Relat&oacute;rios Trimestrais',
     'url' => $this->url(array('controller' => 'analisarexecucaofisica', 'action' => 'projetos'), '', true),
-    'grupo' => array(122,123)
+    'grupo' => array(122, 123)
 );
 $arrMenu['acompanhamento']['menu'][] = array('label' => 'Verificar Readequa&ccedil;&atilde;o de Projeto', 'title' => 'Verificar Readequa&ccedil;&atilde;o de Projetos',
     'url' => $this->url(array('controller' => 'verificarreadequacaodeprojeto', 'action' => 'verificarreadequacaodeprojetocoordparecerista'), '', true),
@@ -170,13 +172,13 @@ $arrMenu['acompanhamento']['menu'][] = array(
     'label' => 'Meus Pagamentos'
 );
 $arrMenu['acompanhamento']['menu'][] = array(
-    'grupo' => array(121,129),
+    'grupo' => array(121, 129),
     'url' => $this->url(array('controller' => 'analisarexecucaofisicatecnico', 'action' => 'index'), '', true),
     'title' => 'Analisar Relat&oacute;rios Trimestrais',
     'label' => 'Analisar Relat&oacute;rios Trimestrais'
 );
 $arrMenu['acompanhamento']['menu'][] = array(
-    'grupo' => array(134,135),
+    'grupo' => array(134, 135),
     'url' => $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid'), '', true),
     'title' => 'Ir para Fiscalizar Projeto',
     'label' => 'Fiscalizar Projeto'
@@ -189,7 +191,7 @@ $arrMenu['acompanhamento']['menu'][] = array(
     'label' => 'Analisar Comprova&ccedil;&atilde;o do Objeto'
 );
 $arrMenu['acompanhamento']['menu'][] = array(
-    'grupo' => array(139,148,151),
+    'grupo' => array(139, 148, 151),
     'url' => $this->url(array('controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index-tecnico'), '', true),
     'title' => 'Ir para Analisar Projeto Parecer',
     'label' => 'Analisar Comprova&ccedil;&atilde;o do Objeto'
@@ -208,7 +210,7 @@ $arrMenu['acompanhamento']['menu'][] = array(
 );
 //======= COORD. DE ACOMPANHAMENTO / COORD. GERAL DE ACOMPANHAMENTO / TEC. DE ACOMPANHAMENTO ============
 $arrMenu['acompanhamento']['menu'][] = array(
-    'grupo' => array(121,122,123),
+    'grupo' => array(121, 122, 123),
     'url' => $this->url(array('controller' => 'gerartermodeaprovacao', 'action' => 'index'), '', true),
     'title' => 'Ir para Gerenciar Termo de Decis&atilde;o',
     'label' => 'Gerar Termo de Decis&atilde;o'
@@ -226,13 +228,13 @@ $arrMenu['acompanhamento']['menu'][] = array(
     'label' => 'Avaliar Pedido de Prorroga&ccedil;&atilde;o'
 );
 $arrMenu['acompanhamento']['menu'][] = array(
-    'grupo' => array(122, 123,148,151),
+    'grupo' => array(122, 123, 148, 151),
     'url' => $this->url(array('controller' => 'readequacoes', 'action' => 'painel'), '', true),
     'title' => 'Readequa&ccedil;&otilde;es',
     'label' => 'Readequa&ccedil;&otilde;es'
 );
 $arrMenu['acompanhamento']['menu'][] = array(
-    'grupo' => array(93,121),
+    'grupo' => array(93, 121),
     'url' => $this->url(array('controller' => 'readequacoes', 'action' => 'painel-readequacoes'), '', true),
     'title' => 'Avaliar Readequa&ccedil;&otilde;es',
     'label' => 'Avaliar Readequa&ccedil;&otilde;es'
@@ -240,12 +242,12 @@ $arrMenu['acompanhamento']['menu'][] = array(
 
 $arrMenu['acompanhamento']['menu'][] = array(
     'grupo' => array(
-     147
-    ,148
-    ,149
-    ,150
-    ,151
-    ,152
+        147
+    , 148
+    , 149
+    , 150
+    , 151
+    , 152
     ),
     'url' => $this->url(array(
         'module' => 'admissibilidade',
@@ -262,14 +264,25 @@ $arrMenu['administrativo'] = array(
     'label' => 'Administrativo',
     'title' => 'Ir para Administrativo',
     'menu' => array(),
-    'grupo' => array(93,94,97,Autenticacao_Model_Grupos::COORDENADOR_ANALISE,118,Autenticacao_Model_Grupos::COORDENADOR_CNIC,121,122,123,137),
+    'grupo' => [
+        93,
+        94,
+        97,
+        Autenticacao_Model_Grupos::COORDENADOR_ANALISE,
+        118,
+        Autenticacao_Model_Grupos::COORDENADOR_CNIC,
+        121,
+        122,
+        123,
+        137,
+    ],
 );
 $arrMenu['administrativo']['menu'][] = array('label' => 'Manter Agentes', 'title' => 'Ir para Manter Agentes',
-    'url' => $this->url(array('module'=>'agente', 'controller' => 'agentes', 'module'=>'agente', 'action' => 'agentes'), '', true),
+    'url' => $this->url(array('module' => 'agente', 'controller' => 'agentes', 'module' => 'agente', 'action' => 'agentes'), '', true),
     'grupo' => array(97, Autenticacao_Model_Grupos::COORDENADOR_CNIC, 121, 122, 123)
 );
 $arrMenu['administrativo']['menu'][] = array('label' => 'Gerenciar meus dados', 'title' => 'Ir para Gerenciar meus dados',
-    'url' => $this->url(array('module'=>'agente', 'controller' => 'agentes', 'action' => 'agentes'), '', true),
+    'url' => $this->url(array('module' => 'agente', 'controller' => 'agentes', 'action' => 'agentes'), '', true),
     'grupo' => array(94, 118)
 );
 $arrMenu['administrativo']['menu'][] = array('label' => 'Desvincular Agentes', 'title' => 'Ir para Desvincular Agentes',
@@ -281,7 +294,7 @@ $arrMenu['administrativo']['menu'][] = array('label' => 'Analisar Procura&ccedil
     'grupo' => array(122, Autenticacao_Model_Grupos::COORDENADOR_ANALISE)
 );
 $arrMenu['administrativo']['menu'][] = array('label' => 'Manter Parecerista', 'title' => 'Ir para Manter Parecerista',
-    'url' => $this->url(array('module'=>'agente', 'controller' => 'agentes', 'action' => 'painelcredenciamento'), '', true),
+    'url' => $this->url(array('module' => 'agente', 'controller' => 'agentes', 'action' => 'painelcredenciamento'), '', true),
     'grupo' => array(137, 93)
 );
 $arrMenu['administrativo']['menu'][] = array('label' => 'Gerenciar assinantes', 'title' => 'Ir para Gerenciar assinantes',
@@ -310,16 +323,16 @@ $arrMenu['protocolo'] = array(
     'title' => 'Ir para Protocolo',
     'label' => 'Protocolo',
     'menu' => array(),
-    'grupo' => array(90,91,97,104,109,115),
+    'grupo' => array(90, 91, 97, 104, 109, 115),
 );
 $arrMenu['protocolo']['menu'][] = array(
-    'grupo' => array(91,97,104,109,115),
+    'grupo' => array(91, 97, 104, 109, 115),
     'url' => $this->url(array('controller' => 'tramitarprojetos', 'action' => 'despacharprojetos'), '', true),
     'title' => 'Ir para Tramitar Projetos',
     'label' => 'Tramitar Projetos'
 );
 $arrMenu['protocolo']['menu'][] = array(
-    'grupo' => array(90,91,97,104,109,115),
+    'grupo' => array(90, 91, 97, 104, 109, 115),
     'url' => $this->url(array('controller' => 'tramitardocumentos', 'action' => 'index'), '', true),
     'title' => 'Ir para Tramitar Documentos',
     'label' => 'Tramitar Documentos'
@@ -336,61 +349,100 @@ $arrMenu['admissibilidade'] = array(
     'label' => 'Admissibilidade',
     'title' => 'Ir para Admissibilidade',
     'menu' => array(),
-    'grupo' => array(92,97,131,147,148,149,150, 151,152),
+    'grupo' => [
+        92
+        , Autenticacao_Model_Grupos::GESTOR_SALIC
+        , Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE
+        , 147
+        , 148
+        , 149
+        , 150
+        , 151
+        , 152
+        , Autenticacao_Model_Grupos::COMPONENTE_COMISSAO
+        , Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE
+    ],
 );
 $arrMenu['admissibilidade']['menu'][] = array(
-    'grupo' => array(92,97,131),
-    'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'listar-propostas'), '', true),
+    'grupo' => [
+        Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE,
+        Autenticacao_Model_Grupos::GESTOR_SALIC,
+        Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE,
+        Autenticacao_Model_Grupos::COMPONENTE_COMISSAO,
+        Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE,
+    ],
+    'url' => $this->url(
+        [
+            'module' => 'admissibilidade',
+            'controller' => 'admissibilidade',
+            'action' => 'listar-propostas'
+        ],
+        '',
+        true
+    ),
     'title' => 'Avalia&ccedil;&atilde;o',
     'label' => 'Avalia&ccedil;&atilde;o'
 );
+
 $arrMenu['admissibilidade']['menu'][] = array(
-'grupo' => array(92,97,131),
-'url' => $this->url(array('module' => 'default','controller' => 'manterregularidadeproponente', 'action' => 'index')),
-'title' => 'Ir para Certid&otilde;es Negativas',
-'label' => 'Certid&otilde;es Negativas'
+    'grupo' => array(92,97,131),
+    'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'listar-solicitacoes-desarquivamento'), '', true),
+    'title' => 'Desarquivamento',
+    'label' => 'Desarquivamento'
 );
+
 $arrMenu['admissibilidade']['menu'][] = array(
-    'grupo' => array(92,131),
+    'grupo' => [
+        Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE,
+        Autenticacao_Model_Grupos::GESTOR_SALIC,
+        Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE
+    ],
+    'url' => $this->url(array('module' => 'default', 'controller' => 'manterregularidadeproponente', 'action' => 'index')),
+    'title' => 'Ir para Certid&otilde;es Negativas',
+    'label' => 'Certid&otilde;es Negativas'
+);
+
+$arrMenu['admissibilidade']['menu'][] = array(
+    'grupo' => array(92, 131),
     'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'enquadramento', 'action' => 'gerenciar-enquadramento')),
     'title' => 'Ir para Enquadramento',
     'label' => 'Enquadramento'
 );
 $arrMenu['admissibilidade']['menu'][] = array(
-    'grupo' => array(92,97,131),
+    'grupo' => array(92, 97, 131),
     'url' => $this->url(array('controller' => 'recurso', 'action' => 'recurso-enquadramento'), '', true),
     'title' => 'Ir para Recurso',
     'label' => 'Recurso'
 );
 
 $arrMenu['admissibilidade']['menu'][] = array(
-    'grupo' => array(92,131, 147, 149),
+    'grupo' => array(92, 131, 147, 149),
     'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'enquadramento', 'action' => 'encaminhar-assinatura')),
     'title' => 'Ir para Encaminhar para assinatura',
     'label' => 'Encaminhar para assinatura'
 );
 $arrMenu['admissibilidade']['menu'][] = array(
-    'grupo' => array(92,131),
+    'grupo' => array(92, 131),
     'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'desarquivarpropostas')),
     'title' => 'Desarquivar Proposta',
     'label' => 'Desarquivar Proposta'
 );
 $arrMenu['admissibilidade']['menu'][] = array(
-    'grupo' => array(97,131,148,151),
+    'grupo' => array(97, 131, 148, 151),
     'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'redistribuiranalise')),
     'title' => 'Redistribuir An&aacute;lise',
     'label' => 'Redistribuir An&aacute;lise'
 );
 
 $arrMenu['admissibilidade']['menu'][] = array(
-    'grupo' => array(97,131,148,151),
+    'grupo' => array(97, 131, 148, 151),
     'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'redistribuiranalise')),
     'title' => 'Gerenciar Propostas',
     'label' => 'Gerenciar Propostas'
 );
 
 $arrMenu['admissibilidade']['menu'][] = array(
-    'grupo' => array(97,131,148,151),
+    'grupo' => array(97, 131, 148, 151),
     'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'gerenciaranalistas')),
     'title' => 'Gerenciar Analistas',
     'label' => 'Gerenciar Analistas'
@@ -398,18 +450,18 @@ $arrMenu['admissibilidade']['menu'][] = array(
 
 $arrMenu['admissibilidade']['menu'][] = array(
     'grupo' => array(
-     147
-    ,148
-    ,149
-    ,150
-    ,151
-    ,152
+        147
+    , 148
+    , 149
+    , 150
+    , 151
+    , 152
     ),
     'url' => $this->url(
         array(
-        'module' => 'admissibilidade',
-        'controller' => 'enquadramento-assinatura',
-        'action' => 'gerenciar-assinaturas'
+            'module' => 'admissibilidade',
+            'controller' => 'enquadramento-assinatura',
+            'action' => 'gerenciar-assinaturas'
         ),
         '',
         true
@@ -424,11 +476,11 @@ $arrMenu['parecer'] = array(
     'label' => 'Parecer',
     'title' => 'Ir para Pareceres',
     'menu' => array(),
-    'grupo' => array(93,137),
+    'grupo' => array(93, 137),
 );
 $arrMenu['parecer']['menu'][] = array('label' => 'Gerar Relat&oacute;rios de Parecerista', 'title' => 'Gerar Relat&oacute;rios de Parecerista',
     'url' => $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'aguardandoparecer'), '', true),
-    'grupo' => array(93,137)
+    'grupo' => array(93, 137)
 );
 $arrMenu['parecer']['menu'][] = array('label' => 'Gerenciar Parecerista', 'title' => 'Gerenciar Parecerista',
     'url' => $this->url(array('controller' => 'gerenciarparecer', 'action' => 'enviarpagamento'), '', true),
@@ -453,64 +505,64 @@ $arrMenu['relatorios'] = array(
     'label' => 'Relat&oacute;rios',
     'title' => 'Ir para Relat&oacute;rios',
     'menu' => array(),
-    'grupo' => array(90,91,92,93,96,97,Autenticacao_Model_Grupos::COORDENADOR_ANALISE,104,110,114,115,Autenticacao_Model_Grupos::PRESIDENTE_CNIC,Autenticacao_Model_Grupos::COORDENADOR_CNIC,121,122,123,124,125,126,Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO,Autenticacao_Model_Grupos::TECNICO_PORTARIA,131,132,135,138,139,148,151),
+    'grupo' => array(90, 91, 92, 93, 96, 97, Autenticacao_Model_Grupos::COORDENADOR_ANALISE, 104, 110, 114, 115, Autenticacao_Model_Grupos::PRESIDENTE_CNIC, Autenticacao_Model_Grupos::COORDENADOR_CNIC, 121, 122, 123, 124, 125, 126, Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO, Autenticacao_Model_Grupos::TECNICO_PORTARIA, 131, 132, 135, 138, 139, 148, 151),
 );
 $arrMenu['relatorios']['menu'][] = array(
-    'grupo' => array(92,93,97,Autenticacao_Model_Grupos::COORDENADOR_ANALISE,110,114,118,Autenticacao_Model_Grupos::PRESIDENTE_CNIC,Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO,131,Autenticacao_Model_Grupos::MEMBROS_NATOS_CNIC),
+    'grupo' => array(92, 93, 97, Autenticacao_Model_Grupos::COORDENADOR_ANALISE, 110, 114, 118, Autenticacao_Model_Grupos::PRESIDENTE_CNIC, Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO, 131, Autenticacao_Model_Grupos::MEMBROS_NATOS_CNIC),
     'url' => $this->url(array('controller' => 'gerarrelatorios', 'action' => 'index'), '', true),
     'title' => 'Ir para Edital',
     'label' => 'Edital'
 );
 $arrMenu['relatorios']['menu'][] = array(
-    'grupo' => array(90,91,92,93,96,97,Autenticacao_Model_Grupos::COORDENADOR_ANALISE,104,110,114,115,Autenticacao_Model_Grupos::PRESIDENTE_CNIC,Autenticacao_Model_Grupos::COORDENADOR_CNIC,121,122,123,124,125,126,Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO,Autenticacao_Model_Grupos::TECNICO_PORTARIA,131,132,135,138,139,148,151),
+    'grupo' => array(90, 91, 92, 93, 96, 97, Autenticacao_Model_Grupos::COORDENADOR_ANALISE, 104, 110, 114, 115, Autenticacao_Model_Grupos::PRESIDENTE_CNIC, Autenticacao_Model_Grupos::COORDENADOR_CNIC, 121, 122, 123, 124, 125, 126, Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO, Autenticacao_Model_Grupos::TECNICO_PORTARIA, 131, 132, 135, 138, 139, 148, 151),
     'url' => $this->url(array('controller' => 'relatorio', 'action' => 'index'), '', true),
     'title' => 'Ir para Propostas',
     'label' => 'Propostas'
 );
 $arrMenu['relatorios']['menu'][] = array(
-    'grupo' => array(90,91,92,93,96,97,Autenticacao_Model_Grupos::COORDENADOR_ANALISE,104,110,114,115,Autenticacao_Model_Grupos::PRESIDENTE_CNIC,Autenticacao_Model_Grupos::COORDENADOR_CNIC,121,122,123,124,125,126,Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO,Autenticacao_Model_Grupos::TECNICO_PORTARIA,131,132,135,138,139,148,151),
+    'grupo' => array(90, 91, 92, 93, 96, 97, Autenticacao_Model_Grupos::COORDENADOR_ANALISE, 104, 110, 114, 115, Autenticacao_Model_Grupos::PRESIDENTE_CNIC, Autenticacao_Model_Grupos::COORDENADOR_CNIC, 121, 122, 123, 124, 125, 126, Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO, Autenticacao_Model_Grupos::TECNICO_PORTARIA, 131, 132, 135, 138, 139, 148, 151),
     'url' => $this->url(array('controller' => 'relatorio', 'action' => 'projeto'), '', true),
     'title' => 'Ir para Projetos',
     'label' => 'Projetos'
 );
 $arrMenu['relatorios']['menu'][] = array(
-    'grupo' => array(90,91,92,93,96,97,Autenticacao_Model_Grupos::COORDENADOR_ANALISE,104,110,114,115,Autenticacao_Model_Grupos::PRESIDENTE_CNIC,Autenticacao_Model_Grupos::COORDENADOR_CNIC,121,122,123,124,125,126,Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO,Autenticacao_Model_Grupos::TECNICO_PORTARIA,131,132,135,138,139,148,151),
+    'grupo' => array(90, 91, 92, 93, 96, 97, Autenticacao_Model_Grupos::COORDENADOR_ANALISE, 104, 110, 114, 115, Autenticacao_Model_Grupos::PRESIDENTE_CNIC, Autenticacao_Model_Grupos::COORDENADOR_CNIC, 121, 122, 123, 124, 125, 126, Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO, Autenticacao_Model_Grupos::TECNICO_PORTARIA, 131, 132, 135, 138, 139, 148, 151),
     'url' => $this->url(array('controller' => 'operacional', 'action' => 'index'), '', true),
     'title' => 'Ir para Operacional',
     'label' => 'Operacional'
 );
 $arrMenu['relatorios']['menu'][] = array(
-    'grupo' => array(90,91,92,93,96,97,Autenticacao_Model_Grupos::COORDENADOR_ANALISE,104,110,114,115,Autenticacao_Model_Grupos::PRESIDENTE_CNIC,Autenticacao_Model_Grupos::COORDENADOR_CNIC,121,122,123,124,125,126,Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO,Autenticacao_Model_Grupos::TECNICO_PORTARIA,131,132,135,138,139,148,151),
+    'grupo' => array(90, 91, 92, 93, 96, 97, Autenticacao_Model_Grupos::COORDENADOR_ANALISE, 104, 110, 114, 115, Autenticacao_Model_Grupos::PRESIDENTE_CNIC, Autenticacao_Model_Grupos::COORDENADOR_CNIC, 121, 122, 123, 124, 125, 126, Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO, Autenticacao_Model_Grupos::TECNICO_PORTARIA, 131, 132, 135, 138, 139, 148, 151),
     'url' => $this->url(array('controller' => 'relatorio', 'action' => 'gerencial'), '', true),
     'title' => 'Ir para Gerencial',
     'label' => 'Gerencial'
 );
 $arrMenu['relatorios']['menu'][] = array(
-    'grupo' => array(90,91,92,93,96,97,Autenticacao_Model_Grupos::COORDENADOR_ANALISE,104,110,114,115,Autenticacao_Model_Grupos::PRESIDENTE_CNIC,Autenticacao_Model_Grupos::COORDENADOR_CNIC,121,122,123,124,125,126,Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO,Autenticacao_Model_Grupos::TECNICO_PORTARIA,131,132,135,138,139,148,151),
+    'grupo' => array(90, 91, 92, 93, 96, 97, Autenticacao_Model_Grupos::COORDENADOR_ANALISE, 104, 110, 114, 115, Autenticacao_Model_Grupos::PRESIDENTE_CNIC, Autenticacao_Model_Grupos::COORDENADOR_CNIC, 121, 122, 123, 124, 125, 126, Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO, Autenticacao_Model_Grupos::TECNICO_PORTARIA, 131, 132, 135, 138, 139, 148, 151),
     'url' => $this->url(array('controller' => 'relatorio', 'action' => 'desembolso'), '', true),
     'title' => 'Ir para Consultar Pontos Culturais',
     'label' => 'Ponto de Cultura'
 );
 $arrMenu['relatorios']['menu'][] = array(
-    'grupo' => array(90,91,92,93,96,97,Autenticacao_Model_Grupos::COORDENADOR_ANALISE,104,110,114,115,Autenticacao_Model_Grupos::PRESIDENTE_CNIC,Autenticacao_Model_Grupos::COORDENADOR_CNIC,121,122,123,124,125,126,Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO,Autenticacao_Model_Grupos::TECNICO_PORTARIA,131,132,135,138,139,148,151),
+    'grupo' => array(90, 91, 92, 93, 96, 97, Autenticacao_Model_Grupos::COORDENADOR_ANALISE, 104, 110, 114, 115, Autenticacao_Model_Grupos::PRESIDENTE_CNIC, Autenticacao_Model_Grupos::COORDENADOR_CNIC, 121, 122, 123, 124, 125, 126, Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO, Autenticacao_Model_Grupos::TECNICO_PORTARIA, 131, 132, 135, 138, 139, 148, 151),
     'url' => $this->url(array('controller' => 'gerarrelatorioreuniao', 'action' => 'gerarrelatorioreuniao'), '', true),
     'title' => 'Ir para Gerenciar Relat&oacute;rio Reuni&atilde;o',
     'label' => 'Relat&oacute;rio de resultado CNIC'
 );
 $arrMenu['relatorios']['menu'][] = array(
-    'grupo' => array(90,91,92,93,96,97,Autenticacao_Model_Grupos::COORDENADOR_ANALISE,104,110,114,115,Autenticacao_Model_Grupos::PRESIDENTE_CNIC,Autenticacao_Model_Grupos::COORDENADOR_CNIC,121,122,123,124,125,126,Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO,Autenticacao_Model_Grupos::TECNICO_PORTARIA,131,132,135,138,139,148,151),
+    'grupo' => array(90, 91, 92, 93, 96, 97, Autenticacao_Model_Grupos::COORDENADOR_ANALISE, 104, 110, 114, 115, Autenticacao_Model_Grupos::PRESIDENTE_CNIC, Autenticacao_Model_Grupos::COORDENADOR_CNIC, 121, 122, 123, 124, 125, 126, Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO, Autenticacao_Model_Grupos::TECNICO_PORTARIA, 131, 132, 135, 138, 139, 148, 151),
     'url' => $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'geraldeanalise'), '', true),
     'title' => 'Ir para Relat&oacute;rio geral de an&aacute;lise',
     'label' => 'Relat&oacute;rio geral de an&aacute;lise'
 );
 $arrMenu['relatorios']['menu'][] = array(
-    'grupo' => array(93,97,Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO,137,148,151),
+    'grupo' => array(93, 97, Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO, 137, 148, 151),
     'url' => $this->url(array('controller' => 'consultarpareceristas', 'action' => 'consultardadospareceristas'), '', true),
     'title' => 'Consultar Dados do Parecerista',
     'label' => 'Consultar Dados do Parecerista'
 );
 $arrMenu['relatorios']['menu'][] = array(
-    'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO,137,148,151),
+    'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_ATENDIMENTO, 137, 148, 151),
     'url' => $this->url(array('controller' => 'gerarrelatorioparecerista', 'action' => 'geraldeanalise'), '', true),
     'title' => 'Gerar Relat&oacute;rio Parecerista',
     'label' => 'Gerar Relat&oacute;rio Parecerista'
@@ -523,7 +575,7 @@ $arrMenu['edital'] = array(
     'label' => 'Edital',
     'title' => 'Ir para Edital',
     'menu' => array(),
-    'grupo' => array(114,130),
+    'grupo' => array(114, 130),
 );
 $arrMenu['relatorios']['menu'][] = array(
     'grupo' => array(114),
@@ -532,7 +584,7 @@ $arrMenu['relatorios']['menu'][] = array(
     'label' => 'Criar Edital'
 );
 $arrMenu['relatorios']['menu'][] = array(
-    'grupo' => array(114,130),
+    'grupo' => array(114, 130),
     'url' => $this->url(array('controller' => 'Listareditais', 'action' => 'listarselecionados'), '', true),
     'title' => 'Ir para Listar Selecionados',
     'label' => 'Listar Selecionados'
@@ -540,36 +592,36 @@ $arrMenu['relatorios']['menu'][] = array(
 
 // ========== INICIO MENU ASSINATURA ==========
 //$arrMenu['assinatura'] = array(
-    //'id' => 'assinatura',
-    //'label' => 'Assinatura',
-    //'title' => 'Ir para Assinatura',
-    //'menu' => array(),
-    //'grupo' => array(
-        //147
-    //,148
-    //,149
-    //,150
-    //,151
-    //,152
-    //),
+//'id' => 'assinatura',
+//'label' => 'Assinatura',
+//'title' => 'Ir para Assinatura',
+//'menu' => array(),
+//'grupo' => array(
+//147
+//,148
+//,149
+//,150
+//,151
+//,152
+//),
 //);
 
 //$arrMenu['assinatura']['menu'][] = array(
-    //'grupo' => array(
-        //147
-    //,148
-    //,149
-    //,150
-    //,151
-    //,152
-    //),
-    //'url' => $this->url(array(
-        //'module' => 'admissibilidade',
-        //'controller' => 'enquadramento-assinatura',
-        //'action' => 'gerenciar-assinaturas'
-    //), '', true),
-    //'title' => 'Gerenciar Projetos Enquadrados',
-    //'label' => 'Gerenciar Projetos Enquadrados'
+//'grupo' => array(
+//147
+//,148
+//,149
+//,150
+//,151
+//,152
+//),
+//'url' => $this->url(array(
+//'module' => 'admissibilidade',
+//'controller' => 'enquadramento-assinatura',
+//'action' => 'gerenciar-assinaturas'
+//), '', true),
+//'title' => 'Gerenciar Projetos Enquadrados',
+//'label' => 'Gerenciar Projetos Enquadrados'
 //);
 
 // ========== FIM MENU EDITAIS ==========
@@ -624,8 +676,8 @@ $arrMenu['seguranca']['menu'][] = array(
     'title' => 'Ir para Permiss&otilde;es do SalicWeb',
     'label' => 'Permiss&otilde;es do SalicWeb'
 );
-$auth = array_change_key_case((array) Zend_Auth::getInstance()->getIdentity());
-if ( trim($auth['usu_identificacao']) == 23969156149) {
+$auth = array_change_key_case((array)Zend_Auth::getInstance()->getIdentity());
+if (trim($auth['usu_identificacao']) == 23969156149) {
 //    $arrMenu['seguranca']['menu'][] = array(
 //        'grupo' => array(97),
 //        'url' => $this->url(array('controller' => 'login', 'action' => 'logarcomo')),
@@ -642,26 +694,26 @@ $arrMenu['seguranca']['menu'][] = array(
 // ========== FIM MENU SEGURANCA ==========
 // ========== INICIO MENU MANUAIS ==========
 $arrMenu['manuais'] = array(
-'id' => 'manuais',
-'label' => 'Manuais',
-'title' => 'Ir para Manuais',
-'menu' => array(),
-'grupo' => array(94, 137),
+    'id' => 'manuais',
+    'label' => 'Manuais',
+    'title' => 'Ir para Manuais',
+    'menu' => array(),
+    'grupo' => array(94, 137),
 );
 $arrMenu['manuais']['menu'][] = array('label' => 'Pagamento Parecerista', 'title' => 'Ir para Pagamento Parecerista',
-'url' => $this->url(array('controller' => 'public', 'action' => 'manuais'), '', true) . '/Manual_Coordenador_Pronac-Pagamento-Parecerista.m4v',
-'grupo' => array(137),
-'target' => '_blank'
+    'url' => $this->url(array('controller' => 'public', 'action' => 'manuais'), '', true) . '/Manual_Coordenador_Pronac-Pagamento-Parecerista.m4v',
+    'grupo' => array(137),
+    'target' => '_blank'
 );
 $arrMenu['manuais']['menu'][] = array('label' => 'Parecerista', 'title' => 'Ir para Parecerista',
-'url' => $this->url(array('controller' => 'public', 'action' => 'manuais'), '', true) . '/Parecerista.m4v',
-'grupo' => array(94),
-'target' => '_blank'
+    'url' => $this->url(array('controller' => 'public', 'action' => 'manuais'), '', true) . '/Parecerista.m4v',
+    'grupo' => array(94),
+    'target' => '_blank'
 );
 $arrMenu['manuais']['menu'][] = array('label' => 'Confirmar Pagamento Parecerista', 'title' => 'Ir para Parecerista - An&aacute;lise',
-'url' => $this->url(array('controller' => 'public', 'action' => 'manuais'), '', true) . '/Manual_do_Parecerista-Confirmar-Pagamento.m4v',
-'grupo' => array(94),
-'target' => '_blank'
+    'url' => $this->url(array('controller' => 'public', 'action' => 'manuais'), '', true) . '/Manual_do_Parecerista-Confirmar-Pagamento.m4v',
+    'grupo' => array(94),
+    'target' => '_blank'
 );
 //     ========== FIM MENU MANUAIS ==========
 
@@ -716,7 +768,6 @@ $arrMenu['aulas']['menu'][] = array('label' => '8. Considera&ccedil;&otilde;es',
 );
 
 
-
 //$arrMenu['analise']['menu'][] = array('label' => '', 'title' => 'Ir para',
 //    'url' => ,
 //    'grupo' => array()
@@ -727,12 +778,12 @@ $arrMenu['aulas']['menu'][] = array('label' => '8. Considera&ccedil;&otilde;es',
 if (isset ($auth['cpf'])) {
     $arrMenu = $arrMenuProponente;
 } elseif (isset($auth['usu_codigo'])) {
-    $arrMenu = array_filter($arrMenu, function($arrMenu) {
+    $arrMenu = array_filter($arrMenu, function ($arrMenu) {
         return (empty($arrMenu['grupo']) || in_array($this->grupoAtivo, $arrMenu['grupo']));
     });
 
-    $arrMenu = array_map(function($arrMenu){
-        $arrMenu['menu'] = array_filter($arrMenu['menu'], function($arrMenu2){
+    $arrMenu = array_map(function ($arrMenu) {
+        $arrMenu['menu'] = array_filter($arrMenu['menu'], function ($arrMenu2) {
             return (empty($arrMenu2['grupo']) || in_array($this->grupoAtivo, $arrMenu2['grupo']));
         });
         return $arrMenu;
@@ -742,59 +793,136 @@ if (isset ($auth['cpf'])) {
 }
 ?>
 <style>
-    .nav-wrapper a{
+    .nav-wrapper a {
         color: white;
     }
-    .side-nav a{
+
+    .side-nav a {
         color: #096;
     }
 
-    #navbar-header.navbar-fixed nav{
+    #navbar-header.navbar-fixed nav {
         z-index: 1000;
         top: 0;
     }
 
 </style>
 <div id="navbar-header">
-    <nav class="green darken-2">
+    <nav class="">
         <div class="nav-wrapper  container">
-            <a  href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+            <a id="menu-left" href="#" data-activates="sidenav" class="button-collapse left"><i class="material-icons">menu</i></a>
+            <a id="menu-right" href="#" data-activates="nav-mobile" class="button-collapse right"><i
+                        class="material-icons">menu</i></a>
+
             <ul class="left hide-on-med-and-down">
                 <?php echo $this->partialLoop('partials/menu/item.phtml', $arrMenu); ?>
             </ul>
             <ul class="right">
                 <?php echo $this->partial('partials/menu/notificacao-mensagem.phtml') ?>
-<!--                <li><a class="white-text" href="sass.html"><i class="material-icons">home</i></a></li>-->
-<!--                <li><a class="white-text" href="sass.html"><i class="material-icons">power_settings_new</i></a></li>-->
-<!--                <li><a class="white-text" href="mobile.html"><i class="material-icons">more_vert</i></a></li>-->
+                <!--                <li><a class="white-text" href="sass.html"><i class="material-icons">home</i></a></li>-->
+                <!--                <li><a class="white-text" href="sass.html"><i class="material-icons">power_settings_new</i></a></li>-->
+                <!--                <li><a class="white-text" href="mobile.html"><i class="material-icons">more_vert</i></a></li>-->
             </ul>
+
             <ul class="side-nav" id="nav-mobile">
                 <?php echo $this->partialLoop('partials/menu/item-side-nav.phtml', $arrMenu); ?>
             </ul>
         </div>
-        </div>
-    </nav>
+</div>
+</nav>
 </div>
 <script>
-    $3(".button-collapse").sideNav();
-//    $3('.dropdown-button').dropdown({
-//            inDuration: 300,
-//            outDuration: 225,
-//            constrain_width: false, // Does not change width of dropdown to that of the activator
-//            hover: true, // Activate on hover
-//            gutter: 0, // Spacing from edge
-//            belowOrigin: true, // Displays dropdown below the button
-//            alignment: 'left' // Displays dropdown with edge aligned to the left of button
-//        }
-//    );
-    $3(document).ready(function(){
-        $3(window).scroll(function(){
-            if($(window).scrollTop() > '94'){
-                $("#navbar-header").addClass('navbar-fixed');
-            } else{
-                $("#navbar-header").removeClass('navbar-fixed');
+    $3(document).ready(function () {
+        $3('#menu-left').sideNav({edge: 'left', menuWidth: 250})
+        $3('#menu-right').sideNav({edge: 'right'})
+    })
+
+    //    $3('.dropdown-button').dropdown({
+    //            inDuration: 300,
+    //            outDuration: 225,
+    //            constrain_width: false, // Does not change width of dropdown to that of the activator
+    //            hover: true, // Activate on hover
+    //            gutter: 0, // Spacing from edge
+    //            belowOrigin: true, // Displays dropdown below the button
+    //            alignment: 'left' // Displays dropdown with edge aligned to the left of button
+    //        }
+    //    );
+    $3(document).ready(function () {
+        $3(window).scroll(function () {
+            if ($3(window).scrollTop() > '59') {
+                $3('#navbar-header').addClass('navbar-fixed')
+                $3('body').addClass('nav-fixed')
+            } else {
+                $3('#navbar-header').removeClass('navbar-fixed')
+                $3('body').removeClass('nav-fixed')
             }
 
         })
+
+        if ($3(window).scrollTop() > '60') {
+            $3('#navbar-header').addClass('navbar-fixed')
+            $3('body').addClass('nav-fixed')
+        }
+
+        //@todo isso eh temporario, ate a migracao do layout
+        if ($3('#sidenav').length && $3('#sidenav').is(':visible')) {
+
+            $3('body').addClass(getCookie('menu'))
+
+            $3('#navbar-header nav').prepend(
+                '<a id="small-menu-button" href="#" class="left hide-on-med-and-down">' +
+                '<i class="material-icons">more_vert</i>' +
+                '</a>'
+            )
+        }
+
+        // Ajuste na sidebar, quando faz scroll ela dá um bug
+//        var height = $3('body').height();
+//        $3('#sidenav, .qmmc').css('min-height', height - 100);
+
+        $3('#small-menu-button').on('click', function () {
+            $3(this).find('i').text('more_horiz')
+            $3('body').toggleClass('small-menu')
+
+            if ($3('body.small-menu').is(':visible')) {
+                $3(this).find('i').text('more_horiz')
+                setCookie('menu', 'small-menu', 365)
+            } else {
+                $3(this).find('i').text('more_vert')
+                setCookie('menu', 'large-menu', 365)
+            }
+
+            return false
+        })
+
+        // menu legado
+        $3('.sanfonaDiv:hidden').each(function (index) {
+            if ($3(this).children().length > 0) {
+                $3(this).prev().addClass('submenu')
+            }
+        })
+
     })
+
+    function setCookie (cname, cvalue, exdays) {
+        var d = new Date()
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
+        var expires = 'expires=' + d.toUTCString()
+        document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
+    }
+
+    function getCookie (cname) {
+        var name = cname + '='
+        var ca = document.cookie.split(';')
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i]
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1)
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length)
+            }
+        }
+        return ''
+    }
 </script>

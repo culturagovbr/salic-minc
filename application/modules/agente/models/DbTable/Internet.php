@@ -71,26 +71,22 @@ class Agente_Model_DbTable_Internet extends MinC_Db_Table_Abstract
         );
 
         // busca pelo cnpj ou cpf
-        if (!empty($cpfcnpj))
-        {
+        if (!empty($cpfcnpj)) {
             $select->where("a.cnpjcpf = ?", $cpfcnpj);
         }
 
         // busca pelo id do agente
-        if (!empty($idAgente))
-        {
+        if (!empty($idAgente)) {
             $select->where("a.idagente = ?", $idAgente);
         }
 
         // busca pelo email ativado/desativado
-        if (!empty($statusEmail))
-        {
+        if (!empty($statusEmail)) {
             $select->where("e.status = ?", $statusEmail);
         }
 
         // busca pelo email de divulgacao
-        if (!empty($statusDivulgacao))
-        {
+        if (!empty($statusDivulgacao)) {
             $select->where("e.divulgar = ?", $statusDivulgacao);
         }
 
@@ -108,7 +104,6 @@ class Agente_Model_DbTable_Internet extends MinC_Db_Table_Abstract
     public function buscarEmails($idAgente = null)
     {
         $tblAgentes = new Agente_Model_DbTable_Agentes();
-        $db = Zend_Db_Table::getDefaultAdapter();
 
         $i = array(
             'i.idinternet',
@@ -119,7 +114,8 @@ class Agente_Model_DbTable_Internet extends MinC_Db_Table_Abstract
             'i.divulgar'
         );
 
-        $sql = $db->select()
+        $sql = $this->select()
+            ->setIntegrityCheck(false)
             ->from(array('i' => 'internet'), $i, $this->_schema)
             ->join(array('v' => 'verificacao'), 'i.tipointernet = v.idverificacao', 'v.descricao as tipo', $this->_schema)
             ->join(array('t' => 'tipo'), 't.idtipo = v.idtipo', null, $this->_schema);
@@ -129,8 +125,7 @@ class Agente_Model_DbTable_Internet extends MinC_Db_Table_Abstract
             $sql->where('i.idagente = ?', $idAgente);
         }
 
-        $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        return $db->fetchAll($sql);
+        return $this->fetchAll($sql);
     }
 
     /**
@@ -154,22 +149,20 @@ class Agente_Model_DbTable_Internet extends MinC_Db_Table_Abstract
     public function excluirEmailAgente($idAgente = null, $idInternet = null)
     {
         // exclui todos os e-mails de um agente
-        if (!empty($idAgente))
-        {
+        if (!empty($idAgente)) {
             $where['idAgente = ?'] = $idAgente;
         }
 
         // exclui um determinado e-mail
-        else if (!empty($idInternet))
-        {
+        elseif (!empty($idInternet)) {
             $where['idInternet = ?'] = $idInternet;
         }
 
         return $this->delete($where);
     }
 
-    public function obterEmailProponentesPorPreProjeto($idPreProjeto) {
-
+    public function obterEmailProponentesPorPreProjeto($idPreProjeto)
+    {
         $select = $this->select();
         $this->_db->setFetchMode(Zend_DB::FETCH_OBJ);
 

@@ -1,12 +1,7 @@
 <?php
 
-/**
- * Description of Mantermensagens
- *
- * @author augusto
- */
-class MantermensagensController extends MinC_Controller_Action_Abstract {
-
+class MantermensagensController extends MinC_Controller_Action_Abstract
+{
     private $getIdUsuario = 0;
 
     /**
@@ -15,9 +10,8 @@ class MantermensagensController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function init() {
-//        Zend_Layout::startMvc(array('layout' => 'layout_scriptcase'));
-        
+    public function init()
+    {
         $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Usuario = new Autenticacao_Model_Usuario(); // objeto usu�rio
@@ -78,9 +72,8 @@ class MantermensagensController extends MinC_Controller_Action_Abstract {
         parent::init(); // chama o init() do pai GenericControllerNew
     }
 
-// fecha m�todo init()
-
-    public function incluirmensagemAction() {
+    public function incluirmensagemAction()
+    {
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
         $usuario = new Autenticacao_Model_Usuario();
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
@@ -147,7 +140,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract {
         $this->view->dadosProjeto = $dadosProjeto;
         $this->view->idpronac = $idpronac;
         $usuariosorgao = new Usuariosorgaosgrupos();
-//*************************** NOVO *****************************************************
+        //*************************** NOVO *****************************************************
         $num = 0;
         /* Perfil de Coordenador e T�cnico de Adminissibilidade  */
         $movimentacaoDAO = new Proposta_Model_DbTable_TbMovimentacao();
@@ -163,54 +156,14 @@ class MantermensagensController extends MinC_Controller_Action_Abstract {
         /* Fim Perfil de Coordenador e T�cnico de Adminissibilidade  */
         /* Perfil de Coordenador de Parecerista / Parecerista  */
         $DistribuirParecerDAO = new tbDistribuirParecer();
-       /*$where = array(
-            'gru.gru_codigo = ?' => 94,
-            'dp.idPRONAC = ? ' => $idpronac,
-            //'usu.usu_codigo <> ? ' => $usu_codigo
-        );*/
         $atores = $DistribuirParecerDAO->buscarPareceristaCoordParecer($idpronac);
-        /*$prepara = array();
-        foreach ($atores as $ator) {
-            $prepara[$ator->Orgao][$ator->cdPerfil][$ator->idAgente]['idAgente'] = $ator->idAgente;
-            $prepara[$ator->Orgao][$ator->cdPerfil][$ator->idAgente]['nome'] = $ator->Nome;
-            $prepara[$ator->Orgao][$ator->cdPerfil][$ator->idAgente]['perfil'] = $ator->cdPerfil;
-            $prepara[$ator->Orgao][$ator->cdPerfil][$ator->idAgente]['orgao'] = $ator->Orgao;
-            $prepara[$ator->Orgao][$ator->cdPerfil][$ator->idAgente]['TipoUsuario'] = $ator->Perfil;
-        }*/
-        /*$where = array(
-            'gru2.gru_codigo = ?' => 93,
-            'dp.idPRONAC = ? ' => $idpronac,
-            'usu.usu_codigo <> ? ' => $usu_codigo
-        );
-        $atores = $DistribuirParecerDAO->buscarPareceristaCoordParecer($where);
-        foreach ($atores as $ator) {
-            $prepara[$ator->Orgao2][$ator->cdPerfil2][$ator->idAgente2]['idAgente'] = $ator->idAgente2;
-            $prepara[$ator->Orgao2][$ator->cdPerfil2][$ator->idAgente2]['nome'] = $ator->Nome2;
-            $prepara[$ator->Orgao2][$ator->cdPerfil2][$ator->idAgente2]['perfil'] = $ator->cdPerfil2;
-            $prepara[$ator->Orgao2][$ator->cdPerfil2][$ator->idAgente2]['orgao'] = $ator->Orgao2;
-            $prepara[$ator->Orgao2][$ator->cdPerfil2][$ator->idAgente2]['TipoUsuario'] = $ator->Perfil2;
-        }*/
-        
-        /*foreach ($prepara as $orgao) {
-            foreach ($orgao as $perfil) {
-                foreach ($perfil as $Agente) {
-                    $encaminha[$num]['idAgente'] = $Agente['idAgente'];
-                    $encaminha[$num]['nome'] = $Agente['nome'];
-                    $encaminha[$num]['perfil'] = $Agente['perfil'];
-                    $encaminha[$num]['orgao'] = $Agente['orgao'];
-                    $encaminha[$num]['TipoUsuario'] = $Agente['TipoUsuario'];
-                    $num++;
-                }
-            }
-        }*/
-        
         
         foreach ($atores as $ator) {
             $encaminha[$num]['idAgente'] = $ator->idAgente;
-                    $encaminha[$num]['nome'] = $ator->Nome;
-                    $encaminha[$num]['perfil'] =  $ator->cdPerfil;
-                    $encaminha[$num]['orgao'] = $ator->Orgao;
-                    $encaminha[$num]['TipoUsuario'] = $ator->Perfil;
+            $encaminha[$num]['nome'] = $ator->Nome;
+            $encaminha[$num]['perfil'] =  $ator->cdPerfil;
+            $encaminha[$num]['orgao'] = $ator->Orgao;
+            $encaminha[$num]['TipoUsuario'] = $ator->Perfil;
             $num++;
         }
         
@@ -304,31 +257,6 @@ class MantermensagensController extends MinC_Controller_Action_Abstract {
         $tbFiscalizacaoDAO = new tbFiscalizacao();
         $atores = $tbFiscalizacaoDAO->buscarAtoresFiscalizacao($idpronac, $usu_codigo);
         $prepara = array();
-        /*foreach ($atores as $ator) {
-            $prepara[$ator->Orgao][$ator->cdPerfil][$ator->idAgente]['idAgente'] = $ator->idAgente;
-            $prepara[$ator->Orgao][$ator->cdPerfil][$ator->idAgente]['nome'] = $ator->Nome;
-            $prepara[$ator->Orgao][$ator->cdPerfil][$ator->idAgente]['perfil'] = $ator->cdPerfil;
-            $prepara[$ator->Orgao][$ator->cdPerfil][$ator->idAgente]['orgao'] = $ator->Orgao;
-            $prepara[$ator->Orgao][$ator->cdPerfil][$ator->idAgente]['TipoUsuario'] = $ator->Perfil;
-
-            $prepara[$ator->Orgao2][$ator->cdPerfil2][$ator->idAgente2]['idAgente'] = $ator->idAgente2;
-            $prepara[$ator->Orgao2][$ator->cdPerfil2][$ator->idAgente2]['nome'] = $ator->Nome2;
-            $prepara[$ator->Orgao2][$ator->cdPerfil2][$ator->idAgente2]['perfil'] = $ator->cdPerfil2;
-            $prepara[$ator->Orgao2][$ator->cdPerfil2][$ator->idAgente2]['orgao'] = $ator->Orgao2;
-            $prepara[$ator->Orgao2][$ator->cdPerfil2][$ator->idAgente2]['TipoUsuario'] = $ator->Perfil2;
-        }*/
-        /*foreach ($prepara as $orgao) {
-            foreach ($orgao as $perfil) {
-                foreach ($perfil as $Agente) {
-                    $encaminha[$num]['idAgente'] = $Agente['idAgente'];
-                    $encaminha[$num]['nome'] = $Agente['nome'];
-                    $encaminha[$num]['perfil'] = $Agente['perfil'];
-                    $encaminha[$num]['orgao'] = $Agente['orgao'];
-                    $encaminha[$num]['TipoUsuario'] = $Agente['TipoUsuario'];
-                    $num++;
-                }
-            }
-        }*/
         foreach ($atores as $ator) {
             $encaminha[$num]['idAgente'] = $ator->idAgente;
             $encaminha[$num]['nome'] = $ator->Nome;
@@ -383,8 +311,8 @@ class MantermensagensController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function consultarmensagemAction() {
-
+    public function consultarmensagemAction()
+    {
         $idpronac = $this->_request->getParam('idpronac');
         
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -397,7 +325,6 @@ class MantermensagensController extends MinC_Controller_Action_Abstract {
         $mensagemprojeto = new Mensagemprojeto();
         $projetos = new Projetos();
 
-        //$idpronac = $this->_request->getParam('idpronac');
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $grupologado = $GrupoAtivo->codGrupo;
 
@@ -420,7 +347,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract {
 //        $this->view->dadosProjeto = $dadosProjeto;
 //        $this->view->idpronac = $idpronac;
         $usuariosorgao = new Usuariosorgaosgrupos();
-//*************************** NOVO *****************************************************
+        //*************************** NOVO *****************************************************
         $num = 0;
         /* Perfil de Coordenador e T�cnico de Adminissibilidade  */
         $movimentacaoDAO = new Proposta_Model_DbTable_TbMovimentacao();
@@ -647,7 +574,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract {
                 }
                 $chave = TratarArray::multi_array_search($idpronac, $ler);
                 $quebra = chr(13) . chr(10); // Quebra de linha no TXT
-                if (is_array($chave))
+                if (is_array($chave)) {
                     foreach ($chave as $chavesachadas) {
                         if ($ler[$chavesachadas]['status'] != 'L') {
                             $ler[$chavesachadas]['status'] = 'L';
@@ -664,6 +591,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract {
                         $valorperfil['idmensagemprojeto'][$ler[$chavesachadas]['idmensagemprojeto']]['remetente'] = $ler[$chavesachadas]['perfilRemetente'];
                         $valorperfil['idmensagemprojeto'][$ler[$chavesachadas]['idmensagemprojeto']]['destinatario'] = $ler[$chavesachadas]['perfilDestinatario'];
                     }
+                }
 
                 @$this->view->mensagemperfil = $valorperfil;
             }
@@ -681,5 +609,4 @@ class MantermensagensController extends MinC_Controller_Action_Abstract {
             $this->view->BuscarSelect = "";
         }
     }
-
 }

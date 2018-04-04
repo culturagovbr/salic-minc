@@ -1,14 +1,8 @@
 <?php
-/**
- * Description of GenericModel
- *
- * @author augusto
- */
 require_once 'Zend/Db/Table/Abstract.php';
 
 class GenericModel extends Zend_Db_Table_Abstract
 {
-
     private $_config;
     protected $_rowClass = "MinC_Db_Table_Row";
 
@@ -31,7 +25,7 @@ class GenericModel extends Zend_Db_Table_Abstract
         if ($dbAdapter instanceof Zend_Db_Adapter_Pdo_Mssql) {
             if (!empty($dbAdapter)) {
                 $dbAdapter->closeConnection();
-                unset ($dbAdapter);
+                unset($dbAdapter);
             }
 
             if (!($this->_config instanceof Zend_Config_Ini)) {
@@ -106,7 +100,7 @@ class GenericModel extends Zend_Db_Table_Abstract
             } elseif (strpos($strSchema, '.') === false) {
                 $strSchema = "dbo";
             }
-        } else if (!$strSchema) {
+        } elseif (!$strSchema) {
             $strSchema = $this->_schema;
         }
 
@@ -151,8 +145,12 @@ class GenericModel extends Zend_Db_Table_Abstract
      */
     public function getTableName($schema = null, $tableName = null, $isReturnDb = true)
     {
-        if ($schema === null) $schema = $this->getSchema($schema, $isReturnDb);
-        if ($tableName === null) $tableName = $this->_name;
+        if ($schema === null) {
+            $schema = $this->getSchema($schema, $isReturnDb);
+        }
+        if ($tableName === null) {
+            $tableName = $this->_name;
+        }
 
         return $schema . '.' . $this->getName($tableName);
     }
@@ -279,7 +277,6 @@ class GenericModel extends Zend_Db_Table_Abstract
             }
             $sql .= "\n" . $where;
         }
-        
     }
 
     protected function _getCols()
@@ -305,7 +302,6 @@ class GenericModel extends Zend_Db_Table_Abstract
      */
     protected function _setupPrimaryKey()
     {
-
         if (!$this->_primary) {
             $this->_setupMetadata();
             $this->_primary = array();
@@ -323,9 +319,9 @@ class GenericModel extends Zend_Db_Table_Abstract
                 require_once 'Zend/Db/Table/Exception.php';
                 throw new Zend_Db_Table_Exception('A table must have a primary key, but none was found');
             }
-        } else if (!is_array($this->_primary)) {
+        } elseif (!is_array($this->_primary)) {
             $this->_primary = array(1 => $this->_primary);
-        } else if (isset($this->_primary[0])) {
+        } elseif (isset($this->_primary[0])) {
             array_unshift($this->_primary, null);
             unset($this->_primary[0]);
         }

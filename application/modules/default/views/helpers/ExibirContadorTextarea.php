@@ -12,20 +12,20 @@
 
 class Zend_View_Helper_ExibirContadorTextarea
 {
-	/**
-	 * Método com os parametros para exibição do contador
-	 * @access public
-	 * @param string $nome (nome do campo)
-	 * @param integer $tamanho (maxlenght do input)
-	 * @param integer $limite (quantidade máxima de caracteres - restantes)
-	 * @param integer $qtd (quantidade de caracteres preenchidos por default)
-	 * @return string $campo
-	 */
-	public function exibirContadorTextarea($nome, $tamanho, $limite, $qtd = 0, $largura = '4%')
-	{
-		$limite -= $qtd; // atualiza a quantidade de caracteres restantes
+    /**
+     * Método com os parametros para exibição do contador
+     * @access public
+     * @param string $nome (nome do campo)
+     * @param integer $tamanho (maxlenght do input)
+     * @param integer $limite (quantidade máxima de caracteres - restantes)
+     * @param integer $qtd (quantidade de caracteres preenchidos por default)
+     * @return string $campo
+     */
+    public function exibirContadorTextarea($nome, $tamanho, $limite, $qtd = 0, $largura = '4%')
+    {
+        $limite -= $qtd; // atualiza a quantidade de caracteres restantes
 
-		$campo = "<br />
+        $campo = "<br />
 				<p>
 					<label for=\"" . $nome . "\" style=\"font-weight:normal;\">faltam</label> <input type=\"text\" readonly=\"readonly\" name=\"" . $nome . "\" id=\"" . $nome . "\"  
 					maxlength=\"" . $tamanho . "\" value=\"" . $limite . "\" 
@@ -33,7 +33,6 @@ class Zend_View_Helper_ExibirContadorTextarea
 					caracteres.
 				</p>";
 
-		return $campo;
-	} // fecha método exibirContadorTextarea()
-
+        return $campo;
+    } // fecha método exibirContadorTextarea()
 } // fecha class

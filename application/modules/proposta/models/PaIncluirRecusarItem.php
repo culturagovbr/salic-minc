@@ -5,7 +5,6 @@
  */
 class Proposta_Model_PaIncluirRecusarItem extends MinC_Db_Table_Abstract
 {
-
     protected $_schema = 'sac';
     protected $_name = 'paIncluirRecusarItem';
 
@@ -17,5 +16,3 @@ class Proposta_Model_PaIncluirRecusarItem extends MinC_Db_Table_Abstract
         return $db->fetchAll($sql);
     }
 }
-
-?>

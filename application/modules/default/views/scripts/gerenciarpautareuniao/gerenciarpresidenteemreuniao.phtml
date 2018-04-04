@@ -64,20 +64,20 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
     }
     function dadosprojetos(idpronac, e){
         var idpronac = idpronac;
-        var view = $(e).attr('view');
-        var idprojeto = $(e).attr('idprojeto');
-        var aberto = $("#"+idprojeto).attr('aberto');
+        var view = $(e).prop('view');
+        var idprojeto = $(e).prop('idprojeto');
+        var aberto = $("#"+idprojeto).prop('aberto');
         if($.trim($("#"+idprojeto).html()) != ''){
             if(aberto == 'true'){
                 $("#"+idprojeto).addClass('sumir');
-                $("#"+idprojeto).attr('aberto','false');
+                $("#"+idprojeto).prop('aberto','false');
                 $(e).addClass('btn_adicionar');
                 $(e).removeClass('btn_remover');
                 return false;
             }
             else{
                 $("#"+idprojeto).removeClass('sumir');
-                $("#"+idprojeto).attr('aberto','true');
+                $("#"+idprojeto).prop('aberto','true');
                 $(e).addClass('btn_remover');
                 $(e).removeClass('btn_adicionar');
                 return false;
@@ -106,7 +106,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                 valor += data;
                 valor += "</fieldset>";
                 $("#"+idprojeto).html(valor);
-                $("#"+idprojeto).attr('aberto','true');
+                $("#"+idprojeto).prop('aberto','true');
                 $("#load").dialog('close');
             }
         });
@@ -302,16 +302,16 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
     
     function JSIniciarVotacao(obj){
         
-        var idpronac = $(obj).attr('idpronac');
-        var pronac   = $(obj).attr('pronac');
-        var acao = $(obj).attr('acao');
-        var tipo = $(obj).attr('tipo'); //readequacao, recurso, inicial
+        var idpronac = $(obj).prop('idpronac');
+        var pronac   = $(obj).prop('pronac');
+        var acao = $(obj).prop('acao');
+        var tipo = $(obj).prop('tipo'); //readequacao, recurso, inicial
         //var votacaoEmAndamento = '<?php echo $this->pronacvotacaoatual ? 'true' : 'false' ?>';
         var votacaoEmAndamento = $("#reuniaoaberta").val();
         
         var idtiporeadequacao = 0;
         if(tipo == 'readequacao'){
-            idtiporeadequacao = $(obj).attr('idtiporeadequacao');
+            idtiporeadequacao = $(obj).prop('idtiporeadequacao');
         }
         
         if(votacaoEmAndamento == 'true' && acao=='iniciar'){
@@ -364,15 +364,15 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
                     if(acao == 'iniciar'){
                         //$("#alert").html('Vota&ccedil;&atilde;o do projeto n&ordm; '+ pronac + ' foi iniciada!');
                         $("#reuniaoaberta").val("true");
-                        $(objImg).attr('src','<?php echo $this->baseUrl(); ?>/public/img/stop.gif');
-                        $(objImg).attr('acao','parar');
+                        $(objImg).prop('src','<?php echo $this->baseUrl(); ?>/public/img/stop.gif');
+                        $(objImg).prop('acao','parar');
                         message('Vota&ccedil;&atilde;o do projeto n&ordm; '+ pronac + ' foi iniciada!', 'CONFIRM');
                     }
                     else{
                         //$("#alert").html('Vota&ccedil;&atilde;o do projeto n&ordm; '+ pronac + ' foi cancelada!');
                         $("#reuniaoaberta").val("false");
-                        $(objImg).attr('src','<?php echo $this->baseUrl(); ?>/public/img/play.png');
-                        $(objImg).attr('acao','iniciar');
+                        $(objImg).prop('src','<?php echo $this->baseUrl(); ?>/public/img/play.png');
+                        $(objImg).prop('acao','iniciar');
                         message('Vota&ccedil;&atilde;o do projeto n&ordm; '+ pronac + ' foi cancelada!', 'CONFIRM');
                     }
                     
@@ -401,7 +401,7 @@ $idpronacatual = isset($verificar[0]->idPRONAC) ? $verificar[0]->idPRONAC : '';
 
     
     function JSRetornarProjeto(idPronac){
-        //var pronac = $(this).attr('pronac');
+        //var pronac = $(this).prop('pronac');
         var pronac = idPronac;
         $("#alert").html("O projeto ser&aacute; reencaminhado para o componente respons&aacute;vel e o seu parecer ser&aacute; apagado. Deseja Continuar?").css('text-align','justify');
         perguntar(function(){

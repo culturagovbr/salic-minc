@@ -1,6 +1,6 @@
 <?php
-class Projeto_ProjetoController extends Proposta_GenericController {
-
+class Projeto_ProjetoController extends Proposta_GenericController
+{
     public function init()
     {
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
@@ -9,14 +9,14 @@ class Projeto_ProjetoController extends Proposta_GenericController {
         $arrIdentity = array_change_key_case((array) Zend_Auth::getInstance()->getIdentity());
         $GrupoAtivo   = new Zend_Session_Namespace('GrupoAtivo');
 
-	    // verifica as permissoes
+        // verifica as permissoes
         //$PermissoesGrupo = array();
         //$PermissoesGrupo[] = 97;  // Gestor do SALIC
         //$PermissoesGrupo[] = 93;  // Coordenador de Parecerista
         //if (isset($arrIdentity['usu_codigo'])) {
-            //parent::perfil(1, $PermissoesGrupo);
+        //parent::perfil(1, $PermissoesGrupo);
         //} else {
-            //parent::perfil(4, $PermissoesGrupo);
+        //parent::perfil(4, $PermissoesGrupo);
         //}
 
         /*********************************************************************************************************/
@@ -36,10 +36,18 @@ class Projeto_ProjetoController extends Proposta_GenericController {
         $tableAgentes  = new Agente_Model_DbTable_Agentes();
         $arrAgente = $tableAgentes->findBy(array('cnpjcpf' => trim($cpf)));
 
-        if ($arrAcesso)  $this->idResponsavel = $arrAcesso['idusuario'];
-        if ($arrAgente)  $this->idAgente 	  = $arrAgente['idagente'];
-        if ($arrUsuario) $this->idUsuario     = $arrUsuario['usu_codigo'];
-        if ($this->idAgente != 0) $this->usuarioProponente = "S";
+        if ($arrAcesso) {
+            $this->idResponsavel = $arrAcesso['idusuario'];
+        }
+        if ($arrAgente) {
+            $this->idAgente 	  = $arrAgente['idagente'];
+        }
+        if ($arrUsuario) {
+            $this->idUsuario     = $arrUsuario['usu_codigo'];
+        }
+        if ($this->idAgente != 0) {
+            $this->usuarioProponente = "S";
+        }
         $this->cpfLogado = $cpf;
 
         $this->_helper->contextSwitch()
@@ -49,7 +57,9 @@ class Projeto_ProjetoController extends Proposta_GenericController {
         parent::init();
     }
 
-    public function indexAction() {}
+    public function indexAction()
+    {
+    }
 
     public function verificarIn2017Action()
     {

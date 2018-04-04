@@ -12,60 +12,60 @@
 
 class SegmentoculturalController extends Zend_Controller_Action
 {
-	/**
-	 * M�todo para buscar os segmentos culturais de uma �rea
-	 * @param void
-	 * @return void
-	 */
-	public function segmentoculturalAction()
-	{
-		$this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
+    /**
+     * M�todo para buscar os segmentos culturais de uma �rea
+     * @param void
+     * @return void
+     */
+    public function segmentoculturalAction()
+    {
+        $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
-		// recebe o id via post
-		$post = Zend_Registry::get('post');
-		$id = (int) $post->id;
-
-        $objSegmentocultural = new Segmentocultural();
-		$this->view->segmentosculturais = $objSegmentocultural->buscarSegmento($id);
-	}
-
-
-
-	/**
-	 * M�todo para buscar os segmentos culturais de uma �rea
-	 * Busca como XML para o AJAX
-	 * @access public
-	 * @param void
-	 * @return void
-	 */
-	public function comboAction()
-	{
-		$this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
-
-		$post = Zend_Registry::get('post');
-		$id = (int) $post->id;
+        // recebe o id via post
+        $post = Zend_Registry::get('post');
+        $id = (int) $post->id;
 
         $objSegmentocultural = new Segmentocultural();
-		$this->view->combosegmentosculturais = $objSegmentocultural->buscarSegmento($id);
-	}
+        $this->view->segmentosculturais = $objSegmentocultural->buscarSegmento($id);
+    }
 
-	/**
-	 * M�todo para buscar os segmentos culturais de uma �rea
-	 * Busca como XML para o AJAX
-	 * @access public
-	 * @param void
-	 * @return void
-	 */
-	public function comboZAction()
-	{
-		$this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
-		// recebe o id via post
-		$post = Zend_Registry::get('post');
-		$id = (int) $post->id;
 
-                // integra��o MODELO e VIS�O
-		$Segmento = new Segmento();
-		$this->view->combosegmentosculturais = $Segmento->combo(array('a.Codigo = ?' => $id), array('s.Descricao ASC'));
-	} // fecha comboAction()
+    /**
+     * M�todo para buscar os segmentos culturais de uma �rea
+     * Busca como XML para o AJAX
+     * @access public
+     * @param void
+     * @return void
+     */
+    public function comboAction()
+    {
+        $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
+
+        $post = Zend_Registry::get('post');
+        $id = (int) $post->id;
+
+        $objSegmentocultural = new Segmentocultural();
+        $this->view->combosegmentosculturais = $objSegmentocultural->buscarSegmento($id);
+    }
+
+    /**
+     * M�todo para buscar os segmentos culturais de uma �rea
+     * Busca como XML para o AJAX
+     * @access public
+     * @param void
+     * @return void
+     */
+    public function comboZAction()
+    {
+        $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
+
+        // recebe o id via post
+        $post = Zend_Registry::get('post');
+        $id = (int) $post->id;
+
+        // integra��o MODELO e VIS�O
+        $Segmento = new Segmento();
+        $this->view->combosegmentosculturais = $Segmento->combo(array('a.Codigo = ?' => $id), array('s.Descricao ASC'));
+    } // fecha comboAction()
 }

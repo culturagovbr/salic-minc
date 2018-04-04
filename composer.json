@@ -1,12 +1,14 @@
 {
     "require-dev": {
-        "phpunit/phpunit": "3.7.*",
+        "phpunit/phpunit": "^4.8.36",
         "vinnyfs89/x-dump": "dev-master",
         "vinnyfs89/r-enc": "dev-master"
     },
     "require": {
         "opauth/opauth": ">=0.2.0",
-        "aferrandini/phpqrcode": "1.0.1"
+        "aferrandini/phpqrcode": "1.0.1",
+        "zendframework/zendframework1": "1.*",
+        "sentry/sentry": "^1.8"
     },
     "autoload" : {
         "psr-0" : {

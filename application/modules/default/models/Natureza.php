@@ -5,7 +5,7 @@ class Natureza extends MinC_Db_Table_Abstract
     //protected $_name = 'AGENTE.dbo.Natureza';
     protected $_banco = 'AGENTES';
     protected $_name  = 'Natureza';
-    protected  $_schema = 'AGENTES';
+    protected $_schema = 'AGENTES';
 
     /**
      * Retorna registros do banco de dados referente a Agentes(Proponente)
@@ -21,8 +21,7 @@ class Natureza extends MinC_Db_Table_Abstract
         $slct->setIntegrityCheck(false);
         $slct->from($this->_name);
 
-        foreach ($where as $coluna=>$valor)
-        {
+        foreach ($where as $coluna=>$valor) {
             $slct->where($coluna, $valor);
         }
 
@@ -36,12 +35,14 @@ class Natureza extends MinC_Db_Table_Abstract
      * @param integer $where
      * @return integer (quantidade de registros alterados)
      */
-    public function alterarDados($dados, $idNatureza) {
+    public function alterarDados($dados, $idNatureza)
+    {
         $where = "idNatureza = " . $idNatureza;
         return $this->update($dados, $where);
     } // fecha m�todo alterarDados()
 
-    public function pesquisaCEPIM($cnpjcpf) {
+    public function pesquisaCEPIM($cnpjcpf)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -50,8 +51,10 @@ class Natureza extends MinC_Db_Table_Abstract
         );
 
         $select->joinInner(
-            array('b' => 'Agentes'), 'b.idAgente = a.idAgente',
-            array(''), 'AGENTES.dbo'
+            array('b' => 'Agentes'),
+            'b.idAgente = a.idAgente',
+            array(''),
+            'AGENTES.dbo'
         );
         
         $select->where('b.CNPJCPF = ?', $cnpjcpf);
@@ -60,5 +63,4 @@ class Natureza extends MinC_Db_Table_Abstract
         
         return $this->fetchAll($select);
     }
-
 }

@@ -63,8 +63,6 @@ $finalizadoHref              =   $this->url(array('controller' => 'comprovarexec
                 <span class="no_seta last">&nbsp;</span>
             </div>
             <div class="bottom"></div>
-
-
         </div>
     </div>
 </div>
@@ -1002,6 +1000,7 @@ function fornecedores(){
             $("#idAgente").val(agente.id);
             $("#Descricao").val(agente.nome).attr('disabled', 'true');
             $("#divDinamicaAgentes").dialog('destroy').remove();
+            $("#" + $("#CNPJCPF").attr('idDescricao')).next().addClass('active');
             $('html').css('overflow', 'auto');
         });
     });

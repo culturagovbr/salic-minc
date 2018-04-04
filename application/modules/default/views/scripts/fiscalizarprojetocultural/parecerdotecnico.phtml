@@ -6,7 +6,7 @@ $relatorio = $this->relatorioFiscalizacao;
 $historicoDevolucao = $this->historicoDevolucao;
 
 $ExcluirHref = $this->url(array('controller' => 'fiscalizarprojetocultural', 'action' => 'excluir'));
-if ($this->grupoAtivo == 135) {
+if ($this->grupoAtivo == 135) { # tecnico
     $salvarelatoriotecnico = $this->url(array('controller' => 'fiscalizarprojetocultural', 'action' => 'salvarelatoriotecnico'));
     $voltar = $this->url(array('controller' => 'fiscalizarprojetocultural', 'action' => 'painelcontroletecnicofiscalizacao'));
 }
@@ -796,61 +796,71 @@ $selected = '';
 <script type="text/javascript" src="<?php echo $this->baseUrl();?>/public/js/tinymce/js/tinymce/tinymce.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
+
+        $("textarea").each(function () {
+            $(this).editorRico({
+                altura: 300,
+                maxchar: 8000,
+                isLimitarCarateres : true,
+                isDesabilitarEdicao: 0
+            });
+        });
+
         acertaLayout();
         criacampo();
 
 	    <?php if ($this->grupoAtivo == 135) : // TECNICO   ?>
-	tinymce.init({
-	    plugins:"paste,textcolor",
- 	    language: "pt_BR",
- 	    paste_as_text: true,
-            selector: '#dsObservacao',
-            height: 300,
- 	    toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
- 	    menubar:"",
-	});
-
-	tinymce.init({
-	    plugins:"paste,textcolor",
- 	    language: "pt_BR",
- 	    paste_as_text: true,
-            selector: '#dsParecerTecnico',
-            height: 300,
- 	    toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
- 	    menubar:"",
-	});
-
-	tinymce.init({
-	    plugins:"paste,textcolor",
- 	    language: "pt_BR",
- 	    paste_as_text: true,
-            selector: '#dsEvidencia',
-            height: 300,
- 	    toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
- 	    menubar:"",
-	});
-
-	tinymce.init({
-	    plugins:"paste,textcolor",
- 	    language: "pt_BR",
- 	    paste_as_text: true,
-            selector: '#dsRecomendacaoEquipe',
-            height: 300,
- 	    toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
- 	    menubar:"",
-	});
+//            tinymce.init({
+//                plugins:"paste,textcolor",
+//                language: "pt_BR",
+//                paste_as_text: true,
+//                    selector: '#dsObservacao',
+//                    height: 300,
+//                toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
+//                menubar:"",
+//            });
+//
+//            tinymce.init({
+//                plugins:"paste,textcolor",
+//                language: "pt_BR",
+//                paste_as_text: true,
+//                    selector: '#dsParecerTecnico',
+//                    height: 300,
+//                toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
+//                menubar:"",
+//            });
+//
+//            tinymce.init({
+//                plugins:"paste,textcolor",
+//                language: "pt_BR",
+//                paste_as_text: true,
+//                    selector: '#dsEvidencia',
+//                    height: 300,
+//                toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
+//                menubar:"",
+//            });
+//
+//            tinymce.init({
+//                plugins:"paste,textcolor",
+//                language: "pt_BR",
+//                paste_as_text: true,
+//                    selector: '#dsRecomendacaoEquipe',
+//                    height: 300,
+//                toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
+//                menubar:"",
+//            });
 
 	    <?php else: ?>	
 
-	tinymce.init({
-	    plugins:"paste,textcolor",
- 	    language: "pt_BR",
- 	    paste_as_text: true,
-            selector: '#dsParecer',
-            height: 300,
- 	    toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
- 	    menubar:"",
-	});	
+//            tinymce.init({
+//                plugins:"paste,textcolor",
+//                language: "pt_BR",
+//                paste_as_text: true,
+//                    selector: '#dsParecer',
+//                    height: 300,
+//                toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
+//                menubar:"",
+//            });
 	    <?php endif; ?>
         
         somaEmpregos();
@@ -1027,7 +1037,7 @@ $selected = '';
         });
     });
     function acertaLayout(){
-        $('input[type!=submit]|[type!=button]').addClass('input_simples');
+//        $('input[type!=submit]|[type!=button]').addClass('input_simples');
         $('textarea').addClass('textarea_simples');
         $('select[id!=perfilXgrupo]').addClass('select_simples');
         $(".qtEmprego").each(function(){

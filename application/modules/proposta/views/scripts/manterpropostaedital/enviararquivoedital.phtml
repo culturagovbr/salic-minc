@@ -1,25 +1,38 @@
 <?php
 $buscarDocumento = $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'buscardocumento'));
 $edital='';
-
-//if(isset($_GET['edital']) && $_GET['edital']=="s"){
-//    echo $this->partial('manterpropostaedital/inc/menu.inc.php', $this);
-//    $edital='s';
-//}else{
-//    echo $this->partial('manterpropostaincentivofiscal/inc/menu.inc.php', $this);
-//}
-
 ?>
+
+<?php echo $this->partial("inc/menu.phtml", $this); ?>
+
 <div class="container-fluid">
     <div class="row">
-        <?php echo $this->partial("inc/menu.phtml", $this); ?>
-        <div class="content col s10 m12 l10 planilha-produtos">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Anexar Documentos</h1>
+
+                    <?php
+                    gerarNovoBreadCrumb(array(
+                        $this->layout['listagem'],
+                        array('Anexar Documentos' => '')
+                    ));
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
             <div id="msgExclusaoArq" class="sumir">Deseja realmente efetuar a exclus&atilde;o?</div>
-            <h4>Anexar Documentos</h4>
-            <div id="">
-                <?php if( !$this->isEditarProjeto) : ?>
+            <div class="card-panel">
+                <?php if( $this->isEditavel) : ?>
                     <form method="post" action="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaedital', 'action' => 'incluir-anexo')) ?>" id="formulario"  enctype="multipart/form-data">
-                        <input type="hidden" name="idPreProjeto" value="<?php echo $_GET['idPreProjeto'] ?>" >
+                        <input type="hidden" name="idPreProjeto" value="<?php echo $this->idPreProjeto; ?>" >
                         <input type="hidden" name="edital" value="<?php echo $edital ?>" />
                          <fieldset>
                             <legend>Novo Arquivo</legend>
@@ -31,19 +44,21 @@ $edital='';
                             </div>
                             </div>
                             <div class="row">
-                                <div class="input-field col s12">
+                                <div class="col s12">
                                     <label class="active">Tipo do documento<span class="red-text">*</span></label>
                                     <p>
-                                        <input type="radio"  name="tipoDocumento" class="tipoDocumento" id="tipoDocumento1" value="1" /><label for="tipoDocumento1">Proponente</label>
-                                        <input type="radio"  name="tipoDocumento" class="tipoDocumento" id="tipoDocumento2" value="2" /><label for="tipoDocumento2">Proposta</label>
+                                        <input type="radio"  name="tipoDocumento" class="tipoDocumento" id="tipoDocumento1" value="1" />
+                                        <label for="tipoDocumento1">Proponente</label>
+                                        <input type="radio"  name="tipoDocumento" class="tipoDocumento" id="tipoDocumento2" value="2" />
+                                        <label for="tipoDocumento2"><?= isset($this->layout['titleShort']) ? $this->layout['titleShort']: 'Proposta'; ?></label>
                                         <span style="color:#f00" id="tipodocumentoinvalido"></span>
                                     </p>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="input-field col s12">
-                                    <label class="active">Documento <span class="red-text">*</span></label>
-                                    <select id="documento" name="documento" class="select_simples">
+                                <div class="col s12">
+                                    <label for="documento" class="active">Documento <span class="red-text">*</span></label>
+                                    <select id="documento" name="documento" class="browser-default">
                                         <option value=""> - Selecione um Tipo de Documento - &nbsp;</option>
                                     </select>
                                     <span style="color:#f00" id="documentoinvalido"></span>
@@ -64,15 +79,15 @@ $edital='';
                     </form>
                 <?php endif; ?>
                 <?php if(count($this->arquivosProposta)>0){ ?>
-                <table class="tabela">
+                <table class="bordered">
                     <tr>
-                        <th colspan="4">Documentos da Proposta</th>
+                        <th colspan="4">Documentos <?= isset($this->layout['titleShort']) ? $this->layout['titleShort']: 'Proposta'; ?></th>
                     </tr>
                     <tr class="destacar">
                         <td align="center"><b>Documento</b></td>
                         <td align="center"><b>Data envio</b></td>
                         <td align="center"><b>Arquivo</b></td>
-                        <?php if( !$this->isEditarProjeto) : ?>
+                        <?php if($this->isEditavel) : ?>
                         <td align="center" width="150"><b>A&ccedil;&atilde;o</b></td>
                         <?php endif; ?>
                     </tr>
@@ -87,10 +102,13 @@ $edital='';
                         </td>
                         <?php if ($this->isEditavel) : ?>
                             <td align="center">
-                                <button type="button" class="btn red white-text"
-                                    onclick="excluirAnexos(<?php echo $arquivosProposta['iddocumentospreprojetos']; ?>, <?php echo trim($_GET['idPreProjeto']); ?>, 'proposta');" >
-                                    Excluir
-                                </button>
+                                <a
+                                    class="btn small waves-effect waves-light tooltipped red btn-excluir-item"
+                                    href="javascript:void(0);"
+                                    onclick="excluirAnexos(<?php echo $arquivosProposta['iddocumentospreprojetos']; ?>, <?php echo trim($this->idPreProjeto); ?>, 'proposta');"
+                                    data-tooltip="Excluir arquivo">
+                                    <i class="material-icons">delete</i>
+                                </a>
                             </td>
                         <?php endif; ?>
                     <?php } ?>
@@ -106,7 +124,7 @@ $edital='';
                         <td align="center"><b>Documento</b></td>
                         <td align="center"><b>Data envio</b></td>
                         <td align="center"><b>Arquivo</b></td>
-                        <?php if( !$this->isEditarProjeto) : ?>
+                        <?php if( $this->isEditavel) : ?>
                             <td align="center" width="150"><b>A&ccedil;&atilde;o</b></td>
                         <?php endif; ?>
                     </tr>
@@ -118,10 +136,13 @@ $edital='';
 
                             <td align="center">
                                 <?php if ($this->isEditavel) : ?>
-                                    <button type="button"
-                                        class="btn red white-text"
-                                        onclick="excluirAnexos(<?php echo $arquivosProponente['idDocumentosAgentes']; ?>, <?php echo trim($_GET['idPreProjeto']); ?>, 'proponente');" />
-                                    excluir</button>
+                                    <a
+                                        class="btn small waves-effect waves-light tooltipped red btn-excluir-item"
+                                        href="javascript:void(0);"
+                                        onclick="excluirAnexos(<?php echo $arquivosProponente['idDocumentosAgentes']; ?>, <?php echo trim($this->idPreProjeto); ?>, 'proponente');"
+                                        data-tooltip="Excluir arquivo">
+                                        <i class="material-icons">delete</i>
+                                    </a>
                                 <?php endif; ?>
                             </td>
 

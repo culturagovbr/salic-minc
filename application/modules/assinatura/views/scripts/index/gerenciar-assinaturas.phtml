@@ -122,7 +122,7 @@
                                     $parametrosAssinatura = "?IdPRONAC={$dado['IdPRONAC']}&idTipoDoAtoAdministrativo={$dado['idTipoDoAtoAdministrativo']}";
                                     if (!is_null($dado['possuiProximaAssinatura'])):
                                         ?>
-                                        <a class="btn waves-effect waves-light tooltipped small btn"
+                                        <a class="btn waves-effect waves-light tooltipped small btn modal-trigger"
                                            href="#modalConfirmacao"
                                            data-redirect-url="<?php echo $this->url(
                                                    array(
@@ -134,7 +134,7 @@
                                            data-nrpronac="<?php echo $dado['pronac']; ?>"
                                            data-position="top"
                                            data-delay="50"
-                                           data-tooltip="Assinar">
+                                           data-tooltip="Movimentar">
                                             <i class="material-icons">arrow_forward</i>
                                         </a>
                                     <?php endif; ?>

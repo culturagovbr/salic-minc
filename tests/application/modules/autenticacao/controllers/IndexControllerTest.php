@@ -1,14 +1,11 @@
 <?php
-
-/**
- * IndexControllerTest
- *
- * @uses MinC
- * @uses _Test_ControllerActionTestCase
- * @author  wouerner <wouerner@gmail.com>
- */
 class IndexControllerTest  extends MinC_Test_ControllerActionTestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
     public function testCadastrarusuarioAction()
     {
         $this->dispatch('/autenticacao/index/cadastrarusuario');

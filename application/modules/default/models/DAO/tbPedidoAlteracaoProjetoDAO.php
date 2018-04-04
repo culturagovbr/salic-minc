@@ -21,8 +21,7 @@ class tbPedidoAlteracaoProjetoDAO extends Zend_Db_Table
         tap.dsAlteracaoProjeto,
         pp.tpProrrogacao
         ";
-        if(!empty($idpedidoalteracao))
-        {
+        if (!empty($idpedidoalteracao)) {
             $sql .= ",
                   pap.idPedidoAlteracao,
                   apa.dtParecerTecnico,
@@ -54,20 +53,16 @@ class tbPedidoAlteracaoProjetoDAO extends Zend_Db_Table
         left join BDCORPORATIVO.scSAC.tbAvaliacaoPedidoAlteracao apa on apa.idPedidoAlteracao = pap.idPedidoAlteracao
         left join BDCORPORATIVO.scSAC.tbProrrogacaoPrazo pp on pp.idPedidoAlteracao = pap.idPedidoAlteracao
         ";
-        if(!empty($idpedidoalteracao))
-        {
+        if (!empty($idpedidoalteracao)) {
             $sql.=" where pap.idPedidoAlteracao='".$idpedidoalteracao."' ";
             //return $sql;die;
-        }
-        else{
+        } else {
             $sql .= " where pap.dtSolicitacao in
             (select max(dtSolicitacao) from BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto where idPedidoAlteracao = pap.idPedidoAlteracao)";
-
         }
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
-
     }
 
     public static function insertDadosProjeto($dados)
@@ -77,14 +72,10 @@ class tbPedidoAlteracaoProjetoDAO extends Zend_Db_Table
 
         $alterar = $db->insert("BDCORPORATIVO.scSAC.tbAvaliacaoPedidoAlteracao", $dados);
 
-        if ($alterar)
-        {
+        if ($alterar) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 }
-?>

@@ -1,7 +1,8 @@
 <?php
 require_once "library/MinC/Currency/Currency.php";
 
-class PareceristaController extends MinC_Controller_Action_Abstract {
+class PareceristaController extends MinC_Controller_Action_Abstract
+{
 
     /**
      * @var integer (variável com o id do usuário logado)
@@ -11,22 +12,21 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
     private $intTamPag = 10;
 
 
-    public function init() {
+    public function init()
+    {
         $this->view->title  = "Salic - Sistema de Apoio às Leis de Incentivo à Cultura"; // título da página
         $auth               = Zend_Auth::getInstance(); // pega a autenticação
         $Usuario            = new UsuarioDAO(); // objeto usuário
         $GrupoAtivo         = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessão com o grupo ativo
 
-        if ($auth->hasIdentity()) // caso o usuário esteja autenticado
-        {
+        if ($auth->hasIdentity()) { // caso o usuário esteja autenticado
             // verifica as permissões
             $PermissoesGrupo    = array();
             $PermissoesGrupo[]  = 94;
             $PermissoesGrupo[]  = 93;
             $PermissoesGrupo[]  = 137;
 
-            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) // verifica se o grupo ativo está no array de permissões
-            {
+            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo está no array de permissões
                 parent::message("Você não tem permissão para acessar essa área do sistema!", "principal/index", "ALERT");
             }
 
@@ -39,15 +39,12 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             $this->view->grupoAtivo     = $GrupoAtivo->codGrupo; // manda o grupo ativo do usuário para a visão
             $this->view->orgaoAtivo     = $GrupoAtivo->codOrgao; // manda o órgão ativo do usuário para a visão
 
-            if (isset($auth->getIdentity()->usu_codigo)) // autenticacao novo salic
-            {
+            if (isset($auth->getIdentity()->usu_codigo)) { // autenticacao novo salic
                 $this->getIdUsuario = UsuarioDAO::getIdUsuario($auth->getIdentity()->usu_codigo);
                 $this->getIdUsuario = ($this->getIdUsuario) ? $this->getIdUsuario["idAgente"] : 0;
             }
-
         } // fecha if
-        else // caso o usuário não esteja autenticado
-        {
+        else { // caso o usuário não esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
@@ -61,8 +58,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return list
      */
-    public function indexAction() {
-
+    public function indexAction()
+    {
         $pronacPesquisa     = $this->_request->getParam('pronacPesquisa');
         $situacaoPesquisa   = $this->_request->getParam('situacaoPesquisa', 1);
         $nrCPFPesquisa      = $this->_request->getParam('nrCPFPesquisa');
@@ -70,44 +67,42 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $dtFimPesquisa      = $this->_request->getParam('dtFimPesquisa');
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
 
         $order = array();
 
         // Parametro de ordenacao
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         // campo de ordenacao
-        if($this->_request->getParam("campo")) {
-
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
 
             $cn = $campo;
 
-            if($campo == 'nome'){
+            if ($campo == 'nome') {
                 $campo = 'sac.dbo.fnNome(pp.idParecerista)';
                 $cn = 'nome';
             }
 
-            if($campo == 'pronac'){
+            if ($campo == 'pronac') {
                 $campo = '(pro.AnoProjeto + pro.Sequencial)';
             }
 
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
         } else {
             $campo      = null;
             $cn         = null;
@@ -119,7 +114,7 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
 
         $get = Zend_Registry::get('get');
 
-        if (isset($get->pag)){
+        if (isset($get->pag)) {
             $pag = $get->pag;
         }
 
@@ -127,30 +122,30 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
 
         $where = array();
 
-        if(!empty($pronacPesquisa)){
+        if (!empty($pronacPesquisa)) {
             $where['pro.AnoProjeto + pro.Sequencial = ?'] = $pronacPesquisa;
             $this->view->pronacPesquisa = $pronacPesquisa;
         }
 
-        if(!empty($situacaoPesquisa)){
+        if (!empty($situacaoPesquisa)) {
             $where['gpp.siPagamento = ?'] = $situacaoPesquisa;
             $this->view->situacaoPesquisa = $situacaoPesquisa;
-        }else{
+        } else {
             $where['gpp.siPagamento = ?'] = 3;
             $this->view->situacaoPesquisa = 3;
         }
 
-        if(!empty($nrCPFPesquisa)){
+        if (!empty($nrCPFPesquisa)) {
             $where['a.CNPJCPF = ?'] = Mascara::delMaskCPF($nrCPFPesquisa);
             $this->view->nrCPFPesquisa = $nrCPFPesquisa;
         }
 
-        if(!empty($dtInicioPesquisa)){
+        if (!empty($dtInicioPesquisa)) {
             $where['dtGeracaoPagamento >= ?'] = date('Y-d-m', strtotime($dtInicioPesquisa)) ;
             $this->view->dtInicioPesquisa = $dtInicioPesquisa;
         }
 
-        if(!empty($dtFimPesquisa)){
+        if (!empty($dtFimPesquisa)) {
             $where['dtGeracaoPagamento <= ?'] = date('Y-d-m', strtotime($dtFimPesquisa)) ;
             $this->view->dtFimPesquisa = $dtFimPesquisa;
         }
@@ -185,7 +180,6 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $this->view->qtdDocumentos = $total;
         $this->view->dados         = $busca;
         $this->view->intTamPag     = $this->intTamPag;
-
     }
 
     /**
@@ -204,8 +198,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return list
      */
-    public function consultarAction() {
-
+    public function consultarAction()
+    {
         $pronacPesquisa     = $this->_request->getParam('pronacPesquisa');
         $situacaoPesquisa   = $this->_request->getParam('situacaoPesquisa');
         $nrCPFPesquisa      = $this->_request->getParam('nrCPFPesquisa');
@@ -215,7 +209,7 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $auth = Zend_Auth::getInstance();
         $idAgente = 0;
 
-        if (isset($auth->getIdentity()->usu_codigo)){
+        if (isset($auth->getIdentity()->usu_codigo)) {
             $Usuario      = new Autenticacao_Model_Usuario(); // objeto usuário
             $Agente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
             $idAgente = $Agente['idagente'];
@@ -223,44 +217,42 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         }
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
 
         $order = array();
 
         // Parametro de ordenacao
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         // campo de ordenacao
-        if($this->_request->getParam("campo")) {
-
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
 
             $cn = $campo;
 
-            if($campo == 'nome'){
+            if ($campo == 'nome') {
                 $campo = 'sac.dbo.fnNome(pp.idParecerista)';
                 $cn = 'nome';
             }
 
-            if($campo == 'pronac'){
+            if ($campo == 'pronac') {
                 $campo = '(pro.AnoProjeto + pro.Sequencial)';
             }
 
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
         } else {
             $campo      = null;
             $cn         = null;
@@ -272,7 +264,7 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
 
         $get = Zend_Registry::get('get');
 
-        if (isset($get->pag)){
+        if (isset($get->pag)) {
             $pag = $get->pag;
         }
 
@@ -280,30 +272,30 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
 
         $where = array();
 
-        if(!empty($pronacPesquisa)){
+        if (!empty($pronacPesquisa)) {
             $where['pro.AnoProjeto + pro.Sequencial = ?'] = $pronacPesquisa;
             $this->view->pronacPesquisa = $pronacPesquisa;
         }
 
-        if(!empty($situacaoPesquisa)){
+        if (!empty($situacaoPesquisa)) {
             $where['gpp.siPagamento = ?'] = $situacaoPesquisa;
             $this->view->situacaoPesquisa = $situacaoPesquisa;
-        }else{
+        } else {
             $where['gpp.siPagamento = ?'] = 3;
             $this->view->situacaoPesquisa = 3;
         }
 
-        if(!empty($nrCPFPesquisa)){
+        if (!empty($nrCPFPesquisa)) {
             $where['a.CNPJCPF = ?'] = Mascara::delMaskCPF($nrCPFPesquisa);
             $this->view->nrCPFPesquisa = $nrCPFPesquisa;
         }
 
-        if(!empty($dtInicioPesquisa)){
+        if (!empty($dtInicioPesquisa)) {
             $where['dtGeracaoPagamento >= ?'] = date('Y-d-m', strtotime($dtInicioPesquisa)) ;
             $this->view->dtInicioPesquisa = $dtInicioPesquisa;
         }
 
-        if(!empty($dtFimPesquisa)){
+        if (!empty($dtFimPesquisa)) {
             $where['dtGeracaoPagamento <= ?'] = date('Y-d-m', strtotime($dtFimPesquisa)) ;
             $this->view->dtFimPesquisa = $dtFimPesquisa;
         }
@@ -341,8 +333,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $this->view->intTamPag     = $this->intTamPag;
     }
 
-    public function imprimirConsultaAction() {
-
+    public function imprimirConsultaAction()
+    {
         $pronacPesquisa     = $this->_request->getParam('pronacPesquisa');
         $situacaoPesquisa   = $this->_request->getParam('situacaoPesquisa');
         $dtInicioPesquisa   = $this->_request->getParam('dtInicioPesquisa');
@@ -353,48 +345,47 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $auth = Zend_Auth::getInstance();
         $idAgente = 0;
 
-        if (isset($auth->getIdentity()->usu_codigo)){
+        if (isset($auth->getIdentity()->usu_codigo)) {
             $Usuario      = new Autenticacao_Model_Usuario(); // objeto usuário
             $Agente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
             $idAgente = $Agente['idAgente'];
         }
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
 
         $order = array();
 
         // Parametro de ordenacao
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         // campo de ordenacao
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $cn = $campo;
-            if($campo == 'nome'){
+            if ($campo == 'nome') {
                 $campo = 'sac.dbo.fnNome(pp.idParecerista)';
                 $cn = 'nome';
             }
 
-            if($campo == 'pronac'){
+            if ($campo == 'pronac') {
                 $campo = '(pro.AnoProjeto + pro.Sequencial)';
             }
 
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
         } else {
             $campo      = null;
             $cn         = null;
@@ -405,32 +396,32 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $pag = 1;
         $get = Zend_Registry::get('post');
 
-        if (isset($get->pag)){
+        if (isset($get->pag)) {
             $pag = $get->pag;
         }
 
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
         $where = array();
 
-        if(!empty($pronacPesquisa)){
+        if (!empty($pronacPesquisa)) {
             $where['pro.AnoProjeto + pro.Sequencial = ?'] = $pronacPesquisa;
         }
 
-        if(!empty($situacaoPesquisa)){
+        if (!empty($situacaoPesquisa)) {
             $where['gpp.siPagamento = ?'] = $situacaoPesquisa;
-        }else{
+        } else {
             $where['gpp.siPagamento = ?'] = 3;
         }
 
-        if(!empty($nrCPFPesquisa)){
+        if (!empty($nrCPFPesquisa)) {
             $where['a.CNPJCPF = ?'] = Mascara::delMaskCPF($nrCPFPesquisa);
         }
 
-        if(!empty($dtInicioPesquisa)){
+        if (!empty($dtInicioPesquisa)) {
             $where['dtGeracaoPagamento >= ?'] = date('Y-d-m', strtotime($dtInicioPesquisa)) ;
         }
 
-        if(!empty($dtFimPesquisa)){
+        if (!empty($dtFimPesquisa)) {
             $where['dtGeracaoPagamento <= ?'] = date('Y-d-m', strtotime($dtFimPesquisa)) ;
         }
 
@@ -486,12 +477,11 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function removeAssinantesAction() {
-
+    public function removeAssinantesAction()
+    {
         $modeltbConfigurarPagamentoXtbAssinantes = new tbConfigurarPagamentoXtbAssinantes();
 
         try {
-
             $parametros = explode('-', $this->_request->getParam('assinanteCargoRemove'));
 
             $assinante      = $parametros[0];
@@ -503,7 +493,6 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             $modeltbConfigurarPagamentoXtbAssinantes->delete($where);
 
             parent::message('Assinatura removida com sucesso!', 'parecerista/configurar-pagamento-parecerista', 'CONFIRM');
-
         } catch (Exception $exc) {
             parent::message('Erro ao remover a assinatura.', 'parecerista/configurar-pagamento-parecerista', 'ERROR');
         }
@@ -516,8 +505,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function configurarPagamentoPareceristaAction(){
-
+    public function configurarPagamentoPareceristaAction()
+    {
         $modelPagarParecerista    = new PagarParecerista();
         $modelConfigurarPagamento = new ConfigurarPagamentoParecerista();
         $modelGerarPagamentoParecerista = new GerarPagamentoParecerista();
@@ -534,8 +523,7 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         // Dados da configuração de pagamento
         $configAtivo = $modelConfigurarPagamento->buscarConfiguracoes(array('stEstado = ?' => '1'));
 
-        if(count($configAtivo) == 0){
-
+        if (count($configAtivo) == 0) {
             $dados = array('nrDespachoInicial' => 0,
                             'nrDespachoFinal' => 0,
                             'dtConfiguracaoPagamento' => new Zend_Db_Expr('GETDATE()'),
@@ -545,17 +533,21 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
 
             $modelConfigurarPagamento->inserir($dados);
             $configAtivo = $modelConfigurarPagamento->buscarConfiguracoes(array('stEstado = ?' => '1'));
-
         }
 
         $this->view->assign('configuracaoAtiva', $configAtivo);
 
         // Envia todos os assinantes selecionados
-        $assinantesConfigurados = $modeltbConfigurarPagamentoXtbAssinantes->assinantesConfigurados(array('a.idConfigurarPagamento = ?' => $configAtivo[0]->idConfigurarPagamento));
+        $assinantesConfigurados = $modeltbConfigurarPagamentoXtbAssinantes->assinantesConfigurados(
+            array(
+                'a.idConfigurarPagamento = ?' => $configAtivo[0]->idConfigurarPagamento
+            )
+        );
+
         $this->view->assign('assinantesConfigurados', $assinantesConfigurados);
 
         $idAssinantes = array();
-        foreach($assinantesConfigurados as $ac){
+        foreach ($assinantesConfigurados as $ac) {
             array_push($idAssinantes, $ac->idAssinantes);
         }
 
@@ -563,9 +555,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $assinantes = $modelAssinantes->listarAssinantes(array('stEstado = ?' => 1));
         $listaAssinantes = array();
         $i = 0;
-        foreach($assinantes as $ass){
-
-            if(!in_array($ass->idAssinantes, $idAssinantes)){
+        foreach ($assinantes as $ass) {
+            if (!in_array($ass->idAssinantes, $idAssinantes)) {
                 $listaAssinantes[$i]['idAssinantes'] = $ass->idAssinantes;
                 $listaAssinantes[$i]['Nome'] = $ass->Nome;
                 $listaAssinantes[$i]['Cargo'] = $ass->Cargo;
@@ -577,22 +568,20 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $this->view->assign('assinantes', $listaAssinantes);
 
         // Dados dos pareceristas e projetos analisados
-        $listaPareceristas = $modelPagarParecerista->buscarPareceristas(array('pp.idGerarPagamentoParecerista IS NULL' => NULL));
+        $listaPareceristas = $modelPagarParecerista->buscarPareceristas(array('pp.idGerarPagamentoParecerista IS NULL' => null));
 
         $parecerista = array();
 
         $pa = 0;
-        foreach($listaPareceristas as $p){
-
+        foreach ($listaPareceristas as $p) {
             $parecerista[$pa]['idParecerista'] = $p->idParecerista;
             $parecerista[$pa]['nmParecerista'] = $p->nmParecerista;
 
-            $listaDePagamentos = $modelPagarParecerista->buscarPagamentos(array('pp.idGerarPagamentoParecerista IS NULL' => NULL, 'idParecerista = ?' => $p->idParecerista));
+            $listaDePagamentos = $modelPagarParecerista->buscarPagamentos(array('pp.idGerarPagamentoParecerista IS NULL' => null, 'idParecerista = ?' => $p->idParecerista));
 
             $dados = array();
             $pr = 0;
-            foreach($listaDePagamentos as $pag){
-
+            foreach ($listaDePagamentos as $pag) {
                 $dados[$pr]['idPagarParecerista']   = $pag->idPagarParecerista;
                 $dados[$pr]['idPronac']             = $pag->idpronac;
                 $dados[$pr]['pronac']               = $pag->pronac;
@@ -616,7 +605,6 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
 
         $this->view->listaDePagamentos      = $paginator;
         $this->view->qtdDePagamentos      = $pa; // quantidade
-
     }
 
     /**
@@ -626,7 +614,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function configurouPagamentoPareceristaAction(){
+    public function configurouPagamentoPareceristaAction()
+    {
         $modelPagarParecerista    = new PagarParecerista();
         $modelConfigurarPagamento = new ConfigurarPagamentoParecerista();
         $modelGerarPagamentoParecerista = new GerarPagamentoParecerista();
@@ -649,12 +638,11 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             $modelConfigurarPagamento->update($dados, array('idConfigurarPagamento = ?' => $idConfigurarPagamento));
 
             // Dados dos pareceristas e projetos analisados
-            $listaPareceristas = $modelPagarParecerista->buscarPareceristas(array('pp.idGerarPagamentoParecerista IS NULL' => NULL));
+            $listaPareceristas = $modelPagarParecerista->buscarPareceristas(array('pp.idGerarPagamentoParecerista IS NULL' => null));
 
             $di = $nrDespachoInicial;
-            foreach($listaPareceristas as $p){
-
-                $vlTotalPagamento = $modelPagarParecerista->vlTotalPagamento(array('pp.idGerarPagamentoParecerista IS NULL' => NULL, 'idParecerista = ?' => $p->idParecerista));
+            foreach ($listaPareceristas as $p) {
+                $vlTotalPagamento = $modelPagarParecerista->vlTotalPagamento(array('pp.idGerarPagamentoParecerista IS NULL' => null, 'idParecerista = ?' => $p->idParecerista));
 
                 // Gerar Pagamento Parecerista
                 $dados = array('nrDespacho'             => $di,
@@ -668,9 +656,9 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
                 $id = $modelGerarPagamentoParecerista->inserir($dados, false);
 
                 // Atualiza Pagar Parecerista
-                $listaDePagamentos = $modelPagarParecerista->buscarPagamentos(array('pp.idGerarPagamentoParecerista IS NULL' => NULL, 'idParecerista = ?' => $p->idParecerista));
+                $listaDePagamentos = $modelPagarParecerista->buscarPagamentos(array('pp.idGerarPagamentoParecerista IS NULL' => null, 'idParecerista = ?' => $p->idParecerista));
 
-                foreach($listaDePagamentos as $pag){
+                foreach ($listaDePagamentos as $pag) {
                     $modelPagarParecerista->update(array('idGerarPagamentoParecerista' => $id), array('idPagarParecerista = ?' => $pag->idPagarParecerista));
                 }
 
@@ -678,11 +666,9 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             }
 
             parent::message('Despachos gerados com sucesso!', 'parecerista/solicitar-pagamento-parecerista', 'CONFIRM');
-
         } catch (Exception $exc) {
             parent::message('Erro ao gerar os despachos.', 'parecerista/gerar-pagamento-parecerista', 'ERROR');
         }
-
     }
 
     /**
@@ -692,8 +678,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function cancelarPagamentoPareceristaAction(){
-
+    public function cancelarPagamentoPareceristaAction()
+    {
         $modelPagarParecerista          = new PagarParecerista();
         $modelGerarPagamentoParecerista = new GerarPagamentoParecerista();
         $idGerarPagamentoParecerista    = $this->_request->getParam('idGerarPagamentoParecerista');
@@ -701,7 +687,7 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         try {
 
             // Limpar na tabela [tbPagarParecerista]
-            $modelPagarParecerista->update(array('idGerarPagamentoParecerista' => NULL), array('idGerarPagamentoParecerista = ?' => $idGerarPagamentoParecerista));
+            $modelPagarParecerista->update(array('idGerarPagamentoParecerista' => null), array('idGerarPagamentoParecerista = ?' => $idGerarPagamentoParecerista));
 
             // Limpar na tabela [tbConfigurarPagamento]
             $modelGerarPagamentoParecerista->delete(array('idGerarPagamentoParecerista = ?' => $idGerarPagamentoParecerista));
@@ -710,11 +696,10 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         } catch (Exception $exc) {
             parent::message('Erro ao cancelar o despacho.', 'parecerista/solicitar-pagamento-parecerista', 'ERROR');
         }
-
     }
 
-    public function excluirRegistroPagamentoAction(){
-
+    public function excluirRegistroPagamentoAction()
+    {
         $idPagamento = $this->_request->getParam('idPagamentoCancelar');
         $modelPagarParecerista = new PagarParecerista();
 
@@ -722,11 +707,9 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             // Exclui o registro na tabela [tbPagarParecerista]
             $modelPagarParecerista->delete(array('idPagarParecerista = ?' => $idPagamento));
             parent::message('Exclusão realiazada com sucesso!', 'parecerista/configurar-pagamento-parecerista', 'CONFIRM');
-
         } catch (Exception $exc) {
             parent::message('Erro ao excluir o registto.', 'parecerista/configurar-pagamento-parecerista', 'ERROR');
         }
-
     }
 
     /**
@@ -736,33 +719,33 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function solicitarPagamentoPareceristaAction(){
+    public function solicitarPagamentoPareceristaAction()
+    {
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
         } else {
             $campo = null;
             $order = array(7); //Coluna NrDespacho
@@ -771,7 +754,9 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         /* ================== PAGINACAO ======================*/
@@ -807,11 +792,11 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
 
         $d = 0;
 
-        foreach($busca as $de){
-
+        foreach ($busca as $de) {
             $despachos[$d]['idGerarPagamentoParecerista']   = $de->idGerarPagamentoParecerista;
             $despachos[$d]['idConfigurarPagamento']         = $de->idConfigurarPagamento;
             $despachos[$d]['dtGeracaoPagamento']            = $de->dtGeracaoPagamento;
+            $despachos[$d]['anoGeracaoPagamento']           = substr($de->dtGeracaoPagamento, -4);
             $despachos[$d]['dtEfetivacaoPagamento']         = $de->dtEfetivacaoPagamento;
             $despachos[$d]['dtOrdemBancaria']               = $de->dtOrdemBancaria;
             $despachos[$d]['nrOrdemBancaria']               = $de->nrOrdemBancaria;
@@ -829,11 +814,10 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             $valorTotal = 0;
             $pronac = $listaDePagamentos[0]->pronac;
 
-            foreach($listaDePagamentos as $pagmt){
-
+            foreach ($listaDePagamentos as $pagmt) {
                 $valorTotal = $pagmt->vlPagamento + $valorTotal;
 
-                if($pronac != $pagmt->pronac){
+                if ($pronac != $pagmt->pronac) {
                     $pr++;
                     $valorTotal = $pagmt->vlPagamento;
                 }
@@ -865,8 +849,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function confirmarPagamentoPareceristaAction(){
-
+    public function confirmarPagamentoPareceristaAction()
+    {
         $auth = Zend_Auth::getInstance();
         $modelGerarPagamentoParecerista = new GerarPagamentoParecerista();
         $idGerarPagamentoParecerista = $this->_request->getParam('idGerarPagamentoParecerista');
@@ -880,15 +864,13 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             $modelGerarPagamentoParecerista->update($dados, array('idGerarPagamentoParecerista = ?' => $idGerarPagamentoParecerista));
 
             parent::message('Pagamento confirmado com sucesso!', 'parecerista/solicitar-pagamento-parecerista', 'CONFIRM');
-
         } catch (Exception $exc) {
             parent::message('Erro ao confirmar o pagamento! '.$exc->getMessage(), 'parecerista/solicitar-pagamento-parecerista', 'ERROR');
         }
-
     }
 
-    public function cancelarRegistroOrdemBancariaAction(){
-
+    public function cancelarRegistroOrdemBancariaAction()
+    {
         $auth = Zend_Auth::getInstance();
         $modelGerarPagamentoParecerista = new GerarPagamentoParecerista();
 
@@ -903,11 +885,9 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             $modelGerarPagamentoParecerista->update($dados, array('idGerarPagamentoParecerista = ?' => $idGerarPagamentoParecerista));
 
             parent::message('Cancelamento de ordem bancária realizado com sucesso!', 'parecerista/registrar-ordem-bancaria', 'CONFIRM');
-
         } catch (Exception $exc) {
             parent::message('Erro ao cancelar a ordem bancária! '.$exc->getMessage(), 'parecerista/registrar-ordem-bancaria', 'ERROR');
         }
-
     }
 
     /**
@@ -917,33 +897,33 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function registrarOrdemBancariaAction(){
+    public function registrarOrdemBancariaAction()
+    {
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
         } else {
             $campo = null;
             $order = array(7); //Coluna NrDespacho
@@ -952,7 +932,9 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         /* ================== PAGINACAO ======================*/
@@ -988,11 +970,12 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
 
         $d = 0;
 
-        foreach($busca as $de){
+        foreach ($busca as $de) {
 
             $despachos[$d]['idGerarPagamentoParecerista']   = $de->idGerarPagamentoParecerista;
             $despachos[$d]['idConfigurarPagamento']         = $de->idConfigurarPagamento;
             $despachos[$d]['dtGeracaoPagamento']            = $de->dtGeracaoPagamento;
+            $despachos[$d]['anoGeracaoPagamento']           = substr($de->dtGeracaoPagamento, -4);
             $despachos[$d]['dtEfetivacaoPagamento']         = $de->dtEfetivacaoPagamento;
             $despachos[$d]['dtOrdemBancaria']               = $de->dtOrdemBancaria;
             $despachos[$d]['nrOrdemBancaria']               = $de->nrOrdemBancaria;
@@ -1010,11 +993,10 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             $valorTotal = 0;
             $pronac = $listaDePagamentos[0]->pronac;
 
-            foreach($listaDePagamentos as $pagmt){
-
+            foreach ($listaDePagamentos as $pagmt) {
                 $valorTotal = $pagmt->vlPagamento + $valorTotal;
 
-                if($pronac != $pagmt->pronac){
+                if ($pronac != $pagmt->pronac) {
                     $pr++;
                     $valorTotal = $pagmt->vlPagamento;
                 }
@@ -1046,33 +1028,33 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function finalizarPagamentoPareceristaAction(){
+    public function finalizarPagamentoPareceristaAction()
+    {
 
         //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if($this->_request->getParam("qtde")) {
+        if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
         $order = array();
 
         //==== parametro de ordenacao  ======//
-        if($this->_request->getParam("ordem")) {
+        if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
-            if($ordem == "ASC") {
+            if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            }else {
+            } else {
                 $novaOrdem = "ASC";
             }
-        }else {
+        } else {
             $ordem = "ASC";
             $novaOrdem = "ASC";
         }
 
         //==== campo de ordenacao  ======//
-        if($this->_request->getParam("campo")) {
+        if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo." ".$ordem);
             $ordenacao = "&campo=".$campo."&ordem=".$ordem;
-
         } else {
             $campo = null;
             $order = array(7); //Coluna NrDespacho
@@ -1081,7 +1063,9 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag)) $pag = $get->pag;
+        if (isset($get->pag)) {
+            $pag = $get->pag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
 
         /* ================== PAGINACAO ======================*/
@@ -1118,8 +1102,7 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
 
         $d = 0;
 
-        foreach($busca as $de){
-
+        foreach ($busca as $de) {
             $despachos[$d]['idGerarPagamentoParecerista']   = $de->idGerarPagamentoParecerista;
             $despachos[$d]['idConfigurarPagamento']         = $de->idConfigurarPagamento;
             $despachos[$d]['dtGeracaoPagamento']            = $de->dtGeracaoPagamento;
@@ -1140,11 +1123,10 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             $valorTotal = 0;
             $pronac = $listaDePagamentos[0]->pronac;
 
-            foreach($listaDePagamentos as $pagmt){
-
+            foreach ($listaDePagamentos as $pagmt) {
                 $valorTotal = $pagmt->vlPagamento + $valorTotal;
 
-                if($pronac != $pagmt->pronac){
+                if ($pronac != $pagmt->pronac) {
                     $pr++;
                     $valorTotal = $pagmt->vlPagamento;
                 }
@@ -1180,8 +1162,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function gerarDespachoPagamentoPareceristaAction(){
-
+    public function gerarDespachoPagamentoPareceristaAction()
+    {
         $auth = Zend_Auth::getInstance();
         $modelPagarParecerista = new PagarParecerista();
         $modelGerarPagamentoParecerista = new GerarPagamentoParecerista();
@@ -1203,18 +1185,16 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             $id = $modelGerarPagamentoParecerista->inserir($dados);
 
             // Atualiza Pagar Parecerista
-            $listaDePagamentos = $modelPagarParecerista->buscarPagamentos(array('idGerarPagamentoParecerista IS NULL' => NULL, 'idParecerista = ?' => $idParecerista));
+            $listaDePagamentos = $modelPagarParecerista->buscarPagamentos(array('idGerarPagamentoParecerista IS NULL' => null, 'idParecerista = ?' => $idParecerista));
 
-            foreach($listaDePagamentos as $pag){
+            foreach ($listaDePagamentos as $pag) {
                 $modelPagarParecerista->update(array('idGerarPagamentoParecerista' => $id), array('idPagarParecerista = ?' => $pag->idPagarParecerista));
             }
-
         } catch (Exception $exc) {
             parent::message('Error: '.$exc->getMessage(), 'parecerista/gerar-pagamento-parecerista', 'ERROR');
         }
 
         parent::message('Despacho gerado com sucesso!', 'parecerista/despacho-pagamento-parecerista/despacho/'.$id, 'CONFIRM');
-
     }
 
     /**
@@ -1224,8 +1204,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return list
      */
-    public function despachoPagamentoPareceristaAction(){
-
+    public function despachoPagamentoPareceristaAction()
+    {
         $nrDespacho = $this->_request->getParam('despacho');
         $modelPagarParecerista          = new PagarParecerista();
         $modelGerarPagamentoParecerista = new GerarPagamentoParecerista();
@@ -1235,8 +1215,7 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $despachos = array();
 
         $d = 0;
-        foreach($listaDespachos as $de){
-
+        foreach ($listaDespachos as $de) {
             $despachos[$d]['idGerarPagamentoParecerista']   = $de->idGerarPagamentoParecerista;
             $despachos[$d]['dtGeracaoPagamento']            = $de->dtGeracaoPagamento;
             $despachos[$d]['dtEfetivacaoPagamento']         = $de->dtEfetivacaoPagamento;
@@ -1256,11 +1235,10 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             $pr = 0;
             $valorTotal = 0;
             $pronac = $listaDePagamentos[0]->pronac;
-            foreach($listaDePagamentos as $pag){
-
+            foreach ($listaDePagamentos as $pag) {
                 $valorTotal = $pag->vlPagamento + $valorTotal;
 
-                if($pronac != $pag->pronac){
+                if ($pronac != $pag->pronac) {
                     $pr++;
                     $valorTotal = $pag->vlPagamento;
                 }
@@ -1279,7 +1257,6 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         }
 
         $this->view->assign('listaDePagamentos', $despachos);
-
     }
 
     /**
@@ -1289,8 +1266,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function imprimirDespachoAction(){
-
+    public function imprimirDespachoAction()
+    {
         $this->_helper->layout->disableLayout();
 
         $nrDespacho = $this->_request->getParam('despacho');
@@ -1301,16 +1278,22 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $listaDespachos = $modelGerarPagamentoParecerista->buscarDespachos(array('gpp.idGerarPagamentoParecerista = ?' => $nrDespacho));
 
         // Envia todos os assinantes selecionados
-        $assinantesConfigurados = $modeltbConfigurarPagamentoXtbAssinantes->assinantesConfigurados(array('a.idConfigurarPagamento = ?' => $listaDespachos[0]->idConfigurarPagamento));
+        $assinantesConfigurados = $modeltbConfigurarPagamentoXtbAssinantes->assinantesConfigurados(
+            array(
+                'a.idConfigurarPagamento = ?' => $listaDespachos[0]->idConfigurarPagamento
+            )
+        );
+
         $this->view->assign('assinantesConfigurados', $assinantesConfigurados);
 
         $despachos = array();
 
         $d = 0;
-        foreach($listaDespachos as $de){
+        foreach ($listaDespachos as $de) {
 
             $despachos[$d]['idGerarPagamentoParecerista']   = $de->idGerarPagamentoParecerista;
             $despachos[$d]['dtGeracaoPagamento']            = $de->dtGeracaoPagamento;
+            $despachos[$d]['anoGeracaoPagamento']           = substr($de->dtGeracaoPagamento, -4);
             $despachos[$d]['dtEfetivacaoPagamento']         = $de->dtEfetivacaoPagamento;
             $despachos[$d]['dtOrdemBancaria']               = $de->dtOrdemBancaria;
             $despachos[$d]['nrOrdemBancaria']               = $de->nrOrdemBancaria;
@@ -1323,9 +1306,9 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             $despachos[$d]['idParecerista'] = $listaDePagamentos[0]->idParecerista;
             $despachos[$d]['nmParecerista'] = $listaDePagamentos[0]->nmParecerista;
             $despachos[$d]['cpfParecerista'] = $listaDePagamentos[0]->CNPJCPF;
-            if($listaDePagamentos[0]->nrIdentificadorProcessual){
+            if ($listaDePagamentos[0]->nrIdentificadorProcessual) {
                 $despachos[$d]['nrIdentificadorProcessual'] = Mascara::addMaskProcesso($listaDePagamentos[0]->nrIdentificadorProcessual);
-            }else{
+            } else {
                 $despachos[$d]['nrIdentificadorProcessual'] = '';
             }
 
@@ -1333,11 +1316,10 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             $pr = 0;
             $valorTotal = 0;
             $pronac = $listaDePagamentos[0]->pronac;
-            foreach($listaDePagamentos as $pag){
-
+            foreach ($listaDePagamentos as $pag) {
                 $valorTotal = $pag->vlPagamento + $valorTotal;
 
-                if($pronac != $pag->pronac){
+                if ($pronac != $pag->pronac) {
                     $pr++;
                     $valorTotal = $pag->vlPagamento;
                 }
@@ -1359,15 +1341,16 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $this->view->processo = $despachos[0]['nrIdentificadorProcessual'];
         $this->view->pareceristaNome = $despachos[0]['nmParecerista'];
         $this->view->pareceristaCpf = $despachos[0]['cpfParecerista'];
-        $this->view->projetoValor = round($despachos[0]['vlTotalPagamento'],1);
-        $this->view->projetoValorExtenso = Currency::numberToWord(round($despachos[0]['vlTotalPagamento'],1));
+        $this->view->projetoValor = round($despachos[0]['vlTotalPagamento'], 1);
+        $this->view->projetoValorExtenso = Currency::numberToWord(round($despachos[0]['vlTotalPagamento'], 1));
         $this->view->dataCompetencia = new DateTime(date('m/d/Y', mktime(
-             null, null, null,
+             null,
+            null,
+            null,
              substr($despachos[0]['dtGeracaoPagamento'], 3, 2),
              substr($despachos[0]['dtGeracaoPagamento'], 0, 2),
              substr($despachos[0]['dtGeracaoPagamento'], 6, 4)
         )));
-
     }
 
     /**
@@ -1377,8 +1360,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function efetivarPagamentoPareceristaAction(){
-
+    public function efetivarPagamentoPareceristaAction()
+    {
         $modelPagarParecerista          = new PagarParecerista();
         $modelGerarPagamentoParecerista = new GerarPagamentoParecerista();
 
@@ -1387,8 +1370,7 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $despachos = array();
 
         $d = 0;
-        foreach($listaDespachos as $de){
-
+        foreach ($listaDespachos as $de) {
             $despachos[$d]['idGerarPagamentoParecerista']   = $de->idGerarPagamentoParecerista;
             $despachos[$d]['dtGeracaoPagamento']            = $de->dtGeracaoPagamento;
             $despachos[$d]['dtEfetivacaoPagamento']         = $de->dtEfetivacaoPagamento;
@@ -1407,11 +1389,10 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             $pr = 0;
             $valorTotal = 0;
             $pronac = $listaDePagamentos[0]->pronac;
-            foreach($listaDePagamentos as $pag){
-
+            foreach ($listaDePagamentos as $pag) {
                 $valorTotal = $pag->vlPagamento + $valorTotal;
 
-                if($pronac != $pag->pronac){
+                if ($pronac != $pag->pronac) {
                     $pr++;
                     $valorTotal = $pag->vlPagamento;
                 }
@@ -1431,7 +1412,6 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         }
 
         $this->view->assign('listaDePagamentos', $despachos);
-
     }
 
     /**
@@ -1441,8 +1421,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function efetivouDespachoPagamentoPareceristaAction(){
-
+    public function efetivouDespachoPagamentoPareceristaAction()
+    {
         $auth = Zend_Auth::getInstance();
         $modelGerarPagamentoParecerista = new GerarPagamentoParecerista();
 
@@ -1453,26 +1433,24 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $dtOrdemBancaria                = implode("-", array_reverse(explode("/", $this->_request->getParam('dtOrdemBancaria'))));
 
         try {
-
-            if(!empty($_FILES['arquivo']['tmp_name'])){
-
+            if (!empty($_FILES['arquivo']['tmp_name'])) {
                 $arquivoNome     = $_FILES['arquivo']['name']; // nome
                 $arquivoTemp     = $_FILES['arquivo']['tmp_name']; // nome temporário
                 $arquivoTamanho  = $_FILES['arquivo']['size']; // tamanho
 
-                if (!empty($arquivoNome)){
+                if (!empty($arquivoNome)) {
                     $arquivoExtensao = Upload::getExtensao($arquivoNome); // extensão
                 }
 
-                if(!Validacao::validarData($dtOrdemBancariaValidar)){
+                if (!Validacao::validarData($dtOrdemBancariaValidar)) {
                     parent::message("A data informada não e válida!", "parecerista/registrar-ordem-bancaria", "ALERT");
                 }
 
-                if(!isset($_FILES['arquivo'])){
+                if (!isset($_FILES['arquivo'])) {
                     parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "parecerista/registrar-ordem-bancaria", "ALERT");
                 }
 
-                if(empty($_FILES['arquivo']['tmp_name'])){
+                if (empty($_FILES['arquivo']['tmp_name'])) {
                     parent::message("Favor selecionar um arquivo RPA.", "parecerista/registrar-ordem-bancaria", "ALERT");
                 }
 
@@ -1486,13 +1464,13 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
                 $arrData = unpack("H*hex", $dataString);
                 $data = "0x".$arrData['hex'];
 
-                 // cadastra dados do arquivo
+                // cadastra dados do arquivo
                 $dadosArquivo = array('nmArquivo'               => $arquivoNome,
                                       'sgExtensao'              => $arquivoExtensao,
                                       'nrTamanho'               => $arquivoTamanho,
                                       'stAtivo'                 => 'A',
                                       'biArquivo'               => $data,
-                                      'idDocumento'             => NULL,
+                                      'idDocumento'             => null,
                                       'idTipoDocumento'         => 36,
                                       'dsDocumento'             => 'RPA Enviado pelo Coordenador de Pronac',
                                       'idAgente'                => $idAgente,
@@ -1520,14 +1498,12 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
                 $modelGerarPagamentoParecerista->update($dados, array('idGerarPagamentoParecerista = ?' => $idGerarPagamentoParecerista));
 
                 parent::message('Ordem bancária registrada com sucesso!', 'parecerista/registrar-ordem-bancaria', 'CONFIRM');
-            }else{
+            } else {
                 parent::message('Arquivo não anexado.', 'parecerista/registrar-ordem-bancaria', 'ALERT');
             }
-
         } catch (Exception $exc) {
             parent::message('Erro ao registrar ordem bancária! '.$exc->getMessage(), 'parecerista/registrar-ordem-bancaria', 'ERROR');
         }
-
     }
 
     /**
@@ -1537,8 +1513,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function finalizarDespachoPagamentoPareceristaAction(){
-
+    public function finalizarDespachoPagamentoPareceristaAction()
+    {
         $auth = Zend_Auth::getInstance();
         $modelGerarPagamentoParecerista = new GerarPagamentoParecerista();
 
@@ -1553,11 +1529,9 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             $modelGerarPagamentoParecerista->update($dados, array('idGerarPagamentoParecerista = ?' => $idGerarPagamentoParecerista));
 
             parent::message('Pagamento finalizado com sucesso!', 'parecerista/finalizar-pagamento-parecerista', 'CONFIRM');
-
         } catch (Exception $exc) {
             parent::message('Erro ao finalizar o pagamento! '.$exc->getMessage(), 'parecerista/finalizar-pagamento-parecerista', 'ERROR');
         }
-
     }
 
     /**
@@ -1567,8 +1541,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function assinouRpaPareceristaAction(){
-
+    public function assinouRpaPareceristaAction()
+    {
         $auth = Zend_Auth::getInstance();
         $modelGerarPagamentoParecerista = new GerarPagamentoParecerista();
 
@@ -1576,22 +1550,20 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $idAgente                    = $this->_request->getParam('idAgente');
 
         try {
-
-            if(!empty($_FILES['arquivo']['tmp_name'])){
-
+            if (!empty($_FILES['arquivo']['tmp_name'])) {
                 $arquivoNome     = $_FILES['arquivo']['name']; // nome
                 $arquivoTemp     = $_FILES['arquivo']['tmp_name']; // nome temporário
                 $arquivoTamanho  = $_FILES['arquivo']['size']; // tamanho
 
-                if (!empty($arquivoNome)){
+                if (!empty($arquivoNome)) {
                     $arquivoExtensao = Upload::getExtensao($arquivoNome); // extensão
                 }
 
-                if(!isset($_FILES['arquivo'])){
+                if (!isset($_FILES['arquivo'])) {
                     parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "parecerista/confirmacao-pagamento-parecerista", "ALERT");
                 }
 
-                if(empty($_FILES['arquivo']['tmp_name'])){
+                if (empty($_FILES['arquivo']['tmp_name'])) {
                     parent::message("Favor selecionar um arquivo RPA.", "parecerista/confirmacao-pagamento-parecerista", "ALERT");
                 }
 
@@ -1605,13 +1577,13 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
                 $arrData = unpack("H*hex", $dataString);
                 $data = "0x".$arrData['hex'];
 
-                 // cadastra dados do arquivo
+                // cadastra dados do arquivo
                 $dadosArquivo = array('nmArquivo'               => $arquivoNome,
                                       'sgExtensao'              => $arquivoExtensao,
                                       'nrTamanho'               => $arquivoTamanho,
                                       'stAtivo'                 => 'A',
                                       'biArquivo'               => $data,
-                                      'idDocumento'             => NULL,
+                                      'idDocumento'             => null,
                                       'idTipoDocumento'         => 36,
                                       'dsDocumento'             => 'RPA Assinado Enviado pelo Parecerista',
                                       'idAgente'                => $idAgente,
@@ -1636,18 +1608,12 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
                 $modelGerarPagamentoParecerista->update($dados, array('idGerarPagamentoParecerista = ?' => $idGerarPagamentoParecerista));
 
                 parent::message('Pagamento confirmado com sucesso!', 'parecerista/confirmacao-pagamento-parecerista', 'CONFIRM');
-
-            }else{
-
+            } else {
                 parent::message('É preciso fazer o Upload do RPA assinado!', 'parecerista/confirmacao-pagamento-parecerista', 'ALERT');
-
             }
-
-
         } catch (Exception $exc) {
             parent::message('Erro ao confirmar o pagamento! '.$exc->getMessage(), 'parecerista/confirmacao-pagamento-parecerista', 'ERROR');
         }
-
     }
 
     /**
@@ -1657,15 +1623,15 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function confirmacaoPagamentoPareceristaAction(){
-
+    public function confirmacaoPagamentoPareceristaAction()
+    {
         $modelPagarParecerista          = new PagarParecerista();
         $modelGerarPagamentoParecerista = new GerarPagamentoParecerista();
         $arquivoPagamentoParecerista    = new ArquivoPagamentoParecerista();
         $auth = Zend_Auth::getInstance();
         $idAgente = 0;
 
-        if (isset($auth->getIdentity()->usu_codigo)){
+        if (isset($auth->getIdentity()->usu_codigo)) {
             $Usuario      = new Autenticacao_Model_Usuario(); // objeto usuário
             $Agente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
             $idAgente = $Agente['idagente'];
@@ -1678,15 +1644,13 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $arquivos  = array();
 
         $d = 0;
-        foreach($listaDespachos as $de){
-
+        foreach ($listaDespachos as $de) {
             $where = array('pp.idGerarPagamentoParecerista = ?' => $de->idGerarPagamentoParecerista,
                             'pp.idParecerista = ?' => $idAgente);
 
             $listaDePagamentos = $modelPagarParecerista->buscarPagamentos($where);
 
-            if(count($listaDePagamentos) > 0){
-
+            if (count($listaDePagamentos) > 0) {
                 $despachos[$d]['idParecerista'] = $listaDePagamentos[0]->idParecerista;
                 $despachos[$d]['nmParecerista'] = $listaDePagamentos[0]->nmParecerista;
 
@@ -1704,11 +1668,10 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
                 $pr = 0;
                 $valorTotal = 0;
                 $pronac = $listaDePagamentos[0]->pronac;
-                foreach($listaDePagamentos as $pag){
-
+                foreach ($listaDePagamentos as $pag) {
                     $valorTotal = $pag->vlPagamento + $valorTotal;
 
-                    if($pronac != $pag->pronac){
+                    if ($pronac != $pag->pronac) {
                         $pr++;
                         $valorTotal = $pag->vlPagamento;
                     }
@@ -1740,7 +1703,6 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
 
         $this->view->listaDePagamentos      = $paginator;
         $this->view->qtdDePagamentos        = count($despachos); // quantidade
-
     }
 
     /**
@@ -1750,8 +1712,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function abrirArquivoAction() {
-
+    public function abrirArquivoAction()
+    {
         $id = $this->_request->getParam("id");
 
         // Configuracao o php.ini para 10MB
@@ -1795,11 +1757,11 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return list
      */
-    public function gerenciarAssinantesAction() {
-
+    public function gerenciarAssinantesAction()
+    {
         $modelAssinantes = new tbAssinantes();
         $assinantes = $modelAssinantes->listarAssinantes(array('stEstado = ?' => 1));
-        $this->view->assign('listaAssinantes',$assinantes);
+        $this->view->assign('listaAssinantes', $assinantes);
     }
 
     /**
@@ -1809,16 +1771,15 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function novoAssinanteAction() {
-
+    public function novoAssinanteAction()
+    {
         $modelAssinantes = new tbAssinantes();
 
         $listaNaoAssinantes = $modelAssinantes->listarNaoAssinantes();
-        $this->view->assign('listaNaoAssinantes',$listaNaoAssinantes);
+        $this->view->assign('listaNaoAssinantes', $listaNaoAssinantes);
 
         $listaCargos        = $modelAssinantes->listarCargos();
-        $this->view->assign('listaCargos',$listaCargos);
-
+        $this->view->assign('listaCargos', $listaCargos);
     }
 
     /**
@@ -1828,15 +1789,14 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function addNovoAssinanteAction() {
-
+    public function addNovoAssinanteAction()
+    {
         $modelAssinantes = new tbAssinantes();
 
         $assinante  = $this->_request->getParam('assinante');
         $cargo      = $this->_request->getParam('cargo');
 
         try {
-
             $dados = array('idOrgao'    => 251,
                            'idAgente'   => $assinante,
                            'idCargo'    => $cargo
@@ -1845,21 +1805,19 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
             // Verificar se já existe o mesmo cadastrado com o mesmo cargo!
             $verificacao = $modelAssinantes->buscar(array('idAgente = ?'=> $assinante, 'idCargo = ?' => $cargo));
 
-            if(count($verificacao) > 0 && $verificacao[0]->stEstado == 1){
+            if (count($verificacao) > 0 && $verificacao[0]->stEstado == 1) {
                 parent::message('Assinante já cadastrado com esse cargo! ', 'parecerista/novo-assinante', 'ALERT');
-            }else if(count($verificacao) > 0 && $verificacao[0]->stEstado == 0){
+            } elseif (count($verificacao) > 0 && $verificacao[0]->stEstado == 0) {
                 $modelAssinantes->update(array('stEstado' => 1), array('idAssinantes = ?'=> $verificacao[0]->idAssinantes));
-            }else{
+            } else {
                 $modelAssinantes->inserir($dados, false);
             }
 
 
             parent::message('Assinante cadastrado com sucesso!', 'parecerista/novo-assinante', 'CONFIRM');
-
         } catch (Exception $exc) {
             parent::message('Erro ao cadastrar o assinante.! '.$exc->getMessage(), 'parecerista/novo-assinante', 'ERROR');
         }
-
     }
 
     /**
@@ -1869,22 +1827,19 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function removeAssinanteAction() {
-
+    public function removeAssinanteAction()
+    {
         $modelAssinantes = new tbAssinantes();
 
         $idAssinantes  = $this->_request->getParam('idAssinantes');
 
         try {
-
             $modelAssinantes->update(array('stEstado' => 0), array('idAssinantes = ?'=> $idAssinantes));
 
             parent::message('Assinante desabilitado com sucesso!', 'parecerista/gerenciar-assinantes', 'CONFIRM');
-
         } catch (Exception $exc) {
             parent::message('Erro ao desabilitar o assinante.! '.$exc->getMessage(), 'parecerista/gerenciar-assinantes', 'ERROR');
         }
-
     }
 
     /**
@@ -1894,8 +1849,8 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return list
      */
-    public function atualizaListaAssinantesAction(){
-
+    public function atualizaListaAssinantesAction()
+    {
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
         $this->_helper->viewRenderer->setNoRender();
 
@@ -1905,8 +1860,7 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         $stringUsuarioId   = str_replace("&", "", $this->_request->getParam('usuarioId'));
         $arrayUsuarioId     = array_slice(explode("usuarioId[]=", $stringUsuarioId), 1);
         $count = 1;
-        foreach($arrayUsuarioId as $usuarioId) {
-
+        foreach ($arrayUsuarioId as $usuarioId) {
             $where = array('idConfigurarPagamento = ?' => $idConfigurarPagamento, 'idAssinantes = ?' => $usuarioId);
 
             $modelAssinantes->update(array('nrOrdenacao' => $count), $where);
@@ -1915,6 +1869,5 @@ class PareceristaController extends MinC_Controller_Action_Abstract {
         }
 
         echo '&nbsp;';
-
     }
 }

@@ -1,7 +1,6 @@
 <?php
-Class Dadosprojeto extends Zend_Db_Table
+class Dadosprojeto extends Zend_Db_Table
 {
-
     protected $_name    = 'SAC.dbo.Projetos';
 
     public static function buscar($pronac)
@@ -64,5 +63,4 @@ Class Dadosprojeto extends Zend_Db_Table
 
         return $resultado;
     }
-
 }

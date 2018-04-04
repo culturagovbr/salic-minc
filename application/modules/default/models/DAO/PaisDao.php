@@ -1,8 +1,8 @@
 <?php
-class PaisDao extends Zend_Db_Table {
-
-
-    public function buscarPais() {
+class PaisDao extends Zend_Db_Table
+{
+    public function buscarPais()
+    {
         $sql0 = "select * from Agentes.dbo.Pais";
 
         $db= Zend_Db_Table::getDefaultAdapter();

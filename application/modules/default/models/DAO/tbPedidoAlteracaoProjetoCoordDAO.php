@@ -21,8 +21,7 @@ class tbPedidoAlteracaoProjetoCoordDAO extends Zend_Db_Table
         tap.dsAlteracaoProjeto,
         pp.tpProrrogacao
         ";
-        if(!empty($idpedidoalteracao))
-        {
+        if (!empty($idpedidoalteracao)) {
             $sql .= ",
                   pap.idPedidoAlteracao,
                   apa.dtParecerTecnico,
@@ -53,20 +52,16 @@ class tbPedidoAlteracaoProjetoCoordDAO extends Zend_Db_Table
         left join BDCORPORATIVO.scSAC.tbAvaliacaoPedidoAlteracao apa on apa.idPedidoAlteracao = pap.idPedidoAlteracao
         left join BDCORPORATIVO.scSAC.tbProrrogacaoPrazo pp on pp.idPedidoAlteracao = pap.idPedidoAlteracao
         ";
-        if(!empty($idpedidoalteracao))
-        {
+        if (!empty($idpedidoalteracao)) {
             $sql.=" where pap.idPedidoAlteracao='".$idpedidoalteracao."' and apa.dtparecertecnico in
             (select max(dtparecertecnico) from BDCORPORATIVO.scSAC.tbavaliacaopedidoalteracao where idPedidoAlteracao = pap.idPedidoAlteracao)";
-        }
-        else
-        {
+        } else {
             $sql.=" where apa.dtParecerTecnico is not null and apa.dsParecerTecnico is not null and idTecnico is not null and apa.dtparecertecnico in
             (select max(dtparecertecnico) from BDCORPORATIVO.scSAC.tbavaliacaopedidoalteracao where idPedidoAlteracao = pap.idPedidoAlteracao)";
         }
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
-
     }
 
     public static function UpdateAvaliacaoProjeto($dados, $id, $data)
@@ -77,12 +72,9 @@ class tbPedidoAlteracaoProjetoCoordDAO extends Zend_Db_Table
         $where   = "idpedidoalteracao = ".$id." and dtparecertecnico='".$data."'";
         $alterar = $db->update("BDCORPORATIVO.scSAC.tbAvaliacaoPedidoAlteracao", $dados, $where);
 
-        if ($alterar)
-        {
+        if ($alterar) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -95,14 +87,10 @@ class tbPedidoAlteracaoProjetoCoordDAO extends Zend_Db_Table
         $where = "idpedidoalteracao = ".$id;
         $alterar = $db->update("BDCORPORATIVO.scSAC.tbpedidoalteracaoprojeto", $dados, $where);
 
-        if ($alterar)
-        {
+        if ($alterar) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 }
-?>

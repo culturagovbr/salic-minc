@@ -9,21 +9,26 @@
  * @link http://www.cultura.gov.br
  */
 
-class tbArquivamento extends MinC_Db_Table_Abstract {
+class tbArquivamento extends MinC_Db_Table_Abstract
+{
     protected $_schema  = "SAC";
     protected $_name   = "tbArquivamento";
 
 
-    public function conferirArquivamentoProjeto($pronac) {
+    public function conferirArquivamentoProjeto($pronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
                 array("a" => $this->_name),
-                array('a.Data', 'a.CaixaInicio', 'a.CaixaFinal'), $this->_schema
+                array('a.Data', 'a.CaixaInicio', 'a.CaixaFinal'),
+            $this->_schema
         );
         $select->joinInner(
-                array('b' => 'Projetos'), 'a.idPronac = b.idPronac',
-                array(''), $this->_schema
+                array('b' => 'Projetos'),
+            'a.idPronac = b.idPronac',
+                array(''),
+            $this->_schema
         );
 
         $select->where('a.stEstado = ?', 1);
@@ -32,5 +37,4 @@ class tbArquivamento extends MinC_Db_Table_Abstract {
 
         return $this->fetchRow($select);
     } // fecha m�todo buscarDados()
-
 } // fecha class

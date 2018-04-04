@@ -1,4 +1,5 @@
-<?php if($this->dados){ ?>
+<?php if ($this->dados) {
+    ?>
 <!-- ========== INÍCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 
@@ -87,4 +88,5 @@ function carregaPagina(){
     </div>
 </div>
 <!-- ========== FIM MENU ========== -->
-<?php } ?>
+<?php
+} ?>

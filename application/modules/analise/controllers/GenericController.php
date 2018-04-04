@@ -1,8 +1,7 @@
 <?php
 
-abstract class Analise_GenericController extends MinC_Controller_Action_Abstract {
-
-
+abstract class Analise_GenericController extends MinC_Controller_Action_Abstract
+{
     public function init()
     {
         parent::init();
@@ -18,6 +17,5 @@ abstract class Analise_GenericController extends MinC_Controller_Action_Abstract
         parent::perfil(1, $PermissoesGrupo);
 
         $this->getIdUsuario = $auth->getIdentity()->usu_codigo;
-
     }
 }

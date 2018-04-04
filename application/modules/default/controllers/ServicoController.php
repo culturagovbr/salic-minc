@@ -12,7 +12,6 @@
  */
 abstract class ServicoController extends Zend_Controller_Action
 {
-
     private $serviceClass = null;
 
     /**
@@ -58,5 +57,4 @@ abstract class ServicoController extends Zend_Controller_Action
     {
         $this->serviceClass = $class;
     }
-
 }

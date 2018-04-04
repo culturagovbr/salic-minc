@@ -12,7 +12,6 @@
 
 class ProjetosDAO extends Zend_Db_Table
 {
-
     protected $_name = 'dbo.Agentes';
 
     /*     * ************************************************************************************************************************
@@ -21,12 +20,9 @@ class ProjetosDAO extends Zend_Db_Table
 
     public static function retornaSQL($sqlDesejado)
     {
-
         $sql = '';
 
-        if ($sqlDesejado == "sqlProjetos")
-        {
-
+        if ($sqlDesejado == "sqlProjetos") {
             $sql = "SELECT idPronac, Pronac, NomeProjeto, CodSituacao,Situacao,
 						   idParecer, DtConsolidacao,ValorProposta,OutrasFontes,
 						   ValorSolicitado,ValorSugerido,Elaboracao,ValorParecer,PERC,Acima
@@ -45,7 +41,6 @@ class ProjetosDAO extends Zend_Db_Table
 
     public static function tbPlanilhaProjeto($idPronac)
     {
-
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
@@ -101,13 +96,12 @@ class ProjetosDAO extends Zend_Db_Table
                                                 Justificativa,
                                                 NULL,NULL,NULL,NULL,NULL,
                                                 'S'
-                                                FROM SAC.dbo.tbPlanilhaProjeto  WHERE idPRONAC=$idPronac;"; 
+                                                FROM SAC.dbo.tbPlanilhaProjeto  WHERE idPRONAC=$idPronac;";
         $db->fetchAll($sql);
     }
 
     public static function tbAnaliseDeConteudo($idPronac)
     {
-
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
@@ -154,22 +148,22 @@ class ProjetosDAO extends Zend_Db_Table
                                              ParecerDeConteudo
                                              FROM sac.dbo.tbAnaliseDeConteudo WHERE idPRONAC=$idPronac  ";
 
-             $db->fetchAll($sqlAnaliseOriginal);
+        $db->fetchAll($sqlAnaliseOriginal);
     }
 
     /*     * ************************************************************************************************************************
-     * Fun��o que faz o balanceamento  
+     * Fun��o que faz o balanceamento
      * Pega o Componente que tem menos projeto da �rea do projeto
      * ou manda para o componente que � da �rea e seguimento do projeto
      * *********************************************************************************************************************** */
 
     public static function balancear($idPronac)
     {
-        try{
-        $db = Zend_Db_Table::getDefaultAdapter();
-        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
-        $sqlProjetoAreaSegmento = "SELECT Pr.idPRONAC, 
+            $sqlProjetoAreaSegmento = "SELECT Pr.idPRONAC, 
         ar.Codigo as area,
         sg.Codigo as segmento 
         FROM SAC.dbo.Projetos Pr
@@ -177,16 +171,15 @@ class ProjetosDAO extends Zend_Db_Table
         left JOIN SAC.dbo.Segmento sg on sg.Codigo = pr.Segmento
         WHERE Pr.idPRONAC = $idPronac";
 
-        // Busca a �rea e seguimento do projeto
-        $PAS = $db->fetchAll($sqlProjetoAreaSegmento);
-        foreach ($PAS as $dados)
-        {
-            $areaP = $dados->area;
-            $segmentoP = $dados->segmento;
-        }
+            // Busca a �rea e seguimento do projeto
+            $PAS = $db->fetchAll($sqlProjetoAreaSegmento);
+            foreach ($PAS as $dados) {
+                $areaP = $dados->area;
+                $segmentoP = $dados->segmento;
+            }
 
-        // Busca para verificar se existe algum componente para a area e segmento do projeto
-        $sqlComponenteAreaSegmento = "
+            // Busca para verificar se existe algum componente para a area e segmento do projeto
+            $sqlComponenteAreaSegmento = "
         SELECT C.idAgente,
                C.cdArea,
                C.cdSegmento,
@@ -194,14 +187,13 @@ class ProjetosDAO extends Zend_Db_Table
                FROM AGENTES.dbo.tbTitulacaoConselheiro C 
                WHERE C.stConselheiro = 'A' AND C.cdArea = " . $areaP;
         
-        $AAS = $db->fetchAll($sqlComponenteAreaSegmento);
+            $AAS = $db->fetchAll($sqlComponenteAreaSegmento);
 
-        // Se n�o tiver componente com a Area e Segmento do projeto ele faz...
-        if (count($ASS)==0)
-        {
+            // Se n�o tiver componente com a Area e Segmento do projeto ele faz...
+            if (count($ASS)==0) {
 
             //aqui j� est� buscando o id do agente que tem a menor quantidade de projetos
-            $sqlMenor = "SELECT TOP 1 TC.idAgente as agente,
+                $sqlMenor = "SELECT TOP 1 TC.idAgente as agente,
 					       PXC.Qtd
 					FROM AGENTES.dbo.tbTitulacaoConselheiro TC
 					INNER JOIN (SELECT ATC.idAgente, COUNT(DPC.idPronac) Qtd
@@ -228,34 +220,29 @@ class ProjetosDAO extends Zend_Db_Table
 					WHERE TC.cdArea = " . $areaP . "
 					ORDER BY PXC.Qtd, TC.idAgente ";
 
-            $projetos = $db->fetchAll($sqlMenor);
+                $projetos = $db->fetchAll($sqlMenor);
 
-            foreach ($projetos as $dados)
-            {
-                $menor = $dados->agente;
-            }
+                foreach ($projetos as $dados) {
+                    $menor = $dados->agente;
+                }
 
-            $dados = "Insert into BDCORPORATIVO.scSAC.tbDistribuicaoProjetoComissao " .
+                $dados = "Insert into BDCORPORATIVO.scSAC.tbDistribuicaoProjetoComissao " .
                     "(idPRONAC, idAgente, dtDistribuicao, idResponsavel)" .
                     "values" .
                     "($idPronac, $menor, GETDATE(), 7522);
                     UPDATE SAC.dbo.Projetos SET dtSituacao=GETDATE(), Situacao = 'C10' WHERE IdPRONAC = $idPronac;";
 
-            $insere = $db->query($dados);
-            // Se tiver componente com a Area e Segmento do projeto ele faz...
-        }
-        else
-        {
-
-            $dados = "Insert into BDCORPORATIVO.scSAC.tbDistribuicaoProjetoComissao " .
+                $insere = $db->query($dados);
+                // Se tiver componente com a Area e Segmento do projeto ele faz...
+            } else {
+                $dados = "Insert into BDCORPORATIVO.scSAC.tbDistribuicaoProjetoComissao " .
                     "(idPRONAC, idAgente, dtDistribuicao, idResponsavel)" .
                     "values" .
                     "($idPronac, ".$AAS[0]->idAgente.", GETDATE(), 7522);
                     UPDATE SAC.dbo.Projetos SET dtSituacao=GETDATE(), Situacao = 'C10',  WHERE IdPRONAC = $idPronac;";
-            $insere = $db->query($dados);
-        }
-        }
-        catch(Exception $e){
+                $insere = $db->query($dados);
+            }
+        } catch (Exception $e) {
             echo $e->getMessage();
             echo $sqlComponenteAreaSegmento;
             die;
@@ -282,17 +269,13 @@ class ProjetosDAO extends Zend_Db_Table
 
     public static function alterarDadosProjeto($dados, $idpronac)
     {
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
             $where = "idpronac = $idpronac";
             $alterar = $db->update("SAC.dbo.Projetos", $dados, $where);
-        }
-        catch (Exception $e)
-        {
+        } catch (Exception $e) {
             die("ERRO: AlterarDadosProjeto-ProjetoDAO. ".$e->getMessage());
         }
     }
-
 }

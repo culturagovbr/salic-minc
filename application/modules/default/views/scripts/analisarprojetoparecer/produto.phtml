@@ -377,8 +377,8 @@
             <tr>
                 <td align="left" class="destacar bold" width="180">Parecer Favor&aacute;vel?</td>
                 <td colspan="5">
-                    <input class="obrigatorioRadio" <?php if(count($this->consolidacao) > 0){ echo ($this->consolidacao[0]->ParecerFavoravel == 2) ? 'checked="checked"' : ''; } ?> type="radio" name="parecerProjeto" id="parecerProjeto1" value="2" /> <label for="parecerProjeto2" style="margin-right:25px;">Sim</label>
-                    <input class="obrigatorioRadio" <?php if(count($this->consolidacao) > 0){ echo ($this->consolidacao[0]->ParecerFavoravel == 1) ? 'checked="checked"' : ''; } ?> type="radio" name="parecerProjeto" id="parecerProjeto1" value="1" /> <label for="parecerProjeto1">N&atilde;o</label>
+                    <input class="obrigatorioRadio" <?php if(count($this->consolidacao) > 0){ echo ($this->consolidacao[0]['ParecerFavoravel'] == 2) ? 'checked="checked"' : ''; } ?> type="radio" name="parecerProjeto" id="parecerProjeto1" value="2" /> <label for="parecerProjeto2" style="margin-right:25px;">Sim</label>
+                    <input class="obrigatorioRadio" <?php if(count($this->consolidacao) > 0){ echo ($this->consolidacao[0]['ParecerFavoravel'] == 1) ? 'checked="checked"' : ''; } ?> type="radio" name="parecerProjeto" id="parecerProjeto1" value="1" /> <label for="parecerProjeto1">N&atilde;o</label>
                 </td>
             </tr>
 	    <?php $escondeLinha = ($this->IN2017) ? "display:none;" : ""; ?>
@@ -458,7 +458,7 @@
               <td colspan="5">
 		<p>
 
-                  <textarea cols="80" id="dsConsolidacao" name="dsConsolidacao" rows="10" class="textarea_simples" style="width: 99%"><?php echo isset($this->consolidacao[0]->ResumoParecer) ? $this->consolidacao[0]->ResumoParecer : ''; ?></textarea>
+                  <textarea cols="80" id="dsConsolidacao" name="dsConsolidacao" rows="10" class="textarea_simples" style="width: 99%"><?php echo isset($this->consolidacao[0]['ResumoParecer']) ? $this->consolidacao[0]['ResumoParecer'] : ''; ?></textarea>
               </td>
 	      </p>
             </tr>
@@ -472,11 +472,12 @@
                 <th colspan="2">Parecer</th>
             </tr>
             <tr>
-                <td colspan="2"><?php echo isset($this->consolidacao[0]->ResumoParecer) ? $this->consolidacao[0]->ResumoParecer : ''; ?></td>
+                <td colspan="2"><?php echo isset($this->consolidacao[0]['ResumoParecer']) ? $this->consolidacao[0]['ResumoParecer'] : '';
+                ?></td>
             </tr>
             <tr>
                 <th width="250" align="left">Sugerido</th>
-                <td><?php echo isset($this->consolidacao[0]->SugeridoReal) ? $this->formatarReal($this->consolidacao[0]->SugeridoReal) : ''; ?></td>
+                <td><?php echo isset($this->consolidacao[0]['SugeridoReal']) ? $this->formatarReal($this->consolidacao[0]['SugeridoReal']) : ''; ?></td>
             </tr>
             <tr>
                 <th align="left">Enquadramentos</th>
@@ -490,7 +491,7 @@
 	    <?php } ?>
             <tr align="left">
                 <th>Parecer favor&aacute;vel</th>
-                <td><?php echo isset($this->consolidacao[0]->ParecerFavoravel) ? $this->consolidacao[0]->ParecerFavoravel == '2' ? 'SIM' : 'N&Atilde;O' : ''; ?></td>
+                <td><?php echo isset($this->consolidacao[0]['ParecerFavoravel']) ? $this->consolidacao[0]['ParecerFavoravel'] == '2' ? 'SIM' : 'N&Atilde;O' : ''; ?></td>
             </tr>
         <?php } ?>
         </table>

@@ -10,7 +10,8 @@
  * @link http://www.politec.com.br
  * @copyright � 2010 - Politec - Todos os direitos reservados.
  */
-class TramitardocumentosController extends MinC_Controller_Action_Abstract {
+class TramitardocumentosController extends MinC_Controller_Action_Abstract
+{
 
     /**
      * @var integer (vari�vel com o id do usu�rio logado)
@@ -20,7 +21,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
     private $codOrgao = null;
     private $intTamPag = 10;
 
-    public function init() {
+    public function init()
+    {
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         // define as permis�es
         $PermissoesGrupo = array();
@@ -54,7 +56,6 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
 
         // pega o idAgente do usu�rio logado
         if (isset($auth->getIdentity()->usu_codigo)) {
-
             $idusuario = $auth->getIdentity()->usu_codigo;
             //$idorgao 	= $auth->getIdentity()->usu_orgao;
 
@@ -82,7 +83,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         parent::init();
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         if ($GrupoAtivo->codGrupo == 90) { //Protocolo - Documento
             $this->_redirect("tramitardocumentos/despachar");
@@ -91,15 +93,18 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function gerarpdfAction() {
+    public function gerarpdfAction()
+    {
         $this->_helper->layout->disableLayout();
     }
 
-    public function gerarxlsAction() {
+    public function gerarxlsAction()
+    {
         $this->_helper->layout->disableLayout();
     }
 
-    public function imprimirguiaAction() {
+    public function imprimirguiaAction()
+    {
 
         //** Usuario Logado ************************************************/
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
@@ -124,7 +129,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         $this->view->idLote = $docs[0]->idLote;
     }
 
-    public function despacharAction() {
+    public function despacharAction()
+    {
         //** Usuario Logado ************************************************/
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $idusuario = $auth->getIdentity()->usu_codigo;
@@ -143,7 +149,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         $this->view->tipos = TramitarDocumentosDAO::listaTipoDocumentos();
     }
 
-    public function despachardocAction() {
+    public function despachardocAction()
+    {
         $limiteTamanhoArq = 1024 * 1024 * 10;
         $arquivoNome = $_FILES['arquivo']['name']; // nome
         $arquivoTipo = $_FILES['arquivo']['type']; // tipo
@@ -153,7 +160,7 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         $tipos = array('pdf');
         if (!in_array(strtolower($arquivoExtensao), $tipos)) {
             parent::message("O arquivo deve ser PDF!", "/tramitardocumentos/despachar", "ERROR");
-        } else if ($arquivoTamanho > $limiteTamanhoArq) {
+        } elseif ($arquivoTamanho > $limiteTamanhoArq) {
             parent::message("O arquivo deve ser menor que 10 MB", "/tramitardocumentos/despachar", "ERROR");
         } else {
 
@@ -203,13 +210,13 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
 
                 if (empty($pronac)) {
                     parent::message("Por favor, informe o PRONAC!", "tramitardocumentos/despachar", "ALERT");
-                } else if (empty($arquivoTemp)) { // nome do arquivo
+                } elseif (empty($arquivoTemp)) { // nome do arquivo
                     parent::message("Por favor, informe o arquivo!!", "tramitardocumentos/despachar", "ALERT");
-                } else if (empty($arquivoTemp)) { // nome do arquivo
+                } elseif (empty($arquivoTemp)) { // nome do arquivo
                     parent::message("Por favor, informe o arquivo!", "tramitardocumentos/despachar", "ALERT");
-                } else if (strtolower($arquivoExtensao) != 'pdf') { // extens�o do arquivo
+                } elseif (strtolower($arquivoExtensao) != 'pdf') { // extens�o do arquivo
                     parent::message("O arquivo n�o pode ser maior do que 10MB!", "tramitardocumentos/despachar", "ALERT");
-                } else if ($arquivoTamanho > 10485760) { // tamanho do arquivo: 10MB
+                } elseif ($arquivoTamanho > 10485760) { // tamanho do arquivo: 10MB
                     parent::message("O arquivo n�o pode ser maior do que 10MB!", "tramitardocumentos/despachar", "ALERT");
                 } else {
                     $resultado = TramitarDocumentosDAO::cadDocumento($dados);
@@ -238,7 +245,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function enviarAction() {
+    public function enviarAction()
+    {
         //** Usuario Logado ************************************************/
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $idusuario = $auth->getIdentity()->usu_codigo;
@@ -255,7 +263,6 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         $this->view->orgao = TramitarDocumentosDAO::buscarDocumentosCadastradosOrgao($this->codOrgao);
 
         if (isset($_POST['idPro'])) {
-
             $idDestino = $_POST['idDes'];
             $idPronac = $_POST['idPro'];
             $justificativa = $_POST['justificativa'];
@@ -290,7 +297,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function enviouAction() {
+    public function enviouAction()
+    {
         /** Usuario Logado *********************************************** */
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
         $idusuario = $auth->getIdentity()->usu_codigo;
@@ -355,7 +363,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function receberAction() {
+    public function receberAction()
+    {
         /** Usuario Logado *********************************************** */
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
         $idusuario = $auth->getIdentity()->usu_codigo;
@@ -389,13 +398,14 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         $where['h.idUnidade = ?'] = $codOrgao;
         $order = array(8); //idLote
 
-        $tbHistoricoDocumento = New tbHistoricoDocumento();
+        $tbHistoricoDocumento = new tbHistoricoDocumento();
         $this->view->registros = $tbHistoricoDocumento->consultarTramitacoes($where, $order);
         $this->view->registros->setItemCountPerPage($this->getRequest()->getParam('nrows'));
         $this->view->registros->setCurrentPageNumber($this->getRequest()->getParam('page'));
     }
 
-    public function anexarAction() {
+    public function anexarAction()
+    {
         //** Usuario Logado ************************************************/
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $idusuario = $auth->getIdentity()->usu_codigo;
@@ -410,7 +420,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         $this->view->registros->setCurrentPageNumber($this->getRequest()->getParam('page'));
     }
 
-    public function somentereceberAction() {
+    public function somentereceberAction()
+    {
         /** Usuario Logado *********************************************** */
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
         $idusuario = $auth->getIdentity()->usu_codigo;
@@ -472,7 +483,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function anexarloteAction() {
+    public function anexarloteAction()
+    {
         /** Usuario Logado *********************************************** */
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
         $idusuario = $auth->getIdentity()->usu_codigo;
@@ -497,7 +509,6 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
             $db->beginTransaction();
             $docs = TramitarDocumentosDAO::buscarDocumentosRecebidos($idusuario, $idLote);
             foreach ($docs as $d) {
-
                 $MudarEstado = TramitarDocumentosDAO::MudaEstado($d->idDocumento);
                 $insere = array(
                     'idPronac' => $d->IdPRONAC,
@@ -523,7 +534,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function anexardocumentoAction() {
+    public function anexardocumentoAction()
+    {
         /** Usuario Logado *********************************************** */
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
         $idusuario = $auth->getIdentity()->usu_codigo;
@@ -578,7 +590,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function desanexarloteAction() {
+    public function desanexarloteAction()
+    {
         /** Usuario Logado *********************************************** */
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
         $idusuario = $auth->getIdentity()->usu_codigo;
@@ -634,7 +647,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function desanexardocumentoAction() {
+    public function desanexardocumentoAction()
+    {
         /** Usuario Logado *********************************************** */
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
         $idusuario = $auth->getIdentity()->usu_codigo;
@@ -778,7 +792,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function recusarAction() {
+    public function recusarAction()
+    {
 
         /** Usuario Logado *********************************************** */
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
@@ -830,13 +845,15 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function consultarAction() {
+    public function consultarAction()
+    {
         $orgaos = new Orgaos();
         $todosDestinos = $orgaos->pesquisarTodosOrgaos();
         $this->view->TodosDestinos = $todosDestinos;
     }
 
-    public function guiasAction() {
+    public function guiasAction()
+    {
 
         /** Usuario Logado *********************************************** */
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
@@ -863,11 +880,12 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         $where['h.idUsuarioEmissor = ?'] = $idusuario;
         $order = array(8); //idLote
 
-        $tbHistoricoDocumento = New tbHistoricoDocumento();
+        $tbHistoricoDocumento = new tbHistoricoDocumento();
         $this->view->registros = $tbHistoricoDocumento->consultarTramitacoes($where, $order);
     }
 
-    public function buscaprojetoAction() {
+    public function buscaprojetoAction()
+    {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
 
@@ -887,24 +905,23 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
                 // Fun��o para formatar o numero do Processo
                 $Processo = FuncoesDoBanco::fnFormataProcesso($p->Processo);
 
-                $msgAjax[0]['processonome'] = utf8_encode('Processo: ' . $Processo . ' - Nome do Projeto: ' . $p->nomeprojeto);
-                $msgAjax[0]['localizacao'] = utf8_encode($p->localizacao);
-                $msgAjax[0]['Orgao'] = utf8_encode($p->Orgao);
-                $msgAjax[0]['idpronac'] = utf8_encode($p->IdPRONAC);
+            $msgAjax[0]['processonome'] = utf8_encode('Processo: ' . $Processo . ' - Nome do Projeto: ' . $p->nomeprojeto);
+            $msgAjax[0]['localizacao'] = utf8_encode($p->localizacao);
+            $msgAjax[0]['Orgao'] = utf8_encode($p->Orgao);
+            $msgAjax[0]['idpronac'] = utf8_encode($p->IdPRONAC);
 
             endforeach;
 
             $this->_helper->json($msgAjax);
-        }
-        else {
+        } else {
             $msgAjax[0]['msg'] = utf8_encode("erro");
             $msgAjax[0]['p'] = utf8_encode($pronac);
             $this->_helper->json($msgAjax);
         }
     }
 
-    public function abrirAction() {
-
+    public function abrirAction()
+    {
         $id = $this->_request->getParam("id");
         ;
 
@@ -948,7 +965,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function consultaguiasAction() {
+    public function consultaguiasAction()
+    {
         /** Usuario Logado *********************************************** */
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
         $idusuario = $auth->getIdentity()->usu_codigo;
@@ -962,10 +980,11 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         $this->view->idUsuarioLogado = $idusuario;
         /*         * *************************************************************** */
 
-//		$this->view->lotes = TramitarDocumentosDAO::buscarLotes($this->codOrgao, 2);
-//		$docs = TramitarDocumentosDAO::buscarDocumentosEnviados($this->idUsuarioLogado,$lote->idLote, 1);
+        //		$this->view->lotes = TramitarDocumentosDAO::buscarLotes($this->codOrgao, 2);
+        //		$docs = TramitarDocumentosDAO::buscarDocumentosEnviados($this->idUsuarioLogado,$lote->idLote, 1);
 //
-        function formatadata($data) {
+        function formatadata($data)
+        {
             if ($data) {
                 $dia = substr($data, 0, 2);
                 $mes = substr($data, 3, 2);
@@ -1013,8 +1032,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function consultardocumentoAction() {
-
+    public function consultardocumentoAction()
+    {
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $codGrupo = $GrupoAtivo->codGrupo; //  Grupo ativo na sess�o
         $codOrgao = $this->view->orgaoLogado = $GrupoAtivo->codOrgao; //  �rg�o ativo na sess�o
@@ -1054,8 +1073,9 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
 
         $pag = 1;
         $get = Zend_Registry::get('get');
-        if (isset($get->pag))
+        if (isset($get->pag)) {
             $pag = $get->pag;
+        }
         $inicio = ($pag > 1) ? ($pag - 1) * $this->intTamPag : 0;
 
         /* ================== PAGINACAO ====================== */
@@ -1084,7 +1104,7 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
             $d1 = Data::dataAmericana($get->dtEnvioI);
             if ($get->tipo_dtEnvio == 1) {
                 $where["h.dtTramitacaoEnvio BETWEEN '$d1' AND '$d1 23:59:59.999'"] = '';
-            } else if ($get->tipo_dtEnvio == 2) {
+            } elseif ($get->tipo_dtEnvio == 2) {
                 $d2 = Data::dataAmericana($get->dtEnvioF);
                 $where["h.dtTramitacaoEnvio BETWEEN '$d1' AND '$d2'"] = '';
             }
@@ -1096,7 +1116,7 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
             $d1 = Data::dataAmericana($get->dtRecebidoI);
             if ($get->tipo_dtRecebida == 1) {
                 $where["h.dtTramitacaoRecebida BETWEEN '$d1' AND '$d1 23:59:59.999'"] = '';
-            } else if ($get->tipo_dtRecebida == 2) {
+            } elseif ($get->tipo_dtRecebida == 2) {
                 $d2 = Data::dataAmericana($get->dtRecebidoF);
                 $where["h.dtTramitacaoRecebida BETWEEN '$d1' AND '$d2'"] = '';
             }
@@ -1108,7 +1128,7 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
             $where['doc.CodigoCorreio = ?'] = $this->view->cod_ect = $get->cod_ect;
         }
 
-        $tbHistoricoDocumento = New tbHistoricoDocumento();
+        $tbHistoricoDocumento = new tbHistoricoDocumento();
         $total = $tbHistoricoDocumento->consultarTramitacoes($where, $order, null, null, true);
         $fim = $inicio + $this->intTamPag;
 
@@ -1158,7 +1178,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
 //            }
     }
 
-    public function cancelarTramitacaoAction() {
+    public function cancelarTramitacaoAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $idHistorico = $_POST['idHistorico'];
 
@@ -1186,10 +1207,11 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         } else {
             $this->_helper->json(array('resposta' => false));
         }
-        $this->_helper->viewRenderer->setNoRender(TRUE);
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function excluirdocAction() {
+    public function excluirdocAction()
+    {
         $get = Zend_Registry::get('get');
         $idDoc = $get->iddoc;
         $action = $get->action;
@@ -1211,7 +1233,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function solicitacoesAction() {
+    public function solicitacoesAction()
+    {
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         //$codGrupo = $GrupoAtivo->codGrupo; //  Grupo ativo na sess�o
         $codOrgao = $GrupoAtivo->codOrgao; //  �rg�o ativo na sess�o
@@ -1225,7 +1248,6 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         $this->view->cancel = $cancelamento;
 
         if (isset($_POST['idDocumento']) && !empty($_POST['idDocumento'])) {
-
             $justificativa = $_POST['justificativa'];
             $idPronac = $_POST['idPronac'];
             $idUnidade = $_POST['idUnidade'];
@@ -1255,7 +1277,6 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
             parent::message("Envio de Documentos Cancelado!", "tramitardocumentos/solicitacoes", "CONFIRM");
         } else {
             if (isset($_POST['idHistorico'])) {
-
                 $idHistorico = $_POST['idHistorico'];
                 $justificativa = $_POST['justificativa'];
                 $idDocumento = null;
@@ -1288,7 +1309,8 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function desanexarAction() {
+    public function desanexarAction()
+    {
         //** Usuario Logado ************************************************/
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $idusuario = $auth->getIdentity()->usu_codigo;
@@ -1305,7 +1327,4 @@ class TramitardocumentosController extends MinC_Controller_Action_Abstract {
 
         $this->view->lotes = TramitarDocumentosDAO::buscarLotes($this->codOrgao, 6, $idusuario);
     }
-
 }
-
-

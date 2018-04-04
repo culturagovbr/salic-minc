@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,28 +9,32 @@
  *
  * @author 01610881125
  */
-class Dispensalicitacaoxplanilhaaprovacao extends MinC_Db_Table_Abstract {
+class Dispensalicitacaoxplanilhaaprovacao extends MinC_Db_Table_Abstract
+{
     protected $_banco   = 'bdcorporativo';
     protected $_name    = 'tbDispensaLicitacaoxPlanilhaAprovacao';
     protected $_schema  = 'scSAC';
 
-    public function inserirDispensaLicitacaoxPlanilhaAprovacao($data){
+    public function inserirDispensaLicitacaoxPlanilhaAprovacao($data)
+    {
         $insert = $this->insert($data);
         return $insert;
     }
 
-    public function alterarDispensaLicitacaoxPlanilhaAprovacao($data, $where){
+    public function alterarDispensaLicitacaoxPlanilhaAprovacao($data, $where)
+    {
         $update = $this->update($data, $where);
         return $update;
     }
 
-    public function deletarDispensaLicitacaoxPlanilhaAprovacao($where){
+    public function deletarDispensaLicitacaoxPlanilhaAprovacao($where)
+    {
         $delete = $this->delete($where);
         return $delete;
     }
 
-    public function itensVinculados($idDispensa) {
-
+    public function itensVinculados($idDispensa)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -40,12 +44,14 @@ class Dispensalicitacaoxplanilhaaprovacao extends MinC_Db_Table_Abstract {
         $select->joinInner(
                 array('b' => 'tbPlanilhaAprovacao'),
                 'a.idPlanilhaAprovacao = b.idPlanilhaAprovacao',
-                array('b.idProduto','b.idEtapa','b.idPlanilhaItem'),'SAC.dbo'
+                array('b.idProduto','b.idEtapa','b.idPlanilhaItem'),
+            'SAC.dbo'
         );
         $select->joinLeft(
                 array('c' => 'Produto'),
                 'b.idProduto = c.Codigo',
-                array('c.Descricao as dsProduto'),'SAC.dbo'
+                array('c.Descricao as dsProduto'),
+            'SAC.dbo'
         );
         $select->joinInner(
                 array('d' => 'tbPlanilhaEtapa'),
@@ -64,4 +70,3 @@ class Dispensalicitacaoxplanilhaaprovacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 }
-?>

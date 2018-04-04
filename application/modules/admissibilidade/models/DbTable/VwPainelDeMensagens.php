@@ -23,7 +23,7 @@ class Admissibilidade_Model_DbTable_VwPainelDeMensagens extends MinC_Db_Table_Ab
                     'Enquadramento',
                     'VlSolicitado',
                     'idMensagemProjeto',
-                    'dtMensagem' => $this->getExpressionToChar($this->_name . '.dtMensagem') . $this->getExpressionConcat() . " ' ' " . $this->getExpressionConcat()  .  $this->getExpressionToChar($this->_name . '.dtMensagem', 108),
+                    'dtMensagem' => new Zend_Db_Expr($this->getExpressionToChar($this->_name . '.dtMensagem') . $this->getExpressionConcat() . " ' ' " . $this->getExpressionConcat()  .  $this->getExpressionToChar($this->_name . '.dtMensagem', 108)),
                     'QtdeDias',
                     'dsMensagem',
                     'cdTipoMensagem',
@@ -34,7 +34,8 @@ class Admissibilidade_Model_DbTable_VwPainelDeMensagens extends MinC_Db_Table_Ab
                     'idMensagemOrigem',
                     'stAtivo'
                 ),
-                $this->_schema)
+                $this->_schema
+        )
             ->joinLeft(
                 array('tbMensagemProjetoResposta' => 'tbMensagemProjeto'),
                 $this->_name . '.idMensagemProjeto = tbMensagemProjetoResposta.idMensagemOrigem',
@@ -42,27 +43,32 @@ class Admissibilidade_Model_DbTable_VwPainelDeMensagens extends MinC_Db_Table_Ab
                     'tbMensagemProjetoResposta.dtMensagem as dtResposta',
                     'tbMensagemProjetoResposta.dsMensagem as dsResposta',
                 ),
-                $this->getSchema('bdcorporativo.scsac'))
+                $this->getSchema('bdcorporativo.scsac')
+            )
             ->joinLeft(
                 array('usuariosDestinatario' => 'usuarios'),
                 $this->_name . '.idDestinatario = usuariosDestinatario.usu_codigo',
                 'usu_nome as usu_nome_destinatario',
-                $this->getSchema('tabelas'))
+                $this->getSchema('tabelas')
+            )
             ->joinLeft(
                 array('usuariosRemetente' => 'usuarios'),
                 $this->_name . '.idRemetente = usuariosRemetente.usu_codigo',
                 'usu_nome as usu_nome_remetente',
-                $this->getSchema('tabelas'))
+                $this->getSchema('tabelas')
+            )
             ->joinLeft(
                 array('OrgaosRemetente' => 'Orgaos'),
                 $this->_name . '.idRemetenteUnidade = OrgaosRemetente.Codigo',
                 'Sigla as remetenteUnidadeNome',
-                $this->getSchema('sac'))
+                $this->getSchema('sac')
+            )
             ->joinLeft(
                 array('OrgaosDestinatario' => 'Orgaos'),
                 $this->_name . '.idDestinatarioUnidade = OrgaosDestinatario.Codigo',
                 'Sigla as destinatarioUnidadeNome',
-                $this->getSchema('sac'));
+                $this->getSchema('sac')
+            );
         $select->where('vwPainelDeMensagens.idMensagemOrigem IS NULL');
         $select->where('vwPainelDeMensagens.stAtivo = ?', 1);
         $select->where('tbMensagemProjetoResposta.dsMensagem IS NULL');
@@ -76,7 +82,8 @@ class Admissibilidade_Model_DbTable_VwPainelDeMensagens extends MinC_Db_Table_Ab
     {
         $select = $this->select()
             ->setIntegrityCheck(false)
-            ->from($this->_name,
+            ->from(
+                $this->_name,
                 array(
                     'IdPRONAC',
                     'PRONAC',
@@ -99,7 +106,8 @@ class Admissibilidade_Model_DbTable_VwPainelDeMensagens extends MinC_Db_Table_Ab
                     'idMensagemOrigem',
                     'stAtivo'
                 ),
-                $this->_schema)
+                $this->_schema
+            )
             ->joinLeft(
                 array('tbMensagemProjetoResposta' => 'tbMensagemProjeto'),
                 $this->_name . '.idMensagemProjeto = tbMensagemProjetoResposta.idMensagemOrigem',
@@ -107,27 +115,32 @@ class Admissibilidade_Model_DbTable_VwPainelDeMensagens extends MinC_Db_Table_Ab
                     'tbMensagemProjetoResposta.dtMensagem as dtResposta',
                     'tbMensagemProjetoResposta.dsMensagem as dsResposta',
                 ),
-                $this->getSchema('bdcorporativo.scsac'))
+                $this->getSchema('bdcorporativo.scsac')
+            )
             ->joinLeft(
                 array('usuariosDestinatario' => 'usuarios'),
                 $this->_name . '.idDestinatario = usuariosDestinatario.usu_codigo',
                 'usu_nome as usu_nome_destinatario',
-                $this->getSchema('tabelas'))
+                $this->getSchema('tabelas')
+            )
             ->joinLeft(
                 array('usuariosRemetente' => 'usuarios'),
                 $this->_name . '.idRemetente = usuariosRemetente.usu_codigo',
                 'usu_nome as usu_nome_remetente',
-                $this->getSchema('tabelas'))
+                $this->getSchema('tabelas')
+            )
             ->joinLeft(
                 array('OrgaosRemetente' => 'Orgaos'),
                 $this->_name . '.idRemetenteUnidade = OrgaosRemetente.Codigo',
                 'Sigla as remetenteUnidadeNome',
-                $this->getSchema('sac'))
+                $this->getSchema('sac')
+            )
             ->joinLeft(
                 array('OrgaosDestinatario' => 'Orgaos'),
                 $this->_name . '.idDestinatarioUnidade = OrgaosDestinatario.Codigo',
                 'Sigla as destinatarioUnidadeNome',
-                $this->getSchema('sac'));
+                $this->getSchema('sac')
+            );
         parent::setWhere($select, $arrWhere);
         parent::setWhere($select, $arrOrWhere, 'orWhere');
 
@@ -135,17 +148,19 @@ class Admissibilidade_Model_DbTable_VwPainelDeMensagens extends MinC_Db_Table_Ab
         foreach ($arrResult as &$arrValue) {
             $arrValue['dsMensagem'] = strip_tags($arrValue['dsMensagem']);
             $arrValue['dsResposta'] = strip_tags($arrValue['dsResposta']);
-            if (strlen($arrValue['dsMensagem']) > 50)
+            if (strlen($arrValue['dsMensagem']) > 50) {
                 $arrValue['dsMensagem'] = substr($arrValue['dsMensagem'], 0, 50) . '...';
-            if (strlen($arrValue['dsResposta']) > 50)
+            }
+            if (strlen($arrValue['dsResposta']) > 50) {
                 $arrValue['dsResposta'] = substr($arrValue['dsResposta'], 0, 50) . '...';
-            $date = new DateTime( $arrValue['dtMensagem'] );
+            }
+            $date = new DateTime($arrValue['dtMensagem']);
             if ($arrValue['dtResposta']) {
-                $date2 = new DateTime( $arrValue['dtResposta'] );
+                $date2 = new DateTime($arrValue['dtResposta']);
             } else {
                 $date2 = new DateTime();
             }
-            $arrValue['tempoResposta'] = $date->diff( $date2 )->days;
+            $arrValue['tempoResposta'] = $date->diff($date2)->days;
 //            $arrValue['dtResposta'] = strip_tags($arrValue['dsMensagem']);
         }
 

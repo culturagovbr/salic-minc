@@ -4,13 +4,14 @@
  *
  * @author 01610881125
  */
-class Arquivocontrato extends MinC_Db_Table_Abstract{
-
+class Arquivocontrato extends MinC_Db_Table_Abstract
+{
     protected $_banco   = 'BDCORPORATIVO';
     protected $_name    = 'tbArquivoContrato';
     protected $_schema  = 'BDCORPORATIVO.scSAC';
 
-    public function buscarArquivos($idcontrato){
+    public function buscarArquivos($idcontrato)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(

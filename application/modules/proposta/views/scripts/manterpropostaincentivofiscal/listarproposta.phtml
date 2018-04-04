@@ -1,26 +1,26 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col s12 m12 l12">
-            <?php
-            gerarBreadCrumb(array(
-                array('Listar propostas' => '')
-            ));
-            ?>
+    <div class="page-title">
+        <div class="row">
+            <div class="col s12 m9 l10">
+                <h1>Listar propostas</h1>
 
-            <div id="alerta" title="Alerta"></div>
-            <div id="erro" title="Erro"></div>
-            <div id="resultado"></div>
-            <div class="clearfix"></div>
-            <h4 id="novo-titulo" class="light">
-                Listar propostas <a href="#!" class="voltar secondary-content small" onclick="voltar();"><i class="material-icons left">arrow_back</i>Voltar</a>
-            </h4>
+                <?php
+                gerarNovoBreadCrumb(array(
+                    array('Listar propostas' => '')
+                ));
+                ?>
+            </div>
+            <div class="col s12 m3 l2 right-align">
+                <a href="javascript:voltar();" title="Página Anterior"title="Página Anterior" class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">keyboard_return</i>
+                </a>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col s12 m12 l12">
-            <form name="frmNovaProposta" id="frmNovaProposta"
-                  action="<?php echo $this->url(array('module'=>'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'declaracaonovaproposta')); ?>"
-                  method="post">
+
+    <div class="content">
+        <form name="frmNovaProposta" id="frmNovaProposta"
+              action="<?php echo $this->url(array('module'=>'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'declaracaonovaproposta')); ?>"
+              method="post">
 
                 <table class="tabela">
                     <tr class="centro">

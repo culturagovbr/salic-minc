@@ -2,7 +2,6 @@
 
 class CaptacaoController extends MinC_Controller_Action_Abstract
 {
-
     public function init()
     {
         //recupera ID do pre projeto (proposta)
@@ -31,8 +30,7 @@ class CaptacaoController extends MinC_Controller_Action_Abstract
             $this->view->arrayGrupos = $grupos; // manda todos os grupos do usu�rio para a vis�o
             $this->view->grupoAtivo = $GrupoAtivo->codGrupo; // manda o grupo ativo do usu�rio para a vis�o
             $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o �rg�o ativo do usu�rio para a vis�o
-        }
-        else {
+        } else {
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
@@ -86,14 +84,13 @@ class CaptacaoController extends MinC_Controller_Action_Abstract
 
     public function localizarInteressadoAction()
     {
-
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
 
         $get = Zend_Registry::get('get');
         $cpf = $get->cpf;
 
-//		$busca = new Interessado();
+        //		$busca = new Interessado();
         $busca = new Agente_Model_DbTable_Agentes();
         $agente = $busca->BuscaAgente($cpf)->toArray();
 
@@ -109,7 +106,7 @@ class CaptacaoController extends MinC_Controller_Action_Abstract
             $jsonEncode = json_encode($dadosInteressado);
             //echo $jsonEncode;
             $this->_helper->json(array('resposta' => "true", 'conteudo' => $dadosInteressado));
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         } else {
             $this->_helper->json(array('resposta' => false));
         }
@@ -184,5 +181,4 @@ class CaptacaoController extends MinC_Controller_Action_Abstract
         }
         parent::message($responseMessage, $responseUrl, $responseType);
     }
-
 }

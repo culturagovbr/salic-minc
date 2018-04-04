@@ -9,14 +9,20 @@ class Analise_Model_DbTable_TbAvaliarAdequacaoProjeto extends MinC_Db_Table_Abst
 
     public function buscarUltimaAvaliacao($idPronac)
     {
-        $avaliacao = $this->buscar(array('idPronac = ?' => $idPronac), array('idAvaliarAdequacaoProjeto DESC'), 1)->toArray();
+        $avaliacao = $this->buscar(
+            array('idPronac = ?' => $idPronac),
+            array('idAvaliarAdequacaoProjeto DESC'),
+            1
+        )->toArray();
+
         return $avaliacao[0];
     }
 
     public function inserirAvaliacao($idPronac, $orgaoUsuario, $idTecnico = null)
     {
-        if (empty($idTecnico))
+        if (empty($idTecnico)) {
             $idTecnico = new Zend_Db_Expr('sac.dbo.fnPegarTecnico(110, ' . $orgaoUsuario . ' ,1)');
+        }
 
         $dados = array(
             'idPronac' => $idPronac,
@@ -24,7 +30,7 @@ class Analise_Model_DbTable_TbAvaliarAdequacaoProjeto extends MinC_Db_Table_Abst
             'idTecnico' => $idTecnico,
             'dtAvaliacao' => null,
             'dsAvaliacao' => null,
-            'siEncaminhamento' => 1,
+            'siEncaminhamento' => TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_MINC,
             'stAvaliacao' => 0,
             'stEstado' => 1
         );
@@ -37,7 +43,7 @@ class Analise_Model_DbTable_TbAvaliarAdequacaoProjeto extends MinC_Db_Table_Abst
         $dados = array(
             'dtAvaliacao' => new Zend_Db_Expr('GETDATE()'),
             'dsAvaliacao' => $avaliacao,
-            'siEncaminhamento' => 16,
+            'siEncaminhamento' => TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_PROPONENTE_PARA_AJUSTES,
             'stAvaliacao' => 2,
             'stEstado' => 0
         );
@@ -45,7 +51,7 @@ class Analise_Model_DbTable_TbAvaliarAdequacaoProjeto extends MinC_Db_Table_Abst
         $where = array(
             'idPronac = ?' => $idPronac,
             'stEstado = ?' => 1,
-            'siEncaminhamento = ?' => 1,
+            'siEncaminhamento = ?' => TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_MINC,
             'idTecnico = ?' => $idTecnico
         );
 
@@ -58,7 +64,7 @@ class Analise_Model_DbTable_TbAvaliarAdequacaoProjeto extends MinC_Db_Table_Abst
         $dados = array(
             'dtAvaliacao' => new Zend_Db_Expr('GETDATE()'),
             'dsAvaliacao' => $avaliacao,
-            'siEncaminhamento' => 15,
+            'siEncaminhamento' => TbTipoEncaminhamento::SOLICITACAO_FINALIZADA_PELO_MINC,
             'stAvaliacao' => 1,
             'stEstado' => 0
         );
@@ -66,11 +72,39 @@ class Analise_Model_DbTable_TbAvaliarAdequacaoProjeto extends MinC_Db_Table_Abst
         $where = array(
             'idPronac = ?' => $idPronac,
             'stEstado = ?' => 1,
-            'siEncaminhamento = ?' => 1,
+            'siEncaminhamento = ?' => TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_MINC,
             'idTecnico = ?' => $idTecnico
         );
 
         return $this->update($dados, $where);
     }
 
+    public function obterAvaliacoesDiligenciadas($where = array())
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            array('a' => $this->_name),
+            array(
+                'a.idAvaliarAdequacaoProjeto',
+                'a.idTecnico',
+                'a.idPronac',
+                new Zend_Db_Expr('convert(varchar(30), dtAvaliacao, 120) as dtAvaliacao'),
+                new Zend_Db_Expr("CAST(A.dsAvaliacao AS TEXT) AS dsAvaliacao"),
+            ),
+            $this->_schema
+        );
+
+        foreach ($where as $coluna => $valor) {
+            $select->where($coluna, $valor);
+        }
+
+        $select->where('a.stEstado = ?', 0);
+        $select->where('a.stAvaliacao = ?', Analise_Model_TbAvaliarAdequacaoProjeto::ADEQUACAO_NAO_APROVADA);
+        $select->where('a.siEncaminhamento = ?', TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_PROPONENTE_PARA_AJUSTES);
+
+        $select->order('a.DtAvaliacao DESC');
+
+        return $this->fetchAll($select);
+    }
 }

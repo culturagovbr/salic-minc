@@ -1,36 +1,30 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Cotacaoxplanilhaaprovacao
- *
- * @author 01610881125
- */
-class Cotacaoxplanilhaaprovacao extends MinC_Db_Table_Abstract {
+class Cotacaoxplanilhaaprovacao extends MinC_Db_Table_Abstract
+{
     protected $_banco   = 'bdcorporativo';
     protected $_name    = 'tbCotacaoxPlanilhaAprovacao';
     protected $_schema  = 'scSAC';
 
-    public function inserirCotacaoxPlanilhaAprovacao($data){
+    public function inserirCotacaoxPlanilhaAprovacao($data)
+    {
         $insert = $this->insert($data);
         return $insert;
     }
 
-    public function alterarCotacaoxPlanilhaAprovacao($data, $where){
+    public function alterarCotacaoxPlanilhaAprovacao($data, $where)
+    {
         $update = $this->update($data, $where);
         return $update;
     }
 
-    public function deletarCotacaoxPlanilhaAprovacao($where){
+    public function deletarCotacaoxPlanilhaAprovacao($where)
+    {
         $delete = $this->delete($where);
         return $delete;
     }
 
-    public function itensVinculados($idCotacao) {
-
+    public function itensVinculados($idCotacao)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -40,12 +34,14 @@ class Cotacaoxplanilhaaprovacao extends MinC_Db_Table_Abstract {
         $select->joinInner(
                 array('b' => 'tbPlanilhaAprovacao'),
                 'a.idPlanilhaAprovacao = b.idPlanilhaAprovacao',
-                array('b.idProduto','b.idEtapa','b.idPlanilhaItem'),'SAC.dbo'
+                array('b.idProduto','b.idEtapa','b.idPlanilhaItem'),
+            'SAC.dbo'
         );
         $select->joinLeft(
                 array('c' => 'Produto'),
                 'b.idProduto = c.Codigo',
-                array('c.Descricao as dsProduto'),'SAC.dbo'
+                array('c.Descricao as dsProduto'),
+            'SAC.dbo'
         );
         $select->joinInner(
                 array('d' => 'tbPlanilhaEtapa'),
@@ -76,4 +72,3 @@ class Cotacaoxplanilhaaprovacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 }
-?>

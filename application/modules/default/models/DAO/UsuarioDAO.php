@@ -44,8 +44,7 @@ class UsuarioDAO extends MinC_Db_Table_Abstract
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $buscar = $db->fetchAll($sql);
 
-        if ($buscar) // realiza a autentica��o
-        {
+        if ($buscar) { // realiza a autentica��o
             // configura��es do banco
             $authAdapter = new Zend_Auth_Adapter_DbTable(Zend_Registry::get('db'));
             $authAdapter->setTableName('dbo.Usuarios')// TABELAS.dbo.Usuarios
@@ -71,8 +70,7 @@ class UsuarioDAO extends MinC_Db_Table_Abstract
 
                 return true;
             } // fecha if
-            else // caso n�o tenha sido validado
-            {
+            else { // caso n�o tenha sido validado
                 return false;
             }
         } // fecha if
@@ -191,7 +189,7 @@ class UsuarioDAO extends MinC_Db_Table_Abstract
 
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
-//echo $sql;die;
+        //echo $sql;die;
         return $db->fetchAll($sql);
     }
 
@@ -272,7 +270,6 @@ class UsuarioDAO extends MinC_Db_Table_Abstract
 
             // verifica se o acesso foi permitido
             if ($acesso->isValid()) {
-
                 $authData = $authAdapter->getResultRowObject(null, 'senha');
                 $auth->getStorage()->write($authData);
 

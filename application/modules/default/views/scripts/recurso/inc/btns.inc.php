@@ -15,7 +15,15 @@
 
 <table class="tabela">
 	<tr>
-		<th width="50%" class="<?php if (strstr($this->url(), 'orcamento') == 'orcamento') {echo "fundo_linha4";} else echo "fundo_linha2"; ?>"><a href="<?php echo $this->url(array('controller' => 'recurso', 'action' => 'orcamento'));?>?idPronac=<?php echo $_GET['idPronac']; ?>&idRecurso=<?php echo $_GET['idRecurso']; ?>">Planilha Orçament&aacute;ria</a></th>
-		<th width="50%" class="<?php if (strstr($this->url(), 'parecer')   == 'parecer')   {echo "fundo_linha4";} else echo "fundo_linha2"; ?>"><a href="<?php echo $this->url(array('controller' => 'recurso', 'action' => 'parecer'));?>?idPronac=<?php echo $_GET['idPronac']; ?>&idRecurso=<?php echo $_GET['idRecurso']; ?>">Parecer Consolidado</a></th>
+		<th width="50%" class="<?php if (strstr($this->url(), 'orcamento') == 'orcamento') {
+    echo "fundo_linha4";
+} else {
+    echo "fundo_linha2";
+} ?>"><a href="<?php echo $this->url(array('controller' => 'recurso', 'action' => 'orcamento'));?>?idPronac=<?php echo $_GET['idPronac']; ?>&idRecurso=<?php echo $_GET['idRecurso']; ?>">Planilha Orçament&aacute;ria</a></th>
+		<th width="50%" class="<?php if (strstr($this->url(), 'parecer')   == 'parecer') {
+    echo "fundo_linha4";
+} else {
+    echo "fundo_linha2";
+} ?>"><a href="<?php echo $this->url(array('controller' => 'recurso', 'action' => 'parecer'));?>?idPronac=<?php echo $_GET['idPronac']; ?>&idRecurso=<?php echo $_GET['idRecurso']; ?>">Parecer Consolidado</a></th>
 	</tr>
 </table>

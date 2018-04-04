@@ -12,10 +12,9 @@
  *
  * @link http://salic.cultura.gov.br
  */
-class Proposta_Model_DbTable_DocumentosProponente  extends MinC_Db_Table_Abstract {
-     protected $_banco   = "sac";
-     protected $_schema  = "sac";
-     protected $_name = 'documentosproponente';
+class Proposta_Model_DbTable_DocumentosProponente extends MinC_Db_Table_Abstract
+{
+    protected $_banco   = "sac";
+    protected $_schema  = "sac";
+    protected $_name = 'documentosproponente';
 }
-
-?>

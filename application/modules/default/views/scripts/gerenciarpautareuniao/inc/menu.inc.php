@@ -51,7 +51,7 @@
                                     clearInterval(telaacompanhamentopresidente);
                                     $("#corfirma").html('<br><br><center>Encerrando votação...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center>');
                                     var idNrReuniao = $("input[name='idReuniao']").val();
-                                    //jqAjaxLinkSemLoading('<?php //echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'pa-encerrar-cnic')) ?>?idReuniao=' + idNrReuniao, '', 'corfirma');
+                                    //jqAjaxLinkSemLoading('<?php //echo $this->Url(array('controller' => 'gerenciarpautareuniao', 'action' => 'pa-encerrar-cnic'))?>?idReuniao=' + idNrReuniao, '', 'corfirma');
                                     $("form[name='form']").submit();
                                 }
 
@@ -93,7 +93,8 @@
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'readequacoes-nao-submetidas')); ?>" title="Ir para Não submetidos - readequa&ccedil;&otilde;es">Não submetidos - readequa&ccedil;&otilde;es</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'paineisdareuniao')); ?>" title="Ir para Painel de Reuni&otilde;es">Painel de Reuni&otilde;es</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'projetosvotados')); ?>" title="Ir para Painel de Projetos Votados">Projetos Votados</a>
-<?php } ?>
+<?php
+                } ?>
                 <?php
                 if ($this->grupoAtivo == 118 or $this->grupoAtivo == 133) { //118 = componente da comissao  133 = membros natos
                 ?>
@@ -107,68 +108,42 @@
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'paineisdareuniao')); ?>" title="Ir para Painel de Reuni&otilde;es">Painel de Reuni&otilde;es</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'projetosvotados')); ?>" title="Ir para Painel de Projetos Votados">Projetos Votados</a>
                     <span class="no_seta last">&nbsp;</span>
-<?php } ?>
-<?php
-                if ($this->grupoAtivo == 119 ) { //presidente CNIC
-?>
-                    <!--<a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao')); ?>" title="Ir para Projetos em Pauta">Projetos em Pauta</a>-->
+            <?php } ?>
+            <?php if ($this->grupoAtivo == 119) { //presidente CNIC ?>
                     <a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao', 'readequacao' => 'false', 'plenaria' => 'true')); ?>" title="Ir para Plenária - análise inicial">Plenária - análise inicial</a>
-                    <!--<a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao', 'readequacao' => 'true', 'plenaria' => 'true')); ?>" title="Ir para Plenária - readequação">Plenária - readequação</a>-->
                     <a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao', 'readequacao' => 'false', 'plenaria' => 'false')); ?>" title="Ir para Não submetidos - análise inicial">Não submetidos - análise inicial</a>
-                    <!--<a class="no_seta"  href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao', 'readequacao' => 'true', 'plenaria' => 'false')); ?>" title="Ir para Não submetidos - readequação">Não submetidos - readequação</a>-->
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'recursos-nao-submetidos')); ?>" title="Ir para Não submetidos - recursos">Não submetidos - recursos</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'readequacoes-nao-submetidas')); ?>" title="Ir para Não submetidos - readequa&ccedil;&otilde;es">Não submetidos - readequa&ccedil;&otilde;es</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'paineisdareuniao')); ?>" title="Ir para Painel de Reuni&otilde;es">Painel de Reuni&otilde;es</a>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'projetosvotados')); ?>" title="Ir para Painel de Projetos Votados">Projetos Votados</a>
-                    <div class="sanfonaDiv" style="display:none;"></div>
-                    <?php /* ?>
-                    <a href="#" title="Teste" class="ancoraTeste" onclick="return false;">Teste</a>
-                    <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
-                        <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'projetosvotados')); ?>" title="Ir para Painel de Projetos Votados">por UF do Projeto</a>
-                        <a class="no_seta" href="<?php echo $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'projetosvotados')); ?>" title="Ir para Painel de Projetos Votados">por Local de Realização</a>
-                    </div>
-                    <?php */ ?>
-                    <span class="no_seta last">&nbsp;</span>
-<?php } ?>
+                    <form name='form' action="<?php $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao')) ?>" method='post'>
+                    <?php if ($this->reuniaoaberta['stPlenaria'] == 'N') { ?>
+                        <ul id='menuGerenciar'>
+                            <li>
+                                <input type='hidden' id='msg' value='Deseja realmente fechar pauta da reuni&atilde;o para inclus&atilde;o de novos projetos e iniciar a sess&atilde;o Plen&aacute;ria?'/>
+                                <a style='cursor:pointer;' id='menuDados' title='Fechar Pauta /Iniciar Plen&aacute;ria'>INICIAR PLEN&Aacute;RIA</a>
+                            </li>
+                        </ul>
+                        <input type='hidden' value='A' name='reuniao'>
+                        <input name='idReuniao' type='hidden' value="<?php $this->reuniaoaberta['idNrReuniao'];?>">
+                        </div>
+                        <?php } elseif ($this->reuniaoaberta['stPlenaria'] == 'A') { ?>
+                         <div style='background:#f8f8f8; padding-bottom:10em;'>
+                            <ul id='menuGerenciar' class='sumir'>
+                                 <li>
+                                     <input type='hidden' id='msg' value='Deseja realmente encerrar esta sess&atilde;o Plen&aacute;ria?'/>
+                                     <a style='cursor:pointer;' id='menuDados' title='Encerrar Plen&aacute;ria'>ENCERRAR</a>
+                                 </li>
+                            </ul>
+                            <input name='idReuniao' type='hidden' value="<?php  $this->reuniaoaberta['idNrReuniao'];?>">
+                            <input type='hidden' value='E' name='reuniao'>
+                         </div>
+                    <?php } ?>
+                </form>
+            <?php } ?>
             </div>
-            <div class="bottom"></div>
-                <?php
-                if ($this->grupoAtivo == 119) {
-                    echo "<form name='form' action='" . $this->url(array('controller' => 'gerenciarpautareuniao', 'action' => 'gerenciarpresidenteemreuniao')) . "' method='post'>";
-                    if ($this->reuniaoaberta['stPlenaria'] == 'N') {
-                        echo "<div style='background:#f8f8f8;'>";
-                        echo "<br><br><br>";
-                        echo " <ul id='menuGerenciar'>";
-                        echo "<li>";
-                        echo "<input type='hidden' id='msg' value='Deseja realmente fechar pauta da reuni&atilde;o para inclus&atilde;o de novos projetos e iniciar a sess&atilde;o Plen&aacute;ria?'/>";
-                        echo "<a style='cursor:pointer;' id='menuDados' title='Fechar Pauta /Iniciar Plen&aacute;ria'>INICIAR PLEN&Aacute;RIA</a>";
-                        echo "</li>";
-                        echo "</ul>";
-                        echo "<input type='hidden' value='A' name='reuniao'>";
-                        echo "<input name='idReuniao' type='hidden' value='";
-                        echo $this->reuniaoaberta['idNrReuniao'];
-                        echo "'>";
-                        echo "</div>";
-                    } else if ($this->reuniaoaberta['stPlenaria'] == 'A')  {
-                        echo "<div style='background:#f8f8f8; padding-bottom:10em;'>";
-                        echo "<br><br><br>";
-                        echo " <ul id='menuGerenciar' class='sumir'>";
-                        echo "<li>";
-                        echo "<input type='hidden' id='msg' value='Deseja realmente encerrar esta sess&atilde;o Plen&aacute;ria?'/>";
-                        echo "<a style='cursor:pointer;' id='menuDados' title='Encerrar Plen&aacute;ria'>ENCERRAR</a>";
-                        echo "</li>";
-                        echo "</ul>";
-                        echo "<input name='idReuniao' type='hidden' value='";
-                        echo $this->reuniaoaberta['idNrReuniao'];
-                        echo "'>";
-                        echo "<input type='hidden' value='E' name='reuniao'>";
-                        echo "</div>";
-                    }
-                }
-                echo "</form>";
-                ?>
         </div>
-
+        </div>
         <script type="text/javascript">
             $(document).ready(function(){
                 $('.sanfona > a').click(function(){
@@ -182,4 +157,3 @@
         <!-- final: navegacao local #qm0 -->
     </div>
 </div>
-<!-- ========== FIM MENU ========== -->

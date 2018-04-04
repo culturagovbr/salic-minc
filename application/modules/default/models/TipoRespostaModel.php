@@ -1,6 +1,6 @@
 <?php 
 /**
- * 
+ *
  */
 class TipoRespostaModel
 {
@@ -23,7 +23,7 @@ class TipoRespostaModel
 
     /**
      * Pesquisar os tipos de resposta
-     * 
+     *
      * @return array
      */
     public function pesquisar()
@@ -36,7 +36,7 @@ class TipoRespostaModel
     }
 
     /**
-     * 
+     *
      */
     public function toStdClass()
     {

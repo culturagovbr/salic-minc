@@ -1,21 +1,9 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of SolicitarAlteracaoProjetoDAO
- *
- * @author 01373930160
- */
 class SolicitarAlteracaoProjetoDAO extends Zend_Db_Table
 {
-
-
     public static function buscaProjetos($cpfCnpj = null)
     {
-                $sql = "SELECT
+        $sql = "SELECT
                 AGENTES.dbo.Agentes.idAgente, (SAC.dbo.Projetos.AnoProjeto +
                 SAC.dbo.Projetos.Sequencial) AS nrPronac, SAC.dbo.Projetos.NomeProjeto,
                 SAC.dbo.Projetos.Situacao, SAC.dbo.Projetos.DtSaida,
@@ -26,18 +14,15 @@ class SolicitarAlteracaoProjetoDAO extends Zend_Db_Table
                       WHERE AGENTES.dbo.Agentes.CNPJCPF = $cpfCnpj";
 
 
-                $db = Zend_Registry::get ( 'db' );
-		$db->setFetchMode ( Zend_DB::FETCH_OBJ );
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		return $db->fetchAll ( $sql );
-
-
+        return $db->fetchAll($sql);
     }
 
-    	public function detalhesProjetos( $idPronac )
-	{
-
-                $sql = "select projetos.idProjeto,
+    public function detalhesProjetos($idPronac)
+    {
+        $sql = "select projetos.idProjeto,
 
                     projetos.IdPRONAC,
                     projetos.CgcCpf,
@@ -59,17 +44,15 @@ class SolicitarAlteracaoProjetoDAO extends Zend_Db_Table
                     on pre.idAgente = agentes.idAgente
 
                 where projetos.IdPRONAC = $idPronac";
-		$db = Zend_Registry::get ( 'db' );
-		$db->setFetchMode ( Zend_DB::FETCH_OBJ );
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		return $db->fetchAll ( $sql );
+        return $db->fetchAll($sql);
+    }
 
-	}
-
-        public function detalhesLocalizacao( $idPronac )
-	{
-
-                $sql = "SELECT
+    public function detalhesLocalizacao($idPronac)
+    {
+        $sql = "SELECT
             Abrangencia.idUF, Abrangencia.idPais,
                             Abrangencia.idMunicipioIBGE, AGENTES.dbo.Uf.idUF AS UfLocal,
                              AGENTES.dbo.Uf.Descricao AS UfDescricao,
@@ -83,12 +66,9 @@ class SolicitarAlteracaoProjetoDAO extends Zend_Db_Table
                                    AGENTES.dbo.Uf ON Abrangencia.idUF = AGENTES.dbo.Uf.idUF INNER JOIN
                                   AGENTES.dbo.Municipios ON Abrangencia.idMunicipioIBGE = AGENTES.dbo.Municipios.idMunicipioIBGE
             WHERE     (Projetos.IdPRONAC = $idPronac) AND SAC.dbo.Abrangencia.stAbrangencia = 1";
-		$db = Zend_Registry::get ( 'db' );
-		$db->setFetchMode ( Zend_DB::FETCH_OBJ );
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-		return $db->fetchAll ( $sql );
-
-	}
-
+        return $db->fetchAll($sql);
+    }
 }
-?>

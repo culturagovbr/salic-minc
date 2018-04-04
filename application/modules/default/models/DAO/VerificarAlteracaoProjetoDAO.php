@@ -1,8 +1,7 @@
 <?php
 
-Class VerificarAlteracaoProjetoDAO extends Zend_Db_Table
+class VerificarAlteracaoProjetoDAO extends Zend_Db_Table
 {
-
     protected $_name = 'SAC.dbo.Projetos';
 
     public static function buscarProjetos()
@@ -85,7 +84,6 @@ Class VerificarAlteracaoProjetoDAO extends Zend_Db_Table
 
     public static function buscarArquivosSolicitacao($idPronac, $tipo, $idPedidoAlteracao = null)
     {
-
         $sql = "select
                     papxa.idArquivo,
                     ta.nmarquivo
@@ -101,7 +99,8 @@ Class VerificarAlteracaoProjetoDAO extends Zend_Db_Table
     }
 
 
-    public static function buscarDadosParecerTecnico($idPronac,$tipo, $idPedidoAlteracao = null){
+    public static function buscarDadosParecerTecnico($idPronac, $tipo, $idPedidoAlteracao = null)
+    {
         $sql = "select
                     CAST(aipa.dsAvaliacao as TEXT) as dsparecertecnico,
                     aipa.dtFimAvaliacao as dtparecertecnico,
@@ -115,13 +114,10 @@ Class VerificarAlteracaoProjetoDAO extends Zend_Db_Table
                     inner join AGENTES.dbo.Nomes nom on nom.idAgente = aipa.idAgenteAvaliador
                 where
                     pap.IdPRONAC = {$idPronac} and aipa.tpAlteracaoProjeto = $tipo and tap.tpAlteracaoProjeto = $tipo AND pap.idPedidoAlteracao = $idPedidoAlteracao";
-         $db = Zend_Db_Table::getDefaultAdapter();
+        $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
 
         return $resultado;
-
     }
-
 }
-?>

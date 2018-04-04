@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,13 +9,15 @@
  *
  * @author 01610881125
  */
-class DocumentosExigidos extends MinC_Db_Table_Abstract {
+class DocumentosExigidos extends MinC_Db_Table_Abstract
+{
     protected $_name   = 'DocumentosExigidos';
     protected $_schema = 'sac';
     protected $_banco  = 'SAC';
     protected $_primary = 'Codigo';
 
-    function listarDocumentosExigido($idCodigoDocumentosExigidos = ''){
+    public function listarDocumentosExigido($idCodigoDocumentosExigidos = '')
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -29,22 +31,19 @@ class DocumentosExigidos extends MinC_Db_Table_Abstract {
                               )
                       );
         $select->where('Opcao in ?', new Zend_Db_Expr('(1,2)'));
-        if($idCodigoDocumentosExigidos)
-            $select->where('Codigo = ?',$idCodigoDocumentosExigidos);
+        if ($idCodigoDocumentosExigidos) {
+            $select->where('Codigo = ?', $idCodigoDocumentosExigidos);
+        }
 
 
         return $this->fetchAll($select);
     }
 
-    function listaDocumentosObrigatoriosPF() {
-
+    public function listaDocumentosObrigatoriosPF()
+    {
     }
 
-    function listaDocumentosObrigatoriosPJ() {
-
+    public function listaDocumentosObrigatoriosPJ()
+    {
     }
-
-
-    
 }
-?>

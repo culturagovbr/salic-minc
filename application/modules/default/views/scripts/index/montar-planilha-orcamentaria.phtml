@@ -1,96 +1,96 @@
 <?php header('Content-Type: text/plain; charset=ISO-8859-1'); ?>
 <script type="text/javascript">
-    function AbrirFecharPlanilha(elemento)
-    {
-        $('.' + elemento).toggle();
+ function AbrirFecharPlanilha(elemento)
+ {
+     $('.' + elemento).toggle();
 
-        if ($('#' + elemento).hasClass('icn_mais'))
-        {
-            $('#' + elemento).addClass('icn_menos');
-            $('#' + elemento).removeClass('icn_mais');
-        }
-        else
-        {
-            $('#' + elemento).addClass('icn_mais');
-            $('#' + elemento).removeClass('icn_menos');
-        }
-    }
-    <?php if($this->tipoPlanilha != 6){ ?>
-    $(document).ready(function(){
-        //ATUALIZA TITULO DA PAGINA
-        window.parent.$("#titulo").html("<div>Planilha Or&ccedil;ament&aacute;ria </div>");
-        window.parent.$("#caminhoLocalAtual").html("Planilha Or&ccedil;ament&aacute;ria");
-    });
-    <?php } ?>
+     if ($('#' + elemento).hasClass('icn_mais'))
+         {
+             $('#' + elemento).addClass('icn_menos');
+             $('#' + elemento).removeClass('icn_mais');
+         }
+     else
+         {
+             $('#' + elemento).addClass('icn_mais');
+             $('#' + elemento).removeClass('icn_menos');
+         }
+ }
+ <?php if($this->tipoPlanilha != 6){ ?>
+     $(document).ready(function(){
+         //ATUALIZA TITULO DA PAGINA
+         window.parent.$("#titulo").html("<div>Planilha Or&ccedil;ament&aacute;ria </div>");
+         window.parent.$("#caminhoLocalAtual").html("Planilha Or&ccedil;ament&aacute;ria");
+     });
+     <?php } ?>
 
-    $(document).ready(function(){
-        $(".icn_menos").click(function(){
-            var tipo = $(this).attr('tipo');
-            var aberto = $(this).attr('aberto');
-            if(aberto == 'true'){
-                adisplay = 'none';
-                $(this).attr('aberto','false')
-                $(this).removeClass('icn_menos').addClass('icn_mais')
-            }
-            else{
-                adisplay = '';
-                $(this).attr('aberto','true')
-                $(this).removeClass('icn_mais').addClass('icn_menos')
-            }
-            if(tipo == 'fonte'){
-                fonte = $(this).attr('fonte');
-                $(".master[fonte='"+fonte+"']").css('display', adisplay);
-                $(".clickproduto").removeClass('icn_mais').addClass('icn_menos');
-            }
-            if(tipo == 'produto'){
-                fonte = $(this).attr('fonte');
-                produto = $(this).attr('produto');
-                $(".produto[produto='"+produto+"'][fonte='"+fonte+"']").css('display', adisplay);
-            }
-            if(tipo == 'etapa'){
-                fonte = $(this).attr('fonte');
-                produto = $(this).attr('produto');
-                etapa = $(this).attr('etapa');
-                $(".etapa[produto='"+produto+"'][etapa='"+etapa+"'][fonte='"+fonte+"']").css('display', adisplay);
-            }
-            if(tipo == 'cidade'){
-                fonte = $(this).attr('fonte');
-                produto = $(this).attr('produto');
-                etapa = $(this).attr('etapa');
-                cidade = $(this).attr('cidade');
-                $(".cidade[produto='"+produto+"'][etapa='"+etapa+"'][cidade='"+cidade+"'][fonte='"+fonte+"']").css('display', adisplay);
-            }
-        });
-        $(".item").mouseover(function(){
-            $(this).addClass('fundo_linha3');
-        });
-        $(".item").mouseout(function(){
-            $(this).removeClass('fundo_linha3');
-        });
-        $(".item").click(function(){
-            if($(this).hasClass('fundo_linha4')){
-                $(this).removeClass('fundo_linha4');
-            }
-            else{
-                $(this).addClass('fundo_linha4');
-            }
-        });
+ $(document).ready(function(){
+     $(".icn_menos").click(function(){
+         var tipo = $(this).attr('tipo');
+         var aberto = $(this).attr('aberto');
+         if(aberto == 'true'){
+             adisplay = 'none';
+             $(this).attr('aberto','false')
+             $(this).removeClass('icn_menos').addClass('icn_mais')
+         }
+         else{
+             adisplay = '';
+             $(this).attr('aberto','true')
+             $(this).removeClass('icn_mais').addClass('icn_menos')
+         }
+         if(tipo == 'fonte'){
+             fonte = $(this).attr('fonte');
+             $(".master[fonte='"+fonte+"']").css('display', adisplay);
+             $(".clickproduto").removeClass('icn_mais').addClass('icn_menos');
+         }
+         if(tipo == 'produto'){
+             fonte = $(this).attr('fonte');
+             produto = $(this).attr('produto');
+             $(".produto[produto='"+produto+"'][fonte='"+fonte+"']").css('display', adisplay);
+         }
+         if(tipo == 'etapa'){
+             fonte = $(this).attr('fonte');
+             produto = $(this).attr('produto');
+             etapa = $(this).attr('etapa');
+             $(".etapa[produto='"+produto+"'][etapa='"+etapa+"'][fonte='"+fonte+"']").css('display', adisplay);
+         }
+         if(tipo == 'cidade'){
+             fonte = $(this).attr('fonte');
+             produto = $(this).attr('produto');
+             etapa = $(this).attr('etapa');
+             cidade = $(this).attr('cidade');
+             $(".cidade[produto='"+produto+"'][etapa='"+etapa+"'][cidade='"+cidade+"'][fonte='"+fonte+"']").css('display', adisplay);
+         }
+     });
+     $(".item").mouseover(function(){
+         $(this).addClass('fundo_linha3');
+     });
+     $(".item").mouseout(function(){
+         $(this).removeClass('fundo_linha3');
+     });
+     $(".item").click(function(){
+         if($(this).hasClass('fundo_linha4')){
+             $(this).removeClass('fundo_linha4');
+         }
+         else{
+             $(this).addClass('fundo_linha4');
+         }
+     });
 
-        $('.detalharItemComp').click(function(){
-            $("#modalComprovantes").html('Carregando...');
-            var idPlanilha = $(this).attr('idPlanilha');
-            jqAjaxLinkSemLoading('<?php echo $this->Url(array('controller' => 'consultardadosprojeto', 'action' => 'carregar-comprovantes-comprovados-por-item'), '', true) ?>?idPronac=<?php echo $this->idPronac; ?>&idPlanilha='+idPlanilha, '', 'modalComprovantes');
+     $('.detalharItemComp').click(function(){
+         $("#modalComprovantes").html('Carregando...');
+         var idPlanilha = $(this).attr('idPlanilha');
+         jqAjaxLinkSemLoading('<?php echo $this->Url(array('controller' => 'consultardadosprojeto', 'action' => 'carregar-comprovantes-comprovados-por-item'), '', true) ?>?idPronac=<?php echo $this->idPronac; ?>&idPlanilha='+idPlanilha, '', 'modalComprovantes');
 
-            $("#modalComprovantes").dialog("destroy");
-            $("#modalComprovantes").dialog({
-                resizable: true,
-                title: 'Comprovantes do Item',
-                width: 1200,
-//                height:160,
-                modal: true
-            });
-        });
-    });
+         $("#modalComprovantes").dialog("destroy");
+         $("#modalComprovantes").dialog({
+             resizable: true,
+             title: 'Comprovantes do Item',
+             width: 1200,
+	     //                height:160,
+             modal: true
+         });
+     });
+ });
 </script>
 
 <div class="sumir centro" id="modalComprovantes">Carregando...</div>
@@ -253,7 +253,7 @@ if($this->tipoPlanilha == 0){ ?>
             <td>
                 <table class="tabela">
                     <tr>
-                        <td colspan="6" class="blue-text" style="font-size: 14pt;">Total do Projeto</td>
+                        <td colspan="6" class="blue-text" style="font-size: 14pt;">Custo Total <small>(Custo do Projeto + Valores de Outras Leis + Valores de Outras Fontes)</small></td>
                         <td class="blue-text" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($TotalSolicitado, 2, ",", "."); ?></td>
                         <td style="width: 20%">&nbsp;</td>
                     </tr>
@@ -850,7 +850,7 @@ else if($this->tipoPlanilha == 3){ ?>
 </table>
 
 <?php }
-//MONTANDO A PLANILHA DO TIPO 6 = Readequação
+//MONTANDO A PLANILHA DO TIPO 5 = Remanejamento 50%
 else if($this->tipoPlanilha == 5){ ?>
 <table class="tabela">
     <?php
@@ -944,7 +944,7 @@ else if($this->tipoPlanilha == 5){ ?>
 					    <?php
                                         if((($this->link && $planilha['tpAcao'] != 'E') && $nrfonte == '0')
                                            ||
-                                           ($this->idPerfil == '1111') // se for proponente
+                                           ($this->idPerfil == Autenticacao_Model_Grupos::PROPONENTE) // se for proponente
                                         ) { ?>
                                                 <a href="#" style="color: <?php echo $corLinha; ?> !important;" title="clique para alterar os dados do item" class="editarItem" idPlanilhaAprovacao="<?php echo $planilha['idPlanilhaAprovacao']; ?>"><?php echo $planilha['Item']; ?></a>
                                             <?php } else {
@@ -1067,6 +1067,9 @@ else if($this->tipoPlanilha == 6){ ?>
     $TotalSugerido = 0;
     $TotalUnitario = 0;
     $TotalAprovado = 0;
+    $disponivelParaAdicaoItensReadequacaoPlanilha = $this->DisponivelParaAdicaoItensReadequacaoPlanilha($this->idPronac);
+    $disponivelParaEdicaoReadequacaoPlanilha = $this->DisponivelParaEdicaoReadequacaoPlanilha($this->idPronac);
+    
     if(is_array($this->planilha) && count($this->planilha)>0) foreach ($this->planilha as $fonte => $planilha) { //ForeachFonteIncentivo
         ?>
         <tr>
@@ -1108,14 +1111,39 @@ else if($this->tipoPlanilha == 6){ ?>
                 $valorUnitarioTotalEtapa = 0;
                 $valorAprovadoTotalEtapa = 0;
                 foreach ($this->planilha[$fonte][$produto][$etapa] as $cidade => $planilha) {
+                    $item = array_shift(array_slice($planilha, 0, 1));
                     ?>
                     <tr class="master produto etapa" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>"  fonte="<?php echo $nrfonte; ?>" >
                         <td>
                             <div tipo="cidade" fonte="<?php echo $nrfonte; ?>" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>" cidade="<?php echo $nrcidade; ?>" aberto="true" class="icn_menos" style="width:94%; margin-left:6%;"><span class="black del_link" style="font-size: 12pt; font-weight: 800;"><?php echo $cidade; ?></span></div>
                         </td>
                     </tr>
+
                     <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>" cidade="<?php echo $nrcidade; ?>"  fonte="<?php echo $nrfonte; ?>">
                         <td>
+			    <div class="center-align">
+                    <?php
+                    $podeAdicionarItem = (
+                        $this->idPerfil == Autenticacao_Model_Grupos::PROPONENTE &&
+                        $disponivelParaAdicaoItensReadequacaoPlanilha &&
+                        $this->link
+                    ) ? true : false;
+                    
+                    ?>
+                    
+                    <?php if ($podeAdicionarItem) : ?>                    
+				<a class="waves-effect waves-light btn white-text btn-incluir-novo-item"
+				   id_fonte="<?php echo $item['idFonte']; ?>"
+				   id_produto="<?php echo $item['idProduto']; ?>"
+				   id_etapa="<?php echo $item['idEtapa']; ?>"
+				   id_uf="<?php echo $item['idUF']; ?>"
+				   id_municipio="<?php echo $item['idMunicipio'] ?>" >
+				    <i class="material-icons left">add</i>
+				    incluir item neste munic&iacute;pio
+				</a>
+                    <?php endif; ?>
+			    </div>
+			    <br/>
                             <table class="tabela">
                                 <tr>
                                     <th>&nbsp;</th>
@@ -1140,6 +1168,17 @@ else if($this->tipoPlanilha == 6){ ?>
                                 $vlUnitario = 0;
                                 $vlAprovado = 0;
                                 foreach ($this->planilha[$fonte][$produto][$etapa][$cidade] as $planilha) {
+                                    $podeEditarItem =
+                                                    (
+                                                        $this->link &&
+                                                        $planilha['vlComprovado'] < $planilha['vlAprovado'] &&
+                                                        $disponivelParaEdicaoReadequacaoPlanilha &&
+                                                        (
+                                                            $planilha['tpAcao'] != 'E' &&
+                                                            $nrfonte == '0'
+                                                        )
+                                                    );
+                                    
                                     $vlAprovado += $planilha['vlAprovado'];
                                     // soma somente quando não tiver excluído o item
                                     if($planilha['tpAcao'] != 'E'){
@@ -1156,7 +1195,7 @@ else if($this->tipoPlanilha == 6){ ?>
                                         switch ($planilha['tpAcao']) {
                                             case 'E':
                                                 $corLinha = 'red';
-                                                if($this->idPerfil == 1111){
+                                                if($this->idPerfil == Autenticacao_Model_Grupos::PROPONENTE){
                                                     $corLinha = 'silver';
                                                 }
                                                 break;
@@ -1175,10 +1214,7 @@ else if($this->tipoPlanilha == 6){ ?>
                                         <td style="width: 5%;"><?php echo $planilha['Seq']; ?></td>
                                         <td style="width: 20%;">
 					    <?php
-                                        if((($this->link && $planilha['tpAcao'] != 'E') && $nrfonte == '0')
-                                           ||
-                                           ($this->idPerfil == '1111') // se for proponente
-                                        ) { ?>
+                                        if($podeEditarItem) { ?>
                                                 <a href="#" style="color: <?php echo $corLinha; ?> !important;" title="clique para alterar os dados do item" class="editarItem" idPlanilhaAprovacao="<?php echo $planilha['idPlanilhaAprovacao']; ?>"><?php echo $planilha['Item']; ?></a>
                                             <?php } else {
                                                 echo $planilha['Item']; ?>
@@ -1193,7 +1229,7 @@ else if($this->tipoPlanilha == 6){ ?>
                                         <td class="direita textValorComprovado"><?php echo @number_format($planilha['vlComprovado'], 2, ",", "."); ?></td>
                                         <td class="textJustificativa" style="width: 20%;"><?php echo $planilha['dsJustificativa']; ?></td>
                                         <td class="excluirItem centro" style="width: 1%;">
-                                        <?php if($this->link && $this->idPerfil == 1111){ ?>
+                                        <?php if($this->link && $this->idPerfil == Autenticacao_Model_Grupos::PROPONENTE){ ?>
                                             <?php if($planilha['tpAcao'] == 'E'){ ?>
                                                 Item excluído
                                                 <img src="<?php echo $this->baseUrl(); ?>/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItem" tipo="<?php echo $planilha['tpAcao']; ?>" idPlanilha="<?php echo $planilha['idPlanilhaAprovacao']; ?>" title="<?php echo 'restaurar item'; ?>"/>
@@ -1221,11 +1257,11 @@ else if($this->tipoPlanilha == 6){ ?>
                                                         break;
                                                     } ?>
 
-                                                <?php if(in_array($this->idPerfil, array(94,121)) && $planilha['tpAcao'] != 'N'){ ?>
+                                                <?php if(in_array($this->idPerfil, array(Autenticacao_Model_Grupos::PARECERISTA,Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO)) && $planilha['tpAcao'] != 'N'){ ?>
                                                 <img src="<?php echo $this->baseUrl(); ?>/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItem" tipo="<?php echo $planilha['tpAcao']; ?>" idPlanilha="<?php echo $planilha['idPlanilhaAprovacao']; ?>" title="<?php echo $title; ?>"/>
                                                 <?php } ?>
 
-                                                <?php if($this->idPerfil == 118 && $planilha['tpAcao'] != 'N' && $this->link){ ?>
+                                                <?php if($this->idPerfil == Autenticacao_Model_Grupos::COMPONENTE_COMISSAO && $planilha['tpAcao'] != 'N' && $this->link){ ?>
                                                 <img src="<?php echo $this->baseUrl(); ?>/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItem" tipo="<?php echo $planilha['tpAcao']; ?>" idPlanilha="<?php echo $planilha['idPlanilhaAprovacao']; ?>" title="<?php echo $title; ?>"/>
                                                 <?php } ?>
                                         <?php } ?>

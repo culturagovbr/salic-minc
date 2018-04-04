@@ -39,6 +39,12 @@
                                 if(data.resposta){
                                     $('.linha'+btn.attr('procuracao')).remove();
                                     $('#result-proj-'+btn.attr('procuracao')).parent().parent().remove();
+
+                                    if(data.resposta == true) {
+                                        Materialize.toast("Procura&ccedil;&atilde;o aprovada com sucesso!", 4000, 'green white-text');
+                                    }else {
+                                        Materialize.toast("Erro ao salvar procura&ccedil;&atilde;o", 4000, 'red darken-1 white-text');
+                                    }
                                 }
                             },
                             complete : function(){
@@ -287,6 +293,12 @@
                                 if(data.resposta){
                                     $('.linha'+btn.attr('procuracao')).remove();
                                     $('#result-proj-'+btn.attr('procuracao')).parent().parent().remove();
+                                }
+
+                                if(data.resposta == true) {
+                                    Materialize.toast("Procura&ccedil;&atilde;o rejeitada com sucesso!", 4000, 'green white-text');
+                                }else {
+                                    Materialize.toast("Erro ao rejeitar procura&ccedil;&atilde;o", 4000, 'red darken-1 white-text');
                                 }
                             },
                             complete : function(){

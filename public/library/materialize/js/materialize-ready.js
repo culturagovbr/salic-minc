@@ -30,6 +30,9 @@
             //     return false;
             // }
         });
+
+        $('.input-field select').material_select();
+
     });
 
     $( document ).ajaxSuccess(function() {

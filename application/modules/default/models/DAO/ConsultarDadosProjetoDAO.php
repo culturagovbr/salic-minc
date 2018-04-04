@@ -1,17 +1,18 @@
 <?php
 
-class ConsultarDadosProjetoDAO extends Zend_Db_Table {
+class ConsultarDadosProjetoDAO extends Zend_Db_Table
+{
 
     /** @todo verificar futuramente as retiradas do dbo do sql */
     public static function obterDadosProjeto($dados = array())
     {
         $retorno = false;
         if ($dados['idPronac']) {
-
             $table = Zend_Db_Table::getDefaultAdapter();
 
             $select = $table->select()
-                ->from(array('p' => 'Projetos'),
+                ->from(
+                    array('p' => 'Projetos'),
                     array('IdPRONAC',
                         'idProjeto',
                         'CgcCPf',
@@ -48,35 +49,50 @@ class ConsultarDadosProjetoDAO extends Zend_Db_Table {
                                 ELSE \'N&atilde;o enquadrado\'
                             END as Enquadramento')
                          ),
-                    'SAC.dbo')
-                ->joinLeft(array('e' => 'Enquadramento'),
+                    'SAC.dbo'
+                )
+                ->joinLeft(
+                    array('e' => 'Enquadramento'),
                     'p.idPronac = e.idPronac',
                     array(''),
-                    'SAC.dbo')
-                ->joinInner(array('i' => 'Interessado'),
+                    'SAC.dbo'
+                )
+                ->joinInner(
+                    array('i' => 'Interessado'),
                     'p.CgcCPf = i.CgcCPf',
                     array(''),
-                    'SAC.dbo')
-                ->joinInner(array('a' => 'Area'),
+                    'SAC.dbo'
+                )
+                ->joinInner(
+                    array('a' => 'Area'),
                     'p.Area = a.Codigo',
                     array(new Zend_Db_Expr('a.Descricao as Area')),
-                    'SAC.dbo')
-                ->joinInner(array('s' => 'Segmento'),
+                    'SAC.dbo'
+                )
+                ->joinInner(
+                    array('s' => 'Segmento'),
                     'p.Segmento = s.Codigo',
                     array(new Zend_Db_Expr('s.Descricao AS Segmento')),
-                    'SAC.dbo')
-                ->joinInner(array('m' => 'Mecanismo'),
+                    'SAC.dbo'
+                )
+                ->joinInner(
+                    array('m' => 'Mecanismo'),
                     'p.Mecanismo = m.Codigo',
                     array(new Zend_Db_Expr('m.Descricao as Mecanismo')),
-                    'SAC.dbo')
-                ->joinInner(array('si' => 'Situacao'),
+                    'SAC.dbo'
+                )
+                ->joinInner(
+                    array('si' => 'Situacao'),
                     'p.Situacao = si.Codigo',
                     array(''),
-                    'SAC.dbo')
-                ->joinLeft(array('h' => 'vwTramitarProjeto'),
+                    'SAC.dbo'
+                )
+                ->joinLeft(
+                    array('h' => 'vwTramitarProjeto'),
                     'p.idPronac = h.idPronac',
                     array('Destino', 'DtTramitacaoEnvio', 'dtTramitacaoRecebida', new Zend_Db_Expr('h.Situacao AS Estado'), 'meDespacho'),
-                    'SAC.dbo')
+                    'SAC.dbo'
+                )
                 ->where('p.IdPRONAC = ?', $dados['idPronac']);
 
             try {
@@ -89,5 +105,4 @@ class ConsultarDadosProjetoDAO extends Zend_Db_Table {
         }
         return $retorno;
     }
-
 }

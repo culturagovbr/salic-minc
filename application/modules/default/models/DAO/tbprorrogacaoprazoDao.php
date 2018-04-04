@@ -17,7 +17,6 @@ class tbprorrogacaoprazoDao extends Zend_Db_Table
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
-
     }
 
     public static function alterarProrrogracaoPrazoCap($dados, $idpronac)
@@ -28,12 +27,9 @@ class tbprorrogacaoprazoDao extends Zend_Db_Table
         $where = "idpronac = ".$idpronac;
         $alterar = $db->update("sac.dbo.aprovacao", $dados, $where);
 
-        if ($alterar)
-        {
+        if ($alterar) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -46,14 +42,10 @@ class tbprorrogacaoprazoDao extends Zend_Db_Table
         $where = "idpronac = ".$idpronac;
         $alterar = $db->update("sac.dbo.projetos", $dados, $where);
 
-        if ($alterar)
-        {
+        if ($alterar) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 }
-?>

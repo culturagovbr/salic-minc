@@ -12,56 +12,36 @@
 
 class Zend_View_Helper_InconsistenciaBancaria
 {
-	/**
-	 * Método com os tipos de inconsistências bancárias
-	 * @access public
-	 * @param integer $tipo
-	 * @return string $dsTipo
-	 */
-	function inconsistenciaBancaria($tipo)
-	{
-		if ($tipo == 1)
-		{
-			$dsTipo = "O Período de Execução não está vigente.";
-		}
-		else if ($tipo == 2)
-		{
-			$dsTipo = "O Período de Captação não está vigente.";
-		}
-		else if ($tipo == 3)
-		{
-			$dsTipo = "Incentivador não cadastrado.";
-		}
-		else if ($tipo == 4)
-		{
-			$dsTipo = "Tipo de Depósito não foi informado.";
-		}
-		else if ($tipo == 5)
-		{
-			$dsTipo = "Não foi possível encontrar o E-mail do Proponente.";
-		}
-		else if ($tipo == 6)
-		{
-			$dsTipo = "Proponente não cadastrado.";
-		}
-		else if ($tipo == 7)
-		{
-			$dsTipo = "Agência e Conta Bancária não cadastrada.";
-		}
-		else if ($tipo == 8)
-		{
-			$dsTipo = "O Projeto não possui Enquadramento.";
-		}
-		else if ($tipo == 9)
-		{
-			$dsTipo = "Não existe Projeto associado a Conta.";
-		}
-		else
-		{
-			$dsTipo = " ";
-		}
+    /**
+     * Método com os tipos de inconsistências bancárias
+     * @access public
+     * @param integer $tipo
+     * @return string $dsTipo
+     */
+    public function inconsistenciaBancaria($tipo)
+    {
+        if ($tipo == 1) {
+            $dsTipo = "O Período de Execução não está vigente.";
+        } elseif ($tipo == 2) {
+            $dsTipo = "O Período de Captação não está vigente.";
+        } elseif ($tipo == 3) {
+            $dsTipo = "Incentivador não cadastrado.";
+        } elseif ($tipo == 4) {
+            $dsTipo = "Tipo de Depósito não foi informado.";
+        } elseif ($tipo == 5) {
+            $dsTipo = "Não foi possível encontrar o E-mail do Proponente.";
+        } elseif ($tipo == 6) {
+            $dsTipo = "Proponente não cadastrado.";
+        } elseif ($tipo == 7) {
+            $dsTipo = "Agência e Conta Bancária não cadastrada.";
+        } elseif ($tipo == 8) {
+            $dsTipo = "O Projeto não possui Enquadramento.";
+        } elseif ($tipo == 9) {
+            $dsTipo = "Não existe Projeto associado a Conta.";
+        } else {
+            $dsTipo = " ";
+        }
 
-		return $dsTipo;
-	} // fecha método inconsistenciaBancaria()
-
+        return $dsTipo;
+    } // fecha método inconsistenciaBancaria()
 } // fecha class

@@ -1,61 +1,48 @@
+<?php echo $this->partial("inc/menu.phtml", $this); ?>
 <div class="container-fluid">
-
     <div class="row">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Custo por produto</h1>
 
-        <?php echo $this->partial("inc/menu.phtml", $this); ?>
+                    <?php
+                    gerarNovoBreadCrumb(array(
+                        array('Lista de Propostas' => array('controller' => 'manterpropostaincentivofiscal', 'action' => 'listarproposta')),
+                        array('Or&ccedil;amento' => '')
+                    ));
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
+            </div>
+        </div>
 
-        <div class="content col s10 m12 l10 planilha-produtos">
-            <?php
-            gerarBreadCrumb(array(
-                array('Lista de Propostas' => array('controller' => 'manterpropostaincentivofiscal', 'action' => 'listarproposta')),
-                array('Or&ccedil;amento' => '')
-            ));
-            ?>
+        <div class="content planilha-produtos">
+            <div class="card-panel padding10">
 
-            <div class="clearfix"></div>
-            <h5 class="light">Custo por produto</h5>
-            <?php if (false) : ?>
-                <?php //if( $this->PlanilhaSalvo) : ?>
-                <p class="right-align" style="position: absolute; top: 167px; right: 100px">
-                    <a id="btn-restaurar-planilha" class="btn-floating waves-effect waves-light btn tooltipped btn-info"
-                       data-tooltip="Restaurar planilha"><i class="material-icons left">restore</i></a>
-                </p>
-            <?php endif; ?>
-            <div id="container-list"
-                 data-ajax-render='/proposta/manterorcamento/listarprodutos/idPreProjeto/<?php echo (isset($this->idPreProjeto)) ? $this->idPreProjeto : ''; ?>'></div>
-            <div id="custosvinculados"
-                 data-ajax-render='/proposta/manterorcamento/resumoplanilha/idPreProjeto/<?php echo (isset($this->idPreProjeto)) ? $this->idPreProjeto : ''; ?>'></div>
+                <?php if (false) : ?>
+                    <?php //if( $this->PlanilhaSalvo) : ?>
+                    <p class="right-align" style="position: absolute; top: 167px; right: 100px">
+                        <a id="btn-restaurar-planilha" class="btn-floating waves-effect waves-light btn tooltipped btn-info"
+                           data-tooltip="Restaurar planilha"><i class="material-icons left">restore</i></a>
+                    </p>
+                <?php endif; ?>
+
+                <div id="container-list"
+                     data-ajax-render='/proposta/manterorcamento/listarprodutos/idPreProjeto/<?= $this->idPreProjeto; ?>'></div>
+                <div id="custosvinculados"
+                     data-ajax-render='/proposta/manterorcamento/resumoplanilha/idPreProjeto/<?= $this->idPreProjeto; ?>'></div>
+            </div>
         </div>
     </div>
 </div>
 <div id="msg"></div>
 <div id="rodapeConteudo"><span></span></div>
 <br clear="all"/>
-<div id="modal-pre-loader" class="modal modal-pre-loader">
-    <div class="modal-header center valign"><h5>Aguarde!</h5></div>
-    <div class="modal-content">
-        <div class="row">
-            <div class="col s4">
-                <div class="preloader-wrapper small active">
-                    <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="gap-patch">
-                            <div class="circle"></div>
-                        </div>
-                        <div class="circle-clipper right">
-                            <div class="circle"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="msg-pre-loader" class="col s8">
-                <p>Carregando...</p>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
 
@@ -66,16 +53,14 @@
     });
 
     $3(document).ajaxStart(function () {
-        $3('#modal-pre-loader').modal('open');
+        $3('#container-loading').fadeIn('fast');
     });
 
     $3(document).ajaxComplete(function () {
-        $3('#modal-pre-loader').modal('close');
+        $3('#container-loading').fadeOut('fast');
     });
 
     $3(document).ready(function () {
-
-        $3('.modal-pre-loader').modal();
 
         window.dispatchEvent(new Event('resize'));
 
@@ -142,6 +127,7 @@
 </script>
 
 
+
 <script>
     $3(document).ready(function () {
 
@@ -193,14 +179,14 @@
                 }
 
 
-                $3.post($3('#form').attr('action'), $3('#form').serialize(), function (result) {
+                $3.post($3('#form').attr('action'), $3('#form').serialize(), function (response) {
                     event.preventDefault();
-                    $3.each(result, function (index, item) {
-                        console.log(result);
+                    $3.each(response, function (index, item) {
+                        console.log(response);
 
-                        var uf = item.dados.UfDespesa;
-                        var mun = item.dados.MunicipioDespesa;
-                        var stringLocalizacao = $3("select option[value='" + uf + ":" + mun + "']").text();
+                        let uf = item.dados.UfDespesa;
+                        let mun = item.dados.MunicipioDespesa;
+                        let stringLocalizacao = $3("select option[value='" + uf + ":" + mun + "']").text();
 
                         if (item.status == '1') {
                             if (item.action == 'update') {
@@ -239,9 +225,9 @@
         });
 
         // verificar mediana do valor unitario
-        $3('body').on('focusout', '#vlunitario, #planilhaitem', function () {
+        $3('body').on('focusout', '#vlunitario, #planilhaitem', function ($) {
 
-            var msg_pre_loader = $3('#modal-pre-loader #msg-pre-loader p').html();
+            var msg_pre_loader = $3('#container-loading #loading-message').html();
             var valor_unitario = $3('#vlunitario');
             var url_action = "<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterorcamento', 'action' => 'buscar-valor-mediana-ajax')); ?>";
             var dados = [];
@@ -289,23 +275,19 @@
         }
 
         function abrirPreLoader(msg) {
-            $3('#modal-pre-loader #msg-pre-loader p').html(msg);
-            $3('#modal-pre-loader').modal('open');
+            $('#container-loading #loading-message').html(msg);
+            $('#container-loading').fadeIn('fast');
         }
 
         function fecharPreLoader(msg) {
-            $3('#modal-pre-loader').modal('close');
-            $3('#modal-pre-loader #msg-pre-loader p').html(msg);
+            $('#container-loading #loading-message').html(msg);
+            $('#container-loading').fadeOut('fast');
         }
 
     });
 </script>
 
 <style>
-    body {
-        background: transparent;
-    }
-
     table th {
         font-size: 14px;
         padding: 16px 10px;
@@ -332,6 +314,7 @@
     .collapsible-body .coluna-etapa {
         padding: 0px;
         margin-bottom: 20px;
+        overflow-x: auto;
     }
 
     .collapsible {

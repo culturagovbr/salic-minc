@@ -1,14 +1,9 @@
 <?php
-
-/**
- * Modelo que representa a tabela SAC.dbo.ContaBancaria
- *
- * @author Danilo Lisboa
- */
-class ContaBancaria extends MinC_Db_Table_Abstract {
-    protected  $_banco = 'SAC';
-    protected  $_schema = 'SAC';
-    protected  $_name = 'ContaBancaria';
+class ContaBancaria extends MinC_Db_Table_Abstract
+{
+    protected $_banco = 'SAC';
+    protected $_schema = 'SAC';
+    protected $_name = 'ContaBancaria';
 
 
     /**
@@ -19,7 +14,8 @@ class ContaBancaria extends MinC_Db_Table_Abstract {
      * @param int $inicio - offset
      * @return Zend_Db_Table_Rowset_Abstract
      */
-    public function buscar($where=array(), $order=array(), $tamanho=-1, $inicio=-1) {
+    public function buscar($where=array(), $order=array(), $tamanho=-1, $inicio=-1)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->distinct();
@@ -27,7 +23,7 @@ class ContaBancaria extends MinC_Db_Table_Abstract {
         $slct->joinInner(
             array("a"=>"bancoagencia"),
             "c.Agencia = a.Agencia",
-        	array("Descricao", "NomeAgencia"=>"Descricao", "Cidade", "Uf", "Telefone", "Perfil")
+            array("Descricao", "NomeAgencia"=>"Descricao", "Cidade", "Uf", "Telefone", "Perfil")
         );
         $slct->joinInner(array("p"=>"projetos"), "c.AnoProjeto = p.AnoProjeto AND c.Sequencial = p.Sequencial", array());
         $slct->joinInner(array("i"=>"Interessado"), "p.CgcCpf = i.CgcCpf", array());
@@ -50,7 +46,8 @@ class ContaBancaria extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function pegaTotal($where=array()) {
+    public function pegaTotal($where=array())
+    {
         $slct = $this->select();
         $slct->distinct();
         $slct->setIntegrityCheck(false);
@@ -87,35 +84,46 @@ class ContaBancaria extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct2)->current();
     }
 
-    public function contaPorProjeto($idPronac){
+    public function contaPorProjeto($idPronac)
+    {
+        $select = $this->select();
+        $select->distinct();
+        $select->setIntegrityCheck(false);
 
-	$select = "
-		SELECT DISTINCT c.Banco,
-                 		c.Agencia,
-                		c.ContaBloqueada,
-                		c.DtLoteRemessaCB,
-                		v.Descricao AS OcorrenciaCB,
-                		c.ContaLivre,
-                		c.DtLoteRemessaCL,
-                		x.Descricao AS OcorrenciaCL,
-                		p.AnoProjeto+p.Sequencial AS NrProjeto,
-                		p.NomeProjeto
-		FROM ContaBancaria AS c
-		INNER JOIN projetos AS p ON c.AnoProjeto = p.AnoProjeto
-		AND c.Sequencial = p.Sequencial
-		LEFT JOIN Verificacao AS v ON c.OcorrenciaCB = SUBSTRING(v.Descricao,1,3)
-		AND v.idTipo = 22
-		LEFT JOIN Verificacao AS x ON c.OcorrenciaCL = SUBSTRING(x.Descricao,1,3)
-		AND x.idTipo = 22
-		WHERE (p.IdPRONAC = '$idPronac')
-	      ";
+        $select->from(
+            ['c' => $this->_name],
+            ['Banco', 'Agencia', 'DtLoteRemessaCB', 'ContaLivre','ContaBloqueada', 'DtLoteRemessaCL'],
+            $this->_schema
+        );
 
-	$statement = $this->getAdapter()->query($select);
+        $select->joinInner(
+            ['p' => 'projetos'],
+            'c.AnoProjeto = p.AnoProjeto AND c.Sequencial = p.Sequencial',
+            [new Zend_Db_Expr('p.AnoProjeto+p.Sequencial AS NrProjeto'), 'NomeProjeto'],
+            $this->_schema
+        );
 
-        return $statement->fetchObject();
+        $select->joinLeft(
+            ['v'=>'Verificacao'],
+            'c.OcorrenciaCB = SUBSTRING(v.Descricao,1,3) AND v.idTipo = 22',
+            [new Zend_Db_Expr('v.Descricao AS OcorrenciaCB')],
+            $this->_schema
+        );
+
+        $select->joinLeft(
+            ['x'=>'Verificacao'],
+            'c.OcorrenciaCL = SUBSTRING(x.Descricao,1,3) AND x.idTipo = 22',
+            [new Zend_Db_Expr('x.Descricao AS OcorrenciaCL')],
+            $this->_schema
+        );
+
+        $select->where('p.IdPRONAC = ?', $idPronac);
+
+        return $this->fetchRow($select);
     }
 
-    public function consultarDadosPorPronac($pronac, $orgao = NULL){
+    public function consultarDadosPorPronac($pronac, $orgao = null)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -131,75 +139,60 @@ class ContaBancaria extends MinC_Db_Table_Abstract {
                         'pr.NomeProjeto', 'pr.Orgao', 'pr.IdPRONAC'
                     )
                 );
-        $slct->where('cb.AnoProjeto+cb.Sequencial = ?',$pronac );
-        if(!empty($orgao)){
-            $slct->where('pr.Orgao = ?',$orgao );
+        $slct->where('cb.AnoProjeto+cb.Sequencial = ?', $pronac);
+        if (!empty($orgao)) {
+            $slct->where('pr.Orgao = ?', $orgao);
         }
 
         return $this->fetchAll($slct);
     }
 
 
+    public function buscarDados($pronac = null, $idPronac = null, $agencia = null, $conta = null, $buscarTodos = true)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from($this);
 
-	/**
-	 * M�todo para buscar
-	 * @access public
-	 * @param string $pronac
-	 * @param integer $idPronac
-	 * @param string $agencia
-	 * @param string $conta
-	 * @param boolean $buscarTodos (informa se busca todos ou somente um)
-	 * @return object/array
-	 */
-	public function buscarDados($pronac = null, $idPronac = null, $agencia = null, $conta = null, $buscarTodos = true)
-	{
-		$select = $this->select();
-		$select->setIntegrityCheck(false);
-		$select->from($this);
+        // busca pelo pronac
+        if (!empty($pronac)) {
+            $select->where('AnoProjeto+Sequencial = ?', $pronac);
+        }
 
-		// busca pelo pronac
-		if (!empty($pronac))
-		{
-			$select->where('AnoProjeto+Sequencial = ?', $pronac);
-		}
+        // busca pelo idPronac
+        if (!empty($idPronac)) {
+            $select->where('idPronac = ?', $idPronac);
+        }
 
-		// busca pelo idPronac
-		if (!empty($idPronac))
-		{
-			$select->where('idPronac = ?', $idPronac);
-		}
+        // busca pela agencia
+        if (!empty($agencia)) {
+            $select->where('Agencia = ?', $agencia);
+        }
 
-		// busca pela agencia
-		if (!empty($agencia))
-		{
-			$select->where('Agencia = ?', $agencia);
-		}
+        // busca pela conta
+        if (!empty($conta)) {
+            $select->where('ContaBloqueada = ?', $conta);
+            $select->orwhere('ContaLivre = ?', $conta);
+        }
 
-		// busca pela conta
-		if (!empty($conta))
-		{
-			$select->where('ContaBloqueada = ?', $conta);
-			$select->orwhere('ContaLivre = ?', $conta);
-		}
+        return $buscarTodos ? $this->fetchAll($select) : $this->fetchRow($select);
+    }
 
-		return $buscarTodos ? $this->fetchAll($select) : $this->fetchRow($select);
-	} // fecha m�todo buscarDados()
-
-
-	public function buscarDadosBancarios($pronac = null)
-	{
-            $select = $this->select();
-            $select->setIntegrityCheck(false);
-            $select->from(
+    public function buscarDadosBancarios($pronac = null)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
                     array("c"=>$this->_name),
                     array("Banco", "Agencia", "ContaBloqueada", "ContaLivre", "DtLoteRemessaCB", "DtLoteRemessaCL")
                 );
-            $select->where('AnoProjeto+Sequencial = ?', $pronac);
+        $select->where('AnoProjeto+Sequencial = ?', $pronac);
 
-            return $this->fetchRow($select);
-	}
+        return $this->fetchRow($select);
+    }
 
-    public function painelContasBancarias($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false) {
+    public function painelContasBancarias($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -234,29 +227,36 @@ class ContaBancaria extends MinC_Db_Table_Abstract {
         );
 
         $select->joinInner(
-            array('p' => 'Projetos'), 'c.AnoProjeto = p.AnoProjeto AND c.Sequencial = p.Sequencial',
-            array(''), 'SAC.dbo'
+            array('p' => 'Projetos'),
+            'c.AnoProjeto = p.AnoProjeto AND c.Sequencial = p.Sequencial',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('x' => 'Area'), 'p.Area = x.Codigo',
-            array(''), 'SAC.dbo'
+            array('x' => 'Area'),
+            'p.Area = x.Codigo',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('a' => 'Agentes'), 'p.CgcCpf = a.CNPJCPF',
-            array(''), 'AGENTES.dbo'
+            array('a' => 'Agentes'),
+            'p.CgcCpf = a.CNPJCPF',
+            array(''),
+            'AGENTES.dbo'
         );
         $select->joinInner(
-            array('n' => 'Nomes'), 'a.idAgente = n.idAgente',
-            array(''), 'AGENTES.dbo'
+            array('n' => 'Nomes'),
+            'a.idAgente = n.idAgente',
+            array(''),
+            'AGENTES.dbo'
         );
 
-       //adiciona quantos filtros foram enviados
+        //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
 
         if ($qtdeTotal) {
-            
             return $this->fetchAll($select)->count();
         }
 
@@ -271,9 +271,7 @@ class ContaBancaria extends MinC_Db_Table_Abstract {
             }
             $select->limit($tamanho, $tmpInicio);
         }
-
         
         return $this->fetchAll($select);
     }
-
 }

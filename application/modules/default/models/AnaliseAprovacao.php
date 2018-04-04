@@ -5,13 +5,14 @@
  *
  * @author augusto
  */
-class AnaliseAprovacao extends MinC_Db_Table_Abstract {
-
+class AnaliseAprovacao extends MinC_Db_Table_Abstract
+{
     protected $_banco = 'SAC';
     protected $_schema = 'SAC';
     protected $_name = 'tbAnaliseAprovacao';
 
-    public function inserirAnaliseAprovacao($data) {
+    public function inserirAnaliseAprovacao($data)
+    {
         try {
             $inserir = $this->insert($data);
             return $inserir;
@@ -20,8 +21,8 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
         }
     }
 
-    public function buscarAnaliseProduto($tpanalise, $idpronac, $order=array(), $where=array(), $tamanho=-1, $inicio=-1, $count=false) {
-
+    public function buscarAnaliseProduto($tpanalise, $idpronac, $order=array(), $where=array(), $tamanho=-1, $inicio=-1, $count=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -44,7 +45,7 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
                     'aa.stIncisoArtigo27_IV',
                     'aa.stAvaliacao',
                     'aa.tpAnalise',
-                    '(Cast(aa.dsAvaliacao as TEXT)) as dsAvaliacao',
+                    new Zend_Db_Expr('(Cast(aa.dsAvaliacao as TEXT)) as dsAvaliacao'),
                 )
         );
         $select->joinInner(
@@ -81,9 +82,9 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
                     'AC.IncisoArtigo27_III AS stIncisoArtigo27_III_Antigo',
                     'AC.IncisoArtigo27_IV AS stIncisoArtigo27_IV_Antigo',
                     'AC.ParecerFavoravel AS stAvaliacao_Antigo',
-                    'Cast(AC.ParecerDeConteudo as Text)  AS dsAvaliacao_Antigo',
+                    new Zend_Db_Expr('Cast(AC.ParecerDeConteudo as Text)  AS dsAvaliacao_Antigo'),
                     'AC.idUsuario AS idAgente_Antigo',
-                    'SAC.dbo.fnNomeParecerista(AC.idUsuario) AS Parecerista'
+                    new Zend_Db_Expr('SAC.dbo.fnNomeParecerista(AC.idUsuario) AS Parecerista')
                 )
         );
         $select->where('aa.tpAnalise = ?', $tpanalise);
@@ -95,13 +96,14 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
             $select->where($coluna, $valor);
         }
 
-        if($count){
-
+        if ($count) {
             $slctContador = $this->select();
             $slctContador->setIntegrityCheck(false);
-            $slctContador->from(array("aa"=>$this->_name),
+            $slctContador->from(
+                array("aa"=>$this->_name),
                             array("total" => "count(*)"),
-                                  "SAC.dbo");
+                                  "SAC.dbo"
+            );
             $slctContador->joinInner(
                     array('prod' => 'Produto'),
                     'aa.idProduto = prod.Codigo',
@@ -131,7 +133,11 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
                 $slctContador->where($coluna, $valor);
             }
             $rs = $this->fetchAll($slctContador)->current();
-            if($rs){ return $rs->total; }else{ return 0; }
+            if ($rs) {
+                return $rs->total;
+            } else {
+                return 0;
+            }
         }
 
         //adicionando linha order ao select
@@ -150,7 +156,8 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
     }
 
 
-    public function buscarAnalises($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false) {
+    public function buscarAnalises($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $qtdeTotal=false)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -179,23 +186,30 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
                     'stIncisoArtigo27_IV',
                     'stAvaliacao',
                     'tpAnalise',
-                    '(Cast(aa.dsAvaliacao as TEXT)) as dsAvaliacao',
+                    new Zend_Db_Expr('(Cast(aa.dsAvaliacao as TEXT)) as dsAvaliacao'),
                 )
         );
         $select->joinInner(
-                array('prod' => 'Produto'), 'aa.idProduto = prod.Codigo',
-                array('prod.Descricao as produto'), 'SAC.dbo'
+                array('prod' => 'Produto'),
+            'aa.idProduto = prod.Codigo',
+                array('prod.Descricao as produto'),
+            'SAC.dbo'
         );
         $select->joinInner(
-                array('proj' => 'Projetos'), 'proj.IdPRONAC = aa.idPRONAC',
-                array(), 'SAC.dbo'
+                array('proj' => 'Projetos'),
+            'proj.IdPRONAC = aa.idPRONAC',
+                array(),
+            'SAC.dbo'
         );
         $select->joinInner(
-                array('PDP' => 'PlanoDistribuicaoProduto'), 'PDP.idProjeto = proj.idProjeto and PDP.idProduto = aa.idProduto',
-                array('PDP.stPrincipal'), 'SAC.dbo'
+                array('PDP' => 'PlanoDistribuicaoProduto'),
+            'PDP.idProjeto = proj.idProjeto and PDP.idProduto = aa.idProduto',
+                array('PDP.stPrincipal'),
+            'SAC.dbo'
         );
         $select->joinInner(
-                array('AC' => 'tbAnaliseDeConteudo'), 'aa.idAnaliseConteudo = AC.idAnaliseDeConteudo',
+                array('AC' => 'tbAnaliseDeConteudo'),
+            'aa.idAnaliseConteudo = AC.idAnaliseDeConteudo',
                 array(
                     'TipoParecer',
                     'Lei8313 AS stLei8313_Antigo',
@@ -212,7 +226,7 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
                     'IncisoArtigo27_III AS stIncisoArtigo27_III_Antigo',
                     'IncisoArtigo27_IV AS stIncisoArtigo27_IV_Antigo',
                     'ParecerFavoravel AS stAvaliacao_Antigo',
-                    'Cast(AC.ParecerDeConteudo as Text)  AS dsAvaliacao_Antigo',
+                    new Zend_Db_Expr('Cast(AC.ParecerDeConteudo as Text)  AS dsAvaliacao_Antigo'),
                     'idUsuario AS idAgente_Antigo'
                 )
         );
@@ -242,4 +256,3 @@ class AnaliseAprovacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 }
-

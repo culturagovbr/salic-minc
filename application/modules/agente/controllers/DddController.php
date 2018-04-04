@@ -61,27 +61,27 @@ class Agente_DddController extends Zend_Controller_Action
      */
     public function comboSalvarTelefoneAction()
     {
-            $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
+        $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
-            // recebe o id via post
-            $post = Zend_Registry::get('post');
-            $id = (int) $post->id;
+        // recebe o id via post
+        $post = Zend_Registry::get('post');
+        $id = (int) $post->id;
 
-            // integra��o MODELO e VIS�O
-            $arrayDados = Ddd::buscar($id);
-            $dados = array();
-            $i = 0;
-            if(count($arrayDados) > 0){
-                foreach ($arrayDados as $value) {
-                    $dados[$i]['id'] = $value->id;
-                    $dados[$i]['descricao'] = $value->descricao;
-                    $i++;
-                }
-                $jsonEncode = json_encode($dados);
-                $this->_helper->json(array('resposta'=>true,'conteudo'=>$dados));
-            } else {
-                $this->_helper->json(array('resposta'=>false));
+        // integra��o MODELO e VIS�O
+        $arrayDados = Ddd::buscar($id);
+        $dados = array();
+        $i = 0;
+        if (count($arrayDados) > 0) {
+            foreach ($arrayDados as $value) {
+                $dados[$i]['id'] = $value->id;
+                $dados[$i]['descricao'] = $value->descricao;
+                $i++;
             }
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $jsonEncode = json_encode($dados);
+            $this->_helper->json(array('resposta'=>true,'conteudo'=>$dados));
+        } else {
+            $this->_helper->json(array('resposta'=>false));
+        }
+        $this->_helper->viewRenderer->setNoRender(true);
     }
 }

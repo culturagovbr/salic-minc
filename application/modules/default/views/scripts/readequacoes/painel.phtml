@@ -258,7 +258,7 @@ $situacoes = array(
 
     <!-- Tabela com os dados-->
     <?php if($this->qtdRegistros > 0): ?>
-    <table class="tabela tablesorter" style="font-size: 10px">
+    <table class="tabela tablesorter" >
             <?php if($this->filtro == 'aguardando_publicacao'): ?>
 	    <?php echo $this->partial('readequacoes/partial/aguardandoPublicacao.phtml', array('dados' => $this->dados, 'filtro' => $this->filtro, 'conselheiros' => $this->conselheiros, 'paginacao' => $this->paginacao, 'pronac' => $this->pronac)); ?>
             <?php elseif($this->filtro == 'analisados'): ?>

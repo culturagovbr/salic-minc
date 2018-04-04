@@ -40,7 +40,7 @@ abstract class MinC_Test_ControllerActionTestCase extends MinC_Test_Abstract
             ->resetResponse();
 
         if (empty($config->test->params->login) || empty($config->test->params->password)) {
-            throw new exception('test.username e test.password');
+            throw new exception('Configure as variáveis test.params.login e test.params.password no seu application.ini!');
         }
 
         $this->request->setMethod('POST')
@@ -89,7 +89,7 @@ abstract class MinC_Test_ControllerActionTestCase extends MinC_Test_Abstract
         $this->assertRedirectTo('/principal');
     }
 
-     protected function mudarPerfil1()
+    protected function mudarPerfil1()
     {
         //reset para garantir respostas.
         $this->resetRequest()
@@ -99,6 +99,7 @@ abstract class MinC_Test_ControllerActionTestCase extends MinC_Test_Abstract
         $this->dispatch('/autenticacao/perfil/alterarperfil?codGrupo=93&codOrgao=93');
         $this->assertRedirectTo('/principal');
     }
+
     protected function mudarPerfil2()
     {
         //reset para garantir respostas.
@@ -109,6 +110,7 @@ abstract class MinC_Test_ControllerActionTestCase extends MinC_Test_Abstract
         $this->dispatch('/autenticacao/perfil/alterarperfil?codGrupo=131&codOrgao=171');
         $this->assertRedirectTo('/principal');
     }
+
     protected function mudarPerfilTecnicoADM()
     {
         //reset para garantir respostas.
@@ -119,6 +121,7 @@ abstract class MinC_Test_ControllerActionTestCase extends MinC_Test_Abstract
         $this->dispatch('/autenticacao/perfil/alterarperfil?codGrupo=92&codOrgao=262');
         $this->assertRedirectTo('/principal');
     }
+
     protected function mudarPerfilCoordenadorADM()
     {
         //reset para garantir respostas.
@@ -128,6 +131,33 @@ abstract class MinC_Test_ControllerActionTestCase extends MinC_Test_Abstract
         $this->request->setMethod('GET');
         $this->dispatch('/autenticacao/perfil/alterarperfil?codGrupo=131&codOrgao=262');
         $this->assertRedirectTo('/principal');
+    }
+
+    /*
+     * @param integer $codGrupo
+     * @param integer $codOrgao
+     */
+    protected function alterarPerfil($codGrupo, $codOrgao)
+    {
+        $this->resetRequest()
+            ->resetResponse();
+
+        if (!is_int($codGrupo) ||
+            !is_int($codOrgao)) {
+            throw new exception('Perfil inválido: codGrupo(' . $codGrupo . ') / codOrgao(' . $codOrgao . ')!');
+        }
+
+        $this->request->setMethod('GET');
+        $this->dispatch('/autenticacao/perfil/alterarperfil?codGrupo=' . $codGrupo . '&codOrgao=' . $codOrgao);
+        $this->assertRedirectTo('/principal');
+    }
+
+
+    protected function assertUrl($module, $controller, $action)
+    {
+        $this->assertModule($module);
+        $this->assertController($controller);
+        $this->assertAction($action);
     }
 }
 

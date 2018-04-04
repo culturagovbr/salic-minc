@@ -7,19 +7,23 @@
  * @author 01129075125
  * @author wouerner <wouerner@gmail.com>
  */
-class DeslocamentoDAO extends MinC_Db_Table_Abstract {
-    protected  $_banco = 'sac';
-    protected  $_schema = 'sac';
+class DeslocamentoDAO extends MinC_Db_Table_Abstract
+{
+    protected $_banco = 'sac';
+    protected $_schema = 'sac';
     protected $_name = 'tbdeslocamento';
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
     }
-    public function init(){
+    public function init()
+    {
         parent::init();
     }
 
-    public static function buscarPais() {
+    public static function buscarPais()
+    {
         $sql = "SELECT * FROM AGENTES.dbo.Pais";
 
         $db = Zend_Db_Table::getDefaultAdapter();
@@ -29,7 +33,8 @@ class DeslocamentoDAO extends MinC_Db_Table_Abstract {
         return $resultado;
     }
 
-    public function pais() {
+    public function pais()
+    {
         $sql = "SELECT * FROM " . DeslocamentoDAO::getStaticTableName('agentes', 'pais');
 
         $db = Zend_Db_Table::getDefaultAdapter();
@@ -76,19 +81,18 @@ class DeslocamentoDAO extends MinC_Db_Table_Abstract {
 
         $sql = $db->select()
             ->from(array('de' => 'tbDeslocamento'), $de, parent::getStaticTableName('tbdeslocamento'))
-            ->joinLeft(array('paO'=>'Pais'), 'de.idPaisOrigem = paO.idPais','paO.Descricao AS PO', $agenteSchema)
-            ->joinLeft(array('ufO'=>'UF'), 'de.idUFOrigem = ufO.idUF','ufO.Descricao AS UFO', $agenteSchema)
-            ->joinLeft(array('muO' => 'Municipios'), 'de.idMunicipioOrigem = muO.idMunicipioIBGE','muO.Descricao AS MUO', $agenteSchema)
+            ->joinLeft(array('paO'=>'Pais'), 'de.idPaisOrigem = paO.idPais', 'paO.Descricao AS PO', $agenteSchema)
+            ->joinLeft(array('ufO'=>'UF'), 'de.idUFOrigem = ufO.idUF', 'ufO.Descricao AS UFO', $agenteSchema)
+            ->joinLeft(array('muO' => 'Municipios'), 'de.idMunicipioOrigem = muO.idMunicipioIBGE', 'muO.Descricao AS MUO', $agenteSchema)
             ->joinLeft(array('paD' => 'Pais'), 'de.idPaisDestino = paD.idPais', 'paD.Descricao AS PD', $agenteSchema)
-            ->joinLeft(array('ufD' => 'UF'), 'de.idUFDestino = ufD.idUF','ufD.Descricao AS UFD', $agenteSchema)
+            ->joinLeft(array('ufD' => 'UF'), 'de.idUFDestino = ufD.idUF', 'ufD.Descricao AS UFD', $agenteSchema)
             ->joinLeft(array('muD' => 'Municipios '), 'de.idMunicipioDestino = muD.idMunicipioIBGE', 'muD.Descricao AS MUD', $agenteSchema)
             ->where("idProjeto = ?", $idProjeto)
             ;
 
-            if($idDeslocamento != null)
-            {
-                $sql->where('de.idDeslocamento = ?', $idDeslocamento);
-            }
+        if ($idDeslocamento != null) {
+            $sql->where('de.idDeslocamento = ?', $idDeslocamento);
+        }
 
         $resultado = $db->fetchAll($sql);
 
@@ -126,39 +130,43 @@ class DeslocamentoDAO extends MinC_Db_Table_Abstract {
 
         $sql = $db->select()
             ->from(array('de' => $this->_name), $de, $this->_schema)
-            ->joinLeft(array('pao'=>'pais'), 'de.idpaisorigem = pao.idpais','pao.descricao as po', $agenteSchema)
-            ->joinLeft(array('ufo'=>'uf'), 'de.iduforigem = ufo.iduf','ufo.descricao as ufo', $agenteSchema)
-            ->joinLeft(array('muo' => 'municipios'), 'de.idmunicipioorigem = muo.idmunicipioibge','muo.descricao as muo', $agenteSchema)
+            ->joinLeft(array('pao'=>'pais'), 'de.idpaisorigem = pao.idpais', 'pao.descricao as po', $agenteSchema)
+            ->joinLeft(array('ufo'=>'uf'), 'de.iduforigem = ufo.iduf', 'ufo.descricao as ufo', $agenteSchema)
+            ->joinLeft(array('muo' => 'municipios'), 'de.idmunicipioorigem = muo.idmunicipioibge', 'muo.descricao as muo', $agenteSchema)
             ->joinLeft(array('pad' => 'pais'), 'de.idpaisdestino = pad.idpais', 'pad.descricao as pd', $agenteSchema)
-            ->joinLeft(array('ufd' => 'uf'), 'de.idufdestino = ufd.iduf','ufd.descricao as ufd', $agenteSchema)
+            ->joinLeft(array('ufd' => 'uf'), 'de.idufdestino = ufd.iduf', 'ufd.descricao as ufd', $agenteSchema)
             ->joinLeft(array('mud' => 'municipios'), 'de.idmunicipiodestino = mud.idmunicipioibge', 'mud.descricao as mud', $agenteSchema)
             ->where("idprojeto = ?", $idProjeto)
             ;
 
-            if($idDeslocamento != null)
-            {
-                $sql->where('de.iddeslocamento = ?', $idDeslocamento);
-            }
+        if ($idDeslocamento != null) {
+            $sql->where('de.iddeslocamento = ?', $idDeslocamento);
+        }
 
         $resultado = $db->fetchAll($sql);
 
         return $resultado;
     }
 
-    public static function buscarDeslocamentosGeral($where = array(), $order = array()){
+    public static function buscarDeslocamentosGeral($where = array(), $order = array())
+    {
         $meuWhere = "";
         // adicionando clausulas where
-        foreach ($where as $coluna=>$valor)
-        {
-            if($meuWhere != ""){ $meuWhere .= " AND "; }
+        foreach ($where as $coluna=>$valor) {
+            if ($meuWhere != "") {
+                $meuWhere .= " AND ";
+            }
             $meuWhere .= $coluna.$valor;
         }
 
         $meuOrder = "";
         // adicionando clausulas order
-        foreach ($order as $valor)
-        {
-            if($meuOrder != ""){ $meuOrder .= " , "; }else{ $meuOrder = " ORDER BY "; }
+        foreach ($order as $valor) {
+            if ($meuOrder != "") {
+                $meuOrder .= " , ";
+            } else {
+                $meuOrder = " ORDER BY ";
+            }
             $meuOrder .= $valor;
         }
 
@@ -194,50 +202,43 @@ class DeslocamentoDAO extends MinC_Db_Table_Abstract {
 
 
         $db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		$resultado = $db->fetchAll($sql);
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $resultado = $db->fetchAll($sql);
 
-		return $resultado;
+        return $resultado;
     }
 
 
     public static function salvaDeslocamento($dados)
     {
-
         $db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		$db->insert('SAC.dbo.tbdeslocamento', $dados);
-
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db->insert('SAC.dbo.tbdeslocamento', $dados);
     }
 
-    public static function atualizaDeslocamento($paisOrigem,$uf,$cidade,$paisDestino,$ufD,$cidadeD,$quantidade,$idDeslocamento)
+    public static function atualizaDeslocamento($paisOrigem, $uf, $cidade, $paisDestino, $ufD, $cidadeD, $quantidade, $idDeslocamento)
     {
-
-    	$sql = "UPDATE SAC.dbo.tbDeslocamento SET idPaisOrigem=".$paisOrigem.", " .
-    			"idUFOrigem = ".$uf.", " .
-    			"idMunicipioOrigem = ".$cidade.", " .
-    			"idPaisDestino = ".$paisDestino.", " .
-    			"idUFDestino = ".$ufD.", " .
-    			"idMunicipioDestino = ".$cidadeD.", " .
-    			"Qtde = ".$quantidade." " .
-    			"WHERE idDeslocamento = ".$idDeslocamento;
+        $sql = "UPDATE SAC.dbo.tbDeslocamento SET idPaisOrigem=".$paisOrigem.", " .
+                "idUFOrigem = ".$uf.", " .
+                "idMunicipioOrigem = ".$cidade.", " .
+                "idPaisDestino = ".$paisDestino.", " .
+                "idUFDestino = ".$ufD.", " .
+                "idMunicipioDestino = ".$cidadeD.", " .
+                "Qtde = ".$quantidade." " .
+                "WHERE idDeslocamento = ".$idDeslocamento;
 
 
         $db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		$db->query($sql);
-
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db->query($sql);
     }
 
-    public static function excluiDeslocamento($idDeslocamento){
-
+    public static function excluiDeslocamento($idDeslocamento)
+    {
         $sql ="DELETE FROM SAC.dbo.tbDeslocamento WHERE idDeslocamento = ".$idDeslocamento;
 
         $db = Zend_Db_Table::getDefaultAdapter();
-		$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		$db->query($sql);
-
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db->query($sql);
     }
-
-
 }

@@ -1,16 +1,7 @@
 <?php
-/**
- * PlanilhaitensController
- * @author Emanuel Sampaio <emanuelonline@gmail.com>
- * @since 30/04/2012
- * @version 1.0
- * @package application
- * @subpackage application.controllers
- * @copyright © 2012 - Ministério da Cultura - Todos os direitos reservados.
- * @link http://salic.cultura.gov.br
- */
 
-class PlanilhaitensController extends Zend_Controller_Action {
+class PlanilhaitensController extends Zend_Controller_Action
+{
     /**
      * Método para buscar os itens de uma etapa
      * Busca como XML para o AJAX
@@ -18,7 +9,8 @@ class PlanilhaitensController extends Zend_Controller_Action {
      * @param void
      * @return void
      */
-    public function comboAction() {
+    public function comboAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         // recebe o idUF via post
@@ -30,7 +22,8 @@ class PlanilhaitensController extends Zend_Controller_Action {
         $this->view->comboplanilha = $tbPlanilhaItens->combo(array('tipp.idPlanilhaEtapa = ?' => $id), array('tpi.Descricao ASC'));
     } // fecha comboAction()
 
-    public function comboComIdProdutoAction() {
+    public function comboComIdProdutoAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         // recebe o idUF via post

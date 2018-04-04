@@ -79,7 +79,7 @@
                 <input type="hidden" name="idGerarPagamentoParecerista" value="<?php echo $pa['idGerarPagamentoParecerista']; ?>" />
                 <input type="hidden" name="idAgente" value="<?php echo $pa['idParecerista']; ?>" />
             <tr>
-                <td class="centro"><?php echo $pa['nrDespacho']; ?></td>
+                <td class="centro"><?php echo $pa['nrDespacho']; ?>/ <?php echo $pa['anoGeracaoPagamento']; ?></td>
                 <td><?php echo $pa['nmParecerista']; ?></td>
                 <td><?php echo $this->formatarReal(round($pa['vlTotalPagamento'],1)); ?></td>
                 <td><input type="button" class="btn_cancelar"   value=" " onclick="cancelarPagamento('<?php echo $pa['idGerarPagamentoParecerista']; ?>');" /></td>

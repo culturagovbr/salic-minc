@@ -1,14 +1,4 @@
 <?php
-/**
- * Login e autenticacao
- * @author Equipe RUP - Politec
- * @since 20/07/2010
- * @version 1.0
- * @package application
- * @subpackage application.controller
- * @link http://www.cultura.gov.br
- * @copyright © 2010 - Ministerio da Cultura - Todos os direitos reservados.
- */
 
 class IndexController extends MinC_Controller_Action_Abstract
 {
@@ -25,7 +15,6 @@ class IndexController extends MinC_Controller_Action_Abstract
 
     public function indisponivelAction()
     {
-
     }
 
     /*
@@ -36,20 +25,21 @@ class IndexController extends MinC_Controller_Action_Abstract
     protected function buscarIp()
     {
         $ip = '';
-        if (isset($_SERVER['HTTP_CLIENT_IP']))
+        if (isset($_SERVER['HTTP_CLIENT_IP'])) {
             $ip = $_SERVER['HTTP_CLIENT_IP'];
-        else if (isset($_SERVER['HTTP_X_FORWARDED_FOR']))
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
-        else if (isset($_SERVER['HTTP_X_FORWARDED']))
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED'])) {
             $ip = $_SERVER['HTTP_X_FORWARDED'];
-        else if (isset($_SERVER['HTTP_FORWARDED_FOR']))
+        } elseif (isset($_SERVER['HTTP_FORWARDED_FOR'])) {
             $ip = $_SERVER['HTTP_FORWARDED_FOR'];
-        else if (isset($_SERVER['HTTP_FORWARDED']))
+        } elseif (isset($_SERVER['HTTP_FORWARDED'])) {
             $ip = $_SERVER['HTTP_FORWARDED'];
-        else if (isset($_SERVER['REMOTE_ADDR']))
+        } elseif (isset($_SERVER['REMOTE_ADDR'])) {
             $ip = $_SERVER['REMOTE_ADDR'];
-        else
+        } else {
             $ip = 'DESCONHECIDO';
+        }
 
         return $ip;
     }
@@ -59,7 +49,8 @@ class IndexController extends MinC_Controller_Action_Abstract
      *
      * @param stdClass $projeto
      */
-    protected function enviarNotificacao(stdClass $projeto) {
+    protected function enviarNotificacao(stdClass $projeto)
+    {
         $modelDispositivo = new Dispositivomovel();
         $listaDispositivos = $modelDispositivo->listarPorIdPronac($projeto->idPronac);
         $notification = new Minc_Notification_Message();
@@ -74,7 +65,8 @@ class IndexController extends MinC_Controller_Action_Abstract
             ->setListParameters(array('projeto' => $projeto->idPronac))
             ->send()
         ;
-        echo var_dump($notification->getResponse()); die;
+        echo var_dump($notification->getResponse());
+        die;
     }
 
     /**
@@ -84,7 +76,8 @@ class IndexController extends MinC_Controller_Action_Abstract
      * @param void
      * @return void
      */
-    public function notificationAction() {
+    public function notificationAction()
+    {
         $idPronac = $this->_request->getParam('idPronac');
 
         # Envia notifica��o para o usu�rio atrav�s do aplicativo mobile.
@@ -95,7 +88,6 @@ class IndexController extends MinC_Controller_Action_Abstract
             'pronac' => $projeto->Pronac,
             'idPronac' => $projeto->IdPRONAC
         ));
-
     }
 
     public function loginUsuarioAction()
@@ -112,7 +104,8 @@ class IndexController extends MinC_Controller_Action_Abstract
      * @throws Zend_Exception
      * @internal param $void
      */
-    public function loginAction(){
+    public function loginAction()
+    {
         $this->_helper->layout->disableLayout(); // desabilita Zend_Layout
 
         // recebe os dados do formulrio via post
@@ -125,7 +118,7 @@ class IndexController extends MinC_Controller_Action_Abstract
         $ip = $this->buscarIp();
 
         $tbLoginTentativasAcesso = new tbLoginTentativasAcesso();
-        $LoginAttempt = $tbLoginTentativasAcesso->consultarAcessoCpf($username,$ip);
+        $LoginAttempt = $tbLoginTentativasAcesso->consultarAcessoCpf($username, $ip);
 
 
         //Pega timestamp atual
@@ -136,40 +129,29 @@ class IndexController extends MinC_Controller_Action_Abstract
         $tempoBan = 300; // segundos
 
         // VERIFICA SE USUARIO ESTA BANIDO
-        if(isset($LoginAttempt)){
-
+        if (isset($LoginAttempt)) {
             $tempoLogin = $timestamp - strtotime($LoginAttempt->dtTentativa);
 
-            if($tempoLogin <= $tempoBan && $LoginAttempt->nrTentativa >= $maxTentativas)
-            {
-                parent::message('Acesso bloqueado, aguarde '.gmdate("i", ($tempoBan + 5 - $tempoLogin) ).' minuto(s) e tente novamente!', "/", "ERROR");
-
-            }else{
-
+            if ($tempoLogin <= $tempoBan && $LoginAttempt->nrTentativa >= $maxTentativas) {
+                parent::message('Acesso bloqueado, aguarde '.gmdate("i", ($tempoBan + 5 - $tempoLogin)).' minuto(s) e tente novamente!', "/", "ERROR");
+            } else {
                 try {
                     // valida os dados
-                    if (empty($username) || empty($password)) // verifica se os campos foram preenchidos
-                    {
+                    if (empty($username) || empty($password)) { // verifica se os campos foram preenchidos
                         throw new Exception("Login ou Senha invalidos!");
-                    }
-                    else if (strlen($username) == 11 && !Validacao::validarCPF($username)) // verifica se o CPF ? v?lido
-                    {
+                    } elseif (strlen($username) == 11 && !Validacao::validarCPF($username)) { // verifica se o CPF ? v?lido
                         throw new Exception("O CPF informado  invalido!");
-                    }
-                    else if (strlen($username) == 14 && !Validacao::validarCNPJ($username)) // verifica se o CNPJ ? v?lido
-                    {
+                    } elseif (strlen($username) == 14 && !Validacao::validarCNPJ($username)) { // verifica se o CNPJ ? v?lido
                         throw new Exception("O CNPJ informado  invalido!");
-                    }
-                    else {
+                    } else {
                         // realiza a busca do usurio no banco, fazendo a autenticao do mesmo
                         $Usuario = new Usuario();
                         $buscar = $Usuario->login($username, $password);
 
 
 
-                        if ($buscar) // acesso permitido
-                        {
-                            $tbLoginTentativasAcesso->removeTentativa($username,$ip);
+                        if ($buscar) { // acesso permitido
+                            $tbLoginTentativasAcesso->removeTentativa($username, $ip);
 
                             $auth = Zend_Auth::getInstance(); // instancia da autenti��o
 
@@ -185,20 +167,20 @@ class IndexController extends MinC_Controller_Action_Abstract
                             return $this->_helper->redirector->goToRoute(array('controller' => 'principal'), null, true);
                         } // fecha if
                         else {
-                            if($tempoLogin > $tempoBan){
-                                $tbLoginTentativasAcesso->removeTentativa($username,$ip);
+                            if ($tempoLogin > $tempoBan) {
+                                $tbLoginTentativasAcesso->removeTentativa($username, $ip);
                             }
-                            $LoginAttempt = $tbLoginTentativasAcesso->consultarAcessoCpf($username,$ip);
+                            $LoginAttempt = $tbLoginTentativasAcesso->consultarAcessoCpf($username, $ip);
 
                             //se nenhum registro foi encontrado na tabela Usuario, ele passa a tentar se logar como proponente.
                             //neste ponto o _forward encaminha o processamento para o metodo login do controller login, que recebe
                             //o post igualmente e tenta encontrar usuario cadastrado em SGCAcesso
 
                             //INSERE OU ATUALIZA O ATUAL ATTEMPT
-                            if(!$LoginAttempt) {
-                                $tbLoginTentativasAcesso->insereTentativa($username,$ip,$data->get('YYYY-MM-dd HH:mm:ss'));
-                            }else{
-                                $tbLoginTentativasAcesso->atualizaTentativa($username,$ip,$LoginAttempt->nrTentativa,$data->get('YYYY-MM-dd HH:mm:ss'));
+                            if (!$LoginAttempt) {
+                                $tbLoginTentativasAcesso->insereTentativa($username, $ip, $data->get('YYYY-MM-dd HH:mm:ss'));
+                            } else {
+                                $tbLoginTentativasAcesso->atualizaTentativa($username, $ip, $LoginAttempt->nrTentativa, $data->get('YYYY-MM-dd HH:mm:ss'));
                             }
 
                             $this->_forward("login", "login");
@@ -211,7 +193,6 @@ class IndexController extends MinC_Controller_Action_Abstract
                 }
             }
         }
-
     } // fecha loginAction
 
 
@@ -250,7 +231,7 @@ class IndexController extends MinC_Controller_Action_Abstract
         $GrupoAtivo->codGrupo = $codGrupo; // armazena o grupo ativo na sess�o
         $GrupoAtivo->codOrgao = $codOrgao; // armazena o �rg�o ativo na sess�o
 
-        if($GrupoAtivo->codGrupo == "1111" && $GrupoAtivo->codOrgao == "2222"){
+        if ($GrupoAtivo->codGrupo == "1111" && $GrupoAtivo->codOrgao == "2222") {
             $auth   = Zend_Auth::getInstance();
             $tblSGCacesso = new Sgcacesso();
             $rsSGCacesso = $tblSGCacesso->buscar(array("Cpf = ? "=>$auth->getIdentity()->usu_identificacao))->current()->toArray();
@@ -258,7 +239,7 @@ class IndexController extends MinC_Controller_Action_Abstract
 
             $_SESSION["GrupoAtivo"]["codGrupo"] = $GrupoAtivo->codGrupo;
             $_SESSION["GrupoAtivo"]["codOrgao"] = $GrupoAtivo->codOrgao;
-            parent::message("Seu perfil foi alterado no sistema. Voc&ecirc; ter&aacute; acesso a outras funcionalidades!", "principalproponente", "ALERT");
+            parent::message("Seu perfil foi alterado no sistema. Voc&ecirc; ter&aacute; acesso a outras funcionalidades!", "principalproponente", "INFO");
         }
 
         //Reescreve a sessao com o novo orgao superior
@@ -267,11 +248,12 @@ class IndexController extends MinC_Controller_Action_Abstract
         $_SESSION['Zend_Auth']['storage']->usu_org_max_superior = $codOrgaoMaxSuperior;
 
         // redireciona para a p�gina inicial do sistema
-        parent::message("Seu perfil foi alterado no sistema. Voc&ecirc; ter&aacute; acesso a outras funcionalidades!", "principal", "ALERT");
+        parent::message("Seu perfil foi alterado no sistema. Voc&ecirc; ter&aacute; acesso a outras funcionalidades!", "principal", "INFO");
     } // fecha alterarPerfilAction()
 
 
-    public function verificamensagemusuarioAction(){
+    public function verificamensagemusuarioAction()
+    {
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $usuario = new Usuario();
@@ -292,12 +274,12 @@ class IndexController extends MinC_Controller_Action_Abstract
         }
         $qtdmensagem = count($verificarmensagem);
 
-        if($qtdmensagem > 0){
+        if ($qtdmensagem > 0) {
             $a = 0;
             $idpronac = 0;
             $mensagem = array();
-            foreach($verificarmensagem as $resu){
-                if($resu['status']== 'N' and $resu['idpronac'] != $idpronac and $GrupoAtivo->codGrupo == $resu['perfilDestinatario']){
+            foreach ($verificarmensagem as $resu) {
+                if ($resu['status']== 'N' and $resu['idpronac'] != $idpronac and $GrupoAtivo->codGrupo == $resu['perfilDestinatario']) {
                     $mensagem[$a]['idpronac'] = $resu['idpronac'];
                     $buscarpronac = $pr->buscar(array('IdPRONAC = ?'=>$resu['idpronac']))->current();
                     $mensagem[$a]['pronac'] = $buscarpronac->AnoProjeto.$buscarpronac->Sequencial;
@@ -306,8 +288,7 @@ class IndexController extends MinC_Controller_Action_Abstract
                 }
             }
             echo count($mensagem) > 0 ? json_encode($mensagem) : json_encode(array('error'=>true));
-        }
-        else{
+        } else {
             $this->_helper->json(array('error'=>true));
         }
         exit();
@@ -323,18 +304,25 @@ class IndexController extends MinC_Controller_Action_Abstract
      */
     public function montarPlanilhaOrcamentariaAction()
     {
-
-
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
-        $get = Zend_Registry::get('get');
-
+        
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
         $this->view->idPerfil = $GrupoAtivo->codGrupo;
 
-        $this->view->idPronac = $get->idPronac;
+        $idPronac = $this->_request->getParam('idPronac');
+        $tipoPlanilha = $this->_request->getParam('tipoPlanilha');
+        $link = ($this->_request->getParam('link')) ? true : false;
+        $view_edicao = ($this->_request->getParam('view_edicao')) ? true : false;
+        $this->view->idPronac = $idPronac;
+
+        $params = [];
+        $params['link'] = $link;
+        $params['view_edicao'] = $view_edicao;
+        
         $spPlanilhaOrcamentaria = new spPlanilhaOrcamentaria();
-        $planilhaOrcamentaria = $spPlanilhaOrcamentaria->exec($get->idPronac, $get->tipoPlanilha);
-        $planilha = $this->montarPlanilhaOrcamentaria($planilhaOrcamentaria, $get->tipoPlanilha);
+        $planilhaOrcamentaria = $spPlanilhaOrcamentaria->exec($idPronac, $tipoPlanilha, $params);
+        
+        $planilha = $this->montarPlanilhaOrcamentaria($planilhaOrcamentaria, $tipoPlanilha);
         // tipoPlanilha = 0 : Planilha Orcamentaria da Proposta
         // tipoPlanilha = 1 : Planilha Orcamentaria do Proponente
         // tipoPlanilha = 2 : Planilha Orcamentaria do Parecerista
@@ -342,12 +330,11 @@ class IndexController extends MinC_Controller_Action_Abstract
         // tipoPlanilha = 4 : Cortes Orcamentarios Aprovados
         // tipoPlanilha = 5 : Remanejamento menor que 20%
         // tipoPlanilha = 6 : Readequacao
-
-        $link = isset($get->link) ? true : false;
-
+        
         $this->montaTela(
-            'index/montar-planilha-orcamentaria.phtml', array(
-            'tipoPlanilha' => $get->tipoPlanilha,
+            'index/montar-planilha-orcamentaria.phtml',
+            array(
+            'tipoPlanilha' => $tipoPlanilha,
             'tpPlanilha' => (count($planilhaOrcamentaria)>0) ? isset($planilhaOrcamentaria[0]->tpPlanilha) ? $planilhaOrcamentaria[0]->tpPlanilha : '' : '',
             'planilha' => $planilha,
             'link' => $link

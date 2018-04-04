@@ -1,0 +1,104 @@
+      <div class="row">
+        <div class="col s12">
+          <div class="card ">
+            <div class="card-content">
+                        <table id="tabelaComprovantePagamento" class="bordered">
+                            <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Etapa</th>
+                                <th>Item</th>
+                                <th>CPF/CNPJ</th>
+                                <th>N&uacute;mero</th>
+                                <th>Tipo do Doc.</th>
+                                <th>Data Emiss&atilde;o</th>
+                                <th>Documento</th>
+                                <th>Valor Comprovado</th>
+                                <th>Editar</th>
+                                <th>Excluir</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php if (empty($this->comprovantes)) : ?>
+                                <tr>
+                                    <td class="centro" colspan="10">Nenhuma comprova&ccedil;&atilde;o de pagamento
+                                        cadastrada.
+                                    </td>
+                                </tr>
+                            <?php else: ?>
+                                <?php foreach ($this->comprovantes as $comprovante) : ?>
+                                    <tr>
+                                        <td><?php echo $comprovante->produtonome; ?></td>
+                                        <td><?php echo $comprovante->etapanome; ?></td>
+                                        <td><?php echo $comprovante->itemnome; ?></td>
+                                        <td nowrap><?php echo $comprovante->fornecedor->CNPJCPF; ?></td>
+                                        <td><?php echo $comprovante->nrComprovante; ?></td>
+                                        <td>
+                                            <?php if ($comprovante->idFornecedorExterior == '') : ?>
+                                                <?php echo $comprovante->tipoDocumentoNome; ?>
+                                            <?php else : ?>
+                                                <?php echo ($comprovante->tpDocumento == 6) ? 'Invoice' : 'Outros'; ?>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td><?php echo $comprovante->dtEmissao; ?></td>
+                                        <td>
+                                            <a href=" <?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir', 'id' => $comprovante->idArquivo,)); ?> ">
+                                                <?php echo $comprovante->nmArquivo; ?>
+                                            </a>
+                                        </td>
+                                        <td><?php echo $this->currency($comprovante->vlComprovacao); ?></td>
+                                        <?php
+                                        $comprovacaoTexto = array(
+                                            1 => 'Comprova¿¿o validada',
+                                            3 => 'Comprova¿¿o recusada',
+                                        );
+                                        ?>
+                                        <?php if ($comprovante->stItemAvaliado == 4 || $comprovante->stItemAvaliado == 3): /* n¿o analisado ou recusado */ ?>
+                                        <?php if ($comprovante->stItemAvaliado == 3): ?>
+                                            <span
+                                                class="bold"><?php echo $comprovacaoTexto[$comprovante->stItemAvaliado]; ?></span>
+                                        <?php endif; ?>
+                                        <td>
+                                            <a
+                                                class="small btn btn-primary"
+                                                href="
+                                                    <?php echo $this->url(
+                                                    array(
+                                                        'controller' => 'comprovarexecucaofinanceira',
+                                                        'action' => 'comprovacaopagamento',
+                                                        'idComprovantePagamento' => $comprovante->idComprovantePagamento,
+                                                    )
+                                                );
+                                                ?>"
+                                            >
+                                                <i class="material-icons">edit</i>
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a
+                                                class="small waves-effect waves-darken btn  btn-danger exclusao"
+                                                href="
+                                                    <?php echo $this->url(
+                                                    array(
+                                                        'controller' => 'comprovar-pagamento',
+                                                        'action' => 'deletar',
+                                                        'comprovante' => $comprovante->idComprovantePagamento,
+                                                    )
+                                                );
+                                                ?>">
+                                                <i class="material-icons">delete</i>
+                                                <?php else: ?>
+                                                    <span
+                                                        class="bold"><?php echo $comprovacaoTexto[$comprovante->stItemAvaliado]; ?></span>
+                                                <?php endif; ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                            </tbody>
+                        </table>
+
+            </div>
+          </div>
+        </div>
+      </div>

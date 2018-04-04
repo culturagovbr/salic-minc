@@ -1,17 +1,8 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of FichaTecnicaDAO
- *
- * @author 01129075125
- */
-class FichaTecnicaDAO {
-
-    public static function buscarFichaTecnica($idPronac, $idPedidoAlteracao = null){
+class FichaTecnicaDAO
+{
+    public static function buscarFichaTecnica($idPronac, $idPedidoAlteracao = null)
+    {
         $sql = "select
                    idPreProjeto, pre.FichaTecnica
                 from
@@ -25,10 +16,11 @@ class FichaTecnicaDAO {
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchRow($sql);
 
-                       return $resultado;
+        return $resultado;
     }
 
-    public static function buscarFichaTecnicaFinal($idPronac, $idPedidoAlteracao = null){
+    public static function buscarFichaTecnicaFinal($idPronac, $idPedidoAlteracao = null)
+    {
         $sql = "select
                    idPreProjeto, pre.FichaTecnica
                 from
@@ -42,7 +34,6 @@ class FichaTecnicaDAO {
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
 
-                       return $resultado;
+        return $resultado;
     }
 }
-?>

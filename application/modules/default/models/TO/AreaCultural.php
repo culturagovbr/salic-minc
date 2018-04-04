@@ -8,29 +8,28 @@
  
 class AreaCultural
 {
-	private $nomeAreaCultural;
-	private $codigoArea;
-	
-	// $nomeAreaCultural
-	public function setNomeAreaCultural($nomeAreaCultural)
-	{
-		$this->nomeAreaCultural = $nomeAreaCultural;
-	}
-	
-	public function getNomeAreaCultural()
-	{
-		return $this->nomeAreaCultural;
-	}
-	
-	// $codigoArea
-	public function setCodigoArea($codigoArea)
-	{
-		$this->codigoArea = $codigoArea;
-	}
-	
-	public function getCodigoArea()
-	{
-		return $this->codigoArea;
-	}
+    private $nomeAreaCultural;
+    private $codigoArea;
+    
+    // $nomeAreaCultural
+    public function setNomeAreaCultural($nomeAreaCultural)
+    {
+        $this->nomeAreaCultural = $nomeAreaCultural;
+    }
+    
+    public function getNomeAreaCultural()
+    {
+        return $this->nomeAreaCultural;
+    }
+    
+    // $codigoArea
+    public function setCodigoArea($codigoArea)
+    {
+        $this->codigoArea = $codigoArea;
+    }
+    
+    public function getCodigoArea()
+    {
+        return $this->codigoArea;
+    }
 }
-?>

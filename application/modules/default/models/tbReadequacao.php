@@ -17,6 +17,27 @@ class tbReadequacao extends MinC_Db_Table_Abstract
     protected $_primary = "idReadequacao";
 
     const TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL = 1;
+    const TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA = 2;
+    const TIPO_READEQUACAO_RAZAO_SOCIAL = 3;
+    const TIPO_READEQUACAO_AGENCIA_BANCARIA = 4;
+    const TIPO_READEQUACAO_SINOPSE_OBRA = 5;
+    const TIPO_READEQUACAO_IMPACTO_AMBIENTAL = 6;
+    const TIPO_READEQUACAO_ESPECIFICACAO_TECNICA = 7;
+    const TIPO_READEQUACAO_ESTRATEGIA_EXECUCAO = 8;
+    const TIPO_READEQUACAO_LOCAL_REALIZACAO = 9;
+    const TIPO_READEQUACAO_ALTERACAO_PROPONENTE = 10;
+    const TIPO_READEQUACAO_PLANO_DISTRIBUICAO = 11;
+    const TIPO_READEQUACAO_NOME_PROJETO = 12;
+    const TIPO_READEQUACAO_PERIODO_EXECUCAO = 13;
+    const TIPO_READEQUACAO_PLANO_DIVULGACAO = 14;
+    const TIPO_READEQUACAO_RESUMO_PROJETO = 15;
+    const TIPO_READEQUACAO_OBJETIVOS = 16;
+    const TIPO_READEQUACAO_JUSTIFICATIVA = 17;
+    const TIPO_READEQUACAO_ACESSIBILIDADE = 18;
+    const TIPO_READEQUACAO_DEMOCRATIZACAO_ACESSO = 19;
+    const TIPO_READEQUACAO_ETAPAS_TRABALHO = 20;
+    const TIPO_READEQUACAO_FICHA_TECNICA = 21;
+    
     const PERCENTUAL_REMANEJAMENTO = 50;
     const ST_ESTADO_EM_ANDAMENTO = 0;
     const ST_ESTADO_FINALIZADO = 1;
@@ -44,16 +65,22 @@ class tbReadequacao extends MinC_Db_Table_Abstract
         );
 
         $select->joinInner(
-            array('b' => 'tbTipoReadequacao'), 'a.idTipoReadequacao = b.idTipoReadequacao',
-            array(''), 'SAC.dbo'
+            array('b' => 'tbTipoReadequacao'),
+            'a.idTipoReadequacao = b.idTipoReadequacao',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinLeft(
-            array('c' => 'tbDocumento'), 'a.idDocumento = c.idDocumento',
-            array(''), 'BDCORPORATIVO.scCorp'
+            array('c' => 'tbDocumento'),
+            'a.idDocumento = c.idDocumento',
+            array(''),
+            'BDCORPORATIVO.scCorp'
         );
         $select->joinLeft(
-            array('d' => 'tbArquivo'), 'c.idArquivo = d.idArquivo',
-            array(''), 'BDCORPORATIVO.scCorp'
+            array('d' => 'tbArquivo'),
+            'c.idArquivo = d.idArquivo',
+            array(''),
+            'BDCORPORATIVO.scCorp'
         );
 
         foreach ($where as $coluna => $valor) {
@@ -137,7 +164,7 @@ class tbReadequacao extends MinC_Db_Table_Abstract
         $result= array();
         $total= array();
         
-        switch($filtro){
+        switch ($filtro) {
             case 'aguardando_distribuicao':
                 $select = $this->selectView('vwPainelCoordenadorReadequacaoAguardandoAnalise');
                 break;
@@ -256,6 +283,36 @@ class tbReadequacao extends MinC_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
+
+    /**
+     * Método para buscar id da readequacao ativa
+     * @access public
+     * @param integer $idPronac
+     * @param integer $idTipoReadequacao
+     * @return integer
+     */    
+    public function buscarIdReadequacaoAtiva($idPronac, $idTipoReadequacao)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            array('a' => $this->_name),
+            'a.idReadequacao');
+        
+        $select->where('a.stEstado = ?', self::ST_ESTADO_EM_ANDAMENTO);
+        $select->where('a.idPronac = ?' , $idPronac);
+        $select->where('siEncaminhamento <> ?', tbTipoEncaminhamento::SI_ENCAMINHAMENTO_FINALIZADA_SEM_PORTARIA);
+        $select->where('a.idTipoReadequacao = ?', $idTipoReadequacao);
+        
+        $result = $this->fetchAll($select);
+        
+        if (count($result)) {
+            return $result[0]['idReadequacao'];
+        } else {
+            return false;
+        }
+    }
+    
     /*
      * Alterada em 06/03/14
      * @author: Jefferson Alessandro
@@ -283,24 +340,33 @@ class tbReadequacao extends MinC_Db_Table_Abstract
                 CAST(b.dsEncaminhamento AS TEXT) AS dsEncaminhamento,
                 a.stEstado,
                 e.idArquivo,
-                e.nmArquivo
+                e.nmArquivo,
+                a.dtEnvio
             ")
         );
         $select->joinInner(
-            array('b' => 'tbTipoEncaminhamento'), 'a.siEncaminhamento = b.idTipoEncaminhamento',
-            array(''), 'SAC.dbo'
+            array('b' => 'tbTipoEncaminhamento'),
+            'a.siEncaminhamento = b.idTipoEncaminhamento',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('c' => 'tbTipoReadequacao'), 'c.idTipoReadequacao = a.idTipoReadequacao',
-            array(''), 'SAC.dbo'
+            array('c' => 'tbTipoReadequacao'),
+            'c.idTipoReadequacao = a.idTipoReadequacao',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinLeft(
-            array('d' => 'tbDocumento'), 'd.idDocumento = a.idDocumento',
-            array(''), 'BDCORPORATIVO.scCorp'
+            array('d' => 'tbDocumento'),
+            'd.idDocumento = a.idDocumento',
+            array(''),
+            'BDCORPORATIVO.scCorp'
         );
         $select->joinLeft(
-            array('e' => 'tbArquivo'), 'e.idArquivo = d.idArquivo',
-            array(''), 'BDCORPORATIVO.scCorp'
+            array('e' => 'tbArquivo'),
+            'e.idArquivo = d.idArquivo',
+            array(''),
+            'BDCORPORATIVO.scCorp'
         );
 
         //adiciona quantos filtros foram enviados
@@ -339,23 +405,32 @@ class tbReadequacao extends MinC_Db_Table_Abstract
                 a.stEstado,
                 e.idArquivo,
                 e.nmArquivo
-            "), 'SAC.dbo'
+            "),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('b' => 'tbTipoEncaminhamento'), 'a.siEncaminhamento = b.idTipoEncaminhamento',
-            array(''), 'SAC.dbo'
+            array('b' => 'tbTipoEncaminhamento'),
+            'a.siEncaminhamento = b.idTipoEncaminhamento',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('c' => 'tbTipoReadequacao'), 'c.idTipoReadequacao = a.idTipoReadequacao',
-            array(''), 'SAC.dbo'
+            array('c' => 'tbTipoReadequacao'),
+            'c.idTipoReadequacao = a.idTipoReadequacao',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinLeft(
-            array('d' => 'tbDocumento'), 'd.idDocumento = a.idDocumento',
-            array(''), 'BDCORPORATIVO.scCorp'
+            array('d' => 'tbDocumento'),
+            'd.idDocumento = a.idDocumento',
+            array(''),
+            'BDCORPORATIVO.scCorp'
         );
         $select->joinLeft(
-            array('e' => 'tbArquivo'), 'e.idArquivo = d.idArquivo',
-            array(''), 'BDCORPORATIVO.scCorp'
+            array('e' => 'tbArquivo'),
+            'e.idArquivo = d.idArquivo',
+            array(''),
+            'BDCORPORATIVO.scCorp'
         );
 //        $select->joinLeft(
 //            array('f' => 'Aprovacao'), 'f.idReadequacao = a.idReadequacao',
@@ -407,24 +482,34 @@ class tbReadequacao extends MinC_Db_Table_Abstract
             ")
         );
         $select->joinInner(
-            array('b' => 'tbTipoEncaminhamento'), 'a.siEncaminhamento = b.idTipoEncaminhamento',
-            array(''), 'SAC.dbo'
+            array('b' => 'tbTipoEncaminhamento'),
+            'a.siEncaminhamento = b.idTipoEncaminhamento',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('c' => 'tbTipoReadequacao'), 'c.idTipoReadequacao = a.idTipoReadequacao',
-            array(''), 'SAC.dbo'
+            array('c' => 'tbTipoReadequacao'),
+            'c.idTipoReadequacao = a.idTipoReadequacao',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinLeft(
-            array('d' => 'tbDocumento'), 'd.idDocumento = a.idDocumento',
-            array(''), 'BDCORPORATIVO.scCorp'
+            array('d' => 'tbDocumento'),
+            'd.idDocumento = a.idDocumento',
+            array(''),
+            'BDCORPORATIVO.scCorp'
         );
         $select->joinLeft(
-            array('e' => 'tbArquivo'), 'e.idArquivo = d.idArquivo',
-            array(''), 'BDCORPORATIVO.scCorp'
+            array('e' => 'tbArquivo'),
+            'e.idArquivo = d.idArquivo',
+            array(''),
+            'BDCORPORATIVO.scCorp'
         );
         $select->joinInner(
-            array('f' => 'tbDistribuirReadequacao'), 'f.idReadequacao = a.idReadequacao',
-            array(''), 'SAC.dbo'
+            array('f' => 'tbDistribuirReadequacao'),
+            'f.idReadequacao = a.idReadequacao',
+            array(''),
+            'SAC.dbo'
         );
 
         //adiciona quantos filtros foram enviados
@@ -445,7 +530,7 @@ class tbReadequacao extends MinC_Db_Table_Abstract
      */
     public function painelReadequacoesAnalise($where = array(), $order = array(), $tamanho = -1, $inicio = -1, $qtdeTotal = false, $idPerfil = 0)
     {
-        if ($idPerfil == 121) {
+        if ($idPerfil == Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO) {
             $nome = 'd.usu_nome AS Tecnico';
         } else {
             $nome = 'd.Descricao AS Tecnico';
@@ -457,32 +542,43 @@ class tbReadequacao extends MinC_Db_Table_Abstract
             array('a' => 'tbDistribuirReadequacao'),
             array(
                 new Zend_Db_Expr("a.idDistribuirReadequacao, c.IdPRONAC, c.AnoProjeto+c.Sequencial AS Pronac, c.NomeProjeto, a.DtEncaminhamento, $nome, a.idAvaliador AS idTecnico, CAST(b.dsSolicitacao as TEXT) AS dsSolicitacao, b.idReadequacao, e.dsReadequacao as tipoReadequacao")
-            ), 'SAC.dbo'
+            ),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('b' => 'tbReadequacao'), 'a.idReadequacao = b.idReadequacao',
-            array(''), 'SAC.dbo'
+            array('b' => 'tbReadequacao'),
+            'a.idReadequacao = b.idReadequacao',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('c' => 'Projetos'), 'c.IdPRONAC = b.IdPRONAC',
-            array('c.CgcCpf'), 'SAC.dbo'
+            array('c' => 'Projetos'),
+            'c.IdPRONAC = b.IdPRONAC',
+            array('c.CgcCpf'),
+            'SAC.dbo'
         );
 
-        if ($idPerfil == 121) {
+        if ($idPerfil == Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO) {
             $select->joinLeft(
-                array('d' => 'Usuarios'), 'a.idAvaliador = d.usu_codigo',
-                array(''), 'TABELAS.dbo'
+                array('d' => 'Usuarios'),
+                'a.idAvaliador = d.usu_codigo',
+                array(''),
+                'TABELAS.dbo'
             );
         } else {
             $select->joinLeft(
-                array('d' => 'Nomes'), 'a.idAvaliador = d.idAgente',
-                array(''), 'AGENTES.dbo'
+                array('d' => 'Nomes'),
+                'a.idAvaliador = d.idAgente',
+                array(''),
+                'AGENTES.dbo'
             );
         }
 
         $select->joinInner(
-            array('e' => 'tbTipoReadequacao'), 'e.idTipoReadequacao = b.idTipoReadequacao',
-            array(''), 'SAC.dbo'
+            array('e' => 'tbTipoReadequacao'),
+            'e.idTipoReadequacao = b.idTipoReadequacao',
+            array(''),
+            'SAC.dbo'
         );
 
         //adiciona quantos filtros foram enviados
@@ -526,16 +622,22 @@ class tbReadequacao extends MinC_Db_Table_Abstract
             )
         );
         $select->joinInner(
-            array('b' => 'Projetos'), 'a.idPronac = b.idPronac',
-            array(''), 'SAC.dbo'
+            array('b' => 'Projetos'),
+            'a.idPronac = b.idPronac',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('c' => 'tbTipoReadequacao'), 'c.idTipoReadequacao = a.idTipoReadequacao',
-            array(''), 'SAC.dbo'
+            array('c' => 'tbTipoReadequacao'),
+            'c.idTipoReadequacao = a.idTipoReadequacao',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('d' => 'tbDistribuirReadequacao'), 'd.idReadequacao = a.idReadequacao',
-            array(''), 'SAC.dbo'
+            array('d' => 'tbDistribuirReadequacao'),
+            'd.idReadequacao = a.idReadequacao',
+            array(''),
+            'SAC.dbo'
         );
 
         //adiciona quantos filtros foram enviados
@@ -544,7 +646,6 @@ class tbReadequacao extends MinC_Db_Table_Abstract
         }
 
         if ($qtdeTotal) {
-            
             return $this->fetchAll($select)->count();
         }
 
@@ -576,24 +677,34 @@ class tbReadequacao extends MinC_Db_Table_Abstract
         );
 
         $select->joinInner(
-            array('b' => 'Projetos'), 'a.idPronac = b.idPronac',
-            array(''), 'SAC.dbo'
+            array('b' => 'Projetos'),
+            'a.idPronac = b.idPronac',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('c' => 'Usuarios'), 'a.idAvaliador = c.usu_codigo',
-            array(''), 'TABELAS.dbo'
+            array('c' => 'Usuarios'),
+            'a.idAvaliador = c.usu_codigo',
+            array(''),
+            'TABELAS.dbo'
         );
         $select->joinInner(
-            array('d' => 'Area'), 'b.Area = d.Codigo',
-            array(''), 'SAC.dbo'
+            array('d' => 'Area'),
+            'b.Area = d.Codigo',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('e' => 'Segmento'), 'b.Segmento = e.Codigo',
-            array(''), 'SAC.dbo'
+            array('e' => 'Segmento'),
+            'b.Segmento = e.Codigo',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('f' => 'tbTipoReadequacao'), 'f.idTipoReadequacao = a.idTipoReadequacao',
-            array(''), 'SAC.dbo'
+            array('f' => 'tbTipoReadequacao'),
+            'f.idTipoReadequacao = a.idTipoReadequacao',
+            array(''),
+            'SAC.dbo'
         );
 
         //adiciona quantos filtros foram enviados
@@ -602,7 +713,6 @@ class tbReadequacao extends MinC_Db_Table_Abstract
         }
 
         if ($qtdeTotal) {
-            
             return $this->fetchAll($select)->count();
         }
 
@@ -633,16 +743,22 @@ class tbReadequacao extends MinC_Db_Table_Abstract
             ")
         );
         $select->joinInner(
-            array('b' => 'tbReadequacaoXParecer'), 'b.idReadequacao = a.idReadequacao',
-            array(''), 'SAC.dbo'
+            array('b' => 'tbReadequacaoXParecer'),
+            'b.idReadequacao = a.idReadequacao',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('c' => 'Parecer'), 'c.IdParecer = b.idParecer',
-            array(''), 'SAC.dbo'
+            array('c' => 'Parecer'),
+            'c.IdParecer = b.idParecer',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('d' => 'Usuarios'), 'd.usu_codigo = c.Logon',
-            array(''), 'TABELAS.dbo'
+            array('d' => 'Usuarios'),
+            'd.usu_codigo = c.Logon',
+            array(''),
+            'TABELAS.dbo'
         );
 
         //adiciona quantos filtros foram enviados
@@ -677,28 +793,40 @@ class tbReadequacao extends MinC_Db_Table_Abstract
             ")
         );
         $select->joinInner(
-            array('b' => 'Projetos'), 'b.IdPRONAC = a.idPronac',
-            array(''), 'SAC.dbo'
+            array('b' => 'Projetos'),
+            'b.IdPRONAC = a.idPronac',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('c' => 'Area'), 'b.Area = c.Codigo',
-            array(''), 'SAC.dbo'
+            array('c' => 'Area'),
+            'b.Area = c.Codigo',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('d' => 'Segmento'), 'b.Segmento = d.Codigo',
-            array(''), 'SAC.dbo'
+            array('d' => 'Segmento'),
+            'b.Segmento = d.Codigo',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('g' => 'tbDistribuirReadequacao'), 'g.idReadequacao = a.idReadequacao AND g.idUnidade = 400',
-            array(''), 'SAC.dbo'
+            array('g' => 'tbDistribuirReadequacao'),
+            'g.idReadequacao = a.idReadequacao AND g.idUnidade = 400',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('h' => 'Usuarios'), 'h.usu_codigo = g.idAvaliador',
-            array(''), 'TABELAS.dbo'
+            array('h' => 'Usuarios'),
+            'h.usu_codigo = g.idAvaliador',
+            array(''),
+            'TABELAS.dbo'
         );
         $select->joinInner(
-            array('i' => 'tbTipoReadequacao'), 'i.idTipoReadequacao = a.idTipoReadequacao',
-            array(''), 'SAC.dbo'
+            array('i' => 'tbTipoReadequacao'),
+            'i.idTipoReadequacao = a.idTipoReadequacao',
+            array(''),
+            'SAC.dbo'
         );
 
         $select->where('a.stEstado = ? ', 0);
@@ -808,7 +936,8 @@ class tbReadequacao extends MinC_Db_Table_Abstract
             $select->setIntegrityCheck(false);
             $select->from(
                 array('a' => $this->_name),
-                    new Zend_Db_Expr("
+                    new Zend_Db_Expr(
+                        "
                         b.idPronac,
                         a.idReadequacao,
                         b.AnoProjeto+b.Sequencial as PRONAC,
@@ -824,20 +953,28 @@ class tbReadequacao extends MinC_Db_Table_Abstract
                 );
 
             $select->joinInner(
-                array('d' => 'tbDistribuirReadequacao'), 'a.idReadequacao = d.idReadequacao',
-                array(''), $this->_schema
+                array('d' => 'tbDistribuirReadequacao'),
+                'a.idReadequacao = d.idReadequacao',
+                array(''),
+                $this->_schema
             );
             $select->joinInner(
-                array('b' => 'Projetos'), 'a.idPronac = b.idPronac',
-                array(''), $this->_schema
+                array('b' => 'Projetos'),
+                'a.idPronac = b.idPronac',
+                array(''),
+                $this->_schema
             );
             $select->joinInner(
-                array('c' => 'tbTipoReadequacao'), 'c.idTipoReadequacao = a.idTipoReadequacao',
-                array(''), $this->_schema
+                array('c' => 'tbTipoReadequacao'),
+                'c.idTipoReadequacao = a.idTipoReadequacao',
+                array(''),
+                $this->_schema
             );
             $select->joinInner(
-                array('e' => 'tbTipoEncaminhamento'), 'a.siEncaminhamento = e.idTipoEncaminhamento',
-                array(''), $this->_schema
+                array('e' => 'tbTipoEncaminhamento'),
+                'a.siEncaminhamento = e.idTipoEncaminhamento',
+                array(''),
+                $this->_schema
             );
 
             $select->where('a.stEstado = ? ', 0);
@@ -861,7 +998,6 @@ class tbReadequacao extends MinC_Db_Table_Abstract
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
             return $db->fetchAll($select);
-
         } catch (Exception $objException) {
             xd($objException->getMessage());
             throw new Exception($objException->getMessage(), 0, $objException);
@@ -877,18 +1013,18 @@ class tbReadequacao extends MinC_Db_Table_Abstract
      */
     public function painelReadequacoesCoordenadorAcompanhamentoCount($where=array(), $filtro = null)
     {
-        $tbReadequacao = New tbReadequacao();
+        $tbReadequacao = new tbReadequacao();
         $total = null;
         
-        switch($filtro){
+        switch ($filtro) {
             case 'aguardando_distribuicao':
-                $total = $tbReadequacao->count('vwPainelCoordenadorReadequacaoAguardandoAnalise' , $where);
+                $total = $tbReadequacao->count('vwPainelCoordenadorReadequacaoAguardandoAnalise', $where);
                 break;
             case 'em_analise':
-                $total = $tbReadequacao->count('vwPainelCoordenadorReadequacaoEmAnalise' , $where);
+                $total = $tbReadequacao->count('vwPainelCoordenadorReadequacaoEmAnalise', $where);
                 break;
             case 'analisados':
-                $total = $tbReadequacao->count('vwPainelCoordenadorReadequacaoAnalisados' , $where);
+                $total = $tbReadequacao->count('vwPainelCoordenadorReadequacaoAnalisados', $where);
                 break;
             case 'aguardando_publicacao':
                 $total = $tbReadequacao->count('vwPainelReadequacaoAguardandoPublicacao', $where);
@@ -900,13 +1036,13 @@ class tbReadequacao extends MinC_Db_Table_Abstract
 
     public function buscarReadequacaoCoordenadorParecerEmAnalise($where = array(), $order = array(), $tamanho = -1, $inicio = -1)
     {
-
         try {
             $select = $this->select();
             $select->setIntegrityCheck(false);
             $select->from(
                 array('a' => $this->_name),
-                new Zend_Db_Expr("
+                new Zend_Db_Expr(
+                    "
                  b.idPronac,
                  a.idReadequacao,
                  b.AnoProjeto+b.Sequencial as PRONAC,
@@ -925,24 +1061,34 @@ class tbReadequacao extends MinC_Db_Table_Abstract
             );
 
             $select->joinInner(
-                array('d' => 'tbDistribuirReadequacao'), 'a.idReadequacao = d.idReadequacao',
-                array(''), $this->_schema
+                array('d' => 'tbDistribuirReadequacao'),
+                'a.idReadequacao = d.idReadequacao',
+                array(''),
+                $this->_schema
             );
             $select->joinInner(
-                array('b' => 'Projetos'), 'a.idPronac = b.idPronac',
-                array(''), $this->_schema
+                array('b' => 'Projetos'),
+                'a.idPronac = b.idPronac',
+                array(''),
+                $this->_schema
             );
             $select->joinInner(
-                array('c' => 'tbTipoReadequacao'), 'a.idReadequacao = d.idReadequacao',
-                array(''), $this->_schema
+                array('c' => 'tbTipoReadequacao'),
+                'a.idReadequacao = d.idReadequacao',
+                array(''),
+                $this->_schema
             );
             $select->joinInner(
-                array('e' => 'tbTipoEncaminhamento'), 'a.siEncaminhamento = e.idTipoEncaminhamento',
-                array(''), $this->_schema
+                array('e' => 'tbTipoEncaminhamento'),
+                'a.siEncaminhamento = e.idTipoEncaminhamento',
+                array(''),
+                $this->_schema
             );
             $select->joinLeft(
-                array('f' => 'Usuarios'), 'd.idAvaliador = f.usu_codigo',
-                array(''), $this->getSchema('tabelas')
+                array('f' => 'Usuarios'),
+                'd.idAvaliador = f.usu_codigo',
+                array(''),
+                $this->getSchema('tabelas')
             );
 
             $select->where('a.stEstado = ? ', 0);
@@ -964,7 +1110,6 @@ class tbReadequacao extends MinC_Db_Table_Abstract
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
             return $db->fetchAll($select);
-
         } catch (Exception $objException) {
             throw new Exception($objException->getMessage(), 0, $objException);
         }
@@ -978,14 +1123,14 @@ class tbReadequacao extends MinC_Db_Table_Abstract
         $select->setIntegrityCheck(false);
         $select->from(
             array('a' => $this->_name),
-            'a.idReadequacao'            
+            'a.idReadequacao'
         );
 
         $select->where('a.idPronac = ?', $idPronac);
         $select->where('a.idTipoReadequacao=?', tbReadequacao::TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL);
         $select->where('a.stAtendimento=?', 'D');
         $select->where('a.stEstado=?', self::ST_ESTADO_EM_ANDAMENTO);
-        $select->where('a.siEncaminhamento=?', 11);
+        $select->where('a.siEncaminhamento=?', tbTipoEncaminhamento::SI_ENCAMINHAMENTO_NAO_ENVIA_MINC);
         
         $remanejamentos = $this->fetchAll($select);
         
@@ -993,6 +1138,191 @@ class tbReadequacao extends MinC_Db_Table_Abstract
             return true;
         } else {
             return false;
+        }
+    }
+
+
+    /**
+     * Método para verificar se existe qualquer tipo de readequação em andamento
+     * @access public
+     * @param integer $idPronac
+     * @param integer $idTipoReadequacao
+     * @return boolean
+     */    
+    public function existeReadequacaoEmAndamento($idPronac, $idTipoReadequacao = null)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            array('r' => $this->_name),
+            'r.idReadequacao'
+        );
+        $select->where('r.idPronac = ?', $idPronac);
+        
+        if ($idTipoReadequacao) {
+            $tiposReadequacoes = array($idTipoReadequacao);
+        } else {
+            $tiposReadequacoes = array(
+                self::TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL,
+                self::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA
+            );
+        }
+        
+        $select->where('r.idTipoReadequacao IN(?)', $tiposReadequacoes);
+        $select->where('r.stEstado=?', self::ST_ESTADO_EM_ANDAMENTO);
+        
+        $result = $this->fetchAll($select);
+        
+        if (count($result) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Método para verificar se existe readequacao de planilha em edição
+     * @access public
+     * @param integer $idPronac
+     * @return boolean
+     */    
+    public function existeReadequacaoPlanilhaEmEdicao($idPronac)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            array('r' => $this->_name),
+            'r.idReadequacao'
+        );
+        $select->where('r.idPronac = ?', $idPronac);
+        $select->where('r.siEncaminhamento = ?', tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE);
+        $select->where('r.idTipoReadequacao = ?', self::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
+        $select->where('r.stEstado=?', self::ST_ESTADO_EM_ANDAMENTO);
+        
+        $result = $this->fetchAll($select);
+        
+        if (count($result) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * Método para verificar se existe readequacao parcial em edição
+     * @access public
+     * @param integer $idPronac
+     * @return boolean
+     */    
+    public function existeReadequacaoParcialEmEdicao($idPronac)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            array('r' => $this->_name),
+            'r.idReadequacao'
+        );
+        $select->where('r.idPronac = ?', $idPronac);
+        $select->where('r.siEncaminhamento = ?', tbTipoEncaminhamento::SI_ENCAMINHAMENTO_NAO_ENVIA_MINC);
+        $select->where('r.idTipoReadequacao = ?', self::TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL);
+        $select->where('r.stEstado=?', self::ST_ESTADO_EM_ANDAMENTO);
+        
+        $result = $this->fetchAll($select);
+        
+        if (count($result) > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }    
+
+    /**
+     * Método para verificar se está o projeto está disponivel para edição da readequacao de planilha
+     * @access public
+     * @param integer $idPronac
+     * @return boolean
+     */
+    public function disponivelParaEdicaoReadequacaoPlanilha($idPronac)
+    {
+        $liberacao = new Liberacao();
+        $projeto = new Projetos();
+        
+        $existeReadequacaoEmAndamento = $this->existeReadequacaoEmAndamento($idPronac);
+        $contaLiberada = $liberacao->contaLiberada($idPronac);
+        $periodoExecucaoVigente = $projeto->verificarPeriodoExecucaoVigente($idPronac);
+        
+        if ($existeReadequacaoEmAndamento &&
+            $contaLiberada &&
+            $periodoExecucaoVigente) {
+
+            return true;
+        } else {
+            return false;
         }        
+    }
+
+    /**
+     * Método para verificar se está o projeto está disponivel para adição de itens da readequacao de planilha
+     * @access public
+     * @param integer $idPronac
+     * @return boolean
+     */
+    public function disponivelParaAdicaoItensReadequacaoPlanilha($idPronac)
+    {
+        $liberacao = new Liberacao();
+        $projeto = new Projetos();
+        
+        $existeReadequacaoEmAndamento = $this->existeReadequacaoEmAndamento(
+            $idPronac,
+            self::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA
+        );
+        $contaLiberada = $liberacao->contaLiberada($idPronac);
+        $periodoExecucaoVigente = $projeto->verificarPeriodoExecucaoVigente($idPronac);
+        
+        if ($existeReadequacaoEmAndamento &&
+            $contaLiberada &&
+            $periodoExecucaoVigente) {
+
+            return true;
+        } else {
+            return false;
+        }        
+    }
+
+    /**
+     * Método para retornar idPronac do projeto com readequação em andamento mais recentemente criada, com, prazo de execução vigente
+     * @param integer $idTipoReadequacao
+     * @return integer
+     */
+    public function buscarIdPronacReadequacaoEmAndamento($idTipoReadequacao)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            array('r' => $this->_name),
+            'r.idPronac'
+        );
+
+        $select->joinInner(
+            array('p' => 'Projetos'),
+            'r.idPronac = p.idPronac',
+            array(''),
+            $this->_schema
+        );
+        
+        $select->where('r.idTipoReadequacao = ?', $idTipoReadequacao);
+        $select->where('r.stEstado=?', self::ST_ESTADO_EM_ANDAMENTO);
+        $select->where(new Zend_Db_Expr('p.DtInicioExecucao < GETDATE()'));
+        $select->where(new Zend_Db_Expr('p.DtFimExecucao > GETDATE()'));
+        $select->order('r.dtSolicitacao DESC');
+        $select->limit(1);
+        
+        $result = $this->fetchAll($select);
+        
+        if (count($result) > 0) {
+            return $result->current()['idPronac'];
+        } else {
+            return false;
+        }
     }
 }

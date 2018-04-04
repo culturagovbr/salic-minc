@@ -50,7 +50,8 @@ if (count($this->readequacoes) > 0):
                     <table class='tabela'>
                         <tr class="destacar">
                             <td align="center"><b>Arquivo</b></td>
-                            <td align="center"><b>Dt. Solicitação</b></td>
+                            <td align="center"><b>Dt. Envio</b></td>
+			    <td align="center"><b>Dt. Solicita&ccedil;&atilde;o</b></td>
                         </tr>
                         <tr>
                             <td align="center">
@@ -58,19 +59,20 @@ if (count($this->readequacoes) > 0):
                                 <a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $r->idArquivo; ?>"><?php echo $r->nmArquivo; ?></a>
                             <?php } else { echo '-'; } ?>
                             </td>
-                            <td align="center"><?php echo Data::tratarDataZend($r->dtSolicitacao, 'brasileira'); ?></td>
+                            <td align="center"><?php echo Data::tratarDataZend($r->dtEnvio, 'brasileira'); ?></td>
+			    <td align="center"><?php echo Data::tratarDataZend($r->dtSolicitacao, 'brasileira'); ?></td>
                         </tr>
                         <tr class="destacar">
-                            <td colspan="2" align="center"><b>Dados da Solicita&ccedil;&atilde;o</b></td>
+                            <td colspan="3" align="center"><b>Dados da Solicita&ccedil;&atilde;o</b></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><?php echo $r->dsSolicitacao; ?></td>
+                            <td colspan="3"><?php echo $r->dsSolicitacao; ?></td>
                         </tr>
                         <tr class="destacar">
-                            <td colspan="2" align="center"><b>Justificativa da Solicita&ccedil;&atilde;o</b></td>
+                            <td colspan="3" align="center"><b>Justificativa da Solicita&ccedil;&atilde;o</b></td>
                         </tr>
                         <tr>
-                            <td colspan="2"><?php echo $r->dsJustificativa; ?></td>
+                            <td colspan="3"><?php echo $r->dsJustificativa; ?></td>
                         </tr>
                     </table>
                     

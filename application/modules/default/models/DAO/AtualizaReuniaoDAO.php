@@ -12,7 +12,6 @@
  */
 class AtualizaReuniaoDAO extends Zend_Db_Table
 {
-
     protected $_name = "SAC.dbo.tbReuniao";
 
     public static function atualizaReuniao($idReuniao, $valor)
@@ -22,8 +21,7 @@ class AtualizaReuniaoDAO extends Zend_Db_Table
         $where = "idNrReuniao = " . $idReuniao;
         $alterar = $db->update("SAC.dbo.tbReuniao", $valor, $where);
 
-        if ($alterar)
-        {
+        if ($alterar) {
             return true;
         }
         return $alterar;
@@ -40,13 +38,10 @@ class AtualizaReuniaoDAO extends Zend_Db_Table
                  where
                  tp.idnrreuniao = $idnrreuniao and
                  tp.stAnalise='AC' and tp.stEnvioPlenario='N' and tp.dtEnvioPauta < r.dtFinal " ;
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
         }
         return $db->fetchAll($sql);
@@ -54,7 +49,6 @@ class AtualizaReuniaoDAO extends Zend_Db_Table
 
     public static function verificaReuniao($idAgente, $idReuniao, $null=null, $verificar = null)
     {
-
         $sql = "SELECT
                tv.idPRONAC,
                pr.anoprojeto+sequencial as pronac,
@@ -64,29 +58,23 @@ class AtualizaReuniaoDAO extends Zend_Db_Table
                join sac.dbo.projetos pr on pr.idpronac = tv.idpronac
                where tv.idNrReuniao = " . $idReuniao;
 
-        if (!empty($verificar))
-        {
-
+        if (!empty($verificar)) {
             $sql .= " and tp.stAnalise = 'AC' 
                 or tp.stAnalise = 'IC' and
                 tv.dtVoto is null AND
                 tv.stVoto is null AND
                 tv.dsJustificativa is null ";
         }
-        if (!empty($null))
-        {
+        if (!empty($null)) {
             $sql .="AND tv.idAgente = " . $idAgente . " AND
                 tv.dtVoto is null AND
                 tv.stVoto is null AND
                 tv.dsJustificativa is null";
         }
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
         }
         return $db->fetchAll($sql);
@@ -102,13 +90,10 @@ class AtualizaReuniaoDAO extends Zend_Db_Table
                join BDCORPORATIVO.scSAC.tbPauta tp on tp.IdPRONAC = tv.IdPRONAC and tp.idNrReuniao = tv.idNrReuniao
                join SAC.dbo.Projetos pr on pr.IdPRONAC = tv.IdPRONAC
                WHERE tp.stAnalise='AC' or tp.stAnalise='IC' and  tv.idNrReuniao = " . $idReuniao;
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message =  $e->getMessage();
         }
         return $db->fetchAll($sql);
@@ -122,12 +107,9 @@ class AtualizaReuniaoDAO extends Zend_Db_Table
 
         $cadastrar = $db->insert("BDCORPORATIVO.scSAC.tbVotacao", $dados);
 
-        if ($cadastrar)
-        {
+        if ($cadastrar) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -135,23 +117,17 @@ class AtualizaReuniaoDAO extends Zend_Db_Table
     public static function analisaReuniao($idreuniao=null)
     {
         $sql = "select idnrreuniao, stEstado, stPlenaria, CONVERT(VARCHAR(19), dtFinal, 21) as dtFinal from SAC.dbo.tbReuniao ";
-        if ($idreuniao)
-        {
+        if ($idreuniao) {
             $sql .="where idnrreuniao=" . $idreuniao;
-        }
-        else
-        {
+        } else {
             $sql .="where stEstado = 0";
         }
 
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
             return $db->fetchAll($sql);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
         }
     }
@@ -163,12 +139,9 @@ class AtualizaReuniaoDAO extends Zend_Db_Table
 
         $cadastrar = $db->insert("BDCORPORATIVO.scSAC.tbvotante", $votantes);
 
-        if ($cadastrar)
-        {
+        if ($cadastrar) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -183,17 +156,12 @@ class AtualizaReuniaoDAO extends Zend_Db_Table
                 where tbv.idreuniao =" . $idreuniao . " and nm.TipoNome=18 order by 2 asc";
 
 //        die($sql);
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar os Tipos de Documentos: " . $e->getMessage();
         }
         return $db->fetchAll($sql);
     }
-
 }
-?>

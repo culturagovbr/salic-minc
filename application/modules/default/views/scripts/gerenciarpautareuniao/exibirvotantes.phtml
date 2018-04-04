@@ -58,7 +58,7 @@
             for(a=0; a<7; a++){
                 valida = 0;
                 $("input[name='votantes"+a+"']").each(function(){
-                    if($(this).attr('checked') == true){
+                    if($(this).prop('checked') == true){
                         valida ++;
                     }
                 });
@@ -69,7 +69,7 @@
                 }
             }
             $(".votantes").each(function(){
-                if($(this).attr('checked') == true){
+                if($(this).prop('checked') == true){
                     $("#inputs").append("<input name='votantes[]' type='hidden' value='"+$(this).val()+"'/>");
                     cont++;
                 }

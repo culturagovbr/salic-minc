@@ -1,7 +1,9 @@
 <!-- ========== INÍCIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
- <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') { ?>Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>.<br /><br /><?php } ?>Tem certeza que deseja Enviar e Finalizar?</div>
+ <div style="display:none" id="pergunta"><?php if ($this->existirPlanilhaCusto == 'ok') {
+    ?>Seu projeto sofreu <?php echo $this->verificarReadequacao; ?>.<br /><br /><?php
+} ?>Tem certeza que deseja Enviar e Finalizar?</div>
  <div style="display:none" id="validarPlan">Antes de enviar a solicitação é necessário cadastrar os Itens de Custos para os Produtos sem planilha orçamentária!</div>
  <div style="display:none" id="dialog-alerta">Solicitação realizada com sucesso!</div>
  <div style="display:none" id="dialog-em-analise">Há pedido de readequação em análise. Favor aguardar.</div>
@@ -41,7 +43,8 @@
 
            $menu = SolicitarreadequacaodoprojetoController::Menu($idPronac); ?>
 
-        <?php if($menu=="Sem Menu"){?>
+        <?php if ($menu=="Sem Menu") {
+               ?>
         <script type="text/javascript">
         <!--
         $(document).ready(function(){
@@ -57,35 +60,42 @@
                 <div class="sanfonaDiv" style="display:none"></div>
                 <a href="#" title="Projetos" class="abrir_fechar4">Projetos</a>
                 <div class="sanfonaDiv" style="display:none"></div>
-                <?php if(count($this->buscaPlanilhaCusto) > 0 ){ ?>
+                <?php if (count($this->buscaPlanilhaCusto) > 0) {
+                   ?>
                 <a href='#' title="Custo" class="no_seta abrir_fechar4">Custo</a>
                 <div class="sanfonaDiv" style="display:none"></div>
-                <?php } ?>
+                <?php
+               } ?>
             </div>
             <div class="sanfonaDiv"></div>
             <div class="bottom"></div>
         </div>
-        <?php }?>
+        <?php
+           }?>
 
 
 
-        <?php if($menu=="Com Menu" || $menu=="Botão"){?>
+        <?php if ($menu=="Com Menu" || $menu=="Botão") {
+               ?>
         <div id="menuContexto">
             <div class="top"></div>
             <div id="qm0" class="qmmc sanfona">
-                <a href="<?php echo $this->url(array('controller' => 'solicitaralteracao','action' => 'acaoprojeto')); ?>?idpronac=<?php echo $idPronac;?>" class="no_seta abrir_fechar4" title="Proponente">Proponente</a>
+                <a href="<?php echo $this->url(array('controller' => 'solicitaralteracao','action' => 'acaoprojeto')); ?>?idpronac=<?php echo $idPronac; ?>" class="no_seta abrir_fechar4" title="Proponente">Proponente</a>
                 <div class="sanfonaDiv" style="display:none; width: 91%;"></div>
-                <a href='<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto','action' => 'index')); ?>?idpronac=<?php echo $idPronac;?>' title="Projetos">Projetos</a>
+                <a href='<?php echo $this->url(array('controller' => 'solicitarreadequacaodoprojeto','action' => 'index')); ?>?idpronac=<?php echo $idPronac; ?>' title="Projetos">Projetos</a>
                 <div class="sanfonaDiv" style="display:none; width: 91%;"></div>
-                <?php if(count($this->buscaPlanilhaCusto) > 0 ){ ?>
-                <a href='<?php echo $this->url(array('controller' => 'solicitarreadequacaocusto','action' => 'index')); ?>?idpronac=<?php echo $idPronac;?>' title="Custo">Custo</a>
+                <?php if (count($this->buscaPlanilhaCusto) > 0) {
+                   ?>
+                <a href='<?php echo $this->url(array('controller' => 'solicitarreadequacaocusto','action' => 'index')); ?>?idpronac=<?php echo $idPronac; ?>' title="Custo">Custo</a>
                 <div class="sanfonaDiv" style="display:none; width: 91%;"></div>
-                <?php } ?>
+                <?php
+               } ?>
             </div>
             <div class="sanfonaDiv"></div>
             <div class="bottom"></div>
 
-			<?php if($menu=="Botão"){?>
+			<?php if ($menu=="Botão") {
+                   ?>
             <div style='background:#f8f8f8; padding-top: 3.5em;'>
                 <ul id='menuGerenciar' style="border:0; width:auto;">
                     <li style="text-align: center;">
@@ -96,10 +106,12 @@
                     </li>
                 </ul>
             </div>
-            <?php } ?>
+            <?php
+               } ?>
 
         </div>
-        <?php }?>
+        <?php
+           }?>
 
         <?php /*if($menu=="Botão"){?>
         <div id="menuContexto">

@@ -30,10 +30,9 @@ class tbalteracaonomeprojetoDAO extends Zend_Db_Table
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
-
     }
 
-    public static function alterarNomeProjeto($dados,$idpronac)
+    public static function alterarNomeProjeto($dados, $idpronac)
     {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -41,15 +40,10 @@ class tbalteracaonomeprojetoDAO extends Zend_Db_Table
         $where = "idpronac = ".$idpronac;
         $alterar = $db->update("SAC.dbo.projetos", $dados, $where);
 
-        if ($alterar)
-        {
+        if ($alterar) {
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
 }
-
-?>

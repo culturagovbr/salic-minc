@@ -46,7 +46,7 @@ class Proposta_Model_DbTable_TbDespacho extends MinC_Db_Table_Abstract
         $objQuery->where('Projetos.idPronac = ?', $idPronac);
         $objQuery->where('TbDespacho.stEstado = ?', 0);
         $result = $this->fetchRow($objQuery);
-        if($result) {
+        if ($result) {
             return $result->toArray();
         }
     }

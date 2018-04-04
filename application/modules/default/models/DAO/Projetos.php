@@ -10,7 +10,6 @@
 
 class Projetos extends Zend_Db_Table
 {
-
     protected $_name = 'SAC.dbo.Projetos';
 
     public function buscarCpf($sql)
@@ -103,7 +102,6 @@ class Projetos extends Zend_Db_Table
 
     public static function respostaTela($cpf, $pronac)
     {
-
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
         $sql = "select top 1
@@ -165,5 +163,4 @@ class Projetos extends Zend_Db_Table
         $idGerado = $db->fetchOne("SELECT MAX(idArquivo) as id from scCorp.tbArquivo");
         return $idGerado;
     }
-
 }

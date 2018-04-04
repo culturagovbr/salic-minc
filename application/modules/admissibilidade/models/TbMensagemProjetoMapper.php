@@ -13,7 +13,6 @@
  */
 class Admissibilidade_Model_TbMensagemProjetoMapper extends MinC_Db_Mapper
 {
-
     public function __construct()
     {
         $this->setDbTable('Admissibilidade_Model_DbTable_TbMensagemProjeto');
@@ -93,7 +92,7 @@ class Admissibilidade_Model_TbMensagemProjetoMapper extends MinC_Db_Mapper
     {
         $booStatus = true;
         $arrData = $model->toArray();
-        if (empty($arrData['idMensagemProjeto'])){
+        if (empty($arrData['idMensagemProjeto'])) {
             $arrRequired = array(
                 'idDestinatarioUnidade',
                 'IdPRONAC',

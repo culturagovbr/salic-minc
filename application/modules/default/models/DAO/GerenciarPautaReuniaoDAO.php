@@ -1,18 +1,6 @@
 <?php
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of GerenciarPautaReuniao
- *
- * @author 01373930160
- */
 class GerenciarPautaReuniaoDAO
 {
-
     public static function consultaAgenteUsuario($usu_codigo)
     {
         $sql = "select usu_codigo,
@@ -21,14 +9,11 @@ class GerenciarPautaReuniaoDAO
                 where usu_codigo=$usu_codigo
                 ";
 
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
             return $db->fetchRow($sql);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = $e->getMessage();
         }
     }
@@ -47,13 +32,10 @@ class GerenciarPautaReuniaoDAO
     {
         $sql = "SELECT * FROM SAC.dbo.Area";
 
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = $e->getMessage();
         }
 
@@ -62,7 +44,6 @@ class GerenciarPautaReuniaoDAO
 
     public static function consultaProjetosPautaReuniao()
     {
-
         $sql = "SELECT Pauta.idNrReuniao,
                        Pauta.dtEnvioPauta,
                        Pauta.stEnvioPlenario,
@@ -88,13 +69,10 @@ class GerenciarPautaReuniaoDAO
                        LEFT JOIN
                        SAC.dbo.Area AS Area
                        ON Area.Codigo = Projetos.Area";
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = $e->getMessage();
         }
 
@@ -116,13 +94,10 @@ class GerenciarPautaReuniaoDAO
                 where tp.idNrReuniao = $idnrreuniao
                 and tp.idpronac = $idpronac
                 and tp.stAnalise in ('AS','IS')";
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = $e->getMessage();
         }
 
@@ -135,17 +110,12 @@ class GerenciarPautaReuniaoDAO
                 from BDCORPORATIVO.scSAC.tbconsolidacaovotacao
                 where idnrreuniao = $idnrreuniao
                 and idpronac = $idpronac";
-        try
-        {
+        try {
             $db= Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
             return $db->fetchAll($sql);
-        }
-        catch (Zend_Exception_Db $e)
-        {
+        } catch (Zend_Exception_Db $e) {
             $this->view->message = $e->getMessage();
         }
     }
-
 }
-?>

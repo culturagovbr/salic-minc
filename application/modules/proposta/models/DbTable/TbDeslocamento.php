@@ -108,17 +108,16 @@ class Proposta_Model_DbTable_TbDeslocamento extends MinC_Db_Table_Abstract
         $sql = $this->select()
             ->setIntegrityCheck(false)
             ->from(array('de' => $this->_name), $de, $this->_schema)
-            ->joinLeft(array('pao'=>'pais'), 'de.idpaisorigem = pao.idpais','pao.descricao as po', $agenteSchema)
-            ->joinLeft(array('ufo'=>'uf'), 'de.iduforigem = ufo.iduf','ufo.descricao as ufo', $agenteSchema)
-            ->joinLeft(array('muo' => 'municipios'), 'de.idmunicipioorigem = muo.idmunicipioibge','muo.descricao as muo', $agenteSchema)
+            ->joinLeft(array('pao'=>'pais'), 'de.idpaisorigem = pao.idpais', 'pao.descricao as po', $agenteSchema)
+            ->joinLeft(array('ufo'=>'uf'), 'de.iduforigem = ufo.iduf', 'ufo.descricao as ufo', $agenteSchema)
+            ->joinLeft(array('muo' => 'municipios'), 'de.idmunicipioorigem = muo.idmunicipioibge', 'muo.descricao as muo', $agenteSchema)
             ->joinLeft(array('pad' => 'pais'), 'de.idpaisdestino = pad.idpais', 'pad.descricao as pd', $agenteSchema)
-            ->joinLeft(array('ufd' => 'uf'), 'de.idufdestino = ufd.iduf','ufd.descricao as ufd', $agenteSchema)
+            ->joinLeft(array('ufd' => 'uf'), 'de.idufdestino = ufd.iduf', 'ufd.descricao as ufd', $agenteSchema)
             ->joinLeft(array('mud' => 'municipios'), 'de.idmunicipiodestino = mud.idmunicipioibge', 'mud.descricao as mud', $agenteSchema)
             ->where("idprojeto = ?", $idProjeto)
         ;
 
-        if($idDeslocamento != null)
-        {
+        if ($idDeslocamento != null) {
             $sql->where('de.iddeslocamento = ?', $idDeslocamento);
         }
 

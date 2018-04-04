@@ -12,34 +12,26 @@
 
 class Zend_View_Helper_StatusAnalise
 {
-	/**
-	 * Método com os status da análise
-	 * @access public
-	 * @param string $cor
-	 * @return string
-	 */
-	public function statusAnalise($cor)
-	{
-		$cor = trim($cor);
+    /**
+     * Método com os status da análise
+     * @access public
+     * @param string $cor
+     * @return string
+     */
+    public function statusAnalise($cor)
+    {
+        $cor = trim($cor);
 
-		if ($cor == 'vermelho')
-		{
-			$ds = '20 dias de atraso no recebimento da solicitação (data inicial)';
-		}
-		else if ($cor == 'amarelo')
-		{
-			$ds = '>= 10 e < 20 dias de atraso no recebimento da solicitação (data inicial)';
-		}
-		else if ($cor == 'verde')
-		{
-			$ds = '< 10 dias de atraso no recebimento da solicitação (data inicial)';
-		}
-		else
-		{
-			$ds = ' ';
-		}
+        if ($cor == 'vermelho') {
+            $ds = '20 dias de atraso no recebimento da solicitação (data inicial)';
+        } elseif ($cor == 'amarelo') {
+            $ds = '>= 10 e < 20 dias de atraso no recebimento da solicitação (data inicial)';
+        } elseif ($cor == 'verde') {
+            $ds = '< 10 dias de atraso no recebimento da solicitação (data inicial)';
+        } else {
+            $ds = ' ';
+        }
 
-		return $ds;
-	} // fecha método statusAnalise()
-
+        return $ds;
+    } // fecha método statusAnalise()
 } // fecha class

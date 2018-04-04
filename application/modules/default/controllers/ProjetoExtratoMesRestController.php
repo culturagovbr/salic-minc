@@ -2,18 +2,21 @@
 
 /**
  * Dados do proponente via REST
- * 
+ *
  * @version 1.0
  * @package application
  * @subpackage application.controller
  * @link http://www.cultura.gov.br
  * @copyright � 2016 - Minist�rio da Cultura - Todos os direitos reservados.
  */
-class ProjetoExtratoMesRestController extends Minc_Controller_AbstractRest {
-
-    public function postAction(){}
+class ProjetoExtratoMesRestController extends Minc_Controller_AbstractRest
+{
+    public function postAction()
+    {
+    }
     
-    public function indexAction(){
+    public function indexAction()
+    {
         $projeto = $this->_request->getParam('projeto');
         $ano = $this->_request->getParam('ano');
         $listaMes = array();
@@ -21,8 +24,8 @@ class ProjetoExtratoMesRestController extends Minc_Controller_AbstractRest {
 
         $objListaResult = $modelProjetos->buscarMesExtratoDeProjeto($projeto, $ano);
         $arrListaResult = $objListaResult->toArray();
-        if($arrListaResult){
-            foreach($arrListaResult as $mes) {
+        if ($arrListaResult) {
+            foreach ($arrListaResult as $mes) {
                 $mes['descricao'] = utf8_encode($mes['descricao']);
                 $listaMes[] = (object)$mes;
             }
@@ -32,10 +35,15 @@ class ProjetoExtratoMesRestController extends Minc_Controller_AbstractRest {
         $this->getResponse()->setHttpResponseCode(200)->setBody(json_encode($listaMes));
     }
     
-    public function getAction(){}
+    public function getAction()
+    {
+    }
 
-    public function putAction(){}
+    public function putAction()
+    {
+    }
 
-    public function deleteAction(){}
-
+    public function deleteAction()
+    {
+    }
 }

@@ -4,7 +4,8 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
 {
     private $idTipoDoAtoAdministrativo;
 
-    private function validarPerfis() {
+    private function validarPerfis()
+    {
         $auth = Zend_Auth::getInstance();
 
         $PermissoesGrupo = array();
@@ -53,9 +54,8 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
         $this->validarPerfis();
         $get = Zend_Registry::get('get');
         try {
-
             if (!filter_input(INPUT_GET, 'IdPRONAC')) {
-                throw new Exception ("Identificador do projeto é necessário para acessar essa funcionalidade.");
+                throw new Exception("Identificador do projeto é necessário para acessar essa funcionalidade.");
             }
 
             $objTbProjetos = new Projeto_Model_DbTable_Projetos();
@@ -66,7 +66,6 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
 
             $post = $this->getRequest()->getPost();
             if ($post) {
-
                 if (!$post['motivoDevolucao']) {
                     throw new Exception("Campo 'Motivação da Devolução para nova avaliação' não informado.");
                 }
@@ -98,7 +97,7 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
                     )
                 );
                 $arrayAtosAdministrativosEnquadramento = array();
-                foreach($arrayAtosAdministrativos as $atoAdministrativo) {
+                foreach ($arrayAtosAdministrativos as $atoAdministrativo) {
                     $arrayAtosAdministrativosEnquadramento[] = $atoAdministrativo['idAtoAdministrativo'];
                 }
                 $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
@@ -151,7 +150,6 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
         $get = Zend_Registry::get('get');
 
         try {
-
             $objTbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();
             $this->view->perfilAssinante = $objTbAtoAdministrativo->obterPerfilAssinante(
                 $this->grupoAtivo->codOrgao,
@@ -160,25 +158,24 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
             );
 
             if (!$this->view->perfilAssinante) {
-                throw new Exception ("Usu&aacute;rio sem autoriza&ccedil;&atilde;o para assinar o documento.");
+                throw new Exception("Usu&aacute;rio sem autoriza&ccedil;&atilde;o para assinar o documento.");
             }
 
-            if(is_array($get->IdPRONAC)) {
+            if (is_array($get->IdPRONAC)) {
                 $idPronacUnidos = implode(',', $get->IdPRONAC);
                 $this->redirect("/{$this->moduleName}/enquadramento-assinatura/assinar-projeto?IdPRONAC={$idPronacUnidos}");
             }
 
             $this->view->IdPRONAC = $get->IdPRONAC;
             $arrayIdPronacs = explode(',', $get->IdPRONAC);
-            if(count($arrayIdPronacs) < 1) {
-                throw new Exception ("Identificador do projeto &eacute; necess&aacute;rio para acessar essa funcionalidade.");
+            if (count($arrayIdPronacs) < 1) {
+                throw new Exception("Identificador do projeto &eacute; necess&aacute;rio para acessar essa funcionalidade.");
             }
 
             $post = $this->getRequest()->getPost();
 
             if ($post) {
-
-                foreach($arrayIdPronacs as $idPronac) {
+                foreach ($arrayIdPronacs as $idPronac) {
                     $this->assinarProjeto(
                         $idPronac,
                         $post['password'],
@@ -186,7 +183,7 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
                     );
                 }
 
-                if(count($arrayIdPronacs) > 1) {
+                if (count($arrayIdPronacs) > 1) {
                     parent::message(
                         "Projetos assinados com sucesso!",
                         "/{$this->moduleName}/enquadramento-assinatura/gerenciar-projetos",
@@ -202,7 +199,7 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
 
             $objProjeto = new Projeto_Model_DbTable_Projetos();
             $this->view->projeto = array();
-            foreach($arrayIdPronacs as $idPronac) {
+            foreach ($arrayIdPronacs as $idPronac) {
                 $this->view->projeto[] = $objProjeto->findBy(array(
                     'IdPRONAC' => $idPronac
                 ));
@@ -212,9 +209,8 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
             $this->view->tipoDocumento = $objVerificacao->findBy(array(
                 'idVerificacao = ?' => $this->idTipoDoAtoAdministrativo
             ));
-
         } catch (Exception $objException) {
-            if(is_array($get->IdPRONAC)) {
+            if (is_array($get->IdPRONAC)) {
                 parent::message(
                     $objException->getMessage(),
                     "/{$this->moduleName}/enquadramento-assinatura/gerenciar-projetos"
@@ -233,7 +229,7 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
         $get = Zend_Registry::get('get');
         try {
             if (!filter_input(INPUT_GET, 'IdPRONAC')) {
-                throw new Exception ("Identificador do projeto é necessário para acessar essa funcionalidade.");
+                throw new Exception("Identificador do projeto é necessário para acessar essa funcionalidade.");
             }
 
             $objProjetos = new Projetos();
@@ -292,5 +288,4 @@ class Parecer_AssinaturaController extends Assinatura_GenericController
             parent::message($objException->getMessage(), "/{$this->moduleName}/enquadramento-assinatura/assinar-projeto?IdPRONAC={$get->IdPRONAC}");
         }
     }
-
 }

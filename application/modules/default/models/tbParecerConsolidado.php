@@ -1,67 +1,63 @@
 <?php
-/**
- * DAO tbParecerConsolidado
- * @since 16/03/2011
- * @link http://www.cultura.gov.br
- */
-class tbParecerConsolidado extends MinC_Db_Table_Abstract {
+class tbParecerConsolidado extends MinC_Db_Table_Abstract
+{
     protected $_banco  = "SAC";
     protected $_schema = "SAC";
     protected $_name   = "tbParecerConsolidado";
 
-    public function salvar($dados) {
+    public function salvar($dados)
+    {
         //INSTANCIANDO UM OBJETO DE ACESSO AOS DADOS DA TABELA
         $tmpTblParecerConsolidado = new ParecerConsolidado();
 
         //DECIDINDO SE SERA FEITA UM INSERT OU UPDATE
-        if(isset($dados['idVinculo'])) {
+        if (isset($dados['idVinculo'])) {
             $tmpTblParecerConsolidado = $tmpTblParecerConsolidado->find($dados['idVinculo'])->current();
-        }else {
+        } else {
             $tmpTblParecerConsolidado = $tmpTblParecerConsolidado->createRow();
         }
         //ATRIBUINDO VALORES AOS CAMPOS QUE FORAM PASSADOS
-        if(isset($dados['dsParecer'])) {
+        if (isset($dados['dsParecer'])) {
             $tmpTblParecerConsolidado->dsParecer = $dados['dsParecer'];
         }
-        if(isset($dados['idUsuario'])) {
+        if (isset($dados['idUsuario'])) {
             $tmpTblParecerConsolidado->idUsuario = $dados['idUsuario'];
         }
-        if(isset($dados['idDocumento'])) {
+        if (isset($dados['idDocumento'])) {
             $tmpTblParecerConsolidado->idDocumento = $dados['idDocumento'];
         }
-        if(isset($dados['idRelatorioConsolidado'])) {
+        if (isset($dados['idRelatorioConsolidado'])) {
             $tmpTblParecerConsolidado->idRelatorioConsolidado = $dados['idRelatorioConsolidado'];
         }
-        if(isset($dados['idRelatorioFinal'])) {
+        if (isset($dados['idRelatorioFinal'])) {
             $tmpTblParecerConsolidado->idRelatorioFinal = $dados['idRelatorioFinal'];
         }
-        if(isset($dados['idPerfilAvaliador'])) {
+        if (isset($dados['idPerfilAvaliador'])) {
             $tmpTblParecerConsolidado->idPerfilAvaliador = $dados['idPerfilAvaliador'];
         }
-        if(isset($dados['idAvaliador'])) {
+        if (isset($dados['idAvaliador'])) {
             $tmpTblParecerConsolidado->idAvaliador = $dados['idAvaliador'];
         }
 
-        //echo "<pre>";
-        //print_r($tmpRsVinculo);
         //SALVANDO O OBJETO CRIADO
         $id = $tmpRsVinculo->save();
 
-        if($id) {
+        if ($id) {
             return $id;
-        }else {
+        } else {
             return false;
         }
     }
 
-    public function buscarTudo($idRelatorioConsolidado) {
+    public function buscarTudo($idRelatorioConsolidado)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
                 array('D' => $this->_name),
                 array(
                     'idParecerConsolidado',
-                    'CAST(D.dsParecer AS TEXT) AS dsParecer',
+                    new Zend_Db_Expr('CAST(D.dsParecer AS TEXT) AS dsParecer'),
                     'idUsuario',
                     'idDocumento',
                     'idRelatorioConsolidado',
@@ -86,9 +82,9 @@ class tbParecerConsolidado extends MinC_Db_Table_Abstract {
         $slct->where('D.idRelatorioConsolidado = ?', $idRelatorioConsolidado);
 
         return $this->fetchAll($slct);
-
     }
-    public function buscarAtoresCoordenadorAvaliacao($idPronac, $idusuario=null){
+    public function buscarAtoresCoordenadorAvaliacao($idPronac, $idusuario=null)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -146,9 +142,6 @@ class tbParecerConsolidado extends MinC_Db_Table_Abstract {
                            );
 
         $select->where('rel.idPRONAC = ?', $idPronac);
-        //$select->where('usu.usu_codigo <> ?', $idusuario);
         return $this->fetchAll($select);
     }
-
 }
-

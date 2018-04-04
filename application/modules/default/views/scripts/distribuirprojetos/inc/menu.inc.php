@@ -36,7 +36,8 @@
 </div>
 <?php
 $menu = !empty($_GET["menu"]) ? $_GET["menu"] : 1;
-if($menu != 0){ ?>
+if ($menu != 0) {
+    ?>
 
 <div id="menu">
 
@@ -78,7 +79,8 @@ if($menu != 0){ ?>
 
                 <a class="no_seta last" href="<?php echo $this->url(array('controller' => 'distribuirprojetos', 'action' => 'redistribuir')); ?>" title="Ir para Redistribuir Projetos">Redistribuir Projetos</a>
 
-<?php } ?>
+<?php
+} ?>
 
             </div>
 

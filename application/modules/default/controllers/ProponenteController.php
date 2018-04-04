@@ -12,22 +12,20 @@ class ProponenteController extends MinC_Controller_Action_Abstract
      */
     public function init()
     {
-        Zend_Layout::startMvc(array('layout' => 'layout_scriptcase'));
+//        Zend_Layout::startMvc(array('layout' => 'layout_scriptcase'));
         $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // titulo da pagina
         $auth = Zend_Auth::getInstance(); // pega a autenticao
         $Usuario = new UsuarioDAO(); // objeto usuario
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
 
-        if ($auth->hasIdentity()) // caso o usuario esteja autenticado
-        {
+        if ($auth->hasIdentity()) { // caso o usuario esteja autenticado
             // verifica as permissoes
             $PermissoesGrupo = array();
             // $PermissoesGrupo[] = 93;
             $PermissoesGrupo[] = 118;
             // $PermissoesGrupo[] = 119;
             // $PermissoesGrupo[] = 120;
-            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) // verifica se o grupo ativo est� no array de permiss�es
-            {
+            if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
                 parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
             }
 
@@ -40,8 +38,7 @@ class ProponenteController extends MinC_Controller_Action_Abstract
             $this->view->grupoAtivo = $GrupoAtivo->codGrupo; // manda o grupo ativo do usuario para a visao
             $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o orgao ativo do usuario para a visao
         } // fecha if
-        else // caso o usuario nao esteja autenticado
-        {
+        else { // caso o usuario nao esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
 
@@ -51,7 +48,6 @@ class ProponenteController extends MinC_Controller_Action_Abstract
     // fecha matodo init()
     public function indexAction()
     {
-
         $idpronac = $this->_request->getParam("idpronac");
 
         $geral = new ProponenteDAO();
@@ -85,36 +81,33 @@ class ProponenteController extends MinC_Controller_Action_Abstract
         $idagente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
         $idagente = $idagente['idAgente'];
         //-------------------------------------------------------------------------------------------------------------
-                                $reuniao = new Reuniao();
-                                 $ConsultaReuniaoAberta = $reuniao->buscar(array("stEstado = ?" => 0));
-                                if($ConsultaReuniaoAberta->count() > 0)
-                                {
-                                    $ConsultaReuniaoAberta = $ConsultaReuniaoAberta->current()->toArray();
-                                    $this->view->dadosReuniaoPlenariaAtual = $ConsultaReuniaoAberta;
-                                    //---------------------------------------------------------------------------------------------------------------
-                                    $votantes = new Votante();
-                                    $exibirVotantes = $votantes->selecionarvotantes($ConsultaReuniaoAberta['idNrReuniao']);
-                                    if (count($exibirVotantes) > 0) {
-                                        foreach ($exibirVotantes as $votantes) {
-                                            $dadosVotante[] = $votantes->idAgente;
-                                        }
-                                        if (count($dadosVotante) > 0) {
-                                            if (in_array($idagente, $dadosVotante)) {
-                                                $this->view->votante = true;
-                                            } else {
-                                                $this->view->votante = false;
-                                            }
-                                        }
-                                    }
-                                }
-                                else{
-                                    parent::message("N&atilde;o existe CNIC aberta no momento. Favor aguardar!", "principal/index", "ERROR");
-                                }
+        $reuniao = new Reuniao();
+        $ConsultaReuniaoAberta = $reuniao->buscar(array("stEstado = ?" => 0));
+        if ($ConsultaReuniaoAberta->count() > 0) {
+            $ConsultaReuniaoAberta = $ConsultaReuniaoAberta->current()->toArray();
+            $this->view->dadosReuniaoPlenariaAtual = $ConsultaReuniaoAberta;
+            //---------------------------------------------------------------------------------------------------------------
+            $votantes = new Votante();
+            $exibirVotantes = $votantes->selecionarvotantes($ConsultaReuniaoAberta['idNrReuniao']);
+            if (count($exibirVotantes) > 0) {
+                foreach ($exibirVotantes as $votantes) {
+                    $dadosVotante[] = $votantes->idAgente;
+                }
+                if (count($dadosVotante) > 0) {
+                    if (in_array($idagente, $dadosVotante)) {
+                        $this->view->votante = true;
+                    } else {
+                        $this->view->votante = false;
+                    }
+                }
+            }
+        } else {
+            parent::message("N&atilde;o existe CNIC aberta no momento. Favor aguardar!", "principal/index", "ERROR");
+        }
     }
 
     public function cadastrarpropostaAction()
     {
-
     }
 
     public function listarProjetosProponenteAction($fetchMode = Zend_DB::FETCH_OBJ)
@@ -125,8 +118,12 @@ class ProponenteController extends MinC_Controller_Action_Abstract
         $cpfCnpj = $this->_request->getParam("CgcCpf");
 
         $pag = 1;
-        if (isset($post->pag)) $pag = $post->pag;
-        if (isset($post->tamPag)) $this->intTamPag = $post->tamPag;
+        if (isset($post->pag)) {
+            $pag = $post->pag;
+        }
+        if (isset($post->tamPag)) {
+            $this->intTamPag = $post->tamPag;
+        }
         $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
         $fim = $inicio + $this->intTamPag;
 
@@ -138,7 +135,9 @@ class ProponenteController extends MinC_Controller_Action_Abstract
 
         $totalPag = (int)(($total % $this->intTamPag == 0)?($total/$this->intTamPag):(($total/$this->intTamPag)+1));
         $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
-        if ($fim>$total) $fim = $total;
+        if ($fim>$total) {
+            $fim = $total;
+        }
 
         $ordem = array("7",//stEstado (Arquivado / Ativo)
                        "8",//p.Situacao (Situacao Projeto)
@@ -146,13 +145,15 @@ class ProponenteController extends MinC_Controller_Action_Abstract
                        //"10",//s.Descricao (Segmento)
                        //"1" //NomeProjeto
                     );
-        if(!empty($post->ordenacao)){ $ordem[] = "{$post->ordenacao} {$post->tipoOrdenacao}"; }
+        if (!empty($post->ordenacao)) {
+            $ordem[] = "{$post->ordenacao} {$post->tipoOrdenacao}";
+        }
 
         $rsProjetos = $tblProjetos->buscarProjetosProponente($arrBusca, $ordem, $tamanho, $inicio);
 
         $arrProjetos = array();
         $arrValores = array();
-        foreach($rsProjetos as $projeto){
+        foreach ($rsProjetos as $projeto) {
             $arrProjetos[$projeto->stEstado][$projeto->Situacao][]=$projeto;
             $arrValores[$projeto->stEstado]['vlSolicitado'][] = $projeto->Solicitado;
             $arrValores[$projeto->stEstado]['vlAprovado'][] = $projeto->Aprovado;

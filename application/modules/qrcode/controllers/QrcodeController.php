@@ -13,11 +13,12 @@ class Qrcode_QrcodeController extends Qrcode_GenericController
         parent::init();
     }
 
-    public function exibirAction() {
+    public function exibirAction()
+    {
         $this->_helper->layout->disableLayout();
 
         $get = Zend_Registry::get('get');
-        if(!$get->texto) {
+        if (!$get->texto) {
             throw new Exception("Parâmetro 'texto' não informado.");
         }
         \PHPQRCode\QRcode::png($get->texto, false, 'L', 4, 2);

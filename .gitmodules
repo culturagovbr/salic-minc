@@ -1,0 +1,3 @@
+[submodule "application/modules/salic-minc-layout"]
+	path = application/modules/salic-minc-layout
+	url = git@github.com:culturagovbr/salic-minc-layout.git

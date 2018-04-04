@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,7 +9,7 @@
  *
  * @author tisomar
  */
-class DocumentosRecebidosDao {
+class DocumentosRecebidosDao
+{
     //put your code here
 }
-?>

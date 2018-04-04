@@ -35,16 +35,20 @@
         <div id="menuContexto">
             <div class="top"></div>
             <div id="qm0" class="qmmc">
-            	<?php if($this->perfilAtual == 'CoordenadorPRONAC') {?>
+            	<?php if ($this->perfilAtual == 'CoordenadorPRONAC') {
+    ?>
 					<a class="no_seta" href="<?php echo $this->url(array('controller' => 'consultarpareceristas', 'action' => 'relatoriomensaldepagamento')); ?>" title="Ir para Relat&oacute;rio Mensal de Pagamento">Relat&oacute;rio Mensal de Pagamento</a>
-				<?php }?>
-            	<?php if($this->perfilAtual == 'Parecerista') {?>
+				<?php
+}?>
+            	<?php if ($this->perfilAtual == 'Parecerista') {
+        ?>
                 	<a class="no_seta" href="<?php echo $this->url(array('controller' => 'consultarpareceristas', 'action' => 'consultarprodutospareceristas')); ?>" title="Ir para Consultar Produtos do Parecerista">Consultar Produtos do Parecerista</a>
-                <?php }?>
+                <?php
+    }?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'consultarpareceristas', 'action' => 'consultardadospareceristas')); ?>" title="Ir para Consultar Pareceristas">Consultar dados do Parecerista</a>
                 <?php
-                if($this->perfilAtual == 'CoordenadorPRONAC') {
-                ?>
+                if ($this->perfilAtual == 'CoordenadorPRONAC') {
+                    ?>
                 <a class="no_seta" href="<?php echo $this->url(array('controller' => 'consultarpareceristas', 'action' => 'consultarpagamentospareceristas')); ?>" title="Ir para Consultar Pagamento">Consultar Pagamento/Pareceristas</a>
                 <?php
                 }

@@ -52,7 +52,7 @@ function mascara ($val, $mask) {
 
 </script>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN?CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -65,15 +65,15 @@ function mascara ($val, $mask) {
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== IN?CIO T?TULO ========== -->
 <div id="titulo">
     <div>Extrato Banc&aacute;rio Consolidado</div>
 </div>
 
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM T?TULO ========== -->
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== IN?CIO CONTE?DO ========== -->
 
 <div id="conteudo">
     <table class="tabela">
@@ -85,10 +85,14 @@ function mascara ($val, $mask) {
         <tr>
             <td align="center"><?php echo $this->projeto->AnoProjeto.$this->projeto->Sequencial; ?></td>
             <td align="center"><?php echo $this->projeto->NomeProjeto; ?></td>
-            <td align="center"><?php echo mascara($this->dados[0]['Agencia'],'####-#');?></td>
+            <td align="center">
+                <?php if(count($this->dados)>0) {
+                    echo mascara($this->dados[0]['Agencia'],'####-#');
+                } ?>
+            </td>
         </tr>
     </table>
-<!-- ========== INÍCIO MENU PESQUISA ========= -->
+<!-- ========== IN?CIO MENU PESQUISA ========= -->
     <form name="formPesquisa" id="formPesquisa" action="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'extrato-conta-movimento-consolidado'));?>" method="get">
         <table class="tabela">
             <tr >
@@ -98,37 +102,18 @@ function mascara ($val, $mask) {
             </tr>
             <tr class="divFiltroPesquisa">
                 <td class="destacar bold w100">Tipo da Conta</td>
+                <input type="hidden" class="input_simples" name="idPronac" value="<?php echo $this->idPronac; ?>">
                 <td>
-                   <?php
-                    $tipo = Zend_Controller_Front::getInstance()->getRequest()->getParam('TipoConta');
-                    $selecione = "";
-                    $captacao = "";
-                    $movimentacao = "";
-                    if($tipo == ""){
-                        $selecione = "selected";
-                    }
-
-		    if($tipo == "Captação"){
-                        $captacao = "selected";
-                    }
-
-		    if($tipo == "Movimentação"){
-                        $movimentacao = "selected";
-                    }
-
-
-
-                   ?>
-                    <select name="TipoConta">
-                        <option value="" <?php echo $selecione; ?>>Selecione</option>
-                        <option value="Captação" <?php echo $captacao; ?>>Captação</option>
-                        <option value="Movimentação"<?php echo $movimentacao; ?>>Movimentação</option>
+                    <select name="TipoConta" class="browser-default" style="width: 200px;">
+                        <option value="">Selecione</option>
+                        <option value="captacao" <?= ($this->TipoConta=='captacao') ? 'selected' : ''; ?>>Capta&#231;&#227;o</option>
+                        <option value="movimentacao"<?= ($this->TipoConta=='movimentacao') ? 'selected' : ''; ?>>Movimenta&#231;&#227;o</option>
                     </select>
                 </td>
             </tr>
         </table>
             <center><input type="button" name="btn_pesquisar" id="btn_pesquisar" class="btn_pesquisar" value=""></center>
-         <input type="hidden" class="input_simples" name="idPronac" value="<?php echo $this->idPronac; ?>">
+<!--         <input type="hidden" class="input_simples" name="idPronac" value="--><?php //echo $this->idPronac; ?><!--">-->
     </form>
 </br>
 <!-- ============= FIM MENU PESQUISA ======== -->
@@ -136,7 +121,7 @@ function mascara ($val, $mask) {
 
 
 <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINAÇÃO ============ -->
+    <!-- ============ PAGINA??O ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -161,12 +146,12 @@ function mascara ($val, $mask) {
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'extrato-conta-movimento-consolidado')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&idPronac='.$this->idPronac.'&TipoConta='.$tipo; ?>'">
                     <?php } ?>
-                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="TipoConta" value="<?php echo $tipo;?>">
@@ -184,7 +169,7 @@ function mascara ($val, $mask) {
             echo " de ". $this->paginacao['total']. " Registros listados";
         ?>
     </center>
-    <!-- ========== FIM PAGINAÇÃO ========== -->
+    <!-- ========== FIM PAGINA??O ========== -->
     <?php } ?>
 
 
@@ -224,7 +209,7 @@ function mascara ($val, $mask) {
     </table>
 
  <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINAÇÃO ============ -->
+    <!-- ============ PAGINA??O ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -249,12 +234,12 @@ function mascara ($val, $mask) {
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'extrato-conta-movimento-consolidado')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&idPronac='.$this->idPronac.'&TipoConta='.$tipo; ?>'">
                     <?php } ?>
-                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="TipoConta" value="<?php echo $tipo;?>">
@@ -272,7 +257,7 @@ function mascara ($val, $mask) {
             echo " de ". $this->paginacao['total']. " Registros listados";
         ?>
     </center>
-    <!-- ========== FIM PAGINAÇÃO ========== -->
+    <!-- ========== FIM PAGINA??O ========== -->
     <?php } ?>
 
 <?php } else { ?>

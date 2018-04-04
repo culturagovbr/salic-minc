@@ -5,11 +5,11 @@
  *
  * @author Danilo Lisboa
  */
-class tbComunicados extends MinC_Db_Table_Abstract {
-
-    protected  $_banco  = 'sac';
-    protected  $_schema = 'sac';
-    protected  $_name   = 'tbComunicados';
+class tbComunicados extends MinC_Db_Table_Abstract
+{
+    protected $_banco  = 'sac';
+    protected $_schema = 'sac';
+    protected $_name   = 'tbComunicados';
 
     public function init()
     {
@@ -26,31 +26,32 @@ class tbComunicados extends MinC_Db_Table_Abstract {
      *
      * @todo trocar as conversoes de datas conforme o banco
      */
-    public function listarComunicados($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count=false) {
+    public function listarComunicados($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count=false)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
                 array("c" => $this->_name),
                 array("idcomunicado",
-					  "comunicado",
-					  "idsistema",
-					  "stopcao",
-					  "stestado",
-					  "dtiniciovigencia",
-					  "dtterminovigencia",
-					  "dtiniciovigencia AS dtiniciovigenciapt",
-					  "dtterminovigencia AS dtterminovigenciapt"),
+                      "comunicado",
+                      "idsistema",
+                      "stopcao",
+                      "stestado",
+                      "dtiniciovigencia",
+                      "dtterminovigencia",
+                      new Zend_Db_Expr("dtiniciovigencia AS dtiniciovigenciapt"),
+                          new Zend_Db_Expr("dtterminovigencia AS dtterminovigenciapt")),
                 $this->_schema
 //					  "CONVERT(CHAR(10),dtInicioVigencia,103) AS dtInicioVigenciaPT",
 //					  "CONVERT(CHAR(10),dtTerminoVigencia, 103) AS dtTerminoVigenciaPT")
-		);
+        );
 
         //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $slct->where($coluna, $valor);
         }
 
-		if($count){
+        if ($count) {
             $slct2 = $this->select();
             $slct2->setIntegrityCheck(false);
             $slct2->from(
@@ -65,7 +66,11 @@ class tbComunicados extends MinC_Db_Table_Abstract {
 
             
             $rs = $this->fetchAll($slct2)->current();
-            if($rs){ return $rs->total; }else{ return 0; }
+            if ($rs) {
+                return $rs->total;
+            } else {
+                return 0;
+            }
         }
         //adicionando linha order ao select
         $slct->order($order);
@@ -83,7 +88,4 @@ class tbComunicados extends MinC_Db_Table_Abstract {
 
         return $this->fetchAll($slct);
     }
-
-
-
 }

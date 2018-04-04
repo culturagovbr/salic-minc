@@ -5,14 +5,14 @@
 
 class Zend_View_Helper_IsProdutosPendentesParecer
 {
-	/**
-	 * Método para verificar se há produtos pendentes de parecer
-	 * @access public
-	 * @param integer $idPronac
-	 * @param integer $idProduto
-	 * @return string
-	 */
-	public function IsProdutosPendentesParecer($idPronac, $idProduto)
+    /**
+     * Método para verificar se há produtos pendentes de parecer
+     * @access public
+     * @param integer $idPronac
+     * @param integer $idProduto
+     * @return string
+     */
+    public function IsProdutosPendentesParecer($idPronac, $idProduto)
     {
         $tbAnaliseDeConteudoDAO = new Analisedeconteudo();
         $where['IdPRONAC = ?'] = $idPronac;
@@ -27,4 +27,3 @@ class Zend_View_Helper_IsProdutosPendentesParecer
         }
     }
 }
-

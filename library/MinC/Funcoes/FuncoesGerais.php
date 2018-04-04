@@ -251,6 +251,53 @@ function gerarBreadCrumb($links = array()) {
     }
 }
 
+function gerarNovoBreadCrumb($links = array()) {
+    try {
+        $router = Zend_Controller_Front::getInstance()->getRouter();
+        $primeiroLink = null;
+
+        $auth = Zend_Auth::getInstance();
+        $primeiroLink =  $router->assemble(array('module' => 'default', 'controller' => 'principalproponente', 'action' => ''));
+        if( isset($auth->getIdentity()->usu_codigo ) ) {
+            $primeiroLink =  $router->assemble(array('module' => 'default', 'controller' => 'principal', 'action' => ''));
+        }
+
+        $guia = "<div id='migalhas'><ul>";
+        $guia .= "<li class='first'><a href='{$primeiroLink}' title='In&iacute;cio'>In&iacute;cio</a></li>";
+        $qtdLinks = count($links);
+
+        $contador = 0;
+        if ($qtdLinks > 0) {
+            foreach ($links as $link) {
+                foreach ($link as $nomeLink => $val) {
+                    $contador++;
+                    if ($contador == $qtdLinks) {
+                        $guia .= "<li class='last'>{$nomeLink}</li>";
+                    } else {
+                        $url = $val;
+                        if (is_array($val)) {
+                            $arrayLink = array('controller' => $val['controller'], 'action' => $val['action']);
+                            if(isset($val['module']) && !empty($val['module'])) {
+                                $arrayLink['module'] = $val['module'];
+                            }
+
+                            // @todo: não é possivel nesse momento otimizar essa rotina.
+                            $url = $router->assemble($arrayLink);
+                            $url = explode('/', $url);
+                            $url = ('/'.$url[1] . '/' . $url[2] .'/'.$url[3]);
+                        }
+                        $guia .= "<li><a href='" . $url . "' title='{$nomeLink}'>" . $nomeLink . "</a></li>";
+                    }
+                }
+            }
+        }
+        $guia .= "</ul></div>";
+        print $guia;
+    } catch (Zend_Exception $objException) {
+        throw new Exception("Erro ao montar guia de links", 0, $objException);
+    }
+}
+
 function retornaBaseUrl($controller) {
     $BASEURL = false;
     $ESTAURL = $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
@@ -421,7 +468,7 @@ function strConvertCharset($str) {
         $str = utf8_encode($str);
     }
 
-    return utf8_decode($str);
+    return $str;
 }
 
 function converterArrayParaObjetos($array)

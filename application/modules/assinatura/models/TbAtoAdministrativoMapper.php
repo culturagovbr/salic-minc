@@ -7,7 +7,7 @@ class Assinatura_Model_TbAtoAdministrativoMapper extends MinC_Db_Mapper
         parent::setDbTable('Assinatura_Model_DbTable_TbAtoAdministrativo');
     }
 
-    public function save(Assinatura_Model_TbAtoAdministrativo $model)
+    public function save($model)
     {
         return parent::save($model);
     }

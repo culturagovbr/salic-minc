@@ -1,11 +1,7 @@
 <?php
 
-/**
- * Description of Mantertermodecisao
- *
- * @author Tiago
- */
-class MantertermodecisaoController extends MinC_Controller_Action_Abstract {
+class MantertermodecisaoController extends MinC_Controller_Action_Abstract
+{
 
     /**
      * Reescreve o m�todo init()
@@ -13,7 +9,8 @@ class MantertermodecisaoController extends MinC_Controller_Action_Abstract {
      * @param void
      * @return void
      */
-    public function init() {
+    public function init()
+    {
         // verifica as permiss�es
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = 97; // Gestor Salic
@@ -27,18 +24,17 @@ class MantertermodecisaoController extends MinC_Controller_Action_Abstract {
         $this->codGrupo = $GrupoAtivo->codGrupo;
     }
 
-    public function indexAction() {
-
-        $tbModeloTermoDecisao = New tbModeloTermoDecisao();
+    public function indexAction()
+    {
+        $tbModeloTermoDecisao = new tbModeloTermoDecisao();
         $buscarTermoDecisao = $tbModeloTermoDecisao->buscarTermoDecisao();
 
 
         $this->view->termo = $buscarTermoDecisao;
     }
 
-    public function termodecisaoAction() {
-
-             
+    public function termodecisaoAction()
+    {
         $tipoTermo = $this->_request->getParam("tipoTermo");
         $tipoParecer = $this->_request->getParam("tipoParecer");
         $orgao = $this->_request->getParam("orgao");
@@ -50,7 +46,7 @@ class MantertermodecisaoController extends MinC_Controller_Action_Abstract {
         $this->view->msg = $msg;
         $this->view->tipoMsg = $tipoMsg;
         
-        $verificacao = New Verificacao();
+        $verificacao = new Verificacao();
         $buscaTipoRecurso = $verificacao->buscar(array('idVerificacao = ?' => $tipoTermo));
         
         $this->view->listaTipoRecurso = $buscaTipoRecurso;
@@ -76,7 +72,7 @@ class MantertermodecisaoController extends MinC_Controller_Action_Abstract {
                 }
             }
 
-            $tbModeloTermoDecisao = New tbModeloTermoDecisao();
+            $tbModeloTermoDecisao = new tbModeloTermoDecisao();
             $buscarTermoDecisao = $tbModeloTermoDecisao->buscarTermoDecisao(array('o.Codigo = ?' => $idOrgao, 'idVerificacao = ?' => $tipoTermo, 'stModeloTermoDecisao = ?' => $tipoParecer));
 
             if (!empty($buscarTermoDecisao[0])) {
@@ -95,15 +91,15 @@ class MantertermodecisaoController extends MinC_Controller_Action_Abstract {
         }
     }
     
-    public function incluirtermodecisaoAction() {
-
+    public function incluirtermodecisaoAction()
+    {
         $tipoTermo = $this->_request->getParam("tipoTermo");
         $tipoParecer = $this->_request->getParam("tipoParecer");
         $orgao = $this->_request->getParam("orgao");
         $tipoTermo = (int) $tipoTermo;
         $tipoParecer = (int) $tipoParecer;
         
-        $verificacao = New Verificacao();
+        $verificacao = new Verificacao();
         $buscaTipoRecurso = $verificacao->buscar(array('idTipo = ?' => Constantes::cteIdTipoTermoDecisao));
 
         $this->view->listaTipoRecurso = $buscaTipoRecurso;
@@ -125,7 +121,7 @@ class MantertermodecisaoController extends MinC_Controller_Action_Abstract {
                 }
             }
 
-            $tbModeloTermoDecisao = New tbModeloTermoDecisao();
+            $tbModeloTermoDecisao = new tbModeloTermoDecisao();
             $buscarTermoDecisao = $tbModeloTermoDecisao->buscarTermoDecisao(array('o.Codigo = ?' => $idOrgao, 'idVerificacao = ?' => $tipoTermo, 'stModeloTermoDecisao = ?' => $tipoParecer));
 
             if (!empty($buscarTermoDecisao[0])) {
@@ -144,21 +140,19 @@ class MantertermodecisaoController extends MinC_Controller_Action_Abstract {
         }
     }
 
-    public function salvatermoAction() {
-
+    public function salvatermoAction()
+    {
         $orgao = $this->_request->getParam("orgao");
         $tipoTermo = $this->_request->getParam("tipoTermo");
         $tipoParecer = $this->_request->getParam("tipoParecer");
         $dsTermoDecisao = $this->_request->getParam("dsTermoDecisao");
         $idTermo = $this->_request->getParam("idTermo");
-        $tbModeloTermoDecisao = New tbModeloTermoDecisao();
+        $tbModeloTermoDecisao = new tbModeloTermoDecisao();
 
-        if(!empty($orgao) || !empty($tipoParecer)){
-            
-            try{
+        if (!empty($orgao) || !empty($tipoParecer)) {
+            try {
                 //atualiza termo de decisao
                 if (!empty($idTermo)) {
-
                     $rsTermoDecisao = $tbModeloTermoDecisao->buscar(array("idModeloTermoDecisao = ?" => $idTermo))->current();
                     $rsTermoDecisao->idOrgao = $orgao;
                     $rsTermoDecisao->idVerificacao = $tipoTermo;
@@ -178,19 +172,19 @@ class MantertermodecisaoController extends MinC_Controller_Action_Abstract {
                     $msg = "Cadastro realizado com sucesso";
                 }
                 $tipoMsg = "CONFIRM";
-            }catch (Exception $e){
+            } catch (Exception $e) {
                 $msg = "Erro ao realizar opera&ccedil;&atilde;o. ".$e->getMessage();
                 $tipoMsg = "ERROR";
             }
-            $this->_forward("termodecisao",null,null,array('msg'=>$msg,'tipoMsg'=>$tipoMsg));
-        }else{
+            $this->_forward("termodecisao", null, null, array('msg'=>$msg,'tipoMsg'=>$tipoMsg));
+        } else {
             $this->_forward("index");
         }
         //parent::message("{$acao} com sucesso! ", "mantertermodecisao/index", "CONFIRM");
     }
 
-    public function verificartermoAction() {
-
+    public function verificartermoAction()
+    {
         $orgao = $this->_request->getParam("orgao");
         $tipoTermo = $this->_request->getParam("tipoTermo");
         $tipoParecer = $this->_request->getParam("tipoParecer");
@@ -199,19 +193,18 @@ class MantertermodecisaoController extends MinC_Controller_Action_Abstract {
         $tipoTermo = (int) $tipoTermo;
         $tipoParecer = (int) $tipoParecer;
 
-        $tbModeloTermoDecisao = New tbModeloTermoDecisao();
+        $tbModeloTermoDecisao = new tbModeloTermoDecisao();
         $buscarTermoDecisao = $tbModeloTermoDecisao->buscar(array('idOrgao = ?' => $orgao, 'idVerificacao = ?' => $tipoTermo, 'stModeloTermoDecisao = ?' => $tipoParecer));
         $verificaTermoDecisao = $buscarTermoDecisao[0];
 
         if (!empty($verificaTermoDecisao)) {
             $result['existe'] = true;
             $this->_helper->json($result);
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         } else {
             $result['existe'] = false;
             $this->_helper->json($result);
-            $this->_helper->viewRenderer->setNoRender(TRUE);
+            $this->_helper->viewRenderer->setNoRender(true);
         }
     }
-
 }

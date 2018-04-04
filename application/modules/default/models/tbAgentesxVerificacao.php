@@ -5,11 +5,11 @@
  *
  * @author PEDRO GOMES
  */
-class tbAgentesxVerificacao extends MinC_Db_Table_Abstract {
-
-    protected  $_banco  = 'AGENTES';
-    protected  $_schema = 'AGENTES';
-    protected  $_name   = 'tbAgentesxVerificacao';
+class tbAgentesxVerificacao extends MinC_Db_Table_Abstract
+{
+    protected $_banco  = 'AGENTES';
+    protected $_schema = 'AGENTES';
+    protected $_name   = 'tbAgentesxVerificacao';
 
     /**
      * Retorna registros do banco de dados
@@ -19,7 +19,8 @@ class tbAgentesxVerificacao extends MinC_Db_Table_Abstract {
      * @param int $inicio - offset
      * @return Zend_Db_Table_Rowset_Abstract
      */
-    public function listarMandato($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count=false) {
+    public function listarMandato($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count=false)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -34,29 +35,35 @@ class tbAgentesxVerificacao extends MinC_Db_Table_Abstract {
                         "idEmpresa",
                         "idArquivo")
                     );
-          $slct->joinInner(
-                array('d' => 'verificacao'), 'c.idVerificacao = d.idVerificacao',
-                array('d.Descricao'),'AGENTES.dbo'
+        $slct->joinInner(
+                array('d' => 'verificacao'),
+              'c.idVerificacao = d.idVerificacao',
+                array('d.Descricao'),
+              'AGENTES.dbo'
         );
-          $slct->joinInner(
-                array('e' => 'tbArquivo'), 'c.idArquivo = e.idArquivo',
-                array('e.nmArquivo'),'BDCORPORATIVO.scCorp'
+        $slct->joinInner(
+                array('e' => 'tbArquivo'),
+              'c.idArquivo = e.idArquivo',
+                array('e.nmArquivo'),
+              'BDCORPORATIVO.scCorp'
         );
-          $slct->joinInner(
-                array('f' => 'tbArquivoImagem'), 'e.idArquivo = f.idArquivo',
-                array('*'),'BDCORPORATIVO.scCorp'
+        $slct->joinInner(
+                array('f' => 'tbArquivoImagem'),
+              'e.idArquivo = f.idArquivo',
+                array('*'),
+              'BDCORPORATIVO.scCorp'
         );
         //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $slct->where($coluna, $valor);
         }
 
-		if($count){
+        if ($count) {
             $slct2 = $this->select();
             $slct2->setIntegrityCheck(false);
             $slct2->from(
                             array("c"=>$this->_name),
-                            array('total'=>"count(*)")
+                            array('total'=> new Zend_Db_Expr("count(*)"))
                          );
             //adiciona quantos filtros foram enviados
             foreach ($where as $coluna => $valor) {
@@ -64,7 +71,11 @@ class tbAgentesxVerificacao extends MinC_Db_Table_Abstract {
             }
 
             $rs = $this->fetchAll($slct2)->current();
-            if($rs){ return $rs->total; }else{ return 0; }
+            if ($rs) {
+                return $rs->total;
+            } else {
+                return 0;
+            }
         }
         //adicionando linha order ao select
         $slct->order($order);
@@ -83,7 +94,8 @@ class tbAgentesxVerificacao extends MinC_Db_Table_Abstract {
         return $this->fetchAll($slct);
     }
 
-    public function mandatoRepetido($idAgente, $dtInicio, $dtFim) {
+    public function mandatoRepetido($idAgente, $dtInicio, $dtFim)
+    {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
@@ -96,20 +108,17 @@ class tbAgentesxVerificacao extends MinC_Db_Table_Abstract {
                         "stMandato",
                         "idDirigente",
                         "idArquivo")
-		);
+        );
 
-        $slct->where('idDirigente = ?',$idAgente);
-        $slct->where("'{$dtInicio}' BETWEEN dtInicioMandato AND dtFimMandato");
+        $slct->where('idDirigente = ?', $idAgente);
+        $slct->where(new Zend_Db_Expr("'{$dtInicio}' BETWEEN dtInicioMandato AND dtFimMandato"));
         //$slct->orWhere('idAgente = ?',$idAgente);
-        $slct->where("'{$dtFim}' BETWEEN dtInicioMandato AND dtFimMandato");
-        $slct->where('stMandato = ?','0');
+        $slct->where(new Zend_Db_Expr("'{$dtFim}' BETWEEN dtInicioMandato AND dtFimMandato"));
+        $slct->where('stMandato = ?', '0');
 
 
         $rs = $this->fetchAll($slct)->current();
 
         return $this->fetchAll($slct);
     }
-
-
-
 }

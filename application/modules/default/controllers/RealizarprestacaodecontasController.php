@@ -2695,9 +2695,9 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
                 $uf,
                 null,
                 $codigoProduto != 0 ? $codigoProduto :  null,
-                $municipio
-                , null
-                , $idPlanilhaItem
+                $municipio,
+                null,
+                $idPlanilhaItem
             );
 
 
@@ -2798,8 +2798,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
                         )
                     )
                     ->current();
-                /* var_dump($rsComprovantePag); */
-                /* die(); */
+
                 $rsComprovantePag->dtValidacao = date('Y/m/d H:i:s');
                 $rsComprovantePag->dsJustificativa = isset($comprovantePagamento['observacao']) ? $comprovantePagamento['observacao'] : null;
                 $rsComprovantePag->stItemAvaliado = $comprovantePagamento['situacao'];
@@ -3312,7 +3311,7 @@ class RealizarPrestacaoDeContasController extends MinC_Controller_Action_Abstrac
                     $where['d.stEstado = ?'] = 0;
                     break;
             }
-        } 
+        }
 
         // Aguardando a Analise
         $whereAguardandoAnalise['p.Orgao = ?'] = $this->codOrgao;

@@ -10,14 +10,14 @@
  *
  * @author 01373930160
  */
-class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
-
+class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract
+{
     protected $_banco = "SAC";
     protected $_name = "Projetos";
     
 
-    public function buscarProjetos($idPronac) {
-
+    public function buscarProjetos($idPronac)
+    {
         $sql = "select projetos.idProjeto,
 
                     projetos.IdPRONAC,
@@ -47,18 +47,20 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public function buscarProdutos($idPronac) {
+    public function buscarProdutos($idPronac)
+    {
 //        $sql = "SELECT   DISTINCT  SAC.dbo.Projetos.IdPRONAC, SAC.dbo.Produto.Descricao,
 //                      SAC.dbo.Produto.Codigo AS idProduto
-//FROM         SAC.dbo.Produto INNER JOIN
+        //FROM         SAC.dbo.Produto INNER JOIN
 //                      SAC.dbo.PlanoDistribuicaoProduto ON SAC.dbo.Produto.Codigo = SAC.dbo.PlanoDistribuicaoProduto.idProduto CROSS JOIN
 //                      SAC.dbo.Projetos
-//WHERE     (SAC.dbo.Projetos.IdPRONAC = $idPronac) AND SAC.dbo.PlanoDistribuicaoProduto.stPlanoDistribuicaoProduto = 1 ORDER BY idProduto ASC";
+        //WHERE     (SAC.dbo.Projetos.IdPRONAC = $idPronac) AND SAC.dbo.PlanoDistribuicaoProduto.stPlanoDistribuicaoProduto = 1 ORDER BY idProduto ASC";
 //
         $slct = $this->select();
         $slct->distinct();
         $slct->setIntegrityCheck(false);
-        $slct->from(array('pr' => 'Projetos'),
+        $slct->from(
+            array('pr' => 'Projetos'),
                         array('IdPRONAC'),
                         "SAC.dbo"
                 )
@@ -108,7 +110,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
 //        return $db->fetchAll($sql);
     }
 
-    public function buscaItem($idPronac, $idPlanilhaAprovacao, $idPlanilhaItem) {
+    public function buscaItem($idPronac, $idPlanilhaAprovacao, $idPlanilhaItem)
+    {
         $sql = "SELECT tpa.idPlanilhaAprovacao,
                         tpa.idProduto,
                         tpa.IdPRONAC,
@@ -149,8 +152,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function buscarProdutosItens($idPronac = null, $idEtapa = null, $idPlanilhaAprovacao=null, $situacao=null, $idProduto=null) {
-
+    public static function buscarProdutosItens($idPronac = null, $idEtapa = null, $idPlanilhaAprovacao=null, $situacao=null, $idProduto=null)
+    {
         $sql = "SELECT a.IdPRONAC,
                     a.idPlanilhaAprovacao,
                     b.Descricao,
@@ -207,8 +210,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function buscarProdutosItensParecerista($idPronac = null, $idEtapa = null, $idPlanilhaAprovacao=null, $situacao=null, $idProduto=null) {
-
+    public static function buscarProdutosItensParecerista($idPronac = null, $idEtapa = null, $idPlanilhaAprovacao=null, $situacao=null, $idProduto=null)
+    {
         $sql = "SELECT a.IdPRONAC,
                     a.idPlanilhaAprovacao,
                     b.Descricao,
@@ -259,14 +262,15 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         if (!empty($idProduto)) {
             $sql .=" AND idProduto = $idProduto";
         }
-//        
+//
 
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         return $db->fetchAll($sql);
     }
 
-    public static function inserirCopiaPlanilha($idPronac, $idPedidoAlteracao) {
+    public static function inserirCopiaPlanilha($idPronac, $idPedidoAlteracao)
+    {
         $sql = "insert into SAC.dbo.tbPlanilhaAprovacao
 
                     SELECT
@@ -310,7 +314,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function copiaAprovada($idPronac, $idProduto, $idEtapa, $idPlanilhaItem) {
+    public static function copiaAprovada($idPronac, $idProduto, $idEtapa, $idPlanilhaItem)
+    {
         $sql = "insert into SAC.dbo.tbPlanilhaAprovacao
 
                     SELECT
@@ -354,10 +359,10 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function verificaSubItem($idAvaliacaoSubItem, $where=null) {
-
+    public static function verificaSubItem($idAvaliacaoSubItem, $where=null)
+    {
         $sql = " SELECT * FROM BDCORPORATIVO.scSac.tbAvaliacaoSubItemPedidoAlteracao WHERE idAvaliacaoItemPedidoAlteracao = $idAvaliacaoSubItem ";
-        if($where){
+        if ($where) {
             $sql .=  $where;
         }
         
@@ -367,8 +372,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function verificaSubItemPedidoAlteracao($idAvaliacaoSubItem, $idPedidoAlteracao) {
-
+    public static function verificaSubItemPedidoAlteracao($idAvaliacaoSubItem, $idPedidoAlteracao)
+    {
         $sql = " SELECT stAvaliacaoSubItemPedidoAlteracao as stAvaliacao FROM BDCORPORATIVO.scSac.tbAvaliacaoSubItemPedidoAlteracao
                 WHERE idAvaliacaoItemPedidoAlteracao = $idPedidoAlteracao AND idAvaliacaoItemPedidoAlteracao = $idAvaliacaoSubItem";
 
@@ -378,8 +383,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
   
-    public static function verificaPedidoAlteracao($idPRONAC) {
-
+    public static function verificaPedidoAlteracao($idPRONAC)
+    {
         $sql = " SELECT idPedidoAlteracao FROM BDCORPORATIVO.scSac.tbPedidoAlteracaoProjeto WHERE idPRONAC = $idPRONAC ";
 
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -388,11 +393,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function verificaMudancaOrcamentaria($idPronac) {
-
-
-
-
+    public static function verificaMudancaOrcamentaria($idPronac)
+    {
         $sql = "select (select SUM (qtItem * nrOcorrencia * vlUnitario)
                             from SAC.dbo.tbPlanilhaAprovacao
                             WHERE IdPRONAC = $idPronac and stAtivo= 'S') as totalS,
@@ -408,11 +410,11 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function buscaIdAvaliacaoItemPedidoAlteracao($idPedidoAlteracao, $tpAlteracaoProjeto = null) {
-
+    public static function buscaIdAvaliacaoItemPedidoAlteracao($idPedidoAlteracao, $tpAlteracaoProjeto = null)
+    {
         $sql = "select idAvaliacaoItemPedidoAlteracao from BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao WHERE idPedidoAlteracao = $idPedidoAlteracao";
         if (!empty($tpAlteracaoProjeto)) :
-        	$sql.= " AND tpAlteracaoProjeto = " . $tpAlteracaoProjeto;
+            $sql.= " AND tpAlteracaoProjeto = " . $tpAlteracaoProjeto;
         endif;
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -420,17 +422,17 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function buscaIdAvaliacaoSubItemPedidoAlteracao($idItemAvaliacaoItemPedidoAlteracao) {
-
+    public static function buscaIdAvaliacaoSubItemPedidoAlteracao($idItemAvaliacaoItemPedidoAlteracao)
+    {
         $sql = "select TOP 1 idAvaliacaoSubItemPedidoAlteracao from BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao WHERE idAvaliacaoItemPedidoAlteracao = $idItemAvaliacaoItemPedidoAlteracao ORDER BY idAvaliacaoSubItemPedidoAlteracao DESC ";
-         $db= Zend_Db_Table::getDefaultAdapter();
+        $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
         return $db->fetchAll($sql);
     }
 
-    public static function buscaAvaliacoesSubItemPedidoAlteracao($idPedidoAlteracao, $idPlanilhaAprovacao, $idAvaliacaoItemPedidoAlteracao) {
-
+    public static function buscaAvaliacoesSubItemPedidoAlteracao($idPedidoAlteracao, $idPlanilhaAprovacao, $idAvaliacaoItemPedidoAlteracao)
+    {
         $sql = "SELECT b.*, c.* from BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao AS a
                 INNER JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemCusto AS b ON a.idAvaliacaoItemPedidoAlteracao = b.idAvaliacaoItemPedidoAlteracao
                 INNER JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao AS c ON c.idAvaliacaoSubItemPedidoAlteracao = b.idAvaliacaoSubItemPedidoAlteracao
@@ -445,9 +447,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchRow($sql);
     }
 
-    public static function buscarProdutosItensSemProduto($idPronac = null, $idEtapa = null, $idPlanilhaAprovacao=null, $situacao=null, $idProduto=null) {
-
-
+    public static function buscarProdutosItensSemProduto($idPronac = null, $idEtapa = null, $idPlanilhaAprovacao=null, $situacao=null, $idProduto=null)
+    {
         $sql = "SELECT  SAC.dbo.tbPlanilhaAprovacao.IdPRONAC, SAC.dbo.tbPlanilhaAprovacao.idPlanilhaAprovacao, SAC.dbo.tbPlanilhaUnidade.Descricao,
                         SAC.dbo.tbPlanilhaEtapa.Descricao AS DescricaoEtapa,
                       SAC.dbo.tbPlanilhaItens.Descricao AS DescricaoItem,  SAC.dbo.tbPlanilhaAprovacao.idUFDespesa,
@@ -487,24 +488,21 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
 
     public static function atualizaPlanilhaAprovacao($idPlanilhaAprovacao, $tpAcao)
     {
-
-
         $sql = "UPDATE    SAC.dbo.tbPlanilhaAprovacao
                 SET   tpAcao = '$tpAcao'
         WHERE     (idPlanilhaAprovacao = $idPlanilhaAprovacao) AND tpPlanilha = 'PA' AND stAtivo = 'N'";
 
-//die();
+        //die();
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
         return $db->fetchAll($sql);
-
     }
 
 
 
-    public static function atualizaAvaliacaoSubItemPedidoAlteracao($idItemAvaliacaoItemPedidoAlteracao, $stAvaliacaoSubItemPedidoAlteracao, $dsAvaliacaoSubItemPedidoAlteracao) {
-
+    public static function atualizaAvaliacaoSubItemPedidoAlteracao($idItemAvaliacaoItemPedidoAlteracao, $stAvaliacaoSubItemPedidoAlteracao, $dsAvaliacaoSubItemPedidoAlteracao)
+    {
         $sql = "UPDATE BDCORPORATIVO.SCsAC.tbAvaliacaoSubItemPedidoAlteracao
         set stAvaliacaoSubItemPedidoAlteracao = '$stAvaliacaoSubItemPedidoAlteracao' where idAvaliacaoItemPedidoAlteracao = $idItemAvaliacaoItemPedidoAlteracao";
 
@@ -514,8 +512,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function atualizaAvaliacaoItemPedidoAlteracao($dsJustificativaAvaliador, $stDeferimento, $idPedidoAlteracao) {
-
+    public static function atualizaAvaliacaoItemPedidoAlteracao($dsJustificativaAvaliador, $stDeferimento, $idPedidoAlteracao)
+    {
         $sql = "UPDATE BDCORPORATIVO.scSac.tbAvaliacaoItemPedidoAlteracao
         SET stAvaliacaoSubItemPedidoAlteracao = $stDeferimento , dsAvaliacaoSubItemPedidoAlteracao = '$dsJustificativaAvaliador', dtInicioAvaliacao = getdate()
         WHERE idPedidoAlteracao = $idPedidoAlteracao";
@@ -523,8 +521,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
 
     
 
-    public static function inserirAvaliacaoSubItemPedidoAlteracao($dsJustificativaAvaliador, $stDeferimento, $idPedidoAlteracao, $idAvaliacaoSubItemPedidoAlteracao) {
-
+    public static function inserirAvaliacaoSubItemPedidoAlteracao($dsJustificativaAvaliador, $stDeferimento, $idPedidoAlteracao, $idAvaliacaoSubItemPedidoAlteracao)
+    {
         $sql = "INSERT INTO BDCORPORATIVO.scSac.tbAvaliacaoSubItemPedidoAlteracao
         (idAvaliacaoItemPedidoAlteracao, stAvaliacaoSubItemPedidoAlteracao, dsAvaliacaoSubItemPedidoAlteracao)
             VALUES ($idAvaliacaoSubItemPedidoAlteracao, '$stDeferimento', '$dsJustificativaAvaliador')";
@@ -534,40 +532,35 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function inserirAvaliacaoSubItemCusto($idItemAvaliacaoItemPedidoAlteracao, $idAvaliacaoSubItemPedidoAlteracao, $idPlanilhaAprovacao) {
-
+    public static function inserirAvaliacaoSubItemCusto($idItemAvaliacaoItemPedidoAlteracao, $idAvaliacaoSubItemPedidoAlteracao, $idPlanilhaAprovacao)
+    {
         $sql = "INSERT INTO BDCORPORATIVO.scSac.tbAvaliacaoSubItemCusto
                 (idAvaliacaoItemPedidoAlteracao, idAvaliacaoSubItemPedidoAlteracao , idPlanilhaAprovacao)
-                VALUES ($idItemAvaliacaoItemPedidoAlteracao, $idAvaliacaoSubItemPedidoAlteracao,  $idPlanilhaAprovacao)";$db= Zend_Db_Table::getDefaultAdapter();
+                VALUES ($idItemAvaliacaoItemPedidoAlteracao, $idAvaliacaoSubItemPedidoAlteracao,  $idPlanilhaAprovacao)";
+        $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
         return $db->fetchAll($sql);
     }
 
-    public static function deletaPlanilhaAprovacaoExcluida($idPlanilhaAprovacao, $idProduto = null, $idEtapa = null, $idPronac = null, $idItem = null) {
-
-
+    public static function deletaPlanilhaAprovacaoExcluida($idPlanilhaAprovacao, $idProduto = null, $idEtapa = null, $idPronac = null, $idItem = null)
+    {
         $sql = "DELETE FROM SAC.dbo.tbPlanilhaAprovacao WHERE tpPlanilha = 'PA'";
 
-        if ( !empty( $idPlanilhaAprovacao ) )
-        {
-             $sql .= " AND idPlanilhaAprovacao = $idPlanilhaAprovacao";
+        if (!empty($idPlanilhaAprovacao)) {
+            $sql .= " AND idPlanilhaAprovacao = $idPlanilhaAprovacao";
         }
-        if ( !empty( $idPronac ) )
-        {
-             $sql .= " AND idPRONAC = $idPronac";
+        if (!empty($idPronac)) {
+            $sql .= " AND idPRONAC = $idPronac";
         }
-        if ( !empty( $idEtapa ) )
-        {
-             $sql .= " AND idEtapa = $idEtapa";
+        if (!empty($idEtapa)) {
+            $sql .= " AND idEtapa = $idEtapa";
         }
-        if ( !empty( $idProduto ) )
-        {
-             $sql .= " AND idProduto = $idProduto";
+        if (!empty($idProduto)) {
+            $sql .= " AND idProduto = $idProduto";
         }
-        if ( !empty( $idItem ) )
-        {
-             $sql .= " AND idPlanilhaItem = $idItem";
+        if (!empty($idItem)) {
+            $sql .= " AND idPlanilhaItem = $idItem";
         }
 
         
@@ -577,11 +570,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function atualizaPedidoAlteracao($idPronac, $idAgente, $idPedido, $dsAvaliacao, $tipoAlteracao = null) {
-
-
-
-
+    public static function atualizaPedidoAlteracao($idPronac, $idAgente, $idPedido, $dsAvaliacao, $tipoAlteracao = null)
+    {
         $sql = "UPDATE    BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao
                         SET stAvaliacaoItemPedidoAlteracao = '$tipoAlteracao', dsAvaliacao = '$dsAvaliacao' WHERE idPedidoAlteracao = $idPedido";
 
@@ -592,7 +582,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function verificaPlanilhaAprovacao($idPronac) {
+    public static function verificaPlanilhaAprovacao($idPronac)
+    {
         $sql = "select * from SAC.dbo.tbPlanilhaAprovacao WHERE idPRONAC = $idPronac AND tpPlanilha = 'PA'";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -600,12 +591,13 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function verificaStatus($idPedidoAlteracao, $tpAlteracaoProjeto = null) {
+    public static function verificaStatus($idPedidoAlteracao, $tpAlteracaoProjeto = null)
+    {
         $sql = "SELECT stAvaliacaoItemPedidoAlteracao FROM BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao WHERE idPedidoAlteracao = $idPedidoAlteracao ";
 
-		if (!empty($tpAlteracaoProjeto)) :
-			$sql.= "AND tpAlteracaoProjeto = " . $tpAlteracaoProjeto;
-		endif;
+        if (!empty($tpAlteracaoProjeto)) :
+            $sql.= "AND tpAlteracaoProjeto = " . $tpAlteracaoProjeto;
+        endif;
 
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -613,15 +605,16 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function verificaStatusItemDeCusto($idPedidoAlteracao, $tpAlteracaoProjeto = null) {
+    public static function verificaStatusItemDeCusto($idPedidoAlteracao, $tpAlteracaoProjeto = null)
+    {
         $sql = "SELECT a.*
                 FROM BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao AS a
                 INNER JOIN BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao AS b on a.idAvaliacaoItemPedidoAlteracao = b.idAvaliacaoItemPedidoAlteracao
                 WHERE a.idPedidoAlteracao = $idPedidoAlteracao AND a.tpAlteracaoProjeto = 10 AND b.stAtivo = 0";
 
-		if (!empty($tpAlteracaoProjeto)) :
-			$sql.= "AND tpAlteracaoProjeto = " . $tpAlteracaoProjeto;
-		endif;
+        if (!empty($tpAlteracaoProjeto)) :
+            $sql.= "AND tpAlteracaoProjeto = " . $tpAlteracaoProjeto;
+        endif;
 
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -629,7 +622,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchRow($sql);
     }
 
-    public static function verificaStatusFinal($idPedidoAlteracao) {
+    public static function verificaStatusFinal($idPedidoAlteracao)
+    {
         $sql = "SELECT stAvaliacaoItemPedidoAlteracao as stAvaliacao FROM BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao WHERE idPedidoAlteracao = $idPedidoAlteracao";
 
         $db= Zend_Db_Table::getDefaultAdapter();
@@ -638,7 +632,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function verificaAnalise( $idPlanilhaAprovacao, $idAvaliacaoItemPedidoAlteracao ) {
+    public static function verificaAnalise($idPlanilhaAprovacao, $idAvaliacaoItemPedidoAlteracao)
+    {
         $sql = " SELECT a.stAvaliacaoSubItemPedidoAlteracao as stAvaliacao, CAST (dsAvaliacaoSubItemPedidoAlteracao as TEXT) as dsAvaliacaoSubItemPedidoAlteracao
                 FROM BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao AS a
                 INNER JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemCusto AS b ON a.idAvaliacaoItemPedidoAlteracao = b.idAvaliacaoItemPedidoAlteracao
@@ -651,7 +646,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public static function verificaAvaliacaoAnalise() {
+    public static function verificaAvaliacaoAnalise()
+    {
         $sql = "SELECT * FROM BDCORPORATIVO.scSAC.tbPedidoAlteracaoProjeto tpa
     INNER JOIN BDCORPORATIVO.scSAC.tbAvaliacaoItemPedidoAlteracao tai ON tpa.idPedidoAlteracao = tai.idPedidoAlteracao
     INNER JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemCusto tsi ON tsi.idAvaliacaoItemPedidoAlteracao = tai.idAvaliacaoItemPedidoAlteracao
@@ -663,7 +659,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public function buscarUltimoRemetente($idacao) {
+    public function buscarUltimoRemetente($idacao)
+    {
         $sql = "SELECT TOP 1 idAgenteRemetente AS idAgenteRemetente
                                     FROM BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                                     WHERE idAvaliacaoItemPedidoAlteracao = $idacao
@@ -674,7 +671,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchRow($sql);
     }
 
-    public function buscarUltimoRemetenteCoordParecerista($idacao) {
+    public function buscarUltimoRemetenteCoordParecerista($idacao)
+    {
         $sql = "SELECT TOP 1 idAgenteRemetente AS idAgenteRemetente
                                     FROM BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                                     WHERE idAvaliacaoItemPedidoAlteracao = $idacao
@@ -684,7 +682,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchRow($sql);
     }
 
-    public function buscarUltimoRemetenteCoordPareceristaSemBD($idacao) {
+    public function buscarUltimoRemetenteCoordPareceristaSemBD($idacao)
+    {
         $sql = "SELECT TOP 1 idAgenteRemetente AS idAgenteRemetente
                                     FROM BDCORPORATIVO.scSAC.tbAcaoAvaliacaoItemPedidoAlteracao
                                     WHERE idAvaliacaoItemPedidoAlteracao = $idacao
@@ -692,7 +691,8 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $sql;
     }
 
-    public function buscarOrgao($idacao){
+    public function buscarOrgao($idacao)
+    {
         $sql = "select idorgao from BDCORPORATIVO.scSac.tbAcaoAvaliacaoItemPedidoAlteracao where idAvaliacaoItemPedidoAlteracao=$idacao";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_ASSOC);
@@ -700,12 +700,14 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchRow($sql);
     }
 
-    public function buscarOrgaoSemDB($idacao){
+    public function buscarOrgaoSemDB($idacao)
+    {
         $sql = "select idorgao from BDCORPORATIVO.scSac.tbAcaoAvaliacaoItemPedidoAlteracao where idAvaliacaoItemPedidoAlteracao=$idacao";
         return $sql;
     }
 
-    public function buscarEtapa() {
+    public function buscarEtapa()
+    {
         $sql = "select idPlanilhaEtapa, Descricao, tpCusto from SAC.dbo.tbPlanilhaEtapa";
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -713,48 +715,46 @@ class VerificarSolicitacaodeReadequacoesDAO extends MinC_Db_Table_Abstract {
         return $db->fetchAll($sql);
     }
 
-    public function atualizarStatus($dados, $where) {
-        
+    public function atualizarStatus($dados, $where)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $alterar = $db->update("bdcorporativo.scsac.tbavaliacaoitempedidoalteracao", $dados, $where);
         return $alterar;
     }
     
-    public function atualizarPedido($dados, $where) {
+    public function atualizarPedido($dados, $where)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $db->update("BDCORPORATIVO.scSac.tbPedidoAlteracaoProjeto", $dados, $where);
     }
 
-    public function atualizarTipoAlteracao($dados, $where) {
-
+    public function atualizarTipoAlteracao($dados, $where)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $alterar = $db->update("BDCORPORATIVO.scSac.tbPedidoAlteracaoXTipoAlteracao", $dados, $where);
     }
     
-    public function atualizarAvaliacaopedido($dados, $where) {
-
+    public function atualizarAvaliacaopedido($dados, $where)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $alterar = $db->update("BDCORPORATIVO.scSac.tbAvaliacaoItemPedidoAlteracao", $dados, $where);
     }
     
-    public function atualizarAvaliacaoAcao($dados, $where) {
-
+    public function atualizarAvaliacaoAcao($dados, $where)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $alterar = $db->update("BDCORPORATIVO.scSac.tbAcaoAvaliacaoItemPedidoAlteracao", $dados, $where);
     }
     
-    public function insertAvaliacaoAcao($dados) {
-
+    public function insertAvaliacaoAcao($dados)
+    {
         $db= Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $alterar = $db->insert("BDCORPORATIVO.scSac.tbAcaoAvaliacaoItemPedidoAlteracao", $dados);
     }
-
 }
-
-?>

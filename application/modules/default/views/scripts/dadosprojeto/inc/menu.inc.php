@@ -1,4 +1,4 @@
-<!-- ========== INÍCIO MENU ========== -->
+<!-- ========== INï¿½CIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <script type="text/javascript">
     var votacao = window.setInterval(
@@ -38,7 +38,7 @@
                                                 }
                                             }
                                         });
-                                        $("#alertar").html('Em 15 Minutos a Plenária será iniciada. Favor encerrar as suas atividades!');
+                                        $("#alertar").html('Em 15 Minutos a Plenï¿½ria serï¿½ iniciada. Favor encerrar as suas atividades!');
                                         $("#alertar").dialog('open');
                                         $('#cronometro').css('display','');
                                         $("#minu").html(valor[0]);
@@ -159,11 +159,11 @@
         var fluidTitulo = janela - 252;
         var fluidRodape = janela - 19;
 
-        $("#navglobal").css("width",fluidNavGlobal);
-        $("#conteudo").css("width",fluidConteudo);
-        $("#titulo").css("width",fluidTitulo);
-        $("#rodapeConteudo").css("width",fluidConteudo);
-        $("#rodape").css("width",fluidRodape);
+//        $("#navglobal").css("width",fluidNavGlobal);
+//        $("#conteudo").css("width",fluidConteudo);
+//        $("#titulo").css("width",fluidTitulo);
+//        $("#rodapeConteudo").css("width",fluidConteudo);
+//        $("#rodape").css("width",fluidRodape);
 
         $("div#rodapeConteudo").attr("id", "rodapeConteudo_com_menu");
     }
@@ -181,10 +181,10 @@
 
 
 
-    <!-- início: conteúdo principal #container -->
+    <!-- inï¿½cio: conteï¿½do principal #container -->
     <div id="container">
 
-        <!-- início: navegação local #qm0 -->
+        <!-- inï¿½cio: navegaï¿½ï¿½o local #qm0 -->
 
         <?php
         $getPronac = $this->idpronac;
@@ -202,18 +202,18 @@
             <div class="bottom">
             </div>
             <div id="cronometro" style="background: #f8f8f8; display: none; font-size: 1.8em; padding-top: 2em; text-align: center; color: red; font-weight: 800; padding-left: 0.3em;" >
-                Início da Plenária em <br/><br/> <span id="minu"></span>' : <span id="seg" ></span>"
+                Inï¿½cio da Plenï¿½ria em <br/><br/> <span id="minu"></span>' : <span id="seg" ></span>"
             </div>
             <div id="space_menu">
             </div>
         </div>
-        <div id="iniciareuniao" class="sumir">Plenária Iniciada. Você será redirecionado</div>
+        <div id="iniciareuniao" class="sumir">Plenï¿½ria Iniciada. Vocï¿½ serï¿½ redirecionado</div>
 
         <script type="text/javascript">
 
         </script>
         <div id="alertar"></div>
-        <!-- final: navegação local #qm0 -->
+        <!-- final: navegaï¿½ï¿½o local #qm0 -->
     </div>
 </div>
 <!-- ========== FIM MENU ========== -->

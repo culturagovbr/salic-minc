@@ -64,9 +64,9 @@
                             <td><?php echo ((int)$dado->tp_enquadramento == 1) ? 'Artigo 26' : 'Artigo 18'; ?></td>
                             <td><?php echo $dado->dias; ?></td>
                             <td>
-                                <?php if ((int)$dado->dias >= 10 || (int)$dado->dias < 10 && $dado->desistenciaRecursal): ?>
+<!--                                --><?php //if ((int)$dado->dias >= 10 || (int)$dado->dias < 10 && $dado->desistenciaRecursal): ?>
 
-                                    <a class="btn waves-effect waves-light cyan tooltipped small"
+                                    <a class="btn waves-effect waves-light cyan tooltipped small modal-trigger"
                                        href="#modalConfirmacao"
                                        data-nrpronac="<?php echo $dado->pronac; ?>"
                                        data-redirect-url="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'enquadramento', 'action' => 'encaminhar-assinatura')) . "?IdPRONAC={$dado->idpronac}&encaminhar=true" ?>"
@@ -75,7 +75,7 @@
                                        data-tooltip="Encaminhar">
                                         <i class="material-icons white-text">navigate_next</i>
                                     </a>
-                                <?php endif; ?>
+<!--                                --><?php //endif; ?>
                             </td>
                             </tr>
                         <?php endforeach; ?>
@@ -140,9 +140,6 @@
                         $(modal).find('#nrPronacConfirmacao').html($3(trigger).data('nrpronac'));
                         $(modal).find('#botaoConfirmacaoEncaminhamento').attr('href', $3(trigger).data('redirectUrl'));
                     }
-//                    ,complete: function() {
-//                        alert('Closed');
-//                    } // Callback for Modal close
                 }
             );
         });

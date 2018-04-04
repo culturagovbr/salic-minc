@@ -6,7 +6,8 @@
  * @link http://www.cultura.gov.br
  */
 
-class tbAnaliseDeConteudo extends MinC_Db_Table_Abstract {
+class tbAnaliseDeConteudo extends MinC_Db_Table_Abstract
+{
     protected $_banco  = "SAC";
     protected $_schema = "SAC";
     protected $_name   = "tbAnaliseDeConteudo";
@@ -17,7 +18,8 @@ class tbAnaliseDeConteudo extends MinC_Db_Table_Abstract {
      * @param array $dados
      * @return integer (retorna o �ltimo id cadastrado)
      */
-    public function cadastrarDados($dados) {
+    public function cadastrarDados($dados)
+    {
         return $this->insert($dados);
     } // fecha metodo cadastrarDados()
 
@@ -29,7 +31,8 @@ class tbAnaliseDeConteudo extends MinC_Db_Table_Abstract {
      * @param integer $where
      * @return integer (quantidade de registros alterados)
      */
-    public function alterarDados($dados, $where) {
+    public function alterarDados($dados, $where)
+    {
         $where = "idAnaliseDeConteudo = " . $where;
         return $this->update($dados, $where);
     } // fecha metodo alterarDados()
@@ -76,14 +79,14 @@ class tbAnaliseDeConteudo extends MinC_Db_Table_Abstract {
         return $db->fetchAll($select);
     }
 
-    public function cidadoBuscarOutrasInformacoes($idPronac) {
-
+    public function cidadoBuscarOutrasInformacoes($idPronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
             array('a' => $this->_name),
             array(
-                New Zend_Db_Expr("
+                new Zend_Db_Expr("
                     a.idPronac,
                     p.Descricao AS Produto,
                     CASE
@@ -115,8 +118,10 @@ class tbAnaliseDeConteudo extends MinC_Db_Table_Abstract {
             )
         );
         $select->joinInner(
-            array('p' => 'Produto'),'a.idProduto = p.Codigo',
-            array(''), 'SAC.dbo'
+            array('p' => 'Produto'),
+            'a.idProduto = p.Codigo',
+            array(''),
+            'SAC.dbo'
         );
         $select->where('a.idPronac = ?', $idPronac);
 
@@ -124,8 +129,8 @@ class tbAnaliseDeConteudo extends MinC_Db_Table_Abstract {
         return $this->fetchAll($select);
     }
 
-    public function inserirAnaliseConteudoParaParecerista($idPreProjeto, $idPronac) {
-
+    public function inserirAnaliseConteudoParaParecerista($idPreProjeto, $idPronac)
+    {
         $sqlAnaliseDeConteudo = "INSERT INTO SAC.dbo.tbAnaliseDeConteudo (idPronac,idProduto)
                                          SELECT {$idPronac},idProduto FROM SAC.dbo.tbPlanilhaProposta
                                           WHERE idProjeto = {$idPreProjeto} AND idProduto <> 0
@@ -134,5 +139,4 @@ class tbAnaliseDeConteudo extends MinC_Db_Table_Abstract {
         $db= Zend_Db_Table::getDefaultAdapter();
         return $db->query($sqlAnaliseDeConteudo);
     }
-
 }

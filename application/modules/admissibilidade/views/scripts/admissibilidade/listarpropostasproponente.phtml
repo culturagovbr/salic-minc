@@ -42,7 +42,7 @@
                                 <?php foreach($this->propostas as $proposta): ?>
                                 <tr>
                                     <td><a data-idpreprojeto="<?php echo $proposta->idPreProjeto; ?>"
-                                        class="proposta-visualizar black-text btn waves-effect waves-dark white"
+                                        class=" modal-trigger proposta-visualizar black-text btn waves-effect waves-dark white"
                                         href="#abrirModal"><?php echo $proposta->idPreProjeto; ?></a></td>
                                     <td><?php echo $proposta->NomeProjeto; ?></td>
                                     <td><?php echo $this->movimentacoes[$proposta->idPreProjeto]["txtMovimentacao"]; ?></td>

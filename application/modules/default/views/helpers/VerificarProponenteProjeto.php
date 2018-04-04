@@ -12,30 +12,26 @@
 
 class Zend_View_Helper_VerificarProponenteProjeto
 {
-	/**
-	 * Método para verificar o proponente do projeto
-	 * @access public
-	 * @param integer $idPronac
-	 * @return string
-	 */
-	public function verificarProponenteProjeto($idPronac = null)
-	{
-		if (isset($idPronac) && !empty($idPronac)) :
+    /**
+     * Método para verificar o proponente do projeto
+     * @access public
+     * @param integer $idPronac
+     * @return string
+     */
+    public function verificarProponenteProjeto($idPronac = null)
+    {
+        if (isset($idPronac) && !empty($idPronac)) :
 
-			$Projeto = new Projetos();
+            $Projeto = new Projetos();
 
-			// busca a situação do projeto
-			$buscarSituacao = $Projeto->buscar(array('IdPRONAC = ?' => $idPronac))->current();
+        // busca a situação do projeto
+        $buscarSituacao = $Projeto->buscar(array('IdPRONAC = ?' => $idPronac))->current();
 
-			if (count($buscarSituacao) > 0) :
-				return $buscarSituacao->CgcCpf;
-			else :
-				return 0;
-			endif;
-
-		else :
-			return 0;
-		endif;
-	} // fecha método verificarProponenteProjeto()
-
+        if (count($buscarSituacao) > 0) :
+                return $buscarSituacao->CgcCpf; else :
+                return 0;
+        endif; else :
+            return 0;
+        endif;
+    } // fecha método verificarProponenteProjeto()
 } // fecha class

@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,32 +9,37 @@
  *
  * @author guilherme
  */
-class Dispensalicitacao extends MinC_Db_Table_Abstract {
+class Dispensalicitacao extends MinC_Db_Table_Abstract
+{
     protected $_banco   = 'bdcorporativo';
     protected $_name    = 'tbDispensaLicitacao';
     protected $_schema  = 'bdcorporativo.scSAC';
 
-    public function inserirDispensaLicitacao($data){
+    public function inserirDispensaLicitacao($data)
+    {
         $insert = $this->insert($data);
         return $insert;
     }
 
-    public function alterarDispensaLicitacao($data, $where){
+    public function alterarDispensaLicitacao($data, $where)
+    {
         $update = $this->update($data, $where);
         return $update;
     }
 
-    public function deletarDispensaLicitacao($where){
+    public function deletarDispensaLicitacao($where)
+    {
         $delete = $this->delete($where);
         return $delete;
     }
 
-    public function buscarDispensaProjeto($idpronac){
-
+    public function buscarDispensaProjeto($idpronac)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
-        $select->from(array('dis'=>$this->_name),
-                            array('dis.idDispensaLicitacao','dis.nrDispensaLicitacao','CAST(dis.dsDispensaLicitacao as TEXT) as dsDispensaLicitacao','dis.dtContrato')
+        $select->from(
+            array('dis'=>$this->_name),
+            array('dis.idDispensaLicitacao','dis.nrDispensaLicitacao',new Zend_Db_Expr('CAST(dis.dsDispensaLicitacao as TEXT) as dsDispensaLicitacao'),'dis.dtContrato')
                           );
 
         $select->joinInner(
@@ -57,17 +62,16 @@ class Dispensalicitacao extends MinC_Db_Table_Abstract {
                       ));
 
         return $this->fetchAll($select);
-
     }
 
-    public function buscarDispensaLicitacao($where){
-
+    public function buscarDispensaLicitacao($where)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
                         array('dis'=>$this->_name),
                         array(
-                                'dis.idDispensaLicitacao','dis.nrDispensaLicitacao','CAST(dis.dsDispensaLicitacao as TEXT) as dsDispensaLicitacao','dis.dtContrato','dis.vlContratado'
+                            'dis.idDispensaLicitacao','dis.nrDispensaLicitacao',new Zend_Db_Expr('CAST(dis.dsDispensaLicitacao as TEXT) as dsDispensaLicitacao'),'dis.dtContrato','dis.vlContratado'
                               )
                       );
 
@@ -90,7 +94,5 @@ class Dispensalicitacao extends MinC_Db_Table_Abstract {
         $select->order('dis.dtContrato');
 
         return $this->fetchAll($select);
-
     }
 }
-?>

@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -9,10 +9,11 @@
  *
  * @author 01129075125
  */
-class AlteracaoNomeProjetoDAO extends Zend_Db_Table{
-
-    public static function buscarDadosParecerTecnico($idpedidoalteracao){
-      $sql = "select
+class AlteracaoNomeProjetoDAO extends Zend_Db_Table
+{
+    public static function buscarDadosParecerTecnico($idpedidoalteracao)
+    {
+        $sql = "select
                     aipa.dsAvaliacao as dsparecertecnico,
                     aipa.dtFimAvaliacao as dtparecertecnico,
                     nom.Descricao as nometecnico
@@ -28,8 +29,5 @@ class AlteracaoNomeProjetoDAO extends Zend_Db_Table{
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-
     }
-
 }
-?>

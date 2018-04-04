@@ -12,32 +12,29 @@
 
 class Areacultural extends Zend_Db_Table
 {
-	protected $_name = 'SAC.dbo.Area'; // nome da tabela
+    protected $_name = 'SAC.dbo.Area'; // nome da tabela
 
 
 
-	/**
-	 * M�todo para buscar todas as �reas culturais
-	 * @access public
-	 * @param void
-	 * @return object $db->fetchAll($sql)
-	 */
-	public static function buscar()
-	{
-		$sql = "SELECT Codigo AS id, Descricao AS descricao ";
-		$sql.= "FROM SAC.dbo.Area ";
-		$sql.= "ORDER BY Descricao;";
+    /**
+     * M�todo para buscar todas as �reas culturais
+     * @access public
+     * @param void
+     * @return object $db->fetchAll($sql)
+     */
+    public static function buscar()
+    {
+        $sql = "SELECT Codigo AS id, Descricao AS descricao ";
+        $sql.= "FROM SAC.dbo.Area ";
+        $sql.= "ORDER BY Descricao;";
 
-		try
-		{
-			$db = Zend_Db_Table::getDefaultAdapter();
-			$db->setFetchMode(Zend_DB::FETCH_OBJ);
-		}
-		catch (Zend_Exception_Db $e)
-		{
-			$this->view->message = "Erro ao buscar �rea Cultural: " . $e->getMessage();
-		}
+        try {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        } catch (Zend_Exception_Db $e) {
+            $this->view->message = "Erro ao buscar �rea Cultural: " . $e->getMessage();
+        }
 
-		return $db->fetchAll($sql);
-	} // fecha buscar()
+        return $db->fetchAll($sql);
+    } // fecha buscar()
 } // fecha class

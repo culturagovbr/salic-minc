@@ -5,8 +5,8 @@
  *
  * @author rafael.gloria@cultura.gov.br
  */
-class MensagemDispositivoMovel extends GenericModel{
-
+class MensagemDispositivoMovel extends GenericModel
+{
     protected $_name = 'tbMensagemDispositivoMovel';
     protected $_schema = 'SAC';
     protected $_banco = 'SAC';
@@ -33,5 +33,4 @@ class MensagemDispositivoMovel extends GenericModel{
 //
 //        return $this->fetchAll($consulta);
 //    }
-
 }

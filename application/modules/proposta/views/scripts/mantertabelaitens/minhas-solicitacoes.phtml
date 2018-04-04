@@ -1,30 +1,32 @@
 <style type="text/css">
     label.error{ color:red; font-weight: normal; }
 </style>
+<?php echo $this->partial("inc/menu.phtml", $this); ?>
+
 <div class="container-fluid">
-
     <div class="row">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Minhas Solicita&ccedil;&otilde;es</h1>
 
-        <?php echo $this->partial("inc/menu.phtml", $this); ?>
-
-        <div class="content col s10 m12 l10 planilha-produtos">
-            <!-- ========== INICIO BREADCRUMB (LINKS TOPO) ==========
-            <div id="breadcrumb">
-                <ul>
-                    <li class="first"><a href="<?php echo $this->url(array('controller' => 'prototipos', 'action' => 'index')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
-                    <li class="second"><a href="<?php echo $this->url(array('controller' => 'prototipos', 'action' => 'propostas')); ?>" title="Ir para Propostas">Propostas</a></li>
-                    <li class="last">Produtos / Etapas / Itens  </li>
-                </ul>
-            </div>-->
-            <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-            <!-- ========== INICIO TITULO ========== -->
-
-            <div id="titulo">
-                <div>Minhas Solicita&ccedil;&otilde;es <span class="voltar"><a href="javascript:history.go(-1)">Voltar</a></span></div>
+                    <?php
+                    gerarNovoBreadCrumb(array(
+                        $this->layout['listagem'],
+                        array('Minhas Solicita&ccedil;&otilde;es' => '')
+                    ));
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
             </div>
-            <!-- ========== FIM TITULO ========== -->
+        </div>
 
-            <div id="conteudo">
+        <div class="content">
+            <div id="conteudo" class="card-panel">
                 <form name="formPesquisa" id="formPesquisa" action="<?php echo $this->url(array('controller' => 'mantertabelaitens', 'action' => 'minhas-solicitacoes'));?>" method="get">
                     <table class="tabela">
                         <tr>
@@ -198,9 +200,6 @@
                 </form>
 
             </div>
-
-            <br clear="all" />
-
             <div id="msgAlerta" class="sumir"></div>
         </div>
     </div>

@@ -8,7 +8,6 @@
  */
 class Parecer extends MinC_Db_Table_Abstract
 {
-
     protected $_schema = 'SAC';
     protected $_name = 'Parecer';
     protected $_primary = 'IdParecer';
@@ -273,7 +272,6 @@ class Parecer extends MinC_Db_Table_Abstract
 
     public function buscaPareceresEmAprovacao($mecanismo, $QntdPorPagina = null, $PaginaAtual = null)
     {
-
         $TotalReg = $PaginaAtual * $QntdPorPagina;
         $select = new Zend_Db_Expr("select * from (select top " . $QntdPorPagina . " * from (SELECT TOP " . $TotalReg . "
                 pa.*, (pr.AnoProjeto+pr.Sequencial) AS pronac, pr.NomeProjeto FROM SAC.dbo.Parecer AS pa
@@ -292,7 +290,6 @@ class Parecer extends MinC_Db_Table_Abstract
 
     public function buscaPareceresTotal($mecanismo)
     {
-
         $select = new Zend_Db_Expr("SELECT *, (pr.AnoProjeto+pr.Sequencial) AS pronac, pr.NomeProjeto FROM SAC.dbo.Parecer AS pa
             INNER JOIN SAC.dbo.Projetos AS pr ON pr.IdPRONAC = pa.idPRONAC WHERE pr.Mecanismo = $mecanismo
             order by pa.idParecer");
@@ -309,7 +306,6 @@ class Parecer extends MinC_Db_Table_Abstract
 
     public function verificaProjSituacaoCNIC($pronac)
     {
-
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -329,7 +325,6 @@ class Parecer extends MinC_Db_Table_Abstract
 
     public function statusDeAvaliacao($idPronac)
     {
-
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -355,7 +350,6 @@ class Parecer extends MinC_Db_Table_Abstract
 
     public function identificacaoParecerConsolidado($idPronac)
     {
-
         $select = new Zend_Db_Expr("
                 SELECT p.idPronac AS Codigo, p.AnoProjeto+p.Sequencial AS Pronac, pr.NomeProjeto,
                    CASE
@@ -397,13 +391,12 @@ class Parecer extends MinC_Db_Table_Abstract
 
     public function cidadoPareceConsolidado($idPronac)
     {
-
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
             array('p' => $this->_name),
             array(
-                New Zend_Db_Expr("
+                new Zend_Db_Expr("
                          p.idPronac,
                          p.AnoProjeto+p.Sequencial AS Pronac,
                          pr.NomeProjeto,
@@ -437,12 +430,16 @@ class Parecer extends MinC_Db_Table_Abstract
             )
         );
         $select->joinLeft(
-            array('e' => 'Enquadramento'), 'p.idPronac = e.idPronac',
-            array(''), 'SAC.dbo'
+            array('e' => 'Enquadramento'),
+            'p.idPronac = e.idPronac',
+            array(''),
+            'SAC.dbo'
         );
         $select->joinInner(
-            array('pr' => 'Projetos'), 'p.idPronac = pr.idPronac',
-            array(''), 'SAC.dbo'
+            array('pr' => 'Projetos'),
+            'p.idPronac = pr.idPronac',
+            array(''),
+            'SAC.dbo'
         );
         $select->where('p.idTipoAgente = ?', 1);
         $select->where('p.idPronac = ?', $idPronac);
@@ -457,7 +454,8 @@ class Parecer extends MinC_Db_Table_Abstract
         $select->setIntegrityCheck(false);
         $select->from(
             array('p' => $this->_name),
-            array('p.idParecer'));
+            array('p.idParecer')
+        );
         
         $select->where('p.idTipoAgente = ?', $idTipoAgente);
         $select->where('p.idPronac = ?', $idPronac);
