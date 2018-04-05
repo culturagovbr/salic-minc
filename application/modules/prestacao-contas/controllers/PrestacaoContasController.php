@@ -28,12 +28,76 @@ class PrestacaoContas_PrestacaoContasController extends MinC_Controller_Action_A
 
     public function indexAction()
     {
-        $fooModel = new Foo_Model_Foo();
+    }
 
-        $this->view->foos = $fooModel->listar();
+    public function tipoAvaliacaoAction()
+    {
+        $idPronac = $this->_request->getParam("idPronac");
+        if (!$idPronac) {
+           throw new Exception('Não existe idPronac');
+        }
 
-        $tooModel = new Foo_Model_Too();
+        $this->view->idPronac = $this->_request->getParam("idPronac");
+    }
 
-        $this->view->toos = $tooModel->listar();
+    /* @todo: adicionar função de salvar o tipo de amostragem*/
+    public function tipoAvaliacaoSalvarAction()
+    {
+        $idPronac = $this->_request->getParam("idPronac");
+        $avaliacao = $this->_request->getParam("avaliacao");
+
+        if (!$idPronac) {
+           throw new Exception('Não existe idPronac');
+        }
+
+        if (!$avaliacao) {
+           throw new Exception('Não existe avaliacao');
+        }
+
+        if ($avaliacao == "todos") {
+            $this->redirect('/realizarprestacaodecontas/planilhaorcamentaria/idPronac/' . $idPronac );
+        }
+
+        $this->redirect('/prestacao-contas/prestacao-contas/amostragem/idPronac/' . $idPronac . '/tipoAvaliacao/' . $avaliacao);
+    }
+
+    public function amostragemAction()
+    {
+        $idPronac = $this->_request->getParam("idPronac");
+        $tipoAvaliacao = $this->_request->getParam("tipoAvaliacao");
+        if (!$idPronac) {
+           throw new Exception('Não existe idPronac');
+        }
+        if (!$tipoAvaliacao) {
+           throw new Exception('Não existe tipoAvaliacao');
+        }
+
+        $idPronac = $this->_request->getParam("idPronac");
+        $comprovantes = new PrestacaoContas_Model_spComprovantes();
+        $comprovantes = $comprovantes->exec($idPronac, $tipoAvaliacao);
+
+        $this->view->idPronac = $this->_request->getParam("idPronac");
+        $this->view->comprovantes = $comprovantes;
+    }
+
+    public function salvarAnaliseAction()
+    {
+        $idPronac = $this->_request->getParam("idPronac");
+        $idComprovantePagamento = $this->_request->getParam("idComprovantePagamento");
+
+        $situacao = $this->_request->getParam("situacao");
+        $justificativa = $this->_request->getParam("justificativa");
+
+        $tblComprovantePag = new ComprovantePagamentoxPlanilhaAprovacao();
+        $rsComprovantePag = $tblComprovantePag
+            ->buscar(['idComprovantePagamento = ?' => $idComprovantePagamento])
+            ->current();
+        $rsComprovantePag->dtValidacao = date('Y/m/d H:i:s');
+        $rsComprovantePag->dsJustificativa = isset($justificativa) ? $justificativa : null;
+        $rsComprovantePag->stItemAvaliado = $situacao;
+
+        $rsComprovantePag->save();
+
+        $this->redirect('/prestacao-contas/prestacao-contas/amostragem/idPronac/' . $idPronac . '/tipoAvaliacao/90');
     }
 }

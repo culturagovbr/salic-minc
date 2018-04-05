@@ -1,0 +1,173 @@
+<div class="container-fluid">
+    <section class="row">
+        <article class="col s12">
+            <h2>Presta&ccedil;&atilde;o de Contas: Avalia&ccedil;&atilde;o por Amostragem</h2>
+        </article>
+    </section>
+    <section class="row">
+        <article id="vue-container" class="col s12">
+            <salic-projeto-identificacao idPronac="<?php echo ($this->idPronac);?>"></salic-projeto-identificacao>
+        </article>
+        <article class="col s12">
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Avalia&ccedil;&atilde;o Financeira por Amostragem</span>
+                    <div class="row">
+                        <div class="col l12 s12">
+
+                          <ul class="collapsible popout" data-collapsible="accordion">
+                            <?php foreach($this->comprovantes as $comprovante):?>
+                              <li>
+                                <div 
+                                  class="collapsible-header 
+                                    <?php if($comprovante->stEstado[0] == "S") : ?> 
+                                      grey lighten-2 
+                                    <?php elseif($comprovante->stEstado[0] == "V") : ?> 
+                                      green lighten-3
+                                    <?php elseif($comprovante->stEstado[0] == "I") : ?> 
+                                      red lighten-3
+                                    <?php endif ?> "
+                                  >
+                                    <?php if($comprovante->stEstado[0] == "S") : ?> 
+                                      <i class="material-icons">check_box_outline_blank</i>
+                                    <?php elseif($comprovante->stEstado[0] == "V") : ?> 
+                                      <i class="material-icons">check_circle</i>
+                                    <?php elseif($comprovante->stEstado[0] == "I") : ?> 
+                                      <i class="material-icons">block</i>
+                                    <?php endif ?> 
+                                  <?php echo ($comprovante->Item) ?> - <?php echo ($comprovante->Fornecedor)?> - <?php echo ($comprovante->vlPagamento)?>
+                                </div>
+                                <div class="collapsible-body">
+                                      <div class="row">
+                                          <div class="input-field col s12">
+                                  <table class="bordered">
+                                    <thead>
+                                      <tr>
+                                        <th rowspan="2">Item</th>
+                                        <th rowspan="2">Fornecedor</th>
+                                        <th class="center-align" colspan="4">Pagamento</th>
+                                        <th class="center-align" rowspan="2">Estado</th>
+                                      </tr>
+                                      <tr>
+                                        <th>Data</th>
+                                        <th>Forma</th>
+                                        <th>Número</th>
+                                        <th>Valor</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                          <td>
+                                            <?php echo ($comprovante->Item) ?>
+                                          </td>
+                                          <td>
+                                            <?php echo ($comprovante->Fornecedor)?>
+                                          </td>
+                                          <td>
+                                            <?php echo ($comprovante->DtComprovacao)?>
+                                          </td>
+                                          <td>
+                                            <?php echo ($comprovante->tpFormaDePagamento)?>
+                                          </td>
+                                          <td>
+                                            <?php echo ($comprovante->nrDocumentoDePagamento)?>
+                                          </td>
+                                          <td>
+                                            <?php echo ($comprovante->vlPagamento)?>
+                                          </td>
+                                          <td>
+                                            <?php echo ($comprovante->stEstado)?>
+                                          </td>
+                                        </tr>
+                                    </tbody>
+                                  </table>
+                                          </div>
+                                      </div>
+                                  <form action="/prestacao-contas/prestacao-contas/salvar-analise" method="post">
+                                    <input name="idComprovantePagamento" type="hidden" value="<?php echo $comprovante->idComprovantePagamento ?>" >
+                                    <input name="idPronac" type="hidden" value="<?php echo $this->idPronac;?>" >
+                                    <fieldset>
+                                      <legend>Avaliaç&atilde;o</legend>
+                                      <div class="row">
+                                          <div class="col s12">
+                                            <p>Status</p>
+                                            <input name="situacao" type="radio" id="test1<?php echo $comprovante->idComprovantePagamento ?>" value="1"/>
+                                            <label for="test1<?php echo $comprovante->idComprovantePagamento ?>">Comprova&ccedil;&atilde;o validada</label>
+                                            <input name="situacao" type="radio" id="test2<?php echo $comprovante->idComprovantePagamento ?>" value="3"/>
+                                            <label for="test2<?php echo $comprovante->idComprovantePagamento ?>">Comprova&ccedil;&atilde;o recusada</label>
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                          <div class="input-field col s12">
+                                            <input name="justificativa" placeholder="Placeholder" id="ocorrencia" type="text" class="validate">
+                                            <label for="ocorrencia">Ocorrência:</label>
+                                          </div>
+                                      </div>
+                                      <div class="row">
+                                          <div class="centered col s12">
+                                            <button class="btn" type="submit">salvar</button>
+                                          </div>
+                                      </div>
+                                    </fieldset>
+                                  </form>
+                                </div>
+                              </li>
+                            <?php endforeach ?>
+                          </ul>
+                         <table class="bordered">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2">Item</th>
+                                    <th rowspan="2">Fornecedor</th>
+                                    <th class="center-align" colspan="4">Pagamento</th>
+                                    <th class="center-align" rowspan="2">Estado</th>
+                                </tr>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Forma</th>
+                                    <th>Número</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($this->comprovantes as $comprovante):?>
+                                    <tr>
+                                        <td>
+                                            <?php echo ($comprovante->Item) ?>
+                                        </td>
+                                        <td>
+                                            <?php echo ($comprovante->Fornecedor)?>
+                                        </td>
+                                        <td>
+                                            <?php echo ($comprovante->DtComprovacao)?>
+                                        </td>
+                                        <td>
+                                            <?php echo ($comprovante->tpFormaDePagamento)?>
+                                        </td>
+                                        <td>
+                                            <?php echo ($comprovante->nrDocumentoDePagamento)?>
+                                        </td>
+                                        <td>
+                                            <?php echo ($comprovante->vlPagamento)?>
+                                        </td>
+                                        <td>
+                                            <?php echo ($comprovante->stEstado)?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach?>
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </section>
+</div>
+<script src="/public/js/vue.js" type="text/javascript"></script>
+<script src="/public/scripts/projeto/salic-projeto-identificacao.vue.js" type="text/javascript"></script>
+<script type="text/javascript">
+    var app = new Vue({
+        el: '#vue-container'
+    });
+</script>
