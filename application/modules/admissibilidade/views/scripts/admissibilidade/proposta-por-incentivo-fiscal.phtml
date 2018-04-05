@@ -141,12 +141,13 @@
                     Avaliar <i class="material-icons right">gavel</i>
                 </button>
             <?php endif; ?>
-
-                <?php if ($this->isPropostaEmConformidade): ?>
-                <button class="btn waves-effect waves-light enquadrarProposta" type="button" name="action">
-                    Enquadrar <i class="material-icons right">assignment</i>
-                </button>
-            <?php endif; ?>
+                <?php if (!$this->itensGeral[0]->stEstado == 0): ?>
+                    <?php if ($this->isPropostaEmConformidade): ?>
+                    <button class="btn waves-effect waves-light enquadrarProposta" type="button" name="action">
+                        Enquadrar <i class="material-icons right">assignment</i>
+                    </button>
+                    <?php endif; ?>
+                <?php endif; ?>
 
             <?php endif; ?>
             <iframe name="esconde" id="esconde" class="sumir"></iframe>
@@ -166,36 +167,32 @@
                    alt="Vizualizar outras Propostas deste Proponente"/>
                 <i class="material-icons right ">work</i>Outras Propostas</a>
             <?php endif; ?>
+            <?php if (!$this->itensGeral[0]->stEstado == 0): ?>
+                <?php if (Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo
+                || Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE == $this->codGrupo
+                || Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo): ?>
+                <button
 
-            <?php if (Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo
-            || Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE == $this->codGrupo
-            || Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo): ?>
-            <button
-
-                <?php if (!(
-                        Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE == $this->codGrupo
-                        || Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo
-                    )
-                    /*
-                    || $this->possuiAvaliacaoCnic === false
-                    || $this->isPropostaEnquadrada !== true
-                    */
-                ): ?>
-                    disabled
+                    <?php if (!(
+                            Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE == $this->codGrupo
+                            || Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->codGrupo
+                        )): ?>
+                        disabled
+                    <?php endif; ?>
+                        id="transformarPropostaEmProjeto" class=" waves-effect waves-light btn blue white-text"
+                        title="Transformar Proposta em Projeto" alt="Transformar Proposta em Projeto"
+                        data-id-pre-projeto="<?php echo $this->itensGeral[0]->idPreProjeto ?>">
+                    <i class="material-icons right ">transform</i> Transformar em Projeto
+                </button>
+                <a class="btn black white-text" title="Arquivar Proposta" alt="Arquivar Proposta"
+                   href="<?= $this->url(['module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'confirmararquivarproposta' ]).'?idPreProjeto='.$this->itensGeral[0]->idPreProjeto; ?>">
+                    <i class="material-icons right">archive</i>Arquivar
+                </a>
                 <?php endif; ?>
-                    id="transformarPropostaEmProjeto" class=" waves-effect waves-light btn blue white-text"
-                    title="Transformar Proposta em Projeto" alt="Transformar Proposta em Projeto"
-                    data-id-pre-projeto="<?php echo $this->itensGeral[0]->idPreProjeto ?>">
-                <i class="material-icons right ">transform</i> Transformar em Projeto
-            </button>
-            <a class="btn black white-text" title="Arquivar Proposta" alt="Arquivar Proposta"
-               href="/admissibilidade/admissibilidade/confirmararquivarproposta?idPreProjeto=<?php echo $this->itensGeral[0]->idPreProjeto ?>">
-                <i class="material-icons right">archive</i>Arquivar
-            </a>
             <?php endif; ?>
 
             <?php if (!$this->menu): ?>
-                <a href="/admissibilidade/admissibilidade/listar-propostas"
+                <a href="<?= $this->url(['module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' =>'listar-propostas']); ?>"
                    class="waves-effect waves-light btn white black-text" title="" alt="">
                     <i class="material-icons  ">undo</i>
                 </a>
@@ -204,16 +201,20 @@
         <div class="conteudoImprimir exibir-proposta-cultural">
             <br>
             <div><h5 class="center">Proposta Cultural - <?php echo $this->itensGeral[0]->NomeProjeto ?></h5></div>
-            <?php if (isset($this->itensGeral[0]->stEstado) && $this->itensGeral[0]->stEstado == 0) { ?>
+            <?php if (isset($this->itensGeral[0]->stEstado) && $this->itensGeral[0]->stEstado == 0): ?>
                 <table class="tabela" style="border: solid 1px red;">
                     <tr>
                         <td class="centro"
-                            style="color: red; font-size: 16px; font-weight: bold; border: solid 1px red;">Proposta
-                            Arquivada
+                            style="
+                                color: red;
+                                font-size: 16px;
+                                font-weight: bold;
+                                border: solid 1px red;
+                            ">Proposta Arquivada
                         </td>
                     </tr>
                 </table>
-            <?php } ?>
+            <?php endif; ?>
             <fieldset>
                 <legend>Identifica&ccedil;&atilde;o</legend>
                 <table class="">

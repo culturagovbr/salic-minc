@@ -59,11 +59,9 @@
                             <th>Proponente</th>
                             <th>Data Arquivamento</th>
                             <th>Motivo arquivamento</th>
-                            <th>Desarquivar</th>
+                            <th>Estado da Proposta</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        </tbody>
                     </table>
                 </div>
                 </div>
@@ -91,7 +89,7 @@
           </div>
     </div>
     <div class="modal-footer">
-      <a href="#!" id="enviarSolicitacao" class="modal-action modal-close waves-effect waves-green btn-flat green white-text">Solicitar</a>
+      <a href="#!" id="enviarSolicitacao" class="modal-action waves-effect waves-green btn-flat green white-text">Solicitar</a>
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat red-text">Cancelar</a>
     </div>
 </div>
@@ -109,6 +107,19 @@
     </div>
 </div>
 
+<div id="modal_visualizar_recusado" class="modal bottom-sheet" style="max-height:95%; height:95%">
+    <div class="modal-content">
+        <h4>Motivo da reprovação</h4>
+        <div class="row">
+            <div class=" col s12">
+                <p class="motivo_reprovacao"></p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat green white-text">OK</a>
+    </div>
+</div>
 <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
         crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
@@ -162,14 +173,16 @@
                         },
                         {
                             "name": "Data Arquivamento",
-                            "data": "DtArquivamento"
+                            "data": "dtArquivamentoHistorico"
                         },
                         {
                             data: null,
                             "name": "visualizarmotivo",
                             render: function (data, type, row) {
+                                console.log(data);
+                                console.log('de cima');
                                 if (data.MotivoArquivamento !== '') {
-				    
+
                                     var motivo = data.MotivoArquivamento;
                                     motivo = motivo.replace(/\"/g,'&#34;'); // aspa dupla
                                     motivo = motivo.replace(/\'/g,'&#39;'); // aspa simples
@@ -186,10 +199,21 @@
                             data: null,
                             "name": "botao",
                             render: function (data, type, row) {
-                                console.log();
+                                console.log(data);
+                                if (data.ultimaSolicitacao == 1) {
+                                    return 'Arquivada sem possibilidade de desarquivamento';
+                                }
+
+                                if (data.stDecisao == 0) {
+                                    return '<button data-target="modal_visualizar_recusado" id="visualizar_recusado" class="waves-effect waves-light btn modal-trigger waves-dark white black-text"  data-idpreprojeto="' + data.idpreprojeto + '" data-avaliacao="' + data.Avaliacao + '"><i class="material-icons right">remove_red_eye</i>Solicitação recusada</button>';
+//                                    return '<button data-target="modal_visualizar_recusado" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '">Solicitação recusada<i class="material-icons">remove_red_eye</i></button>'
+                                    return 'Solicitação de desarquivamento recusada'
+                                }
+
+                                console.log(data);
                                 if (data.SolicitacaoDesarquivamento == null) {
-                                    return '<button data-target="modal_solicitar" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '">Solicitar</button>'
-                                } 
+                                    return '<button data-target="modal_solicitar" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '">Solicitar Desarquivamento</button>'
+                                }
                                 return 'Solicita&ccedil;&atilde;o de desarquivamento em an&aacute;lise';
                             }
                         }
@@ -204,24 +228,32 @@
             $("tbody").on('click','button', function () {
                 let idpreprojeto = $3(this).data('idpreprojeto');
                 let motivoarquivamento = $3(this).data('motivoarquivamento');
-		
+                let Avaliacao = $3(this).data('avaliacao');
                 $3('#idpreprojeto').val(idpreprojeto);
                 $3('.motivo_arquivamento').html(motivoarquivamento);
+                $3('.motivo_reprovacao').html(Avaliacao);
+
             });
 
             $("#enviarSolicitacao").on('click', function () {
-                $3.ajax({
-                    url:'/proposta/pre-projeto-arquivado/update',
-                    data: {
-                        idpreprojeto: $3('#idpreprojeto').val(), 
-                        SolicitacaoDesarquivamento: $3('#SolicitacaoDesarquivamento').val() 
-                    },
-                    method:'POST'
-                }).
-                done(function(data) {
-                    table.ajax.reload();
-                    console.log(data);
-                });
+                if ($3('#SolicitacaoDesarquivamento').val().length == 0){
+                    Materialize.toast('É necessário preencher a solicitação!', 4000, 'red white-text');
+                }else{
+                    $3.ajax({
+                        url:'/proposta/pre-projeto-arquivado/update',
+                        data: {
+                            idpreprojeto: $3('#idpreprojeto').val(),
+                            SolicitacaoDesarquivamento: $3('#SolicitacaoDesarquivamento').val()
+                        },
+                        method:'POST'
+                    }).
+                    done(function(data) {
+                        $3('#modal_solicitar').modal('close');
+                        table.ajax.reload();
+                        console.log(data);
+                    });
+                }
+
             });
         });
     }($.noConflict(true)));

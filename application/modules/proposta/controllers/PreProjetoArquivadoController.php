@@ -78,8 +78,8 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
 
                 $aux[$key] = $proposta;
             }
-            //            $recordsFiltered = $tblPreProjetoArquivado->propostasTotal($this->idAgente, $this->idResponsavel, $idAgente, array(), null, null, null, $search);
-            //            $recordsTotal = $tblPreProjetoArquivado->propostasTotal($this->idAgente, $this->idResponsavel, $idAgente);
+//                        $recordsFiltered = $tblPreProjetoArquivado->propostasTotal($this->idAgente, $this->idResponsavel, $idAgente, array(), null, null, null, $search);
+//                        $recordsTotal = $tblPreProjetoArquivado->propostasTotal($this->idAgente, $this->idResponsavel, $idAgente);
         }
 
         $this->_helper->json(array(
@@ -110,13 +110,26 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
         $data = [
             'idPreProjeto' => $idPreProjeto,
             'MotivoArquivamento' => $MotivoArquivamento,
-            'idAvaliador' => $idAvaliador,
+            'idAvaliadorArquivamento' => $idAvaliador,
             'stEstado' =>  1, // arquivamento ativo.
-            'dtArquivamento' => date('Y-m-d h:i')
+            'dtArquivamento' => date('Y-m-d h:i'),
+            'ultimaSolicitacao' => 0 //primeira solicitação
         ];
 
+        $registroArquivamento = $arquivar->listaRegistrosDeArquivamento($idPreProjeto);
+
         try {
-            $arquivar->insert($data);
+            if ($registroArquivamento->idPreProjeto && $registroArquivamento->ultimaSolicitacao == 0) {
+                $AnaliseFinal = [
+                    'ultimaSolicitacao' => '1', //segunda e última solicitação
+                ];
+
+                $data = array_merge($data, $AnaliseFinal);
+                $arquivar->update($data, ["idPreProjeto = ?" => $idPreProjeto]);
+            }elseif (!count($registroArquivamento)) {
+                $arquivar->insert($data);
+            }
+
         } catch(Exception $e){
             $message = $e->getMessage();
             $success = false;
@@ -150,13 +163,25 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
         $idPreProjeto = $this->getRequest()->getParam("idpreprojeto");
         $SolicitacaoDesarquivamento = $this->getRequest()->getParam("SolicitacaoDesarquivamento");
         $stEstado = $this->getRequest()->getParam("stEstado");
+        $Avaliacao = $this->getRequest()->getParam("Avaliacao");
         $stDecisao = $this->getRequest()->getParam("stDecisao");
+        $avaliacaoFinal = $this->getRequest()->getParam("avaliacaoFinal");
 
         $arquivar = new Proposta_Model_PreProjetoArquivado();
 
         if($SolicitacaoDesarquivamento){
             $data['SolicitacaoDesarquivamento'] = $SolicitacaoDesarquivamento;
             $data['dtSolicitacaoDesarquivamento'] = new Zend_Db_Expr('GETDATE()');
+        }
+
+        if($avaliacaoFinal) {
+            if ($Avaliacao != null) {
+                $data['Avaliacao'] = $Avaliacao;
+                $data['dtAvaliacao'] = new Zend_Db_Expr('GETDATE()');
+                $data['idAvaliadorAnaliseDesarquivamento'] = $this->auth->getIdentity()->usu_codigo;
+            }else{
+                throw new Exception("É necessário preencher a Avaliação!");
+            }
         }
 
         if($stEstado !== null) {
@@ -169,8 +194,80 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
 
         try {
             $arquivar->update($data, array('idPreProjeto = ?' => $idPreProjeto));
-            $message = $data['dtSolicitacaoDesarquivamento'];
             $message = 'Solicitação enviada!' . $idPreProjeto;
+        } catch(Exception $e){
+            $message = $e->getMessage();
+            $success = false;
+        }
+
+        $this->_helper->json(
+            [
+                'data' => $data,
+                'success' => $success,
+                'message' => $message
+            ]
+        );
+    }
+
+    public function avaliarArquivamentoAction()
+    {
+        $message = null;
+        $success = true;
+        $data = [];
+
+        $idPreProjeto = $this->getRequest()->getParam("idpreprojeto");
+        $stEstado = $this->getRequest()->getParam("stEstado");
+        $Avaliacao = $this->getRequest()->getParam("Avaliacao");
+        $stDecisao = $this->getRequest()->getParam("stDecisao");
+        $avaliacaoFinal = $this->getRequest()->getParam("avaliacaoFinal");
+
+
+        if ($stEstado !== null) {
+            $data['stEstado'] = $stEstado;
+        }
+
+        if ($stDecisao !== null) {
+            $data['stDecisao'] = $stDecisao;
+            $mensagemDecisaoAssunto = ($stDecisao == 1) ? '(Aprovada)' : '(Reprovada)';
+        }
+
+        if ($avaliacaoFinal) {
+            if ($Avaliacao != null) {
+
+                $data2 = [
+                    'Avaliacao' => $Avaliacao,
+                    'dtAvaliacao' => new Zend_Db_Expr('GETDATE()'),
+                    'idAvaliadorAnaliseDesarquivamento' => $this->auth->getIdentity()->usu_codigo
+                ];
+
+                $data = array_merge($data, $data2);
+
+            }else{
+                $success = false;
+                $message = "É necessário descrever a avaliação!";
+            }
+        }
+
+        try {
+            if($success){
+                $where = ['idPreProjeto = ?' => $idPreProjeto];
+
+                (new Proposta_Model_PreProjetoArquivado)->update($data, $where);
+
+                if ($data['stDecisao'] == 1) {
+                    (new Proposta_Model_DbTable_PreProjeto)->update(['dtArquivamento' => null], $where);
+                }
+
+                $agente = new Proposta_Model_DbTable_PreProjeto();
+                $agente = $agente->buscaCompleta(['a.idPreProjeto = ? ' => $idPreProjeto]);
+
+                $email = new StdClass();
+                $email->text = $Avaliacao;
+                $email->to = $agente->current()->EmailAgente;
+                $email->subject = "SALIC - Solicitação de desarquivamento {$mensagemDecisaoAssunto}: " . $idPreProjeto;
+
+                $this->events->trigger('email', $this, $email);
+            }
         } catch(Exception $e){
             $message = $e->getMessage();
             $success = false;
@@ -221,8 +318,7 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
             $order,
             $start,
             $length,
-            $search,
-            $stEstado
+            $search
         );
 
         $recordsTotal = 0;

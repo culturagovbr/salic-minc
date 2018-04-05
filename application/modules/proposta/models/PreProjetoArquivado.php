@@ -17,7 +17,16 @@ class Proposta_Model_PreProjetoArquivado  extends MinC_Db_Table_Abstract
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
 
-        return $db->fetchAll($sql);
+        return $db->fetchRow($sql);
+    }
+
+    public function listaRegistrosDeArquivamento($idPreProjeto){
+
+        $query = $this->select()
+            ->from($this->_name, ['*'], $this->_schema)
+            ->where('idpreprojeto = ?', $idPreProjeto);
+
+        return $this->fetchRow($query);
     }
 
     public function listar(
@@ -42,7 +51,7 @@ class Proposta_Model_PreProjetoArquivado  extends MinC_Db_Table_Abstract
 
         $sql = $db->select()
              ->from(array('a'=>'preprojeto'), array('a.idpreprojeto', 'a.nomeprojeto', 'a.DtArquivamento'), $this->_schema)
-            ->join(array('ppa' => $this->_name), 'ppa.idpreprojeto = a.idpreprojeto', array('ppa.MotivoArquivamento', 'ppa.SolicitacaoDesarquivamento AS SolicitacaoDesarquivamento', 'ppa.Avaliacao', 'ppa.idAvaliador', 'ppa.dtSolicitacaoDesarquivamento', 'ppa.dtAvaliacao', 'ppa.stDecisao'), $this->getSchema($this->_schema))
+            ->join(array('ppa' => $this->_name), 'ppa.idpreprojeto = a.idpreprojeto', array('ppa.MotivoArquivamento', 'ppa.SolicitacaoDesarquivamento AS SolicitacaoDesarquivamento', 'ppa.Avaliacao', 'ppa.idAvaliadorArquivamento', 'ppa.dtSolicitacaoDesarquivamento', 'ppa.dtAvaliacao', 'ppa.stDecisao', 'ppa.ultimaSolicitacao', 'ppa.dtArquivamento AS dtArquivamentoHistorico'), $this->getSchema($this->_schema))
              ->join(array('b' => 'agentes'), 'a.idagente = b.idagente', array('b.cnpjcpf', 'b.idagente'), $this->getSchema('agentes'))
             ->joinleft(array('n' => 'nomes'), 'n.idagente = b.idagente', array('n.descricao as nomeproponente'), $this->getSchema('agentes'))
             ->where('a.idagente = ? ', $idAgente)
@@ -53,7 +62,7 @@ class Proposta_Model_PreProjetoArquivado  extends MinC_Db_Table_Abstract
 
         $sql2 = $db->select()
             ->from(array('a'=>'preprojeto'), array('a.idpreprojeto', 'a.nomeprojeto', 'a.DtArquivamento'), $this->_schema)
-              ->join(array('ppa' => $this->_name), 'ppa.idpreprojeto = a.idpreprojeto', array('ppa.MotivoArquivamento', 'ppa.SolicitacaoDesarquivamento AS SolicitacaoDesarquivamento', 'ppa.Avaliacao', 'ppa.idAvaliador', 'ppa.dtSolicitacaoDesarquivamento', 'ppa.dtAvaliacao', 'ppa.stDecisao'), $this->getSchema($this->_schema))
+              ->join(array('ppa' => $this->_name), 'ppa.idpreprojeto = a.idpreprojeto', array('ppa.MotivoArquivamento', 'ppa.SolicitacaoDesarquivamento AS SolicitacaoDesarquivamento', 'ppa.Avaliacao', 'ppa.idAvaliadorArquivamento', 'ppa.dtSolicitacaoDesarquivamento', 'ppa.dtAvaliacao', 'ppa.stDecisao', 'ppa.ultimaSolicitacao', 'ppa.dtArquivamento AS dtArquivamentoHistorico'), $this->getSchema($this->_schema))
             ->join(array('b' => 'agentes'), 'a.idagente = b.idagente', array('b.cnpjcpf', 'b.idagente'), $this->getSchema('agentes'))
             ->join(array('c' => 'vinculacao'), 'b.idagente = c.idvinculoprincipal', array(), $this->getSchema('agentes'))
             ->join(array('d' => 'agentes'), 'c.idagente = d.idagente', array(), $this->getSchema('agentes'))
@@ -67,7 +76,11 @@ class Proposta_Model_PreProjetoArquivado  extends MinC_Db_Table_Abstract
 
         $sql3 = $db->select()
             ->from(array('a'=>'preprojeto'), array('a.idpreprojeto', 'a.nomeprojeto', 'a.DtArquivamento'), Proposta_Model_DbTable_PreProjeto::getSchema('sac'))
-            ->join(array('ppa' => $this->_name), 'ppa.idpreprojeto = a.idpreprojeto', array('ppa.MotivoArquivamento', 'ppa.SolicitacaoDesarquivamento AS SolicitacaoDesarquivamento', 'ppa.Avaliacao', 'ppa.idAvaliador', 'ppa.dtSolicitacaoDesarquivamento', 'ppa.dtAvaliacao', 'ppa.stDecisao'), $this->getSchema($this->_schema))                                            ->join(array('b' => 'agentes'), 'a.idagente = b.idagente', array('b.cnpjcpf', 'b.idagente'), Proposta_Model_DbTable_PreProjeto::getSchema('agentes'))
+            ->join(
+                array('ppa' => $this->_name),
+                'ppa.idpreprojeto = a.idpreprojeto',
+                array('ppa.MotivoArquivamento', 'ppa.SolicitacaoDesarquivamento AS SolicitacaoDesarquivamento', 'ppa.Avaliacao', 'ppa.idAvaliadorArquivamento', 'ppa.dtSolicitacaoDesarquivamento', 'ppa.dtAvaliacao', 'ppa.stDecisao', 'ppa.ultimaSolicitacao', 'ppa.dtArquivamento AS dtArquivamentoHistorico'),
+                $this->getSchema($this->_schema))->join(array('b' => 'agentes'), 'a.idagente = b.idagente', array('b.cnpjcpf', 'b.idagente'), Proposta_Model_DbTable_PreProjeto::getSchema('agentes'))
             ->join(array('c' => 'nomes'), 'b.idagente = c.idagente', array('c.descricao as nomeproponente'), Proposta_Model_DbTable_PreProjeto::getSchema('agentes'))
             ->join(array('d' => 'sgcacesso'), 'a.idusuario = d.idusuario', array(), Proposta_Model_DbTable_PreProjeto::getSchema('controledeacesso'))
             ->join(array('e' => 'tbvinculoproposta'), 'a.idpreprojeto = e.idpreprojeto', array(), Proposta_Model_DbTable_PreProjeto::getSchema('agentes'))
@@ -78,6 +91,7 @@ class Proposta_Model_PreProjetoArquivado  extends MinC_Db_Table_Abstract
             ->where('e.sivinculoproposta = 2')
             ->where('f.idusuarioresponsavel = ?', $idResponsavel)
         ;
+
 
         if (!empty($idAgenteCombo)) {
             $sql->where('b.idagente = ?', $idAgenteCombo);
@@ -100,7 +114,7 @@ class Proposta_Model_PreProjetoArquivado  extends MinC_Db_Table_Abstract
         /* $sqlFinal->where('SolicitacaoDesarquivamento IS NULL'); */
         //$sqlFinal->order($order);
 
-        /* echo $sqlFinal;die; */
+//         echo $sqlFinal;die;
         if (!is_null($start) && $limit) {
             $start = (int)$start;
             $limit = (int)$limit;
@@ -206,7 +220,8 @@ class Proposta_Model_PreProjetoArquivado  extends MinC_Db_Table_Abstract
         $start = 0,
         $limit = 20,
         $search = null,
-        $stEstado = 1
+        $stEstado = 1,
+        $ultimaSolicitacao = null
     )
     {
         $db = Zend_Db_Table::getDefaultAdapter();
@@ -228,14 +243,16 @@ class Proposta_Model_PreProjetoArquivado  extends MinC_Db_Table_Abstract
                      'ppa.MotivoArquivamento',
                      'ppa.SolicitacaoDesarquivamento AS SolicitacaoDesarquivamento',
                      'ppa.Avaliacao',
-                     'ppa.idAvaliador',
+                     'ppa.idAvaliadorArquivamento',
                      'ppa.dtSolicitacaoDesarquivamento',
                      'ppa.dtAvaliacao',
                      'ppa.stDecisao',
                      'ppa.stEstado'
                  ),
                  $this->getSchema($this->_schema))
-             ->where("a.mecanismo = '1'");
+             ->where("a.mecanismo = '1'")
+             ->where("ppa.ultimaSolicitacao = '0'")
+        ;
 
         $sql = $db->select()->from(array("p" => $sql));
 

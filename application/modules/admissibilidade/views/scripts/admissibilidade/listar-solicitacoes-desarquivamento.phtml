@@ -2,7 +2,7 @@
     <div class="page-title">
 	<div class="row">
 	    <div class="col s12 m9 l10">
-		<h1>Listar Solicita&ccedil;&atilde;oes de desarquivamento</h1>
+		<h1>Listar Solicita&ccedil;&otilde;es de desarquivamento</h1>
 	    </div>
 	    <div class="col s12 m3 l2 right-align">
 		<a href="javascript:voltar();" title="Página Anterior"title="Página Anterior" class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">keyboard_return</i>
@@ -49,22 +49,38 @@
           </div>
           <div class="card">
             <div class="card-content ">
-              <span class="card-title">SolicitaÃ§Ã£o Desarquivamento</span>
+              <span class="card-title">Solicita&ccedil;&atilde;o Desarquivamento</span>
               <p id="solicitacao"></p>
             </div>
           </div>
+            <div class="card">
+                <div class="card-content ">
+                    <span class="card-title">Avaliação</span>
+                    <textarea cols="80" id="MotivoDesarquivamento"
+                              name="MotivoDesarquivamento"
+                              class="textarea"
+                              style="width: 99%">
+                    </textarea>
+                </div>
+            </div>
         </div>
       </div>
     </div>
     <div class="modal-footer">
       <input type="hidden" id="idpreprojeto" value="">
-      <a href="#!" id="aprovar" class="modal-action modal-close waves-effect waves-green btn-flat green white-text">Aprovar</a>
-      <a href="#!" id="reprovar" class="modal-action modal-close waves-effect waves-red btn-flat red white-text">Reprovar</a>
+      <a href="#!" id="aprovar" class="modal-action waves-effect waves-green btn-flat green white-text">Aprovar</a>
+      <a href="#!" id="reprovar" class="modal-action waves-effect waves-red btn-flat red white-text">Reprovar</a>
       <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat red-text">Cancelar</a>
     </div>
 </div>
 <script type="text/javascript">
  $(document).ready(function () {
+     var editorRico = $("#MotivoDesarquivamento").editorRico({
+         altura: 200,
+         maxchar: 5000,
+         isLimitarCarateres : true
+     });
+
      $('.expandir').live('click', function () {
          var elemento = $(this),
              idAgente = elemento.attr('idAgente');
@@ -152,7 +168,7 @@
                                     'data-solicitacao="' + data.SolicitacaoDesarquivamento + '"' +
                                     'data-motivoarquivamento="' + data.MotivoArquivamento + '"' +
                                     'data-nome="' + data.nomeprojeto + '">' +
-                                    '<i class="material-icons">remove_red_eye</i>' +
+                                    '<i class="material-icons">gavel</i>' +
                                     '</button>'
                         }
                      }
@@ -175,45 +191,56 @@
 
         $3("#aprovar").on('click', function () {
             $3.ajax({
-                url:'/proposta/pre-projeto-arquivado/update',
+                url:'/proposta/pre-projeto-arquivado/avaliar-arquivamento',
                 data: {
                     idpreprojeto: $3('#idpreprojeto').val(),
-                    /* SolicitacaoDesarquivamento: $3('#SolicitacaoDesarquivamento').val() */
+                    Avaliacao: tinyMCE.get('MotivoDesarquivamento').getContent(),
                     stDecisao: 1,
-                    stEstado: 0
+                    stEstado: 0,
+                    avaliacaoFinal: true
                 },
                 method:'POST'
             })
             .done(function(data) {
-                console.log(data);
-                table.ajax.reload();
-            });
+                let message_type = (data.success) ? 'green' : 'red';
 
-            $3.ajax({
-                url:'/proposta/pre-projeto/update',
-                data: {
-                    idPreProjeto: $3('#idpreprojeto').val(),
-                    stEstado: 1
-                },
-                method:'POST'
-            })
-            .done(function(data) {
-                console.log(data);
+                Materialize.toast(data.message, 4000, message_type+' white-text');
+                table.ajax.reload();
+                if(data.success){
+                    $3('#modal_solicitacao').modal('close');
+                    $3.ajax({
+                        url:'/proposta/pre-projeto/update',
+                        data: {
+                            idPreProjeto: $3('#idpreprojeto').val(),
+                            stEstado: 1
+                        },
+                        method:'POST'
+                    }).done(function(data) {
+                        console.log(data);
+                    });
+                }
             });
         });
 
         $3("#reprovar").on('click', function () {
             $3.ajax({
-                url:'/proposta/pre-projeto-arquivado/update',
+                url:'/proposta/pre-projeto-arquivado/avaliar-arquivamento',
                 data: {
                     idpreprojeto: $3('#idpreprojeto').val(),
+                    Avaliacao: tinyMCE.get('MotivoDesarquivamento').getContent(),
                     stDecisao: 0,
-                    stEstado: 0
+                    stEstado: 0,
+                    avaliacaoFinal: true
                 },
                 method:'POST'
-            })
-            .done(function(data) {
+            }).done(function(data) {
+                let message_type = (data.success) ? 'green' : 'red';
+                Materialize.toast(data.message, 4000, message_type+' white-text');
                 console.log(data);
+                table.ajax.reload();
+                if(data.success){
+                    $3('#modal_solicitacao').modal('close');
+                }
             });
         });
      });
