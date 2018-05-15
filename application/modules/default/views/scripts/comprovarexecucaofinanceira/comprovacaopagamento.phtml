@@ -137,10 +137,11 @@
                                                value='comprovacaopagamento'/>
                                     <?php endif; ?>
                                     <input type='hidden' name='valorAprovado' id='valorAprovado'
-                                           value='<?php echo $this->itemPlanilhaAprovacao->valorAprovado; ?>'/>
+                                           value='<?php echo $this->valores->vlAprovado; ?>'/>
                                     <input type='hidden' name='totalComprovado' id='totalComprovado'
-                                           value='<?php echo $this->itemPlanilhaAprovacao->vlComprovado ? $this->itemPlanilhaAprovacao->vlComprovado : '0'; ?>'/>
-
+                                           value='<?php echo $this->valores->vlComprovado ? $this->valores->vlComprovado : '0'; ?>'/>
+                                    <input type="hidden" name="vlComprovadoAntigo" size="10" id="vlComprovadoAntigo"
+                                           value="<?php echo $this->vlComprovacao; ?>"/>
 
                                     <div id="tabelaComprovante">
                                         <fieldset>
@@ -581,8 +582,7 @@
     });
 </script>
 
-<script type="text/javascript" src="/public/scripts/prestacao-contas/comprovacaopagamento.js">
-</script>
+<script type="text/javascript" src="/public/scripts/prestacao-contas/comprovacaopagamento.js"> </script>
 
 <script type="text/javascript">
     //    $(document).ready(function () {
@@ -879,14 +879,19 @@
         var valorItem = parseFloat(valorComprovado.replace(".", "").replace(".", "").replace(",", "."));
         var valorAprovado = parseFloat($("#valorAprovado").val());
         var valorComprovado = parseFloat($("#totalComprovado").val());
+        var valorComprovadoAntigo = parseFloat($('#vlComprovadoAntigo').val());
+        var valorAtualComprovado = (valorItem + valorComprovado).toFixed(2) - valorComprovadoAntigo ;
+        console.log(valorItem, valorAtualComprovado);
+        
 
-        if (
-            (!$("#idComprovantePagamento").val() && (valorComprovado && (valorItem + valorComprovado).toFixed(2) > valorAprovado))
-            ||
-            ($("#idComprovantePagamento").val() && (valorComprovado && valorItem > valorAprovado))
-        ) {
+        if (!$("#idComprovantePagamento").val()) {
+            msg += 'Sem Valor comprovado.<br />';
+        } else if (valorAtualComprovado > valorAprovado) {
+            msg += 'O valor comprovado total com esse item ('+ valorAtualComprovado +') maior que o valor aprovado('+valorAprovado+') passando em: ' + (valorAtualComprovado-valorAprovado).toFixed(2) + '<br />';
+        } else if (valorItem > valorAprovado) {
             msg += 'Valor comprovado maior que o valor aprovado.<br />';
         }
+
         if ('' != msg) {
             $("#msgAlerta").dialog("destroy");
             $("#msgAlerta").html('<center><p>' + msg + '</p></center>');
@@ -1078,8 +1083,6 @@
         });
         $('.ui-dialog-titlebar-close').remove();
     }
-
-
     /* $3('select').material_select(); */
 </script>
 <script>

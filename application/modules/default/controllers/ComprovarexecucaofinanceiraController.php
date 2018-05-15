@@ -794,12 +794,49 @@ class ComprovarexecucaofinanceiraController extends MinC_Controller_Action_Abstr
 
     public function atualizarcomprovacaopagamentoAction()
     {
+        $request = $this->getRequest();
+        $idComprovantePagamento = $request->getParam('idComprovantePagamento');
+        $idPronac = $request->getParam('idpronac');
+
+        /*todos*/
+        $planilhaAprovacao = new PlanilhaAprovacao();
+        $planilhaAprovacaoItem = $planilhaAprovacao->vwComprovacaoFinanceiraProjetoPorItemOrcamentario(
+            $idPronac,
+            null,
+            null,
+            null,
+            $idComprovantePagamento
+        );
+
+        $valorComprovadoAntigo = $planilhaAprovacaoItem->current()->vlComprovacao;
+        $valoresItem = $planilhaAprovacao->vwComprovacaoFinanceiraProjeto(
+            $idPronac,
+            null,
+            $planilhaAprovacaoItem->current()->cdEtapa,
+            $planilhaAprovacaoItem->current()->cdProduto,
+            $planilhaAprovacaoItem->current()->cdCidade,
+            null,
+            $planilhaAprovacaoItem->current()->idPlanilhaItem
+        );
+        $this->view->valores = $valoresItem->current();
+
+        $valorAprovadoAtual = $valoresItem->current()->vlAprovado;
+        $valorComprovadoAtual = $valoresItem->current()->vlComprovado;
+
+        $valorComprovadoNovo = ($valorComprovadoAtual - $valorComprovadoAntigo) + $vlComprovadoNovo;
+        /* var_dump($valorComprovadoNovo); */
+
+        if ($valorComprovadoNovo > $valorAprovadoAtual) {
+            throw new Exception('Valor comprovado acima do permitido!');
+            return;
+        }
+        /*todo*/
+
         try {
             //$this->verificarPermissaoAcesso(false, true, false);
             $request = $this->getRequest();
             $pais = $request->getParam('pais');
 
-            $idComprovantePagamento = $request->getParam('idComprovantePagamento');
             $paginaRedirecionar = $request->getParam('paginaRedirecionar');
             $redirectsValidos = array('comprovacaopagamento');
             if (!in_array($paginaRedirecionar, $redirectsValidos)) {

@@ -1,13 +1,20 @@
-<div id="app" class="container-fluid">
-    <page-title></page-title>
-  <!-- component matched by the route will render here -->
-  <router-view></router-view>
+ <div id="app" class="container-fluid">
+    <v-app>
+      <v-content>
+        <page-title></page-title>
+        <v-container>
+            <router-view></router-view>
+        </v-container>
+      </v-content>
+    </v-app>
 </div>
 
 <!-- vendor -->
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 <script src="https://unpkg.com/vuetable-2@1.6.0"></script>
+<link href="https://unpkg.com/vuetify/dist/vuetify.min.css" rel="stylesheet">
+<script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
 <!-- vendor -->
 
 <!-- componentes -->

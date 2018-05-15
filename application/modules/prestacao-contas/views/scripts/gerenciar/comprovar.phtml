@@ -12,7 +12,7 @@
             'idusuario' => $this->idusuario,
             'idpronac' => $this->idpronac,
         );
-        $voltarHref = $this->url(\array_merge($urlArray, array('action' => 'pagamento')));
+        $voltarHref = $this->url(\array_merge($urlArray, array('module' => 'default', 'action' => 'pagamento')));
         $carregarSelectHref = $this->url(\array_merge($urlArray, array('action' => 'carregaselectajax')));
 
         echo '<script type="text/javascript" language="javascript" src="' . $this->baseUrl() . '/public/js/jquery/jquery.formatCurrency-1.4.0.min.js"></script>';
@@ -112,10 +112,15 @@
                                 <input type='hidden' name='paginaRedirecionar' id='paginaRedirecionar'
                                        value='gerenciar'/>
                             <?php endif; ?>
+                            <!--input type='hidden' name='valorAprovado' id='valorAprovado'
+                                   value='<?php echo $this->itemPlanilhaAprovacao->valorAprovado; ?>'/-->
                             <input type='hidden' name='valorAprovado' id='valorAprovado'
-                                   value='<?php echo $this->itemPlanilhaAprovacao->valorAprovado; ?>'/>
+                                   value='<?php echo $this->valores->vlAprovado; ?>'/>
+
+                            <!--input type='hidden' name='totalComprovado' id='totalComprovado'
+                                   value='<?php echo $this->itemPlanilhaAprovacao->vlComprovado ? $this->itemPlanilhaAprovacao->vlComprovado : '0'; ?>'/-->
                             <input type='hidden' name='totalComprovado' id='totalComprovado'
-                                   value='<?php echo $this->itemPlanilhaAprovacao->vlComprovado ? $this->itemPlanilhaAprovacao->vlComprovado : '0'; ?>'/>
+                                   value='<?php echo $this->valores->vlComprovado; ?>'/>
 
                       <div class="card ">
                         <div class="card-content">
@@ -135,8 +140,14 @@
                                         <td><?php echo $this->produto->Sintese; ?></td>
                                         <td><?php echo $this->etapa->Descricao; ?></td>
                                         <td><?php echo $this->item->Descricao; ?></td>
-                                        <td><?php echo $this->currency($this->itemPlanilhaAprovacao->valorAprovado); ?></td>
-                                        <td><?php echo $this->currency($this->itemPlanilhaAprovacao->vlComprovado ? $this->itemPlanilhaAprovacao->vlComprovado : '0'); ?></td>
+                                        <!--td><?php echo $this->currency($this->itemPlanilhaAprovacao->valorAprovado); ?></td>
+                                        <td><?php echo $this->currency($this->itemPlanilhaAprovacao->vlComprovado ? $this->itemPlanilhaAprovacao->vlComprovado : '0'); ?></td-->
+                                        <td>
+                                            <?php echo $this->currency($this->valores->vlAprovado ? $this->valores->vlAprovado : '0'); ?>
+                                        </td>
+                                        <td>
+                                            <?php echo $this->currency($this->valores->vlComprovado ? $this->valores->vlComprovado : '0'); ?>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>

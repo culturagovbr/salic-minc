@@ -1,6 +1,6 @@
 <?php
 
-class PrestacaoContas_GerenciarController extends MinC_Controller_Action_Abstract 
+class PrestacaoContas_GerenciarController extends MinC_Controller_Action_Abstract
 {
     private $tipoDocumento = array(' - Selecione - ','Cupom Fiscal','Guia de Recolhimento','Nota Fiscal/Fatura','Recibo de Pagamento','RPA');
 
@@ -24,6 +24,27 @@ class PrestacaoContas_GerenciarController extends MinC_Controller_Action_Abstrac
         $itemModel = new PlanilhaItem();
 
         $itemPlanilhaAprovacao = $planilhaItemModel->buscarItemDaAprovacao($idPlanilhaAprovacao);
+
+        /*todos*/
+        $planilhaAprovacao = new PlanilhaAprovacao();
+        $planilhaAprovacaoItem = $planilhaAprovacao->vwComprovacaoFinanceiraProjetoPorItemOrcamentario(
+            $idPronac,
+            null,
+            null,
+            null,
+            $idComprovantePagamento
+        );
+        $valoresItem = $planilhaAprovacao->vwComprovacaoFinanceiraProjeto(
+            $idPronac,
+            null,
+            $planilhaAprovacaoItem->current()->cdEtapa,
+            $planilhaAprovacaoItem->current()->cdProduto,
+            $planilhaAprovacaoItem->current()->cdCidade,
+            null,
+            $planilhaAprovacaoItem->current()->idPlanilhaItem
+        );
+        $this->view->valores = $valoresItem->current();
+        /*todos*/
 
         $produto = $produtoModel->find($itemPlanilhaAprovacao->idProduto)->current();
         $etapa = $etapaModel->find($itemPlanilhaAprovacao->idEtapa)->current();
@@ -242,12 +263,46 @@ class PrestacaoContas_GerenciarController extends MinC_Controller_Action_Abstrac
 
     public function atualizarcomprovacaopagamentoAction()
     {
+        $request = $this->getRequest();
+        $idPronac = $request->getParam('idpronac');
+        $idComprovantePagamento = $request->getParam('idComprovantePagamento');
+        $vlComprovadoNovo = (float) str_replace(',', '.', str_replace('.', '', $request->getParam('vlComprovado')));
+
+        /*todos*/
+        $planilhaAprovacao = new PlanilhaAprovacao();
+        $planilhaAprovacaoItem = $planilhaAprovacao->vwComprovacaoFinanceiraProjetoPorItemOrcamentario(
+            $idPronac,
+            null,
+            null,
+            null,
+            $idComprovantePagamento
+        );
+
+        $valorComprovadoAntigo = $planilhaAprovacaoItem->current()->vlComprovacao;
+        $valoresItem = $planilhaAprovacao->vwComprovacaoFinanceiraProjeto(
+            $idPronac,
+            null,
+            $planilhaAprovacaoItem->current()->cdEtapa,
+            $planilhaAprovacaoItem->current()->cdProduto,
+            $planilhaAprovacaoItem->current()->cdCidade,
+            null,
+            $planilhaAprovacaoItem->current()->idPlanilhaItem
+        );
+        $this->view->valores = $valoresItem->current();
+
+        $valorAprovadoAtual = $valoresItem->current()->vlAprovado;
+        $valorComprovadoAtual = $valoresItem->current()->vlComprovado;
+
+        $valorComprovadoNovo = ($valorComprovadoAtual - $valorComprovadoAntigo) + $vlComprovadoNovo;
+
+        if ($valorComprovadoNovo > $valorAprovadoAtual) {
+            throw new Exception('Valor comprovado acima do permitido!');
+        }
+
         try {
             //$this->verificarPermissaoAcesso(false, true, false);
-            $request = $this->getRequest();
             $pais = $request->getParam('pais');
 
-            $idComprovantePagamento = $request->getParam('idComprovantePagamento');
             $paginaRedirecionar = $request->getParam('paginaRedirecionar');
             $redirectsValidos = array('comprovacaopagamento', 'gerenciar');
             if (!in_array($paginaRedirecionar, $redirectsValidos)) {
@@ -370,7 +425,4 @@ class PrestacaoContas_GerenciarController extends MinC_Controller_Action_Abstrac
             $this->forward('comprovacaopagamento-recusado');
         }
     }
-
-
-
 }
