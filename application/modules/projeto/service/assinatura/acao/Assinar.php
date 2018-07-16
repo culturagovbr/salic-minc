@@ -8,6 +8,5 @@ class Assinar implements IAcaoAssinar
 {
     public function executar(\MinC\Assinatura\Model\Assinatura $assinatura)
     {
-
     }
 }

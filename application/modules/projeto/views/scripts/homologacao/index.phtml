@@ -1,15 +1,15 @@
-
 <div class="container-fluid">
     <div class="row">
 
         <?php $this->PageTitle('Homologar projetos', array(
             array('Homologar projetos' => '')
         )); ?>
-        <div id="container" class="container-full">
-            <a class="btn btn-primary" href="/projeto/homologacao/iniciar-fluxo-assinatura?idPronac=208452">Iniciar Fluxo Homologa&ccedil;&atilde;o</a>
+
+        <div class="row">
+            <?= $this->partial('homologacao/listar.phtml', $this); ?>
         </div>
 
-        <div id="container-list" class="container-full" data-ajax-render='/projeto/homologacao/listar'></div>
+<!--        <div id="container-list" class="container-full" data-ajax-render='/projeto/homologacao/listar'></div>-->
         <?php if (isset($this->idPronac)): ?>
             <div class="fixed-action-btn animated bounceInUp">
                 <a href="javascript:$3.redirect('<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'mensagem', 'action' => 'salvar', 'idPronac' => $this->idPronac)); ?>');" class="btn-floating btn-large tooltipped waves-effect waves-light" data-position="left" data-delay="50" data-tooltip="Escrever pergunta">
