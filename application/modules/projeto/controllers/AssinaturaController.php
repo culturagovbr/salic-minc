@@ -4,9 +4,9 @@ class Projeto_AssinaturaController extends Assinatura_GenericController
 {
     private $idTipoDoAtoAdministrativo;
 
-    private $idResponsavel;
-    private $idUsuario;
-    private $idAgente;
+    protected $idResponsavel;
+    protected $idUsuario;
+    protected $idAgente;
 
     private function validarPerfis()
     {

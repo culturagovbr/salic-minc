@@ -1,6 +1,6 @@
 <?php
 
-class Parecer_AnaliseCnicDocumentoAssinaturaController implements MinC_Assinatura_Documento_IDocumentoAssinatura
+class Parecer_AnaliseCnicDocumentoAssinaturaController implements \MinC\Assinatura\Servico\IDocumentoAssinatura
 {
     public $idPronac;
 
@@ -13,7 +13,7 @@ class Parecer_AnaliseCnicDocumentoAssinaturaController implements MinC_Assinatur
         $this->post = $post;
     }
 
-    public function encaminharProjetoParaAssinatura()
+    public function iniciarFluxo()
     {
         if (!$this->idPronac) {
             throw new Exception("Identificador do Projeto não informado.");
@@ -34,9 +34,8 @@ class Parecer_AnaliseCnicDocumentoAssinaturaController implements MinC_Assinatur
 
         if (!$isProjetoDisponivelParaAssinatura) {
             $auth = Zend_Auth::getInstance();
-            $objDocumentoAssinatura = new MinC_Assinatura_Servico_Assinatura($this->post, $auth->getIdentity());
             $idTipoDoAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_CNIC;
-            
+
             $parecer = new Parecer();
             $idAtoAdministrativo = $parecer->getIdAtoAdministrativoParecerTecnico($this->idPronac, self::ID_TIPO_AGENTE_COMPONENTE_CNIC)[0]['idParecer'];
             
@@ -44,21 +43,21 @@ class Parecer_AnaliseCnicDocumentoAssinaturaController implements MinC_Assinatur
             $objModelDocumentoAssinatura->setIdPRONAC($this->idPronac);
             $objModelDocumentoAssinatura->setIdTipoDoAtoAdministrativo($idTipoDoAtoAdministrativo);
             $objModelDocumentoAssinatura->setIdAtoDeGestao($idAtoAdministrativo);
-            $objModelDocumentoAssinatura->setConteudo($this->gerarDocumentoAssinatura());
+            $objModelDocumentoAssinatura->setConteudo($this->criarDocumento());
             $objModelDocumentoAssinatura->setIdCriadorDocumento($auth->getIdentity()->usu_codigo);
             $objModelDocumentoAssinatura->setCdSituacao(Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA);
             $objModelDocumentoAssinatura->setDtCriacao($objTbProjetos->getExpressionDate());
             $objModelDocumentoAssinatura->setStEstado(Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO);
 
-            $servicoDocumento = $objDocumentoAssinatura->obterServicoDocumento();
-            $servicoDocumento->registrarDocumentoAssinatura($objModelDocumentoAssinatura);
+            $objDocumentoAssinatura = new \MinC\Assinatura\Servico\DocumentoAssinatura();
+            $objDocumentoAssinatura->registrarDocumentoAssinatura($objModelDocumentoAssinatura);
         }
     }
 
     /**
      * @return string
      */
-    public function gerarDocumentoAssinatura()
+    public function criarDocumento()
     {
         $view = new Zend_View();
         $view->setScriptPath(__DIR__ . DIRECTORY_SEPARATOR . '../views/scripts/analise-cnic-documento-assinatura');

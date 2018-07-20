@@ -1,7 +1,7 @@
 <?php
 class OperacionalController extends MinC_Controller_Action_Abstract
 {
-    private $idUsuario = null;
+    protected $idUsuario = null;
     private $codOrgaoSuperior = null;
     private $intTamPag = 10;
     private $idPerfil = 0;

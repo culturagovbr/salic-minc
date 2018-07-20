@@ -88,42 +88,38 @@ class Projeto_Model_TbHomologacaoMapper extends MinC_Db_Mapper
                 $booStatus = true;
             }
             $objTbProjetos = new Projeto_Model_DbTable_Projetos();
-            $projeto = $objTbProjetos->findBy(['IdPRONAC' => $intIdPronac]);
-
-            if (!$projeto) {
+            $projeto =$objTbProjetos->findBy(['IdPRONAC' => $intIdPronac]);
+                if (!$projeto) {
                 throw new Exception('Projeto n&atilde;o encontrado.');
-            }
-
+                }
             $dbTableHomologacao = new Projeto_Model_DbTable_TbHomologacao();
             $parecerHomolog = $dbTableHomologacao->getBy(['idPronac' => $arrData['idPronac'], 'tpHomologacao' => '1']);
 
             if (!$parecerHomolog || empty($parecerHomolog['dsHomologacao'])) {
                 throw new Exception('Parecer de homologa&ccedil;&atilde;o n&atilde;o encontrado.');
             }
-
-            $auth = Zend_Auth::getInstance();
-            $arrAuth = array_change_key_case((array)$auth->getIdentity());
-            $arrProjeto = [
-                'idPRONAC' => $intIdPronac,
-                'situacao' => Projeto_Model_Situacao::ANALISE_TECNICA,
-                'dtSituacao' => $this->_dbTable->getExpressionDate(),
-                'providenciaTomada' => 'Projeto aguardando an&aacute;lise documental',
-                'logon' => $arrAuth['usu_codigo']
-            ];
-            $tbProjetosMapper = new Projeto_Model_TbProjetosMapper();
-            $modelTbProjetos = new Projeto_Model_TbProjetos($arrProjeto);
-            if ($tbProjetosMapper->save($modelTbProjetos)) {
-                //                    $objModelDocumentoAssinatura = new Assinatura_Model_TbDocumentoAssinatura();
-                //                    $objModelDocumentoAssinatura
-                //                        ->setIdPRONAC($intIdPronac)
-                //                        ->setIdTipoDoAtoAdministrativo(Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_HOMOLOGAR_PROJETO)
-                //                        ->setIdAtoDeGestao($arrData['IdEnquadramento'])
-                //                        ->setConteudo($arrData['conteudo'])
-                //                        ->setIdCriadorDocumento($auth->getIdentity()->usu_codigo)
-                //                        ->setCdSituacao(Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA)
-                //                        ->setStEstado(Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO)
-                //                        ->setDtCriacao($objTbProjetos->getExpressionDate());
-                //
+                $auth = Zend_Auth::getInstance();
+                $arrAuth = array_change_key_case((array) $auth->getIdentity());
+                $arrProjeto = [
+                    'idPRONAC' => $intIdPronac,
+                    'situacao' => Projeto_Model_Situacao::ANALISE_TECNICA,
+                    'dtSituacao' => $this->_dbTable->getExpressionDate(),
+                    'providenciaTomada' => 'Projeto aguardando an&aacute;lise documental',
+                    'logon' => $arrAuth['usu_codigo']
+                ];
+                $tbProjetosMapper = new Projeto_Model_TbProjetosMapper();
+                $modelTbProjetos = new Projeto_Model_TbProjetos($arrProjeto);
+                $booStatus = false;if ($tbProjetosMapper->save($modelTbProjetos)) {
+                //    $objModelDocumentoAssinatura = new Assinatura_Model_TbDocumentoAssinatura();
+                //    $objModelDocumentoAssinatura
+                //        ->setIdPRONAC($intIdPronac)
+                //        ->setIdTipoDoAtoAdministrativo(Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_HOMOLOGAR_PROJETO)
+                //        ->setIdAtoDeGestao($arrData['IdEnquadramento'])
+                //        ->setConteudo($arrData['conteudo'])
+                //        ->setIdCriadorDocumento($auth->getIdentity()->usu_codigo)
+                //        ->setCdSituacao(Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA)
+                //        ->setStEstado(Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO)
+                //        ->setDtCriacao($objTbProjetos->getExpressionDate());//
                 //                    $objDocumentoAssinatura = new MinC_Assinatura_Servico_Assinatura($this->post, $auth->getIdentity());
                 //                    $servicoDocumento = $objDocumentoAssinatura->obterServicoDocumento();
                 //                    $servicoDocumento->registrarDocumentoAssinatura($objModelDocumentoAssinatura);

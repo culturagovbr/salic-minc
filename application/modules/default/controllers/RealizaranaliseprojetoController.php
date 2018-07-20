@@ -15,7 +15,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
     private $bln_readequacao = "false";
     private $idPedidoAlteracao = 0;
     private $intTamPag = 10;
-    private $idUsuario;
+    protected $idUsuario;
 
     public function init()
     {

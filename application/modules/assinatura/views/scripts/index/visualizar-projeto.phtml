@@ -9,7 +9,7 @@
                 'action' => 'gerenciar-assinaturas'
             )
         ),
-        array('Enquadramento ' => array())
+        array('Visualizar Documento' => array())
     );
     ?>
     <div class="row margin-bottom30"></div>
@@ -38,7 +38,7 @@
             <a class="btn waves-effect waves-dark"
                href="<?php echo "/{$this->moduleOrigin}/{$this->controllerOrigin}/gerenciar-assinaturas"; ?>">Voltar</a>
             <?php
-            if ($this->documentoAssinatura['cdSituacao'] == Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO):
+            if ($this->isPermitidoAssinar === true):
                 ?>
                 <a class="btn waves-effect waves-dark"
                    href="<?php

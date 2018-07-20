@@ -4,10 +4,10 @@ class Projeto_IndexController extends Projeto_GenericController
 {
     private $getIdUsuario = 0;
     private $getCNPJCPF = 0;
-    private $idResponsavel = 0;
-    private $idAgente = 0;
-    private $idUsuario = 0;
-    private $cpfLogado = 0;
+    protected $idResponsavel = 0;
+    protected $idAgente = 0;
+    protected $idUsuario = 0;
+    protected $cpfLogado = 0;
 
 
     public function init()

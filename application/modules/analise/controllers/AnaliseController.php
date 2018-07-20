@@ -2,7 +2,7 @@
 
 class Analise_AnaliseController extends Analise_GenericController
 {
-    private $idUsuario = null;
+    protected $idUsuario = null;
     private $idPreProjeto = null;
     private $idProjeto = null;
 

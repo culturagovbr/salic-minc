@@ -3,7 +3,7 @@
 class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_Abstract
 {
     private $idPreProjeto = null;
-    private $idUsuario = null;
+    protected $idUsuario = null;
     private $intTamPag = 50;
     private $codOrgaoSuperior = null;
     private $codGrupo = null;

@@ -35,7 +35,15 @@ class PrestacaoContas_ComprovantePagamentoController extends Zend_Rest_Controlle
             $data[] =  array_map('utf8_encode', $value);
         }
 
-        $this->view->assign('data', $data);
+        $dataAux = [];
+        foreach($data as $key => $value) {
+            $dataAux[$key] = $value;
+            $dataAux[$key]['fornecedor']['CNPJCPF'] = $value['CNPJCPF'];
+        }
+        /* var_dump($data); */
+        /* die; */
+
+        $this->view->assign('data', $dataAux);
         $this->getResponse()->setHttpResponseCode(200);
     }
 

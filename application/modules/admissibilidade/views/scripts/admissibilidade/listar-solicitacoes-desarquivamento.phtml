@@ -224,17 +224,16 @@
          var tableAvaliacao =  $('#tabelaSolicitacoesDesarquivamentoAvaliacao').DataTable(
              {
                  "language": {
-                     "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                 }
-                 , "lengthChange": true
-                 , "ajax": {
+                     "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json",
+                 },
+                 "lengthChange": true,
+                 "ajax": {
                      url: "/proposta/pre-projeto-arquivado/listar-solicitacoes-aguardando-avaliacao",
                      data: {},
                      type: "POST"
                  },
                  "processing": true,
                  "serverSide": true,
-                 "bFilter": false,
                  "aoColumnDefs": [
                      {'bSortable': false, 'aTargets': [1,3]}
                  ],
@@ -288,16 +287,15 @@
              {
                  "language": {
                      "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                 }
-                 , "lengthChange": true
-                 , "ajax": {
-                 url: "/proposta/pre-projeto-arquivado/listar-solicitacoes-aprovadas",
-                 data: {},
-                 type: "POST"
-             },
+                 },
+                 "lengthChange": true,
+                 "ajax": {
+                     url: "/proposta/pre-projeto-arquivado/listar-solicitacoes-aprovadas",
+                     data: {},
+                     type: "POST"
+                 },
                  "processing": true,
                  "serverSide": true,
-                 "bFilter": false,
                  "aoColumnDefs": [
                      {'bSortable': false, 'aTargets': [1,3]}
                  ],
@@ -350,17 +348,16 @@
          var tableReprovadas =  $('#tabelaSolicitacoesDesarquivamentoReprovadas').DataTable(
              {
                  "language": {
-                     "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                 }
-                 , "lengthChange": true
-                 , "ajax": {
-                 url: "/proposta/pre-projeto-arquivado/listar-solicitacoes-reprovadas",
-                 data: {},
-                 type: "POST"
-             },
+                     "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json",
+                 },
+                 "lengthChange": true,
+                 "ajax": {
+                     url: "/proposta/pre-projeto-arquivado/listar-solicitacoes-reprovadas",
+                     data: {},
+                     type: "POST"
+                 },
                  "processing": true,
                  "serverSide": true,
-                 "bFilter": false,
                  "aoColumnDefs": [
                      {'bSortable': false, 'aTargets': [1,3]}
                  ],

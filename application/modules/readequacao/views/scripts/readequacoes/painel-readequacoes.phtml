@@ -118,7 +118,8 @@
 
         $('.btn_finalizar, .btn-finalizar').click(function () {
             var idDistProj = $(this).attr('idDistProj'),
-                idReadequacao = $(this).attr('idReadequacao');
+                idReadequacao = $(this).attr('idReadequacao'),
+                idPronac = $(this).attr('id_pronac');
 
             $("#alerta").dialog("destroy");
             $("#alerta").html('Deseja realmente finalizar a análise da readequação?<br /><br />Ao finalizar a readequação será devolvida.');
@@ -134,10 +135,18 @@
                     'Sim': function () {
                         $.ajax({
                             type: 'POST',
-                            url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'coord-parecer-finalizar-readequacao'), '', true); ?>',
+                            url: '<?php echo $this->url([
+                                    'module' => 'readequacao',
+                                    'controller' => 'readequacoes',
+                                    'action' => 'coord-parecer-finalizar-readequacao'
+                                ],
+                                '',
+                                true
+                            ); ?>',
                             data: {
                                 idDistProj: idDistProj,
-                                idReadequacao: idReadequacao
+                                idReadequacao: idReadequacao,
+                                idPronac : idPronac
                             },
                             success: function (data) {
                                 if (data.resposta) {
@@ -150,7 +159,11 @@
                                         title: 'Carregando..'
                                     });
                                     $('.ui-dialog-titlebar-close').remove();
-                                    window.setTimeout('location.reload()', 1000);
+                                    if(data.linkAssinatura) {
+                                        window.location.href = data.linkAssinatura;
+                                    } else {
+                                         window.setTimeout('location.reload()', 1000);
+                                    }
                                 } else {
                                     alertaModal("Não foi possível finalizar a readequação.");
                                 }

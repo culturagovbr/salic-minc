@@ -141,13 +141,6 @@ class MinC_Db_Mapper
     }
 
     /**
-     *
-     * @name save
-     * @param $model
-     *
-     * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
-     * @since  01/09/2016
-     *
      * @todo deixar a pk podendo ser array, atualmente so pode sendo string utilizando o reset.
      */
     public function save($model)

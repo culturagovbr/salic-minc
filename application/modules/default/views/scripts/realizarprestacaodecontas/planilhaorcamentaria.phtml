@@ -2,6 +2,8 @@
 <script type="text/javascript" src="/public/js/componentes/sl-btn-visualizar.js" ></script>
 <script type="text/javascript" src="/public/js/componentes/sl-collapse-visualizar.js" ></script>
 <script type="text/javascript" src="/public/js/componentes/salic-table-easy.js" ></script>
+<script src="/public/scripts/prestacao-contas/components/button-scroll-top.vue.js"></script>
+<script src="/public/scripts/diligencia/diligencia/cadastrar.vue.js"></script>
 <div class="container-fluid" id="vue-container">
     <div class="page-title">
         <div class="row">
@@ -461,6 +463,37 @@
                 }
             }
         }
+
+        $3(document).ready(function () {
+
+            $3("#visualizar-form").on('click', function () {
+                tinymce.remove();
+            });
+
+            if ($3('#ir-para-o-topo').length) {
+                var scrollTrigger = 100, // px
+                    backToTop = function () {
+                        var scrollTop = $3(window).scrollTop();
+                        if (scrollTop > scrollTrigger) {
+                            $3('#ir-para-o-topo').parent().show();
+                        } else {
+                            $3('#ir-para-o-topo').parent().hide();
+                        }
+                    };
+                backToTop();
+
+                $3(window).on('scroll', function () {
+                    backToTop();
+                });
+
+                $3('#ir-para-o-topo').on('click', function (e) {
+                    e.preventDefault();
+                    $3('html,body').animate({
+                        scrollTop: 0
+                    }, 700);
+                });
+            }
+        });
     </script>
 </div>
 

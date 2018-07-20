@@ -29,7 +29,7 @@
     </th>
     <th>Visualizar</th>
     <th>Encaminhar</th>
-    <th>Finalizar</th>
+    <th>Assinar</th>
     <th>CNIC</th>
 </tr>
 </thead>
@@ -89,13 +89,19 @@ foreach ($this->dados as $d): ?>
             </a>
         </td>
         <td align="center">
+<!--                href="javascript:void(0)"-->
+<!--                class="btn-finalizar finalizarAnaliseReadequacao btn small waves-effect waves-light white-text tooltipped btn-primary"-->
             <a
-                href="javascript:void(0)"
-                class="btn-finalizar finalizarAnaliseReadequacao btn small waves-effect waves-light white-text tooltipped btn-primary"
-                data-tooltip="Finalizar a análise"
+                href="<?php echo $this->url([
+                'module' => 'readequacao',
+                'controller' => 'readequacao-assinatura',
+                'action' => 'gerenciar-assinaturas'
+            ], '', true); ?>"
+                class="btn small waves-effect waves-light white-text tooltipped btn-primary"
+                data-tooltip="Assinar"
                 idReadequacao="<?php echo $d->idReadequacao; ?>"
             >
-                <i class="material-icons">send</i>
+                <i class="material-icons">edit</i>
             </a>
         </td>
         <td align="center" style="width: 290px">

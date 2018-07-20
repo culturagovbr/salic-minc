@@ -1,4 +1,5 @@
 <?php
+
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
 
@@ -10,8 +11,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
             'lifetime' => 7200, // cache lifetime of 2 hours
             'automatic_serialization' => true
         );
-        $backendOptions = array(
-//            'cache_dir' => APPLICATION_PATH . '/../data/cache/' // Directory where to put the cache files
+        $backendOptions = array(//            'cache_dir' => APPLICATION_PATH . '/../data/cache/' // Directory where to put the cache files
         );
 
         // getting a Zend_Cache_Core object
@@ -34,24 +34,24 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $cacheId = APPLICATION_ENV . __FUNCTION__;
         if (APPLICATION_ENV == 'development' || APPLICATION_ENV == 'testing') $this->_cache->remove($cacheId);
 //        if ( ($configObject = $this->_cache->load($cacheId)) === false ) {
-            $configPath = APPLICATION_PATH . '/configs';
-            $configFileExt = '.ini';
-            $handle = opendir($configPath);
-            if ($handle) {
-                while (false !== ($file = readdir($handle))) {
-                    $configName = strstr($file, $configFileExt, true);
-                    if ($configName) {
-                        if ($configName == 'application' || $configName == 'exemplo-application') continue;
-                        $config->{$configName} = new Zend_Config_Ini($configPath . '/' . $file, null, array(
-                          'allowModifications' => true,
+        $configPath = APPLICATION_PATH . '/configs';
+        $configFileExt = '.ini';
+        $handle = opendir($configPath);
+        if ($handle) {
+            while (false !== ($file = readdir($handle))) {
+                $configName = strstr($file, $configFileExt, true);
+                if ($configName) {
+                    if ($configName == 'application' || $configName == 'exemplo-application') continue;
+                    $config->{$configName} = new Zend_Config_Ini($configPath . '/' . $file, null, array(
+                        'allowModifications' => true,
 //                          'nestSeparator'      => ':',
 //                          'skipExtends'        => false
-                        ));
+                    ));
 
-                    }
                 }
-                closedir($handle);
             }
+            closedir($handle);
+        }
 //            $configObject->{'application'}->{APPLICATION_ENV} = new Zend_Config($this->getApplication()->getOptions());
 //            $this->_cache->save($config, $cacheId);
 //        }
@@ -66,14 +66,14 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         /* configuracao do caminho dos includes */
         set_include_path('.'
-                            . PATH_SEPARATOR . APPLICATION_PATH . '/modules/default/controllers'
-                            . PATH_SEPARATOR . APPLICATION_PATH . '/modules/default/models'
-                            . PATH_SEPARATOR . APPLICATION_PATH . '/modules/default/models/DAO'
-                            . PATH_SEPARATOR . APPLICATION_PATH . '/modules/default/models/Exception'
-                            . PATH_SEPARATOR . APPLICATION_PATH . '/modules/default/models/Servico'
-                            . PATH_SEPARATOR . APPLICATION_PATH . '/modules/default/models/Table'
-                            . PATH_SEPARATOR . APPLICATION_PATH . '/modules/default/models/TO'
-                            . PATH_SEPARATOR . get_include_path()
+            . PATH_SEPARATOR . APPLICATION_PATH . '/modules/default/controllers'
+            . PATH_SEPARATOR . APPLICATION_PATH . '/modules/default/models'
+            . PATH_SEPARATOR . APPLICATION_PATH . '/modules/default/models/DAO'
+            . PATH_SEPARATOR . APPLICATION_PATH . '/modules/default/models/Exception'
+            . PATH_SEPARATOR . APPLICATION_PATH . '/modules/default/models/Servico'
+            . PATH_SEPARATOR . APPLICATION_PATH . '/modules/default/models/Table'
+            . PATH_SEPARATOR . APPLICATION_PATH . '/modules/default/models/TO'
+            . PATH_SEPARATOR . get_include_path()
         );
 
         /* componente obrigatorio para carregar arquivos, classes e recursos */
@@ -113,21 +113,21 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
         /* registra */
         Zend_Registry::set('post', new Zend_Filter_Input(NULL, NULL, $_POST, $options));
-        Zend_Registry::set('get',  new Zend_Filter_Input(NULL, NULL, $_GET,  $options));
+        Zend_Registry::set('get', new Zend_Filter_Input(NULL, NULL, $_GET, $options));
     }
 
     public function _initView()
     {
         /* configuraççes do layout padrão do sistema */
         Zend_Layout::startMvc(array(
-                'layout'     => 'layout',
-                'layoutPath' => APPLICATION_PATH.'/layout/',
-                'contentKey' => 'content'));
+            'layout' => 'layout',
+            'layoutPath' => APPLICATION_PATH . '/layout/',
+            'contentKey' => 'content'));
         # paginacao
         Zend_View_Helper_PaginationControl::setDefaultViewPartial('paginacao/paginacaoMinc.phtml');
 
         // Initialize view
-        $view         = new Zend_View();
+        $view = new Zend_View();
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper(
             'ViewRenderer'
         );
@@ -162,7 +162,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 
     public function _initCarregarDependenciasComposer()
     {
-        if(file_exists('vendor/autoload.php')) {
+        if (file_exists('vendor/autoload.php')) {
             require_once 'vendor/autoload.php';
         }
     }
@@ -184,24 +184,9 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
                     'projeto-extrato-rest',
                     'projeto-extrato-ano-rest',
                     'projeto-extrato-mes-rest'
-        )));
+                )));
         $controllerFront->getRouter()->addRoute('rest', $restRoute);
     }
-
-    protected function _initController()
-    {
-        // Add helpers prefixed with Helper in Plugins/Helpers/
-//        Zend_Controller_Action_HelperBroker::addPath('./Plugins/Helpers',
-
-//            $breadCrumb = new MinC_Controller_Action_Helper_BreadCrumb();
-//        Zend_Controller_Action_HelperBroker::addHelper($breadCrumb);
-//            $breadCrumb = new Zend_View_Helper_BreadCrumb();
-//        echo '<pre>';
-//        var_dump($breadCrumb);
-//        exit;
-//            Zend_Controller_Action_HelperBroker::addHelper($breadCrumb);
-    }
-
 
     public function _initLayouts()
     {
@@ -227,6 +212,17 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 //            APPLICATION_PATH . '/../library/MinC/View/Helper/',
 //            'MinC_View_Helper_'
 //        );
+    }
+
+    public function _initModuloAssinatura()
+    {
+
+        if (!class_exists(\Assinatura_Model_DbTable_TbAssinatura::class)) {
+            require_once __DIR__ . '/modules/assinatura/models/DbTable/TbAssinatura.php';
+        }
+
+        $acoesGerais = new \Application\Modules\Assinatura\Service\Assinatura\Acao\ListaAcoesGerais();
+        \MinC\Assinatura\Servico\Assinatura::definirAcoesGerais($acoesGerais);
     }
 
 }

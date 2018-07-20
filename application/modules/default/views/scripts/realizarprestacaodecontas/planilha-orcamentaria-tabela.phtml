@@ -18,21 +18,6 @@
                 <td>
                     <?php
                         $href = $this->url(
-                            array(
-                                'module' => 'default',
-                                'controller' => 'realizarprestacaodecontas',
-                                'action' => 'analisar-comprovacao',
-                                'idPronac' => $valor->IdPRONAC,
-                                /* 'idPlanilhaAprovacao' => $key, */
-                                'idPlanilhaItem' => $valor->idPlanilhaItens,
-                                'stItemAvaliado' => $this->stItemAvaliado ? $this->stItemAvaliado : null
-                            )
-                        );
-                    ?>
-                    <a class="btn small btn-primary" href='<?php echo $href ?>'><i class="material-icons">gavel</i></a>
-
-                    <?php
-                        $href = $this->url(
                             [
                                 'module' => 'prestacao-contas',
                                 'controller' => 'analisar',
@@ -43,7 +28,7 @@
                             ]
                         );
                     ?>
-                    <!--a class="btn small btn-primary red" href='<?php echo $href ?>'><i class="material-icons">gavel</i></a-->
+                    <a class="btn small btn-primary red" href='<?php echo $href ?>'><i class="material-icons">gavel</i></a>
                 </td>
                 <td><?php echo ($valor->Item) ?></td>
                 <td><?php echo $this->formatarReal($valor->vlAprovado) ?></td>

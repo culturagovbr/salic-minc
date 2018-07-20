@@ -77,7 +77,12 @@ class Projeto_Model_DbTable_Enquadramento extends MinC_Db_Table_Abstract
         return $this->fetchAll($sql);
     }
 
-    public function obterProjetosApreciadosCnic($where, $order = [])
+    public function obterProjetosApreciadosCnic(
+        $where,
+        $order = null,
+        $start = 0,
+        $limit = 20,
+        $search = null)
     {
         if (empty($where)) {
             return [];
@@ -90,6 +95,7 @@ class Projeto_Model_DbTable_Enquadramento extends MinC_Db_Table_Abstract
                 [
                     new Zend_Db_Expr('a.AnoProjeto+a.Sequencial as Pronac'),
                     'a.IdPRONAC',
+                    'ResumoProjeto',
                     'a.NomeProjeto',
                     'a.DtInicioExecucao',
                     'a.DtFimExecucao',
@@ -126,23 +132,60 @@ class Projeto_Model_DbTable_Enquadramento extends MinC_Db_Table_Abstract
             ['d.NrReuniao'],
             $this->_schema
         );
-
-        $sql->join(
+        $sql->joinInner(
             ['e' => 'Orgaos'],
             'a.OrgaoOrigem = e.Codigo',
             ['e.idSecretaria AS idOrgaoSuperior'],
             $this->_schema
         );
+        $sql->joinInner(
+            ['f' => 'Area'],
+            'f.Codigo = a.Area',
+            [new Zend_Db_Expr('f.Descricao as Area')],
+            $this->_schema
+        );
+        $sql->joinInner(
+            ['g' => 'Segmento'],
+            'g.Codigo = a.Segmento',
+            [new Zend_Db_Expr('g.Descricao as Segmento')],
+            $this->_schema
+        );
 
-        $sql->where('a.Situacao = ?', Projeto_Model_Situacao::PROJETO_APRECIADO_PELA_CNIC);
+        $sql->joinInner(
+          ['h'=> 'tbVerificaProjeto'],
+          'h.IdPRONAC = a.IdPRONAC',
+          ['stAnaliseProjeto'],
+          $this->_schema
+        );
+
+        $sql->joinInner(
+            ['i' => 'Usuarios'],
+            'h.idUsuario = i.usu_codigo',
+            [
+                'usu_nome AS Tecnico',
+                new Zend_Db_Expr("DATEDIFF(day, h.dtrecebido, GETDATE()) AS tempoAnalise")
+            ],
+            'TABELAS.dbo'
+        );
+
+        if (!empty($search['value'])) {
+            $sql->where('a.NomeProjeto like ? OR a.AnoProjeto+a.Sequencial like ? OR d.NrReuniao like ?', '%'.$search['value'].'%');
+        }
 
         foreach ($where as $coluna => $valor) {
             $sql->where($coluna, $valor);
         }
 
-        if ($order) {
+        if (!empty($order)) {
             $sql->order($order);
         }
+
+        if (!is_null($start) && $limit) {
+            $start = (int) $start;
+            $limit = (int) $limit;
+            $sql->limit($limit, $start);
+        }
+
 
         return $this->fetchAll($sql);
     }

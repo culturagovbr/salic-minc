@@ -1,6 +1,6 @@
 <?php
 
-class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract implements MinC_Assinatura_Controller_IDocumentoAssinaturaController
+class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract
 {
     private $idPronac;
 
@@ -64,11 +64,16 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         try {
             $get = $this->getRequest()->getParams();
             $post = $this->getRequest()->getPost();
-            $servicoDocumentoAssinatura = $this->obterServicoDocumentoAssinatura();
-            
+            $request = $this->getRequest()->getQuery();
+            if (!empty($this->getRequest()->getPost())) {
+                $request = $this->getRequest()->getPost();
+            }
+
+            $servicoDocumentoAssinatura = new Parecer_AnaliseCnicDocumentoAssinaturaController($request);
+
             if (isset($idPronac) && !empty($idPronac) && $get['encaminhar'] == 'true') {
                 $servicoDocumentoAssinatura->idPronac = $idPronac;
-                $servicoDocumentoAssinatura->encaminharProjetoParaAssinatura();
+                $servicoDocumentoAssinatura->iniciarFluxo();
                 
                 $idTipoDoAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_CNIC;
                 $idDocumentoAssinatura = $this->getIdDocumentoAssinatura($idPronac, $idTipoDoAtoAdministrativo);
@@ -94,24 +99,6 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         $result = $objDocumentoAssinatura->buscar($where);
         
         return $result[0]['idDocumentoAssinatura'];
-    }
-    
-    /**
-     * @return Parecer_AnaliseCnicDocumentoAssinaturaController
-     */
-    public function obterServicoDocumentoAssinatura()
-    {
-        if (!empty($this->getRequest()->getPost())) {
-            $request = $this->getRequest()->getPost();
-        } else {
-            $request = $this->getRequest()->getQuery();
-        }
-        
-        if (!isset($this->servicoDocumentoAssinatura)) {
-            require_once __DIR__ . DIRECTORY_SEPARATOR . "AnaliseCnicDocumentoAssinaturaController.php";
-            $this->servicoDocumentoAssinatura = new Parecer_AnaliseCnicDocumentoAssinaturaController($request);
-        }
-        return $this->servicoDocumentoAssinatura;
     }
     
     public function indexAction()

@@ -4,7 +4,7 @@ services:
     image: culturagovbr/salic-web:1.5
     container_name: salic-web
     ports:
-     # - "80:80"
+     - "80:80"
      - "8888:8888"
     volumes:
      - .:/var/www/salic

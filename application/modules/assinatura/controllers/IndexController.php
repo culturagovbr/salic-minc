@@ -3,10 +3,9 @@
 class Assinatura_IndexController extends Assinatura_GenericController
 {
     private $idTipoDoAtoAdministrativo;
-
     private $grupoAtivo;
-
     private $cod_usuario;
+    public $moduloDeOrigem;
 
     public function init()
     {
@@ -14,7 +13,6 @@ class Assinatura_IndexController extends Assinatura_GenericController
 
         $this->auth = Zend_Auth::getInstance();
         $this->grupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
-
         $this->cod_usuario = $this->auth->getIdentity()->usu_codigo;
 
         isset($this->auth->getIdentity()->usu_codigo) ? parent::perfil() : parent::perfil(4);
@@ -24,13 +22,13 @@ class Assinatura_IndexController extends Assinatura_GenericController
 
     private function definirModuloDeOrigem()
     {
-//        $this->view->module = $this->moduleName;
         $get = Zend_Registry::get('get');
         $post = (object)$this->getRequest()->getPost();
         $this->view->origin = "{$this->moduleName}/index";
         if (!empty($get->origin) || !empty($post->origin)) {
             $this->view->origin = (!empty($post->origin)) ? $post->origin : $get->origin;
         }
+        $this->moduloDeOrigem = $this->view->origin;
     }
 
     public function indexAction()
@@ -41,15 +39,63 @@ class Assinatura_IndexController extends Assinatura_GenericController
     public function gerenciarAssinaturasAction()
     {
         $this->view->idUsuarioLogado = $this->auth->getIdentity()->usu_codigo;
-        $documentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
-        $this->view->dados = $documentoAssinatura->obterProjetosComAssinaturasAbertas(
-            $this->grupoAtivo->codOrgao,
-            $this->grupoAtivo->codGrupo,
-            $this->auth->getIdentity()->usu_org_max_superior
-        );
-
+        $this->view->dados = [];
         $this->view->codGrupo = $this->grupoAtivo->codGrupo;
     }
+
+    public function gerenciarAssinaturaAjaxAction()
+    {
+
+        $start = $this->getRequest()->getParam('start');
+        $draw = (int)$this->getRequest()->getParam('draw');
+        $search = $this->getRequest()->getParam('search');
+        $order = $this->getRequest()->getParam('order');
+        $columns = $this->getRequest()->getParam('columns');
+
+        $order = ($order[0]['dir'] != 1) ? array($columns[$order[0]['column']]['name'] . ' ' . $order[0]['dir']) : ["Pronac desc"];
+
+        $get = Zend_Registry::get('get');
+        $idTipoDoAtoAdministrativo = $get->idTipoDoAtoAdministrativo;
+        $idTipoDoAtoAdministrativos = [];
+
+        $stringIdTipoDoAtoAdministrativos = $get->idTipoDoAtoAdministrativos;
+        if (!is_null($stringIdTipoDoAtoAdministrativos) || !empty($stringIdTipoDoAtoAdministrativos)) {
+            array_push($idTipoDoAtoAdministrativos, explode(',', $stringIdTipoDoAtoAdministrativos));
+        }
+
+        if (!is_null($idTipoDoAtoAdministrativo) || !empty($idTipoDoAtoAdministrativo)) {
+            $idTipoDoAtoAdministrativos[] = $idTipoDoAtoAdministrativo;
+        }
+
+        $tbAssinaturaDbTable = new Assinatura_Model_DbTable_TbAssinatura();
+        $tbAssinaturaDbTable->preencherModeloAtoAdministrativo([
+            'idOrgaoDoAssinante' => $this->grupoAtivo->codOrgao,
+            'idPerfilDoAssinante' => $this->grupoAtivo->codGrupo,
+            'idOrgaoSuperiorDoAssinante' => $this->auth->getIdentity()->usu_org_max_superior,
+            'idTipoDoAto' => $idTipoDoAtoAdministrativos,
+        ]);
+
+        $projetosDisponiveis = $tbAssinaturaDbTable->obterAssinaturasDisponiveis();
+        $recordsFiltered = 0;
+        $recordsTotal = 0;
+        $projetos = 0;
+
+        if (count($projetosDisponiveis) > 0) {
+            $projetos = $projetosDisponiveis;
+            array_walk($projetos, function (&$value) {
+                $value = array_map('utf8_encode', $value);
+            });
+            $recordsTotal = count($projetos);
+        }
+
+        $this->_helper->json([
+            "data" => $projetos,
+            'recordsTotal' => $recordsTotal,
+            'draw' => $draw,
+            'recordsFiltered' => $recordsFiltered,
+        ]);
+    }
+
 
     public function visualizarAssinaturasAction()
     {
@@ -95,7 +141,6 @@ class Assinatura_IndexController extends Assinatura_GenericController
                 array('idDocumentoAssinatura' => $idDocumentoAssinatura)
             );
 
-
             $this->view->idDocumentoAssinatura = $idDocumentoAssinatura;
             $this->view->IdPRONAC = $this->view->documentoAssinatura['IdPRONAC'];
             $this->view->idTipoDoAtoAdministrativo = $this->view->documentoAssinatura['idTipoDoAtoAdministrativo'];
@@ -136,15 +181,30 @@ class Assinatura_IndexController extends Assinatura_GenericController
                 $idDocumentoAssinatura
             );
 
-//            $objTbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();
-//            $this->view->quantidade_minima_assinaturas = $objTbAtoAdministrativo->obterQuantidadeMinimaAssinaturas(
-//                $this->view->idTipoDoAtoAdministrativo,
-//                $this->auth->getIdentity()->usu_org_max_superior
-//            );
-
             $moduleAndControllerArray = explode('/', $this->view->origin);
             $this->view->moduleOrigin = $moduleAndControllerArray[0];
             $this->view->controllerOrigin = $moduleAndControllerArray[1];
+            $objTbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();
+            $perfilAssinanteAtoAdministrativo = $objTbAtoAdministrativo->obterPerfilAssinante(
+                $this->grupoAtivo->codOrgao,
+                $this->grupoAtivo->codGrupo,
+                $this->view->documentoAssinatura['idTipoDoAtoAdministrativo']
+            );
+
+            $this->view->isPermitidoAssinar = false;
+            if (count($perfilAssinanteAtoAdministrativo) > 0) {
+                $objAssinatura->preencherModeloAssinatura([
+                    'idPronac' => $this->view->IdPRONAC,
+                    'idAtoAdministrativo' => $perfilAssinanteAtoAdministrativo['idAtoAdministrativo'],
+                    'idDocumentoAssinatura' => $idDocumentoAssinatura,
+                ]);
+
+                if (!$objAssinatura->isProjetoAssinado()
+                    && (int)$this->view->documentoAssinatura['cdSituacao'] == (int)Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO) {
+                    $this->view->isPermitidoAssinar = true;
+                }
+            }
+
         } catch (Exception $objException) {
             parent::message($objException->getMessage(), "/{$this->moduleName}/index/visualizar-documento-assinado?idDocumentoAssinatura={$idDocumentoAssinatura}&origin={$this->view->origin}");
         }
@@ -155,7 +215,7 @@ class Assinatura_IndexController extends Assinatura_GenericController
         $get = Zend_Registry::get('get');
         $idDocumentoAssinatura = $get->idDocumentoAssinatura;
 
-        self::obterDocumentoAssinado($idDocumentoAssinatura);
+        $this->obterDocumentoAssinado($idDocumentoAssinatura);
     }
 
     public function visualizarDocumentoAssinadoAction()
@@ -165,11 +225,12 @@ class Assinatura_IndexController extends Assinatura_GenericController
         $get = Zend_Registry::get('get');
         $idDocumentoAssinatura = $get->idDocumentoAssinatura;
 
-        self::obterDocumentoAssinado($idDocumentoAssinatura);
+        $this->obterDocumentoAssinado($idDocumentoAssinatura);
     }
 
     public function assinarProjetoAction()
     {
+
         $get = Zend_Registry::get('get');
         $idPronac = $get->IdPRONAC;
         $idTipoDoAtoAdministrativo = $get->idTipoDoAtoAdministrativo;
@@ -186,7 +247,6 @@ class Assinatura_IndexController extends Assinatura_GenericController
             parent::message($objException->getMessage(), "/{$this->view->origin}/gerenciar-assinaturas");
         }
 
-
         try {
             $objTbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();
 
@@ -202,7 +262,7 @@ class Assinatura_IndexController extends Assinatura_GenericController
 
             if (is_array($get->IdPRONAC)) {
                 $idPronacUnidos = implode(',', $get->IdPRONAC);
-                $this->redirect("/{$this->moduleName}/index/assinar-projeto?IdPRONAC={$idPronacUnidos}&idTipoDoAtoAdministrativo={$idTipoDoAtoAdministrativo}&isMovimentarAssinatura={$get->isMovimentarAssinatura}&origin={$this->view->origin}");
+                $this->redirect("/{$this->moduleName}/index/assinar-projeto?IdPRONAC={$idPronacUnidos}&idTipoDoAtoAdministrativo={$idTipoDoAtoAdministrativo}&origin={$this->view->origin}");
             }
 
             $this->view->IdPRONAC = $get->IdPRONAC;
@@ -212,8 +272,7 @@ class Assinatura_IndexController extends Assinatura_GenericController
             }
 
             $post = $this->getRequest()->getPost();
-            $objAssinatura = new MinC_Assinatura_Servico_Assinatura($post, $this->auth->getIdentity());
-            $objAssinatura->isMovimentarProjetoPorOrdemAssinatura = false;
+
 
             $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
             $this->view->documentoAssinatura = $objModelDocumentoAssinatura->findBy(
@@ -227,10 +286,14 @@ class Assinatura_IndexController extends Assinatura_GenericController
 
             $idDocumentoAssinatura = $this->view->documentoAssinatura['idDocumentoAssinatura'];
 
+            $objTbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();
+            $dadosAtoAdministrativoAtual = $objTbAtoAdministrativo->obterAtoAdministrativoAtual(
+                $idTipoDoAtoAdministrativo,
+                $this->grupoAtivo->codGrupo,
+                $this->grupoAtivo->codOrgao
+            );
+
             if ($post) {
-                if ($get->isMovimentarAssinatura == 'true') {
-                    $objAssinatura->isMovimentarProjetoPorOrdemAssinatura = true;
-                }
 
                 try {
                     $this->view->dsManifestacao = $post['dsManifestacao'];
@@ -243,16 +306,26 @@ class Assinatura_IndexController extends Assinatura_GenericController
                                 'stEstado' => Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO
                             )
                         );
+                        $servicoAssinatura = new \MinC\Assinatura\Servico\Assinatura(
+                            [
+                                'idPronac' => $idPronac,
+                                'idAtoAdministrativo' => $dadosAtoAdministrativoAtual['idAtoAdministrativo'],
+                                'idAssinante' => $this->auth->getIdentity()->usu_codigo,
+                                'dsManifestacao' => $post['dsManifestacao'],
+                                'idDocumentoAssinatura' => $documentoAssinatura['idDocumentoAssinatura'],
+                                'idTipoDoAto' => $idTipoDoAtoAdministrativo,
+                                'idOrgaoDoAssinante' => $this->grupoAtivo->codOrgao,
+                                'idPerfilDoAssinante' => $this->grupoAtivo->codGrupo,
+                                'idOrgaoSuperiorDoAssinante' => $this->auth->getIdentity()->usu_org_max_superior
+                            ]
+                        );
 
-                        $modelAssinatura = new MinC_Assinatura_Model_Assinatura();
-                        $modelAssinatura->setCodGrupo($this->grupoAtivo->codGrupo)
-                            ->setCodOrgao($this->grupoAtivo->codOrgao)
-                            ->setIdPronac($idPronac)
-                            ->setIdTipoDoAtoAdministrativo($idTipoDoAtoAdministrativo)
-                            ->setIdDocumentoAssinatura($documentoAssinatura['idDocumentoAssinatura'])
-                            ->setDsManifestacao($post['dsManifestacao'])
-                            ->setIdOrgaoSuperiorDoAssinante($this->auth->getIdentity()->usu_org_max_superior);
-                        $objAssinatura->assinarProjeto($modelAssinatura);
+                        $servicoAssinatura->viewModelAssinatura->request = $this->getRequest();
+                        $servicoAssinatura->viewModelAssinatura->response = $this->getResponse();
+                        $servicoAssinatura->assinarProjeto(
+                            $post,
+                            $this->auth->getIdentity()
+                        );
                     }
 
                     if (count($arrayIdPronacs) > 1) {
@@ -264,28 +337,20 @@ class Assinatura_IndexController extends Assinatura_GenericController
                     } else {
                         parent::message(
                             "Projeto assinado com sucesso!",
-                            "/{$this->moduleName}/index/visualizar-projeto?idDocumentoAssinatura={$idDocumentoAssinatura}&isMovimentarAssinatura={$get->isMovimentarAssinatura}&origin={$this->view->origin}",
+                            "/{$this->moduleName}/index/visualizar-projeto?idDocumentoAssinatura={$idDocumentoAssinatura}&origin={$this->view->origin}",
                             'CONFIRM'
                         );
-                        die;
                     }
+                    die;
                 } catch (Exception $objException) {
                     parent::message(
                         $objException->getMessage(),
-                        "/{$this->moduleName}/index/assinar-projeto?IdPRONAC={$idPronac}&idTipoDoAtoAdministrativo={$idTipoDoAtoAdministrativo}&isMovimentarAssinatura={$get->isMovimentarAssinatura}&origin={$this->view->origin}",
+                        "/{$this->moduleName}/index/assinar-projeto?IdPRONAC={$idPronac}&idTipoDoAtoAdministrativo={$idTipoDoAtoAdministrativo}&origin={$this->view->origin}",
                         'ERROR'
                     );
                 }
             }
 
-
-
-            $objTbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();
-            $dadosAtoAdministrativoAtual = $objTbAtoAdministrativo->obterAtoAdministrativoAtual(
-                $idTipoDoAtoAdministrativo,
-                $this->grupoAtivo->codGrupo,
-                $this->grupoAtivo->codOrgao
-            );
 
             $objTbAssinatura = new Assinatura_Model_DbTable_TbAssinatura();
             $assinaturaExistente = $objTbAssinatura->buscar(array(
@@ -312,13 +377,13 @@ class Assinatura_IndexController extends Assinatura_GenericController
                 'idVerificacao = ?' => $idTipoDoAtoAdministrativo
             ));
 
-            $this->view->templateAutenticacao = $objAssinatura->obterServicoAutenticacao()->obterMetodoAutenticacao()->obterTemplateAutenticacao();
-            $this->view->idTipoDoAtoAdministrativo = $get->idTipoDoAtoAdministrativo;
-            $this->view->isMovimentarAssinatura = false;
+            $servicoAutenticacao = new \MinC\Assinatura\Servico\Autenticacao(
+                $post,
+                $this->auth->getIdentity()
+            );
 
-            if ($get->isMovimentarAssinatura == 'true') {
-                $this->view->isMovimentarAssinatura = 'true';
-            }
+            $this->view->templateAutenticacao = $servicoAutenticacao->obterMetodoAutenticacao()->obterTemplateAutenticacao();
+            $this->view->idTipoDoAtoAdministrativo = $get->idTipoDoAtoAdministrativo;
 
             $moduleAndControllerArray = explode('/', $this->view->origin);
             $this->view->moduleOrigin = $moduleAndControllerArray[0];
@@ -343,13 +408,10 @@ class Assinatura_IndexController extends Assinatura_GenericController
             if (!filter_input(INPUT_GET, 'idTipoDoAtoAdministrativo')) {
                 throw new Exception("Identificador do tipo do ato administrativo &eacute; necess&aacute;rio para acessar essa funcionalidade.");
             }
-            $modelAssinatura = new MinC_Assinatura_Model_Assinatura();
-            $modelAssinatura->setIdPronac($get->IdPRONAC);
-            $modelAssinatura->setIdTipoDoAtoAdministrativo($get->idTipoDoAtoAdministrativo);
 
             $objTbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();
             $dadosAtoAdministrativoAtual = $objTbAtoAdministrativo->obterAtoAdministrativoAtual(
-                $modelAssinatura->getIdTipoDoAtoAdministrativo(),
+                $get->idTipoDoAtoAdministrativo,
                 $this->grupoAtivo->codGrupo,
                 $this->grupoAtivo->codOrgao
             );
@@ -357,21 +419,28 @@ class Assinatura_IndexController extends Assinatura_GenericController
             $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
             $dadosDocumentoAssinatura = $objModelDocumentoAssinatura->findBy(
                 array(
-                    'IdPRONAC' => $modelAssinatura->getIdPronac(),
-                    'idTipoDoAtoAdministrativo' => $modelAssinatura->getIdTipoDoAtoAdministrativo(),
+                    'IdPRONAC' => $get->IdPRONAC,
+                    'idTipoDoAtoAdministrativo' => $get->idTipoDoAtoAdministrativo,
                     'cdSituacao' => Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA,
                     'stEstado' => Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO
                 )
             );
 
-            $servicoAssinatura = new MinC_Assinatura_Servico_Assinatura();
+            $servicoAssinatura = new \MinC\Assinatura\Servico\Assinatura(
+                [
+                    'idAtoAdministrativo' => $dadosAtoAdministrativoAtual['idAtoAdministrativo'],
+                    'idTipoDoAtoAdministrativo' => $get->idTipoDoAtoAdministrativo,
+                    'idTipoDoAto' => $get->idTipoDoAtoAdministrativo,
+                    'idOrdemDaAssinatura' => $dadosAtoAdministrativoAtual['idOrdemDaAssinatura'],
+                    'idOrgaoSuperiorDoAssinante' => $this->auth->getIdentity()->usu_org_max_superior,
+                    'idPronac' => $get->IdPRONAC,
+                    'idAssinante' => $this->auth->getIdentity()->usu_codigo,
+                    'idDocumentoAssinatura' => $dadosDocumentoAssinatura['idDocumentoAssinatura'],
+                    'idPerfilDoAssinante' => $this->grupoAtivo->codGrupo
+                ]
+            );
 
-            $modelAssinatura->setIdOrdemDaAssinatura($dadosAtoAdministrativoAtual['idOrdemDaAssinatura']);
-            $modelAssinatura->setIdAtoAdministrativo($dadosAtoAdministrativoAtual['idAtoAdministrativo']);
-            $modelAssinatura->setIdAssinante($this->auth->getIdentity()->usu_codigo);
-            $modelAssinatura->setIdDocumentoAssinatura($dadosDocumentoAssinatura['idDocumentoAssinatura']);
-            $modelAssinatura->setIdOrgaoSuperiorDoAssinante($this->auth->getIdentity()->usu_org_max_superior);
-            $servicoAssinatura->movimentarProjetoAssinadoPorOrdemDeAssinatura($modelAssinatura);
+            $servicoAssinatura->encaminhar();
 
             parent::message(
                 'Projeto Movimentado com sucesso!',
@@ -384,30 +453,5 @@ class Assinatura_IndexController extends Assinatura_GenericController
                 "/{$this->view->origin}/gerenciar-assinaturas"
             );
         }
-    }
-
-    public function gerarPdfAction()
-    {
-        ini_set("memory_limit", "5000M");
-        set_time_limit(30);
-
-        $this->_helper->layout->disableLayout();
-        $this->_helper->viewRenderer->setNoRender();
-        $cssContents = file_get_contents(APPLICATION_PATH . '/../public/library/materialize/css/materialize.css');
-        $cssContents .= file_get_contents(APPLICATION_PATH . '/../public/library/materialize/css/materialize-custom.css');
-        $html = $_POST['html'];
-
-        $pdf = new mPDF('pt', 'A4', 12, '', 8, 8, 5, 14, 9, 9, 'P');
-        $pdf->allow_charset_conversion = true;
-        $pdf->WriteHTML($cssContents, 1);
-        $pdf->charset_in = 'ISO-8859-1';
-
-        if (!mb_check_encoding($html, 'ISO-8859-1')) {
-            $pdf->charset_in = 'UTF-8';
-        }
-
-        $pdf->WriteHTML($html, 2);
-        $pdf->Output();
-        die;
     }
 }

@@ -20,9 +20,9 @@ class UploadController extends MinC_Controller_Action_Abstract
     private $cod = null;
     private $blnProponente = false;
     private $intFaseProjeto = 0;
-    private $cpfLogado = 0;
-    private $idResponsavel = 0;
-    private $idAgente = 0;
+    protected $cpfLogado = 0;
+    protected $idResponsavel = 0;
+    protected $idAgente = 0;
     private $authIdentity;
 
     /**

@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Class Parecer
- * @author augusto
- * @author Vinícius Feitosa da Silva <viniciusfesil@mail.com>
- * @since
- */
 class Parecer extends MinC_Db_Table_Abstract
 {
     protected $_schema = 'SAC';

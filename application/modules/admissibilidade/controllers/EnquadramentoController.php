@@ -1,12 +1,8 @@
 <?php
 
-class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abstract implements MinC_Assinatura_Controller_IDocumentoAssinaturaController
+class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abstract
 {
     private $idPronac;
-    /**
-     * @var MinC_Assinatura_Documento_IDocumentoAssinatura $servicoDocumentoAssinatura
-     */
-    private $servicoDocumentoAssinatura;
 
     public function init()
     {
@@ -14,20 +10,6 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
         parent::init();
         $this->auth = Zend_Auth::getInstance();
         $this->grupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
-    }
-
-    /**
-     * @return Admissibilidade_EnquadramentoDocumentoAssinaturaController
-     */
-    public function obterServicoDocumentoAssinatura()
-    {
-        if (!isset($this->servicoDocumentoAssinatura)) {
-            require_once __DIR__ . DIRECTORY_SEPARATOR . "EnquadramentoDocumentoAssinatura.php";
-            $this->servicoDocumentoAssinatura = new Admissibilidade_EnquadramentoDocumentoAssinaturaController(
-                $this->getRequest()->getPost()
-            );
-        }
-        return $this->servicoDocumentoAssinatura;
     }
 
     public function indexAction()
@@ -192,18 +174,33 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
     {
         $get = $this->getRequest()->getParams();
         $post = $this->getRequest()->getPost();
-        $servicoDocumentoAssinatura = $this->obterServicoDocumentoAssinatura();
+
+
 
         if (isset($get['IdPRONAC']) && !empty($get['IdPRONAC']) && $get['encaminhar'] == 'true') {
-            $servicoDocumentoAssinatura->idPronac = $get['IdPRONAC'];
-            $servicoDocumentoAssinatura->encaminharProjetoParaAssinatura();
-            parent::message('Projeto encaminhado com sucesso.', '/admissibilidade/enquadramento/encaminhar-assinatura', 'CONFIRM');
+            $servicoDocumentoAssinatura = new \Application\Modules\Admissibilidade\Service\Assinatura\DocumentoAssinatura(
+                $get['IdPRONAC'],
+                Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ENQUADRAMENTO
+            );
+            $servicoDocumentoAssinatura->iniciarFluxo();
+            parent::message(
+                'Projeto encaminhado com sucesso.',
+                '/admissibilidade/enquadramento/encaminhar-assinatura',
+                'CONFIRM'
+            );
         } elseif (isset($post['IdPRONAC']) && is_array($post['IdPRONAC']) && count($post['IdPRONAC']) > 0) {
             foreach ($post['IdPRONAC'] as $idPronac) {
-                $servicoDocumentoAssinatura->idPronac = $idPronac;
-                $servicoDocumentoAssinatura->encaminharProjetoParaAssinatura();
+                $servicoDocumentoAssinatura = new \Application\Modules\Admissibilidade\Service\Assinatura\DocumentoAssinatura(
+                    $idPronac,
+                    Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ENQUADRAMENTO
+                );
+                $servicoDocumentoAssinatura->iniciarFluxo();
             }
-            parent::message('Projetos encaminhados com sucesso.', '/admissibilidade/enquadramento/encaminhar-assinatura', 'CONFIRM');
+            parent::message(
+                'Projetos encaminhados com sucesso.',
+                '/admissibilidade/enquadramento/encaminhar-assinatura',
+                'CONFIRM'
+            );
         }
     }
 
@@ -214,7 +211,8 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
 
         $this->view->dados = array();
         $ordenacao = array("dias desc");
-        $dados = $enquadramento->obterProjetosEnquadradosParaAssinatura($this->grupoAtivo->codOrgao, $ordenacao);
+        $situacoes = ['B02', 'B03'];
+        $dados = $enquadramento->obterProjetosEnquadradosParaAssinatura($this->grupoAtivo->codOrgao, $situacoes, $ordenacao);
 
         foreach ($dados as $dado) {
             $dado->desistenciaRecursal = $enquadramento->verificarDesistenciaRecursal($dado->IdPRONAC);

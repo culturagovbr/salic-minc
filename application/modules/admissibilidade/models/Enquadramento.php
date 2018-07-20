@@ -144,7 +144,7 @@ class Admissibilidade_Model_Enquadramento extends MinC_Db_Table_Abstract
         return $this->_db->fetchAll($select);
     }
 
-    public function obterProjetosEnquadradosParaAssinatura($codOrgao, $order = null, $limit = null)
+    public function obterProjetosEnquadradosParaAssinatura($codOrgao, array $situacoes = [], $order = null)
     {
         $select = $this->select();
         $this->_db->setFetchMode(Zend_DB::FETCH_OBJ);
@@ -170,15 +170,41 @@ class Admissibilidade_Model_Enquadramento extends MinC_Db_Table_Abstract
             $this->_schema
         );
 
-        $select->joinLeft(array('tbAvaliacaoProposta' => 'tbAvaliacaoProposta'), 'tbAvaliacaoProposta.idProjeto = projetos.idProjeto and tbAvaliacaoProposta.stEstado = 0', array(), $this->_schema);
-        $select->joinLeft(array('Usuarios' => 'Usuarios'), 'tbAvaliacaoProposta.idTecnico = Usuarios.usu_codigo', array('Usuarios.usu_nome'), $this->getSchema('Tabelas'));
-        $select->joinInner(array('Area' => 'Area'), 'Area.Codigo = projetos.Area', array('Area.Descricao AS area'));
-        $select->joinLeft(array('Segmento' => 'Segmento'), 'Segmento.Codigo = projetos.Segmento', array('Segmento.Descricao AS segmento', 'Segmento.tp_enquadramento'));
-        $select->where("projetos.situacao in ( ? )", array('B02', 'B03'));
+        $select->joinLeft(
+            array('tbAvaliacaoProposta' => 'tbAvaliacaoProposta'),
+            'tbAvaliacaoProposta.idProjeto = projetos.idProjeto and tbAvaliacaoProposta.stEstado = 0',
+            array(),
+            $this->_schema
+        );
+        $select->joinLeft(
+
+            array('Usuarios' => 'Usuarios'),
+            'tbAvaliacaoProposta.idTecnico = Usuarios.usu_codigo',
+            array('Usuarios.usu_nome'),
+            $this->getSchema('Tabelas')
+        );
+        $select->joinInner(
+            array('Area' => 'Area'),
+            'Area.Codigo = projetos.Area',
+            array('Area.Descricao AS area')
+        );
+        $select->joinLeft(
+            array('Segmento' => 'Segmento'),
+            'Segmento.Codigo = projetos.Segmento',
+            array('Segmento.Descricao AS segmento', 'Segmento.tp_enquadramento')
+        );
+        if(count($situacoes) > 0 ) {
+            $select->where(
+                "projetos.situacao in ( ? )",
+                $situacoes
+            );
+        }
         $select->where("projetos.Orgao = ?", $codOrgao);
 
-        !empty($order) ? $select->order($order) : null;
-        !empty($limit) ? $select->limit($limit) : null;
+        if(!empty($order)) {
+            $select->order($order);
+        }
+
         return $this->_db->fetchAll($select);
     }
 

@@ -5,21 +5,58 @@
 <div class="container-fluid" id="app-comprovante">
     <page-title></page-title>
     <div class="row">
-       <div class="col s12">
-        <dados-comprovante
-            idpronac="<?php echo $this->idPronac ?>"
-            produto="<?php echo $this->codigoProduto?>"
-            stitemavaliado="<?php echo $this->stItemAvaliado ?>"
-            uf="<?php echo $this->uf ?>"
-            idmunicipio="<?php echo $this->municipio ?>"
-            idplanilhaitem ="<?php echo $this->idPlanilhaItem ?>"
-        >
-        </dados-comprovante>
-       </div>
+        <div class="col s12">
+            <dados-comprovante
+				idpronac="<?php echo $this->idPronac ?>"
+				produto="<?php echo $this->codigoProduto ?>"
+				stitemavaliado="<?php echo $this->stItemAvaliado ?>"
+				uf="<?php echo $this->uf ?>"
+				idmunicipio="<?php echo $this->municipio ?>"
+				idplanilhaitem="<?php echo $this->idPlanilhaItem ?>"
+			>
+            </dados-comprovante>
+        </div>
     </div>
 </div>
 
 <script>
+    const formatValue = {
+        props: [
+            'value',
+        ],
+        template: `
+            <div>
+                R$  {{formatValue(value)}}
+            </div>
+        `,
+        methods: {
+            formatValue(value) {
+                if (value === undefined) {
+                    return '0,00';
+                }
+
+                if (value.indexOf('.') === -1) {
+                    return this.formatValueWithoutCents(value);
+                }
+
+                return this.formatValueWithCents(value);
+            },
+            formatValueWithoutCents(value) {
+                const valueWithCents = value.concat(',00');
+                const result = valueWithCents.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                return result;
+            },
+            formatValueWithCents(value) {
+                const valueParsedToFloat = parseFloat(value).toFixed(2);
+                const valueParsedToString = valueParsedToFloat.toString();
+                const valueChangedPointByComma = valueParsedToString.replace('.', ',');
+                const result = valueChangedPointByComma.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+                return result;
+            },
+        },
+    };
+
     const projeto = {
         template: `
             <div class="card">
@@ -28,7 +65,7 @@
                     <table class="tabela">
                         <tbody>
                             <tr>
-                                <td ><b>Produto:</b></td>
+                                <th>Produto:</th>
                                 <td>{{projeto.Produto}}</td>
                                 <th>Etapa:</th>
                                 <td>{{projeto.Etapa}}</td>
@@ -37,18 +74,21 @@
                             </tr>
                             <tr>
                                 <th>Valor Aprovado:</th>
-                                <td>R$ {{projeto.vlAprovado}}</td>
+                                <td><formatValue :value="projeto.vlAprovado"></formatValue></td>
                                 <th>Valor Comprovado:</th>
-                                <td>R$ {{projeto.vlComprovado}}</td>
+                                <td><formatValue :value="projeto.vlComprovado"></formatValue></td>
                                 <th>Comprovação Validada:</th>
-                                <td>R$ </td>
+                                <td><formatValue :value="projeto.ComprovacaoValidada"></formatValue></td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         `,
-        props:[
+        components: {
+            'formatValue': formatValue,
+        },
+        props: [
             'idpronac',
             'idplanilhaitem',
             'uf',
@@ -64,25 +104,26 @@
         },
         mounted: function () {
             var vue = this;
-            url = '/prestacao-contas/planilha-aprovacao/idpronac/' + this.idpronac;
+
+            url = '/prestacao-contas/planilha-aprovacao/get';
             $3.ajax({
-              type: "GET",
-              url:url,
-              data: {
-                  idPronac: this.idpronac,
-                  idPlanilhaItem: this.idplanilhaitem,
-                  produto: this.produto,
-                  uf: this.uf,
-                  idmunicipio: this.idmunicipio,
-              }
+                type: "GET",
+                url: url,
+                data: {
+                    idPronac: this.idpronac,
+                    idPlanilhaItem: this.idplanilhaitem,
+                    produto: this.produto,
+                    uf: this.uf,
+                    idmunicipio: this.idmunicipio,
+                }
             })
-            .done(function(data) {
-                vue.projeto = data.data;
-            })
-            .fail(function(jqXHR) {
-                alert('error');
-            });
-        }
+                .done(function (data) {
+                    vue.projeto = data.data;
+                })
+                .fail(function (jqXHR) {
+                    alert('error');
+                });
+        },
     }
 
     const comprovanteForm = {
@@ -99,7 +140,7 @@
                                 :id="('situacao-1_' + idcomprovantepagamento)"
                                 value="1"
                            >
-                           <label :for="('situacao-1_' + idcomprovantepagamento)">Validadar</label>
+                           <label :for="('situacao-1_' + idcomprovantepagamento)">Validar</label>
                            <input
                                 :checked="avaliacao.situacao == situacao"
                                 v-model="avaliacao.situacao"
@@ -109,19 +150,28 @@
                             >
                             <label :for="('situacao-3_' + idcomprovantepagamento)">Recusar</label>
                         </p>
-                        <div class="row">
-                             <div class="input-field col s12">
-                                <textarea v-model="avaliacao.observacao"
-                                    id="comprovantePagamento_observacao"
-                                    rows="10" cols="100"
-                                    class="materialize-textarea">
-                                    ocorrencia
-                                </textarea>
-                                <label><b>Ocorrência do Técnico</b></label>
+                        <div style="margin-top: 10px">
+                            <div class="form-group">
+                                <div class="row">
+                                     <div class="input-field col s12">
+                                        <label class="label label-primary">
+                                            <h4>
+                                                Ocorrência do Técnico
+                                            </h4>
+                                        </label>
+                                        <textarea v-model="avaliacao.observacao"
+                                            id="comprovantePagamento_observacao"
+                                            rows="10" cols="100"
+                                            class="form-control materialize-textarea"
+                                            style="margin-top: 20px">
+                                            ocorrencia
+                                        </textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="card-action">
-                            <button @click.prevent="salvar" type="submit" class="waves-effect waves-light btn-flat" value="">
+                            <button @click.prevent="salvar" type="submit" class="waves-effect waves-light btn btn-success" value="">
                                 salvar
                             </button>
                         </div>
@@ -129,8 +179,8 @@
                 </div>
             </div>
         `,
-        props:['idcomprovantepagamento', 'idpronac', 'situacao', 'observacao', 'index'],
-        data: function() {
+        props: ['idcomprovantepagamento', 'idpronac', 'situacao', 'observacao', 'index'],
+        data: function () {
             return {
                 avaliacao: {
                     observacao: this.observacao,
@@ -142,20 +192,20 @@
             }
         },
         methods: {
-            salvar: function() {
+            salvar: function () {
                 var vue = this;
-                url = '/prestacao-contas/comprovante-pagamento';
+                url = '/prestacao-contas/comprovante-pagamento/post';
                 $3.ajax({
-                  type: "POST",
-                  url:url,
-                  data: this.avaliacao
+                    type: "POST",
+                    url: url,
+                    data: this.avaliacao
                 })
-                .done(function(data) {
-                    vue.$parent.$emit('salvar-form',vue.$data.avaliacao );
-                })
-                .fail(function(jqXHR) {
-                    alert('error');
-                });
+                    .done(function (data) {
+                        vue.$parent.$emit('salvar-form', vue.$data.avaliacao);
+                    })
+                    .fail(function (jqXHR) {
+                        alert('error');
+                    });
             }
         }
     }
@@ -194,7 +244,7 @@
                         </tr>
                         <tr>
                             <th>Valor</th>
-                            <td>R$  {{valor}}</td>
+                            <td><formatValue :value="valor"></formatValue></td>
                             <th>Arquivo</th>
                             <td colspan="5">
                                 <a :href="'/upload/abrir/id/' + dados.idArquivo">{{dados.nmArquivo}}</a>
@@ -208,14 +258,17 @@
                 </table>
             </div>
         `,
+        components: {
+            'formatValue': formatValue,
+        },
         computed: {
             CNPJCPF() {
                 CNPJCPF = null;
 
                 if (this.dados.CNPJCPF.length > 11) {
-                    CNPJCPF = this.dados.CNPJCPF.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,'$1.$2.$3/$4-$5');
+                    CNPJCPF = this.dados.CNPJCPF.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
                 } else {
-                    CNPJCPF = this.dados.CNPJCPF.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/,'$1.$2.$3-$4');
+                    CNPJCPF = this.dados.CNPJCPF.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
                 }
 
                 return CNPJCPF;
@@ -229,8 +282,8 @@
             valor() {
                 return parseFloat(this.dados.vlComprovacao).toFixed(2);
             }
-        }
-    }
+        },
+    };
 
     const comprovantes = {
         template: `
@@ -238,7 +291,8 @@
                 <ul class="collapsible" data-collapsible="accordion">
                     <li v-for="(dado, index) in dados">
                       <div class="collapsible-header">
-                          Fornecedor: {{dado.Descricao}} - {{dado.vlComprovacao}}
+                          <div style="margin-right:5px;">Fornecedor: {{dado.Descricao}} - </div>
+                          <div><formatValue :value="dado.vlComprovacao"></formatValue></div>
                           <span :class="['badge white-text', badgeCSS(dado.stItemAvaliado)]">
                             {{situacao(dado.stItemAvaliado)}}
                           </span>
@@ -262,13 +316,14 @@
                 </ul>
             </div>
         `,
-        components:{
+        components: {
             'comprovante-form': comprovanteForm,
-            'comprovante-table': comprovanteTable
+            'comprovante-table': comprovanteTable,
+            'formatValue': formatValue,
         },
         props: ['dados'],
-        methods:{
-            badgeCSS: function(id) {
+        methods: {
+            badgeCSS: function (id) {
                 if (id == 1) {
                     return {
                         'green ': true,
@@ -285,21 +340,21 @@
                     }
                 }
             },
-            situacao: function(id) {
+            situacao(id) {
                 estado = null;
-                switch(parseInt(id)) {
+                switch (parseInt(id)) {
                     case 1:
-                         estado = 'Aprovado';
+                        estado = 'Aprovado';
                         break;
                     case 3:
-                        estado =  'Recusado'
+                        estado = 'Recusado'
                         break;
                     default:
-                        estado =  'N\xE3o avaliado';
+                        estado = 'N\xE3o avaliado';
                 }
                 return estado;
-            }
-        }
+            },
+        },
     }
 
     const dadosComprovante = {
@@ -329,7 +384,7 @@
                 </comprovantes>
             </div>
         `,
-        components:{
+        components: {
             'comprovantes': comprovantes,
             'pc-projeto': projeto
         },
@@ -337,31 +392,31 @@
             var vue = this;
             url = '/prestacao-contas/comprovante-pagamento';
             $3.ajax({
-              type: "GET",
-              url:url,
-              data:{
-                  idPronac: this.idpronac,
-                  idPlanilhaItem: this.idplanilhaitem,
-                  produto: this.produto,
-                  uf: this.uf,
-                  idmunicipio: this.idmunicipio,
-                  /* stItemAvaliado: 4 */
-              }
+                type: "GET",
+                url: url,
+                data: {
+                    idPronac: this.idpronac,
+                    idPlanilhaItem: this.idplanilhaitem,
+                    produto: this.produto,
+                    uf: this.uf,
+                    idmunicipio: this.idmunicipio,
+                    /* stItemAvaliado: 4 */
+                }
             })
-            .done(function(data) {
-                vue.$data.dados = data.data;
-            })
-            .fail(function(jqXHR) {
-                alert('error');
-            });
+                .done(function (data) {
+                    vue.$data.dados = data.data;
+                })
+                .fail(function (jqXHR) {
+                    alert('error');
+                });
         },
         data: function () {
             return {
-                dados:[]
+                dados: []
             }
         },
-        methods:{
-            mudarDados: function(event) {
+        methods: {
+            mudarDados: function (event) {
                 d = this.dados[event.index];
                 d['stItemAvaliado'] = event.situacao;
                 this.$set(this.dados, event.index, d);
@@ -370,7 +425,7 @@
     }
 
     const appComprovante = new Vue({
-        components: { 'dados-comprovante': dadosComprovante }
+        components: {'dados-comprovante': dadosComprovante}
     }).$mount('#app-comprovante');
 
 </script>

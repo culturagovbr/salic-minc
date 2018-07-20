@@ -2,7 +2,7 @@
 
 class AreadetrabalhoController extends MinC_Controller_Action_Abstract
 {
-    private $idAgente = 0;
+    protected $idAgente = 0;
 
     /**
      * Reescreve o metodo init()

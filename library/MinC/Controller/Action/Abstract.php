@@ -1,25 +1,13 @@
 <?php
-
-/**
- * Controle Gen?rico (Utilizado por todos os controles)
- * Trata as mensagens do sistema
- * @since 12/08/2010
- * @version 2.0
- * @package application
- * @subpackage application.controllers
- * @copyright ? 2010 - Minist?rio da Cultura - Todos os direitos reservados.
- * @link http://www.cultura.gov.br
- */
 abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
 {
     protected $_msg;
     protected $_url;
     protected $_type;
     protected $_urlPadrao;
-    private $idResponsavel = 0;
-    private $idAgente = 0;
-    private $idUsuario = 0;
-
+    protected $idResponsavel = 0;
+    protected $idAgente = 0;
+    protected $idUsuario = 0;
     protected $moduleName;
 
     /**
@@ -62,6 +50,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
             $this->view->idAgente = $idAgente;
         }
 //        @$cpf = isset($auth->getIdentity()->usu_codigo) ? $auth->getIdentity()->usu_identificacao : $auth->getIdentity()->Cpf;
+        //
         $cpf = isset($arrAuth['usu_codigo']) ? $arrAuth['usu_identificacao'] : $arrAuth['cpf'];
 
         if ($cpf) {
@@ -79,7 +68,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
             $agente = $tblAgentes->findBy(array('cnpjcpf' => $cpf));
 
             if ($acessos) {
-                $this->idResponsavel = $acessos['idUsuario'];
+                $this->idResponsavel = $acessos['IdUsuario'];
             }
             if ($agente) {
                 $this->idAgente = $agente['idAgente'];

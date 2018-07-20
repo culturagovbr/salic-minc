@@ -1,3 +1,18 @@
+<style>
+    .dt-button {
+        left: 234px;
+        top: 33px;
+    }
+
+    div.expansivel {
+        display: none;
+    }
+
+    table.dataTable tbody td.no-padding {
+        padding: 0;
+    }
+</style>
+
 <main>
     <?php
     $links = array(
@@ -5,7 +20,7 @@
     );
     ?>
     <div class="content padding20 clearfix">
-        <?php if (is_array($this->dados) && count($this->dados) > 0) : ?>
+
         <div class="row">
             <div class="col s10">
                 <?php gerarBreadCrumb($links); ?>
@@ -13,281 +28,277 @@
         </div>
         <div class="row">
             <div class="col s12">
-                <form method="get"
-                      class="materialize"
-                      id="formGerenciamentoPropostas"
-                      action="<?php echo $this->url(
-                          array(
-                              'module' => 'assinatura',
-                              'controller' => 'index',
-                              'action' => 'assinar-projeto'
-                          ),
-                          '',
-                          true);
-                      ?>"
-                      onsubmit="return false;">
-                    <input type="hidden" id="idTipoDoAtoAdministrativo" name="idTipoDoAtoAdministrativo" />
-                    <table class="bordered margin0" id="enquadramento">
-                        <thead>
-                        <tr class="">
-                            <th class="center-align" style="padding-left: 20px">
-                                <input type="checkbox"
-                                       name="marcarDesmarcarCheckbox"
-                                       id="marcarDesmarcarCheckbox"
-                                       class="filled-in"/>
-                                <label id="marcarDesmarcarCheckboxLabel"
-                                       for="marcarDesmarcarCheckbox"></label>
-                            </th>
-                            <th align="center" width="40" class="center-align">PRONAC</th>
-                            <th class="center-align">Nome do Projeto</th>
-                            <th class="center-align">&Aacute;rea</th>
-                            <th class="center-align">Segmento</th>
-                            <th class="center-align">Dias</th>
-                            <th class="center-align" align="center">Tipo</th>
-                            <th class="center-align" align="center">Ver</th>
-                            <th class="center-align" align="center">Assinar</th>
-                            <th class="center-align" align="center">Movimentar</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($this->dados as $dado): ?>
-                            <tr>
-                                <td class="center-align" style="padding-left: 20px">
-                                    <?php
-                                    if (is_null($dado['possuiAssinatura'])) : ?>
-                                        <input type="checkbox"
-                                               name="IdPRONAC[]"
-                                               id="IdPRONAC<?php echo $dado['IdPRONAC'] ?>"
-                                               class="checkbox_legal filled-in"
-                                               value="<?php echo $dado['IdPRONAC'] ?>"
-                                               data-idtipoatoadministrativo="<?php echo $dado['idTipoDoAtoAdministrativo'] ?>"
-                                        />
-                                        <label for="IdPRONAC<?php echo $dado['IdPRONAC'] ?>"></label>
-                                    <?php endif; ?>
-                                </td>
-                                <td class="center-align" align="center">
-                                    <a class="waves-effect waves-dark btn white black-text"
-                                       href="<?php echo $this->url(
-                                               array(
-                                                   'module' => 'default',
-                                                   'controller' => 'consultardadosprojeto',
-                                                   'action' => 'index'
-                                               )
-                                           ) . "?idPronac={$dado['IdPRONAC']}"; ?>"><u><?php echo $dado['pronac']; ?></u></a>
-                                </td>
-                                <td class="center-align" align="center"><?php echo $dado['nomeProjeto']; ?></td>
-                                <td class="center-align" align="center"><?php echo $dado['area']; ?></td>
-                                <td class="center-align" align="center"><?php echo $dado['segmento']; ?></td>
-                                <td class="center-align" align="center"><?php echo $dado['dias']; ?></td>
-                                <td class="center-align"
-                                    align="center"><?php echo $dado['tipoDoAtoAdministrativo']; ?></td>
-                                <td class="center-align" align="center">
-                                    <?php
-                                    $parametrosVisualicacao = "?idDocumentoAssinatura={$dado['idDocumentoAssinatura']}";
-                                    ?>
-                                    <a class="btn waves-effect waves-light tooltipped small "
-                                       href="<?php echo $this->url(array(
-                                               'module' => 'assinatura',
-                                               'controller' => 'index',
-                                               'action' => 'visualizar-projeto'
-                                           )) . $parametrosVisualicacao ?>"
-                                       data-position="top"
-                                       data-delay="50"
-                                       data-tooltip="Visualizar">
-                                        <i class="material-icons">search</i>
-                                    </a>
-                                </td>
-                                <td class="center-align" align="center">
-                                    <?php
-                                    $parametrosAssinatura = "?IdPRONAC={$dado['IdPRONAC']}&idTipoDoAtoAdministrativo={$dado['idTipoDoAtoAdministrativo']}";
-                                    if (is_null($dado['possuiAssinatura'])) :
-                                        ?>
-                                        <a class="btn waves-effect waves-light tooltipped small"
-                                           href="<?php echo $this->url(
-                                                   array(
-                                                       'module' => 'assinatura',
-                                                       'controller' => 'index',
-                                                       'action' => 'assinar-projeto'
-                                                   )
-                                               ) . $parametrosAssinatura ?>"
-                                           data-position="top"
-                                           data-delay="50"
-                                           data-tooltip="Assinar">
-                                            <i class="material-icons">create</i>
-                                        </a>
-                                    <?php endif; ?>
-                                </td>
-                                <td class="center-align" align="center">
-                                    <?php
-                                    $parametrosAssinatura = "?IdPRONAC={$dado['IdPRONAC']}&idTipoDoAtoAdministrativo={$dado['idTipoDoAtoAdministrativo']}";
-                                    if (!is_null($dado['possuiProximaAssinatura'])):
-                                        ?>
-                                        <a class="btn waves-effect waves-light tooltipped small btn modal-trigger"
-                                           href="#modalConfirmacao"
-                                           data-redirect-url="<?php echo $this->url(
-                                                   array(
-                                                       'module' => 'assinatura',
-                                                       'controller' => 'index',
-                                                       'action' => 'movimentar-projeto'
-                                                   )
-                                               ) . $parametrosAssinatura ?>"
-                                           data-nrpronac="<?php echo $dado['pronac']; ?>"
-                                           data-position="top"
-                                           data-delay="50"
-                                           data-tooltip="Movimentar">
-                                            <i class="material-icons">arrow_forward</i>
-                                        </a>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                    <div class="center-align" id="divAssinaturaEmMassa"
-                         style="display: none;">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">
-                            Assinar em massa <i class="material-icons right">send</i>
-                        </button>
-                    </div>
-                </form>
-
-            </div>
-        </div>
-    </div>
-<?php else: ?>
-    <div class="row">
-        <div class="col s1"></div>
-        <div class="col s10">
-            <div class="padding20 green white-text">Sem assinaturas para a unidade atual.</div>
-        </div>
-        <div class="col s11"></div>
-    </div>
-<?php endif; ?>
-
-    <div id="conteudoDialogoModal">
-
-        <div id="modalConfirmacao" class="modal modal-fixed-footer">
-            <div class="modal-content">
-                <h4>Confirma&ccedil;&atilde;o</h4>
-                <p>Tem certeza que deseja movimentar ao projeto <span class="bold" id="nrPronacConfirmacao"></span> ?
-                </p>
-            </div>
-            <div class="modal-footer">
-                <a href="#!" id="botaoConfirmacaoEncaminhamento"
-                   class="modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
-                <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">N&atilde;o</a>
+                <table class="stripped" id="assinaturaProjetos">
+                    <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox"
+                                   name="marcarDesmarcarCheckbox"
+                                   id="marcarDesmarcarCheckbox"
+                                   class="filled-in"/>
+                            <label id="marcarDesmarcarCheckboxLabel"
+                                   for="marcarDesmarcarCheckbox"></label>
+                        </th>
+                        <th>&nbsp</th>
+                        <th align="center" width="40">PRONAC</th>
+                        <th>Nome do Projeto</th>
+                        <th>&Aacute;rea / Segmento</th>
+                        <th>Dias</th>
+                        <th>Tipo</th>
+                        <th>A&ccedil;&atilde;o</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <div class="center-align" id="divAssinaturaEmMassa"
+                     style="display: none;">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">
+                        Assinar em massa <i class="material-icons right">send</i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
 
-    <script>
-        $3(document).ready(function () {
-            $3('.modal').modal({
-                    dismissible: true,
-                    opacity: .5,
-                    inDuration: 300,
-                    outDuration: 200,
-                    startingTop: '4%',
-                    endingTop: '10%',
-                    ready: function (modal, trigger) {
-                        $(modal).find('#nrPronacConfirmacao').html($3(trigger).data('nrpronac'));
-                        $(modal).find('#botaoConfirmacaoEncaminhamento').attr('href', $3(trigger).data('redirectUrl'));
-                    }
-//                    ,complete: function() {
-//                        alert('Closed');
-//                    } // Callback for Modal close
-                }
-            );
-        });
-    </script>
-
-    <br clear="all"/>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"
-            integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
-            crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.material.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="/public/js/moment.js"></script>
+    <script type="text/javascript" src="/public/scripts/layout/datatables.min.js"></script>
+    <script src="/public/js/dataTables.buttons.min.js" type="text/javascript"></script>
+    <script src="/public/js/buttons.print.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="/public/css/layout/datatables.min.css"/>
 
     <script type="text/javascript">
         (function ($) {
-
             $(document).ready(function () {
-                $('#enquadramento').DataTable({
-                    "language": {
-                        "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
-                    }
-                    , "order": [0, 1]
-                    , "searching": true
-                    , "lengthChange": true
-                    , columnDefs: [{
-                        targets: [0, 1],
-                        className: 'mdl-data-table__cell--non-numeric'
-                    }]
-                    ,
-                    "aoColumnDefs": [
-                        {'bSortable': false, 'aTargets': [0, 1, 2, 3]}
-                    ]
-                });
-                $3("#marcarDesmarcarCheckboxLabel").click(function () {
-                    utilitarios.marcarDesmarcarCheckBoxesMaterialize($3("#marcarDesmarcarCheckbox"), ".checkbox_legal");
+
+                $(document).on('click', "#marcarDesmarcarCheckboxLabel", function () {
+                    $3('.checkbox_legal').prop("checked", !$3($("#marcarDesmarcarCheckbox")).prop("checked"));
                     tratarExibicaoCheckboxChecados('.checkbox_legal', '#divAssinaturaEmMassa');
                 });
 
                 function tratarExibicaoCheckboxChecados(seletorCheckboxes, seletorExibicao) {
                     var quantidadeCheckboxChecados = $(seletorCheckboxes).filter(':checked').length;
+                    $(seletorExibicao).hide('fast');
                     if (quantidadeCheckboxChecados > 0) {
-                        $3(seletorExibicao).show('fast');
-                    } else {
-                        $3(seletorExibicao).hide('fast');
+                        $(seletorExibicao).show('fast');
                     }
                 }
 
-                $3('.checkbox_legal').click(function () {
 
+                $('#expansivelHomologacao').on('click', '.checkbox_legal', function () {
+                    alert('asdasd');
+                });
+
+                $(document).on('click', '.checkbox_legal', function () {
                     var quantidadeCheckBoxesSelecionados = $('.checkbox_legal').filter(':checked').length;
                     var isCheckBoxAtualSelecionado = ($(this).filter(':checked').length > 0);
 
-                    if(quantidadeCheckBoxesSelecionados == 1) {
+                    $("#idTipoDoAtoAdministrativo").val(null);
+                    if (quantidadeCheckBoxesSelecionados == 1) {
                         $("#idTipoDoAtoAdministrativo").val($(this).data('idtipoatoadministrativo'))
-                    } else if(quantidadeCheckBoxesSelecionados > 1) {
-                        if(isCheckBoxAtualSelecionado && $(this).data('idtipoatoadministrativo') != $("#idTipoDoAtoAdministrativo").val()) {
+                    } else if (quantidadeCheckBoxesSelecionados > 1) {
+                        if (isCheckBoxAtualSelecionado && $(this).data('idtipoatoadministrativo') != $("#idTipoDoAtoAdministrativo").val()) {
                             Materialize.toast("O Encaminhamento em massa só é permitido para projetos com o mesmo Tipo de Ato Administrativo.", 4000);
                             $(this).trigger('click');
                         }
-                    } else {
-                        $("#idTipoDoAtoAdministrativo").val(null);
                     }
-
                     tratarExibicaoCheckboxChecados('.checkbox_legal', '#divAssinaturaEmMassa');
                 });
 
-                $3("#formGerenciamentoPropostas").validate({
-                    rules: {
-                        marcarDesmarcarCheckbox: {
-                            validarPreenchimento: true
-                        }
-                    },
-                    messages: {
-                        marcarDesmarcarCheckbox: {
-                            validarPreenchimento: ""
-                        }
-                    },
 
-                    submitHandler: function (form) {
-                        $3("#container-progress").show();
-                        form.submit();
+                var assinaturaProjetos = $('#assinaturaProjetos').DataTable({
+                    dom: 'Blfrtip',
+                    buttons: [
+                        {
+                            title: '',
+                            text: '<i class="material-icons">print</i>',
+                            orientation: 'landscape',
+                            extend: 'print',
+                            className: 'waves-effect waves-dark btn white black-text',
+                            exportOptions: {
+                                columns: [2, 3, 4, 5, 6]
+                            }
+                        }
+                    ],
+                    initComplete: function () {
+                        this.api().columns().every(function () {
+                            var column = this;
+                            var searchIndex = 0;
+                            $("#seletorSelect").change(function () {
+                                if (column[0].includes(searchIndex)) {
+                                    column.search($("#seletorSelect").val()).draw();
+                                }
+                            });
+                        });
                     },
-                    invalidHandler: function (event, validator) {
-                        Materialize.toast("Selecione um item.", 4000);
-                    }
+                    "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                    },
+                    "ajax": {
+                        url: "/assinatura/index/gerenciar-assinatura-ajax/",
+                        data: {},
+                        type: "POST"
+                    },
+                    "autoWidth": false,
+                    "serverSide": true,
+                    // "columnDefs": [
+                    //     { "width": "1%", "targets": 0 },
+                    //     { "width": "20%", "targets": 2 },
+                    //     { "width": "10%", "targets": 3 },
+                    //     { "width": "5%", "targets": [5,6,7,9] },
+                    //     {"className": "dt-center", "targets": [0,1,3,4,5,6,7,8,9]},
+                    //     {'bSortable': false, 'aTargets': [0, 9]},
+                    // ],
+                    "searchDelay": 350,
+                    "columnDefs": [
+                        // { "width": "1%", "targets": 0 },
+                        // { "width": "20%", "targets": 2 },
+                        // { "width": "10%", "targets": 3 },
+                        // { "width": "5%", "targets": [5,6,7,9] },
+                        {"className": "dt-center", "targets": [0, 1, 2, 5, 7]},
+                        {'bSortable': false, 'aTargets': [0, 1, 7]},
+                    ],
+                    "columns": [
+                        {
+                            "targets": 0,
+                            "data": null,
+                            "name": "IdPRONAC",
+                            render: (data) => {
+                                let assinarEmMassa = '<input type="checkbox" ' +
+                                    'name="IdPRONAC[]" ' +
+                                    'id="IdPRONAC' + data.IdPRONAC + '"' +
+                                    'class="checkbox_legal filled-in"' +
+                                    'value="' + data.IdPRONAC + '" ' +
+                                    'data-idtipoatoadministrativo="' + data.idTipoDoAtoAdministrativo + '" ' +
+                                    '/> ' +
+                                    '<label for="IdPRONAC' + data.IdPRONAC + '" data-idtipoatoadministrativo="' + data.idTipoDoAtoAdministrativo + '">' +
+                                    '</label>';
+
+                                return assinarEmMassa;
+                            }
+                        },
+                        {
+                            "targets": 1,
+                            "data": null,
+                            "name": "IdPRONAC",
+                            render: () => {
+                                return '<button class="btn small waves-effect waves-light btn-secondary expand"><i class="material-icons">expand_more</i></button>';
+                            }
+                        },
+                        {
+                            "targets": 2,
+                            "data": null,
+                            "name": "pronac",
+                            render: (data) => {
+                                return '<a class="waves-effect waves-dark btn white black-text" ' +
+                                    'href="/consultardadosprojeto/index?idPronac=' + data.IdPRONAC + '"><u> ' +
+                                    data.pronac +
+                                    '</u></a>';
+                            }
+                        },
+                        {
+                            "targets": 3,
+                            "data": "nomeProjeto",
+                            "name": "nomeProjeto"
+                        },
+                        {
+                            "targets": 4,
+                            "data": null,
+                            "name": "area",
+                            render: (data) => {
+                                return data.area + ' / ' + data.segmento;
+                            }
+                        },
+                        {
+                            "targets": 5,
+                            "data": null,
+                            "name": "dias",
+                            render: (data) => {
+                                return (parseInt(data.dias, 10) > 1) ? data.dias + ' Dias' : '-';
+                            }
+                        },
+                        {
+                            "targets": 6,
+                            "data": 'tipoDoAtoAdministrativo',
+                            "name": 'tipoDoAtoAdministrativo',
+                        },
+                        {
+                            "targets": 7,
+                            "data": null,
+                            render: (data) => {
+                                let botaoVisualizar = '<a class="btn-floating waves-effect waves-light btn-primary tooltipped" ' +
+                                    ' href="/assinatura/index/visualizar-projeto?idDocumentoAssinatura=' + data.idDocumentoAssinatura + '"' +
+                                    ' data-position="top"' +
+                                    ' data-delay="50"' +
+                                    ' data-tooltip="Visualizar">' +
+                                    ' <i class="material-icons">search</i>' +
+                                    ' </a>';
+                                let botaoAssinar = '<a class="btn-floating waves-effect waves-light btn-primary tooltipped" ' +
+                                    ' href="/assinatura/index/assinar-projeto?IdPRONAC=' + data.IdPRONAC +
+                                    '&idTipoDoAtoAdministrativo=' + data.idTipoDoAtoAdministrativo + '"' +
+                                    ' data-position="top" ' +
+                                    ' data-delay="50" ' +
+                                    ' data-tooltip="Assinar"> ' +
+                                    ' <i class="material-icons">create</i> ' +
+                                    ' </a>';
+
+                                return '<div style="position: relative; height: 60px;">'
+                                    + '<div class="fixed-action-btn horizontal" style="position: absolute; top: 0px; right: 0; z-index: 996; padding: 15px 0 0 15px;">'
+                                    + '<a class="btn btn-primary small">'
+                                    + '<i class="material-icons">more_vert</i></a>'
+                                    + '<ul>'
+                                    + '<li>'
+                                    + botaoVisualizar
+                                    + botaoAssinar
+                                    + '</li>'
+                                    + '</ul>'
+                                    + '</div>';
+
+                                return stringBotoes;
+                            }
+                        },
+                    ]
                 });
 
-                $3.validator.addMethod("validarPreenchimento", function (value, element) {
-                    var checkbox = $('input[type=checkbox]:checked').filter('.checkbox_legal');
-                    if (checkbox.length > 0) {
-                        return true;
+                function informacoes(data) {
+                    return '<div class="expansivel">' +
+                        '<div class="col s12">' +
+                        '<div class="card">' +
+                        '<div class="card-content">' +
+                        '<div clas="row">' +
+                        '<b>Resumo do Projeto </b>' + data.ResumoProjeto +
+                        '</div>' +
+                        '<div clas="row">' +
+                        '<b>Tipo do ato administrativo: </b>' + data.tipoDoAtoAdministrativo +
+                        '</div>' +
+                        '<div clas="row">' +
+                        '<b>Quantidade de assinaturas: </b>' + data.quantidadeAssinaturas +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>' +
+                        '</div>';
+                }
+
+                $('#assinaturaProjetos tbody').on('click', '.expand', function () {
+                    var tr = $(this).closest('tr');
+                    var row = assinaturaProjetos.row(tr);
+
+                    if (row.child.isShown()) {
+                        $('div.expansivel', row.child()).slideUp(function () {
+                            row.child.hide();
+                            tr.removeClass('shown');
+                        });
+                        $(this).find('i').first().html('expand_more');
+                    } else {
+                        row.child(informacoes(row.data()), 'no-padding').show();
+                        tr.addClass('shown');
+                        $('div.expansivel', row.child()).slideDown();
+                        $(this).find('i').first().html('expand_less');
                     }
-                });
+                })
             });
         }($.noConflict(true)));
     </script>

@@ -3,6 +3,7 @@
 class Admissibilidade_EnquadramentoAssinaturaController extends Assinatura_GenericController
 {
     private $idTipoDoAtoAdministrativo;
+    private $grupoAtivo;
 
     private function validarPerfis()
     {
@@ -77,39 +78,16 @@ class Admissibilidade_EnquadramentoAssinaturaController extends Assinatura_Gener
                 if (!$post['motivoDevolucao']) {
                     throw new Exception("Campo 'Motivação da Devolução para nova avaliação' não informado.");
                 }
-                $objTbDepacho = new Proposta_Model_DbTable_TbDespacho();
-                $objTbDepacho->devolverProjetoEncaminhadoParaAssinatura($get->IdPRONAC, $post['motivoDevolucao']);
 
-                $objOrgaos = new Orgaos();
-                $orgaoSuperior = $objOrgaos->obterOrgaoSuperior($this->view->projeto['Orgao']);
-
-                $orgaoDestino = Orgaos::ORGAO_SAV_DAP;
-                if ($orgaoSuperior['Codigo'] == Orgaos::ORGAO_SUPERIOR_SEFIC) {
-                    $orgaoDestino = Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI;
-                }
-
-                $objTbProjetos->alterarOrgao($orgaoDestino, $get->IdPRONAC);
-                $objProjetos = new Projetos();
-                $objProjetos->alterarSituacao(
-                    $get->IdPRONAC,
-                    null,
-                    Projeto_Model_Situacao::PROJETO_DEVOLVIDO_PARA_ENQUADRAMENTO,
-                    'Projeto encaminhado para nova avalia&ccedil;&atilde;o do enquadramento'
+                $assinaturaService = new \MinC\Assinatura\Servico\Assinatura(
+                    [
+                        'Despacho' => $post['motivoDevolucao'],
+                        'idTipoDoAto' => $this->idTipoDoAtoAdministrativo,
+                        'idPronac' => $get->IdPRONAC,
+                        'idPerfilDoAssinante' => $this->grupoAtivo->codGrupo
+                    ]
                 );
-
-                $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
-                $data = array(
-                    'cdSituacao' => Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_FECHADO_PARA_ASSINATURA,
-                    'stEstado' => Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_INATIVO
-                );
-                $where = array(
-                    'IdPRONAC = ?' => $get->IdPRONAC,
-                    'idTipoDoAtoAdministrativo = ?' => $this->idTipoDoAtoAdministrativo,
-                    'cdSituacao = ?' => Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA,
-                    'stEstado = ?' => Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO
-                );
-
-                $objModelDocumentoAssinatura->update($data, $where);
+                $assinaturaService->devolver();
 
                 parent::message('Projeto devolvido com sucesso.', "/{$this->moduleName}/enquadramento-assinatura/gerenciar-assinaturas", 'CONFIRM');
             }
@@ -155,72 +133,14 @@ class Admissibilidade_EnquadramentoAssinaturaController extends Assinatura_Gener
                 throw new Exception("Identificador do projeto é necessário para acessar essa funcionalidade.");
             }
 
-            $objProjetos = new Projetos();
-            $objProjetos->alterarSituacao(
-                $get->IdPRONAC,
-                null,
-                Projeto_Model_Situacao::PROJETO_APROVADO_AGUARDANDO_ANALISE_DOCUMENTAL,
-                'Projeto aprovado - aguardando an&aacute;lise documental'
+            $assinaturaService = new \MinC\Assinatura\Servico\Assinatura(
+                [
+                    'idTipoDoAto' => $this->idTipoDoAtoAdministrativo,
+                    'idPronac' => $get->IdPRONAC,
+                    'idPerfilDoAssinante' => $this->grupoAtivo->codGrupo
+                ]
             );
-
-            $objTbProjetos = new Projeto_Model_DbTable_Projetos();
-            $dadosProjeto = $objTbProjetos->findBy(array(
-                'IdPRONAC' => $get->IdPRONAC
-            ));
-
-            $orgaoDestino = Orgaos::ORGAO_SAV_DAP;
-            $objOrgaos = new Orgaos();
-            $dadosOrgaoSuperior = $objOrgaos->obterOrgaoSuperior($dadosProjeto['Orgao']);
-
-            if ($dadosOrgaoSuperior['Codigo'] == Orgaos::ORGAO_SUPERIOR_SEFIC) {
-                $orgaoDestino = Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI;
-            }
-            $objTbProjetos->alterarOrgao($orgaoDestino, $get->IdPRONAC);
-
-            $enquadramento = new Admissibilidade_Model_Enquadramento();
-            $dadosEnquadramento = $enquadramento->obterEnquadramentoPorProjeto($get->IdPRONAC, $dadosProjeto['AnoProjeto'], $dadosProjeto['Sequencial']);
-
-            $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
-            $data = array(
-                'cdSituacao' => Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_FECHADO_PARA_ASSINATURA
-            );
-            $where = array(
-                'IdPRONAC = ?' => $get->IdPRONAC,
-                'idTipoDoAtoAdministrativo = ?' => $this->idTipoDoAtoAdministrativo,
-                'idAtoDeGestao = ?' => $dadosEnquadramento['IdEnquadramento'],
-                'cdSituacao = ?' => Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA,
-                'stEstado = ?' => Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO
-            );
-            $objModelDocumentoAssinatura->update($data, $where);
-
-            $auth = Zend_Auth::getInstance();
-
-            $valoresProjeto = $objTbProjetos->obterValoresProjeto($get->IdPRONAC);
-
-            $dadosInclusaoAprovacao = array(
-                'IdPRONAC' => $get->IdPRONAC,
-                'AnoProjeto' => $dadosProjeto['AnoProjeto'],
-                'Sequencial' => $dadosProjeto['Sequencial'],
-                'TipoAprovacao' => 1,
-                'dtAprovacao' => $objTbProjetos->getExpressionDate(),
-                'ResumoAprovacao' => $dadosEnquadramento['Observacao'],
-                'AprovadoReal' => $valoresProjeto['ValorProposta'],
-                'Logon' => $auth->getIdentity()->usu_codigo,
-            );
-            $objAprovacao = new Aprovacao();
-            $idAprovacao = $objAprovacao->inserir($dadosInclusaoAprovacao);
-
-            $idTecnico = new Zend_Db_Expr("sac.dbo.fnPegarTecnico(110, {$orgaoDestino}, 3)");
-
-            $tblVerificaProjeto = new tbVerificaProjeto();
-            $dadosVP['idPronac'] = $get->IdPRONAC;
-            $dadosVP['idOrgao'] = $orgaoDestino;
-            $dadosVP['idAprovacao'] = $idAprovacao;
-            $dadosVP['idUsuario'] = $idTecnico;
-            $dadosVP['stAnaliseProjeto'] = 1;
-            $dadosVP['dtRecebido'] = $tblVerificaProjeto->getExpressionDate();
-            $dadosVP['stAtivo'] = 1;
-            $tblVerificaProjeto->inserir($dadosVP);
+            $assinaturaService->finalizar();
 
             parent::message('Projeto finalizado com sucesso!', "/{$this->moduleName}/enquadramento-assinatura/gerenciar-assinaturas", 'CONFIRM');
         } catch (Exception $objException) {

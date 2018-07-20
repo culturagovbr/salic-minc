@@ -6,7 +6,7 @@ class ManterAvaliadorDto
     private $email;
     private $cpf;
     private $idUsuario;
-    private $idAgente;
+    protected $idAgente;
     private $idEdital;
     private $arrayEditais;
     

@@ -26,7 +26,6 @@
                               true); ?>"
                           onsubmit="return false;">
                         <input type="hidden" name="idTipoDoAtoAdministrativo" value="<?php echo $this->idTipoDoAtoAdministrativo ?>" />
-                        <input type="hidden" name="isMovimentarAssinatura" value="true" />
                         <input type="hidden" name="origin" value="readequacao/readequacao-assinatura" />
                         <table class="bordered margin0" id="readequacao">
                             <thead>
@@ -41,15 +40,13 @@
                                 </th>
                                 <th align="center" width="40" class="center-align">PRONAC</th>
                                 <th class="center-align">Nome do Projeto</th>
-                                <th class="center-align">&Aacute;rea</th>
-                                <th class="center-align">Segmento</th>
                                 <th class="center-align">Enquadramento</th>
-                                <th class="center-align">Valor Aprovado</th>
-                                <th class="center-align">Dias</th>
+                                <th class="center-align">Tipo de Assinatura</th>
                                 <th class="center-align" align="center">Ver</th>
+                                <?php if($this->isPermitidoDevolver === true) { ?>
                                 <th class="center-align" align="center">Devolver</th>
+                                <?php } ?>
                                 <th class="center-align" align="center">Assinar</th>
-                                <th class="center-align" align="center">Finalizar</th>
                             </tr>
 
                             </thead>
@@ -81,13 +78,24 @@
                                                ) . "?idPronac={$dado['IdPRONAC']}"; ?>"><u><?php echo $dado['pronac']; ?></u></a>
                                     </td>
                                     <td class="center-align" align="center"><?php echo $dado['nomeProjeto']; ?></td>
-                                    <td class="center-align" align="center"><?php echo $dado['area']; ?></td>
-                                    <td class="center-align" align="center"><?php echo $dado['segmento']; ?></td>
                                     <td class="center-align"
-                                        align="center"><?php echo ((int)$dado['tp_enquadramento'] == 1) ? 'Artigo 26' : 'Artigo 18'; ?></td>
-                                    <td class="center-align"
-                                        align="center"><?php echo (!empty($dado['vlAprovado'])) ? $dado['vlAprovado'] : '-'; ?></td>
-                                    <td class="center-align" align="center"><?php echo $dado['dias']; ?></td>
+                                        align="center">
+                                        <b>
+                                            &Aacute;rea:
+                                        </b>
+                                        <?php echo $dado['area']; ?>
+                                        <br />
+                                        <b>
+                                            Segmento:
+                                        </b>
+                                        <?php echo $dado['segmento']; ?>
+                                        <br />
+                                        <b>
+                                            Enquadramento:
+                                        </b>
+                                        <?php echo ((int)$dado['tp_enquadramento'] == 1) ? 'Artigo 26' : 'Artigo 18'; ?>
+                                    </td>
+                                    <td class="center-align" align="center"><?php echo $dado['tipoDoAtoAdministrativo']; ?></td>
                                     <td class="center-align" align="center">
                                         <a class="btn waves-effect waves-light tooltipped small "
                                            href="<?php echo $this->url(array(
@@ -101,6 +109,7 @@
                                             <i class="material-icons">search</i>
                                         </a>
                                     </td>
+                                    <?php if($this->isPermitidoDevolver === true) { ?>
                                     <td class="center-align" align="center">
                                         <a class="btn waves-effect waves-light  tooltipped small"
                                            href="<?php echo $this->url(array(
@@ -114,9 +123,10 @@
                                             <i class="material-icons">keyboard_backspace</i>
                                         </a>
                                     </td>
+                                    <?php } ?>
                                     <td class="center-align" align="center">
                                         <?php
-                                        $parametrosAssinatura = "?IdPRONAC={$dado['IdPRONAC']}&idTipoDoAtoAdministrativo={$dado['idTipoDoAtoAdministrativo']}&isMovimentarAssinatura=true&origin=readequacao/readequacao-assinatura";
+                                        $parametrosAssinatura = "?IdPRONAC={$dado['IdPRONAC']}&idTipoDoAtoAdministrativo={$dado['idTipoDoAtoAdministrativo']}&origin=readequacao/readequacao-assinatura";
                                         if(is_null($dado['possuiAssinatura'])) :
                                             ?>
                                             <a class="btn waves-effect waves-light tooltipped small"
@@ -131,28 +141,6 @@
                                                data-delay="50"
                                                data-tooltip="Assinar">
                                                 <i class="material-icons">create</i>
-                                            </a>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td class="center-align" align="center">
-                                        <?php
-                                        if (count($assinaturas) >= $this->quantidade_minima_assinaturas):
-                                            ?>
-                                            <a class="modal-trigger btn waves-effect waves-light tooltipped small btn"
-                                               href="#modalConfirmacao"
-                                               data-nrpronac="<?php echo $dado['pronac']; ?>"
-                                               data-redirect-url="<?php echo $this->url(
-                                                       array(
-                                                           'module' => 'readequacao',
-                                                           'controller' => 'readequacao-assinatura',
-                                                           'action' => 'finalizar-assinatura'
-                                                       )
-                                                   )
-                                                   . "?IdPRONAC={$dado['IdPRONAC']}&origin=readequacao/readequacao-assinatura" ?>"
-                                               data-position="top"
-                                               data-delay="50"
-                                               data-tooltip="Finalizar">
-                                                <i class="material-icons">grade</i>
                                             </a>
                                         <?php endif; ?>
                                     </td>

@@ -3,7 +3,7 @@
 class AvaliarprojetoscomissaoController extends MinC_Controller_Action_Abstract
 {
     private $intTamPag = 10;
-    private $idAgente = null;
+    protected $idAgente = null;
 
     public function init()
     {

@@ -481,7 +481,16 @@ class PrestacaoContas_GerenciarController extends MinC_Controller_Action_Abstrac
     }
 
     public function comprovarPagamentoAction()
-    { }
+    {
+        $this->view->idpronac = $this->getRequest()->getParam('idpronac');
+        $this->view->idPlanilhaAprovacao = $this->getRequest()->getParam('idPlanilhaAprovacao');
+        $this->view->idPlanilhaItens = $this->getRequest()->getParam('idPlanilhaItens');
+        $this->view->idComprovantePagamento = $this->getRequest()->getParam('idComprovantePagamento');
+        $this->view->uf = $this->getRequest()->getParam('uf');
+        $this->view->cdproduto = $this->getRequest()->getParam('produto');
+        $this->view->cdcidade = $this->getRequest()->getParam('cidade');
+        $this->view->cdetapa = $this->getRequest()->getParam('etapa');
+    }
 
     public function cadastrarAction()
     {
@@ -489,13 +498,44 @@ class PrestacaoContas_GerenciarController extends MinC_Controller_Action_Abstrac
 
         $comprovante->preencher($this->getRequest()->getPost()['comprovante']);
 
-            /* $request->getParam('tpFormaDePagamento'), */
-            /* str_replace(',', '.', str_replace('.', '', $request->getParam('vlComprovado'))), */
-            /* $request->getParam('nrDocumentoDePagamento'), */
         $data = [];
         try {
             $id = $comprovante->cadastrar();
             $data = ['success' => true, 'idComprovantePagamento' => $id];
+        } catch (Exception $e) {
+            $this->view->message = $e->getMessage();
+            echo $e->getMessage();die;
+        }
+        $this->_helper->json($data);
+    }
+
+    public function atualizarAction()
+    {
+        $comprovante = new PrestacaoContas_Model_ComprovantePagamento();
+
+        $comprovante->preencher($this->getRequest()->getPost()['comprovante']);
+
+        $data = [];
+        try {
+            $id = $comprovante->atualizar();
+            $data = ['success' => true, 'idComprovantePagamento' => $id];
+        } catch (Exception $e) {
+            $this->view->message = $e->getMessage();
+            echo $e->getMessage();die;
+        }
+        $this->_helper->json($data);
+    }
+
+    public function excluirAction()
+    {
+        $comprovante = new PrestacaoContas_Model_ComprovantePagamento();
+
+        $comprovante->idComprovantePagamento = $this->getRequest()->getPost()['comprovante']['idComprovantePagamento'];
+
+        $data = [];
+        try {
+            $comprovante->excluir();
+            $data = ['success' => true];
         } catch (Exception $e) {
             $this->view->message = $e->getMessage();
             echo $e->getMessage();die;

@@ -8,7 +8,7 @@ $arrMenu['analise'] = array(
     'grupo' => array(
         Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA,
         Autenticacao_Model_Grupos::SUPERINTENDENTE_DE_VINCULADA,
-        Autenticacao_Model_Grupos::COORDENADOR_DE_PARECERISTA,
+        Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
         Autenticacao_Model_Grupos::PARECERISTA,
         Autenticacao_Model_Grupos::GESTOR_SALIC,
         Autenticacao_Model_Grupos::COORDENADOR_ANALISE,
@@ -52,7 +52,7 @@ $arrMenu['analise']['menu'][] = array('label' => 'Gerenciar Pareceres', 'title' 
 );
 $arrMenu['analise']['menu'][] = array('label' => 'Imprimir Parecer T&eacute;cnico', 'title' => 'Ir para Imprimir Parecer T&eacute;cnico',
     'url' => $this->url(array('controller' => 'gerenciarpareceres', 'action' => 'imprimir-parecer-tecnico'), '', true),
-    'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_DE_PARECERISTA,Autenticacao_Model_Grupos::GESTOR_SALIC,Autenticacao_Model_Grupos::COORDENADOR_ANALISE,137)
+    'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,Autenticacao_Model_Grupos::GESTOR_SALIC,Autenticacao_Model_Grupos::COORDENADOR_ANALISE,137)
 );
 $arrMenu['analise']['menu'][] = array('label' => 'Gerenciar Componente da Comiss&atilde;o', 'title' => 'Ir para Gerenciar Componente da Comiss&atilde;o',
     'url' => $this->url(array('controller' => 'projetosgerenciar', 'action' => 'index'), '', true),
@@ -96,7 +96,7 @@ $arrMenu['analise']['menu'][] = array('label' => 'Calend&aacute;rio CNIC', 'titl
 );
 $arrMenu['analise']['menu'][] = array('label' => 'Gerenciar Pareceres', 'title' => 'Ir para Gerenciar Pareceres',
     'url' => $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index'), '', true),
-    'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_DE_PARECERISTA)
+    'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER)
 );
 $arrMenu['analise']['menu'][] = array('label' => 'Gerenciar Pareceres', 'title' => 'Ir para Gerenciar Pareceres',
     'url' => $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'finalizar-parecer'), '', true),
@@ -125,11 +125,11 @@ $arrMenu['analise']['menu'][] = array('label' => 'Recurso', 'title' => 'Ir para 
 
 $arrMenu['analise']['menu'][] = array('label' => 'Avaliar Recursos', 'title' => 'Ir para Avaliar Recursos',
     'url' => $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'painel-recursos'), '', true),
-    'grupo' => array( Autenticacao_Model_Grupos::COORDENADOR_DE_PARECERISTA, Autenticacao_Model_Grupos::PARECERISTA, Autenticacao_Model_Grupos::TECNICO_ANALISE)
+    'grupo' => array( Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER, Autenticacao_Model_Grupos::PARECERISTA, Autenticacao_Model_Grupos::TECNICO_ANALISE)
 );
 $arrMenu['analise']['menu'][] = array('label' => 'Avaliar Readequa&ccedil;&otilde;es', 'title' => 'Ir para Avaliar Readequa&ccedil;&otilde;es',
     'url' => $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes'), '', true),
-    'grupo' => array( Autenticacao_Model_Grupos::COORDENADOR_DE_PARECERISTA, Autenticacao_Model_Grupos::PARECERISTA, Autenticacao_Model_Grupos::TECNICO_ANALISE)
+    'grupo' => array( Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER, Autenticacao_Model_Grupos::PARECERISTA, Autenticacao_Model_Grupos::TECNICO_ANALISE)
 );
 
 $arrMenu['analise']['menu'][] = array('label' => 'Avaliar Readequa&ccedil;&otilde;es', 'title' => 'Ir para Avaliar Readequa&ccedil;&otilde;es',

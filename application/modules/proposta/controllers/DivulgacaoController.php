@@ -13,7 +13,7 @@
  */
 class Proposta_DivulgacaoController extends Proposta_GenericController
 {
-    private $idUsuario = null;
+    protected $idUsuario = null;
 
     /**
      * @var Proposta_Model_DbTable_PlanoDeDivulgacao

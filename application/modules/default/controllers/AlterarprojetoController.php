@@ -7,7 +7,7 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
     private $codOrgao = 0;
     private $tiposDocumento = array();
     private $getParecerista = 'N';
-    private $idAgente = null;
+    protected $idAgente = null;
 
     public function init()
     {

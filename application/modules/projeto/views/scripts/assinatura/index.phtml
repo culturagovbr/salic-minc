@@ -26,7 +26,6 @@
                               true); ?>"
                           onsubmit="return false;">
                         <input type="hidden" name="idTipoDoAtoAdministrativo" value="<?php echo $this->idTipoDoAtoAdministrativo ?>" />
-                        <input type="hidden" name="isMovimentarAssinatura" value="true" />
                         <input type="hidden" name="origin" value="admissibilidade/enquadramento-assinatura" />
                         <table class="bordered margin0" id="enquadramento">
                             <thead>
@@ -116,7 +115,7 @@
                                     </td>
                                     <td class="center-align" align="center">
                                         <?php
-                                        $parametrosAssinatura = "?IdPRONAC={$dado['IdPRONAC']}&idTipoDoAtoAdministrativo={$dado['idTipoDoAtoAdministrativo']}&isMovimentarAssinatura=true&origin=admissibilidade/enquadramento-assinatura";
+                                        $parametrosAssinatura = "?IdPRONAC={$dado['IdPRONAC']}&idTipoDoAtoAdministrativo={$dado['idTipoDoAtoAdministrativo']}&origin=admissibilidade/enquadramento-assinatura";
                                         if(is_null($dado['possuiAssinatura'])) :
                                             ?>
                                             <a class="btn waves-effect waves-light tooltipped small"

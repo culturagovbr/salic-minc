@@ -9,7 +9,7 @@
 
 class RecursosController extends MinC_Controller_Action_Abstract
 {
-    private $idUsuario = 0;
+    protected $idUsuario = 0;
     private $idOrgao = 0;
     private $idPerfil = 0;
     private $intTamPag = 10;

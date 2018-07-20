@@ -6,13 +6,13 @@ class Orgaos extends MinC_Db_Table_Abstract
     protected $_primary = 'Codigo';
 
     const ORGAO_SUPERIOR_SAV = 160;
+    const ORGAO_SUPERIOR_SEFIC = 251;
     const ORGAO_SAV_CAP = 166;
     const ORGAO_SAV_CEP = 167;
     const ORGAO_SAV_DAP = 171;
     const ORGAO_SAV_SAL = 179;
     const ORGAO_SAV_DIECI = 632;
     const ORGAO_GEAAP_SUAPI_DIAAPI = 262;
-    const ORGAO_SUPERIOR_SEFIC = 251;
     const ORGAO_SEFIC_ARQ_CGEPC = 303;
     const ORGAO_SEFIC_DIC = 341;
     const ORGAO_GEAR_SACAV = 272;
@@ -23,6 +23,9 @@ class Orgaos extends MinC_Db_Table_Abstract
     const ORGAO_FCP = 94;
     const ORGAO_FCRB = 95;
     const ORGAO_IBRAM = 335;
+
+    const SAV_DPAV = 682;
+    const SEFIC_DEIPC = 341;
 
     public function pesquisarTodosOrgaos()
     {

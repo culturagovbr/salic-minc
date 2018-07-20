@@ -1,9 +1,9 @@
 <?php
 
-class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract implements MinC_Assinatura_Controller_IDocumentoAssinaturaController
+class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract
 {
     private $idPronac;
-    private $idUsuario = 0;
+    protected $idUsuario = 0;
 
     private function validarPerfis()
     {
@@ -34,7 +34,8 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
         try {
             $get = $this->getRequest()->getParams();
             $post = $this->getRequest()->getPost();
-            $servicoDocumentoAssinatura = $this->obterServicoDocumentoAssinatura();
+
+            $servicoDocumentoAssinatura = new Parecer_AnaliseInicialDocumentoAssinaturaController($this->getRequest()->getPost());
 
             if (isset($get['IdPRONAC']) && !empty($get['IdPRONAC']) && $get['encaminhar'] == 'true') {
                 $servicoDocumentoAssinatura->idPronac = $get['IdPRONAC'];
@@ -50,15 +51,6 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
         } catch (Exception $objException) {
             parent::message($objException->getMessage(), "/{$this->moduleName}/analise-inicial/index");
         }
-    }
-
-    public function obterServicoDocumentoAssinatura()
-    {
-        if (!isset($this->servicoDocumentoAssinatura)) {
-            require_once __DIR__ . DIRECTORY_SEPARATOR . "AnaliseInicialDocumentoAssinaturaController.php";
-            $this->servicoDocumentoAssinatura = new Parecer_AnaliseInicialDocumentoAssinaturaController($this->getRequest()->getPost());
-        }
-        return $this->servicoDocumentoAssinatura;
     }
 
     private function getIdDocumentoAssinatura($idPronac, $idTipoDoAtoAdministrativo)

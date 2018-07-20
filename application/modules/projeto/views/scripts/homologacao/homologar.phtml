@@ -1,6 +1,3 @@
-<style>.bordered-all td {
-        border: solid 1px #c9c9c9 !important;
-    }</style>
 <form id="form-mensagem" class="materialize" data-ajax-form="true" method="post"
       action="<?php echo $this->urlAction ?>">
     <input type="hidden" name="idHomologacao" value="<?= $this->dataForm['idHomologacao'] ?>"/>
@@ -15,7 +12,7 @@
             <ul class="collapsible" data-collapsible="expandable">
                 <?php echo $this->partial('/homologacao/partials/homologar.phtml', ['arrValue' => $this->dataForm]); ?>
                 <li>
-                    <div class="collapsible-header active"><b>Parecer Homologa&ccedil;&atilde;o</b></div>
+                    <div class="collapsible-header active"><b>Parecer de Homologa&ccedil;&atilde;o</b></div>
                     <div class="collapsible-body">
                         <br/>
                         <div class="row">

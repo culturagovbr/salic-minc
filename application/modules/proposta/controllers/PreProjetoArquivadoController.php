@@ -336,6 +336,7 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
         $draw = (int)$this->getRequest()->getParam('draw');
         $order = $this->getRequest()->getParam('order');
         $columns = $this->getRequest()->getParam('columns');
+        $search = $this->getRequest()->getParam('search');
 
         $order = ($order[0]['dir'] != 1) ? array($columns[$order[0]['column']]['name'] . ' ' . $order[0]['dir']) : ["idpreprojeto desc"];
 
@@ -345,7 +346,8 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
             ['stDecisao ?' => new Zend_Db_Expr('IS NULL')],
             $order,
             $start,
-            $length
+            $length,
+            $search
         );
 
         $aux = array();
@@ -359,7 +361,9 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
                 ['stDecisao ?' => new Zend_Db_Expr('IS NULL')],
                 null,
                 null,
-                null);
+                null,
+                $search
+            );
             $recordsTotal = count($totalData);
 
             $recordsFiltered = $recordsTotal;
@@ -379,6 +383,7 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
         $draw = (int)$this->getRequest()->getParam('draw');
         $order = $this->getRequest()->getParam('order');
         $columns = $this->getRequest()->getParam('columns');
+        $search = $this->getRequest()->getParam('search');
 
         $order = ($order[0]['dir'] != 1) ? array($columns[$order[0]['column']]['name'] . ' ' . $order[0]['dir']) : ["idpreprojeto desc"];
 
@@ -388,7 +393,8 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
             ['stDecisao = ?' => 1],
             $order,
             $start,
-            $length
+            $length,
+            $search
         );
 
         $aux = array();
@@ -402,7 +408,8 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
                 ['stDecisao = ?' => 1],
                 null,
                 null,
-                null
+                null,
+                $search
             );
             $recordsTotal = count($totalData);
 
@@ -423,6 +430,7 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
         $draw = (int)$this->getRequest()->getParam('draw');
         $order = $this->getRequest()->getParam('order');
         $columns = $this->getRequest()->getParam('columns');
+        $search = $this->getRequest()->getParam('search');
 
         $order = ($order[0]['dir'] != 1) ? array($columns[$order[0]['column']]['name'] . ' ' . $order[0]['dir']) : ["idpreprojeto desc"];
 
@@ -432,7 +440,8 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
             ['stDecisao = ?' => 0],
             $order,
             $start,
-            $length
+            $length,
+            $search
         );
 
         $aux = array();
@@ -446,7 +455,8 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
                 ['stDecisao = ?' => 0],
                 null,
                 null,
-                null
+                null,
+                $search
             );
             $recordsTotal = count($totalData);
 

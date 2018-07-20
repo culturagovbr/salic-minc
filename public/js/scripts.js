@@ -28,26 +28,26 @@ function deselecionartodos(field)
 function mascaraCnpjCpf(objeto)
 {
     obj = objeto;
-    
+
     if(obj.value.length <= 14){
         fun = format_cpf;
     }else{
         fun = format_cnpj;
     }
-        
+
     setTimeout("exec_mascara()", 1);
 }
 
 function mascaraCnpjCpfCaptacao(objeto)
 {
     obj = objeto;
-    
+
     if(obj.value.length < 14){
         fun = format_cpf;
     }else{
         fun = format_cnpj;
     }
-        
+
     setTimeout("exec_mascara()", 1);
 }
 
@@ -1094,7 +1094,7 @@ function somarData(dataAtual, qtdDias, tipoOperacao)
 
 /**
  * Funcao responsavel travar o salvamento, alteracao e exclusao de dados do formulario.
- * 
+ *
  */
 function JSBloquearAlteracaoFormulario()
 {
@@ -1211,7 +1211,7 @@ $(document).ready(function()
 /**
  * Funcao responsavel por retornar um valor boleano TRUE ou FALSE caso o valor passado esteja dentro do array informado
  * Esta funcao e semelhante a funcao in_array() do PHP
- * 
+ *
  */
 function in_array(valor, vetor) {
     var length = vetor.length;

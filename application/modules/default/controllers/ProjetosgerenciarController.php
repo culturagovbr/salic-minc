@@ -3,7 +3,7 @@
 class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
 {
     private $bln_readequacao = "false";
-    private $idAgente = 0;
+    protected $idAgente = 0;
 
     /*     * ************************************************************************************************************************
      * Funcao que inicia todas as funcionalidades da classe

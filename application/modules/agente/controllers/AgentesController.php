@@ -254,7 +254,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
         $visoesNew = null;
 
         foreach ($visoes as $key => $visaoGrupo) {
-            if ($GrupoAtivo == Autenticacao_Model_Grupos::COORDENADOR_DE_PARECERISTA
+            if ($GrupoAtivo == Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER
                 and ($visaoGrupo->idVerificacao == VisaoModel::PARECERISTA_DE_PROJETO_CULTURAL
                     or $visaoGrupo->idVerificacao == VisaoModel::TECNICO)
             ) {

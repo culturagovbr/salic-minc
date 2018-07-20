@@ -34,7 +34,7 @@ jQuery.fn.editorRico = function (options) {
         paste_as_text: true,
         selector: '#' + idElemento,
         height: altura,
-        toolbar: "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
+        toolbar: "bold,italic,underline,color,forecolor backcolor,fontsizeselect, undo, redo, removeformat",
         menubar: "",
         readonly: isDesabilitarEdicao,
         mode: "specific_textareas",

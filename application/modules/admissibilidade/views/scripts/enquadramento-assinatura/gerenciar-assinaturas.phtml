@@ -26,7 +26,6 @@
                               true); ?>"
                           onsubmit="return false;">
                         <input type="hidden" name="idTipoDoAtoAdministrativo" value="<?php echo $this->idTipoDoAtoAdministrativo ?>" />
-                        <input type="hidden" name="isMovimentarAssinatura" value="true" />
                         <input type="hidden" name="origin" value="admissibilidade/enquadramento-assinatura" />
                         <table class="bordered margin0" id="enquadramento">
                             <thead>
@@ -49,7 +48,6 @@
                                 <th class="center-align" align="center">Ver</th>
                                 <th class="center-align" align="center">Devolver</th>
                                 <th class="center-align" align="center">Assinar</th>
-                                <th class="center-align" align="center">Finalizar</th>
                             </tr>
 
                             </thead>
@@ -116,7 +114,7 @@
                                     </td>
                                     <td class="center-align" align="center">
                                         <?php
-                                        $parametrosAssinatura = "?IdPRONAC={$dado['IdPRONAC']}&idTipoDoAtoAdministrativo={$dado['idTipoDoAtoAdministrativo']}&isMovimentarAssinatura=true&origin=admissibilidade/enquadramento-assinatura";
+                                        $parametrosAssinatura = "?IdPRONAC={$dado['IdPRONAC']}&idTipoDoAtoAdministrativo={$dado['idTipoDoAtoAdministrativo']}&origin=admissibilidade/enquadramento-assinatura";
                                         if(is_null($dado['possuiAssinatura'])) :
                                             ?>
                                             <a class="btn waves-effect waves-light tooltipped small"
@@ -131,28 +129,6 @@
                                                data-delay="50"
                                                data-tooltip="Assinar">
                                                 <i class="material-icons">create</i>
-                                            </a>
-                                        <?php endif; ?>
-                                    </td>
-                                    <td class="center-align" align="center">
-                                        <?php
-                                        if (count($assinaturas) >= $this->quantidade_minima_assinaturas):
-                                            ?>
-                                            <a class="modal-trigger btn waves-effect waves-light tooltipped small btn"
-                                               href="#modalConfirmacao"
-                                               data-nrpronac="<?php echo $dado['pronac']; ?>"
-                                               data-redirect-url="<?php echo $this->url(
-                                                       array(
-                                                           'module' => 'admissibilidade',
-                                                           'controller' => 'enquadramento-assinatura',
-                                                           'action' => 'finalizar-assinatura'
-                                                       )
-                                                   )
-                                                   . "?IdPRONAC={$dado['IdPRONAC']}&origin=admissibilidade/enquadramento-assinatura" ?>"
-                                               data-position="top"
-                                               data-delay="50"
-                                               data-tooltip="Finalizar">
-                                                <i class="material-icons">grade</i>
                                             </a>
                                         <?php endif; ?>
                                     </td>
@@ -179,42 +155,6 @@
                 <div class="col s11"></div>
             </div>
         <?php endif; ?>
-
-
-        <div id="conteudoDialogoModal">
-
-            <div id="modalConfirmacao" class="modal modal-fixed-footer">
-                <div class="modal-content">
-                    <h4>Confirma&ccedil;&atilde;o</h4>
-                    <p>Tem certeza que deseja finalizar ao projeto <span class="bold" id="nrPronacConfirmacao"></span> ?</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="#!" id="botaoConfirmacaoEncaminhamento" class="modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
-                    <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">N&atilde;o</a>
-                </div>
-            </div>
-        </div>
-
-        <script>
-            $3(document).ready(function(){
-                $3('.modal').modal({
-                        dismissible: true,
-                        opacity: .5,
-                        inDuration: 300,
-                        outDuration: 200,
-                        startingTop: '4%',
-                        endingTop: '10%',
-                        ready: function(modal, trigger) {
-                            $(modal).find('#nrPronacConfirmacao').html($3(trigger).data('nrpronac'));
-                            $(modal).find('#botaoConfirmacaoEncaminhamento').attr('href', $3(trigger).data('redirectUrl'));
-                        }
-//                    ,complete: function() {
-//                        alert('Closed');
-//                    } // Callback for Modal close
-                    }
-                );
-            });
-        </script>
 
         <br clear="all"/>
         <script src="https://code.jquery.com/jquery-1.12.4.js"

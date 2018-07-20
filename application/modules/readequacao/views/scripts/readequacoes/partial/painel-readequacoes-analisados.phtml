@@ -84,11 +84,22 @@
 	</td>
 
 	<td>
-	  <input type="button" name="btn_enviar" class="btn_enviar enviarReadequacao"  idPronac="<?php echo $d->idPronac; ?>" idDistRead="<?php echo $d->idDistribuirReadequacao; ?>" idReadequacao="<?php echo $d->idReadequacao; ?>" title="Enviar">
+	  <input type="button"
+             name="btn_enviar"
+             class="btn_enviar enviarReadequacao"
+             idPronac="<?php echo $d->idPRONAC; ?>"
+             idDistRead="<?php echo $d->idDistribuirReadequacao; ?>"
+             idReadequacao="<?php echo $d->idReadequacao; ?>"
+             title="Enviar">
 	</td>
 	
 		<td align="center">
-                  <input type="button" name="btn_finalizar" class="btn_finalizar" idDistProj="<?php echo $d->idDistribuirReadequacao; ?>" idReadequacao="<?php echo $d->idReadequacao; ?>" title="Finalizar">
+                  <input type="button"
+                         name="btn_finalizar"
+                         class="btn_finalizar"
+                         id_pronac="<?php echo $d->idPRONAC; ?>"
+                         idDistProj="<?php echo $d->idDistribuirReadequacao; ?>"
+                         idReadequacao="<?php echo $d->idReadequacao; ?>" title="Finalizar">
 		</td>
                 		
             </tr>
