@@ -87,11 +87,11 @@ table.tabela td.destacar span,
     background: transparent;
 }
 
-#conteudo table.tabela th,
+/*#conteudo table.tabela th,*/
 #conteudo p[align="center"],
 #conteudo table.tabela th[align="center"],
 #conteudo table.tabela td[align="center"] {
-    /*text-align: center !important;*/
+    text-align: center;
 }
 
 #conteudo table.tabela tr a:not(.btn) {
