@@ -32,17 +32,17 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
     public function iniciarFluxo(): int
     {
         if (!$this->idPronac) {
-            throw new Exception("Identificador do Projeto n&atilde;o informado.");
+            throw new \Exception("Identificador do Projeto n&atilde;o informado.");
         }
 
-        $objTbProjetos = new Projeto_Model_DbTable_Projetos();
+        $objTbProjetos = new \Projeto_Model_DbTable_Projetos();
         $dadosProjeto = $objTbProjetos->findBy(array('IdPRONAC' => $this->idPronac));
 
         if (!$dadosProjeto) {
-            throw new Exception("Projeto n&atilde;o encontrado.");
+            throw new \Exception("Projeto n&atilde;o encontrado.");
         }
 
-        $fnVerificarProjetoAprovadoIN2017 = new fnVerificarProjetoAprovadoIN2017();
+        $fnVerificarProjetoAprovadoIN2017 = new \fnVerificarProjetoAprovadoIN2017();
         $instrucaoNormativa2017 = $fnVerificarProjetoAprovadoIN2017->verificar($this->idPronac);
 
         if (!$instrucaoNormativa2017) {
@@ -55,18 +55,18 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
                 (!$principalConsolidacao) &&
                 (!$pareceresProjeto) &&
                 ($diligenciasProjeto)) {
-                throw new Exception("N&atilde;o &eacute; poss&iacute;vel assinar esse projeto!");
+                throw new \Exception("N&atilde;o &eacute; poss&iacute;vel assinar esse projeto!");
             }
         }
 
-        $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
+        $objModelDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
         $isProjetoDisponivelParaAssinatura = $objModelDocumentoAssinatura->isProjetoDisponivelParaAssinatura(
             $this->idPronac,
-            Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL
+            \Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL
         );
 
         if (!$isProjetoDisponivelParaAssinatura) {
-            $auth = Zend_Auth::getInstance();
+            $auth = \Zend_Auth::getInstance();
             $objModelDocumentoAssinatura = new \Assinatura_Model_TbDocumentoAssinatura([
                 'IdPRONAC' => $this->idPronac,
                 'idTipoDoAtoAdministrativo' => $this->idTipoDoAtoAdministrativo,
@@ -94,7 +94,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
      */
     public function criarDocumento()
     {
-        $view = new Zend_View();
+        $view = new \Zend_View();
         $view->setScriptPath(
             __DIR__
             . DIRECTORY_SEPARATOR
@@ -103,28 +103,28 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
 
         $view->titulo = 'Parecer T&eacute;cnico do Projeto';
         $view->IdPRONAC = $this->idPronac;
-        $objPlanoDistribuicaoProduto = new Projeto_Model_vwPlanoDeDistribuicaoProduto();
+        $objPlanoDistribuicaoProduto = new \Projeto_Model_vwPlanoDeDistribuicaoProduto();
         $view->dadosProducaoProjeto = $objPlanoDistribuicaoProduto->obterProducaoProjeto(array(
             'IdPRONAC = ?' => $this->idPronac
         ));
 
-        $grupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
+        $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
         $codOrgao = $grupoAtivo->codOrgao;
-        $objOrgao = new Orgaos();
+        $objOrgao = new \Orgaos();
         $view->nomeOrgao = $objOrgao->pesquisarNomeOrgao($codOrgao)[0]['NomeOrgao'];
-        $objProjeto = new Projeto_Model_DbTable_Projetos();
+        $objProjeto = new \Projeto_Model_DbTable_Projetos();
         $view->projeto = $objProjeto->findBy(array('IdPRONAC' => $this->idPronac));
-        $objAgentes = new Agente_Model_DbTable_Agentes();
+        $objAgentes = new \Agente_Model_DbTable_Agentes();
         $dadosAgente = $objAgentes->buscarFornecedor(array('a.CNPJCPF = ?' => $view->projeto['CgcCpf']));
         $arrayDadosAgente = $dadosAgente->current();
 
         $view->nomeAgente = (count($arrayDadosAgente) > 0) ? $arrayDadosAgente['nome'] : ' - ';
 
-        $mapperArea = new Agente_Model_AreaMapper();
+        $mapperArea = new \Agente_Model_AreaMapper();
         $view->areaCultural = $mapperArea->findBy(array(
             'Codigo' => $view->projeto['Area']
         ));
-        $objSegmentocultural = new Segmentocultural();
+        $objSegmentocultural = new \Segmentocultural();
         $view->segmentoCultural = $objSegmentocultural->findBy(
             array(
                 'Codigo' => $view->projeto['Segmento']
@@ -132,12 +132,12 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
         );
 
         $view->totaldivulgacao = "true";
-        $projetos = new Projetos();
+        $projetos = new \Projetos();
         $dadosProjeto = $projetos->assinarParecerTecnico($this->idPronac);
         $view->dadosEnquadramento = $dadosProjeto['enquadramento'];
         $view->dadosProdutos = $dadosProjeto['produtos'];
         $view->dadosDiligencias = $dadosProjeto['diligencias'];
-        $fnVerificarProjetoAprovadoIN2017 = new fnVerificarProjetoAprovadoIN2017();
+        $fnVerificarProjetoAprovadoIN2017 = new \fnVerificarProjetoAprovadoIN2017();
         $view->IN2017 = $fnVerificarProjetoAprovadoIN2017->verificar($this->idPronac);
 
         if ($view->IN2017) {
@@ -151,7 +151,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
 
     public function validaRegra20Porcento($idPronac)
     {
-        $planilhaProjeto = new PlanilhaProjeto();
+        $planilhaProjeto = new \PlanilhaProjeto();
         $valorProjeto = $planilhaProjeto->somarPlanilhaProjeto(
             $idPronac,
             109
@@ -182,7 +182,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
 
     private function verificaSecundariosAnalisados($idPronac)
     {
-        $tbDistribuirParecerDAO = new tbDistribuirParecer();
+        $tbDistribuirParecerDAO = new \tbDistribuirParecer();
         $dadosWhere["t.stEstado = ?"] = 0;
         $dadosWhere["t.FecharAnalise = ?"] = 0;
         $dadosWhere["t.TipoAnalise = ?"] = 3;
@@ -203,7 +203,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
 
     private function verificaPrimarioConsolidacao($idPronac)
     {
-        $enquadramentoDAO = new Admissibilidade_Model_Enquadramento();
+        $enquadramentoDAO = new \Admissibilidade_Model_Enquadramento();
         $buscaEnquadramento = $enquadramentoDAO->buscarDados($idPronac, null, false);
 
         return count($buscaEnquadramento);
@@ -211,7 +211,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
 
     private function verificaParecer($idPronac)
     {
-        $parecerDAO = new Parecer();
+        $parecerDAO = new \Parecer();
         $buscaParecer = $parecerDAO->buscarParecer(null, $idPronac);
 
         return count($buscaParecer);
@@ -219,7 +219,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
 
     private function projetoPossuiDiligenciasDiligencias($idPronac)
     {
-        $tbDiligencia = new tbDiligencia();
+        $tbDiligencia = new \tbDiligencia();
         $rsDilig = $tbDiligencia->buscarDados($idPronac);
 
         return count($rsDilig);
