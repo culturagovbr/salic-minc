@@ -21,6 +21,7 @@
             "Application\\Modules\\Assinatura\\Service\\Assinatura\\Acao\\": "./application/modules/assinatura/service/assinatura/acao/",
             "Application\\Modules\\Readequacao\\": "./application/modules/readequacao/",
             "Application\\Modules\\Readequacao\\Service\\": "./application/modules/readequacao/service/",
+            "Application\\Modules\\Readequacao\\Service\\TransferenciaRecursos\\": "./application/modules/readequacao/service/transferencia-recursos/",
             "Application\\Modules\\Readequacao\\Service\\Assinatura\\": "./application/modules/readequacao/service/assinatura/",
             "Application\\Modules\\Readequacao\\Service\\Assinatura\\Acao\\": "./application/modules/readequacao/service/assinatura/acao/",
             "Application\\Modules\\Admissibilidade\\": "./application/modules/admissibilidade/",

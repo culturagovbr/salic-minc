@@ -1,4 +1,5 @@
 import numeral from 'numeral';
+import moment from 'moment';
 import 'numeral/locales';
 
 numeral.locale('pt-br');
@@ -78,6 +79,13 @@ export default {
         formatarParaReal(value) {
             const parsedValue = parseFloat(value);
             return numeral(parsedValue).format('0,0.00');
+        },
+        formatarData(value) {
+            if (value) {
+                return moment(String(value)).format('MM/DD/YYYY');
+            }
+
+            return '';
         },
     },
 };

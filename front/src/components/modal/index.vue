@@ -2,7 +2,9 @@
     <div id="modalTemplate" class="modal modal-fixed-footer">
         <div class="modal-content">
             <div class="modal-header">
-                <h2><slot name="header">Header</slot></h2>
+                <h2>
+                    <slot name="header">Header</slot>
+                </h2>
             </div>
             <div class="modal-body">
                 <slot name="body">Body</slot>
@@ -19,19 +21,27 @@
 </template>
 
 <script>
-export default {
-    mounted() {
-        // eslint-disable-next-line
-        $3('.modal').modal();
-        // eslint-disable-next-line
-        $3('#modalTemplate').modal('open');
-    },
-    methods: {
-        fecharModal() {
+    import { mapActions } from 'vuex';
+
+    export default {
+        mounted() {
+            const objeto = this;
             // eslint-disable-next-line
-            $3('#modalTemplate').modal('close');
-            this.$emit('close');
+            $3('.modal').modal({ complete: () => { objeto.fecharModal(); } });
+
+            // eslint-disable-next-line
+            $3('#modalTemplate').modal('open');
         },
-    },
-};
+        methods: {
+            fecharModal() {
+                // eslint-disable-next-line
+                $3('#modalTemplate')
+                    .modal('close');
+                this.$emit('close');
+            },
+            ...mapActions({
+                modalClose: 'modal/modalClose',
+            }),
+        },
+    };
 </script>

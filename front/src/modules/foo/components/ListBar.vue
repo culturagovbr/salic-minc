@@ -36,7 +36,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Modal from '@/components/modal';
 import CreateBar from './CreateBar';
 import UpdateBar from './UpdateBar';
 
@@ -46,14 +45,12 @@ export default {
         this.obterDadosTabela();
     },
     components: {
-        Modal,
         CreateBar,
         UpdateBar,
     },
     computed: {
         ...mapGetters({
             dadosTabela: 'foo/dadosTabela',
-            modalVisible: 'modal/default',
         }),
     },
     methods: {
@@ -61,8 +58,6 @@ export default {
             obterDadosTabela: 'foo/obterDadosTabela',
             setRegistroAtivo: 'foo/setRegistroAtivo',
             removerRegistro: 'foo/removerRegistro',
-            modalOpen: 'modal/modalOpen',
-            modalClose: 'modal/modalClose',
         }),
         confirmationRemove(registro) {
             const currentConfirm = confirm;
