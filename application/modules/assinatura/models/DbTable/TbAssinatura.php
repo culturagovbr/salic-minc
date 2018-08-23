@@ -11,7 +11,7 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
     public $modeloTbAssinatura;
 
     /**
-     * @var Assinatura_Model_TbAtoAdministrativo $modeloTbAtoAdministrativo
+     * @var Assinatura_Model_TbAtoAdministrativo $modeloTbAssinatura
      */
     public $modeloTbAtoAdministrativo;
 
@@ -224,29 +224,6 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
         return $this->_db->fetchAll($query);
     }
 
-    public function obterQuantidadeTotalAssinaturas()
-    {
-        if (is_null($this->modeloTbDocumentoAssinatura->getIdDocumentoAssinatura())) {
-            throw new Exception("`Identificador do Documento Assinatura n&atilde;o informado.");
-        }
-
-        $query = $this->select();
-        $query->setIntegrityCheck(false);
-
-        $query->from(
-            [$this->_name],
-            ['quantidade' => new Zend_Db_Expr('COUNT(*)')],
-            $this->_schema
-        );
-
-        $query->where("idDocumentoAssinatura = ?", $this->modeloTbDocumentoAssinatura->getIdDocumentoAssinatura());
-        $quantidadeAssinaturas = $this->_db->fetchRow($query);
-
-        if ($quantidadeTotalAssinaturas) {
-            return $quantidadeTotalAssinaturas->quantidade;
-        }
-    }
-        
     public function obterQueryAssinaturasDisponiveis(): \MinC_Db_Table_Select
     {
         if (!$this->modeloTbAtoAdministrativo) {
