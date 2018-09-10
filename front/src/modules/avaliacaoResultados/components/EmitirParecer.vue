@@ -132,7 +132,7 @@
         data()
         {
             return {
-                siManifestacao: 0,
+                tipo: 0,
                 idPronac: this.$route.params.id,
                 redirectLink: '/prestacao-contas/realizar-prestacao-contas/index/idPronac/',
                 valid: false,
@@ -184,7 +184,7 @@
                     this.requestEmissaoParecer(id);
                 },
                 salvarParecer(){
-                   const data = {idPronac:this.idPronac, tpAvaliacaoFinanceira: this.tpAvaliacaoFinanceira, siManifestacao:this.item , dsParecer:this.laudoTecnico, };
+                   const data = {idPronac:this.idPronac, tpAvaliacaoFinanceira: this.tipo, siManifestacao:this.item , dsParecer:this.laudoTecnico };
                     this.salvar(data);
                     this.dialog = false;
                 }

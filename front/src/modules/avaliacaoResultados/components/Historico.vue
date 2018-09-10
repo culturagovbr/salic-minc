@@ -1,29 +1,53 @@
 <template>
-    <div>
-        <v-data-table
-            :headers="projetoHeaders"
-            :items="projetos"
-            hide-actions
-        >
-            <template slot="items" slot-scope="props">
-                <td>{{ props.item.pronac }}</td>
-                <td>{{ props.item.nomeProjeto }}</td>
-            </template>
-        </v-data-table>
+    <v-dialog 
+      v-model="dialog"
+      scrollable
+      max-width="750px"
+    >
+      <v-btn slot="activator" color="green lighten-2" dark>
+        <v-icon dark>history</v-icon>
+      </v-btn>
+      <v-card>
+        <v-card-title class="green white--text" primary-title>
+          Histórico de encaminhamentos
+        </v-card-title>
+        
+        <v-card-text style="height: 500px;">
+            <v-subheader inset>Encaminhamentos</v-subheader>
+            <v-data-table
+                :headers="projetoHeaders"
+                :items="projetos"
+                hide-actions
+            >
+                <template slot="items" slot-scope="props">
+                    <td>{{ props.item.pronac }}</td>
+                    <td>{{ props.item.nomeProjeto }}</td>
+                </template>
+            </v-data-table>
+            <v-data-table
+                :headers="historicoHeaders"
+                :items="historico"
+                hide-actions
+            >
+                <template slot="items" slot-scope="props">
+                    <td>{{ props.item.dataEnvio }}</td>
+                    <td>{{ props.item.nomeRemetente }}</td>
+                    <td>{{ props.item.nomeDestinatario }}</td>
+                    <td>{{ props.item.justificativa }}</td>
+                </template>
+            </v-data-table>
+        </v-card-text>
 
-        <v-data-table
-            :headers="historicoHeaders"
-            :items="historico"
-            hide-actions
-        >
-            <template slot="items" slot-scope="props">
-                <td>{{ props.item.dataEnvio }}</td>
-                <td>{{ props.item.nomeRemetente }}</td>
-                <td>{{ props.item.nomeDestinatario }}</td>
-                <td>{{ props.item.justificativa }}</td>
-            </template>
-        </v-data-table>
-    </div>
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red" flat @click="dialog = false">
+            Fechar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 </template>
 
 <script>
@@ -89,7 +113,8 @@ export default {
                 nomeDestinatario: 'Rômulo Menhô Barbosa',
                 justificativa: 'Encaminhado para avaliação financeira e emissão de paracer técnico.'
             }
-        ]
+        ],
+        dialog: false
     }
   },
     components: {
