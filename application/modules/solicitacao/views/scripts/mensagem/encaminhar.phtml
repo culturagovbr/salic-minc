@@ -1,0 +1,98 @@
+<div class="container-fluid">
+    <?= $this->pageTitle(
+        'Encaminhar solicita&ccedil;&atilde;o',
+        [
+            ['Solicita&ccedil;&otilde;es' => 
+                ['module' => 'solicitacao',
+                'controller' => 'mensagem',
+                'action', 'index'
+                ]
+            ],
+            ['Encaminhar solicita&ccedil;&atilde;o' => '']
+        ]
+    ); ?>
+    <div class="content">
+        <div class="card-panel">
+            <div class="row">
+                <h4>Encaminhar para o outro t&eacute;cnico</h4>
+                <form method="post" data-ajax-form="true"
+                        action="<?= $this->arrPartial['arrConfig']['actionredistribuirSolicitacao']; ?>">
+                    <input name="idSolicitacao" type="hidden"
+                            value="<?= isset($this->arrPartial['dataForm']['idSolicitacao']) ? $this->arrPartial['dataForm']['idSolicitacao'] : ''; ?>"/>
+                    <input name="idPronac" type="hidden" value="<?= $this->arrPartial['dataForm']['idPronac']; ?>"/>
+                    <input name="idProjeto" type="hidden" value="<?= $this->arrPartial['dataForm']['idProjeto']; ?>"/>
+                    <input id="idTecnicoAtual" name="idTecnicoAtual" type="hidden" value="<?= $this->arrPartial['dataForm']['idTecnico']; ?>"/>
+
+                    <div class="row">
+                        <div class="col s6 m12 l4">
+                            <label>Unidade</label>
+                            <select class="browser-default" name="idOrgao" id="idOrgao">
+                                <option value="" disabled selected>Selecione uma unidade</option>
+                                <?php foreach ($this->arrPartial['arrConfig']['unidades'] as $unidade) : ?>
+                                    <option value="<?= $unidade->Codigo; ?>" 
+                                    <?= $this->arrPartial['dataForm']['idOrgao'] == $unidade->Codigo ? 
+                                    'selected': ''; ?>>
+                                        <?= strlen($unidade->novaSigla) > 1 ? $unidade->novaSigla : $unidade->Sigla ?>
+                                    </option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6 m12 l4">
+                            <label>T&eacute;cnico</label>
+                            <select class="browser-default" name="idTecnico" id="idTecnico">
+                                <option value="" disabled selected>Selecione um t&eacute;cnico</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12 m12 l12">
+                            <?php if ($this->arrPartial['arrConfig']['actions']['show'] === true): ?>
+                                <button type="submit" class="btn waves-effect waves-light bt_rascunho">Encaminhar</button>
+                            <?php endif; ?>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+        ConsultarUsuariosUnidade($('#idOrgao').val());
+        $('#idOrgao').change(function () {
+            $('#idOrgao').addClass('obrigatorio');
+            ConsultarUsuariosUnidade($('#idOrgao').val());
+        });
+
+        function ConsultarUsuariosUnidade(unidade) {
+                $('#idTecnico').addClass('obrigatorio');
+                $('.asterisco_dinamico').removeClass('sumir');
+                $.ajax({
+                    type: 'POST',
+                    url: '<?php echo $this->url(array('module' => 'solicitacao', 'controller' => 'mensagem', 'action' => 'usuarios')); ?>',
+                    data: {
+                        intId: unidade
+                    },
+                    success: function (data) {
+                        var tecnico = $('#idTecnico');
+                        var idTecnicoAtual = $('#idTecnicoAtual').val();
+                        
+                        tecnico.html('');
+                        if (data) {
+                            tecnico.append('<option value="" disabled selected> - Selecione um t&eacute;cnico - </option>');
+                            for (i in data) {
+                                var selecionado = (idTecnicoAtual == data[i].usu_codigo ) ? 'selected' : '';
+
+                                tecnico.append('<option value="' + data[i].usu_codigo + '"'  + selecionado + '>' + data[i].usu_nome + '</option>');
+                            }
+                        } else {
+                            tecnico.append('<option> - N&atilde;o h&aacute; t&eacute;cnicos nessa unidade - </option>');
+                        }
+                    },
+                    dataType: 'json'
+                });
+        };
+</script>

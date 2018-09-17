@@ -202,17 +202,26 @@
             salvar: function () {
                 var vue = this;
                 url = '/prestacao-contas/comprovante-pagamento';
-                $3.ajax({
-                    type: "POST",
-                    url: url,
-                    data: this.avaliacao,
-                })
+
+                /* console.log('t', !this.avaliacao.observacao && this.avaliacao.situacao); */
+                if(!this.avaliacao.observacao && this.avaliacao.situacao == 3) {
+                    alert('faltou preencher "Ocorrência"!');
+                } else {
+
+                    $3.ajax({
+                        type: "POST",
+                        url: url,
+                        data: this.avaliacao,
+                    })
                     .done(function (data) {
                         vue.$parent.$emit('salvar-form', vue.$data.avaliacao);
                     })
                     .fail(function (jqXHR) {
                         alert('error');
                     });
+                }
+
+
             }
         }
     }

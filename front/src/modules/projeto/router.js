@@ -1,16 +1,18 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Index from './index/Index';
-import DadosProjeto from './incentivo/components/DadosProjeto';
-import IncentivoTemplate from './incentivo/Index';
-import PlanilhaPropostaOriginal from './incentivo/components/PlanilhaPropostaOriginal';
-import PlanilhaPropostaAutorizada from './incentivo/components/PlanilhaPropostaAutorizada';
-import PlanilhaPropostaAdequada from './incentivo/components/PlanilhaPropostaAdequada';
-import PlanilhaHomologada from './incentivo/components/PlanilhaHomologada';
-import PlanilhaReadequada from './incentivo/components/PlanilhaReadequada';
-import RelacaoDePagamentos from './incentivo/components/RelacaoDePagamentos';
-import Proponente from './incentivo/components/proponente/Index';
-import Proposta from './incentivo/components/Proposta';
+
+import Listar from './listar/Index';
+import Visualizar from './visualizar/Visualizar';
+import DadosProjeto from './visualizar/components/DadosProjeto';
+import PlanilhaPropostaOriginal from './visualizar/components/incentivo/planilha/PlanilhaPropostaOriginal';
+import PlanilhaPropostaAutorizada from './visualizar/components/incentivo/planilha/PlanilhaPropostaAutorizada';
+import PlanilhaPropostaAdequada from './visualizar/components/incentivo/planilha/PlanilhaPropostaAdequada';
+import PlanilhaHomologada from './visualizar/components/incentivo/planilha/PlanilhaHomologada';
+import PlanilhaReadequada from './visualizar/components/incentivo/planilha/PlanilhaReadequada';
+import RelacaoDePagamentos from './visualizar/components/incentivo/RelacaoDePagamentos';
+import Proponente from './visualizar/components/incentivo/Proponente';
+import Convenente from './visualizar/components/convenio/Convenente';
+import Proposta from './visualizar/components/incentivo/Proposta';
 
 Vue.use(Router);
 
@@ -22,14 +24,14 @@ const routes = [
     {
         path: '/',
         name: 'index',
-        component: Index,
+        component: Listar,
         meta: {
-            title: 'Principal',
+            title: 'Lista de projetos',
         },
     },
     {
-        path: '/incentivo/:idPronac',
-        component: IncentivoTemplate,
+        path: '/:idPronac',
+        component: Visualizar,
         children: [
             {
                 path: '',
@@ -45,6 +47,14 @@ const routes = [
                 component: Proponente,
                 meta: {
                     title: 'Proponente',
+                },
+            },
+            {
+                path: 'convenente',
+                name: 'convenente',
+                component: Convenente,
+                meta: {
+                    title: 'Convenente',
                 },
             },
             {
@@ -113,7 +123,7 @@ const routes = [
             },
             {
                 path: 'conteudo-dinamico',
-                name: 'container_ajax',
+                name: 'containerAjax',
                 component: templateAjax,
             },
         ],

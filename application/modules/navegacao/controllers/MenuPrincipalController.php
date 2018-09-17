@@ -69,9 +69,15 @@
                 'url' => ['module' => 'default','controller' => 'realizarprestacaodecontas', 'action' => 'painel'],
                 'grupo' =>[126]
             ];
+            /* $arrMenu['prestacao-contas']['menu'][] = [ */
+            /*     'grupo' => [125], */
+            /*     'url' => ['module' => 'default','controller' => 'realizarprestacaodecontas', 'action' => 'painel'], */
+            /*     'title' => 'Analisar Presta&ccedil;&atilde;o de Contas', */
+            /*     'label' => 'Analisar Presta&ccedil;&atilde;o de Contas' */
+            /* ]; */
             $arrMenu['prestacao-contas']['menu'][] = [
                 'grupo' => [125],
-                'url' => ['module' => 'default','controller' => 'realizarprestacaodecontas', 'action' => 'painel'],
+                'url' => ['module' => 'avaliacao-resultados','controller' => 'index', 'action' => 'index'],
                 'title' => 'Analisar Presta&ccedil;&atilde;o de Contas',
                 'label' => 'Analisar Presta&ccedil;&atilde;o de Contas'
             ];
@@ -83,7 +89,7 @@
             ];
             $arrMenu['prestacao-contas']['menu'][] = [
                 'grupo' => [124],
-                'url' => ['module' => 'default','controller' => 'realizarprestacaodecontas', 'action' => 'tecnicoprestacaocontas'],
+                'url' => ['module' => 'avaliacao-resultados','controller' => 'index', 'action' => 'index#/painel'],
                 'title' => 'Analisar Presta&ccedil;&atilde;o de Contas',
                 'label' => 'Analisar Presta&ccedil;&atilde;o de Contas'
             ];

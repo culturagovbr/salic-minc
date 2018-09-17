@@ -7,41 +7,33 @@
 </template>
 <script>
 import slTabelaSimples from '@/components/slTabelaSimples';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'PropostaFontesDeRecursos',
-    data() {
-        return {
-            dado: [],
-        };
-    },
     props: ['idpreprojeto'],
     components: {
         slTabelaSimples,
     },
     mounted() {
         if (typeof this.idpreprojeto !== 'undefined') {
-            this.fetch(this.idpreprojeto);
+            this.buscaFontesDeRecursos(this.idpreprojeto);
         }
     },
     watch: {
         idpreprojeto(value) {
-            this.fetch(value);
+            this.buscaFontesDeRecursos(value);
         },
     },
+    computed: {
+        ...mapGetters({
+            dado: 'proposta/fontesDeRecursos',
+        }),
+    },
     methods: {
-        fetch(id) {
-            if (id) {
-                const self = this;
-                /* eslint-disable */
-                $3.ajax({
-                    url: '/proposta/visualizar/obter-fonte-de-recurso/idPreProjeto/' + id
-                }).done(function (response) {
-                    self.dado = response.data;
-                });
-
-            }
-        },
+        ...mapActions({
+            buscaFontesDeRecursos: 'proposta/buscaFontesDeRecursos',
+        }),
     },
 };
 </script>

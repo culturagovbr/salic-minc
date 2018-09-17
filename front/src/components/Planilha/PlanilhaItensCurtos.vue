@@ -5,6 +5,7 @@
             <tr>
                 <th class="center-align">#</th>
                 <th class="left-align">Item</th>
+                <th class="left-align">Unidade</th>
                 <th class="center-align">Dias</th>
                 <th class="center-align">Qtde</th>
                 <th class="center-align">Ocor.</th>
@@ -18,14 +19,13 @@
                 :key="row.idPlanilhaProposta"
                 v-if="isObject(row)"
                 v-bind:class="{'orange lighten-2': ultrapassaValor(row)}">
-                <td class="center-align">{{row.Seq}}</td>
-                <td class="left-align">{{row.Item}}</td>
-                <td class="center-align">{{row.QtdeDias}}</td>
-                <td class="center-align">{{row.Quantidade}}</td>
-                <td class="center-align">{{row.Ocorrencia}}</td>
-                <td class="right-align">
-                    <SalicFormatarValor :valor="row.vlUnitario"/>
-                </td>
+                <td class="center-align">{{ row.Seq }}</td>
+                <td class="left-align">{{ row.Item }}</td>
+                <td class="center-align">{{ row.Unidade }}</td>
+                <td class="center-align">{{ row.QtdeDias }}</td>
+                <td class="center-align">{{ row.Quantidade }}</td>
+                <td class="center-align">{{ row.Ocorrencia }}</td>
+                <td class="right-align">{{ row.vlUnitario | filtroFormatarParaReal }}</td>
                 <td class="right-align">
                     <SalicFormatarValor :valor="row.vlSolicitado"/>
                 </td>

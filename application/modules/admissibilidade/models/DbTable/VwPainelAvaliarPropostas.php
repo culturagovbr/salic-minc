@@ -197,7 +197,8 @@ class Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas extends MinC_Db_Tab
                     . " WHEN tbRecursoProposta.tpRecurso = " . Recurso_Model_TbRecursoProposta::TIPO_RECURSO_RECURSO 
                     . " THEN '2 - Recurso' "
                     . " ELSE '-' END"
-                )
+                ),
+                'prazo_recursal' => 'tbRecursoProposta.stRascunho'
             ],
             $this->getSchema('sac')
         );

@@ -19,21 +19,16 @@ class Projeto_Model_TbProjetosMapper extends MinC_Db_Mapper
         $this->setDbTable('Projeto_Model_DbTable_Projetos');
     }
 
-    // public function isUniqueCpfCnpj($value)
-    // {
-    //     return ($this->findBy(array("cnpjcpf" => $value))) ? true : false;
-    // }
-
     public function isValid($model)
     {
         $booStatus = true;
         $arrData = $model->toArray();
         $arrRequired = [
-                'idPRONAC',
-                'situacao',
-                'dtSituacao',
-                'providenciaTomada',
-                'logon',
+            'idPRONAC',
+            'situacao',
+            'dtSituacao',
+            'providenciaTomada',
+            'logon',
         ];
         foreach ($arrRequired as $strValue) {
             if (!isset($arrData[$strValue]) || empty($arrData[$strValue])) {
@@ -45,37 +40,72 @@ class Projeto_Model_TbProjetosMapper extends MinC_Db_Mapper
         return $booStatus;
     }
 
-    // public function save($arrData)
-    // {
-    //     $booStatus = false;
-    //     if (!empty($arrData)) {
-    //         $model = new Projeto_Model_TbHomologacao($arrData);
-    //         try {
-    //             $objProjeto = new Projetos();
-    //             $objProjeto->alterarSituacao($this->idPronac, null, 'D51', 'Projeto em an&aacute;lise documental.');
+    public function obterProjetoCompleto($idPronac)
+    {
 
-    //             exit;
-    //             $auth = Zend_Auth::getInstance(); // pega a autenticacao
-    //             $arrAuth = array_change_key_case((array) $auth->getIdentity());
-    //             if (!isset($arrData['idHomologacao']) || empty($arrData['idHomologacao'])) {
-    //                 $model->setDtHomologacao(date('Y-m-d h:i:s'));
-    //             }
-    //             $model->setIdUsuario($arrAuth['usu_codigo']);
-    //             if ($intId = parent::save($model)) {
-    //                 $booStatus = 1;
-    //                 $this->setMessage('Salvo com sucesso!');
-    //             } else {
-    //                 $this->setMessage('Nao foi possivel salvar!');
-    //             }
-    //         } catch (Exception $e) {
-    //             $this->setMessage($e->getMessage());
-    //         }
-    //     }
-    //     return $booStatus;
-    // }
+        $tbProjetos = new Projeto_Model_DbTable_Projetos();
+        $projeto = $tbProjetos->findBy(['IdPRONAC = ?' => $idPronac]);
 
-    // public function alterarSituacao($arrParam)
-    // {
-        // $this->idPronac, 'B04', 'Projeto em an&aacute;lise documental.'
-    // }
+        if($projeto['Mecanismo'] == 1) {
+            return $this->obterProjetoIncentivo($idPronac);
+        }
+
+       return $this->obterProjetoConvenio($idPronac);
+    }
+
+    public function obterProjetoConvenio($idPronac)
+    {
+        if (empty($idPronac)) {
+            return false;
+        }
+
+        $vwDadosProjeto = new Projeto_Model_DbTable_VwConsultarDadosDoProjetoFNC();
+        $projeto = $vwDadosProjeto->obterDadosFnc($idPronac);
+
+        $data = $projeto;
+        $data['isTipoConvenio'] = true;
+        $dbTableInabilitado = new Inabilitado();
+        $proponenteInabilitado = $dbTableInabilitado->BuscarInabilitado($projeto['CNPJ_CPF'], null, null, true);
+        $data['ProponenteInabilitado'] = !empty($proponenteInabilitado);
+
+        return $data;
+    }
+
+    public function obterProjetoIncentivo($idPronac)
+    {
+        if (empty($idPronac)) {
+            return false;
+        }
+
+        $dbTableProjetos = new Projeto_Model_DbTable_Projetos();
+        $projeto = $dbTableProjetos->obterProjetoIncentivoCompleto($idPronac);
+
+        $tbPreProjetoMeta = new Proposta_Model_PreProjetoMapper();
+        $planilhaOriginal = $tbPreProjetoMeta->obterValorTotalPlanilhaPropostaCongelada($projeto->idPreProjeto);
+
+        $data = $projeto->toArray();
+
+        $data['vlSolicitadoOriginal'] = !empty($planilhaOriginal) ? $planilhaOriginal['vlSolicitadoOriginal'] : $data['vlSolicitadoOriginal'];
+        $data['vlOutrasFontesPropostaOriginal'] = !empty($planilhaOriginal) ? $planilhaOriginal['vlOutrasFontesPropostaOriginal'] : $data['vlOutrasFontesPropostaOriginal'];
+        $data['vlTotalPropostaOriginal'] = !empty($planilhaOriginal) ? $planilhaOriginal['vlTotalPropostaOriginal'] : $data['vlTotalPropostaOriginal'];
+
+        $data['vlAutorizado'] = !empty($planilhaOriginal) ? $planilhaOriginal['vlSolicitadoOriginal'] : $data['vlAutorizado'];
+        $data['vlAutorizadoOutrasFontes'] = !empty($planilhaOriginal) ? $planilhaOriginal['vlOutrasFontesPropostaOriginal'] : $data['vlAutorizadoOutrasFontes'];
+        $data['vlTotalAutorizado'] = !empty($planilhaOriginal) ? $planilhaOriginal['vlTotalPropostaOriginal'] : $data['vlTotalAutorizado'];
+
+        $dbTableInabilitado = new Inabilitado();
+        $proponenteInabilitado = $dbTableInabilitado->BuscarInabilitado($projeto->CgcCPf, null, null, true);;
+
+        $Parecer = new Parecer();
+        $parecerAnaliseCNIC = $Parecer->verificaProjSituacaoCNIC($projeto->Pronac);
+
+        $data['ProponenteInabilitado'] = !empty($proponenteInabilitado);
+        $data['EmAnaliseNaCNIC'] = (count($parecerAnaliseCNIC) > 0) ? true : false;
+        $data['idUsuarioExterno'] = !empty($this->idUsuarioExterno) ? $this->idUsuarioExterno : false;
+        $data['isTipoIncentivo'] = true;
+
+        return $data;
+
+    }
+
 }

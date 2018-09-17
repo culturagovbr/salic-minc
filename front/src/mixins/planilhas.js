@@ -55,14 +55,6 @@ export default {
 
             return soma.format();
         },
-        converterStringParaClasseCss(text) {
-            return text
-                .toString()
-                .toLowerCase()
-                .trim()
-                .replace(/&/g, '-and-')
-                .replace(/[\s\W-]+/g, '-');
-        },
         isObject(el) {
             return typeof el === 'object';
         },
@@ -74,9 +66,12 @@ export default {
                 'linha-atualizada': row.tpAcao === 'A',
             };
         },
+        formatarParaReal(value) {
+            return this.$options.filters.filtroFormatarParaReal(value);
+        },
     },
     filters: {
-        formatarParaReal(value) {
+        filtroFormatarParaReal(value) {
             const parsedValue = parseFloat(value);
             return numeral(parsedValue).format('0,0.00');
         },

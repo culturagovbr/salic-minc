@@ -1,21 +1,29 @@
 import * as types from './types';
-import Mock from '../mocks/Parecer.json';
+import Parecer from '../mocks/Parecer.json';
+import TipoAvaliacao from '../mocks/TipoAvaliacao.json';
 
 export const state = {
     consolidacaoComprovantes: {},
     dadosTabela: [],
+    dadosTabelaTecnico: [],
+    dadosHistoricoEncaminhamento: [],
     destinatarios: {},
-    mock: Mock,
+    mocks:
+    {
+        parecer:Parecer,
+        tipoAvaliacao:TipoAvaliacao,
+    },
     parecer: {},
     projeto: {},
     proponente: {},
     registroAtivo: {},
-
+    tipoAvaliacao: {},
+    redirectLink:{}
 };
 
 export const mutations = {
     [types.MOCK_AVALIACAO_RESULTADOS](state){
-        state.mock = Mock;
+        state.mocks;
     },
     [types.GET_CONSOLIDACAO_PARECER](state, consolidacaoComprovantes){
         state.consolidacaoComprovantes = consolidacaoComprovantes;
@@ -58,5 +66,20 @@ export const mutations = {
     },
     [types.DESTINATARIOS_ENCAMINHAMENTO](state, destinatarios){
         state.destinatarios = destinatarios;
+    },
+    [types.PROJETOS_AVALIACAO_TECNICA](state, dados){
+        state.dadosTabelaTecnico = dados;
+    },
+    [types.HISTORICO_ENCAMINHAMENTO](state, dados){
+        state.dadosHistoricoEncaminhamento = [];
+        Object.values(dados).forEach(function(historico) {
+            state.dadosHistoricoEncaminhamento.push(historico);
+        });
+    },
+    [types.GET_TIPO_AVALIACAO](state,tipoAvaliacao){
+        state.tipoAvaliacao = tipoAvaliacao[0];
+    },
+    [types.LINK_REDIRECIONAMENTO_TIPO_AVALIACAO_RESULTADO] (state, redirectLink){
+        state.redirectLink = redirectLink;
     }
 };

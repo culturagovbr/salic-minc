@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="idpreprojeto || dados" class="proposta">
+        <div v-if="dados" class="proposta">
             <div v-if="loading" class="row">
                 <Carregando :text="'Carregando proposta'"></Carregando>
             </div>
@@ -29,6 +29,22 @@
                                 :idpreprojeto="dados.idPreProjeto"
                                 :proposta="dados"
                         ></PropostaHistoricoAvaliacoes>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">history</i>Hist&oacute;rico de sugest&otilde;es de enquadramento</div>
+                    <div class="collapsible-body padding20" v-if="dados">
+                        <PropostaHistoricoSugestoesEnquadramento
+                            :idpreprojeto="dados.idPreProjeto"
+                        ></PropostaHistoricoSugestoesEnquadramento>
+                    </div>
+                </li>
+                <li>
+                    <div class="collapsible-header"><i class="material-icons">history</i>Hist&oacute;rico de solicita&ccedil;&otilde;es</div>
+                    <div class="collapsible-body padding20" v-if="dados">
+                        <PropostaHistoricoSolicitacoes
+                            :idpreprojeto="dados.idPreProjeto"
+                        ></PropostaHistoricoSolicitacoes>
                     </div>
                 </li>
                 <li>
@@ -155,21 +171,21 @@
                     </div>
                 </li>
                 <li>
-                    <div id="planilha-orcamentaria" class="collapsible-header"><i class="material-icons">attach_money</i>Planilha
-                        or&ccedil;ament&aacute;ria
-                    </div>
-                    <div class="collapsible-body padding20">
-                        <Planilha
-                                :arrayPlanilha="dados.tbplanilhaproposta"
-                        ></Planilha>
-                    </div>
-                </li>
-                <li>
                     <div class="collapsible-header"><i class="material-icons">attach_money</i>Custos Vinculados</div>
                     <div class="collapsible-body padding20" v-if="dados">
                          <PropostaCustosVinculados
                                  :arrayCustos="dados.tbcustosvinculados"
                          ></PropostaCustosVinculados>
+                    </div>
+                </li>
+                <li>
+                    <div id="planilha-orcamentaria" class="collapsible-header"><i class="material-icons">attach_money</i>Planilha
+                        or&ccedil;ament&aacute;ria
+                    </div>
+                    <div class="collapsible-body padding20">
+                        <Planilha
+                            :arrayPlanilha="dados.tbplanilhaproposta"
+                        ></Planilha>
                     </div>
                 </li>
             </ul>
@@ -186,6 +202,8 @@ import Carregando from '@/components/Carregando';
 import SalicTextoSimples from '@/components/SalicTextoSimples';
 import PropostaIdentificacao from './components/PropostaIdentificacao';
 import PropostaHistoricoAvaliacoes from './components/PropostaHistoricoAvaliacoes';
+import PropostaHistoricoSugestoesEnquadramento from './components/PropostaHistoricoSugestoesEnquadramento';
+import PropostaHistoricoSolicitacoes from './components/PropostaHistoricoSolicitacoes';
 import AgenteProponente from '../components/AgenteProponente';
 import AgenteUsuario from '../components/AgenteUsuario';
 import PropostaDocumentos from './components/PropostaDocumentos';
@@ -193,7 +211,7 @@ import PropostaPlanoDistribuicao from './components/PropostaPlanoDistribuicao';
 import PropostaFontesDeRecursos from './components/PropostaFontesDeRecursos';
 import PropostaLocalRealizacaoDeslocamento from './components/PropostaLocalRealizacaoDeslocamento';
 import PropostaCustosVinculados from './components/PropostaCustosVinculados';
-
+import { mapActions, mapGetters } from 'vuex';
 export default {
     name: 'Proposta',
     data() {
@@ -211,6 +229,8 @@ export default {
     components: {
         PropostaIdentificacao,
         PropostaHistoricoAvaliacoes,
+        PropostaHistoricoSugestoesEnquadramento,
+        PropostaHistoricoSolicitacoes,
         AgenteProponente,
         AgenteUsuario,
         SalicTextoSimples,
@@ -224,7 +244,9 @@ export default {
     },
     mounted() {
         if (typeof this.idpreprojeto !== 'undefined' && typeof this.proposta === 'undefined') {
-            this.buscar_dados();
+            this.buscarDadosProposta(this.idpreprojeto);
+            this.dados = this.dadosProposta;
+
         }
 
         if (typeof this.proposta !== 'undefined') {
@@ -234,17 +256,21 @@ export default {
 
         this.iniciarCollapsible();
     },
+    watch: {
+        dadosProposta(value) {
+            this.dados = value;
+            this.loading = false;
+        }
+    },
+    computed: {
+        ...mapGetters({
+            dadosProposta: 'proposta/proposta',
+        }),
+    },
     methods: {
-        buscar_dados() {
-            const self = this;
-            /* eslint-disable */
-            $3.ajax({
-                url: '/proposta/visualizar/obter-proposta-cultural-completa/idPreProjeto/' + self.idpreprojeto
-            }).done(function (response) {
-                self.dados = response.data;
-                self.loading = false;
-            });
-        },
+        ...mapActions({
+            buscarDadosProposta: 'proposta/buscarDadosProposta',
+        }),
         iniciarCollapsible() {
             // eslint-disable-next-line
             $3('.collapsible').each(function () {

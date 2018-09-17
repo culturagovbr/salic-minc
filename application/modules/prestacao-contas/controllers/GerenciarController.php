@@ -6,9 +6,9 @@ class PrestacaoContas_GerenciarController extends MinC_Controller_Action_Abstrac
 
     public function init()
     {
-        /* $auth = Zend_Auth::getInstance(); */
+        $auth = Zend_Auth::getInstance();
 
-        /* isset($auth->getIdentity()->usu_codigo) ? parent::perfil(1, $PermissoesGrupo) : parent::perfil(4, $PermissoesGrupo); */
+        isset($auth->getIdentity()->usu_codigo) ? parent::perfil(1, $PermissoesGrupo) : parent::perfil(4, $PermissoesGrupo);
 
         /* isset($auth->getIdentity()->usu_codigo) ? $this->idUsuario = $auth->getIdentity()->usu_codigo : $this->idUsuario = $auth->getIdentity()->IdUsuario; */
 

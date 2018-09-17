@@ -97,6 +97,7 @@ class Solicitacao_Model_TbSolicitacaoMapper extends MinC_Db_Mapper
                 $model->setIdProjeto($arrData['idProjeto']);
                 $model->setIdTecnico($arrData['idTecnico']);
                 $model->setIdSolicitante($arrData['idUsuario']);
+                $model->setDtEncaminhamento(date('Y-m-d h:i:s'));
 
                 $mensagemSucesso = "Solicita&ccedil;&atilde;o enviada com sucesso!";
                 $model->setSiEncaminhamento(Solicitacao_Model_TbSolicitacao::SITUACAO_ENCAMINHAMENTO_ENCAMINHADA_AO_MINC);
@@ -152,6 +153,24 @@ class Solicitacao_Model_TbSolicitacaoMapper extends MinC_Db_Mapper
                 $model->setIdTecnico($this->_idUsuario);
                 $model->setSiEncaminhamento(Solicitacao_Model_TbSolicitacao::SITUACAO_ENCAMINHAMENTO_FINALIZADA_MINC);
                 $model->setStEstado(0);
+
+                $file = new Zend_File_Transfer();
+
+                $model->setIdDocumento($model->getIdDocumento());
+                if($file->isUploaded()){
+
+                    if (!empty($file->getFileInfo())) {
+
+                        $arrDoc = [];
+                        $arrDoc['idTipoDocumento'] = Arquivo_Model_TbTipoDocumento::TIPO_DOCUMENTO_ARQUIVO;
+                        $arrDoc['dsDocumento'] = 'Anexo resposta solicita&ccedil;&atilde;o';
+
+                        $mapperArquivo = new Arquivo_Model_TbDocumentoMapper();
+                        $idDocumento = $mapperArquivo->saveCustom($arrDoc, $file); 
+
+                    }
+                    $model->setIdDocumentoResposta($idDocumento);
+                }
 
                 $id = $this->save($model);
                 if ($id) {

@@ -1,8 +1,28 @@
 <?php
 if ($this->arrPartial['dataForm']['idProjeto'] && $this->isProponente) {
     echo $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->arrPartial['dataForm']['idProjeto']));
-    echo $this->partial('/mensagem/partials/proposta/conteudo-visualizar.phtml', 'solicitacao', $this);
-
-} else {
-    echo $this->partial('/mensagem/partials/projeto/conteudo-visualizar.phtml', 'solicitacao', $this);
+} else if ($this->idPronac && !empty($this->urlMenu)) {
+    echo $this->SidebarVue($this->url($this->urlMenu, '', true));
 }
+?>
+<div class="container-fluid">
+    <?= $this->pageTitle(
+        'Visualizar',
+        [
+            ['Solicita&ccedil;&otilde;es' => 
+                ['module' => 'solicitacao',
+                 'controller' => 'mensagem',
+                 'action', 'index'
+                ]
+            ],
+            ['Visualizar' => '']
+        ]
+    ); ?>
+    <div class="content">
+        <div class="card-panel">
+            <div class="row">
+                <?php echo $this->partial('/mensagem/partials/visualizar.phtml', $this->arrPartial); ?>
+            </div>
+        </div>
+    </div>
+</div>

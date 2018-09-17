@@ -1,8 +1,0 @@
-<?php
-$gmtDate = gmdate("D, d M Y H:i:s");
-header("Expires: {$gmtDate} GMT");
-header("Last-Modified: {$gmtDate} GMT");
-header("Cache-Control: no-cache, must-revalidate");
-header("Pragma: no-cache");
-?>
-<div id="modal-arquivo-excluido" class="sumir">O arquivo <strong><?php echo $this->nmArquivo; ?></strong> foi exclu&iacute;do com sucesso!</div>

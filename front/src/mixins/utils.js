@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 /* eslint-disable */
 export const utils = {
     methods: {
@@ -66,6 +68,30 @@ export const utils = {
             }
 
             return 'N\xE3o';
-        }
-    }
+        },
+        isDataExpirada(date) {
+            return moment().diff(date, 'days') > 0;
+        },
+    },
+    filters: {
+        formatarData(date) {
+            if (date && date.length === 0) {
+                return '-';
+            }
+            return moment(date)
+                .format('DD/MM/YYYY');
+        },
+        formatarAgencia(agencia) {
+            // formato: 9999-9
+            if (agencia && agencia.length === 5) {
+                agencia = agencia.replace(/(\d{4})(\d)/, '$1-$2');
+            }
+            return agencia;
+        },
+        formatarConta(conta) {
+            // formato: 99999-9
+            conta = parseInt(conta);
+            return conta.toString().replace(/(\d)(\d{1})$/, '$1-$2');
+        },
+    },
 }

@@ -2,7 +2,7 @@
 
 $arrMenu['prestacao-contas'] = array(
     'id' => 'prestacao-contas',
-    'label' => 'Presta&ccedil;&atilde;o de Contas',
+    'label' => 'Avalia&ccedil;&atilde;o de Resultados',
     'title' => 'Ir para Presta&ccedil;&atilde;o de Contas',
     'menu' => array(),
     'grupo' => array(100,124,125,126,132,148,151),
@@ -19,12 +19,12 @@ $arrMenu['prestacao-contas']['menu'][] = array(
     'title' => 'Analisar Presta&ccedil;&atilde;o de Contas',
     'label' => 'Analisar Presta&ccedil;&atilde;o de Contas'
 );
-$arrMenu['prestacao-contas']['menu'][] = array(
-    'grupo' => array(125),
-    'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'manter-assinantes'), '', true),
-    'title' => 'Ir para Assinantes',
-    'label' => 'Assinantes'
-);
+//$arrMenu['prestacao-contas']['menu'][] = array(
+//    'grupo' => array(125),
+//    'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'manter-assinantes'), '', true),
+//    'title' => 'Ir para Assinantes',
+//    'label' => 'Assinantes'
+//);
 $arrMenu['prestacao-contas']['menu'][] = array(
     'grupo' => array(124),
     'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'tecnicoprestacaocontas'), '', true),
@@ -65,7 +65,7 @@ $arrMenu['prestacao-contas']['menu'][] = array(
     'grupo' => array(125,126),
     'url' => $this->url(array('module'=>'prestacao-contas', 'controller' => 'prestacao-contas', 'action' => 'analise-financeira-virtual'), '', true),
     'title' => 'Ir para An&aacute;lise Financeira Virtual',
-    'label' => 'Análise Financeira Virtual'
+    'label' => 'An&aacute;lise Financeira Virtual'
 );
 $arrMenu['prestacao-contas']['menu'][] = array(
     'grupo' => array(126,148,151),
@@ -73,12 +73,12 @@ $arrMenu['prestacao-contas']['menu'][] = array(
     'title' => 'Ir para Analisar Laudo Final',
     'label' => 'Analisar Laudo Final'
 );
-$arrMenu['prestacao-contas']['menu'][] = array(
-    'grupo' => array(124,125,132),
-    'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'consultar-laudo-final'), '', true),
-    'title' => 'Ir para Analisar Laudo Final',
-    'label' => 'Analisar Laudo Final'
-);
+//$arrMenu['prestacao-contas']['menu'][] = array(
+//    'grupo' => array(124,125,132),
+//    'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'consultar-laudo-final'), '', true),
+//    'title' => 'Ir para Analisar Laudo Final',
+//    'label' => 'Analisar Laudo Final'
+//);
 
 $arrMenu['prestacao-contas']['menu'][] = array(
     'grupo' => array(

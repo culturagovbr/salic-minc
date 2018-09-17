@@ -1,0 +1,79 @@
+<?php
+if(!empty($this->dataForm['idProjeto'])) {
+    $arrayLinkProjeto = ['module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'exibirpropostacultural-ajax', 'idPreProjeto' => $this->dataForm['idProjeto']];
+}
+
+?>
+<div class="">
+    <div class="row">
+        <div class="col s12">
+            <?php if (!empty($this->dataForm['Pronac'])) : ?>
+                <b>Pronac: </b><?= $this->dataForm['Pronac']; ?>
+            <?php elseif (!empty($this->dataForm['idProjeto'])) : ?>
+                <b>N&ordm; Proposta: </b><a
+                        data-ajax-modal="<?= $this->url($arrayLinkProjeto); ?>"
+                        href="javascript:void(0);"
+                        data-position="top"
+                        data-delay="50"
+                        data-ajax-modal-height="96%"
+                        data-ajax-modal-width="98%"
+                        data-tooltip="Visualizar proposta"
+                        class="waves-effect waves-teal btn small white tooltipped black-text"
+                ><?= $this->dataForm['idProjeto']; ?></a> <br>
+            <?php endif; ?>
+        </div>
+        <div class="col s12">
+            <b>Nome projeto: </b><?= $this->dataForm['NomeProjeto']; ?>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="row">
+            <div class="input-field col s12">
+                <h5>Solicita&ccedil;&atilde;o</h5>
+            </div>
+            <div class="col s12">
+                <?= isset($this->dataForm['dsSolicitacao']) ? $this->dataForm['dsSolicitacao'] : 'Nenhum texto encontrado!'; ?>
+            </div>
+        </div>
+
+        <?php if (!empty($this->dataForm['arquivo']['idDocumento'])): ?>
+            <div class="row">
+                <div class="col s12">
+                    <div id="comprovanteDocumentoAnexado"
+                            class="doc<?= $this->dataForm['arquivo']['idDocumento']; ?>">
+                        <b>Documento anexado: </b>
+                        <a href="<?= $this->url(array('module' => 'solicitacao', 'controller' => 'mensagem', 'action' => 'abrirdocumentosolicitacao'), null, true); ?>?id=<?= $this->dataForm['arquivo']['idDocumento']; ?>">
+                            <?= utf8_decode(htmlentities($this->dataForm['arquivo']['nmArquivo'])); ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($this->arrConfig['dsResposta']['show'] === true): ?>
+            <div class="row">
+                <div class="input-field col s12">
+                    <h5>Resposta</h5>
+                </div>
+                <div class="col s12">
+                    <?= ($this->dataForm['dsResposta']) ? $this->dataForm['dsResposta'] : '<br />Sem resposta para esta solicita&ccedil;&atilde;o.'; ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if (!empty($this->dataForm['arquivoResposta']['idDocumento'])): ?>
+            <div class="row">
+                <div class="col s12">
+                    <div id="comprovanteDocumentoAnexado"
+                            class="doc<?= $this->dataForm['arquivoResposta']['idDocumento']; ?>">
+                        <b>Documento anexado: </b>
+                        <a href="<?= $this->url(array('module' => 'solicitacao', 'controller' => 'mensagem', 'action' => 'abrirdocumentosolicitacao'), null, true); ?>?id=<?= $this->dataForm['arquivoResposta']['idDocumento']; ?>">
+                            <?= utf8_decode(htmlentities($this->dataForm['arquivoResposta']['nmArquivo'])); ?>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>

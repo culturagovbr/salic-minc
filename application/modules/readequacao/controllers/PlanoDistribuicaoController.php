@@ -49,7 +49,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
     public function carregarPlanosDeDistribuicaoAction()
     {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
-        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessão com o grupo ativo
+        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
         $this->view->idPerfil = $GrupoAtivo->codGrupo;
 
         $idPronac = $this->_request->getParam("idPronac");
@@ -98,7 +98,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
         }
 
         if ($this->_existeSolicitacaoEmAnalise) {
-            parent::message('Já existe uma solicita&ccedil;ao de readequa&ccedil;&atilde;o em an&aacute;lise!', $urlCallback, "ERROR");
+            parent::message('J&aacute; existe uma solicita&ccedil;ao de readequa&ccedil;&atilde;o em an&aacute;lise!', $urlCallback, "ERROR");
         }
 
         try {
@@ -162,7 +162,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
     public function carregarPlanosDeDistribuicaoReadequacoesAction()
     {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
-        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessão com o grupo ativo
+        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessï¿½o com o grupo ativo
         $this->view->idPerfil = $GrupoAtivo->codGrupo;
 
         $idPronac = $this->_request->getParam("idPronac");
@@ -214,7 +214,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
             $idPronac = Seguranca::dencrypt($idPronac);
         }
 
-        //VERIFICA SE JA POSSUI OS PLANOS DE DISTRIBUIÇÃO NA TABELA tbPlanoDistribuicao (READEQUACAO), SE NÃO TIVER, COPIA DA ORIGINAL, E DEPOIS INCLUI O ITEM DESEJADO.
+        //VERIFICA SE JA POSSUI OS PLANOS DE DISTRIBUICAO NA TABELA tbPlanoDistribuicao (READEQUACAO), SE NAO TIVER, COPIA DA ORIGINAL, E DEPOIS INCLUI O ITEM DESEJADO.
         $tbPlanoDistribuicao = new Readequacao_Model_DbTable_TbPlanoDistribuicao();
         $readequacaoPDDist = $tbPlanoDistribuicao->buscar(array('idPronac=?' => $idPronac, 'stAtivo=?' => 'S'));
 
@@ -296,7 +296,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
             $idPronac = Seguranca::dencrypt($idPronac);
         }
 
-        //VERIFICA SE JA POSSUI OS PLANOS DE DISTRIBUIÇÃO NA TABELA tbPlanoDistribuicao (READEQUACAO), SE NÃO TIVER, COPIA DA ORIGINAL, E DEPOIS INCLUI O ITEM DESEJADO.
+        //VERIFICA SE JA POSSUI OS PLANOS DE DISTRIBUICAO NA TABELA tbPlanoDistribuicao (READEQUACAO), SE NAO TIVER, COPIA DA ORIGINAL, E DEPOIS INCLUI O ITEM DESEJADO.
         $tbPlanoDistribuicao = new Readequacao_Model_DbTable_TbPlanoDistribuicao();
         $readequacaoPDDist = $tbPlanoDistribuicao->buscar(array('idPronac=?' => $idPronac, 'stAtivo=?' => 'S'));
         $planosAtivos = $tbPlanoDistribuicao->buscarPlanosDistribuicaoReadequacao($idPronac);
@@ -325,7 +325,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
             }
         }
 
-        /* DADOS DO ITEM PARA EXCLUSAO LÓGICA DO ITEM DA READEQUACAO */
+        /* DADOS DO ITEM PARA EXCLUSAO LOGICA DO ITEM DA READEQUACAO */
         $dados = array();
         $dados['tpSolicitacao'] = 'E';
 
@@ -378,7 +378,7 @@ class Readequacao_PlanodistribuicaoController extends Readequacao_GenericControl
 
             $this->_helper->json(
                 [
-                    'data' => TratarArray::prepararArrayMultiParaJson($dados),
+                    'data' => TratarArray::utf8EncodeArray($dados),
                     'success' => 'true'
                 ]
             );

@@ -53,7 +53,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
         $objProjetos->alterarSituacao(
             $this->idPronac,
             null,
-            \Projeto_Model_Situacao::ANALISE_TECNICA,
+            \Projeto_Model_Situacao::PROJETO_HOMOLOGADO,
             'Projeto aguardando an&aacute;lise para homologa&ccedil;&atilde;o de execu&ccedil;&atilde;o'
         );
 

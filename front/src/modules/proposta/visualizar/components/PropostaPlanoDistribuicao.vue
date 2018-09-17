@@ -4,7 +4,7 @@
             <b>Aguarde! Carregando....</b>
         </div>
         <ul class="collapsible collapsible-produto no-padding" data-collapsible="expandable">
-            <li v-for="produto of produtos">
+            <li v-for="(produto, index) of produtos" :key="index">
                 <div class="collapsible-header green-text">
                     <i class="material-icons">perm_media</i> {{produto.Produto}}
                 </div>
@@ -122,7 +122,6 @@ export default {
         };
     },
     props: [
-        'idpreprojeto',
         'idplanodistribuicao',
         'idmunicipioibge',
         'iduf',
@@ -133,9 +132,6 @@ export default {
         PropostaDetalhamentoPlanoDistribuicao,
     },
     watch: {
-        idpreprojeto(value) {
-            this.fetch(value);
-        },
         arrayProdutos(value) {
             this.produtos = value;
         },
@@ -144,10 +140,6 @@ export default {
         },
     },
     mounted() {
-        if (typeof this.idpreprojeto !== 'undefined') {
-            this.fetch(this.idpreprojeto);
-        }
-
         if (typeof this.arrayProdutos !== 'undefined') {
             this.produtos = this.arrayProdutos;
         }
@@ -159,21 +151,6 @@ export default {
         this.iniciarCollapsible();
     },
     methods: {
-        fetch() {
-            const self = this;
-            /* eslint-disable */
-            $3.ajax({
-                type: "GET",
-                url: "/proposta/visualizar/obter-plano-distribuicacao",
-                data: {
-                    idPreProjeto: self.idpreprojeto
-                }
-            }).done(function (response) {
-                let dados = response.data;
-                self.produtos = dados.planodistribuicaoproduto;
-                self.detalhamentos = dados.tbdetalhaplanodistribuicao;
-            });
-        },
         detalhamentosByID(lista, id) {
             let novaLista = [];
 

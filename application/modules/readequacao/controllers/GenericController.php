@@ -15,7 +15,7 @@ abstract class Readequacao_GenericController extends MinC_Controller_Action_Abst
     public function init()
     {
         parent::init();
-        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessão com o grupo ativo
+        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
         $this->idOrgao = $GrupoAtivo->codOrgao;
         $this->idPerfil = $GrupoAtivo->codGrupo;
         $this->view->usuarioInterno = false;
@@ -45,11 +45,11 @@ abstract class Readequacao_GenericController extends MinC_Controller_Action_Abst
         $this->view->idPronac = $idPronac;
         $this->view->idPronacHash = $this->idPronacHash;
 
-        if (isset($auth->getIdentity()->usu_codigo)) { // autenticacao novo salic
+        if (isset($auth->getIdentity()->usu_codigo)) {
             $this->view->usuarioInterno = true;
             $this->idUsuario = $auth->getIdentity()->usu_codigo;
 
-            $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuário
+            $Usuario = new Autenticacao_Model_DbTable_Usuario();
             $grupos = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21);
             foreach ($grupos as $grupo) {
                 $PermissoesGrupo[] = $grupo->gru_codigo;

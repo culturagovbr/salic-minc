@@ -57,10 +57,10 @@ const comprovanteTable = {
             return CNPJCPF;
         },
         dataEmissaoComprovante() {
-            return moment(this.dados.dataEmissao).format('DD/MM/Y');
+            return moment(this.dados.dataEmissao, 'YYYY/MM/DD').format('DD/MM/Y');
         },
         dataPagamento() {
-            return moment(this.dados.dataPagamento).format('DD/MM/Y');
+            return moment(this.dados.dataPagamento, 'YYYY/MM/DD').format('DD/MM/Y');
         },
         tipoDocumento() {
             tipo = '';

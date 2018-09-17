@@ -117,24 +117,17 @@ class Assinatura implements IServico
         ];
 
         $dbTableTbAssinatura->inserir($dadosInclusaoAssinatura);
-        $codigoOrgaoDestino = $objTbAtoAdministrativo->obterProximoOrgaoDeDestino(
+        
+        $quantidadeAssinaturasRealizadas = $dbTableTbAssinatura->obterQuantidadeAssinaturasRealizadas();
+        $quantidadeMinimaAssinaturas = $objTbAtoAdministrativo->obterQuantidadeMinimaAssinaturas(
             $modeloTbAtoAdministrativo->getIdTipoDoAto(),
-            $modeloTbAtoAdministrativo->getIdOrdemDaAssinatura(),
             $modeloTbAtoAdministrativo->getIdOrgaoSuperiorDoAssinante()
         );
-
-        if ($codigoOrgaoDestino) {
+        
+        if ($quantidadeAssinaturasRealizadas < $quantidadeMinimaAssinaturas) {
             $this->encaminhar();
-        } else {
-            $quantidadeAssinaturasRealizadas = $dbTableTbAssinatura->obterQuantidadeAssinaturasRealizadas();
-            $quantidadeMinimaAssinaturas = $objTbAtoAdministrativo->obterQuantidadeMinimaAssinaturas(
-                $modeloTbAtoAdministrativo->getIdTipoDoAto(),
-                $modeloTbAtoAdministrativo->getIdOrgaoSuperiorDoAssinante()
-            );
-            
-            if ($quantidadeAssinaturasRealizadas == $quantidadeMinimaAssinaturas) {
-                $this->finalizar();
-            }
+        } else if ($quantidadeAssinaturasRealizadas == $quantidadeMinimaAssinaturas) {
+            $this->finalizar();
         }
 
         $this->executarAcoes('\MinC\Assinatura\Acao\IAcaoAssinar');

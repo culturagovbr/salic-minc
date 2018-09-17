@@ -1,171 +1,120 @@
 <template>
-    <div v-if="planilha" class="planilha-orcamentaria card">
-        <ul class="collapsible no-margin" data-collapsible="expandable">
-            <li v-for="(fontes, fonte, indexFonte) of planilhaCompleta" v-if="isObject(fontes)" :key="indexFonte">
-                <div class="collapsible-header active red-text fonte" :class="converterStringParaClasseCss(fonte)">
-                    <i class="material-icons">beenhere</i>{{fonte}}<span class="badge">R$ {{fontes.total}}</span>
-                </div>
-                <div class="collapsible-body no-padding">
-                    <ul class="collapsible no-border no-margin" data-collapsible="expandable">
-                        <li v-for="(produtos, produto, indexProduto) of fontes" v-if="isObject(produtos)"
-                            :key="indexProduto">
-                            <div class="collapsible-header active green-text" style="padding-left: 30px;"
-                                 :class="converterStringParaClasseCss(produto)">
-                                <i class="material-icons">perm_media</i>{{produto}}<span class="badge">R$ {{produtos.total}}</span>
-                            </div>
-                            <div class="collapsible-body no-padding no-border">
-                                <ul class="collapsible no-border no-margin" data-collapsible="expandable">
-                                    <li v-for="(etapas, etapa, indexEtapa) of produtos" v-if="isObject(etapas)"
-                                        :key="indexEtapa">
-                                        <div class="collapsible-header active orange-text" style="padding-left: 50px;"
-                                             :class="converterStringParaClasseCss(etapa)">
-                                            <i class="material-icons">label</i>{{etapa}}<span class="badge">R$ {{etapas.total}}</span>
-                                        </div>
-                                        <div class="collapsible-body no-padding no-border">
-                                            <ul class="collapsible no-border no-margin" data-collapsible="expandable">
-                                                <li v-for="(locais, local, indexLocal) of etapas"
-                                                    v-if="isObject(locais)" :key="indexLocal">
-                                                    <div class="collapsible-header active blue-text"
-                                                         style="padding-left: 70px;"
-                                                         :class="converterStringParaClasseCss(local)">
-                                                        <i class="material-icons">place</i>{{local}} <span
-                                                        class="badge">R$ {{locais.total}}</span>
-                                                    </div>
-                                                    <div class="collapsible-body no-padding margin20 scroll-x">
-                                                        <slot v-bind:itens="locais">
-                                                            <PlanilhaItensPadrao :table="locais"></PlanilhaItensPadrao>
-                                                        </slot>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
+    <div v-if="arrayPlanilha" class="planilha-orcamentaria card">
+        <CollapsibleRecursivo :planilha="arrayPlanilha">
+            <template slot-scope="slotProps">
+                <slot v-bind:itens="slotProps.itens">
+                    <PlanilhaItensPadrao :table="slotProps.itens"></PlanilhaItensPadrao>
+                </slot>
+            </template>
+        </CollapsibleRecursivo>
         <div class="card-action right-align">
-            <span><b>Valor total do projeto:</b> R$ {{planilhaCompleta.total}}</span>
+            <span><b>Valor total do projeto:</b> R$ {{ arrayPlanilha.total | filtroFormatarParaReal }}</span>
         </div>
     </div>
     <div v-else>Nenhuma planilha encontrada</div>
 </template>
 
 <script>
-    import numeral from 'numeral';
-    import 'numeral/locales';
     import PlanilhaItensPadrao from '@/components/Planilha/PlanilhaItensPadrao';
+    import PlanilhaConsolidacao from '@/components/Planilha/PlanilhaConsolidacao';
     import planilhas from '@/mixins/planilhas';
 
+    const CollapsibleRecursivo = {
+        name: 'CollapsibleRecursivo',
+        props: {
+            planilha: {},
+            contador: {
+                default: 1,
+                type: Number,
+            },
+        },
+        mixins: [planilhas],
+        render(h) {
+            const self = this;
+            if (this.isObject(self.planilha) && typeof self.planilha.itens === 'undefined') {
+                return h('ul',
+                    { class: 'collapsible no-margin', attrs: { 'data-collapsible': 'expandable' } },
+                    Object.keys(this.planilha).map((key) => {
+                        if (self.isObject(self.planilha[key])) {
+                            return h('li', [
+                                h('div',
+                                    { class: 'collapsible-header active' },
+                                    [
+                                        h('i', { class: 'material-icons' }, [self.obterIconeHeader(self.contador)]),
+                                        h('div', key),
+                                        h('span', { class: 'badge' }, [`R$ ${self.formatarParaReal(self.planilha[key].total)} `]),
+                                    ],
+                                ),
+                                h('div',
+                                    { class: 'collapsible-body no-padding' },
+                                    [
+                                        h(CollapsibleRecursivo, {
+                                            props: {
+                                                planilha: self.planilha[key],
+                                                contador: self.contador + 1,
+                                            },
+                                            scopedSlots: { default: self.$scopedSlots.default },
+                                        }),
+                                        h(PlanilhaConsolidacao, {
+                                            props: {
+                                                planilha: self.planilha[key],
+                                            },
+                                        }),
+                                    ],
+                                ),
+                            ]);
+                        }
+
+                        return true;
+                    }),
+                );
+            } else if (self.$scopedSlots.default !== 'undefined') {
+                return h('div', { class: 'margin20 scroll-x' }, [
+                    self.$scopedSlots.default({ itens: self.planilha.itens }),
+                ]);
+            }
+            return true;
+        },
+        methods: {
+            obterIconeHeader(tipo) {
+                let icone = '';
+                switch (tipo) {
+                case 1:
+                    icone = 'beenhere';
+                    break;
+                case 2:
+                    icone = 'perm_media';
+                    break;
+                case 3:
+                    icone = 'label';
+                    break;
+                case 4:
+                    icone = 'place';
+                    break;
+                default:
+                    icone = '';
+                }
+                return icone;
+            },
+        },
+    };
+
     export default {
-        /* eslint-disable */
         name: 'Planilha',
-        data() {
-            return {
-                planilha: []
-            };
+        props: {
+            arrayPlanilha: {},
         },
         mixins: [planilhas],
         components: {
+            CollapsibleRecursivo,
             PlanilhaItensPadrao,
         },
-        props: {
-            arrayPlanilha: {},
-            componenteTabelaItens: {
-                default: 'PlanilhaItensPadrao',
-                type: String
-            }
-        },
         mounted() {
-            if (typeof this.arrayPlanilha !== 'undefined') {
-                this.planilha = this.arrayPlanilha;
-            }
-
-            numeral.locale('pt-br');
-            numeral.defaultFormat('0,0.00');
-        },
-        computed: {
-            planilhaCompleta() {
-                if (!this.planilha) {
-                    return 0;
-                }
-
-                let novaPlanilha = {},
-                    totalProjeto = 0,
-                    totalFonte = 0,
-                    totalProduto = 0,
-                    totalEtapa = 0,
-                    totalLocal = 0;
-
-                novaPlanilha = this.planilha;
-                Object.entries(this.planilha).forEach(([fonte, produtos]) => {
-                    totalFonte = 0;
-                    Object.entries(produtos).forEach(([produto, etapas]) => {
-                        totalProduto = 0;
-                        Object.entries(etapas).forEach(([etapa, locais]) => {
-                            totalEtapa = 0;
-                            Object.entries(locais).forEach(([local, itens]) => {
-                                totalLocal = 0;
-                                Object.entries(itens).forEach(([column, cell]) => {
-                                    if (cell.tpAcao && cell.tpAcao === 'E') {
-                                        return;
-                                    }
-
-                                    // planilha homologada e readequada o valor total � a soma do vlAprovado
-                                    if (cell.vlAprovado || cell.vlAprovado >= 0) {
-                                        totalLocal += cell.vlAprovado;
-                                    } else {
-                                        totalLocal += cell.vlSolicitado;
-                                    }
-                                });
-                                this.$set(
-                                    this.planilha[fonte][produto][etapa][local],
-                                    'total',
-                                    numeral(totalLocal).format('0,0.00')
-                                );
-                                totalEtapa += totalLocal;
-                            });
-                            this.$set(
-                                this.planilha[fonte][produto][etapa],
-                                'total',
-                                numeral(totalEtapa).format('0,0.00')
-                            );
-                            totalProduto += totalEtapa;
-                        });
-                        this.$set(
-                            this.planilha[fonte][produto],
-                            'total',
-                            numeral(totalProduto).format('0,0.00')
-                        );
-                        totalFonte += totalProduto;
-                    });
-                    this.$set(
-                        this.planilha[fonte],
-                        'total',
-                        numeral(totalFonte).format('0,0.00')
-                    );
-                    totalProjeto += totalFonte;
-                });
-                this.$set(novaPlanilha, 'total', numeral(totalProjeto).format('0,0.00'));
-
-                return novaPlanilha;
-            }
-        },
-        watch: {
-            arrayPlanilha(value) {
-                this.planilha = value;
-                this.iniciarCollapsible();
-            }
-        },
-        methods: {
-            iniciarCollapsible() {
-                $3(".planilha-orcamentaria .collapsible").each(function () {
-                    $3(this).collapsible();
-                });
-            },
+            // eslint-disable-next-line
+            $3(".collapsible").each(function () {
+                // eslint-disable-next-line
+                $3(this).collapsible();
+            });
         },
     };
 </script>

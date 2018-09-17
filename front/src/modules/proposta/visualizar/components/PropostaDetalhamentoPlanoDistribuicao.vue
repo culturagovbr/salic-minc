@@ -1,7 +1,7 @@
 <template>
     <div  class="detalhamento-plano-distribuicao">
         <ul class="collapsible" data-collapsible="expandable">
-            <li v-for="( detalhamento, index ) in detalhamentos">
+            <li v-for="( detalhamento, index ) in detalhamentos" :key="index">
                 <div class="collapsible-header">
                     <i class="material-icons">place</i>
                     Detalhamento - {{detalhamento[0].DescricaoUf}} - {{detalhamento[0].DescricaoMunicipio}}
@@ -33,7 +33,7 @@
                             </tr>
                         </thead>
                         <tbody v-if="detalhamento.length > 0">
-                            <tr v-for="( item, index ) in detalhamento">
+                            <tr v-for="( item, index ) in detalhamento" :key="index">
                                 <td>{{item.dsProduto}}</td>
                                 <td class="right-align">{{ item.qtExemplares }}</td>
 
@@ -43,13 +43,13 @@
 
                                 <td class="right-align">{{ item.qtPopularIntegral }}</td>
                                 <td class="right-align">{{ item.qtPopularParcial }}</td>
-                                <td class="right-align">{{ item.vlUnitarioPopularIntegral | formatarParaReal }}</td>
+                                <td class="right-align">{{ item.vlUnitarioPopularIntegral | filtroFormatarParaReal }}</td>
 
                                 <td class="right-align">{{ item.qtProponenteIntegral }}</td>
                                 <td class="right-align">{{ item.qtProponenteParcial }}</td>
-                                <td class="right-align">{{ item.vlUnitarioProponenteIntegral | formatarParaReal }}</td>
+                                <td class="right-align">{{ item.vlUnitarioProponenteIntegral | filtroFormatarParaReal }}</td>
 
-                                <td class="right-align">{{ item.vlReceitaPrevista | formatarParaReal }}</td>
+                                <td class="right-align">{{ item.vlReceitaPrevista | filtroFormatarParaReal }}</td>
 
                             </tr>
                         </tbody>

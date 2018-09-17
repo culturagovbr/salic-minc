@@ -2,7 +2,7 @@
     <aside id="sidebar-vue">
         <ul id="sidenav" class="sidenav-apoio side-nav fixed">
             <Carregando v-if="loading"></Carregando>
-            <li class="sidebar-info" v-if="menu.informacoes">
+            <li v-show="!loading" class="sidebar-info" v-if="menu.informacoes">
                 <div>
                     <p>
                         <i class="material-icons left tiny">
@@ -14,7 +14,10 @@
                     <p class="info-title" v-html="menu.informacoes.descricao"></p>
                 </div>
             </li>
-            <li v-for="(item, index) in menu" :key="index" v-if="index != 'informacoes'"
+            <li v-show="!loading"
+                v-for="(item, index) in menu"
+                v-if="index != 'informacoes'"
+                :key="index"
                 :class="[item.submenu ? 'no-padding' : 'bold']">
                 <ul v-if="item.submenu" class="collapsible collapsible-accordion">
                     <li class="bold">
@@ -102,6 +105,7 @@
         methods: {
             obterMenu() {
                 let self = this;
+                this.loading = true;
                 $3
                     .ajax({
                         type: "GET",
@@ -121,7 +125,7 @@
                 }
 
                 this.$router.push({
-                    name: "container_ajax",
+                    name: "containerAjax",
                     params: {idPronac: this.$route.params.idPronac}
                 });
 

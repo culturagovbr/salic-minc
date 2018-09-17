@@ -15,7 +15,6 @@ class Projeto_ProponenteRestController extends MinC_Controller_Rest_Abstract
 
     public function getAction()
     {
-
         try {
             $ProponenteService = new ProponenteService($this->getRequest(), $this->getResponse());
             $resposta = $ProponenteService->buscarDadosAgenteProponente();

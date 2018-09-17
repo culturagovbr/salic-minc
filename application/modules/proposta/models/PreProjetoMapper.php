@@ -33,7 +33,7 @@ class Proposta_Model_PreProjetoMapper extends MinC_Db_Mapper
             'ImpactoAmbiental' => $preProjeto['ImpactoAmbiental']
         );
 
-        # detalhes técnicos (preprojeto)
+        # detalhes tecnicos (preprojeto)
         $proposta['detalhestecnicos'] = array(
             'EtapaDeTrabalho' => $preProjeto['EtapaDeTrabalho'],
             'FichaTecnica' => $preProjeto['FichaTecnica'],
@@ -115,7 +115,7 @@ class Proposta_Model_PreProjetoMapper extends MinC_Db_Mapper
 
     public function prepararPropostaParaJson($proposta)
     {
-        $proposta = TratarArray::prepararArrayMultiParaJson($proposta);
+        $proposta = TratarArray::utf8EncodeArray($proposta);
 
         if (!isset($proposta['tbplanilhaproposta'][0]['OrdemEtapa'])) {
             $proposta['tbplanilhaproposta'] = TratarArray::ordenarArrayMultiPorColuna(
@@ -178,10 +178,14 @@ class Proposta_Model_PreProjetoMapper extends MinC_Db_Mapper
             $row = [];
 
             $produto = !empty($item['idProduto']) ? $item['DescricaoProduto'] : html_entity_decode('Administra&ccedil;&atilde;o do Projeto');
+            $fonte = $item['DescricaoRecurso'];
+            $etapa = $item['DescricaoEtapa'];
+            $regiao = $item['DescricaoUf'] . ' - ' . $item['DescricaoMunicipio'];
 
             $row["Seq"] = $i;
             $row["idPlanilhaProposta"] = $item['idPlanilhaProposta'];
             $row["Item"] = $item['DescricaoItem'];
+            $row["Unidade"] = $item['DescricaoUnidade'];
             $row['FonteRecurso'] = $item['DescricaoRecurso'];
             $row['Municipio'] = $item['DescricaoMunicipio'];
             $row['UF'] = $item['DescricaoUf'];
@@ -195,10 +199,14 @@ class Proposta_Model_PreProjetoMapper extends MinC_Db_Mapper
             $row['JustProponente'] = $item['dsJustificativa'];
             $row['stCustoPraticado'] = $item['stCustoPraticado'];
 
-            foreach ($row as $cel => $val) {
-                $planilha[$row['FonteRecurso']][$produto][$row['Etapa']][$row['UF'] . ' - '
-                . $row['Municipio']][$count][$cel] = $val;
-            }
+            $planilha[$fonte]['total'] +=  $row["vlSolicitado"];
+            $planilha[$fonte][$produto]['total'] += $row["vlSolicitado"];
+            $planilha[$fonte][$produto][$etapa]['total'] += $row["vlSolicitado"];
+            $planilha[$fonte][$produto][$etapa][$regiao]['total'] += $row["vlSolicitado"];
+            $planilha[$fonte][$produto][$etapa][$regiao]['itens'][] = $row;
+
+            $planilha['total'] += $row["vlSolicitado"];
+
             $count++;
             $i++;
         }
@@ -232,7 +240,7 @@ class Proposta_Model_PreProjetoMapper extends MinC_Db_Mapper
             return false;
         }
 
-        $planilha = TratarArray::utf8EncodeArrayTemp($planilha);
+        $planilha = TratarArray::utf8EncodeArray($planilha);
         $planilha = $this->montarPlanilhaProposta($planilha);
 
         return $planilha;
@@ -283,7 +291,7 @@ class Proposta_Model_PreProjetoMapper extends MinC_Db_Mapper
             return false;
         }
 
-        $planilha = TratarArray::utf8EncodeArrayTemp($planilha);
+        $planilha = TratarArray::utf8EncodeArray($planilha);
         $planilha = $this->montarPlanilhaProposta($planilha);
 
         return $planilha;

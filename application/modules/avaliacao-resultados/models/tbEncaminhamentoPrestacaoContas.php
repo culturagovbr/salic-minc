@@ -10,168 +10,156 @@ class AvaliacaoResultados_Model_tbEncaminhamentoPrestacaoContas extends MinC_Db_
     protected $_dtFimEncaminhamento;
     protected $_idAgenteOrigem;
     protected $_idAgenteDestino;
-    protected  $_idOrgao;
+    protected $_idOrgaoDestino;
+    protected $_idOrgaoOrigem;
+    protected $_cdGruposOrigem;
+    protected $_cdGruposDestino;
+    protected $_idSituacao;
+    protected $_dsJustificativa;
 
-    /**
-     * @return mixed
-     */
     public function getIdEncPrestContas()
     {
         return $this->_idEncPrestContas;
     }
 
-    /**
-     * @param mixed $idEncPrestContas
-     * @return AvaliacaoResultados_Model_tbEncaminhamentoPrestacaoContas
-     */
     public function setIdEncPrestContas($idEncPrestContas)
     {
         $this->_idEncPrestContas = $idEncPrestContas;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getIdSituacaoEncPrestContas()
     {
         return $this->_idSituacaoEncPrestContas;
     }
 
-    /**
-     * @param mixed $idSituacaoEncPrestContas
-     * @return AvaliacaoResultados_Model_tbEncaminhamentoPrestacaoContas
-     */
     public function setIdSituacaoEncPrestContas($idSituacaoEncPrestContas)
     {
         $this->_idSituacaoEncPrestContas = $idSituacaoEncPrestContas;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getIdPronac()
     {
         return $this->_idPronac;
     }
 
-    /**
-     * @param mixed $idPronac
-     * @return AvaliacaoResultados_Model_tbEncaminhamentoPrestacaoContas
-     */
     public function setIdPronac($idPronac)
     {
         $this->_idPronac = $idPronac;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getStAtivo()
     {
         return $this->_stAtivo;
     }
 
-    /**
-     * @param mixed $stAtivo
-     * @return AvaliacaoResultados_Model_tbEncaminhamentoPrestacaoContas
-     */
     public function setStAtivo($stAtivo)
     {
         $this->_stAtivo = $stAtivo;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getDtInicioEncaminhamento()
     {
         return $this->_dtInicioEncaminhamento;
     }
 
-    /**
-     * @param mixed $dtInicioEncaminhamento
-     * @return AvaliacaoResultados_Model_tbEncaminhamentoPrestacaoContas
-     */
     public function setDtInicioEncaminhamento($dtInicioEncaminhamento)
     {
         $this->_dtInicioEncaminhamento = $dtInicioEncaminhamento;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getDtFimEncaminhamento()
     {
         return $this->_dtFimEncaminhamento;
     }
 
-    /**
-     * @param mixed $dtFimEncaminhamento
-     * @return AvaliacaoResultados_Model_tbEncaminhamentoPrestacaoContas
-     */
     public function setDtFimEncaminhamento($dtFimEncaminhamento)
     {
         $this->_dtFimEncaminhamento = $dtFimEncaminhamento;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getIdAgenteOrigem()
     {
         return $this->_idAgenteOrigem;
     }
 
-    /**
-     * @param mixed $idAgenteOrigem
-     * @return AvaliacaoResultados_Model_tbEncaminhamentoPrestacaoContas
-     */
     public function setIdAgenteOrigem($idAgenteOrigem)
     {
         $this->_idAgenteOrigem = $idAgenteOrigem;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getIdAgenteDestino()
     {
         return $this->_idAgenteDestino;
     }
 
-    /**
-     * @param mixed $idAgenteDestino
-     * @return AvaliacaoResultados_Model_tbEncaminhamentoPrestacaoContas
-     */
     public function setIdAgenteDestino($idAgenteDestino)
     {
         $this->_idAgenteDestino = $idAgenteDestino;
         return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getIdOrgao()
+    public function getIdOrgaoDestino()
     {
-        return $this->_idOrgao;
+        return $this->_idOrgaoDestino;
     }
 
-    /**
-     * @param mixed $idOrgao
-     * @return AvaliacaoResultados_Model_tbEncaminhamentoPrestacaoContas
-     */
-    public function setIdOrgao($idOrgao)
+    public function setIdOrgaoDestino($idOrgao)
     {
-        $this->_idOrgao = $idOrgao;
+        $this->_idOrgaoDestino = $idOrgao;
         return $this;
     }
 
+    public function getIdOrgaoOrigem()
+    {
+        return $this->_idOrgaoOrigem;
+    }
+
+    public function setIdOrgaoOrigem($value)
+    {
+        $this->_idOrgaoOrigem = $value;
+        return $this;
+    }
+
+    public function getCdGruposOrigem(){
+        return $this->_cdGruposOrigem;
+    }
+
+    public function setCdGruposOrigem($value){
+        $this->_cdGruposOrigem = $value;
+        return $this;
+    }
+
+    public function getCdGruposDestino(){
+        return $this->_cdGruposDestino;
+    }
+
+    public function setCdGruposDestino($value){
+        $this->_cdGruposDestino = $value;
+        return $this;
+    }
+
+    public function getIdSituacao() {
+        return $this->_idSituacao;
+    }
+
+    public function setIdSituacao($value) {
+        $this->_idSituacao = $value;
+        return $this;
+    }
+
+    public function getDsJustificativa() {
+        return $this->_dsJustificativa;
+    }
+
+    public function setDsJustificativa($value) {
+        $this->_dsJustificativa = $value;
+        return $this;
+    }
 }

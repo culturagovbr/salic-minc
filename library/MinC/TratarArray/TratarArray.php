@@ -20,7 +20,7 @@ class TratarArray {
 
     /**
      * Ordena arrays multidimensionais,
-     * passando o nome da coluna e a ordenação como parametros
+     * passando o nome da coluna e a ordenacao como parametros
      * @params array(), coluna, ordenacao, coluna, ordenacao ...
      *
      * Exemplo:
@@ -44,53 +44,6 @@ class TratarArray {
         call_user_func_array('array_multisort', $args);
         return array_pop($args);
     }
-
-    public static function utf8EncodeArrayTemp($input) {
-
-        if (is_string($input)) {
-            return utf8_encode($input);
-        } else if (is_array($input)) {
-
-            $arrIter = [];
-
-            foreach ($input as $key => $value) {
-                $key = utf8_encode($key);
-
-                if (is_string($value)) {
-                    $value = utf8_encode($value);
-                } else if (is_array($value)) {
-                    $value = self::utf8EncodeArrayTemp($value);
-                }
-                $arrIter[$key] = $value;
-            }
-            return $arrIter;
-        }
-    }
-
-    public static function prepararArrayMultiParaJson($dados)
-    {
-        foreach ($dados as $key => $array) {
-            foreach ($array as $key2 => $dado) {
-                if (is_array($dado)) {
-                    $dado = array_map('strConvertCharset', $dado);
-                    $dados[$key][$key2] = array_map('html_entity_decode', $dado);
-
-                    foreach ($dado as $key3 => $dado2) {
-                        if (is_array($dado2)) {
-                            $dado2 = array_map('strConvertCharset', $dado2);
-                            $dados[$key][$key2][$key3] = array_map('html_entity_decode', $dado2);
-                        }
-                    }
-                } else {
-                    $dado = strConvertCharset($dado);
-                    $dados[$key][$key2] = html_entity_decode($dado);
-                }
-            }
-        }
-
-        return $dados;
-    }
-    
     
     // Based on https://secure.php.net/manual/en/function.utf8-encode.php#109965
     public static function utf8EncodeArray($input) {

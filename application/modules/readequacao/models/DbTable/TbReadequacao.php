@@ -1287,7 +1287,8 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
         );
         $select->where('r.idPronac = ?', $idPronac);
         $select->where('r.idTipoReadequacao IN (?)', self::TIPOS_READEQUACOES_ORCAMENTARIAS);
-
+        $select->where('r.stEstado=?', self::ST_ESTADO_EM_ANDAMENTO);
+        
         $result = $this->fetchAll($select);
 
         if (count($result) > 0) {

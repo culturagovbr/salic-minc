@@ -1,5 +1,5 @@
 <li>
-    <div class="collapsible-header active"><b>Identificação do projeto</b></div>
+    <div class="collapsible-header active"><b>Identifica&ccedil;&atilde;o do projeto</b></div>
     <div class="collapsible-body">
         <div class="row">
             <div class="col s12 l6 m6">
@@ -54,28 +54,28 @@
     </div>
 </li>
 <li>
-    <div class="collapsible-header <?= (isset($this->booShowAll) && $this->booShowAll === true)? 'active' : '' ?>"><b>Mem&oacute;ria de C&aacute;lculo</b></div>
+    <div class="collapsible-header <?= (isset($this->booShowAll) && $this->booShowAll === true)? 'active' : '' ?>"><b>Mem&oacute;ria de C&aacute;lculo (R$)</b></div>
     <div class="collapsible-body">
         <table class="tabela bordered" style="width: 100%;">
             <tbody>
-            <tr class="destacar">
-                <th colspan="2" class="center-align">Custos</th>
+            <tr>
+                <td class="right-align"><b>Vl. Adequado Incentivo</b></td>
+                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlAdequadoIncentivo']) ?></td>
+
+                <td class="right-align"><b>Vl. Homologado Incentivo</b></td>
+                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlHomologadoIncentivo']) ?></td>
             </tr>
             <tr>
-                <td><b>Custo do Projeto</b></td>
-                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['CustoProjeto']) ?></td>
+                <td class="right-align"><b>Vl. Outras Fontes</b></td>
+                <td class="right-align"> <?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlAdequadoOutrasFontes']) ?></td>
+                <td class="right-align"><b>Vl. Outras Fontes</b></td>
+                <td class="right-align"> <?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlHomologadoOutrasFontes']) ?></td>
             </tr>
             <tr>
-                <td><b>Vl.Outras Fontes</b></td>
-                <td class="right-align"> <?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlOutrasFontesAprovado']) ?></td>
-            </tr>
-            <tr>
-                <td><b>Custo Total</b></td>
-                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['CustoTotal']) ?></td>
-            </tr>
-            <tr>
-                <td><b>Custo homologado</b></td>
-                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['vlHomologado']) ?></td>
+                <td class="right-align"><b>Vl. Total Adequado</b></td>
+                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlTotalAdequado']) ?></td>
+                <td class="right-align"><b>Vl. Total Homologado</b></td>
+                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlTotalHomologado']) ?></td>
             </tr>
             </tbody>
         </table>
@@ -121,53 +121,3 @@
         </table>
     </div>
 </li>
-<li>
-    <div class="collapsible-header center-align <?= (isset($this->booShowAll) && $this->booShowAll === true)? 'active' : '' ?>"><b>Parecer de Homologa&ccedil;&atilde;o</b></div>
-    <div class="collapsible-body">
-        <input type="hidden" name="idHomologacao" value="<?= $this->arrValue['parecerHomologacao']['idHomologacao'] ?>"/>
-        <input type="hidden" name="idPronac" value="<?= $this->arrValue['idPronac'] ?>"/>
-        <input type="hidden" name="tpHomologacao" value="<?= $this->arrValue['parecerHomologacao']['tpHomologacao'] ?>"/>
-
-        <div class="row">
-            <div class="col s12">
-                <div class="switch">
-                    <b>Posicionamento técnico: </b>
-                    <label>
-                        Desfavor&aacute;vel
-                        <input
-                                name="stDecisao"
-                                id="stDecisao"
-                                type="checkbox"
-                            <?= ($this->arrValue['parecerHomologacao']['stDecisao'] == '2') ? 'checked="checked"' : '' ?>
-                        >
-                        <span class="lever"></span>
-                        Favor&aacute;vel
-                    </label>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col s12">
-                <br/>
-                <label for="dsHomologacao" class="active">Parecer T&eacute;cnico</label>
-                <textarea id="dsHomologacao" class="materialize-textarea editor"
-                          name="dsHomologacao"><?php if (isset($this->arrValue['parecerHomologacao']['dsHomologacao'])) echo $this->arrValue['parecerHomologacao']['dsHomologacao']; ?>  </textarea>
-                <br/>
-            </div>
-        </div>
-    </div>
-</li>
-
-<script>
-    try {
-        tinymce.remove()
-    } catch (err) {
-    }
-    $(document).ready(function ($) {
-        $3('.collapsible').collapsible();
-        setTimeout(function () {
-            $('textarea.editor:first').editorRico({altura: 200})
-        }, 200);
-    });
-</script>

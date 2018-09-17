@@ -1,7 +1,35 @@
 <?php if ($this->idPreProjeto && $this->isProponente){
     echo $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto));
-    echo $this->partial('/mensagem/partials/proposta/conteudo-solicitar.phtml', 'solicitacao', $this);
-}else{
-    echo $this->partial('/mensagem/partials/projeto/conteudo-solicitar.phtml', 'solicitacao', $this);
+} else if ($this->idPronac && !empty($this->urlMenu)) {
+    echo $this->SidebarVue($this->url($this->urlMenu, '', true));
 }
+?>
+
+<div class="container-fluid cant-disable">
+    <?= $this->pageTitle(
+        'Enviar nova solicita&ccedil;&atilde;o',
+        [
+            ['Solicita&ccedil;&otilde;es' => 
+                ['module' => 'solicitacao',
+                'controller' => 'mensagem',
+                'action', 'index'
+                ]
+            ],
+            ['Enviar nova solicita&ccedil;&atilde;o' => '']
+        ]
+    ); ?>
+    <div class="content">
+        <div class="card-panel">
+            <div class="row">
+                <?php if ($this->arrPartial['dataForm']['idSolicitacao'] && $this->arrPartial['isProponente']) : ?>
+                    <div class="msgALERT">
+                        <div>Solicita&ccedil;&atilde;o salva como rascunho!</div>
+                    </div>
+                <?php endif; ?>
+
+                <?= $this->partial('/mensagem/partials/form.phtml', $this->arrPartial); ?>
+            </div>
+        </div>
+    </div>
+</div>
 

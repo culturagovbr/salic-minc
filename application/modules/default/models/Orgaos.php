@@ -63,7 +63,8 @@ class Orgaos extends MinC_Db_Table_Abstract
             array(
                 'o.Codigo',
                 'o.Sigla',
-                new Zend_Db_Expr('Tabelas.dbo.fnEstruturaOrgao(o.codigo, 0) as novaSigla'),
+                'o.Sigla as novaSigla',
+                // new Zend_Db_Expr('Tabelas.dbo.fnEstruturaOrgao(o.codigo, 0) as novaSigla'),
             )
         );
         $select->where('o.Status = ?', 0);

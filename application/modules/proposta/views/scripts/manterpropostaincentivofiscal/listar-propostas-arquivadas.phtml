@@ -36,10 +36,6 @@
                             <?php endif; ?>
                         </select>&nbsp;
                         <span id="msgValidaProponente"></span>&nbsp;&nbsp;&nbsp;
-
-                        <a id="localizar" class="btn-localizar waves-effect waves-light btn btn-default small">
-                            <i class="material-icons left">search</i>Localizar
-                        </a>
                     </form>
                 </div>
             </div>
@@ -82,7 +78,7 @@
                 <input type="hidden" name="idpreprojeto" id="idpreprojeto" value="">
                 <div class="input-field col s12">
                   <textarea style="height:200px" class="materialize-textarea" id="SolicitacaoDesarquivamento" name="SolicitacaoDesarquivamento"></textarea>
-                  <label for="SolicitacaoDesarquivamento">Solicita&ccedil;&atilde;o Desarquivamento</label>
+                  <label for="SolicitacaoDesarquivamento">Solicita&ccedil;&atilde;o de Desarquivamento</label>
                 </div>
             </form>
           </div>
@@ -108,7 +104,7 @@
 
 <div id="modal_visualizar_recusado" class="modal bottom-sheet" style="max-height:95%; height:95%">
     <div class="modal-content">
-        <h4>Motivo da reprovação</h4>
+        <h4>Motivo da reprova&ccedil;&atilde;o</h4>
         <div class="row">
             <div class=" col s12">
                 <p class="motivo_reprovacao"></p>
@@ -200,32 +196,26 @@
                             data: null,
                             "name": "botao",
                             render: function (data) {
-
                                 if (data.stDecisao == 0  && data.dtSolicitacaoDesarquivamento) {
                                     var avaliacao = data.Avaliacao;
                                     avaliacao = avaliacao.replace(/\"/g,'&#34;'); // aspa dupla
                                     avaliacao = avaliacao.replace(/\'/g,'&#39;'); // aspa simples
                                     avaliacao = avaliacao.replace(/\n/g,'<br/>');
                                     data.Avaliacao = avaliacao;
-                                    return '<button data-target="modal_visualizar_recusado" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '" data-avaliacao="' + data.Avaliacao+ '">Arquivada sem possibilidade de desarquivamento</button>'
+                                    return '<button data-target="modal_visualizar_recusado" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '" data-avaliacao="' + data.Avaliacao+ '">Arquivada sem possibilidade de desarquivamento</button>';
+                                } else if (!data.SolicitacaoDesarquivamento && !data.dtAvaliacao) {
+                                    return '<button data-target="modal_solicitar" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '">Solicitar Desarquivamento</button>';
+                                } else if (data.stEstado == 0 && data.dtAvaliacao) {
+                                    data.Avaliacao = 'Projeto arquivado pela segunda vez.';
+                                    return '<button data-target="modal_visualizar_recusado" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '" data-avaliacao="' + data.Avaliacao+ '">Arquivada sem possibilidade de desarquivamento</button>';
+                                } else {
+                                    return 'Solicita&ccedil;&atilde;o de desarquivamento em an&aacute;lise';
                                 }
-                                if (data.SolicitacaoDesarquivamento == null && data.dtAvaliacao == null) {
-                                    return '<button data-target="modal_solicitar" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '">Solicitar Desarquivamento</button>'
-                                }
-                                if (data.stEstado == 0 && data.dtAvaliacao) {
-                                    return 'Arquivada sem possibilidade de desarquivamento';
-                                }
-
-                                return 'Solicita&ccedil;&atilde;o de desarquivamento em an&aacute;lise';
                             }
                         }
                     ]
                 }
             );
-
-            $("#localizar").click(function () {
-                table.ajax.reload();
-            });
 
             $("tbody").on('click','button', function () {
                 let idpreprojeto = $3(this).data('idpreprojeto');
@@ -239,8 +229,10 @@
 
             $("#enviarSolicitacao").on('click', function () {
                 if ($3('#SolicitacaoDesarquivamento').val().length == 0){
-                    Materialize.toast('É necessário preencher a solicitação!', 4000, 'red white-text');
-                }else{
+                    Materialize.toast('&Eacute; necess&aacute;rio preencher a solicita&ccedil;&atilde;o!', 4000, 'red white-text');
+                    return false;
+                }
+                else{
                     $3.ajax({
                         url:'/proposta/pre-projeto-arquivado/update',
                         data: {
@@ -254,8 +246,13 @@
                         table.ajax.reload();
                     });
                 }
-
+                    Materialize.toast('Solicita&ccedil;&atilde;o enviada!', 4000,  'blue white-text');
             });
+
+            $("#proponente, #mecanismo").change(function () {
+                table.ajax.reload();
+            });
+
         });
     }($.noConflict(true)));
 </script>

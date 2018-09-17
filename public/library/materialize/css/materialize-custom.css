@@ -34,6 +34,8 @@ label {
     color: #0e0e0e;
 }
 
+
+
 #sidenav-overlay {
     z-index: 988;
 }
@@ -107,6 +109,12 @@ textarea.materialize-textarea:focus.invalid {
 .input-field label {
     color: #1b5e20;
 }
+
+.solicitacao .input-field label:not(.label-icon).active {
+    -webkit-transform: translateY(-22px) scale(1);
+    transform: translateY(-22px) scale(1);
+}
+
 .input-field {
     color: #1b5e20;
 }
@@ -198,6 +206,55 @@ textarea.materialize-textarea:focus:not([readonly]) + label[data-error] {
 .collapsible td.atual:before,
 .collapsible div.atual .card:before {
     content: "Atual";
+}
+
+/* collapsible planilhas */
+
+.planilha-orcamentaria .collapsible .collapsible,
+.planilha-orcamentaria .collapsible-body .collapsible-body {
+    border: none;
+    box-shadow: none;
+}
+
+.planilha-orcamentaria .collapsible .collapsible-header {
+    color: #F44336;
+}
+
+.planilha-orcamentaria .collapsible .collapsible .collapsible-header {
+    padding-left: 30px;
+    color: #4CAF50;
+}
+
+.planilha-orcamentaria .collapsible .collapsible .collapsible .collapsible-header {
+    padding-left: 50px;
+    color: #ff9800;
+}
+
+.planilha-orcamentaria .collapsible .collapsible .collapsible .collapsible .collapsible-header {
+    padding-left: 70px;
+    color: #2196F3;
+}
+
+.planilha-consolidacao .totais div {
+    position: relative;
+    padding-left: 20px;
+}
+
+.planilha-consolidacao .totais div:after {
+    content: '';
+    width: 20px;
+    height: 15px;
+    display: block;
+    position: absolute;
+    border-left: 3px dotted #F44336;
+    border-bottom: 3px dotted #F44336;
+    top: -3px;
+    left: -5px;
+}
+
+.planilha-consolidacao .totais div:first-child:after {
+    top: -17px;
+    height: 29px;
 }
 
 span.badge.new:after {

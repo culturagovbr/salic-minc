@@ -46,6 +46,12 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
             $tbl = new Arquivo_Model_DbTable_TbDocumento();
             $dataForm['arquivo'] = $tbl->buscarDocumento($dataForm['idDocumento'])->toArray();
         }
+
+        if (!empty($dataForm['idDocumentoResposta'])) {
+            $tbl = new Arquivo_Model_DbTable_TbDocumento();
+            $dataForm['arquivoResposta'] = $tbl->buscarDocumento($dataForm['idDocumentoResposta'])->toArray();
+        }
+
         if ($this->proposta) {
             $dataForm['idProjeto'] = $this->idPreProjeto;
             $dataForm['NomeProjeto'] = isset($this->proposta->NomeProjeto) ? $this->proposta->NomeProjeto : '';
@@ -112,6 +118,7 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
 
         $this->view->arrResult = (new Solicitacao_Model_DbTable_TbSolicitacao)->obterSolicitacoes($where);
         $this->view->idPronac = $idPronac;
+        $this->view->codOrgaoUsuario = $this->grupoAtivo->codOrgao;
 
     }
 
@@ -214,20 +221,23 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
 
             $idSolicitacao = $this->getRequest()->getParam('id', null);
 
-            if (empty($idSolicitacao))
+            if (empty($idSolicitacao)) {
                 throw new Exception("Informe o id da solicita&ccedil;&atilde;o para visualizar!");
+            }
 
             $where['a.idSolicitacao = ?'] = $idSolicitacao;
 
             $tbSolicitacoes = new Solicitacao_Model_DbTable_TbSolicitacao();
             $dataForm = $tbSolicitacoes->obterSolicitacoes($where)->current()->toArray();
 
-            if (empty($dataForm))
+            if (empty($dataForm)) {
                 throw new Exception("Nenhuma solicita&ccedil;&atilde;o encontrada!");
+            }
             $permissao = parent::verificarPermissaoAcesso($dataForm['idProjeto'], $dataForm['idPronac'], false, true);
 
-            if ($permissao['status'] === false)
+            if ($permissao['status'] === false) {
                 throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar esta solicita&ccedil;&atilde;o");
+            }
 
             # marcar como mensagem lida pelo proponente
             if ($dataForm['siEncaminhamento'] == Solicitacao_Model_TbSolicitacao::SITUACAO_ENCAMINHAMENTO_FINALIZADA_MINC) {
@@ -244,7 +254,7 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
 
             if (!isset(Zend_Auth::getInstance()->getIdentity()->usu_codigo)) {
                 if ($dataForm['idPronac']) {
-                    $condicoesMenu = self::liberarOpcoesMenuLateral($dataForm['idPronac']);
+                    $condicoesMenu = $this->liberarOpcoesMenuLateral($dataForm['idPronac']);
                     foreach ($condicoesMenu as $condicao => $valor) {
                         $this->view->{$condicao} = $valor;
                     }
@@ -255,7 +265,7 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
 
             $arrConfig['dsResposta']['show'] = true;
 
-            self::prepareForm($dataForm, $arrConfig, $urlAction);
+            $this->prepareForm($dataForm, $arrConfig, $urlAction);
 
         } catch (Exception $objException) {
             parent::message($objException->getMessage(), "/solicitacao/mensagem", "ALERT");
@@ -300,13 +310,13 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
             }
 
             if ($this->idPronac) {
-                $condicoesMenu = self::liberarOpcoesMenuLateral($this->idPronac);
+                $condicoesMenu = $this->liberarOpcoesMenuLateral($this->idPronac);
                 foreach ($condicoesMenu as $condicao => $valor) {
                     $this->view->{$condicao} = $valor;
                 }
             }
 
-            self::prepareForm($dataForm, $arrConfig, $urlAction, $urlCallBack);
+            $this->prepareForm($dataForm, $arrConfig, $urlAction, $urlCallBack);
 
 
         } catch (Exception $objException) {
@@ -391,22 +401,26 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
 
         try {
 
-            if (empty($idSolicitacao))
+            if (empty($idSolicitacao)){
                 throw new Exception("Informe o id da solicita&ccedil;&atilde;o para responder!");
+            }
 
             $where['idSolicitacao = ?'] = $idSolicitacao;
 
             $tbSolicitacao = new Solicitacao_Model_DbTable_TbSolicitacao();
             $solicitacao = $tbSolicitacao->obterSolicitacoes($where)->current()->toArray();
 
-            if (empty($solicitacao))
+            if (empty($solicitacao)){
                 throw new Exception("Nenhuma solicita&ccedil;&atilde;o encontrada!");
+            }
 
-            if ($solicitacao['idTecnico'] != $this->idUsuario)
+            if ($solicitacao['idTecnico'] != $this->idUsuario){
                 throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para responder esta solicita&ccedil;&atilde;o!");
+            }
 
-            if (!empty($solicitacao['dsResposta']))
+            if (!empty($solicitacao['dsResposta'])){
                 $this->redirect("/solicitacao/mensagem/visualizar/id/{$idSolicitacao}");
+            }
 
 
             if ($this->getRequest()->isPost()) {
@@ -446,17 +460,81 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
                     'dsResposta' => ['show' => true, 'disabled' => false],
                     'actions' => ['show' => true],
                     'actionredistribuirSolicitacao' => $this->_urlPadrao . "/solicitacao/mensagem/redistribuir-solicitacao",
-                    'redistribuirTecnicos' => $vwGrupos->carregarTecnicosPorUnidade($solicitacao['idOrgao'])
+                    'redistribuirTecnicos' => $vwGrupos->carregarTecnicosPorUnidade($solicitacao['idOrgao']),
                 ];
 
 
-                self::prepareForm($solicitacao, $arrConfig, '', $strActionBack);
+                $this->prepareForm($solicitacao, $arrConfig, '', $strActionBack);
             }
 
             $this->view->arrConfig['dsMensagem'] = ['disabled' => true];
 
         } catch (Exception $objException) {
             parent::message($objException->getMessage(), $strActionBack, "ALERT");
+        }
+    }
+
+    public function encaminharAction()
+    {
+        $idSolicitacao = $this->getRequest()->getParam('id', null);
+        $strActionBack = "solicitacao/mensagem/index";
+
+        try {
+
+            if (empty($idSolicitacao)) {
+                throw new Exception("Informe o id da solicita&ccedil;&atilde;o para responder!");
+            }
+            $where = [];
+            $where['idSolicitacao = ?'] = $idSolicitacao;
+
+            $tbSolicitacao = new Solicitacao_Model_DbTable_TbSolicitacao();
+            $solicitacao = $tbSolicitacao->obterSolicitacoes($where)->current()->toArray();
+
+            if (empty($solicitacao)) {
+                throw new Exception("Nenhuma solicita&ccedil;&atilde;o encontrada!");
+            }
+
+            if ($this->isProponente || $this->grupoAtivo->codOrgao != $solicitacao['idOrgao']) {
+                throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa p&aacute;gina!");
+            }
+
+            if (!empty($solicitacao['dsResposta'])) {
+                $this->redirect("/solicitacao/mensagem/visualizar/id/{$idSolicitacao}");
+            }
+
+            $orgaos = new Orgaos();
+
+            $arrConfig = [
+                'dsSolicitacao' => ['disabled' => true],
+                'dsResposta' => ['show' => true, 'disabled' => false],
+                'actions' => ['show' => true],
+                'actionredistribuirSolicitacao' => $this->_urlPadrao . "/solicitacao/mensagem/redistribuir-solicitacao",
+                'unidades' => $orgaos->pesquisarUnidades(array('o.Sigla != ?' => '', 'o.idSecretaria IN (?)' => [160,251])),
+                'tecnico' => $solicitacao['idTecnico'],
+
+            ];
+
+            $this->prepareForm($solicitacao, $arrConfig, '', $strActionBack);
+
+            $this->view->arrConfig['dsMensagem'] = ['disabled' => true];
+
+        } catch (Exception $objException) {
+            parent::message($objException->getMessage(), $strActionBack, "ALERT");
+        }
+    }
+
+    public function usuariosAction()
+    {
+        try {
+            $this->_helper->layout->disableLayout();
+            $this->_helper->viewRenderer->setNoRender(true);
+            $vw = new vwUsuariosOrgaosGrupos();
+            $intId = $this->getRequest()->getParam('intId', null);
+            $arrUsuarios = $vw->carregarTecnicosPorUnidade($intId)->toArray();
+            $arrUsuarios = TratarArray::utf8EncodeArray($arrUsuarios);
+            $this->_helper->json($arrUsuarios);
+        }  catch (Exception $objException) {
+            $this->_helper->json(array('status' => false, 'msg' => $objException->getMessage()));
         }
     }
 
@@ -471,11 +549,23 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
 
                 $arrayForm = $this->getRequest()->getPost();
 
-                if (empty($arrayForm['idTecnico']))
+                if (empty($arrayForm['idTecnico'])) {
                     throw new Exception("T&eacute;cnico &eacute; obrigat&oacute;rio!");
+                }
 
-                if (empty($arrayForm['idSolicitacao']))
+                if (empty($arrayForm['idSolicitacao'])) {
                     throw new Exception("Solicita&ccedil;&atilde;o &eacute; obrigat&oacute;rio!");
+                }
+
+                $where = [];
+                $where['idSolicitacao = ?'] = $arrayForm['idSolicitacao'];
+
+                $tbSolicitacao = new Solicitacao_Model_DbTable_TbSolicitacao();
+                $solicitacao = $tbSolicitacao->obterSolicitacoes($where)->current()->toArray();
+
+                if ($this->isProponente || $this->grupoAtivo->codOrgao != $solicitacao['idOrgao']) {
+                    throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa p&aacute;gina!");
+                }
 
                 $strUrl = '/solicitacao/mensagem/index';
                 $strUrl .= ($arrayForm['idPronac']) ? '/idPronac/' . $arrayForm['idPronac'] : '';
@@ -484,6 +574,8 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
                 $model = new Solicitacao_Model_TbSolicitacao();
                 $model->setIdSolicitacao($arrayForm['idSolicitacao']);
                 $model->setIdTecnico($arrayForm['idTecnico']);
+                $model->setIdOrgao($arrayForm['idOrgao']);
+                $model->setDtEncaminhamento(date('Y-m-d h:i:s'));
 
                 $mapperSolicitacao = new Solicitacao_Model_TbSolicitacaoMapper();
                 $idSolicitacao = $mapperSolicitacao->atualizarSolicitacao($model);
@@ -504,12 +596,13 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
 
         try {
             $tbSolicitacao = new Solicitacao_Model_DbTable_TbSolicitacao();
-            $solicitacao = $tbSolicitacao->obterSolicitacoes(
-                ['a.idDocumento = ?' => $idDocumento]
-            )->current();
+            $solicitacao = $tbSolicitacao->findBy(
+                ['idDocumentoResposta = ? OR idDocumento = ?' => $idDocumento]
+            );
 
-            if (empty($solicitacao))
+            if (empty($solicitacao)) {
                 throw new Exception('Documento n&atilde;o encontrado!');
+            }
 
             $idProjeto = $solicitacao['idProjeto'] ? $solicitacao['idProjeto'] : false;
             $idPronac = $solicitacao['idPronac'] ? $solicitacao['idPronac'] : false;
@@ -517,8 +610,9 @@ class Solicitacao_MensagemController extends Solicitacao_GenericController
             # verificar se o usuario tem permissao para acessar este documento por meio do id do projeto/proposta
             $permissao = parent::verificarPermissaoAcesso($idProjeto, $idPronac, false, true);
 
-            if ($permissao['status'] === false)
+            if ($permissao['status'] === false) {
                 throw new Exception('Voc&ecirc; n&atilde;o tem permiss&atilde;o para baixar esse arquivo!');
+            }
 
             parent::abrirDocumento($idDocumento);
 

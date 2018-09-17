@@ -56,54 +56,69 @@ class Proponente
             $proponenteDAO = new \ProponenteDAO();
 
             $dadosProponente = $proponenteDAO->execPaProponente($idPronac, \Zend_DB::FETCH_ASSOC);
-            $proponente['dados'] = $dadosProponente[0];
-
-            $idAgente = $dadosProponente[0]['idAgente'];
 
             $dbTableInabilitado = new \Inabilitado();
             $proponenteInabilitado = $dbTableInabilitado->BuscarInabilitado($projeto["CgcCpf"], null, null, true);
-
             $proponente['proponenteInabilitado'] = !empty($proponenteInabilitado);
 
-            $dbTableInternet = new \Agente_Model_DbTable_Internet();
-            $proponente['emails'] = $dbTableInternet->buscarEmails($idAgente)->toArray();
+            $this->autenticacao = array_change_key_case((array)\Zend_Auth::getInstance()->getIdentity());
 
-            $dbTableTelefones = new \Agente_Model_DbTable_Telefones();
-            $proponente['telefones'] = $dbTableTelefones->buscarFones($idAgente)->toArray();
+            $proponente['isProponente'] = isset($this->autenticacao['usu_codigo']) ? false : true;
 
-            $dbTableEndereco = new \Agente_Model_DbTable_EnderecoNacional();
-            $proponente['enderecos'] = $dbTableEndereco->buscarEnderecos($idAgente)->toArray();
-
-            $tbProcuradorProjeto = new \tbProcuradorProjeto();
-            $proponente['procuradores'] = $tbProcuradorProjeto->buscarProcuradorDoProjeto($idPronac)->toArray();
-
-
-            $dbTableAgente = new \Agente_Model_DbTable_Agentes();
-            $dirigentes = $dbTableAgente->buscarDirigentes(
-                ['v.idVinculoPrincipal = ?' => $idAgente, 'n.Status =?' => 0],
-                ['n.Descricao ASC']
-            )->toArray();
-
-            $arrDirigentes = [];
-            if (!empty($projeto["idProjeto"])) {
-                $dbTablePreProjeto = new \Proposta_Model_DbTable_PreProjeto();
-                $preProjeto = $dbTablePreProjeto->findBy(['idPreProjeto = ?' => $projeto["idProjeto"]]);
-                $tbDirigenteMandato = new \tbAgentesxVerificacao();
-                foreach ($dirigentes as $dirigente) {
-                    $rsMandato = $tbDirigenteMandato->listarMandato([
-                        'idEmpresa = ?' => $preProjeto['idAgente'],
-                        'idDirigente = ?' => $dirigente['idAgente'],
-                        'stMandato = ?' => 0]
-                    )->toArray();
-                    $dirigente['mandatos'] = $rsMandato;
-                    $arrDirigentes[] = $dirigente;
-                }
+            if (empty($dadosProponente)) {
+                return $proponente;
             }
 
-            $proponente['dirigentes'] = $arrDirigentes;
+            $proponente['dados'] = $dadosProponente[0];
+
+            if (!empty($dadosProponente[0]['idAgente'])){
+                $idAgente = $dadosProponente[0]['idAgente'];
+                
+                $dbTableInternet = new \Agente_Model_DbTable_Internet();
+                $proponente['emails'] = $dbTableInternet->buscarEmails($idAgente)->toArray();
+                
+                $dbTableTelefones = new \Agente_Model_DbTable_Telefones();
+                $proponente['telefones'] = $dbTableTelefones->buscarFones($idAgente)->toArray();
+                
+                $dbTableEndereco = new \Agente_Model_DbTable_EnderecoNacional();
+                $proponente['enderecos'] = $dbTableEndereco->buscarEnderecos($idAgente)->toArray();
+                
+                $tbProcuradorProjeto = new \tbProcuradorProjeto();
+                $proponente['procuradores'] = $tbProcuradorProjeto->buscarProcuradorDoProjeto($idPronac)->toArray();
+                
+                
+                $dbTableAgente = new \Agente_Model_DbTable_Agentes();
+                $dirigentes = $dbTableAgente->buscarDirigentes(
+                    ['v.idVinculoPrincipal = ?' => $idAgente, 'n.Status =?' => 0],
+                    ['n.Descricao ASC']
+                    )->toArray();
+                    
+                    $arrDirigentes = [];
+                    if (!empty($projeto["idProjeto"])) {
+                        $dbTablePreProjeto = new \Proposta_Model_DbTable_PreProjeto();
+                        $preProjeto = $dbTablePreProjeto->findBy(['idPreProjeto = ?' => $projeto["idProjeto"]]);
+                        $tbDirigenteMandato = new \tbAgentesxVerificacao();
+                        foreach ($dirigentes as $dirigente) {
+                            $rsMandato = $tbDirigenteMandato->listarMandato([
+                                'idEmpresa = ?' => $preProjeto['idAgente'],
+                                'idDirigente = ?' => $dirigente['idAgente'],
+                                'stMandato = ?' => 0]
+                                )->toArray();
+                                $dirigente['mandatos'] = $rsMandato;
+                                $arrDirigentes[] = $dirigente;
+                        }
+                    }
+                        
+                $proponente['dirigentes'] = $arrDirigentes;
+            } else {
+                $tbInteressado = new \Interessado();
+                $interessado = $tbInteressado->obterContatosInteressado(['CGCCPF = ?' => $projeto["CgcCpf"]])->toArray();
+                $proponente['dados'] = array_merge($proponente['dados'], $interessado);
+                $proponente['dados'] = array_map('trim', $proponente['dados']);
+            }
 
             $proponente = \TratarArray::utf8EncodeArray($proponente);
-
+            
             return $proponente;
 
         } catch (\Exception $objException) {

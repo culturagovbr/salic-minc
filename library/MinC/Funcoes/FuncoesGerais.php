@@ -463,7 +463,7 @@ function isCnpjValid($cnpj) {
     }
 }
 
-function strConvertCharset($str) {
+function converterParaUTF8($str) {
 
     if (mb_detect_encoding($str, 'UTF-8', true) === false) {
         $str = utf8_encode($str);

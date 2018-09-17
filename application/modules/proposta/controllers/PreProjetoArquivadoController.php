@@ -73,8 +73,11 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
         $aux = array();
         if (!empty($rsPreProjetoArquivado)) {
             foreach ($rsPreProjetoArquivado as $key => $proposta) {
+
                 $proposta->nomeproponente = utf8_encode($proposta->nomeproponente);
                 $proposta->nomeprojeto = utf8_encode($proposta->nomeprojeto);
+                $proposta->MotivoArquivamento = utf8_encode($proposta->MotivoArquivamento);
+                $proposta->SolicitacaoDesarquivamento = utf8_encode($proposta->SolicitacaoDesarquivamento);
 
                 $aux[$key] = $proposta;
             }
@@ -112,7 +115,7 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
 
         $data = [
             'idPreProjeto' => $idPreProjeto,
-            'MotivoArquivamento' => $MotivoArquivamento,
+            'MotivoArquivamento' => utf8_decode($MotivoArquivamento),
             'idAvaliadorArquivamento' => $idAvaliador,
             'stEstado' =>  1, // arquivamento ativo.
             'dtArquivamento' => date('Y-m-d h:i'),
@@ -184,7 +187,7 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
         $arquivar = new Proposta_Model_PreProjetoArquivado();
 
         if($SolicitacaoDesarquivamento){
-            $data['SolicitacaoDesarquivamento'] = $SolicitacaoDesarquivamento;
+            $data['SolicitacaoDesarquivamento'] = utf8_decode($SolicitacaoDesarquivamento);
             $data['dtSolicitacaoDesarquivamento'] = new Zend_Db_Expr('GETDATE()');
         }
 
@@ -194,7 +197,7 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
                 $data['dtAvaliacao'] = new Zend_Db_Expr('GETDATE()');
                 $data['idAvaliadorAnaliseDesarquivamento'] = $this->auth->getIdentity()->usu_codigo;
             }else{
-                throw new Exception("É necessário preencher a Avaliação!");
+                throw new Exception("&Eacute; necess&aacute;rio preencher a Avalia&ccedil;&atilde;o!");
             }
         }
 
@@ -208,12 +211,12 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
 
         try {
             $arquivar->update($data, array('idPreProjeto = ?' => $idPreProjeto));
-            $message = 'Solicitação enviada!' . $idPreProjeto;
+            $message = 'Solicita&ccedil;&atilde;o enviada!' . $idPreProjeto;
         } catch(Exception $e){
             $message = $e->getMessage();
             $success = false;
         }
-
+        $data['SolicitacaoDesarquivamento'] = $SolicitacaoDesarquivamento;
         $this->_helper->json(
             [
                 'data' => $data,
@@ -253,7 +256,7 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
                 'Avaliacao' => null
             ];
 
-            if ($Avaliacao == null && $stDecisao == 0) {
+            if ($Avaliacao == null && $stDecisao == Proposta_Model_PreProjeto::ESTADO_ARQUIVADO) {
                 $success = false;
                 $message = "É necessário descrever a avaliação!";
             } else {
@@ -280,7 +283,7 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
                 $agente = $agente->buscaCompleta(['a.idPreProjeto = ? ' => $idPreProjeto]);
 
                 $corpoEmail = '<p>Senhor(a) Proponente,</p></br>';
-                if($stDecisao == 1){
+                if($stDecisao == Proposta_Model_PreProjeto::ESTADO_ATIVO){
                     $corpoEmail = '<p>O pedido de desarquivamento referente à proposta supracitada foi aceito.  A proposta será desarquivada e seguirá em análise. Dessa forma, acompanhe diariamente a proposta no sistema em virtude de novas diligências e comunicados</p>';
 
                 } else {
@@ -390,7 +393,7 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
         $tblPreProjetoArquivado = new Proposta_Model_PreProjetoArquivado();
 
         $rsPreProjetoArquivado = $tblPreProjetoArquivado->listarSolicitacoes(
-            ['stDecisao = ?' => 1],
+            ['stDecisao = ?' => Proposta_Model_PreProjeto::ESTADO_ATIVO],
             $order,
             $start,
             $length,
@@ -405,7 +408,7 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
                 }
             }
             $totalData = $tblPreProjetoArquivado->listarSolicitacoes(
-                ['stDecisao = ?' => 1],
+                ['stDecisao = ?' => Proposta_Model_PreProjeto::ESTADO_ATIVO],
                 null,
                 null,
                 null,
@@ -437,7 +440,7 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
         $tblPreProjetoArquivado = new Proposta_Model_PreProjetoArquivado();
 
         $rsPreProjetoArquivado = $tblPreProjetoArquivado->listarSolicitacoes(
-            ['stDecisao = ?' => 0],
+            ['stDecisao = ?' => Proposta_Model_PreProjeto::ESTADO_ARQUIVADO],
             $order,
             $start,
             $length,
@@ -452,7 +455,7 @@ class Proposta_PreProjetoArquivadoController extends Proposta_GenericController
                 }
             }
             $totalData = $tblPreProjetoArquivado->listarSolicitacoes(
-                ['stDecisao = ?' => 0],
+                ['stDecisao = ?' => Proposta_Model_PreProjeto::ESTADO_ARQUIVADO],
                 null,
                 null,
                 null,

@@ -105,7 +105,7 @@ class PrestacaoContas_ComprovantePagamentoController extends Zend_Rest_Controlle
             throw new Exception('Falta pronac');
         }
 
-        if (!$observacao) {
+        if (!$observacao && $situacao == 3) {
             throw new Exception('Falta observacao');
         }
 

@@ -79,6 +79,11 @@ class UploadController extends MinC_Controller_Action_Abstract
 
         if (!empty($_REQUEST['idPronac'])) {
             $this->idPronac = $_REQUEST['idPronac'];
+
+            if (strlen($this->idPronac) > 7) {
+                $this->idPronac = Seguranca::dencrypt($this->idPronac);
+            }
+
             $this->cod = "?idPronac=" . $this->idPronac;
             $idPronac = $_REQUEST['idPronac'];
 

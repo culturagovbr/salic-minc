@@ -116,11 +116,7 @@ $(document).ready(function () {
                         data: null,
                         "name": "pronac",
                         render: function (data, type, row) {
-
-                            let url = '/projeto/#/incentivo/' + data.idPronacHash;
-                            if (data.idMecanismo != 1) {
-                                url = '/projeto/convenio/visualizar/idPronac/' + data.idPronacHash;
-                            }
+                            let url = '/projeto/#/' + data.idPronacHash;
 
                             return '<a target="_blanck" class="btn waves-effect waves-darrk white black-text small" href="' + url + '">'
                                 + data.pronac + '</a>'

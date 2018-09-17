@@ -24,7 +24,7 @@ if (!empty($this->dataForm['Pronac'])){
                         class="waves-effect waves-teal btn small white tooltipped black-text"
                 ><?= $this->dataForm['Pronac']; ?></a>
             <?php elseif (!empty($this->dataForm['idProjeto'])) : ?>
-                <b>Nº Proposta: </b><a
+                <b>N&ordm; Proposta: </b><a
                         data-ajax-modal="<?= $this->url($arrayLinkProjeto); ?>"
                         href="javascript:void(0);"
                         data-position="top"
@@ -82,7 +82,6 @@ if (!empty($this->dataForm['Pronac'])){
                                 <a class="waves-effect waves-light btn tooltipped" data-position="top" data-delay="50" data-tooltip="Download" href="<?= $this->url(array('module' => 'solicitacao', 'controller' => 'mensagem', 'action' => 'abrirdocumentosolicitacao'), null, true); ?>?id=<?= $this->dataForm['arquivo']['idDocumento']; ?>"><i class="tiny material-icons">file_download</i></a>
                                 <a class="waves-effect waves-light btn  red darken-4 tooltipped" data-position="top" data-delay="50" data-tooltip="Excluir" href="#" id="file_delete"><i class="tiny material-icons">delete_forever</i></a>
                                 <input type="file" name="arquivo" id="arquivo" class="hiddenfile" >
-<!--                                <input type="file" name="upload_enviado" id="upload_enviado" class="hiddenfile" >-->
                             <?php else: ?>
                                 <label for="arquivo" style="width: 100px; ">Anexar arquivo: </label>
                                 <input type="file" name="arquivo" id="arquivo" class="input_simples">
@@ -92,9 +91,6 @@ if (!empty($this->dataForm['Pronac'])){
                             <div id="arquivoinvalido" style="color:#FF0000"></div>
                         </div>
                     </div>
-
-
-
                 </div>
             <?php elseif ($this->dataForm['arquivo']['idDocumento']): ?>
                 <div class="row">
@@ -119,15 +115,27 @@ if (!empty($this->dataForm['Pronac'])){
                                       name="dsResposta" <?= (isset($this->arrConfig['dsResposta']) && $this->arrConfig['dsResposta']['disabled']) ? 'disabled="disabled"' : '' ?>><?= (isset($this->dataForm['dsResposta'])) ? $this->dataForm['dsResposta'] : ''; ?>  </textarea>
                         </div>
                     </div>
-                <?php else: ?>
                     <div class="row">
-                        <div class="input-field col s12">
-                            <h5>Resposta</h5>
-                        </div>
-                        <div class="col s12">
-                            <?= ($this->dataForm['dsResposta']) ? $this->dataForm['dsResposta'] : '<br />Sem resposta para esta solicita&ccedil;&atilde;o.'; ?>
+                    <div class="col s12">
+                        <div id="anexarDocumentoResposta" class="card-panel">
+
+                            <?php if ($this->dataForm['arquivoResposta']['idDocumento']): ?>
+                                <label for="arquivo" style="width: 100px; ">Anexar arquivo: </label>
+                                <span id="file_name" style="margin-right:20px "><?= utf8_decode(htmlentities($this->dataForm['arquivoResposta']['nmArquivo'])); ?></span>
+                                <a class="waves-effect waves-light btn tooltipped" id="file_upload" data-position="top" data-delay="50" data-tooltip="Upload" href="#"><i class="tiny material-icons">file_upload</i></a>
+                                <a class="waves-effect waves-light btn tooltipped" data-position="top" data-delay="50" data-tooltip="Download" href="<?= $this->url(array('module' => 'solicitacao', 'controller' => 'mensagem', 'action' => 'abrirdocumentosolicitacao'), null, true); ?>?id=<?= $this->dataForm['arquivoResposta']['idDocumento']; ?>"><i class="tiny material-icons">file_download</i></a>
+                                <a class="waves-effect waves-light btn  red darken-4 tooltipped" data-position="top" data-delay="50" data-tooltip="Excluir" href="#" id="file_delete"><i class="tiny material-icons">delete_forever</i></a>
+                                <input type="file" name="arquivo" id="arquivoResposta" class="hiddenfile" >
+                            <?php else: ?>
+                                <label for="arquivo" style="width: 100px; ">Anexar arquivo: </label>
+                                <input type="file" name="arquivo" id="arquivoResposta" class="input_simples">
+
+                            <?php endif;?>
+
+                            <div id="arquivoinvalido" style="color:#FF0000"></div>
                         </div>
                     </div>
+                </div>
                 <?php endif; ?>
             <?php endif; ?>
 
@@ -158,7 +166,6 @@ if (!empty($this->dataForm['Pronac'])){
 
 
     // Adicionando evento de enviar o formulario via ajax caso tenha a tag data-ajax-form.
-
     function salvarRascunho(){
         $3('input[name=siEncaminhamento]').val('0');
         $3("#form-mensagem").ajaxFormSubmit();

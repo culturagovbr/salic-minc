@@ -9,6 +9,7 @@
 <script src="/public/scripts/prestacao-contas/components/comprovante-table.vue.js"></script>
 <script src="/public/scripts/prestacao-contas/components/comprovante-internacional-table.vue.js"></script>
 <script src="/public/scripts/prestacao-contas/components/comprovantes.vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/v-mask/dist/v-mask.min.js"></script>
 <script src="/public/js/moment.js"></script>
 <script src="/public/js/v-money.js"></script>
 
@@ -91,7 +92,7 @@
 </div>
 
 <script>
-
+    Vue.directive('mask', VueMask.VueMaskDirective);
     const appComprovante = new Vue({
     data: {
         visivelForm: false
@@ -101,8 +102,6 @@
     },
     methods: {
         visivel: function() {
-            /* this.visivelForm  = (!this.visivelForm); */
-            console.log(1213123);
             $3('#modal1').modal('open');
         },
 

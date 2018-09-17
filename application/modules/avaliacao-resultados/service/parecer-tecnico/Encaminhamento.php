@@ -2,7 +2,6 @@
 
 namespace Application\Modules\AvaliacaoResultados\Service\ParecerTecnico;
 
-
 class Encaminhamento
 {
     /**
@@ -24,7 +23,7 @@ class Encaminhamento
         $GrupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
 
 //        $GrupoAtivo->unlockAll();
-        xd($GrupoAtivo);
+        // xd($GrupoAtivo);
 //        xd($GrupoAtivo->__get('codGrupo'));
 //        $authIdentityInstance = (array) \Zend_Auth::getInstance()->getIdentity();
 
@@ -36,12 +35,11 @@ class Encaminhamento
 
     public function buscarHistorico()
     {
-        $vwResultadoDaAvaliacaoFinanceira = new \AvaliacaoResultados_Model_DbTable_tbEncaminhamentoPrestacaoContas();
-        $where = [
-            'idPronac = ?' => $this->request->idPronac
-        ];
 
-        return $vwResultadoDaAvaliacaoFinanceira->buscar($where)->toArray();
+        $tblEncaminhamento = new \tbEncaminhamentoPrestacaoContas();
+        $historicos = $tblEncaminhamento->HistoricoEncaminhamentoPrestacaoContas($this->request->idPronac)->toArray();
+
+        return $historicos;
     }
 
     public function encaminharProjeto()
@@ -115,7 +113,10 @@ class Encaminhamento
 
                 if ($idTblEncaminhamento) {
                     // altera todos os encaminhamentos anteriores para stAtivo = 0
-                    $tblEncaminhamento->update(array('stAtivo' => 0), array('idPronac = ?' => $idPronac, 'idEncPrestContas != ?' => $idTblEncaminhamento));
+                    $tblEncaminhamento->update(
+                        array('stAtivo' => 0), 
+                        array('idPronac = ?' => $idPronac, 'idEncPrestContas != ?' => $idTblEncaminhamento)
+                    );
                 }
 
 //                if ($this->codGrupo == 132) {

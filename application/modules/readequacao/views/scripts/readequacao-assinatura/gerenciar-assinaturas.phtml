@@ -40,8 +40,8 @@
                                 </th>
                                 <th align="center" width="40" class="center-align">PRONAC</th>
                                 <th class="center-align">Nome do Projeto</th>
-                                <th class="center-align">Enquadramento</th>
-                                <th class="center-align">Tipo de Assinatura</th>
+                                <th class="center-align">Tipo de Ato Administrativo</th>
+                                <th class="center-align">Tipo de Readequa&ccedil;&atilde;o</th>
                                 <th class="center-align" align="center">Ver</th>
                                 <?php if($this->isPermitidoDevolver === true) { ?>
                                 <th class="center-align" align="center">Devolver</th>
@@ -78,24 +78,8 @@
                                                ) . "?idPronac={$dado['IdPRONAC']}"; ?>"><u><?php echo $dado['pronac']; ?></u></a>
                                     </td>
                                     <td class="center-align" align="center"><?php echo $dado['nomeProjeto']; ?></td>
-                                    <td class="center-align"
-                                        align="center">
-                                        <b>
-                                            &Aacute;rea:
-                                        </b>
-                                        <?php echo $dado['area']; ?>
-                                        <br />
-                                        <b>
-                                            Segmento:
-                                        </b>
-                                        <?php echo $dado['segmento']; ?>
-                                        <br />
-                                        <b>
-                                            Enquadramento:
-                                        </b>
-                                        <?php echo ((int)$dado['tp_enquadramento'] == 1) ? 'Artigo 26' : 'Artigo 18'; ?>
-                                    </td>
                                     <td class="center-align" align="center"><?php echo $dado['tipoDoAtoAdministrativo']; ?></td>
+                                    <td class="center-align" align="center"><?php echo $dado['dsReadequacao']; ?></td>
                                     <td class="center-align" align="center">
                                         <a class="btn waves-effect waves-light tooltipped small "
                                            href="<?php echo $this->url(array(

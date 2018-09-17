@@ -23,16 +23,16 @@
                 :key="row.idPlanilhaProposta"
                 v-if="isObject(row)"
                 :class="definirClasseItem(row)">
-                <td class="center-align">{{row.Seq}}</td>
-                <td class="left-align">{{row.Item}}</td>
-                <td class="center-align">{{row.Unidade}}</td>
-                <td class="center-align">{{row.QtdeDias}}</td>
-                <td class="center-align">{{row.Quantidade}}</td>
-                <td class="center-align">{{row.Ocorrencia}}</td>
-                <td class="right-align">{{row.vlUnitario | formatarParaReal}}</td>
-                <td class="right-align">{{row.vlSolicitado | formatarParaReal}}</td>
-                <td class="right-align">{{row.vlSugerido  | formatarParaReal}}</td>
-                <td class="right-align">{{row.vlAprovado | formatarParaReal}}</td>
+                <td class="center-align">{{ row.Seq }}</td>
+                <td class="left-align">{{ row.Item }}</td>
+                <td class="center-align">{{ row.Unidade }}</td>
+                <td class="center-align">{{ row.QtdeDias }}</td>
+                <td class="center-align">{{ row.Quantidade }}</td>
+                <td class="center-align">{{ row.Ocorrencia }}</td>
+                <td class="right-align">{{ row.vlUnitario | filtroFormatarParaReal }}</td>
+                <td class="right-align">{{ row.vlSolicitado | filtroFormatarParaReal }}</td>
+                <td class="right-align">{{ row.vlSugerido  | filtroFormatarParaReal }}</td>
+                <td class="right-align">{{ row.vlAprovado | filtroFormatarParaReal }}</td>
                 <td class="justify" width="15%" v-html="row.JustProponente"></td>
                 <td class="justify" width="15%" v-html="row.JustParecerista"></td>
                 <td class="justify" width="15%" v-html="row.JustComponente"></td>

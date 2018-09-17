@@ -157,10 +157,6 @@ class PrincipalController extends MinC_Controller_Action_Abstract
             parent::message("Nenhum projeto encontrado com o n&uacute;mero de Pronac informado.", "principal/index", "ERROR");
         }
 
-        if ($projeto['Mecanismo'] == 1) {
-            $this->redirect('/projeto/#/incentivo/' . $projeto['IdPRONAC']);
-        } else {
-            $this->redirect('/projeto/convenio/visualizar/idPronac/' . $projeto['IdPRONAC']);
-        }
+        $this->redirect('/projeto/#/' . $projeto['IdPRONAC']);
     }
 }

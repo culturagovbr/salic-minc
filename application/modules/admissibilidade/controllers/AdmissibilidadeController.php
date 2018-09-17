@@ -2838,22 +2838,10 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
         $idPronac = $db->lastInsertId();
         if (!empty($idPronac)) {
-            // @todo a pedido do Rômulo todas as propostas seguirao o fluxo normal
-            //            if (!empty($stProposta) && $stProposta != $propostaNormal) {
-            //
-            //                $tbPlanoDistribuicao = new PlanoDistribuicao();
-            //                $idVinculada = $tbPlanoDistribuicao->buscarIdVinculada($idPreProjeto);
-            //
-            //                $tbDistribuirParecer = new tbDistribuirParecer();
-            //                $resultado = $tbDistribuirParecer->inserirDistribuicaoParaParecer($idPreProjeto, $idPronac, $idVinculada);
-            //
-            //                $tbAnaliseDeConteudo = new tbAnaliseDeConteudo();
-            //                $resultado = $tbAnaliseDeConteudo->inserirAnaliseConteudoParaParecerista($idPreProjeto, $idPronac);
-            //
-            //                $PlanilhaProjeto = new PlanilhaProjeto();
-            //                $resultado = $PlanilhaProjeto->inserirPlanilhaParaParecerista($idPreProjeto, $idPronac);
-            //
-            //            }
+            $tbSolicitacaoDbTable = new Solicitacao_Model_DbTable_TbSolicitacao();
+            $dados = ['idPronac' =>  $idPronac];
+            $where = ['idProjeto= ?' => $idPreProjeto];
+            $tbSolicitacaoDbTable->update($dados, $where);
 
             # INSERIR INFORMAÇÕES NA TABELA CONTABANCARIA
             $sqlContaBancaria = "INSERT INTO SAC.dbo.ContaBancaria (AnoProjeto,Sequencial,Mecanismo,Banco,Agencia,Logon)

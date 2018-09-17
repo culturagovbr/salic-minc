@@ -168,21 +168,8 @@ class ConsultarDadosProjetoController extends MinC_Controller_Action_Abstract
                 $idPronac = Seguranca::dencrypt($idPronac);
             }
 
-            $tbProjetos = new Projetos();
-            $where = [];
-            $where['IdPRONAC'] = $idPronac;
-            $projeto = $tbProjetos->findBy($where);
-
             if (empty($debug)) {
-                if (empty($projeto)) {
-                    throw new Exception("Nenhum projeto encontrado com o n&uacute;mero de Pronac informado.");
-                }
-
-                if ($projeto['Mecanismo'] == 1) {
-                    $this->redirect('/projeto/#/incentivo/' . $idPronacHash);
-                } else {
-                    $this->redirect('/projeto/convenio/visualizar/idPronac/' . $idPronacHash);
-                }
+                $this->redirect('/projeto/#/' . $idPronacHash);
             }
 
             $dbTableProjetos = new Projeto_Model_DbTable_Projetos();
@@ -190,10 +177,6 @@ class ConsultarDadosProjetoController extends MinC_Controller_Action_Abstract
             $this->view->projeto = $projeto;
             if (count($projeto) <= 0) {
                 throw new Exception("Nenhum projeto encontrado com o n&uacute;mero de Pronac informado.");
-            }
-
-            if($projeto->idMecanismo != 1) { #incentivo fiscal
-                $this->redirect('/projeto/convenio/visualizar/idPronac/' . $idPronac);
             }
 
             $dbTableInabilitado = new Inabilitado();

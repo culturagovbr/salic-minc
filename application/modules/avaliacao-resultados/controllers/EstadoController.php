@@ -1,6 +1,6 @@
 <?php
 
-/* use Application\Modules\AvaliacaoResultados\Service\ParecerTecnico\Encaminhamento as EncaminhamentoService; */
+use Application\Modules\AvaliacaoResultados\Service\Fluxo\Estado as EstadoService;
 
 class AvaliacaoResultados_EstadoController extends MinC_Controller_Rest_Abstract
 {
@@ -12,29 +12,10 @@ class AvaliacaoResultados_EstadoController extends MinC_Controller_Rest_Abstract
             Autenticacao_Model_Grupos::COORDENADOR_GERAL_PRESTACAO_DE_CONTAS,
         ];
 
-        $permissionsPerMethod  = [
-            /* '*' => [], */
-//            'index' => $profiles,
-//            'post' => $profiles
-        ];
+        $permissionsPerMethod  = [];
         $this->setProtectedMethodsProfilesPermission($permissionsPerMethod);
 
         parent::__construct($request, $response, $invokeArgs);
-    }
-//
-//    public function init() {
-//
-//        /* var_dump('qqq');die; */
-//        $this->events = new Zend_EventManager_EventManager();
-//
-//        $this->events->attach('teste',  function ($e) {
-//        });
-//
-//        parent::init();
-//    }
-
-    public function teste(){
-
     }
 
     public function indexAction()
@@ -46,24 +27,34 @@ class AvaliacaoResultados_EstadoController extends MinC_Controller_Rest_Abstract
 
     public function getAction()
     {
+        $id = $this->getRequest()->getParam('id');
+
+        $estado = new  AvaliacaoResultados_Model_DbTable_Estados();
+
+        $estado = $estado->findBy($id);
+        $estado['proximo'] = json_decode($estado['proximo']);
+
+        $this->renderJsonResponse($estado, 200);
     }
 
     public function headAction(){}
 
     public function postAction()
     {
+        $atual = $this->getRequest()->getParam('atual');
+        $proximoEstado = $this->getRequest()->getParam('proximo');
+        $params = $this->getRequest()->getParams();
+
+        $estado = new EstadoService();
+        $estado->validar($atual, $proximoEstado);
+        $estado->eventos($atual, $params);
+
+        $this->renderJsonResponse(['post'], 200);
     }
 
     public function putAction()
     {
-//        $this->customRenderJsonResponse(['t1111 11este'], 200);
-
-//        $this->events->trigger('teste');
     }
 
     public function deleteAction(){}
-
-//    public function postDispatch() {
-//        /* die('teste'); */
-//    }
 }

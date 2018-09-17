@@ -3,7 +3,7 @@
         <v-app>
             <SlNav></SlNav>
             <v-content>
-                <v-container>
+                <v-container fluid>
                   <v-layout>
                     <router-view></router-view>
                   </v-layout>

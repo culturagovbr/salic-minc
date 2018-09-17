@@ -17,6 +17,8 @@ class Solicitacao_Model_TbSolicitacao extends MinC_Db_Model
     protected $_idSolicitante;
     protected $_stLeitura;
     protected $_stEstado;
+    protected $_dtEncaminhamento;
+    protected $_idDocumentoResposta;
 
     const SITUACAO_ENCAMINHAMENTO_CADASTRADA = 12;
     const SITUACAO_ENCAMINHAMENTO_ENCAMINHADA_AO_MINC = 1;
@@ -271,6 +273,36 @@ class Solicitacao_Model_TbSolicitacao extends MinC_Db_Model
         $this->_stEstado = $stEstado;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDtEncaminhamento()
+    {
+        return $this->_dtEncaminhamento;
+    }
 
+    /**
+     * @param mixed $dtEncaminhamento
+     */
+    public function setDtEncaminhamento($dtEncaminhamento)
+    {
+        $this->_dtEncaminhamento = $dtEncaminhamento;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdDocumentoResposta()
+    {
+        return $this->_idDocumentoResposta;
+    }
+
+    /**
+     * @param mixed $idDocumentoResposta
+     */
+    public function setIdDocumentoResposta($idDocumentoResposta)
+    {
+        $this->_idDocumentoResposta = $idDocumentoResposta;
+    }
 
 }
