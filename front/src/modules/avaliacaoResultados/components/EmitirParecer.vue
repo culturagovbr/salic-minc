@@ -179,7 +179,11 @@
                     this.requestEmissaoParecer(id);
                 },
                 salvarParecer() {
-                    const data = { idPronac: this.idPronac, tpAvaliacaoFinanceira: this.tipo, siManifestacao: this.parecer.siManifestacao, dsParecer: this.parecer.dsParecer };
+                    const data = {
+                        idPronac: this.idPronac,
+                        tpAvaliacaoFinanceira: this.tipo,
+                        siManifestacao: this.parecer.siManifestacao,
+                        dsParecer: this.parecer.dsParecer };
                     this.salvar(data);
                     this.dialog = false;
                 },

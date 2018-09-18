@@ -22,8 +22,7 @@ export const state = {
 };
 
 export const mutations = {
-    [types.MOCK_AVALIACAO_RESULTADOS](state) {
-        state.mocks;
+    [types.MOCK_AVALIACAO_RESULTADOS]() {
     },
     [types.GET_CONSOLIDACAO_PARECER](state, consolidacaoComprovantes) {
         state.consolidacaoComprovantes = consolidacaoComprovantes;
