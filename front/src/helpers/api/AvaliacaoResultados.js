@@ -38,3 +38,5 @@ export const obterDadosTabelaTecnico = () => api.getRequest('/avaliacao-resultad
 
 export const obterHistoricoEncaminhamento = params => api.getRequest(`/avaliacao-resultados/historico/idPronac/${params}`);
 
+export const planilha = () => api.getRequest('/prestacao-contas/realizar-prestacao-contas/planilha-analise-filtros/idPronac/132451');
+
