@@ -68,48 +68,29 @@
                                                     <v-icon class="mr-3 blue--text">place</v-icon>
                                                     {{ cidade.cidade }}
                                                 </v-layout>
- <v-tabs
-        color="cyan"
-        dark
-        slider-color="yellow"
-      >
-        <v-tab
-          ripple
-        >
-         Todos 
-        </v-tab>
-        <v-tab
-          ripple
-        >
-         Aguardando Analise 
-        </v-tab>
-        <v-tab
-          ripple
-        >
-         Avaliado 
-        </v-tab>
-        <v-tab
-          ripple
-        >
-         Impugnados 
-        </v-tab>
 
-        <v-tab-item>
-            <template v-if="cidade.itens != undefined && typeof cidade.itens[1] !== 'undefined'">
-                {{Object.values(cidade.itens[1])}}
-                <v-data-table
-                    :headers="[{text:'item', value:'item'}]"
-                    :items="Object.values(cidade.itens[1])"
-                    hide-actions
-                    class="elevation-1"
-                >
-                    <template slot="items" slot-scope="props">
-                        <td>{{ props.item.item }}</td>
-                    </template>
-                </v-data-table>
-            </template>
-        </v-tab-item>
-      </v-tabs>
+                                                <template v-if="typeof cidade.itens !== 'undefined'">
+                                                    <v-tabs
+                                                        slider-color="green"
+                                                    >
+                                                        <v-tab ripple v-for="tab in Object.keys(cidade.itens)" :key="tab">{{ tabs[tab] }}</v-tab>
+
+                                                        <v-tab-item v-for="item in cidade.itens" :key="item.stItemAvaliado">
+                                                            <v-data-table
+                                                                :headers="headers"
+                                                                :items="Object.values(item)"
+                                                                hide-actions
+                                                            >
+                                                                <template slot="items" slot-scope="props">
+                                                                    <td>{{ props.item.item }}</td>
+                                                                    <td>R$ {{ props.item.varlorAprovado }}</td>
+                                                                    <td>R$ {{ props.item.varlorComprovado }}</td>
+                                                                    <td>R$ # valorAprovado - valorComprovado</td>
+                                                                </template>
+                                                            </v-data-table>
+                                                        </v-tab-item>
+                                                    </v-tabs>
+                                                </template>
                                             </v-expansion-panel-content>
                                         </v-expansion-panel>
                                     </v-expansion-panel-content>
@@ -149,6 +130,18 @@ export default {
         return {
             existeDiligencia: true,
             produtos: this.planilha,
+            headers: [
+                { text: 'Item de Custo', value: 'item', sortable: false },
+                { text: 'Valor Aprovado', value: 'item', sortable: false },
+                { text: 'Valor Comprovado', value: 'item', sortable: false },
+                { text: 'Valor a Comprovar', value: 'item', sortable: false },
+            ],
+            tabs: {
+                1: 'AVALIADO',
+                3: 'IMPUGNADOS',
+                4: 'AGUARDANDO ANÁLISE',
+                todos: 'TODOS',
+            },
         };
     },
     computed: {
