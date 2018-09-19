@@ -19,6 +19,7 @@ export const state = {
     registroAtivo: {},
     tipoAvaliacao: {},
     redirectLink: {},
+    planilha: {},
 };
 
 export const mutations = {
@@ -80,5 +81,8 @@ export const mutations = {
     },
     [types.LINK_REDIRECIONAMENTO_TIPO_AVALIACAO_RESULTADO](state, redirectLink) {
         state.redirectLink = redirectLink;
+    },
+    [types.GET_PLANILHA](state, planilha) {
+        state.planilha = planilha;
     },
 };

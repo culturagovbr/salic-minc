@@ -10,3 +10,4 @@ export const tipoAvaliacao = state => state.tipoAvaliacao;
 export const dadosTabelaTecnico = state => state.dadosTabelaTecnico;
 export const dadosHistoricoEncaminhamento = state => state.dadosHistoricoEncaminhamento;
 export const redirectLink = state => state.redirectLink;
+export const planilha = state => state.planilha;

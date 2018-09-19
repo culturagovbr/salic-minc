@@ -97,3 +97,11 @@ export const redirectLinkAvaliacaoResultadoTipo = ({ commit }, params) => {
     }
 };
 
+export const planilha = ({ commit }, params) => {
+    avaliacaoResultadosHelperAPI.planilha(params)
+        .then((response) => {
+            const planilha = response.data;
+            commit(types.GET_PLANILHA, planilha);
+        });
+};
+
