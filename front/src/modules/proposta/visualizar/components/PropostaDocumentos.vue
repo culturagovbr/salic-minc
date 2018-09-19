@@ -58,7 +58,7 @@ import { mapActions, mapGetters } from 'vuex';
 export default {
     name: 'PropostaDocumentos',
     props: {
-        'proposta': {},
+        proposta: {},
     },
     mounted() {
         if (Object.keys(this.proposta).length > 2) {
@@ -67,7 +67,6 @@ export default {
     },
     watch: {
         proposta(value) {
-
             if (Object.keys(value).length > 2) {
                 this.buscaDocumentos(value);
             }

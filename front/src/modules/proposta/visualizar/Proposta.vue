@@ -197,6 +197,8 @@
 </template>
 
 <script>
+
+import { mapActions, mapGetters } from 'vuex';
 import Planilha from '@/components/Planilha/Planilha';
 import Carregando from '@/components/Carregando';
 import SalicTextoSimples from '@/components/SalicTextoSimples';
@@ -211,7 +213,7 @@ import PropostaPlanoDistribuicao from './components/PropostaPlanoDistribuicao';
 import PropostaFontesDeRecursos from './components/PropostaFontesDeRecursos';
 import PropostaLocalRealizacaoDeslocamento from './components/PropostaLocalRealizacaoDeslocamento';
 import PropostaCustosVinculados from './components/PropostaCustosVinculados';
-import { mapActions, mapGetters } from 'vuex';
+
 export default {
     name: 'Proposta',
     data() {
@@ -246,7 +248,6 @@ export default {
         if (typeof this.idpreprojeto !== 'undefined' && typeof this.proposta === 'undefined') {
             this.buscarDadosProposta(this.idpreprojeto);
             this.dados = this.dadosProposta;
-
         }
 
         if (typeof this.proposta !== 'undefined') {
@@ -260,7 +261,7 @@ export default {
         dadosProposta(value) {
             this.dados = value;
             this.loading = false;
-        }
+        },
     },
     computed: {
         ...mapGetters({
@@ -277,7 +278,7 @@ export default {
                 // eslint-disable-next-line
                 $3(this).collapsible();
             });
-        }
+        },
     },
 };
 </script>
