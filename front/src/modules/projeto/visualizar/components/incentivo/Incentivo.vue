@@ -440,7 +440,7 @@
             },
             formatarConta(conta) {
                 // formato: 99999-9 ou 99999-x
-                var regex = /^(0+)(\d+)(\S{1})$/;
+                const regex = /^(0+)(\d+)(\S{1})$/;
                 return conta.replace(regex, '$2-$3');
             },
         },

@@ -1,2 +1,2 @@
-export default state => state.isVisible;
+export default state => state.modalAberta;
 

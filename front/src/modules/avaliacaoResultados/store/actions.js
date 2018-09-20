@@ -32,7 +32,7 @@ export const getDadosEmissaoParecer = ({ commit }, param) => {
                 commit(types.GET_PARECER, data.parecer);
                 commit(types.GET_CONSOLIDACAO_PARECER, data.consolidacaoComprovantes);
                 resolve();
-            }).catch(error => console.debug(error));
+            }).catch(() => { });
     });
     return p;
 };
@@ -84,7 +84,7 @@ export const getTipoAvaliacao = ({ commit }, params) => {
 
                 commit(types.GET_TIPO_AVALIACAO, data);
                 resolve();
-            }).catch(error => console.info(error));
+            }).catch(() => { });
     });
     return p;
 };
@@ -95,5 +95,13 @@ export const redirectLinkAvaliacaoResultadoTipo = ({ commit }, params) => {
     } else {
         commit(types.LINK_REDIRECIONAMENTO_TIPO_AVALIACAO_RESULTADO, `/prestacao-contas/prestacao-contas/amostragem/idPronac/${params.idPronac}/tipoAvaliacao/${params.percentual}`);
     }
+};
+
+export const planilha = ({ commit }, params) => {
+    avaliacaoResultadosHelperAPI.planilha(params)
+        .then((response) => {
+            const planilha = response.data;
+            commit(types.GET_PLANILHA, planilha);
+        });
 };
 

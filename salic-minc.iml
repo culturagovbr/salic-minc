@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/prestacao-contas/service/assinatura/laudo/acao" isTestSource="false" packagePrefix="Application\Modules\PrestacaoContas\Service\Assinatura\Laudo\Acao\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/readequacao/service/assinatura" isTestSource="false" packagePrefix="Application\Modules\Readequacao\Service\Assinatura\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/prestacao-contas/service/assinatura" isTestSource="false" packagePrefix="Application\Modules\PrestacaoContas\Service\Assinatura\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/projeto" isTestSource="false" packagePrefix="Application\Modules\Projeto\" />
+      <sourceFolder url="file://$MODULE_DIR$/library/MinC/Servico" isTestSource="false" packagePrefix="MinC\Servico\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/assinatura/service/assinatura/acao" isTestSource="false" packagePrefix="Application\Modules\Assinatura\Service\Assinatura\Acao\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/readequacao/service" isTestSource="false" packagePrefix="Application\Modules\Readequacao\Service\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/solicitacao/service" isTestSource="false" packagePrefix="Application\Modules\Solicitacao\Service\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/proposta" isTestSource="false" packagePrefix="Application\Modules\Proposta\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/projeto/service/proponente" isTestSource="false" packagePrefix="Application\Modules\Projeto\Service\Proponente\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/readequacao/service/transferencia-recursos" isTestSource="false" packagePrefix="Application\Modules\Readequacao\Service\TransferenciaRecursos\" />
+      <sourceFolder url="file://$MODULE_DIR$/library/MinC/Db/Model" isTestSource="false" packagePrefix="MinC\Db\Model\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/avaliacao-resultados/service/assinatura" isTestSource="false" packagePrefix="Application\Modules\AvaliacaoResultados\Service\Assinatura\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/avaliacao-resultados" isTestSource="false" packagePrefix="Application\Modules\AvaliacaoResultados\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/admissibilidade/service/assinatura/acao" isTestSource="false" packagePrefix="Application\Modules\Admissibilidade\Service\Assinatura\Acao\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/foo" isTestSource="false" packagePrefix="Application\Modules\Foo\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/solicitacao/service/solicitacao" isTestSource="false" packagePrefix="Application\Modules\Solicitacao\Service\Solicitacao\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/parecer/service/assinatura/analise-cnic" isTestSource="false" packagePrefix="Application\Modules\Parecer\Service\Assinatura\AnaliseCNIC\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/avaliacao-resultados/service/parecer-tecnico" isTestSource="false" packagePrefix="Application\Modules\AvaliacaoResultados\Service\ParecerTecnico\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/parecer/service/assinatura/analise-cnic/acao" isTestSource="false" packagePrefix="Application\Modules\Parecer\Service\Assinatura\AnaliseCNIC\Acao\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/avaliacao-resultados/service/assinatura/parecer" isTestSource="false" packagePrefix="Application\Modules\AvaliacaoResultados\Service\Assinatura\Parecer\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/prestacao-contas/service/assinatura/laudo" isTestSource="false" packagePrefix="Application\Modules\PrestacaoContas\Service\Assinatura\Laudo\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/proposta/service/proposta" isTestSource="false" packagePrefix="Application\Modules\Proposta\Service\Proposta\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/projeto/service/assinatura" isTestSource="false" packagePrefix="Application\Modules\Projeto\Service\Assinatura\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/avaliacao-resultados/service/fluxo" isTestSource="false" packagePrefix="Application\Modules\AvaliacaoResultados\Service\Fluxo\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules" isTestSource="false" packagePrefix="Application\Modules\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/readequacao/service/assinatura/acao" isTestSource="false" packagePrefix="Application\Modules\Readequacao\Service\Assinatura\Acao\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/parecer/service/assinatura/analise-inicial/acao" isTestSource="false" packagePrefix="Application\Modules\Parecer\Service\Assinatura\AnaliseInicial\Acao\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/avaliacao-resultados/service/encaminhar" isTestSource="false" packagePrefix="Application\Modules\AvaliacaoResultados\Service\Encaminhar\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/readequacao" isTestSource="false" packagePrefix="Application\Modules\Readequacao\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/avaliacao-resultados/service" isTestSource="false" packagePrefix="Application\Modules\AvaliacaoResultados\Service\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/prestacao-contas/service" isTestSource="false" packagePrefix="Application\Modules\PrestacaoContas\Service\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/projeto/service/assinatura/acao" isTestSource="false" packagePrefix="Application\Modules\Projeto\Service\Assinatura\Acao\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/parecer/service/assinatura" isTestSource="false" packagePrefix="Application\Modules\Parecer\Service\Assinatura\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/prestacao-contas" isTestSource="false" packagePrefix="Application\Modules\PrestacaoContas\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/projeto/service" isTestSource="false" packagePrefix="Application\Modules\Projeto\Service\" />
+      <sourceFolder url="file://$MODULE_DIR$/application" isTestSource="false" packagePrefix="Application\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/parecer/service/assinatura/analise-inicial" isTestSource="false" packagePrefix="Application\Modules\Parecer\Service\Assinatura\AnaliseInicial\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/assinatura/service" isTestSource="false" packagePrefix="Application\Modules\Assinatura\Service\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/parecer" isTestSource="false" packagePrefix="Application\Modules\Parecer\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/foo/service" isTestSource="false" packagePrefix="Application\Modules\Foo\Service\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/parecer/service" isTestSource="false" packagePrefix="Application\Modules\Parecer\Service\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/admissibilidade" isTestSource="false" packagePrefix="Application\Modules\Admissibilidade\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/foo/service/foo" isTestSource="false" packagePrefix="Application\Modules\Foo\Service\Foo\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/assinatura/service/assinatura" isTestSource="false" packagePrefix="Application\Modules\Assinatura\Service\Assinatura\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/proposta/service" isTestSource="false" packagePrefix="Application\Modules\Proposta\Service\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/admissibilidade/service" isTestSource="false" packagePrefix="Application\Modules\Admissibilidade\Service\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/solicitacao" isTestSource="false" packagePrefix="Application\Modules\Solicitacao\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/assinatura" isTestSource="false" packagePrefix="Application\Modules\Assinatura\" />
+      <sourceFolder url="file://$MODULE_DIR$/application/modules/admissibilidade/service/assinatura" isTestSource="false" packagePrefix="Application\Modules\Admissibilidade\Service\Assinatura\" />
+      <sourceFolder url="file://$MODULE_DIR$/library/MinC/Assinatura" isTestSource="false" packagePrefix="MinC\Assinatura\" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/aferrandini/phpqrcode" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/instantiator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/opauth/opauth" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-common" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpdocumentor/type-resolver" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpspec/prophecy" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-code-coverage" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-file-iterator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-text-template" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-timer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/php-token-stream" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/phpunit" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/phpunit/phpunit-mock-objects" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/comparator" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/diff" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/environment" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/exporter" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/global-state" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/recursion-context" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sebastian/version" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/sentry/sentry" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/yaml" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/vinnyfs89/r-enc" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/vinnyfs89/x-dump" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zendframework/zendframework1" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

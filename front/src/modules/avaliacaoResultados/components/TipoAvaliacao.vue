@@ -116,14 +116,14 @@ export default {
         return {
             idPronac: this.$route.params.id,
             percentual: '',
-            encaminhar:'',
-            aprovado:300,
-            captado:200,
-            comprovado:100,
-            todos:75,
-            valor1:80,
-            valor2:10,
-            valor3:20,
+            encaminhar: '',
+            aprovado: 300,
+            captado: 200,
+            comprovado: 100,
+            todos: 75,
+            valor1: 80,
+            valor2: 10,
+            valor3: 20,
         };
     },
     components: {
@@ -135,11 +135,10 @@ export default {
             modalOpen: 'modal/modalOpen',
             modalClose: 'modal/modalClose',
             getTipo: 'avaliacaoResultados/getTipoAvaliacao',
-            redirectLink: 'avaliacaoResultados/redirectLinkAvaliacaoResultadoTipo'
+            redirectLink: 'avaliacaoResultados/redirectLinkAvaliacaoResultadoTipo',
         }),
 
-        getTipoAvaliacaoResultado(id)
-        {
+        getTipoAvaliacaoResultado(id) {
             this.getTipo(id);
         },
         fecharModal() {
@@ -147,22 +146,20 @@ export default {
             $3('#modalTemplate').modal('close');
             this.modalClose();
         },
-        redirecionarEncaminhar(){
-            const data = {idPronac: this.idPronac , percentual: this.percentual};
+        redirecionarEncaminhar() {
+            const data = { idPronac: this.idPronac, percentual: this.percentual };
             this.redirectLink(data);
-        }
+        },
     },
     computed: {
         ...mapGetters({
             modalVisible: 'modal/default',
             tipoAvaliacao: 'avaliacaoResultados/tipoAvaliacao',
-            redirect: 'avaliacaoResultados/redirectLink'
+            redirect: 'avaliacaoResultados/redirectLink',
         }),
     },
-    mounted()
-    {
+    mounted() {
         this.getTipoAvaliacaoResultado(this.idPronac);
     },
 };
 </script>
-

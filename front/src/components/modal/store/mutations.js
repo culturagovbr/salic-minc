@@ -1,14 +1,14 @@
 import * as types from './types';
 
 export const state = {
-    isVisible: false,
+    modalAberta: false,
 };
 
 export const mutations = {
     [types.MODAL_OPEN](state, modal) {
-        state.isVisible = modal;
+        state.modalAberta = modal;
     },
     [types.MODAL_CLOSE](state) {
-        state.isVisible = '';
+        state.modalAberta = '';
     },
 };

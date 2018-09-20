@@ -71,7 +71,7 @@ export default {
     ],
     watch: {
         dialog(val) {
-            if(val){
+            if (val) {
                 this.obterHistoricoEncaminhamento(this.idPronac);
             }
         },
@@ -83,44 +83,44 @@ export default {
                     text: 'PRONAC',
                     align: 'left',
                     sortable: false,
-                    value: 'pronac'
+                    value: 'pronac',
                 },
                 {
                     text: 'Nome do Projeto',
                     align: 'left',
                     sortable: false,
-                    value: 'nomeProjeto'
-                }
+                    value: 'nomeProjeto',
+                },
             ],
             historicoHeaders: [
                 {
                     text: 'Data de Envio',
                     align: 'left',
                     sortable: false,
-                    value: 'dataEnvio'
+                    value: 'dataEnvio',
                 },
                 {
                     text: 'Nome do Remetente',
                     align: 'left',
                     sortable: false,
-                    value: 'nomeRemetente'
+                    value: 'nomeRemetente',
                 },
                 {
                     text: 'Nome do Destinatário',
                     align: 'left',
                     sortable: false,
-                    value: 'nomeDestinatario'
+                    value: 'nomeDestinatario',
                 },
                 {
                     text: 'Justificativa',
                     align: 'left',
                     sortable: false,
-                    value: 'justificativa'
-                }
+                    value: 'justificativa',
+                },
             ],
-            dialog: false
-        }
-  },
+            dialog: false,
+        };
+    },
     components: {
         ModalTemplate,
     },

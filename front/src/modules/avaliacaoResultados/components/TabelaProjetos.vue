@@ -92,7 +92,7 @@
         },
         computed: {
             ...mapGetters({
-                dadosTabelaTecnico: 'avaliacaoResultados/dadosTabelaTecnico'
+                dadosTabelaTecnico: 'avaliacaoResultados/dadosTabelaTecnico',
             }),
         },
     };

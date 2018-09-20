@@ -34,7 +34,7 @@
             </tbody>
             <tfoot v-if="table && Object.keys(table).length > 0" style="opacity: 0.5">
             <tr>
-                <td colspan="6"><b>Totais</b></td>
+                <td colspan="7"><b>Totais</b></td>
                 <td class="right-align">
                     <b>{{ obterValorSolicitadoTotal(table) }}</b>
                 </td>
