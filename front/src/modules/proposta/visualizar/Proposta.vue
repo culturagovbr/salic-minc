@@ -214,70 +214,70 @@
     import PropostaCustosVinculados from './components/PropostaCustosVinculados';
 
     export default {
-    name: 'Proposta',
-    data() {
-        return {
-            dados: {
-                type: Object,
-                default() {
-                    return {};
+        name: 'Proposta',
+        data() {
+            return {
+                dados: {
+                    type: Object,
+                    default() {
+                        return {};
+                    },
                 },
+                loading: true,
+            };
+        },
+        props: ['idpreprojeto', 'proposta'],
+        components: {
+            PropostaIdentificacao,
+            PropostaHistoricoAvaliacoes,
+            PropostaHistoricoSugestoesEnquadramento,
+            PropostaHistoricoSolicitacoes,
+            AgenteProponente,
+            AgenteUsuario,
+            SalicTextoSimples,
+            Carregando,
+            PropostaDocumentos,
+            PropostaPlanoDistribuicao,
+            PropostaFontesDeRecursos,
+            PropostaLocalRealizacaoDeslocamento,
+            PropostaCustosVinculados,
+            Planilha,
+        },
+        mounted() {
+            if (typeof this.idpreprojeto !== 'undefined' && typeof this.proposta === 'undefined') {
+                this.buscarDadosProposta(this.idpreprojeto);
+                this.dados = this.dadosProposta;
+            }
+
+            if (typeof this.proposta !== 'undefined') {
+                this.dados = this.proposta;
+                this.loading = false;
+            }
+
+            this.iniciarCollapsible();
+        },
+        watch: {
+            dadosProposta(value) {
+                this.dados = value;
+                this.loading = false;
             },
-            loading: true,
-        };
-    },
-    props: ['idpreprojeto', 'proposta'],
-    components: {
-        PropostaIdentificacao,
-        PropostaHistoricoAvaliacoes,
-        PropostaHistoricoSugestoesEnquadramento,
-        PropostaHistoricoSolicitacoes,
-        AgenteProponente,
-        AgenteUsuario,
-        SalicTextoSimples,
-        Carregando,
-        PropostaDocumentos,
-        PropostaPlanoDistribuicao,
-        PropostaFontesDeRecursos,
-        PropostaLocalRealizacaoDeslocamento,
-        PropostaCustosVinculados,
-        Planilha,
-    },
-    mounted() {
-        if (typeof this.idpreprojeto !== 'undefined' && typeof this.proposta === 'undefined') {
-            this.buscarDadosProposta(this.idpreprojeto);
-            this.dados = this.dadosProposta;
-        }
-
-        if (typeof this.proposta !== 'undefined') {
-            this.dados = this.proposta;
-            this.loading = false;
-        }
-
-        this.iniciarCollapsible();
-    },
-    watch: {
-        dadosProposta(value) {
-            this.dados = value;
-            this.loading = false;
         },
-    },
-    computed: {
-        ...mapGetters({
-            dadosProposta: 'proposta/proposta',
-        }),
-    },
-    methods: {
-        ...mapActions({
-            buscarDadosProposta: 'proposta/buscarDadosProposta',
-        }),
-        iniciarCollapsible() {
-            // eslint-disable-next-line
-            $3('.collapsible').each(function () {
+        computed: {
+            ...mapGetters({
+                dadosProposta: 'proposta/proposta',
+            }),
+        },
+        methods: {
+            ...mapActions({
+                buscarDadosProposta: 'proposta/buscarDadosProposta',
+            }),
+            iniciarCollapsible() {
                 // eslint-disable-next-line
-                $3(this).collapsible();
-            });
+                $3('.collapsible').each(function () {
+                    // eslint-disable-next-line
+                    $3(this).collapsible();
+                });
+            },
         },
-    },
 };
 </script>
