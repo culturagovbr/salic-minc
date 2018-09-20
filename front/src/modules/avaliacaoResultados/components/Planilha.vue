@@ -138,7 +138,6 @@
                     dark
                     small
                     color="green"
-                    title="teste"
                     slot="activator"
                 >
                     <v-icon>check</v-icon>
@@ -150,7 +149,7 @@
                     fab
                     dark
                     small
-                    title="teste"
+                    color="teal"
                     slot="activator"
                 >
                     <v-icon>gavel</v-icon>
@@ -162,26 +161,24 @@
                     fab
                     dark
                     small
-                    color="green"
-                    title="teste"
+                    color="white"
                     slot="activator"
                 >
-                    <v-icon>check</v-icon>
+                    <v-icon>warning</v-icon>
                 </v-btn>
-                <span>Finalizar Análise</span>
+                <span>Diligenciar</span>
             </v-tooltip>
             <v-tooltip left>
                 <v-btn
                     fab
                     dark
                     small
-                    color="green"
-                    title="teste"
+                    color="yellow"
                     slot="activator"
                 >
-                    <v-icon>check</v-icon>
+                    <v-icon>arrow_upward</v-icon>
                 </v-btn>
-                <span>Finalizar Análise</span>
+                <span>Ir para o topo</span>
             </v-tooltip>
         </v-speed-dial>
      </v-container>
