@@ -27,7 +27,6 @@
                         <v-icon class="mr-3 green--text">perm_media</v-icon>
                         {{ produto.produto }}
                     </v-layout>
-
                         <!-- ETAPA -->
                         <v-expansion-panel class="pl-3 elevation-0"
                             expand
@@ -40,7 +39,6 @@
                                     <v-icon class="mr-3 orange--text">label</v-icon>
                                     {{ etapa.etapa }}
                                 </v-layout>
-
                                 <!-- UF -->
                                 <v-expansion-panel 
                                     class="pl-3 elevation-0"
@@ -54,7 +52,6 @@
                                             <v-icon class="mr-3 blue--text">place</v-icon>
                                             {{ uf.Uf }}
                                         </v-layout>
-
                                         <!-- CIDADE -->
                                         <v-expansion-panel 
                                             class="pl-3 elevation-0"
@@ -68,13 +65,11 @@
                                                     <v-icon class="mr-3 blue--text">place</v-icon>
                                                     {{ cidade.cidade }}
                                                 </v-layout>
-
                                                 <template v-if="typeof cidade.itens !== 'undefined'">
                                                     <v-tabs
                                                         slider-color="green"
                                                     >
                                                         <v-tab ripple v-for="tab in Object.keys(cidade.itens)" :key="tab">{{ tabs[tab] }}</v-tab>
-
                                                         <v-tab-item v-for="item in cidade.itens" :key="item.stItemAvaliado">
                                                             <v-data-table
                                                                 :headers="headers"
@@ -117,7 +112,79 @@
                 </tr>
             </table>
         </v-card>
-    </v-container>
+        
+        <v-speed-dial
+            v-model="fab"
+            bottom="true"
+            right="true"
+            direction="top"
+            open-on-hover="true"
+            transition="slide-y-reverse-transition"
+            fixed="true"
+        >
+            <v-btn
+                slot="activator"
+                v-model="fab"
+                color="red darken-2"
+                dark
+                fab
+            >
+                <v-icon>menu</v-icon>
+                <v-icon>close</v-icon>
+            </v-btn>
+            <v-tooltip left>
+                <v-btn
+                    fab
+                    dark
+                    small
+                    color="green"
+                    title="teste"
+                    slot="activator"
+                >
+                    <v-icon>check</v-icon>
+                </v-btn>
+                <span>Finalizar Análise</span>
+            </v-tooltip>
+            <v-tooltip left>
+                <v-btn
+                    fab
+                    dark
+                    small
+                    title="teste"
+                    slot="activator"
+                >
+                    <v-icon>gavel</v-icon>
+                </v-btn>
+                <span>Emitir Parecer</span>
+            </v-tooltip>
+            <v-tooltip left>
+                <v-btn
+                    fab
+                    dark
+                    small
+                    color="green"
+                    title="teste"
+                    slot="activator"
+                >
+                    <v-icon>check</v-icon>
+                </v-btn>
+                <span>Finalizar Análise</span>
+            </v-tooltip>
+            <v-tooltip left>
+                <v-btn
+                    fab
+                    dark
+                    small
+                    color="green"
+                    title="teste"
+                    slot="activator"
+                >
+                    <v-icon>check</v-icon>
+                </v-btn>
+                <span>Finalizar Análise</span>
+            </v-tooltip>
+        </v-speed-dial>
+     </v-container>
 </template>
 
 <script>
@@ -142,6 +209,7 @@ export default {
                 4: 'AGUARDANDO ANÁLISE',
                 todos: 'TODOS',
             },
+            fab: false,
         };
     },
     computed: {
