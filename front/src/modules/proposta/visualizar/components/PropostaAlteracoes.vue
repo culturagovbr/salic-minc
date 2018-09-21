@@ -369,16 +369,16 @@
     </div>
 </template>
 <script>
-import PropostaIdentificacao from './PropostaIdentificacao'
-import PropostaHistoricoAvaliacoes from './PropostaHistoricoAvaliacoes'
-import AgenteProponente from '../../components/AgenteProponente'
-import AgenteUsuario from '../../components/AgenteUsuario'
-import SalicTextoSimples from '@/components/SalicTextoSimples'
-import PropostaLocalRealizacaoDeslocamento from './PropostaLocalRealizacaoDeslocamento'
-import PropostaDocumentos from './PropostaDocumentos'
-import PropostaPlanoDistribuicao from './PropostaPlanoDistribuicao'
-import Planilha from '@/components/Planilha/Planilha'
-import PropostaCustosVinculados from './PropostaCustosVinculados'
+import SalicTextoSimples from '@/components/SalicTextoSimples';
+import Planilha from '@/components/Planilha/Planilha';
+import PropostaIdentificacao from './PropostaIdentificacao';
+import PropostaHistoricoAvaliacoes from './PropostaHistoricoAvaliacoes';
+import AgenteProponente from '../../components/AgenteProponente';
+import AgenteUsuario from '../../components/AgenteUsuario';
+import PropostaLocalRealizacaoDeslocamento from './PropostaLocalRealizacaoDeslocamento';
+import PropostaDocumentos from './PropostaDocumentos';
+import PropostaPlanoDistribuicao from './PropostaPlanoDistribuicao';
+import PropostaCustosVinculados from './PropostaCustosVinculados';
 
 export default {
     name: 'PropostaAlteracoes',
@@ -395,29 +395,28 @@ export default {
         Planilha,
         PropostaCustosVinculados,
     },
-    mounted: function () {
+    mounted() {
         this.iniciarCollapsible();
         if (this.dadosHistorico !== 'undefined') {
-            setTimeout(this.mostrar_diferenca, 1000)
+            setTimeout(this.mostrar_diferenca, 1000);
         }
     },
     methods: {
-        existe_diferenca: function (atual, historico) {
-
+        existe_diferenca(atual, historico) {
             if (typeof atual === 'object') {
                 return JSON.stringify(atual) !== JSON.stringify(historico);
             }
 
             return atual !== historico;
         },
-        mostrar_diferenca: function () {
+        mostrar_diferenca() {
             /* eslint-disable */
             $(".alteracoes-proposta table tr").prettyTextDiff({
                 cleanup: true,
                 diffContainer: ".diff",
                 debug: false
             });
-        }, iniciarCollapsible: function () {
+        }, iniciarCollapsible() {
             // eslint-disable-next-line
             $3('.collapsible').each(function () {
                 // eslint-disable-next-line
