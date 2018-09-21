@@ -198,23 +198,23 @@
 
 <script>
 
-import { mapActions, mapGetters } from 'vuex';
-import Planilha from '@/components/Planilha/Planilha';
-import Carregando from '@/components/Carregando';
-import SalicTextoSimples from '@/components/SalicTextoSimples';
-import PropostaIdentificacao from './components/PropostaIdentificacao';
-import PropostaHistoricoAvaliacoes from './components/PropostaHistoricoAvaliacoes';
-import PropostaHistoricoSugestoesEnquadramento from './components/PropostaHistoricoSugestoesEnquadramento';
-import PropostaHistoricoSolicitacoes from './components/PropostaHistoricoSolicitacoes';
-import AgenteProponente from '../components/AgenteProponente';
-import AgenteUsuario from '../components/AgenteUsuario';
-import PropostaDocumentos from './components/PropostaDocumentos';
-import PropostaPlanoDistribuicao from './components/PropostaPlanoDistribuicao';
-import PropostaFontesDeRecursos from './components/PropostaFontesDeRecursos';
-import PropostaLocalRealizacaoDeslocamento from './components/PropostaLocalRealizacaoDeslocamento';
-import PropostaCustosVinculados from './components/PropostaCustosVinculados';
+    import {mapActions, mapGetters} from 'vuex';
+    import Planilha from '@/components/Planilha/Planilha';
+    import Carregando from '@/components/Carregando';
+    import SalicTextoSimples from '@/components/SalicTextoSimples';
+    import PropostaIdentificacao from './components/PropostaIdentificacao';
+    import PropostaHistoricoAvaliacoes from './components/PropostaHistoricoAvaliacoes';
+    import PropostaHistoricoSugestoesEnquadramento from './components/PropostaHistoricoSugestoesEnquadramento';
+    import PropostaHistoricoSolicitacoes from './components/PropostaHistoricoSolicitacoes';
+    import AgenteProponente from '../components/AgenteProponente';
+    import AgenteUsuario from '../components/AgenteUsuario';
+    import PropostaDocumentos from './components/PropostaDocumentos';
+    import PropostaPlanoDistribuicao from './components/PropostaPlanoDistribuicao';
+    import PropostaFontesDeRecursos from './components/PropostaFontesDeRecursos';
+    import PropostaLocalRealizacaoDeslocamento from './components/PropostaLocalRealizacaoDeslocamento';
+    import PropostaCustosVinculados from './components/PropostaCustosVinculados';
 
-export default {
+    export default {
     name: 'Proposta',
     data() {
         return {

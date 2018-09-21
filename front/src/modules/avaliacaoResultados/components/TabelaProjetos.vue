@@ -48,7 +48,7 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
     import ModalTemplate from '@/components/modal';
     import Historico from './Historico';
 
