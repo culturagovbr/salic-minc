@@ -28,20 +28,20 @@ import Proposta from './Proposta';
 
 export default {
     name: 'PropostaDiff',
-    data: function () {
+    data() {
         return {
             dadosAtuais: {
                 type: Object,
-                default: function () {
-                    return {}
-                }
+                default() {
+                    return {};
+                },
             },
             dadosHistorico: {
                 type: Object,
-                default: function () {
-                    return {}
-                }
-            }
+                default() {
+                    return {};
+                },
+            },
         };
     },
     props: ['idpreprojeto', 'tipo'],
@@ -49,13 +49,13 @@ export default {
         PropostaAlteracoes,
         Proposta,
     },
-    mounted: function () {
+    mounted() {
         if (typeof this.idpreprojeto !== 'undefined') {
             this.buscar_dados();
         }
     },
     methods: {
-        buscar_dados: function () {
+        buscar_dados() {
             const self = this;
             /* eslint-disable */
             $3.ajax({
