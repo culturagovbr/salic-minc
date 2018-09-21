@@ -296,10 +296,10 @@
                     <div class="collapsible-body padding20">
                         <div class="row">
                             <div class="col s12 m6 l6 scroll historico">
-                                <PropostaDocumentos :arrayDocumentos="dadosHistorico"></PropostaDocumentos>
+                                <PropostaDocumentos :proposta="dadosHistorico"></PropostaDocumentos>
                             </div>
                             <div class="col s12 m6 l6 scroll atual">
-                                <PropostaDocumentos :arrayDocumentos="dadosAtuais"></PropostaDocumentos>
+                                <PropostaDocumentos :proposta="dadosAtuais"></PropostaDocumentos>
                             </div>
                         </div>
                     </div>
@@ -326,25 +326,6 @@
                         </div>
                     </div>
                 </li>
-               <li>
-                    <div id="planilha-orcamentaria" class="collapsible-header"
-                         v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.tbplanilhaproposta, dadosHistorico.tbplanilhaproposta)}">
-                        <i class="material-icons">attach_money</i>Planilha
-                        or&ccedil;ament&aacute;ria
-                    </div>
-                    <div class="collapsible-body padding20 active">
-                        <div class="row">
-                            <div class="col s12 m6 l6 scroll historico">
-                                <PropostaPlanilhaOrcamentaria
-                                        :arrayPlanilha="dadosHistorico.tbplanilhaproposta"></PropostaPlanilhaOrcamentaria>
-                            </div>
-                            <div class="col s12 m6 l6 scroll atual">
-                                <PropostaPlanilhaOrcamentaria
-                                        :arrayPlanilha="dadosAtuais.tbplanilhaproposta"></PropostaPlanilhaOrcamentaria>
-                            </div>
-                        </div>
-                    </div>
-                </li>
                 <li>
                     <div id="custos-vinculados" class="collapsible-header"
                          v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.tbcustosvinculados, dadosHistorico.tbcustosvinculados)}">
@@ -361,6 +342,25 @@
                                 <PropostaCustosVinculados
                                         :arrayCustos="dadosAtuais.tbcustosvinculados"
                                 ></PropostaCustosVinculados>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div id="planilha-orcamentaria" class="collapsible-header"
+                         v-bind:class="{'orange lighten-4': existe_diferenca(dadosAtuais.tbplanilhaproposta, dadosHistorico.tbplanilhaproposta)}">
+                        <i class="material-icons">attach_money</i>Planilha
+                        or&ccedil;ament&aacute;ria
+                    </div>
+                    <div class="collapsible-body padding20 active">
+                        <div class="row">
+                            <div class="col s12 m6 l6 scroll historico">
+                                <Planilha
+                                        :arrayPlanilha="dadosHistorico.tbplanilhaproposta"></Planilha>
+                            </div>
+                            <div class="col s12 m6 l6 scroll atual">
+                                <Planilha
+                                        :arrayPlanilha="dadosAtuais.tbplanilhaproposta"></Planilha>
                             </div>
                         </div>
                     </div>
