@@ -42,7 +42,7 @@
             </template>
             <template slot="no-data">
                 <v-alert :value="true" color="error" icon="warning">
-                    Nenhum dado encontrado ¯\_(?)_/¯
+                    Nenhum dado encontrado ¯\_(ツ)_/¯
                 </v-alert>
             </template>
         </v-data-table>
@@ -73,7 +73,7 @@
         data() {
             return {
                 pagination: {
-                    rowsPerPage: 3,
+                    rowsPerPage: 10,
                 },
                 selected: [],
                 cabecalho: [
@@ -126,11 +126,11 @@
             ...mapGetters({
                 dadosTabelaTecnico: 'avaliacaoResultados/dadosTabelaTecnico',
             }),
-            pages () {
+            pages() {
                 if (this.pagination.rowsPerPage == null ||
                     this.pagination.totalItems == null
                 ) return 0;
-                return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+                return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
             },
         },
     };
