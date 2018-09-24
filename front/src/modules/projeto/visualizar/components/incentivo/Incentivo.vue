@@ -375,8 +375,8 @@
 
 <script>
     import moment from 'moment';
-    import { mapGetters } from 'vuex';
-    import { utils } from '@/mixins/utils';
+    import {mapGetters} from 'vuex';
+    import {utils} from '@/mixins/utils';
     import Carregando from '@/components/Carregando';
     import SalicTextoSimples from '@/components/SalicTextoSimples';
     import SalicFormatarCpfCnpj from '@/components/SalicFormatarCpfCnpj';

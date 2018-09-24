@@ -15,7 +15,7 @@
         </v-card>
         <v-card class="mt-3" flat>
             <!-- PRODUTO -->
-            <v-expansion-panel 
+            <v-expansion-panel
                 expand
                 v-if="this.getPlanilha != undefined && Object.keys(this.getPlanilha)"
             >
@@ -42,7 +42,7 @@
                                 </v-layout>
 
                                 <!-- UF -->
-                                <v-expansion-panel 
+                                <v-expansion-panel
                                     class="pl-3 elevation-0"
                                     expand
                                 >
@@ -56,7 +56,7 @@
                                         </v-layout>
 
                                         <!-- CIDADE -->
-                                        <v-expansion-panel 
+                                        <v-expansion-panel
                                             class="pl-3 elevation-0"
                                             expand
                                         >
@@ -76,22 +76,22 @@
         <v-tab
           ripple
         >
-         Todos 
+         Todos
         </v-tab>
         <v-tab
           ripple
         >
-         Aguardando Analise 
+         Aguardando Analise
         </v-tab>
         <v-tab
           ripple
         >
-         Avaliado 
+         Avaliado
         </v-tab>
         <v-tab
           ripple
         >
-         Impugnados 
+         Impugnados
         </v-tab>
 
         <v-tab-item>
@@ -140,10 +140,10 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import ModalTemplate from '@/components/modal';
+    import {mapActions, mapGetters} from 'vuex';
+    import ModalTemplate from '@/components/modal';
 
-export default {
+    export default {
     name: 'Painel',
     data() {
         return {

@@ -67,9 +67,9 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
 
-export default {
+    export default {
     name: 'SlNav',
     components: {
     },

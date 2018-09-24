@@ -52,10 +52,10 @@
     </div>
 </template>
 <script>
-import moment from 'moment';
-import { mapActions, mapGetters } from 'vuex';
+    import moment from 'moment';
+    import {mapActions, mapGetters} from 'vuex';
 
-export default {
+    export default {
     name: 'PropostaDocumentos',
     props: {
         proposta: {},
