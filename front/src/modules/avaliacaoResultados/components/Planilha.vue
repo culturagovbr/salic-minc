@@ -81,6 +81,11 @@
                                                                     <td>R$ {{ props.item.varlorAprovado }}</td>
                                                                     <td>R$ {{ props.item.varlorComprovado }}</td>
                                                                     <td>R$ # valorAprovado - valorComprovado</td>
+                                                                    <td>
+                                                                        <v-btn color="red" small dark title="Comprovar Item">
+                                                                            <v-icon>gavel</v-icon>
+                                                                        </v-btn>
+                                                                    </td>
                                                                 </template>
                                                             </v-data-table>
                                                         </v-tab-item>
@@ -196,9 +201,10 @@
                 produtos: this.planilha,
                 headers: [
                     { text: 'Item de Custo', value: 'item', sortable: false },
-                    { text: 'Valor Aprovado', value: 'item', sortable: false },
-                    { text: 'Valor Comprovado', value: 'item', sortable: false },
-                    { text: 'Valor a Comprovar', value: 'item', sortable: false },
+                    { text: 'Valor Aprovado', value: 'varlorAprovado', sortable: false },
+                    { text: 'Valor Comprovado', value: 'varlorComprovado', sortable: false },
+                    { text: 'Valor a Comprovar', value: 'valorAComprovar', sortable: false },
+                    { text: '', value: 'comprovarItem', sortable: false },
                 ],
                 tabs: {
                     1: 'AVALIADO',
