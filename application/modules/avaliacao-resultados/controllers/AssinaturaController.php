@@ -35,18 +35,16 @@ class AvaliacaoResultados_AssinaturaController extends MinC_Controller_Rest_Abst
     public function postAction()
     {
         $idPronac = $this->getRequest()->getParam('idpronac');
-        $idTipoDoAtoAdministrativo = 622;
+        $idTipoDoAtoAdministrativo = $this->getRequest()->getParam('idtipodoatoadministrativo');
 
         $assinatura = new DocumentoAssinaturaService($idPronac, $idTipoDoAtoAdministrativo);
         $idDocumentoAssinatura = $assinatura->iniciarFluxo();
 
-        /* var_dump($assinatura); */
-        /* die; */
-
         $this->renderJsonResponse(
             [
                 'idDocumentoAssinatura' => $idDocumentoAssinatura,
-                'idPronac' =>  $idPronac
+                'idPronac' =>  $idPronac,
+                'idTipoDoAtoAdministrativo' =>  $idTipoDoAtoAdministrativo
             ],
             200
         );

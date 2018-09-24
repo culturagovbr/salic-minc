@@ -185,7 +185,9 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract
         $valorProjeto = $planilhaProjeto->somarPlanilhaProjeto($idPronac, 109);
         //Validacao dos 20%
         if ($valorProjeto['soma'] > 0 && $stPrincipal == "1") {
-            $this->view->totaldivulgacao = $this->validaRegra20Porcento($idPronac);
+
+            $serviceAnaliseInicial = new \Application\Modules\Parecer\Service\AnaliseInicial();
+            $this->view->totaldivulgacao = $serviceAnaliseInicial->validaRegra20Porcento($idPronac);
         }
 
         // Validacao do 15%

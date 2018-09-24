@@ -15,7 +15,7 @@
         </v-card>
         <v-card class="mt-3" flat>
             <!-- PRODUTO -->
-            <v-expansion-panel 
+            <v-expansion-panel
                 expand
                 v-if="this.getPlanilha != undefined && Object.keys(this.getPlanilha)"
             >
@@ -40,7 +40,7 @@
                                     {{ etapa.etapa }}
                                 </v-layout>
                                 <!-- UF -->
-                                <v-expansion-panel 
+                                <v-expansion-panel
                                     class="pl-3 elevation-0"
                                     expand
                                 >
@@ -53,7 +53,7 @@
                                             {{ uf.Uf }}
                                         </v-layout>
                                         <!-- CIDADE -->
-                                        <v-expansion-panel 
+                                        <v-expansion-panel
                                             class="pl-3 elevation-0"
                                             expand
                                         >
@@ -185,51 +185,51 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import ModalTemplate from '@/components/modal';
+    import { mapActions, mapGetters } from 'vuex';
+    import ModalTemplate from '@/components/modal';
 
-export default {
-    name: 'Painel',
-    data() {
-        return {
-            existeDiligencia: true,
-            produtos: this.planilha,
-            headers: [
-                { text: 'Item de Custo', value: 'item', sortable: false },
-                { text: 'Valor Aprovado', value: 'item', sortable: false },
-                { text: 'Valor Comprovado', value: 'item', sortable: false },
-                { text: 'Valor a Comprovar', value: 'item', sortable: false },
-            ],
-            tabs: {
-                1: 'AVALIADO',
-                3: 'IMPUGNADOS',
-                4: 'AGUARDANDO ANÁLISE',
-                todos: 'TODOS',
-            },
-            fab: false,
-        };
-    },
-    computed: {
-        valorAprovado() { },
-        valorComprovado() { },
-        valorAComprovar() { },
-        ...mapGetters({
-            getPlanilha: 'avaliacaoResultados/planilha',
-        }),
-    },
-    props: {
-        idpronac: '132451',
-    },
-    mounted() {
-        this.setPlanilha();
-    },
-    components: {
-        ModalTemplate,
-    },
-    methods: {
-        ...mapActions({
-            setPlanilha: 'avaliacaoResultados/planilha',
-        }),
-    },
-};
+    export default {
+        name: 'Painel',
+        data() {
+            return {
+                existeDiligencia: true,
+                produtos: this.planilha,
+                headers: [
+                    { text: 'Item de Custo', value: 'item', sortable: false },
+                    { text: 'Valor Aprovado', value: 'item', sortable: false },
+                    { text: 'Valor Comprovado', value: 'item', sortable: false },
+                    { text: 'Valor a Comprovar', value: 'item', sortable: false },
+                ],
+                tabs: {
+                    1: 'AVALIADO',
+                    3: 'IMPUGNADOS',
+                    4: 'AGUARDANDO ANÁLISE',
+                    todos: 'TODOS',
+                },
+                fab: false,
+            };
+        },
+        computed: {
+            valorAprovado() { },
+            valorComprovado() { },
+            valorAComprovar() { },
+            ...mapGetters({
+                getPlanilha: 'avaliacaoResultados/planilha',
+            }),
+        },
+        props: {
+            idpronac: '132451',
+        },
+        mounted() {
+            this.setPlanilha();
+        },
+        components: {
+            ModalTemplate,
+        },
+        methods: {
+            ...mapActions({
+                setPlanilha: 'avaliacaoResultados/planilha',
+            }),
+        },
+    };
 </script>

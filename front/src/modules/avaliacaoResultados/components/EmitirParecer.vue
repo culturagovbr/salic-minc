@@ -12,8 +12,8 @@
                         <v-toolbar-title>Avaliação Financeira - Emissão de Parecer</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-toolbar-items>
-                            <v-btn dark flat @click.native="salvarParecer" :disabled="!valid">Salvar</v-btn>
-                            <!--dialog = false -->
+                            <v-btn dark flat @click.native="salvarParecer" :href="redirectLink" :disabled="!valid">Salvar</v-btn>
+                            <v-btn dark flat @click.native="FinalizarParecer" :disabled="!valid">Finalizar</v-btn>
                         </v-toolbar-items>
                     </v-toolbar>
 
@@ -124,7 +124,7 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
     import ModalTemplate from '@/components/modal';
 
     export default {
@@ -185,7 +185,8 @@
                         siManifestacao: this.parecer.siManifestacao,
                         dsParecer: this.parecer.dsParecer };
                     this.salvar(data);
-                    this.dialog = false;
+                    /** Descomentar linha após migração da lista para o VUEJS */
+                    // this.dialog = false;
                 },
             },
         computed:

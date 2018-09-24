@@ -7,7 +7,7 @@ describe('Projeto Mutations', () => {
 
     beforeEach(() => {
         defaultState = {
-            isVisible: false,
+            modalAberta: false,
         };
 
         state = Object.assign({}, defaultState);
@@ -17,11 +17,11 @@ describe('Projeto Mutations', () => {
 
     test('MODAL_OPEN', () => {
         mutations.MODAL_OPEN(state, modal);
-        expect(state.isVisible).toEqual(modal);
+        expect(state.modalAberta).toEqual(modal);
     });
 
     test('MODAL_CLOSE', () => {
         mutations.MODAL_CLOSE(state);
-        expect(state.isVisible).toEqual('');
+        expect(state.modalAberta).toEqual('');
     });
 });

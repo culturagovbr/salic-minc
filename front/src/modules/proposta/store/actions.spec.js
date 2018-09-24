@@ -140,4 +140,75 @@ describe('Proposta actions', () => {
         });
     });
 
+    describe('buscarHistoricoSolicitacoes', () => {
+        beforeEach(() => {
+            mockReponse = {
+                data: {
+                    data: {
+                        items:{
+                            dadosSolicitacao: {
+                                idProjeto: '282177',
+                                idSolicitacao: '3267',
+                                idSolicitante: '285582',
+                            },
+                        },
+                    },
+                },
+            };
+
+            axios.get.mockResolvedValue(mockReponse);
+
+            commit = jest.fn();
+            jest.spyOn(propostaHelperAPI, 'buscarHistoricoSolicitacoes');
+            const idProjeto = 273246;
+            actions.buscarHistoricoSolicitacoes({ commit }, idProjeto);
+        });
+
+        test('it calls propostaHelperAPI.buscarHistoricoSolicitacoes', () => {
+            expect(propostaHelperAPI.buscarHistoricoSolicitacoes).toHaveBeenCalled();
+        });
+
+        test('it is commit to buscarHistoricoSolicitacoes', (done) => {
+            const dadosSolicitacao = mockReponse.data;
+            done();
+            expect(commit).toHaveBeenCalledWith('SET_HISTORICO_SOLICITACOES', dadosSolicitacao.data.items);
+        });
+    });
+
+    describe('buscarHistoricoEnquadramento', () => {
+        beforeEach(() => {
+            mockReponse = {
+                data: {
+                    data: {
+                        items:{
+                            dadosEnquadramento: {
+                                lines:{
+                                    org_sigla: 'CNIC',
+                                    usu_nome: 'Maricene A Gregorut',
+                                },
+                            },
+                        },
+                    },
+                },
+            };
+
+            axios.get.mockResolvedValue(mockReponse);
+
+            commit = jest.fn();
+            jest.spyOn(propostaHelperAPI, 'buscarHistoricoEnquadramento');
+            const idPreProjeto = 282177;
+            actions.buscarHistoricoEnquadramento({ commit }, idPreProjeto);
+        });
+
+        test('it calls propostaHelperAPI.buscarHistoricoEnquadramento', () => {
+            expect(propostaHelperAPI.buscarHistoricoEnquadramento).toHaveBeenCalled();
+        });
+
+        test('it is commit to buscarHistoricoEnquadramento', (done) => {
+            const dadosEnquadramento = mockReponse.data;
+            done();
+            expect(commit).toHaveBeenCalledWith('SET_HISTORICO_ENQUADRAMENTO', dadosEnquadramento.data.items);
+        });
+    });
+
 });
