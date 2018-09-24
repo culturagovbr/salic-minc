@@ -110,20 +110,19 @@
             PlanilhaItensPadrao,
         },
         mounted() {
-            this.$nextTick(function () {
+            this.$nextTick(() => {
                 this.iniciarCollapsible();
-            })
+            });
         },
         watch: {
             arrayPlanilha() {
-                this.$nextTick(function () {
+                this.$nextTick(() => {
                     this.iniciarCollapsible();
-                })
+                });
             },
         },
         methods: {
             iniciarCollapsible() {
-                console.log('tesdssdssss');
                 // eslint-disable-next-line
                 $3(".collapsible").each(function () {
                     // eslint-disable-next-line

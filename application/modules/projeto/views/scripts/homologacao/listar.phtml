@@ -14,36 +14,41 @@
         border-left: 1px solid #d2d0d0;
     }
 </style>
-
-<div class="col s2 input-field">
-    <select class="" id="seletorSelect">
-        <option value="">Aguardando An&aacute;lise Documental</option>
-        <option value="respondidos">Dilig&ecirc;ncia Respondida</option>
-        <option value="diligenciados">Aguardando Resposta da Diligencia</option>
-    </select>
-    <label>Filtrar Situa&ccedil;&atilde;o</label>
+<div class="row card-panel">
+    <div class="col l6 s12 input-field">
+        <select class="" id="seletorSelect">
+            <option value="">Aguardando An&aacute;lise Documental</option>
+            <option value="respondidos">Dilig&ecirc;ncia Respondida</option>
+            <option value="diligenciados">Aguardando Resposta da Diligencia</option>
+            <option value="aguardando-recurso">Aguardando prazo recursal</option>
+            <option value="pos-recurso">Ap&oacute;s recurso</option>
+        </select>
+        <label>Filtrar Situa&ccedil;&atilde;o</label>
+    </div>
 </div>
-<table id="expansivelHomologacao" class="striped">
-    <thead>
-    <tr>
-        <th rowspan="2">&nbsp;</th>
-        <th rowspan="2">PRONAC</th>
-        <th rowspan="2">Nome do Projeto</th>
-        <th rowspan="2">&Aacute;rea/Segmento</th>
-        <th rowspan="2">Enquadramento</th>
-        <th colspan="2" class="center-align">Per&iacute;odo de Execu&ccedil;&atilde;o</th>
-        <th rowspan="2">Nr.Reuni&atilde;o</th>
-        <th rowspan="2">Vl.Homologado</th>
-        <th rowspan="2">A&ccedil;&otilde;es</th>
-    </tr>
-    <tr>
-        <th class="center-align">Dt.Inicio</th>
-        <th class="center-align">Dt.Final</th>
-    </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+<div class="row card-panel">
+    <table id="expansivelHomologacao" class="striped">
+        <thead>
+        <tr>
+            <th rowspan="2">&nbsp;</th>
+            <th rowspan="2">PRONAC</th>
+            <th rowspan="2">Nome do Projeto</th>
+            <th rowspan="2">&Aacute;rea/Segmento</th>
+            <th rowspan="2">Enquadramento</th>
+            <th colspan="2" class="center-align">Per&iacute;odo de Execu&ccedil;&atilde;o</th>
+            <th rowspan="2">Nr.Reuni&atilde;o</th>
+            <th rowspan="2">Vl.Homologado</th>
+            <th rowspan="2">A&ccedil;&otilde;es</th>
+        </tr>
+        <tr>
+            <th class="center-align">Dt.Inicio</th>
+            <th class="center-align">Dt.Final</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
 <script src="/public/js/jquery-1.12.4.min.js"></script>
 <script src="/public/js/moment.js"></script>
 <script type="text/javascript" src="/public/scripts/layout/datatables.min.js"></script>
@@ -84,7 +89,6 @@
 
     (function ($) {
         $(document).ready(function ($) {
-            $3('.modal').modal();
 
             $(document).ajaxStart(function () {
                 $('#container-loading').fadeIn('slow');
@@ -195,9 +199,9 @@
                     },
                     {
                         "data": null,
-                        "name": "vlHomologado",
+                        "name": "VlHomologadoIncentivo",
                         render:  function (data) {
-                            return numeral(parseFloat(data.vlHomologado)).format('$0,0.00');
+                            return numeral(parseFloat(data.VlHomologadoIncentivo)).format('$0,0.00');
                         }
                     },
                     {
@@ -206,6 +210,7 @@
                         render: function (data) {
                             var corDiligencia = '';
                             var aguardandoRespostaDiligencia = false;
+                            var aguardandoRecurso = false;
                             var botoes = '';
 
                             switch($("#seletorSelect").val()) {
@@ -219,15 +224,23 @@
                                 case 'respondidos':
                                     corDiligencia = 'light-blue darken-4';
                                     break;
+                                case 'aguardando-recurso':
+                                    aguardandoRecurso = true;
+                                    break;
                             }
 
                             var botaoHomologar = '<button data-ajax-modal-full="true" title="Homologar" class="btn-floating waves-effect waves-light btn-secondary" data-ajax-modal="/projeto/homologacao/homologar-parecer/id/'+ data.IdPRONAC +'"><i class="material-icons">assignment_turned_in</i></button>';
                             var botaoDiligenciar = '<a title="Dilig&ecirc;nciar" class="btn-floating waves-effect waves-light tooltipped '+ corDiligencia +'" href="/proposta/diligenciar/listardiligenciaanalista/idPronac/'+ data.IdPRONAC +'/situacao/D25/tpDiligencia/181"><i class="material-icons">warning</i></a>';
-                            var botaoHomologacaoFluxo= '<a title="Iniciar fluxo de Homologa&ccedil;&atilde;o" class="btn-floating btn-primary tooltipped" href="/projeto/homologacao/iniciar-fluxo-assinatura?idPronac=' + data.IdPRONAC + '"><i class="material-icons">edit</i></a>';
+                            var botaoVisualizar = '<a title="Visualizar Parecer" class="btn-floating waves-effect waves-light tooltipped '+ corDiligencia +'" data-ajax-modal-full="true" data-ajax-modal="/projeto/homologacao/visualizar-parecer/id/'+ data.IdPRONAC +'"><i class="material-icons">visibility</i></a>';
+                            var botaoHomologacaoFluxo = '<a href="javascript:void(0)" data-ajax-modal-full="true" title="Encaminhar" class="btn-floating waves-effect waves-light btn-info" data-ajax-modal-encaminhar="/projeto/homologacao/encaminhar/id/'+ data.IdPRONAC +'"><i class="material-icons">forward</i></a>';
 
                             botoes = botaoHomologar + botaoDiligenciar + botaoHomologacaoFluxo;
-                            if(aguardandoRespostaDiligencia){
+                            if (aguardandoRespostaDiligencia) {
                                 botoes = botaoDiligenciar;
+                            }
+
+                            if (aguardandoRecurso) {
+                                botoes = botaoVisualizar;
                             }
 
                             var botoes = '<div style="position: relative; height: 60px;">'
@@ -284,6 +297,14 @@
                      $(this).find('i').first().html('expand_less');
                  }
             })
+
+            var elmBody = $3('body');
+            elmBody.on('click', '[data-ajax-modal-encaminhar]', function () {
+                var objConfig = {};
+                objConfig.strUrl = $3(this).attr('data-ajax-modal-encaminhar');
+                objConfig.full = true;
+                $3.ajaxModal(objConfig, null, { complete: function() { expansivelHomologacao.ajax.reload(); } });
+            });
         });
     }($.noConflict(true)));
 </script>

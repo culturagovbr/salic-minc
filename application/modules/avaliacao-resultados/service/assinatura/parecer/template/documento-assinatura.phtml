@@ -1,0 +1,90 @@
+<div class="row">
+    <div class="col s1"></div>
+    <div class="col s10 center-align">
+        <div>
+            <img src="/public/img/planalto_presidencia_simbolosnacionais_brasao.gif" style="height:120px">
+        </div>
+        <div class="center-align" style="font-size: 23px;">
+            MINIST&Eacute;RIO DA CULTURA
+        </div>
+        <div class="center-align" style="font-size: 23px; color: black;">
+            <?php echo $view->secretaria ?>
+        </div>
+    </div>
+    <div class="col s1"></div>
+</div>
+<div class="row">
+    <div class="col s1"></div>
+    <div class="col s10 center-align">
+        <h3 style="font-size: 23px; color: black;"><?php echo $this->titulo ?></h3>
+    </div>
+    <div class="col s1"></div>
+</div>
+<div class="row">
+    <div class="col s1"></div>
+    <div class="col s3">
+        <label style="color: black">PRONAC</label>
+        <p class="bold padding10 bordered">
+            <?php
+            echo $this->projeto['AnoProjeto'] . $this->projeto['Sequencial'];
+            ?>
+        </p>
+    </div>
+    <div class="col s7">
+        <label style="color: black">Nome do Projeto</label>
+        <p class="bold padding10 bordered">
+            <?php
+            echo $this->projeto['NomeProjeto'];
+            ?>
+        </p>
+    </div>
+    <div class="col s1"></div>
+</div>
+<div class="row">
+    <div class="col s1"></div>
+    <div class="col s4">
+        <label style="color: black">CNPJ / CPF</label>
+        <p class="bold padding10 bordered">
+            <?php
+            echo Mascara::addMaskCpfCnpj($this->projeto['CgcCpf']);;
+            ?>
+        </p>
+    </div>
+    <div class="col s6">
+        <label style="color: black">Proponente</label>
+        <br/>
+        <p class="bold padding10 bordered">
+            <?php
+            echo $this->nomeAgente;
+            ?>
+        </p>
+    </div>
+    <div class="col s1"></div>
+</div>
+<div class="row">
+    <div class="col s1"></div>
+    <div class="col s10">
+        <p>
+            <label class="margin-bottom20" style="color: black">Posicionamento T&eacute;cnico:</label>
+            <span class="bold padding10 bordered">
+                <?php
+                echo $this->posicionamentoTecnico;
+                ?>
+            </span>
+        </p>
+    </div>
+    <div class="col s1"></div>
+</div>
+<div class="row">
+    <div class="col s1"></div>
+    <div class="col s10">
+        <label style="color: black">Parecer T&eacute;cnico:</label>
+        <br />
+        <div class="bold padding10 bordered">
+            <?php
+            echo $this->parecer;
+            ?>
+        </div>
+    </div>
+    <div class="col s1"></div>
+</div>

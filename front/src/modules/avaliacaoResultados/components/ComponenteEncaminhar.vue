@@ -96,7 +96,7 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
     import Modal from '@/components/modal';
 
     export default {
@@ -111,19 +111,19 @@
                 dadosProjeto: {
                     idPronac: 123456,
                     nomeProjeto: 'dfdfgdfg',
-                    tecnicos: ['Foo', 'Bar', 'Fizz', 'Buzz']
+                    tecnicos: ['Foo', 'Bar', 'Fizz', 'Buzz'],
                 },
                 rules: {
-                    required: v => !!v
+                    required: v => !!v,
                 },
                 destinatarioEncaminhamento: null,
                 justificativa: null,
-                form: null
-            }
+                form: null,
+            };
         },
         watch: {
-            dialog: function (val) {
-                if(!val) this.$refs.form.reset()
+            dialog(val) {
+                if (!val) this.$refs.form.reset();
             },
         },
         components: {
@@ -143,10 +143,10 @@
                 modalOpen: 'modal/modalOpen',
                 modalClose: 'modal/modalClose',
             }),
-            enviarEncaminhamento(){
+            enviarEncaminhamento() {
                 this.dialog = false;
                 this.$refs.form.reset();
-            }
+            },
         },
     };
 </script>

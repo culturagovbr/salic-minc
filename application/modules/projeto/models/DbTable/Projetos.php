@@ -690,4 +690,36 @@ class Projeto_Model_DbTable_Projetos extends MinC_Db_Table_Abstract
 
         return $this->fetchRow($sql);
     }
+
+    public function obterProjetosESituacao($where)
+    {
+        $query = $this->select();
+        $query->setIntegrityCheck(false);
+        $query->from(
+            ['projeto' => $this->_name],
+            [
+                new Zend_Db_Expr('projeto.AnoProjeto+projeto.Sequencial AS pronac'),
+                'IdPRONAC as idPronac',
+                'NomeProjeto as nomeProjeto',
+                'Cgccpf as cgcCpf',
+                'Situacao as situacao',
+                'DtSituacao as dtSituacao',
+                'diasSituacao' => new Zend_Db_Expr('DATEDIFF(DAY, DtSituacao, GETDATE())')
+            ],
+            $this->_schema
+        );
+
+        $query->joinInner(
+            ['situacao' => 'Situacao'],
+            'situacao.Codigo = projeto.Situacao',
+            ['Descricao as descricaoSituacao'],
+            $this->_schema
+        );
+
+        foreach ($where as $coluna => $valor) {
+            $query->where($coluna, $valor);
+        }
+
+        return $this->fetchAll($query);
+    }
 }

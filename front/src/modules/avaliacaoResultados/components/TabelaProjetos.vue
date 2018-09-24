@@ -41,14 +41,14 @@
         </template>
         <template slot="no-data">
             <v-alert :value="true" color="error" icon="warning">
-                Nenhum dado encontrado ¯\_(?)_/¯
+                Nenhum dado encontrado Â¯\_(?)_/Â¯
             </v-alert>
         </template>
     </v-data-table>
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
     import ModalTemplate from '@/components/modal';
     import Historico from './Historico';
 
@@ -92,7 +92,7 @@
         },
         computed: {
             ...mapGetters({
-                dadosTabelaTecnico: 'avaliacaoResultados/dadosTabelaTecnico'
+                dadosTabelaTecnico: 'avaliacaoResultados/dadosTabelaTecnico',
             }),
         },
     };

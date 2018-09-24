@@ -1,172 +1,148 @@
-<?php
-/**
- * @author Equipe - XTI
- * @since 07/10/2013
- * @author Jefferson Alessandro <jefferson.silva@cultura.gov.br>
- * @version 2.0
- * @package application
- * @subpackage application.view.scripts.solicitarrecursodedecisao
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
- * @link http://www.cultura.gov.br
- */
-?>
-
-<script type="text/javascript">
-    $(document).ready(function(){
-       
-        CKEDITOR.replace( 'dsRecurso', { toolbar: [] } );
-            
-        $('.btn_enviar').click(function(){
-            var dsRecurso = CKEDITOR.instances['dsRecurso'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g,''),
-                texto = CKEDITOR.instances['dsRecurso'].getData(),
-                erro = 0,
-                countChecks = 0,
-                msg = 'Favor preencher os dados obrigatórios!';
-                    
-            if (dsRecurso == '') {
-                erro++;
-            }
-            
-//            if(texto.length > 8000){
-//                erro++;
-//                msg = 'O campo só permite 8.000 caracteres!';
-//            }
-            
-            $('.checkObrigatorio').each(function(){
-                if($(this).attr('checked')){
-                    countChecks++;
-                }
-            });
-
-            if (erro > 0 || countChecks == 0) {
-                $("#msgAlerta").dialog("destroy");
-                $("#msgAlerta").html(msg);
-                $("#msgAlerta").dialog({
-                    resizable: false,
-                    title: 'Alerta!',
-                    width: 300,
-                    height: 160,
-                    modal: true,
-                    buttons: {
-                        'OK': function() {
-                            $(this).dialog('close');
-                        }
-                    }
-                });
-                $('.ui-dialog-titlebar-close').remove();
-            } else {
-                $('#form').submit();
-            }
-        });
-
-        $('.btn_cancelar').click(function() {
-            voltar();
-        });
-    });
-</script>
-    
 <style type="text/css">
-    label{
+    label {
         font-weight: normal;
         margin-right: 15px;
     }
-    .checkObrigatorio{
-        margin-right: 5px; 
+
+    .checkObrigatorio {
+        margin-right: 5px;
     }
 </style>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
-<div id="msgAlerta"></div>
-<div id="breadcrumb">
-    <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para Inï¿½cio">Início</a></li>
-        <li><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->escape($this->idPronac)); ?>" title="Consultar dados projeto">Consultar dados projeto</a></li>
-        <li class="last">Solicitar Recurso da Decis&atilde;o</li>
-    </ul>
-</div>
-<!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
+<?php
 
+$breadcrumb = [
+    ['Consultar dados projeto' => $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true) . '?idPronac=' . Seguranca::encrypt($this->escape($this->idPronac))],
+    ['Solicitar Recurso da Decis&atilde;o' => '']
+];
 
-<!-- ========== INÍCIO TÍTULO ========== -->
-<div id="titulo">
-    <div>
-        Solicitar Recurso <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span>
+?>
+<div class="container-fluid">
+    <?php $this->PageTitle('Solicitar Recurso', $breadcrumb); ?>
+    <div id="msgAlerta"></div>
+    <div id="conteudo">
+        <?php
+        if ($this->projeto) : ?>
+            <form
+                name="formEnviarRecurso"
+                id="formEnviarRecurso"
+                action="<?php echo $this->url(array('module' => 'default', 'controller' => 'solicitarrecursodecisao', 'action' => 'enviar-recurso')); ?>"
+                method="post">
+                <input type="hidden" name="idPronac" id="idPronac"
+                       value="<?php echo $this->escape($this->projeto['idPronac']); ?>"/>
+                <table class="tabela">
+                    <tr>
+                        <td class="destacar bold">Pronac</td>
+                        <td class="destacar bold" colspan="3">Nome do Projeto</td>
+                    </tr>
+                    <tr>
+                        <td><?= $this->escape($this->projeto['pronac']); ?></td>
+                        <td colspan="3"><?= $this->escape($this->projeto['nomeProjeto']); ?></td>
+                    </tr>
+                    <tr>
+                        <td class="destacar bold">Tipo da Solicita&ccedil;&atilde;o</td>
+                        <td class="destacar bold">Tipo do Recurso</td>
+                        <td class="destacar bold">Prazo recurso</td>
+                        <td class="destacar bold">Situa&ccedil;&atilde;o</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <?= (empty($this->projeto['tpRecurso']) || $this->projeto['tpRecurso']  == 1)
+                                ? 'Pedido de reconsidera&ccedil;&atilde;o'
+                                : 'Recurso';
+                            ?>
+                        </td>
+                        <td>
+                            <?= $this->projeto['tpSolicitacao'] == 'PI' ? 'Projeto Indeferido' : 'Or&ccedil;amento'; ?>
+                        </td>
+                        <td>
+                            <?= $this->projeto['prazoRecurso']; ?> dias
+                        </td>
+                        <td>
+                            <?= $this->projeto['situacao']; ?> - <?= $this->projeto['descricaoSituacao']; ?>
+                        </td>
+                    </tr>
+                </table>
+
+                <table class="tabela">
+                    <tr>
+                        <th>Recurso</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <textarea class="textarea_simples dsSolicitacaoRecurso" cols="80" id="dsSolicitacaoRecurso" name="dsSolicitacaoRecurso"
+                                      rows="10"></textarea>
+                        </td>
+                    </tr>
+                </table>
+
+                <div style="width: 100%; text-align: center;">
+                    <button id="bt_enviar"
+                            data-tooltip="Enviar recurso"
+                            class="waves-effect waves-dark white-text tooltipped btn btn-primary"
+                            type="submit"
+                            name="action">
+                        Enviar <i class="material-icons right">send</i>
+                    </button>
+
+                    <a id="bt_cancelar" class="waves-effect waves-dark white-text tooltipped btn btn-info"
+                       data-tooltip="Cancelar envio de recurso" href="javascript:void(0)">
+                        <i class="material-icons left">close</i>Cancelar
+                    </a>
+                </div>
+            </form>
+        <?php else : ?>
+            <table class="tabela">
+                <tr>
+                    <td class="centro">Nenhum registro encontrado.</td>
+                </tr>
+            </table>
+        <?php endif; ?>
     </div>
 </div>
-<!-- ========== FIM TÍTULO ========== -->
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
-<div id="conteudo">
+<script type="text/javascript">
+    $(document).ready(function () {
 
-    <!-- ========== INÍCIO FORMULÁRIO ========== -->
-    <?php $p = $this->projetos;
-    if ($this->projetos) { ?>
-    <form name="form" id="form" action="<?php echo $this->url(array('controller' => 'solicitarrecursodecisao', 'action' => 'recurso')); ?>?idPronac=<?php echo $p[0]->IdPRONAC; ?>" method="post">
-        <input type="hidden" name="idPronac" id="idPronac" value="<?php echo $this->escape($p[0]->IdPRONAC);?>" />
-        <table class="tabela">
-            <tr>
-                <td class="destacar bold centro" style="width: 30%">Pronac</td>
-                <td class="destacar bold centro">Nome do Projeto</td>
-            </tr>
-            <tr>
-                <td align="center"><?php echo $this->escape($p[0]->pronac);?></td>
-                <td align="center"><?php echo $this->escape($p[0]->NomeProjeto);?></td>
-            </tr>
-            <tr>
-                <td class="destacar bold centro">Estado do Projeto</td>
-                <td class="destacar bold centro">Tipo da Solicitação</td>
-            </tr>
-            <tr>
-                <td align="center">
-                    <?php echo ($this->escape($p[0]->StatusProjeto) != "Projeto Aprovado") ? $this->escape($p[0]->StatusProjeto) : $this->escape($p[0]->StatusProjeto); ?>
-                </td>
-                <td align="center">
-                    <?php if($this->escape($p[0]->StatusProjeto) == "Projeto Aprovado"){ ?>
-                    <label><input type="checkbox" name="checkEnquadramento" value="1" class="checkObrigatorio" />Enquadramento</label>
-                    <label><input type="checkbox" name="checkOrcamento" value="1" class="checkObrigatorio" />Orçamento</label>
-                    <?php } else { ?>
-                    Projeto Indeferido
-                    <input type="checkbox" name="checkProjetoIndeferido" value="1" class="checkObrigatorio sumir" checked="checked" />
-                    <input type="hidden" name="tpSolicitacao" id="PI" value="PI" />
-                    <?php } ?>
-                </td>
-            </tr>
-        </table>
-        
-        <table class="tabela">
-            <tr>
-                <th>Recurso</th>
-            </tr>
-            <tr>
-                <td>
-                    <textarea class="textarea_simples" cols="80" id="dsRecurso" name="dsRecurso" rows="10"></textarea>
-                </td>
-            </tr>
-        </table>
+        var editorRico = $("#dsSolicitacaoRecurso").editorRico({
+            altura: 200,
+            isLimitarCarateres: true
+        });
 
-        <div style="width: 100%; text-align: center;">
-            <input type="button" id="bt_enviar" title="Enviar" class="btn_enviar" value=" " />
-            <input type="reset" id="bt_cancelar" title="Cancelar" class="btn_cancelar" value=" " />
-        </div>
-    </form>
-    
-    <br clear="all" />
-    
-    <?php } else { ?>
-    <table class="tabela">
-        <tr>
-            <td class="centro">Nenhum registro encontrado.</td>
-        </tr>
-    </table>
-    <?php } ?>
-<!-- ========== FIM FORMULÁRIO ========== -->
+        $("#formEnviarRecurso").validate({
+            rules: {
+                dsSolicitacaoRecurso: {
+                    validarPreenchimento: true,
+                    validarPreenchimentoMaximo: true
+                }
+            },
+            messages: {
+                dsSolicitacaoRecurso: {
+                    validarPreenchimento: "Texto do Recurso &eacute; obrigat&oacute;rio",
+                    validarPreenchimentoMaximo: "Limite excedido"
+                }
+            },
+            submitHandler: function (form) {
+                $("#container-loading").show();
+                $("#bt_enviar").addClass("disabled");
+                form.submit();
+            },
+            invalidHandler: function (event, validator) {
+                Materialize.toast(validator.submitted.dsSolicitacaoRecurso, 4000);
+            }
+        });
 
-</div>	
-<!-- ========== FIM CONTEÚDO ========== -->
+        $.validator.addMethod("validarPreenchimento", function (value, element) {
+            if (editorRico.contarCaracteres() > 0) {
+                return true;
+            }
+        });
+        $.validator.addMethod("validarPreenchimentoMaximo", function (value, element) {
+            if (editorRico.contarCaracteres() <= 30000) {
+                return true;
+            }
+        });
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
-<div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
-
-<br clear="all" />
+    });
+</script>

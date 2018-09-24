@@ -9,3 +9,5 @@ export const mocks = state => state.mocks;
 export const tipoAvaliacao = state => state.tipoAvaliacao;
 export const dadosTabelaTecnico = state => state.dadosTabelaTecnico;
 export const dadosHistoricoEncaminhamento = state => state.dadosHistoricoEncaminhamento;
+export const redirectLink = state => state.redirectLink;
+export const planilha = state => state.planilha;

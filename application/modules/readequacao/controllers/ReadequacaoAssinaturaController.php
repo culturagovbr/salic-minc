@@ -47,14 +47,13 @@ class Readequacao_ReadequacaoAssinaturaController extends Readequacao_GenericCon
         $this->validarPerfis();
         $this->view->idUsuarioLogado = $this->auth->getIdentity()->usu_codigo;
 
-        $tbAssinaturaDbTable = new Assinatura_Model_DbTable_TbAssinatura();
-        $tbAssinaturaDbTable->preencherModeloAtoAdministrativo([
-            'idOrgaoDoAssinante' => $this->grupoAtivo->codOrgao,
-            'idPerfilDoAssinante' => $this->grupoAtivo->codGrupo,
-            'idOrgaoSuperiorDoAssinante' => $this->auth->getIdentity()->usu_org_max_superior,
-            'idTipoDoAto' => $this->idTiposAtoAdministrativos
-        ]);
-        $this->view->dados = $tbAssinaturaDbTable->obterAssinaturasDisponiveis();
+        $servicoReadequacaoAssinatura = new \Application\Modules\Readequacao\Service\Assinatura\Readequacao(
+            $this->grupoAtivo,
+            $this->auth,
+            Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_READEQUACAO_PROJETOS_MINC
+        );
+
+        $this->view->dados = $servicoReadequacaoAssinatura->obterAssinaturas();
 
         $this->view->codGrupo = $this->grupoAtivo->codGrupo;
 
@@ -76,7 +75,7 @@ class Readequacao_ReadequacaoAssinaturaController extends Readequacao_GenericCon
         $get = Zend_Registry::get('get');
         try {
             if (!filter_input(INPUT_GET, 'IdPRONAC')) {
-                throw new Exception("Identificador do projeto é necessário para acessar essa funcionalidade.");
+                throw new Exception("Identificador do projeto &eacute; necess&atilde;rio para acessar essa funcionalidade.");
             }
 
             if ($this->grupoAtivo->codGrupo == Autenticacao_Model_Grupos::PARECERISTA) {
@@ -119,6 +118,9 @@ class Readequacao_ReadequacaoAssinaturaController extends Readequacao_GenericCon
                 );
             }
 
+            if ($this->idTipoDoAtoAdministrativo == '') {
+                $this->idTipoDoAtoAdministrativo = Readequacao_ReadequacaoAssinaturaController::obterIdTipoAtoAdministativoPorOrgaoSuperior($this->grupoAtivo->codOrgao);
+            }
             $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
             $this->view->abertoParaDevolucao = $objModelDocumentoAssinatura->isProjetoDisponivelParaAssinatura(
                 $get->IdPRONAC,

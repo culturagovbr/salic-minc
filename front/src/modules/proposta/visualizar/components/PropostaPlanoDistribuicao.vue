@@ -108,9 +108,9 @@
     </div>
 </template>
 <script>
-import PropostaDetalhamentoPlanoDistribuicao from './PropostaDetalhamentoPlanoDistribuicao';
+    import PropostaDetalhamentoPlanoDistribuicao from './PropostaDetalhamentoPlanoDistribuicao';
 
-export default {
+    export default {
     name: 'PropostaPlanoDistribuicao',
     data() {
         return {
@@ -152,25 +152,25 @@ export default {
     },
     methods: {
         detalhamentosByID(lista, id) {
-            let novaLista = [];
+            if (typeof lista !== 'undefined') {
+                /* eslint-disable */
+                let novaLista = [];
 
-            if(typeof lista !== 'undefined') {
-                Object.keys(lista)
-                    .map(function(key) {
-                        if(lista[key].idPlanoDistribuicao === id) {
-                            novaLista.push(lista[key]);
-                        }
-                    });
-
+                Object.keys(lista).map((key) => {
+                    if (lista[key].idPlanoDistribuicao === id) {
+                        novaLista.push(lista[key]);
+                    }
+                    return novaLista;
+                });
                 return novaLista;
             }
             return lista;
         },
         label_sim_ou_nao(valor) {
-            if (valor === 1)
+            if (valor === 1) {
                 return 'Sim';
-            else
-                return 'N\xE3o';
+            }
+            return 'N\xE3o';
         },
         iniciarCollapsible() {
             /* eslint-disable */

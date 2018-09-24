@@ -2,9 +2,7 @@
 
 class Projeto_HomologacaoController extends Projeto_GenericController
 {
-
     private $arrBreadCrumb = [];
-    private $situacaoParaHomologacao = Projeto_Model_Situacao::PROJETO_APRECIADO_PELA_CNIC;
 
     public function init()
     {
@@ -47,7 +45,7 @@ class Projeto_HomologacaoController extends Projeto_GenericController
         $order = ($order[0]['dir'] != 1) ? array($columns[$order[0]['column']]['name'] . ' ' . $order[0]['dir']) : ["Pronac desc"];
 
         $filtro = $columns[0]['search']['value'];
-        
+
         switch ($filtro) {
             case '':
                 $where['a.Situacao = ?'] = 'D50';
@@ -60,6 +58,14 @@ class Projeto_HomologacaoController extends Projeto_GenericController
             case 'respondidos':
                 $where['a.Situacao = ?'] = 'D50';
                 $where['EXISTS(SELECT TOP 1 * FROM SAC.dbo.tbDiligencia WHERE idPronac = a.IdPRONAC AND idTipoDiligencia = 181 AND DtSolicitacao IS NOT NULL AND DtResposta IS NOT NULL AND stEstado = 0)'] = '';
+                break;
+            case 'aguardando-recurso':
+                $where['a.Situacao = \'D51\' OR a.Situacao = \'D20\''] = '';
+                $where['EXISTS(SELECT TOP 1 idPronac from sac.dbo.tbRecurso where idPronac = a.IdPRONAC AND siFaseProjeto = 2 AND stEstado = 0)'] = '';
+                break;
+            case 'pos-recurso':
+                $where['a.Situacao = \'D51\' OR a.Situacao = \'D20\''] = '';
+                $where['EXISTS(SELECT TOP 1 idPronac from sac.dbo.tbRecurso where idPronac = a.IdPRONAC AND siFaseProjeto = 2 AND stEstado = 1)'] = '';
                 break;
         }
 
@@ -114,26 +120,71 @@ class Projeto_HomologacaoController extends Projeto_GenericController
         $this->prepareData($this->getRequest()->getParam('id'));
     }
 
-    /**
-     * @todo confirmar se setIdAtoDeGestao e o IdEnquadramento.
-     */
+    public function visualizarParecerAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $idPronac = $this->getRequest()->getParam('id');
+
+        if (empty($idPronac)) {
+            throw new Exception("Pronac &eacute; obrigat&oacute;rio");
+        }
+        $this->prepareData($idPronac);
+    }
+
     public function encaminharAction()
     {
         $this->_helper->layout->disableLayout();
+        $mapper = new Projeto_Model_TbHomologacaoMapper();
+        if ($this->getRequest()->isPost()) {
+
+            $this->_helper->viewRenderer->setNoRender(true);
+            $arrPost = $this->getRequest()->getPost();
+
+            $retorno = $mapper->encaminhar($arrPost);
+
+            $this->_helper->json([
+                'data' => $retorno['data'],
+                'status' => $retorno['status'],
+                'msg' => $mapper->getMessages(),
+                'close' => 0
+            ]);
+        } else {
+            $idPronac = $this->getRequest()->getParam('id');
+
+            $this->prepareData($idPronac);
+            $this->view->situacaoFutura = array_map('utf8_encode', $mapper->obterNovaSituacao($idPronac));
+            $this->view->urlAction = '/projeto/homologacao/encaminhar';
+        }
+    }
+
+    public function finalizarParecerAction()
+    {
+        $idPronac = $this->_request->getParam('idPronac');
+
+        if (empty($idPronac)) {
+            throw new Exception(
+                "Identificador do projeto &eacute; necess&amp;aacute;rio para acessar essa funcionalidade."
+            );
+        }
+
+        $mapper = new Projeto_Model_TbHomologacaoMapper();
+        $this->_helper->json([
+            'status' => $mapper->encaminhar($idPronac),
+            'msg' => $mapper->getMessages(),
+            'close' => 1
+        ]);
+
+
+        $this->_helper->layout->disableLayout();
         if ($this->getRequest()->isPost()) {
             $this->_helper->viewRenderer->setNoRender(true);
-            $mapper = new Projeto_Model_TbHomologacaoMapper();
-            $arrPost = $this->getRequest()->getPost();
-            $this->_helper->json([
-                'status' => $mapper->encaminhar($arrPost),
-                'msg' => $mapper->getMessages(),
-                'close' => 1
-            ]);
+
         } else {
             $this->prepareData($this->getRequest()->getParam('id'));
             $this->view->urlAction = '/projeto/homologacao/encaminhar';
         }
     }
+
 
     public function homologarAction()
     {
@@ -167,14 +218,13 @@ class Projeto_HomologacaoController extends Projeto_GenericController
         ])->current();
 
         $arrValue = [];
-        if(!is_null($dadosEnquadramento)) {
+        if (!is_null($dadosEnquadramento)) {
             $arrValue = $dadosEnquadramento->toArray();
         }
 
         $arrValue['enquadramentoProjeto'] = $dbTableEnquadramento->obterProjetoAreaSegmento(
             [
-                'a.IdPRONAC = ?' => $intIdPronac,
-                'a.Situacao = ?' => $this->situacaoParaHomologacao
+                'a.IdPRONAC = ?' => $intIdPronac
             ]
         )->current();
 
@@ -203,62 +253,5 @@ class Projeto_HomologacaoController extends Projeto_GenericController
 
         $this->view->arrValue = $arrValue;
         return $arrValue;
-    }
-
-    function gerarDocumentoAssinatura($intIdPronac)
-    {
-        $view = new Zend_View();
-        $view->setScriptPath(__DIR__ . DIRECTORY_SEPARATOR . '../views/scripts/');
-        $view->arrValue = $this->prepareData($intIdPronac);
-        return $view->render('homologacao/partials/documento-assinatura.phtml');
-    }
-
-    public function iniciarFluxoAssinaturaAction()
-    {
-        if (!filter_input(INPUT_GET, 'idPronac')) {
-            throw new Exception(
-                "Identificador do projeto &eacute; necess&amp;aacute;rio para acessar essa funcionalidade."
-            );
-        }
-        $get = Zend_Registry::get('get');
-        $idPronac = $get->idPronac;
-
-        $dbTableParecer = new Parecer();
-        $parecer = $dbTableParecer->findBy([
-            'TipoParecer' => '1',
-            'idTipoAgente' => '1',
-            'IdPRONAC' => $idPronac
-        ]);
-
-        if (count($parecer) < 1 || empty($parecer['IdParecer'])) {
-            throw new Exception(
-                "&Eacute; necess&amp;aacute;rio ao menos um parecer para iniciar o fluxo de assinatura."
-            );
-        }
-
-        $objDbTableDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
-        $documentoAssinatura = $objDbTableDocumentoAssinatura->obterProjetoDisponivelParaAssinatura(
-            $idPronac,
-            Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_HOMOLOGAR_PROJETO
-        );
-
-        $mensagem = "Opera&ccedil;&atilde;o realizada com sucesso!";
-        if (count($documentoAssinatura) < 1) {
-            $servicoDocumentoAssinatura = new \Application\Modules\Projeto\Service\Assinatura\DocumentoAssinatura(
-                $idPronac,
-                Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_HOMOLOGAR_PROJETO,
-                $parecer['IdParecer']
-            );
-            $idDocumentoAssinatura = $servicoDocumentoAssinatura->iniciarFluxo();
-        } else {
-            $idDocumentoAssinatura = $documentoAssinatura['idDocumentoAssinatura'];
-        }
-
-
-        parent::message(
-            $mensagem,
-            "/assinatura/index/visualizar-projeto?idDocumentoAssinatura={$idDocumentoAssinatura}",
-            "CONFIRM"
-        );
     }
 }

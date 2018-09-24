@@ -3,21 +3,86 @@
         border: solid 1px #c9c9c9 !important;
     }
 </style>
-<div class="row">
-    <form id="form-mensagem" class="materialize" data-ajax-form="true" method="post"
-          action="<?= $this->urlAction ?>">
-        <input type="hidden" name="idPronac" value="<?= $this->arrValue['idPronac'] ?>"/>
-        <input type="hidden" name="IdEnquadramento" value="<?= $this->arrValue['enquadramentoProjeto']['IdEnquadramento'] ?>"/>
-        <div class="modal-content">
-            <?= $this->partial('/homologacao/partials/documento-assinatura.phtml', ['arrValue' => $this->arrValue]); ?>
-        </div>
-        <div class="modal-footer">
-            <button class="btn waves-effect waves-light" type="submit" name="action">Encaminhar</button>
-            <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat orange-text" style="margin-right: 15px;">Fechar</a>
-        </div>
-    </form>
-</div>
+<?php if (!empty($this->arrValue['parecerHomologacao']['dsHomologacao']) && !empty($this->arrValue['parecerHomologacao']['tpHomologacao'])) : ?>
+    <div class="row">
+        <form id="form-mensagem" class="materialize"
+              method="post"
+              action="<?= $this->urlAction ?>">
 
+            <input type="hidden" name="idPronac" value="<?= $this->arrValue['idPronac'] ?>"/>
+            <input type="hidden" name="IdEnquadramento"
+                   value="<?= $this->arrValue['enquadramentoProjeto']['IdEnquadramento'] ?>"/>
+            <div class="modal-content">
+
+                <div class="card">
+                    <div class="card-content">
+                        <div id="mensagem-card" class="row center-align">
+                            <div class="col s1 right-align"><i
+                                    class="medium orange-text material-icons">help_outline</i></div>
+                            <div class="col s11 right-align">
+                                <p><b>Tem certeza que deseja finalizar a homologa&ccedil;&atilde;o desse projeto?</b>
+                                </p>
+                                <p>Ap&oacute;s a finaliza&ccedil;&atilde;o o projeto ter&aacute; a seguinte situa&ccedil;&atilde;o:
+                                    <?= $this->situacaoFutura['codigo']; ?> - <?= $this->situacaoFutura['mensagem']; ?>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="conteudo-parecer">
+                    <?= $this->partial(
+                        '/homologacao/partials/visualizar-parecer-completo.phtml',
+                        ['arrValue' => $this->arrValue]
+                    ); ?>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="finalizar" class="btn waves-effect waves-light" type="submit" name="action">Finalizar</button>
+                <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat orange-text"
+                   style="margin-right: 15px;">Fechar</a>
+            </div>
+        </form>
+    </div>
+<?php else: ?>
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col s1 right-align"><i class="medium orange-text material-icons">help_outline</i>
+                </div>
+                <div class="col s11">
+                    <p><br><b>Parecer t&eacute;cnico n&atilde;o encontrado! Voc&ecirc; salvou o parecer?</b></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat orange-text"
+           style="margin-right: 15px;">Fechar</a>
+    </div>
+<?php endif; ?>
 <script>
+
     $3('.collapsible').collapsible();
+
+    $3("#form-mensagem").on('submit', function(){
+        event.preventDefault();
+        $3("button#finalizar").addClass('disabled').attr('disabled');
+        $3.ajaxFormSubmit({form: $3(this)}, function(status, response) {
+
+            if(status === true && response.data.idDocumentoAssinatura) {
+                var botaoHomologar = '<h6>' + response.msg  + '</h6>' +
+                    '<br><br>' +
+                    '<a title="Assinatura" class="btn waves-effect waves-light btn-secondary" target="_blank" ' +
+                    'href="/assinatura/index/visualizar-projeto?idDocumentoAssinatura='+ response.data.idDocumentoAssinatura +'">' +
+                    '<i class="material-icons right">visibility</i>Visualizar documento gerado' +
+                    '</a>';
+
+                $3("#mensagem-card").html(botaoHomologar);
+                $3("#conteudo-parecer").hide();
+            }
+        });
+        return false;
+    });
+
 </script>

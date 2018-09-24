@@ -391,4 +391,32 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
 
         return $query;
     }
+
+    public function obterAssinaturasReadequacaoDisponiveis()
+    {
+        $query = $this->obterQueryAssinaturasDisponiveis();
+
+        $query->joinInner(
+            array('tbReadequacaoXParecer' => 'tbReadequacaoXParecer'),
+            "tbReadequacaoXParecer.idParecer = tbDocumentoAssinatura.idAtoDeGestao",
+            "",
+            $this->_schema
+        );
+
+        $query->joinInner(
+            array('tbReadequacao' => 'tbReadequacao'),
+            "tbReadequacao.idReadequacao = tbReadequacaoXParecer.idReadequacao",
+            "",
+            $this->_schema
+        );
+
+        $query->joinInner(
+            array('tbTipoReadequacao' => 'tbTipoReadequacao'),
+            "tbTipoReadequacao.idTipoReadequacao = tbReadequacao.idTipoReadequacao",
+            "tbTipoReadequacao.dsReadequacao",
+            $this->_schema
+        );
+
+        return $this->_db->fetchAll($query);
+    }
 }
