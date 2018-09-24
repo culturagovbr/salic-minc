@@ -7,41 +7,33 @@
 </template>
 <script>
     import slTabelaSimples from '@/components/slTabelaSimples';
+    import { mapActions, mapGetters } from 'vuex';
 
     export default {
         name: 'PropostaHistoricoSugestoesEnquadramento',
-        data() {
-            return {
-                dado: [],
-            };
-        },
         props: ['idpreprojeto'],
         components: {
             slTabelaSimples,
         },
         mounted() {
             if (typeof this.idpreprojeto !== 'undefined') {
-                this.fetch(this.idpreprojeto);
+                this.buscarHistoricoEnquadramento(this.idpreprojeto);
             }
         },
         watch: {
             idpreprojeto(value) {
-                this.fetch(value);
+                this.buscarHistoricoEnquadramento(value);
             },
         },
+        computed: {
+            ...mapGetters({
+                dado: 'proposta/historicoEnquadramento',
+            }),
+        },
         methods: {
-            fetch(id) {
-                if (id) {
-                    const self = this;
-
-                    /* eslint-disable */
-                    $3.ajax({
-                        url: '/proposta/visualizar-rest/index/idPreProjeto/' + self.idpreprojeto
-                    }).done(function (response) {
-                        self.dado = response.data.items;
-                    });
-                }
-            },
+            ...mapActions({
+                buscarHistoricoEnquadramento: 'proposta/buscarHistoricoEnquadramento',
+            }),
         },
     };
 </script>

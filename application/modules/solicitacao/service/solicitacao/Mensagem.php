@@ -55,6 +55,7 @@ class Mensagem
 
         array_walk($solicitacoes, function (&$value) {
             $value = array_map('utf8_encode', $value);
+            $value = array_map('html_entity_decode', $value);
         });
 
         return $solicitacoes;

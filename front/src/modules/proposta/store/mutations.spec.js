@@ -7,6 +7,8 @@ describe('Proposta Mutations', () => {
     let fontesDeRecursos;
     let documentos;
     let proposta;
+    let historicoSolicitacoes;
+    let historicoEnquadramento;
 
     beforeEach(() => {
         defaultState = {
@@ -28,6 +30,21 @@ describe('Proposta Mutations', () => {
                 idPreProjeto: '',
                 idAgente: '',
                 idUsuario: '',
+            },
+            historicoSolicitacoes: {
+                items:{
+                    idProjeto: '',
+                    idSolicitacao: '',
+                    idSolicitante: '',
+                },
+            },
+            historicoEnquadramento: {
+                items:{
+                    lines:{
+                        org_sigla: '',
+                        usu_nome: '',
+                    },
+                },
             },
         };
 
@@ -55,6 +72,23 @@ describe('Proposta Mutations', () => {
             idAgente: '59213',
             idUsuario: '59731',
         };
+
+        historicoSolicitacoes = {
+            items:{
+                idProjeto: '282177',
+                idSolicitacao: '3267',
+                idSolicitante: '285582',
+            },
+        };
+
+        historicoEnquadramento = {
+            items:{
+                lines:{
+                    org_sigla: 'CNIC',
+                    usu_nome: 'Maricene A Gregorut',
+                },
+            },
+        };
     });
 
     test('SET_LOCAL_REALIZACAO_DESLOCAMENTO', () => {
@@ -75,5 +109,15 @@ describe('Proposta Mutations', () => {
     test('SET_DADOS_PROPOSTA', () => {
         mutations.SET_DADOS_PROPOSTA(state, proposta);
         expect(state.proposta).toEqual(proposta);
+    });
+
+    test('SET_HISTORICO_SOLICITACOES', () => {
+        mutations.SET_HISTORICO_SOLICITACOES(state, historicoSolicitacoes);
+        expect(state.historicoSolicitacoes).toEqual(historicoSolicitacoes);
+    });
+
+    test('SET_HISTORICO_ENQUADRAMENTO', () => {
+        mutations.SET_HISTORICO_ENQUADRAMENTO(state, historicoEnquadramento);
+        expect(state.historicoEnquadramento).toEqual(historicoEnquadramento);
     });
 });

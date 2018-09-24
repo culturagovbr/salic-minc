@@ -37,3 +37,21 @@ export const buscarDadosProposta = ({ commit }, idPreProjeto) => {
             commit(types.SET_DADOS_PROPOSTA, proposta);
         });
 };
+
+export const buscarHistoricoSolicitacoes = ({ commit }, idPreProjeto) => {
+    propostaHelperAPI.buscarHistoricoSolicitacoes(idPreProjeto)
+        .then((response) => {
+            const data = response.data.data;
+            const historicoSolicitacoes = data.items;
+            commit(types.SET_HISTORICO_SOLICITACOES, historicoSolicitacoes);
+        });
+};
+
+export const buscarHistoricoEnquadramento = ({ commit }, idPreProjeto) => {
+    propostaHelperAPI.buscarHistoricoEnquadramento(idPreProjeto)
+        .then((response) => {
+            const data = response.data.data;
+            const historicoEnquadramento = data.items;
+            commit(types.SET_HISTORICO_ENQUADRAMENTO, historicoEnquadramento);
+        });
+};
