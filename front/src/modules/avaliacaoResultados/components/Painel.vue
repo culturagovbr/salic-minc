@@ -39,9 +39,7 @@
                     <v-card flat>
                         <v-card-text>
                             <TabelaProjetos
-                                    :analisar="true"
                             ></TabelaProjetos>
-
                         </v-card-text>
                     </v-card>
                 </v-tab-item>
