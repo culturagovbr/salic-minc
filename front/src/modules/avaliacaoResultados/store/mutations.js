@@ -7,7 +7,7 @@ export const state = {
     dadosTabela: [],
     dadosTabelaTecnico: [],
     dadosHistoricoEncaminhamento: [],
-    destinatarios: {},
+    dadosDestinatarios: [],
     mocks:
     {
         parecer: Parecer,
@@ -65,7 +65,7 @@ export const mutations = {
         });
     },
     [types.DESTINATARIOS_ENCAMINHAMENTO](state, destinatarios) {
-        state.destinatarios = destinatarios;
+        state.dadosDestinatarios = destinatarios;
     },
     [types.PROJETOS_AVALIACAO_TECNICA](state, dados) {
         state.dadosTabelaTecnico = dados;
