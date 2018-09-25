@@ -31,9 +31,12 @@ class Estado
         $estado = $estado->findBy($atual);
         $proximo = json_decode($estado['proximo']);
 
-        include(APPLICATION_PATH . $proximo->path);
+        $inc = APPLICATION_PATH . $proximo->path;
+        require($inc);
 
-        $eventClass = new $proximo->class();
+        $class = '\\' . $proximo->class;
+
+        $eventClass = new $class();
 
         $eventClass->run($params);
     }

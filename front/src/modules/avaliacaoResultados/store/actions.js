@@ -105,3 +105,9 @@ export const planilha = ({ commit }, params) => {
         });
 };
 
+export const finalizarParecer = ({ commit }, params) => {
+    avaliacaoResultadosHelperAPI.finalizarParecer(params)
+        .then(() => {
+        });
+};
+
