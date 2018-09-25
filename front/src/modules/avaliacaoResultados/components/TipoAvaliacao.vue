@@ -5,10 +5,7 @@
                 <v-btn slot="activator" color="green darken-4" dark>Click Me</v-btn>
                 <v-flex>
                     <v-card >
-                        <v-card-title
-                                primary-title
-
-                        >
+                        <v-card-title primary-title>
                             Tipo Avaliação
                         </v-card-title>
 
@@ -28,7 +25,9 @@
                                 </v-list-tile>
 
                                 <v-list-tile @click="">
-                                    <v-list-tile-action></v-list-tile-action>
+                                    <v-list-tile-action>
+                                        <v-icon color="indigo">attach_money</v-icon>
+                                    </v-list-tile-action>
 
                                     <v-list-tile-content>
                                         <v-list-tile-title>{{tipoAvaliacao.vlCaptado}}</v-list-tile-title>
@@ -37,7 +36,9 @@
                                 </v-list-tile>
 
                                 <v-list-tile @click="">
-                                    <v-list-tile-action></v-list-tile-action>
+                                    <v-list-tile-action>
+                                        <v-icon color="indigo">attach_money</v-icon>
+                                    </v-list-tile-action>
 
                                     <v-list-tile-content>
                                         <v-list-tile-title>{{tipoAvaliacao.vlComprovado}}</v-list-tile-title>
@@ -46,7 +47,9 @@
                                 </v-list-tile>
 
                                 <v-list-tile @click="">
-                                    <v-list-tile-action></v-list-tile-action>
+                                    <v-list-tile-action>
+                                        <v-icon color="indigo">attach_money</v-icon>
+                                    </v-list-tile-action>
 
                                     <v-list-tile-content>
                                         <v-list-tile-title>{{tipoAvaliacao.qtComprovacao}}</v-list-tile-title>
@@ -71,7 +74,9 @@
                                 </v-list-tile>
 
                                 <v-list-tile @click="">
-                                    <v-list-tile-action></v-list-tile-action>
+                                    <v-list-tile-action>
+                                        <v-icon color="indigo">bar_chart</v-icon>
+                                    </v-list-tile-action>
 
                                     <v-list-tile-content>
                                         <v-list-tile-title>{{tipoAvaliacao.qtNC_95}}</v-list-tile-title>
@@ -80,7 +85,9 @@
                                 </v-list-tile>
 
                                 <v-list-tile @click="">
-                                    <v-list-tile-action></v-list-tile-action>
+                                    <v-list-tile-action>
+                                        <v-icon color="indigo">bar_chart</v-icon>
+                                    </v-list-tile-action>
 
                                     <v-list-tile-content>
                                         <v-list-tile-title>{{tipoAvaliacao.qtNC_99}}</v-list-tile-title>
@@ -90,13 +97,13 @@
 
                                 <v-divider inset></v-divider>
                                 <v-subheader>Tipo de avaliação</v-subheader>
-
                             </v-list>
+
                              <v-radio-group row column v-model="percentual" :click="redirecionarEncaminhar()">
-                                <v-radio color="cyan darken-2"  label="Todos Comprovantes" :value="0"></v-radio>
-                                 <v-radio color="teal darken-1" label="90%"  :value="90"></v-radio>
-                                 <v-radio color="teal darken-1" label="95%"  :value="95"></v-radio>
-                                 <v-radio color="teal darken-1" label="99%"  :value="99"></v-radio>
+                                <v-radio color="green darken-4"  label="Todos Comprovantes" :value="0"></v-radio>
+                                 <v-radio color="green darken-4" label="90%"  :value="90"></v-radio>
+                                 <v-radio color="green darken-4" label="95%"  :value="95"></v-radio>
+                                 <v-radio color="green darken-4" label="99%"  :value="99"></v-radio>
 
                             </v-radio-group>
 
