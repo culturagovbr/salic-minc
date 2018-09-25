@@ -4,12 +4,9 @@
             <v-dialog v-model="dialog" width="600">
                 <v-btn slot="activator" color="green darken-4" dark>Click Me</v-btn>
                 <v-flex>
-                    <v-card>
+                    <v-card >
                         <v-card-title
-                                dark
-                                class="green darken-4"
                                 primary-title
-
 
                         >
                             Tipo Avaliação
