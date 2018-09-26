@@ -123,7 +123,6 @@
         },
         methods: {
             iniciarCollapsible() {
-                console.log('tesdssdssss');
                 // eslint-disable-next-line
                 $3(".collapsible").each(function () {
                     // eslint-disable-next-line

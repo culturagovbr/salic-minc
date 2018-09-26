@@ -101,6 +101,8 @@ class Analise_AnaliseController extends Analise_GenericController
 
     public function visualizarprojetoAction()
     {
+        $this->carregarScriptsVue();
+
         $idPronac = $this->getRequest()->getParam('idpronac');
 
         try {
@@ -228,7 +230,7 @@ class Analise_AnaliseController extends Analise_GenericController
                 ) {
 
                     $situacao = Projeto_Model_Situacao::ENCAMINHADO_PARA_ANALISE_TECNICA;
-                    $providenciaTomada = "Projeto encaminhado &agrave; unidade vinculada para an&aacute;lise 
+                    $providenciaTomada = "Projeto encaminhado &agrave; unidade vinculada para an&aacute;lise
                     e emiss&atilde;o de parecer t&eacute;cnico";
 
                     $tbProjetos->alterarSituacao($idPronac, '', $situacao, $providenciaTomada);
@@ -356,5 +358,13 @@ class Analise_AnaliseController extends Analise_GenericController
         $valorcaptado = $rsProjeto[0]->ValorCaptado;
 
         return $this->calcularPercentualCaptado($valorTotal, $valorcaptado);
+    }
+
+    private function carregarScriptsVue()
+    {
+        $gitTag = '?v=' . $this->view->gitTag();
+        $this->view->headScript()->offsetSetFile(99, '/public/dist/js/manifest.js' . $gitTag, 'text/javascript', array('charset' => 'utf-8'));
+        $this->view->headScript()->offsetSetFile(100, '/public/dist/js/vendor.js' . $gitTag, 'text/javascript', array('charset' => 'utf-8'));
+        $this->view->headScript()->offsetSetFile(101, '/public/dist/js/proposta.js'. $gitTag, 'text/javascript', array('charset' => 'utf-8'));
     }
 }
