@@ -87,8 +87,15 @@ function obterColunasListagem () {
         'data': 'DtMovimentacao'
     })
     colunas.push({
+        'data': 'diasCorridos',
         'name': 'diasCorridos',
-        'data': 'diasCorridos'
+        'bSortable': false,
+        'render': function(data, type, row) {
+            if (data < 0) {
+                return '<strong>PD</strong>';
+            }
+            return data;
+        }
     })
     if ($('#perfil_atual').val() != $('#perfil_componente_comissao').val()) {
         colunas.push({

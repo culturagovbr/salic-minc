@@ -7,33 +7,34 @@ export const state = {
     dadosTabela: [],
     dadosTabelaTecnico: [],
     dadosHistoricoEncaminhamento: [],
-    destinatarios: {},
+    dadosDestinatarios: [],
     mocks:
     {
-        parecer:Parecer,
-        tipoAvaliacao:TipoAvaliacao,
+        parecer: Parecer,
+        tipoAvaliacao: TipoAvaliacao,
     },
     parecer: {},
     projeto: {},
     proponente: {},
     registroAtivo: {},
     tipoAvaliacao: {},
+    redirectLink: {},
+    planilha: {},
 };
 
 export const mutations = {
-    [types.MOCK_AVALIACAO_RESULTADOS](state){
-        state.mocks;
+    [types.MOCK_AVALIACAO_RESULTADOS]() {
     },
-    [types.GET_CONSOLIDACAO_PARECER](state, consolidacaoComprovantes){
+    [types.GET_CONSOLIDACAO_PARECER](state, consolidacaoComprovantes) {
         state.consolidacaoComprovantes = consolidacaoComprovantes;
     },
-    [types.GET_PARECER](state, parecer){
+    [types.GET_PARECER](state, parecer) {
         state.parecer = parecer;
     },
-    [types.GET_PROJETO](state, projeto){
+    [types.GET_PROJETO](state, projeto) {
         state.projeto = projeto;
     },
-    [types.GET_PROPONENTE](state, proponente){
+    [types.GET_PROPONENTE](state, proponente) {
         state.proponente = proponente;
     },
     [types.SET_REGISTROS_TABELA](state, dadosTabela) {
@@ -63,20 +64,25 @@ export const mutations = {
             }
         });
     },
-    [types.DESTINATARIOS_ENCAMINHAMENTO](state, destinatarios){
-        state.destinatarios = destinatarios;
+    [types.DESTINATARIOS_ENCAMINHAMENTO](state, destinatarios) {
+        state.dadosDestinatarios = destinatarios;
     },
-    [types.PROJETOS_AVALIACAO_TECNICA](state, dados){
+    [types.PROJETOS_AVALIACAO_TECNICA](state, dados) {
         state.dadosTabelaTecnico = dados;
     },
-    [types.HISTORICO_ENCAMINHAMENTO](state, dados){
+    [types.HISTORICO_ENCAMINHAMENTO](state, dados) {
         state.dadosHistoricoEncaminhamento = [];
-        Object.values(dados).forEach(function(historico) {
+        Object.values(dados).forEach((historico) => {
             state.dadosHistoricoEncaminhamento.push(historico);
         });
     },
-    [types.GET_TIPO_AVALIACAO](state,tipoAvaliacao){
+    [types.GET_TIPO_AVALIACAO](state, tipoAvaliacao) {
         state.tipoAvaliacao = tipoAvaliacao[0];
-    }
-
+    },
+    [types.LINK_REDIRECIONAMENTO_TIPO_AVALIACAO_RESULTADO](state, redirectLink) {
+        state.redirectLink = redirectLink;
+    },
+    [types.GET_PLANILHA](state, planilha) {
+        state.planilha = planilha;
+    },
 };

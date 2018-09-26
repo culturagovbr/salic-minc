@@ -202,14 +202,13 @@
                                     avaliacao = avaliacao.replace(/\'/g,'&#39;'); // aspa simples
                                     avaliacao = avaliacao.replace(/\n/g,'<br/>');
                                     data.Avaliacao = avaliacao;
-                                    return '<button data-target="modal_visualizar_recusado" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '" data-avaliacao="' + data.Avaliacao+ '">Arquivada sem possibilidade de desarquivamento</button>';
-                                } else if (!data.SolicitacaoDesarquivamento && !data.dtAvaliacao) {
-                                    return '<button data-target="modal_solicitar" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '">Solicitar Desarquivamento</button>';
-                                } else if (data.stEstado == 0 && data.dtAvaliacao) {
-                                    data.Avaliacao = 'Projeto arquivado pela segunda vez.';
-                                    return '<button data-target="modal_visualizar_recusado" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '" data-avaliacao="' + data.Avaliacao+ '">Arquivada sem possibilidade de desarquivamento</button>';
-                                } else {
-                                    return 'Solicita&ccedil;&atilde;o de desarquivamento em an&aacute;lise';
+                                    return '<button data-target="modal_visualizar_recusado" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '" data-avaliacao="' + data.Avaliacao+ '">Arquivada sem possibilidade de desarquivamento</button>'
+                                }
+                                if (data.SolicitacaoDesarquivamento == null && data.dtAvaliacao == null) {
+                                    return '<button data-target="modal_solicitar" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '">Solicitar Desarquivamento</button>'
+                                }
+                                if (data.stEstado == 0 && data.dtAvaliacao) {
+                                    return 'Arquivada sem possibilidade de desarquivamento';
                                 }
                             }
                         }

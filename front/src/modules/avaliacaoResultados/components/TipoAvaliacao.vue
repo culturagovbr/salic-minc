@@ -1,127 +1,150 @@
 <template>
     <v-container grid-list-md >
-        <v-layout  column>
-            <v-flex xs12>
-                <v-layout row xs12  wrap align-space-between  >
-                    <v-flex  xs12 >
-                        <v-card>
-                            <v-card-text>
-                                <table class="v-datatable v-table">
-                                    <tr>
-                                        <th class="text-xs-left">
-                                            Dt.Envio Prestacao de Contas
-                                        </th>
-                                        <th class="text-xs-left">
-                                            Resultado da Avaliacao do Objeto
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td>{{tipoAvaliacao.DtEnvioDaPrestacaoContas}}</td>
-                                        <td class="text-xs-left">{{tipoAvaliacao.ResultadoAvaliacaoObjeto}}</td>
-                                    </tr>
-                                </table>
-                            </v-card-text>
-                        </v-card>
-                    </v-flex>
+        <v-layout row justify-center>
+            <v-dialog v-model="dialog" width="600">
+                <v-btn slot="activator" color="green darken-4" dark>Click Me</v-btn>
+                <v-flex>
+                    <v-card >
+                        <v-card-title primary-title>
+                            Tipo Avaliação
+                        </v-card-title>
 
-                    <v-flex xs12 >
-                        <v-card>
-                            <v-card-text>
-                                <table class="v-datatable v-table">
-                                    <tr>
-                                        <th colspan="3" class="text-xs-center">
-                                            Valores
-                                        </th>
-                                        <th colspan="4" class="text-xs-center">
-                                            Quantidade de Comprovantes por nivel de confianca
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <th class="text-xs-center">Aprovado</th>
-                                        <th class="text-xs-center">Captado</th>
-                                        <th class="text-xs-center">Comprovado</th>
-                                        <th>Todos</th>
-                                        <th>90%</th>
-                                        <th>95%</th>
-                                        <th>99%</th>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-xs-center">{{tipoAvaliacao.vlAprovado}}</td>
-                                        <td class="text-xs-center">{{tipoAvaliacao.vlCaptado}}</td>
-                                        <td class="text-xs-center">{{tipoAvaliacao.vlComprovado}}</td>
-                                        <td class="text-xs-center">{{tipoAvaliacao.qtComprovacao}}</td>
-                                        <td class="text-xs-center">{{tipoAvaliacao.qtNC_90}}</td>
-                                        <td class="text-xs-center">{{tipoAvaliacao.qtNC_95}}</td>
-                                        <td class="text-xs-center">{{tipoAvaliacao.qtNC_99}}</td>
-                                    </tr>
-                                </table>
-                            </v-card-text>
-                        </v-card>
-                    </v-flex>
+                        <v-card-text>
 
-                    <v-flex xs12>
-                        <v-card>
-                            <v-card-text>
-                                <fieldset>
-                                    <legend>SELECIONAR O TIPO DE AVALIACAO FINANCERIA</legend>
-                                    <p>Avaliar comprovantes por nivel de confianca:</p>
-                                    <v-flex xs12 sm6 md6>
-                                        <v-radio-group  column >
+                            <v-list two-line subheader>
+                                <v-subheader>Valores</v-subheader>
+                                <v-list-tile @click="">
+                                    <v-list-tile-action>
+                                        <v-icon color="indigo">attach_money</v-icon>
+                                    </v-list-tile-action>
 
-                                            <v-radio
-                                                    label="Todos Comprovantes"
-                                                    color="cyan darken-2"
-                                                    value="todos comprovantes"
-                                            ></v-radio>
-                                            <v-radio
-                                                    label="90%"
-                                                    color="teal darken-1"
-                                                    value="90%"
-                                            ></v-radio>
-                                            <v-radio
-                                                    label="95%"
-                                                    color="teal darken-1"
-                                                    value="95%"
-                                            ></v-radio>
-                                            <v-radio
-                                                    label="99%"
-                                                    color="teal darken-1"
-                                                    value="99%"
-                                            ></v-radio>
-                                        </v-radio-group>
-                                        <v-btn dark large color="teal darken-1" to="/planilha">AVALIAR</v-btn>
-                                    </v-flex>
-                                </fieldset>
-                            </v-card-text>
-                        </v-card>
-                    </v-flex>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title>{{tipoAvaliacao.vlAprovado}}</v-list-tile-title>
+                                        <v-list-tile-sub-title>Aprovado</v-list-tile-sub-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
 
-                </v-layout>
+                                <v-list-tile @click="">
+                                    <v-list-tile-action>
+                                        <v-icon color="indigo">attach_money</v-icon>
+                                    </v-list-tile-action>
 
-            </v-flex>
+                                    <v-list-tile-content>
+                                        <v-list-tile-title>{{tipoAvaliacao.vlCaptado}}</v-list-tile-title>
+                                        <v-list-tile-sub-title>Captado</v-list-tile-sub-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
 
+                                <v-list-tile @click="">
+                                    <v-list-tile-action>
+                                        <v-icon color="indigo">attach_money</v-icon>
+                                    </v-list-tile-action>
+
+                                    <v-list-tile-content>
+                                        <v-list-tile-title>{{tipoAvaliacao.vlComprovado}}</v-list-tile-title>
+                                        <v-list-tile-sub-title>Comprovado</v-list-tile-sub-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+
+                                <v-list-tile @click="">
+                                    <v-list-tile-action>
+                                        <v-icon color="indigo">attach_money</v-icon>
+                                    </v-list-tile-action>
+
+                                    <v-list-tile-content>
+                                        <v-list-tile-title>{{tipoAvaliacao.qtComprovacao}}</v-list-tile-title>
+                                        <v-list-tile-sub-title>Todos</v-list-tile-sub-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+
+
+
+                                <v-divider inset></v-divider>
+                                <v-subheader>Quantidade de Comprovantes por nivel de confiança</v-subheader>
+
+                                <v-list-tile @click="">
+                                    <v-list-tile-action>
+                                        <v-icon color="indigo">bar_chart</v-icon>
+                                    </v-list-tile-action>
+
+                                    <v-list-tile-content>
+                                        <v-list-tile-title>{{tipoAvaliacao.qtNC_90}}</v-list-tile-title>
+                                        <v-list-tile-sub-title>90%</v-list-tile-sub-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+
+                                <v-list-tile @click="">
+                                    <v-list-tile-action>
+                                        <v-icon color="indigo">bar_chart</v-icon>
+                                    </v-list-tile-action>
+
+                                    <v-list-tile-content>
+                                        <v-list-tile-title>{{tipoAvaliacao.qtNC_95}}</v-list-tile-title>
+                                        <v-list-tile-sub-title>95%</v-list-tile-sub-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+
+                                <v-list-tile @click="">
+                                    <v-list-tile-action>
+                                        <v-icon color="indigo">bar_chart</v-icon>
+                                    </v-list-tile-action>
+
+                                    <v-list-tile-content>
+                                        <v-list-tile-title>{{tipoAvaliacao.qtNC_99}}</v-list-tile-title>
+                                        <v-list-tile-sub-title>99%</v-list-tile-sub-title>
+                                    </v-list-tile-content>
+                                </v-list-tile>
+
+                                <v-divider inset></v-divider>
+                                <v-subheader>Tipo de avaliação</v-subheader>
+                            </v-list>
+
+                             <v-radio-group row column v-model="percentual" :click="redirecionarEncaminhar()">
+                                <v-radio color="green darken-4"  label="Todos Comprovantes" :value="0"></v-radio>
+                                 <v-radio color="green darken-4" label="90%"  :value="90"></v-radio>
+                                 <v-radio color="green darken-4" label="95%"  :value="95"></v-radio>
+                                 <v-radio color="green darken-4" label="99%"  :value="99"></v-radio>
+
+                            </v-radio-group>
+
+
+                        </v-card-text>
+
+                        <v-divider></v-divider>
+
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn dark large color="green darken-4" :href="redirect">AVALIAR</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-flex>
+            </v-dialog>
         </v-layout>
+
     </v-container>
 
 
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import ModalTemplate from '@/components/modal';
+    import {mapActions, mapGetters} from 'vuex';
+    import ModalTemplate from '@/components/modal';
 
-export default {
+    export default {
     name: 'Painel',
     data() {
         return {
             idPronac: this.$route.params.id,
-            aprovado:300,
-            captado:200,
-            comprovado:100,
-            todos:75,
-            valor1:80,
-            valor2:10,
-            valor3:20,
+            percentual: '',
+            encaminhar: '',
+            aprovado: 300,
+            captado: 200,
+            comprovado: 100,
+            todos: 75,
+            valor1: 80,
+            valor2: 10,
+            valor3: 20,
+            dialog: false,
         };
     },
     components: {
@@ -133,10 +156,10 @@ export default {
             modalOpen: 'modal/modalOpen',
             modalClose: 'modal/modalClose',
             getTipo: 'avaliacaoResultados/getTipoAvaliacao',
+            redirectLink: 'avaliacaoResultados/redirectLinkAvaliacaoResultadoTipo',
         }),
 
-        getTipoAvaliacaoResultado(id)
-        {
+        getTipoAvaliacaoResultado(id) {
             this.getTipo(id);
         },
         fecharModal() {
@@ -144,17 +167,20 @@ export default {
             $3('#modalTemplate').modal('close');
             this.modalClose();
         },
+        redirecionarEncaminhar() {
+            const data = { idPronac: this.idPronac, percentual: this.percentual };
+            this.redirectLink(data);
+        },
     },
     computed: {
         ...mapGetters({
             modalVisible: 'modal/default',
             tipoAvaliacao: 'avaliacaoResultados/tipoAvaliacao',
+            redirect: 'avaliacaoResultados/redirectLink',
         }),
     },
-    mounted()
-    {
+    mounted() {
         this.getTipoAvaliacaoResultado(this.idPronac);
     },
 };
 </script>
-

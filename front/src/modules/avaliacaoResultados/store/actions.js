@@ -10,15 +10,6 @@ export const dadosMenu = ({ commit }) => {
         });
 };
 
-export const criarRegistro = ({ commit }, params) => {
-    fooHelperAPI.criarRegistro(params)
-        .then((response) => {
-            const data = response.data;
-            const registro = data.data;
-            commit(types.SET_REGISTRO_TABELA, registro);
-        });
-};
-
 export const setRegistroAtivo = ({ commit }, registro) => {
     commit(types.SET_REGISTRO_ATIVO, registro);
 };
@@ -30,13 +21,10 @@ export const removerRegistro = ({ commit }, registro) => {
         });
 };
 
-export const getIndex = ({ commit }) => { };
-
 export const getDadosEmissaoParecer = ({ commit }, param) => {
-    return new Promise((resolve) => {
+    const p = new Promise((resolve) => {
         avaliacaoResultadosHelperAPI.parecerConsolidacao(param)
             .then((response) => {
-
                 const data = response.data.data.items;
 
                 commit(types.GET_PROPONENTE, data.proponente);
@@ -44,46 +32,33 @@ export const getDadosEmissaoParecer = ({ commit }, param) => {
                 commit(types.GET_PARECER, data.parecer);
                 commit(types.GET_CONSOLIDACAO_PARECER, data.consolidacaoComprovantes);
                 resolve();
-            }).catch(error => console.info(error));
+            }).catch(() => { });
     });
+    return p;
 };
 
 export const salvarParecer = ({ commit }, params) => {
-
-    return new Promise((resolve) => {
+    const p = new Promise((resolve) => {
         avaliacaoResultadosHelperAPI.criarParecer(params)
-            .then( (response) => {
-                console.info(response);
+            .then(() => {
                 resolve();
-            })
+            });
     });
 
+    return p;
 };
 
 export const mockAvaliacaDesempenho = ({ commit }) => {
-    commit(types.MOCK_AVALIACAO_RESULTADOS, Mock);
+    commit(types.MOCK_AVALIACAO_RESULTADOS);
 };
 
-export const getDestinatariosEncaminhamento = ({ commit }, params) => {
-   // var  params = {
-   //      "idorgao" : 303,
-   //      "idPerfilDestino" : 125,
-   //      "verifica" : "a",
-   //  };
-
-    avaliacaoResultadosHelperAPI.getTeste(params)
+export const obterDestinatarios = ({ commit }) => {
+    avaliacaoResultadosHelperAPI.obterDestinatarios()
         .then((response) => {
-           // const data = response.data;
-           // const dadosTabela = data.data;
-            commit(types.DESTINATARIOS_ENCAMINHAMENTO, response.data);
+            const data = response.data;
+            const destinatariosEncaminhamento = data.data;
+            commit(types.DESTINATARIOS_ENCAMINHAMENTO, destinatariosEncaminhamento.items);
         });
-    // console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
-    // console.log(params);
-    // avaliacaoResultadosHelperAPI.buscarDestinatariosParaEncaminhamento(param)
-    //     .then((destinatarios) => {
-    //         console.log(destinatarios)
-    //         commit(types.DESTINATARIOS_ENCAMINHAMENTO, destinatarios);
-    //     });
 };
 
 export const obterDadosTabelaTecnico = ({ commit }) => {
@@ -104,15 +79,40 @@ export const obterHistoricoEncaminhamento = ({ commit }, params) => {
 };
 
 export const getTipoAvaliacao = ({ commit }, params) => {
-    return new Promise((resolve) => {
+    const p = new Promise((resolve) => {
         avaliacaoResultadosHelperAPI.getTipoAvaliacao(params)
             .then((response) => {
-                console.info(params);
-
                 const data = response.data.data.items;
 
                 commit(types.GET_TIPO_AVALIACAO, data);
                 resolve();
-            }).catch(error => console.info(error));
+            }).catch(() => { });
     });
+    return p;
 };
+
+export const redirectLinkAvaliacaoResultadoTipo = ({ commit }, params) => {
+    if (params.percentual === 0) {
+        commit(types.LINK_REDIRECIONAMENTO_TIPO_AVALIACAO_RESULTADO, `/prestacao-contas/realizar-prestacao-contas/index/idPronac/${params.idPronac}`);
+    } else {
+        commit(types.LINK_REDIRECIONAMENTO_TIPO_AVALIACAO_RESULTADO, `/prestacao-contas/prestacao-contas/amostragem/idPronac/${params.idPronac}/tipoAvaliacao/${params.percentual}`);
+    }
+};
+
+export const planilha = ({ commit }, params) => {
+    avaliacaoResultadosHelperAPI.planilha(params)
+        .then((response) => {
+            const planilha = response.data;
+            commit(types.GET_PLANILHA, planilha);
+        });
+};
+
+export const finalizarParecer = ({ commit }, params) => {
+    avaliacaoResultadosHelperAPI.finalizarParecer(params)
+        .then(() => {
+        });
+};
+
+export const encaminharParaTecnico = ({ commit }, params) =>
+    avaliacaoResultadosHelperAPI.encaminharParaTecnico(params);
+

@@ -14,10 +14,12 @@ class AvaliacaoResultados_Bootstrap extends Zend_Application_Module_Bootstrap
                     'emissao-parecer-rest',
                     'encaminhamento-prestacao-contas',
                     'fluxo',
+                    'tipo-avaliacao-rest',
                     'projetos-avaliacao-tecnica',
                     'historico',
                     'estado',
-                    'tipo-avaliacao-rest'
+                    'tipo-avaliacao-rest',
+                    'assinatura'
                 ]
             ]
         );

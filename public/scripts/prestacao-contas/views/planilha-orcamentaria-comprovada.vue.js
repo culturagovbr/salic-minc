@@ -1,8 +1,12 @@
 Vue.component('planilha-orcamentaria-comprovada', {
-    props: ['idpronac'],
+    props: ['idpronac', 'documento'],
     template: `
         <div>
-            <sl-planilha-produtos :produtos="produtos" :idpronac="idpronac">
+            <sl-planilha-produtos 
+                :documento="documento" 
+                :produtos="produtos" 
+                :idpronac="idpronac"
+            >
                   <template slot-scope="slot">
                         <sl-planilha-etapas
                             v-for="(etapa, index) in slot.produto.etapa"
@@ -10,6 +14,7 @@ Vue.component('planilha-orcamentaria-comprovada', {
                             :idpronac="idpronac"
                             :cdProduto="slot.produto.cdProduto"
                             :key="index"
+                            :documento="documento"
                         >
                           <template slot-scope="slot">
                                 <sl-planilha-ufs
@@ -19,6 +24,7 @@ Vue.component('planilha-orcamentaria-comprovada', {
                                     :estado="estado"
                                     :cdEtapa="slot.etapa.cdEtapa"
                                     :cdProduto="slot.produto"
+                                    :documento="documento"
                                 >
                                   <template slot-scope="slot">
                                     <sl-planilha-cidades
@@ -30,6 +36,7 @@ Vue.component('planilha-orcamentaria-comprovada', {
                                         :cdProduto="slot.produto"
                                         :key="slot.estado.cdUf"
                                         :id="slot.estado.cdUf"
+                                        :documento="documento"
                                     >
                                       <template slot-scope="slot">
                                         <div class="row">
@@ -65,6 +72,7 @@ Vue.component('planilha-orcamentaria-comprovada', {
                                                     :cdcidade="slot.cidade.cdCidade"
                                                     :cdetapa="slot.etapa"
                                                     tecnico="true"
+                                                    :documento="documento"
                                                 ></sl-planilha-itens>
                                             </div>
                                             <div :id="'test_2_' + slot.cidade.cdCidade +'_'+ slot.produto+'_'+ slot.etapa" class="col s12">
@@ -76,6 +84,7 @@ Vue.component('planilha-orcamentaria-comprovada', {
                                                     :cdcidade="slot.cidade.cdCidade"
                                                     :cdetapa="slot.etapa"
                                                     stitemavaliado="4"
+                                                    :documento="documento"
                                                 ></sl-planilha-itens>
                                             </div>
                                             <div :id="'test_3_' + slot.cidade.cdCidade +'_'+ slot.produto+'_'+ slot.etapa" class="col s12">
@@ -87,6 +96,7 @@ Vue.component('planilha-orcamentaria-comprovada', {
                                                     :cdcidade="slot.cidade.cdCidade"
                                                     :cdetapa="slot.etapa"
                                                     stitemavaliado="1"
+                                                    :documento="documento"
                                                 ></sl-planilha-itens>
                                             </div>
                                             <div :id="'test_4_' + slot.cidade.cdCidade +'_'+ slot.produto+'_'+ slot.etapa" class="col s12">
@@ -98,6 +108,7 @@ Vue.component('planilha-orcamentaria-comprovada', {
                                                     :cdcidade="slot.cidade.cdCidade"
                                                     :cdetapa="slot.etapa"
                                                     stitemavaliado="3"
+                                                    :documento="documento"
                                                 ></sl-planilha-itens>
                                             </div>
                                         </div>

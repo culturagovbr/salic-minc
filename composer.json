@@ -59,6 +59,8 @@
             "Application\\Modules\\AvaliacaoResultados\\Service\\ParecerTecnico\\": "./application/modules/avaliacao-resultados/service/parecer-tecnico",
             "Application\\Modules\\AvaliacaoResultados\\Service\\Fluxo\\": "./application/modules/avaliacao-resultados/service/fluxo",
             "Application\\Modules\\AvaliacaoResultados\\Service\\Encaminhar\\": "./application/modules/avaliacao-resultados/service/encaminhar",
+            "Application\\Modules\\AvaliacaoResultados\\Service\\Assinatura\\": "./application/modules/avaliacao-resultados/service/assinatura",
+            "Application\\Modules\\AvaliacaoResultados\\Service\\Assinatura\\Parecer\\": "./application/modules/avaliacao-resultados/service/assinatura/parecer",
             "MinC\\Assinatura\\": "./library/MinC/Assinatura/",
             "MinC\\Db\\Model\\": "./library/MinC/Db/Model/"
         }

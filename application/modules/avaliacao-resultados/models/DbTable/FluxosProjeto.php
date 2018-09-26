@@ -26,4 +26,18 @@ class AvaliacaoResultados_Model_DbTable_FluxosProjeto extends MinC_Db_Table_Abst
 
         return $this->fetchAll($select);
     }
+
+    public function estado($idPronac)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            array('e' => $this->_name),
+            array('*'),
+            $this->_schema
+        )
+        ->where('idpronac = ? ', $idPronac);
+
+        return $this->fetchRow($select);
+    }
 }

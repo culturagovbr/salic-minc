@@ -18,18 +18,23 @@ class AvaliacaoFinanceira
         $mapper = new \AvaliacaoResultados_Model_tbEncaminhamentoPrestacaoContasMapper();
         $model = new \AvaliacaoResultados_Model_tbEncaminhamentoPrestacaoContas();
 
+        $auth = \Zend_Auth::getInstance();
+        $GrupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
+        $codGrupo = $GrupoAtivo->codGrupo;
+        $codOrgao = $GrupoAtivo->codOrgao;
+        $idAgenteOrigem = $auth->getIdentity()->usu_codigo;
+
         $model->setIdPronac($params['idPronac']);
-        $model->setIdAgenteOrigem($params['idAgenteOrigem']);
-        $model->setDtInicioEncaminhamento($params['dtInicioEncaminhamento']);
+        $model->setIdAgenteOrigem($idAgenteOrigem);
+        $model->setDtInicioEncaminhamento((new \DateTime())->format('Y-m-d H:i:s'));
         $model->setIdOrgaoDestino($params['idOrgaoDestino']);
-        $model->setIdOrgaoOrigem($params['idOrgaoOrigem']);
+        $model->setIdOrgaoOrigem($codOrgao);
         $model->setIdAgenteDestino($params['idAgenteDestino']);
         $model->setCdGruposDestino($params['cdGruposDestino']);
-        $model->setCdGruposOrigem($params['cdGruposOrigem']);
-        $model->setDtFimEncaminhamento($params['dtFimEncaminhamento']);
+        $model->setCdGruposOrigem($codGrupo);
         $model->setIdSituacaoEncPrestContas($params['idSituacaoEncPrestContas']);
         $model->setIdSituacao($params['idSituacao']);
-        $model->setStAtivo($params['stAtivo']);
+        $model->setStAtivo(1);
         $model->setDsJustificativa($params['dsJustificativa']);
 
         $id = $mapper->save($model);

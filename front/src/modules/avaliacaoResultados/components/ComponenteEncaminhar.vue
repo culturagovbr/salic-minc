@@ -52,13 +52,16 @@
                                             height="10px"
                                             solo
                                             single-line
-                                            :items="dadosProjeto.tecnicos"
+                                            :items="dadosDestinatarios"
                                             label="-- Escolha um técnico  --"
+                                            item-text="usu_nome"
+                                            item-value="usu_codigo"
                                             :rules="[rules.required]"
                                     ></v-select>
                                 </v-list-tile>
                                 <v-list-tile>
                                     <v-textarea
+                                            v-model="justificativa"
                                             ref="justificativa"
                                             label="Justificativa de encaminhamento para análise"
                                             prepend-icon="create"
@@ -75,7 +78,7 @@
                             <v-btn
                                     color="primary"
                                     flat
-                                    @click="enviarEncaminhamento()"
+                                    @click="enviarEncaminhamento"
                                     :disabled="!form"
                             >
                                 Encaminhar
@@ -96,34 +99,29 @@
 </template>
 
 <script>
-    import { mapActions, mapGetters } from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
     import Modal from '@/components/modal';
 
     export default {
         name: 'ComponenteEncaminhar',
         created() {
-            this.obterDadosTabela();
+            this.obterDestinatarios();
         },
         props: ['idPronac'],
         data() {
             return {
                 dialog: false,
-                dadosProjeto: {
-                    idPronac: 123456,
-                    nomeProjeto: 'dfdfgdfg',
-                    tecnicos: ['Foo', 'Bar', 'Fizz', 'Buzz']
-                },
                 rules: {
-                    required: v => !!v
+                    required: v => !!v,
                 },
                 destinatarioEncaminhamento: null,
                 justificativa: null,
-                form: null
-            }
+                form: null,
+            };
         },
         watch: {
-            dialog: function (val) {
-                if(!val) this.$refs.form.reset()
+            dialog(val) {
+                if (!val) this.$refs.form.reset();
             },
         },
         components: {
@@ -131,22 +129,31 @@
         },
         computed: {
             ...mapGetters({
-                dadosTabela: 'foo/dadosTabela',
-                modalVisible: 'modal/default',
+                dadosDestinatarios: 'avaliacaoResultados/dadosDestinatarios',
             }),
         },
         methods: {
             ...mapActions({
-                obterDadosTabela: 'foo/obterDadosTabela',
-                setRegistroAtivo: 'foo/setRegistroAtivo',
-                removerRegistro: 'foo/removerRegistro',
-                modalOpen: 'modal/modalOpen',
-                modalClose: 'modal/modalClose',
+                obterDestinatarios: 'avaliacaoResultados/obterDestinatarios',
+                encaminharParaTecnico: 'avaliacaoResultados/encaminharParaTecnico',
             }),
-            enviarEncaminhamento(){
+            enviarEncaminhamento() {
+                console.log(new Date().toLocaleString());
+                this.encaminharParaTecnico({
+                    atual: 5,
+                    proximo: 6,
+                    idPronac: this.idPronac || 123456,
+                    idOrgaoDestino: 1,
+                    idAgenteDestino: this.destinatarioEncaminhamento,
+                    cdGruposDestino: 1,
+                    dtFimEncaminhamento: '2015-09-25 10:38:41',
+                    idSituacaoEncPrestContas: 1,
+                    idSituacao: 1,
+                    dsJustificativa: this.justificativa,
+                });
                 this.dialog = false;
                 this.$refs.form.reset();
-            }
+            },
         },
     };
 </script>

@@ -26,10 +26,14 @@ Vue.component('sl-planilha-itens', {
                     <td style="text-align: right">
                         <div v-if="(tecnico)">
                             <div v-if="(item.varlorComprovado > 0)">
-                                <sl-planilha-button
-                                    :typeButton="url(item.idPlanilhaAprovacao, item.idPlanilhaItens, item.stItemAvaliado)"
-                                >
-                                </sl-planilha-button>
+                                <div v-if="(!documento)">
+                                    <sl-planilha-button
+                                        :typeButton="url(item.idPlanilhaAprovacao, item.idPlanilhaItens, item.stItemAvaliado)"
+                                    >
+                                    </sl-planilha-button>
+                                </div>
+                                <div v-else>
+                                </div>
                             </div>
                             <div v-else>
                                sem comprovantes.
@@ -54,7 +58,8 @@ Vue.component('sl-planilha-itens', {
         'cdcidade',
         'cdetapa',
         'stitemavaliado',
-        'tecnico'
+        'tecnico',
+        'documento'
     ],
     mounted() {
         $3('ul.tabs').tabs();

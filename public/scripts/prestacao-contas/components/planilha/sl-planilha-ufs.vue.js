@@ -1,5 +1,5 @@
 Vue.component('sl-planilha-ufs', {
-    props: ['estado', 'cdEtapa', 'cdProduto', 'idpronac'],
+    props: ['estado', 'cdEtapa', 'cdProduto', 'idpronac', "documento"],
     template: ` <li class="active">
                         <div class="collapsible-header blue-text active" style="padding-left: 50px;">
                             <i class="material-icons">place</i>

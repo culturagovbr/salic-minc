@@ -197,87 +197,87 @@
 </template>
 
 <script>
-import Planilha from '@/components/Planilha/Planilha';
-import Carregando from '@/components/Carregando';
-import SalicTextoSimples from '@/components/SalicTextoSimples';
-import PropostaIdentificacao from './components/PropostaIdentificacao';
-import PropostaHistoricoAvaliacoes from './components/PropostaHistoricoAvaliacoes';
-import PropostaHistoricoSugestoesEnquadramento from './components/PropostaHistoricoSugestoesEnquadramento';
-import PropostaHistoricoSolicitacoes from './components/PropostaHistoricoSolicitacoes';
-import AgenteProponente from '../components/AgenteProponente';
-import AgenteUsuario from '../components/AgenteUsuario';
-import PropostaDocumentos from './components/PropostaDocumentos';
-import PropostaPlanoDistribuicao from './components/PropostaPlanoDistribuicao';
-import PropostaFontesDeRecursos from './components/PropostaFontesDeRecursos';
-import PropostaLocalRealizacaoDeslocamento from './components/PropostaLocalRealizacaoDeslocamento';
-import PropostaCustosVinculados from './components/PropostaCustosVinculados';
-import { mapActions, mapGetters } from 'vuex';
-export default {
-    name: 'Proposta',
-    data() {
-        return {
-            dados: {
-                type: Object,
-                default() {
-                    return {};
+    import {mapActions, mapGetters} from 'vuex';
+    import Planilha from '@/components/Planilha/Planilha';
+    import Carregando from '@/components/Carregando';
+    import SalicTextoSimples from '@/components/SalicTextoSimples';
+    import PropostaIdentificacao from './components/PropostaIdentificacao';
+    import PropostaHistoricoAvaliacoes from './components/PropostaHistoricoAvaliacoes';
+    import PropostaHistoricoSugestoesEnquadramento from './components/PropostaHistoricoSugestoesEnquadramento';
+    import PropostaHistoricoSolicitacoes from './components/PropostaHistoricoSolicitacoes';
+    import AgenteProponente from '../components/AgenteProponente';
+    import AgenteUsuario from '../components/AgenteUsuario';
+    import PropostaDocumentos from './components/PropostaDocumentos';
+    import PropostaPlanoDistribuicao from './components/PropostaPlanoDistribuicao';
+    import PropostaFontesDeRecursos from './components/PropostaFontesDeRecursos';
+    import PropostaLocalRealizacaoDeslocamento from './components/PropostaLocalRealizacaoDeslocamento';
+    import PropostaCustosVinculados from './components/PropostaCustosVinculados';
+
+    export default {
+        name: 'Proposta',
+        data() {
+            return {
+                dados: {
+                    type: Object,
+                    default() {
+                        return {};
+                    },
                 },
+                loading: true,
+            };
+        },
+        props: ['idpreprojeto', 'proposta'],
+        components: {
+            PropostaIdentificacao,
+            PropostaHistoricoAvaliacoes,
+            PropostaHistoricoSugestoesEnquadramento,
+            PropostaHistoricoSolicitacoes,
+            AgenteProponente,
+            AgenteUsuario,
+            SalicTextoSimples,
+            Carregando,
+            PropostaDocumentos,
+            PropostaPlanoDistribuicao,
+            PropostaFontesDeRecursos,
+            PropostaLocalRealizacaoDeslocamento,
+            PropostaCustosVinculados,
+            Planilha,
+        },
+        mounted() {
+            if (typeof this.idpreprojeto !== 'undefined' && typeof this.proposta === 'undefined') {
+                this.buscarDadosProposta(this.idpreprojeto);
+                this.dados = this.dadosProposta;
+            }
+
+            if (typeof this.proposta !== 'undefined') {
+                this.dados = this.proposta;
+                this.loading = false;
+            }
+
+            this.iniciarCollapsible();
+        },
+        watch: {
+            dadosProposta(value) {
+                this.dados = value;
+                this.loading = false;
             },
-            loading: true,
-        };
-    },
-    props: ['idpreprojeto', 'proposta'],
-    components: {
-        PropostaIdentificacao,
-        PropostaHistoricoAvaliacoes,
-        PropostaHistoricoSugestoesEnquadramento,
-        PropostaHistoricoSolicitacoes,
-        AgenteProponente,
-        AgenteUsuario,
-        SalicTextoSimples,
-        Carregando,
-        PropostaDocumentos,
-        PropostaPlanoDistribuicao,
-        PropostaFontesDeRecursos,
-        PropostaLocalRealizacaoDeslocamento,
-        PropostaCustosVinculados,
-        Planilha,
-    },
-    mounted() {
-        if (typeof this.idpreprojeto !== 'undefined' && typeof this.proposta === 'undefined') {
-            this.buscarDadosProposta(this.idpreprojeto);
-            this.dados = this.dadosProposta;
-
-        }
-
-        if (typeof this.proposta !== 'undefined') {
-            this.dados = this.proposta;
-            this.loading = false;
-        }
-
-        this.iniciarCollapsible();
-    },
-    watch: {
-        dadosProposta(value) {
-            this.dados = value;
-            this.loading = false;
-        }
-    },
-    computed: {
-        ...mapGetters({
-            dadosProposta: 'proposta/proposta',
-        }),
-    },
-    methods: {
-        ...mapActions({
-            buscarDadosProposta: 'proposta/buscarDadosProposta',
-        }),
-        iniciarCollapsible() {
-            // eslint-disable-next-line
-            $3('.collapsible').each(function () {
+        },
+        computed: {
+            ...mapGetters({
+                dadosProposta: 'proposta/proposta',
+            }),
+        },
+        methods: {
+            ...mapActions({
+                buscarDadosProposta: 'proposta/buscarDadosProposta',
+            }),
+            iniciarCollapsible() {
                 // eslint-disable-next-line
-                $3(this).collapsible();
-            });
-        }
-    },
+                $3('.collapsible').each(function () {
+                    // eslint-disable-next-line
+                    $3(this).collapsible();
+                });
+            },
+        },
 };
 </script>

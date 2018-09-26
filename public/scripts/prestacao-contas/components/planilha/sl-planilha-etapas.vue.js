@@ -1,5 +1,5 @@
 Vue.component('sl-planilha-etapas', {
-    props: ['etapa', 'cdProduto', 'idpronac'],
+    props: ['etapa', 'cdProduto', 'idpronac', "documento"],
     template: `
         <li class="active">
             <div class="collapsible-header orange-text active" style="padding-left: 30px;">

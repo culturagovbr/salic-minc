@@ -13,23 +13,27 @@
                 <i class="material-icons left">warning</i> Diligenciar
             </button>
         </li>
-        <li class="waves-effect waves-light">
-            <a data-position="left" data-delay="50" data-tooltip="Emitir Parecer"
-                    class=" tooltipped btn-floating "
-                    href="/avaliacao-resultados/#/emitir-parecer/<?php echo $this->idPronac?>"
-                    title="Ir para Emitir Parecer">
-                <i class="material-icons">gavel</i>
-            </a>
-        </li>
-        <li class="waves-effect waves-light">
-            <a class=" tooltipped btn-floating green"
-               data-position="left"
-               data-tooltip="Finalizar Análise"
-               target="_blank"
-               href="#" id="lnkDespacho">
-                <i class="material-icons">done</i>
-            </a>
-        </li>
+        <?php if(!$this->idDocumento): ?>
+            <li class="waves-effect waves-light">
+                <a data-position="left" data-delay="50" data-tooltip="Emitir Parecer"
+                        class=" tooltipped btn-floating "
+                        href="/avaliacao-resultados/#/emitir-parecer/<?php echo $this->idPronac?>"
+                        title="Ir para Emitir Parecer">
+                    <i class="material-icons">gavel</i>
+                </a>
+            </li>
+        <?php endif ?>
+        <?php if($this->idDocumento): ?>
+            <li class="waves-effect waves-light">
+                <a class=" tooltipped btn-floating green"
+                   data-position="left"
+                   data-tooltip="Assinar"
+                   target="_blank"
+                   href="/assinatura/index/visualizar-projeto?idDocumentoAssinatura=<?php echo $this->idDocumento?>"  id="lnkDespacho">
+                    <i class="material-icons">edit</i>
+                </a>
+            </li>
+        <?php endif ?>
     </ul>
 </div>
 

@@ -67,9 +67,9 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+    import {mapActions, mapGetters} from 'vuex';
 
-export default {
+    export default {
     name: 'SlNav',
     components: {
     },
@@ -77,7 +77,7 @@ export default {
     data() {
         return {
             dados: this.dadosMenuAjax(),
-            //dados: '',
+            // dados: '',
         };
     },
     computed: {
@@ -86,7 +86,7 @@ export default {
         }),
     },
     mounted() {
-        //this.dadosMenuAjax();
+        // this.dadosMenuAjax();
     },
     methods: {
         ...mapActions({

@@ -1,5 +1,5 @@
 Vue.component('sl-planilha-produtos', {
-    props: ['produtos', 'idpronac'],
+    props: ['produtos', 'idpronac', 'documento'],
     template: `
         <ul class="collapsible no-margin" data-collapsible="expandable" id="produtos-collapsible">
             <li class="active" v-for="(produto, index) in produtos">

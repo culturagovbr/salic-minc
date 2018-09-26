@@ -11,94 +11,82 @@ if ($this->listarTudo == true) {
 }
 
 ?>
-<?php if ($this->idPreProjeto && $this->isProponente)            {
+<?php if ($this->idPreProjeto && $this->isProponente) {
     echo $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto));
- } else if ($this->idPronac && $this->isProponente && !empty($this->urlMenu)) {
+} else if ($this->idPronac && $this->isProponente && !empty($this->urlMenu)) {
     $this->SidebarVue($this->url($this->urlMenu, '', true));
-} 
+}
 ?>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="page-title">
-            <div class="row">
-                <div class="col s12 m9 l10">
-                    <h1>Solicita&ccedil;&otilde;es</h1>
-
-                    <?php
-                    gerarNovoBreadCrumb(array(
-                        array('Solicitações' => [
-                            'module' => 'solicitacao',
-                            'controller' => 'mensagem',
-                            'action', 'index']
-                        ),
-                        array('Visualizar' => '')
-                    ));
-                    ?>
-                </div>
-                <div class="col s12 m3 l2 right-align">
-                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
-                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="content">
-            <div class="card-panel">
+    <?= $this->pageTitle(
+        'Solicita&ccedil;&otilde;es',
+        [
+            ['Solicita&ccedil;&otilde;es' =>
+                [
+                'module' => 'solicitacao',
+                'controller' => 'mensagem',
+                'action', 'index'
+            ]],
+            ['Visualizar' => '']
+        ]
+    ); ?>
+    <div class="content">
+        <div class="card-panel">
+            <?php if ($this->idPronac) : ?>
                 <div class="row">
-                    <?php if ($this->idPronac) : ?>
-                        <div class="row">
-                            <div class="col s12">
-                                <b>Pronac: </b><?= $this->projeto->AnoProjeto . $this->projeto->Sequencial; ?><br>
-                            </div>
-                            <div class="col s12">
-                                <b>Proposta/Projeto: </b><?= $this->projeto->NomeProjeto; ?>
-                            </div>
-                        </div>
-                    <?php elseif ($this->idPreProjeto) : ?>
-                        <div class="row">
-                            <div class="col s12">
-                                <b>Nº Proposta: </b><?= $this->proposta->idPreProjeto; ?><br>
-                            </div>
-                            <div class="col s12">
-                                <b>Proposta/Projeto: </b><?= $this->proposta->NomeProjeto; ?>
-                            </div>
-                        </div>
-                    <?php endif; ?>
-
-                    <div id="container-list" class="container" style="width: 100%"
-                         data-ajax-render='/solicitacao/mensagem/listar<?= $params; ?>'>
+                    <div class="col s12">
+                        <b>Pronac: </b><?= $this->projeto->AnoProjeto . $this->projeto->Sequencial; ?><br>
                     </div>
-                    <?php if(isset($this->projeto->IdPRONAC) || $this->proposta->idPreProjeto) : ?>
-                        <?php if (!empty($this->existeSolicitacaoEnviadaNaoRespondida) && $this->isProponente) : ?>
-                            <div class="center-align padding20">
-                                <a href="javascript:void(0)"
-                                   onload="(function(e){ alert(e); })(event)"
-                                   class="btn disabled">Nova Solicita&ccedil;&atilde;o</a>
-                            </div>
-                            <div class="message"><span>Você possui uma solicitação aguardando resposta.</span></div>
-                        <?php else: ?>
-                            <?php if ($this->isProponente) : ?>
-                                <div class="center-align padding20">
-                                    <a id="btn_enviar"
-                                       href="<?= $this->url(array('module' => 'solicitacao', 'controller' => 'mensagem', 'action' => 'solicitar', 'idPronac' => $this->projeto->IdPRONAC, 'idPreProjeto' => $this->proposta->idPreProjeto)); ?>"
-                                       class="btn waves-effect waves-light bt_rascunho">Nova Solicita&ccedil;&atilde;o</a>
-                                </div>
-
-                                <div class="fixed-action-btn">
-                                    <a href="javascript:$3.redirect('<?= $this->url(array('module' => 'solicitacao', 'controller' => 'mensagem', 'action' => 'solicitar', 'idPronac' => $this->projeto->IdPRONAC, 'idPreProjeto' => $this->proposta->idPreProjeto)); ?>');"
-                                       class="btn-floating btn-large tooltipped waves-effect waves-light"
-                                       data-position="left"
-                                       data-delay="50"
-                                       data-tooltip="Escrever uma solicita&ccedil;&atilde;o">
-                                        <i class="large material-icons">create</i>
-                                    </a>
-                                </div>
-                            <?php endif; ?>
-                        <?php endif; ?>
-                    <?php endif; ?>
+                    <div class="col s12">
+                        <b>Proposta/Projeto: </b><?= $this->projeto->NomeProjeto; ?>
+                    </div>
                 </div>
+            <?php elseif ($this->idPreProjeto) : ?>
+                <div class="row">
+                    <div class="col s12">
+                        <b>N&ordm; Proposta: </b><?= $this->proposta->idPreProjeto; ?><br>
+                    </div>
+                    <div class="col s12">
+                        <b>Proposta/Projeto: </b><?= $this->proposta->NomeProjeto; ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+
+            <div id="container-list" class="container" style="width: 100%"
+                data-ajax-render='/solicitacao/mensagem/listar<?= $params; ?>'>
             </div>
-        </div>
+            <?php if (!$this->isArquivado) : ?>
+                <?php if ((!empty($this->existeSolicitacaoEnviadaNaoRespondida) && $this->isProponente)) : ?>
+                    <div class="center-align padding20">
+                        <a href="javascript:void(0)"
+                        class="btn disabled">Nova Solicita&ccedil;&atilde;o</a>
+                    </div>
+                    <div class="message"><span>Voc&ecirc; possui uma solicita&ccedil;&atild;o aguardando resposta.</span></div>
+                <?php elseif ($this->isProponente) : ?>
+                    <div class="center-align padding20">
+                        <a id="btn_enviar"
+                        href="<?= $this->url(array('module' => 'solicitacao', 'controller' => 'mensagem', 'action' => 'solicitar', 'idPronac' => $this->projeto->IdPRONAC, 'idPreProjeto' => $this->proposta->idPreProjeto)); ?>"
+                        class="btn waves-effect waves-light bt_rascunho">Nova Solicita&ccedil;&atilde;o</a>
+                    </div>
+
+                    <div class="fixed-action-btn">
+                        <a href="javascript:$3.redirect('<?= $this->url(array('module' => 'solicitacao', 'controller' => 'mensagem', 'action' => 'solicitar', 'idPronac' => $this->projeto->IdPRONAC, 'idPreProjeto' => $this->proposta->idPreProjeto)); ?>');"
+                        class="btn-floating btn-large tooltipped waves-effect waves-light"
+                        data-position="left"
+                        data-delay="50"
+                        data-tooltip="Escrever uma solicita&ccedil;&atilde;o">
+                            <i class="large material-icons">create</i>
+                        </a>
+                    </div>
+                <?php endif; ?>
+            <?php else : ?>
+                    <div class="center-align padding20">
+                        <a href="javascript:void(0)"
+                        class="btn disabled">Nova Solicita&ccedil;&atilde;o</a>
+                    </div>
+                    <div class="message"><span>Esse projeto foi arquivado</span></div>
+            <?php endif; ?>
+            </div>
     </div>
 </div>

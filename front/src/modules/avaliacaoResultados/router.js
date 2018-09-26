@@ -46,7 +46,7 @@ const routes = [
         },
     },
     {
-        path: '/planilha',
+        path: '/planilha/:id',
         name: 'Analise Planilha',
         component: Planilha,
         meta: {

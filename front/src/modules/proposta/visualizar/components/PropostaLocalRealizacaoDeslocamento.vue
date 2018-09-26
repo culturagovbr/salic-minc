@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-content">
                 <h5>Local de Realiza&ccedil;&atilde;o</h5>
-                <table v-if="local.localizacoes" class="bordered responsive-table">
+                <table v-if="localizacoes.abrangencia" class="bordered responsive-table">
                     <thead>
                     <tr>
                         <th>Pa&iacute;s</th>
@@ -12,7 +12,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(localizacao,index) in local.localizacoes" :key="index">
+                    <tr v-for="(localizacao,index) in localizacoes.abrangencia" :key="index">
                         <td>{{ localizacao.pais }}</td>
                         <td>{{ localizacao.uf }}</td>
                         <td>{{ localizacao.cidade }}</td>
@@ -26,7 +26,7 @@
         <div class="card">
             <div class="card-content">
                 <h5>Deslocamentos</h5>
-                <table v-if="local.deslocamentos && local.deslocamentos.lenght > 1"
+                <table v-if="localizacoes.deslocamento && localizacoes.deslocamento.lenght > 1"
                        class="bordered responsive-table">
                     <thead>
                     <tr>
@@ -40,7 +40,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="(deslocamento, index) in local.deslocamentos" :key="index">
+                    <tr v-for="(deslocamento, index) in localizacoes.deslocamento" :key="index">
                         <td>{{ deslocamento.paisorigem }}</td>
                         <td>{{ deslocamento.uforigem }}</td>
                         <td>{{ deslocamento.municipioorigem }}</td>
@@ -61,15 +61,29 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'PropostaLocalRealizacaoDeslocamento',
-    props: ['idpreprojeto', 'localizacoes'],
+    props: ['idpreprojeto', 'proposta'],
+    data() {
+      return {
+          localizacoes: {},
+      }
+    },
     mounted() {
+        if (this.proposta && this.proposta.abrangencia) {
+            this.localizacoes = this.proposta;
+        }
         if (typeof this.idpreprojeto !== 'undefined') {
             this.buscaLocalRealizacaoDeslocamento(this.idpreprojeto);
         }
     },
     watch: {
         idpreprojeto(value) {
+            if(value.abrangencia) {
+                this.localizacoes = value.abrangencia;
+            }
             this.buscaLocalRealizacaoDeslocamento(value);
+        },
+        local(value) {
+            this.localizacoes = value;
         },
     },
     computed: {
