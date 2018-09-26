@@ -88,7 +88,7 @@ class UploadController extends MinC_Controller_Action_Abstract
             $idPronac = $_REQUEST['idPronac'];
 
             //DEFINE FASE DO PROJETO
-            $this->faseDoProjeto($idPronac);
+            $this->faseDoProjeto($this->idPronac);
             $this->view->intFaseProjeto = $this->intFaseProjeto;
 
             /*             * * Validacao do Proponente Inabilitado *********************************** */
@@ -99,10 +99,10 @@ class UploadController extends MinC_Controller_Action_Abstract
             $tblProjetos = new Projetos();
 
             $proj = new Projetos();
-            $resp = $proj->buscar(array('IdPRONAC = ?' => $idPronac))->current();
+            $resp = $proj->buscar(array('IdPRONAC = ?' => $this->idPronac))->current();
             $this->view->resp = $resp;
 
-            $arrBusca['IdPronac = ?'] = $idPronac;
+            $arrBusca['IdPronac = ?'] = $this->idPronac;
             $rsProjeto = $tblProjetos->buscar($arrBusca)->current();
 
             $idPreProjeto = null;
@@ -111,7 +111,7 @@ class UploadController extends MinC_Controller_Action_Abstract
                 $idPreProjeto = $rsProjeto->idProjeto;
             }
 
-            $tbdados = $geral->buscarDadosProponente($idPronac);
+            $tbdados = $geral->buscarDadosProponente($this->idPronac);
             $this->view->dados = $tbdados;
 
             // Busca na SGCAcesso
@@ -133,7 +133,7 @@ class UploadController extends MinC_Controller_Action_Abstract
             $idagente = $Usuario->getIdUsuario('', $cpf);
             $this->idAgente = (isset($idagente['idAgente']) && !empty($idagente['idAgente'])) ? $idagente['idAgente'] : 0;
             $ag = new Agente_Model_DbTable_Agentes();
-            $buscarvinculo = $ag->buscarAgenteVinculoProponente(array('vp.idAgenteProponente = ?' => $this->idAgente, 'pr.idPRONAC = ?' => $idPronac, 'vprp.siVinculoProposta = ?' => 2));
+            $buscarvinculo = $ag->buscarAgenteVinculoProponente(array('vp.idAgenteProponente = ?' => $this->idAgente, 'pr.idPRONAC = ?' => $this->idPronac, 'vprp.siVinculoProposta = ?' => 2));
             $this->view->vinculo = $buscarvinculo->count() > 0 ? true : false;
 
             $cpfLogado = $this->cpfLogado;
