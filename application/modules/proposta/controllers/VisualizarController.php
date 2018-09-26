@@ -139,11 +139,11 @@ class Proposta_VisualizarController extends Proposta_GenericController
 
             $documentos = [];
 
-            $tbl = new Proposta_Model_DbTable_TbDocumentosPreProjeto();
-            $documentos['proposta'] = $tbl->buscarDadosDocumentos(array("idProjeto = ?" => $idPreProjeto));
+            $tbDocumentosPreProjeto = new Proposta_Model_DbTable_TbDocumentosPreProjeto();
+            $documentos['documentos_proposta'] = $tbDocumentosPreProjeto->buscarDadosDocumentos(array("idProjeto = ?" => $idPreProjeto));
 
-            $tbA = new Proposta_Model_DbTable_TbDocumentosAgentes();
-            $documentos['proponente'] = $tbA->buscarDadosDocumentos(array("idAgente = ?" => $idAgente))->toArray();
+            $tbAgentes = new Proposta_Model_DbTable_TbDocumentosAgentes();
+            $documentos['documentos_proponente'] = $tbAgentes->buscarDadosDocumentos(array("idAgente = ?" => $idAgente))->toArray();
 
             $arrayTipos = array(1, 2, 3);
 
@@ -187,10 +187,10 @@ class Proposta_VisualizarController extends Proposta_GenericController
         $arrBusca['idprojeto'] = $idPreProjeto;
         $arrBusca['stabrangencia'] = 1;
         $tblAbrangencia = new Proposta_Model_DbTable_Abrangencia();
-        $dados['localizacoes'] = $tblAbrangencia->buscar($arrBusca);
+        $dados['abrangencia'] = $tblAbrangencia->buscar($arrBusca);
 
         $tblDeslocamento = new Proposta_Model_DbTable_TbDeslocamento();
-        $dados['deslocamentos'] = $tblDeslocamento->buscarDeslocamentosGeral(array('idProjeto' => $idPreProjeto));
+        $dados['deslocamento'] = $tblDeslocamento->buscarDeslocamentosGeral(array('idProjeto' => $idPreProjeto));
 
         foreach ($dados as $key => $array) {
             foreach ($array as $key2 => $dado) {

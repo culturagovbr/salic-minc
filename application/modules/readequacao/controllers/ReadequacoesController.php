@@ -198,6 +198,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             //CALCULAR VALORES MINIMO E MAXIMO PARA VALIDACAO
             $dadosPlanilhaAtiva['idPlanilhaAprovacao'] = $registro['idPlanilhaAprovacao'];
             $dadosPlanilhaAtiva['idProduto'] = $registro['idProduto'];
+            $dadosPlanilhaAtiva['nrFonteRecurso'] = $registro['nrFonteRecurso'];
             $dadosPlanilhaAtiva['descProduto'] = utf8_encode($registro['descProduto']);
             $dadosPlanilhaAtiva['idEtapa'] = $registro['idEtapa'];
             $dadosPlanilhaAtiva['descEtapa'] = utf8_encode($registro['descEtapa']);
@@ -218,6 +219,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             foreach ($planilhaEditaval as $registroEditavel) {
                 $dadosPlanilhaEditavel['idPlanilhaAprovacao'] = $registroEditavel['idPlanilhaAprovacao'];
                 $dadosPlanilhaEditavel['idProduto'] = $registroEditavel['idProduto'];
+                $dadosPlanilhaEditavel['nrFonteRecurso'] = $registroEditavel['nrFonteRecurso'];
                 $dadosPlanilhaEditavel['descProduto'] = utf8_encode($registroEditavel['descProduto']);
                 $dadosPlanilhaEditavel['idEtapa'] = $registroEditavel['idEtapa'];
                 $dadosPlanilhaEditavel['descEtapa'] = utf8_encode($registroEditavel['descEtapa']);
@@ -440,6 +442,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $editarItem->qtDias = $this->_request->getParam('QtdeDias');
         $editarItem->dsJustificativa = utf8_decode($this->_request->getParam('Justificativa'));
         $editarItem->idAgente = $idAgente;
+        $editarItem->nrFonteRecurso = $this->_request->getParam('nrFonteRecurso');
         if ($editarItem->tpAcao == 'N') {
             $editarItem->tpAcao = 'A';
         }

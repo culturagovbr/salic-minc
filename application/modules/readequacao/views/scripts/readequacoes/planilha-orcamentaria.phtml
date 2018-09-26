@@ -517,7 +517,8 @@
                      $('#campoTotalSolicitado').html(data.dadosPlanilhaAtiva.TotalSolicitado);
                      
                      $('#campoValorComprovado').html(data.valoresDoItem.vlComprovadoDoItem);
-
+		     
+		     $('#modalFonteRecurso').val(data.dadosPlanilhaEditavel.nrFonteRecurso);
                      $('#modalUnidade').val(data.dadosPlanilhaEditavel.idUnidade);
                      $('#modalQuantidade').val(data.dadosPlanilhaEditavel.Quantidade);
                      $('#modalOcorrencia').val(data.dadosPlanilhaEditavel.Ocorrencia);
@@ -548,6 +549,7 @@
                              'Salvar' : function(){
                                  var Unidade = $('#modalUnidade').val(),
                                      Quantidade = $('#modalQuantidade').val(),
+				     nrFonteRecurso = $('#modalFonteRecurso').val(),
                                      Ocorrencia = $('#modalOcorrencia').val(),
                                      ValorUnitario = $('#modalValorUnitario').val(),
                                      QtdeDias = $('#modalDias').val(),
@@ -604,6 +606,7 @@
                                          url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'salvar-avaliacao-do-item'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
                                          data: {
                                              idPlanilha: idPlanilhaAprovacao,
+					     nrFonteRecurso: nrFonteRecurso,
                                              Unidade: Unidade,
                                              Quantidade: Quantidade,
                                              Ocorrencia: Ocorrencia,
@@ -939,14 +942,14 @@
         </table>
 
         <table class="tabela btnIncluir <?php if (count($this->readequacao) > 0) : ?>sumir<?php endif; ?>">
-          <tr>
-	    <td class="destacar bold" style="font-size: 13px;">Incluir uma nova planilha or&ccedil;ament&aacute;ria</td>
-          </tr>
-	  <tr>
-            <td>
-              <input type="button" class="btn_incluir" id="IncluirReadequacao" />
-            </td>
-          </tr>
+            <tr>
+		<td class="destacar bold" style="font-size: 13px;">Incluir uma nova planilha or&ccedil;ament&aacute;ria</td>
+            </tr>
+	    <tr>
+		<td>
+		    <input type="button" class="btn_incluir" id="IncluirReadequacao" />
+		</td>
+            </tr>
         </table>
         
         <table class="tabela planilhaOrcamentaria sumir">
@@ -983,13 +986,13 @@
                 <td class="destacar bold" style="font-size: 13px;">Justificativa da Solicita&ccedil;&atilde;o <span class="red-text">*</span></td>
             </tr>
             <tr>
-              <td>
-		<textarea cols="80" id="descJustificativa" name="descJustificativa" rows="10">
+		<td>
+		    <textarea cols="80" id="descJustificativa" name="descJustificativa" rows="10">
 		  <?php if (count($this->readequacao) > 0): ?>
 		  <?php echo $this->readequacao[0]->dsJustificativa; ?>
 		  <?php endif; ?>
-		</textarea>
-	      </td>
+		    </textarea>
+		</td>
             </tr>
             <tr>
                 <td><span class="red-text">* Campo obrigatorio e permite o maximo de 5.000 caracteres</span></td>
@@ -1003,7 +1006,7 @@
 	    <?php if (count($this->readequacao) > 0): ?>	    
 	    <?php if (!empty($this->readequacao[0]->idArquivo)): ?>
 	    <tr>
-              <td><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $this->readequacao[0]->idArquivo; ?>"><?php echo $this->readequacao[0]->nmArquivo; ?></a></td>
+		<td><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $this->readequacao[0]->idArquivo; ?>"><?php echo $this->readequacao[0]->nmArquivo; ?></a></td>
 	    </tr>
 	    <?php endif; ?>
 	    <?php endif; ?>	    
@@ -1011,7 +1014,7 @@
                 <td><input type="file" name="arquivo" class="input_simples"> <span style="margin-left: 10px;" class="red-text">Somente arquivos .pdf</span></td>
             </tr>
         </table>
-    
+	
         <table class="tabela btnSalvar sumir">
             <tr>
                 <td class="centro">
@@ -1025,14 +1028,14 @@
         <table class="tabela">
             <tr>
                 <td class="centro">
-                  <input type="button" class="btn_finalizar sumir" id="btn_finalizar" title="Finalizar" />
-                  <input type="button" class="btn_exclusao sumir" id="btn_excluir" readequacao="<?php echo count($this->readequacao) > 0 ? $this->readequacao[0]->idReadequacao : ''; ?>" />
-                  <input type="button" class="btn_cancelar" id="btn_voltar" title="Voltar" />
+                    <input type="button" class="btn_finalizar sumir" id="btn_finalizar" title="Finalizar" />
+                    <input type="button" class="btn_exclusao sumir" id="btn_excluir" readequacao="<?php echo count($this->readequacao) > 0 ? $this->readequacao[0]->idReadequacao : ''; ?>" />
+                    <input type="button" class="btn_cancelar" id="btn_voltar" title="Voltar" />
                 </td>
             </tr>
         </table>
     </form>
-                                                                                                                
+    
     <!-- ========== Fim FORMUL�RIO ========== -->
 
     <?php //MODAL DE AVALIA��O DO ITEM ?>
@@ -1077,8 +1080,23 @@
         
         <table class="tabela">
             <tr>
-                <th colspan="6">Dados para a readequa&ccedil;&atilde;o</th>
+                <th colspan="3">Dados para a readequa&ccedil;&atilde;o</th>
             </tr>
+	    <tr class="centro">
+		<td colspan="6" class="destacar bold">Fonte de recursos</td>
+	    </tr>
+	    <tr>
+		<td colspan="6">
+		    <select class="select_simples w400 modalObrigatorios" name="modalFonteRecurso" id="modalFonteRecurso">
+                        <option value=""> - Selecione - </option>
+                        <?php foreach ($this->Recursos as $rec){ ?>
+                        <option value="<?php echo $rec->idverificacao; ?>"><?php echo $rec->verificacaodescricao; ?></option>
+                        <?php } ?>
+		    </select>
+		</td>
+
+	    </tr>
+	    
             <tr class="centro">
                 <td class="destacar bold">Unidade</td>
                 <td class="destacar bold">Qtd</td>
@@ -1089,7 +1107,7 @@
             </tr>
             <tr>
                 <td>
-                    <select class="select_simples w150 modalObrigatorios" name="modalUnidade" id="modalUnidade">
+		    <select class="select_simples w150 modalObrigatorios" name="modalUnidade" id="modalUnidade">
                         <option value=""> - Selecione - </option>
                         <?php foreach ($this->Unidade as $unit){ ?>
                         <option value="<?php echo $unit->idUnidade; ?>"><?php echo $unit->Descricao; ?></option>

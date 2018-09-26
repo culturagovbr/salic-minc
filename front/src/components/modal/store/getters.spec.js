@@ -5,12 +5,12 @@ describe('modal getters', () => {
 
     beforeEach(() => {
         state = {
-            isVisible: {},
+            modalAberta: {},
         };
     });
 
     test('default', () => {
         const result = getters.default(state);
-        expect(result).toEqual(state.isVisible);
+        expect(result).toEqual(state.modalAberta);
     });
 });
