@@ -33,7 +33,7 @@ class AvaliacaoResultados_Model_tbAvaliacaoFinanceiraRevisaoMapper extends MinC_
             }
         }
 
-        if (!isset($arrData['idAvaliacaoFinanceiraRevisao']) && isset($arrData['idAvaliacaoFinanceira'])) {
+        if (isset($arrData['idAvaliacaoFinanceiraRevisao']) && isset($arrData['idAvaliacaoFinanceira'])) {
             $row = $this->getDbTable()->findBy([
                 'idAvaliacaoFinanceira' => $arrData['idAvaliacaoFinanceira']
             ]);
