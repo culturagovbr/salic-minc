@@ -4,9 +4,22 @@ use Application\Modules\AvaliacaoResultados\Service\ParecerTecnico\RevisaoAvalia
 
 class AvaliacaoResultados_RevisaoController extends MinC_Controller_Rest_Abstract
 {
+    /**
+     * @var \Zend_Controller_Request_Abstract $request
+     */
+    private $request;
+
+    /**
+     * @var \Zend_Controller_Response_Abstract $response
+     */
+    private $response;
+
 
     public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = array())
     {
+        $this->request = $request;
+        $this->response = $response;
+
         $profiles = [
             Autenticacao_Model_Grupos::TECNICO_PRESTACAO_DE_CONTAS,
             Autenticacao_Model_Grupos::COORDENADOR_PRESTACAO_DE_CONTAS,
@@ -31,8 +44,8 @@ class AvaliacaoResultados_RevisaoController extends MinC_Controller_Rest_Abstrac
             $this->customRenderJsonResponse([], 422);
         }
 
-        $revisaoService = new RevisaoService($this->getRequest(), $this->getResponse());
-        $resposta = $revisaoService->buscarRevisoes($this->_request->idAvaliacaoFinanceira);
+        $revisaoService = new RevisaoService();
+        $resposta = $revisaoService->buscarRevisoes($this->request->getParams()["idAvaliacaoFinanceira"]);
         $this->renderJsonResponse(\TratarArray::utf8EncodeArray($resposta), 200);
     }
 
@@ -42,8 +55,8 @@ class AvaliacaoResultados_RevisaoController extends MinC_Controller_Rest_Abstrac
         {
             $this->customRenderJsonResponse([], 422);
         }
-        $revisaoService = new RevisaoService($this->getRequest(), $this->getResponse());
-        $resposta = $revisaoService->buscarRevisao($this->_request->idAvaliacaoFinanceiraRevisao);
+        $revisaoService = new RevisaoService();
+        $resposta = $revisaoService->buscarRevisao($this->request->getParams()["idAvaliacaoFinanceiraRevisao"]);
         $this->renderJsonResponse(\TratarArray::utf8EncodeArray($resposta), 200);
 
     }
@@ -57,8 +70,8 @@ class AvaliacaoResultados_RevisaoController extends MinC_Controller_Rest_Abstrac
 
     public function putAction()
     {
-        $revisaoService = new RevisaoService($this->getRequest(), $this->getResponse());
-        $response = $revisaoService->salvar();
+        $revisaoService = new RevisaoService();
+        $response = $revisaoService->salvar($this->request->getParams());
         $this->customRenderJsonResponse($response, 200);
     }
 

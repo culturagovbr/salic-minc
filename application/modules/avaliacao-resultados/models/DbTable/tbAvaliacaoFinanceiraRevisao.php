@@ -36,4 +36,8 @@ class AvaliacaoResultados_Model_DbTable_tbAvaliacaoFinanceiraRevisao extends Min
 
         return $this->fetchAll($select);
     }
+
+    public function aprovacaoRevisao(){
+
+    }
 }
