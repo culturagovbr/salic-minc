@@ -21,6 +21,7 @@ export const state = {
     redirectLink: {},
     planilha: {},
     projetoAnalise: {},
+    consolidacaoAnalise: {},
     parecerLaudoFinal: {},
     characterManifestacao: '',
     characterParecer: '',
@@ -94,6 +95,9 @@ export const mutations = {
     },
     [types.GET_PROJETO_ANALISE](state, projetoAnalise) {
         state.projetoAnalise = projetoAnalise;
+    },
+    [types.GET_CONSOLIDACAO_ANALISE](state, consolidacaoAnalise) {
+        state.consolidacaoAnalise = consolidacaoAnalise;
     },
     [types.GET_LAUDO_FINAL](state, data) {
         state.parecerLaudoFinal = data;

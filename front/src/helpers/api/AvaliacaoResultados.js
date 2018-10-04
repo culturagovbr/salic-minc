@@ -42,6 +42,8 @@ export const planilha = params => api.getRequest(`/prestacao-contas/realizar-pre
 
 export const projetoAnalise = params => api.getRequest(`/avaliacao-resultados/projeto/idPronac/${params}`);
 
+export const consolidacaoAnalise = params => api.getRequest(`/prestacao-contas/visualizar-projeto/dados-projeto?idPronac=${params}`);
+
 export const finalizarParecer = (params) => {
     // const parametro = params.idPronac;
     // delete params.idPronac;

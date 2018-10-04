@@ -124,6 +124,14 @@ export const projetoAnalise = ({ commit }, params) => {
         });
 };
 
+export const consolidacaoAnalise = ({ commit }, params) => {
+    avaliacaoResultadosHelperAPI.consolidacaoAnalise(params)
+        .then((response) => {
+            const consolidacaoAnalise = response.data;
+            commit(types.GET_CONSOLIDACAO_ANALISE, consolidacaoAnalise);
+        });
+};
+
 export const finalizarParecer = (_, params) => {
     avaliacaoResultadosHelperAPI.finalizarParecer(params)
         .then(() => {
