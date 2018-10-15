@@ -22,7 +22,7 @@ export const state = {
     planilha: {},
     projetoAnalise: {},
     consolidacaoAnalise: {},
-    parecerLaudoFinal: {},
+    getParecerLaudoFinal: {},
     characterManifestacao: '',
     characterParecer: '',
     projetosFinalizados: {},
@@ -104,8 +104,8 @@ export const mutations = {
     [types.GET_CONSOLIDACAO_ANALISE](state, consolidacaoAnalise) {
         state.consolidacaoAnalise = consolidacaoAnalise;
     },
-    [types.GET_LAUDO_FINAL](state, data) {
-        state.parecerLaudoFinal = data;
+    [types.GET_PARECER_LAUDO_FINAL](state, data) {
+        state.getParecerLaudoFinal = data;
     },
     [types.SET_MANIFESTACAO_PROVISORIA](state, characterManifestacao) {
         state.characterManifestacao = characterManifestacao;

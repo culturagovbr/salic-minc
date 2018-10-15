@@ -152,17 +152,16 @@
     },
     methods: {
         detalhamentosByID(lista, id) {
+            const novaLista = [];
 
             if (typeof lista !== 'undefined') {
-                /* eslint-disable */
-                let novaLista = [];
+                Object.keys(lista)
+                    .map((key) => {
+                        if (lista[key].idPlanoDistribuicao === id) {
+                            novaLista.push(lista[key]);
+                        }
+                    });
 
-                Object.keys(lista).map((key) => {
-                    if (lista[key].idPlanoDistribuicao === id) {
-                        novaLista.push(lista[key]);
-                    }
-                    return novaLista;
-                });
                 return novaLista;
             }
             return lista;

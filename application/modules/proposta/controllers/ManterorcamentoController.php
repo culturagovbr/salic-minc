@@ -98,7 +98,7 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
         $this->view->localRealizacao = $tblAbrangencia->buscar($arrBusca);
 
         $tbCustosVinculadosMapper = new Proposta_Model_TbCustosVinculadosMapper();
-        $this->view->itensCustosVinculados = $tbCustosVinculadosMapper->obterCustosVinculados($this->idPreProjeto);
+        $this->view->itensCustosVinculados = $tbCustosVinculadosMapper->obterCustosVinculadosPlanilhaProposta($this->idPreProjeto);
     }
 
     public function salvarpercentuaiscustosvinculadosAction()

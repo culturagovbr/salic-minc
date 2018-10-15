@@ -6,11 +6,11 @@
                         <v-btn icon dark :to="{ name: 'Laudo' }">
                             <v-icon>close</v-icon>
                         </v-btn>
-                        <v-toolbar-title>Avaliação Financeira - Emissão de Laudo Final</v-toolbar-title>
+                        <v-toolbar-title>Emissão de Laudo Final de Avaliação de Resultados</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-toolbar-items>
-                            <v-btn dark flat @click.native="salvarLaudoFinal()" :disabled="!valid">Salvar</v-btn>
-                            <v-btn dark flat @click.native="finalizarLaudoFinal()" :disabled="!valid">Gerar Documento</v-btn>
+                            <v-btn dark flat @click.native="salvarLaudoFinal()">Salvar</v-btn>
+                            <v-btn dark flat @click.native="finalizarLaudoFinal()" :disabled="!parecerLaudoFinal.items.idLaudoFinal">Gerar Documento</v-btn>
                         </v-toolbar-items>
                 </v-toolbar>
                 <v-container grid-list-sm>
@@ -27,21 +27,20 @@
                 <v-container grid-list>
                     <v-layout wrap align-center>
                         <v-flex>
-                            <v-select height="20px"
-                                      :value="parecerLaudoFinal.manifestacao"
-                                      @change="updateManifestacao"
-                                      :rules="itemRules"
-                                      :items="items"
-                                      item-text="text"
-                                      item-value="id"
-                                      box
-                                      label="Manifestação *"
-                                      required="required">
-                            </v-select>
+                            <label for="manifestacao">Manifestação *</label>
+                            <v-radio-group :value="parecerLaudoFinal.items.siManifestacao"
+                                           @change="updateManifestacao"
+                                           id="manifestacao"
+                                           :rules="itemRules"
+                                           row>
+                                <v-radio color="success" label="Aprovado" value="A"></v-radio>
+                                <v-radio color="success" label="Aprovado com ressalvas" value="P"></v-radio>
+                                <v-radio color="success" label="Reprovado" value="R"></v-radio>
+                            </v-radio-group>
                         </v-flex>
                     </v-layout>
                     <v-flex>
-                        <v-textarea :value="parecerLaudoFinal.laudoTecnico"
+                        <v-textarea :value="parecerLaudoFinal.items.dsLaudoFinal"
                                     @input="updateParecer"
                                     :rules="parecerRules"
                                     color="deep-purple"
@@ -73,20 +72,6 @@
                     v => !!v || 'Parecer é obrigatório!',
                     v => Object(v).length >= 10 || 'Parecer deve conter mais que 10 caracteres',
                 ],
-                items: [
-                    {
-                        id: 'A',
-                        text: 'Aprovação',
-                    },
-                    {
-                        id: 'R',
-                        text: 'Reprovação',
-                    },
-                    {
-                        id: 'P',
-                        text: 'Aprovação com Ressalva',
-                    },
-                ],
             };
         },
         methods:
@@ -108,7 +93,7 @@
                 const data = {
                     idPronac: this.idPronac,
                     siManifestacao: this.characterManifestacao,
-                    dsParecer: this.characterParecer,
+                    dsLaudoFinal: this.characterParecer,
                 };
 
                 this.salvar(data);
@@ -119,7 +104,7 @@
                 const data = {
                     idPronac: this.idPronac,
                     siManifestacao: this.characterManifestacao,
-                    dsParecer: this.characterParecer,
+                    dsLaudoFinal: this.characterParecer,
                     atual: 5,
                     proximo: 6,
                 };
@@ -141,17 +126,16 @@
                 modalVisible: 'modal/default',
                 proponente: 'avaliacaoResultados/proponente',
                 projeto: 'avaliacaoResultados/projeto',
-                parecerLaudoFinal: 'avaliacaoResultados/parecerLaudoFinal',
+                parecerLaudoFinal: 'avaliacaoResultados/getParecerLaudoFinal',
                 characterManifestacao: 'avaliacaoResultados/characterManifestacao',
                 characterParecer: 'avaliacaoResultados/characterParecer',
             }),
         },
         created() {
             this.getConsolidacao(this.idPronac);
-            this.getLaudoFinal();
-            this.atualizarManifestacao(this.parecerLaudoFinal.manifestacao);
-            this.atualizarParecer(this.parecerLaudoFinal.laudoTecnico);
-            // this.$refs.form.validate();
+            this.getLaudoFinal(this.idPronac);
+            this.atualizarManifestacao(this.parecerLaudoFinal.items.siManifestacao);
+            this.atualizarParecer(this.parecerLaudoFinal.items.dsLaudoFinal);
         },
     };
 </script>

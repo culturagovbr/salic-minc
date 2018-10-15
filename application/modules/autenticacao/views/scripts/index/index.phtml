@@ -32,16 +32,18 @@
                                 <input type="hidden" name="from" value="<?php echo $this->from; ?>" />
                                 <div class="input-field col s12">
                                     <i class="material-icons prefix green-text">account_circle</i>
-                                    <input  required="required"  type="text" name="Login"
+                                    <input required="required" type="text" name="Login"
                                            id="Login"
-                                            class="cpf"/>
+                                           class="cpf"
+                                           autocomplete="username"
+                                    />
                                     <label for="Login">CPF</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12 container-senha">
                                     <i class="material-icons prefix green-text">lock</i>
-                                    <input required="required" type="password" name="Senha" id="Senha" />
+                                    <input required="required" type="password" name="Senha" id="Senha" autocomplete="current-password"/>
                                     <label for="Senha">Senha</label>
                                     <a href="javascript:void(0)" class="material-icons prefix green-text mostrar-senha" onclick="mostrarSenha();">remove_red_eye</a>
                                 </div>

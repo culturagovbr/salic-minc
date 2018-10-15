@@ -225,6 +225,9 @@ class Assinatura_IndexController extends Assinatura_GenericController
     public function visualizarProjetoAction()
     {
         $get = Zend_Registry::get('get');
+        if (filter_input(INPUT_GET, 'modal')) {
+            $this->_helper->layout->disableLayout();
+        }
         $idDocumentoAssinatura = $get->idDocumentoAssinatura;
 
         $this->obterDocumentoAssinado($idDocumentoAssinatura);

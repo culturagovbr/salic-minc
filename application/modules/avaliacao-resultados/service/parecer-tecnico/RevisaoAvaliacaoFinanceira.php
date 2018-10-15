@@ -15,9 +15,9 @@ class RevisaoAvaliacaoFinanceira
         $dadosRevisao = $tbAvaliacaoFinanceira->findByAvaliacaoFinanceira($where)->toArray();
         if(!$dadosRevisao && empty($dadosRevisao))
         {
-            return [$dadosRevisao, 400];
+            return ['dados'=>$dadosRevisao,'code'=> 400];
         }
-        return [$dadosRevisao, 200];
+        return ['dados'=>$dadosRevisao,'code'=> 200];
     }
 
     public function salvar($data)

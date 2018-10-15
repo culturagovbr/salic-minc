@@ -10,8 +10,10 @@ class Laudo
         return $model->projetosLaudoFinal()->toArray();
     }
 
-    public function obterLaudo(){
-        return[222222];
+    public function obterLaudo($idPronac){
+        $model = new \AvaliacaoResultados_Model_DbTable_LaudoFinal();
+        
+        return $model->laudoFinal($idPronac);
     }
 
     public function salvarLaudo($idLaudoFinal, $idPronac, $dtLaudoFinal, $siManifestacao, $dsLaudoFinal, $idUsuario){

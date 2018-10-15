@@ -23,20 +23,22 @@
             <div class="col s12">
                 <table class="bordered margin0" id="enquadramento" style="width: 100%;">
                     <thead>
-                    <tr class="">
-                        <th class="center-align">Ato Administrativo</th>
-                        <th class="center-align">Ordem</th>
-                        <th class="center-align">Orgao Superior</th>
-                        <th class="center-align">Orgao</th>
-                        <th class="center-align">Cargo</th>
-                        <th class="center-align">Perfil</th>
-                        <th class="center-align">Situa&ccedil;&atilde;o</th>
-                        <th class="center-align" align="center" colspan="2">A&ccedil;&atilde;o</th>
-                    </tr>
+			<tr class="">
+                            <th class="center-align">Id Ato</th>
+                            <th class="center-align">Ato Administrativo</th>
+                            <th class="center-align">Ordem</th>
+                            <th class="center-align">Orgao Superior</th>
+                            <th class="center-align">Orgao</th>
+                            <th class="center-align">Cargo</th>
+                            <th class="center-align">Perfil</th>
+                            <th class="center-align">Situa&ccedil;&atilde;o</th>
+                            <th class="center-align" align="center" colspan="2">A&ccedil;&atilde;o</th>
+			</tr>
                     </thead>
                     <tbody>
                     <?php foreach ($this->atosAdministrativos as $dado): ?>
                         <tr>
+			    <td class="center-align" align="center"><?php echo $dado['idTipoDoAto']; ?></td>
                             <td class="center-align" align="center">
                                 <?php echo $dado['dsAtoAdministrativo']; ?></td>
                             <td class="center-align" align="center"><?php echo $dado['idOrdemDaAssinatura']; ?></td>
