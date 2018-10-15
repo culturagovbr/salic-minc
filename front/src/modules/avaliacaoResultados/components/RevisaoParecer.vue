@@ -312,54 +312,54 @@
 
 
 <script>
-    import {mapActions, mapGetters} from 'vuex';
+    import { mapActions, mapGetters } from 'vuex';
 
     export default {
-      name: 'RevisaoParecer',
-      data() {
-          return {
-              dialog: false,
-              perfilAtivo: {
-                  cordenador: false,
-                  geral: false
-              },
-              revisao: {
-                  siStatus: 2,
-                  dsRevisao:'',
-                  idAvaliacaoFinanceira: 0,
-                  idGrupoAtivo: 21,
-                  idAgente: 333
-              },
-              revisaoGeral:{
-                  siStatus: 2,
-                  dsRevisao:'',
-                  idAvaliacaoFinanceira: 0,
-                  idGrupoAtivo: 21,
-                  idAgente: 333
-              },
-              background: [
-                  'red lighten-4',
-                  'green lighten-4'
-              ],
-              parecerData: { },
-              items: [
-                  {
-                      id: 'R',
-                      text: 'Reprovação',
-                  },
-                  {
-                      id: 'A',
-                      text: 'Aprovação',
-                  },
-                  {
-                      id: 'P',
-                      text: 'Aprovação com Ressalva',
-                  },
-              ],
-              item:'',
-          };
-      },
-      methods:
+        name: 'RevisaoParecer',
+        data() {
+            return {
+                dialog: false,
+                perfilAtivo: {
+                    cordenador: false,
+                    geral: false,
+                },
+                revisao: {
+                    siStatus: 2,
+                    dsRevisao: '',
+                    idAvaliacaoFinanceira: 0,
+                    idGrupoAtivo: 21,
+                    idAgente: 333,
+                },
+                revisaoGeral: {
+                    siStatus: 2,
+                    dsRevisao: '',
+                    idAvaliacaoFinanceira: 0,
+                    idGrupoAtivo: 21,
+                    idAgente: 333,
+                },
+                background: [
+                    'red lighten-4',
+                    'green lighten-4',
+                ],
+                parecerData: { },
+                items: [
+                    {
+                        id: 'R',
+                        text: 'Reprovação',
+                    },
+                    {
+                        id: 'A',
+                        text: 'Aprovação',
+                    },
+                    {
+                        id: 'P',
+                        text: 'Aprovação com Ressalva',
+                    },
+                ],
+                item: '',
+            };
+        },
+        methods:
           {
               ...mapActions({
                   requestEmissaoParecer: 'avaliacaoResultados/getDadosEmissaoParecer',
@@ -369,40 +369,39 @@
                   this.setStatus();
               },
               setStatus() {
-                  this.items.forEach(i => {
-                      if (i['id'] == this.getParecer.siManifestacao) {
+                  this.items.forEach((i) => {
+                      if (i.id == this.getParecer.siManifestacao) {
                           this.item = i.text;
                       }
                   });
 
-                  if(this.grupo.codGrupo == 125){
+                  if (this.grupo.codGrupo == 125) {
                       /** corrdenador habilitado */
-                     this.perfilAtivo.cordenador = false;
-                     this.perfilAtivo.geral = true;
-                  }else if(this.grupo.codGrupo == 126){
+                      this.perfilAtivo.cordenador = false;
+                      this.perfilAtivo.geral = true;
+                  } else if (this.grupo.codGrupo == 126) {
                       /**  cordenador Geral habilitado */
                       this.perfilAtivo.cordenador = true;
                       this.perfilAtivo.geral = false;
-                  }else{ /** todos sem editar */
+                  } else { /** todos sem editar */
                       this.perfilAtivo.cordenador = true;
                       this.perfilAtivo.geral = true;
                   }
               },
               salvar() {
-                  if(this.grupo.codGrupo == 125){
+                  if (this.grupo.codGrupo == 125) {
                       this.revisao.idGrupoAtivo = this.grupoAtivo.codGrupo;
                       this.revisao.idAgente = this.usuarioAtivo[0].usu_codigo;
                       console.info(this.revisao);
                   }
-                  if(this.grupo.codGrupo == 126){
+                  if (this.grupo.codGrupo == 126) {
                       this.revisaoGeral.idGrupoAtivo = this.grupoAtivo.codGrupo;
                       this.revisaoGeral.idAgente = this.usuarioAtivo[0].usu_codigo;
                       console.info(this.revisaoGeral);
                   }
-
               },
           },
-      computed:
+        computed:
           {
               ...mapGetters({
                   modalVisible: 'modal/default',
@@ -415,11 +414,11 @@
                   agente: 'menuSuperior/usuarioAtivo',
               }),
           },
-      mounted() {
-          this.redirectLink = this.redirectLink + this.idPronac;
-          this.getConsolidacao(195025);
-      },
-  };
+        mounted() {
+            this.redirectLink = this.redirectLink + this.idPronac;
+            this.getConsolidacao(195025);
+        },
+};
 </script>
 
 <style scoped>
