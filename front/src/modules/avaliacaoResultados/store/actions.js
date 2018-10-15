@@ -161,16 +161,6 @@ export const getLaudoFinal = ({ commit }, param) => {
         const dados = response.data.data;
         commit(types.GET_PARECER_LAUDO_FINAL, dados);
     });
-    // const data = { siManifestacao: 'A', dsLaudoFinal: 'Tem mais de 10 caracteres!! 39 no total' };
-    // commit(types.GET_LAUDO_FINAL, data);
-};
-
-export const atualizarManifestacao = ({ commit }, characterManifestacao) => {
-    commit(types.SET_MANIFESTACAO_PROVISORIA, characterManifestacao);
-};
-
-export const atualizarParecer = ({ commit }, characterParecer) => {
-    commit(types.SET_PARECER_PROVISORIO, characterParecer);
 };
 
 export const salvarLaudoFinal = (_, data) => {

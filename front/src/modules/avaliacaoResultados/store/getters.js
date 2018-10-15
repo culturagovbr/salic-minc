@@ -14,8 +14,6 @@ export const planilha = state => state.planilha;
 export const projetoAnalise = state => state.projetoAnalise;
 export const consolidacaoAnalise = state => state.consolidacaoAnalise;
 export const getParecerLaudoFinal = state => state.getParecerLaudoFinal;
-export const characterManifestacao = state => state.characterManifestacao;
-export const characterParecer = state => state.characterParecer;
 export const getProjetosFinalizados = state => state.projetosFinalizados;
 export const dadosItemComprovacao = state => state.dadosItemComprovacao;
 export const getProjetosParaDistribuir = state => state.projetosParaDistribuir;

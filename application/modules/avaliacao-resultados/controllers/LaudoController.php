@@ -38,7 +38,7 @@ class AvaliacaoResultados_LaudoController extends MinC_Controller_Rest_Abstract
     {
         $idPronac = $this->getRequest()->getParam('idPronac');
         $service = new LaudoService();
-        $data = $service->obterLaudo($idPronac);
+        $data = $service->obterLaudo($idPronac)? $service->obterLaudo($idPronac):[];
         $this->renderJsonResponse($data, 200);
 
     }
