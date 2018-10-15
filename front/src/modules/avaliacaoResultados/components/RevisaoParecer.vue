@@ -14,7 +14,6 @@
                 dark
                 small
                 title="Comprovar Item"
-                :onclick="perfil()"
             >
                 <v-icon>gavel</v-icon>
             </v-btn>
@@ -304,6 +303,7 @@
                                                     </v-data-table>
 
                                                     <v-textarea
+                                                        @input="inputRevisao($event)"
                                                         :disabled="!perfilAtivo.revisar"
                                                         solo
                                                         no-resize
@@ -353,6 +353,13 @@
                     idGrupoAtivo: 21,
                     idAgente: 333,
                 },
+                revisaoGeral: {
+                    siStatus: 2,
+                    dsRevisao: '',
+                    idAvaliacaoFinanceira: 0,
+                    idGrupoAtivo: 21,
+                    idAgente: 333,
+                },
                 background: [
                     'red lighten-4',
                     'green lighten-4',
@@ -383,22 +390,12 @@
               }),
               getConsolidacao(id) {
                   this.requestEmissaoParecer(id);
-                  this.grupo();
                   this.setStatus();
               },
               carregarHistorico(id) {
                   this.listaRevisoes(id);
               },
               setStatus() {
-                  this.perfil();
-                  this.items.forEach((i) => {
-                      if (i.id === this.getParecer.siManifestacao) {
-                          this.item = i.text;
-                      }
-                  });
-              },
-              perfil() {
-                  console.info(this.grupo.codGrupo);
                   if (this.grupo.codGrupo == 125) {
                       /** corrdenador habilitado */
                       this.perfilAtivo.cordenador = false;
@@ -414,6 +411,14 @@
                       this.perfilAtivo.geral = true;
                       this.perfilAtivo.revisar = false;
                   }
+                  this.items.forEach((i) => {
+                      if (i.id === this.getParecer.siManifestacao) {
+                          this.item = i.text;
+                      }
+                  });
+              },
+              inputRevisao(e) {
+                  this.revisao.dsRevisao = e;
               },
               salvar() {
                   this.revisao.idGrupoAtivo = this.grupo.codGrupo;
