@@ -6,9 +6,8 @@ class Laudo
 {
     public function obterProjetos(){
         $model = new \AvaliacaoResultados_Model_DbTable_LaudoFinal();
-        $model->projetosLaudoFinal();
-
-        return $model->projetosLaudoFinal();
+        
+        return $model->projetosLaudoFinal()->toArray();
     }
 
     public function obterLaudo(){
