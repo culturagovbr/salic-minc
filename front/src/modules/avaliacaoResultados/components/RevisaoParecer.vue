@@ -1,5 +1,7 @@
 <template>
+
     <v-layout row justify-center>
+
         <v-dialog v-model="dialog"
                   scrollable
                   fullscreen
@@ -12,6 +14,7 @@
                 dark
                 small
                 title="Comprovar Item"
+                :onclick="perfil()"
             >
                 <v-icon>gavel</v-icon>
             </v-btn>
@@ -129,13 +132,119 @@
                             </v-card-text>
                         </v-card>
 
+<v-divider></v-divider>
+                        <v-flex xs12 md12>
+                            <v-card>
 
-                        <v-expansion-panel mb-2>
+                                <v-card-title primary-title>
+                                    <div>
+                                        <div >Historico Revisões</div>
+                                    </div>
+                                    <v-spacer></v-spacer>
+                                    <v-btn icon @click="show = !show">
+                                        <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                                    </v-btn>
+                                </v-card-title>
+                                <v-slide-y-transition>
+                                    <v-card-text v-show="show">
+
+
+
+
+                                        <v-expansion-panel mb-2 focusable v-for="revisado in historico" :key="revisado.idAvaliacaoFinanceiraRevisao">
+                                            <v-expansion-panel-content >
+                                                <v-layout slot="header" class="blue--text">
+                                                    <v-icon class="mr-3 blue--text" >insert_drive_file
+                                                    </v-icon>
+                                                    <span v-if="revisado.idGrupoAtivo === 125" >Revisão - Coordenador(a) - {{revisado.dtRevisao | date}}</span>
+                                                    <span v-if="revisado.idGrupoAtivo === 126">Revisão - Coordenador(a) Geral - {{revisado.dtRevisao | date}}</span>
+                                                    <v-spacer></v-spacer>
+                                                    <template v-if="revisado.siStatus == 1" :onchange="revisado.siStatus">
+                                                        <v-chip small color="green" text-color="white" >
+                                                            <v-avatar>
+                                                                <v-icon>check_circle</v-icon>
+                                                            </v-avatar>
+                                                            Aprovado
+                                                        </v-chip>
+                                                    </template>
+                                                    <template v-if="revisado.siStatus == 0" :onchange="revisado.siStatus">
+                                                        <v-chip small color="red" text-color="white">
+                                                            <v-avatar>
+                                                                <v-icon>close</v-icon>
+                                                            </v-avatar>
+                                                            Reprovado
+                                                        </v-chip>
+                                                    </template>
+                                                    <template v-if="revisado.siStatus == 2" :onchange="revisado.siStatus">
+                                                        <v-chip small color="grey" text-color="white">
+                                                            <v-avatar>
+                                                                <v-icon>report_problem</v-icon>
+                                                            </v-avatar>
+                                                            Não Avaliado
+                                                        </v-chip>
+                                                    </template>
+
+                                                </v-layout>
+
+                                                <v-card
+                                                    :color="background[revisado.siStatus]"
+                                                    flat
+                                                    tile
+                                                >
+                                                    <v-flex >
+
+                                                        <v-card-text>
+                                                            <v-card>
+                                                                    <v-data-table
+                                                                        :items="[]"
+                                                                        class="elevation-2"
+                                                                        hide-headers
+                                                                        hide-actions
+                                                                    >
+                                                                        <template slot="no-data">
+                                                                            <tr>
+                                                                                <th left><b>Revisão:</b></th>
+                                                                                <td colspan="7">
+                                                                                    <v-radio-group row v-model="revisado.siStatus" :disabled="true">
+                                                                                        <v-radio label="Aprovado" :value="1" ></v-radio>
+                                                                                        <v-radio label="Reprovado" :value="0" color="red"></v-radio>
+                                                                                    </v-radio-group>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </template>
+                                                                    </v-data-table>
+
+                                                                    <v-textarea
+                                                                        :disabled="true"
+                                                                        solo
+                                                                        no-resize
+                                                                        :value="revisado.dsRevisao"
+                                                                        hint="Digite sua avaliação"
+                                                                        height="180px"
+                                                                    ></v-textarea>
+                                                            </v-card>
+                                                        </v-card-text>
+                                                    </v-flex>
+                                                </v-card>
+                                            </v-expansion-panel-content>
+                                        </v-expansion-panel>
+
+
+
+                                    </v-card-text>
+                                </v-slide-y-transition>
+                            </v-card>
+                        </v-flex>
+
+
+
+                        <v-expansion-panel mb-2 v-if="perfilAtivo.revisar">
                             <v-expansion-panel-content >
                                 <v-layout slot="header" class="blue--text">
                                     <v-icon class="mr-3 blue--text" >insert_drive_file
                                     </v-icon>
-                                    Revisão - Coordenador(a)
+                                    <span v-if="grupo.codGrupo == 125">Revisão - Coordenador(a)</span>
+                                    <span v-if="grupo.codGrupo == 126">Revisão - Coordenador(a) Geral</span>
                                     <v-spacer></v-spacer>
                                     <template v-if="revisao.siStatus == 1" :onchange="revisao.siStatus">
                                     <v-chip small color="green" text-color="white" >
@@ -185,7 +294,7 @@
                                                             <tr>
                                                                 <th left><b>Revisão:</b></th>
                                                                 <td colspan="7">
-                                                                    <v-radio-group row v-model="revisao.siStatus" :disabled="perfilAtivo.cordenador">
+                                                                    <v-radio-group row v-model="revisao.siStatus" :disabled="!perfilAtivo.revisar">
                                                                         <v-radio label="Aprovado" :value="1" ></v-radio>
                                                                         <v-radio label="Reprovado" :value="0" color="red"></v-radio>
                                                                     </v-radio-group>
@@ -195,7 +304,7 @@
                                                     </v-data-table>
 
                                                     <v-textarea
-                                                        :disabled="perfilAtivo.cordenador"
+                                                        :disabled="!perfilAtivo.revisar"
                                                         solo
                                                         no-resize
                                                         :value="revisao.dsRevisao"
@@ -203,7 +312,7 @@
                                                         height="180px"
                                                     ></v-textarea>
                                                     <div>
-                                                        <v-btn dark depressed small color="primary" @click.native="salvar()" v-if="!perfilAtivo.cordenador">
+                                                        <v-btn dark depressed small color="primary" @click.native="salvar()" v-if="perfilAtivo.revisar">
                                                             Salvar
                                                         </v-btn>
                                                     </div>
@@ -214,94 +323,6 @@
                                 </v-card>
                             </v-expansion-panel-content>
                         </v-expansion-panel>
-
-                        <v-divider></v-divider>
-
-                        <v-expansion-panel >
-                            <v-expansion-panel-content >
-                                <v-layout slot="header" class="blue--text">
-                                    <v-icon class="mr-3 blue--text" >insert_drive_file
-                                    </v-icon>
-                                    Revisão - Coordenador(a) Geral
-                                    <v-spacer></v-spacer>
-                                    <template v-if="revisaoGeral.siStatus == 1" :onchange="revisaoGeral.siStatus">
-                                        <v-chip small color="green" text-color="white" >
-                                            <v-avatar>
-                                                <v-icon>check_circle</v-icon>
-                                            </v-avatar>
-                                            Aprovado
-                                        </v-chip>
-                                    </template>
-                                    <template v-if="revisaoGeral.siStatus == 0" :onchange="revisaoGeral.siStatus">
-                                        <v-chip small color="red" text-color="white">
-                                            <v-avatar>
-                                                <v-icon>close</v-icon>
-                                            </v-avatar>
-                                            Reprovado
-                                        </v-chip>
-                                    </template>
-                                    <template v-if="revisaoGeral.siStatus == 2" :onchange="revisaoGeral.siStatus">
-                                        <v-chip small color="grey" text-color="white">
-                                            <v-avatar>
-                                                <v-icon>report_problem</v-icon>
-                                            </v-avatar>
-                                            Não Avaliado
-                                        </v-chip>
-                                    </template>
-                                </v-layout>
-
-                                <v-card
-                                    :color="background[revisaoGeral.siStatus]"
-                                    flat
-                                    tile
-                                >
-                                    <v-flex >
-
-                                        <v-card-text>
-                                            <v-card>
-
-                                                <v-card-text class="elevation-2">
-                                                    <v-data-table
-                                                        :items="[]"
-                                                        class="elevation-2"
-                                                        hide-headers
-                                                        hide-actions
-                                                    >
-                                                        <template slot="no-data">
-                                                            <tr>
-                                                                <th left><b>Revisão:</b></th>
-                                                                <td colspan="7">
-                                                                    <v-radio-group row v-model="revisaoGeral.siStatus" :disabled="perfilAtivo.geral">
-                                                                        <v-radio label="Aprovado" :value="1" ></v-radio>
-                                                                        <v-radio label="Reprovado" :value="0" color="red"></v-radio>
-                                                                    </v-radio-group>
-                                                                </td>
-                                                            </tr>
-                                                        </template>
-                                                    </v-data-table>
-
-                                                    <v-textarea
-                                                        :disabled="perfilAtivo.geral"
-                                                        solo
-                                                        no-resize
-                                                        :value="revisaoGeral.dsRevisao"
-                                                        hint="Digite sua avaliação"
-                                                        height="180px"
-                                                    ></v-textarea>
-                                                    <div>
-                                                        <v-btn dark depressed small color="primary" @click.native="salvar()" v-if="!perfilAtivo.geral">
-                                                            Salvar
-                                                        </v-btn>
-                                                    </div>
-                                                </v-card-text>
-                                            </v-card>
-                                        </v-card-text>
-                                    </v-flex>
-                                </v-card>
-                            </v-expansion-panel-content>
-                        </v-expansion-panel>
-
-
 
                     </v-card-text>
                 </v-container>
@@ -318,19 +339,14 @@
         name: 'RevisaoParecer',
         data() {
             return {
+                show: false,
                 dialog: false,
                 perfilAtivo: {
                     cordenador: false,
                     geral: false,
+                    revisar: false,
                 },
                 revisao: {
-                    siStatus: 2,
-                    dsRevisao: '',
-                    idAvaliacaoFinanceira: 0,
-                    idGrupoAtivo: 21,
-                    idAgente: 333,
-                },
-                revisaoGeral: {
                     siStatus: 2,
                     dsRevisao: '',
                     idAvaliacaoFinanceira: 0,
@@ -363,42 +379,46 @@
           {
               ...mapActions({
                   requestEmissaoParecer: 'avaliacaoResultados/getDadosEmissaoParecer',
+                  listaRevisoes: 'avaliacaoResultados/obterHistoricoRevisao',
               }),
               getConsolidacao(id) {
                   this.requestEmissaoParecer(id);
+                  this.grupo();
                   this.setStatus();
               },
+              carregarHistorico(id) {
+                  this.listaRevisoes(id);
+              },
               setStatus() {
+                  this.perfil();
                   this.items.forEach((i) => {
-                      if (i.id == this.getParecer.siManifestacao) {
+                      if (i.id === this.getParecer.siManifestacao) {
                           this.item = i.text;
                       }
                   });
-
+              },
+              perfil() {
+                  console.info(this.grupo.codGrupo);
                   if (this.grupo.codGrupo == 125) {
                       /** corrdenador habilitado */
                       this.perfilAtivo.cordenador = false;
                       this.perfilAtivo.geral = true;
+                      this.perfilAtivo.revisar = true;
                   } else if (this.grupo.codGrupo == 126) {
                       /**  cordenador Geral habilitado */
                       this.perfilAtivo.cordenador = true;
                       this.perfilAtivo.geral = false;
+                      this.perfilAtivo.revisar = true;
                   } else { /** todos sem editar */
                       this.perfilAtivo.cordenador = true;
                       this.perfilAtivo.geral = true;
+                      this.perfilAtivo.revisar = false;
                   }
               },
               salvar() {
-                  if (this.grupo.codGrupo == 125) {
-                      this.revisao.idGrupoAtivo = this.grupoAtivo.codGrupo;
-                      this.revisao.idAgente = this.usuarioAtivo[0].usu_codigo;
-                      console.info(this.revisao);
-                  }
-                  if (this.grupo.codGrupo == 126) {
-                      this.revisaoGeral.idGrupoAtivo = this.grupoAtivo.codGrupo;
-                      this.revisaoGeral.idAgente = this.usuarioAtivo[0].usu_codigo;
-                      console.info(this.revisaoGeral);
-                  }
+                  this.revisao.idGrupoAtivo = this.grupo.codGrupo;
+                  this.revisao.idAgente = this.agente[0].usu_codigo;
+                  console.info(this.revisao);
               },
           },
         computed:
@@ -412,11 +432,13 @@
                   getParecer: 'avaliacaoResultados/parecer',
                   grupo: 'menuSuperior/grupoAtivo',
                   agente: 'menuSuperior/usuarioAtivo',
+                  historico: 'avaliacaoResultados/revisaoParecer',
               }),
           },
         mounted() {
             this.redirectLink = this.redirectLink + this.idPronac;
             this.getConsolidacao(195025);
+            this.carregarHistorico(1);
         },
 };
 </script>

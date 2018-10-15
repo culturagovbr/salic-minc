@@ -8,8 +8,10 @@ import foo from './modules/foo/store';
 import avaliacaoResultados from './modules/avaliacaoResultados/store';
 import proposta from './modules/proposta/store';
 import autenticacao from './modules/autenticacao/store';
+import dateFilter from './filters/date';
 
 Vue.use(Vuex);
+Vue.filter('date', dateFilter);
 
 const debug = process.env.NODE_ENV !== 'production' || process.env.NODE_ENV !== 'staging';
 
