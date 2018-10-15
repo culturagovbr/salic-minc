@@ -58,8 +58,9 @@ class Projeto_Model_Situacao extends MinC_Db_Table_Abstract
     const ARQUIVADO_POR_INCAPACIDADE_TECNICA_DO_PROPONENTE = 'K02';
     const BOLSA_VIRTUOSE_ARQUIVADO_ANALISE_DOCUMENTAL = 'K04';
     const BOLSA_VIRTUOSE_ARQUIVADO_ANALISE_DO_MERITO = 'K05';
+    const PROJETO_HOMOLOGADO = 'D51';
 
-    public static function obterSituacoesProjetoArquivado() 
+    public static function obterSituacoesProjetoArquivado()
     {
         return [
             self::ARQUIVADO_SOLICITACAO_DE_DESISTENCIA_DO_PROPONENTE,

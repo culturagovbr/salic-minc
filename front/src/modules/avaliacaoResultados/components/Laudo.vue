@@ -2,7 +2,7 @@
     <v-container fluid>
         <v-card>
             <v-card-title>
-                Laudo Final
+                <h2>Laudo Final</h2>
                 <v-spacer></v-spacer>
                 <v-text-field
                         v-model="search"
@@ -23,7 +23,7 @@
                 <template slot="items" slot-scope="props">
                     <td class="text-xs-center">{{ props.index+1 }}</td>
                     <td class="text-xs-center">
-                        <v-flex xs12 sm4 text-xs-center>
+                        <v-flex>
                             <div>
                                 <v-btn :href="'/projeto/#/incentivo/'+ props.item.IdPronac">{{ props.item.PRONAC }}</v-btn>
                             </div>
@@ -80,7 +80,7 @@
                     </td>
                     <td class="text-xs-center">
                         <v-btn flat icon color="blue"
-                               :to="{ name: 'EmitirLaudoFinal', params:{ id:props.item.pronac }}">
+                               :to="{ name: 'EmitirLaudoFinal', params:{ id:props.item.IdPronac }}">
                             <v-icon>create</v-icon>
                         </v-btn>
                     </td>
@@ -132,8 +132,8 @@
                 dialog: false,
                 cabecalho: [
                     {
-                        text: '#',
                         align: 'center',
+                        text: '#',
                         sortable: false,
                     },
                     {
@@ -187,6 +187,9 @@
                 ) return 0;
                 return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
             },
+        },
+        created() {
+            this.ProjetosLaudoFinal();
         },
     };
 </script>

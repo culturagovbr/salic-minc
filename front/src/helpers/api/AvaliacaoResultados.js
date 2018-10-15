@@ -45,14 +45,7 @@ export const buscarPerfisDisponiveis = () => api.getRequest('/navegacao/perfil-r
 
 export const obterDadosItemComprovacao = params => api.getRequest(`/avaliacao-resultados/avaliacao-comprovante/${params}`);
 
-export const criarParecerLaudoFinal = (params) => {
-    console.log(params);
-    // const parametro = params.idPronac;
-    // delete params.idPronac;
-    // const data = params;
-
-    // return api.postRequest(`/avaliacao-resultados/emissao-parecer-rest/idPronac/${parametro}`, buildData(data));
-};
+export const criarParecerLaudoFinal = params => api.postRequest('/avaliacao-resultados/laudo', buildData(params));
 
 export const finalizarParecerLaudoFinal = (params) => {
     console.log(params);
@@ -103,7 +96,10 @@ export const postRevisao = params => {
 
 //export const obterProjetosAssinatura = params => api.getRequest(`/avaliacao-resultados/projeto-assinatura/estado/${params.estado}`);
 
-export const obterProjetosLaudoFinal = () => api.getRequest('/avaliacao-resultados/laudo');
+
+export const obterLaudoFinal = () => api.getRequest('/avaliacao-resultados/laudo');
+
+export const obterProjetosLaudoFinal = () => api.getRequest('/avaliacao-resultados/laudo/index');
 
 export const alterarPerfil = (grupoAtivo, orgaoAtivo) => api.getRequest(`perfil/perfil-rest/index?codGrupo=${grupoAtivo}&codOrgao=${orgaoAtivo}`);
 

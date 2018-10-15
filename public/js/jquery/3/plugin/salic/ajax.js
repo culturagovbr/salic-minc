@@ -93,6 +93,7 @@
         $('#container-progress').fadeOut('slow');
     });
 
+
     /**
      * Cria uma div modal, executa um ajax renderizando o retorno dentro da modal e no final abre a modal com o conteudo renderizado.
      *
@@ -104,7 +105,7 @@
      * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
      * @since 28/12/2016
      */
-    $.ajaxModal = function (objOption, callback) {
+    $.ajaxModal = function (objOption, callback, modalOptions = '') {
         var objDefaults = {strUrl: '', strIdModal: 'modal', strType: 'modal-fixed-footer', strHeight: '', strWidth: '', full: false},
             objSettings = $.extend({}, objDefaults, objOption),
             strIdModal = '#' + objSettings.strIdModal;
@@ -112,7 +113,7 @@
         // Removendo e criando elemento div para o modal.
         $(strIdModal).remove();
         $('body').append('<div id="' + objSettings.strIdModal + '" class="modal ' + strClassFull + objSettings.strType + '" style="height: '+ objSettings.strHeight +'; width: '+ objSettings.strWidth +'"></div>');
-        $(strIdModal).modal();
+        $(strIdModal).modal(modalOptions);
 
         // Renderizando ajax e abrindo a modal por callback.
         objSettings.strTarget = strIdModal;
@@ -237,7 +238,7 @@
                         }
                     }
                     if (typeof callback == 'function') {
-                        callback.call(null, booReturn);
+                        callback.call(null, booReturn, result);
                     }
                 }
             });

@@ -1,11 +1,16 @@
-<form id="form-mensagem" class="materialize" data-ajax-form="true" method="post"
+<form id="form-mensagem"
+      class="materialize"
+      data-ajax-form="true"
+      method="post"
       action="/projeto/homologacao/homologar">
     <div class="modal-content">
         <h4>Homologar parecer</h4>
         <div>
-            <ul  class="collapsible acorddion" data-collapsible="expandable">
+            <ul class="collapsible acorddion" data-collapsible="expandable">
                 <?= $this->partial('/homologacao/partials/homologar-parecer.phtml', ['arrValue' => $this->arrValue, 'booShowAll' => true]); ?>
+                <?= $this->partial('/homologacao/partials/editar-parecer-homologacao.phtml', ['arrValue' => $this->arrValue, 'booShowAll' => true]); ?>
             </ul>
+
         </div>
     </div>
     <div class="modal-footer">

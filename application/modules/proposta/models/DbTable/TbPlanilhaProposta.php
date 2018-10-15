@@ -361,7 +361,7 @@ class Proposta_Model_DbTable_TbPlanilhaProposta extends MinC_Db_Table_Abstract
             'idProjeto = ?' => $idPreProjeto,
             'idEtapa in (?)' => [
                 Proposta_Model_TbPlanilhaEtapa::CUSTOS_VINCULADOS,
-                Proposta_Model_TbPlanilhaEtapa::REMUNERACAO_CAPTACAO]
+                Proposta_Model_TbPlanilhaEtapa::CAPTACAO_DE_RECURSOS]
         );
 
         return $this->delete($where);

@@ -28,9 +28,8 @@
         <a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac . '&campo=12&ordem=' . $this->paginacao['novaOrdem']; ?>">T&eacute;cnico
     </th>
     <th>Visualizar</th>
-    <th>Encaminhar</th>
+    <th>Devolver</th>
     <th>Assinar</th>
-    <th>CNIC</th>
 </tr>
 </thead>
 <tbody>
@@ -62,8 +61,6 @@ foreach ($this->dados as $d): ?>
             } else {
                 echo Data::tratarDataZend($d->dtDevolucao, 'Brasileira');
             } ?></td>
-        <!--        <td align="center"><?php echo $d->qtDiasDistribuir; ?></td>-->
-        <!--        <td align="center"><?php echo $d->qtDiasAvaliar; ?></td>-->
         <td align="center"><?php echo $d->qtTotalDiasAvaliar; ?></td>
         <td align="center"><?php echo $d->nmTecnicoParecerista; ?></td>
         <td align="center">
@@ -77,6 +74,7 @@ foreach ($this->dados as $d): ?>
             </a>
         </td>
         <td align="center">
+            <?php if ($this->disponivelParaDevolucao($d->siEncaminhamento)): ?>
             <a
                 href="javascript:void(0)"
                 class="btn-encaminhar btn small waves-effect waves-light tooltipped white-text btn-secondary"
@@ -85,41 +83,30 @@ foreach ($this->dados as $d): ?>
                 pronac="<?php echo $d->PRONAC; ?>"
                 nomeprojeto="<?php echo $d->NomeProjeto; ?>"
             >
-                <i class="material-icons">forward</i>
+                <i class="material-icons">keyboard_backspace</i>
             </a>
+	    <?php endif; ?>
         </td>
         <td align="center">
-<!--                href="javascript:void(0)"-->
-<!--                class="btn-finalizar finalizarAnaliseReadequacao btn small waves-effect waves-light white-text tooltipped btn-primary"-->
-            <a
-                href="<?php echo $this->url([
-                'module' => 'readequacao',
-                'controller' => 'readequacao-assinatura',
-                'action' => 'gerenciar-assinaturas'
-            ], '', true); ?>"
-                class="btn small waves-effect waves-light white-text tooltipped btn-primary"
-                data-tooltip="Assinar"
-                idReadequacao="<?php echo $d->idReadequacao; ?>"
-            >
+	    <?php if ($this->disponivelParaAssinatura($d->siEncaminhamento, $d->idDocumentoAssinatura)): ?>
+            <a data-ajax-modal="<?= $this->url([
+                        'module' => 'assinatura',
+                        'controller' => 'index',
+                        'action' => 'visualizar-projeto'
+                    ], '', true); ?>?idDocumentoAssinatura=<?php echo $d->idDocumentoAssinatura ?>&modal=1"
+                    href="javascript:void(0);"
+                    data-position="top"
+                    data-delay="50"
+                    data-ajax-modal-height="96%"
+                    data-ajax-modal-width="98%"
+                    data-tooltip="Assinar"
+                    class="btn small waves-effect waves-light white-text tooltipped btn-primary"
+                    idReadequacao="<?php echo $d->idReadequacao; ?>">
                 <i class="material-icons">edit</i>
             </a>
-        </td>
-        <td align="center">
-            <a
-                href="<?php echo $this->url([
-                    'module' => 'readequacao',
-                    'controller' => 'readequacoes',
-                    'action' => 'encaminhar-para-cnic',
-                    'id' => Seguranca::encrypt($d->idReadequacao),
-                    'idPronac' => $d->idPronac,
-                ], '', true); ?>"
-                class="btn small waves-effect waves-light white-text tooltipped btn-secondary"
-                data-tooltip="Enviar para um membro da comiss&atilde;o"
-                idReadequacao="<?php echo $d->idReadequacao; ?>"
-            >
-                <i class="material-icons">mail</i>
-            </a>
+	    <?php endif; ?>
         </td>
     </tr>
     <?php $count++; ?>
 <?php endforeach; ?>
+

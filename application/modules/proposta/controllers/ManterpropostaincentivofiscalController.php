@@ -563,13 +563,14 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
     {
         $this->validarEdicaoProposta();
 
-        $arrResultado = array();
-
         $params = $this->getRequest()->getParams();
-
         $idPreProjeto = $this->getRequest()->getParam('idPreProjeto');
 
-        if (!empty($idPreProjeto)) {
+        if (empty($idPreProjeto)) {
+            parent::message("Necess&aacute;rio informar o n&uacute;mero da proposta.", "/proposta/manterpropostaincentivofiscal/listarproposta", "ERROR");
+        }
+
+        try {
             $tbPreProjeto = new Proposta_Model_DbTable_PreProjeto();
             if (!$tbPreProjeto->getAdapter() instanceof Zend_Db_Adapter_Pdo_Mssql) {
                 $arrResultado = $this->validarEnvioPropostaSemSp($idPreProjeto);
@@ -589,16 +590,15 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
                 );
 
                 $tbMovimentacao = new Proposta_Model_DbTable_TbMovimentacao();
-                $insert = $tbMovimentacao->insert($dados);
+                $tbMovimentacao->insert($dados);
 
                 parent::message("Proposta encaminhada com sucesso para an&aacute;lise no Minist&eacute;rio da Cultura.", "/proposta/visualizar/index/idPreProjeto/" . $idPreProjeto, "CONFIRM");
-            } else {
-                $this->view->resultado = $arrResultado;
             }
 
+            $this->view->resultado = $arrResultado;
             $this->view->acao = $this->_urlPadrao . "/proposta/manterpropostaincentivofiscal/enviar-proposta/idPreProjeto/" . $this->idPreProjeto;
-        } else {
-            parent::message("Necess&aacute;rio informar o n&uacute;mero da proposta.", "/proposta/manterpropostaincentivofiscal/listarproposta", "ERROR");
+        } catch(Exception $objException){
+            parent::message("Envio de proposta: " . $objException->getMessage(), "/proposta/manterpropostaincentivofiscal/identificacaodaproposta/idPreProjeto/" . $idPreProjeto, "ERROR");
         }
     }
 
@@ -1053,7 +1053,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
             if (!in_array($produtoPrincipal['Segmento'], $segmentosIsentos)) {
                 $cnae = $TbPreProjeto->verificarCNAEProponenteComProdutoPrincipal($idPreProjeto);
 
-                # Se o CNAE estiver vazio, forçar atualização do proponente com os dados do webservice da receita
+                # Se o CNAE estiver vazio, força atualização do proponente com os dados do webservice da receita
                 if (empty($cnae)) {
                     $servicoReceita = new ServicosReceitaFederal();
                     $dadosPessoaJuridica = $servicoReceita->consultarPessoaJuridicaReceitaFederal($proponente->CNPJCPF, true);
@@ -1061,9 +1061,8 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
                 }
                 return false;
             }
-            return true;
         }
-        return true; #pf
+        return true;
     }
 
     public function listarPropostasArquivadasAction()
