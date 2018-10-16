@@ -165,8 +165,7 @@ export const getLaudoFinal = ({ commit }, param) => {
 
 export const salvarLaudoFinal = (_, data) => {
     avaliacaoResultadosHelperAPI.criarParecerLaudoFinal(data)
-        .then((response) => {
-            console.log(response);
+        .then(() => {
         });
 };
 

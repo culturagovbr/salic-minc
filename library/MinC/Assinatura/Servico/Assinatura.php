@@ -195,7 +195,7 @@ class Assinatura implements IServico
             'stEstado' => \Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_INATIVO
         ];
         $where = [
-            'idDocumentoAssinatura = ?' => $this->viewModelAssinatura->modeloTbDocumentoAssinatura->getIdDocumentoAssinatura(),
+            'idDocumentoAssinatura = ?' => $this->viewModelAssinatura->modeloTbAssinatura->getIdDocumentoAssinatura(),
         ];
 
         $objDbTableDocumentoAssinatura->update(

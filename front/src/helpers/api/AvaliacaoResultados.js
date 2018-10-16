@@ -47,14 +47,7 @@ export const obterDadosItemComprovacao = params => api.getRequest(`/avaliacao-re
 
 export const criarParecerLaudoFinal = params => api.postRequest('/avaliacao-resultados/laudo', buildData(params));
 
-export const finalizarParecerLaudoFinal = (params) => {
-    console.log(params);
-    // const parametro = params.idPronac;
-    // delete params.idPronac;
-    // const data = params;
-
-    // return api.postRequest('/avaliacao-resultados/estado', buildData(data));
-};
+export const finalizarParecerLaudoFinal = params => api.postRequest('/avaliacao-resultados/assinatura', buildData(params));
 
 export const obterProjetosParaDistribuir = () => api.getRequest('/prestacao-contas/prestacao-contas/obter-analise-financeira-virtual');
 

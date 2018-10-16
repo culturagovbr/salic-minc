@@ -10,8 +10,8 @@
                         <v-toolbar-title>Emissão de Laudo Final de Avaliação de Resultados</v-toolbar-title>
                         <v-spacer></v-spacer>
                         <v-toolbar-items>
-                            <v-btn dark flat @click.native="salvarLaudoFinal()">Salvar</v-btn>
-                            <v-btn dark flat @click.native="finalizarLaudoFinal()" :disabled="!parecerLaudoFinal.items.idLaudoFinal">Gerar Documento</v-btn>
+                            <v-btn dark flat @click.native="salvarLaudoFinal()" :disabled="!valid">Salvar</v-btn>
+                            <v-btn dark flat @click.native="finalizarLaudoFinal()" :disabled="!valid">Finalizar</v-btn>
                         </v-toolbar-items>
                     </v-toolbar>
                     <v-container grid-list-sm>
@@ -32,7 +32,7 @@
                                 <v-radio-group :value="parecerLaudoFinal.items.siManifestacao"
                                                @change="updateManifestacao"
                                                id="manifestacao"
-                                               :rules="itemRules"
+                                               :rules="manifestacaoRules"
                                                row>
                                     <v-radio color="success" label="Aprovado" value="A"></v-radio>
                                     <v-radio color="success" label="Aprovado com ressalvas" value="P"></v-radio>
@@ -67,7 +67,7 @@
                 idPronac: this.$route.params.id,
                 valid: false,
                 dialog: true,
-                itemRules: [
+                manifestacaoRules: [
                     v => !!v || 'Tipo de manifestação é obrigatório!',
                 ],
                 parecerRules: [
@@ -104,23 +104,35 @@
                     data.siManifestacao = this.laudoFinalData.siManifestacao;
                 }
 
-                if (this.laudoFinalData.dsParecer) {
+                if (this.laudoFinalData.dsLaudoFinal) {
                     data.dsLaudoFinal = this.laudoFinalData.dsLaudoFinal;
                 }
-    
+
                 this.salvar(data);
                 /** Descomentar linha após migração da lista para o VUEJS */
                 // this.dialog = false;
             },
             finalizarLaudoFinal() {
                 const data = {
-                    idPronac: this.idPronac,
-                    siManifestacao: this.characterManifestacao,
-                    dsLaudoFinal: this.characterParecer,
-                    idLaudoFinal: this.parecerLaudoFinal.items.idLaudoFinal,
+                    idpronac: this.idPronac,
+                    idtipodoatoadministrativo: 623,
+                    siManifestacao: this.parecerLaudoFinal.items.siManifestacao,
+                    dsLaudoFinal: this.parecerLaudoFinal.items.dsLaudoFinal,
                     atual: 5,
                     proximo: 6,
                 };
+
+                if (this.parecerLaudoFinal.items.idLaudoFinal) {
+                    data.idLaudoFinal = this.parecerLaudoFinal.items.idLaudoFinal;
+                }
+
+                if (this.laudoFinalData.siManifestacao) {
+                    data.siManifestacao = this.laudoFinalData.siManifestacao;
+                }
+
+                if (this.laudoFinalData.dsLaudoFinal) {
+                    data.dsLaudoFinal = this.laudoFinalData.dsLaudoFinal;
+                }
     
                 this.finalizar(data);
                 /** Descomentar linha após migração da lista para o VUEJS */

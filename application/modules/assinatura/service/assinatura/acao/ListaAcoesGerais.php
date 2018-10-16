@@ -9,7 +9,8 @@ use \Assinatura_Model_DbTable_TbAssinatura as TbAssinaturaDbTable,
     \Application\Modules\Projeto\Service\Assinatura\Acao\ListaAcoesModulo as ListaAcoesHomologacaoProjeto,
     \Application\Modules\Parecer\Service\Assinatura\AnaliseCNIC\Acao\ListaAcoesModulo as ListaAcoesParecerAnaliseCNIC,
     \Application\Modules\Parecer\Service\Assinatura\AnaliseInicial\Acao\ListaAcoesModulo as ListaAcoesParecerAnaliseInicial,
-    \Application\Modules\Admissibilidade\Service\Assinatura\Acao\ListaAcoesModulo as ListaAcoesEnquadramento;
+    \Application\Modules\Admissibilidade\Service\Assinatura\Acao\ListaAcoesModulo as ListaAcoesEnquadramento,
+    \Application\Modules\AvaliacaoResultados\Service\Assinatura\Parecer\Acao\ListaAcoesModulo as ListaAcoesParecerAvaliacaoResultados;
 
 class ListaAcoesGerais implements IListaAcoesGerais
 {
@@ -46,6 +47,8 @@ class ListaAcoesGerais implements IListaAcoesGerais
 
             TbAssinaturaDbTable::TIPO_ATO_ANALISE_CNIC => new ListaAcoesParecerAnaliseCNIC(),
             TbAssinaturaDbTable::TIPO_ATO_ANALISE_INICIAL => new ListaAcoesParecerAnaliseInicial(),
+
+            TbAssinaturaDbTable::TIPO_ATO_LAUDO_PRESTACAO_CONTAS=> new ListaAcoesParecerAvaliacaoResultados(),
         ];
     }
 }

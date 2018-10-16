@@ -1,6 +1,6 @@
 <?php
 
-namespace Application\Modules\PrestacaoContas\Service\Assinatura\Laudo\Acao;
+namespace Application\Modules\AvaliacaoResultados\Service\Assinatura\Parecer\Acao;
 
 use MinC\Assinatura\Acao\IListaAcoesModulo;
 

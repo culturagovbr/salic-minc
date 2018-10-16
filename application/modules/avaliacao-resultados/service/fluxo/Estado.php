@@ -40,4 +40,21 @@ class Estado
 
         $eventClass->run($params);
     }
+
+    public function alterarEstado($params){
+
+        $model = new \AvaliacaoResultados_Model_FluxosProjeto();
+        $mapper = new \AvaliacaoResultados_Model_FluxosProjetoMapper();
+
+        $row = $mapper->find(['idPronac = ?' => $params['idPronac']]);
+
+        if (!empty($row)) {
+            $model->setId($row['id']);
+        }
+
+        $model->setIdPronac($params['idPronac']);
+        $model->setEstadoId($params['proximo']);
+
+        $mapper->save($model);
+    }
 }

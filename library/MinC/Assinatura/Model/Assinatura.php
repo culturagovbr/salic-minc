@@ -33,7 +33,10 @@ class Assinatura implements IModel
     {
         $this->modeloTbAssinatura = new \Assinatura_Model_TbAssinatura($dadosModelo);
         $this->modeloTbAtoAdministrativo = new \Assinatura_Model_TbAtoAdministrativo($dadosModelo);
+
+        $dadosModelo['Tipo'] = $dadosModelo['idTipoDoAto'];
         $this->modeloTbDespacho = new \Proposta_Model_TbDespacho($dadosModelo);
+
         $this->modeloTbDocumentoAssinatura = new \Assinatura_Model_TbDocumentoAssinatura($dadosModelo);
         if($this->modeloTbAssinatura->getIdPronac() && $this->modeloTbAtoAdministrativo->getIdTipoDoAto()) {
             $this->carregarDocumentoDeAssinatura();

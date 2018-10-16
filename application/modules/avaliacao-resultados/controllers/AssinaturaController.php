@@ -1,6 +1,7 @@
 <?php
 
 use Application\Modules\AvaliacaoResultados\Service\Assinatura\Parecer\DocumentoAssinatura as DocumentoAssinaturaService;
+use Application\Modules\AvaliacaoResultados\Service\Assinatura\Laudo\DocumentoAssinatura as DocumentoAssinaturaLaudoService;
 
 class AvaliacaoResultados_AssinaturaController extends MinC_Controller_Rest_Abstract
 {
@@ -43,8 +44,13 @@ class AvaliacaoResultados_AssinaturaController extends MinC_Controller_Rest_Abst
         $idPronac = $this->getRequest()->getParam('idpronac');
         $idTipoDoAtoAdministrativo = $this->getRequest()->getParam('idtipodoatoadministrativo');
 
-        $assinatura = new DocumentoAssinaturaService($idPronac, $idTipoDoAtoAdministrativo);
-        $idDocumentoAssinatura = $assinatura->iniciarFluxo();
+        if ($idTipoDoAtoAdministrativo == 622){
+            $idDocumentoAssinatura = $this->documentoParecer($idPronac, $idTipoDoAtoAdministrativo);
+        }
+
+        if ($idTipoDoAtoAdministrativo == 623){
+            $idDocumentoAssinatura =  $this->documentoLaudo($idPronac, $idTipoDoAtoAdministrativo);
+        }
 
         $this->renderJsonResponse(
             [
@@ -54,6 +60,16 @@ class AvaliacaoResultados_AssinaturaController extends MinC_Controller_Rest_Abst
             ],
             200
         );
+    }
+
+    private function documentoLaudo($idPronac, $idTipoDoAtoAdministrativo) {
+        $assinatura = new DocumentoAssinaturaLaudoService($idPronac, $idTipoDoAtoAdministrativo);
+        return $assinatura->iniciarFluxo();
+    }
+
+    private function documentoParecer($idPronac, $idTipoDoAtoAdministrativo) {
+        $assinatura = new DocumentoAssinaturaService($idPronac, $idTipoDoAtoAdministrativo);
+        return $assinatura->iniciarFluxo();
     }
 
     public function putAction()

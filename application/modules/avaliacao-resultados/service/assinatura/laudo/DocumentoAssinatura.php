@@ -1,8 +1,8 @@
 <?php
 
-namespace Application\Modules\PrestacaoContas\Service\Assinatura\Laudo;
+namespace Application\Modules\AvaliacaoResultados\Service\Assinatura\Laudo;
 
-use Mockery\Exception;
+/* use Mockery\Exception; */
 
 class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatura
 {
@@ -54,14 +54,11 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
         );
     }
 
-    /**
-     * @return string
-     */
     public function criarDocumento()
     {
-        if(!isset($this->idAtoDeGestao) || is_null($this->idAtoDeGestao || empty($this->idAtoDeGestao))) {
-            throw new Exception("Identificador do ato de gest&atilde;o n&atilde;o informado.");
-        }
+        /* if(!isset($this->idAtoDeGestao) || is_null($this->idAtoDeGestao || empty($this->idAtoDeGestao))) { */
+        /*     throw new \Exception("Identificador do ato de gest&atilde;o n&atilde;o informado."); */
+        /* } */
 
         $view = new \Zend_View();
         $view->setScriptPath(
@@ -69,47 +66,64 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
             . DIRECTORY_SEPARATOR
             . 'template'
         );
+        /** ============== Titulo do Documento ========================================== ===*/
 
-        $view->titulo = 'Parecer T&eacute;cnico de Readequa&ccedil;&atilde;o do Projeto';
-        $view->IdPRONAC = $this->idPronac;
+        $view->titulo = 'Parecer T&eacute;cnico de Avalia&ccedil;&atilde;o de Resultado';
 
-        $objProjeto = new \Projeto_Model_DbTable_Projetos();
-        $view->projeto = $objProjeto->findBy(array('IdPRONAC' => $this->idPronac));
+        /** =============== Consulta DB para aquisição das informações do parecer Tecnico ================= */
 
-        $objAgentes = new \Agente_Model_DbTable_Agentes();
-        $dadosAgente = $objAgentes->buscarFornecedor(array('a.CNPJCPF = ?' => $view->projeto['CgcCpf']));
-        $arrayDadosAgente = $dadosAgente->current();
+        $vwResultadoDaAvaliacaoFinanceira = new \AvaliacaoResultados_Model_DbTable_vwResultadoDaAvaliacaoFinanceira();
+        $dadosAvaliacaoFinanceira = $vwResultadoDaAvaliacaoFinanceira->buscarConsolidacaoComprovantes($this->idPronac);
+        $dadosAvaliacaoFinanceira = $dadosAvaliacaoFinanceira->toArray();
 
-        $view->nomeAgente = (count($arrayDadosAgente) > 0) ? $arrayDadosAgente['nome'] : ' - ';
+        $projeto = new \Projetos();
+        $dadosProjeto = $projeto->buscar([
+            'idPronac = ?' => $this->idPronac
+        ]);
+        $dadosProjeto = $dadosProjeto->toArray()[0];
 
-        $auth = \Zend_Auth::getInstance();
-        $dadosUsuarioLogado = $auth->getIdentity();
-        $orgaoSuperior = $dadosUsuarioLogado->usu_org_max_superior;
+        $proponente = new \ProponenteDAO();
+        $dadosProponente = $proponente->buscarDadosProponente($this->idPronac);
+        $dadosProponente = (array)$dadosProponente[0];
 
-        $view->secretaria = 'Secretaria do Audiovisual - SAv';
-        if((int)$orgaoSuperior == (int)\Orgaos::ORGAO_SUPERIOR_SEFIC) {
-            $view->secretaria = 'Secretaria de Fomento e Incentivo &agrave; Cultura - SEFIC';
-        }
+        $tbAvaliacaoFinanceira = new \AvaliacaoResultados_Model_DbTable_tbAvaliacaoFinanceira();
+        $where = [
+            'idPronac' => $this->idPronac
+        ];
+        $dadosParecer = $tbAvaliacaoFinanceira->findBy($where);
+        $dadosParecer = ($dadosParecer) ?: new \stdClass();
 
-        $tbRelatorioTecnico = new \tbRelatorioTecnico();
-        $relatorioTecnico = $tbRelatorioTecnico->obterTodos([
-            'idRelatorioTecnico' => $this->idAtoDeGestao
-        ])->current();
+        /** ============= Fim da consulta ================ */
 
+        /** Carga na view */
+        $view->parecer = $dadosParecer;
+        $view->projeto = $dadosProjeto;
+        $view->consolidacao = $dadosAvaliacaoFinanceira;
+        $view->proponente = $dadosProponente;
 
-        switch ((string)$relatorioTecnico->siManifestacao) {
-            case '1':
-                $view->posicionamentoTecnico = 'Regular';
+        /** === Adequação do campo "select" da manifestação do tecnico === */
+
+        switch ((string)$dadosParecer['siManifestacao']) {
+            case 'R':
+                $view->posicionamentoTecnico = 'Reprova&ccedil;&atilde;o';
                 break;
-            case '0':
-                $view->posicionamentoTecnico = 'Irregular';
+            case 'A':
+                $view->posicionamentoTecnico = 'Aprova&ccedil;&atilde;o';
                 break;
-            default:
-                $view->posicionamentoTecnico = 'N&atilde;o definido';
+            case 'P':
+                $view->posicionamentoTecnico = 'Aprova&ccedil;&atilde;o com Ressalva';
                 break;
-        }
-        $view->parecer = $relatorioTecnico->meRelatorio;
+        };
 
         return $view->render('documento-assinatura.phtml');
+    }
+
+    public function consultarDocumento($idPronac, $idTipoDoAtoAdministrativo){
+
+        $estado = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
+        $documento = $estado->isDocumentoFinalizado($idPronac, $idTipoDoAtoAdministrativo);
+
+        return $documento;
+
     }
 }
