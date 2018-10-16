@@ -25,7 +25,7 @@
                     <td class="text-xs-center">
                         <v-flex>
                             <div>
-                                <v-btn :href="'/projeto/#/incentivo/'+ props.item.IdPronac">{{ props.item.PRONAC }}</v-btn>
+                                <v-btn :href="'/projeto/#/'+ props.item.IdPronac">{{ props.item.PRONAC }}</v-btn>
                             </div>
                         </v-flex>
                     </td>

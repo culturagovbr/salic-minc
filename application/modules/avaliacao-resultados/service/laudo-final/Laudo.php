@@ -19,13 +19,13 @@ class Laudo
         $auth = \Zend_Auth::getInstance();
         $tbTable = new \AvaliacaoResultados_Model_DbTable_LaudoFinal;
         if(empty($idLaudoFinal)) {
-            $tbTable->insert(['idPronac'=>$idPronac,
+            return $tbTable->insert(['idPronac'=>$idPronac,
                               'idUsuario'=>$auth->getIdentity()->usu_codigo,
                               'dtLaudoFinal'=>(new \DateTime())->format('Y-m-d'),
                               'siManifestacao'=>$siManifestacao,
                               'dsLaudoFinal'=>$dsLaudoFinal]);
         } else {
-            $tbTable->alterar(['idUsuario'=>$auth->getIdentity()->usu_codigo,
+            return $tbTable->alterar(['idUsuario'=>$auth->getIdentity()->usu_codigo,
                                'siManifestacao'=>$siManifestacao,
                                'dsLaudoFinal'=>$dsLaudoFinal],
                               ['idLaudoFinal = ?' => $idLaudoFinal]);

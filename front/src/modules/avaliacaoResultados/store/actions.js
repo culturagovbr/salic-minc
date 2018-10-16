@@ -163,9 +163,11 @@ export const getLaudoFinal = ({ commit }, param) => {
     });
 };
 
-export const salvarLaudoFinal = (_, data) => {
+export const salvarLaudoFinal = ({ commit }, data) => {
     avaliacaoResultadosHelperAPI.criarParecerLaudoFinal(data)
         .then(() => {
+            const message = "Laudo final salvo com sucesso!"
+            alert(message);
         });
 };
 
