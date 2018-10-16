@@ -248,11 +248,10 @@ export const salvarRevisao = ({ commit }, params) => {
         avaliacaoResultadosHelperAPI.postRevisao(params)
             .then((response) => {
                 console.info(response);
-                // const dados = response.data.data;
-                // commit(types.HISTORICO_REVISAO, dados.items);
+                commit(types.HISTORICO_REVISAO, response.data);
                 resolve();
             });
     });
-    //return p;
+    return p;
 };
 

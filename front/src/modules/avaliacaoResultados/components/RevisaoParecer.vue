@@ -404,7 +404,7 @@
               ...mapActions({
                   requestEmissaoParecer: 'avaliacaoResultados/getDadosEmissaoParecer',
                   listaRevisoes: 'avaliacaoResultados/obterHistoricoRevisao',
-                  salvarRevisao: 'avaliacaoResultados/salvarRevisao',
+                  salvarRev: 'avaliacaoResultados/salvarRevisao',
 
               }),
               getConsolidacao(id) {
@@ -443,9 +443,8 @@
                   this.revisao.idAvaliacaoFinanceira = this.parecer.idAvaliacaoFinanceira;
                   this.revisao.idGrupoAtivo = this.grupo.codGrupo;
                   this.revisao.idAgente = this.agente[0].usu_codigo;
-                  this.salvarRevisao(this.revisao);
+                  this.salvarRev(this.revisao);
                   this.snackbar = true;
-
               },
           },
         computed:
