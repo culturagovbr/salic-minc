@@ -60,17 +60,19 @@
                                             :rules="[rules.required]"
                                     ></v-select>
                                 </v-list-tile>
-                                <v-list-tile>
-                                    <v-textarea
-                                            v-model="justificativa"
-                                            ref="justificativa"
-                                            label="Justificativa de encaminhamento para análise"
-                                            prepend-icon="create"
-                                            color="green"
-                                            autofocus
-                                            :rules="[rules.required]"
-                                    ></v-textarea>
-                                </v-list-tile>
+
+
+                                <v-textarea
+                                        v-model="justificativa"
+                                        ref="justificativa"
+                                        label="Justificativa de encaminhamento para análise"
+                                        prepend-icon="create"
+                                        color="green"
+                                        autofocus
+                                        :rules="[rules.required]"
+                                        height="150px"
+                                ></v-textarea>
+
                             </v-list>
                         </v-card-text>
                         <v-divider></v-divider>
