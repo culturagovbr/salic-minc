@@ -1,5 +1,4 @@
 import * as avaliacaoResultadosHelperAPI from '@/helpers/api/AvaliacaoResultados';
-import * as desencapsularResponse from '@/helpers/actions';
 import * as types from './types';
 
 export const dadosMenu = ({ commit }) => {
@@ -242,5 +241,18 @@ export const obterHistoricoRevisao = ({ commit }, params) => {
             });
     });
     return p;
+};
+
+export const salvarRevisao = ({ commit }, params) => {
+    const p = new Promise((resolve) => {
+        avaliacaoResultadosHelperAPI.postRevisao(params)
+            .then((response) => {
+                console.info(response);
+                // const dados = response.data.data;
+                // commit(types.HISTORICO_REVISAO, dados.items);
+                resolve();
+            });
+    });
+    //return p;
 };
 

@@ -137,11 +137,11 @@
 
                                 <v-card-title primary-title>
                                     <div>
-                                        <div >Historico Revisões</div>
+                                        <div class="black--text"><b>Histórico de Revisões</b></div>
                                     </div>
                                     <v-spacer></v-spacer>
                                     <v-btn icon @click="show = !show">
-                                        <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
+                                        <v-icon>{{ show ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</v-icon>
                                     </v-btn>
                                 </v-card-title>
                                 <v-slide-y-transition>
@@ -294,7 +294,7 @@
                                                                 <th left><b>Revisão:</b></th>
                                                                 <td colspan="7">
                                                                     <v-radio-group row v-model="revisao.siStatus" :disabled="!perfilAtivo.revisar">
-                                                                        <v-radio label="Aprovado" :value="1" ></v-radio>
+                                                                        <v-radio label="Aprovado" :value="1" color="green"></v-radio>
                                                                         <v-radio label="Reprovado" :value="0" color="red"></v-radio>
                                                                     </v-radio-group>
                                                                 </td>
@@ -326,6 +326,22 @@
 
                     </v-card-text>
                 </v-container>
+
+                <v-snackbar
+                    v-model="snackbar"
+                    :right="right"
+                    :timeout="5000"
+                    :top="top"
+                >
+                    Revisão efetuada!
+                    <v-btn
+                        color="pink"
+                        flat
+                        @click="snackbar = false"
+                    >
+                        Close
+                    </v-btn>
+                </v-snackbar >
             </v-card>
         </v-dialog>
     </v-layout>
@@ -339,6 +355,7 @@
         name: 'RevisaoParecer',
         data() {
             return {
+                snackbar: false,
                 show: false,
                 dialog: false,
                 perfilAtivo: {
@@ -387,6 +404,8 @@
               ...mapActions({
                   requestEmissaoParecer: 'avaliacaoResultados/getDadosEmissaoParecer',
                   listaRevisoes: 'avaliacaoResultados/obterHistoricoRevisao',
+                  salvarRevisao: 'avaliacaoResultados/salvarRevisao',
+
               }),
               getConsolidacao(id) {
                   this.requestEmissaoParecer(id);
@@ -421,9 +440,12 @@
                   this.revisao.dsRevisao = e;
               },
               salvar() {
+                  this.revisao.idAvaliacaoFinanceira = this.parecer.idAvaliacaoFinanceira;
                   this.revisao.idGrupoAtivo = this.grupo.codGrupo;
                   this.revisao.idAgente = this.agente[0].usu_codigo;
-                  console.info(this.revisao);
+                  this.salvarRevisao(this.revisao);
+                  this.snackbar = true;
+
               },
           },
         computed:
@@ -434,14 +456,14 @@
                   proponente: 'avaliacaoResultados/proponente',
                   parecer: 'avaliacaoResultados/parecer',
                   projeto: 'avaliacaoResultados/projeto',
-                  getParecer: 'avaliacaoResultados/parecer',
                   grupo: 'menuSuperior/grupoAtivo',
                   agente: 'menuSuperior/usuarioAtivo',
                   historico: 'avaliacaoResultados/revisaoParecer',
               }),
           },
         mounted() {
-            this.redirectLink = this.redirectLink + this.idPronac;
+            // this.getConsolidacao(this.$route.params.id);
+            // this.carregarHistorico(this.parecer.idAvaliacaoFinanceira);
             this.getConsolidacao(195025);
             this.carregarHistorico(1);
         },

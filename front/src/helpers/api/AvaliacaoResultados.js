@@ -88,14 +88,13 @@ export const getListaRevisoes = params => api.getRequest(`/avaliacao-resultados/
 
 export const getRevisao = params => api.getRequest(`/avaliacao-resultados/revisao/idAvaliacaoFinanceiraRevisao/${params}`);
 
-export const postRevisao = params => {
-    return console.log(params);
+export const postRevisao = params => api.postRequest('http://localhost/avaliacao-resultados/revisao/', buildData(params));
+
+export const updateRevisao = (params) => {
+    console.info('id id id');
 };
 
 /** FIM REVISAO PARECER */
-
-//export const obterProjetosAssinatura = params => api.getRequest(`/avaliacao-resultados/projeto-assinatura/estado/${params.estado}`);
-
 
 export const obterLaudoFinal = () => api.getRequest('/avaliacao-resultados/laudo');
 
