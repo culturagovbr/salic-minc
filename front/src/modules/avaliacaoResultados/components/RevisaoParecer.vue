@@ -151,12 +151,12 @@
 
 
                                         <v-expansion-panel mb-2 focusable v-for="revisado in historico" :key="revisado.idAvaliacaoFinanceiraRevisao">
-                                            <v-expansion-panel-content >
+                                            <v-expansion-panel-content>
                                                 <v-layout slot="header" class="blue--text">
                                                     <v-icon class="mr-3 blue--text" >insert_drive_file
                                                     </v-icon>
-                                                    <span v-if="revisado.idGrupoAtivo === 125" >Revisão - Coordenador(a) - {{revisado.dtRevisao | date}}</span>
-                                                    <span v-if="revisado.idGrupoAtivo === 126">Revisão - Coordenador(a) Geral - {{revisado.dtRevisao | date}}</span>
+                                                    <span v-if="revisado.idGrupoAtivo == 125" >Revisão - Coordenador(a) - {{revisado.dtRevisao | date}}</span>
+                                                    <span v-if="revisado.idGrupoAtivo == 126">Revisão - Coordenador(a) Geral - {{revisado.dtRevisao | date}}</span>
                                                     <v-spacer></v-spacer>
                                                     <template v-if="revisado.siStatus == 1" :onchange="revisado.siStatus">
                                                         <v-chip small color="green" text-color="white" >
@@ -186,7 +186,7 @@
                                                 </v-layout>
 
                                                 <v-card
-                                                    :color="background[revisado.siStatus]"
+                                                    :color="background(revisado.siStatus)"
                                                     flat
                                                     tile
                                                 >
@@ -273,7 +273,7 @@
                                 </v-layout>
 
                                 <v-card
-                                    :color="background[revisao.siStatus]"
+                                    :color="background(revisao.siStatus)"
                                     flat
                                     tile
                                 >
@@ -294,8 +294,8 @@
                                                                 <th left><b>Revisão:</b></th>
                                                                 <td colspan="7">
                                                                     <v-radio-group row v-model="revisao.siStatus" :disabled="!perfilAtivo.revisar">
-                                                                        <v-radio label="Aprovado" :value="1" color="green"></v-radio>
-                                                                        <v-radio label="Reprovado" :value="0" color="red"></v-radio>
+                                                                        <v-radio label="Aprovado" :value="true" color="green"></v-radio>
+                                                                        <v-radio label="Reprovado" :value="false" color="red"></v-radio>
                                                                     </v-radio-group>
                                                                 </td>
                                                             </tr>
@@ -329,9 +329,9 @@
 
                 <v-snackbar
                     v-model="snackbar"
-                    :right="right"
+                    :right="true"
                     :timeout="5000"
-                    :top="top"
+                    :top="true"
                 >
                     Revisão efetuada!
                     <v-btn
@@ -377,10 +377,6 @@
                     idGrupoAtivo: 21,
                     idAgente: 333,
                 },
-                background: [
-                    'red lighten-4',
-                    'green lighten-4',
-                ],
                 parecerData: { },
                 items: [
                     {
@@ -409,12 +405,21 @@
               }),
               getConsolidacao(id) {
                   this.requestEmissaoParecer(id);
+                  this.parecer.idAvaliacaoFinanceira;
                   this.setStatus();
               },
-              carregarHistorico(id) {
-                  this.listaRevisoes(id);
+              carregarHistorico() {
+                  this.listaRevisoes(this.parecer.idAvaliacaoFinanceira);
               },
               setStatus() {
+                  this.items.forEach((i) => {
+                      if (i.id === this.parecer.siManifestacao) {
+                          this.item = i.text;
+                      }
+                  });
+
+                  this.carregarHistorico();
+
                   if (this.grupo.codGrupo == 125) {
                       /** corrdenador habilitado */
                       this.perfilAtivo.cordenador = false;
@@ -430,11 +435,6 @@
                       this.perfilAtivo.geral = true;
                       this.perfilAtivo.revisar = false;
                   }
-                  this.items.forEach((i) => {
-                      if (i.id === this.getParecer.siManifestacao) {
-                          this.item = i.text;
-                      }
-                  });
               },
               inputRevisao(e) {
                   this.revisao.dsRevisao = e;
@@ -443,8 +443,19 @@
                   this.revisao.idAvaliacaoFinanceira = this.parecer.idAvaliacaoFinanceira;
                   this.revisao.idGrupoAtivo = this.grupo.codGrupo;
                   this.revisao.idAgente = this.agente[0].usu_codigo;
-                  this.salvarRev(this.revisao);
-                  this.snackbar = true;
+                  this.salvarRev(this.revisao).then((response) => {
+                      if (response.code == 200) {
+                          this.snackbar = true;
+                      }
+                  });
+              },
+              background(e) {
+                  if (e === false) {
+                      return 'red lighten-4';
+                  } else if (e === true) {
+                      return 'green lighten-4';
+                  }
+                  return '';
               },
           },
         computed:
@@ -462,13 +473,7 @@
           },
         mounted() {
             // this.getConsolidacao(this.$route.params.id);
-            // this.carregarHistorico(this.parecer.idAvaliacaoFinanceira);
             this.getConsolidacao(195025);
-            this.carregarHistorico(1);
         },
 };
 </script>
-
-<style scoped>
-
-</style>
