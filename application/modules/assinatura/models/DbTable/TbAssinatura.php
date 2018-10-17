@@ -27,6 +27,29 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
     const TIPO_ATO_PARECER_TECNICO_READEQUACAO_VINCULADAS = 653;
     const TIPO_ATO_PARECER_TECNICO_AJUSTE_DE_PROJETO = 654;
     const TIPO_ATO_PARECER_TECNICO_READEQUACAO_PROJETOS_MINC = 655;
+    
+    const TIPO_ATO_READEQUACAO_PLANILHA_ORCAMENTARIA = 656;
+    const TIPO_ATO_READEQUACAO_ALTERACAO_RAZAO_SOCIAL = 657;
+    const TIPO_ATO_READEQUACAO_AGENCIA_BANCARIA = 658;
+    const TIPO_ATO_READEQUACAO_SINOPSE_OBRA = 659;
+    const TIPO_ATO_READEQUACAO_IMPACTO_AMBIENTAL = 660;
+    const TIPO_ATO_READEQUACAO_ESPECIFICACAO_TECNICA = 661;
+    const TIPO_ATO_READEQUACAO_ESTRATEGIA_EXECUCAO = 662;
+    const TIPO_ATO_READEQUACAO_LOCAL_REALIZACAO = 663;
+    const TIPO_ATO_READEQUACAO_ALTERACAO_PROPONENTE = 664;
+    const TIPO_ATO_READEQUACAO_PLANO_DISTRIBUICAO = 665;
+    const TIPO_ATO_READEQUACAO_NOME_PROJETO = 667;
+    const TIPO_ATO_READEQUACAO_PERIODO_EXECUCAO = 668;
+    const TIPO_ATO_READEQUACAO_PLANO_DIVULGACAO = 669;
+    const TIPO_ATO_READEQUACAO_RESUMO_PROJETO = 670;
+    const TIPO_ATO_READEQUACAO_OBJETIVOS = 671;
+    const TIPO_ATO_READEQUACAO_JUSTIFICATIVA = 672;
+    const TIPO_ATO_READEQUACAO_ACESSIBILIDADE = 673;
+    const TIPO_ATO_READEQUACAO_DEMOCRATIZACAO_ACESSO = 674;
+    const TIPO_ATO_READEQUACAO_ETAPAS_TRABALHO = 675;
+    const TIPO_ATO_READEQUACAO_FICHA_TECNICA = 676;
+    const TIPO_ATO_READEQUACAO_SALDO_APLICACAO = 677;
+    const TIPO_ATO_READEQUACAO_TRANSFERENCIA_RECURSOS = 678;
 
     public function preencherModeloAssinatura(array $dados)
     {
@@ -86,7 +109,7 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
             $this->getSchema('tabelas')
         );
         $objQuery->where("IdPRONAC = ?", $idPronac);
-        $objQuery->where("tbAtoAdministrativo.idTipoDoAto = ?", $idTipoDoAtoAdministrativo);
+        $objQuery->where("tbAtoAdministrativo.idTipoDoAto IN (?)", $idTipoDoAtoAdministrativo);
         if (!is_null($idDocumentoAssinatura)) {
             $objQuery->where("tbAssinatura.idDocumentoAssinatura = ?", $idDocumentoAssinatura);
         }
@@ -226,8 +249,12 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
 
     public function obterQuantidadeAssinaturasRealizadas()
     {
+        if (!$this->modeloTbAssinatura) {
+            throw new Exception("&Eacute; necess&aacute;rio definir uma entidade de Assinatura.");
+        }
+        
         if (is_null($this->modeloTbAssinatura->getIdDocumentoAssinatura())) {
-            throw new Exception("`Identificador do Documento Assinatura n&atilde;o informado.");
+            throw new Exception("Identificador do Documento de Assinatura n&atilde;o informado.");
         }
 
         $query = $this->select();

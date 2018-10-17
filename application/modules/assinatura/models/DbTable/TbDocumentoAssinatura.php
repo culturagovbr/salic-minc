@@ -391,4 +391,40 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
 
         return (count($result) > 0);
     }
+    
+    public function obterProximaAssinatura(
+        $idDocumentoAssinatura,
+        $idPronac
+    )
+    {
+        $query = $this->select();
+        $query->setIntegrityCheck(false);
+        
+        $query->from(
+            [$this->_name],
+            ['idDocumentoAssinatura' => new Zend_Db_Expr('ISNULL(TbAtoAdministrativo.idOrdemDaAssinatura, 0) + 2')],
+            $this->_schema
+        );
+
+        $query->joinInner(
+            ["TbAssinatura" => "TbAssinatura"],
+            "(TbAssinatura.idDocumentoAssinatura = TbDocumentoAssinatura.idDocumentoAssinatura = TbAssinatura.idDocumentoAssinatura)",
+            [],
+            $this->_schema
+        );
+
+        $query->joinInner(
+            ["TbAtoAdministrativo" => "TbAtoAdministrativo"],
+            "(TbAssinatura.idAtoAdministrativo = TbAtoAdministrativo.idAtoAdministrativo)",
+            [],
+            $this->_schema
+        );
+
+        $query->where('TbDocumentoAssinatura.idDocumentoAssinatura = ?', $idDocumentoAssinatura);
+        $query->where('TbDocumentoAssinatura.idPronac = ?', $idPronac);
+        $query->order('TbAtoAdministrativo.idOrdemDaAssinatura DESC');
+        
+        $result = $this->fetchOne($query);
+    }
+    
 }

@@ -188,6 +188,7 @@
                       action="<?php echo $this->baseUrl(); ?>/readequacao/readequacoes/form-encaminhar-analise-tecnica"
                       method="post">
                     <input type="hidden" name="filtro" value="<?php echo $this->filtro; ?>"/>
+                    <input type="hidden" name="idPronac" value="<?php echo $this->projeto->IdPRONAC; ?>"/>
                     <table class="tabela">
                         <tr>
                             <td class="destacar bold centro" width="20%">PRONAC</td>

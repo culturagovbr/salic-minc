@@ -177,8 +177,10 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
         // @TODO VERIFICAR ESSE CARA
         $Diligencia = ($vDiligencia->idDiligencia) ? 1 : 0;
 
+
         $tbRecursoMapper = new Recurso_Model_TbRecursoMapper();
         $Recursos = ($tbRecursoMapper->obterProjetoPassivelDeRecurso($idPronac)) ? 1 : 0;
+
 
         /* ===== IDENTIFICAR FRASES DO PROJETO =====  */
 

@@ -5,12 +5,6 @@ class Readequacao_ReadequacaoAssinaturaController extends Readequacao_GenericCon
 
     private $grupoAtivo;
 
-    private $idTiposAtoAdministrativos = [
-        Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_READEQUACAO_VINCULADAS,
-        Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_AJUSTE_DE_PROJETO,
-        Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_READEQUACAO_PROJETOS_MINC
-    ];
-
     private function validarPerfis()
     {
         $auth = Zend_Auth::getInstance();
@@ -47,23 +41,21 @@ class Readequacao_ReadequacaoAssinaturaController extends Readequacao_GenericCon
         $this->validarPerfis();
         $this->view->idUsuarioLogado = $this->auth->getIdentity()->usu_codigo;
 
-        $tbAssinaturaDbTable = new Assinatura_Model_DbTable_TbAssinatura();
-        $tbAssinaturaDbTable->preencherModeloAtoAdministrativo([
-            'idOrgaoDoAssinante' => $this->grupoAtivo->codOrgao,
-            'idPerfilDoAssinante' => $this->grupoAtivo->codGrupo,
-            'idOrgaoSuperiorDoAssinante' => $this->auth->getIdentity()->usu_org_max_superior,
-            'idTipoDoAto' => $this->idTiposAtoAdministrativos
-        ]);
-        $this->view->dados = $tbAssinaturaDbTable->obterAssinaturasDisponiveis();
+        $servicoReadequacaoAssinatura = new \Application\Modules\Readequacao\Service\Assinatura\ReadequacaoAssinatura(
+            $this->grupoAtivo,
+            $this->auth
+        );
+
+        $this->view->dados = $servicoReadequacaoAssinatura->obterAssinaturas();
 
         $this->view->codGrupo = $this->grupoAtivo->codGrupo;
-
+        
         $objTbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();
         $this->view->quantidade_minima_assinaturas = $objTbAtoAdministrativo->obterQuantidadeMinimaAssinaturas(
-            $this->idTiposAtoAdministrativos,
+            $servicoReadequacaoAssinatura->obterAtosAdministativos(),
             $this->auth->getIdentity()->usu_org_max_superior
         );
-        $this->view->idTipoDoAtoAdministrativo = Readequacao_ReadequacaoAssinaturaController::obterIdTipoAtoAdministativoPorOrgaoSuperior($this->grupoAtivo->codOrgao);
+        $this->view->idTipoDoAtoAdministrativo = $servicoReadequacaoAssinatura->obterAtosAdministativos();
         $this->view->isPermitidoDevolver = true;
         if ($this->grupoAtivo->codGrupo == Autenticacao_Model_Grupos::PARECERISTA) {
             $this->view->isPermitidoDevolver = false;
@@ -76,9 +68,13 @@ class Readequacao_ReadequacaoAssinaturaController extends Readequacao_GenericCon
         $get = Zend_Registry::get('get');
         try {
             if (!filter_input(INPUT_GET, 'IdPRONAC')) {
-                throw new Exception("Identificador do projeto é necessário para acessar essa funcionalidade.");
+                throw new Exception("Identificador do projeto &eacute; necess&aacute;rio para acessar essa funcionalidade.");
             }
 
+            if (!filter_input(INPUT_GET, 'idDocumentoAssinatura')) {
+                throw new Exception("Identificador do documento &eacute; necess&aacute;ria para acessar essa funcionalidade.");
+            }
+            
             if ($this->grupoAtivo->codGrupo == Autenticacao_Model_Grupos::PARECERISTA) {
                 throw new Exception(
                     "O Perfil Parecerista n&atilde;o possui permiss&atilde;o para executar a a&ccedil;&atilde;o de devolver."
@@ -90,14 +86,20 @@ class Readequacao_ReadequacaoAssinaturaController extends Readequacao_GenericCon
             $this->view->projeto = $objTbProjetos->findBy(array(
                 'IdPRONAC' => $get->IdPRONAC
             ));
-
+                        
+            $servicoReadequacaoAssinatura = new \Application\Modules\Readequacao\Service\Assinatura\ReadequacaoAssinatura(
+                $this->grupoAtivo,
+                $this->auth
+            );
+            
+            $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
+            $documentoAssinatura = $objModelDocumentoAssinatura->findBy(
+                ['idDocumentoAssinatura' => $get->idDocumentoAssinatura]
+            );
+            $idTipoDoAtoAdministrativo = $documentoAssinatura['idTipoDoAtoAdministrativo'];
+            
             $post = $this->getRequest()->getPost();
             if ($post) {
-                if (!filter_input(INPUT_POST, 'idTipoDoAtoAdministrativo')) {
-                    throw new Exception("Identificador do Tipo do Ato Administrativo n&atilde;o informado");
-                }
-                $idTipoDoAtoAdministrativo = $post['idTipoDoAtoAdministrativo'];
-
                 if (!filter_input(INPUT_POST, 'motivoDevolucao')) {
                     throw new Exception("Campo 'Motivação da Devolução para nova avaliação' n&atilde;o informado.");
                 }
@@ -107,7 +109,8 @@ class Readequacao_ReadequacaoAssinaturaController extends Readequacao_GenericCon
                         'Despacho' => $post['motivoDevolucao'],
                         'idTipoDoAto' => $idTipoDoAtoAdministrativo,
                         'idPerfilDoAssinante' => $this->grupoAtivo->codGrupo,
-                        'idPronac' => $get->IdPRONAC
+                        'idPronac' => $get->IdPRONAC,
+                        'idDocumentoAssinatura' => $get->idDocumentoAssinatura
                     ]
                 );
                 $assinaturaService->devolver();
@@ -119,13 +122,13 @@ class Readequacao_ReadequacaoAssinaturaController extends Readequacao_GenericCon
                 );
             }
 
-            $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
             $this->view->abertoParaDevolucao = $objModelDocumentoAssinatura->isProjetoDisponivelParaAssinatura(
                 $get->IdPRONAC,
-                $this->idTipoDoAtoAdministrativo
+                $idTipoDoAtoAdministrativo
             );
 
             $this->view->IdPRONAC = $get->IdPRONAC;
+            $this->view->idDocumentoAssinatura = $get->idDocumentoAssinatura;
 
             $mapperArea = new Agente_Model_AreaMapper();
             $this->view->areaCultural = $mapperArea->findBy(array(
@@ -149,7 +152,7 @@ class Readequacao_ReadequacaoAssinaturaController extends Readequacao_GenericCon
         } catch (Exception $objException) {
             parent::message(
                 $objException->getMessage(),
-                "/{$this->moduleName}/readequacao-assinatura/devolver-projeto?IdPRONAC={$get->IdPRONAC}"
+                "/{$this->moduleName}/readequacao-assinatura/devolver-projeto?IdPRONAC={$get->IdPRONAC}&idDocumentoAssinatura={$get->idDocumentoAssinatura}"
             );
         }
     }

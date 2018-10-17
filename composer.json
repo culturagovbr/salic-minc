@@ -69,7 +69,8 @@
             "Application\\Modules\\AvaliacaoResultados\\Service\\Assinatura\\Laudo\\Acao\\": "./application/modules/avaliacao-resultados/service/assinatura/laudo/acao",
             "Application\\Modules\\AvaliacaoResultados\\Service\\LaudoFinal\\": "./application/modules/avaliacao-resultados/service/laudo-final",
             "MinC\\Assinatura\\": "./library/MinC/Assinatura/",
-            "MinC\\Db\\Model\\": "./library/MinC/Db/Model/"
+            "MinC\\Db\\Model\\": "./library/MinC/Db/Model/",
+            "MinC\\Servico\\": "./library/MinC/Servico/"
         }
     },
     "archive": {

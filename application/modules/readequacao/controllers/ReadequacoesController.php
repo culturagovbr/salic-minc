@@ -1221,8 +1221,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         }
 
         $this->view->filtro = $filtro;
-
-        // lista apenas readequações do órgão atual
+        
         if ($filtro == 'aguardando_distribuicao') {
             $where['idOrgao = ?'] = $this->idOrgao;
         } else {
@@ -1233,16 +1232,31 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             $where['a.PRONAC = ?'] = $this->_request->getParam('pronac');
             $this->view->pronac = $this->_request->getParam('pronac');
         }
-
+        
         $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-
+        
         $total = $tbReadequacao->painelReadequacoesCoordenadorAcompanhamentoCount($where, $filtro);
-
+        
         $fim = $inicio + $this->intTamPag;
 
         $totalPag = (int)(($total % $this->intTamPag == 0) ? ($total / $this->intTamPag) : (($total / $this->intTamPag) + 1));
         $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
 
+        if ($filtro == 'analisados') {
+            unset($where['idOrgaoOrigem = ?']);
+            $where['CASE 
+	                    WHEN projetos.Orgao in (160,179,682)
+		            THEN 166
+                        WHEN projetos.Orgao in (251,341)
+                    THEN 272
+                    ELSE projetos.Orgao
+                    END = ?'] = $this->idOrgao;
+
+            if ($this->_request->getParam('pronac')) {
+                unset($where['a.PRONAC = ?']);
+                $where[new Zend_Db_Expr('projetos.anoprojeto + projetos.sequencial') . ' = ?'] = $this->_request->getParam('pronac');
+            }           
+        }
         $busca = $tbReadequacao->painelReadequacoesCoordenadorAcompanhamento($where, $order, $tamanho, $inicio, false, $filtro);
 
         $paginacao = array(
@@ -1961,30 +1975,20 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                     $where = "idReadequacao = $idReadequacao";
                     $tbReadequacao->update($dados, $where);
                 }
-
-                $idTipoDoAto = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_READEQUACAO_VINCULADAS;
-                if ($this->idPerfil == Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO) {
-                    switch ($dadosRead->idTipoReadequacao) {
-                        case Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA:
-                        case Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_RAZAO_SOCIAL:
-                        case Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_ALTERACAO_PROPONENTE:
-                        case Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_NOME_PROJETO:
-                        case Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_RESUMO_PROJETO:
-                            $idTipoDoAto = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_READEQUACAO_PROJETOS_MINC;
-                            break;
-                        default:
-                            $idTipoDoAto = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_AJUSTE_DE_PROJETO;
-                            break;
-                    }
-                }
-
+                
+                $servicoReadequacaoAssinatura = new \Application\Modules\Readequacao\Service\Assinatura\ReadequacaoAssinatura(
+                    $this->grupoAtivo,
+                    $this->auth
+                );
+                $idTipoDoAto = $servicoReadequacaoAssinatura->obterAtoAdministrativoPorTipoReadequacao($dadosRead->idTipoReadequacao);
+                
                 $servicoDocumentoAssinatura = new \Application\Modules\Readequacao\Service\Assinatura\DocumentoAssinatura(
                     $idPronac,
                     $idTipoDoAto,
                     $idParecer
                 );
                 $idDocumentoAssinatura = $servicoDocumentoAssinatura->iniciarFluxo();
-
+                
                 $origin = "readequacao/readequacao-assinatura";
 
                 parent::message(
@@ -1992,7 +1996,6 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
                     "/assinatura/index/visualizar-projeto?idDocumentoAssinatura={$idDocumentoAssinatura}&origin={$origin}",
                     "CONFIRM"
                 );
-//                parent::message("A avalia&ccedil;&atilde;o da readequa&ccedil;&atilde;o foi finalizada com sucesso! ", "readequacao/readequacoes/painel-readequacoes", "CONFIRM");
             }
 
             $idReadequacao = Seguranca::encrypt($idReadequacao);
@@ -2023,7 +2026,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
 
         if ($return) {
 
-            $idTipoDoAtoAdministrativo = Readequacao_ReadequacaoAssinaturaController::obterIdTipoAtoAdministativoPorOrgaoSuperior($this->idOrgao); 
+            $idTipoDoAtoAdministrativo = Readequacao_ReadequacaoAssinaturaController::obterIdTipoAtoAdministativoPorOrgaoSuperior($this->idOrgao);
             $objDbTableDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
             $idDocumentoAssinatura = $objDbTableDocumentoAssinatura->getIdDocumentoAssinatura(
                 $idPronac,
