@@ -89,8 +89,8 @@
                     <v-card flat>
                         <v-card-text>
                             <TabelaProjetos
-                                :dados="getProjetosAssinar"
-                                :componentes="listaAcoesTecnico"
+                                :dados="getProjetosFinalizados"
+                                :componentes="listaAcoesAssinar"
                             ></TabelaProjetos>
                         </v-card-text>
                     </v-card>
@@ -134,12 +134,13 @@ import Historico from './Historico';
 import Encaminhar from './ComponenteEncaminhar';
 import TipoAvaliacao from './TipoAvaliacao';
 import AnaliseButton from './analise/analisarButton';
+import AssinarButton from './analise/AssinarButton';
 
 export default {
     name: 'Painel',
     created() {
-        this.projetosFinalizados({ estadoid: 6 });
-        this.obterDadosTabelaTecnico({ estadoid: 5 });
+        //this.projetosFinalizados({ estadoid: 6 });
+        //this.obterDadosTabelaTecnico({ estadoid: 5 });
         this.distribuir({ estadoid: 6 });
 
         this.projetosAssinatura({ estado: 'assinar' });
@@ -153,8 +154,31 @@ export default {
     watch: {
         getUsuario(val) {
             if (Object.keys(val).length > 0 && val.usu_codigo != 0 ) {
-                this.projetosFinalizados({ estadoid: 6, idAgente: this.getUsuario.usu_codigo });
-                this.obterDadosTabelaTecnico({ estadoid: 5, idAgente: this.getUsuario.usu_codigo });
+
+                let projetosTecnico = {};
+                let projetosFinalizados = {};
+                if (this.getUsuario.grupo_ativo == 125) {
+                    projetosTecnico = {
+                        estadoid: 5,
+                    };
+
+                    projetosFinalizados = {
+                        estadoid: 6,
+                    };
+                } else {
+                    projetosTecnico = {
+                        estadoid: 5,
+                        idAgente: this.getUsuario.usu_codigo,
+                    };
+
+                    projetosFinalizados = {
+                        estadoid: 6,
+                        idAgente: this.getUsuario.usu_codigo,
+                    };
+                }
+
+                this.obterDadosTabelaTecnico(projetosTecnico);
+                this.projetosFinalizados(projetosFinalizados);
                 this.distribuir({ estadoid: 6 });
             }
         },
@@ -162,10 +186,8 @@ export default {
     data() {
         return {
             listaAcoesTecnico: [Historico, AnaliseButton],
+            listaAcoesAssinar: [Historico, AssinarButton],
             listaAcoesCoordenador: [Historico],
-            //listaAcoesTecnico: [Historico, TipoAvaliacao],
-            listaAcoesCoordenador: [Historico],
-            //listaAcoesCoordenador: [Historico, TipoAvaliacao],
             distribuirAcoes: [Encaminhar],
         };
     },

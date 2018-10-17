@@ -7,23 +7,23 @@
         <v-btn slot="activator" flat icon color="grey">
             <v-icon>history</v-icon>
         </v-btn>
+
       <v-card>
-        <v-card-title class="green white--text" primary-title>
-          Histórico de encaminhamentos
+        <v-card-title class="headline green" primary-title>
+            <span class="white--text">
+                Histórico de encaminhamentos
+            </span>
         </v-card-title>
         
         <v-card-text style="height: 500px;">
-            <v-subheader >Encaminhamentos</v-subheader>
-            <v-data-table
-                :headers="projetoHeaders"
-                :items="[]"
-                hide-actions
-            >
-                <template slot="no-data">
-                    <td>{{pronac}}</td>
-                    <td>{{nomeProjeto}}</td>
-                </template>
-            </v-data-table>
+            <v-subheader>
+                <h4 class="headline mb-0 grey--text text--darken-3">
+                    {{pronac}} - {{nomeProjeto}}
+                </h4>    
+            </v-subheader>
+            
+            <v-divider dark></v-divider>
+
             <v-data-table
                 :headers="historicoHeaders"
                 :items="dadosHistoricoEncaminhamento"

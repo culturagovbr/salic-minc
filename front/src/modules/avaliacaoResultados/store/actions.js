@@ -1,3 +1,4 @@
+import * as typesNoticias from '@/modules/noticias/store/types';
 import * as avaliacaoResultadosHelperAPI from '@/helpers/api/AvaliacaoResultados';
 import * as desencapsularResponse from '@/helpers/actions';
 import * as types from './types';
@@ -163,11 +164,12 @@ export const getLaudoFinal = ({ commit }, param) => {
     });
 };
 
-export const salvarLaudoFinal = ({ commit }, data) => {
+export const salvarLaudoFinal = ({ commit, state, rootState }, data) => {
+    console.log(rootState);
     avaliacaoResultadosHelperAPI.criarParecerLaudoFinal(data)
         .then(() => {
             const message = "Laudo final salvo com sucesso!"
-            alert(message);
+            commit('noticias/SET_DADOS', { ativo: true, color: 'info', text: 'Salvo com sucesso!' }, { root: true });
         });
 };
 

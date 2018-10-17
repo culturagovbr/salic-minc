@@ -8,6 +8,7 @@ import foo from './modules/foo/store';
 import avaliacaoResultados from './modules/avaliacaoResultados/store';
 import proposta from './modules/proposta/store';
 import autenticacao from './modules/autenticacao/store';
+import noticias from './modules/noticias/store';
 
 Vue.use(Vuex);
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
         avaliacaoResultados,
         proposta,
         autenticacao,
+        noticias,
     },
     strict: debug,
 });

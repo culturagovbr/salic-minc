@@ -31,7 +31,9 @@
                         <v-card-text>
                             <v-list three-line subheader>
                                 <v-subheader>
-                                    {{pronac}} - {{nomeProjeto}}
+                                    <h4 class="headline mb-0 grey--text text--darken-3">
+                                        {{pronac}} - {{nomeProjeto}}
+                                    </h4>    
                                 </v-subheader>
                                 <v-divider></v-divider>
 

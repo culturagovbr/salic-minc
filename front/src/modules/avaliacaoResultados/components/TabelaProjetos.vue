@@ -48,10 +48,10 @@
         <div class="text-xs-center">
             <div class="text-xs-center pt-2">
                 <v-pagination
-                        v-model="pagination.page"
-                        :length="pages"
-                        :total-visible="3"
-                        color="green lighten-2"
+                    v-model="pagination.page"
+                    :length="pages"
+                    :total-visible="4"
+                    color="green lighten-2"
                 ></v-pagination>
             </div>
         </div>
@@ -60,7 +60,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import Historico from './Historico';
 
 export default {
     name: 'TabelaProjetos',
@@ -97,9 +96,6 @@ export default {
                 },
             ],
         };
-    },
-    components: {
-        Historico,
     },
     methods: {
         ...mapActions({

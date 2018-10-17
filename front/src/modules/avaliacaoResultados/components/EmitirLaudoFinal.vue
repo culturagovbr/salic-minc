@@ -59,7 +59,7 @@
 
 <script>
     import { mapActions, mapGetters } from 'vuex';
-    
+
     export default {
         data() {
             return {
@@ -85,6 +85,7 @@
                 salvar: 'avaliacaoResultados/salvarLaudoFinal',
                 finalizar: 'avaliacaoResultados/finalizarLaudoFinal',
                 getLaudoFinal: 'avaliacaoResultados/getLaudoFinal',
+                setSnackbar: 'noticias/setDados',
             }),
             getConsolidacao(id) {
                 this.requestEmissaoParecer(id);
@@ -109,6 +110,7 @@
                 }
 
                 this.salvar(data);
+
                 /** Descomentar linha após migração da lista para o VUEJS */
                 // this.dialog = false;
             },
@@ -133,7 +135,7 @@
                 if (this.laudoFinalData.dsLaudoFinal) {
                     data.dsLaudoFinal = this.laudoFinalData.dsLaudoFinal;
                 }
-    
+
                 this.finalizar(data);
                 /** Descomentar linha após migração da lista para o VUEJS */
                 // this.dialog = false;
@@ -151,6 +153,7 @@
                 proponente: 'avaliacaoResultados/proponente',
                 projeto: 'avaliacaoResultados/projeto',
                 parecerLaudoFinal: 'avaliacaoResultados/getParecerLaudoFinal',
+                getSnackbar: 'noticias/getDados',
             }),
         },
         created() {
