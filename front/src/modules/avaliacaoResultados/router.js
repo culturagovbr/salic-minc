@@ -10,7 +10,7 @@ import Diligenciar from './components/Diligenciar';
 import Historico from './components/Historico';
 import ConsolidacaoAnalise from './components/ConsolidacaoAnalise';
 import EmitirLaudoFinal from './components/EmitirLaudoFinal';
-import Laudo from './components/Laudo';
+import Laudo from './components/PainelLaudo';
 import AnalisarItem from './components/AnalisarItem';
 import RevisaoParecer from './components/RevisaoParecer';
 

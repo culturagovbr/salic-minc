@@ -30,8 +30,8 @@
                 </td> -->
                 <td class="text-xs-center">
                     <template v-for="c in componentes">
-                        <component 
-                            :is="c" 
+                        <component
+                            :is="c"
                             :id-pronac="props.item.IdPRONAC"
                             :pronac="props.item.PRONAC"
                             :nome-projeto="props.item.NomeProjeto"
@@ -78,15 +78,15 @@ export default {
                     value: 'numero',
                 },
                 { text: 'PRONAC', value: 'Pronac' },
-                { text: 'Nome Do Projeto', 
+                { text: 'Nome Do Projeto',
                     align: 'center',
                     value: 'NomeProjeto' },
-                { 
-                    text: 'Situacao', 
+                {
+                    text: 'Situacao',
                     align: 'center',
                     value: 'Situacao' },
-                { 
-                    text: 'Estado', 
+                {
+                    text: 'Estado',
                     align: 'center',
                     value: 'UfProjeto' },
                 {

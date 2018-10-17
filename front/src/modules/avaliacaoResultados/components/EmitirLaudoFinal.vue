@@ -120,8 +120,8 @@
                     idtipodoatoadministrativo: 623,
                     siManifestacao: this.parecerLaudoFinal.items.siManifestacao,
                     dsLaudoFinal: this.parecerLaudoFinal.items.dsLaudoFinal,
-                    atual: 5,
-                    proximo: 6,
+                    atual: 10,
+                    proximo: 11,
                 };
 
                 if (this.parecerLaudoFinal.items.idLaudoFinal) {

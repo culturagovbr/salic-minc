@@ -117,20 +117,20 @@ export const mutations = {
     [types.GET_DADOS_ITEM_COMPROVACAO](state, dados) {
         state.dadosItemComprovacao = dados;
     },
-    [types.SET_DADOS_PROJETOS_PARA_DISTRIBUIR](state, dados){
+    [types.SET_DADOS_PROJETOS_PARA_DISTRIBUIR](state, dados) {
         state.projetosParaDistribuir = dados;
     },
 
-    [types.SET_DADOS_PROJETOS_ASSINAR](state, dados){
+    [types.SET_DADOS_PROJETOS_ASSINAR](state, dados) {
         state.getProjetosAssinar = dados;
     },
-    [types.SET_DADOS_PROJETOS_EM_ASSINATURA](state, dados){
+    [types.SET_DADOS_PROJETOS_EM_ASSINATURA](state, dados) {
         state.getProjetosEmAssinatura = dados;
     },
-    [types.SET_DADOS_PROJETOS_LAUDO_FINAL](state, dados){
+    [types.SET_DADOS_PROJETOS_LAUDO_FINAL](state, dados) {
         state.getProjetosLaudoFinal = dados;
     },
-    [types.SET_DADOS_PROJETOS_HISTORICO](state, dados){
+    [types.SET_DADOS_PROJETOS_HISTORICO](state, dados) {
         state.getProjetosHistorico = dados;
     },
 };

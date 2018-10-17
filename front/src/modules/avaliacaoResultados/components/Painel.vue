@@ -132,15 +132,12 @@ import { mapActions, mapGetters } from 'vuex';
 import TabelaProjetos from './TabelaProjetos';
 import Historico from './Historico';
 import Encaminhar from './ComponenteEncaminhar';
-import TipoAvaliacao from './TipoAvaliacao';
 import AnaliseButton from './analise/analisarButton';
 import AssinarButton from './analise/AssinarButton';
 
 export default {
     name: 'Painel',
     created() {
-        //this.projetosFinalizados({ estadoid: 6 });
-        //this.obterDadosTabelaTecnico({ estadoid: 5 });
         this.distribuir({ estadoid: 6 });
 
         this.projetosAssinatura({ estado: 'assinar' });

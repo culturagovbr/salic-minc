@@ -2,6 +2,7 @@
 
 use Application\Modules\AvaliacaoResultados\Service\Encaminhar\AvaliacaoFinanceira as EncaminharAvaliacaoService;
 use Application\Modules\AvaliacaoResultados\Service\Assinatura\Laudo\DocumentoAssinatura as DocumentoAssinaturaService;
+use Application\Modules\AvaliacaoResultados\Service\LaudoFinal\Laudo as LaudoService;
 
 class AvaliacaoResultados_Events_FinalizarLaudo
 {
@@ -21,6 +22,7 @@ class AvaliacaoResultados_Events_FinalizarLaudo
     public function attach() {
         $this->events->attach('run', $this->iniciarAssinatura());
         $this->events->attach('run', $this->alterarEstado());
+        $this->events->attach('run', $this->salvarLaudo());
     }
 
     public function run($params) {
@@ -53,6 +55,18 @@ class AvaliacaoResultados_Events_FinalizarLaudo
 
             $assinatura = new DocumentoAssinaturaService($params['idPronac'], 623);
             $idDocumentoAssinatura = $assinatura->iniciarFluxo();
+        };
+    }
+
+    public function salvarLaudo() {
+        return function($t){
+            $params = $t->getParams();
+
+            $service = new LaudoService();
+            $data = $service->salvarLaudo($params['idLaudoFinal'],
+                                          $params['idPronac'],
+                                          $params['siManifestacao'],
+                                          $params['dsLaudoFinal']);
         };
     }
 }
