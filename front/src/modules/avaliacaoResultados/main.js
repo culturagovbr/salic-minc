@@ -10,7 +10,18 @@ import {
     store,
 } from './config';
 
-Vue.use(Vuetify);
+Vue.use(Vuetify, {
+        theme: {
+            primary: "#0A420E",
+            secondary: "#00838F",
+            accent: "#9c27b0",
+            error: "#f44336",
+            warning: "#ffeb3b",
+            info: "#2196f3",
+            success: "#4caf50"
+        }
+    }
+);
 Vue.config.productionTip = false;
 
 window.onload = () => {
