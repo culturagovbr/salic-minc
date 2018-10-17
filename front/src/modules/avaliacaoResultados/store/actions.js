@@ -165,14 +165,14 @@ export const getLaudoFinal = ({ commit }, param) => {
 export const salvarLaudoFinal = ({ commit }, data) => {
     avaliacaoResultadosHelperAPI.criarParecerLaudoFinal(data)
         .then(() => {
-            const message = 'Laudo final salvo com sucesso!';
-            commit('noticias/SET_DADOS', { ativo: true, color: 'info', text: message }, { root: true });
+            commit('noticias/SET_DADOS', { ativo: true, color: 'success', text: 'Salvo com sucesso!' }, { root: true });
         });
 };
 
-export const finalizarLaudoFinal = (_, data) => {
+export const finalizarLaudoFinal = ({ commit }, data) => {
     avaliacaoResultadosHelperAPI.finalizarParecerLaudoFinal(data)
         .then(() => {
+            commit('noticias/SET_DADOS', { ativo: true, color: 'success', text: 'Finalizado com sucesso!' }, { root: true });
         });
 };
 

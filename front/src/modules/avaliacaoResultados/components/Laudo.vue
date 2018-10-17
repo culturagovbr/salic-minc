@@ -172,10 +172,6 @@
                 obterProjetosLaudoFinal: 'avaliacaoResultados/obterProjetosLaudoFinal',
             }),
         },
-        watch: {
-            dadosTabela() {
-            },
-        },
         computed: {
             ...mapGetters({
                 getProjetosLaudoFinal: 'avaliacaoResultados/getProjetosLaudoFinal',
