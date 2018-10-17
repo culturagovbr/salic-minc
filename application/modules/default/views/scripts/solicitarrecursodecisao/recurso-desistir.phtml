@@ -1,30 +1,80 @@
 <?php
-/**
- * @author Equipe - XTI
- * @since 07/10/2013
- * @author Jefferson Alessandro <jefferson.silva@cultura.gov.br>
- * @version 2.0
- * @package application
- * @subpackage application.view.scripts.solicitarrecursodedecisao
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
- * @link http://www.cultura.gov.br
- */
+
+$breadcrumb = [
+    ['Consultar dados projeto' => $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true) . '?idPronac=' . Seguranca::encrypt($this->escape($this->idPronac))],
+    ['Desist&ecirc;ncia do Prazo Recursal' => '']
+];
+
 ?>
+<div class="container-fluid">
+    <?php $this->PageTitle('Desist&ecirc;ncia do Prazo Recursal', $breadcrumb); ?>
+
+    <div id="msgAlerta"></div>
+    <div id="conteudo">
+        <form name="form" id="form"
+              action="<?php echo $this->url(array('controller' => 'solicitarrecursodecisao', 'action' => 'recurso-desistencia')); ?>?idPronac=<?php echo $this->projetos->IdPRONAC; ?>"
+              method="post">
+            <input type="hidden" name="idPronac" id="idPronac" value="<?php echo $this->projetos->IdPRONAC; ?>"/>
+            <table class="tabela">
+                <tr>
+                    <td class="destacar bold" style="width: 30%">Pronac</td>
+                    <td class="destacar bold">Nome do Projeto</td>
+                </tr>
+                <tr>
+                    <td><?php echo $this->projetos->AnoProjeto . $this->projetos->Sequencial; ?></td>
+                    <td><?php echo $this->projetos->NomeProjeto; ?></td>
+                </tr>
+            </table>
+
+            <table class="tabela">
+                <tr>
+                    <th>Texto referente &agrave; Concord&acirc;ncia</th>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Prezado Proponente, a manifesta&ccedil;&atilde;o de concord&acirc;ncia com os termos da decis&atilde;o
+                            da Comiss&atilde;o Nacional de Incentivo &agrave; Cultura &#8208; CNIC relativa ao seu
+                            projeto cultural apreciado na &uacute;ltima Reuni&atilde;o implica em ren&uacute;ncia
+                            &agrave; possibilidade de encaminhamento de pedido de reconsidera&ccedil;&atilde;o.</p>
+                        <p>Dessa forma, ao concluir o procedimento de concord&acirc;ncia que &eacute; facultativo, o seu
+                            projeto cultural ser&aacute; automaticamente encaminhado, juntamente com os demais projetos
+                            na mesma situa&ccedil;&atilde;o, para an&aacute;lise da decis&atilde;o da CNIC e verifica&ccedil;&atilde;o
+                            da instru&ccedil;&atilde;o processual com vistas &agrave; homologa&ccedil;&atilde;o para a
+                            execu&ccedil;&atilde;o do projeto.</p>
+                        <p>
+                            <label>
+                                <input id="deacordo" type="checkbox" value="1" name="deacordo" class="checkObrigatorio">
+                                <span style="color: red; font-weight: bold; font-size: 13px; margin-left: 0.7em;">De acordo</span>
+                            </label>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+
+            <div style="width: 100%; text-align: center;">
+                <a id="btn_enviar" class="btn btn-primary" ref="javascript:void(0)" title="Enviar">
+                    Enviar <i class="material-icons right">send</i>
+                </a>
+                <input id="btn_cancelar" type="button" class="btn btn-info" title="Cancelar" value="Cancelar"/>
+            </div>
+        </form>
+    </div>
+</div>
 
 <script type="text/javascript">
-    $(document).ready(function(){
-            
-        $('.btn_enviar').click(function(){
+    $(document).ready(function () {
+
+        $('#btn_enviar').click(function () {
             var countChecks = 0;
-            $('.checkObrigatorio').each(function(){
-                if($(this).attr('checked')){
+            $('.checkObrigatorio').each(function () {
+                if ($(this).attr('checked')) {
                     countChecks++;
                 }
             });
 
             if (countChecks == 0) {
                 $("#msgAlerta").dialog("destroy");
-                $("#msgAlerta").html("Favor preencher os dados obrigatórios!");
+                $("#msgAlerta").html("Favor preencher os dados obrigatï¿½rios!");
                 $("#msgAlerta").dialog({
                     resizable: false,
                     title: 'Alerta!',
@@ -32,7 +82,7 @@
                     height: 160,
                     modal: true,
                     buttons: {
-                        'OK': function() {
+                        'OK': function () {
                             $(this).dialog('close');
                         }
                     }
@@ -43,95 +93,19 @@
             }
         });
 
-        $('.btn_cancelar').click(function(){
+        $('#btn_cancelar').click(function () {
             voltar();
         });
     });
 </script>
-    
+
 <style type="text/css">
-    label{
+    label {
         font-weight: normal;
-        margin-right: 15px;
+        margin-right: 18px;
     }
-    .checkObrigatorio{
-        margin-right: 5px; 
+
+    .checkObrigatorio {
+        margin-right: 5px;
     }
 </style>
-
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
-<div id="msgAlerta"></div>
-<div id="breadcrumb">
-    <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para Início">Início</a></li>
-        <li><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->escape($this->projetos->IdPRONAC)); ?>" title="Consultar dados projeto">Consultar dados projeto</a></li>
-        <li class="last">Desist&ecirc;ncia do Prazo Recursal</li>
-    </ul>
-</div>
-<!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
-
-
-<!-- ========== INÍCIO TÍTULO ========== -->
-<div id="titulo">
-    <div>
-        Desist&ecirc;ncia do Prazo Recursal <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span>
-    </div>
-</div>
-<!-- ========== FIM TÍTULO ========== -->
-
-
-<!-- ========== INÍCIO CONTEÚDO ========== -->
-<div id="conteudo">
-    
-    <!-- ========== INÍCIO FORMULÁRIO ========== -->
-    <form name="form" id="form" action="<?php echo $this->url(array('controller' => 'solicitarrecursodecisao', 'action' => 'recurso-desistencia')); ?>?idPronac=<?php echo $this->projetos->IdPRONAC; ?>" method="post">
-        <input type="hidden" name="idPronac" id="idPronac" value="<?php echo $this->projetos->IdPRONAC; ?>" />
-        <table class="tabela">
-            <tr>
-                <td class="destacar bold centro" style="width: 30%">Pronac</td>
-                <td class="destacar bold centro">Nome do Projeto</td>
-            </tr>
-            <tr>
-                <td align="center"><?php echo $this->projetos->AnoProjeto.$this->projetos->Sequencial; ?></td>
-                <td align="center"><?php echo $this->projetos->NomeProjeto; ?></td>
-            </tr>
-        </table>
-
-        <table class="tabela">
-            <tr>
-                <th>Texto referente &agrave; Concord&acirc;ncia</th>
-            </tr>
-            <tr>
-                <td>
-                    <p>Prezado Proponente, a manifesta&ccedil;&atilde;o de concord&acirc;ncia com os termos da decis&atilde;o da Comiss&atilde;o Nacional de Incentivo &agrave; Cultura &dash; CNIC relativa ao seu projeto cultural apreciado na &uacute;ltima Reuni&atilde;o implica em ren&uacute;ncia &agrave; possibilidade de encaminhamento de pedido de reconsidera&ccedil;&atilde;o conforme disposto no art. 44 da Instru&ccedil;&atilde;o Normativa n&ordm; 1, de 24/6/2013:</p>
-                    <p style="font-style: italic;">&OpenCurlyDoubleQuote;Art. 44.  Da decis&atilde;o caber&aacute; pedido de reconsidera&ccedil;&atilde;o, no prazo de dez dias corridos, a contar do seu registro no Salic.&CloseCurlyDoubleQuote;</p>
-                    <p>Dessa forma, ao concluir o procedimento de concord&acirc;ncia que &eacute; facultativo, o seu projeto cultural ser&aacute; automaticamente encaminhado, juntamente com os demais projetos na mesma situa&ccedil;&atilde;o, para an&aacute;lise da decis&atilde;o da CNIC e verifica&ccedil;&atilde;o da instru&ccedil;&atilde;o processual com vistas &agrave; publica&ccedil;&atilde;o da Portaria que autoriza a capta&ccedil;&atilde;o de recursos incentivados no Di&aacute;rio Oficial da Uni&atilde;o &dash; DOU, independentemente do prazo referido no art. 44.</p>
-                    <br clear="all" />
-                    <p>
-                        <label>
-                            <input id="deacordo" type="checkbox" value="1" name="deacordo" class="checkObrigatorio">
-                            <span style="color: red; font-weight: bold; font-size: 13px; margin-left: 0.7em;">De acordo</span>
-                        </label>
-                    </p>
-                </td>
-            </tr>
-        </table>
-
-        <div style="width: 100%; text-align: center;">
-            <input type="button" title="Enviar" class="btn_enviar" value=" " />
-            <input type="button" title="Cancelar" class="btn_cancelar" value=" " />
-        </div>
-    </form>
-    
-    <br clear="all" />
-    
-<!-- ========== FIM FORMULÁRIO ========== -->
-
-</div>	
-<!-- ========== FIM CONTEÚDO ========== -->
-
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
-<div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
-
-<br clear="all" />

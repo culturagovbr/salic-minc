@@ -1,0 +1,22 @@
+<style>
+    .bordered-all td {
+        border: solid 1px #c9c9c9 !important;
+    }
+</style>
+<div class="row">
+        <div class="modal-content">
+                <?= $this->partial(
+                    '/homologacao/partials/visualizar-parecer-completo.phtml', ['arrValue' => $this->arrValue]
+                ); ?>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="finalizar" class="btn waves-effect waves-light" type="submit" name="action">Finalizar</button>
+            <a href="#!" class="modal-action modal-close waves-effect waves-orange btn-flat orange-text"
+               style="margin-right: 15px;">Fechar</a>
+        </div>
+    </form>
+</div>
+<script>
+    $3('.collapsible').collapsible();
+</script>

@@ -29,10 +29,12 @@ class Projeto_Model_DbTable_Enquadramento extends MinC_Db_Table_Abstract
                     'a.SolicitadoReal AS CustoProjeto',
                     new Zend_Db_Expr('a.AnoProjeto + a.Sequencial AS Pronac'),
                     new Zend_Db_Expr('dbo.fnNomeDoProponente(a.IdPRONAC) AS Proponente'),
-                    new Zend_Db_Expr('sac.dbo.fnOutrasFontes(a.IdPRONAC) AS VlOutrasFontes'),
-                    new Zend_Db_Expr('dbo.fnOutrasFontes(a.IdPRONAC) AS VlOutrasFontesAprovado'),
-                    new Zend_Db_Expr('sac.dbo.fnValorDaProposta(a.idProjeto) AS VlProjeto'),
-                    new Zend_Db_Expr('dbo.fnValorDaProposta(a.idProjeto) AS CustoTotal')
+                    new Zend_Db_Expr('sac.dbo.fnVlAdequadoIncentivo(a.IdPRONAC) AS VlAdequadoIncentivo'),
+                    new Zend_Db_Expr('sac.dbo.fnVlAdequadoOutrasFontes(a.IdPRONAC) AS VlAdequadoOutrasFontes'),
+                    new Zend_Db_Expr('sac.dbo.fnVlTotalAdequado(a.IdPRONAC) AS VlTotalAdequado'),
+                    new Zend_Db_Expr('sac.dbo.fnVlHomologadoIncentivo(a.IdPRONAC) AS VlHomologadoIncentivo'),
+                    new Zend_Db_Expr('sac.dbo.fnVlHomologadoOutrasFontes(a.IdPRONAC) AS VlHomologadoOutrasFontes'),
+                    new Zend_Db_Expr('sac.dbo.fnVlTotalHomologado(a.IdPRONAC) AS VlTotalHomologado'),
                 ],
                 $this->_schema
             );
@@ -100,7 +102,7 @@ class Projeto_Model_DbTable_Enquadramento extends MinC_Db_Table_Abstract
                     'a.DtInicioExecucao',
                     'a.DtFimExecucao',
                     'a.Orgao as idUnidade',
-                    new Zend_Db_Expr('sac.dbo.fnTotalAprovadoProjeto(a.AnoProjeto,a.Sequencial) as vlHomologado')
+                    new Zend_Db_Expr('sac.dbo.fnVlHomologadoIncentivo(a.IdPRONAC) as VlHomologadoIncentivo')
                 ],
                 $this->_schema
             );
