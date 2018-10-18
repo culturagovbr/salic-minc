@@ -31,6 +31,8 @@ export const state = {
     getProjetosAssinar: {},
     getProjetosEmAssinatura: {},
     getProjetosHistorico: {},
+    revisaoParecer: {},
+    revisao: {},
 };
 
 export const mutations = {
@@ -41,6 +43,12 @@ export const mutations = {
     },
     [types.GET_PARECER](state, parecer) {
         state.parecer = parecer;
+    },
+    [types.HISTORICO_REVISAO](state, revisaoParecer) {
+        state.revisaoParecer = revisaoParecer;
+    },
+    [types.SET_REVISAO](state, revisao){
+        state.revisaoParecer.push(revisao);
     },
     [types.GET_PROJETO](state, projeto) {
         state.projeto = projeto;

@@ -1,5 +1,14 @@
 <template>
     <v-container fluid v-if="dadosProjeto">
+        <v-btn 
+            slot="activator"
+            flat
+            :to="{ name: 'Painel'}"
+            color="#1b5e20"
+        >
+            
+            <span><v-icon small class="material-icons">keyboard_backspace</v-icon> Voltar</span>
+        </v-btn>
         <v-card>
             <v-card-title primary-title>
                 <h2>{{ dadosProjeto.items.pronac }} &#45; {{ dadosProjeto.items.nomeProjeto }}</h2>

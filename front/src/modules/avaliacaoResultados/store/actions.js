@@ -154,11 +154,19 @@ export const obterDadosItemComprovacao = ({ commit }, params) => {
         });
 };
 
+
+export const getLaudoFinal = ({ commit }) => {
+    avaliacaoResultadosHelperAPI.obterLaudoFinal()
+        .then((response) => {
+            const dados = response.data.data;
+            commit(types.GET_LAUDO_FINAL, dados);
+
 export const getLaudoFinal = ({ commit }, param) => {
     avaliacaoResultadosHelperAPI.obterLaudoFinal(param)
         .then((response) => {
             const dados = response.data.data;
             commit(types.GET_PARECER_LAUDO_FINAL, dados);
+
         });
 };
 
@@ -220,3 +228,27 @@ export const obterProjetosLaudoFinal = ({ commit }) => {
             commit(types.SET_DADOS_PROJETOS_LAUDO_FINAL, dadosTabela);
         });
 };
+
+export const obterHistoricoRevisao = ({ commit }, params) => {
+    const p = new Promise((resolve) => {
+        avaliacaoResultadosHelperAPI.getListaRevisoes(params)
+            .then((response) => {
+                const dados = response.data.data;
+                commit(types.HISTORICO_REVISAO, dados.items);
+                resolve();
+            });
+    });
+    return p;
+};
+
+export const salvarRevisao = ({ commit }, params) => {
+    const p = new Promise((resolve) => {
+        avaliacaoResultadosHelperAPI.postRevisao(params)
+            .then((response) => {
+                commit(types.SET_REVISAO, response.data.data.items.dados[0]);
+                resolve();
+            });
+    });
+    return p;
+};
+

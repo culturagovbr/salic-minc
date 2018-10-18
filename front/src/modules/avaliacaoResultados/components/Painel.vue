@@ -186,6 +186,7 @@ export default {
             listaAcoesAssinar: [Historico, AssinarButton],
             listaAcoesCoordenador: [Historico],
             distribuirAcoes: [Encaminhar],
+
         };
     },
     components: {

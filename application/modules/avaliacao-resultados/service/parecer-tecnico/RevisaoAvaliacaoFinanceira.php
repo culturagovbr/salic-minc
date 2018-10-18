@@ -31,7 +31,7 @@ class RevisaoAvaliacaoFinanceira
         }else{
             $tbAvaliacaoFinanceiraRevisao->setDtRevisao(date('Y-m-d h:i:s'));
         }
-        $tbAvaliacaoFinanceiraRevisao->setIdAgente($arrAuth['usu_codigo']);
+        //$tbAvaliacaoFinanceiraRevisao->setIdAgente($arrAuth['idAgente']);
 
         $mapper = new \AvaliacaoResultados_Model_tbAvaliacaoFinanceiraRevisaoMapper();
         $codigo = $mapper->save($tbAvaliacaoFinanceiraRevisao);

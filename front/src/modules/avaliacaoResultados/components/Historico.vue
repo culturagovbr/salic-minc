@@ -4,57 +4,60 @@
       scrollable
       max-width="750px"
     >
-        <v-btn slot="activator" flat icon color="grey">
-            <v-icon>history</v-icon>
-        </v-btn>
+        <v-tooltip slot="activator" bottom>
+            <v-btn slot="activator" flat icon color="grey">
+                    <v-icon class="material-icons">history</v-icon>
+            </v-btn>
+            <span>Histórico de Encaminhamentos</span>
+        </v-tooltip>
 
-      <v-card>
-        <v-card-title class="headline green" primary-title>
-            <span class="white--text">
-                Histórico de encaminhamentos
-            </span>
-        </v-card-title>
-        
-        <v-card-text style="height: 500px;">
-            <v-subheader>
-                <h4 class="headline mb-0 grey--text text--darken-3">
-                    {{pronac}} - {{nomeProjeto}}
-                </h4>    
-            </v-subheader>
+        <v-card>
+            <v-card-title class="headline green" primary-title>
+                <span class="white--text">
+                    Histórico de encaminhamentos
+                </span>
+            </v-card-title>
             
-            <v-divider dark></v-divider>
+            <v-card-text style="height: 500px;">
+                <v-subheader>
+                    <h4 class="headline mb-0 grey--text text--darken-3">
+                        {{pronac}} - {{nomeProjeto}}
+                    </h4>    
+                </v-subheader>
+                
+                <v-divider dark></v-divider>
 
-            <v-data-table
-                :headers="historicoHeaders"
-                :items="dadosHistoricoEncaminhamento"
-                hide-actions
-            >
-                <template slot="items" slot-scope="props">
-                    <td>{{ props.item.dtInicioEncaminhamento }}</td>
-                    <td>{{ props.item.NomeOrigem }}</td>
-                    <td>{{ props.item.NomeDestino }}</td>
-                    <td>{{ props.item.dsJustificativa }}</td>
-                </template>
-                <template slot="no-data">
-                    <v-alert :value="true" color="error" icon="warning">
-                        Nenhum dado encontrado ¯\_(ツ)_/¯
-                    </v-alert>
-                </template>
-            </v-data-table>
-        </v-card-text>
+                <v-data-table
+                    :headers="historicoHeaders"
+                    :items="dadosHistoricoEncaminhamento"
+                    hide-actions
+                >
+                    <template slot="items" slot-scope="props">
+                        <td>{{ props.item.dtInicioEncaminhamento }}</td>
+                        <td>{{ props.item.NomeOrigem }}</td>
+                        <td>{{ props.item.NomeDestino }}</td>
+                        <td>{{ props.item.dsJustificativa }}</td>
+                    </template>
+                    <template slot="no-data">
+                        <v-alert :value="true" color="error" icon="warning">
+                            Nenhum dado encontrado ¯\_(ツ)_/¯
+                        </v-alert>
+                    </template>
+                </v-data-table>
+            </v-card-text>
 
-        <v-divider></v-divider>
+            <v-divider></v-divider>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-                  color="red"
-                  flat
-                  @click="dialog = false">
-            Fechar
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+            <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+                    color="red"
+                    flat
+                    @click="dialog = false">
+                Fechar
+            </v-btn>
+            </v-card-actions>
+        </v-card>
     </v-dialog>
 </template>
 

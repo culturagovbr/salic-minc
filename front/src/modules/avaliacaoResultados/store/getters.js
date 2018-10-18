@@ -22,3 +22,4 @@ export const getProjetosLaudoFinal = state => state.getProjetosLaudoFinal;
 export const getProjetosAssinar = state => state.getProjetosAssinar;
 export const getProjetosEmAssinatura = state => state.getProjetosEmAssinatura;
 export const getProjetosHistorico = state => state.getProjetosHistorico;
+export const revisaoParecer = state => state.revisaoParecer;
