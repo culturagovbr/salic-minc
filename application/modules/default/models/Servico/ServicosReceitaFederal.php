@@ -101,15 +101,24 @@ class ServicosReceitaFederal
         curl_setopt($curl, CURLOPT_USERPWD, "$this->user:$this->password");
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         $resultCurl = curl_exec($curl);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        $result = new ArrayObject(json_decode($resultCurl, true));
+
+        if($httpCode != '200') {
+            throw new Zend_Exception("Erro ao consultar CNPJ. Status: " . $httpCode);
+        }
+
+        $resultArray = json_decode($resultCurl, true);
+
+        if (!is_array($resultArray)) {
+            throw new Zend_Exception("Servi&ccedil;o receita: dados da empresa n&atilde;o encontrado.");
+        }
+
+        $retornoResultado =  new ArrayObject($resultArray);
 
         if ($returnJSON) {
-            $retornoResultado = $resultCurl; #Retorno do Formato JSON
-        } else {
-            $retornoResultado = $result; #Retorno no Formato ArrayObject
+            $retornoResultado = $resultCurl;
         }
-        #xd($retornoResultado);
 
         return $retornoResultado;
     }
@@ -139,18 +148,26 @@ class ServicosReceitaFederal
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         
         $resultCurl = curl_exec($curl);
+        $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        
-        $resultArray = json_decode($resultCurl, true);
-        if (is_array($resultArray)) {
-            $result = new ArrayObject($resultArray);
-            $retornoResultado = $result;
-            
-            if ($returnJSON) {
-                $retornoResultado = $resultCurl;
-            }
-            return $retornoResultado;
+
+        if($httpCode != '200') {
+            throw new Zend_Exception("Erro ao consultar CPF. Status: " . $httpCode);
         }
+
+        $resultArray = json_decode($resultCurl, true);
+
+        if (!is_array($resultArray)) {
+            throw new Zend_Exception("Servi&ccedil;o receita: dados da empresa n&atilde;o encontrado.");
+        }
+
+        $retornoResultado =  new ArrayObject($resultArray);
+
+        if ($returnJSON) {
+            $retornoResultado = $resultCurl;
+        }
+
+        return $retornoResultado;
     }
 
     /**

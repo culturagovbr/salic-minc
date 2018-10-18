@@ -40,8 +40,8 @@
                                 </th>
                                 <th align="center" width="40" class="center-align">PRONAC</th>
                                 <th class="center-align">Nome do Projeto</th>
-                                <th class="center-align">Enquadramento</th>
-                                <th class="center-align">Tipo de Assinatura</th>
+                                <th class="center-align">Tipo de Ato Administrativo</th>
+                                <th class="center-align">Tipo de Readequa&ccedil;&atilde;o</th>
                                 <th class="center-align" align="center">Ver</th>
                                 <?php if($this->isPermitidoDevolver === true) { ?>
                                 <th class="center-align" align="center">Devolver</th>
@@ -79,23 +79,8 @@
                                     </td>
                                     <td class="center-align" align="center"><?php echo $dado['nomeProjeto']; ?></td>
                                     <td class="center-align"
-                                        align="center">
-                                        <b>
-                                            &Aacute;rea:
-                                        </b>
-                                        <?php echo $dado['area']; ?>
-                                        <br />
-                                        <b>
-                                            Segmento:
-                                        </b>
-                                        <?php echo $dado['segmento']; ?>
-                                        <br />
-                                        <b>
-                                            Enquadramento:
-                                        </b>
-                                        <?php echo ((int)$dado['tp_enquadramento'] == 1) ? 'Artigo 26' : 'Artigo 18'; ?>
-                                    </td>
-                                    <td class="center-align" align="center"><?php echo $dado['tipoDoAtoAdministrativo']; ?></td>
+                                        align="center"><?php echo $dado['tipoDoAtoAdministrativo']; ?></td>
+                                    <td class="center-align" align="center"><?php echo $dado['dsReadequacao']; ?></td>
                                     <td class="center-align" align="center">
                                         <a class="btn waves-effect waves-light tooltipped small "
                                            href="<?php echo $this->url(array(
@@ -116,7 +101,7 @@
                                                    'module' => 'readequacao',
                                                    'controller' => 'readequacao-assinatura',
                                                    'action' => 'devolver-projeto'
-                                               )) . "?IdPRONAC={$dado['IdPRONAC']}&origin=readequacao/readequacao-assinatura" ?>"
+                                               )) . "?IdPRONAC={$dado['IdPRONAC']}&origin=readequacao/readequacao-assinatura&idDocumentoAssinatura={$dado['idDocumentoAssinatura']}" ?>"
                                            data-position="top"
                                            data-delay="50"
                                            data-tooltip="Devolver">
@@ -170,7 +155,6 @@
 
 
         <div id="conteudoDialogoModal">
-
             <div id="modalConfirmacao" class="modal modal-fixed-footer">
                 <div class="modal-content">
                     <h4>Confirma&ccedil;&atilde;o</h4>

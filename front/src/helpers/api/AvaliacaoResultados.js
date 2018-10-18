@@ -75,21 +75,26 @@ export const finalizarParecer = (params) => {
 
 /** FIM DO PARECER TECNICO */
 
+
+export const obterLaudoFinal = (idPronac) => api.getRequest(`/avaliacao-resultados/laudo/get?idPronac=${idPronac}`);
+
 /** REVISÃO PARECER TECNICO */
 
 export const getListaRevisoes = params => api.getRequest(`/avaliacao-resultados/revisao?idAvaliacaoFinanceira=${params}`);
 
 export const getRevisao = params => api.getRequest(`/avaliacao-resultados/revisao/idAvaliacaoFinanceiraRevisao/${params}`);
 
-export const postRevisao = params => api.postRequest('http://localhost/avaliacao-resultados/revisao/', buildData(params));
 
-export const updateRevisao = (params) => {
-    console.info('id id id');
+export const postRevisao = params => {
+    return console.log(params);
+
 };
 
 /** FIM REVISAO PARECER */
 
+
 export const obterLaudoFinal = () => api.getRequest('/avaliacao-resultados/laudo');
+
 
 export const obterProjetosLaudoFinal = () => api.getRequest('/avaliacao-resultados/laudo/index');
 
