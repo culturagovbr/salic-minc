@@ -25,8 +25,11 @@ class Readequacao_Model_DbTable_TbTipoReadequacao extends MinC_Db_Table_Abstract
         $select->where('stEstado = ?', 0);
 
         $select->where(new Zend_Db_Expr("idTipoReadequacao not in (
-            select idTipoReadequacao from SAC.dbo.tbReadequacao where idPronac = $idPronac AND stEstado = 0
-        )"));
+            SELECT idTipoReadequacao FROM SAC.dbo.tbReadequacao WHERE idPronac = $idPronac 
+            AND siEncaminhamento NOT IN (" . implode(',', [
+                Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_NAO_ENVIA_MINC,
+                Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE
+            ]) . "))"));
 
         $select->order('2');
 
