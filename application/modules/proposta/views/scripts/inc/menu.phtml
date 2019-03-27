@@ -124,6 +124,24 @@ $arrMenuProponente['mensagensenviadas'] = array(
     'menu' => array(),
     'grupo' => array()
 );
+if(count($this->recursoEnquadramentoVisaoProponente) > 0 ) {
+    $arrMenuProponente['enquadramento'] = [
+        'id' => 'menu_enquadramento',
+        'label' => 'Enquadramento',
+        'title' => 'Recurso de Enquadramento',
+        'icon' => 'build',
+        'menuClass' => ' light-green lighten-4',
+        'url' => $this->url(
+            [
+                'module' => 'recurso',
+                'controller' => 'recurso-proposta',
+                'action' => 'visao-proponente',
+                'idPreProjeto' => $idPreProjeto
+            ]
+        ),
+        'grupo' => []
+    ];
+}
 
 $arrMenuProponente['solicitacoes'] = array(
     'id' => 'minhassolicitacoes',

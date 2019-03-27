@@ -291,7 +291,7 @@
             $(this).find('input,select').attr('disabled', 'disabled');
             $(this).addClass('sumir');
         });
-        $('#' + element.val()).closest('tr').find('input,select').attr('disabled', '')
+        $('#' + element.val()).closest('tr').find('input,select').removeAttr('disabled', '')
         $('#' + element.val()).closest('tr').removeClass('sumir');
     };
 </script>

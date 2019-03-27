@@ -10,9 +10,28 @@ class Assinatura_Model_TbAtoAdministrativo extends MinC_Db_Model
     protected $_idOrdemDaAssinatura;
     protected $_stEstado;
     protected $_idOrgaoSuperiorDoAssinante;
+    protected $_grupo;
 
     const ST_ESTADO_ATIVO = 1;
     const ST_ESTADO_INATIVO = 0;
+
+    /**
+     * @return mixed
+     */
+    public function getGrupo()
+    {
+        return $this->_grupo;
+    }
+
+    /**
+     * @param mixed $grupo
+     * @return Assinatura_Model_TbAtoAdministrativo
+     */
+    public function setGrupo($grupo)
+    {
+        $this->_grupo = $grupo;
+        return $this;
+    }
 
     /**
      * @return mixed
@@ -156,5 +175,25 @@ class Assinatura_Model_TbAtoAdministrativo extends MinC_Db_Model
     {
         $this->_idOrdemDaAssinatura = $idOrdemDaAssinatura;
         return $this;
+    }
+
+    public function obterAtosNaoDisponiveisParaDevolucao()
+    {
+        $modeloAssinatura = new Assinatura_Model_DbTable_TbAssinatura();
+        return [
+            $modeloAssinatura::TIPO_ATO_LAUDO_FINAL_PRESTACAO_CONTAS,
+            $modeloAssinatura::TIPO_ATO_LAUDO_PRESTACAO_CONTAS,
+            $modeloAssinatura::TIPO_ATO_ANALISE_INICIAL,
+            $modeloAssinatura::TIPO_ATO_ANALISE_CNIC,
+        ];
+    }
+
+    public function isAtoDisponivelParaDevolucao($atoAdministrativo)
+    {
+        $atosNaoDisponiveis = $this->obterAtosNaoDisponiveisParaDevolucao();
+        return !in_array(
+            $atoAdministrativo,
+            $atosNaoDisponiveis
+        );
     }
 }

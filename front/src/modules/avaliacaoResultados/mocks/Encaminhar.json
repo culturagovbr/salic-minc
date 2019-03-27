@@ -1,0 +1,9 @@
+{
+  "request": {
+      "endpoint": "encaminhamento-service"
+  },
+  "response": {
+      "message": "salvo" ,
+      "code": 200
+  }
+}

@@ -32,7 +32,7 @@ class Licitacao extends MinC_Db_Table_Abstract
      */
     public function deletarLicitacao($where)
     {
-        $query = "DELETE FROM {$this->_banco}.{$this->_schema}.{$this->_name} WHERE idLicitacao = ?";
+        $query = "DELETE FROM {$this->_schema}.{$this->_name} WHERE idLicitacao = ?";
         return $this->getAdapter()->query($query, array((int)$where));
     }
 

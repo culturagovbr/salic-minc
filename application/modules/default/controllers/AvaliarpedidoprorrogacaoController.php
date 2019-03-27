@@ -20,8 +20,8 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
         $PermissoesGrupo[] = 122;  // Coordenador de Acompanhamento
         parent::perfil(1, $PermissoesGrupo);
 
-        $Usuario = new Autenticacao_Model_Usuario(); // objeto usuï¿½rio
-        $auth = Zend_Auth::getInstance(); // pega a autenticaï¿½ï¿½o
+        $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuário
+        $auth = Zend_Auth::getInstance(); // pega a autenticação
         $idagente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessï¿½o com o grupo ativo
         $this->getIdAgente = $idagente['idAgente'];
@@ -263,9 +263,9 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
                     $this->getIdUsuario
                 );
             } else {
-                parent::message("Nï¿½o foi encontrada nenhuma anï¿½lise. Favor preencher o campo obrigatï¿½rio!", "avaliarpedidoprorrogacao/detalhar/prorrogacao/{$idProrrogacao}", "ERROR");
+                parent::message("N&atilde;o foi encontrada nenhuma an&aacute;lise. Favor preencher o campo obrigat&oacute;rio!", "avaliarpedidoprorrogacao/detalhar/prorrogacao/{$idProrrogacao}", "ERROR");
             }
-            parent::message('Prorrogaï¿½ï¿½o alterada com sucesso!', 'avaliarpedidoprorrogacao', 'CONFIRM');
+            parent::message('Prorroga&ccedil;&atilde;o alterada com sucesso!', 'avaliarpedidoprorrogacao', 'CONFIRM');
         } catch (InvalidArgumentException $exception) {
             $this->view->camposObrigatoriosException = true;
             $this->forward('detalhar', 'avaliarpedidoprorrogacao', null, array('prorrogacao' => $idProrrogacao));
@@ -276,7 +276,7 @@ class AvaliarpedidoprorrogacaoController extends MinC_Controller_Action_Abstract
                 $this->view->Erros = $prorrogacaoModel->getErros();
                 $this->view->dadosProjeto = $prorrogacaoModel->getProjeto($idProrrogacao);
             } else {
-                parent::message('Nï¿½o foi possï¿½vel realizar seu pedido!', "avaliarpedidoprorrogacao/detalhar/prorrogacao/{$idProrrogacao}", "ERROR");
+                parent::message('N&atilde;o foi poss&iacute;vel realizar seu pedido!', "avaliarpedidoprorrogacao/detalhar/prorrogacao/{$idProrrogacao}", "ERROR");
             }
         }
     }

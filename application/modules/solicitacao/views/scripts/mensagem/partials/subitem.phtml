@@ -1,7 +1,0 @@
-<?php $currentUri = Zend_Controller_Front::getInstance()->getRequest()->getRequestUri();  ?>
-<?php $this->link = $this->url($this->link, null, true); ?>
-<li>
-    <a class="waves-effect waves-cyan <?php echo ($currentUri == $this->link) ? 'active':''?>"
-       href="<?= ($this->link)  ? $this->link  : 'javascript:void(0);'; ?>"
-       title="Ir para <?php echo($this->label); ?>"><?php echo $this->label; ?></a>
-</li>

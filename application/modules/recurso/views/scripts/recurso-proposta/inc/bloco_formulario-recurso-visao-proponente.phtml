@@ -1,0 +1,144 @@
+<?php if (!empty($this->proposta['idpreprojeto'])) { ?>
+    <fieldset>
+        <legend class=""><b> Recurso </b></legend>
+        <form id="form-mensagem"
+              method="post"
+              action="<?php echo $this->url([
+                  'module' => 'recurso',
+                  'controller' => 'recurso-proposta',
+                  'action' => 'visao-proponente-salvar'
+              ]) ?>"
+              enctype="multipart/form-data"
+        class="cant-disable">
+            <input type="hidden"
+                   name="id_preprojeto"
+                   value="<?php echo $this->proposta['idpreprojeto'] ?>"
+            />
+            <div class="row">
+                <div class="col s12">
+                    <label class="">
+                        Tipo de Solicita&ccedil;&atilde;o <b style="color: red">*</b>
+                    </label>
+                    <p>
+                        <span>
+                            <input name="tpSolicitacao"
+                                <?php echo (!$this->recursoEnquadramento['tpSolicitacao']
+                                    || $this->recursoEnquadramento['tpSolicitacao'] == Recurso_Model_TbRecursoProposta::TIPO_SOLICITACAO_DESISTENCIA_DO_PRAZO_RECURSAL) ? "checked='checked'" : '' ?>
+                                   type="radio"
+                                   value="<?php echo Recurso_Model_TbRecursoProposta::TIPO_SOLICITACAO_DESISTENCIA_DO_PRAZO_RECURSAL ?>"
+                                <?php echo ($this->isPermitidoEditar) ? '' : 'disabled="disabled"' ?>
+                                   id="desistencia_prazo_recursal"/>
+                            <label for="desistencia_prazo_recursal">Desist&ecirc;ncia do Prazo Recursal</label>
+                        </span>
+                        <span>
+                            <input name="tpSolicitacao"
+                                <?php echo ($this->recursoEnquadramento['tpSolicitacao']
+                                    && $this->recursoEnquadramento['tpSolicitacao'] == Recurso_Model_TbRecursoProposta::TIPO_SOLICITACAO_ENQUADRAMENTO) ? "checked='checked'" : '' ?>
+                                   type="radio"
+                                   value="<?php echo Recurso_Model_TbRecursoProposta::TIPO_SOLICITACAO_ENQUADRAMENTO ?>"
+                                <?php echo ($this->isPermitidoEditar) ? '' : 'disabled="disabled"' ?>
+                                   id="recurso"/>
+                            <label for="recurso">Recurso</label>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col s12">
+                    <label class="">
+                        Justificativa <b style="color: red">*</b>
+                    </label>
+                    <p>
+                            <textarea cols="80"
+                                      id="dsRecursoProponente"
+                                      name="dsRecursoProponente"
+                                      rows="10"
+                                <?php echo ($this->isPermitidoEditar) ? '' : 'disabled="disabled"' ?>
+                                      class="textarea_simples"
+                                      style="width: 99%"><?php echo $this->recursoEnquadramento['dsRecursoProponente'] ?></textarea>
+                    </p>
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col s12">
+                    <p>
+                        <?php
+                        echo $this->partial("recurso-proposta/inc/bloco_arquivos_anexos.phtml", $this);
+                        ?>
+                    </p>
+
+                </div>
+            </div>
+            <br/>
+            <div class="row">
+                <div class="col s12 center">
+                    <button class="btn darken-2"
+                            type="submit"
+                            name="acao_salvar"
+                        <?php echo ($this->isPermitidoEditar) ? '' : 'disabled="disabled"' ?>
+                            value="rascunho">Salvar
+                        <i class="tiny material-icons right">save</i></a>
+                    </button>
+                    <button class="btn"
+                            type="submit"
+                            name="acao_salvar"
+                        <?php echo ($this->isPermitidoEditar) ? '' : 'disabled="disabled"' ?>
+                            value="enviar">Enviar
+                        <i class="tiny material-icons right">send</i></a>
+                    </button>
+                </div>
+            </div>
+            <script type="text/javascript">
+                jQuery(function ($) {
+
+                    var limiteMaximo = 8000
+                    var editorRico = $('#dsRecursoProponente').editorRico({
+                        altura: 200,
+                        isLimitarCarateres: true,
+                        maxchar: limiteMaximo,
+                        isDesabilitarEdicao: <?php echo ($this->isPermitidoEditar) ? '0' : '1' ?>,
+                    })
+
+                    $('#formEnquadramentoProjeto').validate({
+                        rules: {
+                            dsRecursoProponente: {
+                                validarPreenchimento: true,
+                                validarPreenchimentoMaximo: true
+                            }
+                        },
+
+                        messages: {
+                            dsRecursoProponente: {
+                                validarPreenchimento: 'Dado obrigat&oacute;rio n&atilde;o informado',
+                                validarPreenchimentoMaximo: 'limite excedido'
+                            }
+                        },
+
+                        submitHandler: function (form) {
+                            $('#container-progress').show()
+                            form.submit()
+                        },
+
+                        invalidHandler: function (event, validator) {
+                            Materialize.toast(validator.submitted.dsRecursoProponente, 4000)
+                        }
+                    })
+
+                    $.validator.addMethod('validarPreenchimento', function (value, element) {
+                        if (editorRico.contarCaracteres() > 0) {
+                            return true
+                        }
+                    })
+
+                    $.validator.addMethod('validarPreenchimentoMaximo', function (value, element) {
+                        if (editorRico.contarCaracteres() <= limiteMaximo) {
+                            return true
+                        }
+                    })
+                })
+            </script>
+        </form>
+    </fieldset>
+<?php } ?>

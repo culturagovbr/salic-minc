@@ -1,0 +1,133 @@
+<main>
+    <?php
+    $links = array(
+        array('Gerenciar Projetos' => array(
+            'module' => 'assinatura',
+            'controller' => 'index',
+            'action' => 'gerenciar-assinaturas'
+        )),
+        array('Devolver' => array())
+    );
+    ?>
+    <div class="row">
+        <div class="col s1"></div>
+        <div class="col s10">
+            <?php gerarBreadCrumb($links); ?>
+        </div>
+        <div class="col s1"></div>
+    </div>
+    <div class="content padding20 clearfix">
+        <form action="<?php
+        echo $this->url(
+                array(
+                    'module' => 'assinatura',
+                    'controller' => 'index',
+                    'action' => 'devolver-projeto'
+                )
+            )
+            . "?IdPRONAC={$this->IdPRONAC}&idTipoDoAtoAdministrativo={$this->idTipoDoAtoAdministrativo}";
+        ?>"
+        method="post">
+            <input type="hidden" name="IdPRONAC" value="<?php echo $this->IdPRONAC ?>" />
+            <input type="hidden" name="origin" value="<?php echo $this->origin ?>" />
+
+            <div class="row">
+                <div class="col s1"></div>
+                <div class="col s10">
+                    <h3>Devolver</h3>
+                </div>
+                <div class="col s1"></div>
+            </div>
+            <div class="row">
+                <div class="col s1"></div>
+                <div class="col s2">
+                    <p>
+                        <b>
+                            <label class="black-text">PRONAC</label>
+                        </b>
+                    </p>
+                    <div class="padding20 bordered bold">
+                        <?php echo "<div class='margin5'>{$this->projeto['AnoProjeto']}{$this->projeto['Sequencial']}</div>"; ?>
+                    </div>
+                </div>
+                <div class="col s8">
+                    <p>
+                        <b>
+                            <label class="black-text">Nome do Projeto</label>
+                        </b>
+                    </p>
+                    <div class="padding20 bordered bold">
+                            <?php echo "<div class='margin5'>{$this->projeto['NomeProjeto']}</div>"; ?>
+                    </div>
+                </div>
+                <div class="col s1"></div>
+            </div>
+            <div class="row">
+                <div class="col s1"></div>
+                <div class="col s10">
+                    <p>
+                        <b>
+                            <label class="black-text">Tipo Documento</label>
+                        </b>
+                    </p>
+                    <p class="padding20 bordered bold">
+                        <?php echo $this->tipoDocumento['Descricao']; ?>
+                    </p>
+                </div>
+                <div class="col s1"></div>
+            </div>
+            <div class="row">
+                <div class="col s1"></div>
+                <div class="col s5">
+                    <p>
+                        <b>
+                            <label class="black-text">Assinante: </label>
+                        </b>
+                    </p>
+                    <div class="padding20 bordered bold">
+                        <?php echo $this->usuario->usu_nome; ?>
+                    </div>
+                </div>
+                <div class="col s5">
+                    <p>
+                        <b>
+                            <label class="black-text">Cargo: </label>
+                        </b>
+                    </p>
+                    <div class="padding20 bordered bold">
+                        <?php echo $this->perfilAssinante['dsCargoAssinante'] ?>
+                    </div>
+                </div>
+                <div class="col s1"></div>
+            </div>
+            <div class="row">
+                <div class="col s1"></div>
+                <div class="col s10">
+                    <p>
+                        <label class="black-text">
+                            <b>
+                                Motivo da devolu&ccedil;&atilde;o
+                            </b>
+                            <font color="#f08080">*</font>
+                        </label>
+                    </p>
+                    <div class="padding20 bordered" style="height: 200px;">
+                        <textarea style="height: 100%; border: 1px solid grey;"
+                                  class="padding20 bordered"
+                                  id="dsMotivoDevolucao"
+                                  name="dsMotivoDevolucao"><?= $this->dsMotivoDevolucao ?></textarea>
+                    </div>
+                </div>
+                <div class="col s1"></div>
+            </div>
+            <div class="margin-bottom30">&nbsp;</div>
+            <div class="row center-align">
+                <a class="btn waves-effect waves-dark"
+                   href="<?php echo "/{$this->moduleOrigin}/{$this->controllerOrigin}/gerenciar-assinaturas"; ?>">Voltar</a>
+                <button type="submit"
+                        class="btn waves-effect waves-dark btn-danger tooltipped" data-tooltip="O documento ser&aacute; exclu&iacute;do e o processo voltar&aacute; para o in&iacute;cio">Devolver</button>
+            </div>
+        </form>
+    </div>
+    <br clear="all"/>
+</main>

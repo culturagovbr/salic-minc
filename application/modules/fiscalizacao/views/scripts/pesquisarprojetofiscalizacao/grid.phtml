@@ -1,0 +1,347 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#btn-pesquisar').click(function () {
+            var tipoFiltro = '?tipoFiltro=' + $('#tipoFiltro').val(),
+                tecFiltro = '';
+            if ($('#tecFiltro').val() != '') {
+                var tecFiltro = '&tecFiltro=' + $('#tecFiltro').val();
+            }
+            window.location = "<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')); ?>" + tipoFiltro + tecFiltro;
+        });
+
+        $('#btn-pesquisar-projeto').click(function () {
+            window.location = "<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'parametropesquisa')); ?>";
+        });
+
+        $('.btn-avaliar').click(function () {
+            var idProjeto = $(this).attr('idProjeto'),
+                idFiscalizacao = $(this).attr('idFiscalizacao');
+            window.location = "<?php echo $this->url(array('controller' => 'fiscalizarprojetocultural', 'action' => 'parecerdocoordenador')); ?>?idProjeto=" + idProjeto + '&idFiscalizacao=' + idFiscalizacao;
+        });
+
+        $('.btn-ver').click(function () {
+            var idPronac = $(this).attr('idPronac'),
+                idFiscalizacao = $(this).attr('idFiscalizacao');
+            window.location = "<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'consultadadosfiscalizacao')); ?>?idPronac=" + idPronac + '&idFiscalizacao=' + idFiscalizacao;
+        });
+
+        $('.btn-editar').click(function () {
+            var idPronac = $(this).attr('idPronac');
+            var idFiscalizacao = $(this).attr('idFiscalizacao');
+            window.location = "<?php echo $this->url([
+                    'controller' => 'pesquisarprojetofiscalizacao',
+                    'action' => 'oficializarfiscalizacao']
+            ); ?>?idPronac=" + idPronac + "&idFiscalizacao=" + idFiscalizacao;
+        });
+
+        $('.btn-recarregar').click(function () {
+            $('.btn-recarregar').parent().append('<input type="hidden" name="pag" value="1">');
+        });
+
+    });
+</script>
+
+<div class="container-fluid">
+    <?php $titulo = ($this->nmPagina) ? $this->nmPagina : 'Fiscaliza&ccedil;&atilde;o em andamento'; ?>
+
+    <?php $this->PageTitle($titulo, array(
+        [$titulo => ''],
+    )); ?>
+
+    <div id="conteudo">
+        <table class="tabela">
+            <tr>
+                <?php if ($this->isCoordenador) { //Se for coordenador habilita essa outra opção ?>
+                    <td class="left-align">
+                        <select name="tipoFiltro" id="tipoFiltro" style="width: 285px; margin-right: 10px;"
+                                class="input_simples">
+                            <option value="">Fiscaliza&ccedil;&atilde;o em andamento</option>
+                            <option
+                                value="analisados" <?= ($this->filtro == 'analisados') ? 'selected="selected"' : ''; ?>>
+                                Fiscaliza&ccedil;&atilde;o conclu&iacute;da pelo t&eacute;cnico
+                            </option>
+                            <option
+                                value="concluidos" <?= ($this->filtro == 'concluidos') ? 'selected="selected"' : ''; ?>>
+                                Fiscaliza&ccedil;&atilde;o conclu&iacute;da pelo coordenador
+                            </option>
+                        </select>
+                        <select name="tecFiltro" id="tecFiltro" style="width: 235px;" class="input_simples">
+                            <option value="">Todos os t&eacute;cnicos</option>
+                            <?php foreach ($this->Usuarios as $usuario) { ?>
+                                <option
+                                    value="<?= $usuario->idUsuario; ?>"
+                                    <?= ($this->filtroTecnico == $usuario->idUsuario) ? 'selected="selected"' : ''; ?>
+                                ><?= $usuario->Nome; ?></option>
+                            <?php } ?>
+                        </select>
+                        <a
+                            id="btn-pesquisar"
+                            class="waves-effect waves-light btn-floating white-text tooltipped"
+                            data-tooltip="Filtrar fiscaliza&ccedil;&otilde;es"
+                        ><i class="material-icons">filter_list</i></a>
+                    </td>
+                <?php } ?>
+                <?php if ($this->isCoordenador) { //Se for coordenador habilita essa outra opção ?>
+                    <td class="right-align" width="210px">
+                        <a
+                            id="btn-pesquisar-projeto"
+                            class="waves-effect waves-light btn btn-info small white-text tooltipped"
+                            data-tooltip="Buscar projetos para fiscaliza&ccedil;&atilde;o"
+                        ><i class="material-icons left tiny">search</i>Buscar projetos</a>
+                    </td>
+                <?php } ?>
+            </tr>
+        </table>
+
+        <?php if (count($this->dados) > 0) { ?>
+            <!-- ============ PAGINAÇÃO ============ -->
+            <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
+                <tbody>
+                <tr>
+                    <td align="center">
+                        <form name="form1" id="form1"
+                              action="<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')); ?>"
+                              method="get">
+                            <?php if ($this->paginacao['pag'] > 1) { ?>
+                                <input class="btn_inicio" id="btn_inicio" type="button" class="btn_inicio"
+                                       onclick="location.href='<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')) . '?pag=1' . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&tecFiltro=' . $this->tecnico . '&pronac=' . $this->pronacProjeto; ?>'">
+                            <?php } ?>
+                            <input id="btn_p_anterior" type="button"
+                                <?php if ($this->paginacao['pag'] <= 1) { ?> class="btn_p_anterior-off"
+                                <?php } else { ?>
+                                    class="btn_p_anterior"
+                                    onclick="location.href='<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')) . '?pag=' . ($this->paginacao['pag'] - 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&tecFiltro=' . $this->tecnico . '&pronac=' . $this->pronacProjeto; ?>'"
+                                <?php } ?>>
+                            <input id="btn_p_proximo" type="button"
+                                <?php if ($this->paginacao['pag'] + 1 > $this->paginacao['totalPag']) { ?>
+                                    class="btn_p_proximo-off"
+                                <?php } else { ?>
+                                    class="btn_p_proximo"
+                                    onclick="location.href='<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')) . '?pag=' . ($this->paginacao['pag'] + 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&tecFiltro=' . $this->tecnico . '&pronac=' . $this->pronacProjeto; ?>'"
+                                <?php } ?>>
+                            <?php if ($this->paginacao['pag'] < $this->paginacao['totalPag']) { ?>
+                                <input class="btn_ultimo" id="btn_ultimo" type="button"
+                                       onclick="location.href='<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')) . '?pag=' . ($this->paginacao['totalPag']) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&tecFiltro=' . $this->tecnico . '&pronac=' . $this->pronacProjeto; ?>'">
+                            <?php } ?>
+                            P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()"
+                                                class="input_simples">
+                                <?php for ($i = 1; $i <= $this->paginacao['totalPag']; $i++): ?>
+                                    <option
+                                        value="<?php echo $i; ?>" <?php if ($this->paginacao['pag'] == $i) echo "selected"; ?>><?php echo $i; ?>
+                                        &nbsp;
+                                    </option>
+                                <?php endfor; ?>
+                            </select>
+                            &nbsp;Registros por p&aacute;gina:<input type="text" size="2" name="qtde" id="qtde"
+                                                                     class="input_simples"
+                                                                     value="<?php echo $this->intTamPag; ?>"><input
+                                type="submit" class="btn_recarregar" value="">
+                            <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo']; ?>">
+                            <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem']; ?>">
+                            <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro; ?>">
+                            <input type="hidden" name="tecFiltro" value="<?php echo $this->tecnico; ?>">
+                            <input type="hidden" name="pronac" value="<?php echo $this->pronacProjeto; ?>">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <center>
+                <?php
+                echo $this->paginacao['inicio'] . " a ";
+                echo ($this->paginacao['pag'] - 1) * $this->paginacao['Itenspag'] + $this->paginacao['tamanho'];
+                echo " de " . $this->paginacao['total'];
+                ?>
+            </center>
+            <!-- ========== FIM PAGINAÇÃO ========== -->
+        <?php } ?>
+
+
+        <?php if ($this->qntdProjetos != 0) { ?>
+            <table class="tabela tablesorter">
+                <thead>
+                <tr class="titulo_tabela">
+                    <th>
+                        <a href="<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->filtro . '&tecFiltro=' . $this->tecnico . '&campo=PRONAC&ordem=' . $this->paginacao['novaOrdem']; ?>">PRONAC</a>
+                    </th>
+                    <th>
+                        <a href="<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->filtro . '&tecFiltro=' . $this->tecnico . '&campo=NomeProjeto&ordem=' . $this->paginacao['novaOrdem']; ?>">Nome
+                            do Projeto</a></th>
+                    <th>
+                        <a href="<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->filtro . '&tecFiltro=' . $this->tecnico . '&campo=dtInicioFiscalizacaoProjeto&ordem=' . $this->paginacao['novaOrdem']; ?>">Dt.
+                            In&iacute;cio</a></th>
+                    <th>
+                        <a href="<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->filtro . '&tecFiltro=' . $this->tecnico . '&campo=dtFimFiscalizacaoProjeto&ordem=' . $this->paginacao['novaOrdem']; ?>">Dt.
+                            Fim</a></th>
+                    <th class="center-align">A&ccedil;&otilde;es</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($this->dados as $d) {
+                    if (!empty($d->dtFimFiscalizacaoProjeto)) {
+                        if (is_string($d->dtFimFiscalizacaoProjeto)) {
+                            $d->dtFimFiscalizacaoProjeto = new DateTime($d->dtFimFiscalizacaoProjeto);
+                        }
+                        $dtFim = strtotime($d->dtFimFiscalizacaoProjeto->format('Y-m-d H:i'));
+                        $dtAtual = strtotime(date('Y-m-d'));
+                        $classRed = null;
+                        if ($dtAtual > $dtFim) {
+                            $classRed = 'style="color:red;"';
+                        } else {
+                            $classRed = '';
+                        }
+
+                    }
+                    ?>
+                    <tr>
+                        <td>
+                            <a href="<?php echo $this->url(array(
+                                'module' => 'default',
+                                'controller' => 'consultardadosprojeto',
+                                'action' => 'index'
+                            )); ?>?idPronac=<?php echo($d->IdPRONAC); ?>"
+                               target="_blank">
+                                <?php echo $d->Pronac; ?>
+                            </a>
+                        </td>
+                        <td style="max-width: 600px"><?php echo $d->NomeProjeto; ?></td>
+                        <td align="center" <?php echo $classRed; ?>><?php echo Data::tratarDataZend($d->dtInicioFiscalizacaoProjeto, 'Brasileira'); ?></td>
+                        <td align="center" <?php echo $classRed; ?>><?php echo Data::tratarDataZend($d->dtFimFiscalizacaoProjeto, 'Brasileira'); ?></td>
+                        <td align="center">
+                            <p class="margin0" style="display: block">
+                            <?php if ($this->isCoordenador) { ?>
+
+                                <?php if ($d->stFiscalizacaoProjeto == 0) { ?>
+                                    <a
+                                        class="btn-editar waves-effect waves-light btn small white-text tooltipped btn-secondary"
+                                        idPronac="<?php echo $d->IdPRONAC; ?>"
+                                        idFiscalizacao="<?= $d->idFiscalizacao; ?>"
+                                        data-tooltip="Editar fiscaliza&ccedil;&atilde;o"
+                                    ><i class="material-icons">edit</i></a>
+                                <?php } else { ?>
+                                    <a
+                                        class="btn-ver waves-effect waves-light btn small white-text tooltipped btn-primary"
+                                        idPronac="<?= $d->IdPRONAC; ?>"
+                                        idFiscalizacao="<?= $d->idFiscalizacao; ?>"
+                                        data-tooltip="Ver fiscaliza&ccedil;&atilde;o"
+                                    ><i class="material-icons">visibility</i></a>
+                                <?php } ?>
+
+                            <?php } else { ?>
+                                <a
+                                    class="btn-ver waves-effect waves-light btn small white-text tooltipped btn-info"
+                                    data-tooltip="Fiscalizar"
+                                    href="<?php echo $this->url([
+                                            'module' => 'fiscalizacao',
+                                            'controller' => 'fiscalizarprojetocultural',
+                                            'action' => 'parecerdotecnico']
+                                    ); ?>?idProjeto=<?php echo $d->idProjeto; ?>&idFiscalizacao=<?php echo $d->idFiscalizacao; ?>">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            <?php } ?>
+
+
+                            <?php if ($this->filtro != 'concluidos'
+                                && $this->isCoordenador) { ?>
+                                <a
+                                    class="btn-avaliar waves-effect waves-light btn small white-text tooltipped btn-secondary"
+                                    data-tooltip="Comunicar proponente da fiscaliza&ccedil;&atilde;o"
+                                    href="<?= $this->url(array(
+                                            'module' => 'fiscalizacao',
+                                            'controller' => 'pesquisarprojetofiscalizacao',
+                                            'action' => 'visualizaremail')
+                                    ); ?>?idPronac=<?= $d->IdPRONAC; ?>&idFiscalizacao=<?= $d->idFiscalizacao; ?>"
+                                ><i class="material-icons">email</i></a>
+                            <?php } ?>
+
+                            <?php if ($this->filtro == 'analisados') { ?>
+                                <a
+                                    class="btn-avaliar waves-effect waves-light btn small white-text tooltipped btn-default"
+                                    data-tooltip="Fiscalizar"
+                                    href="javascript:void(0)"
+                                    idProjeto="<?php echo $d->idProjeto; ?>"
+                                    idFiscalizacao="<?php echo $d->idFiscalizacao; ?>"
+                                ><i class="material-icons">gavel</i></a>
+                            <?php } ?>
+                            </p>
+                        </td>
+                    </tr>
+                <?php } ?>
+                </tbody>
+            </table>
+
+            <?php if (count($this->dados) > 0) { ?>
+
+                <?php if ($this->qntdProjetos > 10) { //echo $this->dados; ?>
+                    <center>
+                        <?php
+                        echo $this->paginacao['inicio'] . " a ";
+                        echo ($this->paginacao['pag'] - 1) * $this->paginacao['Itenspag'] + $this->paginacao['tamanho'];
+                        echo " de " . $this->paginacao['total'];
+                        ?>
+                    </center>
+                    <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr>
+                            <td align="center">
+                                <form name="form2" id="form2"
+                                      action="<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')); ?>"
+                                      method="get">
+                                    <?php if ($this->paginacao['pag'] > 1) { ?>
+                                        <input class="btn_inicio" id="btn_inicio" type="button" class="btn_inicio"
+                                               onclick="location.href='<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')) . '?pag=1' . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&tecFiltro=' . $this->tecnico . '&pronac=' . $this->pronacProjeto; ?>'">
+                                    <?php } ?>
+                                    <input id="btn_p_anterior" type="button"
+                                        <?php if ($this->paginacao['pag'] <= 1) { ?> class="btn_p_anterior-off"
+                                        <?php } else { ?>
+                                            class="btn_p_anterior"
+                                            onclick="location.href='<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')) . '?pag=' . ($this->paginacao['pag'] - 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&tecFiltro=' . $this->tecnico . '&pronac=' . $this->pronacProjeto; ?>'"
+                                        <?php } ?>>
+                                    <input id="btn_p_proximo" type="button"
+                                        <?php if ($this->paginacao['pag'] + 1 > $this->paginacao['totalPag']) { ?>
+                                            class="btn_p_proximo-off"
+                                        <?php } else { ?>
+                                            class="btn_p_proximo"
+                                            onclick="location.href='<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')) . '?pag=' . ($this->paginacao['pag'] + 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&tecFiltro=' . $this->tecnico . '&pronac=' . $this->pronacProjeto; ?>'"
+                                        <?php } ?>>
+                                    <?php if ($this->paginacao['pag'] < $this->paginacao['totalPag']) { ?>
+                                        <input class="btn_ultimo" id="btn_ultimo" type="button"
+                                               onclick="location.href='<?php echo $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid')) . '?pag=' . ($this->paginacao['totalPag']) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&tecFiltro=' . $this->tecnico . '&pronac=' . $this->pronacProjeto; ?>'">
+                                    <?php } ?>
+                                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form2').submit()"
+                                                        class="input_simples">
+                                        <?php for ($i = 1; $i <= $this->paginacao['totalPag']; $i++): ?>
+                                            <option
+                                                value="<?php echo $i; ?>" <?php if ($this->paginacao['pag'] == $i) echo "selected"; ?>><?php echo $i; ?>
+                                                &nbsp;
+                                            </option>
+                                        <?php endfor; ?>
+                                    </select>
+                                    &nbsp;Registros por p&aacute;gina:<input type="text" size="2" name="qtde" id="qtde"
+                                                                             class="input_simples"
+                                                                             value="<?php echo $this->intTamPag; ?>"><input
+                                        type="submit" class="btn_recarregar" value="">
+                                    <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo']; ?>">
+                                    <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem']; ?>">
+                                    <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro; ?>">
+                                    <input type="hidden" name="tecFiltro" value="<?php echo $this->tecnico; ?>">
+                                    <input type="hidden" name="pronac" value="<?php echo $this->pronacProjeto; ?>">
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                <?php }
+            } ?>
+
+        <?php } ?>
+
+        <?php if ($this->qntdProjetos === 0) : ?>
+            <div class="padding20 center-align">
+                Nenhum projeto encontrado!
+            </div>
+        <?php endif; ?>
+    </div>
+</div>

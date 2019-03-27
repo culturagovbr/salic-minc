@@ -36,10 +36,6 @@
                             <?php endif; ?>
                         </select>&nbsp;
                         <span id="msgValidaProponente"></span>&nbsp;&nbsp;&nbsp;
-
-                        <a id="localizar" class="btn-localizar waves-effect waves-light btn btn-default small">
-                            <i class="material-icons left">search</i>Localizar
-                        </a>
                     </form>
                 </div>
             </div>
@@ -75,7 +71,6 @@
       <h4>Solicitar Desarquivamento</h4>
           <div class="row">
             <div class=" col s12">
-	      <p class="motivo_arquivamento"></p>
             </div>
           </div>
          <div class="row">
@@ -83,7 +78,7 @@
                 <input type="hidden" name="idpreprojeto" id="idpreprojeto" value="">
                 <div class="input-field col s12">
                   <textarea style="height:200px" class="materialize-textarea" id="SolicitacaoDesarquivamento" name="SolicitacaoDesarquivamento"></textarea>
-                  <label for="SolicitacaoDesarquivamento">Solicita&ccedil;&atilde;o Desarquivamento</label>
+                  <label for="SolicitacaoDesarquivamento">Solicita&ccedil;&atilde;o de Desarquivamento</label>
                 </div>
             </form>
           </div>
@@ -109,7 +104,7 @@
 
 <div id="modal_visualizar_recusado" class="modal bottom-sheet" style="max-height:95%; height:95%">
     <div class="modal-content">
-        <h4>Motivo da reprovação</h4>
+        <h4>Motivo da reprova&ccedil;&atilde;o</h4>
         <div class="row">
             <div class=" col s12">
                 <p class="motivo_reprovacao"></p>
@@ -122,6 +117,7 @@
 </div>
 <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
         crossorigin="anonymous"></script>
+<script src="/public/js/moment.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>
 <script type="text/javascript">
@@ -158,7 +154,7 @@
                         {
                             data: null,
                             "name": "idpreprojeto",
-                            render: function (data, type, row) {
+                            render: function (data) {
                                 return '<a class="btn waves-effect waves-dark white black-text small" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'identificacaodaproposta')); ?>/idPreProjeto/' + data.idpreprojeto + '">'
                                     + data.idpreprojeto + '</a>'
                             }
@@ -172,13 +168,16 @@
                             "data": "nomeproponente"
                         },
                         {
-                            "name": "Data Arquivamento",
-                            "data": "dtArquivamentoHistorico"
+                            data: null,
+                            "name": "dtArquivamentoHistorico",
+                            render: function (data){
+                                return moment(data.dtArquivamentoHistorico).format('DD/MM/YYYY')
+                            }
                         },
                         {
                             data: null,
                             "name": "visualizarmotivo",
-                            render: function (data, type, row) {
+                            render: function (data) {
                                 if (data.MotivoArquivamento !== '') {
 
                                     var motivo = data.MotivoArquivamento;
@@ -196,44 +195,44 @@
                         {
                             data: null,
                             "name": "botao",
-                            render: function (data, type, row) {
-
+                            render: function (data) {
                                 if (data.stDecisao == 0  && data.dtSolicitacaoDesarquivamento) {
-                                    return 'Solicita&ccedil;&atilde;o de desarquivamento reprovada';
-//                                    return '<button data-target="modal_visualizar_recusado" id="visualizar_recusado" class="waves-effect waves-light btn modal-trigger waves-dark white black-text" data-avaliacao="' + data.Avaliacao + '"><i class="material-icons right">remove_red_eye</i>Solicitação recusada</button>';
+                                    var avaliacao = data.Avaliacao;
+                                    avaliacao = avaliacao.replace(/\"/g,'&#34;'); // aspa dupla
+                                    avaliacao = avaliacao.replace(/\'/g,'&#39;'); // aspa simples
+                                    avaliacao = avaliacao.replace(/\n/g,'<br/>');
+                                    data.Avaliacao = avaliacao;
+                                    return '<button data-target="modal_visualizar_recusado" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '" data-avaliacao="' + data.Avaliacao+ '">Arquivada sem possibilidade de desarquivamento</button>';
+                                } else if (!data.SolicitacaoDesarquivamento && !data.dtAvaliacao) {
+                                    return '<button data-target="modal_solicitar" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '">Solicitar Desarquivamento</button>';
+                                } else if (data.stEstado == 0 && data.dtAvaliacao) {
+                                    data.Avaliacao = 'Projeto arquivado pela segunda vez.';
+                                    return '<button data-target="modal_visualizar_recusado" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '" data-avaliacao="' + data.Avaliacao+ '">Arquivada sem possibilidade de desarquivamento</button>';
+                                } else {
+                                    return 'Solicita&ccedil;&atilde;o de desarquivamento em an&aacute;lise';
                                 }
-                                if (data.SolicitacaoDesarquivamento == null && data.dtAvaliacao == null) {
-                                    return '<button data-target="modal_solicitar" class="btnSolicitar modal-trigger btn waves-effect waves-dark white black-text small" data-idpreprojeto="' + data.idpreprojeto + '">Solicitar Desarquivamento</button>'
-                                }
-                                if (data.stEstado && data.dtAvaliacao) {
-                                    return 'Arquivada sem possibilidade de desarquivamento';
-                                }
-
-                                return 'Solicita&ccedil;&atilde;o de desarquivamento em an&aacute;lise';
                             }
                         }
                     ]
                 }
             );
 
-            $("#localizar").click(function () {
-                table.ajax.reload();
-            });
-
             $("tbody").on('click','button', function () {
                 let idpreprojeto = $3(this).data('idpreprojeto');
                 let motivoarquivamento = $3(this).data('motivoarquivamento');
-                let Avaliacao = $3(this).data('avaliacao');
+                let avaliacao = $3(this).data('avaliacao');
                 $3('#idpreprojeto').val(idpreprojeto);
                 $3('.motivo_arquivamento').html(motivoarquivamento);
-                $3('.motivo_reprovacao').html(Avaliacao);
+                $3('.motivo_reprovacao').html(avaliacao);
 
             });
 
             $("#enviarSolicitacao").on('click', function () {
                 if ($3('#SolicitacaoDesarquivamento').val().length == 0){
-                    Materialize.toast('É necessário preencher a solicitação!', 4000, 'red white-text');
-                }else{
+                    Materialize.toast('&Eacute; necess&aacute;rio preencher a solicita&ccedil;&atilde;o!', 4000, 'red white-text');
+                    return false;
+                }
+                else{
                     $3.ajax({
                         url:'/proposta/pre-projeto-arquivado/update',
                         data: {
@@ -245,11 +244,15 @@
                     done(function(data) {
                         $3('#modal_solicitar').modal('close');
                         table.ajax.reload();
-                        console.log(data);
                     });
                 }
-
+                    Materialize.toast('Solicita&ccedil;&atilde;o enviada!', 4000,  'blue white-text');
             });
+
+            $("#proponente, #mecanismo").change(function () {
+                table.ajax.reload();
+            });
+
         });
     }($.noConflict(true)));
 </script>

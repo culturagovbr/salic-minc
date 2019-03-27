@@ -1,0 +1,71 @@
+0FORMAT: 1A
+HOST: http://localhost:4000
+
+# SALIC API
+
+# Group Avaliação de Resultados
+
+## DASHBOARD - Projetos Dashboard [/avaliacao-resultados/dashboard] 
+
+### DASHBOARD - Projetos Dashboard [GET]
+
++ Response 200 (application/json; charset=utf-8)
+
+        {
+            "data": {
+                "code": 200,
+                "items": {
+                "Em Analise": {
+                    "valor": 6,
+                    "url": "#/painel/aba-em-analise"
+                },
+                "Assinar": {
+                    "valor": 2,
+                    "url": "#/painel/assinar"
+                }
+                }
+            }
+        }
+
+## FLUXO-PROJETO - Projetos Análise [/avaliacao-resultados/fluxo-projeto?estadoid={estadoId}&idAgente={idAgente}]
+
+### FLUXO-PROJETO - Projetos Análise [GET]
+
++ Parameters
+    + estadoId (string, required) 
+    + idAgente (string, required)
+
++ Request
+
+    + Parameters
+        + estadoId: 5
+        + idAgente: 236
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+                "Projeto": {
+                    "id":"5"
+                }
+            }
+
++ Request
+
+    + Parameters
+        + estadoId: 6
+        + idAgente: 236
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+                "Projeto": {
+                    "id":"6"
+                }
+            }
+
+## FLUXO-PROJETO - Projetos [/avaliacao-resultados/fluxo-projeto/]
+

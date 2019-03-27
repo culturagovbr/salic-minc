@@ -2,92 +2,98 @@
 
 $arrMenu['prestacao-contas'] = array(
     'id' => 'prestacao-contas',
-    'label' => 'Presta&ccedil;&atilde;o de Contas',
+    'label' => 'Avalia&ccedil;&atilde;o de Resultados',
     'title' => 'Ir para Presta&ccedil;&atilde;o de Contas',
     'menu' => array(),
-    'grupo' => array(100,124,125,126,132,148,151),
+    'grupo' => array(100,124,125,126,132,148,151,149),
 );
+
 $arrMenu['prestacao-contas']['menu'][] = array(
-    'label' => 'Analisar Presta&ccedil;&atilde;o de Contas',
-    'title' => 'Ir para Analisar Presta&ccedil;&atilde;o de Contas',
-    'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'painel'), '', true),
-    'grupo' => array(126)
+    'grupo' => array(
+        Autenticacao_Model_Grupos::COORDENADOR_PRESTACAO_DE_CONTAS
+    ),
+    'url' => $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index'), '', true),
+    'title' => 'Ir para Analisar Projeto Parecer',
+    'label' => 'Analisar Comprova&ccedil;&atilde;o do Objeto'
 );
+
 $arrMenu['prestacao-contas']['menu'][] = array(
-    'grupo' => array(125),
-    'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'painel'), '', true),
-    'title' => 'Analisar Presta&ccedil;&atilde;o de Contas',
-    'label' => 'Analisar Presta&ccedil;&atilde;o de Contas'
+    'grupo' => array(
+        Autenticacao_Model_Grupos::TECNICO_PRESTACAO_DE_CONTAS,
+        Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO,
+        Autenticacao_Model_Grupos::PRESIDENTE_VINCULADA_SUBSTITUTO
+    ),
+    'url' => $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index-tecnico'), '', true),
+    'title' => 'Ir para Analisar Projeto Parecer',
+    'label' => 'Analisar Comprova&ccedil;&atilde;o do Objeto'
 );
+
+//$arrMenu['prestacao-contas']['menu'][] = array(
+//    'grupo' => array(126,125),
+//    'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'painel'), '', true),
+//    'title' => 'Analisar Parecer',
+//    'label' => 'Analisar Parecer'
+//);
+
+//$arrMenu['prestacao-contas']['menu'][] = array(
+//    'grupo' => array(124),
+//    'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'tecnicoprestacaocontas'), '', true),
+//    'title' => 'Analisar Parecer',
+//    'label' => 'Analisar Presta&ccedil;&atilde;o de Contas'
+//);
+
 $arrMenu['prestacao-contas']['menu'][] = array(
-    'grupo' => array(125),
-    'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'manter-assinantes'), '', true),
-    'title' => 'Ir para Assinantes',
-    'label' => 'Assinantes'
+    'grupo' => array(124,125, 126),
+    'url' => '/avaliacao-resultados/#/',
+    'title' => 'Analisar Comprova&ccedil;&atilde;o Financeira',
+    'label' => 'Analisar Comprova&ccedil;&atilde;o Financeira'
 );
-$arrMenu['prestacao-contas']['menu'][] = array(
-    'grupo' => array(124),
-    'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'tecnicoprestacaocontas'), '', true),
-    'title' => 'Analisar Presta&ccedil;&atilde;o de Contas',
-    'label' => 'Analisar Presta&ccedil;&atilde;o de Contas'
-);
-$arrMenu['prestacao-contas']['menu'][] = array(
-    'grupo' => array(12),
-    'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'conjurprestacaocontas'), '', true),
-    'title' => 'Analisar Presta&ccedil;&atilde;o de Contas',
-    'label' => 'Ir para Presta&ccedil;&atilde;o de Contas'
-);
+
 $arrMenu['prestacao-contas']['menu'][] = array(
     'grupo' => array(177),
     'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'aeciprestacaocontas'), '', true),
     'title' => 'Analisar Presta&ccedil;&atilde;o de Contas',
     'label' => 'Analisar Presta&ccedil;&atilde;o de Contas'
 );
+
 $arrMenu['prestacao-contas']['menu'][] = array(
     'grupo' => array(132),
     'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'chefedivisaoprestacaocontas'), '', true),
     'title' => 'Analisar Presta&ccedil;&atilde;o de Contas',
     'label' => 'Analisar Presta&ccedil;&atilde;o de Contas'
 );
+
 $arrMenu['prestacao-contas']['menu'][] = array(
     'grupo' => array(93),
     'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'coordenadorpareceristaprestacaocontas'), '', true),
     'title' => 'Analisar Presta&ccedil;&atilde;o de Contas',
     'label' => 'Analisar Presta&ccedil;&atilde;o de Contas'
 );
+
 $arrMenu['prestacao-contas']['menu'][] = array(
     'grupo' => array(94, 93),
     'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'pareceristaprestacaocontas'), '', true),
     'title' => 'Ir para Presta&ccedil;&atilde;o de Contas',
     'label' => 'Analisar Presta&ccedil;&atilde;o de Contas'
 );
-$arrMenu['prestacao-contas']['menu'][] = array(
-    'grupo' => array(126,148,151),
-    'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'analisar-laudo-final'), '', true),
-    'title' => 'Ir para Analisar Laudo Final',
-    'label' => 'Analisar Laudo Final'
-);
-$arrMenu['prestacao-contas']['menu'][] = array(
-    'grupo' => array(124,125,132),
-    'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'consultar-laudo-final'), '', true),
-    'title' => 'Ir para Analisar Laudo Final',
-    'label' => 'Analisar Laudo Final'
-);
 
 $arrMenu['prestacao-contas']['menu'][] = array(
-    'grupo' => array(
-     147
-    ,148
-    ,149
-    ,150
-    ,151
-    ,152
-    ),
-    'url' => $this->url(array(
-        'module' => 'admissibilidade',
-        'controller' => 'enquadramento-assinatura',
-        'action' => 'gerenciar-assinaturas'
-    ), '', true),
-    'title' => 'Assinatura',
-    'label' => 'Assinatura'
+    'grupo' => array(125,126),
+    'url' => $this->url(array('module'=>'prestacao-contas', 'controller' => 'prestacao-contas', 'action' => 'analise-financeira-virtual'), '', true),
+    'title' => 'Ir para An&aacute;lise Financeira Virtual',
+    'label' => 'An&aacute;lise Financeira Virtual'
+);
+
+//$arrMenu['prestacao-contas']['menu'][] = array(
+//    'grupo' => array(126,148,151),
+//    'url' => $this->url(array('controller' => 'realizarprestacaodecontas', 'action' => 'analisar-laudo-final'), '', true),
+//    'title' => 'Ir para Analisar Laudo Final',
+//    'label' => 'Analisar Laudo Final'
+//);
+
+$arrMenu['prestacao-contas']['menu'][] = array(
+    'grupo' => array(126,148,151,149),
+    'url' => '/avaliacao-resultados/#/laudo',
+    'title' => 'Ir para Analisar Laudo Final',
+    'label' => 'Analisar Laudo Final'
 );

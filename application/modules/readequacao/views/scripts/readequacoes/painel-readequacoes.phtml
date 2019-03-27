@@ -1,0 +1,415 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btn_pesquisar, #btn-pesquisar").click(function () {
+            $('#formPesquisa').submit();
+        });
+
+        $('.btn_imprimir, .btn-imprimir').click(function () {
+            $('#formImpressao').submit();
+        });
+
+        $('.btn_ver, .btn-ver').click(function () {
+            var id = $(this).attr('idReadequacao');
+            window.location = "<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'visualizar-readequacao')); ?>?id=" + id;
+        });
+
+        function alertaModal(msg) {
+            $("#alerta").dialog("destroy");
+            $("#alerta").html(msg);
+            $("#alerta").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width: 330,
+                height: 170,
+                modal: true,
+                buttons: {
+                    'OK': function () {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+        }
+
+        $('.enviarReadequacao').click(function () {
+            var idPronac = $(this).attr('idPronac'),
+                idDistRead = $(this).attr('idDistRead'),
+                parecerista = $('#tecnico-' + idDistRead).val(),
+                idReadequacao = $(this).attr('idReadequacao');
+
+            if (parecerista == '') {
+                $("#alerta").dialog("destroy");
+                $("#alerta").html('Favor selecionar o destinatário!');
+                $("#alerta").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width: 320,
+                    modal: true,
+                    buttons: {
+                        'OK': function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            } else {
+
+                $("#alerta").dialog("destroy");
+                $("#alerta").html('Deseja realmente enviar a solicitação?');
+                $("#alerta").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width: 320,
+                    height: 170,
+                    modal: true,
+                    buttons: {
+                        'N\u00E3o': function () {
+                            $(this).dialog('close');
+                        },
+                        'Sim': function () {
+                            $(this).dialog('close');
+                            $.ajax({
+                                type: 'POST',
+                                url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'encaminhar-readequacao'), '', true); ?>',
+                                data: {
+                                    parecerista: parecerista,
+                                    idDistRead: idDistRead,
+                                    idReadequacao: idReadequacao
+                                },
+                                success: function (data) {
+                                    if (data.resposta) {
+                                        $("#alerta").dialog("destroy");
+                                        $("#alerta").html('<br /><div align="center"><img src="<?php echo $this->baseUrl() . '/public/img/ajax.gif'; ?>"><br />Aguarde..</div>');
+                                        $("#alerta").dialog({
+                                            resizable: false,
+                                            width: 320,
+                                            modal: true,
+                                            title: 'Carregando..'
+                                        });
+                                        $('.ui-dialog-titlebar-close').remove();
+                                        window.setTimeout('location.reload()', 1000);
+                                    } else {
+                                        alertaModal("Não foi possível encaminhar a readequação.");
+                                    }
+                                },
+                                dataType: 'json'
+                            });
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            }
+        });
+
+        $('.btn_avaliar, .btn-avaliar').click(function () {
+            var id = $(this).attr('readequacao');
+            window.location = "<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'avaliar-readequacao')); ?>?id=" + id + "&filtro=<?php echo $this->filtro; ?>";
+        });
+
+        $('.btn_encaminhar, .btn-encaminhar').click(function () {
+            var id = $(this).attr('readequacao');
+            window.location = "<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'encaminhar-analise-tecnica')); ?>?id=" + id + "&filtro=<?php echo $this->filtro; ?>";
+        });
+
+        $('.btn_analisar, .btn-analisar').click(function () {
+            var id = $(this).attr('idReadequacao');
+            window.location = "<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'form-avaliar-readequacao')); ?>?id=" + id + "&filtro=<?php echo $this->filtro; ?>";
+        });
+
+        $('.btn_finalizar, .btn-finalizar').click(function () {
+            var idDistProj = $(this).attr('idDistProj'),
+                idReadequacao = $(this).attr('idReadequacao'),
+                idPronac = $(this).attr('id_pronac');
+
+            $("#alerta").dialog("destroy");
+            $("#alerta").html('Deseja realmente finalizar a análise da readequação?<br /><br />Ao finalizar a readequação será devolvida.');
+            $("#alerta").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width: 430,
+                modal: true,
+                buttons: {
+                    'Não': function () {
+                        $(this).dialog('close');
+                    },
+                    'Sim': function () {
+                        $.ajax({
+                            type: 'POST',
+                            url: '<?php echo $this->url([
+                                    'module' => 'readequacao',
+                                    'controller' => 'readequacoes',
+                                    'action' => 'coord-parecer-finalizar-readequacao'
+                                ],
+                                '',
+                                true
+                            ); ?>',
+                            data: {
+                                idDistProj: idDistProj,
+                                idReadequacao: idReadequacao,
+                                idPronac : idPronac
+                            },
+                            success: function (data) {
+                                if (data.resposta) {
+                                    $("#alerta").dialog("destroy");
+                                    $("#alerta").html('<br /><div align="center"><img src="<?php echo $this->baseUrl() . '/public/img/ajax.gif'; ?>"><br />Aguarde..</div>');
+                                    $("#alerta").dialog({
+                                        resizable: false,
+                                        width: 320,
+                                        modal: true,
+                                        title: 'Carregando..'
+                                    });
+                                    $('.ui-dialog-titlebar-close').remove();
+                                    if(data.linkAssinatura) {
+                                        window.location.href = data.linkAssinatura;
+                                    } else {
+                                         window.setTimeout('location.reload()', 1000);
+                                    }
+                                } else {
+                                    alertaModal("Não foi possível finalizar a readequação.");
+                                }
+                            },
+                            dataType: 'json'
+                        });
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+
+        });
+
+        $('.avaliacaoParecerista').click(function () {
+            var id = $(this).attr('idReadequacao');
+            window.location = "<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'form-avaliar-readequacao')); ?>?id=" + id;
+        });
+
+        $('.comboFiltro').change(function () {
+            window.location = "<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes')); ?>?tipoFiltro=" + $(this).val();
+        });
+
+    });
+</script>
+
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<div id="alerta" class="sumir"></div>
+
+<?php
+$situacoes = array(
+    'painel_do_tecnico' => 'Painel do técnico',
+    'aguardando_distribuicao' => 'Aguardando distribuição',
+    'em_analise' => 'Em análise',
+    'analisados' => 'Analisados'
+);
+?>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <?php
+                    $paginaAtual = "Avaliar Readequa&ccedil;&otilde;es - ";
+                    $paginaAtual .= $situacoes[$this->filtro];
+                    ?>
+                    <h1><?= $paginaAtual; ?></h1>
+
+                    <?php
+                    gerarNovoBreadCrumb(
+                        [
+                            [$paginaAtual => '']
+                        ]
+                    );
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-panel">
+            <div id="conteudo">
+                <?php if ($this->idPerfil == 93) { ?>
+                    <form name="formPesquisa" id="formPesquisa"
+                          action="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes')); ?>"
+                          method="get">
+                        <table class="tabela">
+                            <tr>
+                                <th colspan="4">Filtro de Pesquisa</th>
+                            </tr>
+                            <tr class="divFiltroPesquisa">
+                                <td class="destacar bold" width="60">PRONAC</td>
+                                <td width="120">
+                                    <input type="text" class="input_simples" name="pronac" maxlength="7"
+                                           style="width: 70px;" value="<?php echo $this->pronac; ?>">
+                                    <input type="hidden" name="qtde" value="<?php echo $this->intTamPag; ?>">
+                                </td>
+                                <td class="destacar bold" width="60">Situa&ccedil;&atilde;o</td>
+                                <td>
+                                    <select name="tipoFiltro" style="width: 200px;" class="input_simples comboFiltro">
+                                        <?php unset($situacoes['painel_do_tecnico']); ?>
+                                        <?php foreach ($situacoes as $chave => $valor): ?>
+                                            <option
+                                                value="<?php echo $chave; ?>" <?php echo ($this->filtro == $chave) ? "selected" : ""; ?>><?php echo $valor; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <input type="button" name="btn_pesquisar" id="btn_pesquisar" class="btn_pesquisar"
+                                           value="" style="margin-left: 10px;">
+                                </td>
+                            </tr>
+                        </table>
+                    </form>
+                <?php } ?>
+
+                <?php if (count($this->dados) > 0) { ?>
+                    <!-- ============ PAGINAÇÃO ============ -->
+                    <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr>
+                            <td align="center">
+                                <form name="form1" id="form1"
+                                      action="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes')); ?>"
+                                      method="get">
+                                    <?php if ($this->paginacao['pag'] > 1) { ?>
+                                        <input class="btn_inicio" id="btn_inicio" type="button" class="btn_inicio"
+                                               onclick="location.href='<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes')) . '?pag=1' . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac; ?>'">
+                                    <?php } ?>
+                                    <input id="btn_p_anterior" type="button"
+                                        <?php if ($this->paginacao['pag'] <= 1) { ?> class="btn_p_anterior-off"
+                                        <?php } else { ?>
+                                            class="btn_p_anterior" onclick="location.href='<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes')) . '?pag=' . ($this->paginacao['pag'] - 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac; ?>'"
+                                        <?php } ?>>
+                                    <input id="btn_p_proximo" type="button"
+                                        <?php if ($this->paginacao['pag'] + 1 > $this->paginacao['totalPag']) { ?>
+                                            class="btn_p_proximo-off"
+                                        <?php } else { ?>
+                                            class="btn_p_proximo" onclick="location.href='<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes')) . '?pag=' . ($this->paginacao['pag'] + 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac; ?>'"
+                                        <?php } ?>>
+                                    <?php if ($this->paginacao['pag'] < $this->paginacao['totalPag']) { ?>
+                                        <input class="btn_ultimo" id="btn_ultimo" type="button"
+                                               onclick="location.href='<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes')) . '?pag=' . ($this->paginacao['totalPag']) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac; ?>'">
+                                    <?php } ?>
+                                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()"
+                                                 class="input_simples">
+                                        <?php for ($i = 1; $i <= $this->paginacao['totalPag']; $i++): ?>
+                                            <option
+                                                value="<?php echo $i; ?>" <?php if ($this->paginacao['pag'] == $i) echo "selected"; ?>><?php echo $i; ?>
+                                                &nbsp;</option>
+                                        <?php endfor; ?>
+                                    </select>
+                                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde"
+                                                                      class="input_simples"
+                                                                      value="<?php echo $this->intTamPag; ?>"><input
+                                        type="submit" class="btn_recarregar" value="">
+                                    <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo']; ?>">
+                                    <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem']; ?>">
+                                    <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro; ?>">
+                                    <input type="hidden" name="pronac" value="<?php echo $this->pronac; ?>">
+                                    <!--<input type="button" class="btn_imprimir">-->
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <center>
+                        <?php
+                        echo $this->paginacao['inicio'] . " a ";
+                        echo ($this->paginacao['pag'] - 1) * $this->paginacao['Itenspag'] + $this->paginacao['tamanho'];
+                        echo " de " . $this->paginacao['total'] . " Projetos listados";
+                        ?>
+                    </center>
+                <?php } ?>
+
+
+                <?php if ($this->qtdRegistros > 0) : ?>
+
+                    <?php if ($this->filtro == 'analisados'): ?>
+                        <?php echo $this->partial('readequacoes/partial/painel-readequacoes-analisados.phtml', array('dados' => $this->dados, 'filtro' => $this->filtro, 'conselheiros' => $this->conselheiros, 'paginacao' => $this->paginacao, 'idOrgao' => $this->idOrgao, 'idPerfil' => $this->idPerfil)); ?>
+                    <?php elseif ($this->filtro == 'em_analise'): ?>
+                        <?php echo $this->partial('readequacoes/partial/painel-readequacoes-emAnalise.phtml', array('dados' => $this->dados, 'filtro' => $this->filtro, 'paginacao' => $this->paginacao, 'idOrgao' => $this->idOrgao, 'idPerfil' => $this->idPerfil)); ?>
+                    <?php elseif ($this->filtro == 'aguardando_distribuicao'): ?>
+                        <?php echo $this->partial('readequacoes/partial/painel-readequacoes-aguardandoDistribuicao.phtml', array('dados' => $this->dados, 'filtro' => $this->filtro, 'paginacao' => $this->paginacao, 'idOrgao' => $this->idOrgao, 'idPerfil' => $this->idPerfil)); ?>
+                    <?php elseif ($this->filtro == 'painel_do_tecnico'): ?>
+                        <?php echo $this->partial('readequacoes/partial/painel-readequacoes-tecnico.phtml', array('dados' => $this->dados, 'filtro' => $this->filtro, 'paginacao' => $this->paginacao, 'idPerfil' => $this->idPerfil)); ?>
+                    <?php endif; ?>
+
+
+                    <?php if (count($this->dados) > 0) : ?>
+
+                        <!-- ============ PAGINAÇÃO ============ -->
+                        <?php if ($this->qtdRegistros > 10) : //echo $this->dados; ?>
+                            <center>
+                                <?php
+                                echo $this->paginacao['inicio'] . " a ";
+                                echo ($this->paginacao['pag'] - 1) * $this->paginacao['Itenspag'] + $this->paginacao['tamanho'];
+                                echo " de " . $this->paginacao['total'];
+                                ?>
+                            </center>
+                            <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                <tr>
+                                    <td align="center">
+                                        <form name="form2" id="form2"
+                                              action="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes')); ?>"
+                                              method="get">
+                                            <?php if ($this->paginacao['pag'] > 1) { ?>
+                                                <input class="btn_inicio" id="btn_inicio" type="button"
+                                                       class="btn_inicio"
+                                                       onclick="location.href='<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes')) . '?pag=1' . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac; ?>'">
+                                            <?php } ?>
+                                            <input id="btn_p_anterior" type="button"
+                                                <?php if ($this->paginacao['pag'] <= 1) { ?> class="btn_p_anterior-off"
+                                                <?php } else { ?>
+                                                    class="btn_p_anterior" onclick="location.href='<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes')) . '?pag=' . ($this->paginacao['pag'] - 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac; ?>'"
+                                                <?php } ?>>
+                                            <input id="btn_p_proximo" type="button"
+                                                <?php if ($this->paginacao['pag'] + 1 > $this->paginacao['totalPag']) { ?>
+                                                    class="btn_p_proximo-off"
+                                                <?php } else { ?>
+                                                    class="btn_p_proximo" onclick="location.href='<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes')) . '?pag=' . ($this->paginacao['pag'] + 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac; ?>'"
+                                                <?php } ?>>
+                                            <?php if ($this->paginacao['pag'] < $this->paginacao['totalPag']) { ?>
+                                                <input class="btn_ultimo" id="btn_ultimo" type="button"
+                                                       onclick="location.href='<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes')) . '?pag=' . ($this->paginacao['totalPag']) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac; ?>'">
+                                            <?php } ?>
+                                            Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()"
+                                                         class="input_simples">
+                                                <?php for ($i = 1; $i <= $this->paginacao['totalPag']; $i++): ?>
+                                                    <option
+                                                        value="<?php echo $i; ?>" <?php if ($this->paginacao['pag'] == $i) echo "selected"; ?>><?php echo $i; ?>
+                                                        &nbsp;</option>
+                                                <?php endfor; ?>
+                                            </select>
+                                            &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde"
+                                                                              class="input_simples"
+                                                                              value="<?php echo $this->intTamPag; ?>">
+                                            <input type="submit" class="btn_recarregar" value="">
+                                            <input type="hidden" name="campo"
+                                                   value="<?php echo $this->paginacao['campo']; ?>">
+                                            <input type="hidden" name="ordem"
+                                                   value="<?php echo $this->paginacao['ordem']; ?>">
+                                            <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro; ?>">
+                                            <input type="hidden" name="pronac" value="<?php echo $this->pronac; ?>">
+                                            <!--<input type="button" class="btn_imprimir">-->
+                                        </form>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!-- ========== FIM PAGINAÇÃO ========== -->
+
+                        <?php endif; ?>
+                    <?php endif; ?>
+
+
+                <?php else: ?>
+                    <table class="tabela">
+                        <tr>
+                            <td align="center">Nenhum registro encontrado.</td>
+                        </tr>
+                    </table>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>

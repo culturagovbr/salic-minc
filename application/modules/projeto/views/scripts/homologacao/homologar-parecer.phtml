@@ -1,0 +1,29 @@
+<form id="form-mensagem"
+      class="materialize"
+      data-ajax-form="true"
+      method="post"
+      action="/projeto/homologacao/homologar">
+    <div class="modal-content">
+        <h4>Homologar parecer</h4>
+        <div>
+            <ul class="collapsible acorddion" data-collapsible="expandable">
+                <?= $this->partial('/homologacao/partials/homologar-parecer.phtml', ['arrValue' => $this->arrValue, 'booShowAll' => true]); ?>
+                <?= $this->partial('/homologacao/partials/editar-parecer-homologacao.phtml', ['arrValue' => $this->arrValue, 'booShowAll' => true]); ?>
+            </ul>
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button id="salvar" class="btn waves-effect waves-light" type="submit" name="action">Salvar</button>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat white-text btn-info">Fechar</a>
+    </div>
+</form>
+<script>
+    $3('.collapsible').collapsible();
+
+    $3(document).ready(function () {
+       $3("#salvar").on('click', function() {
+           $3(this).addClass('disabled').attr('disabled');
+       });
+    });
+</script>

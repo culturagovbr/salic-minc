@@ -2,17 +2,14 @@
     $visualizarDiligenciaHref   = $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'visualizardiligencia'));
     $alterarDiligenciaHref      = $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'cadastrarrespostadiligencia'));
     $prorrogarHref              = $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'prorrogar'));
-//    if($this->idPronac)
-//        echo $this->partial("diligenciar/inc/menu.inc.php"); // menu de manter proposta por incentivo fiscal
-//    if($this->idPreProjeto)
-//        echo $this->partial( "diligenciar/inc/menu.inc.php"); // menu de manter proposta por incentivo fiscal
 ?>
-<?php echo $this->idPreProjeto ? $this->partial("inc/menu.phtml", $this): ''; ?>
-<?php echo $this->idPronac ? $this->partial("diligenciar/inc/menu.inc.php", $this): ''; ?>
+<?= $this->idPreProjeto ? $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto)) : ''; ?>
+<?= $this->urlMenu && $this->idPronac ?  $this->SidebarVue($this->url($this->urlMenu, '', true)) : ''; ?>
+
 <div class="container-fluid tem-menu-lateral">
-    <div class="row">
-        <div class="content col s12 m12 l12 planilha-produtos">
-            <h4> Listagem das Dilig&ecirc;ncias </h4>
+    <?= $this->pageTitle('Listagem das Dilig&ecirc;ncias'); ?>
+    <div class="card-panel row">
+        <div class="col s12 m12 l12 planilha-produtos">
             <div id="">
                 <form id="frImprimir" action="<?php echo $this->url(array('controller'=>'diligenciar', 'action'=>'imprimir')); ?>" method="post" target="_blank" >
                     <input type="hidden" name="idPronac" value="<?php echo $this->idPronac;?>"/>

@@ -1,26 +1,29 @@
 <?php $currentUri = Zend_Controller_Front::getInstance()->getRequest()->getParams(); ?>
 <?php $link = !empty($this->link) ? $this->url($this->link, null, true) : ''; ?>
-<li class="<?php echo ($this->menu_nivel_1) ? 'no-padding' : 'bold'; ?>">
+<li class="<?= ($this->menu_nivel_1) ? 'no-padding' : 'bold'; ?>">
     <?php if (!$this->menu_nivel_1): ?>
-        <a id="<?php echo $this->id; ?>"
-           class="<?php echo ($currentUri == $link) ? 'active' : '' ?>"
-           href="<?php echo ($link) ? $link : 'javascript:void(0);'; ?>"
-           title="Ir para <?php echo ($this->label); ?>">
-            <?php echo !empty($this->icon) ? '<i class="material-icons left">' . $this->icon . '</i>' : ''; ?>
-            <?php echo trim($this->label); ?></a>
+        <a id="<?= $this->id; ?>"
+           class="<?= ($currentUri == $link) ? 'active' : '' ?>"
+           href="<?= ($link) ? $link : 'javascript:void(0);'; ?>"
+           title="Ir para <?= ($this->label); ?>">
+            <?= !empty($this->icon) ? '<i class="material-icons left">' . $this->icon . '</i>' : ''; ?>
+            <?= trim($this->label); ?>
+            <?= !empty($this->badge) ? "<span class='new badge'>{$this->badge}</span>" : ''; ?>
+        </a>
     <?php else :?>
         <ul class="collapsible collapsible-accordion">
             <li class="bold">
-                <a id="<?php echo $this->id; ?>"
+                <a id="<?=$this->id; ?>"
                    class="collapsible-header waves-effect waves-cyan
-                   <?php echo (in_array($currentUri, array_column($this->menu_nivel_1, 'link'))) ? 'active' : '' ?>"
-                   href="<?php echo ($link) ? $link : 'javascript:void(0);'; ?>">
-                    <?php echo !empty($this->icon) ? '<i class="material-icons left">' . $this->icon . '</i>' : ''; ?>
-                    <?php echo $this->label; ?>
+                   <?= (in_array($currentUri, array_column($this->menu_nivel_1, 'link'))) ? 'active' : '' ?>"
+                   href="<?= ($link) ? $link : 'javascript:void(0);'; ?>">
+                    <?= !empty($this->icon) ? '<i class="material-icons left">' . $this->icon . '</i>' : ''; ?>
+                    <?= $this->label; ?>
+                    <?= !empty($this->badge) ? "<span class='new badge'>{$this->badge}</span>" : ''; ?>
                 </a>
                 <div class="collapsible-body">
                     <ul>
-                        <?php echo isset($this->menu_nivel_1) ? $this->partialLoop('/menu/partials/subitem.phtml', 'proposta', $this->menu_nivel_1) : ''; ?>
+                        <?= isset($this->menu_nivel_1) ? $this->partialLoop('/menu/partials/subitem.phtml', 'proposta', $this->menu_nivel_1) : ''; ?>
                     </ul>
                 </div>
             </li>

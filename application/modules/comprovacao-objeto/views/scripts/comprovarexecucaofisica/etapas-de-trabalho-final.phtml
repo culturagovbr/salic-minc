@@ -1,0 +1,657 @@
+<?php $idPronac = Seguranca::encrypt($this->idPronac); ?>
+<script type="text/javascript" src="<?php echo $this->baseUrl();?>/public/js/tinymce/js/tinymce/tinymce.min.js"></script>
+<script type="text/javascript">
+ 
+  //Contador e limitadores de caracteres
+
+
+function ExecucaoDaFuncaoLimiterPag(fieldName, minchar,maxchar){
+	var minchar;
+ 	if(typeof minchar === 'undefined'){
+	    minchar = 19;
+        }
+
+        countChars  = CountCharacters(fieldName);
+         //Escrita do contador
+
+        document.getElementById("contador" + fieldName).innerHTML = "Caracteres: "+ countChars+ "";
+
+        //mudança de cor caso ultrapasse o numero de caracteres
+            if (countChars <= minchar){
+                document.getElementById("contador" + fieldName).style.color = "red";
+            }else{
+	            document.getElementById("contador" + fieldName).style.color = "black";
+            }
+}
+
+   $(document).ready(function(){    
+       uploadMaxSize = '<?php echo file_upload_max_size(); ?>';
+
+       tamanhoSubido = function() {
+           var tamanhoUpload = 0;
+           $('input:file').each(function(inputIndex) {
+               if ($('input:file')[inputIndex].files[0]) {
+                   tamanhoUpload += $('input:file')[inputIndex].files[0].size;
+               }
+           });
+           
+           return tamanhoUpload;
+       }
+       
+       // adiciona verificador de tamanho de upload
+       $('input:file').each(function(inputIndex) {
+           $('#' + $('input:file')[inputIndex].id).change(function() {
+               
+               if (tamanhoSubido() > uploadMaxSize) {
+                   $('#' + $('input:file')[inputIndex].id).before('<span class="messages" style="color: red; font-size: 14px">Você ultrapassou o limite de upload, que é de <?php echo ini_get('post_max_size'); ?><br/></span>');
+               } else {
+                   $('.messages').hide();
+               }
+           });
+       });
+
+       // ao salvar, verificar se estourou o tamanho
+       
+        //inicializao e configuração do editor tinyMCE
+
+        tinymce.init({
+	    plugins:"paste,textcolor",
+	    language: "pt_BR",
+	    paste_as_text: true,
+        selector: '#etapasConcluidas',
+        height: 350,
+	    toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
+	    menubar:"",
+            setup: function (ed) {
+                ed.on('init', function (e) {
+                    ExecucaoDaFuncaoLimiterPag('etapasConcluidas');
+                }).on('keyup',function (e) {
+                    ExecucaoDaFuncaoLimiterPag('etapasConcluidas');
+		        });
+            }
+        });
+        
+        tinymce.init({
+	    plugins:"paste,textcolor",
+        language: "pt_BR",
+	    paste_as_text: true,
+        selector: '#medidasAcessibilidade',
+        height: 350,
+	    toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
+	    menubar:"",
+            setup: function (ed) {
+                ed.on('init', function (e) {
+                    ExecucaoDaFuncaoLimiterPag('medidasAcessibilidade');
+                }).on('keyup',function (e) {
+                    ExecucaoDaFuncaoLimiterPag('medidasAcessibilidade');
+		        });
+            }
+        });
+
+	tinymce.init({
+	    plugins:"paste,textcolor",
+        language: "pt_BR",
+	    paste_as_text: true,
+        selector: '#medidasFruicao',
+        height: 350,
+	    toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
+	    menubar:"",
+            setup: function (ed) {
+                ed.on('init', function (e) {
+		            ExecucaoDaFuncaoLimiterPag('medidasFruicao');
+                }).on('keyup',function (e) {
+		            ExecucaoDaFuncaoLimiterPag('medidasFruicao');
+		        });
+            }
+        });
+
+	tinymce.init({
+	    plugins:"paste,textcolor",
+        language: "pt_BR",
+	    paste_as_text: true,
+        selector: '#medidasPreventivas',
+        height: 350,
+	    toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
+	    menubar:"",
+        setup: function (ed) {
+                ed.on('init', function (e) {
+		            ExecucaoDaFuncaoLimiterPag('medidasPreventivas',-1);
+                }).on('keyup',function (e) {
+		            ExecucaoDaFuncaoLimiterPag('medidasPreventivas',-1);
+		        });
+        }
+    });
+
+	tinymce.init({
+	    plugins:"paste,textcolor",
+        language: "pt_BR",
+	    paste_as_text: true,
+        selector: '#empregosGerados',
+        height: 350,
+	    toolbar : "bold,italic,underline,color,forecolor backcolor,fontsizeselect",
+	    menubar:"",
+        setup: function (ed) {
+                ed.on('init', function (e) {
+                    ExecucaoDaFuncaoLimiterPag('empregosGerados');
+                }).on('keyup',function (e) {
+		            ExecucaoDaFuncaoLimiterPag('empregosGerados');
+                });
+            }
+        });
+
+
+
+    });
+    
+    //Onde é feita a contagem do elemento do contador
+    function CountCharacters(contador) {
+        var body = tinymce.get(contador).getBody();
+        var content = tinymce.trim(body.innerText || body.textContent);
+        return content.length;
+    };
+
+
+    $(document).ready(function(){
+
+
+        $('#btn_limpar').click(function(){
+            $("#camposObrigatorios").dialog("destroy");
+            $("#camposObrigatorios").html("Deseja realmente limpar?");
+            $("#camposObrigatorios").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width:320,
+//                    height:160,
+                modal: true,
+                buttons : {
+                    'Não' : function() {
+                        $(this).dialog('close');
+
+                    },
+                    'Sim' : function () {
+                        $(this).dialog('close');
+                        tinymce.get("medidasPreventivas").setContent("");
+                        tinymce.get("empregosGerados").setContent("");
+                        tinymce.get("medidasFruicao").setContent("");
+                        tinymce.get("etapasConcluidas").setContent("");
+                        tinymce.get("medidasAcessibilidade").setContent("");
+                        $("#arquivoImpactosAmbientais").val("");
+                        $("#arquivoAcessibilidadePublica").val("");
+                        $("#arquivoAcessibilidadeFisica").val("");
+
+                        $('#formCadastro').submit();
+                    }
+                }
+            });
+        });
+        $("#totalEmpregosDiretos, #totalEmpregosIndiretos").numeric().keyup(function() {
+            var totalEmpregosDiretos = $("#totalEmpregosDiretos").val() ? $("#totalEmpregosDiretos").val() : 0;
+            var totalEmpregosIndiretos = $("#totalEmpregosIndiretos").val() ? $("#totalEmpregosIndiretos").val() : 0;
+            var total = parseInt(totalEmpregosDiretos, 10) + parseInt(totalEmpregosIndiretos, 10);
+            $("#totalEmpregosDiretosIndiretos").val(total);
+        }).keyup();
+
+        //Funcionalidade de limpeza de campos arquivo
+
+        $("#btn_rmfile").hide();
+        $("#btn_rmfile2").hide();
+        $("#btn_rmfile3").hide();
+
+        $("#arquivoAcessibilidadeFisica").change(function() {
+
+            if($("#arquivoAcessibilidadeFisica").val() != null) {
+               $("#btn_rmfile").show();
+            } else {
+                $("#btn_rmfile").hide();
+            }
+
+        });
+
+        $("#arquivoAcessibilidadePublica").change(function() {
+
+            if($("#arquivoAcessibilidadePublica").val() != null) {
+                $("#btn_rmfile2").show();
+            } else {
+                $("#btn_rmfile2").hide();
+            }
+
+        });
+
+        $("#arquivoImpactosAmbientais").change(function() {
+
+            if($("#arquivoImpactosAmbientais").val() != null) {
+                $("#btn_rmfile3").show();
+            } else {
+                $("#btn_rmfile3").hide();
+            }
+
+        });
+
+        $("#btn_rmfile").click(function() {
+            $("#arquivoAcessibilidadeFisica").val("");
+            $(this).hide();
+        });
+        $("#btn_rmfile2").click(function() {
+            $("#arquivoAcessibilidadePublica").val("");
+            $(this).hide();
+        });
+        $("#btn_rmfile3").click(function() {
+            $("#arquivoImpactosAmbientais").val("");
+            $(this).hide();
+        });
+
+        //fim limpeza
+
+
+        $('#btn_salvar').click(function() {
+            var preenchimento = false,
+                preenchimentouploadcampo1 = false,
+                preenchimentouploadcampo2 = false,
+                preenchimentouploadcampo3 = false,
+                uploadEstourado = false,
+                etapasConcluidas = CountCharacters('etapasConcluidas'),
+                medidasPreventivas = CountCharacters('medidasPreventivas'),
+                medidasAcessibilidade = CountCharacters('medidasAcessibilidade'),
+                medidasFruicao = CountCharacters('medidasFruicao'),
+                empregosGerados = CountCharacters('empregosGerados');
+            console.log(medidasPreventivas);
+
+            if (
+                etapasConcluidas >= 20 &&
+                medidasAcessibilidade >= 20 &&
+                medidasFruicao >= 20 &&
+                empregosGerados >= 20
+            )
+            {
+                preenchimento = true;
+            }
+
+            // verifica tamanho
+            uploadMaxSize = '<?php echo file_upload_max_size(); ?>';
+            if (tamanhoSubido() > uploadMaxSize) {
+                var uploadEstourado = true;                
+            }
+            
+            if(medidasAcessibilidade >= 20) {
+                if ($('#arquivoAcessibilidadeFisica').val().length > 0 ){
+                    if ($('#arquivoAcessibilidadeFisica').val() != null) {
+                        preenchimentouploadcampo1 = true;
+
+                    }
+                }else{
+                    preenchimentouploadcampo1 = false;
+                }
+                if ($('#validacaoAcessibilidadeFisica').val() != undefined) {
+                    if ($('#validacaoAcessibilidadeFisica').val().length == 4) {
+                        preenchimentouploadcampo1 = true;
+                    }else{
+                        preenchimentouploadcampo1 = false;
+                    }
+                }
+            }
+
+            if(medidasFruicao >= 20) {
+                if ($('#arquivoAcessibilidadePublica').val().length > 0 ){
+                    if ($('#arquivoAcessibilidadePublica').val() != null) {
+                        preenchimentouploadcampo2 = true;
+                    }else{
+                        preenchimentouploadcampo2 = false;
+                    }
+                }
+                if ($('#validacaoAcessibilidadePublica').val() != undefined) {
+                    if ($('#validacaoAcessibilidadePublica').val().length == 4) {
+                        preenchimentouploadcampo2 = true;
+                    }else{
+                        preenchimentouploadcampo2 = false;
+                    }
+                }
+            }
+
+            console.log(medidasPreventivas);
+            /* if(medidasPreventivas > 0) { */
+            /*     if ($('#arquivoImpactosAmbientais').val().length > 0 ){ */
+            /*         if ($('#arquivoImpactosAmbientais').val() != null) { */
+            /*             preenchimentouploadcampo3 = true; */
+            /*         }else{ */
+            /*             preenchimentouploadcampo3 = false; */
+            /*         } */
+            /*     } */
+
+            /*     if ($('#validacaoImpactosAmbientais').val() != undefined) { */
+            /*         if ($('#validacaoImpactosAmbientais').val().length == 4) { */
+            /*             preenchimentouploadcampo3 = true; */
+            /*         }else{ */
+            /*             preenchimentouploadcampo3 = false; */
+            /*         } */
+            /*     } */
+            /* } */
+
+
+
+            if(!preenchimento || !preenchimentouploadcampo1 || !preenchimentouploadcampo2 /*|| !preenchimentouploadcampo3*/ || uploadEstourado) {
+                $("#camposObrigatorios").dialog("destroy");
+                if(!preenchimento) {
+                    $("#camposObrigatorios").html("Favor preencher corretamente os campos obrigat&oacute;rios!");
+                } else if (uploadEstourado) {
+                    $("#camposObrigatorios").html("Você ultrapassou o limite de upload, que é de <?php echo ini_get('post_max_size'); ?>");
+                }else{
+                    $("#camposObrigatorios").html("Favor inserir o arquivo nos campos preenchidos!!");
+                }
+                $("#camposObrigatorios").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width:320,
+//                    height:160,
+                    modal: true,
+                    buttons : {
+                        'OK' : function(){
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            } else {
+                $('#formCadastro').submit();
+            }
+        });
+
+        $("#totalEmpregosDiretos, #totalEmpregosIndiretos").numeric().keyup(function() {
+            var totalEmpregosDiretos = $("#totalEmpregosDiretos").val() ? $("#totalEmpregosDiretos").val() : 0;
+            var totalEmpregosIndiretos = $("#totalEmpregosIndiretos").val() ? $("#totalEmpregosIndiretos").val() : 0;
+            var total = parseInt(totalEmpregosDiretos, 10) + parseInt(totalEmpregosIndiretos, 10);
+            $("#totalEmpregosDiretosIndiretos").val(total);
+        }).keyup();
+    });
+
+</script>
+<style>
+    #conteudo ul li{ display: inline; float: left; width: 33%; text-align: center; }
+    #conteudo ul li label{ display:block; }
+    #conteudo ul li input{ border: 1px solid #cecece; text-align: center;  height: 31px; width: 150px; }
+    #cke_empregosGerados { margin-top: 10px; }
+</style>
+<?php echo $this->partial('comprovarexecucaofisica/inc/menu-relatorio-final.php', $this) ?>
+<div id="camposObrigatorios" class="sumir"></div>
+
+<div id="breadcrumb">
+    <ul>
+        <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
+        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $idPronac; ?>" title="Consultar dados do Projeto">Consultar dados do Projeto</a></li>
+        <li class="second">Comprovar Realização do Objeto</li>
+        <li class="last">Etapas de Trabalho</li>
+    </ul>
+</div>
+
+
+<div id="titulo">
+    <div>Etapas de Trabalho <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo $idPronac; ?>" title="Voltar">Voltar</a></span></div>
+</div>
+
+
+<div id="conteudo">
+    <table class="tabela">
+        <tr>
+            <th align="center" width="30%">Nº PRONAC:</th>
+            <th align="center">Nome do Projeto:</th>
+        </tr>
+        <tr class="linha">
+            <td align="center"><?php echo $this->DadosProjeto->pronac; ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProjeto; ?></td>
+        </tr>
+        <tr>
+            <th align="center" width="30%">CNPJ/CPF:</th>
+            <th align="center">Proponente:</th>
+        </tr>
+        <tr class="linha">
+            <td align="center"><?php echo (strlen($this->DadosProjeto->CNPJCPF) > 11) ? Mascara::addMaskCNPJ($this->DadosProjeto->CNPJCPF) : Mascara::addMaskCPF($this->DadosProjeto->CNPJCPF); ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProponente; ?></td>
+        </tr>
+    </table>
+
+    <br clear="all" />
+
+    <form
+        id="formCadastro"
+        action="<?php echo $this->url(
+                array(
+                    'module' => 'comprovacao-objeto',
+                    'controller' => 'comprovarexecucaofisica',
+                    'action' => 'cadastrar-final',
+                    'idpronac' => $idPronac,
+                    ),
+                '',
+                true
+                ); ?>"
+        method="post"
+        enctype="multipart/form-data"
+        >
+        <table class="tabela">
+            <tr align="center">
+                <td class="destacar bold">ETAPAS DE TRABALHO EXECUTADAS <span style="color: red;">*</span></td>
+            </tr>
+            <tr>
+                <td>
+                    (Descrever os objetivos e metas realizadas e discorrer sobre os resultados 
+                    do projeto junto à sociedade. Em caso de divergências com o previsto, justificar)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea
+                        name="etapasConcluidas"
+                        id="etapasConcluidas"
+                        cols=""
+                        rows="7"
+                        style="width: 99%;"
+                        class="textarea_simples obrigatorio"><?php echo $this->cumprimentoDoObjeto->getEtapasConcluidas(); ?></textarea>
+		    <div id="contadoretapasConcluidas"></div>
+                </td>
+            </tr>
+            <tr align="center">
+                <td class="destacar bold">MEDIDAS DE ACESSIBILIDADE, NOS TERMOS DA PORTARIA DE APROVAÇÃO <span style="color: red;">*</span></td>
+            </tr>
+            <tr>
+                <td>(acesso /lugares adaptados para pessoas portadoras de necessidades especiais)</td>
+            </tr>
+            <tr>
+                <td>
+<!--                    <input class="input_simples" type="file" id="arquivoAcessibilidadeFisica" name="imagensMedidasAcessibilidadeFisica" style="width:350px;" />-->
+                    <!-- Alysson - -->
+                    <?php
+                    if ($this->cumprimentoDoObjeto->getMedidasAcessibilidadeImagens()){
+                        echo $this->partial(
+                            '/comprovarexecucaofisica/partial/imagens-cumprimento-do-objeto.phtml',
+                            array(
+                                'idPronac' => $idPronac,
+                                'idCumprimentoDoObjeto' => $this->cumprimentoDoObjeto->getIdCumprimentoObjeto(),
+                                'imagens' => $this->cumprimentoDoObjeto->getMedidasAcessibilidadeImagens(),
+                            )
+                        );
+
+
+                        if(!$this->partial(
+                            '/comprovarexecucaofisica/partial/imagens-cumprimento-do-objeto.phtml',
+                            array(
+                                'idPronac' => $idPronac,
+                                'idCumprimentoDoObjeto' => $this->cumprimentoDoObjeto->getIdCumprimentoObjeto(),
+                                'imagens' => $this->cumprimentoDoObjeto->getMedidasAcessibilidadeImagens(),
+                            )
+                        )){
+                            echo 'Documento:
+                                  <br clear="all" />';
+                            echo '<input class="input_simples obrigatorio" type="file" id="arquivoAcessibilidadeFisica" name="imagensMedidasAcessibilidadeFisica" style="width:350px;"/> &nbsp; <input type="button" class="btn_excluir" id="btn_rmfile"><span style="color: red;">*</span>';
+                        }else{
+                            echo '<input id="validacaoAcessibilidadeFisica" value="true" hidden></input>';
+                            echo '<input class="input_simples obrigatorio" type="file" id="arquivoAcessibilidadeFisica" name="imagensMedidasAcessibilidadeFisica" style="width:350px;" value="" hidden/>';
+                        }
+                    }
+                    ?>
+                    <br clear="all" />
+                    <textarea
+                        name="medidasAcessibilidade"
+                        id="medidasAcessibilidade"
+                        cols=""
+                        rows="7"
+                        style="width: 99%;"
+                        class="textarea_simples obrigatorio"><?php echo $this->cumprimentoDoObjeto->getMedidasAcessibilidade(); ?></textarea>
+		    <div id="contadormedidasAcessibilidade"></div>
+                </td>
+            </tr>
+            <tr align="center">
+                <td class="destacar bold">MEDIDAS DE DEMOCRATIZAÇÃO DO ACESSO, NOS TERMOS DA PORTARIA DE APROVAÇÃO <span style="color: red;">*</span></td>
+            </tr>
+            <tr>
+                <td>(realização em local de fácil acesso, transporte / atividade / distribuição, entrada franqueada e divulgação)</td>
+            </tr>
+            <tr>
+                <td>
+
+    <!--                    <input class="input_simples" type="file" id="arquivoAcessibilidadePublica" name="imagensMedidasAcessibilidadePublica" style="width:350px;" /> -->
+                        <!-- Alysson -->
+                        <?php
+                        if ($this->cumprimentoDoObjeto->getMedidasFruicaoImagens()){
+                            echo $this->partial(
+                                    '/comprovarexecucaofisica/partial/imagens-cumprimento-do-objeto.phtml',
+                                    array(
+                                        'idPronac' => $idPronac,
+                                        'idCumprimentoDoObjeto' => $this->cumprimentoDoObjeto->getIdCumprimentoObjeto(),
+                                        'imagens' => $this->cumprimentoDoObjeto->getMedidasFruicaoImagens(),
+                                        )
+                                    );
+
+                            if(!$this->partial(
+                                '/comprovarexecucaofisica/partial/imagens-cumprimento-do-objeto.phtml',
+                                array(
+                                    'idPronac' => $idPronac,
+                                    'idCumprimentoDoObjeto' => $this->cumprimentoDoObjeto->getIdCumprimentoObjeto(),
+                                    'imagens' => $this->cumprimentoDoObjeto->getMedidasFruicaoImagens(),
+                                )
+                            )){
+                                echo 'Documento:
+                                      <br clear="all" />';
+                                echo '<input class="input_simples obrigatorio" type="file" id="arquivoAcessibilidadePublica" name="imagensMedidasAcessibilidadePublica" style="width:350px;" /> &nbsp; <input type="button" class="btn_excluir" id="btn_rmfile2"><span style="color: red;">*</span>';
+                            }else{
+                                echo '<input id="validacaoAcessibilidadePublica" value="true" hidden></input>';
+                                echo '<input class="input_simples obrigatorio" type="file" id="arquivoAcessibilidadePublica" name="imagensMedidasAcessibilidadePublica" style="width:350px;" hidden/>';
+                            }
+
+
+                        }
+                        ?>
+                        <br clear="all" />
+                        <textarea
+                            name="medidasFruicao"
+                            id="medidasFruicao"
+                            cols=""
+                            rows="7"
+                            style="width: 99%;"
+                            class="textarea_simples obrigatorio"><?php echo $this->cumprimentoDoObjeto->getMedidasFruicao(); ?></textarea>
+                <div id="contadormedidasFruicao"></div>
+                </td>
+            </tr>
+            <tr align="center">
+                <td class="destacar bold">MEDIDAS PREVENTIVAS QUANTO A IMPACTOS AMBIENTAIS</td>
+            </tr>
+            <tr>
+                <td>(Descrever sobre as medidas adotadas e, se for o caso, anexar comprovantes)</td>
+            </tr>
+            <tr>
+                <td>
+                    <?php
+                        if ($this->cumprimentoDoObjeto->getMedidasPreventivasImagens()) {
+                            echo $this->partial(
+                                '/comprovarexecucaofisica/partial/imagens-cumprimento-do-objeto.phtml',
+                                array(
+                                    'idPronac' => $idPronac,
+                                    'idCumprimentoDoObjeto' => $this->cumprimentoDoObjeto->getIdCumprimentoObjeto(),
+                                    'imagens' => $this->cumprimentoDoObjeto->getMedidasPreventivasImagens(),
+                                )
+                            );
+                        }
+                        if (!$this->partial(
+                            '/comprovarexecucaofisica/partial/imagens-cumprimento-do-objeto.phtml',
+                            array(
+                                'idPronac' => $idPronac,
+                                'idCumprimentoDoObjeto' => $this->cumprimentoDoObjeto->getIdCumprimentoObjeto(),
+                                'imagens' => $this->cumprimentoDoObjeto->getMedidasPreventivasImagens(),
+                            )
+                        )){
+
+                            echo 'Documento:
+                        <br clear="all" />';
+                            echo '<input class="input_simples " type="file" id="arquivoImpactosAmbientais" name="imagensImpactosAmbientais" style="width:350px;" /> &nbsp; <input type="button" class="btn_excluir" id="btn_rmfile3">';
+                        }else{
+                            echo '<input id="validacaoImpactosAmbientais" value="true" hidden></input>';
+                            echo '<input class="input_simples " type="file" id="arquivoImpactosAmbientais" name="imagensImpactosAmbientais" style="width:350px;" hidden/>';
+                        }
+                    ?>
+                    <br clear="all" />
+                    <textarea
+                        name="medidasPreventivas"
+                        id="medidasPreventivas"
+                        cols=""
+                        rows="7"
+                        style="width: 99%;"
+                        class="textarea_simples "><?php echo $this->cumprimentoDoObjeto->getMedidasPreventivas(); ?></textarea>
+                    <div id="contadormedidasPreventivas"></div>
+                </td>
+            </tr>
+            <tr align="center">
+                <td class="destacar bold">EMPREGOS E QUALIFICAÇÕES DECORRENTES DO PROJETO <span style="color: red;">*</span></td>
+            </tr>
+            <tr>
+                <td>
+                    <ul id="totaisEmpregos">
+                        <li>
+                            <label for="totalEmpregosDiretos">Diretos</label></dt>
+                            <input
+                            type="text"
+                            id="totalEmpregosDiretos"
+                            name="totalEmpregosDiretos"
+                            class="input_simples"
+                            value="<?php echo $this->cumprimentoDoObjeto->getTotalEmpregosDiretos(); ?>"
+                            />
+                        </li>
+                        <li>
+                            <label for="totalEmpregosIndiretos">Indiretos</label>
+                            <input
+                                type="text"
+                                id="totalEmpregosIndiretos"
+                                name="totalEmpregosIndiretos"
+                                class="input_simples"
+                                value="<?php echo $this->cumprimentoDoObjeto->getTotalEmpregosIndiretos(); ?>"
+                                />
+                        </li>
+                        <li>
+                            <label for="totalEmpregosDiretosIndiretos">Total</label>
+                            <input type="text" id="totalEmpregosDiretosIndiretos" class="input_simples" value="0" disabled="disabled"/>
+                        </li>
+                    </ul>
+                    <br clear="all" />
+                    <textarea
+                        name="empregosGerados"
+                        id="empregosGerados"
+                        cols=""
+                        rows="7"
+                        style="width: 99%;"
+                        class="textarea_simples obrigatorio"><?php echo $this->cumprimentoDoObjeto->getEmpregosGerados(); ?></textarea>
+		    <div id="contadorempregosGerados"></div>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <p align="center">
+        <input type="button" class="btn_salvar" id="btn_salvar">
+        <input type="button" class="btn_limpar" id="btn_limpar">
+    </p>
+
+    <br clear="all" />
+</div>
+
+
+<!-- inï¿½cio: detalhe final da div conteudo #rodapeConteudo -->
+<div id="rodapeConteudo"><span></span></div>
+<!-- final: detalhe final da div conteudo #rodapeConteudo -->
+
+<br clear="all" />

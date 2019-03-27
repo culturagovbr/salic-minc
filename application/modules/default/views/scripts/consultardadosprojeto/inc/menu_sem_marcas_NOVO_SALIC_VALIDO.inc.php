@@ -200,7 +200,7 @@
                 <?php if (in_array($this->intFaseProjeto, array('2'))):?>
                     <?php if ($this->blnProcurador || $this->vinculo || $this->blnProponente) {
             ?>
-                        <a class="no_seta" href="<?php echo $this->url(array('controller' => 'readequacao', 'action' => 'index', 'idpronac' => Seguranca::encrypt($this->idPronac))); ?>">Solicitar Readequa&ccedil;&atilde;o</a>
+                        <a class="no_seta" href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacao', 'action' => 'index', 'idpronac' => Seguranca::encrypt($this->idPronac))); ?>">Solicitar Readequa&ccedil;&atilde;o</a>
                     <?php
         } ?>
                 <?php endif; ?>
@@ -272,19 +272,19 @@
                                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                                     <?php if ($this->TrimestraisCadastrados == $this->qtdRelatorioEsperado) {
                         ?>
-                                        <a style="margin-left: 10px;" href="<?php echo $this->url(array('controller' => 'comprovarexecucaofisica', 'action' => 'relatoriotrimestralfinalizado', 'idpronac' => $this->idPronac), '', true); ?>" >Relat&oacute;rio Trimestral</a>
-                                        <a style="margin-left: 10px;" href="<?php echo $this->url(array('controller' => 'comprovarexecucaofisica', 'action' => 'relatoriofinal', 'idpronac' => $this->idPronac), '', true); ?>">Comprovar Realiza&ccedil;&atilde;o do Objeto</a>
+                                        <a style="margin-left: 10px;" href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'comprovarexecucaofisica', 'action' => 'relatoriotrimestralfinalizado', 'idpronac' => $this->idPronac), '', true); ?>" >Relat&oacute;rio Trimestral</a>
+                                        <a style="margin-left: 10px;" href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'comprovarexecucaofisica', 'action' => 'relatoriofinal', 'idpronac' => $this->idPronac), '', true); ?>">Comprovar Realiza&ccedil;&atilde;o do Objeto</a>
                                     <?php
                     } else {
                         ?>
                                         <?php if ($this->TrimestraisCadastrados <= $this->qtdHabilitado) {
                             ?>
-                                            <a style="margin-left: 10px;" href="<?php echo $this->url(array('controller' => 'comprovarexecucaofisica', 'action' => 'relatoriotrimestral', 'idpronac' => $this->idPronac), '', true); ?>">Relat&oacute;rio Trimestral</a>
+                                            <a style="margin-left: 10px;" href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'comprovarexecucaofisica', 'action' => 'relatoriotrimestral', 'idpronac' => $this->idPronac), '', true); ?>">Relat&oacute;rio Trimestral</a>
                                             <a style="margin-left: 10px;" href="#" class="mensagem_alerta_bloqueio_consolidado">Comprovar Realiza&ccedil;&atilde;o do Objeto</a>
                                         <?php
                         } else {
                             ?>
-                                            <a style="margin-left: 10px;" href="<?php echo $this->url(array('controller' => 'comprovarexecucaofisica', 'action' => 'relatoriotrimestralfinalizado', 'idpronac' => $this->idPronac), '', true); ?>" >Relat&oacute;rio Trimestral</a>
+                                            <a style="margin-left: 10px;" href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'comprovarexecucaofisica', 'action' => 'relatoriotrimestralfinalizado', 'idpronac' => $this->idPronac), '', true); ?>" >Relat&oacute;rio Trimestral</a>
                                             <a style="margin-left: 10px;" href="#" class="mensagem_alerta_trim">Comprovar Realiza&ccedil;&atilde;o do Objeto</a>
                                         <?php
                         } ?>

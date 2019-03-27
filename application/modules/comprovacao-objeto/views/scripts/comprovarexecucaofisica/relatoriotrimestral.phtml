@@ -1,0 +1,109 @@
+<?php $PeriodoData = Data::tratarDataZend($this->inicioPeriodo, 'Brasileira'); ?>
+
+<div id="breadcrumb">
+    <ul>
+        <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
+        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Consultar dados do Projeto">Consultar dados do Projeto</a></li>
+        <li class="last">Relat&oacute;rio Trimestral</li>
+    </ul>
+</div>
+
+
+<div id="titulo">
+    <div>Relat&oacute;rio Trimestral <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Consultar Dados do Projeto">Voltar</a></span></div>
+</div>
+
+
+<div id="conteudo">
+    <table class="tabela">
+        <tr>
+            <th align="center" width="30%">Nº PRONAC:</th>
+            <th align="center">Nome do Projeto:</th>
+        </tr>
+        <tr class="linha">
+            <td align="center"><?php echo $this->DadosProjeto->pronac; ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProjeto; ?></td>
+        </tr>
+        <tr>
+            <th align="center" width="30%">CNPJ/CPF:</th>
+            <th align="center">Proponente:</th>
+        </tr>
+        <tr class="linha">
+            <td align="center"><?php echo (strlen($this->DadosProjeto->CNPJCPF) > 11) ? Mascara::addMaskCNPJ($this->DadosProjeto->CNPJCPF) : Mascara::addMaskCPF($this->DadosProjeto->CNPJCPF); ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProponente; ?></td>
+        </tr>
+    </table>
+
+    <br clear="all" />
+
+    <table class="tabela">
+        <tr>
+            <td width="1" class="destacar bold">N&ordm;&nbsp;Relat&oacute;rio</td>
+            <td width="30%" class="destacar bold">Per&iacute;odo</td>
+            <td width="35%" class="destacar bold">Data de Cadastro</td>
+            <td width="35%" class="destacar bold">Status</td>
+        </tr>
+
+        <?php foreach ($this->RelatorioCadastrados as $relCadastrados) { ?>
+        <tr>
+            <td align="center"><?php echo $relCadastrados->nrComprovanteTrimestral; ?>&ordm;</td>
+            <td><?php echo Data::tratarDataZend($relCadastrados->dtInicioPeriodo, 'Brasileira').' at&eacute; '.Data::tratarDataZend($relCadastrados->dtFimPeriodo, 'Brasileira');
+                    $PeriodoData = Data::tratarDataZend($relCadastrados->dtFimPeriodo, 'Brasileira');
+                    list($dia, $mes, $ano) = explode('/', $PeriodoData);
+                    $dias = 1;
+                    $PeriodoData = mktime(24*$dias, 0, 0, $mes, $dia, $ano);
+                    $dataFormatada = date('d/m/Y',$PeriodoData);
+                    $PeriodoData = $dataFormatada;
+                ?>
+            </td>
+            <td><?php echo Data::tratarDataZend($relCadastrados->dtComprovante, 'Brasileira'); ?></td>
+            <td>
+                <?php $link = $this->baseUrl().'/comprovacao-objeto/comprovarexecucaofisica/visualizar-relatorio-trimestral?idpronac='.Seguranca::encrypt($this->idPronac).'&relatorio='.$relCadastrados->idComprovanteTrimestral;
+                    if($relCadastrados->siComprovanteTrimestral == 1){
+                        $link = $this->baseUrl().'/comprovacao-objeto/comprovarexecucaofisica/etapas-de-trabalho?idpronac='.Seguranca::encrypt($this->idPronac);
+                        $msg = 'Em cadastramento';
+                    } else if($relCadastrados->siComprovanteTrimestral == 2) {
+                        $msg = 'Enviado';
+                    } else if($relCadastrados->siComprovanteTrimestral == 3 || $relCadastrados->siComprovanteTrimestral == 4 || $relCadastrados->siComprovanteTrimestral == 5) {
+                        $msg = 'Em análise';
+                    } else if($relCadastrados->siComprovanteTrimestral == 6) {
+                        $msg = 'Analisado';
+                    }
+                ?>
+                <a href="<?php echo $link; ?>"><?php echo $msg; ?></a>
+            </td>
+        </tr>
+        <?php } ?>
+
+
+        <!-- ***ESSA PARTE SO SERA HABILITADA PARA UM NOVO CADASTRO*** -->
+        <?php if($this->liberaCadastro){ ?>
+        <tr>
+            <td align="center">-</td>
+            <td>
+                <?php echo $PeriodoData;
+                    list($dia, $mes, $ano) = explode('/', $PeriodoData);
+                    $dias = 90;
+                    $PeriodoData = mktime(24*$dias, 0, 0, $mes, $dia, $ano);
+                    $dataFormatada = date('d/m/Y',$PeriodoData);
+                    $PeriodoData = $dataFormatada;
+                    echo " at&eacute; ".$PeriodoData;
+                ?>
+            </td>
+            <td>-</td>
+            <td><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/etapas-de-trabalho?idpronac=<?php echo Seguranca::encrypt($this->idPronac); ?>">Não cadastrado</a></td>
+        </tr>
+        <?php } ?>
+        <!-- ***FIM - ESSA PARTE SO SERA HABILITADA PARA UM NOVO CADASTRO*** -->
+
+    </table>
+
+    <br clear="all" />
+</div>
+
+
+<!-- inï¿½cio: detalhe final da div conteudo #rodapeConteudo -->
+<div id="rodapeConteudo"><span></span></div>
+<!-- final: detalhe final da div conteudo #rodapeConteudo -->
+
+<br clear="all" />

@@ -1,0 +1,148 @@
+<form id="form-mensagem"
+      method="post"
+      action="<?php echo $this->url([
+          'module' => 'recurso',
+          'controller' => 'recurso-proposta',
+          'action' => 'visao-avaliador-salvar'
+      ]) ?>"
+      enctype="multipart/form-data">
+    <input type="hidden"
+           name="id_preprojeto"
+           value="<?php echo $this->recursoEnquadramento['id_preprojeto'] ?>" />
+    <input type="hidden"
+           name="idRecursoProposta"
+           value="<?php echo $this->recursoEnquadramento['idRecursoProposta'] ?>" />
+
+    <div class="row">
+        <div class="col s12">
+            <label>Tipo de Avalia&ccedil;&atilde;o</label>
+            <p>
+                <input name="stAtendimento"
+                    <?php echo ($this->recursoEnquadramento['stAtendimento'] == Recurso_Model_TbRecursoProposta::SITUACAO_ATENDIMENTO_SEM_AVALIACAO
+                        || $this->recursoEnquadramento['stAtendimento'] == Recurso_Model_TbRecursoProposta::SITUACAO_ATENDIMENTO_DEFERIDO) ? "checked='checked'" : '' ?>
+                       type="radio"
+                       value="<?php echo Recurso_Model_TbRecursoProposta::SITUACAO_ATENDIMENTO_DEFERIDO ?>"
+                    <?php if (!$this->isPermitidoEditar) {
+                        echo 'disabled="disabled"';
+                    } ?>
+                       id="situacao_atendimento_deferido"/>
+                <label for="situacao_atendimento_deferido">Deferido</label>
+                <input name="stAtendimento"
+                    <?php echo ($this->recursoEnquadramento['stAtendimento']
+                        && $this->recursoEnquadramento['stAtendimento'] == Recurso_Model_TbRecursoProposta::SITUACAO_ATENDIMENTO_INDEFERIDO) ? "checked='checked'" : '' ?>
+                       type="radio"
+                       value="<?php echo Recurso_Model_TbRecursoProposta::SITUACAO_ATENDIMENTO_INDEFERIDO ?>"
+                    <?php if (!$this->isPermitidoEditar) {
+                        echo 'disabled="disabled"';
+                    } ?>
+                       id="situacao_atendimento_indeferido"/>
+                <label for="situacao_atendimento_indeferido">Indeferido</label>
+            </p>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col s12">
+            <label>Motiva&ccedil;&atilde;o</label>
+            <p>
+                <textarea cols="80"
+                          id="dsAvaliacaoTecnica"
+                          name="dsAvaliacaoTecnica"
+                          rows="10"
+                          class="textarea_simples"
+                          style="width: 99%"><?php echo $this->recursoEnquadramento['dsAvaliacaoTecnica'] ?></textarea>
+            </p>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col s12 center">
+            <button class="btn green green"
+                    type="button"
+                    onclick="window.location.href='<?php echo $this->url([
+        'module' => 'admissibilidade',
+        'controller' => 'admissibilidade',
+        'action' => 'exibirpropostacultural',
+    ]) . "?realizar_analise=sim'" ?>"
+                    value="rascunho">Voltar</button>
+            <button class="btn green darken-2"
+                    type="submit"
+                    name="acao_salvar"
+                <?php if (!$this->isPermitidoEditar) {
+                    echo 'disabled="disabled"';
+                } ?>
+                    value="rascunho">Salvar
+                <i class="tiny material-icons right">save</i>
+            </button>
+            <button class="btn"
+                    type="submit"
+                    name="acao_salvar"
+                <?php if (!$this->isPermitidoEditar) {
+                    echo 'disabled="disabled"';
+                } ?>
+                    value="enviar">Finalizar
+                <i class="tiny material-icons right">send</i>
+            </button>
+        </div>
+    </div>
+    <script type="text/javascript">
+        jQuery(function ($) {
+
+            var limiteMaximo = 8000
+            var editorRico = $('#dsAvaliacaoTecnica').editorRico({
+                altura: 200,
+                isLimitarCarateres: true,
+                maxchar: limiteMaximo,
+                <?php if (!$this->isPermitidoEditar) {
+                echo 'isDesabilitarEdicao: 1';
+            } ?>
+            })
+
+            var editorRicoAvaliacaoProponente = $('#dsRecursoProponente').editorRico({
+                altura: 200,
+                isLimitarCarateres: true,
+                maxchar: limiteMaximo,
+                isDesabilitarEdicao: 1
+            })
+
+
+
+            $('#formEnquadramentoProjeto').validate({
+                rules: {
+                    dsAvaliacaoTecnica: {
+                        validarPreenchimento: true,
+                        validarPreenchimentoMaximo: true
+                    }
+                },
+
+                messages: {
+                    dsAvaliacaoTecnica: {
+                        validarPreenchimento: 'Dado obrigat&oacute;rio n&atilde;o informado',
+                        validarPreenchimentoMaximo: 'limite excedido'
+                    }
+                },
+
+                submitHandler: function (form) {
+                    $('#container-progress').show()
+                    form.submit()
+                },
+
+                invalidHandler: function (event, validator) {
+                    Materialize.toast(validator.submitted.dsAvaliacaoTecnica, 4000)
+                }
+            })
+
+            $.validator.addMethod('validarPreenchimento', function (value, element) {
+                if (editorRico.contarCaracteres() > 0) {
+                    return true
+                }
+            })
+
+            $.validator.addMethod('validarPreenchimentoMaximo', function (value, element) {
+                if (editorRico.contarCaracteres() <= limiteMaximo) {
+                    return true
+                }
+            })
+        })
+    </script>
+</form>

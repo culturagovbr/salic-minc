@@ -1,0 +1,9 @@
+export const contasBancarias = state => state.contasBancarias;
+export const inconsistenciaBancaria = state => state.inconsistenciaBancaria;
+export const conciliacaoBancaria = state => state.conciliacaoBancaria;
+export const liberacao = state => state.liberacao;
+export const saldoContas = state => state.saldoContas;
+export const extratosBancarios = state => state.extratosBancarios;
+export const extratosBancariosConsolidado = state => state.extratosBancariosConsolidado;
+export const captacao = state => state.captacao;
+export const devolucoesIncentivador = state => state.devolucoesIncentivador;

@@ -6,6 +6,8 @@ class Arquivo_Model_TbTipoDocumento extends MinC_Db_Model
     protected $_dsTipoDocumento;
 
     const TIPO_DOCUMENTO_ARQUIVO = 24;
+    const TIPO_DOCUMENTO_SOLICITACAO_PRORROGACAO = 36;
+    const TIPO_DOCUMENTO_SOLICITACAO_READEQUACAO = 38;
 
     /**
      * @return mixed

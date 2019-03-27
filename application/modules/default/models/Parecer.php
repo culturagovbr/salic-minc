@@ -1,11 +1,5 @@
 <?php
 
-/**
- * Class Parecer
- * @author augusto
- * @author Vinícius Feitosa da Silva <viniciusfesil@mail.com>
- * @since
- */
 class Parecer extends MinC_Db_Table_Abstract
 {
     protected $_schema = 'SAC';
@@ -318,8 +312,16 @@ class Parecer extends MinC_Db_Table_Abstract
             array('')
         );
 
+        $select->joinInner(
+            array('c' => 'Projetos'),
+            'a.IdPRONAC= c.IdPRONAC',
+            array('')
+        );
+
         $select->where('b.stEstado = ?', 0);
         $select->where('a.AnoProjeto+a.Sequencial = ?', $pronac);
+        $select->where('c.Situacao in(?)', ['A14','A16','A17','A20','A23','A24','A41','A42','D02','D14','D50']);
+
         return $this->fetchAll($select);
     }
 

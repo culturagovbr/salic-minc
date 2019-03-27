@@ -20,6 +20,7 @@ class Solicitacao_Model_DbTable_TbSolicitacao extends MinC_Db_Table_Abstract
                     'stLeitura',
                     'stEstado',
                     'idOrgao',
+                    'idAgente',
                     'idSolicitante',
                     'dtSolicitacao',
                     'CAST(dsSolicitacao AS TEXT) AS dsSolicitacao',
@@ -28,6 +29,8 @@ class Solicitacao_Model_DbTable_TbSolicitacao extends MinC_Db_Table_Abstract
                     'idDocumento',
                     'siEncaminhamento',
                     'idTecnico',
+                    'dtEncaminhamento',
+                    'idDocumentoResposta',
                     new Zend_Db_Expr("
                         CASE
                             WHEN a.dtSolicitacao IS NOT NULL AND a.dtResposta IS NULL
@@ -57,7 +60,7 @@ class Solicitacao_Model_DbTable_TbSolicitacao extends MinC_Db_Table_Abstract
         
         $select->joinInner(
             ['c' => 'Nomes'],
-            'a.idSolicitante = c.idAgente',
+            'a.idAgente = c.idAgente',
             ['idAgente', 'Descricao as Solicitante'],
             $this->getSchema('Agentes')
         );
@@ -108,6 +111,27 @@ class Solicitacao_Model_DbTable_TbSolicitacao extends MinC_Db_Table_Abstract
         }
 
         return $this->fetchAll($select);
+    }
+
+    public function contarSolicitacoes($where=array())
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            array('a' => $this->_name),
+            array(
+                new Zend_Db_Expr('count(idSolicitacao)')
+            ),
+            $this->_schema
+        );
+
+        foreach ($where as $coluna=>$valor)
+        {
+            $select->where($coluna, $valor);
+        }
+
+        $db = Zend_Db_Table::getDefaultAdapter();
+        return $db->fetchOne($select);
     }
 
     public function contarSolicitacoesNaoLidasUsuario($idUsuario, $idAgente)

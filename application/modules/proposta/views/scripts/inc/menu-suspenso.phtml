@@ -1,0 +1,58 @@
+<div class="fixed-action-btn vertical">
+    <a class="btn-floating btn-large red">
+        <i class="large material-icons">add</i>
+    </a>
+    <ul>
+        <li>
+            <a id="ir-para-o-topo" class="btn-floating yellow darken-1 tooltipped" data-tooltip="Ir para o topo">
+                <i class="material-icons">arrow_upward</i>
+            </a>
+        </li>
+        <?php if($this->isEditarProposta) : ?>
+            <li>
+                <a class="btn-floating blue tooltipped"
+                   href="/proposta/visualizar/index/idPreProjeto/<?= $this->idPreProjeto; ?>"
+                   target="_blank"
+                   data-tooltip="Visualizar proposta"
+                ><i class="material-icons">visibility</i></a>
+            </li>
+        <?php endif; ?>
+        <li>
+            <a class="btn-floating red tooltipped"
+               href="/solicitacao/mensagem/index/idPreProjeto/<?= $this->idPreProjeto; ?>"
+               data-tooltip="Solicita&ccedil;&otilde;es"
+            ><i class="material-icons">message</i></a>
+        </li>
+    </ul>
+</div>
+<div id="boxImprimirProjeto" style="display: none;"></div>
+
+<script>
+    $3(document).ready(function () {
+
+        if ($3('#ir-para-o-topo').length) {
+            var scrollTrigger = 100, // px
+                backToTop = function () {
+                    var scrollTop = $3(window).scrollTop();
+                    if (scrollTop > scrollTrigger) {
+                        $3('#ir-para-o-topo').parent().show();
+                    } else {
+                        $3('#ir-para-o-topo').parent().hide();
+                    }
+                };
+            backToTop();
+
+            $3(window).on('scroll', function () {
+                backToTop();
+            });
+
+            $3('#ir-para-o-topo').on('click', function (e) {
+                e.preventDefault();
+                $3('html,body').animate({
+                    scrollTop: 0
+                }, 700);
+            });
+        }
+    });
+
+</script>

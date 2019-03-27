@@ -1,10 +1,8 @@
 <?php
 
-
-class tbLoginTentativasAcesso extends GenericModel
+class tbLoginTentativasAcesso extends MinC_Db_Table_Abstract
 {
-    protected $_banco = 'SAC';
-    protected $_schema = 'sac.dbo';
+    protected $_schema = 'sac';
     protected $_name = 'tbLoginTentativasAcesso';
 
     public function consultarAcessoCpf($cpf, $ip)
@@ -29,20 +27,20 @@ class tbLoginTentativasAcesso extends GenericModel
 
     public function insereTentativa($cpf, $ip, $data)
     {
-        $dados = array('nrCPF'       => $cpf,
-                       'nrIP'        => $ip,
-                       'nrTentativa' => 1,
-                       'dtTentativa' => $data);
+        $dados = array('nrCPF' => $cpf,
+            'nrIP' => $ip,
+            'nrTentativa' => 1,
+            'dtTentativa' => $data);
 
         return $this->insert($dados);
     }
-    
+
     public function atualizaTentativa($cpf, $ip, $atualtentativa, $data)
     {
-        $novatentativa = $atualtentativa+1;
+        $novatentativa = $atualtentativa + 1;
 
         $dados = array('nrTentativa' => new Zend_Db_Expr("$novatentativa"), 'dtTentativa' => $data);
-        $where = array('nrCPF = ?'=> $cpf, 'nrIP = ?' => $ip);
+        $where = array('nrCPF = ?' => $cpf, 'nrIP = ?' => $ip);
 
         return $this->update($dados, $where);
     }

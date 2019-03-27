@@ -20,7 +20,7 @@ class tbFormDocumento extends MinC_Db_Table_Abstract
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                        array("tbfd" => new Zend_Db_Expr($this->_banco.".".$this->_schema.".".$this->_name)),
+                        array("tbfd" => new Zend_Db_Expr($this->_schema.".".$this->_name)),
                         array(
                                 'tbfd.nrFormDocumento'
 

@@ -1,0 +1,226 @@
+<main>
+    <?php
+    $links = array(
+        array('Encaminhar para Assinatura' => array())
+    );
+    gerarBreadCrumb($links);
+    ?>
+    <div class="content">
+        <div class="row">
+            <div class="col s12">
+                <form method="post"
+                      class="materialize"
+                      id="formEncaminhamento"
+                      action="<?php echo $this->url(array(
+                              'module' => 'admissibilidade',
+                              'controller' => 'enquadramento',
+                              'action' => 'encaminhar-assinatura'
+                          ), '', true) . "?IdPRONAC={$this->IdPRONAC}"; ?>"
+                      onsubmit="return false;">
+                    <table class="bordered responsive-table" id="enquadramento" style="width: 100%">
+                        <thead>
+                        <tr class="titulo_tabela">
+                            <th>
+                                <input type="checkbox" name="marcarDesmarcarCheckbox" id="marcarDesmarcarCheckbox"
+                                       class="filled-in"/>
+                                <label id="marcarDesmarcarCheckboxLabel" for="marcarDesmarcarCheckbox"></label>
+                            </th>
+                            <th width="40">PRONAC</th>
+                            <th>Nome do Projeto</th>
+                            <th>&Aacute;rea</th>
+                            <th>Segmento</th>
+                            <th>Artigo</th>
+                            <th>Dias</th>
+                            <th align="center">Encaminhar</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($this->dados as $dado): ?>
+                            <?php if ($dado->Situacao != "B03") : ?>
+                                <tr>
+                            <?php else: ?>
+                                <tr class="amber lighten-4">
+                            <?php endif; ?>
+                            <td>
+                                <?php if ((int)$dado->dias >= 10): ?>
+                                    <input type="checkbox" name="IdPRONAC[]" id="IdPRONAC<?php echo $dado->IdPRONAC ?>"
+                                           class="checkbox_legal filled-in" value="<?php echo $dado->IdPRONAC ?>"/>
+                                    <label for="IdPRONAC<?php echo $dado->IdPRONAC ?>"></label>
+                                <?php endif; ?>
+                            </td>
+                            <td>
+                                <a class="waves-effect waves-dark btn white black-text"
+                                   href="<?php echo $this->url(
+                                           array(
+                                               'module' => 'default',
+                                               'controller' => 'consultardadosprojeto',
+                                               'action' => 'index'
+                                           )
+                                       ) . "?idPronac={$dado->IdPRONAC}"; ?>"><u><?php echo $dado->pronac; ?></u></a>
+                            </td>
+                            <td><?php echo $dado->nomeProjeto; ?></td>
+                            <td><?php echo $dado->area; ?></td>
+                            <td><?php echo $dado->segmento; ?></td>
+                            <td><?php echo ((int)$dado->tp_enquadramento == 1) ? 'Artigo 26' : 'Artigo 18'; ?></td>
+                            <td><?php echo $dado->dias; ?></td>
+                            <td>
+<!--                                --><?php //if ((int)$dado->dias >= 10 || (int)$dado->dias < 10 && $dado->desistenciaRecursal): ?>
+
+                                    <a class="btn waves-effect waves-light cyan tooltipped small modal-trigger"
+                                       href="#modalConfirmacao"
+                                       data-nrpronac="<?php echo $dado->pronac; ?>"
+                                       data-redirect-url="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'enquadramento', 'action' => 'encaminhar-assinatura')) . "?IdPRONAC={$dado->idpronac}&encaminhar=true" ?>"
+                                       data-position="top"
+                                       data-delay="50"
+                                       data-tooltip="Encaminhar">
+                                        <i class="material-icons white-text">navigate_next</i>
+                                    </a>
+<!--                                --><?php //endif; ?>
+                            </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <?php if (count($this->dados) == 0) : ?>
+		    <table>
+		      <tr>
+			<td class="red-text">Nenhum projeto encontrado.</td>
+		      </tr>
+		    </table>
+		    <?php endif; ?>
+
+                    <div class="row">
+                        <div class="col s12 m6 l4">
+                            <label>Legenda:</label>
+                            <br/>
+                            <div class="amber lighten-4" style="border: 1px solid gray; height: 20px; display: inline">
+                                &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            Projeto Enquadrado Com Recurso
+                            <br clear="both"/>
+                            <div class="" style="border: 1px solid gray; height: 20px; display: inline">
+                                &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            Projeto Enquadrado
+                        </div>
+                    </div>
+                    <div class="center-align" id="divEncaminhamentoEmMassa"
+                         style="display: none;">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">
+                            Encaminhar em massa <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="conteudoDialogoModal">
+
+        <div id="modalConfirmacao" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4>Confirma&ccedil;&atilde;o</h4>
+                <p>Tem certeza que deseja encaminhar o projeto <span class="bold" id="nrPronacConfirmacao"></span> ?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" id="botaoConfirmacaoEncaminhamento" class="modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
+                <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">N&atilde;o</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $3(document).ready(function(){
+            $3('.modal').modal({
+                    dismissible: true,
+                    opacity: .5,
+                    inDuration: 300,
+                    outDuration: 200,
+                    startingTop: '4%',
+                    endingTop: '10%',
+                    ready: function(modal, trigger) {
+                        $(modal).find('#nrPronacConfirmacao').html($3(trigger).data('nrpronac'));
+                        $(modal).find('#botaoConfirmacaoEncaminhamento').attr('href', $3(trigger).data('redirectUrl'));
+                    }
+                }
+            );
+        });
+    </script>
+
+    <br clear="all"/>
+    <script
+        src="https://code.jquery.com/jquery-1.12.4.js"
+        integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.material.min.js"></script>
+
+<!--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>-->
+
+    <script type="text/javascript">
+        (function ($) {
+            $(document).ready(function () {
+                $('#enquadramento').DataTable({
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                    }
+                    , "order": [0, 1]
+                    , "searching": true
+                    , "lengthChange": true
+                    , columnDefs: [{
+                        targets: [0, 1],
+                        className: 'mdl-data-table__cell--non-numeric'
+                    }]
+                    ,
+                    "aoColumnDefs": [
+                        {'bSortable': false, 'aTargets': [0, 1, 2, 3]}
+                    ]
+                });
+                $3("#marcarDesmarcarCheckboxLabel").click(function () {
+                    utilitarios.marcarDesmarcarCheckBoxesMaterialize($3("#marcarDesmarcarCheckbox"), ".checkbox_legal");
+                    tratarExibicaoCheckboxChecados('.checkbox_legal', '#divEncaminhamentoEmMassa');
+                });
+
+                function tratarExibicaoCheckboxChecados (seletorCheckboxes, seletorExibicao) {
+                    var quantidadeCheckboxChecados = $(seletorCheckboxes).filter(':checked').length;
+                    if(quantidadeCheckboxChecados > 0) {
+                        $3(seletorExibicao).show('fast');
+                    } else {
+                        $3(seletorExibicao).hide('fast');
+                    }
+                }
+
+                $3('.checkbox_legal').click(function () {
+                    tratarExibicaoCheckboxChecados('.checkbox_legal', '#divEncaminhamentoEmMassa');
+                });
+
+                $3("#formEncaminhamento").validate({
+                    rules: {
+                        marcarDesmarcarCheckbox: {
+                            validarPreenchimento: true
+                        }
+                    },
+                    messages: {
+                        marcarDesmarcarCheckbox: {
+                            validarPreenchimento: ""
+                        }
+                    },
+
+                    submitHandler: function (form) {
+                        $3("#container-progress").show();
+                        form.submit();
+                    },
+                    invalidHandler: function (event, validator) {
+                        Materialize.toast("Selecione um item.", 4000);
+                    }
+                });
+
+                $3.validator.addMethod("validarPreenchimento", function (value, element) {
+                    var checkbox = $('input[type=checkbox]:checked').filter('.checkbox_legal');
+                    if (checkbox.length > 0) {
+                        return true;
+                    }
+                });
+            });
+        }($.noConflict(true)));
+    </script>
+</main>

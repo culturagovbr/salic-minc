@@ -1,0 +1,209 @@
+<div class="row">
+    <div class="col s1"></div>
+    <div class="col s10 center-align">
+        <div>
+            <img src="/public/img/planalto_presidencia_simbolosnacionais_brasao.gif" style="height:120px">
+        </div>
+        <div class="center-align" style="font-size: 23px;">
+            MINIST&Eacute;RIO DA CIDADANIA
+        </div>
+        <div class="center-align" style="font-size: 23px;">
+            SECRETARIA ESPECIAL DA CULTURA
+        </div>
+        <?php if ((int)$this->orgaoSuperior == (int)\Orgaos::ORGAO_SUPERIOR_SEFIC): ?>
+            <div class="center-align" style="font-size: 23px; color: black;">
+                Secretaria de Fomento e Incentivo &agrave; Cultura - SEFIC
+            </div>
+        <?php else: ?>
+            <div class="center-align" style="font-size: 23px;">
+                Secretaria do Audiovisual - SAv
+            </div>
+        <?php endif; ?>
+    </div>
+    <div class="col s1"></div>
+</div>
+<div class="row">
+    <div class="col s1"></div>
+    <div class="col s10 center-align">
+        <h3 style="font-size: 23px; color: black;"><?php echo $this->titulo ?></h3>
+    </div>
+    <div class="col s1"></div>
+</div>
+<div class="row">
+    <div class="col s1"></div>
+    <div class="col s2">
+        <label style="color: black">PRONAC</label>
+        <p class="bold padding10 bordered">
+            <?php
+            echo $this->projeto['AnoProjeto'] . $this->projeto['Sequencial'];
+            ?>
+        </p>
+    </div>
+    <div class="col s8">
+        <label style="color: black">Nome do Projeto</label>
+        <p class="bold padding10 bordered">
+            <?php
+            echo $this->projeto['NomeProjeto'];
+            ?>
+        </p>
+    </div>
+    <div class="col s1"></div>
+</div>
+<div class="row">
+    <div class="col s1"></div>
+    <div class="col s3">
+        <label style="color: black">CNPJ / CPF</label>
+        <p class="bold padding10 bordered">
+            <?php
+            echo $this->projeto['CgcCpf'];
+            ?>
+    </div>
+    <div class="col s7">
+        <label style="color: black">Proponente</label>
+        <br/>
+        <p class="bold padding10 bordered">
+            <?php
+            echo $this->nomeAgente;
+            ?>
+        </p>
+    </div>
+    <div class="col s1"></div>
+</div>
+<div class="row">
+    <div class="col s1"></div>
+    <div class="col s1">
+        <label style="color: black">UF</label>
+        <p class="bold padding10 bordered">
+            <?php
+            echo $this->projeto['UfProjeto'];
+            ?>
+        </p>
+    </div>
+    <div class="col s3">
+        <label style="color: black">&Aacute;rea Cultural</label>
+        <p class="bold padding10 bordered">
+            <?php
+            echo $this->areaCultural['Descricao'];
+            ?>
+        </p>
+    </div>
+    <div class="col s4">
+        <label style="color: black">Segmento Cultural</label>
+        <p class="bold padding10 bordered">
+            <?php
+            echo $this->segmentoCultural['Descricao'];
+            ?>
+        </p>
+    </div>
+    <div class="col s2">
+        <label style="color: black">Per&iacute;odo de Execu&ccedil;&atilde;o</label>
+        <p class="padding10 bordered">
+            <b>
+                <?php
+                echo Data::tratarDataZend($this->projeto['DtInicioExecucao'], 'Brasileira');
+                ?>
+            </b>
+            a
+            <b>
+                <?php
+                echo Data::tratarDataZend($this->projeto['DtFimExecucao'], 'Brasileira');
+                ?>
+            </b>
+        </p>
+    </div>
+    <div class="col s1"></div>
+</div>
+<div class="row margin-bottom30"></div>
+<div class="row">
+    <div class="col s1"></div>
+    <div class="col s10">
+        <label style="color: black">S&iacute;ntese do Projeto</label>
+        <p class="padding10 bordered" style="text-align: justify">
+            <?php
+            echo $this->projeto['ResumoProjeto'];
+            ?>
+        </p>
+    </div>
+    <div class="col s1"></div>
+</div>
+<div id="parecer-tecnico">
+
+
+    <div class="row">
+        <div class="col s1"></div>
+        <div class="col s10">
+            <p>
+                <label class="margin-bottom20" style="color: black">Parecer de Avalia&ccedil;&atilde;o
+                    T&eacute;cnica:</label>
+            </p>
+            <div class="padding10 bordered" style="text-align: justify">
+                <?= $this->dadosParecer->dsInformacaoAdicional; ?>
+            </div>
+        </div>
+        <div class="col s1"></div>
+    </div>
+
+    <?php if (trim($this->dadosParecer->dsOrientacao)) : ?>
+        <div class="row margin-bottom30"></div>
+        <div class="row">
+            <div class="col s1"></div>
+            <div class="col s10">
+                <p>
+                    <label class="margin-bottom20" style="color: black">Recomenda&ccedil;&otilde;es:</label>
+                </p>
+                <div class="padding10 bordered" style="text-align: justify">
+                    <?= $this->dadosParecer->dsOrientacao; ?>
+                </div>
+            </div>
+            <div class="col s1"></div>
+        </div>
+    <?php endif; ?>
+
+    <div class="row margin-bottom30"></div>
+    <div class="row">
+        <div class="col s1"></div>
+        <div class="col s10">
+            <p>
+                <label class="margin-bottom20" style="color: black">Conclus&atilde;o:</label>
+            </p>
+            <div class="padding10 bordered" style="text-align: justify">
+                <?= $this->dadosParecer->dsConclusao; ?>
+            </div>
+        </div>
+        <div class="col s1"></div>
+    </div>
+
+    <div class="row margin-bottom30"></div>
+    <div class="row">
+        <div class="col s1"></div>
+        <div class="col s10">
+            <p>
+                <label class="margin-bottom20" style="color: black">Resultado da avalia&ccedil;&atilde;o:</label>
+            </p>
+            <div class="padding10 bordered" style="text-align: justify">
+                <?php
+                switch ($this->dadosParecer->stResultadoAvaliacao) {
+                    case 'A':
+                        echo 'Cumpriu o objeto e objetivos';
+                        break;
+                    case 'R':
+                        echo 'N&atilde;o cumprimento do objeto e objetivos';
+                        break;
+                    case 'P':
+                        echo 'Cumpriu parcialmente o objeto e objetivos';
+                        break;
+                    default:
+                        break;
+                }
+                ?>
+            </div>
+        </div>
+        <div class="col s1"></div>
+    </div>
+</div>
+
+<style>
+    .assinatura table td {
+        border: 1px solid #aaaaaa;
+    }
+</style>

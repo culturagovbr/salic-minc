@@ -2152,9 +2152,10 @@ function jqAjaxLink(fUrlDestino, fDados, fLocalExibir) {
     }); //fecha $.ajax(
 }
 
-function jqAjaxLinkSemLoading(fUrlDestino, fDados, fLocalExibir) {
-    
+function jqAjaxLinkSemLoading(fUrlDestino, fDados, fLocalExibir, callback = '') {
+    var callback = callback || null;
     var num_interno = jqAjaxNum;
+
     jqAjaxNum++;
     $.ajax({
         method: "get",
@@ -2168,9 +2169,12 @@ function jqAjaxLinkSemLoading(fUrlDestino, fDados, fLocalExibir) {
         complete: function(){
             $("#"+fLocalExibir+" div#loading"+num_interno).remove();
         }, //esconde loadig ao terminar
-        success: function(html){ //se for bem sucedido exibe html do arquivo
+        success: function(html, outsideData){ //se for bem sucedido exibe html do arquivo
             $("#erro").hide();
             $("#"+fLocalExibir).html(html); //insere html na div corpo
+            if (typeof callback == 'function') {
+                callback(html);
+            }
         },
         error: function(d,msg) {
                 /*if(contRecursao < 3){

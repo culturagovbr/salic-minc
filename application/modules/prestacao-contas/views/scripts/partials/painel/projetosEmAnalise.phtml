@@ -1,0 +1,73 @@
+<table id="tabelaProjetosEmAnalise" class="bordered striped">
+    <thead>
+    <tr>
+        <th>PRONAC</th>
+        <th>Nome do Projeto</th>
+        <th>Situação</th>
+        <th>T&eacute;cnico</th>
+        <th>Dt. Envio</th>
+        <th>Dias em an&aacute;lise</th>
+        <th>Encaminhar para Análise</th>
+        <th>Hist&oacute;rico</th>
+        <th>Prioridades</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<script src="/public/js/jquery-1.12.4.min.js"></script>
+<script src="/public/js/moment.js"></script>
+<script type="text/javascript" src="/public/scripts/layout/datatables.min.js"></script>
+<script type="text/javascript">
+    (function ($) {
+        $(document).ready(function () {
+            tabelaProjetosEmAnalise = $('#tabelaProjetosEmAnalise').DataTable({
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                },
+                "ajax": {
+                    url: "/prestacao-contas/prestacao-contas/obter-projetos-analise-financeira-virtual",
+                    data: {
+                        situacaoEncaminhamentoPrestacao: 2
+                    },
+                    type: "POST"
+                },
+                "processing": true,
+                "autoWidth": false,
+                "serverSide": true,
+                "order": [[8, "desc"]],
+                "columnDefs": [
+                    { "orderable": false, "targets": [6,7]},
+                    {
+                        "targets": 0,
+                        "data": null,
+                        render: (data) => {
+                            return '<a class="btn modal-trigger pre-visualizar" data-idpronac="' + data[6] + '" >' + data[0] + '</a>'
+                        }
+                    },
+                    {
+                        "targets": 4,
+                        "data": null,
+                        render: (data) => moment(data[4]).format('DD/MM/YYYY')
+                    },
+                    {
+                        "targets": 6,
+                        "data": null,
+                        "defaultContent": '<button class="btn modal-trigger encaminharAnalise" href="#encaminharProjetoModal"><i class=" tiny material-icons">assignment_ind</i></button>'
+                    },
+                    {
+                        "targets": 7,
+                        "data": null,
+                        "defaultContent": '<button class="btn modal-trigger visualizarHistorico" href="#visualizarHistoricoModal"><i class=" tiny material-icons">history</i></button>'
+                    },
+                    {
+                        "targets": 8,
+                        "data": null,
+                        render: (data) => gerarBotaoVisualizacaoPrioridades(data[8])
+                    }
+                ]
+            });
+        });
+    }($.noConflict(true)));
+</script>
+<link rel="stylesheet" type="text/css" href="/public/css/layout/datatables.min.css"/>

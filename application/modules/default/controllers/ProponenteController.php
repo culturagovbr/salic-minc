@@ -77,7 +77,7 @@ class ProponenteController extends MinC_Controller_Action_Abstract
         $this->view->ativos = $tbativos;*/
 
         $auth = Zend_Auth::getInstance(); // pega a autenticao
-        $Usuario = new Autenticacao_Model_Usuario(); // objeto usuario
+        $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuario
         $idagente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
         $idagente = $idagente['idAgente'];
         //-------------------------------------------------------------------------------------------------------------

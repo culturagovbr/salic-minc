@@ -36,6 +36,10 @@ class Agente_Model_DbTable_Municipios extends MinC_Db_Table_Abstract
             $select->where('idMunicipioIBGE = ?', $idCidade);
         }
 
+        foreach ($where as $coluna => $valor) {
+            $select->where($coluna, $valor);
+        }
+
         $select->order('Descricao');
 
         try {

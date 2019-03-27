@@ -7,6 +7,10 @@ class Proposta_VisualizarPlanoDistribuicaoController extends Proposta_GenericCon
         parent::init();
     }
 
+    /**
+     * @deprecated migrado para nova estrutura de Rest e Service >
+     * application/modules/projeto/service/plano-distribuicao/PlanoDistribuicao.php
+     */
     public function visualizarAction()
     {
         $this->_helper->layout->disableLayout();
@@ -34,7 +38,7 @@ class Proposta_VisualizarPlanoDistribuicaoController extends Proposta_GenericCon
     public function detalharAction()
     {
         $dados = $this->getRequest()->getParams();
-        $detalhamento = new Proposta_Model_DbTable_TbDetalhamentoPlanoDistribuicaoProduto();
+        $detalhamento = new Proposta_Model_DbTable_TbDetalhaPlanoDistribuicao();
         $dados = $detalhamento->listarPorMunicicipioUF($dados);
 
         $this->_helper->json(array('data' => $dados->toArray(), 'success' => 'true'));

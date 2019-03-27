@@ -1,41 +1,18 @@
 <?php
 
-/**
- * Foo_FooController Controller de exemplo para arquitetura.
- *
- * @uses GenericControllerNew
- * @package Controller
- * @version 0.1
- * @author  wouerner <wouerner@gmail.com>
- */
 class Foo_FooController extends Zend_Controller_Action
 {
-
-    /**
-     * init Metodo de inicializacao da classe
-     *
-     * @access public
-     * @return void
-     */
     public function init()
     {
         parent::init();
     }
 
-    /**
-     * indexAction Metodo padrao para execucao da controller
-     * @access public
-     * @param void
-     * @return void
-     */
     public function indexAction()
     {
-        $fooModel = new Foo_Model_Foo();
+        $gitTag = '?v=' . $this->view->gitTag();
 
-        $this->view->foos = $fooModel->listar();
-
-        $tooModel = new Foo_Model_Too();
-
-        $this->view->toos = $tooModel->listar();
+        $this->view->headScript()->offsetSetFile(99, '/public/dist/js/manifest.js' . $gitTag, 'text/javascript', array('charset' => 'utf-8'));
+        $this->view->headScript()->offsetSetFile(100, '/public/dist/js/vendor.js' . $gitTag, 'text/javascript', array('charset' => 'utf-8'));
+        $this->view->headScript()->offsetSetFile(101, '/public/dist/js/foo.js'. $gitTag, 'text/javascript', array('charset' => 'utf-8'));
     }
 }

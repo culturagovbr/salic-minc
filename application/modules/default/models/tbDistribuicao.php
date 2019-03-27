@@ -11,8 +11,7 @@
 
 class tbDistribuicao extends MinC_Db_Table_Abstract
 {
-    protected $_banco = "BDCORPORATIVO";
-    protected $_schema = "scSAC";
+    protected $_schema = "BDCORPORATIVO.scSAC";
     protected $_name = "tbDistribuicao";
 
 
@@ -58,7 +57,7 @@ class tbDistribuicao extends MinC_Db_Table_Abstract
                 'dis.dsObservacao',
                 'dis.idDistribuicao'
             ),
-            $this->_banco . "." . $this->_schema
+            $this->_schema
         );
         $slct->joinInner(
             array('nom' => 'Nomes'),
@@ -94,7 +93,7 @@ class tbDistribuicao extends MinC_Db_Table_Abstract
                 'dis.dsObservacao',
                 'dis.idDistribuicao'
             ),
-            $this->_banco . "." . $this->_schema
+            $this->_schema
         );
         $slct->joinInner(
             array('nom' => 'Nomes'),
@@ -149,13 +148,13 @@ class tbDistribuicao extends MinC_Db_Table_Abstract
         $slct->from(
             array('D' => $this->_name),
             array('*'),
-            $this->_banco . "." . $this->_schema
+            $this->_schema
         );
         $slct->joinInner(
             array('A' => 'tbAvaliacaoPreProjeto'),
             'A.idPreProjeto = D.idItemDistribuicao and A.idAvaliador = D.idDestinatario',
             array('A.stAvaliacao'),
-            $this->_banco . "." . $this->_schema
+            $this->_schema
         );
         $slct->joinInner(
             array('PP' => 'PreProjeto'),

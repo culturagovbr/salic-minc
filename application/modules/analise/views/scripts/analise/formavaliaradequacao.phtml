@@ -5,8 +5,13 @@
                 <h5>Avaliar readequa&ccedil;&atilde;o do projeto: <b><?php echo $this->projeto['NomeProjeto']?> (<?php echo $this->projeto['AnoProjeto'] . $this->projeto['Sequencial']; ?>)</b></h5>
             </div>
 
-            <form name="formAvaliarAdequacao" id="formAvaliarAdequacao" class="materialize" method="post" action ="<?php echo $this->url(array('module'=>'analise', 'controller' => 'analise', 'action' => 'salvaravaliacaadequacao')); ?>">
-                <input type="hidden" name="idProjeto" id="idProjeto" value="<?php echo $this->projeto['IdPRONAC']; ?>" />
+            <form
+                name="formAvaliarAdequacao"
+                id="formAvaliarAdequacao"
+                class="materialize"
+                method="post"
+                action="<?php echo $this->url(array('module'=>'analise', 'controller' => 'analise', 'action' => 'salvaravaliacaadequacao')); ?>">
+                <input type="hidden" name="idPronac" id="idPronac" value="<?php echo $this->projeto['IdPRONAC']; ?>" />
                 <div class="row no-padding no-margin">
                     <div class="input-field col s6 m6">
                         <select id="conformidade" name="conformidade" class="no-margin">
@@ -44,6 +49,7 @@
 
         var editorRico = $("#observacao").editorRico({
             altura: 200,
+            maxchar: 8000,
             isLimitarCarateres: true
         });
 
@@ -76,7 +82,7 @@
             }
         });
         $.validator.addMethod("validarPreenchimentoMaximo", function (value, element) {
-            if (editorRico.contarCaracteres() <= 1000) {
+            if (editorRico.contarCaracteres() <= 8000) {
                 return true;
             }
         });

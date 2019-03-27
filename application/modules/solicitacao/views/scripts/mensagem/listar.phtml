@@ -3,7 +3,7 @@
         <table class="table table-bordered striped" style="width: 100%">
             <thead class="">
             <tr>
-                <th data-field="" class="messagem-numero left-align">Nº</th>
+                <th data-field="" class="messagem-numero left-align">N&ordm;</th>
                 <th data-field="" class="messagem-titulo left-align">Proposta/Projeto</th>
                 <th data-field="" class="mensagem-texto left-align">Solicita&ccedil;&atilde;o</th>
                 <?php if (!$this->isProponente)  : ?>
@@ -12,7 +12,10 @@
                 <th data-field="" class="mensagem-situacao left-align">Estado</th>
                 <th data-field="id" class="mensagem-data center-align">Dt. Solicita&ccedil;&atilde;o</th>
                 <th data-field="id" class="mensagem-data center-align">Dt. Resposta</th>
-                <th class="center-align">#</th>
+                <?php if (!$this->isProponente)  : ?>
+                    <th data-field="id" class="mensagem-data center-align">Dt. Encaminhamento</th>
+                <?php endif; ?>
+                <th colspan="2" class="center-align">#</th>
             </tr>
             </thead>
             <tbody>
@@ -80,11 +83,20 @@
                     <td class="center-align">
                         <?= (!$arrValue['dtResposta']) ?
                                 ($arrValue['diasSemResposta'] == 0) ?
-                                    "Não respondida" :
-                                    "Não respondida à {$arrValue['diasSemResposta']} dias":
+                                "N&atilde;o respondida" :
+                                "N&atilde;o respondida &agrave; {$arrValue['diasSemResposta']} dias":
                                 date('d/m/Y', strtotime($arrValue['dtSolicitacao']))
-                                 ?>
+                                ?>
                     </td>
+
+                    <?php if (!$this->isProponente) : ?>
+                        <td class="center-align">
+                            <?= (!$arrValue['dtEncaminhamento']) ?
+                                        "N&atilde;o informada" :
+                                        date('d/m/Y', strtotime($arrValue['dtEncaminhamento']))
+                                        ?>
+                        </td>
+                    <?php endif;?>
 
                     <td>
                         <a class="btn blue small white-text tooltipped"
@@ -93,6 +105,21 @@
                             <i class="material-icons">visibility</i>
                         </a>
                     </td>
+                    <?php if(!$this->isProponente 
+                            && $this->codOrgaoUsuario == $arrValue['idOrgao']) : ?>
+                        <td>
+                            <a class="btn btn-secondary small white-text tooltipped"
+                            data-tooltip="Encaminhar"
+                            href="<?php echo $this->url(['module' => 'solicitacao', 
+                                                            'controller' => 'mensagem', 
+                                                            'action' => 'encaminhar', 
+                                                            'id' => $arrValue['idSolicitacao']],
+                                                            null, 
+                                                            true); ?>">
+                                <i class="material-icons">forward</i>
+                            </a>
+                        </td>
+                    <?php endif; ?>
                 </tr>
             <?php endforeach; ?>
             </tbody>

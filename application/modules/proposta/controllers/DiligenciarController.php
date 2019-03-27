@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Proposta_DiligenciarController
- *
- * @uses GenericControllerNew
- * @package Proposta
- * @author  wouerner <wouerner@gmail.com>
- */
 class Proposta_DiligenciarController extends Proposta_GenericController
 {
     private $idPronac = null;
@@ -17,12 +10,6 @@ class Proposta_DiligenciarController extends Proposta_GenericController
     private $idAvaliacaoProposta = null;
     private $btnVoltar = null;// ajusta o link de voltar de acordo com o tipo de dilignecia
 
-    /**
-     * init
-     *
-     * @access public
-     * @return void
-     */
     public function init()
     {
         parent::init();
@@ -51,69 +38,66 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         }
 
         $this->view->btnVoltar = $this->btnVoltar; // botao voltar dinamico
+
+        if ($this->idPronac) {
+            $this->view->urlMenu = [
+                'module' => 'projeto',
+                'controller' => 'menu',
+                'action' => 'obter-menu-ajax',
+                'idPronac' => $this->idPronac
+            ];
+        }
     }
 
-    /**
-     * indexAction
-     *
-     * @access public
-     * @return void
-     */
     public function indexAction()
     {
         $this->forward("listardiligenciaproponente");
     }
 
-    /**
-     * cadastrardiligenciaAction
-     *
-     * @access public
-     * @return void
-     */
     public function cadastrardiligenciaAction()
     {
-        $verificacaodao     = new Verificacao();
-        $Projetosdao        = new Projetos();
-        $PreProjetodao      = new Proposta_Model_DbTable_PreProjeto();
-        $diligenciaDAO      = new Diligencia();
-        $post               = Zend_Registry::get('post');
+        $verificacaodao = new Verificacao();
+        $Projetosdao = new Projetos();
+        $PreProjetodao = new Proposta_Model_DbTable_PreProjeto();
+        $diligenciaDAO = new Diligencia();
+        $post = Zend_Registry::get('post');
 
         $auth = Zend_Auth::getInstance(); // instancia da autenticacao
-        $Usuario = new Autenticacao_Model_Usuario();
+        $Usuario = new Autenticacao_Model_DbTable_Usuario();
         $idagente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
         $usu_identificacao = trim($idagente['usu_identificacao']);
         $idagente = $idagente['idAgente'];
 
-        $utl = $diligenciaDAO->buscarUltDiligencia(array('idPronac = ?' => $this-> idPronac, 'stEnviado = ?' => 'N', 'stEstado  = ?' => 0, 'idSolicitante = ?' => new Zend_Db_Expr("isnull((SELECT usu_codigo FROM tabelas..usuarios WHERE usu_identificacao='".$usu_identificacao."'), (SELECT idAgente FROM Agentes.dbo.Agentes WHERE CNPJCPF='".$usu_identificacao."'))")))->current();
+        $utl = $diligenciaDAO->buscarUltDiligencia(array('idPronac = ?' => $this->idPronac, 'stEnviado = ?' => 'N', 'stEstado  = ?' => 0, 'idSolicitante = ?' => new Zend_Db_Expr("isnull((SELECT usu_codigo FROM tabelas..usuarios WHERE usu_identificacao='" . $usu_identificacao . "'), (SELECT idAgente FROM Agentes.dbo.Agentes WHERE CNPJCPF='" . $usu_identificacao . "'))")))->current();
         if (count($utl) > 0) {
-            $this->view->ultimo     = $utl;
+            $this->view->ultimo = $utl;
         }
-        $this->view->idPronac       = $this->idPronac;
-        $this->view->idPreProjeto   = $this->idPreProjeto;
-        $this->view->situacao       = $this->situacao;
-        $this->view->idProduto      = $this->idProduto;
-        $this->view->tpDiligencia   = $this->tpDiligencia;
+        $this->view->idPronac = $this->idPronac;
+        $this->view->idPreProjeto = $this->idPreProjeto;
+        $this->view->situacao = $this->situacao;
+        $this->view->idProduto = $this->idProduto;
+        $this->view->tpDiligencia = $this->tpDiligencia;
 
         if ($this->view->idPronac) {
-            $resp                   = $Projetosdao->dadosProjeto(array('pro.IdPRONAC = ?' => $this->view->idPronac));
-            $this->view->nmCodigo   = 'PRONAC';
-            $this->view->nmTipo     = 'DO PROJETO';
+            $resp = $Projetosdao->dadosProjeto(array('pro.IdPRONAC = ?' => $this->view->idPronac));
+            $this->view->nmCodigo = 'PRONAC';
+            $this->view->nmTipo = 'DO PROJETO';
         }
         if ($this->view->idPreProjeto) {
-            $resp                   = $PreProjetodao->dadosPreProjeto(array('pre.idPreProjeto = ?' => $this->view->idPreProjeto));
-            $this->view->nmCodigo   = 'NR PROPOSTA';
-            $this->view->nmTipo     = 'DA PROPOSTA';
+            $resp = $PreProjetodao->dadosPreProjeto(array('pre.idPreProjeto = ?' => $this->view->idPreProjeto));
+            $this->view->nmCodigo = 'NR PROPOSTA';
+            $this->view->nmTipo = 'DA PROPOSTA';
         }
         $tipoDiligencia = $verificacaodao->tipoDiligencia(array('idVerificacao = ?' => $this->tpDiligencia));
 
-        if (isset($resp) && is_object($resp) && count($resp)>0) {
-            $this->view->pronac         =   $resp[0]->pronac;
-            $this->view->nomeProjeto    =   $resp[0]->nomeProjeto;
+        if (isset($resp) && is_object($resp) && count($resp) > 0) {
+            $this->view->pronac = $resp[0]->pronac;
+            $this->view->nomeProjeto = $resp[0]->nomeProjeto;
         } else {
-            $this->view->pronac         =   '';
-            $this->view->nomeProjeto    =   '';
+            $this->view->pronac = '';
+            $this->view->nomeProjeto = '';
         }
-        if (is_object($tipoDiligencia) && count($tipoDiligencia)>0) {
+        if (is_object($tipoDiligencia) && count($tipoDiligencia) > 0) {
             $this->view->tipoDiligencia = $tipoDiligencia[0]->Descricao;
         } else {
             $this->view->tipoDiligencia = '';
@@ -127,56 +111,56 @@ class Proposta_DiligenciarController extends Proposta_GenericController
      */
     public function visualizardiligenciaAction()
     {
-        $verificacaodao         = new Verificacao();
-        $Projetosdao            = new Projetos();
-        $PreProjetodao          = new Proposta_Model_DbTable_PreProjeto();
-        $DocumentosExigidosDao  = new DocumentosExigidos();
+        $verificacaodao = new Verificacao();
+        $Projetosdao = new Projetos();
+        $PreProjetodao = new Proposta_Model_DbTable_PreProjeto();
+        $DocumentosExigidosDao = new DocumentosExigidos();
 
         $post = Zend_Registry::get('post');
         //$this->view->dadosDiligencia    = $post;
-        $this->view->idPronac           = $this->idPronac;
-        $this->view->idPreProjeto       = $this->idPreProjeto;
-        $this->view->idProduto          = $this->idProduto;
+        $this->view->idPronac = $this->idPronac;
+        $this->view->idPreProjeto = $this->idPreProjeto;
+        $this->view->idProduto = $this->idProduto;
 
-        $this->view->idDiligencia        = $this->getRequest()->getParam('idDiligencia');
+        $this->view->idDiligencia = $this->getRequest()->getParam('idDiligencia');
         $this->view->idAvaliacaoProposta = $this->getRequest()->getParam('idAvaliacaoProposta');
 
         if ($this->view->idDiligencia) {
             $resp = $Projetosdao->listarDiligencias(array('pro.IdPRONAC = ?' => $this->view->idPronac, 'dil.idDiligencia = ?' => $this->view->idDiligencia));
-            $this->view->nmCodigo       = 'PRONAC';
-            $this->view->nmTipo         = 'DO PROJETO';
+            $this->view->nmCodigo = 'PRONAC';
+            $this->view->nmTipo = 'DO PROJETO';
             $this->view->tipoDiligencia = $resp[0]->tipoDiligencia;
         }
         if ($this->view->idAvaliacaoProposta) {
             if ($this->idPronac) {
-                $projeto        = $Projetosdao->buscar(array('IdPRONAC = ?' => $this->idPronac));
-                $idPreProjeto   = $projeto[0]->idProjeto;
+                $projeto = $Projetosdao->buscar(array('IdPRONAC = ?' => $this->idPronac));
+                $idPreProjeto = $projeto[0]->idProjeto;
             }
 
             if ($this->idPreProjeto) {
-                $idPreProjeto   = $this->idPreProjeto;
+                $idPreProjeto = $this->idPreProjeto;
             }
             $resp = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $idPreProjeto, ' aval.idAvaliacaoProposta = ?' => $this->view->idAvaliacaoProposta));
 
-            $this->view->nmCodigo   = 'Nr PROPOSTA';
-            $this->view->nmTipo     = 'DA PROPOSTA';
-            $this->view->Descricao  = $resp[0]->Descricao;
+            $this->view->nmCodigo = 'Nr PROPOSTA';
+            $this->view->nmTipo = 'DA PROPOSTA';
+            $this->view->Descricao = $resp[0]->Descricao;
         }
 
-        $this->view->stEnviado      = $resp[0]->stEnviado;
-        $this->view->pronac         = $resp[0]->pronac;
-        $this->view->nomeProjeto    = $resp[0]->nomeProjeto;
+        $this->view->stEnviado = $resp[0]->stEnviado;
+        $this->view->pronac = $resp[0]->pronac;
+        $this->view->nomeProjeto = $resp[0]->nomeProjeto;
         //$this->view->Proponente = $rd[0]->Proponente;
-        $this->view->dataSolicitacao    = date('d/m/Y H:i', strtotime($resp[0]->dataSolicitacao));
-        if ($resp[0]->dataResposta          != '') {
-            $this->view->dataResposta       = date('d/m/Y H:i', strtotime($resp[0]->dataResposta));
+        $this->view->dataSolicitacao = date('d/m/Y H:i', strtotime($resp[0]->dataSolicitacao));
+        if ($resp[0]->dataResposta != '') {
+            $this->view->dataResposta = date('d/m/Y H:i', strtotime($resp[0]->dataResposta));
         }
-        $this->view->solicitacao        = $resp[0]->Solicitacao;
-        $this->view->resposta           = $resp[0]->Resposta;
+        $this->view->solicitacao = $resp[0]->Solicitacao;
+        $this->view->resposta = $resp[0]->Resposta;
         if ($resp[0]->idCodigoDocumentosExigidos) {
-            $documento                      = $DocumentosExigidosDao->listarDocumentosExigido($resp[0]->idCodigoDocumentosExigidos);
-            $this->view->DocumentosExigido  = $documento[0]->Descricao;
-            $this->view->Opcao              = $documento[0]->Opcao;
+            $documento = $DocumentosExigidosDao->listarDocumentosExigido($resp[0]->idCodigoDocumentosExigidos);
+            $this->view->DocumentosExigido = $documento[0]->Descricao;
+            $this->view->Opcao = $documento[0]->Opcao;
         }
 
         if ($this->view->idDiligencia) {
@@ -195,53 +179,53 @@ class Proposta_DiligenciarController extends Proposta_GenericController
     public function imprimirdiligenciaAction()
     {
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
-        $verificacaodao         = new Verificacao();
-        $Projetosdao            = new Projetos();
-        $PreProjetodao          = new Proposta_Model_DbTable_PreProjeto();
-        $DocumentosExigidosDao  = new DocumentosExigidos();
+        $verificacaodao = new Verificacao();
+        $Projetosdao = new Projetos();
+        $PreProjetodao = new Proposta_Model_DbTable_PreProjeto();
+        $DocumentosExigidosDao = new DocumentosExigidos();
 
         $post = Zend_Registry::get('get');
-        $this->view->idPronac           = $this->idPronac;
-        $this->view->idPreProjeto       = $this->idPreProjeto;
-        $this->view->idProduto          = $this->idProduto;
+        $this->view->idPronac = $this->idPronac;
+        $this->view->idPreProjeto = $this->idPreProjeto;
+        $this->view->idProduto = $this->idProduto;
 
-        $this->view->idDiligencia        = $post->idDiligencia;
+        $this->view->idDiligencia = $post->idDiligencia;
         $this->view->idAvaliacaoProposta = $post->idAvaliacaoProposta;
 
         if ($this->view->idDiligencia) {
             $resp = $Projetosdao->listarDiligencias(array('pro.IdPRONAC = ?' => $this->view->idPronac, 'dil.idDiligencia = ?' => $this->view->idDiligencia));
-            $this->view->nmCodigo       = 'PRONAC';
-            $this->view->nmTipo         = 'DO PROJETO';
+            $this->view->nmCodigo = 'PRONAC';
+            $this->view->nmTipo = 'DO PROJETO';
             $this->view->tipoDiligencia = $resp[0]->tipoDiligencia;
         }
         if ($this->view->idAvaliacaoProposta) {
             if ($this->idPronac) {
-                $projeto        = $Projetosdao->buscar(array('IdPRONAC = ?' => $this->idPronac));
-                $idPreProjeto   = $projeto[0]->idProjeto;
+                $projeto = $Projetosdao->buscar(array('IdPRONAC = ?' => $this->idPronac));
+                $idPreProjeto = $projeto[0]->idProjeto;
             }
 
             if ($this->idPreProjeto) {
-                $idPreProjeto   = $this->idPreProjeto;
+                $idPreProjeto = $this->idPreProjeto;
             }
-            $resp           = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $idPreProjeto, ' aval.idAvaliacaoProposta = ?' => $this->view->idAvaliacaoProposta));
+            $resp = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $idPreProjeto, ' aval.idAvaliacaoProposta = ?' => $this->view->idAvaliacaoProposta));
 
-            $this->view->nmCodigo   = 'Nr PROPOSTA';
-            $this->view->nmTipo     = 'DA PROPOSTA';
-            $this->view->Descricao  = $resp[0]->Descricao;
+            $this->view->nmCodigo = 'Nr PROPOSTA';
+            $this->view->nmTipo = 'DA PROPOSTA';
+            $this->view->Descricao = $resp[0]->Descricao;
         }
-        $this->view->stEnviado      = $resp[0]->stEnviado;
-        $this->view->pronac         = $resp[0]->pronac;
-        $this->view->nomeProjeto    = $resp[0]->nomeProjeto;
-        $this->view->dataSolicitacao    = date('d/m/Y H:i', strtotime($resp[0]->dataSolicitacao));
-        if ($resp[0]->dataResposta          != '') {
-            $this->view->dataResposta       = date('d/m/Y H:i', strtotime($resp[0]->dataResposta));
+        $this->view->stEnviado = $resp[0]->stEnviado;
+        $this->view->pronac = $resp[0]->pronac;
+        $this->view->nomeProjeto = $resp[0]->nomeProjeto;
+        $this->view->dataSolicitacao = date('d/m/Y H:i', strtotime($resp[0]->dataSolicitacao));
+        if ($resp[0]->dataResposta != '') {
+            $this->view->dataResposta = date('d/m/Y H:i', strtotime($resp[0]->dataResposta));
         }
-        $this->view->solicitacao        = $resp[0]->Solicitacao;
-        $this->view->resposta           = $resp[0]->Resposta;
+        $this->view->solicitacao = $resp[0]->Solicitacao;
+        $this->view->resposta = $resp[0]->Resposta;
         if ($resp[0]->idCodigoDocumentosExigidos) {
-            $documento                      = $DocumentosExigidosDao->listarDocumentosExigido($resp[0]->idCodigoDocumentosExigidos);
-            $this->view->DocumentosExigido  = $documento[0]->Descricao;
-            $this->view->Opcao              = $documento[0]->Opcao;
+            $documento = $DocumentosExigidosDao->listarDocumentosExigido($resp[0]->idCodigoDocumentosExigidos);
+            $this->view->DocumentosExigido = $documento[0]->Descricao;
+            $this->view->Opcao = $documento[0]->Opcao;
         }
 
         if ($this->view->idDiligencia) {
@@ -263,15 +247,15 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         $idArquivo = '';
         $Mensagem = '';
         if (!empty($_FILES) && is_file($_FILES['arquivo']['tmp_name'])) {
-            $arquivoNome     = $_FILES['arquivo']['name']; // nome
-            $arquivoTemp     = $_FILES['arquivo']['tmp_name']; // nome tempor�rio
-            $arquivoTipo     = $_FILES['arquivo']['type']; // tipo
-            $arquivoTamanho  = $_FILES['arquivo']['size']; // tamanho
+            $arquivoNome = $_FILES['arquivo']['name']; // nome
+            $arquivoTemp = $_FILES['arquivo']['tmp_name']; // nome tempor�rio
+            $arquivoTipo = $_FILES['arquivo']['type']; // tipo
+            $arquivoTamanho = $_FILES['arquivo']['size']; // tamanho
 
             if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                 $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
-                $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
-                $arquivoHash     = Upload::setHash($arquivoTemp); // hash
+                $arquivoBinario = Upload::setBinario($arquivoTemp); // bin�rio
+                $arquivoHash = Upload::setHash($arquivoTemp); // hash
             }
 
             $tipos = array('pdf');
@@ -282,17 +266,17 @@ class Proposta_DiligenciarController extends Proposta_GenericController
             if (!empty($this->idPronac) && $this->idPronac != "0") {
                 $dataString = file_get_contents($arquivoTemp);
                 $arrData = unpack("H*hex", $dataString);
-                $data = "0x".$arrData['hex'];
+                $data = "0x" . $arrData['hex'];
 
                 // ==================== PERSISTE DADOS DO ARQUIVO =================//
                 $dadosArquivo = array(
-                    'nmArquivo'         => $arquivoNome,
-                    'sgExtensao'        => $arquivoExtensao,
-                    'biArquivo'         => $data,
-                    'dsDocumento'       => 'Resposta de Dilig&ecirc;ncia',
-                    'idPronac'          => $this->idPronac,
-                    'idTipoDocumento'   => 3,
-                    'idDiligencia'      => $post->idDiligencia
+                    'nmArquivo' => $arquivoNome,
+                    'sgExtensao' => $arquivoExtensao,
+                    'biArquivo' => $data,
+                    'dsDocumento' => 'Resposta de Dilig&ecirc;ncia',
+                    'idPronac' => $this->idPronac,
+                    'idTipoDocumento' => 3,
+                    'idDiligencia' => $post->idDiligencia
                 );
                 $vw = new vwAnexarDocumentoDiligencia();
                 $vw->inserirUploads($dadosArquivo);
@@ -309,22 +293,22 @@ class Proposta_DiligenciarController extends Proposta_GenericController
             $resp = $diligenciaDAO->update($dados, $where);
         }
 
-        $verificacaodao         = new Verificacao();
-        $Projetosdao            = new Projetos();
-        $PreProjetodao          = new Proposta_Model_DbTable_PreProjeto();
-        $DocumentosExigidosDao  = new DocumentosExigidos();
+        $verificacaodao = new Verificacao();
+        $Projetosdao = new Projetos();
+        $PreProjetodao = new Proposta_Model_DbTable_PreProjeto();
+        $DocumentosExigidosDao = new DocumentosExigidos();
 
-        $this->view->idPronac               = $this->idPronac;
-        $this->view->idPreProjeto           = $this->idPreProjeto;
-        $this->view->idProduto              = $this->idProduto;
-        $this->view->idDiligencia           = $this->idDiligencia;
-        $this->view->idAvaliacaoProposta    = $this->idAvaliacaoProposta;
-        $this->view->idUsuario              = Zend_Auth::getInstance()->getIdentity()->IdUsuario;
+        $this->view->idPronac = $this->idPronac;
+        $this->view->idPreProjeto = $this->idPreProjeto;
+        $this->view->idProduto = $this->idProduto;
+        $this->view->idDiligencia = $this->idDiligencia;
+        $this->view->idAvaliacaoProposta = $this->idAvaliacaoProposta;
+        $this->view->idUsuario = Zend_Auth::getInstance()->getIdentity()->IdUsuario;
 
         if ($this->view->idDiligencia) {
-            $resp                       = $Projetosdao->listarDiligencias(array('pro.IdPRONAC = ?' => $this->view->idPronac, 'dil.idDiligencia = ?' => $this->view->idDiligencia));
-            $this->view->nmCodigo       = 'PRONAC';
-            $this->view->nmTipo         = 'DO PROJETO';
+            $resp = $Projetosdao->listarDiligencias(array('pro.IdPRONAC = ?' => $this->view->idPronac, 'dil.idDiligencia = ?' => $this->view->idDiligencia));
+            $this->view->nmCodigo = 'PRONAC';
+            $this->view->nmTipo = 'DO PROJETO';
             $this->view->tipoDiligencia = $resp[0]->tipoDiligencia;
         }
         if ($this->view->idAvaliacaoProposta) {
@@ -333,40 +317,40 @@ class Proposta_DiligenciarController extends Proposta_GenericController
                 $idPreProjeto = $projeto[0]->idProjeto;
             }
             if ($this->idPreProjeto) {
-                $idPreProjeto       = $this->idPreProjeto;
+                $idPreProjeto = $this->idPreProjeto;
             }
             $resp = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $idPreProjeto, ' aval.idAvaliacaoProposta = ?' => $this->view->idAvaliacaoProposta));
-            $this->view->nmCodigo   = 'Nr PROPOSTA';
-            $this->view->nmTipo     = 'DA PROPOSTA';
+            $this->view->nmCodigo = 'Nr PROPOSTA';
+            $this->view->nmTipo = 'DA PROPOSTA';
         }
 
         $arquivo = new Arquivo();
         $arquivos = $arquivo->buscarAnexosDiligencias($this->idDiligencia);
         $this->view->arquivos = $arquivos;
 
-        $this->view->arquivos                = $arquivos;
-        $this->view->pronac                  = $resp[0]->pronac;
-        $this->view->nomeProjeto             = $resp[0]->nomeProjeto;
-        $this->view->dataSolicitacao         = date('d/m/Y H:i', strtotime($resp[0]->dataSolicitacao));
-        if ($resp[0]->dataResposta          != '') {
-            $this->view->dataResposta            = date('d/m/Y H:i', strtotime($resp[0]->dataResposta));
+        $this->view->arquivos = $arquivos;
+        $this->view->pronac = $resp[0]->pronac;
+        $this->view->nomeProjeto = $resp[0]->nomeProjeto;
+        $this->view->dataSolicitacao = date('d/m/Y H:i', strtotime($resp[0]->dataSolicitacao));
+        if ($resp[0]->dataResposta != '') {
+            $this->view->dataResposta = date('d/m/Y H:i', strtotime($resp[0]->dataResposta));
         }
-        $this->view->solicitacao             = $resp[0]->Solicitacao;
-        $this->view->resposta                = $resp[0]->Resposta;
+        $this->view->solicitacao = $resp[0]->Solicitacao;
+        $this->view->resposta = $resp[0]->Resposta;
 
         if ($resp[0]->idCodigoDocumentosExigidos) {
-            $documento                       = $DocumentosExigidosDao->listarDocumentosExigido($resp[0]->idCodigoDocumentosExigidos);
-            $this->view->DocumentosExigido   = $documento[0]->Descricao;
-            $this->view->Opcao               = $documento[0]->Opcao;
+            $documento = $DocumentosExigidosDao->listarDocumentosExigido($resp[0]->idCodigoDocumentosExigidos);
+            $this->view->DocumentosExigido = $documento[0]->Descricao;
+            $this->view->Opcao = $documento[0]->Opcao;
         }
         if (!empty($resp[0]->stEnviado) && !empty($documento)) {
-            $this->view->retorna            = "true";
+            $this->view->retorna = "true";
         }
-        $this->view->DocumentoExigido       = $DocumentosExigidosDao->listarDocumentosExigido();
+        $this->view->DocumentoExigido = $DocumentosExigidosDao->listarDocumentosExigido();
 
         # comprovantes recusados
         $comprovantePagamentoModel = new ComprovantePagamento();
-        $this->view->comprovantesDePagamento = $comprovantePagamentoModel->pesquisarComprovanteRecusado($this-> idPronac);
+        $this->view->comprovantesDePagamento = $comprovantePagamentoModel->pesquisarComprovanteRecusado($this->idPronac);
     }
 
     /**
@@ -383,9 +367,9 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         $result = $Arquivo->excluirArquivo($_POST['arquivo'], $_POST['diligencia']);
 
         if (count($result) > 0) {
-            $this->_helper->json(array('resposta'=>true));
+            $this->_helper->json(array('resposta' => true));
         } else {
-            $this->_helper->json(array('resposta'=>false));
+            $this->_helper->json(array('resposta' => false));
         }
         die();
     }
@@ -395,22 +379,27 @@ class Proposta_DiligenciarController extends Proposta_GenericController
 
         //$this->operacoesDiligencia();
         //$post                     = Zend_Registry::get('post');
-        $Projetosdao                = new Projetos();
-        $PreProjetodao              = new Proposta_Model_DbTable_PreProjeto();
+        $Projetosdao = new Projetos();
+        $PreProjetodao = new Proposta_Model_DbTable_PreProjeto();
         //$dao                      = new DiligenciarDao();
         //$this->view->idPronac     = 118389;
-        $this->view->idPronac       = $this->idPronac;
-        $this->view->idPreProjeto   = $this->idPreProjeto;
-        $this->view->idProduto      = $this->idProduto;
+
+        if (strlen($this->idPronac) > 7) {
+            $this->idPronac = Seguranca::dencrypt($this->idPronac);
+        }
+
+        $this->view->idPronac = $this->idPronac;
+        $this->view->idPreProjeto = $this->idPreProjeto;
+        $this->view->idProduto = $this->idProduto;
 
         if ($this->view->idPronac) {
             if ($this->view->idProduto) {
-                $this->view->diligencias            = $Projetosdao->listarDiligencias(array('pro.IdPRONAC = ?' => $this->view->idPronac, 'dil.idProduto = ?' => $this->view->idProduto));
+                $this->view->diligencias = $Projetosdao->listarDiligencias(array('pro.IdPRONAC = ?' => $this->view->idPronac, 'dil.idProduto = ?' => $this->view->idProduto));
             } else {
-                $projeto                            = $Projetosdao->buscar(array('IdPRONAC = ?' => $this->idPronac));
-                $_idProjeto                         = isset($projeto[0]->idProjeto) && !empty($projeto[0]->idProjeto) ? $projeto[0]->idProjeto : 0;
-                $this->view->diligenciasProposta    = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $_idProjeto,'aval.ConformidadeOK = ? '=>0));
-                $this->view->diligencias            = $Projetosdao->listarDiligencias(array('pro.IdPRONAC = ?' => $this->view->idPronac));
+                $projeto = $Projetosdao->buscar(array('IdPRONAC = ?' => $this->idPronac));
+                $_idProjeto = isset($projeto[0]->idProjeto) && !empty($projeto[0]->idProjeto) ? $projeto[0]->idProjeto : 0;
+                $this->view->diligenciasProposta = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $_idProjeto, 'aval.ConformidadeOK = ? ' => 0));
+                $this->view->diligencias = $Projetosdao->listarDiligencias(array('pro.IdPRONAC = ?' => $this->view->idPronac));
             }
         }
         if ($this->view->idPreProjeto) {
@@ -422,7 +411,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController
                 $this->view->diligenciasAdequacao = $tbAvaliarAdequacaoProjeto->obterAvaliacoesDiligenciadas(['a.idPronac = ?' => $projeto->IdPRONAC]);
             }
 
-            $this->view->diligenciasProposta = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $this->view->idPreProjeto,'aval.ConformidadeOK <> ? '=>9));
+            $this->view->diligenciasProposta = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $this->view->idPreProjeto, 'aval.ConformidadeOK <> ? ' => 9));
             //$this->view->diligenciasProposta = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $this->view->idPreProjeto));
         }
     }
@@ -432,14 +421,14 @@ class Proposta_DiligenciarController extends Proposta_GenericController
      */
     public function listardiligenciaanalistaAction()
     {
-        $Projetosdao        = new Projetos();
-        $PreProjetodao      = new Proposta_Model_DbTable_PreProjeto();
+        $Projetosdao = new Projetos();
+        $PreProjetodao = new Proposta_Model_DbTable_PreProjeto();
 
-        $this->view->idPronac           = $this->idPronac;
-        $this->view->idPreProjeto       = $this->idPreProjeto;
-        $this->view->situacao           = $this->situacao;
-        $this->view->idProduto          = $this->idProduto;
-        $this->view->tpDiligencia       = $this->tpDiligencia;
+        $this->view->idPronac = $this->idPronac;
+        $this->view->idPreProjeto = $this->idPreProjeto;
+        $this->view->situacao = $this->situacao;
+        $this->view->idProduto = $this->idProduto;
+        $this->view->tpDiligencia = $this->tpDiligencia;
 
         if ($this->view->idPronac) {
             if ($this->idProduto) {
@@ -463,13 +452,19 @@ class Proposta_DiligenciarController extends Proposta_GenericController
             }
         } else {
             if ($this->view->idPreProjeto) {
-                $this->view->diligenciasProposta = $dao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $this->idPreProjeto,'aval.ConformidadeOK = ? '=>0));
+                $this->view->diligenciasProposta = $dao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $this->idPreProjeto, 'aval.ConformidadeOK = ? ' => 0));
             }
         }
     }
 
-    private $situacaoProjetoResposta = array('C30' => 'anterior', 'E62' => 'anterior', 'E61' => 'anterior', 'E60' => 'anterior', 'E59' => 'anterior', 'E17' => 'E30', 'G18' => 'G54', 'D25' => 'anterior','D33'=>'anterior', 'B14' => 'anterior', 'E12' => 'anterior', 'E13' => 'anterior', 'E50' => 'anterior');
-    private $situacaoProjetoNaoResposta = array('C30' => 'anterior', 'E62' => 'E66', 'E61' => 'E71', 'E60' => 'E69', 'E59' => 'anterior', 'E17' => 'E20', 'G18' => 'G20', 'D25' => 'mantem', 'B14' => 'anterior', 'E12' => 'anterior', 'E13' => 'anterior', 'E50' => 'anterior');
+    private $situacaoProjetoResposta = array('C30' => 'anterior', 'E62' => 'anterior',
+        'E61' => 'anterior', 'E60' => 'anterior', 'E59' => 'anterior', 'E17' => 'E30', 'G18' => 'G54',
+        'D25' => 'anterior', 'D33' => 'anterior',
+        'B14' => 'anterior', 'E12' => 'anterior', 'E13' => 'anterior', 'E50' => 'anterior');
+    private $situacaoProjetoNaoResposta = array('C30' => 'anterior', 'E62' => 'E66', 'E61' => 'E71',
+        'E60' => 'E69', 'E59' => 'anterior', 'E17' => 'E20',
+        'G18' => 'G20', 'D25' => 'mantem', 'B14' => 'anterior', 'E12' => 'anterior',
+        'E13' => 'anterior', 'E50' => 'anterior');
 
     /**
      * situacaoProjeto
@@ -482,11 +477,15 @@ class Proposta_DiligenciarController extends Proposta_GenericController
      */
     private function situacaoProjeto($situacoes, $idPronac, $texto = '')
     {
-        $ProjetoDAO             = new Projetos();
-        $SituacaoDAO            = new Situacao();
-        $HistoricoSituacaoDAO   = new HistoricoSituacao();
-        $projeto                = $ProjetoDAO->buscar(array(' IdPRONAC = ?' => $idPronac));
-        $situacao               = false;
+        $diligencia = new Diligencia();
+        $diligencia = $diligencia->aberta($idPronac);
+
+        $ProjetoDAO = new Projetos();
+        $SituacaoDAO = new Situacao();
+        $HistoricoSituacaoDAO = new HistoricoSituacao();
+        $projeto = $ProjetoDAO->buscar(array(' IdPRONAC = ?' => $idPronac));
+        $situacao = false;
+        /* var_dump($situacoes[$projeto[0]->Situacao]);die; */
         if (array_key_exists($projeto[0]->Situacao, $situacoes)) {
             switch ($situacoes[$projeto[0]->Situacao]) {
                 case 'anterior':
@@ -516,6 +515,11 @@ class Proposta_DiligenciarController extends Proposta_GenericController
                     'DtSituacao' => new Zend_Db_Expr('GETDATE()'),
                     'ProvidenciaTomada' => $texto
                 );
+
+                if ($diligencia->idTipoDiligencia == 645) {
+                    $projeto = new Projetos();
+                    $projeto->alterarSituacao($idPronac, null, 'E30', 'An&aacute;lise de resposta de dilig&ecirc;ncia');
+                }
             }
         }
     }
@@ -528,19 +532,18 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         $tblPreProjeto = new Proposta_Model_DbTable_PreProjeto();
         $tblProjeto = new Projetos();
 
-
         $idArquivo = '';
         $Mensagem = '';
         if (is_file($_FILES['arquivo']['tmp_name'])) {
-            $arquivoNome     = $_FILES['arquivo']['name']; // nome
-            $arquivoTemp     = $_FILES['arquivo']['tmp_name']; // nome temporario
-            $arquivoTipo     = $_FILES['arquivo']['type']; // tipo
-            $arquivoTamanho  = $_FILES['arquivo']['size']; // tamanho
+            $arquivoNome = $_FILES['arquivo']['name']; // nome
+            $arquivoTemp = $_FILES['arquivo']['tmp_name']; // nome temporario
+            $arquivoTipo = $_FILES['arquivo']['type']; // tipo
+            $arquivoTamanho = $_FILES['arquivo']['size']; // tamanho
 
             if (!empty($arquivoNome) && !empty($arquivoTemp)) {
                 $arquivoExtensao = Upload::getExtensao($arquivoNome); // extensao
-                $arquivoBinario  = Upload::setBinario($arquivoTemp); // binario
-                $arquivoHash     = Upload::setHash($arquivoTemp); // hash
+                $arquivoBinario = Upload::setBinario($arquivoTemp); // binario
+                $arquivoHash = Upload::setHash($arquivoTemp); // hash
             }
 
             $tipos = array('pdf');
@@ -551,17 +554,17 @@ class Proposta_DiligenciarController extends Proposta_GenericController
             if (!empty($this->idPronac) && $this->idPronac != "0") {
                 $dataString = file_get_contents($arquivoTemp);
                 $arrData = unpack("H*hex", $dataString);
-                $data = "0x".$arrData['hex'];
+                $data = "0x" . $arrData['hex'];
 
                 // ==================== PERSISTE DADOS DO ARQUIVO =================//
                 $dadosArquivo = array(
-                    'nmArquivo'         => $arquivoNome,
-                    'sgExtensao'        => $arquivoExtensao,
-                    'biArquivo'         => $data,
-                    'dsDocumento'       => 'Resposta de Dilig&ecirc;ncia',
-                    'idPronac'          => $this->idPronac,
-                    'idTipoDocumento'   => 3,
-                    'idDiligencia'      => $post->idDiligencia
+                    'nmArquivo' => $arquivoNome,
+                    'sgExtensao' => $arquivoExtensao,
+                    'biArquivo' => $data,
+                    'dsDocumento' => 'Resposta de Dilig&ecirc;ncia',
+                    'idPronac' => $this->idPronac,
+                    'idTipoDocumento' => 3,
+                    'idDiligencia' => $post->idDiligencia
                 );
                 $vw = new vwAnexarDocumentoDiligencia();
                 $vw->inserirUploads($dadosArquivo);
@@ -573,9 +576,9 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         }
 
         if ($post->idDiligencia) {
-            $rsProjeto = $tblProjeto->buscar(array("IdPRONAC = ?"=>$this->idPronac))->current();
+            $rsProjeto = $tblProjeto->buscar(array("IdPRONAC = ?" => $this->idPronac))->current();
             if (isset($rsProjeto->idProjeto) && !empty($rsProjeto->idProjeto)) {
-                $rsPreProjeto = $tblPreProjeto->buscar(array("idPreProjeto = ?"=>$rsProjeto->idProjeto))->current();
+                $rsPreProjeto = $tblPreProjeto->buscar(array("idPreProjeto = ?" => $rsProjeto->idProjeto))->current();
                 $paramEdital = "";
                 if ($rsPreProjeto->idEdital && $rsPreProjeto->idEdital != 0) {
                     $paramEdital = "&edital=sim";
@@ -598,13 +601,17 @@ class Proposta_DiligenciarController extends Proposta_GenericController
             $resp = $diligenciaDAO->update($dados, $where);
 
             if ($post->verificaEnviado == 'S') {
-                $this->situacaoProjeto($this->situacaoProjetoResposta, $this->idPronac, 'Diligência respondida pelo proponente, esperando decisão.');
+                $this->situacaoProjeto(
+                    $this->situacaoProjetoResposta,
+                    $this->idPronac,
+                    'Dilig&ecirc;ncia respondida pelo proponente, esperando decis&atilde;o.'
+                );
             }
             $aux = "?idPronac={$this->idPronac}&idDiligencia={$this->idDiligencia}&idProduto={$this->idProduto}{$paramEdital}";
         }
 
         if ($post->idAvaliacaoProposta) {
-            $rsPreProjeto = $tblPreProjeto->buscar(array("idPreProjeto = ?"=>$this->idPreProjeto))->current();
+            $rsPreProjeto = $tblPreProjeto->buscar(array("idPreProjeto = ?" => $this->idPreProjeto))->current();
             $paramEdital = "";
             if ($rsPreProjeto->idEdital && $rsPreProjeto->idEdital != 0) {
                 $paramEdital = "&edital=sim";
@@ -636,14 +643,11 @@ class Proposta_DiligenciarController extends Proposta_GenericController
             if ($resp) {
                 if ($post->verificaEnviado == 'S') {
                     parent::message("Mensagem enviada com sucesso!", "/proposta/diligenciar/listardiligenciaproponente{$aux}", "CONFIRM");
-                    //$this->view->mensagem = 'Mensagem enviada com sucesso!';
                 } else {
                     parent::message("Mensagem salva com sucesso!", "/proposta/diligenciar/listardiligenciaproponente{$aux}", "CONFIRM");
-                    //$this->view->mensagem = 'Mensagem salva com sucesso!';
                 }
             } else {
                 parent::message('N&atildeo foi possivel realizar a opera&ccedil;&atildeo solicitada!', "/proposta/diligenciar/listardiligenciaproponente{$aux}", "ERROR");
-                //$this->view->mensagem = 'N&atildeo foi possivel tente mais tarde!';
             }
         } else {
             parent::message($retorno['Mensagem'], "/proposta/diligenciar/cadastrarrespostadiligencia{$aux}", "ERROR");
@@ -676,7 +680,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController
 
         // caso ja tenha diligencia para o pronac
         if (isset($this->idPronac) && !empty($this->idPronac)) {
-            $buscarDiligenciaResp = $diligenciaDAO->buscar(array('idPronac = ?' => $this->idPronac, 'DtResposta ?' => array(new Zend_Db_Expr('IS NULL')), 'stEnviado = ?'=>'S' ), array('idDiligencia DESC'), 0, 0, $this->getRequest()->getParam('idProduto'));
+            $buscarDiligenciaResp = $diligenciaDAO->buscar(array('idPronac = ?' => $this->idPronac, 'DtResposta ?' => array(new Zend_Db_Expr('IS NULL')), 'stEnviado = ?' => 'S'), array('idDiligencia DESC'), 0, 0, $this->getRequest()->getParam('idProduto'));
             if (count($buscarDiligenciaResp) > 0) {
                 $queryString = '?idPronac=' . $this->idPronac . '&situacao=' . $this->getRequest()->getParam('situacao') . '&tpDiligencia=' . $this->getRequest()->getParam('tpDiligencia');
                 parent::message('Existe dilig&ecirc;ncia aguardando resposta!', '/proposta/diligenciar/cadastrardiligencia' . $queryString, 'ALERT');
@@ -687,14 +691,14 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         $idProduto = $this->getRequest()->getParam('idProduto') ? $this->getRequest()->getParam('idProduto') : new Zend_Db_Expr('null');
 
         $dados = array(
-            'idPronac'          => $this->getRequest()->getParam('idPronac'),
-            'DtSolicitacao'     => null,
-            'Solicitacao'       => $this->getRequest()->getParam('solicitacao'),
-            'idSolicitante'     => null,
-            'idTipoDiligencia'  => $this->getRequest()->getParam('tpDiligencia'),
-            'idProduto'         => $idProduto,
-            'stEstado'          => 0,
-            'stEnviado'         => 'N'
+            'idPronac' => $this->getRequest()->getParam('idPronac'),
+            'DtSolicitacao' => null,
+            'Solicitacao' => $this->getRequest()->getParam('solicitacao'),
+            'idSolicitante' => null,
+            'idTipoDiligencia' => $this->getRequest()->getParam('tpDiligencia'),
+            'idProduto' => $idProduto,
+            'stEstado' => 0,
+            'stEnviado' => 'N'
         );
 
         if ($this->getRequest()->getParam('btnEnvio') == 1) {
@@ -734,25 +738,25 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         $notification = new Minc_Notification_Message();
         $notification
             ->setCpf($projeto->cpf)
+            ->setCodeDiligencia($projeto->idDiligencia)
             ->setCodePronac($projeto->idPronac)
             ->setListDeviceId($modelDispositivo->listarIdDispositivoMovel($listaDispositivos))
             ->setListResgistrationIds($modelDispositivo->listarIdRegistration($listaDispositivos))
-            ->setTitle('Projeto '. $projeto->pronac)
+            ->setTitle('Projeto ' . $projeto->pronac)
             ->setText('Recebeu nova dilig&ecirc;ncia!')
             ->setListParameters(array('projeto' => $projeto->idPronac))
-            ->send()
-        ;
+            ->send();
     }
 
     public function salvardiligenciaAction()
     {
-        $post                   = Zend_Registry::get('post');
-        $diligenciaDAO          = new Diligencia();
-        $ProjetoDAO             = new Projetos();
-        $AvaliacaoPropostaDAO   = new AvaliacaoProposta();
-        $PreProjetoDAO          = new Proposta_Model_DbTable_PreProjeto();
-        $verificacaodao         = new Verificacao();
-        $auth                   = Zend_Auth::getInstance();
+        $post = Zend_Registry::get('post');
+        $diligenciaDAO = new Diligencia();
+        $ProjetoDAO = new Projetos();
+        $AvaliacaoPropostaDAO = new AvaliacaoProposta();
+        $PreProjetoDAO = new Proposta_Model_DbTable_PreProjeto();
+        $verificacaodao = new Verificacao();
+        $auth = Zend_Auth::getInstance();
 
         if ($this->idPronac) {
             $agente = $ProjetoDAO->buscarAgenteProjeto(array(' pro.IdPRONAC = ?' => $this->idPronac))->current();
@@ -762,7 +766,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController
                 $idProduto = new Zend_Db_Expr('null');
             }
 
-            $Usuario = new Autenticacao_Model_Usuario();
+            $Usuario = new Autenticacao_Model_DbTable_Usuario();
             $idagente = $auth->getIdentity()->usu_codigo;
 
             $stEnviado = 'N';
@@ -771,22 +775,22 @@ class Proposta_DiligenciarController extends Proposta_GenericController
             }
 
             $dados = array(
-                'idPronac'          => $post->idPronac,
-                'DtSolicitacao'     => new Zend_Db_Expr('GETDATE()'),
-                'Solicitacao'       => $_POST['solicitacao'],
-                'idSolicitante'     => $idagente,
-                'idTipoDiligencia'  => $post->tpDiligencia,
-                'idProduto'         => $idProduto,
-                'stEstado'          => 0,
-                'stEnviado'         => $stEnviado
+                'idPronac' => $post->idPronac,
+                'DtSolicitacao' => new Zend_Db_Expr('GETDATE()'),
+                'Solicitacao' => $_POST['solicitacao'],
+                'idSolicitante' => $idagente,
+                'idTipoDiligencia' => $post->tpDiligencia,
+                'idProduto' => $idProduto,
+                'stEstado' => 0,
+                'stEnviado' => $stEnviado
             );
 
             $ult = $diligenciaDAO->alterar($dados, array('idDiligencia = ?' => $_POST['idDiligencia']));
             $tipoDiligencia = $verificacaodao->tipoDiligencia(array('idVerificacao = ?' => $post->tpDiligencia));
 
             $data = array(
-                'Situacao'          => $this->situacao,
-                'DtSituacao'        => date("Y-m-d"),
+                'Situacao' => $this->situacao,
+                'DtSituacao' => date("Y-m-d"),
                 'ProvidenciaTomada' => 'Projeto Diligenciado na Fase ' . $tipoDiligencia[0]->Descricao
             );
         }
@@ -804,21 +808,20 @@ class Proposta_DiligenciarController extends Proposta_GenericController
     private function eviarEmail($idPronac, $tpDiligencia)
     {
         $auth = Zend_Auth::getInstance();
-        $tbTextoEmailDAO    =   new tbTextoEmail();
-        $projetosDAO        =   new Projetos();
+        $tbTextoEmailDAO = new tbTextoEmail();
+        $projetosDAO = new Projetos();
 
-        $where  =   array(
-                        'idTextoEmail = ?'  =>  14
-                    );
-        $textoEmail     =   $tbTextoEmailDAO->buscar($where)->current();
+        $where = array(
+            'idTextoEmail = ?' => 14
+        );
+        $textoEmail = $tbTextoEmailDAO->buscar($where)->current();
 
-        $dadosProjeto   =   $projetosDAO->dadosProjetoDiligencia($idPronac)->current();
+        $dadosProjeto = $projetosDAO->dadosProjetoDiligencia($idPronac)->current();
 
-        $email  =   'bruno.alexandre@cultura.gov.br';
+        $email = 'bruno.alexandre@cultura.gov.br';
 
         $mens = '<b>Projeto: ' . $dadosProjeto->pronac . ' - ' . $dadosProjeto->NomeProjeto . '<br> Proponente: ' .
-         $dadosProjeto->Destinatario . '<br> </b>' . $textoEmail->dsTexto;
-
+            $dadosProjeto->Destinatario . '<br> </b>' . $textoEmail->dsTexto;
 
 
         $assunto = 'Diligencia na fase de ';
@@ -864,110 +867,37 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         $tbHistoricoEmailDAO = new tbHistoricoEmail();
 
         $dados = array(
-                    'idPronac'=>$idPronac,
-                    'idTextoemail'=>14,
-                    'iDAvaliacaoProposta'=>new Zend_Db_Expr('NULL'),
-                    'DtEmail'=>new Zend_Db_Expr('getdate()'),
-                    'stEstado'=>1,
-                    'idUsuario'=>$auth->getIdentity()->usu_codigo,
-                 );
+            'idPronac' => $idPronac,
+            'idTextoemail' => 14,
+            'iDAvaliacaoProposta' => new Zend_Db_Expr('NULL'),
+            'DtEmail' => new Zend_Db_Expr('getdate()'),
+            'stEstado' => 1,
+            'idUsuario' => $auth->getIdentity()->usu_codigo,
+        );
 
         $tbHistoricoEmailDAO->inserir($dados);
     }
 
-    /**
-     * operacoesDiligencia
-     *
-     * @access private
-     * @return void
-     */
-    private function operacoesDiligencia()
-    {
-    }
-
-    /**
-     * anexararquivo
-     *
-     * @access private
-     * @return void
-     */
-    private function anexararquivo()
-    {
-        // pega as informa��es do arquivo
-        $idArquivo = '';
-        $Mensagem = '';
-        if (is_file($_FILES['arquivo']['tmp_name'])) {
-            $arquivoNome     = $_FILES['arquivo']['name']; // nome
-            $arquivoTemp     = $_FILES['arquivo']['tmp_name']; // nome tempor�rio
-            $arquivoTipo     = $_FILES['arquivo']['type']; // tipo
-            $arquivoTamanho  = $_FILES['arquivo']['size']; // tamanho
-
-            if (!empty($arquivoNome) && !empty($arquivoTemp)) {
-                $arquivoExtensao = Upload::getExtensao($arquivoNome); // extens�o
-                $arquivoBinario  = Upload::setBinario($arquivoTemp); // bin�rio
-                $arquivoHash     = Upload::setHash($arquivoTemp); // hash
-            }
-
-            if (!isset($_FILES['arquivo'])) {
-                parent::message("O arquivo n&atilde;o atende os requisitos informados no formul&aacute;rio.", "upload/form-enviar-arquivo-marca?idPronac=$idPronac", "ERROR");
-            }
-
-            if (empty($_FILES['arquivo']['tmp_name'])) {
-                parent::message("Favor selecionar um arquivo.", "upload/form-enviar-arquivo-marca?idPronac=$idPronac", "ERROR");
-            }
-
-            $tipos = array('bmp','gif','jpeg','jpg','png','raw','tif','pdf');
-            if (!in_array(strtolower($arquivoExtensao), $tipos)) {
-                parent::message("Favor selecionar o arquivo de Marca no formato BMP, GIF, JPEG, JPG, PNG, RAW, TIF ou PDF!", "upload/form-enviar-arquivo-marca?idPronac=$idPronac", "ERROR");
-            }
-
-            if (!empty($idPronac) && $idPronac != "0") {
-                $dataString = file_get_contents($arquivoTemp);
-                $arrData = unpack("H*hex", $dataString);
-                $data = "0x".$arrData['hex'];
-                $observacao = '';
-
-                // ==================== PERSISTE DADOS DO ARQUIVO =================//
-                $dadosArquivo = array(
-                        'nmArquivo'         => $arquivoNome,
-                        'sgExtensao'        => $arquivoExtensao,
-                        'biArquivo'         => $data,
-                        'dsDocumento'       => $observacao,
-                        'idPronac'          => $idPronac);
-
-                $Arquivo = new Arquivo();
-                $idArquivo = $Arquivo->inserirMarca($dadosArquivo);
-            }
-        }
-        return array('idArquivo'=>$idArquivo,'Mensagem'=>$Mensagem);
-    }
-
-    /**
-     * imprimirAction
-     *
-     * @access public
-     * @return void
-     */
     public function imprimirAction()
     {
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
-        $verificacaodao         = new Verificacao();
-        $Projetosdao            = new Projetos();
-        $PreProjetodao          = new Proposta_Model_DbTable_PreProjeto();
-        $DocumentosExigidosDao  = new DocumentosExigidos();
+        $verificacaodao = new Verificacao();
+        $Projetosdao = new Projetos();
+        $PreProjetodao = new Proposta_Model_DbTable_PreProjeto();
+        $DocumentosExigidosDao = new DocumentosExigidos();
 
         $post = Zend_Registry::get('post');
-        $this->view->idPronac           = $this->idPronac;
-        $this->view->idPreProjeto       = $this->idPreProjeto;
-        $this->view->idProduto          = $this->idProduto;
+        $this->view->idPronac = $this->idPronac;
+        $this->view->idPreProjeto = $this->idPreProjeto;
+        $this->view->idProduto = $this->idProduto;
 
-        $this->view->idDiligencia        = $post->idDiligencia;
+        $this->view->idDiligencia = $post->idDiligencia;
         $this->view->idAvaliacaoProposta = $post->idAvaliacaoProposta;
 
         if ($this->view->idDiligencia) {
             $resp = $Projetosdao->listarDiligencias(array('pro.IdPRONAC = ?' => $this->view->idPronac, 'dil.idDiligencia in (?)' => $this->view->idDiligencia));
-            $this->view->nmCodigo       = 'PRONAC';
-            $this->view->nmTipo         = 'DO PROJETO';
+            $this->view->nmCodigo = 'PRONAC';
+            $this->view->nmTipo = 'DO PROJETO';
             $this->view->dadosDiligencia = $resp;
         }
 
@@ -982,15 +912,15 @@ class Proposta_DiligenciarController extends Proposta_GenericController
             }
 
             $resp = $PreProjetodao->listarDiligenciasPreProjeto(array('pre.idPreProjeto = ?' => $idPreProjeto, ' aval.idAvaliacaoProposta in (?)' => $this->view->idAvaliacaoProposta));
-            $this->view->nmCodigo   = 'Nr PROPOSTA';
-            $this->view->nmTipo     = 'DA PROPOSTA';
-            $this->view->dadosDiligencia  = $resp;
+            $this->view->nmCodigo = 'Nr PROPOSTA';
+            $this->view->nmTipo = 'DA PROPOSTA';
+            $this->view->dadosDiligencia = $resp;
         }
 
         if ($resp[0]->idCodigoDocumentosExigidos) {
-            $documento                      = $DocumentosExigidosDao->listarDocumentosExigido($resp[0]->idCodigoDocumentosExigidos);
-            $this->view->DocumentosExigido  = $documento[0]->Descricao;
-            $this->view->Opcao              = $documento[0]->Opcao;
+            $documento = $DocumentosExigidosDao->listarDocumentosExigido($resp[0]->idCodigoDocumentosExigidos);
+            $this->view->DocumentosExigido = $documento[0]->Descricao;
+            $this->view->Opcao = $documento[0]->Opcao;
         }
 
         $arquivos = array();
@@ -1003,44 +933,38 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         $this->view->arquivos = $arquivos;
     }
 
-    /**
-     * prorrogarAction
-     *
-     * @access public
-     * @return void
-     */
     public function prorrogarAction()
     {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
-        $post                   = Zend_Registry::get('post');
-        $Diligenciadao          = new Diligencia();
-        $AvaliacaoPropostadao   = new AvaliacaoProposta();
-        $Projetosdao            = new Projetos();
-        $dados                  = array(
+        $post = Zend_Registry::get('post');
+        $Diligenciadao = new Diligencia();
+        $AvaliacaoPropostadao = new AvaliacaoProposta();
+        $Projetosdao = new Projetos();
+        $dados = array(
             'stProrrogacao' => "S"
         );
         if ($post->idPronac != '') {
             if ($post->idDiligencia) {
                 $where = array(
-                    'idPronac = ?'      => $post->idPronac,
-                    'idDiligencia = ?'  => $post->idDiligencia
+                    'idPronac = ?' => $post->idPronac,
+                    'idDiligencia = ?' => $post->idDiligencia
                 );
                 $prorrogado = $Diligenciadao->update($dados, $where);
             }
             if ($post->idAvaliacaoProposta) {
                 $projeto = $Projetosdao->buscar(array('IdPRONAC = ?' => $this->idPronac));
                 $where = array(
-                    'idProjeto = ?'             => $projeto[0]->idProjeto,
-                    'idAvaliacaoProposta = ?'   => $post->idAvaliacaoProposta
+                    'idProjeto = ?' => $projeto[0]->idProjeto,
+                    'idAvaliacaoProposta = ?' => $post->idAvaliacaoProposta
                 );
                 $prorrogado = $AvaliacaoPropostadao->update($dados, $where);
             }
         } else {
             $AvaliacaoPropostadao = new AvaliacaoProposta();
             $where = array(
-                'idProjeto = ?'             => $post->idPreProjeto,
-                'idAvaliacaoProposta = ?'   => $post->idAvaliacaoProposta
+                'idProjeto = ?' => $post->idPreProjeto,
+                'idAvaliacaoProposta = ?' => $post->idAvaliacaoProposta
             );
             $prorrogado = $AvaliacaoPropostadao->update($dados, $where);
         }
@@ -1065,19 +989,19 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
 
-        $diligenciaDao          = new Diligencia();
-        $AvaliacaoPropostaDao   = new AvaliacaoProposta();
+        $diligenciaDao = new Diligencia();
+        $AvaliacaoPropostaDao = new AvaliacaoProposta();
         //atualizar situa�?o do projeto para diligencias n?o respondidas
-        $diligenciaProjeto      = $diligenciaDao->diligenciasNaoRespondidas();
+        $diligenciaProjeto = $diligenciaDao->diligenciasNaoRespondidas();
         foreach ($diligenciaProjeto as $value) {
             $this->situacaoProjeto($this->situacaoProjetoNaoResposta, $value->idPronac);
         }
         //resposta da diligencia Projeto
         $diligenciaProjeto = $diligenciaDao->diligenciasNaoRespondidas(true);
         $data = array(
-            'DtResposta'    => new Zend_Db_Expr('GETDATE()'),
-            'stEnviado'     => 'S',
-            'RESPOSTA'      => 'O PROPONENTE NÃO RESPONDEU A DILIGÊNCIA NO PRAZO DETERMINADO PELA IN 3 DE 30 DE DEZEMBRO DE 2010; ESPERANDO DECISÃO.'
+            'DtResposta' => new Zend_Db_Expr('GETDATE()'),
+            'stEnviado' => 'S',
+            'RESPOSTA' => 'O PROPONENTE NÃO RESPONDEU A DILIGÊNCIA NO PRAZO DETERMINADO PELA IN 3 DE 30 DE DEZEMBRO DE 2010; ESPERANDO DECISÃO.'
         );
         $where = array('idPronac in (?)' => $diligenciaProjeto);
         $diligenciaDao->update($data, $where);
@@ -1085,36 +1009,23 @@ class Proposta_DiligenciarController extends Proposta_GenericController
         //resposta da diligencia Proposta
         $diligenciaProposta = $AvaliacaoPropostaDao->diligenciasNaoRespondidas(true);
         $data = array(
-            'dtResposta'    => new Zend_Db_Expr('GETDATE()'),
-            'stEnviado'     => 'S',
-            'dsResposta'    => 'O PROPONENTE NÃO RESPONDEU A DILIGÊNCIA NO PRAZO DETERMINADO PELA IN 3 DE 30 DE DEZEMBRO DE 2010; ESPERANDO DECISÃO.'
+            'dtResposta' => new Zend_Db_Expr('GETDATE()'),
+            'stEnviado' => 'S',
+            'dsResposta' => 'O PROPONENTE NÃO RESPONDEU A DILIGÊNCIA NO PRAZO DETERMINADO PELA IN 3 DE 30 DE DEZEMBRO DE 2010; ESPERANDO DECISÃO.'
         );
         $where = array('idPronac in (?)' => $diligenciaProposta);
         $AvaliacaoPropostaDao->update($data, $where);
 
-        /* $dao        = new DiligenciarDao();
-
-          $dao->checarprazoresposta();
-
-          $this->situacaoProjeto($this->situacaoProjetoNaoResposta);
-
-          $dao->checarprazorespostaProposta(); */
     }
 
-    /**
-     * listardiligenciaadmissibilidadeAction
-     *
-     * @access public
-     * @return void
-     */
     public function listardiligenciaadmissibilidadeAction()
     {
-        $Projetosdao   = new Projetos();
+        $Projetosdao = new Projetos();
         $PreProjetodao = new Proposta_Model_DbTable_PreProjeto();
 
         ini_set('memory_limit', '-1');
 
-        $this->view->diligencias         = $Projetosdao->listarDiligencias(array('dil.idTipoDiligencia = ?' => 124, 'dil.stEnviado = ?' => 'S', 'dil.stEstado = ?' => '0', 'dil.DtResposta ?' => new Zend_Db_Expr('IS NOT NULL'), 'dil.idProponente ?' => new Zend_Db_Expr('IS NOT NULL')));
+        $this->view->diligencias = $Projetosdao->listarDiligencias(array('dil.idTipoDiligencia = ?' => 124, 'dil.stEnviado = ?' => 'S', 'dil.stEstado = ?' => '0', 'dil.DtResposta ?' => new Zend_Db_Expr('IS NOT NULL'), 'dil.idProponente ?' => new Zend_Db_Expr('IS NOT NULL')));
         $this->view->diligenciasProposta = $PreProjetodao->listarDiligenciasPreProjeto(array('aval.dtResposta ?' => new Zend_Db_Expr('IS NOT NULL'), 'aval.stEnviado = ?' => 'S'));
     }
 }

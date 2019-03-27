@@ -1,0 +1,252 @@
+<form name="formReadequacao"
+      id="formReadequacao"
+      action="<?php echo $this->action; ?>"
+      method="post"
+      enctype="multipart/form-data">
+    <input type="hidden" id="idReadequacao" name="idReadequacao"
+           value="<?php echo $this->readequacao['idReadequacao']; ?>">
+    <input type="hidden" id="tipoReadequacao" name="tipoReadequacao" value="<?php echo $this->idTipoReadequacao; ?>">
+    <input type="hidden" id="urlCallback" name="urlCallback" value="<?php echo $this->urlCallback; ?>">
+    <div class="row">
+        <div class="col s12">
+            <span>Justificativa da Solicita&ccedil;&atilde;o </span><span class="red-text">*</span>
+            <textarea cols="80" class="editor" id="descJustificativa" name="descJustificativa" rows="10">
+                <?php echo $this->readequacao['justificativa']; ?>
+            </textarea>
+        </div>
+        <table class="tabela solicitacoesSimples">
+            <tr>
+                <td>
+                    <label for="arquivo" style="width: 100px; ">Anexar arquivo: </label>
+                    <input type="file" name="arquivo" id="arquivo" class="input_simples">
+                </td>
+            </tr>
+            <?php if (!empty($this->readequacao['idDocumento'])): ?>
+                <tr>
+                    <td>
+                        Anexo: <a href="<?= $this->url(
+                            array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'abrir-documento-readequacao'), null, true); ?>?id=<?= $this->readequacao['idDocumento']; ?>">
+                            <?php echo $this->readequacao['nomeArquivo']; ?>
+                        </a>
+                    </td>
+                </tr>
+            <?php endif; ?>
+        </table>
+    </div>
+    <div class="padding20 center-align">
+        <a
+            id="IncluirReadequacao" class="waves-effect waves-light btn btn-primary">
+            <i class="material-icons right">save</i>Salvar
+        </a>
+
+        <a
+            href="javascript:void(0)"
+            <?php if ($this->readequacao['idReadequacao']) : ?>
+                id="btn_finalizar"
+                readequacao="<?php echo $this->readequacao['idReadequacao']; ?>"
+            <?php else: ?>
+                disabled="disabled"
+            <?php endif; ?>
+                class="waves-effect waves-light btn btn-secondary">
+            <i class="material-icons right">send</i>Finalizar
+        </a>
+
+        <?php if ($this->readequacao['idReadequacao']) : ?>
+            <a
+                href="javascript:void(0)"
+                class="btn waves-effect waves-light btn-danger btn-excluir"
+                title="Excluir readequa&ccedil;&atilde;o"
+                readequacao="<?php echo $this->readequacao['idReadequacao']; ?>"
+            > Excluir
+                <i class="material-icons right">delete</i>
+            </a>
+        <?php endif; ?>
+    </div>
+</form>
+
+<div id="msgAlertaFormulario" class="sumir"></div>
+
+<script type="text/javascript">
+
+    function excluirReadequacao(idReadequacao) {
+        window.location = "<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'excluir-solicitacao-readequacao'), null, true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>&idReadequacao=" + idReadequacao;
+    }
+
+    function enviarformulario() {
+        $('#formReadequacao').submit();
+    }
+
+    function finalizarformulario(idReadequacao) {
+        window.location = "<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'finalizar-solicitacao-readequacao'), null, true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>&idReadequacao=" + idReadequacao;
+    }
+
+    $(document).ready(function () {
+
+        $("textarea.editor").each(function () {
+            $(this).editorRico({
+                altura: 200,
+                maxchar: 5000,
+                isLimitarCarateres: true,
+                isDesabilitarEdicao: 0
+            });
+        });
+
+        $('#IncluirReadequacao').click(function () {
+            if (typeof tinyMCE == 'object') {
+                tinyMCE.triggerSave();
+            }
+
+            var descJustificativa = $('#descJustificativa').val().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g, ''),
+                texto = $('#descJustificativa').val(),
+                erro = 0,
+                msg = 'Favor preencher os dados obrigat&oacute;rios!',
+                tipoRead = $('#tipoReadequacao').val(),
+                solicitacoesSimples = new Array(3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21),
+                solicitacoesSimplesCKEditor = new Array(5, 6, 7, 8, 16, 17, 18, 19, 20, 21),
+                naoPedeConfirmacao = new Array(2, 11);
+
+            if (descJustificativa.length <= 1) {
+                erro++;
+            }
+
+            if (texto.length > 5000) {
+                erro++;
+                msg = 'O campo s\u00F3 permite 5.000 caracteres!';
+            }
+
+            if (in_array(tipoRead, solicitacoesSimples)) {
+
+                if (tipoRead == 15) {
+                    var campoRead = CKEDITOR.instances['descSolicitacao'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g, ''),
+                        textoSolicitacao = CKEDITOR.instances['descSolicitacao'].getData();
+                    if (campoRead == '') {
+                        erro++;
+                    } else if (textoSolicitacao.length > 1000) {
+                        erro++;
+                        msg = 'O campo s\u00F3 permite 1.000 caracteres!';
+                    }
+                }
+
+                if (in_array(tipoRead, solicitacoesSimplesCKEditor)) {
+                    var campoRead = CKEDITOR.instances['descSolicitacao'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g, ''),
+                        textoSolicitacao = CKEDITOR.instances['descSolicitacao'].getData();
+                    if (campoRead == '') {
+                        erro++;
+                    }
+                }
+            }
+
+            if (erro > 0) {
+                $("#msgAlertaFormulario").dialog("destroy");
+                $("#msgAlertaFormulario").html(msg);
+                $("#msgAlertaFormulario").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width: 340,
+                    height: 170,
+                    modal: true,
+                    buttons: {
+                        'OK': function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            } else {
+                $("#msgAlertaFormulario").dialog("destroy");
+                $("#msgAlertaFormulario").html('Deseja incluir essa solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o?');
+                $("#msgAlertaFormulario").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width: 360,
+                    height: 170,
+                    modal: true,
+                    buttons: {
+                        'N\u00E3o': function () {
+                            $(this).dialog('close');
+                        },
+                        'Sim': function () {
+                            $(this).dialog('close');
+                            $("#msgAlertaFormulario").dialog("destroy");
+                            $("#msgAlertaFormulario").html('<br /><div align="center"><img src="<?php echo $this->baseUrl() . '/public/img/ajax.gif'; ?>"><br />Aguarde..</div>');
+                            $("#msgAlertaFormulario").dialog({
+                                resizable: false,
+                                width: 320,
+                                modal: true,
+                                title: 'Carregando..'
+                            });
+                            $('.ui-dialog-titlebar-close').remove();
+                            $('#formReadequacao').submit();
+//                            window.setTimeout('enviarformulario()', 1000);
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            }
+        });
+
+        $('.btn-excluir').click(function () {
+            var idReadequacao = $(this).attr('readequacao');
+            $("#msgAlertaFormulario").dialog("destroy");
+            $("#msgAlertaFormulario").html('Deseja excluir a solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o?');
+            $("#msgAlertaFormulario").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width: 360,
+                modal: true,
+                buttons: {
+                    'N\xE3o': function () {
+                        $(this).dialog('close');
+                    },
+                    'Sim': function () {
+                        $(this).dialog('close');
+                        $("#msgAlertaFormulario").dialog("destroy");
+                        $("#msgAlertaFormulario").html('<br /><div align="center"><img src="<?php echo $this->baseUrl() . '/public/img/ajax.gif'; ?>"><br />Aguarde..</div>');
+                        $("#msgAlertaFormulario").dialog({
+                            resizable: false,
+                            width: 320,
+                            modal: true,
+                            title: 'Carregando..'
+                        });
+                        $('.ui-dialog-titlebar-close').remove();
+                        window.setTimeout('excluirReadequacao(' + idReadequacao + ')', 1000);
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+        });
+
+        $('#btn_finalizar').click(function () {
+            var idReadequacao = $(this).attr('readequacao');
+            $("#msgAlerta").dialog("destroy");
+            $("#msgAlerta").html('Deseja realmente finalizar a solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o cadastrada?<br /><br />' +
+                'Salve as altera&ccedil;&otilde;es antes de finalizar.<br />' +
+                '<br />Ao finalizar, apenas esta solicita&ccedil;&atilde;o ser&aacute; encaminhadas ao MinC.');
+            $("#msgAlerta").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width: 360,
+                modal: true,
+                buttons: {
+                    'N\u00E3o': function () {
+                        $(this).dialog('close');
+                    },
+                    'Sim': function () {
+                        $(this).dialog('close');
+                        $("#msgAlerta").dialog("destroy");
+                        $("#msgAlerta").html('<br /><div align="center"><img src="<?php echo $this->baseUrl() . '/public/img/ajax.gif'; ?>"><br />Aguarde..</div>');
+                        $("#msgAlerta").dialog({
+                            resizable: false,
+                            width: 320,
+                            modal: true,
+                            title: 'Carregando..'
+                        });
+                        $('.ui-dialog-titlebar-close').remove();
+                        window.setTimeout('finalizarformulario(' + idReadequacao + ')', 1000);
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+        });
+    });
+</script>

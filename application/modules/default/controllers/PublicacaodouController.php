@@ -415,8 +415,8 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract
                     // verifica se eh readequacao
                     if (isset($buscaridpronac['IDREADEQUACAO']) && ! empty($buscaridpronac['IDREADEQUACAO'])) {
                         $naoAlteraSituacao = array(3, 10, 12, 15);  // tipos de readequacoes para as quais nao e necessario alterar a situacao do projeto
-                        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-                        $readequacao = $Readequacao_Model_tbReadequacao->buscarReadequacao($buscaridpronac['IDREADEQUACAO']);
+                        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+                        $readequacao = $Readequacao_Model_DbTable_TbReadequacao->buscarReadequacao($buscaridpronac['IDREADEQUACAO']);
                         if (in_array($readequacao->current()->idTipoReadequacao, $naoAlteraSituacao)) {
                             $atualizarSituacao = false;
                         } else {
@@ -581,187 +581,179 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract
         } // fecha if
     }
 
-
-    /**
-     * Faz a publica&ccedil;&atilde;o na portaria
-     */
     public function publicarportariaAction()
     {
         ini_set('memory_limit', '-1');
+        try {
 
-        if ($_GET['PortariaAprovacao']) {
-            $PortariaAprovacao = $_GET['PortariaAprovacao'];
-
-            if (isset($_GET['tipo'])) {
-                switch ($_GET['tipo']) {
-                    case 'aprovacaoInicial':
-                        $TipoAprovacao = 1;
-                        $situacaoAtual = 'D09';
-                        break;
-                    case 'complementacao':
-                        $TipoAprovacao = 2;
-                        $situacaoAtual = 'D16';
-                        break;
-                    case 'prorrogacao':
-                        $TipoAprovacao = 3;
-                        $situacaoAtual = 'D17';
-                        break;
-                    case 'reducao':
-                        $TipoAprovacao = 4;
-                        $situacaoAtual = 'D23';
-                        break;
-                    case 'aprovacaoPrestacao':
-                        $TipoAprovacao = 5;
-                        $situacaoAtual = 'D42';
-                        break;
-                    case 'reprovacaoPrestacao':
-                        $TipoAprovacao = 6;
-                        $situacaoAtual = 'D43';
-                        break;
-                    case 'readequacao':
-                        $TipoAprovacao = 8;
-                        //$situacaoAtual = 'D43';
-                        break;
-                }
-            } else {
-                $TipoAprovacao = 1;
-                $situacaoAtual = 'D09';
+            $portariaAprovacao = $this->_request->getParam('PortariaAprovacao');
+            if (empty($portariaAprovacao)) {
+                throw new Exception("Portaria &eacute; obrigat&oacute;ria");
             }
 
-            $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
-            $orgaoLogado = $GrupoAtivo->codOrgao; // manda o orgao ativo do usuario para a visao
+            $tipoAprovacao = Aprovacao::TIPO_APROVACAO_INICIAL;
+            $situacaoAtual = 'D09';
 
-            $Orgaos = new Orgaos();
-            $orgaoSuperior = $Orgaos->codigoOrgaoSuperior($orgaoLogado)->current();
+            $tipo = $this->_request->getParam('tipo');
+            switch ($tipo) {
+                case 'aprovacaoInicial':
+                    $tipoAprovacao = Aprovacao::TIPO_APROVACAO_INICIAL;
+                    $situacaoAtual = 'D09';
+                    break;
+                case 'complementacao':
+                    $tipoAprovacao = Aprovacao::TIPO_APROVACAO_COMPLEMENTACAO;
+                    $situacaoAtual = 'D16';
+                    break;
+                case 'prorrogacao':
+                    $tipoAprovacao = Aprovacao::TIPO_APROVACAO_PRORROGACAO;
+                    $situacaoAtual = 'D17';
+                    break;
+                case 'reducao':
+                    $tipoAprovacao = Aprovacao::TIPO_APROVACAO_REDUCAO;
+                    $situacaoAtual = 'D23';
+                    break;
+                case 'aprovacaoPrestacao':
+                    $tipoAprovacao = Aprovacao::TIPO_APROVACAO_PRESTACAO_REPROVADA;
+                    $situacaoAtual = 'D42';
+                    break;
+                case 'reprovacaoPrestacao':
+                    $tipoAprovacao = Aprovacao::TIPO_APROVACAO_PRESTACAO_APROVADA;
+                    $situacaoAtual = 'D43';
+                    break;
+                case 'readequacao':
+                    $tipoAprovacao = Aprovacao::TIPO_APROVACAO_READEQUACAO;
+                    //$situacaoAtual = 'D43';
+                    break;
+            }
 
-            $auth = Zend_Auth::getInstance(); // pega a autenticacao
+            $grupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
+            $orgaoLogado = $grupoAtivo->codOrgao;
+
+            $orgaos = new Orgaos();
+            $orgaoSuperior = $orgaos->codigoOrgaoSuperior($orgaoLogado)->current();
+
+            $auth = Zend_Auth::getInstance();
             $usuarioLogado = $auth->getIdentity()->usu_codigo;
 
-            try {
-                // REDUCAO OU COMPLEMENTACAO
-                if ($TipoAprovacao == 2 || $TipoAprovacao == 4) {
-                    $where = array();
-                    if ($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC) {
-                        $where['a.Area <> ?'] = 2;
-                    } else {
-                        $where['a.Area = ?'] = 2;
-                    }
-                    $where['b.TipoAprovacao = ?'] = $TipoAprovacao;
-                    $where['b.PortariaAprovacao = ?'] = $PortariaAprovacao;
-
-                    $ap = new Aprovacao();
-                    $projetos = $ap->consultaPortariaReadequacoes($where);
-
-                    foreach ($projetos as $p) {
-                        $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
-                        
-                        $PlanilhaAtiva = $tbPlanilhaAprovacao->valorTotalPlanilhaAtiva($p->IdPRONAC);
-                        
-                        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-                        $idReadequacao = $Readequacao_Model_tbReadequacao->buscarIdReadequacaoAtiva(
-                            $p->IdPRONAC,
-                            Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA
-                        );
-                        
-                        $PlanilhaReadequada = $tbPlanilhaAprovacao->valorTotalPlanilhaReadequada(
-                            $p->IdPRONAC,
-                            $idReadequacao
-                        );
-                        
-                        if ($PlanilhaAtiva['Total'] != $PlanilhaReadequada['Total']) {
-                            // quando atualiza portaria na dou, troca planilhas e muda status na Readequacao_Model_tbReadequacao
-                            //Atualiza a tabela Readequacao_Model_tbReadequacao
-
-                            $dados = array();
-                            $dados['siEncaminhamento'] = 15; //Finalizam sem a necessidade de passar pela publica&ccedil;&atilde;o no DOU.
-                            $dados['stEstado'] = 1;
-                            $where = "idReadequacao = " . $p->idReadequacao;
-                            $return = $Readequacao_Model_tbReadequacao->update($dados, $where);
-
-                            $spAtivarPlanilhaOrcamentaria = new spAtivarPlanilhaOrcamentaria();
-                            $ativarPlanilhaOrcamentaria = $spAtivarPlanilhaOrcamentaria->exec($p->IdPRONAC);
-                        }
-
-                        // PUBLICA NO DOU
-                        PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'E10', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
-                        PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'E12', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
-
-                        // fim da atualizacao da complementacao / reducao
-                    }
-                } elseif ($TipoAprovacao == 5) {
-                    PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'E19', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
-                } elseif ($TipoAprovacao == 6) {
-                    PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'L05', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
-                } elseif ($TipoAprovacao == 8) {
-                    $where = array();
-                    if ($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC) {
-                        $where['a.Area <> ?'] = 2;
-                    } else {
-                        $where['a.Area = ?'] = 2;
-                    }
-                    $where['b.TipoAprovacao = ?'] = 8;
-                    $where['b.PortariaAprovacao = ?'] = $PortariaAprovacao;
-
-                    $ap = new Aprovacao();
-                    $projetos = $ap->consultaPortariaReadequacoes($where);
-                    foreach ($projetos as $p) {
-                        // READEQUACAO DE ALTERACAO DE RAZAO SOCIAL
-                        if ($p->idTipoReadequacao == 3) {
-                            $Projetos = new Projetos();
-                            $dadosPrj = $Projetos->find(array('IdPRONAC=?'=>$p->IdPRONAC))->current();
-
-                            $Agentes = new Agente_Model_DbTable_Agentes();
-                            $dadosAgente = $Agentes->buscar(array('CNPJCPF=?'=>$dadosPrj->CgcCpf))->current();
-
-                            $Nomes = new Nomes();
-                            $dadosNomes = $Nomes->buscar(array('idAgente=?'=>$dadosAgente->idAgente))->current();
-                            $dadosNomes->Descricao = $p->dsSolicitacao;
-                            $dadosNomes->save();
-
-                            // READEQUACAO DE ALTERACAO DE PROPONENTE
-                        } elseif ($p->idTipoReadequacao == 10) {
-                            $Projetos = new Projetos();
-                            $dadosPrj = $Projetos->find(array('IdPRONAC=?'=>$p->IdPRONAC))->current();
-
-                            $cnpjcpf = Mascara::delMaskCPFCNPJ($p->dsSolicitacao);
-                            $dadosPrj->CgcCpf = $cnpjcpf;
-                            $dadosPrj->save();
-
-                            // READEQUACAO DE NOME DO PROJETO
-                        } elseif ($p->idTipoReadequacao == 12) {
-                            $Projetos = new Projetos();
-                            $dadosPrj = $Projetos->find(array('IdPRONAC=?'=>$p->IdPRONAC))->current();
-                            $dadosPrj->NomeProjeto = $p->dsSolicitacao;
-                            $dadosPrj->ProvidenciaTomada = 'Projeto aprovado e publicado no Di&aacute;rio Oficial da Uni&atilde;o.';
-                            $dadosPrj->Logon = $usuarioLogado;
-                            $dadosPrj->save();
-
-                            // READEQUACAO DE RESUMO DO PROJETO
-                        } elseif ($p->idTipoReadequacao == 15) {
-                            $Projetos = new Projetos();
-                            $dadosPrj = $Projetos->find(array('IdPRONAC=?'=>$p->IdPRONAC))->current();
-                            $dadosPrj->ResumoProjeto = $p->dsSolicitacao;
-                            $dadosPrj->ProvidenciaTomada = 'Projeto aprovado e publicado no Di&aacute;rio Oficial da Uni&atilde;o.';
-                            $dadosPrj->Logon = $usuarioLogado;
-                            $dadosPrj->save();
-                        }
-
-                        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-                        $dadosReadequacao = $Readequacao_Model_tbReadequacao->buscar(array('idReadequacao = ?' => $p->idReadequacao))->current();
-                        $dadosReadequacao->siEncaminhamento = 15;
-                        $dadosReadequacao->stEstado = 1;
-                        $dadosReadequacao->save();
-                    }
-                    parent::message("Portaria publicada com sucesso!", "publicacaodou/index?pronac=&situacao=".$this->_getParam('tipo'), "CONFIRM");
-                } else {
-                    PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'E10', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
-                    PublicacaoDouDAO::situcaopublicacaodou($TipoAprovacao, $PortariaAprovacao, 'E12', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
-                }
-                parent::message("Portaria publicada com sucesso!", "publicacaodou/index?pronac=&situacao=".$_GET['tipo'], "CONFIRM");
-            } catch (Exception $e) {
-                parent::message("Erro ao atualizar a portaria!" . $e->getMessage(), "publicacaodou/index?pronac=&situacao=".$_GET['tipo'], "ERROR");
+            if (empty($usuarioLogado)) {
+                throw new Exception("Usu&aacute;rio n&atilde;o encontrado");
             }
-        } // fecha if
+
+            if ($tipoAprovacao == Aprovacao::TIPO_APROVACAO_COMPLEMENTACAO
+                || $tipoAprovacao == Aprovacao::TIPO_APROVACAO_REDUCAO) {
+
+                $where = [];
+                if ($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC) {
+                    $where['a.Area <> ?'] = 2;
+                } else {
+                    $where['a.Area = ?'] = 2;
+                }
+
+                $where['b.TipoAprovacao = ?'] = $tipoAprovacao;
+                $where['b.PortariaAprovacao = ?'] = $portariaAprovacao;
+                $where['a.Situacao = ?'] = $situacaoAtual;
+
+                $tbAprovacao = new Aprovacao();
+                $projetosReadequados = $tbAprovacao->consultaPortariaReadequacoes($where);
+
+                $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
+                $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+                foreach ($projetosReadequados as $projeto) {
+
+                    $planilhaAtiva = $tbPlanilhaAprovacao->valorTotalPlanilhaAtiva($projeto->IdPRONAC);
+                    $PlanilhaReadequada = $tbPlanilhaAprovacao->valorTotalPlanilhaReadequada(
+                        $projeto->IdPRONAC,
+                        $projeto->idReadequacao
+                    );
+
+                    if ($planilhaAtiva['Total'] != $PlanilhaReadequada['Total']) {
+                        // quando atualiza portaria na dou, troca planilhas e muda status na Readequacao_Model_DbTable_TbReadequacao
+                        $dados = array();
+                        $dados['siEncaminhamento'] = 15; //Finalizam sem a necessidade de passar pela publica&ccedil;&atilde;o no DOU.
+                        $dados['stEstado'] = 1;
+                        $where = "idReadequacao = " . $projeto->idReadequacao;
+                        $tbReadequacao->update($dados, $where);
+
+                        $spAtivarPlanilhaOrcamentaria = new spAtivarPlanilhaOrcamentaria();
+                        $spAtivarPlanilhaOrcamentaria->exec($projeto->IdPRONAC);
+                    }
+                }
+
+                PublicacaoDouDAO::situcaopublicacaodou($tipoAprovacao, $portariaAprovacao, 'E10', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
+                PublicacaoDouDAO::situcaopublicacaodou($tipoAprovacao, $portariaAprovacao, 'E12', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
+
+            } elseif ($tipoAprovacao == Aprovacao::TIPO_APROVACAO_PRESTACAO_REPROVADA) {
+                PublicacaoDouDAO::situcaopublicacaodou($tipoAprovacao, $portariaAprovacao, 'E19', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
+            } elseif ($tipoAprovacao == Aprovacao::TIPO_APROVACAO_PRESTACAO_APROVADA) {
+                PublicacaoDouDAO::situcaopublicacaodou($tipoAprovacao, $portariaAprovacao, 'L05', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
+            } elseif ($tipoAprovacao == Aprovacao::TIPO_APROVACAO_READEQUACAO) {
+                $where = array();
+                if ($orgaoSuperior->Superior == Orgaos::ORGAO_SUPERIOR_SEFIC) {
+                    $where['a.Area <> ?'] = 2;
+                } else {
+                    $where['a.Area = ?'] = 2;
+                }
+                $where['b.TipoAprovacao = ?'] = Aprovacao::TIPO_APROVACAO_READEQUACAO;
+                $where['b.PortariaAprovacao = ?'] = $portariaAprovacao;
+
+                $tbAprovacao = new Aprovacao();
+                $projetos = $tbAprovacao->consultaPortariaReadequacoes($where);
+                foreach ($projetos as $p) {
+                    // READEQUACAO DE ALTERACAO DE RAZAO SOCIAL
+                    if ($p->idTipoReadequacao == 3) {
+                        $Projetos = new Projetos();
+                        $dadosPrj = $Projetos->find(array('IdPRONAC=?' => $p->IdPRONAC))->current();
+
+                        $Agentes = new Agente_Model_DbTable_Agentes();
+                        $dadosAgente = $Agentes->buscar(array('CNPJCPF=?' => $dadosPrj->CgcCpf))->current();
+
+                        $Nomes = new Nomes();
+                        $dadosNomes = $Nomes->buscar(array('idAgente=?' => $dadosAgente->idAgente))->current();
+                        $dadosNomes->Descricao = $p->dsSolicitacao;
+                        $dadosNomes->save();
+
+                        // READEQUACAO DE ALTERACAO DE PROPONENTE
+                    } elseif ($p->idTipoReadequacao == 10) {
+                        $Projetos = new Projetos();
+                        $dadosPrj = $Projetos->find(array('IdPRONAC=?' => $p->IdPRONAC))->current();
+
+                        $cnpjcpf = Mascara::delMaskCPFCNPJ($p->dsSolicitacao);
+                        $dadosPrj->CgcCpf = $cnpjcpf;
+                        $dadosPrj->save();
+
+                        // READEQUACAO DE NOME DO PROJETO
+                    } elseif ($p->idTipoReadequacao == 12) {
+                        $Projetos = new Projetos();
+                        $dadosPrj = $Projetos->find(array('IdPRONAC=?' => $p->IdPRONAC))->current();
+                        $dadosPrj->NomeProjeto = $p->dsSolicitacao;
+                        $dadosPrj->ProvidenciaTomada = 'Projeto aprovado e publicado no Di&aacute;rio Oficial da Uni&atilde;o.';
+                        $dadosPrj->Logon = $usuarioLogado;
+                        $dadosPrj->save();
+
+                        // READEQUACAO DE RESUMO DO PROJETO
+                    } elseif ($p->idTipoReadequacao == 15) {
+                        $Projetos = new Projetos();
+                        $dadosPrj = $Projetos->find(array('IdPRONAC=?' => $p->IdPRONAC))->current();
+                        $dadosPrj->ResumoProjeto = $p->dsSolicitacao;
+                        $dadosPrj->ProvidenciaTomada = 'Projeto aprovado e publicado no Di&aacute;rio Oficial da Uni&atilde;o.';
+                        $dadosPrj->Logon = $usuarioLogado;
+                        $dadosPrj->save();
+                    }
+
+                    $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+                    $dadosReadequacao = $tbReadequacao->buscar(array('idReadequacao = ?' => $p->idReadequacao))->current();
+                    $dadosReadequacao->siEncaminhamento = 15;
+                    $dadosReadequacao->stEstado = 1;
+                    $dadosReadequacao->save();
+                }
+            } else {
+                PublicacaoDouDAO::situcaopublicacaodou($tipoAprovacao, $portariaAprovacao, 'E10', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
+                PublicacaoDouDAO::situcaopublicacaodou($tipoAprovacao, $portariaAprovacao, 'E12', $situacaoAtual, $usuarioLogado, $orgaoSuperior->Superior);
+            }
+            parent::message("Portaria publicada com sucesso!", "publicacaodou/index?pronac=&situacao=". $this->_getParam('tipo'), "CONFIRM");
+        } catch (Exception $e) {
+            parent::message("Erro ao atualizar a portaria! " . $e->getMessage(), "publicacaodou/index?pronac=&situacao=" . $_GET['tipo'], "ERROR");
+        }
     }
 
     public function imprimirPublicadosAction()
@@ -880,7 +872,13 @@ class PublicacaoDouController extends MinC_Controller_Action_Abstract
         } else {
             $portaria = PublicacaoDouDAO::ProjetoPortariaGerarRTF($_POST['nrportaria'], $orgaoSuperior);
         }
+
+        // fazendo parse da portaria tirando 0 a esquerda
+        preg_match('/(\d*)\/(\d*)/i', $portaria[0]->PortariaAprovacao, $output_array);
+        $this->view->PortariaAprovacao = (int) $output_array[1] . '/' . $output_array[2];
+
         $this->view->portaria = $portaria;
+
     }
 
     public function imprimirTabelaPortariaAction()

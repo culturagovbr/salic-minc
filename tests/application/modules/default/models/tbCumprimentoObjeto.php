@@ -17,7 +17,7 @@ class TbCumprimentoObjetoTest extends MinC_Test_ModelTestCase
 
     public function testNaoPossuiRelatorioDeCumprimento()
     {
-        $tbCumprimentoObjeto = new tbCumprimentoObjeto();
+        $tbCumprimentoObjeto = new ComprovacaoObjeto_Model_DbTable_TbCumprimentoObjeto();
         
         $possuiRelatorioDeCumprimento = $tbCumprimentoObjeto->possuiRelatorioDeCumprimento($this->idPronac);
         

@@ -11,6 +11,10 @@ class Proposta_Model_TbMovimentacao extends MinC_Db_Model
     protected $_id_orgao;
     protected $_id_perfil;
 
+    const PROPOSTA_COM_PROPONENTE = 95;
+    const PROPOSTA_PARA_ANALISE_INICIAL = 96;
+    const PROPOSTA_PARA_ANALISE_FINAL = 128;
+
     /**
      * @return mixed
      */
@@ -154,4 +158,5 @@ class Proposta_Model_TbMovimentacao extends MinC_Db_Model
         $this->_usuario = $usuario;
         return $this;
     }
+
 }

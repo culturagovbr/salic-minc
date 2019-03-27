@@ -1,4 +1,5 @@
 <?php
+
 require_once 'Zend/Db/Table/Abstract.php';
 
 abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
@@ -7,22 +8,22 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
     private $_config;
     protected $_rowClass = "MinC_Db_Table_Row";
     protected $debugMode = false;
+    protected $modelDatatable;
+    protected $_banco;
+
+    public function __construct($config = array())
+    {
+        $this->createConnection();
+
+        $this->modelDatatable = new \MinC\Db\Model\DataTable($config);
+        parent::__construct($config);
+    }
 
     public function init()
     {
-        $this->setName($this->getName($this->_name));
-        $this->setDatabase($this->getBanco($this->_banco));
-        $this->setSchema($this->getSchema($this->_schema));
-    }
-
-    public function setSchema($strSchema) {
-        $this->_schema = $strSchema;
-    }
-    public function setName($name) {
-        $this->_name = $name;
-    }
-    public function setDatabase($banco) {
-        $this->_banco = $banco;
+        $this->_name = $this->getName($this->_name);
+        $this->_banco = $this->getBanco($this->_banco);
+        $this->_schema = $this->getSchema($this->_schema);
     }
 
     public function getSchema($strSchema = null, $isReturnDb = true, $strNameDb = null)
@@ -51,30 +52,23 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
     }
 
 
-    public function setDebugMode($boolean) {
+    public function setDebugMode($boolean)
+    {
         $this->debugMode = $boolean;
     }
 
     public function getPrimary()
     {
-        return (isset($this->_primary))? $this->_primary : '';
+        return (isset($this->_primary)) ? $this->_primary : '';
     }
 
     public function getSequence()
     {
-        return (isset($this->_sequence))? $this->_sequence : true;
+        return (isset($this->_sequence)) ? $this->_sequence : true;
     }
 
-    /**
-     * @todo verificar um tipo de SET TEXTSIZE 2147483647 para usar com o Postgres tambem.
-     */
-    public function __construct($config = array())
+    private function createConnection()
     {
-        $this->createConnection();
-        parent::__construct($config);
-    }
-
-    private function createConnection () {
         $dbAdapter = Zend_Db_Table::getDefaultAdapter();
 
         $db = Zend_Db_Table::getDefaultAdapter();
@@ -100,14 +94,14 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
                         array(
                             'db' => array(
                                 'adapter' => 'PDO_MSSQL',
-                                'params'  => array(
+                                'params' => array(
                                     'username' => $arrConfig['username'],
                                     'password' => $arrConfig['password'],
-                                    'dbname'   => $arrConfig['dbname'],
-                                    'host'     => $arrConfig['host'],
-                                    'port'     => $arrConfig['port'],
-                                    'charset'     => $arrConfig['charset'],
-                                    'pdoType'     => $arrConfig['pdoType'],
+                                    'dbname' => $arrConfig['dbname'],
+                                    'host' => $arrConfig['host'],
+                                    'port' => $arrConfig['port'],
+                                    'charset' => $arrConfig['charset'],
+                                    'pdoType' => $arrConfig['pdoType'],
                                 )
                             )
                         )
@@ -138,11 +132,9 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
      *
      * @todo melhorar e amadurecer codigo
      */
-    public function getBanco($strName = '')
+    public function getBanco($strName = 'dbo')
     {
         $db = Zend_Db_Table::getDefaultAdapter();
-        $strName = 'dbo';
-
         if (!($db instanceof Zend_Db_Adapter_Pdo_Mssql)) {
             $arrayConfiguracaoes = $db->getConfig();
             $strName = $arrayConfiguracaoes['dbname'];
@@ -182,7 +174,7 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
             }
         }
 
-        return $schema .  $tableName;
+        return $schema . $tableName;
     }
 
     public function __destruct()
@@ -222,7 +214,7 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
                 $select->limit($tamanho, $tmpInicio);
             }
 
-            if($this->debugMode === true) {
+            if ($this->debugMode === true) {
                 xd($select->assemble());
             }
 
@@ -234,7 +226,7 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
 
     public function alterar($dados, $where)
     {
-        if($this->debugMode === true) {
+        if ($this->debugMode === true) {
             xd($this->dbg($dados, $where));
         }
         $update = $this->update($dados, $where);
@@ -295,18 +287,15 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
      * @name findBy
      * @param array $where
      * @return array
-     *
-     * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
-     * @author wouerner <wouerner@gmail.com>
-     * @since  05/09/2016
      */
-    public function findBy($where) {
+    public function findBy($where)
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from($this->_name, $this->_getCols(), $this->_schema);
         self::setWhere($select, $where);
         $result = $this->fetchRow($select);
-        return ($result)? $result->toArray() : array();
+        return ($result) ? $result->toArray() : array();
     }
 
     /**
@@ -317,9 +306,6 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
      * @param $select - Objeto select da query montada para no final por os parametros do where.
      * @param $where - Array ou string onde a string e considerado uma pk.
      * @return void
-     *
-     * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
-     * @since  06/12/2016
      */
     public function setWhere(&$select, $where, $typeWhere = 'where')
     {
@@ -349,7 +335,8 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
      * @return int - Quantidade de rows deletadas.
      * @throws Exception
      */
-    public function deleteBy(array $arrWhere) {
+    public function deleteBy(array $arrWhere)
+    {
 
         if (empty($arrWhere)) throw new Exception('Parametro where vazio, voce nao vai querer deletar tudo da tabela vai?');
         $arrWhereNew = array();
@@ -364,7 +351,8 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
      * @param array $where
      * @return array
      */
-    public function findAll(array $where = array(), array $order = array()) {
+    public function findAll(array $where = array(), array $order = array())
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
 
@@ -373,7 +361,7 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
             $select->order($order);
         }
         $result = $this->fetchAll($select);
-        return ($result)? $result->toArray() : array();
+        return ($result) ? $result->toArray() : array();
     }
 
     /**
@@ -412,7 +400,7 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
     {
         if ($this->getAdapter() instanceof Zend_Db_Adapter_Pdo_Mssql) {
             if (is_int($strFormat)) {
-                return new Zend_Db_Expr('CONVERT(CHAR(30), ' . $strColumn . ' , '. $strFormat . ')');
+                return new Zend_Db_Expr('CONVERT(CHAR(30), ' . $strColumn . ' , ' . $strFormat . ')');
             } else {
                 return new Zend_Db_Expr('CONVERT(CHAR(10), ' . $strColumn . ' , 103)');
             }
@@ -473,7 +461,7 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
      * @param string $order
      * @return array
      */
-    public function fetchPairs($key, $value , array $where = [], $order = '')
+    public function fetchPairs($key, $value, array $where = [], $order = '')
     {
         if (empty($order)) $order = $value;
 
@@ -483,19 +471,91 @@ abstract class MinC_Db_Table_Abstract extends Zend_Db_Table_Abstract
 
         foreach ($where as $column => $columnValue) {
             if (is_array($columnValue)) {
-                $select->where( $column. ' IN (?)', $columnValue);
+                $select->where($column . ' IN (?)', $columnValue);
             } else {
-                $select->where( $column. ' = ?', $columnValue);
+                $select->where($column . ' = ?', $columnValue);
             }
         }
 
         $resultSet = $this->fetchAll($select);
-        $resultSet = ($resultSet)? $resultSet->toArray() : array();
-        $entries   = array();
+        $resultSet = ($resultSet) ? $resultSet->toArray() : array();
+        $entries = array();
         foreach ($resultSet as $row) {
             $entries[$row[$key]] = $row[$value];
         }
         return $entries;
+    }
+
+    protected function tratarResultadoOrdenacaoDatatable(\MinC_Db_Table_Select $query): \MinC_Db_Table_Select
+    {
+        $order = $this->modelDatatable->getOrder();
+
+        if (
+            isset($order[0])
+            && isset($order[0]['column'])
+            && isset($order[0]['dir'])
+            && !empty($order[0]['column'])
+            && !empty($order[0]['dir'])
+        ) {
+            $identificadorDaColuna = $order[0]['column'];
+            $columns = $this->modelDatatable->getColumns();
+            if(isset($columns[$identificadorDaColuna]['name']) && !empty($columns[$identificadorDaColuna]['name'])) {
+                $query->order("{$columns[$identificadorDaColuna]['name']} {$order[0]['dir']}");
+            }
+        }
+
+        return $query;
+    }
+
+    protected function tratarLimiteResultadosDatatable(\MinC_Db_Table_Select $query): \MinC_Db_Table_Select
+    {
+        $length = $this->modelDatatable->getLength();
+        $start = $this->modelDatatable->getStart();
+
+        if (!is_null($start) && $length) {
+            $start = (int) $start;
+            $length = (int) $length;
+            $query->limit($length, $start);
+        }
+
+        return $query;
+    }
+
+    protected function tratarBuscaPorResultadosDatatable(\MinC_Db_Table_Select $query): \MinC_Db_Table_Select
+    {
+        $queryExterna = $this->select();
+        $queryExterna->isUseSchema(false);
+        $queryExterna->setIntegrityCheck(false);
+        $queryExterna->from(
+            ['tabelaTemporaria' => new Zend_Db_Expr("($query)")],
+            '*'
+        );
+
+        $search = $this->modelDatatable->getSearch();
+        $columns = $this->modelDatatable->getColumns();
+
+        if (!empty($search['value']) && count($columns) > 0) {
+            foreach($columns as $column) {
+                if($column['searchable'] === 'true' && !empty($column['name'])) {
+
+                    $queryExterna->orWhere(
+                        "{$column['name']} like ?",
+                        "%{$search['value']}%"
+                    );
+                }
+            }
+        }
+
+        return $queryExterna;
+    }
+
+    protected function filtrarBuscaDatatable(\MinC_Db_Table_Select $query): \MinC_Db_Table_Select
+    {
+        $query = $this->tratarLimiteResultadosDatatable($query);
+        $queryExterna = $this->tratarBuscaPorResultadosDatatable($query);
+        $queryExterna = $this->tratarResultadoOrdenacaoDatatable($queryExterna);
+
+        return $queryExterna;
     }
 
 }

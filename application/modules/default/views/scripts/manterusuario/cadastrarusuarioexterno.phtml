@@ -1,41 +1,43 @@
 <style type="text/css">
-    label.error{color:red;}
+    label.error {
+        color: red;
+    }
 </style>
 <script type="text/javascript">
 
-    $(document).ready( function() {
+    $(document).ready(function () {
         $("#cadastrarusuarioexterno").validate({
             // Define as regras
-            rules:{
-                cpf:{
+            rules: {
+                cpf: {
 
                     required: true,
                     minlength: 14,
                     verificaCPF: true
                 },
-                nome:{
+                nome: {
 
                     required: true, minlength: 2
                 },
-                nomeusuario:{
+                nomeusuario: {
 
-                    required: true,  minlength: 2
+                    required: true, minlength: 2
                 },
                 unidade: "required"
 
             },
             // Define as mensagens de erro para cada regra
-            messages:{
-                cpf:{
+            messages: {
+                cpf: {
                     required: "Informe cpf",
                     minlength: "O seu CPF deve conter no m&iacute;nimo 11 caracteres",
                     verificaCPF: "Informe CPF v&aacute;lido"
                 },
-                nome:{
+                nome: {
                     required: "Informe nome",
                     minlength: "O seu nome deve conter no m&iacute;nimo 2 caracteres"
                 },
-                nomeusuario:{
+                nomeusuario: {
                     required: "Informe usu&aacute;rio"
                 },
                 unidade: '<br>Selecione unidade'
@@ -51,82 +53,75 @@
     }
 </script>
 
-<!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div style="display:none" id="confirm">Por favor, informe seu email!</div>
 <div style="display:none" id="dialog-alert2"></div>
 <div style="display:none" id="confirmInforma">Por favor, digite seu email corretamente!</div>
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'index')); ?>">In&iacute;cio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'index', 'action' => 'index')); ?>">In&iacute;cio</a>
+        </li>
         <li class="last">Cadastrar Usu&aacute;rio Externo</li>
     </ul>
 </div>
-<!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
-
-<!-- ========== IN�CIO T�TULO ========== -->
 <div id="titulo">
-    <div>Cadastrar Usu&aacute;rio Externo<span></span> <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
+    <div>Cadastrar Usu&aacute;rio Externo<span></span> <span class="voltar"><a
+                href="javascript:voltar();">Voltar</a></span></div>
 </div>
-<!-- ========== FIM T�TULO ========== -->
 
-
-<!-- ========== IN�CIO CONTE�DO ========== -->
 <div id="conteudo" align="center">
-    <fieldset><legend>Informa&ccedil;&atilde;es</legend>
-        <form method="POST" action="<?php echo $this->url(array('controller' => 'manterusuario', 'action' => 'cadastrarusuarioexterno')); ?>" name="cadastrarusuarioexterno" id="cadastrarusuarioexterno">
+    <fieldset>
+        <legend>Informa&ccedil;&atilde;es</legend>
+        <form method="POST"
+              action="<?php echo $this->url(array('controller' => 'manterusuario', 'action' => 'cadastrarusuarioexterno')); ?>"
+              name="cadastrarusuarioexterno" id="cadastrarusuarioexterno">
             <table class="tabela">
                 <thead>
-                    <tr>
-                        <th colspan="2">Cadastrar Usu&aacute;rio Externo</th>
-                    </tr>
+                <tr>
+                    <th colspan="2">Cadastrar Usu&aacute;rio Externo</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>CPF </td>
-                        <td><input value=""  onkeydown="mascaraCnpjCpf(this);" onkeypress="mascaraCnpjCpf(this);" onkeyup="mascaraCnpjCpf(this);" maxlength="14" class="input_simples" type="text" name="cpf" id="cpf"  /><div id="cpfRetorno" ></div> </td>
-                    </tr>
-                    <tr>
-                        <td>Nome Completo </td>
-                        <td><input type="text" name="nome" id="nome" class="input_simples w400"/></td>
-                    <tr>
-                        <td>Nome de Usu&aacute;rio </td>
-                        <td><input type="text" name="nomeusuario" id="nomeusuario" class="input_simples w400"/></td>
-                    </tr>
-                    <tr>
-                        <td>Unidade</td>
-                        <td>
-                            <select id="unidade" name="unidade" class="select_simples">
-                                <option value="">Selecione a unidade</option>
-                                <?php foreach ($this->orgaosExternos as $orgaosExternos) { ?>
-                                <option value="<?php echo $orgaosExternos['org_codigo']?>"><?php echo $orgaosExternos['orgao_nome'] ?></option>
-                                <?php } ?>
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" colspan="2">
-                            <input id='btIncluir' type='submit' value='' class='btn_salvar enviar'/>
-                            <input id='btLimpar' type='reset' value='' class='btn_limpar enviar'  />
-                            <input id='btCancelar' type='button' value='' class='btn_cancelar enviar' onClick="history.go(-1)" onkeypress=" " />
-                        </td>
-                    </tr>
+                <tr>
+                    <td>CPF</td>
+                    <td><input value="" onkeydown="mascaraCnpjCpf(this);" onkeypress="mascaraCnpjCpf(this);"
+                               onkeyup="mascaraCnpjCpf(this);" maxlength="14" class="input_simples" type="text"
+                               name="cpf" id="cpf"/>
+                        <div id="cpfRetorno"></div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nome Completo</td>
+                    <td><input type="text" name="nome" id="nome" class="input_simples w400" maxlength="20" size="20"/></td>
+                </tr>
+                <tr>
+                    <td>Unidade</td>
+                    <td>
+                        <select id="unidade" name="unidade" class="select_simples">
+                            <option value="">Selecione a unidade</option>
+                            <?php foreach ($this->orgaosExternos as $orgaosExternos) { ?>
+                                <option
+                                    value="<?php echo $orgaosExternos['org_codigo'] ?>"><?php echo $orgaosExternos['orgao_nome'] ?></option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center" colspan="2">
+                        <input id='btIncluir' type='submit' value='' class='btn_salvar enviar'/>
+                        <input id='btLimpar' type='reset' value='' class='btn_limpar enviar'/>
+                        <input id='btCancelar' type='button' value='' class='btn_cancelar enviar'
+                               onClick="history.go(-1)" onkeypress=" "/>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </form>
     </fieldset>
 </div>
-<!-- ========== FIM CONTE�DO ========== -->
-
-
-<!-- ========== IN�CIO RODAP� DO CONTE�DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
 
-<!-- ========== FIM RODAP� DO CONTE�DO ========== -->
-<br clear="all" />
-
-
-
+<br clear="all"/>
 
 </body>
 </html>

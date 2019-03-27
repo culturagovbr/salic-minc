@@ -258,8 +258,8 @@ class ComprovantePagamento extends MinC_Db_Table_Abstract
     public function cadastrar()
     {
         $this->validarCadastrar();
-        $this->comprovantePagamento = $this->insert(
-            array(
+
+        $dados =[
                 'idFornecedor' => $this->fornecedor,
                 'tpDocumento' => $this->tipo,
                 'nrComprovante' => $this->numero,
@@ -271,8 +271,8 @@ class ComprovantePagamento extends MinC_Db_Table_Abstract
                 'dsJustificativa' => $this->comprovanteJustificativa,
                 'tpFormaDePagamento' => $this->comprovanteTipo,
                 'nrDocumentoDePagamento' => $this->comprovanteNumero,
-            )
-        );
+            ];
+        $this->comprovantePagamento = $this->insert($dados);
         $this->comprovarPlanilhaCadastrar();
     }
 
@@ -574,13 +574,13 @@ class ComprovantePagamento extends MinC_Db_Table_Abstract
     protected function comprovarPlanilhaCadastrar()
     {
         $comprovantePlanilha = new ComprovantePagamentoxPlanilhaAprovacao();
-        $comprovantePlanilha->insert(
-            array(
+        $dados =
+           [
                 'idComprovantePagamento' => $this->comprovantePagamento,
                 'idPlanilhaAprovacao' => $this->item,
                 'vlComprovado' => $this->comprovanteValor,
-            )
-        );
+            ];
+        $comprovantePlanilha->insert($dados);
     }
 
     /**

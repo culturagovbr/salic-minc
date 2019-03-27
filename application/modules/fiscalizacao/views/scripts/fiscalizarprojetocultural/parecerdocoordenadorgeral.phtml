@@ -1,0 +1,592 @@
+<?php
+echo $this->partial('fiscalizarprojetocultural/inc/menu-suspenso.phtml', $this)
+
+?>
+<form name="formParecerTecnico" action="<?php echo $this->baseUrl(); ?>/Fiscalizarprojetocultural/painelcontroletecnicofiscalizacao" method="post">
+    <table class="tabela">
+        <tr>
+            <th colspan="4">Fiscalizaç&atilde;o Conclu&iacute;da para Parecer</th>
+        </tr>
+        <tr>
+        	<td colspan="4">&nbsp;</td>
+        </tr>
+        <!--  ************************************** Identificaç&atilde;o ************************************  -->
+        <tr>
+            <th colspan="4">Identificaç&atilde;o</th>
+        </tr>
+        <tr>
+            <th colspan="2" style="width: 50%;">Pronac</th>
+            <th colspan="2">Projeto</th>
+        </tr>
+        <tr>
+            <th colspan="2">CNPJ/CPF</th>
+            <th colspan="2">Proponente</th>
+        </tr>
+        <tr>
+            <th colspan="2">UF</th>
+            <th colspan="2">Cidade</th>
+        </tr>
+        <tr>
+            <th colspan="2">&Aacute;rea</th>
+            <td colspan="2"></td>
+        </tr>
+        <!--  ************************************** Resume do Projeto ************************************  -->
+        <tr>
+            <th colspan="4">Resume do Projeto</th>
+        </tr>
+        <tr>
+            <td colspan="4" style="border: 1px solid black; padding: 5px;"></td>
+        </tr>
+        <tr>
+            <th colspan="4" style="font-weight: bold;">Dados da Fiscalizaç&atilde;o</th>
+        </tr>
+        <tr>
+            <td style="font-weight: bold; width: 25%;">Data In&iacute;cio </td>
+            <td style="font-weight: bold;">Data Fim </td>
+            <td colspan="2"></td>
+        </tr>
+        <tr>
+            <td colspan="4"><b>Demandante da Fiscalizaç&atilde;o</b> </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <label>Técnicos</label><br>
+                <div colspan="4" style="border: 1px solid black; padding: 5px;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <label>Observaç&atilde;o</label><br>
+                <div colspan="4" style="border: 1px solid black; padding: 5px;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <label>Anexar Documento</label>&nbsp;&nbsp;&nbsp;
+                <input type="text "style="margin-left: 5px;" name=""> <input class="btn" type="button" value="Anexar">
+            </td>
+            <td colspan="2">
+
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4" style="">
+                <table width="60%">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>Descriç&atilde;o</th>
+                            <th>Documento</th>
+                            <th>Excluir</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <!--  ************************************** Dados Apresentados na Fiscalizaç&atilde;o ************************************  -->
+        <tr>
+            <th colspan="4">Dados Apresentados na Fiscalizaç&atilde;o</th>
+        </tr>
+        <tr>
+            <td>Processo </td>
+            <td>UF
+                Exerc&iacute;cio</td>
+            <td>Data In&iacute;cio  </td>
+            <td>Data Fim </td>
+        </tr>
+        <tr>
+            <td>Conv&ecirc;nio </td>
+            <td>Data Publicaç&atilde;o </td>
+            <td colspan="2">Mecanismo</td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                Endereço da Obra
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <b>Fiscalizaç&atilde;o</b><br>
+                <div colspan="4" style="border: 1px solid black; padding: 5px;"></div>
+            </td>
+        </tr>
+        <!--  ************************************** Resumo da Execuç&atilde;o ************************************  -->
+        <tr>
+            <th colspan="4">Resumo da Execuç&atilde;o</th>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <b>Aç&otilde;es Programdas</b><br>
+                <textarea name="" cols="1" rows="3" style="width: 80%;">digite o texto...</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <b>Aç&otilde;es Executadas</b><br>
+                <textarea name="" cols="1" rows="3" style="width: 80%;">digite o texto...</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <b>Benef&iacute;cios Alcançados</b><br>
+                <textarea name="" cols="1" rows="3" style="width: 80%;">digite o texto...</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <b>Dificuldades Encontradas</b><br>
+                <textarea name="" cols="1" rows="3" style="width: 80%;">digite o texto...</textarea>
+            </td>
+        </tr>
+        <tr>
+            <!--  ************************************** Situaç&atilde;o do Conv&ecirc;nio na Realizaç&atilde;o da Fiscalizaç&atilde;o ************************************  -->
+            <th colspan="4">
+                Situaç&atilde;o do Conv&ecirc;nio na Realizaç&atilde;o da Fiscalizaç&atilde;o
+            </th>
+        </tr>
+        <tr>
+            <td colspan="2">Situaç&atilde;o SIAFI </td>
+            <td colspan="2">
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Aprovado</option>
+                    <option value="2">A aprovar</option>
+                    <option value="3">A comprovar</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">Prestaç&atilde;o de Contas Apresentada?</td>
+            <td colspan="2">
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">Foram cumpridas as normas estabelecidad?</td>
+            <td colspan="2">
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">Foi Cumprido o prazo para entrega da Prestaç&atilde;o de Contas?</td>
+            <td colspan="2">
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <!--  ****************************************** Utilizaç&atilde;o de Recursos *************************************************************  -->
+            <th colspan="4">Utilizaç&atilde;o de Recursos</th>
+        </tr>
+        <tr>
+            <td colspan="3">Foi apurado por unidade fiscalizadora u auditora a aplicaç&atilde;o irregular de recursos?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Comprovou a correta utilizaç&atilde;o dos recursos da contrapartida?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">H&aacute; compatibilidade entre o desembolso e a evoluç&atilde;o?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Ocorreu despesas com multas, juros, taxas banc&aacute;rias ou correç&atilde;o monet&aacute;ria?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Ocorreu pagamento de servidor p&uacute;blico?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Ocorreu despesa com taxa de administraç&atilde;o?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">H&aacute; transfer&ecirc;ncia de recurso para clubes/associaç&otilde;es ou outras entidades cong&ecirc;neres?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">H&aacute; despesas com publicidade, salvo as de car&aacute;ter educativo, informativo ou de orientaç&atilde;o social?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Ocorreu aditamento prevendo alteraç&atilde;o de objeto?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">N&atilde;o foram aplicados os recursos de contrapartida?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Ocorreu aplicaç&atilde;o de recursos em outra finalidade que n&atilde;o a do objeto pactuado?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Ocorreu saldo após o encerramento do projeto?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">O saldo verificado foi recolhido ao FNC?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="4">Comprovantes F&iacute;scais de Despesa</th>
+        </tr>
+        <tr>
+            <td colspan="3">O processo est&aacute; bem documentado?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">A documentaç&atilde;o est&aacute; completa e arquivada?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Guardam conformidade entre o executado e o aprovado?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Identificam o nome do projeto e o n&uacute;mero do conv&ecirc;nio?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Existem despesas anteriores ao prazo de vig&ecirc;ncia?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Existem despesas posteriores ao prazo de vig&ecirc;ncia?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">As despesas coincidem com as informadas na relaç&atilde;o de pagamentos?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">As despesas est&atilde;o devidamente relacionadas no extrato banc&aacute;rio?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">Os comprovantes fiscais est&atilde;o com o atesto do recebimento?</td>
+            <td>
+                <select name="">
+                    <option value="0">--</option>
+                    <option value="1">Sim</option>
+                    <option value="2">N&atilde;o</option>
+                    <option value="3">N&atilde;o se aplica</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <table width="48%" style="float: left;">
+                    <tr>
+                        <th colspan="2">Divulgaç&atilde;o</th>
+                    </tr>
+                    <tr>
+                        <td>Ci&ecirc;ncia ao Poder legislativo?</td>
+                        <td>
+                            <select name="">
+                                <option value="0">--</option>
+                                <option value="1">Sim</option>
+                                <option value="2">N&atilde;o</option>
+                                <option value="3">N&atilde;o se aplica</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Contemplou as exig&ecirc;ncias legais?</td>
+                        <td>
+                            <select name="">
+                                <option value="0">--</option>
+                                <option value="1">Sim</option>
+                                <option value="2">N&atilde;o</option>
+                                <option value="3">N&atilde;o se aplica</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>H&aacute; material informativo do Projeto?</td>
+                        <td>
+                            <select name="">
+                                <option value="0">--</option>
+                                <option value="1">Sim</option>
+                                <option value="2">N&atilde;o</option>
+                                <option value="3">N&atilde;o se aplica</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <table width="48%" style="float: right;">
+                    <tr>
+                        <th colspan="2">Execuç&atilde;o</th>
+                    </tr>
+                    <tr>
+                        <td>Alcançou a finalidade esperada?</td>
+                        <td>
+                            <select name="">
+                                <option value="0">--</option>
+                                <option value="1">Sim</option>
+                                <option value="2">N&atilde;o</option>
+                                <option value="3">N&atilde;o se aplica</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>As metas/etapas do Plano de Trabalho foram executadas integralmente?</td>
+                        <td>
+                            <select name="">
+                                <option value="0">--</option>
+                                <option value="1">Sim</option>
+                                <option value="2">N&atilde;o</option>
+                                <option value="3">N&atilde;o se aplica</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>A execuç&atilde;o respeitou o aprovado?</td>
+                        <td>
+                            <select name="">
+                                <option value="0">--</option>
+                                <option value="1">Sim</option>
+                                <option value="2">N&atilde;o</option>
+                                <option value="3">N&atilde;o se aplica</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="4">Empregos gerados em decorr&ecirc;ncia do projeto</th>
+        </tr>
+        <tr>
+            <td>Direto <input type="text "style="margin-left: 5px;" name=""></td>
+            <td>Indireto <input type="text "style="margin-left: 5px;" name=""></td>
+            <td colspan="2">Total <input type="text "style="margin-left: 5px;" name=""></td>
+        </tr>
+        <tr>
+            <th colspan="4">&nbsp;</th>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <b>Evid&ecirc;ncias</b><br>
+                <textarea name="" cols="1" rows="3" style="width: 80%;">digite o texto...</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <b>Recomendaç&otilde;es da equipe</b><br>
+                <textarea name="" cols="1" rows="3" style="width: 80%;">digite o texto...</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <b>Conclus&atilde;o da equipe</b><br>
+                <textarea name="" cols="1" rows="3" style="width: 80%;">digite o texto...</textarea>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="4">Parecer do Projeto Fiscalizado</th>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <textarea name="" cols="1" rows="3" style="width: 80%;">ESTE DEVE SER UM RICH EDITOR</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">
+                <b>Nome e Cargo</b>&nbsp;&nbsp;
+                <input type="text "style="margin-left: 5px;" name="" style="margin-left: 5px;">
+            </td>
+        </tr>
+        </table>
+
+            <p align="center">
+                <input id="Aprovar" class="btn" type="button" name="" value="Aprovar" style="margin-left: 5px;">
+                <input id="DevolverCoordenador" class="btn" type="button" name="" value="Devolver para Coordenador" style="margin-left: 5px;">
+                <input id="Salvar" class="btn" type="button" name="" value="Salvar" style="margin-left: 5px;">
+                <input id="Cancelar" class="btn" type="button" name="" value="Cancelar" style="margin-left: 5px;">
+            </p>
+
+
+
+</form>
+<script>
+    $(document).ready(function(){
+        acertaLayout();
+    });
+    function acertaLayout(){
+        $('input').addClass('input_simples');
+        $('textarea').addClass('textarea_simples');
+        $('select[id!=perfilXgrupo]').addClass('select_simples');
+    }
+</script>

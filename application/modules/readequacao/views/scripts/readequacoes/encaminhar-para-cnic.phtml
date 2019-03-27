@@ -1,0 +1,142 @@
+<div id="alerta"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <?php
+                    $paginaAtual = "Encaminhar para CNIC";
+                    $paginaAtual .= (in_array($this->readequacao->idTipoReadequacao, array(2, 9, 11, 14))) ? ' - ' . $this->readequacao->dsReadequacao : '';
+                    ?>
+                    <h1><?= $paginaAtual; ?></h1>
+
+                    <?php
+                    gerarNovoBreadCrumb(
+                        [
+                            ['Readequa&ccedil;&otilde;es' => '/readequacao/readequacoes/painel'],
+                            [$paginaAtual => '']
+                        ]
+                    );
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-panel">
+            <div class="row">
+                <div class="col s3">
+                    <b>PRONAC</b></br>
+                    <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo $this->projeto->IdPRONAC; ?>"
+                       target="_blank">
+                        <?php echo $this->projeto->pronac; ?>
+                    </a>
+                </div>
+                <div class="col s9"><b>Nome do Projeto</b></br>
+                    <?php echo $this->projeto->NomeProjeto; ?>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col s12">
+                    <label for="tecnico" style="font-size: 15px;">Selecionar componente da comiss&atilde;o</label>
+                    <select name="tecnico"
+                            id="tecnico"
+                            class="browser-default comboComponente"
+                    >
+                        <option value=""> - Selecione -</option>
+                        <?php foreach ($this->conselheiros as $conselheiro) : ?>
+                            <option value="<?php echo $conselheiro->id; ?>"><?php echo $conselheiro->nome; ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 center-align">
+                    <a
+                        href="javascript:void(0)"
+                        class="btn-enviar finalizarReadequacao btn waves-effect waves-light white-text tooltipped btn-primary"
+                        data-tooltip="Enviar para o componente da comiss&atilde;o selecionado"
+                        idReadequacao="<?php echo $this->idReadequacao; ?>"
+                    >
+                        <i class="material-icons left">send</i> Enviar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.finalizarReadequacao').click(function () {
+            var componente = $('select#tecnico').val(),
+                idReadequacao = $(this).attr('idReadequacao');
+
+            if (componente == '') {
+                $("#alerta").dialog("destroy");
+                $("#alerta").html('Favor selecionar o componente da comissão!');
+                $("#alerta").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width: 340,
+                    modal: true,
+                    buttons: {
+                        'OK': function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+
+            } else {
+                $("#alerta").dialog("destroy");
+                $("#alerta").html('Deseja realmente enviar a readequação para a análise da CNIC?<br />' +
+                    '<br />Ao enviar a readequação será removida do seu painel.');
+                $("#alerta").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width: 430,
+                    modal: true,
+                    buttons: {
+                        'N\u00E3o': function () {
+                            $(this).dialog('close');
+                        },
+                        'Sim': function () {
+                            $('.ui-dialog-titlebar-close').remove();
+                            $("#alerta").dialog("destroy");
+                            $.ajax({
+                                type: 'POST',
+                                url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'coord-analise-finalizar-readequacao'), '', true); ?>',
+                                data: {
+                                    componente: componente,
+                                    idReadequacao: idReadequacao
+                                },
+                                success: function (data) {
+                                    if (data.resposta) {
+                                        $("#alerta").html('<br /><div align="center"><img src="<?php echo $this->baseUrl() . '/public/img/ajax.gif'; ?>"><br />Aguarde..</div>');
+                                        $("#alerta").dialog({
+                                            resizable: false,
+                                            width: 320,
+                                            modal: true,
+                                            title: 'Carregando..'
+                                        });
+                                        Materialize.toast("Envio realizado com sucesso!", 4000);
+                                        window.setTimeout(location.href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel'), '', true) ;?>?&qtde=10&tipoFiltro=analisados", 6000);
+                                    } else {
+                                        Materialize.toast("N\u00E3o foi poss\u00EDvel finalizar a readequa\u00E7\u00E3o.", 4000);
+                                    }
+                                },
+                                dataType: 'json'
+                            });
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            }
+        });
+    });
+</script>

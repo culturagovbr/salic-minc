@@ -208,7 +208,7 @@ class Proposta_Model_TbPreProjetoMetaMapper extends MinC_Db_Mapper
         $TPD = new PlanoDistribuicao();
         $produtos = $this->unserializarObjeto($TPD, $idPreProjeto, 'alterarprojeto_planodistribuicaoproduto');
 
-        $TPDD = new Proposta_Model_DbTable_TbDetalhamentoPlanoDistribuicaoProduto();
+        $TPDD = new Proposta_Model_DbTable_TbDetalhaPlanoDistribuicao();
         $detalhamentoProdutos = $this->unserializarObjeto($TPDD, $idPreProjeto, 'alterarprojeto_tbdetalhaplanodistribuicao');
 
         # se não tiver itens, não eh pra restaurar

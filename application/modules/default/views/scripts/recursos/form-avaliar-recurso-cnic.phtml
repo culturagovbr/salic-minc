@@ -1,0 +1,1362 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        
+        $('#btn_voltar_enquadramento').click(function(){
+            window.location = "<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'analisar-recursos-cnic')); ?>";
+        });
+        
+        $('#btn_finalizar_enquadramento').click(function(){
+            $("#alerta").dialog("destroy");
+            $("#alerta").html('Deseja realmente finalizar a análise do recurso?');
+            $("#alerta").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width:400,
+                modal: true,
+                buttons : {
+                    'Não' : function(){
+                        $(this).dialog('close');
+                    },
+                    'Sim' : function(){
+                        
+                        $("#alerta").dialog('close');
+                        $("#modalPlenaria").dialog("destroy");
+                        $("#modalPlenaria").dialog({
+                            resizable: false,
+                            title: 'Alerta!',
+                            width:400,
+                            modal: true,
+                            buttons : {
+                                'Salvar' : function(){
+                                    var plenaria = $(".envioPlenaria").is(":checked");
+                                    if(plenaria){
+                                        $('#form_enquadramento').append('<input type="hidden" name="plenaria" value="1">');
+                                    } else {
+                                        $('#form_enquadramento').append('<input type="hidden" name="plenaria" value="0">');
+                                    }
+                                    $('#form_enquadramento').append('<input type="hidden" name="finalizarAvaliacao" value="1">');
+                                    $('#btn_salvar_enquadramento').click();
+                                }
+                            }
+                        });
+                        $('.ui-dialog-titlebar-close').remove();
+                        
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+        });
+        
+        $('.salvar_analise_conteudo').click(function(){
+            var idProduto = $(this).attr('idProduto'),
+                Artigo3 = $('input[name=Artigo3_'+idProduto+']:first').attr('checked'),
+                Artigo27 = $('input[name=Artigo27_'+idProduto+']:first').attr('checked'),
+                erros = 0,
+                msg = 'Preencher o(s) campo(s):<br />';
+            if(Artigo3){
+                var ArtigoEnquradramento = $('select[name=ArtigoEnquadramento_'+idProduto+']').val();
+                if(ArtigoEnquradramento == 0){
+                    erros++;
+                    msg += '- Artigo Enquadramento.<br />'
+                }
+            }
+            if(Artigo27){
+                var IncisoArtigo27_I = $('input[name=IncisoArtigo27_I_'+idProduto+']').attr('checked'),
+                    IncisoArtigo27_II = $('input[name=IncisoArtigo27_II_'+idProduto+']').attr('checked'),
+                    IncisoArtigo27_III = $('input[name=IncisoArtigo27_III_'+idProduto+']').attr('checked'),
+                    IncisoArtigo27_IV = $('input[name=IncisoArtigo27_IV_'+idProduto+']').attr('checked');
+                if(!IncisoArtigo27_I && !IncisoArtigo27_II && !IncisoArtigo27_III && !IncisoArtigo27_IV){
+                    erros++;
+                    msg += '- Inciso(s) do Artigo 27'
+                }
+            }
+            if(erros > 0){
+                $("#alerta").dialog("destroy");
+                $("#alerta").html(msg);
+                $("#alerta").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width:400,
+                    modal: true,
+                    buttons : {
+                        'OK' : function(){
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            } else {
+                $('form[name=form_'+idProduto+']').submit();
+            }
+        });
+        
+        $('#btn_salvar_enquadramento').click(function(){
+            
+            var camposEmBranco = 0,
+                dsParecer = CKEDITOR.instances['dsParecer'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g,'');
+            
+            if (dsParecer == ''){
+                camposEmBranco++;
+            }
+            
+            $('.obrigatorio').each(function(){
+                if($.trim($(this).val()) == '')
+                    camposEmBranco++;
+            });
+            
+            if(camposEmBranco > 0) {
+                $("#alerta").dialog("destroy");
+                $("#alerta").html("Favor preencher os dados obrigat&oacute;rios!");
+                $("#alerta").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width:320,
+                    height:160,
+                    modal: true,
+                    buttons : {
+                        'OK' : function(){
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            
+            } else {
+                $('#form_enquadramento').submit();
+            }
+        });
+        
+        $('#areaCultural').change(function(){
+            $('#segmentoCultural').html('<option value=""> - Carregando - </option>');
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $this->url(array('controller' => 'segmento', 'action' => 'combo')); ?>',
+                data: {
+                    id: $('#areaCultural').val()
+                },
+                success: function(dados) {
+                    $('#segmentoCultural').find('option').remove();
+                    $('#segmentoCultural').append(dados);
+                }
+            });
+        });
+        
+        $('#segmentoCultural').change(function() {
+            carregarEnquadramento();
+        });
+        
+        //Atividades iniciados ao terminar o carregameto da página.
+        carregarEnquadramento();
+        CKEDITOR.replace( 'dsParecer', { toolbar: [] } );
+    });
+    
+    function carregarEnquadramento(){
+        var listaCodSegmento = [ '11','12','13','14','15','17','23','26','2A','2B','2E','2F','2G','2H','2I','2J','2K','2L','32','33','36','4B','4D','5A','5D','5E','5F','5G','5H','5I','5J','5K','5L','5M','5N','5O','5P','62','65','68','6C','6D','6E','6G','6H' ];
+        if(in_array($('#segmentoCultural').val(), listaCodSegmento)){
+            $('#enquadramentoProjeto').val('2');
+            $('#enquadramentoText').html('Artigo 18');
+        } else {
+            $('#enquadramentoProjeto').val('1');
+            $('#enquadramentoText').html('Artigo 26');
+        }
+    }
+    
+    function EnquadramentoFavoravel(idProduto, val){
+        if(val == 1){
+            $('input[name=Lei8313_'+idProduto+']').attr('disabled', false);
+            $('input[name=Lei5761_'+idProduto+']').attr('disabled', false);
+        } else {
+            $('input[name=Lei8313_'+idProduto+']').attr('disabled', true);
+            $('input[name=Lei8313_'+idProduto+']:last').attr('checked', true);
+            $('input[name=Lei5761_'+idProduto+']').attr('disabled', true);
+            $('input[name=Lei5761_'+idProduto+']:last').attr('checked', true);
+        }
+        Lei_8313(idProduto);
+        Decreto5761(idProduto);
+    }
+    
+    function Lei_8313(idProduto){
+        var Lei_8313 = $('input[name=Lei8313_'+idProduto+']:first').attr('checked');
+        if(Lei_8313){
+            $('input[name=Artigo3_'+idProduto+']').attr('disabled', false);
+            $('select[name=IncisoArtigo3_'+idProduto+']').attr('disabled', false);
+            $('input[name=AlineaArtigo3_'+idProduto+']').attr('disabled', false);
+            $('input[name=Artigo18_'+idProduto+']').attr('disabled', false);
+            $('input[name=AlineaArtigo18_'+idProduto+']').attr('disabled', false);
+            $('input[name=Artigo26_'+idProduto+']').attr('disabled', false);
+            $('input[name=Lei5761_'+idProduto+']').attr('disabled', false);
+        } else {
+            $('input[name=Artigo3_'+idProduto+']').attr('disabled', true);
+            $('select[name=IncisoArtigo3_'+idProduto+']').attr('disabled', true);
+            $('input[name=AlineaArtigo3_'+idProduto+']').attr('disabled', true);
+            $('input[name=Artigo18_'+idProduto+']').attr('disabled', true);
+            $('input[name=AlineaArtigo18_'+idProduto+']').attr('disabled', true);
+            $('input[name=Artigo26_'+idProduto+']').attr('disabled', true);
+            $('input[name=Artigo3_'+idProduto+']:last').attr('checked', true);
+            $('input[name=Lei5761_'+idProduto+']').attr('disabled', true);
+            $('input[name=Lei5761_'+idProduto+']:last').attr('checked', true);
+        }
+        Artigo3(idProduto);
+        Decreto5761(idProduto);
+    }
+    
+    function Artigo3(idProduto){
+        var Artigo3 = $('input[name=Artigo3_'+idProduto+']:first').attr('checked');
+        if(Artigo3){
+            $('select[name=IncisoArtigo3_'+idProduto+']').attr('disabled', false);
+            $('input[name=AlineaArtigo3_'+idProduto+']').attr('disabled', false);
+            $('select[name=ArtigoEnquadramento_'+idProduto+']').attr('disabled', false);
+        } else {
+            $('select[name=IncisoArtigo3_'+idProduto+']').attr('disabled', true);
+            $('input[name=AlineaArtigo3_'+idProduto+']').attr('disabled', true);
+            $('select[name=ArtigoEnquadramento_'+idProduto+']').attr('disabled', true);
+            $('input[name=AlineaArtigo3_'+idProduto+']').val('');
+            $('select[name=IncisoArtigo3_'+idProduto+']').attr('value', 0);
+            $('select[name=ArtigoEnquadramento_'+idProduto+']').attr('value', 0);
+            $('input[name=AlineaArtigo18_'+idProduto+']').val('');
+            $('input[name=AlineaArtigo18_'+idProduto+']').attr('disabled', true);
+        }
+        ArtigoEnquadramento(idProduto);
+    }
+    
+    function ArtigoEnquadramento(idProduto){
+        var ArtigoEnquadramento = $('select[name=ArtigoEnquadramento_'+idProduto+']').val();
+        $('input[name=AlineaArtigo18_'+idProduto+']').val('');
+        if(ArtigoEnquadramento == 18){
+            $('input[name=AlineaArtigo18_'+idProduto+']').attr('disabled', false);
+        } else {
+            $('input[name=AlineaArtigo18_'+idProduto+']').attr('disabled', true);
+        }
+    }
+    
+    function Decreto5761(idProduto){
+        var Decreto5761 = $('input[name=Lei5761_'+idProduto+']:first').attr('checked');
+        if(Decreto5761){
+            $('input[name=Artigo27_'+idProduto+']').attr('disabled', false);
+        } else {
+            $('input[name=Artigo27_'+idProduto+']').attr('disabled', true);
+            $('input[name=Artigo27_'+idProduto+']:last').attr('checked', true);
+        }
+        Artigo27(idProduto);
+    }
+    
+    function Artigo27(idProduto){
+        var Artigo27 = $('input[name=Artigo27_'+idProduto+']:first').attr('checked');
+        if(Artigo27){
+            $('input[name=IncisoArtigo27_I_'+idProduto+']').attr('disabled', false);
+            $('input[name=IncisoArtigo27_II_'+idProduto+']').attr('disabled', false);
+            $('input[name=IncisoArtigo27_III_'+idProduto+']').attr('disabled', false);
+            $('input[name=IncisoArtigo27_IV_'+idProduto+']').attr('disabled', false);
+        } else {
+            $('input[name=IncisoArtigo27_I_'+idProduto+']').attr('disabled', true);
+            $('input[name=IncisoArtigo27_II_'+idProduto+']').attr('disabled', true);
+            $('input[name=IncisoArtigo27_III_'+idProduto+']').attr('disabled', true);
+            $('input[name=IncisoArtigo27_IV_'+idProduto+']').attr('disabled', true);
+            
+            $('input[name=IncisoArtigo27_I_'+idProduto+']').attr('checked', false);
+            $('input[name=IncisoArtigo27_II_'+idProduto+']').attr('checked', false);
+            $('input[name=IncisoArtigo27_III_'+idProduto+']').attr('checked', false);
+            $('input[name=IncisoArtigo27_IV_'+idProduto+']').attr('checked', false);
+        }
+    }
+</script>
+
+<style type="text/css">
+    label {
+        font-weight: normal;
+    }
+</style>
+
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<div id="alerta" class="sumir"></div>
+
+<div id="breadcrumb">
+    <ul>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para Inï¿½cio">Início</a></li>
+        <li><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'analisar-recursos-cnic'), '', true); ?>" title="Avaliar de Recurso">Avaliar de Recurso</a></li>
+        <li class="last">Avalia&ccedil;&atilde;o de Recurso</li>
+    </ul>
+</div>
+<!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
+
+
+<!-- ========== INÍCIO TÍTULO ========== -->
+<div id="titulo">
+    <div>Avalia&ccedil;&atilde;o de Recurso - <?php echo $this->nmPagina; ?> <span class="voltar"><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'analisar-recursos-cnic'), '', true); ?>">Voltar</a></span></div>
+</div>
+
+<!-- ========== INÍCIO CONTEÚDO ========== -->
+<div id="conteudo">           
+    <table class="tabela">
+        <tr>
+            <td class="destacar bold centro" width="20%">PRONAC</td>
+            <td class="destacar bold centro">NOME DO PROJETO</td>
+        </tr>
+        <tr>
+            <td align="center">
+                <a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'));?>?idPronac=<?php echo $this->projeto->IdPRONAC; ?>" target="_blank">
+                    <?php echo $this->projeto->pronac; ?>
+                </a>
+            </td>
+            <td align="center"><?php echo $this->projeto->NomeProjeto; ?></td>
+        </tr>
+    </table>
+    
+    <table class="tabela">
+		<tr>
+			<td><input type="button" name="grid1" id="g1_1" class="btn_adicionar" title="Expandir" />DADOS DA SOLICITAÇÃO</td>
+		</tr>
+	</table>
+	<div id="div_g1_1" class="sumir">
+		<table class="tabela">
+            <tr>
+                <td class="destacar bold" colspan="3">Recurso</td>
+            </tr>
+            <tr>
+                <td colspan="3"><?php echo $this->dados->dsSolicitacaoRecurso; ?></td>
+            </tr>
+            <tr>
+                <td class="destacar bold">Tipo da Solicitação</td>
+                <td class="destacar bold">Tipo do Recurso</td>
+                <td class="destacar bold">Dt. Recurso</td>
+            </tr>
+            <tr>
+                <td><?php echo $this->dados->tpRecursoDesc; ?></td>
+                <td><?php echo $this->dados->tpSolicitacaoDesc; ?></td>
+                <td><?php echo Data::tratarDataZend($this->dados->dtSolicitacaoRecurso, 'Brasileira'); ?></td>
+            </tr>
+        </table>
+	</div>
+    
+    <table class="tabela">
+		<tr>
+			<td><input type="button" name="grid1" id="g1_2" class="btn_adicionar" title="Expandir" />AVALIAÇÃO DO COORDENADOR</td>
+		</tr>
+	</table>
+	<div id="div_g1_2" class="sumir">
+        <table class="tabela">
+            <tr>
+                <td class="destacar bold" colspan="3">Descrição</td>
+            </tr>
+            <tr>
+                <td colspan="2"><?php echo $this->dados->dsAvaliacao; ?></td>
+            </tr>
+            <tr>
+                <td class="destacar bold">Situação</td>
+                <td class="destacar bold">Dt. Avaliação</td>
+            </tr>
+            <tr>
+                <td><?php echo !empty($this->dados->stAtendimento) ? 'Deferido' : ''; ?></td>
+                <td><?php echo Data::tratarDataZend($this->dados->dtAvaliacao, 'Brasileira'); ?></td>
+            </tr>
+        </table>
+    </div>
+    
+    
+    <?php //***** PROJETO INDEFERIDO / ENQUADRAMENTO E ORÇAMENTO *****// ?>
+    <?php if($this->dados->tpSolicitacao == 'PI' || $this->dados->tpSolicitacao == 'EO' || $this->dados->tpSolicitacao == 'OR'){ ?>
+        <script type="text/javascript">
+            function AbrirFecharPlanilha(elemento) {
+                $('.' + elemento).toggle();
+                if ($('#' + elemento).hasClass('icn_mais')) {
+                    $('#' + elemento).addClass('icn_menos');
+                    $('#' + elemento).removeClass('icn_mais');
+                } else {
+                    $('#' + elemento).addClass('icn_mais');
+                    $('#' + elemento).removeClass('icn_menos');
+                }
+            }
+            
+            function formatReal( int ){
+                var tmp = int+'';
+                var neg = false;
+                if(tmp.indexOf("-") == 0)
+                {
+                    neg = true;
+                    tmp = tmp.replace("-","");
+                }
+
+                if(tmp.length == 1) tmp = "0"+tmp
+
+                tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
+                if( tmp.length > 6)
+                    tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+
+                if( tmp.length > 9)
+                    tmp = tmp.replace(/([0-9]{3}).([0-9]{3}),([0-9]{2}$)/g,".$1.$2,$3");
+
+                if( tmp.length > 12)
+                    tmp = tmp.replace(/([0-9]{3}).([0-9]{3}).([0-9]{3}),([0-9]{2}$)/g,".$1.$2.$3,$4");
+
+                if(tmp.indexOf(".") == 0) tmp = tmp.replace(".","");
+                if(tmp.indexOf(",") == 0) tmp = tmp.replace(",","0,");
+
+                return (neg ? '-'+tmp : tmp);
+            }
+
+            $(document).ready(function(){
+                $(".icn_menos").click(function(){
+                    var tipo = $(this).attr('tipo');
+                    var aberto = $(this).attr('aberto');
+                    if(aberto == 'true'){
+                        adisplay = 'none';
+                        $(this).attr('aberto','false')
+                        $(this).removeClass('icn_menos').addClass('icn_mais')
+                    }
+                    else{
+                        adisplay = '';
+                        $(this).attr('aberto','true')
+                        $(this).removeClass('icn_mais').addClass('icn_menos')
+                    }
+                    if(tipo == 'fonte'){
+                        fonte = $(this).attr('fonte');
+                        $(".master[fonte='"+fonte+"']").css('display', adisplay);
+                        $(".clickproduto").removeClass('icn_mais').addClass('icn_menos');
+                    }
+                    if(tipo == 'produto'){
+                        fonte = $(this).attr('fonte');
+                        produto = $(this).attr('produto');
+                        $(".produto[produto='"+produto+"'][fonte='"+fonte+"']").css('display', adisplay);
+                    }
+                    if(tipo == 'etapa'){
+                        fonte = $(this).attr('fonte');
+                        produto = $(this).attr('produto');
+                        etapa = $(this).attr('etapa');
+                        $(".etapa[produto='"+produto+"'][etapa='"+etapa+"'][fonte='"+fonte+"']").css('display', adisplay);
+                    }
+                    if(tipo == 'cidade'){
+                        fonte = $(this).attr('fonte');
+                        produto = $(this).attr('produto');
+                        etapa = $(this).attr('etapa');
+                        cidade = $(this).attr('cidade');
+                        $(".cidade[produto='"+produto+"'][etapa='"+etapa+"'][cidade='"+cidade+"'][fonte='"+fonte+"']").css('display', adisplay);
+                    }
+                });
+                $(".item").mouseover(function(){
+                    $(this).addClass('fundo_linha3');
+                });
+                $(".item").mouseout(function(){
+                    $(this).removeClass('fundo_linha3');
+                });
+                $(".item").click(function(){
+                    if($(this).hasClass('fundo_linha4')){
+                        $(this).removeClass('fundo_linha4');
+                    }
+                    else{
+                        $(this).addClass('fundo_linha4');
+                    }
+                });
+                
+                $('.editarItem').click(function(){
+                    var idPlanilha = $(this).attr('idPlanilhaAprovacao'),
+                        itemClicado = $(this);
+                        
+                    //AO ABRIR A MODAL, LIMPA TODOS OS CAMPOS EDITÁVEIS
+                    $('.modalObrigatorios').each(function(){
+                        $(this).css('border-color', '#CCCCCC');
+                        $(this).val('');
+                    });
+                    $('#TotalCalculado').html('R$ 0,00');
+                    $('#campoTotal').css('color','#222222');
+                    $('#TotalCalculado').css('color','#222222');
+                    $('#textoErroValores').html('');
+                    
+                    //BUSCA OS DADOS DO ITEM PARA VISUALIZAÇÃO DOS NA MODAL
+                    $.ajax({
+                        type: 'POST',
+                        url: '<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'cnic-alterar-item')); ?>',
+                        data: {
+                            idPlanilha: idPlanilha
+                        },
+                        success: function(data){
+                            if(data.resposta){
+                                $('#campoPronac').html(data.dadosProjeto.PRONAC);
+                                $('#campoNomeProjeto').html(data.dadosProjeto.NomeProjeto);
+                                
+                                $('#campoProduto').html(data.dadosPlanilhaAprovada.descProduto);
+                                $('#campoEtapa').html(data.dadosPlanilhaAprovada.descEtapa);
+                                $('#campoItem').html(data.dadosPlanilhaAprovada.descItem);
+
+                                $('#campoUnidadeSolicitado').html(data.dadosPlanilhaProposta.Unidade);
+                                $('#campoQtdSolicitado').html(data.dadosPlanilhaProposta.Quantidade);
+                                $('#campoOcorrenciaSolicitado').html(data.dadosPlanilhaProposta.Ocorrencia);
+                                $('#campoVlUnitarioSolicitado').html(data.dadosPlanilhaProposta.ValorUnitario);
+                                $('#campoDiasSolicitado').html(data.dadosPlanilhaProposta.QtdeDias);
+                                $('#campoTotalSolicitado').html(data.dadosPlanilhaProposta.TotalSolicitado);
+                                
+                                $('#campoUnidadeSugerido').html(data.dadosPlanilhaProjeto.Unidade);
+                                $('#campoQtdSugerido').html(data.dadosPlanilhaProjeto.Quantidade);
+                                $('#campoOcorrenciaSugerido').html(data.dadosPlanilhaProjeto.Ocorrencia);
+                                $('#campoVlUnitarioSugerido').html(data.dadosPlanilhaProjeto.ValorUnitario);
+                                $('#campoDiasSugerido').html(data.dadosPlanilhaProjeto.QtdeDias);
+                                $('#campoTotalSugerido').html(data.dadosPlanilhaProjeto.TotalSolicitado);
+                                
+                                $('#modalUnidade').val(data.dadosPlanilhaAprovada.idUnidade);
+                                $('#modalQuantidade').val(data.dadosPlanilhaAprovada.Quantidade);
+                                $('#modalOcorrencia').val(data.dadosPlanilhaAprovada.Ocorrencia);
+                                $('#modalValorUnitario').val(data.dadosPlanilhaAprovada.ValorUnitario.replace('R$ ',''));
+                                $('#modalQtdeDias').val(data.dadosPlanilhaAprovada.QtdeDias);
+                                $('#modalJustificativa').val(data.dadosPlanilhaAprovada.dsJustificativa);
+                                $('#TotalCalculado').html(data.dadosPlanilhaAprovada.TotalSolicitado);
+                                
+                                var valorParaValidacao = data.dadosPlanilhaProposta.TotalSolicitadoValidacao,
+                                    valorParaMsgErro = data.dadosPlanilhaProposta.TotalSolicitado;
+                                
+                                //MOSTRA OS DADOS NA MODAL APÓS ABRI-LA
+                                $("#modalItem").dialog("destroy");
+                                $("#modalItem").dialog({
+                                    resizable: false,
+                                    title: 'Alterar Item!',
+                                    width: 800,
+                                    modal: true,
+                                    buttons : {
+                                        'Cancelar' : function(){
+                                            $(this).dialog('close');
+                                        },
+                                        'Salvar' : function(){
+                                            var Quantidade = $('#modalQuantidade').val(),
+                                                Ocorrencia = $('#modalOcorrencia').val(),
+                                                ValorUnitario = $('#modalValorUnitario').val(),
+                                                QtdeDias = $('#modalQtdeDias').val(),
+                                                Unidade = $('#modalUnidade').val(),
+                                                Justificativa = $('#modalJustificativa').val(),
+                                                erros = 0;
+
+                                            //VERIFICA SE OS CAMPOS FORAM PREENCHIDOS
+                                            $('.modalObrigatorios').each(function(){
+                                                if($.trim($(this).val()) == ''){
+                                                    erros++;
+                                                    $(this).css('border-color', 'red');
+                                                } else {
+                                                    $(this).css('border-color', '#CCCCCC');
+                                                }
+                                            });
+                                            
+                                            var TotalCalculadoComponente = $('#TotalCalculado').html().replace(/[^\d]/g, "");
+                                            if(parseInt(TotalCalculadoComponente) > parseInt(valorParaValidacao)){
+                                                erros++;
+                                                $('#campoTotalSolicitado').css('color','blue');
+                                                $('#TotalCalculado').css('color','red');
+                                                $('#textoErroValores').html('O valor total não pode ser maior do que o solicitado.');
+                                            } else {
+                                                $('#campoTotalSolicitado').css('color','#222222');
+                                                $('#TotalCalculado').css('color','#222222');
+                                                $('#textoErroValores').html('');
+                                            }
+
+                                            //SE NENHUM CAMPO ESTIVER EM BRANCO, SALVA OS DADOS
+                                            if(erros == 0){
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    url: '<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'cnic-salvar-avaliacao-do-item')); ?>',
+                                                    data: {
+                                                        idPlanilha: idPlanilha,
+                                                        Quantidade: Quantidade,
+                                                        Ocorrencia: Ocorrencia,
+                                                        ValorUnitario: ValorUnitario,
+                                                        QtdeDias: QtdeDias,
+                                                        Unidade: Unidade,
+                                                        Justificativa: Justificativa,
+                                                        valorSolicitado: valorParaMsgErro
+                                                    },
+                                                    success: function(data){
+                                                        // recebe os valores do formulário
+                                                        var qtd = Quantidade,
+                                                            ocorrencia = Ocorrencia,
+                                                            valor = ValorUnitario,
+                                                            Total = 0;
+
+                                                        // retira os pontos e as vírgulas, deixando somente números
+                                                        valor = valor.replace(/\D/g, "")
+                                                        .replace(/(\d{0})(\d)/, "$1$2")
+                                                        // adiciona o ponto na casa decimal
+                                                        .replace(/(\d)(\d{2})$/, "$1.$2");
+
+                                                        // converte para float e adiciona precisão decimal
+                                                        qtd = parseFloat(qtd).toFixed(2);
+                                                        ocorrencia = parseFloat(ocorrencia).toFixed(2);
+                                                        valor = parseFloat(valor).toFixed(2);
+
+                                                        // variável com o resultado
+                                                        Total = parseFloat(qtd * ocorrencia * valor).toFixed(2); // armazena o resultado
+
+                                                        // se não for número
+                                                        if (isNaN(Total)){
+                                                            Total = '';
+                                                        }
+                                                        // caso seja número
+                                                        else {
+                                                            // formata para real
+                                                            Total = Total.replace(/\D/g, "");
+                                                            Total = Total.replace(/(\d)(\d{2})$/, "$1,$2");
+                                                            Total = Total.replace(/(\d+)(\d{3},\d{2})$/g, "$1.$2");
+
+                                                            var q = (Total.length - 3) / 3; // quantidade caracteres
+                                                            var c = 0; // contador
+                                                            while (q > c){
+                                                                c++;
+                                                                Total = Total.replace(/(\d+)(\d{3}.*)/, "$1.$2");
+                                                            }
+                                                            Total = Total.replace(/^(0+)(\d)/g, "$2");
+                                                        } // fecha else
+
+                                                        if(data.resposta){
+                                                            itemClicado.parent().parent().addClass('red');
+                                                            itemClicado.parent().parent().addClass('fundo_linha4');
+                                                            itemClicado.parent().parent().find('.textDias').html(QtdeDias);
+                                                            itemClicado.parent().parent().find('.textQuantidade').html(Quantidade);
+                                                            itemClicado.parent().parent().find('.textOcorrencia').html(Ocorrencia);
+                                                            itemClicado.parent().parent().find('.textValorUnitario').html(ValorUnitario);
+                                                            itemClicado.parent().parent().find('.textValorAprovado').html(Total);
+                                                            itemClicado.parent().parent().find('.textJustificativa').html(Justificativa);
+                                                        }
+
+                                                        //ABRE O MODAL DE CONFIRMAÇÃO DA AÇÃO REALIZADA
+                                                        $("#modalItem").dialog('close');
+                                                        $("#alerta").dialog("destroy");
+                                                        $("#alerta").html(data.msg);
+                                                        $("#alerta").dialog({
+                                                            resizable: false,
+                                                            title: 'Alerta!',
+                                                            width:300,
+                                                            height:160,
+                                                            modal: true,
+                                                            buttons : {
+                                                                'OK' : function(){
+                                                                    $(this).dialog('close');
+                                                                }
+                                                            }
+                                                        });
+                                                        $('.ui-dialog-titlebar-close').remove();
+                                                    },
+                                                    dataType : 'json'
+                                                });
+                                            }
+                                        }
+                                    }
+                                });
+                                $('.ui-dialog-titlebar-close').remove();
+                                
+                            } else {
+                                $("#alerta").dialog("destroy");
+                                $("#alerta").html('Os dados do item não foram encontrados!');
+                                $("#alerta").dialog({
+                                    resizable: false,
+                                    title: 'Alerta!',
+                                    width:340,
+                                    height:160,
+                                    modal: true,
+                                    buttons : {
+                                        'OK' : function(){
+                                            $(this).dialog('close');
+                                        }
+                                    }
+                                });
+                                $('.ui-dialog-titlebar-close').remove();
+                                return false;
+                            }
+                        },
+                        dataType : 'json'
+                    });
+                    return false;
+                });
+                    
+                
+                $('.multiplicarValores').keyup(function(){
+                        
+                    // recebe os valores do formulário
+                    var qtd = $('#modalQuantidade').val(),
+                        ocorrencia = $('#modalOcorrencia').val(),
+                        valor = $('#modalValorUnitario').val();
+
+                    // retira os pontos e as vírgulas, deixando somente números
+                    valor = valor.replace(/\D/g, "")
+                    .replace(/(\d{0})(\d)/, "$1$2")
+                    // adiciona o ponto na casa decimal
+                    .replace(/(\d)(\d{2})$/, "$1.$2");
+
+                    // converte para float e adiciona precisão decimal
+                    qtd        = parseFloat(qtd).toFixed(2);
+                    ocorrencia = parseFloat(ocorrencia).toFixed(2);
+                    valor      = parseFloat(valor).toFixed(2);
+
+                    // variável com o resultado
+                    resultado = parseFloat(qtd * ocorrencia * valor).toFixed(2); // armazena o resultado
+
+                    // se não for número
+                    if (isNaN(resultado))
+                    {
+                        resultado = '';
+                    }
+                    // caso seja número
+                    else
+                    {
+                        // formata para real
+                        resultado = resultado.replace(/\D/g, "");
+                        resultado = resultado.replace(/(\d)(\d{2})$/, "$1,$2");
+                        resultado = resultado.replace(/(\d+)(\d{3},\d{2})$/g, "$1.$2");
+
+                        var q = (resultado.length - 3) / 3; // quantidade caracteres
+                        var c = 0; // contador
+                        while (q > c)
+                        {
+                            c++;
+                            resultado = resultado.replace(/(\d+)(\d{3}.*)/, "$1.$2");
+                        }
+                        resultado = resultado.replace(/^(0+)(\d)/g, "$2");
+                        resultado = 'R$ ' + resultado;
+                    } // fecha else
+
+                    $('#TotalCalculado').html(resultado);
+                });
+                
+                $("#modalValorUnitario").priceFormat();
+            });
+        </script>
+        
+        <?php //MODAL DE AVALIAÇÃO DO ITEM ?>
+        <div id="modalItem" class="sumir">
+            <table class="tabela">
+                <tr>
+                    <td class="destacar bold" style="width: 30%">PRONAC</td>
+                    <td class="destacar bold" colspan="2">Nome do Projeto</td>
+                </tr>
+                <tr>
+                    <td id="campoPronac" class="camposModal">&nbsp;</td>
+                    <td id="campoNomeProjeto" colspan="2" class="camposModal">&nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="destacar bold">Produto</td>
+                    <td class="destacar bold">Etapa</td>
+                    <td class="destacar bold">Item</td>
+                </tr>
+                <tr>
+                    <td id="campoProduto" class="camposModal">&nbsp;</td>
+                    <td id="campoEtapa" class="camposModal">&nbsp;</td>
+                    <td id="campoItem" class="camposModal">&nbsp;</td>
+                </tr>
+            </table>
+            <table class="tabela">
+                <tr>
+                    <th colspan="6">Valores Solicitados</th>
+                </tr>
+                <tr>
+                    <td class="destacar bold">Unidade</td>
+                    <td class="destacar bold">Qtd</td>
+                    <td class="destacar bold">Ocorrência</td>
+                    <td class="destacar bold">Vl. Unitário</td>
+                    <td class="destacar bold">Dias</td>
+                    <td class="destacar bold">Total</td>
+                </tr>
+                <tr>
+                    <td id="campoUnidadeSolicitado" class="camposModal">&nbsp;</td>
+                    <td id="campoQtdSolicitado" class="direita camposModal">&nbsp;</td>
+                    <td id="campoOcorrenciaSolicitado" class="direita camposModal">&nbsp;</td>
+                    <td id="campoVlUnitarioSolicitado" class="direita camposModal">&nbsp;</td>
+                    <td id="campoDiasSolicitado" class="direita camposModal">&nbsp;</td>
+                    <td id="campoTotalSolicitado" class="direita camposModal">&nbsp;</td>
+                </tr>
+            </table>
+            <table class="tabela">
+                <tr>
+                    <th colspan="6">Valores Sugeridos</th>
+                </tr>
+                <tr>
+                    <td class="destacar bold">Unidade</td>
+                    <td class="destacar bold">Qtd</td>
+                    <td class="destacar bold">Ocorrência</td>
+                    <td class="destacar bold">Vl. Unitário</td>
+                    <td class="destacar bold">Dias</td>
+                    <td class="destacar bold">Total</td>
+                </tr>
+                <tr>
+                    <td id="campoUnidadeSugerido" class="camposModal">&nbsp;</td>
+                    <td id="campoQtdSugerido" class="direita camposModal">&nbsp;</td>
+                    <td id="campoOcorrenciaSugerido" class="direita camposModal">&nbsp;</td>
+                    <td id="campoVlUnitarioSugerido" class="direita camposModal">&nbsp;</td>
+                    <td id="campoDiasSugerido" class="direita camposModal">&nbsp;</td>
+                    <td id="campoTotalSugerido" class="direita camposModal">&nbsp;</td>
+                </tr>
+            </table>
+            <table class="tabela">
+                <tr>
+                    <th colspan="6">Valores Aprovados</th>
+                </tr>
+                <tr class="centro">
+                    <td class="destacar bold">Unidade</td>
+                    <td class="destacar bold">Qtd</td>
+                    <td class="destacar bold">Ocorrência</td>
+                    <td class="destacar bold">Vl. Unitário</td>
+                    <td class="destacar bold">Dias</td>
+                    <td class="destacar bold">Total</td>
+                </tr>
+                <tr>
+                    <td>
+                        <?php $planilhaUnidade = PlanilhaUnidadeDAO::buscar(); ?>
+                        <select id="modalUnidade" name="idUnidade" class="input_simples modalObrigatorios">
+                            <option value=""> - Selecione - </option>
+                            <?php foreach ($planilhaUnidade as $unidade){ ?>
+                            <option value="<?php echo $unidade->idUnidade; ?>"><?php echo $unidade->Descricao; ?></option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                    <td><input class="input_simples w50 multiplicarValores modalObrigatorios" id="modalQuantidade" type="text" maxlength="5" name="Quantidade" onkeyup="mascara(this, format_num);"></td>
+                    <td><input class="input_simples w50 multiplicarValores modalObrigatorios" id="modalOcorrencia" type="text" maxlength="5" name="Ocorrencia" onkeyup="mascara(this, format_num);"></td>
+                    <td><input class="input_simples w100 multiplicarValores modalValorUnitario modalObrigatorios" id="modalValorUnitario" type="text" maxlength="13" name="ValorUnitario"></td>
+                    <td><input class="input_simples w50 modalObrigatorios" id="modalQtdeDias" type="text" maxlength="4" name="QtdeDias" onkeyup="mascara(this, format_num);"></td>
+                    <td id="TotalCalculado" class="w150 direita"></td>
+                </tr>
+                <tr>
+                    <td colspan="6" class="destacar bold">Justificativa <span class="red">*</span> <span id="textoErroValores" style="float:right; color: red;"></span></td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                        <textarea id="modalJustificativa" class="textarea_simples modalObrigatorios" rows="3" style="width:99%" name="Justificativa"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <?php //FIM MODAL DE AVALIAÇÃO DO ITEM ?>
+        
+        <table class="tabela">
+            <tr>
+                <th colspan="4">Parecer Técnico</th>
+            </tr>
+        </table>
+    
+        <?php $habilitarAnaliseDeCusto = false; ?>
+        <?php foreach ($this->produtos as $produto){ ?>
+        <?php
+            if($produto->stPrincipal){ //Verifica se é o produto principal
+                if($produto->ParecerFavoravel){ //Verifica se o parecer desse produto principal é favorável
+                    $habilitarAnaliseDeCusto = true;
+                }
+            }
+        ?>
+        
+        <?php if($this->dados->tpSolicitacao != 'OR'){ ?>
+        <table class="tabela">
+            <tr>
+                <td class="bold centro fundo_linha2">Produtos</td>
+            </tr>
+        </table>
+        
+        <table class="tabela">
+            <tr>
+                <td style="font-weight: bold;"><input type="button" name="grid1" id="p_<?php echo $produto->idProduto; ?>" class="btn_adicionar" title="Expandir" onclick="EnquadramentoFavoravel('<?php echo $produto->idProduto; ?>', '<?php echo $produto->ParecerFavoravel; ?>');" /><?php echo $produto->Produto; ?> <?php echo ($produto->stPrincipal) ? '<font style="color: red;">(produto principal)</font>' : ''; ?></td>
+            </tr>
+        </table>
+        <div id="div_p_<?php echo $produto->idProduto; ?>" class="sumir">
+            <form name="form_<?php echo $produto->idProduto; ?>" action="<?php echo $this->baseUrl(); ?>/recursos/cnic-salvar-analise-de-conteudo" method="post">
+                <table class="tabela">
+                    <tr>
+                        <td>
+                            <table class="tabela">
+                                <tr>
+                                    <td><input type="button" name="grid1" id="analiseconteudo_<?php echo $produto->idProduto; ?>" class="btn_remover" title="Expandir" onclick="EnquadramentoFavoravel('<?php echo $produto->idProduto; ?>', '<?php echo $produto->ParecerFavoravel; ?>');" />Análise de Conteúdo</td>
+                                </tr>
+                            </table>
+                            <div id="div_analiseconteudo_<?php echo $produto->idProduto; ?>">
+                                <table class="tabela">
+                                    <tr>
+                                        <td class="destacar bold enquadramentoFavoravel" colspan="6">Enquadramento Favorável? *</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">
+                                            <label><input type="radio" <?php echo ($produto->ParecerFavoravel == 1) ? 'checked="checked"' : '';  ?> style="margin-right: 5px;" value="1" name="ParecerFavoravel_<?php echo $produto->idProduto; ?>" onclick="EnquadramentoFavoravel('<?php echo $produto->idProduto; ?>', 1);" />Sim &nbsp;&nbsp;</label>
+                                            <label><input type="radio" <?php echo ($produto->ParecerFavoravel == 0) ? 'checked="checked"' : '';  ?> style="margin-right: 5px;" value="0" name="ParecerFavoravel_<?php echo $produto->idProduto; ?>" onclick="EnquadramentoFavoravel('<?php echo $produto->idProduto; ?>', 0);" />N&atilde;o</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="destacar bold">Lei 8.313/91 alterada pela Lei 9.874/1999 *</td>
+                                        <td class="destacar bold">Artigo 3&deg;</td>
+                                        <td class="destacar bold">Inciso</td>
+                                        <td class="destacar bold">Alinea Artigo 3</td>
+                                        <td class="destacar bold">Artigo Enquadramento</td>
+                                        <td class="destacar bold">Alínea Artigo 18</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label><input type="radio" <?php echo ($produto->Lei8313 == 1) ? 'checked="checked"' : '';  ?> style="margin-right: 5px;" value="1" name="Lei8313_<?php echo $produto->idProduto; ?>" onclick="Lei_8313('<?php echo $produto->idProduto; ?>');"/>Sim &nbsp;&nbsp;</label>
+                                            <label><input type="radio" <?php echo ($produto->Lei8313 == 0) ? 'checked="checked"' : '';  ?> style="margin-right: 5px;" value="0" name="Lei8313_<?php echo $produto->idProduto; ?>" onclick="Lei_8313('<?php echo $produto->idProduto; ?>');" />N&atilde;o</label>
+                                        </td>
+                                        <td>
+                                            <label><input type="radio" <?php echo ($produto->Artigo3 == 1) ? 'checked="checked"' : '';  ?> style="margin-right: 5px;" value="1" name="Artigo3_<?php echo $produto->idProduto; ?>" onclick="Artigo3('<?php echo $produto->idProduto; ?>');" />Sim &nbsp;&nbsp;</label>
+                                            <label><input type="radio" <?php echo ($produto->Artigo3 == 0) ? 'checked="checked"' : '';  ?> style="margin-right: 5px;" value="0" name="Artigo3_<?php echo $produto->idProduto; ?>" onclick="Artigo3('<?php echo $produto->idProduto; ?>');" />N&atilde;o</label>
+                                        </td>
+                                        <td>
+                                            <select class="campo select_simples" name="IncisoArtigo3_<?php echo $produto->idProduto; ?>">
+                                                <option value="0"> - Selecione - </option>
+                                                <option value="1" <?php echo ($produto->IncisoArtigo3 == 1) ? "selected='selected'" : ''; ?>>I</option>
+                                                <option value="2" <?php echo ($produto->IncisoArtigo3 == 2) ? "selected='selected'" : ''; ?>>II</option>
+                                                <option value="3" <?php echo ($produto->IncisoArtigo3 == 3) ? "selected='selected'" : ''; ?>>III</option>
+                                                <option value="4" <?php echo ($produto->IncisoArtigo3 == 4) ? "selected='selected'" : ''; ?>>IV</option>
+                                                <option value="5" <?php echo ($produto->IncisoArtigo3 == 5) ? "selected='selected'" : ''; ?>>V</option>
+                                            </select>
+                                        </td>
+                                        <td id="AlineaArtigo3">
+                                            <input type="text" class="input_simples" name="AlineaArtigo3_<?php echo $produto->idProduto; ?>" value="<?php echo $produto->AlineaArtigo3; ?>" />
+                                        </td>
+                                        <td id="Artigo18">
+                                            <?php $art18 = $produto->Artigo18 ? "selected='selected'" : ''; ?>
+                                            <?php $art26 = $produto->Artigo26 ? "selected='selected'" : ''; ?>
+                                            <select class="campo select_simples" name="ArtigoEnquadramento_<?php echo $produto->idProduto; ?>" onchange="ArtigoEnquadramento('<?php echo $produto->idProduto; ?>');">
+                                                <option value="0"> - Selecione - </option>
+                                                <option value="18" <?php echo $art18; ?>>Artigo 18</option>
+                                                <option value="26" <?php echo $art26; ?>>Artigo 26</option>
+                                            </select>
+                                        </td>
+                                        <td id="AlineaArtigo18">
+                                            <input type="text" class="input_simples" name="AlineaArtigo18_<?php echo $produto->idProduto; ?>" value="<?php echo $produto->AlineaArtigo18; ?>"/>
+                                            <input type="hidden" name="AlineaArt18" id="AlineaArt18" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="destacar bold" colspan="4">Decreto 5761/2006 *</td>
+                                        <td class="destacar bold">Artigo 27&deg;</td>
+                                        <td class="destacar bold">Inciso(s)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">
+                                            <label><input type="radio" <?php echo ($produto->Lei5761 == 1) ? 'checked="checked"' : '';  ?> style="margin-right: 5px;" value="1" name="Lei5761_<?php echo $produto->idProduto; ?>" onclick="Decreto5761('<?php echo $produto->idProduto; ?>');" />Sim &nbsp;&nbsp;</label>
+                                            <label><input type="radio" <?php echo ($produto->Lei5761 == 0) ? 'checked="checked"' : '';  ?> style="margin-right: 5px;" value="0" name="Lei5761_<?php echo $produto->idProduto; ?>" onclick="Decreto5761('<?php echo $produto->idProduto; ?>');" />N&atilde;o</label>
+                                        </td>
+                                        <td id="Artigo27">
+                                            <label><input type="radio" <?php echo ($produto->Artigo27 == 1) ? 'checked="checked"' : '';  ?> style="margin-right: 5px;"  value="1" name="Artigo27_<?php echo $produto->idProduto; ?>" onclick="Artigo27('<?php echo $produto->idProduto; ?>');"/>Sim &nbsp;&nbsp;</label>
+                                            <label><input type="radio" <?php echo ($produto->Artigo27 == 0) ? 'checked="checked"' : '';  ?> style="margin-right: 5px;"  value="0" name="Artigo27_<?php echo $produto->idProduto; ?>" onclick="Artigo27('<?php echo $produto->idProduto; ?>');"/>N&atilde;o</label>
+                                        </td>
+                                        <td id="IncisoArtigo27">
+                                            <input type="checkbox" <?php echo ($produto->IncisoArtigo27_I == 1) ? 'checked="checked"' : '';  ?> style="margin-right: 3px;" value="1" name="IncisoArtigo27_I_<?php echo $produto->idProduto; ?>" />I &nbsp;&nbsp;&nbsp;
+                                            <input type="checkbox" <?php echo ($produto->IncisoArtigo27_II == 1) ? 'checked="checked"' : '';  ?> style="margin-right: 3px;" value="1" name="IncisoArtigo27_II_<?php echo $produto->idProduto; ?>" />II &nbsp;&nbsp;&nbsp;
+                                            <input type="checkbox" <?php echo ($produto->IncisoArtigo27_III == 1) ? 'checked="checked"' : '';  ?> style="margin-right: 3px;" value="1" name="IncisoArtigo27_III_<?php echo $produto->idProduto; ?>" />III &nbsp;&nbsp;&nbsp;
+                                            <input type="checkbox" <?php echo ($produto->IncisoArtigo27_IV == 1) ? 'checked="checked"' : '';  ?> style="margin-right: 3px;" value="1" name="IncisoArtigo27_IV_<?php echo $produto->idProduto; ?>" />IV
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6" class="destacar bold">Justificativa *</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="6">
+                                            <textarea class="textarea_simples" name="ParecerDeConteudo_<?php echo $produto->idProduto; ?>" rows="6" style="width: 99%;"><?php echo $produto->ParecerDeConteudo; ?></textarea>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <input type="hidden" name="idProduto" value="<?php echo $produto->idProduto; ?>">
+                            <input type="hidden" name="idPronac" value="<?php echo $this->dados->IdPRONAC; ?>">
+                            <input type="hidden" name="idRecurso" value="<?php echo $this->dados->idRecurso; ?>">
+                            <input type="hidden" name="stPrincipal" value="<?php echo $produto->stPrincipal; ?>">
+                            <input type="button" class="btn_salvar salvar_analise_conteudo" idProduto="<?php echo $produto->idProduto; ?>" value=" ">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+        <?php } ?>
+        <?php } ?>
+    
+        <?php if($habilitarAnaliseDeCusto){ ?>
+        <table class="tabela">
+            <tr>
+                <td class="bold centro fundo_linha2">Planilha Orçamentária</td>
+            </tr>
+        </table>
+        <table class="tabela">
+            <tr>
+                <td style="font-weight: bold;"><input type="button" name="grid1" id="p_planilha_orcamentaria" class="btn_adicionar" title="Expandir" />Análise de Custo</td>
+            </tr>
+        </table>
+        <div id="div_p_planilha_orcamentaria" class="sumir">
+            <table class="tabela">
+                <?php
+                $nrfonte = 0;
+                $TotalSolicitado = 0;
+                $TotalSugerido = 0;
+                $TotalUnitario = 0;
+                $TotalAprovado = 0;
+                if(is_array($this->planilha) && count($this->planilha)>0) foreach ($this->planilha as $fonte => $planilha) { //ForeachFonteIncentivo
+                    ?>
+                    <tr>
+                        <td>
+                            <div tipo="fonte" fonte="<?php echo $nrfonte; ?>" aberto="true" class="icn_menos" style="width:90%"><span class="red del_link" style="font-size: 20pt; font-weight: 800;"><?php echo $fonte; ?></span></div>
+                        </td>
+                    </tr>
+                    <?php
+                    $nrproduto = 0;
+                    $valorSolicitadoTotalIncentivo = 0;
+                    $valorSugeridoTotalIncentivo = 0;
+                    $valorUnitarioTotalIncentivo = 0;
+                    $valorAprovadoTotalIncentivo = 0;
+                    foreach ($this->planilha[$fonte] as $produto => $planilha) {
+                        ?>
+                        <tr class='master' fonte="<?php echo $nrfonte; ?>">
+                            <td class='master'>
+                                <div  tipo="produto" aberto="true" fonte="<?php echo $nrfonte; ?>" produto ="<?php echo $nrproduto; ?>" class="icn_menos clickproduto" style="width:98%; margin-left:2%;"><span class="green del_link" style="font-size: 16pt; font-weight: 800;"><?php echo $produto; ?></span></div>
+                            </td>
+                        </tr>
+                        <?php
+                        $nretapa = 0;
+                        $valorSolicitadoTotalProduto = 0;
+                        $valorSugeridoTotalProduto = 0;
+                        $valorUnitarioTotalProduto = 0;
+                        $valorAprovadoTotalProduto = 0;
+                        foreach ($this->planilha[$fonte][$produto] as $etapa => $planilha) {
+                            $valoretapasolicitado = 0;
+                            ?>
+                            <tr class="master produto" produto="<?php echo $nrproduto; ?>"  fonte="<?php echo $nrfonte; ?>" >
+                                <td>
+                                    <div><div tipo="etapa" fonte="<?php echo $nrfonte; ?>" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>" aberto="true" class="icn_menos" style="width:94%; margin-left:4%;"><span class="orange del_link" style="font-size: 14pt; font-weight: 800;"><?php echo $etapa; ?></span></div></div>
+                                </td>
+                            </tr>
+                            <?php
+                            $nrcidade = 0;
+                            $valorSolicitadoTotalEtapa = 0;
+                            $valorSugeridoTotalEtapa = 0;
+                            $valorUnitarioTotalEtapa = 0;
+                            $valorAprovadoTotalEtapa = 0;
+                            foreach ($this->planilha[$fonte][$produto][$etapa] as $cidade => $planilha) {
+                                ?>
+                                <tr class="master produto etapa" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>"  fonte="<?php echo $nrfonte; ?>" >
+                                    <td>
+                                        <div tipo="cidade" fonte="<?php echo $nrfonte; ?>" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>" cidade="<?php echo $nrcidade; ?>" aberto="true" class="icn_menos" style="width:94%; margin-left:6%;"><span class="black del_link" style="font-size: 12pt; font-weight: 800;"><?php echo $cidade; ?></span></div>
+                                    </td>
+                                </tr>
+                                <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>" cidade="<?php echo $nrcidade; ?>"  fonte="<?php echo $nrfonte; ?>">
+                                    <td>
+                                        <table class="tabela">
+                                            <tr>
+                                                <th>&nbsp;</th>
+                                                <th>Item</th>
+                                                <th>Vl. Solicitado</th>
+                                                <th>Vl. Sugerido</th>
+                                                <th>Dias</th>
+                                                <th>Qtde</th>
+                                                <th>Ocor.</th>
+                                                <th>Vl. Unit&aacute;rio</th>
+                                                <th>Vl. Aprovado</th>
+                                                <th>Justif. do Proponente</th>
+                                                <th>Justif. do Parecerista</th>
+                                                <th>Justif. do Componente</th>
+                                            </tr>
+                                            <?php
+                                            $valorSolicitadoTotalUf = 0;
+                                            $valorSugeridoTotalUf = 0;
+                                            $valorUnitarioTotalUf = 0;
+                                            $valorAprovadoTotalUf = 0;
+                                            $vlSugerido = 0;
+                                            $vlSolicitado = 0;
+                                            $vlUnitario = 0;
+                                            $vlAprovado = 0;
+                                            foreach ($this->planilha[$fonte][$produto][$etapa][$cidade] as $planilha) {
+                                                $vlSolicitado += $planilha['vlSolicitado'];
+                                                $vlSugerido += $planilha['vlSugerido'];
+                                                $vlUnitario += $planilha['vlUnitario'];
+                                                $vlAprovado += $planilha['vlAprovado'];
+                                                
+                                                $valorSolicitadoTotalUf += $planilha['vlSolicitado'];
+                                                $valorSugeridoTotalUf += $planilha['vlSugerido'];
+                                                $valorUnitarioTotalUf += $planilha['vlUnitario'];
+                                                $valorAprovadoTotalUf += $planilha['vlAprovado'];
+                                                
+                                                $valorSolicitadoTotalEtapa += $planilha['vlSolicitado'];
+                                                $valorSugeridoTotalEtapa += $planilha['vlSugerido'];
+                                                $valorUnitarioTotalEtapa += $planilha['vlUnitario'];
+                                                $valorAprovadoTotalEtapa += $planilha['vlAprovado'];
+                                                
+                                                $valorSolicitadoTotalProduto += $planilha['vlSolicitado'];
+                                                $valorSugeridoTotalProduto += $planilha['vlSugerido'];
+                                                $valorUnitarioTotalProduto += $planilha['vlUnitario'];
+                                                $valorAprovadoTotalProduto += $planilha['vlAprovado'];
+                                                
+                                                $valorSolicitadoTotalIncentivo += $planilha['vlSolicitado'];
+                                                $valorSugeridoTotalIncentivo += $planilha['vlSugerido'];
+                                                $valorUnitarioTotalIncentivo += $planilha['vlUnitario'];
+                                                $valorAprovadoTotalIncentivo += $planilha['vlAprovado'];
+                                                
+                                                $TotalSolicitado += $planilha['vlSolicitado'];
+                                                $TotalSugerido += $planilha['vlSugerido'];
+                                                ?>
+                                                <tr class="item">
+                                                    <td style="width: 5%;"><?php echo $planilha['Seq']; ?></td>
+                                                    <td  style="width: 20%;">
+                                                        <?php if($planilha['idFonte'] == 109){ // Se for incentivo fiscal, coloca o link para editar. ?>
+                                                        <a href="#" class="editarItem" idPlanilhaAprovacao="<?php echo $planilha['idPlanilhaAprovacao']; ?>"><?php echo $planilha['Item']; ?></a>
+                                                        <?php } else {
+                                                            echo $planilha['Item']; ?>
+                                                        <?php } ?>
+                                                    </td>
+                                                    <td class="direita"><?php echo @number_format($planilha['vlSolicitado'], 2, ",", "."); ?></td>
+                                                    <td class="direita"><?php echo @number_format($planilha['vlSugerido'], 2, ",", "."); ?></td>
+                                                    <td class="direita textDias"><?php echo $planilha['QtdeDias']; ?></td>
+                                                    <td class="direita textQuantidade"><?php echo $planilha['Quantidade']; ?></td>
+                                                    <td class="direita textOcorrencia"><?php echo $planilha['Ocorrencia']; ?></td>
+                                                    <td class="direita textValorUnitario"><?php echo @number_format($planilha['vlUnitario'], 2, ",", "."); ?></td>
+                                                    <td class="direita textValorAprovado"><?php echo @number_format($planilha['vlAprovado'], 2, ",", "."); ?></td>
+                                                    <td style="width: 20%;"><?php echo $planilha['JustProponente']; ?></td>
+                                                    <td style="width: 20%;"><?php echo $planilha['JustParecerista']; ?></td>
+                                                    <td style="width: 20%;" class="textJustificativa"><?php echo $planilha['JustComponente']; ?></td>
+                                                </tr>
+                                                <?php
+                                            } //fechaForeachplanilha
+                                            $nrcidade++;
+                                            ?>
+                                            <tr>
+                                                <td colspan="2" class="black" style="font-size: 14pt;">Total da UF</td>
+                                                <td class="black" style="font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorSolicitadoTotalUf, 2, ",", "."); ?></td>
+                                                <td class="black" style="font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorSugeridoTotalUf, 2, ",", "."); ?></td>
+                                                <td colspan="3"></td>
+                                                <td class="black" style="font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorUnitarioTotalUf, 2, ",", "."); ?></td>
+                                                <td class="black" style="font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorAprovadoTotalUf, 2, ",", "."); ?></td>
+                                                <td colspan="3"></td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <?php
+                            } //fechaForeachcidade
+                            ?>
+                            <tr class="master produto etapa" produto="<?php echo $nrproduto; ?>" etapa="<?php echo $nretapa; ?>"  fonte="<?php echo $nrfonte; ?>">
+                                <td>
+                                    <table class="tabela">
+                                        <tr>
+                                            <td colspan="2" class="orange" style="width: 18%; font-size: 14pt;" nowrap>Total da Etapa</td>
+                                            <td class="orange" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorSolicitadoTotalEtapa, 2, ",", "."); ?></td>
+                                            <td class="orange" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorSugeridoTotalEtapa, 2, ",", "."); ?></td>
+                                            <td colspan="3">&nbsp;</td>
+                                            <td class="orange" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorUnitarioTotalEtapa, 2, ",", "."); ?></td>
+                                            <td class="orange" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorAprovadoTotalEtapa, 2, ",", "."); ?></td>
+                                            <td colspan="3" style="width: 40%;">&nbsp;</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <?php
+                            $nretapa++;
+                        } //fechaForeachetapa
+                        ?>
+                        <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>"  fonte="<?php echo $nrfonte; ?>">
+                            <td>
+                                <table class="tabela">
+                                    <tr>
+                                        <td colspan="2" class="green" style="width: 18%; font-size: 14pt;">Total da <?php echo $produto; ?></td>
+                                        <td class="green" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorSolicitadoTotalProduto, 2, ",", "."); ?></td>
+                                        <td class="green" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorSugeridoTotalProduto, 2, ",", "."); ?></td>
+                                            <td colspan="3">&nbsp;</td>
+                                        <td class="green" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorUnitarioTotalProduto, 2, ",", "."); ?></td>
+                                        <td class="green" style="width: 1px; font-size: 12pt; font-weight: 600;" align="right"><?php echo @number_format($valorAprovadoTotalProduto, 2, ",", "."); ?></td>
+                                        <td style="width: 40%" colspan="2">&nbsp;</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <?php $nrproduto++; 
+                    } //fechaForeachproduto
+                    ?>
+                    <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>"  fonte="<?php echo $nrfonte; ?>">
+                        <td>
+                            <table class="tabela">
+                                <tr>
+                                    <td colspan="2" class="red" style="width: 18%; font-size: 14pt;">Total do <?php echo $fonte; ?></td>
+                                    <td class="red" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($valorSolicitadoTotalIncentivo, 2, ",", "."); ?></td>
+                                    <td class="red" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($valorSugeridoTotalIncentivo, 2, ",", "."); ?></td>
+                                    <td colspan="3">&nbsp;</td>
+                                    <td class="red" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($valorUnitarioTotalIncentivo, 2, ",", "."); ?></td>
+                                    <td class="red" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($valorAprovadoTotalIncentivo, 2, ",", "."); ?></td>
+                                    <td style="width: 40%" colspan="2">&nbsp;</td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <?php $nrfonte++;
+                }//fechaForeachFonteIncentivo
+                ?>
+                <?php if(is_array($this->planilha) && count($this->planilha)>0): ?>
+                <tr>
+                    <td>
+                        <table class="tabela">
+                            <tr>
+                                <td colspan="2" class="blue" style="width: 18%; font-size: 14pt;">Total do Projeto</td>
+                                <td class="blue" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($TotalSolicitado, 2, ",", "."); ?></td>
+                                <td class="blue" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($TotalSugerido, 2, ",", "."); ?></td>
+                                <td colspan="2">&nbsp;</td>
+                                <td class="blue" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($TotalUnitario, 2, ",", "."); ?></td>
+                                <td class="blue" style="width: 1px; font-size: 12pt; font-weight: 800;" align="right"><?php echo @number_format($TotalAprovado, 2, ",", "."); ?></td>
+                                <td style="width: 40%" colspan="2">&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <?php else: ?>
+                <tr>
+                    <td align="center"><em>Dados n&atilde;o informados!</em></td>
+                </tr>
+                <?php endif; ?>
+            </table>
+        </div>
+        <?php } ?>
+    
+        <?php if($this->dados->tpSolicitacao != 'OR'){ ?>
+        <form name="form_enquadramento" id="form_enquadramento" action="<?php echo $this->baseUrl(); ?>/recursos/componente-comissao-salvar-enquadramento" method="post">
+            <table class="tabela">
+                <tr>
+                    <td colspan="4" class="bold centro fundo_linha2">Enquadramento</td>
+                </tr>
+            </table>
+                
+            <table class="tabela">
+                 <tr>
+                    <td align="right" class="destacar bold w150">Parecer Favorável?</td>
+                    <td colspan="3">
+                        <input type="radio" name="parecerProjeto" value="2" checked="checked" <?php echo (!$habilitarAnaliseDeCusto) ? 'disabled="disabled"' : ''; ?> /> <label for="parecerProjeto2" style="margin-right:25px; font-weight: normal;">Sim</label>
+                        <input type="radio" name="parecerProjeto" value="1" <?php echo (!$habilitarAnaliseDeCusto) ? 'checked="checked"' : ''; ?> /> <label for="parecerProjeto1" style="font-weight: normal;">Não</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="destacar bold w150">Área</td>
+                    <td valign="top" width="200px">
+                        <select name="areaCultural" id="areaCultural" class="input_simples obrigatorio" style="width: 160px;" <?php echo (!$habilitarAnaliseDeCusto) ? 'disabled="disabled"' : ''; ?>>
+                            <option value=""> - Selecione - </option>
+                        <?php foreach ($this->comboareasculturais as $codAreaCultural => $descricaoAreaCultural){ ?>
+                        <option value="<?php echo $codAreaCultural; ?>" <?php if ($this->projetosEN->cdArea == $codAreaCultural) echo "selected=\"selected\""; ?>><?php echo $descricaoAreaCultural; ?></option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                    <td align="right" class="destacar bold" width="100">Segmento</td>
+                    <td>
+                        <select name="segmentoCultural" id="segmentoCultural" class="input_simples obrigatorio" <?php echo (!$habilitarAnaliseDeCusto) ? 'disabled="disabled"' : ''; ?>>
+                            <?php if (!isset($this->projetosEN->cdSegmento) || empty($this->projetosEN->cdSegmento)) { ?>
+                            <option value=""> - Selecione - </option>
+                            <?php } ?>
+
+                            <?php foreach ($this->combosegmentosculturais as $combosegmentocultural){ ?>
+                            <option value="<?php echo $combosegmentocultural->id; ?>" <?php if ($this->projetosEN->cdSegmento == $combosegmentocultural->id) echo "selected=\"selected\""; ?>>
+                            <?php echo $combosegmentocultural->descricao; ?>
+                            </option>
+                            <?php } ?>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" class="destacar bold w150">Enquadramento</td>
+                    <td width="250" colspan="3">
+                        <input type="hidden" name="enquadramentoProjeto" id="enquadramentoProjeto" value="" class="obrigatorio" />
+                        <span id="enquadramentoText"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <textarea cols="80" id="dsParecer" name="dsParecer" rows="6" class="textarea_simples" style="width: 99%"><?php echo (isset($this->Parecer->ResumoParecer) && !empty($this->Parecer->ResumoParecer)) ? $this->Parecer->ResumoParecer : ''; ?></textarea>
+                    </td>
+                </tr>
+            </table>
+            <input type="hidden" name="idPronac" value="<?php echo $this->dados->IdPRONAC; ?>">
+            <input type="hidden" name="idRecurso" value="<?php echo $this->dados->idRecurso; ?>">
+        </form>
+        <p align="center">
+            <input type="button" class="btn_salvar" name="btn_salvar" id="btn_salvar_enquadramento">
+            <input type="button" class="btn_finalizar" name="btn_salvar" id="btn_finalizar_enquadramento">
+            <input type="button" class="btn_voltar" name="btn_voltar" id="btn_voltar_enquadramento">
+        </p>
+    <?php } ?>
+    
+    <?php } ?>
+    <?php //***** FIM PROJETO INDEFERIDO *****// ?>
+        
+        
+        
+    <?php //***** ENQUADRAMENTO *****// ?>
+    <?php if($this->dados->tpSolicitacao == 'EN' || $this->dados->tpSolicitacao == 'OR'){ ?>
+    <form name="form_enquadramento" id="form_enquadramento" action="<?php echo $this->baseUrl(); ?>/recursos/cnic-salvar-enquadramento" method="post">
+        <table class="tabela">
+            <tr>
+                <th colspan="4">Consolidação do Parecer Técnico</th>
+            </tr>
+            <tr>
+                <td align="right" class="destacar bold w150">Parecer Favorável?</td>
+                <td colspan="3">
+                    <label style="margin-right:25px; font-weight: normal;"><input type="radio" name="parecerProjeto" value="2" checked="checked" />Sim</label>
+                    <label style="font-weight: normal;"><input type="radio" name="parecerProjeto" value="1" <?php echo ($this->Parecer->ParecerFavoravel == 1) ? 'checked="checked"' : ''; ?> />Não</label>
+                </td>
+            </tr>
+            <?php if($this->dados->tpSolicitacao == 'OR'){ $sumir = 'class="sumir"'; } ?>
+            <tr <?php echo $sumir; ?>>
+                <td align="right" class="destacar bold w150">Área</td>
+                <td valign="top" width="200px">
+
+                    <select name="areaCultural" id="areaCultural" class="input_simples obrigatorio" style="width: 160px;">
+                        <option value=""> - Selecione - </option>
+                        <?php foreach ($this->comboareasculturais as $codAreaCultural => $descricaoAreaCultural){ ?>
+                        <option value="<?php echo $codAreaCultural; ?>" <?php if ($this->projetosEN->cdArea == $codAreaCultural) echo "selected=\"selected\""; ?>><?php echo $descricaoAreaCultural; ?></option>
+                        <?php } ?>
+                    </select>
+                </td>
+                <td align="right" class="destacar bold" width="100">Segmento</td>
+                <td>
+                    <select name="segmentoCultural" id="segmentoCultural" class="input_simples obrigatorio">
+                        <?php if (!isset($this->projetosEN->cdSegmento) || empty($this->projetosEN->cdSegmento)) { ?>
+                        <option value=""> - Selecione - </option>
+                        <?php } ?>
+
+                        <?php foreach ($this->combosegmentosculturais as $combosegmentocultural){ ?>
+                        <option value="<?php echo $combosegmentocultural->id; ?>" <?php if ($this->projetosEN->cdSegmento == $combosegmentocultural->id) echo "selected=\"selected\""; ?>>
+                        <?php echo $combosegmentocultural->descricao; ?>
+                        </option>
+                        <?php } ?>
+                    </select>
+                </td>
+            </tr>
+            <tr <?php echo $sumir; ?>>
+                <td align="right" class="destacar bold w150">Enquadramento</td>
+                <td width="250" colspan="3">
+                    <input type="hidden" name="enquadramentoProjeto" id="enquadramentoProjeto" value="" class="obrigatorio" />
+                    <span id="enquadramentoText"></span>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" colspan="4" class="destacar bold">Parecer Técnico</td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    <textarea cols="80" id="dsParecer" name="dsParecer" rows="6" class="textarea_simples" style="width: 99%"><?php echo (isset($this->Parecer->ResumoParecer) && !empty($this->Parecer->ResumoParecer)) ? $this->Parecer->ResumoParecer : ''; ?></textarea>
+                </td>
+            </tr>
+        </table>
+        <input type="hidden" name="idPronac" value="<?php echo $this->dados->IdPRONAC; ?>">
+        <input type="hidden" name="idRecurso" value="<?php echo $this->dados->idRecurso; ?>">
+    </form>
+    <p align="center">
+        <input type="button" class="btn_salvar" name="btn_salvar" id="btn_salvar_enquadramento">
+        <input type="button" class="btn_finalizar" name="btn_salvar" id="btn_finalizar_enquadramento">
+        <input type="button" class="btn_voltar" name="btn_voltar" id="btn_voltar_enquadramento">
+    </p>
+    <?php } ?>
+    <?php //***** FIM ENQUADRAMENTO *****// ?>
+    
+    
+    <br clear="all" />
+</div>
+
+<div id="modalPlenaria" class="sumir">
+    <table class="tabela">
+        <tr>
+            <td class="destacar bold">Enviar para a plenária da CNIC?</td>
+        </tr>
+        <tr>
+            <td>
+	      <input id="plenaria_sim" type="radio" name="planaria" value="1" class="envioPlenaria" />
+	      <label for="plenaria_sim" style="margin-right:25px; font-weight: normal;">Sim</label>
+	      <input id="plenaria_nao" type="radio" name="planaria" value="0" checked="checked" />
+              <label for="plenaria_nao" style="font-weight: normal;">Não</label>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<div id="rodapeConteudo"><span></span></div>
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<br clear="all" />

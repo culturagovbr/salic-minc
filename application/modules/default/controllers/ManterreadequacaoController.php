@@ -588,7 +588,7 @@ class ManterreadequacaoController extends MinC_Controller_Action_Abstract
                         PreProjeto::alterarDados($dados, array('idPreProjeto = ?' => $DadosProj[0]->idProjeto));
                     }
                 } elseif ($tpAlt == 7) {
-                    $tbPlanoDistribuicao = new tbPlanoDistribuicao();
+                    $tbPlanoDistribuicao = new Readequacao_Model_DbTable_TbPlanoDistribuicao();
                     $produtosAnalisadosDeferidos = $tbPlanoDistribuicao->produtosAvaliadosReadequacao($idPedidoAlt, $id);
 
                     foreach ($produtosAnalisadosDeferidos as $valores) {
@@ -648,7 +648,7 @@ class ManterreadequacaoController extends MinC_Controller_Action_Abstract
                     );
                     $projetos->alterar($dados, array('IdPRONAC = ?' => $idPronac));
                 } elseif ($tpAlt == 10) {
-                    $tbPlanoDistribuicao = new tbPlanoDistribuicao();
+                    $tbPlanoDistribuicao = new Readequacao_Model_DbTable_TbPlanoDistribuicao();
                     $produtosAnalisadosDeferidos = $tbPlanoDistribuicao->produtosAvaliadosReadequacao($idPedidoAlt, $id);
 
                     foreach ($produtosAnalisadosDeferidos as $valores) {

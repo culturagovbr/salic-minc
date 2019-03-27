@@ -1,0 +1,39 @@
+<script src="/public/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/public/scripts/layout/datatables.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/public/css/layout/datatables.min.css"/>
+<?= $this->partial('partials/painel/modals/encaminharProjetoModal.phtml', $this); ?>
+<?= $this->partial('partials/painel/modals/visualizarHistoricoModal.phtml', $this); ?>
+<?= $this->partial('partials/painel/modals/visualizarPrioridadesModal.phtml', $this); ?>
+<div class="container-fluid">
+    <div class="row">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Presta&ccedil;&atilde;o de Contas: An&aacute;lise Financeira Virtual</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="msgAlerta"></div>
+    <div class="row">
+        <div class="col s12">
+            <ul class="tabs">
+                <li data-situacaoprestcontas="1" class="tab col s3"><a class="active" href="#t1" >Aguardando Análise</a></li>
+                <li data-situacaoprestcontas="2" class="tab col s3"><a href="#t2" >Em análise</a></li>
+                <li data-situacaoprestcontas="3" class="tab col s3"><a href="#t3">Analisados</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div id="t1" class="col s12">
+            <?= $this->partial('partials/painel/projetosAguardandoAnalise.phtml', $this); ?>
+        </div>
+        <div id="t2" class="col s12">
+            <?= $this->partial('partials/painel/projetosEmAnalise.phtml', $this); ?>
+        </div>
+        <div id="t3" class="col s12">
+            <?= $this->partial('partials/painel/projetosAnalisados.phtml', $this); ?>
+        </div>
+    </div>
+</div>
+

@@ -254,27 +254,21 @@ class tbArquivoImagem extends MinC_Db_Table_Abstract
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
-                        array('ai' => $this->_name),
-                        array(),
+                        array('dp' => 'tbDocumentoProjeto'),
+                        array('stAtivoDocumentoProjeto'),
                 "BDCORPORATIVO.scCorp"
                     );
         $slct->joinInner(
+            array('d'=>'tbDocumento'),
+            "dp.idDocumento = d.idDocumento",
+            array('idDocumento', 'CAST(dsDocumento AS TEXT) AS dsDocumento'),
+            "BDCORPORATIVO.scCorp"
+        );
+        $slct->joinInner(
                             array('a'=>'tbArquivo'),
-                "ai.idArquivo = a.idArquivo",
+                "d.idArquivo = a.idArquivo",
                             array('idArquivo', 'nmArquivo', 'dtEnvio', 'nrTamanho'),
                             "BDCORPORATIVO.scCorp"
-                          );
-        $slct->joinInner(
-                            array('d'=>'tbDocumento'),
-                "a.idArquivo = d.idArquivo",
-                            array('idDocumento', 'CAST(dsDocumento AS TEXT) AS dsDocumento'),
-                "BDCORPORATIVO.scCorp"
-                          );
-        $slct->joinInner(
-                            array('dp'=>'tbDocumentoProjeto'),
-                "dp.idDocumento = d.idDocumento",
-                            array('stAtivoDocumentoProjeto'),
-                "BDCORPORATIVO.scCorp"
                           );
         $slct->joinInner(
                             array('p'=>'Projetos'),

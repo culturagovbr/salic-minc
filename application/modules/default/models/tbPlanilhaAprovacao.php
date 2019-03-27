@@ -5,7 +5,9 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
     protected $_name = "tbPlanilhaAprovacao";
     protected $_primary = "idPlanilhaAprovacao";
 
-    
+    const FILTRO_ANALISE_FINANCEIRA_VIRTUAL_AGUARDANDO_ANALISE = 1;
+    const FILTRO_ANALISE_FINANCEIRA_VIRTUAL_EM_ANALISE = 2;
+    const FILTRO_ANALISE_FINANCEIRA_VIRTUAL_ANALISADOS = 3;
 
     public function init()
     {
@@ -335,6 +337,7 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
             )
         );
         $select->where('a.idPronac = ?', $idPronac);
+        $select->where(new Zend_Db_Expr('a.tpAcao <> ? OR a.tpAcao IS NULL'), 'E');
         $select->where('a.stAtivo = ?', 'S');
 
         if (!empty($nrFonteRecurso)) {
@@ -520,7 +523,7 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
             '',
             ''
         );
-        $vlAtualPerc = $vlAtual* Readequacao_Model_tbReadequacao::PERCENTUAL_REMANEJAMENTO/100;
+        $vlAtualPerc = $vlAtual* Readequacao_Model_DbTable_TbReadequacao::PERCENTUAL_REMANEJAMENTO/100;
         
         //VALOR MINIMO E MAXIMO DO ITEM ORIGINAL
         //SE TIVER VALOR COMPROVADO, DEVE SUBTRAIR O VALOR DO ITEM COMPROVADO DO VALOR UNITARIO
@@ -552,5 +555,484 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
         $valoresItem['vlAtualMax'] = $vlAtualMax;
         
         return $valoresItem;
+    }
+
+    public function obterProjetosAnaliseFinanceiraVirtual(
+        $codGrupo,
+        $situacaoEncaminhamentoPrestacao,
+        $order = null,
+        $start = 0,
+        $limit = 20,
+        $search = null)
+    {
+
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->distinct();
+
+
+        switch ($situacaoEncaminhamentoPrestacao) {
+            case tbPlanilhaAprovacao::FILTRO_ANALISE_FINANCEIRA_VIRTUAL_AGUARDANDO_ANALISE :
+                $colunasOrdenadas = [
+                    'd.AnoProjeto+d.Sequencial AS Pronac',
+                    'd.NomeProjeto',
+                    'd.Situacao as cdSituacao',
+                    'a.IdPRONAC',
+                ];
+                $select->where("d.Situacao = ?", 'E68');
+                $select->where(
+                    "CASE
+                        WHEN J.idSituacaoEncPrestContas IS NULL THEN 1
+                        ELSE J.idSituacaoEncPrestContas 
+                    END = ?",
+                    tbPlanilhaAprovacao::FILTRO_ANALISE_FINANCEIRA_VIRTUAL_AGUARDANDO_ANALISE
+                );
+                break;
+            case tbPlanilhaAprovacao::FILTRO_ANALISE_FINANCEIRA_VIRTUAL_EM_ANALISE :
+                $colunasOrdenadas = [
+                    'd.AnoProjeto+d.Sequencial AS Pronac',
+                    'd.NomeProjeto',
+                    'd.Situacao as cdSituacao',
+                    'k.usu_nome as nmTecnico',
+                    'J.dtFimEncaminhamento',
+                    'DATEDIFF(DAY,J.dtInicioEncaminhamento, J.dtFimEncaminhamento) as qtDiasEmAnalise',
+                    'a.IdPRONAC',
+                    'J.dtInicioEncaminhamento'
+                ];
+                $select->where("d.Situacao IN ('E27', 'E17', 'E20', 'E30')");
+                $select->where(
+                    "CASE
+                        WHEN J.idSituacaoEncPrestContas IS NULL THEN 1
+                        ELSE J.idSituacaoEncPrestContas 
+                    END = ?",
+                    tbPlanilhaAprovacao::FILTRO_ANALISE_FINANCEIRA_VIRTUAL_EM_ANALISE
+                );
+                break;
+            case tbPlanilhaAprovacao::FILTRO_ANALISE_FINANCEIRA_VIRTUAL_ANALISADOS :
+                $colunasOrdenadas = [
+                    'd.AnoProjeto+d.Sequencial AS Pronac',
+                    'd.NomeProjeto',
+                    'd.Situacao as cdSituacao',
+                    'g.Descricao as dsSegmento',
+                    'f.Descricao as dsArea',
+                    'a.IdPRONAC'
+                ];
+                $select->where("d.Situacao IN ('E20','E30')");
+                $select->where(
+                    "CASE
+                        WHEN J.idSituacaoEncPrestContas IS NULL THEN 1
+                        ELSE J.idSituacaoEncPrestContas 
+                    END = ?",
+                    tbPlanilhaAprovacao::FILTRO_ANALISE_FINANCEIRA_VIRTUAL_ANALISADOS
+                );
+                break;
+        }
+        $colunasOrdenadas[] = '
+            (select
+                count(Contador)
+            from
+                sac.dbo.parecercontrole
+            where
+                AnoProjeto+Sequencial = d.AnoProjeto+d.Sequencial) as Prioridade';
+
+
+        $colunasOrdenadas = implode(", ", $colunasOrdenadas);
+        $colunasOrdenadas = new Zend_Db_Expr($colunasOrdenadas);
+
+        $select->from(
+            ['a' => $this->_name],
+            [$colunasOrdenadas],
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            ['b' => 'tbComprovantePagamentoxPlanilhaAprovacao'],
+            'a.idPlanilhaAprovacao    = b.idPlanilhaAprovacao',
+            [''],
+            'BDCORPORATIVO.scSAC'
+        );
+        $select->joinInner(
+            ['c' => 'tbComprovantePagamento'],
+            'b.idComprovantePagamento = c.idComprovantePagamento',
+            [''],
+            'BDCORPORATIVO.scSAC'
+        );
+        $select->joinInner(
+            ['d' => 'Projetos'],
+            'a.IdPRONAC = d.IdPRONAC',
+            [''],
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            ['e' => 'TbCumprimentoObjeto'],
+            'd.IdPRONAC = e.idPronac',
+            [''],
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            ['f' => 'Area'],
+            'd.Area = f.Codigo',
+            [''],
+            'SAC.dbo'
+        );
+
+        $select->joinInner(
+            ['g' => 'Segmento'],
+            'd.Segmento = g.Codigo',
+            [''],
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            ['i' => 'Situacao'],
+            'd.Situacao = i.Codigo',
+            [''],
+            'SAC.dbo'
+        );
+
+        $select->joinLeft(
+            ['j' => 'tbEncaminhamentoPrestacaoContas'],
+            'd.IdPRONAC = J.idPronac AND J.stAtivo = 1',
+            [''],
+            'BDCORPORATIVO.scSAC'
+        );
+        $select->joinLeft(
+            ['k' => 'Usuarios'],
+            'j.idAgenteDestino = k.usu_codigo',
+            [''],
+            'Tabelas.dbo'
+        );
+        $select->joinLeft(
+            ['l' => 'tbSituacaoEncaminhamentoPrestacaoContas'],
+            'j.idSituacaoEncPrestContas = l.idSituacaoEncPrestContas',
+            [''],
+            'BDCORPORATIVO.scSAC'
+        );
+
+        $select->where('a.nrFonteRecurso = 109');
+        $select->where("d.Mecanismo = '1'");
+        $select->where("d.Orgao = ?", $codGrupo);
+
+        if (!empty($search['value'])) {
+            $select->where('d.AnoProjeto+d.Sequencial like ? OR d.NomeProjeto like ?', '%' . $search['value'] . '%');
+        }
+
+        if (!empty($order)) {
+            $select->order($order);
+        }
+
+        if (!is_null($start) && $limit) {
+            $start = (int) $start;
+            $limit = (int) $limit;
+            $select->limit($limit, $start);
+        }
+
+        return $this->fetchAll($select);
+    }
+
+    /**
+     * Método que copia planilha associando a um idReadequacao
+     * @access private
+     * @param integer $idPronac
+     * @param integer $idReadequacao
+     * @return Bool
+     */
+    public function copiarPlanilhas($idPronac, $idReadequacao)
+    {
+        $planilhaSR = array();
+        
+        $planilhaAtiva = $this->buscarPlanilhaAtivaNaoExcluidos($idPronac);
+        
+        foreach ($planilhaAtiva as $value) {
+            $planilhaSR['tpPlanilha'] = 'SR';
+            $planilhaSR['dtPlanilha'] = new Zend_Db_Expr('GETDATE()');
+            $planilhaSR['idPlanilhaProjeto'] = $value['idPlanilhaProjeto'];
+            $planilhaSR['idPlanilhaProposta'] = $value['idPlanilhaProposta'];
+            $planilhaSR['IdPRONAC'] = $value['IdPRONAC'];
+            $planilhaSR['idProduto'] = $value['idProduto'];
+            $planilhaSR['idEtapa'] = $value['idEtapa'];
+            $planilhaSR['idPlanilhaItem'] = $value['idPlanilhaItem'];
+            $planilhaSR['dsItem'] = $value['dsItem'];
+            $planilhaSR['idUnidade'] = $value['idUnidade'];
+            $planilhaSR['qtItem'] = $value['qtItem'];
+            $planilhaSR['nrOcorrencia'] = $value['nrOcorrencia'];
+            $planilhaSR['vlUnitario'] = $value['vlUnitario'];
+            $planilhaSR['qtDias'] = $value['qtDias'];
+            $planilhaSR['tpDespesa'] = $value['tpDespesa'];
+            $planilhaSR['tpPessoa'] = $value['tpPessoa'];
+            $planilhaSR['nrContraPartida'] = $value['nrContraPartida'];
+            $planilhaSR['nrFonteRecurso'] = $value['nrFonteRecurso'];
+            $planilhaSR['idUFDespesa'] = $value['idUFDespesa'];
+            $planilhaSR['idMunicipioDespesa'] = $value['idMunicipioDespesa'];
+            $planilhaSR['dsJustificativa'] = null;
+            $planilhaSR['idAgente'] = 0;
+            $planilhaSR['idPlanilhaAprovacaoPai'] = $value['idPlanilhaAprovacao'];
+            $planilhaSR['idReadequacao'] = $idReadequacao;
+            $planilhaSR['tpAcao'] = 'N';
+            $planilhaSR['idRecursoDecisao'] = $value['idRecursoDecisao'];
+            $planilhaSR['stAtivo'] = 'N';
+            
+            $idPlanilhaAprovacao = $this->inserir($planilhaSR);
+            
+            if (!$idPlanilhaAprovacao) {
+                throw new Exception("Houve um erro na c&oacute;pia das planilhas");                
+            }
+        }
+        return true;
+    }
+
+    public function obterAnaliseFinanceiraVirtual(
+        $codGrupo,
+        $situacaoEncaminhamentoPrestacao,
+        $order = null,
+        $start = 0,
+        $limit = 20,
+        $search = null)
+    {
+
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->distinct();
+
+        switch ($situacaoEncaminhamentoPrestacao) {
+            case tbPlanilhaAprovacao::FILTRO_ANALISE_FINANCEIRA_VIRTUAL_AGUARDANDO_ANALISE :
+                $colunasOrdenadas = [
+                    'd.AnoProjeto+d.Sequencial AS Pronac',
+                    'd.AnoProjeto+d.Sequencial AS PRONAC',
+                    'd.NomeProjeto',
+                    'd.Situacao as cdSituacao',
+                    'd.Situacao as Situacao',
+                    'd.UfProjeto',
+                    'a.IdPRONAC',
+                ];
+                $select->where("d.Situacao = ?", 'E68');
+                $select->where(
+                    "CASE
+                        WHEN J.idSituacaoEncPrestContas IS NULL THEN 1
+                        ELSE J.idSituacaoEncPrestContas 
+                    END = ?",
+                    tbPlanilhaAprovacao::FILTRO_ANALISE_FINANCEIRA_VIRTUAL_AGUARDANDO_ANALISE
+                );
+                break;
+        }
+        $colunasOrdenadas[] = '
+            (select
+                count(Contador)
+            from
+                sac.dbo.parecercontrole
+            where
+                AnoProjeto+Sequencial = d.AnoProjeto+d.Sequencial) as Prioridade';
+
+
+        $colunasOrdenadas = implode(", ", $colunasOrdenadas);
+        $colunasOrdenadas = new Zend_Db_Expr($colunasOrdenadas);
+
+        $select->from(
+            ['a' => $this->_name],
+            [$colunasOrdenadas],
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            ['b' => 'tbComprovantePagamentoxPlanilhaAprovacao'],
+            'a.idPlanilhaAprovacao    = b.idPlanilhaAprovacao',
+            [''],
+            'BDCORPORATIVO.scSAC'
+        );
+        $select->joinInner(
+            ['c' => 'tbComprovantePagamento'],
+            'b.idComprovantePagamento = c.idComprovantePagamento',
+            [''],
+            'BDCORPORATIVO.scSAC'
+        );
+        $select->joinInner(
+            ['d' => 'Projetos'],
+            'a.IdPRONAC = d.IdPRONAC',
+            ['a.IdPRONAC as idPronac'],
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            ['e' => 'TbCumprimentoObjeto'],
+            'd.IdPRONAC = e.idPronac',
+            [''],
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            ['f' => 'Area'],
+            'd.Area = f.Codigo',
+            [''],
+            'SAC.dbo'
+        );
+
+        $select->joinInner(
+            ['g' => 'Segmento'],
+            'd.Segmento = g.Codigo',
+            [''],
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            ['i' => 'Situacao'],
+            'd.Situacao = i.Codigo',
+            [''],
+            'SAC.dbo'
+        );
+
+        $select->joinLeft(
+            ['j' => 'tbEncaminhamentoPrestacaoContas'],
+            'd.IdPRONAC = J.idPronac AND J.stAtivo = 1',
+            [''],
+            'BDCORPORATIVO.scSAC'
+        );
+        $select->joinLeft(
+            ['k' => 'Usuarios'],
+            'j.idAgenteDestino = k.usu_codigo',
+            [''],
+            'Tabelas.dbo'
+        );
+        $select->joinLeft(
+            ['l' => 'tbSituacaoEncaminhamentoPrestacaoContas'],
+            'j.idSituacaoEncPrestContas = l.idSituacaoEncPrestContas',
+            [''],
+            'BDCORPORATIVO.scSAC'
+        );
+
+        $select->where('a.nrFonteRecurso = 109');
+        $select->where("d.Mecanismo = '1'");
+        $select->where("d.Orgao = ?", $codGrupo);
+
+        if (!empty($search['value'])) {
+            $select->where('d.AnoProjeto+d.Sequencial like ? OR d.NomeProjeto like ?', '%' . $search['value'] . '%');
+        }
+
+        /* if (!empty($order)) { */
+        /*     $select->order($order); */
+        /* } */
+
+        /* if (!is_null($start) && $limit) { */
+        /*     $start = (int) $start; */
+        /*     $limit = (int) $limit; */
+        /*     $select->limit($limit, $start); */
+        /* } */
+        /* echo $select;die; */
+
+        return $this->fetchAll($select);
+    }
+    
+    public function projetoContemEtapasCustosDivulgacao($idPronac)
+    {
+        $objQuery = $this->select();
+        $objQuery->setIntegrityCheck(false);
+        
+        $objQuery->from(
+            array(
+                'tbPlanilhaAprovacao' => $this->_name
+            ),
+            'idPronac',
+            $this->_schema
+        );
+
+        $objQuery->where('tbPlanilhaAprovacao.tpPlanilha = ?', 'CO');
+        $objQuery->where('tbPlanilhaAprovacao.idEtapa IN(?)', [
+            PlanilhaEtapa::ETAPA_CUSTOS_ADMINISTRATIVOS,
+            PlanilhaEtapa::ETAPA_DIVULGACAO_COMERCIALIZACAO
+        ]);
+        $objQuery->where('tbPlanilhaAprovacao.IdPRONAC = ?', $idPronac);
+        
+        $result = $this->fetchAll($objQuery);
+        
+        if (count($result > 0)) {
+            return true;
+        }
+        return false;
+    }
+
+    public function obterPlanilhaReadequacao($idReadequacao)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+
+        $select->from(
+            array('a' => $this->_name),
+            '*'
+        );
+
+        $select->where('a.idReadequacao = ?', $idReadequacao);
+        
+        return $this->fetchAll($select);
+    }
+
+    public function obterValorRemuneracaoCaptacaoAprovado($idPronac)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        
+        $select->from(
+            array('a' => $this->_name),
+            'a.vlUnitario'
+        );
+
+        $idRemuneracaoCaptacao = 5249;
+        
+        $select->where('a.idPronac = ?', $idPronac);
+        $select->where('a.tpPlanilha = ?', 'CO');
+        $select->where('a.idPlanilhaItem = ?', $idRemuneracaoCaptacao);
+        
+        $result = $this->fetchRow($select);
+
+        if (!empty($result)) {
+            return $result['vlUnitario'];
+        }
+        return $result;
+    }
+
+    public function calculaSaldoReadequacaoBaseDeCusto($idPronac)
+    {
+
+        $baseDeCusto = [
+            PlanilhaEtapa::ETAPA_PRE_PRODUCAO_PREPARACAO,
+            PlanilhaEtapa::ETAPA_PRODUCAO_EXECUCAO,
+            PlanilhaEtapa::ETAPA_POS_PRODUCAO,
+            PlanilhaEtapa::ETAPA_ASSESORIA_CONTABIL_JURIDICA,
+            PlanilhaEtapa::ETAPA_RECOLHIMENTOS
+        ];
+
+        $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $idReadequacao = $tbReadequacao->buscarIdReadequacaoAtiva(
+            $idPronac,
+            Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA
+        );
+        
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            ['a' => $this->_name],
+            [new Zend_Db_Expr('ROUND(SUM(a.qtItem*a.nrOcorrencia*a.vlUnitario), 2) AS Total')]
+        );
+        $select->where('a.IdPRONAC = ?', $idPronac);
+        $select->where('a.idReadequacao = ?', $idReadequacao);
+        $select->where('a.idEtapa IN(?)', $baseDeCusto);
+        $select->where('a.stAtivo = ?', 'N');
+        $select->where('a.tpAcao != ?', 'E');
+        $select->where('a.nrFonteRecurso = ?', Mecanismo::INCENTIVO_FISCAL_FEDERAL);
+        
+        $somaPlanilhaReadequada = $this->fetchRow($select)['Total'];
+
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            ['a' => $this->_name],
+            [new Zend_Db_Expr('ROUND(SUM(a.qtItem*a.nrOcorrencia*a.vlUnitario), 2) AS Total')]
+        );
+        $select->where('a.IdPRONAC = ?', $idPronac);
+        $select->where('a.idEtapa IN(?)', $baseDeCusto);
+        $select->where('a.stAtivo = ?', 'S');
+        $select->where('a.nrFonteRecurso = ?', Mecanismo::INCENTIVO_FISCAL_FEDERAL);
+        
+        $somaPlanilhaAtiva = $this->fetchRow($select)['Total'];
+        
+        if ($somaPlanilhaReadequada > $somaPlanilhaAtiva) {
+            return "COMPLEMENTACAO";
+        } else if ($somaPlanilhaReadequada == $somaPlanilhaAtiva) {
+            return "REMANEJAMENTO";
+        } else if ($somaPlanilhaReadequada < $somaPlanilhaAtiva) {
+            return "REDUCAO";
+        }
     }
 }

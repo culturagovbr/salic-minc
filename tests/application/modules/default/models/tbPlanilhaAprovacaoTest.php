@@ -12,7 +12,7 @@ class TbPlanilhaAprovacaoTest extends MinC_Test_ModelTestCase
 
         // Marcado para refatoração futura
         // * fixture do banco de dados com dados controlados
-        $this->idPronac = '206025';
+        $this->idPronac = '202665';
     }
 
     public function testValorTotalPlanilha()
@@ -35,9 +35,9 @@ class TbPlanilhaAprovacaoTest extends MinC_Test_ModelTestCase
         // * fixture do banco de dados com dados controlados
         $nrFonteRecurso = 109;
         $idProduto = 51;
-        $idEtapa = 1;
-        $idMunicipioDespesa = 431490;
-        $idPlanilhaItem = 35;
+        $idEtapa = 2;
+        $idMunicipioDespesa = 430930;
+        $idPlanilhaItem = 1125;
         
         $this->assertTrue(
             $tbPlanilhaAprovacao->itemJaAdicionado(
@@ -63,8 +63,8 @@ class TbPlanilhaAprovacaoTest extends MinC_Test_ModelTestCase
         
         $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
 
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $idReadequacao = $Readequacao_Model_tbReadequacao->buscarIdReadequacaoAtiva($this->idPronac, Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $idReadequacao = $Readequacao_Model_DbTable_TbReadequacao->buscarIdReadequacaoAtiva($this->idPronac, Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
         
         $valorTotalPlanilhaReadequada = $tbPlanilhaAprovacao->valorTotalPlanilhaReadequada($this->idPronac, $idReadequacao);
                 
@@ -90,9 +90,9 @@ class TbPlanilhaAprovacaoTest extends MinC_Test_ModelTestCase
     public function testBuscarPlanilhaReadequadaEmEdicao() {
         
         $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
         
-        $idReadequacao = $Readequacao_Model_tbReadequacao->buscarIdReadequacaoAtiva($this->idPronac, Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
+        $idReadequacao = $Readequacao_Model_DbTable_TbReadequacao->buscarIdReadequacaoAtiva($this->idPronac, Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
         $planilhaReadequadaEmEdicao = $tbPlanilhaAprovacao->buscarPlanilhaReadequadaEmEdicao($this->idPronac, $idReadequacao);
         
         $this->assertEmpty($planilhaReadequadaEmEdicao);

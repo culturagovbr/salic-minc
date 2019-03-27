@@ -6,13 +6,13 @@ class Orgaos extends MinC_Db_Table_Abstract
     protected $_primary = 'Codigo';
 
     const ORGAO_SUPERIOR_SAV = 160;
+    const ORGAO_SUPERIOR_SEFIC = 251;
     const ORGAO_SAV_CAP = 166;
     const ORGAO_SAV_CEP = 167;
     const ORGAO_SAV_DAP = 171;
     const ORGAO_SAV_SAL = 179;
     const ORGAO_SAV_DIECI = 632;
     const ORGAO_GEAAP_SUAPI_DIAAPI = 262;
-    const ORGAO_SUPERIOR_SEFIC = 251;
     const ORGAO_SEFIC_ARQ_CGEPC = 303;
     const ORGAO_SEFIC_DIC = 341;
     const ORGAO_GEAR_SACAV = 272;
@@ -23,6 +23,10 @@ class Orgaos extends MinC_Db_Table_Abstract
     const ORGAO_FCP = 94;
     const ORGAO_FCRB = 95;
     const ORGAO_IBRAM = 335;
+    const ORGAO_CNIC = 400;
+
+    const SAV_DPAV = 682;
+    const SEFIC_DEIPC = 341;
 
     public function pesquisarTodosOrgaos()
     {
@@ -45,8 +49,33 @@ class Orgaos extends MinC_Db_Table_Abstract
         );
         $select->where('o.Status = ?', 0);
         $select->where(new Zend_Db_Expr('o.idSecretaria IS NOT NULL'));
-//        $select->order('o.Codigo ASC');
         $select->order('2');
+
+        return $this->fetchAll($select);
+    }
+
+    public function pesquisarUnidades($where = [])
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->distinct();
+        $select->from(
+            array('o'=>$this->_name),
+            array(
+                'o.Codigo',
+                'o.Sigla',
+                'o.Sigla as novaSigla',
+                // new Zend_Db_Expr('Tabelas.dbo.fnEstruturaOrgao(o.codigo, 0) as novaSigla'),
+            )
+        );
+        $select->where('o.Status = ?', 0);
+        $select->where(new Zend_Db_Expr('o.idSecretaria IS NOT NULL'));
+
+        //adiciona quantos filtros foram enviados
+        foreach ($where as $coluna => $valor) {
+            $select->where($coluna, $valor);
+        }
+        $select->order('3');
 
         return $this->fetchAll($select);
     }
@@ -209,5 +238,19 @@ class Orgaos extends MinC_Db_Table_Abstract
         );
         
         return (!in_array($idOrgao, $orgaos)) ? true : false;
+    }
+
+    public function obterAreaParaEncaminhamentoPrestacao($codOrgao){
+        $idOrgaoDestino = $codOrgao;
+        $where = array();
+
+        if ($idOrgaoDestino == '177' || $idOrgaoDestino == '12') {
+            $where['Codigo = ?'] = $idOrgaoDestino;
+        } else {
+            $where['Vinculo = 1 OR Codigo = (' . $idOrgaoDestino . ')'] = '?';
+        }
+        $where['Codigo in (12,167,177,270,303)'] = '?';
+
+        return $this->buscar($where, array('Sigla'))->current();
     }
 }

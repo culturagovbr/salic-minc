@@ -97,25 +97,28 @@
 
 <?php
 switch ($this->tipoPlanilha) {
-    case 0:
+    case spPlanilhaOrcamentaria::TIPO_PLANILHA_PROPOSTA:
         echo $this->partial('index/partial/planilha-proposta.phtml', $this);
         break;
-    case 1:
+    case spPlanilhaOrcamentaria::TIPO_PLANILHA_PROPONENTE:
         echo $this->partial('index/partial/planilha-proponente.phtml', $this);
         break;
-    case 2:
+    case spPlanilhaOrcamentaria::TIPO_PLANILHA_PARECERISTA:
         echo $this->partial('index/partial/planilha-parecerista.phtml', $this);
         break;
-    case 3:
+    case spPlanilhaOrcamentaria::TIPO_PLANILHA_APROVADA_ATIVA:
         echo $this->partial('index/partial/planilha-ativa.phtml', $this);
         break;
-    case 4:
+    case spPlanilhaOrcamentaria::TIPO_PLANILHA_CORTES_APROVADOS:
         echo $this->partial('index/partial/planilha-proposta.phtml', $this);
         break;
-    case 5:
+    case spPlanilhaOrcamentaria::TIPO_PLANILHA_REMANEJAMENTO:
         echo $this->partial('index/partial/planilha-remanejamento.phtml', $this);
         break;
-    case 6:
+    case spPlanilhaOrcamentaria::TIPO_PLANILHA_READEQUACAO:
+        echo $this->partial('index/partial/planilha-readequacao.phtml', $this);
+        break;
+    case spPlanilhaOrcamentaria::TIPO_PLANILHA_SALDO_APLICACAO:
         echo $this->partial('index/partial/planilha-readequacao.phtml', $this);
         break;
 }

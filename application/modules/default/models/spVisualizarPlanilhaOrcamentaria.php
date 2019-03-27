@@ -7,7 +7,7 @@ class spVisualizarPlanilhaOrcamentaria extends MinC_Db_Table_Abstract
     public function exec($idPronac)
     {
         $db = Zend_Db_Table::getDefaultAdapter();
-        $sql = "exec ".$this->_banco.".".$this->_name." $idPronac";
+        $sql = "exec ".$this->_schema.".".$this->_name." $idPronac";
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
         return $db->fetchAll($sql);
     }

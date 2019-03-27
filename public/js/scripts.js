@@ -1,4 +1,3 @@
-<!--
 /**
  * M�scaras, efeitos din�micos e etc
  * @author Emanuel Sampaio <contato@emanuelsampaio.com.br>
@@ -28,26 +27,26 @@ function deselecionartodos(field)
 function mascaraCnpjCpf(objeto)
 {
     obj = objeto;
-    
+
     if(obj.value.length <= 14){
         fun = format_cpf;
     }else{
         fun = format_cnpj;
     }
-        
+
     setTimeout("exec_mascara()", 1);
 }
 
 function mascaraCnpjCpfCaptacao(objeto)
 {
     obj = objeto;
-    
+
     if(obj.value.length < 14){
         fun = format_cpf;
     }else{
         fun = format_cnpj;
     }
-        
+
     setTimeout("exec_mascara()", 1);
 }
 
@@ -160,6 +159,14 @@ function format_cnpj(v) // formato: 99.999.999/9999-99
     v = v.replace(/(\d{3})(\d)/, "$1/$2");
     v = v.replace(/(\d{4})(\d)/, "$1-$2");
     return v;
+}
+
+function formatCpfOrCnpj(cpfOrCnpj) {
+    if (cpfOrCnpj.length() == 11) {
+        return format_cpf(cpfOrCnpj);
+    }
+
+    return format_cnpj(cpfOrCnpj);
 }
 
 function format_float(v) // formato: 9999999.99
@@ -1086,7 +1093,7 @@ function somarData(dataAtual, qtdDias, tipoOperacao)
 
 /**
  * Funcao responsavel travar o salvamento, alteracao e exclusao de dados do formulario.
- * 
+ *
  */
 function JSBloquearAlteracaoFormulario()
 {
@@ -1203,7 +1210,7 @@ $(document).ready(function()
 /**
  * Funcao responsavel por retornar um valor boleano TRUE ou FALSE caso o valor passado esteja dentro do array informado
  * Esta funcao e semelhante a funcao in_array() do PHP
- * 
+ *
  */
 function in_array(valor, vetor) {
     var length = vetor.length;

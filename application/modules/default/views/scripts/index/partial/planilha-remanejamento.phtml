@@ -99,13 +99,8 @@
                                         <td style="width: 5%;"><?php echo $planilha['Seq']; ?></td>
                                         <td style="width: 20%;">
 					    <?php 
-                                            if(
-						(
-                                                    ($this->link && $planilha['tpAcao'] != 'E') &&
-                                                    $nrfonte == '0' &&
-                                                    $planilha['vlAprovado'] > $planilha['vlComprovado']
-						)
-                                            ) { ?>
+					    if ($this->ItemDisponivelParaEdicaoRemanejamento($planilha, $nrfonte)
+					    && $this->link) : ?>
                                             <a href="#"
 					       style="color: <?php echo $corLinha; ?> !important;"
 					       title="clique para alterar os dados do item"
@@ -113,9 +108,9 @@
 					       idPlanilhaAprovacao="<?php echo $planilha['idPlanilhaAprovacao']; ?>"
 					       idPlanilhaAprovacaoPai="<?php echo $planilha['idPlanilhaAprovacaoPai']; ?>"
 					    ><?php echo $planilha['Item']; ?></a>
-                                            <?php } else {
-                                            echo $planilha['Item']; ?>
-                                            <?php } ?>
+                                            <?php else: ?>
+                                            <?php echo $planilha['Item']; ?>
+                                            <?php endif; ?>
 
                                         </td>
 					<td class="direita textDias"><?php echo $planilha['Unidade']; ?></td>

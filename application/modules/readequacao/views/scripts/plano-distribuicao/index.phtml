@@ -1,0 +1,114 @@
+<div class="container-fluid" id="vue-container">
+    <div class="row">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Readequa&ccedil;&atilde;o Plano de Distribui&ccedil;&atilde;o</h1>
+
+                    <?php
+                    gerarNovoBreadCrumb(array(
+                        ['Dados do projeto' => '/default/consultardadosprojeto/index' . '?idPronac=' . $this->idPronacHash],
+                        ['Plano de Distribui&ccedil;&atilde;o' => '']
+                    ));
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <input type="hidden" id="pertenceIn2017" name="pertenceIn2017" value="<?php echo $this->in2017; ?>">
+            <input type="hidden" id="idPronacHash" name="idPronacHash" value="<?php echo $this->idPronacHash; ?>">
+            <div id="cabecalho" class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s12">
+                            <b>Pronac: </b> <?php echo $this->projeto->anoProjeto . $this->projeto->sequencial; ?>
+                            <br>
+                        </div>
+                        <div class="col s12">
+                            <b>Projeto: </b><?php echo $this->projeto->nomeProjeto; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <?php echo $this->partial("partials/mensagem-solicitacao-em-analise.phtml", $this); ?>
+
+            <?php if (!$this->existeSolicitacaoEmAnalise) : ?>
+                <div id="dynamic-component">
+                    <component
+                        v-bind:is="currentComponent"
+                        :id-pronac="idPronac"
+                    ></component>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+
+<?php if (!$this->existeSolicitacaoEmAnalise) : ?>
+    <script src="/public/js/vue.js" type="text/javascript"></script>
+    <script src="/public/scripts/plugins/moment-with-locales.js"></script>
+    <script src="/public/scripts/plugins/numeral.min.js" type="text/javascript"></script>
+
+    <script src="/public/js/componentes/salic-table-easy.js" type="text/javascript"></script>
+    <script src="/public/js/componentes/salic-texto-simples.vue.js" type="text/javascript"></script>
+
+    <script src="/public/scripts/plugins/numeral.js" type="text/javascript"></script>
+    <script src="/public/scripts/mixins/utils.vue.js" type="text/javascript"></script>
+    <script src="/public/scripts/components/input-money.vue.js" type="text/javascript"></script>
+    <script src="/public/scripts/components/select-percent.vue.js" type="text/javascript"></script>
+    <script src="/public/scripts/components/carregando.vue.js" type="text/javascript"></script>
+
+    <script src="/public/scripts/plano-distribuicao/plano-distribuicao-listagem.vue.js" type="text/javascript"></script>
+
+    <script src="/public/scripts/readequacao/readequacao-plano-distribuicao.vue.js" type="text/javascript"></script>
+    <script src="/public/scripts/readequacao/readequacao-plano-distribuicao-detalhamentos.vue.js"
+            type="text/javascript"></script>
+    <script src="/public/scripts/plano-distribuicao/plano-distribuicao-detalhamentos-formulario.vue.js"
+            type="text/javascript"></script>
+    <script src="/public/scripts/plano-distribuicao/plano-distribuicao-detalhamentos-listagem.vue.js"
+            type="text/javascript"></script>
+    <script src="/public/scripts/plano-distribuicao/plano-distribuicao-visualizar-produto-cabecalho.vue.js"
+            type="text/javascript"></script>
+    <script src="/public/scripts/plano-distribuicao/plano-distribuicao-detalhamentos-consolidacao.vue.js"
+            type="text/javascript"></script>
+    <script src="/public/scripts/plano-distribuicao/plano-distribuicao-visualizar-produto-resumido.vue.js"
+            type="text/javascript"></script>
+    <script src="/public/scripts/proposta/visualizar/salic-proposta-detalhamento-plano-distribuicao.vue.js"
+            type="text/javascript"></script>
+    <script src="/public/scripts/readequacao/readequacao-formulario.vue.js"
+            type="text/javascript"></script>
+
+    <script>
+        new Vue({
+            el: '#dynamic-component',
+            data: {
+                currentComponent: 'readequacao-plano-distribuicao',
+                active: false,
+                idPronac: <?= $this->projeto->IdPRONAC;?>
+            }
+        })
+    </script>   
+
+    <style>
+        table tr.linha-excluida {
+            text-decoration: line-through;
+        }
+
+        table tr.linha-excluida td {
+            background-color: #dcdcdc;
+            color: #777
+        }
+
+        table tr.linha-atualizada td,
+        table tr.linha-incluida td {
+            background-color: #d0e8d6
+        }
+
+    </style>
+<?php endif; ?>

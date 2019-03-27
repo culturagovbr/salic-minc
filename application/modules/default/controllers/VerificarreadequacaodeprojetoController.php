@@ -1900,7 +1900,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
         $registro = ReadequacaoProjetos::alteraStatusReadequacao($idPedidoAlteracao);
         $reg = $db->fetchAll($registro);
 
-        $this->tbPlanoDistribuicao = new tbPlanoDistribuicao();
+        $this->tbPlanoDistribuicao = new Readequacao_Model_DbTable_TbPlanoDistribuicao();
         $whereProduto = array('idPedidoAlteracao = ?' => $reg[0]->idPedidoAlteracao, 'tpPlanoDistribuicao = ?' => 'SR');
         $listaProdutosSR = $this->tbPlanoDistribuicao->buscar($whereProduto);
 
@@ -2281,7 +2281,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
                         PreProjeto::alterarDados($dados, array('idPreProjeto = ?' => $DadosProj[0]->idProjeto));
                     }
                 } elseif ($tpAlt == 7) {
-                    $tbPlanoDistribuicao = new tbPlanoDistribuicao();
+                    $tbPlanoDistribuicao = new Readequacao_Model_DbTable_TbPlanoDistribuicao();
                     $produtosAnalisadosDeferidos = $tbPlanoDistribuicao->produtosAvaliadosReadequacao($idPedidoAlt, $id);
 
                     foreach ($produtosAnalisadosDeferidos as $valores) {
@@ -2341,7 +2341,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
                             );
                     $projetos->alterar($dados, array('IdPRONAC = ?' => $idPronac));
                 } elseif ($tpAlt == 10) {
-                    $tbPlanoDistribuicao = new tbPlanoDistribuicao();
+                    $tbPlanoDistribuicao = new Readequacao_Model_DbTable_TbPlanoDistribuicao();
                     $produtosAnalisadosDeferidos = $tbPlanoDistribuicao->produtosAvaliadosReadequacao($idPedidoAlt, $id);
 
                     foreach ($produtosAnalisadosDeferidos as $valores) {

@@ -1,30 +1,4 @@
 <?php
-
-/**
- * Class Proposta_Model_DbTable_Abrangencia
- *
- * @name Proposta_Model_DbTable_Abrangencia
- * @package Modules/Agente
- * @subpackage Models/DbTable
- * @version $Id$
- *
- * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
- * @since 20/09/2016
- *
- * @copyright © 2012 - Ministerio da Cultura - Todos os direitos reservados.
- * @link http://salic.cultura.gov.br
-
-    idAbrangencia
-    idProjeto
-    idPais
-    idUF
-    idMunicipioIBGE
-    Usuario
-    stAbrangencia
-    siAbrangencia
-    dsJustificativa
-    dtInicioRealizacaodtFimRealizacao
- */
 class Proposta_Model_DbTable_Abrangencia extends MinC_Db_Table_Abstract
 {
     /**
@@ -727,7 +701,7 @@ LEFT JOIN BDCORPORATIVO.scSAC.tbAvaliacaoSubItemPedidoAlteracao tasipa ON (tasip
         $select->joinInner(
             array('uf' => 'UF'),
             'uf.idUF = a.idUF',
-            array('idUF'=>'uf.idUF', 'UF'=>'uf.Sigla', 'uf.Regiao'),
+            array('idUF'=>'uf.idUF', 'UF'=>'uf.Sigla', 'uf.Regiao', 'uf.Descricao'),
             $this->getSchema('agentes')
         );
 

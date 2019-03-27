@@ -1,0 +1,70 @@
+<!-- Modal Structure -->
+<div id="abrirModal" class="modal modal-fixed-footer">
+    <div class="modal-content" id="pre-visualizar">
+
+          <ul class="collapsible" data-collapsible="accordion">
+            <li>
+              <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+            <li>
+              <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+              <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            </li>
+          </ul>
+        
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat ">Fechar</a>
+    </div>
+</div>
+
+<script type="text/x-template" id="visualizar">
+    <div>
+        <button class="btn" v-on:click="modal()">
+            {{pronac}}
+        </button>
+    </div>
+</script>
+
+<script type="text/javascript">
+    Vue.component('visualizar', {
+        template: '#visualizar',
+        data: function() {
+            return {
+                dados:[]
+            }
+        },
+        props: ['idpronac', 'pronac'],
+        mounted: function() {
+            this.dados = [{ nome: 'teste' }, { nome: 'teste1' }]
+        },
+        computed:{
+            qtExemplaresTotal: function() {
+            }
+        },
+        methods: {
+            modal: function() {
+                /* $3(".modal-content").empty().load('/prestacao-contas/visualizar-projeto?idPronac=' + this.idpronac); */
+                $3('#abrirModal').modal();
+                $3('#abrirModal').modal('open');
+            }
+        }
+    });
+
+    var app6 = new Vue({
+        el: '#container'
+    });
+</script>
+<style>
+  #abrirModal.modal{
+       height: 90%;
+       max-height: 96%;
+       width: 98%;
+    }
+</style>
+<!-- Modal Structure -->

@@ -1,18 +1,18 @@
 /*
 Ajustes materialize com o SALIC
 
-Sugestão de organização do css, ajustar conforme o uso
+SugestÃ£o de organizaÃ§Ã£o do css, ajustar conforme o uso
 
 Paleta de cores by Jamile
     Verde claro: #81C784
-    Verde médio: #4CAF50
+    Verde mÃ©dio: #4CAF50
     Verde escuro: #1B5E20
     Rosa: #FF8A80
     Azul: #039BE5
     Laranja: #FB8C00
     Amarelo: #FDD835
     Cinza claro: #FAFAFA
-    Cinza médio: #EEEEEE
+    Cinza mÃ©dio: #EEEEEE
     Cinza escuro: #212121
 /*--------------------------------------------------------------
 x - CORES (legado)
@@ -249,8 +249,6 @@ footer.page-footer {
     color: #2d2d2d;
 }
 
-.consultardadosprojeto #qm0.qmmc > a:first-child,
-.consultardadosprojeto #qm0.qmmc > a:first-child:hover,
 #sidenav .sidebar-info,
 .small-menu #sidenav > li.sidebar-info:hover div {
     background-color: #0A420E;
@@ -286,10 +284,16 @@ header #atalhos #combousuario {
 #conteudo table tr.destacar td,
 #conteudo table td.destacar,
 #conteudo table th {
-    background-color: rgb(65, 129, 150);
     border: 1px solid #cacaca;
     background-color: rgb(236, 236, 236);
     color: #212121;
+}
+
+#conteudo table.active tr.destacar td,
+#conteudo table.active td.destacar,
+#conteudo table.active td,
+#conteudo table.active th {
+    background-color: #d3ecd8;
 }
 
 table.dataTable thead th,

@@ -1,146 +1,156 @@
-<?php $updateDiligenciaHref = $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'updatediligencia'));
-    if($this->idPronac)
-        echo $this->partial('diligenciar/inc/menu.inc.php', $this); // menu de manter proposta por incentivo fiscal
-    if($this->idPreProjeto)
-        echo $this->partial('diligenciar/inc/menu.inc.php', $this); // menu de manter proposta por incentivo fiscal
-?>
+<?= $this->idPreProjeto ? $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto)) : ''; ?>
+<?= $this->urlMenu && $this->idPronac ? $this->SidebarVue($this->url($this->urlMenu, '', true)) : ''; ?>
+<?php $updateDiligenciaHref = $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'updatediligencia')); ?>
 
 <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/_samples/sample.js"></script>
 
-<div id="titulo">
-    <div>Resposta da Dilig&ecirc;ncia <span class="voltar"><a href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaproponente'),'',true); ?>?idPronac=<?php echo $this->idPronac; ?>">Voltar</a></span></div>
-</div>
+<div class="container-fluid">
+    <?= $this->pageTitle('Resposta da Dilig&ecirc;ncia '); ?>
 
-<form id="cadastro" action="<?php echo $updateDiligenciaHref; ?>" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="operacao" value="responderDiligencia" />
-        <input type="hidden" name="idPronac" value="<?php echo $this->idPronac;?>" />
-        <input type="hidden" name="idPreProjeto" value="<?php echo $this->idPreProjeto;?>" />
-        <input type="hidden" name="idDiligencia" value="<?php echo $this->idDiligencia;?>" />
-        <input type="hidden" name="idAvaliacaoProposta" value="<?php echo $this->idAvaliacaoProposta;?>" />
-        <input type="hidden" name="idProduto" value="<?php echo $this->idProduto;?>" />
-        <input type="hidden" name="verificaEnviado" id="verificaEnviado" value="" />
-<div id="conteudo">
-    <table class="tabela">
-        <tr>
-            <th><?php echo $this->nmCodigo;?></th>
-            <th <?php if($this->idDiligencia){ echo 'colspan="2"';}?>>NOME <?php echo $this->nmTipo;?></th>
-            <?php if($this->idAvaliacaoProposta){ ?>
-            <th>DATA DA SOLICITA&Ccedil;&Atilde;O</th>
-            <?php } ?>
-        </tr>
-        <tr>
-            <td align="center"><?php echo $this->pronac;?></td>
-            <td align="center" <?php if($this->idDiligencia){ echo 'colspan="2"';}?>>
-                <?php echo $this->nomeProjeto;?>
-            </td>
-            <?php if($this->idAvaliacaoProposta){ ?>
-            <td align="center">
-                <?php echo $this->dataSolicitacao;?>
-            </td>
-            <?php } ?>
-        </tr>
-        <?php if($this->idDiligencia){?>
-            <tr>
-                <th>Produto</th>
-                <th>TIPO DA DILIG&Ecirc;NCIA</th>
-                <th>DATA DA SOLICITA&Ccedil;&Atilde;O</th>
-            </tr>
-            <tr>
-                <td align="center"><?php echo $this->produto;?></td>
-                <td align="center"><?php echo $this->tipoDiligencia;?></td>
-                <td align="center"><?php echo $this->dataSolicitacao;?></td>
-            </tr>
-        <?php } ?>
-        <tr>
-            <td colspan="3" class="destacar" style="text-align: center; text-transform: uppercase;">SOLICITA«√O</td>
-        </tr>
-        <tr>
-            <td colspan="3"><pre class="tag_pre"><?php echo strip_tags($this->solicitacao);?></pre></td>
-        </tr>
-        <tr>
-            <td colspan="3" class="destacar" style="text-align: center; text-transform: uppercase;">Resposta</td>
-        </tr>
-        <tr>
-            <td colspan="3"><textarea name="resposta" id="resposta"><?php echo $this->resposta?></textarea></td>
-        </tr>
-        <tr>
-            <th width="100">Anexar arquivo</th>
-            <td colspan="2"><input class="btn_incluir" id="btn_incluir" title="Incluir" value=" " type="button" /></td>
-        </tr>
-        <tr>
-            <td colspan="3" style="text-align: center;">
-                <div style="float: left; width: 50%; text-align: right;">
-                    <input type="button" class="btn_enviar">
-                </div>
-            </td>
-        </tr>
-    </table>
+    <form id="cadastro" action="<?php echo $updateDiligenciaHref; ?>" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="operacao" value="responderDiligencia"/>
+        <input type="hidden" name="idPronac" value="<?php echo $this->idPronac; ?>"/>
+        <input type="hidden" name="idPreProjeto" value="<?php echo $this->idPreProjeto; ?>"/>
+        <input type="hidden" name="idDiligencia" value="<?php echo $this->idDiligencia; ?>"/>
+        <input type="hidden" name="idAvaliacaoProposta" value="<?php echo $this->idAvaliacaoProposta; ?>"/>
+        <input type="hidden" name="idProduto" value="<?php echo $this->idProduto; ?>"/>
+        <input type="hidden" name="verificaEnviado" id="verificaEnviado" value=""/>
+        <div id="conteudo">
+            <table class="tabela">
+                <tr>
+                    <th><?php echo $this->nmCodigo; ?></th>
+                    <th <?php if ($this->idDiligencia) {
+                        echo 'colspan="2"';
+                    } ?>>NOME <?php echo $this->nmTipo; ?></th>
+                    <?php if ($this->idAvaliacaoProposta) { ?>
+                        <th>DATA DA SOLICITA&Ccedil;&Atilde;O</th>
+                    <?php } ?>
+                </tr>
+                <tr>
+                    <td><?php echo $this->pronac; ?></td>
+                    <td <?php if ($this->idDiligencia) {
+                        echo 'colspan="2"';
+                    } ?>>
+                        <?php echo $this->nomeProjeto; ?>
+                    </td>
+                    <?php if ($this->idAvaliacaoProposta) { ?>
+                        <td>
+                            <?php echo $this->dataSolicitacao; ?>
+                        </td>
+                    <?php } ?>
+                </tr>
+                <?php if ($this->idDiligencia) { ?>
+                    <tr>
+                        <th>Produto</th>
+                        <th>TIPO DA DILIG&Ecirc;NCIA</th>
+                        <th>DATA DA SOLICITA&Ccedil;&Atilde;O</th>
+                    </tr>
+                    <tr>
+                        <td><?php echo $this->produto; ?></td>
+                        <td><?php echo $this->tipoDiligencia; ?></td>
+                        <td><?php echo $this->dataSolicitacao; ?></td>
+                    </tr>
+                <?php } ?>
+                <tr>
+                    <td colspan="3" class="destacar" style="text-align: center; text-transform: uppercase;">
+                        SOLICITA√á√ÉO
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <pre class="tag_pre"><?php echo strip_tags($this->solicitacao); ?></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="destacar" style="text-align: center; text-transform: uppercase;">Resposta
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3"><textarea name="resposta" id="resposta"><?php echo $this->resposta ?></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th width="100">Anexar arquivo</th>
+                    <td colspan="2"><input class="btn_incluir" id="btn_incluir" title="Incluir" value=" "
+                                           type="button"/></td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="text-align: center;">
+                        <div style="float: left; width: 50%; text-align: right;">
+                            <input type="button" class="btn_enviar">
+                        </div>
+                    </td>
+                </tr>
+            </table>
 
-        <?php if(count($this->arquivos)>0) { ?>
-        <table class="tabela">
-            <tr>
-                <th colspan="3">Arquivos Anexados</th>
-            </tr>
-            <tr>
-                <td class="destacar bold" align="center">Arquivo</td>
-                <td class="destacar bold" align="center">Dt.Envio</td>
-                <td class="destacar bold" align="center">AÁ„o</td>
-            </tr>
-            <?php foreach ($this->arquivos as $arquivos) { ?>
-            <tr id="linha<?php echo $arquivos->idArquivo; ?>">
-                <td><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $arquivos->idArquivo; ?>"><?php echo $arquivos->nmArquivo; ?></a></td>
-                <td align="center"><?php echo Data::tratarDataZend($arquivos->dtEnvio, 'Brasileira', true); ?></td>
-                <td align="center"><input class="btn_exclusao" type="button" value="" name="btn_exclusao" id="btn_exclusao" arquivo="<?php echo $arquivos->idArquivo; ?>" diligencia="<?php echo $arquivos->idDiligencia; ?>"></td>
-            </tr>
+            <?php if (count($this->arquivos) > 0) { ?>
+                <table class="tabela">
+                    <tr>
+                        <th colspan="3">Arquivos Anexados</th>
+                    </tr>
+                    <tr>
+                        <td class="destacar bold" align="center">Arquivo</td>
+                        <td class="destacar bold" align="center">Dt.Envio</td>
+                        <td class="destacar bold" align="center">A√ß√£o</td>
+                    </tr>
+                    <?php foreach ($this->arquivos as $arquivos) { ?>
+                        <tr id="linha<?php echo $arquivos->idArquivo; ?>">
+                            <td>
+                                <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $arquivos->idArquivo; ?>"><?php echo $arquivos->nmArquivo; ?></a>
+                            </td>
+                            <td align="center"><?php echo Data::tratarDataZend($arquivos->dtEnvio, 'Brasileira', true); ?></td>
+                            <td align="center"><input class="btn_exclusao" type="button" value="" name="btn_exclusao"
+                                                      id="btn_exclusao" arquivo="<?php echo $arquivos->idArquivo; ?>"
+                                                      diligencia="<?php echo $arquivos->idDiligencia; ?>"></td>
+                        </tr>
+                    <?php } ?>
+                </table>
             <?php } ?>
-        </table>
-        <?php } ?>
     </form>
-    <br clear="all" />
 
-</div><!-- final: conte˙do principal #conteudo -->
-
-<div id="rodapeConteudo" ><span></span></div>
+</div><!-- final: conte√∫do principal #conteudo -->
+</div>
+<div id="rodapeConteudo"><span></span></div>
 <div id="alerta" class="sumir"></div>
 <div id="pergunta" class="sumir"></div>
-<br clear="all" />
+<br clear="all"/>
 
 <script type="text/javascript">
-    CKEDITOR.replace( 'resposta', { toolbar: [] , enterMode : Number(2)} );
-    $('#tipo').change(function(){
-        if($(this).val()){
+    CKEDITOR.replace('resposta', { toolbar: [], enterMode: Number(2) });
+    $('#tipo').change(function () {
+        if ($(this).val()) {
             $('#idCodigoDocumentosExigidos').val('');
-            $('#idCodigoDocumentosExigidos').find('.todos').each(function(){
-               $(this).css('display','none');
+            $('#idCodigoDocumentosExigidos').find('.todos').each(function () {
+                $(this).css('display', 'none');
             });
-            $('#idCodigoDocumentosExigidos').find('.tp_'+$(this).val()).each(function(){
-               $(this).css('display','');
+            $('#idCodigoDocumentosExigidos').find('.tp_' + $(this).val()).each(function () {
+                $(this).css('display', '');
             });
         }
-        else{
+        else {
             $('#idCodigoDocumentosExigidos').val('');
-            $('#idCodigoDocumentosExigidos').find('.todos').each(function(){
-               $(this).css('display','none'); 
+            $('#idCodigoDocumentosExigidos').find('.todos').each(function () {
+                $(this).css('display', 'none');
             });
         }
     });
 
-    $('#btn_incluir').click(function(){
+    $('#btn_incluir').click(function () {
         $("#uploadArquivo").dialog("destroy");
         $("#uploadArquivo").dialog({
             resizable: false,
             title: 'Anexar Arquivo!',
-            width:440,
-            height:240,
+            width: 440,
+            height: 240,
             modal: true,
-            buttons : {
-                'Salvar' : function(){
+            buttons: {
+                'Salvar': function () {
                     var texto = CKEDITOR.instances['resposta'].getData();
                     $("#dsResposta").val(texto);
                     $("#anexarArquivo").submit();
                 },
-                'Cancelar' : function(){
+                'Cancelar': function () {
                     $("#uploadArquivo").dialog('close');
                 }
             }
@@ -148,22 +158,22 @@
         $('.ui-dialog-titlebar-close').remove();
     });
 
-    
-    $('.btn_enviar').click(function(){
+
+    $('.btn_enviar').click(function () {
 
         var texto = CKEDITOR.instances['resposta'].getData();
-        if(texto != ''){
+        if (texto != '') {
             $('#verificaEnviado').val('S');
-            $("<div></div>").appendTo('body').attr('title','Alerta!').html("Deseja realmente enviar a resposta?").dialog({
+            $("<div></div>").appendTo('body').attr('title', 'Alerta!').html("Deseja realmente enviar a resposta?").dialog({
                 resizable: false,
-                width:320,
-                height:160,
+                width: 320,
+                height: 160,
                 modal: true,
                 buttons: {
-                    'Cancelar': function() {
+                    'Cancelar': function () {
                         $(this).dialog('close');
                     },
-                    'Confirmar': function() {
+                    'Confirmar': function () {
                         $('#resposta').val(CKEDITOR.instances['resposta'].getData());
                         $('#cadastro').submit();
                         $(this).dialog('close');
@@ -172,18 +182,18 @@
             });
             $('.ui-dialog-titlebar-close').remove();
         }
-        else{
+        else {
             var mensagem = '';
-            if(texto == ''){
+            if (texto == '') {
                 mensagem += 'Dados obrigat&oacute;rios n&atildeo informados! <br />';
             }
-            $("<div></div>").appendTo('body').attr('title','Alerta!').html(mensagem).dialog({
+            $("<div></div>").appendTo('body').attr('title', 'Alerta!').html(mensagem).dialog({
                 resizable: false,
-                width:400,
-                height:200,
+                width: 400,
+                height: 200,
                 modal: true,
                 buttons: {
-                    'OK': function() {
+                    'OK': function () {
                         $(this).dialog('close');
                     }
                 }
@@ -192,27 +202,27 @@
 
     });
 
-    $('.btn_salvar').click(function(){
+    $('.btn_salvar').click(function () {
         $('#verificaEnviado').val('N');
         $('#resposta').val(CKEDITOR.instances['resposta'].getData());
         $('#cadastro').submit();
         $(this).dialog('close');
     });
 
-    $(".btn_exclusao").click(function(){
+    $(".btn_exclusao").click(function () {
         $("#pergunta").dialog("destroy");
         $("#pergunta").html('Deseja realmente excluir o arquivo?');
         $("#pergunta").dialog({
             resizable: false,
             title: 'Alerta!',
-            width:320,
-            height:160,
+            width: 320,
+            height: 160,
             modal: true,
-            buttons : {
-                'N„o' : function(){
+            buttons: {
+                'N√£o': function () {
                     $("#pergunta").dialog('close');
                 },
-                'Sim' : function(){
+                'Sim': function () {
                     var idarquivo = $(".btn_exclusao").attr('arquivo'),
                         iddiligencia = $(".btn_exclusao").attr('diligencia');
                     $.ajax({
@@ -222,26 +232,26 @@
                             arquivo: idarquivo,
                             diligencia: iddiligencia
                         },
-                        success: function(data){
-                            if(data.resposta){
+                        success: function (data) {
+                            if (data.resposta) {
                                 $("#pergunta").dialog('close');
-                                $("#linha"+idarquivo).remove();
+                                $("#linha" + idarquivo).remove();
                                 $("#alerta").dialog("destroy");
-                                $("#alerta").html('<br /><div align="center"><img src="<?php echo $this->baseUrl().'/public/img/ajax.gif'; ?>"></div>');
+                                $("#alerta").html('<br /><div align="center"><img src="<?php echo $this->baseUrl() . '/public/img/ajax.gif'; ?>"></div>');
                                 $("#alerta").dialog({
                                     resizable: false,
-                                    width:320,
-                                    height:120,
+                                    width: 320,
+                                    height: 120,
                                     modal: true,
                                     title: 'Carregando..'
                                 });
                                 $('.ui-dialog-titlebar-close').remove();
                                 window.setTimeout('$("#alerta").dialog("close")', 1000);
                             } else {
-                                alertaModal("N„o foi possÌvel finalizar o relatÛrio.");
+                                alertaModal("N√£o foi poss√≠vel finalizar o relat√≥rio.");
                             }
                         },
-                        dataType : 'json'
+                        dataType: 'json'
                     });
                 }
             }
@@ -249,22 +259,22 @@
         $('.ui-dialog-titlebar-close').remove();
     });
 
-    $(".voltar").click(function (){
+    $(".voltar").click(function () {
         window.history.back();
 //        $('#encaminhar').submit();
     });
 
-    function alertaModal(msg){
+    function alertaModal(msg) {
         $("#alerta").dialog("destroy");
         $("#alerta").html(msg);
         $("#alerta").dialog({
             resizable: false,
             title: 'Alerta!',
-            width:330,
-            height:170,
+            width: 330,
+            height: 170,
             modal: true,
-            buttons : {
-                'OK' : function(){
+            buttons: {
+                'OK': function () {
                     $(this).dialog('close');
                 }
             }
@@ -275,29 +285,31 @@
 
 
 <div id="uploadArquivo" class="sumir">
-    <form id="anexarArquivo" action="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'cadastrarrespostadiligencia')); ?>" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="idPronac" value="<?php echo $this->idPronac;?>"/>
-        <input type="hidden" name="idPreProjeto" value="<?php echo $this->idPreProjeto;?>" />
-        <input type="hidden" name="idProduto" value="<?php echo $this->idProduto;?>" />
-        <input type="hidden" name="idDiligencia" id="idDiligencia" value="<?php echo $this->idDiligencia;?>"/>
-        <input type="hidden" name="idAvaliacaoProposta" value="" id="idAvaliacaoProposta" />
-        <input type="hidden" name="dsResposta" value="" id="dsResposta" />
+    <form id="anexarArquivo"
+          action="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'cadastrarrespostadiligencia')); ?>"
+          method="post" enctype="multipart/form-data">
+        <input type="hidden" name="idPronac" value="<?php echo $this->idPronac; ?>"/>
+        <input type="hidden" name="idPreProjeto" value="<?php echo $this->idPreProjeto; ?>"/>
+        <input type="hidden" name="idProduto" value="<?php echo $this->idProduto; ?>"/>
+        <input type="hidden" name="idDiligencia" id="idDiligencia" value="<?php echo $this->idDiligencia; ?>"/>
+        <input type="hidden" name="idAvaliacaoProposta" value="" id="idAvaliacaoProposta"/>
+        <input type="hidden" name="dsResposta" value="" id="dsResposta"/>
         <table class="tabela">
             <tbody>
-                <tr class="fundo">
-                    <td class="" colspan="2" align="left">
-                        Enviar anexo (tamanho m·ximo de 5 MB)
-                        <br/>
-                        Tipos de arquivos permitidos:
-                        <font color="red">PDF</font>
-                    </td>
-                </tr>
-                <tr class="fundo">
-                    <td class="destacar bold" width="1px">Arquivo</td>
-                    <td>
-                        <input name="arquivo" id="arquivo" value="Procurar arquivo" class="input_simples" type="file"/>
-                    </td>
-                </tr>
+            <tr class="fundo">
+                <td class="" colspan="2" align="left">
+                    Enviar anexo (tamanho m√°ximo de 5 MB)
+                    <br/>
+                    Tipos de arquivos permitidos:
+                    <font color="red">PDF</font>
+                </td>
+            </tr>
+            <tr class="fundo">
+                <td class="destacar bold" width="1px">Arquivo</td>
+                <td>
+                    <input name="arquivo" id="arquivo" value="Procurar arquivo" class="input_simples" type="file"/>
+                </td>
+            </tr>
             </tbody>
         </table>
     </form>

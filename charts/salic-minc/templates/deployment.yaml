@@ -1,0 +1,96 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "fullname" . }}
+  labels:
+    chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+spec:
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        draft: {{ default "draft-app" .Values.draft }}
+        app: {{ template "fullname" . }}
+{{- if .Values.podAnnotations }}
+      annotations:
+{{ toYaml .Values.podAnnotations | indent 8 }}
+{{- end }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: Always
+        volumeMounts:
+        - mountPath: /var/www/salic/application/configs/application.ini
+          name: application-config
+          subPath: application.ini
+        env:
+        - name: COMPOSER_CACHE_DIR
+          value: "/dev/null"
+        - name: APPLICATION_ENV
+          value: "development"
+        - name: UPDATE_COMPOSER_DEPENDENCIES
+          value: "false"
+        - name: XDEBUG_INSTALL
+          value: "false"
+        - name: XDEBUG_REMOTE_ENABLE
+          value: "on" 
+        - name: XDEBUG_REMOTE_AUTOSTART
+          value: "on" 
+        - name: XDEBUG_REMOTE_HANDLER
+          value: "dbgp" 
+        - name: XDEBUG_REMOTE_CONNECT_BACK
+          value: "1"   
+        - name: XDEBUG_PROFILER_ENABLE
+          value: "1" 
+        - name: XDEBUG_PROFILER_OUTPUT_DIR
+          value: "/tmp/www/html" 
+        - name: XDEBUG_REMOTE_PORT
+          value: "9000" 
+        - name: XDEBUGINI_PATH
+          value: "/usr/local/etc/php/conf.d/xdebug.ini" 
+        - name: XDEBUG_DEFAULT_ENABLE
+          value: "1"   
+        - name: XDEBUG_IDEKEY
+          value: "PHPSTORM"  
+        - name: DB_ADAPTER
+          value: "PDO_MSSQL"  
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: salicweb
+              key: DB_USERNAME
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: salicweb
+              key: DB_PASSWORD
+        - name: DB_DBNAME
+          valueFrom:
+            secretKeyRef:
+              name: salicweb
+              key: DB_DBNAME
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: salicweb
+              key: DB_HOST
+        - name: DB_PORT
+          valueFrom:
+            secretKeyRef:
+              name: salicweb
+              key: DB_PORT
+        - name: DB_CHARSET
+          value: "ISO-8859-1"  
+        - name: DB_PDOTYPE
+          value: "dblib"  
+        ports:
+        - containerPort: 80
+          protocol: TCP
+        - containerPort: 9000
+          protocol: TCP
+      serviceAccountName: useroot
+      volumes:
+      - name: application-config
+        configMap:
+          name: application-config

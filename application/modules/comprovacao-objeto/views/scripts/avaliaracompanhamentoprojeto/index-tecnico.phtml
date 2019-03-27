@@ -1,0 +1,312 @@
+<div id="alerta" class="sumir"></div>
+<div id="pergunta" class="sumir"></div>
+
+<div class="container-fluid">
+
+    <?php $this->PageTitle('Lista de Relat&oacute;rios - T&eacute;cnico', array(
+        array('Lista de Relat&oacute;rios' => '')
+    )); ?>
+
+    <div id="conteudo">
+        <table class="tabela">
+            <tr>
+                <td class="destacar bold" width="50" align="center">Pronac</td>
+                <td width="320" align="center">
+                    <input type="text" class="input_simples" id="campoPesquisa" maxlength="10"
+                           value="<?php echo $this->pronacProjeto; ?>"/>
+                    <input type="button" class="btn_localizar" name="name" value=" " style="margin-left: 5px;"/>
+                </td>
+                <td align="center"><?php if ($this->qtdRelatorios != 0) {
+                        echo $this->qtdRelatorios . ' relat&oacute;rios listados';
+                    } else {
+                        echo 'Nenhum registro encontrado!';
+                    } ?></td>
+            </tr>
+        </table>
+
+        <?php if (count($this->dados) > 0) { ?>
+            <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0 font-size:12px">
+                <tbody>
+                <tr>
+                    <td align="center">
+                        <form name="form1" id="form1"
+                              action="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index-tecnico')); ?>"
+                              method="get">
+                            <?php if ($this->paginacao['pag'] > 1) { ?>
+                                <input style="width: 88px;" class="btn_inicio" id="btn_inicio" type="button"
+                                       class="btn_inicio"
+                                       onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index-tecnico')) . '?pag=1' . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&pronac=' . $this->pronacProjeto; ?>'">
+                            <?php } ?>
+                            <input style="width: 88px;" id="btn_p_anterior" type="button"
+                                <?php if ($this->paginacao['pag'] <= 1) { ?> class="btn_p_anterior-off"
+                                <?php } else { ?>
+                                    class="btn_p_anterior"
+                                    onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index-tecnico')) . '?pag=' . ($this->paginacao['pag'] - 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&pronac=' . $this->pronacProjeto; ?>'"
+                                <?php } ?>>
+                            <input style="width: 88px;" id="btn_p_proximo" type="button"
+                                <?php if ($this->paginacao['pag'] + 1 > $this->paginacao['totalPag']) { ?>
+                                    class="btn_p_proximo-off"
+                                <?php } else { ?>
+                                    class="btn_p_proximo"
+                                    onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index-tecnico')) . '?pag=' . ($this->paginacao['pag'] + 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&pronac=' . $this->pronacProjeto; ?>'"
+                                <?php } ?>>
+                            <?php if ($this->paginacao['pag'] < $this->paginacao['totalPag']) { ?>
+                                <input style="width: 88px;" class="btn_ultimo" id="btn_ultimo" type="button"
+                                       onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index-tecnico')) . '?pag=' . ($this->paginacao['totalPag']) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&pronac=' . $this->pronacProjeto; ?>'">
+                            <?php } ?>
+                            P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()"
+                                                class="input_simples">
+                                <?php for ($i = 1; $i <= $this->paginacao['totalPag']; $i++): ?>
+                                    <option
+                                        value="<?php echo $i; ?>" <?php if ($this->paginacao['pag'] == $i) echo "selected"; ?>><?php echo $i; ?>
+                                        &nbsp;
+                                    </option>
+                                <?php endfor; ?>
+                            </select>
+                            &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde"
+                                                                     class="input_simples"
+                                                                     value="<?php echo $this->intTamPag; ?>"><input
+                                type="submit" class="btn_recarregar" value="">
+                            <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo']; ?>">
+                            <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem']; ?>">
+                            <input type="hidden" name="pronac" value="<?php echo $this->pronacProjeto; ?>">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <center>
+                <?php
+                echo $this->paginacao['inicio'] . " a ";
+                echo ($this->paginacao['pag'] - 1) * $this->paginacao['Itenspag'] + $this->paginacao['tamanho'];
+                echo " de " . $this->paginacao['total'];
+                ?>
+            </center>
+        <?php } ?>
+
+
+        <?php if ($this->qtdRelatorios != 0) : ?>
+            <table class="tabela tablesorter">
+                <tr>
+                    <td class="destacar bold">Pronac</td>
+                    <td class="destacar bold">Nome Projeto</td>
+                    <td class="destacar bold">UF</td>
+                    <td class="destacar bold" nowrap>Mecanismo</td>
+                    <td class="destacar bold" nowrap>Situa&ccedil;&atilde;o</td>
+                    <td class="destacar bold" nowrap>Dt.&nbsp;Relat&oacute;rio</td>
+                    <td class="destacar bold" align="center">Dilig&ecirc;ncia</td>
+                    <td class="destacar bold" align="center">A&ccedil;&otilde;es</td>
+                </tr>
+                <?php foreach ($this->dados as $dp) : ?>
+                    <tr>
+                        <td><a target="_blank"
+                               href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo $dp->IdPRONAC; ?>"><?php echo $dp->Pronac; ?></a>
+                        </td>
+                        <td><?php echo $dp->NomeProjeto; ?></td>
+                        <td><?php echo $dp->UfProjeto; ?></td>
+                        <td nowrap>
+                            <?php
+                            if ($dp->Mecanismo == 1) {
+                                echo 'Incentivo Fiscal Federal';
+                            } else if ($dp->Mecanismo != 2) {
+                                echo 'FNC';
+                            } else if ($dp->Mecanismo != 6) {
+                                echo 'Recursos do Tesouro';
+                            }
+                            ?>
+                        </td>
+                        <td nowrap><?php echo $dp->Situacao . ' - ' . $dp->dsSituacao; ?></td>
+                        <td><?php echo Data::tratarDataZend($dp->dtCadastro, 'Brasileiro'); ?></td>
+                        <td align="center">
+                            <?php echo $this->partial('avaliaracompanhamentoprojeto/partial/diligenciar-table-column.phtml', 'proposta',
+                                array(
+                                    'idPronac' => $dp->IdPRONAC,
+                                    'situacao' => $dp->Situacao,
+                                    'tpDiligencia' => 180,
+                                )
+                            );
+                            ?>
+                        </td>
+                        <td align="center">
+                            <?php
+                            if (!empty($dp->idDocumentoAssinatura)) :
+                                $urlDespacho = array(
+                                    'module' => 'assinatura',
+                                    'controller' => 'documentos-devolvidos',
+                                    'action' => 'visualizar-ajax',
+                                    'idPronac' => $dp->IdPRONAC
+                                );
+                                ?>
+                                <a data-ajax-modal="<?php echo $this->url($urlDespacho); ?>"
+                                   href="javascript:void(0);"
+                                   style="margin-bottom:5px;"
+                                   class="btn waves-effect waves-light tooltipped  small white-text"
+                                   data-tooltip="Visualizar despacho"
+                                   data-ajax-modal-full="true"
+                                ><i class="material-icons">library_books</i>
+                                </a>
+                            <?php endif; ?>
+
+                            <a
+                               style="margin-bottom:5px;"
+                               class="btn waves-effect waves-light tooltipped small white-text btn-primary"
+                               onclick="avaliarRelatorio('<?php echo $dp->IdPRONAC; ?>')"
+                               data-tooltip="Avaliar Objeto">
+                                <i class="material-icons">gavel</i>
+                            </a>
+                            <a
+                               style="margin-bottom:5px;"
+                               class="devolverPedido btn waves-effect waves-light tooltipped small white-text btn-danger"
+                               pronac="<?= $dp->IdPRONAC; ?>"
+                               data-tooltip="Devolver  para o Coordenador">
+                                <i class="material-icons">undo</i>
+                            </a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+
+            <?php if (count($this->dados) > 0) : ?>
+
+                <?php if ($this->qtdRelatorios > 10) : ?>
+                    <center>
+                        <?php
+                        echo $this->paginacao['inicio'] . " a ";
+                        echo ($this->paginacao['pag'] - 1) * $this->paginacao['Itenspag'] + $this->paginacao['tamanho'];
+                        echo " de " . $this->paginacao['total'];
+                        ?>
+                    </center>
+                    <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr>
+                            <td align="center">
+                                <form name="form2" id="form2"
+                                      action="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index-tecnico')); ?>"
+                                      method="get">
+                                    <?php if ($this->paginacao['pag'] > 1) { ?>
+                                        <input style="width: 88px;" class="btn_inicio" id="btn_inicio" type="button"
+                                               class="btn_inicio"
+                                               onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index-tecnico')) . '?pag=1' . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&pronac=' . $this->pronacProjeto; ?>'">
+                                    <?php } ?>
+                                    <input style="width: 88px;" id="btn_p_anterior" type="button"
+                                        <?php if ($this->paginacao['pag'] <= 1) { ?> class="btn_p_anterior-off"
+                                        <?php } else { ?>
+                                            class="btn_p_anterior"
+                                            onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index-tecnico')) . '?pag=' . ($this->paginacao['pag'] - 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&pronac=' . $this->pronacProjeto; ?>'"
+                                        <?php } ?>>
+                                    <input style="width: 88px;" id="btn_p_proximo" type="button"
+                                        <?php if ($this->paginacao['pag'] + 1 > $this->paginacao['totalPag']) { ?>
+                                            class="btn_p_proximo-off"
+                                        <?php } else { ?>
+                                            class="btn_p_proximo"
+                                            onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index-tecnico')) . '?pag=' . ($this->paginacao['pag'] + 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&pronac=' . $this->pronacProjeto; ?>'"
+                                        <?php } ?>>
+                                    <?php if ($this->paginacao['pag'] < $this->paginacao['totalPag']) { ?>
+                                        <input style="width: 88px;" class="btn_ultimo" id="btn_ultimo" type="button"
+                                               onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index-tecnico')) . '?pag=' . ($this->paginacao['totalPag']) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&pronac=' . $this->pronacProjeto; ?>'">
+                                    <?php } ?>
+                                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form2').submit()"
+                                                        class="input_simples">
+                                        <?php for ($i = 1; $i <= $this->paginacao['totalPag']; $i++): ?>
+                                            <option
+                                                value="<?php echo $i; ?>" <?php if ($this->paginacao['pag'] == $i) echo "selected"; ?>
+                                            ><?php echo $i; ?></option>
+                                        <?php endfor; ?>
+                                    </select>
+                                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde"
+                                                                             class="input_simples"
+                                                                             value="<?php echo $this->intTamPag; ?>"><input
+                                        type="submit" class="btn_recarregar" value="">
+                                    <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo']; ?>">
+                                    <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem']; ?>">
+                                    <input type="hidden" name="pronac" value="<?php echo $this->pronacProjeto; ?>">
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                <?php endif;
+            endif; ?>
+        <?php endif; ?>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.devolverPedido').click(function () {
+            var pronac = $(this).attr('pronac');
+
+            $("#pergunta").dialog("destroy");
+            $("#pergunta").html('Deseja devolver o projeto para o Coordenador de Avalia&ccedil;&atilde;o?');
+            $("#pergunta").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width: 340,
+                modal: true,
+                buttons: {
+                    'N\u00E3o': function () {
+                        $("#pergunta").dialog('close');
+                    },
+                    'Sim': function () {
+                        $("#pergunta").dialog('close');
+                        $.ajax({
+                            type: 'POST',
+                            url: '<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'devolver-relatorio'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
+                            data: {
+                                pronac: pronac
+                            },
+                            success: function (data) {
+                                if (data.resposta) {
+                                    $("#alerta").dialog("destroy");
+                                    $("#alerta").html('<br /><div align="center"><img src="<?php echo $this->baseUrl() . '/public/img/ajax.gif'; ?>"></div>');
+                                    $("#alerta").dialog({
+                                        resizable: false,
+                                        width: 320,
+                                        height: 120,
+                                        modal: true,
+                                        title: 'Carregando..'
+                                    });
+                                    $('.ui-dialog-titlebar-close').remove();
+                                    window.setTimeout('location.reload()', 1000);
+                                } else {
+                                    alertaModal("N&atilde;o foi poss&iacute;vel devolver o relat&oacute;rio.");
+                                }
+                            },
+                            dataType: 'json'
+                        });
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+
+        });
+
+        $('.btn_localizar').click(function () {
+            var pronac = $('#campoPesquisa').val();
+            location.href = "<?php echo $this->baseUrl() . "/comprovacao-objeto/avaliaracompanhamentoprojeto/index-tecnico?pronac="; ?>" + pronac;
+        });
+
+    });
+
+    function avaliarRelatorio(pronac) {
+        location.href = "<?php echo $this->baseUrl() . "/comprovacao-objeto/avaliaracompanhamentoprojeto/parecer-tecnico?idPronac="; ?>" + pronac;
+    }
+
+    function alertaModal(msg) {
+        $("#alerta").dialog("destroy");
+        $("#alerta").html(msg);
+        $("#alerta").dialog({
+            resizable: false,
+            title: 'Alerta!',
+            width: 330,
+            height: 170,
+            modal: true,
+            buttons: {
+                'OK': function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+        $('.ui-dialog-titlebar-close').remove();
+    }
+</script>

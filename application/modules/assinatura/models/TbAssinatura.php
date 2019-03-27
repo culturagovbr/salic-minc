@@ -4,20 +4,30 @@ class Assinatura_Model_TbAssinatura extends MinC_Db_Model
 {
     protected $_idAssintura;
     protected $_idPronac;
-    protected $_idDocumento;
-    protected $_dtAssintura;
+    protected $_idDocumentoAssinatura;
+    protected $_dtAssinatura;
     protected $_idAssinante;
-    protected $_idOrgao;
-    protected $_IdCargo;
-
-    /**
-     * @var int $_idAtoAdministrativo
-     */
     protected $_idAtoAdministrativo;
+    protected $_dsManifestacao;
 
     /**
-     * @return int
+     * @return mixed
      */
+    public function getDsManifestacao()
+    {
+        return $this->_dsManifestacao;
+    }
+
+    /**
+     * @param mixed $dsManifestacao
+     * @return Assinatura_Model_TbAssinatura
+     */
+    public function setDsManifestacao($dsManifestacao)
+    {
+        $this->_dsManifestacao = $dsManifestacao;
+        return $this;
+    }
+
     public function getIdAtoAdministrativo()
     {
         return $this->_idAtoAdministrativo;
@@ -68,33 +78,33 @@ class Assinatura_Model_TbAssinatura extends MinC_Db_Model
     /**
      * @return mixed
      */
-    public function getIdDocumento()
+    public function getIdDocumentoAssinatura()
     {
-        return $this->_idDocumento;
+        return $this->_idDocumentoAssinatura;
     }
 
     /**
-     * @param mixed $idDocumento
+     * @param mixed $idDocumentoAssinatura
      */
-    public function setIdDocumento($idDocumento)
+    public function setIdDocumentoAssinatura($idDocumentoAssinatura)
     {
-        $this->_idDocumento = $idDocumento;
+        $this->_idDocumentoAssinatura = $idDocumentoAssinatura;
     }
 
     /**
      * @return mixed
      */
-    public function getDtAssintura()
+    public function getDtAssinatura()
     {
-        return $this->_dtAssintura;
+        return $this->_dtAssinatura;
     }
 
     /**
-     * @param mixed $dtAssintura
+     * @param mixed $dtAssinatura
      */
-    public function setDtAssintura($dtAssintura)
+    public function setDtAssinatura($dtAssinatura)
     {
-        $this->_dtAssintura = $dtAssintura;
+        $this->_dtAssinatura = $dtAssinatura;
     }
 
     /**
@@ -113,35 +123,4 @@ class Assinatura_Model_TbAssinatura extends MinC_Db_Model
         $this->_idAssinante = $idAssinante;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getIdOrgao()
-    {
-        return $this->_idOrgao;
-    }
-
-    /**
-     * @param mixed $idOrgao
-     */
-    public function setIdOrgao($idOrgao)
-    {
-        $this->_idOrgao = $idOrgao;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getIdCargo()
-    {
-        return $this->_IdCargo;
-    }
-
-    /**
-     * @param mixed $IdCargo
-     */
-    public function setIdCargo($IdCargo)
-    {
-        $this->_IdCargo = $IdCargo;
-    }
 }

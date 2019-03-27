@@ -12,9 +12,9 @@
 
 class Municipios extends MinC_Db_Table_Abstract
 {
-    protected $_banco  = 'agentes';
     protected $_name   = 'Municipios';
     protected $_schema = 'agentes';
+    protected $_primary = 'idMunicipioIBGE';
 
 
     /**
@@ -90,23 +90,24 @@ class Municipios extends MinC_Db_Table_Abstract
      */
     public function buscar($idUF)
     {
-        $sql = $this->select()
-            ->from($this->_name, 'idMunicipioIBGE AS id, Descricao AS descricao', $this->_schema)
-            ->where('idUFIBGE = ?', $idUF)
-            ->order('Descricao');
+        try {
+
+            $sql = $this->select()
+                ->from($this->_name, 'idMunicipioIBGE AS id, Descricao AS descricao', $this->_schema)
+                ->where('idUFIBGE = ?', $idUF)
+                ->order('Descricao');
 
         //$sql = "SELECT idMunicipioIBGE AS id, Descricao AS descricao ";
         //$sql.= "FROM AGENTES.dbo.Municipios ";
         //$sql.= "WHERE idUFIBGE = " . $idUF . " ";
         //$sql.= "ORDER BY Descricao;";
 
-        try {
-            $this->_db->setFetchMode(Zend_DB::FETCH_OBJ);
+                $this->_db->setFetchMode(Zend_DB::FETCH_OBJ);
+            return $this->_db->fetchAll($sql);
         } catch (Zend_Exception_Db $e) {
             $this->view->message = "Erro ao buscar Cidades: " . $e->getMessage();
         }
-        echo $sql;
-        die;
-        return $this->_db->fetchAll($sql);
+
+
     }
 }

@@ -72,24 +72,27 @@ class Proposta_Model_DbTable_TbMovimentacao extends MinC_Db_Table_Abstract
         return ($arrResult) ? $arrResult->toArray() : array();
     }
 
-    public function buscarStatusPropostaNome($idPreProjeto)
+    public function buscarMovimentacaoProposta($idPreProjeto)
     {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
             ['mov' => $this->_name],
-            ['MovimentacaoNome' => new Zend_Db_Expr("
-                CASE
-                    WHEN pre.stEstado = 0 And pre.DtArquivamento is not null
-                        THEN 'Proposta arquivada pelo MinC'
-                    WHEN mov.Movimentacao = 95
-                        THEN 'Proposta com o proponente'
-                    WHEN mov.Movimentacao = 96
-                        THEN 'Proposta para análise inicial'
-                    ELSE
-                        ver.Descricao
-                    END
-            ")],
+            [
+                'MovimentacaoNome' => new Zend_Db_Expr("
+                    CASE
+                        WHEN pre.stEstado = 0 And pre.DtArquivamento is not null
+                            THEN 'Proposta arquivada pelo MinC'
+                        WHEN mov.Movimentacao = 95
+                            THEN 'Proposta com o proponente'
+                        WHEN mov.Movimentacao = 96
+                            THEN 'Proposta para anÃ¡lise inicial'
+                        ELSE
+                            ver.Descricao
+                        END
+                "),
+                "mov.Movimentacao as idMovimentacao"
+            ],
             $this->_schema);
 
         $slct->joinInner(

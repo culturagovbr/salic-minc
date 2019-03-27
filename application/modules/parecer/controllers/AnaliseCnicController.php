@@ -1,8 +1,9 @@
 <?php
 
-class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract implements MinC_Assinatura_Controller_IDocumentoAssinaturaController
+class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract
 {
     private $idPronac;
+    const ID_TIPO_AGENTE_COMPONENTE_CNIC = 6;
 
     private function validarPerfis()
     {
@@ -10,7 +11,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
 
         $PermissoesGrupo = array();
         $PermissoesGrupo[] = Autenticacao_Model_Grupos::COMPONENTE_COMISSAO;
-        
+
         isset($auth->getIdentity()->usu_codigo) ? parent::perfil(1, $PermissoesGrupo) : parent::perfil(4, $PermissoesGrupo);
     }
 
@@ -22,12 +23,12 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         $this->grupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
     }
 
-    
+
     public function gerenciarAssinaturasAction()
     {
         $url = Zend_Controller_Front::getInstance()->getRequest()->getServer('HTTP_REFERER');
         $url_get_idpronac = preg_split('/\/([0-9]{6,7})/', $url, -1, PREG_SPLIT_DELIM_CAPTURE);
-        
+
         if (is_numeric($url_get_idpronac[1])) {
             $idPronac = $url_get_idpronac[1];
         } else {
@@ -35,7 +36,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
             if (is_numeric($url_get_iddocumentoassinatura[1])) {
                 $idDocumentoAssinatura = $url_get_iddocumentoassinatura[1];
                 $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
-                
+
                 $result = $objModelDocumentoAssinatura->find(
                     array(
                         'idDocumentoAssinatura = ?', $idDocumentoAssinatura
@@ -47,7 +48,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                 }
             }
         }
-        
+
         if ($idPronac) {
             $this->redirect("/parecer/analise-cnic/emitirparecer/idpronac/$idPronac");
         } else {
@@ -60,60 +61,47 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         $this->validarPerfis();
         $idPronac = $this->_request->getParam("idpronac");
         $origin = $this->_request->getParam("origin");
-        
+
         try {
-            $get = $this->getRequest()->getParams();
-            $post = $this->getRequest()->getPost();
-            $servicoDocumentoAssinatura = $this->obterServicoDocumentoAssinatura();
-            
-            if (isset($idPronac) && !empty($idPronac) && $get['encaminhar'] == 'true') {
-                $servicoDocumentoAssinatura->idPronac = $idPronac;
-                $servicoDocumentoAssinatura->encaminharProjetoParaAssinatura();
-                
+            if (isset($idPronac) && !empty($idPronac)) {
+                $parecer = new Parecer();
+
+                $dadosParecer = $parecer->getIdAtoAdministrativoParecerTecnico($idPronac, self::ID_TIPO_AGENTE_COMPONENTE_CNIC);
+                $idAtoAdministrativo = $dadosParecer[0]['idParecer'];
+
                 $idTipoDoAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_CNIC;
-                $idDocumentoAssinatura = $this->getIdDocumentoAssinatura($idPronac, $idTipoDoAtoAdministrativo);
-                
-                $this->redirect("/assinatura/index/visualizar-projeto/?idDocumentoAssinatura=" . $idDocumentoAssinatura . "&origin=" . $origin);
-            } elseif (isset($post['IdPRONAC']) && is_array($post['IdPRONAC']) && count($post['IdPRONAC']) > 0) {
-                // ainda nao implementado o encaminhamento de vários para pareceres
+                $servicoDocumentoAssinatura = new \Application\Modules\Parecer\Service\Assinatura\AnaliseCNIC\DocumentoAssinatura(
+                    $idPronac,
+                    $idTipoDoAtoAdministrativo,
+                    $idAtoAdministrativo
+                );
+                $idDocumentoAssinatura = $servicoDocumentoAssinatura->iniciarFluxo();
+
+                $this->redirect("/assinatura/index/visualizar-projeto/?idDocumentoAssinatura={$idDocumentoAssinatura}&origin={$origin}");
             }
         } catch (Exception $objException) {
-            parent::message($objException->getMessage(), $origin);
+            if($origin) {
+                parent::message($objException->getMessage(), $origin);
+            } else {
+                parent::message($objException->getMessage());
+            }
         }
     }
 
     private function getIdDocumentoAssinatura($idPronac, $idTipoDoAtoAdministrativo)
     {
         $objDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
-        
+
         $where = array();
         $where['IdPRONAC = ?'] = $idPronac;
         $where['idTipoDoAtoAdministrativo = ?'] = $idTipoDoAtoAdministrativo;
         $where['stEstado = ?'] = 1;
-        
+
         $result = $objDocumentoAssinatura->buscar($where);
-        
+
         return $result[0]['idDocumentoAssinatura'];
     }
-    
-    /**
-     * @return Parecer_AnaliseCnicDocumentoAssinaturaController
-     */
-    public function obterServicoDocumentoAssinatura()
-    {
-        if (!empty($this->getRequest()->getPost())) {
-            $request = $this->getRequest()->getPost();
-        } else {
-            $request = $this->getRequest()->getQuery();
-        }
-        
-        if (!isset($this->servicoDocumentoAssinatura)) {
-            require_once __DIR__ . DIRECTORY_SEPARATOR . "AnaliseCnicDocumentoAssinaturaController.php";
-            $this->servicoDocumentoAssinatura = new Parecer_AnaliseCnicDocumentoAssinaturaController($request);
-        }
-        return $this->servicoDocumentoAssinatura;
-    }
-    
+
     public function indexAction()
     {
         $this->redirect("/areadetrabalho");
@@ -124,16 +112,16 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
     {
         $idPronac = $this->_request->getParam("idpronac");
         $this->view->idTipoDoAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_CNIC;
-        
+
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
         $this->view->idPerfilDoAssinante = $GrupoAtivo->codGrupo;
         $this->view->situacaoAprovar = 'D50';
 
         $projetos = new Projetos();
         $this->view->IN2017 = $projetos->VerificarIN2017($idPronac);
-        
+
         $this->view->bln_readequacao = false;
-        
+
         if (!empty($idPronac)) {
             $tbPedidoAlteracao = new tbPedidoAlteracaoProjeto();
             $arrBusca = array();
@@ -148,7 +136,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                 $this->idPedidoAlteracao = $rsPedidoAlteraco->idPedidoAlteracao;
             }
         }
-        
+
         if (!$this->view->IN2017) {
             $pa = new paChecarLimitesOrcamentario();
             $resultadoCheckList = $pa->exec($idPronac, 3);
@@ -162,7 +150,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
             $this->view->qtdErrosCheckList = $i;
             $this->view->resultadoCheckList = $resultadoCheckList;
         }
-        
+
         $tblParecer = new Parecer();
         $tblPlanilhaAprovacao = new PlanilhaAprovacao();
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
@@ -172,15 +160,15 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         //CASO O COMPONENTE QUEIRA SALVAR O SEU PARECER - FIM
         $ConsultaReuniaoAberta = ReuniaoDAO::buscarReuniaoAberta();
         $numeroReuniao = $ConsultaReuniaoAberta['NrReuniao'];
-        
+
         //CASO O COMPONENTE QUEIRA APENAS SALVAR O SEU PARECER - INICIO
         if (isset($_POST['usu_codigo'])) {
             $this->salvarParecerComponente($numeroReuniao);
         }
-        
+
         if (isset($_POST['idpronac'])) {
             $this->fecharAssinatura($idPronac);
-            
+
             $codSituacao = ($this->bln_readequacao == false) ? 'D50' : 'D02';
             $situacao = $this->_request->getParam("situacao") == null ? $codSituacao : $this->_request->getParam("situacao");
             $ProvidenciaTomada = 'PROJETO APRECIADO PELO COMPONENTE DA COMISS&Atilde;O NA REUNIÃ&Atilde; DA CNIC N&ordm;. ' . $numeroReuniao;
@@ -188,7 +176,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
 
             $this->incluirNaPauta($idPronac, $ConsultaReuniaoAberta);
         }
-        
+
         //FINALIZAR ANALISE - JUSTIFICATIVA DE PLENARIA - INICIO
         if ($_POST['stEnvioPlenaria'] == 'S') {
             /**** CODIGO DE READEQUACAO ****/
@@ -210,7 +198,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
     private function atualizaReadequacao($idPronac)
     {
         $post = Zend_Registry::get('post');
-        
+
         //finaliza readequacao do projeto
         if (!empty($this->idPedidoAlteracao) && $this->idPedidoAlteracao > 0) {
             $tbPedidoAlteracao = new tbPedidoAlteracaoProjeto();
@@ -249,15 +237,15 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
             }
         }
     }
-    
-    
+
+
     private function readequarProjetoAprovadoNaCNIC()
     {
         $idpronac = $_POST['idpronac'];
         $tblSituacao = new Situacao();
         $tblPauta = new Pauta();
         $tblProjetos = new Projetos();
-        
+
         $buscarnrreuniaoprojeto = $tblPauta->dadosiniciaistermoaprovacao(array($idpronac))->current();
         $dados = array();
         //TRATANDO SITUACAO DO PROJETO QUANDO ESTE FOR DE READEQUACAO
@@ -273,11 +261,11 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         $dados['Logon'] = $this->auth->getIdentity()->usu_codigo;
         $where = "IdPRONAC = " . $idpronac;
         $tblProjetos->alterar($dados, $where);
-        
+
         parent::message("Projeto readequado com sucesso!", "areadetrabalho/index", "CONFIRM");
         $this->_helper->viewRenderer->setNoRender(true);
     }
-    
+
     private function incluirNaPauta($idPronac, $ConsultaReuniaoAberta)
     {
         $post = Zend_Registry::get('post');
@@ -287,18 +275,18 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         $codSituacao = ($this->bln_readequacao == false) ? 'D50' : 'D02';
         $situacao = $this->_request->getParam("situacao") == null ? $codSituacao : $this->_request->getParam("situacao");
         $dtsituacao = date('Y-m-d H:i:s');
-        
+
         try {
             // busca a reuniao aberta
             $idReuniao = $ConsultaReuniaoAberta['idNrReuniao'];
             $nrReuniao = $ConsultaReuniaoAberta['NrReuniao'];
             // verifica se ja esta na pauta
             $verificaPauta = RealizarAnaliseProjetoDAO::retornaRegistro($idPronac, $idReuniao);
-            
+
             if (count($verificaPauta) == 0) {
                 $tblPauta = new Pauta();
                 $tblProjetos = new Projetos();
-                
+
                 // cadastra o projeto na pauta
                 $dados = array(
                     'idNrReuniao' => $idReuniao,
@@ -310,9 +298,9 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                     'dsAnalise' => ' ',
                     'stPlanoAnual' => $this->_request->getParam("stPlanoAnual")
                 );
-                
+
                 $tblPauta->inserir($dados);
-                
+
                 parent::message("Projeto cadastrado na Pauta com sucesso!", "areadetrabalho/index", "CONFIRM");
                 $this->_helper->viewRenderer->setNoRender(true);
             } else {
@@ -326,13 +314,13 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                     'stAnalise' => $TipoAprovacao,
                     'stPlanoAnual' => $this->_request->getParam("stPlanoAnual")
                 );
-                
+
                 $dadosprojeto = array(
                     'Situacao' => $situacao,
                     'DtSituacao' => $dtsituacao,
                     'ProvidenciaTomada' => $providencia
                 );
-                
+
                 $tbRecurso = new tbRecurso();
                 $dadosRecursoAtual = $tbRecurso->buscar(array('IdPRONAC = ?' => $idPronac, 'stAtendimento = ?' => 'N', 'tpSolicitacao =?' => 'EN'));
                 if (count($dadosRecursoAtual) > 0) {
@@ -345,7 +333,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                         'idAgenteAvaliador' => $this->idUsuario
                     );
                     $tbRecurso->update($dadosNovos, "idRecurso=" . $dadosRecursoAtual[0]->idRecurso);
-                    
+
                     //ATUALIZA��O DA TABELA Enquadramento//
                     $Enquadramento = new Admissibilidade_Model_Enquadramento();
                     $dadosEnquadramentoAtual = $Enquadramento->buscarDados($idPronac, null);
@@ -368,13 +356,13 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
             parent::message("Erro ao incluir projeto na Pauta. " . $e->getMessage(), "parecer/analise-cnic/emitirparecer/idpronac/" . $idPronac, "ERROR");
         }
     }
-        
+
 
     private function validacao50($idPronac, $projetoAtual)
     {
         $planoDistribuicao = new PlanoDistribuicao();
         $analiseaprovacao = new AnaliseAprovacao();
-        
+
         //CALCULO DOS 50%
         $buscarPlano = $planoDistribuicao->buscar(array('idProjeto = ?' => $projetoAtual['idProjeto'], 'stPrincipal= ?' => 1))->current()->toArray();
         $buscarAnaliseAp = $analiseaprovacao->buscar(array('IdPRONAC = ?' => $idPronac, 'idProduto = ?' => $buscarPlano['idProduto'], 'tpAnalise = ?' => $this->view->tipoanalise));
@@ -398,11 +386,11 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
             $this->view->nrparecerfavoravel = 1;
         }
     }
-    
+
     private function validacao1520($idPronac)
     {
         $planilhaAprovacao = new PlanilhaAprovacao();
-        
+
         //CALCULO DOS 20% - ETAPA DIVULGACAO
         //soma para calculo dos 20% etapada de Divulgacao
         $arrWhereEtapa = array();
@@ -419,9 +407,9 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         }
         $arrWhereEtapa['aa.tpAnalise = ?'] = $this->view->tipoplanilha;
         $arrWhereEtapa['aa.stAvaliacao = ?'] = 1; // 1 = parecer favoravel, 0 = parecer nao favoravel
-        
+
         $valorProjetoDivulgacao = $planilhaAprovacao->somarItensPlanilhaAprovacaoProdutosFavoraveis($arrWhereEtapa);
-        
+
         //CALCULO DOS 15% - CUSTOS ADMINISTRATIVOS
         $arrWhereCustoAdm = array();
         $arrWhereCustoAdm['idPronac = ?'] = $idPronac;
@@ -436,7 +424,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         } else {
             $arrWhereCustoAdm['stAtivo = ? '] = 'S';
         }
-        
+
         $valoracustosadministrativos = $planilhaAprovacao->somarItensPlanilhaAprovacao($arrWhereCustoAdm);
 
         //CALCULO DOS 10% - REMUNERACAO PARA CAPTACAO DE RECURSO
@@ -596,7 +584,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         //FIM - DOS CALCULO DOS 20% e 15%
     }
 
-    
+
     private function carregarEmissaoParecer()
     {
         // recebe os dados via get
@@ -604,23 +592,23 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         $projetos = new Projetos();
         $IN2017 = $projetos->VerificarIN2017($idpronac);
         $this->view->idpronac = $idpronac;
-        
+
         try {
             if (empty($idpronac)) {
                 //throw new Exception("Por favor, clique no Pronac Aguardando An&aacute;lise!");
                 parent::message("Erro ao realizar opera&ccedil;&atilde;o.", "parecer/analise-cnic/emitirparecer/idpronac/" . $idPronac, "ERROR");
             } else {
                 $idpronac = $this->_request->getParam("idpronac");
-                
+
                 $planilhaproposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
                 $planilhaprojeto = new PlanilhaProjeto();
                 $planilhaAprovacao = new PlanilhaAprovacao();
                 $tbPreProjeto = new Proposta_Model_DbTable_PreProjeto();
                 $tblParecer = new Parecer();
-                
+
                 $rsPlanilhaAtual = $planilhaAprovacao->buscar(array('IdPRONAC = ?' => $idpronac), array('dtPlanilha DESC'))->current();
                 $tipoplanilha = (!empty($rsPlanilhaAtual) && $rsPlanilhaAtual->tpPlanilha == 'SE') ? 'SE' : 'CO';
-                
+
                 if (!empty($rsPlanilhaAtual) && $rsPlanilhaAtual->tpPlanilha == 'SE') {
                     $tpPlanilha = "SE";
                     $tpAnalise = "SE";
@@ -630,10 +618,10 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                     $tpAnalise = "CO";
                     $tpAgente = '6';
                 }
-                
+
                 $projetoAtual = $projetos->buscar(array('IdPRONAC = ?' => $idpronac))->current()->toArray();
                 $idprojeto = $projetoAtual['idProjeto'];
-                
+
                 $rsPreprojeto = $tbPreProjeto->buscar(array('idPreProjeto=?' => $idprojeto))->current();
                 if (!empty($rsPreprojeto)) {
                     $stPlanoAnual = $rsPreprojeto->stPlanoAnual;
@@ -643,12 +631,12 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                 $this->view->tipoplanilha = $tpPlanilha;
                 $this->view->tipoagente = $tpAgente;
                 $this->view->stPlanoAnual = $stPlanoAnual;
-                
+
                 /**** CODIGO DE READEQUACAO ****/
-                
+
                 $arrWhereSomaPlanilha = array();
                 $arrWhereSomaPlanilha['idPronac = ?'] = $idpronac;
-                
+
                 //TRATANDO SOMA DE PROJETO QUANDO ESTE FOR DE READEQUACAO
                 if ($this->bln_readequacao == false) {
                     $fonteincentivo = $planilhaproposta->somarPlanilhaProposta($idprojeto, 109);
@@ -661,7 +649,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                     $arrWhereFontesIncentivo['NrFonteRecurso = ? '] = '109';
                     $arrWhereFontesIncentivo["tpAcao <> ('E') OR tpAcao IS NULL "] = '(?)';
                     $fonteincentivo = $planilhaAprovacao->somarItensPlanilhaAprovacao($arrWhereFontesIncentivo);
-                    
+
                     $arrWhereOutrasFontes = $arrWhereSomaPlanilha;
                     $arrWhereOutrasFontes['idPlanilhaItem <> ? '] = '206'; //elaboracao e agenciamento
                     $arrWhereOutrasFontes['tpPlanilha = ? '] = 'SR';
@@ -670,14 +658,14 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                     $arrWhereOutrasFontes["tpAcao <> ('E') OR tpAcao IS NULL "] = '(?)';
                     $outrasfontes = $planilhaAprovacao->somarItensPlanilhaAprovacao($arrWhereOutrasFontes);
                 }
-                
+
                 $this->view->fontesincentivo = $fonteincentivo['soma'];
                 $this->view->outrasfontes = $outrasfontes['soma'];
                 $this->view->valorproposta = $fonteincentivo['soma'] + $outrasfontes['soma'];
-                
-                
+
+
                 $planilhaAprovacao = new PlanilhaAprovacao();
-                
+
                 $arrWhereSomaPlanilha = array();
                 $arrWhereSomaPlanilha['idPronac = ?'] = $idpronac;
                 $arrWhereSomaPlanilha['idPlanilhaItem <> ? '] = '206'; //elaboracao e agenciamento
@@ -691,15 +679,15 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                 }
                 $valorProjeto = $planilhaAprovacao->somarItensPlanilhaAprovacao($arrWhereSomaPlanilha);
                 $this->view->totalsugerido = $valorProjeto['soma'] ? $valorProjeto['soma'] : 0; //valor total do projeto (Planilha Aprovacao)
-                
+
                 if (!$IN2017) {
                     $this->validacao1520($idpronac);
                 }
-                
+
                 if (!$IN2017) {
                     $this->validacao50($idpronac, $projetoAtual);
                 }
-                
+
                 $produtos = RealizarAnaliseProjetoDAO::analiseDeConteudo($idpronac, $tpPlanilha);
                 $this->view->ResultRealizarAnaliseProjeto = RealizarAnaliseProjetoDAO::analiseparecerConsolidado($idpronac);
                 $verificaEnquadramento = RealizarAnaliseProjetoDAO::verificaEnquadramento($idpronac, $tpPlanilha, $IN2017);
@@ -719,7 +707,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                 $indeferidos = RealizarAnaliseProjetoDAO::retornaIndeferimento();
                 $this->view->indeferidos = $indeferidos;
                 $this->view->idpronac = $idpronac;
-                
+
                 /**** CODIGO DE READEQUACAO ****/
                 $arrBuscaParecer = array();
                 $arrBuscaParecer['idPronac = ?'] = $idpronac;
@@ -727,7 +715,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                 $arrBuscaParecer['TipoParecer = ?'] = ($this->bln_readequacao == "true") ? '2' : '1';
                 $buscarjustificativa = $tblParecer->buscar($arrBuscaParecer);
                 /**** FIM - CODIGO DE READEQUACAO ****/
-                
+
                 if ($buscarjustificativa->count() > 0) {
                     $buscarjustificativa = $buscarjustificativa->current()->toArray();
                     $this->view->valorJustificativa = $buscarjustificativa['ResumoParecer'];
@@ -737,7 +725,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                 }
 
                 $auth = Zend_Auth::getInstance(); // pega a autenticao
-                $Usuario = new Autenticacao_Model_Usuario(); // objeto usuario
+                $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuario
                 $idagente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
                 $idagente = $idagente['idAgente'];
                 //-------------------------------------------------------------------------------------------------------------
@@ -774,23 +762,23 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
             die($e->getMessage());
         }
     }
-    
+
     private function salvarParecerComponente($numeroReuniao)
     {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
         $tblParecer = new Parecer();
-        
+
         $tipoAgente = $this->_request->getParam("tipoplanilha");
         $parecer = $this->_request->getParam("parecer");
         $idPronac = $this->_request->getParam("idpronac");
         $justificativa = $this->_request->getParam("justificativa");
         $valorReal = $this->_request->getParam("valorReal");
         $logon = $this->_request->getParam("usu_codigo");
-        
+
         $buscarParecer = $tblParecer->buscar(array('IdPRONAC = ?' => $idPronac, 'stAtivo = ?' => 1))->current()->toArray();
         if (!empty($buscarParecer)) {
-            
+
             $dados = array(
                 'idPRONAC' => $idPronac,
                 'AnoProjeto' => $buscarParecer['AnoProjeto'],
@@ -811,13 +799,13 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                 'idTipoAgente' => $tipoAgente
             );
             $idparecer = isset($buscarParecer['IdParecer']) ? $buscarParecer['IdParecer'] : $buscarParecer['idParecer'];
-            
+
             //se parecer ativo nao � o Componente, inativa os outros e grava o do Componente
             if (!$buscarParecer or $buscarParecer['idTipoAgente'] != $tipoAgente) {
                 try {
                     $dadosAtualizar = array('stAtivo' => 0);
                     $where = "idparecer = " . $idparecer;
-                    
+
                     $update = $tblParecer->alterar($dadosAtualizar, $where);
                     $inserir = $tblParecer->inserir($dados);
                     $this->_helper->json(array('error' => false));
@@ -828,7 +816,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
             } else {
                 try {
                     $where = "idparecer = " . $idparecer;
-                    
+
                     $idTipoDoAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_CNIC;
 
                     $tbDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
@@ -836,12 +824,12 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                         $idPronac,
                         $idTipoDoAtoAdministrativo
                     );
-                    
+
                     if ($idDocumentoAssinatura) {
                         $this->removerAssinatura($idPronac, $idDocumentoAssinatura);
                         $this->removerDocumentoAssinatura($idPronac, $idDocumentoAssinatura);
                     }
-                    
+
                     $update = $tblParecer->alterar($dados, $where);
                     $this->_helper->json(array('error' => false));
                 } catch (Zend_Exception $e) {
@@ -858,26 +846,26 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
     private function fecharAssinatura($idPronac)
     {
         $idTipoDoAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_CNIC;
-        
+
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
         $idPerfilDoAssinante = $GrupoAtivo->codGrupo;
         $idOrgaoDoAssinante = $GrupoAtivo->codOrgao;
-        
+
         try {
             $tbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();
-            
+
             $objAtoAdministrativo = $tbAtoAdministrativo->obterAtoAdministrativoAtual($idTipoDoAtoAdministrativo, $idPerfilDoAssinante, $idOrgaoDoAssinante);
-            
+
             if (count($objAtoAdministrativo) > 0) {
                 $idAtoAdministrativo = $objAtoAdministrativo['idAtoAdministrativo'];
-                
+
                 $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
                 $data = array(
                     'cdSituacao' => Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_FECHADO_PARA_ASSINATURA
                 );
                 // TODO: buscar idParecer para ato de gestao
                 //$idAtoDeGestao = '';
-                
+
                 $where = array(
                     'IdPRONAC = ?' => $idPronac,
                     'idTipoDoAtoAdministrativo = ?' => $idTipoDoAtoAdministrativo,
@@ -885,7 +873,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
                     'cdSituacao = ?' => Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA,
                     'stEstado = ?' => Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO
                 );
-                
+
                 $objModelDocumentoAssinatura->update($data, $where);
             }
         } catch (Zend_Exception $ex) {
@@ -893,20 +881,20 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
         }
     }
 
-    private function removerAssinatura($idPronac, $idDocumentoAssinatura) {
+    private function removerAssinatura($idPronac, $idDocumentoAssinatura)
+    {
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
         $idPerfilDoAssinante = $GrupoAtivo->codGrupo;
 
         $objDocumentoAssinatura = new Assinatura_Model_TbDocumentoAssinaturaMapper();
-        
+
         if ($objDocumentoAssinatura->IsProjetoJaAssinado(
             $idPronac,
             Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_CNIC,
-            $idPerfilDoAssinante))
-        {
+            $idPerfilDoAssinante)) {
             try {
                 $tbAssinatura = new Assinatura_Model_DbTable_TbAssinatura();
-            
+
                 $tbAssinatura->delete(
                     array(
                         'idDocumentoAssinatura = ?' => $idDocumentoAssinatura
@@ -917,10 +905,11 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract impl
             }
         }
     }
-    
-    private function removerDocumentoAssinatura($idPronac, $idDocumentoAssinatura) {
+
+    private function removerDocumentoAssinatura($idPronac, $idDocumentoAssinatura)
+    {
         $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
-        
+
         try {
             $tbDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
             $tbDocumentoAssinatura->delete(

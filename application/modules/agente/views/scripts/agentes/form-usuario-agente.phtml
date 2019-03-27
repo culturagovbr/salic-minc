@@ -1,0 +1,97 @@
+<div class="container-fluid">
+    <div class="row">
+
+        <?php $this->PageTitle('Cadastrar usuário para Agente', array(
+            array('Manter Agentes' => '')
+        )); ?>
+
+        <div id="conteudos" class="content">
+            <div class="card">
+                <div class="card-content">
+
+                    <div class="row">
+                        <div class="col s12 l3">
+                            <?php if (($this->dados[0]->tipopessoa) == 1): ?>
+                                <b>CNPJ</b><br/><?php echo Mascara::addMaskCNPJ($this->dados[0]->cnpjcpf); ?>
+                            <?php else : ?>
+                                <b>CPF</b><br/><?php echo Mascara::addMaskCPF($this->dados[0]->cnpjcpf); ?>
+                            <?php endif; ?>
+                        </div>
+                        <div class="col s12 l5">
+                            <b>NOME</b><br/><?php echo $this->dados[0]->nome; ?>
+                        </div>
+                        <div class="col s12 l4">
+                            <b>VIS&Otilde;ES</b><br/>
+                            <?php
+                            $i = 0;
+                            if ($this->visoes):
+                                foreach ($this->visoes as $v) {
+                                    if ($i == 0):
+                                        echo $v->Descricao;
+                                    else:
+                                        echo " | " . $v->Descricao;
+                                    endif;
+                                    $i++;
+                                }
+                            else:
+                                echo 'O Agente n&atilde;o tem nenhuma vis&atilde;o!';
+                            endif;
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div id="formNovo" class="card-content">
+                    <?php if (empty($this->dados[0]->idResponsavel)) : ?>
+                        <h4>Cadastrar Respons&aacute;vel pelo Proponente</h4>
+                        <form id="formInfoAdicionais"
+                              action="<?php echo $this->url(array('module' => 'agente', 'controller' => 'agentes', 'action' => 'salvar-usuario-agente')); ?>"
+                              method="post">
+                            <input type="hidden" name="agente" id="agente"
+                                   value="<?php echo $this->dados[0]->idAgente; ?>"/>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <select name="idResponsavel" id="idResponsavel" required>
+                                        <?php foreach ($this->responsaveis as $responsavel) : ?>
+                                            <option> -- selecione --</option>
+                                            <?php if ($responsavel->idResponsavel) : ?>
+                                                <option
+                                                        value="<?= $responsavel->idResponsavel; ?>"
+                                                >[<?= Mascara::addMaskCPF($responsavel->cpfResponsavel); ?>] <?= $responsavel->nomeResponsavel; ?></option>
+                                            <?php endif; ?>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <label for="idResponsavel">Usu&aacute;rio <span style="color: red;">*</span></label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col s12 center-align">
+                                    <button type="submit" class="btn btn-primary" id="btnsalvar">Salvar</button>
+                                </div>
+                            </div>
+
+                        </form>
+
+                    <?php else: ?>
+                        <div class="padding20 center-align">
+                            <b>Proponente j&aacute; possui respons&aacute;vel cadastrado</b>
+                        </div>
+
+                        <div class="row">
+                            <div class="col s12 l3">
+                                    <b>CPF</b><br/><?php echo Mascara::addMaskCPF($this->dados[0]->cpfResponsavel); ?>
+                            </div>
+                            <div class="col s12 l5">
+                                <b>NOME</b><br/><?php echo $this->dados[0]->nomeResponsavel; ?>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

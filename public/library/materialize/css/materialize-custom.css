@@ -14,8 +14,16 @@ body.open #container-progress {
     bottom: 0px;
 }
 
+body.open .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating) {
+    margin-right: 0px;
+}
+
 main {
     flex: 1 0 auto;
+}
+
+#toast-container {
+    z-index: 68060;
 }
 
 .toast {
@@ -59,25 +67,13 @@ textarea.materialize-textarea:focus:not([readonly]) + label {
     color: #00481d;
 }
 
-/* valid color */
-.input-field input[type=text].valid {
-    border-bottom: 1px solid #00481d;
-    box-shadow: 0 1px 0 0 #00481d;
-}
-
-/* invalid color */
-.input-field input[type=text].invalid {
-    border-bottom: 1px solid #F44336;
-    box-shadow: 0 1px 0 0 #F44336;
-}
-
 /* icon prefix focus color */
 .input-field .prefix.active {
     color: #00481d;
 }
 
-
-input:not([type]).invalid, input:not([type]):focus.invalid,
+input:not([type]).invalid,
+input:not([type]):focus.invalid,
 input[type=text].invalid,
 input[type=text]:focus.invalid,
 input[type=password].invalid,
@@ -105,30 +101,42 @@ textarea.materialize-textarea:focus.invalid {
     color: #F44336;
 }
 
-
 /* label color */
 .input-field label {
     color: #1b5e20;
 }
+
+.solicitacao .input-field label:not(.label-icon).active {
+    -webkit-transform: translateY(-22px) scale(1);
+    transform: translateY(-22px) scale(1);
+}
+
 .input-field {
     color: #1b5e20;
 }
+
 /* label focus color */
 .input-field input[type=text]:focus + label {
     color: #1b5e20;
 }
+
 /* label underline focus color */
-.input-field input[type=text]:focus {
+.input-field input[type=text]:focus,
+.input-field input[type=number]:focus {
     border-bottom: 1px solid #1b5e20;
     box-shadow: 0 1px 0 0 #1b5e20;
 }
+
 /* valid color */
-.input-field input[type=text].valid {
+.input-field input[type=text].valid,
+.input-field input[type=number].valid {
     border-bottom: 1px solid #4CAF50;
     box-shadow: 0 1px 0 0 #4CAF50;
 }
+
 /* invalid color */
-.input-field input[type=text].invalid {
+.input-field input[type=text].invalid,
+.input-field input[type=number].invalid {
     border-bottom: 1px solid #F44336;
     box-shadow: 0 1px 0 0 #F44336;
 }
@@ -189,7 +197,7 @@ textarea.materialize-textarea:focus:not([readonly]) + label[data-error] {
     color: #555;
     content: "Anterior";
     font-size: .9rem;
-    border: solid 1px rgba(51,51,51,0.12);
+    border: solid 1px rgba(51, 51, 51, 0.12);
     border-top: none;
     border-left: none;
 }
@@ -199,6 +207,58 @@ textarea.materialize-textarea:focus:not([readonly]) + label[data-error] {
     content: "Atual";
 }
 
+/* collapsible planilhas */
+
+.planilha-orcamentaria .collapsible .collapsible,
+.planilha-orcamentaria .collapsible-body .collapsible-body {
+    border: none;
+    box-shadow: none;
+}
+
+.planilha-orcamentaria .collapsible .collapsible-header {
+    color: #F44336;
+}
+
+.planilha-orcamentaria .collapsible .collapsible .collapsible-header {
+    padding-left: 30px;
+    color: #4CAF50;
+}
+
+.planilha-orcamentaria .collapsible .collapsible .collapsible .collapsible-header {
+    padding-left: 50px;
+    color: #ff9800;
+}
+
+.planilha-orcamentaria .collapsible .collapsible .collapsible .collapsible .collapsible-header {
+    padding-left: 70px;
+    color: #2196F3;
+}
+
+.planilha-consolidacao .totais div {
+    position: relative;
+    padding-left: 20px;
+}
+
+.planilha-consolidacao .totais div:after {
+    content: '';
+    width: 20px;
+    height: 15px;
+    display: block;
+    position: absolute;
+    border-left: 3px dotted #F44336;
+    border-bottom: 3px dotted #F44336;
+    top: -3px;
+    left: -5px;
+}
+
+.planilha-consolidacao .totais div:first-child:after {
+    top: -17px;
+    height: 29px;
+}
+
+span.badge.new:after {
+    content: "";
+}
 
 ins {
     background-color: #c6ffc6;
@@ -221,6 +281,7 @@ td.changed {
     width: 50%;
     vertical-align: top;
 }
+
 /*--------------------------------------------------------------
 x - FOOTER
 --------------------------------------------------------------*/
@@ -247,7 +308,7 @@ footer.page-footer {
     padding-top: 0;
 }
 
-footer a{
+footer a {
     color: #ffcc80;
 }
 
@@ -255,3 +316,67 @@ footer {
     color: #FFFFFF;
     background-color: rgb(93, 64, 55);
 }
+
+.login .container-senha {
+    position: relative;
+}
+
+.login .mostrar-senha {
+    position: absolute;
+    right: 4px;
+    top: 5px;
+}
+
+.login .cabecalho-login {
+    background: url(/public/img/bg-topo.png) no-repeat center center #1b5e20;
+    background-size: cover;
+}
+
+.login .cabecalho-login .logo-salic {
+    background: url(/public/img/logo_salic.png) no-repeat center center;
+    height: 85px;
+    width: 100%;
+    background-size: 170px;
+}
+
+.template-vuetify .v-date-picker-table td,
+.template-vuetify .v-date-picker-table th {
+    padding: 0;
+}
+
+.template-vuetify input:not([type]),
+.template-vuetify input[type=text]:not(.browser-default),
+.template-vuetify input[type=password]:not(.browser-default),
+.template-vuetify input[type=email]:not(.browser-default),
+.template-vuetify input[type=url]:not(.browser-default),
+.template-vuetify input[type=time]:not(.browser-default),
+.template-vuetify input[type=date]:not(.browser-default),
+.template-vuetify input[type=datetime]:not(.browser-default),
+.template-vuetify input[type=datetime-local]:not(.browser-default),
+.template-vuetify input[type=tel]:not(.browser-default),
+.template-vuetify input[type=number]:not(.browser-default),
+.template-vuetify input[type=search]:not(.browser-default),
+.template-vuetify textarea.materialize-textarea {
+    border-bottom: none;
+     font-size: inherit;
+     margin: 0;
+     padding: 0;
+}
+
+.template-vuetify input:not([type]):focus:not([readonly]),
+.template-vuetify input[type=text]:not(.browser-default):focus:not([readonly]),
+.template-vuetify input[type=password]:not(.browser-default):focus:not([readonly]),
+.template-vuetify input[type=email]:not(.browser-default):focus:not([readonly]),
+.template-vuetify input[type=url]:not(.browser-default):focus:not([readonly]),
+.template-vuetify input[type=time]:not(.browser-default):focus:not([readonly]),
+.template-vuetify input[type=date]:not(.browser-default):focus:not([readonly]),
+.template-vuetify input[type=datetime]:not(.browser-default):focus:not([readonly]),
+.template-vuetify input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+.template-vuetify input[type=tel]:not(.browser-default):focus:not([readonly]),
+.template-vuetify input[type=number]:not(.browser-default):focus:not([readonly]),
+.template-vuetify input[type=search]:not(.browser-default):focus:not([readonly]),
+.template-vuetify textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: none;
+    box-shadow: none;
+}
+

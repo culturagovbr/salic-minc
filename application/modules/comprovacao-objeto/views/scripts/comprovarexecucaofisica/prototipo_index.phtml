@@ -1,0 +1,46 @@
+<?php echo $this->partial('inc/menu.inc.php', $this) // menu ?>
+<!-- in�cio: navega��o local #qm0 -->
+
+<!-- in�cio: #breadcrumb -->
+<div id="breadcrumb">
+    <ul>
+        <li class="first"><a href="#" title="In�cio">In�cio</a></li>
+        <li class="last">Comprovar Execu&ccedil;&atilde;o F&iacute;sica</li>
+    </ul>
+</div> <!-- final: #breadcrumb -->
+
+<!-- in�cio: #titulo -->
+<div id="titulo">
+    <div>Comprova&ccedil;&atilde;o de Execu&ccedil;&atilde;o F&iacute;sica do Projeto<span>ID #23A</span> <span class="voltar"><a style="cursor: pointer;" onclick="history.back();">Voltar</a></span></div>
+</div>
+<!-- final: #titulo -->
+
+<!-- in�cio: �rea principal #conteudo -->
+<div id="conteudo">
+
+    <form action="<?php echo $this->url(array('module'=> 'default' , 'controller'=>'execucaofisicadoprojeto', 'action' => 'buscarpronac')); ?>" method="post" id="formBuscar" name="formBuscar" class="form">
+        <table class="tabela" style="font-size: 12px; margin-top: 50px; margin-bottom: 50px; width: 80%;">
+            <tbody>
+                <tr>
+                    <th style="width: 1%;">Pronac</th>
+                    <th>Nome do Projeto</th>
+                </tr>
+                <tr>
+                    <td><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/relatoriotrimestral">097111</a></td>
+                    <td>As Incr�veis Descobertas</td>
+                </tr>
+                <tr>
+                    <td><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/relatoriotrimestral">101235</a></td>
+                    <td>Rony e Renato Sertanejo Contempor�neo</td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+</div><!-- final: conte�do principal #conteudo -->
+
+<!-- in�cio: detalhe final da div conteudo #rodapeConteudo -->
+<div id="rodapeConteudo"><span></span></div>
+<!-- final: detalhe final da div conteudo #rodapeConteudo -->
+
+<br clear="all" />

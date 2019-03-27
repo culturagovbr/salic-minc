@@ -1,28 +1,16 @@
 <div style="display:none" id="dialog-alert2"></div>
-<div id="breadcrumb">
-    <?php
-    $auth = Zend_Auth::getInstance();
-    if (isset ($auth->getIdentity()->Cpf)) { ?>
-        <ul>
-            <li class="first"><a href="<?php echo $this->url(array('module' => 'autenticacao', 'controller' => 'index', 'action' => 'index')); ?>">In&iacute;cio</a>
-            </li>
-            <li class="last">Solicitar Nova Senha</li>
-        </ul>
-    <?php } ?>
-</div>
-<div class="container">
+<div class="container login">
     <div class="row">
         <div class="col s12 m3 l3"></div>
         <div class="col s12 m6 l6">
             <div class="card green-text text-darken-4 animated fadeInUp">
-                <div class="card-content  white-text"
-                     style="background: url(<?php echo $this->baseUrl(); ?>/public/img/bg-topo.png) no-repeat center 0 #acda5d ;">
+                <div class="cabecalho-login">
                     <div class="row" style="margin: 0;">
                         <div class="col s12 center-align">
-                            <img alt="Salic" src="<?php echo $this->baseUrl(); ?>/public/img/logo.png">
+                            <div class="logo-salic"></div>
                         </div>
                         <div class="col s12">
-                            <span class="card-title"><b>Nova senha</b></span>
+                            <span class="card-title white-text"><b>Nova senha</b></span>
                         </div>
                     </div>
                 </div>
@@ -33,6 +21,9 @@
                         action="<?php echo $this->url(array('module' => 'autenticacao', 'controller' => 'index', 'action' => 'solicitarsenha')); ?>"
                         name="solicitaSenha" id="solicitaSenha"
                         method="POST">
+                        <div class="col s12">
+                            <span style="font-size:15px;">Preencha com seus dados para receber a nova senha via e-mail</span>
+                        </div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix">account_circle</i>
@@ -68,11 +59,11 @@
                 </div>
                 <div class="card-action center-align">
                     <a class="tooltipped" data-delay="50"
-                       data-tooltip="Acessar o sistema"
-                        href="javascript:redirect('<?php echo $this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'autenticacao')); ?>');">J&aacute; sou cadastrado</a>&nbsp;&nbsp;&nbsp;
+                       data-tooltip="Voltar para tela de login"
+                        href="javascript:redirect('<?php echo $this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'autenticacao')); ?>');">Voltar</a>&nbsp;&nbsp;&nbsp;
                     <a class="tooltipped" data-delay="50"
-                        data-tooltip="Realizar o cadastro no sistema" href="javascript:redirect('<?php echo $this->url(array('controller' => 'index', 'action' => 'cadastrarusuario', 'module' => 'autenticacao')); ?>');">
-                        N&atilde;o sou cadastrado
+                        data-tooltip="Ir para tela de cadastro" href="javascript:redirect('<?php echo $this->url(array('controller' => 'index', 'action' => 'cadastrarusuario', 'module' => 'autenticacao')); ?>');">
+                        Cadastrar-se
                     </a>&nbsp;&nbsp;&nbsp;
                 </div>
             </div>

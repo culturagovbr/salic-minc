@@ -1,0 +1,53 @@
+<div class="fixed-action-btn vertical">
+    <a class="btn-floating btn-large red">
+        <i class="large material-icons">add</i>
+    </a>
+    <ul>
+        <li>
+            <a href="<?php echo $this->url(array(
+                'module'=>'proposta',
+                'controller' => 'diligenciar',
+                'action' => 'listardiligenciaanalista'
+            )); ?>?idPronac=<?php echo $this->projeto[0]->IdPRONAC;?>&situacao=E60&tpDiligencia=172"
+               class="btn-floating blue tooltipped"
+               data-tooltip="Diligenciar proponente">
+                <i class="material-icons">warning</i>
+            </a>
+        </li>
+        <li>
+            <a id="ir-para-o-topo" class="btn-floating yellow darken-1 tooltipped" data-tooltip="Ir para o topo">
+                <i class="material-icons">arrow_upward</i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+<script>
+    $3(document).ready(function () {
+
+        if ($3('#ir-para-o-topo').length) {
+            var scrollTrigger = 100, // px
+                backToTop = function () {
+                    var scrollTop = $3(window).scrollTop();
+                    if (scrollTop > scrollTrigger) {
+                        $3('#ir-para-o-topo').parent().show();
+                    } else {
+                        $3('#ir-para-o-topo').parent().hide();
+                    }
+                };
+            backToTop();
+
+            $3(window).on('scroll', function () {
+                backToTop();
+            });
+
+            $3('#ir-para-o-topo').on('click', function (e) {
+                e.preventDefault();
+                $3('html,body').animate({
+                    scrollTop: 0
+                }, 700);
+            });
+        }
+    });
+</script>

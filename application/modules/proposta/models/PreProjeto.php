@@ -35,6 +35,9 @@ class Proposta_Model_PreProjeto extends MinC_Db_Model
     protected $_stProposta;
     protected $_tpProrrogacao;
 
+    const ESTADO_ARQUIVADO = 0;
+    const ESTADO_ATIVO = 1;
+
     /**
      * @return mixed
      */

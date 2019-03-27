@@ -520,8 +520,7 @@ $idReadequacao = 0;
 	       type: 'POST',
 	       data: {
 		   idPronac: <?php echo $this->idPronac; ?>,
-		   idReadequacao: getIdReadequacao(),
-		   idTipoReadequacao: 5,
+		   idReadequacao: getIdReadequacao()
 	       },
 	       
 	       success: function(data) {
@@ -550,8 +549,8 @@ $idReadequacao = 0;
 <!-- ========== IN�CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
-        <li class="second"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>" title="Consultar dados projeto">Consultar dados projeto</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
+        <li class="second"><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>" title="Consultar dados projeto">Consultar dados projeto</a></li>
         <li class="last">Remanejamento &le; 50%</li>
     </ul>
 </div>

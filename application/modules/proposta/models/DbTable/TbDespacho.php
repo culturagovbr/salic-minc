@@ -50,4 +50,34 @@ class Proposta_Model_DbTable_TbDespacho extends MinC_Db_Table_Abstract
             return $result->toArray();
         }
     }
+
+    public function obterDespachos($where, $order = []) {
+
+        $objQuery = $this->select()->setIntegrityCheck(false);
+        $objQuery->from($this->_name, '*', $this->_schema);
+        $objQuery->joinInner(
+            "Projetos",
+            "Projetos.IdProjeto = TbDespacho.idProposta",
+            [],
+            $this->_schema
+        );
+
+        $objQuery->joinInner(
+            "Usuarios",
+            "TbDespacho.idUsuario = Usuarios.usu_codigo",
+            'usu_nome as NomeAvaliador',
+            $this->getSchema('tabelas')
+        );
+
+        foreach ($where as $coluna => $valor) {
+            $objQuery->where($coluna, $valor);
+        }
+
+        $objQuery->order($order);
+
+        $result = $this->fetchAll($objQuery);
+        if ($result) {
+            return $result->toArray();
+        }
+    }
 }

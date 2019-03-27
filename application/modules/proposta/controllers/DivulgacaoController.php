@@ -13,7 +13,7 @@
  */
 class Proposta_DivulgacaoController extends Proposta_GenericController
 {
-    private $idUsuario = null;
+    protected $idUsuario = null;
 
     /**
      * @var Proposta_Model_DbTable_PlanoDeDivulgacao
@@ -59,6 +59,7 @@ class Proposta_DivulgacaoController extends Proposta_GenericController
      *
      * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
      * @since  21/09/2016
+     * @deprecated
      */
     public function planodivulgacaoAction()
     {

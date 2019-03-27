@@ -2,9 +2,9 @@
 
 class Agente_Model_DbTable_UF extends MinC_Db_Table_Abstract
 {
-    protected $_banco = 'AGENTES';
     protected $_name = 'uf';
     protected $_schema = 'AGENTES';
+    protected $_primary = 'idUF';
 
     public function buscar($where = array(), $order = array(), $tamanho = -1, $inicio = -1)
     {
@@ -16,6 +16,11 @@ class Agente_Model_DbTable_UF extends MinC_Db_Table_Abstract
                 'descricao'=> 'sigla'),
             $this->_schema
         );
+
+        foreach ($where as $coluna => $valor) {
+            $select->where($coluna, $valor);
+        }
+
         $select->order('sigla');
         try {
             return $this->fetchAll($select);
@@ -28,7 +33,7 @@ class Agente_Model_DbTable_UF extends MinC_Db_Table_Abstract
     {
         $objEstado = self::obterInstancia();
         $sql = 'SELECT idUF AS id, Descricao AS descricao
-			FROM ' . GenericModel::getStaticTableName($objEstado->_schema, $objEstado->_name) . "
+			FROM ' . MinC_Db_Table_Abstract::getStaticTableName($objEstado->_schema, $objEstado->_name) . "
 			WHERE Regiao = '{$regiao}'
 			ORDER BY Sigla";
 

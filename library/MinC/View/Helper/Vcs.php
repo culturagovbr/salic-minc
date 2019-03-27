@@ -28,7 +28,7 @@ class MinC_View_Helper_Vcs extends Zend_View_Helper_Abstract
         exec("git describe --tags --abbrev=0", $tagNumber);
         exec("git rev-parse --abbrev-ref HEAD", $branchName);
         exec("git rev-parse --short HEAD", $commit);
-        
+
         return "Vers&atilde;o: <a class=\"tooltipped\" data-position=\"top\" data-delay=\"50\" data-tooltip=\"Branch: ". array_pop($branchName) . "\" target=\"_blank\" href='https://github.com/culturagovbr/salic-minc/releases'>"
         . array_pop($tagNumber) . "</a>";
     }

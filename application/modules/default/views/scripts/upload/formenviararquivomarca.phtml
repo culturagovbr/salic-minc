@@ -1,112 +1,110 @@
 <?php
+if (!empty($this->urlMenu)) {
+    $this->SidebarVue($this->url($this->urlMenu, '', true));
+}
 
-echo $this->partial("consultardadosprojeto/inc/menu.inc.php", $this); // menu de consultar dados do projeto
+if (isset($this->idPreProjeto)) {
+    $cod = "?idPreProjeto=" . $this->idPreProjeto;
+} elseif (isset($_GET['idPreProjeto'])) {
+    $cod = "?idPreProjeto=" . $this->idPreProjeto;
+}
 
-    if(isset($this->idPreProjeto)){
-        $cod = "?idPreProjeto=".$this->idPreProjeto;
-    }elseif(isset($_GET['idPreProjeto'])){
-        $cod = "?idPreProjeto=".$this->idPreProjeto;
-    }
-
-    if(isset($this->idPronac)){
-        $cod = "?idPronac=".$this->idPronac;
-    }elseif(isset($_GET['idPronac'])){
-        $cod = "?idPronac=".$_GET['idPronac'];
-    }
+if (isset($this->idPronac)) {
+    $cod = "?idPronac=" . $this->idPronac;
+} elseif (isset($_GET['idPronac'])) {
+    $cod = "?idPronac=" . $_GET['idPronac'];
+}
 
 $urlPronac = null;
-$urlPronac = (isset($this->idPronac)) ? "?idPronac=".$this->idPronac : "";
+$urlPronac = (isset($this->idPronac)) ? "?idPronac=" . $this->idPronac : "";
 
 ?>
 <style type="text/css">
-    label.error{ color:red; font-weight: normal; }
+    label.error {
+        color: red;
+        font-weight: normal;
+    }
 </style>
 
 <script type="text/javascript">
-    $(document).ready(function(){
+    $(document).ready(function () {
 
-        $('#btn_enviar').click(function(){
+        $('#btn_enviar').click(function () {
             $('#frmEnviarArquivo').submit();
             $("#msgAlerta").dialog("destroy");
             $("#msgAlerta").html("<center>Enviando arquivo...<br /><br /><img src='<?php echo $this->baseUrl(); ?>/public/img/ajax.gif' alt='' /></center>");
             $("#msgAlerta").dialog({
                 resizable: false,
                 title: 'Aguarde!',
-                width:260,
-                height:140,
+                width: 260,
+                height: 140,
                 modal: true
             });
             $('.ui-dialog-titlebar-close').remove();
         });
 
         //CARREGA GRID
-        jqAjaxLinkSemLoading('<?php echo $this->url(array('controller' => 'upload', 'action' => 'listar-arquivo-marca')).$cod; ?>', '', 'listaDeArquivos')
+        jqAjaxLinkSemLoading('<?php echo $this->url(array('controller' => 'upload', 'action' => 'listar-arquivo-marca')) . $cod; ?>', '', 'listaDeArquivos')
     });
 </script>
 
-<div id="breadcrumb">
-    <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
-        <li class="second"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => '')); ?><?php echo $urlPronac;?>" title="Ir para In&iacute;cio">Consultar dados do Projeto</a></li>
-        <li class="last" id="caminhoLocalAtual">Marcas</li>
-    </ul>
-</div>
-
-<div id="titulo">
-    <div>Marcas<span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
-</div>
-
 <div id="msgAlerta" class="sumir"></div>
-<div id="conteudo">
+<div class="container-fluid">
 
-    <table class="tabela">
-        <tr class="destacar">
-            <td align="center"><b>PRONAC</b></td>
-            <td align="center"><b>Nome do Projeto</b></td>
-        </tr>
-        <tr>
-            <td align="center"><?php echo $this->projeto->AnoProjeto.$this->projeto->Sequencial; ?></td>
-            <td align="center"><?php echo $this->projeto->NomeProjeto; ?></td>
-        </tr>
-    </table>
+    <?php $this->PageTitle('Marcas', array(
+        array('Marcas' => '')
+    )); ?>
 
-    <form id="frmEnviarArquivo" name="frmEnviarArquivo" enctype="multipart/form-data" method="post" action="<?php echo $this->url(array('controller' => 'upload', 'action' => 'arquivo-marca-projeto')); ?>">
+
+    <div id="conteudo">
+
         <table class="tabela">
-            <tr>
-                <th colspan="2">
-                    <input type="hidden" name="idPreProjeto" id="idPreProjeto" value="<?php echo $this->idPreProjeto ?>" />
-                    <input type="hidden" name="idPronac" id="idPronac" value="<?php echo $this->idPronac ?>" />
-                    Envio de Marca
-                </th>
+            <tr class="destacar">
+                <td align="center"><b>PRONAC</b></td>
+                <td align="center"><b>Nome do Projeto</b></td>
             </tr>
             <tr>
-                <td width="10%" class="destacar bold" align="right">Observa&ccedil;&atilde;o</td>
-                <td width="80%">
-                    <textarea cols="80" style="width:99%" class="input_simples" id="observacao" name="observacao" rows="4" <?php echo $this->contadorTextarea('form.observacao', 'form.exibirContadorTextarea', 400); ?>></textarea>
-                    <span style="clear:both;"><?php echo $this->exibirContadorTextarea('exibirContadorTextarea', 3, 400, 0, '22px'); ?></span>
-                </td>
-            </tr>
-            <tr>
-                <td class="destacar bold" align="right">Arquivo<span style="color: red;">*</span></td>
-                <td>
-                    <input type="file" class="multi" name="arquivo" id="arquivo" />
-                    <br clear="all" /><span style="color: red; font-size: 11px;">Tamanho m&aacute;ximo permitido de 5MB, e somente nos formatos BMP, GIF, JPEG, JPG, PNG, RAW, TIF e PDF.</span>
-                </td>
+                <td align="center"><?php echo $this->projeto->AnoProjeto . $this->projeto->Sequencial; ?></td>
+                <td align="center"><?php echo $this->projeto->NomeProjeto; ?></td>
             </tr>
         </table>
-        <div style="width: 100%; text-align: center;">
-            <input type="button" name="btn_enviar" id="btn_enviar" value="" class="btn_enviar">
+
+        <form id="frmEnviarArquivo" name="frmEnviarArquivo" enctype="multipart/form-data" method="post"
+              action="<?php echo $this->url(array('controller' => 'upload', 'action' => 'arquivo-marca-projeto')); ?>">
+            <table class="tabela">
+                <tr>
+                    <th colspan="2">
+                        <input type="hidden" name="idPreProjeto" id="idPreProjeto"
+                               value="<?php echo $this->idPreProjeto ?>"/>
+                        <input type="hidden" name="idPronac" id="idPronac" value="<?php echo $this->idPronac ?>"/>
+                        Envio de Marca
+                    </th>
+                </tr>
+                <tr>
+                    <td width="10%" class="destacar bold" align="right">Observa&ccedil;&atilde;o</td>
+                    <td width="80%">
+                        <textarea cols="80" style="width:99%" class="input_simples" id="observacao" name="observacao"
+                                  rows="4" <?php echo $this->contadorTextarea('form.observacao', 'form.exibirContadorTextarea', 400); ?>></textarea>
+                        <span style="clear:both;"><?php echo $this->exibirContadorTextarea('exibirContadorTextarea', 3, 400, 0, '22px'); ?></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="destacar bold" align="right">Arquivo<span style="color: red;">*</span></td>
+                    <td>
+                        <input type="file" class="multi" name="arquivo" id="arquivo"/>
+                        <br clear="all"/><span style="color: red; font-size: 11px;">Tamanho m&aacute;ximo permitido de 5MB, e somente nos formatos BMP, GIF, JPEG, JPG, PNG, RAW, TIF e PDF.</span>
+                    </td>
+                </tr>
+            </table>
+            <div style="width: 100%; text-align: center;">
+                <input type="button" name="btn_enviar" id="btn_enviar" value="" class="btn_enviar">
+            </div>
+        </form>
+        <br clear="all"/>
+
+        <div id="listaDeArquivos">
+            <center><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" alt=""/></center>
         </div>
-    </form>
-    <br clear="all" />
-
-    <div id="listaDeArquivos">
-        <center><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" alt="" /></center>
+        <br clear="all"/>
     </div>
-    <br clear="all" />
 </div>
-
-<!-- ========== INICIO RODAPE DO CONTEUDO ========== -->
-<div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPE DO CONTEUDO ========== -->
-<br clear="all" />

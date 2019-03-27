@@ -1,0 +1,18 @@
+<li>
+    <div class="collapsible-header"><b>Parecer de Homologa&ccedil;&atilde;o</b></div>
+    <div class="collapsible-body">
+        <table class="responsive-table bordered-all" style="width: 100%;">
+            <tbody>
+            <tr>
+                <td>Decis&atilde;o</td>
+                <td><?php if (!is_null($this->arrValue['parecerHomologacao']['stDecisao'])) echo ($this->arrValue['parecerHomologacao']['stDecisao'] == 1)? 'Desfavor&aacute;vel' : 'Favor&aacute;vel' ?></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <?= nl2br($this->arrValue['parecerHomologacao']['dsHomologacao']) ?>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</li>

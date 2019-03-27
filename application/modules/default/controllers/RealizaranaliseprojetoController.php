@@ -15,13 +15,13 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
     private $bln_readequacao = "false";
     private $idPedidoAlteracao = 0;
     private $intTamPag = 10;
-    private $idUsuario;
+    protected $idUsuario;
 
     public function init()
     {
         $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // titulo da pagina
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
-        $Usuario = new Autenticacao_Model_Usuario(); // objeto usuario
+        $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuario
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
 
         if ($auth->hasIdentity()) { // caso o usuario esteja autenticado
@@ -663,7 +663,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
         );
 
         $auth = Zend_Auth::getInstance(); // pega a autenticao
-        $Usuario = new Autenticacao_Model_Usuario(); // objeto usuario
+        $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuario
         $idagente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
         $idagente = $idagente['idAgente'];
 
@@ -1009,7 +1009,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
         } // fecha else
 
         $auth = Zend_Auth::getInstance(); // pega a autenticao
-        $Usuario = new Autenticacao_Model_Usuario(); // objeto usuario
+        $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuario
         $idagente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
         $idagente = $idagente['idAgente'];
 

@@ -1,0 +1,444 @@
+<?php if ($this->idPerfil == 1111) { ?>
+    <table class="tabela">
+        <tr>
+            <td><input type="button" class="btn_incluir" id="adicionarLocalRealizacao"
+                       title="Adicionar Local de Realização"/></td>
+        </tr>
+    </table>
+<?php } ?>
+
+<table class="tabela" id="modal-tabela-lr">
+    <tr>
+        <th>País</th>
+        <th>UF</th>
+        <th>Município</th>
+        <th style="width: 150px;">Solicitação Proponente</th>
+        <?php if (in_array($this->siEncaminhamento, array(4, 5, 6, 7, 9, 10))) { ?>
+            <th style="width: 150px;">Avaliação Técnica</th>
+        <?php } ?>
+
+        <?php if (in_array($this->siEncaminhamento, array(7, 9))) { ?>
+            <th style="width: 150px;">Avaliação Conselheiro</th>
+        <?php } ?>
+    </tr>
+
+    <?php foreach ($this->locaisDeRealizacao as $l) {
+        $corLinha = '';
+        switch ($l['tpSolicitacao']) {
+            case 'E':
+                $corLinha = 'red';
+                if ($this->idPerfil == 1111) {
+                    $corLinha = 'silver';
+                }
+                break;
+            case 'I':
+                $corLinha = 'green';
+                break;
+            case 'A':
+                $corLinha = 'blue';
+                break;
+            default:
+                $corLinha = '';
+                break;
+        }
+        ?>
+        <tr style="color: <?php echo $corLinha; ?> !important;">
+            <td><?php echo $l->pais; ?></td>
+            <td><?php echo $l->uf; ?></td>
+            <td><?php echo $l->municipio; ?></td>
+            <td class="centro">
+                <?php if ($this->idPerfil == 1111) {
+                    if ($l['tpSolicitacao'] == 'E') {
+                        echo '<span style="margin: 10px;">Excluído</span>';
+                        echo '<img src="' . $this->baseUrl() . '/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItemLocalRealizacao" tipo="' . $l['tpSolicitacao'] . '" idAbrangencia="' . $l['idAbrangencia'] . '" title="restaurar o local de realização excluído"/>';
+                    } else { ?>
+                        <input type="button" class="btn_excluir btnExcluirLR"
+                               idAbrangencia="<?php echo $l->idAbrangencia; ?>">
+                    <?php }
+                } else {
+                    $title = '';
+                    switch ($l['tpSolicitacao']) {
+                        case 'E':
+                            echo 'Excluído';
+                            $title = 'restaurar o local de realização excluído';
+                            break;
+                        case 'I':
+                            echo 'Incluído';
+                            $title = 'recusar inclusão de local de realização';
+                            break;
+                        case 'A':
+                            echo 'Alterado';
+                            $title = 'reintegrar item';
+                            break;
+                        default:
+                            echo '';
+                            break;
+                    } ?>
+
+                    <?php /*if(in_array($this->idPerfil, array(94,121)) && $l['tpSolicitacao'] != 'N'){ ?>
+                    <img src="<?php echo $this->baseUrl(); ?>/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItemLocalRealizacao" tipo="<?php echo $l['tpSolicitacao']; ?>" idAbrangencia="<?php echo $l['idAbrangencia']; ?>" title="<?php echo $title; ?>"/>
+                    <?php } ?>
+
+                    <?php if($this->idPerfil == 118 && $l['tpSolicitacao'] != 'N' && $this->link){ ?>
+                    <img src="<?php echo $this->baseUrl(); ?>/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItemLocalRealizacao "tipo="<?php echo $l['tpSolicitacao']; ?>" idAbrangencia="<?php echo $l['idAbrangencia']; ?>" title="<?php echo $title; ?>"/>
+                    <?php }*/ ?>
+                <?php } ?>
+            </td>
+
+            <?php if (in_array($this->siEncaminhamento, array(4))) { ?>
+                <td class="centro">
+                    <?php if ($l['tpSolicitacao'] != 'N') { ?>
+                        <select class="select_simples comboLocaisRealizacao comboAvaliacao" style="width: 115px;"
+                                idabr="<?php echo $l->idAbrangencia; ?>">
+                            <option value=""> - Selecione -</option>
+                            <option value="D" <?php echo ($l->tpAnaliseTecnica == 'D') ? 'selected="selected"' : ''; ?>>
+                                Deferir
+                            </option>
+                            <option value="I" <?php echo ($l->tpAnaliseTecnica == 'I') ? 'selected="selected"' : ''; ?>>
+                                Indeferir
+                            </option>
+                        </select>
+                    <?php } ?>
+                </td>
+            <?php } ?>
+
+            <?php if (in_array($this->siEncaminhamento, array(5, 6, 7, 9, 10))) { ?>
+                <td class="centro">
+                    <?php
+                    switch ($l->tpAnaliseTecnica) {
+                        case 'D':
+                            echo '<span style="color: black !important;">Deferido</span>';
+                            break;
+                        case 'I':
+                            echo '<span style="color: black !important;">Indeferido</span>';
+                            break;
+                        default:
+                            echo '<span style="color: black !important;">-</span>';
+                            break;
+                    } ?>
+                </td>
+            <?php } ?>
+
+            <?php if (in_array($this->siEncaminhamento, array(7))) { ?>
+                <td class="centro">
+                    <?php if ($l['tpSolicitacao'] != 'N') { ?>
+                        <select class="select_simples comboLocaisRealizacao comboAvaliacao" style="width: 115px;"
+                                idabr="<?php echo $l->idAbrangencia; ?>">
+                            <option value=""> - Selecione -</option>
+                            <option
+                                value="D" <?php echo ($l->tpAnaliseComissao == 'D') ? 'selected="selected"' : ''; ?>>
+                                Deferir
+                            </option>
+                            <option
+                                value="I" <?php echo ($l->tpAnaliseComissao == 'I') ? 'selected="selected"' : ''; ?>>
+                                Indeferir
+                            </option>
+                        </select>
+                    <?php } ?>
+                </td>
+            <?php } ?>
+
+            <?php if (in_array($this->siEncaminhamento, array(9))) { ?>
+                <td class="centro">
+                    <?php
+                    switch ($l->tpAnaliseComissao) {
+                        case 'D':
+                            echo '<span style="color: black !important;">Deferido</span>';
+                            break;
+                        case 'I':
+                            echo '<span style="color: black !important;">Indeferido</span>';
+                            break;
+                        default:
+                            echo '<span style="color: black !important;">-</span>';
+                            break;
+                    } ?>
+                </td>
+            <?php } ?>
+
+        </tr>
+    <?php } ?>
+</table>
+
+
+<div id="modalInclusaoLR" class="sumir">
+    <table class="tabela">
+        <tr>
+            <td class="destacar bold" style="width: 33%">País</td>
+            <td class="destacar bold" style="width: 33%">UF</td>
+            <td class="destacar bold" style="width: 33%">Município</td>
+        </tr>
+        <tr>
+            <td>
+                <select class="select_simples w200 obrigatoriosLocalRealizacao" name="newPaisLR" id="newPaisLR">
+                    <option value=""> - Selecione -</option>
+                    <?php foreach ($this->Paises as $pais) { ?>
+                        <option value="<?php echo $pais->idPais; ?>"><?php echo $pais->Descricao; ?></option>
+                    <?php } ?>
+                </select>
+            </td>
+            <td>
+                <select class="select_simples w200 obrigatoriosLocalRealizacao" name="newUFLR" id="newUFLR"
+                        disabled="disabled">
+                    <option value=""> - Selecione -</option>
+                    <?php foreach ($this->UFs as $ufs) { ?>
+                        <option value="<?php echo $ufs->id; ?>"><?php echo $ufs->descricao; ?></option>
+                    <?php } ?>
+                </select>
+            </td>
+            <td>
+                <select class="select_simples w200 obrigatoriosLocalRealizacao" name="newMunicipioLR"
+                        id="newMunicipioLR" disabled="disabled">
+                    <option value=""> - Selecione -</option>
+                </select>
+            </td>
+        </tr>
+        <!--        <tr>
+                    <td colspan="3" class="destacar bold centro">Justificativa <span class="red">*</span></td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="centro">
+                        <textarea class="textarea_simples camposObrigatoriosInclusao" rows="3" style="width:98%" name="newJustificativa" id="newJustificativa"></textarea>
+                    </td>
+                </tr>-->
+    </table>
+</div>
+
+<div id="alertaLR" class="sumir"></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#adicionarLocalRealizacao').unbind('click').click(function () {
+
+            $('#newPaisLR').val('31');
+            $('#newPaisLR').change();
+
+            $("#modalInclusaoLR").dialog({
+                resizable: false,
+                title: 'Inclus\u00E3o de Local de Realiza\u00E7\u00E3o!',
+                width: 800,
+                modal: true,
+                buttons: {
+                    'Cancelar': function () {
+                        $(this).dialog('close');
+                    },
+                    'Salvar': function () {
+                        var idPais = $('#newPaisLR').val(),
+                            idUF = $('#newUFLR').val(),
+                            idMunicipio = $('#newMunicipioLR').val();
+
+                        $.ajax({
+                            type: 'POST',
+                            url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'local-realizacao', 'action' => 'incluir-local-de-realizacao'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>',
+                            data: {
+                                newPaisLR: idPais,
+                                newUFLR: idUF,
+                                newMunicipioLR: idMunicipio
+                            },
+                            success: function (data) {
+                                $("#modalInclusaoLR").dialog('destroy');
+                                $("#modalInclusaoLR").html('');
+                                $("#modalInclusaoLR").dialog("widget").remove();
+
+                                if (!data.resposta) {
+                                    $("#msgAlerta").dialog("destroy");
+                                    $("#msgAlerta").html(data.msg);
+                                    $("#msgAlerta").dialog({
+                                        resizable: false,
+                                        title: 'Alerta!',
+                                        width: 360,
+                                        modal: true,
+                                        buttons: {
+                                            'OK': function () {
+                                                $(this).dialog('close');
+                                            }
+                                        }
+                                    });
+                                    $('.ui-dialog-titlebar-close').remove();
+                                }
+                                atualizarDadosLocaisRealizacao();
+                            },
+                            dataType: 'json'
+                        });
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+        });
+
+        $('.btnExcluirLR').click(function () {
+            var idAbrangencia = $(this).attr('idAbrangencia'),
+                itemClicado = $(this);
+
+            //ABRE O MODAL DE CONFIRMAÇÃO DA AÇÃO REALIZADA
+            $("#msgAlerta").dialog("destroy");
+            $("#msgAlerta").html('Tem certeza que deseja excluir o local de realização?');
+            $("#msgAlerta").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width: 390,
+                height: 200,
+                modal: true,
+                buttons: {
+                    'Não': function () {
+                        itemClicado.parent().parent().removeClass('fundo_linha4');
+                        $(this).dialog('close');
+                    },
+                    'Sim': function () {
+                        $.ajax({
+                            type: 'POST',
+                            url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'local-realizacao', 'action' => 'excluir-local-de-realizacao'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
+                            data: {
+                                idAbrangencia: idAbrangencia
+                            },
+                            success: function (data) {
+                                $("#msgAlerta").dialog("destroy");
+                                atualizarDadosLocaisRealizacao();
+                            },
+                            dataType: 'json'
+                        });
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+        });
+
+        $('#newPaisLR').change(function () {
+            var idPais = $(this).val();
+            if (idPais == 31) {
+                $("#newMunicipioLR").addClass('obrigatoriosLocalRealizacao');
+                $("#newMunicipioLR").removeAttr('disabled');
+
+                $("#newUFLR").addClass('obrigatoriosLocalRealizacao');
+                $("#newUFLR").removeAttr('disabled');
+            } else {
+                $('.obrigatoriosLocalRealizacao').each(function () {
+                    $(this).css('border-color', '#CCCCCC');
+                });
+
+                $("#newUFLR").removeClass('obrigatoriosLocalRealizacao');
+                $("#newMunicipioLR").removeClass('obrigatoriosLocalRealizacao');
+
+                $("#newUFLR").attr('disabled', true);
+                $("#newMunicipioLR").attr('disabled', true);
+
+                $("#newUFLR").val('');
+                $("#newMunicipioLR").val('');
+            }
+        });
+
+        $('#newUFLR').change(function () {
+            $("#newMunicipioLR").html('<option value=""> - Carregando - </option>');
+            if ($(this).val() == 0) {
+                $("#newMunicipioLR").html('<option value=""> - Selecione - </option>');
+            }
+            else {
+                $.ajax({
+                    url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'local-realizacao', 'action' => 'carregar-locais-de-realizacao'), null, true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>',
+                    type: "POST",
+                    data: {
+                        iduf: $(this).val()
+                    },
+                    success: function (valor) {
+                        $("#newMunicipioLR").html('<option value=""> - Selecione - </option>');
+
+                        for (a in valor) {
+                            $("#newMunicipioLR").append('<option value="' + valor[a].idMunicipio + '">' + valor[a].nomeCidade + '</option>');
+                        }
+                    },
+                    type: 'post',
+                    dataType: 'json'
+                });
+            }
+        });
+
+        $('.restaurarItemLocalRealizacao').click(function () {
+            var idAbrangencia = $(this).attr('idAbrangencia'),
+                tpAcao = $(this).attr('tipo'),
+                msg = '';
+
+            if (tpAcao == 'I') {
+                msg = 'Tem certeza que deseja excluir o local de realização adicionado?';
+            } else {
+                msg = 'Tem certeza que deseja restaurar o local de realização excluído?';
+            }
+
+            $("#msgAlerta").dialog("destroy");
+            $("#msgAlerta").html(msg);
+            $("#msgAlerta").dialog({
+                resizable: false,
+                width: 340,
+                modal: true,
+                title: 'Alerta!',
+                buttons: {
+                    'Não': function () {
+                        $(this).dialog('close');
+                    },
+                    'Sim': function () {
+                        $(this).dialog("close");
+                        $.ajax({
+                            type: 'POST',
+                            url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'alteracoes-tecnicas-no-local-de-realizacao'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
+                            data: {
+                                idAbrangencia: idAbrangencia,
+                                tpAcao: tpAcao
+                            },
+                            success: function (data) {
+                                <?php if($this->idPerfil == 1111){ ?>
+                                atualizarDadosLocaisRealizacao();
+                                <?php } else { ?>
+                                jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'local-realizacao', 'action' => 'carregar-locais-de-realizacao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->idPronac; ?>&idReadequacao=<?php echo $this->idReadequacao; ?>', '', 'locaisParaRealizacao');
+                                <?php } ?>
+                            },
+                            dataType: 'json'
+                        });
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+        });
+
+        $('.comboLocaisRealizacao').change(function () {
+            var tpAcao = $(this).val(),
+                idAbrangencia = $(this).attr('idabr'),
+                select = $(this);
+
+            if (tpAcao != '') {
+                $("#alerta").dialog("destroy");
+                $("#alerta").html('Deseja realmente avaliar o item?');
+                $("#alerta").dialog({
+                    resizable: false,
+                    width: 340,
+                    modal: true,
+                    title: 'Alerta!',
+                    buttons: {
+                        'Não': function () {
+                            $(this).dialog('close');
+                            select.val('');
+                        },
+                        'Sim': function () {
+                            $(this).dialog('close');
+                            $.ajax({
+                                type: 'POST',
+                                url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'alteracoes-tecnicas-no-local-de-realizacao'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
+                                data: {
+                                    idAbrangencia: idAbrangencia,
+                                    tpAcao: tpAcao
+                                },
+                                success: function (data) {
+                                    <?php if($this->idPerfil == 1111){ ?>
+                                    atualizarDadosLocaisRealizacao();
+                                    <?php } else { ?>
+                                    jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'local-realizacao', 'action' => 'carregar-locais-de-realizacao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->idPronac; ?>&idReadequacao=<?php echo $this->idReadequacao; ?>', '', 'locaisParaRealizacao');
+                                    <?php } ?>
+                                },
+                                dataType: 'json'
+                            });
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            }
+        });
+    });
+</script>
+<div id="alerta"></div>                                                        

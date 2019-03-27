@@ -10,6 +10,9 @@ class Admissibilidade_Model_DistribuicaoAvaliacaoProposta extends MinC_Db_Model
     protected $_data_distribuicao;
     protected $_avaliacao_atual;
 
+    const AVALIACAO_ATUAL_INATIVA = 0;
+    const AVALIACAO_ATUAL_ATIVA = 1;
+
     /**
      * @return mixed
      */
@@ -116,5 +119,15 @@ class Admissibilidade_Model_DistribuicaoAvaliacaoProposta extends MinC_Db_Model
     {
         $this->_data_distribuicao = $data_distribuicao;
         return $this;
+    }
+
+    public function isPermitidoAvaliarProposta()
+    {
+        if (!empty($this->getIdPerfil()) && !is_null($this->getIdPerfil())) {
+            return (Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE == $this->getIdPerfil()
+                || Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE == $this->getIdPerfil()
+                || Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE == $this->getIdPerfil()
+            );
+        }
     }
 }

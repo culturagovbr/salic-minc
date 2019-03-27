@@ -4,6 +4,7 @@ class tbDistribuirParecer extends MinC_Db_Table_Abstract
 {
     protected $_schema = "sac";
     protected $_name = "tbDistribuirParecer";
+    protected $_primary = "idDistribuirParecer";
 
     public function BuscarQtdAreasProjetos($idPronac)
     {

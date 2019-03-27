@@ -1,0 +1,853 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#btn_voltar').click(function () {
+            window.location = "<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'analisar-readequacoes-cnic')); ?>";
+        });
+
+        $('#btn_finalizar').click(function () {
+            var dsParecer = CKEDITOR.instances['dsParecer'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g, ''),
+                texto = CKEDITOR.instances['dsParecer'].getData(),
+                erros = 0,
+                msgs = [];
+
+            if (dsParecer == '') {
+                erros++;
+                msgs['dados'] = 'Favor preencher o parecer!';
+            }
+
+            $('.comboAvaliacao').each(function () {
+                if ($(this).val() == '') {
+                    erros++;
+                    $(this).css('border', '1px solid red');
+                    msgs['avaliacao'] = 'Preencha as avaliações!';
+                } else {
+                    $(this).css('border', 'none');
+                }
+            });
+
+            if (texto.length > 8000) {
+                erros++;
+                msgs['resposta'] = 'O campo de resposta só permite 8.000 caracteres!';
+            }
+
+            if (erros > 0) {
+                // parse msgs
+                var msgStr = "";
+                for (var key in msgs) {
+                    msgStr += "<span>" + msgs[key] + "</span><br/>";
+                }
+
+                $("#alerta").dialog("destroy");
+                $("#alerta").html(msgStr);
+                $("#alerta").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width: 320,
+                    height: 160,
+                    modal: true,
+                    buttons: {
+                        'OK': function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            } else {
+                $("#alerta").dialog("destroy");
+                $("#alerta").html('Deseja realmente finalizar a análise da readequação?');
+                $("#alerta").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width: 400,
+                    modal: true,
+                    buttons: {
+                        'Não': function () {
+                            $(this).dialog('close');
+                        },
+                        'Sim': function () {
+
+                            $("#alerta").dialog('close');
+                            $("#modalPlenaria").dialog("destroy");
+                            $("#modalPlenaria").dialog({
+                                resizable: false,
+                                title: 'Alerta!',
+                                width: 400,
+                                modal: true,
+                                buttons: {
+                                    'Salvar': function () {
+                                        var plenaria = $(".envioPlenaria").is(":checked");
+                                        if (plenaria) {
+                                            $('#formAvaliacao').append('<input type="hidden" name="plenaria" value="1">');
+                                        } else {
+                                            $('#formAvaliacao').append('<input type="hidden" name="plenaria" value="0">');
+                                        }
+                                        $('#formAvaliacao').append('<input type="hidden" name="finalizarAvaliacao" value="1">');
+                                        //                                    $('#btn_salvar').click();
+                                        $('#formAvaliacao').submit();
+                                    }
+                                }
+                            });
+                            $('.ui-dialog-titlebar-close').remove();
+
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            }
+        });
+
+        $('#btn_salvar').click(function () {
+            var camposEmBranco = 0,
+                dsParecer = CKEDITOR.instances['dsParecer'].getData().toString().replace(/(<.*?>)|(&nbsp;)|(\s+)/g, '');
+
+            if (dsParecer == '') {
+                camposEmBranco++;
+            }
+
+            $('.obrigatorio').each(function () {
+                if ($.trim($(this).val()) == '')
+                    camposEmBranco++;
+            });
+
+            if (camposEmBranco > 0) {
+                $("#alerta").dialog("destroy");
+                $("#alerta").html("Favor preencher os dados obrigatórios!");
+                $("#alerta").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width: 320,
+                    height: 160,
+                    modal: true,
+                    buttons: {
+                        'OK': function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+
+            } else {
+                $('#formAvaliacao').submit();
+            }
+        });
+
+        $('.restaurarItem').live('click', function () {
+            var idPlanilha = $(this).attr('idPlanilha'),
+                tpAcao = $(this).attr('tipo'),
+                msg = '';
+
+            if (tpAcao == 'I') {
+                msg = 'Tem certeza que deseja excluir o item adicionado pelo proponente?';
+            } else if (tpAcao == 'A') {
+                msg = 'Tem certeza que deseja reintegrar o valor do item?';
+            } else {
+                msg = 'Tem certeza que deseja restaurar o item excluído pelo proponente?';
+            }
+
+            $("#alerta").dialog("destroy");
+            $("#alerta").html(msg);
+            $("#alerta").dialog({
+                resizable: false,
+                width: 320,
+                modal: true,
+                title: 'Alerta!',
+                buttons: {
+                    'Não': function () {
+                        $(this).dialog('close');
+                    },
+                    'Sim': function () {
+                        $("#alerta").dialog('close');
+                        $.ajax({
+                            type: 'POST',
+                            url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'alteracoes-tecnicas-no-item'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
+                            data: {
+                                idPlanilha: idPlanilha,
+                                tpAcao: tpAcao
+                            },
+                            success: function (data) {
+                                $("#modalItem").dialog("destroy");
+                                jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'carregar-valor-entre-planilhas'), '', true) ?>?idPronac=<?php echo $this->idPronac; ?>', '', 'valorEntrePlanilhas');
+                                jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'default', 'controller' => 'index', 'action' => 'montar-planilha-orcamentaria')) ?>?idPronac=<?php echo $this->idPronac; ?>&tipoPlanilha=6&link=true', '', 'planilhaOrcamentariaMontada');
+                            }
+                        });
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+        });
+
+        $('.editarItem').live('click', function () {
+            var idPlanilhaAprovacao = $(this).attr('idPlanilhaAprovacao'),
+                itemClicado = $(this);
+
+            //AO ABRIR A MODAL, LIMPA TODOS OS CAMPOS EDITÁVEIS
+            $('.modalObrigatorios').each(function () {
+                $(this).css('border-color', '#CCCCCC');
+                $(this).val('');
+            });
+            $('#TotalCalculado').html('R$ 0,00');
+            $('#campoTotal').css('color', '#222222');
+            $('#TotalCalculado').css('color', '#222222');
+            $('#textoErroValores').html('');
+
+            //BUSCA OS DADOS DO ITEM PARA VISUALIZAÇÃO DOS NA MODAL
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'alterar-item-solicitacao'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
+                data: {
+                    idPlanilha: idPlanilhaAprovacao
+                },
+                success: function (data) {
+
+                    if (data.resposta) {
+                        $('#campoPronac').html(data.dadosProjeto.PRONAC);
+                        $('#campoNomeProjeto').html(data.dadosProjeto.NomeProjeto);
+
+                        $('#campoProduto').html(data.dadosPlanilhaAtiva.descProduto);
+                        $('#campoEtapa').html(data.dadosPlanilhaAtiva.descEtapa);
+                        $('#campoItem').html(data.dadosPlanilhaAtiva.descItem);
+
+                        $('#campoUnidadeSolicitado').html(data.dadosPlanilhaAtiva.descUnidade);
+                        $('#campoQtdSolicitado').html(data.dadosPlanilhaAtiva.Quantidade);
+                        $('#campoOcorrenciaSolicitado').html(data.dadosPlanilhaAtiva.Ocorrencia);
+                        $('#campoVlUnitarioSolicitado').html(data.dadosPlanilhaAtiva.ValorUnitario);
+                        $('#campoDiasSolicitado').html(data.dadosPlanilhaAtiva.QtdeDias);
+                        $('#campoTotalSolicitado').html(data.dadosPlanilhaAtiva.TotalSolicitado);
+
+                        $('#campoValorComprovado').html(data.valoresDoItem.vlComprovadoDoItem);
+
+                        $('#modalUnidade').val(data.dadosPlanilhaEditavel.idUnidade);
+                        $('#modalQuantidade').val(data.dadosPlanilhaEditavel.Quantidade);
+                        $('#modalOcorrencia').val(data.dadosPlanilhaEditavel.Ocorrencia);
+                        $('#modalValorUnitario').val(data.dadosPlanilhaEditavel.ValorUnitario.replace('R$ ', ''));
+                        $('#modalDias').val(data.dadosPlanilhaEditavel.QtdeDias);
+                        $('#modalJustificativa').val(data.dadosPlanilhaEditavel.Justificativa);
+                        $('#TotalCalculado').html(data.dadosPlanilhaEditavel.TotalSolicitado);
+
+                        $('#campoIdPlanilha').attr('idPlanilha', idPlanilhaAprovacao);
+
+                        var vlComprovadoDoItemValidacao = data.valoresDoItem.vlComprovadoDoItemValidacao,
+                            valorParaMsgErro = data.dadosPlanilhaAtiva.TotalSolicitado,
+                            mensagem = '';
+
+                        //MOSTRA OS DADOS NA MODAL APÓS ABRI-LA
+                        $("#modalItem").dialog("destroy");
+                        $("#modalItem").dialog({
+                            resizable: false,
+                            title: 'Alterar Item!',
+                            width: 800,
+                            modal: true,
+                            buttons: {
+                                'Cancelar': function () {
+                                    $(this).dialog('close');
+                                    itemClicado.parent().parent().removeClass('fundo_linha4');
+                                },
+                                'Salvar': function () {
+                                    var Unidade = $('#modalUnidade').val(),
+                                        Quantidade = $('#modalQuantidade').val(),
+                                        Ocorrencia = $('#modalOcorrencia').val(),
+                                        ValorUnitario = $('#modalValorUnitario').val(),
+                                        QtdeDias = $('#modalDias').val(),
+                                        Justificativa = $('#modalJustificativa').val(),
+                                        obrigatorios = 0,
+                                        erros = 0;
+
+                                    //VERIFICA SE OS CAMPOS FORAM PREENCHIDOS
+                                    $('.modalObrigatorios').each(function () {
+                                        if ($.trim($(this).val()) == '') {
+                                            obrigatorios++;
+                                            erros++;
+                                            $(this).css('border-color', 'red');
+                                        } else {
+                                            $(this).css('border-color', '#CCCCCC');
+                                        }
+                                    });
+
+                                    if (obrigatorios > 0) {
+                                        mensagem += '- Favor preencher os dados obrigatórios.<br/>';
+                                    }
+
+                                    var TotalCalculadoComponente = $('#TotalCalculado').html().replace(/[^\d]/g, "");
+                                    if (parseInt(TotalCalculadoComponente) < parseInt(vlComprovadoDoItemValidacao)) {
+                                        //$('#TotalCalculado').css('color','red');
+                                        mensagem += '- O valor total do item não pode ser menor do que o valor comprovado de ' + data.valoresDoItem.vlComprovadoDoItem + '.<br/>';
+                                        erros++;
+                                    }
+
+                                    //SE HOUVER ALGO DE ERRADO, EXIBE MENSAGEM DE ALERTA.
+                                    if (erros > 0) {
+                                        $('#TotalCalculado').css('color', 'red');
+                                        $("#msgAlerta").html(mensagem);
+                                        $("#msgAlerta").dialog({
+                                            resizable: false,
+                                            title: 'Alerta!',
+                                            width: 320,
+                                            modal: true,
+                                            buttons: {
+                                                'OK': function () {
+                                                    $(this).dialog('close');
+                                                }
+                                            }
+                                        });
+                                        $('.ui-dialog-titlebar-close').remove();
+                                        erros = 0;
+                                        mensagem = '';
+                                        return false;
+
+                                        //SE NENHUM CAMPO ESTIVER EM BRANCO, SALVA OS DADOS
+                                    } else {
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'salvar-avaliacao-do-item'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>',
+                                            data: {
+                                                idPlanilha: idPlanilhaAprovacao,
+                                                Unidade: Unidade,
+                                                Quantidade: Quantidade,
+                                                Ocorrencia: Ocorrencia,
+                                                ValorUnitario: ValorUnitario,
+                                                QtdeDias: QtdeDias,
+                                                Justificativa: Justificativa,
+                                                valorSolicitado: valorParaMsgErro
+                                            },
+                                            success: function (data) {
+                                                $("#modalItem").dialog("destroy");
+                                                jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'carregar-valor-entre-planilhas'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>', '', 'valorEntrePlanilhas');
+                                                jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'default', 'controller' => 'index', 'action' => 'montar-planilha-orcamentaria')) ?>?idPronac=<?php echo $this->idPronac; ?>&tipoPlanilha=6&link=true', '', 'planilhaOrcamentariaMontada');
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+                        });
+                        $('.ui-dialog-titlebar-close').remove();
+                    }
+                },
+                dataType: 'json'
+            });
+
+            return false;
+        });
+
+        $('.multiplicarValores').keyup(function () {
+            // recebe os valores do formulário
+            var qtd = $('#modalQuantidade').val(),
+                ocorrencia = $('#modalOcorrencia').val(),
+                valor = $('#modalValorUnitario').val();
+
+            // retira os pontos e as vírgulas, deixando somente números
+            valor = valor.replace(/\D/g, "")
+                .replace(/(\d{0})(\d)/, "$1$2")
+                // adiciona o ponto na casa decimal
+                .replace(/(\d)(\d{2})$/, "$1.$2");
+
+            // converte para float e adiciona precisão decimal
+            qtd = parseFloat(qtd).toFixed(2);
+            ocorrencia = parseFloat(ocorrencia).toFixed(2);
+            valor = parseFloat(valor).toFixed(2);
+
+            // variável com o resultado
+            resultado = parseFloat(qtd * ocorrencia * valor).toFixed(2); // armazena o resultado
+
+            // se não for número
+            if (isNaN(resultado)) {
+                resultado = '';
+            }
+            // caso seja número
+            else {
+                // formata para real
+                resultado = resultado.replace(/\D/g, "");
+                resultado = resultado.replace(/(\d)(\d{2})$/, "$1,$2");
+                resultado = resultado.replace(/(\d+)(\d{3},\d{2})$/g, "$1.$2");
+
+                var q = (resultado.length - 3) / 3; // quantidade caracteres
+                var c = 0; // contador
+                while (q > c) {
+                    c++;
+                    resultado = resultado.replace(/(\d+)(\d{3}.*)/, "$1.$2");
+                }
+                resultado = resultado.replace(/^(0+)(\d)/g, "$2");
+                resultado = 'R$ ' + resultado;
+            } // fecha else
+
+            $('#TotalCalculado').html(resultado);
+        });
+
+        $("#modalValorUnitario").priceFormat();
+
+        //Atividades iniciados ao terminar o carregameto da página.
+        CKEDITOR.replace('dsParecer', {toolbar: []});
+    });
+</script>
+
+<style type="text/css">
+    label {
+        font-weight: normal;
+    }
+</style>
+
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<div id="alerta" class="sumir"></div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <?php
+                    $paginaAtual = "Avalia&ccedil;&atilde;o de Readequa&ccedil;&atilde;o / ";
+                    $paginaAtual .= $this->nmPagina;
+                    ?>
+                    <h1><?= $paginaAtual; ?></h1>
+
+                    <?php
+                    gerarNovoBreadCrumb(
+                        [
+                            ['Readequa&ccedil;&otilde;es' => '/readequacao/readequacoes/analisar-readequacoes-cnic'],
+                            [$paginaAtual => '']
+                        ]
+                    );
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="card-panel">
+            <div id="conteudo">
+                <input type="hidden" id="pertenceIn2017" name="pertenceIn2017" value="<?php echo $this->in2017; ?>">
+                <table class="tabela">
+                    <tr>
+                        <td class="destacar bold centro" width="20%">PRONAC</td>
+                        <td class="destacar bold centro">NOME DO PROJETO</td>
+                    </tr>
+                    <tr>
+                        <td align="center">
+                            <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'index')); ?>?idPronac=<?php echo $this->projeto->IdPRONAC; ?>"
+                               target="_blank">
+                                <?php echo $this->projeto->pronac; ?>
+                            </a>
+                        </td>
+                        <td align="center"><?php echo $this->projeto->NomeProjeto; ?></td>
+                    </tr>
+                </table>
+
+                <table class="tabela">
+                    <tr>
+                        <td><input type="button" name="grid1" id="g1_1" class="btn_adicionar" title="Expandir"/>DADOS DA
+                            SOLICITAÇÃO
+                        </td>
+                    </tr>
+                </table>
+                <div id="div_g1_1" class="sumir">
+                    <table class="tabela">
+
+                        <?php
+                        $tiposReadequacoesComInfo = array(3, 4, 5, 6, 7, 8, 10, 12, 13, 15, 16, 17, 18, 19, 20, 21);
+                        if (in_array($this->dados->idTipoReadequacao, $tiposReadequacoesComInfo)) { ?>
+                            <tr>
+                                <td colspan="3" class="destacar bold">Informação que será considerada para readequação
+                                    de <?php echo $this->dados->dsReadequacao; ?></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><?php echo $this->dados->dsSolicitacao; ?></td>
+                            </tr>
+                        <?php } ?>
+
+                        <tr>
+                            <td class="destacar bold" colspan="3">Justificativa da Solicitação</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><?php echo $this->dados->dsJustificativa; ?></td>
+                        </tr>
+                        <tr>
+                            <td class="destacar bold" style="width: 33%;">Tipo da Solicita&ccedil;&atilde;o</td>
+                            <td class="destacar bold" style="width: 33%;">Arquivo</td>
+                            <td class="destacar bold" style="width: 33%;">Dt. Readequa&ccedil;&atilde;o</td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->dados->dsReadequacao; ?></td>
+                            <?php if (!empty($this->dados->idArquivo)) { ?>
+                                <td>
+                                    <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $this->dados->idArquivo; ?>"><?php echo $this->dados->nmArquivo; ?></a>
+                                </td>
+                            <?php } else { ?>
+                                <td>-</td>
+                            <?php } ?>
+                            <td><?php echo Data::tratarDataZend($this->dados->dtSolicitacao, 'Brasileira'); ?></td>
+                        </tr>
+
+                        <input type="hidden" id="idPronac" name="idPronac" value="<?php echo $this->dados->idPronac; ?>">
+                        <input type="hidden" id="pertenceIn2017" name="pertenceIn2017" value="<?php echo $this->in2017; ?>">
+                        <input type="hidden" id="idTipoReadequacao" name="idTipoReadequacao" value="<?php echo $this->dados->idTipoReadequacao; ?>">
+                        <input type="hidden" id="siEncaminhamento" name="siEncaminhamento" value="<?php echo $this->dados->siEncaminhamento; ?>">
+                        <div id="transferenciaRecursos"></div>
+                        <div id="planosDeDistribuicao"></div>
+
+                        <div id="componente-dinamico">
+                            <component
+                                    v-bind:is="componenteAtual"
+                                    :id-pronac="idPronac"
+                                    :id-tipo-readequacao="idTipoReadequacao"
+                                    :si-encaminhamento="siEncaminhamento"
+                                    :disabled="disabled"
+                            ></component>
+                        </div>
+                    </table>
+                </div>
+
+                <table class="tabela">
+                    <tr>
+                        <td><input type="button" name="grid1" id="g1_2" class="btn_adicionar" title="Expandir"/>AVALIAÇÃO
+                            DO
+                            COORDENADOR
+                        </td>
+                    </tr>
+                </table>
+                <div id="div_g1_2" class="sumir">
+                    <table class="tabela">
+                        <tr>
+                            <td class="destacar bold" colspan="3">Descrição</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><?php echo $this->dados->dsAvaliacao; ?></td>
+                        </tr>
+                        <tr>
+                            <td class="destacar bold" style="width: 50%;">Situação</td>
+                            <td class="destacar bold" style="width: 50%;">Dt. Avaliação</td>
+                        </tr>
+                        <tr>
+                            <td><?php echo !empty($this->dados->stAtendimento) ? 'Deferido' : ''; ?></td>
+                            <td><?php echo Data::tratarDataZend($this->dados->dtAvaliador, 'Brasileira'); ?></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <?php if (isset($this->avaliacaoTecnica) && !empty($this->avaliacaoTecnica)) { ?>
+                    <table class="tabela">
+                        <tr>
+                            <td><input type="button" name="grid1" id="g1_3" class="btn_adicionar" title="Expandir"/>AVALIAÇÃO
+                                DO
+                                TÉCNICO / PARECERISTA
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="div_g1_3" class="sumir">
+                        <table class="tabela">
+                            <tr>
+                                <td class="destacar bold" colspan="3">Descrição</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><?php echo $this->avaliacaoTecnica->ResumoParecer; ?></td>
+                            </tr>
+                            <tr>
+                                <td class="destacar bold" style="width: 33%;">Dt. Parecer</td>
+                                <td class="destacar bold" style="width: 33%;">Parecer Favorável</td>
+                                <td class="destacar bold" style="width: 33%;">Técnico / Parecerista</td>
+                            </tr>
+                            <tr>
+                                <td><?php echo Data::tratarDataZend($this->avaliacaoTecnica->DtParecer, 'Brasileira'); ?></td>
+                                <td><?php echo ($this->avaliacaoTecnica->ParecerFavoravel == 2) ? 'Sim' : 'Não'; ?></td>
+                                <td><?php echo $this->avaliacaoTecnica->nmAvaliador; ?></td>
+                            </tr>
+                        </table>
+                    </div>
+                <?php } else { ?>
+                    <table class="tabela">
+                        <tr>
+                            <td><input type="button" name="grid1" id="g1_3" class="btn_adicionar" title="Expandir"/>AVALIAÇÃO
+                                DO
+                                TÉCNICO / PARECERISTA
+                            </td>
+                        </tr>
+                    </table>
+                    <div id="div_g1_3" class="sumir">
+                        <table class="tabela">
+                            <tr>
+                                <td>Não houve avalição técnica. A readequação foi encaminhada diretamente para o
+                                    conselheiro.
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                <?php } ?>
+
+                <?php if ($this->dados->idTipoReadequacao == 2) { ?>
+                    <?php /***** CARREGA VALOR ENTRE AS PLANILHAS ATIVA E READEQUADA *****/ ?>
+                    <script type="text/javascript">
+                        jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'carregar-valor-entre-planilhas'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>', '', 'valorEntrePlanilhas');
+                    </script>
+                    <table class="tabela">
+                        <tr>
+                            <td id="valorEntrePlanilhas">
+                                <span class="bold black">R$ 0,00</span>
+                            </td>
+                        </tr>
+                    </table>
+                <?php /****** FIM VALOR ENTRE AS PLANILHAS ATIVA E READEQUADA ******/ ?>
+
+                <?php /***** CARREGA A PLANILHA ORCAMENTARIA *****/ ?>
+                    <script type="text/javascript">
+                        jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'default', 'controller' => 'index', 'action' => 'montar-planilha-orcamentaria')) ?>?idPronac=<?php echo $this->dados->idPronac; ?>&tipoPlanilha=6&link=true', '', 'planilhaOrcamentariaMontada');
+                    </script>
+                    <div id="planilhaOrcamentariaMontada"></div>
+                    <?php /****** FIM DA PLANILHA ORCAMENTARIA ******/ ?>
+                <?php } ?>
+
+                <?php if ($this->dados->idTipoReadequacao == 9) { ?>
+                    <?php /***** CARREGA LOCAIS DE REALIZAÇÃO *****/ ?>
+                    <script type="text/javascript">
+                        jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'local-realizacao', 'action' => 'carregar-locais-de-realizacao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>&idReadequacao=<?php echo $this->dados->idReadequacao; ?>&link', '', 'locaisParaRealizacao');
+                    </script>
+                    <div id="locaisParaRealizacao"></div>
+                    <?php /****** FIM LOCAIS DE REALIZAÇÃO ******/ ?>
+                <?php } ?>
+
+                <?php if ($this->dados->idTipoReadequacao == 14) { ?>
+                    <tr>
+                        <td colspan="3">
+                            <?php /***** CARREGA PLANOS DE DIVULGAÇÃO *****/ ?>
+                            <script type="text/javascript">
+                                jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'carregar-planos-de-divulgacao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>&idReadequacao=<?php echo $this->dados->idReadequacao; ?>&link', '', 'planosDeDivulgacao');
+                            </script>
+                            <div id="planosDeDivulgacao"></div>
+                            <?php /****** FIM PLANOS DE DIVULGAÇÃO ******/ ?>
+                        </td>
+                    </tr>
+                <?php } ?>
+
+                <form name="formAvaliacao" id="formAvaliacao"
+                      action="<?php echo $this->baseUrl(); ?>/readequacao/readequacoes/componente-comissao-salvar-avaliacao"
+                      method="post">
+                    <table class="tabela">
+                        <tr>
+                            <th colspan="2">Parecer Técnico</th>
+                        </tr>
+                        <tr>
+                            <td align="right" class="destacar bold w150">Parecer Favorável?</td>
+                            <td>
+                                <label style="margin-right:25px; font-weight: normal;">
+                                    <input type="radio" name="parecerProjeto" value="2" <?php echo (isset($this->avaliacaoConselheiro) && $this->avaliacaoConselheiro->ParecerFavoravel == 1) ? '' : 'checked="checked"'; ?>/>Sim</label>
+                                <label style="font-weight: normal;">
+                                    <input type="radio" name="parecerProjeto" value="1" <?php echo (isset($this->avaliacaoConselheiro) && $this->avaliacaoConselheiro->ParecerFavoravel == 1) ? 'checked="checked"' : ''; ?> />Não</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <textarea cols="80" id="dsParecer" name="dsParecer" rows="6" class="textarea_simples"
+                                          style="width: 99%"><?php echo (isset($this->avaliacaoConselheiro->ResumoParecer) && !empty($this->avaliacaoConselheiro->ResumoParecer)) ? $this->avaliacaoConselheiro->ResumoParecer : ''; ?></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <span style="color: #c33; font-style: italic;">Quantidade m&aacute;xima de 8.000 caracteres.</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <input type="hidden" name="idPronac" value="<?php echo $this->dados->idPronac; ?>">
+                    <input type="hidden" name="idReadequacao" value="<?php echo $this->dados->idReadequacao; ?>">
+                </form>
+
+                <p class="center-align">
+                    <a
+                            id="btn_salvar"
+                            href="javascript:void(0)"
+                            class="waves-effect waves-light white-text btn btn-primary"
+                    ><i class="material-icons right">save</i>Salvar</a>
+                    <a
+                            id="btn_finalizar"
+                            href="javascript:void(0)"
+                            class="waves-effect waves-light white-text btn btn-secondary"
+                    ><i class="material-icons right">send</i>Finalizar</a>
+                    <a
+                            id="btn_voltar"
+                            href="javascript:void(0)"
+                            class="waves-effect waves-light white-text btn btn-info"
+                    ><i class="material-icons left">keyboard_backspace</i>voltar</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalPlenaria" class="sumir">
+    <table class="tabela">
+        <tr>
+            <td class="destacar bold">Enviar para a plenária da CNIC?</td>
+        </tr>
+        <tr>
+            <td>
+                <input id="planariaS" type="radio" name="planaria" value="1" class="envioPlenaria"/>
+                <label for="planariaS">Sim</label>
+                <input id="planariaN" type="radio" name="planaria" value="0" checked="checked"/>
+                <label for="planariaN">Não</label>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<?php //MODAL DE AVALIAÇÃO DO ITEM ?>
+<div id="modalItem" class="sumir">
+    <table class="tabela">
+        <tr>
+            <td class="destacar bold">Produto</td>
+            <td class="destacar bold">Etapa</td>
+            <td class="destacar bold">Item</td>
+            <td class="destacar bold">Vl. Comprovado</td>
+        </tr>
+        <tr>
+            <td id="campoProduto" class="camposModal">&nbsp;</td>
+            <td id="campoEtapa" class="camposModal">&nbsp;</td>
+            <td id="campoItem" class="camposModal">&nbsp;</td>
+            <td class="camposModal green bold direita"><span id="campoValorComprovado">&nbsp;</span></td>
+        </tr>
+    </table>
+
+    <table class="tabela">
+        <tr>
+            <th colspan="6">Valores Solicitados</th>
+        </tr>
+        <tr class="centro">
+            <td class="destacar bold">Unidade</td>
+            <td class="destacar bold">Qtd</td>
+            <td class="destacar bold">Ocorrência</td>
+            <td class="destacar bold">Vl. Unitário</td>
+            <td class="destacar bold">Dias</td>
+            <td class="destacar bold">Total</td>
+        </tr>
+        <tr>
+            <td id="campoUnidadeSolicitado" class="camposModal">&nbsp;</td>
+            <td id="campoQtdSolicitado" class="direita camposModal">&nbsp;</td>
+            <td id="campoOcorrenciaSolicitado" class="direita camposModal">&nbsp;</td>
+            <td id="campoVlUnitarioSolicitado" class="direita camposModal">&nbsp;</td>
+            <td id="campoDiasSolicitado" class="direita camposModal">&nbsp;</td>
+            <td id="campoTotalSolicitado" class="direita camposModal">&nbsp;</td>
+        </tr>
+    </table>
+
+    <table class="tabela">
+        <tr>
+            <th colspan="6">Dados para a readequação</th>
+        </tr>
+        <tr class="centro">
+            <td class="destacar bold">Unidade</td>
+            <td class="destacar bold">Qtd</td>
+            <td class="destacar bold">Ocorrência</td>
+            <td class="destacar bold">Vl. Unitário</td>
+            <td class="destacar bold">Dias</td>
+            <td class="destacar bold">Total</td>
+        </tr>
+        <tr>
+            <td>
+                <select class="select_simples w150 modalObrigatorios" name="modalUnidade" id="modalUnidade">
+                    <option value=""> - Selecione -</option>
+                    <?php foreach ($this->Unidade as $unit) { ?>
+                        <option value="<?php echo $unit->idUnidade; ?>"><?php echo $unit->Descricao; ?></option>
+                    <?php } ?>
+                </select>
+            </td>
+            <td class="centro"><input class="input_simples w50 multiplicarValores modalObrigatorios"
+                                      id="modalQuantidade" type="text" maxlength="5" name="Quantidade"
+                                      onkeyup="mascara(this, format_num);"></td>
+            <td class="centro"><input class="input_simples w50 multiplicarValores modalObrigatorios"
+                                      id="modalOcorrencia" type="text" maxlength="4" name="Ocorrencia"
+                                      onkeyup="mascara(this, format_num);"></td>
+            <td class="centro"><input
+                        class="input_simples w100 multiplicarValores modalValorUnitario modalObrigatorios"
+                        id="modalValorUnitario" type="text" maxlength="11" name="ValorUnitario"></td>
+            <td class="centro"><input class="input_simples w50 modalObrigatorios" id="modalDias" type="text"
+                                      maxlength="4" name="Dias" onkeyup="mascara(this, format_num);"></td>
+            <td id="TotalCalculado" class="direita" style="width: 125px;"></td>
+        </tr>
+        <tr>
+            <td colspan="6" class="destacar bold centro">Justificativa da Readequação <span class="red">*</span>
+                <span
+                        id="textoErroValores" style="float:right; color: red;"></span></td>
+        </tr>
+        <tr>
+            <td colspan="6" class="centro">
+                <textarea id="modalJustificativa" class="textarea_simples modalObrigatorios" rows="3" style="width:98%"
+                          name="Justificativa"></textarea>
+            </td>
+        </tr>
+    </table>
+</div>
+<?php //FIM MODAL DE AVALIAÇÃO DO ITEM ?>
+
+<?php if ($this->dados->idTipoReadequacao == 11 || $this->dados->idTipoReadequacao == 23) : ?>
+    <script src="/public/js/vue.js" type="text/javascript"></script>
+    <script src="/public/scripts/plugins/moment-with-locales.js"></script>
+    <script src="/public/scripts/plugins/numeral.min.js" type="text/javascript"></script>
+
+    <script src="/public/js/componentes/salic-table-easy.js" type="text/javascript"></script>
+    <script src="/public/js/componentes/salic-texto-simples.vue.js" type="text/javascript"></script>
+
+    <script src="/public/scripts/plugins/numeral.js" type="text/javascript"></script>
+    <script src="/public/scripts/mixins/utils.vue.js" type="text/javascript"></script>
+    <script src="/public/scripts/components/input-money.vue.js" type="text/javascript"></script>
+    <script src="/public/scripts/components/select-percent.vue.js" type="text/javascript"></script>
+    <script src="/public/scripts/components/carregando.vue.js" type="text/javascript"></script>
+
+    <script src="/public/scripts/plano-distribuicao/plano-distribuicao-listagem.vue.js" type="text/javascript"></script>
+
+    <script src="/public/scripts/readequacao/readequacao-plano-distribuicao.vue.js" type="text/javascript"></script>
+    <script src="/public/scripts/readequacao/readequacao-plano-distribuicao-detalhamentos.vue.js"
+            type="text/javascript"></script>
+    <script src="/public/scripts/readequacao/readequacao-formulario.vue.js" type="text/javascript"></script>
+    <script src="/public/scripts/plano-distribuicao/plano-distribuicao-detalhamentos-formulario.vue.js"
+            type="text/javascript"></script>
+    <script src="/public/scripts/plano-distribuicao/plano-distribuicao-detalhamentos-listagem.vue.js"
+            type="text/javascript"></script>
+    <script src="/public/scripts/plano-distribuicao/plano-distribuicao-visualizar-produto-cabecalho.vue.js"
+            type="text/javascript"></script>
+    <script src="/public/scripts/plano-distribuicao/plano-distribuicao-detalhamentos-consolidacao.vue.js"
+            type="text/javascript"></script>
+    <script src="/public/scripts/plano-distribuicao/plano-distribuicao-visualizar-produto-resumido.vue.js"
+            type="text/javascript"></script>
+    <script src="/public/scripts/proposta/visualizar/salic-proposta-detalhamento-plano-distribuicao.vue.js"
+            type="text/javascript"></script>
+    <script src="/public/scripts/readequacao/readequacao-transferencia-recursos.vue.js" type="text/javascript"></script>
+    <script src="/public/scripts/readequacao/readequacao-transferencia-recursos-tipo-transferencia.vue.js" type="text/javascript"></script>
+
+    <script>
+        function atualizarDadosPlanosDeDistribuicao() {
+            jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'plano-distribuicao', 'action' => 'carregar-planos-de-distribuicao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>&idReadequacao=<?php echo $this->dados->idReadequacao; ?>', '', 'planosDeDistribuicao');
+        }
+        new Vue({
+            el: '#componente-dinamico',
+            data: {
+                componenteAtual: '',
+                idPronac: parseInt($("#idPronac").val()),
+                idTipoReadequacao: parseInt($("#idTipoReadequacao").val()),
+                siEncaminhamento:  parseInt($("#siEncaminhamento").val()),
+                pertenceIn2017: parseInt($("#pertenceIn2017").val()),
+                disabled: true
+            },
+            mounted: function () {
+                this.carregarComponente();
+            },
+            methods: {
+                carregarComponente: function () {
+                    let self = this;
+                    switch (self.idTipoReadequacao) {
+                        case 11: // plano distribuicao
+                            if (self.pertenceIn2017 == 1) {
+                                self.componenteAtual = "readequacao-plano-distribuicao";
+                            } else {
+                                self.carregarPlanoDistribuicaoAntigaIN();
+                            }
+                            break;
+                        case 23: // transferencia de recursos
+                            self.componenteAtual = "readequacao-transferencia-recursos";
+                            break;
+                    }
+                },
+                carregarPlanoDistribuicaoAntigaIN: function () {
+                    atualizarDadosPlanosDeDistribuicao();
+                }
+            }
+        })
+    </script>
+<?php endif; ?>

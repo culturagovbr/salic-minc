@@ -1,0 +1,28 @@
+<?php if (!empty($this->proposta['idpreprojeto']) && !empty($this->proposta['nomeprojeto']) ) { ?>
+    <fieldset>
+        <legend class=""><b>Identifica&ccedil;&atilde;o da Proposta Cultural</b></legend>
+        <table class="tabela" cellpadding="1" cellspacing="1">
+            <tr class="esquerda">
+                <td width="20%">
+                    <b>Nr da Proposta:</b>
+                    <br/>
+                    <span style="color: blue;">
+                                <?php
+                                if (isset($this->proposta['idpreprojeto']))
+                                    echo $this->proposta['idpreprojeto'];
+                                ?>
+                            </span>
+                </td>
+                <td colspan="4" class="">
+                    <b>Nome da Proposta Cultural</b>
+                    <br/>
+
+                    <?php
+                    if (isset($this->proposta['idpreprojeto']))
+                        echo str_replace("'", "", str_replace("\"", "", ($this->proposta['nomeprojeto'])));
+                    ?>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+<?php } ?>

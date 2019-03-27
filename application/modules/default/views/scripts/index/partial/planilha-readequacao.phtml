@@ -107,16 +107,12 @@
                                 $vlUnitario = 0;
                                 $vlAprovado = 0;
                                 foreach ($this->planilha[$fonte][$produto][$etapa][$cidade] as $planilha) {
-                                    $podeEditarItem =
-                                                    (
-                                                        $this->link &&
-                                                        $planilha['vlComprovado'] < $planilha['vlAprovado'] &&
-                                                        $disponivelParaEdicaoReadequacaoPlanilha &&
-                                                        (
-                                                            $planilha['tpAcao'] != 'E' &&
-                                                            $nrfonte == '0'
-                                                        )
-                                                    );
+                                    $podeEditarItem = $this->itemDisponivelParaEdicaoReadequacao(
+                                        $planilha,
+                                        $nrfonte,
+                                        $this->link,
+                                        $disponivelParaEdicaoReadequacaoPlanilha
+                                    );
                                     
                                     $vlAprovado += $planilha['vlAprovado'];
                                     // soma somente quando não tiver excluído o item
@@ -169,36 +165,36 @@
                                         <td class="direita textValorComprovado"><?php echo @number_format($planilha['vlComprovado'], 2, ",", "."); ?></td>
                                         <td class="textJustificativa" style="width: 20%;"><?php echo $planilha['dsJustificativa']; ?></td>
                                         <td class="excluirItem centro" style="width: 1%;">
-                                        <?php if($this->link && $this->idPerfil == Autenticacao_Model_Grupos::PROPONENTE){ ?>
-                                            <?php if($planilha['tpAcao'] == 'E'){ ?>
-                                                Item excluído
-                                                <img src="<?php echo $this->baseUrl(); ?>/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItem" tipo="<?php echo $planilha['tpAcao']; ?>" idPlanilha="<?php echo $planilha['idPlanilhaAprovacao']; ?>" title="<?php echo 'restaurar item'; ?>"/>
-                                            <?php } else { ?>
-                                                <?php if(empty($planilha['vlComprovado'])){ ?>
-                                                <input type="button" class="btn_excluir excluirItemPlanilha" title="Solicitar exclusão de item" idPlanilhaAprovacao="<?php echo $planilha['idPlanilhaAprovacao']; ?>">
-                                            <?php } } ?>
-                                        <?php } else { ?>
-                                            <?php $title = '';
-                                                switch ($planilha['tpAcao']) {
-                                                    case 'E':
-                                                        echo 'Exclu&iacute;do';
-                                                        $title = 'restaurar item';
-                                                        break;
-                                                    case 'I':
-                                                        echo 'Inclu&iacute;do';
-                                                        $title = 'recusar inclusão de item';
-                                                        break;
-                                                    case 'A':
-                                                        echo 'Alterado';
-                                                        $title = 'reintegrar valores do item';
-                                                        break;
-                                                    default:
-                                                        echo '';
-                                                        break;
+                                            <?php if($this->link && $this->idPerfil == Autenticacao_Model_Grupos::PROPONENTE){ ?>
+                                                <?php if($planilha['tpAcao'] == 'E'){ ?>
+                                                    Item exclu&iacute;do
+                                                    <img src="<?php echo $this->baseUrl(); ?>/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItem" tipo="<?php echo $planilha['tpAcao']; ?>" idPlanilha="<?php echo $planilha['idPlanilhaAprovacao']; ?>" title="<?php echo 'restaurar item'; ?>"/>
+                                                <?php } else { ?>
+                                                    <?php if(empty($planilha['vlComprovado']) && (($planilha['idEtapa'] != PlanilhaEtapa::ETAPA_CUSTOS_VINCULADOS) && ($planilha['idEtapa'] != PlanilhaEtapa::ETAPA_CAPTACAO_RECURSOS))){ ?>
+                                                        <input type="button" class="btn_excluir excluirItemPlanilha" title="Solicitar exclusão de item" idPlanilhaAprovacao="<?php echo $planilha['idPlanilhaAprovacao']; ?>">
+                                                    <?php } } ?>
+                                                <?php } else { ?>
+                                                    <?php $title = '';
+                                                    switch ($planilha['tpAcao']) {
+                                                        case 'E':
+                                                            echo 'Exclu&iacute;do';
+                                                            $title = 'restaurar item';
+                                                            break;
+                                                        case 'I':
+                                                            echo 'Inclu&iacute;do';
+                                                            $title = 'recusar inclusão de item';
+                                                            break;
+                                                        case 'A':
+                                                            echo 'Alterado';
+                                                            $title = 'reintegrar valores do item';
+                                                            break;
+                                                        default:
+                                                            echo '';
+                                                            break;
                                                     } ?>
 
-                                                <?php if(in_array($this->idPerfil, array(Autenticacao_Model_Grupos::PARECERISTA,Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO)) && $planilha['tpAcao'] != 'N'){ ?>
-                                                <img src="<?php echo $this->baseUrl(); ?>/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItem" tipo="<?php echo $planilha['tpAcao']; ?>" idPlanilha="<?php echo $planilha['idPlanilhaAprovacao']; ?>" title="<?php echo $title; ?>"/>
+                                                    <?php if(in_array($this->idPerfil, array(Autenticacao_Model_Grupos::PARECERISTA,Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO)) && $planilha['tpAcao'] != 'N' && (($planilha['idEtapa'] != PlanilhaEtapa::ETAPA_CUSTOS_VINCULADOS) && ($planilha['idEtapa'] != PlanilhaEtapa::ETAPA_CAPTACAO_RECURSOS))) { ?>
+                                                        <img src="<?php echo $this->baseUrl(); ?>/public/img/refresh.gif" style="cursor: pointer;" class="restaurarItem" tipo="<?php echo $planilha['tpAcao']; ?>" idPlanilha="<?php echo $planilha['idPlanilhaAprovacao']; ?>" title="<?php echo $title; ?>"/>
                                                 <?php } ?>
 
                                                 <?php if($this->idPerfil == Autenticacao_Model_Grupos::COMPONENTE_COMISSAO && $planilha['tpAcao'] != 'N' && $this->link){ ?>

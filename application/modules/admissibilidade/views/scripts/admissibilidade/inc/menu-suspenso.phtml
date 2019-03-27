@@ -1,0 +1,64 @@
+<div class="fixed-action-btn vertical">
+    <a class="btn-floating btn-large red">
+        <i class="large material-icons">add</i>
+    </a>
+    <ul>
+        <li>
+            <a id="ir-para-o-topo" class="btn-floating yellow darken-1 tooltipped" data-tooltip="Ir para o topo">
+                <i class="material-icons">arrow_upward</i>
+            </a>
+        </li>
+        <li>
+            <a class="btn-floating blue tooltipped"
+               data-tooltip="Outras Propostas"
+               href="/admissibilidade/admissibilidade/proposta-por-proponente?agente=<?php echo $this->itensGeral[0]->idAgente ?>&idPreProjeto=<?php echo $this->idPreProjeto; ?>&realizar_analise=<?php echo !empty($_GET['realizar_analise']) ? 's' : 'n' ?>"
+               title="Vizualizar outras Propostas deste Proponente"
+               alt="Vizualizar outras Propostas deste Proponente"/>
+            <i class="material-icons right ">work</i></a>
+        </li>
+        <li>
+            <a class="btn-floating blue tooltipped"
+               href="<?php echo $this->url([
+                       'module' => 'admissibilidade',
+                       'controller' => 'admissibilidade',
+                       'action' => 'imprimirpropostacultural'
+                   ]) . '?idPreProjeto=' . $this->idPreProjeto; ?>"
+               data-tooltip="Imprimir Proposta"
+            ><i class="material-icons">print</i></a>
+        </li>
+
+    </ul>
+</div>
+
+<script>
+    $3(document).ready(function () {
+
+        $3("#visualizar-form").on('click', function () {
+            tinymce.remove();
+        });
+
+        if ($3('#ir-para-o-topo').length) {
+            var scrollTrigger = 100, // px
+                backToTop = function () {
+                    var scrollTop = $3(window).scrollTop();
+                    if (scrollTop > scrollTrigger) {
+                        $3('#ir-para-o-topo').parent().show();
+                    } else {
+                        $3('#ir-para-o-topo').parent().hide();
+                    }
+                };
+            backToTop();
+
+            $3(window).on('scroll', function () {
+                backToTop();
+            });
+
+            $3('#ir-para-o-topo').on('click', function (e) {
+                e.preventDefault();
+                $3('html,body').animate({
+                    scrollTop: 0
+                }, 700);
+            });
+        }
+    });
+</script>

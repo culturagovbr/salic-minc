@@ -32,7 +32,6 @@ x - RESET - Ajustes para compatibilidade com materialize
 #conteudo table.tabela th {
     border-radius: 0px;
     padding: 10px 10px;
-
 }
 
 .exibir-proposta-cultural .collapsible > li > .collapsible-header {
@@ -88,11 +87,11 @@ table.tabela td.destacar span,
     background: transparent;
 }
 
-#conteudo table.tabela th,
+/*#conteudo table.tabela th,*/
 #conteudo p[align="center"],
 #conteudo table.tabela th[align="center"],
 #conteudo table.tabela td[align="center"] {
-    text-align: center !important;
+    text-align: center;
 }
 
 #conteudo table.tabela tr a:not(.btn) {
@@ -105,6 +104,13 @@ table.tabela td.destacar span,
     width: 100% !important;
     margin: 0px auto 20px auto !important;
 
+}
+
+@media only screen and (max-width: 993px) {
+    #conteudo table.tabela {
+        margin-bottom: 10px !important;
+
+    }
 }
 #conteudo > fieldset,
 #conteudo > div > fieldset {

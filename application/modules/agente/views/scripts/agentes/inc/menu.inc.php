@@ -140,7 +140,7 @@
                         <?php
         } ?>
 
-                        <?php if (($this->grupoativo != "94") && ($this->grupoativo != "118")&& ($this->grupoativo != "93" && !$this->ehProponente)) {
+                        <?php if (($this->grupoativo != "94") && ($this->grupoativo != "118")&& ($this->grupoativo != "93")) {
             ?>
                         <li>
                             <a class="no_seta" href="<?php echo $this->url(array('module'=>'agente', 'controller' => 'agentes', 'action' => 'alterarvisao', 'id' => $this->id), '', true); ?>" title="Ir para Vis&Otilde;es">Vis&otilde;es</a>

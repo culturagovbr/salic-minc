@@ -2,9 +2,7 @@
 <!--    body {overflow-x: hidden;overflow-y: hidden;}-->
 <!--</style>-->
 <?php if (!$this->habilitarServicoLoginCidadao): ?>
-    <div class="container">
-        <!--<div class="container animated slideInUp">-->
-        <!--<div class="container animated zoomIn">-->
+    <div class="container login">
         <div id="title" class="row animated fadeIn">
             <div class="col s12 l4"></div>
             <div class="col s12 l4 center-align">
@@ -14,25 +12,16 @@
         <div class="row">
             <div class="col s12 m3 l3"></div>
             <div class="col s12 m6 l6">
-                <!--        <div class="card z-depth-5 green darken-3">-->
-<!--                <div class="card green-text text-darken-4 animated fadeInUp">-->
                 <div class="card animated fadeInUp">
-                    <!--            <div class="card">-->
-                    <!--                <div class="card-image">-->
-                    <!--                    <img alt="Salic" src="-->
-                    <?php //echo $this->baseUrl(); ?><!--/public/img/logo.png">-->
-                    <!--                    <span class="card-title">Login</span>-->
-                    <!--                </div>-->
-                    <div class="card-content  white-text" style="background: url(<?php echo $this->baseUrl(); ?>/public/img/bg-topo.png) no-repeat center 0 #acda5d ;">
-                        <div class="row" style="margin: 0;">
-                            <div class="col s12 center-align" >
-                                <img alt="Salic" src="<?php echo $this->baseUrl(); ?>/public/img/logo.png">
+                    <div class="cabecalho-login">
+                        <div class="row" style="margin-bottom: 2px">
+                            <div class="col s12 center-align" style="padding-top: 10px;">
+                                <div class="logo-salic"></div>
                             </div>
-                            <div class="col s12" >
-                                <span class="card-title"><b>Login</b></span>
+                            <div class="col s4 center-align">
+                                <span class="card-title white-text"><b>Entrar</b></span>
                             </div>
                         </div>
-                        <!--                    <span class="card-title activator grey-text text-darken-4">Login-->
                     </div>
                     <div class="card-content">
                         <form class="materialize" name="inicial" id="inicial"
@@ -42,43 +31,40 @@
                             <div class="row">
                                 <input type="hidden" name="from" value="<?php echo $this->from; ?>" />
                                 <div class="input-field col s12">
-                                    <i class="material-icons prefix">account_circle</i>
-                                    <!--                                <input id="email" type="password" class="validate">-->
-                                    <input  required="required"  type="text" name="Login"
+                                    <i class="material-icons prefix green-text">account_circle</i>
+                                    <input required="required" type="text" name="Login"
                                            id="Login"
-                                            class="cpf"/>
+                                           class="cpf"
+                                           autocomplete="username"
+                                    />
                                     <label for="Login">CPF</label>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="input-field col s12">
-                                    <i class="material-icons prefix">lock</i>
-                                    <input required="required" type="password" name="Senha" id="Senha"/>
-<!--                                    <label for="password" data-error="wrong" data-success="OMK asodi jasodhasiod">Senha</label>-->
+                                <div class="input-field col s12 container-senha">
+                                    <i class="material-icons prefix green-text">lock</i>
+                                    <input required="required" type="password" name="Senha" id="Senha" autocomplete="current-password"/>
                                     <label for="Senha">Senha</label>
+                                    <a href="javascript:void(0)" class="material-icons prefix green-text mostrar-senha" onclick="mostrarSenha();">remove_red_eye</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <a href="javascript:redirect('<?php echo $this->url(array('controller' => 'index', 'action' => 'solicitarsenha', 'module' => 'autenticacao')); ?>');"
+                                       class="tooltipped right" data-delay="50" data-tooltip="Recuperar senha">
+                                        Recuperar senha
+                                    </a>
                                 </div>
                             </div>
                             <button style="width: 100%;" id="btConfirmar"
                                     class="btn waves-effect waves-light tooltipped" data-delay="50" data-tooltip="Acessar o sistema" type="submit" name="action">Entrar
-<!--                                <i class="material-icons right">send</i>-->
                             </button>
                         </form>
                     </div>
                     <div class="card-action center-align">
-                        <a
-                            href="javascript:redirect('<?php echo $this->url(array('controller' => 'index', 'action' => 'cadastrarusuario', 'module' => 'autenticacao')); ?>');"
-                            class="tooltipped" data-delay="50" data-tooltip="Se cadastrar">
-                            N&atilde;o sou cadastrado
-                        </a>
-                        <a href="javascript:redirect('<?php echo $this->url(array('controller' => 'index', 'action' => 'solicitarsenha', 'module' => 'autenticacao')); ?>');"
-                           class="tooltipped" data-delay="50" data-tooltip="Resetar senha">
-                            Esqueci a senha
+                        <a href="javascript:redirect('<?php echo $this->url(array('controller' => 'index', 'action' => 'cadastrarusuario', 'module' => 'autenticacao')); ?>');" class="tooltipped" data-delay="50" data-tooltip="Ir para tela de cadastro">Cadastrar-se
                         </a>
                     </div>
-                    <!--                <div class="card-reveal">-->
-                    <!--                    <span class="card-title grey-text text-darken-4">Login<i class="material-icons right">close</i></span>-->
-                    <!--                    <p>Preencha o seu cpf e senha para acessar o sistema.</p>-->
-                    <!--                </div>-->
                 </div>
             </div>
             <div class="col s12 m3 l3"></div>
@@ -95,6 +81,17 @@
     </p>
 <?php endif; ?>
 <script type="text/javascript">
+
+    function mostrarSenha() {
+        var senha = document.getElementById('Senha');
+        if (senha.type === 'password') {
+            senha.type = 'text';
+        } else {
+            senha.type = 'password';
+        }
+
+        return false;
+    }
 
     $3(document).ready(function ($) {
         $("#inicial").validate({

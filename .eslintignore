@@ -1,0 +1,9 @@
+/front/build/
+/front/config/
+/front/*.js
+/*.js
+/public/dist/
+/front/test/unit/coverage/
+/front/test/unit
+/front/test/e2e/
+*.spec.js

@@ -218,7 +218,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 			original.removeListener( 'abort', onImgLoadErrorEvent );
 
 			// Hide loader
-			CKEDITOR.document.getById( imagePreviewLoaderId ).setStyle( 'display', 'none' );
+			CKEDITOR.document.getById( imagePreviewLoaderId ).CKEDITOR( 'display', 'none' );
 
 			// New image -> new domensions
 			if ( !this.dontResetSize )

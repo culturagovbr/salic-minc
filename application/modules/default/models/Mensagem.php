@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Abstra��o da tabela SAC.dbo.tbMensagem
- *
- * @author rafael.gloria@cultura.gov.br
- */
-class Mensagem extends GenericModel
+class Mensagem extends MinC_Db_Table_Abstract
 {
     protected $_primary = '';
     protected $_name = 'tbMensagem';

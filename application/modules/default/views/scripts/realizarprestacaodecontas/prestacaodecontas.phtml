@@ -1,19 +1,5 @@
 <?php
-/**
- * Prestação de Contas (UC45)
- * @author Equipe RUP - Politec
- * @since 27/12/2010
- * @version 1.0
- * @subpackage application.view.scripts.prestacaodeocontas
- * @copyright © 2010 - Ministério da Cultura - Todos os direitos reservados.
- * @link http://www.cultura.gov.br
- */
-?>
-<?php
-
-echo $this->partial('realizarprestacaodecontas/inc/menu.inc.php', $this) // menu
-
-
+echo $this->partial('realizarprestacaodecontas/inc/menu.inc.php', $this);
 $grupo = $this->Grupo;
 ?>
 
@@ -35,7 +21,8 @@ $grupo = $this->Grupo;
 <!-- ========== FIM TÍTULO ========== -->
 
 <!-- ========== INÍCIO CONTEÚDO ========== -->
-<div id="conteudo"><script>
+<div id="conteudo">
+<script>
 
 function areadetrabalho()
 {
@@ -55,7 +42,7 @@ function areadetrabalho()
     $('#abrir_fechar4').click(function(){
         $('#fechartce').toggle('slow');
     });
-    
+
 }
 window.onload = function() {areadetrabalho();};
 </script> <!-- MODAL PARA ENCAMINHAMENTO PARA ANALISE -->
@@ -66,7 +53,7 @@ window.onload = function() {areadetrabalho();};
 
     	$("#idPronac").html(idPronac);
     	$("#nomeProjeto").html(nomeProjeto);
-    	
+
 	$("#encaminhar2").dialog({
          title : 'Encaminhar Projeto para Análise',
          resizable: false,
@@ -84,8 +71,8 @@ window.onload = function() {areadetrabalho();};
  }
 
     $(document).ready(function(){
-	    $('#passaValor').change(function(){		
-	    	
+	    $('#passaValor').change(function(){
+
 	        var idorgao = $('#passaValor').val();
 alert(idorgao);
 	        $.ajax({
@@ -99,7 +86,7 @@ alert(idorgao);
                         //$('#encaminhar').find('.AgentePerfil').val('');
                         var recebe = $('#encaminhar2').find('#recebeValor');
                         alert(recebe);
-                        
+
                         if(data.resposta){
                             recebe.html('');
                             recebe.append("<option value=''>Selecione o agente</option>");
@@ -116,20 +103,20 @@ alert(idorgao);
                 type : 'post'
                 ,dataType : 'json'
             });
-	        
+
 	    });
 
 	    $('#encaminhar2').find('#recebeValor').change(function(){
-  			
+
             var perfil = $(this).val().split('/');
             $('#encaminhar2').find('.AgentePerfil').val(perfil[1]);
             $('#encaminhar2').find('.AgenteId').val(perfil[0]);
-	
+
         });
-        
+
     });
-    
-	  </script>
+
+</script>
 
 <div style="display: none;" id="encaminhar2"
 	title="Encaminhar projeto para análise">
@@ -175,7 +162,7 @@ alert(idorgao);
 	<td><select name="recebeValor" id="recebeValor"
 		style="width: 70%; margin-top: 0.5em;"></select></td>
 </tr>
-</div>	
+</div>
 
 <br />
 
@@ -188,7 +175,7 @@ alert(idorgao);
 <input type="hidden" name="idTipoAgente" value=" "/>
 <input type="hidden" name="dtFimEncaminhamento" value=" "/>
 <input type="hidden" name="stAtivo" value=" "/>
-  
+
 <p align="center" style="margin-top: 1%;"><input type="button" value=" " class="btn_enviar salvarencaminhamento2<?php //echo $AnaliseGeral->ID_PRONAC.$AnaliseGeral->tpAlteracaoProjeto; ?>" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="reset" value=" " class="btn_limpar" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="reset" value=" " class="btn_cancelar" /></p>
@@ -219,7 +206,7 @@ alert(idorgao);
 		ANÁLISE</td>
 	</tr>
 </table>
-        
+
         <?php foreach($this->Projetos as $chave => $prescontas){ ?>
         <div id="pautaplenaria">
 <table class="tabela tablesorter">
@@ -233,7 +220,7 @@ alert(idorgao);
 			<th width="60">Data de Recebimento</th>
 			<th width="60">Cidade</th>
 			<th width="130">Análisar Prestação de Contas</th>
-			<th width="130">Qtd Dias</th>	
+			<th width="130">Qtd Dias</th>
 			<th width="60">Controle</th>
 		</tr>
 	</thead>
@@ -263,8 +250,8 @@ alert(idorgao);
 	</tr>
 
                 <?php
-                
-                
+
+
  /*                           $i++;
                         }
                     };*/
@@ -305,8 +292,8 @@ alert(idorgao);
                             ?>
                         </td>
 	</tr>
-	
-	
+
+
 <?php  } }?>
                 </table>
 </div>
@@ -338,7 +325,7 @@ alert(idorgao);
 	<tr class="fundo_<?php //echo $fundo; ?>">
 		<td><?php //echo $i + 1; ?></td>
 		<td class="centro">
-                                
+
 <?php //echo ">>>".$prescontas->Area; ?>
                                     <a class="itenspronac"
 			style="text-decoration: underline; cursor: pointer;"
@@ -392,12 +379,12 @@ alert(idorgao);
 			<th width="60">Controle</th>
 		</tr>
 	</thead>
-<?php foreach($this->ProjetosTceMecenato as $chave => $prescontas){ ?>        
+<?php foreach($this->ProjetosTceMecenato as $chave => $prescontas){ ?>
 
 	<tr class="fundo_<?php //echo $fundo; ?>">
 		<td><?php //echo $i + 1; ?></td>
 		<td class="centro">
-                                
+
 
                                     <a class="itenspronac"
 			style="text-decoration: underline; cursor: pointer;"
@@ -450,7 +437,7 @@ alert(idorgao);
 	<tr class="fundo_<?php //echo $fundo; ?>">
 		<td><?php //echo $i + 1; ?></td>
 		<td class="centro">
-                                
+
 <?php //echo ">>>".$prescontas->Area; ?>
                                     <a class="itenspronac"
 			style="text-decoration: underline; cursor: pointer;"
@@ -498,7 +485,7 @@ alert(idorgao);
 	<tr class="fundo_<?php //echo $fundo; ?>">
 		<td><?php //echo $i + 1; ?></td>
 		<td class="centro">
-                                
+
 <?php //echo ">>>".$prescontas->Area; ?>
                                     <a class="itenspronac"
 			style="text-decoration: underline; cursor: pointer;"

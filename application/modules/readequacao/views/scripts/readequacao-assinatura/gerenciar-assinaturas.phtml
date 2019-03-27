@@ -1,0 +1,265 @@
+<main>
+    <?php
+    $links = array(
+        array('Gerenciar Assinaturas' => array())
+    );
+    ?>
+    <div class="content padding20 clearfix">
+        <?php if (count($this->dados) > 0): ?>
+            <div class="row">
+                <div class="col s10">
+                    <?php gerarBreadCrumb($links); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <form method="get"
+                          class="materialize"
+                          id="formGerenciamentoPropostas"
+                          action="<?php echo $this->url(
+                              array(
+                                  'module' => 'assinatura',
+                                  'controller' => 'index',
+                                  'action' => 'assinar-projeto'
+                              ),
+                              '',
+                              true); ?>"
+                          onsubmit="return false;">
+                        <input type="hidden" name="idTipoDoAtoAdministrativo" value="<?php echo $this->idTipoDoAtoAdministrativo ?>" />
+                        <input type="hidden" name="origin" value="readequacao/readequacao-assinatura" />
+                        <table class="bordered margin0" id="readequacao">
+                            <thead>
+                            <tr class="">
+                                <th class="center-align" style="padding-left: 20px">
+                                    <input type="checkbox"
+                                           name="marcarDesmarcarCheckbox"
+                                           id="marcarDesmarcarCheckbox"
+                                           class="filled-in"/>
+                                    <label id="marcarDesmarcarCheckboxLabel"
+                                           for="marcarDesmarcarCheckbox"></label>
+                                </th>
+                                <th align="center" width="40" class="center-align">PRONAC</th>
+                                <th class="center-align">Nome do Projeto</th>
+                                <th class="center-align">Tipo de Ato Administrativo</th>
+                                <th class="center-align">Tipo de Readequa&ccedil;&atilde;o</th>
+                                <th class="center-align" align="center">Ver</th>
+                                <?php if($this->isPermitidoDevolver === true) { ?>
+                                <th class="center-align" align="center">Devolver</th>
+                                <?php } ?>
+                                <th class="center-align" align="center">Assinar</th>
+                            </tr>
+
+                            </thead>
+                            <tbody>
+                            <?php foreach ($this->dados as $dado): ?>
+                                <tr>
+                                    <td class="center-align" style="padding-left: 20px">
+                                        <?php
+                                        $objAssinatura = new Assinatura_Model_DbTable_TbAssinatura();
+                                        $assinaturas = $objAssinatura->obterAssinaturas($dado['IdPRONAC'], $this->idTipoDoAtoAdministrativo);
+
+                                        if(is_null($dado['possuiAssinatura']) && count($assinaturas) < $this->quantidade_minima_assinaturas) : ?>
+                                        <input type="checkbox"
+                                               name="IdPRONAC[]"
+                                               id="IdPRONAC<?php echo $dado['IdPRONAC'] ?>"
+                                               class="checkbox_legal filled-in"
+                                               value="<?php echo $dado['IdPRONAC'] ?>"/>
+                                        <label for="IdPRONAC<?php echo $dado['IdPRONAC'] ?>"></label>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="center-align" align="center">
+                                        <a class="waves-effect waves-dark btn white black-text"
+                                           href="<?php echo $this->url(
+                                                   array(
+                                                       'module' => 'default',
+                                                       'controller' => 'consultardadosprojeto',
+                                                       'action' => 'index'
+                                                   )
+                                               ) . "?idPronac={$dado['IdPRONAC']}"; ?>"><u><?php echo $dado['pronac']; ?></u></a>
+                                    </td>
+                                    <td class="center-align" align="center"><?php echo $dado['nomeProjeto']; ?></td>
+                                    <td class="center-align"
+                                        align="center"><?php echo $dado['tipoDoAtoAdministrativo']; ?></td>
+                                    <td class="center-align" align="center"><?php echo $dado['dsReadequacao']; ?></td>
+                                    <td class="center-align" align="center">
+                                        <a class="btn waves-effect waves-light tooltipped small "
+                                           href="<?php echo $this->url(array(
+                                                   'module' => 'assinatura',
+                                                   'controller' => 'index',
+                                                   'action' => 'visualizar-projeto'
+                                               )) . "?idDocumentoAssinatura={$dado['idDocumentoAssinatura']}&origin=readequacao/readequacao-assinatura" ?>"
+                                           data-position="top"
+                                           data-delay="50"
+                                           data-tooltip="Visualizar">
+                                            <i class="material-icons">search</i>
+                                        </a>
+                                    </td>
+                                    <?php if($this->isPermitidoDevolver === true) { ?>
+                                    <td class="center-align" align="center">
+                                        <a class="btn waves-effect waves-light  tooltipped small"
+                                           href="<?php echo $this->url(array(
+                                                   'module' => 'readequacao',
+                                                   'controller' => 'readequacao-assinatura',
+                                                   'action' => 'devolver-projeto'
+                                               )) . "?IdPRONAC={$dado['IdPRONAC']}&origin=readequacao/readequacao-assinatura&idDocumentoAssinatura={$dado['idDocumentoAssinatura']}" ?>"
+                                           data-position="top"
+                                           data-delay="50"
+                                           data-tooltip="Devolver">
+                                            <i class="material-icons">keyboard_backspace</i>
+                                        </a>
+                                    </td>
+                                    <?php } ?>
+                                    <td class="center-align" align="center">
+                                        <?php
+                                        $parametrosAssinatura = "?IdPRONAC={$dado['IdPRONAC']}&idTipoDoAtoAdministrativo={$dado['idTipoDoAtoAdministrativo']}&origin=readequacao/readequacao-assinatura";
+                                        if(is_null($dado['possuiAssinatura'])) :
+                                            ?>
+                                            <a class="btn waves-effect waves-light tooltipped small"
+                                               href="<?php echo $this->url(
+                                                       array(
+                                                           'module' => 'assinatura',
+                                                           'controller' => 'index',
+                                                           'action' => 'assinar-projeto'
+                                                       )
+                                                   ) . $parametrosAssinatura ?>"
+                                               data-position="top"
+                                               data-delay="50"
+                                               data-tooltip="Assinar">
+                                                <i class="material-icons">create</i>
+                                            </a>
+                                        <?php endif; ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <div class="center-align" id="divAssinaturaEmMassa"
+                             style="display: none;">
+
+                            <button class="btn waves-effect waves-light" type="submit" name="action">
+                                Assinar em massa <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <?php else: ?>
+            <div class="row">
+                <div class="col s1"></div>
+                <div class="col s10">
+                    <div class="padding20 green white-text">Sem assinaturas para a unidade atual.</div>
+                </div>
+                <div class="col s11"></div>
+            </div>
+        <?php endif; ?>
+
+
+        <div id="conteudoDialogoModal">
+            <div id="modalConfirmacao" class="modal modal-fixed-footer">
+                <div class="modal-content">
+                    <h4>Confirma&ccedil;&atilde;o</h4>
+                    <p>Tem certeza que deseja finalizar ao projeto <span class="bold" id="nrPronacConfirmacao"></span> ?</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#!" id="botaoConfirmacaoEncaminhamento" class="modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
+                    <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">N&atilde;o</a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            $3(document).ready(function(){
+                $3('.modal').modal({
+                        dismissible: true,
+                        opacity: .5,
+                        inDuration: 300,
+                        outDuration: 200,
+                        startingTop: '4%',
+                        endingTop: '10%',
+                        ready: function(modal, trigger) {
+                            $(modal).find('#nrPronacConfirmacao').html($3(trigger).data('nrpronac'));
+                            $(modal).find('#botaoConfirmacaoEncaminhamento').attr('href', $3(trigger).data('redirectUrl'));
+                        }
+//                    ,complete: function() {
+//                        alert('Closed');
+//                    } // Callback for Modal close
+                    }
+                );
+            });
+        </script>
+
+        <br clear="all"/>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"
+                integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+                crossorigin="anonymous"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.material.min.js"></script>
+
+        <script type="text/javascript">
+            (function ($) {
+                $(document).ready(function () {
+                    $('#enquadramento').DataTable({
+                        "language": {
+                            "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                        }
+                        , "order": [0, 1]
+                        , "searching": true
+                        , "lengthChange": true
+                        , columnDefs: [{
+                            targets: [0, 1],
+                            className: 'mdl-data-table__cell--non-numeric'
+                        }]
+                        ,
+                        "aoColumnDefs": [
+                            {'bSortable': false, 'aTargets': [0, 1, 2, 3]}
+                        ]
+                    });
+                    $3("#marcarDesmarcarCheckboxLabel").click(function () {
+                        utilitarios.marcarDesmarcarCheckBoxesMaterialize($3("#marcarDesmarcarCheckbox"), ".checkbox_legal");
+                        tratarExibicaoCheckboxChecados('.checkbox_legal', '#divAssinaturaEmMassa');
+                    });
+
+                    function tratarExibicaoCheckboxChecados(seletorCheckboxes, seletorExibicao) {
+                        var quantidadeCheckboxChecados = $(seletorCheckboxes).filter(':checked').length;
+                        if (quantidadeCheckboxChecados > 0) {
+                            $3(seletorExibicao).show('fast');
+                        } else {
+                            $3(seletorExibicao).hide('fast');
+                        }
+                    }
+
+                    $3('.checkbox_legal').click(function () {
+                        tratarExibicaoCheckboxChecados('.checkbox_legal', '#divAssinaturaEmMassa');
+                    });
+
+                    $3("#formGerenciamentoPropostas").validate({
+                        rules: {
+                            marcarDesmarcarCheckbox: {
+                                validarPreenchimento: true
+                            }
+                        },
+                        messages: {
+                            marcarDesmarcarCheckbox: {
+                                validarPreenchimento: ""
+                            }
+                        },
+
+                        submitHandler: function (form) {
+                            $3("#container-progress").show();
+                            form.submit();
+                        },
+                        invalidHandler: function (event, validator) {
+                            Materialize.toast("Selecione um item.", 4000);
+                        }
+                    });
+
+                    $3.validator.addMethod("validarPreenchimento", function (value, element) {
+                        var checkbox = $('input[type=checkbox]:checked').filter('.checkbox_legal');
+                        if (checkbox.length > 0) {
+                            return true;
+                        }
+                    });
+                });
+            }($.noConflict(true)));
+        </script>
+</main>

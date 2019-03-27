@@ -1,0 +1,60 @@
+<?php echo $this->partial("comprovarexecucaofisica/inc/menu-cadastro.php", $this); ?>
+
+<div id="breadcrumb">
+    <ul>
+        <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
+        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Consultar dados do Projeto">Consultar dados do Projeto</a></li>
+        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/relatoriotrimestral/idpronac/<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Relat&oacute;rio Trimestral">Relat&oacute;rio Trimestral</a></li>
+        <li class="last">Erros do envio do relatório</li>
+    </ul>
+</div>
+
+
+<div id="titulo">
+    <div>Erros do envio do relatório <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/relatoriotrimestral/idpronac/<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Voltar">Voltar</a></span></div>
+</div>
+
+
+<div id="conteudo">
+    <table class="tabela">
+        <tr>
+            <th align="center" width="30%">Nº PRONAC:</th>
+            <th align="center">Nome do Projeto:</th>
+        </tr>
+        <tr class="linha">
+            <td align="center"><?php echo $this->DadosProjeto->pronac; ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProjeto; ?></td>
+        </tr>
+        <tr>
+            <th align="center" width="30%">CNPJ/CPF:</th>
+            <th align="center">Proponente:</th>
+        </tr>
+        <tr class="linha">
+            <td align="center"><?php echo (strlen($this->DadosProjeto->CNPJCPF) > 11) ? Mascara::addMaskCNPJ($this->DadosProjeto->CNPJCPF) : Mascara::addMaskCPF($this->DadosProjeto->CNPJCPF); ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProponente; ?></td>
+        </tr>
+    </table>
+
+    <br clear="all" />
+
+    <table class="tabela">
+        <tr align="center">
+            <td class="destacar bold" colspan="2">Lista de erros</td>
+        </tr>
+        <?php foreach ($this->Erros as $dsErro) { ?>
+        <tr>
+            <td width="1"><img src="<?php echo $this->baseUrl(); ?>/public/img/delete_16x16.png" alt="" /></td>
+            <td><?php echo $dsErro; ?></td>
+        </tr>
+        <?php } ?>
+    </table>
+
+    <br clear="all" />
+</div>
+
+
+<!-- inï¿½cio: detalhe final da div conteudo #rodapeConteudo -->
+<div id="rodapeConteudo"><span></span></div>
+<!-- final: detalhe final da div conteudo #rodapeConteudo -->
+
+<br clear="all" />

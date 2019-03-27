@@ -20,7 +20,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
             // verifica as permiss�es
             $PermissoesGrupo = array();
             $PermissoesGrupo[] = 94;
-            $PermissoesGrupo[] = Autenticacao_Model_Grupos::COORDENADOR_DE_PARECERISTA;
+            $PermissoesGrupo[] = Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER;
             $PermissoesGrupo[] = 137;
             $PermissoesGrupo[] = Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA;
             

@@ -306,7 +306,7 @@ class Autenticacao_Model_Sgcacesso extends MinC_Db_Table_Abstract
         $slct = $this->select();
         $slct->from(
             $this->_name,
-            array("nome", "cpf"),
+            array("IdUsuario", "nome", "cpf"),
             $this->_schema
         );
 
@@ -324,5 +324,21 @@ class Autenticacao_Model_Sgcacesso extends MinC_Db_Table_Abstract
             $slct->limit($tamanho, $tmpInicio);
         }
         return $this->fetchAll($slct);
+    }
+
+    public function isUsuarioValido($idUsuario)
+    {
+
+        if (empty($idUsuario)) {
+            return false;
+        }
+
+        $usuario = $this->buscarUsuario(['IdUsuario = ?' => $idUsuario]);
+        if (count($usuario) === 0) {
+            return false;
+        }
+
+        return true;
+
     }
 }

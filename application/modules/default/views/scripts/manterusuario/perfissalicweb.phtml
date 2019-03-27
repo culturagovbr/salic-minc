@@ -1,57 +1,3 @@
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#acaoDiv").dialog({
-            title: 'Altera&ccedil;&atilde;o',
-            resizable: false,
-            width: 400,
-            height: 170,
-            modal: true,
-            autoOpen: false,
-            buttons: {
-                'N&atilde;o': function () {
-                    $("#abrir_produto").css('display', '');
-                    $("#abrir_adm").css('display', '');
-                    $("#menunovo").css('display', '');
-                    window.location.reload();
-                },
-                'Sim': function () {
-                    $("#abrir_produto").css('display', '');
-                    $("#abrir_adm").css('display', '');
-                    $("#menunovo").css('display', '');
-                    window.location = '<?php echo $this->baseUrl(); ?>/manterusuario/excluir-permissao?usuario=<?php echo $this->usu_codigo ?>&orgao=<?php echo $this->org_codigo ?>&grupo=<?php echo $this->perfil ?>';
-                }
-            }
-        });
-        $("#perfissalicweb").validate({
-            rules: {
-                usuario: "required",
-                unidade: "required",
-                perfil: "required",
-                status: "required"
-
-            },
-            messages: {
-                usuario: '<br><font color="red">Informe usuario</font>',
-                unidade: '<br><font color="red">Informe unidade</font>',
-                perfil: '<font color="red">Informe perfil</font>',
-                status: '<font color="red">Informe status</font>'
-            }
-        });
-    });
-
-
-    function replaceAll(string, token, newtoken) {
-        while (string.indexOf(token) != -1) {
-            string = string.replace(token, newtoken);
-        }
-        return string;
-    }
-
-    function carregaCampo(cpf) {
-
-    }
-</script>
-
 <div style="display:none" id="confirm">Por favor, informe seu email!</div>
 <div style="display:none" id="dialog-alert2"></div>
 <div style="display:none" id="confirmInforma">Por favor, digite seu email corretamente!</div>
@@ -97,26 +43,21 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>Usu&aacute;rio *</td>
-                    <td>
-                        <select id="usuario" name="usuario"
-                                class="select_simples" <?php echo (!empty($this->usu_codigo)) ? " readonly" : ""; ?>
-                                style="min-width: 250px;">
-                            <option value="">Selecione um usu&aacute;rio</option>
-                            <?php if (!empty ($this->usu_codigo)): ?>
-                                <option selected="selected"
-                                        value="<?php echo $this->usu_codigo; ?>"><?php echo $this->usu_nome; ?></option>
-                            <?php else: ?>
-                                <?php
-                                foreach ($this->resultadoUsuario as $resultadoUsuario) :
-                                    ?>
-                                    <option
-                                        value="<?php echo $resultadoUsuario->usu_codigo; ?>"><?php echo $resultadoUsuario->usu_nome . " - " . $resultadoUsuario->usu_identificacao; ?></option>
-                                    <?php
-                                endforeach;
-                                ?>
-                            <?php endif; ?>
-                        </select>
+                    <td colspan="2">
+                        <div class="row">
+                            <div class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">textsms</i>
+                                        <input type="text" id="autocomplete-input" autocomplete="off"
+                                               class="autocomplete"
+                                               placeholder="Digite o nome ou CPF do usu&aacute;rio">
+                                        <label for="autocomplete-input active">Buscar usuário</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="cpf" name="cpf" value=""/>
                     </td>
                 </tr>
                 <tr>
@@ -128,12 +69,13 @@
                             <option value="">Selecione uma unidade</option>
 
                             <?php foreach ($this->orgaos as $resultadoUnidade): ?>
+                                <?php $sigla = strlen($resultadoUnidade['novaSigla']) > 1 ? $resultadoUnidade['novaSigla'] : $resultadoUnidade['Sigla']; ?>
                                 <?php if ($resultadoUnidade['Codigo'] == @$_GET['unidade']): ?>
                                     <option selected="selected"
-                                            value="<?php echo $resultadoUnidade['Codigo'] ?>"><?php echo $resultadoUnidade['Sigla'] ?></option>
+                                            value="<?php echo $resultadoUnidade['Codigo'] ?>"><?php echo $sigla; ?></option>
                                 <?php else: ?>
                                     <option
-                                        value="<?php echo $resultadoUnidade['Codigo'] ?>"><?php echo $resultadoUnidade['Sigla'] ?></option>
+                                        value="<?php echo $resultadoUnidade['Codigo'] ?>"><?php echo $sigla; ?></option>
                                 <?php endif; ?>
                             <?php endforeach; ?>
                         </select>
@@ -147,7 +89,8 @@
                                    value="<?php echo $resultadoGrupo['gru_codigo'] ?>" <?php if ($resultadoGrupo['gru_codigo'] == $this->perfil) {
                                 echo 'checked="checked"';
                             } ?> />
-                            <label for="perfil_<?php echo $resultadoGrupo['gru_codigo'] ?>"><?php echo $resultadoGrupo['gru_nome'] ?></label>
+                            <label
+                                for="perfil_<?php echo $resultadoGrupo['gru_codigo'] ?>"><?php echo $resultadoGrupo['gru_nome'] ?></label>
                             <br/>
                         <?php endforeach; ?>
                     </td>
@@ -180,3 +123,123 @@
 </div>
 <div id="rodapeConteudo"><span></span></div>
 <br clear="all"/>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#acaoDiv").dialog({
+            title: 'Altera&ccedil;&atilde;o',
+            resizable: false,
+            width: 400,
+            height: 170,
+            modal: true,
+            autoOpen: false,
+            buttons: {
+                'N&atilde;o': function () {
+                    $("#abrir_produto").css('display', '');
+                    $("#abrir_adm").css('display', '');
+                    $("#menunovo").css('display', '');
+                    window.location.reload();
+                },
+                'Sim': function () {
+                    $("#abrir_produto").css('display', '');
+                    $("#abrir_adm").css('display', '');
+                    $("#menunovo").css('display', '');
+                    window.location = '<?php echo $this->baseUrl(); ?>/manterusuario/excluir-permissao?usuario=<?php echo $this->usu_codigo ?>&orgao=<?php echo $this->org_codigo ?>&grupo=<?php echo $this->perfil ?>';
+                }
+            }
+        });
+        $("#perfissalicweb").validate({
+            rules: {
+                usuario: "required",
+                unidade: "required",
+                perfil: "required",
+                status: "required"
+
+            },
+            messages: {
+                usuario: '<br><font color="red">Informe usuario</font>',
+                unidade: '<br><font color="red">Informe unidade</font>',
+                perfil: '<font color="red">Informe perfil</font>',
+                status: '<font color="red">Informe status</font>'
+            }
+        });
+
+
+    });
+
+
+    function replaceAll(string, token, newtoken) {
+        while (string.indexOf(token) != -1) {
+            string = string.replace(token, newtoken);
+        }
+        return string;
+    }
+
+    function carregaCampo(cpf) {
+
+    }
+
+    $3(document).ready(function ($) {
+
+//        $(function() {
+//            $.ajax({
+//                type: 'GET',
+//                url: 'https://restcountries.eu/rest/v2/all?fields=name',
+//                success: function(response) {
+//                    var countryArray = response;
+//                    var dataCountry = {};
+//                    for (var i = 0; i < countryArray.length; i++) {
+//                        //console.log(countryArray[i].name);
+//                        dataCountry[countryArray[i].name] = countryArray[i].flag; //countryArray[i].flag or null
+//                    }
+//                    $('input.autocomplete').autocomplete({
+//                        data: dataCountry,
+//                        limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
+//                    });
+//                }
+//            });
+//        });
+
+        $(function () {
+            $.ajax({
+                type: 'GET',
+                url: '/default/manterusuario/buscar-usuarios-ativos-ajax',
+                success: function (response) {
+                    var countryArray = response.data;
+                    var dataCountry = {};
+                    for (var i = 0; i < countryArray.length; i++) {
+                        //console.log(countryArray[i].name);
+                        dataCountry[countryArray[i].usu_nome + ' - ' + countryArray[i].usu_identificacao] = null
+                    }
+
+                    console.log(dataCountry);
+
+                    $('input.autocomplete').autocomplete({
+                        data: dataCountry,
+                        limit: 10, // The max amount of results that can be shown at once. Default: Infinity.
+                        minLength: 3,
+                        onAutocomplete: function (val) {
+                            var res = val.substr(-11, 11);
+                            $("#cpf").val(res);
+                        }
+                    });
+                }
+            });
+        });
+
+//        $('input.autocomplete').autocomplete({
+//        url: '/default/manterusuario/buscar-usuarios-ativos-ajax',
+//            data: {
+
+//                "Apple": null,
+//                "Microsoft": null,
+//                "Google": 'https://placehold.it/250x250'
+//            },
+//            limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+//            onAutocomplete: function(val) {
+//                // Callback function when value is autcompleted.
+//            },
+//            minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+//        });
+    });
+</script>

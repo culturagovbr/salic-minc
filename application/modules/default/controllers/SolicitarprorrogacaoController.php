@@ -11,7 +11,7 @@
  */
 class SolicitarprorrogacaoController extends MinC_Controller_Action_Abstract
 {
-    private $idUsuario = 0;
+    protected $idUsuario = 0;
     /**
      * Reescreve o método init()
      * @access public

@@ -1,0 +1,493 @@
+<?php echo $this->partial('inc/menu.inc.php', $this) // menu ?>
+<!-- início: navegação local #qm0 -->
+
+<!-- início: #breadcrumb -->
+<div id="breadcrumb">
+    <ul>
+        <li class="first"><a href="#" title="Início">Início</a></li>
+        <li class="second"><a href="#" title="Comprovar Execu&ccedil;&atilde;o F&iacute;sica">Comprovar Execu&ccedil;&atilde;o F&iacute;sica</a></li>
+        <li class="last">Relat&oacute;rio Final</li>
+    </ul>
+</div> <!-- final: #breadcrumb -->
+
+<!-- início: #titulo -->
+<div id="titulo">
+    <div>Relat&oacute;rio Final Consolidado<span>ID #23A</span> <span class="voltar"><a style="cursor: pointer;" onclick="history.back();">Voltar</a></span></div>
+</div>
+<!-- final: #titulo -->
+
+<!-- início: área principal #conteudo -->
+<div id="conteudo">
+
+    <form action="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/incluirexecucaofisica" method="post" id="form" name="form" class="form">
+        <table class="tabela" style="font-size: 12px; margin-top: 50px; width: 80%;">
+            <tbody>
+                <tr>
+                    <th>Pronac</th>
+                    <th>Nome do Projeto</th>
+                </tr>
+                <tr>
+                    <td align="center">900500</td>
+                    <td align="center">Reciclando um olhar</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="tabela" style="width: 80%;">
+            <tbody>
+                <tr>
+                    <th colspan="4">Relat&oacute;rio Final de Execu&ccedil;&atilde;o F&iacute;sica do Projeto</th>
+                </tr>
+                <tr>
+                    <td colspan="4">Objetivos e Metas alcan&ccedil;adas em rela&ccedil;&atilde;o ao previsto:
+                        <!-- ========== EDITOR 1 ========== -->
+                        <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/ckeditor.js"></script>
+                        <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/_samples/sample.js"></script>
+
+                        <label for="editor1"> </label>
+                        <textarea cols="80" id="editor1" name="editor1" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
+                        <script type="text/javascript">
+                            //<![CDATA[
+                            CKEDITOR.replace('editor1', {	fullPage : true });
+                            //]]>
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">Estrat&eacute;gias de A&ccedil;&atilde;o:
+                        <!-- ========== EDITOR 2 ========== -->
+                        <label for="editor2"> </label>
+                        <textarea cols="80" id="editor2" name="editor2" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
+                        <script type="text/javascript">
+                            //<![CDATA[
+                            CKEDITOR.replace('editor2', {	fullPage : true });
+                            //]]>
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">Cronograma F&iacute;sico:
+                        <!-- ========== EDITOR 3 ========== -->
+                        <label for="editor3"> </label>
+                        <textarea cols="80" id="editor3" name="editor3" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
+                        <script type="text/javascript">
+                            //<![CDATA[
+                            CKEDITOR.replace('editor3', {	fullPage : true });
+                            //]]>
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" width="25%">Lei de Incentivo Fiscal: </td>
+                    <td>
+                        <input class="input_simples" type="text"/>
+                    </td>
+                    <td align="right" width="25%">Lei de Incentivo Estadual: </td>
+                    <td>
+                        <input class="input_simples" type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" width="25%">Lei de Incentivo Municipal: </td>
+                    <td>
+                        <input class="input_simples" type="text"/>
+                    </td>
+                    <td align="right" width="25%">Recursos Pr&oacute;prios: </td>
+                    <td>
+                        <input class="input_simples" type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" width="25%">Rendimentos de Aplica&ccedil;&otilde;es Financeiras: </td>
+                    <td colspan="3">
+                        <input class="input_simples" type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">Guia de FNC:
+                        <input type="hidden" value="10485760" name="MAX_SIZE_FILE"/>
+                        <input type="file" id="arquivo" name="arquivo" class="input_simples"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <table class="tabela" style="width: 80%;">
+            <tbody>
+                <tr>
+                    <th colspan="3">Bens M&oacute;veis Adquiridos</th>
+                </tr>
+                <tr>
+                    <td align="center" colspan="3">Produto:
+                        <select class="select_simples" style="width: 150px; margin-right: 50px;" name="produto">
+                            <option value=""></option>
+                        </select>
+
+                        Etapa:
+                        <select class="select_simples" style="width: 150px;  margin-right: 50px;" name="etapa">
+                            <option value=""></option>
+                        </select>
+
+                        <input type="button" class="btn_incluir">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="80%" style="margin-top: 20px; margin-bottom: 20px;">
+                            <tr>
+                                <th>Produto</th>
+                                <th>Etapa</th>
+                            </tr>
+                            <tr>
+                                <td>Bem M&oacute;vel</td>
+                                <td>Pr&eacute;-Produ&ccedil;&atilde;o</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="tabela" style="width: 80%;">
+            <tbody>
+                <tr>
+                    <th colspan="3">Bens Im&oacute;veis Adquiridos</th>
+                </tr>
+                <tr>
+                    <td align="center" colspan="3">Im&oacute;vel:
+                        <select class="select_simples" style="width: 150px; margin-right: 50px;" name="produto">
+                            <option value=""></option>
+                        </select>
+
+                        Valor em Real:
+                        <input class="input_simples" type="text"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">Espicifica&ccedil;&atilde;o do Im&oacute;vel:
+                        <!-- ========== EDITOR 4 ========== -->
+                        <label for="editor4"> </label>
+                        <textarea cols="80" id="editor4" name="editor4" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
+                        <script type="text/javascript">
+                            //<![CDATA[
+                            CKEDITOR.replace('editor4', {	fullPage : true });
+                            //]]>
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">Nome do Cart&oacute;rio:
+                        <input class="input_simples" type="text" style="margin-left: 12px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        N&uacute;mero do Registro:
+                        <input class="input_simples" type="text" style="margin-right: 20%;"/>
+
+                        Folha:
+                        <input class="input_simples" type="text"/>
+
+                        <input type="button" class="btn_salvar" id="btn_salvar" style="margin-left: 10px;">
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="tabela" style="width: 80%;">
+            <tr>
+                <th>Destina&ccedil;&atilde;o Cultural dos Bens Adquiridos, produzidos ou contru&iacute;dos</th>
+            </tr>
+            <tr>
+                <td>Destina&ccedil;&atilde;o do Bem:
+                    <!-- ========== EDITOR 5 ========== -->
+                    <label for="editor5"> </label>
+                    <textarea cols="80" id="editor5" name="editor5" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        CKEDITOR.replace('editor5', {	fullPage : true });
+                        //]]>
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>Tem fins lucrativos: <input class="input_simples" type="text" style="margin-left: 15px;"/></td>
+            </tr>
+            <tr>
+                <td>CNPJ/CPF Favorecido: <input class="input_simples" type="text"/></td>
+            </tr>
+            <tr>
+                <td>Quem vai receber o bem ao t&eacute;rmino do projeto:
+                    <!-- ========== EDITOR 6 ========== -->
+                    <label for="editor6"> </label>
+                    <textarea cols="80" id="editor6" name="editor6" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        CKEDITOR.replace('editor6', {	fullPage : true });
+                        //]]>
+                    </script>
+                </td>
+            </tr>
+        </table>
+
+        <table class="tabela" style="width: 80%;">
+            <tr>
+                <th colspan="2">Medidas de Acessibilidade</th>
+            </tr>
+            <tr>
+                <td width="25%">Como est&aacute; atingindo a acessibilidade</td>
+                <td><input class="input_simples" type="text"/></td>
+            </tr>
+            <tr>
+                <td width="25%">Quantas pessoas atingiram</td>
+                <td><input class="input_simples" type="text"/></td>
+            </tr>
+            <tr>
+                <td width="25%">P&uacute;blico alvo</td>
+                <td><input class="input_simples" type="text"/></td>
+            </tr>
+            <tr>
+                <td width="25%">Local</td>
+                <td><input class="input_simples" type="text"/></td>
+            </tr>
+            <tr>
+                <td width="25%">Quantidade</td>
+                <td><input class="input_simples" type="text"/></td>
+            </tr>
+            <tr>
+                <td width="25%">Estrutura / Solu&ccedil;&atilde;o adotada</td>
+                <td><input class="input_simples" type="text"/></td>
+            </tr>
+        </table>
+
+        <table class="tabela" style="width: 80%;">
+            <tr>
+                <th colspan="2">Medidas de Democratiza&ccedil;&atilde;o</th>
+            </tr>
+            <tr>
+                <td width="25%">Como est&aacute; atingindo a democratiza&ccedil;&atilde;o</td>
+                <td><input class="input_simples" type="text"/></td>
+            </tr>
+            <tr>
+                <td width="25%">Quantas pessoas atingiram</td>
+                <td><input class="input_simples" type="text"/></td>
+            </tr>
+            <tr>
+                <td width="25%">P&uacute;blico alvo</td>
+                <td><input class="input_simples" type="text"/></td>
+            </tr>
+            <tr>
+                <td width="25%">Local</td>
+                <td><input class="input_simples" type="text"/></td>
+            </tr>
+            <tr>
+                <td width="25%">Quantidade</td>
+                <td><input class="input_simples" type="text"/></td>
+            </tr>
+            <tr>
+                <td width="25%">Estrutura / Solu&ccedil;&atilde;o adotada</td>
+                <td><input class="input_simples" type="text"/></td>
+            </tr>
+        </table>
+
+        <table class="tabela" style="width: 80%;">
+            <tr>
+                <th>Impacto Ambiental</th>
+            </tr>
+            <tr>
+                <td width="25%">Produto: 
+                    <input class="input_simples" type="text"/></td>
+            </tr>
+            <tr>
+                <td>Repercuss&atilde;o local, regional, nacional e internacional do projeto:
+                    <!-- ========== EDITOR 7 ========== -->
+                    <label for="editor7"> </label>
+                    <textarea cols="80" id="editor7" name="editor7" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        CKEDITOR.replace('editor7', {	fullPage : true });
+                        //]]>
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>Impacto ambiental:
+                    <!-- ========== EDITOR 8 ========== -->
+                    <label for="editor8"> </label>
+                    <textarea cols="80" id="editor8" name="editor8" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        CKEDITOR.replace('editor8', {	fullPage : true });
+                        //]]>
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>Impacto cultural:
+                    <!-- ========== EDITOR 9 ========== -->
+                    <label for="editor9"> </label>
+                    <textarea cols="80" id="editor9" name="editor9" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        CKEDITOR.replace('editor9', {	fullPage : true });
+                        //]]>
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>Impacto econ&ocirc;mico:
+                    <!-- ========== EDITOR 10 ========== -->
+                    <label for="editor10"> </label>
+                    <textarea cols="80" id="editor10" name="editor10" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        CKEDITOR.replace('editor10', {	fullPage : true });
+                        //]]>
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>Impacto social:
+                    <!-- ========== EDITOR 11 ========== -->
+                    <label for="editor11"> </label>
+                    <textarea cols="80" id="editor11" name="editor11" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        CKEDITOR.replace('editor11', {	fullPage : true });
+                        //]]>
+                    </script>
+                </td>
+            </tr>
+        </table>
+
+        <p align="center">
+            <input type="button" class="btn_salvar" id="btn_salvar">
+            <input type="button" class="btn_cancelar" id="btn_cancelar" style="margin-left: 5px;">
+        </p>
+
+        <table class="tabela" style="width: 80%;">
+            <tbody>
+                <tr>
+                    <th colspan="3">Termo de Aceita&ccedil;&atilde;o da obra</th>
+                </tr>
+                <tr>
+                    <td align="center" colspan="3">Termo:
+                        <select class="select_simples" style="width: 150px; margin-right: 50px;">
+                            <option value=""></option>
+                        </select>
+
+                        Lista de Segmento:
+                        <select class="select_simples" style="width: 150px;  margin-right: 50px;">
+                            <option value=""></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Descri&ccedil;&atilde;o do Termo:<br />
+                        <textarea rows="5" class="textarea_simples" style="width: 99%"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <input type="hidden" value="10485760" name="MAX_SIZE_FILE"/>
+                        <input type="file" id="arquivo" name="arquivo" class="input_simples"/>
+                        <input type="button" class="btn_cancelar" id="btn_cancelar" style="margin-left: 5px;">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <table width="80%" style="margin-top: 20px; margin-bottom: 20px;">
+                            <tr>
+                                <th>Documento</th>
+                                <th>Descri&ccedil;&atilde;o</th>
+                                <th>Arquivo</th>
+                                <th>Excluir</th>
+                            </tr>
+                            <tr>
+                                <td>Aceite</td>
+                                <td>Termo de Aceite da Obra</td>
+                                <td><a href="#">aceite.pdf</a></td>
+                                <td align="center"><input type="button" class="btn_exclusao" id="btn_exclusao"></td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p align="center" style="margin-top: 30px;">
+            <input type="button" class="btn_salvar" id="btn_salvar">
+            <input type="button" class="btn_confirmar" id="btn_confirmar" style="width: 88px; margin-left: 5px;">
+            <input type="button" class="btn_cancelar" id="btn_cancelar" style="margin-left: 5px;">
+        </p>
+    </form>
+<br />
+
+<div id="mostra"></div>
+
+</div><!-- final: conteúdo principal #conteudo -->
+
+<script>
+    function calendario(id){
+        //alert(id);
+        $.datepicker.regional['pt-BR'] = {
+            closeText: 'Fechar',
+            prevText: '&#x3c;Anterior',
+            nextText: 'Pr&oacute;ximo&#x3e;',
+            currentText: 'Hoje',
+            monthNames: ['Janeiro','Fevereiro','Mar&ccedil;o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+            dayNames: ['Domingo','Segunda-feira','Ter&ccedil;a-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sabado'],
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+            dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 0,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''};
+        $.datepicker.setDefaults($.datepicker.regional['pt-BR']);
+        $("#datepicker"+id).datepicker($.datepicker.regional['pt-BR']);
+    }
+
+    $('.btn_excluir').click(function(){
+        $("#mostra").dialog("destroy");
+        $('#mostra').html('Deseja realmente excluir dados?');
+        $("#mostra").dialog
+        ({
+            height: 180,
+            modal: true,
+            draggable: false,
+            resizable: false,
+            closeOnEscape: false,
+            buttons: {
+                'Não': function()
+                {
+                    $(this).dialog('close');
+                },
+                'Sim': function()
+                {
+                    //window.location.href = 'devolverpedido?id='+idAcao;
+                }
+            }
+        });
+        $('.ui-dialog-titlebar-close').remove();
+    });
+
+    $('#btn_cancelar').click(function(){
+        window.location.href = "<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica";
+    });
+
+    $('#btn_incluir').click(function(){
+        $('#form').submit();
+    });
+
+</script>
+
+
+<!-- início: detalhe final da div conteudo #rodapeConteudo -->
+<div id="rodapeConteudo"><span></span></div>
+<!-- final: detalhe final da div conteudo #rodapeConteudo -->
+
+<br clear="all" /><br /><br />

@@ -1,5 +1,11 @@
 <?php
 $this->headLink()->headLink(
+        array(
+            'rel' => 'favicon',
+            'href' => '/public/img/favicons/favicon.ico'
+        ),
+        'PREPEND'
+)->headLink(
     array(
         'rel' => 'icon',
         'type' => 'image/png',
@@ -95,4 +101,5 @@ $this->headLink()->headLink(
     ),
     'PREPEND'
 );
+
 ?>

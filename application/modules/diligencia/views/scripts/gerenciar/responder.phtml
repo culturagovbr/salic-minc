@@ -25,9 +25,10 @@
 </div> <!-- final: #breadcrumb -->
 
 <div id="titulo">
-    <div>Pagamento<span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span></div>
+    <div>Pagamento
+        <span class="voltar"><a href="javascript:voltar();" title="Ir para p&aacute;gina anterior">Voltar</a></span>
+    </div>
 </div>
-
 <div id="conteudo" align="center">
     <div>
         <table class="tabela">
@@ -105,7 +106,13 @@
                                                 foreach($tabelaItem as $key => $valor) {
                                                     $vlrImpugnado = $valor[1] - $valor[3];
                                                     $vlrTotalImpugnado = $vlrTotalImpugnado+$vlrImpugnado;
-                                                    $urlComprovarItemArray['idPlanilhaAprovacao'] = $key;
+                                                    /* $urlComprovarItemArray['idPlanilhaAprovacao'] = $key; */
+                                                    $urlComprovarItemArray['idPlanilhaAprovacao'] = $valor[11];
+                                                    $urlComprovarItemArray['idPlanilhaItens'] = $valor[6];
+                                                    $urlComprovarItemArray['uf'] = $valor[7];
+                                                    $urlComprovarItemArray['produto'] = $valor[8];
+                                                    $urlComprovarItemArray['cidade'] = $valor[9];
+                                                    $urlComprovarItemArray['etapa'] = $valor[10];
                                                     $html .= '<tr>';
                                                     if ($this->vrSituacao) :
                                                         $html .= "<td>{$valor[0]}</td>";
@@ -151,9 +158,9 @@
                                 foreach($item as $titulo => $subItem) {
                                     $html .= '<div style="margin-left: 15px;">';
                                     $html .= "<span>{$titulo}</span>";
+                                            /* xd($subItem); */
                                     if(is_array($subItem)) {
                                         foreach($subItem as $titulo => $tabelaItem) {
-                                            #xd($tabelaItem);
                                             $html .= '<div style="margin-left: 15px;">';
                                             $html .= "<span>{$titulo}</span>";
                                             if(is_array($tabelaItem)) {
@@ -163,13 +170,18 @@
                                                 $html .= '<th>Valor Aprovado</th>';
                                                 $html .= '<th>Valor Comprovado</th>';
                                                 $html .= '<th>Valor a Comprovar</th>';
-                                                $html .= '<th>Modalidade Vinculada</th>';
+                                                /* $html .= '<th>Modalidade Vinculada</th>'; */
                                                 $html .= '</tr>';
                                                 foreach($tabelaItem as $key=>$valor) {
-                                                    #xd($valor);
                                                     $vlrImpugnado = $valor[1] - $valor[3];
                                                     $vlrTotalImpugnado = $vlrTotalImpugnado+$vlrImpugnado;
-                                                    $urlComprovarItemArray['idPlanilhaAprovacao'] = $key;
+                                                    $urlComprovarItemArray['idPlanilhaAprovacao'] = $valor[11];
+                                                    $urlComprovarItemArray['idPlanilhaItens'] = $valor[6];
+                                                    $urlComprovarItemArray['uf'] = $valor[7];
+                                                    $urlComprovarItemArray['produto'] = $valor[8];
+                                                    $urlComprovarItemArray['cidade'] = $valor[9];
+                                                    $urlComprovarItemArray['etapa'] = $valor[10];
+
                                                     $html .= '<tr>';
                                                     if ($this->vrSituacao) :
                                                         $html .= "<td>{$valor[0]}</td>";
@@ -179,7 +191,7 @@
                                                     $html .= "<td align='right'>{$this->formatarReal($valor[1])}</td>";
                                                     $html .= "<td align='right'>{$this->formatarReal($valor[3])}</td>";
                                                     $html .= "<td align='right'>{$this->formatarReal($vlrImpugnado)}</td>";
-                                                    $html .= "<td align='right'>{$valor[4]}</td>";
+                                                    /* $html .= "<td align='right'>{$valor[4]}</td>"; */
                                                     $html .= '</tr>';
                                                 }
                                                 $html .= '</table>';

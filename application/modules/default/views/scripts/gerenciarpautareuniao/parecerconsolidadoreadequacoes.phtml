@@ -54,7 +54,7 @@
     <?php if($this->dados->idTipoReadequacao == 2){ ?>
         <?php /***** CARREGA VALOR ENTRE AS PLANILHAS ATIVA E READEQUADA *****/ ?>
         <script type="text/javascript">
-            jqAjaxLinkSemLoading('<?php echo $this->Url(array('controller' => 'readequacoes', 'action' => 'carregar-valor-entre-planilhas'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>', '', 'valorEntrePlanilhas');
+            jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'carregar-valor-entre-planilhas'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>', '', 'valorEntrePlanilhas');
         </script>
         <table class="tabela">
             <tr>
@@ -76,7 +76,7 @@
     <?php if($this->dados->idTipoReadequacao == 9){ ?>
         <?php /***** CARREGA LOCAIS DE REALIZA플O *****/ ?>
         <script type="text/javascript"> 
-            jqAjaxLinkSemLoading('<?php echo $this->Url(array('controller' => 'readequacoes', 'action' => 'carregar-locais-de-realizacao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>&idReadequacao=<?php echo $this->dados->idReadequacao; ?>', '', 'locaisParaRealizacao');
+            jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'local-realizacao', 'action' => 'carregar-locais-de-realizacao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>&idReadequacao=<?php echo $this->dados->idReadequacao; ?>', '', 'locaisParaRealizacao');
         </script>
         <div id="locaisParaRealizacao"></div>
         <?php /****** FIM LOCAIS DE REALIZA플O ******/ ?>
@@ -85,7 +85,7 @@
     <?php if($this->dados->idTipoReadequacao == 11){ ?>
         <?php /***** CARREGA PLANOS DE DISTRIBUI플O *****/ ?>
         <script type="text/javascript">
-            jqAjaxLinkSemLoading('<?php echo $this->Url(array('controller' => 'readequacoes', 'action' => 'carregar-planos-de-distribuicao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>&idReadequacao=<?php echo $this->dados->idReadequacao; ?>', '', 'planosDistribuicao');
+            jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'plano-distribuicao', 'action' => 'carregar-planos-de-distribuicao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>&idReadequacao=<?php echo $this->dados->idReadequacao; ?>', '', 'planosDistribuicao');
         </script>
         <div id="planosDistribuicao"></div>
         <?php /****** FIM CARREGA PLANOS DE DISTRIBUI플O ******/ ?>
@@ -94,7 +94,7 @@
     <?php if($this->dados->idTipoReadequacao == 14){ ?>
         <?php /***** CARREGA PLANOS DE DIVULGA플O *****/ ?>
         <script type="text/javascript">
-            jqAjaxLinkSemLoading('<?php echo $this->Url(array('controller' => 'readequacoes', 'action' => 'carregar-planos-de-divulgacao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>&idReadequacao=<?php echo $this->dados->idReadequacao; ?>', '', 'planosDivulgacao');
+            jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'carregar-planos-de-divulgacao-readequacoes'), '', true) ?>?idPronac=<?php echo $this->dados->idPronac; ?>&idReadequacao=<?php echo $this->dados->idReadequacao; ?>', '', 'planosDivulgacao');
         </script>
         <div id="planosDivulgacao"></div>
         <?php /****** FIM CARREGA PLANOS DE DIVULGA플O ******/ ?>

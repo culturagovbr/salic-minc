@@ -22,25 +22,25 @@ class TbReadequacaoModelTest extends MinC_Test_ModelTestCase
 
     private function getIdPronacReadequacao()
     {
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        return $Readequacao_Model_tbReadequacao->buscarIdPronacReadequacaoEmAndamento(Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        return $Readequacao_Model_DbTable_TbReadequacao->buscarIdPronacReadequacaoEmAndamento(Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
     }
     
     public function testExisteReadequacaoEmAndamento()
     {
         $this->idPronac = $this->getIdPronacReadequacao();
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $existeReadequacaoEmAndamento = $Readequacao_Model_tbReadequacao->existeReadequacaoEmAndamento($this->idPronac);
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $existeReadequacaoEmAndamento = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoEmAndamento($this->idPronac);
         $this->assertTrue($existeReadequacaoEmAndamento);
     }
 
     public function testExisteReadequacaoParcialEmAndamento()
     {
         $this->idPronac = $this->getIdPronacReadequacao();
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $existeReadequacaoEmAndamento = $Readequacao_Model_tbReadequacao->existeReadequacaoEmAndamento(
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $existeReadequacaoEmAndamento = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoEmAndamento(
             $this->idPronac,
-               Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL
+               Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL
         );
         
         $this->assertFalse($existeReadequacaoEmAndamento);
@@ -49,8 +49,8 @@ class TbReadequacaoModelTest extends MinC_Test_ModelTestCase
     public function testExisteReadequacaoPlanilhaEmEdicao()
     {
         $this->idPronac = $this->getIdPronacReadequacao();
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $existeReadequacaoPlanilhaEmEdicao = $Readequacao_Model_tbReadequacao->existeReadequacaoPlanilhaEmEdicao($this->idPronac);
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $existeReadequacaoPlanilhaEmEdicao = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoPlanilhaEmEdicao($this->idPronac);
         
         $this->assertTrue($existeReadequacaoPlanilhaEmEdicao);
     }
@@ -58,8 +58,8 @@ class TbReadequacaoModelTest extends MinC_Test_ModelTestCase
     public function testExisteReadequacaoParcialEmEdicao()
     {
         $this->idPronac = $this->getIdPronacReadequacao();
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $existeReadequacaoParcialEmEdicao = $Readequacao_Model_tbReadequacao->existeReadequacaoParcialEmEdicao($this->idPronac);
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $existeReadequacaoParcialEmEdicao = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoParcialEmEdicao($this->idPronac);
         
         $this->assertFalse($existeReadequacaoParcialEmEdicao);
     }
@@ -67,10 +67,10 @@ class TbReadequacaoModelTest extends MinC_Test_ModelTestCase
     public function testExisteReadequacaoPlanilhaEmAndamento()
     {
         $this->idPronac = $this->getIdPronacReadequacao();
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $existeReadequacaoEmAndamento = $Readequacao_Model_tbReadequacao->existeReadequacaoEmAndamento(
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $existeReadequacaoEmAndamento = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoEmAndamento(
             $this->idPronac,
-               Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA
+               Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA
         );
         
         $this->assertTrue($existeReadequacaoEmAndamento);
@@ -79,8 +79,8 @@ class TbReadequacaoModelTest extends MinC_Test_ModelTestCase
     public function testDisponivelParaEdicaoReadequacaoPlanilha()
     {
         $this->idPronac = $this->getIdPronacReadequacao();
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $disponivelParaEdicaoReadequacaoPlanilha = $Readequacao_Model_tbReadequacao->disponivelParaEdicaoReadequacaoPlanilha($this->idPronac);
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $disponivelParaEdicaoReadequacaoPlanilha = $Readequacao_Model_DbTable_TbReadequacao->disponivelParaEdicaoReadequacaoPlanilha($this->idPronac);
         
         $this->assertTrue($disponivelParaEdicaoReadequacaoPlanilha);
     }
@@ -88,8 +88,8 @@ class TbReadequacaoModelTest extends MinC_Test_ModelTestCase
     public function testDisponivelParaAdicaoItensReadequacaoPlanilha()
     {
         $this->idPronac = $this->getIdPronacReadequacao();
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $disponivelParaAdicaoItensReadequacaoPlanilha = $Readequacao_Model_tbReadequacao->disponivelParaAdicaoItensReadequacaoPlanilha($this->idPronac);
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $disponivelParaAdicaoItensReadequacaoPlanilha = $Readequacao_Model_DbTable_TbReadequacao->disponivelParaAdicaoItensReadequacaoPlanilha($this->idPronac);
         
         $this->assertTrue($disponivelParaAdicaoItensReadequacaoPlanilha);
     }
@@ -97,8 +97,8 @@ class TbReadequacaoModelTest extends MinC_Test_ModelTestCase
     public function testBuscarIdReadequacaoAtiva()
     {
         $this->idPronac = $this->getIdPronacReadequacao();
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $result = $Readequacao_Model_tbReadequacao->buscarIdReadequacaoAtiva($this->idPronac, Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $result = $Readequacao_Model_DbTable_TbReadequacao->buscarIdReadequacaoAtiva($this->idPronac, Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
         
         $this->assertNotEmpty($result);
     }
@@ -106,8 +106,8 @@ class TbReadequacaoModelTest extends MinC_Test_ModelTestCase
     public function testBuscarIdPronacReadequacaoEmAndamento()
     {
         $this->idPronac = $this->getIdPronacReadequacao();
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $idPronac = $Readequacao_Model_tbReadequacao->buscarIdPronacReadequacaoEmAndamento(Readequacao_Model_tbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $idPronac = $Readequacao_Model_DbTable_TbReadequacao->buscarIdPronacReadequacaoEmAndamento(Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA);
         
         $this->assertNotEmpty($idPronac);
     }
@@ -115,16 +115,16 @@ class TbReadequacaoModelTest extends MinC_Test_ModelTestCase
     public function testExisteRemanejamento50EmAndamento()
     {
         $this->idPronac = $this->getIdPronacRemanejamento();
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $existeRemanejamento50EmAndamento = $Readequacao_Model_tbReadequacao->existeRemanejamento50EmAndamento($this->idPronac);
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $existeRemanejamento50EmAndamento = $Readequacao_Model_DbTable_TbReadequacao->existeRemanejamento50EmAndamento($this->idPronac);
         $this->assertFalse($existeRemanejamento50EmAndamento);
     }
 
     public function testDisponivelParaEdicaoRemanejamentoPlanilha()
     {
         $this->idPronac = $this->getIdPronacRemanejamento();
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $existeRemanejamento50EmAndamento = $Readequacao_Model_tbReadequacao->disponivelParaEdicaoRemanejamentoPlanilha($this->idPronac);
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $existeRemanejamento50EmAndamento = $Readequacao_Model_DbTable_TbReadequacao->disponivelParaEdicaoRemanejamentoPlanilha($this->idPronac);
         $this->assertFalse($existeRemanejamento50EmAndamento);
     }
 }

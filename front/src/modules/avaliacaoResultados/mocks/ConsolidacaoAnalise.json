@@ -1,0 +1,839 @@
+{
+    "consolidacaoPorProduto": {
+        "lines": [
+            {
+                "dsProduto": "Administra&ccedil;&atilde;o do Projeto",
+                "qtComprovantes": "44",
+                "vlComprovado": "69.829,79",
+                "PercComprovado": "27,35"
+            },
+            {
+                "dsProduto": "DVD",
+                "qtComprovantes": "3",
+                "vlComprovado": "12.820,00",
+                "PercComprovado": "5,02"
+            },
+            {
+                "dsProduto": "Apresentação Musical",
+                "qtComprovantes": "174",
+                "vlComprovado": "166.643,36",
+                "PercComprovado": "65,28"
+            },
+            {
+                "dsProduto": "Periódico",
+                "qtComprovantes": "1",
+                "vlComprovado": "5.980,80",
+                "PercComprovado": "2,34"
+            }
+        ],
+        "cols": {
+            "dsProduto": {
+                "name": "Produto",
+                "class": ""
+            },
+            "qtComprovantes": {
+                "name": "Qtde. Comprovantes",
+                "class": "right-align"
+            },
+            "vlComprovado": {
+                "name": "Valor Comprovado",
+                "class": "right-align"
+            },
+            "PercComprovado": {
+                "name": "% Comprovado",
+                "class": "right-align"
+            }
+        },
+        "title": "COMPROVAÇÃO CONSOLIDADA POR PRODUTO",
+        "tfoot": {
+            "qtComprovantes": 222,
+            "vlComprovado": "255.273,95",
+            "dsProduto": "Total"
+        }
+    },
+    "consolidadoPorEtapa": {
+        "lines": [
+            {
+                "Descricao": "Pré-Produção",
+                "qtComprovantes": "12",
+                "vlComprovado": "20.189,05",
+                "PercComprovado": "7,91"
+            },
+            {
+                "Descricao": "Produção",
+                "qtComprovantes": "157",
+                "vlComprovado": "162.996,11",
+                "PercComprovado": "63,85"
+            },
+            {
+                "Descricao": "Divulgação / Comercialização",
+                "qtComprovantes": "9",
+                "vlComprovado": "2.259,00",
+                "PercComprovado": "0,88"
+            },
+            {
+                "Descricao": "Recolhimentos",
+                "qtComprovantes": "15",
+                "vlComprovado": "60.429,54",
+                "PercComprovado": "23,67"
+            },
+            {
+                "Descricao": "Custos / Administrativos",
+                "qtComprovantes": "29",
+                "vlComprovado": "9.400,25",
+                "PercComprovado": "3,68"
+            }
+        ],
+        "cols": {
+            "Descricao": {
+                "name": "Etapa",
+                "class": "left-align"
+            },
+            "qtComprovantes": {
+                "name": "Qtde. Comprovantes",
+                "class": "right-align"
+            },
+            "vlComprovado": {
+                "name": "Valor Comprovado",
+                "class": "right-align"
+            },
+            "PercComprovado": {
+                "name": "% Comprovado",
+                "class": "right-align"
+            }
+        },
+        "title": "COMPROVAÇÃO CONSOLIDADA POR ETAPA",
+        "tfoot": {
+            "qtComprovantes": 222,
+            "vlComprovado": "255.273,95",
+            "Descricao": "Total"
+        }
+    },
+    "maioresItensComprovados": {
+        "lines": [
+            {
+                "Descricao": "Instrutor",
+                "qtComprovantes": "99",
+                "vlComprovado": "55.476,40",
+                "PercComprovado": "21,73"
+            },
+            {
+                "Descricao": "INSS",
+                "qtComprovantes": "8",
+                "vlComprovado": "49.810,54",
+                "PercComprovado": "19,51"
+            },
+            {
+                "Descricao": "Coordenação geral",
+                "qtComprovantes": "10",
+                "vlComprovado": "28.079,03",
+                "PercComprovado": "11,00"
+            },
+            {
+                "Descricao": "Coordenador Administrativo",
+                "qtComprovantes": "9",
+                "vlComprovado": "18.600,03",
+                "PercComprovado": "7,29"
+            },
+            {
+                "Descricao": "Professor",
+                "qtComprovantes": "13",
+                "vlComprovado": "18.400,00",
+                "PercComprovado": "7,21"
+            },
+            {
+                "Descricao": "Coordenador do Projeto",
+                "qtComprovantes": "6",
+                "vlComprovado": "12.000,00",
+                "PercComprovado": "4,70"
+            },
+            {
+                "Descricao": "Prensagem",
+                "qtComprovantes": "2",
+                "vlComprovado": "12.000,00",
+                "PercComprovado": "4,70"
+            },
+            {
+                "Descricao": "Hospedagem sem Alimentação",
+                "qtComprovantes": "7",
+                "vlComprovado": "10.830,00",
+                "PercComprovado": "4,24"
+            },
+            {
+                "Descricao": "FGTS",
+                "qtComprovantes": "7",
+                "vlComprovado": "10.619,00",
+                "PercComprovado": "4,16"
+            },
+            {
+                "Descricao": "Secretária",
+                "qtComprovantes": "10",
+                "vlComprovado": "8.853,33",
+                "PercComprovado": "3,47"
+            },
+            {
+                "Descricao": "Impressão",
+                "qtComprovantes": "1",
+                "vlComprovado": "5.980,80",
+                "PercComprovado": "2,34"
+            },
+            {
+                "Descricao": "Material de consumo",
+                "qtComprovantes": "19",
+                "vlComprovado": "5.150,56",
+                "PercComprovado": "2,02"
+            },
+            {
+                "Descricao": "Fotografia Artística (Fotógrafo, Tratamento, Revelação, etc.)",
+                "qtComprovantes": "1",
+                "vlComprovado": "3.000,00",
+                "PercComprovado": "1,18"
+            },
+            {
+                "Descricao": "Serviço de limpeza",
+                "qtComprovantes": "6",
+                "vlComprovado": "2.786,52",
+                "PercComprovado": "1,09"
+            },
+            {
+                "Descricao": "Passagens terrestres",
+                "qtComprovantes": "1",
+                "vlComprovado": "1.939,05",
+                "PercComprovado": "0,76"
+            },
+            {
+                "Descricao": "Refeição",
+                "qtComprovantes": "1",
+                "vlComprovado": "1.920,00",
+                "PercComprovado": "0,75"
+            },
+            {
+                "Descricao": "Contador",
+                "qtComprovantes": "2",
+                "vlComprovado": "1.512,00",
+                "PercComprovado": "0,59"
+            },
+            {
+                "Descricao": "Sonorização",
+                "qtComprovantes": "1",
+                "vlComprovado": "1.500,00",
+                "PercComprovado": "0,59"
+            },
+            {
+                "Descricao": "Energia Elétrica",
+                "qtComprovantes": "1",
+                "vlComprovado": "1.142,49",
+                "PercComprovado": "0,45"
+            },
+            {
+                "Descricao": "Outdoors",
+                "qtComprovantes": "3",
+                "vlComprovado": "1.039,00",
+                "PercComprovado": "0,41"
+            },
+            {
+                "Descricao": "Assessoria de Comunicação",
+                "qtComprovantes": "1",
+                "vlComprovado": "1.000,00",
+                "PercComprovado": "0,39"
+            },
+            {
+                "Descricao": "Arranjador",
+                "qtComprovantes": "1",
+                "vlComprovado": "1.000,00",
+                "PercComprovado": "0,39"
+            },
+            {
+                "Descricao": "Capa de CD/DVD/Rótulo de CD/DVD/Adesivo de CD\r\n",
+                "qtComprovantes": "1",
+                "vlComprovado": "820,00",
+                "PercComprovado": "0,32"
+            },
+            {
+                "Descricao": "Folders",
+                "qtComprovantes": "1",
+                "vlComprovado": "600,00",
+                "PercComprovado": "0,24"
+            },
+            {
+                "Descricao": "Confecção de Convites",
+                "qtComprovantes": "3",
+                "vlComprovado": "375,00",
+                "PercComprovado": "0,15"
+            },
+            {
+                "Descricao": "Segurança",
+                "qtComprovantes": "3",
+                "vlComprovado": "330,00",
+                "PercComprovado": "0,13"
+            },
+            {
+                "Descricao": "Telefone",
+                "qtComprovantes": "2",
+                "vlComprovado": "250,40",
+                "PercComprovado": "0,10"
+            },
+            {
+                "Descricao": "Banner/faixa adesiva/faixa de lona/saia de palco/testeira/pórtico\r\n",
+                "qtComprovantes": "2",
+                "vlComprovado": "245,00",
+                "PercComprovado": "0,10"
+            },
+            {
+                "Descricao": "Água",
+                "qtComprovantes": "1",
+                "vlComprovado": "14,80",
+                "PercComprovado": "0,01"
+            }
+        ],
+        "cols": {
+            "Descricao": {
+                "name": "Item Orçamentario"
+            },
+            "qtComprovantes": {
+                "name": "Qtde. Comprovantes",
+                "class": "right-align"
+            },
+            "vlComprovado": {
+                "name": "Valor Comprovado",
+                "class": "right-align"
+            },
+            "PercComprovado": {
+                "name": "% Comprovado",
+                "class": "right-align"
+            }
+        },
+        "title": "MAIORES ITENS ORÇAMENTARIOS COMPROVADOS",
+        "tfoot": {
+            "qtComprovantes": 222,
+            "vlComprovado": "255.273,95",
+            "Descricao": "Total"
+        }
+    },
+    "comprovacaoConsolidadaUfMunicipio": {
+        "lines": [
+            {
+                "UF": "MT",
+                "qtComprovantes": "6",
+                "Municipio": "Cuiabá",
+                "vlComprovado": "12.070,00",
+                "PercComprovado": "4,73"
+            },
+            {
+                "UF": "MT",
+                "qtComprovantes": "211",
+                "Municipio": "Nova Mutum",
+                "vlComprovado": "223.403,15",
+                "PercComprovado": "87,52"
+            },
+            {
+                "UF": "RJ",
+                "qtComprovantes": "1",
+                "Municipio": "Rio de Janeiro",
+                "vlComprovado": "1.000,00",
+                "PercComprovado": "0,39"
+            },
+            {
+                "UF": "SP",
+                "qtComprovantes": "4",
+                "Municipio": "São Paulo",
+                "vlComprovado": "18.800,80",
+                "PercComprovado": "7,36"
+            }
+        ],
+        "cols": {
+            "UF": {
+                "name": "UF"
+            },
+            "qtComprovantes": {
+                "name": "Qtde. Comprovantes",
+                "class": "right-align"
+            },
+            "Municipio": {
+                "name": "Municipio",
+                "class": "center-align"
+            },
+            "vlComprovado": {
+                "name": "Valor Comprovado",
+                "class": "right-align"
+            },
+            "PercComprovado": {
+                "name": "% Comprovado",
+                "class": "right-align"
+            }
+        },
+        "title": "COMPROVAÇÃO CONSOLIDADA POR UF E MUNICIPIO",
+        "tfoot": {
+            "qtComprovantes": 222,
+            "vlComprovado": "255.273,95",
+            "UF": "Total"
+        }
+    },
+    "maioresComprovacaoTipoDocumento": {
+        "lines": [
+            {
+                "tpDocumento": "RPA",
+                "nrComprovante": "1",
+                "nmFornecedor": "Edmar de Souza Nascimento",
+                "qtComprovacoes": "2",
+                "vlComprovado": "9.691,91",
+                "PercComprovado": "3,80"
+            },
+            {
+                "tpDocumento": "Nota Fiscal/Fatura",
+                "nrComprovante": "12",
+                "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
+                "qtComprovacoes": "1",
+                "vlComprovado": "7.489,43",
+                "PercComprovado": "2,93"
+            },
+            {
+                "tpDocumento": "RPA",
+                "nrComprovante": "2",
+                "nmFornecedor": "Diovana da Rosa Azeredo",
+                "qtComprovacoes": "2",
+                "vlComprovado": "7.327,48",
+                "PercComprovado": "2,87"
+            },
+            {
+                "tpDocumento": "Nota Fiscal/Fatura",
+                "nrComprovante": "01",
+                "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
+                "qtComprovacoes": "1",
+                "vlComprovado": "7.090,48",
+                "PercComprovado": "2,78"
+            },
+            {
+                "tpDocumento": "Recibo de Pagamento",
+                "nrComprovante": "129",
+                "nmFornecedor": "Mafra Serviços de Formaturas Fotos e Vídeos Ltda ME",
+                "qtComprovacoes": "1",
+                "vlComprovado": "6.824,00",
+                "PercComprovado": "2,67"
+            },
+            {
+                "tpDocumento": "Nota Fiscal/Fatura",
+                "nrComprovante": "09",
+                "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
+                "qtComprovacoes": "1",
+                "vlComprovado": "6.306,20",
+                "PercComprovado": "2,47"
+            },
+            {
+                "tpDocumento": "Nota Fiscal/Fatura",
+                "nrComprovante": "08",
+                "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
+                "qtComprovacoes": "1",
+                "vlComprovado": "6.306,20",
+                "PercComprovado": "2,47"
+            },
+            {
+                "tpDocumento": "Nota Fiscal/Fatura",
+                "nrComprovante": "10",
+                "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
+                "qtComprovacoes": "1",
+                "vlComprovado": "6.197,95",
+                "PercComprovado": "2,43"
+            },
+            {
+                "tpDocumento": "Nota Fiscal/Fatura",
+                "nrComprovante": "13",
+                "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
+                "qtComprovacoes": "1",
+                "vlComprovado": "6.127,04",
+                "PercComprovado": "2,40"
+            },
+            {
+                "tpDocumento": "Recibo de Pagamento",
+                "nrComprovante": "70",
+                "nmFornecedor": "Fernando Marcos Pereira",
+                "qtComprovacoes": "1",
+                "vlComprovado": "6.000,00",
+                "PercComprovado": "2,35"
+            }
+        ],
+        "cols": {
+            "tpDocumento": {
+                "name": "Tipo Documento"
+            },
+            "nrComprovante": {
+                "name": "Nr. Comprovante"
+            },
+            "nmFornecedor": {
+                "name": "Fornecedor"
+            },
+            "qtComprovacoes": {
+                "name": "Qtde. Comprovantes",
+                "class": "right-align"
+            },
+            "vlComprovado": {
+                "name": "Valor Comprovado",
+                "class": "right-align"
+            },
+            "PercComprovado": {
+                "name": "% Comprovado",
+                "class": "right-align"
+            }
+        },
+        "title": "MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS COMPROBATÓRIOS",
+        "tfoot": {
+            "qtComprovacoes": "12",
+            "vlComprovado": "69.360,69",
+            "tpDocumento": "Total"
+        }
+    },
+    "comprovacaoTipoDocumentoPagamento": {
+        "lines": [
+            {
+                "tpFormaDePagamento": "Transferencia Bancária",
+                "nrDocumentoDePagamento": "044067",
+                "nmFornecedor": "Edmar de Souza Nascimento",
+                "qtComprovacoes": "9",
+                "vlComprovado": "29.584,71",
+                "PercComprovado": "11,59"
+            },
+            {
+                "tpFormaDePagamento": "Transferencia Bancária",
+                "nrDocumentoDePagamento": "044067",
+                "nmFornecedor": "L. M. Organização Hoteleira Ltda",
+                "qtComprovacoes": "5",
+                "vlComprovado": "10.150,00",
+                "PercComprovado": "3,98"
+            },
+            {
+                "tpFormaDePagamento": "Transferencia Bancária",
+                "nrDocumentoDePagamento": "044067",
+                "nmFornecedor": "Murilo Alves Pereira",
+                "qtComprovacoes": "5",
+                "vlComprovado": "10.000,00",
+                "PercComprovado": "3,92"
+            },
+            {
+                "tpFormaDePagamento": "Transferencia Bancária",
+                "nrDocumentoDePagamento": "121815",
+                "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
+                "qtComprovacoes": "1",
+                "vlComprovado": "7.489,43",
+                "PercComprovado": "2,93"
+            },
+            {
+                "tpFormaDePagamento": "Transferencia Bancária",
+                "nrDocumentoDePagamento": "020208",
+                "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
+                "qtComprovacoes": "1",
+                "vlComprovado": "7.090,48",
+                "PercComprovado": "2,78"
+            },
+            {
+                "tpFormaDePagamento": "Transferencia Bancária",
+                "nrDocumentoDePagamento": "121601",
+                "nmFornecedor": "Mafra Serviços de Formaturas Fotos e Vídeos Ltda ME",
+                "qtComprovacoes": "1",
+                "vlComprovado": "6.824,00",
+                "PercComprovado": "2,67"
+            },
+            {
+                "tpFormaDePagamento": "Transferencia Bancária",
+                "nrDocumentoDePagamento": "090902",
+                "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
+                "qtComprovacoes": "1",
+                "vlComprovado": "6.306,20",
+                "PercComprovado": "2,47"
+            },
+            {
+                "tpFormaDePagamento": "Transferencia Bancária",
+                "nrDocumentoDePagamento": "093007",
+                "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
+                "qtComprovacoes": "1",
+                "vlComprovado": "6.306,20",
+                "PercComprovado": "2,47"
+            },
+            {
+                "tpFormaDePagamento": "Transferencia Bancária",
+                "nrDocumentoDePagamento": "103108",
+                "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
+                "qtComprovacoes": "1",
+                "vlComprovado": "6.197,95",
+                "PercComprovado": "2,43"
+            },
+            {
+                "tpFormaDePagamento": "Transferencia Bancária",
+                "nrDocumentoDePagamento": "121603",
+                "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
+                "qtComprovacoes": "1",
+                "vlComprovado": "6.127,04",
+                "PercComprovado": "2,40"
+            }
+        ],
+        "cols": {
+            "tpFormaDePagamento": {
+                "name": "Tipo Documento"
+            },
+            "nrDocumentoDePagamento": {
+                "name": "Nr. Comprovante"
+            },
+            "nmFornecedor": {
+                "name": "Fonecedor"
+            },
+            "qtComprovacoes": {
+                "name": "Qtde. Comprovantes",
+                "class": "right-align"
+            },
+            "vlComprovado": {
+                "name": "Valor Comprovado",
+                "class": "right-align"
+            },
+            "PercComprovado": {
+                "name": "% Comprovado",
+                "class": "right-align"
+            }
+        },
+        "title": "MAIORES COMPROVAÇÕES POR TIPO DE DOCUMENTOS DE PAGAMENTO",
+        "tfoot": {
+            "qtComprovacoes": 26,
+            "vlComprovado": "96.076,01",
+            "tpFormaDePagamento": "Total"
+        }
+    },
+    "maioresFornecedoresProjeto": {
+        "lines": [
+            {
+                "nrCNPJCPF": "16.727.230/0001-97",
+                "nmFornecedor": "INSTITUTO NACIONAL DO SEGURO SOCIAL - INSS",
+                "qtComprovacoes": "8",
+                "vlComprovado": "49.810,54",
+                "PercComprovado": "19,51"
+            },
+            {
+                "nrCNPJCPF": "593.450.471-15",
+                "nmFornecedor": "Edmar de Souza Nascimento",
+                "qtComprovacoes": "11",
+                "vlComprovado": "29.999,03",
+                "PercComprovado": "11,75"
+            },
+            {
+                "nrCNPJCPF": "482.235.141-68",
+                "nmFornecedor": "Diovana da Rosa Azeredo",
+                "qtComprovacoes": "9",
+                "vlComprovado": "18.600,03",
+                "PercComprovado": "7,29"
+            },
+            {
+                "nrCNPJCPF": "10.653.045/0001-19",
+                "nmFornecedor": "Mafra Serviços de Formaturas Fotos e Vídeos Ltda ME",
+                "qtComprovacoes": "3",
+                "vlComprovado": "12.820,00",
+                "PercComprovado": "5,02"
+            },
+            {
+                "nrCNPJCPF": "819.324.641-15",
+                "nmFornecedor": "Murilo Alves Pereira",
+                "qtComprovacoes": "6",
+                "vlComprovado": "12.000,00",
+                "PercComprovado": "4,70"
+            },
+            {
+                "nrCNPJCPF": "00.360.305/0001-04",
+                "nmFornecedor": "Caixa Econômica Federal",
+                "qtComprovacoes": "7",
+                "vlComprovado": "10.619,00",
+                "PercComprovado": "4,16"
+            },
+            {
+                "nrCNPJCPF": "040.781.251-23",
+                "nmFornecedor": "Eginaldo da Silva Almeida",
+                "qtComprovacoes": "9",
+                "vlComprovado": "10.183,34",
+                "PercComprovado": "3,99"
+            },
+            {
+                "nrCNPJCPF": "03.372.237/0003-53",
+                "nmFornecedor": "L. M. Organização Hoteleira Ltda",
+                "qtComprovacoes": "5",
+                "vlComprovado": "10.150,00",
+                "PercComprovado": "3,98"
+            },
+            {
+                "nrCNPJCPF": "001.396.711-88",
+                "nmFornecedor": "Denize Vitalli",
+                "qtComprovacoes": "10",
+                "vlComprovado": "8.853,33",
+                "PercComprovado": "3,47"
+            },
+            {
+                "nrCNPJCPF": "298.203.288-02",
+                "nmFornecedor": "Fernando Marcos Pereira",
+                "qtComprovacoes": "1",
+                "vlComprovado": "6.000,00",
+                "PercComprovado": "2,35"
+            },
+            {
+                "nrCNPJCPF": "73.783.649/0001-08",
+                "nmFornecedor": "Gráfica Print Industria e Editora Ltda ME",
+                "qtComprovacoes": "1",
+                "vlComprovado": "5.980,80",
+                "PercComprovado": "2,34"
+            },
+            {
+                "nrCNPJCPF": "055.685.201-00",
+                "nmFornecedor": "Jonas Gomes de Souza Rosa",
+                "qtComprovacoes": "10",
+                "vlComprovado": "5.622,64",
+                "PercComprovado": "2,20"
+            },
+            {
+                "nrCNPJCPF": "045.898.471-08",
+                "nmFornecedor": "Marcos Rogério Gomes dos Santos",
+                "qtComprovacoes": "10",
+                "vlComprovado": "5.622,64",
+                "PercComprovado": "2,20"
+            },
+            {
+                "nrCNPJCPF": "057.108.211-44",
+                "nmFornecedor": "Mariane Azevedo de Souza",
+                "qtComprovacoes": "10",
+                "vlComprovado": "5.622,64",
+                "PercComprovado": "2,20"
+            },
+            {
+                "nrCNPJCPF": "029.347.661-60",
+                "nmFornecedor": "Reginaldo dos Santos Generoso",
+                "qtComprovacoes": "10",
+                "vlComprovado": "5.622,64",
+                "PercComprovado": "2,20"
+            },
+            {
+                "nrCNPJCPF": "059.300.981-90",
+                "nmFornecedor": "José Vinicius Macedo Treib",
+                "qtComprovacoes": "10",
+                "vlComprovado": "5.567,14",
+                "PercComprovado": "2,18"
+            },
+            {
+                "nrCNPJCPF": "050.899.311-35",
+                "nmFornecedor": "Luiz Pedro Conrado dos Santos",
+                "qtComprovacoes": "10",
+                "vlComprovado": "5.567,14",
+                "PercComprovado": "2,18"
+            },
+            {
+                "nrCNPJCPF": "055.525.721-57",
+                "nmFornecedor": "Eleilson Silva de Almeida",
+                "qtComprovacoes": "10",
+                "vlComprovado": "5.285,06",
+                "PercComprovado": "2,07"
+            },
+            {
+                "nrCNPJCPF": "722.585.001-68",
+                "nmFornecedor": "Jessica Gubert Silva Sauer",
+                "qtComprovacoes": "4",
+                "vlComprovado": "4.400,00",
+                "PercComprovado": "1,72"
+            },
+            {
+                "nrCNPJCPF": "916.560.521-72",
+                "nmFornecedor": "João Carlos de Oliveira",
+                "qtComprovacoes": "4",
+                "vlComprovado": "4.000,00",
+                "PercComprovado": "1,57"
+            }
+        ],
+        "cols": {
+            "nrCNPJCPF": {
+                "name": "CNPJ/CPF"
+            },
+            "nmFornecedor": {
+                "name": "Fornecedor"
+            },
+            "qtComprovacoes": {
+                "name": "Qtde. Comprovações",
+                "class": "right-align"
+            },
+            "vlComprovado": {
+                "name": "Valor Comprovado",
+                "class": "right-align"
+            },
+            "PercComprovado": {
+                "name": "% Comprovado",
+                "class": "right-align"
+            }
+        },
+        "title": "MAIORES FORNECEDORES DO PROJETO",
+        "tfoot": {
+            "qtComprovacoes": "174",
+            "vlComprovado": "222.422,05",
+            "tpFormaDePagamento": "Total",
+            "nrCNPJCPF": "Total"
+        }
+    },
+    "fornecedorItemProjeto": {
+        "lines": [],
+        "cols": {
+            "nrCNPJCPF": {
+                "name": "CNPJ/CPF"
+            },
+            "nmFornecedor": {
+                "name": "Fornecedor"
+            },
+            "Etapa": {
+                "name": "Etapa"
+            },
+            "vlComprovado": {
+                "name": "Valor Comprovado",
+                "class": "right-align"
+            },
+            "PercComprovado": {
+                "name": "% Comprovado",
+                "class": "right-align"
+            }
+        },
+        "title": "PROPONENTE FORNECEDOR DE ITEM PARA O PROJETO",
+        "tfoot": {
+            "qtComprovacoes": "174",
+            "vlComprovado": "222,42",
+            "tpFormaDePagamento": "Total",
+            "nrCNPJCPF": "Total"
+        }
+    },
+    "itensOrcamentariosImpugnados": {
+        "lines": [],
+        "cols": {
+            "NomeProjeto": {
+                "name": "Projeto"
+            },
+            "Produto": {
+                "name": "Produto"
+            },
+            "Etapa": {
+                "name": "Etapa"
+            },
+            "Item": {
+                "name": "Item"
+            },
+            "Documento": {
+                "name": "Documento"
+            },
+            "nrComprovante": {
+                "name": "Nr. Comprovante"
+            },
+            "tpFormaDePagamento": {
+                "name": "Forma de Pagamento"
+            },
+            "nrDocumentoDePagamento": {
+                "name": "Documento de Pagamento"
+            },
+            "dsJustificativa": {
+                "name": "Justificativa"
+            },
+            "vlComprovado": {
+                "name": "Valor Comprovado",
+                "class": "right-align"
+            }
+        },
+        "title": "ITENS ORÇAMENTÁRIOS IMPUGNADOS NA AVALIAÇÃO FINANCEIRA",
+        "tfoot": {
+            "NomeProjeto": "Total",
+            "vlComprovado": "0,00"
+        }
+    }
+}

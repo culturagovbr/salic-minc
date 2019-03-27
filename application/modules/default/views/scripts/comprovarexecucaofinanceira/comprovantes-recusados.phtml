@@ -4,7 +4,7 @@
         <div class="page-title">
             <div class="row">
                 <div class="col s12 m9 l10">
-                    <h1>Presta&ccedil;&atilde;o de Contas: Comprovantes recusados na avaliação financeira</h1>
+                    <h1>Presta&ccedil;&atilde;o de Contas: Comprovantes recusados na avalia&ccedil;&atilde;o financeira</h1>
                 </div>
                 <div class="col s12 m3 l2 right-align">
                     <a href=" <?php echo $this->url(
@@ -67,44 +67,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="card-action">
-                <?php if (!empty($this->comprovantesDePagamento)) : ?>
-                    <div>
-                        <form id="frEnviarComprovantes" name="frEnviarComprovantes" method="post" action="<?php print $this->url(array('controller' => 'comprovarexecucaofinanceira', 'action' => 'enviarcomprovacaopagamento')); ?>">
-                            <input type='hidden' name='idPronac' id='idPronac' value='<?php echo $this->idpronac; ?>' />
-                            <button type="button" name="frComprovarPagamentoEnviar" id="frComprovarPagamentoEnviar" value="" class="btn">enviar</button>
-                        </form>
-                    </div>
-                <?php endif ?>
-            </div>
         </div>
     </div>
 </div>
 <div id="popupComprovarPagamentoRecusado" class="sumir"></div>
-<script type="text/javascript">
- $(document).ready(function(){
-
-     $('#frComprovarPagamentoEnviar').click(function() {
-            $("#divPerguntaEnviar").dialog('close');
-            $("#divPerguntaEnviar").html('Deseja enviar todos os comprovantes de pagamento?');
-            $("#divPerguntaEnviar").dialog('open');
-            $("#divPerguntaEnviar").dialog({
-                resizable: false,
-                width: 320,
-                height: 180,
-                modal: true,
-                draggable:false,
-                title: 'Alerta!',
-                buttons: {
-                    'Não': function(){
-                        $("#divPerguntaEnviar").dialog('close');
-                    },
-                    'Sim': function() {
-                        $(this).dialog('close');
-			$('#frEnviarComprovantes').submit();
-                    }
-                }
-            });
-     });
- });
-</script>

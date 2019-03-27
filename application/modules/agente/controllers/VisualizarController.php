@@ -1,4 +1,5 @@
 <?php
+
 class Agente_VisualizarController extends MinC_Controller_Action_Abstract
 {
 
@@ -11,14 +12,27 @@ class Agente_VisualizarController extends MinC_Controller_Action_Abstract
     {
         $this->_helper->layout->disableLayout();
 
-        $idAgente = $this->_request->getParam('idAgente');
+        $idAgente = (int)$this->_request->getParam('idAgente');
+        $cpf = (int)$this->_request->getParam('cpf');
 
         $dados = [];
         $matriz = [];
 
+        $whereAgente = [];
+
+        if (!empty($idAgente)) {
+            $whereAgente['a.idAgente = ?'] = $idAgente;
+        }
+
+        if (!empty($cpf)) {
+            $whereAgente['a.cnpjcpf = ?'] = $cpf;
+        }
+
         try {
             $tbAgentes = new Agente_Model_DbTable_Agentes();
-            $dados['identificacao'] = array_change_key_case(array_map('utf8_encode', $tbAgentes->buscarAgenteENome(['a.idAgente = ?' => $idAgente])->current()->toArray()));
+            $dados['identificacao'] = array_change_key_case(array_map('utf8_encode', $tbAgentes->buscarAgenteENome($whereAgente)->current()->toArray()));
+
+            $idAgente = $dados['identificacao']['idagente'];
 
             $tbNatureza = new Agente_Model_DbTable_Natureza();
             $dados['natureza'] = array_change_key_case(array_map('utf8_encode', $tbNatureza->findBy(['idAgente = ?' => $idAgente])));

@@ -13,6 +13,7 @@ class Inabilitado extends MinC_Db_Table_Abstract
 {
     protected $_banco = "SAC";
     protected $_name = "Inabilitado";
+    protected $_schema = "sac";
 
     public function salvar($dados)
     {
@@ -23,17 +24,29 @@ class Inabilitado extends MinC_Db_Table_Abstract
         return $insert;
     }
 
-    public function BuscarInabilitado($CgcCpf, $AnoProjeto, $Sequencial)
+    public function BuscarInabilitado($CgcCpf = null, $AnoProjeto = null, $Sequencial = null, $inabilitado = false)
     {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
-                array('In' => $this->_name)
+            array('In' => $this->_name)
         );
-        //$slct->where('CgcCpf 	 = ?', $CgcCpf);
-        $slct->where('AnoProjeto = ?', $AnoProjeto);
-        $slct->where('Sequencial = ?', $Sequencial);
 
+        if ($CgcCpf) {
+            $slct->where('CgcCpf = ?', $CgcCpf);
+        }
+
+        if ($AnoProjeto) {
+            $slct->where('AnoProjeto = ?', $AnoProjeto);
+        }
+
+        if ($Sequencial) {
+            $slct->where('Sequencial = ?', $Sequencial);
+        }
+
+        if($inabilitado) {
+            $slct->where('Habilitado = ?', 'N');
+        }
 
         return $this->fetchRow($slct);
     }

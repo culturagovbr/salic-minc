@@ -2,8 +2,7 @@
 class spMovimentacaoBancaria extends MinC_Db_Table_Abstract
 {
     /* dados da tabela */
-    protected $_banco   = "SAC";
-    protected $_schema  = "dbo";
+    protected $_schema  = "sac";
     protected $_name    = "spMovimentacaoBancaria";
 
     /**
@@ -16,8 +15,7 @@ class spMovimentacaoBancaria extends MinC_Db_Table_Abstract
     public function verificarInconsistencias()
     {
         try {
-            // executa a sp
-            $executar = "EXEC " . $this->_banco . "." . $this->_schema . "." . $this->_name;
+            $executar = "EXEC {$this->_schema}.{$this->_name}";
             return $this->getAdapter()->query($executar);
         } catch (Zend_Exception $e) {
             return $e->getMessage();

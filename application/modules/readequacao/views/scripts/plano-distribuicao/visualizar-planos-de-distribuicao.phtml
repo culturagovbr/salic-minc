@@ -1,0 +1,120 @@
+<script type="text/javascript">
+    function mostraOcultaElemento(elemento) {
+        $('.produtos').each(
+            function () {
+                var rowId = $(this).attr('id'),
+                    buttonId = $(this).attr('id').split('tr-')[1];
+
+                if (elemento == buttonId) {
+                    if ($('#td-' + buttonId).hasClass('btn_adicionar')) {
+                        $('#' + rowId).toggleClass('sumir');
+                        $('#td-' + buttonId).removeClass('btn_adicionar');
+                        $('#td-' + buttonId).addClass('btn_remover');
+                    } else {
+                        $('#' + rowId).toggleClass('sumir');
+                        $('#td-' + buttonId).addClass('btn_adicionar');
+                        $('#td-' + buttonId).removeClass('btn_remover');
+                    }
+                } else {
+                    if ($('#td-' + buttonId).hasClass('btn_adicionar')) {
+                    } else {
+                        $('#' + rowId).toggleClass('sumir');
+                        $('#td-' + buttonId).addClass('btn_adicionar');
+                        $('#td-' + buttonId).removeClass('btn_remover');
+                    }
+                }
+            }
+        );
+    }
+</script>
+
+<?php if (!empty($this->planosDistribuicao)) : ?>
+    <?php foreach ($this->planosDistribuicao as $planoDistribuicao): ?>
+        <?php $planoAlterado = ($this->planoDistribuicaoCopia[$planoDistribuicao->idProduto]) ? false : true; ?>
+        <table class="tabela">
+            <tr>
+                <td align="left">
+                    <input id="td-produto-<?php echo $planoDistribuicao->idProduto; ?>" type="button"
+                           onclick="mostraOcultaElemento('produto-<?php echo $planoDistribuicao->idProduto; ?>');"
+                           class="btn_adicionar">
+                    <?php echo "<strong>" . $planoDistribuicao->Produto . "</strong>"; ?> <?php if ($planoDistribuicao->stPrincipal == 1) echo "<span style='color:red'>(produto principal)</span>"; ?></b>
+                    <span style='color: red' id='plano-<?php echo $planoDistribuicao->idProduto; ?>-alterado'
+                          class='<?php if (!$planoAlterado): ?>sumir<?php endif; ?>'> - alterado</span>
+                </td>
+            </tr>
+            <tr class="sumir produtos" id="tr-produto-<?php echo $planoDistribuicao->idProduto; ?>" align="left">
+                <td colspan="2">
+                    <table class="tabela" width="100%">
+                        <tr>
+                            <th colspan="4" align="center">Nome do Evento / Produto</th>
+                        </tr>
+                        <tr>
+                            <td class="destacar bold" style="width: 1px;">&Aacute;rea</td>
+                            <td><?php echo $planoDistribuicao->DescricaoArea; ?></td>
+                            <td class="destacar bold" style="width: 1px;">Segmento</td>
+                            <td><?php echo $planoDistribuicao->DescricaoSegmento; ?></td>
+                        </tr>
+                    </table>
+                    <table class="tabela">
+                        <tr>
+                            <th align="center" colspan="3"><?php echo "Distribui&ccedil;&atilde;o Gratuita"; ?>(Qtde)
+                            </th>
+                        </tr>
+                        <tr>
+                            <td class="destacar bold" width="33%" align="center">Patrocinador</td>
+                            <td class="destacar bold" width="33%" align="center">Divulga&ccedil;&atilde;o</td>
+                            <td class="destacar bold" width="34%" align="center">Popula&ccedil;&atilde;o de Baixa
+                                Renda
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center"><?php echo $planoDistribuicao->QtdePatrocinador; ?></td>
+                            <td align="center"><?php echo $planoDistribuicao->QtdeProponente; ?></td>
+                            <td align="center"><?php echo $planoDistribuicao->QtdeOutros; ?></td>
+                        </tr>
+                    </table>
+                    <table class="tabela">
+                        <tr>
+                            <th align="center" colspan="2">Total para a Venda (Qtde)</th>
+                            <th align="center">Quantidade</th>
+                        </tr>
+                        <tr>
+                            <td class="destacar bold" width="33%" align="center">Normal</td>
+                            <td class="destacar bold" width="33%" align="center">Promocional</td>
+                            <td class="destacar bold" width="34%" align="center">N&ordm; Exemplares / Ingressos</td>
+                        </tr>
+                        <tr>
+                            <td align="center"><?php echo $planoDistribuicao->QtdeVendaNormal; ?>
+                            </td>
+                            <td align="center"><?php echo $planoDistribuicao->QtdeVendaPromocional; ?></td>
+                            <td align="center"><?php echo $planoDistribuicao->QtdeProduzida; ?></td>
+                        </tr>
+                    </table>
+                    <table class="tabela">
+                        <tr>
+                            <th align="center" colspan="2">Pre&ccedil;o Unit&aacute;rio (R$)</th>
+                            <th align="center" colspan="2">Receita Prevista (R$)</th>
+                            <th align="center">Total Receita Prevista (R$)</th>
+                        </tr>
+                        <tr>
+                            <td class="destacar bold" align="center">Normal</td>
+                            <td class="destacar bold" align="center">Promocional</td>
+                            <td class="destacar bold" align="center">Normal</td>
+                            <td class="destacar bold" align="center">Promocional</td>
+                            <td class="destacar bold" align="center">Total</td>
+                        </tr>
+                        <tr>
+                            <td align="center"><?php echo @number_format(($planoDistribuicao->vlUnitarioNormal), 2, ",", "."); ?></td>
+                            <td align="center"><?php echo @number_format(($planoDistribuicao->PrecoUnitarioPromocional), 2, ",", "."); ?></td>
+                            <td align="center"><?php echo number_format($planoDistribuicao->QtdeVendaNormal * $planoDistribuicao->vlUnitarioNormal, 2, ',', '.'); ?></td>
+                            <td align="center"><?php echo $planoDistribuicao->QtdeVendaPromocional * str_replace(",", ".", $planoDistribuicao->PrecoUnitarioPromocional); ?></td>
+                            <td align="center"><?php echo number_format($planoDistribuicao->QtdeVendaNormal * $planoDistribuicao->vlUnitarioNormal + $planoDistribuicao->QtdeVendaPromocional * $planoDistribuicao->PrecoUnitarioPromocional, 2, ',', '.'); ?></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+    <?php endforeach; ?>
+<?php endif; ?>
+
+

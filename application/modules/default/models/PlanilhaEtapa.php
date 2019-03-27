@@ -5,6 +5,17 @@ class PlanilhaEtapa extends MinC_Db_Table_Abstract
     protected $_schema = "SAC";
     protected $_name = "tbPlanilhaEtapa";
 
+    const ETAPA_PRE_PRODUCAO_PREPARACAO = 1;
+    const ETAPA_PRODUCAO_EXECUCAO = 2;
+    const ETAPA_DIVULGACAO_COMERCIALIZACAO = 3;
+    const ETAPA_CUSTOS_ADMINISTRATIVOS = 4;
+    const ETAPA_RECOLHIMENTOS = 5;
+    const ETAPA_ELABORACAO_AGENCIAMENTO = 6;
+    const ETAPA_POS_PRODUCAO = 7;
+    const ETAPA_CUSTOS_VINCULADOS = 8;
+    const ETAPA_ASSESORIA_CONTABIL_JURIDICA = 9;
+    const ETAPA_CAPTACAO_RECURSOS = 10;
+    
     public function buscarEtapaContrato($idpronac, $idproduto)
     {
         $select = $this->select();

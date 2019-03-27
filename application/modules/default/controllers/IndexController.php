@@ -2,15 +2,61 @@
 
 class IndexController extends MinC_Controller_Action_Abstract
 {
-    /**
-     * Metodo principal
-     * @access public
-     * @param void
-     * @return void
-     */
+    protected $autenticacao;
+    protected $cpfLogado;
+
+    const COD_USUARIO_INTERNO = 1;
+    const COD_USUARIO_EXTERNO = 4;
+    const SISTEMA_SALIC = 21;
+
+    public function init()
+    {
+        parent::init();
+
+        $this->autenticacao = array_change_key_case((array)Zend_Auth::getInstance()->getIdentity());
+        $this->cpfLogado = isset($this->autenticacao['usu_codigo']) ? $this->autenticacao['usu_identificacao'] : $this->autenticacao['cpf'];
+
+        $this->verificarPermissoes();
+    }
+
+    private function verificarPermissoes()
+    {
+        $permissoesGrupo = [];
+        if ($this->autenticacao) {
+            if ($this->autenticacao['usu_codigo']) {
+                $dbTableUsuario = new Autenticacao_Model_DbTable_Usuario();
+                $grupos = $dbTableUsuario->buscarUnidades($this->autenticacao['usu_codigo'], self::SISTEMA_SALIC);
+
+                foreach ($grupos as $grupo) {
+                    $permissoesGrupo[] = $grupo->gru_codigo;
+                }
+                parent::perfil(self::COD_USUARIO_INTERNO, $permissoesGrupo);
+            } else {
+                parent::perfil(self::COD_USUARIO_EXTERNO, $permissoesGrupo);
+            }
+        }
+    }
+
     public function indexAction()
     {
-        $this->redirect("/autenticacao/index/index");
+        if (empty($this->autenticacao)) {
+            $this->redirect("/autenticacao/index/index");
+        }
+
+        if (!$this->autenticacao['usu_codigo']) {
+            $this->redirect("/default/principalproponente");
+        }
+
+        $validator = new Zend_Validate_File_Exists();
+        $validator->addDirectory('application/layouts/scripts');
+        if (!$validator->isValid('vue.phtml')) {
+            echo "Aguarde, atualizando o sistema...";
+            die;
+        }
+
+        header('Content-type: text/html; charset=UTF-8');
+        Zend_Layout::startMvc(array('layout' => 'vue'));
+        $this->_helper->viewRenderer->setNoRender();
     }
 
     public function indisponivelAction()
@@ -305,7 +351,7 @@ class IndexController extends MinC_Controller_Action_Abstract
     public function montarPlanilhaOrcamentariaAction()
     {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
-        
+
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
         $this->view->idPerfil = $GrupoAtivo->codGrupo;
 
@@ -318,10 +364,10 @@ class IndexController extends MinC_Controller_Action_Abstract
         $params = [];
         $params['link'] = $link;
         $params['view_edicao'] = $view_edicao;
-        
+
         $spPlanilhaOrcamentaria = new spPlanilhaOrcamentaria();
         $planilhaOrcamentaria = $spPlanilhaOrcamentaria->exec($idPronac, $tipoPlanilha, $params);
-        
+
         $planilha = $this->montarPlanilhaOrcamentaria($planilhaOrcamentaria, $tipoPlanilha);
         // tipoPlanilha = 0 : Planilha Orcamentaria da Proposta
         // tipoPlanilha = 1 : Planilha Orcamentaria do Proponente
@@ -330,7 +376,8 @@ class IndexController extends MinC_Controller_Action_Abstract
         // tipoPlanilha = 4 : Cortes Orcamentarios Aprovados
         // tipoPlanilha = 5 : Remanejamento menor que 20%
         // tipoPlanilha = 6 : Readequacao
-        
+        // tipoPlanilha = 7 : Saldo
+
         $this->montaTela(
             'index/montar-planilha-orcamentaria.phtml',
             array(

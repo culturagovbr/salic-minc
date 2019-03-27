@@ -1,25 +1,14 @@
 <?php
 
-/**
- * Controle Gen?rico (Utilizado por todos os controles)
- * Trata as mensagens do sistema
- * @since 12/08/2010
- * @version 2.0
- * @package application
- * @subpackage application.controllers
- * @copyright ? 2010 - Minist?rio da Cultura - Todos os direitos reservados.
- * @link http://www.cultura.gov.br
- */
 abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
 {
     protected $_msg;
     protected $_url;
     protected $_type;
     protected $_urlPadrao;
-    private $idResponsavel = 0;
-    private $idAgente = 0;
-    private $idUsuario = 0;
-
+    protected $idResponsavel = 0;
+    protected $idAgente = 0;
+    protected $idUsuario = 0;
     protected $moduleName;
 
     /**
@@ -55,13 +44,14 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
 
         $this->_urlPadrao = Zend_Controller_Front::getInstance()->getBaseUrl();
         if (isset($arrAuth['usu_codigo'])) {
-            $Usuario = new Autenticacao_Model_Usuario();
+            $Usuario = new Autenticacao_Model_DbTable_Usuario();
             $Agente = $Usuario->getIdUsuario($arrAuth['usu_codigo']);
             $idAgente = $Agente['idagente'];
             // manda os dados para a visao
             $this->view->idAgente = $idAgente;
         }
 //        @$cpf = isset($auth->getIdentity()->usu_codigo) ? $auth->getIdentity()->usu_identificacao : $auth->getIdentity()->Cpf;
+        //
         $cpf = isset($arrAuth['usu_codigo']) ? $arrAuth['usu_identificacao'] : $arrAuth['cpf'];
 
         if ($cpf) {
@@ -71,7 +61,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
             $acessos = $sgcAcesso->findBy(array('cpf' => $cpf));
 
             # Busca na Usuarios
-            $mdlusuario = new Autenticacao_Model_Usuario();
+            $mdlusuario = new Autenticacao_Model_DbTable_Usuario();
             $usuario = $mdlusuario->findBy(array('usu_identificacao' => $cpf));
 
             # Busca na Agentes
@@ -79,7 +69,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
             $agente = $tblAgentes->findBy(array('cnpjcpf' => $cpf));
 
             if ($acessos) {
-                $this->idResponsavel = $acessos['idUsuario'];
+                $this->idResponsavel = $acessos['IdUsuario'];
             }
             if ($agente) {
                 $this->idAgente = $agente['idAgente'];
@@ -87,7 +77,6 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
             if ($usuario) {
                 $this->idUsuario = $usuario['usu_codigo'];
             }
-
             $this->view->idAgenteKeyLog = $this->idAgente;
             $this->view->idResponsavelKeyLog = $this->idResponsavel;
             $this->view->idUsuarioKeyLog = $this->idUsuario;
@@ -152,7 +141,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
         $objIdentity = $auth->getIdentity();
         $arrAuth = array_change_key_case((array)$objIdentity);
 
-        $objModelUsuario = new Autenticacao_Model_Usuario(); // objeto usuario
+        $objModelUsuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuario
         $UsuarioAtivo = new Zend_Session_Namespace('UsuarioAtivo'); // cria a sessao com o usuario ativo
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
         // somente autenticacao zend
@@ -374,7 +363,6 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 $this->view->arrayGrupoProponente = array("gru_codigo" => 1111, "uog_orgao" => 2222, "gru_nome" => "Proponente");
             }
         }
-
     }
 
     /**
@@ -621,6 +609,22 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
         $arrAuth = array_change_key_case((array)$auth);
         if (!isset($arrAuth['usu_codigo'])) {
             $idUsuarioLogado = $arrAuth['idusuario'];
+            $fnVerificarPermissao = new Autenticacao_Model_FnVerificarPermissao();
+
+            # Verifica Permissao de Proposta
+            if ($idPreProjeto) {
+
+                $msgERRO = 'Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Proposta!';
+                $idPreProjeto = !empty($this->_request->getParam('idPreProjeto')) ? $this->_request->getParam('idPreProjeto') : $idPreProjeto;
+
+                $permissao = $fnVerificarPermissao->verificarPermissaoProposta($idPreProjeto, $idUsuarioLogado);
+
+                if (!$permissao) {
+                    $tbProjetos = new Projeto_Model_DbTable_Projetos();
+                    $projeto = $tbProjetos->findBy(['idProjeto = ?' => $idPreProjeto]);
+                    $idProjeto = $projeto['IdPRONAC'];
+                }
+            }
 
             #Verifica Permissao de Projeto
             if ($idProjeto) {
@@ -633,19 +637,8 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                     $idPronac = Seguranca::dencrypt($idPronac);
                 }
 
-                $fnVerificarPermissao = new Autenticacao_Model_FnVerificarPermissao();
                 $consulta = $fnVerificarPermissao->verificarPermissaoProjeto($idPronac, $idUsuarioLogado);
-
                 $permissao = $consulta->Permissao;
-            }
-            # Verifica Permissao de Proposta
-            if ($idPreProjeto) {
-
-                $msgERRO = 'Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa Proposta!';
-                $idPreProjeto = !empty($this->_request->getParam('idPreProjeto')) ? $this->_request->getParam('idPreProjeto') : $idPreProjeto;
-
-                $fnVerificarPermissao = new Autenticacao_Model_FnVerificarPermissao();
-                $permissao = $fnVerificarPermissao->verificarPermissaoProposta($idPreProjeto, $idUsuarioLogado);
             }
 
             if ($administrativo) {
@@ -667,6 +660,10 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
             }
         }
 
+        if ($callback) {
+            return ['status' => true];
+        }
+
     } // fecha metodo verificarPermissaoAcesso()
 
     public static function validarSenhaInicial()
@@ -685,7 +682,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
         $planilha = array();
         $count = 0;
         $seq = 1;
-        if ($tipoPlanilha == 0) {
+        if ($tipoPlanilha == spPlanilhaOrcamentaria::TIPO_PLANILHA_PROPOSTA) {
             foreach ($planilhaOrcamentaria as $resuplanilha) {
                 $produto = $resuplanilha->Produto == null ? 'Administra&ccedil;&atilde;o do Projeto' : $resuplanilha->Produto;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Seq'] = $seq;
@@ -703,13 +700,13 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 $count++;
                 $seq++;
             }
-        } else if ($tipoPlanilha == 1) {
+        } else if ($tipoPlanilha == spPlanilhaOrcamentaria::TIPO_PLANILHA_PROPONENTE) {
             foreach ($planilhaOrcamentaria as $resuplanilha) {
                 $produto = $resuplanilha->Produto == null ? 'Administra&ccedil;&atilde;o do Projeto' : $resuplanilha->Produto;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Seq'] = $seq;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idPlanilhaProposta'] = $resuplanilha->idPlanilhaProposta;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Item'] = $resuplanilha->Item;
-                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Unidade'] = $resuplanilha->Unidade;                
+                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Unidade'] = $resuplanilha->Unidade;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['vlSolicitado'] = $resuplanilha->vlSolicitado;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['JustProponente'] = $resuplanilha->JustProponente;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['QtdeDias'] = $resuplanilha->QtdeDias;
@@ -720,15 +717,15 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 $count++;
                 $seq++;
             }
-        } else if ($tipoPlanilha == 2) {
+        } else if ($tipoPlanilha == spPlanilhaOrcamentaria::TIPO_PLANILHA_PARECERISTA) {
             foreach ($planilhaOrcamentaria as $resuplanilha) {
                 $produto = $resuplanilha->Produto == null ? 'Administra&ccedil;&atilde;o do Projeto' : $resuplanilha->Produto;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Seq'] = $seq;
-                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Unidade'] = $resuplanilha->Unidade;                
+                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Unidade'] = $resuplanilha->Unidade;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idPlanilhaProjeto'] = $resuplanilha->idPlanilhaProjeto;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Item'] = $resuplanilha->Item;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['vlSolicitado'] = $resuplanilha->vlSolicitado;
-                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['JustProponente'] = strConvertCharset($resuplanilha->JustProponente);
+                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['JustProponente'] = TratarString::converterParaUTF8($resuplanilha->JustProponente);
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['QtdeDias'] = $resuplanilha->QtdeDias;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Quantidade'] = $resuplanilha->Quantidade;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Ocorrencia'] = $resuplanilha->Ocorrencia;
@@ -739,11 +736,11 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 $count++;
                 $seq++;
             }
-        } else if ($tipoPlanilha == 3) {
+        } else if ($tipoPlanilha == spPlanilhaOrcamentaria::TIPO_PLANILHA_APROVADA_ATIVA) {
             foreach ($planilhaOrcamentaria as $resuplanilha) {
                 $produto = $resuplanilha->Produto == null ? 'Administra&ccedil;&atilde;o do Projeto' : $resuplanilha->Produto;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Seq'] = $seq;
-                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Unidade'] = $resuplanilha->Unidade;                
+                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Unidade'] = $resuplanilha->Unidade;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idPlanilhaAprovacao'] = $resuplanilha->idPlanilhaAprovacao;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Item'] = $resuplanilha->Item;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['vlSolicitado'] = $resuplanilha->vlSolicitado;
@@ -762,11 +759,11 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 $count++;
                 $seq++;
             }
-        } else if ($tipoPlanilha == 4) {
+        } else if ($tipoPlanilha == spPlanilhaOrcamentaria::TIPO_PLANILHA_CORTES_APROVADOS) {
             foreach ($planilhaOrcamentaria as $resuplanilha) {
                 $produto = $resuplanilha->Produto == null ? 'Administra&ccedil;&atilde;o do Projeto' : $resuplanilha->Produto;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Seq'] = $seq;
-                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Unidade'] = $resuplanilha->Unidade;                
+                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Unidade'] = $resuplanilha->Unidade;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idPlanilhaAprovacao'] = $resuplanilha->idPlanilhaAprovacao;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idPlanilhaProjeto'] = $resuplanilha->idPlanilhaProjeto;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Item'] = $resuplanilha->Item;
@@ -784,7 +781,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 $count++;
                 $seq++;
             }
-        } else if ($tipoPlanilha == 5) {
+        } else if ($tipoPlanilha == spPlanilhaOrcamentaria::TIPO_PLANILHA_REMANEJAMENTO) {
             foreach ($planilhaOrcamentaria as $resuplanilha) {
                 $produto = $resuplanilha->Produto == null ? 'Administra&ccedil;&atilde;o do Projeto' : $resuplanilha->Produto;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Seq'] = $seq;
@@ -807,7 +804,16 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 $count++;
                 $seq++;
             }
-        } else if ($tipoPlanilha == 6) {
+        } else if ($tipoPlanilha == spPlanilhaOrcamentaria::TIPO_PLANILHA_READEQUACAO ||
+                   $tipoPlanilha == spPlanilhaOrcamentaria::TIPO_PLANILHA_SALDO_APLICACAO) {
+
+            $valorTotalProjeto = 0;
+            $valorTotalProjeto = array_reduce($planilhaOrcamentaria, function($valorTotalProjeto, $item) {
+                if ($item->tpAcao != 'E') {
+                    $valorTotalProjeto += $item->vlAprovado;
+                }
+            });
+            
             foreach ($planilhaOrcamentaria as $resuplanilha) {
                 $produto = $resuplanilha->Produto == null ? 'Administra&ccedil;&atilde;o do Projeto' : $resuplanilha->Produto;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['Seq'] = $seq;
@@ -830,6 +836,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idUF'] = $resuplanilha->idUF;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idMunicipio'] = $resuplanilha->idMunicipio;
                 $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idProduto'] = $resuplanilha->idProduto;
+                $planilha[$resuplanilha->FonteRecurso][$produto][$resuplanilha->idEtapa . ' - ' . $resuplanilha->Etapa][$resuplanilha->UF . ' - ' . $resuplanilha->Municipio][$count]['idPlanilhaItem'] = $resuplanilha->idPlanilhaItem;
 
                 $count++;
                 $seq++;
@@ -962,11 +969,13 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
         }
     }
 
-    function getBodyClass($class = '') {
-        return join(' ', $this->getArrayBodyClass( $class ));
+    function getBodyClass($class = '')
+    {
+        return join(' ', $this->getArrayBodyClass($class));
     }
 
-    function getArrayBodyClass( $class = '' ) {
+    function getArrayBodyClass($class = '')
+    {
         $classes = array();
 
         $classes[] = $this->getRequest()->getCookie('menu');
@@ -979,16 +988,13 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
 
         if (!empty($class)) {
 
-            if (!is_array( $class)) {
-                $class = preg_split( '#\s+#', $class );
+            if (!is_array($class)) {
+                $class = preg_split('#\s+#', $class);
             }
 
-            $classes = array_merge( $classes, $class );
-        } else {
-            $class = array();
+            $classes = array_merge($classes, $class);
         }
-
-        return array_unique( $classes );
+        return array_unique($classes);
 
     }
 }

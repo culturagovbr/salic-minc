@@ -1,0 +1,562 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        // mascaras dos campos
+        $(".btn_calendario").keyup(function()
+        {
+            mascara(this, format_data); // data
+        });
+
+        // calendario
+        $.datepicker.regional['pt-BR'] =
+        {
+            closeText: 'Fechar',
+            prevText: '&#x3c;Anterior',
+            nextText: 'Pr&oacute;ximo&#x3e;',
+            currentText: 'Hoje',
+            monthNames: ['Janeiro','Fevereiro','Mar&ccedil;o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+            dayNames: ['Domingo','Segunda-feira','Ter&ccedil;a-feira','Quarta-feira','Quinta-feira','Sexta-feira','S&aacute;bado'],
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+            dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 0,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''
+        };
+        $.datepicker.setDefaults($.datepicker.regional['pt-BR']);
+
+        // id dos campos que utilizarï¿½o o calendï¿½rio
+        $(".btn_calendario").datepicker($.datepicker.regional['pt-BR']);
+
+        // máscaras dos campos
+	$(".calendario").keyup(function(){
+            mascara(this, format_data); // data
+	});
+
+	$('.dtRealizacao').click(function() {
+	    $(this).css('border-color', '#ccc');
+	});
+	
+        $('#btn_salvar').click(function(){
+            var preenchimento = false;
+            $('.obrigatorio').each(function(){
+                $(this).css('border-color','#CCC');
+                if($.trim($(this).val()) == ''){
+                    preenchimento = true;
+                    $(this).css('border-color','red');
+                }
+            });
+
+	    // verifica se uma data é menor que a outra
+	    var erroData = false;
+	    $('.dtRealizacao').each(function(){
+		var currentType = $(this).attr('id').split('Realizacao')[0],
+		    soleId = $(this).attr('id').split('Realizacao')[1],
+		    currentId = "#" + $(this).attr('id'),
+		    otherType = (currentType == 'dtInicio') ? 'dtFim' : 'dtInicio',
+		    otherId = "#" + otherType + 'Realizacao' + soleId;
+		
+		// verifica apenas inputs ativos
+		if (!$(currentId).hasClass("sumir")) {
+		    // se ambos estiverem preenchidos, verifica
+		    if ($(currentId).val() != "" && $(otherId).val() != "") {
+			if (currentType == "dtInicio") {
+			    if (Date.parse($(currentId).val()) > Date.parse($(otherId).val())) {
+				erroData = true;
+				$(currentId).css('border-color', 'red');
+			    }
+			} else {
+			    if (Date.parse($(currentId).val()) < Date.parse($(otherId).val())) {
+				erroData = true;
+				$(currentId).css('border-color', 'red');
+			    }
+			}
+		    }
+		}		
+	    });
+
+	    if (erroData) {
+		$("#camposObrigatorios").dialog("destroy");
+		$("#camposObrigatorios").html("Data fim não pode ser menor que data início");
+		$("#camposObrigatorios").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width:320,
+                    height:160,
+                    modal: true,
+                    buttons : {
+			'OK' : function(){
+                            $(this).dialog('close');
+			}
+                    }
+		});
+		$('.ui-dialog-titlebar-close').remove();
+		
+		return false;
+	    }
+	    
+            if(preenchimento) {
+                $("#camposObrigatorios").dialog("destroy");
+                $("#camposObrigatorios").html("Favor preencher os dados obrig&aacute;torios!");
+                $("#camposObrigatorios").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width:320,
+                    height:160,
+                    modal: true,
+                    buttons : {
+                        'OK' : function(){
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            } else {
+                $('#formCadastro').submit();
+            }
+        });
+
+        $('#novoPais').change(function(){
+            if($(this).val() == 31){
+                $('#novoUf').removeAttr('disabled');
+                $('#novoUf').addClass('obrigatorio');
+                $('#novoMunicipio').addClass('obrigatorio');
+            } else {
+                $('#novoUf').attr('disabled','disabled');
+                $('#novoUf').removeClass('obrigatorio');
+                $('#novoMunicipio').attr('disabled','disabled');
+                $('#novoMunicipio').html('<option value=""> - Selecione - </option>');
+                $('#novoMunicipio').removeClass('obrigatorio');
+            }
+
+            if($(this).val() != ''){
+                $('#justificativaNovo').addClass('obrigatorio');
+                $('#novoDtInicioRealizacao').addClass('obrigatorio');
+                $('#campoModal').css('border-color','#CCC');
+                $('#campoModal').val('');
+                $("#justificativaModal").dialog("destroy");
+                $("#justificativaModal").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width:500,
+                    height:330,
+                    modal: true,
+                    closeOnEscape: false,
+                    buttons : {
+                        'OK' : function(){
+                            var text = $('#campoModal').val();
+                            if($.trim(text) == ''){
+                                $('#campoModal').css('border-color','red');
+                            } else {
+                                $('#justificativaNovo').val(text);
+                                $('#iconeNovo').removeClass('sumir');
+                                $("#justificativaModal").dialog('close');
+                            }
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            } else {
+                $('#justificativaNovo').val('');
+                $('#justificativaNovo').removeClass('obrigatorio');
+                $('#novoDtInicioRealizacao').removeClass('obrigatorio');
+                $('#iconeNovo').addClass('sumir');
+            }
+        });
+
+        $('#novoUf').change(function(){
+            var uf = $(this).val();
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $this->url(array('controller' => 'municipios', 'action' => 'combo-ajax')); ?>',
+                data: {
+                    id: uf
+                },
+                success: function(data){
+                    var novoMunicipio = $('#novoMunicipio');
+                    if(data.resposta){
+                        novoMunicipio.html('');
+                        novoMunicipio.removeAttr('disabled');
+                        novoMunicipio.append('<option value=""> - Selecione - </option>');
+                        for ( i in data.conteudo){
+                           novoMunicipio.append('<option value="'+data.conteudo[i].id+'">'+data.conteudo[i].descricao+'</option>');
+                        }
+                    } else {
+                        novoMunicipio.html('');
+                        novoMunicipio.attr('disabled', 'disabled');
+                        novoMunicipio.append('<option value=""> - Selecione - </option>');
+                    }
+                },
+                dataType : 'json'
+            });
+        });
+
+        $('.btn_excluir').click(function(){
+            var btn = $(this),
+                abrg = btn.attr('abrg');
+            $("#modalPerguntas").dialog("destroy");
+            $("#modalPerguntas").html("Deseja realmente excluir o Local de Realização?");
+            $("#modalPerguntas").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width:360,
+                height:160,
+                modal: true,
+                buttons : {
+                    'Não' : function(){
+                        $(this).dialog('close');
+                    },
+                    'Sim' : function(){
+                        $("#modalPerguntas").dialog('close');
+                        $.ajax({
+                            type: 'POST',
+                            url: '<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'comprovarexecucaofisica', 'action' => 'excluir-abrangencia-ajax'), '', true); ?>?idpronac=<?php echo Seguranca::encrypt($this->idPronac); ?>',
+                            data: {
+                                abrg: abrg
+                            },
+                            success: function(data){
+                                if(data.resposta){
+                                    $("#alerta").dialog("destroy");
+                                    $("#alerta").html('<br /><div align="center"><img src="<?php echo $this->baseUrl().'/public/img/ajax.gif'; ?>"></div>');
+                                    $("#alerta").dialog({
+                                        resizable: false,
+                                        width:320,
+                                        height:120,
+                                        modal: true,
+                                        title: 'Carregando..'
+                                    });
+                                    $('.ui-dialog-titlebar-close').remove();
+                                    window.setTimeout('location.reload()', 1000);
+                                } else {
+                                    alertaModal("Não foi possível excluir o Local de Realização.");
+                                }
+                            },
+                            dataType : 'json'
+                        });
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+        });
+
+
+        $('.selectAbrg').change(function(){
+            var select = $(this).val(),
+                n = select.split(":");
+
+            if(n[0] == 0){
+                $('.div_'+n[1]).addClass('sumir');
+                $('#dtInicioRealizacao'+n[1]).val('');
+                $('#dtFimRealizacao'+n[1]).val('');
+                $('#justificativa'+n[1]).val('');
+                $('#icone'+n[1]).addClass('sumir');   
+            }
+            
+            if(n[0] == 1){
+                $('#campoModal').css('border-color','#CCC');
+                $('#campoModal').val('');
+                $("#justificativaModal").dialog("destroy");
+                $("#justificativaModal").dialog({
+                    resizable: false,
+                    title: 'Justificativa!',
+                    width:500,
+                    height:330,
+                    modal: true,
+                    buttons : {
+                        'OK' : function(){
+                            var text = $('#campoModal').val();
+                            if($.trim(text) == ''){
+                                $('#campoModal').css('border-color','red');
+                            } else {
+                                $('#justificativa'+n[1]).val(text);
+                                $('#justificativa'+n[1]).addClass('obrigatorio');
+                                $('#icone'+n[1]).removeClass('sumir');
+                                $(this).dialog('close');
+                            }
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+                $('.div_'+n[1]).addClass('sumir');
+                $('#dtInicioRealizacao'+n[1]).val('');
+            } else {
+                $('#justificativa'+n[1]).val('');
+                $('#justificativa'+n[1]).removeClass('obrigatorio');
+            }
+
+            if(n[0] == 2){
+                $('.div_'+n[1]).removeClass('sumir');
+                $('#dtInicioRealizacao'+n[1]).addClass('obrigatorio');
+                $('#dtInicioRealizacao'+n[1]).removeClass('sumir');
+                $('#dtInicioRealizacao'+n[1]).val('');
+                $('#dtFimRealizacao'+n[1]).addClass('obrigatorio');
+                $('#dtFimRealizacao'+n[1]).removeClass('sumir');
+                $('#dtFimRealizacao'+n[1]).val('');
+                $('#justificativa'+n[1]).val('');
+            } else {
+                $('#dtInicioRealizacao'+n[1]).removeClass('obrigatorio');
+                $('#dtInicioRealizacao'+n[1]).addClass('sumir');
+                $('#dtFimRealizacao'+n[1]).removeClass('obrigatorio');
+                $('#dtFimRealizacao'+n[1]).addClass('sumir');
+            }
+
+        });
+
+        $('.iconeJustificativa').click(function(){
+            var icone = $(this),
+                valor = icone.siblings().val();
+
+            $('#justificativaTexto').html(valor);
+            $("#justificativaModalVisualizar").dialog("destroy");
+            $("#justificativaModalVisualizar").dialog({
+                resizable: true,
+                title: 'Justificativa cadastrada!',
+                width:520,
+                height:300,
+                modal: true,
+                buttons : {
+                    'OK' : function(){
+                        $(this).dialog('close');
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+            return false;
+        });
+        
+    });
+
+    function alertaModal(msg){
+        $("#alerta").dialog("destroy");
+        $("#alerta").html(msg);
+        $("#alerta").dialog({
+            resizable: false,
+            title: 'Alerta!',
+            width:320,
+            height:160,
+            modal: true,
+            buttons : {
+                'OK' : function(){
+                    $(this).dialog('close');
+                    location.reload();
+                }
+            }
+        });
+        $('.ui-dialog-titlebar-close').remove();
+    }
+</script>
+
+<?php echo $this->partial('comprovarexecucaofisica/inc/menu-cadastro.php', $this) ?>
+<div id="alerta" class="sumir"></div>
+<div id="modalPerguntas" class="sumir"></div>
+<div id="camposObrigatorios" class="sumir"></div>
+
+<div id="breadcrumb">
+    <ul>
+        <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
+        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Consultar dados do Projeto">Consultar dados do Projeto</a></li>
+        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/relatoriotrimestral/idpronac/<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Relat&oacute;rio Trimestral">Relat&oacute;rio Trimestral</a></li>
+        <li class="last">Local de Realização</li>
+    </ul>
+</div>
+
+
+<div id="titulo">
+    <div>Local de Realização <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/relatoriotrimestral/idpronac/<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Voltar">Voltar</a></span></div>
+</div>
+
+<div id="conteudo">
+    <table class="tabela">
+        <tr>
+            <th align="center" width="30%">Nº PRONAC:</th>
+            <th align="center">Nome do Projeto:</th>
+        </tr>
+        <tr class="linha">
+            <td align="center"><?php echo $this->DadosProjeto->pronac; ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProjeto; ?></td>
+        </tr>
+        <tr>
+            <th align="center" width="30%">CNPJ/CPF:</th>
+            <th align="center">Proponente:</th>
+        </tr>
+        <tr class="linha">
+            <td align="center"><?php echo (strlen($this->DadosProjeto->CNPJCPF) > 11) ? Mascara::addMaskCNPJ($this->DadosProjeto->CNPJCPF) : Mascara::addMaskCPF($this->DadosProjeto->CNPJCPF); ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProponente; ?></td>
+        </tr>
+    </table>
+
+    <br clear="all" />
+
+    <form id="formCadastro" action="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'comprovarexecucaofisica', 'action' => 'cadastrar-local-realizacao'), '', true); ?>?idpronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" method="post">
+        <table class="tabela">
+            <tr align="center">
+                <th colspan="8">Local de Realização</th>
+            </tr>
+            <tr align="center">
+                <td class="destacar bold">Editar</td>
+                <td class="destacar bold">País</td>
+                <td class="destacar bold">UF</td>
+                <td class="destacar bold">Município</td>
+                <td class="destacar bold" width="10%">Status</td>
+                <td class="destacar bold" width="1">Dt. In&iacute;cio Realização</td>
+                <td class="destacar bold" width="1">Dt. Fim Realização</td>
+                <td class="destacar bold" width="1">Justificativa</td>
+            </tr>
+            <?php foreach ($this->LocaisDeRealizacao as $LocaisDeRealizacao) { ?>
+                <?php if($LocaisDeRealizacao->siAbrangencia != 3){?>
+                    <tr>
+                        <td align="center"><span id="iconeNovo"><a href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'comprovarexecucaofisica', 'action' => 'manter-local-de-realizacao-final'), '', true); ?>?idpronac=<?php echo Seguranca::encrypt($this->idPronac); ?>&idlocal=<?php echo Seguranca::encrypt($LocaisDeRealizacao->idAbrangencia);?>"><img src="<?php echo $this->baseUrl(); ?>/public/img/botaoEditarNovo.gif" /></a></span></td>
+                        <td><?php echo $LocaisDeRealizacao->Pais; ?></td>
+                        <td><?php echo $LocaisDeRealizacao->UF; ?></td>
+                        <td><?php echo $LocaisDeRealizacao->Municipio; ?></td>
+                        <td>
+                            <?php switch($LocaisDeRealizacao->siAbrangencia){
+                                case 0:
+                                    echo 'Sem Informação';
+                                    break;
+                                case 1:
+                                    echo 'Não Realizado';
+                                    break;
+                                case 2:
+                                    echo 'Realizado';
+                                    break;
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <?php if(!empty($LocaisDeRealizacao->dtInicioRealizacao)) { ?>
+                                <input type="hidden" name="dtInicioRealizacao<?php echo $LocaisDeRealizacao->idAbrangencia; ?>" id="dtInicioRealizacao<?php echo $LocaisDeRealizacao->idAbrangencia; ?>" class="input_simples" value="<?php echo !empty($LocaisDeRealizacao->dtInicioRealizacao) ? Data::tratarDataZend($LocaisDeRealizacao->dtInicioRealizacao, 'Brasileira'):''; ?>"/>
+                                <div style="height: 24px; padding: 6px 0px 0px 4px;" class="div_<?php echo $LocaisDeRealizacao->idAbrangencia; ?>"><?php echo Data::tratarDataZend($LocaisDeRealizacao->dtInicioRealizacao, 'Brasileira'); ?></div>
+                            <?php } else { ?>
+                                <input type="text" name="dtInicioRealizacao" id="dtInicioRealizacao" class="input_simples calendario sumir input_font_pq input_pq dtRealizacao" maxlength="10" value="<?php echo !empty($LocaisDeRealizacao->dtInicioRealizacao) ? Data::tratarDataZend($LocaisDeRealizacao->dtInicioRealizacao, 'Brasileira'):''; ?>" />
+                            <?php } ?>
+                        </td>
+                        <td>
+                            <?php if(!empty($LocaisDeRealizacao->dtFimRealizacao)) { ?>
+                                <input type="hidden" name="dtFimRealizacao<?php echo $LocaisDeRealizacao->idAbrangencia; ?>" id="dtFimRealizacao<?php echo $LocaisDeRealizacao->idAbrangencia; ?>" class="input_simples" value="<?php echo !empty($LocaisDeRealizacao->dtFimRealizacao) ? Data::tratarDataZend($LocaisDeRealizacao->dtFimRealizacao, 'Brasileira'):''; ?>"/>
+                                <div style="height: 24px; padding: 6px 0px 0px 4px;" class="div_<?php echo $LocaisDeRealizacao->idAbrangencia; ?>"><?php echo Data::tratarDataZend($LocaisDeRealizacao->dtFimRealizacao, 'Brasileira'); ?></div>
+                            <?php } else { ?>
+                                <input type="text" name="dtFimRealizacao" id="dtFimRealizacao" class="input_simples calendario sumir input_font_pq input_pq dtRealizacao" maxlength="10" value="" />
+                            <?php } ?>
+                        </td>
+                        <td align="center">
+                            <span class="<?php echo empty($LocaisDeRealizacao->dsJustificativa)?'sumir':''; ?> iconeJustificativa" id="icone<?php echo $LocaisDeRealizacao->idAbrangencia; ?>"><a href=""><img src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" /></a></span>
+                            <input type="hidden" id="justificativa" name="justificativa" value="<?php echo !empty($LocaisDeRealizacao->dsJustificativa)?$LocaisDeRealizacao->dsJustificativa:''; ?>" />
+                        </td>
+                    </tr>
+                <?php      } ?>
+            <?php } ?>
+        </table>
+        </br>
+        <table class="tabela">
+            <tr align="center">
+                <th colspan="8">Local de Realização (Outras fontes)</th>
+            </tr>
+            <tr align="center">
+                <td class="destacar bold">País</td>
+                <td class="destacar bold">UF</td>
+                <td class="destacar bold">Município</td>
+                <td class="destacar bold" width="1">Status</td>
+                <td class="destacar bold" width="1">Dt. In&iacute;cio Realização</td>
+                <td class="destacar bold" width="1">Dt. Fim Realização</td>
+                <td class="destacar bold" width="1">Justificativa</td>
+                <td class="destacar bold" width="1">Excluir</td>
+            </tr>
+            <?php foreach ($this->LocaisDeRealizacao as $LocaisDeRealizacao) { ?>
+                <?php     if($LocaisDeRealizacao->siAbrangencia == 3){?>
+                    <tr>
+                        <td><?php echo $LocaisDeRealizacao->Pais; ?></td>
+                        <td><?php echo $LocaisDeRealizacao->UF; ?></td>
+                        <td><?php echo $LocaisDeRealizacao->Municipio; ?></td>
+                        <td>Realizado com outras fontes</td>
+                        <td>
+                            <div align="center" style="height: 24px; padding: 6px 0px 0px 4px;" class="div_<?php echo $LocaisDeRealizacao->idAbrangencia; ?>"><?php echo Data::tratarDataZend($LocaisDeRealizacao->dtInicioRealizacao, 'Brasileira'); ?></div>
+                        </td>
+                        <td>
+                            <div style="height: 24px; padding: 6px 0px 0px 4px;" class="div_<?php echo $LocaisDeRealizacao->idAbrangencia; ?>"><?php echo Data::tratarDataZend($LocaisDeRealizacao->dtFimRealizacao, 'Brasileira'); ?></div>
+                        </td>
+                        <td align="center">
+                            <span class="<?php echo empty($LocaisDeRealizacao->dsJustificativa)?'sumir':''; ?> iconeJustificativa" id="icone<?php echo $LocaisDeRealizacao->idAbrangencia; ?>"><a href=""><img src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" /></a></span>
+                            <input type="hidden" id="justificativa<?php echo $LocaisDeRealizacao->idAbrangencia; ?>" name="justificativa<?php echo $LocaisDeRealizacao->idAbrangencia; ?>" value="<?php echo !empty($LocaisDeRealizacao->dsJustificativa)?$LocaisDeRealizacao->dsJustificativa:''; ?>" />
+                        </td>
+                        <td align="center">
+                            <input type="button" value=" " class="btn_excluir" abrg="<?php echo $LocaisDeRealizacao->idAbrangencia; ?>" />
+                        </td>
+                    </tr>
+                <?php      } //fecha IF ?>
+            <?php } //fecha foreach?>
+            <tr>
+                <td>
+                    <select name="novoPais" id="novoPais" class="select_simples input_font_pq">
+                        <option value=""> - Selecione - </option>
+                        <?php foreach ($this->Paises as $Paises) { ?>
+                            <option value="<?php echo $Paises->idPais; ?>"><?php echo $Paises->Descricao; ?></option>
+                        <?php } ?>
+                    </select>
+                </td>
+
+                <td>
+                    <select name="novoUf" id="novoUf" class="select_simples input_font_pq" disabled="disabled">
+                        <option value=""> - Selecione - </option>
+                        <?php foreach ($this->UFs as $UFs) { ?>
+                            <option value="<?php echo $UFs->idUF; ?>"><?php echo $UFs->Sigla; ?></option>
+                        <?php } ?>
+                    </select>
+                </td>
+                <td>
+                    <select name="novoMunicipio" id="novoMunicipio" class="select_simples input_font_pq" disabled="disabled">
+                        <option value=""> - Selecione - </option>
+                    </select>
+                </td>
+                <td>
+                    <select name="novoRealizado" class="select_simples obrigatorio w200 input_font_pq">
+                        <option value="3">Realizado com outras fontes</option>
+                    </select>
+                </td>
+                <td align="center"><input type="text" name="novoDtInicioRealizacao" id="novoDtInicioRealizacao" class="input_simples calendario input_font_pq input_pq btn_calendario" maxlength="10" /></td>
+                <td align="center"><input type="text" name="novoDtFimRealizacao" id="novoDtFimRealizacao" class="input_simples calendario input_font_pq input_pq btn_calendario" maxlength="10" /></td>
+                <td colspan="2" align="center"><input type="button" class="btn_salvar" id="btn_salvar"></td>
+            </tr>
+        </table>
+    </form>
+    <br clear="all" />
+</div>
+
+
+
+<!-- MODAL DE CADASTRO DA JUSTIFICATIVA ### -->
+<div id="justificativaModal" class="sumir">
+    <table width="100%" class="table">
+        <tr>
+            <td class="destacar bold">Digite abaixo a justificativa. <span style="color: red;">*</span></td>
+        </tr>
+        <tr>
+            <td>
+                <textarea name="campoModal" id="campoModal" class="textarea_simples" rows="6" cols="" style="width: 98%;"></textarea>
+                <br clear="all" /><span style="color: red; font-size: 11px;">Limite máximo de 500 caracteres</span>
+            </td>
+        </tr>
+    </table>
+</div>
+<!-- FIM MODAL DE CADASTRO DA JUSTIFICATIVA ### -->
+
+
+<!-- MODAL DE VISUALIZAÇÃO DA JUSTIFICATIVA ### -->
+<div id="justificativaModalVisualizar" class="sumir">
+    <table width="100%" class="table">
+        <tr>
+            <td><span id="justificativaTexto"></span></td>
+        </tr>
+    </table>
+</div>
+<!-- FIM MODAL DE VISUALIZAÇÃO DA JUSTIFICATIVA ### -->
+
+
+<!-- inï¿½cio: detalhe final da div conteudo #rodapeConteudo -->
+<div id="rodapeConteudo"><span></span></div>
+<!-- final: detalhe final da div conteudo #rodapeConteudo -->
+
+<br clear="all" />

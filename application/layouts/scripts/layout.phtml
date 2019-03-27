@@ -1,4 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml" lang="pt-br">
 <head>
     <?php
@@ -60,15 +61,15 @@
                     <?php $idAgente = isset($this->idAgente) ? $this->idAgente : "false"; ?>
                     <li id="combousuario">
                         <select name="perfilXgrupo" id="perfilXgrupo" class="perfilXgrupo" onchange="alterarPerfil(this.value);">
+                            <?php if(!empty($this->arrayGrupoProponente)){ ?>
+                                <option value="<?php echo $this->arrayGrupoProponente["gru_codigo"]; ?>:<?php echo $this->arrayGrupoProponente["uog_orgao"]; ?>"><?php echo $this->arrayGrupoProponente["gru_nome"]; ?></option>
+                            <?php } ?>
                             <?php if ($this->arrayGrupos): ?>
                                 <?php foreach ($this->arrayGrupos as $g){ ?>
                                     <option value="<?php echo $g->gru_codigo; ?>:<?php echo $g->uog_orgao; ?>"
                                         <?php if ($g->gru_codigo == $this->grupoAtivo && $g->uog_orgao == $this->orgaoAtivo){ echo "selected='selected='"; } ?>><?php echo $g->org_siglaautorizado; ?> - <?php echo $g->gru_nome; ?></option>
                                 <?php } ?>
                             <?php endif; ?>
-                            <?php if(!empty($this->arrayGrupoProponente)){ ?>
-                                <option value="<?php echo $this->arrayGrupoProponente["gru_codigo"]; ?>:<?php echo $this->arrayGrupoProponente["uog_orgao"]; ?>">&nbsp; <?php echo $this->arrayGrupoProponente["gru_nome"]; ?></option>
-                            <?php } ?>
                         </select>
                         <label></label>
                     </li>
@@ -94,11 +95,11 @@
 
     <?php if (getenv('APPLICATION_ENV') == 'staging'): ?>
         <div id="logo-homolog">
-            <h1><a href="<?php echo $logoLink; ?>" title="Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura">Salic hhh</a></h1>
+            <h1><a href="<?php echo $logoLink; ?>" title="Ambiente de Homologa&ccedil;&atilde;o">Salic</a></h1>
         </div>
     <?php else: ?>
         <div id="logo">
-            <h1><a href="<?php echo $logoLink; ?>" title="Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura">Salic hhh</a></h1>
+            <h1><a href="<?php echo $logoLink; ?>" title="Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura">Salic</a></h1>
         </div>
     <?php endif; ?>
 

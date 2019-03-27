@@ -1,8 +1,7 @@
 <?php
 
-class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract implements MinC_Assinatura_Controller_IDocumentoAssinaturaController
+class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
 {
-    private $idPronac;
     private $intTamPag = 10;
 
     const ID_TIPO_AGENTE_PARCERISTA = 1;
@@ -10,7 +9,7 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
     private function validarPerfis()
     {
         $PermissoesGrupo = array();
-        $PermissoesGrupo[] = Autenticacao_Model_Grupos::COORDENADOR_DE_PARECERISTA;
+        $PermissoesGrupo[] = Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER;
         $PermissoesGrupo[] = Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA;
         $PermissoesGrupo[] = Autenticacao_Model_Grupos::SUPERINTENDENTE_DE_VINCULADA;
 
@@ -34,17 +33,13 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
         case Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA:
             $this->redirect("/{$this->moduleName}/gerenciar-parecer/finalizar-parecer");
             break;
-        case Autenticacao_Model_Grupos::COORDENADOR_DE_PARECERISTA:
+        case Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER:
             $this->redirect("/{$this->moduleName}/gerenciar-parecer/index?tipoFiltro=validados");
             break;
         }
     }
 
     public function encaminharAssinaturaAction()
-    {
-    }
-
-    public function obterServicoDocumentoAssinatura()
     {
     }
 
@@ -68,29 +63,23 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
         if ($this->_request->getParam("qtde")) {
             $this->intTamPag = $this->_request->getParam("qtde");
         }
-        $order = array();
 
+        $ordem = "ASC";
+        $novaOrdem = "ASC";
         if ($this->_request->getParam("ordem")) {
             $ordem = $this->_request->getParam("ordem");
             if ($ordem == "ASC") {
                 $novaOrdem = "DESC";
-            } else {
-                $novaOrdem = "ASC";
             }
-        } else {
-            $ordem = "ASC";
-            $novaOrdem = "ASC";
         }
 
+        $campo = null;
+        $order = array('DtEnvioMincVinculada', 'NomeProjeto', 'stPrincipal desc');
+        $ordenacao = null;
         if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
             $order = array($campo . " " . $ordem);
             $ordenacao = "&campo=" . $campo . "&ordem=" . $ordem;
-        } else {
-            $campo = null;
-            $order = array('DtEnvioMincVinculada', 'NomeProjeto', 'stPrincipal desc');
-
-            $ordenacao = null;
         }
 
         $pag = 1;

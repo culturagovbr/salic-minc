@@ -12,6 +12,7 @@ class Verificacao extends MinC_Db_Table_Abstract
     const PROJETO_NORMAL = 610;
     const PROJETO_APROVADO_EM_EDITAIS = 618;
     const PROJETO_COM_CONTRATOS_DE_PATROCINIOS = 619;
+    const DESPACHO_ADMISSIBILIDADE = 129;
 
 
     protected $_schema = "sac";
@@ -36,7 +37,7 @@ class Verificacao extends MinC_Db_Table_Abstract
         foreach ($consulta as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
-        
+
         return $this->fetchAll($select);
     }
 

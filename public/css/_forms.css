@@ -228,6 +228,7 @@ form label {
 }
 
 form input[type="text"].browser-default,
+form input[type="number"].browser-default,
 form .browser-default {
     display: block;
     width: 100%;
@@ -259,10 +260,10 @@ form input.browser-default:focus {
 form input[type="text"]:disabled,
 form .browser-default:disabled,
 form .browser-default[readonly] {
-    border: 1px dotted rgba(0, 0, 0, 0.57);
-    background-color: #e9ecef;
+    /*border: 1px dotted rgba(0, 0, 0, 0.57);*/
+    /*background-color: #f1f2f3;*/
     opacity: 1;
-    color: #495057;
+    color: #262b31;
 }
 
 form small {

@@ -215,7 +215,7 @@ class PublicacaoDouDAO extends Zend_Db_Table
                 WHERE Ap.PortariaAprovacao = '$portaria' 
                     and ( ap.PortariaAprovacao is not null or DtPublicacaoAprovacao is not null or DtPortariaAprovacao is not null) 
                     and $filtroOrgao
-               ORDER BY 12,19,7  
+               ORDER BY 12,19,1
         ";
 
         $db = Zend_Db_Table::getDefaultAdapter();
@@ -530,16 +530,16 @@ class PublicacaoDouDAO extends Zend_Db_Table
         return $db->fetchRow($sql);
     }
 
-    public static function situcaopublicacaodou($TipoAprovacao, $Portaria, $novaSituacao, $situacaoAtual, $usuarioLogado, $orgaoSuperior)
+    public static function situcaopublicacaodou($tipoAprovacao, $Portaria, $novaSituacao, $situacaoAtual, $usuarioLogado, $orgaoSuperior)
     {
         try {
-            $ProvidenciaTomada = 'Projeto aprovado e publicado no Di&aacute;rio Oficial da Uni&atilde;o.';
-            if ($TipoAprovacao == 2) {
-                $ProvidenciaTomada = 'Complementa&ccedil;&atilde;o aprovada e publicada no Di&aacute;rio Oficial da Uni&atilde;o.';
-            } elseif ($TipoAprovacao == 3) {
-                $ProvidenciaTomada = 'Prorroga&ccedil;&atilde;o aprovada e publicada no Di&aacute;rio Oficial da Uni&atilde;o.';
-            } elseif ($TipoAprovacao == 4) {
-                $ProvidenciaTomada = 'Redu&ccedil;&atilde;o aprovada e publicada no Di&aacute;rio Oficial da Uni&atilde;o.';
+            $providenciaTomada = 'Projeto aprovado e publicado no Di&aacute;rio Oficial da Uni&atilde;o.';
+            if ($tipoAprovacao == Aprovacao::TIPO_APROVACAO_COMPLEMENTACAO) {
+                $providenciaTomada = 'Complementa&ccedil;&atilde;o aprovada e publicada no Di&aacute;rio Oficial da Uni&atilde;o.';
+            } elseif ($tipoAprovacao == Aprovacao::TIPO_APROVACAO_PRORROGACAO) {
+                $providenciaTomada = 'Prorroga&ccedil;&atilde;o aprovada e publicada no Di&aacute;rio Oficial da Uni&atilde;o.';
+            } elseif ($tipoAprovacao == Aprovacao::TIPO_APROVACAO_REDUCAO) {
+                $providenciaTomada = 'Redu&ccedil;&atilde;o aprovada e publicada no Di&aacute;rio Oficial da Uni&atilde;o.';
             }
 
             $area = ' p.Area = 2 ';
@@ -550,17 +550,18 @@ class PublicacaoDouDAO extends Zend_Db_Table
             $sql = "
                 UPDATE SAC.dbo.Projetos
                 SET Situacao = '$novaSituacao',
-                ProvidenciaTomada = '$ProvidenciaTomada',
+                ProvidenciaTomada = '$providenciaTomada',
                 DtSituacao = GETDATE(),
                 Logon = '$usuarioLogado'
                 FROM SAC.dbo.Projetos p 
                 INNER JOIN SAC.dbo.Aprovacao a ON (p.AnoProjeto = a.AnoProjeto AND p.Sequencial = a.Sequencial)
-                WHERE a.TipoAprovacao = '$TipoAprovacao'
+                WHERE a.TipoAprovacao = '$tipoAprovacao'
                     AND $area
                     AND p.Situacao = '$situacaoAtual'
                     AND a.PortariaAprovacao = '$Portaria' ";
 
-            if ($TipoAprovacao != 5 && $TipoAprovacao != 6) {
+            if ($tipoAprovacao != Aprovacao::TIPO_APROVACAO_PRESTACAO_REPROVADA
+                && $tipoAprovacao != Aprovacao::TIPO_APROVACAO_PRESTACAO_APROVADA) {
                 if ($novaSituacao == 'E12') {
                     $sql .= "AND EXISTS(SELECT TOP 1 * FROM SAC.dbo.Captacao c WHERE c.AnoProjeto = p.AnoProjeto and c.Sequencial = p.Sequencial)";
                 } else {
@@ -570,7 +571,7 @@ class PublicacaoDouDAO extends Zend_Db_Table
 
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_ASSOC);
-            $alterar = $db->fetchRow($sql);
+            $db->fetchRow($sql);
         } catch (exception $e) {
         }
     }

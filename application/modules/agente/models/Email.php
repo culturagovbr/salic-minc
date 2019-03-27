@@ -1,22 +1,11 @@
 <?php
-/**
- * Modelo Email
- * @author wouerner <wouerner@gmail.com>
- * @since 29/03/2010
- * @version 1.0
- * @todo modificar o nome da tabela no banco de dados.
- */
 
 class Agente_Model_Email extends MinC_Db_Table_Abstract
 {
-    /**
-     * @var $_name nome da tabela
-     */
-    protected $_name = 'internet'; // nome da tabela
-    protected $_schema = 'agentes'; // nome da tabela
+    protected $_name = 'internet'; 
+    protected $_schema = 'agentes';
 
     /**
-     * M�todo para buscar todos os e-mails de um conselheiro
      * @access public
      * @param integer $idAgente
      * @return object $db->fetchAll($sql)
@@ -31,11 +20,11 @@ class Agente_Model_Email extends MinC_Db_Table_Abstract
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB::FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao buscar E-mails do Proponente: " . $e->getMessage();
+            throw new Exception ("Erro ao buscar E-mails do Proponente: " . $e->getMessage());
         }
 
         return $db->fetchAll($sql);
-    } // fecha buscar()
+    }
 
 
 
@@ -55,8 +44,7 @@ class Agente_Model_Email extends MinC_Db_Table_Abstract
             $db->closeConnection();
             return true;
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao cadastrar E-mails do Proponente: " . $e->getMessage();
-            return false;
+            throw new Exception ("Erro ao cadastrar E-mails do Proponente: " . $e->getMessage());
         }
     }
 
@@ -97,11 +85,11 @@ class Agente_Model_Email extends MinC_Db_Table_Abstract
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB :: FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao excluir E-mail do Proponente: " . $e->getMessage();
+            throw new Exception ("Erro ao excluir E-mails do Proponente: " . $e->getMessage());
         }
 
         return $db->fetchAll($sql);
-    } // fecha m�todo excluir()
+    } 
 
 
 
@@ -120,7 +108,7 @@ class Agente_Model_Email extends MinC_Db_Table_Abstract
             $db->setFetchMode(Zend_DB :: FETCH_OBJ);
             $i = $db->query($sql);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao excluir E-mail do Proponente: " . $e->getMessage();
+            throw new Exception ("Erro ao excluir E-mails do Proponente: " . $e->getMessage());
         }
-    } // fecha m�todo excluirTodos()
-} // fecha class
+    }
+} 

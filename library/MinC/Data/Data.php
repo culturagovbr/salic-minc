@@ -234,7 +234,10 @@ class Data
      */
     public static function tratarDataZend($data, $tipo, $hora=null)
     {
-        
+        if (empty($data)) {
+            return '';
+        }
+
         if(is_object($data)){
             $data = $data->format('Y-m-d H:i:s');
         }
@@ -469,6 +472,20 @@ class Data
             }
             return $dia.' de '.$mes.' de '.$ano;
 
+    }
+
+    public static function mostrarPeriodoDeDatas($dataInicial, $dataFinal)
+    {
+
+        if (empty($dataInicial)) {
+            return "N&atilde;o informado";
+        }
+
+        $dataInicialStr = self::tratarDataZend($dataInicial, 'brasileiro');
+        $dataFinal = self::tratarDataZend($dataFinal, 'brasileiro');
+        $output = sprintf('%s a %s', $dataInicialStr, $dataFinal);
+
+        return $output;
     }
 
 } // fecha class

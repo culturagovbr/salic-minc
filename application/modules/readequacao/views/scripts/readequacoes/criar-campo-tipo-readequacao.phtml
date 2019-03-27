@@ -1,0 +1,212 @@
+<?php if(in_array($this->tipoReadequacao, array(3,12))){ ?>
+    <input type="text" name="descSolicitacao" id="descSolicitacao" class="input_simples" maxlength="300" size="100" value="<?php echo $this->valorPreCarregado; ?>" />
+<?php } ?>
+    
+<?php if($this->tipoReadequacao == 4){ ?>
+    <input type="text" name="descSolicitacao" id="descSolicitacao" class="input_simples" maxlength="5" size="7" onblur="validarAgenciaBancaria(this.value)" value="<?php echo $this->valorPreCarregado; ?>"/>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            //$("#descSolicitacao").numeric();
+        });
+        function validarAgenciaBancaria(nrAgencia){
+            // faz a verificação do agente via post
+            $.ajax({
+                type: "GET",
+//                dataType: 'json',
+                data: {
+                    agencia: nrAgencia
+                },
+                url: '<?php echo $this->url(array("module" => "proposta", "controller" => "manterpropostaincentivofiscal", "action" => "validaagencia")); ?>',
+                success: function (data){
+                    if(data != ''){
+                        $("#msgAlerta").dialog("destroy");
+                        $("#msgAlerta").html(data+'!');
+                        $("#msgAlerta").dialog({
+                            resizable: false,
+                            title: 'Alerta!',
+                            width:320,
+                            height:160,
+                            modal: true,
+                            buttons : {
+                                'OK' : function(){
+                                    $(this).dialog('close');
+                                    $("#descSolicitacao").val("");
+                                    $('#agenciaResultado').html("");
+                                }
+                            }
+                        });
+                        $('.ui-dialog-titlebar-close').remove();
+                    }
+                },
+                error: function (data){
+                    $("#descSolicitacao").val("");
+                    $('#agenciaResultado').html("");
+                    $("#msgAlerta").dialog("destroy");
+                    $("#msgAlerta").html('Falha na recuperação dos dados!');
+                    $("#msgAlerta").dialog({
+                        resizable: false,
+                        title: 'Alerta!',
+                        width:320,
+                        height:160,
+                        modal: true,
+                        buttons : {
+                            'OK' : function(){
+                                $(this).dialog('close');
+                            }
+                        }
+                    });
+                    $('.ui-dialog-titlebar-close').remove();
+                }
+            });
+        }
+    </script>
+<?php } ?>
+    
+<?php if(in_array($this->tipoReadequacao, array(10))){ ?>
+    <input type="text" name="descSolicitacao" id="descSolicitacao" class="input_simples" maxlength="18" onkeyup="mascaraCnpjCpf(this);" onblur="validarNovoProponente(this.value)" value="<?php echo strlen($this->valorPreCarregado) == 14 ? Mascara::addMaskCNPJ($this->valorPreCarregado) : Mascara::addMaskCPF($this->valorPreCarregado); ?>"/>
+    <span id="nmAgenteCadastrado"></span>
+    <br clear="all" />
+    <script type="text/javascript">
+        
+        $(document).ready(function(){
+            validarNovoProponente('<?php echo $this->valorPreCarregado; ?>');
+        });
+        
+        function validarNovoProponente(cpfcnpj){
+            cpfcnpj = cpfcnpj.replace(".","");
+            cpfcnpj = cpfcnpj.replace(".","");
+            cpfcnpj = cpfcnpj.replace("/","");
+            var cpfcnpj = cpfcnpj.replace("-","");
+
+            // faz a verificação do agente via post
+            $.ajax({
+                type: "POST",
+                dataType: 'json',
+                data: {
+                    cpf: cpfcnpj
+                },
+                url: '<?php echo $this->url(array("module" => "agente", "controller" => "agentes", "action" => "agentecadastrado")); ?>',
+                success: function (data){
+                    if(data[0].msgCPF == 'cadastrado'){
+                        $('#nmAgenteCadastrado').html(data[0]['agente']['Nome']);
+                    } else {
+                        $("#msgAlerta").dialog("destroy");
+                        $("#msgAlerta").html('CPF ou CNPJ inválido.');
+                        $("#msgAlerta").dialog({
+                            resizable: false,
+                            title: 'Alerta!',
+                            width:320,
+                            height:160,
+                            modal: true,
+                            buttons : {
+                                'OK' : function(){
+                                    $(this).dialog('close');
+                                    $("#descSolicitacao").val("");
+                                    $('#nmAgenteCadastrado').html("");
+                                }
+                            }
+                        });
+                        $('.ui-dialog-titlebar-close').remove();
+                    }
+                },
+                error: function (data){
+                    $("#descSolicitacao").val("");
+                    $('#nmAgenteCadastrado').html("");
+                    $("#msgAlerta").dialog("destroy");
+                    $("#msgAlerta").html('Falha na recuperação dos dados!');
+                    $("#msgAlerta").dialog({
+                        resizable: false,
+                        title: 'Alerta!',
+                        width:320,
+                        height:160,
+                        modal: true,
+                        buttons : {
+                            'OK' : function(){
+                                $(this).dialog('close');
+                            }
+                        }
+                    });
+                    $('.ui-dialog-titlebar-close').remove();
+                }
+            });
+        }
+    </script>
+<?php } ?>
+    
+<?php if(in_array($this->tipoReadequacao, array(5,6,7,8,15,16,17,18,19,20,21))){ ?>
+    <textarea type="text" name="descSolicitacao" id="descSolicitacao"><?php echo $this->valorPreCarregado; ?></textarea><span class="red-text"></span>
+    <script type="text/javascript">
+        var editor = CKEDITOR.instances['descSolicitacao'];
+        if (editor) { delete CKEDITOR.instances['descSolicitacao']; }
+        //CKEDITOR.replace('descSolicitacao');
+
+        CKEDITOR.replace( 'descSolicitacao', { toolbar: [] } );
+    </script>
+<?php } ?>
+    
+<?php if($this->tipoReadequacao == 13){ ?>
+    <input type="text" name="descSolicitacao" readonly="readonly" id="descSolicitacao" class="input_simples" maxlength="10" onkeyup="mascara(this, format_data);" onclick="limpar_campo(this, '');" onblur="restaurar_campo(this, '');" value="<?php echo $this->valorPreCarregado; ?>" />
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $.datepicker.regional['pt-BR'] = {
+                closeText: 'Fechar',
+                prevText: '&#x3c;Anterior',
+                nextText: 'Pr&oacute;ximo&#x3e;',
+                currentText: 'Hoje',
+                monthNames: ['Janeiro','Fevereiro','Mar&ccedil;o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+                monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+                dayNames: ['Domingo','Segunda-feira','Ter&ccedil;a-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sabado'],
+                dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+                dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+                weekHeader: 'Sm',
+                dateFormat: 'dd/mm/yy',
+                firstDay: 0,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: ''};
+            $.datepicker.setDefaults($.datepicker.regional['pt-BR']);
+            $("#descSolicitacao").datepicker($.datepicker.regional['pt-BR']);
+        });
+    </script>
+<?php } ?>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        var texto = '';
+        <?php if($this->tipoReadequacao == 3){ ?>
+        texto = 'Alteração de Razão Social';
+        <?php } else if($this->tipoReadequacao == 4){ ?>
+        texto = 'Nova agência bancária';
+        <?php } else if($this->tipoReadequacao == 5){ ?>
+        texto = 'Sinopse da Obra';
+        <?php } else if($this->tipoReadequacao == 6){ ?>
+        texto = 'Impacto Ambiental';
+        <?php } else if($this->tipoReadequacao == 7){ ?>
+        texto = 'Especificação Técnica';
+        <?php } else if($this->tipoReadequacao == 8){ ?>
+        texto = 'Estratégia de Execução';
+        <?php } else if($this->tipoReadequacao == 10){ ?>
+        texto = 'Informe um CPF ou CNPJ válido e cadastrado no sistema SALIC.';
+        <?php } else if($this->tipoReadequacao == 12){ ?>
+        texto = 'Nome do Projeto';
+        <?php } else if($this->tipoReadequacao == 13){ ?>
+        texto = 'Nova data final de execução';
+        <?php } else if($this->tipoReadequacao == 15){ ?>
+        texto = 'Síntese do Projeto';
+        <?php } else if($this->tipoReadequacao == 16){ ?>
+        texto = 'Objetivos';
+        <?php } else if($this->tipoReadequacao == 17){ ?>
+        texto = 'Justificativa';
+        <?php } else if($this->tipoReadequacao == 18){ ?>
+        texto = 'Acessibilidade';
+        <?php } else if($this->tipoReadequacao == 19){ ?>
+        texto = 'Democratização de Acesso';
+        <?php } else if($this->tipoReadequacao == 20){ ?>
+        texto = 'Etapas de Trabalho';
+        <?php } else if($this->tipoReadequacao == 21){ ?>
+        texto = 'Ficha Técnica';
+        <?php } ?>
+        $("#campoCriadoTipoReadequacao").append('<span class="red-text" id="textAjuda"></span>');
+        $("#textAjuda").html(texto);
+    });
+</script>

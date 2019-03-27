@@ -1,0 +1,53 @@
+<?php if ($this->imagens->count()) : ?>
+<table class="tabela">
+    <thead>
+        <tr class="centro">
+            <td class="destacar bold">Documento</td>
+            <td class="destacar bold">Ação</td>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->imagens as $imagem) : ?>
+        <tr>
+            <td>
+                <a
+                    href="
+                        <?php echo $this->url(
+                                array(
+                                    'controller' => 'upload',
+                                    'action' => 'abrir',
+                                    'id' => $imagem->getArquivo()->idArquivo,
+                                ),
+                                null,
+                                true
+                            );
+                        ?>
+                    ">
+                        <?php echo $imagem->getArquivo()->nmArquivo; ?>
+                </a>
+            </td>
+            <td>
+                <a
+                    href="
+                        <?php echo $this->url(
+                                array(
+                                    'module' => 'comprovacao-objeto',
+                                    'controller' => 'comprovarexecucaofisica',
+                                    'action' => 'deletar-imagem-cumprimento-do-objeto',
+                                    'idpronac' => $this->idPronac,
+                                    'idArquivo' => $imagem->getArquivo()->idArquivo,
+                                    'idCumprimentoDoObjeto' => $this->idCumprimentoDoObjeto,
+                                ),
+                                null,
+                                true
+                            );
+                        ?>
+                    ">
+                    <input type="button" value="" class="btn_exclusao" />
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php endif; ?>

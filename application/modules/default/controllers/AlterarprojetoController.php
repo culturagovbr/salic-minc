@@ -7,7 +7,7 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
     private $codOrgao = 0;
     private $tiposDocumento = array();
     private $getParecerista = 'N';
-    private $idAgente = null;
+    protected $idAgente = null;
 
     public function init()
     {
@@ -91,43 +91,31 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
             $sequencial = addslashes(substr($pronac, 2, strlen($pronac)));
 
             $tbProjeto = new Projetos();
-            $buscaProjeto = $tbProjeto->buscar(array("AnoProjeto = ?" => $ano, "Sequencial = ?" => $sequencial));
+            $buscaProjeto = $tbProjeto->buscar(array("AnoProjeto = ?" => $ano, "Sequencial = ?" => $sequencial))->current();
 
-            if (!empty($buscaProjeto[0])) {
-                $CgcCpf = $buscaProjeto[0]->CgcCpf;
-            } else {
+            if (empty($buscaProjeto)) {
                 parent::message("PRONAC n&atilde;o localizado!", "Alterarprojeto/consultarprojeto", "ERROR");
             }
 
             $agentes = new Agente_Model_DbTable_Agentes();
-            $buscaTipoPessoa = $agentes->buscar(array('CNPJCPF = ?' => $CgcCpf));
+            $buscaTipoPessoa = $agentes->buscar(array('CNPJCPF = ?' => $buscaProjeto->CgcCpf))->current();
 
-            if ($buscaTipoPessoa[0]->TipoPessoa == 1) {
-                $this->view->pj = "true";
-            } else {
-                $this->view->pj = "false";
+            if (!empty($buscaTipoPessoa)) {
+                $this->view->pj = ($buscaTipoPessoa->TipoPessoa == 1) ? "true" : "false";
+                $this->idAgente = $buscaTipoPessoa->idAgente;
             }
 
-            $agentes = new Agente_Model_DbTable_Agentes();
-            $buscaTipoPessoa = $agentes->buscar(array('CNPJCPF = ?' => $CgcCpf));
-            $this->idAgente = $buscaTipoPessoa[0]->idAgente;
-
-            /* Monta os dados do Agente */
-
-            $idAgente = $this->idAgente;
-
-            $qtdDirigentes = '';
-            if (isset($idAgente)) {
-                $dados = Agente_Model_ManterAgentesDAO::buscarAgentes(null, null, $idAgente);
+            if (!empty($this->idAgente)) {
+                $dados = Agente_Model_ManterAgentesDAO::buscarAgentes(null, null, $this->idAgente);
 
                 if (!$dados) {
                     parent::message("Agente n&atilde;o encontrado!", "agentes/buscaragente", "ALERT");
                 }
 
-                $this->view->telefones = Agente_Model_ManterAgentesDAO::buscarFones($idAgente);
-                $this->view->emails = Agente_Model_ManterAgentesDAO::buscarEmails($idAgente);
+                $this->view->telefones = Agente_Model_ManterAgentesDAO::buscarFones($this->idAgente);
+                $this->view->emails = Agente_Model_ManterAgentesDAO::buscarEmails($this->idAgente);
                 $visaoTable = new Agente_Model_DbTable_Visao();
-                $visoes = $visaoTable->buscarVisao($idAgente);
+                $visoes = $visaoTable->buscarVisao($this->idAgente);
                 $this->view->visoes = $visoes;
 
                 foreach ($visoes as $v) {
@@ -136,8 +124,9 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
                     }
                 }
 
+                $qtdDirigentes = '';
                 if ($dados[0]->TipoPessoa == 1) {
-                    $dirigentes = Agente_Model_ManterAgentesDAO::buscarVinculados(null, null, null, null, $idAgente);
+                    $dirigentes = Agente_Model_ManterAgentesDAO::buscarVinculados(null, null, null, null, $this->idAgente);
                     $qtdDirigentes = count($dirigentes);
                     $this->view->dirigentes = $dirigentes;
                 }
@@ -146,8 +135,7 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
                 $this->view->qtdDirigentes = $qtdDirigentes;
                 $this->view->parecerista = $this->getParecerista;
                 $this->view->pronac = $pronac;
-                //$this->view->idpronac = $_REQUEST['pronac'];
-                $this->view->id = $idAgente;
+                $this->view->id = $this->idAgente;
             }
         }
 
@@ -764,7 +752,7 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
                     // redireciona para a pagina com a busca dos dados com paginacao
                     $this->redirect("agentes/listaragente?cpf=" . $cpf . "&nome=" . $nome);
                 } // fecha else
-            } 
+            }
             catch (Exception $e) {
                 $this->view->message = $e->getMessage();
                 $this->view->message_type = "ERROR";
@@ -884,9 +872,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
         } else {
             parent::message("PRONAC n&atilde;o localizado!", "Alterarprojeto/consultarprojeto", "ALERT");
         }
-        if ($listaparecer[0]->Orgao != $this->codOrgao) {
-            parent::message("Usu&aacute;rio sem autoriza&ccedil;&atilde;o no org&atilde;o do projeto!", "Alterarprojeto/consultarprojeto", "ALERT");
-        }
     }
 
     public function situacaoAction()
@@ -927,9 +912,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
         } else {
             parent::message("Dados obrigat&oacute;rios n&atilde;o informados", "alterarprojeto/consultarprojeto", "ERROR");
         }
-        if ($dadosprojeto[0]->Orgao != $this->codOrgao && $this->codGrupo != 125 && $this->codGrupo != 126) {
-            parent::message("Usu&aacute;rio sem autoriza&ccedil;&atilde;o no org&atilde;o do projeto", "alterarprojeto/consultarprojeto", "ERROR");
-        }
     }
 
     public function imprimirsituacaoAction()
@@ -967,9 +949,6 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
             //$this->view->documentos = array();
         } else {
             parent::message("Dados obrigat&oacute;rios n&atilde;o informados", "alterarprojeto/consultarprojeto", "ERROR");
-        }
-        if ($dadosprojeto[0]->Orgao != $this->codOrgao && $this->codGrupo != 125 && $this->codGrupo != 126) {
-            parent::message("Usu&aacute;rio sem autoriza&ccedil;&atilde;o no org&atilde;o do projeto", "alterarprojeto/consultarprojeto", "ERROR");
         }
         $this->_helper->layout->disableLayout();// Desabilita o Zend Layout
     }
@@ -1038,10 +1017,10 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
             $this->view->pronac = Seguranca::encrypt($listaparecer[0]->pronac);
 
             $this->view->comboareasculturais = $mapperArea->fetchPairs('Codigo', 'Descricao');
-            
+
             $objSegmentocultural = new Segmentocultural();
             $this->view->combosegmentosculturais = $objSegmentocultural->buscarSegmento($listaparecer[0]->Area);
-            
+
             $documentoDao = new tbHistoricoAlteracaoProjeto();
             $where = array(
                 "P.idPRONAC =?" => $listaparecer[0]->IdPRONAC,
@@ -1785,10 +1764,10 @@ class AlterarprojetoController extends MinC_Controller_Action_Abstract
 
             $buscarIdPronac = $Projetos->buscarIdPronac($pronac);
             $idPronac = $buscarIdPronac->IdPRONAC;
-            
+
             $objSegmentocultural = new Segmentocultural();
             $this->view->combosegmentosculturais = $objSegmentocultural->buscarSegmento($listaparecer[0]->Area);
-            
+
             if (!empty($idPronac)) {
                 $planoDistribuicao = RealizarAnaliseProjetoDAO::planodedistribuicao($idPronac);
                 $this->view->planoDistribuicao = $planoDistribuicao;

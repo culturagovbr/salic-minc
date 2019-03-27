@@ -6,7 +6,7 @@ class Solicitacao_Model_SpSelecionarTecnicoSolicitacao extends MinC_Db_Table_Abs
     protected $_name = 'spSelecionarTecnicoSolicitacao';
 
     /**
-     * Busca o técnico responsável por analisar a solicitação de acordo com o projeto ou proposta
+     * Busca o tÃ©cnico responsÃ¡vel por analisar a solicitaÃ§Ã£o de acordo com o projeto ou proposta
      * @param $id - idPronac(projeto) ou idPreProjeto(proposta)
      * @param string $tipo aceita 'projeto ou proposta'
      * @retorno idOrgao, idPerfil, idTecnico
@@ -21,7 +21,7 @@ class Solicitacao_Model_SpSelecionarTecnicoSolicitacao extends MinC_Db_Table_Abs
 
         try {
             $db = Zend_Db_Table::getDefaultAdapter();
-            $sql = "exec " . $this->_banco . "." . $this->_name . " {$id}, '{$tipo}'";
+            $sql = "exec " . $this->_schema . "." . $this->_name . " {$id}, '{$tipo}'";
             $resultado = $db->fetchRow($sql);
         } catch (Exception $e) {
             throw $e;

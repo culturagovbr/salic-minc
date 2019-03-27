@@ -2,6 +2,7 @@
 
 class MinC_Db_Model
 {
+
     public function __construct(array $options = null)
     {
         if (is_array($options)) {
@@ -45,13 +46,6 @@ class MinC_Db_Model
         return $this;
     }
 
-    /**
-     *
-     * @name toArray
-     *
-     * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
-     * @since  05/09/2016
-     */
     public function toArray()
     {
         $methods = get_class_methods($this);

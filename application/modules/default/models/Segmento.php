@@ -3,6 +3,12 @@ class Segmento extends MinC_Db_Table_Abstract
 {
     protected $_schema = 'sac';
     protected $_name = 'Segmento';
+    const SEGMENTOS_ARTIGO_18 =  [
+        '11','12','13','14','15','17','23','26','2A','2B','2E','2F','2G','2H',
+        '2I','2J','2K','2L','32','33','36','4B','4D','5A','5D','5E','5F','5G',
+        '5H','5I','5J','5K','5L','5M','5N','5O','5P','62','65','68','6C','6D',
+        '6E','6G','6H'
+    ];
 
     public function buscaCompleta($where=array(), $order=array(), $tamanho=-1, $inicio=-1, $count=false)
     {
@@ -36,7 +42,7 @@ class Segmento extends MinC_Db_Table_Abstract
             }
             $slct->limit($tamanho, $tmpInicio);
         }
-        
+
 
         return $this->fetchAll($slct);
     }

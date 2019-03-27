@@ -1,15 +1,5 @@
 <?php
 
-/**
- * @name Admissibilidade_Model_TbMensagemProjeto
- * @package Modules/Admissibilidade
- * @subpackage Models
- *
- * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
- * @since 17/10/2017
- *
- * @link http://salic.cultura.gov.br
- */
 class Projeto_Model_TbHomologacao extends MinC_Db_Model
 {
     protected $_idHomologacao;
@@ -19,6 +9,12 @@ class Projeto_Model_TbHomologacao extends MinC_Db_Model
     protected $_stDecisao;
     protected $_dsHomologacao;
     protected $_idUsuario;
+
+    const ST_DECISAO_INDEFERIDO = 1;
+    const ST_DECISAO_DEFERIDO = 2;
+
+    const TP_HOMOLOGACAO_NORMAL = 1;
+    const TP_HOMOLOGACAO_AD_REFEREDUM = 2;
 
     /**
      * @return mixed

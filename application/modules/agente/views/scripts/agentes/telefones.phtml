@@ -88,14 +88,14 @@
                         <select name="ufFone" id="ufFone" class="input_simples" onchange="carregar_combo(this.value,'dddFone','<?php echo $this->url(array('controller' => 'ddd', 'action' => 'combo')); ?>');">
                             <option value="0"> -- </option>
                             <?php foreach ($this->comboestados as $key => $combouffone) { ?>
-                            <option value="<?php echo $key; ?>"><?php echo $combouffone; ?></option>
+                                <option value="<?php echo $key; ?>"><?php echo $combouffone; ?></option>
                             <?php } ?>
                         </select>
                     </td>
                     <td>
                         <label for="dddFone">DDD *</label>
                         <br />
-                        <select name="dddFone" id="dddFone" class="input_simples">
+                        <select name="dddFone" id="dddFone" class="input_simples browser-default">
                             <option value=""> -- </option>
                         </select>
                     </td>

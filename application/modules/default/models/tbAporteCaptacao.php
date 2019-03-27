@@ -27,17 +27,43 @@ class tbAporteCaptacao extends MinC_Db_Table_Abstract
     public function pesquisarDepositoEquivocado(array $where)
     {
         $select = $this->select()->setIntegrityCheck(false);
-        $select->from($this->_name, array('*'));
-        $select->joinInner(array('i' => 'Interessado'), 'tbAporteCaptacao.CNPJCPF = i.CgcCPf', array('*'), 'SAC.dbo');
-        $select->joinInner(array('a' => 'agentes'), 'a.CNPJCPf = i.CgcCPf', array('*'), 'Agentes.dbo');
+        $select->from($this->_name,
+            [
+                'idPronac',
+                'vlDeposito',
+                'dtLote',
+                'nrLote',
+                "dtCredito" => new Zend_Db_Expr("CASE WHEN dtCredito = '1969-12-31' THEN null ELSE dtCredito END")
+            ]);
+        $select->joinInner(
+            [
+                'i' => 'Interessado'
+            ],
+            'tbAporteCaptacao.CNPJCPF = i.CgcCPf',
+            [
+                'Nome'
+            ],
+            'SAC.dbo'
+        );
+        $select->joinInner(
+            [
+                'a' => 'agentes'
+            ],
+            'a.CNPJCPf = i.CgcCPf',
+            [
+                'CNPJCPF',
+                'idAgente'
+            ],
+            'Agentes.dbo'
+        );
         $select->where('nrLote = ?', self::DEPOSITO_EQUIVOCADO_NRLOTE);
+        $select->order('dtLote DESC');
         foreach ($where as $key => $value) {
             $select->where($key, $value);
         }
-        
         return $this->fetchAll($select);
     }
-    
+
     /**
      *
      */
@@ -51,11 +77,11 @@ class tbAporteCaptacao extends MinC_Db_Table_Abstract
         foreach ($where as $key => $value) {
             $select->where($key, $value);
         }
-        
+
         if ($dbg) {
             xd($select->assemble());
         }
-        
+
         return $this->fetchAll($select);
     }
 
@@ -105,5 +131,42 @@ class tbAporteCaptacao extends MinC_Db_Table_Abstract
         $tbTmpCaptacaoModel->delete(array('idTmpCaptacao = ?' => $idCaptacao));
         #
         $this->getAdapter()->commit();
+    }
+
+    /**
+     *
+     */
+    public function devolucoesDoIncentivador(array $where, $order = array(), $dbg = false)
+    {
+        $select = $this->select()->setIntegrityCheck(false);
+        $select->from($this->_name, [
+            'idPronac',
+            'nrLote',
+            'dtLote',
+            'vlDeposito',
+            'CNPJCPF',
+        ]);
+        $select->joinInner(
+            [
+                'b' => 'Interessado'
+            ],
+            'tbAporteCaptacao.CNPJCPF = b.CgcCPf',
+            [
+                'Nome'
+            ],
+            'SAC.dbo'
+        );
+        $select->joinInner(array('c' => 'Verificacao'), 'c.idVerificacao = tbaportecaptacao.idVerificacao', array('Descricao'), 'SAC.dbo');
+        foreach ($where as $key => $value) {
+            $select->where($key, $value);
+        }
+
+        $select->order($order);
+
+        if ($dbg) {
+            xd($select->assemble());
+        }
+
+        return $this->fetchAll($select);
     }
 }

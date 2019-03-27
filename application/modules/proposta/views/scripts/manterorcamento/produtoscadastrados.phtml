@@ -144,13 +144,13 @@
                 Materialize.toast("Dados obrigat&oacute;rios n&atilde;o informados!", 4000);
                 return false;
             } else {
-                if ($3("#qtd").val() == 0) {
+                if ($3("#qtd").val() <= 0) {
                     Materialize.toast('Quantidade n&atilde;o pode ser igual a zero', 4000);
                     $3("#qtd").focusin();
                     return false;
                 }
 
-                if ($3("#ocorrencia").val() == 0) {
+                if ($3("#ocorrencia").val() <= 0) {
                     Materialize.toast('Ocorr&ecirc;ncia n&atilde;o pode ser igual a zero', 4000);
                     $3("#ocorrencia").focusin();
                     return false;
@@ -160,13 +160,13 @@
                 vlunitario = vlunitario.replace(/\D/g, "");
                 vlunitario = vlunitario.replace(/(\d{0})(\d)/, "$1$2");
 
-                if (vlunitario == 0) {
+                if (vlunitario <= 0) {
                     Materialize.toast('Valor unit&aacute;rio n&atilde;o pode ser igual a zero', 4000);
                     $3("#vlunitario").focusin();
                     return false;
                 }
 
-                if ($3("#qtdDias").val() == 0) {
+                if ($3("#qtdDias").val() <= 0) {
                     Materialize.toast('Quantidade de dias n&atilde;o pode ser igual a zero', 4000);
                     $3("#qtdDias").focusin();
                     return false;
@@ -246,7 +246,7 @@
             if (valor_unitario.val() == 0)
                 return false;
 
-            abrirPreLoader('Verificando valor unitário ...');
+            abrirPreLoader('Verificando valor unitÃ¡rio ...');
 
             dados = {
                 idproduto: $3("#produto").val(),

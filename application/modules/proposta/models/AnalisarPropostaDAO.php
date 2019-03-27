@@ -47,6 +47,7 @@ class Proposta_Model_AnalisarPropostaDAO extends MinC_Db_Model
                     p.tpProrrogacao,
                     p.DescricaoAtividade,
                     a.CNPJCPF,
+                    a.Usuario as idUsuarioAgente,
                     agentes.dbo.fnNome(p.idAgente) as NomeAgente,
                     SAC.dbo.fnNomeTecnicoMinc(tbap.idTecnico) as tecnico,
                     en.TipoEndereco,

@@ -230,14 +230,14 @@
                         </td>
                         <td><?php echo $tbpublicacao->NomeProjeto; ?></td>
                         <td><?php echo $tbpublicacao->LocalizacaoProjeto; ?></td>
-                        <td><?php echo $this->escape($tbpublicacao->area); ?></td>
+                        <td><?php echo $tbpublicacao->area; ?></td>
                         
                         <?php if($this->filtro != 'readequacao'){ ?>
                         <td align="right"><?php echo $this->formatarReal($tbpublicacao->AprovadoReal); ?></td>
                         <?php } ?>
                         
                         <?php if($this->filtro == 'readequacao'){ ?>
-                        <td><?php echo $this->escape($tbpublicacao->dsReadequacao); ?></td>
+                        <td><?php echo $tbpublicacao->dsReadequacao; ?></td>
                         <?php } ?>
                     </tr>
                 <?php } ?>

@@ -1,0 +1,211 @@
+<main>
+    <?php
+    $links = array(
+        array('Gerenciar Enquadramento' => array())
+    );
+    gerarBreadCrumb($links);
+    ?>
+    <div class="content">
+        <div class="row">
+            <div class="col s12">
+                <table class="bordered margin0" id="enquadramento" style="width:100%">
+                    <thead>
+                    <tr class="titulo_tabela">
+                        <th class="center-align">PRONAC</th>
+                        <th class="center-align">Nome do Projeto</th>
+                        <th class="center-align">&Aacute;rea</th>
+                        <th class="center-align">Segmento</th>
+                        <th class="center-align">Data</th>
+                        <?php if ($this->codGrupo == Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE): ?>
+                            <th class="center-align">T&eacute;cnico</th>
+                        <?php endif; ?>
+                        <th class="center-align">A&ccedil;&atilde;o</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <?php foreach ($this->dados as $dado): ?>
+                        <?php
+                        if ($dado->Situacao == Projeto_Model_Situacao::PROJETO_ENQUADRADO_COM_RECURSO) : ?>
+                            <tr class="amber lighten-4">
+                        <?php elseif ($dado->Situacao == Projeto_Model_Situacao::PROJETO_DEVOLVIDO_PARA_ENQUADRAMENTO) : ?>
+                            <tr class="light-blue lighten-4">
+                        <?php else: ?>
+                            <tr>
+                        <?php endif; ?>
+                        <td class="center-align">
+                            <a class="black-text btn waves-effect waves-dark white"
+                               href="<?php echo $this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'index')) . "?idPronac={$dado->IdPRONAC}"; ?>"><u><?php echo $dado->pronac; ?></u></a>
+                        </td>
+                        <td class="center-align"><?php echo $dado->nomeProjeto; ?></td>
+                        <td class="center-align"><?php echo $dado->area; ?></td>
+                        <td class="center-align"><?php echo $dado->segmento; ?></td>
+                        <td class="center-align"><?php echo Data::tratarDataZend($dado->DtSituacao, 'Brasileira'); ?></td>
+                        <?php if ($this->codGrupo == Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE): ?>
+                            <td class="center-align"><?php echo (trim($dado->usu_nome) != "") ? $dado->usu_nome : '-' ?></td>
+                        <?php endif; ?>
+                        <td class="center-align">
+                            <?php
+                            $corMensagem = 'green';
+                            if ((int)$dado->mensagens_nao_respondidas == (int)'0' && (int)$dado->mensagens_respondidas == (int)'0') {
+                                $corMensagem = '  blue accent-1 ';
+                            } elseif ($dado->mensagens_nao_respondidas <> $dado->mensagens_respondidas) {
+                                $corMensagem = 'amber darken-1';
+                            }
+                            ?>
+                            <?php if ($dado->Situacao == Projeto_Model_Situacao::PROJETO_DEVOLVIDO_PARA_ENQUADRAMENTO): ?>
+                                <a href="#modalVisualizacaoDevolucaoAssinatura"
+                                   class="btn waves-effect waves-light tooltipped small amber accent-4"
+                                   data-position="top"
+                                   data-delay="50"
+                                   data-link="<?php echo $this->url(
+                                           array(
+                                               'module' => 'admissibilidade',
+                                               'controller' => 'enquadramento',
+                                               'action' => 'visualizar-devolucao-assinatura'
+                                           )
+                                       ) . "?IdPRONAC={$dado->IdPRONAC}"; ?>"
+                                   data-tooltip="Visualizar Devolu&ccedil;&atilde;o">
+                                    <i class="material-icons white-text">search</i>
+                                </a>
+                            <?php endif; ?>
+                            <a class="btn waves-effect waves-light tooltipped small <?php echo $corMensagem; ?>"
+                               href="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'mensagem', 'action' => 'index')) . "?idPronac={$dado->IdPRONAC}"; ?>"
+                               data-position="top" data-delay="50" data-tooltip="D&uacute;vida">
+                                <i class="material-icons white-text">&#xE0BF;</i>
+                            </a>
+                            <a class="btn waves-effect waves-light cyan tooltipped small"
+                               href="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'enquadramento', 'action' => 'enquadrarprojeto')) . "?IdPRONAC={$dado->IdPRONAC}" ?>"
+                               data-position="top" data-delay="50" data-tooltip="Enquadrar">
+                                <i class="material-icons white-text darken-4">&#xE869;</i>
+                            </a>
+                        </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>
+                <div class="col s12 m6 l4" class="padding20">
+                    <div class="">
+                        <label>Legenda:</label>
+                    </div>
+                    <div class="">
+                        <div class="margin5">
+                            <div class="amber lighten-4" style="border: 1px solid gray; height: 20px; display: inline">
+                                &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            Projeto Enquadrado Com Recurso
+                            <br clear="both"/>
+                        </div>
+                        <div class="margin5">
+                            <div class="" style="border: 1px solid gray; height: 20px; display: inline">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            Projeto Para Enquadramento
+                            <br clear="both"/>
+                        </div>
+                        <div class="margin5">
+                            <div class="light-blue lighten-4"
+                                 style="border: 1px solid gray; height: 20px; display: inline">
+                                &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            Projeto Devolvido para Enquadramentro
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalVisualizacaoDevolucaoAssinatura" class="modal modal-fixed-footer">
+        <div class="modal-content padding20 ">
+            <h4>Motivo da Devolu&ccedil;&atilde;o da Assinatura</h4>
+            <br />
+            <br />
+            <p id="conteudoDevolucaoAssinatura"></p>
+        </div>
+        <div class="modal-footer">
+            <div class="padding10 left">
+                Data da devolu&ccedil;&atilde;o: <b><span id="dataDevolucaoAssinatura"></span> </b>
+            </div>
+            <a href="#!"
+               class="modal-action modal-close waves-effect waves-green btn-flat">Fechar</a>
+        </div>
+    </div>
+
+    <br clear="all"/>
+    <script
+        src="https://code.jquery.com/jquery-1.12.4.js"
+        integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU="
+        crossorigin="anonymous"></script>
+
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
+    <script
+        type="text/javascript"
+        src="https://cdn.datatables.net/1.10.13/js/dataTables.material.min.js"></script></script>
+
+    <script
+     type = "text/javascript" >
+        (function ($) {
+
+            $(document).ready(function () {
+
+                $3('.modal').modal({
+                        dismissible: true,
+                        opacity: .5,
+                        inDuration: 300,
+                        outDuration: 200,
+                        startingTop: '4%',
+                        endingTop: '10%',
+                        ready: function(modal, trigger) {
+                            $.ajax(
+                                {
+                                    url: $3(trigger).data('link'),
+                                    data: {},
+                                    type: "post",
+                                    success: function (data) {
+                                        if(data.status == 1) {
+                                            $(modal).find('#conteudoDevolucaoAssinatura').html(data.despacho);
+                                            $(modal).find('#dataDevolucaoAssinatura').html(data.data);
+                                        } else {
+                                            Materialize.toast(
+                                                data.msg,
+                                                4000,
+                                                'green darken-1 white-text',
+                                                function () {
+                                                    window.location = url
+                                                })
+                                            ;
+                                        }
+                                    },
+                                    contentType: false,
+                                    dataType: 'json'
+                                }
+                            );
+
+                        }
+//                    ,complete: function() {
+//                        alert('Closed');
+//                    } // Callback for Modal close
+                    }
+                );
+
+                $('#enquadramento').DataTable(
+                    {
+                        "language": {
+                            "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                        }
+                        , "order": [0, 1]
+                        , "searching": true
+                        , "lengthChange": true
+                        , columnDefs: [
+                        {
+                            targets: [0, 1],
+//                            className: 'mdl-data-table__cell--non-numeric'
+                        }
+                    ]
+                        ,
+                        "aoColumnDefs": [
+                            {'bSortable': false, 'aTargets': [4]}
+                        ]
+                    });
+            });
+        }($.noConflict(true)));
+    </script>
+
+</main>
+

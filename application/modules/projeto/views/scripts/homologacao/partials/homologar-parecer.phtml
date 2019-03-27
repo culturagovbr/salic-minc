@@ -1,0 +1,123 @@
+<li>
+    <div class="collapsible-header active"><b>Identifica&ccedil;&atilde;o do projeto</b></div>
+    <div class="collapsible-body">
+        <div class="row">
+            <div class="col s12 l6 m6">
+                <b>PRONAC</b></br>
+                <?= $this->arrValue['enquadramentoProjeto']['Pronac'] ?>
+            </div>
+            <div class="col s12 l6 m6">
+                <b>Projeto</b></br>
+                <?= $this->arrValue['enquadramentoProjeto']['NomeProjeto'] ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 l6 m6">
+                <b>Proponente</b></br>
+                <?= $this->arrValue['enquadramentoProjeto']['Proponente'] ?>
+            </div>
+            <div class="col s12 l6 m6">
+                <b>CPF/CNPJ</b></br>
+                <?= Validacao::mascaraCPFCNPJ($this->arrValue['enquadramentoProjeto']['CNPJCPF']) ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 l6 m6">
+                <b>&Aacute;rea / Segmento</b></br>
+                <?= $this->arrValue['enquadramentoProjeto']['Area'] ?> / <?= $this->arrValue['enquadramentoProjeto']['Segmento'] ?>
+            </div>
+            <div class="col s12 l6 m6">
+                <b>UF</b></br>
+                <?= $this->arrValue['enquadramentoProjeto']['UfProjeto'] ?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col s12 l6 m6">
+                <b>Per&iacute;odo de execu&ccedil;&atilde;o</b></br>
+                <?= reset(explode(' ', Data::dataBrasileira($this->arrValue['enquadramentoProjeto']['DtInicioExecucao']))) ?>
+                &agrave; <?= reset(explode(' ', Data::dataBrasileira($this->arrValue['enquadramentoProjeto']['DtFimExecucao']))) ?>
+            </div>
+            <div class="col s12 l6 m6">
+                <b>Enquadramento</b></br>
+                <?= $this->arrValue['enquadramentoProjeto']['Enquadramento'] ?>
+            </div>
+        </div>
+    </div>
+</li>
+<li>
+    <div class="collapsible-header <?= (isset($this->booShowAll) && $this->booShowAll === true)? 'active' : '' ?>"><b>Resumo do Projeto</b></div>
+    <div class="collapsible-body">
+        <?= nl2br($this->arrValue['enquadramentoProjeto']['ResumoProjeto']) ?>
+    </div>
+</li>
+<li>
+    <div class="collapsible-header <?= (isset($this->booShowAll) && $this->booShowAll === true)? 'active' : '' ?>"><b>Mem&oacute;ria de C&aacute;lculo (R$)</b></div>
+    <div class="collapsible-body">
+        <table class="tabela bordered" style="width: 100%;">
+            <tbody>
+            <tr>
+                <td class="right-align"><b>Vl. Adequado Incentivo</b></td>
+                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlAdequadoIncentivo']) ?></td>
+
+                <td class="right-align"><b>Vl. Homologado Incentivo</b></td>
+                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlHomologadoIncentivo']) ?></td>
+            </tr>
+            <tr>
+                <td class="right-align"><b>Vl. Outras Fontes</b></td>
+                <td class="right-align"> <?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlAdequadoOutrasFontes']) ?></td>
+                <td class="right-align"><b>Vl. Outras Fontes</b></td>
+                <td class="right-align"> <?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlHomologadoOutrasFontes']) ?></td>
+            </tr>
+            <tr>
+                <td class="right-align"><b>Vl. Total Adequado</b></td>
+                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlTotalAdequado']) ?></td>
+                <td class="right-align"><b>Vl. Total Homologado</b></td>
+                <td class="right-align"><?= Mascara::addMaskMoeda($this->arrValue['enquadramentoProjeto']['VlTotalHomologado']) ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</li>
+<li>
+    <div class="collapsible-header center-align <?= (isset($this->booShowAll) && $this->booShowAll === true)? 'active' : '' ?>"><b>Avalia&ccedil;&atilde;o T&eacute;cnica</b></div>
+    <div class="collapsible-body">
+        <table class="responsive-table bordered" style="width: 100%;">
+            <tbody>
+            <tr>
+                <td><b>Posicionamento T&eacute;cnico:</b> <?php if (!is_null($this->arrValue['parecer']['ParecerFavoravel'])) echo ($this->arrValue['parecer']['ParecerFavoravel'] == 1)? 'Desfavor&aacute;vel' : 'Favor&aacute;vel' ?></td>
+            </tr>
+            <tr>
+                <td class="justificado padding10"><?=  TratarString::tratarTextoRico($this->arrValue['parecer']['ResumoParecer']) ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</li>
+<li>
+    <div class="collapsible-header center-align <?= (isset($this->booShowAll) && $this->booShowAll === true)? 'active' : '' ?>"><b>A&ccedil;&otilde;es Relevantes Para o Sucesso do Projeto</b></div>
+    <div class="collapsible-body">
+        <table class="responsive-table bordered" style="width: 100%;">
+            <tr>
+                <td class="justificado padding10"><?=  TratarString::tratarTextoRico($this->arrValue['acaoProjeto']['dsAcaoAlcanceProduto']) ?></td>
+            </tr>
+        </table>
+    </div>
+</li>
+<li>
+    <div class="collapsible-header center-align <?= (isset($this->booShowAll) && $this->booShowAll === true)? 'active' : '' ?>"><b>Aprecia&ccedil;&atilde;o do Comission&aacute;rio Relator</b></div>
+    <div class="collapsible-body">
+        <table class="responsive-table bordered" style="width: 100%;">
+            <tbody>
+            <tr>
+                <td><b>Posicionamento do Comiss&aacute;rio: </b><?php if (!is_null($this->arrValue['aparicaoComissario']['ParecerFavoravel'])) echo ($this->arrValue['aparicaoComissario']['ParecerFavoravel'] == 1)? 'Desfavor&aacute;vel' : 'Favor&aacute;vel' ?></td>
+            </tr>
+            <tr>
+                <td class="justificado padding10"><?=  TratarString::tratarTextoRico($this->arrValue['aparicaoComissario']['ResumoParecer']) ?></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</li>

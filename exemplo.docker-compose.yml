@@ -1,0 +1,64 @@
+version: '2'
+services:
+  web:
+    build: .
+    image: culturagovbr/salic-web:1.7
+    container_name: salic-web
+    ports:
+     - "80:80"
+    volumes:
+     - .:/var/www/salic
+     - ./log/apache2:/var/log/apache2
+     - ./public/txt:/var/www/salic/public/txt/
+     - ./public/plenaria:/var/www/salic/public/plenaria/
+    environment:
+      - APPLICATION_ENV=development
+      - UPDATE_COMPOSER_DEPENDENCIES="false"
+      # xDebug configs for 'development' enviroment
+      - XDEBUG_INSTALL="false"
+      - XDEBUG_REMOTE_ENABLE=on
+      - XDEBUG_REMOTE_AUTOSTART=on
+      - XDEBUG_REMOTE_HANDLER=dbgp
+      - XDEBUG_REMOTE_CONNECT_BACK=1
+      - XDEBUG_PROFILER_ENABLE=1
+      - XDEBUG_PROFILER_OUTPUT_DIR=/tmp/www/html
+      - XDEBUG_REMOTE_PORT=9000
+      - XDEBUGINI_PATH=/usr/local/etc/php/conf.d/xdebug.ini
+
+      - XDEBUG_DEFAULT_ENABLE=1
+      - XDEBUG_IDEKEY=PHPSTORM
+
+      - DB_ADAPTER=PDO_MSSQL
+      - DB_USERNAME=usuarios_internet
+      - DB_PASSWORD=_Salic
+      - DB_DBNAME=TABELAS
+      - DB_HOST=10.0.0.191
+      - DB_PORT=1434
+      - DB_CHARSET=ISO-8859-1
+      - DB_PDOTYPE=dblib
+  # webserver:
+  #   image: nginx:alpine
+  #   container_name: salic-api-webserver
+  #   working_dir: /application
+  #   volumes:
+  #     - ./api:/application
+  #     - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+  #   ports:
+  #     - "81:80"
+
+  # php-fpm:
+  #   build: docker/php-fpm
+  #   container_name: salic-api-php-fpm
+  #   working_dir: /application
+  #   volumes:
+  #     - ./api:/application
+  #     - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+#    networks:
+#      static-network:
+#        ipv4_address: 172.20.0.3
+#networks:
+#   static-network:
+#    ipam:
+#      config:
+#        - subnet: 172.20.0.0/16
+#          iprange: 172.28.5.0/24

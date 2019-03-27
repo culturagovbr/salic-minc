@@ -1,0 +1,933 @@
+<div class="conteudoImprimir exibir-proposta-cultural ">
+    <?php if (isset($this->itensGeral[0]->stEstado) && $this->itensGeral[0]->stEstado == 0): ?>
+        <table class="tabela" style="border: solid 1px red;">
+            <tr>
+                <td class="centro"
+                    style="color: red; font-size: 16px; font-weight: bold; border: solid 1px red;">
+                    Proposta
+                    Arquivada
+                </td>
+            </tr>
+        </table>
+    <?php  endif; ?>
+    <fieldset>
+        <legend>Identifica&ccedil;&atilde;o</legend>
+        <table class="">
+            <tr>
+
+                <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                    <td width="100px"><b>N&ordm; da Proposta</b></td>
+                    <td width="70px"><?php echo $this->itensGeral[0]->idPreProjeto ?></td>
+
+                    <?php if (isset($this->Pronac) && !empty($this->Pronac)) { ?>
+                        <td width="80px"><b>PRONAC</b></td>
+                        <td width="80px"> <?php echo $this->Pronac ?></td>
+                        <?php
+                    } ?>
+
+                    <td width="130px"><b>T&iacute;tulo da Proposta</b></td>
+                    <td><?php echo $this->itensGeral[0]->NomeProjeto ?></td>
+                    <?php
+                } ?>
+
+            </tr>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>Informa&ccedil;&otilde;es Complementares</legend>
+        <?php if (count($this->ultimaSugestaoEnquadramento) > 0
+            && !empty($this->ultimaSugestaoEnquadramento['area'])
+            && !empty($this->ultimaSugestaoEnquadramento['segmento'])
+            && !empty($this->ultimaSugestaoEnquadramento['enquadramento'])) { ?>
+            <table class="tabela">
+                <tr class="destacar">
+                    <td><b>&Aacute;rea</b></td>
+                    <td><b>Segmento</b></td>
+                    <td><b>Artigo</b></td>
+                </tr>
+                <tr>
+                    <td><?php echo $this->ultimaSugestaoEnquadramento['area'] ?> </td>
+                    <td><?php echo $this->ultimaSugestaoEnquadramento['segmento'] ?> </td>
+                    <td><?php echo $this->ultimaSugestaoEnquadramento['enquadramento'] ?> </td>
+                </tr>
+            </table>
+            <?php
+        } ?>
+        <table class="tabela">
+            <tr class="destacar">
+                <td><b>&Eacute; proposta de audiovisual?</b></td>
+                <td><b>Mecanismo</b></td>
+                <td><b>Ag&ecirc;ncia Banc&aacute;ria</b></td>
+                <td><b>Dt. In&iacute;cio Execu&ccedil;&atilde;o</b></td>
+                <td><b>Dt. Final Execu&ccedil;&atilde;o</b></td>
+                <td><b>Dt. Fixa</b></td>
+            </tr>
+            <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                <tr>
+                    <td><?php if ($this->itensGeral[0]->AreaAbrangencia == 1) echo "Sim";
+                        else echo "N&atilde;o"; ?></td>
+                    <td><?php if ($this->itensGeral[0]->Mecanismo == 1) echo "Incentivo Fiscal Federal"; ?></td>
+                    <td><?php echo $this->itensGeral[0]->AgenciaBancaria ?></td>
+                    <td><?php echo substr($this->itensGeral[0]->DtInicioDeExecucao, 0, 10) ?></td>
+                    <td><?php echo substr($this->itensGeral[0]->DtFinalDeExecucao, 0, 10) ?></td>
+                    <td><?php if ($this->itensGeral[0]->stDataFixa == 1) echo "Sim";
+                        else echo "N&atilde;o"; ?></td>
+                </tr>
+                <?php
+            } ?>
+        </table>
+        <table class="tabela">
+            <tr class="destacar">
+                <td><b>Prorroga&ccedil;&atilde;o autom&aacute;tica?</b></td>
+                <td><b>Tipo de execu&ccedil;&atilde;o</b></td>
+            </tr>
+            <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                <tr>
+                    <td><?php if ($this->itensGeral[0]->tpProrrogacao == 1) echo "Sim";
+                        else echo "N&atilde;o"; ?></td>
+                    <td><?php echo $this->itensGeral[0]->ExecucaoImediata ?></td>
+                </tr>
+                <?php
+            } ?>
+        </table>
+    </fieldset>
+    <fieldset>
+        <legend>Informa&ccedil;&otilde;es sobre tombamento</legend>
+        <table class="tabela">
+            <tr class="destacar">
+                <td><b>N&ordm; Ato Tombamento</b></td>
+                <td><b>Dt. Ato Tombamento</b></td>
+                <td><b>Esfera Tombamento</b></td>
+            </tr>
+            <?php if (is_array($this->itensGeral) and isset($this->itensGeral[0]->EsferaTombamento) and !empty($this->itensGeral[0]->EsferaTombamento)) { ?>
+                <tr>
+                    <td><?php echo $this->itensGeral[0]->NrAtoTombamento ?></td>
+                    <td><?php echo $this->itensGeral[0]->DtAtoTombamento ?></td>
+
+
+                    <?php $esferaTombamento = array('', 'Municipal', 'Estadual', 'Federal') ?>
+
+                    <td><?php echo $esferaTombamento[$this->itensGeral[0]->EsferaTombamento] ?></td>
+                </tr>
+                <?php
+            } else { ?>
+                <td colspan="3" align="center">N&atilde;o informado</td>
+                <?php
+            } ?>
+        </table>
+    </fieldset>
+
+    <table>
+        <tr onclick="abrirDinamico('#historicoAvaliacoes', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Hist&oacute;rico de Avalia&ccedil;&otilde;es
+            </th>
+        </tr>
+        <tr id="historicoAvaliacoes" style="display: none;">
+            <td>
+                <table class="bordered striped responsive-table">
+                    <tr class="destacar">
+                        <td align="left"><b>Data</b></td>
+                        <td align="left"><b>Perfil</b></td>
+                        <td align="left"><b>Avalia&ccedil;&atilde;o</b></td>
+                    </tr>
+                    <?php
+                    if (is_array($this->itensHistorico) and count($this->itensHistorico) > 0)
+                        foreach ($this->itensHistorico as $historico) { ?>
+                            <tr>
+                                <td align="left"
+                                    nowrap><?php echo ConverteData($historico->DtAvaliacao, 25) ?></td>
+                                <td align="left"><?php echo $historico->Perfil ?></td>
+                                <td align="left"><?php echo $historico->Avaliacao ?></td>
+                            </tr>
+                            <?php if ($historico->dtResposta != "" && strlen(strip_tags($historico->dsResposta)) > 1) : ?>
+                                <tr>
+                                    <td align="left"
+                                        nowrap><?php echo ConverteData($historico->dtResposta, 25) ?></td>
+                                    <td align="left"><?php echo $historico->Perfil ?></td>
+                                    <td align="left"><?php echo strip_tags($historico->dsResposta) ?></td>
+                                </tr>
+                            <?php endif; ?>
+                            <?php
+                        } ?>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#historicoEnquadramento', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Hist&oacute;rico de Sugest&otilde;es de Enquadramento
+            </th>
+        </tr>
+        <tr id="historicoEnquadramento" style="display: none;">
+            <td>
+                <table class="bordered striped responsive-table">
+                    <tr class="">
+                        <td class="center"><b>N&uacute;mero</b></td>
+                        <td class="center"><b>Data</b></td>
+                        <td class="center"><b>Avaliador</b></td>
+                        <td class="center"><b>Unidade</b></td>
+                        <td class="center"><b>&Aacute;rea</b></td>
+                        <td class="center"><b>Segmento</b></td>
+                        <td class="center"><b>Enquadramento</b></td>
+                        <td class="center"><b>Parecer</b></td>
+                    </tr>
+                    <tbody>
+                    <?php if (is_array($this->sugestao_enquadramento) and count($this->sugestao_enquadramento) > 0)
+                        foreach ($this->sugestao_enquadramento as $indice => $historico) { ?>
+                            <tr>
+                                <td align="left"><?php echo $indice + 1; ?></td>
+                                <td align="left"><?php echo ConverteData($historico['data_avaliacao'], 25) ?></td>
+                                <td align="left"><?php echo $historico['usu_nome'] ?></td>
+                                <td align="left"><?php echo $historico['org_sigla'] . ' - ' . $historico['gru_nome'] ?></td>
+                                <td align="center"
+                                    class="center"><?php echo $historico['area'] ? $historico['area'] : '-' ?></td>
+                                <td align="center"
+                                    class="center"><?php echo $historico['segmento'] ? $historico['segmento'] : '-' ?></td>
+                                <td align="center" class="center">
+                                    <?php
+                                    if (!empty($historico['tp_enquadramento'])) {
+                                        $tp_enquadramento = $historico['tp_enquadramento'] == 1 ? 'Artigo 26' : 'Artigo 18';
+                                    } else {
+                                        $tp_enquadramento = '-';
+                                    }
+                                    echo $tp_enquadramento
+                                    ?>
+                                </td>
+                                <td align="left"><?php echo $historico['descricao_motivacao'] ?></td>
+                            </tr>
+                            <?php
+                        } ?>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#proponente', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Proponente
+            </th>
+        </tr>
+        <tr id="proponente" style="display: none">
+            <td align="center">
+                <div>
+                    <fieldset>
+                        <legend>Identifica&ccedil;&atilde;o</legend>
+                        <table>
+                            <tr>
+                                <td width="10%" class="esquerda" nowrap><b>CNPJ / CPF</b></td>
+                                <td class="esquerda"
+                                    nowrap><?php echo (strlen($this->itensGeral[0]->CNPJCPF) > 11) ? aplicaMascara($this->itensGeral[0]->CNPJCPF, "99.999.999/9999-99") : aplicaMascara($this->itensGeral[0]->CNPJCPF, "999.999.999-99") ?></td>
+                                <td width="10%" class="esquerda" nowrap><b>Proponente</b></td>
+                                <td class="esquerda"
+                                    nowrap><?php echo $this->itensGeral[0]->NomeAgente ?></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Endere&ccedil;o</legend>
+                        <table class="bordered striped responsive-table">
+                            <tr class="destacar">
+                                <td width="10%" nowrap class="centro"><b>Tipo de Endere&ccedil;o</b>
+                                </td>
+                                <td width="10%" nowrap class="centro"><b>Tipo do Logradouro</b></td>
+                                <td width="20%" class="centro"><b>Logradouro</b></td>
+                                <td class="centro"><b>N&uacute;mero</b></td>
+                                <td class="centro"><b>Complemento</b></td>
+                                <td class="centro"><b>Bairro</b></td>
+                                <td class="centro"><b>Cidade</b></td>
+                                <td class="centro"><b>UF</b></td>
+                                <td class="centro"><b>CEP</b></td>
+                            </tr>
+                            <?php $auxEndCEP = "";
+                            $auxEndLogra = ""; ?>
+                            <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) {
+                                foreach ($this->itensGeral as $endereco) { ?>
+                                    <?php if ($endereco->CEP != $auxEndCEP || $endereco->Logradouro != $auxEndLogra) : ?>
+                                        <tr>
+                                            <td><?php echo $endereco->endereco ?></td>
+                                            <td><?php echo $endereco->logradouro ?></td>
+                                            <td><?php echo $endereco->Logradouro ?></td>
+                                            <td><?php echo $endereco->Numero ?></td>
+                                            <td><?php echo $endereco->Complemento ?></td>
+                                            <td><?php echo $endereco->Bairro ?></td>
+                                            <td><?php echo $endereco->NomeCidade ?></td>
+                                            <td><?php echo $endereco->SiglaUf ?></td>
+                                            <td><?php echo aplicaMascara($endereco->CEP, "99999-999") ?></td>
+                                        </tr>
+                                    <?php endif; ?>
+                                    <?php $auxEndCEP = $endereco->CEP; ?>
+                                    <?php $auxEndLogra = $endereco->Logradouro; ?>
+                                    <?php
+                                }
+                            } ?>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Telefones</legend>
+                        <table class="bordered striped responsive-table">
+                            <tr class="destacar">
+                                <td width="10%"><b>Tipo</b></td>
+                                <td><b>UF</b></td>
+                                <td><b>DDD</b></td>
+                                <td><b>N&uacute;mero</b></td>
+                                <td><b>Divulgar</b></td>
+                            </tr>
+                            <?php if (is_array($this->itensTelefone) and count($this->itensTelefone) > 0) {
+                                foreach ($this->itensTelefone as $telefone) { ?>
+                                    <tr>
+                                        <td><?php echo $telefone->Descricao ?></td>
+                                        <td><?php echo $telefone->Sigla ?></td>
+                                        <td><?php echo $telefone->DDD ?></td>
+                                        <td><?php echo $telefone->Numero ?></td>
+                                        <td><?php if ($telefone->Divulgar == 1) echo "Sim";
+                                            else echo "N&atilde;o"; ?></td>
+                                    </tr>
+                                    <?php
+                                }
+                            } ?>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>E-mail</legend>
+                        <table class="bordered striped responsive-table">
+                            <tr class="destacar">
+                                <td width="10%"><b>Tipo</b></td>
+                                <td><b>E-mail</b></td>
+                                <td><b>Para correspond&ecirc;ncia?</b></td>
+                                <td><b>Posso divulgar?</b></td>
+                            </tr>
+                            <?php $auxEmail = array();
+                            $auxEmailTipo = array(); ?>
+                            <?php foreach ($this->itensGeral as $email) { ?>
+                                <?php if (!in_array($email->agente, $auxEmail) || !in_array($email->email, $auxEmailTipo)) : ?>
+                                    <tr>
+                                        <td nowrap><?php echo $email->email ?></td>
+                                        <td nowrap><?php echo $email->agente ?></td>
+                                        <td><?php if ($email->divulgarEmail == 1) echo "Sim";
+                                            else echo "N&atilde;o"; ?></td>
+                                        <td><?php if ($email->divulgarEmail == 1) echo "Sim";
+                                            else echo "N&atilde;o"; ?></td>
+                                    </tr>
+                                <?php endif; ?>
+                                <?php $auxEmail[] = $email->agente; ?>
+                                <?php $auxEmailTipo[] = $email->email; ?>
+                                <?php
+                            } ?>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Natureza</legend>
+                        <table class="bordered striped responsive-table">
+                            <tr class="destacar">
+                                <td width="10%"><b>Direito</b></td>
+                                <td><b>Esfera</b></td>
+                                <td><b>Poder</b></td>
+                                <td><b>Administra&ccedil;&atilde;o</b></td>
+                            </tr>
+                            <tr>
+                                <?php if (!empty($this->itensGeral[0]->direito)) { ?>
+                                    <td nowrap><?php echo $this->itensGeral[0]->direito ?></td>
+                                    <td><?php echo $this->itensGeral[0]->esfera ?></td>
+                                    <td><?php echo $this->itensGeral[0]->poder ?></td>
+                                    <td><?php echo $this->itensGeral[0]->Admins ?></td>
+                                    <?php
+                                } else { ?>
+                                    <td colspan="4" align="center">Natureza n&atilde;o informada
+                                    </td>
+                                    <?php
+                                } ?>
+                            </tr>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Dirigente</legend>
+                        <table class="bordered striped responsive-table">
+                            <?php if ($this->dirigentes && count($this->dirigentes) > 0) { ?>
+                                <tr class="destacar">
+                                    <td width="20%" align="center"><b>CPF</b></td>
+                                    <td align="center"><b>Nome</b></td>
+                                </tr>
+                                <?php foreach ($this->dirigentes as $tbdirigentes) : ?>
+                                    <?php
+                                    $cpfCnpjDirigente = $tbdirigentes['CNPJCPFDirigente'];
+                                    $nomeDirigente = $tbdirigentes['NomeDirigente'];
+
+                                    if ($cpfCnpjDirigente != '00000000000000') : ?>
+                                        <tr>
+                                            <td align="center"><?php echo empty($cpfCnpjDirigente) ? '<em>Dados n&atilde;o informados!</em>' : aplicaMascara($cpfCnpjDirigente, "999.999.999-99"); ?>
+                                            <td align="left"><?php echo $nomeDirigente; ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <table class='bordered striped responsive-table'>
+                                                    <tr class="destacar">
+                                                        <td class="centro" colspan="4">Mandatos</td>
+                                                    </tr>
+                                                    <?php if (count($this->mandatos[$nomeDirigente]) > 0) :
+                                                        foreach ($this->mandatos[$nomeDirigente] as $mandato) : ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <b>Tipo de documento</b><br>
+                                                                    <?php echo $mandato->Descricao; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <b>N&ordm; do documento</b><br>
+                                                                    <?php echo $mandato->dsNumeroDocumento; ?>
+                                                                </td>
+                                                                <td>
+                                                                    <b>Per&iacute;odo de
+                                                                        vig&ecirc;ncia</b><br>
+                                                                    <?php echo date('d/m/Y', strtotime($mandato->dtInicioMandato)) . ' &agrave; ' . date('d/m/Y', strtotime($mandato->dtFimMandato)); ?>
+                                                                </td>
+                                                                <td>
+                                                                    <b>Arquivo</b><br>
+                                                                    <a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $mandato->idArquivo; ?>"><?php echo $mandato->nmArquivo ?></a>
+                                                                </td>
+                                                            </tr>
+                                                        <?php endforeach; ?>
+                                                    <?php else : ?>
+                                                        <tr>
+                                                            <td class="centro" colspan="4"><em>N&atilde;o
+                                                                    existem mandatos
+                                                                    cadastrados!</em></td>
+                                                        </tr>
+                                                    <?php endif; ?>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                                <?php
+                            } else { ?>
+                                <tr>
+                                    <td colspan="2" align="center"><em>N&atilde;o existem Dirigentes
+                                            cadastrados!</em></td>
+                                </tr>
+                                <?php
+                            } ?>
+                        </table>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Usu&aacute;rio SalicWEB</legend>
+                        <table class="bordered striped responsive-table">
+                            <tr>
+                                <?php if (is_array($this->itensGeral) and !empty($this->itensGeral[0]->nomeUsuario)) { ?>
+                                    <td width="10%" class="esquerda"><b>CPF</b></td>
+                                    <td class="esquerda"><?php echo aplicaMascara($this->itensGeral[0]->Cpf, "999.999.999-99") ?></td>
+                                    <td width="10%" class="esquerda"><b>Nome</b></td>
+                                    <td class="esquerda"><?php echo $this->itensGeral[0]->nomeUsuario ?></td>
+                                    <?php
+                                } ?>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div><!-- fecha div proponente -->
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#tdDocumentosAnexados', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Documentos Anexados
+            </th>
+        </tr>
+        <tr id="tdDocumentosAnexados" style="display: none;">
+            <td>
+
+                <fieldset>
+                    <legend>Documentos da Proposta</legend>
+                    <?php if (count($this->arquivosProposta) > 0) { ?>
+                        <table class="bordered striped responsive-table">
+                            <tr class="destacar">
+                                <td align="center"><b>Documento</b></td>
+                                <td align="center"><b>Data envio</b></td>
+                                <td align="center"><b>Arquivo</b></td>
+                            </tr>
+                            <?php foreach ($this->arquivosProposta as $arquivosProposta) { ?>
+                                <tr>
+                                    <td><?php echo $arquivosProposta['descricao']; ?></td>
+                                    <td align="center"><?php echo Data::tratarDataZend($arquivosProposta['data'], 'Brasileira'); ?></td>
+                                    <td>
+                                        <?php $arrayTipos = array(1, 2, 3);
+                                        if (in_array($arquivosProposta['tpdoc'], $arrayTipos)) { ?>
+                                            <a href="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'abrir-documentos-anexados-admissibilidade')); ?>?id=<?php echo $arquivosProposta['iddocumentospreprojetos']; ?>&tipo=<?php echo $arquivosProposta['tpdoc']; ?>"
+                                               title="Abrir arquivo">
+                                                <?php echo $arquivosProposta['noarquivo']; ?></a>
+                                            <?php
+                                        } else { ?>
+                                            <a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $arquivosProposta['iddocumentospreprojetos']; ?>">
+                                                <?php echo $arquivosProposta['noarquivo']; ?></a>
+                                            <?php
+                                        } ?>
+                                    </td>
+                                </tr>
+                                <?php
+                            } ?>
+                        </table>
+                        <?php
+                    } else { ?>
+                        <p>Nenhum documento da proposta</p>
+
+                        <?php
+                    } ?>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Documentos do Proponente</legend>
+                    <?php if (count($this->arquivosProponente) > 0) { ?>
+                        <table class="bordered striped responsive-table">
+                            <tr class="destacar">
+                                <td align="center"><b>Documento</b></td>
+                                <td align="center"><b>Data envio</b></td>
+                                <td align="center"><b>Arquivo</b></td>
+                            </tr>
+                            <?php foreach ($this->arquivosProponente as $arquivosProponente) { ?>
+                            <tr>
+                                <td><?php echo $arquivosProponente->Descricao; ?></td>
+                                <td align="center"><?php echo Data::tratarDataZend($arquivosProponente->Data, 'Brasileira'); ?></td>
+                                <td>
+                                    <?php $arrayTipos = array(1, 2, 3);
+                                    if (in_array($arquivosProponente->tpDoc, $arrayTipos)) { ?>
+                                        <a href="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'abrir-documentos-anexados-admissibilidade')); ?>?id=<?php echo $arquivosProponente->idDocumentosAgentes; ?>&tipo=<?php echo $arquivosProponente->tpDoc; ?>"
+                                           title="Abrir arquivo"><?php echo $arquivosProponente->NoArquivo; ?></a>
+                                        <?php
+                                    } else { ?>
+                                        <a href="<?php echo $this->url(array('controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $arquivosProponente->idDocumentosAgentes; ?>"><?php echo $arquivosProponente->NoArquivo; ?></a>
+                                        <?php
+                                    } ?>
+                                </td>
+                                <?php
+                                } ?>
+                        </table>
+                        <?php
+                    } ?>
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#tdFichaTecnica', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Ficha T&eacute;cnica
+            </th>
+        </tr>
+        <tr id="tdFichaTecnica" style="display: none;">
+            <td>
+                <table class="tabela">
+                    <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                        <tr>
+                            <td><?php echo (trim(strip_tags($this->itensGeral[0]->FichaTecnica)) != "") ? strip_tags($this->itensGeral[0]->FichaTecnica, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                        </tr>
+                        <?php
+                    } ?>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#tdResumo', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Resumo
+            </th>
+        </tr>
+        <tr id="tdResumo" style="display: none;">
+            <td>
+                <table class="tabela">
+                    <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                        <tr>
+                            <td><?php echo (strip_tags($this->itensGeral[0]->ResumoDoProjeto)) ? strip_tags($this->itensGeral[0]->ResumoDoProjeto, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                        </tr>
+                        <?php
+                    } ?>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#tdPlanoDistribuicao', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Plano de Distribui&ccedil;&atilde;o do Produto
+            </th>
+        </tr>
+        <tr id="tdPlanoDistribuicao" style="display: none;">
+            <td style="margin: 0px; padding: 0px">
+                <div id="plano-distribuicao"></div>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#tdFonteRecurso', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Fonte de Recurso
+            </th>
+        </tr>
+        <tr id="tdFonteRecurso" style="display: none;">
+            <td>
+
+                <table class="bordered striped responsive-table">
+                    <tr class="destacar">
+                        <td align="left"><b>Fonte de Recurso</b></td>
+                        <td align="right"><b>Valor</b></td>
+                    </tr>
+                    <?php if (is_array($this->itensFonteRecurso) and count($this->itensFonteRecurso) > 0)
+                        foreach ($this->itensFonteRecurso as $fonte) { ?>
+                            <tr>
+                                <td><?php echo $fonte->Descricao ?></td>
+                                <td align="right"><?php echo number_format($fonte->valor, 2, ',', '.') ?></td>
+                            </tr>
+                            <?php
+                        } ?>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#tdDemocratizacaoAcesso', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Democratiza&ccedil;&atilde;o de Acesso
+            </th>
+        </tr>
+        <tr id="tdDemocratizacaoAcesso" style="display: none;">
+            <td>
+
+                <table class="tabela">
+                    <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                        <tr>
+                            <td><?php echo (trim(strip_tags($this->itensGeral[0]->DemocratizacaoDeAcesso)) != "") ? strip_tags($this->itensGeral[0]->DemocratizacaoDeAcesso, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                        </tr>
+                        <?php
+                    } ?>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#tdObjetivos', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Objetivos
+            </th>
+        </tr>
+        <tr id="tdObjetivos" style="display: none;">
+            <td>
+
+                <table class="tabela">
+                    <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                        <tr>
+                            <td><?php echo (trim(strip_tags($this->itensGeral[0]->Objetivos)) != "") ? strip_tags($this->itensGeral[0]->Objetivos, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                        </tr>
+                        <?php
+                    } ?>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#tdEtapaTrabalho', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Etapa de Trabalho
+            </th>
+        </tr>
+        <tr id="tdEtapaTrabalho" style="display: none;">
+            <td>
+
+                <table class="tabela">
+                    <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                        <tr>
+                            <td><?php echo (trim(strip_tags($this->itensGeral[0]->EtapaDeTrabalho)) != "") ? strip_tags($this->itensGeral[0]->EtapaDeTrabalho, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                        </tr>
+                        <?php
+                    } ?>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#tdAcessibilidade', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Acessibilidade
+            </th>
+        </tr>
+        <tr id="tdAcessibilidade" style="display: none;">
+            <td>
+                <table class="tabela">
+                    <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                        <tr>
+                            <td><?php echo (trim(strip_tags($this->itensGeral[0]->Acessibilidade)) != "") ? strip_tags($this->itensGeral[0]->Acessibilidade, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                        </tr>
+                        <?php
+                    } ?>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#tdSinopseObra', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Sinopse de Obra
+            </th>
+        </tr>
+        <tr id="tdSinopseObra" style="display: none;">
+            <td>
+                <table class="tabela">
+                    <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                        <tr>
+                            <td><?php echo (trim(strip_tags($this->itensGeral[0]->Sinopse)) != "") ? strip_tags($this->itensGeral[0]->Sinopse, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                        </tr>
+                        <?php
+                    } ?>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#tdEspecificacoesTecnicas', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Especifica&ccedil;&otilde;es t&eacute;cnicas do produto
+            </th>
+        </tr>
+        <tr id="tdEspecificacoesTecnicas" style="display: none;">
+            <td>
+
+                <table class="tabela">
+                    <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                        <tr>
+                            <td><?php echo (trim(strip_tags($this->itensGeral[0]->EstrategiaDeExecucao)) != "") ? strip_tags($this->itensGeral[0]->EstrategiaDeExecucao, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                        </tr>
+                        <?php
+                    } ?>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#tdOutrasInformacoes', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Outras Informa&ccedil;&otilde;es
+            </th>
+        </tr>
+        <tr id="tdOutrasInformacoes" style="display: none;">
+            <td>
+
+                <table class="tabela">
+                    <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                        <tr>
+                            <td><?php echo (trim(strip_tags($this->itensGeral[0]->EspecificacaoTecnica)) != "") ? strip_tags($this->itensGeral[0]->EspecificacaoTecnica, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                        </tr>
+                        <?php
+                    } ?>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#PreProjeto', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Descri&ccedil;&atilde;o da Atividade
+            </th>
+        </tr>
+        <tr id="PreProjeto" style="display: none;">
+            <td>
+
+                <table class="tabela">
+                    <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                        <tr>
+                            <td><?php echo (trim(strip_tags($this->itensGeral[0]->DescricaoAtividade)) != "") ? strip_tags($this->itensGeral[0]->DescricaoAtividade, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                        </tr>
+                        <?php
+                    } ?>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#tdJustificativa', $(this))" style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Justificativa
+            </th>
+        </tr>
+        <tr id="tdJustificativa" style="display: none;">
+            <td>
+
+                <table class="tabela">
+                    <?php if (is_array($this->itensGeral) and count($this->itensGeral) > 0) { ?>
+                        <tr>
+                            <td><?php echo (trim(strip_tags($this->itensGeral[0]->Justificativa)) != "") ? strip_tags($this->itensGeral[0]->Justificativa, "<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>") : "N&atilde;o informado."; ?></td>
+                        </tr>
+                        <?php
+                    } ?>
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <tr onclick="abrirDinamico('#localRealizacao', $(this)); abrirDinamico('#deslocamento', $(this))"
+            style="cursor:pointer">
+            <th>
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Local de Realiza&ccedil;&atilde;o / Deslocamento
+            </th>
+        </tr>
+        <tr id="localRealizacao" style="display: none;">
+            <td>
+                <fieldset>
+                    <legend>Local de Realiza&ccedil;&atilde;o</legend>
+                    <table class="bordered striped responsive-table" id="localRealizacao">
+                        <tr class="destacar">
+                            <td align="left"><b>Pais</b></td>
+                            <td align="left"><b>UF</b></td>
+                            <td align="left"><b>Cidade</b></td>
+                        </tr>
+                        <?php
+                        if (is_array($this->itensLocalRealiazacao) and count($this->itensLocalRealiazacao) > 0) {
+                            foreach ($this->itensLocalRealiazacao as $itensLocalRealizacao) {
+                                ?>
+                                <tr>
+                                    <td><?php echo $itensLocalRealizacao->Pais ?></td>
+                                    <td><?php echo $itensLocalRealizacao->UF ?></td>
+                                    <td><?php echo $itensLocalRealizacao->Cidade ?></td>
+                                </tr>
+                                <?php
+                            }
+                        } else { ?>
+                            <td colspan="5" align="center">N&atilde;o informado</td>
+                            <?php
+                        } ?>
+                    </table>
+                </fieldset>
+                <fieldset id="deslocamento" style="display: none;">
+                    <legend>Deslocamento</legend>
+                    <table class="bordered striped responsive-table" id="deslocamento">
+                        <tr class="destacar">
+                            <td align='left'><b>Pais de Origem</b></td>
+                            <td align='left'><b>UF de Origem</b></td>
+                            <td align='left'><b>Cidade de Origem</b></td>
+                            <td align='left'><b>Pais de Destino</b></td>
+                            <td align='left'><b>UF de Destino</b></td>
+                            <td align='left'><b>Cidade de Destino</b></td>
+                            <td>Quantidade</td>
+                        </tr>
+                        <?php if (is_array($this->itensDeslocamento) and count($this->itensDeslocamento) > 0) {
+                            foreach ($this->itensDeslocamento as $deslocamento) { ?>
+                                <tr>
+                                    <td class="esquerda"><?php echo $deslocamento->paisOrigem ?></td>
+                                    <td class="esquerda"><?php echo $deslocamento->ufOrigem ?></td>
+                                    <td class="esquerda"><?php echo $deslocamento->municipioOrigem ?></td>
+                                    <td class="esquerda"><?php echo $deslocamento->paisDestino ?></td>
+                                    <td class="esquerda"><?php echo $deslocamento->ufDestino ?></td>
+                                    <td class="esquerda"><?php echo $deslocamento->municipioDestino ?></td>
+                                    <td align="center"><?php echo $deslocamento->Qtde ?></td>
+                                </tr>
+                                <?php
+
+                            }
+                        } else { ?>
+                            <td colspan="7" align="center">N&atilde;o informado</td>
+                            <?php
+                        } ?>
+                    </table>
+                </fieldset>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr onclick="abrirDinamico('#planilhaOrcamentaria', $(this))" style="cursor:pointer">
+            <th align="center">
+                <img src="<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png"
+                     id="imgDinamica"
+                     align="left"/>
+                Planilha Or&ccedil;ament&aacute;ria
+            </th>
+        </tr>
+        <tr id="planilhaOrcamentaria" style="display: none;">
+            <td>
+                <script type="text/javascript">
+                    jqAjaxLink('<?php echo $this->Url(array('module' => 'default', 'controller' => 'index', 'action' => 'montar-planilha-orcamentaria')) ?>?idPronac=<?php echo $this->idPreProjeto; ?>&tipoPlanilha=0', '', 'planilhaOrcamentariaMontada')
+                </script>
+                <div id="planilhaOrcamentariaMontada"></div>
+            </td>
+        </tr>
+    </table>
+
+</div><!-- fecha div de impressao -->

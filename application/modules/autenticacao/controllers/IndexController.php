@@ -1,5 +1,7 @@
 <?php
 
+use \Firebase\JWT\JWT;
+
 class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
 {
     public $orgaoAtivo;
@@ -25,6 +27,23 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
         }
     }
 
+    public function index2Action()
+    {
+        $this->_helper->layout->disableLayout();
+
+        /* Zend_Layout::startMvc(array('layout' => 'open')); */
+        /* $oauthConfigArray = Zend_Registry::get("config")->toArray(); */
+        /* $this->view->habilitarServicoLoginCidadao = false; */
+        /* if ($oauthConfigArray && $oauthConfigArray['OAuth']) { */
+        /*     $this->view->habilitarServicoLoginCidadao = (bool)$oauthConfigArray['OAuth']['servicoHabilitado']; */
+        /* } */
+/* //        xd(base64_decode($this->getRequest()->getParam('from', null))); */
+        /* $this->view->from = $this->getRequest()->getParam('from', null); */
+        /* if ($this->view->from) { */
+        /*     $this->view->from = base64_decode($this->view->from); */
+        /* } */
+    }
+
     /**
      * @access public
      * @param void
@@ -47,7 +66,7 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
             } elseif (strlen($username) == 14 && !Validacao::validarCNPJ($username)) {
                 throw new Exception("O CPF informado &eacute; inv&aacute;lido!");
             } else {
-                $Usuario = new Autenticacao_Model_Usuario();
+                $Usuario = new Autenticacao_Model_DbTable_Usuario();
                 $buscar = $Usuario->login($username, $password);
                 if ($buscar) {
                     $auth = array_change_key_case((array)Zend_Auth::getInstance()->getIdentity());
@@ -61,6 +80,8 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
                     $GrupoAtivo->codGrupo = $Grupo['gru_codigo'];
                     $GrupoAtivo->codOrgao = $Grupo['uog_orgao'];
                     $this->orgaoAtivo = $GrupoAtivo->codOrgao;
+
+                    $this->gerarJWT($auth, $GrupoAtivo);
 
 //                    return $this->_helper->redirector->goToRoute(array('controller' => 'principal'), null, true);
                     $from = $this->getParam('from', '/principal');
@@ -354,7 +375,7 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
 
         /* ========== INICIO ID DO USUARIO LOGADO ========== */
         $auth = (array)Zend_Auth::getInstance()->getIdentity();
-        $Usuario = new Autenticacao_Model_Usuario();
+        $Usuario = new Autenticacao_Model_DbTable_Usuario();
 
         // verifica se o usuario logado e agente
         $idUsuario = $Usuario->getIdUsuario(null, $auth['Cpf']);
@@ -409,7 +430,7 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
             }
 
             // busca a senha do banco TABELAS
-            $mdlUsuario = new Autenticacao_Model_Usuario();
+            $mdlUsuario = new Autenticacao_Model_DbTable_Usuario();
 
             $buscarCPF = $mdlUsuario->findBy(array('usu_identificacao' => $cpf));
 
@@ -483,7 +504,7 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
         // autenticacao proponente (Novo Salic)
 
         $auth = Zend_Auth::getInstance();
-        $Usuario = new Autenticacao_Model_Usuario();
+        $Usuario = new Autenticacao_Model_DbTable_Usuario();
 
         // verifica se o usuario logado e agente
         $idUsuario = $Usuario->getIdUsuario(null, $auth->getIdentity()->usu_identificacao);
@@ -585,7 +606,7 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
 
             $senhaFinal = EncriptaSenhaDAO::encriptaSenha($username, $password);
 
-            $usuario = new Autenticacao_Model_Usuario();
+            $usuario = new Autenticacao_Model_DbTable_Usuario();
             $usuarioRs = $usuario->buscar(
                 array('usu_identificacao = ?' => $username, 'usu_senha = ?' => $senhaFinal)
             );
@@ -596,7 +617,7 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
                 )->current();
                 $senha = $usuarioRs->usu_senha;
 
-                $Usuario = new Autenticacao_Model_Usuario();
+                $Usuario = new Autenticacao_Model_DbTable_Usuario();
                 $buscar = $Usuario->loginSemCript($idLogarComo, $senha);
 
                 if ($buscar) {
@@ -629,7 +650,7 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
 
         /* ========== INICIO ID DO USUARIO LOGADO ========== */
         $auth = array_change_key_case((array)Zend_Auth::getInstance()->getIdentity());
-        $Usuario = new Autenticacao_Model_Usuario();
+        $Usuario = new Autenticacao_Model_DbTable_Usuario();
 
         // verifica se o usuario logado e agente
         $idUsuario = $Usuario->getIdUsuario(null, $auth['cpf']);
@@ -703,5 +724,82 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
         $dados = array_map('utf8_encode', $dados);
 
         $this->_helper->json(array('data' => $dados, 'success' => 'true'));
+    }
+
+    private function gerarjWT($auth, $GrupoAtivo) {
+        $key = Zend_Registry::get("config")->toArray()['jwt']['token'];
+
+        $dados = [
+            'auth' => [
+                'usu_codigo' => $auth['usu_codigo'],
+                'usu_identificacao' => $auth['usu_identificacao']
+            ],
+            'grupoAtivo' => $GrupoAtivo->codOrgao
+        ];
+
+        $issuedAt = time();
+        $expire = $issuedAt + 1000000; // tempo de expiracao do token
+
+        $tokenParam = [
+            'iat'  => $issuedAt,            // timestamp de geracao do token
+            'iss'  => $options['iss'],      // dominio, pode ser usado para descartar tokens de outros dominios
+            'exp'  => $expire,              // expiracao do token
+            'nbf'  => $issuedAt - 1,        // token nao eh valido Antes de
+            'data' => $dados, // Dados do usuario logado
+        ];
+
+        $jwt = new Zend_Session_Namespace('jwt');
+        $jwt->token = JWT::encode($tokenParam, $key);
+        return $jwt->token;
+    }
+
+    public function login2Action()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender(true);
+        try {
+            $username = Mascara::delMaskCNPJ(Mascara::delMaskCPF($this->getParam('Login', null)));
+            $password = $this->getParam('Senha', null);
+
+            if (empty($username) || empty($password)) {
+                throw new Exception("Login ou Senha inv&aacute;lidos!");
+            } elseif (strlen($username) == 11 && !Validacao::validarCPF($username)) {
+                throw new Exception("O CPF informado &eacute; inv&aacute;lido!");
+            } elseif (strlen($username) == 14 && !Validacao::validarCNPJ($username)) {
+                throw new Exception("O CPF informado &eacute; inv&aacute;lido!");
+            } else {
+                $Usuario = new Autenticacao_Model_DbTable_Usuario();
+                $buscar = $Usuario->login($username, $password);
+                if ($buscar) {
+                    $auth = array_change_key_case((array)Zend_Auth::getInstance()->getIdentity());
+                    $objUnidades = $Usuario->buscarUnidades($auth['usu_codigo'], 21)->current();
+                    if ($objUnidades) {
+                        $objUnidades = $objUnidades->toArray();
+                    }
+                    // registra o primeiro grupo do usuario (pega unidade autorizada, orgao e grupo do usuario)
+                    $Grupo = array_change_key_case($objUnidades);
+                    $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
+                    $GrupoAtivo->codGrupo = $Grupo['gru_codigo'];
+                    $GrupoAtivo->codOrgao = $Grupo['uog_orgao'];
+                    $this->orgaoAtivo = $GrupoAtivo->codOrgao;
+
+                    $token = $this->gerarJWT($auth, $GrupoAtivo);
+
+                    $from = $this->getParam('from', '/principal');
+                    $this->_helper->json(
+                        [
+                            'status' => 1,
+                            'msg' => 'Login realizado com sucesso!',
+                            'redirect' => $from,
+                            'token'=> $token
+                        ]
+                    );
+                } else {
+                    $this->forward("login-proponente", "index", "autenticacao");
+                }
+            }
+        } catch (Exception $objException) {
+            $this->_helper->json(array('status' => false, 'msg' => $objException->getMessage()));
+        }
     }
 }

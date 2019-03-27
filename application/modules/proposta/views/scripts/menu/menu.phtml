@@ -1,16 +1,16 @@
 <aside id="sidebar">
     <ul id="sidenav" class="side-nav fixed">
-        <li class="sidebar-info <?php echo (!$this->isEditavel) ? 'disabled' : ''; ?>">
+        <li class="sidebar-info <?= (!$this->isEditavel) ? 'disabled' : ''; ?>">
             <div>
                 <p>
-                    <i class="material-icons left tiny"><?php echo (!$this->isEditavel) ? 'lock_outline' : 'lock_open'; ?></i>
+                    <i class="material-icons left tiny"><?= (!$this->isEditavel) ? 'lock_outline' : 'lock_open'; ?></i>
                     <b>
-                        <?php echo isset($this->layout['titleShort']) ? $this->layout['titleShort'] : 'Proposta'; ?>
-                        <?php echo isset($this->layout['projeto']) ? $this->layout['projeto'] : $this->proposta['idpreprojeto']; ?>
+                        <?= isset($this->layout['titleShort']) ? $this->layout['titleShort'] : 'Proposta'; ?>
+                        <?= isset($this->layout['projeto']) ? $this->layout['projeto'] : $this->proposta['idpreprojeto']; ?>
                     </b>
                 </p>
                 <p class="info-title">
-                    <?php echo isset($this->proposta['nomeprojeto']) ? $this->proposta['nomeprojeto'] : ''; ?>
+                    <?= isset($this->proposta['nomeprojeto']) ? $this->proposta['nomeprojeto'] : ''; ?>
                 </p>
                 <?php if (isset($this->layout['prazoAlterarProjeto']) && $this->layout['prazoAlterarProjeto'] > 0) : ?>
                     <p class="">
@@ -26,13 +26,13 @@
                 <? endif; ?>
             </div>
         </li>
-        <?php echo $this->partialLoop('/menu/partials/item.phtml', 'proposta', $this->arrMenuProponente); ?>
+        <?= $this->partialLoop('/menu/partials/item.phtml', 'proposta', $this->arrMenuProponente); ?>
     </ul>
 
     <div id="trocarproponente" style="display:none">
 
         <form id="formtrocaproponente"
-              action="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'vincularresponsavel', 'action' => 'trocarproponente')); ?>"
+              action="<?= $this->url(array('module' => 'proposta', 'controller' => 'vincularresponsavel', 'action' => 'trocarproponente')); ?>"
               method="post">
             <?php
             $idVinculoProposta = "";
@@ -40,8 +40,8 @@
                 $idVinculoProposta = $this->dadosVinculo[0]->idvinculoproposta;
             }
             ?>
-            <input type="hidden" value="<?php echo $idVinculoProposta; ?>" name="idVinculoProposta"/>
-            <input type="hidden" value="<?php echo $idPreProjeto; ?>" name="idPreProjeto"/>
+            <input type="hidden" value="<?= $idVinculoProposta; ?>" name="idVinculoProposta"/>
+            <input type="hidden" value="<?= $this->idPreProjeto; ?>" name="idPreProjeto"/>
             <input type="hidden" value="1" name="mecanismo"/>
             <table class="tabela">
                 <tr>
@@ -56,7 +56,7 @@
                                 <?php foreach ($this->listaProponentes as $lp): $lp = array_change_key_case($lp); ?>
                                     <?php if ($lp['idagenteproponente'] != $idAgente): ?>
                                         <option
-                                            value="<?php echo $lp['idvinculo']; ?>:<?php echo $lp['idagenteproponente']; ?>"><?php echo $lp['nomeproponente']; ?></option>
+                                            value="<?= $lp['idvinculo']; ?>:<?= $lp['idagenteproponente']; ?>"><?= $lp['nomeproponente']; ?></option>
                                     <?php endif; ?>
 
                                     <?php $idAgente = $lp['idagenteproponente']; ?>
@@ -106,7 +106,7 @@
                     $(this).dialog('close');
                 },
                 'OK': function () {
-                    window.location = "<?php echo $this->baseUrl(); ?>/proposta/manterpropostaedital/exluirproposta/?idPreProjeto=<?php echo $idPreProjeto; ?>";
+                    window.location = "<?= $this->baseUrl(); ?>/proposta/manterpropostaedital/exluirproposta/?idPreProjeto=<?= $this->idPreProjeto; ?>";
                     $(this).dialog('close');
                 }
             }
@@ -131,7 +131,7 @@
                     $(this).dialog('close'); // fecha a modal
                 },
                 'Novo Proponente': function () {
-                    window.location = "<?php echo $this->url(array('module' => 'proposta', 'controller' => 'vincularresponsavel', 'action' => 'index')); ?>";
+                    window.location = "<?= $this->url(array('module' => 'proposta', 'controller' => 'vincularresponsavel', 'action' => 'index')); ?>";
                 },
                 'Trocar Proponente': function () {
                     $("#formtrocaproponente").submit();
@@ -158,7 +158,7 @@
             modal: true,
             buttons: {
                 'OK': function () {
-                    window.location = "<?php echo $this->baseUrl(); ?>/proposta/manterorcamento/produtoscadastrados/idPreProjeto/<?php echo $idPreProjeto; ?>";
+                    window.location = "<?= $this->baseUrl(); ?>/proposta/manterorcamento/produtoscadastrados/idPreProjeto/<?= $this->idPreProjeto; ?>";
                     $(this).dialog('close');
                 }
             }

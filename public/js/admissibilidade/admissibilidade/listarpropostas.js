@@ -1,11 +1,33 @@
 (function ($) {
     $(document).ready(function () {
-        $('#tabelaAnaliseFinal').DataTable(
+        var objetoDataTable = $('#tabelaAnaliseFinal').DataTable(
             {
+                dom: 'Blfrtip',
+                buttons: [
+                    {
+                        title: 'Excel',
+                        text: '<i class="material-icons">cloud_download</i>',
+                        extend: 'excel',
+                        className: 'waves-effect waves-dark btn white black-text',
+                        exportOptions: {
+                            columns: [0,1,2,3,5,6,7,8]
+                        }
+                    },
+                    {
+                        title: '',
+                        text: '<i class="material-icons">print</i>',
+                        extend: 'print',
+                        className: 'waves-effect waves-dark btn white black-text',
+                        exportOptions: {
+                            columns: [0,1,2,3,5,6,7,8]
+                        }
+                    }
+                ],
                 'language': {
                     'url': 'https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json'
                 }
                 , 'order': [0, 1]
+                , 'lengthMenu': [[10, 50, 100, -1], [10, 50, 100, "Tudo"]]
                 , 'searching': true
                 , 'lengthChange': true
                 , columnDefs: [
@@ -27,20 +49,44 @@
                 ]
                 , 'ajax': {
                 url: '/admissibilidade/admissibilidade/listar-propostas-ajax',
-                type: 'POST'
+                type: 'POST',
+                data: {
+                    filtro: function () {
+                        return $3("#filtro").val()
+                    }
+                }
             },
                 'processing': true,
                 'serverSide': true,
                 'createdRow': function (row, data, index) {
-                    if (data.CodSituacao == $('#PROPOSTA_EM_ANALISE_FINAL').val()) {
+                    if (data.CodSituacao == $('#PROPOSTA_EM_ANALISE_FINAL').val()
+                    && data.tipo_recurso == "-"
+                ) {
                         $(row).addClass('green lighten-5')
+                    } else if (
+			(data.tipo_recurso != '-' && data.prazo_recursal == 0) || data.isRecursoDesistidoDePrazoRecursal || data.isRecursoExpirou10dias){
+                        $(row).addClass('blue lighten-5')
                     }
                 },
                 'columns': obterColunasListagem()
             }
-        )
+        );
 
-    })
+        $3(".filtro-avaliacao").click(function() {
+            $3("#filtro").val('');
+            // if(typeof $(this).data('filtro') != 'undefined') {
+                $3("#filtro").val($(this).data('filtro'));
+
+                $3("#coluna_encaminhar").hide('fast');
+                if($(this).data('filtro') == 'avaliada') {
+                    $3("#coluna_encaminhar").show('fast');
+                }
+
+                objetoDataTable.ajax.reload();
+            // }
+        });
+    });
+
 }($.noConflict(true)))
 
 function obterColunasListagem () {
@@ -63,8 +109,15 @@ function obterColunasListagem () {
         'data': 'DtMovimentacao'
     })
     colunas.push({
+        'data': 'diasCorridos',
         'name': 'diasCorridos',
-        'data': 'diasCorridos'
+        'bSortable': false,
+        'render': function(data, type, row) {
+            if (data < 0) {
+                return '<strong>PD</strong>';
+            }
+            return data;
+        }
     })
     if ($('#perfil_atual').val() != $('#perfil_componente_comissao').val()) {
         colunas.push({
@@ -106,92 +159,40 @@ function obterColunasListagem () {
     colunas.push({
         data: null,
         render: function (data, type, row) {
-            if (data.isEnquadrada == true) {
-                return '<i class="material-icons">done</i>' +
-                    ''
+            let area = (data.descricao_area != null && data.descricao_area != '') ? data.descricao_area : data.descricao_area_inicial;
+            let segmento = (data.descricao_segmento != null && data.descricao_segmento != '') ? data.descricao_segmento : data.descricao_segmento_inicial;
+            let enquadramento = (data.enquadramento != null && data.enquadramento != '') ? data.enquadramento : data.enquadramento_inicial;
+            let texto = '<b>&Aacute;rea:</b> ' + area;
+            texto += '<br/><b>Segmento:</b> ' + segmento;
+            texto += '<br/><b>' + enquadramento + '</b>'
+
+            return texto;
+        }
+    })
+    colunas.push({
+        name: 'tipo_recurso',
+        data: null,
+        render: function (data, type, row) {
+            if(typeof data.tipo_recurso != 'undefined' && data.tipo_recurso != "-") {
+                return '<i class="material-icons">done</i>';
             }
-            return ''
+            return '';
         }
     })
     colunas.push({
         data: null,
         render: function (data, type, row) {
-            return '<a class="btn waves-effect waves-darrk white black-text" href="' + $('#base_url').val() + '/admissibilidade/admissibilidade/exibirpropostacultural?idPreProjeto=' + data.idProjeto + '&realizar_analise=sim">'
+            return '<a class="btn waves-effect waves-darrk white black-text" href="'
+                + $('#base_url').val()
+                + '/admissibilidade/admissibilidade/exibirpropostacultural?idPreProjeto='
+                + data.idProjeto
+                + '&realizar_analise=sim">'
                 + '<i class="material-icons" '
                 + 'title="Fazer An&aacute;lise Visual da Proposta" alt="Fazer An&aacute;lise Visual da Proposta">visibility</i></a>'
         }
     })
 
-    if ($('#liberar_encaminhamento').val() == 'sim') {
-        colunas.push({
-            data: null,
-            render: function (data, type, row) {
-                if (permitirEncaminhamento(data)) {
-                    return '<a class="waves-effect waves-light btn modal-trigger" data-id_preprojeto="' + data.idProjeto + '" href="#dialogEncaminharProposta">'
-                        + '<i class="material-icons" '
-                        + ' title="Encaminhar An&aacute;lise de Proposta" '
-                        + ' alt="Encaminhar An&aacute;lise de Proposta">forward</i></button>'
-                        + ' </a>'
-                }
-
-                return ''
-            }
-        })
-    }
-
     return colunas
-}
-
-function permitirEncaminhamentoTecnicoAdmissibilidade (data) {
-    if (parseInt(data.quantidade_distribuicoes, 10) == 0
-        && $('#perfil_atual').val() == $('#perfil_tecnico_admissibilidade').val()) {
-
-        return true
-    }
-}
-
-function permitirEncaminhamentoCoordenadorAdmissibilidade (data) {
-    if ((
-            $('#perfil_atual').val() == $('#perfil_coordenador_admissibilidade').val()
-            && data.id_area != null
-            && data.isEnquadrada == true
-        )
-        ||
-        (
-            parseInt(data.quantidade_distribuicoes, 10) > 0
-            && parseInt(data.avaliacao_atual, 10) == 1
-            && $('#perfil_atual').val() != $('#perfil_coordenador_admissibilidade').val()
-            && data.isEnquadrada == true
-        )) {
-        return true
-    }
-}
-
-function permitirEncaminhamentoComponenteComissao (data) {
-    if (parseInt(data.quantidade_distribuicoes, 10) > 0
-        && parseInt(data.avaliacao_atual, 10) == 1
-        && $('#perfil_atual').val() == $('#perfil_componente_comissao').val()
-        && data.id_area != null
-        && data.isEnquadrada == true
-    ) {
-        return true
-    }
-}
-
-function permitirEncaminhamento (data) {
-    if (data.CodSituacao != $('#PROPOSTA_EM_ANALISE_FINAL').val()) {
-        return false
-    }
-    if (
-        !permitirEncaminhamentoTecnicoAdmissibilidade(data)
-        && !permitirEncaminhamentoCoordenadorAdmissibilidade(data)
-        && !permitirEncaminhamentoComponenteComissao(data)
-    ) {
-
-        return false
-    }
-    return true
-
 }
 
 $3('#imprimir').on('click', function () {
@@ -203,47 +204,7 @@ $3(document).ready(function () {
 
     $3('.modal').modal()
     $3('#id_perfil').material_select()
-    $3('#dialogEncaminharProposta').modal(
-        {
-            dismissible: true,
-            opacity: .5,
-            inDuration: 300,
-            outDuration: 200,
-            startingTop: '4%',
-            endingTop: '10%',
-            ready: function (modal, trigger) {
-                $3('#id_preprojeto').val($3(trigger).data('id_preprojeto'))
-                $3('#span_id_preprojeto').html($3(trigger).data('id_preprojeto'))
-            },
-            complete: function () {
-            }
-        }
-    )
 
-    $3('#botaoEnviarAvaliacaoProposta').click(function () {
-        var parametros = {}
-        $3('#dialogEncaminharProposta form').serializeArray().map(function (x) {
-            parametros[x.name] = x.value
-        })
-
-        $3('#botaoEnviarAvaliacaoProposta').prop('disabled', true)
-        $3.ajax({
-            type: 'POST',
-            url: $('#dialogEncaminharProposta form').attr('action'),
-            data: parametros,
-            success: function (data) {
-                var callback = function () {}
-                if (data.resposta) {
-                    callback = function () {
-                        window.location.reload()
-                    }
-                    $3('#dialogEncaminharProposta').modal('close')
-                }
-                Materialize.toast(data.mensagem, 2000, '', callback)
-                $3('#botaoEnviarAvaliacaoProposta').prop('disabled', false)
-            }
-        })
-    })
 })
 
 $('#tabelaAnaliseFinal').ready(function () {

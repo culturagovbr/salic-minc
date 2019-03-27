@@ -202,6 +202,14 @@ class Assinatura_AtoAdministrativoController extends Assinatura_GenericControlle
             }
             $objModelAtoAdministrativo = new Assinatura_Model_TbAtoAdministrativo($post);
             $objAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();
+            $servicoAtoAdministrativo = new \Application\Modules\Assinatura\Service\Assinatura\AtoAdministrativo();
+            $grupo = $servicoAtoAdministrativo->obterGrupoAtoAdministrativoAtual(
+                $post['idTipoDoAto'],
+                $post['idPerfilDoAssinante'],
+                $post['idOrgaoDoAssinante'],
+                $post['idOrgaoSuperiorDoAssinante']
+            );
+            $objModelAtoAdministrativo->setGrupo($grupo);
             $proximaOrdemAssinatura = $objAtoAdministrativo->obterProximaOrdemDeAssinatura($objModelAtoAdministrativo);
             $objModelAtoAdministrativo->setIdOrdemDaAssinatura($proximaOrdemAssinatura);
 

@@ -2,7 +2,7 @@
 
 class Analise_AnaliseController extends Analise_GenericController
 {
-    private $idUsuario = null;
+    protected $idUsuario = null;
     private $idPreProjeto = null;
     private $idProjeto = null;
 
@@ -101,6 +101,8 @@ class Analise_AnaliseController extends Analise_GenericController
 
     public function visualizarprojetoAction()
     {
+        $this->carregarScriptsVue();
+
         $idPronac = $this->getRequest()->getParam('idpronac');
 
         try {
@@ -141,7 +143,7 @@ class Analise_AnaliseController extends Analise_GenericController
     public function salvaravaliacaadequacaoAction()
     {
         $params = $this->getRequest()->getParams();
-        $idPronac = $params['idpronac'];
+        $idPronac = (int) $params['idPronac'];
 
         try {
 
@@ -159,7 +161,7 @@ class Analise_AnaliseController extends Analise_GenericController
                 $situacao = Projeto_Model_Situacao::PROJETO_LIBERADO_PARA_AJUSTES;
                 $providenciaTomada = 'Projeto liberado para o proponente adequar &agrave; realidade de execu&ccedil;&atilde;o por 30 dias, conforme o Art. 26 da IN 5/2017.';
 
-                $tbProjetos->alterarSituacao($params['idpronac'], '', $situacao, $providenciaTomada);
+                $tbProjetos->alterarSituacao($idPronac, '', $situacao, $providenciaTomada);
 
                 if (!empty($avaliacao)) {
                     $tbAvaliacao->atualizarAvaliacaoNegativa($idPronac, $avaliacao['idTecnico'], $params['observacao']);
@@ -215,7 +217,7 @@ class Analise_AnaliseController extends Analise_GenericController
                     $PlanilhaProjeto->inserirPlanilhaParaParecerista($idPreProjeto, $idPronac);
                 }
 
-                $percentualJaCaptado = $this->percentualCaptadoByProposta($idPreProjeto, $idPronac);
+                $percentualJaCaptado = $this->percentualCaptadoProjeto($idPronac);
 
                 $providenciaTomada = "O Projeto aguardar&aacute; o percentual m&iacute;nimo de capta&ccedil;&atilde;o
                  e depois ser&aacute; encaminhado para unidade vinculada({$unidadeVinculada->Vinculada})!";
@@ -228,7 +230,7 @@ class Analise_AnaliseController extends Analise_GenericController
                 ) {
 
                     $situacao = Projeto_Model_Situacao::ENCAMINHADO_PARA_ANALISE_TECNICA;
-                    $providenciaTomada = "Projeto encaminhado &agrave; unidade vinculada para an&aacute;lise 
+                    $providenciaTomada = "Projeto encaminhado &agrave; unidade vinculada para an&aacute;lise
                     e emiss&atilde;o de parecer t&eacute;cnico";
 
                     $tbProjetos->alterarSituacao($idPronac, '', $situacao, $providenciaTomada);
@@ -332,29 +334,23 @@ class Analise_AnaliseController extends Analise_GenericController
         }
     }
 
-    public function calcularPercentualCaptado($valorTotal, $valorCaptado)
+    public function percentualCaptadoProjeto($idPronac)
     {
-        if (empty($valorCaptado) || $valorCaptado <= 0) {
-            return 0;
-        }
-
-        return number_format(($valorCaptado * 100) / $valorTotal, 2, ",", ".");
-    }
-
-    public function percentualCaptadoByProposta($idPreProjeto, $idProjeto)
-    {
-        if (empty($idProjeto) || empty($idPreProjeto)) {
+        if (empty($idPronac)) {
             return false;
         }
 
-        $planilhaproposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
-        $total = $planilhaproposta->somarPlanilhaProposta($idPreProjeto)->toArray();
+        $dbTableProjetos = new Projeto_Model_DbTable_Projetos();
+        $valoresProjeto = $dbTableProjetos->obterValoresProjeto($idPronac);
 
-        $rsProjeto = ConsultarDadosProjetoDAO::obterDadosProjeto(array('idPronac' => $idProjeto));
+        return $valoresProjeto['PercentualCaptado'];
+    }
 
-        $valorTotal = $total['soma'];
-        $valorcaptado = $rsProjeto[0]->ValorCaptado;
-
-        return $this->calcularPercentualCaptado($valorTotal, $valorcaptado);
+    private function carregarScriptsVue()
+    {
+        $gitTag = '?v=' . $this->view->gitTag();
+        $this->view->headScript()->offsetSetFile(99, '/public/dist/js/manifest.js' . $gitTag, 'text/javascript', array('charset' => 'utf-8'));
+        $this->view->headScript()->offsetSetFile(100, '/public/dist/js/vendor.js' . $gitTag, 'text/javascript', array('charset' => 'utf-8'));
+        $this->view->headScript()->offsetSetFile(101, '/public/dist/js/proposta.js'. $gitTag, 'text/javascript', array('charset' => 'utf-8'));
     }
 }

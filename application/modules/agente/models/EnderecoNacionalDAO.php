@@ -159,7 +159,7 @@ class Agente_Model_EnderecoNacionalDAO extends MinC_Db_Table_Abstract
             $db = Zend_Db_Table::getDefaultAdapter();
             $db->setFetchMode(Zend_DB :: FETCH_OBJ);
         } catch (Zend_Exception_Db $e) {
-            $this->view->message = "Erro ao alterar o Status dos endere�os: " . $e->getMessage();
+            throw new Exception ("Erro ao alterar o Status dos endere&ccedil;os: " . $e->getMessage());
         }
 
         return $db->fetchAll($sql);

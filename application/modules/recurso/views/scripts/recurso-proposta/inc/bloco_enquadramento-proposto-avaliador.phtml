@@ -1,0 +1,28 @@
+<?php if (count($this->recursoEnquadramento) > 0
+    && !empty($this->recursoEnquadramento['area'])
+    && !empty($this->recursoEnquadramento['segmento'])
+    && !empty($this->recursoEnquadramento['enquadramento'])
+) { ?>
+    <fieldset>
+        <legend> <b>Enquadramento Proposto pelo Minist&eacute;rio da Cultura</b></legend>
+        <table class="tabela">
+            <tr class="destacar">
+                <td class="">
+                    <b>&Aacute;rea</b>
+                    <br />
+                    <?php echo $this->recursoEnquadramento['area'] ?>
+                </td>
+                <td class="">
+                    <b>Segmento</b>
+                    <br />
+                    <?php echo $this->recursoEnquadramento['segmento'] ?>
+                </td>
+                <td class="">
+                    <b>Artigo</b>
+                    <br />
+                    <?php echo $this->recursoEnquadramento['enquadramento'] ?>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+<?php } ?>

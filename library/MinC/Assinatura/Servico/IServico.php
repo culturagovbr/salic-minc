@@ -1,5 +1,7 @@
 <?php
 
-interface MinC_Assinatura_Servico_IServico
+namespace MinC\Assinatura\Servico;
+
+interface IServico
 {
 }

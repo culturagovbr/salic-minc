@@ -1,0 +1,85 @@
+    <script src="/public/js/vue.js"></script>
+
+
+    <div id="app">
+
+    <sl-menu-principal></sl-menu-principal>
+
+    </div>
+
+    <script>
+        Vue.component ('sl-menu-principal',{
+            template : `
+      <div >
+        <div id="navbar-header" class="">
+            <nav class="">
+               <div class="nav-wrapper">
+                  <a id="menu-right" href="#" data-activates="nav-mobile" class="button-collapse right"><i class="material-icons">menu</i></a>
+                    <ul class="left hide-on-med-and-down">
+                        <li v-for="(menu,index)  in dados.data">
+                          <a v-html="menu.label"class="dropdown-button" data-beloworigin="true" data-constrainwidth="false" :data-activates="menu.id" title="Ir para Analise">
+                          </a>
+                            <ul :id="menu.id" class="dropdown-content" style="white-space: nowrap; position: absolute; top: 40px; left: 0px; display: none; opacity: 1;">
+                              <li v-for="link in menu.menu">
+                                <a v-html="link.label" :href="parseUrl(link.url)"></a>
+                              </li>
+                            </ul>
+                        </li>
+                    </ul>
+               </div>
+            </nav>
+        </div>
+      </div>`,
+
+            data: function () {
+               return {
+                   dados: {
+                       data: {
+                           analise: {
+                               grupo: [],
+                               id: '',
+                               label: '',
+                               menu: [],
+                               title: ''
+                           }
+                       }
+                   }
+               }
+            },
+            mounted: function () {
+                this.carregarDados();
+                $3(".dropdown-button").dropdown();
+            },
+            updated: function (){
+                $3(".dropdown-button").dropdown();
+
+            },
+            methods: {
+                carregarDados: function() {
+                    let vue = this;
+                    $3.ajax({
+                        url: '/navegacao/menu-principal/index'
+
+                    })
+                    .done(function (data) {
+                        console.log(data);
+                        vue.dados = data;
+                    })
+                },
+                parseUrl: function (linkObj) {
+                    let linkStr;
+
+                    linkStr = '/'+ linkObj.module + '/' + linkObj.controller + '/' + linkObj.action;
+
+                    return linkStr;
+                }
+            }
+        });
+
+        new Vue({
+            el: "#app",
+        })
+
+
+
+    </script>

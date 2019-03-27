@@ -1,7 +1,6 @@
 /*--------------------------------------------------------------
  #titulo da pagina (legado)
 --------------------------------------------------------------*/
-
 #titulo {
     margin-top: 10px;
     padding: 1rem 2rem;
@@ -44,19 +43,38 @@
 
 }
 
+@media only screen and (max-width: 993px) {
+    #titulo {
+        padding: 1rem;
+    }
 
+    #titulo span {
+        display: none;
+    }
 
+    #titulo div {
+        font-size: 20px;
+    }
+}
 /*--------------------------------------------------------------
 x - titulo da pagina (novo)
 --------------------------------------------------------------*/
 
 .page-title {
     display: block;
-    margin: -2rem -2rem 2rem;
-    padding: 1rem 2rem;
+    margin: -1rem -1rem 1rem;
+    padding: 1rem 1rem;
     border-bottom: 1px solid #DEE1EC;
     background: #fff;
 }
+
+@media only screen and (max-width: 993px) {
+    .page-title {
+        margin: -1rem -1rem 1rem;
+        padding: 1rem 1rem;
+    }
+}
+
 
 .page-title .row {
     margin-bottom: 0;
@@ -116,3 +134,13 @@ x - titulo da pagina (novo)
     padding-left: 0;
 }
 
+@media only screen and (max-width: 993px) {
+    .page-title ul {
+        display: none;
+    }
+
+    .page-title .col.s12.m3.l2.right-align {
+        right: 10px;
+        position: absolute;
+    }
+}

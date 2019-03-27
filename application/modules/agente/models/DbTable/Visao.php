@@ -38,7 +38,9 @@ class Agente_Model_DbTable_Visao extends MinC_Db_Table_Abstract
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         if ($todasVisoes) {
-            $sql = new Zend_Db_Expr("select distinct idVerificacao, Descricao from  " . GenericModel::getStaticTableName('agentes', 'verificacao') . "  where idtipo = 16 and sistema = 21 ");
+            $sql = "select distinct idVerificacao, Descricao from "
+                . $this->_schema.'.'.'verificacao'
+                . " where idtipo = 16 and sistema = 21";
             $dados = $db->fetchAll($sql);
         } else {
             $db = Zend_Db_Table::getDefaultAdapter();

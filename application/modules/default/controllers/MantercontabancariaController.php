@@ -47,7 +47,7 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract
         }
 
 
-        $Usuario = new Autenticacao_Model_Usuario(); // objeto usu�rio
+        $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usu�rio
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $idagente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -124,7 +124,7 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract
 
     public function salvarAction()
     {
-        $Usuario = new Autenticacao_Model_Usuario(); // objeto usu�rio
+        $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usu�rio
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $idagente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
@@ -240,7 +240,7 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract
             } else {
                 $cpfcnpjUsuario = Mascara::addMaskCNPJ(trim($auth->getIdentity()->usu_identificacao));
             }
-            $this->view->dadosUsuarioConsulta = '( '. $cpfcnpjUsuario .' ) '.$auth->getIdentity()->usu_nome.' - '.date('d/m/Y').' �s '.date('h:i:s');
+            $this->view->dadosUsuarioConsulta = '( '. $cpfcnpjUsuario .' ) '.$auth->getIdentity()->usu_nome.' - '.date('d/m/Y').' &agrave;s '.date('h:i:s');
         } else {
             parent::message("Por favor, informe o campo CPF/CNPJ!", 'mantercontabancaria/regularidade-proponente', "ERROR");
         }
@@ -299,7 +299,7 @@ class MantercontabancariaController extends MinC_Controller_Action_Abstract
             } else {
                 $cpfcnpjUsuario = Mascara::addMaskCNPJ(trim($auth->getIdentity()->usu_identificacao));
             }
-            $this->view->dadosUsuarioConsulta = '( '. $cpfcnpjUsuario .' ) '.$auth->getIdentity()->usu_nome.' - '.date('d/m/Y').' �s '.date('H:i:s');
+            $this->view->dadosUsuarioConsulta = '( '. $cpfcnpjUsuario .' ) '.$auth->getIdentity()->usu_nome.' - '.date('d/m/Y').' &agrave;s '.date('H:i:s');
             $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
         } else {
             parent::message("Por favor, informe o campo CPF/CNPJ!", 'mantercontabancaria/regularidade-proponente', "ERROR");

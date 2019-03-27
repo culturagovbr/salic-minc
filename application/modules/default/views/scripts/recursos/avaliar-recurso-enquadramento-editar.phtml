@@ -1,0 +1,81 @@
+<div id="alerta"></div>
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <h4>Avalia&ccedil;&atilde;o de Recurso</h4>
+            <table>
+                <tr>
+                    <th colspan="2">PRONAC</th>
+                    <th colspan="2">NOME DO PROJETO</th>
+                </tr>
+                <tr>
+                    <td colspan="2"><?php echo $this->projeto->pronac; ?></td>
+                    <td colspan="2"><?php echo $this->projeto->NomeProjeto; ?></td>
+                </tr>
+                <tr>
+                    <th colspan="4">Descrição do Recurso</th>
+                </tr>
+                <tr>
+                    <td colspan="4"><?php echo $this->recurso->dsSolicitacaoRecurso; ?></td>
+                </tr>
+                <tr>
+                    <th>Tipo do Recurso</th>
+                    <td><?php echo $this->recurso->tpRecursoDesc; ?></td>
+                    <th>Tipo do Solicitação</th>
+                    <td><?php echo $this->recurso->tpSolicitacaoDesc; ?></td>
+                </tr>
+            </table>
+            <form name="formAvaliacao" id="formAvaliacao" action="<?php echo $this->baseUrl(); ?>/recursos/atualizar-avaliacao-enquadramento" method="post">
+                <p>RESPOSTA</p>
+                <p>
+                    <input id="stAtendimento1" type="radio" class="" value="D" name="stAtendimento">
+                    <label for="stAtendimento1"> Deferir</label>
+                </p>
+                <p>
+                    <input id="stAtendimento2" type="radio" class="" value="I" name="stAtendimento" checked="checked">
+                    <label for="stAtendimento2">Indeferir</label>
+                </p>
+
+                <label for="dsAvaliacao">Avalição:</label>
+                <textarea class="materialize-textarea" name="dsAvaliacao" id="dsAvaliacao">
+                    <?php echo $this->recurso->dsAvaliacao?>
+                </textarea>
+                <div class="row">
+                    <div class="input-field col s12 center-align">
+                        <input type="hidden" name="idRecurso" value="<?php echo $this->recurso->idRecurso; ?>">
+                        <button name="btn_salvar" id="btn_salvar" class="tooltipped btn waves-effect waves-light" data-tooltip="Enviar Avaliação" type="submit" name="action">Enviar
+                            <i class="material-icons right">send</i>
+                        </button>
+                        <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos' , 'action' => 'recurso-enquadramento'))?>" name="btn_voltar" id="btn_voltar" class="tooltipped red-text btn waves-effect waves-dark white" data-tooltip="Cancelar Avaliação" type="reset" name="action">Cancelar</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="/public/js/jquery.validate.addMethod.js"></script>
+<script>
+    $(document).ready(function(){
+
+        $('#formAvaliacao').validate({
+            rules : {
+                dsAvaliacao:{
+                    requiredTinyMice: true
+                }
+            },
+            messages:{
+                dsAvaliacao:{
+                    required:""
+                }
+            },
+            invalidHandler: function(event, validator) {
+                Materialize.toast('Campo "Avaliação" &eacute; obrigat&oacute;rio!', 4000);
+            },
+            submitHandler: function (form) {
+                    $("#container-progress").show();
+                    form.submit();
+                }
+        });
+        $("#dsAvaliacao").editorRico({altura: 200});
+    });
+</script>

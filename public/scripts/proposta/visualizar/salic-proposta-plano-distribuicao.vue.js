@@ -151,6 +151,8 @@ Vue.component('salic-proposta-plano-distribuicao', {
         if (typeof this.arrayDetalhamentos != 'undefined') {
             this.detalhamentos = this.arrayDetalhamentos;
         }
+
+        this.iniciarCollapsible();
     },
     methods: {
         fetch: function () {
@@ -189,6 +191,11 @@ Vue.component('salic-proposta-plano-distribuicao', {
                 return 'Sim';
             else
                 return 'N\xE3o';
-        }
+        },
+        iniciarCollapsible: function () {
+            $3('.collapsible').each(function () {
+                $3(this).collapsible();
+            });
+        },
     }
 });

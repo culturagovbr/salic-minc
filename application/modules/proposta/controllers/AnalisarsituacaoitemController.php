@@ -30,7 +30,7 @@ class Proposta_AnalisarsituacaoitemController extends MinC_Controller_Action_Abs
         $PermissoesGrupo[] = 97;  // Gestor do SALIC
         parent::perfil(1, $PermissoesGrupo);
 
-        $Usuario = new Autenticacao_Model_Usuario(); // objeto usuario
+        $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuario
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
         $idagente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo

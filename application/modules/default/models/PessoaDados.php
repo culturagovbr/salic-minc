@@ -11,8 +11,9 @@
  */
 class PessoaDados extends MinC_Db_Table_Abstract
 {
-    protected $_banco = "TABELAS";
+    protected $_schema = "TABELAS";
     protected $_name = "Pessoa_Dados";
+//    protected $_primary = "pdd_pessoa";
 
     
 

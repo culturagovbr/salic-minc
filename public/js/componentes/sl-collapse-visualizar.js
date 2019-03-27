@@ -6,13 +6,20 @@ Vue.component('sl-collapse-visualizar', {
                 <li v-for="dado in dados">
                   <div class="collapsible-header">{{dado.title}}</div>
                   <div class="collapsible-body">
-                    <salic-table-easy 
-                        v-bind:dados="dado" 
-                        v-bind:thead="true"
-                        v-bind:tfoot="true"
-                        class="bordered"
-                    >
-                    </salic-table-easy>
+                      <table class="bordered">
+                          <thead>
+                            <tr>
+                                <td v-for="(e, k) in dado.cols">
+                                  {{ e.name }}
+                                </td>
+                            </tr>
+                          <thead>
+                        <tr v-for="d in dado.lines">
+                            <td v-for="(e, k) in dado.cols">
+                              {{d[k] }}
+                            </td>
+                        </tr>
+                      </table>
                   </div>
                 </li>
             </ul>

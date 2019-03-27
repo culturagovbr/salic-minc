@@ -1,89 +1,65 @@
 <div class="container-fluid">
-    <div class="page-title">
-        <div class="row">
-            <div class="col s12 m9 l10">
-                <h1>Listar propostas</h1>
+    <?php $this->PageTitle('Propostas', array(
+        array('Lista de propostas' => '')
+    )); ?>
 
-                <?php
-                gerarNovoBreadCrumb(array(
-                    array('Listar propostas' => '')
-                ));
-                ?>
-            </div>
-            <div class="col s12 m3 l2 right-align">
-                <a href="javascript:voltar();" title="Página Anterior"title="Página Anterior" class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">keyboard_return</i>
-                </a>
-            </div>
-        </div>
-    </div>
     <div class="content">
-        <form name="frmNovaProposta" id="frmNovaProposta"
-              action="<?php echo $this->url(array('module'=>'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'declaracaonovaproposta')); ?>"
-              method="post">
+        <div class="card-panel">
+            <form name="frmNovaProposta" id="frmNovaProposta"
+                  action="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'manterpropostaincentivofiscal', 'action' => 'declaracaonovaproposta')); ?>"
+                  method="post">
 
-                <table class="tabela">
-                    <tr class="centro">
-                        <th class="centro">Cadastro</th>
-                    </tr>
-                    <tr>
-                        <td align="left">Mecanismo:&nbsp;
-                            <select name="mecanismo" id="mecanismo" class="input_simples w200">
-                                <option value="1" <?php echo ($this->mecanismo == 1) ? 'selected="selected"' : ''; ?>>Incentivo
-                                    Fiscal Federal
-                                </option>
-                            </select>
-                            &nbsp;&nbsp;&nbsp;CPF Proponente:&nbsp;
-
-                            <select name="proponente" id="proponente" class="input_simples">
-                                <option>- Selecione -</option>
-                                <?php if (!empty($this->dadosCombo)): ?>
-                                    <?php $idProponente = '' ?>
-                                    <?php foreach ($this->dadosCombo as $dc): ?>
-                                        <?php if ($dc['idAgenteProponente'] != $idProponente): ?>
-                                            <option
-                                                <?= ($dc['idAgenteProponente'] == $this->idAgente) ? 'selected' : '' ?>
-                                                value="<?php echo $dc['idAgenteProponente']; ?>">[<?php echo $dc['CPF']; ?>]
-                                                - <?php echo $dc['Nome']; ?>
-                                            </option>
-                                        <?php endif; ?>
-                                        <?php $idProponente = $dc['idAgenteProponente']; ?>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </select>&nbsp;
-                            <span id="msgValidaProponente"></span>&nbsp;&nbsp;&nbsp;
-
-                            <button class="waves-effect waves-light btn btn-primary small btn-novaproposta" type="submit"
-                                    name="novo" id="novo">
-                                <i class="material-icons left">border_color</i>Nova Proposta
-                            </button>
-
-                            <a class="waves-effect waves-light btn black white-text small text-right"
-                               onclick="window.location='<?php echo $this->usuarioLogado == 'prop' ? $this->url(array('controller' => 'vincularresponsavel', 'action' => 'index')) : $this->url(array('controller' => 'vincularresponsavel', 'action' => 'index')); ?>'">
-                                <i class="material-icons left">person</i>Novo Proponente
-                            </a>
-                        </td>
-                    </tr>
-                </table>
-                <table class="tabela">
-                    <tr class="centro">
-                        <th class="centro">Filtro</th>
-                    </tr>
-                    <tr>
-                        <td class="center" align="center">
-                            <a id="localizar" class="btn-localizar waves-effect waves-light btn btn-default small">
-                                <i class="material-icons left">search</i>Localizar
-                            </a>
-                        </td>
-                    </tr>
-                </table>
+                <div class="row">
+                    <div class="col s12 m12 l2">
+                        <b>Mecanismo:</b></br>
+                        <select name="mecanismo" id="mecanismo" class="browser-default">
+                            <option value="1" <?php echo ($this->mecanismo == 1) ? 'selected="selected"' : ''; ?>>
+                                Incentivo Fiscal Federal
+                            </option>
+                        </select>
+                    </div>
+                    <div class="col s12 m12 l5">
+                        <b>Proponente:</b></br>
+                        <select name="proponente" id="proponente" class="browser-default">
+                            <option value="">- Selecione -</option>
+                            <?php if (!empty($this->dadosCombo)): ?>
+                                <?php $idProponente = '' ?>
+                                <?php foreach ($this->dadosCombo as $dc): ?>
+                                    <?php if ($dc['idAgenteProponente'] != $idProponente): ?>
+                                        <option
+                                            <?= ($dc['idAgenteProponente'] == $this->idAgente) ? 'selected' : '' ?>
+                                            value="<?php echo $dc['idAgenteProponente']; ?>">
+                                            [<?php echo $dc['CPF']; ?>]
+                                            - <?php echo $dc['Nome']; ?>
+                                        </option>
+                                    <?php endif; ?>
+                                    <?php $idProponente = $dc['idAgenteProponente']; ?>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select></br>
+                        <span id="msgValidaProponente" class="red-text"></span>
+                    </div>
+                    <div class="col s12 m12 l5">
+                        </br>
+                        <button class="waves-effect waves-light btn btn-primary small btn-novaproposta"
+                                type="submit"
+                                name="novo" id="btn-nova-proposta">
+                            <i class="material-icons left">edit</i>Nova Proposta
+                        </button>
+                        <a class="waves-effect waves-light btn black white-text small text-right"
+                           onclick="window.location='<?php echo $this->usuarioLogado == 'prop' ? $this->url(array('controller' => 'vincularresponsavel', 'action' => 'index')) : $this->url(array('controller' => 'vincularresponsavel', 'action' => 'index')); ?>'">
+                            <i class="material-icons left">person</i>Novo Proponente
+                        </a>
+                    </div>
+                </div>
             </form>
         </div>
     </div>
     <div class="content">
-        <div class="row">
+        <div class="row card-panel">
             <div class="col s12 m12 l12">
-                <div  id="propostasCadastradas">
-                    <table class="bordered striped conteudoImprimivel" id="tabelaAnaliseFinal">
+                <div id="propostasCadastradas">
+                    <table class="bordered striped conteudoImprimivel" id="tabelaAnaliseFinal" style="width: 100%">
                         <thead>
                         <tr>
                             <th>Proposta</th>
@@ -109,7 +85,6 @@
         font-size: 15px;
         color: #212121;
     }
-
 </style>
 
 <script type="text/javascript">
@@ -135,17 +110,22 @@
             },
             messages: {
                 mecanismo: {required: " Obrigat&oacute;rio"},
-                proponente: {required: " Obrigat&oacute;rio"}
+                proponente: {required: " Informe o nome de um Proponente"}
             },
             submitHandler: function (form) {
                 //form.submit();
                 $("#msgValidaProponente").html("");
-                var nomeProponente = $('#proponente option:selected').text();
-                if (nomeProponente == "- TODOS -") {
-                    $("#msgValidaProponente").html("<font color='red'>Informe o nome de um Proponente.</font>");
+                var nomeProponente = $('#proponente option:selected').val();
+
+                if (nomeProponente == "") {
                     return false;
                 }
+
                 jqAjaxForm(form, 'propostasCadastradas');
+
+                $('html, body').animate({
+                    scrollTop: $("#propostasCadastradas").offset().top
+                }, 1000);
             }
         });
     });
@@ -159,26 +139,28 @@
     (function ($) {
         $(document).ready(function () {
 
-            var table =  $('#tabelaAnaliseFinal').DataTable(
+            var table = $('#tabelaAnaliseFinal').DataTable(
                 {
                     "language": {
                         "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
                     }
                     , "lengthChange": true
                     , "ajax": {
-                        url: "/proposta/manterpropostaincentivofiscal/listar-propostas-ajax",
-                        data: {"idagente": function (d) {
+                    url: "/proposta/manterpropostaincentivofiscal/listar-propostas-ajax",
+                    data: {
+                        "idagente": function (d) {
                             return $('#proponente').val();
-                        }},
-                        type: "POST"
+                        }
+                    },
+                    type: "POST"
                 },
                     "processing": true,
                     "serverSide": true,
                     "bFilter": false,
                     "aoColumnDefs": [
-                        {'bSortable': false, 'aTargets': [2, 3,4]}
+                        {'bSortable': false, 'aTargets': [2, 3, 4]}
                     ],
-                    "order": [[ 0, 'desc' ], [ 1, 'asc' ]],
+                    "order": [[0, 'desc'], [1, 'asc']],
                     "columns": [
                         {
                             data: null,
@@ -212,16 +194,16 @@
                             "name": "actions",
                             render: function (data, type, row) {
                                 return '<div style="position: relative; height: 60px;">'
-                                        + '<div class="fixed-action-btn horizontal" style="position: absolute; top: 0px; right: 0; z-index: 996; padding: 15px 0 0 15px;">'
-                                        + '<a class="btn btn-primary small">'
-                                        + '<i class="material-icons">more_vert</i></a>'
-                                        + '<ul>'
-                                        + '<li>'
-                                        + '<a class="btn-floating red" title="Ir para solicita&ccedil;&otilde;es" href="/solicitacao/mensagem/index/idPreProjeto/' + data.idpreprojeto + '">'
-                                        + '<i class="material-icons">message</i>'
-                                        + '</a></li>'
-                                        + '</ul>'
-                                        + '</div></div>'
+                                    + '<div class="fixed-action-btn horizontal" style="position: absolute; top: 0px; right: 0; z-index: 996; padding: 15px 0 0 15px;">'
+                                    + '<a class="btn btn-primary small">'
+                                    + '<i class="material-icons">more_vert</i></a>'
+                                    + '<ul>'
+                                    + '<li>'
+                                    + '<a class="btn-floating red" title="Ir para solicita&ccedil;&otilde;es" href="/solicitacao/mensagem/index/idPreProjeto/' + data.idpreprojeto + '">'
+                                    + '<i class="material-icons">message</i>'
+                                    + '</a></li>'
+                                    + '</ul>'
+                                    + '</div></div>'
                             }
                         }
                     ]

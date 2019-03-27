@@ -51,7 +51,7 @@ function mascara ($val, $mask) {
 
 </script>
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INICIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
     <ul>
         <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
@@ -64,15 +64,15 @@ function mascara ($val, $mask) {
 
 
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INICIO TITULO ========== -->
 <div id="titulo">
     <div>Concilia&ccedil;&atilde;o Banc&aacute;ria</div>
 </div>
 
-<!-- ========== FIM TÍTULO ========== -->
+<!-- ========== FIM TITULO ========== -->
 
 
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INICIO CONTEUDO ========== -->
 
 <div id="conteudo">
     <table class="tabela">
@@ -88,7 +88,7 @@ function mascara ($val, $mask) {
 </br>
 
 <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINAÇÃO ============ -->
+    <!-- ============ PAGINACAO ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -113,12 +113,12 @@ function mascara ($val, $mask) {
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&dtLancamento='.$this->dtLancamento.'&dtLancamentoFim='.$this->dtLancamentoFim.'&idPronac='.$this->idPronac.'&tpConta='.$this->tpConta;?>'">
                     <?php } ?>
-                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="tpConta" value="<?php echo $this->tpConta;?>">
@@ -136,7 +136,7 @@ function mascara ($val, $mask) {
             echo " de ". $this->paginacao['total']. " Registros listados";
         ?>
     </center>
-    <!-- ========== FIM PAGINAÇÃO ========== -->
+    <!-- ========== FIM PAGINACAO ========== -->
     <?php } ?>
 
 
@@ -146,24 +146,21 @@ function mascara ($val, $mask) {
         <thead>
             <tr>
                 <th>&nbsp;</th>
-                <th colspan="2">Fornecedor</th>
-                <th colspan="3">Dados do Pagamento</th>
-                <th>&nbsp;</th>
-                <th colspan="3">Informações do Banco do Brasil</th>
+                <th colspan="2" style="text-align:left;">Fornecedor</th>
+                <th colspan="3" align="center">Dados do Pagamento</th>
+                <th colspan="2" align="center">Informa&ccedil;&otilde;es do Banco do Brasil</th>
                 <th>&nbsp;</th>
             </tr>
             <tr class="titulo_tabela">
-                <th><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=4&ordem='.$this->paginacao['novaOrdem'];?>">Item Or&ccedil;ament&aacute;rio</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">CNPJ / CPF</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=6&ordem='.$this->paginacao['novaOrdem'];?>">Fornecedor</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=8&ordem='.$this->paginacao['novaOrdem'];?>">N&uacute;mero</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=9&ordem='.$this->paginacao['novaOrdem'];?>">Data</a></th>
-                <th width="75px"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=10&ordem='.$this->paginacao['novaOrdem'];?>">Valor</a></th>
-                <th width="75px"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=11&ordem='.$this->paginacao['novaOrdem'];?>">Vl. Comprovado</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=12&ordem='.$this->paginacao['novaOrdem'];?>">Lan&ccedil;amento</a></th>
-                <th><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=13&ordem='.$this->paginacao['novaOrdem'];?>">Dt. Lan&ccedil;amento</a></th>
-                <th width="75px"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=14&ordem='.$this->paginacao['novaOrdem'];?>">Vl. Debitado</a></th>
-                <th width="75px"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=15&ordem='.$this->paginacao['novaOrdem'];?>">Vl. Diferen&ccedil;a</a></th>
+                <th style="text-align:left;"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=4&ordem='.$this->paginacao['novaOrdem'];?>">Item Or&ccedil;ament&aacute;rio</a></th>
+                <th width="150px" style="text-align:left;"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">CNPJ / CPF</a></th>
+                <th style="text-align:left;"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=6&ordem='.$this->paginacao['novaOrdem'];?>">Fornecedor</a></th>
+                <th width="100px" style="text-align:right;"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=8&ordem='.$this->paginacao['novaOrdem'];?>">N&uacute;mero</a></th>
+                <th align="center"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=9&ordem='.$this->paginacao['novaOrdem'];?>">Data</a></th>
+                <th width="100px"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=10&ordem='.$this->paginacao['novaOrdem'];?>">Vl. Comprovado</a></th>
+                <th align="center"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=12&ordem='.$this->paginacao['novaOrdem'];?>">Lan&ccedil;amento</a></th>
+                <th width="100px" style="text-align:right;"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=14&ordem='.$this->paginacao['novaOrdem'];?>">Vl. Debitado</a></th>
+                <th width="100px" style="text-align:right;"><a href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag=1&qtde='.$this->paginacao['qtde'].'&idPronac='.$this->idPronac.'&campo=15&ordem='.$this->paginacao['novaOrdem'];?>">Vl. Diferen&ccedil;a</a></th>
  </tr>
         </thead>
     <tbody>
@@ -171,7 +168,7 @@ function mascara ($val, $mask) {
             foreach ($this->dados as $d){
             $style = "";
 
-                if ($d->dsLancamento==="SEM INFORMAÇÕES BANCÁRIAS") {
+                if ($d->dsLancamento==="SEM INFORMA&Ccedil;&Otilde;ES BANC&Aacute;RIAS") {
                     $d->vlDiferenca = "<center>-</center>";
                     $d->vlDebitado = "<center>-</center>";
                     $d->dtLancamento = "<center>-</center>";
@@ -184,12 +181,12 @@ function mascara ($val, $mask) {
                 }
 
                 if ($d->vlDiferenca <> 0) {
-                    $style = "style=\"color:red;font-weight:bold\"";
+                    $style = "style=\"color:red;font-weight:bold;text-align:right\"";
                 }
 
                 if ($d->vlDebitado <> '<center>-</center>') {
-                    $d->vlDebitado = 'R$ '. @number_format(($d->vlDebitado),2, ",", ".");
-                    $d->vlDiferenca = 'R$ '. @number_format(($d->vlDiferenca),2, ",", ".");
+                    $d->vlDebitado = @number_format(($d->vlDebitado),2, ",", ".");
+                    $d->vlDiferenca = @number_format(($d->vlDiferenca),2, ",", ".");
                 }
 
                 if ($d->dtLancamento <> "<center>-</center>") {
@@ -198,17 +195,15 @@ function mascara ($val, $mask) {
 
          ?>
          <tr>
-             <td align="center"><?php echo $d->ItemOrcamentario; ?></td>
-             <td><?php echo $d->CNPJCPF; ?></td>
-             <td align="center"><?php echo $d->Fornecedor; ?></td>
-             <td><?php echo $d->nrDocumentoDePagamento; ?></td>
-             <td><?php echo Data::tratarDataZend($d->dtPagamento,'Brasileira'); ?></td>
-             <td align="right"><b><?php echo 'R$ '. @number_format(($d->vlPagamento),2, ",", "."); ?></b></td>
-             <td align="right"><b><?php echo 'R$ '. @number_format(($d->vlComprovado),2, ",", "."); ?></b></td>
+             <td style="text-align:left;"><?php echo $d->ItemOrcamentario; ?></td>
+             <td style="text-align:left;"><?php echo $d->CNPJCPF; ?></td>
+             <td style="text-align:left;"><?php echo $d->Fornecedor; ?></td>
+             <td style="text-align:right;"><?php echo $d->nrDocumentoDePagamento; ?></td>
+             <td align="center"><?php echo Data::tratarDataZend($d->dtPagamento,'Brasileira'); ?></td>
+             <td  style="text-align:right;"><b><?php echo @number_format(($d->vlPagamento),2, ",", "."); ?></b></td>
              <td align="center"><?php echo $d->dsLancamento; ?></td>
-             <td align="center"><?php echo $d->dtLancamento; ?></td>
-             <td align="right"><?php echo $d->vlDebitado; ?></td>
-             <td align="right" <?php echo $style; ?>><?php echo $d->vlDiferenca; ?></td>
+             <td style="text-align:right;"><?php echo $d->vlDebitado; ?></td>
+             <td <?php echo $style; ?>><?php echo $d->vlDiferenca; ?></td>
          </tr>
        <?php  } ?>
 
@@ -216,7 +211,7 @@ function mascara ($val, $mask) {
     </table>
 
  <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINAÇÃO ============ -->
+    <!-- ============ PAGINACAO ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -241,12 +236,12 @@ function mascara ($val, $mask) {
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'conciliacao-bancaria')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&dtLancamento='.$this->dtLancamento.'&dtLancamentoFim='.$this->dtLancamentoFim.'&idPronac='.$this->idPronac.'&tpConta='.$this->tpConta;?>'">
                     <?php } ?>
-                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p&aacute;gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="tpConta" value="<?php echo $this->tpConta;?>">
@@ -264,7 +259,7 @@ function mascara ($val, $mask) {
             echo " de ". $this->paginacao['total']. " Registros listados";
         ?>
     </center>
-    <!-- ========== FIM PAGINAÇÃO ========== -->
+    <!-- ========== FIM PAGINACAO ========== -->
     <?php } ?>
 
 <?php } else { ?>

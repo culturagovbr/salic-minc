@@ -183,7 +183,7 @@
              */
             ?>
             <a class="no_seta last" target="_blank" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'listardiligenciaanalista'), '', true); ?>?idPronac=<?php echo $this->idpronac;?>&situacao=C30&tpDiligencia=126" title="Ir para Diligenciar Proponente">Dilig&ecirc;ncias</a>
-            <!--<a class="no_seta" href="<?php //echo $this->url(array('controller' => 'recurso', 'action' => 'detalhar-recurso'), '', true);?>?idPronac=<?php //echo $this->idpronac;?>" title="Ir para Recurso">Recurso</a>-->
+            <!--<a class="no_seta" href="<?php //echo $this->url(array('controller' => 'recursos', 'action' => 'detalhar-recurso'), '', true);?>?idPronac=<?php //echo $this->idpronac;?>" title="Ir para Recurso">Recurso</a>-->
             
             <?php /* ?>
             <a class="no_seta" target="_blank" href="<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'visualizar-opinioes'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idpronac); ?>" title="Ir para Participa&ccedil;&atilde;o Social">Participa&ccedil;&atilde;o Social</a>

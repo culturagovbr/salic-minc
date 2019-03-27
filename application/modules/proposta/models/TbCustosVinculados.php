@@ -10,9 +10,6 @@ class Proposta_Model_TbCustosVinculados extends MinC_Db_Model
     protected $_idUsuario;
     protected $_pcCalculo;
 
-    const ID_ETAPA_CUSTOS_VINCULADOS = '8';           # Custos Vinculados
-    const ID_FONTE_RECURSO_CUSTOS_VINCULADOS = '109'; #Incentivo fiscal
-
     const ID_CUSTO_ADMINISTRATIVO = 8197;
     const ID_DIREITOS_AUTORAIS = 40;
     const ID_CONTROLE_E_AUDITORIA = 8199;
@@ -34,9 +31,11 @@ class Proposta_Model_TbCustosVinculados extends MinC_Db_Model
 
     # NORTE NORDESTE E CENTRO-OESTE
     const PERCENTUAL_REGIOES_N_NE_CO_REMUNERACAO_CAPTACAO_DE_RECURSOS = 15;
+    const LIMITE_REGIOES_N_NE_CO = 172500;
 
     # SUL E ESTADOS MINAS GERAIS E ESPIRITO SANTO
     const PERCENTUAL_UFS_RS_PR_SC_MG_ES_REMUNERACAO_CAPTACAO_DE_RECURSOS = 12.5;
+    const LIMITE_UFS_RS_PR_SC_MG_ES = 168750;
 
     /**
      * @return mixed

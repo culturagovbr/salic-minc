@@ -1,0 +1,435 @@
+<script src="/public/js/vue.js"></script>
+<script src="/public/js/moment.js"></script>
+<script src="/public/scripts/prestacao-contas/components/page-title.vue.js"></script>
+
+<div class="container-fluid" id="app-comprovante">
+    <page-title
+        nome="Analise"
+        url="/prestacao-contas/realizar-prestacao-contas/index/idPronac/<?php echo $this->idPronac ?>?cdProduto=<?php echo $this->codigoProduto ?>"
+    >
+    </page-title>
+    <div class="row">
+        <div class="col s12">
+            <dados-comprovante
+				idpronac="<?php echo $this->idPronac ?>"
+				produto="<?php echo $this->codigoProduto ?>"
+				stitemavaliado="<?php echo $this->stItemAvaliado ?>"
+				uf="<?php echo $this->uf ?>"
+				idmunicipio="<?php echo $this->municipio ?>"
+				idplanilhaitem="<?php echo $this->idPlanilhaItem ?>"
+			>
+            </dados-comprovante>
+        </div>
+    </div>
+</div>
+
+<script>
+    const formatValue = {
+        props: [
+            'value',
+        ],
+        template: `
+            <div>
+                R$  {{formatValue(value)}}
+            </div>
+        `,
+        methods: {
+            formatValue(value) {
+                if (value === undefined) {
+                    return '0,00';
+                }
+
+                if (value.indexOf('.') === -1) {
+                    return this.formatValueWithoutCents(value);
+                }
+
+                return this.formatValueWithCents(value);
+            },
+            formatValueWithoutCents(value) {
+                const valueWithCents = value.concat(',00');
+                const result = valueWithCents.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+                return result;
+            },
+            formatValueWithCents(value) {
+                const valueParsedToFloat = parseFloat(value).toFixed(2);
+                const valueParsedToString = valueParsedToFloat.toString();
+                const valueChangedPointByComma = valueParsedToString.replace('.', ',');
+                const result = valueChangedPointByComma.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+                return result;
+            },
+        },
+    };
+
+    const projeto = {
+        template: `
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">{{projeto.NomeProjeto}}</span>
+                    <table class="tabela">
+                        <tbody>
+                            <tr>
+                                <th>Produto:</th>
+                                <td>{{projeto.Produto}}</td>
+                                <th>Etapa:</th>
+                                <td>{{projeto.Etapa}}</td>
+                                <th>Item de Custo:</th>
+                                <td>{{projeto.Item}}</td>
+                            </tr>
+                            <tr>
+                                <th>Valor Aprovado:</th>
+                                <td><formatValue :value="projeto.vlAprovado"></formatValue></td>
+                                <th>Valor Comprovado:</th>
+                                <td><formatValue :value="projeto.vlComprovado"></formatValue></td>
+                                <th>Comprovação Validada:</th>
+                                <td><formatValue :value="projeto.ComprovacaoValidada"></formatValue></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `,
+        components: {
+            'formatValue': formatValue,
+        },
+        props: [
+            'idpronac',
+            'idplanilhaitem',
+            'uf',
+            'idmunicipio',
+            'idplanilhaetapa',
+            'produto',
+            'stitemavaliado'
+        ],
+        data: function () {
+            return {
+                projeto: {}
+            }
+        },
+        mounted: function () {
+            var vue = this;
+
+            url = '/prestacao-contas/planilha-aprovacao/get';
+            $3.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    idPronac: this.idpronac,
+                    idPlanilhaItem: this.idplanilhaitem,
+                    produto: this.produto,
+                    uf: this.uf,
+                    idmunicipio: this.idmunicipio,
+                }
+            })
+                .done(function (data) {
+                    vue.projeto = data.data;
+                })
+                .fail(function (jqXHR) {
+                    alert('error');
+                });
+        },
+    }
+
+    const comprovanteForm = {
+        template: `
+            <div class="card">
+                <div class="card-content">
+                    <span class="card-title">Avalia&ccedil;&atilde;o</span>
+                    <form>
+                        <p>
+                            <input
+                                :checked="avaliacao.situacao == situacao"
+                                v-model="avaliacao.situacao"
+                                type="radio"
+                                :id="('situacao-1_' + idcomprovantepagamento)"
+                                value="1"
+                           >
+                           <label :for="('situacao-1_' + idcomprovantepagamento)">Validar</label>
+                           <input
+                                :checked="avaliacao.situacao == situacao"
+                                v-model="avaliacao.situacao"
+                                type="radio"
+                                :id="('situacao-3_' + idcomprovantepagamento)"
+                                value="3"
+                            >
+                            <label :for="('situacao-3_' + idcomprovantepagamento)">Recusar</label>
+                        </p>
+                        <div style="margin-top: 10px">
+                            <div class="form-group">
+                                <div class="row">
+                                     <div class="input-field col s12">
+                                        <label class="label label-primary">
+                                            <h4>
+                                                Ocorrência do Técnico
+                                            </h4>
+                                        </label>
+                                        <textarea v-model="avaliacao.observacao"
+                                            id="comprovantePagamento_observacao"
+                                            rows="10" cols="100"
+                                            class="form-control materialize-textarea"
+                                            style="margin-top: 20px">
+                                            ocorrencia
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-action">
+                            <button @click.prevent="salvar" type="submit" class="waves-effect waves-light btn btn-success" value="">
+                                salvar
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        `,
+        props: ['idcomprovantepagamento', 'idpronac', 'situacao', 'observacao', 'index'],
+        data: function () {
+            return {
+                avaliacao: {
+                    observacao: this.observacao,
+                    idpronac: this.idpronac,
+                    idcomprovantepagamento: this.idcomprovantepagamento,
+                    situacao: this.situacao,
+                    index: this.index
+                }
+            }
+        },
+        methods: {
+            salvar: function () {
+                var vue = this;
+                url = '/prestacao-contas/comprovante-pagamento/post';
+                $3.ajax({
+                    type: "POST",
+                    url: url,
+                    data: this.avaliacao
+                })
+                    .done(function (data) {
+                        vue.$parent.$emit('salvar-form', vue.$data.avaliacao);
+                    })
+                    .fail(function (jqXHR) {
+                        alert('error');
+                    });
+            }
+        }
+    }
+
+    const comprovanteTable = {
+        props: [
+            'dados',
+        ],
+        template: `
+            <div>
+                <table class="bordered">
+                    <tbody>
+                        <tr>
+                            <th>Fornecedor</th>
+                            <td>{{dados.Descricao}}</td>
+                            <th>CNPJ/CPF</th>
+                            <td colspan="5">{{CNPJCPF}}</td>
+                        </tr>
+                        <tr>
+                            <th>Comprovante</th>
+                            <td>{{dados.tpDocumento}}</td>
+                            <th>Número</th>
+                            <td>{{dados.nrComprovante}}</td>
+                            <th>S&eacute;rie</th>
+                            <td colspan="3">{{dados.nrSerie}}</td>
+                        </tr>
+                        <tr>
+                            <th>Dt. Emiss&atilde;o do comprovante de despesa</th>
+                            <td>{{dataEmissaoComprovante}}</td>
+                            <th>Forma de Pagamento</th>
+                            <td>{{dados.tpFormaDePagamento}}</td>
+                            <th>Data do Pagamento</th>
+                            <td>{{dataPagamento}}</td>
+                            <th>N&ordm; Documento Pagamento</th>
+                            <td>{{dados.nrDocumentoDePagamento}}</td>
+                        </tr>
+                        <tr>
+                            <th>Valor</th>
+                            <td><formatValue :value="valor"></formatValue></td>
+                            <th>Arquivo</th>
+                            <td colspan="5">
+                                <a :href="'/upload/abrir/id/' + dados.idArquivo">{{dados.nmArquivo}}</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Justificativa do Proponente</th>
+                            <td colspan="7">{{dados.dsJustificativa}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        `,
+        components: {
+            'formatValue': formatValue,
+        },
+        computed: {
+            CNPJCPF() {
+                CNPJCPF = null;
+
+                if (this.dados.CNPJCPF.length > 11) {
+                    CNPJCPF = this.dados.CNPJCPF.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5');
+                } else {
+                    CNPJCPF = this.dados.CNPJCPF.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+                }
+
+                return CNPJCPF;
+            },
+            dataEmissaoComprovante() {
+                return moment(this.dados.dtEmissao).format('DD/MM/Y');
+            },
+            dataPagamento() {
+                return moment(this.dados.dtPagamento).format('DD/MM/Y');
+            },
+            valor() {
+                return parseFloat(this.dados.vlComprovacao).toFixed(2);
+            }
+        },
+    };
+
+    const comprovantes = {
+        template: `
+            <div>
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li v-for="(dado, index) in dados">
+                      <div class="collapsible-header">
+                          <div style="margin-right:5px;">Fornecedor: {{dado.Descricao}} - </div>
+                          <div><formatValue :value="dado.vlComprovacao"></formatValue></div>
+                          <span :class="['badge white-text', badgeCSS(dado.stItemAvaliado)]">
+                            {{situacao(dado.stItemAvaliado)}}
+                          </span>
+                      </div>
+                      <div :class="['collapsible-body lighten-5', badgeCSS(dado.stItemAvaliado)]">
+                            <div class="card">
+                                <div class="card-content">
+                                    <comprovante-table :dados="dado"></comprovante-table>
+                                </div>
+                            </div>
+                            <comprovante-form
+                                :idpronac="dado.IdPRONAC"
+                                :idcomprovantepagamento="dado.idComprovantePagamento"
+                                :situacao="dado.stItemAvaliado"
+                                :observacao="dado.dsOcorrenciaDoTecnico"
+                                :index="index"
+                            >
+                            </comprovante-form>
+                      </div>
+                    </li>
+                </ul>
+            </div>
+        `,
+        components: {
+            'comprovante-form': comprovanteForm,
+            'comprovante-table': comprovanteTable,
+            'formatValue': formatValue,
+        },
+        props: ['dados'],
+        methods: {
+            badgeCSS: function (id) {
+                if (id == 1) {
+                    return {
+                        'green ': true,
+                    }
+                }
+                if (id == 3) {
+                    return {
+                        ' red': true,
+                    }
+                }
+                if (id == 4) {
+                    return {
+                        'grey': true,
+                    }
+                }
+            },
+            situacao(id) {
+                estado = null;
+                switch (parseInt(id)) {
+                    case 1:
+                        estado = 'Aprovado';
+                        break;
+                    case 3:
+                        estado = 'Recusado'
+                        break;
+                    default:
+                        estado = 'N\xE3o avaliado';
+                }
+                return estado;
+            },
+        },
+    }
+
+    const dadosComprovante = {
+        props: [
+            'idpronac',
+            'produto',
+            'stitemavaliado',
+            'uf',
+            'idmunicipio',
+            'idplanilhaitem'
+        ],
+        template: `
+            <div>
+                <pc-projeto
+                    :idpronac="idpronac"
+                    :idplanilhaitem="idplanilhaitem"
+                    :uf="uf"
+                    :idmunicipio="idmunicipio"
+                    :idplanilhaetapa="idplanilhaitem"
+                    :produto="produto"
+                >
+                </pc-projeto>
+                <comprovantes
+                    :dados="dados"
+                    v-on:salvar-form="mudarDados($event)"
+                >
+                </comprovantes>
+            </div>
+        `,
+        components: {
+            'comprovantes': comprovantes,
+            'pc-projeto': projeto
+        },
+        mounted: function () {
+            var vue = this;
+            url = '/prestacao-contas/comprovante-pagamento';
+            $3.ajax({
+                type: "GET",
+                url: url,
+                data: {
+                    idPronac: this.idpronac,
+                    idPlanilhaItem: this.idplanilhaitem,
+                    produto: this.produto,
+                    uf: this.uf,
+                    idmunicipio: this.idmunicipio,
+                    /* stItemAvaliado: 4 */
+                }
+            })
+                .done(function (data) {
+                    vue.$data.dados = data.data;
+                })
+                .fail(function (jqXHR) {
+                    alert('error');
+                });
+        },
+        data: function () {
+            return {
+                dados: []
+            }
+        },
+        methods: {
+            mudarDados: function (event) {
+                d = this.dados[event.index];
+                d['stItemAvaliado'] = event.situacao;
+                this.$set(this.dados, event.index, d);
+            }
+        }
+    }
+
+    const appComprovante = new Vue({
+        components: {'dados-comprovante': dadosComprovante}
+    }).$mount('#app-comprovante');
+
+</script>

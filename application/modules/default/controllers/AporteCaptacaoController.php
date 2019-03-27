@@ -12,17 +12,17 @@ class AporteCaptacaoController extends MinC_Controller_Action_Abstract
         $Usuario           = new UsuarioDAO(); // objeto usuario
         $GrupoAtivo        = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
         $PermissoesGrupo = array();
-        
+
         //Da permissao de acesso a todos os grupos do usuario logado
         if (isset($auth->getIdentity()->usu_codigo)) {
             //Recupera todos os grupos do Usuario
-            $Usuario = new Autenticacao_Model_Usuario(); // objeto usuário
+            $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuário
             $grupos = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21);
             foreach ($grupos as $grupo) {
                 $PermissoesGrupo[] = $grupo->gru_codigo;
             }
         }
-        
+
         if (isset($auth->getIdentity()->usu_codigo)) {
             parent::perfil(1, $PermissoesGrupo);
         } else {
@@ -39,7 +39,7 @@ class AporteCaptacaoController extends MinC_Controller_Action_Abstract
         }
         /* ========== FIM PERFIL ==========*/
 
-        
+
         /* ========== INÍCIO ÓRGÃO ========== */
         $GrupoAtivo   = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessão com o grupo ativo
         $this->getIdGrupo = $GrupoAtivo->codGrupo; // id do grupo ativo
@@ -47,13 +47,17 @@ class AporteCaptacaoController extends MinC_Controller_Action_Abstract
         parent::init();
     }
 
+    /**
+     * @deprecated migrado para nova estrutura de Rest e Service >
+     * application/modules/projeto/service/plano-distribuicao/PlanoDistribuicao.php
+     */
     public function depositoEquivocadoAction()
     {
         $idPronac = $this->_request->getParam("idPronac");
         if (strlen($idPronac) > 7) {
             $idPronac = Seguranca::dencrypt($idPronac);
         }
-        
+
         $Projetos = new Projetos();
         $this->view->projeto = $Projetos->buscar(array('IdPRONAC = ?'=>$idPronac))->current();
         $this->view->idPronac = $idPronac;

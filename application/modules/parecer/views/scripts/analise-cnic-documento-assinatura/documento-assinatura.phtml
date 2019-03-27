@@ -12,9 +12,12 @@
             <img src="/public/img/planalto_presidencia_simbolosnacionais_brasao.gif" style="height:120px">
         </div>
         <div class="center-align" style="font-size: 23px;">
-            MINIST&Eacute;RIO DA CULTURA
+            MINIST&Eacute;RIO DA CIDADANIA
         </div>
-        <?php if ($this->orgaoSuperior == Orgaos::ORGAO_SUPERIOR_SEFIC): ?>
+        <div class="center-align" style="font-size: 23px;">
+            SECRETARIA ESPECIAL DA CULTURA
+        </div>
+        <?php if ((int)$this->orgaoSuperior == (int)\Orgaos::ORGAO_SUPERIOR_SEFIC): ?>
         <div class="center-align" style="font-size: 23px; color: black;">
             Secretaria de Fomento e Incentivo &agrave; Cultura - SEFIC
         </div>

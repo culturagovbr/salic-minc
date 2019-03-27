@@ -1,0 +1,119 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Avaliar Recurso de Enquadramento da Proposta</h1>
+                    <?php
+                    $links = [
+                        [
+                            'Admissibilidade de propostas' => [
+                                'module' => 'admissibilidade',
+                                'controller' => 'admissibilidade',
+                                'action' => 'listar-propostas',
+                            ]
+                        ],
+                        [
+                            'An&aacute;lise de Proposta Cultural' => $this->url([
+                                    'module' => 'admissibilidade',
+                                    'controller' => 'admissibilidade',
+                                    'action' => 'exibirpropostacultural',
+
+                                ]) . "?idPreProjeto={$this->proposta['idpreprojeto']}&realizar_analise=sim"
+                        ],
+                        [
+                            'Avaliar Recurso de Enquadramento da Proposta' => [
+                                'module' => 'admissibilidade',
+                                'controller' => 'admissibilidade',
+                                'action' => 'exibirpropostacultural',
+
+                            ]
+                        ],
+                    ];
+                    gerarBreadCrumb($links, 'migalhas');
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <?php if (!$this->menu): ?>
+                        <a href="javascript:voltar()"
+                           title="P&aacute;gina Anterior"
+                           class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle">
+                            <i class="material-icons">keyboard_return</i>
+                        </a>
+                    <?php endif ?>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="card-panel">
+                <div class="row">
+                    <div class="col s12">
+                        <?php
+                        echo $this->partial("recurso-proposta/inc/bloco_identificacao-proposta-cultural.phtml", $this);
+                        ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <?php
+                        echo $this->partial("recurso-proposta/inc/bloco_enquadramento-proposta-proponente.phtml", $this);
+                        ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <?php
+                        echo $this->partial("recurso-proposta/inc/bloco_enquadramento-proposto-avaliador.phtml", $this);
+                        ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <p>
+                            Tipo de Solicita&ccedil;&atilde;o:
+                            <b>
+                                <?php
+                                $tipoRecurso = "Pedido de Reconsidera&ccedil;&atilde;o";
+                                if ($this->recursoEnquadramento['tpRecurso'] == Recurso_Model_TbRecursoProposta::TIPO_RECURSO_RECURSO) {
+                                    $tipoRecurso = "recurso";
+                                }
+                                echo $tipoRecurso;
+                                ?>
+                            </b>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <p><b>Justificativa do Pedido</b></p>
+                        <p class="">
+                            <textarea cols="80"
+                                      id="dsRecursoProponente"
+                                      name="dsRecursoProponente"
+                                      rows="10"
+                                      class="textarea_simples"
+                                      style="width: 99%"><?php echo $this->recursoEnquadramento['dsRecursoProponente'] ?></textarea>
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <p>
+                            <?php
+                            echo $this->partial("recurso-proposta/inc/bloco_arquivos_anexos.phtml", $this);
+                            ?>
+                        </p>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <?php
+                        echo $this->partial("recurso-proposta/inc/bloco_formulario-recurso-visao-avaliador.phtml", $this);
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

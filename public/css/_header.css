@@ -17,35 +17,56 @@ header #topo {
     background-color: #acda5d;
 }
 
+header #topo #logo-homolog,
 header #topo #logo {
     width: 224px;
     display: inline-block;
 }
 
+header #topo #logo-homolog h1,
 header #topo #logo h1 {
-    height: 60px;
-
+    height: 50px;
     font-size: 12px;
     margin: 0;
     text-indent: -1000px;
-    background: url(../img/logo_salic.png) center no-repeat;
-    background-size: 150px;
+    background: url(../img/logo_salic.png) 12px no-repeat;
+    background-size: 125px;
     cursor: pointer;
 }
 
 header #topo #logo-homolog h1 {
-    height: 60px;
-    font-size: 12px;
-    margin: 0;
-    text-indent: -1000px;
-    background: url(../img/logo_salic_homolog.png) center no-repeat;
-    background-size: 150px;
-    cursor: pointer;
+    background-image: url(../img/logo_salic_homolog.png);
 }
 
+header #topo  #logo-homolog h1 a,
 header #topo  #logo h1 a {
     display: block;
     height: 58px;
+}
+
+@media only screen and (max-width: 993px) {
+    header #topo {
+        height: 45px;
+    }
+
+    header #topo #logo-homolog,
+    header #topo #logo {
+        width: 45px;
+    }
+
+
+    header #topo #logo-homolog h1,
+    header #topo #logo h1 {
+        height: 45px;
+        margin-left: 10px;
+        background-position: left center;
+        background-size: 102px;
+    }
+
+    header #topo  #logo-homolog h1 a,
+    header #topo  #logo h1 a {
+        height: 45px;
+    }
 }
 
 /*--------------------------------------------------------------
@@ -58,7 +79,7 @@ header #atalhos {
     width: 80%;
     text-align: right;
     min-height: 45px;
-    z-index: 1001;
+    z-index: 201;
 }
 
 header #atalhos a {
@@ -152,6 +173,29 @@ header #atalhos #combousuario select.perfilXgrupo option {
     color: #27360d;
 }
 
+@media only screen and (max-width: 993px) {
+    header #atalhos {
+        top: 0px;
+        right: 0px;
+        font-size: 10px;
+        z-index: 202;
+    }
+
+    header #atalhos #combousuario {
+        min-width: 260px;
+    }
+
+    header #atalhos #combousuario input.select-dropdown {
+        font-size: 10px;
+    }
+
+    header #atalhos ul li:last-child {
+        position: absolute;
+        top: 50px;
+        left: 0px;
+    }
+}
+
 /*--------------------------------------------------------------
 x - Menu principal
 --------------------------------------------------------------*/
@@ -199,6 +243,8 @@ header nav .nav-wrapper {
     color: #fff;
     height: 40px;
     line-height: 40px;
+    width: 90%;
+    margin: 0 auto;
 }
 
 header nav,
@@ -214,7 +260,7 @@ header nav {
     background-color: #388E3C;
     width: 100%;
     height: 40px;
-    z-index: 1000;
+    z-index: 200;
     position: relative;
 }
 
@@ -276,7 +322,7 @@ header #header_notificacoes {
     width: 400px !important;
     max-height: 350px;
     min-height: 250px;
-    z-index: 999;
+    z-index: 202;
     background: #fff;
     border-color: #ccc;
     box-shadow: 0 2px 10px rgba(0, 0, 0, .2);
@@ -294,7 +340,7 @@ header #header_notificacoes:before {
     border-width: 0 8px 8px 8px;
     border-style: solid;
     border-color: #ffffff transparent;
-    z-index: 999;
+    z-index: 202;
 }
 
 header #header_notificacoes .card-panel {

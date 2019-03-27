@@ -27,6 +27,12 @@ x - CONTEÚDO (legado)
     width: 370px;
 }
 
+@media only screen and (max-width: 993px) {
+    #conteudo .logo-content img {
+        width: 150px;
+    }
+
+}
 /*--------------------------------------------------------------
 x - MIOLO
 --------------------------------------------------------------*/

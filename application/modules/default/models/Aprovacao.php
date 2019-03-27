@@ -11,6 +11,16 @@ class Aprovacao extends MinC_Db_Table_Abstract
     protected $_name = 'Aprovacao';
     protected $_schema = 'SAC';
 
+    const TIPO_APROVACAO_INICIAL = 1;
+    const TIPO_APROVACAO_COMPLEMENTACAO = 2;
+    const TIPO_APROVACAO_PRORROGACAO = 3;
+    const TIPO_APROVACAO_REDUCAO = 4;
+    const TIPO_APROVACAO_PRESTACAO_REPROVADA = 5;
+    const TIPO_APROVACAO_PRESTACAO_APROVADA = 6;
+    const TIPO_APROVACAO_PARECER_RECURSO = 7;
+    const TIPO_APROVACAO_READEQUACAO = 8;
+    const TIPO_APROVACAO_HOMOLOGACAO = 9;
+    
     public function inserirAprovacao($dados)
     {
         try {

@@ -19,10 +19,7 @@ class RelatorioController extends MinC_Controller_Action_Abstract
     {
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
         if (empty($auth->getIdentity()->usu_codigo)) {
-            $script = "
-                <script>window.location.href = '".Zend_Controller_Front::getInstance()->getBaseUrl()."';</script>
-            ";
-            die($script);
+            $this->redirect(Zend_Controller_Front::getInstance()->getBaseUrl());
         }
 
         // autentica��o e permiss�es zend (AMBIENTE MINC)
@@ -69,7 +66,7 @@ class RelatorioController extends MinC_Controller_Action_Abstract
 
     public function relatorioprojetopareceristaAction()
     {
-        $tblUsuario = new Autenticacao_Model_Usuario();
+        $tblUsuario = new Autenticacao_Model_DbTable_Usuario();
         $rsUsuario = $tblUsuario->buscarOrgao($_SESSION['Zend_Auth']['storage']->usu_orgao);
         $this->view->idOrgao = $rsUsuario->org_codigo;
         $this->view->idOrgaoSuperior = $rsUsuario->org_superior;
@@ -1173,7 +1170,7 @@ class RelatorioController extends MinC_Controller_Action_Abstract
     public function visualTecnicoAction()
     {
         $auth         = Zend_Auth::getInstance(); // pega a autentica��o
-        $Usuario      = new Autenticacao_Model_Usuario(); // objeto usu�rio
+        $Usuario      = new Autenticacao_Model_DbTable_Usuario(); // objeto usu�rio
         $UsuarioAtivo = new Zend_Session_Namespace('UsuarioAtivo'); // cria a sess�o com o usu�rio ativo
         $GrupoAtivo   = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $codPerfil  = $GrupoAtivo->codGrupo; // manda o grupo ativo do usu�rio para a vis�o

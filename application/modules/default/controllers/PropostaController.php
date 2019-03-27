@@ -76,7 +76,7 @@ class PropostaController extends MinC_Controller_Action_Abstract
                 } elseif (count($rsProjeto)>0) {
                     $movimentacoes[$proposta->idPreProjeto]["txtMovimentacao"] = "<font color=#FF0000>" . 'Proposta transformada em projeto' . "</font>";
                 } else {
-                    $tblUsuario = new Autenticacao_Model_Usuario();
+                    $tblUsuario = new Autenticacao_Model_DbTable_Usuario();
                     $rsUsuario = $tblUsuario->find($rsMovimentacao->Usuario)->current();
 
                     $movimentacoes[$proposta->idPreProjeto]["txtMovimentacao"] = "Proposta com o Analista";

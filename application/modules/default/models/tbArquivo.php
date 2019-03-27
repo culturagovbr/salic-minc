@@ -1,28 +1,12 @@
 <?php
 
-/**
- * DAO tbArquivo
- * @author emanuel.sampaio - Politec
- * @since 19/02/2011
- * @version 1.0
- * @package application
- * @subpackage application.model
- * @copyright  2011 - Ministerio da Cultura - Todos os direitos reservados.
- * @link http://www.cultura.gov.br
- */
 class tbArquivo extends MinC_Db_Table_Abstract
 {
     protected $_schema = "bdcorporativo.scCorp";
     protected $_name = "tbArquivo";
     protected $_primary = "idArquivo";
 
-    /**
-     * Metodo para buscar um arquivo pelo seu id
-     * @access public
-     * @param integer $idArquivo
-     * @return array
-     */
-    public function buscarDados($idArquivo)
+    public function buscarArquivoComBinario($idArquivo)
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -37,19 +21,22 @@ class tbArquivo extends MinC_Db_Table_Abstract
             , "a.stAtivo"
             , "a.dsTipoPadronizado"
             , "a.idUsuario"),
-            'BDCORPORATIVO.scCorp'
+            $this->getSchema('BDCORPORATIVO.scCorp')
         );
         $select->joinInner(
             array("i" => "tbArquivoImagem"),
             "a.idArquivo = i.idArquivo",
             array("i.biArquivo"),
-            'BDCORPORATIVO.scCorp'
+            $this->getSchema('BDCORPORATIVO.scCorp')
         );
 
         $select->where("a.idArquivo = ?", $idArquivo);
 
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db->fetchAll("SET TEXTSIZE 10485760");
         return $this->fetchRow($select);
-    } // fecha metodo buscarDados()
+    }
 
     public static function buscarArquivo($id)
     {
@@ -150,4 +137,100 @@ class tbArquivo extends MinC_Db_Table_Abstract
     {
         return $this->delete($where);
     }
+
+    public function removerAnexoDoRecursoDaPropostaVisaoProponente(array $recursoProposta, $idProponente)
+    {
+        try {
+            $tbArquivoDbTable = new tbArquivo();
+
+            if (!$recursoProposta['idPreProjeto']) {
+                throw new Exception("Identificador da Proposta n&atilde;o foi localizado.");
+            }
+
+            if (!$recursoProposta['idArquivo']) {
+                throw new Exception("Identificador do Arquivo n&atilde;o informado.");
+            }
+
+            if (is_null($idProponente) || empty($idProponente)) {
+                throw new Exception("Identificador do Proponente n&atilde;o localizado.");
+            }
+
+            $tbArquivoDbTable->findBy([
+                'idArquivo' => $recursoProposta['idArquivo'],
+                'idUsuario' => $idProponente
+            ]);
+
+            $tbArquivoImagemDAO = new tbArquivoImagem();
+            $tbArquivoImagemDAO->delete("idArquivo = {$recursoProposta['idArquivo']}");
+            $tbArquivoDbTable->delete("idArquivo = {$recursoProposta['idArquivo']}");
+            $recursoPropostaDbTable = new Recurso_Model_DbTable_TbRecursoProposta();
+            $recursoPropostaDbTable->update([
+                'idArquivo' => new Zend_Db_Expr('NULL')
+            ], [
+                'idRecursoProposta = ?' => $recursoProposta['idRecursoProposta'],
+                'idPreProjeto = ?' => $recursoProposta['idPreProjeto']
+            ]);
+            return true;
+        } catch (Exception $exception) {
+            throw $exception;
+        }
+    }
+
+    /**
+     * @param string $nomeArquivoUpload
+     * @param int $tamanhoMaximoUpload
+     * @return int|null $idArquivo
+     */
+    public function uploadAnexoSqlServer(
+        $idUsuario, 
+        $nomeArquivoUpload = 'arquivo',
+        $tamanhoMaximoUpload = 10485760
+    )
+    {
+        $idArquivo = null;
+        $file = new Zend_File_Transfer();
+        if ($file->isUploaded() && !empty($file->getFileInfo())) {
+            $fileInformation = $file->getFileInfo();
+            
+            $arquivoNome = $fileInformation[$nomeArquivoUpload]['name'];
+            $arquivoTemp = $fileInformation[$nomeArquivoUpload]['tmp_name'];
+            $arquivoTamanho = $fileInformation[$nomeArquivoUpload]['size'];
+            $arquivoHash = '';
+ 
+            if (!empty($arquivoNome) && !empty($arquivoTemp)) {
+                $arquivoExtensao = Upload::getExtensao($arquivoNome);
+                $arquivoBinario = Upload::setBinario($arquivoTemp);
+                $arquivoHash = Upload::setHash($arquivoTemp);
+            }
+
+            if ($arquivoTamanho > $tamanhoMaximoUpload) {
+                throw new Exception("O arquivo n&atilde;o pode ser maior do que 10MB!");
+            }
+            
+            if(strtolower(trim($arquivoExtensao)) != 'pdf') {
+                throw new Exception("O arquivo deve possuir o formato PDF.");
+            }
+
+            $tbArquivoDbTable = new tbArquivo();
+            $dadosArquivo = [];
+            $dadosArquivo['nmArquivo'] = $arquivoNome;
+            $dadosArquivo['sgExtensao'] = $arquivoExtensao;
+            $dadosArquivo['nrTamanho'] = $arquivoTamanho;
+            $dadosArquivo['dtEnvio'] = $tbArquivoDbTable->getExpressionDate();
+            $dadosArquivo['stAtivo'] = 'A';
+            $dadosArquivo['dsHash'] = $arquivoHash;
+            $dadosArquivo['idUsuario'] = $idUsuario;
+
+            $idArquivo = $tbArquivoDbTable->insert($dadosArquivo);
+
+            $tbArquivoImagemDAO = new tbArquivoImagem();
+            $dadosBinario = array(
+                'idArquivo' => $idArquivo,
+                'biArquivo' => new Zend_Db_Expr("CONVERT(varbinary(MAX), {$arquivoBinario})")
+            );
+            $idArquivo = $tbArquivoImagemDAO->inserir($dadosBinario);
+        }
+        return $idArquivo;
+    }
+
 }

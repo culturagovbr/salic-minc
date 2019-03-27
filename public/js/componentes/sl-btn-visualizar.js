@@ -1,10 +1,8 @@
 Vue.component('sl-btn-visualizar', {
     template: ` 
-        <div>
-            <button class="btn" v-on:click="modal()">
-                {{pronac}}
-            </button>
-        </div>
+        <button class="btn" v-on:click="modal()" v-bind:class="">
+            {{pronac}}
+        </button>
     `,
     data: function() {
         return {

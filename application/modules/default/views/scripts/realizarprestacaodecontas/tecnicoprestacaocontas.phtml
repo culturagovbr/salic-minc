@@ -21,7 +21,7 @@
                             <th>Estado</th>
                             <th>Mecanismo</th>
                             <th>Dt. Recebimento</th>
-                            <th>Analisar Prestação de Contas</th>
+                            <th>Analisar</th>
                             <th>Devolver para Chefe de Divis&aacute;o</th>
                             <?php if($this->filtro == 'diligenciados'): ?>
                                 <th>Consultoria AECI</th>
@@ -41,6 +41,7 @@
                                         idpronac="<?php echo $projeto->idPronac; ?>"
                                         pronac="<?php echo $projeto->Pronac; ?>"
                                         nome="<?php echo $projeto->NomeProjeto; ?>"
+                                        class="white black-text"
                                     >
                                     </sl-btn-visualizar>
                                     <!--button  value="<?php echo $projeto->idPronac; ?>" class="btn pre-visualizar">
@@ -54,13 +55,11 @@
                                 <td><?php $mecanismo = $projeto->Mecanismo; if ($mecanismo == 'Mecenato'){ echo "Incentivo Fiscal"; }else{ echo $projeto->Mecanismo;}?></td>
                                 <td><?php echo Data::tratarDataZend($projeto->DtSituacao, 'brasileira');?></td>
                                 <td>
-                                    <a href="/prestacao-contas/prestacao-contas/tipo-avaliacao/idPronac/<?php echo ($projeto->idPronac); ?>" class="btn">
+                                    <a href="/prestacao-contas/prestacao-contas/tipo-avaliacao/idPronac/<?php echo ($projeto->idPronac); ?>"
+                                        class=" tooltipped btn"
+                                        data-delay="50" data-tooltip="Analisar Presta&ccedil;&atilde;o de Contas">
                                         <i class="material-icons">compare_arrows</i>
                                     </a>
-                                    <!-- img style="cursor: pointer;" 
-                                        src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" 
-                                        onclick="window.location='<?php echo $this->baseUrl(); ?>/realizarprestacaodecontas/planilhaorcamentaria/idPronac/<?php echo ($projeto->idPronac); ?>'" 
-                                        alt="Analisar"-->
                                 </td>
                                 <td>
                                     <?php if ($projeto->RelatorioTecnico == "False") { ?>
@@ -71,17 +70,30 @@
                                 </td>
                                 <td background="" align="center">
                                     <?php
-                                        $arrPrazo = $this->prazoRespostaDiligencia($projeto->idPronac, 174);
+                                        $arrPrazo = $this->prazoRespostaDiligencia($projeto->idPronac/*, 174*/);
                                         $icone = $arrPrazo['iconeDiligencia']['icone'];
                                         $title = $arrPrazo['iconeDiligencia']['title'];
                                     ?>
-                                    <?php if($this->filtro == 'diligenciados'){ ?>
-                                        <a target="_blank" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' =>'listardiligenciaanalista')).'?idPronac=' . $projeto->idPronac . '&situacao=E17&tpDiligencia=174';?>" ><img src="<?php echo $this->baseUrl(); ?>/public/img/<?php echo $icone; ?>" title="<?php echo $title; ?>" width="30px"/></a><br>
-                                    <?php } else { ?>
-                                        <a target="_blank" href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' =>'listardiligenciaanalista')).'?idPronac=' . $projeto->idPronac . '&situacao=E27&tpDiligencia=174';?>" ><img src="<?php echo $this->baseUrl(); ?>/public/img/<?php echo $icone; ?>" title="<?php echo $title; ?>" width="30px"/></a><br>
-                                    <?php } ?>
+                                    <a
+                                        href="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' =>'listardiligenciaanalista')).'?idPronac=' . $projeto->idPronac . '&situacao=E17&tpDiligencia=174';?>"
+                                        class="tooltipped btn
+                                        <?php echo ('notice3.png' == $icone) ? 'blue' : '';?>
+                                        <?php echo ('notice1.png' == $icone) ? 'green' : '';?>
+                                        <?php echo ('notice.png' == $icone) ? 'yellow' : '';?>
+                                        <?php echo ('notice2.png' == $icone) ? 'red' : '';?>
+
+                                        "
+                                        data-delay="50" data-tooltip="<?php echo $title ?>" >
+                                        <i class="material-icons">warning</i>
+                                    </a>
                                 </td>
-                                <td><img style="cursor: pointer;" src="../public/img/btn_busca.jpg" onclick="return JShistoricoEncaminhamento('<?php echo $projeto->idPronac; ?>')" alt="Encaminhar"/></td>
+                                <td>
+                                    <button onclick="return JShistoricoEncaminhamento('<?php echo $projeto->idPronac; ?>')"
+                                        class="white black-text tooltipped btn"
+                                        data-delay="50" data-tooltip="Hist&oacute;rico">
+                                        <i class="material-icons">history</i>
+                                    </button>
+                                </td>
                             </tr>
                         <?php $x++; } ?>
                     </tbody>

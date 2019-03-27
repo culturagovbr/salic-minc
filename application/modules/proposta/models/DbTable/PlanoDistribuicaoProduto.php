@@ -408,4 +408,44 @@ class Proposta_Model_DbTable_PlanoDistribuicaoProduto extends MinC_Db_Table_Abst
 
         return $this->fetchRow($slct);
     }
+
+    public function obterEnquadramentoInicialProponente($idPreProjeto)
+    {
+
+        $tableSelect = $this->select();
+        $tableSelect->setIntegrityCheck(false);
+        $tableSelect->from(
+            $this->_name,
+            [
+                'id_area' => 'Area',
+                'id_segmento' => 'Segmento',
+            ],
+            $this->getSchema('sac')
+        );
+        $tableSelect->joinLeft(
+            ['Segmento' => 'Segmento'],
+            "{$this->_name}.Segmento = Segmento.Codigo",
+            [
+                'segmento' => 'Descricao',
+                'enquadramento' => new Zend_Db_Expr(
+                    "CASE WHEN Segmento.tp_enquadramento = 1 THEN 'Artigo 26' "
+                    . " WHEN Segmento.tp_enquadramento = 2 THEN 'Artigo 18' END"
+                ),
+                'tp_enquadramento'
+            ],
+            $this->_schema
+        );
+        $tableSelect->joinLeft(
+            ['Area' => 'Area'],
+            "{$this->_name}.Area = Area.Codigo",
+            [
+                'area' => 'Descricao'
+            ],
+            $this->_schema
+        );
+        $tableSelect->where('stPrincipal = ?', 1);
+        $tableSelect->where('idProjeto = ?', $idPreProjeto);
+
+        return $this->fetchRow($tableSelect)->toArray();
+    }
 }

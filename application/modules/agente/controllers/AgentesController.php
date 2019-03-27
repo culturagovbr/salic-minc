@@ -129,6 +129,9 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
         //Perfis incluidos para cadastro de Agentes no ato do cadastro do projeto FNC.
         $PermissoesGrupo[] = 103; // Coordenador de Analise
         $PermissoesGrupo[] = 142; // Coordenador de Convenios
+        $PermissoesGrupo[] = Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE;
+        $PermissoesGrupo[] = Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE;
+        $PermissoesGrupo[] = Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE;
 
         $params = $this->getRequest()->getParams();
         $params = array_change_key_case($params);
@@ -202,11 +205,22 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
                 }
             }
 
+            if(empty($dados[0]->idResponsavel)) {
+
+                if($dados[0]->tipopessoa == 1) {
+                    $sgcAcesso = new Autenticacao_Model_Sgcacesso();
+                    $this->view->responsaveis = $sgcAcesso->buscarUsuario(['Cpf = ?' => $dados[0]->cnpjcpf]);
+                }
+            }
+
             if ($dados[0]->tipopessoa == 1) {
                 $dirigentes = Agente_Model_ManterAgentesDAO::buscarVinculados(null, null, null, null, $idAgente);
                 $qtdDirigentes = count($dirigentes);
                 $this->view->dirigentes = $dirigentes;
+                $this->view->responsaveis = $dirigentes;
             }
+
+
 
             $this->view->dados = $dados;
             $this->view->qtdDirigentes = $qtdDirigentes;
@@ -254,7 +268,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
         $visoesNew = null;
 
         foreach ($visoes as $key => $visaoGrupo) {
-            if ($GrupoAtivo == Autenticacao_Model_Grupos::COORDENADOR_DE_PARECERISTA
+            if ($GrupoAtivo == Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER
                 and ($visaoGrupo->idVerificacao == VisaoModel::PARECERISTA_DE_PROJETO_CULTURAL
                     or $visaoGrupo->idVerificacao == VisaoModel::TECNICO)
             ) {
@@ -466,7 +480,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
         $this->view->modulo = $modulo;
 
         if (!empty($modal)) {
-            $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
+            $this->_helper->layout->disableLayout(); // desabilita 0o Zend_Layout
             $this->view->modal = "s";
             $this->view->cpf = $this->_request->getParam("cpf");
             $this->view->caminho = $this->_request->getParam("caminho");
@@ -593,17 +607,17 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
             parent::message("Você n&atilde;o tem permiss&atilde;o para essa funcionalidade!", "agente/agentes/sempermissao", "ALERT");
         }
 
-        $idAgente = $this->_request->getParam("id");
+        $idAgente = (int)$this->_request->getParam("id");
 
         if (($this->GrupoAtivoSalic == 94) || ($this->GrupoAtivoSalic == 118)) {
             $idAgente = $this->getIdUsuario;
         }
 
-        if (($this->GrupoAtivoSalic == 93) && ($idAgente == '')) {
+        if ($this->GrupoAtivoSalic == 93 && empty($idAgente)) {
             $this->redirect('agente/agentes/buscaragente');
         }
 
-        if (($idAgente == '')) {
+        if (empty($idAgente)) {
             $this->redirect('agente/agentes/incluiragente');
         }
 
@@ -3109,6 +3123,94 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
             parent::message("Dados $msg com sucesso!", "agente/agentes/area-cultural/id/" . $post->agente, "CONFIRM");
         } catch (Exception $e) {
             parent::message("Ocorreu um erro durante a opera&ccedil;&atilde;o!", "agente/agentes/area-cultural/id/" . $post->agente, "ERROR");
+        }
+    }
+
+
+    public function formUsuarioAgenteAction()
+    {
+        $idAgente = $this->_request->getParam("id");
+
+        try {
+
+            if (empty($idAgente)) {
+                throw new Exception("Agente n&atilde;o encontrado");
+            }
+
+            if ($this->GrupoAtivoSalic == Autenticacao_Model_Grupos::PROPONENTE) {
+                throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar esta funcionalidade");
+            }
+
+            $this->autenticacao();
+
+            $dados = Agente_Model_ManterAgentesDAO::buscarAgentes(null, null, $idAgente);
+
+            if (!$dados) {
+                throw new Exception("Agente n&atilde;o encontrado!");
+            }
+
+            $visaoTable = new Agente_Model_DbTable_Visao();
+            $visoes = $visaoTable->buscarVisao($idAgente);
+            $this->view->visoes = $visoes;
+            $this->view->dados = $dados;
+
+            if ($dados[0]->tipopessoa == 1) {
+                $dirigentes = Agente_Model_ManterAgentesDAO::buscarVinculados(null, null, null, null, $idAgente);
+                $this->view->responsaveis = $dirigentes;
+            } else {
+                $sgcAcesso = new Autenticacao_Model_Sgcacesso();
+                $objResponsavel = $sgcAcesso->buscarUsuario(['Cpf = ?' => $dados[0]->cnpjcpf])->current();
+
+                $responsaveis = [];
+                $responsavel = new stdClass();
+                $responsavel->idResponsavel = $objResponsavel->IdUsuario;
+                $responsavel->cpfResponsavel = $objResponsavel->cpf;
+                $responsavel->nomeResponsavel = $objResponsavel->nome;
+                $responsaveis[]  = $responsavel;
+                $this->view->responsaveis = $responsaveis;
+            }
+            $this->view->dados = $dados;
+        } catch (Exception $e) {
+            parent::message($e->getMessage(), "/default/principal/", "ERROR");
+        }
+    }
+
+    /**
+     * Este metodo é para correcao de erro ao transformar projeto em proposta
+     * o erro acontece quando existe agente com usuario invalido
+     */
+    public function salvarUsuarioAgenteAction()
+    {
+        $idAgente = (int)$this->_request->getParam("agente");
+        $idResponsavel = (int)$this->_request->getParam("idResponsavel");
+
+        try {
+
+            if ($this->GrupoAtivoSalic == Autenticacao_Model_Grupos::PROPONENTE) {
+                throw new Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para esta a&ccedil;&atilde;o");
+            }
+
+            if (empty($idAgente) || empty($idResponsavel)) {
+                throw new Exception("Dados obrigat&oacute;rios n&atilde;o informados");
+            }
+
+            $mprAgentes = new Agente_Model_AgentesMapper();
+            $agente = $mprAgentes->findBy(['idAgente' => $idAgente]);
+
+            if (empty($agente)) {
+                throw new Exception("Agente n&atilde;o existe");
+            }
+
+            $where = [];
+            $dados = [];
+            $dbTableAgentes = new Agente_Model_DbTable_Agentes();
+            $where[] = $dbTableAgentes->getAdapter()->quoteInto('idAgente = ?', $idAgente);
+            $dados['Usuario'] = $idResponsavel;
+            $dbTableAgentes->update($dados, $where);
+
+            parent::message("Agente atualizado com sucesso!", "/agente/agentes/form-usuario-agente/id/" . $idAgente, "CONFIRM");
+        } catch (Exception $e) {
+            parent::message($e->getMessage(), "/agente/agentes/form-usuario-agente/id/" . $idAgente, "ERROR");
         }
     }
 }

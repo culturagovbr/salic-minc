@@ -3,9 +3,9 @@
         <tr>
             <?php if ($this->codGrupo == 132 || $this->codGrupo == 125) : ?>
                 <th>Visualizar An&aacute;lise</th>
-            <?php else : ?>    
+            <?php else : ?>
                 <th>Analisar</th>
-            <?php endif?>    
+            <?php endif?>
             <th>Item de Custo</th>
             <th>Valor Aprovado</th>
             <th>Valor Comprovado</th>
@@ -18,18 +18,17 @@
                 <td>
                     <?php
                         $href = $this->url(
-                            array(
-                                'module' => 'default',
-                                'controller' => 'realizarprestacaodecontas',
-                                'action' => 'analisar-comprovacao',
+                            [
+                                'module' => 'prestacao-contas',
+                                'controller' => 'analisar',
+                                'action' => 'comprovante',
                                 'idPronac' => $valor->IdPRONAC,
-                                /* 'idPlanilhaAprovacao' => $key, */
                                 'idPlanilhaItem' => $valor->idPlanilhaItens,
                                 'stItemAvaliado' => $this->stItemAvaliado ? $this->stItemAvaliado : null
-                            )
+                            ]
                         );
                     ?>
-                    <a class="btn small btn-primary" href='<?php echo $href ?>'><i class="material-icons">gavel</i></a>
+                    <a class="btn small btn-primary red" href='<?php echo $href ?>'><i class="material-icons">gavel</i></a>
                 </td>
                 <td><?php echo ($valor->Item) ?></td>
                 <td><?php echo $this->formatarReal($valor->vlAprovado) ?></td>

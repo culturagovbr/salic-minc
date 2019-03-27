@@ -1,0 +1,46 @@
+<div class="fixed-action-btn">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">menu</i>
+    </a>
+    <ul>
+        <li>
+            <button-scroll-top></button-scroll-top>
+        </li>
+        <li>
+            <button <?php echo ($this->existeDiligenciaAberta  == true) ? 'disabled="true"': ''  ?>
+                data-target="modal1" data-position="left" data-delay="50" data-tooltip="Diligenciar"
+                 class=" tooltipped btn-floating modal-trigger ">
+                <i class="material-icons left">warning</i> Diligenciar
+            </button>
+        </li>
+        <li class="waves-effect waves-light">
+            <a data-position="left" data-delay="50" data-tooltip="Emitir Parecer"
+                    class=" tooltipped btn-floating "
+                    href="/avaliacao-resultados/#/emitir-parecer/<?php echo $this->idPronac?>"
+                    title="Ir para Emitir Parecer">
+                <i class="material-icons">gavel</i>
+            </a>
+        </li>
+        <li class="waves-effect waves-light">
+            <a class=" tooltipped btn-floating green"
+               data-position="left"
+               data-tooltip="Finalizar Análise"
+               target="_blank"
+               href="#" id="lnkDespacho">
+                <i class="material-icons">done</i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div id="modal1" class="modal full">
+    <div class="modal-content">
+        <?php echo $this->partial("diligencia/cadastrar.phtml", 'diligencia', $this); ?>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $3('.modal').modal();
+    });
+</script>

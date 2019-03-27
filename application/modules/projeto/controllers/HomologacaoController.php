@@ -1,131 +1,194 @@
 <?php
 
-/**
- * @name Projeto_HomologacaoController
- * @package Modules/projeto
- * @subpackage Controller
- *
- * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
- * @since 17/11/2017
- *
- * @link http://salic.cultura.gov.br
- */
-class Projeto_HomologacaoController extends Proposta_GenericController {
-
+class Projeto_HomologacaoController extends Projeto_GenericController
+{
     private $arrBreadCrumb = [];
 
-    /**
-     * Reescreve o metodo init()
-     * @access public
-     * @param void
-     * @return void
-     */
     public function init()
     {
-        $auth = Zend_Auth::getInstance(); // pega a autenticacao
-        $idPreProjeto = $this->getRequest()->getParam('idPreProjeto');
-
-        $arrIdentity = array_change_key_case((array) Zend_Auth::getInstance()->getIdentity());
-        $GrupoAtivo   = new Zend_Session_Namespace('GrupoAtivo');
-
-        /*********************************************************************************************************/
-
-        $cpf = isset($arrIdentity['usu_codigo']) ? $arrIdentity['usu_identificacao'] : $arrIdentity['cpf'];
-
-        if (is_null($cpf)) {
-            $this->redirect('/');
-        }
-
-        // Busca na SGCAcesso
-        $modelSgcAcesso 	 = new Autenticacao_Model_Sgcacesso();
-        $arrAcesso = $modelSgcAcesso->findBy(array('cpf' => $cpf));
-
-        // Busca na Usuarios
-        //Excluir ProposteExcluir Proposto
-        $usuarioDAO   = new Autenticacao_Model_Usuario();
-        $arrUsuario = $usuarioDAO->findBy(array('usu_identificacao' => $cpf));
-
-        // Busca na Agentes
-        $tableAgentes  = new Agente_Model_DbTable_Agentes();
-        $arrAgente = $tableAgentes->findBy(array('cnpjcpf' => trim($cpf)));
-
-        if ($arrAcesso)  $this->idResponsavel = $arrAcesso['idusuario'];
-        if ($arrAgente)  $this->idAgente 	  = $arrAgente['idagente'];
-        if ($arrUsuario) $this->idUsuario     = $arrUsuario['usu_codigo'];
-        if ($this->idAgente != 0) $this->usuarioProponente = "S";
-        $this->cpfLogado = $cpf;
-
+        $this->validarPerfis();
+        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
+        $this->codOrgao = $GrupoAtivo->codOrgao;
+        $this->codGrupo = $GrupoAtivo->codGrupo;
 
         $this->arrBreadCrumb[] = array('url' => '/principal', 'title' => 'In&iacute;cio', 'description' => 'Ir para in&iacute;cio');
         parent::init();
     }
 
-    /**
-     * @name indexAction
-     *
-     * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
-     * @since  17/11/2017
-     */
-    public function indexAction() {
+    private function validarPerfis()
+    {
+        $auth = Zend_Auth::getInstance();
+
+        $PermissoesGrupo = [];
+        $PermissoesGrupo[] = Autenticacao_Model_Grupos::COORDENADOR_ANALISE;
+        $PermissoesGrupo[] = Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO;
+        $PermissoesGrupo[] = Autenticacao_Model_Grupos::PRESIDENTE_VINCULADA_SUBSTITUTO;
+
+        isset($auth->getIdentity()->usu_codigo) ? parent::perfil(1, $PermissoesGrupo) : parent::perfil(4, $PermissoesGrupo);
+    }
+
+    public function indexAction()
+    {
         $this->arrBreadCrumb[] = array('url' => '', 'title' => 'Homologacao de Projetos', 'description' => 'Tela atual');
         $this->view->arrBreadCrumb = $this->arrBreadCrumb;
     }
 
-    /**
-     * @name listarAction
-     *
-     * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
-     * @since  17/11/2017
-     */
     public function listarAction()
     {
-        $dbTable = new Projeto_Model_DbTable_VwPainelDeHomologacaoDeProjetos();
-        $this->_helper->layout->disableLayout();
-       $this->view->arrResult = $dbTable->findAll(['idUnidade' => $_SESSION['GrupoAtivo']['codOrgao']], ['NrReuniao', 'Pronac']);
-        // $this->view->arrResult = $dbTable->findAll([], ['NrReuniao', 'Pronac']);
+        $start = $this->getRequest()->getParam('start');
+        $length = $this->getRequest()->getParam('length');
+        $draw = (int)$this->getRequest()->getParam('draw');
+        $search = $this->getRequest()->getParam('search');
+        $order = $this->getRequest()->getParam('order');
+        $columns = $this->getRequest()->getParam('columns');
+
+        $order = ($order[0]['dir'] != 1) ? array($columns[$order[0]['column']]['name'] . ' ' . $order[0]['dir']) : ["Pronac desc"];
+
+        $filtro = $columns[0]['search']['value'];
+
+        switch ($filtro) {
+            case '':
+                $where['a.Situacao = ?'] = 'D50';
+                $where['c.TipoParecer = ?'] = 1;
+                $where['NOT EXISTS(SELECT TOP 1 * FROM SAC.dbo.tbDiligencia WHERE idPronac = a.IdPRONAC AND idTipoDiligencia = 181 AND DtSolicitacao IS NOT NULL AND DtResposta IS NULL AND stEstado = 0 AND stEnviado = \'S\')'] = '';
+                break;
+            case 'diligenciados':
+                $where['a.Situacao = ?'] = 'D25';
+                $where['c.TipoParecer = ?'] = 1;
+                $where['EXISTS(SELECT TOP 1 * FROM SAC.dbo.tbDiligencia WHERE idPronac = a.IdPRONAC AND idTipoDiligencia = 181 AND DtSolicitacao IS NOT NULL AND DtResposta IS NULL AND stEstado = 0 AND stEnviado = \'S\')'] = '';
+                break;
+            case 'respondidos':
+                $where['a.Situacao = ?'] = 'D50';
+                $where['c.TipoParecer = ?'] = 1;
+                $where['EXISTS(SELECT TOP 1 * FROM SAC.dbo.tbDiligencia WHERE idPronac = a.IdPRONAC AND idTipoDiligencia = 181 AND DtSolicitacao IS NOT NULL AND DtResposta IS NOT NULL AND stEstado = 0)'] = '';
+                break;
+            case 'aguardando-recurso':
+                $where['a.Situacao in (?)'] = ['D51'];
+                $where['NOT EXISTS(SELECT TOP 1 idPronac from sac.dbo.tbRecurso where idPronac = a.IdPRONAC AND siFaseProjeto = 2 AND (siRecurso = 9 OR tpSolicitacao = \'DR\'))'] = '';
+                break;
+            case 'pos-recurso':
+                $where['a.Situacao in (?)'] = ['D51', 'D20'];
+                $where['EXISTS(SELECT TOP 1 idPronac from sac.dbo.tbRecurso where idPronac = a.IdPRONAC AND siFaseProjeto = 2 AND (siRecurso = 9 OR tpSolicitacao = \'DR\'))'] = '';
+                break;
+        }
+
+        $where['a.Orgao = ?'] = $this->codOrgao;
+
+        $dbTableEnquadramento = new Projeto_Model_DbTable_Enquadramento();
+        $projetos = $dbTableEnquadramento->obterProjetosApreciadosCnic(
+            $where,
+            $order,
+            $start,
+            $length,
+            $search
+        );
+
+        if (count($projetos) > 0) {
+            foreach ($projetos as $key => $item) {
+                foreach ($item as $coluna => $value) {
+                    $projetosApreciados[$key][$coluna] = utf8_encode($value);
+                }
+            }
+
+            $recordsTotal = $dbTableEnquadramento->obterProjetosApreciadosCnic(
+                $where,
+                null,
+                null,
+                null,
+                null
+            );
+            $recordsTotal = count($recordsTotal);
+            $recordsFiltered = $dbTableEnquadramento->obterProjetosApreciadosCnic(
+                $where,
+                null,
+                null,
+                null,
+                $search);
+            $recordsFiltered = count($recordsFiltered);
+        }
+
+        $this->_helper->json(
+            [
+                "data" => !empty($projetosApreciados) ? $projetosApreciados : 0,
+                'recordsTotal' => $recordsTotal ? $recordsTotal : 0,
+                'draw' => $draw,
+                'recordsFiltered' => $recordsFiltered ? $recordsFiltered : 0,
+            ]
+        );
     }
 
-    /**
-     * @name visualizarAction
-     *
-     * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
-     * @since  17/11/2017
-     */
-    public function visualizarAction()
+    public function homologarParecerAction()
     {
         $this->_helper->layout->disableLayout();
-        self::prepareData($this->getRequest()->getParam('id'));
+        $this->prepareData($this->getRequest()->getParam('id'));
     }
 
-    /**
-     * @name encaminharAction
-     *
-     * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
-     * @since  17/11/2017
-     *
-     * @todo confirmar se setIdAtoDeGestao e o IdEnquadramento.
-     */
+    public function visualizarParecerAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $idPronac = $this->getRequest()->getParam('id');
+
+        if (empty($idPronac)) {
+            throw new Exception("Pronac &eacute; obrigat&oacute;rio");
+        }
+        $this->prepareData($idPronac);
+    }
+
     public function encaminharAction()
     {
         $this->_helper->layout->disableLayout();
+        $mapper = new Projeto_Model_TbHomologacaoMapper();
         if ($this->getRequest()->isPost()) {
+
             $this->_helper->viewRenderer->setNoRender(true);
-            $mapper = new Projeto_Model_TbHomologacaoMapper();
             $arrPost = $this->getRequest()->getPost();
-            $arrPost['conteudo'] = self::gerarDocumentoAssinatura($arrPost['idPronac']);
-            $this->_helper->json(array('status' => $mapper->encaminhar($arrPost), 'msg' => $mapper->getMessages(), 'close' => 1));
+
+            $retorno = $mapper->encaminhar($arrPost);
+
+            $this->_helper->json([
+                'data' => $retorno['data'],
+                'status' => $retorno['status'],
+                'msg' => $mapper->getMessages(),
+                'close' => isset($retorno['close']) ? $retorno['close'] : 0
+            ]);
         } else {
-            self::prepareData($this->getRequest()->getParam('id'));
+            $idPronac = $this->getRequest()->getParam('id');
+
+            $this->prepareData($idPronac);
+            $this->view->situacaoFutura = array_map('utf8_encode', $mapper->obterNovaSituacao($idPronac));
             $this->view->urlAction = '/projeto/homologacao/encaminhar';
         }
     }
 
-    /**
-     * @name homologarAction
-     *
-     * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
-     * @since  17/11/2017
-     */
+    public function finalizarParecerAction()
+    {
+        $idPronac = $this->_request->getParam('idPronac');
+
+        if (empty($idPronac)) {
+            throw new Exception(
+                "Identificador do projeto &eacute; necess&amp;aacute;rio para acessar essa funcionalidade."
+            );
+        }
+
+        $mapper = new Projeto_Model_TbHomologacaoMapper();
+        $this->_helper->json([
+            'status' => $mapper->encaminhar($idPronac),
+            'msg' => $mapper->getMessages(),
+            'close' => 1
+        ]);
+
+
+        $this->_helper->layout->disableLayout();
+        if ($this->getRequest()->isPost()) {
+            $this->_helper->viewRenderer->setNoRender(true);
+
+        } else {
+            $this->prepareData($this->getRequest()->getParam('id'));
+            $this->view->urlAction = '/projeto/homologacao/encaminhar';
+        }
+    }
+
+
     public function homologarAction()
     {
         $this->_helper->layout->disableLayout();
@@ -134,69 +197,65 @@ class Projeto_HomologacaoController extends Proposta_GenericController {
             $this->_helper->viewRenderer->setNoRender(true);
             $mapper = new Projeto_Model_TbHomologacaoMapper();
             $arrPost = $this->getRequest()->getPost();
-            $arrPost['stDecisao'] = (isset($arrPost['stDecisao']))? 1 : 0;
-            $this->_helper->json(array('status' => $mapper->save($arrPost), 'msg' => $mapper->getMessages(), 'close' => 1));
-        } else {
-            $arrValue = [];
-            $dbTableEnquadramentoProjeto = new Projeto_Model_DbTable_VwVisualizarHomologacao();
-            $this->view->urlAction = '/projeto/homologacao/homologar';
-            $intId = $this->getRequest()->getParam('id');
-            $dbTable = new Projeto_Model_DbTable_TbHomologacao();
-            $arrValue = $dbTable->getBy(['idPronac' => $intId, 'tpHomologacao' => '1']);
-            if (empty($arrValue)) {
-                $dbTable = new Projeto_Model_DbTable_VwPainelDeHomologacaoDeProjetos();
-                $arrValue =  $dbTable->findBy(['idPronac' => $intId]);
-                $arrValue['idPronac'] = $arrValue['IdPRONAC'];
-                $arrValue['tpHomologacao'] = 1;
-            }
-            $arrValue['enquadramentoProjeto'] = $dbTableEnquadramentoProjeto->findBy($intId);
-            $this->view->dataForm = $arrValue;
+            $arrPost['stDecisao'] = (isset($arrPost['stDecisao'])) ? 2 : 1;
+            $arrPost['tpHomologacao'] = empty($arrPost['tpHomologacao'])
+                ? Projeto_Model_TbHomologacao::TP_HOMOLOGACAO_NORMAL : $arrPost['tpHomologacao'];
+
+            $this->_helper->json([
+                'status' => $mapper->save($arrPost),
+                'msg' => $mapper->getMessages(),
+                'close' => 1
+            ]);
         }
     }
 
     /**
      * Metodo responsavel por preparar o formulario conforme cada acao.
-     *
-     * @name prepareForm
-     * @param integer $intIdPronac
-     *
-     * @author Ruy Junior Ferreira Silva <ruyjfs@gmail.com>
-     * @since  17/11/2017
      */
     private function prepareData($intIdPronac)
     {
-        # PARTE 1
-        $dbTablePainelHomologacao = new Projeto_Model_DbTable_VwPainelDeHomologacaoDeProjetos();
-        $dbTableEnquadramentoProjeto = new Projeto_Model_DbTable_VwVisualizarHomologacao();
-        # PARTE 2 # PARTE 4
         $dbTableParecer = new Parecer();
-        # PARTE 3
         $dbTableAcaoProjeto = new tbAcaoAlcanceProjeto();
-        # PARTE 5
         $dbTableHomologacao = new Projeto_Model_DbTable_TbHomologacao();
-        $arrValue = $dbTablePainelHomologacao->findBy($intIdPronac);
-//        $arrValue['enquadramentoProjeto'] = $dbTableEnquadramentoProjeto->findBy(17896);
-        $arrValue['enquadramentoProjeto'] = $dbTableEnquadramentoProjeto->findBy($intIdPronac);
-//        $arrValue['parecer'] = $dbTableParecer->findBy(17896);
-        $arrValue['parecer'] = $dbTableParecer->findBy(['TipoParecer' => '1', 'stAtivo' => '1', 'idTipoAgente' => '1', 'IdPRONAC' => $intIdPronac]);
-//        $arrValue['acaoProjeto'] = $dbTableAcaoProjeto->findBy(['tpAnalise' => '1', 'idPronac' => 201495]); # 3
-        $arrValue['acaoProjeto'] = $dbTableAcaoProjeto->findBy(['tpAnalise' => '1', 'idPronac' => $intIdPronac]); # 3
-//        $arrValue['aparicaoComissario'] = $dbTableParecer->findBy(['TipoParecer' => '1', 'stAtivo' => '1', 'idTipoAgente' => '6', 'IdPRONAC' => 131182]); # 4
-        $arrValue['aparicaoComissario'] = $dbTableParecer->findBy(['TipoParecer' => '1', 'stAtivo' => '1', 'idTipoAgente' => '6', 'IdPRONAC' => $intIdPronac]); # 4
-        $arrValue['parecerHomologacao'] = $dbTableHomologacao->getBy(['idPronac' => $intIdPronac, 'tpHomologacao' => '1']); # 5
-        if (isset($arrValue['Pronac'])) $arrValue['idPronac'] = $arrValue['Pronac'];
+        $dbTableEnquadramento = new Projeto_Model_DbTable_Enquadramento();
+        $dadosEnquadramento = $dbTableEnquadramento->obterProjetosApreciadosCnic([
+            'a.IdPRONAC = ?' => $intIdPronac
+        ])->current();
+
+        $arrValue = [];
+        if (!is_null($dadosEnquadramento)) {
+            $arrValue = $dadosEnquadramento->toArray();
+        }
+
+        $arrValue['enquadramentoProjeto'] = $dbTableEnquadramento->obterProjetoAreaSegmento(
+            [
+                'a.IdPRONAC = ?' => $intIdPronac
+            ]
+        )->current();
+
+        $arrValue['parecer'] = $dbTableParecer->findBy([
+            'TipoParecer' => '1',
+            'idTipoAgente' => '1',
+            'IdPRONAC' => $intIdPronac
+        ]);
+        $arrValue['acaoProjeto'] = $dbTableAcaoProjeto->findBy([
+            'tpAnalise' => '1',
+            'idPronac' => $intIdPronac
+        ]);
+        $arrValue['aparicaoComissario'] = $dbTableParecer->findBy([
+            'TipoParecer' => '1',
+            'idTipoAgente' => '6',
+            'IdPRONAC' => $intIdPronac
+        ]);
+        $arrValue['parecerHomologacao'] = $dbTableHomologacao->getBy([
+            'idPronac' => $intIdPronac
+        ]);
+
+        if (isset($arrValue['IdPRONAC'])) {
+            $arrValue['idPronac'] = $arrValue['IdPRONAC'];
+        }
+
         $this->view->arrValue = $arrValue;
         return $arrValue;
-    }
-
-    /**
-     * @return string
-     */
-    function gerarDocumentoAssinatura($intIdPronac)
-    {
-        $view = new Zend_View();
-        $view->setScriptPath(__DIR__ . DIRECTORY_SEPARATOR . '../views/scripts/');
-        $view->arrValue = self::prepareData($intIdPronac);
-        return $view->render('homologacao/partials/documento-assinatura.phtml');
     }
 }

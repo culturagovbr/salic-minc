@@ -1,0 +1,16 @@
+<div class="card <?php echo ($this->existeSolicitacaoEmAnalise) ? '' : 'sumir'; ?>">
+    <div class="card-content">
+        <div class="row">
+            <div class="col s1 right-align"><i class="medium orange-text material-icons">warning</i></div>
+            <div class="col s11">
+                <p>Voc&ecirc; j&aacute; possui uma readequa&ccedil;&atilde;o deste tipo em
+                    andamento.</p>
+                <p>Para acompanhar, acesse o menu lateral "Execu&ccedil;&atilde;o -> Dados das readequa&ccedil;&otilde;es"
+                    em <a href="/default/consultardadosprojeto/index?idPronac=<?php echo $this->idPronacHash; ?>">
+                        consultar dados do projeto</a>.</p>
+                <p>Uma nova solicita&ccedil;&atilde;o poder&aacute; ser feita ap&oacute;s an&aacute;lise
+                    da solicita&ccedil;&atilde;o de readequa&ccedil;&atilde;o atual.</p>
+            </div>
+        </div>
+    </div>
+</div>

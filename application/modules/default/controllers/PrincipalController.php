@@ -11,9 +11,9 @@ class PrincipalController extends MinC_Controller_Action_Abstract
     public function init()
     {
         $this->view->title = "Salic - Sistema de Apoio ás Leis de Incentivo é Cultura"; // tetulo da pegina
-        $auth              = Zend_Auth::getInstance(); // pega a autenticaeeo
-        $usuario           = new Autenticacao_Model_Usuario(); // objeto usuerio
-        $grupoAtivo        = new Zend_Session_Namespace('GrupoAtivo'); // cria a sesseo com o grupo ativo
+        $auth = Zend_Auth::getInstance(); // pega a autenticaeeo
+        $usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuerio
+        $grupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sesseo com o grupo ativo
         parent::perfil();
 
         parent::init();
@@ -88,10 +88,10 @@ class PrincipalController extends MinC_Controller_Action_Abstract
         $periodo1 = $this->_request->getParam("periodo1");
         $periodo2 = $this->_request->getParam("periodo2");
         $stEstado = $this->_request->getParam("stEstado");
-        $stOpcao  = $this->_request->getParam("stOpcao");
+        $stOpcao = $this->_request->getParam("stOpcao");
 
         if (!empty($periodo1) && !empty($periodo1)) {
-            $where['dtInicioVigencia >= ?']  = $periodo1;
+            $where['dtInicioVigencia >= ?'] = $periodo1;
             $where['dtTerminoVigencia <= ?'] = $periodo2;
         }
 
@@ -111,27 +111,27 @@ class PrincipalController extends MinC_Controller_Action_Abstract
         if (isset($post->tamPag)) {
             $this->intTamPag = $post->tamPag;
         }
-        $inicio = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
-        $fim    = $inicio + $this->intTamPag;
+        $inicio = ($pag > 1) ? ($pag - 1) * $this->intTamPag : 0;
+        $fim = $inicio + $this->intTamPag;
 
         $total = $tbComunicados->listarComunicados($where, array(), null, null, true);
 
-        $totalPag = (int)(($total % $this->intTamPag == 0)?($total/$this->intTamPag):(($total/$this->intTamPag)+1));
+        $totalPag = (int)(($total % $this->intTamPag == 0) ? ($total / $this->intTamPag) : (($total / $this->intTamPag) + 1));
         $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
-        if ($fim>$total) {
+        if ($fim > $total) {
             $fim = $total;
         }
 
         $ordem = array("6 DESC");
         $rs = $tbComunicados->listarComunicados($where, $ordem, $tamanho, $inicio);
 
-        $this->view->registros 		  = $rs;
-        $this->view->pag 			  = $pag;
-        $this->view->total 			  = $total;
-        $this->view->inicio 		  = ($inicio+1);
-        $this->view->fim 			  = $fim;
-        $this->view->totalPag 		  = $totalPag;
-        $this->view->parametrosBusca  = $_POST;
+        $this->view->registros = $rs;
+        $this->view->pag = $pag;
+        $this->view->total = $total;
+        $this->view->inicio = ($inicio + 1);
+        $this->view->fim = $fim;
+        $this->view->totalPag = $totalPag;
+        $this->view->parametrosBusca = $_POST;
     }
 
     /**
@@ -143,16 +143,20 @@ class PrincipalController extends MinC_Controller_Action_Abstract
     public function buscarprojetoAction()
     {
         $Pronac = $this->_request->getParam("Pronac");
-        if (!empty($Pronac)) {
-            $proj = new Projetos();
-            $resp = $proj->buscarIdPronac($Pronac);
-            if (!empty($resp)) {
-                $this->redirect('consultardadosprojeto/index?idPronac='.$resp->IdPRONAC);
-            } else {
-                parent::message("Nenhum projeto encontrado com o n&uacute;mero de Pronac informado.", "principal/index", "ERROR");
-            }
-        } else {
+
+        if (empty($Pronac)) {
             parent::message("Informe o Pronac.", "principal/index", "ERROR");
         }
+
+        $tbProjetos = new Projetos();
+        $where = [];
+        $where['AnoProjeto + Sequencial'] = $Pronac;
+        $projeto = $tbProjetos->findBy($where);
+
+        if (empty($projeto)) {
+            parent::message("Nenhum projeto encontrado com o n&uacute;mero de Pronac informado.", "principal/index", "ERROR");
+        }
+
+        $this->redirect('/projeto/#/' . $projeto['IdPRONAC']);
     }
 }

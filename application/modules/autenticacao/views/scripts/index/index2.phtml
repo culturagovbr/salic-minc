@@ -1,0 +1,22 @@
+<html>
+    <head>
+        <title>Salic</title>
+        <meta charset="UTF-8">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons" rel="stylesheet"></link->
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+        <!-- link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet"-->
+        <link href="/public/css/vuetify.min.css" rel="stylesheet">
+        <style>
+            body {
+                font-family: 'Roboto', sans-serif;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app"></div>
+        <?php $gitTag = '?v=' . $this->gitTag(); ?>
+        <script type="text/javascript" charset="utf-8" src="/public/dist/js/manifest.js<?= $gitTag; ?>"></script>
+        <script type="text/javascript" charset="utf-8" src="/public/dist/js/vendor.js<?= $gitTag; ?>"></script>
+        <script type="text/javascript" charset="utf-8" src="/public/dist/js/autenticacao.js<?= $gitTag; ?>"></script>
+    </body>
+</html>

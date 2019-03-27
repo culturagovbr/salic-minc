@@ -14,7 +14,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
     {
         $this->view->title = "Salic - Sistema de Apoio �s Leis de Incentivo � Cultura"; // t�tulo da p�gina
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
-        $Usuario = new Autenticacao_Model_Usuario(); // objeto usu�rio
+        $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usu�rio
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         if ($auth->hasIdentity()) { // caso o usu�rio esteja autenticado
             // verifica as permiss�es
@@ -75,7 +75,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
     public function incluirmensagemAction()
     {
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
-        $usuario = new Autenticacao_Model_Usuario();
+        $usuario = new Autenticacao_Model_DbTable_Usuario();
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Agente = $usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
         $usu_codigo = $auth->getIdentity()->usu_codigo;
@@ -254,7 +254,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
         /* FIM Perfil de Acompanhamento Avalia�?o */
 
         /* Perfil de Acompanhamento Fiscalizacao */
-        $tbFiscalizacaoDAO = new tbFiscalizacao();
+        $tbFiscalizacaoDAO = new Fiscalizacao_Model_DbTable_TbFiscalizacao();
         $atores = $tbFiscalizacaoDAO->buscarAtoresFiscalizacao($idpronac, $usu_codigo);
         $prepara = array();
         foreach ($atores as $ator) {
@@ -317,7 +317,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
         
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess�o com o grupo ativo
         $grupologado = $GrupoAtivo->codGrupo;
-        $usuario = new Autenticacao_Model_Usuario();
+        $usuario = new Autenticacao_Model_DbTable_Usuario();
         $auth = Zend_Auth::getInstance(); // pega a autentica��o
         $Agente = $usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
         $usu_codigo = $auth->getIdentity()->usu_codigo;
@@ -488,7 +488,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
         /* FIM Perfil de Acompanhamento Avalia�?o */
 
         /* Perfil de Acompanhamento Fiscalizacao */
-        $tbFiscalizacaoDAO = new tbFiscalizacao();
+        $tbFiscalizacaoDAO = new Fiscalizacao_Model_DbTable_TbFiscalizacao();
         $atores = $tbFiscalizacaoDAO->buscarAtoresFiscalizacao($idpronac, $usu_codigo);
         $prepara = array();
         foreach ($atores as $ator) {

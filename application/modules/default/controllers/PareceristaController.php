@@ -210,7 +210,7 @@ class PareceristaController extends MinC_Controller_Action_Abstract
         $idAgente = 0;
 
         if (isset($auth->getIdentity()->usu_codigo)) {
-            $Usuario      = new Autenticacao_Model_Usuario(); // objeto usuário
+            $Usuario      = new Autenticacao_Model_DbTable_Usuario(); // objeto usuário
             $Agente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
             $idAgente = $Agente['idagente'];
             $this->view->idAgente    = $idAgente;
@@ -346,7 +346,7 @@ class PareceristaController extends MinC_Controller_Action_Abstract
         $idAgente = 0;
 
         if (isset($auth->getIdentity()->usu_codigo)) {
-            $Usuario      = new Autenticacao_Model_Usuario(); // objeto usuário
+            $Usuario      = new Autenticacao_Model_DbTable_Usuario(); // objeto usuário
             $Agente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
             $idAgente = $Agente['idAgente'];
         }
@@ -1632,7 +1632,7 @@ class PareceristaController extends MinC_Controller_Action_Abstract
         $idAgente = 0;
 
         if (isset($auth->getIdentity()->usu_codigo)) {
-            $Usuario      = new Autenticacao_Model_Usuario(); // objeto usuário
+            $Usuario      = new Autenticacao_Model_DbTable_Usuario(); // objeto usuário
             $Agente = $Usuario->getIdUsuario($auth->getIdentity()->usu_codigo);
             $idAgente = $Agente['idagente'];
             $this->view->idAgente    = $idAgente;

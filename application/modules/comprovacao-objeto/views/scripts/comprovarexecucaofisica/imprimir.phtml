@@ -1,0 +1,394 @@
+<script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/jquery-1.4.2.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        window.print();
+    });
+</script>
+
+<style type="text/css">
+    body {
+	margin:0;
+	font:12px "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
+	color:#000;
+	line-height:14pt;
+    }
+    a:link, a:active, a:visited {
+	text-decoration:underline;
+    }
+    a:hover {
+        text-decoration:none;
+    }
+    .tabela { /* tamanho de tabelas com registros */
+	margin:10px auto;
+	width:97%;
+	font:12px "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
+        border: 1px #CCC solid;
+    }
+    table td {
+	background:#fff;
+	padding:4px;
+	color:auto;
+        font:12px "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
+    }
+    table tr.destacar td, table td.destacar {
+        background:#e2e2e2;
+        font:12px "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
+    }
+    table th {
+        background:#cccccc;
+        padding:4px;
+        text-transform:uppercase;
+        font-size:11px;
+    }
+    #brasao{
+        width : 85px;
+        height: 86px;
+    }
+    legend{
+        font-size:13px;
+        font-weight: bold;
+    }
+    .paginaA4{
+        width:auto;
+        margin: 1.111cm 1cm 1cm 1.005cm;
+        page-break-after: always;
+    }
+</style>
+
+<div class="paginaA4">
+
+    <table class="tabela">
+        <tr>
+            <th align="center" width="30%">N&ordm; PRONAC:</th>
+            <th align="center">Nome do Projeto:</th>
+        </tr>
+        <tr class="linha">
+            <td align="center"><?php echo $this->DadosProjeto->pronac; ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProjeto; ?></td>
+        </tr>
+        <tr>
+            <th align="center" width="30%">CNPJ/CPF:</th>
+            <th align="center">Proponente:</th>
+        </tr>
+        <tr class="linha">
+            <td align="center"><?php echo (strlen($this->DadosProjeto->CNPJCPF) > 11) ? Mascara::addMaskCNPJ($this->DadosProjeto->CNPJCPF) : Mascara::addMaskCPF($this->DadosProjeto->CNPJCPF); ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProponente; ?></td>
+        </tr>
+    </table>
+
+    <br clear="all" />
+
+    <table class="tabela">
+        <tr align="center">
+            <th>Etapas de Trabalho</th>
+        </tr>
+        <tr>
+            <td class="destacar bold">ETAPAS DE TRABALHO EXECUTADAS</td>
+        </tr>
+        <tr>
+            <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsEtapasExecutadas; ?><br /><br /></td>
+        </tr>
+        <tr>
+            <td class="destacar bold">MEDIDAS DE ACESSIBILIDADE F&Iacute;SICA</td>
+        </tr>
+        <tr>
+            <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsAcessibilidade; ?><br /><br /></td>
+        </tr>
+        <tr>
+            <td class="destacar bold">MEDIDAS DE EST&Iacute;MULO &Agrave; FRU&Iacute;&Ccedil;&Atilde;O DE DEMOCRATIZA&Ccedil;&Atilde;O AO ACESSO P&Uacute;BLICO</td>
+        </tr>
+        <tr>
+            <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsDemocratizacaoAcesso; ?><br /><br /></td>
+        </tr>
+        <tr>
+            <td class="destacar bold">MEDIDAS PREVENTIVAS QUANTO A IMPACTOS AMBIENTAIS</td>
+        </tr>
+        <tr>
+            <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsImpactoAmbiental; ?><br /><br /></td>
+        </tr>
+    </table>
+
+    <br clear="all" />
+
+    <table class="tabela">
+        <tr align="center">
+            <th colspan="6">Local de Realiza&ccedil;&atilde;o</th>
+        </tr>
+        <tr align="center">
+            <td class="destacar bold">Pa&iacute;s</td>
+            <td class="destacar bold">UF</td>
+            <td class="destacar bold">Munic&iacute;pio</td>
+            <td class="destacar bold" width="120px">Realizado</td>
+            <td class="destacar bold" width="120px" nowrap>Dt.&nbsp;Realiza&ccedil;&atilde;o</td>
+            <td class="destacar bold" width="120px">Justificativa</td>
+        </tr>
+        <?php foreach ($this->LocaisDeRealizacao as $LocaisDeRealizacao) { ?>
+        <tr>
+            <td><?php echo $LocaisDeRealizacao->Pais; ?></td>
+            <td><?php echo $LocaisDeRealizacao->UF; ?></td>
+            <td><?php echo $LocaisDeRealizacao->Municipio; ?></td>
+            <td nowrap>
+                <?php
+                    if($LocaisDeRealizacao->siAbrangencia == 0) {
+                        echo 'Sem Informa&ccedil;&atilde;o';
+                    } else if($LocaisDeRealizacao->siAbrangencia == 1) {
+                        echo 'N&atilde;o Realizado';
+                    } else if($LocaisDeRealizacao->siAbrangencia == 2) {
+                        echo 'Realizado';
+                    } else if($LocaisDeRealizacao->siAbrangencia == 3) {
+                        echo 'Realizado com outras fontes';
+                    }
+                ?>
+            </td>
+            <td>
+                <?php echo Data::tratarDataZend($LocaisDeRealizacao->dtInicioRealizacao, 'Brasileira'); ?>
+            </td>
+            <td align="center">
+                <?php if(!empty($LocaisDeRealizacao->dsJustificativa)){ ?>
+                <span class="iconeJustificativa"><span style="cursor: pointer;">
+                    <img src="<?php echo $this->baseUrl(); ?>/public/img/table_multiple.png" /></span>
+                </span>
+                <input type="hidden" id="justificativaCadastrada" value="<?php echo $LocaisDeRealizacao->dsJustificativa; ?>" />
+                <?php } ?>
+            </td>
+        </tr>
+        <?php } ?>
+    </table>
+
+    <br clear="all" />
+
+    <table class="tabela">
+        <tr align="center">
+            <th colspan="6">Plano de Divulga&ccedil;&atilde;o</th>
+        </tr>
+        <tr align="center">
+            <td class="destacar bold">Pe&ccedil;a</td>
+            <td class="destacar bold">Ve&iacute;culo</td>
+            <td class="destacar bold" width="120px">Realizado</td>
+            <td class="destacar bold" width="120px">Comprovado</td>
+            <td class="destacar bold" width="120px">Arquivo</td>
+            <td class="destacar bold" width="120px">Data da Anexa&ccedil;&atilde;o</td>
+        </tr>
+        <?php foreach ($this->PlanoDeDivulgacao as $PlanoDeDivulgacao) { ?>
+        <tr>
+            <td><?php echo $PlanoDeDivulgacao->Peca; ?></td>
+            <td><?php echo $PlanoDeDivulgacao->Veiculo; ?></td>
+            <td nowrap>
+                <?php
+                    if($PlanoDeDivulgacao->siPlanoDeDivulgacao == 0) {
+                        echo 'Sem Informa&ccedil;&atilde;o';
+                    } else if($PlanoDeDivulgacao->siPlanoDeDivulgacao == 1) {
+                        echo 'N&atilde;o Realizado';
+                    } else if($PlanoDeDivulgacao->siPlanoDeDivulgacao == 2) {
+                        echo 'Realizado';
+                    } else if($PlanoDeDivulgacao->siPlanoDeDivulgacao == 3) {
+                        echo 'Realizado com outras fontes';
+                    }
+                ?>
+            </td>
+            <td align="center">
+                <span id="spanArquivo<?php echo $PlanoDeDivulgacao->idPlanoDivulgacao; ?>" class="<?php echo($PlanoDeDivulgacao->siPlanoDeDivulgacao < 2)?'sumir':''; ?>">
+                    <img src="<?php  echo $this->baseUrl().'/public/img/passed.gif'; ?>" />
+                </span>
+            </td>
+            <td nowrap><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $PlanoDeDivulgacao->idArquivo; ?>"><?php echo $PlanoDeDivulgacao->nmArquivo; ?></a></td>
+            <td><?php echo !empty($PlanoDeDivulgacao->dtEnvio) ? Data::tratarDataZend($PlanoDeDivulgacao->dtEnvio, 'Brasileira', true) : ''; ?></td>
+        </tr>
+        <?php } ?>
+    </table>
+
+    <br clear="all" />
+
+    <table class="tabela">
+        <tr align="center">
+            <th colspan="4">Plano de Distribui&ccedil;&atilde;o</th>
+        </tr>
+        <tr align="center">
+            <td class="destacar bold">Produto</td>
+            <td class="destacar bold">Patrocionador</td>
+            <td class="destacar bold">Divulga&ccedil;&atilde;o</td>
+            <td class="destacar bold">Benefici&aacute;rios</td>
+        </tr>
+        <?php foreach ($this->PlanoDeDistribuicao as $PlanoDeDistribuicao) { ?>
+        <tr>
+            <td><?php echo $PlanoDeDistribuicao->Produto; ?></td>
+            <td align="right">
+                <input type="hidden" id="totalPatrocinador<?php echo $PlanoDeDistribuicao->idPlanoDistribuicao; ?>" value="<?php echo $PlanoDeDistribuicao->QtdePatrocinador; ?>">
+                <?php echo $PlanoDeDistribuicao->QtdePatrocinador; ?>
+            </td>
+            <td align="right">
+                <input type="hidden" id="totalDivulgacao<?php echo $PlanoDeDistribuicao->idPlanoDistribuicao; ?>" value="<?php echo $PlanoDeDistribuicao->QtdeProponente; ?>">
+                <?php echo $PlanoDeDistribuicao->QtdeProponente; ?>
+            </td>
+            <td align="right">
+                <input type="hidden" id="totalBeneficiario<?php echo $PlanoDeDistribuicao->idPlanoDistribuicao; ?>" value="<?php echo $PlanoDeDistribuicao->QtdeOutros; ?>">
+                <?php echo $PlanoDeDistribuicao->QtdeOutros; ?>
+            </td>
+        </tr>
+        <?php } ?>
+    </table>
+
+    <br clear="all" />
+
+    <table class="tabela">
+        <tr align="center">
+            <th colspan="6">Benefici&aacute;rios de Produto Cultural</th>
+        </tr>
+        <tr align="center">
+            <td class="destacar bold">Produto</td>
+            <td class="destacar bold">Tipo Benefici&aacute;rio</td>
+            <td class="destacar bold">CNPJ/CPF</td>
+            <td class="destacar bold">Nome</td>
+            <td class="destacar bold">Quantidade</td>
+            <td class="destacar bold">Arquivo</td>
+        </tr>
+        <?php foreach ($this->PlanosCadastrados as $PlanosCadastrados) { ?>
+        <tr>
+            <td><?php echo $PlanosCadastrados->Produto; ?></td>
+            <td>
+                <?php
+                    if($PlanosCadastrados->idTipoBeneficiario == 19){
+                        echo 'Patrocinador';
+                        $classNomeCampo = 'qtdPatrocinador'.$PlanosCadastrados->idPlanoDistribuicao;
+                    } else if($PlanosCadastrados->idTipoBeneficiario == 20){
+                        echo 'Divulga&ccedil;&atilde;o';
+                        $classNomeCampo = 'qtdDivulgacao'.$PlanosCadastrados->idPlanoDistribuicao;
+                    } else {
+                        echo 'Benefici&aacute;rio';
+                        $classNomeCampo = 'qtdBeneficiario'.$PlanosCadastrados->idPlanoDistribuicao;
+                    }
+                ?>
+            </td>
+            <td align="center"><?php echo (strlen($PlanosCadastrados->CNPJCPF)==11) ? Mascara::addMaskCPF($PlanosCadastrados->CNPJCPF) : Mascara::addMaskCNPJ($PlanosCadastrados->CNPJCPF); ?></td>
+            <td><?php echo $PlanosCadastrados->Beneficiario; ?></td>
+            <td align="right"><?php echo $PlanosCadastrados->qtRecebida; ?><input type="hidden" class="<?php echo $classNomeCampo; ?>" value="<?php echo $PlanosCadastrados->qtRecebida; ?>"></td>
+            <td><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $PlanosCadastrados->idArquivo; ?>"><?php echo $PlanosCadastrados->nmArquivo; ?></a></td>
+        </tr>
+        <?php } ?>
+    </table>
+
+    <br clear="all" />
+
+    <table class="tabela">
+        <tr align="center">
+            <th colspan="8" class="titulo_tabela">COMPROVA&Ccedil;&Atilde;O DE METAS</th>
+        </tr>
+        <tr align="center">
+            <th>&nbsp;</th>
+            <th colspan="3">Meta F&iacute;sica</th>
+            <th colspan="3">Meta Financeira</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr align="center">
+            <td class="destacar bold">Etapas</td>
+            <td class="destacar bold">Aprovada</td>
+            <td class="destacar bold">Executada</td>
+            <td class="destacar bold">% Executado</td>
+            <td class="destacar bold">Aprovada</td>
+            <td class="destacar bold">Executada</td>
+            <td class="destacar bold">% Executado</td>
+            <td class="destacar bold">Saldo &agrave; Executar</td>
+        </tr>
+        <?php foreach ($this->DadosCompMetas as $DadosCompMetas) { ?>
+        <tr>
+            <td><?php echo $DadosCompMetas->Etapa; ?></td>
+            <td><?php echo number_format($DadosCompMetas->qtFisicaAprovada, 0, '.', '.'); ?></td>
+            <td><?php echo number_format($DadosCompMetas->qtFisicaExecutada, 0, '.', '.'); ?></td>
+            <td><?php echo number_format($DadosCompMetas->PerFisica, 2, ',', '').'%'; ?></td>
+            <td><?php echo 'R$ '.number_format($DadosCompMetas->vlAprovado, 2, ",", "."); ?></td>
+            <td><?php echo 'R$ '.number_format($DadosCompMetas->vlExecutado, 2, ",", "."); ?></td>
+            <td><?php echo number_format($DadosCompMetas->PercFinanceiro, 2, ',', '').'%'; ?></td>
+            <td><?php echo 'R$ '.number_format($DadosCompMetas->SaldoAExecutar, 2, ",", "."); ?></td>
+        </tr>
+        <?php } ?>
+    </table>
+
+    <br clear="all" />
+
+    <table class="tabela">
+        <tr align="center">
+            <th colspan="8" class="titulo_tabela">COMPROVA&Ccedil;&Atilde;O DE ITENS OR&Ccedil;AMENT&Aacute;RIOS</th>
+        </tr>
+        <tr align="center">
+            <th>&nbsp;</th>
+            <th colspan="3">F&iacute;sica</th>
+            <th colspan="3">Financeira</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr align="center">
+            <td class="destacar bold">Item</td>
+            <td class="destacar bold">Aprovada</td>
+            <td class="destacar bold">Executada</td>
+            <td class="destacar bold">% Executado</td>
+            <td class="destacar bold">Aprovada</td>
+            <td class="destacar bold">Executada</td>
+            <td class="destacar bold">% Executado</td>
+            <td class="destacar bold">Saldo &agrave; Executar</td>
+        </tr>
+        <?php foreach ($this->DadosItensOrcam as $DadosItensOrcam) { ?>
+        <tr>
+            <td><?php echo $DadosItensOrcam->Item; ?></td>
+            <td><?php echo number_format($DadosItensOrcam->qtFisicaAprovada, 0, '.', '.'); ?></td>
+            <td><?php echo number_format($DadosItensOrcam->qtFisicaExecutada, 0, '.', '.'); ?></td>
+            <td><?php echo number_format($DadosItensOrcam->PerFisica, 2, ',', '').'%'; ?></td>
+            <td><?php echo 'R$ '.number_format($DadosItensOrcam->vlAprovado, 2, ",", "."); ?></td>
+            <td><?php echo 'R$ '.number_format($DadosItensOrcam->vlExecutado, 2, ",", "."); ?></td>
+            <td><?php echo number_format($DadosItensOrcam->PercFinanceiro, 2, ',', '').'%'; ?></td>
+            <td><?php echo 'R$ '.number_format($DadosItensOrcam->SaldoAExecutar, 2, ",", "."); ?></td>
+        </tr>
+        <?php } ?>
+    </table>
+
+    <br clear="all" />
+
+    <table class="tabela">
+        <tr align="center">
+            <th colspan="4">Comprovantes Cadastrados</th>
+        </tr>
+        <tr align="center">
+            <td class="destacar bold">Tipo de Comprovante</td>
+            <td class="destacar bold">Nome do Arquivo</td>
+            <td class="destacar bold">Data de Envio</td>
+            <td class="destacar bold">Observa&ccedil;&otilde;es</td>
+        </tr>
+        <?php foreach ($this->DadosComprovantes as $DadosComprovantes) { ?>
+        <tr>
+            <td>
+                <?php
+                    if($DadosComprovantes->idTipoDocumento == 22){
+                        echo 'Fotos';
+                    } else if($DadosComprovantes->idTipoDocumento == 23){
+                        echo 'V&iacute;deos';
+                    } else if($DadosComprovantes->idTipoDocumento == 24){
+                        echo 'Arquivo';
+                    }
+                ?>
+            </td>
+            <td><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $DadosComprovantes->idArquivo; ?>"><?php echo $DadosComprovantes->nmArquivo; ?></a></td>
+            <td><?php echo Data::tratarDataZend($DadosComprovantes->dtEnvio, 'Brasileira', true); ?></td>
+            <td><?php echo $DadosComprovantes->dsDocumento; ?></td>
+        </tr>
+        <?php } ?>
+    </table>
+
+    <br clear="all" />
+
+    <?php if($this->DadosRelatorio->siComprovanteTrimestral == 6){ ?>
+    <table class="tabela">
+        <tr>
+            <th>PARECER T&Eacute;CNICO</th>
+        </tr>
+        <tr>
+            <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsParecerTecnico; ?><br /><br /></td>
+        </tr>
+        <tr>
+            <th>RECOMENDA&Ccedil;&Otilde;ES</th>
+        </tr>
+        <tr>
+            <td style="text-align: justify;"><?php echo $this->DadosRelatorio->dsRecomendacao; ?><br /><br /></td>
+        </tr>
+    </table>
+
+    <br clear="all" />
+    <?php } ?>
+</div>

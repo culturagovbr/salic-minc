@@ -1,27 +1,15 @@
-<?php
-$auth = Zend_Auth::getInstance();
-if (isset ($auth->getIdentity()->Cpf)) { ?>
-    <div id="breadcrumb">
-        <ul>
-            <li class="first"><a href="<?php echo $this->url(array('controller' => 'login', 'action' => 'index')); ?>">In&iacute;cio</a>
-            </li>
-            <li class="last">Cadastrar Usuário</li>
-        </ul>
-    </div>
-<?php } ?>
-<div class="container">
+<div class="container login">
     <div class="row">
         <div class="col s12 m3 l3"></div>
         <div class="col s12 m6 l6">
             <div class="card green-text text-darken-4 animated fadeInUp">
-                <div class="card-content  white-text"
-                     style="background: url(<?php echo $this->baseUrl(); ?>/public/img/bg-topo.png) no-repeat center 0 #acda5d ;">
+                <div class="cabecalho-login">
                     <div class="row" style="margin: 0;">
                         <div class="col s12 center-align">
-                            <img alt="Salic" src="<?php echo $this->baseUrl(); ?>/public/img/logo.png">
+                            <div class="logo-salic"></div>
                         </div>
                         <div class="col s12">
-                            <span class="card-title"><b>Cadastro</b></span>
+                            <span class="card-title white-text"><b>Cadastro</b></span>
                         </div>
                     </div>
                 </div>
@@ -78,15 +66,13 @@ if (isset ($auth->getIdentity()->Cpf)) { ?>
                         </div>
                         <button style="width: 100%;" id="btConfirmar"
                                 class="btn waves-effect waves-light tooltipped" data-delay="50"
-                                data-tooltip="Realizar o cadastro no sistema" type="submit" name="action">Cadastrar
+                                data-tooltip="Finalizar cadastro" type="submit" name="action">Cadastrar
                         </button>
                     </form>
                 </div>
                 <div class="card-action center-align">
                     <a href="javascript:redirect('<?php echo $this->url(array('controller' => 'index', 'action' => 'index', 'module' => 'autenticacao')); ?>');"
-                       class="tooltipped" data-delay="50" data-tooltip="Acessar o sistema">J&aacute; sou cadastrado</a>&nbsp;&nbsp;&nbsp;
-                    <a href="javascript:redirect('<?php echo $this->url(array('controller' => 'index', 'action' => 'solicitarsenha', 'module' => 'autenticacao')); ?>');"
-                       class="tooltipped" data-delay="50" data-tooltip="Resetar senha">Esqueci a senha</a>
+                       class="tooltipped" data-delay="50" data-tooltip="Voltar para tela de login">Voltar</a>&nbsp;&nbsp;&nbsp;
                 </div>
             </div>
         </div>

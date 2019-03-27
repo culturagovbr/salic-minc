@@ -1,0 +1,367 @@
+<?php echo $this->partial('avaliaracompanhamentoprojeto/inc/menu.inc.php', $this) ?>
+<div id="camposObrigatorios" class="sumir"></div>
+
+<div id="breadcrumb">
+    <ul>
+        <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
+        <li class="second"><a
+                href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/avaliaracompanhamentoprojeto/index-tecnico"
+                title="Lista de Relat&oacute;rios">Lista de Relat&oacute;rios</a></li>
+        <li class="last">Parecer T&eacute;cnico</li>
+    </ul>
+</div>
+
+<div id="titulo">
+    <div>Parecer T&eacute;cnico
+        <span class="voltar"><a
+                href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/avaliaracompanhamentoprojeto/index-tecnico"
+                title="Voltar">Voltar</a></span></div>
+</div>
+
+<div id="conteudo">
+    <table class="tabela">
+        <tr>
+            <th align="center" width="30%">N&ordm; PRONAC:</th>
+            <th align="center">Nome do Projeto:</th>
+        </tr>
+        <tr class="linha">
+            <td align="center"><?php echo $this->DadosProjeto->pronac; ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProjeto; ?></td>
+        </tr>
+        <tr>
+            <th align="center" width="30%">CNPJ/CPF:</th>
+            <th align="center">Proponente:</th>
+        </tr>
+        <tr class="linha">
+            <td align="center"><?php echo (strlen($this->DadosProjeto->CNPJCPF) > 11) ? Mascara::addMaskCNPJ($this->DadosProjeto->CNPJCPF) : Mascara::addMaskCPF($this->DadosProjeto->CNPJCPF); ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProponente; ?></td>
+        </tr>
+    </table>
+
+    <br clear="all"/>
+
+    <form id="formParecer"
+          action="<?php echo $this->url(array(
+              'module' => 'comprovacao-objeto',
+              'controller' => 'avaliaracompanhamentoprojeto',
+              'action' => 'salvar-avaliacao'),
+              '', true); ?>?idPronac=<?= $this->idPronac; ?>"
+          method="post">
+        <input type="hidden" name="idPronac" value="<?= $this->idPronac; ?>"/>
+        <table class="tabela">
+            <tr align="center">
+                <td class="destacar bold">PARECER DE AVALIA&Ccedil;&Atilde;O T&Eacute;CNICA<font color="red"> *</td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea name="informacaoAdicional" id="informacaoAdicional" cols="" rows="7" style="width: 99%;"
+                              class="informacaoAdicional" <?php echo $this->contadorTextarea('form.informacaoAdicional', 'form.exibirContadorTextarea1', 7500); ?>><?php echo $this->DadosParecer->dsInformacaoAdicional; ?></textarea>
+                    <div id="contadorinformacaoAdicional"></div>
+                </td>
+            </tr>
+            <tr align="center">
+                <td class="destacar bold">RECOMENDA&Ccedil;&Otilde;ES</td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea name="orientacao" id="orientacao" cols="" rows="7" style="width: 99%;"
+                              class="orientacao" <?php echo $this->contadorTextarea('form.orientacao', 'form.exibirContadorTextarea2', 950); ?>><?php echo $this->DadosParecer->dsOrientacao; ?></textarea>
+                    <div id="contadororientacao"></div>
+                </td>
+            </tr>
+            <tr align="center">
+                <td class="destacar bold">CONCLUS&Atilde;O <span style="color: red;">*</span></td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea name="conclusao" id="conclusao" cols="" rows="7" style="width: 99%;"
+                              class="textarea_simples obrigatorio" <?php echo $this->contadorTextarea('form.conclusao', 'form.exibirContadorTextarea3', 950); ?>><?php echo $this->DadosParecer->dsConclusao; ?></textarea>
+                    <div id="contadorconclusao"></div>
+                </td>
+            </tr>
+        </table>
+
+        <table class="tabela">
+            <tr>
+                <th colspan="2">Avalia&ccedil;&atilde;o</th>
+            </tr>
+            <tr>
+                <td class="destacar bold w100" align="right">Resultado <span style="color: red;">*</span></td>
+                <td>
+                    <input
+                        type="radio"
+                        id="cumpriuObjetivos"
+                        value="A"
+                        name="resultadoAvaliacao"
+                        <?php echo ($this->DadosParecer->stResultadoAvaliacao == 'A') ? 'checked="checked"' : ''; ?>
+                    />
+                    <label for="cumpriuObjetivos">Cumpriu o objeto e objetivos</label>
+                    <input
+                        type="radio"
+                        id="naoCumpriuObjetivos"
+                        value="R"
+                        name="resultadoAvaliacao"
+                        <?php echo ($this->DadosParecer->stResultadoAvaliacao == 'R') ? 'checked="checked"' : ''; ?>
+                        style="margin-left: 25px;"
+                    />
+                    <label for="naoCumpriuObjetivos">N&atilde;o cumpriu o objeto e objetivos</label>
+                    <input
+                        type="radio"
+                        id="cumpriuParcialmenteObjetivos"
+                        value="P"
+                        name="resultadoAvaliacao"
+                        <?php echo ($this->DadosParecer->stResultadoAvaliacao == 'P') ? 'checked="checked"' : ''; ?>
+                        style="margin-left: 25px;"
+                    />
+                    <label for="cumpriuParcialmenteObjetivos">Cumpriu parcialmente o objeto e objetivos</label>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <p align="center">
+        <a id="btn-salvar"
+           href="javascript:void(0)"
+           style="margin-bottom:5px;"
+           class="btn waves-effect waves-light tooltipped small white-text btn-primary"
+           data-tooltip="Salvar parecer">
+            <i class="material-icons left">save</i> Salvar parecer
+        </a>
+
+        <a id="btn-finalizar"
+           href="javascript:void(0)"
+           style="margin-bottom:5px;"
+           class="btn waves-effect waves-light tooltipped small white-text btn-info"
+           onclick="return EnviarFormulario();"
+           data-tooltip="Finalizar parecer e assinar documento">
+            <i class="material-icons left">border_color</i> Finalizar e assinar
+        </a>
+    </p>
+</div>
+
+<script type="text/javascript">
+
+    function ExecucaoDaFuncaoLimiterPag(fieldName, minchar) {
+        var minchar;
+
+        if (typeof minchar === 'undefined') {
+            minchar = 49;
+        }
+
+        countChars = CountCharacters(fieldName);
+        //Atualização para os contadores de caracteres
+        document.getElementById("contador" + fieldName).innerHTML = "Caracteres: " + countChars;
+
+        //mudança de cor caso ultrapasse o numero de caracteres
+        if (countChars <= minchar) {
+            document.getElementById("contador" + fieldName).style.color = "red";
+        } else {
+            document.getElementById("contador" + fieldName).style.color = "black";
+        }
+    }
+
+    $(document).ready(function () {
+
+        tinymce.init({
+            plugins: "paste,textcolor,table",
+            language: "pt_BR",
+            // paste_as_text: true,
+            selector: '#informacaoAdicional',
+            height: 500,
+            toolbar: "bold,italic,underline,color,forecolor backcolor,fontsizeselect,table",
+            menubar: "",
+            content_style: ".mce-content-body {font-size:14px;}",
+            table_default_attributes: {
+                'border': '2'
+            },
+            table_default_styles: {
+                'border-collapsed': 'collapse',
+                'border-color': 'black',
+                'width': '100%'
+            },
+            setup: function (ed) {
+                ed.on('init', function (e) {
+                    ExecucaoDaFuncaoLimiterPag('informacaoAdicional');
+                }).on('keyup', function (e) {
+                    ExecucaoDaFuncaoLimiterPag('informacaoAdicional');
+                });
+            }
+        });
+
+        tinymce.init({
+            plugins: "paste,textcolor,table",
+            language: "pt_BR",
+            selector: '#orientacao',
+            height: 500,
+            toolbar: "bold,italic,underline,color,forecolor backcolor,fontsizeselect,table",
+            menubar: "",
+            content_style: ".mce-content-body {font-size:14px;}",
+            table_default_attributes: {
+                'border': '2'
+            },
+            table_default_styles: {
+                'border-collapsed': 'collapse',
+                'border-color': 'black',
+                'width': '100%'
+            },
+            setup: function (ed) {
+                ed.on('init', function (e) {
+                    ExecucaoDaFuncaoLimiterPag('orientacao', 0);
+                }).on('keyup', function (e) {
+                    ExecucaoDaFuncaoLimiterPag('orientacao', 0);
+                });
+            }
+        });
+
+        tinymce.init({
+            plugins: "paste,textcolor,table",
+            language: "pt_BR",
+            selector: '#conclusao',
+            height: 500,
+            toolbar: "bold,italic,underline,color,forecolor backcolor,fontsizeselect,table",
+            menubar: "",
+            content_style: ".mce-content-body {font-size:14px;}",
+            table_default_attributes: {
+                'border': '2'
+            },
+            table_appearance_options: true,
+            table_default_styles: {
+                'border-collapsed': 'collapse',
+                'border-color': 'black',
+                'width': '100%'
+            },
+            setup: function (ed) {
+                ed.on('init', function (e) {
+                    ExecucaoDaFuncaoLimiterPag('conclusao');
+                }).on('keyup', function (e) {
+                    ExecucaoDaFuncaoLimiterPag('conclusao');
+                });
+            }
+        });
+
+        $('#btn-salvar').click(function () {
+            SalvarFormulario();
+        });
+
+        $('#btn-finalizar').click(function () {
+            EnviarFormulario();
+        });
+
+    });
+
+    function CountCharacters(contador) {
+        var body = tinymce.get(contador).getBody();
+        var content = tinymce.trim(body.innerText || body.textContent);
+        return content.length;
+    };
+
+    //Validação de acordo com o numero maximo de caracteres
+    function Validacao(valido) {
+        var minchar = 49;
+        var valido = true;
+
+        var count = CountCharacters("informacaoAdicional");
+        var count2 = CountCharacters("orientacao");
+        var count3 = CountCharacters("conclusao");
+
+        if (count <= minchar) {
+            $("#camposObrigatorios").dialog("destroy");
+            $("#camposObrigatorios").html("Preencha corretamente o n&uacute;mero de caracteres no campo PARECER DE AVALIA&Ccedil;&Atilde;O T&Eacute;CNICA! M&iacute;nimo 50.");
+            $("#camposObrigatorios").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width: 370,
+                height: 200,
+                modal: true,
+                buttons: {
+                    'OK': function () {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+            valido = false;
+        }
+        if (count3 <= minchar) {
+            $("#camposObrigatorios").dialog("destroy");
+            $("#camposObrigatorios").html("Preencha corretamente o n&uacute;mero de caracteres no campo CONCLUS&Atilde;O! M&iacute;nimo 50.");
+            $("#camposObrigatorios").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width: 370,
+                height: 200,
+                modal: true,
+                buttons: {
+                    'OK': function () {
+                        $(this).dialog('close');
+                    }
+                }
+            });
+            valido = false;
+        }
+        return valido;
+    }
+
+    function SalvarFormulario() {
+        $('#formParecer').submit();
+    }
+
+    function EnviarFormulario() {
+        var valido = Validacao();
+        if (valido == true) {
+            var preenchimento = true,
+                campoRadioMarcado = false;
+            $('.obrigatorio').each(function () {
+                if ($.trim($(this).val()) == '') {
+                    preenchimento = false;
+                }
+            });
+
+            $('input:radio').each(function () {
+                if ($(this).attr('checked')) {
+                    campoRadioMarcado = true;
+                }
+            });
+
+            if (!preenchimento || !campoRadioMarcado) {
+                $("#camposObrigatorios").dialog("destroy");
+                $("#camposObrigatorios").html("Favor preencher o campo obrig&aacute;torio!");
+                $("#camposObrigatorios").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width: 320,
+                    height: 160,
+                    modal: true,
+                    buttons: {
+                        'OK': function () {
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            } else {
+                $("#camposObrigatorios").dialog("destroy");
+                $("#camposObrigatorios").html("Deseja realmente finalizar?");
+                $("#camposObrigatorios").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width: 320,
+                    height: 160,
+                    modal: true,
+                    buttons: {
+                        'N\u00E3o': function () {
+                            $(this).dialog('close');
+                        },
+                        'Sim': function () {
+                            $(this).dialog('close');
+                            $('#formParecer').append('<input type="hidden" name="finalizar" value="1" />');
+                            $('#formParecer').submit();
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            }
+        }
+    }
+
+</script>

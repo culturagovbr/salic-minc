@@ -1,22 +1,9 @@
 <?php
-/**
- * DAO tbProrrogacaoPrazo
- * @author emanuel.sampaio <emanuelonline@gmail.com>
- * @since 12/13/2011
- * @version 1.0
- * @package application
- * @subpackage application.model
- * @copyright � 2011 - Minist�rio da Cultura - Todos os direitos reservados.
- * @link http://www.cultura.gov.br
- */
 
 class tbProrrogacaoPrazo extends MinC_Db_Table_Abstract
 {
-    protected $_banco  = "BDCORPORATIVO";
     protected $_schema = "BDCORPORATIVO.scSAC";
     protected $_name   = "tbProrrogacaoPrazo";
-
-
 
     /**
      * M�todo para buscar os prazos de capta��o e execu��o com solicita��o de readequa��o
@@ -35,13 +22,13 @@ class tbProrrogacaoPrazo extends MinC_Db_Table_Abstract
                 ,"p.tpProrrogacao"
                   ,new Zend_Db_Expr("CONVERT(CHAR(10), p.dtInicioNovoPrazo,103) AS dtInicioNovoPrazo")
                   ,new Zend_Db_Expr("CONVERT(CHAR(10), p.dtFimNovoPrazo,103) AS dtFimNovoPrazo")),
-            $this->_banco . "." . $this->_schema
+            $this->_schema
         );
         $select->joinInner(
             array("ped" => "tbPedidoAlteracaoProjeto"),
             "p.idPedidoAlteracao = ped.idPedidoAlteracao",
             array(),
-            $this->_banco . "." . $this->_schema
+            $this->_schema
         );
 
         // busca pelo id do projeto

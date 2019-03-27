@@ -3,7 +3,7 @@
 class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
 {
     private $bln_readequacao = "false";
-    private $idAgente = 0;
+    protected $idAgente = 0;
 
     /*     * ************************************************************************************************************************
      * Funcao que inicia todas as funcionalidades da classe
@@ -13,7 +13,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
     {
         $this->view->title = "Salic - Sistema de Apoio &agrave;s Leis de Incentivo &agrave; Cultura"; // titulo da pagina
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
-        $Usuario = new Autenticacao_Model_Usuario(); // objeto usuario
+        $Usuario = new Autenticacao_Model_DbTable_Usuario(); // objeto usuario
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
 
         if ($auth->hasIdentity()) { // caso o usuario esteja autenticado

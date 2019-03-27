@@ -9,7 +9,7 @@
                 'action' => 'gerenciar-assinaturas'
             )
         ),
-        array('Enquadramento ' => array())
+        array('Visualizar Documento' => array())
     );
     ?>
     <div class="row margin-bottom30"></div>
@@ -20,6 +20,19 @@
         </div>
         <div class="col s1"></div>
     </div>
+    <?php if ($this->documentoAssinatura["stEstado"] == Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_INATIVO) : ?>
+        <div class="row margin-bottom30"></div>
+        <div class="row">
+            <div class="col s1"></div>
+            <div class="col s10">
+                <div style="background-color: #EF5350; text-transform: uppercase"
+                     class="darken-2 padding10 white-text center-align">
+                    <div><b>Documento Arquivado</b></div>
+                </div>
+            </div>
+            <div class="col s1"></div>
+        </div>
+    <?php endif; ?>
     <form method="post" target="_blank" action="<?php
     echo $this->url(
             array(
@@ -35,12 +48,17 @@
             <?= $this->partial("/index/partials/template-documento-assinado.phtml", $this); ?>
         </div>
         <div class="row center-align">
-            <a class="btn waves-effect waves-dark"
-               href="<?php echo "/{$this->moduleOrigin}/{$this->controllerOrigin}/gerenciar-assinaturas"; ?>">Voltar</a>
             <?php
-            if ($this->documentoAssinatura['cdSituacao'] == Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO):
+            if ($this->origin != '') {
+                $origin = '?origin=' . $this->origin;
+            }
+            ?>
+            <a class="btn waves-effect waves-dark"
+               href="<?php echo "/{$this->moduleOrigin}/{$this->controllerOrigin}/gerenciar-assinaturas{$origin}"; ?>">Voltar</a>
+            <?php
+            if ($this->isPermitidoAssinar === true):
                 ?>
-                <a class="btn waves-effect waves-dark"
+                <a class="btn waves-effect waves-dark btn-primary"
                    href="<?php
                    echo $this->url(array(
                            'module' => 'assinatura',
@@ -49,9 +67,19 @@
                        ))
                        . "?IdPRONAC={$this->IdPRONAC}&idTipoDoAtoAdministrativo={$this->idTipoDoAtoAdministrativo}&origin={$this->origin}";
                    ?>">Assinar</a>
-                <?php
-            endif;
-            ?>
+
+                <?php if ($this->isDisponivelParaDevolucao === true): ?>
+                    <a class="btn waves-effect waves-dark btn-danger"
+                       href="<?php
+                       echo $this->url(array(
+                               'module' => 'assinatura',
+                               'controller' => 'index',
+                               'action' => 'devolver-projeto'
+                           ))
+                           . "?IdPRONAC={$this->IdPRONAC}&idTipoDoAtoAdministrativo={$this->idTipoDoAtoAdministrativo}&origin={$this->origin}";
+                       ?>">Devolver</a>
+                <?php endif; ?>
+            <?php endif; ?>
             <a id="acao_imprimir"
                href="#"
                class="btn waves-effect waves-dark"

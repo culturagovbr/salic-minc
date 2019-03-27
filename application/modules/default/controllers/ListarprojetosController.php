@@ -4,10 +4,10 @@ class ListarprojetosController extends MinC_Controller_Action_Abstract
 {
     private $getIdUsuario = 0;
     private $getCNPJCPF = 0;
-    private $idResponsavel = 0;
-    private $idAgente = 0;
-    private $idUsuario = 0;
-    private $cpfLogado = 0;
+    protected $idResponsavel = 0;
+    protected $idAgente = 0;
+    protected $idUsuario = 0;
+    protected $cpfLogado = 0;
 
     /*     * *
      * Reescreve o metodo init()
@@ -41,7 +41,7 @@ class ListarprojetosController extends MinC_Controller_Action_Abstract
         $buscaAcesso = $sgcAcesso->buscar(array('Cpf = ?' => $cpf));
 
         // Busca na Usuarios
-        $usuarioDAO = new Autenticacao_Model_Usuario();
+        $usuarioDAO = new Autenticacao_Model_DbTable_Usuario();
         $buscaUsuario = $usuarioDAO->buscar(array('usu_identificacao = ?' => $cpf));
 
         // Busca na Agentes
@@ -85,66 +85,12 @@ class ListarprojetosController extends MinC_Controller_Action_Abstract
 
     public function indexAction()
     {
-        $this->redirect("Listarprojetos/listarprojetos");
+        $this->redirect("/projeto/index/listar");
     }
 
     public function listarprojetosAction()
     {
-        /***************************************************************************** */
-        $tblVinculo = new Agente_Model_DbTable_TbVinculo();
-        $dadosCombo = array();
-
-        $rsVinculo = $tblVinculo->buscarProponenteResponsavel($this->idResponsavel);
-
-        $i = 1;
-        foreach ($rsVinculo as $rs) {
-            $dadosCombo[$i]['idAgenteProponente'] = $rs->idAgente;
-            $dadosCombo[$i]['CPF'] = $rs->CNPJCPF;
-            $dadosCombo[$i]['Nome'] = $rs->NomeProponente;
-            $i++;
-        }
-
-        $this->view->buscaProponente = $dadosCombo;
-        $this->view->idResponsavel = $this->idResponsavel;
-        $this->view->idUsuario = $this->idUsuario;
-
-        /*****************************************************************************/
-
-        if (!isset($_POST['idProponente']) || empty($_POST['idProponente'])) {
-            $this->view->listarprojetos = 0;
-        } else {
-            try {
-                $post = Zend_Registry::get('post');
-
-                $idProponente = !empty($post->idProponente) ? $post->idProponente : ''; // deleta a m�scara
-                $mecanismo = $_POST['mecanismo'];
-                $idResponsavel = $this->idResponsavel;
-
-                $a = new Projetos();
-                $ProjetosVinculados = $a->listarProjetosConsulta($idResponsavel, $idProponente, $mecanismo)->toArray();
-
-                $tbProjetos = new Projeto_Model_DbTable_Projetos();
-                $projetos = [];
-
-                if (count($ProjetosVinculados) > 0) {
-                    foreach ($ProjetosVinculados as $projeto) {
-
-                        $idPreProjeto = $tbProjetos->obterIdPreProjetoDoProjeto($projeto['IdPRONAC']);
-                        $projeto['podeClonarProjeto'] = !empty($idPreProjeto) ? true : false;
-                        $projeto['liberarEdicao'] = $tbProjetos->fnChecarLiberacaoDaAdequacaoDoProjeto($projeto['IdPRONAC']);
-
-                        $projetos[] = $projeto;
-                    }
-                    $this->view->listarprojetos = $projetos;
-                    $this->view->mecanismo = $mecanismo;
-                    $this->view->agenteId = $idProponente;
-                } else {
-                    parent::message("Nenhum projeto encontrado!", "listarprojetos/listarprojetos", "ALERT");
-                }
-            } catch (Exception $e) {
-                parent::message($e->getMessage(), "listarprojetos/listarprojetos", "ERROR");
-            }
-        }
+        $this->redirect('/projeto/index/listar');
     }
 
     public function buscarProponentesComboAction()

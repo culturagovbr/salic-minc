@@ -1,0 +1,80 @@
+<thead>
+<tr class="titulo_tabela">
+    <th>#</th>
+    <th>
+        <a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac . '&campo=3&ordem=' . $this->paginacao['novaOrdem']; ?>">PRONAC</a>
+    </th>
+    <th>
+        <a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac . '&campo=4&ordem=' . $this->paginacao['novaOrdem']; ?>">Nome
+            do Projeto</a></th>
+    <th>
+        <a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac . '&campo=8&ordem=' . $this->paginacao['novaOrdem']; ?>">Tipo
+            Readequa&ccedil;&atilde;o</a></th>
+    <th>
+        <a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac . '&campo=6&ordem=' . $this->paginacao['novaOrdem']; ?>">Dt.
+            Distribui&ccedil;&atilde;o</a></th>
+    <th>
+        <a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac . '&campo=7&ordem=' . $this->paginacao['novaOrdem']; ?>">Qtde
+            Dias em an&aacute;lise</a></th>
+    <th>
+        <a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->filtro . '&pronac=' . $this->pronac . '&campo=15&ordem=' . $this->paginacao['novaOrdem']; ?>">T&eacute;cnico
+            / vinculada</a></th>
+    <th>Visualizar</th>
+    <th>Encaminhar</th>
+</tr>
+</thead>
+<tbody>
+<?php $count = 1;
+foreach ($this->dados as $d): ?>
+    <tr>
+        <td align="center" style="width: 1px;"><?php echo $count; ?></td>
+        <td align="center">
+            <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'index')); ?>?idPronac=<?php echo($d->idPronac); ?>"
+               target="_blank">
+                <?php echo $d->PRONAC; ?>
+            </a>
+        </td>
+        <td><?php echo $d->NomeProjeto; ?></td>
+        <td align="center"><?php echo $d->tpReadequacao ?></td>
+        <td align="center"><?php if ($d->dtEncaminhamento == '') {
+                echo '---';
+            } else {
+                echo Data::tratarDataZend($d->dtEncaminhamento, 'Brasileira');
+            } ?></td>
+        <td align="center"><?php echo $d->qtDiasEncaminhar ?></td>
+        <td><?php if ($d->nmTecnicoParecerista != ''): ?>
+                <?php echo $d->nmTecnicoParecerista; ?><?php if ($d->idOrgao != 262) {
+                    echo " / <strong>" . $d->sgUnidade . "</strong>";
+                } ?>
+            <?php else: ?>
+                <strong><?php echo $d->sgUnidade; ?></strong>
+            <?php endif; ?>
+        </td>
+
+        <td align="center">
+            <a
+                href="javascript:void(0)"
+                class="btn-ver btn small waves-effect waves-light tooltipped white-text btn-primary"
+                data-tooltip="Encaminhar para an&aacute;lise t&eacute;cnica"
+                idReadequacao="<?php echo Seguranca::encrypt($d->idReadequacao); ?>"
+            >
+                <i class="material-icons">visibility</i>
+            </a>
+        </td>
+
+        <td align="center">
+            <a
+                href="javascript:void(0)"
+                class="btn-encaminhar btn small waves-effect waves-light tooltipped white-text btn-secondary"
+                data-tooltip="Encaminhar para an&aacute;lise t&eacute;cnica"
+                readequacao="<?php echo Seguranca::encrypt($d->idReadequacao); ?>"
+                pronac="<?php echo $d->PRONAC; ?>"
+                nomeprojeto="<?php echo $d->NomeProjeto; ?>"
+            >
+                <i class="material-icons">forward</i>
+            </a>
+        </td>
+    </tr>
+    <?php $count++; ?>
+<?php endforeach; ?>
+</tbody>

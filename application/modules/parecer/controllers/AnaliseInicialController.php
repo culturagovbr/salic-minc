@@ -1,9 +1,9 @@
 <?php
 
-class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract implements MinC_Assinatura_Controller_IDocumentoAssinaturaController
+class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract
 {
     private $idPronac;
-    private $idUsuario = 0;
+    protected $idUsuario = 0;
 
     private function validarPerfis()
     {
@@ -33,46 +33,27 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
     {
         try {
             $get = $this->getRequest()->getParams();
-            $post = $this->getRequest()->getPost();
-            $servicoDocumentoAssinatura = $this->obterServicoDocumentoAssinatura();
 
-            if (isset($get['IdPRONAC']) && !empty($get['IdPRONAC']) && $get['encaminhar'] == 'true') {
-                $servicoDocumentoAssinatura->idPronac = $get['IdPRONAC'];
-                $servicoDocumentoAssinatura->encaminharProjetoParaAssinatura();
+            if (isset($get['IdPRONAC']) && !empty($get['IdPRONAC'])) {
+                $parecer = new Parecer();
+                $parecerTecnico = $parecer->getIdAtoAdministrativoParecerTecnico(
+                    $get['IdPRONAC'],
+                    1
+                )->current();
 
                 $idTipoDoAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL;
-                $idDocumentoAssinatura = $this->getIdDocumentoAssinatura($get['IdPRONAC'], $idTipoDoAtoAdministrativo);
+                $servicoDocumentoAssinatura = new \Application\Modules\Parecer\Service\Assinatura\AnaliseInicial\DocumentoAssinatura(
+                    $get['IdPRONAC'],
+                    $idTipoDoAtoAdministrativo,
+                    $parecerTecnico['idParecer']
+                );
+                $idDocumentoAssinatura = $servicoDocumentoAssinatura->iniciarFluxo();
 
-                $this->redirect("/assinatura/index/visualizar-projeto/?idDocumentoAssinatura=" . $idDocumentoAssinatura . "&origin=" . $get['origin']);
-            } elseif (isset($post['IdPRONAC']) && is_array($post['IdPRONAC']) && count($post['IdPRONAC']) > 0) {
-                // ainda nao implementado o encaminhamento de vários para pareceres
+                $this->redirect("/assinatura/index/visualizar-projeto/?idDocumentoAssinatura={$idDocumentoAssinatura}&origin={$get['origin']}");
             }
         } catch (Exception $objException) {
             parent::message($objException->getMessage(), "/{$this->moduleName}/analise-inicial/index");
         }
-    }
-
-    public function obterServicoDocumentoAssinatura()
-    {
-        if (!isset($this->servicoDocumentoAssinatura)) {
-            require_once __DIR__ . DIRECTORY_SEPARATOR . "AnaliseInicialDocumentoAssinaturaController.php";
-            $this->servicoDocumentoAssinatura = new Parecer_AnaliseInicialDocumentoAssinaturaController($this->getRequest()->getPost());
-        }
-        return $this->servicoDocumentoAssinatura;
-    }
-
-    private function getIdDocumentoAssinatura($idPronac, $idTipoDoAtoAdministrativo)
-    {
-        $objDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
-
-        $where = array();
-        $where['IdPRONAC = ?'] = $idPronac;
-        $where['idTipoDoAtoAdministrativo = ?'] = $idTipoDoAtoAdministrativo;
-        $where['stEstado = ?'] = 1;
-
-        $result = $objDocumentoAssinatura->buscar($where);
-
-        return $result[0]['idDocumentoAssinatura'];
     }
 
     public function indexAction()
@@ -86,12 +67,16 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
         $idOrgao = $GrupoAtivo->codOrgao; //  ¿rg¿o ativo na sess¿o
 
-        $UsuarioDAO = new Autenticacao_Model_Usuario();
+        $UsuarioDAO = new Autenticacao_Model_DbTable_Usuario();
         $agente = $UsuarioDAO->getIdUsuario($idusuario);
         $idAgenteParecerista = $agente['idagente'];
         $this->view->idAgenteParecerista = $idAgenteParecerista;
 
         $situacao = $this->_request->getParam('situacao');
+
+        if (empty($idAgenteParecerista)) {
+            parent::message("Agente n&atilde;o cadastrado", "/default/principal/index", 'ERROR');
+        }
 
         $projeto = new Projetos();
         $resp = $projeto->buscaProjetosProdutosParaAnalise(
@@ -127,19 +112,11 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
     {
         $auth = Zend_Auth::getInstance(); // pega a autentica¿¿o
         $idusuario = $auth->getIdentity()->usu_codigo;
-        $dtAtual = Date("Y/m/d h:i:s");
-
-        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sess¿o com o grupo ativo
-        $codOrgao = $GrupoAtivo->codOrgao; //  ¿rg¿o ativo na sess¿o
-
         $idPronac = $this->_request->getParam("idPronac");
-        $idProduto = $this->_request->getParam("idProduto");
         $idDistribuirParecer = $this->_request->getParam("idD");
-        $stPrincipal = $this->_request->getParam("stPrincipal");
         $this->view->totaldivulgacao = "true";
 
         $projetos = new Projetos();
-        $orgaos = new Orgaos();
 
         if (!$projetos->verificarIN2017($idPronac)) {
             $this->validacaoAnteriorIN2017($idPronac);
@@ -155,9 +132,9 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
                 $tbDistribuirParecer->getAdapter()->beginTransaction();
                 foreach ($buscaDadosProjeto as $dp):
 
-                $fecharAnalise = 0;
+                    $fecharAnalise = 0;
 
-                $dados = array(
+                    $dados = array(
                         'idOrgao' => $dp->idOrgao,
                         'DtEnvio' => $dp->DtEnvio,
                         'idAgenteParecerista' => $dp->idAgenteParecerista,
@@ -175,11 +152,9 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
                         'stDiligenciado' => null
                     );
 
-                $where['idDistribuirParecer = ?'] = $idDistribuirParecer;
-
-                $salvar = $tbDistribuirParecer->alterar(array('stEstado' => 1), $where);
-
-                $insere = $tbDistribuirParecer->inserir($dados);
+                    $where['idDistribuirParecer = ?'] = $idDistribuirParecer;
+                    $tbDistribuirParecer->alterar(array('stEstado' => 1), $where);
+                    $tbDistribuirParecer->inserir($dados);
 
                 endforeach;
 
@@ -190,23 +165,19 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
                 $tbDistribuirParecer->getAdapter()->rollBack();
                 parent::message("Error" . $e->getMessage(), "parecer/analise-inicial", "ERROR");
             }
-        } else {
-            $idPronac = $this->_request->getParam("idPronac");
-            $idProduto = $this->_request->getParam("idProduto");
         }
 
         $projetos = new Projetos();
         /* $dadosProjetoProduto = $projetos->dadosFechar($this->getIdUsuario, $idPronac, $idDistribuirParecer); */
         $dadosProjetoProduto = $projetos->dadosFechar($this->idUsuario, $idPronac, $idDistribuirParecer);
         $this->view->dados = $dadosProjetoProduto;
-
         $this->view->IN2017 = $projetos->verificarIN2017($idPronac);
-
         $this->view->idpronac = $idPronac;
     }
 
     private function validacaoAnteriorIN2017($idPronac)
     {
+        $stPrincipal = $this->_request->getParam("stPrincipal");
         // Validacao do 20%
         //valor total do projeto V1
 
@@ -214,25 +185,16 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
         $valorProjeto = $planilhaProjeto->somarPlanilhaProjeto($idPronac, 109);
         //Validacao dos 20%
         if ($valorProjeto['soma'] > 0 && $stPrincipal == "1") {
-            $this->view->totaldivulgacao = $this->validaRegra20Porcento($idPronac);
+
+            $serviceAnaliseInicial = new \Application\Modules\Parecer\Service\AnaliseInicial();
+            $this->view->totaldivulgacao = $serviceAnaliseInicial->validaRegra20Porcento($idPronac);
         }
 
         // Validacao do 15%
         if ($stPrincipal == "1") { //avaliacao da regra dos 15% so deve ser feita quando a analise for do produto principal
-            $Situacao = false;
-
-            $V1 = '';
-            $V2 = '';
-            $V3 = '';
-            $V4 = '';
-            $V5 = '';
-            $V6 = '';
-
-            $tpPlanilha = 'CO'; // O que eh isso?
             $planilhaProjeto = new PlanilhaProjeto();
 
             /* V1 */
-
             $whereTotalV1['PAP.IdPRONAC = ?'] = $idPronac;
             $whereTotalV1['PAP.FonteRecurso = ?'] = 109;
             $whereTotalV1['PAP.idPlanilhaItem <> ? '] = 206;
@@ -251,6 +213,7 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
             $valoracustosadministrativos = $planilhaProjeto->somaDadosPlanilha($whereTotalV2);
             $V2 = $valoracustosadministrativos['soma'];
 
+            $this->view->verifica15porcento = $valoracustosadministrativos['soma'];
             /* 15% */
             if ($V1 > 0 and $valoracustosadministrativos['soma'] < $valorProjeto['soma']) {
                 //Calcula os 15% do valor total do projeto V3
@@ -259,10 +222,8 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
                 //Subtrai os custos administrativos pelos 15% do projeto (V2 - V3)
                 $verificacaonegativo = $valoracustosadministrativos['soma'] - $quinzecentoprojeto;
                 //V4
-                if ($verificacaonegativo < 0) {
-                    //x(0);
-                    $this->view->verifica15porcento = 0;
-                } else {
+                $this->view->verifica15porcento = 0;
+                if ($verificacaonegativo >= 0) {
                     //V1 - V4 = V5
                     /*V5*/
                     $valorretirar = /*V1*/
@@ -275,8 +236,6 @@ class Parecer_AnaliseInicialController extends MinC_Controller_Action_Abstract i
                     $valorretirarplanilha = $valoracustosadministrativos['soma'] - $quinzecentovalorretirar; //(correcao V2 - V6)
                     $this->view->verifica15porcento = $valorretirarplanilha;
                 }
-            } else {
-                $this->view->verifica15porcento = $valoracustosadministrativos['soma'];
             }
         }
     }

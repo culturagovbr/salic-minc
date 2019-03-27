@@ -218,41 +218,53 @@ class Proposta_Model_PreProjetoArquivado  extends MinC_Db_Table_Abstract
         $where = array(),
         $order = array(),
         $start = 0,
-        $limit = 20
+        $limit = 20,
+        $search = null
     )
     {
-        $db = Zend_Db_Table::getDefaultAdapter();
-        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $sql = $this->select();
+        $sql->setIntegrityCheck(false);
+        $sql->from(
+            array('a'=>'preprojeto'),
+            array(
+                'a.idpreprojeto',
+                'a.nomeprojeto',
+                'a.DtArquivamento'),
+            $this->_schema
+        );
 
-        $sql = $db->select()
-             ->from(
-                 array('a'=>'preprojeto'),
-                 array(
-                     'a.idpreprojeto',
-                     'a.nomeprojeto',
-                     'a.DtArquivamento'),
-                 $this->_schema
-             )
-             ->join(
-                 array('ppa' => $this->_name),
-                 'ppa.idpreprojeto = a.idpreprojeto',
-                 array(
-                     'ppa.MotivoArquivamento',
-                     'ppa.SolicitacaoDesarquivamento AS SolicitacaoDesarquivamento',
-                     'ppa.Avaliacao',
-                     'ppa.idAvaliadorArquivamento',
-                     'ppa.dtSolicitacaoDesarquivamento',
-                     'ppa.dtAvaliacao',
-                     'ppa.stDecisao',
-                     'ppa.stEstado'
-                 ),
-                 $this->getSchema($this->_schema))
-             ->where("a.mecanismo = '1'")
-        ;
+        $sql->join(
+            array('ppa' => $this->_name),
+            'ppa.idpreprojeto = a.idpreprojeto',
+            array(
+                'ppa.MotivoArquivamento',
+                'ppa.SolicitacaoDesarquivamento AS SolicitacaoDesarquivamento',
+                'ppa.Avaliacao',
+                'ppa.idAvaliadorArquivamento',
+                'ppa.dtSolicitacaoDesarquivamento',
+                'ppa.dtAvaliacao',
+                'ppa.stDecisao',
+                'ppa.stEstado'
+            ),
+            $this->_schema
+        );
 
-        $sql = $db->select()->from(array("p" => $sql));
+        $sql->where("a.mecanismo = ?", 1);
 
         $sql->where('SolicitacaoDesarquivamento IS NOT NULL');
+
+        if (!empty($search['value'])) {
+            $sql->where('a.idpreprojeto like ? OR a.nomeprojeto like ?', '%' . $search['value'] . '%');
+        }
+
+        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
+        $orgaos = new Usuariosorgaosgrupos();
+        $orgaoSuperior = $orgaos->buscarOrgaoSuperior($GrupoAtivo->codOrgao)->current()->org_superior;
+        if((string)$orgaoSuperior === (string)Orgaos::ORGAO_SUPERIOR_SEFIC){
+            $sql->where('a.AreaAbrangencia = ?', 0);
+        }elseif((string)$orgaoSuperior === (string)Orgaos::ORGAO_SUPERIOR_SAV){
+            $sql->where('a.AreaAbrangencia = ?', 1);
+        }
 
         foreach ($where as $coluna=>$valor) {
             $sql->where($coluna, $valor);
@@ -268,6 +280,6 @@ class Proposta_Model_PreProjetoArquivado  extends MinC_Db_Table_Abstract
             $sql->limit($limit, $start);
         }
 
-        return $db->fetchAll($sql);
+        return $this->fetchAll($sql);
     }
 }

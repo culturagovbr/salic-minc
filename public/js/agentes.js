@@ -1,6 +1,5 @@
 function remarcarferias(id, diasmarcados)
 {
-
     $("#dtinicioalteracao").val('');
     $("#dtfimalteracao").val('');
 
@@ -40,13 +39,11 @@ function remarcarferias(id, diasmarcados)
     var dias 			= $("#dias").val();
     var diminuidias 	= ((parseInt(dias)) - (parseInt(diasmarcados)));
     var disponiveis 	= (60) - (parseInt(diminuidias));
-    $("#diassubtraidos").html('Total de dias disponíveis: ' + disponiveis);
+    $("#diassubtraidos").html('Total de dias dispon&iacute;veis: ' + disponiveis);
 
 
 
 }
-
-
 
 function novo()
 {
@@ -115,6 +112,7 @@ function validaAgenteNovo()
     numero          = $3('#numero').val();
     complemento     = $3('#complemento').val();
     bairro          = $3('#bairro').val();
+    tipoFone = null;
 
     if ( $3('exibirTelefone').val() ==  's' ) {
         tipoFone 		= $3('#tipoFone').val();
@@ -177,7 +175,6 @@ function validaAgenteNovo()
 
 
     // valida&ccedil;&atilde;o para endere&ccedil;os
-
     else if ((cep == 0 || cep == null || cep == ' ' || cep == '' ))
     {
         alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, informe um CEP!", "cep");
@@ -210,50 +207,78 @@ function validaAgenteNovo()
     }
 
     // valida&ccedil;&atilde;o para telefones
-    else if (tipoFone == "" && $3('#exibirTelefone').val() == 's')
+    if ($3('#tipoFone').val() == "" && $3('#exibirTelefone').val() == 's')
     {
         alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, selecione o Tipo de Telefone!", "tipoFone");
         exibirMsgErro('tipoFone','erroTipoFone');
+        return;
     }
-    else if (ufFone == 0 && $3('#exibirTelefone').val() == 's')
+
+    if ($3('#ufFone') == 0 && $3('#exibirTelefone').val() == 's')
     {
         alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, selecione a UF!", "ufFone");
         exibirMsgErro('ufFone','erroUfFone');
     }
-    else if (dddFone == "" && $3('#exibirTelefone').val() == 's')
+    else if ($3('#dddFone') == "" && $3('#exibirTelefone').val() == 's')
     {
         alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, selecione o DDD do telefone!", "dddFone");
         exibirMsgErro('dddFone','erroDddFone');
     }
-    else if (fone == "" && $3('#exibirTelefone').val() == 's')
+    else if ($3('#fone') == "" && $3('#exibirTelefone').val() == 's')
     {
         alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, informe o Telefone!", "fone");
         exibirMsgErro('fone','erroFone');
     }
-    else if ((fone.length < 9 || !(/\d{4}\-\d{4}/.test(fone)) || fone == "0000-0000" ||
-        fone == "1111-1111" || fone == "2222-2222" || fone == "3333-3333" ||
-        fone == "4444-4444" || fone == "5555-5555" || fone == "6666-6666" ||
-        fone == "7777-7777" || fone == "8888-8888" || fone == "9999-9999") && $3('#exibirTelefone').val() == 's')
-        {
+
+    if (
+        $3('#exibirTelefone').val() == 's'
+        && (
+            $3('#fone').val().length < 9
+            || !(/\d{4}\-\d{4}/.test($3('#fone').val()))
+            || $3('#fone').val() == "0000-0000"
+            || $3('#fone').val() == "1111-1111"
+            || $3('#fone').val() == "2222-2222"
+            || $3('#fone').val() == "3333-3333"
+            || $3('#fone').val() == "4444-4444"
+            || $3('#fone').val() == "5555-5555"
+            || $3('#fone').val() == "6666-6666"
+            || $3('#fone').val() == "7777-7777"
+            || $3('#fone').val() == "8888-8888"
+            || $3('#fone').val() == "9999-9999"
+        )
+    ) {
         alertar("O n&uacute;mero do Telefone &eacute; inv&aacute;lido!", "fone");
         exibirMsgErro('fone','erroFone');
+        return;
     }
 
     // valida&ccedil;&atilde;o para emails
-    else if (tipoEmail == 0 && $3('#exibirEmail').val() == 's')
-    {
+    if (
+        $3('#tipoEmail').val() == 0
+        && $3('#exibirEmail').val() == 's'
+    ) {
         alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, selecione o Tipo de E-mail!", "tipoEmail");
         exibirMsgErro('tipoEmail','erroTipoEmail');
+        return;
     }
-    else if (email == "" && $3('#exibirEmail').val() == 's')
+    else if ($3('#email').val() == "" && $3('#exibirEmail').val() == 's')
     {
         alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, informe o E-mail!", "email");
         exibirMsgErro('email','erroEmail');
+        return;
     }
-    else if (((email.indexOf("@") < 1) || (email.lastIndexOf(".") <= email.indexOf("@")) || (email.indexOf("@") == email.length) || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) && $3('#exibirEmail').val() == 's')
-    {
+    if (
+        $3('#exibirEmail').val() == 's'
+        && (
+            ($3('#email').val().indexOf("@") < 1)
+            || ($3('#email').val().lastIndexOf(".") <= $3('#email').val().indexOf("@"))
+            || ($3('#email').val().indexOf("@") == $3('#email').val().length)
+            || !(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test($3('#email').val()))
+        )
+    ) {
         alertar("E-mail inv&aacute;lido!", "email");
         exibirMsgErro('email','erroEmail');
+        return;
     }
     else
     {
@@ -386,7 +411,7 @@ function validaDirigenteNovo()
         alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, informe o E-mail!", "email");
         exibirMsgErro('email','erroEmail');
     }
-    else if (((email.indexOf("@") < 1) || (email.lastIndexOf(".") <= email.indexOf("@")) || (email.indexOf("@") == email.length) || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) && document.getElementById('exibirTelefone').value == 's')
+    else if (((email.indexOf("@") < 1) || (email.lastIndexOf(".") <= email.indexOf("@")) || (email.indexOf("@") == email.length) || !(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test(email))) && document.getElementById('exibirTelefone').value == 's')
     {
         alertar("E-mail inv&aacute;lido!", "email");
         exibirMsgErro('email','erroEmail');
@@ -408,11 +433,10 @@ function validaDirigenteNovo()
 function validaTelefone()
 {
 
-    tipoFone = $("#tipoFone").val();
-    ufFone   = $("#ufFone").val();
-    dddFone  = $("#dddFone").val();
-    fone     = $("#fone").val();
-
+    tipoFone = $3("#tipoFone").val();
+    ufFone   = $3("#ufFone").val();
+    dddFone  = $3("#dddFone").val();
+    fone     = $3("#fone").val();
 
     if (tipoFone == "")
     {
@@ -446,7 +470,6 @@ function validaTelefone()
 
 function validaEmail()
 {
-
     tipoEmail     = document.getElementById("tipoEmail").value;
     email         = document.getElementById("email").value;
 
@@ -458,7 +481,7 @@ function validaEmail()
     {
         alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, informe o E-mail!", "email");
     }
-    else if (((email.indexOf("@") < 1) || (email.lastIndexOf(".") <= email.indexOf("@")) || (email.indexOf("@") == email.length) || !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))))
+    else if (((email.indexOf("@") < 1) || (email.lastIndexOf(".") <= email.indexOf("@")) || (email.indexOf("@") == email.length) || !(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test(email))))
     {
         alertar("E-mail inv&aacute;lido!", "email");
     }

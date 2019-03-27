@@ -116,10 +116,9 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
         $idOrgaoDoAssinante,
         $idPerfilDoAssinante,
         $idOrgaoSuperiorDoAssinante,
-        $idTipoDoAtoAdministrativo = null
+        $idTipoDoAtoAdministrativos = []
     ) {
 
-        // d($idOrgaoDoAssinante, $idPerfilDoAssinante, $idOrgaoSuperiorDoAssinante, $idTipoDoAtoAdministrativo);
         $query = $this->select();
         $query->setIntegrityCheck(false);
 
@@ -141,10 +140,10 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
                 'tbDocumentoAssinatura.cdSituacao',
                 'tbDocumentoAssinatura.stEstado',
                 'tbDocumentoAssinatura.idDocumentoAssinatura',
-                'possuiAssinatura'=> new Zend_Db_Expr(" 
-                    (select top 1 {$this->_schema}.TbAssinatura.idAssinatura 
+                'possuiAssinatura'=> new Zend_Db_Expr("
+                    (select top 1 {$this->_schema}.TbAssinatura.idAssinatura
                        from {$this->_schema}.TbAssinatura
-                      inner join {$this->_schema}.TbAtoAdministrativo 
+                      inner join {$this->_schema}.TbAtoAdministrativo
                          ON {$this->_schema}.TbAtoAdministrativo.idAtoAdministrativo = {$this->_schema}.TbAssinatura.idAtoAdministrativo
                         AND {$this->_schema}.TbAtoAdministrativo.idOrgaoDoAssinante = {$idOrgaoDoAssinante}
                         AND {$this->_schema}.TbAtoAdministrativo.idPerfilDoAssinante = {$idPerfilDoAssinante}
@@ -154,15 +153,15 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
                 "),
                 'possuiProximaAssinatura'=> new Zend_Db_Expr("
                     (
-                    
+
                     select top 1 {$this->_schema}.TbAtoAdministrativo.idOrdemDaAssinatura
                       from {$this->_schema}.TbAtoAdministrativo
                      where {$this->_schema}.TbAtoAdministrativo.idTipoDoAto = {$this->_schema}.tbDocumentoAssinatura.idTipoDoAtoAdministrativo
                        and {$this->_schema}.TbAtoAdministrativo.idOrdemDaAssinatura > (
-                       
-                         select top 1 {$this->_schema}.TbAtoAdministrativo.idOrdemDaAssinatura 
+
+                         select top 1 {$this->_schema}.TbAtoAdministrativo.idOrdemDaAssinatura
                            from {$this->_schema}.TbAssinatura
-                          inner join {$this->_schema}.TbAtoAdministrativo 
+                          inner join {$this->_schema}.TbAtoAdministrativo
                              ON {$this->_schema}.TbAtoAdministrativo.idAtoAdministrativo = {$this->_schema}.TbAssinatura.idAtoAdministrativo
                             AND {$this->_schema}.TbAtoAdministrativo.idOrgaoDoAssinante = {$idOrgaoDoAssinante}
                             AND {$this->_schema}.TbAtoAdministrativo.idPerfilDoAssinante = {$idPerfilDoAssinante}
@@ -191,6 +190,13 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
                 "Segmento.Descricao as segmento",
                 "Segmento.tp_enquadramento"
             ),
+            $this->_schema
+        );
+
+        $query->joinInner(
+            array('Orgaos'),
+            "Orgaos.Codigo = Projetos.Orgao",
+            [],
             $this->_schema
         );
 
@@ -229,25 +235,30 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
             $this->_schema
         );
 
-        $query->where("Projetos.Orgao = ?", $idOrgaoDoAssinante);
+        $query->where("TbAtoAdministrativo.idOrgaoDoAssinante = ?", $idOrgaoDoAssinante);
         $query->where("tbDocumentoAssinatura.cdSituacao = ?", Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA);
         $query->where("tbDocumentoAssinatura.stEstado = ?", Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO);
 
-        if ($idTipoDoAtoAdministrativo) {
-            $query->where("tbDocumentoAssinatura.idTipoDoAtoAdministrativo = ?", $idTipoDoAtoAdministrativo);
+        if ($idTipoDoAtoAdministrativos) {
+            $query->where("tbDocumentoAssinatura.idTipoDoAtoAdministrativo in (?)", $idTipoDoAtoAdministrativos);
         }
+        $query->where("Orgaos.idSecretaria = ?", $idOrgaoSuperiorDoAssinante);
 
         $ordenacao[] = 'possuiAssinatura asc';
         $query->order($ordenacao);
+
         return $this->_db->fetchAll($query);
     }
 
-    public function isProjetoDisponivelParaAssinatura($idPronac, $idTipoDoAtoAdministrativo)
+    public function isProjetoDisponivelParaAssinatura(
+        $idPronac,
+        $idTipoDoAtoAdministrativo
+    )
     {
         $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
         $where = array(
             'IdPRONAC = ?' => $idPronac,
-            'idTipoDoAtoAdministrativo = ?' => $idTipoDoAtoAdministrativo,
+            'idTipoDoAtoAdministrativo in (?)' => $idTipoDoAtoAdministrativo,
             'cdSituacao = ?' => Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA,
             'stEstado' => Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO
         );
@@ -255,6 +266,21 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
         return (count($objModelDocumentoAssinatura->findBy($where)) > 1);
     }
 
+    public function obterProjetoDisponivelParaAssinatura(
+        $idPronac,
+        $idTipoDoAtoAdministrativo
+    )
+    {
+        $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
+        $where = array(
+            'IdPRONAC = ?' => $idPronac,
+            'idTipoDoAtoAdministrativo in (?)' => $idTipoDoAtoAdministrativo,
+            'cdSituacao = ?' => Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA,
+            'stEstado' => Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO
+        );
+
+        return $objModelDocumentoAssinatura->findBy($where);
+    }
 
     public function obterDocumentosAssinadosPorProjeto($idPronac)
     {
@@ -284,40 +310,121 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
         $objQuery->joinInner(
             ["Verificacao" => "Verificacao"],
             "(tbDocumentoAssinatura.idTipoDoAtoAdministrativo = Verificacao.idVerificacao)",
+            [],
+            $this->_schema
+        );
+
+        $objQuery->joinLeft(
+            ["tbReadequacaoXParecer" => "tbReadequacaoXParecer"],
+            "(tbReadequacaoXParecer.idParecer = tbDocumentoAssinatura.idAtoDeGestao)",
+            [],
+            $this->_schema
+        );
+
+        $objQuery->joinLeft(
+            ["tbReadequacao" => "tbReadequacao"],
+            "(tbReadequacao.idReadequacao = tbReadequacaoXParecer.idReadequacao)",
+            [],
+            $this->_schema
+        );
+
+        $objQuery->joinLeft(
+            ["tbTipoReadequacao" => "tbTipoReadequacao"],
+            "(tbTipoReadequacao.idTipoReadequacao = tbReadequacao.idTipoReadequacao)",
             [
-                'Verificacao.Descricao as dsAtoAdministrativo'
+                "dsAtoAdministrativo" => new Zend_Db_Expr("CASE WHEN tbDocumentoAssinatura.idTipoDoAtoAdministrativo IN(" .
+                                                         Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_READEQUACAO_VINCULADAS . "," .
+                                                         Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_AJUSTE_DE_PROJETO . "," .
+                                                         Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_READEQUACAO_PROJETOS_MINC . ")
+                                                               THEN Verificacao.Descricao + ' - ' + tbTipoReadequacao.dsReadequacao 
+                                                               ELSE Verificacao.Descricao END")
             ],
             $this->_schema
         );
 
-        $objQuery->where('tbDocumentoAssinatura.stEstado = ?', 1);
-        $objQuery->where('tbDocumentoAssinatura.cdSituacao = ?', 2);
+        $objQuery->where('tbDocumentoAssinatura.stEstado = ?',  Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO);
+        $objQuery->where('tbDocumentoAssinatura.cdSituacao = ?', Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_FECHADO_PARA_ASSINATURA);
         $objQuery->where('tbDocumentoAssinatura.IdPRONAC = ?', $idPronac);
+        $objQuery->order('tbDocumentoAssinatura.dt_criacao ASC');
 
         return $this->_db->fetchAll($objQuery);
     }
 
     public function getIdDocumentoAssinatura($idPronac, $idTipoDoAtoAdministrativo)
     {
-        $objQuery = $this->select(); 
+        $objQuery = $this->select();
         $objQuery->setIntegrityCheck(false);
         $objQuery->from(
             $this->_name,
             '*',
             $this->_schema
         );
-        
+
         $objQuery->where('IdPRONAC = ?', $idPronac);
         $objQuery->where('idTipoDoAtoAdministrativo = ?', $idTipoDoAtoAdministrativo);
         $objQuery->where('stEstado = ?', 1);
-        
+
         $result = $this->fetchRow($objQuery);
-        
-        if (!$result || empty($result)) {
-            return false;
-        } else {
-            $result = $result->toArray();
-            return $result['idDocumentoAssinatura'];
+        if ($result) {
+            $resultadoArray = $result->toArray();
+            return $resultadoArray['idDocumentoAssinatura'];
         }
-    }    
+    }
+
+    public function isDocumentoFinalizado($idPronac, $idTipoDoAtoAdministrativo){
+
+        $query = $this->select();
+        $query->setIntegrityCheck(false);
+
+        $query->from(
+            [$this->_name],
+            ['idDocumentoAssinatura'],
+            $this->_schema
+        );
+
+        $query->where('IdPRONAC = ?', $idPronac);
+        $query->where('idTipoDoAtoAdministrativo = ?', $idTipoDoAtoAdministrativo);
+        $query->where("tbDocumentoAssinatura.cdSituacao = ?", Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_FECHADO_PARA_ASSINATURA);
+        $query->where("tbDocumentoAssinatura.stEstado = ?", Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO);
+
+        $result = $this->fetchRow($query);
+
+        return (count($result) > 0);
+    }
+    
+    public function obterProximaAssinatura(
+        $idDocumentoAssinatura,
+        $idPronac
+    )
+    {
+        $query = $this->select();
+        $query->setIntegrityCheck(false);
+        
+        $query->from(
+            [$this->_name],
+            ['ordemDaProximaAssinatura' => new Zend_Db_Expr('ISNULL(TbAtoAdministrativo.idOrdemDaAssinatura, 0) + 2')],
+            $this->_schema
+        );
+
+        $query->joinInner(
+            ["TbAssinatura" => "TbAssinatura"],
+            "(TbAssinatura.idDocumentoAssinatura = TbDocumentoAssinatura.idDocumentoAssinatura)",
+            [],
+            $this->_schema
+        );
+
+        $query->joinInner(
+            ["TbAtoAdministrativo" => "TbAtoAdministrativo"],
+            "(TbAssinatura.idAtoAdministrativo = TbAtoAdministrativo.idAtoAdministrativo)",
+            [],
+            $this->_schema
+        );
+
+        $query->where('TbDocumentoAssinatura.idDocumentoAssinatura = ?', $idDocumentoAssinatura);
+        $query->where('TbDocumentoAssinatura.idPronac = ?', $idPronac);
+        $query->order('TbAtoAdministrativo.idOrdemDaAssinatura DESC');
+
+        $db = Zend_Db_Table::getDefaultAdapter();
+        return $db->fetchOne($query);
+    }
 }

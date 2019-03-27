@@ -59,7 +59,7 @@ class Arquivo extends MinC_Db_Table_Abstract
         return $db->fetchAll($sql);
     }
 
-    public function buscarComprovantesExecucao($idPronac)
+    public function buscarComprovantesExecucao($idPronac, $fetchMode = Zend_DB::FETCH_OBJ)
     {
         $sql = "SELECT idArquivo,nmArquivo,sgExtensao,dtEnvio,stAtivo,idTipoDocumento,dsDocumento,idPronac,stAtivoDocumentoProjeto
                 FROM SAC.dbo.vwAnexarComprovantes
@@ -67,7 +67,7 @@ class Arquivo extends MinC_Db_Table_Abstract
                 AND idPronac = $idPronac";
 
         $db = Zend_Db_Table::getDefaultAdapter();
-        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db->setFetchMode($fetchMode);
         return $db->fetchAll($sql);
     }
 

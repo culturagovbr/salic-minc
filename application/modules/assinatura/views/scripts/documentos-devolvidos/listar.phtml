@@ -1,0 +1,231 @@
+<style>
+    .dt-button {
+        left: 234px;
+        top: 33px;
+    }
+
+    div.expansivel {
+        display: none;
+    }
+
+    table.dataTable tbody td.no-padding {
+        padding: 0;
+    }
+</style>
+
+<div class="container-fluid">
+    <?php $titulo = 'Documentos para assinatura devolvidos'; ?>
+
+    <?php $this->PageTitle($titulo, array(
+        [$titulo => ''],
+    )); ?>
+    <div class="content card padding10">
+        <div class="row">
+            <div class="col s12">
+                <table class="stripped" id="assinaturaProjetos">
+                    <thead>
+                    <tr>
+                        <th align="center" width="40">PRONAC</th>
+                        <th>Nome do Projeto</th>
+                        <th>Assinante</th>
+                        <th>Dias</th>
+                        <th>Tipo</th>
+                        <th>A&ccedil;&atilde;o</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/public/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/public/scripts/layout/datatables.min.js"></script>
+<script src="/public/js/dataTables.buttons.min.js" type="text/javascript"></script>
+<script src="/public/js/buttons.print.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="/public/css/layout/datatables.min.css"/>
+
+<script type="text/javascript">
+    (function ($) {
+        $(document).ready(function () {
+
+            $(document).ajaxStart(function () {
+                $('#container-loading').fadeIn('slow');
+            });
+
+            $(document).ajaxComplete(function () {
+                $('#container-loading').fadeOut('slow');
+            });
+
+            $(document).on({
+                mouseenter: function () {
+                    trIndex = $(this).index() + 1;
+                    $("table.dataTable").each(function (index) {
+                        $(this).find("tr:eq(" + trIndex + ")").each(function (index) {
+                            $(this).find("td").addClass("grey lighten-4");
+                            $3(this).find('.fixed-action-btn').openFAB();
+                        });
+                    });
+                },
+                mouseleave: function () {
+                    trIndex = $(this).index() + 1;
+                    $("table.dataTable").each(function (index) {
+                        $(this).find("tr:eq(" + trIndex + ")").each(function (index) {
+                            $(this).find("td").removeClass("grey lighten-4");
+                            $3(this).find('.fixed-action-btn').closeFAB();
+                        });
+                    });
+                }
+            }, ".dataTables_wrapper tr");
+
+            var assinaturaProjetos = $('#assinaturaProjetos').DataTable({
+                dom: 'Blfrtip',
+                buttons: [
+                    {
+                        title: '',
+                        text: '<i class="material-icons">print</i>',
+                        orientation: 'landscape',
+                        extend: 'print',
+                        className: 'waves-effect waves-dark btn white black-text',
+                        exportOptions: {
+                            columns: [0, 1, 2, 3, 4]
+                        }
+                    }
+                ],
+                initComplete: function () {
+                    this.api().columns().every(function () {
+                        var column = this;
+                        var searchIndex = 0;
+                        $("#seletorSelect").change(function () {
+                            if (column[0].includes(searchIndex)) {
+                                column.search($("#seletorSelect").val()).draw();
+                            }
+                        });
+                    });
+                    this.api().columns(4).every(function () {
+                        var column = this;
+                        var select = $('<select class="btn grey lighten-3 black-text"><option value="">filtrar por Tipo de Assinatura</option></select>')
+                            .appendTo($(column.header()).empty())
+                            .on('change', function () {
+                                let val = '';
+                                val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+
+                                val = val.replace(/\\/, '');
+
+                                $('#assinaturaProjetos_filter input').val(val);
+                                $('#assinaturaProjetos_filter input').keyup();
+
+                                if (val !== '') {
+                                    $('#marcarDesmarcarCheckbox').removeProp('disabled');
+                                } else {
+                                    $('#marcarDesmarcarCheckbox').prop('disabled', true);
+                                }
+                                $('#marcarDesmarcarCheckbox').prop('checked', false);
+                            });
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>');
+                        });
+                    });
+                },
+                "aLengthMenu": [[10, 25, 50, 100, -1], [10, 25, 50, 100, "Todos"]],
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json"
+                },
+                "ajax": {
+                    url: "/assinatura/documentos-devolvidos/listar-ajax/",
+                    data: {},
+                    type: "POST"
+                },
+                "autoWidth": false,
+                "serverSide": true,
+                "searchDelay": 350,
+                "order": [3],
+                "columnDefs": [
+                    { "className": "dt-center", "targets": [0, 3, 5] },
+                    { 'bSortable': true, 'aTargets': [1] },
+                ],
+                "columns": [
+                    {
+                        "targets": 0,
+                        "data": null,
+                        "name": "pronac",
+                        render: (data) => {
+                            return '<a class="waves-effect waves-dark btn white black-text" ' +
+                                'href="/default/consultardadosprojeto/index?idPronac=' + data.IdPRONAC + '"><u> ' +
+                                data.pronac +
+                                '</u></a>';
+                        }
+                    },
+                    {
+                        "targets": 1,
+                        "data": "nomeProjeto",
+                        "name": "nomeProjeto"
+                    },
+                    {
+                        "targets": 2,
+                        "data": "nomeAvaliador",
+                        "name": "nomeAvaliador"
+                    },
+                    {
+                        "targets": 3,
+                        "data": null,
+                        "name": "dias",
+                        render: (data) => {
+                            return (parseInt(data.dias, 10) > 1) ? data.dias + ' dias' : 'Hoje';
+                        }
+                    },
+                    {
+                        "targets": 4,
+                        "data": 'tipoDoAtoAdministrativo',
+                        "name": 'tipoDoAtoAdministrativo',
+                        "orderable": false,
+                    },
+                    {
+                        "targets": 5,
+                        "data": null,
+                        render: (data) => {
+                            let botaoVisualizar = '<a class="btn-floating waves-effect waves-light btn-primary tooltipped" ' +
+                                ' href="/assinatura/index/visualizar-projeto?idDocumentoAssinatura=' + data.idDocumentoAssinatura + '&origin=assinatura/index/visualizar-documentos-devolvidos"' +
+                                ' data-position="top"' +
+                                ' data-delay="50"' +
+                                ' data-tooltip="Visualizar documento">' +
+                                ' <i class="material-icons">search</i>' +
+                                ' </a>';
+
+                            let botaoVerDespacho = '<a class="btn-floating waves-effect waves-light btn-info tooltipped" ' +
+                                ' href="javascript:void(0)"' +
+                                ' data-ajax-modal="/assinatura/documentos-devolvidos/visualizar-ajax/idPronac/' + data.IdPRONAC + '" ' +
+                                ' data-ajax-modal-full="true"' +
+                                ' data-position="top"' +
+                                ' data-delay="50"' +
+                                ' data-tooltip="Visualizar motivo da devolu&ccedil;&atilde;o">' +
+                                ' <i class="material-icons">library_books</i>' +
+                                ' </a>';
+
+                            return '<div style="position: relative; height: 60px;">'
+                                + '<div class="fixed-action-btn horizontal" style="position: absolute; top: 0px; right: 0; z-index: 996; padding: 15px 0 0 15px;">'
+                                + '<a class="btn btn-primary small">'
+                                + '<i class="material-icons">more_vert</i></a>'
+                                + '<ul>'
+                                + '<li>'
+                                + botaoVisualizar
+                                + botaoVerDespacho
+                                + '</li>'
+                                + '</ul>'
+                                + '</div>';
+
+                            return stringBotoes;
+                        }
+                    },
+                ]
+            });
+        });
+    }($.noConflict(true)));
+</script>

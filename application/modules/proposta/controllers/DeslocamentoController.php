@@ -26,9 +26,9 @@ class Proposta_DeslocamentoController extends Proposta_GenericController
         $table = new Agente_Model_DbTable_Pais();
         $this->view->paises = $table->fetchPairs('idPais', 'Descricao');
 
-
         if (!empty($this->idPreProjeto)) {
             $this->view->idPreProjeto = $this->idPreProjeto;
+            $this->validarEdicaoProposta();
         } else {
             if ($this->idPreProjeto != '0') {
                 parent::message("Necess&aacute;rio informar o n&uacute;mero da proposta.", "/proposta/manterpropostaincentivofiscal/index", "ERROR");

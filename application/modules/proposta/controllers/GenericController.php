@@ -60,9 +60,17 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
      */
     protected $_proponente;
 
+    /**
+     * @var array
+     */
+    protected $_agenteUsuarioLogado;
+
 
     private $_movimentacaoAlterarProposta = '95';
     private $_diasParaAlterarProjeto = 30;
+    protected $isEditarProposta = false;
+    protected $isEditarProjeto = false;
+    protected $isEditavel = false;
 
     public function init()
     {
@@ -74,7 +82,7 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
         //Da permissao de acesso a todos os grupos do usuario logado afim de atender o UC75
         if (isset($auth->getIdentity()->usu_codigo)) {
             //Recupera todos os grupos do Usuario
-            $Usuario = new Autenticacao_Model_Usuario();
+            $Usuario = new Autenticacao_Model_DbTable_Usuario();
             $grupos = $Usuario->buscarUnidades($auth->getIdentity()->usu_codigo, 21);
             foreach ($grupos as $grupo) {
                 $PermissoesGrupo[] = $grupo->gru_codigo;
@@ -112,7 +120,7 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
          */
         $tblAgentes = new Agente_Model_DbTable_Agentes();
         $agente = $tblAgentes->findBy(array('cnpjcpf' => $this->cpfLogado));
-
+        $this->_agenteUsuarioLogado = $agente;
         if ($agente) {
             $this->idAgente = $agente['idAgente'];
             $this->view->idAgente = $agente['idAgente'];
@@ -128,18 +136,26 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
             $this->view->idPreProjeto = $this->idPreProjeto;
             $this->view->proposta = $this->_proposta;
             $this->view->proponente = $this->_proponente;
-
             $this->view->url = $this->getRequest()->REQUEST_URI;
-            $this->view->isEditarProposta = $this->isEditarProposta($this->idPreProjeto);
-            $this->view->isEditarProjeto = $this->isEditarProjeto($this->idPreProjeto);
-            $this->view->isEditavel = $this->isEditavel($this->idPreProjeto);
 
+            $this->isEditarProposta = $this->isEditarProposta($this->idPreProjeto);
+            $this->isEditarProjeto = $this->isEditarProjeto($this->idPreProjeto);
+            $this->isEditavel = $this->isEditavel($this->idPreProjeto);
+            $this->view->isEditarProposta = $this->isEditarProposta;
+            $this->view->isEditarProjeto = $this->isEditarProjeto;
+            $this->view->isEditavel = $this->isEditavel;
+
+            $this->view->recursoEnquadramentoVisaoProponente = $this->obterRecursoEnquadramentoVisaoProponente($this->idPreProjeto);
 
             $layout = array(
                 'titleShort' => 'Proposta',
                 'titleFull' => 'Proposta Cultural',
                 'projeto' => $this->idPreProjeto,
-                'listagem' => array('Lista de propostas' => array('controller' => 'manterpropostaincentivofiscal', 'action' => 'listarproposta')),
+                'listagem' => ['Lista de propostas' => [
+                    'module' => 'proposta',
+                    'controller' => 'manterpropostaincentivofiscal',
+                    'action' => 'listarproposta']
+                ],
             );
 
             // Alterar projeto
@@ -155,13 +171,19 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
 
                     $this->view->projeto = $projeto;
 
-                    $layout = array(
+                    $layout = [
                         'titleShort' => 'Projeto',
                         'titleFull' => 'Alterar projeto',
                         'projeto' => $projeto['nrprojeto'],
-                        'listagem' => array('Lista de projetos' => array('module' => 'default', 'controller' => 'Listarprojetos', 'action' => 'listarprojetos')),
+                        'listagem' => [
+                            'Lista de projetos' => [
+                                'module' => 'default',
+                                'controller' => 'Listarprojetos',
+                                'action' => 'listarprojetos'
+                            ]
+                        ],
                         'prazoAlterarProjeto' => $this->contagemRegressivaSegundos($projeto['dtsituacao'], $this->_diasParaAlterarProjeto)
-                    );
+                    ];
 
                     if (!empty($this->view->isEditarProjeto)) {
                         $this->salvarDadosPropostaSerializada($this->idPreProjeto);
@@ -314,6 +336,37 @@ abstract class Proposta_GenericController extends MinC_Controller_Action_Abstrac
         if (!$metaProposta) {
             $tbPreProjetoMetaMapper = new Proposta_Model_TbPreProjetoMetaMapper();
             $tbPreProjetoMetaMapper->salvarPropostaCulturalSerializada($this->idPreProjeto, 'alterarprojeto');
+        }
+    }
+
+    private function obterRecursoEnquadramentoVisaoProponente($idPreProjeto)
+    {
+        $tbRecursoProposta = new Recurso_Model_DbTable_TbRecursoProposta();
+        return $tbRecursoProposta->obterRecursoAtualVisaoProponente($idPreProjeto);
+    }
+
+    public function validarEdicaoProposta()
+    {
+        if ($this->idPreProjeto && !$this->isEditavel) {
+            $this->redirecionarParaVisualizacao();
+        }
+    }
+
+    public function redirecionarParaVisualizacao()
+    {
+        $this->repassarMensagem();
+        $this->redirect("/proposta/visualizar/index/idPreProjeto/" . $this->idPreProjeto);
+    }
+
+    public function repassarMensagem()
+    {
+        if ($this->_msg->hasMessages()) {
+            $this->_helper->viewRenderer->setNoRender(false);
+            $this->_helper->flashMessenger->addMessage(implode("<br />", $this->_msg->getMessages()));
+
+            if ($this->_type->hasMessages()) {
+                $this->_helper->flashMessengerType->addMessage(implode("<br />", $this->_type->getMessages()));
+            }
         }
     }
 }

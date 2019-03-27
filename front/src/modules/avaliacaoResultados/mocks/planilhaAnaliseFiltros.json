@@ -1,0 +1,72 @@
+{
+    "0": {
+        "etapa": {
+            "4": {
+                "UF": {
+                    "13": {
+                        "cidade": {
+                            "130260": {
+                                "itens": {
+                                    "1": {
+                                        "5249": {
+                                            "item": "Remuneração para captação de recursos",
+                                            "varlorAprovado": 6000,
+                                            "varlorComprovado": 5000,
+                                            "comprovacaoValidada": 5000,
+                                            "idPlanilhaAprovacao": 825414,
+                                            "idPlanilhaItens": 5249,
+                                            "ComprovacaoValidada": 5000,
+                                            "stItemAvaliado": "1"
+                                        }
+                                    },
+                                    "4": {
+                                        "3677": {
+                                            "item": "Coordenação geral",
+                                            "varlorAprovado": 7500,
+                                            "varlorComprovado": 5000,
+                                            "comprovacaoValidada": 0,
+                                            "idPlanilhaAprovacao": 825413,
+                                            "idPlanilhaItens": 3677,
+                                            "ComprovacaoValidada": 0,
+                                            "stItemAvaliado": "4"
+                                        }
+                                    },
+                                    "todos": {
+                                        "3677": {
+                                            "item": "Coordenação geral",
+                                            "varlorAprovado": 7500,
+                                            "varlorComprovado": 5000,
+                                            "comprovacaoValidada": 0,
+                                            "idPlanilhaAprovacao": 825413,
+                                            "idPlanilhaItens": 3677,
+                                            "ComprovacaoValidada": 0,
+                                            "stItemAvaliado": "4"
+                                        },
+                                        "5249": {
+                                            "item": "Remuneração para captação de recursos",
+                                            "varlorAprovado": 6000,
+                                            "varlorComprovado": 5000,
+                                            "comprovacaoValidada": 5000,
+                                            "idPlanilhaAprovacao": 825414,
+                                            "idPlanilhaItens": 5249,
+                                            "ComprovacaoValidada": 5000,
+                                            "stItemAvaliado": "1"
+                                        }
+                                    }
+                                },
+                                "cidade": "Manaus",
+                                "cdCidade": 130260
+                            }
+                        },
+                        "Uf": "AM",
+                        "cdUF": 13
+                    }
+                },
+                "etapa": "Custos / Administrativos",
+                "cdEtapa": 4
+            }
+        },
+        "produto": "Administração do Projeto",
+        "cdProduto": 0
+    }
+}

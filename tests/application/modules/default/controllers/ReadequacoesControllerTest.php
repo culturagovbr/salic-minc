@@ -11,7 +11,7 @@ class ReadequacoesControllerTest extends MinC_Test_ControllerActionTestCase
     {
         parent::setUp();
         
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
         $this->idPronac = $this->getProjetoAptoReadequacao();
 
         $projetos = new Projetos();
@@ -63,13 +63,13 @@ class ReadequacoesControllerTest extends MinC_Test_ControllerActionTestCase
         
         $result = $projetos->fetchAll($select);
         
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $tbCumprimentoObjeto = new tbCumprimentoObjeto();
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $tbCumprimentoObjeto = new ComprovacaoObjeto_Model_DbTable_TbCumprimentoObjeto();
         foreach ($result as $item) {
             
-            $existeReadequacaoEmAndamento = $Readequacao_Model_tbReadequacao->existeReadequacaoEmAndamento($item->idPronac);
-            $existeReadequacaoPlanilhaEmEdicao = $Readequacao_Model_tbReadequacao->existeReadequacaoPlanilhaEmEdicao($item->idPronac);
-            $existeReadequacaoParcialEmEdicao = $Readequacao_Model_tbReadequacao->existeReadequacaoParcialEmEdicao($item->idPronac);
+            $existeReadequacaoEmAndamento = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoEmAndamento($item->idPronac);
+            $existeReadequacaoPlanilhaEmEdicao = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoPlanilhaEmEdicao($item->idPronac);
+            $existeReadequacaoParcialEmEdicao = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoParcialEmEdicao($item->idPronac);
             $possuiRelatorioDeCumprimento = $tbCumprimentoObjeto->possuiRelatorioDeCumprimento($item->idPronac);
             
             $Readequacao = false;
@@ -102,8 +102,8 @@ class ReadequacoesControllerTest extends MinC_Test_ControllerActionTestCase
      */    
     public function testIndexAction()
     {
-        $this->dispatch('/readequacoes?idPronac=' . $this->hashPronac);
-        $this->assertUrl('default','readequacoes', 'index');
+        $this->dispatch('/readequacao/readequacoes?idPronac=' . $this->hashPronac);
+        $this->assertUrl('readequacao', 'readequacoes', 'index');
     }
 
     /**
@@ -120,8 +120,8 @@ class ReadequacoesControllerTest extends MinC_Test_ControllerActionTestCase
             ->setPost([
                 'iduf' => $iduf
             ]);        
-        $this->dispatch('/readequacoes?idPronac=' . $this->hashPronac);
-        $this->assertUrl('default', 'readequacoes', 'index');
+        $this->dispatch('/readequacao/readequacoes?idPronac=' . $this->hashPronac);
+        $this->assertUrl('readequacao', 'readequacoes', 'index');
     }
     
     /**
@@ -132,8 +132,8 @@ class ReadequacoesControllerTest extends MinC_Test_ControllerActionTestCase
      */    
     public function testPlanilhaOrcamentariaAction()
     {
-        $this->dispatch('/readequacoes/planilha-orcamentaria?idPronac=' . $this->hashPronac);
-        $this->assertUrl('default','readequacoes', 'planilha-orcamentaria');
+        $this->dispatch('/readequacao/readequacoes/planilha-orcamentaria?idPronac=' . $this->hashPronac);
+        $this->assertUrl('readequacao', 'readequacoes', 'planilha-orcamentaria');
     }
 
     /**
@@ -144,8 +144,8 @@ class ReadequacoesControllerTest extends MinC_Test_ControllerActionTestCase
      */    
     public function testPlanilhaOrcamentariaCondicoesNaoSatisfeitas()
     {
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $possuiReadequacao = $Readequacao_Model_tbReadequacao->existeReadequacaoEmAndamento($this->idPronac);
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $possuiReadequacao = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoEmAndamento($this->idPronac);
         
         $this->assertFalse($possuiReadequacao);
 
@@ -161,8 +161,8 @@ class ReadequacoesControllerTest extends MinC_Test_ControllerActionTestCase
     {
         $this->alterarPerfil(Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO, Orgaos::ORGAO_GEAR_SACAV);
         
-        $this->dispatch('/readequacoes/painel');
-        $this->assertUrl('default','readequacoes', 'painel');
+        $this->dispatch('/readequacao/readequacoes/painel');
+        $this->assertUrl('readequacao', 'readequacoes', 'painel');
         
     }
 
@@ -176,8 +176,8 @@ class ReadequacoesControllerTest extends MinC_Test_ControllerActionTestCase
     {
         $this->alterarPerfil(Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO, Orgaos::ORGAO_GEAR_SACAV);
         
-        $this->dispatch('/readequacoes/painel?pronac=&qtde=10&tipoFiltro=em_analise');
-        $this->assertUrl('default','readequacoes', 'painel');
+        $this->dispatch('/readequacao/readequacoes/painel?pronac=&qtde=10&tipoFiltro=em_analise');
+        $this->assertUrl('readequacao', 'readequacoes', 'painel');
         
     }
 
@@ -191,8 +191,8 @@ class ReadequacoesControllerTest extends MinC_Test_ControllerActionTestCase
     {
         $this->alterarPerfil(Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO, Orgaos::ORGAO_GEAR_SACAV);
         
-        $this->dispatch('/readequacoes/painel?pronac=&qtde=10&tipoFiltro=em_analisados');
-        $this->assertUrl('default','readequacoes', 'painel');
+        $this->dispatch('/readequacao/readequacoes/painel?pronac=&qtde=10&tipoFiltro=em_analisados');
+        $this->assertUrl('readequacao', 'readequacoes', 'painel');
         
     }
 
@@ -206,8 +206,8 @@ class ReadequacoesControllerTest extends MinC_Test_ControllerActionTestCase
     {
         $this->alterarPerfil(Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO, Orgaos::ORGAO_GEAR_SACAV);
         
-        $this->dispatch('/readequacoes/painel?pronac=&qtde=10&tipoFiltro=aguardando_publicacao');
-        $this->assertUrl('default','readequacoes', 'painel');
+        $this->dispatch('/readequacao/readequacoes/painel?pronac=&qtde=10&tipoFiltro=aguardando_publicacao');
+        $this->assertUrl('readequacao', 'readequacoes', 'painel');
         
     }
 
@@ -222,62 +222,62 @@ class ReadequacoesControllerTest extends MinC_Test_ControllerActionTestCase
         $this->alterarPerfil(Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO, Orgaos::ORGAO_GEAR_SACAV);
         
         $idPronac = 154566;
-        $this->dispatch('/readequacoes/painel?pronac=' . $idPronac . '&qtde=10&tipoFiltro=aguardando_publicacao');
-        $this->assertUrl('default','readequacoes', 'painel');        
+        $this->dispatch('/readequacao/readequacoes/painel?pronac=' . $idPronac . '&qtde=10&tipoFiltro=aguardando_publicacao');
+        $this->assertUrl('readequacao', 'readequacoes', 'painel');
 
     }
 
     public function testPainelReadequacoesAction()
     {
-        $this->dispatch('/readequacoes/painel-readequacoes?idPronac=' . $this->idPronac);
-        $this->assertUrl('default', 'readequacoes', 'painel-readequacoes');
+        $this->dispatch('/readequacao/readequacoes/painel-readequacoes?idPronac=' . $this->idPronac);
+        $this->assertUrl('readequacao', 'readequacoes', 'painel-readequacoes');
     }
 
     public function testPainelReadequacoesBuscaPronacAction()
     {
-        $this->dispatch('/readequacoes/painel-readequacoes?pronac=' . $this->pronac . '&qtde=10&tipoFiltro=aguardando_distribuicao');
-        $this->assertUrl('default', 'readequacoes', 'painel-readequacoes');
+        $this->dispatch('/readequacao/readequacoes/painel-readequacoes?pronac=' . $this->pronac . '&qtde=10&tipoFiltro=aguardando_distribuicao');
+        $this->assertUrl('readequacao', 'readequacoes', 'painel-readequacoes');
     }    
     
     public function testVisualizarReadequacaoAction()
     {
         $this->alterarPerfil(Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO, Orgaos::ORGAO_GEAR_SACAV);
-        $this->dispatch('/readequacoes/visualizar-readequacao?idPronac=' . $this->idPronac);
-        $this->assertUrl('default', 'readequacoes', 'visualizar-readequacao');
+        $this->dispatch('/readequacao/readequacoes/visualizar-readequacao?idPronac=' . $this->idPronac);
+        $this->assertUrl('readequacao', 'readequacoes', 'visualizar-readequacao');
     }
 
     public function testCarregarValorEntrePlanilhasAction()
     {
         $this->alterarPerfil(Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO, Orgaos::ORGAO_GEAR_SACAV);
-        $this->dispatch('/readequacoes/carregar-valor-entre-planilhas?idPronac=' . $this->idPronac);
-        $this->assertUrl('default', 'readequacoes', 'carregar-valor-entre-planilhas');
+        $this->dispatch('/readequacao/readequacoes/carregar-valor-entre-planilhas?idPronac=' . $this->idPronac);
+        $this->assertUrl('readequacao', 'readequacoes', 'carregar-valor-entre-planilhas');
     }
 
     public function testAvaliarReadequacaoAction()
     {
         $this->alterarPerfil(Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO, Orgaos::ORGAO_GEAR_SACAV);
-        $this->dispatch('/readequacoes/avaliar-readequacao?idPronac=' . $this->hashPronac);
-        $this->assertUrl('default', 'readequacoes', 'avaliar-readequacao');
+        $this->dispatch('/readequacao/readequacoes/avaliar-readequacao?idPronac=' . $this->hashPronac);
+        $this->assertUrl('readequacao', 'readequacoes', 'avaliar-readequacao');
     }
 
     public function testAvaliarReadequacaoTecnicoAction()
     {
         $this->alterarPerfil(Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO, Orgaos::ORGAO_GEAR_SACAV);
-        $this->dispatch('/readequacoes/avaliar-readequacao?idPronac=' . $this->hashPronac);
-        $this->assertUrl('default', 'readequacoes', 'avaliar-readequacao');
+        $this->dispatch('/readequacao/readequacoes/avaliar-readequacao?idPronac=' . $this->hashPronac);
+        $this->assertUrl('readequacao', 'readequacoes', 'avaliar-readequacao');
     }
 
     public function testEncaminharReadequacaoTecnicoAction()
     {
         $this->alterarPerfil(Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO, Orgaos::ORGAO_GEAR_SACAV);
-        $this->dispatch('/readequacoes/encaminhar-analise-tecnica?id=' . $this->hashPronac . '&filtro=painel_do_tecnico');
-        $this->assertUrl('default', 'readequacoes', 'encaminhar-analise-tecnica');
+        $this->dispatch('/readequacao/readequacoes/encaminhar-analise-tecnica?id=' . $this->hashPronac . '&filtro=painel_do_tecnico');
+        $this->assertUrl('readequacao', 'readequacoes', 'encaminhar-analise-tecnica');
     }
 
     public function testFormAvaliarReadequacaoTecnicoAction()
     {
         $this->alterarPerfil(Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO, Orgaos::ORGAO_GEAR_SACAV);
-        $this->dispatch('/readequacoes/form-avaliar-readequacao?id=' . $this->hashPronac . '&filtro=painel_do_tecnico');
-        $this->assertUrl('default', 'readequacoes', 'form-avaliar-readequacao');
+        $this->dispatch('/readequacao/readequacoes/form-avaliar-readequacao?id=' . $this->hashPronac . '&filtro=painel_do_tecnico');
+        $this->assertUrl('readequacao', 'readequacoes', 'form-avaliar-readequacao');
     }
 }

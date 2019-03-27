@@ -1,0 +1,125 @@
+<table class="tabela">
+    <tr align="center">
+        <td class="destacar bold">ETAPAS DE TRABALHO EXECUTADAS</td>
+    </tr>
+    <tr>
+        <td style="text-align: justify;"><?php echo $this->cumprimentoDoObjeto->getEtapasConcluidas(); ?><br /><br /></td>
+    </tr>
+    <tr align="center">
+        <td class="destacar bold">MEDIDAS DE ACESSIBILIDADE, NOS TERMOS DA PORTARIA DE APROVA&Ccedil;&Atilde;O</td>
+    </tr>
+    <tr>
+        <td style="text-align: justify;"><?php echo $this->cumprimentoDoObjeto->getMedidasAcessibilidade(); ?><br /><br /></td>
+    </tr>
+    <tr align="center">
+        <td class="destacar bold">MEDIDAS DE DEMOCRATIZA&Ccedil;&Atilde;O DO ACESSO, NOS TERMOS DA PORTARIA DE APROVA&Ccedil;&Atilde;O</td>
+    </tr>
+    <tr>
+        <td style="text-align: justify;"><?php echo $this->cumprimentoDoObjeto->getMedidasFruicao(); ?><br /><br /></td>
+    </tr>
+    <tr align="center">
+        <td class="destacar bold">MEDIDAS PREVENTIVAS QUANTO A IMPACTOS AMBIENTAIS</td>
+    </tr>
+    <tr>
+        <td style="text-align: justify;"><?php echo $this->cumprimentoDoObjeto->getMedidasPreventivas(); ?><br /><br /></td>
+    </tr>
+    <tr align="center">
+        <td class="destacar bold">EMPREGOS E QUALIFICA&Ccedil;&Otilde;ES DECORRENTES DO PROJETO</td>
+    </tr>
+    <tr>
+        <td>
+            <ul id="totaisEmpregos">
+                    <li>
+                        <label for="totalEmpregosDiretos">Diretos</label></dt>
+                        <input
+                        type="text"
+                        id="totalEmpregosDiretos"
+                        name="totalEmpregosDiretos"
+                        class="input_simples"
+                        disabled="disabled"
+                        value="<?php echo $this->cumprimentoDoObjeto->getTotalEmpregosDiretos(); ?>"
+                        />
+                    </li>
+                    <li>
+                        <label for="totalEmpregosIndiretos">Indiretos</label>
+                        <input
+                            type="text"
+                            id="totalEmpregosIndiretos"
+                            name="totalEmpregosIndiretos"
+                            class="input_simples"
+                            disabled="disabled"
+                            value="<?php echo $this->cumprimentoDoObjeto->getTotalEmpregosIndiretos(); ?>"
+                            />
+                    </li>
+                    <li>
+                        <label for="totalEmpregosDiretosIndiretos">Total</label>
+                        <input
+                            type="text"
+                            id="totalEmpregosDiretosIndiretos"
+                            class="input_simples"
+                            disabled="disabled"
+                            value="<?php echo $this->cumprimentoDoObjeto->getTotalEmpregosDiretos() + $this->cumprimentoDoObjeto->getTotalEmpregosIndiretos(); ?>"
+                            />
+                    </li>
+                </ul>
+        </td>
+    </tr>
+    <tr>
+        <td><?php echo $this->cumprimentoDoObjeto->getEmpregosGerados(); ?></td>
+    </tr>
+</table>
+<table class="tabela">
+    <thead>
+        <tr>
+            <th>Etapas</th>
+            <th>Documentos</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>MEDIDAS DE ACESSIBILIDADE F&Iacute;SICA</td>
+            <td>
+                <?php
+                    echo $this->partial(
+                            '/comprovarexecucaofisica/partial/visualizar-imagens-cumprimento-do-objeto.phtml',
+                            array(
+                                'idPronac' => $this->cumprimentoDoObjeto->getIdPronac(),
+                                'idCumprimentoDoObjeto' => $this->cumprimentoDoObjeto->getIdCumprimentoObjeto(),
+                                'imagens' => $this->cumprimentoDoObjeto->getMedidasAcessibilidadeImagens(),
+                                )
+                            );
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <td>MEDIDAS DE EST&Iacute;MULO &Agrave; FRU&Iacute;&Ccedil;&Atilde;O DE DEMOCRATIZA&Ccedil;&Atilde;O AO ACESSO P&Uacute;BLICO</td>
+            <td>
+                <?php
+                    echo $this->partial(
+                            '/comprovarexecucaofisica/partial/visualizar-imagens-cumprimento-do-objeto.phtml',
+                            array(
+                                'idPronac' => $this->cumprimentoDoObjeto->getIdPronac(),
+                                'idCumprimentoDoObjeto' => $this->cumprimentoDoObjeto->getIdCumprimentoObjeto(),
+                                'imagens' => $this->cumprimentoDoObjeto->getMedidasFruicaoImagens(),
+                                )
+                            );
+                ?>
+            </td>
+        </tr>
+        <tr>
+            <td>MEDIDAS PREVENTIVAS QUANTO A IMPACTOS AMBIENTAIS</td>
+            <td>
+                <?php
+                    echo $this->partial(
+                            '/comprovarexecucaofisica/partial/visualizar-imagens-cumprimento-do-objeto.phtml',
+                            array(
+                                'idPronac' => $this->cumprimentoDoObjeto->getIdPronac(),
+                                'idCumprimentoDoObjeto' => $this->cumprimentoDoObjeto->getIdCumprimentoObjeto(),
+                                'imagens' => $this->cumprimentoDoObjeto->getMedidasPreventivasImagens(),
+                                )
+                            );
+                ?>
+            </td>
+        </tr>
+    </tbody>
+</table>

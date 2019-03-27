@@ -1,105 +1,117 @@
-<h4>Visualizar Dilig&ecirc;ncia</h4>
-<div class="container-fluid" id="">
-    <table class="bordered">
-        <tr>
-            <th><?php echo $this->nmCodigo;?></th>
-            <th>NOME <?php echo $this->nmTipo;?></th>
-            <?php if($this->idDiligencia) { ?>
-                <th align="left">Produto</th>
-            <?php } ?>
-        </tr>
-        <tr>
-            <td><?php echo $this->pronac;?></td>
-            <td><?php echo $this->nomeProjeto;?></td>
-            <?php if($this->idDiligencia) {?>
-                <td><?php if($this->produto)echo $this->produto;else echo '-'?></td>
-            <?php } ?>
-        </tr>
-        <tr>
-            <?php if($this->idDiligencia) { ?>
-                <th align="left">TIPO DILIG&Ecirc;NCIA</th>
-            <?php } ?>
-            <th align="left">DATA DA SOLICITA&Ccedil;&Atilde;O</th>
-            <th align="left">DATA DA RESPOSTA</th>
-        </tr>
-        <tr>
-            <?php if($this->idDiligencia) { ?>
-            <td><?php echo $this->tipoDiligencia;?></td>
-            <?php } ?>
-            <td><?php echo $this->dataSolicitacao;?></td>
-            <td><?php if($this->stEnviado == 'S')echo $this->dataResposta;?></td>
-        </tr>
-        <tr>
-            <th colspan="3" class="destacar" style="text-align: center; text-transform: uppercase;">SOLICITAÇÃO</th>
-        </tr>
-        <tr>
-            <td colspan="3"><?php echo $this->solicitacao; ?></td>
-        </tr>
-        <tr>
-            <th colspan="3" class="destacar" style="text-align: center; text-transform: uppercase;">Resposta</th>
-        </tr>
-        <tr>
-            <td colspan="3"><?php echo ($this->stEnviado == 'S') ? $this->resposta : ''; ?></td>
-        </tr>
-        <?php if ($this->idArquivo and $this->stEnviado == 'S') : ?>
-            <tr>
-                <td>
-                    Arquivo anexado: <a href="<?php echo $this->baseUrl(); ?>/default/upload/abrir?id=<?php echo $this->idArquivo;?>"><?php echo $this->nmArquivo;?></a>
-                </td>
-            </tr>
-            <tr>
-                <td>Tipo anexo: <?php echo ($this->Opcao==1) ? 'Proponente' : 'Projeto'; ?></td>
-            </tr>
-            <tr>
-                <td>Documento: <?php echo $this->DocumentosExigido; ?></td>
-            </tr>
-        <?php endif; ?>
-    </table>
-    <?php if(count($this->arquivos)>0) : ?>
-        <table class="tabela">
-            <tr>
-                <th colspan="3">Arquivos Anexados</th>
-            </tr>
-            <tr>
-                <td class="destacar bold">Arquivo</td>
-                <td class="destacar bold">Dt.Envio</td>
-            </tr>
-            <?php foreach ($this->arquivos as $arquivos) : ?>
-                <tr>
-                    <td><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $arquivos->idArquivo; ?>"><?php echo $arquivos->nmArquivo; ?></a></td>
-                    <td><?php echo Data::tratarDataZend($arquivos->dtEnvio, 'Brasileira', true); ?></td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    <?php endif; ?>
+<?= $this->idPreProjeto ? $this->action('menu', 'menu', 'proposta', array('idPreProjeto' => $this->idPreProjeto)) : ''; ?>
+<?= $this->urlMenu && $this->idPronac ?  $this->SidebarVue($this->url($this->urlMenu, '', true)) : ''; ?>
 
-    <p class="center">
-        <a href="" onClick="history.go(-1)" type="button" name="" class="btn white black-text" />Voltar</a>
-        <button type="button" name="btn_imprimir" class="btn" id="btn_imprimir" />imprimir</button>
-    </p>
+
+<div class="container-fluid">
+    <?= $this->pageTitle('Visualizar Dilig&ecirc;ncia'); ?>
+    <div class="content">
+        <table class="bordered">
+            <tr>
+                <th><?php echo $this->nmCodigo; ?></th>
+                <th>NOME <?php echo $this->nmTipo; ?></th>
+                <?php if ($this->idDiligencia) { ?>
+                    <th align="left">Produto</th>
+                <?php } ?>
+            </tr>
+            <tr>
+                <td><?php echo $this->pronac; ?></td>
+                <td><?php echo $this->nomeProjeto; ?></td>
+                <?php if ($this->idDiligencia) { ?>
+                    <td><?php if ($this->produto) echo $this->produto; else echo '-' ?></td>
+                <?php } ?>
+            </tr>
+            <tr>
+                <?php if ($this->idDiligencia) { ?>
+                    <th align="left">TIPO DILIG&Ecirc;NCIA</th>
+                <?php } ?>
+                <th align="left">DATA DA SOLICITA&Ccedil;&Atilde;O</th>
+                <th align="left">DATA DA RESPOSTA</th>
+            </tr>
+            <tr>
+                <?php if ($this->idDiligencia) { ?>
+                    <td><?php echo $this->tipoDiligencia; ?></td>
+                <?php } ?>
+                <td><?php echo $this->dataSolicitacao; ?></td>
+                <td><?php if ($this->stEnviado == 'S') echo $this->dataResposta; ?></td>
+            </tr>
+            <tr>
+                <th colspan="3" class="destacar" style="text-align: center; text-transform: uppercase;">SOLICITA&Ccedil;&Atilde;O</th>
+            </tr>
+            <tr>
+                <td colspan="3"><?php echo $this->solicitacao; ?></td>
+            </tr>
+            <tr>
+                <th colspan="3" class="destacar" style="text-align: center; text-transform: uppercase;">Resposta</th>
+            </tr>
+            <tr>
+                <td colspan="3"><?php echo ($this->stEnviado == 'S') ? $this->resposta : ''; ?></td>
+            </tr>
+            <?php if ($this->idArquivo and $this->stEnviado == 'S') : ?>
+                <tr>
+                    <td>
+                        Arquivo anexado: <a
+                            href="<?php echo $this->baseUrl(); ?>/default/upload/abrir?id=<?php echo $this->idArquivo; ?>"><?php echo $this->nmArquivo; ?></a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Tipo anexo: <?php echo ($this->Opcao == 1) ? 'Proponente' : 'Projeto'; ?></td>
+                </tr>
+                <tr>
+                    <td>Documento: <?php echo $this->DocumentosExigido; ?></td>
+                </tr>
+            <?php endif; ?>
+        </table>
+        <?php if (count($this->arquivos) > 0) : ?>
+            <table class="tabela">
+                <tr>
+                    <th colspan="3">Arquivos Anexados</th>
+                </tr>
+                <tr>
+                    <td class="destacar bold">Arquivo</td>
+                    <td class="destacar bold">Dt.Envio</td>
+                </tr>
+                <?php foreach ($this->arquivos as $arquivos) : ?>
+                    <tr>
+                        <td>
+                            <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'upload', 'action' => 'abrir')); ?>?id=<?php echo $arquivos->idArquivo; ?>"><?php echo $arquivos->nmArquivo; ?></a>
+                        </td>
+                        <td><?php echo Data::tratarDataZend($arquivos->dtEnvio, 'Brasileira', true); ?></td>
+                    </tr>
+                <?php endforeach; ?>
+            </table>
+        <?php endif; ?>
+
+        <p class="center">
+            <a href="" onClick="history.go(-1)" type="button" name="" class="btn white black-text"/>Voltar</a>
+            <button type="button" name="btn_imprimir" class="btn" id="btn_imprimir"/>
+            imprimir</button>
+        </p>
+    </div>
 </div>
-<div id="rodapeConteudo" ><span></span></div>
-<br clear="all" />
-<form id="encaminhar" action="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => $this->retorno)); ?>" method="post">
-    <input type="hidden" name="idPronac"        value="<?php echo $this->idPronac;?>"/>
-    <input type="hidden" name="idPreProjeto"    value="<?php echo $this->idPreProjeto;?>" />
-    <input type="hidden" name="idProduto"       value="<?php echo $this->idProduto;?>" />
-    <input type="hidden" name="situacao"        value="<?php echo $this->situacao;?>" />
-    <input type="hidden" name="tpDiligencia"    value="<?php echo $this->tpDiligencia;?>" />
+<div id="rodapeConteudo"><span></span></div>
+<br clear="all"/>
+<form id="encaminhar"
+      action="<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => $this->retorno)); ?>"
+      method="post">
+    <input type="hidden" name="idPronac" value="<?php echo $this->idPronac; ?>"/>
+    <input type="hidden" name="idPreProjeto" value="<?php echo $this->idPreProjeto; ?>"/>
+    <input type="hidden" name="idProduto" value="<?php echo $this->idProduto; ?>"/>
+    <input type="hidden" name="situacao" value="<?php echo $this->situacao; ?>"/>
+    <input type="hidden" name="tpDiligencia" value="<?php echo $this->tpDiligencia; ?>"/>
 </form>
 <script type="text/javascript">
-    $(document).ready(function(){
-        $('#btn_imprimir').click(function(){
+    $(document).ready(function () {
+        $('#btn_imprimir').click(function () {
             window.open("<?php echo $this->url(
                 array(
                     'controller' => 'diligenciar',
                     'action' => 'imprimirdiligencia'
-                    )); ?>?idPronac=<?php echo $this->idPronac;?>&idPreProjeto=<?php echo $this->idPreProjeto;?>&idProduto=<?php echo $this->idProduto;?>&situacao=<?php echo $this->situacao;?>&tpDiligencia=<?php echo $this->tpDiligencia; ?>&idDiligencia=<?php echo $this->idDiligencia;?>&idAvaliacaoProposta=<?php echo $this->idAvaliacaoProposta;?>", '_blank');
+                )); ?>?idPronac=<?php echo $this->idPronac;?>&idPreProjeto=<?php echo $this->idPreProjeto;?>&idProduto=<?php echo $this->idProduto;?>&situacao=<?php echo $this->situacao;?>&tpDiligencia=<?php echo $this->tpDiligencia; ?>&idDiligencia=<?php echo $this->idDiligencia;?>&idAvaliacaoProposta=<?php echo $this->idAvaliacaoProposta;?>", '_blank');
         });
     });
 
-    $(".alterar").click(function(){
-        $('#encaminhar').attr('action','<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'cadastrarrespostadiligencia')); ?>');
+    $(".alterar").click(function () {
+        $('#encaminhar').attr('action', '<?php echo $this->url(array('module' => 'proposta', 'controller' => 'diligenciar', 'action' => 'cadastrarrespostadiligencia')); ?>');
         $('#encaminhar').find('#idDiligencia').val($(this).attr('idDiligencia'));
         $('#encaminhar').submit();
     });

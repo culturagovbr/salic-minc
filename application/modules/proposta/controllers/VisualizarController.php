@@ -6,10 +6,83 @@ class Proposta_VisualizarController extends Proposta_GenericController
     {
         parent::init();
 
+        $this->verificarPermissaoAcesso(true, false, false);
+
     }
 
     public function indexAction()
     {
+        $this->view->idPreProjeto = $this->_request->getParam('idPreProjeto');
+
+        if (empty($this->view->idPreProjeto)) {
+            $this->redirect("/proposta/manterpropostaincentivofiscal/listarproposta");
+        }
+
+        $gitTag = '?v=' . $this->view->gitTag();
+        $this->view->headScript()->offsetSetFile(99, '/public/dist/js/manifest.js' . $gitTag, 'text/javascript', array('charset' => 'utf-8'));
+        $this->view->headScript()->offsetSetFile(100, '/public/dist/js/vendor.js' . $gitTag, 'text/javascript', array('charset' => 'utf-8'));
+        $this->view->headScript()->offsetSetFile(101, '/public/dist/js/proposta.js' . $gitTag, 'text/javascript', array('charset' => 'utf-8'));
+
+    }
+
+    public function obterPropostaCulturalCompletaAction()
+    {
+        $this->_helper->layout->disableLayout();
+        try {
+
+            $idPreProjeto = $this->_request->getParam('idPreProjeto');
+
+            if (empty($idPreProjeto)) {
+                throw new Exception("N&uacute;mero da proposta &eacute; obrigat&oacute;rio");
+            }
+
+            $preProjetoMapper = new Proposta_Model_PreProjetoMapper();
+            $dados = $preProjetoMapper->obterArrayPropostaCompleta($idPreProjeto);
+            $dados['fase_proposta'] = $this->obterFaseProposta($idPreProjeto, $dados);
+
+            $this->_helper->json(array('success' => 'true', 'msg' => '', 'data' => $dados));
+        } catch (Exception $e) {
+            $this->_helper->json(array('success' => 'false', 'msg' => $e->getMessage(), 'data' => []));
+        }
+    }
+
+
+    /** @todo migrar para service ou modelo */
+    public function obterFaseProposta($idPreProjeto, $proposta)
+    {
+        $tbMovimentacao = new Proposta_Model_DbTable_TbMovimentacao();
+        $movimentacao = $tbMovimentacao->buscarMovimentacaoProposta($idPreProjeto);
+
+        switch ($movimentacao['idMovimentacao']) {
+            case Proposta_Model_TbMovimentacao::PROPOSTA_COM_PROPONENTE:
+                $fase = 'proposta_com_proponente';
+                break;
+            case Proposta_Model_TbMovimentacao::PROPOSTA_PARA_ANALISE_INICIAL:
+                $fase = 'proposta_analise_inicial';
+                break;
+            case Proposta_Model_TbMovimentacao::PROPOSTA_PARA_ANALISE_FINAL:
+                $fase = 'proposta_em_enquadramento';
+                if (count($this->view->recursoEnquadramentoVisaoProponente) > 0) {
+                    $fase = 'recurso_enquadramento';
+                }
+
+                $tbProjetos = new Projeto_Model_DbTable_Projetos();
+                $projeto = $tbProjetos->findBy(['idProjeto' => $idPreProjeto] );
+                if (!empty($projeto)) {
+                    $fase = 'projeto_cultural';
+                }
+
+                break;
+            default:
+                $fase = 'invalido';
+                break;
+        }
+
+        if ($proposta['stEstado'] == 0) {
+            $fase = 'proposta_arquivada';
+        }
+
+        return $fase;
     }
 
     public function obterIdentificacaoAction()
@@ -51,12 +124,12 @@ class Proposta_VisualizarController extends Proposta_GenericController
             $propostaHistorico = $preProjetoMapper->obterArrayVersaoPropostaCompleta($idPreProjeto, $tipo);
 
             $tbProjeto = new Projeto_Model_DbTable_Projetos();
-            $projeto = $tbProjeto->findBy(['idProjeto'=> $idPreProjeto]);
+            $projeto = $tbProjeto->findBy(['idProjeto' => $idPreProjeto]);
 
             if (!empty($projeto)) {
 
                 $pronac = $projeto['AnoProjeto'] . $projeto['Sequencial'];
-                $propostaAtual = array_merge($propostaAtual, ['PRONAC'=>$pronac, 'idPronac'=> $projeto['IdPRONAC']]);
+                $propostaAtual = array_merge($propostaAtual, ['PRONAC' => $pronac, 'idPronac' => $projeto['IdPRONAC']]);
 
             }
 
@@ -84,15 +157,16 @@ class Proposta_VisualizarController extends Proposta_GenericController
                 $objDateTime = new DateTime($dado->DtAvaliacao);
                 $newArray[$key]['Tipo'] = $dado->tipo;
                 $newArray[$key]['DtAvaliacao'] = $objDateTime->format('d/m/Y H:i:s');
-                $newArray[$key]['Avaliacao'] =  str_replace('<p>&nbsp;</p>','',$dado->Avaliacao);
+                $newArray[$key]['Avaliacao'] = str_replace('<p>&nbsp;</p>', '', $dado->Avaliacao);
             }
+
             $json['class'] = 'bordered striped';
             $json['lines'] = $newArray;
             $json['cols'] = [
                 'Tipo' => ['name' => 'Tipo'],
                 'DtAvaliacao' => ['name' => 'Data', 'class' => 'valig'],
                 'Avaliacao' => [
-                        'name' => html_entity_decode('Avalia&ccedil;&atilde;o')]
+                    'name' => html_entity_decode('Avalia&ccedil;&atilde;o')]
             ];
 
             $this->_helper->json(array('success' => 'true', 'msg' => '', 'data' => $json));
@@ -116,11 +190,11 @@ class Proposta_VisualizarController extends Proposta_GenericController
 
             $documentos = [];
 
-            $tbl = new Proposta_Model_DbTable_TbDocumentosPreProjeto();
-            $documentos['proposta'] = $tbl->buscarDadosDocumentos(array("idProjeto = ?" => $idPreProjeto));
+            $tbDocumentosPreProjeto = new Proposta_Model_DbTable_TbDocumentosPreProjeto();
+            $documentos['documentos_proposta'] = $tbDocumentosPreProjeto->buscarDadosDocumentos(array("idProjeto = ?" => $idPreProjeto));
 
-            $tbA = new Proposta_Model_DbTable_TbDocumentosAgentes();
-            $documentos['proponente'] = $tbA->buscarDadosDocumentos(array("idAgente = ?" => $idAgente))->toArray();
+            $tbAgentes = new Proposta_Model_DbTable_TbDocumentosAgentes();
+            $documentos['documentos_proponente'] = $tbAgentes->buscarDadosDocumentos(array("idAgente = ?" => $idAgente))->toArray();
 
             $arrayTipos = array(1, 2, 3);
 
@@ -164,10 +238,10 @@ class Proposta_VisualizarController extends Proposta_GenericController
         $arrBusca['idprojeto'] = $idPreProjeto;
         $arrBusca['stabrangencia'] = 1;
         $tblAbrangencia = new Proposta_Model_DbTable_Abrangencia();
-        $dados['localizacoes'] = $tblAbrangencia->buscar($arrBusca);
+        $dados['abrangencia'] = $tblAbrangencia->buscar($arrBusca);
 
         $tblDeslocamento = new Proposta_Model_DbTable_TbDeslocamento();
-        $dados['deslocamentos'] = $tblDeslocamento->buscarDeslocamentosGeral(array('idProjeto' => $idPreProjeto));
+        $dados['deslocamento'] = $tblDeslocamento->buscarDeslocamentosGeral(array('idProjeto' => $idPreProjeto));
 
         foreach ($dados as $key => $array) {
             foreach ($array as $key2 => $dado) {
@@ -193,7 +267,7 @@ class Proposta_VisualizarController extends Proposta_GenericController
             $planilhaOrcamentaria = $spPlanilhaOrcamentaria->exec($idPreProjeto, 0);
             $planilha = $this->montarPlanilhaOrcamentaria($planilhaOrcamentaria, 0);
 
-            //@todo, falta converter para utf8
+            $planilha = TratarArray::utf8EncodeArray($planilha);
 
             $this->_helper->json(array('data' => $planilha, 'success' => 'true'));
         } catch (Exception $e) {
@@ -227,7 +301,7 @@ class Proposta_VisualizarController extends Proposta_GenericController
             $tbPlanoDistribuicao = new Proposta_Model_DbTable_PlanoDistribuicaoProduto();
             $dados['planodistribuicaoproduto'] = $tbPlanoDistribuicao->buscar(array('idProjeto = ?' => $idPreProjeto))->toArray();
             $dados['tbdetalhaplanodistribuicao'] = $tbPlanoDistribuicao->buscarPlanoDistribuicaoDetalhadoByIdProjeto($idPreProjeto);
-            $dados = TratarArray::prepararArrayMultiParaJson($dados);
+            $dados = TratarArray::utf8EncodeArray($dados);
 
             $this->_helper->json(array('data' => $dados, 'success' => 'true'));
         } catch (Exception $e) {
@@ -246,7 +320,6 @@ class Proposta_VisualizarController extends Proposta_GenericController
 
     public function obterFonteDeRecursoAction()
     {
-
         $this->_helper->layout->disableLayout();
         $idPreProjeto = $this->_request->getParam('idPreProjeto');
 
@@ -277,14 +350,14 @@ class Proposta_VisualizarController extends Proposta_GenericController
         try {
 
             $tbCustosVinculados = new Proposta_Model_DbTable_TbCustosVinculados();
-            $dados= $tbCustosVinculados->buscarCustosVinculados(['idProjeto = ?' => $this->idPreProjeto])->toArray();
+            $dados = $tbCustosVinculados->buscarCustosVinculados(['idProjeto = ?' => $this->idPreProjeto])->toArray();
 
             $data = [];
             $newArray = [];
 
             foreach ($dados as $key => $dado) {
                 $objDateTime = new DateTime($dado['dtCadastro']);
-                $newArray[$key]['item'] =  utf8_encode($dado['item']);
+                $newArray[$key]['item'] = utf8_encode($dado['item']);
                 $newArray[$key]['dtCadastro'] = $objDateTime->format('d/m/Y');
                 $newArray[$key]['pcCalculo'] = $dado['pcCalculo'] . '%';
             }
@@ -300,6 +373,61 @@ class Proposta_VisualizarController extends Proposta_GenericController
             $this->_helper->json(array('success' => 'true', 'msg' => '', 'data' => $data));
         } catch (Exception $e) {
             $this->_helper->json(array('success' => 'false', 'msg' => $e->getMessage(), 'data' => []));
+        }
+    }
+
+    public function obterPlanilhaPropostaOriginalAjaxAction()
+    {
+        $this->_helper->layout->disableLayout();
+
+        try {
+
+            $idPreProjeto = $this->_request->getParam('idPreProjeto');
+
+            if (empty($idPreProjeto)) {
+                throw new Exception("N&uacute;mero da proposta &eacute; obrigat&oacute;rio");
+            }
+
+            $preProjetoMapper = new Proposta_Model_PreProjetoMapper();
+            $planilha = $preProjetoMapper->obterPlanilhaOriginal($idPreProjeto);
+
+            if (empty($planilha)) {
+                throw new Exception("Nenhuma planilha encontrada... ;(");
+            }
+
+            $this->_helper->json(array('success' => 'true', 'msg' => '', 'data' => $planilha));
+        } catch (Exception $e) {
+            $this->getResponse()
+                ->setHttpResponseCode(412);
+            $this->_helper->json(array('data' => [], 'success' => 'false', 'msg' => $e->getMessage()));
+
+        }
+    }
+
+    public function obterPlanilhaPropostaAdequadaAjaxAction()
+    {
+        $this->_helper->layout->disableLayout();
+
+        try {
+
+            $idPreProjeto = $this->_request->getParam('idPreProjeto');
+
+            if (empty($idPreProjeto)) {
+                throw new Exception("N&uacute;mero da proposta &eacute; obrigat&oacute;rio");
+            }
+
+            $preProjetoMapper = new Proposta_Model_PreProjetoMapper();
+            $planilha = $preProjetoMapper->obterPlanilhaAdequacao($idPreProjeto);
+
+            if (empty($planilha)) {
+                throw new Exception("Nenhuma planilha encontrada... ;(");
+            }
+
+            $this->_helper->json(array('success' => 'true', 'msg' => '', 'data' => $planilha));
+        } catch (Exception $e) {
+            $this->getResponse()
+                ->setHttpResponseCode(412);
+            $this->_helper->json(array('data' => [], 'success' => 'false', 'msg' => $e->getMessage()));
         }
     }
 }

@@ -136,7 +136,6 @@ class Arquivo_Model_DbTable_TbDocumento extends MinC_Db_Table_Abstract
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->beginTransaction();
         $idDocumento = 0;
-
         try {
             $db->insert($schemaTbArquivo, $arquivo);
             $idArquivo = $db->lastInsertId();
@@ -162,7 +161,6 @@ class Arquivo_Model_DbTable_TbDocumento extends MinC_Db_Table_Abstract
 
     public function excluirDocumento($idDocumento)
     {
-
         $tbDocumento = new Arquivo_Model_DbTable_TbDocumento();
         $dadosArquivo = $tbDocumento->buscar(array('idDocumento =?' => $idDocumento))->current();
 

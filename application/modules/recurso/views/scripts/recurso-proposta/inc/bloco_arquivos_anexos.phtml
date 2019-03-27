@@ -1,0 +1,56 @@
+<?php if ((!empty($this->proposta['idpreprojeto']))
+    && ($this->id_perfil == Autenticacao_Model_Grupos::PROPONENTE
+        ||  (!empty($this->recursoEnquadramento['idArquivo'])
+            && !is_null($this->recursoEnquadramento['idArquivo']))
+    )
+) { ?>
+    <ul class="collection">
+        <li class="collection-item ">
+            <?php if (!empty($this->recursoEnquadramento['idArquivo'])
+                && !is_null($this->recursoEnquadramento['idArquivo'])) { ?>
+                <label style="width: 100px; ">Arquivo anexo: </label>
+                <span id="file_name"
+                      style="margin-right:20px"><?= utf8_decode(htmlentities($this->arquivoRecursoProponente['nmArquivo'])); ?></span>
+
+                <a class="waves-effect waves-light btn tooltipped"
+                   data-position="top"
+                   data-delay="50"
+                   data-tooltip="Download"
+                   target="_blank"
+                   href="<?= $this->url([
+                       'module' => 'default',
+                       'controller' => 'upload',
+                       'action' => 'download-anexo-recurso-proposta'
+                   ],
+                       null,
+                       true); ?>/?id_preprojeto=<?php echo $this->proposta['idpreprojeto'] ?>&idArquivo=<?= $this->arquivoRecursoProponente['idArquivo']; ?>">
+                    <i class="tiny material-icons">file_download</i></a>
+
+
+                <a class="waves-effect waves-light btn red darken-4 tooltipped"
+                   data-position="top"
+                   data-delay="50"
+                   data-tooltip="Remover"
+                    <?php echo ($this->isPermitidoEditar && $this->id_perfil == Autenticacao_Model_Grupos::PROPONENTE) ? '' : 'disabled="disabled"' ?>
+                   href="<?= $this->url([
+                       'module' => 'recurso',
+                       'controller' => 'recurso-proposta',
+                       'action' => 'remover-anexo-proponente'
+                   ],
+                       null,
+                       true); ?>/id_preprojeto/<?php echo $this->proposta['idpreprojeto'] ?>?idArquivo=<?= $this->arquivoRecursoProponente['idArquivo']; ?>">
+                    <i class="tiny material-icons">delete_forever</i>
+                </a>
+
+            <?php } elseif($this->id_perfil == Autenticacao_Model_Grupos::PROPONENTE) { ?>
+                <label>
+                    Anexar Documento :
+                </label>
+                <input type="file"
+                       name="arquivo"
+                       id="arquivo"
+                       class="hiddenfile"/>
+            <?php } ?>
+        </li>
+    </ul>
+<?php } ?>

@@ -2,9 +2,9 @@
 
 class ProcuracaoController extends MinC_Controller_Action_Abstract
 {
-    private $idResponsavel = 0;
-    private $idAgente      = 0;
-    private $idUsuario     = 0;
+    protected $idResponsavel = 0;
+    protected $idAgente      = 0;
+    protected $idUsuario     = 0;
 
     private $idPreProjeto  = null;
     private $orgaoSuperior = 0;
@@ -46,7 +46,7 @@ class ProcuracaoController extends MinC_Controller_Action_Abstract
         $buscaAcesso = $sgcAcesso->buscar(array('Cpf = ?' => $cpf));
 
         // Busca na Usuarios
-        $usuarioDAO = new Autenticacao_Model_Usuario();
+        $usuarioDAO = new Autenticacao_Model_DbTable_Usuario();
         $buscaUsuario = $usuarioDAO->buscar(array('usu_identificacao = ?' => $cpf));
 
         // Busca na Agentes

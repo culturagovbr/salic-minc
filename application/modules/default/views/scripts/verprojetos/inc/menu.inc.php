@@ -1,4 +1,4 @@
-<!-- ========== INï¿½CIO MENU ========== -->
+<!-- ========== INÃ¯Â¿Â½CIO MENU ========== -->
 <script language="javascript" type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/scripts/quickmenu.js"></script>
 <div id="menu">
     <script type="text/javascript">
@@ -13,9 +13,9 @@
         });
     </script>
 
-    <!-- inï¿½cio: conteï¿½do principal #container -->
+    <!-- inÃ¯Â¿Â½cio: conteÃ¯Â¿Â½do principal #container -->
     <div id="container">
-        <!-- inï¿½cio: navegaï¿½?o local #qm0 -->
+        <!-- inÃ¯Â¿Â½cio: navegaÃ¯Â¿Â½?o local #qm0 -->
         <script type="text/javascript">
             function layout_fluido(){
                 var janela = $(window).width();
@@ -94,7 +94,7 @@
                     $('#msgErroImpressao').html("");
                     $('#frmOpcoesImpressao').submit();
                 }else{
-                    $('#msgErroImpressao').html("<center><font color='red'>ï¿½ obrigatï¿½rio selecionar ao menos uma informaï¿½ï¿½o para impressï¿½o.</font></center>");
+                    $('#msgErroImpressao').html("<center><font color='red'>Ã¯Â¿Â½ obrigatÃ¯Â¿Â½rio selecionar ao menos uma informaÃ¯Â¿Â½Ã¯Â¿Â½o para impressÃ¯Â¿Â½o.</font></center>");
                 }
             }
 
@@ -129,9 +129,9 @@
                 <a href='<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'index')); ?>?idPronac=<?php echo Seguranca::encrypt($id); ?>' class="no_seta" title="Ir para Projeto Atual">Projeto Atual</a>
 
 
-                <!-- ======================= Outras Informações  =======================   -->
+                <!-- ======================= Outras InformaÃ§Ãµes  =======================   -->
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Outras Informações" class="ancoraOutrasInformacoes" onclick="return false;">Outras Informações</a>
+                <a href="#" title="Outras InformaÃ§Ãµes" class="ancoraOutrasInformacoes" onclick="return false;">Outras InformaÃ§Ãµes</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'certidoes-negativas')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Certid&otilde;es Negativas">Certid&otilde;es Negativas</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-complementares')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Dados complementares do projeto">Dados complementares do projeto</a>
@@ -146,28 +146,28 @@
                     <?php
         } ?>
                 </div>
-                <!-- ==================== FIM - Outras Informações  =======================   -->
+                <!-- ==================== FIM - Outras InformaÃ§Ãµes  =======================   -->
 
 
                 <?php if (($this->fnLiberarLinks['Analise'] && in_array($this->fnLiberarLinks['FaseDoProjeto'], array('2','3','4'))) || $this->usuarioInterno) {
             ?>
-                <!-- ======================= Análise e Aprovação  =======================   -->
+                <!-- ======================= AnÃ¡lise e AprovaÃ§Ã£o  =======================   -->
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Análise e Aprovação" class="ancoraAnaliseAprovacao" onclick="return false;">Análise e Aprovação</a>
+                <a href="#" title="AnÃ¡lise e AprovaÃ§Ã£o" class="ancoraAnaliseAprovacao" onclick="return false;">AnÃ¡lise e AprovaÃ§Ã£o</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'analise-projeto')); ?><?php echo $codPronac; ?>','conteudo'); return false" title="Ir para An&aacute;lise do projeto">An&aacute;lise do projeto</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'aprovacao')); ?><?php echo $codPronac; ?>','conteudo'); return false" title="Ir para Aprova&ccedil;&atilde;o">Aprova&ccedil;&atilde;o</a>
                     <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'recurso')); ?><?php echo $codPronac; ?>','conteudo'); return false" title="Ir para Recursos">Recursos</a>
                 </div>
-                <!-- ==================== FIM - Análise e Aprovação  =======================   -->
+                <!-- ==================== FIM - AnÃ¡lise e AprovaÃ§Ã£o  =======================   -->
                 <?php
         } ?>
 
 
 
-                <!-- ======================= Execução  =======================   -->
+                <!-- ======================= ExecuÃ§Ã£o  =======================   -->
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Execução" class="ancoraExecucao" onclick="return false;">Execução</a>
+                <a href="#" title="ExecuÃ§Ã£o" class="ancoraExecucao" onclick="return false;">ExecuÃ§Ã£o</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <?php if (in_array($this->fnLiberarLinks['FaseDoProjeto'], array('2','3','4','5')) || $this->usuarioInterno) {
             ?>
@@ -180,13 +180,13 @@
                         <a href='#' onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'pedido-prorrogacao')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Pedido de Prorroga&ccedil;&atilde;o">Pedido de Prorroga&ccedil;&atilde;o</a>
                 </div>
 
-                <!-- ==================== FIM - Execução  =======================   -->
+                <!-- ==================== FIM - ExecuÃ§Ã£o  =======================   -->
 
 
 
-                <!-- ======================= Prestação de Contas  =======================   -->
+                <!-- ======================= PrestaÃ§Ã£o de Contas  =======================   -->
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Prestação de Contas" class="ancoraExecucao" onclick="return false;">Presta&ccedil;&atilde;o de Contas</a>
+                <a href="#" title="PrestaÃ§Ã£o de Contas" class="ancoraExecucao" onclick="return false;">Presta&ccedil;&atilde;o de Contas</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <?php /*if(in_array($this->fnLiberarLinks['FaseDoProjeto'],array('4','5'))  || $this->usuarioInterno){ ?>
                         <a href='#' class="no_seta" onclick="carregaDados('<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'prestacao-de-contas')); ?><?php echo $codPronac;?>','conteudo'); return false" title="Ir para Presta&ccedil;&atilde;o de Contas">Presta&ccedil;&atilde;o de contas</a>
@@ -208,16 +208,16 @@
                     <?php
         } ?>
                 </div>
-                <!-- ==================== FIM - Prestação de Contas  =======================   -->
+                <!-- ==================== FIM - PrestaÃ§Ã£o de Contas  =======================   -->
 
 
 
 
-                <!-- ======================= Readequação  =======================   -->
+                <!-- ======================= ReadequaÃ§Ã£o  =======================   -->
                 <?php if ($this->blnProponente && ($this->fnLiberarLinks['Readequacao'] || $this->fnLiberarLinks['Readequacao_50'])) {
             ?>
                 <div class="sanfonaDiv" style="display:none;"></div>
-                <a href="#" title="Execução" class="ancoraExecucao" onclick="return false;">Readequa&ccedil;&atilde;o</a>
+                <a href="#" title="ExecuÃ§Ã£o" class="ancoraExecucao" onclick="return false;">Readequa&ccedil;&atilde;o</a>
                 <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                     <?php if ($this->fnLiberarLinks['Readequacao_50']) {
                 ?>
@@ -227,24 +227,24 @@
 
                     <?php if ($this->fnLiberarLinks['Readequacao']) {
                 ?>
-                    <a href="<?php echo $this->url(array('controller' => 'readequacoes', 'action' => 'index'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Ir para Solicita&ccedil;&otilde;es Gerais">Solicita&ccedil;&otilde;es Gerais</a>
+                    <a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'index'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Ir para Solicita&ccedil;&otilde;es Gerais">Solicita&ccedil;&otilde;es Gerais</a>
                     <?php
             } ?>
                 </div>
                 <?php
         } ?>
-                <!-- ==================== FIM - Readequação  =======================   -->
+                <!-- ==================== FIM - ReadequaÃ§Ã£o  =======================   -->
 
 
 
 
-                <!-- ======================= SOLICITAR PRAZO CAPTAÇÃO  =======================   -->
+                <!-- ======================= SOLICITAR PRAZO CAPTAÃ‡ÃƒO  =======================   -->
                 <?php if ($this->blnProponente) {
             ?>
                     <a class="no_seta" href="<?php echo $this->url(array('controller' => 'solicitarprorrogacao', 'action' => 'index', 'idpronac' => Seguranca::encrypt($this->idPronac))); ?>">Solicitar Prorroga&ccedil;&atilde;o</a>
                 <?php
         } ?>
-                <!-- ==================== FIM - SOLICITAR PRAZO CAPTAÇÃO  =======================   -->
+                <!-- ==================== FIM - SOLICITAR PRAZO CAPTAÃ‡ÃƒO  =======================   -->
 
 
 
@@ -301,13 +301,13 @@
                         <div class="sanfonaDiv" style="width: 90%; margin-left: 20px;">
                             <?php if ($this->fnLiberarLinks['RelatorioTrimestral']) {
                     ?>
-                            <a style="margin-left: 10px;" href="<?php echo $this->url(array('controller' => 'comprovarexecucaofisica', 'action' => 'relatoriotrimestral', 'idpronac' => Seguranca::encrypt($this->idPronac)), '', true); ?>">Relat&oacute;rio Trimestral</a>
+                            <a style="margin-left: 10px;" href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'comprovarexecucaofisica', 'action' => 'relatoriotrimestral', 'idpronac' => Seguranca::encrypt($this->idPronac)), '', true); ?>">Relat&oacute;rio Trimestral</a>
                             <?php
                 } ?>
 
                             <?php if ($this->fnLiberarLinks['RelatorioFinal']) {
                     ?>
-                              <a style="margin-left: 10px;" href="<?php echo $this->url(array('controller' => 'comprovarexecucaofisica', 'action' => 'etapas-de-trabalho-final', 'idpronac' => Seguranca::encrypt($this->idPronac)), '', true); ?>">Comprovar Realiza&ccedil;&atilde;o do Objeto</a>
+                              <a style="margin-left: 10px;" href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'comprovarexecucaofisica', 'action' => 'etapas-de-trabalho-final', 'idpronac' => Seguranca::encrypt($this->idPronac)), '', true); ?>">Comprovar Realiza&ccedil;&atilde;o do Objeto</a>
                             <?php
                 } ?>
                         </div>

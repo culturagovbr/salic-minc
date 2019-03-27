@@ -828,15 +828,15 @@
             grid_01(this.id);return false;
 	});
 
-	carregarDados('<?php echo $this->url(array('controller' => 'readequacao', 'action' => 'historico-proponente', 'idpronac' => $this->idPronac)); ?>',           'proponente');
-	carregarDados('<?php echo $this->url(array('controller' => 'readequacao', 'action' => 'historico-produtos', 'idpronac' => $this->idPronac)); ?>',             'produtos');
-	carregarDados('<?php echo $this->url(array('controller' => 'readequacao', 'action' => 'historico-ficha-tecnica', 'idpronac' => $this->idPronac)); ?>',        'ficha-tecnica');
-	carregarDados('<?php echo $this->url(array('controller' => 'readequacao', 'action' => 'historico-local-realizacao', 'idpronac' => $this->idPronac)); ?>',     'local-realizacao');
-	carregarDados('<?php echo $this->url(array('controller' => 'readequacao', 'action' => 'historico-nome-projeto', 'idpronac' => $this->idPronac)); ?>',         'nome-projeto');
-	carregarDados('<?php echo $this->url(array('controller' => 'readequacao', 'action' => 'historico-prazo-execucao', 'idpronac' => $this->idPronac)); ?>',       'prazo-execucao');
-	carregarDados('<?php echo $this->url(array('controller' => 'readequacao', 'action' => 'historico-prazo-captacao', 'idpronac' => $this->idPronac)); ?>',       'prazo-captacao');
-	carregarDados('<?php echo $this->url(array('controller' => 'readequacao', 'action' => 'historico-proposta-pedagogica', 'idpronac' => $this->idPronac)); ?>',  'proposta-pedagogica');
-	carregarDados('<?php echo $this->url(array('controller' => 'readequacao', 'action' => 'historico-custo-produtos', 'idpronac' => $this->idPronac)); ?>',       'custos-produtos');
-	carregarDados('<?php echo $this->url(array('controller' => 'readequacao', 'action' => 'historico-custo-administrativo', 'idpronac' => $this->idPronac)); ?>', 'custos-administrativo');
+	carregarDados('<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacao', 'action' => 'historico-proponente', 'idpronac' => $this->idPronac)); ?>',           'proponente');
+	carregarDados('<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacao', 'action' => 'historico-produtos', 'idpronac' => $this->idPronac)); ?>',             'produtos');
+	carregarDados('<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacao', 'action' => 'historico-ficha-tecnica', 'idpronac' => $this->idPronac)); ?>',        'ficha-tecnica');
+	carregarDados('<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacao', 'action' => 'historico-local-realizacao', 'idpronac' => $this->idPronac)); ?>',     'local-realizacao');
+	carregarDados('<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacao', 'action' => 'historico-nome-projeto', 'idpronac' => $this->idPronac)); ?>',         'nome-projeto');
+	carregarDados('<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacao', 'action' => 'historico-prazo-execucao', 'idpronac' => $this->idPronac)); ?>',       'prazo-execucao');
+	carregarDados('<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacao', 'action' => 'historico-prazo-captacao', 'idpronac' => $this->idPronac)); ?>',       'prazo-captacao');
+	carregarDados('<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacao', 'action' => 'historico-proposta-pedagogica', 'idpronac' => $this->idPronac)); ?>',  'proposta-pedagogica');
+	carregarDados('<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacao', 'action' => 'historico-custo-produtos', 'idpronac' => $this->idPronac)); ?>',       'custos-produtos');
+	carregarDados('<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacao', 'action' => 'historico-custo-administrativo', 'idpronac' => $this->idPronac)); ?>', 'custos-administrativo');
     });
 </script>

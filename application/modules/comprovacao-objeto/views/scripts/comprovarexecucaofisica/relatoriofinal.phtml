@@ -1,0 +1,132 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#btn_salvar').click(function(){
+            var preenchimento = false;
+            $('.obrigatorio').each(function(){
+                if($.trim($(this).val()) == '')
+                    preenchimento = true;
+            });
+
+            if(preenchimento) {
+                $("#camposObrigatorios").dialog("destroy");
+                $("#camposObrigatorios").html("Favor preencher os dados obrig&aacute;torios!");
+                $("#camposObrigatorios").dialog({
+                    resizable: false,
+                    title: 'Alerta!',
+                    width:320,
+                    height:160,
+                    modal: true,
+                    buttons : {
+                        'OK' : function(){
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('.ui-dialog-titlebar-close').remove();
+            } else {
+                $('#formCadastro').submit();
+            }
+        });
+    });
+</script>
+
+<?php echo $this->partial('comprovarexecucaofisica/inc/menu-cadastro.php', $this) ?>
+<div id="camposObrigatorios" class="sumir"></div>
+
+<div id="breadcrumb">
+    <ul>
+        <li class="first"><a href="#" title="In&iacute;cio">In&iacute;cio</a></li>
+        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/consultardadosprojeto/index?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Consultar dados do Projeto">Consultar dados do Projeto</a></li>
+        <li class="second"><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/relatoriotrimestral/idpronac/<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Relat&oacute;rio Trimestral">Relat&oacute;rio Trimestral</a></li>
+        <li class="last">Etapas de Trabalho</li>
+    </ul>
+</div>
+
+
+<div id="titulo">
+    <div>Etapas de Trabalho <span class="voltar"><a href="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/relatoriotrimestral/idpronac/<?php echo Seguranca::encrypt($this->idPronac); ?>" title="Voltar">Voltar</a></span></div>
+</div>
+
+
+<div id="conteudo">
+    <table class="tabela">
+        <tr>
+            <th align="center" width="30%">Nº PRONAC:</th>
+            <th align="center">Nome do Projeto:</th>
+        </tr>
+        <tr class="linha">
+            <td align="center"><?php echo $this->DadosProjeto->pronac; ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProjeto; ?></td>
+        </tr>
+        <tr>
+            <th align="center" width="30%">CNPJ/CPF:</th>
+            <th align="center">Proponente:</th>
+        </tr>
+        <tr class="linha">
+            <td align="center"><?php echo (strlen($this->DadosProjeto->CNPJCPF) > 11) ? Mascara::addMaskCNPJ($this->DadosProjeto->CNPJCPF) : Mascara::addMaskCPF($this->DadosProjeto->CNPJCPF); ?></td>
+            <td align="center"><?php echo $this->DadosProjeto->NomeProponente; ?></td>
+        </tr>
+    </table>
+
+    <br clear="all" />
+
+    <form id="formCadastro" action="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'comprovarexecucaofisica', 'action' => 'cadastrar-trimestral'), '', true); ?>?idpronac=<?php echo Seguranca::encrypt($this->idPronac); ?>" method="post">
+        <table class="tabela">
+            <tr align="center">
+                <td class="destacar bold">ETAPAS DE TRABALHO EXECUTADAS <span style="color: red;">*</span></td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea name="etapasExecutadas" id="etapasExecutadas" cols="" rows="7" style="width: 99%;" class="textarea_simples obrigatorio"><?php echo isset($this->DadosRelatorio->dsEtapasExecutadas) ? $this->DadosRelatorio->dsEtapasExecutadas : ''; ?></textarea>
+                    <br clear="all" /><span style="color: #FF9999; font-size: 11px;">Limite máximo de 3000 caracteres</span>
+                </td>
+            </tr>
+            <tr align="center">
+                <td class="destacar bold">MEDIDAS DE ACESSIBILIDADE FÍSICA <span style="color: red;">*</span></td>
+            </tr>
+            <tr>
+                <td>(acesso /lugares adaptados para pessoas portadoras de necessidades especiais)</td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea name="acessibilidade" id="acessibilidade" cols="" rows="7" style="width: 99%;" class="textarea_simples obrigatorio"><?php echo isset($this->DadosRelatorio->dsAcessibilidade) ? $this->DadosRelatorio->dsAcessibilidade : ''; ?></textarea>
+                    <br clear="all" /><span style="color: #FF9999; font-size: 11px;">Limite máximo de 1000 caracteres</span>
+                </td>
+            </tr>
+            <tr align="center">
+                <td class="destacar bold">MEDIDAS DE ESTÍMULO À FRUÍÇÃO DE DEMOCRATIZAÇÃO AO ACESSO PÚBLICO <span style="color: red;">*</span></td>
+            </tr>
+            <tr>
+                <td>(realização em local de fácil acesso, transporte / atividade / distribuição, entrada franqueada e divulgação)</td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea name="democratizacaoAcesso" id="democratizacaoAcesso" cols="" rows="7" style="width: 99%;" class="textarea_simples obrigatorio"><?php echo isset($this->DadosRelatorio->dsDemocratizacaoAcesso) ? $this->DadosRelatorio->dsDemocratizacaoAcesso : ''; ?></textarea>
+                    <br clear="all" /><span style="color: #FF9999; font-size: 11px;">Limite máximo de 1000 caracteres</span>
+                </td>
+            </tr>
+            <tr align="center">
+                <td class="destacar bold">MEDIDAS PREVENTIVAS QUANTO A IMPACTOS AMBIENTAIS</td>
+            </tr>
+            <tr>
+                <td>
+                    <textarea name="impactoAmbiental" id="impactoAmbiental" cols="" rows="7" style="width: 99%;" class="textarea_simples"><?php echo isset($this->DadosRelatorio->dsImpactoAmbiental) ? $this->DadosRelatorio->dsImpactoAmbiental : ''; ?></textarea>
+                    <br clear="all" /><span style="color: #FF9999; font-size: 11px;">Limite máximo de 1000 caracteres</span>
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <p align="center">
+        <input type="button" class="btn_salvar" id="btn_salvar">
+    </p>
+
+    <br clear="all" />
+</div>
+
+
+<!-- inï¿½cio: detalhe final da div conteudo #rodapeConteudo -->
+<div id="rodapeConteudo"><span></span></div>
+<!-- final: detalhe final da div conteudo #rodapeConteudo -->
+
+<br clear="all" />

@@ -11,7 +11,7 @@
  */
 class paPropostaParaProjeto extends MinC_Db_Table_Abstract
 {
-    protected $_banco = 'SAC';
+    protected $_schema = 'SAC';
     protected $_name  = 'paPropostaParaProjeto';
 
     #public function execSP($idProposta, $CNPJCPF, $idOrgao, $idUsuario){
@@ -28,7 +28,7 @@ class paPropostaParaProjeto extends MinC_Db_Table_Abstract
     public function execSP($idProposta, $CNPJCPF, $idOrgao, $idUsuario, $nrProcesso)
     {
         try {
-            $rodar = "exec " . $this->_banco .".". $this->_name . ' ' . $idProposta .',"'. $CNPJCPF.'",'. $idOrgao.','. $idUsuario.',"'. $nrProcesso . '"';
+            $rodar = "exec " . $this->_schema .".". $this->_name . ' ' . $idProposta .',"'. $CNPJCPF.'",'. $idOrgao.','. $idUsuario.',"'. $nrProcesso . '"';
             return  $this->getAdapter()->query($rodar);
         } catch (Zend_Exception $e) {
             return $e->getMessage();

@@ -55,7 +55,7 @@ $arrMenuProponente['projeto'] = array(
     'grupo' => array(),
 );
 $arrMenuProponente['projeto']['menu'][] = array('label' => 'Listar Projetos', 'title' => 'Ir para Listar Projetos',
-    'url' => $this->url(array('controller' => 'listarprojetos', 'action' => 'index'), '', true),
+    'url' => $this->url(array('module' => 'projeto', 'controller' => 'index', 'action' => 'listar'), '', true),
     'grupo' => array()
 );
 $arrMenuProponente['solicitacoes'] = array(
@@ -127,6 +127,38 @@ $arrMenu['assinatura']['menu'][] = array(
         ), '', true),
     'title' => 'Ir para Visualização de Assinaturas',
     'label' => 'Visualizar Assinaturas'
+);
+
+$arrMenu['assinatura']['menu'][] = array(
+    'grupo' => [
+        Autenticacao_Model_Grupos::PARECERISTA,
+        Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
+        Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO,
+        Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA,
+        Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO,
+        Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
+        Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
+        Autenticacao_Model_Grupos::SECRETARIO,
+    ],
+    'url' => $this->url(
+        array(
+            'module' => 'readequacao',
+            'controller' => 'readequacao-assinatura',
+            'action' => 'gerenciar-assinaturas'
+        ), '', true),
+    'title' => 'Ir para Readequa&ccedil;&atilde;o - Gerenciar Assinaturas',
+    'label' => 'Gerenciar Assinaturas - Readequa&ccedil;&atilde;o'
+);
+
+$arrMenu['assinatura']['menu'][] = array(
+    'url' => $this->url(
+        array(
+            'module' => 'assinatura',
+            'controller' => 'documentos-devolvidos',
+            'action' => 'listar'
+        ), '', true),
+    'title' => 'Ir para Listar documentos devolvidos',
+    'label' => 'Listar Documentos Devolvidos'
 );
 
 $arrMenu['assinatura']['menu'][] = array(
@@ -210,25 +242,19 @@ $arrMenu['acompanhamento']['menu'][] = array(
     'title' => 'Analisar Relat&oacute;rios Trimestrais',
     'label' => 'Analisar Relat&oacute;rios Trimestrais'
 );
+
 $arrMenu['acompanhamento']['menu'][] = array(
-    'grupo' => array(134, 135),
-    'url' => $this->url(array('controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid'), '', true),
+    'grupo' => array(
+        Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
+        Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
+        Autenticacao_Model_Grupos::COORDENADOR_FISCALIZACAO,
+        Autenticacao_Model_Grupos::TECNICO_FISCALIZACAO
+    ),
+    'url' => $this->url(array('module' => 'fiscalizacao', 'controller' => 'pesquisarprojetofiscalizacao', 'action' => 'grid'), '', true),
     'title' => 'Ir para Fiscalizar Projeto',
     'label' => 'Fiscalizar Projeto'
 );
 
-$arrMenu['acompanhamento']['menu'][] = array(
-    'grupo' => array(138),
-    'url' => $this->url(array('controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index'), '', true),
-    'title' => 'Ir para Analisar Projeto Parecer',
-    'label' => 'Analisar Comprova&ccedil;&atilde;o do Objeto'
-);
-$arrMenu['acompanhamento']['menu'][] = array(
-    'grupo' => array(139, 148, 151),
-    'url' => $this->url(array('controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index-tecnico'), '', true),
-    'title' => 'Ir para Analisar Projeto Parecer',
-    'label' => 'Analisar Comprova&ccedil;&atilde;o do Objeto'
-);
 $arrMenu['acompanhamento']['menu'][] = array(
     'grupo' => array(137),
     'url' => $this->url(array('controller' => 'parecerista', 'action' => 'configurar-pagamento-parecerista'), '', true),
@@ -262,13 +288,13 @@ $arrMenu['acompanhamento']['menu'][] = array(
 );
 $arrMenu['acompanhamento']['menu'][] = array(
     'grupo' => array(122, 123, 148, 151),
-    'url' => $this->url(array('controller' => 'readequacoes', 'action' => 'painel'), '', true),
+    'url' => $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel'), '', true),
     'title' => 'Readequa&ccedil;&otilde;es',
     'label' => 'Readequa&ccedil;&otilde;es'
 );
 $arrMenu['acompanhamento']['menu'][] = array(
     'grupo' => array(93, 121),
-    'url' => $this->url(array('controller' => 'readequacoes', 'action' => 'painel-readequacoes'), '', true),
+    'url' => $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes'), '', true),
     'title' => 'Avaliar Readequa&ccedil;&otilde;es',
     'label' => 'Avaliar Readequa&ccedil;&otilde;es'
 );
@@ -418,7 +444,7 @@ $arrMenu['admissibilidade']['menu'][] = array(
 );
 
 $arrMenu['admissibilidade']['menu'][] = array(
-    'grupo' => array(92,97,131),
+    'grupo' => array(92, 97, 131),
     'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'listar-solicitacoes-desarquivamento'), '', true),
     'title' => 'Desarquivamento',
     'label' => 'Desarquivamento'
@@ -443,7 +469,7 @@ $arrMenu['admissibilidade']['menu'][] = array(
 );
 $arrMenu['admissibilidade']['menu'][] = array(
     'grupo' => array(92, 97, 131),
-    'url' => $this->url(array('controller' => 'recurso', 'action' => 'recurso-enquadramento'), '', true),
+    'url' => $this->url(array('controller' => 'recursos', 'action' => 'recurso-enquadramento'), '', true),
     'title' => 'Ir para Recurso',
     'label' => 'Recurso'
 );
@@ -454,12 +480,34 @@ $arrMenu['admissibilidade']['menu'][] = array(
     'title' => 'Ir para Encaminhar para assinatura',
     'label' => 'Encaminhar para assinatura'
 );
+
 $arrMenu['admissibilidade']['menu'][] = array(
     'grupo' => array(92, 131),
     'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'desarquivarpropostas')),
     'title' => 'Desarquivar Proposta',
     'label' => 'Desarquivar Proposta'
 );
+
+$arrMenu['admissibilidade']['menu'][] = [
+    'grupo' => [
+        Autenticacao_Model_Grupos::TECNICO_ADMISSIBILIDADE,
+        Autenticacao_Model_Grupos::GESTOR_SALIC,
+        Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE,
+        Autenticacao_Model_Grupos::COORDENADOR_GERAL_ADMISSIBILIDADE,
+    ],
+    'url' => $this->url(
+        [
+            'module' => 'admissibilidade',
+            'controller' => 'admissibilidade',
+            'action' => 'alterarunianalisepropostaconsulta'
+        ],
+        '',
+        true
+    ),
+    'title' => 'Ir para Alterar Unidade da an&aacute;lise da Proposta',
+    'label' => 'Alterar Uni. da an&aacute;lise da Proposta'
+];
+
 $arrMenu['admissibilidade']['menu'][] = array(
     'grupo' => array(97, 131, 148, 151),
     'url' => $this->url(array('module' => 'admissibilidade', 'controller' => 'admissibilidade', 'action' => 'redistribuiranalise')),
@@ -624,8 +672,6 @@ $arrMenu['relatorios']['menu'][] = array(
 );
 
 
-
-
 $arrMenu['solicitacoes'] = array(
     'id' => 'solicitacoes',
     'label' => 'Solicita&ccedil;&otilde;es',
@@ -703,25 +749,25 @@ $arrMenu['seguranca'] = array(
 );
 $arrMenu['seguranca']['menu'][] = array(
     'grupo' => array(97),
-    'url' => $this->url(array('controller' => 'manterusuario', 'action' => 'gerarsenha')),
+    'url' => $this->url(array('module' => 'default', 'controller' => 'manterusuario', 'action' => 'gerarsenha')),
     'title' => 'Ir para Regerar Senha',
     'label' => 'Regerar Senha Proponente'
 );
 $arrMenu['seguranca']['menu'][] = array(
     'grupo' => array(97),
-    'url' => $this->url(array('controller' => 'manterusuario', 'action' => 'regerarsenha')),
+    'url' => $this->url(array('module' => 'default', 'controller' => 'manterusuario', 'action' => 'regerarsenha')),
     'title' => 'Ir para Regerar Senha Usu&aacute;rio',
     'label' => 'Regerar Senha Usu&aacute;rio'
 );
 $arrMenu['seguranca']['menu'][] = array(
     'grupo' => array(97),
-    'url' => $this->url(array('controller' => 'manterusuario', 'action' => 'cadastrarusuarioexterno')),
+    'url' => $this->url(array('module' => 'default', 'controller' => 'manterusuario', 'action' => 'cadastrarusuarioexterno')),
     'title' => 'Ir para Cadastrar Usu&aacute;rio Externo',
     'label' => 'Cadastrar Usu&aacute;rio Externo'
 );
 $arrMenu['seguranca']['menu'][] = array(
     'grupo' => array(97),
-    'url' => $this->url(array('controller' => 'manterusuario', 'action' => 'permissoessalic')) . '?session=x&pag=1',
+    'url' => $this->url(array('module' => 'default', 'controller' => 'manterusuario', 'action' => 'permissoessalic')) . '?session=x&pag=1',
     'title' => 'Ir para Permiss&otilde;es do SalicWeb',
     'label' => 'Permiss&otilde;es do SalicWeb'
 );
@@ -858,121 +904,105 @@ if (isset ($auth['cpf'])) {
 </style>
 <div id="navbar-header">
     <nav class="">
-        <div class="nav-wrapper  container">
-            <a id="menu-left" href="#" data-activates="sidenav" class="button-collapse left"><i class="material-icons">menu</i></a>
+        <div class="nav-wrapper" style="margin: 0 auto; max-width: 1200px">
             <a id="menu-right" href="#" data-activates="nav-mobile" class="button-collapse right"><i
                         class="material-icons">menu</i></a>
-
             <ul class="left hide-on-med-and-down">
                 <?php echo $this->partialLoop('partials/menu/item.phtml', $arrMenu); ?>
             </ul>
             <ul class="menu-apoio right">
                 <?php echo $this->partial('partials/menu/notificacao-mensagem.phtml') ?>
-<!--                --><?php //echo $this->partial('partials/menu/notificacoes.phtml') ?>
+                <!--                --><?php //echo $this->partial('partials/menu/notificacoes.phtml') ?>
 
-<!--                <li><a class="white-text" href="sass.html"><i class="material-icons">power_settings_new</i></a></li>-->
-<!--                <li><a class="white-text" href="mobile.html"><i class="material-icons">more_vert</i></a></li>-->
-            </ul>
-
-            <ul class="side-nav" id="nav-mobile">
-                <?php echo $this->partialLoop('partials/menu/item-side-nav.phtml', $arrMenu); ?>
+                <!--                <li><a class="white-text" href="sass.html"><i class="material-icons">power_settings_new</i></a></li>-->
+                <!--                <li><a class="white-text" href="mobile.html"><i class="material-icons">more_vert</i></a></li>-->
             </ul>
         </div>
+    </nav>
 </div>
-</nav>
-</div>
-<script>
-    $3(document).ready(function () {
-        $3('#menu-left').sideNav({edge: 'left', menuWidth: 250})
-        $3('#menu-right').sideNav({edge: 'right'})
-    })
+<aside id="sidebar-right">
+    <ul class="side-nav" id="nav-mobile">
+        <?php echo $this->partialLoop('partials/menu/item-side-nav.phtml', $arrMenu); ?>
+    </ul>
 
-    //    $3('.dropdown-button').dropdown({
-    //            inDuration: 300,
-    //            outDuration: 225,
-    //            constrain_width: false, // Does not change width of dropdown to that of the activator
-    //            hover: true, // Activate on hover
-    //            gutter: 0, // Spacing from edge
-    //            belowOrigin: true, // Displays dropdown below the button
-    //            alignment: 'left' // Displays dropdown with edge aligned to the left of button
-    //        }
-    //    );
-    $3(document).ready(function () {
-        $3(window).scroll(function () {
-            if ($3(window).scrollTop() > '59') {
+    <script>
+        $3(document).ready(function () {
+            $3('#menu-right').sideNav({edge: 'right'})
+            $3(window).scroll(function () {
+                if ($3(window).scrollTop() > '59') {
+                    $3('#navbar-header').addClass('navbar-fixed')
+                    $3('body').addClass('nav-fixed')
+                } else {
+                    $3('#navbar-header').removeClass('navbar-fixed')
+                    $3('body').removeClass('nav-fixed')
+                }
+
+            });
+
+            if ($3(window).scrollTop() > '60') {
                 $3('#navbar-header').addClass('navbar-fixed')
                 $3('body').addClass('nav-fixed')
-            } else {
-                $3('#navbar-header').removeClass('navbar-fixed')
-                $3('body').removeClass('nav-fixed')
             }
 
-        })
+            //@todo isso eh temporario, ate a migracao do layout
+            if ($3('#sidenav').length && $3('#sidenav').is(':visible')) {
 
-        if ($3(window).scrollTop() > '60') {
-            $3('#navbar-header').addClass('navbar-fixed')
-            $3('body').addClass('nav-fixed')
-        }
+                $3('body').addClass(getCookie('menu'))
 
-        //@todo isso eh temporario, ate a migracao do layout
-        if ($3('#sidenav').length && $3('#sidenav').is(':visible')) {
+                $3('#navbar-header nav').prepend(
+                    '<a id="small-menu-button" href="#" class="left hide-on-med-and-down">' +
+                    '<i class="material-icons">more_vert</i>' +
+                    '</a>' +
+                    '<a id="menu-left" href="#" data-activates="sidenav" class="button-collapse left"><i class="material-icons">menu</i></a>'
+                );
 
-            $3('body').addClass(getCookie('menu'))
+                $3('#menu-left').sideNav({edge: 'left', menuWidth: 250})
+            }
 
-            $3('#navbar-header nav').prepend(
-                '<a id="small-menu-button" href="#" class="left hide-on-med-and-down">' +
-                '<i class="material-icons">more_vert</i>' +
-                '</a>'
-            )
-        }
-
-        // Ajuste na sidebar, quando faz scroll ela dá um bug
-//        var height = $3('body').height();
-//        $3('#sidenav, .qmmc').css('min-height', height - 100);
-
-        $3('#small-menu-button').on('click', function () {
-            $3(this).find('i').text('more_horiz')
-            $3('body').toggleClass('small-menu')
-
-            if ($3('body.small-menu').is(':visible')) {
+            $3('#small-menu-button').on('click', function () {
                 $3(this).find('i').text('more_horiz')
-                setCookie('menu', 'small-menu', 365)
-            } else {
-                $3(this).find('i').text('more_vert')
-                setCookie('menu', 'large-menu', 365)
-            }
+                $3('body').toggleClass('small-menu')
 
-            return false
-        })
+                if ($3('body.small-menu').is(':visible')) {
+                    $3(this).find('i').text('more_horiz')
+                    setCookie('menu', 'small-menu', 365)
+                } else {
+                    $3(this).find('i').text('more_vert')
+                    setCookie('menu', 'large-menu', 365)
+                }
 
-        // menu legado
-        $3('.sanfonaDiv:hidden').each(function (index) {
-            if ($3(this).children().length > 0) {
-                $3(this).prev().addClass('submenu')
-            }
-        })
+                return false
+            });
 
-    })
+            // menu legado
+            $3('.sanfonaDiv:hidden').each(function (index) {
+                if ($3(this).children().length > 0) {
+                    $3(this).prev().addClass('submenu')
+                }
+            });
 
-    function setCookie (cname, cvalue, exdays) {
-        var d = new Date()
-        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
-        var expires = 'expires=' + d.toUTCString()
-        document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
-    }
+        });
 
-    function getCookie (cname) {
-        var name = cname + '='
-        var ca = document.cookie.split(';')
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i]
-            while (c.charAt(0) == ' ') {
-                c = c.substring(1)
-            }
-            if (c.indexOf(name) == 0) {
-                return c.substring(name.length, c.length)
-            }
+        function setCookie(cname, cvalue, exdays) {
+            var d = new Date()
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
+            var expires = 'expires=' + d.toUTCString()
+            document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
         }
-        return ''
-    }
-</script>
+
+        function getCookie(cname) {
+            var name = cname + '='
+            var ca = document.cookie.split(';')
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i]
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1)
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length)
+                }
+            }
+            return ''
+        }
+    </script>
+</aside>

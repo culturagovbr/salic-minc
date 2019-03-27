@@ -1,0 +1,24 @@
+<table class="tabela">
+    <tr class="destacar">
+        <td align="center"><b>Emissor</b></td>
+        <td align="center"><b>Dt.Envio</b></td>
+        <td align="center"><b>Receptor</b></td>
+        <td align="center"><b>Dt.Recebimento</b></td>
+        <td align="center"><b>Estado</b></td>
+        <td align="center"><b>Destino</b></td>
+    </tr>
+    <tr>
+        <td align="center"><?php echo empty($this->projeto->Emissor) ? '<em>N&atilde;o informado</em>' : $this->projeto->Emissor; ?></td>
+        <td align="center"><?php echo isset($this->projeto->DtTramitacaoEnvio) && !empty($this->projeto->DtTramitacaoEnvio) ? Data::tratarDataZend($this->projeto->DtTramitacaoEnvio, 'Brasileira', true) : '<em>N&atilde;o informado</em>'; ?></td>
+        <td align="center"><?php echo empty($this->projeto->Receptor) ? '<em>N&atilde;o informado</em>' : $this->projeto->Receptor; ?></td>
+        <td align="center"><?php echo isset($this->projeto->dtTramitacaoRecebida) && !empty($this->projeto->dtTramitacaoRecebida) ? Data::tratarDataZend($this->projeto->dtTramitacaoRecebida, 'Brasileira', true) : '<em>N&atilde;o informado</em>'; ?></td>
+        <td align="center"><?php echo empty($this->projeto->Estado) ? '<em>N&atilde;o informado</em>' : $this->projeto->Estado; ?></td>
+        <td align="center"><?php echo empty($this->projeto->Destino) ? '<em>N&atilde;o informado</em>' : $this->projeto->Destino; ?></td>
+    </tr>
+    <tr class="destacar">
+        <td colspan="6" align="center"><b>Despacho</b></td>
+    </tr>
+    <tr>
+        <td colspan="6" align="left"><?php echo empty($this->projeto->meDespacho) ? '<center><em>N&atilde;o informado</em></center>' : $this->projeto->meDespacho; ?></td>
+    </tr>
+</table>

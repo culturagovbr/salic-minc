@@ -1,0 +1,72 @@
+<div class="container-fluid" id="vue-container">
+    <div class="row">
+        <div class="page-title">
+            <div class="row">
+                <div class="col s12 m9 l10">
+                    <h1>Readequa&ccedil;&atilde;o Plano de Distribui&ccedil;&atilde;o</h1>
+
+                    <?php
+                    gerarNovoBreadCrumb(array(
+                        array('Plano de Distribui&ccedil;&atilde;o' => '')
+                    ));
+                    ?>
+                </div>
+                <div class="col s12 m3 l2 right-align">
+                    <a href="javascript:voltar();" title="P&aacute;gina Anterior" title="P&aacute;gina Anterior"
+                       class="btn small grey lighten-3 grey-text z-depth-0 chat-toggle"><i class="material-icons">arrow_back</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <input type="hidden" id="pertenceIn2017" name="pertenceIn2017" value="<?php echo $this->in2017; ?>">
+            <input type="hidden" id="idPronacHash" name="idPronacHash" value="<?php echo $this->idPronacHash; ?>">
+            <div id="cabecalho" class="card">
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col s12">
+                            <b>Pronac: </b> <?php echo $this->projeto->anoProjeto . $this->projeto->sequencial; ?>
+                            <br>
+                        </div>
+                        <div class="col s12">
+                            <b>Projeto: </b><?php echo $this->projeto->nomeProjeto; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <?php echo $this->partial("partials/mensagem-solicitacao-em-analise.phtml", $this); ?>
+            <?php if (!$this->existeSolicitacaoEmAnalise) : ?>
+                <div id="conteudo" style="margin: 0; width: 100%">
+                    <div class="card">
+                        <div class="card-content">
+                            <div id="planosDeDistribuicao">
+                                carregando produtos ...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="formulario" class="card">
+                    <div class="card-content">
+                        <?php echo $this->partial("partials/formulario-salvar-readequacao.phtml", $this); ?>
+                    </div>
+                </div>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>
+<div id="msgAlerta"></div>
+<?php if (!$this->existeSolicitacaoEmAnalise) : ?>
+
+    <script type="text/javascript">
+        function carregarFormularioAntigaIN() {
+            jqAjaxLinkSemLoading('<?php echo $this->Url(array('module' => 'readequacao', 'controller' => 'plano-distribuicao', 'action' => 'carregar-planos-de-distribuicao'), '', true) ?>?idPronac=<?php echo $this->idPronac; ?>', '', 'planosDeDistribuicao');
+        }
+
+        $(document).ready(function () {
+            carregarFormularioAntigaIN();
+        });
+
+    </script>
+
+<?php endif; ?>

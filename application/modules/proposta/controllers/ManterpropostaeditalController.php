@@ -38,6 +38,7 @@ class Proposta_ManterpropostaeditalController extends Proposta_GenericController
         }
 
         $this->verificarPermissaoAcesso(true, false, false);
+        $this->validarEdicaoProposta();
     }
 
     /**

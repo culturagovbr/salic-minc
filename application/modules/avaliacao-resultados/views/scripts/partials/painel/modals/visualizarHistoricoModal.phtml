@@ -1,0 +1,82 @@
+<div id="visualizarHistoricoModal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4>Hist&oacute;rico de Encaminhamento do Projeto</h4>
+        <div class="row">
+            <div class=" col s12">
+                <h2 class="dadosProjeto"></h2>
+            </div>
+        </div>
+        <div class="row">
+            <table id="tabelaHistorico" class="bordered striped">
+                <thead>
+                <tr>
+                    <th>Data de Envio</th>
+                    <th>Nome do Remetente</th>
+                    <th>Nome do Destinat&aacute;rio</th>
+                    <th>Justificativa</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat red-text">Fechar</button>
+    </div>
+</div>
+<script src="/public/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/public/scripts/layout/datatables.min.js"></script>
+<script type="text/javascript">
+    (function ($) {
+        $(document).ready(function () {
+            $3("tbody").on('click', '.visualizarHistorico', function () {
+                let pronac = $3(this).closest('tr').find('td')[0].innerText;
+                let nomeProjeto = $3(this).closest('tr').find('td')[1].innerText;
+                let idPronac = $3(`a:contains(${pronac})`).data('idpronac');
+
+                $3('.dadosProjeto').html(pronac + ' - ' + nomeProjeto);
+
+                var tabelaHistorico = $('#tabelaHistorico').DataTable({
+                    "language": {
+                        "url": "https://cdn.datatables.net/plug-ins/1.10.12/i18n/Portuguese-Brasil.json",
+                    },
+                    "ajax": {
+                        url: "/prestacao-contas/prestacao-contas/obter-historico-encaminhamento",
+                        data: {idPronac : idPronac},
+                        type: "POST"
+                    },
+                    "serverSide": true,
+                    "searching": false,
+                    "lengthChange": false,
+                    "paging":   false,
+                    "ordering": false,
+                    "info":     false,
+                    "columns": [
+                        {
+                            data: null,
+                            "name": "dtInicioEncaminhamento",
+                            render: (data) => { return moment(data.dtInicioEncaminhamento).format('DD/MM/YYYY'); }
+                        },
+                        {
+                            "name": "NomeOrigem",
+                            "data": "NomeOrigem"
+                        },
+                        {
+                            "name": "NomeDestino",
+                            "data": "NomeDestino"
+                        },
+                        {
+                            "name": "dsJustificativa",
+                            "data": "dsJustificativa"
+                        }
+                    ]
+                });
+
+                $3('#visualizarHistoricoModal').modal({
+                    complete: () => {tabelaHistorico.destroy()}
+                });
+            });
+        });
+    }($.noConflict(true)));
+</script>

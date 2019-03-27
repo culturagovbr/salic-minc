@@ -1,0 +1,28 @@
+<?php if (count($this->enquadramentoInicialProponente) > 0
+    && !empty($this->enquadramentoInicialProponente['area'])
+    && !empty($this->enquadramentoInicialProponente['segmento'])
+    && !empty($this->enquadramentoInicialProponente['enquadramento'])
+) { ?>
+    <fieldset>
+        <legend> Enquadramento Proposto pelo Proponente</legend>
+        <table class="tabela">
+            <tr class="destacar">
+                <td class="">
+                    <b>&Aacute;rea</b>
+                    <br />
+                    <?php echo $this->enquadramentoInicialProponente['area'] ?>
+                </td>
+                <td class="">
+                    <b>Segmento</b>
+                    <br />
+                    <?php echo $this->enquadramentoInicialProponente['segmento'] ?>
+                </td>
+                <td class="">
+                    <b>Artigo</b>
+                    <br />
+                    <?php echo $this->enquadramentoInicialProponente['enquadramento'] ?>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+<?php } ?>

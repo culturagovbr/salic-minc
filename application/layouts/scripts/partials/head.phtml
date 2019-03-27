@@ -20,7 +20,7 @@
 //    $applicationConf = Zend_Registry::get('config')->application->{APPLICATION_ENV};
     $config = Zend_Registry::get('config');
     $configLayout = $config->layout->{$this->layout()->name};
-
+    $gitTag = '?v=' . $this->gitTag();
     $arrJsFiles = array();
     if ($configLayout->resources->js->global->files) {
         foreach ($configLayout->resources->js->global->files as $strJsValue) {
@@ -32,11 +32,10 @@
             $arrJsFiles[] = $strJsValue;
         }
     }
-
-//    $arrJsFiles = array_reverse($arrJsFiles);
+    $arrJsFiles = array_reverse($arrJsFiles);
     foreach ($arrJsFiles as $strJsValue) {
-        $this->headScript()->appendFile($configLayout->resources->js->path . '/' . $strJsValue, 'text/javascript', array('language' => 'javascript'));
-//        $this->headScript()->prependFile($configLayout->resources->js->path . '/' . $strJsValue, 'text/javascript', array('language' => 'javascript'));
+//        $this->headScript()->appendFile($configLayout->resources->js->path . '/' . $strJsValue, 'text/javascript', array('language' => 'javascript'));
+        $this->headScript()->prependFile($configLayout->resources->js->path . '/' . $strJsValue . $gitTag, 'text/javascript', array('language' => 'javascript'));
     }
 
     $arrCssFiles = array();
@@ -53,7 +52,7 @@
 //    $arrCssFiles = array_reverse($arrCssFiles);
     foreach ($arrCssFiles as $arrCssValue) {
         $this->headLink()->appendStylesheet(
-            $configLayout->resources->css->path . '/' . $arrCssValue,
+            $configLayout->resources->css->path . '/' . $arrCssValue . $gitTag,
             'all',
             true,
             array('rel' => 'stylesheet')
@@ -62,26 +61,19 @@
 
     echo $this->partial('partials/favicons.phtml');
 
-    $this->headTitle(html_entity_decode($configLayout->layout->headTitle, ENT_QUOTES, $config->resources->db->params->charset));
     $this->doctype($config->layout->doctype);
     $this->headMeta()->setHttpEquiv('Content-Type', 'text/html; charset=' . $config->resources->db->params->charset);
     $this->headMeta()->appendName('name', 'Sistema Salic');
     $this->headMeta()->appendName('description', 'Sistema de Apoio às Leis de Incentivo à Cultura');
     $this->headMeta()->appendName('viewport', 'width=device-width, user-scalable=no');
 
-
-    // Titulo da pagina
-    $this->headTitle()->setSeparator(' | ');
-
-    $mSet = false;
-    foreach ($this->headTitle() as $t) {
-        if ($t == 'Salic') $mSet = true;
+    $request = Zend_Controller_Front::getInstance()->getRequest();
+    $this->headTitle('Salic', Zend_View_Helper_Placeholder_Container_Abstract::PREPEND);
+    if($request->getModuleName() != 'default') {
+        $this->headTitle(ucfirst($request->getModuleName()));
     }
-    if (!$mSet) $this->headTitle('Salic', Zend_View_Helper_Placeholder_Container_Abstract::PREPEND);
 
-    // Adicionar o HeadTitle default caso exista apenas um registrado
-    if (count($this->headTitle()) == 1)
-        $this->headTitle($config->layout->headTitle);
+    $this->headTitle()->setSeparator(' / ');
 
     if ($this->docType()->getDoctype() == Zend_View_Helper_Doctype::XHTML1_RDFA) {
         foreach ($this->view->FacebookOpenGraphTags()->getTags() as $k => $v) {
@@ -95,4 +87,3 @@
     echo $this->headScript();
     echo $this->headTitle();
     ?>
-    <link href="/public/css/_icons.css" rel="stylesheet">

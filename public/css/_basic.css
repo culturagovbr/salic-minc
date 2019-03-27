@@ -128,9 +128,8 @@ x - CONTAINER
 .container-fluid {
     margin: 0 auto;
     width: 100%;
-    padding: 2rem;
+    padding: 1rem;
 }
-
 
 #breadcrumb,
 #titulo,
@@ -147,6 +146,19 @@ x - CONTAINER
 
 #container-progress {
     top: 0px;
+}
+
+@media only screen and (max-width: 993px) {
+
+    .container-fluid {
+        padding: 0.5rem;
+    }
+
+    #breadcrumb,
+    #titulo,
+    #conteudo {
+        margin-bottom: 10px;
+    }
 }
 
 /*--------------------------------------------------------------

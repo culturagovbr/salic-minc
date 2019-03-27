@@ -1,10 +1,5 @@
 <?php
-/**
- * Logomarca
- *
- * @uses GenericModel
- * @author  wouerner <wouerner@gmail.com>
- */
+
 class Logomarca extends MinC_Db_Table_Abstract
 {
     protected $_schema = "sac";

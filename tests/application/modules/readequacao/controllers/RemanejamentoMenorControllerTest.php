@@ -68,13 +68,13 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
         
         $result = $projetos->fetchAll($select);
         
-        $Readequacao_Model_tbReadequacao = new Readequacao_Model_tbReadequacao();
-        $tbCumprimentoObjeto = new tbCumprimentoObjeto();
+        $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+        $tbCumprimentoObjeto = new ComprovacaoObjeto_Model_DbTable_TbCumprimentoObjeto();
         foreach ($result as $item) {
             
-            $existeReadequacaoEmAndamento = $Readequacao_Model_tbReadequacao->existeReadequacaoEmAndamento($item->idPronac);
-            $existeReadequacaoPlanilhaEmEdicao = $Readequacao_Model_tbReadequacao->existeReadequacaoPlanilhaEmEdicao($item->idPronac);
-            $existeReadequacaoParcialEmEdicao = $Readequacao_Model_tbReadequacao->existeReadequacaoParcialEmEdicao($item->idPronac);
+            $existeReadequacaoEmAndamento = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoEmAndamento($item->idPronac);
+            $existeReadequacaoPlanilhaEmEdicao = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoPlanilhaEmEdicao($item->idPronac);
+            $existeReadequacaoParcialEmEdicao = $Readequacao_Model_DbTable_TbReadequacao->existeReadequacaoParcialEmEdicao($item->idPronac);
             $possuiRelatorioDeCumprimento = $tbCumprimentoObjeto->possuiRelatorioDeCumprimento($item->idPronac);
             
             $Readequacao_50 = false;
@@ -107,7 +107,7 @@ class Readequacao_RemanejamentoMenorControllerTest extends MinC_Test_ControllerA
      */
     private function getLastIdReadequacao()
     {
-        $tbReadequacao = new Readequacao_Model_tbReadequacao();
+        $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
         
         $select = $tbReadequacao->select();
         $select->setIntegrityCheck(false);

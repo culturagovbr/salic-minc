@@ -1,0 +1,331 @@
+<?php echo $this->partial('inc/menu.inc.php', $this) // menu ?>
+<!-- início: navegação local #qm0 -->
+
+<!-- início: #breadcrumb -->
+<div id="breadcrumb">
+    <ul>
+        <li class="first"><a href="#" title="Início">Início</a></li>
+        <li class="second"><a href="#" title="Comprovar Execu&ccedil;&atilde;o F&iacute;sica">Comprovar Execu&ccedil;&atilde;o F&iacute;sica</a></li>
+        <li class="last">Relat&oacute;rio Trimestral</li>
+    </ul>
+</div> <!-- final: #breadcrumb -->
+
+<!-- início: #titulo -->
+<div id="titulo">
+    <div>Relat&oacute;rio Trimestral de Execu&ccedil;&atilde;o F&iacute;sica do Projeto<span>ID #23A</span> <span class="voltar"><a style="cursor: pointer;" onclick="history.back();">Voltar</a></span></div>
+</div>
+<!-- final: #titulo -->
+
+<!-- início: área principal #conteudo -->
+<div id="conteudo">
+
+    <form action="<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica/incluirexecucaofisica" method="post" id="form" name="form" class="form">
+        <table class="tabela" style="font-size: 12px; margin-top: 50px; width: 80%;">
+            <tbody>
+                <tr>
+                    <th>Pronac</th>
+                    <th>Nome do Projeto</th>
+                </tr>
+                <tr>
+                    <td align="center">097111</td>
+                    <td align="center">As Incríveis Descobertas</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="tabela" style="width: 80%;">
+            <tbody>
+                <tr>
+                    <th colspan="4">Execu&ccedil;&atilde;o F&iacute;sica do Projeto</th>
+                </tr>
+                <tr>
+                    <td align="right" width="25%">Data Fim de capta&ccedil;&atilde;o: </td>
+                    <td>
+                        <input class="input_simples" type="text" name="dtInicioCaptacao" id="datepicker1" maxlength="10" value=""
+                        onkeyup="mascara(this, format_data);" onfocus="calendario(1)" />
+                    </td>
+                    <td align="right" width="25%">Data Fim de capta&ccedil;&atilde;o: </td>
+                    <td>
+                        <input class="input_simples" type="text" name="dtFimCaptacao" id="datepicker2" maxlength="10" value=""
+                          onkeyup="mascara(this, format_data);" onfocus="calendario(2)" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" width="25%">Data In&iacute;cio de Execu&ccedil;&atilde;o: </td>
+                    <td>
+                        <input class="input_simples" type="text" name="dtInicioExecucao" id="datepicker3" maxlength="10" value=""
+                          onkeyup="mascara(this, format_data);" onfocus="calendario(3)" />
+                    </td>
+                    <td align="right" width="25%">Data fim de Execu&ccedil;&atilde;o: </td>
+                    <td>
+                        <input class="input_simples" value=""type="text" name="dtFimExecucao" id="datepicker4" maxlength="10" value=""
+                          onkeyup="mascara(this, format_data);" onfocus="calendario(4)" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <table class="tabela" style="width: 80%;">
+            <tbody>
+                <tr>
+                    <th colspan="3">Indicadores F&iacute;sicos</th>
+                </tr>
+                <tr>
+                    <td align="center" colspan="3">Produto:
+                        <select class="select_simples" style="width: 150px; margin-right: 50px;" name="ifproduto">
+                            <option value=""></option>
+                        </select>
+
+                        Etapa:
+                        <select class="select_simples" style="width: 150px;  margin-right: 50px;" name="ifetapa">
+                            <option value=""></option>
+                        </select>
+
+                        Item:
+                        <select class="select_simples" style="width: 150px;  margin-right: 50px;" name="ifitem">
+                            <option value=""></option>
+                        </select>
+
+                        <input type="button" class="btn_incluir" id="ifinclur">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table width="80%" style="margin-top: 20px; margin-bottom: 20px;">
+                            <tr>
+                                <th>Produto</th>
+                                <th>Etapa</th>
+                                <th>Item</th>
+                            </tr>
+                            <tr>
+                                <td>Bem M&oacute;vel</td>
+                                <td>Pr&eacute;-Produ&ccedil;&atilde;o</td>
+                                <td>Mesa</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="tabela" style="width: 80%;">
+            <tr>
+                <th colspan="3">Produtos Obtidos na Execu&ccedil;&atilde;o do Plano de Distribui&ccedil;&atilde;o</th>
+            </tr>
+            <tr>
+                <td colspan="3" align="center">Produto: <br />
+                    <input class="input_simples" name="poproduto">
+                </td>
+            </tr>
+            <tr>
+                <td align="center">N&ordm; de Exemplares total:<br />
+                    <input class="input_simples" name="poexemplarestotal">
+                </td>
+                <td align="center">N&ordm; de exemplares para distribui&ccedil;&atilde;o gratuita:<br />
+                    <input class="input_simples" name="poexemplaresdistgratuita">
+                </td>
+                <td align="center">N&ordm; de exemplares distribu&iacute;dos:<br />
+                    <input class="input_simples" name="poexemplaresdistribuidos">
+                </td>
+            </tr>
+            <tr>
+                <td align="center" colspan="2">Benefici&aacute;rio:<br />
+                    <input class="input_simples w400" name="pobeneficiario">
+                </td>
+                <td align="center">CNPJ/CPF do benefici&aacute;rio:<br />
+                    <input class="input_simples" name="pocnpjcpf">
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="3">Publico alvo beneficiado:<br />
+                    <!-- ========== EDITOR 1 ========== -->
+                    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/ckeditor.js"></script>
+                    <script type="text/javascript" src="<?php echo $this->baseUrl(); ?>/public/js/ckeditor/_samples/sample.js"></script>
+
+                    <label for="editor1"> </label>
+                    <textarea cols="80" id="editor1" name="editor1" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        CKEDITOR.replace('editor1', {	fullPage : true });
+                        //]]>
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td align="left" colspan="3">Como foram entregues:<br />
+                    <!-- ========== EDITOR 2 ========== -->
+                    <label for="editor2"> </label>
+                    <textarea cols="80" id="editor2" name="editor2" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        CKEDITOR.replace('editor2', {	fullPage : true });
+                        //]]>
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td align="center" colspan="3">Comprovante recebimento benefici&aacute;rio:
+                    <input type="hidden" value="10485760" name="MAX_SIZE_FILE"/>
+                    <input type="file" id="poarquivo" name="poarquivo" class="input_simples"/>
+                    <input type="button" class="btn_salvar" id="posalvar" style="margin-left: 20px;">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <table width="80%" style="margin-top: 20px; margin-bottom: 20px;">
+                        <tr>
+                            <th>Tipo de Documento</th>
+                            <th>Nota Fiscal de compra</th>
+                            <th>Arquivo</th>
+                            <th>Excluir</th>
+                        </tr>
+                        <tr>
+                            <td>Nota Fiscal</td>
+                            <td>Nota Fiscal de compra</td>
+                            <td><a href="#">nota_fiscal.pdf</a></td>
+                            <td align="center"><input type="button" class="btn_exclusao" id="poexclusao"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <table width="80%" style="margin-top: 20px; margin-bottom: 20px;">
+            <tr>
+                <th colspan="2">Execu&ccedil;&atilde;o do Plano B&aacute;sico de Distribui&ccedil;&atilde;o</th>
+            </tr>
+            <tr>
+                <td colspan="2">Ve&iacute;culo de Divulga&ccedil;&atilde;o:
+                    <select class="select_simples" style="width: 150px;" name="veiculodivulgacao">
+                        <option value=""></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">Tamanho / Dura&ccedil;&atilde;o:
+                    <!-- ========== EDITOR 3 ========== -->
+                    <label for="editor3"> </label>
+                    <textarea cols="80" id="editor3" name="editor3" rows="10">&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt;&lt;p&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</textarea>
+                    <script type="text/javascript">
+                        //<![CDATA[
+                        CKEDITOR.replace('editor3', {	fullPage : true });
+                        //]]>
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td width="200px">Formato da logomarca do MINC:</td>
+                <td>
+                    <input class="input_simples" name="formatologomarca">
+                </td>
+            </tr>
+            <tr>
+                <td>Posi&ccedil;&atilde;o da logomarca:</td>
+                <td>
+                    <input class="input_simples" name="posicaologomarca">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="hidden" value="10485760" name="MAX_SIZE_FILE"/>
+                    <input type="file" id="arquivo" name="exarquivo" class="input_simples"/>
+                    <input type="button" class="btn_salvar" id="exsalvar" style="margin-left: 5px;">
+                    <input type="button" class="btn_cancelar" id="excancelar" style="margin-left: 5px;">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <table width="80%" style="margin-top: 20px; margin-bottom: 20px;">
+                        <tr>
+                            <th>Documento</th>
+                            <th>Descri&ccedil;&atilde;o</th>
+                            <th>Arquivo</th>
+                            <th>Excluir</th>
+                        </tr>
+                        <tr>
+                            <td>Livro</td>
+                            <td>Reciclando um olhar</td>
+                            <td><a href="#">Reciclando.pdf</a></td>
+                            <td align="center"><input type="button" class="btn_exclusao" id="btn_exclusao"></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table>
+
+        <p align="center" style="margin-top: 30px;">
+            <input type="button" class="btn_confirmar" id="btn_confirmar" style="width: 88px;">
+            <input type="button" class="btn_salvar" id="btn_salvar">
+            <input type="button" class="btn_cancelar" id="btn_cancelar">
+            
+        </p>
+    </form>
+<br />
+
+<div id="mostra"></div>
+
+</div><!-- final: conteúdo principal #conteudo -->
+
+<script>
+    function calendario(id){
+        //alert(id);
+        $.datepicker.regional['pt-BR'] = {
+            closeText: 'Fechar',
+            prevText: '&#x3c;Anterior',
+            nextText: 'Pr&oacute;ximo&#x3e;',
+            currentText: 'Hoje',
+            monthNames: ['Janeiro','Fevereiro','Mar&ccedil;o','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+            monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+            dayNames: ['Domingo','Segunda-feira','Ter&ccedil;a-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sabado'],
+            dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+            dayNamesMin: ['Dom','Seg','Ter','Qua','Qui','Sex','Sab'],
+            weekHeader: 'Sm',
+            dateFormat: 'dd/mm/yy',
+            firstDay: 0,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: ''};
+        $.datepicker.setDefaults($.datepicker.regional['pt-BR']);
+        $("#datepicker"+id).datepicker($.datepicker.regional['pt-BR']);
+    }
+
+    $('.btn_excluir').click(function(){
+        $("#mostra").dialog("destroy");
+        $('#mostra').html('Deseja realmente excluir dados?');
+        $("#mostra").dialog
+        ({
+            height: 180,
+            modal: true,
+            draggable: false,
+            resizable: false,
+            closeOnEscape: false,
+            buttons: {
+                'Não': function()
+                {
+                    $(this).dialog('close');
+                },
+                'Sim': function()
+                {
+                    //window.location.href = 'devolverpedido?id='+idAcao;
+                }
+            }
+        });
+        $('.ui-dialog-titlebar-close').remove();
+    });
+
+    $('#btn_cancelar').click(function(){
+        window.location.href = "<?php echo $this->baseUrl(); ?>/comprovacao-objeto/comprovarexecucaofisica";
+    });
+
+    $('#btn_confirmar').click(function(){
+        $('#form').submit();
+    });
+
+</script>
+
+
+<!-- início: detalhe final da div conteudo #rodapeConteudo -->
+<div id="rodapeConteudo"><span></span></div>
+<!-- final: detalhe final da div conteudo #rodapeConteudo -->
+
+<br clear="all" /><br /><br />

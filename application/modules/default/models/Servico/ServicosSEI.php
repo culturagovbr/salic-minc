@@ -9,7 +9,7 @@ class ServicosSEI
     {
         // @TODO: mover configuração para application.ini
         //$this->caminhoWSDLSEI = "http://seihomolog.cultura.gov.br/sei/controlador_ws.php?servico=sei";
-        $this->caminhoWSDLSEI = "http://seitreinamento.cultura.gov.br/sei/controlador_ws.php?servico=sei";
+        $this->caminhoWSDLSEI = "http://hmg-sei3.cultura.gov.br/sei/controlador_ws.php?servico=sei";
         if (APPLICATION_ENV == "production") {
             $this->caminhoWSDLSEI = "http://sei.cultura.gov.br/sei/controlador_ws.php?servico=sei";
         }

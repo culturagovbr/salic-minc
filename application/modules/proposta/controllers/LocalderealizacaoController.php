@@ -52,6 +52,7 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
 //        }
 
         $this->verificarPermissaoAcesso(true, false, false);
+        $this->validarEdicaoProposta();
 
         //recupera ID do pre projeto (proposta)
         if (!empty($this->idPreProjeto)) {
@@ -141,104 +142,6 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
         $this->montaTela("localderealizacao/formlocalderealizacao.phtml", $arrDados);
     }
 
-    /**
-     *
-     * @param void
-     * @return objeto
-     * @deprecated Este metodo era usado para editar o local de realizacao, foi substitudo pelo metodo salvarlocaderealizacao @novain
-     */
-    public function salvarAction()
-    {
-        $post = Zend_Registry::get("post");
-        $idAbrangencia = $post->cod;
-        //instancia classe modelo
-        $tblAbrangencia = new Proposta_Model_DbTable_Abrangencia();
-
-        if (isset($_REQUEST['edital'])) {
-            $edital = "&edital=s";
-        } else {
-            $edital = "";
-        }
-        $qtdeLocais = $post->qtdeLocais;
-        $locais = array();
-        $locaisinvalidos = array();
-        xd($post);
-        for ($i = 1; $i <= $qtdeLocais; $i++) {
-            $pais = $post->__get("pais_" . $i);
-            $uf = $post->__get("uf_" . $i);
-            $municipio = $post->__get("cidade_" . $i);
-            $local_c = $pais . $uf . $municipio;
-
-            if (!in_array($local_c, $locaisinvalidos) || empty($local_c)) {
-                $locais[$i]["idPais"] = $post->__get("pais_" . $i);
-
-                if ($locais[$i]["idPais"] == 31) {
-                    $locais[$i]["idUF"] = $post->__get("uf_" . $i);
-                    $locais[$i]["idMunicipioIBGE"] = $post->__get("cidade_" . $i);
-                } else {
-                    $locais[$i]["idUF"] = "0";
-                    $locais[$i]["idMunicipioIBGE"] = "0";
-                }
-            } else {
-                parent::message("Registro j&aacute; cadastrado, transa&ccedil;&atilde;o cancelada!", "/proposta/localderealizacao/index?idPreProjeto=" . $this->idPreProjeto . $edital, "ALERT");
-            }
-            $locaisinvalidos[$i] = $local_c;
-        }
-
-//        try {
-        $global = 0;
-        //incluindo novos registros
-        if (empty($idAbrangencia)) {
-            //APAGA TODOS OS REGISTROS PARA CADASTRA-LOS NOVAMENTE
-            // $tblAbrangencia->deleteBy(array('idprojeto' => $this->idPreProjeto, 'stabrangencia' => 1));
-        } else {
-            foreach ($locais as $d) {
-                $p = $d['idPais'];
-                if ($p == 31) {
-                    $u = (int)$d['idUF'];
-                    $m = (int)$d['idMunicipioIBGE'];
-                } else {
-                    $u = 0;
-                    $m = 0;
-                }
-            }
-
-            $resultado = $tblAbrangencia->verificarIgual($p, $u, $m, $this->idPreProjeto);
-
-            if (count($resultado) > 0) {
-                parent::message("Registro j&aacute; cadastrado, transa&ccedil;&atilde;o cancelada!", "/proposta/localderealizacao/index?idPreProjeto=" . $this->idPreProjeto . $edital, "ALERT");
-                return;
-            }
-        }
-
-
-        //INSERE LOCAIS DE REALIZACAO (tabela SAC.dbo.Abrangencia)
-        for ($i = 1; $i <= count($locais); $i++) {
-            $dados = array("idProjeto" => $this->idPreProjeto,
-                "stAbrangencia" => 1,
-                "Usuario" => $this->idUsuario,
-                "idPais" => $locais[$i]["idPais"],
-                "idUF" => ($locais[$i]["idPais"] == 31) ? $locais[$i]["idUF"] : 0,
-                "idMunicipioIBGE" => ($locais[$i]["idPais"] == 31) ? $locais[$i]["idMunicipioIBGE"] : 0);
-
-            $dados['stAbrangencia'] = 1;
-            $dados['idAbrangencia'] = $idAbrangencia;
-
-
-            if (!empty($dados["idProjeto"]) && !empty($dados["idPais"])) {
-                $retorno = $tblAbrangencia->salvar($dados);
-            }
-        }
-        if ($idAbrangencia) {
-            parent::message("Altera&ccedil;&atilde;o realizada com sucesso!", "/proposta/localderealizacao/index?idPreProjeto=" . $this->idPreProjeto . $edital, "CONFIRM");
-        } else {
-            parent::message("Cadastro realizado com sucesso!", "/proposta/localderealizacao/index?idPreProjeto=" . $this->idPreProjeto . $edital, "CONFIRM");
-        }
-
-//        }catch(Zend_Exception $ex) {
-//            parent::message("N&atilde;o foi poss&iacute;vel realizar a opera&ccedil;&atilde;o! <br>", "/proposta/localderealizacao/index?idPreProjeto=".$this->idPreProjeto.$edital, "ERROR");
-//        }
-    }
 
     /**
      * Metodo responsavel por apagar um local de realiza&ccedil;&atilde;o gravado
@@ -258,26 +161,46 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
             $tblAbrangencia = new Proposta_Model_DbTable_Abrangencia();
             $abrangencia = $tblAbrangencia->findby(array('idabrangencia' => $params['cod']));
 
-            // excluir itens orcamentarios desta abrangencia
-            if (!empty($abrangencia)) {
-                $tbPlanilhaProposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
-                $excluir = $tbPlanilhaProposta->deleteBy(array('idProjeto' => $this->idPreProjeto, 'UfDespesa' => $abrangencia['idUF'], 'MunicipioDespesa' => $abrangencia['idMunicipioIBGE']));
 
-                if ($excluir) {
-                    $tbCustosVinculadosMapper = new Proposta_Model_TbCustosVinculadosMapper();
-                    $tbCustosVinculadosMapper->salvarCustosVinculadosDaTbPlanilhaProposta($this->idPreProjeto);
-                }
+            if (!empty($abrangencia)) {
+                // exclui itens orcamentarios
+                $tbPlanilhaProposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
+                $tbPlanilhaProposta->deleteBy([
+                    'idProjeto' => $this->idPreProjeto,
+                    'UfDespesa' => $abrangencia['idUF'],
+                    'MunicipioDespesa' => $abrangencia['idMunicipioIBGE']
+                ]);
+
+                // exclui detalhamentos
+                $tbDetalhaPlanoDistribuicaoMapper = new Proposta_Model_TbDetalhaPlanoDistribuicaoMapper();
+                $tbDetalhaPlanoDistribuicaoMapper->excluirDetalhamentosPorLocalizacao(
+                    $this->idPreProjeto,
+                    $abrangencia['idUF'],
+                    $abrangencia['idMunicipioIBGE']
+                );
+
+                // atualiza os custos vinculados do projeto
+                $tbCustosVinculadosMapper = new Proposta_Model_TbCustosVinculadosMapper();
+                $tbCustosVinculadosMapper->salvarCustosVinculadosDaTbPlanilhaProposta($this->idPreProjeto);
             }
 
-            //Exclui registro da tabela abrangencia
+            // exclui registro da tabela abrangencia
             $excluir = $tblAbrangencia->delete(array('idabrangencia = ?' => $params['cod']));
         }
 
         if ($excluir) {
-            parent::message("Exclus&atilde;o realizada com sucesso!", "/proposta/localderealizacao/index/idPreProjeto/" . $this->idPreProjeto, "CONFIRM");
-        } else {
-            parent::message("N&atilde;o foi poss&iacute;vel realizar a opera&ccedil;&atilde;o!", "/proposta/localderealizacao/index/idPreProjeto/" . $this->idPreProjeto, "ERROR");
+            parent::message(
+                "Exclus&atilde;o realizada com sucesso!",
+                "/proposta/localderealizacao/index/idPreProjeto/" . $this->idPreProjeto,
+                "CONFIRM"
+            );
         }
+
+        parent::message(
+            "N&atilde;o foi poss&iacute;vel realizar a opera&ccedil;&atilde;o!",
+            "/proposta/localderealizacao/index/idPreProjeto/" . $this->idPreProjeto,
+            "ERROR"
+        );
     }
 
     /**
@@ -362,10 +285,15 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
         $post = Zend_Registry::get("post");
         $idAbrangencia = $post->cod;
 
-        $tblAbrangencia = new Proposta_Model_DbTable_Abrangencia();
+        if (empty($this->idPreProjeto) || empty($post->pais)) {
+            parent::message(
+                "Dados obrigat&oacute;rios n&atilde;o informados!",
+                "/proposta/localderealizacao/index/idPreProjeto/" . $this->idPreProjeto,
+                "ALERT"
+            );
+        }
 
-        //RECUPERA LOCALIZACOES CADASTRADAS
-        $arrBusca = array();
+        $arrBusca = [];
         $arrBusca['idProjeto'] = $this->idPreProjeto;
         $arrBusca['stAbrangencia'] = 1;
         $arrBusca['p.idPais'] = $post->pais;
@@ -374,74 +302,92 @@ class Proposta_LocalderealizacaoController extends Proposta_GenericController
             $arrBusca['m.idMunicipioIBGE'] = $post->cidades;
         }
 
-        $rsAbrangencia = $tblAbrangencia->buscar($arrBusca);
+        $tblAbrangencia = new Proposta_Model_DbTable_Abrangencia();
+        $abrangenciaJaCadastrada = $tblAbrangencia->buscar($arrBusca);
 
-        $jacadastrado = false;
-        if (count($rsAbrangencia) > 0) {
-            if (empty($idAbrangencia)) {
-                $jacadastrado = true;
-            } elseif ($rsAbrangencia[0]['idAbrangencia'] != $idAbrangencia) {
-                $jacadastrado = true;
-            }
+        if ((count($abrangenciaJaCadastrada) > 0 && empty($idAbrangencia))
+            || (count($abrangenciaJaCadastrada) > 0 && $abrangenciaJaCadastrada[0]['idAbrangencia'] != $idAbrangencia)
+        ) {
+            parent::message(
+                "Local de realiza&ccedil;&atilde;o j&aacute; cadastrado!",
+                "/proposta/localderealizacao/index/idPreProjeto/" . $this->idPreProjeto,
+                "ALERT"
+            );
         }
 
-        if ($jacadastrado) {
-            parent::message("Local de realiza&ccedil;&atilde;o j&aacute; cadastrado!", "/proposta/localderealizacao/index/idPreProjeto/" . $this->idPreProjeto, "ALERT");
-        }
-
-
-        $pais = $post->pais;
-        $estados = $post->estados;
-        $cidades = $post->cidades;
-
-        //INSERE LOCAIS DE REALIZACAO (tabela SAC.dbo.Abrangencia)
-        $dadosAbrangencia = array(
+        $dadosAbrangencia = [
             "idprojeto" => $this->idPreProjeto,
             "stabrangencia" => 1,
             "usuario" => $this->idUsuario,
-            "idpais" => $pais,
-            "iduf" => ($pais == 31) ? $estados : 0,
-            "idmunicipioibge" => ($pais == 31) ? $cidades : 0
-        );
+            "idpais" => $post->pais,
+            "iduf" => ($post->pais == 31) ? $post->estados : 0,
+            "idmunicipioibge" => ($post->pais == 31) ? $post->cidades : 0
+        ];
+
 
         $msg = "Local de realiza&ccedil;&atilde;o cadastrado com sucesso!";
+        if (empty($idAbrangencia)) {
+            $tblAbrangencia->insert($dadosAbrangencia);
+        } else {
+            $abrangenciaAtual = $tblAbrangencia->findby(array('idAbrangencia' => $idAbrangencia));
 
-        if (!empty($dadosAbrangencia["idprojeto"]) && !empty($dadosAbrangencia["idpais"])) {
-            if (empty($idAbrangencia)) {
-                $retorno = $tblAbrangencia->insert($dadosAbrangencia);
-            } else {
-                $this->atualizarLocaldeRealizacaoDaPlanilha($idAbrangencia, $dadosAbrangencia["iduf"], $dadosAbrangencia["idmunicipioibge"]);
+            $this->atualizarLocaldeRealizacaoDaPlanilha(
+                $abrangenciaAtual,
+                $dadosAbrangencia["iduf"],
+                $dadosAbrangencia["idmunicipioibge"]
+            );
 
-                $msg = "Local de realiza&ccedil;&atilde;o alterado com sucesso!";
-                $whereAbrangencia['idAbrangencia = ?'] = $idAbrangencia;
-                $retorno = $tblAbrangencia->update($dadosAbrangencia, $whereAbrangencia);
-            }
+            $this->atualizarLocaldeRealizacaoDoDetalhamentoProduto(
+                $abrangenciaAtual,
+                $dadosAbrangencia["iduf"],
+                $dadosAbrangencia["idmunicipioibge"]
+            );
 
-            $tbCustosVinculadosMapper = new Proposta_Model_TbCustosVinculadosMapper();
-            $tbCustosVinculadosMapper->salvarCustosVinculadosDaTbPlanilhaProposta($this->idPreProjeto);
-
-            parent::message($msg, "/proposta/localderealizacao/index?idPreProjeto=" . $this->idPreProjeto, "CONFIRM");
+            $msg = "Local de realiza&ccedil;&atilde;o alterado com sucesso!";
+            $whereAbrangencia['idAbrangencia = ?'] = $idAbrangencia;
+            $tblAbrangencia->update($dadosAbrangencia, $whereAbrangencia);
         }
+
+        $tbCustosVinculadosMapper = new Proposta_Model_TbCustosVinculadosMapper();
+        $tbCustosVinculadosMapper->salvarCustosVinculadosDaTbPlanilhaProposta($this->idPreProjeto);
+
+        parent::message($msg, "/proposta/localderealizacao/index?idPreProjeto=" . $this->idPreProjeto, "CONFIRM");
     }
 
-    public function atualizarLocaldeRealizacaoDaPlanilha($idAbrangencia, $idUf, $idMunicipio)
+    private function atualizarLocaldeRealizacaoDaPlanilha($abrangenciaAtual, $idUf, $idMunicipio)
     {
-        // buscar municipio e estado desta abrangencia
-        $tblAbrangencia = new Proposta_Model_DbTable_Abrangencia();
-        $abrangencia = $tblAbrangencia->findby(array('idabrangencia' => $idAbrangencia));
-
-        // atualizar itens orcamentarios desta abrangencia
-        if (!empty($abrangencia)) {
-            $dadosAbrangenciaPlanilha = array(
-                'UfDespesa' => $idUf,
-                'MunicipioDespesa' => $idMunicipio
-            );
-            $wherePlanilha = array('idProjeto = ?' => $this->idPreProjeto, 'UfDespesa = ?' => $abrangencia['idUF'], 'MunicipioDespesa = ?' => $abrangencia['idMunicipioIBGE']);
-
-            $tbPlanilhaProposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
-            $retorno = $tbPlanilhaProposta->update($dadosAbrangenciaPlanilha, $wherePlanilha);
-
-            return true;
+        if (empty($abrangenciaAtual)) {
+            return false;
         }
+
+        $dadosAbrangenciaPlanilha = [
+            'UfDespesa' => $idUf,
+            'MunicipioDespesa' => $idMunicipio
+        ];
+
+        $wherePlanilha = [
+            'idProjeto = ?' => $this->idPreProjeto,
+            'UfDespesa = ?' => $abrangenciaAtual['idUF'],
+            'MunicipioDespesa = ?' => $abrangenciaAtual['idMunicipioIBGE']
+        ];
+
+        $tbPlanilhaProposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
+        return $tbPlanilhaProposta->update($dadosAbrangenciaPlanilha, $wherePlanilha);
+    }
+
+    private function atualizarLocaldeRealizacaoDoDetalhamentoProduto($abrangenciaAtual, $idUf, $idMunicipio)
+    {
+        if (empty($abrangenciaAtual)) {
+            return false;
+        }
+
+        $tbDetalhaPlanoDistribuicao = new Proposta_Model_DbTable_TbDetalhaPlanoDistribuicao();
+        return $tbDetalhaPlanoDistribuicao->updateLocalizacaoDetalhamento(
+            $idUf,
+            $idMunicipio,
+            $this->idPreProjeto,
+            $abrangenciaAtual['idUF'],
+            $abrangenciaAtual['idMunicipioIBGE']
+        );
     }
 }

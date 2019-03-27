@@ -1,38 +1,78 @@
 <script type="text/javascript">
-    $(document).ready(function(){
-        //ATUALIZA TITULO DA PAGINA
+    $(document).ready(function () {
         window.parent.$("#titulo").html("<div>Tramita&ccedil;&atilde;o</div>");
-        window.parent.$("#caminhoLocalAtual").html("Tramita&ccedil;&atilde;o");
+        window.parent.$("#caminhoLocalAtual").html("Tramita&ccedil;&atilde;oOOOO");
 
-       //CARREGA TRAMITACAO PROJETO
-       $("#resultTramitacaoProjeto").html('<br><center>Aguarde, carregando dados...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center><br>');
-       jqAjaxLinkSemLoading('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'tramitacao-projeto')); ?><?php echo "?idPronac=".$this->idPronac;?>', '', 'resultTramitacaoProjeto');
+        $("#resultUltimaTramitacao").html(
+            '<br><center>Aguarde, carregando dados...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center><br>'
+        );
 
-       //CARREGA TRAMITACAO DOCUMENTO
-       setTimeout(function(){ 
-           $("#resultTramitacaoDocumento").html('<br><center>Aguarde, carregando dados...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center><br>');
-            jqAjaxLinkSemLoading('<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'tramitacao-documento')); ?><?php echo "?idPronac=".$this->idPronac;?>', '', 'resultTramitacaoDocumento');
-       }, 1000);
+        jqAjaxLinkSemLoading(
+            '<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'ultima-tramitacao')); ?><?php echo "?idPronac=" . $this->idPronac; ?>', '', 'resultUltimaTramitacao'
+        );
 
+        $("#resultTramitacaoProjeto").html(
+            '<br><center>Aguarde, carregando dados...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center><br>'
+        );
+
+        jqAjaxLinkSemLoading(
+            '<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'tramitacao-projeto')); ?><?php echo "?idPronac=" . $this->idPronac; ?>', '', 'resultTramitacaoProjeto'
+        );
+
+        setTimeout(function () {
+            $("#resultTramitacaoDocumento").html(
+                '<br><center>Aguarde, carregando dados...<br><img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /></center><br>'
+            );
+
+            jqAjaxLinkSemLoading(
+                '<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'tramitacao-documento')); ?><?php echo "?idPronac=" . $this->idPronac; ?>', '', 'resultTramitacaoDocumento'
+            );
+        }, 1000);
     });
 </script>
 
 <table class="tabela">
     <tr class="destacar">
-        <td align="center"><b>PRONAC</b></td>
-        <td align="center"><b>Nome do Projeto</b></td>
+        <td align="center">
+            <b>
+                PRONAC
+            </b>
+        </td>
+        <td align="center">
+            <b>
+                Nome do Projeto
+            </b>
+        </td>
     </tr>
     <tr>
-        <td align="center"><?php echo $this->projeto->AnoProjeto.$this->projeto->Sequencial; ?></td>
-        <td align="center"><?php echo $this->projeto->NomeProjeto; ?></td>
+        <td align="center">
+            <?php echo $this->
+                projeto->AnoProjeto . $this->projeto->Sequencial; ?>
+        </td>
+        <td align="center">
+            <?php echo $this->
+            projeto->NomeProjeto; ?>
+        </td>
     </tr>
 </table>
-
 <fieldset>
-    <legend>Tramita&ccedil;&atilde;o do Projeto</legend>
-    <div id="resultTramitacaoProjeto"></div>
+    <legend>
+        &Uacute;ltima Tramita&ccedil;&atilde;o
+    </legend>
+    <div id="resultUltimaTramitacao">
+    </div>
 </fieldset>
 <fieldset>
-    <legend>Tramita&ccedil;&atilde;o de Documentos</legend>
-    <div id="resultTramitacaoDocumento"></div>
+    <legend>
+        Tramita&ccedil;&atilde;o do Projeto
+    </legend>
+    <div id="resultTramitacaoProjeto">
+    </div>
+</fieldset>
+<fieldset>
+    <legend>
+        Tramita&ccedil;&atilde;o de Documentos
+    </legend>
+    <div id="resultTramitacaoDocumento">
+    </div>
 </fieldset>

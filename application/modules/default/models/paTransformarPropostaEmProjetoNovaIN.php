@@ -1,15 +1,8 @@
 <?php
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- * Description of paTransformarPropostaEmProjetoNovaIN
- */
 class paTransformarPropostaEmProjetoNovaIN extends MinC_Db_Table_Abstract
 {
-    protected $_banco = 'SAC';
+    protected $_schema = 'SAC';
     protected $_name  = 'paTransformarPropostaEmProjetoNovoIN';
 
     #public function execSP($idProposta, $CNPJCPF, $idOrgao, $idUsuario){
@@ -27,7 +20,7 @@ class paTransformarPropostaEmProjetoNovaIN extends MinC_Db_Table_Abstract
     public function execSP($idProposta, $CNPJCPF, $idOrgao, $idUsuario, $nrProcesso)
     {
         try {
-            $rodar = "exec " . $this->_banco .".". $this->_name . ' ' . $idProposta .',"'. $CNPJCPF.'",'. $idOrgao.','. $idUsuario.',"'. $nrProcesso . '"';
+            $rodar = "exec " . $this->_schema .".". $this->_name . ' ' . $idProposta .',"'. $CNPJCPF.'",'. $idOrgao.','. $idUsuario.',"'. $nrProcesso . '"';
             
             return  $this->getAdapter()->query($rodar);
         } catch (Zend_Exception $e) {

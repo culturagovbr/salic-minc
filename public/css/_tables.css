@@ -29,9 +29,6 @@ x - TABELAS (legado)
     /*color:auto;*/
 }
 
-#conteudo table tr.linha:hover td {
-    background: #f6f5f8;
-}
 
 #conteudo table tr.destacar td,
 #conteudo table td.destacar {
@@ -65,6 +62,33 @@ x - TABELAS (legado)
 #conteudo tfoot td a {
     text-decoration: none !important;
     color: #999 !important;
+}
+
+#conteudo table tr.linha:hover td {
+    background: #f6f5f8;
+}
+
+table tr.linha-excluida,
+#conteudo table tr.linha-excluida {
+    text-decoration: line-through;
+}
+
+table tr.linha-excluida td,
+#conteudo table tr.linha-excluida td {
+    background-color: #dcdcdc;
+    color: #777
+}
+
+table tr.linha-atualizada td,
+#conteudo table tr.linha-atualizada td {
+    background-color: #d0d8e8;
+    color: #10504e;
+}
+
+table tr.linha-incluida td,
+#conteudo table tr.linha-incluida td {
+    background-color: #a5ceaf;
+    color: #155025;
 }
 
 #conteudo table tfoot td img {
@@ -312,14 +336,11 @@ table.tablesorter .headerSortDown {
     background-position: bottom;
 }
 
-
 /*--------------------------------------------------------------
 x - Tabelas
 --------------------------------------------------------------*/
 
 .bordered {
-    /*border: 1px solid #d0d0d0;*/
-    /*border-left: 1px solid #d0d0d0;*/
     border: 1px solid #ccc;
     padding: 10px;
 }
@@ -335,8 +356,32 @@ table > tbody > tr {
     transition: background-color .25s ease;
 }
 
-table > tbody > tr:hover {
-    /*background-color: #f2f2f2;*/
+.planilha-orcamentaria table.bordered tr > td,
+.planilha-orcamentaria table.bordered tr > th {
+    padding: 10px;
+    border: 1px solid #d0d0d0;
 }
 
+.destacar-celula {
+    /*background-color: #fce4d7 !important;*/
+    background-color: #d6ecd8 !important;
+}
 
+.destaque-texto,
+.destaque-texto a {
+    color: #009900 !important;
+}
+
+#conteudo .destaque-texto-primary a:not(.btn),
+.destaque-texto-primary,
+.destaque-texto-primary a {
+    color: #0000FF !important;
+    cursor: pointer;
+}
+
+#conteudo .destaque-texto-secondary a:not(.btn),
+.destaque-texto-secondary,
+.destaque-texto-secondary a {
+    color: #CC0000 !important;
+    cursor: pointer;
+}

@@ -1,0 +1,459 @@
+<?php if($this->idPerfil == 1111){ ?>
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            //CARREGAR COMBO DE SEGMENTOS DE ACORDO COM A COMBO DE AREAS
+            <?php if (!empty($this->planosDistribuicao)) : ?>
+            <?php foreach ($this->planosDistribuicao as $planoDistribuicao): ?>
+            <?php if(!empty($planoDistribuicao->Area)): ?>
+
+            $("#patrocinador-<?php echo $planoDistribuicao->idProduto; ?>").numeric();
+            $("#divulgacao-<?php echo $planoDistribuicao->idProduto; ?>").numeric();
+            $("#beneficiarios-<?php echo $planoDistribuicao->idProduto; ?>").numeric();
+            $("#qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>").numeric();
+            $("#qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>").numeric();
+            $("#preconormal-<?php echo $planoDistribuicao->idProduto; ?>").priceFormat();
+            $("#precopromocional-<?php echo $planoDistribuicao->idProduto; ?>").priceFormat();
+
+            <?php endif; ?>
+
+            $("#qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>").keyup(function(){
+                somaValores('qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>', 'qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'patrocinador-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'divulgacao-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'beneficiarios-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                multiplicaValores('qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>', 'preconormal-<?php echo $planoDistribuicao->idProduto; ?>', 'previstonormal-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+                somaValores('previstonormal-<?php echo $planoDistribuicao->idProduto; ?>', 'previstopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'totalprevisto-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+            });
+
+            $("#qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>").keyup(function(){
+                somaValores('qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>', 'qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'patrocinador-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'divulgacao-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'beneficiarios-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                multiplicaValores('qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'precopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'previstopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+                somaValores('previstonormal-<?php echo $planoDistribuicao->idProduto; ?>', 'previstopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'totalprevisto-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+            });
+
+            $("#patrocinador-<?php echo $planoDistribuicao->idProduto; ?>,#divulgacao-<?php echo $planoDistribuicao->idProduto; ?>,#beneficiarios-<?php echo $planoDistribuicao->idProduto; ?>").keyup(function(){
+                somaValores('qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>', 'qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'patrocinador-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'divulgacao-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'beneficiarios-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+            });
+
+            $("#preconormal-<?php echo $planoDistribuicao->idProduto; ?>").keyup(function(){
+                multiplicaValores('qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>', 'preconormal-<?php echo $planoDistribuicao->idProduto; ?>', 'previstonormal-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+                somaValores('previstonormal-<?php echo $planoDistribuicao->idProduto; ?>', 'previstopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'totalprevisto-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+            });
+
+            $("#precopromocional-<?php echo $planoDistribuicao->idProduto; ?>").keyup(function(){
+                multiplicaValores('qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'precopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'previstopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+                somaValores('previstonormal-<?php echo $planoDistribuicao->idProduto; ?>', 'previstopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'totalprevisto-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+            });
+
+            //===========================================================================================================
+
+            $("#qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>").blur(function(){
+                somaValores('qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>', 'qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'patrocinador-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'divulgacao-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'beneficiarios-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                multiplicaValores('qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>', 'preconormal-<?php echo $planoDistribuicao->idProduto; ?>', 'previstonormal-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+                somaValores('previstonormal-<?php echo $planoDistribuicao->idProduto; ?>', 'previstopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'totalprevisto-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+            });
+
+            $("#qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>").blur(function(){
+                somaValores('qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>', 'qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'patrocinador-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'divulgacao-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'beneficiarios-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                multiplicaValores('qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'precopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'previstopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+                somaValores('previstonormal-<?php echo $planoDistribuicao->idProduto; ?>', 'previstopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'totalprevisto-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+            });
+
+            $("#patrocinador-<?php echo $planoDistribuicao->idProduto; ?>,#divulgacao-<?php echo $planoDistribuicao->idProduto; ?>,#beneficiarios-<?php echo $planoDistribuicao->idProduto; ?>").blur(function(){
+                somaValores('qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>', 'qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'patrocinador-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'divulgacao-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+                somaValores('nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 'beneficiarios-<?php echo $planoDistribuicao->idProduto; ?>', 'nexemplares-<?php echo $planoDistribuicao->idProduto; ?>', 0, true);
+            });
+
+            $("#preconormal-<?php echo $planoDistribuicao->idProduto; ?>").blur(function(){
+                multiplicaValores('qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>', 'preconormal-<?php echo $planoDistribuicao->idProduto; ?>', 'previstonormal-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+                somaValores('previstonormal-<?php echo $planoDistribuicao->idProduto; ?>', 'previstopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'totalprevisto-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+            });
+
+            $("#precopromocional-<?php echo $planoDistribuicao->idProduto; ?>").blur(function(){
+                multiplicaValores('qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'precopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'previstopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+                somaValores('previstonormal-<?php echo $planoDistribuicao->idProduto; ?>', 'previstopromocional-<?php echo $planoDistribuicao->idProduto; ?>', 'totalprevisto-<?php echo $planoDistribuicao->idProduto; ?>', 2, true);
+            });
+
+            $('#btn_salvar-<?php echo $planoDistribuicao->idProduto; ?>').click(function(){
+                $('#mensagem').html('');
+                var i=0,
+                    erros = null,
+                    nExemplares = parseInt($('input#nexemplares-<?php echo $planoDistribuicao->idProduto; ?>').val()),
+                    patrocinador = parseInt($('input#patrocinador-<?php echo $planoDistribuicao->idProduto; ?>').val()),
+                    divulgacao = parseInt($('input#divulgacao-<?php echo $planoDistribuicao->idProduto; ?>').val()),
+                    baixarenda = parseInt($('input#beneficiarios-<?php echo $planoDistribuicao->idProduto; ?>').val()),
+                    qtdenormal = parseInt($('input#qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>').val()),
+                    qtdepromocional = parseInt($('input#qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>').val()),
+                    preconormal = parseInt($('input#preconormal-<?php echo $planoDistribuicao->idProduto; ?>').val().replace(/\./g, '').replace(',', '')),
+                    precopromocional = parseInt($('input#precopromocional-<?php echo $planoDistribuicao->idProduto; ?>').val().replace(/\./g, '').replace(',', ''));
+
+                if( patrocinador > (nExemplares/10) ){
+                    i++;
+                    erros = erros + i+' - A quantidade destinada ao patrocinador n&atilde;o pode ser maior do que 10% do n&uacute;mero Exemplares/Ingressos.<br />';
+                }
+                if( divulgacao > (nExemplares/10) ){
+                    i++;
+                    erros = erros + i+' - A quantidade destinada &agrave; divulga&ccedil;&atilde;o n&atilde;o pode ser maior do que 10% do n&uacute;mero Exemplares/Ingressos.<br />';
+                }
+                if( baixarenda < (nExemplares/10) ){
+                    i++;
+                    erros = erros + i+' - A quantidade destinada &agrave; popula&ccedil;&atilde;o de baixa renda n&atilde;o pode ser menor do que 10% do n&uacute;mero Exemplares/Ingressos.<br />';
+                }
+                if( precopromocional > preconormal){
+                    i++;
+                    erros = erros + i+' - Valor normal n&atilde;o pode ser menor do que o valor promocional.<br />';
+                }
+                if( qtdenormal == null ){
+                    i++;
+                    erros = erros + i+' - Favor preencher o campo Normal(Qntd).<br />';
+                }
+                if( qtdepromocional == null ){
+                    i++;
+                    erros = erros + i+' - Favor preencher o campo Promocional(Qntd).<br />';
+                }
+                if( patrocinador==0 && divulgacao==0 && baixarenda==0 && qtdenormal==0 && qtdepromocional==0){
+                    i=0;
+                }
+
+                var preenchimento = true;
+                $('.obrigatorio').each(function(){
+                    if($.trim($(this).val()) == ''){
+                        preenchimento = false;
+                    }
+                });
+
+                if(!preenchimento){
+                    i++;
+                    erros = erros + i+' - Favor preencher os campos obrigatórios.';
+                }
+
+                if(i>0){
+                    $("#msgAlerta").dialog("destroy");
+                    $("#msgAlerta").html(erros);
+                    $("#msgAlerta").dialog({
+                        resizable: false,
+                        title: 'Alerta!',
+                        width: 440,
+                        modal: true,
+                        buttons : {
+                            'OK' : function(){
+                                $(this).dialog('close');
+                            }
+                        }
+                    });
+                    $('.ui-dialog-titlebar-close').remove();
+                } else {
+                    idProduto = this.id.split('btn_salvar-')[1];
+                    idPlanoDistribuicao = $('#idPlanoDistribuicao-' + idProduto).val();
+                    idPlanoDistribuicao = (idPlanoDistribuicao == 'copia') ? '' : idPlanoDistribuicao;
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'plano-distribuicao', 'action' => 'incluir-planos-de-distribuicao'), '', true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>',
+                        data: {
+                            newPlanoDistribuicao: $('#idProduto-' + idProduto).val(),
+                            newArea: $('#areaCultural-' + idProduto).val(),
+                            newSegmento: $('#segmentoCultural-' + idProduto).val(),
+                            newQntdPatrocinador: $('#patrocinador-' + idProduto).val(),
+                            newQntdDivulgacao: $('#divulgacao-' + idProduto).val(),
+                            newQntdPopulacaoBaixaRenda: $('#beneficiarios-' + idProduto).val(),
+                            newQntdNormal: $('#qtdenormal-' + idProduto).val(),
+                            newQntdPromocional: $('#qtdepromocional-' + idProduto).val(),
+                            newVlNormal: $('#preconormal-' + idProduto).val(),
+                            newVlPromocional: $('#precopromocional-' + idProduto).val(),
+                            newPosicaoLogomarca: $('#newPosicaoLogomarca-' + idProduto).val(),
+                            idReadequacao: $('#idReadequacao').val(),
+                            idPlanoDistribuicao: idPlanoDistribuicao
+                        },
+                        success: function(data) {
+                            var mensagem = "";
+
+                            $('.mensagem-' + idProduto).removeClass('sumir');
+
+                            if (data != '') {
+                                data = data;
+                            }
+
+                            if (data.resposta == true) {
+                                mensagem = "<div>Plano de distribuição alterado.</div>";
+                                $('.mensagem-' + idProduto).addClass('msgCONFIRM');
+                            } else {
+                                mensagem = "<div>" + data.msg + "</div>";
+                                $('.mensagem-' + idProduto).addClass('msgERROR');
+                            }
+                            if (data.hasOwnProperty("idReadequacao")) {
+                                $('#idReadequacao').val(data.idReadequacao);
+                            }
+                            if (data.hasOwnProperty("idPlanoDistribuicao")) {
+                                $('#idPlanoDistribuicao-' + idProduto).val(data.idPlanoDistribuicao);
+                            }
+
+                            $('#plano-' + idProduto + '-alterado').removeClass('sumir');
+                            $('.mensagem-' + idProduto).html(mensagem);
+                            $('.mensagem-' + idProduto).prepend("<div class=\"float_right\"><input type=\"button\" onclick=\"$('.mensagem-" + idProduto + "').addClass('sumir');\" title=\"Fechar mensagem\" class=\"btn_close\"></div>");
+                        }
+                    });
+                }
+            });
+
+
+            <?php endforeach; ?>
+            <?php endif; ?>
+        });
+
+        //SOMA VALORES NUMERICOS
+        function somaValores(id1, id2, idDestino, precisao, tratarMascara){
+            var cmp1 = $("#" + id1).val();
+            var cmp2 = $("#" + id2).val();
+            var valor1 = 0;
+            var valor2 = 0;
+            var soma_valores = 0;
+
+            if(!cmp1){ cmp1 = "0"; }
+            if(!cmp2){ cmp2 = "0"; }
+
+            if(tratarMascara == true){
+                valor1 = cmp1.replace(".","");
+                valor1 = valor1.replace(",", ".");
+                valor2 = cmp2.replace(".", "");
+                valor2 = valor2.replace(",", ".");
+            } else {
+                valor1 = cmp1;
+                valor2 = cmp2;
+            }
+
+            soma_valores = parseFloat(valor1) + parseFloat(valor2);
+            soma_valores = Math.abs(soma_valores);
+            soma_valores = soma_valores.toFixed(precisao);
+            if (precisao == 0) {
+                $('#' + idDestino).val(soma_valores);
+            } else {
+                $('#' + idDestino).val(soma_valores).priceFormat();
+            }
+        }
+
+        //MULTIPLICA VALORES NUMERICOS
+        function multiplicaValores(id1, id2, idDestino, precisao, tratarMascara){
+            var cmp1 = $("#" + id1).val();
+            var cmp2 = $("#" + id2).val();
+            var valor1 = 0;
+            var valor2 = 0;
+            var soma_valores = 0;
+
+            if(!cmp1){ cmp1 = "0"; }
+            if(!cmp2){ cmp2 = "0"; }
+
+            if(tratarMascara == true){
+                valor1 = cmp1.replace(".","");
+                valor1 = valor1.replace(",",".");
+                valor2 = cmp2.replace(".","");
+                valor2 = valor2.replace(",",".");
+            }else{
+                valor1 = cmp1;
+                valor2 = cmp2;
+            }
+
+            soma_valores = parseFloat(valor1) * parseFloat(valor2);
+            soma_valores = Math.abs(soma_valores);
+            soma_valores = soma_valores.toFixed(precisao);
+            $('#'+idDestino).val(soma_valores).priceFormat();
+        }
+
+        // abre produtos do plano de distribuiçao e fecha o que estiver aberto
+        function mostraOcultaElemento(elemento) {
+            $('.produtos').each(
+                function() {
+                    var rowId = $(this).attr('id'),
+                        buttonId = $(this).attr('id').split('tr-')[1];
+
+                    // clicou
+                    if (elemento == buttonId) {
+                        // se esta fechado, abre
+                        if ($('#td-' + buttonId).hasClass('btn_adicionar')) {
+                            // abre
+                            $('#' + rowId).show();
+                            $('#td-' + buttonId).removeClass('btn_adicionar');
+                            $('#td-' + buttonId).addClass('btn_remover');
+                        } else {
+                            // se esta aberto, fecha
+                            $('#' + rowId).hide();
+                            $('#td-' + buttonId).addClass('btn_adicionar');
+                            $('#td-' + buttonId).removeClass('btn_remover');
+                        }
+                    } else {
+                        // outros campos
+                        if ($('#td-' + buttonId).hasClass('btn_adicionar')) {
+                            // se esta fechado, permanece
+                        } else {
+                            // se esta aberto, fecha
+                            $('#' + rowId).hide();
+                            $('#td-' + buttonId).addClass('btn_adicionar');
+                            $('#td-' + buttonId).removeClass('btn_remover');
+                        }
+                    }
+                }
+            );
+        }
+
+    </script>
+
+    <style type="text/css">
+        label.error{ color:red; font-weight: normal; }
+    </style>
+
+    <?php if (!empty($this->planosDistribuicao)) : ?>
+        <?php foreach($this->planosDistribuicao as $planoDistribuicao): ?>
+            <?php $planoAlterado = $planoDistribuicao->tpSolicitacao == 'N' ? false : true; ?>
+            <table class="tabela">
+                <tr>
+                    <td align="left">
+                        <input id="td-produto-<?php echo $planoDistribuicao->idProduto; ?>" type="button" onclick="mostraOcultaElemento('produto-<?php echo $planoDistribuicao->idProduto; ?>');" class="btn_adicionar">
+                        <?php echo "<strong>".$planoDistribuicao->Produto."</strong>";?> <?php if($planoDistribuicao->stPrincipal == 1) echo "<span style='color:red'>(produto principal)</span>";?></b><span style='color: red' id='plano-<?php echo $planoDistribuicao->idProduto; ?>-alterado' class='<?php if (!$planoAlterado): ?>sumir<?php endif; ?>'> - alterado</span>
+                    </td>
+                </tr>
+                <tr class="sumir produtos" id="tr-produto-<?php echo $planoDistribuicao->idProduto;?>" align="left">
+                    <td>
+                        <form name="frmPlanoDistribuicao-<?php echo $planoDistribuicao->idProduto; ?>" id="frmPlanoDistribuicao-<?php echo $planoDistribuicao->idProduto; ?>" method="post">
+                            <?php /* define idPlanoDistribuicao como novo se planos forem cópia */ ?>
+                            <?php $idPlanoDistribuicao = ($this->planoDistribuicaoCopia[$planoDistribuicao->idProduto]) ? 'copia' : $planoDistribuicao->idPlanoDistribuicao; ?>
+
+                            <input type="hidden" name="idPlanoDistribuicao" id="idPlanoDistribuicao-<?php echo $planoDistribuicao->idProduto; ?>" value="<?php echo $idPlanoDistribuicao; ?>">
+                            <input type="hidden" name="idProjeto" id="idProjeto-<?php echo $planoDistribuicao->idProduto;?>" value="<?php echo $planoDistribuicao->idProjeto; ?>">
+                            <input type="hidden" name="idProduto" id="idProduto-<?php echo $planoDistribuicao->idProduto;?>" value="<?php echo $planoDistribuicao->idProduto; ?>">
+                            <input type="hidden" name="pronac" id="pronac-<?php echo $planoDistribuicao->idProduto;?>" value="<?php echo $this->pronac; ?>">
+                            <input type="hidden" name="newPosicaoLogomarca" id="newPosicaoLogomarca-<?php echo $planoDistribuicao->idProduto;?>" value="<?php echo $planoDistribuicao->idPosicaoDaLogo; ?>">
+
+                            <!-- ========== INÍCIO TABELA DADOS ========== -->
+                            <table  class="tabela">
+                                <tr>
+                                    <th colspan="4" align="center">Nome do Evento / Produto</th>
+                                </tr>
+                                <tr>
+                                    <td class="destacar bold" style="width: 1px;">&Aacute;rea <span style="color: red;">*</span></td>
+                                    <td>
+                                        <span><?php echo $planoDistribuicao->DescricaoArea; ?></span>
+                                        <input type="hidden" name="areaCultural" id="areaCultural-<?php echo $planoDistribuicao->idProduto; ?>" value="<?php echo $planoDistribuicao->idArea; ?>">
+                                    </td>
+                                    <td class="destacar bold" style="width: 1px;">Segmento <span style="color: red;">*</span></td>
+                                    <td>
+                                        <span><?php echo $planoDistribuicao->DescricaoSegmento; ?></span>
+                                        <input type="hidden" name="segmentoCultural" id="segmentoCultural-<?php echo $planoDistribuicao->idProduto; ?>" value="<?php echo $planoDistribuicao->idSegmento; ?>">
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table class="tabela">
+                                <tr>
+                                    <th align="center" colspan="3"><?php echo "Distribui&ccedil;&atilde;o Gratuita"; ?> (Qtde)</th>
+                                </tr>
+                                <tr>
+                                    <td class="destacar bold" width="33%" align="center">Patrocinador</td>
+                                    <td class="destacar bold" width="33%" align="center">Divulga&ccedil;&atilde;o</td>
+                                    <td class="destacar bold" width="34%" align="center">Popula&ccedil;&atilde;o de Baixa Renda</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <input class="input_simples" type="text" name="qtdPatrocinador" id="patrocinador-<?php echo $planoDistribuicao->idProduto; ?>" value="<?php echo $planoDistribuicao->QtdePatrocinador; ?>" maxlength="8" size="10">
+                                    </td>
+                                    <td align="center">
+                                        <input class="input_simples" type="text" name="qtdDivulgaca" id="divulgacao-<?php echo $planoDistribuicao->idProduto; ?>" value="<?php echo $planoDistribuicao->QtdeProponente; ?>" maxlength="8" size="10">
+                                    </td>
+                                    <td align="center">
+                                        <input class="input_simples" type="text" name="qtdBeneficiarios" id="beneficiarios-<?php echo $planoDistribuicao->idProduto; ?>" value="<?php echo $planoDistribuicao->QtdeOutros; ?>" maxlength="8" size="10">
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table class="tabela">
+                                <tr>
+                                    <th align="center" colspan="2">Total para a Venda (Qtde)</th>
+                                    <th align="center">Quantidade</th>
+                                </tr>
+                                <tr>
+                                    <td class="destacar bold" width="33%" align="center">Normal <span style="color: red;">*</span></td>
+                                    <td class="destacar bold" width="33%" align="center">Promocional <span style="color: red;">*</span></td>
+                                    <td class="destacar bold" width="34%" align="center">N&ordm; Exemplares / Ingressos</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <input class="input_simples obrigatorio" type="text" name="qtdenormal" id="qtdenormal-<?php echo $planoDistribuicao->idProduto; ?>" value="<?php echo $planoDistribuicao->QtdeVendaNormal; ?>" maxlength="8" size="10">
+                                    </td>
+                                    <td align="center">
+                                        <input class="input_simples obrigatorio" type="text" name="qtdepromocional" id="qtdepromocional-<?php echo $planoDistribuicao->idProduto; ?>" value="<?php echo $planoDistribuicao->QtdeVendaPromocional; ?>" maxlength="8" size="10">
+                                    </td>
+                                    <td align="center">
+                                        <input disabled="disabled"  name="nexemplares" id="nexemplares-<?php echo $planoDistribuicao->idProduto; ?>" class="input_simples" type="text" maxlength="10" value="<?php echo $planoDistribuicao->QtdeProduzida; ?>">
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <table class="tabela">
+                                <tr>
+                                <tr>
+                                    <th align="center" colspan="2"><?php echo utf8_encode("Pre&ccedil;o Unit&aacute;rio (R$)"); ?></th>
+                                    <th align="center" colspan="2">Receita Prevista (R$)</th>
+                                    <th align="center">Total Receita Prevista (R$)</th>
+                                </tr>
+                                <tr>
+                                    <td class="destacar bold" align="center">Normal <span style="color: red;">*</span></td>
+                                    <td class="destacar bold" align="center">Promocional <span style="color: red;">*</span></td>
+                                    <td class="destacar bold" align="center">Normal <span style="color: red;">*</span></td>
+                                    <td class="destacar bold" align="center">Promocional <span style="color: red;">*</span></td>
+                                    <td class="destacar bold" align="center">Total</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">
+                                        <input class="input_simples obrigatorio" type="text" name="preconormal" id="preconormal-<?php echo $planoDistribuicao->idProduto; ?>" value="<?php echo @number_format(($planoDistribuicao->vlUnitarioNormal), 2, ",", "."); ?>" maxlength="9" size="10">
+                                    </td>
+                                    <td align="center">
+                                        <input class="input_simples obrigatorio" type="text" name="precopromocional" id="precopromocional-<?php echo $planoDistribuicao->idProduto; ?>" value="<?php echo @number_format(($planoDistribuicao->PrecoUnitarioPromocional), 2, ",", "."); ?>" maxlength="9" size="10">
+                                    </td>
+                                    <td align="center">
+                                        <input   name="previstonormal"  disabled="disabled"  id="previstonormal-<?php echo $planoDistribuicao->idProduto; ?>" class="input_simples" type="text" maxlength="10" value="<?php echo number_format($planoDistribuicao->QtdeVendaNormal * $planoDistribuicao->vlUnitarioNormal, 2, ',', '.'); ?>" size="10">
+                                    </td>
+                                    <td align="center">
+                                        <input class="input_simples"  disabled="disabled"  name="previstopromocional" id="previstopromocional-<?php echo $planoDistribuicao->idProduto; ?>" type="text" maxlength="10" value="<?php echo $planoDistribuicao->QtdeVendaPromocional * str_replace(",", ".", $planoDistribuicao->PrecoUnitarioPromocional); ?>" size="10">
+                                    </td>
+                                    <td align="center">
+                                        <input disabled="disabled"  name="totalprevisto" id="totalprevisto-<?php echo $planoDistribuicao->idProduto; ?>" class="input_simples" type="text" maxlength="10" value="<?php echo number_format($planoDistribuicao->QtdeVendaNormal * $planoDistribuicao->vlUnitarioNormal + $planoDistribuicao->QtdeVendaPromocional * $planoDistribuicao->PrecoUnitarioPromocional, 2, ',', '.'); ?>">
+                                    </td>
+                                </tr>
+                            </table>
+
+                            <div style="width: 100%">
+                                <p align="center">
+                                    <a
+                                            href="javascript:void(0)"
+                                        id="btn_salvar-<?php echo $planoDistribuicao->idProduto; ?>"
+                                        class="waves-effect waves-light btn btn-primary">
+                                        <i class="material-icons right">save</i>Salvar
+                                    </a>
+                                </p>
+                            </div>
+                            <br clear="all" />
+                            <div class="sumir mensagem-<?php echo $planoDistribuicao->idProduto; ?>"></div>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+<?php } ?>

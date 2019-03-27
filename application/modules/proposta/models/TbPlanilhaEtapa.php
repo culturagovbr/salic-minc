@@ -9,9 +9,18 @@ class Proposta_Model_TbPlanilhaEtapa extends MinC_Db_Model
     protected $_tpGrupo;
     protected $_nrOrdenacao;
 
-    const CUSTOS_VINCULADOS = 8;
-    const REMUNERACAO_CAPTACAO = 10;
     const TIPO_CUSTO_ADMINISTRATIVO = 'A';
+
+    const PRE_PRODUCAO = 1;
+    const PRODUCAO = 2;
+    const DIVULGACAO_COMERCIALIZACAO = 3;
+    const CUSTOS_ADMINISTRATIVOS = 4;
+    const RECOLHIMENTOS = 5;
+    const ELABORACAO_E_AGENCIAMENTO = 6;
+    const POS_PRODUCAO = 7;
+    const CUSTOS_VINCULADOS = 8;
+    const ASSESSORIA_CONTABIL_E_JURIDICA = 9;
+    const CAPTACAO_DE_RECURSOS = 10;
 
     /**
      * @return mixed

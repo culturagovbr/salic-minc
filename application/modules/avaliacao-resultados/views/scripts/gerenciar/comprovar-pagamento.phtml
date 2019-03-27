@@ -1,0 +1,116 @@
+<script src="/public/js/vue.js"></script>
+<script src="/public/js/numeral.js" type="text/javascript"></script>
+<script src="/public/scripts/prestacao-contas/components/dados-projeto.vue.js"></script>
+<script src="/public/scripts/prestacao-contas/components/item.vue.js"></script>
+<script src="/public/scripts/prestacao-contas/components/comprovante-form.vue.js"></script>
+<script src="/public/scripts/prestacao-contas/components/comprovante-internacional-form.vue.js"></script>
+<script src="/public/scripts/prestacao-contas/components/comprovante-nacional-form.vue.js"></script>
+<script src="/public/scripts/prestacao-contas/components/page-title.vue.js"></script>
+<script src="/public/scripts/prestacao-contas/components/comprovante-table.vue.js"></script>
+<script src="/public/scripts/prestacao-contas/components/comprovante-internacional-table.vue.js"></script>
+<script src="/public/scripts/prestacao-contas/components/comprovantes.vue.js"></script>
+<script src="/public/js/moment.js"></script>
+<script src="/public/js/v-money.js"></script>
+
+<div class="container-fluid" id="app-comprovante">
+
+    <page-title 
+        nome="Comprovantes"
+        url="/prestacao-contas/pagamento/index/idpronac/<?php echo $this->idpronac ?>"
+    >
+    </page-title>
+
+    <dados-projeto idpronac="<?php echo $this->idpronac ?>"></dados-projeto>
+
+    <item
+        idpronac="<?php echo $this->idpronac ?>"
+        uf="<?php echo $this->uf ?>"
+        etapa="<?php echo $this->cdetapa ?>"
+        cidade="<?php echo $this->cdcidade ?>"
+        produto="<?php echo $this->cdproduto ?>"
+        idplanilhaitens="<?php echo $this->idPlanilhaItens ?>">
+    </item>
+
+    <h4>Comprovantes Nacionais</h4>
+    <comprovantes
+        idpronac="<?php echo $this->idpronac ?>"
+        produto="<?php echo $this->cdproduto ?>"
+        stitemavaliado="<?php echo $this->idPlanilhaItens ?>"
+        item="<?php echo $this->idPlanilhaItens ?>"
+        idplanilhaitem="<?php echo $this->idPlanilhaItens ?>"
+        uf="<?php echo $this->uf ?>"
+        idmunicipio="<?php echo $this->cdcidade ?>"
+        etapa="<?php echo $this->cdetapa ?>"
+        tipo="nacional"
+        componenteform="sl-comprovante-nacional-form"
+        datainicio="<?php echo $this->dataInicioExecucao ?>"
+        datafim="<?php echo $this->dataFimExecucao ?>"
+        :valoraprovado="parseFloat(<?php echo (float)$this->valorAprovado ?>)"
+        :valorcomprovado="parseFloat(<?php echo (float)$this->valorComprovado ?>)"
+    ></comprovantes>
+
+    <h4>Comprovantes Internacionais</h4>
+    <comprovantes
+        idpronac="<?php echo $this->idpronac ?>"
+        produto="<?php echo $this->cdproduto ?>"
+        stitemavaliado="<?php echo $this->idPlanilhaItens ?>"
+        idplanilhaitem="<?php echo $this->idPlanilhaItens ?>"
+        item="<?php echo $this->idPlanilhaItens ?>"
+        uf="<?php echo $this->uf ?>"
+        idmunicipio="<?php echo $this->cdcidade ?>"
+        etapa="<?php echo $this->cdetapa ?>"
+        tipo="internacional"
+        componenteform="sl-comprovante-internacional-form"
+        datainicio="<?php echo $this->dataInicioExecucao ?>"
+        datafim="<?php echo $this->dataFimExecucao ?>"
+        :valoraprovado="parseFloat(<?php echo $this->valorAprovado ?>)"
+        :valorcomprovado="parseFloat(<?php echo $this->valorComprovado ?>)"
+    ></comprovantes>
+
+    <div class="fixed-action-btn">
+        <a  href="#modal1" class="btn-floating btn-large" v-on:click="visivel()" >
+          <i class="large material-icons">add</i>
+        </a>
+    </div>
+
+    <div id="modal1" class="modal full">
+        <div class="modal-content">
+          <h4>Cadastrar novo comprovante</h4>
+          <sl-comprovar-form
+            url="/prestacao-contas/gerenciar/cadastrar"
+            tipoform="cadastro"
+            item="<?php echo $this->idPlanilhaItens ?>"
+            idplanilhaaprovacao="<?php echo $this->idPlanilhaAprovacao ?>"
+            datainicio="<?php echo $this->dataInicioExecucao ?>"
+            datafim="<?php echo $this->dataFimExecucao ?>"
+            :valoraprovado="parseFloat(<?php echo $this->valorAprovado ?>)"
+            :valorcomprovado="parseFloat(<?php echo $this->valorComprovado ?>)"
+          ></sl-comprovar-form>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    const appComprovante = new Vue({
+    data: {
+        visivelForm: false
+    },
+    mounted: function(a) {
+        $3('#modal1').modal();
+    },
+    methods: {
+        visivel: function() {
+            /* this.visivelForm  = (!this.visivelForm); */
+            console.log(1213123);
+            $3('#modal1').modal('open');
+        },
+
+         converteParaReal: function(value) {
+            value = parseFloat(value);
+            return numeral(value).format('0,0.00');
+        }
+    }
+    }).$mount('#app-comprovante');
+
+</script>

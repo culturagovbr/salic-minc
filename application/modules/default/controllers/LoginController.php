@@ -277,7 +277,7 @@ class LoginController extends MinC_Controller_Action_Abstract
 
         /* ========== IN�CIO ID DO USU�RIO LOGADO ========== */
         $auth    = Zend_Auth::getInstance(); // pega a autentica��o
-        $Usuario = new Autenticacao_Model_Usuario();
+        $Usuario = new Autenticacao_Model_DbTable_Usuario();
 
 
         // verifica se o usu�rio logado � agente
@@ -338,7 +338,7 @@ class LoginController extends MinC_Controller_Action_Abstract
             }
 
             // busca a senha do banco TABELAS
-            $Usuarios     = new Autenticacao_Model_Usuario();
+            $Usuarios     = new Autenticacao_Model_DbTable_Usuario();
             $buscarCPF    = $Usuarios->buscar(array('usu_identificacao = ?' => trim($cpf)));
             $cpfTabelas   = count($buscarCPF) > 0 ? true : false;
             $senhaTabelas = $Usuarios->verificarSenha(trim($cpf), $senhaAtual);
@@ -402,7 +402,7 @@ class LoginController extends MinC_Controller_Action_Abstract
 
         /* ========== IN�CIO ID DO USU�RIO LOGADO ========== */
         $auth    = Zend_Auth::getInstance(); // pega a autentica��o
-        $Usuario = new Autenticacao_Model_Usuario();
+        $Usuario = new Autenticacao_Model_DbTable_Usuario();
 
         // verifica se o usu�rio logado � agente
         $idUsuario = $Usuario->getIdUsuario(null, $auth->getIdentity()->usu_identificacao);
@@ -513,7 +513,7 @@ class LoginController extends MinC_Controller_Action_Abstract
 
             $SenhaFinal = $senha->senha;
 
-            $usuario = new Autenticacao_Model_Usuario();
+            $usuario = new Autenticacao_Model_DbTable_Usuario();
             $usuarioRs = $usuario->buscar(
                     array('usu_identificacao = ?' => $username, 'usu_senha = ?'=> $SenhaFinal )
             );
@@ -524,7 +524,7 @@ class LoginController extends MinC_Controller_Action_Abstract
                 )->current();
                 $senha = $usuarioRs->usu_senha;
 
-                $Usuario = new Autenticacao_Model_Usuario();
+                $Usuario = new Autenticacao_Model_DbTable_Usuario();
                 $buscar = $Usuario->loginSemCript($idLogarComo, $senha);
 
                 if ($buscar) { // acesso permitido
@@ -551,7 +551,7 @@ class LoginController extends MinC_Controller_Action_Abstract
 
         /* ========== IN�CIO ID DO USU�RIO LOGADO ========== */
         $auth    = Zend_Auth::getInstance(); // pega a autentica��o
-        $Usuario = new Autenticacao_Model_Usuario();
+        $Usuario = new Autenticacao_Model_DbTable_Usuario();
 
         // verifica se o usu�rio logado � agente
         $idUsuario = $Usuario->getIdUsuario(null, $auth->getIdentity()->Cpf);

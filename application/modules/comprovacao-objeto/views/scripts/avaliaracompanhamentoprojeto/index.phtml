@@ -1,0 +1,529 @@
+<div id="alerta" class="sumir"></div>
+<div id="pergunta" class="sumir"></div>
+
+<div class="container-fluid">
+
+    <?php
+    $paginaAtual = 'Analisar Comprova&ccedil;&atilde;o do Objeto - ' . $this->filtro;
+
+    $this->PageTitle($paginaAtual, [
+        [$paginaAtual => '']
+    ]); ?>
+
+    <div id="conteudo">
+
+        <table class="tabela">
+            <tr>
+                <td class="destacar bold" width="1" align="center">Pronac</td>
+                <td width="100">
+                    <input type="text" class="input_simples" name="pronacPesquisa" id="pronacPesquisa" maxlength="7"
+                           style="width: 90px;" value="<?php echo $this->pronacProjeto; ?>">
+                </td>
+                <td width="150">
+                    <select name="tipoFiltro" id="tipoFiltro" class="input_simples">
+                        <option value="">Aguardando an&aacute;lise</option>
+                        <option
+                            value="emanalise" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'emanalise') ? 'selected="selected"' : ''; ?>>
+                            Em an&aacute;lise
+                        </option>
+                        <option
+                            value="analisados" <?php echo (isset($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'analisados') ? 'selected="selected"' : ''; ?>>
+                            Analisados
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <input type="button" name="btn_pesquisar" id="btn_pesquisar" class="btn_pesquisar" value="">
+                </td>
+            </tr>
+        </table>
+
+        <?php if (count($this->dados) > 0) { ?>
+            <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
+                <tbody>
+                <tr>
+                    <td align="center">
+                        <form name="form1" id="form1"
+                              action="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')); ?>"
+                              method="get">
+                            <?php if ($this->paginacao['pag'] > 1) { ?>
+                                <input class="btn_inicio" id="btn_inicio" type="button" class="btn_inicio"
+                                       onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=1' . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->tipoFiltro . '&pronac=' . $this->pronacProjeto; ?>'">
+                            <?php } ?>
+                            <input id="btn_p_anterior" type="button"
+                                <?php if ($this->paginacao['pag'] <= 1) { ?> class="btn_p_anterior-off"
+                                <?php } else { ?>
+                                    class="btn_p_anterior" onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=' . ($this->paginacao['pag'] - 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->tipoFiltro . '&pronac=' . $this->pronacProjeto; ?>'"
+                                <?php } ?>>
+                            <input id="btn_p_proximo" type="button"
+                                <?php if ($this->paginacao['pag'] + 1 > $this->paginacao['totalPag']) { ?>
+                                    class="btn_p_proximo-off"
+                                <?php } else { ?>
+                                    class="btn_p_proximo" onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=' . ($this->paginacao['pag'] + 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->tipoFiltro . '&pronac=' . $this->pronacProjeto; ?>'"
+                                <?php } ?>>
+                            <?php if ($this->paginacao['pag'] < $this->paginacao['totalPag']) { ?>
+                                <input class="btn_ultimo" id="btn_ultimo" type="button"
+                                       onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=' . ($this->paginacao['totalPag']) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->tipoFiltro . '&pronac=' . $this->pronacProjeto; ?>'">
+                            <?php } ?>
+                            P&aacute;g.:<select name="pag" id="pag" onchange="$('#form1').submit()"
+                                                class="input_simples">
+                                <?php for ($i = 1; $i <= $this->paginacao['totalPag']; $i++): ?>
+                                    <option
+                                        value="<?php echo $i; ?>" <?php if ($this->paginacao['pag'] == $i) echo "selected"; ?>><?php echo $i; ?>
+                                        &nbsp;
+                                    </option>
+                                <?php endfor; ?>
+                            </select>
+                            &nbsp;Registros por p&aacute;gina:<input type="text" size="2" name="qtde" id="qtde"
+                                                                     class="input_simples"
+                                                                     value="<?php echo $this->intTamPag; ?>">
+                            <input type="submit" class="btn_recarregar" value="">
+                            <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo']; ?>">
+                            <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem']; ?>">
+                            <input type="hidden" name="tipoFiltro" value="<?php echo $this->tipoFiltro; ?>">
+                            <input type="hidden" name="pronac" value="<?php echo $this->pronacProjeto; ?>">
+                            <input type="button" class="btn_imprimir" title="Imprimir"/>
+                            <input type="button" class="btn_xls" title="Gerar Excel"/>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <center>
+                <?php
+                echo $this->paginacao['inicio'] . " a ";
+                echo ($this->paginacao['pag'] - 1) * $this->paginacao['Itenspag'] + $this->paginacao['tamanho'];
+                echo " de " . $this->paginacao['total'] . " Projetos listados";
+                ?>
+            </center>
+        <?php } ?>
+
+        <?php if ($this->qtdRegistros > 0) { ?>
+            <table class="tabela tablesorter">
+                <thead>
+                <tr class="titulo_tabela">
+                    <th width="1px">#</th>
+                    <th>
+                        <a href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->tipoFiltro . '&campo=2&ordem=' . $this->paginacao['novaOrdem']; ?>">PRONAC</a>
+                    </th>
+                    <th>
+                        <a href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->tipoFiltro . '&campo=3&ordem=' . $this->paginacao['novaOrdem']; ?>">Nome
+                            do Projeto</a></th>
+                    <th>
+                        <a href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->tipoFiltro . '&campo=4&ordem=' . $this->paginacao['novaOrdem']; ?>">UF</a>
+                    </th>
+                    <th>
+                        <a href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->tipoFiltro . '&campo=5&ordem=' . $this->paginacao['novaOrdem']; ?>">Mecanismo</a>
+                    </th>
+                    <th>
+                        <a href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->tipoFiltro . '&campo=6&ordem=' . $this->paginacao['novaOrdem']; ?>">Situa&ccedil;&atilde;o</a>
+                    </th>
+                    <th>
+                        <a href="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=1&qtde=' . $this->paginacao['qtde'] . '&tipoFiltro=' . $this->tipoFiltro . '&campo=11&ordem=' . $this->paginacao['novaOrdem']; ?>">Dt.&nbsp;Envio
+                            da PC</a></th>
+                    <?php if (!empty($_GET['tipoFiltro'])) : ?>
+                        <th>T&eacute;cnico</th>
+                    <?php endif; ?>
+                    <th>A&ccedil;&otilde;es</th>
+                </tr>
+                </thead>
+                <?php $x = 1;
+                foreach ($this->dados as $dp) { ?>
+                    <tr>
+                        <td align="center"><?php echo $x; ?></td>
+                        <td nowrap align="center"><a target="_blank"
+                                                     href="<?php echo $this->url(array('controller' => 'consultardadosprojeto', 'action' => 'index'), '', true); ?>?idPronac=<?php echo $dp->IdPRONAC; ?>"><?php echo $dp->Pronac; ?></a>
+                        </td>
+                        <td><?php echo $dp->NomeProjeto; ?></td>
+                        <td nowrap align="center"><?php echo $dp->UfProjeto; ?></td>
+                        <td nowrap>
+                            <?php
+                            if ($dp->Mecanismo == 1) {
+                                echo 'Incentivo Fiscal Federal';
+                            } else if ($dp->Mecanismo != 2) {
+                                echo 'FNC';
+                            } else if ($dp->Mecanismo != 6) {
+                                echo 'Recursos do Tesouro';
+                            }
+                            ?>
+                        </td>
+                        <td><?php echo $dp->Situacao . ' - ' . $dp->dsSituacao; ?></td>
+                        <td align="center"><?php echo ($dp->DtEnvioDaPrestacaoContas) ? Data::tratarDataZend($dp->DtEnvioDaPrestacaoContas, 'Brasileiro') : ' - '; ?></td>
+
+                        <?php if (!empty($_GET['tipoFiltro'])) : ?>
+                            <td>
+
+                                <?php foreach ($this->Usuarios as $user) {
+                                    if ($user->idUsuario == $dp->idTecnicoAvaliador) {
+                                        echo $user->Nome;
+                                    }
+                                }
+                                ?>
+                            </td>
+                        <?php endif; ?>
+
+                        <td nowrap align="center">
+                            <?php if (empty($_GET['tipoFiltro']) || $_GET['tipoFiltro'] == 'analisados' ) : ?>
+                                <a
+                                    style="margin-bottom:5px;"
+                                    class="btn waves-effect waves-light tooltipped small white-text btn-primary modal-trigger btn-secondary"
+                                    href="#modalDistribuirAnalise_<?= $dp->IdPRONAC ?>"
+                                    data-tooltip="Distribuir an&aacute;lise para um t&eacute;cnico">
+                                    <i class="material-icons">person</i>
+                                </a>
+                                <!-- @todo: temporario pois o modulo sera migrado para vue -->
+                                <div id="modalDistribuirAnalise_<?= $dp->IdPRONAC ?>"
+                                     class="modal modal-fixed-footer">
+                                    <div class="modal-content">
+                                        <p style="font-size: 18px;">Distribuir projeto <b>"<?= $dp->NomeProjeto; ?>"</b> para an&aacute;lise de
+                                            cumprimento do objeto</p>
+                                        <p class="left-align">Selecione o t&eacute;cnico:</p>
+                                        <div class="row">
+                                            <div class="col l8 m8 s12">
+                                                <select name="tecnico" style="display: inline-block; font-size: 14px">
+                                                    <option value=""> - Selecione -</option>
+                                                    <?php foreach ($this->Usuarios as $usuario) { ?>
+                                                        <option
+                                                            value="<?= $usuario->idUsuario; ?>" <?= ($dp->idTecnicoAvaliador == $usuario->idUsuario) ? 'selected="selected"' : ''; ?>><?= $usuario->Nome; ?></option>
+                                                    <?php } ?>
+                                                </select>
+                                            </div>
+                                            <div class="col l4 m4 s12 left-align">
+                                                <a
+                                                    pronac="<?= $dp->IdPRONAC; ?>"
+                                                    style="margin-bottom:5px; display: inline-block"
+                                                    class="btn-enviar btn waves-effect waves-light tooltipped small white-text btn-primary"
+                                                    href="javascript:void(0)"
+                                                    data-tooltip="Enviar para o T&eacute;cnico selecionado">
+                                                    <i class="material-icons left">send</i> Enviar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Fechar</a>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+
+                            <?php if (!empty($dp->idTecnicoAvaliador)
+                                && !empty($dp->stResultadoAvaliacao)
+                                && !empty($_GET['tipoFiltro'])) : ?>
+                                <a
+                                    style="margin-bottom:5px;"
+                                    class="btn waves-effect waves-light tooltipped small white-text btn-info"
+                                    href="<?= $this->url([
+                                        'module' => 'comprovacao-objeto',
+                                        'controller' => 'avaliaracompanhamentoprojeto',
+                                        'action' => 'visualizar-relatorio'
+                                    ], '', true); ?>?idPronac=<?php echo $dp->IdPRONAC; ?>"
+                                    data-tooltip="Visualizar relat&oacute;rio">
+                                    <i class="material-icons">visibility</i>
+                                </a>
+                            <?php endif; ?>
+
+                            <?php if (!empty($dp->stResultadoAvaliacao)
+                                && !empty($dp->idTecnicoAvaliador)
+                                && !empty($_GET['tipoFiltro'])
+                                && $_GET['tipoFiltro'] == 'analisados') : ?>
+
+                                <?php if (!empty($dp->idDocumentoAssinatura)) : ?>
+                                    <?php if ($dp->quantidadeAssinaturas == 1) :
+                                        $url = '%1$s/?idDocumentoAssinatura=%2$s&origin=%3$s';
+                                        ?>
+                                        <a
+                                            style="margin-bottom:5px;"
+                                            class="btn waves-effect waves-light tooltipped small white-text btn-primary"
+                                            href="<?php printf($url, $this->urlAssinatura, $dp->idDocumentoAssinatura, $this->originAssinatura); ?>"
+                                            data-tooltip="Finalizar e assinar parecer">
+                                            <i class="material-icons">create</i>
+                                        </a>
+                                    <?php else: ?>
+                                        <a
+                                            style="margin-bottom:5px;"
+                                            class="btn small disabled"
+                                            href="<?php printf($url, $this->urlAssinatura, $dp->idDocumentoAssinatura, $this->originAssinatura); ?>"
+                                            title="Aguardando assinatura do t&eacute;cnico">
+                                            <i class="material-icons">create</i>
+                                        </a>
+                                    <?php endif; ?>
+                                <?php else: ?>
+                                    <a
+                                        style="margin-bottom:5px;"
+                                        class="btn-finalizar btn waves-effect waves-light tooltipped small white-text btn-secondary"
+                                        pronac="<?= $dp->IdPRONAC; ?>"
+                                        href="javascript:void(0)"
+                                        data-tooltip="Finalizar sem assinatura">
+                                        <i class="material-icons">send</i>
+                                    </a>
+                                <?php endif; ?>
+                            <?php endif; ?>
+
+                            <?php if (!empty($_GET['tipoFiltro']) && $_GET['tipoFiltro'] == 'emanalise'): ?>
+                                <a
+                                    style="margin-bottom:5px;"
+                                    class="devolverPedido btn waves-effect waves-light tooltipped small white-text btn-primary"
+                                    pronac="<?= $dp->IdPRONAC; ?>"
+                                    href="javascript:void(0)"
+                                    data-tooltip="Retirar avalia&ccedil;&atilde;o do t&eacute;cnico">
+                                    <i class="material-icons">update</i>
+                                </a>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <?php $x++;
+                } ?>
+            </table>
+
+            <?php if (count($this->dados) > 0) { ?>
+
+                <?php if ($this->qtdRegistros > 10) { //echo $this->dados; ?>
+                    <center>
+                        <?php
+                        echo $this->paginacao['inicio'] . " a ";
+                        echo ($this->paginacao['pag'] - 1) * $this->paginacao['Itenspag'] + $this->paginacao['tamanho'];
+                        echo " de " . $this->paginacao['total'];
+                        ?>
+                    </center>
+                    <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
+                        <tbody>
+                        <tr>
+                            <td align="center">
+                                <form name="form2" id="form2"
+                                      action="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')); ?>"
+                                      method="get">
+                                    <?php if ($this->paginacao['pag'] > 1) { ?>
+                                        <input class="btn_inicio" id="btn_inicio" type="button" class="btn_inicio"
+                                               onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=1' . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->tipoFiltro . '&pronac=' . $this->pronacProjeto; ?>'">
+                                    <?php } ?>
+                                    <input id="btn_p_anterior" type="button"
+                                        <?php if ($this->paginacao['pag'] <= 1) { ?> class="btn_p_anterior-off"
+                                        <?php } else { ?>
+                                            class="btn_p_anterior" onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=' . ($this->paginacao['pag'] - 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->tipoFiltro . '&pronac=' . $this->pronacProjeto; ?>'"
+                                        <?php } ?>>
+                                    <input id="btn_p_proximo" type="button"
+                                        <?php if ($this->paginacao['pag'] + 1 > $this->paginacao['totalPag']) { ?>
+                                            class="btn_p_proximo-off"
+                                        <?php } else { ?>
+                                            class="btn_p_proximo" onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=' . ($this->paginacao['pag'] + 1) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->tipoFiltro . '&pronac=' . $this->pronacProjeto; ?>'"
+                                        <?php } ?>>
+                                    <?php if ($this->paginacao['pag'] < $this->paginacao['totalPag']) { ?>
+                                        <input class="btn_ultimo" id="btn_ultimo" type="button"
+                                               onclick="location.href='<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')) . '?pag=' . ($this->paginacao['totalPag']) . "&qtde=" . $this->paginacao['qtde'] . $this->paginacao['ordenacao'] . '&tipoFiltro=' . $this->tipoFiltro . '&pronac=' . $this->pronacProjeto; ?>'">
+                                    <?php } ?>
+                                    P&aacute;g.:<select name="pag" id="pag" onchange="$('#form2').submit()"
+                                                        class="input_simples">
+                                        <?php for ($i = 1; $i <= $this->paginacao['totalPag']; $i++): ?>
+                                            <option
+                                                value="<?php echo $i; ?>" <?php if ($this->paginacao['pag'] == $i) echo "selected"; ?>><?php echo $i; ?>
+                                                &nbsp;
+                                            </option>
+                                        <?php endfor; ?>
+                                    </select>
+                                    &nbsp;Registros por p&aacute;gina:<input type="text" size="2" name="qtde" id="qtde"
+                                                                             class="input_simples"
+                                                                             value="<?php echo $this->intTamPag; ?>">
+                                    <input type="submit" class="btn_recarregar" value="">
+                                    <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo']; ?>">
+                                    <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem']; ?>">
+                                    <input type="hidden" name="tipoFiltro" value="<?php echo $this->tipoFiltro; ?>">
+                                    <input type="hidden" name="pronac" value="<?php echo $this->pronacProjeto; ?>">
+                                    <input type="button" class="btn_imprimir" title="Imprimir"/>
+                                    <input type="button" class="btn_xls" title="Gerar Excel"/>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                <?php }
+            } ?>
+
+        <?php } else { ?>
+            <table class="tabela">
+                <tr>
+                    <td align="center">Nenhum registro encontrado.</td>
+                </tr>
+            </table>
+        <?php } ?>
+        <br clear="all"/>
+
+        <form name="formEncaminhamento" id="formEncaminhamento"
+              action="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'encaminhar-relatorio'), '', true); ?>"
+              method="post">
+            <input type="hidden" id="frmTecnico" name="tecnico">
+            <input type="hidden" id="frmPronac" name="pronac">
+        </form>
+
+        <form name="formImpressao" id="formImpressao"
+              action="<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'imprimir-painel')); ?>"
+              method="post" target="_blank">
+            <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo']; ?>">
+            <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem']; ?>">
+            <input type="hidden" name="pag" value="<?php echo $this->paginacao['pag']; ?>">
+            <input type="hidden" name="qtde" value="<?php echo $this->intTamPag; ?>">
+            <input type="hidden" name="tipoFiltro" value="<?php echo $this->tipoFiltro; ?>">
+            <input type="hidden" name="pronac" value="<?php echo $this->pronacProjeto; ?>">
+        </form>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $3(document).ready(function () {
+        // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+        $3('.modal').modal();
+    });
+
+    $(document).ready(function () {
+
+
+        $('.btn-enviar').click(function () {
+            var tecnico = $(this).parent().parent().find('select').val(),
+                pronac = $(this).attr('pronac');
+
+            if (tecnico == '') {
+                alert('Favor selecionar o t\u00E9cnico!');
+                $('.ui-dialog-titlebar-close').remove();
+            } else {
+                $("#frmTecnico").val(tecnico);
+                $("#frmPronac").val(pronac);
+                $("#formEncaminhamento").submit();
+                // $('.ui-dialog-titlebar-close').remove();
+                $(this).addClass('disabled');
+                $3('.modal').modal('close');
+            }
+
+        });
+
+        $('.btn-finalizar').click(function () {
+            var pronac = $(this).attr('pronac');
+
+            $("#pergunta").dialog("destroy");
+            $("#pergunta").html('Deseja realmente finalizar o relat&oacute;rio e encaminh&aacute;-lo para o cordenador de presta&ccedil;&atilde;o de contas?');
+            $("#pergunta").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width: 300,
+//                height:180,
+                modal: true,
+                buttons: {
+                    'N\u00E3o': function () {
+                        $("#pergunta").dialog('close');
+                    },
+                    'Sim': function () {
+                        $("#pergunta").dialog('close');
+                        $.ajax({
+                            type: 'POST',
+                            url: '<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'finalizar-relatorio'), '', true); ?>?idpronac=' + pronac,
+                            data: {
+                                pronac: pronac
+                            },
+                            success: function (data) {
+                                if (data.resposta) {
+                                    $("#alerta").dialog("destroy");
+                                    $("#alerta").html('<center>Finalizado com sucesso!</center><br /><br /><div align="center"><img src="<?php echo $this->baseUrl() . '/public/img/ajax.gif'; ?>"></div>');
+                                    $("#alerta").dialog({
+                                        resizable: false,
+                                        width: 320,
+                                        height: 120,
+                                        modal: true,
+                                        title: 'Carregando..'
+                                    });
+                                    $('.ui-dialog-titlebar-close').remove();
+                                    window.setTimeout('location.reload()', 2000);
+                                } else {
+                                    alertaModal("N&atilde;o foi poss&iacute;vel finalizar o relat&oacute;rio.");
+                                }
+                            },
+                            dataType: 'json'
+                        });
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+        });
+
+        $('.devolverPedido').click(function () {
+            var pronac = $(this).attr('pronac');
+            $("#pergunta").dialog("destroy");
+            $("#pergunta").html('Deseja realmente devolver o projeto?');
+            $("#pergunta").dialog({
+                resizable: false,
+                title: 'Alerta!',
+                width: 340,
+//                height:180,
+                modal: true,
+                buttons: {
+                    'N\u00E3o': function () {
+                        $("#pergunta").dialog('close');
+                    },
+                    'Sim': function () {
+                        $("#pergunta").dialog('close');
+                        $.ajax({
+                            type: 'POST',
+                            url: '<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'devolver-relatorio'), '', true); ?>',
+                            data: {
+                                pronac: pronac
+                            },
+                            success: function (data) {
+                                if (data.resposta) {
+                                    $("#alerta").dialog("destroy");
+                                    $("#alerta").html('<br /><div align="center"><img src="<?php echo $this->baseUrl() . '/public/img/ajax.gif'; ?>"></div>');
+                                    $("#alerta").dialog({
+                                        resizable: false,
+                                        width: 320,
+                                        height: 120,
+                                        modal: true,
+                                        title: 'Carregando..'
+                                    });
+                                    $('.ui-dialog-titlebar-close').remove();
+                                    window.setTimeout('location.reload()', 1000);
+                                } else {
+                                    alertaModal("N&atilde;o foi poss&iacute;vel devolver o relat&oacute;rio.");
+                                }
+                            },
+                            dataType: 'json'
+                        });
+                    }
+                }
+            });
+            $('.ui-dialog-titlebar-close').remove();
+
+        });
+
+        $("#btn_pesquisar").click(function () {
+            var pronac = $('#pronacPesquisa').val(),
+                filtro = $('#tipoFiltro').val();
+            window.location = "<?php echo $this->url(array('module' => 'comprovacao-objeto', 'controller' => 'avaliaracompanhamentoprojeto', 'action' => 'index')); ?>?pag=1&tipoFiltro=" + filtro + "&pronac=" + pronac;
+        });
+
+        $('.btn_imprimir').click(function () {
+            $('#addCampoXls').remove();
+            $('#formImpressao').submit();
+        });
+
+        $('.btn_xls').click(function () {
+            $('#addCampoXls').remove();
+            $('#formImpressao').append('<input id="addCampoXls" type="hidden" name="xls" value="1">');
+            $('#formImpressao').submit();
+        });
+
+    });
+
+    function alertaModal(msg) {
+        $("#alerta").dialog("destroy");
+        $("#alerta").html(msg);
+        $("#alerta").dialog({
+            resizable: false,
+            title: 'Alerta!',
+            width: 330,
+            height: 170,
+            modal: true,
+            buttons: {
+                'OK': function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+        $('.ui-dialog-titlebar-close').remove();
+    }
+</script>

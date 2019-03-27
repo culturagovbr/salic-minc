@@ -1,0 +1,85 @@
+<style>
+    .collapsible-header.active i {
+        -ms-transform: rotate(180deg);
+        -webkit-transform: rotate(180deg);
+        transform: rotate(180deg);
+    }
+</style>
+<div id="visualizarPrioridadesModal" class="modal modal-fixed-footer">
+    <div class="modal-content">
+        <h4>Demandas priorit&aacute;rias</h4>
+        <div class="row">
+            <div class=" col s12">
+                <h2 class="dadosProjeto"></h2>
+            </div>
+        </div>
+        <div class="row">
+            <ul class="collapsible prioridades" data-collapsible="accordion">
+            </ul>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button href="#!" class="modal-action modal-close waves-effect waves-green btn-flat red-text">Fechar</button>
+    </div>
+</div>
+
+
+<script src="/public/js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="/public/scripts/layout/datatables.min.js"></script>
+<script src="/public/js/moment.js"></script>
+<script type="text/javascript">
+    (function ($) {
+        $(document).ready(function () {
+            $3('#visualizarPrioridadesModal').modal();
+
+            gerarBotaoVisualizacaoPrioridades = (valorPrioridades) => {
+                var icone = 'tag_faces';
+                var cor = 'green darken-4';
+                var buttonWithAction = '';
+                numeroDeProcessos = parseInt(valorPrioridades);
+                if(numeroDeProcessos <= 9 && numeroDeProcessos != 0) {
+                    icone = 'filter_' + numeroDeProcessos;
+                    cor = 'red accent-4';
+                    buttonWithAction = 'modal-trigger visualizarPrioridades ';
+                }else if (numeroDeProcessos > 9){
+                    icone = 'filter_9_plus';
+                    cor = 'red accent-4';
+                    buttonWithAction = 'modal-trigger visualizarPrioridades ';
+                }
+
+                return '<a class="small btn ' + buttonWithAction + cor + '" href="#visualizarPrioridadesModal"><i class="tiny material-icons">' + icone + '</i></a>'
+            };
+
+            $3("tbody").on('click', '.visualizarPrioridades', function () {
+                let pronac = $3(this).closest('tr').find('td')[0].innerText;
+                let nomeProjeto = $3(this).closest('tr').find('td')[1].innerText;
+                let idPronac = $3(`a:contains(${pronac})`).data('idpronac');
+                $('.prioridades').html('');
+                $3('.dadosProjeto').html(pronac + ' - ' + nomeProjeto);
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/prestacao-contas/prestacao-contas/obter-prioridades',
+                    data: {idPronac : idPronac},
+                    success: function(response) {
+                        $.each(response.data, function (index, prioridade) {
+                            $('.prioridades').append(
+                                '<li>' +
+                                '<div class="collapsible-header">' +
+                                '<i class="material-icons">expand_less</i>' + prioridade.Controladores + ' - ' + moment(prioridade.DtSolicitacao).format('DD/MM/YYYY') + '</div>' +
+                                '<div class="collapsible-body"><span>' + prioridade.Constatacao +'</span></div>' +
+                                '</li>'
+                            );
+                        });
+                    },
+                    beforeSend: function () {
+                        $3('#container-loading').fadeIn('fast');
+                    },
+                    complete: function () {
+                        $3('#container-loading').fadeOut('fast');
+                    }
+                });
+            });
+        });
+    }($.noConflict(true)));
+</script>

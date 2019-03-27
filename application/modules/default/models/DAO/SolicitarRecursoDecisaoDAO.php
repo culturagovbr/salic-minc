@@ -2,7 +2,7 @@
 class SolicitarRecursoDecisaoDAO extends Zend_Db_Table
 {
     /**
-     * M�todo para buscar os Projetos Aprovados e N�o Aprovados
+     * Metodo para buscar os Projetos Aprovados e Nao Aprovados
      * @access public
      * @static
      * @param integer $idPronac
@@ -23,7 +23,7 @@ class SolicitarRecursoDecisaoDAO extends Zend_Db_Table
                       END AS StatusProjeto
              FROM SAC.dbo.Projetos Pr
              INNER JOIN SAC.dbo.Situacao St ON (St.Codigo = Pr.Situacao)
-             WHERE pr.Situacao in ('A14','A16','A17','A20','A23','A24','A41','D02','D03','D14','B02')";
+             WHERE pr.Situacao in ('A14','A16','A17','A20','A23','A24','A41','D02','D03','D14','B02', 'D51')";
 
         // caso o id do pronac seja informado
         if (!empty($idPronac)) {
@@ -38,7 +38,7 @@ class SolicitarRecursoDecisaoDAO extends Zend_Db_Table
     }
 
     /**
-     * M�todo para buscar a planilha com o or�amento
+     * Metodo para buscar a planilha com o orcamento
      * @access public
      * @static
      * @param integer $idPronac
@@ -110,7 +110,7 @@ class SolicitarRecursoDecisaoDAO extends Zend_Db_Table
         $db->setFetchMode(Zend_DB::FETCH_OBJ);
         $resultado = $db->fetchAll($sql);
         return $resultado;
-    } 
+    }
 
     public static function buscarproponentes($cpf)
     {

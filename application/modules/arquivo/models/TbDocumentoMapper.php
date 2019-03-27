@@ -12,7 +12,7 @@ class Arquivo_Model_TbDocumentoMapper extends MinC_Db_Mapper
         $this->setDbTable('Arquivo_Model_DbTable_TbDocumento');
 
         $auth = Zend_Auth::getInstance();
-        $arrAuth = array_change_key_case((array) $auth->getIdentity());
+        $arrAuth = array_change_key_case((array)$auth->getIdentity());
 
         $this->_idUsuario = !empty($arrAuth['usu_codigo']) ? $arrAuth['usu_codigo'] : $arrAuth['idusuario'];
 
@@ -34,13 +34,13 @@ class Arquivo_Model_TbDocumentoMapper extends MinC_Db_Mapper
     public function saveCustom($arrData, Zend_File_Transfer $file, $formats = array(), $maxSizeFile = 10485760)
     {
 
-        $idDocumento = 0;
-
         $files = $file->getFileInfo();
 
         try {
-            if (!$file->isUploaded())
-                throw new Exception("Falha ao anexar arquivo! Verifique o documento e tente novamente!");
+
+            if (!$file->isUploaded()) {
+                return false;
+            }
 
             $arquivoNome = $files['arquivo']['name']; # nome
             $arquivoTemp = $files['arquivo']['tmp_name']; # nome temporario
@@ -62,7 +62,7 @@ class Arquivo_Model_TbDocumentoMapper extends MinC_Db_Mapper
                 throw new Exception("O arquivo n&atilde;o pode ser maior do que 10MB!");
             }
 
-            $dadosArquivo=[];
+            $dadosArquivo = [];
             $dadosArquivo['NmArquivo'] = $arquivoNome;
             $dadosArquivo['SgExtensao'] = $arquivoExtensao;
             $dadosArquivo['NrTamanho'] = $arquivoTamanho;
@@ -89,5 +89,6 @@ class Arquivo_Model_TbDocumentoMapper extends MinC_Db_Mapper
             throw $e;
         }
     }
+
 
 }

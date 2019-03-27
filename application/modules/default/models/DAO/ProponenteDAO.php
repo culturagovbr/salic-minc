@@ -6,12 +6,12 @@ class ProponenteDAO extends Zend_Db_Table
     protected $_schema = 'SAC';
     protected $_primary = 'IdPRONAC';
 
-    public function execPaProponente($idPronac)
+    public function execPaProponente($idPronac, $fetchMode = Zend_DB::FETCH_OBJ)
     {
         $idPronac = preg_replace("/[^0-9]/", "", $idPronac); //REMOVE injections
         $sql = "exec SAC.dbo.paAgente $idPronac";
         $db= Zend_Db_Table::getDefaultAdapter();
-        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        $db->setFetchMode($fetchMode);
         $resultado = $db->fetchAll($sql);
 
 

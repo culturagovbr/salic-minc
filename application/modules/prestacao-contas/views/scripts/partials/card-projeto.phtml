@@ -1,0 +1,53 @@
+<div>
+    <div class="card">
+        <div class="card-content">
+            <span class="card-title"><?php echo $this->pronac;?> - <?php echo $this->nomeProjeto;?></span>
+            <div class="card-content">
+               <p>
+                <?php if ($this->existeDiligenciaAberta  == true): ?>
+                   Existe Dilig&ecirc;ncia para esse projeto. Acesse <a href="<?php echo $this->url(
+                    array(
+                        'module' => 'proposta',
+                        'controller' => 'diligenciar',
+                        'action' => 'listardiligenciaanalista',
+                        'idPronac' => $this->idPronac,
+                    ),
+                    null,
+                    true
+                );
+                 ?>">aqui</a>.
+                <?php else: ?>
+                        Sem Observa&ccedil;&otilde;es.
+                <?php endif ?>
+               </p>
+            </div>
+            <div class="card-action">
+                <a class="btn-flat green waves-effect waves-dark white-text" href="<?php echo $this->baseUrl().'/consultardadosprojeto/index?idPronac='.$this->idPronac; ?>" target="_blank">Ver Projeto</a>
+                <sl-btn-visualizar
+                    idpronac="<?php echo $this->idPronac;?>"
+                    pronac="Consolida&ccedil;&atilde;o"
+                    nome="<?php echo $this->nomeProjeto; ?>"
+                    class="btn-flat green white-text"
+                ></sl-btn-visualizar>
+                <!-- Modal Structure -->
+                <div id="abrirModal" class="modal full" style="width: 100%; height: 100%; max-height: 100%;">
+                    <div class="modal-content">
+                        <h3>Visualizar consolida&ccedil;&atilde;o</h3>
+                        <sl-collapse-visualizar></sl-collapse-visualizar>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Fechar</a>
+                    </div>
+                </div>
+                <!-- Modal Structure -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    // $('.modal').leanModal();
+});
+</script>

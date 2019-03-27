@@ -205,7 +205,7 @@ function aplicaMascara($valor, $mascara) {
     return $novoValor;
 }
 
-function gerarBreadCrumb($links = array()) {
+function gerarBreadCrumb($links = array(), $breadcrumbId = 'breadcrumb') {
     try {
         $router = Zend_Controller_Front::getInstance()->getRouter();
         $primeiroLink = null;
@@ -216,7 +216,7 @@ function gerarBreadCrumb($links = array()) {
             $primeiroLink =  $router->assemble(array('module' => 'default', 'controller' => 'principal', 'action' => ''));
         }
 
-        $guia = "<div id='breadcrumb'><ul>";
+        $guia = "<div id='{$breadcrumbId}'><ul>";
         $guia .= "<li class='first'><a href='{$primeiroLink}' title='In&iacute;cio'>In&iacute;cio</a></li>";
         $qtdLinks = count($links);
 
@@ -463,7 +463,7 @@ function isCnpjValid($cnpj) {
     }
 }
 
-function strConvertCharset($str) {
+function converterParaUTF8($str) {
 
     if (mb_detect_encoding($str, 'UTF-8', true) === false) {
         $str = utf8_encode($str);

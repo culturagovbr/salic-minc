@@ -31,57 +31,57 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($this->dados as $dado): ?>
+                        <?php
+                        if (count($this->dados) > 0) {
+                            foreach ($this->dados as $dado): ?>
                                 <tr>
-                            <td>
-                                    <input type="checkbox" name="IdPRONAC[]" id="IdPRONAC<?php echo $dado->IdPRONAC ?>"
-                                           class="checkbox_legal filled-in" value="<?php echo $dado->IdPRONAC ?>"/>
-                                    <label for="IdPRONAC<?php echo $dado->IdPRONAC ?>"></label>
-                            </td>
-                            <td>
-                                <a class="waves-effect waves-dark btn white black-text"
-                                   href="<?php echo $this->url(
-                                           array(
-                                               'module' => 'default',
-                                               'controller' => 'consultardadosprojeto',
-                                               'action' => 'index'
-                                           )
-                                       ) . "?idPronac={$dado->IdPRONAC}"; ?>"><u><?php echo $dado->PRONAC; ?></u></a>
-                            </td>
-                            <td><?php echo $dado->NomeProjeto; ?></td>
-                            <td>
-                                    <a class="btn waves-effect waves-light cyan tooltipped small"
-                                       href="#modalConfirmacao"
-                                       data-nrpronac="<?php echo $dado->PRONAC; ?>"
-                                       data-redirect-url="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'enquadramento', 'action' => 'encaminhar-assinatura')) . "?IdPRONAC={$dado->IdPRONAC}&encaminhar=true" ?>"
-                                       data-position="top"
-                                       data-delay="50"
-                                       data-tooltip="Encaminhar">
-                                        <i class="material-icons white-text">navigate_next</i>
-                                    </a>
-                            </td>
-                            </tr>
-                        <?php endforeach; ?>
+                                    <td>
+                                        <input type="checkbox" name="IdPRONAC[]"
+                                               id="IdPRONAC<?php echo $dado->IdPRONAC ?>"
+                                               class="checkbox_legal filled-in" value="<?php echo $dado->IdPRONAC ?>"/>
+                                        <label for="IdPRONAC<?php echo $dado->IdPRONAC ?>"></label>
+                                    </td>
+                                    <td>
+                                        <a class="waves-effect waves-dark btn white black-text"
+                                           href="<?php echo $this->url(
+                                                   array(
+                                                       'module' => 'default',
+                                                       'controller' => 'consultardadosprojeto',
+                                                       'action' => 'index'
+                                                   )
+                                               ) . "?idPronac={$dado->IdPRONAC}"; ?>"><u><?php echo $dado->PRONAC; ?></u></a>
+                                    </td>
+                                    <td><?php echo $dado->NomeProjeto; ?></td>
+                                    <td>
+                                        <a class="btn waves-effect waves-light cyan tooltipped small"
+                                           href="#modalConfirmacao"
+                                           data-nrpronac="<?php echo $dado->PRONAC; ?>"
+                                           data-redirect-url="<?php echo $this->url(array('module' => 'admissibilidade', 'controller' => 'enquadramento', 'action' => 'encaminhar-assinatura')) . "?IdPRONAC={$dado->IdPRONAC}&encaminhar=true" ?>"
+                                           data-position="top"
+                                           data-delay="50"
+                                           data-tooltip="Encaminhar">
+                                            <i class="material-icons white-text">navigate_next</i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            <?php endforeach;
+                        }
+                        ?>
                         </tbody>
                     </table>
-                    <?php if (count($this->dados) == 0) : ?>
-		    <table>
-		      <tr>
-			<td class="red-text">Nenhum projeto encontrado.</td>
-		      </tr>
-		    </table>
-		    <?php endif; ?>
 
                     <div class="row">
                         <div class="col s12 m6 l4">
                             <label>Legenda:</label>
                             <br/>
                             <div class="amber lighten-4" style="border: 1px solid gray; height: 20px; display: inline">
-                                &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
                             Projeto Enquadrado Com Recurso
                             <br clear="both"/>
                             <div class="" style="border: 1px solid gray; height: 20px; display: inline">
-                                &nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            </div>
                             Projeto Enquadrado
                         </div>
                     </div>
@@ -104,14 +104,15 @@
                 <p>Tem certeza que deseja encaminhar o projeto <span class="bold" id="nrPronacConfirmacao"></span> ?</p>
             </div>
             <div class="modal-footer">
-                <a href="#!" id="botaoConfirmacaoEncaminhamento" class="modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
+                <a href="#!" id="botaoConfirmacaoEncaminhamento"
+                   class="modal-action modal-close waves-effect waves-green btn-flat">Sim</a>
                 <a href="#!" class="modal-action modal-close waves-effect waves-red btn-flat">N&atilde;o</a>
             </div>
         </div>
     </div>
 
     <script>
-        $3(document).ready(function(){
+        $3(document).ready(function () {
             $3('.modal').modal({
                     dismissible: true,
                     opacity: .5,
@@ -119,7 +120,7 @@
                     outDuration: 200,
                     startingTop: '4%',
                     endingTop: '10%',
-                    ready: function(modal, trigger) {
+                    ready: function (modal, trigger) {
                         $(modal).find('#nrPronacConfirmacao').html($3(trigger).data('nrpronac'));
                         $(modal).find('#botaoConfirmacaoEncaminhamento').attr('href', $3(trigger).data('redirectUrl'));
                     }
@@ -140,7 +141,7 @@
     <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.12/datatables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.material.min.js"></script>
 
-<!--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>-->
+    <!--    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.13/datatables.min.css"/>-->
 
     <script type="text/javascript">
         (function ($) {
@@ -166,9 +167,9 @@
                     tratarExibicaoCheckboxChecados('.checkbox_legal', '#divEncaminhamentoEmMassa');
                 });
 
-                function tratarExibicaoCheckboxChecados (seletorCheckboxes, seletorExibicao) {
+                function tratarExibicaoCheckboxChecados(seletorCheckboxes, seletorExibicao) {
                     var quantidadeCheckboxChecados = $(seletorCheckboxes).filter(':checked').length;
-                    if(quantidadeCheckboxChecados > 0) {
+                    if (quantidadeCheckboxChecados > 0) {
                         $3(seletorExibicao).show('fast');
                     } else {
                         $3(seletorExibicao).hide('fast');

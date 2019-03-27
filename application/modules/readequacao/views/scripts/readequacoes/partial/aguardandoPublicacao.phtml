@@ -1,0 +1,34 @@
+<thead>
+    <tr class="titulo_tabela">
+        <th>#</th>
+        <th><a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronac.'&campo=3&ordem='.$this->paginacao['novaOrdem'];?>">PRONAC</a></th>
+        <th><a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronac.'&campo=4&ordem='.$this->paginacao['novaOrdem'];?>">Nome do Projeto</a></th>
+        <th><a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronac.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">Tipo de readequa&ccedil;&atilde;o</a></th>
+	<th><a href="<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronac.'&campo=7&ordem='.$this->paginacao['novaOrdem'];?>">T&eacute;cnico / Parecerista</th>
+        <th style="width: 90px">Visualizar</th>
+    </tr>
+</thead>
+<tbody>
+<?php $count=1; foreach($this->dados as $d): ?>
+    <tr>
+        <td align="center" style="width: 1px;"><?php echo $count; ?></td>
+        <td align="center">
+            <a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'consultardadosprojeto', 'action' => 'index'));?>?idPronac=<?php echo ($d->idPronac); ?>" target="_blank">
+                <?php echo $d->PRONAC; ?>
+            </a>
+        </td>
+        <td><?php echo $d->NomeProjeto; ?></td>
+        <td><?php echo $d->tpReadequacao; ?></td>
+        <td align="center"><?php echo $d->nmTecnicoParecerista; ?></td>
+        <td align="center">
+            <a
+                href="javascript:void(0)"
+                class="btn-ver btn small waves-effect waves-light tooltipped white-text btn-primary"
+                data-tooltip="Encaminhar para an&aacute;lise t&eacute;cnica"
+                idReadequacao="<?php echo Seguranca::encrypt($d->idReadequacao); ?>"
+            >
+                <i class="material-icons">visibility</i>
+            </a>
+        </td>
+    </tr>
+<?php $count++; endforeach; ?>

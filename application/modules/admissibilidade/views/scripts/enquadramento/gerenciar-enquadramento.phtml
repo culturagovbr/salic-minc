@@ -54,7 +54,7 @@
                             ?>
                             <?php if ($dado->Situacao == Projeto_Model_Situacao::PROJETO_DEVOLVIDO_PARA_ENQUADRAMENTO): ?>
                                 <a href="#modalVisualizacaoDevolucaoAssinatura"
-                                   class="btn waves-effect waves-light tooltipped small amber accent-4"
+                                   class="btn waves-effect waves-light tooltipped small amber accent-4 modal-trigger"
                                    data-position="top"
                                    data-delay="50"
                                    data-link="<?php echo $this->url(
@@ -152,6 +152,8 @@
                         startingTop: '4%',
                         endingTop: '10%',
                         ready: function(modal, trigger) {
+                            $(modal).find('#conteudoDevolucaoAssinatura').html('Carregando ...');
+                            $(modal).find('#dataDevolucaoAssinatura').html('Carregando ...');
                             $.ajax(
                                 {
                                     url: $3(trigger).data('link'),

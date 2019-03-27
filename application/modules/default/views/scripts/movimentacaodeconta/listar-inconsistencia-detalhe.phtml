@@ -184,7 +184,7 @@ var resolverInconsistencia = function (event) {
                     $('<p>Inconsistência resolvida com sucesso.</p>')
                 );
             $('#row-' + idTmpCaptacao + ' .nomeIncentivador').html(event.detail.nome);
-            $('#row-' + idTmpCaptacao + ' .cpfcnpjIncentivador').html( format_cnpj(event.detail.cnpjcpf));
+            $('#row-' + idTmpCaptacao + ' .cpfcnpjIncentivador').html( formatCpfOrCnpj(event.detail.cnpjcpf));
             $("[data-id-tmp-captacao=" + idTmpCaptacao + "]").replaceWith("<font color='green'>[Correção enviada]</font>");
 
             $('#btnValidarProponenteIncentivadorIguais-' + idTmpCaptacao).closest('td').html("<font color='green'>[Correção enviada]</font>");
