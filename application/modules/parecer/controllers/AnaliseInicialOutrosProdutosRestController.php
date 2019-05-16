@@ -1,6 +1,6 @@
 <?php
 
-use Application\Modules\Parecer\Service\Produto as Produto;
+use Application\Modules\Parecer\Service\AnaliseInicial as AnaliseInicialService;
 
 class Parecer_AnaliseInicialOutrosProdutosRestController extends MinC_Controller_Rest_Abstract
 {
@@ -46,7 +46,7 @@ class Parecer_AnaliseInicialOutrosProdutosRestController extends MinC_Controller
     public function getAction()
     {
         try {
-            $tramitacaoService = new Produto($this->getRequest(), $this->getResponse());
+            $tramitacaoService = new AnaliseInicialService($this->getRequest(), $this->getResponse());
             $resposta = $tramitacaoService->obterOutrosProdutosDoProjeto();
 
             $resposta = \TratarArray::utf8EncodeArray($resposta);

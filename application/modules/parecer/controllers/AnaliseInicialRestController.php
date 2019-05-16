@@ -26,7 +26,7 @@ class Parecer_AnaliseInicialRestController extends MinC_Controller_Rest_Abstract
     {
         try {
             $tramitacaoService = new AnaliseInicialService($this->getRequest(), $this->getResponse());
-            $resposta = $tramitacaoService->listar();
+            $resposta = $tramitacaoService->index();
 
             $this->customRenderJsonResponse([
                 'items' => $resposta['data'],
@@ -47,13 +47,10 @@ class Parecer_AnaliseInicialRestController extends MinC_Controller_Rest_Abstract
     public function getAction()
     {
         try {
-            $tramitacaoService = new AnaliseInicialService($this->getRequest(), $this->getResponse());
-            $resposta = $tramitacaoService->analisar();
+            $analiseInicialService = new AnaliseInicialService($this->getRequest(), $this->getResponse());
+            $resposta = $analiseInicialService->get();
 
-            $this->customRenderJsonResponse([
-                    'items' => $resposta['items'],
-                    'somenteLeitura' => $resposta['somenteLeitura']
-            ],200);
+            $this->customRenderJsonResponse(['data' => $resposta], 200);
 
         } catch (Exception $objException) {
             $this->customRenderJsonResponse([

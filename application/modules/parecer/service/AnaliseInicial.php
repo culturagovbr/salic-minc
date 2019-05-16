@@ -42,7 +42,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         }
     }
 
-    public function listar()
+    public function index()
     {
         $projeto = new \Projetos();
         $resp = $projeto->buscaProjetosProdutosParaAnalise(
@@ -66,22 +66,29 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         ];
     }
 
-    public function analisar()
+    public function get()
     {
-        $idProduto = $this->request->getParam('id');
+        $id = $this->request->getParam('id');
         $idPronac = $this->request->getParam('idPronac');
 
         $projeto = new \Projetos();
-        $resp = $projeto->buscaProjetosProdutosParaAnalise(
-            array(
-                'distribuirParecer.idProduto = ?' => $idProduto,
+        $produto = $projeto->buscaProjetosProdutosParaAnalise(
+            [
+                'distribuirParecer.idProduto = ?' => $id,
                 'projeto.IdPRONAC = ?' => $idPronac,
-            )
+            ]
         )->current()->toArray();
 
-        $resp = \TratarArray::utf8EncodeArray($resp);
+        $produto['stDiligencia'] = $this->definirStatusDiligencia($produto);
+        $produto['diasEmDiligencia'] = $this->obterTempoDiligencia($produto);
+        $produto['diasEmAvaliacao'] = $this->obterTempoRestanteDeAvaliacao($produto);
 
-        return $resp;
+        if ($produto['stPrincipal']
+            && $produto['FecharAnalise'] == \Parecer_Model_TbDistribuirParecer::FECHAR_ANALISE_ASSINATURA) {
+            $produto['idDocumentoAssinatura'] = $this->getIdDocumentoAssinatura($idPronac);
+        }
+
+        return \TratarArray::utf8EncodeArray($produto);
 
     }
 
@@ -178,6 +185,25 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         }
         return $distribuicao;
     }
+
+    public function obterOutrosProdutosDoProjeto()
+    {
+        $idProduto = (int)$this->request->getParam('id');
+        $idPronac = (int)$this->request->getParam('idPronac');
+
+        if (empty($idPronac) || empty($idProduto)) {
+            throw new \Exception("Dados obrigat&oacute;rios n&atilde;o informados");
+        }
+
+        $dadosWhere = [];
+        $dadosWhere["t.stEstado = ?"] = 0;
+        $dadosWhere["p.Situacao IN ('B11', 'B14')"] = '';
+        $dadosWhere["p.IdPRONAC = ?"] = $idPronac;
+        $dadosWhere["t.idProduto <> ?"] = $idProduto;
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        return $tbDistribuirParecer->dadosParaDistribuir($dadosWhere)->toArray();
+    }
+
 
     private function isProdutoComDiligenciaAberta($idPronac, $idProduto)
     {
@@ -282,5 +308,57 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         } catch (\Exception $e) {
             throw $e;
         }
+    }
+
+    private function definirStatusDiligencia($produto)
+    {
+        $diligencia = 0;
+        if ($produto['DtSolicitacao'] && $produto['DtResposta'] == NULL) {
+            $diligencia = 1;
+        } else if ($produto['DtSolicitacao'] && $produto['DtResposta'] != NULL) {
+            $diligencia = 2;
+        } else if ($produto['DtSolicitacao']
+            && round(\data::CompararDatas($produto['DtDistribuicao'])) > $produto['tempoFimDiligencia']) {
+            $diligencia = 3;
+        }
+
+        return $diligencia;
+    }
+
+    private function obterTempoRestanteDeAvaliacao($produto)
+    {
+        switch ($produto['stDiligencia']) {
+            case 1:
+                $tempoRestante = round(\data::CompararDatas($produto['DtDistribuicao'], $produto['DtSolicitacao']));
+                break;
+            case 2:
+                $tempoRestante = round(\data::CompararDatas($produto['DtResposta']));
+                break;
+            case 3:
+                $tempoRestante = round(\data::CompararDatas($produto['DtResposta']));
+                break;
+            default:
+                $tempoRestante = round(\data::CompararDatas($produto['DtDistribuicao']));
+                break;
+        }
+
+        return $tempoRestante;
+    }
+
+    private function obterTempoDiligencia($produto)
+    {
+        $tempoDiligencia = 0;
+        if ( $produto['stDiligencia'] == 1) {
+                $tempoDiligencia = round(\data::CompararDatas($produto['DtSolicitacao']));
+        }
+
+        return $tempoDiligencia;
+    }
+
+
+    private function getIdDocumentoAssinatura($idPronac)
+    {
+        $objDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
+        return $objDocumentoAssinatura->getIdDocumentoAssinatura($idPronac, self::ID_ATO_ADMINISTRATIVO);
     }
 }

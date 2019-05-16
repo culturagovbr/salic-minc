@@ -24,43 +24,43 @@ class Parecer_ProdutoRestController extends MinC_Controller_Rest_Abstract
 
     public function indexAction()
     {
-        try {
-            $tramitacaoService = new Produto($this->getRequest(), $this->getResponse());
-            $resposta = $tramitacaoService->listar();
-
-            $this->customRenderJsonResponse([
-                'quantidadeAssinaturas' =>  $resposta['quantidadeAssinaturas'],
-                'items' => $resposta['data'],
-            ], 200);
-
-        } catch (Exception $objException) {
-            $this->customRenderJsonResponse([
-                'error' => [
-                    'code' => 404,
-                    'message' => $objException->getMessage()
-                ]
-            ], 404);
-
-        }
+//        try {
+//            $tramitacaoService = new Produto($this->getRequest(), $this->getResponse());
+//            $resposta = $tramitacaoService->listar();
+//
+//            $this->customRenderJsonResponse([
+//                'quantidadeAssinaturas' =>  $resposta['quantidadeAssinaturas'],
+//                'items' => $resposta['data'],
+//            ], 200);
+//
+//        } catch (Exception $objException) {
+//            $this->customRenderJsonResponse([
+//                'error' => [
+//                    'code' => 404,
+//                    'message' => $objException->getMessage()
+//                ]
+//            ], 404);
+//
+//        }
     }
 
     public function getAction()
     {
-        try {
-            $tramitacaoService = new Produto($this->getRequest(), $this->getResponse());
-            $resposta = $tramitacaoService->buscar();
-
-            $this->customRenderJsonResponse(['data' => $resposta], 200);
-
-        } catch (Exception $objException) {
-            $this->customRenderJsonResponse([
-                'error' => [
-                    'code' => 404,
-                    'message' => $objException->getMessage()
-                ]
-            ], 404);
-
-        }
+//        try {
+//            $tramitacaoService = new Produto($this->getRequest(), $this->getResponse());
+//            $resposta = $tramitacaoService->buscar();
+//
+//            $this->customRenderJsonResponse(['data' => $resposta], 200);
+//
+//        } catch (Exception $objException) {
+//            $this->customRenderJsonResponse([
+//                'error' => [
+//                    'code' => 404,
+//                    'message' => $objException->getMessage()
+//                ]
+//            ], 404);
+//
+//        }
     }
 
     public function postAction()
