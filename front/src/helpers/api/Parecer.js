@@ -12,7 +12,7 @@ const buildData = (params) => {
 
 export const obterProdutosParaAnalise = () => {
     const module = '/parecer';
-    const controller = '/produto-rest';
+    const controller = '/analise-inicial-rest';
     const action = '';
 
     return api.getRequest(`${module}${controller}${action}`);
@@ -20,7 +20,7 @@ export const obterProdutosParaAnalise = () => {
 
 export const obterProdutoParaAnalise = (params) => {
     const module = '/parecer';
-    const controller = '/produto-rest';
+    const controller = '/analise-inicial-rest';
     const id = `id/${params.id}`;
     const idPronac = `idPronac/${params.idPronac}`;
 

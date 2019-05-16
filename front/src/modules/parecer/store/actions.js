@@ -102,10 +102,10 @@ export const obterAnaliseConteudoSecundario = ({ commit }, params) => {
 };
 
 export const obterPlanilhaProdutoSecundario = ({ commit }, params) => {
-    commit(types.SET_PLANILHA_SECUNDARIO, []);
+    commit(types.SET_PLANILHA_PRODUTO_SECUNDARIO, []);
     parecerHelperAPI.obterPlanilhaParaAnalise(params)
         .then((response) => {
-            commit(types.SET_PLANILHA_SECUNDARIO, response.data.data);
+            commit(types.SET_PLANILHA_PRODUTO_SECUNDARIO, response.data.items);
         });
 };
 

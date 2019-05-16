@@ -98,7 +98,7 @@
                         </v-layout>
                         <s-planilha
                             v-if="Object.keys(planilha).length > 0"
-                            :array-planilha="planilha.items"
+                            :array-planilha="planilha"
                             :agrupamentos="agrupamentos"
                             :totais="totaisPlanilha"
                         >
@@ -170,7 +170,7 @@ export default {
     computed: {
         ...mapGetters({
             analiseConteudo: 'parecer/getAnaliseConteudoSecundario',
-            planilha: 'parecer/getPlanilhaSecundario',
+            planilha: 'parecer/getPlanilhaProdutoSecundario',
         }),
     },
     watch: {

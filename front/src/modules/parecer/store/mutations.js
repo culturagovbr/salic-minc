@@ -30,7 +30,7 @@ export const mutations = {
     [types.SET_ANALISE_CONTEUDO_SECUNDARIO](state, analise) {
         state.analiseConteudoSecundario = analise;
     },
-    [types.SET_PLANILHA_SECUNDARIO](state, planilha) {
+    [types.SET_PLANILHA_PRODUTO_SECUNDARIO](state, planilha) {
         state.planilhaSecundario = planilha;
     },
     [types.SET_CONSOLIDACAO](state, dados) {
