@@ -16,7 +16,7 @@ export default {
     components: { PropostaDeslocamento, PropostaLocalRealizacao },
     props: {
         idpreprojeto: {
-            type: String,
+            type: [String, Number],
             default: '',
         },
         proposta: {

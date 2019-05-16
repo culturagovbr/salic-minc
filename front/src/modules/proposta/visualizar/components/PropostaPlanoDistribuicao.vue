@@ -198,6 +198,10 @@ export default {
             type: Array,
             default: () => [],
         },
+        proposta: {
+            type: Object,
+            default: () => {},
+        },
     },
     data() {
         return {
@@ -209,6 +213,10 @@ export default {
         };
     },
     watch: {
+        proposta(v) {
+            this.produtos = v.planodistribuicaoproduto;
+            this.detalhamentos = v.tbdetalhaplanodistribuicao;
+        },
         arrayProdutos(value) {
             this.produtos = value;
         },
