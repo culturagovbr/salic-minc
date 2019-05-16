@@ -43,10 +43,6 @@ class IndexController extends MinC_Controller_Action_Abstract
             $this->redirect("/autenticacao/index/index");
         }
 
-        if (!$this->autenticacao['usu_codigo']) {
-            $this->redirect("/default/principalproponente");
-        }
-
         $validator = new Zend_Validate_File_Exists();
         $validator->addDirectory('application/layouts/scripts');
         if (!$validator->isValid('vue.phtml')) {

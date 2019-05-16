@@ -239,6 +239,21 @@ class Proposta_VisualizarController extends Proposta_GenericController
         $this->_helper->json(array('data' => $dados, 'success' => 'true'));
     }
 
+    public function obterLocaisRealizacaoAction()
+    {
+        $this->_helper->layout->disableLayout();
+
+        $idPreProjeto = $this->_request->getParam('idPreProjeto');
+
+        $arrBusca = array();
+        $arrBusca['idprojeto'] = $idPreProjeto;
+        $arrBusca['stabrangencia'] = 1;
+        $tblAbrangencia = new Proposta_Model_DbTable_Abrangencia();
+        $dados = $tblAbrangencia->buscar($arrBusca);
+
+        $this->_helper->json(array('data' => TratarArray::utf8EncodeArray($dados), 'success' => 'true'));
+    }
+
     public function obterPlanilhaOrcamentariaPropostaAction()
     {
         $this->_helper->layout->disableLayout();

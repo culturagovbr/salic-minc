@@ -26,13 +26,18 @@ class Autenticacao_UsuarioController extends MinC_Controller_Rest_Abstract
         $auth = array_map('trim', (array)$auth);
         $auth = array_map('utf8_encode', $auth);
 
-        $data['usu_codigo'] = $auth['usu_codigo'];
-        $data['usu_identificacao'] = $auth['usu_identificacao'];
-        $data['usu_nome'] = $auth['usu_nome'];
-        $data['usu_pessoa'] = $auth['usu_pessoa'];
-        $data['usu_orgao'] = $auth['usu_orgao'];
-        $data['usu_org_max_superior'] = $auth['usu_org_max_superior'];
-
+        if (isset($auth['usu_codigo'])) {
+            $data['usu_codigo'] = $auth['usu_codigo'];
+            $data['usu_identificacao'] = $auth['usu_identificacao'];
+            $data['usu_nome'] = $auth['usu_nome'];
+            $data['usu_pessoa'] = $auth['usu_pessoa'];
+            $data['usu_orgao'] = $auth['usu_orgao'];
+            $data['usu_org_max_superior'] = $auth['usu_org_max_superior'];
+        } else if (isset($auth['IdUsuario'])) {
+            $data['usu_identificacao'] = $auth['Cpf'];
+            $data['usu_nome'] = $auth['Nome'];
+        }
+        
         $data['grupo_ativo'] = $GrupoAtivo->codGrupo;
         $data['orgao_ativo'] = $GrupoAtivo->codOrgao;
 

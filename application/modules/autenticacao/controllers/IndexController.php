@@ -732,6 +732,7 @@ class Autenticacao_IndexController extends MinC_Controller_Action_Abstract
         $dados = [
             'auth' => [
                 'usu_codigo' => $auth['usu_codigo'],
+                'usu_nome' => utf8_encode($auth['usu_nome']),
                 'usu_identificacao' => $auth['usu_identificacao']
             ],
             'grupoAtivo' => $GrupoAtivo->codOrgao

@@ -61,31 +61,11 @@ HOST: http://localhost:4000
 
         Tela inicial!
 
-## Informações do Menu Superior [/navegacao/menu-principal]
-
-### Informações do Menu Superior [GET]
-
-+ Response 200 (application/json, charset=utf-8)
-
-    + Body
-
-            {"data":{"prestacao-contas":{"id":"prestacao-contas","label":"Avalia\u00e7\u00e3o de Resultados","title":"Ir para Presta&ccedil;&atilde;o de Contas","menu":{"1":{"title":"Ir para Analisar Projeto Parecer","label":"Analisar Comprova&ccedil;&atilde;o do Objeto","grupo":[124,139,148,151],"url":{"module":"comprovacao-objeto","controller":"avaliaracompanhamentoprojeto","action":"index-tecnico"}},"2":{"label":"Analisar Comprova&ccedil;&atilde;o Financeira","title":"Ir para Analisar Comprova&ccedil;&atilde;o Financeira","url":{"module":"avaliacao-resultados","controller":"index","action":"index"},"grupo":[126,125,124]}},"grupo":[100,124,125,126,132,148,151]},"assinatura":{"id":"assinatura","label":"Assinatura","title":"Ir para Assinatura","menu":[{"url":{"module":"assinatura","controller":"index","action":"gerenciar-assinaturas"},"title":"Ir para Gerenciamento de assinaturas","label":"Gerenciar Assinaturas"},{"url":{"module":"assinatura","controller":"index","action":"visualizar-assinaturas"},"title":"Ir para Visualiza\u00e7\u00e3o de Assinaturas","label":"Visualizar Assinaturas"}]},"acompanhamento":{"title":"Ir para Acompanhamento","label":"Acompanhamento","id":"acompanhamento","menu":{"2":{"title":"Ir para Certid&otilde;es Negativas","label":"Certid&otilde;es Negativas","url":{"module":"default","controller":"manterregularidadeproponente","action":"index"},"grupo":[108,121,122,123,124,125,134,135,138,139]}},"grupo":[94,121,122,123,124,125,126,129,134,135,137,138,139,148,151]},"relatorios":{"id":"relatorios","label":"Relat&oacute;rios","title":"Ir para Relat&oacute;rios","menu":{"1":{"url":{"module":"default","controller":"relatorio","action":"index"},"title":"Ir para Propostas","label":"Propostas","grupo":[90,91,92,93,96,97,103,104,110,114,115,119,120,121,122,123,124,125,126,127,128,131,132,135,138,139,148,151]},"2":{"url":{"module":"default","controller":"relatorio","action":"projeto"},"title":"Ir para Projetos","label":"Projetos","grupo":[90,91,92,93,96,97,103,104,110,114,115,119,120,121,122,123,124,125,126,127,128,131,132,135,138,139,148,151]},"3":{"url":{"module":"default","controller":"operacional","action":"index"},"title":"Ir para Operacional","label":"Operacional","grupo":[90,91,92,93,96,97,103,104,110,114,115,119,120,121,122,123,124,125,126,127,128,131,132,135,138,139,148,151]},"4":{"url":{"module":"default","controller":"relatorio","action":"gerencial"},"title":"Ir para Gerencial","label":"Gerencial","grupo":[90,91,92,93,96,97,103,104,110,114,115,119,120,121,122,123,124,125,126,127,128,131,132,135,138,139,148,151]},"5":{"url":{"module":"default","controller":"relatorio","action":"desembolso"},"title":"Ir para Consultar Pontos Culturais","label":"Ponto de Cultura","grupo":[90,91,92,93,96,97,103,104,110,114,115,119,120,121,122,123,124,125,126,127,128,131,132,135,138,139,148,151]},"6":{"url":{"module":"default","controller":"gerarrelatorioreuniao","action":"gerarrelatorioreuniao"},"title":"Ir para Gerenciar Relat&oacute;rio Reuni&atilde;o","label":"Relat&oacute;rio de resultado CNIC","grupo":[90,91,92,93,96,97,103,104,110,114,115,119,120,121,122,123,124,125,126,127,128,131,132,135,138,139,148,151]},"7":{"url":{"module":"default","controller":"gerarrelatorioparecerista","action":"geraldeanalise"},"title":"Ir para Relat&oacute;rio geral de an&aacute;lise","label":"Relat&oacute;rio geral de an&aacute;lise","grupo":[90,91,92,93,96,97,103,104,110,114,115,119,120,121,122,123,124,125,126,127,128,131,132,135,138,139,148,151]}},"grupo":[90,91,92,93,96,97,103,104,110,114,115,119,120,121,122,123,124,125,126,127,128,131,132,135,138,139,148,151]},"seguranca":{"id":"seguranca","label":"Seguran&ccedil;a","title":"Seguran&ccedil;a","menu":{"4":{"url":{"module":"autenticacao","controller":"index","action":"alterarsenhausuario"},"title":"Ir para Alterar Senha","label":"Alterar Senha","grupo":[]}},"grupo":[]},"manutencao":{"id":"manutencao","title":"Ir para Manuten&ccedil;&atilde;o","label":"Manuten&ccedil;&atilde;o","grupo":[148,151,92,93,97,103,104,110,113,114,115,121,122,123,124,125,126,127,128,131,132,134,135,136,137,138,139,140,143],"menu":[{"title":"Ir para Alterar Projeto","label":"Alterar Projeto","url":{"module":"default","controller":"alterarprojeto","action":"consultarprojeto"},"grupo":[148,151,92,93,97,103,104,110,113,114,115,121,122,123,124,125,126,127,128,131,132,134,135,136,137,138,139,140,143]},{"title":"Anexar Documentos","label":"Anexar Documentos","url":{"module":"defalut","controller":"anexardocumentosminc","action":"index"},"grupo":[148,151,92,93,97,103,104,110,113,114,115,121,122,123,124,125,126,127,128,131,132,134,135,136,137,138,139,140,143]},{"title":"Excluir Documentos","label":"Excluir Documentos","url":{"module":"default","controller":"anexardocumentosminc","action":"excluir"},"grupo":[92,93,97,103,104,110,113,114,115,121,122,123,124,125,126,127,128,131,132,134,135,136,137,138,139,140,143]},{"grupo":[148,151,92,93,97,103,104,110,113,114,115,121,122,123,124,125,126,127,128,131,132,134,135,136,137,138,139,140,143],"url":{"module":"default","controller":"rastrearagente","action":"index"},"title":"Ir para Rastrear Agente","label":"Rastrear Agente"},{"title":"Localiza&ccedil;&atilde;o F&iacute;sica do Projeto","label":"Localiza&ccedil;&atilde;o F&iacute;sica do Projeto","url":{"module":"default","controller":"localizacao-fisica","action":"index"},"grupo":[148,151,92,93,97,103,104,110,113,114,115,121,122,123,124,125,126,127,128,131,132,134,135,136,137,138,139,140,143]}]}}}
-
-## Informações do Rodapé [/navegacao/dados-rest/index]
-
-### Informações do Rodapé [GET]
-
-+ Response 200 (application/json, charset=utf-8)
-
-    + Body
-
-            {"data":{"code":200,"items":{"versao":["v6.5.8"],"quantidadeSolicitacoes":0}}}
-
 # Group Projeto
 
 ## Dados do projeto 209561 [/projeto/dados-projeto/get?idPronac=209561]
 
-### Página Principal [GET]
+### Dados do projeto 209561 [GET]
 
 + Response 200 (application/json)
 
@@ -162,6 +142,94 @@ HOST: http://localhost:4000
                     "dtRevogacaoNormativo": "2017-11-30 00:00:00",
                     "idFase": "651",
                     "FaseProjeto": "Avaliação dos resultados da ação cultural",
+                    "ProponenteInabilitado": "",
+                    "EmAnaliseNaCNIC": "",
+                    "idUsuarioExterno": "",
+                    "isTipoIncentivo": "1",
+                    "isProponente": ""
+                },
+                "success": "true"
+            }
+
+## Dados do projeto 217336 [/projeto/dados-projeto/get?idPronac=217336]
+
+### Dados projeto 217336 [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "data": {
+                    "permissao": "1",
+                    "idPronac": "217336",
+                    "Pronac": "179303",
+                    "NomeProjeto": "7º Festival do Japão do Rio Grande do Sul",
+                    "CgcCPf": "19695098000177",
+                    "Proponente": "Associação do Festival do Japão do Rio Grande do Sul",
+                    "UfProjeto": "RS",
+                    "idMecanismo": "1",
+                    "DtSituacao": "2018-09-03 18:22:52",
+                    "Processo": "01400.034615/2017-46",
+                    "DtInicioCaptacao": "2018-01-01 00:00:00",
+                    "DtFimCaptacao": "2018-12-31 00:00:00",
+                    "DtInicioExecucao": "2018-06-01 09:36:29",
+                    "DtFimExecucao": "2019-12-31 23:59:59",
+                    "TipoPortariaVigente": "Redução",
+                    "NrPortariaVigente": "0537/18",
+                    "DtPublicacaoPortariaVigente": "15/08/2018",
+                    "ResumoProjeto": "O Festival do Jap&atilde;o RS &eacute; um evento cultural realizado anualmente pela Associa&ccedil;&atilde;o do Festival do Jap&atilde;o do Rio Grande do Sul. Em sua 7&ordf; Edi&ccedil;&atilde;o, a ser realizada no ano de 2018, ser&aacute; produzido um document&aacute;rio resgatando as ra&iacute;zes nipo-brasileiras que formaram as col&ocirc;nias japonesas no RS, com a participa&ccedil;&atilde;o dos primeiros imigrantes japonesesque aportaram em 1956. Nestes dois dias o festival celebrar&aacute; os la&ccedil;os culturais entre os dois povos, preservando suas identidades e tradi&ccedil;&otilde;es, oportunizando ao p&uacute;blico conhecer, apreciar e vivenciar os h&aacute;bitos e costumes, a culin&aacute;ria e as mais variadas express&otilde;es art&iacute;sticas e pr&aacute;ticas relacionadas ao cotidiano do povo japon&ecirc;s. Em 2018 o p&uacute;blico estimado para o evento &eacute; de 50 mil pessoas.",
+                    "ProvidenciaTomada": "Readequa&ccedil;&atilde;o em an&aacute;lise pela &aacute;rea t&eacute;cnica.",
+                    "LocalizacaoAtual": "SEFIC/GEAR/SACAV",
+                    "vlSolicitadoOriginal": "341251.2",
+                    "vlOutrasFontesPropostaOriginal": "0",
+                    "vlTotalPropostaOriginal": "341251.2",
+                    "vlAutorizado": "341251.2",
+                    "vlAutorizadoOutrasFontes": "0",
+                    "vlTotalAutorizado": "341251.2",
+                    "vlAdequadoIncentivo": "183500",
+                    "vlAdequadoOutrasFontes": "0",
+                    "vlTotalAdequado": "183500",
+                    "vlHomologadoIncentivo": "161420",
+                    "vlHomologadoOutrasFontes": "0",
+                    "vlTotalHomologado": "161420",
+                    "vlReadequadoIncentivo": "161420",
+                    "vlReadequadoOutrasFontes": "0",
+                    "vlTotalReadequado": "161420",
+                    "vlCaptado": "45000",
+                    "vlTransferido": "0",
+                    "vlRecebido": "0",
+                    "vlSaldoACaptar": "116420",
+                    "PercentualCaptado": "27.88",
+                    "vlComprovado": "37020",
+                    "vlAComprovar": "7980",
+                    "PercentualComprovado": "82.27",
+                    "Enquadramento": "Artigo 18",
+                    "idPreProjeto": "251702",
+                    "idAgente": "221725",
+                    "DataFixa": "N&atilde;o",
+                    "ProrrogacaoAutomatica": "Sim",
+                    "Area": "Artes Visuais",
+                    "Segmento": "Exposição de Artes Visuais",
+                    "Mecanismo": "Mecenato",
+                    "Situacao": "E12 - Autorizada a captação residual dos recursos",
+                    "PlanoExecucaoImediata": "Projeto  com contratos de patrocínios",
+                    "AgenciaBancaria": "27944",
+                    "ContaCaptacao": "000000462322",
+                    "ContaMovimentacao": "000000462330",
+                    "ContaBancariaLiberada": "Sim",
+                    "DtLiberacaoDaConta": "31/07/2018",
+                    "DtArquivamento": "",
+                    "CaixaInicio": "",
+                    "CaixaFinal": "",
+                    "dtInicioFase": "2018-09-01 05:00:52",
+                    "dtFinalFase": "",
+                    "idNormativo": "8",
+                    "Normativo": "INSTRUÇÃO NORMATIVA MINC Nº 4/2017\r\n",
+                    "dtPublicacaoNormativo": "2017-11-30 00:00:00",
+                    "dtRevogacaoNormativo": "2017-12-26 00:00:00",
+                    "idFase": "650",
+                    "FaseProjeto": "Execução do projeto e comprovação dos gastos efetuados",
                     "ProponenteInabilitado": "",
                     "EmAnaliseNaCNIC": "",
                     "idUsuarioExterno": "",

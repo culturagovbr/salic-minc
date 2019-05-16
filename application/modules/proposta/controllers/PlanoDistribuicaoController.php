@@ -216,6 +216,8 @@ class Proposta_PlanoDistribuicaoController extends Proposta_GenericController
 
     public function detalharPlanoDistribuicaoAction()
     {
+        $this->carregarScriptsVue();
+
         $params = $this->getRequest()->getParams();
 
         if (empty($params['idPlanoDistribuicao'])) {
@@ -236,6 +238,11 @@ class Proposta_PlanoDistribuicaoController extends Proposta_GenericController
         $this->view->abrangencias = $rsAbrangencia;
         $this->view->planosDistribuicao=($rsPlanoDistribuicao);
         $this->view->isEditavel = $this->isEditavel($this->idPreProjeto);
+
+        $objTbProjetoFase = new Projeto_Model_DbTable_TbProjetoFase();
+        $normativo = $objTbProjetoFase->obterNormativoProjeto(['a.idProjeto = ?' => $this->idPreProjeto])->current();
+
+        $this->view->idNormativo = $normativo ? $normativo->idNormativo : '';
     }
 
     public function detalharSalvarAction()
@@ -252,7 +259,7 @@ class Proposta_PlanoDistribuicaoController extends Proposta_GenericController
                 throw new Exception("Produto &eacute; obrigat&oacute;rio");
             }
 
-            if (empty($dados['idDetalhaPlanoDistribuicao'])) {
+            if (empty((int) $dados['idDetalhaPlanoDistribuicao'])) {
                 unset($dados['idDetalhaPlanoDistribuicao']);
             }
 
@@ -262,7 +269,6 @@ class Proposta_PlanoDistribuicaoController extends Proposta_GenericController
 
             $tbDetalhamentoMapper = new Proposta_Model_TbDetalhaPlanoDistribuicaoMapper();
             $id = $tbDetalhamentoMapper->salvar($mdlDetalhaPlanoDistribuicao, $this->idPreProjeto);
-
             if (!empty($id)) {
                 $dados['idDetalhaPlanoDistribuicao'] = $id;
             }
@@ -307,5 +313,13 @@ class Proposta_PlanoDistribuicaoController extends Proposta_GenericController
 
             $this->_helper->json(array('data' => $retorno, 'success' => 'false', 'msg' => $e->getMessage()));
         }
+    }
+
+    private function carregarScriptsVue()
+    {
+        $gitTag = '?v=' . $this->view->gitTag();
+        $this->view->headScript()->offsetSetFile(99, '/public/dist/js/manifest.js' . $gitTag, 'text/javascript', array('charset' => 'utf-8'));
+        $this->view->headScript()->offsetSetFile(100, '/public/dist/js/vendor.js' . $gitTag, 'text/javascript', array('charset' => 'utf-8'));
+        $this->view->headScript()->offsetSetFile(101, '/public/dist/js/proposta.js'. $gitTag, 'text/javascript', array('charset' => 'utf-8'));
     }
 }

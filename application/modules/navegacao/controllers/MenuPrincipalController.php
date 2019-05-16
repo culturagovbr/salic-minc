@@ -1193,7 +1193,8 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
     public function filtro($arrMenu, $menuProponente)
     {
         $auth = (array)$this->auth->getIdentity();
-        if (isset ($auth['cpf'])) {
+        if (isset ($auth['Cpf'])) {
+            $arrMenu = $menuProponente;
         } elseif (isset($auth['usu_codigo'])) {
             $arrMenu = array_filter($arrMenu, function ($arrMenu) {
                 return (empty($arrMenu['grupo']) || in_array($this->codGrupo, $arrMenu['grupo']));

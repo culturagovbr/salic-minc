@@ -244,10 +244,14 @@ Vue.component('sl-comprovante-nacional-form',
                     <legend>Justificativa</legend>
                     <div class="row">
                         <div class="input-field col s12">
-                            <textarea class="materialize-textarea" rows="5"
-                                   v-model="comprovante.justificativa"
-                                      name="dsJustificativa"
-                                      id="dsJustificativa">
+                            <textarea
+                                :class="[c.valor.css, 'materialize-textarea']"
+                                rows="15"
+                                ref="justificativa"
+                                v-model="comprovante.justificativa"
+                                name="dsJustificativa"
+                                id="dsJustificativa"
+                            >
                             </textarea>
                         </div>
                     </div>
@@ -296,12 +300,11 @@ Vue.component('sl-comprovante-nacional-form',
                 this.comprovante.arquivo = { nome: this.dados.arquivo.nome };
                 this.comprovante.justificativa = this.dados.justificativa;
             }
-            $3('textarea')
-                .trigger('autoresize');
+
+            $3('textarea').trigger('autoresize');
         },
         updated() {
-            $3('textarea')
-                .trigger('autoresize');
+            $3('textarea').trigger('autoresize');
         },
         props: {
             dados: null,
@@ -409,6 +412,9 @@ Vue.component('sl-comprovante-nacional-form',
                     arquivo: {
                         css: '',
                     },
+                    justificativa: {
+                        css: 'materialize-textarea'
+                    }
                 },
                 random: '',
                 novoFornecedor: false,
@@ -597,7 +603,10 @@ Vue.component('sl-comprovante-nacional-form',
                     return false;
                 }
 
-                if (!this.validarValor()) {
+                if (this.comprovante.justificativa === '' && !this.validarValor()) {
+                    console.log(this.comprovante.justificativa)
+                    this.$refs.justificativa.focus();
+                    this.c.justificativa.css = 'materialize-textarea active invalid red-text';
                     return false;
                 }
 
@@ -626,8 +635,7 @@ Vue.component('sl-comprovante-nacional-form',
                     return false;
                 }
 
-                if (numeral(this.comprovante.valor)
-                    .value() == 0) {
+                if (numeral(this.comprovante.valor).value() == 0) {
                     this.$refs.valor.focus();
                     this.c.valor.css = 'active invalid red-text';
 
@@ -635,12 +643,13 @@ Vue.component('sl-comprovante-nacional-form',
                 }
 
                 if (valorComprovadoAtual > valoraprovado.value()) {
-                    this.$refs.valor.focus();
-                    this.c.valor.css = 'active invalid red-text';
-                    alert(
-                        'Valor acima do permitido:' + this.comprovante.valor
-                        + ', maximo a ser acrescentado e: ' + valorPermitido
-                    );
+                    // this.$refs.valor.focus();
+                    // this.c.valor.css = 'active invalid red-text';
+                    // alert(
+                    //     'Valor acima do permitido:' + this.comprovante.valor
+                    //     + ', maximo a ser acrescentado e: ' + valorPermitido
+                    // );
+                    alert('Valor acima do permitido, justificar acrescimo.');
 
                     return false;
                 }

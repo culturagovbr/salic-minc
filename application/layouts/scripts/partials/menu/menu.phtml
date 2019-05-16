@@ -87,6 +87,26 @@ $arrMenuProponente['usuario']['menu'][] = array('label' => 'Alterar Dados', 'tit
     'url' => $this->url(array('module' => 'autenticacao', 'controller' => 'index', 'action' => 'alterardados'), '', true),
     'grupo' => array()
 );
+
+$jwt = new Zend_Session_Namespace('jwt');
+if (Zend_Registry::get("config")->toArray()['nfe']) {
+
+    $arrMenuProponente['nfe'] = [
+        'id' => 'nfe',
+        'label' => 'Notas Fiscais',
+        'title' => 'Ir para Notas Fiscais',
+        'menu' => [],
+        'grupo' => []
+    ];
+
+    $arrMenuProponente['nfe']['menu'][] =
+        [
+            'label' => 'Vizualizar Notas',
+            'title' => 'Vizualizar Notas',
+            'url' => Zend_Registry::get("config")->toArray()['url']['hostnfe']. '/nfe/' . $jwt->token,
+            'grupo' => []
+        ];
+}
 // ========== FIM MENU PROTOCOLO ==========
 
 // ========== INICIO MENU MANUAIS ==========

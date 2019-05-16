@@ -11,6 +11,41 @@ export const buscaLocalRealizacaoDeslocamento = ({ commit }, idPreProjeto) => {
         });
 };
 
+export const buscarLocaisRealizacao = ({ commit }, idPreProjeto) => {
+    propostaHelperAPI.buscarLocaisRealizacao(idPreProjeto)
+        .then((response) => {
+            const { data } = response;
+            commit(types.SET_LOCAIS_REALIZACAO, data.data);
+        });
+};
+
+export const buscarPlanoDistribuicaoDetalhamentos = ({ commit }, params) => {
+    propostaHelperAPI.buscarPlanoDistribuicaoDetalhamentos(params)
+        .then((response) => {
+            const { data } = response;
+            commit(types.SET_PLANO_DISTRIBUICAO_DETALHAMENTOS, data.data);
+        });
+};
+
+export const salvarPlanoDistribuicaoDetalhamento = async ({ commit }, params) => propostaHelperAPI
+    .salvarPlanoDistribuicaoDetalhamento(params)
+    .then((response) => {
+        const { data } = response;
+        commit(types.UPDATE_PLANO_DISTRIBUICAO_DETALHAMENTO, data.data);
+        return response.data;
+    }).catch((e) => {
+        throw new TypeError(e.response.data, 'salvarPlanoDetalhamento', 10);
+    });
+
+export const excluirPlanoDistribuicaoDetalhamento = async ({ commit }, params) => propostaHelperAPI
+    .excluirPlanoDistribuicaoDetalhamento(params)
+    .then((response) => {
+        commit(types.EXCLUIR_PLANO_DISTRIBUICAO_DETALHAMENTO, params);
+        return response.data;
+    }).catch((e) => {
+        throw new TypeError(e.response.data, 'salvarPlanoDetalhamento', 10);
+    });
+
 export const buscaFontesDeRecursos = ({ commit }, idPreProjeto) => {
     propostaHelperAPI.buscaFontesDeRecursos(idPreProjeto)
         .then((response) => {

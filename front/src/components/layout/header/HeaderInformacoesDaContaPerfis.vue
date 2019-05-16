@@ -12,7 +12,9 @@
                         <span>{{ perfilAtual.orgao_sigla_autorizada }} - {{ perfilAtual.nome_grupo }}</span>
                         <v-icon>arrow_drop_down</v-icon>
                     </v-list-tile-title>
-                    <v-list style="width: 440px; max-height: 500px; overflow: scroll;">
+                    <v-list
+                        v-if="perfis.length > 1"
+                        style="width: 440px; max-height: 500px; overflow: scroll;">
                         <v-list-tile
                             v-for="(perfil, index) in perfis"
                             :key="index">

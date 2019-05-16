@@ -10,6 +10,7 @@ import Vue from 'vue';
 import Proposta from './visualizar/Proposta';
 import PropostaDiff from './visualizar/PropostaDiff';
 import PropostaProponente from './visualizar/PropostaProponente';
+import PropostaPlanoDistribuicaoDetalhamentos from './views/PlanoDistribuicaoDetalhamentos';
 import { store } from './config';
 
 
@@ -40,6 +41,7 @@ window.onload = () => {
             Proposta,
             PropostaDiff,
             PropostaProponente,
+            PropostaPlanoDistribuicaoDetalhamentos,
         },
     });
 };

@@ -8,7 +8,7 @@ export const state = {
     statusSidebarDireita: false,
     statusSidebarEsquerda: false,
     versao: {},
-    menuPrincipal: {},
+    menuPrincipal: [],
 };
 
 export const mutations = {

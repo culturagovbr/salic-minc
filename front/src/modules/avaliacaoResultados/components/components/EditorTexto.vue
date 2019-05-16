@@ -33,6 +33,11 @@ export default {
             ],
         };
     },
+    watch: {
+        value() {
+            this.setInfo();
+        },
+    },
     mounted() {
         this.setInfo();
         this.counter();
@@ -41,7 +46,6 @@ export default {
         enviar(e) {
             this.$emit('editor-texto-input', e);
         },
-
         counter(e) {
             if (typeof e !== 'undefined' && e.ops.length > 0 && e.ops[0].retain !== undefined) {
                 this.$emit('editor-texto-counter', e.ops[0].retain);

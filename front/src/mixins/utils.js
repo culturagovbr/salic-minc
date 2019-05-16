@@ -27,6 +27,13 @@ export const utils = {
 
             return 'N\xE3o';
         },
+	isObject: function (el) {
+            return typeof el === "object";
+        },
+	converterParaReal: function (value) {
+            value = parseFloat(value);
+            return numeral(value).format('0,0.00');
+        },
         isDataExpirada(date) {
             return moment().diff(date, 'days') > 0;
         },

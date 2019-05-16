@@ -23,6 +23,36 @@ fi
 if  ! [ -e "/var/www/salic/application/configs/application.ini" ] ; then
     echo "[ ****************** ] Copying sample application configuration to real one"
     cp /var/www/salic/application/configs/exemplo-application.ini /var/www/salic/application/configs/application.ini
+
+    sed -i "s/@@DB_PDOTYPE@@/$DB_PDOTYPE/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@DB_HOST@@/$DB_HOST/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@DB_NAME@@/$DB_NAME/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@DB_USERNAME@@/$DB_USERNAME/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@DB_PASSWORD@@/$DB_PASSWORD/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@DB_PORT@@/$DB_PORT/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@DB_PDOTYPE@@/$DB_PDOTYPE/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@RECEITA_URL@@/$RECEITA_URL/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@RECEITA_USER@@/$RECEITA_USER/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@RECEITA_PASSWORD@@/$RECEITA_PASSWORD/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@EMAIL_DEFAULT@@/$EMAIL_DEFAULT/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@EMAIL_TRANSPORT_HOST@@/$EMAIL_TRANSPORT_HOST/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@EMAIL_TRANSPORT_TYPE@@/$EMAIL_TRANSPORT_TYPE/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@EMAIL_TRANSPORT_AUTH@@/$EMAIL_TRANSPORT_AUTH/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@EMAIL_TRANSPORT_USERNAME@@/$EMAIL_TRANSPORT_USERNAME/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@EMAIL_TRANSPORT_PASSWORD@@/$EMAIL_TRANSPORT_PASSWORD/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@MOBILE_SALICMOBILEHASH@@/$MOBILE_SALICMOBILEHASH/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@MOBILE_ENCRYPTHASH@@/$MOBILE_ENCRYPTHASH/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@MOBILE_GCMAPIKEY@@/$MOBILE_GCMAPIKEY/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@MOBILE_GCMURL@@/$MOBILE_GCMURL/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@SENTRY_URL@@/$SENTRY_URL/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@AVALIACAO_PROPOSTA_HASH@@/$AVALIACAO_PROPOSTA_HASH/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@URL_BASE@@/$URL_BASE/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@DISPLAY_ERRORS@@/$DISPLAY_ERRORS/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@DISPLAY_STARTUP_ERRORS@@/$DISPLAY_STARTUP_ERRORS/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@JWT_TOKEN@@/$JWT_TOKEN/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@HOST_NFE@@/$HOST_NFE/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@TEST_LOGIN@@/$TEST_LOGIN/g" /var/www/salic/application/configs/application.ini
+    sed -i "s/@@TEST_PASSWORD@@/$TEST_PASSWORD/g" /var/www/salic/application/configs/application.ini
 fi
 
 
@@ -30,7 +60,7 @@ fi
 if [ "$XDEBUG_INSTALL" == "true" ]; then
     echo "[ ****************** ] Starting install of XDebug and dependencies."
 	pecl shell-test xdebug && echo "Package xdebug Installed" || (
-		yes | pecl install xdebug 
+		yes | pecl install xdebug
 		echo "zend_extension="`find /usr/local/lib/php/extensions/ -iname 'xdebug.so'` > $XDEBUGINI_PATH
     	echo "xdebug.remote_enable=$XDEBUG_REMOTE_ENABLE" >> $XDEBUGINI_PATH
 

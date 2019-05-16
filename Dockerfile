@@ -2,6 +2,7 @@ FROM php:7.0-apache
 
 #VOLUME ["/var/www"]
 
+RUN echo "*"
 RUN apt-get update
 
 RUN echo "[ ***** ***** ***** ] - Installing each item in new command to use cache and avoid download again ***** ***** ***** "

@@ -9,10 +9,20 @@
 export default {
     /* eslint-disable */
         name: "SalicFormatarValor",
-        props: ["valor"],
+        props: {	    
+	    valor: 0,
+	    prefixo: String,
+	},
         computed: {
             valorFormatado: function () {
-                return this.converterParaMoeda(this.valor);
+		let output = '';
+		
+		if (typeof this.prefixo != "undefined") {
+		    output += this.prefixo;
+		}
+		output += this.converterParaMoeda(this.valor);
+		
+                return output;
             }
         },
         methods: {

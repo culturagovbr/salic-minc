@@ -16,36 +16,57 @@ class Readequacao_Model_TbReadequacaoMapper extends MinC_Db_Mapper
     {
         try {
 
+            if (strlen($arrData['idPronac']) > 7) {
+                $arrData['idPronac'] = Seguranca::dencrypt($arrData['idPronac']);
+            }
+
             $auth = Zend_Auth::getInstance();
             $tblAgente = new Agente_Model_DbTable_Agentes();
             $rsAgente = $tblAgente->buscar(array('CNPJCPF=?' => $auth->getIdentity()->Cpf))->current();
 
             $objReadequacao = new Readequacao_Model_TbReadequacao();
             $objReadequacao->setIdReadequacao($arrData['idReadequacao']);
-            $objReadequacao->setIdPronac($arrData['idPronac']);
             $objReadequacao->setDtSolicitacao(new Zend_Db_Expr('GETDATE()'));
             $objReadequacao->setIdSolicitante($rsAgente->idAgente);
             $objReadequacao->setStAtendimento('N');
             $objReadequacao->setSiEncaminhamento(Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE);
             $objReadequacao->setStEstado(0);
 
+            if (isset($arrData['idPronac'])) {
+                $objReadequacao->setIdPronac($arrData['idPronac']);
+            }
+
             if (isset($arrData['stAtendimento'])) {
                 $objReadequacao->setStAtendimento($arrData['stAtendimento']);
             }
-            
+
             if (isset($arrData['idTipoReadequacao'])) {
                 $objReadequacao->setIdTipoReadequacao($arrData['idTipoReadequacao']);
             }
-
-            if (isset($arrData['dsJustificativa'])) {
-                $objReadequacao->setDsJustificativa($arrData['dsJustificativa']);
+            if (!isset($arrData['dsJustificativa'])) {
+                $arrData['dsJustificativa'] = '';
             }
 
-            if (isset($arrData['dsSolicitacao'])) {
-                $objReadequacao->setDsSolicitacao($arrData['dsSolicitacao']);
+            $dsJustificativa = $arrData['dsJustificativa'];
+            if (mb_detect_encoding($dsJustificativa == 'UTF-8')) {
+                $dsJustificativa = utf8_decode($dsJustificativa);
+            }
+            $objReadequacao->setDsJustificativa($dsJustificativa);
+
+            if (!isset($arrData['dsSolicitacao'])) {
+                $arrData['dsSolicitacao'] = '';
             }
 
-            if ($arrData['idDocumento']) {
+            $dsSolicitacao = $arrData['dsSolicitacao'];
+            if (mb_detect_encoding($dsSolicitacao == 'UTF-8')) {
+                $dsSolicitacao = utf8_decode($dsSolicitacao);
+            }
+            $objReadequacao->setDsSolicitacao($dsSolicitacao);
+
+            if (array_key_exists('idDocumento', $arrData)) {
+                if ($arrData['idDocumento'] == null) {
+                    $arrData['idDocumento'] = new Zend_Db_Expr('NULL');
+                }
                 $objReadequacao->setIdDocumento($arrData['idDocumento']);
             }
 

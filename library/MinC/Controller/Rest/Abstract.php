@@ -20,6 +20,8 @@ abstract class MinC_Controller_Rest_Abstract extends Zend_Controller_Action
 
     protected $_checkUserIsLogged = false;
 
+    protected $_subRoutes = [];
+
 
     const ALL_METHODS = '*';
     const COD_ORGAO_PROPONENTE = 1111;
@@ -50,6 +52,8 @@ abstract class MinC_Controller_Rest_Abstract extends Zend_Controller_Action
         $this->_request = $this->getRequest();
         $this->_response = $this->getResponse();
 
+        $routeData = $this->verifySubRoutes();
+        
         if($authInstance->hasIdentity() && !empty($authObject->usu_codigo)){
             //Usuario Interno
             $this->_usu_codigo = $authObject->usu_codigo;
@@ -75,6 +79,10 @@ abstract class MinC_Controller_Rest_Abstract extends Zend_Controller_Action
         $this->_checkUserIsLogged = true;
     }
 
+    final protected function registrarSubRoutes(array $subRoutes)
+    {
+        $this->_subRoutes = $subRoutes;
+    }
 
     final private function checkPermission() : bool
     {
@@ -106,6 +114,94 @@ abstract class MinC_Controller_Rest_Abstract extends Zend_Controller_Action
                 'message' => 'Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!'
             ]
         ]);
+    }
+
+    /**
+     * verifySubRoutes
+     *
+     * Adiciona compatibilidade com rotas REST aninhadas, recebendo nested urls 
+     * e transformado numa forma em que a controller pode ler.
+     * 
+     * Busca as subrotas mapeadas; caso encontre uma que bate com o padrão,
+     * redireciona para a controller na forma abaixo:
+     *
+     * readequacao/dados-readequacao/15522/documento/112
+     *                         |
+     *                         V
+     * readequacao/dados-readequacao-documento/idReadequacao/15522/idDocumento/112
+     *
+     */    
+    final protected function verifySubRoutes()
+    {
+        if (empty($this->_subRoutes)) {
+            return;
+        }
+        
+        $arrRequest = $this->getAllParams();
+        $currentUrl = $arrRequest['module'] . '/' .  $arrRequest['controller'];
+       
+        if (array_key_exists('id', $arrRequest) && $arrRequest['action'] == 'get') {
+            $currentUrl .= '/' . $arrRequest['id'];
+        } else {
+            $otherParams = $arrRequest;
+            unset($otherParams['module']);
+            unset($otherParams['controller']);
+            unset($otherParams['action']);
+
+            foreach ($otherParams as $key => $value) {
+                $currentUrl .= '/' . $key;
+                if ($value) {
+                    $currentUrl .= '/' . $value;
+                }
+            }
+        }
+        
+        $currentUrlPieces = preg_split('/\//', $currentUrl);
+        $capturedParams = [];
+        $capturedActions = [];
+        
+        if (array_key_exists('module', $arrRequest) &&
+            array_key_exists('controller', $arrRequest) &&
+            array_key_exists('action', $arrRequest) &&
+            in_array('get', $arrRequest)            
+        ) {
+            foreach ($this->_subRoutes as $definedRoute) {
+                $pieceMatch = [];
+                $routePieces = preg_split('/\//', $definedRoute);
+                
+                if (count($currentUrlPieces) == count($routePieces)) {
+                    foreach ($currentUrlPieces as $key => $piece) {
+                        if ($routePieces[$key] == $currentUrlPieces[$key]) {
+                            $pieceMatch[$key] = true;
+                            $capturedActions[] = $piece;
+                        } else if (!preg_match('/[{].*[}]/', $piece)) {
+                            $keyName = preg_replace('/[{}]/', '', $routePieces[$key]);
+                            $capturedParams[$keyName] = $piece;
+                            $pieceMatch[$key] = true;
+                        } else {
+                            $pieceMatch[$key] = false;
+                        }
+                    }
+                    
+                    if (!in_array(false, $pieceMatch)) {
+                        $moduleName = $capturedActions[0];
+                        $controllerName = $capturedActions[1] . '-' . $capturedActions[2];
+                        
+                        $params = '';
+                        foreach ($routeData['params'] as $key => $value) {
+                            if ($value != '') {
+                                $params .= "$key/$value/";
+                            } else {
+                                $params .= "$key/";
+                            }
+                        }
+                        
+                        $this->redirect($moduleName . '/' . $controllerName . '/' . $params);
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     final public function renderJsonResponse(array $data, int $code)

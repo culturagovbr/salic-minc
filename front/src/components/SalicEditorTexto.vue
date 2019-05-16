@@ -16,7 +16,7 @@
             name="teste"
             value="1"
         >
-        <div class="v-text-field__details mt-2">
+        <div class="v-text-field__details pa-2">
             <div
                 class="v-messages theme--light error--text"
             >

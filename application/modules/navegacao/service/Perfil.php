@@ -20,8 +20,13 @@ class Perfil
         $arrAuth = array_change_key_case((array)$usuarioAtivo);
 
         $objModelUsuario = new \Navegacao_Model_PerfilMapper();
-        $perfisDisponoveis = $objModelUsuario->buscarPerfisDisponiveis($arrAuth['usu_codigo'], 21);
+        if (isset($arrAuth['usu_codigo'])) {
+            $perfisDisponoveis = $objModelUsuario->buscarPerfisDisponiveis($arrAuth['usu_codigo'], 21);
+        } else {
+            $perfisDisponoveis = [];
+        }
         $perfis = $this->montaPerfis($perfisDisponoveis);
+
         return \TratarArray::utf8EncodeArray($perfis);
     }
 

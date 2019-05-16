@@ -80,7 +80,7 @@ export default {
     name: 'MenuPrincipal',
     props: {
         dadosMenu: {
-            type: Object,
+            type: [Array, Object],
             required: true,
         },
     },

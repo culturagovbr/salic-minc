@@ -28,7 +28,10 @@ class Readequacao_SaldoAplicacaoController extends Readequacao_GenericController
         
         $dados = $this->getRequest()->getPost();
         $idPronac = $dados['idPronac'];
-
+        if (strlen($idPronac) > 7) {
+            $idPronac = Seguranca::dencrypt($idPronac);
+        }
+        
         $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
         
         $idReadequacao = $tbReadequacao->criarReadequacaoPlanilha($idPronac, Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_SALDO_APLICACAO);
@@ -153,7 +156,11 @@ class Readequacao_SaldoAplicacaoController extends Readequacao_GenericController
             $readequacaoMapper = new Readequacao_Model_TbReadequacaoMapper();
             $id = $readequacaoMapper->salvarSolicitacaoReadequacao($dados);
                                                     
-            $this->_helper->json(array('readequacao' => $id, 'success' => 'true', 'msg' => 'Readequa&ccedil;&atilde;o salva com sucesso!'));
+            $this->_helper->json([
+                'data' => $dados,
+                'success' => 'true',
+                'msg' => 'Readequa&ccedil;&atilde;o salva com sucesso!'
+            ]);
         } catch (Exception $e) {
             $this->getResponse()->setHttpResponseCode(412);
             $this->_helper->json(array('data' => $dados, 'success' => 'false', 'msg' => $e->getMessage()));
@@ -172,6 +179,11 @@ class Readequacao_SaldoAplicacaoController extends Readequacao_GenericController
             if (empty($params['idReadequacao'])) {
                 throw new Exception('Readequa&ccedil;&atilde;o n&atilde;o encontrada');
             }
+
+            if (strlen($params['idPronac']) > 7) {
+                $params['idPronac'] = Seguranca::dencrypt($params['idPronac']);
+            }
+
             
             $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
             $readequacao = $tbReadequacao->obterDadosReadequacao(
@@ -205,6 +217,10 @@ class Readequacao_SaldoAplicacaoController extends Readequacao_GenericController
         }
         
         $idPronac = $this->_request->getParam("idPronac");
+        if (strlen($idPronac) > 7) {
+            $idPronac = Seguranca::dencrypt($idPronac);
+        }
+        
         $idReadequacao = $this->_request->getParam('idReadequacao');
 
         try {
@@ -243,26 +259,29 @@ class Readequacao_SaldoAplicacaoController extends Readequacao_GenericController
         }
     }
 
-    public function verificarDisponivelParaEdicaoReadequacaoPlanilhaAction()
+    public function disponivelEdicaoItemAction()
     {
         $this->_helper->layout->disableLayout();
         $idPronac = $this->_request->getParam("idPronac");
+        if (strlen($idPronac) > 7) {
+            $idPronac = Seguranca::dencrypt($idPronac);
+        }
         
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
             $this->_helper->json([
                 'success' => 'true',
-                'disponivelParaEdicaoReadequacaoPlanilha' => false,
-                'msg' => 'Dispon&iacute;vel para edi&ccedil;&atilde;o de itens.'
+                'disponivelEdicaoItem' => false,
+                'msg' => 'N&atilde;o dispon&iacute;vel para edi&ccedil;&atilde;o de itens.'
             ]);
         }
         
         try {
             $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-            $disponivelParaEdicaoReadequacaoPlanilha = $Readequacao_Model_DbTable_TbReadequacao->disponivelParaEdicaoReadequacaoPlanilha($idPronac, $idAgente);
+            $disponivelParaEdicaoReadequacaoPlanilha = $Readequacao_Model_DbTable_TbReadequacao->disponivelParaEdicaoReadequacaoPlanilha($idPronac);
             
             $this->_helper->json([
-                'success' => 'true',
-                'disponivelParaEdicaoReadequacaoPlanilha' => $disponivelParaEdicaoReadequacaoPlanilha,
+                'success' => true,
+                'disponivelEdicaoItem' => $disponivelParaEdicaoReadequacaoPlanilha,
                 'msg' => 'Dispon&iacute;vel para edi&ccedil;&atilde;o de itens.'
             ]);
         } catch (Exception $e) {
@@ -272,6 +291,108 @@ class Readequacao_SaldoAplicacaoController extends Readequacao_GenericController
                 'msg' => $e->getMessage()
             ]);
         }
-                                                                                                  
     }
+
+    /*
+     * função copiada de Readequacao_ReadequacoesController->alterarItemSolicitacaoAction()
+     * - removendo formatação numérica, prefixo e retornando float
+     *
+     */
+    public function obterItemSolicitacaoAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $idPlanilhaAprovacao = $this->_request->getParam("idPlanilha");
+        $idPronac = $this->_request->getParam("idPronac");
+        if (strlen($idPronac) > 7) {
+            $idPronac = Seguranca::dencrypt($idPronac);
+        }
+        $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
+        
+        /* DADOS DO ITEM ATIVO */
+        $itemTipoPlanilha = $tbPlanilhaAprovacao->buscar(array(
+            'idPlanilhaAprovacao = ?' => $idPlanilhaAprovacao
+        ))->current();
+        $where = array();
+        $where['idPlanilhaAprovacao = ?'] = $idPlanilhaAprovacao;
+        $idPlan = $idPlanilhaAprovacao;
+        if ($itemTipoPlanilha->tpPlanilha == 'SR') {
+            $where['idPlanilhaAprovacao = ?'] = !empty($itemTipoPlanilha->idPlanilhaAprovacaoPai) ? $itemTipoPlanilha->idPlanilhaAprovacaoPai : $itemTipoPlanilha->idPlanilhaAprovacao;
+            $idPlan = !empty($itemTipoPlanilha->idPlanilhaAprovacaoPai) ? $itemTipoPlanilha->idPlanilhaAprovacaoPai : $itemTipoPlanilha->idPlanilhaAprovacao;
+        }
+        $where['stAtivo = ?'] = 'S';
+        $planilhaAtiva = $tbPlanilhaAprovacao->buscarDadosAvaliacaoDeItemRemanejamento($where);
+
+        /* DADOS DO ITEM PARA EDICAO DA READEQUACAO */
+        $where = array();
+        $where['idPlanilhaAprovacao = ?'] = $idPlanilhaAprovacao;
+        $where['tpPlanilha = ?'] = 'SR';
+        $where['stAtivo = ?'] = 'N';
+        $planilhaEditaval = $tbPlanilhaAprovacao->buscarDadosAvaliacaoDeItemRemanejamento($where);
+
+        $dadosPlanilhaAtiva = array();
+
+        /* PROJETO */
+        $Projetos = new Projetos();
+        $projeto = $Projetos->buscar(array('IdPRONAC = ?' => $idPronac))->current();
+        $dadosProjeto = array(
+            'IdPRONAC' => $projeto->IdPRONAC,
+            'PRONAC' => $projeto->AnoProjeto . $projeto->Sequencial,
+            'NomeProjeto' => utf8_encode($projeto->NomeProjeto)
+        );
+
+        foreach ($planilhaAtiva as $registro) {
+            //CALCULAR VALORES MINIMO E MAXIMO PARA VALIDACAO
+            $dadosPlanilhaAtiva['idPlanilhaAprovacao'] = $registro['idPlanilhaAprovacao'];
+            $dadosPlanilhaAtiva['idProduto'] = $registro['idProduto'];
+            $dadosPlanilhaAtiva['descProduto'] = utf8_encode($registro['descProduto']);
+            $dadosPlanilhaAtiva['idEtapa'] = $registro['idEtapa'];
+            $dadosPlanilhaAtiva['descEtapa'] = utf8_encode($registro['descEtapa']);
+            $dadosPlanilhaAtiva['idPlanilhaItem'] = $registro['idPlanilhaItem'];
+            $dadosPlanilhaAtiva['descItem'] = utf8_encode($registro['descItem']);
+            $dadosPlanilhaAtiva['idUnidade'] = $registro['idUnidade'];
+            $dadosPlanilhaAtiva['descUnidade'] = utf8_encode($registro['descUnidade']);
+            $dadosPlanilhaAtiva['Quantidade'] = $registro['Quantidade'];
+            $dadosPlanilhaAtiva['Ocorrencia'] = $registro['Ocorrencia'];
+            $dadosPlanilhaAtiva['ValorUnitario'] = utf8_encode(number_format($registro['ValorUnitario'], 2, '.', ''));
+            $dadosPlanilhaAtiva['QtdeDias'] = $registro['QtdeDias'];
+            $dadosPlanilhaAtiva['TotalSolicitado'] = utf8_encode(number_format(($registro['Quantidade'] * $registro['Ocorrencia'] * $registro['ValorUnitario']), 2, '.', ''));
+            $dadosPlanilhaAtiva['Justificativa'] = utf8_encode($registro['Justificativa']);
+        }
+
+        $dadosPlanilhaEditavel = $dadosPlanilhaAtiva;
+        if (count($planilhaEditaval) > 0) {
+            foreach ($planilhaEditaval as $registroEditavel) {
+                $dadosPlanilhaEditavel['idPlanilhaAprovacao'] = $registroEditavel['idPlanilhaAprovacao'];
+                $dadosPlanilhaEditavel['idProduto'] = $registroEditavel['idProduto'];
+                $dadosPlanilhaEditavel['descProduto'] = utf8_encode($registroEditavel['descProduto']);
+                $dadosPlanilhaEditavel['idEtapa'] = $registroEditavel['idEtapa'];
+                $dadosPlanilhaEditavel['descEtapa'] = utf8_encode($registroEditavel['descEtapa']);
+                $dadosPlanilhaEditavel['idPlanilhaItem'] = $registroEditavel['idPlanilhaItem'];
+                $dadosPlanilhaEditavel['descItem'] = utf8_encode($registroEditavel['descItem']);
+                $dadosPlanilhaEditavel['idUnidade'] = $registroEditavel['idUnidade'];
+                $dadosPlanilhaEditavel['descUnidade'] = utf8_encode($registroEditavel['descUnidade']);
+                $dadosPlanilhaEditavel['Quantidade'] = $registroEditavel['Quantidade'];
+                $dadosPlanilhaEditavel['Ocorrencia'] = $registroEditavel['Ocorrencia'];
+                $dadosPlanilhaEditavel['ValorUnitario'] = utf8_encode(number_format($registroEditavel['ValorUnitario'], 2, '.', ''));
+                $dadosPlanilhaEditavel['QtdeDias'] = $registroEditavel['QtdeDias'];
+                $dadosPlanilhaEditavel['TotalSolicitado'] = utf8_encode(number_format(($registroEditavel['Quantidade'] * $registroEditavel['Ocorrencia'] * $registroEditavel['ValorUnitario']), 2, '.', ''));
+                $dadosPlanilhaEditavel['Justificativa'] = utf8_encode($registroEditavel['Justificativa']);
+                $dadosPlanilhaEditavel['idAgente'] = $registroEditavel['idAgente'];
+            }
+        }
+        if (count($planilhaEditaval) > 0 && count($planilhaAtiva) == 0) {
+            $dadosPlanilhaAtiva = $dadosPlanilhaEditavel;
+        }
+
+        $tbCompPagxPlanAprov = new tbComprovantePagamentoxPlanilhaAprovacao();
+        $res = $tbCompPagxPlanAprov->buscarValorComprovadoDoItem($idPlan);
+        $valoresDoItem = array(
+            'vlComprovadoDoItem' => utf8_encode(number_format($res->vlComprovado, 2, '.', '')),
+            'vlComprovadoDoItemValidacao' => utf8_encode(number_format($res->vlComprovado, 2, '.', ''))
+        );
+
+        $this->_helper->json(array('resposta' => true, 'dadosPlanilhaAtiva' => $dadosPlanilhaAtiva, 'dadosPlanilhaEditavel' => $dadosPlanilhaEditavel, 'valoresDoItem' => $valoresDoItem, 'dadosProjeto' => $dadosProjeto));
+        $this->_helper->viewRenderer->setNoRender(true);        
+        
+    }    
 }

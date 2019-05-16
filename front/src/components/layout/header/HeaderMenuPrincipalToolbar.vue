@@ -44,8 +44,8 @@ export default {
     name: 'HeaderMenuPrincipalToolbar',
     props: {
         dadosMenu: {
-            type: Object,
-            default: () => {},
+            type: [Array, Object],
+            required: true,
         },
     },
 };

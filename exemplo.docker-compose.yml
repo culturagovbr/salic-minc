@@ -1,94 +1,128 @@
 version: '2'
 services:
-  web:
-    build: .
-    image: culturagovbr/salic-web:1.7
-    container_name: salic-web
-    ports:
-     - "80:80"
-    volumes:
-     - .:/var/www/salic
-     - ./log/apache2:/var/log/apache2
-     - ./public/txt:/var/www/salic/public/txt/
-     - ./public/plenaria:/var/www/salic/public/plenaria/
-    environment:
-      - APPLICATION_ENV=development
-      - UPDATE_COMPOSER_DEPENDENCIES="false"
-      # xDebug configs for 'development' enviroment
-      - XDEBUG_INSTALL="false"
-      - XDEBUG_REMOTE_ENABLE=on
-      - XDEBUG_REMOTE_AUTOSTART=on
-      - XDEBUG_REMOTE_HANDLER=dbgp
-      - XDEBUG_REMOTE_CONNECT_BACK=1
-      - XDEBUG_PROFILER_ENABLE=1
-      - XDEBUG_PROFILER_OUTPUT_DIR=/tmp/www/html
-      - XDEBUG_REMOTE_PORT=9000
-      - XDEBUGINI_PATH=/usr/local/etc/php/conf.d/xdebug.ini
+    web:
+        build: .
+        image: culturagovbr/salic-web:1.8
+        container_name: salic-web
+        ports:
+        - "80:80"
+        volumes:
+        - .:/var/www/salic
+        - ./log/apache2:/var/log/apache2
+        - ./public/txt:/var/www/salic/public/txt/
+        - ./public/plenaria:/var/www/salic/public/plenaria/
+        environment:
+        - APPLICATION_ENV=development
+        - UPDATE_COMPOSER_DEPENDENCIES="false"
+        ####xDebug configs for 'development' enviroment
+        #      - XDEBUG_INSTALL="false"
+        #      - XDEBUG_REMOTE_ENABLE=on
+        #      - XDEBUG_REMOTE_AUTOSTART=on
+        #      - XDEBUG_REMOTE_HANDLER=dbgp
+        #      - XDEBUG_REMOTE_CONNECT_BACK=1
+        #      - XDEBUG_PROFILER_ENABLE=1
+        #      - XDEBUG_PROFILER_OUTPUT_DIR=/tmp/www/html
+        #      - XDEBUG_REMOTE_PORT=9000
+        #      - XDEBUGINI_PATH=/usr/local/etc/php/conf.d/xdebug.ini
+        #
+        #      - XDEBUG_DEFAULT_ENABLE=1
+        #      - XDEBUG_IDEKEY=PHPSTORM
 
-      - XDEBUG_DEFAULT_ENABLE=1
-      - XDEBUG_IDEKEY=PHPSTORM
+        - DB_ADAPTER=PDO_MSSQL
+        - DB_USERNAME=sa
+        - DB_PASSWORD=salic@123456
+        - DB_NAME=sac
+        - DB_HOST=salic-mssql
+        - DB_PORT=1433
+        - DB_PDOTYPE=dblib
+        - RECEITA_URL=http://homolog.cultura.gov.br
+        - RECEITA_USER=PREENCHER
+        - RECEITA_PASSWORD=PREENCHER
+        - EMAIL_DEFAULT=PREENCHER
+        - EMAIL_TRANSPORT_HOST=PREENCHER
+        - EMAIL_TRANSPORT_TYPE=smtp
+        - EMAIL_TRANSPORT_AUTH=login
+        - EMAIL_TRANSPORT_USERNAME=PREENCHER
+        - EMAIL_TRANSPORT_PASSWORD=PREENCHER
+        - MOBILE_SALICMOBILEHASH=PREENCHER
+        - MOBILE_ENCRYPTHASH=PREENCHER
+        - MOBILE_GCMAPIKEY=PREENCHER
+        - MOBILE_GCMURL=PREENCHER
+        - SENTRY_URL=
+        - AVALIACAO_PROPOSTA_HASH=LDASfrwerwer12312QWErwet!Asfdasgftrt45.!!2a
+        - URL_BASE=http://salic.cultura.gov.br
+        - DISPLAY_ERRORS=1
+        - DISPLAY_STARTUP_ERRORS=1
+        - JWT_TOKEN=adsa1w681f681awd651123654f
+        - HOST_NFE=http://localhost:8080/notas
+        - TEST_LOGIN=12345678900
+        - TEST_PASSWORD=123456
 
-      - DB_ADAPTER=PDO_MSSQL
-      - DB_USERNAME=usuarios_internet
-      - DB_PASSWORD=_Salic
-      - DB_DBNAME=TABELAS
-      - DB_HOST=10.0.0.191
-      - DB_PORT=1434
-      - DB_CHARSET=ISO-8859-1
-      - DB_PDOTYPE=dblib
-  # webserver:
-  #   image: nginx:alpine
-  #   container_name: salic-api-webserver
-  #   working_dir: /application
-  #   volumes:
-  #     - ./api:/application
-  #     - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-  #   ports:
-  #     - "81:80"
+        links:
+        - "salic-mssql"
+    salic-mssql:
+        image: culturagovbr/salic-mssql:1.1.0-minimo
+        container_name: salic-mssql
+        ports:
+        - "1433:1433"
+        environment:
+        - ACCEPT_EULA=Y
+        - SA_PASSWORD=salic@123456
+        - RESTAURAR_BACKUP=true
+        - MIGRAR_DADOS_COM_PYTHON=false
+# webserver:
+#   image: nginx:alpine
+#   container_name: salic-api-webserver
+#   working_dir: /application
+#   volumes:
+#     - ./api:/application
+#     - ./docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+#   ports:
+#     - "81:80"
 
-  # php-fpm:
-  #   build: docker/php-fpm
-  #   container_name: salic-api-php-fpm
-  #   working_dir: /application
-  #   volumes:
-  #     - ./api:/application
-  #     - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+# php-fpm:
+#   build: docker/php-fpm
+#   container_name: salic-api-php-fpm
+#   working_dir: /application
+#   volumes:
+#     - ./api:/application
+#     - ./docker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
 
-  ################################################
-  #  Serviço da nota fiscal eletronica
-  ################################################
-  # nfe-nginx-backend:
-  #   image: culturagovbr/nfe-nginx-backend
-  #   container_name: nfe-nginx
-  #   working_dir: /app
-  #   ports:
-  #     - "8081:8081"
-  #   depends_on:
-  #     - "nfe-php-fpm"
+################################################
+#  Serviço da nota fiscal eletronica
+################################################
+# nfe-nginx-backend:
+#   image: culturagovbr/nfe-nginx-backend
+#   container_name: nfe-nginx
+#   working_dir: /app
+#   ports:
+#     - "8081:8081"
+#   depends_on:
+#     - "nfe-php-fpm"
 
-  # nfe-php-fpm:
-  #   image: culturagovbr/nfe-php-fpm
-  #   container_name: nfe-php-fpm
-  #   working_dir: /app
+# nfe-php-fpm:
+#   image: culturagovbr/nfe-php-fpm
+#   container_name: nfe-php-fpm
+#   working_dir: /app
 
-  # nfe-mongo:
-  #   image: culturagovbr/nfe-mongo
-  #   container_name: nfe-mongo
-  #   environment:
-  #     MONGO_INITDB_ROOT_USERNAME: root
-  #     MONGO_INITDB_ROOT_PASSWORD: root
-  #     MONGO_DATA_DIR: /data
-  #   volumes:
-  #     - ./data:/data
-  #
-  # nfe-visual:
-  #   image: culturagovbr/nfe-visual
-  #   container_name: nfe-visual
-  #   ports:
-  #     - "8082:80"
-  ################################################
-  #  Serviço da nota fiscal eletronica
-  ################################################
+# nfe-mongo:
+#   image: culturagovbr/nfe-mongo
+#   container_name: nfe-mongo
+#   environment:
+#     MONGO_INITDB_ROOT_USERNAME: root
+#     MONGO_INITDB_ROOT_PASSWORD: root
+#     MONGO_DATA_DIR: /data
+#   volumes:
+#     - ./data:/data
+#
+# nfe-visual:
+#   image: culturagovbr/nfe-visual
+#   container_name: nfe-visual
+#   ports:
+#     - "8082:80"
+################################################
+#  Serviço da nota fiscal eletronica
+################################################
 #    networks:
 #      static-network:
 #        ipv4_address: 172.20.0.3

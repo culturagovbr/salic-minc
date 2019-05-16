@@ -20,9 +20,16 @@ class Proposta_Model_DbTable_TbDetalhaPlanoDistribuicao extends MinC_Db_Table_Ab
 
         $sql = $this->select()
             ->from($this->_name, $cols, $this->_schema)
-            ->where(' idUF= ?', $dados['idUF'])
-            ->where(' idMunicipio= ?', $dados['idMunicipio'])
             ->where('idPlanoDistribuicao = ?', $dados['idPlanoDistribuicao']);
+
+        if ($dados['idUF']) {
+            $sql->where(' idUF= ?', $dados['idUF']);
+        }
+
+        if ($dados['idMunicipio']) {
+            $sql->where(' idMunicipio= ?', $dados['idMunicipio']);
+
+        }
 
         return $this->fetchAll($sql);
     }

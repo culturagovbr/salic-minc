@@ -1,19 +1,26 @@
 <template>
-    <v-container
-        fill-height
-        style="min-height:calc(100vh - 400px);"
-    >
+    <v-container>
         <v-layout
+            row
+            wrap
             align-center
         >
-            <v-flex class="text-xs-center">
-                <h1 class="display-2 error--text">
-                    Erro! :(
-                </h1>
-                <p
-                    class="headline mt-2"
-                    v-html="texto"
-                />
+            <v-flex
+                offset-xs1
+                xs1
+                class="text-xs-center"
+            >
+                <v-icon
+                    size="56"
+                    class="red--text mr-2"
+                >not_interested
+                </v-icon>
+            </v-flex>
+            <v-flex
+                xs3
+                class="text-xs-left"
+            >
+                <strong v-html="texto"/>
                 <v-btn
                     v-if="urlRetorno"
                     :href="urlRetorno"

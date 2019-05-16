@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <div class="col s12" id="container-vue">
+        <div id="container-vue" class="col s12">
 
             <?php $totalExemplares = 0;
             $totalReceita = 0; ?>
@@ -61,25 +61,13 @@
 
             <div class="row">
                 <div class="col s12">
-                    <ul class="collapsible" data-collapsible="accordion">
-                        <?php foreach ($this->abrangencias as $abrangencia): ?>
-                            <li>
-                                <div class="collapsible-header"><i class="material-icons">place</i>
-                                    <?= isset($abrangencia['uf']) ? $abrangencia['uf'] : 'Exterior' ?> <?= isset($abrangencia['cidade']) ? ' - ' . $abrangencia['cidade'] : '' ?>
-                                </div>
-                                <div class="collapsible-body">
-                                    <proposta-plano-distribuicao-detalhamentos
-                                        disabled="<?php echo $this->isEditavel; ?>"
-                                        idplanodistribuicao="<?php echo $planoDistribuicao->idPlanoDistribuicao; ?>"
-                                        idpreprojeto="<?php echo $this->idPreProjeto; ?>"
-                                        iduf="<?php echo $abrangencia['idUF']; ?>"
-                                        idmunicipioibge="<?php echo $abrangencia['idMunicipioIBGE']; ?>"
-                                        canalaberto="<?php echo $planoDistribuicao->canalAberto; ?>"
-                                    ></proposta-plano-distribuicao-detalhamentos>
-                                </div>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
+                    <proposta-plano-distribuicao-detalhamentos
+                        disabled="<?= !$this->isEditavel; ?>"
+                        id-plano-distribuicao="<?= $planoDistribuicao->idPlanoDistribuicao; ?>"
+                        id-pre-projeto="<?= $this->idPreProjeto; ?>"
+                        canal-aberto="<?= $planoDistribuicao->canalAberto; ?>"
+                        id-normativo="<?= $this->idNormativo; ?>"
+                    ></proposta-plano-distribuicao-detalhamentos>
                 </div>
                 <?php endforeach ?>
             </div>
@@ -107,11 +95,6 @@
     });
 
 </script>
-
-<script src="/public/scripts/plugins/numeral.min.js" type="text/javascript"></script>
-<script src="/public/js/vue.js"></script>
-<script type="text/javascript"
-        src="/public/scripts/proposta/plano-distribuicao/proposta-plano-distribuicao-detalhamentos.vue.js"></script>
 <style>
     .input-field,
     .input-field label,
