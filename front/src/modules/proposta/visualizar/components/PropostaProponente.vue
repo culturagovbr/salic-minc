@@ -1,5 +1,5 @@
 <template>
-    <div class="pa-3">
+    <div>
         <AgenteProponente :idagente="proposta.idAgente" />
         <AgenteUsuario :idusuario="proposta.idUsuario" />
     </div>

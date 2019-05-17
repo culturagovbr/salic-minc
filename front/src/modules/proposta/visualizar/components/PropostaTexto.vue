@@ -1,5 +1,5 @@
 <template>
-    <div class="ma-3">
+    <div>
         <v-card>
             <v-card-text>
                 <salic-texto-simples :texto="texto" />

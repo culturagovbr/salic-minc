@@ -1,6 +1,5 @@
 <template>
-    <v-card
-        class="mb-2">
+    <v-card>
         <v-card-title
             primary
             class="title">Deslocamentos</v-card-title>

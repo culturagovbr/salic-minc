@@ -1,5 +1,5 @@
 <template>
-    <div class="ma-3">
+    <div>
         <planilha
             :array-planilha="proposta.tbplanilhaproposta"
         />

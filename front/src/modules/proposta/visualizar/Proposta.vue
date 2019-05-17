@@ -39,7 +39,7 @@
                     </v-icon>
                     <span v-html="item.label " />
                 </v-layout>
-                <div :class="item.class">
+                <div class="pa-3">
                     <component
                         :is="item.component"
                         :value="item.value"
@@ -120,14 +120,14 @@ export default {
                     label: 'Hist&oacute;rico de avalia&ccedil;&otilde;es',
                     icon: 'history',
                     component: 'proposta-historico-avaliacoes',
-                    class: 'pa-4',
+                    class: '',
                     value: this.idpreprojeto,
                 },
                 {
                     label: 'Hist&oacute;rico de sugest&otilde;es de enquadramento',
                     icon: 'history',
                     component: 'proposta-historico-sugestoes-enquadramento',
-                    class: 'pa-4',
+                    class: '',
                     value: this.idpreprojeto,
                 },
                 {

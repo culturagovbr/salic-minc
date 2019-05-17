@@ -1,9 +1,11 @@
 <template>
-    <v-card
-        class="mb-2">
+    <v-card>
         <v-card-title
             primary
-            class="title">Documentos da Proposta</v-card-title>
+            class="title"
+        >
+            Documentos da Proposta
+        </v-card-title>
         <v-card-text>
             <v-data-table
                 v-if="documentos && documentos.length > 0"
@@ -13,16 +15,22 @@
             >
                 <template
                     slot="items"
-                    slot-scope="props">
+                    slot-scope="props"
+                >
                     <td>{{ props.item.Descricao }}</td>
                     <td>{{ props.item.Data | formatarData }}</td>
-                    <td> <a
-                        :href="getUrl(
-                        props.item.idDocumentosPreProjetos, props.item.tpDoc)"
-                        title="Abrir arquivo">{{ props.item.NoArquivo }}</a></td>
+                    <td>
+                        <a
+                            :href="getUrl(
+                                props.item.idDocumentosPreProjetos, props.item.tpDoc)"
+                            title="Abrir arquivo"
+                        >{{ props.item.NoArquivo }}</a>
+                    </td>
                 </template>
             </v-data-table>
-            <div v-else>Não existem documentos cadastrados.</div>
+            <div v-else>
+                Não existem documentos cadastrados.
+            </div>
         </v-card-text>
     </v-card>
 </template>

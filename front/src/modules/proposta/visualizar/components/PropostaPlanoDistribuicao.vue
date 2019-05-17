@@ -1,28 +1,34 @@
 <template>
     <div
         v-if="produtos"
-        class="plano-distribuicao">
-        <v-card
-            class="mb-2">
+        class="plano-distribuicao"
+    >
+        <v-card>
             <v-card-title
                 primary
-                class="title">Produtos, distribuição e detalhamentos</v-card-title>
+                class="title"
+            >
+                Produtos, distribuição e detalhamentos
+            </v-card-title>
             <v-card-text>
                 <div
                     v-if="produtos.length <= 0"
-                    class="padding10">
+                    class="padding10"
+                >
                     <b>Aguarde! Carregando....</b>
                 </div>
                 <v-expansion-panel
                     :value="[1]"
-                    expand>
+                    expand
+                >
                     <v-expansion-panel-content
                         v-for="(produto, index) of produtos"
                         :key="index"
                     >
                         <v-layout
                             slot="header"
-                            style="color: green;">
+                            style="color: green;"
+                        >
                             <i class="material-icons">perm_media</i>
                             <span class="ml-2 mt-1">{{ produto.Produto }}</span>
                         </v-layout>
@@ -33,37 +39,43 @@
                         >
                             <v-layout
                                 row
-                                wrap>
+                                wrap
+                            >
                                 <v-flex
-                                    xs12>
+                                    xs12
+                                >
                                     <h3>Produto</h3>
-                                    <v-divider/>
+                                    <v-divider />
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>Área</b>
                                     <div>{{ produto.DescricaoArea }}</div>
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>Segmento</b>
                                     <div>{{ produto.DescricaoSegmento }}</div>
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>Principal</b>
                                     <div>{{ produto.stPrincipal | formatarLabelSimOuNao }}</div>
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>Canal aberto?</b>
                                     <div>{{ produto.canalAberto | formatarLabelSimOuNao }}</div>
                                 </v-flex>
@@ -71,97 +83,111 @@
                                     xs12
                                 >
                                     <h3>Quantidade Distribuição Gratuita</h3>
-                                    <v-divider/>
+                                    <v-divider />
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>Divulgação</b>
                                     <div>{{ produto.QtdeProponente }}</div>
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>Patrocinador</b>
                                     <div>{{ produto.QtdePatrocinador }}</div>
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>População</b>
                                     <div>{{ produto.QtdeOutros }}</div>
                                 </v-flex>
                                 <v-flex
-                                    xs12>
+                                    xs12
+                                >
                                     <h3>Pre&ccedil;o Popular</h3>
-                                    <v-divider/>
+                                    <v-divider />
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>Quantidade Inteira</b>
                                     <div>{{ produto.QtdeVendaPopularNormal }}</div>
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>Quantidade Meia</b>
                                     <div>{{ produto.QtdeVendaPopularPromocional }}</div>
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>Valor médio</b>
                                     <div>{{ produto.ReceitaPopularNormal }}</div>
                                 </v-flex>
                                 <v-flex
-                                    xs12>
+                                    xs12
+                                >
                                     <h3>Proponente</h3>
-                                    <v-divider/>
+                                    <v-divider />
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>Quantidade Inteira</b>
                                     <div>{{ produto.QtdeVendaNormal }}</div>
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>Quantidade Meia</b>
                                     <div>{{ produto.QtdeVendaPromocional }}</div>
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>Valor médio</b>
                                     <div>{{ produto.PrecoUnitarioNormal }}</div>
                                 </v-flex>
                                 <v-flex
-                                    xs12>
+                                    xs12
+                                >
                                     <h3>Consolidação</h3>
-                                    <v-divider/>
+                                    <v-divider />
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>Quantidade Total</b>
                                     <div>{{ produto.QtdeProduzida }}</div>
                                 </v-flex>
                                 <v-flex
                                     xs12
                                     sm3
-                                    md3>
+                                    md3
+                                >
                                     <b>Receita Prevista Total</b>
                                     <div>{{ produto.Receita }}</div>
                                 </v-flex>

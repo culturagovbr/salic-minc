@@ -1,9 +1,11 @@
 <template>
-    <v-card
-        class="mb-2">
+    <v-card>
         <v-card-title
             primary
-            class="title">Valor por fonte de recurso</v-card-title>
+            class="title"
+        >
+            Valor por fonte de recurso
+        </v-card-title>
         <v-card-text>
             <v-data-table
                 v-if="dado"
@@ -13,12 +15,17 @@
             >
                 <template
                     slot="items"
-                    slot-scope="props">
+                    slot-scope="props"
+                >
                     <td>{{ props.item.Descricao }}</td>
-                    <td class="text-xs-right">{{ props.item.Valor }}</td>
+                    <td class="text-xs-right">
+                        {{ props.item.Valor }}
+                    </td>
                 </template>
             </v-data-table>
-            <div v-else>Nenhuma fonte encontrada</div>
+            <div v-else>
+                Nenhuma fonte encontrada
+            </div>
         </v-card-text>
     </v-card>
 </template>

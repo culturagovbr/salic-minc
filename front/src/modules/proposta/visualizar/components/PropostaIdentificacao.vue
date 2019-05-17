@@ -2,6 +2,7 @@
     <v-container
         fluid
         grid-list-md
+        class="ma-0"
     >
         <v-layout
             row
