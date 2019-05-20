@@ -8062,16 +8062,27 @@ class Projetos extends MinC_Db_Table_Abstract
         return $projetos;
     }
 
-    public function verificarPronacDisponivelReceber($idPronac, $pronacRecebedor)
+    public function verificarPronacDisponivelReceber($idPronac, $pronacRecebedor, $idReadequacao)
     {
         try {
+
+            $TbSolicitacaoTransferenciaRecursos = new Readequacao_Model_DbTable_TbSolicitacaoTransferenciaRecursos();
+            $projetosRecebedores = $TbSolicitacaoTransferenciaRecursos->obterProjetosRecebedores($idReadequacao);
+
+            $listaProjetosRecebedores = [];
+            
+            foreach ($projetosRecebedores as $projeto) {
+                $listaProjetosRecebedores[] = $projeto->idPronacRecebedor;
+            }
+            
             $select = $this->select();
 
-            $select->where(new Zend_Db_Expr('DtInicioExecucao > GETDATE() AND DtFimExecucao < GETDATE()'));
-            $select->where(new Zend_Db_Expr('(SELECT SAC.DBO.fnNrPortariaAprovacao(AnoProjeto,Sequencial)) IS NOT NULL'));
+            if (!empty($listaProjetosRecebedores)) {
+                $select->where('IdPRONAC NOT IN (?)', $listaProjetosRecebedores);
+            }
             $select->where('IdPRONAC != ?', $idPronac);
             $select->where(new Zend_Db_Expr('AnoProjeto + Sequencial = ?'), $pronacRecebedor);
-
+            
             $projeto = $this->fetchAll($select);
             $saida = [];
 

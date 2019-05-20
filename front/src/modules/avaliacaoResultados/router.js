@@ -74,6 +74,33 @@ const routes = [
         },
     },
     {
+        path: '/laudo/aba-em-analise',
+        name: 'laudo_aba_em_analise',
+        component: Laudo,
+        meta: {
+            title: 'Avaliação de Resultados: Laudo Final',
+            tab: 'tab-0',
+        },
+    },
+    {
+        path: '/laudo/assinar',
+        name: 'laudo_aba_assinar',
+        component: Laudo,
+        meta: {
+            title: 'Avaliação de Resultados: Laudo Final',
+            tab: 'tab-1',
+        },
+    },
+    {
+        path: '/laudo/finalizados',
+        name: 'laudo_aba_finalizados',
+        component: Laudo,
+        meta: {
+            title: 'Avaliação de Resultados: Laudo Final',
+            tab: 'tab-3',
+        },
+    },
+    {
         path: '/analisar-item/*',
         name: 'AnalisarItem',
         component: AnalisarItem,

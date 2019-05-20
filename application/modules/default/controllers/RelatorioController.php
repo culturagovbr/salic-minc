@@ -645,6 +645,10 @@ class RelatorioController extends MinC_Controller_Action_Abstract
             $this->view->datafixa = $get->datafixa;
         }
 
+        if (count($where) == 0) {
+            parent::message('&Eacute; necess&aacute;rio pelo menos um argumento na pesquisa!', "/relatorio/projeto", "ERROR");
+        }
+
         $Projetos = new Projetos();
         $total = $Projetos->relatorioProjeto($where, $order, null, null, true);
         $fim = $inicio + $this->intTamPag;

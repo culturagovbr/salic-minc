@@ -5,16 +5,20 @@ class AjaxController extends MinC_Controller_Action_Abstract
     public function municipioAction()
     {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
-        $iduf = $_POST['iduf'];
+        $idUf = $_POST['iduf'];
         try {
-            $municipio = new Municipios();
-            $buscarmunicipio = $municipio->buscar(array('idUFIBGE = ?' => $iduf));
 
+            if (empty($idUf)) {
+               throw new Exception("UF &eacute; obrigat&oacute;rio") ;
+            }
+
+            $municipio = new Municipios();
+            $buscarmunicipio = $municipio->buscar($idUf);
             $municipio = array();
             $cont = 0;
             foreach ($buscarmunicipio as $dadosmunicipio) {
-                $municipio[$cont]['idmun'] = $dadosmunicipio->idMunicipioIBGE;
-                $municipio[$cont]['descmun'] = utf8_encode($dadosmunicipio->Descricao);
+                $municipio[$cont]['idmun'] = $dadosmunicipio->id;
+                $municipio[$cont]['descmun'] = utf8_encode($dadosmunicipio->descricao);
                 $cont++;
             }
             $this->_helper->json($municipio);

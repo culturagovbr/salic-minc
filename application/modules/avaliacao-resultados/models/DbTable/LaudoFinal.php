@@ -30,29 +30,44 @@ class AvaliacaoResultados_Model_DbTable_LaudoFinal extends MinC_Db_Table_Abstrac
 
     public function projetosLaudoFinal($estadoId)
     {
+        $auth = \Zend_Auth::getInstance();
+        $orgao = $auth->getIdentity()->usu_org_max_superior;
+
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
             ['p' => 'Projetos'],
-            [
-                'p.IdPronac',
+            ['p.IdPronac',
                 'p.NomeProjeto',
+                'p.Orgao',
                 new Zend_Db_Expr('p.AnoProjeto+p.Sequencial AS PRONAC')
             ],
             'sac.dbo'
         )
-        ->join(['fp'=>'FluxosProjeto'], 'fp.idPronac=p.IdPRONAC', null, 'sac.dbo')
-        ->joinLeft(['parecer'=>'tbAvaliacaoFinanceira'],
-            'parecer.IdPronac=p.IdPRONAC', ['parecer.*','parecer.siManifestacao as dsResutaldoAvaliacaoObjeto'],
-            'sac.dbo'
-        )
-        ->joinLeft(
-            ['u' => 'Usuarios'],
-            'u.usu_codigo = fp.idAgente',
-            ['u.usu_nome','u.usu_codigo'],
-            'Tabelas.dbo'
-        )
-        ->where('fp.estadoId = ? ', $estadoId);
+            ->join(['fp'=>'FluxosProjeto'],
+                'fp.idPronac=p.IdPRONAC',
+                null,
+                'sac.dbo'
+            )
+
+            ->joinLeft(['parecer'=>'tbAvaliacaoFinanceira'],
+                'parecer.IdPronac=p.IdPRONAC',
+                ['parecer.*','parecer.siManifestacao as dsResutaldoAvaliacaoObjeto'],
+                'sac.dbo'
+            )
+
+            ->joinLeft(['o' => 'Orgaos'],
+                'p.Orgao=o.Codigo',
+                ['Codigo','Sigla','idSecretaria'],
+                'sac.dbo'
+            )
+            ->joinLeft(['u' => 'Usuarios'],
+                'u.usu_codigo = fp.idAgente',
+                ['u.usu_nome','u.usu_codigo'],
+                'Tabelas.dbo'
+            )
+        ->where('fp.estadoId = ? ', $estadoId)
+        ->where('o.idSecretaria = ?', $orgao);
 
         return $this->fetchAll($select);
     }

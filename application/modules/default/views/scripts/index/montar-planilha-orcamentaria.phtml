@@ -15,13 +15,6 @@
              $('#' + elemento).removeClass('icn_menos');
          }
  }
- <?php if($this->tipoPlanilha != 6){ ?>
-     $(document).ready(function(){
-         //ATUALIZA TITULO DA PAGINA
-         window.parent.$("#titulo").html("<div>Planilha Or&ccedil;ament&aacute;ria </div>");
-         window.parent.$("#caminhoLocalAtual").html("Planilha Or&ccedil;ament&aacute;ria");
-     });
-     <?php } ?>
 
  $(document).ready(function(){
      $(".icn_menos").click(function(){

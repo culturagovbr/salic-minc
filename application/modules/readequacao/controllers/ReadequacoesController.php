@@ -3500,8 +3500,8 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             $this->getResponse()->setHttpResponseCode($httpCode);
             $this->_helper->json(
                 [
-                    'data' => array_map('utf8_encode', $readequacao),
-                    'sucess' => true,
+                    'readequacao' => array_map('utf8_encode', $readequacao),
+                    'success' => true,
                     'msg' => $mensagem
                 ]
             );
@@ -3510,8 +3510,9 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
 
             $this->_helper->json(
                 [
-                    'msg' => 'N&atilde;o foi poss&iacute;vel obter a readequa&ccedil;&atilde;o. Erro: ' . $objException->getMessage(),
-                    'sucess' => false
+                    'readequacao' => [],
+                    'sucess' => false,
+                    'msg' => 'N&atilde;o foi poss&iacute;vel obter a readequa&ccedil;&atilde;o. Erro: ' . $objException->getMessage()
                 ]
             );
         }

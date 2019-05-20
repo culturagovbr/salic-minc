@@ -80,10 +80,10 @@ class Readequacao_TransferenciaRecursosController extends Readequacao_GenericCon
             $dados['idTipoReadequacao'] = Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_TRANSFERENCIA_RECURSOS;
             $dados['stAtendimento'] = 'D';
             $dados['idDocumento'] = null;
-            $dados['dsJustificativa'] = utf8_decode($dados['justificativa']);
+            $dados['dsJustificativa'] = $dados['justificativa'];
             
-            $detalhamentoMapper = new Readequacao_Model_TbReadequacaoMapper();
-            $id = $detalhamentoMapper->salvarSolicitacaoReadequacao($dados);
+            $tbReadequacaoMapper = new Readequacao_Model_TbReadequacaoMapper();
+            $id = $tbReadequacaoMapper->salvarSolicitacaoReadequacao($dados);
 
             $this->_helper->json(array('readequacao' => $id, 'success' => 'true', 'msg' => 'Readequa&ccedil;&atilde;o salva com sucesso!'));
         } catch (Exception $e) {
@@ -289,7 +289,9 @@ class Readequacao_TransferenciaRecursosController extends Readequacao_GenericCon
             $TbSolicitacaoTransferenciaRecursosDbTable = new Readequacao_Model_DbTable_TbSolicitacaoTransferenciaRecursos();
             
             $idSolicitacaoTransferenciaRecursos = $this->_request->getParam('idSolicitacaoTransferenciaRecursos');
-            $TbSolicitacaoTransferenciaRecursosDbTable->delete($idSolicitacaoTransferenciaRecursos);
+            $TbSolicitacaoTransferenciaRecursosDbTable->delete([
+                'idSolicitacaoTransferenciaRecursos = ?' => $idSolicitacaoTransferenciaRecursos]
+            );
             
             $this->_helper->json(
                 [
@@ -381,17 +383,6 @@ class Readequacao_TransferenciaRecursosController extends Readequacao_GenericCon
             
             $projetoTransferidor = $projetos->buscarProjetoTransferidor($this->idPronac);
             
-            if (!in_array($projeto->codArea, $this->areasMultiplasTransferencias)) {
-                if (count($projetosRecebedores) > 1) {
-                    throw new Exception('Para projetos da &aacute;rea selecionada, n&atilde;o &eacute; poss&iacute;vel transferir recursos para mais de um projeto.');
-                }
-
-                if ($projetosRecebedores[0]->CgcCpf != $projetoTransferidor->CgcCpf) {
-                    throw new Exception('S&oacute; &eacute; poss&iacute;vel transferir recursos para projetos de um mesmo proponente!');
-                }
-                
-            }
-
             $statusReadequacao = $tbReadequacaoMapper->finalizarSolicitacaoReadequacao(
                 $this->idPronac,
                 Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_TRANSFERENCIA_RECURSOS,
@@ -428,22 +419,34 @@ class Readequacao_TransferenciaRecursosController extends Readequacao_GenericCon
         try {
             $idPronac = $this->_request->getParam('idPronac');
             $pronacRecebedor = $this->_request->getParam('pronacRecebedor');
+            $idReadequacao = $this->_request->getParam('idReadequacao');
         
             $projeto = new Projetos();
             $verificarProjeto = $projeto->verificarPronacDisponivelReceber(
                 $idPronac,
-                $pronacRecebedor
+                $pronacRecebedor,
+                $idReadequacao
             );
-
-            $this->_helper->json(
-                [
-                    'projetoDisponivel' => $verificarProjeto['disponivel'],
-                    'idPronac' =>  utf8_encode($verificarProjeto['idPronac']),
-                    'nomeProjeto' =>  utf8_encode($verificarProjeto['nomeProjeto']),
-                    'resposta' => true,
-                    'msg' => 'Readequa&ccedil;&atilde;o finalizada com sucesso!'
-                ]
-            );            
+            
+            if ($verificarProjeto['disponivel'] == true) {
+                $this->_helper->json(
+                    [
+                        'projetoDisponivel' => $verificarProjeto['disponivel'],
+                        'idPronac' =>  utf8_encode($verificarProjeto['idPronac']),
+                        'nomeProjeto' =>  utf8_encode($verificarProjeto['nomeProjeto']),
+                        'resposta' => true,
+                        'msg' => 'Readequa&ccedil;&atilde;o finalizada com sucesso!'
+                    ]                  
+                );
+            } else {
+                $this->_helper->json(
+                    [
+                        'resposta' => false,
+                        'msg' => 'PRONAC inv&aacute;lido.'
+                    ]
+                );
+            }
+            
         } catch (Exception $objException) {
             $this->getResponse()->setHttpResponseCode(412);
             $this->_helper->json(

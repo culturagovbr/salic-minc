@@ -148,11 +148,11 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
 
-        $agencia = $this->getParam('agencia');
+        $agencia = (int) $this->getParam('agencia');
 
-        if ($agencia > 0) {
+        if (!empty($agencia)) {
             $tblProposta = new Proposta_Model_DbTable_PreProjeto();
-            $agencia = $tblProposta->buscaragencia($agencia);
+            $agencia = $tblProposta->buscaragencia((string)  $agencia);
             if (count($agencia) > 0) {
                 echo "";
             } else {

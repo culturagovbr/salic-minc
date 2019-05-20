@@ -8,6 +8,8 @@ class AvaliacaoResultados_Model_DbTable_FluxosProjeto extends MinC_Db_Table_Abst
 
     public function projetos($estadoId, $idAgente = null)
     {
+        $auth = \Zend_Auth::getInstance();
+        $orgao = $auth->getIdentity()->usu_org_max_superior;
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -22,6 +24,11 @@ class AvaliacaoResultados_Model_DbTable_FluxosProjeto extends MinC_Db_Table_Abst
             $this->_schema
         )
         //inner join Tabelas.dbo.Usuarios as a ON a.usu_codigo = fp.idAgente
+        ->joinLeft(['o' => 'Orgaos'],
+            'p.Orgao=o.Codigo',
+            ['Codigo','Sigla','idSecretaria'],
+            'sac.dbo'
+        )
         ->joinLeft(
             ['u' => 'Usuarios'],
             'u.usu_codigo = e.idAgente',
@@ -60,7 +67,8 @@ class AvaliacaoResultados_Model_DbTable_FluxosProjeto extends MinC_Db_Table_Abst
              'DtResposta',
              'stEnviado']
             )
-        ->where('estadoId = ? ', $estadoId);
+        ->where('estadoId = ? ', $estadoId)
+        ->where('o.idSecretaria = ?', $orgao);
 
         if($idAgente) {
             $select->where('idAgente = ? ', $idAgente);

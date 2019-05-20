@@ -5,6 +5,7 @@
         </v-subheader>
         <v-card>
             <v-tabs
+                v-model="$route.meta.tab"
                 centered
                 color="primary"
                 dark
@@ -13,8 +14,8 @@
                 <v-tabs-slider color="deep-orange accent-3"/>
                 <v-tab
                     v-if="getUsuario.grupo_ativo == Const.PERFIL_COORDENADOR_GERAL"
-                    id="emAnalise"
                     href="#tab-0"
+                    @click="r('/laudo/aba-em-analise')"
                 >
                     <template v-if="Object.keys(getProjetosLaudoFinal).length == 0">
                         <v-progress-circular
@@ -32,16 +33,16 @@
                     v-if="getUsuario.grupo_ativo == Const.PERFIL_COORDENADOR_GERAL ||
                         getUsuario.grupo_ativo == Const.PERFIL_DIRETOR ||
                     getUsuario.grupo_ativo == Const.PERFIL_SECRETARIO"
-                    id="assinar"
                     href="#tab-1"
+                    @click="r('/laudo/assinar')"
                 >
                     Assinar
                     <v-icon>done</v-icon>
                 </v-tab>
                 <v-tab
                     v-if="getUsuario.grupo_ativo == Const.PERFIL_COORDENADOR_GERAL"
-                    id="finalizados"
                     href="#tab-3"
+                    @click="r('/laudo/finalizados')"
                 >
                     Finalizados
                     <v-icon>collections_bookmark</v-icon>
@@ -97,6 +98,7 @@ export default {
     },
     data() {
         return {
+            tabActive: null,
             Const,
         };
     },
@@ -109,6 +111,14 @@ export default {
             getUsuario: 'autenticacao/getUsuario',
             route: 'route',
         }),
+    },
+    watch: {
+        $route: {
+            deep: true,
+            handler() {
+                this.tabActive = this.$route.meta.tab;
+            },
+        },
     },
     created() {
         this.obterProjetosLaudoFinal({ estadoId: 10 });
@@ -132,6 +142,9 @@ export default {
                 return this.Const.ESTADO_AGUARDANDO_ASSINATURA_SECRETARIO_LAUDO;
             }
             return null;
+        },
+        r(val) {
+            this.$router.push(val);
         },
     },
 };

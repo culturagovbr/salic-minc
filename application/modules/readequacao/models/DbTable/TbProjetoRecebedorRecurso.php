@@ -4,7 +4,7 @@ class Readequacao_Model_DbTable_TbProjetoRecebedorRecurso extends MinC_Db_Table_
 {
     protected $_schema  = "SAC";
     protected $_name    = "TbProjetoRecebedorRecurso";
-    protected $_primary = "idPronacTransferidor";
+    protected $_primary = "idProjetoRecebedorRecurso";
 
     public function obterTransferenciaRecursosEntreProjetos($where = array())
     {

@@ -115,10 +115,14 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
                 break;
         };
 
-        $view->secretaria = 'Secretaria Fomento e Incentivo &agrave; Cultura';
+        $codOrgao = $dadosProjeto['Orgao'];
 
-        if ($dadosProjeto['Mecanismo'] == 1 ) {
-            $view->secretaria = 'Secretaria do Audiovisual';
+        $org = new \Orgaos();
+        $orgaoSuperior = $org->codigoOrgaoSuperior($codOrgao);
+
+        $view->secretaria = 'Secretaria do Audiovisual - SAV';
+        if((int)$orgaoSuperior->current()->Superior == (int)\Orgaos::ORGAO_SUPERIOR_SEFIC) {
+            $view->secretaria = 'Secretaria de Fomento e Incentivo &agrave; Cultura - SEFIC';
         }
 
         return $view->render('documento-assinatura.phtml');

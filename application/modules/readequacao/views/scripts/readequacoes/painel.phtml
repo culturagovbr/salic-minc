@@ -38,9 +38,9 @@
      });
 
      $('.finalizarFluxoReadequacao').click(function() {
-	 let url = $('.finalizarFluxoReadequacao').attr('data-href');
-	 
-	 $("#alerta").dialog("destroy");
+         let url = $(this).attr('data-href');
+         
+         $("#alerta").dialog("destroy");
          $("#alerta").html('Deseja realmente finalizar a readequação?');
          $("#alerta").dialog({
              resizable: false,
