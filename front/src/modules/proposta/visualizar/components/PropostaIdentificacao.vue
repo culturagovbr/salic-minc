@@ -33,7 +33,9 @@
                                 md3
                             >
                                 <b>Pronac</b><br>
-                                {{ proposta.PRONAC }}
+                                <a :href="`/projeto/#/${proposta.idPronac}`">
+                                    {{ proposta.PRONAC }}
+                                </a>
                             </v-flex>
                             <v-flex
                                 v-if="proposta.idPreProjeto"

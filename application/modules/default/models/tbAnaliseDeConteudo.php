@@ -137,8 +137,8 @@ class tbAnaliseDeConteudo extends MinC_Db_Table_Abstract
      */
     public function inserirAnaliseConteudoParaParecerista($idPreProjeto, $idPronac)
     {
-        $sqlAnaliseDeConteudo = "INSERT INTO SAC.dbo.tbAnaliseDeConteudo (idPronac,idProduto)
-                                         SELECT {$idPronac},idProduto FROM SAC.dbo.tbPlanilhaProposta
+        $sqlAnaliseDeConteudo = "INSERT INTO SAC.dbo.tbAnaliseDeConteudo (idPronac,idProduto, ParecerFavoravel)
+                                         SELECT {$idPronac},idProduto, 1 FROM SAC.dbo.tbPlanilhaProposta
                                           WHERE idProjeto = {$idPreProjeto} AND idProduto <> 0
                                           GROUP BY idProduto";
 

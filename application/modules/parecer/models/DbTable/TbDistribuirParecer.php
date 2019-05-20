@@ -2077,8 +2077,8 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
 
     public function inserirDistribuicaoParaParecer($idPreProjeto, $idPronac, $idVinculada)
     {
-        $sqlDistribuirParecer = "INSERT INTO SAC.dbo.tbDistribuirParecer (idPronac,idProduto,TipoAnalise,idOrgao,DtEnvio, stPrincipal)
-                                         SELECT {$idPronac},idProduto, 3,{$idVinculada},getdate(), stPrincipal FROM SAC.dbo.PlanoDistribuicaoProduto
+        $sqlDistribuirParecer = "INSERT INTO SAC.dbo.tbDistribuirParecer (idPronac,idProduto,TipoAnalise,idOrgao,DtEnvio, stPrincipal, siEncaminhamento, siAnalise)
+                                         SELECT {$idPronac},idProduto, 3,{$idVinculada},getdate(), stPrincipal, 3, 0 FROM SAC.dbo.PlanoDistribuicaoProduto
                                           WHERE idProjeto = {$idPreProjeto}";
         $db = Zend_Db_Table::getDefaultAdapter();
         return $db->query($sqlDistribuirParecer);

@@ -60,7 +60,7 @@ export default {
         },
     },
     mounted() {
-        if (typeof this.idpreprojeto !== 'undefined') {
+        if (this.idpreprojeto) {
             this.buscaFontesDeRecursos(this.idpreprojeto);
         }
     },
