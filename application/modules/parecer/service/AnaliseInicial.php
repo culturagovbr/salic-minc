@@ -284,7 +284,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
             'Logon' => $this->idUsuario
         ];
 
-        $parecerDbTable = new \Parecer();
+        $parecerDbTable = new \Parecer_Model_DbTable_Parecer();
         return empty($parecerDbTable->findBy($where));
     }
 
@@ -292,7 +292,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
     {
         try {
             if (!empty($idPronac)) {
-                $parecer = new \Parecer();
+                $parecer = new \Parecer_Model_DbTable_Parecer();
                 $parecerTecnico = $parecer->getIdAtoAdministrativoParecerTecnico(
                     $idPronac,
                     1

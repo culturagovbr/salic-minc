@@ -85,7 +85,7 @@ class RealizarAnaliseProjetoController extends MinC_Controller_Action_Abstract
         $planilhaproposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
         $planilhaprojeto = new PlanilhaProjeto();
         $planilhaAprovacao = new PlanilhaAprovacao();
-        $tblParecer = new Parecer();
+        $tblParecer = new Parecer_Model_DbTable_Parecer();
         $tblPauta = new Pauta();
         $analiseaprovacao = new AnaliseAprovacao();
 

@@ -625,7 +625,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract
             parent::message("Projeto n�o encontrado!", "cidadao/index", "ALERT");
         }
 
-        $Parecer = new Parecer();
+        $Parecer = new Parecer_Model_DbTable_Parecer();
         $this->view->identificacaoParecerConsolidado = $Parecer->cidadoPareceConsolidado($idPronac);
 
         $vwMemoriaDeCalculo = new vwMemoriaDeCalculo();

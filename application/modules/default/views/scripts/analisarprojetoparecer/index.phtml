@@ -94,7 +94,7 @@
                 $buscaEnquadramento 	= $enquadramentoDAO->buscarDados($d->IdPRONAC, null, false);
                 $countEnquadramentoP 	= count($buscaEnquadramento);
 
-                $parecerDAO 			= new Parecer();
+                $parecerDAO 			= new Parecer_Model_DbTable_Parecer();
                 $buscaParecer 			= $parecerDAO->buscarParecer(null, $d->IdPRONAC);
                 $countParecerP 			= count($buscaParecer);
 

@@ -107,7 +107,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
             $view->secretaria = $resultOrgao[0]['NomeOrgao'];
         }
         
-        $tbParecer = new \Parecer();
+        $tbParecer = new \Parecer_Model_DbTable_Parecer();
         $parecer = $tbParecer->buscar([
             'IdParecer = ?' => $this->idAtoDeGestao
         ])->current();

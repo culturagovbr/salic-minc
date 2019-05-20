@@ -56,7 +56,7 @@ class Recurso implements \MinC\Servico\IServicoRestZend
                         $projetosENRecurso['artigo'] = $this->obterArtigoEnquadramento(
                             $projetosENRecurso['cdSegmento']
                         );
-                        $parecer = new \Parecer();
+                        $parecer = new \Parecer_Model_DbTable_Parecer();
                         $parecerRecurso = $parecer->buscar(
                             [
                                 'IdPRONAC = ?' => $recurso['IdPRONAC'],

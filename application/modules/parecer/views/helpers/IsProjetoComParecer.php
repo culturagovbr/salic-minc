@@ -13,7 +13,7 @@ class Zend_View_Helper_IsProjetoComParecer
      */
     public function IsProjetoComParecer($idPronac, $idUsuario = null)
     {
-        $parecerDAO	= new Parecer();
+        $parecerDAO	= new Parecer_Model_DbTable_Parecer();
         $buscaParecer = $parecerDAO->buscarParecer($idUsuario, $idPronac);
         if (count($buscaParecer) > 0) {
             return true;

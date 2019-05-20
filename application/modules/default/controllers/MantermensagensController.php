@@ -81,7 +81,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
         $usu_codigo = $auth->getIdentity()->usu_codigo;
         $mensagemprojeto = new Mensagemprojeto();
         $projetos = new Projetos();
-        $pa = new Parecer();
+        $pa = new Parecer_Model_DbTable_Parecer();
 
         if (isset($_POST['idpronac'])) {
             $quebra = chr(13) . chr(10); // Quebra de linha no TXT

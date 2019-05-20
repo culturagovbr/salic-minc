@@ -2638,7 +2638,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
             endif;
 
             // cadastra na tabela parecer
-            $tbParecer       = new Parecer();
+            $tbParecer       = new Parecer_Model_DbTable_Parecer();
             $buscarPareceres = $tbParecer->buscar(array('IdPRONAC = ?' => $idPronac_Get), array('DtParecer DESC')); // busca os pareceres do Projeto
                 foreach ($buscarPareceres as $p) : // desabilita os pareceres antigos
                         $idparecer = isset($p->IdParecer) ? $p->IdParecer : $p->idParecer;

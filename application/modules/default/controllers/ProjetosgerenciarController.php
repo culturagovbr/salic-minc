@@ -390,7 +390,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
             }
 
             //APAGA PARECER DO COMPONENTE
-            $tblParecer = new Parecer();
+            $tblParecer = new Parecer_Model_DbTable_Parecer();
             $rsParecer = $tblParecer->buscar(array('idPRONAC =?'=>$idpronac,'idTipoAgente =?'=>6))->current();
             if (!empty($rsParecer)) {
                 $idparecer = isset($rsParecer->IdParecer) ? $rsParecer->IdParecer : $rsParecer->idParecer;
@@ -406,7 +406,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
 
             //APAGA PARECER do PARECERISTA
             $rsParecer = array();
-            $tblParecer = new Parecer();
+            $tblParecer = new Parecer_Model_DbTable_Parecer();
             $rsParecer = $tblParecer->buscar(array('IdPRONAC =?'=>$idpronac,'idTipoAgente =?'=>1))->current();
             if (!empty($rsParecer)) {
                 //$idParecer = $rsParecer->stAtivo = 1;
@@ -576,7 +576,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
                             }
 
                             //APAGA PARECER DO COMPONENTE
-                            $tblParecer = new Parecer();
+                            $tblParecer = new Parecer_Model_DbTable_Parecer();
                             $rsParecer = $tblParecer->buscar(array('idPRONAC = ?' => $idPronac, 'idTipoAgente = ?' => 6))->current();
                             if (!empty($rsParecer)) {
                                 $idparecer = isset($rsParecer->IdParecer) ? $rsParecer->IdParecer : $rsParecer->idParecer;
@@ -593,7 +593,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
 
                             //APAGA PARECER do PARECERISTA
                             $rsParecer = array();
-                            $tblParecer = new Parecer();
+                            $tblParecer = new Parecer_Model_DbTable_Parecer();
                             $rsParecer = $tblParecer->buscar(array('IdPRONAC =?' => $idPronac, 'idTipoAgente = ?' => 1))->current();
                             if (!empty($rsParecer)) {
                                 $idparecer = isset($rsParecer->IdParecer) ? $rsParecer->IdParecer : $rsParecer->idParecer;

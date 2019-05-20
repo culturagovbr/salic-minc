@@ -269,7 +269,7 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
                 //fluxo in2013
 
                 /****************************************************************************************************************/
-                $parecerDAO = new Parecer();
+                $parecerDAO = new Parecer_Model_DbTable_Parecer();
                 $whereParecer['idPRONAC = ?'] = $idPronac;
                 $buscarParecer = $parecerDAO->buscar($whereParecer);
 
@@ -429,7 +429,7 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
     private function fecharAssinatura($idPronac)
     {
         try {
-            $parecer = new Parecer();
+            $parecer = new Parecer_Model_DbTable_Parecer();
             $idAtoAdministrativo = $parecer->getIdAtoAdministrativoParecerTecnico($idPronac, self::ID_TIPO_AGENTE_PARCERISTA)->current()['idParecer'];
 
             $objModelDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();

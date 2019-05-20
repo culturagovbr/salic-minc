@@ -2176,7 +2176,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             }
 
             //CADASTRA OU ATUALIZA O PARECER DO TECNICO
-            $parecerDAO = new Parecer();
+            $parecerDAO = new Parecer_Model_DbTable_Parecer();
             $dadosParecer = array(
                 'idPRONAC' => $idPronac,
                 'AnoProjeto' => $dadosProjeto[0]->AnoProjeto,
@@ -2578,7 +2578,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             if (count($dadosProjeto) > 0) {
 
                 //CADASTRA OU ATUALIZA O PARECER DO TECNICO
-                $parecerDAO = new Parecer();
+                $parecerDAO = new Parecer_Model_DbTable_Parecer();
                 $dadosParecer = array(
                     'idPRONAC' => $idPronac,
                     'AnoProjeto' => $dadosProjeto[0]->AnoProjeto,

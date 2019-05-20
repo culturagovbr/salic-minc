@@ -193,7 +193,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
 
     private function verificaParecer($idPronac)
     {
-        $parecerDAO = new \Parecer();
+        $parecerDAO = new \Parecer_Model_DbTable_Parecer();
         $buscaParecer = $parecerDAO->buscarParecer(null, $idPronac);
 
         return count($buscaParecer);

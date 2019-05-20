@@ -57,7 +57,7 @@ class ConsolidacaoParecer implements \MinC\Servico\IServicoRestZend
     {
         $idPronac = $this->request->getParam('idPronac');
 
-        $parecerDAO = new \Parecer();
+        $parecerDAO = new \Parecer_Model_DbTable_Parecer();
         $whereParecer = [];
         $whereParecer['idPRONAC = ?'] = $idPronac;
         $parecer = $parecerDAO->findBy($whereParecer);
@@ -90,7 +90,7 @@ class ConsolidacaoParecer implements \MinC\Servico\IServicoRestZend
             );
             $sugeridoReal = $total['soma'];
 
-            $tbParecer = new \Parecer();
+            $tbParecer = new \Parecer_Model_DbTable_Parecer();
             $dadosParecer = [
                 'idPRONAC' => $idPronac,
                 'AnoProjeto' => $enquadramento['AnoProjeto'],

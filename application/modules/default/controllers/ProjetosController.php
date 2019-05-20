@@ -313,7 +313,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
             //$servico   = $this->_request->getParam("servico"); // pega o id do pronac via get
 
             $aprovacao = new Aprovacao();
-            $parecer = new Parecer();
+            $parecer = new Parecer_Model_DbTable_Parecer();
             $planilhaaprovacao = new PlanilhaAprovacao();
             $projeto = new Projetos();
             $planilhaProjeto = new PlanilhaProjeto();

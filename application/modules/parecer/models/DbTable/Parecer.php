@@ -1,6 +1,6 @@
 <?php
 
-class Parecer extends MinC_Db_Table_Abstract
+class Parecer_Model_DbTable_Parecer extends MinC_Db_Table_Abstract
 {
     protected $_schema = 'SAC';
     protected $_name = 'Parecer';
@@ -8,7 +8,7 @@ class Parecer extends MinC_Db_Table_Abstract
 
     public function salvar($dados)
     {
-        $tmpTblParecer = new Parecer();
+        $tmpTblParecer = new Parecer_Model_DbTable_Parecer();
 
         if (isset($dados['idParecer'])) {
             $tmpRsParecer = $tmpTblParecer->find($dados['idParecer'])->current();

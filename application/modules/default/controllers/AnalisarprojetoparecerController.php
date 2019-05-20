@@ -504,7 +504,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
             $buscaEnquadramento = $enquadramentoDAO->buscarDados($idPronac, null, false);
             $countEnquadramentoP = count($buscaEnquadramento);
             
-            $parecerDAO = new Parecer();
+            $parecerDAO = new Parecer_Model_DbTable_Parecer();
             $whereParecer['idPRONAC = ?'] = $idPronac;
             $buscaParecer = $parecerDAO->buscar($whereParecer)->toArray();
             $countParecerP = count($buscaParecer);
@@ -554,7 +554,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         $buscaEnquadramento = $enquadramentoDAO->buscarDados($idPronac, null, false);
         $countEnquadramentoP = count($buscaEnquadramento);
 
-        $parecerDAO = new Parecer();
+        $parecerDAO = new Parecer_Model_DbTable_Parecer();
         $buscaParecer = $parecerDAO->buscarParecer(null, $idPronac);
         $countParecerP = count($buscaParecer);
 
@@ -1110,7 +1110,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
 
                 $buscaEnquadramento = $enquadramentoDAO->buscarDados($idPronac, null, false);
                 
-                $parecerDAO = new Parecer();
+                $parecerDAO = new Parecer_Model_DbTable_Parecer();
                 $dadosParecer = array(
                     'idPRONAC' => $idPronac,
                     'AnoProjeto' => $anoProjeto,

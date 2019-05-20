@@ -275,7 +275,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
         $tbRecurso = new tbRecurso();
         $r = $tbRecurso->buscarDadosRecursos(array('idRecurso = ?'=>$idRecurso))->current();
         if ($r->tpSolicitacao == 'PI') {
-            $Parecer = new Parecer();
+            $Parecer = new Parecer_Model_DbTable_Parecer();
             $dadosParecer = $Parecer->statusDeAvaliacao($r->IdPRONAC);
             $this->view->statusDeAvaliacao = $dadosParecer;
         }
@@ -355,7 +355,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                         $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
                         $tbPlanilhaAprovacao->delete(array('IdPRONAC = ?' => $objRecurso->IdPRONAC, 'tpPlanilha = ?' => 'CO', 'stAtivo = ?' => 'S'));
 
-                        $Parecer = new Parecer();
+                        $Parecer = new Parecer_Model_DbTable_Parecer();
                         $Parecer->delete(array('IdPRONAC = ?' => $objRecurso->IdPRONAC, 'stAtivo = ?' => 1, 'idTipoAgente = ?' => 6));
 
                         $Enquadramento = new Admissibilidade_Model_Enquadramento();
@@ -676,7 +676,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
             $objSegmentocultural = new Segmentocultural();
             $this->view->combosegmentosculturais = $objSegmentocultural->buscarSegmento($this->view->projetosEN->cdArea);
 
-            $parecer = new Parecer();
+            $parecer = new Parecer_Model_DbTable_Parecer();
             $this->view->Parecer = $parecer->buscar(array('IdPRONAC = ?' => $dados->IdPRONAC, 'TipoParecer in (?)' => array(1,7), 'stAtivo = ?' => 1))->current();
         }
 
@@ -777,7 +777,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
             $objSegmentocultural = new Segmentocultural();
             $this->view->combosegmentosculturais = $objSegmentocultural->buscarSegmento($this->view->projetosEN->cdArea);
 
-            $parecer = new Parecer();
+            $parecer = new Parecer_Model_DbTable_Parecer();
             $this->view->Parecer = $parecer->buscar(array('IdPRONAC = ?' => $dados->IdPRONAC, 'TipoParecer = ?' => 7, 'stAtivo = ?' => 1))->current();
         }
 
@@ -844,7 +844,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                 $buscaEnquadramento = $enquadramentoDAO->buscarDados($idPronac, null, false);
 
                 //CADASTRA OU ATUALIZA O PARECER DO TECNICO
-                $parecerDAO = new Parecer();
+                $parecerDAO = new Parecer_Model_DbTable_Parecer();
                 $dadosParecer = array(
                     'idPRONAC' => $idPronac,
                     'AnoProjeto' => $dadosProjeto[0]->AnoProjeto,
@@ -986,7 +986,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                 $buscaEnquadramento = $enquadramentoDAO->buscarDados($idPronac, null, false);
 
                 //CADASTRA OU ATUALIZA O PARECER DO TECNICO
-                $parecerDAO = new Parecer();
+                $parecerDAO = new Parecer_Model_DbTable_Parecer();
                 $dadosParecer = array(
                     'idPRONAC' => $idPronac,
                     'AnoProjeto' => $dadosProjeto[0]->AnoProjeto,
@@ -1356,7 +1356,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
             $objSegmentocultural = new Segmentocultural();
             $this->view->combosegmentosculturais = $objSegmentocultural->buscarSegmento($this->view->projetosEN->cdArea);
 
-            $parecer = new Parecer();
+            $parecer = new Parecer_Model_DbTable_Parecer();
             $this->view->Parecer = $parecer->buscar(array('IdPRONAC = ?' => $dados->IdPRONAC, 'TipoParecer = ?' => 7, 'stAtivo = ?' => 1))->current();
         }
 
@@ -1420,7 +1420,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                 $buscaEnquadramento = $enquadramentoDAO->buscarDados($idPronac, null, false);
 
                 //CADASTRA OU ATUALIZA O PARECER DO COMPONENTE DA COMISS�O
-                $parecerDAO = new Parecer();
+                $parecerDAO = new Parecer_Model_DbTable_Parecer();
                 $dadosParecer = array(
                     'idPRONAC' => $idPronac,
                     'AnoProjeto' => $dadosProjeto[0]->AnoProjeto,
@@ -2185,7 +2185,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
         $tbRecurso = new tbRecurso();
         $r = $tbRecurso->buscarDadosRecursos(array('idRecurso = ?'=>$idRecurso))->current();
         if ($r->tpSolicitacao == 'PI') {
-            $Parecer = new Parecer();
+            $Parecer = new Parecer_Model_DbTable_Parecer();
             $dadosParecer = $Parecer->statusDeAvaliacao($r->IdPRONAC);
             $this->view->statusDeAvaliacao = $dadosParecer;
         }
