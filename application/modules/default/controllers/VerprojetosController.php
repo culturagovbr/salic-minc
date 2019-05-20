@@ -4025,7 +4025,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
                         $vwMemoriaDeCalculo = new vwMemoriaDeCalculo();
                         $this->view->memoriaDeCalculo = $vwMemoriaDeCalculo->busca($idPronac);
 
-                        $tbAnaliseDeConteudo = new tbAnaliseDeConteudo();
+                        $tbAnaliseDeConteudo = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                         $this->view->outrasInformacoesParecer = $tbAnaliseDeConteudo->buscarOutrasInformacoes($idPronac);
 
                         $tbPauta = new tbPauta();

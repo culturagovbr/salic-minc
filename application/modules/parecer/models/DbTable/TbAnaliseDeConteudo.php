@@ -1,12 +1,6 @@
 <?php
-/**
- * DAO tbAnaliseDeConteudo
- * @since 01/08/2013
- * @version 1.0
- * @link http://www.cultura.gov.br
- */
 
-class tbAnaliseDeConteudo extends MinC_Db_Table_Abstract
+class Parecer_Model_DbTable_TbAnaliseDeConteudo extends MinC_Db_Table_Abstract
 {
     protected $_banco  = "SAC";
     protected $_schema = "SAC";

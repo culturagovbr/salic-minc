@@ -205,7 +205,7 @@ class Analise_AnaliseController extends Analise_GenericController
                     $tbDistribuirParecer->inserirDistribuicaoParaParecer($idPreProjeto, $idPronac, $unidadeVinculada->idVinculada);
                 }
 
-                $tbAnaliseDeConteudo = new tbAnaliseDeConteudo();
+                $tbAnaliseDeConteudo = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                 $jaExisteAnaliseConteudo = $tbAnaliseDeConteudo->buscar(array('idPronac = ?' => $idPronac))->current();
                 if (empty($jaExisteAnaliseConteudo)) {
                     $tbAnaliseDeConteudo->inserirAnaliseConteudoParaParecerista($idPreProjeto, $idPronac);
