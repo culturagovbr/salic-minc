@@ -18,6 +18,9 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     private $_DtRetorno;
     private $_idUsuario;
     private $_stDiligenciado;
+    private $_siEncaminhamento;
+    private $_siAnalise;
+    private $_idOrgaoOrigem;
 
     const FECHAR_ANALISE_ABERTA = 0;
     const FECHAR_ANALISE_FECHADA = 1;
@@ -284,4 +287,51 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
         $this->_stDiligenciado = $stDiligenciado;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSiEncaminhamento()
+    {
+        return $this->_siEncaminhamento;
+    }
+
+    /**
+     * @param mixed $siEncaminhamento
+     */
+    public function setSiEncaminhamento($siEncaminhamento): void
+    {
+        $this->_siEncaminhamento = $siEncaminhamento;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSiAnalise()
+    {
+        return $this->_siAnalise;
+    }
+
+    /**
+     * @param mixed $siAnalise
+     */
+    public function setSiAnalise($siAnalise): void
+    {
+        $this->_siAnalise = $siAnalise;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getIdOrgaoOrigem()
+    {
+        return $this->_idOrgaoOrigem;
+    }
+
+    /**
+     * @param mixed $idOrgaoOrigem
+     */
+    public function setIdOrgaoOrigem($idOrgaoOrigem): void
+    {
+        $this->_idOrgaoOrigem = $idOrgaoOrigem;
+    }
 }
