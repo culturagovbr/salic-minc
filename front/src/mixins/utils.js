@@ -27,10 +27,10 @@ export const utils = {
 
             return 'N\xE3o';
         },
-        isObject: function (el) {
-            return typeof el === "object";
+        isObject(el) {
+            return typeof el === 'object';
         },
-        converterParaReal: function (value) {
+        converterParaReal(value) {
             value = parseFloat(value);
             return numeral(value).format('0,0.00');
         },
@@ -81,10 +81,11 @@ export const utils = {
             // formato: 99.999.999-x
             const regex = /^(?:0{1,})(\w+)(\w{1})$/;
             const s = conta.toString().match(regex);
-            const n = s[1], t = n.length -1;
+            const n = s[1]; const
+                t = n.length - 1;
             let novo = '';
-            for( var i = t, a = 1; i >=0; i--, a++ ){
-                var ponto = a % 3 === 0 && i > 0 ? '.' : '';
+            for (let i = t, a = 1; i >= 0; i -= 1, a += 1) {
+                const ponto = a % 3 === 0 && i > 0 ? '.' : '';
                 novo = ponto + n.charAt(i) + novo;
             }
             return `${novo}-${s[2]}`;
@@ -97,29 +98,29 @@ export const utils = {
         },
         formatarLabelMecanismo(valor) {
             switch (valor) {
-                case '1':
-                case 1:
-                    return 'Mecenato';
-                default:
-                    return 'Inv\xE1lido';
+            case '1':
+            case 1:
+                return 'Mecenato';
+            default:
+                return 'Inv\xE1lido';
             }
         },
         formatarLabelEsfera(esfera) {
             let string;
 
             switch (esfera) {
-                case '1':
-                    string = 'Municipal';
-                    break;
-                case '2':
-                    string = 'Estadual';
-                    break;
-                case '3':
-                    string = 'Federal';
-                    break;
-                default:
-                    string = 'N\xE3o informada';
-                    break;
+            case '1':
+                string = 'Municipal';
+                break;
+            case '2':
+                string = 'Estadual';
+                break;
+            case '3':
+                string = 'Federal';
+                break;
+            default:
+                string = 'N\xE3o informada';
+                break;
             }
 
             return string;
