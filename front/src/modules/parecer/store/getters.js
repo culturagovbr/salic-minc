@@ -6,3 +6,4 @@ export const getProdutosSecundarios = state => state.produtosSecundarios;
 export const getAnaliseConteudoSecundario = state => state.analiseConteudoSecundario;
 export const getPlanilhaProdutoSecundario = state => state.planilhaSecundario;
 export const getConsolidacao = state => state.consolidacao;
+export const getHistoricoProduto = state => state.historicoProduto;

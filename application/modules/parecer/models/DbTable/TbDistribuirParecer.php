@@ -88,6 +88,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         $select->from(
             array('d' => $this->_name),
             array(
+                "d.idDistribuirParecer",
                 "d.idPronac",
                 "d.idProduto",
                 "TipoAnalise" => new Zend_Db_Expr("CASE WHEN TipoAnalise = 0 THEN 'Conteudo' WHEN TipoAnalise = 1 THEN 'Custo do Produto' ELSE 'Custo Administrativo' END"),

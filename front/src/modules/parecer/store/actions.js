@@ -161,3 +161,11 @@ export const removerItensSelecionados = ({ commit }, data) => {
         commit(types.UPDATE_ITEM_PLANILHA, novoItem);
     });
 };
+
+export const obterHistoricoProduto = ({ commit }, params) => {
+    commit(types.SET_HISTORICO_PRODUTO, []);
+    parecerHelperAPI.obterHistoricoProduto(params)
+        .then((response) => {
+            commit(types.SET_HISTORICO_PRODUTO, response.data.items);
+        });
+};

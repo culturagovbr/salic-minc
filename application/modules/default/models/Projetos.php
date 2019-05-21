@@ -4861,9 +4861,10 @@ class Projetos extends MinC_Db_Table_Abstract
             ->where('Situacao in (?)', array('B11', 'B14'))
 //                ->where('diligencia.idProduto = produto.Codigo')
 //                ->order('diligencia.DtSolicitacao')
+            ->order('distribuirParecer.DtDistribuicao DESC')
             ->order('projeto.IdPRONAC')
-            ->order('distribuirParecer.stPrincipal DESC')
-            ->order('produto.Descricao');
+            ->order('produto.Descricao')
+            ->order('distribuirParecer.stPrincipal DESC');
 
         foreach ($where as $key => $val) {
             $select->where($key, $val);

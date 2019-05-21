@@ -18,7 +18,7 @@
                         class="title"
                     >
                         Produtos para an&aacute;lise inicial
-                        <v-spacer/>
+                        <v-spacer />
                         <v-text-field
                             v-model="search"
                             append-icon="search"
@@ -37,6 +37,7 @@
                             :search="search"
                             item-key="idDistribuirParecer"
                             class="elevation-1"
+                            disable-initial-sort
                         >
                             <template
                                 slot="items"
@@ -142,7 +143,7 @@
                                     >
                                         <v-btn
                                             slot="activator"
-                                            :href="obterUrlHistorico(props.item)"
+                                            @click="visualizarHistorico(props.item)"
                                             color="blue-grey darken-2"
                                             flat
                                             icon
@@ -189,6 +190,10 @@
                             :id-produto="diligenciaVisualizacao.idProduto"
                             :tp-diligencia="tipoDiligencia"
                         />
+                        <s-analise-historico-produto-dialog
+                            v-model="dialogHistorico"
+                            :produto="produtoHistorico"
+                        />
                     </v-card-text>
                 </v-card>
             </v-flex>
@@ -199,17 +204,18 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { utils } from '@/mixins/utils';
-import mixinDiligencia from '@/modules/diligencia/mixins/diligencia';
-import mixinParecer from '../mixins/utilsParecer';
+import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
+import MxParecer from '../mixins/utilsParecer';
 import SCarregando from '@/components/CarregandoVuetify';
 import SDialogDiligencias from '@/modules/diligencia/components/SDialogDiligencias';
+import SAnaliseHistoricoProdutoDialog from '@/modules/parecer/components/AnaliseHistoricoProdutoDialog';
 
 const TP_DILIGENCIA = 124;
 
 export default {
     name: 'ParecerListarView',
-    components: { SCarregando, SDialogDiligencias },
-    mixins: [utils, mixinDiligencia, mixinParecer],
+    components: { SAnaliseHistoricoProdutoDialog, SCarregando, SDialogDiligencias },
+    mixins: [utils, MxDiligencia, MxParecer],
     data: () => ({
         headers: [
             {
@@ -240,10 +246,12 @@ export default {
         ],
         search: '',
         dialogDiligencias: false,
+        dialogHistorico: false,
         diligenciaVisualizacao: {
             IdPRONAC: 0,
             idProduto: 0,
         },
+        produtoHistorico: {},
         tipoDiligencia: TP_DILIGENCIA,
         produtos: [],
         expand: false,
@@ -276,6 +284,10 @@ export default {
                 IdPRONAC: item.IdPRONAC,
                 idProduto: item.idProduto,
             };
+        },
+        visualizarHistorico(item) {
+            this.dialogHistorico = true;
+            this.produtoHistorico = item;
         },
     },
 

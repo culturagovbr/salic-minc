@@ -84,3 +84,15 @@ export const salvarAnaliseConsolidacao = params => api.postRequest('/parecer/ana
 export const restaurarPlanilhaProduto = params => api.postRequest('/parecer/planilha-produto-rest', buildData(params));
 
 export const finalizarAnalise = params => api.postRequest('/parecer/analise-inicial-finalizacao-rest/', buildData(params));
+
+export const obterHistoricoProduto = (params) => {
+    const module = '/parecer';
+    const controller = '/analise-inicial-historico-rest';
+    const idProduto = `idProduto/${params.idProduto}`;
+    const idPronac = `idPronac/${params.idPronac}`;
+    const stPrincipal = `stPrincipal/${params.stPrincipal}`;
+
+    const queryParams = `/${idProduto}/${idPronac}/${stPrincipal}`;
+
+    return api.getRequest(`${module}${controller}${queryParams}`);
+};

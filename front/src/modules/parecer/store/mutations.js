@@ -9,6 +9,7 @@ export const state = {
     planilhaSecundario: [],
     analiseConteudoSecundario: {},
     consolidacao: {},
+    historicoProduto: [],
 };
 
 export const mutations = {
@@ -44,5 +45,8 @@ export const mutations = {
         if (index >= 0) {
             Object.assign(state.planilhaParecer[index], params);
         }
+    },
+    [types.SET_HISTORICO_PRODUTO](state, itens) {
+        state.historicoProduto = itens;
     },
 };
