@@ -42,10 +42,11 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
             $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o �rg�o ativo do usu�rio para a vis�o
 
             if (isset($auth->getIdentity()->usu_codigo)) { // autenticacao novo salic
-                $this->getIdUsuario = UsuarioDAO::getIdUsuario($auth->getIdentity()->usu_codigo);
-                $this->getIdUsuario = ($this->getIdUsuario) ? $this->getIdUsuario["idAgente"] : 0;
+                $usuario = UsuarioDAO::getIdUsuario($auth->getIdentity()->usu_codigo);
+                $this->getIdUsuario = ($usuario) ? $usuario["idAgente"] : 0;
+                $this->idAgente = ($usuario) ? $usuario["idAgente"] : 0;
             }
-        } 
+        }
         else { // caso o usu�rio n�o esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
@@ -979,7 +980,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         }
 
         $projetos = new Projetos();
-        $dadosProjetoProduto = $projetos->dadosFechar($this->getIdUsuario, $idPronac, $idDistribuirParecer);
+        $dadosProjetoProduto = $projetos->dadosFechar($this->idAgente, $idPronac, $idDistribuirParecer);
         $this->view->dados = $dadosProjetoProduto;
         
         $this->view->IN2017 = $projetos->verificarIN2017($idPronac);
@@ -1312,7 +1313,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
 
         $projetos = new Projetos();
 
-        $dadosProjetoProduto = $projetos->dadosFechar($this->getIdUsuario, $idPronac, $idDistribuirParecer);
+        $dadosProjetoProduto = $projetos->dadosFechar($this->idAgente, $idPronac, $idDistribuirParecer);
         $this->view->dados = $dadosProjetoProduto;
         $this->view->idpronac = $idPronac;
     }
