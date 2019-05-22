@@ -23,7 +23,7 @@
 
 <script>
 export default {
-    name: 'ProgressoDialog',
+    name: 'SalicProgressoDialog',
     props: {
         label: {
             type: String,

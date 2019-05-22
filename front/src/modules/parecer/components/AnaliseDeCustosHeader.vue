@@ -98,37 +98,12 @@
                 </v-card>
             </v-flex>
         </v-layout>
-
-        <v-dialog
+        <s-dialog-confirmacao
             v-model="dialog"
-            persistent
-            max-width="300"
-        >
-            <v-card>
-                <v-card-title class="headline">
-                    Tem certeza?
-                </v-card-title>
-                <v-card-text>Ao restaurar a planilha as alterações realizadas serão descartadas!</v-card-text>
-                <v-card-actions>
-                    <v-spacer />
-                    <v-btn
-                        color="green darken-1"
-                        flat
-                        @click="dialog = false"
-                    >
-                        Cancelar
-                    </v-btn>
-                    <v-btn
-                        color="green darken-1"
-                        flat
-                        @click="restaurarPlanilha()"
-                    >
-                        Tenho certeza
-                    </v-btn>
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-        <progresso-dialog
+            text="Ao restaurar a planilha as alterações realizadas serão descartadas!"
+            @dialog-response="$event && restaurarPlanilha()"
+        />
+        <s-progresso-dialog
             v-model="loadingRestore"
             label="Aguarde, restaurando planilha"
         />
@@ -138,7 +113,8 @@
 
 import { mapActions, mapGetters } from 'vuex';
 import MxPlanilha from '@/mixins/planilhas';
-import ProgressoDialog from '@/components/ProgressoDialog';
+import SProgressoDialog from '@/components/SalicProgressoDialog';
+import SDialogConfirmacao from '@/components/SalicDialogConfirmacao';
 
 const dataDefaults = {
     calculos: {
@@ -152,7 +128,7 @@ const dataDefaults = {
 
 export default {
     name: 'AnaliseDeCustosHeader',
-    components: { ProgressoDialog },
+    components: { SDialogConfirmacao, SProgressoDialog },
     mixins: [MxPlanilha],
     props: {
         planilha: {
