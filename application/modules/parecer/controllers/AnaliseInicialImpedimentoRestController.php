@@ -1,6 +1,6 @@
 <?php
 
-
+use Application\Modules\Parecer\Service\AnaliseInicial as AnaliseInicial;
 class Parecer_AnaliseInicialImpedimentoRestController extends MinC_Controller_Rest_Abstract
 {
 
@@ -40,39 +40,31 @@ class Parecer_AnaliseInicialImpedimentoRestController extends MinC_Controller_Re
 
     public function getAction()
     {
-        try {
-            $idPronac = $this->_request->getParam("idPronac");
-            $idProduto = $this->_request->getParam("idProduto");
-            $stPrincipal = $this->_request->getParam("stPrincipal");
-
-            $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
-            $resposta = $tbDistribuirParecer->buscarHistorico(
-                [
-                    "d.idPronac = ?" => $idPronac,
-                    "d.idProduto = ?" => $idProduto,
-                    "d.stPrincipal = ?" => $stPrincipal
-                ]
-            );
-
-            if (!empty($resposta)) {
-                $resposta = $resposta->toArray();
-            }
-            $this->customRenderJsonResponse(['items' => \TratarArray::utf8EncodeArray($resposta)], 200);
-
-        } catch (Exception $objException) {
-            $this->customRenderJsonResponse([
-                'error' => [
-                    'code' => 404,
-                    'message' => $objException->getMessage()
-                ]
-            ], 404);
-
-        }
+        $this->renderJsonResponse([], 200);
     }
 
     public function postAction()
     {
-        $this->renderJsonResponse([], 200);
+        try {
+            $analiseInicialService = new AnaliseInicial($this->getRequest(), $this->getResponse());
+            $resposta = $analiseInicialService->devolverProduto();
+
+            $this->customRenderJsonResponse(
+                [
+                    'data' => $resposta,
+                    'message' => 'Devolução realizada com sucesso!'
+                ], 200);
+
+        } catch (Exception $objException) {
+            $this->customRenderJsonResponse([
+                'error' => [
+                    'code' => 412,
+                    'message' => $objException->getMessage()
+                ]
+            ], 412);
+
+        }
+
     }
 
     public function putAction()

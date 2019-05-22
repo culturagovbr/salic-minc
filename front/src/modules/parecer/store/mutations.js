@@ -16,6 +16,12 @@ export const mutations = {
     [types.SET_PRODUTOS](state, produtos) {
         state.produtos = produtos;
     },
+    [types.REMOVE_PRODUTO_DA_LISTA](state, params) {
+        const index = state.produtos.findIndex(
+            item => parseInt(item.idDistribuirParecer, 10) === parseInt(params.idDistribuirParecer, 10),
+        );
+        state.produtos.splice(index, 1);
+    },
     [types.SET_PRODUTO](state, produto) {
         state.produto = produto;
     },

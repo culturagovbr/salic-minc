@@ -29,6 +29,10 @@ export const obterProdutosParaAnalise = ({ commit }) => {
         });
 };
 
+export const removerProdutoParaAnalise = ({ commit }, params) => {
+    commit(types.REMOVE_PRODUTO_DA_LISTA, params);
+};
+
 export const obterProdutoParaAnalise = ({ commit, dispatch }, params) => {
     commit(types.SET_PRODUTO, {});
     parecerHelperAPI.obterProdutoParaAnalise(params)
@@ -169,3 +173,13 @@ export const obterHistoricoProduto = ({ commit }, params) => {
             commit(types.SET_HISTORICO_PRODUTO, response.data.items);
         });
 };
+
+export const salvarDeclaracaoImpedimento = async ({ dispatch }, params) => parecerHelperAPI.salvarDeclaracaoImpedimento(params)
+    .then((response) => {
+        dispatch('parecerMensagemSucesso', response.data.message);
+        dispatch('removerProdutoParaAnalise', params);
+        return response.data;
+    }).catch((e) => {
+        dispatch('parecerMensagemErro', e.response.data.error.message);
+        throw new TypeError(e.response.data.error.message, 'declaracaoImpedimento', 10);
+    });

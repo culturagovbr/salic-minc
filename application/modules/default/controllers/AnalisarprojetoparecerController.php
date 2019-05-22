@@ -1246,6 +1246,9 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         }
     }
 
+    /**
+     * @deprecated migrado para novo layout
+    **/
     public function devolverParecerAction() {
 
         $auth = Zend_Auth::getInstance();

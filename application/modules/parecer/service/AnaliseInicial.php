@@ -361,4 +361,25 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         $objDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
         return $objDocumentoAssinatura->getIdDocumentoAssinatura($idPronac, self::ID_ATO_ADMINISTRATIVO);
     }
+
+    public function devolverProduto()
+    {
+        $params = $this->request->getParams();
+
+        if (empty($params['idDistribuirParecer']) || empty($params['idPronac']) || empty($params['idProduto'])) {
+            throw new Exception("Dados obrigatórios não informado");
+        }
+
+        $distribuicao = [
+            'Observacao' => utf8_decode(trim(strip_tags($params['Observacao']))),
+            'idUsuario' => $this->idUsuario,
+            'idDistribuirParecer' => $params['idDistribuirParecer'],
+            'idPRONAC' => $params['idPronac'],
+            'idProduto' => $params['idProduto'],
+            'idAgenteParecerista' => $this->idAgente
+        ];
+
+        $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
+        return $tbDistribuirParecerMapper->devolverProduto($distribuicao);
+    }
 }

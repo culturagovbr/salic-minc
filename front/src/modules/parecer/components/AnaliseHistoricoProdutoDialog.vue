@@ -34,6 +34,7 @@
                     <v-data-table
                         :headers="headers"
                         :items="historico"
+                        :rows-per-page-items="[10, 25, 50, {'text': 'Todos', value: -1}]"
                         disable-initial-sort
                         class="elevation-0"
                         item-key="idDistribuirParecer"

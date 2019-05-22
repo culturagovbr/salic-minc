@@ -31,6 +31,11 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     const ST_ESTADO_ATIVO = 0;
     const ST_ESTADO_INATIVO = 1;
 
+    const SI_ANALISE_AGUARDANDO_ANALISE = 0;
+    const SI_ANALISE_EM_ANALISE = 1;
+    const SI_ANALISE_ANALISADO = 2;
+    const SI_ANALISE_FINALIZADO = 3;
+
     /**
      * @return mixed
      */

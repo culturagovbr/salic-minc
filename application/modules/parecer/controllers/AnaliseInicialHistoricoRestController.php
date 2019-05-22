@@ -44,6 +44,10 @@ class Parecer_AnaliseInicialHistoricoRestController extends MinC_Controller_Rest
             $idProduto = $this->_request->getParam("idProduto");
             $stPrincipal = $this->_request->getParam("stPrincipal");
 
+            if (empty($idPronac) || empty($idProduto)) {
+                throw new Exception("Parâmetros obrigatórios não informados");
+            }
+
             $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
             $resposta = $tbDistribuirParecer->buscarHistorico(
                 [

@@ -143,11 +143,11 @@
                                     >
                                         <v-btn
                                             slot="activator"
-                                            @click="visualizarHistorico(props.item)"
                                             color="blue-grey darken-2"
                                             flat
                                             icon
                                             class="mr-2"
+                                            @click="visualizarHistorico(props.item)"
                                         >
                                             <v-icon>
                                                 history
@@ -160,7 +160,7 @@
                                     >
                                         <v-btn
                                             slot="activator"
-                                            :href="obterUrlDeclararImpedimento(props.item)"
+                                            @click="declararImpedimento(props.item)"
                                             color="blue-grey darken-2"
                                             flat
                                             icon
@@ -194,6 +194,10 @@
                             v-model="dialogHistorico"
                             :produto="produtoHistorico"
                         />
+                        <s-analise-declarar-impedimento-dialog
+                            v-model="dialogImpedimento"
+                            :produto="produtoImpedimento"
+                        />
                     </v-card-text>
                 </v-card>
             </v-flex>
@@ -209,12 +213,15 @@ import MxParecer from '../mixins/utilsParecer';
 import SCarregando from '@/components/CarregandoVuetify';
 import SDialogDiligencias from '@/modules/diligencia/components/SDialogDiligencias';
 import SAnaliseHistoricoProdutoDialog from '@/modules/parecer/components/AnaliseHistoricoProdutoDialog';
+import SAnaliseDeclararImpedimentoDialog from '@/modules/parecer/components/AnaliseDeclararImpedimentoDialog';
 
 const TP_DILIGENCIA = 124;
 
 export default {
     name: 'ParecerListarView',
-    components: { SAnaliseHistoricoProdutoDialog, SCarregando, SDialogDiligencias },
+    components: {
+        SAnaliseDeclararImpedimentoDialog, SAnaliseHistoricoProdutoDialog, SCarregando, SDialogDiligencias,
+    },
     mixins: [utils, MxDiligencia, MxParecer],
     data: () => ({
         headers: [
@@ -247,11 +254,13 @@ export default {
         search: '',
         dialogDiligencias: false,
         dialogHistorico: false,
+        dialogImpedimento: false,
         diligenciaVisualizacao: {
             IdPRONAC: 0,
             idProduto: 0,
         },
         produtoHistorico: {},
+        produtoImpedimento: {},
         tipoDiligencia: TP_DILIGENCIA,
         produtos: [],
         expand: false,
@@ -288,6 +297,10 @@ export default {
         visualizarHistorico(item) {
             this.dialogHistorico = true;
             this.produtoHistorico = item;
+        },
+        declararImpedimento(item) {
+            this.dialogImpedimento = true;
+            this.produtoImpedimento = item;
         },
     },
 

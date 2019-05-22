@@ -96,3 +96,5 @@ export const obterHistoricoProduto = (params) => {
 
     return api.getRequest(`${module}${controller}${queryParams}`);
 };
+
+export const salvarDeclaracaoImpedimento = params => api.postRequest('/parecer/analise-inicial-impedimento-rest', buildData(params));
