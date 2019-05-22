@@ -111,6 +111,14 @@
                             <span v-if="!isDiligenciaAberta">Criar nova diligência</span>
                             <span v-else>Existe uma diligência em aberto</span>
                         </v-tooltip>
+                        <v-btn
+                            @click="dialog = false"
+                        >
+                            <v-icon left>
+                                clear
+                            </v-icon>
+                            Fechar
+                        </v-btn>
                     </div>
                     <s-dialog-criar-diligencia
                         v-if="!isDiligenciaAberta"

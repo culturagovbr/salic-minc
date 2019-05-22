@@ -52,6 +52,16 @@
                     </v-data-table>
                 </div>
             </v-card-text>
+            <v-card-actions class="justify-center">
+                <v-btn
+                    @click="dialog = false"
+                >
+                    <v-icon left>
+                        clear
+                    </v-icon>
+                    Fechar
+                </v-btn>
+            </v-card-actions>
         </v-card>
     </v-dialog>
 </template>

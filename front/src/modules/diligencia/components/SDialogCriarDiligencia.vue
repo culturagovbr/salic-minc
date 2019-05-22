@@ -49,6 +49,14 @@
                                 </v-icon>
                                 Enviar
                             </v-btn>
+                            <v-btn
+                                @click="dialog = false"
+                            >
+                                <v-icon left>
+                                    clear
+                                </v-icon>
+                                Cancelar
+                            </v-btn>
                         </v-card-actions>
                     </v-card>
                 </v-container>
@@ -96,8 +104,8 @@ export default {
             solicitacao: '',
             minChar: 10,
             valid: false,
-            dialog: false,
             textIsValid: false,
+            dialog: false,
             diligenciaRules: [
                 v => !!v || 'Tipo de diligencia é obrigatório!',
             ],
