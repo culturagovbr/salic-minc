@@ -33,7 +33,7 @@
 
 <script>
 export default {
-    name: 'SalicDialogConfirmacao',
+    name: 'SalicConfirmacaoDialog',
     props: {
         value: {
             type: Boolean,

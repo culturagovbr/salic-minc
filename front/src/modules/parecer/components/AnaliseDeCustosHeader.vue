@@ -98,7 +98,7 @@
                 </v-card>
             </v-flex>
         </v-layout>
-        <s-dialog-confirmacao
+        <s-confirmacao-dialog
             v-model="dialog"
             text="Ao restaurar a planilha as alterações realizadas serão descartadas!"
             @dialog-response="$event && restaurarPlanilha()"
@@ -114,7 +114,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import MxPlanilha from '@/mixins/planilhas';
 import SProgressoDialog from '@/components/SalicProgressoDialog';
-import SDialogConfirmacao from '@/components/SalicDialogConfirmacao';
+import SConfirmacaoDialog from '@/components/SalicConfirmacaoDialog';
 
 const dataDefaults = {
     calculos: {
@@ -128,7 +128,7 @@ const dataDefaults = {
 
 export default {
     name: 'AnaliseDeCustosHeader',
-    components: { SDialogConfirmacao, SProgressoDialog },
+    components: { SConfirmacaoDialog, SProgressoDialog },
     mixins: [MxPlanilha],
     props: {
         planilha: {
