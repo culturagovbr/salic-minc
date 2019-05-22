@@ -78,6 +78,10 @@ export const utils = {
             return agencia;
         },
         formatarConta(conta) {
+            if (!conta) {
+                return '';
+            }
+
             // formato: 99.999.999-x
             const regex = /^(?:0{1,})(\w+)(\w{1})$/;
             const s = conta.toString().match(regex);

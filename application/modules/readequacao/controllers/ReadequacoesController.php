@@ -458,13 +458,11 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $idPlanilha = $this->_request->getParam('idPlanilha');
 
         $ValorUnitario = $this->_request->getParam('ValorUnitario');
-
-        if (strpos($ValorUnitario, 'R$')) {
-            $ValorUnitario = str_replace('R$ ', '', $ValorUnitario);
-            $ValorUnitario = str_replace('.', '', $ValorUnitario);
-            $ValorUnitario = str_replace(',', '.', $ValorUnitario);
-        }
-
+        
+        $ValorUnitario = str_replace('R$ ', '', $ValorUnitario);
+        $ValorUnitario = str_replace('.', '', $ValorUnitario);
+        $ValorUnitario = str_replace(',', '.', $ValorUnitario);
+        
         $idPronac = $this->_request->getParam("idPronac");
         if (strlen($idPronac) > 7) {
             $idPronac = Seguranca::dencrypt($idPronac);
