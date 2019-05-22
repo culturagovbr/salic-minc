@@ -19,8 +19,10 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
     private $idGrupo;
     private $idAgente;
     private $auth;
+    private $distribuicao;
 
     const ID_ATO_ADMINISTRATIVO = \Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL;
+
 
     function __construct($request, $response)
     {
@@ -42,6 +44,33 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         }
     }
 
+    private function obterDistribuicao($idPronac, $idProduto)
+    {
+        if (empty($idPronac) || empty($idProduto)) {
+            return [];
+        }
+
+        $whereProduto = array();
+        $whereProduto['idPRONAC = ?'] = $idPronac;
+        $whereProduto['idProduto = ?'] = $idProduto;
+        $whereProduto["stEstado = ?"] = 0;
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $this->distribuicao = $tbDistribuirParecer->buscar($whereProduto)->current()->toArray();
+    }
+
+    private function isPermitidoAvaliar($idPronac, $idProduto)
+    {
+        if (empty($idPronac)
+            || empty($idProduto)
+            || $this->idGrupo != \Autenticacao_Model_Grupos::PARECERISTA) {
+            return false;
+        }
+
+        $this->obterDistribuicao($idPronac, $idProduto);
+
+        return ($this->idAgente == $this->distribuicao['idAgenteParecerista']);
+    }
+
     public function index()
     {
         $projeto = new \Projetos();
@@ -51,6 +80,12 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
                 'distribuirParecer.idOrgao = ?' => $this->idOrgao,
             )
         )->toArray();
+
+        foreach ($resp as &$produto) {
+            $produto['stDiligencia'] = $this->definirStatusDiligencia($produto);
+            $produto['diasEmDiligencia'] = $this->obterTempoDiligencia($produto);
+            $produto['diasEmAvaliacao'] = $this->obterTempoRestanteDeAvaliacao($produto);
+        }
 
         $resp = \TratarArray::utf8EncodeArray($resp);
 
@@ -95,8 +130,15 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
     public function finalizarParecer()
     {
         $idDistribuirParecer = $this->request->getParam("idDistribuirParecer");
+        $idPronac = $this->request->getParam("idPronac");
+        $idProduto = $this->request->getParam("idProduto");
+
         if (empty($idDistribuirParecer)) {
             throw new \Exception("ID da distribui&ccedil;&atilde;o n&atilde;o informado!");
+        }
+
+        if (!$this->isPermitidoAvaliar($idPronac, $idProduto)) {
+            throw new \Exception('Você não tem permissão para analisar');
         }
 
         $dadosWhere = [];
@@ -332,8 +374,6 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
                 $tempoRestante = round(\data::CompararDatas($produto['DtDistribuicao'], $produto['DtSolicitacao']));
                 break;
             case 2:
-                $tempoRestante = round(\data::CompararDatas($produto['DtResposta']));
-                break;
             case 3:
                 $tempoRestante = round(\data::CompararDatas($produto['DtResposta']));
                 break;

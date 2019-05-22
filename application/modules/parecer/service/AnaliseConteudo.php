@@ -16,8 +16,10 @@ class AnaliseConteudo implements \MinC\Servico\IServicoRestZend
 
     private $idUsuario;
     private $idOrgao;
+    private $idGrupo;
     private $idAgente;
     private $auth;
+    private $distribuicao;
 
     function __construct($request, $response)
     {
@@ -39,18 +41,32 @@ class AnaliseConteudo implements \MinC\Servico\IServicoRestZend
         }
     }
 
-    private function isPermitidoAvaliar($idPronac, $idProduto)
+
+    private function obterDistribuicao($idPronac, $idProduto)
     {
-        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        if (empty($idPronac) || empty($idProduto)) {
+            return [];
+        }
+
         $whereProduto = array();
         $whereProduto['idPRONAC = ?'] = $idPronac;
         $whereProduto['idProduto = ?'] = $idProduto;
         $whereProduto["stEstado = ?"] = 0;
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $this->distribuicao = $tbDistribuirParecer->buscar($whereProduto)->current()->toArray();
+    }
 
-        $distribuicao = $tbDistribuirParecer->buscar($whereProduto)->current()->toArray();
-        $pareceristaAtivo = ($this->idAgente == $distribuicao['idAgenteParecerista']);
+    private function isPermitidoAvaliar($idPronac, $idProduto)
+    {
+        if (empty($idPronac)
+            || empty($idProduto)
+            || $this->idGrupo != \Autenticacao_Model_Grupos::PARECERISTA) {
+            return false;
+        }
 
-        return ($this->idGrupo == \Autenticacao_Model_Grupos::PARECERISTA && $pareceristaAtivo);
+        $this->obterDistribuicao($idPronac, $idProduto);
+
+        return ($this->idAgente == $this->distribuicao['idAgenteParecerista']);
     }
 
     public function obter()
@@ -96,6 +112,10 @@ class AnaliseConteudo implements \MinC\Servico\IServicoRestZend
 
         if (!$idProduto) {
             throw new \Exception('Falta id do Produto');
+        }
+
+        if (!$this->isPermitidoAvaliar($idPronac, $idProduto)) {
+            throw new \Exception('Você não tem permissão para analisar');
         }
 
         if (strlen(trim($parecerDeConteudo)) == 0) {

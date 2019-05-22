@@ -4818,7 +4818,7 @@ class Projetos extends MinC_Db_Table_Abstract
                     'DtResposta' => new Zend_Db_Expr('(select top 1 DtResposta from sac.dbo.tbDiligencia dili2 where dili2.idPronac = projeto.idPronac and dili2.idProduto = distribuirParecer.idProduto order by dili2.DtSolicitacao desc)'),
                     'stEnviado' => new Zend_Db_Expr('(select top 1 stEnviado from sac.dbo.tbDiligencia dili3 where dili3.idPronac = projeto.idPronac and dili3.idProduto = distribuirParecer.idProduto order by dili3.DtSolicitacao desc)'),
                     'tempoFimDiligencia' => new Zend_Db_Expr("(select top 1 CASE WHEN stProrrogacao = 'N' THEN 20 ELSE 40 END AS tempoFimDiligencia from sac.dbo.tbDiligencia dili4 where dili4.idPronac = projeto.idPronac and dili4.idProduto = distribuirParecer.idProduto order by dili4.DtSolicitacao desc)"),
-                    'quantidadeProdutos' => new Zend_Db_Expr("(select count(*) from sac.dbo.PlanoDistribuicaoProduto where idProjeto = projeto.idProjeto)"),
+                    'quantidadeProdutos' => new Zend_Db_Expr("(select count(*) from sac.dbo.PlanoDistribuicaoProduto where idProjeto = projeto.idProjeto)"), //@todo remover
                     'idProjeto',
                 ),
                 $this->_schema
@@ -4837,6 +4837,9 @@ class Projetos extends MinC_Db_Table_Abstract
                     'DtEnvio',
                     'FecharAnalise',
                     'idAgenteParecerista',
+                    'siAnalise',
+                    'siEncaminhamento',
+                    'idOrgaoOrigem',
                 ),
                 $this->_schema
             )

@@ -16,8 +16,12 @@ class ConsolidacaoParecer implements \MinC\Servico\IServicoRestZend
     private $idUsuario;
     private $idAgente;
     private $auth;
+    private $idOrgao;
+    private $idGrupo;
+    private $distribuicao;
 
     const ID_ATO_ADMINISTRATIVO = \Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL;
+
 
     function __construct($request, $response)
     {
@@ -39,18 +43,31 @@ class ConsolidacaoParecer implements \MinC\Servico\IServicoRestZend
         }
     }
 
-    private function isPermitidoAvaliar($idPronac, $idProduto)
+    private function obterDistribuicao($idPronac, $idProduto)
     {
-        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        if (empty($idPronac) || empty($idProduto)) {
+            return [];
+        }
+
         $whereProduto = array();
         $whereProduto['idPRONAC = ?'] = $idPronac;
         $whereProduto['idProduto = ?'] = $idProduto;
         $whereProduto["stEstado = ?"] = 0;
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $this->distribuicao = $tbDistribuirParecer->buscar($whereProduto)->current()->toArray();
+    }
 
-        $distribuicao = $tbDistribuirParecer->buscar($whereProduto)->current()->toArray();
-        $pareceristaAtivo = ($this->idAgente == $distribuicao['idAgenteParecerista']);
+    private function isPermitidoAvaliar($idPronac, $idProduto)
+    {
+        if (empty($idPronac)
+            || empty($idProduto)
+            || $this->idGrupo != \Autenticacao_Model_Grupos::PARECERISTA) {
+            return false;
+        }
 
-        return ($this->idGrupo == \Autenticacao_Model_Grupos::PARECERISTA && $pareceristaAtivo);
+        $this->obterDistribuicao($idPronac, $idProduto);
+
+        return ($this->idAgente == $this->distribuicao['idAgenteParecerista']);
     }
 
     public function obter()
@@ -71,6 +88,7 @@ class ConsolidacaoParecer implements \MinC\Servico\IServicoRestZend
     public function salvar()
     {
         $idPronac = $this->request->getParam('IdPRONAC');
+        $idProduto = $this->request->getParam('idProduto');
         $resumoParecer = $this->request->getParam("ResumoParecer");
         $parecerFavoravel = $this->request->getParam('ParecerFavoravel');
 
@@ -78,6 +96,10 @@ class ConsolidacaoParecer implements \MinC\Servico\IServicoRestZend
 
             if (empty($idPronac) || count($resumoParecer) > 10 || empty($parecerFavoravel) ) {
                 throw new \Exception("Dados obrigatórios não informados");
+            }
+
+            if (!$this->isPermitidoAvaliar($idPronac, $idProduto)) {
+                throw new \Exception('Você não tem permissão para analisar este produto');
             }
 
             $enquadramentoDAO = new \Admissibilidade_Model_Enquadramento();

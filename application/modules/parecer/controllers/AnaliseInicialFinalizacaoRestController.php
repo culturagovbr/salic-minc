@@ -9,6 +9,7 @@ class Parecer_AnaliseInicialFinalizacaoRestController extends MinC_Controller_Re
     {
         $profiles = [
             Autenticacao_Model_Grupos::PARECERISTA,
+            Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
         ];
 
         $permissionsPerMethod = [

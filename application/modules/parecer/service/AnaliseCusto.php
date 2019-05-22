@@ -180,7 +180,6 @@ class AnaliseCusto implements \MinC\Servico\IServicoRestZend
 
         if (!$this->isPermitidoAvaliar($params['IdPRONAC'], $params['idProduto'])) {
             throw new \Exception('Você não tem permissão para alterar');
-
         }
 
         if ($params['stCustoPraticado'] == 1) {
