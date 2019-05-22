@@ -22,10 +22,10 @@ export const parecerMensagemErro = ({ commit }, msg) => {
 };
 
 export const obterProdutosParaAnalise = ({ commit }) => {
-    commit(types.SET_PRODUTOS, []);
     parecerHelperAPI.obterProdutosParaAnalise()
         .then((response) => {
             commit(types.SET_PRODUTOS, response.data.items);
+            return response.data;
         });
 };
 

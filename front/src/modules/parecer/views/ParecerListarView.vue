@@ -30,7 +30,7 @@
                     <v-divider />
                     <v-card-text>
                         <v-data-table
-                            v-if="produtos.length > 0"
+                            v-if="!loading"
                             :headers="headers"
                             :items="produtos"
                             :rows-per-page-items="[15, 35, 50, {'text': 'Todos', value: -1}]"
@@ -176,13 +176,13 @@
                             </template>
                             <template slot="no-data">
                                 <div class="text-xs-center">
-                                    Sem dados
+                                    Sem produtos para análise
                                 </div>
                             </template>
                         </v-data-table>
                         <s-carregando
                             v-else
-                            :text="'Carregando lista de produtos'"
+                            text="Carregando lista de produtos"
                         />
                         <s-dialog-diligencias
                             v-model="dialogDiligencias"
@@ -274,19 +274,16 @@ export default {
     watch: {
         obterProdutos(val) {
             this.produtos = val;
+            this.loading = false;
         },
     },
     created() {
-        this.initialize();
         this.obterProdutosParaAnalise();
     },
     methods: {
         ...mapActions({
             obterProdutosParaAnalise: 'parecer/obterProdutosParaAnalise',
         }),
-        initialize() {
-            this.produtos = [];
-        },
         visualizarDiligencia(item) {
             this.dialogDiligencias = true;
             this.diligenciaVisualizacao = {

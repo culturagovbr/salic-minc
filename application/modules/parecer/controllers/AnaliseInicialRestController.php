@@ -27,7 +27,6 @@ class Parecer_AnaliseInicialRestController extends MinC_Controller_Rest_Abstract
         try {
             $tramitacaoService = new AnaliseInicialService($this->getRequest(), $this->getResponse());
             $resposta = $tramitacaoService->index();
-
             $this->customRenderJsonResponse([
                 'items' => $resposta['data'],
                 'quantidadeAssinaturas' => $resposta['quantidadeAssinaturas'],
