@@ -76,7 +76,7 @@
                                         >
                                             {{ props.item.dsProduto }}
                                         </router-link>
-                                        <span>Clique para análisar o produto {{ props.item.dsProduto }}</span>
+                                        <span>Clique para analisar o produto {{ props.item.dsProduto }}</span>
                                     </v-tooltip>
                                 </td>
                                 <td class="text-xs-center">
@@ -137,34 +137,43 @@
                                         <span> {{ obterConfigDiligencia(props.item).texto }} </span>
                                     </v-tooltip>
                                 </td>
-                                <td class="justify-center layout px-0">
+                                <td class="layout px-0">
                                     <v-tooltip
                                         bottom
                                     >
                                         <v-btn
                                             slot="activator"
-                                            color="blue-grey darken-2"
+                                            :to="{
+                                                name: 'analise-conteudo',
+                                                params: {
+                                                    id: props.item.idProduto,
+                                                    idPronac: props.item.IdPRONAC,
+                                                    produtoPrincipal: props.item.stPrincipal,
+                                                }
+                                            }"
+                                            color="primary"
                                             flat
                                             icon
                                             class="mr-2"
-                                            @click="visualizarHistorico(props.item)"
                                         >
                                             <v-icon>
-                                                history
+                                                {{ obterConfigsBotaoPrincipal(props.item).icone }}
                                             </v-icon>
                                         </v-btn>
-                                        <span>Visualizar histórico de distribuição deste produto</span>
+                                        <span>{{ obterConfigsBotaoPrincipal(props.item).texto }}</span>
                                     </v-tooltip>
                                     <v-tooltip
                                         bottom
                                     >
                                         <v-btn
+                                            v-if="props.item.siAnalise === SI_ANALISE_AGUARDANDO_ANALISE
+                                                || !props.item.siAnalise"
                                             slot="activator"
-                                            @click="declararImpedimento(props.item)"
                                             color="blue-grey darken-2"
                                             flat
                                             icon
                                             class="mr-2"
+                                            @click="declararImpedimento(props.item)"
                                         >
                                             <v-icon>
                                                 voice_over_off
@@ -188,11 +197,7 @@
                             v-model="dialogDiligencias"
                             :id-pronac="diligenciaVisualizacao.IdPRONAC"
                             :id-produto="diligenciaVisualizacao.idProduto"
-                            :tp-diligencia="tipoDiligencia"
-                        />
-                        <s-analise-historico-produto-dialog
-                            v-model="dialogHistorico"
-                            :produto="produtoHistorico"
+                            :tp-diligencia="TP_DILIGENCIA_ANALISE_TECNICA"
                         />
                         <s-analise-declarar-impedimento-dialog
                             v-model="dialogImpedimento"
@@ -207,22 +212,19 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import { utils } from '@/mixins/utils';
+import MxUtils from '@/mixins/utils';
 import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
-import MxParecer from '../mixins/utilsParecer';
+import MxConstantes from '@/modules/parecer/mixins/const';
 import SCarregando from '@/components/CarregandoVuetify';
 import SDialogDiligencias from '@/modules/diligencia/components/SDialogDiligencias';
-import SAnaliseHistoricoProdutoDialog from '@/modules/parecer/components/AnaliseHistoricoProdutoDialog';
 import SAnaliseDeclararImpedimentoDialog from '@/modules/parecer/components/AnaliseDeclararImpedimentoDialog';
-
-const TP_DILIGENCIA = 124;
 
 export default {
     name: 'ParecerListarView',
     components: {
-        SAnaliseDeclararImpedimentoDialog, SAnaliseHistoricoProdutoDialog, SCarregando, SDialogDiligencias,
+        SAnaliseDeclararImpedimentoDialog, SCarregando, SDialogDiligencias,
     },
-    mixins: [utils, MxDiligencia, MxParecer],
+    mixins: [MxUtils, MxDiligencia, MxConstantes],
     data: () => ({
         headers: [
             {
@@ -254,14 +256,13 @@ export default {
         search: '',
         dialogDiligencias: false,
         dialogHistorico: false,
+        produtoHistorico: {},
         dialogImpedimento: false,
         diligenciaVisualizacao: {
             IdPRONAC: 0,
             idProduto: 0,
         },
-        produtoHistorico: {},
         produtoImpedimento: {},
-        tipoDiligencia: TP_DILIGENCIA,
         produtos: [],
         expand: false,
         loading: true,
@@ -291,15 +292,29 @@ export default {
                 idProduto: item.idProduto,
             };
         },
-        visualizarHistorico(item) {
-            this.dialogHistorico = true;
-            this.produtoHistorico = item;
-        },
         declararImpedimento(item) {
             this.dialogImpedimento = true;
             this.produtoImpedimento = item;
         },
+        obterConfigsBotaoPrincipal(produto) {
+            switch (produto.siAnalise) {
+            case 1:
+                return {
+                    icone: 'border_color',
+                    texto: 'Continuar analisando',
+                };
+            case 2:
+                return {
+                    icone: 'assignment',
+                    texto: 'Assinar parecer e finalizar',
+                };
+            default:
+                return {
+                    icone: 'edit',
+                    texto: 'Analisar produto',
+                };
+            }
+        },
     },
-
 };
 </script>

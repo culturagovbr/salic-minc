@@ -88,6 +88,22 @@
                     </v-btn>
                     <span> {{ obterConfigDiligencia(produto).texto }} </span>
                 </v-tooltip>
+                <v-tooltip
+                    bottom
+                >
+                    <v-btn
+                        slot="activator"
+                        color="grey lighten-3"
+                        icon
+                        small
+                        @click="visualizarHistorico(produto)"
+                    >
+                        <v-icon color="blue-grey darken-2">
+                            history
+                        </v-icon>
+                    </v-btn>
+                    <span>Visualizar histórico de distribuição deste produto</span>
+                </v-tooltip>
                 <v-chip
                     v-if="produto.stPrincipal === 1"
                     light
@@ -178,7 +194,11 @@
                 v-model="dialogDiligencias"
                 :id-pronac="produto.IdPRONAC"
                 :id-produto="produto.idProduto"
-                :tp-diligencia="tipoDiligencia"
+                :tp-diligencia="TP_DILIGENCIA_ANALISE_TECNICA"
+            />
+            <s-analise-historico-produto-dialog
+                v-model="dialogHistorico"
+                :produto="produtoHistorico"
             />
         </template>
         <s-mensagem
@@ -194,28 +214,26 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import SCarregando from '@/components/CarregandoVuetify';
-import mixinParecer from '../mixins/utilsParecer';
-import mixinDiligencia from '@/modules/diligencia/mixins/diligencia';
+import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
+import MxConstantes from '@/modules/parecer/mixins/const';
 import SDialogAnaliseOutrosProdutos from '../components/AnaliseOutrosProdutosDialog';
 import SDialogDiligencias from '@/modules/diligencia/components/SDialogDiligencias';
+import SAnaliseHistoricoProdutoDialog from '@/modules/parecer/components/AnaliseHistoricoProdutoDialog';
 import SMensagem from '@/components/SalicMensagem';
-
-const TP_DILIGENCIA = 124;
-const SITUACAO_DILIGENCIA = 'B14';
 
 export default {
     name: 'ParecerAnalisarView',
     components: {
-        SMensagem, SDialogDiligencias, SDialogAnaliseOutrosProdutos, SCarregando,
+        SMensagem, SDialogDiligencias, SDialogAnaliseOutrosProdutos, SCarregando, SAnaliseHistoricoProdutoDialog,
     },
-    mixins: [mixinParecer, mixinDiligencia],
+    mixins: [MxDiligencia, MxConstantes],
     data: () => ({
         currentStep: '1',
         dialogOutrosProdutos: false,
         dialogDiligencias: false,
-        tipoDiligencia: TP_DILIGENCIA,
-        situacaoDiligencia: SITUACAO_DILIGENCIA,
         loadingProduto: true,
+        dialogHistorico: false,
+        produtoHistorico: {},
         arraySteps: [
             {
                 id: 1,
@@ -367,6 +385,10 @@ export default {
         },
         mostrarDiligencias() {
             this.dialogDiligencias = true;
+        },
+        visualizarHistorico(item) {
+            this.dialogHistorico = true;
+            this.produtoHistorico = item;
         },
     },
 };
