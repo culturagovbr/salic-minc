@@ -4861,8 +4861,8 @@ class Projetos extends MinC_Db_Table_Abstract
             ->where('distribuirParecer.DtDistribuicao is not null')
             ->where('distribuirParecer.DtDevolucao is NULL')
             ->where('distribuirParecer.stEstado = ?', 0)
-            ->where('distribuirParecer.TipoAnalise in (?)', array(1, 3))
-            ->where('Situacao in (?)', array('B11', 'B14'))
+            ->where('distribuirParecer.TipoAnalise in (?)', array(1, 3)) // @todo remover essa regra para o parecerista
+            ->where('projeto.Situacao in (?)', array('B11', 'B14'))
 //                ->where('diligencia.idProduto = produto.Codigo')
 //                ->order('diligencia.DtSolicitacao')
             ->order('distribuirParecer.DtDistribuicao DESC')
@@ -4873,7 +4873,6 @@ class Projetos extends MinC_Db_Table_Abstract
         foreach ($where as $key => $val) {
             $select->where($key, $val);
         }
-
 
         return $this->fetchAll($select);
     }

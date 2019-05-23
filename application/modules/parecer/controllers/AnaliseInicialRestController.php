@@ -25,20 +25,19 @@ class Parecer_AnaliseInicialRestController extends MinC_Controller_Rest_Abstract
     public function indexAction()
     {
         try {
-            $tramitacaoService = new AnaliseInicialService($this->getRequest(), $this->getResponse());
-            $resposta = $tramitacaoService->index();
+            $analiseInicialService = new AnaliseInicialService($this->getRequest(), $this->getResponse());
+
             $this->customRenderJsonResponse([
-                'items' => $resposta['data'],
-                'quantidadeAssinaturas' => $resposta['quantidadeAssinaturas'],
+                'items' => $analiseInicialService->index(),
             ], 200);
 
         } catch (Exception $objException) {
             $this->customRenderJsonResponse([
                 'error' => [
-                    'code' => 404,
+                    'code' => 412,
                     'message' => $objException->getMessage()
                 ]
-            ], 404);
+            ], 412);
 
         }
     }
@@ -54,10 +53,10 @@ class Parecer_AnaliseInicialRestController extends MinC_Controller_Rest_Abstract
         } catch (Exception $objException) {
             $this->customRenderJsonResponse([
                 'error' => [
-                    'code' => 404,
+                    'code' => 412,
                     'message' => $objException->getMessage()
                 ]
-            ], 404);
+            ], 412);
 
         }
     }

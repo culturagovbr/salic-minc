@@ -250,7 +250,7 @@ export default {
             { text: 'Dt. de Recebimento', value: 'DtDistribuicao', width: '2' },
             { text: 'Diligência', width: '2', value: 'stDiligencia' },
             {
-                text: 'Ações', align: 'center', value: 'idProduto', sortable: false,
+                text: 'Ações', align: 'left', value: 'siAnalise',
             },
         ],
         search: '',
