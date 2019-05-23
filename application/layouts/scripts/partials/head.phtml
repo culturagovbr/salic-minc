@@ -41,19 +41,35 @@
     $arrCssFiles = array();
     if ($configLayout->resources->css->global->files) {
         foreach ($configLayout->resources->css->global->files as $arrCssValues ) {
-            $arrCssFiles[] = $arrCssValues;
+            $arrCssFiles[] = [
+                'file' => $arrCssValues,
+                'media' => 'all'
+            ];
         }
     }
+
+    if ($configLayout->resources->css->print->files) {
+        foreach ($configLayout->resources->css->print->files as $arrCssValues ) {
+            $arrCssFiles[] = [
+                'file' => $arrCssValues,
+                'media' => 'print'
+            ];
+        }
+    }
+
     if ($configLayout->resources->css->files) {
         foreach ($configLayout->resources->css->files as $arrCssValues ) {
-            $arrCssFiles[] = $arrCssValues;
+            $arrCssFiles[] = [
+                'file' => $arrCssValues,
+                'media' => 'all'
+            ];
         }
     }
 //    $arrCssFiles = array_reverse($arrCssFiles);
     foreach ($arrCssFiles as $arrCssValue) {
         $this->headLink()->appendStylesheet(
-            $configLayout->resources->css->path . '/' . $arrCssValue . $gitTag,
-            'all',
+            $configLayout->resources->css->path . '/' . $arrCssValue['file'] . $gitTag,
+            $arrCssValue['media'],
             true,
             array('rel' => 'stylesheet')
         );
