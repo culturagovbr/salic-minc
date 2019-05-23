@@ -2306,33 +2306,33 @@ class Projetos extends MinC_Db_Table_Abstract
 
         $returnData['enquadramento'] = $this->enquadramentoProjeto($idpronac);
 
-        $select2 = $this->select();
-        $select2->setIntegrityCheck(false);
-        $select2->from(
-            array('p' => 'vwPlanoDeDistribuicaoProduto'),
-            array(
-                'p.idProjeto',
-                'p.IdPRONAC',
-                'p.idProduto',
-                'p.Produto',
-                'p.tpProduto',
-                'p.QtdeProduzida',
-                'p.QtdeDistribuicaoGratuita',
-                'p.QtdeVendaPopular',
-                'p.QtdeVendaProponente',
-                'p.PrecoMedio',
-                'p.ReceitaTotal',
-                'p.vlProduto'
-            )
-        );
-        $select2->where("p.idPronac = ?", $idpronac);
-        $returnData['produtos'] = $this->fetchAll($select2);
+//        $select2 = $this->select();
+//        $select2->setIntegrityCheck(false);
+//        $select2->from(
+//            array('p' => 'vwPlanoDeDistribuicaoProduto'),
+//            array(
+//                'p.idProjeto',
+//                'p.IdPRONAC',
+//                'p.idProduto',
+//                'p.Produto',
+//                'p.tpProduto',
+//                'p.QtdeProduzida',
+//                'p.QtdeDistribuicaoGratuita',
+//                'p.QtdeVendaPopular',
+//                'p.QtdeVendaProponente',
+//                'p.PrecoMedio',
+//                'p.ReceitaTotal',
+//                'p.vlProduto'
+//            )
+//        );
+//        $select2->where("p.idPronac = ?", $idpronac);
+//        $returnData['produtos'] = $this->fetchAll($select2);
 
 
-        $db = Zend_Db_Table::getDefaultAdapter();
-        $sql = "exec " . $this->_schema . ".spDiligenciasEnviadasAoProjeto " . $idpronac;
-        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
-        $returnData['diligencias'] = $db->fetchAll($sql);
+//        $db = Zend_Db_Table::getDefaultAdapter();
+//        $sql = "exec " . $this->_schema . ".spDiligenciasEnviadasAoProjeto " . $idpronac;
+//        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+//        $returnData['diligencias'] = $db->fetchAll($sql);
 
 
         $select3 = $this->select();

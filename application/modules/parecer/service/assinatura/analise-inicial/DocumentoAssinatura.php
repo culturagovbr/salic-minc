@@ -144,14 +144,14 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
         $projetos = new \Projetos();
         $dadosProjeto = $projetos->assinarParecerTecnico($this->idPronac);
         $view->dadosEnquadramento = $dadosProjeto['enquadramento'];
-        $view->dadosProdutos = $dadosProjeto['produtos'];
-        $view->dadosDiligencias = $dadosProjeto['diligencias'];
-        $fnVerificarProjetoAprovadoIN2017 = new \fnVerificarProjetoAprovadoIN2017();
-        $view->IN2017 = $fnVerificarProjetoAprovadoIN2017->verificar($this->idPronac);
-
-        if ($view->IN2017) {
-            $view->dadosAlcance = $dadosProjeto['alcance'][0];
-        }
+//        $view->dadosProdutos = $dadosProjeto['produtos'];
+//        $view->dadosDiligencias = $dadosProjeto['diligencias'];
+//        $fnVerificarProjetoAprovadoIN2017 = new \fnVerificarProjetoAprovadoIN2017();
+//        $view->IN2017 = $fnVerificarProjetoAprovadoIN2017->verificar($this->idPronac);
+//
+//        if ($view->IN2017) {
+//            $view->dadosAlcance = $dadosProjeto['alcance'][0];
+//        }
 
         $view->dadosParecer = $dadosProjeto['parecer'];
 
