@@ -32,8 +32,9 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         $this->auth = \Zend_Auth::getInstance()->getIdentity();
         $this->idUsuario = $this->auth->usu_codigo;
 
-        $GrupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
-        $this->idOrgao = $GrupoAtivo->codOrgao;
+        $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
+        $this->idOrgao = $grupoAtivo->codOrgao;
+        $this->idGrupo = $grupoAtivo->codGrupo;
 
         $tbUsuario = new \Autenticacao_Model_DbTable_Usuario();
         $usuario = $tbUsuario->getIdUsuario($this->idUsuario);
@@ -105,20 +106,23 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         $produto = $projeto->buscaProjetosProdutosParaAnalise(
             [
                 'distribuirParecer.idProduto = ?' => $id,
+                'distribuirParecer.siEncaminhamento = ?' => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
                 'projeto.IdPRONAC = ?' => $idPronac,
             ]
-        )->current()->toArray();
+        )->current();
 
-        $produto['stDiligencia'] = $this->definirStatusDiligencia($produto);
-        $produto['diasEmDiligencia'] = $this->obterTempoDiligencia($produto);
-        $produto['diasEmAvaliacao'] = $this->obterTempoRestanteDeAvaliacao($produto);
+        if ($produto) {
+            $produto = $produto->toArray();
+            $produto['stDiligencia'] = $this->definirStatusDiligencia($produto);
+            $produto['diasEmDiligencia'] = $this->obterTempoDiligencia($produto);
+            $produto['diasEmAvaliacao'] = $this->obterTempoRestanteDeAvaliacao($produto);
 
-        if ($produto['stPrincipal']
-            && $produto['siAnalise'] == \Parecer_Model_TbDistribuirParecer::SI_ANALISE_ANALISADO) {
-            $produto['idDocumentoAssinatura'] = $this->getIdDocumentoAssinatura($idPronac);
+            if ($produto['stPrincipal']
+                && $produto['siAnalise'] == \Parecer_Model_TbDistribuirParecer::SI_ANALISE_ANALISADO) {
+                $produto['idDocumentoAssinatura'] = $this->getIdDocumentoAssinatura($idPronac);
+            }
         }
-
-        return \TratarArray::utf8EncodeArray($produto);
+        return  \TratarArray::utf8EncodeArray($produto);
 
     }
 
@@ -163,26 +167,12 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
                 throw new \Exception("An&aacute;lise de custos: existem itens obrigat&oacute;rios da planilha que não foram avaliados!");
             }
 
-            if ($isProdutoPrincipal) {
-                if ($this->isProdutosSecundariosNaoAnalisados($distribuicao->IdPRONAC, $distribuicao->idProduto)) {
-                    throw new \Exception("Existem produtos secund&aacute;rios aguardando an&aacute;lise!");
-                }
-
-                if (!$this->isProjetoSemParecer($distribuicao->IdPRONAC)) {
-                    throw new \Exception("A consolida&ccedil;&atilde;o do projeto &eacute; obrigat&oacute;ria");
-                }
-
-//            if (!$this->isProjetoDisponivelParaAssinatura($distribuicao->IdPRONAC)) {
-//                throw new \Exception("Projeto n&atilde;o dispon&iacute;vel para assinatura");
-//            }
-            }
-
             $dados = [
                 'idOrgao' => $distribuicao->idOrgao,
                 'DtEnvio' => $distribuicao->DtEnvio,
                 'idAgenteParecerista' => $distribuicao->idAgenteParecerista,
                 'DtDistribuicao' => $distribuicao->DtDistribuicao,
-                'DtDevolucao' => \MinC_Db_Expr::date(),
+                'DtDevolucao' => null,
                 'DtRetorno' => null,
                 'FecharAnalise' => $distribuicao->FecharAnalise,
                 'Observacao' => '',
@@ -193,13 +183,32 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
                 'stEstado' => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO,
                 'stPrincipal' => $distribuicao->stPrincipal,
                 'stDiligenciado' => null,
-                'siEncaminhamento' => \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA,
-                'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_VALIDACAO
+                'siEncaminhamento' => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
+                'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_ANALISADO
             ];
 
+            if (!$isProdutoPrincipal
+                && !$this->isPareceristaComProdutoPrincipal($distribuicao->IdPRONAC, $distribuicao->idAgenteParecerista)) {
+                $dados['siEncaminhamento'] = \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA;
+                $dados['siAnalise'] = \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_VALIDACAO;
+                $dados['DtDevolucao'] = \MinC_Db_Expr::date();
+            }
+
             if ($isProdutoPrincipal) {
-                $dados['siEncaminhamento'] = \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA;
-                $dados['siAnalise'] = \Parecer_Model_TbDistribuirParecer::SI_ANALISE_ANALISADO;
+
+                if ($this->isProdutosSecundariosNaoAnalisados($distribuicao->IdPRONAC)) {
+                    throw new \Exception("Existem produtos secund&aacute;rios aguardando an&aacute;lise!");
+                }
+
+                if (!$this->isProjetoSemParecer($distribuicao->IdPRONAC)) {
+                    throw new \Exception("A consolida&ccedil;&atilde;o do projeto &eacute; obrigat&oacute;ria");
+                }
+
+//            if (!$this->isProjetoDisponivelParaAssinatura($distribuicao->IdPRONAC)) {
+//                throw new \Exception("Projeto n&atilde;o dispon&iacute;vel para assinatura");
+//            }
+
+
                 $this->iniciarAssinatura($distribuicao->IdPRONAC);
             }
 
@@ -251,7 +260,6 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         return $tbDistribuirParecer->dadosParaDistribuir($dadosWhere)->toArray();
     }
 
-
     private function isProdutoComDiligenciaAberta($idPronac, $idProduto)
     {
         $where = [
@@ -279,18 +287,15 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         return (strlen(trim($parecerDeConteudo)) == 0);
     }
 
-    private function getOutrosProdutos($idPronac, $idProduto = null)
+    private function getProdutosSecundariosNaoAnalisados($idPronac)
     {
         $where = [
-            "stEstado = ?" => 0,
-            "siEncaminhamento = ?" => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
             "IdPRONAC = ?" => $idPronac,
+            "stEstado = ?" => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO,
             "stPrincipal = ?" => 0,
+            "siEncaminhamento = ?" => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
+            "siAnalise <> ?" => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_FINALIZADO,
         ];
-
-        if ($idProduto) {
-            $where['idProduto != ?'] = $idProduto;
-        }
 
         $tbDistribuirParecerDAO = new \Parecer_Model_DbTable_TbDistribuirParecer();
         return $tbDistribuirParecerDAO->findAll($where);
@@ -298,28 +303,25 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
 
     private function isProdutosSecundariosNaoAnalisados($idPronac)
     {
-        $produtosAtivos = $this->getProdutosSecundarios($idPronac);
+        $produtosSecundariosAtivos = $this->getProdutosSecundariosNaoAnalisados($idPronac);
 
-        return (count($produtosAtivos) > 0);
+        return (count($produtosSecundariosAtivos) > 0);
     }
 
-    private function isProdutosSecundariosComOParecerista($idPronac, $idProduto = null)
+    private function isPareceristaComProdutoPrincipal($idPronac, $idAgenteParecerista)
     {
         $where = [
-            "stEstado = ?" => 0,
-            "FecharAnalise = ?" => 0,
-            "TipoAnalise = ?" => 3,
-            "IdPRONAC = ?" => $idPronac,
-            "stPrincipal = ?" => 0,
-            "DtDevolucao is null" => ''
+            "idPronac = ?" => $idPronac,
+            "idAgenteParecerista = ?" => $idAgenteParecerista,
+            "siEncaminhamento = ?" => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
+            "stEstado = ?" => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO,
+            "stPrincipal = ?" => 1
         ];
 
-        if ($idProduto) {
-            $where['idProduto = ?'] = $idProduto;
-        }
-
         $tbDistribuirParecerDAO = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        $produtosSecundariosAtivos = $tbDistribuirParecerDAO->findAll($where);
+        $produtoPrincipal = $tbDistribuirParecerDAO->findBy($where);
+
+        return !empty($produtoPrincipal);
     }
 
     private function isItemDeCustosNaoAvaliados($idPronac, $idProduto)

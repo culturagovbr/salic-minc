@@ -29,8 +29,9 @@ class AnaliseConteudo implements \MinC\Servico\IServicoRestZend
         $this->auth = \Zend_Auth::getInstance()->getIdentity();
         $this->idUsuario = $this->auth->usu_codigo;
 
-        $GrupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
-        $this->idOrgao = $GrupoAtivo->codOrgao;
+        $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
+        $this->idOrgao = $grupoAtivo->codOrgao;
+        $this->idGrupo = $grupoAtivo->codGrupo;
 
         $tbUsuario = new \Autenticacao_Model_DbTable_Usuario();
         $usuario = $tbUsuario->getIdUsuario($this->idUsuario);

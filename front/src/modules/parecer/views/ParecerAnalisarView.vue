@@ -282,12 +282,14 @@ export default {
             analiseConteudo: 'parecer/getAnaliseConteudo',
         }),
         isDisponivelParaAnalise() {
-            return !!this.produto && this.produto.FecharAnalise === '0';
+            return !!this.produto
+                && this.produto.siEncaminhamento === 4
+                && this.produto.siAnalise !== 2;
         },
         isDisponivelParaAssinatura() {
             return this.produto
-                && this.produto.FecharAnalise === '4'
-                && this.produto.stPrincipal === 1
+                && this.produto.siEncaminhamento === 4
+                && this.produto.siAnalise === 2
                 && this.produto.idDocumentoAssinatura;
         },
     },
