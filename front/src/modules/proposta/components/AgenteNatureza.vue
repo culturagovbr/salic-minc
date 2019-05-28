@@ -50,7 +50,7 @@ export default {
     mixins: [utils],
     props: {
         natureza: {
-            type: Object,
+            type: [Object, Array],
             default: () => {},
         },
     },

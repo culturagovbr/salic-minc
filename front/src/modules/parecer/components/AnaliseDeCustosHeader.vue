@@ -73,7 +73,7 @@
                                 icon
                                 @click="dialog = !dialog"
                             >
-                                <v-icon>restore</v-icon>
+                                <v-icon>settings_backup_restore</v-icon>
                             </v-btn>
                             <span>Restaurar planilha original</span>
                         </v-tooltip>

@@ -13,8 +13,8 @@
             focusable
         >
             <v-expansion-panel-content>
-                <v-layout slot="header">
-                    <v-icon class="mr-2">
+                <v-layout slot="header" class="primary--text">
+                    <v-icon class="mr-2 primary--text">
                         assignment
                     </v-icon>
                     <span v-if="dados.PRONAC">
@@ -33,8 +33,8 @@
                 v-for="(item, index) of items"
                 :key="index"
             >
-                <v-layout slot="header">
-                    <v-icon class="mr-2">
+                <v-layout slot="header" class="primary--text">
+                    <v-icon class="mr-2 primary--text">
                         {{ item.icon }}
                     </v-icon>
                     <span v-html="item.label " />
@@ -174,14 +174,14 @@ export default {
                 },
                 {
                     label: 'Especifica&ccedil;&otilde;es t&eacute;cnicas do produto',
-                    icon: 'assignment_turned_in',
+                    icon: 'assignment',
                     component: 'proposta-texto',
                     class: '',
                     value: 'EspecificacaoTecnica',
                 },
                 {
                     label: 'Sinopse de Obra',
-                    icon: 'subject',
+                    icon: 'burst_mode',
                     component: 'proposta-texto',
                     class: '',
                     value: 'Sinopse',
@@ -202,7 +202,7 @@ export default {
                 },
                 {
                     label: 'Descri&ccedil;&atilde;o de Atividades',
-                    icon: 'subject',
+                    icon: 'timeline',
                     component: 'proposta-texto',
                     class: '',
                     value: 'DescricaoAtividade',
