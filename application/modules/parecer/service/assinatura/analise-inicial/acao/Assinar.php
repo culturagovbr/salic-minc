@@ -26,9 +26,9 @@ class Assinar implements IAcaoAssinar
             ];
 
             $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-            $tbDistribuirParecer->alterar($dados, $where);
-
             $distribuicao  = $tbDistribuirParecer->findBy($where);
+
+            $tbDistribuirParecer->alterar($dados, $where);
 
             $this->finalizarOutrosProdutosDoParecerista(
                 $modeloTbAssinatura->getIdPronac(),
@@ -40,19 +40,19 @@ class Assinar implements IAcaoAssinar
     private function finalizarOutrosProdutosDoParecerista($idPronac, $idAgenteParecerista)
     {
         $where = [
-            "t.idPronac = ?" => $idPronac,
-            "t.idAgenteParecerista = ?" => $idAgenteParecerista,
-            "t.stEstado = ?" => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO,
-            "t.siEncaminhamento = ?" => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
-            "t.siAnalise = ?" => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_FINALIZADO,
-            "t.stPrincipal = ?" => 0
+            "idPronac = ?" => $idPronac,
+            "idAgenteParecerista = ?" => $idAgenteParecerista,
+            "stEstado = ?" => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO,
+            "siEncaminhamento = ?" => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
+            "siAnalise = ?" => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_FINALIZADO,
+            "stPrincipal = ?" => 0
         ];
 
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        $produtos = $tbDistribuirParecer->dadosParaDistribuir($where);
+        $produtos = $tbDistribuirParecer->findAll($where);
 
         foreach ($produtos as $produto) {
-            $where = ['idDistribuirParecer = ?' => $produto->idDistribuirParecer];
+            $where = ['idDistribuirParecer = ?' => $produto['idDistribuirParecer']];
             $dados = [
                 'siEncaminhamento' => \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA,
                 'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_VALIDACAO,
