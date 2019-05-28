@@ -141,7 +141,7 @@ export const restaurarPlanilhaProduto = async ({ dispatch }, params) => parecerH
 
 export const finalizarAnalise = async ({ dispatch }, data) => parecerHelperAPI.finalizarAnalise(data)
     .then((response) => {
-        dispatch('parecerMensagemSucesso', 'Salvo com sucesso!');
+        dispatch('parecerMensagemSucesso', response.data.message);
         dispatch('obterProdutoParaAnalise', {
             id: data.idProduto,
             idPronac: data.idPronac,

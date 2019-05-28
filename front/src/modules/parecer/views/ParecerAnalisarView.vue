@@ -175,7 +175,7 @@
             </v-stepper>
             <s-mensagem
                 v-else-if="isDisponivelParaAssinatura"
-                :url-retorno="`/assinatura/index/visualizar-projeto?idDocumentoAssinatura=${produto.idDocumentoAssinatura}`"
+                :url-retorno="`${urlAssinatura}?idDocumentoAssinatura=${produto.idDocumentoAssinatura}&${retornoAssinatura.toString()}`"
                 texto="Você concluiu a análise do produto.
                 Para finalizar a análise do projeto você deverá assinar o documento com o parecer!"
                 msg-url-retorno="Ir para o documento"
@@ -234,6 +234,8 @@ export default {
         loadingProduto: true,
         dialogHistorico: false,
         produtoHistorico: {},
+        urlAssinatura: '/assinatura/index/visualizar-projeto',
+        retornoAssinatura: `origin=${encodeURIComponent('#/parecer/analise-inicial')}`,
         arraySteps: [
             {
                 id: 1,
@@ -305,7 +307,7 @@ export default {
                 this.loadingProduto = false;
             }
 
-            if (typeof val === 'undefined') {
+            if (typeof val === 'undefined' || !val) {
                 this.loadingProduto = false;
             }
         },

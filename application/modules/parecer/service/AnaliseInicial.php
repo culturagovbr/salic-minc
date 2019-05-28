@@ -169,6 +169,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
 
             $dados = [
                 'idOrgao' => $distribuicao->idOrgao,
+                'idOrgaoOrigem' => $distribuicao->idOrgaoOrigem,
                 'DtEnvio' => $distribuicao->DtEnvio,
                 'idAgenteParecerista' => $distribuicao->idAgenteParecerista,
                 'DtDistribuicao' => $distribuicao->DtDistribuicao,

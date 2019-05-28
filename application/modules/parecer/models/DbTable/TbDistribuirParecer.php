@@ -561,6 +561,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                 "t.idProduto",
                 "t.idDistribuirParecer",
                 "t.idOrgao",
+                "t.idOrgaoOrigem",
                 "t.DtDevolucao",
                 "t.DtEnvio",
                 "t.idAgenteParecerista",

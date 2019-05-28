@@ -278,10 +278,16 @@ export default {
                 situacao: this.produto.situacao,
             };
             this.loadingButton = true;
-
-            this.finalizarAnalise(analise).finally(() => {
-                this.loadingButton = false;
-            });
+            const { produto } = this;
+            this.finalizarAnalise(analise)
+                .then(() => {
+                    if (produto.stPrincipal === 0) {
+                        this.$router.push({ name: 'parecer-listar-view' });
+                    }
+                })
+                .finally(() => {
+                    this.loadingButton = false;
+                });
         },
     },
 };
