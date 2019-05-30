@@ -61,7 +61,10 @@
                         </v-chip>
                     </template>
                     <template slot-scope="slotProps">
-                        <s-analise-de-custos-planilha-itens :table="slotProps.itens" />
+                        <s-analise-de-custos-planilha-itens
+                            :table="slotProps.itens"
+                            :select-all="habilitarModoSelecao"
+                        />
                     </template>
                 </s-planilha>
             </div>
@@ -159,6 +162,9 @@ export default {
         },
         mostrarListagem() {
             return this.isOptionActive(2);
+        },
+        habilitarModoSelecao() {
+            return this.isOptionActive(3);
         },
     },
     watch: {

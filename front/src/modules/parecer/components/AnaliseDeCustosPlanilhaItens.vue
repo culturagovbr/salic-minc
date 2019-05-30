@@ -8,7 +8,7 @@
             :loading="loading"
             item-key="idPlanilhaProjeto"
             class="elevation-1"
-            select-all
+            :select-all="selectAll"
             hide-actions
         >
             <v-progress-linear
@@ -26,7 +26,7 @@
                     class="teste-1"
                     @click="props.expanded = editarItem(props)"
                 >
-                    <td class="text-xs-right">
+                    <td class="text-xs-right" v-if="selectAll">
                         <v-checkbox
                             v-model="props.selected"
                             primary
@@ -416,6 +416,10 @@ export default {
         table: {
             type: Array,
             required: true,
+        },
+        selectAll: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {

@@ -114,12 +114,10 @@ import PropostaLocalRealizacaoDeslocamento from './components/PropostaLocalReali
 import PropostaCustosVinculados from './components/PropostaCustosVinculados';
 import PropostaProponente from './components/PropostaProponente';
 import PropostaPlanilha from './components/PropostaPlanilha';
-import PropostaButtons from '@/modules/proposta/visualizar/components/PropostaButtons';
 
 export default {
     name: 'Proposta',
     components: {
-        PropostaButtons,
         PropostaIdentificacao,
         PropostaHistoricoAvaliacoes,
         PropostaHistoricoSugestoesEnquadramento,

@@ -46,6 +46,17 @@
                         Apenas itens
                     </span>
                 </v-tooltip>
+                <v-tooltip bottom>
+                    <v-btn
+                        slot="activator"
+                        flat
+                    >
+                        <v-icon>select_all</v-icon>
+                    </v-btn>
+                    <span>
+                        Habilitar modo seleção
+                    </span>
+                </v-tooltip>
             </v-btn-toggle>
         </v-flex>
     </v-container>
