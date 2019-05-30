@@ -7,13 +7,46 @@
             v-if="loading"
             :text="'Carregando proposta'"
         />
+        <v-container
+            v-if="!loading"
+            fluid
+            class="pa-0"
+        >
+            <v-flex
+                xs12
+                sm12
+                class="py-2 text-xs-right"
+            >
+                <v-tooltip
+                    bottom
+                >
+                    <v-btn
+                        slot="activator"
+                        color="grey lighten-3"
+                        icon
+                        small
+                        @click="ordernarLista()"
+                    >
+                        <v-icon
+                            color="blue-grey darken-5"
+                        >
+                            sort_by_alpha
+                        </v-icon>
+                    </v-btn>
+                    <span> Ordenar lista de itens </span>
+                </v-tooltip>
+            </v-flex>
+        </v-container>
         <v-expansion-panel
             v-show="!loading"
             expand
             focusable
         >
             <v-expansion-panel-content>
-                <v-layout slot="header" class="primary--text">
+                <v-layout
+                    slot="header"
+                    class="primary--text"
+                >
                     <v-icon class="mr-2 primary--text">
                         assignment
                     </v-icon>
@@ -33,7 +66,10 @@
                 v-for="(item, index) of items"
                 :key="index"
             >
-                <v-layout slot="header" class="primary--text">
+                <v-layout
+                    slot="header"
+                    class="primary--text"
+                >
                     <v-icon class="mr-2 primary--text">
                         {{ item.icon }}
                     </v-icon>
@@ -61,6 +97,7 @@
 </template>
 
 <script>
+
 import { mapActions, mapGetters } from 'vuex';
 
 import Carregando from '@/components/CarregandoVuetify';
@@ -77,10 +114,12 @@ import PropostaLocalRealizacaoDeslocamento from './components/PropostaLocalReali
 import PropostaCustosVinculados from './components/PropostaCustosVinculados';
 import PropostaProponente from './components/PropostaProponente';
 import PropostaPlanilha from './components/PropostaPlanilha';
+import PropostaButtons from '@/modules/proposta/visualizar/components/PropostaButtons';
 
 export default {
     name: 'Proposta',
     components: {
+        PropostaButtons,
         PropostaIdentificacao,
         PropostaHistoricoAvaliacoes,
         PropostaHistoricoSugestoesEnquadramento,
@@ -103,7 +142,8 @@ export default {
         },
         proposta: {
             type: Object,
-            default: () => {},
+            default: () => {
+            },
         },
     },
     data() {
@@ -115,6 +155,8 @@ export default {
                 },
             },
             loading: true,
+            order: 'desc',
+            opcoesDeVisualizacao: [0],
             items: [
                 {
                     label: 'Hist&oacute;rico de avalia&ccedil;&otilde;es',
@@ -256,6 +298,9 @@ export default {
         ...mapGetters({
             dadosProposta: 'proposta/proposta',
         }),
+        ordernar() {
+            return this.obterOpcaoAtiva(1);
+        },
     },
     watch: {
         dadosProposta(value) {
@@ -270,7 +315,7 @@ export default {
     },
     mounted() {
         if (this.idpreprojeto !== ''
-            && typeof this.proposta === 'undefined') {
+                && typeof this.proposta === 'undefined') {
             this.buscarDadosProposta(this.idpreprojeto);
             this.dados = this.dadosProposta;
         }
@@ -284,6 +329,14 @@ export default {
         ...mapActions({
             buscarDadosProposta: 'proposta/buscarDadosProposta',
         }),
+        ordernarLista() {
+            // this.items. (this.compare;
+            this.order = this.order === 'desc' ? 'asc' : 'desc';
+            this.items = _.orderBy(this.items, ['label'], [this.order]);
+        },
+        obterOpcaoAtiva(index) {
+            return this.opcoesDeVisualizacao.includes(index);
+        },
     },
 };
 </script>
