@@ -29,7 +29,6 @@ export const obterProdutoParaAnalise = (params) => {
     return api.getRequest(`${module}${controller}${queryParams}`);
 };
 
-
 export const obterAnaliseConteudo = (params) => {
     const module = '/parecer';
     const controller = '/analise-inicial-conteudo-rest';
@@ -40,7 +39,6 @@ export const obterAnaliseConteudo = (params) => {
 
     return api.getRequest(`${module}${controller}${queryParams}`);
 };
-
 export const salvarAnaliseConteudo = params => api.postRequest('/parecer/analise-inicial-conteudo-rest/', buildData(params));
 
 export const obterPlanilhaParaAnalise = (params) => {
@@ -98,3 +96,13 @@ export const obterHistoricoProduto = (params) => {
 };
 
 export const salvarDeclaracaoImpedimento = params => api.postRequest('/parecer/analise-inicial-impedimento-rest', buildData(params));
+
+export const buscarProdutosParaGerenciar = (params) => {
+    const module = '/parecer';
+    const controller = '/gerenciar-parecer-rest';
+    const action = '/index';
+    const filtro = `filtro=${params.filtro}`;
+    const queryParams = `?${filtro}`;
+
+    return api.getRequest(`${module}${controller}${action}${queryParams}`);
+};

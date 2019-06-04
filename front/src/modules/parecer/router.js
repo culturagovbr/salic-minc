@@ -4,13 +4,15 @@ import AnaliseConsolidacao from './components/AnaliseConsolidacao';
 import AnaliseFinalizacao from './components/AnaliseFinalizacao';
 
 const ParecerAnalisarView = () => import(/* webpackChunkName: "parecer-analisar-view" */ './views/ParecerAnalisarView');
-const ParecerListarView = () => import(/* webpackChunkName: "parecer-listar-view" */ './views/ParecerListarView');
+const ParecerAnalisarListaView = () => import(/* webpackChunkName: "parecer-listar-view" */ './views/ParecerAnalisarListaView');
+const ParecerGerenciarListaView = () => import(/* webpackChunkName: "parecer-listar-view" */ './views/ParecerGerenciarListaView');
+const ParecerGerenciarVisualizarView = () => import(/* webpackChunkName: "parecer-listar-view" */ './views/ParecerGerenciarVisualizarView');
 
 export default [
     {
         path: '/parecer/analise-inicial',
         name: 'parecer-listar-view',
-        component: ParecerListarView,
+        component: ParecerAnalisarListaView,
         meta: {
             title: 'Produtos para análise',
         },
@@ -43,5 +45,21 @@ export default [
                 component: AnaliseFinalizacao,
             },
         ],
+    },
+    {
+        path: '/parecer/gerenciar',
+        name: 'parecer-gerenciar-listar-view',
+        component: ParecerGerenciarListaView,
+        meta: {
+            title: 'Produtos para análise',
+        },
+    },
+    {
+        path: '/parecer/gerenciar/produto/:id/:idPronac/:produtoPrincipal',
+        name: 'parecer-gerenciar-visualizar-view',
+        component: ParecerGerenciarVisualizarView,
+        meta: {
+            title: 'Análise Produto',
+        },
     },
 ];

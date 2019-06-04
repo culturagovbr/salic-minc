@@ -183,3 +183,11 @@ export const salvarDeclaracaoImpedimento = async ({ dispatch }, params) => parec
         dispatch('parecerMensagemErro', e.response.data.error.message);
         throw new TypeError(e.response.data.error.message, 'declaracaoImpedimento', 10);
     });
+
+export const obterProdutosParaGerenciar = ({ commit }, params) => {
+    parecerHelperAPI.buscarProdutosParaGerenciar(params)
+        .then((response) => {
+            commit(types.SET_PRODUTOS, response.data.items);
+            return response.data;
+        });
+};
