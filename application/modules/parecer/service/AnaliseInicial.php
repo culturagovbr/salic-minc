@@ -106,7 +106,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         $produto = $projeto->buscaProjetosProdutosParaAnalise(
             [
                 'distribuirParecer.idProduto = ?' => $id,
-                'distribuirParecer.siEncaminhamento = ?' => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
+//                'distribuirParecer.siEncaminhamento = ?' => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
                 'projeto.IdPRONAC = ?' => $idPronac,
             ]
         )->current();

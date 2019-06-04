@@ -1713,7 +1713,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
 
 
     /**
-     * M�todo que lista os projetos na tela inicial do UC 103 ( Gerenciar Parecerer )
+     * Metodo que lista os projetos na tela inicial do UC 103 ( Gerenciar Parecerer )
      * @param Int
      * @return List
      */
@@ -1725,7 +1725,6 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
 
         switch ($tipoFiltro) {
             case 'aguardando_distribuicao':
-
                 $slct->from(
                     array('dbo.vwPainelCoordenadorVinculadasAguardandoAnalise'),
                     array('IdPRONAC',
@@ -2012,6 +2011,328 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         }
     }
 
+    public function obterPainelGerenciarParecer(
+        $tipoFiltro = 'aguardando_distribuicao',
+        $where = [],
+        $order = [],
+        $tamanho = -1,
+        $inicio = -1,
+        $qtdeTotal = false
+    )
+    {
+        $from = "";
+        $slct = $this->select();
+        $slct->setIntegrityCheck(false);
+
+        switch ($tipoFiltro) {
+            case 'aguardando_distribuicao':
+                $slct->from(
+                    array('dbo.vwPainelAguardandoDistribuicaoAnaliseTecnica'),
+                    [
+                        'IdPronac as idPronac',
+                        'NrProjeto as PRONAC',
+                        'NomeProjeto as nomeProjeto',
+                        'idProduto',
+                        'Produto as produto',
+                        'stPrincipal',
+                        'idArea',
+                        'Area as area',
+                        'idSegmento',
+                        'Segmento as segmento',
+                        'idDistribuirParecer',
+                        'idOrgao',
+                        'idOrgaoOrigem',
+                        'FecharAnalise as fecharAnalise',
+                        'DtEnvioMincVinculada as dtEnvioMincVinculada ',
+                        'qtDiasDistribuir as qtDiasDistribuir',
+                        'QtdeSecundarios as qtdeSecundarios',
+                        'Valor as valor',
+                        'siAnalise',
+                        'siEncaminhamento'
+                    ]
+                );
+                $from = ' FROM sac.dbo.vwPainelAguardandoDistribuicaoAnaliseTecnica';
+                break;
+            case 'em_analise':
+                $slct->from(
+                    array('dbo.vwPainelEmValidacao'),
+                    [
+                        'IdPRONAC as idPronac',
+                        'IdPRONAC',
+                        'NrProjeto as PRONAC',
+                        'NomeProjeto as nomeProjeto',
+                        'idProduto',
+                        'Produto as produto',
+                        'idArea',
+                        'Area as area',
+                        'idSegmento',
+                        'Segmento as segmento',
+                        'idDistribuirParecer',
+                        'Parecerista as parecerista',
+                        'idOrgao',
+                        'idOrgaoOrigem',
+                        'siAnalise',
+                        'siEncaminhamento',
+                        'DtEnvioMincVinculada as dtEnvioMincVinculada',
+                        'DtDistribuicao as dtDistribuicao',
+                        'DtDevolucao as dtDevolucao',
+                        'TempoTotalAnalise as tempoTotalAnalise',
+                        'TempoParecerista as tempoParecerista',
+                        'TempoDiligencia as tempoDiligencia',
+                        'qtDiligenciaProduto',
+                        'Valor as valor',
+                        'Obs as observacao',
+                        'TecnicoValidador as tecnicoValidador',
+                        'dtValidacao',
+                        'stPrincipal',
+                        'FecharAnalise as fecharAnalise'
+                    ]
+                );
+                $from = ' FROM sac.dbo.vwPainelEmValidacao';
+                break;
+            case 'em_validacao':
+
+                $slct->from(
+                    array('dbo.vwPainelCoordenadorVinculadasEmValidacao'),
+                    array(
+                        'IdPRONAC as idPronac',
+                        'NrProjeto as PRONAC',
+                        'NomeProjeto as nomeProjeto',
+                        'idProduto',
+                        'Produto as produto',
+                        'stPrincipal',
+                        'idArea',
+                        'Area as area',
+                        'idSegmento',
+                        'Segmento as segmento',
+                        'idDistribuirParecer',
+                        'Parecerista as parecerista',
+                        'idOrgao',
+                        'FecharAnalise as fecharAnalise',
+                        'DtEnvioMincVinculada as dtEnvioMincVinculada',
+                        'DtDistribuicao as dtDistribuicao',
+                        'DtDevolucao as dtDevolucao',
+                        'TempoTotalAnalise as tempoTotalAnalise',
+                        'TempoParecerista as tempoParecerista',
+                        'TempoDiligencia as tempoDiligencia',
+                        'qtDiligenciaProduto',
+                        'Valor as valor'
+                    )
+                );
+
+                $from = ' FROM sac.dbo.vwPainelCoordenadorVinculadasEmValidacao';
+                break;
+            case 'validados':
+
+                $slct->from(
+                    array('dbo.vwPainelValidados'),
+                    array(
+                        'IdPRONAC as idPronac',
+                        'NrProjeto as pronac',
+                        'NomeProjeto as nomeProjeto',
+                        'idProduto',
+                        'Produto as produto',
+                        'idArea as idArea',
+                        'Area as area',
+                        'idSegmento',
+                        'Segmento as segmento',
+                        'idDistribuirParecer',
+                        'Parecerista as parecerista',
+                        'idOrgao',
+                        'idOrgaoOrigem',
+                        'siAnalise',
+                        'siEncaminhamento',
+                        'DtEnvioMincVinculada as dtEnvioMincVinculada',
+                        'DtDistribuicao as dtDistribuicao',
+                        'DtDevolucao as dtDevolucao',
+                        'TempoTotalAnalise as dtDevolucao',
+                        'TempoParecerista as tempoParecerista',
+                        'TempoDiligencia as tempoDiligencia',
+                        'qtDiligenciaProduto as qtDiligenciaProduto',
+                        'Valor as valor',
+                        'Obs as observacao',
+                        'stPrincipal',
+                        'FecharAnalise as fecharAnalise',
+                        'TecnicoValidador as tecnicoValidador',
+                        'dtValidacao'
+                    )
+                );
+
+                $from = ' FROM sac.dbo.vwPainelValidados';
+                break;
+
+            case 'presidente_vinculadas':
+
+                $slct->from(
+                    array('dbo.vwPainelPresidenteVinculadas'),
+                    array('IdPRONAC',
+                        'NrProjeto',
+                        'NomeProjeto',
+                        'idProduto',
+                        'stPrincipal',
+                        'idArea',
+                        'Area',
+                        'idSegmento',
+                        'Segmento',
+                        'idDistribuirParecer',
+                        'Parecerista',
+                        'idOrgao',
+                        'Valor',
+                        'FecharAnalise',
+                        'TecnicoValidador',
+                        'dtValidacao')
+                );
+
+                $from = ' FROM sac.dbo.vwPainelPresidenteVinculadas';
+                break;
+
+            case 'superintendente_vinculadas':
+
+                $slct->from(
+                    array('dbo.vwPainelSuperintendenteVinculadas'),
+                    array('IdPRONAC',
+                        'NrProjeto',
+                        'NomeProjeto',
+                        'idProduto',
+                        'stPrincipal',
+                        'idArea',
+                        'Area',
+                        'idSegmento',
+                        'Segmento',
+                        'idDistribuirParecer',
+                        'Parecerista',
+                        'idOrgao',
+                        'Valor',
+                        'FecharAnalise',
+                        'TecnicoValidador',
+                        'dtValidacao')
+                );
+
+                $from = ' FROM sac.dbo.vwPainelSuperintendenteVinculadas';
+                break;
+
+            case 'analisado_superintendencia':
+
+                $slct->from(
+                    array('dbo.vwPainelAnalisadoSuperintendencia'),
+                    array('IdPRONAC',
+                        'NrProjeto',
+                        'NomeProjeto',
+                        'idProduto',
+                        'stPrincipal',
+                        'idArea',
+                        'Area',
+                        'idSegmento',
+                        'Segmento',
+                        'idDistribuirParecer',
+                        'Parecerista',
+                        'idOrgao',
+                        'Valor',
+                        'FecharAnalise',
+                        'TecnicoValidador',
+                        'dtValidacao')
+                );
+
+                $from = ' FROM sac.dbo.vwPainelAnalisadoSuperintendencia';
+                break;
+
+            case 'devolvida':
+
+                $slct->from(
+                    array('dbo.vwPainelCoordenadorVinculadasReanalisar'),
+                    array('IdPRONAC',
+                        'NrProjeto',
+                        'NomeProjeto',
+                        'idProduto',
+                        'Produto',
+                        'stPrincipal',
+                        'idArea',
+                        'Area',
+                        'idSegmento',
+                        'Segmento',
+                        'idDistribuirParecer',
+                        'idOrgao',
+                        'FecharAnalise',
+                        'idAgenteParecerista',
+                        'Parecerista',
+                        'DtEnvioMincVinculada',
+                        'qtDiasDistribuir',
+                        'CAST (JustComponente AS TEXT) AS JustComponente',
+                        'JustDevolucaoPedido',
+                        'JustSecretaria',
+                        'Valor')
+                );
+                $from = 'FROM sac.dbo.vwPainelCoordenadorVinculadasReanalisar';
+                break;
+
+            case 'impedimento_parecerista':
+                $slct->from(
+                    array('dbo.vwPainelCoordenadorImpedimentoParecerista'),
+                    array(
+                        'IdPRONAC',
+                        'NrProjeto',
+                        'NomeProjeto',
+                        'idProduto',
+                        'Produto',
+                        'idArea',
+                        'Area',
+                        'idSegmento',
+                        'Segmento',
+                        'idDistribuirParecer',
+                        'idOrgao',
+                        'idAgenteParecerista',
+                        'Parecerista',
+                        'DtEnvioMincVinculada',
+                        'DtDistribuicao',
+                        'DtDevolucao',
+                        'JustParecerista',
+                        'Valor',
+                        'stPrincipal',
+                        'FecharAnalise'
+                    )
+                );
+                $from = 'FROM dbo.vwPainelCoordenadorImpedimentoParecerista';
+                break;
+        }
+
+        // se for totalizador
+        if ($qtdeTotal) {
+            $db = Zend_Db_Table::getDefaultAdapter();
+            $db->setFetchMode(Zend_DB::FETCH_OBJ);
+            $whereSql = '';
+            if (!empty($where)) {
+                $whereSql = ' WHERE ';
+                foreach ($where as $coluna => $valor) {
+                    if ($whereSql != ' WHERE ') {
+                        $whereSql .= ' AND ';
+                    }
+                    $whereSql .= str_replace('?', "'$valor'", $coluna);
+                }
+            }
+            $sql = "SELECT COUNT(IdPRONAC) " . $from . $whereSql;
+            return $db->fetchOne($sql);
+        } else {
+            //adiciona quantos filtros foram enviados
+            foreach ($where as $coluna => $valor) {
+                $slct->where($coluna, $valor);
+            }
+
+            //adicionando linha order ao select
+            $slct->order($order);
+
+            //paginacao
+            if ($tamanho > -1) {
+                $tmpInicio = 0;
+                if ($inicio > -1) {
+                    $tmpInicio = $inicio;
+                }
+                $slct->limit($tamanho, $tmpInicio);
+            }
+            $result = $this->fetchAll($slct);
+            return $result ? $result->toArray() : [];
+        }
+    }
+
     public function buscarHistoricoEncaminhamento($where = array())
     {
         $slct = $this->select();
@@ -2086,5 +2407,180 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                                           WHERE idProjeto = {$idPreProjeto}";
         $db = Zend_Db_Table::getDefaultAdapter();
         return $db->query($sqlDistribuirParecer);
+    }
+
+    public function obterProdutosAguardandoDistribuicao()
+    {
+        $query = $this->obterQueryPainelGerenciarParecer();
+        $query->where('a.siEncaminhamento = ?', 3);
+        $query->where('a.siAnalise        = ?', 0);
+        return $this->fetchAll($query);
+    }
+
+    private function obterQueryPainelGerenciarParecer($where = [])
+    {
+        $query = $this->select();
+        $query->setIntegrityCheck(false);
+        $query->from(
+            ['a' => $this->_name],
+            [
+                'a.idProduto',
+                'a.stPrincipal',
+                'a.idDistribuirParecer',
+                'a.idOrgao',
+                'a.idOrgaoOrigem',
+                'a.FecharAnalise as fecharAnalise',
+                'a.siAnalise',
+                'a.siEncaminhamento',
+                'a.DtEnvio AS dtEnvioMincVinculada',
+                'qtDiasDistribuir' => new Zend_Db_Expr('DATEDIFF(DAY, a.DtEnvio, GETDATE())'),
+                'qtdeSecundarios' => new Zend_Db_Expr('(SELECT COUNT(*) FROM sac.dbo.PlanoDistribuicaoProduto y WHERE y.idProjeto = b.idProjeto AND stPrincipal = 0)'),
+                'valor' => new Zend_Db_Expr('(SELECT SUM(x.Ocorrencia*x.Quantidade*x.ValorUnitario) FROM SAC.dbo.tbPlanilhaProjeto x WHERE b.IdPRONAC = x.idPRONAC and x.FonteRecurso = 109 and x.idProduto = a.idProduto)')
+            ],
+            $this->_schema
+        );
+
+        $query->joinInner(
+            ['b' => 'Projetos'],
+            'a.idPRONAC  = b.IdPRONAC',
+            [
+                'b.IdPronac as idPronac',
+                'b.NomeProjeto as nomeProjeto',
+                'pronac' => new Zend_Db_Expr('(b.AnoProjeto + b.Sequencial)'),
+
+            ],
+            $this->_schema
+        );
+
+        $query->joinInner(
+            ['c' => 'PlanoDistribuicaoProduto'],
+            'b.idProjeto = c.idProjeto and a.idProduto = c.idProduto',
+            [
+                'c.Area AS idArea',
+                'c.Segmento AS idSegmento',
+            ],
+            $this->_schema
+        );
+
+        $query->joinInner(
+            ['d' => 'Produto'],
+            'c.idProduto = d.Codigo',
+            [
+                'd.Descricao AS produto',
+
+            ],
+            $this->_schema
+        );
+
+        $query->joinInner(
+            ['e' => 'Area'],
+            'c.Area = e.Codigo',
+            [
+                'e.Descricao AS area',
+            ],
+            $this->_schema
+        );
+
+        $query->joinInner(
+            ['f' => 'Segmento'],
+            'c.Segmento  = f.Codigo',
+            [
+                'f.Descricao AS segmento',
+            ],
+            $this->_schema
+        );
+
+        $query->where('a.stEstado = ?', Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO);
+
+        foreach ($where as $coluna => $valor) {
+            $query->where($coluna, $valor);
+        }
+
+        return $query;
+    }
+
+    public function buscaProjetosProdutosParaAnalise($where)
+    {
+        $select = $this
+            ->select()
+            ->setIntegrityCheck(false)
+            ->from(
+                array('projeto' => 'projetos'),
+                array(
+                    'IdPRONAC',
+                    'IdPRONAC as idPronac',
+                    'PRONAC' => '(AnoProjeto + Sequencial)',
+                    'pronac' => '(AnoProjeto + Sequencial)',
+                    'NomeProjeto',
+                    'NomeProjeto as nomeProjeto',
+                    'DtAnalise' => new Zend_Db_Expr('CONVERT(CHAR(10), DtAnalise, 103)'),
+                    'situacao',
+                    'idOrgao' => 'Orgao',
+                    'DtSolicitacao' => new Zend_Db_Expr('(select top 1 DtSolicitacao from sac.dbo.tbDiligencia dili1 where dili1.idPronac = projeto.idPronac and dili1.idProduto = distribuirParecer.idProduto order by dili1.DtSolicitacao desc)'),
+                    'DtResposta' => new Zend_Db_Expr('(select top 1 DtResposta from sac.dbo.tbDiligencia dili2 where dili2.idPronac = projeto.idPronac and dili2.idProduto = distribuirParecer.idProduto order by dili2.DtSolicitacao desc)'),
+                    'stEnviado' => new Zend_Db_Expr('(select top 1 stEnviado from sac.dbo.tbDiligencia dili3 where dili3.idPronac = projeto.idPronac and dili3.idProduto = distribuirParecer.idProduto order by dili3.DtSolicitacao desc)'),
+                    'tempoFimDiligencia' => new Zend_Db_Expr("(select top 1 CASE WHEN stProrrogacao = 'N' THEN 20 ELSE 40 END AS tempoFimDiligencia from sac.dbo.tbDiligencia dili4 where dili4.idPronac = projeto.idPronac and dili4.idProduto = distribuirParecer.idProduto order by dili4.DtSolicitacao desc)"),
+                    'quantidadeProdutos' => new Zend_Db_Expr("(select count(*) from sac.dbo.PlanoDistribuicaoProduto where idProjeto = projeto.idProjeto)"), //@todo remover
+                    'idProjeto',
+                ),
+                $this->_schema
+            )
+            ->joinInner(
+                array('distribuirParecer' =>  $this->_name),
+                'projeto.idPronac = distribuirParecer.idPronac',
+                array( //@todo duplicando para pradronizar - remover quando tiver padronizado
+                    'idDistribuirParecer',
+                    'idProduto',
+                    'stPrincipal',
+                    'TipoAnalise',
+                    'TipoAnalise as tipoAnalise',
+                    'DtDistribuicao',
+                    'DtDistribuicao as dtDistribuicao',
+                    'stDiligenciado',
+                    'DtDevolucao',
+                    'DtDevolucao as dtDevolucao',
+                    'DtEnvio',
+                    'DtEnvio as dtEnvio',
+                    'FecharAnalise',
+                    'FecharAnalise as fecharAnalise',
+                    'idAgenteParecerista',
+                    'siAnalise',
+                    'siEncaminhamento',
+                    'idOrgaoOrigem',
+                ),
+                $this->_schema
+            )
+            ->joinLeft(
+                array('produto' => 'Produto'),
+                'distribuirParecer.idProduto = produto.Codigo',
+                array('dsProduto' => 'Descricao'),
+                $this->_schema
+            )
+//                ->joinLeft(
+//                        array('diligencia' => 'tbDiligencia'),
+//                        'diligencia.idPronac = projeto.idPronac',
+//                        array(
+//                            'DtSolicitacao',
+//                            'DtResposta',
+//                            'stEnviado',
+//                            )
+//                        )
+//            ->where('distribuirParecer.DtDistribuicao is not null')
+//            ->where('distribuirParecer.DtDevolucao is NULL')
+            ->where('distribuirParecer.stEstado = ?', 0)
+//            ->where('distribuirParecer.TipoAnalise in (?)', array(1, 3)) // @todo remover essa regra para o parecerista
+            ->where('projeto.Situacao in (?)', array('B11', 'B14'))
+//                ->where('diligencia.idProduto = produto.Codigo')
+//                ->order('diligencia.DtSolicitacao')
+            ->order('distribuirParecer.DtDistribuicao DESC')
+            ->order('projeto.IdPRONAC')
+            ->order('produto.Descricao')
+            ->order('distribuirParecer.stPrincipal DESC');
+
+        foreach ($where as $key => $val) {
+            $select->where($key, $val);
+        }
+
+        return $this->fetchAll($select);
     }
 }

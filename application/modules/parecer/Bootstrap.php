@@ -23,6 +23,7 @@ class Parecer_Bootstrap extends Zend_Application_Module_Bootstrap
                     'analise-inicial-historico-rest',
                     'analise-inicial-impedimento-rest',
                     'planilha-produto-rest',
+                    'gerenciar-parecer-rest',
                 ]
             ]
         );
