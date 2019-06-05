@@ -79,7 +79,7 @@ class AnaliseConteudo implements \MinC\Servico\IServicoRestZend
             throw new \Exception("Dados obrigat&oacute;rios n&atilde;o informados");
         }
 
-        $analisedeConteudoDAO = new \Analisedeconteudo();  //@todo migrar para o modulo
+        $analisedeConteudoDAO = new \Parecer_Model_DbTable_TbAnaliseDeConteudo();
         $analisedeConteudo = $analisedeConteudoDAO->dadosAnaliseconteudo(
             false,
             [
@@ -169,7 +169,7 @@ class AnaliseConteudo implements \MinC\Servico\IServicoRestZend
             'idUsuario' => $this->idUsuario,
         ];
 
-        $analisedeConteudoDAO = new \Analisedeconteudo();
+        $analisedeConteudoDAO = new \Parecer_Model_DbTable_TbAnaliseDeConteudo();
 
         if (empty($idAnaliseDeConteudo)) {
             $analisedeConteudo = $analisedeConteudoDAO->dadosAnaliseconteudo(

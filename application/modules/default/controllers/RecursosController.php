@@ -1508,7 +1508,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
 //                $planilhaProjeto->alterar($atualizar, array('idPRONAC = ?' => $idPronac, 'idProduto = ?' => $idProduto));
 //
 //            } else {
-//                $analisedeConteudoDAO = new Analisedeconteudo();
+//                $analisedeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
 //                $whereB['idPronac  = ?'] = $idPronac;
 //                $whereB['idProduto = ?'] = $idProduto;
 //                $busca = $analisedeConteudoDAO->buscar($whereB);
@@ -1548,7 +1548,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                 'ParecerDeConteudo' => isset($_POST['ParecerDeConteudo_'.$idProduto]) ? $_POST['ParecerDeConteudo_'.$idProduto] : '',
                 'idUsuario' 		=> $this->idUsuario,
             );
-            $analisedeConteudoDAO = new Analisedeconteudo();
+            $analisedeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
             $where['idPRONAC = ?']  = $idPronac;
 
             // Quando o parecer do produto principal eh desfavoravel, o parecer dos produtos secundarios tambem devem ser desfavoraveis.
@@ -1606,7 +1606,7 @@ class RecursosController extends MinC_Controller_Action_Abstract
                 'ParecerDeConteudo' => isset($_POST['ParecerDeConteudo_'.$idProduto]) ? $_POST['ParecerDeConteudo_'.$idProduto] : '',
                 'idUsuario' 		=> $this->idUsuario,
             );
-            $analisedeConteudoDAO = new Analisedeconteudo();
+            $analisedeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
             $where['idPRONAC = ?']  = $idPronac;
 
             // Quando o parecer do produto principal � desfavor�vel, o parecer dos produtos secund�rios tamb�m devem ser desfavor�veis.

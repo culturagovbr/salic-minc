@@ -2561,7 +2561,7 @@ class VerificarReadequacaoDeProjetoController extends MinC_Controller_Action_Abs
             // copia as tabelas
             $planilhaProjeto      = new PlanilhaProjeto();
             $planilhaAprovacao    = new PlanilhaAprovacao();
-            $analiseConteudo      = new Analisedeconteudo();
+            $analiseConteudo      = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
             $analiseaprovacao     = new AnaliseAprovacao();
             $projetos             = new Projetos();
             $Distribuicao         = new DistribuicaoProjetoComissao();

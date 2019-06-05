@@ -277,7 +277,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
 
     private function isConteudoNaoAnalisado($idPronac, $idProduto)
     {
-        $tbAnaliseDeConteudoDAO = new \Analisedeconteudo();
+        $tbAnaliseDeConteudoDAO = new \Parecer_Model_DbTable_TbAnaliseDeConteudo();
         $where = [
             'IdPRONAC = ?' => $idPronac,
             'idProduto = ?' => $idProduto

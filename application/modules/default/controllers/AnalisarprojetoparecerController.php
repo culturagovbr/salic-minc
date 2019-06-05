@@ -361,7 +361,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         $pareceristaAtivo = ($idAgenteParecerista == $produto['idAgenteParecerista']) ? true : false;
         
         /* Analise de conteudo */
-        $analisedeConteudoDAO = new Analisedeconteudo();
+        $analisedeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
         $analisedeConteudo = $analisedeConteudoDAO->dadosAnaliseconteudo(false, array('idPronac = ?' => $idPronac, 'idProduto = ?' => $idProduto));
 
         if (count($analisedeConteudo) > 0) {
@@ -543,7 +543,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         /***********************************************************************************/
 
         /** Verificar se o Produto j� foi dado o Parecer ***********************************/
-        $tbAnaliseDeConteudoDAO = new Analisedeconteudo();
+        $tbAnaliseDeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
         $whereAC['IdPRONAC = ?'] = $idPronac;
         $whereAC['idProduto = ?'] = $idProduto;
         $whereAC['ParecerDeConteudo = ?'] = '';
@@ -647,7 +647,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         
         switch ($stAcao) {
             case 1: /* CONSULTA */
-                $analisedeConteudoDAO = new Analisedeconteudo();
+                $analisedeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                 $resp = $analisedeConteudoDAO->dadosAnaliseconteudo(false, array('idPRONAC = ?' => $idPronac, 'idProduto = ?' => $idProduto))->current()->toArray();
                 foreach ($resp as $key => $val) {
                     $arrayRetorno[$key] = utf8_encode($val);
@@ -678,7 +678,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
                             $planilhaProjeto->alterar($atualizar, array('idPRONAC = ?' => $idPronac, 'idProduto = ?' => $idProduto));
                         }
                     } else {
-                        $analisedeConteudoDAO = new Analisedeconteudo();
+                        $analisedeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                         $whereB['idPronac  = ?'] = $idPronac;
                         $whereB['idProduto = ?'] = $idProduto;
                         $buscaAnaliseConteudo = $analisedeConteudoDAO->buscar($whereB);
@@ -708,7 +708,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
                         'idUsuario' => $idusuario
                     );
                     
-                    $analisedeConteudoDAO = new Analisedeconteudo();
+                    $analisedeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                     $where['idPRONAC = ?'] = $idPronac;
                     $where['idProduto = ?'] = $idProduto;
                     $analisedeConteudoDAO->update($dados, $where);
@@ -759,7 +759,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
                         'idUsuario' => $idusuario,
                     );
 
-                    $analisedeConteudoDAO = new Analisedeconteudo();
+                    $analisedeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                     $resp = $analisedeConteudoDAO->insert($dados);
                     parent::message("Altera&ccedil;&atilde;o realizada com sucesso!", "Analisarprojetoparecer/produto/?idPronac={$idPronac}&idProduto={$idProduto}&stPrincipal={$stPrincipal}&idD={$idD}", "CONFIRM");
                 } catch (Exception $e) {

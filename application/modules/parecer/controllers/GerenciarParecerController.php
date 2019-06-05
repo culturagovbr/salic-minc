@@ -273,7 +273,7 @@ class Parecer_GerenciarParecerController extends MinC_Controller_Action_Abstract
                 $whereParecer['idPRONAC = ?'] = $idPronac;
                 $buscarParecer = $parecerDAO->buscar($whereParecer);
 
-                $analiseDeConteudoDAO = new Analisedeconteudo();
+                $analiseDeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                 $whereADC['idPRONAC = ?'] = $idPronac;
                 $dadosADC = array('idParecer' => $buscarParecer[0]->IdParecer);
                 $alteraADC = $analiseDeConteudoDAO->alterar($dadosADC, $whereADC);

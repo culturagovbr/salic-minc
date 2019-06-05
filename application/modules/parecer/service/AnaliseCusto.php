@@ -90,7 +90,7 @@ class AnaliseCusto implements \MinC\Servico\IServicoRestZend
             'PPJ.IdPRONAC = ?' => $idPronac,
         ])->toArray();
 
-        $analisedeConteudoDAO = new \Analisedeconteudo();
+        $analisedeConteudoDAO = new \Parecer_Model_DbTable_TbAnaliseDeConteudo();
         $analisedeConteudo = $analisedeConteudoDAO->dadosAnaliseconteudo(
             false,
             [

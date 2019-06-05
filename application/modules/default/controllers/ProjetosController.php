@@ -71,7 +71,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
             try {
                 // copia as tabelas
                 $planilhaProjeto 	= new PlanilhaProjeto();
-                $analiseConteudo 	= new Analisedeconteudo();
+                $analiseConteudo 	= new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                 $analiseaprovacao 	= new AnaliseAprovacao();
                 $projetos 		= new Projetos();
                 $Distribuicao 		= new DistribuicaoProjetoComissao();
@@ -317,7 +317,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
             $planilhaaprovacao = new PlanilhaAprovacao();
             $projeto = new Projetos();
             $planilhaProjeto = new PlanilhaProjeto();
-            $analiseConteudo = new Analisedeconteudo();
+            $analiseConteudo = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
             $analiseaprovacao = new AnaliseAprovacao();
             $Distribuicao = new DistribuicaoProjetoComissao();
             $reuniao = new Reuniao();
@@ -448,7 +448,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
             // copia as tabelas
             $planilhaProjeto = new PlanilhaProjeto();
             $planilhaAprovacao = new PlanilhaAprovacao();
-            $analiseConteudo = new Analisedeconteudo();
+            $analiseConteudo = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
             $analiseaprovacao = new AnaliseAprovacao();
             $projetos = new Projetos();
             $Distribuicao = new DistribuicaoProjetoComissao();

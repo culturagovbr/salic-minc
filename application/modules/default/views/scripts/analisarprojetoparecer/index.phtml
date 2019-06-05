@@ -81,7 +81,7 @@
                 /***********************************************************************************/
                 
                 /** Verificar se o Produto j&aacute; foi dado o Parecer ***********************************/
-                $tbAnaliseDeConteudoDAO = new Analisedeconteudo();
+                $tbAnaliseDeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                 $where['IdPRONAC = ?'] = $d->IdPRONAC;
                 $where['idProduto = ?'] = $d->idProduto;
                 $where['ParecerDeConteudo = ?'] = '';
