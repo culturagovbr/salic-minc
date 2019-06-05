@@ -20,14 +20,14 @@ export default [
     {
         path: '/parecer/analise-inicial/analisar/:id/:idPronac/:produtoPrincipal',
         component: ParecerAnalisarView,
+        meta: {
+            title: 'Análise de custos',
+        },
         children: [
             {
                 path: '',
                 name: 'analise-conteudo',
                 component: AnaliseDeConteudo,
-                meta: {
-                    title: 'Análise inicial',
-                },
             },
             {
                 path: 'custos',

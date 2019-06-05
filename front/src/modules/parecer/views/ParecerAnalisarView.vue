@@ -7,118 +7,12 @@
             text="Carregando produto"
         />
         <template v-else-if="produto && Object.keys(produto).length > 0">
-            <v-toolbar
-                height="90"
-                color="blue-grey darken-2"
-                class="white--text"
-                dark
-            >
-                <v-btn
-                    icon
-                    class="hidden-xs-only"
-                    @click="back()"
-                >
-                    <v-icon>arrow_back</v-icon>
-                </v-btn>
-                <v-toolbar-title class="ml-2">
-                    <h5 class="headline font-weight-regular">
-                        Análise inicial: {{ produto.dsProduto }}
-                    </h5>
-                    <v-divider />
-                    <div class="subheading mt-1">
-                        Projeto: {{ produto.PRONAC }} - {{ produto.NomeProjeto }}
-                    </div>
-                </v-toolbar-title>
-                <v-spacer />
-                <v-tooltip
-                    v-if="produto.quantidadeProdutos > 1"
-                    bottom
-                >
-                    <v-btn
-                        slot="activator"
-                        color="grey lighten-3"
-                        icon
-                        small
-                        @click="dialogOutrosProdutos = !dialogOutrosProdutos"
-                    >
-                        <v-badge
-                            color="grey lighten-1"
-                            overlap
-                            left
-                        >
-                            <span slot="badge">
-                                {{ produto.quantidadeProdutos - 1 }}
-                            </span>
-                            <v-icon
-                                color="blue-grey darken-2"
-                            >
-                                layers
-                            </v-icon>
-                        </v-badge>
-                    </v-btn>
-                    <span> Visualizar outros produtos do projeto </span>
-                </v-tooltip>
-                <v-tooltip
-                    v-if="isDisponivelParaAnalise"
-                    bottom
-                >
-                    <v-btn
-                        slot="activator"
-                        :color="obterConfigDiligencia(produto).cor"
-                        target="_blank"
-                        icon
-                        small
-                        @click="mostrarDiligencias()"
-                    >
-                        <v-badge
-                            :value="produto.diasEmDiligencia > 0"
-                            color="grey lighten-1"
-                            overlap
-                            left
-                        >
-                            <span slot="badge">
-                                {{ produto.diasEmDiligencia }}
-                            </span>
-                            <v-icon
-                                :color="obterConfigDiligencia(produto).corIcone"
-                            >
-                                notification_important
-                            </v-icon>
-                        </v-badge>
-                    </v-btn>
-                    <span> {{ obterConfigDiligencia(produto).texto }} </span>
-                </v-tooltip>
-                <v-tooltip
-                    bottom
-                >
-                    <v-btn
-                        slot="activator"
-                        color="grey lighten-3"
-                        icon
-                        small
-                        @click="visualizarHistorico(produto)"
-                    >
-                        <v-icon color="blue-grey darken-2">
-                            history
-                        </v-icon>
-                    </v-btn>
-                    <span>Visualizar histórico de distribuição deste produto</span>
-                </v-tooltip>
-                <v-chip
-                    v-if="produto.stPrincipal === 1"
-                    light
-                    color="teal lighten-5"
-                >
-                    Produto Principal
-                </v-chip>
-                <v-chip
-                    v-else
-                    light
-                    color="blue-grey lighten-5"
-                >
-                    Produto Secundário
-                </v-chip>
-            </v-toolbar>
+            <analise-cabecalho
+                :produto="produto"
+                @visualizarDiligencias="visualizarDiligencias($event)"
+                @visualizarHistorico="visualizarHistorico($event)"
+                @visualizarOutrosProdutos="visualizarOutrosProdutos($event)"
+            />
             <v-stepper
                 v-if="isDisponivelParaAnalise"
                 v-model="currentStep"
@@ -192,7 +86,7 @@
             <s-dialog-diligencias
                 v-if="isDisponivelParaAnalise"
                 v-model="dialogDiligencias"
-                :id-pronac="produto.IdPRONAC"
+                :id-pronac="produto.idPronac"
                 :id-produto="produto.idProduto"
                 :tp-diligencia="TP_DILIGENCIA_ANALISE_TECNICA"
             />
@@ -220,11 +114,17 @@ import SDialogAnaliseOutrosProdutos from '../components/AnaliseOutrosProdutosDia
 import SDialogDiligencias from '@/modules/diligencia/components/SDialogDiligencias';
 import SAnaliseHistoricoProdutoDialog from '@/modules/parecer/components/AnaliseHistoricoProdutoDialog';
 import SMensagem from '@/components/SalicMensagem';
+import AnaliseCabecalho from '@/modules/parecer/components/AnaliseCabecalho';
 
 export default {
     name: 'ParecerAnalisarView',
     components: {
-        SMensagem, SDialogDiligencias, SDialogAnaliseOutrosProdutos, SCarregando, SAnaliseHistoricoProdutoDialog,
+        AnaliseCabecalho,
+        SMensagem,
+        SDialogDiligencias,
+        SDialogAnaliseOutrosProdutos,
+        SCarregando,
+        SAnaliseHistoricoProdutoDialog,
     },
     mixins: [MxDiligencia, MxConstantes],
     data: () => ({
@@ -387,12 +287,15 @@ export default {
         atualizarStepByRoute() {
             this.currentStep = this.getIndexStepByName(this.$route.name) + 1;
         },
-        mostrarDiligencias() {
+        visualizarDiligencias() {
             this.dialogDiligencias = true;
         },
         visualizarHistorico(item) {
             this.dialogHistorico = true;
             this.produtoHistorico = item;
+        },
+        visualizarOutrosProdutos() {
+            this.dialogOutrosProdutos = true;
         },
     },
 };

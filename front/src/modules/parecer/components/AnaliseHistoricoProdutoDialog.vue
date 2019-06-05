@@ -22,7 +22,7 @@
                     <v-icon>close</v-icon>
                 </v-btn>
                 <v-toolbar-title>
-                    Histórico: {{ produto.PRONAC }} - {{ produto.NomeProjeto }}
+                    Histórico: {{ produto.pronac }} - {{ produto.nomeProjeto }}
                 </v-toolbar-title>
             </v-toolbar>
             <v-card-text>
@@ -44,9 +44,9 @@
                             slot-scope="props"
                         >
                             <td v-html="props.item.dsProduto" />
-                            <td v-html="props.item.Unidade" />
-                            <td>{{ props.item.DtDistribuicao | formatarData }}</td>
-                            <td v-html="props.item.Observacao" />
+                            <td v-html="props.item.unidade" />
+                            <td>{{ props.item.dtDistribuicao | formatarData }}</td>
+                            <td v-html="props.item.observacao" />
                             <td v-html="props.item.nmUsuario" />
                             <td v-html="props.item.nmParecerista" />
                         </template>
@@ -116,7 +116,7 @@ export default {
             if (val) {
                 this.obterHistoricoProduto({
                     idProduto: this.produto.idProduto,
-                    idPronac: this.produto.IdPRONAC,
+                    idPronac: this.produto.idPronac,
                     stPrincipal: this.produto.stPrincipal,
                 });
             }

@@ -212,7 +212,7 @@ export default {
         buscarPlanilha() {
             const params = {
                 id: this.produto.idProduto,
-                idPronac: this.produto.IdPRONAC,
+                idPronac: this.produto.idPronac,
                 stPrincipal: this.produto.stPrincipal,
             };
             this.obterPlanilhaParecer(params);

@@ -2030,10 +2030,10 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                     array('dbo.vwPainelAguardandoDistribuicaoAnaliseTecnica'),
                     [
                         'IdPronac as idPronac',
-                        'NrProjeto as PRONAC',
+                        'NrProjeto as pronac',
                         'NomeProjeto as nomeProjeto',
                         'idProduto',
-                        'Produto as produto',
+                        'Produto as nomeProduto',
                         'stPrincipal',
                         'idArea',
                         'Area as area',
@@ -2058,11 +2058,10 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                     array('dbo.vwPainelEmValidacao'),
                     [
                         'IdPRONAC as idPronac',
-                        'IdPRONAC',
-                        'NrProjeto as PRONAC',
+                        'NrProjeto as pronac',
                         'NomeProjeto as nomeProjeto',
                         'idProduto',
-                        'Produto as produto',
+                        'Produto as nomeProduto',
                         'idArea',
                         'Area as area',
                         'idSegmento',
@@ -2096,10 +2095,10 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                     array('dbo.vwPainelCoordenadorVinculadasEmValidacao'),
                     array(
                         'IdPRONAC as idPronac',
-                        'NrProjeto as PRONAC',
+                        'NrProjeto as pronac',
                         'NomeProjeto as nomeProjeto',
                         'idProduto',
-                        'Produto as produto',
+                        'Produto as nomeProduto',
                         'stPrincipal',
                         'idArea',
                         'Area as area',
@@ -2131,7 +2130,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'NrProjeto as pronac',
                         'NomeProjeto as nomeProjeto',
                         'idProduto',
-                        'Produto as produto',
+                        'Produto as nomeProduto',
                         'idArea as idArea',
                         'Area as area',
                         'idSegmento',
@@ -2553,7 +2552,10 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
             ->joinLeft(
                 array('produto' => 'Produto'),
                 'distribuirParecer.idProduto = produto.Codigo',
-                array('dsProduto' => 'Descricao'),
+                array(
+                    'dsProduto' => 'Descricao',
+                    'nomeProduto' => 'Descricao'
+                ),
                 $this->_schema
             )
 //                ->joinLeft(

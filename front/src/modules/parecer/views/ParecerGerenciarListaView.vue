@@ -61,7 +61,7 @@
                         />
                         <s-dialog-diligencias
                             v-model="dialogDiligencias"
-                            :id-pronac="diligenciaVisualizacao.IdPRONAC"
+                            :id-pronac="diligenciaVisualizacao.idPronac"
                             :id-produto="diligenciaVisualizacao.idProduto"
                             :tp-diligencia="TP_DILIGENCIA_ANALISE_TECNICA"
                         />
@@ -105,13 +105,13 @@ export default {
         headers: [
             {
                 text: 'Pronac',
-                value: 'PRONAC',
+                value: 'pronac',
                 width: '1',
             },
             {
                 text: 'Nome do Projeto',
                 align: 'left',
-                value: 'NomeProjeto',
+                value: 'nomeProjeto',
             },
             {
                 text: 'Produto para análise',
@@ -123,7 +123,7 @@ export default {
                 value: 'stPrincipal',
                 width: '2',
             },
-            { text: 'Dt. de Recebimento', value: 'DtDistribuicao', width: '2' },
+            { text: 'Dt. de Recebimento', value: 'dtDistribuicao', width: '2' },
             { text: 'Diligência', width: '2', value: 'stDiligencia' },
             {
                 text: 'Ações', align: 'left', value: 'siAnalise',
@@ -136,7 +136,7 @@ export default {
         produtoHistorico: {},
         dialogImpedimento: false,
         diligenciaVisualizacao: {
-            IdPRONAC: 0,
+            idPronac: 0,
             idProduto: 0,
         },
         produtoImpedimento: {},
@@ -170,7 +170,7 @@ export default {
         visualizarDiligencia(produto) {
             this.dialogDiligencias = true;
             this.diligenciaVisualizacao = {
-                IdPRONAC: produto.IdPRONAC,
+                idPronac: produto.idPronac,
                 idProduto: produto.idProduto,
             };
         },

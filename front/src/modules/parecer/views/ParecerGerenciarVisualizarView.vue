@@ -19,7 +19,7 @@
             <s-dialog-diligencias
                 v-if="isDisponivelParaAnalise"
                 v-model="dialogDiligencias"
-                :id-pronac="produto.IdPRONAC"
+                :id-pronac="produto.idPronac"
                 :id-produto="produto.idProduto"
                 :tp-diligencia="TP_DILIGENCIA_ANALISE_TECNICA"
             />

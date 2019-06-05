@@ -10,7 +10,7 @@
                     target="_blank"
                     class="mr-2"
                 >
-                    {{ item.PRONAC }}
+                    {{ item.pronac }}
                 </a>
                 <span>Consultar projeto {{ item.nomeProjeto }}</span>
             </v-tooltip>
@@ -24,16 +24,16 @@
                         name: 'parecer-gerenciar-visualizar-view',
                         params: {
                             id: item.idProduto,
-                            idPronac: item.IdPRONAC,
+                            idPronac: item.idPronac,
                             produtoPrincipal: item.stPrincipal,
                         }
                     }"
                     class="subheading font-weight-medium"
                     color="primary"
                 >
-                    {{ item.produto }}
+                    {{ item.nomeProduto }}
                 </router-link>
-                <span>Clique para analisar o produto {{ item.produto }}</span>
+                <span>Clique para analisar o produto {{ item.nomeProduto }}</span>
             </v-tooltip>
         </td>
         <td class="text-xs-center">
@@ -63,7 +63,7 @@
             </v-tooltip>
         </td>
         <td class="text-xs-right">
-            {{ item.DtDistribuicao | formatarData }}
+            {{ item.dtDistribuicao | formatarData }}
         </td>
         <td class="text-xs-center">
             <v-tooltip

@@ -55,7 +55,7 @@
                     </v-btn>
                     <v-toolbar-title>
                         Análise de conteúdo - Produto:
-                        {{ produto.dsProduto }}
+                        {{ produto.nomeProduto }}
                     </v-toolbar-title>
                     <v-spacer />
                     <v-toolbar-items>

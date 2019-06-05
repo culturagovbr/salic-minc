@@ -22,7 +22,7 @@
                     <v-icon>close</v-icon>
                 </v-btn>
                 <v-toolbar-title>
-                    Declarar impedimento: {{ produto.PRONAC }} - {{ produto.NomeProjeto }}
+                    Declarar impedimento: {{ produto.pronac }} - {{ produto.nomeProjeto }}
                 </v-toolbar-title>
             </v-toolbar>
             <v-card-text>
@@ -40,7 +40,7 @@
                                     md2
                                 >
                                     <b>Pronac</b><br>
-                                    {{ produto.PRONAC }}
+                                    {{ produto.pronac }}
                                 </v-flex>
                                 <v-flex
                                     xs12
@@ -48,7 +48,7 @@
                                     md6
                                 >
                                     <b>Nome do Projeto</b><br>
-                                    <span v-html="produto.NomeProjeto" />
+                                    <span v-html="produto.nomeProjeto" />
                                 </v-flex>
                                 <v-flex
                                     xs12
@@ -56,7 +56,7 @@
                                     md4
                                 >
                                     <b>Produto</b><br>
-                                    <span v-html="produto.dsProduto" />
+                                    <span v-html="produto.nomeProduto" />
                                 </v-flex>
                             </v-layout>
 
@@ -153,7 +153,7 @@ export default {
             this.declaracao = {
                 idDistribuirParecer: this.produto.idDistribuirParecer,
                 idProduto: this.produto.idProduto,
-                idPronac: this.produto.IdPRONAC,
+                idPronac: this.produto.idPronac,
                 Observacao: '',
             };
             this.$emit('input', val);

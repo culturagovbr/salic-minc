@@ -49,16 +49,16 @@
                                     >
                                         <a
                                             slot="activator"
-                                            :href="`/projeto/#/${props.item.IdPRONAC}`"
+                                            :href="`/projeto/#/${props.item.idPronac}`"
                                             target="_blank"
                                             class="mr-2"
                                         >
-                                            {{ props.item.PRONAC }}
+                                            {{ props.item.pronac }}
                                         </a>
-                                        <span>Consultar projeto {{ props.item.NomeProjeto }}</span>
+                                        <span>Consultar projeto {{ props.item.nomeProjeto }}</span>
                                     </v-tooltip>
                                 </td>
-                                <td>{{ props.item.NomeProjeto }}</td>
+                                <td>{{ props.item.nomeProjeto }}</td>
                                 <td>
                                     <v-tooltip bottom>
                                         <router-link
@@ -67,7 +67,7 @@
                                                 name: 'analise-conteudo',
                                                 params: {
                                                     id: props.item.idProduto,
-                                                    idPronac: props.item.IdPRONAC,
+                                                    idPronac: props.item.idPronac,
                                                     produtoPrincipal: props.item.stPrincipal,
                                                 }
                                             }"
@@ -147,7 +147,7 @@
                                                 name: 'analise-conteudo',
                                                 params: {
                                                     id: props.item.idProduto,
-                                                    idPronac: props.item.IdPRONAC,
+                                                    idPronac: props.item.idPronac,
                                                     produtoPrincipal: props.item.stPrincipal,
                                                 }
                                             }"
@@ -195,7 +195,7 @@
                         />
                         <s-dialog-diligencias
                             v-model="dialogDiligencias"
-                            :id-pronac="diligenciaVisualizacao.IdPRONAC"
+                            :id-pronac="diligenciaVisualizacao.idPronac"
                             :id-produto="diligenciaVisualizacao.idProduto"
                             :tp-diligencia="TP_DILIGENCIA_ANALISE_TECNICA"
                         />
@@ -229,13 +229,13 @@ export default {
         headers: [
             {
                 text: 'Pronac',
-                value: 'PRONAC',
+                value: 'pronac',
                 width: '1',
             },
             {
                 text: 'Nome do Projeto',
                 align: 'left',
-                value: 'NomeProjeto',
+                value: 'nomeProjeto',
             },
             {
                 text: 'Produto para análise',
@@ -247,7 +247,7 @@ export default {
                 value: 'stPrincipal',
                 width: '2',
             },
-            { text: 'Dt. de Recebimento', value: 'DtDistribuicao', width: '2' },
+            { text: 'Dt. de Recebimento', value: 'dtDistribuicao', width: '2' },
             { text: 'Diligência', width: '2', value: 'stDiligencia' },
             {
                 text: 'Ações', align: 'left', value: 'siAnalise',
@@ -259,7 +259,7 @@ export default {
         produtoHistorico: {},
         dialogImpedimento: false,
         diligenciaVisualizacao: {
-            IdPRONAC: 0,
+            idPronac: 0,
             idProduto: 0,
         },
         produtoImpedimento: {},
@@ -288,7 +288,7 @@ export default {
         visualizarDiligencia(item) {
             this.dialogDiligencias = true;
             this.diligenciaVisualizacao = {
-                IdPRONAC: item.IdPRONAC,
+                idPronac: item.idPronac,
                 idProduto: item.idProduto,
             };
         },

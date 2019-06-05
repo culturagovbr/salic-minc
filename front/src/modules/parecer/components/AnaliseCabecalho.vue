@@ -14,11 +14,11 @@
         </v-btn>
         <v-toolbar-title class="ml-2">
             <h5 class="headline font-weight-regular">
-                {{ $route.meta.title }}: {{ produto.dsProduto }}
+                {{ $route.meta.title ? $route.meta.title : 'Análise inicial' }}: {{ produto.nomeProduto }}
             </h5>
             <v-divider />
             <div class="subheading mt-1">
-                Projeto: {{ produto.PRONAC }} - {{ produto.NomeProjeto }}
+                Projeto: {{ produto.pronac }} - {{ produto.nomeProjeto }}
             </div>
         </v-toolbar-title>
         <v-spacer />

@@ -85,7 +85,7 @@
             <!--label="label"-->
             <!--color="#565555"-->
             <!--&gt;-->
-            <!--R$ {{ slotProps.planilha.VlSugeridoParecerista | formatarParaReal }}-->
+            <!--R$ {{ slotProps.planilha.vlSugeridoParecerista | formatarParaReal }}-->
             <!--</v-chip>-->
             <!--</template>-->
             <!--<template slot-scope="slotProps">-->
@@ -173,12 +173,12 @@ export default {
         visualizarDetalhesProduto(produto) {
             this.obterAnaliseConteudoSecundario({
                 id: produto.idProduto,
-                idPronac: produto.IdPRONAC,
+                idPronac: produto.idPronac,
             });
 
             this.obterPlanilha({
                 id: produto.idProduto,
-                idPronac: produto.IdPRONAC,
+                idPronac: produto.idPronac,
                 stPrincipal: produto.stPrincipal,
             });
         },

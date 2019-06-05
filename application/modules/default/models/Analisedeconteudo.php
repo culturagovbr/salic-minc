@@ -1,14 +1,7 @@
 <?php
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
- * Description of Analisedeconteudo
- *
- * @author augusto
+ * @todo migrar para o módulo de parecer
  */
 class Analisedeconteudo extends MinC_Db_Table_Abstract
 {

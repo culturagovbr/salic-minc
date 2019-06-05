@@ -272,7 +272,7 @@ export default {
             }
 
             const analise = {
-                idPronac: this.produto.IdPRONAC,
+                idPronac: this.produto.idPronac,
                 idProduto: this.produto.idProduto,
                 idDistribuirParecer: this.produto.idDistribuirParecer,
                 situacao: this.produto.situacao,

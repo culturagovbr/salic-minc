@@ -22,7 +22,7 @@
                     <v-icon>close</v-icon>
                 </v-btn>
                 <v-toolbar-title>
-                    Outros produtos do projeto: {{ produto.PRONAC }} - {{ produto.NomeProjeto }}
+                    Outros produtos do projeto: {{ produto.pronac }} - {{ produto.nomeProjeto }}
                 </v-toolbar-title>
             </v-toolbar>
             <v-card-text>
@@ -53,15 +53,15 @@
                                             name: 'analise-conteudo',
                                             params: {
                                                 id: props.item.idProduto,
-                                                idPronac: props.item.IdPRONAC,
+                                                idPronac: props.item.idPronac,
                                                 produtoPrincipal: props.item.stPrincipal,
                                             }
                                         }"
                                         color="primary"
                                     >
-                                        {{ props.item.Produto }}
+                                        {{ props.item.produto }}
                                     </router-link>
-                                    <span>Clique para análisar o produto {{ props.item.Produto }}</span>
+                                    <span>Clique para análisar o produto {{ props.item.produto }}</span>
                                 </v-tooltip>
                                 <span
                                     v-else
@@ -94,8 +94,8 @@
                                     <span>Produto secundário</span>
                                 </v-tooltip>
                             </td>
-                            <td>{{ props.item.DtDistribuicaoPT }}</td>
-                            <td v-html="props.item.Obs " />
+                            <td>{{ props.item.dtDistribuicaoPT }}</td>
+                            <td v-html="props.item.obs " />
                             <td class="justify-center layout px-0">
                                 <v-tooltip
                                     bottom
