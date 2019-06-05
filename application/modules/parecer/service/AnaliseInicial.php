@@ -102,8 +102,8 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         $id = $this->request->getParam('id');
         $idPronac = $this->request->getParam('idPronac');
 
-        $projeto = new \Projetos();
-        $produto = $projeto->buscaProjetosProdutosParaAnalise(
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $produto = $tbDistribuirParecer->buscaProjetosProdutosParaAnalise(
             [
                 'distribuirParecer.idProduto = ?' => $id,
 //                'distribuirParecer.siEncaminhamento = ?' => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
@@ -252,13 +252,16 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
             throw new \Exception("Dados obrigat&oacute;rios n&atilde;o informados");
         }
 
-        $dadosWhere = [];
-        $dadosWhere["t.stEstado = ?"] = 0;
-        $dadosWhere["p.Situacao IN ('B11', 'B14')"] = '';
-        $dadosWhere["p.IdPRONAC = ?"] = $idPronac;
-        $dadosWhere["t.idProduto <> ?"] = $idProduto;
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        return $tbDistribuirParecer->dadosParaDistribuir($dadosWhere)->toArray();
+        $projetos = $tbDistribuirParecer->buscaProjetosProdutosParaAnalise(
+            [
+                'distribuirParecer.idProduto <> ?' => $idProduto,
+                'projeto.IdPRONAC = ?' => $idPronac,
+            ]
+        );
+
+        return $projetos ? $projetos->toArray() : [];
+
     }
 
     private function isProdutoComDiligenciaAberta($idPronac, $idProduto)

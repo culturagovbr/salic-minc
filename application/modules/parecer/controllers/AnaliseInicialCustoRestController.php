@@ -31,10 +31,10 @@ class Parecer_AnaliseInicialCustoRestController extends MinC_Controller_Rest_Abs
         } catch (Exception $objException) {
             $this->customRenderJsonResponse([
                 'error' => [
-                    'code' => 404,
+                    'code' => 412,
                     'message' => $objException->getMessage()
                 ]
-            ], 404);
+            ], 412);
 
         }
     }
@@ -50,10 +50,10 @@ class Parecer_AnaliseInicialCustoRestController extends MinC_Controller_Rest_Abs
         } catch (Exception $objException) {
             $this->customRenderJsonResponse([
                 'error' => [
-                    'code' => 404,
+                    'code' => 412,
                     'message' => $objException->getMessage()
                 ]
-            ], 404);
+            ], 412);
 
         }
     }

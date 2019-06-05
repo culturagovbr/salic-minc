@@ -82,7 +82,9 @@
                 msg-url-retorno="Ir para lista de produtos"
                 type="success"
             />
-            <s-dialog-analise-outros-produtos v-model="dialogOutrosProdutos" />
+            <s-dialog-analise-outros-produtos
+                v-model="dialogOutrosProdutos"
+            />
             <s-dialog-diligencias
                 v-if="isDisponivelParaAnalise"
                 v-model="dialogDiligencias"

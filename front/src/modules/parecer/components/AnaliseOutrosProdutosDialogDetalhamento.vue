@@ -23,7 +23,7 @@
                 </v-btn>
                 <v-toolbar-title>
                     Visualizar análise do Produto
-                    <b>"{{ produto.Produto }}"</b>
+                    <b>"{{ produto.nomeProduto }}"</b>
                 </v-toolbar-title>
             </v-toolbar>
             <v-card-text>

@@ -139,6 +139,7 @@ export default {
             idPronac: 0,
             idProduto: 0,
         },
+        items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
         produtoImpedimento: {},
         produtos: [],
         produtoSelecionado: {},

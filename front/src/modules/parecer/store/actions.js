@@ -77,7 +77,8 @@ export const obterProdutosSecundarios = ({ commit }, params) => {
     commit(types.SET_PRODUTOS_SECUNDARIOS, []);
     parecerHelperAPI.obterProdutosSecundarios(params)
         .then((response) => {
-            commit(types.SET_PRODUTOS_SECUNDARIOS, response.data.data);
+            console.log('aaaaaa', response.data);
+            commit(types.SET_PRODUTOS_SECUNDARIOS, response.data.items);
         });
 };
 

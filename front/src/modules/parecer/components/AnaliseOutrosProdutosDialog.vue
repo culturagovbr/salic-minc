@@ -59,13 +59,13 @@
                                         }"
                                         color="primary"
                                     >
-                                        {{ props.item.produto }}
+                                        {{ props.item.nomeProduto }}
                                     </router-link>
-                                    <span>Clique para análisar o produto {{ props.item.produto }}</span>
+                                    <span>Clique para análisar o produto {{ props.item.nomeProduto }}</span>
                                 </v-tooltip>
                                 <span
                                     v-else
-                                    v-text="props.item.Produto"
+                                    v-text="props.item.nomeProduto"
                                 />
                             </td>
                             <td>
@@ -94,8 +94,8 @@
                                     <span>Produto secundário</span>
                                 </v-tooltip>
                             </td>
-                            <td>{{ props.item.dtDistribuicaoPT }}</td>
-                            <td v-html="props.item.obs " />
+                            <td>{{ props.item.dtDistribuicao | formatarData }}</td>
+                            <td v-html="obterSituacao(props.item)" />
                             <td class="justify-center layout px-0">
                                 <v-tooltip
                                     bottom
@@ -118,7 +118,7 @@
                     </v-data-table>
                     <s-analise-outros-produtos-dialog-detalhamento
                         v-model="dialogDetalhamento"
-                        :produto="produtoVisualizacao"
+                        :produto="produto"
                     />
                 </div>
             </v-card-text>
@@ -131,12 +131,15 @@
 import { mapActions, mapGetters } from 'vuex';
 import SCarregando from '@/components/CarregandoVuetify';
 import SAnaliseOutrosProdutosDialogDetalhamento from './AnaliseOutrosProdutosDialogDetalhamento';
+import MxUtils from '@/mixins/utils';
+import MxUtilsParecer from '../mixins/utilsParecer';
 
 export default {
     name: 'AnaliseOutrosProdutosDialog',
     components: {
         SAnaliseOutrosProdutosDialogDetalhamento, SCarregando,
     },
+    mixins: [MxUtils, MxUtilsParecer],
     props: {
         value: {
             type: Boolean,
@@ -149,10 +152,10 @@ export default {
             dialogDetalhamento: false,
             loading: true,
             headers: [
-                { text: 'Produto', value: 'Produto' },
+                { text: 'Produto', value: 'nomeProduto' },
                 { text: 'Tipo', value: 'stPrincipal' },
-                { text: 'Dt. Distribuição', value: 'DtDistribuicaoPT' },
-                { text: 'Situação', value: 'Obs' },
+                { text: 'Dt. Distribuição', value: 'dtDistribuicao' },
+                { text: 'Situação', value: 'siAnalise' },
                 {
                     text: 'Ações', value: 'idDistribuirParecer', align: 'center', sortable: false,
                 },

@@ -49,9 +49,7 @@ class Parecer_AnaliseInicialOutrosProdutosRestController extends MinC_Controller
             $tramitacaoService = new AnaliseInicialService($this->getRequest(), $this->getResponse());
             $resposta = $tramitacaoService->obterOutrosProdutosDoProjeto();
 
-            $resposta = \TratarArray::utf8EncodeArray($resposta);
-
-            $this->customRenderJsonResponse(['data' => $resposta], 200);
+            $this->customRenderJsonResponse(['items' => \TratarArray::utf8EncodeArray($resposta)], 200);
 
         } catch (Exception $objException) {
             $this->customRenderJsonResponse([
