@@ -17,18 +17,46 @@
                         primary
                         class="title"
                     >
-                        Produtos para gerenciamento
+                        Produtos {{ filtroAtual.label.toLowerCase() }}
                         <v-spacer />
-                        <v-text-field
-                            v-model="search"
-                            append-icon="search"
-                            label="Buscar"
-                            single-line
-                            hide-details
-                        />
                     </v-card-title>
                     <v-divider />
                     <v-card-text>
+                        <v-layout
+                            justify-space-between
+                            class="mb-2"
+                        >
+                            <v-flex
+                                xs12
+                                sm4
+                            >
+                                <v-flex
+                                    xs12
+                                    sm6
+                                    d-flex
+                                >
+                                    <v-select
+                                        v-model="filtro"
+                                        :items="filtros"
+                                        label="Filtrar por situação"
+                                        item-text="label"
+                                        item-value="id"
+                                    />
+                                </v-flex>
+                            </v-flex>
+                            <v-flex
+                                xs12
+                                sm4
+                            >
+                                <v-text-field
+                                    v-model="search"
+                                    append-icon="search"
+                                    label="Buscar"
+                                    single-line
+                                    hide-details
+                                />
+                            </v-flex>
+                        </v-layout>
                         <v-data-table
                             v-if="!loading"
                             :headers="headers"
@@ -39,25 +67,35 @@
                             class="elevation-1"
                             disable-initial-sort
                         >
+                            <v-progress-linear
+                                v-slot:progress
+                                color="blue"
+                                indeterminate
+                            />
                             <template
                                 slot="items"
                                 slot-scope="props"
                             >
-                                <gerenciar-lista-aguardando-analise
+                                <component
+                                    :is="filtroAtual.component"
                                     :item="props.item"
                                     @visualizar-produto="visualizarProduto($event)"
+                                    @visualizar-historico="visualizarHistorico($event)"
+                                    @visualizar-diligencia="visualizarDiligencia($event)"
+                                    @distribuir-produto="distribuirProduto($event)"
+                                    @distribuir-projeto="distribuirProjeto($event)"
                                 />
                             </template>
 
                             <template slot="no-data">
                                 <div class="text-xs-center">
-                                    Sem produtos para análise
+                                    {{ `Sem produtos ${filtroAtual.label.toLowerCase()} para análise` }}
                                 </div>
                             </template>
                         </v-data-table>
                         <s-carregando
                             v-else
-                            text="Carregando lista de produtos"
+                            :text="`Carregando lista de produtos ${filtroAtual.label.toLowerCase()}`"
                         />
                         <s-dialog-diligencias
                             v-model="dialogDiligencias"
@@ -129,6 +167,41 @@ export default {
                 text: 'Ações', align: 'left', value: 'siAnalise',
             },
         ],
+        filtros: [
+            {
+                id: 'aguardando_distribuicao',
+                label: 'Aguardando distribuição',
+                component: 'gerenciar-lista-aguardando-analise',
+
+            },
+            {
+                id: 'em_analise',
+                label: 'Em análise',
+                component: 'gerenciar-lista-aguardando-analise',
+
+            },
+            {
+                id: 'em_validacao',
+                label: 'Em validação',
+                component: 'gerenciar-lista-aguardando-analise',
+            },
+            {
+                id: 'validados',
+                label: 'Validados',
+                component: 'gerenciar-lista-aguardando-analise',
+            },
+            {
+                id: 'devolvida',
+                label: 'Devolvidos',
+                component: 'gerenciar-lista-aguardando-analise',
+            },
+            {
+                id: 'impedimento_parecerista',
+                label: 'Com impedimento do parecerista',
+                component: 'gerenciar-lista-aguardando-analise',
+            },
+        ],
+        filtro: 'aguardando_distribuicao',
         search: '',
         dialogDiligencias: false,
         dialogHistorico: false,
@@ -139,7 +212,6 @@ export default {
             idPronac: 0,
             idProduto: 0,
         },
-        items: ['Foo', 'Bar', 'Fizz', 'Buzz'],
         produtoImpedimento: {},
         produtos: [],
         produtoSelecionado: {},
@@ -150,19 +222,28 @@ export default {
         ...mapGetters({
             obterProdutos: 'parecer/getProdutos',
         }),
+        filtroAtual() {
+            return this.filtros.find(item => item.id === this.filtro);
+        },
     },
     watch: {
         obterProdutos(val) {
             this.produtos = val;
             this.loading = false;
         },
+        filtro(v) {
+            this.loading = true;
+            this.obterProdutosParaGerenciar({ filtro: v });
+            if (this.$route.params.filtro !== v) {
+                this.$router.push({ name: 'parecer-gerenciar-listar-view', params: { filtro: v } });
+            }
+        },
     },
     created() {
-        this.obterProdutosParaGerenciar(
-            {
-                filtro: 'aguardando-analise',
-            },
-        );
+        if (this.$route.params.filtro) {
+            this.filtro = this.$route.params.filtro;
+        }
+        this.obterProdutosParaGerenciar({ filtro: this.filtro });
     },
     methods: {
         ...mapActions({
@@ -179,11 +260,18 @@ export default {
             this.dialogVisualizarProduto = true;
             this.produtoSelecionado = produto;
         },
-        declararImpedimento(item) {
-            this.dialogImpedimento = true;
-            this.produtoImpedimento = item;
+        visualizarHistorico(produto) {
+            this.dialogHistorico = true;
+            this.produtoSelecionado = produto;
         },
-
+        distribuirProduto(produto) {
+            this.dialogVisualizarProduto = true;
+            this.produtoSelecionado = produto;
+        },
+        distribuirProjeto(produto) {
+            this.dialogVisualizarProduto = true;
+            this.produtoSelecionado = produto;
+        },
     },
 };
 </script>

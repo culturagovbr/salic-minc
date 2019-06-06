@@ -75,10 +75,9 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
     public function index()
     {
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        $tipoFiltro = 'em_analise';
-        $produtos = $tbDistribuirParecer->obterPainelGerenciarParecer($tipoFiltro);
-//        xd($produtos);
-//
+        $filtro = $this->request->getParam('filtro');
+        $produtos = $tbDistribuirParecer->obterPainelGerenciarParecer($filtro);
+
 //        $projeto = new \Projetos();
 //        $resp = $projeto->buscaProjetosProdutosParaAnalise(
 //            [

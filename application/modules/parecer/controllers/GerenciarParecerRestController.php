@@ -43,10 +43,10 @@ class Parecer_GerenciarParecerRestController extends MinC_Controller_Rest_Abstra
     public function getAction()
     {
         try {
-            $analiseInicialService = new AnaliseInicialService($this->getRequest(), $this->getResponse());
-            $resposta = $analiseInicialService->get();
+//            $analiseInicialService = new AnaliseInicialService($this->getRequest(), $this->getResponse());
+//            $resposta = $analiseInicialService->get();
 
-            $this->customRenderJsonResponse(['data' => $resposta], 200);
+            $this->customRenderJsonResponse(['data' => []], 200);
 
         } catch (Exception $objException) {
             $this->customRenderJsonResponse([

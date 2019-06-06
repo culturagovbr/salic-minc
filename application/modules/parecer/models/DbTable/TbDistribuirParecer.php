@@ -2124,8 +2124,8 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
             case 'validados':
 
                 $slct->from(
-                    array('dbo.vwPainelValidados'),
-                    array(
+                    ['dbo.vwPainelValidados'],
+                    [
                         'IdPRONAC as idPronac',
                         'NrProjeto as pronac',
                         'NomeProjeto as nomeProjeto',
@@ -2154,7 +2154,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'FecharAnalise as fecharAnalise',
                         'TecnicoValidador as tecnicoValidador',
                         'dtValidacao'
-                    )
+                    ]
                 );
 
                 $from = ' FROM sac.dbo.vwPainelValidados';
@@ -2163,23 +2163,25 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
             case 'presidente_vinculadas':
 
                 $slct->from(
-                    array('dbo.vwPainelPresidenteVinculadas'),
-                    array('IdPRONAC',
-                        'NrProjeto',
-                        'NomeProjeto',
+                    ['dbo.vwPainelPresidenteVinculadas'],
+                    [
+                        'IdPRONAC as idPronac',
+                        'NrProjeto as pronac',
+                        'NomeProjeto as nomeProjeto',
                         'idProduto',
                         'stPrincipal',
                         'idArea',
-                        'Area',
+                        'Area as area',
                         'idSegmento',
-                        'Segmento',
+                        'Segmento as segmento',
                         'idDistribuirParecer',
-                        'Parecerista',
+                        'Parecerista as parecerista',
                         'idOrgao',
-                        'Valor',
-                        'FecharAnalise',
-                        'TecnicoValidador',
-                        'dtValidacao')
+                        'Valor as valor',
+                        'FecharAnalise as fecharAnalise',
+                        'TecnicoValidador as tecnicoValidador',
+                        'dtValidacao'
+                    ]
                 );
 
                 $from = ' FROM sac.dbo.vwPainelPresidenteVinculadas';
@@ -2188,23 +2190,25 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
             case 'superintendente_vinculadas':
 
                 $slct->from(
-                    array('dbo.vwPainelSuperintendenteVinculadas'),
-                    array('IdPRONAC',
-                        'NrProjeto',
-                        'NomeProjeto',
+                    ['dbo.vwPainelSuperintendenteVinculadas'],
+                    [
+                        'IdPRONAC as idPronac',
+                        'NrProjeto as pronac',
+                        'NomeProjeto as nomeProjeto',
                         'idProduto',
                         'stPrincipal',
                         'idArea',
-                        'Area',
+                        'Area as area',
                         'idSegmento',
-                        'Segmento',
+                        'Segmento as segmento',
                         'idDistribuirParecer',
-                        'Parecerista',
+                        'Parecerista as parecerista',
                         'idOrgao',
-                        'Valor',
-                        'FecharAnalise',
-                        'TecnicoValidador',
-                        'dtValidacao')
+                        'Valor as valor',
+                        'FecharAnalise as fecharAnalise',
+                        'TecnicoValidador as tecnicoValidador',
+                        'dtValidacao'
+                    ]
                 );
 
                 $from = ' FROM sac.dbo.vwPainelSuperintendenteVinculadas';
@@ -2213,23 +2217,25 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
             case 'analisado_superintendencia':
 
                 $slct->from(
-                    array('dbo.vwPainelAnalisadoSuperintendencia'),
-                    array('IdPRONAC',
-                        'NrProjeto',
-                        'NomeProjeto',
+                    ['dbo.vwPainelAnalisadoSuperintendencia'],
+                    [
+                        'IdPRONAC as idPronac',
+                        'NrProjeto as pronac',
+                        'NomeProjeto as nomeProjeto',
                         'idProduto',
                         'stPrincipal',
                         'idArea',
-                        'Area',
+                        'Area as area',
                         'idSegmento',
-                        'Segmento',
+                        'Segmento as segmento',
                         'idDistribuirParecer',
-                        'Parecerista',
+                        'Parecerista as parecerista',
                         'idOrgao',
-                        'Valor',
-                        'FecharAnalise',
-                        'TecnicoValidador',
-                        'dtValidacao')
+                        'Valor as valor',
+                        'FecharAnalise as fecharAnalise',
+                        'TecnicoValidador as tecnicoValidador',
+                        'dtValidacao'
+                    ]
                 );
 
                 $from = ' FROM sac.dbo.vwPainelAnalisadoSuperintendencia';
@@ -2239,7 +2245,8 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
 
                 $slct->from(
                     array('dbo.vwPainelCoordenadorVinculadasReanalisar'),
-                    array('IdPRONAC',
+                    array(
+                        'IdPRONAC',
                         'NrProjeto',
                         'NomeProjeto',
                         'idProduto',
@@ -2268,26 +2275,26 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                 $slct->from(
                     array('dbo.vwPainelCoordenadorImpedimentoParecerista'),
                     array(
-                        'IdPRONAC',
-                        'NrProjeto',
-                        'NomeProjeto',
+                        'IdPRONAC as idPronac',
+                        'NrProjeto as pronac',
+                        'NomeProjeto as nomeProjeto',
                         'idProduto',
-                        'Produto',
+                        'Produto as nomeProduto',
                         'idArea',
-                        'Area',
+                        'Area as area',
                         'idSegmento',
-                        'Segmento',
+                        'Segmento as segmento',
                         'idDistribuirParecer',
                         'idOrgao',
                         'idAgenteParecerista',
-                        'Parecerista',
-                        'DtEnvioMincVinculada',
-                        'DtDistribuicao',
-                        'DtDevolucao',
-                        'JustParecerista',
-                        'Valor',
+                        'Parecerista as parecerista',
+                        'DtEnvioMincVinculada as dtEnvioMincVinculada',
+                        'DtDistribuicao as dtDistribuicao',
+                        'DtDevolucao as dtDevolucao',
+                        'JustParecerista as justParecerista',
+                        'Valor as valor',
                         'stPrincipal',
-                        'FecharAnalise'
+                        'FecharAnalise as fecharAnalise'
                     )
                 );
                 $from = 'FROM dbo.vwPainelCoordenadorImpedimentoParecerista';

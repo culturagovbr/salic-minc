@@ -47,7 +47,7 @@ export default [
         ],
     },
     {
-        path: '/parecer/gerenciar',
+        path: '/parecer/gerenciar/:filtro?',
         name: 'parecer-gerenciar-listar-view',
         component: ParecerGerenciarListaView,
         meta: {

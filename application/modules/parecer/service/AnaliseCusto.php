@@ -77,9 +77,9 @@ class AnaliseCusto implements \MinC\Servico\IServicoRestZend
 
     public function obter()
     {
-        $idProduto = (int)$this->request->getParam('id');
-        $idPronac = (int)$this->request->getParam('idPronac');
-        $stPrincipal = (int)$this->request->getParam('stPrincipal');
+        $idProduto = $this->request->getParam('id');
+        $idPronac = $this->request->getParam('idPronac');
+        $stPrincipal = $this->request->getParam('stPrincipal');
 
         if (empty($idPronac) || empty($idProduto)) {
             throw new \Exception("Dados obrigat&oacute;rios n&atilde;o informados");

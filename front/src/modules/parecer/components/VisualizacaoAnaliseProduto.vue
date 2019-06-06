@@ -70,32 +70,6 @@
                 <v-spacer />
             </v-layout>
             <visualizacao-analise-produto-planilha :produto="produto" />
-            <!--<s-planilha-->
-            <!--v-if="Object.keys(planilha).length > 0"-->
-            <!--:array-planilha="planilha"-->
-            <!--:agrupamentos="agrupamentos"-->
-            <!--:totais="totaisPlanilha"-->
-            <!--&gt;-->
-            <!--<template-->
-            <!--slot="badge"-->
-            <!--slot-scope="slotProps"-->
-            <!--&gt;-->
-            <!--<v-chip-->
-            <!--outline="outline"-->
-            <!--label="label"-->
-            <!--color="#565555"-->
-            <!--&gt;-->
-            <!--R$ {{ slotProps.planilha.vlSugeridoParecerista | formatarParaReal }}-->
-            <!--</v-chip>-->
-            <!--</template>-->
-            <!--<template slot-scope="slotProps">-->
-            <!--<s-analise-outros-produtos-planilha-itens-visualizar :table="slotProps.itens" />-->
-            <!--</template>-->
-            <!--</s-planilha>-->
-            <!--<s-carregando-->
-                <!--v-else-->
-                <!--text="Carregando planilha"-->
-            <!--/>-->
         </v-expansion-panel-content>
     </v-expansion-panel>
 </template>
@@ -103,8 +77,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { utils } from '@/mixins/utils';
-import SPlanilha from '@/components/Planilha/Planilha';
-import SAnaliseOutrosProdutosPlanilhaItensVisualizar from './AnaliseOutrosProdutosPlanilhaItensVisualizar';
 import SCarregando from '@/components/CarregandoVuetify';
 import VisualizacaoAnaliseProdutoPlanilha from '@/modules/parecer/components/VisualizacaoAnaliseProdutoPlanilha';
 
