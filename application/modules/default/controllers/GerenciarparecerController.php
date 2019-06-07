@@ -282,7 +282,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         $buscaDadosProjeto = $tbDistribuirParecer->painelAnaliseTecnica($dadosWhere, null, null, null, null, $tipoFiltro);
 
         $pareceristas = array();
-        $spSelecionarParecerista = new spSelecionarParecerista();
+        $spSelecionarParecerista = new Parecer_Model_DbTable_SpSelecionarParecerista();
         if (count($buscaDadosProjeto) > 0) {
             $pareceristas = $spSelecionarParecerista->exec($buscaDadosProjeto[0]->idOrgao, $buscaDadosProjeto[0]->idArea, $buscaDadosProjeto[0]->idSegmento, $buscaDadosProjeto[0]->Valor);
         }
@@ -517,7 +517,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         }
 
         $pareceristas = array();
-        $spSelecionarParecerista = new spSelecionarParecerista();
+        $spSelecionarParecerista = new Parecer_Model_DbTable_SpSelecionarParecerista();
         if (count($buscaDadosProjetoS) > 0) {
             $pareceristas = $spSelecionarParecerista->exec($buscaDadosProjetoS[0]->idOrgao, $buscaDadosProjetoS[0]->idArea, $buscaDadosProjetoS[0]->idSegmento, $buscaDadosProjetoS[0]->Valor);
             $this->view->idSegmentoProduto = $buscaDadosProjetoS[0]->idSegmento;

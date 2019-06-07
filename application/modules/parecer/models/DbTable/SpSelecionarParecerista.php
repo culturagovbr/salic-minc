@@ -1,6 +1,6 @@
 <?php
 
-class spSelecionarParecerista extends MinC_Db_Table_Abstract
+class Parecer_Model_DbTable_SpSelecionarParecerista extends MinC_Db_Table_Abstract
 {
     protected $_schema = 'SAC';
     protected $_name  = 'spSelecionarParecerista';
