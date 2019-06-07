@@ -62,8 +62,9 @@
                 <span>Produto secundário</span>
             </v-tooltip>
         </td>
+        <td>{{ item.segmento }}</td>
         <td class="text-xs-right">
-            {{ item.dtDistribuicao | formatarData }}
+            {{ item.dtEnvioMincVinculada | formatarData }}
         </td>
         <td class="text-xs-center">
             <v-tooltip
@@ -71,72 +72,34 @@
             >
                 <v-btn
                     slot="activator"
-                    :color="obterConfigDiligencia(item).cor"
-                    target="_blank"
-                    icon
-                    small
-                    @click="visualizarDiligencia(item)"
-                >
-                    <v-badge
-                        :value="item.diasEmDiligencia > 0"
-                        color="grey lighten-1"
-                        overlap
-                        left
-                    >
-                        <span slot="badge">{{ item.diasEmDiligencia }}</span>
-                        <v-icon
-                            :color="obterConfigDiligencia(item).corIcone"
-                        >
-                            notification_important
-                        </v-icon>
-                    </v-badge>
-                </v-btn>
-                <span> {{ obterConfigDiligencia(item).texto }} </span>
-            </v-tooltip>
-        </td>
-        <td class="layout px-0">
-            <v-tooltip
-                bottom
-            >
-                <v-btn
-                    slot="activator"
-                    :to="{
-                        name: 'analise-conteudo',
-                        params: {
-                            id: item.idProduto,
-                            idPronac: item.idPronac,
-                            produtoPrincipal: item.stPrincipal,
-                        }
-                    }"
-                    color="primary"
+                    color="blue-grey darken-2"
                     flat
                     icon
                     class="mr-2"
+                    @click="$emit('distribuir-produto', item)"
                 >
                     <v-icon>
-                        {{ obterConfigsBotaoPrincipal(item).icone }}
+                        person
                     </v-icon>
                 </v-btn>
-                <span>{{ obterConfigsBotaoPrincipal(item).texto }}</span>
+                <span>Distribuir produto</span>
             </v-tooltip>
             <v-tooltip
                 bottom
             >
                 <v-btn
-                    v-if="item.siAnalise === SI_ANALISE_AGUARDANDO_ANALISE
-                        || !item.siAnalise"
                     slot="activator"
                     color="blue-grey darken-2"
                     flat
                     icon
                     class="mr-2"
-                    @click="declararImpedimento(item)"
+                    @click="$emit('distribuirProjeto', item)"
                 >
                     <v-icon>
-                        voice_over_off
+                        person_add
                     </v-icon>
                 </v-btn>
-                <span>Declarar impedimento para análise deste produto</span>
+                <span>Distribuir projeto</span>
             </v-tooltip>
         </td>
     </tr>
@@ -149,7 +112,7 @@ import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
 import MxConstantes from '@/modules/parecer/mixins/const';
 
 export default {
-    name: 'GerenciarListaAguardandoAnalise',
+    name: 'GerenciarListaItensAguardandoAnalise',
     mixins: [MxUtils, MxDiligencia, MxConstantes],
     props: {
         item: {

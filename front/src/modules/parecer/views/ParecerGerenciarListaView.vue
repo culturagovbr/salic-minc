@@ -17,7 +17,7 @@
                         primary
                         class="title"
                     >
-                        Produtos {{ filtroAtual.label.toLowerCase() }}
+                        Produtos {{ filtroSelecionado.label.toLowerCase() }}
                         <v-spacer />
                     </v-card-title>
                     <v-divider />
@@ -59,7 +59,7 @@
                         </v-layout>
                         <v-data-table
                             v-if="!loading"
-                            :headers="headers"
+                            :headers="filtroSelecionado.headers"
                             :items="produtos"
                             :rows-per-page-items="[15, 35, 50, {'text': 'Todos', value: -1}]"
                             :search="search"
@@ -77,7 +77,7 @@
                                 slot-scope="props"
                             >
                                 <component
-                                    :is="filtroAtual.component"
+                                    :is="filtroSelecionado.component"
                                     :item="props.item"
                                     @visualizar-produto="visualizarProduto($event)"
                                     @visualizar-historico="visualizarHistorico($event)"
@@ -89,13 +89,13 @@
 
                             <template slot="no-data">
                                 <div class="text-xs-center">
-                                    {{ `Sem produtos ${filtroAtual.label.toLowerCase()} para análise` }}
+                                    {{ `Sem produtos ${filtroSelecionado.label.toLowerCase()} para análise` }}
                                 </div>
                             </template>
                         </v-data-table>
                         <s-carregando
                             v-else
-                            :text="`Carregando lista de produtos ${filtroAtual.label.toLowerCase()}`"
+                            :text="`Carregando lista de produtos ${filtroSelecionado.label.toLowerCase()}`"
                         />
                         <s-dialog-diligencias
                             v-model="dialogDiligencias"
@@ -109,6 +109,10 @@
                         />
                         <s-analise-outros-produtos-dialog-detalhamento
                             v-model="dialogVisualizarProduto"
+                            :produto="produtoSelecionado"
+                        />
+                        <s-gerenciar-distribuir-produto-dialog
+                            v-model="dialogDistribuirProduto"
                             :produto="produtoSelecionado"
                         />
                     </v-card-text>
@@ -126,79 +130,216 @@ import MxConstantes from '@/modules/parecer/mixins/const';
 import SCarregando from '@/components/CarregandoVuetify';
 import SDialogDiligencias from '@/modules/diligencia/components/SDialogDiligencias';
 import SAnaliseDeclararImpedimentoDialog from '@/modules/parecer/components/AnaliseDeclararImpedimentoDialog';
-import GerenciarListaAguardandoAnalise from '@/modules/parecer/components/GerenciarListaAguardandoAnalise';
 import SAnaliseOutrosProdutosDialogDetalhamento from '@/modules/parecer/components/AnaliseOutrosProdutosDialogDetalhamento';
+import SGerenciarDistribuirProdutoDialog from '@/modules/parecer/components/GerenciarDistribuirProdutoDialog';
+import GerenciarListaItensAguardandoAnalise from '@/modules/parecer/components/GerenciarListaItensAguardandoAnalise';
 
 export default {
     name: 'ParecerAnalisarListaView',
     components: {
+        SGerenciarDistribuirProdutoDialog,
         SAnaliseOutrosProdutosDialogDetalhamento,
-        GerenciarListaAguardandoAnalise,
+        GerenciarListaItensAguardandoAnalise,
         SAnaliseDeclararImpedimentoDialog,
         SCarregando,
         SDialogDiligencias,
     },
     mixins: [MxUtils, MxDiligencia, MxConstantes],
     data: () => ({
-        headers: [
-            {
-                text: 'Pronac',
-                value: 'pronac',
-                width: '1',
-            },
-            {
-                text: 'Nome do Projeto',
-                align: 'left',
-                value: 'nomeProjeto',
-            },
-            {
-                text: 'Produto para análise',
-                align: 'left',
-                value: 'dsProduto',
-            },
-            {
-                text: 'Tipo',
-                value: 'stPrincipal',
-                width: '2',
-            },
-            { text: 'Dt. de Recebimento', value: 'dtDistribuicao', width: '2' },
-            { text: 'Diligência', width: '2', value: 'stDiligencia' },
-            {
-                text: 'Ações', align: 'left', value: 'siAnalise',
-            },
-        ],
         filtros: [
             {
                 id: 'aguardando_distribuicao',
                 label: 'Aguardando distribuição',
-                component: 'gerenciar-lista-aguardando-analise',
-
+                component: 'gerenciar-lista-itens-aguardando-analise',
+                headers: [
+                    {
+                        text: 'Pronac',
+                        value: 'pronac',
+                        width: '1',
+                    },
+                    {
+                        text: 'Nome do Projeto',
+                        align: 'left',
+                        value: 'nomeProjeto',
+                    },
+                    {
+                        text: 'Produto para análise',
+                        align: 'left',
+                        value: 'nomeProduto',
+                    },
+                    {
+                        text: 'Tipo',
+                        value: 'stPrincipal',
+                        width: '2',
+                    },
+                    {
+                        text: 'Segmento',
+                        align: 'left',
+                        value: 'segmento',
+                    },
+                    { text: 'Dt. de Recebimento', value: 'dtEnvioMincVinculada', width: '2' },
+                    {
+                        text: 'Ações', align: 'center', value: 'siAnalise',
+                    },
+                ],
             },
             {
                 id: 'em_analise',
                 label: 'Em análise',
-                component: 'gerenciar-lista-aguardando-analise',
+                component: 'gerenciar-lista-itens-aguardando-analise',
+                headers: [
+                    {
+                        text: 'Pronac',
+                        value: 'pronac',
+                        width: '1',
+                    },
+                    {
+                        text: 'Nome do Projeto',
+                        align: 'left',
+                        value: 'nomeProjeto',
+                    },
+                    {
+                        text: 'Produto para análise',
+                        align: 'left',
+                        value: 'nomeProduto',
+                    },
+                    {
+                        text: 'Tipo',
+                        value: 'stPrincipal',
+                        width: '2',
+                    },
+                    { text: 'Dt. de Recebimento', value: 'dtDistribuicao', width: '2' },
+                    { text: 'Ações', width: '2', value: 'stPrincipal' },
+                ],
 
             },
             {
                 id: 'em_validacao',
                 label: 'Em validação',
-                component: 'gerenciar-lista-aguardando-analise',
+                component: 'gerenciar-lista-itens-aguardando-analise',
+                headers: [
+                    {
+                        text: 'Pronac',
+                        value: 'pronac',
+                        width: '1',
+                    },
+                    {
+                        text: 'Nome do Projeto',
+                        align: 'left',
+                        value: 'nomeProjeto',
+                    },
+                    {
+                        text: 'Produto para análise',
+                        align: 'left',
+                        value: 'nomeProduto',
+                    },
+                    {
+                        text: 'Tipo',
+                        value: 'stPrincipal',
+                        width: '2',
+                    },
+                    { text: 'Dt. de Recebimento', value: 'dtDistribuicao', width: '2' },
+                    { text: 'Diligência', width: '2', value: 'stDiligencia' },
+                    {
+                        text: 'Ações', align: 'left', value: 'siAnalise',
+                    },
+                ],
             },
             {
                 id: 'validados',
                 label: 'Validados',
-                component: 'gerenciar-lista-aguardando-analise',
+                component: 'gerenciar-lista-itens-aguardando-analise',
+                headers: [
+                    {
+                        text: 'Pronac',
+                        value: 'pronac',
+                        width: '1',
+                    },
+                    {
+                        text: 'Nome do Projeto',
+                        align: 'left',
+                        value: 'nomeProjeto',
+                    },
+                    {
+                        text: 'Produto para análise',
+                        align: 'left',
+                        value: 'nomeProduto',
+                    },
+                    {
+                        text: 'Tipo',
+                        value: 'stPrincipal',
+                        width: '2',
+                    },
+                    { text: 'Dt. de Recebimento', value: 'dtDistribuicao', width: '2' },
+                    { text: 'Diligência', width: '2', value: 'stDiligencia' },
+                    {
+                        text: 'Ações', align: 'left', value: 'siAnalise',
+                    },
+                ],
             },
             {
                 id: 'devolvida',
                 label: 'Devolvidos',
-                component: 'gerenciar-lista-aguardando-analise',
+                component: 'gerenciar-lista-itens-aguardando-analise',
+                headers: [
+                    {
+                        text: 'Pronac',
+                        value: 'pronac',
+                        width: '1',
+                    },
+                    {
+                        text: 'Nome do Projeto',
+                        align: 'left',
+                        value: 'nomeProjeto',
+                    },
+                    {
+                        text: 'Produto para análise',
+                        align: 'left',
+                        value: 'nomeProduto',
+                    },
+                    {
+                        text: 'Tipo',
+                        value: 'stPrincipal',
+                        width: '2',
+                    },
+                    { text: 'Dt. de Recebimento', value: 'dtDistribuicao', width: '2' },
+                    { text: 'Diligência', width: '2', value: 'stDiligencia' },
+                    {
+                        text: 'Ações', align: 'left', value: 'siAnalise',
+                    },
+                ],
             },
             {
                 id: 'impedimento_parecerista',
                 label: 'Com impedimento do parecerista',
-                component: 'gerenciar-lista-aguardando-analise',
+                component: 'gerenciar-lista-itens-aguardando-analise',
+                headers: [
+                    {
+                        text: 'Pronac',
+                        value: 'pronac',
+                        width: '1',
+                    },
+                    {
+                        text: 'Nome do Projeto',
+                        align: 'left',
+                        value: 'nomeProjeto',
+                    },
+                    {
+                        text: 'Produto para análise',
+                        align: 'left',
+                        value: 'nomeProduto',
+                    },
+                    {
+                        text: 'Tipo',
+                        value: 'stPrincipal',
+                        width: '2',
+                    },
+                    { text: 'Dt. de Recebimento', value: 'dtDistribuicao', width: '2' },
+                    { text: 'Diligência', width: '2', value: 'stDiligencia' },
+                    {
+                        text: 'Ações', align: 'left', value: 'siAnalise',
+                    },
+                ],
             },
         ],
         filtro: 'aguardando_distribuicao',
@@ -206,6 +347,7 @@ export default {
         dialogDiligencias: false,
         dialogHistorico: false,
         dialogVisualizarProduto: false,
+        dialogDistribuirProduto: false,
         produtoHistorico: {},
         dialogImpedimento: false,
         diligenciaVisualizacao: {
@@ -222,7 +364,7 @@ export default {
         ...mapGetters({
             obterProdutos: 'parecer/getProdutos',
         }),
-        filtroAtual() {
+        filtroSelecionado() {
             return this.filtros.find(item => item.id === this.filtro);
         },
     },
@@ -236,6 +378,11 @@ export default {
             this.obterProdutosParaGerenciar({ filtro: v });
             if (this.$route.params.filtro !== v) {
                 this.$router.push({ name: 'parecer-gerenciar-listar-view', params: { filtro: v } });
+            }
+        },
+        $route(prev, old) {
+            if (!!prev.params.filtro && !!old.params.filtro && prev.params.filtro !== old.params.filtro) {
+                this.filtro = prev.params.filtro;
             }
         },
     },
@@ -265,7 +412,7 @@ export default {
             this.produtoSelecionado = produto;
         },
         distribuirProduto(produto) {
-            this.dialogVisualizarProduto = true;
+            this.dialogDistribuirProduto = true;
             this.produtoSelecionado = produto;
         },
         distribuirProjeto(produto) {

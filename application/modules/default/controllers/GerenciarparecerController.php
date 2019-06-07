@@ -519,15 +519,30 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         $pareceristas = array();
         $spSelecionarParecerista = new Parecer_Model_DbTable_SpSelecionarParecerista();
         if (count($buscaDadosProjetoS) > 0) {
-            $pareceristas = $spSelecionarParecerista->exec($buscaDadosProjetoS[0]->idOrgao, $buscaDadosProjetoS[0]->idArea, $buscaDadosProjetoS[0]->idSegmento, $buscaDadosProjetoS[0]->Valor);
+            $pareceristas = $spSelecionarParecerista->exec(
+                $buscaDadosProjetoS[0]->idOrgao,
+                $buscaDadosProjetoS[0]->idArea,
+                $buscaDadosProjetoS[0]->idSegmento,
+                $buscaDadosProjetoS[0]->Valor
+            );
             $this->view->idSegmentoProduto = $buscaDadosProjetoS[0]->idSegmento;
             $this->view->idAreaProduto = $buscaDadosProjetoS[0]->idArea;
         } elseif (count($buscaDadosProjetoSA) > 0) {
-            $pareceristas = $spSelecionarParecerista->exec($buscaDadosProjetoSA[0]->idOrgao, $buscaDadosProjetoSA[0]->idArea, $buscaDadosProjetoSA[0]->idSegmento, $buscaDadosProjetoSA[0]->Valor);
+            $pareceristas = $spSelecionarParecerista->exec(
+                $buscaDadosProjetoSA[0]->idOrgao,
+                $buscaDadosProjetoSA[0]->idArea,
+                $buscaDadosProjetoSA[0]->idSegmento,
+                $buscaDadosProjetoSA[0]->Valor
+            );
             $this->view->idSegmentoProduto = $buscaDadosProjetoSA[0]->idSegmento;
             $this->view->idAreaProduto = $buscaDadosProjetoSA[0]->idArea;
         } else {
-            $pareceristas = $spSelecionarParecerista->exec($buscaDadosProjeto[0]->idOrgao, $buscaDadosProjeto[0]->idArea, $buscaDadosProjeto[0]->idSegmento, $buscaDadosProjeto[0]->Valor);
+            $pareceristas = $spSelecionarParecerista->exec(
+                $buscaDadosProjeto[0]->idOrgao,
+                $buscaDadosProjeto[0]->idArea,
+                $buscaDadosProjeto[0]->idSegmento,
+                $buscaDadosProjeto[0]->Valor
+            );
             $this->view->idSegmentoProduto = $buscaDadosProjeto[0]->idSegmento;
             $this->view->idAreaProduto = $buscaDadosProjeto[0]->idArea;
         }
