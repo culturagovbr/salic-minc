@@ -1,10 +1,9 @@
 <?php
 
 /**
- * Description of GerarRelatorioReuniao
- * @author jefferson.silva - XTI
- * @version 1.0 - 17/01/2014
+    @todo remover essa controller e codigo e enviar para o ver salic
  */
+
 
 class CidadaoController extends MinC_Controller_Action_Abstract
 {

@@ -45,8 +45,7 @@ class Parecer_GerenciarDistribuirProdutoRestController extends MinC_Controller_R
             $gerenciarParecerService = new GerenciarParecerService($this->getRequest(), $this->getResponse());
             $resposta = $gerenciarParecerService->obteDistribuicaoProduto();
 
-
-            $this->customRenderJsonResponse(['data' => []], 200);
+            $this->customRenderJsonResponse(['data' => \TratarArray::utf8EncodeArray($resposta)], 200);
 
         } catch (Exception $objException) {
             $this->customRenderJsonResponse([

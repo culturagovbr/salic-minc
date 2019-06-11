@@ -206,6 +206,9 @@ class Agente_Model_DbTable_TbAusencia extends MinC_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
+    /**
+     * @todo remover nao sera utilizado na nova versao do parecer
+     */
     public function BuscarAusenciaAtiva($idAgente, $dtAtual, $tipoAusencia)
     {
         $select = $this->select();

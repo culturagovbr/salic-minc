@@ -14,16 +14,15 @@ class Parecer_Model_DbTable_SpSelecionarParecerista extends MinC_Db_Table_Abstra
      * @param mixed $vlProduto
      * @access public
      * @return void
-     * @todo remover metodo e passar para Zend_DB
      */
-    public function exec($idOrgao, $idArea, $idSegmento, $vlProduto)
+    public function exec($idOrgao, $idArea, $idSegmento, $vlProduto, $fechMode = Zend_DB :: FETCH_OBJ)
     {
         if (empty($vlProduto)) {
             $vlProduto = 0;
         }
         $db = Zend_Db_Table::getDefaultAdapter();
         $sql = "exec ".$this->_schema.".".$this->_name." $idOrgao, '$idArea', '$idSegmento', $vlProduto";
-        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
+        $db->setFetchMode($fechMode);
         return $db->fetchAll($sql);
     }
 }

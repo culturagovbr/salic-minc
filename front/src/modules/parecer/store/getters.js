@@ -7,3 +7,5 @@ export const getAnaliseConteudoSecundario = state => state.analiseConteudoSecund
 export const getPlanilhaProdutoSecundario = state => state.planilhaSecundario;
 export const getConsolidacao = state => state.consolidacao;
 export const getHistoricoProduto = state => state.historicoProduto;
+export const getVinculadas = state => state.vinculadas;
+export const getPareceristas = state => state.pareceristas;

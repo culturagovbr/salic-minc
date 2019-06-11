@@ -83,21 +83,34 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
 
     public function obteDistribuicaoProduto()
     {
-        $id = $this->request->getParam('id');
+        $idProduto = $this->request->getParam('idProduto');
         $idPronac = $this->request->getParam('idPronac');
 
-        $projeto = new \Projetos();
-        $produto = $projeto->buscaProjetosProdutosParaAnalise(
+        $resposta = [];
+
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $produto = current($tbDistribuirParecer->obterPainelGerenciarParecer(
+            '',
             [
-                'distribuirParecer.idProduto = ?' => $id,
-                'distribuirParecer.siEncaminhamento = ?' => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
-                'projeto.IdPRONAC = ?' => $idPronac,
+                'idProduto = ?' => $idProduto,
+                'IdPRONAC = ?' => $idPronac,
             ]
-        )->current();
+        ));
 
+        if (empty($produto)) {
+            throw new \Exception("Produto indispon&iacute;vel para distribui&ccedil;&atilde;o!");
+        }
 
-        return \TratarArray::utf8EncodeArray($produto);
+        $resposta['pareceristas'] = $this->obterPareceristasDistribuicao(
+            $produto['idOrgao'],
+            $produto['idArea'],
+            $produto['idSegmento'],
+            $produto['valor']
+        );
 
+        $resposta['vinculadas'] = $this->obterUnidadesVinculadas($produto['idOrgao']);
+
+        return $resposta;
     }
 
     public function distribuirProduto()
@@ -117,10 +130,74 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
             'idAgenteParecerista' => $this->idAgente
         ];
 
+        $whereCredenciamento = [];
+        $whereCredenciamento['idAgente = ?'] = $idAgente;
+        $whereCredenciamento['idCodigoArea = ?'] = $idArea;
+        $whereCredenciamento['idCodigoSegmento = ?'] = $idSegmento;
+
+        $tbCredenciamentoParecerista = new \Agente_Model_DbTable_TbCredenciamentoParecerista();
+        $credenciamentos = $tbCredenciamentoParecerista->buscar($whereCredenciamento);
+
+        if (empty($credenciamentos)) {
+            throw new \Exception("Parecerista n&atilde;o credenciado na &aacute;rea e segmento do Produto");
+        }
+
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
         return $tbDistribuirParecerMapper->devolverProduto($distribuicao);
     }
 
+    private function obterPareceristasDistribuicao($idOrgao, $idArea, $idSegmento, $valor)
+    {
+        $spSelecionarParecerista = new \Parecer_Model_DbTable_SpSelecionarParecerista();
+        $pareceristas = $spSelecionarParecerista->exec(
+            $idOrgao,
+            $idArea,
+            $idSegmento,
+            $valor,
+            \Zend_DB::FETCH_ASSOC
+        );
 
+        foreach ($pareceristas as &$parecerista) {
+            $parecerista['emAvaliacao'] = $this->obterQuantidadeEmAvaliacao($parecerista['idParecerista']);
+        }
 
+        return $pareceristas;
+    }
+
+    private function obterQuantidadeEmAvaliacao($idAgente)
+    {
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        return $tbDistribuirParecer->buscaProjetosProdutosParaAnalise(['idAgenteParecerista = ?' => $idAgente])->count();
+    }
+
+    private function obterUnidadesVinculadas($idOrgao)
+    {
+        $tbOrgaos = new \Orgaos();
+        $unidadesVinculadas = $tbOrgaos->buscar(
+            array(
+                "Codigo <> ?" => $idOrgao,
+                "Status = ?" => 0,
+                "Vinculo = ?" => 1,
+                "stvinculada = ?" => 1,
+                "idSecretaria <> ?" => \Orgaos::ORGAO_SUPERIOR_SEFIC,
+            )
+        )->toArray();
+
+        /**
+         * Apenas o IPHAN principal pode ter acesso as unidades vinculadas
+         */
+        if ($idOrgao == \Orgaos::ORGAO_IPHAN_PRONAC) {
+            $vinculadasIphan = $tbOrgaos->buscar(
+                array(
+                    "Codigo <> ?" => $idOrgao,
+                    "Status = ?" => 0,
+                    "idSecretaria = ?" => \Orgaos::ORGAO_IPHAN_PRONAC,
+                )
+            )->toArray();
+
+            $unidadesVinculadas = array_merge($unidadesVinculadas, $vinculadasIphan);
+        }
+
+        return $unidadesVinculadas;
+    }
 }

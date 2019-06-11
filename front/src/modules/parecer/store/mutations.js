@@ -10,6 +10,8 @@ export const state = {
     analiseConteudoSecundario: {},
     consolidacao: {},
     historicoProduto: [],
+    vinculadas: [],
+    pareceristas: [],
 };
 
 export const mutations = {
@@ -39,6 +41,12 @@ export const mutations = {
     },
     [types.SET_PLANILHA_PRODUTO_SECUNDARIO](state, planilha) {
         state.planilhaSecundario = planilha;
+    },
+    [types.SET_VINCULADAS](state, data) {
+        state.vinculadas = data;
+    },
+    [types.SET_PARECERISTAS](state, data) {
+        state.pareceristas = data;
     },
     [types.SET_CONSOLIDACAO](state, dados) {
         state.consolidacao = dados;

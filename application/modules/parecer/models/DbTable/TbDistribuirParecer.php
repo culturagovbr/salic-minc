@@ -2025,34 +2025,6 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         $slct->setIntegrityCheck(false);
 
         switch ($tipoFiltro) {
-            case 'aguardando_distribuicao':
-                $slct->from(
-                    array('dbo.vwPainelAguardandoDistribuicaoAnaliseTecnica'),
-                    [
-                        'IdPronac as idPronac',
-                        'NrProjeto as pronac',
-                        'NomeProjeto as nomeProjeto',
-                        'idProduto',
-                        'Produto as nomeProduto',
-                        'stPrincipal',
-                        'idArea',
-                        'Area as area',
-                        'idSegmento',
-                        'Segmento as segmento',
-                        'idDistribuirParecer',
-                        'idOrgao',
-                        'idOrgaoOrigem',
-                        'FecharAnalise as fecharAnalise',
-                        'DtEnvioMincVinculada as dtEnvioMincVinculada ',
-                        'qtDiasDistribuir as qtDiasDistribuir',
-                        'QtdeSecundarios as qtdeSecundarios',
-                        'Valor as valor',
-                        'siAnalise',
-                        'siEncaminhamento'
-                    ]
-                );
-                $from = ' FROM sac.dbo.vwPainelAguardandoDistribuicaoAnaliseTecnica';
-                break;
             case 'em_analise':
                 $slct->from(
                     array('dbo.vwPainelEmValidacao'),
@@ -2299,6 +2271,34 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                 );
                 $from = 'FROM dbo.vwPainelCoordenadorImpedimentoParecerista';
                 break;
+            default:
+                $slct->from(
+                    array('dbo.vwPainelAguardandoDistribuicaoAnaliseTecnica'),
+                    [
+                        'IdPronac as idPronac',
+                        'NrProjeto as pronac',
+                        'NomeProjeto as nomeProjeto',
+                        'idProduto',
+                        'Produto as nomeProduto',
+                        'stPrincipal',
+                        'idArea',
+                        'Area as area',
+                        'idSegmento',
+                        'Segmento as segmento',
+                        'idDistribuirParecer',
+                        'idOrgao',
+                        'idOrgaoOrigem',
+                        'FecharAnalise as fecharAnalise',
+                        'DtEnvioMincVinculada as dtEnvioMincVinculada ',
+                        'qtDiasDistribuir as qtDiasDistribuir',
+                        'QtdeSecundarios as qtdeSecundarios',
+                        'Valor as valor',
+                        'siAnalise',
+                        'siEncaminhamento'
+                    ]
+                );
+                $from = ' FROM sac.dbo.vwPainelAguardandoDistribuicaoAnaliseTecnica';
+                break;
         }
 
         // se for totalizador
@@ -2415,6 +2415,12 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         return $db->query($sqlDistribuirParecer);
     }
 
+    public function obterProdutos($where)
+    {
+        $query = $this->obterQueryPainelGerenciarParecer($where);
+        return $this->fetchAll($query);
+    }
+
     public function obterProdutosAguardandoDistribuicao()
     {
         $query = $this->obterQueryPainelGerenciarParecer();
@@ -2472,7 +2478,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
             ['d' => 'Produto'],
             'c.idProduto = d.Codigo',
             [
-                'd.Descricao AS produto',
+                'd.Descricao AS nomeProduto',
 
             ],
             $this->_schema

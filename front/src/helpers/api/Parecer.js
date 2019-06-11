@@ -106,3 +106,14 @@ export const buscarProdutosParaGerenciar = (params) => {
 
     return api.getRequest(`${module}${controller}${action}${queryParams}`);
 };
+
+export const obterDadosParaDistribuicao = (params) => {
+    const module = '/parecer';
+    const controller = '/gerenciar-distribuir-produto-rest';
+    const idProduto = `idProduto/${params.idProduto}`;
+    const idPronac = `idPronac/${params.idPronac}`;
+    const filtro = `filtro/${params.filtro}`;
+    const queryParams = `/${idProduto}/${idPronac}/${filtro}`;
+
+    return api.getRequest(`${module}${controller}${queryParams}`);
+};

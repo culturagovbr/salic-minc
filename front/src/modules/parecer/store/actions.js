@@ -192,3 +192,23 @@ export const obterProdutosParaGerenciar = ({ commit }, params) => {
             return response.data;
         });
 };
+
+export const obterDadosParaDistribuicao = ({ commit }, params) => {
+    parecerHelperAPI.obterDadosParaDistribuicao(params)
+        .then((response) => {
+            const { data } = response.data;
+            commit(types.SET_PARECERISTAS, data.pareceristas);
+            commit(types.SET_VINCULADAS, data.vinculadas);
+            return data;
+        });
+};
+
+export const salvarDistribuicao = async ({ dispatch }, params) => parecerHelperAPI.salvarDistribuicaoProduto(params)
+    .then((response) => {
+        dispatch('parecerMensagemSucesso', response.data.message);
+        dispatch('removerProdutoParaAnalise', params);
+        return response.data;
+    }).catch((e) => {
+        dispatch('parecerMensagemErro', e.response.data.error.message);
+        throw new TypeError(e.response.data.error.message, 'declaracaoImpedimento', 10);
+    });
