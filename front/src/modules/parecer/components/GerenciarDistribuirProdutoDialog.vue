@@ -132,24 +132,26 @@
                                             :items="pareceristas"
                                             :item-text="formatarSelectParecerista"
                                             item-value="idParecerista"
-                                            label="selecione o parecerista"
+                                            :label="loadingPareceristas ? 'Carregando...' : 'Selecione o parecerista'"
+                                            :loading="loadingPareceristas"
                                         />
                                         <v-select
                                             v-if="tipoAcao === 'encaminhar'"
-                                            v-model="distribuicao.idOrgao"
+                                            v-model="distribuicao.idOrgaoDestino"
                                             :items="vinculadas"
                                             item-text="Sigla"
                                             item-value="Codigo"
-                                            label="selecione o orgão destino"
+                                            :label="loadingVinculadas ? 'Carregando...' : 'Selecione o orgão destino'"
+                                            :loading="loadingVinculadas"
                                         />
                                     </v-flex>
                                 </v-layout>
 
                                 <s-editor-texto
-                                    v-model="distribuicao.Observacao"
+                                    v-model="distribuicao.observacao"
+                                    :label="labelTextoRico"
                                     :min-char="minChar"
-                                    placeholder="Justifique o motivo do impedimento"
-                                    @editor-texto-counter="validateText($event)"
+                                    @editor-texto-counter="validarTexto($event)"
                                 />
                             </v-form>
                         </v-card-text>
@@ -163,7 +165,7 @@
                                 <v-icon left>
                                     send
                                 </v-icon>
-                                Salvar e devolver produto
+                                Enviar e Distribuir
                             </v-btn>
                             <v-btn
                                 @click="dialog = false"
@@ -176,8 +178,8 @@
                         </v-card-actions>
                         <s-confirmacao-dialog
                             v-model="dialogConfirmarEnvio"
-                            text="O produto será devolvido para o Coordenador de Parecer"
-                            @dialog-response="$event && enviarDeclaracao()"
+                            :text="textoMensagemConfirmacao"
+                            @dialog-response="$event && salvarDistribuicao()"
                         />
                     </v-card>
                 </v-container>
@@ -213,6 +215,8 @@ export default {
     data() {
         return {
             dialog: false,
+            loadingPareceristas: true,
+            loadingVinculadas: true,
             loading: false,
             minChar: 10,
             valid: false,
@@ -223,8 +227,10 @@ export default {
                 idProduto: '',
                 idPronac: '',
                 idOrgao: '',
+                idSegmento: '',
+                idOrgaoDestino: '',
                 idParecerista: '',
-                Observacao: '',
+                observacao: '',
             },
             dialogConfirmarEnvio: false,
         };
@@ -234,32 +240,59 @@ export default {
             pareceristas: 'parecer/getPareceristas',
             vinculadas: 'parecer/getVinculadas',
         }),
+        textoMensagemConfirmacao() {
+            return this.tipoAcao === 'distribuir'
+                ? 'Confirma a distribuição para o parecerista?'
+                : 'Confirma o envio para a unidade vinculada?';
+        },
+        labelTextoRico() {
+            return this.tipoAcao === 'distribuir'
+                ? 'Observação para o parecerista'
+                : 'Observação para a unidade vinculada';
+        },
     },
     watch: {
         value(val) {
             this.dialog = val;
         },
         dialog(val) {
-            this.buscarDadosDistribuicao({
-                idProduto: this.produto.idProduto,
-                idPronac: this.produto.idPronac,
-            });
+            this.loadingPareceristas = true;
+            this.loadingVinculadas = true;
+            if (val) {
+                this.buscarDadosDistribuicao({
+                    idProduto: this.produto.idProduto,
+                    idPronac: this.produto.idPronac,
+                });
+
+                this.distribuicao.idProduto = this.produto.idProduto;
+                this.distribuicao.idPronac = this.produto.idPronac;
+                this.distribuicao.idOrgao = this.produto.idOrgao;
+                this.distribuicao.idDistribuirParecer = this.produto.idDistribuirParecer;
+                this.distribuicao.idSegmento = this.produto.idSegmento;
+                this.distribuicao.observacao = '';
+            }
             this.$emit('input', val);
         },
         tipoAcao() {
             this.distribuicao.idParecerista = '';
-            this.distribuicao.idOrgao = '';
+            this.distribuicao.idOrgaoDestino = '';
+        },
+        pareceristas() {
+            this.loadingPareceristas = false;
+        },
+        vinculadas() {
+            this.loadingVinculadas = false;
         },
     },
     methods: {
         ...mapActions({
-            salvar: 'parecer/salvarDistribuicao',
             buscarDadosDistribuicao: 'parecer/obterDadosParaDistribuicao',
+            salvar: 'parecer/salvarDistribuicao',
         }),
-        validateText(e) {
+        validarTexto(e) {
             this.textIsValid = e >= this.minChar;
         },
-        enviarDeclaracao() {
+        salvarDistribuicao() {
             this.loading = true;
             this.salvar(this.distribuicao).then(() => {
                 this.dialog = false;

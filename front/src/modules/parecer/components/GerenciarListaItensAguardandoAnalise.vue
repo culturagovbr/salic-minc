@@ -84,23 +84,6 @@
                 </v-btn>
                 <span>Distribuir produto</span>
             </v-tooltip>
-            <v-tooltip
-                bottom
-            >
-                <v-btn
-                    slot="activator"
-                    color="blue-grey darken-2"
-                    flat
-                    icon
-                    class="mr-2"
-                    @click="$emit('distribuirProjeto', item)"
-                >
-                    <v-icon>
-                        person_add
-                    </v-icon>
-                </v-btn>
-                <span>Distribuir projeto</span>
-            </v-tooltip>
         </td>
     </tr>
 </template>

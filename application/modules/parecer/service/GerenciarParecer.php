@@ -118,28 +118,41 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         $params = $this->request->getParams();
 
         if (empty($params['idDistribuirParecer']) || empty($params['idPronac']) || empty($params['idProduto'])) {
-            throw new \Exception("Dados obrigatórios não informado");
+            throw new \Exception("Dados obrigatórios não informados");
+        }
+
+        if (empty($params['idParecerista']) && empty($params['idOrgaoDestino']) ) {
+            throw new \Exception("Destino não informado");
+        }
+
+        $whereCredenciamento = [];
+        $whereCredenciamento['idAgente = ?'] = $params['idParecerista'];
+        $whereCredenciamento['idCodigoArea = ?'] = $params['idOrgaoDestino'];
+        $whereCredenciamento['idCodigoSegmento = ?'] = $params['idSegmento'];
+
+        $tbCredenciamentoParecerista = new \Agente_Model_DbTable_TbCredenciamentoParecerista();
+        $credenciamentos = $tbCredenciamentoParecerista->buscar($whereCredenciamento)->toArray();
+        xd('ssss', $params, $credenciamentos);
+
+        if (empty($credenciamentos)) {
+            throw new \Exception("Parecerista n&atilde;o credenciado na &aacute;rea e segmento do Produto");
         }
 
         $distribuicao = [
-            'Observacao' => utf8_decode(trim(strip_tags($params['Observacao']))),
+            'Observacao' => utf8_decode(trim(strip_tags($params['observacao']))),
             'idUsuario' => $this->idUsuario,
             'idDistribuirParecer' => $params['idDistribuirParecer'],
             'idPRONAC' => $params['idPronac'],
             'idProduto' => $params['idProduto'],
-            'idAgenteParecerista' => $this->idAgente
+            'idAgenteParecerista' => $params['idParecerista']
         ];
 
-        $whereCredenciamento = [];
-        $whereCredenciamento['idAgente = ?'] = $idAgente;
-        $whereCredenciamento['idCodigoArea = ?'] = $idArea;
-        $whereCredenciamento['idCodigoSegmento = ?'] = $idSegmento;
+        if (!empty($params['idParecerista'])) {
+            $distribuicao['idAgenteParecerista'] = $params['idParecerista'];
+        }
 
-        $tbCredenciamentoParecerista = new \Agente_Model_DbTable_TbCredenciamentoParecerista();
-        $credenciamentos = $tbCredenciamentoParecerista->buscar($whereCredenciamento);
-
-        if (empty($credenciamentos)) {
-            throw new \Exception("Parecerista n&atilde;o credenciado na &aacute;rea e segmento do Produto");
+        if (!empty($params['idOrgaoDestino'])) {
+            $distribuicao['idOrgao'] = $params['idOrgaoDestino'];
         }
 
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();

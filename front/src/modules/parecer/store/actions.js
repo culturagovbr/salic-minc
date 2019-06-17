@@ -29,7 +29,7 @@ export const obterProdutosParaAnalise = ({ commit }) => {
         });
 };
 
-export const removerProdutoParaAnalise = ({ commit }, params) => {
+export const removerProdutoDaLista = ({ commit }, params) => {
     commit(types.REMOVE_PRODUTO_DA_LISTA, params);
 };
 
@@ -77,7 +77,6 @@ export const obterProdutosSecundarios = ({ commit }, params) => {
     commit(types.SET_PRODUTOS_SECUNDARIOS, []);
     parecerHelperAPI.obterProdutosSecundarios(params)
         .then((response) => {
-            console.log('aaaaaa', response.data);
             commit(types.SET_PRODUTOS_SECUNDARIOS, response.data.items);
         });
 };
@@ -178,7 +177,7 @@ export const obterHistoricoProduto = ({ commit }, params) => {
 export const salvarDeclaracaoImpedimento = async ({ dispatch }, params) => parecerHelperAPI.salvarDeclaracaoImpedimento(params)
     .then((response) => {
         dispatch('parecerMensagemSucesso', response.data.message);
-        dispatch('removerProdutoParaAnalise', params);
+        dispatch('removerProdutoDaLista', params);
         return response.data;
     }).catch((e) => {
         dispatch('parecerMensagemErro', e.response.data.error.message);
@@ -203,10 +202,10 @@ export const obterDadosParaDistribuicao = ({ commit }, params) => {
         });
 };
 
-export const salvarDistribuicao = async ({ dispatch }, params) => parecerHelperAPI.salvarDistribuicaoProduto(params)
+export const salvarDistribuicao = async ({ dispatch }, params) => parecerHelperAPI.salvarDistribuicao(params)
     .then((response) => {
         dispatch('parecerMensagemSucesso', response.data.message);
-        dispatch('removerProdutoParaAnalise', params);
+        dispatch('removerProdutoDaLista', params);
         return response.data;
     }).catch((e) => {
         dispatch('parecerMensagemErro', e.response.data.error.message);
