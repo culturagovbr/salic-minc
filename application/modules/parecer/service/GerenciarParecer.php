@@ -127,12 +127,11 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
 
         $whereCredenciamento = [];
         $whereCredenciamento['idAgente = ?'] = $params['idParecerista'];
-        $whereCredenciamento['idCodigoArea = ?'] = $params['idOrgaoDestino'];
-        $whereCredenciamento['idCodigoSegmento = ?'] = $params['idSegmento'];
+        $whereCredenciamento['idCodigoArea = ?'] = $params['idAreaProduto'];
+        $whereCredenciamento['idCodigoSegmento = ?'] = $params['idSegmentoProduto'];
 
         $tbCredenciamentoParecerista = new \Agente_Model_DbTable_TbCredenciamentoParecerista();
         $credenciamentos = $tbCredenciamentoParecerista->buscar($whereCredenciamento)->toArray();
-        xd('ssss', $params, $credenciamentos);
 
         if (empty($credenciamentos)) {
             throw new \Exception("Parecerista n&atilde;o credenciado na &aacute;rea e segmento do Produto");

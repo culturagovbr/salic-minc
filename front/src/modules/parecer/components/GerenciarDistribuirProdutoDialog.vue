@@ -227,7 +227,8 @@ export default {
                 idProduto: '',
                 idPronac: '',
                 idOrgao: '',
-                idSegmento: '',
+                idSegmentoProduto: '',
+                idAreaProduto: '',
                 idOrgaoDestino: '',
                 idParecerista: '',
                 observacao: '',
@@ -268,7 +269,9 @@ export default {
                 this.distribuicao.idPronac = this.produto.idPronac;
                 this.distribuicao.idOrgao = this.produto.idOrgao;
                 this.distribuicao.idDistribuirParecer = this.produto.idDistribuirParecer;
-                this.distribuicao.idSegmento = this.produto.idSegmento;
+                this.distribuicao.idSegmentoProduto = this.produto.idSegmento;
+                this.distribuicao.idAreaProduto = this.produto.idArea;
+                this.distribuicao.idOrgaoDestino = '';
                 this.distribuicao.observacao = '';
             }
             this.$emit('input', val);
