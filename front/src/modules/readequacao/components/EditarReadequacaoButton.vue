@@ -200,8 +200,7 @@ import TemplateDate from './TemplateDate';
 import TemplateRedirect from './TemplateRedirect';
 import FinalizarButton from './FinalizarButton';
 import UploadFile from './UploadFile';
-import validarFormulario from '../mixins/validarFormulario';
-import verificarPerfil from '../mixins/verificarPerfil';
+import MxReadequacao from '../mixins/Readequacao';
 
 export default {
     name: 'EditarReadequacaoButton',
@@ -216,8 +215,7 @@ export default {
         UploadFile,
     },
     mixins: [
-        validarFormulario,
-        verificarPerfil,
+        MxReadequacao,
     ],
     props: {
         dadosReadequacao: {

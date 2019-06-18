@@ -292,8 +292,7 @@ import Const from '../const';
 import VisualizarCampoDetalhado from './VisualizarCampoDetalhado';
 import Carregando from '@/components/CarregandoVuetify';
 import CampoDiff from '@/components/CampoDiff';
-import verificarPerfil from '../mixins/verificarPerfil';
-import abrirArquivo from '../mixins/abrirArquivo';
+import MxReadequacao from '../mixins/Readequacao';
 
 export default {
     name: 'VisualizarReadequacaoButton',
@@ -304,8 +303,7 @@ export default {
     },
     mixins: [
         utils,
-        verificarPerfil,
-        abrirArquivo,
+        MxReadequacao,
     ],
     props: {
         obj: {

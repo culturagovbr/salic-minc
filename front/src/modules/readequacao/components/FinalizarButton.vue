@@ -76,15 +76,13 @@ import _ from 'lodash';
 import { mapActions, mapGetters } from 'vuex';
 import { utils } from '@/mixins/utils';
 import Const from '../const';
-import validarFormulario from '../mixins/validarFormulario';
-import verificarPerfil from '../mixins/verificarPerfil';
+import MxReadequacao from '../mixins/Readequacao';
 
 export default {
     name: 'FinalizarButton',
     mixins: [
         utils,
-        validarFormulario,
-        verificarPerfil,
+        MxReadequacao,
     ],
     props: {
         disabled: {

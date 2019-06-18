@@ -62,13 +62,14 @@
 <script>
 import { mapActions } from 'vuex';
 import { utils } from '@/mixins/utils';
-import verificarPerfil from '../mixins/verificarPerfil';
+import Carregando from '@/components/CarregandoVuetify';
+import MxReadequacao from '../mixins/Readequacao';
 
 export default {
     name: 'ExcluirButton',
     mixins: [
         utils,
-        verificarPerfil,
+        MxReadequacao,
     ],
     props: {
         obj: {

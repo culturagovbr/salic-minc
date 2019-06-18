@@ -161,7 +161,7 @@ import VisualizarReadequacaoButton from '../components/VisualizarReadequacaoButt
 import AnalisarReadequacaoButton from '../components/AnalisarReadequacaoButton';
 import Carregando from '@/components/CarregandoVuetify';
 import CriarReadequacao from '../components/CriarReadequacao';
-import verificarPerfil from '../mixins/verificarPerfil';
+import MxReadequacao from '../mixins/Readequacao';
 
 export default {
     name: 'PainelReadequacoesView',
@@ -177,7 +177,7 @@ export default {
         SalicMensagemErro,
     },
     mixins: [
-        verificarPerfil,
+        MxReadequacao,
     ],
     data() {
         return {
@@ -242,7 +242,7 @@ export default {
             abaInicial: '#edicao',
             loaded: {
                 projeto: false,
-                readequacoes: false,
+                readequacao: false,
                 usuario: false,
             },
             permissao: true,
@@ -271,7 +271,7 @@ export default {
         getReadequacoesProponente(value) {
             if (typeof value === 'object') {
                 if (Object.keys(value).length > 0) {
-                    this.loaded.readequacoes = true;
+                    this.loaded.readequacao = true;
                 }
             }
         },
@@ -298,11 +298,15 @@ export default {
         },
     },
     created() {
+        this.loaded = this.checkAlreadyLoadedData(
+            this.loaded,
+            this.getUsuario,
+            this.dadosProjeto,
+            this.dadosReadequacao,
+        );
         if (typeof this.$route.params.idPronac !== 'undefined') {
             this.idPronac = this.$route.params.idPronac;
-            if (Object.keys(this.dadosProjeto).length === 0) {
-                this.buscarProjetoCompleto(this.idPronac);
-            }
+            this.buscarProjetoCompleto(this.idPronac);
         }
     },
     methods: {

@@ -55,7 +55,7 @@
 
 <script>
 import _ from 'lodash';
-import abrirArquivo from '../mixins/abrirArquivo';
+import MxReadequacao from '../mixins/Readequacao';
 import Carregando from '@/components/CarregandoVuetify';
 
 export default {
@@ -63,7 +63,9 @@ export default {
     components: {
         Carregando,
     },
-    mixins: [abrirArquivo],
+    mixins: [
+        MxReadequacao,
+    ],
     props: {
         formatosAceitos: {
             type: String,
