@@ -114,6 +114,7 @@
                         <s-gerenciar-distribuir-produto-dialog
                             v-model="dialogDistribuirProduto"
                             :produto="produtoSelecionado"
+                            :filtro="filtro"
                         />
                     </v-card-text>
                 </v-card>

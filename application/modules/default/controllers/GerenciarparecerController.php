@@ -619,18 +619,18 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         
         $idTipoDoAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL;
         
-        $objAssinatura = new Assinatura_Model_DbTable_TbAssinatura();
-        $assinaturas = $objAssinatura->obterAssinaturas($idPronac, $idTipoDoAtoAdministrativo);
-        if (count($assinaturas) > 0) {
-            $idDocumentoAssinatura = current($assinaturas)['idDocumentoAssinatura'];
-           
-            $objDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
-            $dadosDocumentoAssinatura = array();
-            $dadosDocumentoAssinatura["stEstado"] = 0;
-            $whereDocumentoAssinatura = "idDocumentoAssinatura = $idDocumentoAssinatura";
-            
-            $objDocumentoAssinatura->update($dadosDocumentoAssinatura, $whereDocumentoAssinatura);
-        }
+//        $objAssinatura = new Assinatura_Model_DbTable_TbAssinatura();
+//        $assinaturas = $objAssinatura->obterAssinaturas($idPronac, $idTipoDoAtoAdministrativo);
+//        if (count($assinaturas) > 0) {
+//            $idDocumentoAssinatura = current($assinaturas)['idDocumentoAssinatura'];
+//
+//            $objDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
+//            $dadosDocumentoAssinatura = array();
+//            $dadosDocumentoAssinatura["stEstado"] = 0;
+//            $whereDocumentoAssinatura = "idDocumentoAssinatura = $idDocumentoAssinatura";
+//
+//            $objDocumentoAssinatura->update($dadosDocumentoAssinatura, $whereDocumentoAssinatura);
+//        }
         
         $error = '';
         $projetos = new Projetos();
@@ -645,7 +645,8 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                 } else {
                     $dp->FecharAnalise;
                 }
-                
+
+                // encaminhar
                 if ($tipoescolha == 2) {
                     // ALTERAR UNIDADE DE AN�LISE ( COORDENADOR DE PARECER )
 

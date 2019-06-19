@@ -104,7 +104,7 @@
                                         sm6
                                         md6
                                     >
-                                        <v-radio-group v-model="tipoAcao">
+                                        <v-radio-group v-model="distribuicao.tipoAcao">
                                             <template v-slot:label>
                                                 <div>Qual ação você pretende realizar?</div>
                                             </template>
@@ -127,7 +127,7 @@
                                         class="mt-3"
                                     >
                                         <v-select
-                                            v-if="tipoAcao === 'distribuir'"
+                                            v-if="distribuicao.tipoAcao === 'distribuir'"
                                             v-model="distribuicao.idParecerista"
                                             :items="pareceristas"
                                             :item-text="formatarSelectParecerista"
@@ -136,7 +136,7 @@
                                             :loading="loadingPareceristas"
                                         />
                                         <v-select
-                                            v-if="tipoAcao === 'encaminhar'"
+                                            v-if="distribuicao.tipoAcao === 'encaminhar'"
                                             v-model="distribuicao.idOrgaoDestino"
                                             :items="vinculadas"
                                             item-text="Sigla"
@@ -211,6 +211,10 @@ export default {
             type: Object,
             default: () => {},
         },
+        filtro: {
+            type: String,
+            default: '',
+        },
     },
     data() {
         return {
@@ -221,7 +225,6 @@ export default {
             minChar: 10,
             valid: false,
             textIsValid: false,
-            tipoAcao: 'distribuir',
             distribuicao: {
                 idDistribuirParecer: '',
                 idProduto: '',
@@ -231,7 +234,9 @@ export default {
                 idAreaProduto: '',
                 idOrgaoDestino: '',
                 idParecerista: '',
+                filtro: '',
                 observacao: '',
+                tipoAcao: 'distribuir',
             },
             dialogConfirmarEnvio: false,
         };
@@ -242,12 +247,12 @@ export default {
             vinculadas: 'parecer/getVinculadas',
         }),
         textoMensagemConfirmacao() {
-            return this.tipoAcao === 'distribuir'
+            return this.distribuicao.tipoAcao === 'distribuir'
                 ? 'Confirma a distribuição para o parecerista?'
                 : 'Confirma o envio para a unidade vinculada?';
         },
         labelTextoRico() {
-            return this.tipoAcao === 'distribuir'
+            return this.distribuicao.tipoAcao === 'distribuir'
                 ? 'Observação para o parecerista'
                 : 'Observação para a unidade vinculada';
         },
@@ -263,6 +268,7 @@ export default {
                 this.buscarDadosDistribuicao({
                     idProduto: this.produto.idProduto,
                     idPronac: this.produto.idPronac,
+                    filtro: this.filtro,
                 });
 
                 this.distribuicao.idProduto = this.produto.idProduto;
@@ -271,12 +277,14 @@ export default {
                 this.distribuicao.idDistribuirParecer = this.produto.idDistribuirParecer;
                 this.distribuicao.idSegmentoProduto = this.produto.idSegmento;
                 this.distribuicao.idAreaProduto = this.produto.idArea;
+                this.distribuicao.filtro = this.filtro;
                 this.distribuicao.idOrgaoDestino = '';
                 this.distribuicao.observacao = '';
             }
             this.$emit('input', val);
         },
-        tipoAcao() {
+        /* eslint-disable func-names */
+        'distribuicao.tipoAcao': function () {
             this.distribuicao.idParecerista = '';
             this.distribuicao.idOrgaoDestino = '';
         },

@@ -117,33 +117,49 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
     {
         $params = $this->request->getParams();
 
-        if (empty($params['idDistribuirParecer']) || empty($params['idPronac']) || empty($params['idProduto'])) {
+        if (empty($params['idDistribuirParecer'])
+            || empty($params['idPronac'])
+            || empty($params['idProduto'])
+        ) {
             throw new \Exception("Dados obrigatórios não informados");
         }
 
-        if (empty($params['idParecerista']) && empty($params['idOrgaoDestino']) ) {
-            throw new \Exception("Destino não informado");
+        if ($params['tipoAcao'] === 'distribuir') {
+
+            if (empty($params['idParecerista'])) {
+                throw new \Exception("Selecione o parecerista");
+            }
+
+            $whereCredenciamento = [];
+            $whereCredenciamento['idAgente = ?'] = $params['idParecerista'];
+            $whereCredenciamento['idCodigoArea = ?'] = $params['idAreaProduto'];
+            $whereCredenciamento['idCodigoSegmento = ?'] = $params['idSegmentoProduto'];
+
+            $tbCredenciamentoParecerista = new \Agente_Model_DbTable_TbCredenciamentoParecerista();
+            $credenciamentos = $tbCredenciamentoParecerista->buscar($whereCredenciamento)->toArray();
+
+            if (empty($credenciamentos)) {
+                throw new \Exception("Parecerista n&atilde;o credenciado na &aacute;rea e segmento do Produto");
+            }
+
         }
 
-        $whereCredenciamento = [];
-        $whereCredenciamento['idAgente = ?'] = $params['idParecerista'];
-        $whereCredenciamento['idCodigoArea = ?'] = $params['idAreaProduto'];
-        $whereCredenciamento['idCodigoSegmento = ?'] = $params['idSegmentoProduto'];
+        if (empty($params['idOrgaoDestino']) && $params['tipoAcao'] === 'encaminhar') {
+            throw new \Exception("Selecione o org&atilde;o destino");
+        }
 
-        $tbCredenciamentoParecerista = new \Agente_Model_DbTable_TbCredenciamentoParecerista();
-        $credenciamentos = $tbCredenciamentoParecerista->buscar($whereCredenciamento)->toArray();
+        $observacao = utf8_decode(trim(strip_tags($params['observacao'])));
 
-        if (empty($credenciamentos)) {
-            throw new \Exception("Parecerista n&atilde;o credenciado na &aacute;rea e segmento do Produto");
+        if (strlen($observacao) < 11) {
+            throw new \Exception("O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 11 caracteres");
         }
 
         $distribuicao = [
-            'Observacao' => utf8_decode(trim(strip_tags($params['observacao']))),
+            'Observacao' => $observacao,
             'idUsuario' => $this->idUsuario,
             'idDistribuirParecer' => $params['idDistribuirParecer'],
             'idPRONAC' => $params['idPronac'],
             'idProduto' => $params['idProduto'],
-            'idAgenteParecerista' => $params['idParecerista']
         ];
 
         if (!empty($params['idParecerista'])) {
@@ -154,8 +170,40 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
             $distribuicao['idOrgao'] = $params['idOrgaoDestino'];
         }
 
+        $this->desabilitarDocumentoAssinatura($params['idPronac']);
+        $this->alterarSituacaoDoProjeto($distribuicao, $params['tipoAcao']);
+
+
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
-        return $tbDistribuirParecerMapper->devolverProduto($distribuicao);
+        return $tbDistribuirParecerMapper->distribuirProduto($distribuicao);
+    }
+
+    private function alterarSituacaoDoProjeto($distribuicao, $tipoAcao)
+    {
+
+        $providenciaTomada = sprintf(
+            'Produto %s encaminhado ao perito para an&aacute;lise t&aacute;cnica e emiss&atilde;o de parecer.',
+            $distribuicao['Produto']
+        );
+
+        if ($tipoAcao === 'encaminhar') {
+            $orgaos = new \Orgaos();
+            $orgao = $orgaos->pesquisarNomeOrgao($distribuicao['idOrgaoDestino']);
+
+            $providenciaTomada = sprintf(
+                'Encaminhado para %s para an&aacute;lise e emiss&atilde;o de parecer t&eacute;cnico.',
+                $orgao[0]->NomeOrgao
+            );
+        }
+
+        $projetos = new \Projetos();
+        $projetos->alterarSituacao(
+            $distribuicao['idPronac'],
+            null,
+            \Projeto_Model_Situacao::ENCAMINHADO_PARA_ANALISE_TECNICA,
+            $providenciaTomada
+        );
+
     }
 
     private function obterPareceristasDistribuicao($idOrgao, $idArea, $idSegmento, $valor)
@@ -211,5 +259,23 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         }
 
         return $unidadesVinculadas;
+    }
+
+    private function desabilitarDocumentoAssinatura($idPronac)
+    {
+        $idTipoDoAtoAdministrativo = \Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL;
+
+        $objAssinatura = new \Assinatura_Model_DbTable_TbAssinatura();
+        $assinaturas = $objAssinatura->obterAssinaturas($idPronac, $idTipoDoAtoAdministrativo);
+        if (count($assinaturas) > 0) {
+            $idDocumentoAssinatura = current($assinaturas)['idDocumentoAssinatura'];
+
+            $objDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
+            $dadosDocumentoAssinatura = [];
+            $dadosDocumentoAssinatura["stEstado"] = 0;
+            $whereDocumentoAssinatura = "idDocumentoAssinatura = $idDocumentoAssinatura";
+
+            $objDocumentoAssinatura->update($dadosDocumentoAssinatura, $whereDocumentoAssinatura);
+        }
     }
 }
