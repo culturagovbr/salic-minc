@@ -124,27 +124,12 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
             throw new \Exception("Dados obrigatórios não informados");
         }
 
-        if ($params['tipoAcao'] === 'distribuir') {
-
-            if (empty($params['idParecerista'])) {
-                throw new \Exception("Selecione o parecerista");
-            }
-
-            $whereCredenciamento = [];
-            $whereCredenciamento['idAgente = ?'] = $params['idParecerista'];
-            $whereCredenciamento['idCodigoArea = ?'] = $params['idAreaProduto'];
-            $whereCredenciamento['idCodigoSegmento = ?'] = $params['idSegmentoProduto'];
-
-            $tbCredenciamentoParecerista = new \Agente_Model_DbTable_TbCredenciamentoParecerista();
-            $credenciamentos = $tbCredenciamentoParecerista->buscar($whereCredenciamento)->toArray();
-
-            if (empty($credenciamentos)) {
-                throw new \Exception("Parecerista n&atilde;o credenciado na &aacute;rea e segmento do Produto");
-            }
-
+        if ($params['tipoAcao'] === 'distribuir'
+            && !$this->isPareceristaCredenciado($params['idParecerista'], $params['idAreaProduto'], $params['idSegmentoProduto'])) {
+            throw new \Exception("Parecerista n&atilde;o credenciado na &aacute;rea e segmento do Produto");
         }
 
-        if (empty($params['idOrgaoDestino']) && $params['tipoAcao'] === 'encaminhar') {
+        if ($params['tipoAcao'] === 'encaminhar' && empty($params['idOrgaoDestino'])) {
             throw new \Exception("Selecione o org&atilde;o destino");
         }
 
@@ -173,9 +158,27 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         $this->desabilitarDocumentoAssinatura($params['idPronac']);
         $this->alterarSituacaoDoProjeto($distribuicao, $params['tipoAcao']);
 
-
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
-        return $tbDistribuirParecerMapper->distribuirProduto($distribuicao);
+
+        if ($params['tipoAcao'] === 'encaminhar') {
+            return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($distribuicao);
+        }
+
+        return $tbDistribuirParecerMapper->distribuirProdutoParaParecerista($distribuicao);
+
+    }
+
+    private function isPareceristaCredenciado($idParecerista, $idAreaProduto, $idSegmentoProduto)
+    {
+        $whereCredenciamento = [];
+        $whereCredenciamento['idAgente = ?'] = $idParecerista;
+        $whereCredenciamento['idCodigoArea = ?'] = $idAreaProduto;
+        $whereCredenciamento['idCodigoSegmento = ?'] = $idSegmentoProduto;
+
+        $tbCredenciamentoParecerista = new \Agente_Model_DbTable_TbCredenciamentoParecerista();
+        $credenciamentos = $tbCredenciamentoParecerista->buscar($whereCredenciamento)->toArray();
+
+        return (count($credenciamentos) > 0);
     }
 
     private function alterarSituacaoDoProjeto($distribuicao, $tipoAcao)

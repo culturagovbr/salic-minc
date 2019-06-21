@@ -10,41 +10,7 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
 
     public function devolverProduto($distribuicao)
     {
-        $whereDistribuicaoAtual = [];
-        $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $distribuicao['idDistribuirParecer'];
-        $whereDistribuicaoAtual["idPRONAC = ?"] = $distribuicao['idPRONAC'];
-        $whereDistribuicaoAtual["idProduto = ?"] = $distribuicao['idProduto'];
-        $whereDistribuicaoAtual["idAgenteParecerista = ?"] = $distribuicao['idAgenteParecerista'];
-        $whereDistribuicaoAtual["stEstado = ?"] = Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO;
-        $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
-        $distribuicaoAtual = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
-
-        if (empty($distribuicaoAtual)) {
-            throw new Exception("Distribui&ccedil;&atilde;o n&atilde;o encontrada para o produto informado");
-        }
-
-        $dados = [
-            'idAgenteParecerista' => $distribuicaoAtual['idAgenteParecerista'],
-            'DtDistribuicao' => $distribuicaoAtual['DtDistribuicao'],
-            'TipoAnalise' => $distribuicaoAtual['TipoAnalise'],
-            'stPrincipal' => $distribuicaoAtual['stPrincipal'],
-            'idProduto' => $distribuicaoAtual['idProduto'],
-            'idPRONAC' => $distribuicaoAtual['idPRONAC'],
-            'idOrgao' => $distribuicaoAtual['idOrgao'],
-            'idOrgaoOrigem' => $distribuicaoAtual['idOrgaoOrigem'],
-            'DtEnvio' => $distribuicaoAtual['DtEnvio'],
-            'Observacao' => $distribuicao['Observacao'],
-            'idUsuario' => $distribuicao['idUsuario'],
-            'DtDevolucao' => \MinC_Db_Expr::date(),
-            'stDiligenciado' => null,
-            'DtRetorno' => null
-        ];
-
-        return $this->inserirDistribuicaoProduto(
-            $dados,
-            TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_PARA_ANALISE_PELO_MINC,
-            Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE
-        );
+        return $this->inserirDistribuicaoProduto($distribuicao);
     }
 
     public function distribuirProdutoParaParecerista($distribuicao)
@@ -59,14 +25,12 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
             'idPRONAC' => $distribuicao['IdPRONAC'],
             'idOrgao' => $distribuicao['idOrgao'],
             'TipoAnalise' => $distribuicao['TipoAnalise'],
-            'DtDistribuicao' => MinC_Db_Expr::date()
+            'DtDistribuicao' => MinC_Db_Expr::date(),
+            'siEncaminhamento' => TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
+            'siAnalise' => Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE
         ];
 
-        return $this->inserirDistribuicaoProduto(
-            $dados,
-            TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
-            Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE
-        );
+        return $this->inserirDistribuicaoProduto($dados);
     }
 
     public function encaminharProdutoParaVinculada($distribuicao)
@@ -81,24 +45,20 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
             'idPRONAC' => $distribuicao['idPronac'],
             'idProduto' => $distribuicao['idProduto'],
             'TipoAnalise' => $distribuicao['TipoAnalise'],
-            'DtDistribuicao' => null
+            'DtDistribuicao' => null,
+            'siEncaminhamento' => TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_PARA_ANALISE_PELO_MINC,
+            'siAnalise' => Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE
         ];
 
-        $this->inserirDistribuicaoProduto(
-            $dados,
-            TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_PARA_ANALISE_PELO_MINC,
-            Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE
-        );
+        $this->inserirDistribuicaoProduto($dados);
     }
 
-    private function inserirDistribuicaoProduto($distribuicao, $siEncaminhamento, $siAnalise)
+    private function inserirDistribuicaoProduto($distribuicao)
     {
         try {
 
             $dados = array_merge([
-                'siEncaminhamento' => $siEncaminhamento,
                 'stEstado' => Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO,
-                'siAnalise' => $siAnalise
             ], $distribuicao);
 
             xd('dadosss', $dados);

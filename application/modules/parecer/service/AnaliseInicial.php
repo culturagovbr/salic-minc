@@ -444,19 +444,42 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         $params = $this->request->getParams();
 
         if (empty($params['idDistribuirParecer']) || empty($params['idPronac']) || empty($params['idProduto'])) {
-            throw new Exception("Dados obrigatórios não informado");
+            throw new \Exception("Dados obrigatórios não informado");
         }
 
-        $distribuicao = [
+        $whereDistribuicaoAtual = [];
+        $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
+        $whereDistribuicaoAtual["idPRONAC = ?"] = $params['idPronac'];
+        $whereDistribuicaoAtual["idProduto = ?"] = $params['idProduto'];
+        $whereDistribuicaoAtual["idAgenteParecerista = ?"] = $this->idAgente;
+        $whereDistribuicaoAtual["stEstado = ?"] = \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO;
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $distribuicaoAtual = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
+
+        if (empty($distribuicaoAtual)) {
+            throw new \Exception("Distribui&ccedil;&atilde;o n&atilde;o encontrada para o produto informado");
+        }
+
+        $dados = [
+            'idAgenteParecerista' => $distribuicaoAtual['idAgenteParecerista'],
+            'DtDistribuicao' => $distribuicaoAtual['DtDistribuicao'],
+            'TipoAnalise' => $distribuicaoAtual['TipoAnalise'],
+            'stPrincipal' => $distribuicaoAtual['stPrincipal'],
+            'idProduto' => $distribuicaoAtual['idProduto'],
+            'idPRONAC' => $distribuicaoAtual['idPRONAC'],
+            'idOrgao' => $distribuicaoAtual['idOrgao'],
+            'idOrgaoOrigem' => $distribuicaoAtual['idOrgaoOrigem'],
+            'DtEnvio' => $distribuicaoAtual['DtEnvio'],
             'Observacao' => utf8_decode(trim(strip_tags($params['Observacao']))),
             'idUsuario' => $this->idUsuario,
-            'idDistribuirParecer' => $params['idDistribuirParecer'],
-            'idPRONAC' => $params['idPronac'],
-            'idProduto' => $params['idProduto'],
-            'idAgenteParecerista' => $this->idAgente
+            'DtDevolucao' => \MinC_Db_Expr::date(),
+            'stDiligenciado' => null,
+            'DtRetorno' => null,
+            'siEncaminhamento' => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_PARA_ANALISE_PELO_MINC,
+            'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE
         ];
 
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
-        return $tbDistribuirParecerMapper->devolverProduto($distribuicao);
+        return $tbDistribuirParecerMapper->devolverProduto($dados);
     }
 }
