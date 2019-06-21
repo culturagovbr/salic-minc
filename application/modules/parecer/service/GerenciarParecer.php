@@ -113,6 +113,15 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         return $resposta;
     }
 
+    public function distribuirProjeto()
+    {
+
+        $this->desabilitarDocumentoAssinatura($params['idPronac']);
+        $this->alterarSituacaoDoProjeto($distribuicao, $params['tipoAcao']);
+
+
+    }
+
     public function distribuirProduto()
     {
         $params = $this->request->getParams();
@@ -124,8 +133,17 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
             throw new \Exception("Dados obrigatórios não informados");
         }
 
+        $whereDistribuicaoAtual = [];
+        $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $distribuicaoAtual = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
+
         if ($params['tipoAcao'] === 'distribuir'
-            && !$this->isPareceristaCredenciado($params['idParecerista'], $params['idAreaProduto'], $params['idSegmentoProduto'])) {
+            && !$this->isPareceristaCredenciado(
+                $params['idParecerista'],
+                $params['idAreaProduto'],
+                $params['idSegmentoProduto'])
+        ) {
             throw new \Exception("Parecerista n&atilde;o credenciado na &aacute;rea e segmento do Produto");
         }
 
@@ -133,19 +151,17 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
             throw new \Exception("Selecione o org&atilde;o destino");
         }
 
+
         $observacao = utf8_decode(trim(strip_tags($params['observacao'])));
 
         if (strlen($observacao) < 11) {
             throw new \Exception("O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 11 caracteres");
         }
 
-        $distribuicao = [
+        $distribuicao = array_merge($distribuicaoAtual, [
             'Observacao' => $observacao,
             'idUsuario' => $this->idUsuario,
-            'idDistribuirParecer' => $params['idDistribuirParecer'],
-            'idPRONAC' => $params['idPronac'],
-            'idProduto' => $params['idProduto'],
-        ];
+        ]);
 
         if (!empty($params['idParecerista'])) {
             $distribuicao['idAgenteParecerista'] = $params['idParecerista'];
@@ -155,16 +171,16 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
             $distribuicao['idOrgao'] = $params['idOrgaoDestino'];
         }
 
-        $this->desabilitarDocumentoAssinatura($params['idPronac']);
-        $this->alterarSituacaoDoProjeto($distribuicao, $params['tipoAcao']);
-
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
-
         if ($params['tipoAcao'] === 'encaminhar') {
             return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($distribuicao);
         }
 
         return $tbDistribuirParecerMapper->distribuirProdutoParaParecerista($distribuicao);
+    }
+
+    private function distribuir()
+    {
 
     }
 
