@@ -202,10 +202,23 @@ export const obterDadosParaDistribuicao = ({ commit }, params) => {
         });
 };
 
-export const salvarDistribuicao = async ({ dispatch }, params) => parecerHelperAPI.salvarDistribuicao(params)
+export const salvarDistribuicaoProduto = async ({ dispatch }, params) => parecerHelperAPI.salvarDistribuicaoProduto(params)
     .then((response) => {
         dispatch('parecerMensagemSucesso', response.data.message);
         dispatch('removerProdutoDaLista', params);
+        return response.data;
+    }).catch((e) => {
+        dispatch('parecerMensagemErro', e.response.data.error.message);
+        throw new TypeError(e.response.data.error.message, 'declaracaoImpedimento', 10);
+    });
+
+
+export const salvarDistribuicaoProjeto = async ({ dispatch }, params) => parecerHelperAPI.salvarDistribuicaoProjeto(params)
+    .then((response) => {
+        dispatch('parecerMensagemSucesso', response.data.message);
+        response.data.items.forEach((item) => {
+            dispatch('removerProdutoDaLista', item);
+        });
         return response.data;
     }).catch((e) => {
         dispatch('parecerMensagemErro', e.response.data.error.message);

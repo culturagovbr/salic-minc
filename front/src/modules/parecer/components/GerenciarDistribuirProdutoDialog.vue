@@ -22,7 +22,7 @@
                     <v-icon>close</v-icon>
                 </v-btn>
                 <v-toolbar-title>
-                    Distribuir Produto: {{ produto.pronac }} - {{ produto.nomeProjeto }}
+                    Distribuir Produto: {{ produto.nomeProduto }} - {{ produto.nomeProjeto }}
                 </v-toolbar-title>
             </v-toolbar>
             <v-card-text>
@@ -145,6 +145,21 @@
                                             :loading="loadingVinculadas"
                                         />
                                     </v-flex>
+                                    <v-flex
+                                        v-if="produto.stPrincipal === 1"
+                                        xs12
+                                        sm6
+                                        md6
+                                        class="mt-3"
+                                    >
+                                        <v-switch
+                                            v-model="distribuicao.distribuirProjeto"
+                                            label="Distribuir todos os produtos do projeto?"
+                                            color="primary"
+                                            value="true"
+                                            hide-details
+                                        ></v-switch>
+                                    </v-flex>
                                 </v-layout>
 
                                 <s-editor-texto
@@ -165,7 +180,7 @@
                                 <v-icon left>
                                     send
                                 </v-icon>
-                                Enviar e Distribuir
+                                Enviar
                             </v-btn>
                             <v-btn
                                 @click="dialog = false"
@@ -237,6 +252,7 @@ export default {
                 filtro: '',
                 observacao: '',
                 tipoAcao: 'distribuir',
+                distribuirProjeto: false,
             },
             dialogConfirmarEnvio: false,
         };
@@ -298,14 +314,16 @@ export default {
     methods: {
         ...mapActions({
             buscarDadosDistribuicao: 'parecer/obterDadosParaDistribuicao',
-            salvar: 'parecer/salvarDistribuicao',
+            salvarDistribuicaoProduto: 'parecer/salvarDistribuicaoProduto',
+            salvarDistribuicaoProjeto: 'parecer/salvarDistribuicaoProjeto',
         }),
         validarTexto(e) {
             this.textIsValid = e >= this.minChar;
         },
         salvarDistribuicao() {
             this.loading = true;
-            this.salvar(this.distribuicao).then(() => {
+            const salvar = this.distribuicao.distribuirProjeto ? 'salvarDistribuicaoProjeto' : 'salvarDistribuicaoProduto';
+            this[salvar](this.distribuicao).then(() => {
                 this.dialog = false;
             }).finally(() => {
                 this.loading = false;

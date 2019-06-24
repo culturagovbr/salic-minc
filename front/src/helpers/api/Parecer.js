@@ -118,4 +118,6 @@ export const obterDadosParaDistribuicao = (params) => {
     return api.getRequest(`${module}${controller}${queryParams}`);
 };
 
-export const salvarDistribuicao = params => api.postRequest('/parecer/gerenciar-distribuir-produto-rest', buildData(params));
+export const salvarDistribuicaoProduto = params => api.postRequest('/parecer/gerenciar-distribuir-produto-rest', buildData(params));
+
+export const salvarDistribuicaoProjeto = params => api.postRequest('/parecer/gerenciar-distribuir-projeto-rest', buildData(params));

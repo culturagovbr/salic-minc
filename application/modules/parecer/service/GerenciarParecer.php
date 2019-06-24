@@ -101,7 +101,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
             throw new \Exception("Produto indispon&iacute;vel para distribui&ccedil;&atilde;o!");
         }
 
-        $resposta['pareceristas'] = $this->obterPareceristasDistribuicao(
+        $resposta['pareceristas'] = $this->obterPareceristas(
             $produto['idOrgao'],
             $produto['idArea'],
             $produto['idSegmento'],
@@ -113,46 +113,74 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         return $resposta;
     }
 
-    public function distribuirProjeto()
-    {
-
-        $this->desabilitarDocumentoAssinatura($params['idPronac']);
-        $this->alterarSituacaoDoProjeto($distribuicao, $params['tipoAcao']);
-
-
-    }
-
     public function distribuirProduto()
     {
         $params = $this->request->getParams();
 
-        if (empty($params['idDistribuirParecer'])
-            || empty($params['idPronac'])
-            || empty($params['idProduto'])
+        if (empty($dados['idDistribuirParecer'])
+            || empty($dados['idPronac'])
+            || empty($dados['idProduto'])
         ) {
             throw new \Exception("Dados obrigatórios não informados");
         }
+
+        xd( 'produtoooo');
 
         $whereDistribuicaoAtual = [];
         $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
         $distribuicaoAtual = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
 
-        if ($params['tipoAcao'] === 'distribuir'
+        $resposta = $this->distribuir($params, $distribuicaoAtual);
+
+        if ($resposta) {
+            $this->desabilitarDocumentoAssinatura($params['idPronac']);
+            $this->alterarSituacaoDoProjeto($distribuicaoAtual, $params['tipoAcao']);
+        }
+    }
+
+    public function distribuirTodosProdutosDoProjeto()
+    {
+        $params = $this->request->getParams();
+
+        $whereDistribuicaoAtual = [
+            "idPronac = ?" => $params['idPronac'],
+            "idOrgao = ?" => $this->idOrgao,
+            "stEstado = ?" => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO
+        ];
+
+        xd('projeto');
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $distribuicoes = $tbDistribuirParecer->findAll($whereDistribuicaoAtual);
+
+        $resposta = false;
+        foreach($distribuicoes as $distribuicao) {
+            $resposta = $this->distribuir($params, $distribuicao);
+        }
+
+        if ($resposta) {
+            $this->desabilitarDocumentoAssinatura($params['idPronac']);
+            $this->alterarSituacaoDoProjeto($params, $params['tipoAcao']);
+        }
+
+    }
+
+    public function distribuir($dados, $distribuicaoAtual)
+    {
+        if ($dados['tipoAcao'] === 'distribuir'
             && !$this->isPareceristaCredenciado(
-                $params['idParecerista'],
-                $params['idAreaProduto'],
-                $params['idSegmentoProduto'])
+                $dados['idParecerista'],
+                $dados['idAreaProduto'],
+                $dados['idSegmentoProduto'])
         ) {
             throw new \Exception("Parecerista n&atilde;o credenciado na &aacute;rea e segmento do Produto");
         }
 
-        if ($params['tipoAcao'] === 'encaminhar' && empty($params['idOrgaoDestino'])) {
+        if ($dados['tipoAcao'] === 'encaminhar' && empty($dados['idOrgaoDestino'])) {
             throw new \Exception("Selecione o org&atilde;o destino");
         }
 
-
-        $observacao = utf8_decode(trim(strip_tags($params['observacao'])));
+        $observacao = utf8_decode(trim(strip_tags($dados['observacao'])));
 
         if (strlen($observacao) < 11) {
             throw new \Exception("O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 11 caracteres");
@@ -163,33 +191,29 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
             'idUsuario' => $this->idUsuario,
         ]);
 
-        if (!empty($params['idParecerista'])) {
-            $distribuicao['idAgenteParecerista'] = $params['idParecerista'];
+        if (!empty($dados['idParecerista'])) {
+            $distribuicao['idAgenteParecerista'] = $dados['idParecerista'];
         }
 
-        if (!empty($params['idOrgaoDestino'])) {
-            $distribuicao['idOrgao'] = $params['idOrgaoDestino'];
+        if (!empty($dados['idOrgaoDestino'])) {
+            $distribuicao['idOrgao'] = $dados['idOrgaoDestino'];
         }
 
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
-        if ($params['tipoAcao'] === 'encaminhar') {
+        if ($dados['tipoAcao'] === 'encaminhar') {
             return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($distribuicao);
         }
 
         return $tbDistribuirParecerMapper->distribuirProdutoParaParecerista($distribuicao);
     }
 
-    private function distribuir()
-    {
-
-    }
-
     private function isPareceristaCredenciado($idParecerista, $idAreaProduto, $idSegmentoProduto)
     {
-        $whereCredenciamento = [];
-        $whereCredenciamento['idAgente = ?'] = $idParecerista;
-        $whereCredenciamento['idCodigoArea = ?'] = $idAreaProduto;
-        $whereCredenciamento['idCodigoSegmento = ?'] = $idSegmentoProduto;
+        $whereCredenciamento = [
+            'idAgente = ?' => $idParecerista,
+            'idCodigoArea = ?' => $idAreaProduto,
+            'idCodigoSegmento = ?' => $idSegmentoProduto
+        ];
 
         $tbCredenciamentoParecerista = new \Agente_Model_DbTable_TbCredenciamentoParecerista();
         $credenciamentos = $tbCredenciamentoParecerista->buscar($whereCredenciamento)->toArray();
@@ -197,17 +221,13 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         return (count($credenciamentos) > 0);
     }
 
-    private function alterarSituacaoDoProjeto($distribuicao, $tipoAcao)
+    private function alterarSituacaoDoProjeto($dados, $tipoAcao) : void
     {
-
-        $providenciaTomada = sprintf(
-            'Produto %s encaminhado ao perito para an&aacute;lise t&aacute;cnica e emiss&atilde;o de parecer.',
-            $distribuicao['Produto']
-        );
+        $providenciaTomada = 'Encaminhado ao perito para an&aacute;lise t&eacute;cnica e emiss&atilde;o de parecer.';
 
         if ($tipoAcao === 'encaminhar') {
             $orgaos = new \Orgaos();
-            $orgao = $orgaos->pesquisarNomeOrgao($distribuicao['idOrgaoDestino']);
+            $orgao = $orgaos->pesquisarNomeOrgao($dados['idOrgaoDestino']);
 
             $providenciaTomada = sprintf(
                 'Encaminhado para %s para an&aacute;lise e emiss&atilde;o de parecer t&eacute;cnico.',
@@ -217,15 +237,14 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
 
         $projetos = new \Projetos();
         $projetos->alterarSituacao(
-            $distribuicao['idPronac'],
+            $dados['idPronac'],
             null,
             \Projeto_Model_Situacao::ENCAMINHADO_PARA_ANALISE_TECNICA,
             $providenciaTomada
         );
-
     }
 
-    private function obterPareceristasDistribuicao($idOrgao, $idArea, $idSegmento, $valor)
+    private function obterPareceristas($idOrgao, $idArea, $idSegmento, $valor)
     {
         $spSelecionarParecerista = new \Parecer_Model_DbTable_SpSelecionarParecerista();
         $pareceristas = $spSelecionarParecerista->exec(
@@ -290,8 +309,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
             $idDocumentoAssinatura = current($assinaturas)['idDocumentoAssinatura'];
 
             $objDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
-            $dadosDocumentoAssinatura = [];
-            $dadosDocumentoAssinatura["stEstado"] = 0;
+            $dadosDocumentoAssinatura = ["stEstado" => \Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_INATIVO];
             $whereDocumentoAssinatura = "idDocumentoAssinatura = $idDocumentoAssinatura";
 
             $objDocumentoAssinatura->update($dadosDocumentoAssinatura, $whereDocumentoAssinatura);

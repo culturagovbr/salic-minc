@@ -28,7 +28,7 @@
                         >
                             <v-flex
                                 xs12
-                                sm4
+                                sm6
                             >
                                 <v-flex
                                     xs12

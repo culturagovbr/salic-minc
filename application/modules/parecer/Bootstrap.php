@@ -25,6 +25,7 @@ class Parecer_Bootstrap extends Zend_Application_Module_Bootstrap
                     'planilha-produto-rest',
                     'gerenciar-parecer-rest',
                     'gerenciar-distribuir-produto-rest',
+                    'gerenciar-distribuir-projeto-rest',
                 ]
             ]
         );

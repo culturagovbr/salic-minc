@@ -23,7 +23,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
             $PermissoesGrupo[] = Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER;
             $PermissoesGrupo[] = 137;
             $PermissoesGrupo[] = Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA;
-            
+
             if (!in_array($GrupoAtivo->codGrupo, $PermissoesGrupo)) { // verifica se o grupo ativo est� no array de permiss�es
                 parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
             }
@@ -47,7 +47,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
         parent::init();
     }
-    
+
     public function indexAction()
     {
         return $this->_helper->redirector->goToRoute(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index'), null, true);
@@ -290,12 +290,12 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         $orgaos = new Orgaos();
         $buscar = $orgaos->buscar(
             array(
-                "Codigo <> ?" => $codOrgao, 
-                "Status = ?" => 0, 
+                "Codigo <> ?" => $codOrgao,
+                "Status = ?" => 0,
                 "Vinculo = ?" => 1,
                 "stVinculada = ?" => 1,
                 "idsecretaria <> ?" => 251,
-            ), 
+            ),
             array(2)
         );
 
@@ -344,7 +344,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
             parent::message("Dados obrigat&aacute;rios n&atilde;o informados.", "gerenciarparecer/distribuir/idpronac/" . $idPronac, "ALERT");
         }
 
-        if ((empty($idAgenteParecerista)) && ($tipoescolha == 1)) {
+        if ((empty($idAgenteParecerista)) && ($tipoescolha == 1)) {    // distribuir
             parent::message(
                 "Dados obrigat&aacute;rios n&atilde;o informados.",
                 "gerenciarparecer/encaminhar/idproduto/" . $idProduto . "/tipoanalise/" . $TipoAnalise . "/idpronac/" . $idPronac . "/tipoFiltro/" . $tipoFiltro,
@@ -359,27 +359,27 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
         $error = "";
         $msg = "Distribui&ccedil;&atilde;o realizada com sucesso!";
-        
+
         $idTipoDoAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL;
-        
+
         $objAssinatura = new Assinatura_Model_DbTable_TbAssinatura();
         $assinaturas = $objAssinatura->obterAssinaturas($idPronac, $idTipoDoAtoAdministrativo);
-        
+
         if (count($assinaturas) > 0) {
             $idDocumentoAssinatura = current($assinaturas)['idDocumentoAssinatura'];
-            
+
             $objDocumentoAssinatura = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
             $dadosDocumentoAssinatura = array();
             $dadosDocumentoAssinatura["stEstado"] = Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_INATIVO;
             $whereDocumentoAssinatura = "idDocumentoAssinatura = $idDocumentoAssinatura";
             $objDocumentoAssinatura->update($dadosDocumentoAssinatura, $whereDocumentoAssinatura);
         }
-        
+
         $db = Zend_Db_Table::getDefaultAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
         $projetos = new Projetos();
-        
+
         try {
             /* $db->beginTransaction(); */
 
@@ -392,7 +392,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                     $dp->FecharAnalise;
                 }
 
-                if ($tipoescolha == 2) {
+                if ($tipoescolha == 2) {    // encaminhar
                     $msg = "Enviado os Produtos/Projeto para a entidade!";
 
                     // ALTERAR UNIDADE DE AN�LISE ( COORDENADOR DE PARECER )
@@ -446,7 +446,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                         'stPrincipal' => $dp->stPrincipal,
                         'stDiligenciado' => null
                     );
-                    
+
                     $where['idDistribuirParecer = ?'] = $dp->idDistribuirParecer;
                     $salvar = $tbDistribuirParecer->alterar(array('stEstado' => 1), $where);
 
@@ -455,7 +455,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                     $projetos->alterarSituacao($dp->IdPRONAC, null, 'B11', 'Encaminhado para o perito para an&aacute;lise t&eacute;cnica e emiss&atilde;o de parecer.');
                 }
             }
-            
+
             parent::message($msg . ' '.$insere, "parecer/gerenciar-parecer/index?tipoFiltro=" . $tipoFiltro, "CONFIRM");
             /* $db->commit(); */
         } catch (Zend_Exception $ex) {
@@ -550,8 +550,8 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 
         $buscar = $orgaos->buscar(
             array(
-                "Codigo <> ?" => $codOrgao, 
-                "Status = ?" => 0, 
+                "Codigo <> ?" => $codOrgao,
+                "Status = ?" => 0,
                 "Vinculo = ?" => 1,
                 "stvinculada = ?" => 1,
                 "idSecretaria <> ?" => 251 ,
@@ -616,9 +616,9 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
         $dadosWhere["idDistribuirParecer = ?"] = $idDistribuirParecer;
         $buscaDadosProjeto = $tbDistribuirParecer->painelAnaliseTecnica($dadosWhere, null, null, null, null, $tipoFiltro);
 
-        
+
         $idTipoDoAtoAdministrativo = Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL;
-        
+
 //        $objAssinatura = new Assinatura_Model_DbTable_TbAssinatura();
 //        $assinaturas = $objAssinatura->obterAssinaturas($idPronac, $idTipoDoAtoAdministrativo);
 //        if (count($assinaturas) > 0) {
@@ -631,7 +631,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
 //
 //            $objDocumentoAssinatura->update($dadosDocumentoAssinatura, $whereDocumentoAssinatura);
 //        }
-        
+
         $error = '';
         $projetos = new Projetos();
 
@@ -698,7 +698,7 @@ class GerenciarparecerController extends MinC_Controller_Action_Abstract
                         'stPrincipal' => $dp->stPrincipal,
                         'stDiligenciado' => null
                     );
-                    
+
                     $where['idDistribuirParecer = ?'] = $idDistribuirParecer;
                     $salvar = $tbDistribuirParecer->alterar(array('stEstado' => 1), $where);
 
