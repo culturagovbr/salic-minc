@@ -281,7 +281,7 @@ export default {
                 if (this.analiseConteudo.ParecerFavoravel !== true
                     && this.analiseConteudo.ParecerFavoravel !== 1) {
                     this.setStepEditableStatus('analise-de-custos', false);
-                    this.setStepMessage('analise-de-custos', 'Não disponível! Parecer não favorável');
+                    this.setStepMessage('analise-de-custos', 'Parecer não realizado ou não favorável');
                     this.setStepRules('analise-de-custos', [() => false]);
                 }
             }

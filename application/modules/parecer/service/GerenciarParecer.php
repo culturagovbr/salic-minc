@@ -48,7 +48,8 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
     {
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
         $filtro = $this->request->getParam('filtro');
-        $produtos = $tbDistribuirParecer->obterPainelGerenciarParecer($filtro);
+        $where = ['a.idOrgao = ?' => $this->idOrgao];
+        $produtos = $tbDistribuirParecer->obterPainelGerenciarParecer($filtro, $where);
         return \TratarArray::utf8EncodeArray($produtos);
     }
 
@@ -85,15 +86,16 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
     {
         $idProduto = $this->request->getParam('idProduto');
         $idPronac = $this->request->getParam('idPronac');
+        $filtro = $this->request->getParam('filtro');
 
         $resposta = [];
 
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
         $produto = current($tbDistribuirParecer->obterPainelGerenciarParecer(
-            '',
+            $filtro,
             [
-                'idProduto = ?' => $idProduto,
-                'IdPRONAC = ?' => $idPronac,
+                'a.idProduto = ?' => $idProduto,
+                'a.IdPRONAC = ?' => $idPronac,
             ]
         ));
 
@@ -113,59 +115,58 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         return $resposta;
     }
 
-    public function distribuirProduto()
+    public function inserirDistribuicaoProduto()
     {
         $params = $this->request->getParams();
 
-        if (empty($dados['idDistribuirParecer'])
-            || empty($dados['idPronac'])
-            || empty($dados['idProduto'])
+        if (empty($params['idDistribuirParecer'])
+            || empty($params['idPronac'])
+            || empty($params['idProduto'])
         ) {
             throw new \Exception("Dados obrigatórios não informados");
         }
 
-        xd( 'produtoooo');
-
         $whereDistribuicaoAtual = [];
         $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        $distribuicaoAtual = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
-
-        $resposta = $this->distribuir($params, $distribuicaoAtual);
+        $distribuicao = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
+        $resposta = $this->distribuirProduto($params, $distribuicao);
 
         if ($resposta) {
             $this->desabilitarDocumentoAssinatura($params['idPronac']);
-            $this->alterarSituacaoDoProjeto($distribuicaoAtual, $params['tipoAcao']);
+            $this->alterarSituacaoDoProjeto($params['idPronac']);
         }
+
+        return $distribuicao;
     }
 
-    public function distribuirTodosProdutosDoProjeto()
+    public function inserirDistribuicaoTodosProdutosDoProjeto()
     {
         $params = $this->request->getParams();
 
-        $whereDistribuicaoAtual = [
+        $whereDistribuicao = [
             "idPronac = ?" => $params['idPronac'],
             "idOrgao = ?" => $this->idOrgao,
             "stEstado = ?" => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO
         ];
 
-        xd('projeto');
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        $distribuicoes = $tbDistribuirParecer->findAll($whereDistribuicaoAtual);
+        $distribuicoes = $tbDistribuirParecer->findAll($whereDistribuicao);
 
         $resposta = false;
         foreach($distribuicoes as $distribuicao) {
-            $resposta = $this->distribuir($params, $distribuicao);
+            $resposta = $this->distribuirProduto($params, $distribuicao);
         }
 
         if ($resposta) {
             $this->desabilitarDocumentoAssinatura($params['idPronac']);
-            $this->alterarSituacaoDoProjeto($params, $params['tipoAcao']);
+            $this->alterarSituacaoDoProjeto($params['idPronac']);
         }
 
+        return $distribuicoes;
     }
 
-    public function distribuir($dados, $distribuicaoAtual)
+    public function distribuirProduto($dados, $distribuicaoAtual)
     {
         if ($dados['tipoAcao'] === 'distribuir'
             && !$this->isPareceristaCredenciado(
@@ -221,23 +222,13 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         return (count($credenciamentos) > 0);
     }
 
-    private function alterarSituacaoDoProjeto($dados, $tipoAcao) : void
+    private function alterarSituacaoDoProjeto($idPronac)
     {
         $providenciaTomada = 'Encaminhado ao perito para an&aacute;lise t&eacute;cnica e emiss&atilde;o de parecer.';
 
-        if ($tipoAcao === 'encaminhar') {
-            $orgaos = new \Orgaos();
-            $orgao = $orgaos->pesquisarNomeOrgao($dados['idOrgaoDestino']);
-
-            $providenciaTomada = sprintf(
-                'Encaminhado para %s para an&aacute;lise e emiss&atilde;o de parecer t&eacute;cnico.',
-                $orgao[0]->NomeOrgao
-            );
-        }
-
         $projetos = new \Projetos();
         $projetos->alterarSituacao(
-            $dados['idPronac'],
+            $idPronac,
             null,
             \Projeto_Model_Situacao::ENCAMINHADO_PARA_ANALISE_TECNICA,
             $providenciaTomada

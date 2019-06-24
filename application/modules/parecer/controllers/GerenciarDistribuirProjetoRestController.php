@@ -33,8 +33,11 @@ class Parecer_GerenciarDistribuirProjetoRestController extends MinC_Controller_R
     {
         try {
             $gerenciarParecerService = new GerenciarParecerService($this->getRequest(), $this->getResponse());
-            $resposta = $gerenciarParecerService->distribuirTodosProdutosDoProjeto();
-            $this->customRenderJsonResponse(['data' => \TratarArray::utf8EncodeArray($resposta)], 200);
+            $resposta = $gerenciarParecerService->inserirDistribuicaoTodosProdutosDoProjeto();
+            $this->customRenderJsonResponse([
+                'message' => 'Produtos encaminhados com sucesso',
+                'items' => \TratarArray::utf8EncodeArray($resposta)
+            ], 201);
         } catch (Exception $objException) {
             $this->customRenderJsonResponse([
                 'error' => [
@@ -42,7 +45,6 @@ class Parecer_GerenciarDistribuirProjetoRestController extends MinC_Controller_R
                     'message' => $objException->getMessage()
                 ]
             ], 412);
-
         }
     }
 

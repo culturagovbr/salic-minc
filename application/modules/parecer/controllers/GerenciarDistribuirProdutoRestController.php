@@ -44,8 +44,7 @@ class Parecer_GerenciarDistribuirProdutoRestController extends MinC_Controller_R
         try {
             $gerenciarParecerService = new GerenciarParecerService($this->getRequest(), $this->getResponse());
             $resposta = $gerenciarParecerService->obteDistribuicaoProduto();
-
-            $this->customRenderJsonResponse(['data' => \TratarArray::utf8EncodeArray($resposta)], 201);
+            $this->customRenderJsonResponse(['data' => \TratarArray::utf8EncodeArray($resposta)], 200);
 
         } catch (Exception $objException) {
             $this->customRenderJsonResponse([
@@ -62,8 +61,12 @@ class Parecer_GerenciarDistribuirProdutoRestController extends MinC_Controller_R
     {
         try {
             $gerenciarParecerService = new GerenciarParecerService($this->getRequest(), $this->getResponse());
-            $resposta = $gerenciarParecerService->distribuirProduto();
-            $this->customRenderJsonResponse(['data' => \TratarArray::utf8EncodeArray($resposta)], 200);
+            $resposta = $gerenciarParecerService->inserirDistribuicaoProduto();
+            $this->customRenderJsonResponse(
+                [
+                    'data' => \TratarArray::utf8EncodeArray($resposta),
+                    'message' => 'Distribuição realizada com sucesso'
+                ], 201);
         } catch (Exception $objException) {
             $this->customRenderJsonResponse([
                 'error' => [

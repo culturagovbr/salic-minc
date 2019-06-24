@@ -22,7 +22,7 @@
                     <v-icon>close</v-icon>
                 </v-btn>
                 <v-toolbar-title>
-                    Distribuir Produto: {{ produto.nomeProduto }} - {{ produto.nomeProjeto }}
+                    Gerenciar Produto: {{ produto.nomeProduto }} - {{ produto.nomeProjeto }}
                 </v-toolbar-title>
             </v-toolbar>
             <v-card-text>
@@ -93,6 +93,7 @@
                             <v-form
                                 ref="form"
                                 v-model="valid"
+                                lazy-validation
                             >
                                 <v-layout
                                     row
@@ -134,6 +135,7 @@
                                             item-value="idParecerista"
                                             :label="loadingPareceristas ? 'Carregando...' : 'Selecione o parecerista'"
                                             :loading="loadingPareceristas"
+                                            :rules="[v => !!v || 'Parecerista é obrigatório']"
                                         />
                                         <v-select
                                             v-if="distribuicao.tipoAcao === 'encaminhar'"
@@ -143,6 +145,7 @@
                                             item-value="Codigo"
                                             :label="loadingVinculadas ? 'Carregando...' : 'Selecione o orgão destino'"
                                             :loading="loadingVinculadas"
+                                            :rules="[v => !!v || 'Orgão destino é obrigatório']"
                                         />
                                     </v-flex>
                                     <v-flex
@@ -154,11 +157,11 @@
                                     >
                                         <v-switch
                                             v-model="distribuicao.distribuirProjeto"
-                                            label="Distribuir todos os produtos do projeto?"
+                                            label="Deseja aplicar esta ação para os outros produtos do projeto?"
                                             color="primary"
                                             value="true"
                                             hide-details
-                                        ></v-switch>
+                                        />
                                     </v-flex>
                                 </v-layout>
 
@@ -175,7 +178,7 @@
                                 :loading="loading"
                                 :disabled="!valid || !textIsValid || loading"
                                 color="primary"
-                                @click.native="dialogConfirmarEnvio = true"
+                                @click.native="abrirDialogConfirmacao()"
                             >
                                 <v-icon left>
                                     send
@@ -293,6 +296,7 @@ export default {
                 this.distribuicao.idDistribuirParecer = this.produto.idDistribuirParecer;
                 this.distribuicao.idSegmentoProduto = this.produto.idSegmento;
                 this.distribuicao.idAreaProduto = this.produto.idArea;
+                this.distribuicao.idAreaProduto = this.produto.idParecerista;
                 this.distribuicao.filtro = this.filtro;
                 this.distribuicao.idOrgaoDestino = '';
                 this.distribuicao.observacao = '';
@@ -320,7 +324,16 @@ export default {
         validarTexto(e) {
             this.textIsValid = e >= this.minChar;
         },
+        abrirDialogConfirmacao() {
+            if (this.$refs.form.validate()) {
+                this.dialogConfirmarEnvio = true;
+            }
+        },
         salvarDistribuicao() {
+            if (!this.$refs.form.validate()) {
+                return;
+            }
+
             this.loading = true;
             const salvar = this.distribuicao.distribuirProjeto ? 'salvarDistribuicaoProjeto' : 'salvarDistribuicaoProduto';
             this[salvar](this.distribuicao).then(() => {

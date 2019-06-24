@@ -84,6 +84,7 @@
                                     @visualizar-diligencia="visualizarDiligencia($event)"
                                     @distribuir-produto="distribuirProduto($event)"
                                     @distribuir-projeto="distribuirProjeto($event)"
+                                    @visualizar-detalhes="visualizarDetalhes($event)"
                                 />
                             </template>
 
@@ -103,16 +104,17 @@
                             :id-produto="diligenciaVisualizacao.idProduto"
                             :tp-diligencia="TP_DILIGENCIA_ANALISE_TECNICA"
                         />
-                        <s-analise-declarar-impedimento-dialog
-                            v-model="dialogImpedimento"
-                            :produto="produtoImpedimento"
-                        />
                         <s-analise-outros-produtos-dialog-detalhamento
                             v-model="dialogVisualizarProduto"
                             :produto="produtoSelecionado"
                         />
                         <s-gerenciar-distribuir-produto-dialog
                             v-model="dialogDistribuirProduto"
+                            :produto="produtoSelecionado"
+                            :filtro="filtro"
+                        />
+                        <s-gerenciar-detalhes-analise-dialog
+                            v-model="dialogDetalhes"
                             :produto="produtoSelecionado"
                             :filtro="filtro"
                         />
@@ -130,10 +132,11 @@ import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
 import MxConstantes from '@/modules/parecer/mixins/const';
 import SCarregando from '@/components/CarregandoVuetify';
 import SDialogDiligencias from '@/modules/diligencia/components/SDialogDiligencias';
-import SAnaliseDeclararImpedimentoDialog from '@/modules/parecer/components/AnaliseDeclararImpedimentoDialog';
 import SAnaliseOutrosProdutosDialogDetalhamento from '@/modules/parecer/components/AnaliseOutrosProdutosDialogDetalhamento';
 import SGerenciarDistribuirProdutoDialog from '@/modules/parecer/components/GerenciarDistribuirProdutoDialog';
+import SGerenciarDetalhesAnaliseDialog from '@/modules/parecer/components/GerenciarDetalhesAnaliseDialog';
 import GerenciarListaItensAguardandoAnalise from '@/modules/parecer/components/GerenciarListaItensAguardandoAnalise';
+import GerenciarListaItensEmAnalise from '@/modules/parecer/components/GerenciarListaItensEmAnalise';
 
 export default {
     name: 'ParecerAnalisarListaView',
@@ -141,7 +144,8 @@ export default {
         SGerenciarDistribuirProdutoDialog,
         SAnaliseOutrosProdutosDialogDetalhamento,
         GerenciarListaItensAguardandoAnalise,
-        SAnaliseDeclararImpedimentoDialog,
+        GerenciarListaItensEmAnalise,
+        SGerenciarDetalhesAnaliseDialog,
         SCarregando,
         SDialogDiligencias,
     },
@@ -187,7 +191,7 @@ export default {
             {
                 id: 'em_analise',
                 label: 'Em análise',
-                component: 'gerenciar-lista-itens-aguardando-analise',
+                component: 'gerenciar-lista-itens-em-analise',
                 headers: [
                     {
                         text: 'Pronac',
@@ -200,7 +204,7 @@ export default {
                         value: 'nomeProjeto',
                     },
                     {
-                        text: 'Produto para análise',
+                        text: 'Produto',
                         align: 'left',
                         value: 'nomeProduto',
                     },
@@ -209,7 +213,17 @@ export default {
                         value: 'stPrincipal',
                         width: '2',
                     },
-                    { text: 'Dt. de Recebimento', value: 'dtDistribuicao', width: '2' },
+                    {
+                        text: 'Segmento',
+                        align: 'left',
+                        value: 'segmento',
+                    },
+                    {
+                        text: 'Parecerista',
+                        align: 'left',
+                        value: 'parecerista',
+                    },
+                    { text: 'Dt. de Envio', value: 'dtDistribuicao', width: '2' },
                     { text: 'Ações', width: '2', value: 'stPrincipal' },
                 ],
 
@@ -349,6 +363,7 @@ export default {
         dialogHistorico: false,
         dialogVisualizarProduto: false,
         dialogDistribuirProduto: false,
+        dialogDetalhes: false,
         produtoHistorico: {},
         dialogImpedimento: false,
         diligenciaVisualizacao: {
@@ -410,6 +425,10 @@ export default {
         },
         visualizarHistorico(produto) {
             this.dialogHistorico = true;
+            this.produtoSelecionado = produto;
+        },
+        visualizarDetalhes(produto) {
+            this.dialogDetalhes = true;
             this.produtoSelecionado = produto;
         },
         distribuirProduto(produto) {

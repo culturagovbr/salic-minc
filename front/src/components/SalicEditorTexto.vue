@@ -140,7 +140,6 @@ export default {
         },
     },
     mounted() {
-        console.log('teste', this);
         this.editor = this.value.trim();
     },
     methods: {

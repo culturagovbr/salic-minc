@@ -215,6 +215,7 @@ export const salvarDistribuicaoProduto = async ({ dispatch }, params) => parecer
 
 export const salvarDistribuicaoProjeto = async ({ dispatch }, params) => parecerHelperAPI.salvarDistribuicaoProjeto(params)
     .then((response) => {
+        console.log('sssss', response);
         dispatch('parecerMensagemSucesso', response.data.message);
         response.data.items.forEach((item) => {
             dispatch('removerProdutoDaLista', item);
