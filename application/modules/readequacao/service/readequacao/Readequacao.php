@@ -617,28 +617,43 @@ class Readequacao implements IServicoRestZend
         return $data;
     }
 
-    public function verificarPermissaoNoProjeto() {
+    private function __verificarPermissaoProponenteNoProjeto($idPronac)
+    {
+        $parametros = $this->request->getParams();
+
+        $auth = \Zend_Auth::getInstance()->getIdentity();
+        $arrAuth = array_change_key_case((array)$auth);
+        
+        $idUsuarioLogado = $arrAuth['idusuario'];
+        $fnVerificarPermissao = new \Autenticacao_Model_FnVerificarPermissao();
+        
+        if ($idPronac == '') {
+            $idPronac = $parametros['idpronac'] ? $parametros['idpronac'] : $parametros['idPronac'];
+        }
+        if ($idPronac == '') {
+            $idReadequacao = $parametros['id'];
+            $dados = $this->buscarIdPronac($idReadequacao);
+            $idPronac = $dados['idPronac'];
+        }
+        if (strlen($idPronac) > 7) {
+            $idPronac = \Seguranca::dencrypt($idPronac);
+        }
+        $consulta = $fnVerificarPermissao->verificarPermissaoProjeto($idPronac, $idUsuarioLogado);
+        
+        return $consulta->Permissao;
+    }
+
+    public function verificarPermissaoNoProjeto($idPronac = '') {
         $parametros = $this->request->getParams();
 
         $permissao = false;
         $auth = \Zend_Auth::getInstance()->getIdentity();
         $arrAuth = array_change_key_case((array)$auth);
-
+        
         if (!isset($arrAuth['usu_codigo'])) {
-            $idUsuarioLogado = $arrAuth['idusuario'];
-            $fnVerificarPermissao = new \Autenticacao_Model_FnVerificarPermissao();
-
-            $idPronac = $parametros['idpronac'] ? $parametros['idpronac'] : $parametros['idPronac'];
-            if ($idPronac == '') {
-                $idReadequacao = $parametros['id'];
-                $dados = $this->buscarIdPronac($idReadequacao);
-                $idPronac = $dados['idPronac'];
-            }
-            if (strlen($idPronac) > 7) {
-                $idPronac = \Seguranca::dencrypt($idPronac);
-            }
-            $consulta = $fnVerificarPermissao->verificarPermissaoProjeto($idPronac, $idUsuarioLogado);
-            $permissao = $consulta->Permissao;
+            $permissao = $this->__verificarPermissaoProponenteNoProjeto($idPronac);
+        } else {
+            $permissao = true;
         }
         return $permissao;
     }
