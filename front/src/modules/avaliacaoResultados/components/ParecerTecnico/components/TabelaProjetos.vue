@@ -45,7 +45,7 @@
                             text-xs-center>
                             <div>
                                 <v-btn
-                                    :href="'/projeto/#/'+ props.item.idPronac"
+                                    :href="'/projeto/#/'+ props.item.IdPRONAC.toString()"
                                     flat>{{ props.item.PRONAC }}</v-btn>
                             </div>
                         </v-flex>

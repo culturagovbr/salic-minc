@@ -11,7 +11,9 @@
             @click.stop="dialog = true"
         >
             <v-tooltip bottom>
-                <v-icon slot="activator">close</v-icon>
+                <v-icon slot="activator">
+                    close
+                </v-icon>
                 <span>Excluir Readequação</span>
             </v-tooltip>
         </v-btn>
@@ -21,7 +23,9 @@
             max-width="350"
         >
             <v-card>
-                <v-card-title class="headline">Excluir Readequação?</v-card-title>
+                <v-card-title class="headline">
+                    Excluir Readequação?
+                </v-card-title>
                 <v-card-text>
                     <h4
                         class="title mb-2"

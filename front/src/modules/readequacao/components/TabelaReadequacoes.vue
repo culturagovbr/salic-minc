@@ -3,7 +3,9 @@
         v-if="loading"
         ma-5
     >
-        <carregando :text="'Carregando lista de readequações...'"/>
+        <carregando
+            :text="'Carregando lista de readequações...'"
+        />
     </div>
     <div
         v-else

@@ -9,7 +9,9 @@
             @click.stop="dialog = true"
         >
             <v-tooltip bottom>
-                <v-icon slot="activator">visibility</v-icon>
+                <v-icon slot="activator">
+                    visibility
+                </v-icon>
                 <span>Visualizar Readequação</span>
             </v-tooltip>
         </v-btn>
@@ -41,7 +43,9 @@
                         dark
                         @click="dialog = false"
                     >
-                        <v-icon>close</v-icon>
+                        <v-icon>
+                            close
+                        </v-icon>
                     </v-btn>
                     <v-toolbar-title>Readequação - {{ dadosReadequacao.dsTipoReadequacao }}</v-toolbar-title>
                     <v-spacer/>
@@ -67,14 +71,18 @@
                             >Dados da Solicitação - {{ dadosReadequacao.idReadequacao }}</v-subheader>
                             <v-list-tile avatar>
                                 <v-list-tile-avatar>
-                                    <v-icon class="green lighten-1 white--text">person</v-icon>
+                                    <v-icon class="green lighten-1 white--text">
+                                        person
+                                    </v-icon>
                                 </v-list-tile-avatar>
                                 <v-list-tile-content>
                                     <v-list-tile-title>Nome do Solicitante</v-list-tile-title>
                                     <v-list-tile-sub-title>{{ dadosReadequacao.dsNomeSolicitante }}</v-list-tile-sub-title>
                                 </v-list-tile-content>
                                 <v-list-tile-avatar>
-                                    <v-icon class="green lighten-1 white--text">date_range</v-icon>
+                                    <v-icon class="green lighten-1 white--text">
+                                        date_range
+                                    </v-icon>
                                 </v-list-tile-avatar>
                                 <v-list-tile-content class="ml-3">
                                     <v-list-tile-title>Data da Solicitação</v-list-tile-title>
@@ -88,7 +96,9 @@
                         >
                             <v-list-tile avatar>
                                 <v-list-tile-avatar>
-                                    <v-icon class="green lighten-1 white--text">list</v-icon>
+                                    <v-icon class="green lighten-1 white--text">
+                                        list
+                                    </v-icon>
                                 </v-list-tile-avatar>
                                 <v-list-tile-content>
                                     <v-list-tile-title>Status da análise</v-list-tile-title>
@@ -110,7 +120,9 @@
                                     @fechar-visualizacao="visualizarJustificativa = false"
                                 />
                                 <v-list-tile-avatar>
-                                    <v-icon class="green lighten-1 white--text">assignment</v-icon>
+                                    <v-icon class="green lighten-1 white--text">
+                                        assignment
+                                    </v-icon>
                                 </v-list-tile-avatar>
                                 <v-list-tile-content>
                                     <v-list-tile-title>Justificativa</v-list-tile-title>
@@ -120,7 +132,9 @@
                                         icon
                                         ripple
                                     >
-                                        <v-icon color="grey lighten-1">info</v-icon>
+                                        <v-icon color="grey lighten-1">
+                                            info
+                                        </v-icon>
                                     </v-btn>
                                 </v-list-tile-action>
                             </v-list-tile>
@@ -134,7 +148,9 @@
                                 @click="abrirArquivo(dadosReadequacao.idDocumento)"
                             >
                                 <v-list-tile-avatar>
-                                    <v-icon class="green lighten-1 white--text">insert_drive_file</v-icon>
+                                    <v-icon class="green lighten-1 white--text">
+                                        insert_drive_file
+                                    </v-icon>
                                 </v-list-tile-avatar>
                                 <v-list-tile-content>
                                     <v-list-tile-title>Documento anexo</v-list-tile-title>
@@ -156,7 +172,9 @@
                                     small
                                     class="green lighten-1"
                                 >
-                                    <v-icon color="white">mode_comment</v-icon>
+                                    <v-icon color="white">
+                                        mode_comment
+                                    </v-icon>
                                 </v-btn>
                                 Solicitação
                             </v-card-title>
@@ -193,7 +211,9 @@
                             <v-subheader inset>Dados da Avaliação</v-subheader>
                             <v-list-tile avatar>
                                 <v-list-tile-avatar>
-                                    <v-icon class="green lighten-1 white--text">person</v-icon>
+                                    <v-icon class="green lighten-1 white--text">
+                                        person
+                                    </v-icon>
                                 </v-list-tile-avatar>
                                 <v-list-tile-content
                                     v-if="dadosReadequacao.idAvaliador"
@@ -209,7 +229,9 @@
                             </v-list-tile>
                             <v-list-tile avatar>
                                 <v-list-tile-avatar>
-                                    <v-icon class="green lighten-1 white--text">date_range</v-icon>
+                                    <v-icon class="green lighten-1 white--text">
+                                        date_range
+                                    </v-icon>
                                 </v-list-tile-avatar>
                                 <v-list-tile-content>
                                     <v-list-tile-title>Data da Avaliação</v-list-tile-title>
@@ -237,7 +259,9 @@
                                     @fechar-visualizacao="visualizarAvaliacao = false"
                                 />
                                 <v-list-tile-avatar>
-                                    <v-icon class="green lighten-1 white--text">assignment</v-icon>
+                                    <v-icon class="green lighten-1 white--text">
+                                        assignment
+                                    </v-icon>
                                 </v-list-tile-avatar>
                                 <v-list-tile-content>
                                     <v-list-tile-title>Avaliação</v-list-tile-title>
@@ -247,7 +271,9 @@
                                         icon
                                         ripple
                                     >
-                                        <v-icon color="grey lighten-1">info</v-icon>
+                                        <v-icon color="grey lighten-1">
+                                            info
+                                        </v-icon>
                                     </v-btn>
                                 </v-list-tile-action>
                             </v-list-tile>

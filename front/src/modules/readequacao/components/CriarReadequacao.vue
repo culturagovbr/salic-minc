@@ -33,14 +33,23 @@
                 >
                     <v-card-title class="headline green darken-4 white--text">Nova Readequação</v-card-title>
                     <v-card-text>
-                        <v-select
-                            v-model="idTipoReadequacao"
-                            :items="getTiposDisponiveis"
-                            item-text="descricao"
-                            item-value="idTipoReadequacao"
-                            label="Escolha o tipo de readequação"
-                            solo
-                        />
+                        <div
+                            v-if="loading"
+                        >
+                            <carregando :text="'Criando readequação...'"/>
+                        </div>
+                        <div
+                            v-else
+                        >
+                            <v-select
+                                v-model="idTipoReadequacao"
+                                :items="getTiposDisponiveis"
+                                item-text="descricao"
+                                item-value="idTipoReadequacao"
+                                label="Escolha o tipo de readequação"
+                                solo
+                            />
+                        </div>
                     </v-card-text>
                     <v-card-actions>
                         <v-btn
@@ -66,9 +75,13 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import Carregando from '@/components/CarregandoVuetify';
 
 export default {
     name: 'CriarReadequacao',
+    components: {
+        Carregando,
+    },
     props: {
         idPronac: { type: String, default: () => '' },
     },
@@ -76,6 +89,7 @@ export default {
         return {
             dialog: false,
             idTipoReadequacao: '',
+            loading: false,
         };
     },
     computed: {
@@ -99,10 +113,12 @@ export default {
             inserirReadequacao: 'readequacao/inserirReadequacao',
         }),
         criarReadequacao() {
+            this.loading = true;
             this.inserirReadequacao({
                 idPronac: this.idPronac,
                 idTipoReadequacao: this.idTipoReadequacao,
             }).then((response) => {
+                this.loading = false;
                 this.dialog = false;
                 this.$emit('criar-readequacao', response.items.idReadequacao);
             });

@@ -1,7 +1,14 @@
 <template>
     <div
-        class="pa-2"
+        class="pa-3"
     >
+        <div
+            v-if="!actionDone"
+            xs12
+            class="grey--text text--darken-1 pa-3"
+        >
+            {{ textoCarregando }}
+        </div>
         <v-btn
             flat
             class="blue lighten-2 mr-2"
@@ -69,28 +76,15 @@ export default {
             ],
             default: 0,
         },
+        actionDone: {
+            type: Boolean,
+            default: true,
+        },
     },
     data() {
         return {
-            server: {
-                process: (fieldName, file, metadata, load, error, progress, abort) => {
-                    const request = new XMLHttpRequest();
-                    request.open('POST', '/');
-                    request.abort();
-                    progress(true, 0, 1024);
-                    load(file);
-                    return {
-                        abort: () => {
-                            // Let FilePond know the request has been cancelled
-                            abort();
-                        },
-                    };
-                },
-                load: null,
-                revert: null,
-                fetch: null,
-            },
             file: '',
+            textoCarregando: '',
         };
     },
     computed: {
@@ -110,6 +104,7 @@ export default {
             document.getElementById('file-upload').click();
         },
         handleFileUpload() {
+            this.textoCarregando = 'Subindo arquivo...';
             const file = this.$refs.file.files[0];
             this.file = file;
             if (this.$refs.file.files[0]) {
@@ -120,6 +115,7 @@ export default {
             }
         },
         removerArquivo() {
+            this.textoCarregando = 'Removendo arquivo...';
             this.$emit('arquivo-removido');
         },
     },

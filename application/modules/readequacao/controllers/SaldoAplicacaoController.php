@@ -151,11 +151,11 @@ class Readequacao_SaldoAplicacaoController extends Readequacao_GenericController
             $dados['idTipoReadequacao'] = Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_SALDO_APLICACAO;
             $dados['stAtendimento'] = 'D';
             $dados['idDocumento'] = null;
-            $dados['dsJustificativa'] = utf8_decode($dados['justificativa']);
+            $dados['dsJustificativa'] = $dados['justificativa'];
             
             $readequacaoMapper = new Readequacao_Model_TbReadequacaoMapper();
             $id = $readequacaoMapper->salvarSolicitacaoReadequacao($dados);
-                                                    
+            
             $this->_helper->json([
                 'data' => $dados,
                 'success' => 'true',
@@ -259,7 +259,7 @@ class Readequacao_SaldoAplicacaoController extends Readequacao_GenericController
         }
     }
 
-    public function disponivelEdicaoItemAction()
+    public function disponivelEdicaoReadequacaoPlanilhaAction()
     {
         $this->_helper->layout->disableLayout();
         $idPronac = $this->_request->getParam("idPronac");
@@ -270,7 +270,7 @@ class Readequacao_SaldoAplicacaoController extends Readequacao_GenericController
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
             $this->_helper->json([
                 'success' => 'true',
-                'disponivelEdicaoItem' => false,
+                'disponivelParaEdicaoReadequacaoPlanilha' => false,
                 'msg' => 'N&atilde;o dispon&iacute;vel para edi&ccedil;&atilde;o de itens.'
             ]);
         }
@@ -281,7 +281,7 @@ class Readequacao_SaldoAplicacaoController extends Readequacao_GenericController
             
             $this->_helper->json([
                 'success' => true,
-                'disponivelEdicaoItem' => $disponivelParaEdicaoReadequacaoPlanilha,
+                'disponivelParaEdicaoReadequacaoPlanilha' => $disponivelParaEdicaoReadequacaoPlanilha,
                 'msg' => 'Dispon&iacute;vel para edi&ccedil;&atilde;o de itens.'
             ]);
         } catch (Exception $e) {

@@ -93,12 +93,13 @@ export const obterReadequacao = ({ commit }, data) => {
     }
 };
 
-export const updateReadequacao = ({ commit }, params) => {
-    readequacaoHelperAPI.updateReadequacao(params)
+export const updateReadequacao = async ({ commit }, params) => {
+    const resultado = await readequacaoHelperAPI.updateReadequacao(params)
         .then((response) => {
             commit(types.UPDATE_READEQUACAO, response.data.data.items);
             commit(types.GET_READEQUACAO, response.data.data.items);
         });
+    return resultado;
 };
 
 export const updateReadequacaoDsSolicitacao = ({ commit }, params) => {

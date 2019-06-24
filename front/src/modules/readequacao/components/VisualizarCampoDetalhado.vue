@@ -14,11 +14,15 @@
                     fab
                     small
                 >
-                    <v-icon class="green--text">assignment</v-icon>
+                    <v-icon class="green--text">
+                        assignment
+                    </v-icon>
                 </v-btn>
                 {{ dados.titulo }}
             </v-card-title>
-            <v-card-text v-html="dados.descricao"/>
+            <v-card-text>
+                {{ dados.descricao }}
+            </v-card-text>
             <v-divider/>
             <v-card-actions>
                 <v-spacer/>

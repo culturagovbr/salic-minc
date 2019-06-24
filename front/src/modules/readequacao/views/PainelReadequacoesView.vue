@@ -12,10 +12,14 @@
                     flat
                     @click="voltar()"
                 >
-                    <v-icon class="mr-2">keyboard_backspace</v-icon>
+                    <v-icon class="mr-2">
+                        keyboard_backspace
+                    </v-icon>
                 </v-btn>
                 <v-card>
-                    <salic-mensagem-erro :texto="'Sem permiss&atilde;o de acesso para este projeto'"/>
+                    <salic-mensagem-erro
+                        :texto="'Sem permiss&atilde;o de acesso para este 0projeto'"
+                    />
                 </v-card>
             </v-flex>
         </v-layout>
@@ -27,7 +31,9 @@
                 xs9
                 offset-xs1
             >
-                <carregando :text="'Carregando painel de readequações...'"/>
+                <carregando
+                    :text="'Carregando painel de readequações...'"
+                />
             </v-flex>
             <v-flex v-else>
                 <v-subheader>
@@ -36,7 +42,9 @@
                         flat
                         @click="voltar()"
                     >
-                        <v-icon class="mr-2">keyboard_backspace</v-icon>
+                        <v-icon class="mr-2">
+                            keyboard_backspace
+                        </v-icon>
                     </v-btn>
                     <h2 class="grey--text text--darken-4">Painel de Readequações</h2>
                     <v-spacer/>
@@ -52,21 +60,29 @@
                     model="abaInicial"
                     @change="trocaAba($event)"
                 >
-                    <v-tabs-slider color="yellow"/>
+                    <v-tabs-slider
+                        color="yellow"
+                    />
                     <v-tab
                         href="#edicao"
                     >Edição
-                        <v-icon>edit</v-icon>
+                        <v-icon>
+                            edit
+                        </v-icon>
                     </v-tab>
                     <v-tab
                         href="#analise"
                     >Em Análise
-                        <v-icon>gavel</v-icon>
+                        <v-icon>
+                            gavel
+                        </v-icon>
                     </v-tab>
                     <v-tab
                         href="#finalizadas"
                     >Finalizadas
-                        <v-icon>check</v-icon>
+                        <v-icon>
+                            check
+                        </v-icon>
                     </v-tab>
                     <v-tab-item :value="'edicao'">
                         <v-card>
@@ -204,6 +220,7 @@ export default {
             minChar: {
                 solicitacao: 3,
                 justificativa: 10,
+                dataExecucao: 10,
             },
             abaInicial: '#edicao',
             loaded: {

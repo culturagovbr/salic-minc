@@ -73,8 +73,9 @@
 
 <script>
 import _ from 'lodash';
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { utils } from '@/mixins/utils';
+import Const from '../const';
 import validarFormulario from '../mixins/validarFormulario';
 import verificarPerfil from '../mixins/verificarPerfil';
 
@@ -114,6 +115,10 @@ export default {
             type: [Number, String],
             default: 0,
         },
+        readequacaoEditada: {
+            type: Object,
+            default: () => {},
+        },
     },
     data() {
         return {
@@ -122,6 +127,9 @@ export default {
         };
     },
     computed: {
+        ...mapGetters({
+            campoAtual: 'readequacao/getCampoAtual',
+        }),
         perfilAceito() {
             return this.verificarPerfil(this.perfil, this.perfisAceitos);
         },
@@ -144,6 +152,8 @@ export default {
     },
     methods: {
         ...mapActions({
+            obterCampoAtual: 'readequacao/obterCampoAtual',
+            updateReadequacao: 'readequacao/updateReadequacao',
             finalizarReadequacao: 'readequacao/finalizarReadequacao',
         }),
         validar() {
@@ -155,16 +165,33 @@ export default {
                             solicitacao: this.dadosReadequacao.dsSolicitacao.length,
                             justificativa: this.dadosReadequacao.dsJustificativa.length,
                         };
-                        this.validacao = this.validarFormulario(
-                            this.dadosReadequacao,
-                            contador,
-                            this.minChar,
-                        );
+                        if (this.dadosReadequacao.idTipoReadequacao === Const.TIPO_READEQUACAO_PERIODO_EXECUCAO) {
+                            const key = `key_${this.dadosReadequacao.idTipoReadequacao}`;
+                            if (typeof this.campoAtual[key] === 'undefined') {
+                                this.obterCampoAtual({
+                                    idPronac: this.dadosReadequacao.idPronac,
+                                    idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
+                                }).then(() => {
+                                    this.validacao = this.validarFormulario(
+                                        this.dadosReadequacao,
+                                        contador,
+                                        this.minChar,
+                                        this.campoAtual[`key_${this.dadosReadequacao.idTipoReadequacao}`].dsCampo,
+                                    );
+                                });
+                            }
+                        } else {
+                            this.validacao = this.validarFormulario(
+                                this.dadosReadequacao,
+                                contador,
+                                this.minChar,
+                            );
+                        }
                     }
                 }
             }
         },
-        finalizar() {
+        executaFinalizar() {
             this.finalizarReadequacao({
                 idReadequacao: this.dadosReadequacao.idReadequacao,
                 idPronac: this.dadosReadequacao.idPronac,
@@ -173,6 +200,19 @@ export default {
                     this.$emit('readequacao-finalizada');
                     this.dialog = false;
                 });
+        },
+        finalizar() {
+            if (typeof this.readequacaoEditada !== 'undefined') {
+                if ((this.readequacaoEditada.dsJustificativa !== this.dadosReadequacao.dsJustificativa)
+                    || (this.readequacaoEditada.dsSolicitacao !== this.dadosReadequacao.dsSolicitacao)) {
+                    this.updateReadequacao(this.readequacaoEditada)
+                        .then(() => {
+                            this.executaFinalizar();
+                        });
+                }
+            } else {
+                this.executaFinalizar();
+            }
         },
     },
 };

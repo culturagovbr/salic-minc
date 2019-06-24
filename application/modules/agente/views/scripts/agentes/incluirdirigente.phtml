@@ -388,7 +388,7 @@
                 url: '<?php echo $this->url(array("controller" => "agentes", "action" => "agentecadastrado")); ?>',
 
                 success: function (data) {
-                    if (data[0].msgCPF == 'cadastrado') {
+                    if (data[0].msgCPF == 'cadastrado'|| data[0].msgCPF == 'atualizado') {
                         $('#novocadastro').hide();
                         $('#carregando').show();
                         window.location = '<?php echo $this->url(array("controller" => "agentes", "action" => "visualizadirigente", "id" => $this->id)); ?>/idDirigente/' + data[0].idAgente;
@@ -399,6 +399,7 @@
                     else if (data[0].msgCPF == 'novo') {
                         $('#novo').html('Preencha os dados abaixo!');
                         $('.novo').show();
+                        buscarDadosParaNovoAgente()
                     }
 
                 },
@@ -408,6 +409,51 @@
             });
 
         }
+    }
+
+    function buscarDadosParaNovoAgente() {
+
+        var elmCPF = $('#cpf');
+
+        $('#nome').val('');
+        $('#cep').val('');
+        $('#msgAjax').hide();
+        $('#imgPF').show();
+        $('#erroCpf').html("<img src='<?= $this->baseUrl(); ?>/public/img/ajax.gif' alt='' /> Aguarde...");
+
+        $.ajax({
+            type: "POST",
+            url: '<?= $this->url(array('module' => 'agente', 'controller' => 'agentes', 'action' => 'busca-pessoa')); ?>',
+            data: {
+                cpf: elmCPF.val(),
+                tipoPessoa: 'fisica'
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data != null && data.error != '') {
+                    $('#msgAjax').html(data.error);
+                    $('#msgAjax').show();
+                    $('#imgPF').hide();
+                    $('#erroCpf').html("Pessoa n&atilde;o encontrada...");
+                } else {
+                    // Preenche os dados
+                    $('#idPessoa').val(data.dados.idPessoa);
+                    $('#nome').val(data.dados.nome);
+                    $('#nome').attr('disabled', 'disabled');
+                    $('#cep').val(format_cep(data.dados.cep));
+                    $('#erroCpf').html("");
+                    //$('#RESPONSAVEL_CARGO').focus();
+                    $('#imgPF').hide();
+                    $('#cep').trigger('blur');
+                }
+
+            }, error: function (data) {
+                $('#msgAjax').html(data.error);
+                $('#msgAjax').show();
+                $('#erroCpf').html(data.error);
+                $('#imgPF').hide();
+            }
+        });
     }
 
     function buscarcep(cep) {

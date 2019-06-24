@@ -689,7 +689,7 @@ class Projeto_Model_Menu extends MinC_Db_Table_Abstract
                 $menu['readequacao']['submenu'][] = [
                     'label' => 'Saldo de aplica&ccedil;&atilde;o',
                     'title' => 'Ir para Saldo de aplica&ccedil;&atilde;o',
-                    'link' => '/readequacao/#/saldo-aplicacao/' . $idPronacHash,
+                    'link' => '/readequacao/saldo-aplicacao/index/?idPronac=' . $idPronacHash,
                     'ajax' => false,
                     'grupo' => []
                 ];

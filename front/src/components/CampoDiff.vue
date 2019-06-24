@@ -17,7 +17,9 @@
                         small
                         class="green lighten-1"
                     >
-                        <v-icon color="white">menu</v-icon>
+                        <v-icon color="white">
+                            menu
+                        </v-icon>
                     </v-btn>
                     Versão original
                 </v-card-title>
@@ -53,7 +55,9 @@
                         small
                         class="green lighten-1"
                     >
-                        <v-icon color="white">playlist_add</v-icon>
+                        <v-icon color="white">
+                            playlist_add
+                        </v-icon>
                     </v-btn>
                     Versão alterada
                 </v-card-title>

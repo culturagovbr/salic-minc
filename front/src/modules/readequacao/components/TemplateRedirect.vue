@@ -23,7 +23,7 @@ export default {
             tiposReadequacoesRedirect: {
                 local_realizacao: '/readequacao/local-realizacao/index/?idPronac=',
                 planilha: '/readequacao/readequacoes/planilha-orcamentaria/?idPronac=',
-                saldo_aplicacao: '#/readequacao/saldo-aplicacao/',
+                saldo_aplicacao: '/readequacao/saldo-aplicacao/?idPronac=',
                 plano_distribuicao: '/readequacao/plano-distribuicao/index/?idPronac=',
                 remanejamento_50: '/readequacao/remanejamento-menor/index/?idPronac=',
                 transferencia_recursos: '/readequacao/transferencia-recursos/index/?idPronac=',

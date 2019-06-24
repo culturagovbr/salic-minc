@@ -105,7 +105,7 @@ Vue.component('readequacao-formulario', {
             default: false,
         },
         objReadequacao: {
-            type: Object,
+            type: [Array, Object],
             default: () => {},
         },
         componenteDsSolicitacao: {

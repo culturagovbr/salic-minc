@@ -24,7 +24,6 @@ if  ! [ -e "/var/www/salic/application/configs/application.ini" ] ; then
     echo "[ ****************** ] Copying sample application configuration to real one"
     cp /var/www/salic/application/configs/exemplo-application.ini /var/www/salic/application/configs/application.ini
 
-    sed -i "s/@@DB_PDOTYPE@@/$DB_PDOTYPE/g" /var/www/salic/application/configs/application.ini
     sed -i "s/@@DB_HOST@@/$DB_HOST/g" /var/www/salic/application/configs/application.ini
     sed -i "s/@@DB_NAME@@/$DB_NAME/g" /var/www/salic/application/configs/application.ini
     sed -i "s/@@DB_USERNAME@@/$DB_USERNAME/g" /var/www/salic/application/configs/application.ini
@@ -54,7 +53,6 @@ if  ! [ -e "/var/www/salic/application/configs/application.ini" ] ; then
     sed -i "s/@@TEST_LOGIN@@/$TEST_LOGIN/g" /var/www/salic/application/configs/application.ini
     sed -i "s/@@TEST_PASSWORD@@/$TEST_PASSWORD/g" /var/www/salic/application/configs/application.ini
 fi
-
 
 # X-Debug
 if [ "$XDEBUG_INSTALL" == "true" ]; then

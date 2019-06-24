@@ -1,0 +1,65 @@
+# Coverage directory used by tools like istanbul
+front/test/unit/coverage/*
+front/test/unit/coverage
+front/test/e2e/reports
+coverage
+cypress/screenshots/
+cypress/videos/
+
+ # arquivo que o webpack injeta os scripts
+application/layouts/scripts/vue.phtml
+
+ # configs do salic
+application/configs/bancos_*.ini
+application/configs/config.ini
+application.ini
+application/configs/config_desenv.ini
+application/configs/config_treinamento.ini
+docker-compose.yml
+
+ # arquivos e diretorios do salic
+data/proposta/model/tbdocumentoagentes/*
+nbproject
+index.php
+public/plenaria
+public/plenaria/log_exec_paEncerrarCNIC.txt
+public/txt
+public/dist
+.directory
+tags
+vendor
+
+ # alias
+*~
+#*
+*#
+.#*
+
+ # misc
+composer.lock
+composer.phar
+.php_cs.cache
+package-lock.json
+
+ # IDEs and editors
+.DS_Store
+*.swp
+*.save
+.idea
+salic-minc.iml
+
+ # dependencias
+node_modules/
+
+ # System Files
+.DS_Store
+Thumbs.db
+log/
+
+ #YARN
+yarn.lock
+
+.git
+tests
+sql
+.vscode

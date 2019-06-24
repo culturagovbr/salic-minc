@@ -324,7 +324,7 @@ Vue.component('readequacao-saldo-aplicacao', {
 	    let self = this;
 	    $3.ajax({
 		type: "GET",
-		url: "/readequacao/saldo-aplicacao/verificar-disponivel-para-edicao-readequacao-planilha",
+		url: "/readequacao/saldo-aplicacao/disponivel-edicao-readequacao-planilha",
 		data: {
 		    idPronac: self.idPronac
 		}

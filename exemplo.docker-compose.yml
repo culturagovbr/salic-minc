@@ -58,18 +58,6 @@ services:
         - TEST_LOGIN=12345678900
         - TEST_PASSWORD=123456
 
-        links:
-        - "salic-mssql"
-    salic-mssql:
-        image: culturagovbr/salic-mssql:1.1.0-minimo
-        container_name: salic-mssql
-        ports:
-        - "1433:1433"
-        environment:
-        - ACCEPT_EULA=Y
-        - SA_PASSWORD=salic@123456
-        - RESTAURAR_BACKUP=true
-        - MIGRAR_DADOS_COM_PYTHON=false
 # webserver:
 #   image: nginx:alpine
 #   container_name: salic-api-webserver
