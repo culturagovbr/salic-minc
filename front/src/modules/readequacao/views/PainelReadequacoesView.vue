@@ -158,6 +158,7 @@ import ExcluirButton from '../components/ExcluirButton';
 import FinalizarButton from '../components/FinalizarButton';
 import EditarReadequacaoButton from '../components/EditarReadequacaoButton';
 import VisualizarReadequacaoButton from '../components/VisualizarReadequacaoButton';
+import AnalisarReadequacaoButton from '../components/AnalisarReadequacaoButton';
 import Carregando from '@/components/CarregandoVuetify';
 import CriarReadequacao from '../components/CriarReadequacao';
 import verificarPerfil from '../mixins/verificarPerfil';
@@ -170,6 +171,7 @@ export default {
         ExcluirButton,
         EditarReadequacaoButton,
         VisualizarReadequacaoButton,
+        AnalisarReadequacaoButton,
         FinalizarButton,
         CriarReadequacao,
         SalicMensagemErro,
@@ -195,6 +197,7 @@ export default {
             },
             acoesAnalise: {
                 acoes: [
+                    AnalisarReadequacaoButton,
                     VisualizarReadequacaoButton,
                 ],
             },
@@ -222,14 +225,14 @@ export default {
                     Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
                     Const.PERFIL_DIRETOR,
                     Const.PERFIL_SECRETARIO,
-                          ],
+                  ],
                 analisar: [
                     Const.PERFIL_TECNICO_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
                     Const.PERFIL_DIRETOR,
                     Const.PERFIL_SECRETARIO,
-                          ],
+                ],
             },
             minChar: {
                 solicitacao: 3,
