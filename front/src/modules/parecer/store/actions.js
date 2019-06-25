@@ -225,7 +225,7 @@ export const salvarDistribuicaoProjeto = async ({ dispatch }, params) => parecer
         throw new TypeError(e.response.data.error.message, 'salvarDistribuicaoProjeto', 10);
     });
 
-export const salvarValidacaoProduto = async ({ dispatch }, params) => parecerHelperAPI.salvarValidacaoProduto(params)
+export const salvarValidacaoParecer = async ({ dispatch }, params) => parecerHelperAPI.salvarValidacaoParecer(params)
     .then((response) => {
         dispatch('parecerMensagemSucesso', response.data.message);
         dispatch('removerProdutoDaLista', params);

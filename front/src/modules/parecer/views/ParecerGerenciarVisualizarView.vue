@@ -13,6 +13,21 @@
                 @visualizarHistorico="visualizarHistorico($event)"
                 @visualizarOutrosProdutos="visualizarOutrosProdutos($event)"
             />
+            <s-mensagem
+                v-if="isDisponivelParaAssinatura"
+                :url-retorno="`${urlAssinatura}?idDocumentoAssinatura=${produto.idDocumentoAssinatura}&${retornoAssinatura.toString()}`"
+                texto="Análise validada!
+                Para finalizar você também deverá assinar o parecer técnico"
+                msg-url-retorno="Ir para o documento"
+                type="success"
+            />
+            <v-card v-else>
+                <v-card-text>
+                    <visualizacao-analise-produto
+                        :produto="produto"
+                    />
+                </v-card-text>
+            </v-card>
             <s-dialog-analise-outros-produtos
                 v-model="dialogOutrosProdutos"
             />
@@ -27,13 +42,6 @@
                 v-model="dialogHistorico"
                 :produto="produto"
             />
-            <v-card>
-                <v-card-text>
-                    <visualizacao-analise-produto
-                        :produto="produto"
-                    />
-                </v-card-text>
-            </v-card>
         </template>
         <s-mensagem
             v-else
@@ -75,12 +83,18 @@ export default {
         loadingProduto: true,
         dialogHistorico: false,
         produtoHistorico: {},
-        urlAssinatura: '/assinatura/index/visualizar-projeto',
-        retornoAssinatura: `origin=${encodeURIComponent('#/parecer/analise-inicial')}`,
         fab: false,
         hidden: false,
         tabs: null,
+        prevRoute: null,
+        urlAssinatura: '/assinatura/index/visualizar-projeto',
     }),
+    beforeRouteEnter(to, from, next) {
+        next((vm) => {
+            /* eslint-disable no-param-reassign */
+            vm.prevRoute = from.path;
+        });
+    },
     computed: {
         ...mapGetters({
             produto: 'parecer/getProduto',
@@ -92,9 +106,17 @@ export default {
         },
         isDisponivelParaAssinatura() {
             return this.produto
-                && this.produto.siEncaminhamento === 4
-                && this.produto.siAnalise === 2
+                && this.produto.siEncaminhamento === 5
+                && this.produto.siAnalise === 5
                 && this.produto.idDocumentoAssinatura;
+        },
+        retornoAssinatura() {
+            let retorno = `#${this.prevRoute}`;
+
+            if (this.prevRoute === '/') {
+                retorno = '#/parecer/gerenciar';
+            }
+            return `origin=${encodeURIComponent(retorno)}`;
         },
     },
     watch: {

@@ -22,7 +22,7 @@
                     <v-icon>close</v-icon>
                 </v-btn>
                 <v-toolbar-title>
-                    Histórico: {{ produto.pronac }} - {{ produto.nomeProjeto }}
+                    Histórico: {{ produto.nomeProduto }} - ({{ produto.pronac }}) {{ produto.nomeProjeto }}
                 </v-toolbar-title>
             </v-toolbar>
             <v-card-text>

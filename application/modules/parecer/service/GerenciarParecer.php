@@ -307,7 +307,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         }
     }
 
-    public function atualizarDistribuicaoProduto()
+    public function salvarValidacaoParecer()
     {
         $params = $this->request->getParams();
 
@@ -315,17 +315,14 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
             throw new \Exception("Identificador é obrigatório");
         }
 
-        $dadosDocumentoAssinatura = [
-            "siAnalise" =>  \Parecer_Model_TbDistribuirParecer::SI_ANALISE_VALIDADO
+        $dados = [
+            "siAnalise" =>  \Parecer_Model_TbDistribuirParecer::SI_ANALISE_VALIDADO,
+            "FecharAnalise" => \Parecer_Model_TbDistribuirParecer::FECHAR_ANALISE_FECHADA,
+            'DtRetorno' => \MinC_Db_Expr::date(),
         ];
-        $whereDocumentoAssinatura = "idDistribuirParecer" = $params['idDistribuirParecer'];
+        $whereDocumentoAssinatura = "idDistribuirParecer = " . $params['idDistribuirParecer'];
 
-        $whereDistribuicaoAtual = [];
-        $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        $distribuicao = $tbDistribuirParecer->update($whereDistribuicaoAtual);
-        $resposta = $this->atualizar($params, $distribuicao);
-
-        return $distribuicao;
+        return $tbDistribuirParecer->update($dados,$whereDocumentoAssinatura);
     }
 }

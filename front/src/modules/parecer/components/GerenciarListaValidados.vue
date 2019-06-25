@@ -86,6 +86,7 @@
                         style="min-width: 212px"
                     >
                         <v-tooltip
+                            v-if="props.item.stPrincipal === 1"
                             bottom
                         >
                             <v-btn
@@ -94,13 +95,38 @@
                                 flat
                                 icon
                                 class="mr-2"
-                                @click="confirmarValidacao(props.item)"
+                                :to="{
+                                    name: 'parecer-gerenciar-visualizar-view',
+                                    params: {
+                                        id: props.item.idProduto,
+                                        idPronac: props.item.idPronac,
+                                        produtoPrincipal: props.item.stPrincipal,
+                                    }
+                                }"
                             >
                                 <v-icon>
-                                    done
+                                    assignment_turned_in
                                 </v-icon>
                             </v-btn>
-                            <span>Visualizar produto e assinar documento</span>
+                            <span>Validar avaliação</span>
+                        </v-tooltip>
+                        <v-tooltip
+                            v-else
+                            bottom
+                        >
+                            <v-btn
+                                slot="activator"
+                                color="blue-grey darken-2"
+                                flat
+                                icon
+                                class="mr-2"
+                                disabled
+                            >
+                                <v-icon>
+                                    watch_later
+                                </v-icon>
+                            </v-btn>
+                            <span>Este produto é secundário, aguarde o produto principal para finalizar</span>
                         </v-tooltip>
                         <v-tooltip
                             bottom
@@ -142,19 +168,10 @@
 
             <template slot="no-data">
                 <div class="text-xs-center">
-                    {{ `Sem produtos em validação` }}
+                    {{ `Sem produtos validados` }}
                 </div>
             </template>
         </v-data-table>
-        <s-confirmacao-dialog
-            v-model="dialogConfirmarEnvio"
-            text="Confirma a validação da análise do produto?"
-            @dialog-response="$event && validarParecer()"
-        />
-        <s-progresso-dialog
-            v-model="loading"
-            label="Aguarde, salvando validação"
-        />
     </div>
 </template>
 
@@ -165,12 +182,9 @@ import { mapActions } from 'vuex';
 import MxUtils from '@/mixins/utils';
 import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
 import MxConstantes from '@/modules/parecer/mixins/const';
-import SProgressoDialog from '@/components/SalicProgressoDialog';
-import SConfirmacaoDialog from '@/components/SalicConfirmacaoDialog';
 
 export default {
-    name: 'GerenciarListaEmValidacao',
-    components: { SConfirmacaoDialog, SProgressoDialog },
+    name: 'GerenciarListaValidados',
     mixins: [MxUtils, MxDiligencia, MxConstantes],
     props: {
         produtos: {
@@ -222,23 +236,6 @@ export default {
                 { text: 'Ações', width: '2', value: 'stPrincipal' },
             ],
         };
-    },
-    methods: {
-        ...mapActions({
-            salvarValidacaoParecer: 'parecer/salvarValidacaoParecer',
-        }),
-        confirmarValidacao(produto) {
-            this.produto = produto;
-            this.dialogConfirmarEnvio = true;
-        },
-        validarParecer() {
-            this.loading = true;
-            this.salvarValidacaoParecer(this.produto).then(() => {
-                this.dialog = false;
-            }).finally(() => {
-                this.loading = false;
-            });
-        },
     },
 };
 </script>

@@ -33,10 +33,9 @@ class Parecer_GerenciarAvaliacaoRestController extends MinC_Controller_Rest_Abst
     {
         try {
             $gerenciarParecerService = new GerenciarParecerService($this->getRequest(), $this->getResponse());
-            $resposta = $gerenciarParecerService->inserirDistribuicaoTodosProdutosDoProjeto();
             $this->customRenderJsonResponse([
-                'message' => 'Produtos encaminhados com sucesso',
-                'items' => \TratarArray::utf8EncodeArray($resposta)
+                'message' => 'Validação realizada com sucesso',
+                'data' => $gerenciarParecerService->salvarValidacaoParecer()
             ], 201);
         } catch (Exception $objException) {
             $this->customRenderJsonResponse([

@@ -106,7 +106,6 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         $produto = $tbDistribuirParecer->buscaProjetosProdutosParaAnalise(
             [
                 'distribuirParecer.idProduto = ?' => $id,
-//                'distribuirParecer.siEncaminhamento = ?' => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
                 'projeto.IdPRONAC = ?' => $idPronac,
             ]
         )->current();
@@ -118,7 +117,9 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
             $produto['diasEmAvaliacao'] = $this->obterTempoRestanteDeAvaliacao($produto);
 
             if ($produto['stPrincipal']
-                && $produto['siAnalise'] == \Parecer_Model_TbDistribuirParecer::SI_ANALISE_ANALISADO) {
+                && (
+                    $produto['siAnalise'] == \Parecer_Model_TbDistribuirParecer::SI_ANALISE_ANALISADO
+                    || $produto['siAnalise'] == \Parecer_Model_TbDistribuirParecer::SI_ANALISE_VALIDADO )) {
                 $produto['idDocumentoAssinatura'] = $this->getIdDocumentoAssinatura($idPronac);
             }
         }

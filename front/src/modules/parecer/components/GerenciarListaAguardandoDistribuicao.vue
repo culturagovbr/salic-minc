@@ -95,7 +95,7 @@
                                 person
                             </v-icon>
                         </v-btn>
-                        <span>Distribuir produto</span>
+                        <span>Distribuir ou encaminhar produto</span>
                     </v-tooltip>
                 </td>
             </tr>
@@ -116,7 +116,7 @@ import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
 import MxConstantes from '@/modules/parecer/mixins/const';
 
 export default {
-    name: 'GerenciarListaItensAguardandoAnalise',
+    name: 'GerenciarListaAguardandoDistribuicao',
     mixins: [MxUtils, MxDiligencia, MxConstantes],
     props: {
         produtos: {

@@ -109,8 +109,9 @@ import SDialogDiligencias from '@/modules/diligencia/components/SDialogDiligenci
 import SAnaliseOutrosProdutosDialogDetalhamento from '@/modules/parecer/components/AnaliseOutrosProdutosDialogDetalhamento';
 import SGerenciarDistribuirProdutoDialog from '@/modules/parecer/components/GerenciarDistribuirProdutoDialog';
 import SGerenciarDetalhesAnaliseDialog from '@/modules/parecer/components/GerenciarDetalhesAnaliseDialog';
-import GerenciarListaItensAguardandoAnalise from '@/modules/parecer/components/GerenciarListaItensAguardandoAnalise';
+import GerenciarListaAguardandoDistribuicao from '@/modules/parecer/components/GerenciarListaAguardandoDistribuicao';
 import GerenciarListaItensEmAnalise from '@/modules/parecer/components/GerenciarListaItensEmAnalise';
+import GerenciarListaValidados from '@/modules/parecer/components/GerenciarListaValidados';
 import GerenciarListaEmValidacao from '@/modules/parecer/components/GerenciarListaEmValidacao';
 import SAnaliseHistoricoProdutoDialog from '@/modules/parecer/components/AnaliseHistoricoProdutoDialog';
 
@@ -120,9 +121,10 @@ export default {
         SAnaliseHistoricoProdutoDialog,
         SGerenciarDistribuirProdutoDialog,
         SAnaliseOutrosProdutosDialogDetalhamento,
-        GerenciarListaItensAguardandoAnalise,
+        GerenciarListaAguardandoDistribuicao,
         GerenciarListaItensEmAnalise,
         GerenciarListaEmValidacao,
+        GerenciarListaValidados,
         SGerenciarDetalhesAnaliseDialog,
         SCarregando,
         SDialogDiligencias,
@@ -133,7 +135,7 @@ export default {
             {
                 id: 'aguardando_distribuicao',
                 label: 'Aguardando distribuição',
-                component: 'gerenciar-lista-itens-aguardando-analise',
+                component: 'gerenciar-lista-aguardando-distribuicao',
             },
             {
                 id: 'em_analise',
@@ -149,7 +151,7 @@ export default {
             {
                 id: 'validados',
                 label: 'Validados',
-                component: 'gerenciar-lista-itens-aguardando-analise',
+                component: 'gerenciar-lista-validados',
             },
             {
                 id: 'devolvida',
