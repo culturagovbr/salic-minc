@@ -213,9 +213,6 @@ export default {
                 this.loadingProduto = false;
             }
         },
-        analiseConteudo() {
-            this.validarSteps();
-        },
         $route(prev, old) {
             this.atualizarStepByRoute();
             if (prev.params.id !== old.params.id
@@ -248,41 +245,16 @@ export default {
         back() {
             this.$router.push({ name: 'parecer-listar-view' });
         },
-        getStepByName(name) {
-            return this.arraySteps.find(element => element.name === name);
-        },
         getIndexStepByName(name) {
             return this.arraySteps.findIndex(element => element.name === name);
         },
         deleteStepByName(name) {
             this.$delete(this.arraySteps, this.getIndexStepByName(name));
         },
-        setStepEditableStatus(name, val = false) {
-            this.$set(this.getStepByName(name), 'editable', val);
-        },
-        setStepMessage(name, msg) {
-            this.$set(this.getStepByName(name), 'message', msg);
-        },
-        setStepRules(name, rules) {
-            this.$set(this.getStepByName(name), 'rules', rules);
-        },
         removerSteps() {
             if (Object.keys(this.produto).length > 0) {
                 if (this.produto.stPrincipal !== 1) {
                     this.deleteStepByName('analise-consolidacao');
-                }
-            }
-        },
-        validarSteps() {
-            if (Object.keys(this.analiseConteudo).length > 0) {
-                this.setStepEditableStatus('analise-de-custos', true);
-                this.setStepMessage('analise-de-custos', '');
-                this.setStepRules('analise-de-custos', [() => true]);
-                if (this.analiseConteudo.ParecerFavoravel !== true
-                    && this.analiseConteudo.ParecerFavoravel !== 1) {
-                    this.setStepEditableStatus('analise-de-custos', false);
-                    this.setStepMessage('analise-de-custos', 'Parecer não realizado ou não favorável');
-                    this.setStepRules('analise-de-custos', [() => false]);
                 }
             }
         },

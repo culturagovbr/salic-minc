@@ -170,7 +170,7 @@ class AnaliseCusto implements \MinC\Servico\IServicoRestZend
             throw new \Exception('Dados obrigatórios não informado');
         }
 
-        if (strlen(trim($params['dsJustificativaParecerista'])) < 11) {
+        if (strlen(trim($params['dsJustificativaParecerista'])) < 10) {
             throw new \Exception('Parecer incompleto ou n&atilde;o informado');
         }
 

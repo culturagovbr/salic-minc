@@ -101,6 +101,7 @@ class AnaliseConteudo implements \MinC\Servico\IServicoRestZend
     public function salvar()
     {
         $idAnaliseDeConteudo = $this->request->getParam('idAnaliseDeConteudo');
+        $idDistribuirParecer = $this->request->getParam('idDistribuirParecer');
         $idPronac = $this->request->getParam('IdPRONAC');
         $idProduto = $this->request->getParam('idProduto');
         $parecerFavoravel= $this->request->getParam('ParecerFavoravel');
@@ -121,29 +122,6 @@ class AnaliseConteudo implements \MinC\Servico\IServicoRestZend
 
         if (strlen(trim($parecerDeConteudo)) == 0) {
             throw new \Exception('Falta parecer de conte&uacute;do');
-        }
-
-        if (!$parecerFavoravel || $parecerFavoravel == 'false') {
-            $dadosZerarPlanilha = [
-                'idUnidade' => 1,
-                'Quantidade' => 0,
-                'Ocorrencia' => 0,
-                'ValorUnitario' => 0,
-                'QtdeDias' => 0,
-                'idUsuario' => $this->idUsuario,
-                'Justificativa' => ''
-            ];
-
-            $whereZerarPlanilha = [
-                'idPronac = ?' => $idPronac
-            ];
-
-            if (!$stPrincipal) {
-                $whereZerarPlanilha[ 'idProduto = ?'] = $idProduto;
-            }
-
-            $planilhaProjeto = new \PlanilhaProjeto();
-            $planilhaProjeto->alterar($dadosZerarPlanilha, $whereZerarPlanilha);
         }
 
         $dados = [
@@ -193,6 +171,14 @@ class AnaliseConteudo implements \MinC\Servico\IServicoRestZend
             $where['idPRONAC = ?'] = $idPronac;
             $where['idProduto = ?'] = $idProduto;
             $analisedeConteudoDAO->update($dados, $where);
+        }
+
+        if ($idDistribuirParecer) {
+            $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+            $tbDistribuirParecer->alterar(
+                ['siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE],
+                ['idDistribuirParecer = ?' => $idDistribuirParecer]
+            );
         }
 
         $dados['idAnaliseDeConteudo'] = $idAnaliseDeConteudo;

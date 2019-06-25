@@ -226,6 +226,7 @@ export default {
                 this.analiseConteudoEmEdicao,
                 {
                     stPrincipal: this.produto.stPrincipal,
+                    idDistribuirParecer: this.produto.idDistribuirParecer,
                 },
             );
 
