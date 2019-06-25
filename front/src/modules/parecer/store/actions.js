@@ -209,13 +209,12 @@ export const salvarDistribuicaoProduto = async ({ dispatch }, params) => parecer
         return response.data;
     }).catch((e) => {
         dispatch('parecerMensagemErro', e.response.data.error.message);
-        throw new TypeError(e.response.data.error.message, 'declaracaoImpedimento', 10);
+        throw new TypeError(e.response.data.error.message, 'salvarDistribuicaoProduto', 10);
     });
 
 
 export const salvarDistribuicaoProjeto = async ({ dispatch }, params) => parecerHelperAPI.salvarDistribuicaoProjeto(params)
     .then((response) => {
-        console.log('sssss', response);
         dispatch('parecerMensagemSucesso', response.data.message);
         response.data.items.forEach((item) => {
             dispatch('removerProdutoDaLista', item);
@@ -223,5 +222,15 @@ export const salvarDistribuicaoProjeto = async ({ dispatch }, params) => parecer
         return response.data;
     }).catch((e) => {
         dispatch('parecerMensagemErro', e.response.data.error.message);
-        throw new TypeError(e.response.data.error.message, 'declaracaoImpedimento', 10);
+        throw new TypeError(e.response.data.error.message, 'salvarDistribuicaoProjeto', 10);
+    });
+
+export const salvarValidacaoProduto = async ({ dispatch }, params) => parecerHelperAPI.salvarValidacaoProduto(params)
+    .then((response) => {
+        dispatch('parecerMensagemSucesso', response.data.message);
+        dispatch('removerProdutoDaLista', params);
+        return response.data;
+    }).catch((e) => {
+        dispatch('parecerMensagemErro', e.response.data.error.message);
+        throw new TypeError(e.response.data.error.message, 'salvarValidacaoProduto', 10);
     });

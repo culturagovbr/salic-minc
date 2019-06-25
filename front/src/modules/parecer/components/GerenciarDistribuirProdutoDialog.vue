@@ -296,7 +296,7 @@ export default {
                 this.distribuicao.idDistribuirParecer = this.produto.idDistribuirParecer;
                 this.distribuicao.idSegmentoProduto = this.produto.idSegmento;
                 this.distribuicao.idAreaProduto = this.produto.idArea;
-                this.distribuicao.idAreaProduto = this.produto.idParecerista;
+                this.distribuicao.idParecerista = this.produto.idParecerista;
                 this.distribuicao.filtro = this.filtro;
                 this.distribuicao.idOrgaoDestino = '';
                 this.distribuicao.observacao = '';

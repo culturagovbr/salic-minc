@@ -306,4 +306,26 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
             $objDocumentoAssinatura->update($dadosDocumentoAssinatura, $whereDocumentoAssinatura);
         }
     }
+
+    public function atualizarDistribuicaoProduto()
+    {
+        $params = $this->request->getParams();
+
+        if (empty($params['idDistribuirParecer'])) {
+            throw new \Exception("Identificador é obrigatório");
+        }
+
+        $dadosDocumentoAssinatura = [
+            "siAnalise" =>  \Parecer_Model_TbDistribuirParecer::SI_ANALISE_VALIDADO
+        ];
+        $whereDocumentoAssinatura = "idDistribuirParecer" = $params['idDistribuirParecer'];
+
+        $whereDistribuicaoAtual = [];
+        $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $distribuicao = $tbDistribuirParecer->update($whereDistribuicaoAtual);
+        $resposta = $this->atualizar($params, $distribuicao);
+
+        return $distribuicao;
+    }
 }

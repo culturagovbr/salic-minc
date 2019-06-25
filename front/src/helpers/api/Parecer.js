@@ -121,3 +121,5 @@ export const obterDadosParaDistribuicao = (params) => {
 export const salvarDistribuicaoProduto = params => api.postRequest('/parecer/gerenciar-distribuir-produto-rest', buildData(params));
 
 export const salvarDistribuicaoProjeto = params => api.postRequest('/parecer/gerenciar-distribuir-projeto-rest', buildData(params));
+
+export const salvarValidacaoProduto = params => api.postRequest('/parecer/gerenciar-salvar-validacao-rest', buildData(params));
