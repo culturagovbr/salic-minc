@@ -299,7 +299,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
             "stEstado = ?" => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO,
             "stPrincipal = ?" => 0,
             "siEncaminhamento = ?" => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
-            "siAnalise <> ?" => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_FINALIZADO,
+            "siAnalise <> ?" => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_FINALIZADA,
         ];
 
         $tbDistribuirParecerDAO = new \Parecer_Model_DbTable_TbDistribuirParecer();

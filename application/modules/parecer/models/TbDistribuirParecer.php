@@ -34,9 +34,10 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     const SI_ANALISE_AGUARDANDO_ANALISE = 0;
     const SI_ANALISE_EM_ANALISE = 1;
     const SI_ANALISE_ANALISADO = 2;
-    const SI_ANALISE_FINALIZADO = 3;
+    const SI_ANALISE_FINALIZADA = 3;
     const SI_ANALISE_EM_VALIDACAO = 4;
     const SI_ANALISE_VALIDADO = 5;
+    const SI_ANALISE_FINALIZADA_COORDENADOR = 6;
 
     /**
      * @return mixed

@@ -166,7 +166,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         return $distribuicoes;
     }
 
-    public function distribuirProduto($dados, $distribuicaoAtual)
+    private function distribuirProduto($dados, $distribuicaoAtual)
     {
         if ($dados['tipoAcao'] === 'distribuir'
             && !$this->isPareceristaCredenciado(
