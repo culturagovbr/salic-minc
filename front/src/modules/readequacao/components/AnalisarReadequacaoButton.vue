@@ -71,8 +71,7 @@
 </template>
 <script>
 import Carregando from '@/components/CarregandoVuetify';
-import validarFormulario from '../mixins/validarFormulario';
-import verificarPerfil from '../mixins/verificarPerfil';
+import MxReadequacao from '../mixins/Readequacao';
 
 export default {
     name: 'AnalisarReadequacaoButton',
@@ -80,8 +79,7 @@ export default {
         Carregando,
     },
     mixins: [
-        validarFormulario,
-        verificarPerfil,
+        MxReadequacao,
     ],
     props: {
         dadosReadequacao: {
