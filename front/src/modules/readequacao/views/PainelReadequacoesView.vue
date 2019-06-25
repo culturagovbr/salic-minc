@@ -18,7 +18,7 @@
                 </v-btn>
                 <v-card>
                     <salic-mensagem-erro
-                        :texto="'Sem permiss&atilde;o de acesso para este 0projeto'"
+                        :texto="'Sem permiss&atilde;o de acesso para este projeto'"
                     />
                 </v-card>
             </v-flex>
@@ -64,6 +64,7 @@
                         color="yellow"
                     />
                     <v-tab
+                        v-if="perfilAceito('proponente')"
                         href="#edicao"
                     >Edição
                         <v-icon>
@@ -71,6 +72,7 @@
                         </v-icon>
                     </v-tab>
                     <v-tab
+                        v-if="perfilAceito('analise')"
                         href="#analise"
                     >Em Análise
                         <v-icon>
@@ -84,7 +86,9 @@
                             check
                         </v-icon>
                     </v-tab>
-                    <v-tab-item :value="'edicao'">
+                    <v-tab-item
+                        v-if="perfilAceito('proponente')"
+                        :value="'edicao'">
                         <v-card>
                             <tabela-readequacoes
                                 :dados-readequacao="getReadequacoesProponente"
@@ -99,7 +103,9 @@
                             />
                         </v-card>
                     </v-tab-item>
-                    <v-tab-item :value="'analise'">
+                    <v-tab-item
+                        v-if="perfilAceito('analise')"
+                        :value="'analise'">
                         <v-card>
                             <tabela-readequacoes
                                 :dados-readequacao="getReadequacoesAnalise"
@@ -208,14 +214,22 @@ export default {
             perfisAceitos: {
                 proponente: [
                     Const.PERFIL_PROPONENTE,
-                ],
+                          ],
                 analise: [
+                    Const.PERFIL_PROPONENTE,
                     Const.PERFIL_TECNICO_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
                     Const.PERFIL_DIRETOR,
                     Const.PERFIL_SECRETARIO,
-                ],
+                          ],
+                analisar: [
+                    Const.PERFIL_TECNICO_ACOMPANHAMENTO,
+                    Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
+                    Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
+                    Const.PERFIL_DIRETOR,
+                    Const.PERFIL_SECRETARIO,
+                          ],
             },
             minChar: {
                 solicitacao: 3,
@@ -321,7 +335,6 @@ export default {
             return this.perfisAceitos[tipo];
         },
         perfilAceito(tipoPerfil) {
-            /* função ainda não utilizada - será usada na visão do painel pelo técnico */
             if (Object.prototype.hasOwnProperty.call(this.perfisAceitos, tipoPerfil)) {
                 return this.verificarPerfil(this.perfil, this.perfisAceitos[tipoPerfil]);
             }

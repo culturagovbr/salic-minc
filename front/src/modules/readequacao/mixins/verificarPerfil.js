@@ -4,12 +4,12 @@ export default {
     methods: {
         verificarPerfil(perfil, perfisAceitos) {
             if (!_.isEmpty(perfisAceitos)) {
-                if (perfisAceitos.includes(perfil)) {
+                if (perfisAceitos.includes(parseInt(perfil))) {
                     return true;
                 }
                 return false;
             }
-            return true;
+            return false;
         },
     },
 };
