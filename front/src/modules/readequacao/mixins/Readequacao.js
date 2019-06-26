@@ -53,7 +53,9 @@ export default {
             return novoValor;
         },
         verificarPerfil(perfil, perfisAceitos) {
-            if (!_.isEmpty(perfisAceitos)) {
+            if (!_.isEmpty(perfisAceitos)
+                && typeof perfisAceitos.includes === 'function'
+               ) {
                 if (perfisAceitos.includes(parseInt(perfil))) {
                     return true;
                 }

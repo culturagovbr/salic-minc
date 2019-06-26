@@ -65,22 +65,24 @@
                             fill-height
                         >
                             <template
-                                v-for="(componente, index) in componentes.acoes"
+                                v-for="(item, index) in (componentes.acoes)"
                             >
-                                <component
-                                    :key="index"
-                                    :obj="props.item"
-                                    :is="componente"
-                                    :dados-readequacao="props.item"
-                                    :dados-projeto="dadosProjeto"
-                                    :bind-click="bindClick"
-                                    :perfis-aceitos="perfisAceitos"
-                                    :perfil="perfil"
-                                    :min-char="minChar"
-                                    class="pa-0 ma-0 align-center justify-center fill-height"
-                                    @excluir-readequacao="excluirReadequacao"
-                                    @atualizar-readequacao="atualizarReadequacao(props.item.idReadequacao)"
-                                />
+                                <template v-if="perfilAceito(item.permissao) || item.permissao === 'all'">
+                                    <component
+                                        :key="index"
+                                        :obj="props.item"
+                                        :is="item.componente"
+                                        :dados-readequacao="props.item"
+                                        :dados-projeto="dadosProjeto"
+                                        :bind-click="bindClick"
+                                        :perfis-aceitos="perfisAceitos"
+                                        :perfil="perfil"
+                                        :min-char="minChar"
+                                        class="pa-0 ma-0 align-center justify-center fill-height"
+                                        @excluir-readequacao="excluirReadequacao"
+                                        @atualizar-readequacao="atualizarReadequacao(props.item.idReadequacao)"
+                                    />
+                                </template>
                             </template>
                         </v-layout>
                     </v-layout>
@@ -130,7 +132,7 @@ export default {
             default: 0,
         },
         perfisAceitos: {
-            type: Array,
+            type: [Array, Object],
             default: () => [],
         },
         perfil: {
@@ -200,6 +202,13 @@ export default {
         },
         atualizarReadequacao(idReadequacao) {
             this.$emit('atualizar-readequacao', { idReadequacao });
+        },
+        perfilAceito(tipoPerfil) {
+            const perfisAceitos = this.perfisAceitos[tipoPerfil];
+            if (typeof perfisAceitos === 'object') {
+                return this.verificarPerfil(this.perfil, perfisAceitos);
+            }
+            return false;
         },
     },
 };

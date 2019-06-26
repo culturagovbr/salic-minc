@@ -95,7 +95,7 @@ export default {
             default: () => {},
         },
         perfisAceitos: {
-            type: Array,
+            type: [Array, Object],
             default: () => [],
         },
         perfil: {

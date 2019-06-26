@@ -96,7 +96,7 @@
                                 :dados-projeto="dadosProjeto"
                                 :item-em-edicao="itemEmEdicao"
                                 :min-char="minChar"
-                                :perfis-aceitos="getPerfis('proponente')"
+                                :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                                 @excluir-readequacao="excluirReadequacao"
                                 @atualizar-readequacao="atualizarReadequacao"
@@ -111,7 +111,7 @@
                                 :dados-readequacao="getReadequacoesAnalise"
                                 :componentes="acoesAnalise"
                                 :dados-projeto="dadosProjeto"
-                                :perfis-aceitos="getPerfis('analise')"
+                                :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                             />
                         </v-card>
@@ -122,6 +122,8 @@
                                 :dados-readequacao="getReadequacoesFinalizadas"
                                 :componentes="acoesFinalizadas"
                                 :dados-projeto="dadosProjeto"
+                                :perfis-aceitos="perfisAceitos"
+                                :perfil="perfil"
                             />
                         </v-card>
                     </v-tab-item>
@@ -189,21 +191,42 @@ export default {
             acoesProponente: {
                 usuario: '',
                 acoes: [
-                    ExcluirButton,
-                    EditarReadequacaoButton,
-                    VisualizarReadequacaoButton,
-                    FinalizarButton,
+                    {
+                        componente: ExcluirButton,
+                        permissao: 'proponente',
+                    },
+                    {
+                        componente: EditarReadequacaoButton,
+                        permissao: 'proponente',
+                    },
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'proponente',
+                    },
+                    {
+                        componente: FinalizarButton,
+                        permissao: 'proponente',
+                    },
                 ],
             },
             acoesAnalise: {
                 acoes: [
-                    AnalisarReadequacaoButton,
-                    VisualizarReadequacaoButton,
+                    {
+                        componente: AnalisarReadequacaoButton,
+                        permissao: 'analisar',
+                    },
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'all',
+                    },
                 ],
             },
             acoesFinalizadas: {
                 acoes: [
-                    VisualizarReadequacaoButton,
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'all',
+                    },
                 ],
             },
             itemEmEdicao: 0,
@@ -217,7 +240,7 @@ export default {
             perfisAceitos: {
                 proponente: [
                     Const.PERFIL_PROPONENTE,
-                          ],
+                ],
                 analise: [
                     Const.PERFIL_PROPONENTE,
                     Const.PERFIL_TECNICO_ACOMPANHAMENTO,
@@ -225,7 +248,7 @@ export default {
                     Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
                     Const.PERFIL_DIRETOR,
                     Const.PERFIL_SECRETARIO,
-                  ],
+                ],
                 analisar: [
                     Const.PERFIL_TECNICO_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
