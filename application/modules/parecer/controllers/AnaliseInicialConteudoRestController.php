@@ -8,15 +8,12 @@ class Parecer_AnaliseInicialConteudoRestController extends MinC_Controller_Rest_
     public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = array())
     {
         $profiles = [
-            Autenticacao_Model_Grupos::PARECERISTA => 'analisar-produto',
-            Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER => '\'editar-produto',
-            Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO => '\'editar-produto',
+            Autenticacao_Model_Grupos::PARECERISTA,
+            Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
         ];
 
-
         $permissionsPerMethod  = [
-            'index' => 'visualizar-produto',
-            'post' => 'editar-produto',
+            '*' => $profiles,
         ];
 
         $this->setProtectedMethodsProfilesPermission($permissionsPerMethod);
