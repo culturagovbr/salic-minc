@@ -132,7 +132,6 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         }
 
         $select->order('idDistribuirParecer DESC');
-        // 		xd($select->assemble());
         return $this->fetchAll($select);
     }// fecha m�todo buscarHistorico()
 
@@ -1066,26 +1065,11 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         );
         $select->where('uog.uog_grupo = 94');
         $select->where('DtDevolucao is null');
-        /*$select->group(array(
-                        'dp.DtDistribuicao',
-                        'dp.DtEnvio',
-                        'dp.idProduto',
-                        'ag.idAgente',
-                        'org.Codigo',
-                        'proj.IdPRONAC')
-                        );*/
+
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
 
-        /*$selectAux = $this->select();
-        $selectAux->setIntegrityCheck(false);
-        $selectAux->from(
-            $select
-            ,array("total"=>new Zend_Db_Expr("count(*)"))
-
-        );
-                xd($select->assemble());*/
         return $this->fetchAll($select);
     }
 
@@ -2178,61 +2162,40 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
             case 'devolvida':
 
                 $slct->from(
-                    ['a' => 'dbo.vwPainelCoordenadorVinculadasReanalisar'],
-                    array(
-                        'IdPRONAC',
-                        'NrProjeto',
-                        'NomeProjeto',
+                    ['a' => 'dbo.vwPainelValidadosComDevolucao'],
+                    [
+                        'IdPRONAC as idPronac',
+                        'NrProjeto as pronac',
+                        'NomeProjeto as nomeProjeto',
                         'idProduto',
-                        'Produto',
-                        'stPrincipal',
+                        'Produto as nomeProduto',
                         'idArea',
-                        'Area',
+                        'Area as area',
                         'idSegmento',
-                        'Segmento',
+                        'Segmento as segmento',
                         'idDistribuirParecer',
+                        'Parecerista as parecerista',
                         'idOrgao',
-                        'FecharAnalise',
-                        'idAgenteParecerista',
-                        'Parecerista',
-                        'DtEnvioMincVinculada',
-                        'qtDiasDistribuir',
-                        'CAST (JustComponente AS TEXT) AS JustComponente',
-                        'JustDevolucaoPedido',
-                        'JustSecretaria',
-                        'Valor')
+                        'idOrgaoOrigem',
+                        'siAnalise',
+                        'siEncaminhamento',
+                        'DtEnvioMincVinculada as dtEnvioMincVinculada',
+                        'DtDistribuicao as dtDistribuicao',
+                        'DtDevolucao as dtDevolucao',
+                        'TempoTotalAnalise as tempoTotalAnalise',
+                        'TempoParecerista as tempoParecerista',
+                        'TempoDiligencia as tempoDiligencia',
+                        'qtDiligenciaProduto',
+                        'Valor as valor',
+                        'Obs as obs',
+                        'stPrincipal',
+                        'FecharAnalise as fecharAnalise',
+                        'TecnicoValidador as tecnicoValidador',
+                        'dtValidacao'
+                    ]
                 );
-                $from = 'FROM sac.dbo.vwPainelCoordenadorVinculadasReanalisar';
+                $from = 'FROM sac.dbo.vwPainelValidadosComDevolucao';
                 break;
-
-//            case 'impedimento_parecerista':
-//                $slct->from(
-//                    array('dbo.vwPainelCoordenadorImpedimentoParecerista as a'),
-//                    array(
-//                        'IdPRONAC as idPronac',
-//                        'NrProjeto as pronac',
-//                        'NomeProjeto as nomeProjeto',
-//                        'idProduto',
-//                        'Produto as nomeProduto',
-//                        'idArea',
-//                        'Area as area',
-//                        'idSegmento',
-//                        'Segmento as segmento',
-//                        'idDistribuirParecer',
-//                        'idOrgao',
-//                        'idAgenteParecerista',
-//                        'Parecerista as parecerista',
-//                        'DtEnvioMincVinculada as dtEnvioMincVinculada',
-//                        'DtDistribuicao as dtDistribuicao',
-//                        'DtDevolucao as dtDevolucao',
-//                        'JustParecerista as justParecerista',
-//                        'Valor as valor',
-//                        'stPrincipal',
-//                        'FecharAnalise as fecharAnalise'
-//                    )
-//                );
-//                $from = 'FROM dbo.vwPainelCoordenadorImpedimentoParecerista';
-//                break;
             case 'impedimento_parecerista':
                 return $this->obterProdutosComDeclaracaoImpedimento($where);
                 break;

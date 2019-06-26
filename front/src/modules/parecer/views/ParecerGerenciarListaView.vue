@@ -156,12 +156,12 @@ export default {
             {
                 id: 'devolvida',
                 label: 'Devolvidos',
-                component: 'gerenciar-lista-itens-aguardando-analise',
+                component: 'gerenciar-lista-validados',
             },
             {
                 id: 'impedimento_parecerista',
                 label: 'Com impedimento do parecerista',
-                component: 'gerenciar-lista-itens-aguardando-analise',
+                component: 'gerenciar-lista-itens-em-analise',
             },
         ],
         filtro: 'aguardando_distribuicao',
