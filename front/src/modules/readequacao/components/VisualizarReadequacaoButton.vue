@@ -182,7 +182,7 @@
                                 <campo-diff
                                     v-if="readequacaoTipoSimples() && dadosReadequacao.dsSolicitacao"
                                     :original-text="getDadosCampo.valor"
-                                    :changed-text="textoSolicitacao"
+                                    :changed-text="dadosReadequacao.dsSolicitacao"
                                     :method="'diffWordsWithSpace'"
                                 />
                                 <div
@@ -369,14 +369,6 @@ export default {
                 };
             }
             return {};
-        },
-        textoSolicitacao() {
-            if (this.dadosReadequacao.idTipoReadequacao === Const.TIPO_READEQUACAO_PERIODO_EXECUCAO
-                && this.dadosReadequacao.dsSolicitacao.trim() !== '') {
-                const [year, month, day] = this.dadosReadequacao.dsSolicitacao.substr(0, 10).split('-');
-                return `${day}/${month}/${year}`;
-            }
-            return this.dadosReadequacao.dsSolicitacao;
         },
     },
     watch: {
