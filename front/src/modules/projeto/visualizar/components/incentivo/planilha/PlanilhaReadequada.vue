@@ -9,7 +9,7 @@
             v-if="Object.keys(planilha).length > 0"
             :array-planilha="planilha"
             :agrupamentos="['FonteRecurso', 'Produto', 'Etapa', 'UF', 'Municipio']"
-            :totais="['vlAprovado']"
+            :totais="totaisPlanilha"
         >
             <template
                 slot="badge"
@@ -57,6 +57,16 @@ export default {
             loading: true,
             semResposta: false,
             mensagem: '',
+            totaisPlanilha: [
+                {
+                    label: 'Valor Aprovado',
+                    column: 'vlAprovado',
+                },
+                {
+                    label: 'Valor Comprovado',
+                    column: 'VlComprovado',
+                },
+            ],
         };
     },
     computed: {
