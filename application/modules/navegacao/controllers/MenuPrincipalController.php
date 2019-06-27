@@ -254,7 +254,7 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
         $arrMenu['analise']['menu'][] = [
             'label' => 'An&aacute;lise T&eacute;cnica Inicial',
             'title' => 'Ir para An&aacute;lise T&eacute;cnica Inicial',
-            'url' => ['module' => 'parecer', 'controller' => 'analise-inicial', 'action' => 'index'],
+            'url' => ['module' => 'default', 'controller' => 'index', 'action' => 'index', '#' => 'parecer/analise-inicial'],
             'grupo' => [Autenticacao_Model_Grupos::PARECERISTA]
         ];
         $arrMenu['analise']['menu'][] = [
@@ -1210,8 +1210,6 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
             $arrMenu = [];
         }
         return $arrMenu;
-
-
     }
 
 

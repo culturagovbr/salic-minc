@@ -1,1 +1,1 @@
-<li><a href="<?php echo ($this->url)? $this->url : 'javascript:void(0);'; ?>" title="<?php echo $this->title; ?>"><?php echo $this->label; ?></a></li>
+<li><a href="<?php echo ($this->url)? urldecode($this->url) : 'javascript:void(0);'; ?>" title="<?php echo $this->title; ?>"><?php echo $this->label; ?></a></li>

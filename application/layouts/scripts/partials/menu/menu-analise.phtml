@@ -144,7 +144,7 @@ $arrMenu['analise']['menu'][] = array('label' => 'Gerenciar Pareceres', 'title' 
     'grupo' => array(Autenticacao_Model_Grupos::SUPERINTENDENTE_DE_VINCULADA)
 );
 $arrMenu['analise']['menu'][] = array('label' => 'An&aacute;lise T&eacute;cnica Inicial', 'title' => 'Ir para An&aacute;lise T&eacute;cnica Inicial',
-    'url' => $this->url(array('module' => 'parecer', 'controller' => 'analise-inicial', 'action' => 'index'), '', true),
+    'url' => $this->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index', '#' => 'parecer/analise-inicial'), '', true),
     'grupo' => array(Autenticacao_Model_Grupos::PARECERISTA)
 );
 
