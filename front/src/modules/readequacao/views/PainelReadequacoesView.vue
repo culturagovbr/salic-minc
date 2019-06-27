@@ -64,7 +64,7 @@
                         color="yellow"
                     />
                     <v-tab
-                        v-if="perfilAceito('proponente')"
+                        v-if="perfilAceito(['proponente'])"
                         href="#edicao"
                     >Edição
                         <v-icon>
@@ -72,7 +72,7 @@
                         </v-icon>
                     </v-tab>
                     <v-tab
-                        v-if="perfilAceito('analise')"
+                        v-if="perfilAceito(['analise', 'analisar'])"
                         href="#analise"
                     >Em Análise
                         <v-icon>
@@ -87,7 +87,7 @@
                         </v-icon>
                     </v-tab>
                     <v-tab-item
-                        v-if="perfilAceito('proponente')"
+                        v-if="perfilAceito(['proponente'])"
                         :value="'edicao'">
                         <v-card>
                             <tabela-readequacoes
@@ -104,7 +104,7 @@
                         </v-card>
                     </v-tab-item>
                     <v-tab-item
-                        v-if="perfilAceito('analise')"
+                        v-if="perfilAceito(['analise', 'analisar'])"
                         :value="'analise'">
                         <v-card>
                             <tabela-readequacoes
@@ -217,7 +217,7 @@ export default {
                     },
                     {
                         componente: VisualizarReadequacaoButton,
-                        permissao: 'all',
+                        permissao: 'analise',
                     },
                 ],
             },
@@ -243,7 +243,6 @@ export default {
                 ],
                 analise: [
                     Const.PERFIL_PROPONENTE,
-                    Const.PERFIL_TECNICO_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
                     Const.PERFIL_DIRETOR,
@@ -251,10 +250,6 @@ export default {
                 ],
                 analisar: [
                     Const.PERFIL_TECNICO_ACOMPANHAMENTO,
-                    Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
-                    Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
-                    Const.PERFIL_DIRETOR,
-                    Const.PERFIL_SECRETARIO,
                 ],
             },
             minChar: {
@@ -364,11 +359,12 @@ export default {
         getPerfis(tipo) {
             return this.perfisAceitos[tipo];
         },
-        perfilAceito(tipoPerfil) {
-            if (Object.prototype.hasOwnProperty.call(this.perfisAceitos, tipoPerfil)) {
-                return this.verificarPerfil(this.perfil, this.perfisAceitos[tipoPerfil]);
-            }
-            return false;
+        perfilAceito(tiposPerfil) {
+            return tiposPerfil.some(perfil => {
+                if (Object.prototype.hasOwnProperty.call(this.perfisAceitos, perfil)) {
+                    return this.verificarPerfil(this.perfil, this.perfisAceitos[perfil]);
+                }
+            });
         },
         voltar() {
             this.$router.back();
