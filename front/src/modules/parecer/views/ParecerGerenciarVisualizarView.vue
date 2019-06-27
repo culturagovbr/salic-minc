@@ -155,9 +155,6 @@ export default {
             obterProdutoParaAnalise: 'parecer/obterProdutoParaAnalise',
             obterAnaLiseConteudo: 'parecer/obterAnaLiseConteudo',
         }),
-        back() {
-            this.$router.push({ name: 'parecer-gerenciar-listar-view' });
-        },
         visualizarDiligencias() {
             this.dialogDiligencias = true;
         },

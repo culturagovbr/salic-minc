@@ -8,7 +8,7 @@
         <v-btn
             icon
             class="hidden-xs-only"
-            @click="$router.go(-1)"
+            @click="back()"
         >
             <v-icon>arrow_back</v-icon>
         </v-btn>
@@ -126,10 +126,21 @@ export default {
             type: Object,
             default: () => {},
         },
+        nomeRotaRetorno: {
+            type: String,
+            default: '',
+        },
     },
     methods: {
         back() {
-            this.$router.push({ name: 'parecer-gerenciar-listar-view' });
+            if (this.nomeRotaRetorno === '') {
+                this.$router.go(-1);
+                return;
+            }
+
+            console.log('etesssss');
+
+            this.$router.push({ name: this.nomeRotaRetorno });
         },
     },
 };

@@ -9,6 +9,7 @@
         <template v-else-if="produto && Object.keys(produto).length > 0">
             <analise-cabecalho
                 :produto="produto"
+                nome-rota-retorno="parecer-listar-view"
                 @visualizarDiligencias="visualizarDiligencias($event)"
                 @visualizarHistorico="visualizarHistorico($event)"
                 @visualizarOutrosProdutos="visualizarOutrosProdutos($event)"
