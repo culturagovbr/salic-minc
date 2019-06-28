@@ -1,5 +1,6 @@
 // import SaldoAplicacao from './views/SaldoAplicacaoView';
 import PainelReadequacoes from './views/PainelReadequacoesView';
+import AnalisarReadequacao from './views/AnalisarReadequacao';
 
 export default [
     {
@@ -8,6 +9,14 @@ export default [
         component: PainelReadequacoes,
         meta: {
             title: 'Painel de Readequações',
+        },
+    },
+    {
+        path: '/readequacao/analisar/:idPronac',
+        name: 'AnalisarReadequacao',
+        component: AnalisarReadequacao,
+        meta: {
+            title: 'Analisar Readequação',
         },
     },
 ];
