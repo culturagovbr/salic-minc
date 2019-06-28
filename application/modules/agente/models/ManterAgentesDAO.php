@@ -23,7 +23,6 @@ class Agente_Model_ManterAgentesDAO extends MinC_Db_Table_Abstract
             ,'a.cnpjcpf'
             ,'a.cnpjcpfsuperior'
             ,'a.tipopessoa'
-            ,'a.dtatualizacao'
         );
 
         $e = array(
