@@ -28,7 +28,7 @@ export default {
     },
     methods: {
         redirect() {
-            this.$router.push({ path: `/readequacao/analisar/${this.dadosReadequacao.idReadequacao}` });
+            this.$router.push({ path: `/readequacao/analisar/${this.dadosReadequacao.idPronac}/${this.dadosReadequacao.idReadequacao}` });
         },
     },
 };

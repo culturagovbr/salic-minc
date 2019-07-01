@@ -87,9 +87,14 @@ export const excluirReadequacao = ({ commit, dispatch }, params) => {
         });
 };
 
-export const obterReadequacao = ({ commit }, data) => {
-    if (typeof data.idReadequacao !== 'undefined') {
-        commit(types.GET_READEQUACAO, data);
+export const obterReadequacao = ({ commit }, params) => {
+    if (typeof params.dsJustificativa !== 'undefined') {
+        commit(types.GET_READEQUACAO, params);
+    } else {
+        readequacaoHelperAPI.dadosReadequacao(params)
+            .then((response) => {
+                commit(types.GET_READEQUACAO, response.data.data.items);
+            });
     }
 };
 

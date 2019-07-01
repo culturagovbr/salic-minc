@@ -12,7 +12,7 @@ export default [
         },
     },
     {
-        path: '/readequacao/analisar/:idPronac',
+        path: '/readequacao/analisar/:idPronac/:idReadequacao',
         name: 'AnalisarReadequacao',
         component: AnalisarReadequacao,
         meta: {
