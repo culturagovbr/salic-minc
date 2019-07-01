@@ -87,15 +87,13 @@ export const excluirReadequacao = ({ commit, dispatch }, params) => {
         });
 };
 
-export const obterReadequacao = ({ commit }, params) => {
-    if (typeof params.dsJustificativa !== 'undefined') {
-        commit(types.GET_READEQUACAO, params);
-    } else {
-        readequacaoHelperAPI.dadosReadequacao(params)
-            .then((response) => {
-                commit(types.GET_READEQUACAO, response.data.data.items);
-            });
-    }
+export const obterReadequacao = async ({ commit }, params) => {
+    const resultado = await readequacaoHelperAPI.dadosReadequacao(params)
+          .then((response) => {
+              commit(types.GET_READEQUACAO, response.data.data.items);
+              return response.data.data.items;
+          });
+    return resultado;
 };
 
 export const updateReadequacao = async ({ commit }, params) => {
@@ -103,6 +101,7 @@ export const updateReadequacao = async ({ commit }, params) => {
         .then((response) => {
             commit(types.UPDATE_READEQUACAO, response.data.data.items);
             commit(types.GET_READEQUACAO, response.data.data.items);
+            return resultado;
         });
     return resultado;
 };
@@ -136,6 +135,7 @@ export const obterCampoAtual = async ({ commit }, params) => {
         .then((response) => {
             const { data } = response.data;
             commit(types.SET_CAMPO_ATUAL, data.items[0]);
+            return resultado;
         });
     return resultado;
 };
@@ -180,6 +180,21 @@ export const finalizarReadequacao = async ({ dispatch }, params) => {
                 idPronac: params.idPronac,
                 stStatusAtual: 'analise',
             });
+            return resultado;
         });
     return resultado;
+};
+
+export const obterAvaliacaoReadequacao = ({ commit, dispatch }, params) => {
+    readequacaoHelperAPI.obterAvaliacaoReadequacao(params)
+        .then(() => {
+            commit(types.SET_AVALIACAO_READEQUACAO, data);
+        });
+};
+
+export const salvarAvaliacaoReadequacao = ({ commit }, params) => {
+    readequacaoHelperAPI.obterAvaliacaoReadequacao(params)
+        .then(() => {
+            commit(types.SET_AVALIACAO_READEQUACAO, data);
+        });
 };

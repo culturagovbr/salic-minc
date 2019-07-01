@@ -2,13 +2,14 @@ import Vue from 'vue';
 import * as types from './types';
 
 export const state = {
+    avaliacaoReadequacao: {},
+    campoAtual: {},
     readequacoesProponente: {},
     readequacoesAnalise: {},
     readequacoesFinalizadas: {},
     readequacao: {},
     saldoAplicacao: {},
     saldoAplicacaoDisponivelEdicaoItem: {},
-    campoAtual: {},
     tiposDisponiveis: [],
 };
 
@@ -77,5 +78,11 @@ export const mutations = {
     },
     [types.SET_READEQUACOES_PROPONENTE](state, novaReadequacao) {
         state.readequacoesProponente.items.unshift(novaReadequacao);
+    },
+    [types.GET_AVALIACAO_READEQUACAO](state, data) {
+        state.avaliacaoReadequacao = data;
+    },
+    [types.SET_AVALIACAO_READEQUACAO](state, data) {
+        state.avaliacaoReadequacao = data;
     },
 };

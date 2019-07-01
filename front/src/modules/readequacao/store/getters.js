@@ -7,3 +7,4 @@ export const getTiposDisponiveis = state => state.tiposDisponiveis;
 export const getDocumentoReadequacao = state => state.readequacao.documento;
 export const saldoAplicacao = state => state.saldoAplicacao;
 export const saldoAplicacaoDisponivelEdicaoItem = state => state.readequacao.saldoAplicacaoDisponivelEdicaoItem;
+export const getAvaliacaoReadequacao = state => state.avaliacaoReadequacao;

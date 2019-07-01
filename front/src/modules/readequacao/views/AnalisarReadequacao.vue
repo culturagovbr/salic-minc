@@ -94,7 +94,9 @@
                                 >
                                     <v-switch
                                         v-model="parecerReadequacao.ParecerFavoravel"
-                                        :label="`Parecer Favorável?: ${parecerReadequacao.ParecerFavoravel}`"
+                                        :label="`Parecer Favorável?: ${parecerFavoravelTexto}`"
+                                        false-value="1"
+                                        true-value="2"
                                         color="green"
                                     />
                                 </v-flex>
@@ -225,7 +227,7 @@ export default {
             },
             currentStep: 1,
             parecerReadequacao: {
-                ParecerFavoravel: false,
+                ParecerFavoravel: 1,
             },
         };
     },
@@ -234,7 +236,12 @@ export default {
             getUsuario: 'autenticacao/getUsuario',
             getReadequacao: 'readequacao/getReadequacao',
             dadosProjeto: 'projeto/projeto',
+            dadosAvaliacaoReadequacao: 'readequacao/getAvaliacaoReadequacao',
         }),
+        parecerFavoravelTexto() {
+            const parecerFavoravelTexto = (parseInt(this.parecerReadequacao.ParecerFavoravel) === 2) ? 'Sim' : 'Não';
+            return parecerFavoravelTexto;
+        },
     },
     watch: {
         getReadequacao(value) {
@@ -282,6 +289,8 @@ export default {
         if (typeof this.$route.params.idReadequacao !== 'undefined') {
             this.obterReadequacao({
                 idReadequacao: this.$route.params.idReadequacao,
+            }).then((readequacao) => {
+                this.obterAvaliacaoReadequacao({ idReadequacao: readequacao.idReadequacao });
             });
         } else {
             console.log('sem idReadequacao');
@@ -291,6 +300,7 @@ export default {
         ...mapActions({
             buscarProjetoCompleto: 'projeto/buscarProjetoCompleto',
             obterReadequacao: 'readequacao/obterReadequacao',
+            obterAvaliacaoReadequacao: 'readequacao/obterAvaliacaoReadequacao',
         }),
         enviarAnalise() {
         },
