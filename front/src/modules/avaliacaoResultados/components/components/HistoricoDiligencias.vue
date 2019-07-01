@@ -181,9 +181,9 @@
 
 <script>
 import Vue from 'vue';
-import Carregando from '@/components/CarregandoVuetify';
 import _ from 'lodash';
 import { mapActions, mapGetters } from 'vuex';
+import Carregando from '@/components/CarregandoVuetify';
 import Data from '../../../../filters/date';
 import statusDiligencia from '../../mixins/statusDiligencia';
 

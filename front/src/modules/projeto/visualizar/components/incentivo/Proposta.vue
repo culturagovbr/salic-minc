@@ -2,8 +2,8 @@
     <slProposta :idpreprojeto="dadosProjeto.idPreProjeto"/>
 </template>
 <script>
-import slProposta from '@/modules/proposta/visualizar/Proposta';
 import { mapGetters } from 'vuex';
+import slProposta from '@/modules/proposta/visualizar/Proposta';
 
 export default {
     components: {

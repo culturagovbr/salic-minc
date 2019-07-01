@@ -196,8 +196,8 @@
 <script>
 import Vue from 'vue';
 import { mapActions, mapGetters } from 'vuex';
-import cnpjFilter from '@/filters/cnpj';
 import VueCurrencyFilter from 'vue-currency-filter';
+import cnpjFilter from '@/filters/cnpj';
 import EditorTexto from '../components/EditorTexto';
 
 

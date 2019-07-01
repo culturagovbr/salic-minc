@@ -133,8 +133,8 @@
 </template>
 
 <script>
-import ModalTemplate from '@/components/modal';
 import { mapGetters, mapActions } from 'vuex';
+import ModalTemplate from '@/components/modal';
 import Const from '../../const';
 import Devolver from '../components/Devolver';
 import VisualizarParecer from '../components/VisualizarParecer';

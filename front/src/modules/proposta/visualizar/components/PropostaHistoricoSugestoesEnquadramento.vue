@@ -6,8 +6,8 @@
     </div>
 </template>
 <script>
-import slTabelaSimples from '@/components/slTabelaSimples';
 import { mapActions, mapGetters } from 'vuex';
+import slTabelaSimples from '@/components/slTabelaSimples';
 
 export default {
     name: 'PropostaHistoricoSugestoesEnquadramento',

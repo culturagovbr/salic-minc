@@ -120,8 +120,8 @@
     </div>
 </template>
 <script>
-import SalicTextoSimples from '@/components/SalicTextoSimples';
 import moment from 'moment';
+import SalicTextoSimples from '@/components/SalicTextoSimples';
 import { utils } from '@/mixins/utils';
 
 export default {

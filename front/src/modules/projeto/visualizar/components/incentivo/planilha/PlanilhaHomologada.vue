@@ -17,10 +17,10 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import Carregando from '@/components/Carregando';
 import Planilha from '@/components/Planilha/Planilha';
 import PlanilhaItensHomologados from '@/components/Planilha/PlanilhaItensHomologados';
-import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'PlanilhaPropostaHomologada',
