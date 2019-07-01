@@ -669,4 +669,22 @@ class Readequacao implements IServicoRestZend
         }
         return $permissao;
     }
+
+    public function buscarAvaliacao($idReadequacao = '')
+    {
+        $parametros = $this->request->getParams();
+        $data = [];
+
+        $tbReadequacaoXParecer = new \Readequacao_Model_DbTable_TbReadequacaoXParecer();
+        $data = $tbReadequacaoXParecer->buscarParecerReadequacao($idReadequacao);
+        
+        return $data;
+    }
+
+    public function salvarAvaliacao($idReadequacao = '')
+    {
+        $parametros = $this->request->getParams();
+        $data = [];
+        return $data;
+    }
 }

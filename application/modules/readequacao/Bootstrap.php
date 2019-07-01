@@ -15,6 +15,7 @@ class Readequacao_Bootstrap extends Zend_Application_Module_Bootstrap
             [
                 'readequacao' => [
                     'index',
+                    'avaliacao',
                     'campo-atual',
                     'dados-readequacao',
                     'dados-readequacao-documento',

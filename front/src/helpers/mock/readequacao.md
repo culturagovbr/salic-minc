@@ -651,3 +651,61 @@ HOST: http://localhost:4000
             {
                 "mensagem": "Readequação enviada para análise."
             }
+
+## Readequação - Obtem parecer avaliação de readequação [/readequacao/avaliacao]
+
++ Parameters
+    + idReadequacao: 15213 (number, required)
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+    
+            {
+                "idParecer": "352233"
+                "idPronac": "212553"
+                "anoProjeto": "17"
+                "sequencial" : "3233"
+                "tipoParecer": "3"
+                "parecerFavoravel": "2"
+                "numeroReuniao": "31"
+                "dtParecer": "2008-10-17 00:00:00"
+                "parecerista": "James Lovelock"
+                "resumoParecer": "Avalio readequação plausível com indicação de alterações climáticas"
+                "sugeridoReal": "331111"
+                "atendimento": "S"
+                "idEnquadramento": "33212"
+                "stAtivo": "1"
+                "idTipoAgente": "1",
+                "logon": "321"
+            }
+
+## Readequação - Grava parecer de avaliação de solicitação [/readequacao/avaliacao]
+
++ Parameters
+    + idReadequacao: 25221 (number, required)
+    + ParecerAvaliacao: 2 (number, required)
+    + dsParecer: "Avalio como plausível a justificativa da solicitação de readequação." (string, required)
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+    
+            {
+                "idParecer": "352233"
+                "idPronac": "212553"
+                "anoProjeto": "17"
+                "sequencial" : "3233"
+                "tipoParecer": "3"
+                "parecerFavoravel": "2"
+                "numeroReuniao": "31"
+                "dtParecer": "2008-10-17 00:00:00"
+                "parecerista": "James Lovelock"
+                "resumoParecer": "Avalio readequação plausível com indicação de alterações climáticas"
+                "sugeridoReal": "331111"
+                "atendimento": "S"
+                "idEnquadramento": "33212"
+                "stAtivo": "1"
+                "idTipoAgente": "1",
+                "logon": "321"
+            }

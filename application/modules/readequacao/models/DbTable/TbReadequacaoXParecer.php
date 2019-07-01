@@ -47,7 +47,22 @@ class Readequacao_Model_DbTable_TbReadequacaoXParecer extends MinC_Db_Table_Abst
 
         //adicionando linha order ao select
         $select->order($order);
-
+        
         return $this->fetchAll($select);
+    }
+
+    public function buscarParecerReadequacao($idReadequacao)
+    {
+        $result = $this->buscarPareceresReadequacao([
+            'a.idReadequacao = ?' => $idReadequacao,
+            'b.idTipoAgente = ?' => 1
+        ]);
+        
+        if (count($result) > 0) {
+            $result = $result[0];
+        } else {
+            $result = [];
+        }
+        return $result;
     }
 }
