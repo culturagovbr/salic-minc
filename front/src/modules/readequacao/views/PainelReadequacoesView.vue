@@ -360,10 +360,11 @@ export default {
             return this.perfisAceitos[tipo];
         },
         perfilAceito(tiposPerfil) {
-            return tiposPerfil.some(perfil => {
+            return tiposPerfil.some((perfil) => {
                 if (Object.prototype.hasOwnProperty.call(this.perfisAceitos, perfil)) {
                     return this.verificarPerfil(this.perfil, this.perfisAceitos[perfil]);
                 }
+                return false;
             });
         },
         voltar() {

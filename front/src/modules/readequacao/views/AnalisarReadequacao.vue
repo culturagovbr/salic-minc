@@ -18,9 +18,9 @@
             </v-flex>
         </v-layout>
         <v-layout
+            v-else
             row
             wrap
-            v-else
         >
             <v-snackbar
                 :value="!dialog && !loading"
@@ -166,23 +166,42 @@
                             Projeto: {{ dadosProjeto.Pronac }} - {{ dadosProjeto.NomeProjeto }}
                         </div>
                     </v-toolbar-title>
-                </v-toolbar>                
+                </v-toolbar>
                 <v-stepper
                     v-model="currentStep"
                     non-linear
                 >
                     <v-stepper-header>
-                        <v-stepper-step
-                            editable
-                            step="1"
-                        >
-                            Dados da readequação
-                        </v-stepper-step>
+                        <template v-for="(step, index) in arraySteps">
+                            <v-stepper-step
+                                :key="`${step.name}-step`"
+                                :step="index + 1"
+                                :editable="step.editable"
+                                :complete="step.complete"
+                                :rules="step.rules"
+                            >
+                                {{ step.label }}
+                            </v-stepper-step>
+                        </template>
                     </v-stepper-header>
                     <v-stepper-items>
                         <v-stepper-content
-                            step="1"
+                            v-for="(step, index) in arraySteps"
+                            :key="`${step.name}-content`"
+                            :step="index + 1"
                         >
+                            <v-card
+                                class="mb-5"
+                                elevation="0"
+                            >
+                                <keep-alive>
+                                    <router-view
+                                        v-if="(index + 1) === currentStep"
+                                        :is-active="true"
+                                        class="view"
+                                    />
+                                </keep-alive>
+                            </v-card>
                         </v-stepper-content>
                     </v-stepper-items>
                 </v-stepper>
@@ -196,6 +215,8 @@ import { mapActions, mapGetters } from 'vuex';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import Carregando from '@/components/CarregandoVuetify';
 import CampoDiff from '@/components/CampoDiff';
+import AnalisarJustificativa from '../components/AnalisarJustificativa';
+import AnalisarAlteracoes from '../components/AnalisarAlteracoes';
 import MxReadequacao from '../mixins/Readequacao';
 
 export default {
@@ -204,6 +225,8 @@ export default {
         SEditorTexto,
         Carregando,
         CampoDiff,
+        AnalisarJustificativa,
+        AnalisarAlteracoes,
     },
     mixins: [
         MxReadequacao,
@@ -225,6 +248,24 @@ export default {
                 readequacao: false,
                 usuario: false,
             },
+            arraySteps: [
+                {
+                    id: 1,
+                    label: 'Justificativa',
+                    name: 'analisar-justificativa',
+                    complete: false,
+                    editable: true,
+                    rules: [() => true],
+                },
+                {
+                    id: 2,
+                    label: 'Alterações',
+                    name: 'analisar-alteracoes',
+                    complete: false,
+                    editable: true,
+                    rules: [() => true],
+                },
+            ],
             currentStep: 1,
             parecerReadequacao: {
                 ParecerFavoravel: 1,
@@ -233,25 +274,28 @@ export default {
     },
     computed: {
         ...mapGetters({
-            getUsuario: 'autenticacao/getUsuario',
-            getReadequacao: 'readequacao/getReadequacao',
+            dadosUsuario: 'autenticacao/getUsuario',
+            dadosReadequacao: 'readequacao/getReadequacao',
             dadosProjeto: 'projeto/projeto',
             dadosAvaliacaoReadequacao: 'readequacao/getAvaliacaoReadequacao',
         }),
         parecerFavoravelTexto() {
-            const parecerFavoravelTexto = (parseInt(this.parecerReadequacao.ParecerFavoravel) === 2) ? 'Sim' : 'Não';
+            const parecerFavoravelTexto = (parseInt(this.parecerReadequacao.ParecerFavoravel, 10) === 2) ? 'Sim' : 'Não';
             return parecerFavoravelTexto;
         },
     },
     watch: {
-        getReadequacao(value) {
+        currentStep(step) {
+            this.$router.push({ name: this.arraySteps[step - 1].name });
+        },
+        dadosReadequacao(value) {
             if (typeof value === 'object') {
                 if (Object.keys(value).length > 0) {
                     this.loaded.readequacao = true;
                 }
             }
         },
-        getUsuario(value) {
+        dadosUsuario(value) {
             if (typeof value === 'object') {
                 if (Object.keys(value).length > 0) {
                     this.loaded.usuario = true;
@@ -278,9 +322,9 @@ export default {
     created() {
         this.loaded = this.checkAlreadyLoadedData(
             this.loaded,
-            this.getUsuario,
+            this.dadosUsuario,
             this.dadosProjeto,
-            this.getReadequacao,
+            this.dadosReadequacao,
         );
         if (typeof this.$route.params.idPronac !== 'undefined') {
             this.idPronac = this.$route.params.idPronac;
@@ -293,7 +337,7 @@ export default {
                 this.obterAvaliacaoReadequacao({ idReadequacao: readequacao.idReadequacao });
             });
         } else {
-            console.log('sem idReadequacao');
+            // sem readequacao
         }
     },
     methods: {
@@ -302,6 +346,9 @@ export default {
             obterReadequacao: 'readequacao/obterReadequacao',
             obterAvaliacaoReadequacao: 'readequacao/obterAvaliacaoReadequacao',
         }),
+        nextStep(n) {
+            this.currentStep = (n === Object.keys(this.arraySteps).length) ? 1 : n + 1;
+        },
         enviarAnalise() {
         },
     },

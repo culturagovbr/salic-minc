@@ -89,10 +89,10 @@ export const excluirReadequacao = ({ commit, dispatch }, params) => {
 
 export const obterReadequacao = async ({ commit }, params) => {
     const resultado = await readequacaoHelperAPI.dadosReadequacao(params)
-          .then((response) => {
-              commit(types.GET_READEQUACAO, response.data.data.items);
-              return response.data.data.items;
-          });
+        .then((response) => {
+            commit(types.GET_READEQUACAO, response.data.data.items);
+            return response.data.data.items;
+        });
     return resultado;
 };
 
@@ -185,16 +185,16 @@ export const finalizarReadequacao = async ({ dispatch }, params) => {
     return resultado;
 };
 
-export const obterAvaliacaoReadequacao = ({ commit, dispatch }, params) => {
+export const obterAvaliacaoReadequacao = ({ commit }, params) => {
     readequacaoHelperAPI.obterAvaliacaoReadequacao(params)
-        .then(() => {
-            commit(types.SET_AVALIACAO_READEQUACAO, data);
+        .then((response) => {
+            commit(types.SET_AVALIACAO_READEQUACAO, response.data.data.items);
         });
 };
 
 export const salvarAvaliacaoReadequacao = ({ commit }, params) => {
     readequacaoHelperAPI.obterAvaliacaoReadequacao(params)
-        .then(() => {
-            commit(types.SET_AVALIACAO_READEQUACAO, data);
+        .then((response) => {
+            commit(types.SET_AVALIACAO_READEQUACAO, response.data.data.items);
         });
 };

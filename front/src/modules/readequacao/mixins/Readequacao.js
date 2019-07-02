@@ -56,7 +56,7 @@ export default {
             if (!_.isEmpty(perfisAceitos)
                 && typeof perfisAceitos.includes === 'function'
             ) {
-                if (perfisAceitos.includes(parseInt(perfil))) {
+                if (perfisAceitos.includes(parseInt(perfil, 10))) {
                     return true;
                 }
                 return false;
