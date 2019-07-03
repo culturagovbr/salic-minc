@@ -160,7 +160,7 @@
                         <v-icon color="white">arrow_back</v-icon>
                     </v-btn>
                     <v-toolbar-title class="ml-2">
-                        <h5 class="headline font-weight-regular">Readequação: Saldo de Aplicação</h5>
+                        <h5 class="headline font-weight-regular">Readequação: {{ dadosReadequacao.dsTipoReadequacao }}</h5>
                         <v-divider/>
                         <div class="subheading mt-1">
                             Projeto: {{ dadosProjeto.Pronac }} - {{ dadosProjeto.NomeProjeto }}

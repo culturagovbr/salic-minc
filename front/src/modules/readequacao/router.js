@@ -1,12 +1,15 @@
-// import SaldoAplicacao from './views/SaldoAplicacaoView';
-import PainelReadequacoes from './views/PainelReadequacoesView';
-import AnalisarReadequacao from './views/AnalisarReadequacao';
+import AnalisarJustificativa from './components/AnalisarJustificativa';
+import AnalisarAlteracoes from './components/AnalisarAlteracoes';
+
+const PainelReadequacoesView = () => import(/* webpackChunkName: "painel-readequacoes-view" */ './views/PainelReadequacoesView');
+const SaldoAplicacaoView = () => import(/* webpackChunkName: "saldo-aplicacao-view" */ './views/SaldoAplicacaoView');
+const AnalisarReadequacaoView = () => import(/* webpackChunkName: "analisar-readequacao-view" */ './views/AnalisarReadequacaoView');
 
 export default [
     {
         path: '/readequacao/painel/:idPronac',
         name: 'PainelReadequacoes',
-        component: PainelReadequacoes,
+        component: PainelReadequacoesView,
         meta: {
             title: 'Painel de Readequações',
         },
@@ -14,9 +17,21 @@ export default [
     {
         path: '/readequacao/analisar/:idPronac/:idReadequacao',
         name: 'AnalisarReadequacao',
-        component: AnalisarReadequacao,
+        component: AnalisarReadequacaoView,
         meta: {
             title: 'Analisar Readequação',
         },
+        children: [
+            {
+                path: 'justificativa',
+                name: 'analisar-justificativa',
+                component: AnalisarJustificativa,
+            },
+            {
+                path: 'alteracoes',
+                name: 'analisar-alteracoes',
+                component: AnalisarAlteracoes,
+            },
+        ],
     },
 ];
