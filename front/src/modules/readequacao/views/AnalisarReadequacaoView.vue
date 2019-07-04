@@ -42,6 +42,15 @@
                     Avaliar readequação
                 </v-btn>
             </v-snackbar>
+            <v-snackbar
+                v-model="snackbar"
+                :color="getSnackbar.color"
+                :top="true"
+                :timeout="2000"
+                @input="fecharSnackbar"
+            >
+                {{ getSnackbar.text }}
+            </v-snackbar>
             <v-dialog
                 v-model="dialog"
                 fullscreen
@@ -116,7 +125,6 @@
                             <v-subheader class="pa-0">
                                 Todos os campos s&atilde;o obrigat&oacute;rios
                             </v-subheader>
-
                             <v-layout
                                 row
                                 justify-center
@@ -242,6 +250,7 @@ export default {
             valid: false,
             minChar: 10,
             dialog: false,
+            snackbar: false,
             loading: true,
             loaded: {
                 projeto: false,
@@ -276,6 +285,7 @@ export default {
     },
     computed: {
         ...mapGetters({
+            getSnackbar: 'noticias/getDados',
             dadosUsuario: 'autenticacao/getUsuario',
             dadosReadequacao: 'readequacao/getReadequacao',
             dadosProjeto: 'projeto/projeto',
@@ -358,6 +368,7 @@ export default {
     },
     methods: {
         ...mapActions({
+            setSnackbar: 'noticias/setDados',
             buscarProjetoCompleto: 'projeto/buscarProjetoCompleto',
             obterReadequacao: 'readequacao/obterReadequacao',
             obterAvaliacaoReadequacao: 'readequacao/obterAvaliacaoReadequacao',
@@ -378,7 +389,16 @@ export default {
                 idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
                 ParecerFavoravel: this.parecerReadequacao.ParecerFavoravel,
                 ParecerDeConteudo: this.parecerReadequacao.ParecerDeConteudo,
+            }).then(() => {
+                this.setSnackbar({
+                    ativo: true,
+                    color: 'success',
+                    text: 'Avaliação gravada!',
+                });
             });
+        },
+        fecharSnackbar() {
+            this.setSnackbar({ ativo: false });
         },
     },
 };
