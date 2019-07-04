@@ -1,31 +1,35 @@
 <template>
     <v-card tile>
-        <v-toolbar
-            card
-            dark
-            color="primary"
-        >
-            <v-toolbar-title>
-                Alterações
-            </v-toolbar-title>
-        </v-toolbar>
-        xxhkojxojxohjxoehjohjxe
         <v-card-text>
-            ses-i0909s09g0s9g0es9gs
-            {{ dadosReadequacao }}
-            {{ dadosReadequacao.dsSolicitacao }}
+            <campo-diff
+                :original-text="getDadosCampo.valor"
+                :changed-text="dadosReadequacao.dsSolicitacao"
+                :method="'diffWordsWithSpace'"
+            />
         </v-card-text>
     </v-card>
 </template>
 <script>
 import { mapGetters } from 'vuex';
+import CampoDiff from '@/components/CampoDiff';
+import MxReadequacao from '../mixins/Readequacao';
 
 export default {
-    name: 'analisar-alteracoes',
+    name: 'AnalisarAlteracoes',
+    components: {
+        CampoDiff,
+    },
+    mixins: [
+        MxReadequacao,
+    ],
     computed: {
         ...mapGetters({
             dadosReadequacao: 'readequacao/getReadequacao',
+            campoAtual: 'readequacao/getCampoAtual',
         }),
+        getDadosCampo() {
+            return this.parseDadosCampo(this.campoAtual);
+        },
     },
 };
 </script>

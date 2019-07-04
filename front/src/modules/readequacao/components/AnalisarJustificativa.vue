@@ -1,9 +1,9 @@
 <template>
     <v-card tile>
+        <h3>Justificativa da solicitação</h3>
         <v-card-text
             v-html="dadosReadequacao.dsJustificativa"
-        >
-        </v-card-text>
+        />
     </v-card>
 </template>
 <script>

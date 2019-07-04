@@ -278,6 +278,7 @@ export default {
             dadosReadequacao: 'readequacao/getReadequacao',
             dadosProjeto: 'projeto/projeto',
             dadosAvaliacaoReadequacao: 'readequacao/getAvaliacaoReadequacao',
+            campoOriginal: 'readequacao/getCampoAtual',
         }),
         parecerFavoravelTexto() {
             const parecerFavoravelTexto = (parseInt(this.parecerReadequacao.ParecerFavoravel, 10) === 2) ? 'Sim' : 'Não';
@@ -334,7 +335,13 @@ export default {
             this.obterReadequacao({
                 idReadequacao: this.$route.params.idReadequacao,
             }).then((readequacao) => {
-                this.obterAvaliacaoReadequacao({ idReadequacao: readequacao.idReadequacao });
+                this.obterAvaliacaoReadequacao({
+                    idReadequacao: readequacao.idReadequacao,
+                });
+                this.obterCampoAtual({
+                    idPronac: this.dadosReadequacao.idPronac,
+                    idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
+                });
             });
         } else {
             // sem readequacao
@@ -345,6 +352,7 @@ export default {
             buscarProjetoCompleto: 'projeto/buscarProjetoCompleto',
             obterReadequacao: 'readequacao/obterReadequacao',
             obterAvaliacaoReadequacao: 'readequacao/obterAvaliacaoReadequacao',
+            obterCampoAtual: 'readequacao/obterCampoAtual',
         }),
         nextStep(n) {
             this.currentStep = (n === Object.keys(this.arraySteps).length) ? 1 : n + 1;
