@@ -360,15 +360,7 @@ export default {
             return false;
         },
         getDadosCampo() {
-            const chave = `key_${this.dadosReadequacao.idTipoReadequacao}`;
-            if (Object.prototype.hasOwnProperty.call(this.campoAtual, chave)) {
-                return {
-                    valor: this.campoAtual[chave].dsCampo,
-                    titulo: this.campoAtual[chave].descricao,
-                    tpCampo: this.campoAtual[chave].tpCampo,
-                };
-            }
-            return {};
+            return this.parseDadosCampo(this.campoAtual);
         },
     },
     watch: {

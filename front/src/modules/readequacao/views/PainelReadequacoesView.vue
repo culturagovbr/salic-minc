@@ -367,9 +367,6 @@ export default {
                 return false;
             });
         },
-        voltar() {
-            this.$router.back();
-        },
         trocaAba(aba) {
             let status = '';
             if (aba === 'edicao') {

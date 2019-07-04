@@ -90,5 +90,19 @@ export default {
             }
             return localLoaded;
         },
+        voltar() {
+            this.$router.back();
+        },
+        parseDadosCampo(campoAtual) {
+            const chave = `key_${this.dadosReadequacao.idTipoReadequacao}`;
+            if (Object.prototype.hasOwnProperty.call(campoAtual, chave)) {
+                return {
+                    valor: campoAtual[chave].dsCampo,
+                    titulo: campoAtual[chave].descricao,
+                    tpCampo: campoAtual[chave].tpCampo,
+                };
+            }
+            return {};
+        },
     },
 };
