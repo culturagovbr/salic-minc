@@ -8,6 +8,7 @@ class Readequacao_AvaliacaoController extends MinC_Controller_Rest_Abstract
     public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = array())
     {
         $profiles = [
+            Autenticacao_Model_Grupos::PARECERISTA,
             Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO,
@@ -15,7 +16,8 @@ class Readequacao_AvaliacaoController extends MinC_Controller_Rest_Abstract
 
         $permissionsPerMethod  = [
             'post' => [
-                Autenticacao_Model_Grupos::PROPONENTE
+                Autenticacao_Model_Grupos::PARECERISTA,
+                Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
             ]
         ];
         $this->setProtectedMethodsProfilesPermission($permissionsPerMethod);
@@ -33,7 +35,7 @@ class Readequacao_AvaliacaoController extends MinC_Controller_Rest_Abstract
         
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
-
+        
         if (!$permissao) {
             $data['permissao'] = false;
             $code = 203;
@@ -54,6 +56,7 @@ class Readequacao_AvaliacaoController extends MinC_Controller_Rest_Abstract
         $data = [];
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
+        
         if (!$permissao) {
             $data['permissao'] = false;
             $code = 203;

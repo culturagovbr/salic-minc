@@ -268,7 +268,9 @@ export default {
             ],
             currentStep: 1,
             parecerReadequacao: {
-                ParecerFavoravel: 1,
+                ParecerFavoravel: 0,
+                ParecerDeConteudo: '',
+                idParecer: '',
             },
         };
     },
@@ -309,6 +311,13 @@ export default {
                     this.loaded.projeto = true;
                 }
             }
+        },
+        dadosAvaliacaoReadequacao() {
+            this.parecerReadequacao = {
+                ParecerFavoravel: this.dadosAvaliacaoReadequacao.ParecerFavoravel,
+                ParecerDeConteudo: this.dadosAvaliacaoReadequacao.ParecerDeConteudo,
+                idParecer: this.dadosAvaliacaoReadequacao.idParecer,
+            };
         },
         loaded: {
             handler(value) {
@@ -353,11 +362,19 @@ export default {
             obterReadequacao: 'readequacao/obterReadequacao',
             obterAvaliacaoReadequacao: 'readequacao/obterAvaliacaoReadequacao',
             obterCampoAtual: 'readequacao/obterCampoAtual',
+            salvarAvaliacaoReadequacao: 'readequacao/salvarAvaliacaoReadequacao',
         }),
         nextStep(n) {
             this.currentStep = (n === Object.keys(this.arraySteps).length) ? 1 : n + 1;
         },
         enviarAnalise() {
+            this.salvarAvaliacaoReadequacao({
+                idPronac: this.dadosReadequacao.idPronac,
+                idReadequacao: this.dadosReadequacao.idReadequacao,
+                idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
+                ParecerFavoravel: this.parecerReadequacao.ParecerFavoravel,
+                ParecerDeConteudo: this.parecerReadequacao.ParecerDeConteudo,
+            });
         },
     },
 };
