@@ -1,5 +1,19 @@
 <template>
-    <v-layout>
+    <v-layout
+        row
+        wrap
+    >
+        <v-flex
+            v-if="error"
+            md12
+            xs12
+        >
+            <div
+                class="grey lighten-4 text-xs-center font-weight-bold pa-2"
+            >
+                {{ errorMessage }}
+            </div>
+        </v-flex>
         <v-flex
             md6
             sm12
@@ -34,15 +48,6 @@
             sm12
             xs12
         >
-            <h4
-                v-if="error"
-                v-html="errorMessage"
-            />
-            <h4
-                v-if="textsEquals"
-                class="grey lighten-4 text-xs-center"
-                v-html="textsEqualsMessage"
-            />
             <v-card
                 flat
             >
@@ -101,7 +106,8 @@ export default {
             },
             error: false,
             textsEquals: false,
-            errorMessage: 'Não é possível comparar: ambos lados devem estar preenchidos.',
+            errorMessage: '',
+            cannotCompareMessage: 'Não é possível comparar: ambos lados devem estar preenchidos.',
             textsEqualsMessage: 'Textos sem diferenças.',
         };
     },
@@ -148,12 +154,12 @@ export default {
         },
         showDiff() {
             this.error = false;
-            this.message = '';
+            this.errorMessage = '';
             this.textDiff.after = '';
             this.textDiff.before = '';
             if (this.originalText.trim() === ''
                 || this.changedText.trim() === '') {
-                this.error = true;
+                this.setError(this.cannotCompareMessage);
                 this.textDiff.before = this.originalText;
                 this.textDiff.after = this.changedText;
                 return;
@@ -165,7 +171,7 @@ export default {
             if (dd.length === 1) {
                 this.textDiff.before = this.originalText;
                 this.textDiff.after = this.changedText;
-                this.textsEquals = true;
+                this.setError(this.textsEqualsMessage);
             }
             dd.forEach((part) => {
                 let color = '';
@@ -197,6 +203,10 @@ export default {
             const tmp = document.createElement('DIV');
             tmp.innerHTML = html;
             return tmp.textContent || tmp.innerText || '';
+        },
+        setError(message) {
+            this.error = true;
+            this.errorMessage = message;
         },
         tratarCampoVazio(value) {
             if (typeof value !== 'undefined') {
