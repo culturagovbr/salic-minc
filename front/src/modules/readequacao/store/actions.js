@@ -193,7 +193,7 @@ export const obterAvaliacaoReadequacao = ({ commit }, params) => {
 };
 
 export const salvarAvaliacaoReadequacao = ({ commit }, params) => {
-    readequacaoHelperAPI.obterAvaliacaoReadequacao(params)
+    readequacaoHelperAPI.salvarAvaliacaoReadequacao(params)
         .then((response) => {
             commit(types.SET_AVALIACAO_READEQUACAO, response.data.data.items);
         });
