@@ -155,7 +155,7 @@
                     <v-btn
                         icon
                         class="hidden-xs-only"
-                        @click="voltar()"
+                        @click="voltarAvalicao()"
                     >
                         <v-icon color="white">arrow_back</v-icon>
                     </v-btn>
@@ -366,6 +366,10 @@ export default {
         }),
         nextStep(n) {
             this.currentStep = (n === Object.keys(this.arraySteps).length) ? 1 : n + 1;
+        },
+        voltarAvalicao() {
+            const path = `/readequacao/painel/${this.dadosReadequacao.idPronac}`;
+            this.$router.push({ path });
         },
         enviarAnalise() {
             this.salvarAvaliacaoReadequacao({
