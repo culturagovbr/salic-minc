@@ -4,6 +4,7 @@ namespace Application\Modules\Readequacao\Service\Readequacao;
 
 use MinC\Servico\IServicoRestZend;
 use \Application\Modules\Documento\Service\Documento\Documento as DocumentoService;
+use \Application\Modules\Readequacao\Service\Assinatura\ReadequacaoAssinatura as ReadequacaoAssinaturaService;
 
 class Readequacao implements IServicoRestZend
 {
@@ -589,7 +590,7 @@ class Readequacao implements IServicoRestZend
         }
     }
 
-    public function finalizar()
+    public function finalizarSolicitacao()
     {
         $parametros = $this->request->getParams();
         $data = [];
@@ -787,18 +788,21 @@ class Readequacao implements IServicoRestZend
         return $data;
     }
 
-    public function finalizarAvaliarReadequacao()
+    public function finalizarAvaliacao()
     {
         $parametros = $this->request->getParams();
         $data = [];
-
+        
         $idPronac = $parametros['idPronac'];
         $idParecer = $parametros['idParecer'];
         $idTipoReadequacao = $parametros['idTipoReadequacao'];
         
-        $servicoReadequacaoAssinatura = new \Application\Modules\Readequacao\Service\Assinatura\ReadequacaoAssinatura(
-            $this->grupoAtivo,
-            $this->auth
+        $auth = \Zend_Auth::getInstance();
+        $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
+        
+        $servicoReadequacaoAssinatura = new ReadequacaoAssinaturaService(
+            $grupoAtivo,
+            $auth
         );
         $idTipoDoAto = $servicoReadequacaoAssinatura->obterAtoAdministrativoPorTipoReadequacao($idTipoReadequacao);
         
@@ -809,13 +813,10 @@ class Readequacao implements IServicoRestZend
         );
         $idDocumentoAssinatura = $servicoDocumentoAssinatura->iniciarFluxo();
         
-        $origin = "readequacao/readequacoes/painel-readequacoes";
-        $link = "/assinatura/index/visualizar-projeto?idDocumentoAssinatura={$idDocumentoAssinatura}&origin={$origin}";
-        
         $data = [
-            'origin' => $origin,
-            'link' => $link,
+            'idDocumentoAssinatura' => $idDocumentoAssinatura,
         ];
+        
         return $data;
     }
 }

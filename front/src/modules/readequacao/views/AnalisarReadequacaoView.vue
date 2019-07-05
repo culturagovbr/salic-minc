@@ -80,7 +80,7 @@
                             <v-btn
                                 dark
                                 flat
-                                @click="enviarAnalise"
+                                @click="salvarAnalise"
                             >
                                 <v-icon left>
                                     save
@@ -119,6 +119,7 @@
                                         v-model="parecerReadequacao.ParecerDeConteudo"
                                         :placeholder="'Parecer sobre a solicitação de readequação'"
                                         :min-char="minChar"
+                                        @editor-texto-counter="validateText($event)"
                                     />
                                 </v-flex>
                             </v-layout>
@@ -131,7 +132,7 @@
                             >
                                 <v-btn
                                     color="primary"
-                                    @click="enviarAnalise()"
+                                    @click="salvarAnalise()"
                                 >
                                     <v-icon left>
                                         save
@@ -139,9 +140,10 @@
                                     Salvar
                                 </v-btn>
                                 <v-btn
+                                    v-if="finalizarDisponivel"
                                     dark
                                     color="blue accent-4"
-                                    @click="finalizar()"
+                                    @click="dialogFinalizar = true"
                                 >
                                     Finalizar
                                     <v-icon right>
@@ -159,6 +161,37 @@
                             </v-layout>
                         </v-form>
                     </v-card-text>
+                </v-card>
+            </v-dialog>
+            <v-dialog
+                v-model="dialogFinalizar"
+                max-width="350"
+            >
+                <v-card>
+                    <v-card-title class="headline">
+                        Finalizar avaliação da Readequação?
+                    </v-card-title>
+                    <v-card-text>
+                        Após finalizada, será gerado um documento para assinatura do técnico.
+                    </v-card-text>
+                    <v-card-actions>
+                        <v-spacer/>
+                        <v-btn
+                            color="red darken-1"
+                            flat="flat"
+                            @click="dialogFinalizar = false"
+                        >
+                            Cancelar
+                        </v-btn>
+
+                        <v-btn
+                            color="green darken-1"
+                            flat="flat"
+                            @click="finalizar()"
+                        >
+                            OK
+                        </v-btn>
+                    </v-card-actions>
                 </v-card>
             </v-dialog>
             <v-flex
@@ -260,6 +293,7 @@ export default {
             valid: false,
             minChar: 10,
             dialog: false,
+            dialogFinalizar: false,
             snackbar: false,
             loading: true,
             loaded: {
@@ -291,6 +325,9 @@ export default {
                 ParecerDeConteudo: '',
                 idParecer: '',
             },
+            finalizarDisponivel: false,
+            retornoAssinatura: `origin=${encodeURIComponent('/#/readequacao/painel')}`,
+            urlAssinatura: '/assinatura/index/visualizar-projeto',
         };
     },
     computed: {
@@ -310,6 +347,9 @@ export default {
     watch: {
         currentStep(step) {
             this.$router.push({ name: this.arraySteps[step - 1].name });
+        },
+        $route(prev, old) {
+            this.atualizarStepByRoute();
         },
         dadosReadequacao(value) {
             if (typeof value === 'object') {
@@ -332,12 +372,21 @@ export default {
                 }
             }
         },
-        dadosAvaliacaoReadequacao() {
-            this.parecerReadequacao = {
-                ParecerFavoravel: this.dadosAvaliacaoReadequacao.ParecerFavoravel,
-                ParecerDeConteudo: this.dadosAvaliacaoReadequacao.ParecerDeConteudo,
-                idParecer: this.dadosAvaliacaoReadequacao.idParecer,
-            };
+        dadosAvaliacaoReadequacao: {
+            handler() {
+                this.parecerReadequacao = {
+                    ParecerFavoravel: this.dadosAvaliacaoReadequacao.ParecerFavoravel,
+                    ParecerDeConteudo: this.dadosAvaliacaoReadequacao.ParecerDeConteudo,
+                    idParecer: this.dadosAvaliacaoReadequacao.idParecer,
+                };
+            },
+            deep: true,
+        },
+        parecerReadequacao: {
+            handler() {
+                this.checkFinalizar();
+            },
+            deep: true,
         },
         loaded: {
             handler(value) {
@@ -389,11 +438,14 @@ export default {
         nextStep(n) {
             this.currentStep = (n === Object.keys(this.arraySteps).length) ? 1 : n + 1;
         },
+        atualizarStepByRoute() {
+            this.currentStep = this.getIndexStepByName(this.$route.name) + 1;
+        },
         voltarAvalicao() {
             const path = `/readequacao/painel/${this.dadosReadequacao.idPronac}`;
             this.$router.push({ path });
         },
-        enviarAnalise() {
+        salvarAnalise() {
             this.salvarAvaliacaoReadequacao({
                 idPronac: this.dadosReadequacao.idPronac,
                 idReadequacao: this.dadosReadequacao.idReadequacao,
@@ -408,12 +460,47 @@ export default {
                 });
             });
         },
-        finalizarAnalise() {
-            this.finalizarAnalise({
+        finalizar() {
+            if (this.parecerReadequacao.ParecerDeConteudo !== this.dadosAvaliacaoReadequacao.ParecerDeConteudo) {
+                this.salvarAvaliacaoReadequacao({
+                    idPronac: this.dadosReadequacao.idPronac,
+                    idReadequacao: this.dadosReadequacao.idReadequacao,
+                    idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
+                    ParecerFavoravel: this.parecerReadequacao.ParecerFavoravel,
+                    ParecerDeConteudo: this.parecerReadequacao.ParecerDeConteudo,
+                }).then(() => {
+                    this.executaFinalizarAnalise();
+                });
+            } else {
+                this.executaFinalizarAnalise();
+            }
+        },
+        executaFinalizarAnalise() {
+            this.finalizarAvaliacaoReadequacao({
+                idPronac: this.dadosReadequacao.idPronac,
+                idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
+                idParecer: this.parecerReadequacao.idParecer,
+            }).then((response) => {
+                const idDocumentoAssinatura = response.data.data.items.idDocumentoAssinatura;
+                this.dialogFinalizar = false;
+                this.dialog = false;
+                window.location.href = `${this.urlAssinatura}?idDocumentoAssinatura=${idDocumentoAssinatura}&${this.retornoAssinatura}`;
             });
         },
         fecharSnackbar() {
             this.setSnackbar({ ativo: false });
+        },
+        checkFinalizar() {
+            if (this.parecerReadequacao.idParecer !== '') {
+                if (this.parecerReadequacao.ParecerDeConteudo.length >= this.minChar) {
+                    this.finalizarDisponivel = true;
+                } else {
+                    this.finalizarDisponivel = false;
+                }
+            }
+        },
+        validateText(e) {
+            this.textIsValid = e >= this.minChar;
         },
     },
 };

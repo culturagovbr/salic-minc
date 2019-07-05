@@ -202,7 +202,6 @@ export const salvarAvaliacaoReadequacao = ({ commit }, params) => {
 export const finalizarAvaliacaoReadequacao = async ({ dispatch }, params) => {
     const resultado = await readequacaoHelperAPI.finalizarAvaliacaoReadequacao(params)
         .then((response) => {
-            console.log(resultado);
             return response;
         });
     return resultado;
