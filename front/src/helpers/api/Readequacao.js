@@ -109,3 +109,8 @@ export const salvarAvaliacaoReadequacao = (params) => {
     const path = '/readequacao/avaliacao';
     return api.postRequest(path, buildData(params));
 };
+
+export const finalizarAvaliacaoReadequacao = (params) => {
+    const path = '/readequacao/finalizar-avaliacao';
+    return api.postRequest(path, buildData(params));
+};

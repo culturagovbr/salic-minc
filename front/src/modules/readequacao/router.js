@@ -1,4 +1,4 @@
-import AnalisarJustificativa from './components/AnalisarJustificativa';
+import AnalisarDadosGerais from './components/AnalisarDadosGerais';
 import AnalisarAlteracoes from './components/AnalisarAlteracoes';
 
 const PainelReadequacoesView = () => import(/* webpackChunkName: "painel-readequacoes-view" */ './views/PainelReadequacoesView');
@@ -22,8 +22,8 @@ export default [
         children: [
             {
                 path: '',
-                name: 'analisar-justificativa',
-                component: AnalisarJustificativa,
+                name: 'analisar-dados-gerais',
+                component: AnalisarDadosGerais,
             },
             {
                 path: 'alteracoes',

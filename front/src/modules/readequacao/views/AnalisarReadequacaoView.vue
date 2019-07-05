@@ -139,6 +139,16 @@
                                     Salvar
                                 </v-btn>
                                 <v-btn
+                                    dark
+                                    color="blue accent-4"
+                                    @click="finalizar()"
+                                >
+                                    Finalizar
+                                    <v-icon right>
+                                        gavel
+                                    </v-icon>
+                                </v-btn>
+                                <v-btn
                                     @click="dialog = false"
                                 >
                                     Fechar
@@ -168,7 +178,7 @@
                         <v-icon color="white">arrow_back</v-icon>
                     </v-btn>
                     <v-toolbar-title class="ml-2">
-                        <h5 class="headline font-weight-regular">Readequação: {{ dadosReadequacao.dsTipoReadequacao }}</h5>
+                        <h5 class="headline font-weight-regular">Avaliar Readequação: {{ dadosReadequacao.dsTipoReadequacao }}</h5>
                         <v-divider/>
                         <div class="subheading mt-1">
                             Projeto: {{ dadosProjeto.Pronac }} - {{ dadosProjeto.NomeProjeto }}
@@ -223,7 +233,7 @@ import { mapActions, mapGetters } from 'vuex';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import Carregando from '@/components/CarregandoVuetify';
 import CampoDiff from '@/components/CampoDiff';
-import AnalisarJustificativa from '../components/AnalisarJustificativa';
+import AnalisarDadosGerais from '../components/AnalisarDadosGerais';
 import AnalisarAlteracoes from '../components/AnalisarAlteracoes';
 import MxReadequacao from '../mixins/Readequacao';
 
@@ -233,7 +243,7 @@ export default {
         SEditorTexto,
         Carregando,
         CampoDiff,
-        AnalisarJustificativa,
+        AnalisarDadosGerais,
         AnalisarAlteracoes,
     },
     mixins: [
@@ -260,8 +270,8 @@ export default {
             arraySteps: [
                 {
                     id: 1,
-                    label: 'Justificativa',
-                    name: 'analisar-justificativa',
+                    label: 'Dados gerais',
+                    name: 'analisar-dados-gerais',
                     complete: false,
                     editable: true,
                     rules: [() => true],
@@ -374,6 +384,7 @@ export default {
             obterAvaliacaoReadequacao: 'readequacao/obterAvaliacaoReadequacao',
             obterCampoAtual: 'readequacao/obterCampoAtual',
             salvarAvaliacaoReadequacao: 'readequacao/salvarAvaliacaoReadequacao',
+            finalizarAvaliacaoReadequacao: 'readequacao/finalizarAvaliacaoReadequacao',
         }),
         nextStep(n) {
             this.currentStep = (n === Object.keys(this.arraySteps).length) ? 1 : n + 1;
@@ -395,6 +406,10 @@ export default {
                     color: 'success',
                     text: 'Avaliação gravada!',
                 });
+            });
+        },
+        finalizarAnalise() {
+            this.finalizarAnalise({
             });
         },
         fecharSnackbar() {

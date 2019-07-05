@@ -198,3 +198,12 @@ export const salvarAvaliacaoReadequacao = ({ commit }, params) => {
             commit(types.SET_AVALIACAO_READEQUACAO, response.data.data.items);
         });
 };
+
+export const finalizarAvaliacaoReadequacao = async ({ dispatch }, params) => {
+    const resultado = await readequacaoHelperAPI.finalizarAvaliacaoReadequacao(params)
+        .then((response) => {
+            console.log(resultado);
+            return response;
+        });
+    return resultado;
+};
