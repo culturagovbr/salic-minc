@@ -206,7 +206,7 @@
                     <v-btn
                         icon
                         class="hidden-xs-only"
-                        @click="voltarAvalicao()"
+                        @click="voltarAvaliacao()"
                     >
                         <v-icon color="white">arrow_back</v-icon>
                     </v-btn>
@@ -374,11 +374,13 @@ export default {
         },
         dadosAvaliacaoReadequacao: {
             handler() {
-                this.parecerReadequacao = {
-                    ParecerFavoravel: this.dadosAvaliacaoReadequacao.ParecerFavoravel,
-                    ParecerDeConteudo: this.dadosAvaliacaoReadequacao.ParecerDeConteudo,
-                    idParecer: this.dadosAvaliacaoReadequacao.idParecer,
-                };
+                if (!_.isNull(this.dadosAvaliacaoReadequacao.ParecerFavoravel)) {
+                    this.parecerReadequacao = {
+                        ParecerFavoravel: this.dadosAvaliacaoReadequacao.ParecerFavoravel,
+                        ParecerDeConteudo: this.dadosAvaliacaoReadequacao.ParecerDeConteudo,
+                        idParecer: this.dadosAvaliacaoReadequacao.idParecer,
+                    };
+                }
             },
             deep: true,
         },
@@ -421,8 +423,6 @@ export default {
                     idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
                 });
             });
-        } else {
-            // sem readequacao
         }
     },
     methods: {
@@ -441,8 +441,11 @@ export default {
         atualizarStepByRoute() {
             this.currentStep = this.getIndexStepByName(this.$route.name) + 1;
         },
-        voltarAvalicao() {
-            const path = `/readequacao/painel/${this.dadosReadequacao.idPronac}`;
+        getIndexStepByName(name) {
+            return this.arraySteps.findIndex(element => element.name === name);
+        },
+        voltarAvaliacao() {
+            const path = '/readequacao/painel';
             this.$router.push({ path });
         },
         salvarAnalise() {

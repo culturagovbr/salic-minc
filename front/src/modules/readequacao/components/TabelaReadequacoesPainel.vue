@@ -74,14 +74,8 @@
                                         :obj="props.item"
                                         :is="item.componente"
                                         :dados-readequacao="props.item"
-                                        :dados-projeto="dadosProjeto"
-                                        :bind-click="bindClick"
-                                        :perfis-aceitos="perfisAceitos"
-                                        :perfil="perfil"
                                         :min-char="minChar"
                                         class="pa-0 ma-0 align-center justify-center fill-height"
-                                        @excluir-readequacao="excluirReadequacao"
-                                        @atualizar-readequacao="atualizarReadequacao(props.item.idReadequacao)"
                                     />
                                 </template>
                             </template>
@@ -123,10 +117,6 @@ export default {
         componentes: {
             type: Object,
             default: () => {},
-        },
-        itemEmEdicao: {
-            type: Number,
-            default: 0,
         },
         perfisAceitos: {
             type: [Array, Object],
@@ -186,9 +176,6 @@ export default {
     },
     computed: {},
     watch: {
-        itemEmEdicao() {
-            this.bindClick = this.itemEmEdicao;
-        },
         dadosReadequacao(value) {
             if (this.checkData(value)) {
                 this.loading = false;
@@ -207,12 +194,6 @@ export default {
                     return true;
                 }
             }
-        },
-        excluirReadequacao() {
-            this.$emit('excluir-readequacao');
-        },
-        atualizarReadequacao(idReadequacao) {
-            this.$emit('atualizar-readequacao', { idReadequacao });
         },
         perfilAceito(tipoPerfil) {
             const perfisAceitos = this.perfisAceitos[tipoPerfil];

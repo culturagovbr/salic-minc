@@ -73,7 +73,7 @@ export default {
             };
 
             if (typeof loaded.projeto !== 'undefined') {
-                Object.assing(
+                Object.assign(
                     loaded,
                     {
                         projeto: loaded.projeto,
@@ -81,7 +81,7 @@ export default {
                 );
             }
             if (typeof loaded.usuario !== 'undefined') {
-                Object.assing(
+                Object.assign(
                     loaded,
                     {
                         usuario: loaded.usuario,
