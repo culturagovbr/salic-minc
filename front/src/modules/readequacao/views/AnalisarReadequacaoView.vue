@@ -326,7 +326,7 @@ export default {
                 idParecer: '',
             },
             finalizarDisponivel: false,
-            retornoAssinatura: `origin=${encodeURIComponent('/#/readequacao/painel')}`,
+            retornoAssinatura: `origin=${encodeURIComponent('#/readequacao/painel')}`,
             urlAssinatura: '/assinatura/index/visualizar-projeto',
         };
     },
@@ -484,10 +484,10 @@ export default {
                 idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
                 idParecer: this.parecerReadequacao.idParecer,
             }).then((response) => {
-                const idDocumentoAssinatura = response.data.data.items.idDocumentoAssinatura;
                 this.dialogFinalizar = false;
                 this.dialog = false;
-                window.location.href = `${this.urlAssinatura}?idDocumentoAssinatura=${idDocumentoAssinatura}&${this.retornoAssinatura}`;
+                const url = `${this.urlAssinatura}?idDocumentoAssinatura=${response.data.data.items.idDocumentoAssinatura}&${this.retornoAssinatura}`;
+                window.location.href = url;
             });
         },
         fecharSnackbar() {

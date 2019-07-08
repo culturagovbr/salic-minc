@@ -206,10 +206,10 @@ export const salvarAvaliacaoReadequacao = ({ commit }, params) => {
         });
 };
 
-export const finalizarAvaliacaoReadequacao = async (params) => {
+export const finalizarAvaliacaoReadequacao = async ({ commit }, params) => {
     const resultado = await readequacaoHelperAPI.finalizarAvaliacaoReadequacao(params)
         .then((response) => {
-            console.log(response);
+            commit(types.SET_DOCUMENTO_ASSINATURA, response.data);
             return response;
         });
     return resultado;
