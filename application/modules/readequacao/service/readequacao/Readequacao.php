@@ -97,6 +97,50 @@ class Readequacao implements IServicoRestZend
         return $resultArray;
     }
 
+    public function buscarReadequacoesPainel()
+    {
+        $parametros = $this->request->getParams();
+        $where = [];
+        $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
+        $auth = \Zend_Auth::getInstance();
+        
+        $idOrgao = $grupoAtivo->codOrgao;
+        $idPerfil = $grupoAtivo->codGrupo;
+        
+        if ($idOrgao == \Orgaos::ORGAO_GEAR_SACAV) {
+            $idOrgao = \Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI;
+        }
+        $where['idUnidade = ?'] = $idOrgao;
+        
+        if ($parametros['pronac']) {
+            $where['projetos.AnoProjeto+projetos.Sequencial = ?'] = $parametros['pronac'];
+        }
+
+        $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
+
+        switch ($idPerfil) {
+            case \Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO:
+                $where['dtDistribuicao.idAvaliador = ?'] = $auth->getIdentity()->usu_codigo;
+                $result = $modelTbReadequacao->painelReadequacoesTecnicoAcompanhamento($where, $order, $tamanho, $inicio, false);
+                break;
+        }
+        
+        $resultArray = [];
+        if (!empty($result)) {
+            foreach($result as $item) {
+                $item->tpReadequacao = utf8_encode($item->tpReadequacao);
+                $item->NomeProjeto = utf8_encode($item->NomeProjeto);
+                $item->dsTipoReadequacao = utf8_encode($item->dsTipoReadequacao);
+                $item->dsSolicitacao = utf8_encode($item->dsSolicitacao);
+                $item->dsJustificativa = utf8_encode($item->dsJustificativa);
+                $item->dsNomeSolicitante = utf8_encode($item->dsNomeSolicitante);
+                $item->dsNomeAvaliador = utf8_encode($item->dsNomeAvaliador);
+                $resultArray[] = $item;
+            }
+        }
+        return $resultArray;
+    }
+    
     public function buscarReadequacoesPorPronacTipo($idPronac, $idTipoReadequacao)
     {
         $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();

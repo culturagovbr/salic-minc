@@ -22,6 +22,7 @@ class Readequacao_Bootstrap extends Zend_Application_Module_Bootstrap
                     'documento',
                     'finalizar',
                     'finalizar-avaliacao',
+                    'painel',
                     'tipos-disponiveis',
                 ]
             ]

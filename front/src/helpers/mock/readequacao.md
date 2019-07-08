@@ -439,6 +439,81 @@ HOST: http://localhost:4000
                 "mensagem": "Readequação removida com sucesso!"
             }
 
+
+
+## Painel de readequações -  [/readequacao/painel]
+
+### Filtro por pronac [GET]
+
++ Parameters
+    + pronac (string, required)
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+                "data": {
+                    "code": 200,
+                    "items": [
+                        {
+                            "idPronac": 217336,
+                            "idReadequacao": 15123,
+                            "PRONAC": "160338",
+                            "NomeProjeto": "Baile perfumado",
+                            "tpReadequacao": "Planilha orçamentária",
+                            "dtDistribuicao": "2019-01-22",
+                            "qtDiasAvaliacao" "14",
+                            "idTecnicoParecerista": 255,
+                            "idOrgao": 262,
+                            "idTipoReadequacao": 2,
+                            "dsTipoReadequacao": "Planilha orçamentária",
+                            "dtSolicitacao": "2019-01-22",
+                            "idSolicitante": 267,
+                            "dsNomeSolicitante": "Leôncio das Neves",
+                            "dsSolicitacao": "Solicito alteração na planilha.",
+                            "dsJustificativa": "É necessário",
+                            "idDocumento": 19440,
+                            "idAvaliador": 335,
+                            "dsNomeAvaliador": "Ciclano avaliador",
+                            "dtAvaliador": "2019-02-03",
+                            "dsAvaliacao": "Avalio que está bom.",
+                            "stAtendimento": "N",
+                            "siEncaminhamento": 15,
+                            "idNrReuniao": 45654,
+                            "stEstado": 1,
+                            "dtEnvio": "2019-01-23"
+                        },
+                        {
+                            "idPronac": 217331,
+                            "idReadequacao": 15523,
+                            "PRONAC": "160338",
+                            "NomeProjeto": "Miscelânia e tal",
+                            "tpReadequacao": "Objetivos",
+                            "dtDistribuicao": "2019-01-22",
+                            "qtDiasAvaliacao" "14",
+                            "idTecnicoParecerista": 255,
+                            "idOrgao": 262,
+                            "idTipoReadequacao": 2,
+                            "dsTipoReadequacao": "Planilha orçamentária",
+                            "dtSolicitacao": "2019-01-22",
+                            "idSolicitante": 267,
+                            "dsNomeSolicitante": "Leôncio das Neves",
+                            "dsSolicitacao": "Solicito alteração na planilha.",
+                            "dsJustificativa": "É necessário",
+                            "idDocumento": 19440,
+                            "idAvaliador": 335,
+                            "dsNomeAvaliador": "Ciclano avaliador",
+                            "dtAvaliador": "2019-02-03",
+                            "dsAvaliacao": "Avalio que está bom.",
+                            "stAtendimento": "N",
+                            "siEncaminhamento": 15,
+                            "idNrReuniao": 45654,
+                            "stEstado": 1,
+                            "dtEnvio": "2019-01-23"
+                        },
+                        
+
 ## Readequacao - Visualizar tipos de Readequação disponíveis para criação por Pronac [/readequacao/tipos-disponiveis?idPronac={idPronac}]
 
 + Parameters
@@ -709,3 +784,21 @@ HOST: http://localhost:4000
                 "idTipoAgente": "1",
                 "logon": "321"
             }
+
+## Readequação - Finaliza readequação [/readequacao/finalizar]
+
+### Finaliza análise [POST]
+
++ Parameters
+    + idPronac: 205213 (number, required)
+    + idParecer: 1205213 (number, required)
+    + idTipoReadequacao: 12 (number, required)
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+                "mensagem": "Análise de readequação finalizada."
+            }
+
