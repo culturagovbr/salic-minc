@@ -6,6 +6,14 @@ const AnalisarReadequacaoView = () => import(/* webpackChunkName: "analisar-read
 
 export default [
     {
+        path: '/readequacao/painel',
+        name: 'PainelReadequacoesAnalise',
+        component: PainelReadequacoesView,
+        meta: {
+            title: 'Readequações - painel de análise',
+        },
+    },
+    {
         path: '/readequacao/painel/:idPronac',
         name: 'PainelReadequacoes',
         component: PainelReadequacoesView,

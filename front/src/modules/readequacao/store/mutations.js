@@ -7,6 +7,7 @@ export const state = {
     readequacoesProponente: {},
     readequacoesAnalise: {},
     readequacoesFinalizadas: {},
+    readequacoesPainelTecnico: {},
     readequacao: {},
     saldoAplicacao: {},
     saldoAplicacaoDisponivelEdicaoItem: {},
@@ -22,6 +23,12 @@ export const mutations = {
     },
     [types.GET_READEQUACOES_FINALIZADAS](state, readequacoes) {
         state.readequacoesFinalizadas = readequacoes;
+    },
+    [types.SET_READEQUACOES_PAINEL_TECNICO](state, data) {
+        state.readequacoesPainelTecnico = data;
+    },
+    [types.GET_READEQUACOES_PAINEL_TECNICO](state, data) {
+        state.readequacoesPainelTecnico = data;
     },
     [types.SET_READEQUACAO](state, readequacao) {
         state.readequacao = readequacao;

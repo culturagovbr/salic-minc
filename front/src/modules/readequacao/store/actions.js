@@ -23,6 +23,13 @@ export const obterListaDeReadequacoes = async ({ commit }, params) => {
     return resultado;
 };
 
+export const buscarReadequacoesPainelTecnico = ({ commit }, params) => {
+    readequacaoHelperAPI.buscaReadequacoesPainel(params)
+        .then((response) => {
+            commit(types.SET_READEQUACOES_PAINEL_TECNICO, response.data.data);
+        });
+};
+
 export const buscaReadequacaoPronacTipo = ({ commit }, params) => {
     readequacaoHelperAPI.buscaReadequacaoPronacTipo(params)
         .then((response) => {
@@ -199,9 +206,10 @@ export const salvarAvaliacaoReadequacao = ({ commit }, params) => {
         });
 };
 
-export const finalizarAvaliacaoReadequacao = async ({ dispatch }, params) => {
+export const finalizarAvaliacaoReadequacao = async (params) => {
     const resultado = await readequacaoHelperAPI.finalizarAvaliacaoReadequacao(params)
         .then((response) => {
+            console.log(response);
             return response;
         });
     return resultado;

@@ -1,0 +1,226 @@
+<template>
+    <div
+        v-if="loading"
+        ma-5
+    >
+        <carregando
+            :text="'Carregando lista de readequações...'"
+        />
+    </div>
+    <div
+        v-else
+    >
+        <v-card
+            flat
+        >
+            <v-card-title>
+                <v-spacer/>
+                <v-spacer/>
+                <v-spacer/>
+                <v-text-field
+                    v-model="search"
+                    append-icon="search"
+                    label="Buscar"
+                    single-line
+                    hide-details
+                />
+            </v-card-title>
+        </v-card>
+        <v-data-table
+            :headers="head"
+            :items="dadosReadequacao.items"
+            :pagination.sync="pagination"
+            :search="search"
+            item-key="item.index"
+            rows-per-page-text="Items por Página"
+        >
+            <template
+                slot="items"
+                slot-scope="props">
+                <td>{{ props.index+1 }}</td>
+                <td class="text-xs-left">{{ props.item.NomeProjeto }}</td>
+                <td class="text-xs-left">{{ props.item.dsTipoReadequacao }}</td>
+                <td class="text-xs-center">{{ props.item.dtSolicitacao | formatarData }}</td>
+                <td class="text-xs-center">
+                    <v-btn
+                        v-if="props.item.idDocumento"
+                        flat
+                        icon
+                        @click="abrirArquivo(props.item.idDocumento)"
+                    >
+                        <v-icon>insert_drive_file</v-icon>
+                    </v-btn>
+                </td>
+                <td
+                    v-if="componentes.acoes"
+                    class="text-xs-center"
+                >
+                    <v-layout
+                        row
+                        justify-center
+                        align-end
+                    >
+                        <v-layout
+                            align-center
+                            justify-center
+                            fill-height
+                        >
+                            <template
+                                v-for="(item, index) in (componentes.acoes)"
+                            >
+                                <template v-if="perfilAceito(item.permissao) || item.permissao === 'all'">
+                                    <component
+                                        :key="index"
+                                        :obj="props.item"
+                                        :is="item.componente"
+                                        :dados-readequacao="props.item"
+                                        :dados-projeto="dadosProjeto"
+                                        :bind-click="bindClick"
+                                        :perfis-aceitos="perfisAceitos"
+                                        :perfil="perfil"
+                                        :min-char="minChar"
+                                        class="pa-0 ma-0 align-center justify-center fill-height"
+                                        @excluir-readequacao="excluirReadequacao"
+                                        @atualizar-readequacao="atualizarReadequacao(props.item.idReadequacao)"
+                                    />
+                                </template>
+                            </template>
+                        </v-layout>
+                    </v-layout>
+                </td>
+            </template>
+            <template slot="no-data">
+                <v-alert
+                    :value="true"
+                    color="error"
+                    icon="warning">
+                    Nenhum dado encontrado ¯\_(ツ)_/¯
+                </v-alert>
+            </template>
+        </v-data-table>
+    </div>
+</template>
+
+<script>
+import { utils } from '@/mixins/utils';
+import Carregando from '@/components/CarregandoVuetify';
+import MxReadequacao from '../mixins/Readequacao';
+
+export default {
+    name: 'TabelaReadequacoesPainel',
+    components: {
+        Carregando,
+    },
+    mixins: [
+        utils,
+        MxReadequacao,
+    ],
+    props: {
+        dadosReadequacao: {
+            type: [Array, Object],
+            default: () => {},
+        },
+        componentes: {
+            type: Object,
+            default: () => {},
+        },
+        itemEmEdicao: {
+            type: Number,
+            default: 0,
+        },
+        perfisAceitos: {
+            type: [Array, Object],
+            default: () => [],
+        },
+        perfil: {
+            type: [Number, String],
+            default: 0,
+        },
+        minChar: {
+            type: Object,
+            default: () => {},
+        },
+    },
+    data() {
+        return {
+            pagination: {
+                rowsPerPage: 10,
+                descending: true,
+                sortBy: 'dtSolicitacao',
+            },
+            head: [
+                {
+                    text: '#',
+                    align: 'left',
+                    sortable: false,
+                    value: 'numero',
+                },
+                {
+                    text: 'Projeto',
+                    value: 'NomeProjeto',
+                },
+                {
+                    text: 'Tipo de Readequação',
+                    value: 'dsTipoReadequacao',
+                },
+                {
+                    text: 'Data da Solicitação',
+                    align: 'center',
+                    value: 'dtSolicitacao',
+                },
+                {
+                    text: 'Arquivo',
+                    align: 'center',
+                    value: 'idDocumento',
+                },
+                {
+                    text: 'Ações',
+                    align: 'center',
+                    value: '',
+                },
+            ],
+            search: '',
+            bindClick: 0,
+            loading: true,
+        };
+    },
+    computed: {},
+    watch: {
+        itemEmEdicao() {
+            this.bindClick = this.itemEmEdicao;
+        },
+        dadosReadequacao(value) {
+            if (this.checkData(value)) {
+                this.loading = false;
+            }
+        },
+    },
+    created() {
+        if (this.checkData(this.dadosReadequacao)) {
+            this.loading = false;
+        }
+    },
+    methods: {
+        checkData(value) {
+            if (typeof value === 'object') {
+                if (Object.keys(value).length > 0) {
+                    return true;
+                }
+            }
+        },
+        excluirReadequacao() {
+            this.$emit('excluir-readequacao');
+        },
+        atualizarReadequacao(idReadequacao) {
+            this.$emit('atualizar-readequacao', { idReadequacao });
+        },
+        perfilAceito(tipoPerfil) {
+            const perfisAceitos = this.perfisAceitos[tipoPerfil];
+            if (typeof perfisAceitos === 'object') {
+                return this.verificarPerfil(this.perfil, perfisAceitos);
+            }
+            return false;
+        },
+    },
+};
+</script>

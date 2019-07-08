@@ -80,6 +80,7 @@
                         </v-icon>
                     </v-tab>
                     <v-tab
+                        v-if="perfilAceito(['proponente'])"
                         href="#finalizadas"
                     >Finalizadas
                         <v-icon>
@@ -91,7 +92,7 @@
                         :value="'edicao'">
                         <v-card>
                             <tabela-readequacoes
-                                :dados-readequacao="getReadequacoesProponente"
+                                :dados-readequacao="getReadequacoesAnalise"
                                 :componentes="acoesProponente"
                                 :dados-projeto="dadosProjeto"
                                 :item-em-edicao="itemEmEdicao"
@@ -107,16 +108,17 @@
                         v-if="perfilAceito(['analise', 'analisar'])"
                         :value="'analise'">
                         <v-card>
-                            <tabela-readequacoes
-                                :dados-readequacao="getReadequacoesAnalise"
+                            <tabela-readequacoes-painel
+                                :dados-readequacao="getReadequacoesPainelTecnico"
                                 :componentes="acoesAnalise"
-                                :dados-projeto="dadosProjeto"
                                 :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                             />
                         </v-card>
                     </v-tab-item>
-                    <v-tab-item :value="'finalizadas'">
+                    <v-tab-item
+                        v-if="perfilAceito(['proponente'])"
+                        :value="'finalizadas'">
                         <v-card>
                             <tabela-readequacoes
                                 :dados-readequacao="getReadequacoesFinalizadas"
@@ -156,6 +158,7 @@ import { mapActions, mapGetters } from 'vuex';
 import Const from '../const';
 import SalicMensagemErro from '@/components/SalicMensagemErro';
 import TabelaReadequacoes from '../components/TabelaReadequacoes';
+import TabelaReadequacoesPainel from '../components/TabelaReadequacoesPainel';
 import ExcluirButton from '../components/ExcluirButton';
 import FinalizarButton from '../components/FinalizarButton';
 import EditarReadequacaoButton from '../components/EditarReadequacaoButton';
@@ -170,6 +173,7 @@ export default {
     components: {
         Carregando,
         TabelaReadequacoes,
+        TabelaReadequacoesPainel,
         ExcluirButton,
         EditarReadequacaoButton,
         VisualizarReadequacaoButton,
@@ -259,9 +263,7 @@ export default {
             },
             abaInicial: '#edicao',
             loaded: {
-                projeto: false,
                 readequacao: false,
-                usuario: false,
             },
             permissao: true,
         };
@@ -272,6 +274,7 @@ export default {
             getReadequacoesProponente: 'readequacao/getReadequacoesProponente',
             getReadequacoesAnalise: 'readequacao/getReadequacoesAnalise',
             getReadequacoesFinalizadas: 'readequacao/getReadequacoesFinalizadas',
+            getReadequacoesPainelTecnico: 'readequacao/getReadequacoesPainelTecnico',
             dadosProjeto: 'projeto/projeto',
         }),
         perfil() {
@@ -287,6 +290,13 @@ export default {
             }
         },
         getReadequacoesProponente(value) {
+            if (typeof value === 'object') {
+                if (Object.keys(value).length > 0) {
+                    this.loaded.readequacao = true;
+                }
+            }
+        },
+        getReadequacoesPainelTecnico(value) {
             if (typeof value === 'object') {
                 if (Object.keys(value).length > 0) {
                     this.loaded.readequacao = true;
@@ -315,6 +325,17 @@ export default {
             deep: true,
         },
     },
+    mounted() {
+        if (this.perfilAceito(['proponente'])) {
+            Object.assign(
+                this.loaded,
+                {
+                    projeto: false,
+                    usuario: false,
+                },
+            );
+        }
+    },
     created() {
         this.loaded = this.checkAlreadyLoadedData(
             this.loaded,
@@ -325,12 +346,15 @@ export default {
         if (typeof this.$route.params.idPronac !== 'undefined') {
             this.idPronac = this.$route.params.idPronac;
             this.buscarProjetoCompleto(this.idPronac);
+        } else {
+            this.buscarReadequacoesPainelTecnico({});
         }
     },
     methods: {
         ...mapActions({
             obterListaDeReadequacoes: 'readequacao/obterListaDeReadequacoes',
             buscarProjetoCompleto: 'projeto/buscarProjetoCompleto',
+            buscarReadequacoesPainelTecnico: 'readequacao/buscarReadequacoesPainelTecnico',
         }),
         obterReadequacoesPorStatus(stStatusAtual) {
             if (this.listaStatus.includes(stStatusAtual)) {
@@ -374,10 +398,12 @@ export default {
             } else {
                 status = aba;
             }
-            this.obterListaDeReadequacoes({
-                idPronac: this.$route.params.idPronac,
-                stStatusAtual: status,
-            });
+            if (this.perfilAceito(['proponente'])) {
+                this.obterListaDeReadequacoes({
+                    idPronac: this.$route.params.idPronac,
+                    stStatusAtual: status,
+                });
+            }
         },
     },
 };

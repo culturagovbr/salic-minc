@@ -348,7 +348,7 @@ export default {
         currentStep(step) {
             this.$router.push({ name: this.arraySteps[step - 1].name });
         },
-        $route(prev, old) {
+        $route() {
             this.atualizarStepByRoute();
         },
         dadosReadequacao(value) {

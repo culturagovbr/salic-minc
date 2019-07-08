@@ -69,10 +69,25 @@ export default {
         },
         checkAlreadyLoadedData(loaded, usuario, projeto, readequacao) {
             const localLoaded = {
-                projeto: loaded.projeto,
                 readequacao: loaded.readequacao,
-                usuario: loaded.usuario,
             };
+
+            if (typeof loaded.projeto !== 'undefined') {
+                Object.assing(
+                    loaded,
+                    {
+                        projeto: loaded.projeto,
+                    },
+                );
+            }
+            if (typeof loaded.usuario !== 'undefined') {
+                Object.assing(
+                    loaded,
+                    {
+                        usuario: loaded.usuario,
+                    },
+                );
+            }
             if (typeof usuario === 'object') {
                 if (Object.keys(usuario).length > 0) {
                     localLoaded.usuario = true;
