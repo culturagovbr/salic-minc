@@ -4,6 +4,7 @@ import * as types from './types';
 export const state = {
     avaliacaoReadequacao: {},
     campoAtual: {},
+    documentoAssinaturaReadequacoes: {},
     linkAssinatura: {},
     readequacoesProponente: {},
     readequacoesAnalise: {},
@@ -97,6 +98,12 @@ export const mutations = {
         state.documentoAssinatura = data;
     },
     [types.GET_DOCUMENTO_ASSINATURA](state, data) {
+        state.documentoAssinatura = data;
+    },
+    [types.SET_DOCUMENTO_ASSINATURA_READEQUACOES](state, data) {
+        state.documentoAssinatura = data;
+    },
+    [types.GET_DOCUMENTO_ASSINATURA_READEQUACOES](state, data) {
         state.documentoAssinatura = data;
     },
 };

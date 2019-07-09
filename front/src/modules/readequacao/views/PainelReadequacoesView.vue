@@ -157,6 +157,8 @@ import _ from 'lodash';
 import { mapActions, mapGetters } from 'vuex';
 import Const from '../const';
 import SalicMensagemErro from '@/components/SalicMensagemErro';
+import VisualizarAssinaturaButton from '@/modules/assinatura/components/VisualizarAssinaturaButton';
+import AssinarDocumentoButton from '@/modules/assinatura/components/AssinarDocumentoButton';
 import TabelaReadequacoes from '../components/TabelaReadequacoes';
 import TabelaReadequacoesPainel from '../components/TabelaReadequacoesPainel';
 import ExcluirButton from '../components/ExcluirButton';
@@ -172,6 +174,7 @@ export default {
     name: 'PainelReadequacoesView',
     components: {
         Carregando,
+        VisualizarAssinaturaButton,
         TabelaReadequacoes,
         TabelaReadequacoesPainel,
         ExcluirButton,
@@ -217,6 +220,14 @@ export default {
                 acoes: [
                     {
                         componente: AnalisarReadequacaoButton,
+                        permissao: 'analisar',
+                    },
+                    {
+                        componente: VisualizarAssinaturaButton,
+                        permissao: 'analisar',
+                    },
+                    {
+                        componente: AssinarDocumentoButton,
                         permissao: 'analisar',
                     },
                     {
@@ -347,7 +358,15 @@ export default {
             this.idPronac = this.$route.params.idPronac;
             this.buscarProjetoCompleto(this.idPronac);
         } else {
-            this.buscarReadequacoesPainelTecnico({});
+            this.buscarReadequacoesPainelTecnico({})
+                .then((response) => {
+                    let listaIdReadequacao = [];
+                    var { result: items } = response.data.data;
+                    result.forEach(() => {
+                        // extrair todos os idReadequacao e mandar para o
+                    });
+                    this.obterDocumentoAssinaturaReadequacao({ listaIdReadequacao });
+                });
         }
     },
     methods: {
@@ -355,6 +374,7 @@ export default {
             obterListaDeReadequacoes: 'readequacao/obterListaDeReadequacoes',
             buscarProjetoCompleto: 'projeto/buscarProjetoCompleto',
             buscarReadequacoesPainelTecnico: 'readequacao/buscarReadequacoesPainelTecnico',
+            obterDocumentoAssinaturaReadequacao: 'readequacao/obterDocumentoAssinaturaReadequacao',
         }),
         obterReadequacoesPorStatus(stStatusAtual) {
             if (this.listaStatus.includes(stStatusAtual)) {

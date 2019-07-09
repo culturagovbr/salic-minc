@@ -119,3 +119,8 @@ export const finalizarAvaliacaoReadequacao = (params) => {
     const path = '/readequacao/finalizar-avaliacao';
     return api.postRequest(path, buildData(params));
 };
+
+export const obterDocumentoAssinaturaReadequacao = (params) => {
+    const path = '/readequacao/documento-assinatura-readequacao';
+    return api.getRequest(path + parseQueryParams(params));
+};

@@ -214,3 +214,10 @@ export const finalizarAvaliacaoReadequacao = async ({ commit }, params) => {
         });
     return resultado;
 };
+
+export const obterDocumentoAssinaturaReadequacao = ({ commit }, params) => {
+    readequacaoHelperAPI.obterDocumentoAssinaturaReadequacao(params)
+        .then((response) => {
+            commit(types.SET_DOCUMENTOS_ASSINATURA, response.data);
+        });
+};

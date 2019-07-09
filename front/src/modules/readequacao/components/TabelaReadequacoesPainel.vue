@@ -74,6 +74,7 @@
                                         :obj="props.item"
                                         :is="item.componente"
                                         :dados-readequacao="props.item"
+                                        :id-documento-assinatura="getDocumentoAssinaturaReadequacao"
                                         :min-char="minChar"
                                         class="pa-0 ma-0 align-center justify-center fill-height"
                                     />
@@ -96,6 +97,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import { utils } from '@/mixins/utils';
 import Carregando from '@/components/CarregandoVuetify';
 import MxReadequacao from '../mixins/Readequacao';
@@ -174,7 +176,9 @@ export default {
             loading: true,
         };
     },
-    computed: {},
+    computed: {
+        getDocumentoAssinaturaReadequacao: 'readequacao/getDocumentoAssinaturaReadequacao',
+    },
     watch: {
         dadosReadequacao(value) {
             if (this.checkData(value)) {
@@ -193,8 +197,8 @@ export default {
                 if (Object.keys(value).length > 0) {
                     return true;
                 }
-                return false;
             }
+            return false;
         },
         perfilAceito(tipoPerfil) {
             const perfisAceitos = this.perfisAceitos[tipoPerfil];
