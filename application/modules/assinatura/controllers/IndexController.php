@@ -284,6 +284,10 @@ class Assinatura_IndexController extends Assinatura_GenericController
             parent::message($objException->getMessage(), "/gerenciar-assinaturas");
         }
 
+        if (filter_input(INPUT_GET, 'modal')) {
+            $this->_helper->layout->disableLayout();
+        }
+        
         try {
             $objTbAtoAdministrativo = new Assinatura_Model_DbTable_TbAtoAdministrativo();
 

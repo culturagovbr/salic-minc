@@ -16,23 +16,67 @@
                 <span>Assinar</span>
             </v-tooltip>
         </v-btn>
+        <v-dialog
+            v-model="dialog"
+            hide-overlay
+            fullscreen
+            @keydown.esc="dialog = false"
+        >
+            <v-card>
+                <div
+                    class="pa-3"
+                    v-html="htmlAssinatura"
+                />
+            </v-card>
+        </v-dialog>
     </v-layout>
 </template>
 <script>
+import Vue from 'vue';
+import VueResource from 'vue-resource';
+
+Vue.use(VueResource);
+
 export default {
     name: 'AssinarDocumentoButton',
     props: {
+        dadosReadequacao: {
+            type: Object,
+            default: () => {},
+        },
         idDocumentoAssinatura: {
             type: [Number, String],
             default: 0,
+        },
+        idTipoDoAtoAdministrativo: {
+            type: [Number, String],
+            default: 0,
+        },
+    },
+    data() {
+        return {
+            dialog: false,
+            htmlAssinatura: '',
+        };
+    },
+    watch: {
+        dialog() {
+            if (this.dialog === false) {
+                this.htmlAssinatura = '';
+            }
         },
     },
     methods: {
         abreLink() {
             if (this.idDocumentoAssinatura !== 0) {
-                let url = '/assinatura/index/assinar-projeto?idDocumentoAssinatura=';
-                url += `${this.idDocumentoAssinatura}&origin=#/readequacao/painel`;
-                window.location.href = url;
+                let url = `/assinatura/index/assinar-projeto?IdPRONAC=${this.dadosReadequacao.idPronac}`;
+                url += `&idTipoDoAtoAdministrativo=${this.idTipoDoAtoAdministrativo}`;
+                url += '&modal=1&origin=#/readequacao/painel';
+                this.$http.get(url).then(response => {
+                    this.dialog = true;
+                    this.htmlAssinatura = '<link href="/public/library/materialize/css/materialize.css?v=v7.0.6" media="all" rel="stylesheet" type="text/css" >';
+                    this.htmlAssinatura += response.data;
+                });
             }
         },
     },

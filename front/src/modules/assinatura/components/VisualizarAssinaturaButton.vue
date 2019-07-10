@@ -16,9 +16,27 @@
                 <span>Visualizar assinatura</span>
             </v-tooltip>
         </v-btn>
+        <v-dialog
+            v-model="dialog"
+            hide-overlay
+            fullscreen
+            @keydown.esc="dialog = false"
+        >
+            <v-card>
+                <div
+                    class="pa-3"
+                    v-html="htmlAssinatura"
+                />
+            </v-card>
+        </v-dialog>
     </v-layout>
 </template>
 <script>
+import Vue from 'vue';
+import VueResource from 'vue-resource';
+
+Vue.use(VueResource);
+
 export default {
     name: 'VisualizarAssinaturaButton',
     props: {
@@ -33,11 +51,23 @@ export default {
             htmlAssinatura: '',
         };
     },
+    watch: {
+        dialog() {
+            if (this.dialog === false) {
+                this.htmlAssinatura = '';
+            }
+        },
+    },
     methods: {
         abreLink() {
             let url = '/assinatura/index/visualizar-projeto?idDocumentoAssinatura=';
-            url += `${this.idDocumentoAssinatura}&origin=#/readequacao/painel`;
-            window.location.href = url;
+            url += `${this.idDocumentoAssinatura}`;
+            url += '&modal=1&origin=#/readequacao/painel';
+            this.$http.get(url).then(response => {
+                this.dialog = true;
+                this.htmlAssinatura = '<link href="/public/library/materialize/css/materialize.css?v=v7.0.6" media="all" rel="stylesheet" type="text/css" >';
+                this.htmlAssinatura += response.data;
+            });
         },
     },
 };

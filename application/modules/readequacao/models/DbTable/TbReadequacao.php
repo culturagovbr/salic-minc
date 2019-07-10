@@ -1164,7 +1164,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             $select->joinLeft(
                 ['tbDocumentoAssinatura' => 'tbDocumentoAssinatura'],
                 "tbDocumentoAssinatura.idAtoDeGestao = tbReadequacaoXParecer.idParecer",
-                ["idDocumentoAssinatura"],
+                ["idDocumentoAssinatura", "idTipoDoAtoAdministrativo"],
                 $this->_schema
             );
             
