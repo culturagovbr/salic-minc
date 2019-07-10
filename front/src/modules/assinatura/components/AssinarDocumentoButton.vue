@@ -1,26 +1,26 @@
 <template>
     <v-layout>
         <v-btn
-            v-if="idDocumentoAssinatura !== 0"
+            v-if="idDocumentoAssinatura"
             dark
             icon
             flat
             small
             color="blue darken-3"
-            @click.stop="abreVisualizar()"
+            @click.stop="abreLink()"
         >
             <v-tooltip bottom>
                 <v-icon slot="activator">
-                  edit
+                    edit
                 </v-icon>
-                <span>Visualizar assinatura</span>
+                <span>Assinar</span>
             </v-tooltip>
         </v-btn>
     </v-layout>
 </template>
 <script>
 export default {
-    name: 'VisualizarAssinaturaButton',
+    name: 'AssinarDocumentoButton',
     props: {
         idDocumentoAssinatura: {
             type: [Number, String],
@@ -28,12 +28,11 @@ export default {
         },
     },
     methods: {
-        abreVisualizar() {
+        abreLink() {
             if (this.idDocumentoAssinatura !== 0) {
                 let url = '/assinatura/index/assinar-projeto?idDocumentoAssinatura=';
-                url += `${this.getDocumentoAssinatura.idDocumentoAssinatura}&origin=#/readequacao/painel`;
-                console.log(url);
-                // window.location.href = url;
+                url += `${this.idDocumentoAssinatura}&origin=#/readequacao/painel`;
+                window.location.href = url;
             }
         },
     },

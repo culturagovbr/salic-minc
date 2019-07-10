@@ -1,13 +1,13 @@
 <template>
     <v-layout>
         <v-btn
-            v-if="idDocumentoAssinatura !== 0"
+            v-if="idDocumentoAssinatura"
             dark
             icon
             flat
             small
             color="blue darken-3"
-            @click.stop="abreVisualizar()"
+            @click.stop="abreLink()"
         >
             <v-tooltip bottom>
                 <v-icon slot="activator">
@@ -27,12 +27,17 @@ export default {
             default: 0,
         },
     },
+    data() {
+        return {
+            dialog: false,
+            htmlAssinatura: '',
+        };
+    },
     methods: {
-        abreVisualizar() {
+        abreLink() {
             let url = '/assinatura/index/visualizar-projeto?idDocumentoAssinatura=';
-            url += `${this.getDocumentoAssinatura.idDocumentoAssinatura}&origin=#/readequacao/painel`;
-            console.log(url);
-            // window.location.href = url;
+            url += `${this.idDocumentoAssinatura}&origin=#/readequacao/painel`;
+            window.location.href = url;
         },
     },
 };

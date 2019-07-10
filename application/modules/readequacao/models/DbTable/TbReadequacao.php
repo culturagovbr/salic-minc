@@ -1153,6 +1153,20 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                 ['usu_nome AS dsNomeAvaliador'],
                 'tabelas.dbo'
             );
+
+            $select->joinLeft(
+                ['tbReadequacaoXParecer' => 'tbReadequacaoXParecer'],
+                "tbReadequacaoXParecer.idReadequacao = tbReadequacao.idReadequacao",
+                [],
+                $this->_schema
+            );
+            
+            $select->joinLeft(
+                ['tbDocumentoAssinatura' => 'tbDocumentoAssinatura'],
+                "tbDocumentoAssinatura.idAtoDeGestao = tbReadequacaoXParecer.idParecer",
+                ["idDocumentoAssinatura"],
+                $this->_schema
+            );
             
             $select->where('tbReadequacao.stEstado = ? ', 0);
             $select->where('tbReadequacao.siEncaminhamento = ? ', 4);

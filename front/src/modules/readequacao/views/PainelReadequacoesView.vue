@@ -18,7 +18,7 @@
                 </v-btn>
                 <v-card>
                     <salic-mensagem-erro
-                        :texto="'Sem permiss&atilde;o de acesso para este projeto'"
+                        :texto="'Sem permiss&atilde;o de acesso'"
                     />
                 </v-card>
             </v-flex>
@@ -49,8 +49,11 @@
                     <h2 class="grey--text text--darken-4">Painel de Readequações</h2>
                     <v-spacer/>
                     <h3
+                        v-if="dadosProjeto.length > 0"
                         class="grey--text text--darken-4"
-                    >{{ dadosProjeto.Pronac }} - {{ dadosProjeto.NomeProjeto }}</h3>
+                    >
+                        {{ dadosProjeto.Pronac }} - {{ dadosProjeto.NomeProjeto }}
+                    </h3>
                 </v-subheader>
                 <v-tabs
                     color="#0a420e"
@@ -131,6 +134,7 @@
                     </v-tab-item>
                 </v-tabs>
                 <criar-readequacao
+                    v-if="perfilAceito(['proponente'])"
                     :id-pronac="dadosProjeto.idPronac"
                     @criar-readequacao="criarReadequacao($event)"
                 />
