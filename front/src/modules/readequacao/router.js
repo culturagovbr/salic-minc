@@ -3,6 +3,7 @@ import AnalisarAlteracoes from './components/AnalisarAlteracoes';
 
 const PainelReadequacoesView = () => import(/* webpackChunkName: "painel-readequacoes-view" */ './views/PainelReadequacoesView');
 const AnalisarReadequacaoView = () => import(/* webpackChunkName: "analisar-readequacao-view" */ './views/AnalisarReadequacaoView');
+const SaldoAplicacaoView = () => import(/* webpackChunkName: "saldo-aplicacao-view" */ './views/SaldoAplicacaoView.vue');
 
 export default [
     {
@@ -39,5 +40,13 @@ export default [
                 component: AnalisarAlteracoes,
             },
         ],
+    },
+    {
+        path: '/readequacao/saldo-aplicacao/:idPronac',
+        name: 'SaldoAplicacaoView',
+        component: SaldoAplicacaoView,
+        meta: {
+            title: 'Saldo de Aplicação',
+        },
     },
 ];

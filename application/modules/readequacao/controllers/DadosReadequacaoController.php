@@ -74,6 +74,7 @@ class Readequacao_DadosReadequacaoController extends MinC_Controller_Rest_Abstra
             $this->customRenderJsonResponse($data, $code);
         } else {
             $code = 200;
+            $data['message'] = 'Readequação gravada com sucesso.';
             $data = $readequacaoService->buscarReadequacoes($idPronac, $idTipoReadequacao, $stEstagioAtual);
         }
 
@@ -83,6 +84,7 @@ class Readequacao_DadosReadequacaoController extends MinC_Controller_Rest_Abstra
     public function headAction(){}
 
     public function postAction(){
+        $data = [];
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
         if (!$permissao) {
@@ -91,12 +93,21 @@ class Readequacao_DadosReadequacaoController extends MinC_Controller_Rest_Abstra
             $data['message'] = 'Você não tem permissão para alterar esta readequação';
         } else {
             $code = 200;
-            $response = $readequacaoService->salvar();
-            if ($response) {
-                $data = $response;
+            try {
+                $response = $readequacaoService->salvar();
+                if ($response) {
+                    $data = $response;
+                }
+            } catch (\Exception $objException) {
+                $this->customRenderJsonResponse([
+                    'error' => [
+                        'code' => 412,
+                        'message' => $objException->getMessage()
+                    ]
+                ], 412);
             }
+            $this->renderJsonResponse($data, $code);
         }
-        $this->renderJsonResponse($data, $code);
     }
 
     public function putAction(){}
@@ -111,13 +122,18 @@ class Readequacao_DadosReadequacaoController extends MinC_Controller_Rest_Abstra
             $code = 203;
             $data['message'] = 'Você não tem permissão para excluir esta readequação';
         } else {
-            $response = $readequacaoService->remover();
-            if ($response) {
-                $data['error'] = false;
-                $data['message'] = 'Readequação excluída';
-            } else {
-                $data['error'] = true;
-                $data['message'] = 'Erro ao exclur readequação';
+            try {
+                $response = $readequacaoService->remover();
+                if ($response) {
+                    $data['message'] = 'Readequação excluída';
+                } 
+            } catch (\Exception $objException) {
+                $this->customRenderJsonResponse([
+                    'error' => [
+                        'code' => 412,
+                        'message' => $objException->getMessage()
+                    ]
+                ], 412);
             }
         }
         $this->customRenderJsonResponse($data, $code);

@@ -982,7 +982,7 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
         return $result;
     }
 
-    public function calculaSaldoReadequacaoBaseDeCusto($idPronac)
+    public function calculaSaldoReadequacaoBaseDeCusto($idPronac, $idReadequacao = '')
     {
 
         $baseDeCusto = [
@@ -993,11 +993,13 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
             PlanilhaEtapa::ETAPA_RECOLHIMENTOS
         ];
 
-        $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-        $idReadequacao = $tbReadequacao->buscarIdReadequacaoAtiva(
-            $idPronac,
-            Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA
-        );
+        if ($idReadequacao == '') {
+            $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
+            $idReadequacao = $tbReadequacao->buscarIdReadequacaoAtiva(
+                $idPronac,
+                Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA
+            );
+        }
         
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -1034,5 +1036,76 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
         } else if ($somaPlanilhaReadequada < $somaPlanilhaAtiva) {
             return "REDUCAO";
         }
+    }
+    public function obterPlanilhaAtiva($idPronac)
+    {
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+        // obter planilha ativa no formato da spPlanilhaOrcamentaria
+
+        $subA = [
+            new Zend_Db_Expr("sum(b1.vlComprovacao) AS vlPagamento"),
+        ];
+
+        $subSQL = $db->select()->from(['a1' => 'tbComprovantePagamentoxPlanilhaAprovacao'], $subA, 'BDCORPORATIVO.scSAC')
+                ->join(['b1' => 'tbComprovantePagamento'], '(a1.idComprovantePagamento = b1.idComprovantePagamento)', null, 'BDCORPORATIVO.scSAC')
+                ->join(['c1' => 'tbPlanilhaAprovacao'], '(a1.idPlanilhaAprovacao = c1.idPlanilhaAprovacao)', null, $this->_schema)
+                ->where("c1.idPlanilhaItem = k.idPlanilhaItem")
+                ->where("c1.idPronac = k.idPronac")
+                ->group("c1.idPlanilhaItem")
+                ;
+
+        $a = array(
+            "($subSQL) as vlComprovado",
+            new Zend_Db_Expr("CASE WHEN k.idProduto = 0 THEN 'Administra&ccedil;&atilde;o do Projeto' ELSE c.Descricao END as Produto"),
+            new Zend_Db_Expr("ROUND((k.QtItem * k.nrOcorrencia * k.VlUnitario),2) as vlAprovado"),
+            new Zend_Db_Expr("(a.AnoProjeto+a.Sequencial) as PRONAC"),
+            "a.NomeProjeto",
+            "a.idPronac",
+            "a.idProjeto",
+            "d.Descricao as Etapa",
+            "d.tpGrupo",
+            "e.Descricao as Unidade",
+            "f.Municipio",
+            "f.UF",
+            "i.Descricao as Item",
+            "k.QtDias as QtdeDias",
+            "k.QtItem as Quantidade",
+            "k.dsJustificativa",
+            "k.idAgente",
+            "k.idEtapa",
+            "k.idPlanilhaAprovacao",
+            "k.idPlanilhaAprovacaoPai",
+            "k.idProduto",
+            "k.idUnidade",
+            "k.idMunicipioDespesa AS idMunicipio",
+            "k.idUFDespesa AS idUF",
+            "k.nrFonteRecurso as idFonte",
+            "k.nrOcorrencia as Ocorrencia",
+            "k.tpAcao",
+            "k.vlUnitario",
+            "k.idPlanilhaItem",
+            "x.Descricao as FonteRecurso",
+        );
+
+        $sql = $db->select()->from(['a' => 'Projetos'], $a, $this->_schema)
+             ->join(['k' => 'tbPlanilhaAprovacao'], '(a.idPronac = k.idPronac)', null, $this->_schema)
+             ->joinLeft(['c' => 'Produto'], '(k.idProduto = c.Codigo)', null, $this->_schema)
+             ->join(['d' => 'tbPlanilhaEtapa'], '(k.idEtapa = d.idPlanilhaEtapa)', null, $this->_schema)
+             ->join(['e' => 'tbPlanilhaUnidade'], '(k.idUnidade = e.idUnidade)', null, $this->_schema)
+             ->join(['i' => 'tbPlanilhaItens'], '(k.idPlanilhaItem=i.idPlanilhaItens)', null, $this->_schema)
+             ->join(['x' => 'Verificacao'], '(k.nrFonteRecurso = x.idVerificacao)', null, $this->_schema)
+             ->join(['f' => 'vUfMunicipio'], '(k.idUfDespesa = f.idUF and k.idMunicipioDespesa = f.idMunicipio)', null, $this->getSchema('agentes'))
+             ->where("k.stAtivo = 'S'")
+             ->where(new Zend_Db_Expr("(ROUND((k.qtItem * k.nrOcorrencia * k.vlUnitario),2) <> 0)"))
+             ->where("a.idPronac = ? ", $idPronac)
+             ->order("x.Descricao")
+             ->order("c.Descricao DESC")
+             ->order(new Zend_Db_Expr("CONVERT(VARCHAR(8),d.idPlanilhaEtapa) + ' - ' + d.Descricao"))
+             ->order("f.UF")
+             ->order("f.Municipio")
+             ->order("i.Descricao")
+             ;
+        return $db->fetchAll($sql);
     }
 }

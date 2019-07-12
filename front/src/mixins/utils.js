@@ -88,7 +88,7 @@ export const utils = {
     },
     filters: {
         formatarData(date) {
-            if (date && date.length === 0 || date === null) {
+            if (date && date.length === 0 || date === null || date === '0.00') {
                 return '-';
             }
             return moment(date)

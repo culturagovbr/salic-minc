@@ -17,12 +17,17 @@ class Readequacao_Bootstrap extends Zend_Application_Module_Bootstrap
                     'index',
                     'avaliacao',
                     'campo-atual',
+                    'calcular-resumo-planilha',
                     'dados-readequacao',
                     'dados-readequacao-documento',
                     'documento',
                     'finalizar',
                     'finalizar-avaliacao',
+                    'item-planilha',
                     'painel',
+                    'planilha-obter-unidades',
+                    'reverter-alteracao-item',
+                    'solicitar-saldo',
                     'tipos-disponiveis',
                 ]
             ]

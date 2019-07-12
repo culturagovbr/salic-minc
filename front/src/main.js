@@ -28,11 +28,10 @@ Vue.config.productionTip = false;
 
 // window.onload = () => {
 /* eslint-disable-next-line */
-const main = new Vue({
+new Vue({
     el: '#app',
     router,
     store,
-    components: { App },
-    template: '<App/>',
-});
+    render: h => h(App),
+}).$mount('#app');
 // };

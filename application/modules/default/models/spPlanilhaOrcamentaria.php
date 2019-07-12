@@ -56,12 +56,7 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract
                 return $planilhaOrcamentaria;
                 break;
             case self::TIPO_PLANILHA_SALDO_APLICACAO:
-                if ($params['link'] || $params['view_edicao']) {
-                    $planilhaOrcamentaria = $this->readequacao($idPronac, Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_SALDO_APLICACAO);
-                } else {
-                    $spVisualizarPlanilhaOrcamentariaPlanilhaOrcamentaria = new spVisualizarPlanilhaOrcamentaria();
-                    $planilhaOrcamentaria = $spVisualizarPlanilhaOrcamentariaPlanilhaOrcamentaria->exec($idPronac);
-                }
+                $planilhaOrcamentaria = $this->readequacao($idPronac, Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_SALDO_APLICACAO);
                 return $planilhaOrcamentaria;
                 break;
             default:
@@ -681,6 +676,7 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract
                 "k.idPlanilhaAprovacao",
                 "k.idPlanilhaAprovacaoPai",
                 "k.idProduto",
+                "k.idUnidade",
                 "k.idMunicipioDespesa AS idMunicipio",
                 "k.idUFDespesa AS idUF",
                 "k.nrFonteRecurso as idFonte",

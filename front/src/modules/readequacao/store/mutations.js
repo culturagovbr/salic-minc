@@ -14,6 +14,11 @@ export const state = {
     saldoAplicacao: {},
     saldoAplicacaoDisponivelEdicaoItem: {},
     tiposDisponiveis: [],
+    planilha: {},
+    planilhaAtiva: {},
+    unidadesPlanilha: {},
+    itemPlanilhaEdicao: {},
+    resumoPlanilha: {},
 };
 
 export const mutations = {
@@ -37,6 +42,27 @@ export const mutations = {
     },
     [types.GET_READEQUACAO](state, readequacao) {
         state.readequacao = readequacao;
+    },
+    [types.SET_PLANILHA](state, planilha) {
+        state.planilha = planilha;
+    },
+    [types.GET_PLANILHA](state, planilha) {
+        state.planilha = planilha;
+    },
+    [types.SET_PLANILHA_ATIVA](state, data) {
+        state.planilhaAtiva = data;
+    },
+    [types.GET_PLANILHA_ATIVA](state, data) {
+        state.planilhaAtiva = data;
+    },
+    [types.GET_UNIDADES_PLANILHA](state, data) {
+        state.unidadesPlanilha = data;
+    },
+    [types.SET_UNIDADES_PLANILHA](state, data) {
+        state.unidadesPlanilha = data;
+    },
+    [types.SET_ITEM_PLANILHA_EDICAO](state, data) {
+        state.itemPlanilhaEdicao = data;
     },
     [types.GET_CAMPO_ATUAL](state, campoAtual) {
         state.campoAtual = campoAtual;
@@ -70,15 +96,6 @@ export const mutations = {
         state.readequacao.idDocumento = '';
         state.readequacao.nomeArquivo = '';
     },
-    [types.UPDATE_READEQUACAO_DS_SOLICITACAO](state, dsSolicitacao) {
-        state.readequacao.items.dsSolicitacao = dsSolicitacao;
-    },
-    [types.UPDATE_READEQUACAO_SALDO_APLICACAO_DS_SOLICITACAO](state, dsSolicitacao) {
-        state.readequacao.saldoAplicacaoDsSolicitacao = dsSolicitacao;
-    },
-    [types.OBTER_DISPONIVEL_EDICAO_ITEM_SALDO_APLICACAO](state, disponivel) {
-        state.readequacao.saldoAplicacaoDisponivelEdicaoItem = disponivel;
-    },
     [types.SET_TIPOS_DISPONIVEIS](state, tiposDisponiveis) {
         state.tiposDisponiveis = tiposDisponiveis;
     },
@@ -105,5 +122,11 @@ export const mutations = {
     },
     [types.GET_DOCUMENTO_ASSINATURA_READEQUACOES](state, data) {
         state.documentoAssinatura = data;
+    },
+    [types.SET_RESUMO_PLANILHA](state, data) {
+        state.resumoPlanilha = data;
+    },
+    [types.GET_RESUMO_PLANILHA](state, data) {
+        state.resumoPlanilha = data;
     },
 };

@@ -55,21 +55,6 @@ export const excluirReadequacao = (params) => {
     return api.deleteRequest(path, params.idReadequacao);
 };
 
-export const updateReadequacaoSaldoAplicacao = (params) => {
-    const path = '/readequacao/saldo-aplicacao/salvar-readequacao';
-    return api.putRequest(path, buildData(params), params.idReadequacao);
-};
-
-export const excluirReadequacaoSaldoAplicacao = (params) => {
-    const path = '/readequacao/saldo-aplicacao/excluir-readequacao';
-    return api.postRequest(path, buildData(params));
-};
-
-export const obterDisponivelEdicaoItemSaldoAplicacao = (idPronac) => {
-    const path = `/readequacao/saldo-disponivel-edicao-item/${idPronac}`;
-    return api.getRequest(path);
-};
-
 export const obterDocumentoReadequacao = (params) => {
     const path = '/readequacao/documento';
     return api.getRequest(path + parseQueryParams(params));
@@ -123,4 +108,34 @@ export const finalizarAvaliacaoReadequacao = (params) => {
 export const obterDocumentoAssinaturaReadequacao = (params) => {
     const path = '/readequacao/documento-assinatura-readequacao';
     return api.getRequest(path + parseQueryParams(params));
+};
+
+export const solicitarUsoSaldo = (params) => {
+    const path = `/readequacao/solicitar-saldo/${params.idPronac}`;
+    return api.getRequest(path);
+};
+
+export const obterPlanilha = (params) => {
+    const path = '/readequacao/obter-planilha';
+    return api.getRequest(path + parseQueryParams(params));
+};
+
+export const obterUnidadesPlanilha = (params) => {
+    const path = '/readequacao/obter-unidades-planilha';
+    return api.getRequest(path + parseQueryParams(params));
+};
+
+export const atualizarItemPlanilha = (params) => {
+    const path = '/readequacao/item-planilha';
+    return api.postRequest(path, buildData(params), params.idReadequacao);
+};
+
+export const calcularResumoPlanilha = (params) => {
+    const path = '/readequacao/calcular-resumo-planilha';
+    return api.getRequest(path + parseQueryParams(params));
+};
+
+export const reverterAlteracaoItem = (params) => {
+    const path = '/readequacao/reverter-alteracao-item';
+    return api.postRequest(path, buildData(params));
 };

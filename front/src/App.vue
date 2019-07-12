@@ -10,7 +10,6 @@
                 v-model="snackbar"
                 :color="getSnackbar.color"
                 :top="true"
-                :left="true"
                 :timeout="2000"
                 @input="fecharSnackbar"
             >

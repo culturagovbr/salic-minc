@@ -11,3 +11,8 @@ export const saldoAplicacaoDisponivelEdicaoItem = state => state.readequacao.sal
 export const getAvaliacaoReadequacao = state => state.avaliacaoReadequacao;
 export const getDocumentoAssinatura = state => state.documentoAssinatura;
 export const getDocumentoAssinaturaReadequacoes = state => state.documentoAssinaturaReadequacoes;
+export const getPlanilha = state => state.planilha;
+export const getPlanilhaAtiva = state => state.planilhaAtiva;
+export const getUnidadesPlanilha = state => state.unidadesPlanilha;
+export const itemPlanilhaEdicao = state => state.itemPlanilhaEdicao;
+export const getResumoPlanilha = state => state.resumoPlanilha;
