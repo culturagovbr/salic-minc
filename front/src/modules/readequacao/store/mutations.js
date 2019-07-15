@@ -10,6 +10,10 @@ export const state = {
     readequacoesAnalise: {},
     readequacoesFinalizadas: {},
     readequacoesPainelTecnico: {},
+    readequacoesPainelAguardandoDistribuicao: {},
+    readequacoesPainelEmAnalise: {},
+    readequacoesPainelAnalisados: {},
+    readequacoesPainelAguardandoPublicacao: {},
     readequacao: {},
     saldoAplicacao: {},
     saldoAplicacaoDisponivelEdicaoItem: {},
@@ -36,6 +40,30 @@ export const mutations = {
     },
     [types.GET_READEQUACOES_PAINEL_TECNICO](state, data) {
         state.readequacoesPainelTecnico = data;
+    },
+    [types.SET_READEQUACOES_PAINEL_AGUARDANDO_DISTRIBUICAO](state, data) {
+        state.readequacoesPainelAguardandoDistribuicao = data;
+    },
+    [types.GET_READEQUACOES_PAINEL_AGUARDANDO_DISTRIBUICAO](state, data) {
+        state.readequacoesPainelAguardandoDistribuicao = data;
+    },
+    [types.SET_READEQUACOES_PAINEL_EM_ANALISE](state, data) {
+        state.readequacoesPainelEmAnalise = data;
+    },
+    [types.GET_READEQUACOES_PAINEL_EM_ANALISE](state, data) {
+        state.readequacoesPainelEmAnalise = data;
+    },
+    [types.SET_READEQUACOES_PAINEL_ANALISADOS](state, data) {
+        state.readequacoesPainelEmAnalisados = data;
+    },
+    [types.GET_READEQUACOES_PAINEL_ANALISADOS](state, data) {
+        state.readequacoesPainelAnalisados = data;
+    },
+    [types.SET_READEQUACOES_PAINEL_AGUARDANDO_PUBLICACAO](state, data) {
+        state.readequacoesPainelAguardandoPublicacao = data;
+    },
+    [types.GET_READEQUACOES_PAINEL_AGUARDANDO_PUBLICACAO](state, data) {
+        state.readequacoesPainelAguardandoPublicacao = data;
     },
     [types.SET_READEQUACAO](state, readequacao) {
         state.readequacao = readequacao;

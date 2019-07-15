@@ -28,8 +28,6 @@ class Readequacao_PainelController extends MinC_Controller_Rest_Abstract
         $data = [];
         $code = 200;
 
-        $pronac = $this->getRequest()->getParam('pronac');
-        
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $data = $readequacaoService->buscarReadequacoesPainel();
         

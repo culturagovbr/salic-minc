@@ -116,6 +116,46 @@ class Readequacao implements IServicoRestZend
         return $resultArray;
     }
 
+    public function _buscarPaineisCoordenador($idOrgao)
+    {
+        $parametros = $this->request->getParams();
+        $result = ''; 
+        $filtro = $parametros['filtro'];
+        if (!$filtro) {
+            return;
+        }
+
+        if ($filtro == 'aguardando_distribuicao') {
+            $where['idOrgao = ?'] = $idOrgao;
+        } else {
+            $where['idOrgaoOrigem = ?'] = $idOrgao;
+        }
+
+        if ($parametros['pronac']) {
+            $where['a.PRONAC = ?'] = $parametros['pronac'];
+        }
+
+        if ($filtro == 'analisados') {
+            unset($where['idOrgaoOrigem = ?']);
+            $where["CASE 
+	      WHEN projetos.Orgao in (" . \Orgaos::ORGAO_SUPERIOR_SAV . "," . \Orgaos::ORGAO_SAV_SAL . "," . \Orgaos::SAV_DPAV . ")
+		   THEN " . \Orgaos::ORGAO_SAV_CAP . "
+	     WHEN projetos.Orgao in (" . \Orgaos::ORGAO_SUPERIOR_SEFIC . "," . \Orgaos::SEFIC_DEIPC .")
+		   THEN " . \Orgaos::ORGAO_GEAR_SACAV . "
+                    ELSE projetos.Orgao
+                    END = ?"] = $idOrgao;
+
+            if ($parametros['pronac']) {
+                unset($where['a.PRONAC = ?']);
+                $where[new \Zend_Db_Expr('projetos.anoprojeto + projetos.sequencial') . ' = ?'] = $parametros['pronac'];
+            }
+        }
+        $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
+        $result = $modelTbReadequacao->painelReadequacoesCoordenadorAcompanhamento($where, null, null, null, null, $filtro);
+        
+        return $result;
+    }
+
     public function buscarReadequacoesPainel()
     {
         $parametros = $this->request->getParams();
@@ -134,13 +174,15 @@ class Readequacao implements IServicoRestZend
         if ($parametros['pronac']) {
             $where['projetos.AnoProjeto+projetos.Sequencial = ?'] = $parametros['pronac'];
         }
-
-        $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
-
+        
         switch ($idPerfil) {
             case \Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO:
+                $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
                 $where['dtDistribuicao.idAvaliador = ?'] = $auth->getIdentity()->usu_codigo;
                 $result = $modelTbReadequacao->painelReadequacoesTecnicoAcompanhamento($where, $order, $tamanho, $inicio, false);
+                break;
+            case \Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO:
+                $result = $this->_buscarPaineisCoordenador($idOrgao);
                 break;
         }
         

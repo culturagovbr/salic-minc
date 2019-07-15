@@ -31,6 +31,34 @@ export const buscarReadequacoesPainelTecnico = ({ commit }, params) => {
         });
 };
 
+export const buscarReadequacoesPainelAguardandoDistribuicao = ({ commit }, params) => {
+    readequacaoHelperAPI.buscaReadequacoesPainel(params)
+        .then((response) => {
+            commit(types.SET_READEQUACOES_PAINEL_AGUARDANDO_DISTRIBUICAO, response.data.data);
+        });
+};
+
+export const buscarReadequacoesPainelEmAnalise = ({ commit }, params) => {
+    readequacaoHelperAPI.buscaReadequacoesPainel(params)
+        .then((response) => {
+            commit(types.SET_READEQUACOES_PAINEL_EM_ANALISE, response.data.data);
+        });
+};
+
+export const buscarReadequacoesPainelAnalisados = ({ commit }, params) => {
+    readequacaoHelperAPI.buscaReadequacoesPainel(params)
+        .then((response) => {
+            commit(types.SET_READEQUACOES_PAINEL_ANALISADOS, response.data.data);
+        });
+};
+
+export const buscarReadequacoesPainelAguardandoPublicacao = ({ commit }, params) => {
+    readequacaoHelperAPI.buscaReadequacoesPainel(params)
+        .then((response) => {
+            commit(types.SET_READEQUACOES_PAINEL_AGUARDANDO_PUBLICACAO, response.data.data);
+        });
+};
+
 export const buscaReadequacaoPronacTipo = ({ commit }, params) => {
     readequacaoHelperAPI.buscaReadequacaoPronacTipo(params)
         .then((response) => {
@@ -224,7 +252,8 @@ export const finalizarAvaliacaoReadequacao = async ({ commit }, params) => {
         .then((response) => {
             commit(types.SET_DOCUMENTO_ASSINATURA, response.data);
             return response;
-        })
+        });
+    return resultado;
 };
 
 export const finalizarReadequacaoPlanilha = async ({ dispatch }, params) => {
