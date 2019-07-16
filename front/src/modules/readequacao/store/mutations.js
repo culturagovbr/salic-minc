@@ -54,7 +54,7 @@ export const mutations = {
         state.readequacoesPainelEmAnalise = data;
     },
     [types.SET_READEQUACOES_PAINEL_ANALISADOS](state, data) {
-        state.readequacoesPainelEmAnalisados = data;
+        state.readequacoesPainelAnalisados = data;
     },
     [types.GET_READEQUACOES_PAINEL_ANALISADOS](state, data) {
         state.readequacoesPainelAnalisados = data;

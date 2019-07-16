@@ -157,7 +157,7 @@
                         <v-card>
                             <tabela-readequacoes-painel
                                 :dados-readequacao="getReadequacoesPainelEmAnalise"
-                                :componentes="acoesCoodernador"
+                                :componentes="acoesCoordenador"
                                 :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                             />
@@ -404,6 +404,13 @@ export default {
             }
         },
         getReadequacoesPainelTecnico(value) {
+            if (typeof value === 'object') {
+                if (Object.keys(value).length > 0) {
+                    this.loaded.readequacao = true;
+                }
+            }
+        },
+        getReadequacoesPainelAguardandoPublicacao(value) {
             if (typeof value === 'object') {
                 if (Object.keys(value).length > 0) {
                     this.loaded.readequacao = true;

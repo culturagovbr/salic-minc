@@ -165,10 +165,6 @@ class Readequacao implements IServicoRestZend
         
         $idOrgao = $grupoAtivo->codOrgao;
         $idPerfil = $grupoAtivo->codGrupo;
-        
-        if ($idOrgao == \Orgaos::ORGAO_GEAR_SACAV) {
-            $idOrgao = \Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI;
-        }
         $where['idUnidade = ?'] = $idOrgao;
         
         if ($parametros['pronac']) {
@@ -196,9 +192,19 @@ class Readequacao implements IServicoRestZend
                 $item->dsJustificativa = utf8_encode($item->dsJustificativa);
                 $item->dsNomeSolicitante = utf8_encode($item->dsNomeSolicitante);
                 $item->dsNomeAvaliador = utf8_encode($item->dsNomeAvaliador);
+                if ($item->dsEncaminhamento) {
+                    $item->dsEncaminhamento = utf8_encode($item->dsEncaminhamento);
+                }
+                if ($item->nmTecnicoParecerista) {
+                    $item->nmTecnicoParecerista = utf8_encode($item->nmTecnicoParecerista);
+                }
+                if ($item->nmReceptor) {
+                    $item->nmReceptor = utf8_encode($item->nmReceptor);
+                }
                 $resultArray[] = $item;
             }
         }
+        
         return $resultArray;
     }
     
