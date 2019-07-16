@@ -1,20 +1,15 @@
 <template>
     <v-layout>
-        <v-btn
-            dark
-            icon
-            flat
-            small
-            color="green darken-3"
-            @click.stop="dialog = true"
-        >
-            <v-tooltip bottom>
-                <v-icon slot="activator">
-                    forward
-                </v-icon>
-                <span>Encaminhar Readequação</span>
-            </v-tooltip>
-        </v-btn>
+        <v-tooltip bottom>
+            <v-icon
+                slot="activator"
+                color="green darken-3"
+                @click.stop="dialog = true"
+            >
+                forward
+            </v-icon>
+            <span>Encaminhar Readequação</span>
+        </v-tooltip>
         <v-dialog
             v-model="dialog"
             fullscreen
@@ -33,6 +28,7 @@
             <v-card
                 v-else
             >
+                Encaminhar readequação
             </v-card>
         </v-dialog>
     </v-layout>

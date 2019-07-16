@@ -357,7 +357,7 @@ export default {
                     {
                         componente: AssinarDocumentoButton,
                         permissao: 'analisar',
-                    },                    
+                    },
                     {
                         componente: EncaminharReadequacaoButton,
                         permissao: 'coordenador',

@@ -1,20 +1,15 @@
 <template>
     <v-layout>
-        <v-btn
-            dark
-            icon
-            flat
-            small
-            color="#212121"
-            @click.stop="dialog = true"
-        >
-            <v-tooltip bottom>
-                <v-icon slot="activator">
-                    visibility
-                </v-icon>
-                <span>Visualizar Readequação</span>
-            </v-tooltip>
-        </v-btn>
+        <v-tooltip bottom>
+            <v-icon
+                slot="activator"
+                color="#212121"
+                @click.stop="dialog = true"
+            >
+                visibility
+            </v-icon>
+            <span>Visualizar Readequação</span>
+        </v-tooltip>
         <v-dialog
             v-model="dialog"
             fullscreen

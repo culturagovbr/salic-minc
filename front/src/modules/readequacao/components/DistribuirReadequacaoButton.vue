@@ -1,20 +1,16 @@
 <template>
     <v-layout>
-        <v-btn
-            dark
-            icon
-            flat
-            small
-            color="blue darken-3"
-            @click.stop="dialog = true"
-        >
-            <v-tooltip bottom>
-                <v-icon slot="activator">
-                    forward
-                </v-icon>
-                <span>Visualizar Readequação</span>
-            </v-tooltip>
-        </v-btn>
+        <v-tooltip bottom>
+            <v-icon
+                slot="activator"
+                color="blue darken-3"
+                class="material-icons"
+                @click.stop="dialog = true"
+            >
+                forward
+            </v-icon>
+            <span>Visualizar Readequação</span>
+        </v-tooltip>
         <v-dialog
             v-model="dialog"
             fullscreen
@@ -33,6 +29,7 @@
             <v-card
                 v-else
             >
+                Distribuir readequação
             </v-card>
         </v-dialog>
     </v-layout>
