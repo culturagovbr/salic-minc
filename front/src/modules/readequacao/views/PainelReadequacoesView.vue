@@ -145,7 +145,7 @@
                         <v-card>
                             <tabela-readequacoes-painel
                                 :dados-readequacao="getReadequacoesPainelAguardandoDistribuicao"
-                                :componentes="acoesAnalise"
+                                :componentes="acoesCoordenadorAguardandoDistribuicao"
                                 :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                             />
@@ -157,7 +157,7 @@
                         <v-card>
                             <tabela-readequacoes-painel
                                 :dados-readequacao="getReadequacoesPainelEmAnalise"
-                                :componentes="acoesCoordenador"
+                                :componentes="acoesCoordenadorEmAnalise"
                                 :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                             />
@@ -181,7 +181,7 @@
                         <v-card>
                             <tabela-readequacoes-painel
                                 :dados-readequacao="getReadequacoesPainelAnalisados"
-                                :componentes="acoesCoordenador"
+                                :componentes="acoesCoordenadorAnalisados"
                                 :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                             />
@@ -193,7 +193,7 @@
                         <v-card>
                             <tabela-readequacoes-painel
                                 :dados-readequacao="getReadequacoesPainelAguardandoPublicacao"
-                                :componentes="acoesCoordenador"
+                                :componentes="acoesCoordenadorAguardandoDistribuicao"
                                 :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                             />
@@ -250,6 +250,8 @@ import FinalizarButton from '../components/FinalizarButton';
 import EditarReadequacaoButton from '../components/EditarReadequacaoButton';
 import VisualizarReadequacaoButton from '../components/VisualizarReadequacaoButton';
 import AnalisarReadequacaoButton from '../components/AnalisarReadequacaoButton';
+import DistribuirReadequacaoButton from '../components/DistribuirReadequacaoButton';
+import EncaminharReadequacaoButton from '../components/EncaminharReadequacaoButton';
 import Carregando from '@/components/CarregandoVuetify';
 import CriarReadequacao from '../components/CriarReadequacao';
 import MxReadequacao from '../mixins/Readequacao';
@@ -265,6 +267,8 @@ export default {
         EditarReadequacaoButton,
         VisualizarReadequacaoButton,
         AnalisarReadequacaoButton,
+        DistribuirReadequacaoButton,
+        EncaminharReadequacaoButton,
         FinalizarButton,
         CriarReadequacao,
         SalicMensagemErro,
@@ -320,8 +324,52 @@ export default {
                     },
                 ],
             },
-            acoesCoordenador: {
+            acoesCoordenadorAguardandoDistribuicao: {
                 acoes: [
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'analise',
+                    },
+                    {
+                        componente: DistribuirReadequacaoButton,
+                        permissao: 'coordenador',
+                    },
+                ],
+            },
+            acoesCoordenadorEmAnalise: {
+                acoes: [
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'analise',
+                    },
+                    {
+                        componente: EncaminharReadequacaoButton,
+                        permissao: 'coordenador',
+                    },
+                ],
+            },
+            acoesCoordenadorAnalisados: {
+                acoes: [
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'analise',
+                    },
+                    {
+                        componente: AssinarDocumentoButton,
+                        permissao: 'analisar',
+                    },                    
+                    {
+                        componente: EncaminharReadequacaoButton,
+                        permissao: 'coordenador',
+                    },
+                ],
+            },
+            acoesCoordenadorAguardandoPublicacao: {
+                acoes: [
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'analise',
+                    },
                 ],
             },
             acoesFinalizadas: {
