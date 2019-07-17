@@ -48,9 +48,11 @@ class Readequacao implements IServicoRestZend
             'idNrReuniao' => $result['idNrReuniao'],
             'stEstado' => $result['stEstado'],
         ];
-        
+        $where = [
+            'idReadequacao' => $idReadequacao
+        ];
         $readequacao = $modelTbReadequacao->findBy($where);
-        
+
         $modelTbTipoReadequacao = new \Readequacao_Model_DbTable_TbTipoReadequacao();
         if ($readequacao['idTipoReadequacao']) {
             
@@ -165,7 +167,6 @@ class Readequacao implements IServicoRestZend
         
         $idOrgao = $grupoAtivo->codOrgao;
         $idPerfil = $grupoAtivo->codGrupo;
-        $where['idUnidade = ?'] = $idOrgao;
         
         if ($parametros['pronac']) {
             $where['projetos.AnoProjeto+projetos.Sequencial = ?'] = $parametros['pronac'];
@@ -173,9 +174,13 @@ class Readequacao implements IServicoRestZend
         
         switch ($idPerfil) {
             case \Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO:
+                if ($idOrgao == \Orgaos::ORGAO_GEAR_SACAV) {
+                    $idOrgao = \Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI;
+                }
+                $where['idUnidade = ?'] = $idOrgao;
                 $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
                 $where['dtDistribuicao.idAvaliador = ?'] = $auth->getIdentity()->usu_codigo;
-                $result = $modelTbReadequacao->painelReadequacoesTecnicoAcompanhamento($where, $order, $tamanho, $inicio, false);
+                $result = $modelTbReadequacao->painelReadequacoesTecnicoAcompanhamento($where);
                 break;
             case \Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO:
                 $result = $this->_buscarPaineisCoordenador($idOrgao);
