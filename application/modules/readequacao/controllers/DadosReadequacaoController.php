@@ -17,7 +17,8 @@ class Readequacao_DadosReadequacaoController extends MinC_Controller_Rest_Abstra
 
         $permissionsPerMethod  = [
             'post' => [
-                Autenticacao_Model_Grupos::PROPONENTE
+                Autenticacao_Model_Grupos::PROPONENTE,
+                Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
             ]
         ];
         $this->setProtectedMethodsProfilesPermission($permissionsPerMethod);

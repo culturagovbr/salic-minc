@@ -128,7 +128,7 @@ class Readequacao implements IServicoRestZend
         }
 
         if ($filtro == 'aguardando_distribuicao') {
-            $where['idOrgao = ?'] = $idOrgao;
+            $where['Orgao = ?'] = $idOrgao;
         } else {
             $where['idOrgaoOrigem = ?'] = $idOrgao;
         }
@@ -205,6 +205,9 @@ class Readequacao implements IServicoRestZend
                 }
                 if ($item->nmReceptor) {
                     $item->nmReceptor = utf8_encode($item->nmReceptor);
+                }
+                if ($item->dsTipoReadequacao == '') {
+                    $item->dsTipoReadequacao = $item->tpReadequacao;
                 }
                 $resultArray[] = $item;
             }

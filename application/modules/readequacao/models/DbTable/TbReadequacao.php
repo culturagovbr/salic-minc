@@ -291,7 +291,46 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
         return $select;
     }
 
+    public function vwPainelCoordenadorReadequacaoAguardandoAnalise()
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            ['tbReadequacao' => $this->_name],
+            ['idPronac' => 'projetos.idPronac',
+             'idReadequacao' => 'tbReadequacao.idReadequacao',
+             'PRONAC' => new Zend_Db_Expr('projetos.AnoProjeto + projetos.Sequencial'),
+             'NomeProjeto' => 'projetos.NomeProjeto',
+             'idOrgao' => 'projetos.Orgao',
+             'dtSolicitacao' => 'tbReadequacao.dtSolicitacao',
+             'idTipoReadequacao' => 'tbReadequacao.idTipoReadequacao',
+             'tpReadequacao' => 'tbTipoReadequacao.dsReadequacao',
+             'qtAguardandoDistribuicao' => new Zend_Db_Expr('DATEDIFF(DAY, tbReadequacao.dtEnvio, GETDATE())'),
+             'dtEnvio' => 'tbReadequacao.dtEnvio',
+             ]
+        );
+                
+        $select->joinInner(
+            ['projetos' => 'projetos'],
+            'projetos.idPronac = tbReadequacao.idPronac',
+            [],
+            $this->_schema
+        );
 
+        $select->joinInner(
+            ['tbTipoReadequacao' => 'tbTipoReadequacao'],
+            'tbTipoReadequacao.idTipoReadequacao = tbReadequacao.idTipoReadequacao',
+            [],
+            $this->_schema
+        );
+
+        $select->where('tbReadequacao.siEncaminhamento = ?', Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_MINC);
+        $select->where('tbReadequacao.stEstado = ?', self::ST_ESTADO_EM_ANDAMENTO);
+        
+        return $select;
+    }
+
+    
     /**
      * painelReadequacoesCoordenadorAcompanhamento
      *
@@ -313,7 +352,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
 
         switch ($filtro) {
             case 'aguardando_distribuicao':
-                $select = $this->selectView('vwPainelCoordenadorReadequacaoAguardandoAnalise');
+                $select = $this->vwPainelCoordenadorReadequacaoAguardandoAnalise();
                 break;
             case 'em_analise':
                 $select = $this->selectView('vwPainelCoordenadorReadequacaoEmAnalise');
