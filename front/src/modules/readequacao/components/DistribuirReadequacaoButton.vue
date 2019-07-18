@@ -52,7 +52,7 @@
                             <v-btn
                                 dark
                                 flat
-                                @click="salvarAnalise"
+                                @click="encaminharAnalise"
                             >
                                 <v-icon left>
                                     save
@@ -107,6 +107,7 @@
                                     />
                                 </v-flex>
                                 <v-flex
+                                    v-if="opcoesEncaminhamento"
                                     xs3
                                     sm12
                                     md4
@@ -137,24 +138,15 @@
                                 justify-center
                             >
                                 <v-btn
-                                    color="primary"
-                                    @click="salvarAnalise()"
-                                >
-                                    <v-icon left>
-                                        save
-                                    </v-icon>
-                                    Salvar
-                                </v-btn>
-                                <v-btn
                                     v-if="encaminharDisponivel"
                                     dark
                                     color="blue accent-4"
-                                    @click="dialogFinalizar = true"
+                                    @click="salvarAnalise()"
                                 >
-                                    Encaminhar
-                                    <v-icon right>
+                                    <v-icon left>
                                         send
                                     </v-icon>
+                                    Encaminhar
                                 </v-btn>
                                 <v-btn
                                     @click="dialog = false"
@@ -192,8 +184,10 @@ export default {
     },
     data() {
         return {
+            opcoesEncaminhamento: false,
             encaminharDisponivel: false,
             selecionarDestinatario: false,
+            textIsValid: false,
             valid: false,
             loading: true,
             dialog: false,
@@ -249,16 +243,20 @@ export default {
     watch: {
         dadosEncaminhamento: {
             handler() {
-                if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
-                    || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI
-                   ) {
-                    if (this.getDestinatariosDistribuicao.length > 0) {
-                        this.selecionarDestinatario = true;
-                    }
-                    this.encaminharDisponivel = this.dadosEncaminhamento.destinatario !== '';
+                this.checkDisponivelEncaminhar();
+            },
+            deep: true,
+        },
+        readequacaoEditada: {
+            handler() {
+                if ((this.readequacaoEditada.stAtendimento === 'I' || this.readequacaoEditada.stAtendimento === 'E')
+                    && (this.readequacaoEditada.dsAvaliacao !== '' && this.readequacaoEditada.dsAvaliacao.length > this.minChar)
+                ) {
+                    this.encaminharDisponivel = true;
+                    this.opcoesEncaminhamento = false;
                 } else {
-                    this.selecionarDestinatario = false;
-                    this.encaminharDisponivel = this.dadosEncaminhamento.vinculada > 0;
+                    this.encaminharDisponivel = false;
+                    this.checkDisponivelEncaminhar();
                 }
             },
             deep: true,
@@ -272,10 +270,24 @@ export default {
     },
     methods: {
         ...mapActions({
-            updateReadequacao: 'readequacao/updateReadequacao',
+            buscarReadequacoesPainelAguardandoDistribuicao: 'readequacao/buscarReadequacoesPainelAguardandoDistribuicao',
             obterDestinatariosDistribuicao: 'readequacao/obterDestinatariosDistribuicao',
             mensagemSucesso: 'noticias/mensagemSucesso',
         }),
+        checkDisponivelEncaminhar() {
+            this.opcoesEncaminhamento = (this.readequacaoEditada.dsAvaliacao !== '' && this.readequacaoEditada.stAtendimento === 'D');
+            if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
+                || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI
+               ) {
+                if (this.getDestinatariosDistribuicao.length > 0) {
+                    this.selecionarDestinatario = true;
+                }
+                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario !== '';
+            } else {
+                this.selecionarDestinatario = false;
+                this.encaminharDisponivel = this.dadosEncaminhamento.vinculada > 0;
+            }
+        },
         inicializarReadequacaoEditada() {
             this.readequacaoEditada = {
                 idPronac: this.dadosReadequacao.idPronac,
@@ -285,11 +297,9 @@ export default {
                 stAtendimento: this.dadosReadequacao.stAtendimento,
             };
             this.loading = false;
+            this.checkDisponivelEncaminhar();
         },
-        salvarAnalise() {
-            this.updateReadequacao(this.readequacaoEditada).then(() => {
-                this.mensagemSucesso('Readequação salva com sucesso!');
-            });
+        encaminharAnalise() {
         },
         obterDestinatarios() {
             this.dadosEncaminhamento.destinatario = '';
