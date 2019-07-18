@@ -678,18 +678,20 @@ class Readequacao implements IServicoRestZend
 
     private function __prepararDadosGravacao($parametros)
     {
-        if ($parametros['idTipoReadequacao'] == \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PERIODO_EXECUCAO) {
-            if (strpos($parametros['dsSolicitacao'], '-')) {
-                $data = explode('-', $parametros['dsSolicitacao']);
-                $parametros['dsSolicitacao'] = implode('/', array_reverse($data));
+        if ($parametros['dsSolicitacao']) {
+            if ($parametros['idTipoReadequacao'] == \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PERIODO_EXECUCAO) {
+                if (strpos($parametros['dsSolicitacao'], '-')) {
+                    $data = explode('-', $parametros['dsSolicitacao']);
+                    $parametros['dsSolicitacao'] = implode('/', array_reverse($data));
+                }
+            } else if ($parametros['idTipoReadequacao'] == \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_ALTERACAO_PROPONENTE) {
+                $parametros['dsSolicitacao'] = preg_replace('/[^0-9]/', '', $parametros['dsSolicitacao']);
+            } else if ($parametros['idTipoReadequacao'] == \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_AGENCIA_BANCARIA) {
+                $parametros['dsSolicitacao'] = strtoupper($parametros['dsSolicitacao']);
+                $parametros['dsSolicitacao'] = preg_replace('/[^0-9\-X]/', '', $parametros['dsSolicitacao']);
+            } else {
+                $parametros['dsSolicitacao'] = $this->converteTextoEmHtml($parametros['dsSolicitacao']);
             }
-        } else if ($parametros['idTipoReadequacao'] == \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_ALTERACAO_PROPONENTE) {
-            $parametros['dsSolicitacao'] = preg_replace('/[^0-9]/', '', $parametros['dsSolicitacao']);
-        } else if ($parametros['idTipoReadequacao'] == \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_AGENCIA_BANCARIA) {
-            $parametros['dsSolicitacao'] = strtoupper($parametros['dsSolicitacao']);
-            $parametros['dsSolicitacao'] = preg_replace('/[^0-9\-X]/', '', $parametros['dsSolicitacao']);
-        } else {
-            $parametros['dsSolicitacao'] = $this->converteTextoEmHtml($parametros['dsSolicitacao']);
         }
 
         return $parametros;
