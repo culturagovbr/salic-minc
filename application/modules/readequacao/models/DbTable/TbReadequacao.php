@@ -303,6 +303,8 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
              'NomeProjeto' => 'projetos.NomeProjeto',
              'idOrgao' => 'projetos.Orgao',
              'dtSolicitacao' => 'tbReadequacao.dtSolicitacao',
+             'dsAvaliacao' => 'tbReadequacao.dsAvaliacao',
+             'stAtendimento' => 'tbReadequacao.stAtendimento',
              'idTipoReadequacao' => 'tbReadequacao.idTipoReadequacao',
              'tpReadequacao' => 'tbTipoReadequacao.dsReadequacao',
              'qtAguardandoDistribuicao' => new Zend_Db_Expr('DATEDIFF(DAY, tbReadequacao.dtEnvio, GETDATE())'),

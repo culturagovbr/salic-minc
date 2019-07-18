@@ -16,6 +16,9 @@ class Readequacao_Model_TbReadequacaoMapper extends MinC_Db_Mapper
 
     public function salvarSolicitacaoReadequacao($arrData)
     {
+        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
+        $idPerfil = $GrupoAtivo->codGrupo;
+        
         try {
 
             if (strlen($arrData['idPronac']) > 7) {
@@ -28,12 +31,18 @@ class Readequacao_Model_TbReadequacaoMapper extends MinC_Db_Mapper
 
             $objReadequacao = new Readequacao_Model_TbReadequacao();
             $objReadequacao->setIdReadequacao($arrData['idReadequacao']);
-            $objReadequacao->setDtSolicitacao(new Zend_Db_Expr('GETDATE()'));
-            $objReadequacao->setIdSolicitante($rsAgente->idAgente);
-            $objReadequacao->setStAtendimento('N');
-            $objReadequacao->setSiEncaminhamento(Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE);
-            $objReadequacao->setStEstado(0);
 
+            if ($idPerfil == Autenticacao_Model_Grupos::PROPONENTE) {
+                $objReadequacao->setDtSolicitacao(new Zend_Db_Expr('GETDATE()'));
+                $objReadequacao->setIdSolicitante($rsAgente->idAgente);
+                $objReadequacao->setStAtendimento('N');
+                $objReadequacao->setSiEncaminhamento(Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE);
+                $objReadequacao->setStEstado(0);
+            }
+
+            if ($idPerfil == Autenticacao_Model_Grupos::COORḌ) {
+            }
+            
             if (isset($arrData['idPronac'])) {
                 $objReadequacao->setIdPronac($arrData['idPronac']);
             }

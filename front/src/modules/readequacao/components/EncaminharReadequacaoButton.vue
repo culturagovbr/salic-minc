@@ -43,9 +43,12 @@ export default {
     },
     data() {
         return {
-            loading: false,
+            loading: true,
             dialog: false,
         };
+    },
+    created() {
+        this.loading = false;
     },
 };
 </script>
