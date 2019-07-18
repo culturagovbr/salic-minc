@@ -1045,3 +1045,28 @@ HOST: http://localhost:4000
             {
                 "mensagem": "Dados do item revertidos!"
             }
+
+## Readequação - Obtém lista de técnicos disponíveis para distribuir uma readequação [/readequacao/destinatarios-distribuicao]
+
+### Obtém lista de técnicos [GET]
+
++ Parameters
+    + idPronac: 205213 (number, required)
+    + vinculada: 262 (number, required)
+    
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+
+        {
+          "items": [
+              {
+                  "id":6861,
+                  "nome":"Juca Chavez Costa"
+              },
+              {
+                  "id":6153,
+                  "nome":"Ernesto Manuel"
+              }

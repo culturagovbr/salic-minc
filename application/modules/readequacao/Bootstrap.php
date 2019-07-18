@@ -24,6 +24,7 @@ class Readequacao_Bootstrap extends Zend_Application_Module_Bootstrap
                     'finalizar',
                     'finalizar-avaliacao',
                     'item-planilha',
+                    'destinatarios-distribuicao',
                     'painel',
                     'planilha-obter-unidades',
                     'reverter-alteracao-item',
