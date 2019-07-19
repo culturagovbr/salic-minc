@@ -20,6 +20,7 @@ class Readequacao_Bootstrap extends Zend_Application_Module_Bootstrap
                     'calcular-resumo-planilha',
                     'dados-readequacao',
                     'dados-readequacao-documento',
+                    'distribuir-readequacao',
                     'documento',
                     'finalizar',
                     'finalizar-avaliacao',
@@ -36,5 +37,4 @@ class Readequacao_Bootstrap extends Zend_Application_Module_Bootstrap
 
         $frontController->getRouter()->addRoute('rest-readequacao', $restRoute);
     }
-
 }

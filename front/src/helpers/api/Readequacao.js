@@ -144,3 +144,8 @@ export const obterDestinatariosDistribuicao = (params) => {
     const path = '/readequacao/destinatarios-distribuicao';
     return api.getRequest(path + parseQueryParams(params));
 };
+
+export const distribuirReadequacao = (params) => {
+    const path = '/readequacao/distribuir-readequacao';
+    return api.postRequest(path, buildData(params));
+};

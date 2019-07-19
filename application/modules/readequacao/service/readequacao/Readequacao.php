@@ -1437,5 +1437,84 @@ class Readequacao implements IServicoRestZend
         }
         return $dadosUsuarios;
     }
+
+    public function distribuirReadequacao()
+    {
+        $parametros = $this->request->getParams();
+
+        $auth = \Zend_Auth::getInstance();
+        $idUsuario = $auth->getIdentity()->usu_codigo;
+        
+        $idReadequacao = $parametros['idReadequacao'];
+        
+        $tbReadequacaoModel = new \Readequacao_Model_DbTable_TbReadequacao();
+        $readequacao = $tbReadequacaoModel->find(['idReadequacao = ?' => $idReadequacao])->current();
+        $stValidacaoCoordenador = 0;
+        $dataEnvio = null;
+        
+        if ($readequacao) {
+            
+            $readequacao->stAtendimento = $parametros['stAtendimento'];
+            $readequacao->dsAvaliacao = $parametros['dsAvaliacao'];
+            $readequacao->dtAvaliador = new \Zend_Db_Expr('GETDATE()');
+            $readequacao->idAvaliador = $idUsuario;
+            
+            if ($parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_INDEFERIDA) {
+                $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_INDEFERIDA;
+                $readequacao->stEstado = \Readequacao_Model_DbTable_TbReadequacao::ST_ESTADO_FINALIZADO;
+                
+            } elseif ($parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEVOLVIDA) {
+                $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE;
+                $readequacao->stEstado = \Readequacao_Model_DbTable_TbReadequacao::ST_ESTADO_EM_ANDAMENTO;
+                $readequacao->stAtendimento = \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEVOLVIDA;
+                
+            } else {
+                if ($parametros['vinculada'] == \Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI || $parametros['vinculada'] == \Orgaos::ORGAO_SAV_CAP) {
+                    $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
+                    $dataEnvio = new \Zend_Db_Expr('GETDATE()');
+                    $readequacao->idAvaliador = $parametros['destinatario'];
+                } else {
+                    $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
+                }
+            }
+            $readequacao->save();
+            if ($parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEFERIDA) {
+                $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
+                $jaDistribuiu = $tbDistribuirReadequacao->buscar(['idReadequacao = ?' => $readequacao->idReadequacao])->current();
+                
+                if (empty($jaDistribuiu)) {
+                    $dados = [
+                        'idReadequacao' => $readequacao->idReadequacao,
+                        'idUnidade' => $parametros['vinculada'],
+                        'DtEncaminhamento' => new \Zend_Db_Expr('GETDATE()'),
+                        'idAvaliador' => (null !== $parametros['destinatario']) ? $parametros['destinatario'] : null,
+                        'dtEnvioAvaliador' => !empty($dataEnvio) ? $dataEnvio : null,
+                        'stValidacaoCoordenador' => $stValidacaoCoordenador,
+                        'dsOrientacao' => $readequacao->dsAvaliacao
+                    ];
+
+                    $tbDistribuirReadequacao->inserir($dados);
+                } else {
+                    $dados = [
+                        'idUnidade' => $parametros['vinculada'],
+                        'DtEncaminhamento' => new \Zend_Db_Expr('GETDATE()'),
+                        'idAvaliador' => (null !== $parametros['destinatario']) ? $parametros['destinatario'] : null,
+                        'dtEnvioAvaliador' => !empty($dataEnvio) ? $dataEnvio : null,
+                        'stValidacaoCoordenador' => $stValidacaoCoordenador,
+                        'dsOrientacao' => $readequacao->dsAvaliacao
+                    ];
+                    $where = "idReadequacao = " . $readequacao->idReadequacao;
+
+                    $tbDistribuirReadequacao->update($dados, $where);
+                }
+            } else if ($parametros['stAtendimento'] == \Readequacao_ModelDbTable_TbReadequacao::ST_ATENDIMENTO_DEVOLVIDA) {
+                $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
+                $excluiDistribuicao = $tbDistribuirReadequacao->delete([
+                    'idReadequacao = ?' => $readequacao->idReadequacao
+                ]);
+            }
+        }
+        return true;
+    }
 }
 

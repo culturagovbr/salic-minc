@@ -1070,3 +1070,26 @@ HOST: http://localhost:4000
                   "id":6153,
                   "nome":"Ernesto Manuel"
               }
+
+
+## Readequação - Distribui uma readequação [/readequacao/distribuir-readequacao]
+
+### Obtém lista de técnicos [GET]
+
++ Parameters
+    + idPronac: 205213 (number, required)
+    + idReadequacao: 12262 (number, required)
+    + stAtendimento: 'D' (string, required)
+    + dsAvaliacao: 'D' (string, required)
+    + destinatario: 'Joaquim dos Anjos' (string, required)
+    + vinculada: 262 (number, required)
+
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+
+            {
+                "mensagem": "Readequação encaminhada para técnico."
+            }

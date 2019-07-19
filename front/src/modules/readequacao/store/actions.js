@@ -364,3 +364,12 @@ export const obterDestinatariosDistribuicao = ({ commit }, params) => {
             commit(types.SET_DESTINATARIOS_DISTRIBUICAO, response.data.data.items);
         });
 };
+
+export const distribuirReadequacao = ({ dispatch }, params) => {
+    readequacaoHelperAPI.distribuirReadequacao(params)
+        .then(() => {
+            dispatch('buscarReadequacoesPainelAguardandoDistribuicao', {
+                filtro: 'painel_aguardando_distribuicao',
+            });
+        });
+};

@@ -141,7 +141,7 @@
                                     v-if="encaminharDisponivel"
                                     dark
                                     color="blue accent-4"
-                                    @click="salvarAnalise()"
+                                    @click="encaminharAnalise()"
                                 >
                                     <v-icon left>
                                         send
@@ -272,7 +272,8 @@ export default {
         ...mapActions({
             buscarReadequacoesPainelAguardandoDistribuicao: 'readequacao/buscarReadequacoesPainelAguardandoDistribuicao',
             obterDestinatariosDistribuicao: 'readequacao/obterDestinatariosDistribuicao',
-            mensagemSucesso: 'noticias/mensagemSucesso',
+            distribuirReadequacao: 'readequacao/distribuirReadequacao',
+            setSnackbar: 'noticias/setDados',
         }),
         checkDisponivelEncaminhar() {
             this.opcoesEncaminhamento = (this.readequacaoEditada.dsAvaliacao !== '' && this.readequacaoEditada.stAtendimento === 'D');
@@ -300,6 +301,21 @@ export default {
             this.checkDisponivelEncaminhar();
         },
         encaminharAnalise() {
+            this.distribuirReadequacao({
+                idPronac: this.readequacaoEditada.idPronac,
+                idReadequacao: this.readequacaoEditada.idReadequacao,
+                stAtendimento: this.readequacaoEditada.stAtendimento,
+                dsAvaliacao: this.readequacaoEditada.dsAvaliacao,
+                destinatario: this.dadosEncaminhamento.destinatario,
+                vinculada: this.dadosEncaminhamento.vinculada,
+            }).then(() => {
+                this.setSnackbar({
+                    ativo: true,
+                    color: 'success',
+                    text: 'Readequação distribuída!',
+                });
+                this.dialog = false;
+            });
         },
         obterDestinatarios() {
             this.dadosEncaminhamento.destinatario = '';
