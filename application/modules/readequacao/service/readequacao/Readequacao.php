@@ -118,7 +118,7 @@ class Readequacao implements IServicoRestZend
         return $resultArray;
     }
 
-    public function _buscarPaineisCoordenador($idOrgao)
+    public function __buscarPaineisCoordenador($idOrgao)
     {
         $parametros = $this->request->getParams();
         $result = ''; 
@@ -126,8 +126,8 @@ class Readequacao implements IServicoRestZend
         if (!$filtro) {
             return;
         }
-
-        if ($filtro == 'aguardando_distribuicao') {
+        
+        if ($filtro == 'painel_aguardando_distribuicao') {
             $where['Orgao = ?'] = $idOrgao;
         } else {
             $where['idOrgaoOrigem = ?'] = $idOrgao;
@@ -183,7 +183,7 @@ class Readequacao implements IServicoRestZend
                 $result = $modelTbReadequacao->painelReadequacoesTecnicoAcompanhamento($where);
                 break;
             case \Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO:
-                $result = $this->_buscarPaineisCoordenador($idOrgao);
+                $result = $this->__buscarPaineisCoordenador($idOrgao);
                 break;
         }
         
