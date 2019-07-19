@@ -1402,5 +1402,40 @@ class Readequacao implements IServicoRestZend
 
         return $valorEntrePlanilhas;
     }
+
+    public function buscarDestinatariosDistribuicao()
+    {
+        $parametros = $this->request->getParams();
+
+        $vinculada = $parametros['vinculada'];
+        $idPronac = $parametros['idPronac'];
+        
+        $a = 0;
+        $dadosUsuarios = [];
+        
+        if ($vinculada == \Orgaos::ORGAO_SAV_CAP || $vinculada == \Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI) {
+            $dados = [];
+            $dados['sis_codigo = ?'] = 21;
+            $dados['uog_status = ?'] = 1;
+            $dados['gru_codigo = ?'] = \Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO;
+            if ($vinculada == \Orgaos::ORGAO_SAV_CAP) {
+                $dados['org_superior = ?'] = \Orgaos::ORGAO_SUPERIOR_SAV;
+            } else {
+                $dados['org_superior = ?'] = \Orgaos::ORGAO_SUPERIOR_SEFIC;
+            }
+
+            $vw = new \vwUsuariosOrgaosGrupos();
+            $result = $vw->buscar($dados, ['usu_nome']);
+            
+            if (count($result) > 0) {
+                foreach ($result as $registro) {
+                    $dadosUsuarios[$a]['id'] = $registro['usu_codigo'];
+                    $dadosUsuarios[$a]['nome'] = utf8_encode($registro['usu_nome']);
+                    $a++;
+                }
+            }
+        }
+        return $dadosUsuarios;
+    }
 }
 

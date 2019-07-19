@@ -139,3 +139,8 @@ export const reverterAlteracaoItem = (params) => {
     const path = '/readequacao/reverter-alteracao-item';
     return api.postRequest(path, buildData(params));
 };
+
+export const obterDestinatariosDistribuicao = (params) => {
+    const path = '/readequacao/destinatarios-distribuicao';
+    return api.getRequest(path + parseQueryParams(params));
+};

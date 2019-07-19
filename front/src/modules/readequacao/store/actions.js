@@ -357,3 +357,10 @@ export const reverterAlteracaoItem = ({ dispatch }, params) => {
             });
         });
 };
+
+export const obterDestinatariosDistribuicao = ({ commit }, params) => {
+    readequacaoHelperAPI.obterDestinatariosDistribuicao(params)
+        .then((response) => {
+            commit(types.SET_DESTINATARIOS_DISTRIBUICAO, response.data.data.items);
+        });
+};

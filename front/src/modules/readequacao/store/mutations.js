@@ -23,6 +23,7 @@ export const state = {
     unidadesPlanilha: {},
     itemPlanilhaEdicao: {},
     resumoPlanilha: {},
+    destinatariosDistribuicao: {},
 };
 
 export const mutations = {
@@ -156,5 +157,11 @@ export const mutations = {
     },
     [types.GET_RESUMO_PLANILHA](state, data) {
         state.resumoPlanilha = data;
+    },
+    [types.SET_DESTINATARIOS_DISTRIBUICAO](state, data) {
+        state.destinatariosDistribuicao = data;
+    },
+    [types.GET_DESTINATARIOS_DISTRIBUICAO](state, data) {
+        state.destinatariosDistribuicao = data;
     },
 };

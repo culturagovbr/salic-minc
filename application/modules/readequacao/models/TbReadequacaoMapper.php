@@ -40,7 +40,8 @@ class Readequacao_Model_TbReadequacaoMapper extends MinC_Db_Mapper
                 $objReadequacao->setStEstado(0);
             }
 
-            if ($idPerfil == Autenticacao_Model_Grupos::COORḌ) {
+            if ($idPerfil == Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO) {
+                $objReadequacao->setDsAvaliacao($arrData['dsAvaliacao']);
             }
             
             if (isset($arrData['idPronac'])) {
