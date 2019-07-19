@@ -21,6 +21,7 @@ class Readequacao_Bootstrap extends Zend_Application_Module_Bootstrap
                     'dados-readequacao',
                     'dados-readequacao-documento',
                     'distribuir-readequacao',
+                    'encaminhar-para-analise',
                     'documento',
                     'finalizar',
                     'finalizar-avaliacao',

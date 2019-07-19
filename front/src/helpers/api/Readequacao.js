@@ -149,3 +149,8 @@ export const distribuirReadequacao = (params) => {
     const path = '/readequacao/distribuir-readequacao';
     return api.postRequest(path, buildData(params));
 };
+
+export const encaminharParaAnalise = (params) => {
+    const path = '/readequacao/encaminhar-para-analise';
+    return api.postRequest(path, buildData(params));
+};

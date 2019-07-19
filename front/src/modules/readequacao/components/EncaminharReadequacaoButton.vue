@@ -97,7 +97,7 @@
                                 >
                                     <p><b>Observações do encaminhamento</b></p>
                                     <s-editor-texto
-                                        v-model="dsAvaliacao"
+                                        v-model="dsOrientacao"
                                         :placeholder="'Observaçõs do encaminhamento da solicitação de readequação'"
                                         :min-char="minChar"
                                         @editor-texto-counter="validateText($event)"
@@ -164,7 +164,7 @@ export default {
             loading: true,
             dialog: false,
             minChar: 10,
-            dsAvaliacao: '',
+            dsOrientacao: '',
             dadosEncaminhamento: {
                 vinculada: 0,
                 destinatario: '',
@@ -213,7 +213,7 @@ export default {
             },
             deep: true,
         },
-        dsAvaliacao() {
+        dsOrientacao() {
             this.checkDisponivelEncaminhar();
         },
         getDestinatariosDistribuicao() {
@@ -228,11 +228,11 @@ export default {
         ...mapActions({
             buscarReadequacoesPainelEmAnalise: 'readequacao/buscarReadequacoesPainelAguardandoDistribuicao',
             obterDestinatariosDistribuicao: 'readequacao/obterDestinatariosDistribuicao',
-            distribuirReadequacao: 'readequacao/distribuirReadequacao',
+            encaminharParaAnalise: 'readequacao/encaminharParaAnalise',
             setSnackbar: 'noticias/setDados',
         }),
         checkDisponivelEncaminhar() {
-            if (this.dsAvaliacao !== '' && this.dsAvaliacao.length > this.minChar) {
+            if (this.dsOrientacao !== '' && this.dsOrientacao.length > this.minChar) {
                 if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
                     || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI
                    ) {
@@ -254,7 +254,7 @@ export default {
                 idReadequacao: this.dadosReadequacao.idReadequacao,
                 destinatario: this.dadosEncaminhamento.destinatario,
                 vinculada: this.dadosEncaminhamento.vinculada,
-                dsAvaliacao: this.dsAvaliacao,
+                dsOrientacao: this.dsOrientacao,
             }).then(() => {
                 this.setSnackbar({
                     ativo: true,

@@ -1516,5 +1516,99 @@ class Readequacao implements IServicoRestZend
         }
         return true;
     }
+
+    public function encaminharParaAnalise()
+    {
+        $parametros = $this->request->getParams();
+        
+        $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
+        $auth = \Zend_Auth::getInstance();
+        
+        $idReadequacao = $parametros['idReadequacao'];
+        $dsOrientacao = $parametros['dsOrientacao'];
+        $stValidacaoCoordenador = 0;
+        $dataEnvio = null;
+        $destinatario = $parametros['destinatario'];
+        $idUnidade = $parametros['vinculada'];
+        
+        $tbDocumentoAssinaturaDbTable = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
+        $tbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
+        $servicoReadequacaoAssinatura = new ReadequacaoAssinaturaService(
+            $grupoAtivo,
+            $auth
+        );
+        
+        $readequacao = $tbReadequacao->buscarDadosReadequacoes(['idReadequacao = ?' => $idReadequacao])->current();
+        $idTipoDoAto = $servicoReadequacaoAssinatura->obterAtoAdministrativoPorTipoReadequacao($readequacao['idTipoReadequacao']);
+        
+        $documentoAssinatura = $tbDocumentoAssinaturaDbTable->obterDocumentoAssinatura(
+            $readequacao['idPronac'],
+            $idTipoDoAto
+        );
+        
+        $data = [
+            'cdSituacao' => \Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_FECHADO_PARA_ASSINATURA,
+            'stEstado' => \Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_INATIVO
+        ];
+        $where = [
+            'idDocumentoAssinatura = ?' => $documentoAssinatura['idDocumentoAssinatura'],
+        ];
+        
+        $update = $tbDocumentoAssinaturaDbTable->update(
+            $data,
+            $where
+        );
+        
+        try {
+            if (in_array($idUnidade, [
+                \Orgaos::ORGAO_SAV_CAP,
+                \Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI]
+            )) {
+                $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
+                $dados = [
+                    'idAvaliador' => $destinatario,
+                    'DtEnvioAvaliador' => new \Zend_Db_Expr('GETDATE()'),
+                    'dsOrientacao' => $dsOrientaca,
+                    'idUnidade' => $idUnidade
+                ];
+                $where = [];
+                $where['idReadequacao = ?'] = $idReadequacao;
+                
+                $u = $tbDistribuirReadequacao->update($dados, $where);
+                
+                $tbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
+                $dados = [
+                    'siEncaminhamento' => \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA
+                ];
+                $where = [];
+                $where['idReadequacao = ?'] = $idReadequacao;
+                $tbReadequacao->update($dados, $where);
+                
+            } else {
+                $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
+                $dados = [
+                    'idUnidade' => $idUnidade,
+                    'DtEncaminhamento' => new \Zend_Db_Expr('GETDATE()'),
+                    'idAvaliador' => null,
+                    'DtEnvioAvaliador' => null,
+                    'dsOrientacao' => $dsOrientacao
+                ];
+                $where = [];
+                $where['idReadequacao = ?'] = $idReadequacao;
+
+                $tbDistribuirReadequacao->update($dados, $where);
+
+                $tbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
+                $dadosReadequacao = [
+                    'siEncaminhamento' => \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE
+                ];
+                $u = $tbReadequacao->update($dadosReadequacao, $where);
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+        
+        return true;
+    }
 }
 
