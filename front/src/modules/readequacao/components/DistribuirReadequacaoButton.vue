@@ -36,7 +36,7 @@
                         dark
                         color="primary"
                     >
-                        <v-btn
+                        <V-btn
                             icon
                             dark
                             @click="dialog = false"
@@ -248,9 +248,9 @@ export default {
             deep: true,
         },
         readequacaoEditada: {
-            handler() {
-                if ((this.readequacaoEditada.stAtendimento === 'I' || this.readequacaoEditada.stAtendimento === 'E')
-                    && (this.readequacaoEditada.dsAvaliacao !== '' && this.readequacaoEditada.dsAvaliacao.length > this.minChar)
+            handler(value) {
+                if ((value.stAtendimento === 'I' || value.stAtendimento === 'E')
+                    && (value.dsAvaliacao !== '' && value.dsAvaliacao.length > this.minChar)
                 ) {
                     this.encaminharDisponivel = true;
                     this.opcoesEncaminhamento = false;
@@ -271,6 +271,7 @@ export default {
     methods: {
         ...mapActions({
             buscarReadequacoesPainelAguardandoDistribuicao: 'readequacao/buscarReadequacoesPainelAguardandoDistribuicao',
+            buscarReadequacoesPainelEmAnalise: 'readequacao/buscarReadequacoesPainelEmAnalise',
             obterDestinatariosDistribuicao: 'readequacao/obterDestinatariosDistribuicao',
             distribuirReadequacao: 'readequacao/distribuirReadequacao',
             setSnackbar: 'noticias/setDados',

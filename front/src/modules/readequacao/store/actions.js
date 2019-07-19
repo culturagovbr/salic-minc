@@ -371,5 +371,20 @@ export const distribuirReadequacao = ({ dispatch }, params) => {
             dispatch('buscarReadequacoesPainelAguardandoDistribuicao', {
                 filtro: 'painel_aguardando_distribuicao',
             });
+            dispatch('buscarReadequacoesPainelEmAnalise', {
+                filtro: 'em_analise',
+            });
+        });
+};
+
+export const encaminharParaAnalise = ({ dispatch }, params) => {
+    readequacaoHelperAPI.encaminharParaAnalise(params)
+        .then(() => {
+            dispatch('buscarReadequacoesPainelEmAnalise', {
+                filtro: 'em_analise',
+            });
+            dispatch('buscarReadequacoesPainelAnalisados', {
+                filtro: 'analisados',
+            });
         });
 };
