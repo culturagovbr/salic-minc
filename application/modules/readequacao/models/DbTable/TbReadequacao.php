@@ -353,8 +353,11 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
         $total = array();
 
         switch ($filtro) {
-            case 'aguardando_distribuicao':
+            case 'painel_aguardando_distribuicao':
                 $select = $this->vwPainelCoordenadorReadequacaoAguardandoAnalise();
+                break;
+            case 'aguardando_distribuicao':
+                $select = $this->selectView('vwPainelCoordenadorReadequacaoAguardandoAnalise');
                 break;
             case 'em_analise':
                 $select = $this->selectView('vwPainelCoordenadorReadequacaoEmAnalise');

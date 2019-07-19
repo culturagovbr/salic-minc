@@ -498,7 +498,7 @@ export default {
                         this.obterDocumentoAssinaturaReadequacao({ listaIdReadequacao });
                     });
             } else if (parseInt(this.perfil, 10) === Const.PERFIL_COORDENADOR_ACOMPANHAMENTO) {
-                this.buscarReadequacoesPainelAguardandoDistribuicao({ filtro: 'aguardando_distribuicao' });
+                this.buscarReadequacoesPainelAguardandoDistribuicao({ filtro: 'painel_aguardando_distribuicao' });
                 this.buscarReadequacoesPainelEmAnalise({ filtro: 'em_analise' });
                 this.buscarReadequacoesPainelAnalisados({ filtro: 'analisados' });
                 this.buscarReadequacoesPainelAguardandoPublicacao({ filtro: 'aguardando_publicacao' });
