@@ -280,7 +280,7 @@ export default {
             this.opcoesEncaminhamento = (this.readequacaoEditada.dsAvaliacao !== '' && this.readequacaoEditada.stAtendimento === 'D');
             if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
                 || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI
-               ) {
+            ) {
                 if (this.getDestinatariosDistribuicao.length > 0) {
                     this.selecionarDestinatario = true;
                 }

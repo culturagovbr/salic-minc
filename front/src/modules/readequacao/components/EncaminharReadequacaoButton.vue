@@ -208,7 +208,7 @@ export default {
     },
     watch: {
         dadosEncaminhamento: {
-            handler(value) {
+            handler() {
                 this.checkDisponivelEncaminhar();
             },
             deep: true,
@@ -235,7 +235,7 @@ export default {
             if (this.dsOrientacao !== '' && this.dsOrientacao.length > this.minChar) {
                 if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
                     || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI
-                   ) {
+                ) {
                     if (this.getDestinatariosDistribuicao.length > 0) {
                         this.selecionarDestinatario = true;
                     }

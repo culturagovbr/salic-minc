@@ -158,6 +158,7 @@
                             <tabela-readequacoes-painel
                                 :dados-readequacao="getReadequacoesPainelEmAnalise"
                                 :componentes="acoesCoordenadorEmAnalise"
+                                :painel="`em_analise`"
                                 :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                             />
@@ -182,6 +183,7 @@
                             <tabela-readequacoes-painel
                                 :dados-readequacao="getReadequacoesPainelAnalisados"
                                 :componentes="acoesCoordenadorAnalisados"
+                                :painel="`analisados`"
                                 :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                             />
@@ -332,6 +334,14 @@ export default {
                     },
                     {
                         componente: DistribuirReadequacaoButton,
+                        permissao: 'coordenador',
+                    },
+                    {
+                        componente: VisualizarAssinaturaButton,
+                        permissao: 'coordenador',
+                    },
+                    {
+                        componente: AssinarDocumentoButton,
                         permissao: 'coordenador',
                     },
                 ],

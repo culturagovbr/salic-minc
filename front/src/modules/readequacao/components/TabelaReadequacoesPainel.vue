@@ -52,6 +52,11 @@
                     </v-btn>
                 </td>
                 <td
+                    v-if="painel === 'em_analise' || painel === 'analisados'"
+                    class="text-xs-left"
+                    v-html="props.item.nmTecnicoParecerista"
+                />
+                <td
                     v-if="componentes.acoes"
                     class="text-xs-center"
                 >
@@ -115,6 +120,10 @@ export default {
         dadosReadequacao: {
             type: [Array, Object],
             default: () => {},
+        },
+        painel: {
+            type: String,
+            default: '',
         },
         componentes: {
             type: Object,
@@ -183,9 +192,16 @@ export default {
             }
         },
     },
-    created() {
+    mounted() {
         if (this.checkData(this.dadosReadequacao)) {
             this.loading = false;
+        }
+        if (this.painel === 'em_analise' || this.painel === 'analisados') {
+            this.head.splice(5, 1, {
+                text: 'Técnico/a / Vinculada',
+                align: 'center',
+                value: 'nmTecnicoParecerista',
+            });
         }
     },
     methods: {

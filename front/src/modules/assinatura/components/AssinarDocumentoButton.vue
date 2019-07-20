@@ -72,9 +72,10 @@ export default {
                 let url = `/assinatura/index/assinar-projeto?IdPRONAC=${this.dadosReadequacao.idPronac}`;
                 url += `&idTipoDoAtoAdministrativo=${this.idTipoDoAtoAdministrativo}`;
                 url += '&modal=1&origin=#/readequacao/painel';
-                this.$http.get(url).then(response => {
+                this.$http.get(url).then((response) => {
                     this.dialog = true;
-                    this.htmlAssinatura = '<link href="/public/library/materialize/css/materialize.css?v=v7.0.6" media="all" rel="stylesheet" type="text/css" >';
+                    const linkCss = '/public/library/materialize/css/materialize.css?v=v7.0.6';
+                    this.htmlAssinatura = `<link href="${linkCss}" media="all" rel="stylesheet" type="text/css" >`;
                     this.htmlAssinatura += response.data;
                 });
             }
