@@ -41,16 +41,6 @@
                 <td class="text-xs-left">{{ props.item.NomeProjeto }}</td>
                 <td class="text-xs-left">{{ props.item.dsTipoReadequacao }}</td>
                 <td class="text-xs-center">{{ props.item.dtSolicitacao | formatarData }}</td>
-                <td class="text-xs-center">
-                    <v-btn
-                        v-if="props.item.idDocumento"
-                        flat
-                        icon
-                        @click="abrirArquivo(props.item.idDocumento)"
-                    >
-                        <v-icon>insert_drive_file</v-icon>
-                    </v-btn>
-                </td>
                 <td
                     v-if="painel === 'em_analise' || painel === 'analisados'"
                     class="text-xs-left"
@@ -168,11 +158,6 @@ export default {
                     text: 'Data da Solicitação',
                     align: 'center',
                     value: 'dtSolicitacao',
-                },
-                {
-                    text: 'Arquivo',
-                    align: 'center',
-                    value: 'idDocumento',
                 },
                 {
                     text: 'Ações',
