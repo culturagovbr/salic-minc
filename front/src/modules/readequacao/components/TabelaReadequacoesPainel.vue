@@ -40,12 +40,18 @@
                 <td>{{ props.index+1 }}</td>
                 <td class="text-xs-left">{{ props.item.NomeProjeto }}</td>
                 <td class="text-xs-left">{{ props.item.dsTipoReadequacao }}</td>
-                <td class="text-xs-center">{{ props.item.dtSolicitacao | formatarData }}</td>
-                <td
-                    v-if="painel === 'em_analise' || painel === 'analisados'"
-                    class="text-xs-left"
-                    v-html="props.item.nmTecnicoParecerista"
-                />
+                <template
+                    v-if="specificHead[painel] !== 'undefined'"
+                >
+                    <template
+                        v-for="(item, index) in specificHead[painel]"
+                    >
+                        <td
+                            class="text-xs-center"
+                            v-html="checkDate(props.item[item.value])"
+                        />
+                    </template>
+                </template>
                 <td
                     v-if="componentes.acoes"
                     class="text-xs-center"
@@ -155,16 +161,85 @@ export default {
                     value: 'dsTipoReadequacao',
                 },
                 {
-                    text: 'Data da Solicitação',
-                    align: 'center',
-                    value: 'dtSolicitacao',
-                },
-                {
                     text: 'Ações',
                     align: 'center',
                     value: '',
                 },
             ],
+            specificHead: {
+                aguardando_distribuicao: [
+                    {
+                        text: 'Data envio',
+                        align: 'center',
+                        value: 'dtEnvio',
+                        position: 3,
+                    },
+                    {
+                        text: 'Dias aguardando distribuição',
+                        align: 'center',
+                        value: 'qtAguardandoDistribuicao',
+                        position: 4,
+                    },
+                ],
+                em_analise: [
+                    {
+                        text: 'Data distribuição',
+                        align: 'center',
+                        value: 'dtEncaminhamento',
+                        position: 3,
+                    },
+                    {
+                        text: 'Dias em análise',
+                        align: 'center',
+                        value: 'qtDiasEncaminhar',
+                        position: 4,
+                    },
+                    {
+                        text: 'Vinculada',
+                        align: 'center',
+                        value: 'sgUnidade',
+                        position: 5,
+                    },
+                    {
+                        text: 'Técnico/a',
+                        align: 'center',
+                        value: 'nmTecnicoParecerista',
+                        position: 6,
+                    },
+                ],
+                analisados: [
+                    {
+                        text: 'Data envio',
+                        align: 'center',
+                        value: 'dtEnvio',
+                        position: 3,
+                    },
+                    {
+                        text: 'Data distribuição',
+                        align: 'center',
+                        value: 'dtDistribuicao',
+                        position: 4,
+                    },
+                    {
+                        text: 'Data devolução',
+                        align: 'center',
+                        value: 'dtDevolucao',
+                        position: 5,
+                    },
+                    {
+                        text: 'Total de dias para avaliar',
+                        align: 'center',
+                        value: 'qtTotalDiasAvaliar',
+                        position: 6,
+                    },
+                    {
+                        text: 'Localização',
+                        align: 'center',
+                        value: 'nmTecnicoParecerista',
+                        position: 8,
+                    },
+                ],
+            },
             search: '',
             bindClick: 0,
             loading: true,
@@ -181,11 +256,9 @@ export default {
         if (this.checkData(this.dadosReadequacao)) {
             this.loading = false;
         }
-        if (this.painel === 'em_analise' || this.painel === 'analisados') {
-            this.head.splice(5, 1, {
-                text: 'Técnico/a / Vinculada',
-                align: 'center',
-                value: 'nmTecnicoParecerista',
+        if (typeof this.specificHead[this.painel] !== 'undefined') {
+            this.specificHead[this.painel].forEach((item) => {
+                this.head.splice(item.position, 0, item);
             });
         }
     },
@@ -204,6 +277,13 @@ export default {
                 return this.verificarPerfil(this.perfil, perfisAceitos);
             }
             return false;
+        },
+        checkDate(value) {
+            if (Date.parse(value)) {
+                return this.$options.filters.formatarData(value);
+            } else {
+                return value;
+            }
         },
     },
 };

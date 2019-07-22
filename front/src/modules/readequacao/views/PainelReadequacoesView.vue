@@ -146,6 +146,7 @@
                             <tabela-readequacoes-painel
                                 :dados-readequacao="getReadequacoesPainelAguardandoDistribuicao"
                                 :componentes="acoesCoordenadorAguardandoDistribuicao"
+                                :painel="`aguardando_distribuicao`"
                                 :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                             />
@@ -196,6 +197,7 @@
                             <tabela-readequacoes-painel
                                 :dados-readequacao="getReadequacoesPainelAguardandoPublicacao"
                                 :componentes="acoesCoordenadorAguardandoDistribuicao"
+                                :painel="`aguardando_publicacao`"
                                 :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                             />
