@@ -47,6 +47,7 @@
                         v-for="(item, index) in specificHead[painel]"
                     >
                         <td
+                            :key="index"
                             class="text-xs-center"
                             v-html="checkDate(props.item[item.value])"
                         />
@@ -281,9 +282,8 @@ export default {
         checkDate(value) {
             if (Date.parse(value)) {
                 return this.$options.filters.formatarData(value);
-            } else {
-                return value;
             }
+            return false;
         },
     },
 };

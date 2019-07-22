@@ -44,7 +44,7 @@
                     </v-btn>
                     <v-toolbar-title>Readequação - {{ dadosReadequacao.dsTipoReadequacao }}</v-toolbar-title>
                     <v-spacer/>
-                    <v-toolbar-title>{{ dadosProjeto.Pronac }} - {{ dadosProjeto.NomeProjeto }}</v-toolbar-title>
+                    <v-toolbar-title>{{ projeto.Pronac }} - {{ projeto.NomeProjeto }}</v-toolbar-title>
                 </v-toolbar>
                 <v-divider/>
                 <v-layout
@@ -326,9 +326,14 @@ export default {
         return {
             dialog: false,
             loading: true,
+            loaded: {
+                projeto: false,
+                campo: false,
+            },
             panel: [true, true],
             visualizarAvaliacao: false,
             visualizarJustificativa: false,
+            projeto: {},
             outrosTiposSolicitacoes: [
                 Const.TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL,
                 Const.TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA,
@@ -343,6 +348,7 @@ export default {
     computed: {
         ...mapGetters({
             campoAtual: 'readequacao/getCampoAtual',
+            getDadosProjeto: 'projeto/projeto',
         }),
         existeAvaliacao() {
             if (this.dadosReadequacao
@@ -365,16 +371,39 @@ export default {
                     idPronac: this.dadosReadequacao.idPronac,
                     idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
                 });
+                if (typeof this.dadosProjeto !== 'undefined') {
+                    this.projeto = this.dadosProjeto;
+                } else {
+                    this.buscarProjetoCompleto(this.dadosReadequacao.idPronac);
+                }
             }
         },
         getDadosCampo() {
             if (!_.isEmpty(this.getDadosCampo)) {
-                this.loading = false;
+                this.loaded.campo = true;
             }
+        },
+        getDadosProjeto(value) {
+            if (typeof value === 'object') {
+                if (Object.keys(value).length > 0) {
+                    this.projeto = value;
+                    this.loaded.projeto = true;
+                }
+            }
+        },
+        loaded: {
+            handler(value) {
+                const fullyLoaded = _.keys(value).every(i => value[i]);
+                if (fullyLoaded) {
+                    this.loading = false;
+                }
+            },
+            deep: true,
         },
     },
     methods: {
         ...mapActions({
+            buscarProjetoCompleto: 'projeto/buscarProjetoCompleto',
             obterCampoAtual: 'readequacao/obterCampoAtual',
         }),
         perfilAceito() {
