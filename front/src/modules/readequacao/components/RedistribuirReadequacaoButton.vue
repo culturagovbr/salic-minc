@@ -9,7 +9,7 @@
             >
                 send
             </v-icon>
-            <span>Encaminhar Readequação</span>
+            <span>Redistribuir Readequação</span>
         </v-tooltip>
         <v-dialog
             v-model="dialog"
@@ -120,7 +120,7 @@
                                     <v-icon left>
                                         send
                                     </v-icon>
-                                    Encaminhar
+                                    Redistribuir
                                 </v-btn>
                                 <v-btn
                                     @click="dialog = false"
@@ -209,12 +209,12 @@ export default {
     watch: {
         dadosEncaminhamento: {
             handler() {
-                this.checkDisponivelEncaminhar();
+                this.checkDisponivelRedistribuir();
             },
             deep: true,
         },
         dsOrientacao() {
-            this.checkDisponivelEncaminhar();
+            this.checkDisponivelRedistribuir();
         },
         getDestinatariosDistribuicao() {
             this.selecionarDestinatario = true;
@@ -222,7 +222,7 @@ export default {
     },
     mounted() {
         this.loading = false;
-        this.checkDisponivelEncaminhar();
+        this.checkDisponivelRedistribuir();
     },
     methods: {
         ...mapActions({
@@ -231,7 +231,7 @@ export default {
             encaminharParaAnalise: 'readequacao/encaminharParaAnalise',
             setSnackbar: 'noticias/setDados',
         }),
-        checkDisponivelEncaminhar() {
+        checkDisponivelRedistribuir() {
             if (this.dsOrientacao !== '' && this.dsOrientacao.length > this.minChar) {
                 if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
                     || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI

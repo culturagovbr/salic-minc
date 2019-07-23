@@ -3,13 +3,13 @@
         <v-tooltip bottom>
             <v-icon
                 slot="activator"
-                color="blue darken-3"
+                color="green darken-3"
                 class="material-icons"
                 @click.stop="dialog = true"
             >
-                send
+                arrow_back
             </v-icon>
-            <span>Distribuir Readequação</span>
+            <span>Devolver Readequação</span>
         </v-tooltip>
         <v-dialog
             v-model="dialog"
@@ -23,7 +23,7 @@
                 v-if="loading"
             >
                 <carregando
-                    :text="'Montando distribuir readequação...'"
+                    :text="'Montando encaminhar readequação...'"
                     class="mt-5"
                 />
             </v-card>
@@ -36,7 +36,7 @@
                         dark
                         color="primary"
                     >
-                        <V-btn
+                        <v-btn
                             icon
                             dark
                             @click="dialog = false"
@@ -69,40 +69,6 @@
                         >
                             <v-layout wrap>
                                 <v-flex
-                                    xs12
-                                    sm12
-                                    md12
-                                >
-                                    <v-radio-group
-                                        v-model="readequacaoEditada.stAtendimento"
-                                    >
-                                        <v-radio
-                                            :label="`Receber`"
-                                            :value="`D`"
-                                            color="green"
-                                        />
-                                        <v-radio
-                                            :label="`Devolver ao proponente`"
-                                            :value="`E`"
-                                            color="green"
-                                        />
-                                    </v-radio-group>
-                                </v-flex>
-                                <v-flex
-                                    xs12
-                                    sm12
-                                    md12
-                                >
-                                    <p><b>Parecer sobre a solicitação de readequação</b></p>
-                                    <s-editor-texto
-                                        v-model="readequacaoEditada.dsAvaliacao"
-                                        :placeholder="'Parecer sobre a solicitação de readequação'"
-                                        :min-char="minChar"
-                                        @editor-texto-counter="validateText($event)"
-                                    />
-                                </v-flex>
-                                <v-flex
-                                    v-if="opcoesEncaminhamento"
                                     xs3
                                     sm12
                                     md4
@@ -124,6 +90,19 @@
                                         item-value="id"
                                     />
                                 </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm12
+                                    md12
+                                >
+                                    <p><b>Observações do encaminhamento</b></p>
+                                    <s-editor-texto
+                                        v-model="dsOrientacao"
+                                        :placeholder="'Observaçõs do encaminhamento da solicitação de readequação'"
+                                        :min-char="minChar"
+                                        @editor-texto-counter="validateText($event)"
+                                    />
+                                </v-flex>
                             </v-layout>
                             <v-subheader class="pa-0">
                                 Todos os campos s&atilde;o obrigat&oacute;rios
@@ -141,7 +120,7 @@
                                     <v-icon left>
                                         send
                                     </v-icon>
-                                    Encaminhar
+                                    Devolver
                                 </v-btn>
                                 <v-btn
                                     @click="dialog = false"
@@ -179,24 +158,16 @@ export default {
     },
     data() {
         return {
-            opcoesEncaminhamento: false,
             encaminharDisponivel: false,
             selecionarDestinatario: false,
-            textIsValid: false,
             valid: false,
             loading: true,
             dialog: false,
             minChar: 10,
+            dsOrientacao: '',
             dadosEncaminhamento: {
                 vinculada: 0,
                 destinatario: '',
-            },
-            readequacaoEditada: {
-                idPronac: 0,
-                idReadequacao: 0,
-                idTipoReadequacao: '',
-                dsAvaliacao: '',
-                stAtendimento: '',
             },
             orgaosDestino: [
                 {
@@ -238,77 +209,57 @@ export default {
     watch: {
         dadosEncaminhamento: {
             handler() {
-                this.checkDisponivelEncaminhar();
+                this.checkDisponivelDevolver();
             },
             deep: true,
         },
-        readequacaoEditada: {
-            handler(value) {
-                if (value.stAtendimento === 'E')
-                    && (value.dsAvaliacao !== '' && value.dsAvaliacao.length > this.minChar)
-                ) {
-                    this.encaminharDisponivel = true;
-                    this.opcoesEncaminhamento = false;
-                } else {
-                    this.encaminharDisponivel = false;
-                    this.checkDisponivelEncaminhar();
-                }
-            },
-            deep: true,
+        dsOrientacao() {
+            this.checkDisponivelDevolver();
         },
         getDestinatariosDistribuicao() {
             this.selecionarDestinatario = true;
         },
     },
     mounted() {
-        this.inicializarReadequacaoEditada();
+        this.loading = false;
+        this.checkDisponivelDevolver();
     },
     methods: {
         ...mapActions({
-            buscarReadequacoesPainelAguardandoDistribuicao: 'readequacao/buscarReadequacoesPainelAguardandoDistribuicao',
-            buscarReadequacoesPainelEmAnalise: 'readequacao/buscarReadequacoesPainelEmAnalise',
+            buscarReadequacoesPainelEmAnalise: 'readequacao/buscarReadequacoesPainelAguardandoDistribuicao',
             obterDestinatariosDistribuicao: 'readequacao/obterDestinatariosDistribuicao',
-            distribuirReadequacao: 'readequacao/distribuirReadequacao',
+            encaminharParaAnalise: 'readequacao/encaminharParaAnalise',
             setSnackbar: 'noticias/setDados',
         }),
-        checkDisponivelEncaminhar() {
-            this.opcoesEncaminhamento = (this.readequacaoEditada.dsAvaliacao !== '' && this.readequacaoEditada.stAtendimento === 'D');
-            if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
-                || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI
-            ) {
-                if (this.getDestinatariosDistribuicao.length > 0) {
-                    this.selecionarDestinatario = true;
+        checkDisponivelDevolver() {
+            if (this.dsOrientacao !== '' && this.dsOrientacao.length > this.minChar) {
+                if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
+                    || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI
+                ) {
+                    if (this.getDestinatariosDistribuicao.length > 0) {
+                        this.selecionarDestinatario = true;
+                    }
+                    this.encaminharDisponivel = this.dadosEncaminhamento.destinatario !== '';
+                } else {
+                    this.selecionarDestinatario = false;
+                    this.encaminharDisponivel = this.dadosEncaminhamento.vinculada > 0;
                 }
-                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario !== '';
             } else {
-                this.selecionarDestinatario = false;
-                this.encaminharDisponivel = this.dadosEncaminhamento.vinculada > 0;
+                this.encaminharDisponivel = false;
             }
         },
-        inicializarReadequacaoEditada() {
-            this.readequacaoEditada = {
+        encaminharAnalise() {
+            this.encaminharParaAnalise({
                 idPronac: this.dadosReadequacao.idPronac,
                 idReadequacao: this.dadosReadequacao.idReadequacao,
-                idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
-                dsAvaliacao: this.dadosReadequacao.dsAvaliacao || '',
-                stAtendimento: this.dadosReadequacao.stAtendimento,
-            };
-            this.loading = false;
-            this.checkDisponivelEncaminhar();
-        },
-        encaminharAnalise() {
-            this.distribuirReadequacao({
-                idPronac: this.readequacaoEditada.idPronac,
-                idReadequacao: this.readequacaoEditada.idReadequacao,
-                stAtendimento: this.readequacaoEditada.stAtendimento,
-                dsAvaliacao: this.readequacaoEditada.dsAvaliacao,
                 destinatario: this.dadosEncaminhamento.destinatario,
                 vinculada: this.dadosEncaminhamento.vinculada,
+                dsOrientacao: this.dsOrientacao,
             }).then(() => {
                 this.setSnackbar({
                     ativo: true,
                     color: 'success',
-                    text: 'Readequação distribuída!',
+                    text: 'Readequação encaminada!',
                 });
                 this.dialog = false;
             });

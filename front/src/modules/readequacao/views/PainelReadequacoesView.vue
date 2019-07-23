@@ -196,7 +196,7 @@
                         <v-card>
                             <tabela-readequacoes-painel
                                 :dados-readequacao="getReadequacoesPainelAguardandoPublicacao"
-                                :componentes="acoesCoordenadorAguardandoDistribuicao"
+                                :componentes="acoesCoordenadorAguardandoPublicacao"
                                 :painel="`aguardando_publicacao`"
                                 :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
@@ -255,7 +255,8 @@ import EditarReadequacaoButton from '../components/EditarReadequacaoButton';
 import VisualizarReadequacaoButton from '../components/VisualizarReadequacaoButton';
 import AnalisarReadequacaoButton from '../components/AnalisarReadequacaoButton';
 import DistribuirReadequacaoButton from '../components/DistribuirReadequacaoButton';
-import EncaminharReadequacaoButton from '../components/EncaminharReadequacaoButton';
+import RedistribuirReadequacaoButton from '../components/RedistribuirReadequacaoButton';
+import DevolverReadequacaoButton from '../components/DevolverReadequacaoButton';
 import Carregando from '@/components/CarregandoVuetify';
 import CriarReadequacao from '../components/CriarReadequacao';
 import MxReadequacao from '../mixins/Readequacao';
@@ -272,7 +273,7 @@ export default {
         VisualizarReadequacaoButton,
         AnalisarReadequacaoButton,
         DistribuirReadequacaoButton,
-        EncaminharReadequacaoButton,
+        RedistribuirReadequacaoButton,
         FinalizarButton,
         CriarReadequacao,
         SalicMensagemErro,
@@ -355,7 +356,7 @@ export default {
                         permissao: 'analise',
                     },
                     {
-                        componente: EncaminharReadequacaoButton,
+                        componente: RedistribuirReadequacaoButton,
                         permissao: 'coordenador',
                     },
                 ],
@@ -371,7 +372,7 @@ export default {
                         permissao: 'analisar',
                     },
                     {
-                        componente: EncaminharReadequacaoButton,
+                        componente: DevolverReadequacaoButton,
                         permissao: 'coordenador',
                     },
                 ],
@@ -470,7 +471,7 @@ export default {
                 }
             }
         },
-        getReadequacoesPainelAguardandoPublicacao(value) {
+        getReadequacoesPainelAguardandoDistribuicao(value) {
             if (typeof value === 'object') {
                 if (Object.keys(value).length > 0) {
                     this.loaded.readequacao = true;
