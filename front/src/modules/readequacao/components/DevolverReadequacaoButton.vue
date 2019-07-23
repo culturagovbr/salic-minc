@@ -52,7 +52,7 @@
                             <v-btn
                                 dark
                                 flat
-                                @click="encaminharAnalise"
+                                @click="devolverReadequacao"
                             >
                                 <v-icon left>
                                     save
@@ -69,6 +69,27 @@
                         >
                             <v-layout wrap>
                                 <v-flex
+                                    xs12
+                                    sm12
+                                    md12
+                                >
+                                    <v-radio-group
+                                        v-model="encaminharOutroTecnico"
+                                    >
+                                        <v-radio
+                                            :label="`Devolver para o mesmo técnico`"
+                                            :value="false"
+                                            color="green"
+                                        />
+                                        <v-radio
+                                            :label="`Enviar para outro técnico`"
+                                            :value="true"
+                                            color="green"
+                                        />
+                                    </v-radio-group>
+                                </v-flex>
+                                <v-flex
+                                    v-if="encaminharOutroTecnico"
                                     xs3
                                     sm12
                                     md4
@@ -112,10 +133,10 @@
                                 justify-center
                             >
                                 <v-btn
-                                    v-if="encaminharDisponivel"
+                                    v-if="devolverDisponivel"
                                     dark
                                     color="blue accent-4"
-                                    @click="encaminharAnalise()"
+                                    @click="devolverAnalise()"
                                 >
                                     <v-icon left>
                                         send
@@ -145,7 +166,7 @@ import Carregando from '@/components/CarregandoVuetify';
 import Const from '../const';
 
 export default {
-    name: 'DistribuirReadequacaoButton',
+    name: 'DevolverReadequacaoButton',
     components: {
         Carregando,
         SEditorTexto,
@@ -158,13 +179,14 @@ export default {
     },
     data() {
         return {
-            encaminharDisponivel: false,
+            devolverDisponivel: false,
             selecionarDestinatario: false,
             valid: false,
             loading: true,
             dialog: false,
             minChar: 10,
             dsOrientacao: '',
+            encaminharOutroTecnico: false,
             dadosEncaminhamento: {
                 vinculada: 0,
                 destinatario: '',
@@ -216,6 +238,9 @@ export default {
         dsOrientacao() {
             this.checkDisponivelDevolver();
         },
+        encaminharOutroTecnico() {
+            this.checkDisponivelDevolver();
+        },
         getDestinatariosDistribuicao() {
             this.selecionarDestinatario = true;
         },
@@ -228,38 +253,43 @@ export default {
         ...mapActions({
             buscarReadequacoesPainelEmAnalise: 'readequacao/buscarReadequacoesPainelAguardandoDistribuicao',
             obterDestinatariosDistribuicao: 'readequacao/obterDestinatariosDistribuicao',
-            encaminharParaAnalise: 'readequacao/encaminharParaAnalise',
+            devolverReadequacao: 'readequacao/devolverReadequacao',
             setSnackbar: 'noticias/setDados',
         }),
         checkDisponivelDevolver() {
             if (this.dsOrientacao !== '' && this.dsOrientacao.length > this.minChar) {
-                if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
-                    || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI
-                ) {
-                    if (this.getDestinatariosDistribuicao.length > 0) {
-                        this.selecionarDestinatario = true;
+                if (this.encaminharOutroTecnico) {
+                    if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
+                        || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI
+                       ) {
+                        if (this.getDestinatariosDistribuicao.length > 0) {
+                            this.selecionarDestinatario = true;
+                        }
+                        this.devolverDisponivel = this.dadosEncaminhamento.destinatario !== '';
+                    } else {
+                        this.selecionarDestinatario = false;
+                        this.devolverDisponivel = this.dadosEncaminhamento.vinculada > 0;
                     }
-                    this.encaminharDisponivel = this.dadosEncaminhamento.destinatario !== '';
                 } else {
-                    this.selecionarDestinatario = false;
-                    this.encaminharDisponivel = this.dadosEncaminhamento.vinculada > 0;
+                    this.devolverDisponivel = true;
                 }
             } else {
-                this.encaminharDisponivel = false;
+                this.devolverDisponivel = false;
             }
         },
-        encaminharAnalise() {
-            this.encaminharParaAnalise({
+        devolverAnalise() {
+            this.devolverReadequacao({
                 idPronac: this.dadosReadequacao.idPronac,
                 idReadequacao: this.dadosReadequacao.idReadequacao,
                 destinatario: this.dadosEncaminhamento.destinatario,
                 vinculada: this.dadosEncaminhamento.vinculada,
                 dsOrientacao: this.dsOrientacao,
+                stAtendimento: 'N',
             }).then(() => {
                 this.setSnackbar({
                     ativo: true,
                     color: 'success',
-                    text: 'Readequação encaminada!',
+                    text: 'Readequação devolvida!',
                 });
                 this.dialog = false;
             });

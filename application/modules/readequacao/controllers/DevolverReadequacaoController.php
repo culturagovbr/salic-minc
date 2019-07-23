@@ -44,7 +44,7 @@ class Readequacao_DevolverReadequacaoController extends MinC_Controller_Rest_Abs
         } else {
             $encaminhar = $readequacaoService->devolverReadequacao();
             if ($encaminhar) {
-                $data['message'] = "Readequação devolvida para o coordenador.";
+                $data['message'] = "Readequação devolvida para o técnico.";
             }
         }
         

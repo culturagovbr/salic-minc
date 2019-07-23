@@ -1438,6 +1438,52 @@ class Readequacao implements IServicoRestZend
         return $dadosUsuarios;
     }
 
+    private function __invalidarAssinatura($idReadequacao)
+    {
+        $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
+        $auth = \Zend_Auth::getInstance();
+        
+        $tbDocumentoAssinaturaDbTable = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
+        $tbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
+        $servicoReadequacaoAssinatura = new ReadequacaoAssinaturaService(
+            $grupoAtivo,
+            $auth
+        );
+        
+        $readequacao = $tbReadequacao->buscarDadosReadequacoes(['idReadequacao = ?' => $idReadequacao])->current();
+        $idTipoDoAto = $servicoReadequacaoAssinatura->obterAtoAdministrativoPorTipoReadequacao($readequacao['idTipoReadequacao']);
+
+        if (!$idTipoDoAto) {
+            $errorMessage = "Ato administrativo não encontrado!";
+            throw new \Exception($errorMessage);
+        }
+        
+        $documentoAssinatura = $tbDocumentoAssinaturaDbTable->obterDocumentoAssinatura(
+            $readequacao['idPronac'],
+            $idTipoDoAto
+        );
+
+        if (!$idTipoDoAto) {
+            $errorMessage = "Documento assinatura não encontrado!";
+            throw new \Exception($errorMessage);
+        }
+        
+        $data = [
+            'cdSituacao' => \Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_FECHADO_PARA_ASSINATURA,
+            'stEstado' => \Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_INATIVO
+        ];
+        $where = [
+            'idDocumentoAssinatura = ?' => $documentoAssinatura['idDocumentoAssinatura'],
+        ];
+        
+        $tbDocumentoAssinaturaDbTable->update(
+            $data,
+            $where
+        );
+        
+        return true;
+    }
+
     public function distribuirReadequacao()
     {
         $parametros = $this->request->getParams();
@@ -1453,8 +1499,9 @@ class Readequacao implements IServicoRestZend
         $dataEnvio = null;
         
         if ($readequacao) {
-            
-            $readequacao->stAtendimento = $parametros['stAtendimento'];
+            if ($parametros['stAtendimento']) {
+                $readequacao->stAtendimento = $parametros['stAtendimento'];
+            }
             $readequacao->dsAvaliacao = $parametros['dsAvaliacao'];
             $readequacao->dtAvaliador = new \Zend_Db_Expr('GETDATE()');
             $readequacao->idAvaliador = $idUsuario;
@@ -1478,7 +1525,9 @@ class Readequacao implements IServicoRestZend
                 }
             }
             $readequacao->save();
-            if ($parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEFERIDA) {
+            if ($parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEFERIDA
+                || $parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_SEM_AVALIACAO 
+            ) {
                 $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
                 $jaDistribuiu = $tbDistribuirReadequacao->buscar(['idReadequacao = ?' => $readequacao->idReadequacao])->current();
                 
@@ -1507,7 +1556,7 @@ class Readequacao implements IServicoRestZend
 
                     $tbDistribuirReadequacao->update($dados, $where);
                 }
-            } else if ($parametros['stAtendimento'] == \Readequacao_ModelDbTable_TbReadequacao::ST_ATENDIMENTO_DEVOLVIDA) {
+            } else if ($parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEVOLVIDA) {
                 $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
                 $excluiDistribuicao = $tbDistribuirReadequacao->delete([
                     'idReadequacao = ?' => $readequacao->idReadequacao
@@ -1521,9 +1570,6 @@ class Readequacao implements IServicoRestZend
     {
         $parametros = $this->request->getParams();
         
-        $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
-        $auth = \Zend_Auth::getInstance();
-        
         $idReadequacao = $parametros['idReadequacao'];
         $dsOrientacao = $parametros['dsOrientacao'];
         $stValidacaoCoordenador = 0;
@@ -1531,33 +1577,7 @@ class Readequacao implements IServicoRestZend
         $destinatario = $parametros['destinatario'];
         $idUnidade = $parametros['vinculada'];
         
-        $tbDocumentoAssinaturaDbTable = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
-        $tbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
-        $servicoReadequacaoAssinatura = new ReadequacaoAssinaturaService(
-            $grupoAtivo,
-            $auth
-        );
-        
-        $readequacao = $tbReadequacao->buscarDadosReadequacoes(['idReadequacao = ?' => $idReadequacao])->current();
-        $idTipoDoAto = $servicoReadequacaoAssinatura->obterAtoAdministrativoPorTipoReadequacao($readequacao['idTipoReadequacao']);
-        
-        $documentoAssinatura = $tbDocumentoAssinaturaDbTable->obterDocumentoAssinatura(
-            $readequacao['idPronac'],
-            $idTipoDoAto
-        );
-        
-        $data = [
-            'cdSituacao' => \Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_FECHADO_PARA_ASSINATURA,
-            'stEstado' => \Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_INATIVO
-        ];
-        $where = [
-            'idDocumentoAssinatura = ?' => $documentoAssinatura['idDocumentoAssinatura'],
-        ];
-        
-        $update = $tbDocumentoAssinaturaDbTable->update(
-            $data,
-            $where
-        );
+        $this->__invalidarAssinatura($idReadequacao);
         
         try {
             if (in_array($idUnidade, [
@@ -1613,7 +1633,15 @@ class Readequacao implements IServicoRestZend
 
     public function devolverReadequacao()
     {
+        $parametros = $this->request->getParams();
+
+        $dados = [];
+        $idReadequacao = $parametros['idReadequacao'];
+
+        $this->__invalidarAssinatura($idReadequacao);
+        $this->distribuirReadequacao();
         
+        return true;
     }
 }
 
