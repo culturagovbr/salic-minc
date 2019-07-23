@@ -115,6 +115,11 @@
                                         item-value="id"
                                         @change="obterDestinatarios()"
                                     />
+                                    <carregando
+                                        v-if="loadingDestinatarios"
+                                        :definedClass="`body-1`"
+                                        :text="'Carregando destinatários/as...'"
+                                    />
                                     <v-select
                                         v-if="selecionarDestinatario"
                                         v-model="dadosEncaminhamento.destinatario"
@@ -185,6 +190,7 @@ export default {
             textIsValid: false,
             valid: false,
             loading: true,
+            loadingDestinatarios: false,
             dialog: false,
             minChar: 10,
             dadosEncaminhamento: {
@@ -256,7 +262,10 @@ export default {
             },
             deep: true,
         },
-        getDestinatariosDistribuicao() {
+        getDestinatariosDistribuicao(value) {
+            if (value.length > 0) {
+                this.loadingDestinatarios = false;
+            }
             this.selecionarDestinatario = true;
         },
     },
@@ -314,6 +323,7 @@ export default {
             });
         },
         obterDestinatarios() {
+            this.loadingDestinatarios = true;
             this.dadosEncaminhamento.destinatario = '';
             if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI) {
                 this.obterDestinatariosDistribuicao({

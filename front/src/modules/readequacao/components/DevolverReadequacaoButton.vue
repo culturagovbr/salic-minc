@@ -102,6 +102,11 @@
                                         item-value="id"
                                         @change="obterDestinatarios()"
                                     />
+                                    <carregando
+                                        v-if="loadingDestinatarios"
+                                        :definedClass="`body-1`"
+                                        :text="'Carregando destinatários/as...'"
+                                    />
                                     <v-select
                                         v-if="selecionarDestinatario"
                                         v-model="dadosEncaminhamento.destinatario"
@@ -184,6 +189,7 @@ export default {
             valid: false,
             loading: true,
             dialog: false,
+            loadingDestinatarios: false,
             minChar: 10,
             dsOrientacao: '',
             encaminharOutroTecnico: false,
@@ -241,7 +247,10 @@ export default {
         encaminharOutroTecnico() {
             this.checkDisponivelDevolver();
         },
-        getDestinatariosDistribuicao() {
+        getDestinatariosDistribuicao(value) {
+            if (value.length > 0) {
+                this.loadingDestinatarios = false;
+            }
             this.selecionarDestinatario = true;
         },
     },
@@ -295,6 +304,7 @@ export default {
             });
         },
         obterDestinatarios() {
+            this.loadingDestinatarios = true;            
             this.dadosEncaminhamento.destinatario = '';
             if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI) {
                 this.obterDestinatariosDistribuicao({
