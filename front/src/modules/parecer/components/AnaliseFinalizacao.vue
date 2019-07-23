@@ -109,12 +109,14 @@
 
 import { mapActions, mapGetters } from 'vuex';
 import SCarregando from '@/components/CarregandoVuetify';
+import MxConstantes from '@/modules/parecer/mixins/const';
 
 export default {
     components: { SCarregando },
     data: () => ({
         loading: true,
         loadingButton: false,
+        mixins: [MxConstantes],
         tasks: [
             {
                 name: 'analise-conteudo',
@@ -148,8 +150,8 @@ export default {
                 loading: true,
                 done: false,
                 rules: [
-                    v => (v.length > 0 && v.filter(i => i.DtDevolucao === null
-                        && i.FecharAnalise === '0'
+                    v => (v.length > 0 && v.filter(i => (i.siAnalise === 0
+                        || i.siAnalise === 1)
                         && i.stPrincipal === 0).length === 0)
                         || 'Existem produtos pendentes de análise',
                 ],

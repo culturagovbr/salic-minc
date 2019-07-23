@@ -139,6 +139,25 @@
                                 </td>
                                 <td class="layout px-0">
                                     <v-tooltip
+                                        v-if="props.item.siAnalise === SI_ANALISE_ANALISADO"
+                                        bottom
+                                    >
+                                        <v-btn
+                                            slot="activator"
+                                            color="blue-grey darken-2"
+                                            flat
+                                            icon
+                                            class="mr-2"
+                                            disabled
+                                        >
+                                            <v-icon>
+                                                watch_later
+                                            </v-icon>
+                                        </v-btn>
+                                        <span>Este produto é secundário e será enviado após finalização do produto principal.</span>
+                                    </v-tooltip>
+                                    <v-tooltip
+                                        v-else
                                         bottom
                                     >
                                         <v-btn
@@ -151,12 +170,12 @@
                                                     produtoPrincipal: props.item.stPrincipal,
                                                 }
                                             }"
-                                            color="primary"
-                                            flat
+                                            :color="obterConfigsBotaoPrincipal(props.item).cor"
                                             icon
+                                            small
                                             class="mr-2"
                                         >
-                                            <v-icon>
+                                            <v-icon :color="obterConfigsBotaoPrincipal(props.item).corIcone">
                                                 {{ obterConfigsBotaoPrincipal(props.item).icone }}
                                             </v-icon>
                                         </v-btn>
@@ -175,7 +194,7 @@
                                             class="mr-2"
                                             @click="declararImpedimento(props.item)"
                                         >
-                                            <v-icon>
+                                            <v-icon >
                                                 voice_over_off
                                             </v-icon>
                                         </v-btn>
@@ -300,18 +319,24 @@ export default {
             switch (produto.siAnalise) {
             case 1:
                 return {
-                    icone: 'border_color',
+                    icone: 'gavel',
                     texto: 'Continuar analisando',
+                    cor: 'green lighten-3',
+                    corIcone: 'green darken-4',
                 };
             case 2:
                 return {
-                    icone: 'assignment',
+                    icone: 'edit',
                     texto: 'Assinar parecer e finalizar',
+                    cor: 'grey lighten-3',
+                    corIcone: 'blue-grey darken-2',
                 };
             default:
                 return {
-                    icone: 'edit',
+                    icone: 'gavel',
                     texto: 'Analisar produto',
+                    cor: 'grey lighten-3',
+                    corIcone: 'blue-grey darken-2',
                 };
             }
         },

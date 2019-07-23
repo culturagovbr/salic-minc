@@ -177,8 +177,6 @@
 
 <script>
 
-import { mapActions } from 'vuex';
-
 import MxUtils from '@/mixins/utils';
 import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
 import MxConstantes from '@/modules/parecer/mixins/const';
