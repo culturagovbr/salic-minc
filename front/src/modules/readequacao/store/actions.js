@@ -377,8 +377,20 @@ export const distribuirReadequacao = ({ dispatch }, params) => {
         });
 };
 
-export const encaminharParaAnalise = ({ dispatch }, params) => {
-    readequacaoHelperAPI.encaminharParaAnalise(params)
+export const redistribuirReadequacao = ({ dispatch }, params) => {
+    readequacaoHelperAPI.redistribuirReadequacao(params)
+        .then(() => {
+            dispatch('buscarReadequacoesPainelEmAnalise', {
+                filtro: 'em_analise',
+            });
+            dispatch('buscarReadequacoesPainelAnalisados', {
+                filtro: 'analisados',
+            });
+        });
+};
+
+export const devolverReadequacao = ({ dispatch }, params) => {
+    readequacaoHelperAPI.devolverReadequacao(params)
         .then(() => {
             dispatch('buscarReadequacoesPainelEmAnalise', {
                 filtro: 'em_analise',

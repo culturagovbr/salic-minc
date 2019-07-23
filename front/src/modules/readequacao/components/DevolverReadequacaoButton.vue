@@ -44,7 +44,7 @@
                             <v-icon>close</v-icon>
                         </v-btn>
                         <v-toolbar-title>
-                            Avaliar readequação -
+                            Devolver readequação -
                             {{ dadosReadequacao.idReadequacao }} - {{ dadosReadequacao.NomeProjeto }} - {{ dadosReadequacao.tpReadequacao }}
                         </v-toolbar-title>
                         <v-spacer />

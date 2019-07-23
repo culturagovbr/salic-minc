@@ -44,7 +44,7 @@
                             <v-icon>close</v-icon>
                         </v-btn>
                         <v-toolbar-title>
-                            Avaliar readequação -
+                            Distribuir readequação -
                             {{ dadosReadequacao.idReadequacao }} - {{ dadosReadequacao.NomeProjeto }} - {{ dadosReadequacao.tpReadequacao }}
                         </v-toolbar-title>
                         <v-spacer />
@@ -244,7 +244,7 @@ export default {
         },
         readequacaoEditada: {
             handler(value) {
-                if (value.stAtendimento === 'E')
+                if (value.stAtendimento === 'E'
                     && (value.dsAvaliacao !== '' && value.dsAvaliacao.length > this.minChar)
                 ) {
                     this.encaminharDisponivel = true;

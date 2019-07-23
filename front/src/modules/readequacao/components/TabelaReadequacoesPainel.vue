@@ -49,7 +49,7 @@
                         <td
                             :key="index"
                             class="text-xs-center"
-                            v-html="checkDate(props.item[item.value])"
+                            v-html="filterDate(props.item[item.value])"
                         />
                     </template>
                 </template>
@@ -270,7 +270,7 @@ export default {
                     return true;
                 }
             }
-            return false;
+            return value;
         },
         perfilAceito(tipoPerfil) {
             const perfisAceitos = this.perfisAceitos[tipoPerfil];
@@ -279,11 +279,11 @@ export default {
             }
             return false;
         },
-        checkDate(value) {
+        filterDate(value) {
             if (Date.parse(value)) {
                 return this.$options.filters.formatarData(value);
             }
-            return false;
+            return value;
         },
     },
 };

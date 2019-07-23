@@ -44,7 +44,7 @@
                             <v-icon>close</v-icon>
                         </v-btn>
                         <v-toolbar-title>
-                            Avaliar readequação -
+                            Redistribuir readequação -
                             {{ dadosReadequacao.idReadequacao }} - {{ dadosReadequacao.NomeProjeto }} - {{ dadosReadequacao.tpReadequacao }}
                         </v-toolbar-title>
                         <v-spacer />
@@ -228,7 +228,7 @@ export default {
         ...mapActions({
             buscarReadequacoesPainelEmAnalise: 'readequacao/buscarReadequacoesPainelAguardandoDistribuicao',
             obterDestinatariosDistribuicao: 'readequacao/obterDestinatariosDistribuicao',
-            encaminharParaAnalise: 'readequacao/encaminharParaAnalise',
+            redistribuirReadequacao: 'readequacao/redistribuirReadequacao',
             setSnackbar: 'noticias/setDados',
         }),
         checkDisponivelRedistribuir() {
@@ -249,7 +249,7 @@ export default {
             }
         },
         encaminharAnalise() {
-            this.encaminharParaAnalise({
+            this.redistribuirReadequacao({
                 idPronac: this.dadosReadequacao.idPronac,
                 idReadequacao: this.dadosReadequacao.idReadequacao,
                 destinatario: this.dadosEncaminhamento.destinatario,

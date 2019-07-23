@@ -2,7 +2,7 @@
 
 use Application\Modules\Readequacao\Service\Readequacao\Readequacao as ReadequacaoService;
 
-class Readequacao_EncaminharParaAnaliseController extends MinC_Controller_Rest_Abstract
+class Readequacao_RedistribuirReadequacaoController extends MinC_Controller_Rest_Abstract
 {
 
     public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = array())
@@ -39,12 +39,12 @@ class Readequacao_EncaminharParaAnaliseController extends MinC_Controller_Rest_A
         
         if (!$permissao) {
             $data['permissao'] = false;
-            $data['message'] = 'Você não tem permissão para encaminhar esta readequação';
+            $data['message'] = 'Você não tem permissão para redistribuir esta readequação';
             $this->customRenderJsonResponse($data, $code);
         } else {
-            $encaminhar = $readequacaoService->encaminharParaAnalise();
+            $encaminhar = $readequacaoService->redistribuirReadequacao();
             if ($encaminhar) {
-                $data['message'] = "Readequação encaminhada para técnico.";
+                $data['message'] = "Readequação redistribuída para técnico.";
             }
         }
         

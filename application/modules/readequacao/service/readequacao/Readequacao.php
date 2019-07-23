@@ -1517,7 +1517,7 @@ class Readequacao implements IServicoRestZend
         return true;
     }
 
-    public function encaminharParaAnalise()
+    public function redistribuirReadequacao()
     {
         $parametros = $this->request->getParams();
         
@@ -1609,6 +1609,11 @@ class Readequacao implements IServicoRestZend
         }
         
         return true;
+    }
+
+    public function devolverReadequacao()
+    {
+        
     }
 }
 
