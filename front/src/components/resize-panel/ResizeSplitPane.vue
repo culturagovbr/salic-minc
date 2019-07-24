@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import Resizer from './Resizer';
-import Pane from './Pane';
+import Resizer from '@/components/resize-panel/Resizer';
+import Pane from '@/components/resize-panel/Pane';
 
 function unFocus(document, window) {
     if (document.selection) {

@@ -94,9 +94,9 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex';
-import Carregando from '@/components/CarregandoVuetify';
-import { utils } from '@/mixins/utils';
 import { Printd } from 'printd';
+import { utils } from '@/mixins/utils';
+import Carregando from '@/components/CarregandoVuetify';
 import FiltroData from './components/FiltroData';
 import FiltroTipoConta from './components/FiltroTipoConta';
 

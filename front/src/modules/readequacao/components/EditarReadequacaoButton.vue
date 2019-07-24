@@ -27,7 +27,6 @@
             />
         </template>
         <v-dialog
-            :persistent="mensagem.ativa"
             v-model="dialog"
             fullscreen
             hide-overlay
@@ -117,6 +116,7 @@
                                     class="mt-1"
                                     @arquivo-anexado="atualizarArquivo($event)"
                                     @arquivo-removido="removerArquivo()"
+                                    @arquivo-tipo-invalido="arquivoTipoInvalido($event)"
                                 />
                             </v-card-actions>
                         </v-card>
@@ -136,11 +136,9 @@
                                         color="green darken-1"
                                         dark
                                         @click="salvarReadequacao()"
-                                    >Salvar
-                                        <v-icon
-                                            right
-                                            dark
-                                        >
+                                    >
+                                        Salvar
+                                        <v-icon>
                                             done
                                         </v-icon>
                                     </v-btn>
@@ -158,7 +156,6 @@
                                     </v-btn>
                                     <finalizar-button
                                         :disabled="!validacao"
-                                        :dados-readequacao="dadosReadequacao"
                                         :dados-projeto="dadosProjeto"
                                         :tela-edicao="true"
                                         :readequacao-editada="readequacaoEditada"
@@ -170,20 +167,6 @@
                         </v-footer>
                     </v-flex>
                 </v-layout>
-                <v-snackbar
-                    :color="mensagem.cor"
-                    :timeout="mensagem.timeout"
-                    v-model="mensagem.ativa"
-                    bottom
-                ><span>{{ mensagem.conteudo }}</span>
-                    <v-btn
-                        dark
-                        flat
-                        @click="mensagem.ativa = false"
-                    >
-                        Fechar
-                    </v-btn>
-                </v-snackbar>
             </v-card>
         </v-dialog>
     </v-layout>
@@ -200,8 +183,7 @@ import TemplateDate from './TemplateDate';
 import TemplateRedirect from './TemplateRedirect';
 import FinalizarButton from './FinalizarButton';
 import UploadFile from './UploadFile';
-import validarFormulario from '../mixins/validarFormulario';
-import verificarPerfil from '../mixins/verificarPerfil';
+import MxReadequacao from '../mixins/Readequacao';
 
 export default {
     name: 'EditarReadequacaoButton',
@@ -216,8 +198,7 @@ export default {
         UploadFile,
     },
     mixins: [
-        validarFormulario,
-        verificarPerfil,
+        MxReadequacao,
     ],
     props: {
         dadosReadequacao: {
@@ -254,7 +235,7 @@ export default {
                 date: 'TemplateDate',
             },
             templateEdicao: [],
-            formatosAceitos: 'application/pdf',
+            formatosAceitos: ['application/pdf'],
             panel: [true, true],
             readequacaoEditada: {
                 idReadequacao: 0,
@@ -266,13 +247,6 @@ export default {
                 dsAvaliacao: '',
             },
             redirecionar: false,
-            mensagem: {
-                ativa: false,
-                timeout: 2300,
-                conteudo: '',
-                cor: '',
-                finaliza: false,
-            },
             recarregarReadequacoes: false,
             validacao: false,
             contador: {
@@ -339,15 +313,6 @@ export default {
                 this.dialog = true;
             }
         },
-        mensagem: {
-            handler(mensagem) {
-                if (mensagem.ativa === false
-                    && mensagem.finaliza === true) {
-                    this.dialog = false;
-                }
-            },
-            deep: true,
-        },
         dadosReadequacao: {
             handler(value) {
                 if (value.idPronac && value.idTipoReadequacao) {
@@ -374,6 +339,8 @@ export default {
             obterReadequacao: 'readequacao/obterReadequacao',
             updateReadequacao: 'readequacao/updateReadequacao',
             finalizarReadequacao: 'readequacao/finalizarReadequacao',
+            mensagemSucesso: 'noticias/mensagemSucesso',
+            mensagemErro: 'noticias/mensagemErro',
         }),
         obterDadosIniciais() {
             if (
@@ -407,11 +374,7 @@ export default {
         },
         salvarReadequacao() {
             this.updateReadequacao(this.readequacaoEditada).then(() => {
-                this.mensagem.conteudo = 'Readequação salva com sucesso!';
-                this.mensagem.timeout = 2300;
-                this.mensagem.ativa = true;
-                this.mensagem.finaliza = true;
-                this.mensagem.cor = 'green darken-1';
+                this.mensagemSucesso('Readequação salva com sucesso!');
                 this.recarregarReadequacoes = true;
             });
         },
@@ -434,10 +397,7 @@ export default {
                 this.readequacaoEditada.idPronac = this.dadosReadequacao.idPronac;
             }
             this.updateReadequacao(this.readequacaoEditada).then(() => {
-                this.mensagem.conteudo = 'Arquivo enviado!';
-                this.mensagem.ativa = true;
-                this.mensagem.finaliza = false;
-                this.mensagem.cor = 'green darken-1';
+                this.mensagemSucesso('Arquivo enviado!');
                 this.recarregarReadequacoes = true;
                 this.uploadActionDone = true;
             });
@@ -447,13 +407,14 @@ export default {
             this.readequacaoEditada.documento = '';
             this.readequacaoEditada.idDocumento = '';
             this.updateReadequacao(this.readequacaoEditada).then(() => {
-                this.mensagem.conteudo = 'Arquivo removido!';
-                this.mensagem.ativa = true;
-                this.mensagem.finaliza = false;
-                this.mensagem.cor = 'green darken-1';
+                this.mensagemSucesso('Arquivo removido!');
                 this.recarregarReadequacoes = true;
                 this.uploadActionDone = true;
             });
+        },
+        arquivoTipoInvalido(payload) {
+            const tiposValidos = payload.formatosAceitos.join(', ');
+            this.mensagemErro(`Tipo fornecido (${payload.formatoEnviado}) não é aceito. Tipos aceitos: ${tiposValidos}`);
         },
         atualizarCampo(valor, campo) {
             if (typeof this.readequacaoEditada.idTipoReadequacao !== 'undefined') {

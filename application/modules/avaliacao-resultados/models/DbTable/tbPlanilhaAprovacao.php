@@ -895,6 +895,7 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
         $select->where('a.nrFonteRecurso = 109');
         $select->where("d.Mecanismo = '1'");
         $select->where("d.Orgao = ?", $codGrupo);
+        $select->where("d.Situacao = ?", "E68");
 
         if (!empty($search['value'])) {
             $select->where('d.AnoProjeto+d.Sequencial like ? OR d.NomeProjeto like ?', '%' . $search['value'] . '%');

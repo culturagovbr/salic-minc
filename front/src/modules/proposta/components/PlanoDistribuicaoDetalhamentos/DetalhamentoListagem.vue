@@ -159,8 +159,8 @@
 </template>
 
 <script>
-import { utils } from '@/mixins/utils';
 import numeral from 'numeral';
+import { utils } from '@/mixins/utils';
 import DetalhamentoListagemConsolidacao from './DetalhamentoListagemConsolidacao';
 
 numeral.locale('pt-br');

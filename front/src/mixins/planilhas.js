@@ -1,8 +1,6 @@
 import numeral from 'numeral';
-
-import moneyFilter from '@/filters/money';
-
 import moment from 'moment';
+import moneyFilter from '@/filters/money';
 import 'numeral/locales';
 
 numeral.locale('pt-br');
@@ -71,6 +69,11 @@ export default {
         },
         formatarParaReal(value) {
             return this.$options.filters.filtroFormatarParaReal(value);
+        },
+        decodeHtml(value) {
+            const decoded = document.createElement('span');
+            decoded.innerHTML = value;
+            return decoded.textContent;
         },
     },
     filters: {

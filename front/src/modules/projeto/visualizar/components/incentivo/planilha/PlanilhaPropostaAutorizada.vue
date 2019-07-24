@@ -18,10 +18,10 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import Carregando from '@/components/Carregando';
 import Planilha from '@/components/Planilha/Planilha';
 import PlanilhaItensAutorizados from '@/components/Planilha/PlanilhaItensAutorizados';
-import { mapActions, mapGetters } from 'vuex';
 import MxPlanilha from '@/mixins/planilhas';
 
 export default {

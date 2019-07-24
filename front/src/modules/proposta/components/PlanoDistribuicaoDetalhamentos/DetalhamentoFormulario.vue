@@ -408,9 +408,8 @@
 </template>
 
 <script>
-import { utils } from '@/mixins/utils';
 import numeral from 'numeral';
-
+import { utils } from '@/mixins/utils';
 import SSelectPercent from '@/components/SalicSelectPercent';
 import SInputMoney from '@/components/SalicInputMoney';
 

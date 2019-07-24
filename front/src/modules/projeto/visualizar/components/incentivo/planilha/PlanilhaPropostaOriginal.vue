@@ -14,9 +14,9 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import Carregando from '@/components/Carregando';
 import Planilha from '@/components/Planilha/Planilha';
-import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'PlanilhaPropostaOriginal',

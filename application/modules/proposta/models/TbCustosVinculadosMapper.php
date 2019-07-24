@@ -176,7 +176,7 @@ class Proposta_Model_TbCustosVinculadosMapper extends MinC_Db_Mapper
         ];
     }
 
-    public function obterCustosVinculadosReadequacao($idPronac)
+    public function obterCustosVinculadosReadequacao($idPronac, $idReadequacao = '')
     {
         if (!$idPronac) {
             return;
@@ -190,11 +190,13 @@ class Proposta_Model_TbCustosVinculadosMapper extends MinC_Db_Mapper
         $custosVinculados = $tbCustosVinculadosMapper->obterCustosVinculadosPlanilhaProposta($idPreProjeto);
 
         $readequacaoModelDbTable = new Readequacao_Model_DbTable_TbReadequacao();
-        $idReadequacao = $readequacaoModelDbTable->buscarIdReadequacaoAtiva(
-            $idPronac,
-            Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA
-        );
-
+        if ($idReadequacao == '') {
+            $idReadequacao = $readequacaoModelDbTable->buscarIdReadequacaoAtiva(
+                $idPronac,
+                Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA
+            );
+        }
+        
         $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
         $itensEmReadequacao = $tbPlanilhaAprovacao->obterPlanilhaReadequacao($idReadequacao);
 

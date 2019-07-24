@@ -257,7 +257,8 @@ export default {
                 const idMunicipio = `idmunicipio/${this.idmunicipio}`;
                 const idPlanilhaItem = `idPlanilhaItem/${this.item.idPlanilhaItens}`;
                 const etapa = `etapa/${this.etapa}`;
-                params = `${idPronac}/${idPlanilhaItem}/${produto}/${uf}/${idMunicipio}/${etapa}`;
+                const idUf = `idUf/${this.cdUf}`;
+                params = `${idPronac}/${idPlanilhaItem}/${produto}/${uf}/${idMunicipio}/${etapa}/${idUf}`;
             }
 
             if (loading) {

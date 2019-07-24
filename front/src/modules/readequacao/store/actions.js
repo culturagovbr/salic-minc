@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as readequacaoHelperAPI from '@/helpers/api/Readequacao';
 import * as types from './types';
 
@@ -29,9 +30,10 @@ export const buscaReadequacaoPronacTipo = ({ commit }, params) => {
             const { data } = response.data;
             let readequacao = {};
             if (data.items.length > 1) {
-                readequacao = { items: data.data.items };
-            } else {
-                readequacao = { items: data.data.items[0] };
+                readequacao = { items: data.items };
+            } else if (data.items.length === 1
+                       && !_.isEmpty(data.items)) {
+                [readequacao] = data.items;
             }
             commit(types.SET_READEQUACAO, readequacao);
         });
@@ -70,21 +72,26 @@ export const excluirDocumento = ({ commit }, params) => {
     readequacaoHelperAPI.excluirDocumento(params)
         .then(() => {
             commit(types.EXCLUIR_DOCUMENTO);
+            return '';
         });
 };
 
-export const excluirReadequacao = ({ commit, dispatch }, params) => {
-    readequacaoHelperAPI.excluirReadequacao(params)
+export const excluirReadequacao = async ({ commit, dispatch }, params) => {
+    const resultado = await readequacaoHelperAPI.excluirReadequacao(params)
         .then(() => {
             commit(types.EXCLUIR_READEQUACAO);
-            dispatch('obterListaDeReadequacoes', {
-                idPronac: params.idPronac,
-                stStatusAtual: 'proponente',
-            });
-            dispatch('obterTiposDisponiveis', {
-                idPronac: params.idPronac,
-            });
+            if (params.origem === 'painel') {
+                dispatch('obterListaDeReadequacoes', {
+                    idPronac: params.idPronac,
+                    stStatusAtual: 'proponente',
+                });
+                dispatch('obterTiposDisponiveis', {
+                    idPronac: params.idPronac,
+                });
+            }
+            return true;
         });
+    return resultado;
 };
 
 export const obterReadequacao = ({ commit }, data) => {
@@ -93,29 +100,24 @@ export const obterReadequacao = ({ commit }, data) => {
     }
 };
 
-export const updateReadequacao = async ({ commit }, params) => {
+export const updateReadequacao = async ({ commit, dispatch }, params) => {
     const resultado = await readequacaoHelperAPI.updateReadequacao(params)
         .then((response) => {
             commit(types.UPDATE_READEQUACAO, response.data.data.items);
-            commit(types.GET_READEQUACAO, response.data.data.items);
+            dispatch(
+                'noticias/mensagemSucesso',
+                response.data.data.items.message,
+                { root: true },
+            );
+        })
+        .catch((e) => {
+            dispatch(
+                'noticias/mensagemErro',
+                e.response.error.message,
+                { root: true },
+            );
         });
     return resultado;
-};
-
-export const updateReadequacaoDsSolicitacao = ({ commit }, params) => {
-    commit(types.UPDATE_READEQUACAO_DS_SOLICITACAO, params);
-};
-
-export const updateReadequacaoSaldoAplicacao = ({ commit }, params) => {
-    readequacaoHelperAPI.updateReadequacaoSaldoAplicacao(params)
-        .then((response) => {
-            const { readequacao } = response.data;
-            commit(types.UPDATE_READEQUACAO_SALDO_APLICACAO, readequacao);
-        });
-};
-
-export const updateReadequacaoSaldoAplicacaoDsSolicitacao = ({ commit }, dsSolicitacao) => {
-    commit(types.UPDATE_READEQUACAO_SALDO_APLICACAO_DS_SOLICITACAO, dsSolicitacao);
 };
 
 export const obterDisponivelEdicaoItemSaldoAplicacao = ({ commit }, params) => {
@@ -159,12 +161,24 @@ export const inserirReadequacao = async ({ commit, dispatch }, params) => {
                 idPronac: params.idPronac,
                 idTipoReadequacao: params.idTipoReadequacao,
             });
+            dispatch(
+                'noticias/mensagemSucesso',
+                response.data.data.items.message,
+                { root: true },
+            );
             return data;
+        })
+        .catch((e) => {
+            dispatch(
+                'noticias/mensagemErro',
+                e.response.error.message,
+                { root: true },
+            );
         });
     return resultado;
 };
 
-export const finalizarReadequacao = async ({ dispatch }, params) => {
+export const finalizarReadequacaoPainel = async ({ dispatch }, params) => {
     const resultado = await readequacaoHelperAPI.finalizarReadequacao(params)
         .then(() => {
             dispatch('obterListaDeReadequacoes', {
@@ -177,4 +191,99 @@ export const finalizarReadequacao = async ({ dispatch }, params) => {
             });
         });
     return resultado;
+};
+
+export const finalizarReadequacaoPlanilha = async ({ dispatch }, params) => {
+    const resultado = await readequacaoHelperAPI.finalizarReadequacao(params)
+        .then((response) => {
+            dispatch(
+                'noticias/mensagemSucesso',
+                response.data.data.items.message,
+                { root: true },
+            );
+        });
+    return resultado;
+};
+
+export const solicitarUsoSaldo = ({ commit }, params) => {
+    readequacaoHelperAPI.solicitarUsoSaldo(params)
+        .then((response) => {
+            commit(types.SET_READEQUACAO, response.data.data.items);
+        });
+};
+
+export const obterPlanilhaAtiva = ({ commit }, params) => {
+    readequacaoHelperAPI.obterPlanilha(params)
+        .then((response) => {
+            commit(types.SET_PLANILHA_ATIVA, response.data.data.items);
+        });
+};
+
+export const obterPlanilha = ({ commit }, params) => {
+    readequacaoHelperAPI.obterPlanilha(params)
+        .then((response) => {
+            commit(types.SET_PLANILHA, response.data.data.items);
+        });
+};
+
+export const obterUnidadesPlanilha = ({ commit }, params) => {
+    readequacaoHelperAPI.obterUnidadesPlanilha(params)
+        .then((response) => {
+            commit(types.SET_UNIDADES_PLANILHA, response.data.data.items);
+        });
+};
+
+export const atualizarItemPlanilha = async ({ commit, dispatch }, params) => {
+    const resultado = await readequacaoHelperAPI.atualizarItemPlanilha(params)
+        .then((response) => {
+            commit(types.SET_ITEM_PLANILHA_EDICAO, response.data.data.items);
+            dispatch('obterPlanilha', {
+                idPronac: params.idPronac,
+                idTipoReadequacao: params.idTipoReadequacao,
+            });
+            dispatch(
+                'noticias/mensagemSucesso',
+                response.data.data.items.message,
+                { root: true },
+            );
+            dispatch(
+                'calcularResumoPlanilha',
+                {
+                    idPronac: params.idPronac,
+                    idTipoReadequacao: params.idTipoReadequacao,
+                },
+            );
+            return response.data.data.items;
+        })
+        .catch((e) => {
+            dispatch(
+                'noticias/mensagemErro',
+                e.response.error.message,
+                { root: true },
+            );
+        });
+    return resultado;
+};
+
+export const calcularResumoPlanilha = async ({ commit }, params) => {
+    const resultado = await readequacaoHelperAPI.calcularResumoPlanilha(params)
+        .then((response) => {
+            commit(types.SET_RESUMO_PLANILHA, response.data.data.items);
+            return response.data.data.items;
+        });
+    return resultado;
+};
+
+export const reverterAlteracaoItem = ({ dispatch }, params) => {
+    readequacaoHelperAPI.reverterAlteracaoItem(params)
+        .then(() => {
+            dispatch('obterPlanilha', {
+                idPronac: params.idPronac,
+                idTipoReadequacao: params.idTipoReadequacao,
+            });
+            dispatch('calcularResumoPlanilha', {
+                idPronac: params.idPronac,
+                idTipoReadequacao: params.idTipoReadequacao,
+            });
+        });
 };

@@ -1685,7 +1685,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     )
     {
         $auth = \Zend_Auth::getInstance();
-        $tblAgente = new Agente_Model_DbTable_Agentes();
+        $tblAgente = new \Agente_Model_DbTable_Agentes();
         $rsAgente = $tblAgente->buscar(array('CNPJCPF=?'=>$auth->getIdentity()->Cpf))->current();
 
         $dados = array();
@@ -1730,9 +1730,14 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                                 Proposta_Model_Verificacao::INCENTIVO_FISCAL_FEDERAL
                             ]
         )->current();
-
+        
+        $readequacao = $this->buscar(['idReadequacao = ?' => $idReadequacao])->current();
+        
         $retorno = [];
-
+        $retorno['saldoDeclarado'] = floatval($readequacao['dsSolicitacao']);
+        $retorno['saldoValorUtilizado'] = round($PlanilhaReadequada['Total'] -  $PlanilhaAtiva['Total'], 3);
+        $retorno['valorTotalDisponivelParaUso'] = $retorno['saldoDeclarado'] - $retorno['saldoValorUtilizado'];
+        
         if ($PlanilhaReadequada['Total'] > 0) {
             if ($PlanilhaAtiva['Total'] == $PlanilhaReadequada['Total']) {
                 $retorno['statusPlanilha'] = 'neutro';

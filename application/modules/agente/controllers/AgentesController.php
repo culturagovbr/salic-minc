@@ -424,7 +424,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
                     $retorno['error'] = 'CPF inv&aacute;lido';
                     $erro = 1;
                 } else {
-                    $arrResultado = $wsServico->consultarPessoaFisicaReceitaFederal($cpf, true);
+                    $arrResultado = $wsServico->consultarPessoaFisicaReceitaFederal($cpf);
                     if (empty($arrResultado)) {
                         $retorno['error'] = 'Pessoa n&atilde;o encontrada!';
                         $erro = 1;
@@ -443,7 +443,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
                     $retorno['error'] = 'CNPJ inv&aacute;lido';
                     $erro = 1;
                 } else {
-                    $arrResultado = $wsServico->consultarPessoaJuridicaReceitaFederal($cpf, true);
+                    $arrResultado = $wsServico->consultarPessoaJuridicaReceitaFederal($cpf);
                     if (empty($arrResultado)) {
                         $retorno['error'] = 'Pessoa n&atilde;o encontrada!!';
                         $erro = 1;
@@ -1893,9 +1893,39 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
         if ((strlen($cpf) == 11 && !Validacao::validarCPF($cpf)) || (strlen($cpf) == 14 && !Validacao::validarCNPJ($cpf))) {
             $novos_valores[0]['msgCPF'] = utf8_encode('invalido');
         } else {
-            $agenteServico = new AgenteService();
-            $novos_valores[0] = $agenteServico->cadastrarAgente($cpf);
-
+            if (count($dados) != 0) {
+                foreach ($dados as $dado) {
+                    $dado = ((array) $dado);
+                    array_walk($dado, function ($value, $key) use (&$dado) {
+                        $dado[$key] = utf8_encode($value);
+                    });
+                    $novos_valores[0]['msgCPF'] = utf8_encode('cadastrado');
+                    $novos_valores[0]['idAgente'] = utf8_encode($dado['idagente']);
+                    $novos_valores[0]['Nome'] = utf8_encode($dado['nome']);
+                    $novos_valores[0]['agente'] = $dado;
+                }
+            } else {
+                #Instancia a Classe de Servico do WebService da Receita Federal
+                $wsServico = new ServicosReceitaFederal();
+                if (11 == strlen($cpf)) {
+                    $arrResultado = $wsServico->consultarPessoaFisicaReceitaFederal($cpf);
+                    if (count($arrResultado) > 0) {
+                        $novos_valores[0]['msgCPF'] = utf8_encode('novo');
+                        $novos_valores[0]['idAgente'] = $arrResultado['idPessoaFisica'];
+                        $novos_valores[0]['Nome'] = utf8_encode($arrResultado['nmPessoaFisica']);
+                        $novos_valores[0]['Cep'] = isset($arrResultado['pessoa']['enderecos'][0]['logradouro']['nrCep']) && $arrResultado['pessoa']['enderecos'][0]['logradouro']['nrCep'] ? $arrResultado['pessoa']['enderecos'][0]['logradouro']['nrCep'] : '';
+                    }
+                } elseif (14 == strlen($cpf)) {
+                    $arrResultado = $wsServico->consultarPessoaJuridicaReceitaFederal($cpf);
+                    if (count($arrResultado) > 0) {
+                        $novos_valores[0]['msgCPF'] = utf8_encode('novo');
+                        $novos_valores[0]['idAgente'] = $arrResultado['idPessoaJuridica'];
+                        $novos_valores[0]['Nome'] = utf8_encode($arrResultado['nmRazaoSocial']);
+                        $novos_valores[0]['Cep'] = isset($arrResultado['pessoa']['enderecos'][0]['logradouro']['nrCep']) && $arrResultado['pessoa']['enderecos'][0]['logradouro']['nrCep'] ? $arrResultado['pessoa']['enderecos'][0]['logradouro']['nrCep'] : '';
+                        ;
+                    }
+                }
+            }
         }
          $this->_helper->json(\TratarArray::utf8EncodeArray($novos_valores));
          die;

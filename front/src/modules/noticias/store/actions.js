@@ -5,22 +5,24 @@ export const setDados = ({ commit, state }, dados) => {
     commit(types.SET_DADOS, data);
 };
 
-export const mostrarMensagemSucesso = ({ dispatch }, msg) => {
-    dispatch('setDados',
+export const mensagemSucesso = ({ dispatch }, msg) => {
+    dispatch(
+        'setDados',
         {
             ativo: true,
             color: 'success',
             text: msg,
         },
-        { root: true });
+    );
 };
 
-export const mostrarMensagemErro = ({ dispatch }, msg) => {
-    dispatch('setDados',
+export const mensagemErro = ({ dispatch }, msg) => {
+    dispatch(
+        'setDados',
         {
             ativo: true,
             color: 'error',
             text: msg,
         },
-        { root: true });
+    );
 };

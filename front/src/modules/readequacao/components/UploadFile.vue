@@ -55,7 +55,7 @@
 
 <script>
 import _ from 'lodash';
-import abrirArquivo from '../mixins/abrirArquivo';
+import MxReadequacao from '../mixins/Readequacao';
 import Carregando from '@/components/CarregandoVuetify';
 
 export default {
@@ -63,11 +63,13 @@ export default {
     components: {
         Carregando,
     },
-    mixins: [abrirArquivo],
+    mixins: [
+        MxReadequacao,
+    ],
     props: {
         formatosAceitos: {
-            type: String,
-            default: 'application/pdf',
+            type: Array,
+            default: () => ['application/pdf'],
         },
         idDocumento: {
             type: [
@@ -103,15 +105,24 @@ export default {
         openFileDialog() {
             document.getElementById('file-upload').click();
         },
+        checkFormat(file) {
+            if (!this.formatosAceitos.find(i => i === file.type)) {
+                this.mensagemErro(`Tipo fornecido (${file.type}) não é aceito. Tipos aceitos: ${this.formatosAceitos}`);
+            }
+            return true;
+        },
         handleFileUpload() {
             this.textoCarregando = 'Subindo arquivo...';
             const file = this.$refs.file.files[0];
-            this.file = file;
-            if (this.$refs.file.files[0]) {
-                const payload = this.$refs.file.files[0];
-                this.$emit('arquivo-anexado', payload);
-            } else {
-                this.$emit('arquivo-removido');
+            if (this.checkFormat(file)) {
+                this.file = file;
+                if (this.$refs.file.files[0]) {
+                    const payload = this.$refs.file.files[0];
+                    this.$emit('arquivo-anexado', payload);
+                } else {
+                    this.mensagemSucesso('Arquivo removido');
+                    this.$emit('arquivo-removido');
+                }
             }
         },
         removerArquivo() {

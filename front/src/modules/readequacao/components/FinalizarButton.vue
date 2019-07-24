@@ -1,13 +1,11 @@
 <template>
-    <v-layout
+    <div
         v-if="perfilAceito"
     >
         <v-btn
             v-if="telaEdicao"
             :disabled="disabled"
-            dark
-            color="blue darken-1"
-            class="m-2"
+            color="white--text blue darken-1"
             @click="dialog = true"
         >
             Finalizar Readequação
@@ -68,7 +66,7 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
-    </v-layout>
+    </div>
 </template>
 
 <script>
@@ -76,15 +74,13 @@ import _ from 'lodash';
 import { mapActions, mapGetters } from 'vuex';
 import { utils } from '@/mixins/utils';
 import Const from '../const';
-import validarFormulario from '../mixins/validarFormulario';
-import verificarPerfil from '../mixins/verificarPerfil';
+import MxReadequacao from '../mixins/Readequacao';
 
 export default {
     name: 'FinalizarButton',
     mixins: [
         utils,
-        validarFormulario,
-        verificarPerfil,
+        MxReadequacao,
     ],
     props: {
         disabled: {
@@ -92,10 +88,6 @@ export default {
             default: false,
         },
         dadosProjeto: {
-            type: Object,
-            default: () => {},
-        },
-        dadosReadequacao: {
             type: Object,
             default: () => {},
         },
@@ -119,6 +111,10 @@ export default {
             type: Object,
             default: () => {},
         },
+        tela: {
+            type: String,
+            default: 'painel',
+        },
     },
     data() {
         return {
@@ -129,6 +125,7 @@ export default {
     computed: {
         ...mapGetters({
             campoAtual: 'readequacao/getCampoAtual',
+            dadosReadequacao: 'readequacao/getReadequacao',
         }),
         perfilAceito() {
             return this.verificarPerfil(this.perfil, this.perfisAceitos);
@@ -154,15 +151,20 @@ export default {
         ...mapActions({
             obterCampoAtual: 'readequacao/obterCampoAtual',
             updateReadequacao: 'readequacao/updateReadequacao',
-            finalizarReadequacao: 'readequacao/finalizarReadequacao',
+            finalizarReadequacaoPainel: 'readequacao/finalizarReadequacaoPainel',
+            finalizarReadequacaoPlanilha: 'readequacao/finalizarReadequacaoPlanilha',
         }),
         validar() {
             if (typeof this.minChar === 'object') {
                 if (typeof this.minChar.solicitacao === 'number') {
                     if (typeof this.dadosReadequacao.dsSolicitacao !== 'undefined'
                         && typeof this.dadosReadequacao.dsJustificativa !== 'undefined') {
+                        let solicitacao = this.dadosReadequacao.dsSolicitacao.length;
+                        if (parseInt(this.dadosReadequacao.dsSolicitacao, 10) === 0) {
+                            solicitacao = 0;
+                        }
                         const contador = {
-                            solicitacao: this.dadosReadequacao.dsSolicitacao.length,
+                            solicitacao,
                             justificativa: this.dadosReadequacao.dsJustificativa.length,
                         };
                         if (this.dadosReadequacao.idTipoReadequacao === Const.TIPO_READEQUACAO_PERIODO_EXECUCAO) {
@@ -192,14 +194,28 @@ export default {
             }
         },
         executaFinalizar() {
-            this.finalizarReadequacao({
-                idReadequacao: this.dadosReadequacao.idReadequacao,
-                idPronac: this.dadosReadequacao.idPronac,
-            })
-                .then(() => {
-                    this.$emit('readequacao-finalizada');
-                    this.dialog = false;
-                });
+            switch (this.tela) {
+            case 'planilha':
+                this.finalizarReadequacaoPlanilha({
+                    idReadequacao: this.dadosReadequacao.idReadequacao,
+                    idPronac: this.dadosReadequacao.idPronac,
+                })
+                    .then(() => {
+                        this.$emit('readequacao-finalizada');
+                        this.dialog = false;
+                    });
+                break;
+            default:
+                this.finalizarReadequacaoPainel({
+                    idReadequacao: this.dadosReadequacao.idReadequacao,
+                    idPronac: this.dadosReadequacao.idPronac,
+                })
+                    .then(() => {
+                        this.$emit('readequacao-finalizada');
+                        this.dialog = false;
+                    });
+                break;
+            }
         },
         finalizar() {
             if (typeof this.readequacaoEditada !== 'undefined') {
@@ -209,6 +225,8 @@ export default {
                         .then(() => {
                             this.executaFinalizar();
                         });
+                } else {
+                    this.executaFinalizar();
                 }
             } else {
                 this.executaFinalizar();

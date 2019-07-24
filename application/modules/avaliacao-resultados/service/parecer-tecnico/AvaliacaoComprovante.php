@@ -49,6 +49,8 @@ class AvaliacaoComprovante
         $stItemAvaliado = $this->request->getParam('stItemAvaliado');
         $idPlanilhaItem = $this->request->getParam("idPlanilhaItem");
         $etapa = $this->request->getParam('etapa');
+        $idMunicipio = $this->request->getParam('idmunicipio');
+        $idUf = $this->request->getParam('idUf');
 
         $vwComprovacoes = new \PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario();
 
@@ -68,7 +70,9 @@ class AvaliacaoComprovante
                 $stItemAvaliado,
                 $codigoProduto,
                 null,
-                $etapa
+                $etapa,
+                $idUf,
+                $idMunicipio
             );
         }
 

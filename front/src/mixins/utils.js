@@ -1,7 +1,12 @@
 import moment from 'moment';
+import numeral from 'numeral';
 import cnpjFilter from '@/filters/cnpj';
 import moneyFilter from '@/filters/money';
 import filtersQuantidade from '@/filters/quantidade';
+import 'numeral/locales';
+
+numeral.locale('pt-br');
+numeral.defaultFormat('0,0.00');
 
 export const utils = {
     methods: {
@@ -31,6 +36,7 @@ export const utils = {
             return typeof el === 'object';
         },
         converterParaReal(value) {
+            // eslint-disable-next-line
             value = parseFloat(value);
             return numeral(value).format('0,0.00');
         },
@@ -64,7 +70,8 @@ export const utils = {
     },
     filters: {
         formatarData(date) {
-            if ((date && date.length === 0) || date === null) {
+            // eslint-disable-next-line
+            if (date && date.length === 0 || date === null || date === '0.00') {
                 return '-';
             }
             return moment(date)
