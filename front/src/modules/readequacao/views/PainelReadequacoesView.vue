@@ -35,6 +35,18 @@
                     :text="'Carregando painel de readequações...'"
                 />
             </v-flex>
+            <v-flex v-else-if="acessoNegado">
+                <v-btn
+                    class="green--text text--darken-4"
+                    flat
+                    @click="voltar()"
+                >
+                    <v-icon class="mr-2">keyboard_backspace</v-icon>
+                </v-btn>
+                <v-card>
+                    <salic-mensagem-erro texto="Sem permiss&atilde;o de acesso a esse painel"/>
+                </v-card>
+            </v-flex>
             <v-flex v-else>
                 <v-subheader>
                     <v-btn
@@ -395,6 +407,7 @@ export default {
             },
             itemEmEdicao: 0,
             loading: true,
+            acessoNegado: false,
             mensagem: {
                 ativa: false,
                 timeout: 2300,
@@ -515,6 +528,9 @@ export default {
                 this.buscarReadequacoesPainelEmAnalise({ filtro: 'em_analise' });
                 this.buscarReadequacoesPainelAnalisados({ filtro: 'analisados' });
                 this.buscarReadequacoesPainelAguardandoPublicacao({ filtro: 'aguardando_publicacao' });
+            } else {
+                this.loading = false;
+                this.acessoNegado = true;
             }
         },
     },
