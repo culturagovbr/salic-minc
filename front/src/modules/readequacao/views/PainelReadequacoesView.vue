@@ -509,6 +509,15 @@ export default {
                 }
             }
         },
+        getReadequacoesPainelAnalisados(value) {
+            if (this.perfil === Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO) {
+                if (typeof value === 'object') {
+                    if (Object.keys(value).length > 0) {
+                        this.loaded.readequacao = true;
+                    }
+                }
+            }
+        },
         dadosProjeto(value) {
             if (typeof value === 'object') {
                 if (Object.keys(value).length > 0) {
@@ -546,6 +555,8 @@ export default {
                 this.buscarReadequacoesPainelEmAnalise({ filtro: 'em_analise' });
                 this.buscarReadequacoesPainelAnalisados({ filtro: 'analisados' });
                 this.buscarReadequacoesPainelAguardandoPublicacao({ filtro: 'aguardando_publicacao' });
+            } else if (parseInt(this.perfil, 10) === Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO) {
+                this.buscarReadequacoesPainelAnalisados({ filtro: 'analisados' });
             } else {
                 this.loading = false;
                 this.acessoNegado = true;
