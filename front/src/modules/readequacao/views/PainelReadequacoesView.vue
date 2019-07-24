@@ -380,11 +380,15 @@ export default {
                         permissao: 'analise',
                     },
                     {
-                        componente: AssinarDocumentoButton,
-                        permissao: 'analisar',
+                        componente: DevolverReadequacaoButton,
+                        permissao: 'coordenador',
                     },
                     {
-                        componente: DevolverReadequacaoButton,
+                        componente: AssinarDocumentoButton,
+                        permissao: 'coordenador',
+                    },
+                    {
+                        componente: VisualizarAssinaturaButton,
                         permissao: 'coordenador',
                     },
                 ],
