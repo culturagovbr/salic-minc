@@ -9,5 +9,5 @@ export default {
         SI_ANALISE_EM_VALIDACAO: 4,
         SI_ANALISE_VALIDADO: 5,
         SI_ANALISE_FINALIZADA_COORDENADOR: 6,
-}),
+    }),
 };

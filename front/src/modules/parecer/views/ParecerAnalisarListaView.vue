@@ -60,24 +60,7 @@
                                 </td>
                                 <td>{{ props.item.nomeProjeto }}</td>
                                 <td>
-                                    <v-tooltip bottom>
-                                        <router-link
-                                            slot="activator"
-                                            :to="{
-                                                name: 'analise-conteudo',
-                                                params: {
-                                                    id: props.item.idProduto,
-                                                    idPronac: props.item.idPronac,
-                                                    produtoPrincipal: props.item.stPrincipal,
-                                                }
-                                            }"
-                                            class="subheading font-weight-medium"
-                                            color="primary"
-                                        >
-                                            {{ props.item.dsProduto }}
-                                        </router-link>
-                                        <span>Clique para analisar o produto {{ props.item.dsProduto }}</span>
-                                    </v-tooltip>
+                                    <div> {{ props.item.dsProduto }}</div>
                                 </td>
                                 <td class="text-xs-center">
                                     <v-tooltip
@@ -117,7 +100,6 @@
                                             :color="obterConfigDiligencia(props.item).cor"
                                             target="_blank"
                                             icon
-                                            small
                                             @click="visualizarDiligencia(props.item)"
                                         >
                                             <v-badge
@@ -144,13 +126,12 @@
                                     >
                                         <v-btn
                                             slot="activator"
-                                            color="blue-grey darken-2"
-                                            flat
+                                            color="grey lighten-3"
                                             icon
                                             class="mr-2"
-                                            disabled
+                                            style="cursor: default"
                                         >
-                                            <v-icon>
+                                            <v-icon color="blue-grey darken-2">
                                                 watch_later
                                             </v-icon>
                                         </v-btn>
@@ -172,7 +153,6 @@
                                             }"
                                             :color="obterConfigsBotaoPrincipal(props.item).cor"
                                             icon
-                                            small
                                             class="mr-2"
                                         >
                                             <v-icon :color="obterConfigsBotaoPrincipal(props.item).corIcone">
@@ -194,7 +174,7 @@
                                             class="mr-2"
                                             @click="declararImpedimento(props.item)"
                                         >
-                                            <v-icon >
+                                            <v-icon>
                                                 voice_over_off
                                             </v-icon>
                                         </v-btn>
@@ -215,7 +195,6 @@
                         <s-dialog-diligencias
                             v-model="dialogDiligencias"
                             :id-pronac="diligenciaVisualizacao.idPronac"
-                            :id-produto="diligenciaVisualizacao.idProduto"
                             :tp-diligencia="TP_DILIGENCIA_ANALISE_TECNICA"
                         />
                         <s-analise-declarar-impedimento-dialog

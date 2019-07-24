@@ -35,9 +35,25 @@ class Diligencia_Model_DbTable_TbDiligencia extends MinC_Db_Table_Abstract
                 'dil.stEnviado'
             )
         );
-        $select->joinInner(array('ver' => 'Verificacao'), 'ver.idVerificacao = dil.idTipoDiligencia', array('tipoDiligencia' => 'ver.Descricao'));
-        $select->joinLeft(array('prod' => 'Produto'), 'prod.Codigo = dil.idProduto', array('produto' => 'prod.Descricao'));
 
+        $select->joinInner(
+            array('ver' => 'Verificacao'),
+            'ver.idVerificacao = dil.idTipoDiligencia',
+            array('tipoDiligencia' => 'ver.Descricao')
+        );
+
+        $select->joinLeft(
+            array('prod' => 'Produto'),
+            'prod.Codigo = dil.idProduto',
+            array('produto' => 'prod.Descricao')
+        );
+
+        $select->joinInner(
+            array('usu' => 'Usuarios'),
+            'dil.idSolicitante = usu.usu_codigo',
+            array('nomeParecerista' => 'usu_nome', 'idParecerista' => 'usu_codigo'),
+            $this->getSchema('tabelas')
+        );
 
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);

@@ -75,7 +75,7 @@ class Assinar implements IAcaoAssinar
             "idAgenteParecerista = ?" => $idAgenteParecerista,
             "stEstado = ?" => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO,
             "siEncaminhamento = ?" => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
-            "siAnalise = ?" => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_FINALIZADA,
+            "siAnalise = ?" => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_ANALISADO,
             "stPrincipal = ?" => 0
         ];
 

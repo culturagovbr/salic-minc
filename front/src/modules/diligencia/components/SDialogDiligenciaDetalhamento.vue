@@ -178,6 +178,18 @@
                             </v-data-table>
                         </v-flex>
                     </v-layout>
+                    <v-divider class="mb-2" />
+                    <v-layout
+                        row
+                        wrap
+                    >
+                        <v-flex
+                            xs12
+                        >
+                            <b>Parecerista</b>
+                            <div>{{ diligencia.nomeParecerista }}</div>
+                        </v-flex>
+                    </v-layout>
                 </v-container>
             </v-card-text>
         </v-card>

@@ -83,6 +83,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
                     \Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE,
                     \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE,
                     \Parecer_Model_TbDistribuirParecer::SI_ANALISE_ANALISADO,
+                    \Parecer_Model_TbDistribuirParecer::SI_ANALISE_FINALIZADA,
                 ],
                 'distribuirParecer.siEncaminhamento = ?' => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
             ]
@@ -119,11 +120,11 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
             if ($produto['stPrincipal']
                 && (
                     $produto['siAnalise'] == \Parecer_Model_TbDistribuirParecer::SI_ANALISE_ANALISADO
-                    || $produto['siAnalise'] == \Parecer_Model_TbDistribuirParecer::SI_ANALISE_VALIDADO )) {
+                    || $produto['siAnalise'] == \Parecer_Model_TbDistribuirParecer::SI_ANALISE_VALIDADO)) {
                 $produto['idDocumentoAssinatura'] = $this->getIdDocumentoAssinatura($idPronac);
             }
         }
-        return  \TratarArray::utf8EncodeArray($produto);
+        return \TratarArray::utf8EncodeArray($produto);
 
     }
 
@@ -209,7 +210,6 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
 //            if (!$this->isProjetoDisponivelParaAssinatura($distribuicao->IdPRONAC)) {
 //                throw new \Exception("Projeto n&atilde;o dispon&iacute;vel para assinatura");
 //            }
-
 
                 $this->iniciarAssinatura($distribuicao->IdPRONAC);
             }
@@ -299,7 +299,10 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
             "stEstado = ?" => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO,
             "stPrincipal = ?" => 0,
             "siEncaminhamento = ?" => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
-            "siAnalise <> ?" => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_FINALIZADA,
+            "siAnalise in (?)" => [
+                \Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE,
+                \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE
+            ],
         ];
 
         $tbDistribuirParecerDAO = new \Parecer_Model_DbTable_TbDistribuirParecer();
