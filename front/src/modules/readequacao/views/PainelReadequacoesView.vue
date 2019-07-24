@@ -401,6 +401,18 @@ export default {
                     },
                 ],
             },
+            acoesCoordenadorGeralAnalisados: {
+                acoes: [
+                    {
+                        componente: AssinarDocumentoButton,
+                        permissao: 'coordenador',
+                    },
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'coordenador',
+                    },
+                ],
+            },
             acoesFinalizadas: {
                 acoes: [
                     {
@@ -434,6 +446,8 @@ export default {
                 ],
                 coordenador: [
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
+                ],
+                coordenador_geral: [
                     Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
                 ],
             },

@@ -79,6 +79,9 @@
                                         :id-documento-assinatura="props.item.idDocumentoAssinatura"
                                         :id-tipo-do-ato-administrativo="props.item.idTipoDoAtoAdministrativo"
                                         :min-char="minChar"
+                                        :modal="true"
+                                        :disponivel-assinatura="disponivelAssinatura(props.item.siEncaminhamento, props.item.idDocumentoAssinatura)"
+                                        :origin="`%23/readequacao/painel`"
                                         class="pa-0 ma-0 align-center justify-center fill-height"
                                     />
                                 </template>
@@ -103,6 +106,7 @@
 import { utils } from '@/mixins/utils';
 import Carregando from '@/components/CarregandoVuetify';
 import MxReadequacao from '../mixins/Readequacao';
+import Const from '../const';
 
 export default {
     name: 'TabelaReadequacoesPainel',
@@ -284,6 +288,18 @@ export default {
                 return this.$options.filters.formatarData(value);
             }
             return value;
+        },
+        disponivelAssinatura(siEncaminhamento, idDocumentoAssinatura) {
+            const assinaturasPorEstado = {
+                122: Const.SI_ENCAMINHAMENTO_DEVOLVIDA_COORDENADOR_TECNICO,
+                123: Const.SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_COORDENADOR_GERAL,
+                148: Const.SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_DIRETOR,
+                149: Const.SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_SECRETARIO,
+            };
+            if (typeof siEncaminhamento !== 'undefined' && typeof idDocumentoAssinatura !== 'undefined') {
+                return siEncaminhamento === assinaturasPorEstado[this.perfil];
+            }
+            return false;
         },
     },
 };

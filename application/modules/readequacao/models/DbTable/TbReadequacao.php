@@ -178,26 +178,27 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
              'qtTotalDiasAvaliar' => new Zend_Db_Expr('DATEDIFF(DAY,tbDistribuirReadequacao.dtEncaminhamento,tbDistribuirReadequacao.dtRetornoAvaliador)'),
              'tpReadequacao' => 'tbTipoReadequacao.dsReadequacao',
              'idTecnicoParecerista' => 'tbDistribuirReadequacao.idAvaliador',
+             'siEncaminhamento' => 'tbReadequacao.siEncaminhamento',
              'nmTecnicoParecerista' => new Zend_Db_Expr("
        CASE
          WHEN tbReadequacao.siEncaminhamento = 10
-           THEN '<b><font color=red>Assinatura do Coordenador (parecer de ' + usuarios.usu_nome + ')</font></b>'
+           THEN 'Assinatura do Coordenador (parecer de ' + usuarios.usu_nome + ')'
 	     WHEN tbReadequacao.siEncaminhamento = 17
-		   THEN '<b><font color=red>Devolvida pelo CNIC</font></b>'
+		   THEN 'Devolvida pelo CNIC'
 	     WHEN tbReadequacao.siEncaminhamento = 18
-		   THEN '<b><font color=red>Assinatura do Cooordenador-Geral</font></b>'
+		   THEN 'Assinatura do Cooordenador-Geral'
 	     WHEN tbReadequacao.siEncaminhamento = 19
-		   THEN '<b><font color=red>Assinatura do Diretor</font></b>'
+		   THEN 'Assinatura do Diretor'
 	     WHEN tbReadequacao.siEncaminhamento = 20
-		   THEN '<b><font color=red>Assinatura do Secret&atilde;rio</font></b>'
+		   THEN 'Assinatura do Secret&atilde;rio'
 	     WHEN tbReadequacao.siEncaminhamento = 21
-		   THEN '<b><font color=red>Devolvida pelo Coordenador-Geral</font></b>'
+		   THEN 'Devolvida pelo Coordenador-Geral'
 	     WHEN tbReadequacao.siEncaminhamento = 22
-		   THEN '<b><font color=red>Devolvida pelo Diretor</font></b>'
+		   THEN 'Devolvida pelo Diretor'
 	     WHEN tbReadequacao.siEncaminhamento = 23
-		   THEN '<b><font color=red>Devolvida pelo Secret&atilde;rio</font></b>'
+		   THEN 'Devolvida pelo Secret&atilde;rio'
          WHEN tbReadequacao.siEncaminhamento = 26
-		   THEN '<b><font color=red>Solicita&ccedil;&atilde;o devolvida ao Coordenador ap&oacute;s completar o ciclo de assinaturas</font></b>'
+		   THEN 'Solicita&ccedil;&atilde;o devolvida ao Coordenador ap&oacute;s completar o ciclo de assinaturas'
 		   ELSE usuarios.usu_nome
 
 	   END"),

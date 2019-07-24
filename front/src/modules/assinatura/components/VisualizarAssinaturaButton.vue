@@ -19,7 +19,7 @@
         <v-dialog
             v-model="dialog"
             hide-overlay
-            fullscreen
+            justify-center
             @keydown.esc="dialog = false"
         >
             <v-card>
@@ -44,6 +44,14 @@ export default {
             type: [Number, String],
             default: 0,
         },
+        origin: {
+            type: String,
+            default: '',
+        },
+        modal: {
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         return {
@@ -62,7 +70,12 @@ export default {
         abreLink() {
             let url = '/assinatura/index/visualizar-projeto?idDocumentoAssinatura=';
             url += `${this.idDocumentoAssinatura}`;
-            url += '&modal=1&origin=#/readequacao/painel';
+            if (this.modal === true) {
+                url += '&modal=1';
+            }
+            if (this.origin) {
+                url += `&origin=${this.origin}`;
+            }
             this.$http.get(url).then((response) => {
                 this.dialog = true;
                 const cssLink = '/public/library/materialize/css/materialize.css?v=v7.0.6';

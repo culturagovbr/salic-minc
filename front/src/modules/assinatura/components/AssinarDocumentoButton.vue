@@ -1,7 +1,7 @@
 <template>
     <v-layout>
         <v-btn
-            v-if="idDocumentoAssinatura"
+            v-if="idDocumentoAssinatura && disponivelAssinatura"
             dark
             icon
             flat
@@ -19,7 +19,6 @@
         <v-dialog
             v-model="dialog"
             hide-overlay
-            fullscreen
             @keydown.esc="dialog = false"
         >
             <v-card>
@@ -52,6 +51,18 @@ export default {
             type: [Number, String],
             default: 0,
         },
+        origin: {
+            type: String,
+            default: '',
+        },
+        modal: {
+            type: Boolean,
+            default: false,
+        },
+        disponivelAssinatura: {
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         return {
@@ -71,7 +82,12 @@ export default {
             if (this.idDocumentoAssinatura !== 0) {
                 let url = `/assinatura/index/assinar-projeto?IdPRONAC=${this.dadosReadequacao.idPronac}`;
                 url += `&idTipoDoAtoAdministrativo=${this.idTipoDoAtoAdministrativo}`;
-                url += '&modal=1&origin=#/readequacao/painel';
+                if (this.modal === true) {
+                    url += '&modal=1';
+                }
+                if (this.origin) {
+                    url += `&origin=${this.origin}`;
+                }
                 this.$http.get(url).then((response) => {
                     this.dialog = true;
                     const linkCss = '/public/library/materialize/css/materialize.css?v=v7.0.6';
