@@ -237,7 +237,7 @@ export default {
                         text: 'Localização',
                         align: 'center',
                         value: 'nmTecnicoParecerista',
-                        position: 8,
+                        position: 7,
                     },
                 ],
             },

@@ -143,7 +143,7 @@
                         v-if="perfilAceito(['coordenador'])"
                         :value="'aguardando_distribuicao'">
                         <v-card>
-                            <tabela-readequacoes-painel
+                            <tabela-readequacoes-coordenador
                                 :dados-readequacao="getReadequacoesPainelAguardandoDistribuicao"
                                 :componentes="acoesCoordenadorAguardandoDistribuicao"
                                 :painel="`aguardando_distribuicao`"
@@ -156,7 +156,7 @@
                         v-if="perfilAceito(['coordenador'])"
                         :value="'em_analise'">
                         <v-card>
-                            <tabela-readequacoes-painel
+                            <tabela-readequacoes-coordenador
                                 :dados-readequacao="getReadequacoesPainelEmAnalise"
                                 :componentes="acoesCoordenadorEmAnalise"
                                 :painel="`em_analise`"
@@ -169,7 +169,7 @@
                         v-if="perfilAceito(['analisar'])"
                         :value="'analise'">
                         <v-card>
-                            <tabela-readequacoes-painel
+                            <tabela-readequacoes-coordenador
                                 :dados-readequacao="getReadequacoesPainelTecnico"
                                 :componentes="acoesAnalise"
                                 :perfis-aceitos="perfisAceitos"
@@ -181,7 +181,7 @@
                         v-if="perfilAceito(['coordenador'])"
                         :value="'analisados'">
                         <v-card>
-                            <tabela-readequacoes-painel
+                            <tabela-readequacoes-coordenador
                                 :dados-readequacao="getReadequacoesPainelAnalisados"
                                 :componentes="acoesCoordenadorAnalisados"
                                 :painel="`analisados`"
@@ -194,7 +194,7 @@
                         v-if="perfilAceito(['coordenador'])"
                         :value="'aguardando_publicacao'">
                         <v-card>
-                            <tabela-readequacoes-painel
+                            <tabela-readequacoes-coordenador
                                 :dados-readequacao="getReadequacoesPainelAguardandoPublicacao"
                                 :componentes="acoesCoordenadorAguardandoPublicacao"
                                 :painel="`aguardando_publicacao`"
@@ -248,7 +248,7 @@ import SalicMensagemErro from '@/components/SalicMensagemErro';
 import VisualizarAssinaturaButton from '@/modules/assinatura/components/VisualizarAssinaturaButton';
 import AssinarDocumentoButton from '@/modules/assinatura/components/AssinarDocumentoButton';
 import TabelaReadequacoes from '../components/TabelaReadequacoes';
-import TabelaReadequacoesPainel from '../components/TabelaReadequacoesPainel';
+import TabelaReadequacoesCoordenador from '../components/TabelaReadequacoesCoordenador';
 import ExcluirButton from '../components/ExcluirButton';
 import FinalizarButton from '../components/FinalizarButton';
 import EditarReadequacaoButton from '../components/EditarReadequacaoButton';
@@ -267,7 +267,7 @@ export default {
         Carregando,
         VisualizarAssinaturaButton,
         TabelaReadequacoes,
-        TabelaReadequacoesPainel,
+        TabelaReadequacoesCoordenador,
         ExcluirButton,
         EditarReadequacaoButton,
         VisualizarReadequacaoButton,

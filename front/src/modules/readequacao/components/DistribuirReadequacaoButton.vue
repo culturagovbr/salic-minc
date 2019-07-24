@@ -117,7 +117,7 @@
                                     />
                                     <carregando
                                         v-if="loadingDestinatarios"
-                                        :definedClass="`body-1`"
+                                        :defined-class="`body-1`"
                                         :text="'Carregando destinatários/as...'"
                                     />
                                     <v-select

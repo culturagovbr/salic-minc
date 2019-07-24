@@ -104,7 +104,7 @@
                                     />
                                     <carregando
                                         v-if="loadingDestinatarios"
-                                        :definedClass="`body-1`"
+                                        :defined-class="`body-1`"
                                         :text="'Carregando destinatários/as...'"
                                     />
                                     <v-select
@@ -270,7 +270,7 @@ export default {
                 if (this.encaminharOutroTecnico) {
                     if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
                         || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI
-                       ) {
+                    ) {
                         if (this.getDestinatariosDistribuicao.length > 0) {
                             this.selecionarDestinatario = true;
                         }
@@ -304,7 +304,7 @@ export default {
             });
         },
         obterDestinatarios() {
-            this.loadingDestinatarios = true;            
+            this.loadingDestinatarios = true;
             this.dadosEncaminhamento.destinatario = '';
             if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI) {
                 this.obterDestinatariosDistribuicao({
