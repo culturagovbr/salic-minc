@@ -19,12 +19,19 @@
         />
         <v-dialog
             v-model="dialog"
+            fullscreen
             hide-overlay
-            justify-center
+            transition="dialog-bottom-transition"
             @keydown.esc="dialog = false"
         >
             <v-card>
+                <carregando
+                    v-if="loading"
+                    :text="'Montando assinatura...'"
+                    class="mt-5"
+                />
                 <div
+                    v-else
                     class="pa-3"
                     v-html="htmlAssinatura"
                 />
@@ -35,11 +42,15 @@
 <script>
 import Vue from 'vue';
 import VueResource from 'vue-resource';
+import Carregando from '@/components/CarregandoVuetify';
 
 Vue.use(VueResource);
 
 export default {
     name: 'VisualizarAssinaturaButton',
+    components: {
+        Carregando,
+    },
     props: {
         idDocumentoAssinatura: {
             type: [Number, String],
@@ -58,6 +69,7 @@ export default {
         return {
             dialog: false,
             htmlAssinatura: '',
+            loading: true,
         };
     },
     watch: {
@@ -66,6 +78,11 @@ export default {
                 this.htmlAssinatura = '';
             } else {
                 this.abreLink();
+            }
+        },
+        htmlAssinatura() {
+            if (this.htmlAssinatura !== '') {
+                this.loading = false;
             }
         },
     },
