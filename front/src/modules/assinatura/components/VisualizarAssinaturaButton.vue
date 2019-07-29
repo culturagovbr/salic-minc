@@ -1,21 +1,22 @@
 <template>
     <v-layout>
-        <v-btn
+        <v-tooltip
             v-if="idDocumentoAssinatura"
-            dark
-            icon
-            flat
-            small
-            color="blue darken-3"
-            @click.stop="abreLink()"
+            bottom
         >
-            <v-tooltip bottom>
-                <v-icon slot="activator">
-                    find_in_page
-                </v-icon>
-                <span>Visualizar assinatura</span>
-            </v-tooltip>
-        </v-btn>
+            <v-icon
+                slot="activator"
+                color="blue darken-3"
+                @click.stop="dialog = true"
+            >
+                visibility
+            </v-icon>
+            <span>Visualizar assinatura</span>
+        </v-tooltip>
+        <div
+            v-else
+            style="width:24px"
+        />
         <v-dialog
             v-model="dialog"
             hide-overlay
@@ -63,6 +64,8 @@ export default {
         dialog() {
             if (this.dialog === false) {
                 this.htmlAssinatura = '';
+            } else {
+                this.abreLink();
             }
         },
     },

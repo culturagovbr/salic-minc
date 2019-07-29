@@ -185,6 +185,15 @@ class Readequacao implements IServicoRestZend
             case \Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO:
                 $result = $this->__buscarPaineisCoordenador($idOrgao);
                 break;
+            case \Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO:
+                $result = $this->__buscarPaineisCoordenador($idOrgao);
+                break;
+            case \Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO:
+                $result = $this->__buscarPaineisCoordenador($idOrgao);
+                break;
+            case \Autenticacao_Model_Grupos::SECRETARIO:
+                $result = $this->__buscarPaineisCoordenador($idOrgao);
+                break;
         }
         
         $resultArray = [];

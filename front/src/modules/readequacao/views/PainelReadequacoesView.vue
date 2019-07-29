@@ -111,7 +111,7 @@
                         </v-icon>
                     </v-tab>
                     <v-tab
-                        v-if="perfilAceito(['coordenador'])"
+                        v-if="perfilAceito(['coordenador', 'coordenador_geral'])"
                         href="#analisados"
                     >Analisados
                         <v-icon>
@@ -190,7 +190,7 @@
                         </v-card>
                     </v-tab-item>
                     <v-tab-item
-                        v-if="perfilAceito(['coordenador'])"
+                        v-if="perfilAceito(['coordenador', 'coordenador_geral'])"
                         :value="'analisados'">
                         <v-card>
                             <tabela-readequacoes-coordenador
@@ -329,11 +329,11 @@ export default {
                     },
                     {
                         componente: VisualizarAssinaturaButton,
-                        permissao: 'analisar',
+                        permissao: 'assinatura',
                     },
                     {
                         componente: AssinarDocumentoButton,
-                        permissao: 'analisar',
+                        permissao: 'assinatura',
                     },
                     {
                         componente: VisualizarReadequacaoButton,
@@ -352,12 +352,12 @@ export default {
                         permissao: 'coordenador',
                     },
                     {
-                        componente: VisualizarAssinaturaButton,
-                        permissao: 'coordenador',
+                        componente: AssinarDocumentoButton,
+                        permissao: 'assinatura',
                     },
                     {
-                        componente: AssinarDocumentoButton,
-                        permissao: 'coordenador',
+                        componente: VisualizarAssinaturaButton,
+                        permissao: 'assinatura',
                     },
                 ],
             },
@@ -385,11 +385,11 @@ export default {
                     },
                     {
                         componente: AssinarDocumentoButton,
-                        permissao: 'coordenador',
+                        permissao: 'assinatura',
                     },
                     {
                         componente: VisualizarAssinaturaButton,
-                        permissao: 'coordenador',
+                        permissao: 'assinatura',
                     },
                 ],
             },
@@ -404,12 +404,16 @@ export default {
             acoesCoordenadorGeralAnalisados: {
                 acoes: [
                     {
-                        componente: AssinarDocumentoButton,
+                        componente: VisualizarReadequacaoButton,
                         permissao: 'coordenador',
                     },
                     {
-                        componente: VisualizarReadequacaoButton,
-                        permissao: 'coordenador',
+                        componente: AssinarDocumentoButton,
+                        permissao: 'assinatura',
+                    },
+                    {
+                        componente: VisualizarAssinaturaButton,
+                        permissao: 'assinatura',
                     },
                 ],
             },
@@ -444,11 +448,21 @@ export default {
                 analisar: [
                     Const.PERFIL_TECNICO_ACOMPANHAMENTO,
                 ],
+                assinatura: [
+                    Const.PERFIL_PARECERISTA,
+                    Const.PERFIL_TECNICO_ACOMPANHAMENTO,
+                    Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
+                    Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
+                    Const.PERFIL_DIRETOR,
+                    Const.PERFIL_SECRETARIO,
+                ],
                 coordenador: [
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
                 ],
                 coordenador_geral: [
                     Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
+                    Const.PERFIL_DIRETOR,
+                    Const.PERFIL_SECRETARIO,
                 ],
             },
             minChar: {
@@ -497,24 +511,18 @@ export default {
         },
         getReadequacoesPainelTecnico(value) {
             if (typeof value === 'object') {
-                if (Object.keys(value).length > 0) {
-                    this.loaded.readequacao = true;
-                }
+                this.loaded.readequacao = true;
             }
         },
         getReadequacoesPainelAguardandoDistribuicao(value) {
             if (typeof value === 'object') {
-                if (Object.keys(value).length > 0) {
-                    this.loaded.readequacao = true;
-                }
+                this.loaded.readequacao = true;
             }
         },
         getReadequacoesPainelAnalisados(value) {
-            if (this.perfil === Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO) {
+            if (this.perfisAceitos.coordenador_geral.includes(parseInt(this.perfil, 10))) {
                 if (typeof value === 'object') {
-                    if (Object.keys(value).length > 0) {
-                        this.loaded.readequacao = true;
-                    }
+                    this.loaded.readequacao = true;
                 }
             }
         },
@@ -555,7 +563,7 @@ export default {
                 this.buscarReadequacoesPainelEmAnalise({ filtro: 'em_analise' });
                 this.buscarReadequacoesPainelAnalisados({ filtro: 'analisados' });
                 this.buscarReadequacoesPainelAguardandoPublicacao({ filtro: 'aguardando_publicacao' });
-            } else if (parseInt(this.perfil, 10) === Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO) {
+            } else if (this.perfisAceitos.coordenador_geral.includes(parseInt(this.perfil, 10))) {
                 this.buscarReadequacoesPainelAnalisados({ filtro: 'analisados' });
             } else {
                 this.loading = false;
