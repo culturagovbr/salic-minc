@@ -306,6 +306,6 @@ export default {
 </script>
 <style>
 #app .v-menu__content {
-    width: 90px !important;
+    min-width: 90px !important;
 }
 </style>
