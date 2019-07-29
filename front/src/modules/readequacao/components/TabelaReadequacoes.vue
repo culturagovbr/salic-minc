@@ -190,9 +190,7 @@ export default {
         },
         dadosReadequacao(value) {
             if (typeof value === 'object') {
-                if (Object.keys(value).length > 0) {
-                    this.loading = false;
-                }
+                this.loading = false;
             }
         },
     },

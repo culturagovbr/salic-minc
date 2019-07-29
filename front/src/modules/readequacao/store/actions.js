@@ -10,7 +10,7 @@ export const obterListaDeReadequacoes = async ({ commit }, params) => {
             case 'proponente':
                 commit(types.GET_READEQUACOES_PROPONENTE, data);
                 break;
-            case 'analise':
+            case 'em_analise':
                 commit(types.GET_READEQUACOES_ANALISE, data);
                 break;
             case 'finalizadas':

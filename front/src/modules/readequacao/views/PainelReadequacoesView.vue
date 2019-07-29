@@ -95,7 +95,7 @@
                         </v-icon>
                     </v-tab>
                     <v-tab
-                        v-if="perfilAceito(['coordenador'])"
+                        v-if="perfilAceito(['proponente', 'coordenador'])"
                         href="#em_analise"
                     >Em Análise
                         <v-icon>
@@ -104,7 +104,7 @@
                     </v-tab>
                     <v-tab
                         v-if="perfilAceito(['analisar'])"
-                        href="#analise"
+                        href="#analisar"
                     >Em Análise
                         <v-icon>
                             gavel
@@ -139,8 +139,8 @@
                         :value="'edicao'">
                         <v-card>
                             <tabela-readequacoes
-                                :dados-readequacao="getReadequacoesAnalise"
-                                :componentes="acoesProponente"
+                                :dados-readequacao="getReadequacoesProponente"
+                                :componentes="acoesProponenteEmEdicao"
                                 :dados-projeto="dadosProjeto"
                                 :item-em-edicao="itemEmEdicao"
                                 :min-char="minChar"
@@ -165,6 +165,18 @@
                         </v-card>
                     </v-tab-item>
                     <v-tab-item
+                        v-if="perfilAceito(['proponente'])"
+                        :value="'em_analise'">
+                        <v-card>
+                            <tabela-readequacoes
+                                :dados-readequacao="getReadequacoesAnalise"
+                                :componentes="acoesProponenteEmAnalise"
+                                :perfis-aceitos="perfisAceitos"
+                                :perfil="perfil"
+                            />
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item
                         v-if="perfilAceito(['coordenador'])"
                         :value="'em_analise'">
                         <v-card>
@@ -179,7 +191,7 @@
                     </v-tab-item>
                     <v-tab-item
                         v-if="perfilAceito(['analisar'])"
-                        :value="'analise'">
+                        :value="'analisar'">
                         <v-card>
                             <tabela-readequacoes-coordenador
                                 :dados-readequacao="getReadequacoesPainelTecnico"
@@ -300,7 +312,7 @@ export default {
                 'analise',
                 'finalizadas',
             ],
-            acoesProponente: {
+            acoesProponenteEmEdicao: {
                 usuario: '',
                 acoes: [
                     {
@@ -317,6 +329,15 @@ export default {
                     },
                     {
                         componente: FinalizarButton,
+                        permissao: 'proponente',
+                    },
+                ],
+            },
+            acoesProponenteEmAnalise: {
+                usuario: '',
+                acoes: [
+                    {
+                        componente: VisualizarReadequacaoButton,
                         permissao: 'proponente',
                     },
                 ],
@@ -497,16 +518,12 @@ export default {
     watch: {
         getUsuario(value) {
             if (typeof value === 'object') {
-                if (Object.keys(value).length > 0) {
-                    this.loaded.usuario = true;
-                }
+                this.loaded.usuario = true;
             }
         },
         getReadequacoesProponente(value) {
             if (typeof value === 'object') {
-                if (Object.keys(value).length > 0) {
-                    this.loaded.readequacao = true;
-                }
+                this.loaded.readequacao = true;
             }
         },
         getReadequacoesPainelTecnico(value) {
@@ -548,15 +565,21 @@ export default {
             deep: true,
         },
         perfil() {
-            if (parseInt(this.perfil, 10) === Const.PERFIL_TECNICO_ACOMPANHAMENTO) {
+            if (parseInt(this.perfil, 10) === Const.PERFIL_PROPONENTE) {
+                if (typeof this.$route.params.idPronac !== 'undefined') {
+                    this.idPronac = this.$route.params.idPronac;
+                    this.buscarProjetoCompleto(this.idPronac);
+                }
+            } else if (parseInt(this.perfil, 10) === Const.PERFIL_TECNICO_ACOMPANHAMENTO) {
                 this.buscarReadequacoesPainelTecnico({})
                     .then((response) => {
-                        const listaIdReadequacao = [];
+                        /* const listaIdReadequacao = [];
                         let { result: items } = response.data.data;
                         result.forEach(() => {
                             // extrair todos os idReadequacao e mandar para o
                         });
                         this.obterDocumentoAssinaturaReadequacao({ listaIdReadequacao });
+                        */
                     });
             } else if (parseInt(this.perfil, 10) === Const.PERFIL_COORDENADOR_ACOMPANHAMENTO) {
                 this.buscarReadequacoesPainelAguardandoDistribuicao({ filtro: 'painel_aguardando_distribuicao' });
@@ -589,10 +612,6 @@ export default {
             this.dadosProjeto,
             this.dadosReadequacao,
         );
-        if (typeof this.$route.params.idPronac !== 'undefined') {
-            this.idPronac = this.$route.params.idPronac;
-            this.buscarProjetoCompleto(this.idPronac);
-        }
     },
     methods: {
         ...mapActions({
