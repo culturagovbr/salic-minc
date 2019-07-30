@@ -119,6 +119,7 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 GETDATE()) AS qtTotalDiasAvaliar,
                 tbDistribuirReadequacao.idAvaliador AS idTecnico,
                 usuarios.usu_nome AS nmParecerista,
+                usuarios.usu_nome AS nmTecnicoParecerista,
                 tbReadequacao.idReadequacao,
                 tbDistribuirReadequacao.idUnidade as idOrgao
             ")
@@ -147,31 +148,6 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 array('tbTipoReadequacao' => 'tbTipoReadequacao'),
                 'tbTipoReadequacao.idTipoReadequacao = tbReadequacao.idTipoReadequacao',
                 array(''),
-                $this->_schema
-            );
-
-            $select->joinLeft(
-                ['tbReadequacaoXParecer' => 'tbReadequacaoXParecer'],
-                'tbReadequacaoXParecer.idReadequacao = tbReadequacao.idReadequacao',
-                [],
-                $this->_schema
-            );
-            
-            $servicoReadequacaoAssinatura = new \Application\Modules\Readequacao\Service\Assinatura\ReadequacaoAssinatura(
-                $this->grupoAtivo,
-                $this->auth
-            );
-            
-            $select->joinLeft(
-                ['tbDocumentoAssinatura' => 'tbDocumentoAssinatura'],
-                'tbReadequacaoXParecer.idParecer = tbDocumentoAssinatura.idAtoDeGestao AND
-             tbDocumentoAssinatura.idTipoDoAtoAdministrativo IN ('.
-                implode(',', $servicoReadequacaoAssinatura->obterAtosAdministativos()) .') AND
-            tbDocumentoAssinatura.stEstado = ' . Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO,
-                [
-                    'tbDocumentoAssinatura.idDocumentoAssinatura',
-                    'tbDocumentoAssinatura.idTipoDoAtoAdministrativo',
-                ],
                 $this->_schema
             );
 

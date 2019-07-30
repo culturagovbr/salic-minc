@@ -119,7 +119,7 @@
                         </v-icon>
                     </v-tab>
                     <v-tab
-                        v-if="perfilAceito(['coordenador'])"
+                        v-if="perfilAceito(['coordenador_acompanhamento'])"
                         href="#aguardando_publicacao"
                     >Aguardando publicação
                         <v-icon>
@@ -216,7 +216,7 @@
                         </v-card>
                     </v-tab-item>
                     <v-tab-item
-                        v-if="perfilAceito(['coordenador'])"
+                        v-if="perfilAceito(['coordenador_acompanhamento'])"
                         :value="'aguardando_publicacao'">
                         <v-card>
                             <tabela-readequacoes-coordenador
@@ -463,15 +463,18 @@ export default {
                 analise: [
                     Const.PERFIL_PROPONENTE,
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
+                    Const.PERFIL_COORDENADOR_DE_PARECER,
                     Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
                     Const.PERFIL_DIRETOR,
                     Const.PERFIL_SECRETARIO,
                 ],
                 analisar: [
                     Const.PERFIL_TECNICO_ACOMPANHAMENTO,
+                    Const.PERFIL_PARECERISTA,
                 ],
                 assinatura: [
                     Const.PERFIL_PARECERISTA,
+                    Const.PERFIL_COORDENADOR_DE_PARECER,
                     Const.PERFIL_TECNICO_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
@@ -479,6 +482,10 @@ export default {
                     Const.PERFIL_SECRETARIO,
                 ],
                 coordenador: [
+                    Const.PERFIL_COORDENADOR_DE_PARECER,
+                    Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
+                ],
+                coordenador_acompanhamento: [
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
                 ],
                 coordenador_geral: [
@@ -571,22 +578,26 @@ export default {
                     this.idPronac = this.$route.params.idPronac;
                     this.buscarProjetoCompleto(this.idPronac);
                 }
-            } else if (parseInt(this.perfil, 10) === Const.PERFIL_TECNICO_ACOMPANHAMENTO) {
-                this.buscarReadequacoesPainelTecnico({})
-                    .then((response) => {
-                        /* const listaIdReadequacao = [];
+            } else if (parseInt(this.perfil, 10) === Const.PERFIL_TECNICO_ACOMPANHAMENTO
+                       || parseInt(this.perfil, 10) === Const.PERFIL_PARECERISTA) {
+                this.buscarReadequacoesPainelTecnico({});
+                // .then((esponse) => {
+                /* const listaIdReadequacao = [];
                         let { result: items } = response.data.data;
                         result.forEach(() => {
                             // extrair todos os idReadequacao e mandar para o
                         });
                         this.obterDocumentoAssinaturaReadequacao({ listaIdReadequacao });
                         */
-                    });
-            } else if (parseInt(this.perfil, 10) === Const.PERFIL_COORDENADOR_ACOMPANHAMENTO) {
+                // });
+            } else if (parseInt(this.perfil, 10) === Const.PERFIL_COORDENADOR_ACOMPANHAMENTO
+                       || parseInt(this.perfil, 10) === Const.PERFIL_COORDENADOR_DE_PARECER) {
                 this.buscarReadequacoesPainelAguardandoDistribuicao({ filtro: 'painel_aguardando_distribuicao' });
                 this.buscarReadequacoesPainelEmAnalise({ filtro: 'em_analise' });
                 this.buscarReadequacoesPainelAnalisados({ filtro: 'analisados' });
-                this.buscarReadequacoesPainelAguardandoPublicacao({ filtro: 'aguardando_publicacao' });
+                if (parseInt(this.perfil, 10) === Const.PERFIL_COORDENADOR_ACOMPANHAMENTO) {
+                    this.buscarReadequacoesPainelAguardandoPublicacao({ filtro: 'aguardando_publicacao' });
+                }
             } else if (this.perfisAceitos.coordenador_geral.includes(parseInt(this.perfil, 10))) {
                 this.buscarReadequacoesPainelAnalisados({ filtro: 'analisados' });
             } else {
@@ -605,7 +616,8 @@ export default {
                 },
             );
         }
-        if (parseInt(this.perfil, 10) === Const.PERFIL_TECNICO_ACOMPANHAMENTO) {
+        if (parseInt(this.perfil, 10) === Const.PERFIL_TECNICO_ACOMPANHAMENTO
+           || parseInt(this.perfil, 10) === Const.PERFIL_PARECERISTA) {
             if (this.getReadequacoesPainelTecnico.items.length > 0) {
                 this.loaded.readequacao = true;
             }

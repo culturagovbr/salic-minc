@@ -118,8 +118,11 @@ class Readequacao implements IServicoRestZend
         return $resultArray;
     }
 
-    public function __buscarPaineisCoordenador($idOrgao)
+    private function __buscarPaineisCoordenador($idOrgao)
     {
+        $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
+        $idPerfil = $grupoAtivo->codGrupo;
+        
         $parametros = $this->request->getParams();
         $result = ''; 
         $filtro = $parametros['filtro'];
@@ -128,16 +131,32 @@ class Readequacao implements IServicoRestZend
         }
         
         if ($filtro == 'painel_aguardando_distribuicao') {
-            $where['Orgao = ?'] = $idOrgao;
+            if ($idPerfil == \Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO) {
+                $where['Orgao = ?'] = $idOrgao;
+            } else {
+                $where['idUnidade = ?'] = $idOrgao;
+            }
+        } else if ($filtro == 'em_analise') {
+            if ($idPerfil == \Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO) {
+                $where['idOrgaoOrigem = ?'] = $idOrgao;
+            } else {
+                $where['idOrgao = ?'] = $idOrgao;
+            }
+        } else if ($filtro == 'analisados') {
+            if ($idPerfil == \Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO) {
+                $where['idOrgaoOrigem = ?'] = $idOrgao;
+            } else {
+                $where['idUnidade = ?'] = $idOrgao;
+            }
         } else {
             $where['idOrgaoOrigem = ?'] = $idOrgao;
         }
-
+        
         if ($parametros['pronac']) {
             $where['a.PRONAC = ?'] = $parametros['pronac'];
         }
 
-        if ($filtro == 'analisados') {
+        if ($filtro == 'analisados' && $idPerfil == \Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO) {
             unset($where['idOrgaoOrigem = ?']);
             $where["CASE 
 	      WHEN projetos.Orgao in (" . \Orgaos::ORGAO_SUPERIOR_SAV . "," . \Orgaos::ORGAO_SAV_SAL . "," . \Orgaos::SAV_DPAV . ")
@@ -152,9 +171,14 @@ class Readequacao implements IServicoRestZend
                 $where[new \Zend_Db_Expr('projetos.anoprojeto + projetos.sequencial') . ' = ?'] = $parametros['pronac'];
             }
         }
-        $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
-        $result = $modelTbReadequacao->painelReadequacoesCoordenadorAcompanhamento($where, null, null, null, null, $filtro);
-        
+
+        if ($filtro == 'analisados' && $idPerfil == \Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER) {
+            $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
+            $result = $tbDistribuirReadequacao->buscarReadequacaoCoordenadorParecerAnalisados($where);
+        } else {
+            $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
+            $result = $modelTbReadequacao->painelReadequacoesCoordenadorAcompanhamento($where, null, null, null, null, $filtro);
+        }
         return $result;
     }
 
@@ -181,6 +205,9 @@ class Readequacao implements IServicoRestZend
                 $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
                 $where['dtDistribuicao.idAvaliador = ?'] = $auth->getIdentity()->usu_codigo;
                 $result = $modelTbReadequacao->painelReadequacoesTecnicoAcompanhamento($where);
+                break;
+            case \Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER:
+                $result = $this->__buscarPaineisCoordenador($idOrgao);
                 break;
             case \Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO:
                 $result = $this->__buscarPaineisCoordenador($idOrgao);
@@ -214,6 +241,9 @@ class Readequacao implements IServicoRestZend
                 }
                 if ($item->nmReceptor) {
                     $item->nmReceptor = utf8_encode($item->nmReceptor);
+                }
+                if ($item->nmParecerista) {
+                    $item->nmParecerista = utf8_encode($item->nmParecerista);
                 }
                 if ($item->dsTipoReadequacao == '') {
                     $item->dsTipoReadequacao = $item->tpReadequacao;

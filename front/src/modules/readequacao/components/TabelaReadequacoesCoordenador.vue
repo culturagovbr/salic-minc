@@ -50,7 +50,7 @@
                         <td
                             :key="index"
                             class="text-xs-center"
-                            v-html="filterDate(props.item[item.value])"
+                            v-html="filterField(props.item[item.value])"
                         />
                     </template>
                 </template>
@@ -296,11 +296,14 @@ export default {
             }
             return false;
         },
-        filterDate(value) {
+        filterField(value) {
             if (Date.parse(value)) {
-                return this.$options.filters.formatarData(value);
+                return this.filterDate(value);
             }
             return value;
+        },
+        filterDate(value) {
+            return this.$options.filters.formatarData(value);
         },
         disponivelAssinatura(siEncaminhamento, idDocumentoAssinatura) {
             const assinaturasPorEstado = {
