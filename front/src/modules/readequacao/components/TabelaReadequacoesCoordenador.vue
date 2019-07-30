@@ -191,6 +191,14 @@ export default {
                         position: 4,
                     },
                 ],
+                analisar: [
+                    {
+                        text: 'Data de recebimento',
+                        align: 'center',
+                        value: 'dtDistribuicao',
+                        position: 4,
+                    },
+                ],
                 em_analise: [
                     {
                         text: 'Data distribuição',

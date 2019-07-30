@@ -196,6 +196,7 @@
                             <tabela-readequacoes-coordenador
                                 :dados-readequacao="getReadequacoesPainelTecnico"
                                 :componentes="acoesAnalise"
+                                :painel="`analisar`"
                                 :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                             />
