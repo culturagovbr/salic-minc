@@ -23,6 +23,11 @@ export default {
             default: () => {},
         },
     },
+    data() {
+        return {
+            dialog: false,
+        };
+    },
     watch: {
         dialog() {
             if (this.dialog === true) {
