@@ -38,6 +38,7 @@
                 slot="items"
                 slot-scope="props">
                 <td>{{ props.index+1 }}</td>
+                <td class="text-xs-left">{{ props.item.PRONAC }}</td>
                 <td class="text-xs-left">{{ props.item.NomeProjeto }}</td>
                 <td class="text-xs-left">{{ props.item.dsTipoReadequacao }}</td>
                 <template
@@ -156,6 +157,10 @@ export default {
                     align: 'left',
                     sortable: false,
                     value: 'numero',
+                },
+                {
+                    text: 'Pronac',
+                    value: 'PRONAC',
                 },
                 {
                     text: 'Projeto',
