@@ -605,6 +605,11 @@ export default {
                 },
             );
         }
+        if (parseInt(this.perfil, 10) === Const.PERFIL_TECNICO_ACOMPANHAMENTO) {
+            if (this.getReadequacoesPainelTecnico.items.length > 0) {
+                this.loaded.readequacao = true;
+            }
+        }
     },
     created() {
         this.loaded = this.checkAlreadyLoadedData(
