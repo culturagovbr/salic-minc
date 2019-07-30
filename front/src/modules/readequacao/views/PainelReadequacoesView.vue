@@ -345,20 +345,20 @@ export default {
             acoesAnalise: {
                 acoes: [
                     {
-                        componente: AnalisarReadequacaoButton,
+                        componente: VisualizarReadequacaoButton,
                         permissao: 'analisar',
                     },
                     {
-                        componente: VisualizarAssinaturaButton,
-                        permissao: 'assinatura',
+                        componente: AnalisarReadequacaoButton,
+                        permissao: 'analisar',
                     },
                     {
                         componente: AssinarDocumentoButton,
                         permissao: 'assinatura',
                     },
                     {
-                        componente: VisualizarReadequacaoButton,
-                        permissao: 'analise',
+                        componente: VisualizarAssinaturaButton,
+                        permissao: 'assinatura',
                     },
                 ],
             },

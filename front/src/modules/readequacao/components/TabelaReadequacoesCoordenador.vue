@@ -296,12 +296,14 @@ export default {
         },
         disponivelAssinatura(siEncaminhamento, idDocumentoAssinatura) {
             const assinaturasPorEstado = {
+                94: Const.SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA,
+                121: Const.SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA,
                 122: Const.SI_ENCAMINHAMENTO_DEVOLVIDA_COORDENADOR_TECNICO,
                 123: Const.SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_COORDENADOR_GERAL,
                 148: Const.SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_DIRETOR,
                 149: Const.SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_SECRETARIO,
             };
-            if (typeof siEncaminhamento !== 'undefined' && typeof idDocumentoAssinatura !== 'undefined') {
+            if (typeof siEncaminhamento !== 'undefined' && typeof idDocumentoAssinatura === 'number') {
                 return siEncaminhamento === assinaturasPorEstado[this.perfil];
             }
             return false;

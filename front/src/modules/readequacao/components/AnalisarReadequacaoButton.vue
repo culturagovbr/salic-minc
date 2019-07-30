@@ -1,20 +1,17 @@
 <template>
     <v-layout>
-        <v-btn
-            dark
-            icon
-            flat
-            small
-            color="#212121"
-            @click.stop="redirect()"
+        <v-tooltip
+            bottom
         >
-            <v-tooltip bottom>
-                <v-icon slot="activator">
-                    gavel
-                </v-icon>
-                <span>Analisar Readequação</span>
-            </v-tooltip>
-        </v-btn>
+            <v-icon
+                slot="activator"
+                color="#212121"
+                @click.stop="dialog = true"
+            >
+                gavel
+            </v-icon>
+            <span>Analisar Readequação</span>
+        </v-tooltip>
     </v-layout>
 </template>
 <script>
@@ -24,6 +21,13 @@ export default {
         dadosReadequacao: {
             type: Object,
             default: () => {},
+        },
+    },
+    watch: {
+        dialog() {
+            if (this.dialog === true) {
+                this.redirect();
+            }
         },
     },
     methods: {
