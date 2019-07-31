@@ -26,18 +26,8 @@ Vue.component('readequacao-transferencia-recursos', {
           <b>&Aacute;rea: </b><span v-html="projetoTransferidor.area"></span>
         </div>
         <div class="col s2">
-          <b>Vl. a Comprovar: </b><span style="white-space:nowrap;">R$ {{ valorFormatado(this.projetoTransferidor.valorComprovar) }}</span>
+          <strong>Total transferido: </strong><span style="white-space:nowrap;">R$ {{ valorFormatado(totalRecebido) }} </span>
         </div>
-        <div
-          v-if="disponivelAdicionarRecebedor && !disabled"
-          class="col s2 green lighten-2">
-          <strong>Saldo dispon&iacute;vel: </strong><span style="white-space:nowrap;">R$ {{ valorFormatado(saldoDisponivel) }}</span>
-        </div>
-		<div v-else-if="!disponivelAdicionarRecebedor && !disabled"
-             class="center-align col s2"
-             >
-		  <label class="card-panel red lighten-2 white-text">Saldo esgotado</label>
-		</div>
         <div
           v-if="disabled">
           <strong>Tipo de transfer&ecirc;ncia:</strong>
@@ -128,12 +118,6 @@ Vue.component('readequacao-transferencia-recursos', {
 									 class="btn">Adicionar recebedor</a>
 							</div>
 							
-						</div>
-						
-						<div v-else-if="!disponivelAdicionarRecebedor"
-                            class="center-align"
-                        >
-							<label class="card-panel red lighten-2 white-text">Sem saldo dispon&iacute;vel</label>
 						</div>
 					</form>
 				</div>
@@ -338,10 +322,6 @@ Vue.component('readequacao-transferencia-recursos', {
                 return resultado.toFixed(2);
             }, 0);
         },
-        saldoDisponivel() {
-            const saldo = parseFloat(this.projetoTransferidor.valorComprovar) - parseFloat(this.totalRecebido);
-            return saldo;
-        },
         nomeTipoTransferencia() {
             const idTipoTransferencia = parseInt(this.readequacao.dsSolicitacao);
             const tipos = this.tiposTransferencia;
@@ -362,11 +342,7 @@ Vue.component('readequacao-transferencia-recursos', {
             return true;
         },
         disponivelAdicionarRecebedor() {
-            if (this.totalRecebido == this.projetoTransferidor.saldoDisponivel) {
-                return false;
-            } else {
-                return true;
-            }
+            return true;
         },
         disponivelAdicionarRecebedores() {
             if (this.areasEspeciais()) {
@@ -420,7 +396,6 @@ Vue.component('readequacao-transferencia-recursos', {
                 nome: '',
                 area: '',
                 valorComprovar: 0.00,
-                saldoDisponivel: 0.00
             }
         },
         incluirRecebedor() {
@@ -448,13 +423,6 @@ Vue.component('readequacao-transferencia-recursos', {
             this.projetoRecebedor.vlRecebido = vlRecebido.replace(".", ",");
             var somaTransferencia = parseFloat(this.projetoRecebedor.vlRecebido.replace(",", ".")) + parseFloat(this.totalRecebido);
             somaTransferencia = somaTransferencia.toFixed(2);
-            var saldoDisponivel = parseFloat(this.projetoTransferidor.saldoDisponivel);
-            saldoDisponivel = saldoDisponivel.toFixed(2);
-            if (parseFloat(somaTransferencia) > parseFloat(this.projetoTransferidor.saldoDisponivel)) {
-                this.mensagemAlerta("Voc\xEA ultrapassou o saldo dispon\xEDvel para transfer\xEAncia, que \xE9 de R$ " + saldoDisponivel + "!");
-                this.$refs.projetoRecebedorValorRecebido.$refs.input.focus();
-                return;
-            }
             var self = this;
             $3.ajax({
                 type: "POST",
@@ -687,9 +655,7 @@ Vue.component('readequacao-transferencia-recursos', {
             }
         },
         disponivelFinalizar() {
-            if (this.projetosRecebedores.length > 0 &&
-                this.totalRecebido <= this.projetoTransferidor.saldoDisponivel
-            ) {
+            if (this.projetosRecebedores.length > 0) {
                 return true;
             } else {
                 return false;
