@@ -118,6 +118,33 @@ class Readequacao implements IServicoRestZend
         return $resultArray;
     }
 
+    private function __buscarPaineisCoordenadorParecer($idOrgao)
+    {
+        $parametros = $this->request->getParams();
+        $result = ''; 
+        $filtro = $parametros['filtro'];
+        if (!$filtro) {
+            return;
+        }
+
+        $where = [];
+        $where['idUnidade = ?'] = $idOrgao;
+        $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
+        
+        switch ($filtro) {
+            case 'painel_aguardando_distribuicao':
+                $result = $tbDistribuirReadequacao->buscarReadequacaoCoordenadorParecerAguardandoAnalise($where);
+                break;
+            case 'em_analise':
+                $result = $tbDistribuirReadequacao->buscarReadequacaoCoordenadorParecerEmAnalise($where);
+                break;
+            case 'analisados':
+                $result = $tbDistribuirReadequacao->buscarReadequacaoCoordenadorParecerAnalisados($where);
+                break;
+        }
+        return $result;
+    }
+    
     private function __buscarPaineisCoordenador($idOrgao)
     {
         $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
@@ -131,23 +158,7 @@ class Readequacao implements IServicoRestZend
         }
         
         if ($filtro == 'painel_aguardando_distribuicao') {
-            if ($idPerfil == \Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO) {
-                $where['Orgao = ?'] = $idOrgao;
-            } else {
-                $where['idUnidade = ?'] = $idOrgao;
-            }
-        } else if ($filtro == 'em_analise') {
-            if ($idPerfil == \Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO) {
-                $where['idOrgaoOrigem = ?'] = $idOrgao;
-            } else {
-                $where['idOrgao = ?'] = $idOrgao;
-            }
-        } else if ($filtro == 'analisados') {
-            if ($idPerfil == \Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO) {
-                $where['idOrgaoOrigem = ?'] = $idOrgao;
-            } else {
-                $where['idUnidade = ?'] = $idOrgao;
-            }
+            $where['Orgao = ?'] = $idOrgao;
         } else {
             $where['idOrgaoOrigem = ?'] = $idOrgao;
         }
@@ -156,7 +167,7 @@ class Readequacao implements IServicoRestZend
             $where['a.PRONAC = ?'] = $parametros['pronac'];
         }
 
-        if ($filtro == 'analisados' && $idPerfil == \Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO) {
+        if ($filtro == 'analisados') {
             unset($where['idOrgaoOrigem = ?']);
             $where["CASE 
 	      WHEN projetos.Orgao in (" . \Orgaos::ORGAO_SUPERIOR_SAV . "," . \Orgaos::ORGAO_SAV_SAL . "," . \Orgaos::SAV_DPAV . ")
@@ -172,13 +183,8 @@ class Readequacao implements IServicoRestZend
             }
         }
 
-        if ($filtro == 'analisados' && $idPerfil == \Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER) {
-            $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
-            $result = $tbDistribuirReadequacao->buscarReadequacaoCoordenadorParecerAnalisados($where);
-        } else {
-            $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
-            $result = $modelTbReadequacao->painelReadequacoesCoordenadorAcompanhamento($where, null, null, null, null, $filtro);
-        }
+        $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
+        $result = $modelTbReadequacao->painelReadequacoesCoordenadorAcompanhamento($where, null, null, null, null, $filtro);
         return $result;
     }
 
@@ -207,7 +213,7 @@ class Readequacao implements IServicoRestZend
                 $result = $modelTbReadequacao->painelReadequacoesTecnicoAcompanhamento($where);
                 break;
             case \Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER:
-                $result = $this->__buscarPaineisCoordenador($idOrgao);
+                $result = $this->__buscarPaineisCoordenadorParecer($idOrgao);
                 break;
             case \Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO:
                 $result = $this->__buscarPaineisCoordenador($idOrgao);
@@ -244,10 +250,26 @@ class Readequacao implements IServicoRestZend
                 }
                 if ($item->nmParecerista) {
                     $item->nmParecerista = utf8_encode($item->nmParecerista);
+                    $item->nmTecnicoParecerista = $item->nmParecerista;
                 }
                 if ($item->dsTipoReadequacao == '') {
                     $item->dsTipoReadequacao = $item->tpReadequacao;
                 }
+                if ($item->qtDiasAguardandoDistribuicao != '') {
+                    $item->qtAguardandoDistribuicao = $item->qtDiasAguardandoDistribuicao;
+                }
+                if ($item->dtDistribuicao != '') {
+                    $item->dtEncaminhamento = $item->dtDistribuicao;
+                }
+                if ($item->qtDiasEmAnalise != '') {
+                    $item->qtDiasEncaminhar = $item->qtDiasEmAnalise;
+                }
+                if ($item->sgUnidade == '') {
+                    $tbOrgaos = new \Orgaos();
+                    $orgao = $tbOrgaos->pesquisarUnidades(['Codigo = ?' => $item->idOrgao]);
+                    $item->sgUnidade = $orgao[0]->Sigla;
+                }
+                
                 $resultArray[] = $item;
             }
         }

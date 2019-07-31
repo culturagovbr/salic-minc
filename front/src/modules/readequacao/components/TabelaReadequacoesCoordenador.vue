@@ -227,34 +227,10 @@ export default {
                 ],
                 analisados: [
                     {
-                        text: 'Data envio',
-                        align: 'center',
-                        value: 'dtEnvio',
-                        position: 4,
-                    },
-                    {
-                        text: 'Data distribuição',
-                        align: 'center',
-                        value: 'dtDistribuicao',
-                        position: 5,
-                    },
-                    {
-                        text: 'Data devolução',
-                        align: 'center',
-                        value: 'dtDevolucao',
-                        position: 6,
-                    },
-                    {
-                        text: 'Total de dias para avaliar',
-                        align: 'center',
-                        value: 'qtTotalDiasAvaliar',
-                        position: 7,
-                    },
-                    {
                         text: 'Localização',
                         align: 'center',
                         value: 'nmTecnicoParecerista',
-                        position: 8,
+                        position: 4,
                     },
                 ],
             },
