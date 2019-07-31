@@ -108,6 +108,7 @@
                                     md4
                                 >
                                     <v-select
+                                        v-if="distribuirDentroDeVinculada === false"
                                         v-model="dadosEncaminhamento.vinculada"
                                         :items="orgaosDestino"
                                         label="Orgão a encaminhar"
@@ -238,8 +239,15 @@ export default {
     },
     computed: {
         ...mapGetters({
+            getUsuario: 'autenticacao/getUsuario',
             getDestinatariosDistribuicao: 'readequacao/getDestinatariosDistribuicao',
         }),
+        orgao() {
+            return this.getUsuario.usu_orgao;
+        },
+        distribuirDentroDeVinculada() {
+            return false;
+        },
     },
     watch: {
         dadosEncaminhamento: {
@@ -270,6 +278,7 @@ export default {
         },
     },
     mounted() {
+        console.log(this.orgao);
         this.inicializarReadequacaoEditada();
     },
     methods: {
