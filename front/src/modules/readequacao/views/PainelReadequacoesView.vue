@@ -577,6 +577,9 @@ export default {
                 if (typeof this.$route.params.idPronac !== 'undefined') {
                     this.idPronac = this.$route.params.idPronac;
                     this.buscarProjetoCompleto(this.idPronac);
+                } else {
+                    this.loading = false;
+                    this.acessoNegado = true;
                 }
             } else if (parseInt(this.perfil, 10) === Const.PERFIL_TECNICO_ACOMPANHAMENTO
                        || parseInt(this.perfil, 10) === Const.PERFIL_PARECERISTA) {
