@@ -23,20 +23,9 @@ class Readequacao_DestinatariosDistribuicaoController extends MinC_Controller_Re
         $data = [];
         $code = 200;
         
-        $idPronac = $this->getRequest()->getParam('idPronac');
-        if (strlen($idPronac) > 7) {
-            $idPronac = Seguranca::dencrypt($idPronac);
-        }
-        
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $permissao = $readequacaoService->verificarPermissaoNoProjeto();
-        if (!$permissao) {
-            $data['permissao'] = false;
-            $data['message'] = 'Você não tem permissão para visualizar esta readequação';
-            $this->customRenderJsonResponse($data, $code);
-        } else {
-            $data = $readequacaoService->buscarDestinatariosDistribuicao($idPronac);
-        }
+        $data = $readequacaoService->buscarDestinatariosDistribuicao();
         
         $this->renderJsonResponse($data, $code);
     }

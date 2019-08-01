@@ -358,11 +358,13 @@ export const reverterAlteracaoItem = ({ dispatch }, params) => {
         });
 };
 
-export const obterDestinatariosDistribuicao = ({ commit }, params) => {
-    readequacaoHelperAPI.obterDestinatariosDistribuicao(params)
+export const obterDestinatariosDistribuicao = async ({ commit }, params) => {
+    const resultado = await readequacaoHelperAPI.obterDestinatariosDistribuicao(params)
         .then((response) => {
             commit(types.SET_DESTINATARIOS_DISTRIBUICAO, response.data.data.items);
+            return response.data.data.items;
         });
+    return resultado;
 };
 
 export const distribuirReadequacao = ({ dispatch }, params) => {

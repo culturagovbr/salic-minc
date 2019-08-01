@@ -264,6 +264,9 @@ class Readequacao implements IServicoRestZend
                 if ($item->qtDiasEmAnalise != '') {
                     $item->qtDiasEncaminhar = $item->qtDiasEmAnalise;
                 }
+                if ($item->idPRONAC != '') {
+                    $item->idPronac = $item->idPRONAC;
+                }
                 if ($item->sgUnidade == '') {
                     $tbOrgaos = new \Orgaos();
                     $orgao = $tbOrgaos->pesquisarUnidades(['Codigo = ?' => $item->idOrgao]);
@@ -1467,10 +1470,18 @@ class Readequacao implements IServicoRestZend
     public function buscarDestinatariosDistribuicao()
     {
         $parametros = $this->request->getParams();
-
-        $vinculada = $parametros['vinculada'];
-        $idPronac = $parametros['idPronac'];
         
+        $vinculada = $parametros['vinculada'];
+        $area = $parametros['area'];
+        $segmento = $parametros['segmento'];
+        
+        $vinculadasExcetoIphan = [
+            \Orgaos::ORGAO_FUNARTE,
+            \Orgaos::ORGAO_FBN,
+            \Orgaos::ORGAO_FCP,
+            \Orgaos::ORGAO_FCRB,
+            \Orgaos::ORGAO_IBRAM,
+        ];
         $a = 0;
         $dadosUsuarios = [];
         
@@ -1495,7 +1506,19 @@ class Readequacao implements IServicoRestZend
                     $a++;
                 }
             }
+        } else if (in_array($vinculada, $vinculadasExcetoIphan)) {
+            $agentesModel = new \Agente_Model_DbTable_Agentes();
+            $result = $agentesModel->buscarPareceristas($vinculada, $area, $segmento);
+            
+            if ($result) {
+                foreach ($result as $registro) {
+                    $dadosUsuarios[$a]['id'] = $registro['id'];
+                    $dadosUsuarios[$a]['nome'] = utf8_encode($registro['nome']);
+                    $a++;
+                }
+            }
         }
+        
         return $dadosUsuarios;
     }
 

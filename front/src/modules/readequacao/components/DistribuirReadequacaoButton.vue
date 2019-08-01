@@ -108,7 +108,7 @@
                                     md4
                                 >
                                     <v-select
-                                        v-if="distribuirDentroDeVinculada === false"
+                                        v-if="!vinculada"
                                         v-model="dadosEncaminhamento.vinculada"
                                         :items="orgaosDestino"
                                         label="Orgão a encaminhar"
@@ -243,7 +243,15 @@ export default {
             getDestinatariosDistribuicao: 'readequacao/getDestinatariosDistribuicao',
         }),
         orgao() {
-            return this.getUsuario.usu_orgao;
+            return this.getUsuario.orgao_ativo;
+        },
+        vinculada() {
+            const orgaos = JSON.parse(JSON.stringify(this.orgaosDestino));
+            const vinculada = orgaos.find(orgao => orgao.id === parseInt(this.orgao, 10));
+            if (typeof vinculada !== 'undefined') {
+                return vinculada;
+            }
+            return false;
         },
         distribuirDentroDeVinculada() {
             return false;
@@ -253,6 +261,16 @@ export default {
         dadosEncaminhamento: {
             handler() {
                 this.checkDisponivelEncaminhar();
+            },
+            deep: true,
+        },
+        dialog: {
+            handler() {
+                if (this.dialog === true && typeof this.dadosReadequacao.idPronac !== 'undefined') {
+                    if (typeof this.vinculada === 'object') {
+                        this.obterDestinatarios();
+                    }
+                }
             },
             deep: true,
         },
@@ -271,14 +289,13 @@ export default {
             deep: true,
         },
         getDestinatariosDistribuicao(value) {
-            if (value.length > 0) {
+            if (typeof value !== 'undefined') {
                 this.loadingDestinatarios = false;
             }
             this.selecionarDestinatario = true;
         },
     },
     mounted() {
-        console.log(this.orgao);
         this.inicializarReadequacaoEditada();
     },
     methods: {
@@ -298,7 +315,7 @@ export default {
                     this.selecionarDestinatario = true;
                 }
                 this.encaminharDisponivel = this.dadosEncaminhamento.destinatario !== '';
-            } else {
+            } else if (typeof this.vinculada.id === 'undefined') {
                 this.selecionarDestinatario = false;
                 this.encaminharDisponivel = this.dadosEncaminhamento.vinculada > 0;
             }
@@ -332,11 +349,21 @@ export default {
             });
         },
         obterDestinatarios() {
-            this.loadingDestinatarios = true;
             this.dadosEncaminhamento.destinatario = '';
-            if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI) {
+            if (typeof this.vinculada.id !== 'undefined') {
+                this.loadingDestinatarios = true;
                 this.obterDestinatariosDistribuicao({
-                    idPronac: this.dadosReadequacao.idPronac,
+                    area: this.dadosReadequacao.Area,
+                    segmento: this.dadosReadequacao.Segmento,
+                    vinculada: this.vinculada.id,
+                }).then(() => {
+                    this.loadingDestinatarios = false;
+                    this.selecionarDestinatario = true;
+                });
+            } else if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
+                       || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI) {
+                this.loadingDestinatarios = true;
+                this.obterDestinatariosDistribuicao({
                     vinculada: this.dadosEncaminhamento.vinculada,
                 });
             }
