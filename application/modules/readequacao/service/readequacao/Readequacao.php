@@ -212,6 +212,12 @@ class Readequacao implements IServicoRestZend
                 $where['dtDistribuicao.idAvaliador = ?'] = $auth->getIdentity()->usu_codigo;
                 $result = $modelTbReadequacao->painelReadequacoesTecnicoAcompanhamento($where);
                 break;
+            case \Autenticacao_Model_Grupos::PARECERISTA:
+                $where['idUnidade = ?'] = $idOrgao;
+                $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
+                $where['dtDistribuicao.idAvaliador = ?'] = $auth->getIdentity()->usu_codigo;
+                $result = $modelTbReadequacao->painelReadequacoesTecnicoAcompanhamento($where);
+                break;
             case \Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER:
                 $result = $this->__buscarPaineisCoordenadorParecer($idOrgao);
                 break;
