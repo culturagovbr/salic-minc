@@ -1219,7 +1219,9 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             
             $select->joinLeft(
                 ['tbDocumentoAssinatura' => 'tbDocumentoAssinatura'],
-                "tbDocumentoAssinatura.idAtoDeGestao = tbReadequacaoXParecer.idParecer",
+                "tbDocumentoAssinatura.idAtoDeGestao = tbReadequacaoXParecer.idParecer
+                AND tbDocumentoAssinatura.cdSituacao = " . \Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA . "
+                AND tbDocumentoAssinatura.stEstado = " . \Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO,
                 ["idDocumentoAssinatura", "idTipoDoAtoAdministrativo"],
                 $this->_schema
             );
