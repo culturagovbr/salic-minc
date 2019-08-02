@@ -584,6 +584,7 @@ export default {
             } else if (parseInt(this.perfil, 10) === Const.PERFIL_TECNICO_ACOMPANHAMENTO
                        || parseInt(this.perfil, 10) === Const.PERFIL_PARECERISTA) {
                 this.buscarReadequacoesPainelTecnico({});
+                // TODO: puxar lista para obter lista de projetos finalizáveis
                 // .then((esponse) => {
                 /* const listaIdReadequacao = [];
                         let { result: items } = response.data.data;
@@ -620,9 +621,13 @@ export default {
             );
         }
         if (parseInt(this.perfil, 10) === Const.PERFIL_TECNICO_ACOMPANHAMENTO
-           || parseInt(this.perfil, 10) === Const.PERFIL_PARECERISTA) {
-            if (this.getReadequacoesPainelTecnico.items.length > 0) {
-                this.loaded.readequacao = true;
+            || parseInt(this.perfil, 10) === Const.PERFIL_PARECERISTA) {
+            if (typeof this.getReadequacoesPainelAnalisados.items !== 'undefined') {
+                if (this.getReadequacoesPainelTecnico.items.length > 0) {
+                    this.loaded.readequacao = true;
+                }
+            } else {
+                this.buscarReadequacoesPainelTecnico({});
             }
         }
     },
