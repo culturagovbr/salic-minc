@@ -1467,6 +1467,17 @@ class Readequacao implements IServicoRestZend
         return $valorEntrePlanilhas;
     }
 
+    private function __getVinculadasExcetoIphan()
+    {
+        return [
+            \Orgaos::ORGAO_FUNARTE,
+            \Orgaos::ORGAO_FBN,
+            \Orgaos::ORGAO_FCP,
+            \Orgaos::ORGAO_FCRB,
+            \Orgaos::ORGAO_IBRAM,
+        ];
+    }
+    
     public function buscarDestinatariosDistribuicao()
     {
         $parametros = $this->request->getParams();
@@ -1475,13 +1486,6 @@ class Readequacao implements IServicoRestZend
         $area = $parametros['area'];
         $segmento = $parametros['segmento'];
         
-        $vinculadasExcetoIphan = [
-            \Orgaos::ORGAO_FUNARTE,
-            \Orgaos::ORGAO_FBN,
-            \Orgaos::ORGAO_FCP,
-            \Orgaos::ORGAO_FCRB,
-            \Orgaos::ORGAO_IBRAM,
-        ];
         $a = 0;
         $dadosUsuarios = [];
         
@@ -1506,7 +1510,7 @@ class Readequacao implements IServicoRestZend
                     $a++;
                 }
             }
-        } else if (in_array($vinculada, $vinculadasExcetoIphan)) {
+        } else if (in_array($vinculada, $this->__getVinculadasExcetoIphan())) {
             $agentesModel = new \Agente_Model_DbTable_Agentes();
             $result = $agentesModel->buscarPareceristas($vinculada, $area, $segmento);
             
@@ -1604,6 +1608,8 @@ class Readequacao implements IServicoRestZend
                     $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
                     $dataEnvio = new \Zend_Db_Expr('GETDATE()');
                     $readequacao->idAvaliador = $parametros['destinatario'];
+                } else if (in_array($parametros['vinculada'], $this->__getVinculadasExcetoIphan())) {
+                    $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
                 } else {
                     $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
                 }
@@ -1637,7 +1643,6 @@ class Readequacao implements IServicoRestZend
                         'dsOrientacao' => $readequacao->dsAvaliacao
                     ];
                     $where = "idReadequacao = " . $readequacao->idReadequacao;
-
                     $tbDistribuirReadequacao->update($dados, $where);
                 }
             } else if ($parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEVOLVIDA) {

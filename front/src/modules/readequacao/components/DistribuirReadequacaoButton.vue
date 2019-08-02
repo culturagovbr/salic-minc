@@ -196,7 +196,7 @@ export default {
             minChar: 10,
             dadosEncaminhamento: {
                 vinculada: 0,
-                destinatario: '',
+                destinatario: 0,
             },
             readequacaoEditada: {
                 idPronac: 0,
@@ -314,10 +314,12 @@ export default {
                 if (this.getDestinatariosDistribuicao.length > 0) {
                     this.selecionarDestinatario = true;
                 }
-                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario !== '';
+                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0;
             } else if (typeof this.vinculada.id === 'undefined') {
                 this.selecionarDestinatario = false;
                 this.encaminharDisponivel = this.dadosEncaminhamento.vinculada > 0;
+            } else {
+                this.encaminharDisponivel = (this.dadosEncaminhamento.vinculada > 0 && this.dadosEncaminhamento.destinatario > 0);
             }
         },
         inicializarReadequacaoEditada() {
@@ -349,8 +351,9 @@ export default {
             });
         },
         obterDestinatarios() {
-            this.dadosEncaminhamento.destinatario = '';
+            this.dadosEncaminhamento.destinatario = 0;
             if (typeof this.vinculada.id !== 'undefined') {
+                this.dadosEncaminhamento.vinculada = this.vinculada.id;
                 this.loadingDestinatarios = true;
                 this.obterDestinatariosDistribuicao({
                     area: this.dadosReadequacao.Area,
