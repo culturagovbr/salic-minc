@@ -283,6 +283,7 @@ export default {
         },
         disponivelAssinatura(siEncaminhamento, idDocumentoAssinatura) {
             const assinaturasPorEstado = {
+                93: Const.SI_ENCAMINHAMENTO_DEVOLVIDO_ANALISE_TECNICA,
                 94: Const.SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA,
                 121: Const.SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA,
                 122: Const.SI_ENCAMINHAMENTO_DEVOLVIDA_COORDENADOR_TECNICO,

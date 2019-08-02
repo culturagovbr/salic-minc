@@ -231,6 +231,22 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 $this->_schema
             );
 
+            $select->joinLeft(
+                ['tbReadequacaoXParecer' => 'tbReadequacaoXParecer'],
+                "tbReadequacaoXParecer.idReadequacao = tbReadequacao.idReadequacao",
+                [],
+                $this->_schema
+            );
+            
+            $select->joinLeft(
+                ['tbDocumentoAssinatura' => 'tbDocumentoAssinatura'],
+                "tbDocumentoAssinatura.idAtoDeGestao = tbReadequacaoXParecer.idParecer
+                AND tbDocumentoAssinatura.cdSituacao = " . \Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA . "
+                AND tbDocumentoAssinatura.stEstado = " . \Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO,
+                ["idDocumentoAssinatura", "idTipoDoAtoAdministrativo"],
+                $this->_schema
+            );
+            
             $select->where('tbReadequacao.stEstado = ? ', 0);
             $select->where('tbDistribuirReadequacao.stValidacaoCoordenador = ? ', 0);
             $select->where('tbReadequacao.siEncaminhamento = ? ', 5);
