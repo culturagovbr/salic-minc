@@ -231,8 +231,20 @@ export default {
     },
     computed: {
         ...mapGetters({
+            getUsuario: 'autenticacao/getUsuario',
             getDestinatariosDistribuicao: 'readequacao/getDestinatariosDistribuicao',
         }),
+        orgao() {
+            return this.getUsuario.orgao_ativo;
+        },
+        vinculada() {
+            const orgaos = JSON.parse(JSON.stringify(this.orgaosDestino));
+            const vinculada = orgaos.find(orgao => orgao.id === parseInt(this.orgao, 10));
+            if (typeof vinculada !== 'undefined') {
+                return vinculada;
+            }
+            return false;
+        },
     },
     watch: {
         dadosEncaminhamento: {
@@ -287,6 +299,12 @@ export default {
             }
         },
         devolverAnalise() {
+            if (this.vinculada.id !== '') {
+                this.dadosEncaminhamento.vinculada = this.vinculada.id;
+            }
+            if (this.dadosEncaminhamento.destinatario === '') {
+                this.dadosEncaminhamento.destinatario = this.dadosEncaminhamento.idTecnico;
+            }
             this.devolverReadequacao({
                 idPronac: this.dadosReadequacao.idPronac,
                 idReadequacao: this.dadosReadequacao.idReadequacao,
@@ -306,7 +324,15 @@ export default {
         obterDestinatarios() {
             this.loadingDestinatarios = true;
             this.dadosEncaminhamento.destinatario = '';
-            if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI) {
+            if (typeof this.vinculada.id !== 'undefined') {
+                this.dadosEncaminhamento.vinculada = this.vinculada.id;
+                this.loadingDestinatarios = true;
+                this.obterDestinatariosDistribuicao({
+                    area: this.dadosReadequacao.Area,
+                    segmento: this.dadosReadequacao.Segmento,
+                    vinculada: this.vinculada.id,
+                });
+            } else if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI) {
                 this.obterDestinatariosDistribuicao({
                     idPronac: this.dadosReadequacao.idPronac,
                     vinculada: this.dadosEncaminhamento.vinculada,

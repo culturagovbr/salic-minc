@@ -9,6 +9,7 @@ class Readequacao_DistribuirReadequacaoController extends MinC_Controller_Rest_A
     {
         $profiles = [
             Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
+            Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
         ];
         
         $permissionsPerMethod  = [

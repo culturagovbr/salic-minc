@@ -1615,7 +1615,11 @@ class Readequacao implements IServicoRestZend
                     $dataEnvio = new \Zend_Db_Expr('GETDATE()');
                     $readequacao->idAvaliador = $parametros['destinatario'];
                 } else if (in_array($parametros['vinculada'], $this->__getVinculadasExcetoIphan())) {
-                    $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
+                    if ($parametros['destinatario'] != '') {
+                        $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
+                    } else {
+                        $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
+                    }
                 } else {
                     $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
                 }
