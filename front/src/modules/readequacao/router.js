@@ -23,6 +23,10 @@ export default [
         },
     },
     {
+        path: '/readequacao/gerenciar-assinaturas',
+        redirect: '/readequacao/painel',
+    },
+    {
         path: '/readequacao/analisar/:idPronac/:idReadequacao',
         component: AnalisarReadequacaoView,
         meta: {
