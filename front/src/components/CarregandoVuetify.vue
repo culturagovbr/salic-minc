@@ -9,7 +9,7 @@
                     />
                 </div>
                 <v-progress-circular
-                    :size="50"
+                    :size="progressSize"
                     indeterminate
                     color="primary"
                 />
@@ -30,6 +30,24 @@ export default {
             type: String,
             default: '',
         },
+        size: {
+            type: String,
+            default: 'large',
+        },
+    },
+    computed: {
+        progressSize() {
+            return this.sizeNum[this.size];
+        },
+    },
+    data() {
+        return {
+            sizeNum: {
+                small: 20,
+                medium: 35,
+                large: 50,
+            },
+        };
     },
 };
 </script>

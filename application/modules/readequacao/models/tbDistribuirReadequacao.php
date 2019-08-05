@@ -36,6 +36,7 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                     tbDistribuirReadequacao.dtEncaminhamento,
                     GETDATE()) as qtDiasAguardandoDistribuicao,
                     tbReadequacao.idReadequacao,
+                    tbReadequacao.stAtendimento,
                     tbDistribuirReadequacao.idUnidade as idOrgao
             ")
             );
