@@ -197,6 +197,10 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
 		   THEN 'Devolvida pelo Diretor'
 	     WHEN tbReadequacao.siEncaminhamento = 23
 		   THEN 'Devolvida pelo Secret&atilde;rio'
+	     WHEN tbReadequacao.siEncaminhamento = 24
+		   THEN orgaos.Sigla + ' - Assinatura do Presidente de vinculada '
+	     WHEN tbReadequacao.siEncaminhamento = 25
+		   THEN orgaos.Sigla + ' - Devolvida pelo Presidente ao coordenador de parecer '
          WHEN tbReadequacao.siEncaminhamento = 26
 		   THEN 'Solicita&ccedil;&atilde;o devolvida ao Coordenador ap&oacute;s completar o ciclo de assinaturas'
 		   ELSE usuarios.usu_nome
@@ -246,7 +250,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
         $select->joinInner(
             ['orgaos' => 'Orgaos'],
             'orgaos.Codigo = tbDistribuirReadequacao.idUnidade',
-            [],
+            ['orgaos.Sigla as nomeOrgao'],
             $this->_schema
         );
 
@@ -286,6 +290,8 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_COORDENADOR_GERAL,
             Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_DIRETOR,
             Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_SECRETARIO,
+            Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_PRESIDENTE_DA_VINCULADA,
+            Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_DE_PARECER_PELO_PRESIDENTE,
             Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_FINAL
         ]);
 

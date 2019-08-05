@@ -465,6 +465,7 @@ export default {
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_DE_PARECER,
                     Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
+                    Const.PERFIL_PRESIDENTE_DE_VINCULADA,
                     Const.PERFIL_DIRETOR,
                     Const.PERFIL_SECRETARIO,
                 ],
@@ -475,6 +476,7 @@ export default {
                 assinatura: [
                     Const.PERFIL_PARECERISTA,
                     Const.PERFIL_COORDENADOR_DE_PARECER,
+                    Const.PERFIL_PRESIDENTE_DE_VINCULADA,
                     Const.PERFIL_TECNICO_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
@@ -490,6 +492,7 @@ export default {
                 ],
                 coordenador_geral: [
                     Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
+                    Const.PERFIL_PRESIDENTE_DE_VINCULADA,
                     Const.PERFIL_DIRETOR,
                     Const.PERFIL_SECRETARIO,
                 ],
