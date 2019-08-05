@@ -199,10 +199,20 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 tbDistribuirReadequacao.dtRetornoAvaliador,
                 GETDATE()) AS qtTotalDiasAvaliar,
                 tbDistribuirReadequacao.idAvaliador AS idTecnico,
-                usuarios.usu_nome AS nmParecerista,
-                usuarios.usu_nome AS nmTecnicoParecerista,
                 tbReadequacao.idReadequacao,
-                tbDistribuirReadequacao.idUnidade as idOrgao
+                tbDistribuirReadequacao.idUnidade as idOrgao,
+                (CASE
+                    WHEN tbReadequacao.siEncaminhamento = 24
+                        THEN 'Encaminhado para Assinatura do presidente'
+                    ELSE
+                        usuarios.usu_nome 
+                 END) AS nmParecerista,
+                (CASE
+                    WHEN tbReadequacao.siEncaminhamento = 24
+                        THEN 'Encaminhado para Assinatura do presidente'
+                    ELSE
+                        usuarios.usu_nome 
+                 END) AS nmTecnicoParecerista
             ")
             );
             $select->joinInner(
@@ -250,7 +260,11 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
             
             $select->where('tbReadequacao.stEstado = ? ', 0);
             $select->where('tbDistribuirReadequacao.stValidacaoCoordenador = ? ', 0);
-            $select->where('tbReadequacao.siEncaminhamento = ? ', 5);
+            $select->where('tbReadequacao.siEncaminhamento IN (?) ', [
+                Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_DEVOLVIDO_ANALISE_TECNICA,
+                Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_PRESIDENTE_DA_VINCULADA,
+                Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_DE_PARECER_PELO_PRESIDENTE,
+            ]);
 
             foreach ($where as $coluna => $valor) {
                 $select->where($coluna, $valor);
