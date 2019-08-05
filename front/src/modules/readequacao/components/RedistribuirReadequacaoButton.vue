@@ -74,6 +74,7 @@
                                     md4
                                 >
                                     <v-select
+                                        v-if="!vinculada"
                                         v-model="dadosEncaminhamento.vinculada"
                                         :items="orgaosDestino"
                                         label="Orgão a encaminhar"
@@ -81,19 +82,34 @@
                                         item-value="id"
                                         @change="obterDestinatarios()"
                                     />
-                                    <carregando
+                                    <template
                                         v-if="loadingDestinatarios"
-                                        :defined-class="`body-1`"
-                                        :text="'Carregando destinatários/as...'"
-                                    />
-                                    <v-select
-                                        v-if="selecionarDestinatario"
-                                        v-model="dadosEncaminhamento.destinatario"
-                                        :items="getDestinatariosDistribuicao"
-                                        label="Destinatário/a"
-                                        item-text="nome"
-                                        item-value="id"
-                                    />
+                                    >
+                                        <carregando
+                                            :defined-class="`body-1`"
+                                            :size="`small`"
+                                            :text="'Carregando destinatários/as...'"
+                                        />
+                                    </template>
+                                    <template v-else>
+                                        <template
+                                            v-if="getDestinatariosDistribuicao.length > 0"
+                                        >
+                                            <v-select
+                                                v-if="selecionarDestinatario"
+                                                v-model="dadosEncaminhamento.destinatario"
+                                                :items="getDestinatariosDistribuicao"
+                                                label="Destinatário/a"
+                                                item-text="nome"
+                                                item-value="id"
+                                            />
+                                        </template>
+                                        <template v-if="getDestinatariosDistribuicao.length === 0 && dadosEncaminhamento.vinculada > 0">
+                                            <h3 class="red--text text--darken-2">
+                                                Não há destinatários/as disponíveis, impossível encaminhar a readequação no momento!
+                                            </h3>
+                                        </template>
+                                    </template>
                                 </v-flex>
                                 <v-flex
                                     xs12
@@ -209,8 +225,20 @@ export default {
     },
     computed: {
         ...mapGetters({
+            getUsuario: 'autenticacao/getUsuario',
             getDestinatariosDistribuicao: 'readequacao/getDestinatariosDistribuicao',
         }),
+        orgao() {
+            return this.getUsuario.orgao_ativo;
+        },
+        vinculada() {
+            const orgaos = JSON.parse(JSON.stringify(this.orgaosDestino));
+            const vinculada = orgaos.find(orgao => orgao.id === parseInt(this.orgao, 10));
+            if (typeof vinculada !== 'undefined') {
+                return vinculada;
+            }
+            return false;
+        },
     },
     watch: {
         dadosEncaminhamento: {
@@ -228,6 +256,16 @@ export default {
             }
             this.selecionarDestinatario = true;
         },
+        dialog: {
+            handler() {
+                if (this.dialog === true && typeof this.dadosReadequacao.idPronac !== 'undefined') {
+                    if (typeof this.vinculada === 'object') {
+                        this.obterDestinatarios();
+                    }
+                }
+            },
+            deep: true,
+        },
     },
     mounted() {
         this.loading = false;
@@ -241,20 +279,21 @@ export default {
             setSnackbar: 'noticias/setDados',
         }),
         checkDisponivelRedistribuir() {
-            if (this.dsOrientacao !== '' && this.dsOrientacao.length > this.minChar) {
-                if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
-                    || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI
-                ) {
+            if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
+                || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI
+            ) {
+                if (this.dsOrientacao !== '' && this.dsOrientacao.length > this.minChar) {
                     if (this.getDestinatariosDistribuicao.length > 0) {
                         this.selecionarDestinatario = true;
                     }
                     this.encaminharDisponivel = this.dadosEncaminhamento.destinatario !== '';
-                } else {
-                    this.selecionarDestinatario = false;
-                    this.encaminharDisponivel = this.dadosEncaminhamento.vinculada > 0;
                 }
+            } else if (typeof this.vinculada.id !== 'undefined') {
+                this.dadosEncaminhamento.vinculada = this.vinculada.id;
+                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0 && this.dsOrientacao.length > this.minChar;
             } else {
-                this.encaminharDisponivel = false;
+                this.selecionarDestinatario = false;
+                this.encaminharDisponivel = this.dadosEncaminhamento.vinculada > 0 && this.dsOrientacao.length > this.minChar;
             }
         },
         encaminharAnalise() {
@@ -274,12 +313,18 @@ export default {
             });
         },
         obterDestinatarios() {
-            this.loadingDestinatarios = true;
             this.dadosEncaminhamento.destinatario = '';
             if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI) {
+                this.loadingDestinatarios = true;
                 this.obterDestinatariosDistribuicao({
                     idPronac: this.dadosReadequacao.idPronac,
                     vinculada: this.dadosEncaminhamento.vinculada,
+                });
+            } else if (typeof this.vinculada.id !== 'undefined') {
+                this.loadingDestinatarios = true;
+                this.obterDestinatariosDistribuicao({
+                    idPronac: this.dadosReadequacao.idPronac,
+                    vinculada: this.vinculada.id,
                 });
             }
         },

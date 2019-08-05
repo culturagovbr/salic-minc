@@ -35,11 +35,6 @@ export default {
             default: 'large',
         },
     },
-    computed: {
-        progressSize() {
-            return this.sizeNum[this.size];
-        },
-    },
     data() {
         return {
             sizeNum: {
@@ -48,6 +43,11 @@ export default {
                 large: 50,
             },
         };
+    },
+    computed: {
+        progressSize() {
+            return this.sizeNum[this.size];
+        },
     },
 };
 </script>
