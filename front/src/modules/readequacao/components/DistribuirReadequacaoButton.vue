@@ -83,6 +83,11 @@
                                             color="green"
                                         />
                                         <v-radio
+                                            :label="`Rejeitar`"
+                                            :value="`I`"
+                                            color="green"
+                                        />
+                                        <v-radio
                                             :label="`Devolver ao proponente`"
                                             :value="`E`"
                                             color="green"
@@ -128,10 +133,9 @@
                                     </template>
                                     <div v-else>
                                         <template
-                                            v-if="getDestinatariosDistribuicao.length > 0"
+                                            v-if="getDestinatariosDistribuicao.length > 0 && selecionarDestinatario"
                                         >
                                             <v-select
-                                                v-if="selecionarDestinatario"
                                                 v-model="dadosEncaminhamento.destinatario"
                                                 :items="getDestinatariosDistribuicao"
                                                 label="Destinatário/a"
@@ -139,7 +143,7 @@
                                                 item-value="id"
                                             />
                                         </template>
-                                        <template v-else>
+                                        <template v-if="getDestinatariosDistribuicao.length === 0 && dadosEncaminhamento.vinculada > 0">
                                             <h3 class="red--text text--darken-2">
                                                 Não há destinatários/as disponíveis, impossível encaminhar a readequação no momento!
                                             </h3>
@@ -289,11 +293,15 @@ export default {
         },
         readequacaoEditada: {
             handler(value) {
-                if (value.stAtendimento === 'E'
+                if ((value.stAtendimento === 'E' || value.stAtendimento === 'I')
                     && (value.dsAvaliacao !== '' && value.dsAvaliacao.length > this.minChar)
                 ) {
                     this.encaminharDisponivel = true;
                     this.opcoesEncaminhamento = false;
+                } else if (typeof value.stAtendimento !== 'undefined') {
+                    this.opcoesEncaminhamento = true;
+                    this.encaminharDisponivel = false;
+                    this.checkDisponivelEncaminhar();
                 } else {
                     this.encaminharDisponivel = false;
                     this.checkDisponivelEncaminhar();
@@ -327,13 +335,13 @@ export default {
                     this.selecionarDestinatario = true;
                 }
                 this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0;
-                this.opcoesEncaminhamento = (this.readequacaoEditada.dsAvaliacao !== '' && this.readequacaoEditada.stAtendimento === 'D');
+                // this.opcoesEncaminhamento = (this.readequacaoEditada.dsAvaliacao !== '' && this.readequacaoEditada.stAtendimento === 'D');
             } else if (typeof this.vinculada.id !== 'undefined') {
-                this.opcoesEncaminhamento = true;
                 this.dadosEncaminhamento.vinculada = this.vinculada.id;
                 this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0 && this.readequacaoEditada.dsAvaliacao.length > this.minChar;
             } else {
-                this.encaminharDisponivel = (this.dadosEncaminhamento.vinculada > 0 && this.dadosEncaminhamento.destinatario > 0);
+                this.selecionarDestinatario = false;
+                this.encaminharDisponivel = (this.dadosEncaminhamento.vinculada > 0 && this.readequacaoEditada.dsAvaliacao.length > this.minChar);;
             }
         },
         inicializarReadequacaoEditada() {
@@ -383,6 +391,8 @@ export default {
                 this.obterDestinatariosDistribuicao({
                     vinculada: this.dadosEncaminhamento.vinculada,
                 });
+            } else {
+                this.dadosEncaminhamento.opcoesEncaminhamento = false;
             }
         },
         validateText(e) {
