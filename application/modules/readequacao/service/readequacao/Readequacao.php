@@ -1206,10 +1206,17 @@ class Readequacao implements IServicoRestZend
             $item->FonteRecurso = utf8_encode($item->FonteRecurso);
             $item->Unidade = utf8_encode($item->Unidade);
             $item->vlComprovado = (!is_null($item->vlComprovado)) ? $item->vlComprovado : 0;
-            
+            if ($item->JustProponente != '') {
+                $item->JustProponente = utf8_encode($item->JustProponente);
+            }
+            if ($item->JustParecerista != '') {
+                $item->JustParecerista = utf8_encode($item->JustParecerista);
+            }
+            if ($item->JustComponente != '') {
+                $item->JustComponente = utf8_encode($item->JustComponente);
+            }
             $result[] = $item;
         }
-        
         return $result;
     }
 

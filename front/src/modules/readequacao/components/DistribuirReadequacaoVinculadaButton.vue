@@ -44,7 +44,7 @@
                             <v-icon>close</v-icon>
                         </v-btn>
                         <v-toolbar-title>
-                            {{ vinculada.nome }} / Distribuir readequação - 
+                            {{ vinculada.nome }} / Distribuir readequação -
                             {{ dadosReadequacao.idReadequacao }} - {{ dadosReadequacao.NomeProjeto }} - {{ dadosReadequacao.tpReadequacao }}
                         </v-toolbar-title>
                         <v-spacer />
@@ -295,7 +295,7 @@ export default {
             handler(value) {
                 if ((value.stAtendimento === 'E')
                     && (value.dsAvaliacao !== '' && value.dsAvaliacao.length > this.minChar)
-                   ) {
+                ) {
                     this.encaminharDisponivel = true;
                 } else if (typeof value.stAtendimento !== 'undefined') {
                     this.encaminharDisponivel = false;
@@ -372,7 +372,7 @@ export default {
                         color: 'success',
                         text: 'Readequação devolvida ao coordenador de acompanhamento!',
                     });
-                    this.dialog = false;                    
+                    this.dialog = false;
                 });
             }
         },

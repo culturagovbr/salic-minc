@@ -11,12 +11,13 @@
             </template>
             <template v-else>
                 <template
-                    v-if="disponivelComparacao"
+                    v-if="getTemplateParaTipo"
                 >
-                    <campo-diff
-                        :original-text="getDadosCampo.valor"
-                        :changed-text="dadosReadequacao.dsSolicitacao"
-                        :method="'diffWordsWithSpace'"
+                    <component
+                        :is="getTemplateParaTipo"
+                        :original="dadosReadequacao"
+                        :changed="getDadosCampo"
+                        :dados-readequacao="dadosReadequacao"
                     />
                 </template>
                 <div v-else>
@@ -42,12 +43,16 @@ import { mapGetters } from 'vuex';
 import Carregando from '@/components/CarregandoVuetify';
 import CampoDiff from '@/components/CampoDiff';
 import MxReadequacao from '../mixins/Readequacao';
+import ComparacaoTextual from './ComparacaoTextual';
+import ComparacaoPlanilha from './ComparacaoPlanilha';
 
 export default {
     name: 'AnalisarAlteracoes',
     components: {
         Carregando,
         CampoDiff,
+        ComparacaoTextual,
+        ComparacaoPlanilha,
     },
     mixins: [
         MxReadequacao,
@@ -55,6 +60,12 @@ export default {
     data() {
         return {
             loading: true,
+            tiposComponentes: {
+                textarea: 'ComparacaoTextual',
+                input: 'ComparacaoTextual',
+                date: 'ComparacaoTextual',
+                planilha: 'ComparacaoPlanilha',
+            },
             tiposComponentesRedirect: {
                 local_realizacao: '/readequacao/readequacoes/form-avaliar-readequacao?id=',
                 planilha: '/readequacao/readequacoes/form-avaliar-readequacao?id=',
@@ -69,6 +80,14 @@ export default {
             dadosReadequacao: 'readequacao/getReadequacao',
             campoAtual: 'readequacao/getCampoAtual',
         }),
+        getTemplateParaTipo() {
+            let templateName = false;
+            const chave = `key_${this.dadosReadequacao.idTipoReadequacao}`;
+            if (Object.prototype.hasOwnProperty.call(this.campoAtual, chave)) {
+                templateName = this.tiposComponentes[this.campoAtual[chave].tpCampo];
+            }
+            return templateName;
+        },
         getDadosCampo() {
             return this.parseDadosCampo(this.campoAtual);
         },
