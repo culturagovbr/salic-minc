@@ -61,12 +61,12 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
 
             $select->where('tbReadequacao.stEstado = ? ', 0);
             $select->where('tbDistribuirReadequacao.stValidacaoCoordenador = ? ', 0);
-            $select->where('tbReadequacao.siEncaminhamento = ? ', 3);
+            $select->where('tbReadequacao.siEncaminhamento = ? ', Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE);
 
             foreach ($where as $coluna => $valor) {
                 $select->where($coluna, $valor);
             }
-
+            
             $select->order($order);
 
             if ($tamanho > -1) {
@@ -141,7 +141,7 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
 
             $select->where('tbReadequacao.stEstado = ? ', 0);
             $select->where('tbDistribuirReadequacao.stValidacaoCoordenador = ? ', 0);
-            $select->where('tbReadequacao.siEncaminhamento = ? ', 4);
+            $select->where('tbReadequacao.siEncaminhamento = ? ', Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA);
 
             foreach ($where as $coluna => $valor) {
                 $select->where($coluna, $valor);

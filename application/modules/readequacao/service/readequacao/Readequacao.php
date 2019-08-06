@@ -1615,7 +1615,7 @@ class Readequacao implements IServicoRestZend
                     $dataEnvio = new \Zend_Db_Expr('GETDATE()');
                     $readequacao->idAvaliador = $parametros['destinatario'];
                 } else if (in_array($parametros['vinculada'], $this->__getVinculadasExcetoIphan())) {
-                    if ($parametros['destinatario'] != '') {
+                    if ($parametros['destinatario'] > 0) {
                         $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
                     } else {
                         $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
@@ -1652,7 +1652,8 @@ class Readequacao implements IServicoRestZend
                         'stValidacaoCoordenador' => $stValidacaoCoordenador,
                         'dsOrientacao' => $readequacao->dsAvaliacao
                     ];
-                    $where = "idReadequacao = " . $readequacao->idReadequacao;
+                    $where = [];
+                    $where['idReadequacao = ?'] = $readequacao->idReadequacao;
                     $tbDistribuirReadequacao->update($dados, $where);
                 }
             } else if ($parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEVOLVIDA) {
@@ -1664,7 +1665,42 @@ class Readequacao implements IServicoRestZend
         }
         return true;
     }
+    
+    public function devolverAoCoordenador()
+    {
+        $parametros = $this->request->getParams();
 
+        $idReadequacao = $parametros['idReadequacao'];
+        
+        $tbReadequacaoModel = new \Readequacao_Model_DbTable_TbReadequacao();
+        $readequacao = $tbReadequacaoModel->find(['idReadequacao = ?' => $idReadequacao])->current();
+
+        if (count($readequacao) > 0) {
+            $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_MINC;
+            $readequacao->save();
+
+            $dados = [
+                'idAvaliador' => 0,
+                'dsOrientacao' => $parametros['dsOrientacao'],
+                'idUnidade' => 0,
+            ];
+            $where = [];
+            $where['idReadequacao = ?'] = $idReadequacao;
+            
+            $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
+            
+            $excluiDistribuicao = $tbDistribuirReadequacao->update($dados, $where);
+            
+            if (!$excluiDistribuicao) {
+                $errorMessage = "Erro ao devolver a readequação ao coordenador de acompanhamento!";
+                throw new \Exception($errorMessage);
+            }
+        } else {
+            $errorMessage = "Readequação inexistente, não foi possível devolver ao coordenador de acompanhamento!";
+            throw new \Exception($errorMessage);
+        }
+    }
+    
     public function redistribuirReadequacao()
     {
         $parametros = $this->request->getParams();

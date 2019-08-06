@@ -159,3 +159,8 @@ export const devolverReadequacao = (params) => {
     const path = '/readequacao/devolver-readequacao';
     return api.postRequest(path, buildData(params));
 };
+
+export const devolverAoCoordenador = (params) => {
+    const path = '/readequacao/devolver-ao-coordenador';
+    return api.postRequest(path, buildData(params));
+};

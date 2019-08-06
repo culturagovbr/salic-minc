@@ -44,7 +44,7 @@
                             <v-icon>close</v-icon>
                         </v-btn>
                         <v-toolbar-title>
-                            Distribuir readequação -
+                            {{ vinculada.nome }} / Distribuir readequação - 
                             {{ dadosReadequacao.idReadequacao }} - {{ dadosReadequacao.NomeProjeto }} - {{ dadosReadequacao.tpReadequacao }}
                         </v-toolbar-title>
                         <v-spacer />
@@ -74,16 +74,16 @@
                                     md12
                                 >
                                     <v-radio-group
-                                        v-model="readequacaoEditada.stAtendimento"
+                                        v-model="acaoTomada"
                                     >
                                         <v-radio
-                                            :label="`Receber`"
-                                            :value="`D`"
+                                            :label="`Devolver ao coordenador de acompanhamento`"
+                                            :value="`DEVOLVER_AO_COORDENADOR`"
                                             color="green"
                                         />
                                         <v-radio
-                                            :label="`Devolver ao proponente`"
-                                            :value="`E`"
+                                            :label="`Distribuir para parecerista`"
+                                            :value="`ENVIAR_PARECERISTA`"
                                             color="green"
                                         />
                                     </v-radio-group>
@@ -95,7 +95,7 @@
                                 >
                                     <p><b>Parecer sobre a solicitação de readequação</b></p>
                                     <s-editor-texto
-                                        v-model="readequacaoEditada.dsAvaliacao"
+                                        v-model="dsOrientacao"
                                         :placeholder="'Parecer sobre a solicitação de readequação'"
                                         :min-char="minChar"
                                         @editor-texto-counter="validateText($event)"
@@ -107,14 +107,6 @@
                                     sm12
                                     md6
                                 >
-                                    <v-select
-                                        v-model="dadosEncaminhamento.vinculada"
-                                        :items="orgaosDestino"
-                                        label="Orgão a encaminhar"
-                                        item-text="nome"
-                                        item-value="id"
-                                        @change="obterDestinatarios()"
-                                    />
                                     <template
                                         v-if="loadingDestinatarios"
                                     >
@@ -182,10 +174,9 @@
 import { mapActions, mapGetters } from 'vuex';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import Carregando from '@/components/CarregandoVuetify';
-import Const from '../const';
 
 export default {
-    name: 'DistribuirReadequacaoButton',
+    name: 'DistribuirReadequacaoVinculadaButton',
     components: {
         Carregando,
         SEditorTexto,
@@ -211,13 +202,14 @@ export default {
                 vinculada: 0,
                 destinatario: 0,
             },
+            dsOrientacao: '',
             readequacaoEditada: {
                 idPronac: 0,
                 idReadequacao: 0,
                 idTipoReadequacao: '',
-                dsAvaliacao: '',
                 stAtendimento: '',
             },
+            acaoTomada: '',
             orgaosDestino: [
                 {
                     id: 93,
@@ -252,8 +244,20 @@ export default {
     },
     computed: {
         ...mapGetters({
+            getUsuario: 'autenticacao/getUsuario',
             getDestinatariosDistribuicao: 'readequacao/getDestinatariosDistribuicao',
         }),
+        orgao() {
+            return this.getUsuario.orgao_ativo;
+        },
+        vinculada() {
+            const orgaos = JSON.parse(JSON.stringify(this.orgaosDestino));
+            const vinculada = orgaos.find(orgao => orgao.id === parseInt(this.orgao, 10));
+            if (typeof vinculada !== 'undefined') {
+                return vinculada;
+            }
+            return false;
+        },
     },
     watch: {
         dadosEncaminhamento: {
@@ -262,15 +266,38 @@ export default {
             },
             deep: true,
         },
+        dialog: {
+            handler() {
+                if (this.dialog === true && typeof this.dadosReadequacao.idPronac !== 'undefined') {
+                    if (typeof this.vinculada === 'object') {
+                        this.obterDestinatarios();
+                    }
+                }
+            },
+            deep: true,
+        },
+        acaoTomada: {
+            handler() {
+                this.checkDisponivelEncaminhar();
+                if (this.acaoTomada === 'DEVOLVER_AO_COORDENADOR') {
+                    this.opcoesEncaminhamento = false;
+                } else if (this.acaoTomada === 'ENVIAR_PARECERISTA') {
+                    this.opcoesEncaminhamento = true;
+                }
+            },
+        },
+        dsOrientacao: {
+            handler() {
+                this.checkDisponivelEncaminhar();
+            },
+        },
         readequacaoEditada: {
             handler(value) {
                 if ((value.stAtendimento === 'E')
                     && (value.dsAvaliacao !== '' && value.dsAvaliacao.length > this.minChar)
-                ) {
+                   ) {
                     this.encaminharDisponivel = true;
-                    this.opcoesEncaminhamento = false;
                 } else if (typeof value.stAtendimento !== 'undefined') {
-                    this.opcoesEncaminhamento = true;
                     this.encaminharDisponivel = false;
                     this.checkDisponivelEncaminhar();
                 } else {
@@ -296,19 +323,15 @@ export default {
             buscarReadequacoesPainelEmAnalise: 'readequacao/buscarReadequacoesPainelEmAnalise',
             obterDestinatariosDistribuicao: 'readequacao/obterDestinatariosDistribuicao',
             distribuirReadequacao: 'readequacao/distribuirReadequacao',
+            devolverAoCoordenador: 'readequacao/devolverAoCoordenador',
             setSnackbar: 'noticias/setDados',
         }),
         checkDisponivelEncaminhar() {
-            if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
-                || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI
-            ) {
-                if (this.getDestinatariosDistribuicao.length > 0) {
-                    this.selecionarDestinatario = true;
-                }
-                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0;
-            } else {
-                this.selecionarDestinatario = false;
-                this.encaminharDisponivel = (this.dadosEncaminhamento.vinculada > 0 && this.readequacaoEditada.dsAvaliacao.length > this.minChar);
+            if (this.acaoTomada === 'DEVOLVER_AO_COORDENADOR') {
+                this.encaminharDisponivel = this.dsOrientacao.length > this.minChar;
+            } else if (this.acaoTomada === 'ENVIAR_PARECERISTA') {
+                this.dadosEncaminhamento.vinculada = this.vinculada.id;
+                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0 && this.dsOrientacao.length > this.minChar;
             }
         },
         inicializarReadequacaoEditada() {
@@ -316,40 +339,54 @@ export default {
                 idPronac: this.dadosReadequacao.idPronac,
                 idReadequacao: this.dadosReadequacao.idReadequacao,
                 idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
-                dsAvaliacao: this.dadosReadequacao.dsAvaliacao || '',
                 stAtendimento: this.dadosReadequacao.stAtendimento,
             };
             this.loading = false;
             this.checkDisponivelEncaminhar();
         },
         encaminharAnalise() {
-            this.distribuirReadequacao({
-                idPronac: this.readequacaoEditada.idPronac,
-                idReadequacao: this.readequacaoEditada.idReadequacao,
-                stAtendimento: this.readequacaoEditada.stAtendimento,
-                dsAvaliacao: this.readequacaoEditada.dsAvaliacao,
-                destinatario: this.dadosEncaminhamento.destinatario,
-                vinculada: this.dadosEncaminhamento.vinculada,
-            }).then(() => {
-                this.setSnackbar({
-                    ativo: true,
-                    color: 'success',
-                    text: 'Readequação distribuída!',
+            if (this.acaoTomada === 'ENVIAR_PARECERISTA') {
+                this.distribuirReadequacao({
+                    idPronac: this.readequacaoEditada.idPronac,
+                    idReadequacao: this.readequacaoEditada.idReadequacao,
+                    stAtendimento: this.readequacaoEditada.stAtendimento,
+                    dsOrientacao: this.dsOrientacao,
+                    destinatario: this.dadosEncaminhamento.destinatario,
+                    vinculada: this.dadosEncaminhamento.vinculada,
+                }).then(() => {
+                    this.setSnackbar({
+                        ativo: true,
+                        color: 'success',
+                        text: 'Readequação distribuída!',
+                    });
+                    this.dialog = false;
                 });
-                this.dialog = false;
-            });
+            } else if (this.acaoTomada === 'DEVOLVER_AO_COORDENADOR') {
+                this.devolverAoCoordenador({
+                    idPronac: this.readequacaoEditada.idPronac,
+                    idReadequacao: this.readequacaoEditada.idReadequacao,
+                    dsOrientacao: this.dsOrientacao,
+                }).then(() => {
+                    this.setSnackbar({
+                        ativo: true,
+                        color: 'success',
+                        text: 'Readequação devolvida ao coordenador de acompanhamento!',
+                    });
+                    this.dialog = false;                    
+                });
+            }
         },
         obterDestinatarios() {
-            this.dadosEncaminhamento.destinatario = 0;
-            if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
-                || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI) {
-                this.loadingDestinatarios = true;
-                this.obterDestinatariosDistribuicao({
-                    vinculada: this.dadosEncaminhamento.vinculada,
-                });
-            } else {
-                this.dadosEncaminhamento.opcoesEncaminhamento = false;
-            }
+            this.dadosEncaminhamento.vinculada = this.vinculada.id;
+            this.loadingDestinatarios = true;
+            this.obterDestinatariosDistribuicao({
+                area: this.dadosReadequacao.Area,
+                segmento: this.dadosReadequacao.Segmento,
+                vinculada: this.vinculada.id,
+            }).then(() => {
+                this.loadingDestinatarios = false;
+                this.selecionarDestinatario = true;
+            });
         },
         validateText(e) {
             this.textIsValid = e >= this.minChar;

@@ -21,6 +21,7 @@ class Readequacao_Bootstrap extends Zend_Application_Module_Bootstrap
                     'dados-readequacao',
                     'dados-readequacao-documento',
                     'destinatarios-distribuicao',
+                    'devolver-ao-coordenador',
                     'devolver-readequacao',
                     'distribuir-readequacao',
                     'documento',

@@ -152,12 +152,25 @@
                         </v-card>
                     </v-tab-item>
                     <v-tab-item
-                        v-if="perfilAceito(['coordenador'])"
+                        v-if="perfilAceito(['coordenador_acompanhamento'])"
                         :value="'aguardando_distribuicao'">
                         <v-card>
                             <tabela-readequacoes-coordenador
                                 :dados-readequacao="getReadequacoesPainelAguardandoDistribuicao"
                                 :componentes="acoesCoordenadorAguardandoDistribuicao"
+                                :painel="`aguardando_distribuicao`"
+                                :perfis-aceitos="perfisAceitos"
+                                :perfil="perfil"
+                            />
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item
+                        v-if="perfilAceito(['coordenador_vinculada'])"
+                        :value="'aguardando_distribuicao'">
+                        <v-card>
+                            <tabela-readequacoes-coordenador
+                                :dados-readequacao="getReadequacoesPainelAguardandoDistribuicao"
+                                :componentes="acoesCoordenadorVinculadaAguardandoDistribuicao"
                                 :painel="`aguardando_distribuicao`"
                                 :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
@@ -280,6 +293,7 @@ import EditarReadequacaoButton from '../components/EditarReadequacaoButton';
 import VisualizarReadequacaoButton from '../components/VisualizarReadequacaoButton';
 import AnalisarReadequacaoButton from '../components/AnalisarReadequacaoButton';
 import DistribuirReadequacaoButton from '../components/DistribuirReadequacaoButton';
+import DistribuirReadequacaoVinculadaButton from '../components/DistribuirReadequacaoVinculadaButton';
 import RedistribuirReadequacaoButton from '../components/RedistribuirReadequacaoButton';
 import DevolverReadequacaoButton from '../components/DevolverReadequacaoButton';
 import Carregando from '@/components/CarregandoVuetify';
@@ -298,6 +312,7 @@ export default {
         VisualizarReadequacaoButton,
         AnalisarReadequacaoButton,
         DistribuirReadequacaoButton,
+        DistribuirReadequacaoVinculadaButton,
         RedistribuirReadequacaoButton,
         FinalizarButton,
         CriarReadequacao,
@@ -371,7 +386,7 @@ export default {
                     },
                     {
                         componente: DistribuirReadequacaoButton,
-                        permissao: 'coordenador',
+                        permissao: 'coordenador_acompanhamento',
                     },
                     {
                         componente: AssinarDocumentoButton,
@@ -391,7 +406,7 @@ export default {
                     },
                     {
                         componente: RedistribuirReadequacaoButton,
-                        permissao: 'coordenador',
+                        permissao: 'coordenador_acompanhamento',
                     },
                 ],
             },
@@ -420,6 +435,18 @@ export default {
                     {
                         componente: VisualizarReadequacaoButton,
                         permissao: 'analise',
+                    },
+                ],
+            },
+            acoesCoordenadorVinculadaAguardandoDistribuicao: {
+                acoes: [
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'analise',
+                    },
+                    {
+                        componente: DistribuirReadequacaoVinculadaButton,
+                        permissao: 'coordenador_vinculada',
                     },
                 ],
             },
@@ -486,6 +513,9 @@ export default {
                 coordenador: [
                     Const.PERFIL_COORDENADOR_DE_PARECER,
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
+                ],
+                coordenador_vinculada: [
+                    Const.PERFIL_COORDENADOR_DE_PARECER,
                 ],
                 coordenador_acompanhamento: [
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,

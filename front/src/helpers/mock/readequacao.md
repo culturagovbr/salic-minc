@@ -1116,7 +1116,7 @@ HOST: http://localhost:4000
                 "mensagem": "Readequação redistribuída para outro técnico."
             }
 
-## Readequação - Redistribui uma readequação [/readequacao/devolver-readequacao]
+## Readequação - Devolve e redistribui uma readequação [/readequacao/devolver-readequacao]
 
 ### Obtém lista de técnicos [POST]
 
@@ -1136,4 +1136,26 @@ HOST: http://localhost:4000
 
             {
                 "mensagem": "Readequação devolvida para o coordenador."
+            }
+
+## Readequação - Devolve uma readequação ao coordenador de acompanhamento [/readequacao/devolver-ao-coordenador]
+
+### Coordenador de parecer de vinculada devolve ao coordenador de acompanhamento [POST]
+
++ Parameters
+    + idPronac: 205213 (number, required)
+    + idReadequacao: 12262 (number, required)
+    + stAtendimento: 'D' (string, required)
+    + dsAvaliacao: 'D' (string, required)
+    + destinatario: 'Joaquim dos Anjos' (string, required)
+    + vinculada: 262 (number, required)
+
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+
+            {
+                "mensagem": "Readequação devolvida para o coordenador de acompanhamento."
             }

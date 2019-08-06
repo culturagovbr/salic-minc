@@ -402,3 +402,12 @@ export const devolverReadequacao = ({ dispatch }, params) => {
             });
         });
 };
+
+export const devolverAoCoordenador = ({ dispatch }, params) => {
+    readequacaoHelperAPI.devolverAoCoordenador(params)
+        .then(() => {
+            dispatch('buscarReadequacoesPainelAguardandoDistribuicao', {
+                filtro: 'painel_aguardando_distribuicao',
+            });
+        });
+};
