@@ -40,7 +40,7 @@
                     <td class="text-xs-right">{{ props.item.vlUnitario | filtroFormatarParaReal }}</td>
                     <td class="text-xs-right">{{ props.item.vlAprovado | filtroFormatarParaReal }}</td>
                     <td class="text-xs-right">{{ props.item.vlComprovado | filtroFormatarParaReal }}</td>
-                    <td class="text-xs-right">{{ decodeHtml(props.item.dsJustificativa) }}</td>
+                    <td class="text-xs-right">{{ decodeHtml(props.item.dsJustificativa) | filtroTruncar25 }}</td>
                 </tr>
             </template>
             <template
@@ -113,7 +113,7 @@ import MxPlanilhaReadequacao from '../mixins/PlanilhaReadequacao';
 import { utils } from '@/mixins/utils';
 
 export default {
-    name: 'PlanilhaItensSaldo',
+    name: 'PlanilhaItensReadequacao',
     components: {
         EditarItemPlanilha,
         VisualizarItemPlanilha,

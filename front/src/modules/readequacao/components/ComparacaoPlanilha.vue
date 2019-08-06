@@ -42,6 +42,12 @@
                                 R$ {{ formatarParaReal(slotProps.planilha.vlAprovado) }}
                             </v-chip>
                         </template>
+                        <template slot-scope="slotProps">
+                            <s-planilha-itens-readequacao
+                                :table="slotProps.itens"
+                                :readonly="true"
+                            />
+                        </template>
                     </s-planilha>
                 </div>
                 <div
@@ -73,6 +79,12 @@
                                 R$ {{ formatarParaReal(slotProps.planilha.vlAprovado) }}
                             </v-chip>
                         </template>
+                        <template slot-scope="slotProps">
+                            <s-planilha-itens-readequacao
+                                :table="slotProps.itens"
+                                :readonly="true"
+                            />
+                        </template>
                     </s-planilha>
                 </div>
             </resize-panel>
@@ -84,6 +96,7 @@ import { mapActions, mapGetters } from 'vuex';
 import SPlanilha from '@/components/Planilha/PlanilhaV2';
 import ResizePanel from '@/components/resize-panel/ResizeSplitPane';
 import SPlanilhaTiposVisualizacaoButtons from '@/components/Planilha/PlanilhaTiposVisualizacaoButtons';
+import SPlanilhaItensReadequacao from '../components/PlanilhaItensReadequacao';
 import MxPlanilha from '@/mixins/planilhas';
 
 export default {
@@ -92,6 +105,7 @@ export default {
         ResizePanel,
         SPlanilha,
         SPlanilhaTiposVisualizacaoButtons,
+        SPlanilhaItensReadequacao,
     },
     mixins: [
         MxPlanilha,

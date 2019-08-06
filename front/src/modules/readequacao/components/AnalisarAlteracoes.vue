@@ -45,6 +45,7 @@ import CampoDiff from '@/components/CampoDiff';
 import MxReadequacao from '../mixins/Readequacao';
 import ComparacaoTextual from './ComparacaoTextual';
 import ComparacaoPlanilha from './ComparacaoPlanilha';
+import SPlanilhaItensReadequacao from '../components/PlanilhaItensReadequacao';
 
 export default {
     name: 'AnalisarAlteracoes',
@@ -53,6 +54,7 @@ export default {
         CampoDiff,
         ComparacaoTextual,
         ComparacaoPlanilha,
+        SPlanilhaItensReadequacao,
     },
     mixins: [
         MxReadequacao,

@@ -124,6 +124,9 @@ export const utils = {
         filtroFormatarQuantidade(value) {
             const parsedValue = parseFloat(value);
             return filtersQuantidade(parsedValue);
-        }
+        },
+        filtroTruncar25(value) {
+            return value.substr(0, 24) + '...';
+        },
     },
 };

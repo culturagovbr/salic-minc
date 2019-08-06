@@ -247,7 +247,7 @@
                                                         </v-chip>
                                                     </template>
                                                     <template slot-scope="slotProps">
-                                                        <s-planilha-itens-saldo
+                                                        <s-planilha-itens-readequacao
                                                             :table="slotProps.itens"
                                                             :readonly="true"
                                                         />
@@ -284,7 +284,7 @@
                                                         </v-chip>
                                                     </template>
                                                     <template slot-scope="slotProps">
-                                                        <s-planilha-itens-saldo
+                                                        <s-planilha-itens-readequacao
                                                             :table="slotProps.itens"
                                                         />
                                                     </template>
@@ -351,7 +351,7 @@ import ExcluirButton from '../components/ExcluirButton';
 import SPlanilha from '@/components/Planilha/PlanilhaV2';
 import ResizePanel from '@/components/resize-panel/ResizeSplitPane';
 import SPlanilhaTiposVisualizacaoButtons from '@/components/Planilha/PlanilhaTiposVisualizacaoButtons';
-import SPlanilhaItensSaldo from '../components/PlanilhaItensSaldo';
+import SPlanilhaItensReadequacao from '../components/PlanilhaItensReadequacao';
 import MxPlanilha from '@/mixins/planilhas';
 
 export default {
@@ -368,7 +368,7 @@ export default {
         ResizePanel,
         SPlanilha,
         SPlanilhaTiposVisualizacaoButtons,
-        SPlanilhaItensSaldo,
+        SPlanilhaItensReadequacao,
     },
     mixins: [
         utils,
