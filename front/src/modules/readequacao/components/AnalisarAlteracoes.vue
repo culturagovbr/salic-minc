@@ -41,20 +41,16 @@
 <script>
 import { mapGetters } from 'vuex';
 import Carregando from '@/components/CarregandoVuetify';
-import CampoDiff from '@/components/CampoDiff';
 import MxReadequacao from '../mixins/Readequacao';
 import ComparacaoTextual from './ComparacaoTextual';
 import ComparacaoPlanilha from './ComparacaoPlanilha';
-import SPlanilhaItensReadequacao from '../components/PlanilhaItensReadequacao';
 
 export default {
     name: 'AnalisarAlteracoes',
     components: {
         Carregando,
-        CampoDiff,
         ComparacaoTextual,
         ComparacaoPlanilha,
-        SPlanilhaItensReadequacao,
     },
     mixins: [
         MxReadequacao,

@@ -1,18 +1,32 @@
 <template>
-    <campo-diff
-        :original-text="original.valor"
-        :changed-text="changed.dsSolicitacao"
-        :method="'diffWordsWithSpace'"
-    />
+    <v-layout>
+        <template
+            v-if="loading"
+        >
+            <carregando
+                :text="'Montando comparação'"
+                class="mt-5 pb-4"
+            />
+        </template>
+        <template v-else>
+            <campo-diff
+                :original-text="original.dsSolicitacao"
+                :changed-text="changed.valor"
+                :method="'diffWordsWithSpace'"
+            />
+        </template>
+    </v-layout>
 </template>
 <script>
+import Carregando from '@/components/CarregandoVuetify';
 import CampoDiff from '@/components/CampoDiff';
 
 export default {
     name: 'ComparacaoTextual',
-    components: [
+    components: {
+        Carregando,
         CampoDiff,
-    ],
+    },
     props: {
         original: {
             type: Object,
@@ -22,6 +36,14 @@ export default {
             type: Object,
             default: () => {},
         },
+    },
+    data() {
+        return {
+            loading: true,
+        };
+    },
+    mounted() {
+        this.loading = false;
     },
 };
 </script>

@@ -96,11 +96,11 @@ import { mapActions, mapGetters } from 'vuex';
 import SPlanilha from '@/components/Planilha/PlanilhaV2';
 import ResizePanel from '@/components/resize-panel/ResizeSplitPane';
 import SPlanilhaTiposVisualizacaoButtons from '@/components/Planilha/PlanilhaTiposVisualizacaoButtons';
-import SPlanilhaItensReadequacao from '../components/PlanilhaItensReadequacao';
+import SPlanilhaItensReadequacao from './PlanilhaItensReadequacao';
 import MxPlanilha from '@/mixins/planilhas';
 
 export default {
-    name: 'ComparacaoTextual',
+    name: 'ComparacaoPlanilha',
     components: {
         ResizePanel,
         SPlanilha,
@@ -148,7 +148,7 @@ export default {
         },
         mostrarListagem() {
             return this.isOptionActive(2);
-        },        
+        },
     },
     mounted() {
         this.obterPlanilha({
