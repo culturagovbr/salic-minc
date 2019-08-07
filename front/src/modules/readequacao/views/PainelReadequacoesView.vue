@@ -292,6 +292,7 @@ import FinalizarButton from '../components/FinalizarButton';
 import EditarReadequacaoButton from '../components/EditarReadequacaoButton';
 import VisualizarReadequacaoButton from '../components/VisualizarReadequacaoButton';
 import AnalisarReadequacaoButton from '../components/AnalisarReadequacaoButton';
+import DeclararImpedimentoButton from '../components/DeclararImpedimentoButton';
 import DistribuirReadequacaoButton from '../components/DistribuirReadequacaoButton';
 import DistribuirReadequacaoVinculadaButton from '../components/DistribuirReadequacaoVinculadaButton';
 import RedistribuirReadequacaoButton from '../components/RedistribuirReadequacaoButton';
@@ -311,6 +312,7 @@ export default {
         EditarReadequacaoButton,
         VisualizarReadequacaoButton,
         AnalisarReadequacaoButton,
+        DeclararImpedimentoButton,
         DistribuirReadequacaoButton,
         DistribuirReadequacaoVinculadaButton,
         RedistribuirReadequacaoButton,
@@ -366,6 +368,10 @@ export default {
                     },
                     {
                         componente: AnalisarReadequacaoButton,
+                        permissao: 'analisar',
+                    },
+                    {
+                        componente: DeclararImpedimentoButton,
                         permissao: 'analisar',
                     },
                     {

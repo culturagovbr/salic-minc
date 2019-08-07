@@ -5,7 +5,7 @@
         >
             <v-icon
                 slot="activator"
-                color="#212121"
+                color="grey darken-2"
                 @click.stop="dialog = true"
             >
                 gavel
