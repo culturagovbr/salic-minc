@@ -164,3 +164,9 @@ export const devolverAoCoordenador = (params) => {
     const path = '/readequacao/devolver-ao-coordenador';
     return api.postRequest(path, buildData(params));
 };
+
+export const declararImpedimento = (params) => {
+    const path = '/readequacao/declarar-impedimento';
+    return api.postRequest(path, buildData(params));
+};
+

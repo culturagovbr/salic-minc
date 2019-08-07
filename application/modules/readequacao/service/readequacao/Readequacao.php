@@ -1797,12 +1797,19 @@ class Readequacao implements IServicoRestZend
     public function devolverReadequacao()
     {
         $parametros = $this->request->getParams();
-
-        $dados = [];
         $idReadequacao = $parametros['idReadequacao'];
 
         $this->__invalidarAssinatura($idReadequacao);
         $this->distribuirReadequacao();
+        
+        return true;
+    }
+
+    public function declararImpedimento()
+    {
+        $parametros = $this->request->getParams();
+
+        // TODO: adicionar funcionalidade
         
         return true;
     }

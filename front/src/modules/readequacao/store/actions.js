@@ -411,3 +411,13 @@ export const devolverAoCoordenador = ({ dispatch }, params) => {
             });
         });
 };
+
+export const declararImpedimento = ({ dispatch }, patams) => {
+    readequacaoHelperAPI.declararImpedimento(params)
+        .then(() => {
+            dispatch('obterListaDeReadequacoes', {
+                idPronac: params.idPronac,
+                stStatusAtual: 'proponente',
+            });
+        });
+};

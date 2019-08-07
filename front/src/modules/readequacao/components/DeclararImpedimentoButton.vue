@@ -80,7 +80,7 @@
                                 <v-btn
                                     dark
                                     color="orange accent-4"
-                                    @click="declararImpedimento()"
+                                    @click="enviarDeclararImpedimento()"
                                 >
                                     <v-icon left>
                                         send
@@ -104,6 +104,7 @@
     </v-layout>
 </template>
 <script>
+import { mapActions } from 'vuex';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import Carregando from '@/components/CarregandoVuetify';
 
@@ -130,10 +131,13 @@ export default {
         };
     },
     methods: {
+        ...mapActions({
+            declararImpedimento: 'readequacao/declararImpedimento',
+        }),
         validateText(e) {
             this.textIsValid = e >= this.minChar;
         },
-        declararImpedimento() {
+        enviarDeclararImpedimento() {
             // TODO
         },
     },  

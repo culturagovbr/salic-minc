@@ -20,6 +20,7 @@ class Readequacao_Bootstrap extends Zend_Application_Module_Bootstrap
                     'campo-atual',
                     'dados-readequacao',
                     'dados-readequacao-documento',
+                    'declarar-impedimento',
                     'destinatarios-distribuicao',
                     'devolver-ao-coordenador',
                     'devolver-readequacao',

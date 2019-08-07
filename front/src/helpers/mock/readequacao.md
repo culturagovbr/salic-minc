@@ -1159,3 +1159,21 @@ HOST: http://localhost:4000
             {
                 "mensagem": "Readequação devolvida para o coordenador de acompanhamento."
             }
+
+## Readequação - Técnico ou parecerista declara impedimento e devolve ao coordenador [/readequacao/declarar-impedimento]
+
+### Técnico ou parecerista declara impedimento e devolve ao coordenador [POST]
+
++ Parameters
+    + idReadequacao: 12262 (number, required)
+    + idTecnico: 12414 (number, required)
+
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+
+            {
+                "mensagem": "Readequação devolvida para o coordenador de acompanhamento."
+            }
