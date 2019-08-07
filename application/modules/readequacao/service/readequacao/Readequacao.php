@@ -1144,6 +1144,57 @@ class Readequacao implements IServicoRestZend
         return $data;
     }
 
+    private function __obterPlanilhaAtiva($idPronac)
+    {
+        $tbPlanilhaAprovacao = new \tbPlanilhaAprovacao();
+        $planilhaOrcamentaria = $tbPlanilhaAprovacao->obterPlanilhaAtiva($idPronac);
+
+        $planilha = [];
+        foreach ($planilhaOrcamentaria as $item) {
+            if ($item->idPlanilhaAprovacaoPai != null) {
+                $planilha[$item->idPlanilhaAprovacaoPai] = $item;
+            } else {
+                $planilha[] = $item;
+            }
+        };
+        
+        return $planilha;
+    }
+
+    private function __obterPlanilhaEmReadequacao($idPronac, $tipoPlanilha)
+    {
+        $spPlanilhaOrcamentaria = new \spPlanilhaOrcamentaria();
+        $params = [
+            'link' => true,
+        ];
+        $planilhaReadequada = $spPlanilhaOrcamentaria->exec($idPronac, $tipoPlanilha, $params);
+        $tbPlanilhaAprovacao = new \tbPlanilhaAprovacao();
+        $planilhaAtiva = $tbPlanilhaAprovacao->obterPlanilhaAtiva($idPronac);
+        
+        $planilha = [];
+        foreach ($planilhaReadequada as $item) {
+            if ($item->idPlanilhaAprovacaoPai != null) {
+                $planilha[$item->idPlanilhaAprovacaoPai] = $item;
+            } else {
+                $planilha[] = $item;
+            }
+        };
+        
+        foreach ($planilhaAtiva as $itemAtiva) {
+            if (array_key_exists($itemAtiva->idPlanilhaAprovacao, $planilha)) {
+                $planilha[$itemAtiva->idPlanilhaAprovacao]->idUnidadeAtivo = $itemAtiva->idUnidade;
+                $planilha[$itemAtiva->idPlanilhaAprovacao]->OcorrenciaAtivo = $itemAtiva->Ocorrencia;
+                $planilha[$itemAtiva->idPlanilhaAprovacao]->QuantidadeAtivo = $itemAtiva->Quantidade;
+                $planilha[$itemAtiva->idPlanilhaAprovacao]->QtdeDiasAtivo = $itemAtiva->QtdeDias;
+                $planilha[$itemAtiva->idPlanilhaAprovacao]->vlUnitarioAtivo = $itemAtiva->vlUnitario;
+            } else {
+                $planilha[] = $itemAtiva;
+            }
+        }
+        
+        return $planilha;
+    }
+    
     public function obterPlanilha() {
         $parametros = $this->request->getParams();
 
@@ -1160,43 +1211,13 @@ class Readequacao implements IServicoRestZend
         $planilhaOrcamentariaAtiva = [];
         
         if ($idTipoReadequacao) {
-            $spPlanilhaOrcamentaria = new \spPlanilhaOrcamentaria();
-            $planilhaOrcamentaria = $spPlanilhaOrcamentaria->exec($idPronac, $tipos[$idTipoReadequacao]);
-            $tbPlanilhaAprovacao = new \tbPlanilhaAprovacao();
-            $planilhaOrcamentariaAtiva = $tbPlanilhaAprovacao->obterPlanilhaAtiva($idPronac);
+            $planilha = $this->__obterPlanilhaEmReadequacao($idPronac, $tipos[$idTipoReadequacao]);
         } else {
-            $tbPlanilhaAprovacao = new \tbPlanilhaAprovacao();
-            $planilhaOrcamentaria = $tbPlanilhaAprovacao->obterPlanilhaAtiva($idPronac);
+            $planilha = $this->__obterPlanilhaAtiva($idPronac);
         }
-        
-        $planilha = [];
-        foreach ($planilhaOrcamentaria as $item) {
-            if ($item->idPlanilhaAprovacaoPai != null) {
-                $planilha[$item->idPlanilhaAprovacaoPai] = $item;
-            } else {
-                $planilha[] = $item;
-            }
-        };
-        
-        if (!empty($planilhaOrcamentariaAtiva)) {
-            $planilhaAtiva = [];
-            foreach ($planilhaOrcamentariaAtiva as $item) {
-                $itemAtivo = new \StdClass();
-                if (array_key_exists($item->idPlanilhaAprovacao, $planilha)) {
-                    $planilha[$item->idPlanilhaAprovacao]->idUnidadeAtivo = $item->idUnidade;
-                    $planilha[$item->idPlanilhaAprovacao]->OcorrenciaAtivo = $item->Ocorrencia;
-                    $planilha[$item->idPlanilhaAprovacao]->QuantidadeAtivo = $item->Quantidade;
-                    $planilha[$item->idPlanilhaAprovacao]->QtdeDiasAtivo = $item->QtdeDias;
-                    $planilha[$item->idPlanilhaAprovacao]->vlUnitarioAtivo = $item->vlUnitario;
-                } else {
-                    $planilha[] = $item;
-                }
-            }
 
-            $planilhaOrcamentaria = $planilha;
-        }
         $result = [];
-        foreach ($planilhaOrcamentaria as $item) {
+        foreach ($planilha as $item) {
             $item->Produto = utf8_encode($item->Produto);
             $item->NomeProjeto = utf8_encode($item->NomeProjeto);
             $item->Etapa = utf8_encode($item->Etapa);

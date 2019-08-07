@@ -82,7 +82,7 @@
                         <template slot-scope="slotProps">
                             <s-planilha-itens-readequacao
                                 :table="slotProps.itens"
-                                :readonly="true"
+                                :readonly="false"
                             />
                         </template>
                     </s-planilha>
