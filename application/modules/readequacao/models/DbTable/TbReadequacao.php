@@ -333,17 +333,9 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             $this->_schema
         );
 
-        $select->joinInner(
-            ['tbDistribuirReadequacao' => 'tbDistribuirReadequacao'],
-            'tbDistribuirReadequacao.idReadequacao = tbReadequacao.idReadequacao',
-            [],
-            $this->_schema
-        );
-
         $select->where('tbReadequacao.siEncaminhamento IN (?)',
                        [
                            Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_MINC,
-                           Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_DEVOLVIDO_ANALISE_TECNICA,
                        ]);
         $select->where('tbReadequacao.stEstado = ?', self::ST_ESTADO_EM_ANDAMENTO);
         
