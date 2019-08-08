@@ -58,7 +58,7 @@
     </v-container>
 </template>
 <script>
-import Const from '../const';
+import Const from '../../const';
 
 export default {
     name: 'TemplateInput',

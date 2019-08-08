@@ -265,8 +265,8 @@ import _ from 'lodash';
 import { mapActions, mapGetters } from 'vuex';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import Carregando from '@/components/CarregandoVuetify';
-import AnalisarDadosGerais from '../components/AnalisarDadosGerais';
-import AnalisarAlteracoes from '../components/AnalisarAlteracoes';
+import AnalisarDadosGerais from '../components/analise/AnalisarDadosGerais';
+import AnalisarAlteracoes from '../components/analise/AnalisarAlteracoes';
 import MxReadequacao from '../mixins/Readequacao';
 
 export default {

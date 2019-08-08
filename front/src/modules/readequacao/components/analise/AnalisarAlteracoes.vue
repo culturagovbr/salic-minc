@@ -41,7 +41,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import Carregando from '@/components/CarregandoVuetify';
-import MxReadequacao from '../mixins/Readequacao';
+import MxReadequacao from '../../mixins/Readequacao';
 import ComparacaoTextual from './ComparacaoTextual';
 import ComparacaoPlanilha from './ComparacaoPlanilha';
 

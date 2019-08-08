@@ -1,5 +1,5 @@
-import AnalisarDadosGerais from './components/AnalisarDadosGerais';
-import AnalisarAlteracoes from './components/AnalisarAlteracoes';
+import AnalisarDadosGerais from './components/analise/AnalisarDadosGerais';
+import AnalisarAlteracoes from './components/analise/AnalisarAlteracoes';
 
 const PainelReadequacoesView = () => import(/* webpackChunkName: "painel-readequacoes-view" */ './views/PainelReadequacoesView');
 const AnalisarReadequacaoView = () => import(/* webpackChunkName: "analisar-readequacao-view" */ './views/AnalisarReadequacaoView');

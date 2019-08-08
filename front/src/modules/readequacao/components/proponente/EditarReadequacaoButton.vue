@@ -183,7 +183,7 @@ import TemplateDate from './TemplateDate';
 import TemplateRedirect from './TemplateRedirect';
 import FinalizarButton from './FinalizarButton';
 import UploadFile from './UploadFile';
-import MxReadequacao from '../mixins/Readequacao';
+import MxReadequacao from '../../mixins/Readequacao';
 
 export default {
     name: 'EditarReadequacaoButton',

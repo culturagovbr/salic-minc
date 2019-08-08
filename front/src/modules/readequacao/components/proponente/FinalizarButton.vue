@@ -73,8 +73,8 @@
 import _ from 'lodash';
 import { mapActions, mapGetters } from 'vuex';
 import { utils } from '@/mixins/utils';
-import Const from '../const';
-import MxReadequacao from '../mixins/Readequacao';
+import Const from '../../const';
+import MxReadequacao from '../../mixins/Readequacao';
 
 export default {
     name: 'FinalizarButton',

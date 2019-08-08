@@ -168,7 +168,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import Carregando from '@/components/CarregandoVuetify';
-import Const from '../const';
+import Const from '../../const';
 
 export default {
     name: 'DevolverReadequacaoButton',

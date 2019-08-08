@@ -154,10 +154,10 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import { utils } from '@/mixins/utils';
-import MxReadequacao from '../mixins/Readequacao';
-import MxPlanilhaReadequacao from '../mixins/PlanilhaReadequacao';
 import InputMoney from '@/components/InputMoney';
 import Carregando from '@/components/CarregandoVuetify';
+import MxReadequacao from '../../mixins/Readequacao';
+import MxPlanilhaReadequacao from '../../mixins/PlanilhaReadequacao';
 
 export default {
     name: 'EditarItemPlanilha',

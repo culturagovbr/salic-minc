@@ -283,11 +283,11 @@
 import _ from 'lodash';
 import { mapGetters, mapActions } from 'vuex';
 import { utils } from '@/mixins/utils';
-import Const from '../const';
-import VisualizarCampoDetalhado from './VisualizarCampoDetalhado';
 import Carregando from '@/components/CarregandoVuetify';
 import CampoDiff from '@/components/CampoDiff';
-import MxReadequacao from '../mixins/Readequacao';
+import Const from '../../const';
+import VisualizarCampoDetalhado from './VisualizarCampoDetalhado';
+import MxReadequacao from '../../mixins/Readequacao';
 
 export default {
     name: 'VisualizarReadequacaoButton',

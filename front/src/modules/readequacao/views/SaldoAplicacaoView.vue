@@ -340,19 +340,19 @@ import { mapActions, mapGetters } from 'vuex';
 import { utils } from '@/mixins/utils';
 import Const from '../const';
 import SalicMensagemErro from '@/components/SalicMensagemErro';
-import FinalizarButton from '../components/FinalizarButton';
-import MxReadequacao from '../mixins/Readequacao';
-import Carregando from '@/components/CarregandoVuetify';
-import FormJustificativa from '../components/FormJustificativa';
-import UploadFile from '../components/UploadFile';
-import ValorDisponivel from '../components/ValorDisponivel';
-import SaldoAplicacaoResumo from '../components/SaldoAplicacaoResumo';
-import ExcluirButton from '../components/ExcluirButton';
-import SPlanilha from '@/components/Planilha/PlanilhaV2';
 import ResizePanel from '@/components/resize-panel/ResizeSplitPane';
+import Carregando from '@/components/CarregandoVuetify';
+import SPlanilha from '@/components/Planilha/PlanilhaV2';
 import SPlanilhaTiposVisualizacaoButtons from '@/components/Planilha/PlanilhaTiposVisualizacaoButtons';
-import SPlanilhaItensReadequacao from '../components/PlanilhaItensReadequacao';
+import FormJustificativa from '../components/proponente/FormJustificativa';
+import UploadFile from '../components/proponente/UploadFile';
+import ValorDisponivel from '../components/proponente/ValorDisponivel';
+import SaldoAplicacaoResumo from '../components/proponente/SaldoAplicacaoResumo';
+import FinalizarButton from '../components/proponente/FinalizarButton';
+import ExcluirButton from '../components/proponente/ExcluirButton';
+import SPlanilhaItensReadequacao from '../components/planilha/PlanilhaItensReadequacao';
 import MxPlanilha from '@/mixins/planilhas';
+import MxReadequacao from '../mixins/Readequacao';
 
 export default {
     name: 'SaldoAplicacaoView',

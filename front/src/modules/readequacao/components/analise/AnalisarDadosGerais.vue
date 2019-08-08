@@ -37,7 +37,7 @@
 <script>
 import { mapGetters } from 'vuex';
 import { utils } from '@/mixins/utils';
-import MxReadequacao from '../mixins/Readequacao';
+import MxReadequacao from '../../mixins/Readequacao';
 
 export default {
     name: 'AnalisarDadosGerais',

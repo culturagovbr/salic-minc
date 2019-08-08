@@ -106,8 +106,8 @@
 <script>
 import { utils } from '@/mixins/utils';
 import Carregando from '@/components/CarregandoVuetify';
-import MxReadequacao from '../mixins/Readequacao';
-import Const from '../const';
+import MxReadequacao from '../../mixins/Readequacao';
+import Const from '../../const';
 
 export default {
     name: 'TabelaReadequacoesPainel',

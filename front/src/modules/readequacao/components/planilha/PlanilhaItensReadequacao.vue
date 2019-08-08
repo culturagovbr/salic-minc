@@ -107,10 +107,10 @@
 </template>
 
 <script>
+import { utils } from '@/mixins/utils';
 import EditarItemPlanilha from './EditarItemPlanilha';
 import VisualizarItemPlanilha from './VisualizarItemPlanilha';
-import MxPlanilhaReadequacao from '../mixins/PlanilhaReadequacao';
-import { utils } from '@/mixins/utils';
+import MxPlanilhaReadequacao from '../../mixins/PlanilhaReadequacao';
 
 export default {
     name: 'PlanilhaItensReadequacao',

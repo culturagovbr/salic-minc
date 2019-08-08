@@ -55,7 +55,7 @@
 
 <script>
 import _ from 'lodash';
-import MxReadequacao from '../mixins/Readequacao';
+import MxReadequacao from '../../mixins/Readequacao';
 import Carregando from '@/components/CarregandoVuetify';
 
 export default {

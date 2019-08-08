@@ -96,7 +96,7 @@ import { mapActions, mapGetters } from 'vuex';
 import SPlanilha from '@/components/Planilha/PlanilhaV2';
 import ResizePanel from '@/components/resize-panel/ResizeSplitPane';
 import SPlanilhaTiposVisualizacaoButtons from '@/components/Planilha/PlanilhaTiposVisualizacaoButtons';
-import SPlanilhaItensReadequacao from './PlanilhaItensReadequacao';
+import SPlanilhaItensReadequacao from '../planilha/PlanilhaItensReadequacao';
 import MxPlanilha from '@/mixins/planilhas';
 
 export default {
