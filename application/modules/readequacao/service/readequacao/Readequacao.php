@@ -159,8 +159,10 @@ class Readequacao implements IServicoRestZend
         
         if ($filtro == 'painel_aguardando_distribuicao') {
             $where['Orgao = ?'] = $idOrgao;
-        } else {
+        } else if ($filtro == 'aguardando_publicacao') {
             $where['idOrgaoOrigem = ?'] = $idOrgao;
+        } else {
+            $where['projetos.Orgao = ?'] = $idOrgao;
         }
         
         if ($parametros['pronac']) {
@@ -168,7 +170,7 @@ class Readequacao implements IServicoRestZend
         }
 
         if ($filtro == 'analisados') {
-            unset($where['idOrgaoOrigem = ?']);
+            unset($where['projetos.Orgao = ?']);
             $where["CASE 
 	      WHEN projetos.Orgao in (" . \Orgaos::ORGAO_SUPERIOR_SAV . "," . \Orgaos::ORGAO_SAV_SAL . "," . \Orgaos::SAV_DPAV . ")
 		   THEN " . \Orgaos::ORGAO_SAV_CAP . "

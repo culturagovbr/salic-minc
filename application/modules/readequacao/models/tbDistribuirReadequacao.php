@@ -36,7 +36,13 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                     tbDistribuirReadequacao.dtEncaminhamento,
                     GETDATE()) as qtDiasAguardandoDistribuicao,
                     tbReadequacao.idReadequacao,
+                    tbReadequacao.idTipoReadequacao,
+                    tbReadequacao.siEncaminhamento,
                     tbReadequacao.stAtendimento,
+                    CAST(tbReadequacao.dsSolicitacao AS TEXT) AS dsSolicitacao,
+                    CAST(tbReadequacao.dsJustificativa AS TEXT) AS dsJustificativa,
+                    tbReadequacao.idAvaliador,
+                    CAST(tbReadequacao.dsAvaliacao AS TEXT) AS dsAvaliacao,
                     tbDistribuirReadequacao.idUnidade as idOrgao
             ")
             );
@@ -59,6 +65,21 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 $this->_schema
             );
 
+            $select->joinInner(
+                ['nomes' => 'Nomes'],
+                'nomes.idAgente = tbReadequacao.idSolicitante',
+                ['Descricao AS dsNomeSolicitante'],
+                $this->getSchema('agentes')
+            );
+        
+            $select->joinLeft(
+                ['usuarios' => 'Usuarios'],
+                'tbReadequacao.idAvaliador = usuarios.usu_codigo',
+                ['usu_nome AS dsNomeAvaliador'],
+                $this->getSchema('Tabelas')
+            );
+
+            
             $select->where('tbReadequacao.stEstado = ? ', 0);
             $select->where('tbDistribuirReadequacao.stValidacaoCoordenador = ? ', 0);
             $select->where('tbReadequacao.siEncaminhamento = ? ', Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE);
@@ -98,7 +119,10 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 tbDistribuirReadequacao.idDistribuirReadequacao,
                 projetos.idPRONAC as idPronac,
                 tbReadequacao.idReadequacao,
-                tbReadequacao.dsAvaliacao,
+                tbReadequacao.idTipoReadequacao,
+                CAST(tbReadequacao.dsJustificativa AS TEXT) AS dsJustificativa,
+                CAST(tbReadequacao.dsAvaliacao AS TEXT) AS dsAvaliacao,
+                CAST(tbReadequacao.dsSolicitacao AS TEXT) AS dsSolicitacao,
                 projetos.AnoProjeto+projetos.Sequencial AS PRONAC,
                 projetos.NomeProjeto,
                 projetos.Area,
@@ -128,10 +152,17 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
             $select->joinInner(
                 array('usuarios' => 'Usuarios'),
                 'tbDistribuirReadequacao.idAvaliador = usuarios.usu_codigo',
-                array(''),
+                ['usu_nome AS dsNomeAvaliador'],
                 $this->getSchema('Tabelas')
             );
 
+            $select->joinInner(
+                ['nomes' => 'Nomes'],
+                'nomes.idAgente = tbReadequacao.idSolicitante',
+                ['Descricao AS dsNomeSolicitante'],
+                $this->getSchema('agentes')
+            );
+            
             $select->joinInner(
                 array('tbTipoReadequacao' => 'tbTipoReadequacao'),
                 'tbTipoReadequacao.idTipoReadequacao = tbReadequacao.idTipoReadequacao',
@@ -181,6 +212,10 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 projetos.NomeProjeto,
                 projetos.Area,
                 projetos.Segmento,
+                tbReadequacao.idAvaliador,
+                CAST(tbReadequacao.dsSolicitacao AS TEXT) AS dsSolicitacao,
+                CAST(tbReadequacao.dsJustificativa AS TEXT) AS dsJustificativa,
+                CAST(tbReadequacao.dsAvaliacao AS TEXT) AS dsAvaliacao,
                 tbTipoReadequacao.dsReadequacao as tpReadequacao,
                 tbDistribuirReadequacao.dtEncaminhamento as dtEnvio,
                 tbDistribuirReadequacao.dtEnvioAvaliador as dtDistribuicao,
@@ -200,6 +235,7 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 GETDATE()) AS qtTotalDiasAvaliar,
                 tbDistribuirReadequacao.idAvaliador AS idTecnico,
                 tbReadequacao.idReadequacao,
+                tbReadequacao.idTipoReadequacao,
                 tbDistribuirReadequacao.idUnidade as idOrgao,
                 (CASE
                     WHEN tbReadequacao.siEncaminhamento = 24
@@ -231,10 +267,17 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
             $select->joinInner(
                 array('usuarios' => 'Usuarios'),
                 'tbDistribuirReadequacao.idAvaliador = usuarios.usu_codigo',
-                array(''),
+                ['usu_nome AS dsNomeAvaliador'],
                 $this->getSchema('Tabelas')
             );
 
+            $select->joinInner(
+                ['nomes' => 'Nomes'],
+                'nomes.idAgente = tbReadequacao.idSolicitante',
+                ['Descricao AS dsNomeSolicitante'],
+                $this->getSchema('agentes')
+            );
+            
             $select->joinInner(
                 array('tbTipoReadequacao' => 'tbTipoReadequacao'),
                 'tbTipoReadequacao.idTipoReadequacao = tbReadequacao.idTipoReadequacao',

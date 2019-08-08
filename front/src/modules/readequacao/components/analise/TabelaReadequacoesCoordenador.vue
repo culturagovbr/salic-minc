@@ -79,6 +79,8 @@
                                         :dados-readequacao="props.item"
                                         :id-documento-assinatura="props.item.idDocumentoAssinatura"
                                         :id-tipo-do-ato-administrativo="props.item.idTipoDoAtoAdministrativo"
+                                        :perfil="perfil"
+                                        :perfisAceitos="perfisAceitos"
                                         :min-char="minChar"
                                         :modal="true"
                                         :disponivel-assinatura="disponivelAssinatura(props.item.siEncaminhamento, props.item.idDocumentoAssinatura)"

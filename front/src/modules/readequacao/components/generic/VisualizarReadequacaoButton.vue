@@ -202,8 +202,12 @@
                         <v-list
                             two-line
                             subheader
+                            class="mt-3"
                         >
-                            <v-subheader inset>Dados da Avaliação</v-subheader>
+                            <v-subheader
+                                color="black--text"
+                                class="grey lighten-3"
+                            >Dados da Avaliação</v-subheader>
                             <v-list-tile avatar>
                                 <v-list-tile-avatar>
                                     <v-icon class="green lighten-1 white--text">
@@ -352,7 +356,7 @@ export default {
         }),
         existeAvaliacao() {
             if (this.dadosReadequacao
-                && this.perfilAceito()) {
+                && this.perfilAceito(['analise'])) {
                 if (!_.isNull(this.dadosReadequacao.dsAvaliacao)
                     && !_.isNull(this.dadosReadequacao.dtAvaliador)) {
                     return true;
@@ -406,8 +410,14 @@ export default {
             buscarProjetoCompleto: 'projeto/buscarProjetoCompleto',
             obterCampoAtual: 'readequacao/obterCampoAtual',
         }),
-        perfilAceito() {
-            return this.verificarPerfil(this.perfil, this.perfisAceitos);
+        perfilAceito(tiposPerfil) {
+            //            return this.verificarPerfil(this.perfil, this.perfisAceitos);
+            return tiposPerfil.some((perfil) => {
+                if (Object.prototype.hasOwnProperty.call(this.perfisAceitos, perfil)) {
+                    return this.verificarPerfil(this.perfil, this.perfisAceitos[perfil]);
+                }
+                return false;
+            });
         },
         readequacaoTipoSimples() {
             if (this.outrosTiposSolicitacoes.indexOf(this.dadosReadequacao.idTipoReadequacao) > -1) {

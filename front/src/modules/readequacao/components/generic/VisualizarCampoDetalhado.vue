@@ -21,7 +21,9 @@
                 {{ dados.titulo }}
             </v-card-title>
             <v-card-text>
-                {{ dados.descricao }}
+                <div
+                    v-html="dados.descricao"
+                />
             </v-card-text>
             <v-divider/>
             <v-card-actions>
