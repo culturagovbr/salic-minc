@@ -174,12 +174,25 @@
                                 Solicitação
                             </v-card-title>
                             <v-card-text>
-                                <campo-diff
-                                    v-if="readequacaoTipoSimples() && dadosReadequacao.dsSolicitacao"
-                                    :original-text="getDadosCampo.valor"
-                                    :changed-text="dadosReadequacao.dsSolicitacao"
-                                    :method="'diffWordsWithSpace'"
-                                />
+                                <template
+                                    v-if="readequacaoTipoSimples()"
+                                >
+                                    <div
+                                        v-if="dadosReadequacao.dsSolicitacao !=='' && getDadosCampo.valor !== ''"
+                                    >
+                                        <campo-diff
+                                            :original-text="getDadosCampo.valor"
+                                            :changed-text="dadosReadequacao.dsSolicitacao"
+                                            :method="'diffWordsWithSpace'"
+                                        />
+                                    </div>
+                                    <div v-else>
+                                        <carregando
+                                            :text="'Montando comparação...'"
+                                            class="mt-5"
+                                        />
+                                    </div>
+                                </template>
                                 <div
                                     v-else
                                 >
@@ -187,9 +200,20 @@
                                         class="subheading pb-2"
                                         v-html="dadosReadequacao.dsTipoReadequacao"
                                     />
-                                    <span
+                                    <div
                                         class="font-italic"
-                                        v-html="mensagemPadraoOutrasSolicitacoes"/>
+                                    >
+                                        Este tipo de readequação ainda não possui uma visualização específica!
+                                    </div>
+                                    <v-btn
+                                            color="secondary"
+                                            @click.stop="redirect()"
+                                        >
+                                        <v-icon>
+                                            gavel
+                                        </v-icon>
+                                        Visualizar modo antigo
+                                    </v-btn>
                                 </div>
                             </v-card-text>
                         </v-card>
@@ -338,6 +362,7 @@ export default {
             visualizarAvaliacao: false,
             visualizarJustificativa: false,
             projeto: {},
+            legacyRoutePath: '/readequacao/readequacoes/visualizar-readequacao?id=',
             outrosTiposSolicitacoes: [
                 Const.TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL,
                 Const.TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA,
@@ -346,7 +371,6 @@ export default {
                 Const.TIPO_READEQUACAO_SALDO_APLICACAO,
                 Const.TIPO_READEQUACAO_TRANSFERENCIA_RECURSOS,
             ],
-            mensagemPadraoOutrasSolicitacoes: 'Sem visualização detalhada para esse tipo de readequação.',
         };
     },
     computed: {
@@ -411,7 +435,6 @@ export default {
             obterCampoAtual: 'readequacao/obterCampoAtual',
         }),
         perfilAceito(tiposPerfil) {
-            //            return this.verificarPerfil(this.perfil, this.perfisAceitos);
             return tiposPerfil.some((perfil) => {
                 if (Object.prototype.hasOwnProperty.call(this.perfisAceitos, perfil)) {
                     return this.verificarPerfil(this.perfil, this.perfisAceitos[perfil]);
@@ -430,6 +453,10 @@ export default {
                 return Const.SI_ENCAMINHAMENTO[siEncaminhamento];
             }
             return false;
+        },
+        redirect() {
+            const url = this.legacyRoutePath + this.dadosReadequacao.idReadequacao;
+            window.open(url, '_blank');
         },
     },
 };

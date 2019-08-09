@@ -159,8 +159,6 @@ class Readequacao implements IServicoRestZend
         
         if ($filtro == 'painel_aguardando_distribuicao') {
             $where['Orgao = ?'] = $idOrgao;
-        } else if ($filtro == 'aguardando_publicacao') {
-            $where['idOrgaoOrigem = ?'] = $idOrgao;
         } else {
             $where['projetos.Orgao = ?'] = $idOrgao;
         }

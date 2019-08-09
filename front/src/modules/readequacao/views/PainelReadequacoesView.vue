@@ -597,7 +597,9 @@ export default {
                         this.permissao = false;
                         return;
                     }
-                    this.obterReadequacoesPorStatus('proponente');
+                    if (typeof this.$route.params.idPronac !== 'undefined') {
+                        this.obterReadequacoesPorStatus('proponente');
+                    }
                     this.loaded.projeto = true;
                 }
             }

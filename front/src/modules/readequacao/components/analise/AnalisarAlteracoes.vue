@@ -141,7 +141,7 @@ export default {
                     routePath = routePath.replace(/#/, '');
                     this.$router.push({ path: routePath });
                 } else {
-                    window.location.href = routePath;
+                    window.open(routePath, '_blank');
                 }
             }
         },

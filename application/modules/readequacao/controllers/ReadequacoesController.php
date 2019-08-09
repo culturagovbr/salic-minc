@@ -1956,9 +1956,11 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         if ($this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER && $this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO && $this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO) {
             parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
         }
-
-        $id = Seguranca::dencrypt($this->_request->getParam('id'));
-
+        $id = $this->_request->getParam('id');
+        if (strlen($id) > 7) {
+            $id = Seguranca::dencrypt($id);
+        }
+        
         $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
         $d = $tbReadequacao->visualizarReadequacao(array('a.idReadequacao = ?' => $id))->current();
         $this->view->dados = $d;
