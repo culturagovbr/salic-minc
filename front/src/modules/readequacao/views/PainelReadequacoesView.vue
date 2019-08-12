@@ -372,7 +372,7 @@ export default {
                     },
                     {
                         componente: DeclararImpedimentoButton,
-                        permissao: 'analisar',
+                        permissao: 'parecerista',
                     },
                     {
                         componente: AssinarDocumentoButton,
@@ -504,6 +504,9 @@ export default {
                 ],
                 analisar: [
                     Const.PERFIL_TECNICO_ACOMPANHAMENTO,
+                    Const.PERFIL_PARECERISTA,
+                ],
+                parecerista: [
                     Const.PERFIL_PARECERISTA,
                 ],
                 assinatura: [
