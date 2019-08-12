@@ -15,8 +15,8 @@
                 >
                     <component
                         :is="getTemplateParaTipo"
-                        :original="dadosReadequacao"
-                        :changed="getDadosCampo"
+                        :original="getDadosCampo"
+                        :changed="dadosReadequacao"
                         :dados-readequacao="dadosReadequacao"
                     />
                 </template>

@@ -10,8 +10,8 @@
         </template>
         <template v-else>
             <campo-diff
-                :original-text="original.dsSolicitacao"
-                :changed-text="changed.valor"
+                :original-text="original.valor"
+                :changed-text="changed.dsSolicitacao"
                 :method="'diffWordsWithSpace'"
             />
         </template>
