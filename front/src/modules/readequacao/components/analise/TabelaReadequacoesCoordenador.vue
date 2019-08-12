@@ -215,7 +215,7 @@ export default {
                         position: 5,
                     },
                     {
-                        text: 'Vinculada',
+                        text: 'Unidade',
                         align: 'center',
                         value: 'sgUnidade',
                         position: 6,
