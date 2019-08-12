@@ -11,6 +11,8 @@ class Readequacao_PainelController extends MinC_Controller_Rest_Abstract
             Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO,
+            Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO,
+            Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA,
         ];
         
         $permissionsPerMethod  = [];

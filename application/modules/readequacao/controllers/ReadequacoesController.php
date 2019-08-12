@@ -1825,7 +1825,14 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
     */
     public function painelReadequacoesAction()
     {
-        if ($this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER && $this->idPerfil != Autenticacao_Model_Grupos::PARECERISTA && $this->idPerfil != Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO) {
+        $perfisAceitos = [
+            Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
+            Autenticacao_Model_Grupos::PARECERISTA,
+            Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
+            Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO,
+            Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA,
+        ];
+        if (!in_array($this->idPerfil, $perfisAceitos)) {
             parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
         }
 

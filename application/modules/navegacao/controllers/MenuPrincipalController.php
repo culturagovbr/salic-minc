@@ -127,7 +127,10 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
                 137,
                 141,
                 142,
-                143, 148, 151],
+                143,
+                Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO,
+                Autenticacao_Model_Grupos::PRESIDENTE_VINCULADA_SUBSTITUTO
+            ],
         ];
         $arrMenu['analise']['menu'][] = [
             'label' => 'Realizar An&aacute;lise',
@@ -286,7 +289,7 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
             'label' => 'Avaliar Readequa&ccedil;&otilde;es',
             'title' => 'Ir para Avaliar Readequa&ccedil;&otilde;es',
             'url' => ['module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes'],
-            'grupo' => [Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER, Autenticacao_Model_Grupos::PARECERISTA, Autenticacao_Model_Grupos::TECNICO_ANALISE],
+            'grupo' => [Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER, Autenticacao_Model_Grupos::PARECERISTA, Autenticacao_Model_Grupos::TECNICO_ANALISE, Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO, Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA],
         ];
 
         $arrMenu['analise']['menu'][] = [
