@@ -178,7 +178,7 @@
                                     v-if="readequacaoTipoSimples()"
                                 >
                                     <div
-                                        v-if="dadosReadequacao.dsSolicitacao !=='' && getDadosCampo.valor !== ''"
+                                        v-if="typeof dadosReadequacao.dsSolicitacao !=='undefined' && typeof getDadosCampo.valor !== 'undefined'"
                                     >
                                         <campo-diff
                                             :original-text="getDadosCampo.valor"
@@ -302,6 +302,45 @@
                             </v-list-tile>
                         </v-list>
                     </v-flex>
+                    <v-flex
+                        v-if="dadosReadequacao.dsOrientacao && perfilAceito(['analise'])"
+                        xs10
+                        offset-xs1
+                    >
+                        <v-list
+                            two-line
+                        >
+                            <v-list-tile
+                                avatar
+                                @click="visualizarOrientacao = !visualizarOrientacao"
+                            >
+                                <visualizar-campo-detalhado
+                                    v-if="visualizarOrientacao"
+                                    :dialog="true"
+                                    :dados="{ titulo: 'Observação', descricao: dadosReadequacao.dsOrientacao }"
+                                    @fechar-visualizacao="visualizarOrientacao = false"
+                                />
+                                <v-list-tile-avatar>
+                                    <v-icon class="green lighten-1 white--text">
+                                        assignment
+                                    </v-icon>
+                                </v-list-tile-avatar>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>Observação</v-list-tile-title>
+                                </v-list-tile-content>
+                                <v-list-tile-action>
+                                    <v-btn
+                                        icon
+                                        ripple
+                                    >
+                                        <v-icon color="grey lighten-1">
+                                            report
+                                        </v-icon>
+                                    </v-btn>
+                                </v-list-tile-action>
+                            </v-list-tile>
+                        </v-list>
+                    </v-flex>
                 </v-layout>
             </v-card>
         </v-dialog>
@@ -361,6 +400,7 @@ export default {
             panel: [true, true],
             visualizarAvaliacao: false,
             visualizarJustificativa: false,
+            visualizarOrientacao: false,
             projeto: {},
             legacyRoutePath: '/readequacao/readequacoes/visualizar-readequacao?id=',
             outrosTiposSolicitacoes: [
@@ -401,13 +441,14 @@ export default {
                 });
                 if (typeof this.dadosProjeto !== 'undefined') {
                     this.projeto = this.dadosProjeto;
+                    this.loaded.projeto = true;
                 } else {
                     this.buscarProjetoCompleto(this.dadosReadequacao.idPronac);
                 }
             }
         },
-        getDadosCampo() {
-            if (!_.isEmpty(this.getDadosCampo)) {
+        getDadosCampo(value) {
+            if (typeof value === 'object') {
                 this.loaded.campo = true;
             }
         },

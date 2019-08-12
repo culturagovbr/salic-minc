@@ -415,9 +415,6 @@ export const devolverAoCoordenador = ({ dispatch }, params) => {
 export const declararImpedimento = ({ dispatch }, params) => {
     readequacaoHelperAPI.declararImpedimento(params)
         .then(() => {
-            dispatch('obterListaDeReadequacoes', {
-                idPronac: params.idPronac,
-                stStatusAtual: 'proponente',
-            });
+            dispatch('buscarReadequacoesPainelTecnico', {});
         });
 };

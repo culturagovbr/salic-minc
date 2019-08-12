@@ -241,7 +241,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
         $select->joinInner(
             ['tbDistribuirReadequacao' => 'tbDistribuirReadequacao'],
             'tbDistribuirReadequacao.idReadequacao = tbReadequacao.idReadequacao',
-            [],
+            ['dsOrientacao'],
             $this->_schema
         );
 
@@ -347,6 +347,13 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             [],
             $this->_schema
         );
+
+        $select->joinLeft(
+            ['tbDistribuirReadequacao' => 'tbDistribuirReadequacao'],
+            'tbDistribuirReadequacao.idReadequacao = tbReadequacao.idReadequacao',
+            ['dsOrientacao'],
+            $this->_schema
+        );
         
         $select->joinInner(
             array('usuarios' => 'Usuarios'),
@@ -419,7 +426,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
         $select->joinInner(
             ['tbDistribuirReadequacao' => 'tbDistribuirReadequacao'],
             'tbDistribuirReadequacao.idReadequacao = tbReadequacao.idReadequacao',
-            [],
+            ['dsOrientacao'],
             $this->_schema
         );
 
@@ -524,7 +531,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
         $select->joinInner(
             ['tbDistribuirReadequacao' => 'tbDistribuirReadequacao'],
             'tbDistribuirReadequacao.idReadequacao = tbReadequacao.idReadequacao',
-            [],
+            ['dsOrientacao'],
             $this->_schema
         );
         
@@ -1369,8 +1376,6 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                         GETDATE()) as qtDiasAvaliacao,
                         dtDistribuicao.idAvaliador AS idTecnicoParecerista,
                         dtDistribuicao.idUnidade as idOrgao,
-                        tbReadequacao.dsJustificativa,
-                        tbReadequacao.dsSolicitacao,
                         tbReadequacao.dtSolicitacao,
                         tbReadequacao.idDocumento,
                         tbReadequacao.siEncaminhamento,
@@ -1379,8 +1384,11 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                         tbReadequacao.stEstado,
                         tbReadequacao.idSolicitante,
                         tbReadequacao.idAvaliador,
-                        tbReadequacao.dsAvaliacao,
                         tbReadequacao.stAtendimento,
+                        tbReadequacao.idTipoReadequacao,
+                        CAST(tbReadequacao.dsSolicitacao AS TEXT) AS dsSolicitacao,
+                        CAST(tbReadequacao.dsJustificativa AS TEXT) AS dsJustificativa,
+                        CAST(tbReadequacao.dsAvaliacao AS TEXT) AS dsAvaliacao,
                         tbReadequacao.dtEnvio
                 ")
             );
@@ -1388,7 +1396,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             $select->joinInner(
                 ['dtDistribuicao' => 'tbDistribuirReadequacao'],
                 'tbReadequacao.idReadequacao = dtDistribuicao.idReadequacao',
-                [],
+                ['dsOrientacao'],
                 $this->_schema
             );
             $select->joinInner(

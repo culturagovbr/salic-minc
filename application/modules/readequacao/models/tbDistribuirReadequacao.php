@@ -43,7 +43,8 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                     CAST(tbReadequacao.dsJustificativa AS TEXT) AS dsJustificativa,
                     tbReadequacao.idAvaliador,
                     CAST(tbReadequacao.dsAvaliacao AS TEXT) AS dsAvaliacao,
-                    tbDistribuirReadequacao.idUnidade as idOrgao
+                    tbDistribuirReadequacao.idUnidade as idOrgao,
+                    dsOrientacao
             ")
             );
             $select->joinInner(
@@ -59,9 +60,9 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 $this->_schema
             );
             $select->joinInner(
-                array('tbTipoReadequacao' => 'tbTipoReadequacao'),
+                ['tbTipoReadequacao' => 'tbTipoReadequacao'],
                 'tbTipoReadequacao.idTipoReadequacao = tbReadequacao.idTipoReadequacao',
-                array(''),
+                [''],
                 $this->_schema
             );
 
@@ -133,7 +134,8 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 DATEDIFF(DAY, tbDistribuirReadequacao.dtEnvioAvaliador, GETDATE()) as qtDiasEmAnalise,
                 tbDistribuirReadequacao.idAvaliador,
                 usuarios.usu_nome AS nmParecerista,
-                tbDistribuirReadequacao.idUnidade as idOrgao
+                tbDistribuirReadequacao.idUnidade as idOrgao,
+                dsOrientacao
             ")
             );
             $select->joinInner(
@@ -234,6 +236,7 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 tbDistribuirReadequacao.dtRetornoAvaliador,
                 GETDATE()) AS qtTotalDiasAvaliar,
                 tbDistribuirReadequacao.idAvaliador AS idTecnico,
+                dsOrientacao,
                 tbReadequacao.idReadequacao,
                 tbReadequacao.idTipoReadequacao,
                 tbDistribuirReadequacao.idUnidade as idOrgao,

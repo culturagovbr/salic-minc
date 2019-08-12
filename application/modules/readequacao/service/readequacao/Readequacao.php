@@ -1781,11 +1781,11 @@ class Readequacao implements IServicoRestZend
 
                 $tbDistribuirReadequacao->update($dados, $where);
 
-                $tbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
+                $tbReadequacaoModel = new \Readequacao_Model_DbTable_TbReadequacao();
                 $dadosReadequacao = [
                     'siEncaminhamento' => \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE
                 ];
-                $u = $tbReadequacao->update($dadosReadequacao, $where);
+                $u = $tbReadequacaoModel->update($dadosReadequacao, $where);
             }
         } catch (Exception $e) {
             return false;
@@ -1808,8 +1808,33 @@ class Readequacao implements IServicoRestZend
     public function declararImpedimento()
     {
         $parametros = $this->request->getParams();
+        
 
-        // TODO: adicionar funcionalidade
+        $tbReadequacaoModel = new \Readequacao_Model_DbTable_TbReadequacao();
+        $dadosReadequacao = [
+            'siEncaminhamento' => \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE,
+            'dsAvaliacao' => $parametros['dsOrientacao'],
+        ];
+        $where = [];
+        $where['idReadequacao = ?'] = $parametros['idReadequacao'];
+        $updateReadequacao = $tbReadequacaoModel->update($dadosReadequacao, $where);
+
+        if (!$updateReadequacao) {
+            $errorMessage = "Erro ao declarar impedimento!";
+            throw new \Exception($errorMessage);
+        }
+        
+        $dados = [];
+        $dados['idAvaliador'] = 0;
+        $dados['DtEnvioAvaliador'] = null;
+        
+        $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
+        $remover = $tbDistribuirReadequacao->update($dados, $where);
+
+        if (!$remover) {
+            $errorMessage = "Erro ao declarar impedimento - erro ao remover distribuição!";
+            throw new \Exception($errorMessage);
+        }
         
         return true;
     }

@@ -62,7 +62,7 @@
                                     md12
                                 >
                                     <s-editor-texto
-                                        v-model="dsObservacao"
+                                        v-model="dsOrientacao"
                                         :placeholder="'Motivo do impedimento de análise de readequação'"
                                         :min-char="minChar"
                                         @editor-texto-counter="validateText($event)"
@@ -126,18 +126,29 @@ export default {
             dialog: false,
             loading: false,
             minChar: 10,
-            dsObservacao: '',
+            dsOrientacao: '',
         };
     },
     methods: {
         ...mapActions({
             declararImpedimento: 'readequacao/declararImpedimento',
+            setSnackbar: 'noticias/setDados',
         }),
         validateText(e) {
             this.textIsValid = e >= this.minChar;
         },
         enviarDeclararImpedimento() {
-            // TODO
+            this.declararImpedimento({
+                idReadequacao: this.dadosReadequacao.idReadequacao,
+                dsOrientacao: this.dsOrientacao,
+            }).then(() => {
+                this.dialog = false;
+                this.setSnackbar({
+                    ativo: true,
+                    color: 'success',
+                    text: 'Declaração de impedimento enviada!',
+                });
+            });
         },
     },
 };

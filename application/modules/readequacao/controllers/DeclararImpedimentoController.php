@@ -9,13 +9,11 @@ class Readequacao_DeclararImpedimentoController extends MinC_Controller_Rest_Abs
     {
         $profiles = [
             Autenticacao_Model_Grupos::PARECERISTA,
-            Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
         ];
         
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::PARECERISTA,
-                Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
             ]
         ];
         $this->setProtectedMethodsProfilesPermission($permissionsPerMethod);

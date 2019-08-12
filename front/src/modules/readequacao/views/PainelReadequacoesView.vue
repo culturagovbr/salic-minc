@@ -494,7 +494,7 @@ export default {
                     Const.PERFIL_PROPONENTE,
                 ],
                 analise: [
-                    Const.PERFIL_PROPONENTE,
+                    Const.PERFIL_PARECERISTA,
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_DE_PARECER,
                     Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
