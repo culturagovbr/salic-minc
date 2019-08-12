@@ -168,7 +168,11 @@ class Readequacao implements IServicoRestZend
         }
 
         if ($filtro == 'analisados') {
-            unset($where['projetos.Orgao = ?']);
+            if (in_array($idPerfil, [\Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO, \Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA])) {
+                unset($where['projetos.Orgao = ?']);
+                $where['tbDistribuirReadequacao.idUnidade = ?'] = $idOrgao;
+            } else {
+                unset($where['projetos.Orgao = ?']);
             $where["CASE 
 	      WHEN projetos.Orgao in (" . \Orgaos::ORGAO_SUPERIOR_SAV . "," . \Orgaos::ORGAO_SAV_SAL . "," . \Orgaos::SAV_DPAV . ")
 		   THEN " . \Orgaos::ORGAO_SAV_CAP . "
@@ -176,7 +180,7 @@ class Readequacao implements IServicoRestZend
 		   THEN " . \Orgaos::ORGAO_GEAR_SACAV . "
                     ELSE projetos.Orgao
                     END = ?"] = $idOrgao;
-
+            }
             if ($parametros['pronac']) {
                 unset($where['a.PRONAC = ?']);
                 $where[new \Zend_Db_Expr('projetos.anoprojeto + projetos.sequencial') . ' = ?'] = $parametros['pronac'];
@@ -228,6 +232,9 @@ class Readequacao implements IServicoRestZend
                 $result = $this->__buscarPaineisCoordenador($idOrgao);
                 break;
             case \Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO:
+                $result = $this->__buscarPaineisCoordenador($idOrgao);
+                break;
+            case \Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA:
                 $result = $this->__buscarPaineisCoordenador($idOrgao);
                 break;
             case \Autenticacao_Model_Grupos::SECRETARIO:

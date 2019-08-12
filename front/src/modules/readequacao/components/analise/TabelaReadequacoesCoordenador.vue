@@ -292,6 +292,7 @@ export default {
                 123: Const.SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_COORDENADOR_GERAL,
                 148: Const.SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_DIRETOR,
                 149: Const.SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_SECRETARIO,
+                154: Const.SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_PRESIDENTE_DA_VINCULADA,
             };
             if (typeof siEncaminhamento !== 'undefined' && typeof idDocumentoAssinatura === 'number') {
                 return siEncaminhamento === assinaturasPorEstado[this.perfil];
