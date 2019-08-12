@@ -22,10 +22,10 @@
         >
             <v-card
                 v-if="loading"
-                >
+            >
                 <carregando
                     :text="'Montando distribuir readequação...'"
-                class="mt-5"
+                    class="mt-5"
                 />
             </v-card>
             <v-card
@@ -61,7 +61,6 @@
                                     sm12
                                     md12
                                 >
-                                    <p><b></b></p>
                                     <s-editor-texto
                                         v-model="dsObservacao"
                                         :placeholder="'Motivo do impedimento de análise de readequação'"
@@ -95,11 +94,11 @@
                                         close
                                     </v-icon>
                                 </v-btn>
-                            </v-layout>                            
+                            </v-layout>
                         </v-form>
                     </v-card-text>
                 </v-card>
-0            </v-card>
+            </v-card>
         </v-dialog>
     </v-layout>
 </template>
@@ -140,6 +139,6 @@ export default {
         enviarDeclararImpedimento() {
             // TODO
         },
-    },  
+    },
 };
 </script>

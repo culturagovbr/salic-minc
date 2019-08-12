@@ -169,4 +169,3 @@ export const declararImpedimento = (params) => {
     const path = '/readequacao/declarar-impedimento';
     return api.postRequest(path, buildData(params));
 };
-

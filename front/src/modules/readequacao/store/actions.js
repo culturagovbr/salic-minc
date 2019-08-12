@@ -412,7 +412,7 @@ export const devolverAoCoordenador = ({ dispatch }, params) => {
         });
 };
 
-export const declararImpedimento = ({ dispatch }, patams) => {
+export const declararImpedimento = ({ dispatch }, params) => {
     readequacaoHelperAPI.declararImpedimento(params)
         .then(() => {
             dispatch('obterListaDeReadequacoes', {

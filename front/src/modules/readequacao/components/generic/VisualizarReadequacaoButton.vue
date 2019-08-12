@@ -206,9 +206,9 @@
                                         Este tipo de readequação ainda não possui uma visualização específica!
                                     </div>
                                     <v-btn
-                                            color="secondary"
-                                            @click.stop="redirect()"
-                                        >
+                                        color="secondary"
+                                        @click.stop="redirect()"
+                                    >
                                         <v-icon>
                                             gavel
                                         </v-icon>
