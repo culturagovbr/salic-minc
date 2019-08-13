@@ -168,12 +168,21 @@ class Readequacao implements IServicoRestZend
         }
 
         if ($filtro == 'analisados') {
-            if (in_array($idPerfil, [\Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO, \Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA])) {
+            if (in_array($idPerfil, [\Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA])) {
                 unset($where['projetos.Orgao = ?']);
                 $where['tbDistribuirReadequacao.idUnidade = ?'] = $idOrgao;
+            } else if (in_array($idPerfil, [\Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO])) {
+                unset($where['projetos.Orgao = ?']);
+                $where["CASE 
+                WHEN projetos.Orgao IN (" . \Orgaos::ORGAO_GEAR_SACAV . "," . \Orgaos::ORGAO_SUPERIOR_SEFIC . "," . \Orgaos::SEFIC_DEIPC .")
+                THEN " . \Orgaos::SEFIC_DEIPC . "
+                WHEN projetos.Orgao IN (" . \Orgaos::ORGAO_SUPERIOR_SAV . "," . \Orgaos::ORGAO_SAV_CAP . "," . \Orgaos::ORGAO_SAV_SAL . "," . \Orgaos::ORGAO_SAV_CEP . "," . \Orgaos::ORGAO_SAV_DAP . "," . \Orgaos::ORGAO_SAV_DIECI . ")
+                THEN " . \Orgaos::SAV_DPAV . "
+                ELSE projetos.Orgao
+                END = ?"] = $idOrgao;
             } else {
                 unset($where['projetos.Orgao = ?']);
-            $where["CASE 
+                $where["CASE 
 	      WHEN projetos.Orgao in (" . \Orgaos::ORGAO_SUPERIOR_SAV . "," . \Orgaos::ORGAO_SAV_SAL . "," . \Orgaos::SAV_DPAV . ")
 		   THEN " . \Orgaos::ORGAO_SAV_CAP . "
 	     WHEN projetos.Orgao in (" . \Orgaos::ORGAO_SUPERIOR_SEFIC . "," . \Orgaos::SEFIC_DEIPC .")
