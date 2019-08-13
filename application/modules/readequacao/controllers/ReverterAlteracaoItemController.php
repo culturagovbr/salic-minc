@@ -9,11 +9,15 @@ class Readequacao_ReverterAlteracaoItemController extends MinC_Controller_Rest_A
     {
         $profiles = [
             Autenticacao_Model_Grupos::PROPONENTE,
+            Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
+            Autenticacao_Model_Grupos::PARECERISTA,
         ];
         
         $permissionsPerMethod  = [
             'post' => [
-                Autenticacao_Model_Grupos::PROPONENTE
+                Autenticacao_Model_Grupos::PROPONENTE,
+                Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
+                Autenticacao_Model_Grupos::PARECERISTA,
             ]
         ];
         $this->setProtectedMethodsProfilesPermission($permissionsPerMethod);
