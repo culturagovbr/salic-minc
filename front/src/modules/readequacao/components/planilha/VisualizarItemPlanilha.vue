@@ -9,57 +9,58 @@
                 md2
             >
                 <b>Unidade</b>
-                <div>{{ item.Unidade }}</div>
+                <div>{{ localItem.Unidade }}</div>
             </v-flex>
             <v-flex
                 xs12
                 md1
             >
                 <b>Dias</b>
-                <div>{{ item.QtdeDias }}</div>
+                <div>{{ localItem.QtdeDias }}</div>
             </v-flex>
             <v-flex
                 xs12
                 md1
             >
                 <b>Qtd.</b>
-                <div>{{ item.Quantidade }}</div>
+                <div>{{ localItem.Quantidade }}</div>
             </v-flex>
             <v-flex
                 xs12
                 md2
             >
                 <b>Ocorrência</b>
-                <div>{{ item.Ocorrencia }}</div>
+                <div>{{ localItem.Ocorrencia }}</div>
             </v-flex>
             <v-flex
                 xs12
                 md3
             >
                 <b>Vl. Unitário (R$)</b>
-                <div>{{ item.vlUnitario | filtroFormatarParaReal }}</div>
+                <div>{{ localItem.vlUnitario | filtroFormatarParaReal }}</div>
             </v-flex>
             <v-flex
                 xs12
                 md4
             >
                 <b>Vl. Total (R$)</b>
-                <div>{{ item.vlAprovado | filtroFormatarParaReal }}</div>
+                <div>{{ localItem.vlAprovado | filtroFormatarParaReal }}</div>
             </v-flex>
             <v-flex
                 xs12
                 md4
             >
                 <b>Vl. Comprovado (R$)</b>
-                <div>{{ item.vlComprovado | filtroFormatarParaReal }}</div>
+                <div>{{ localItem.vlComprovado | filtroFormatarParaReal }}</div>
             </v-flex>
             <v-flex
+                v-if="localItem.dsJustificativa !== ''"
                 xs12
                 md12
             >
                 <b>Justificativa</b>
                 <div
-                    v-html="item.dsJustificativa"
+                    v-html="localItem.dsJustificativa"
                 />
             </v-flex>
         </v-layout>
@@ -78,6 +79,37 @@ export default {
             type: [Array, Object],
             default: () => {},
         },
+        original: {
+            type: Boolean,
+            default: false,
+        },
+    },
+    data() {
+        return {
+            localItem: {
+                Unidade: '',
+                idUnidade: '',
+                Ocorrencia: '',
+                Quantidade: '',
+                QtdeDias: '',
+                vlUnitario: '',
+                vlAprovado: '',
+                vlComprovado: '',
+                dsJustificativa: '',
+            },
+        };
+    },
+    mounted() {
+        this.localItem = JSON.parse(JSON.stringify(this.item));
+        if (this.original === true) {
+            this.localItem.idUnidade = this.item.idUnidadeAtivo;
+            this.localItem.Ocorrencia = this.item.OcorrenciaAtivo;
+            this.localItem.Quantidade = this.item.QuantidadeAtivo;
+            this.localItem.QtdeDias = this.item.QtdeDiasAtivo;
+            this.localItem.vlUnitario = this.item.vlUnitarioAtivo;
+            this.localItem.vlAprovado = this.localItem.Ocorrencia * this.localItem.Quantidade * this.localItem.vlUnitario;
+            this.localItem.dsJustificativa = '';
+        }
     },
 };
 </script>

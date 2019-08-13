@@ -158,11 +158,15 @@ export default {
         this.obterPlanilhaAtiva({
             idPronac: this.dadosReadequacao.idPronac,
         });
+        this.obterUnidadesPlanilha({
+            idPronac: this.dadosReadequacao.idPronac,
+        });
     },
     methods: {
         ...mapActions({
             obterPlanilha: 'readequacao/obterPlanilha',
             obterPlanilhaAtiva: 'readequacao/obterPlanilhaAtiva',
+            obterUnidadesPlanilha: 'readequacao/obterUnidadesPlanilha',
         }),
         isOptionActive(index) {
             return this.opcoesDeVisualizacao.includes(index);

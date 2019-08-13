@@ -40,7 +40,6 @@
                     <td class="text-xs-right">{{ props.item.vlUnitario | filtroFormatarParaReal }}</td>
                     <td class="text-xs-right">{{ props.item.vlAprovado | filtroFormatarParaReal }}</td>
                     <td class="text-xs-right">{{ props.item.vlComprovado | filtroFormatarParaReal }}</td>
-                    <td class="text-xs-right">{{ decodeHtml(props.item.dsJustificativa) | filtroTruncar25 }}</td>
                 </tr>
             </template>
             <template
@@ -62,6 +61,7 @@
                                 <v-card>
                                     <visualizar-item-planilha
                                         :item="props.item"
+                                        :original="true"
                                     >
                                         <v-layout
                                             slot="header"
@@ -97,7 +97,7 @@
                 <tr
                     v-if="table && Object.keys(table).length > 0"
                     style="opacity: 0.5">
-                    <td colspan="7"><b>Totais</b></td>
+                    <td colspan="6"><b>Totais</b></td>
                     <td class="text-xs-right"><b>{{ obterValorAprovadoTotal(table) | filtroFormatarParaReal }}</b></td>
                     <td class="text-xs-right"><b>{{ obterValorComprovadoTotal(table) | filtroFormatarParaReal }}</b></td>
                 </tr>
@@ -146,7 +146,6 @@ export default {
                 { text: 'Vl. Unitário', align: 'right', value: 'vlUnitario' },
                 { text: 'Vl. Total', align: 'right', value: 'vlAprovado' },
                 { text: 'Vl. Comprovado', align: 'right', value: 'vlComprovado' },
-                { text: 'Justificativa', align: 'right', value: 'dsJustificativa' },
             ],
             itemEmEdicao: {},
             select: {},
