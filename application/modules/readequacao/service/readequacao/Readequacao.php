@@ -1014,7 +1014,7 @@ class Readequacao implements IServicoRestZend
                 throw new \Exception("Projeto Cultural n&atilde;o encontrado.");
             }
             
-            $parecerDAO = new \Parecer();
+            $parecerDAO = new \Parecer_Model_DbTable_Parecer();
             $dadosParecer = [
                 'idPRONAC' => $idPronac,
                 'AnoProjeto' => $dadosProjeto[0]->AnoProjeto,
