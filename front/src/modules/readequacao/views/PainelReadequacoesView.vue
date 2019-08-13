@@ -297,7 +297,7 @@ import DistribuirReadequacaoButton from '../components/analise/DistribuirReadequ
 import DistribuirReadequacaoVinculadaButton from '../components/analise/DistribuirReadequacaoVinculadaButton';
 import RedistribuirReadequacaoButton from '../components/analise/RedistribuirReadequacaoButton';
 import DevolverReadequacaoButton from '../components/analise/DevolverReadequacaoButton';
-import FinalizarAnaliseButton from '../components/analise/FinalizarAnaliseButton';
+import FinalizarCicloAnaliseButton from '../components/analise/FinalizarCicloAnaliseButton';
 import Carregando from '@/components/CarregandoVuetify';
 import CriarReadequacao from '../components/proponente/CriarReadequacao';
 import MxReadequacao from '../mixins/Readequacao';
@@ -317,7 +317,7 @@ export default {
         DistribuirReadequacaoButton,
         DistribuirReadequacaoVinculadaButton,
         RedistribuirReadequacaoButton,
-        FinalizarAnaliseButton,
+        FinalizarCicloAnaliseButton,
         FinalizarButton,
         CriarReadequacao,
         SalicMensagemErro,
@@ -437,7 +437,7 @@ export default {
                         permissao: 'assinatura',
                     },
                     {
-                        componente: FinalizarAnaliseButton,
+                        componente: FinalizarCicloAnaliseButton,
                         permissao: 'coordenador_acompanhamento',
                     },
                 ],

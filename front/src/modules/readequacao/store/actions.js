@@ -418,3 +418,12 @@ export const declararImpedimento = ({ dispatch }, params) => {
             dispatch('buscarReadequacoesPainelTecnico', {});
         });
 };
+
+export const finalizarCicloAnalise = ({ dispatch }, params) => {
+    readequacaoHelperAPI.finalizarCicloAnalise(params)
+        .then(() => {
+            dispatch('buscarReadequacoesPainelAnalisados', {
+                filtro: 'analisados',
+            });
+        });
+};

@@ -6,12 +6,12 @@
         >
             <v-icon
                 slot="activator"
-                color="orange accent-4"
+                color="light-green darken-1"
                 @click.stop="dialog = true"
-              >
-              send
+            >
+                send
             </v-icon>
-            <span>Finalizar Readequação</span>
+            <span>Finalizar ciclo de análise da Readequação</span>
         </v-tooltip>
         <div
             v-else
@@ -19,10 +19,10 @@
         />
         <v-dialog
             v-model="dialog"
-            max-width="350"
+            max-width="450"
         >
             <v-card>
-                <v-card-title class="headline">Finalizar análise da Readequação?</v-card-title>
+                <v-card-title class="headline">Finalizar o ciclo de análise da Readequação?</v-card-title>
                 <v-card-text>
                     <h4
                         class="title mb-2"
@@ -62,7 +62,7 @@ import { utils } from '@/mixins/utils';
 import Const from '../../const';
 
 export default {
-    name: 'FinalizarAnaliseButton',
+    name: 'FinalizarCicloAnaliseButton',
     mixins: [
         utils,
     ],
@@ -88,8 +88,23 @@ export default {
         },
     },
     methods: {
+        ...mapActions({
+            finalizarCicloAnalise: 'readequacao/finalizarCicloAnalise',
+            setSnackbar: 'noticias/setDados',
+        }),
         finalizarAnalise() {
-            // TODO
+            if (typeof this.dadosReadequacao.idReadequacao !== 'undefined') {
+                this.finalizarCicloAnalise({
+                    idReadequacao: this.dadosReadequacao.idReadequacao,
+                }).then(() => {
+                    this.setSnackbar({
+                        ativo: true,
+                        color: 'success',
+                        text: 'Ciclo de análise de readequação finalizado!',
+                    });
+                    this.dialog = false;
+                });
+            }
         },
     },
 };

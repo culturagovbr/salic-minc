@@ -1816,7 +1816,6 @@ class Readequacao implements IServicoRestZend
     {
         $parametros = $this->request->getParams();
         
-
         $tbReadequacaoModel = new \Readequacao_Model_DbTable_TbReadequacao();
         $dadosReadequacao = [
             'siEncaminhamento' => \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE,
@@ -1845,5 +1844,32 @@ class Readequacao implements IServicoRestZend
         
         return true;
     }
+
+    public function finalizarCicloAnalise()
+    {
+        $parametros = $this->request->getParams();
+
+        $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
+        $auth = \Zend_Auth::getInstance();
+        
+        $servicoReadequacaoAssinatura = new ReadequacaoAssinaturaService(
+            $grupoAtivo,
+            $auth
+        );
+        
+        $retorno = $servicoReadequacaoAssinatura->encaminharOuFinalizarReadequacaoChecklist(
+            $parametros['idReadequacao']
+        );
+        
+        if (!$retorno) {
+            $errorMessage = "Erro ao finalizar ciclo de análise da readequação!";
+            throw new \Exception($errorMessage);
+        }
+        
+        $data['message'] = "Ciclo de avaliação de readequação finalizado.";
+        
+        return $data;
+    }
 }
 
+ 
