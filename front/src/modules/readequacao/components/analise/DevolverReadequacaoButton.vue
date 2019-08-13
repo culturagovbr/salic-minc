@@ -77,12 +77,12 @@
                                         v-model="encaminharOutroTecnico"
                                     >
                                         <v-radio
-                                            :label="`Devolver para o mesmo técnico`"
+                                            :label="`Devolver para o mesmo técnico/parecerista`"
                                             :value="false"
                                             color="green"
                                         />
                                         <v-radio
-                                            :label="`Enviar para outro técnico`"
+                                            :label="`Enviar para outro técnico/parecerista`"
                                             :value="true"
                                             color="green"
                                         />
