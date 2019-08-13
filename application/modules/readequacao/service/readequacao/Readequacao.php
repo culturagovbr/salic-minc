@@ -1347,7 +1347,7 @@ class Readequacao implements IServicoRestZend
                     $editarItem->idPlanilhaItem
                 );
                 
-                throw new Exception($atualizarCustosVinculados['mensagem']);
+                throw new \Exception($atualizarCustosVinculados['mensagem']);
             } else {
                 $data = [
                     'message' => 'Item atualizado',

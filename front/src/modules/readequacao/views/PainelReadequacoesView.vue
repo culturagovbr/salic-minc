@@ -414,7 +414,7 @@ export default {
                     },
                     {
                         componente: RedistribuirReadequacaoButton,
-                        permissao: 'coordenador_acompanhamento',
+                        permissao: 'coordenador',
                     },
                 ],
             },
