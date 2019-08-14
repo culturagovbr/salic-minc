@@ -684,6 +684,7 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract
                 "k.tpAcao",
                 "k.vlUnitario",
                 "k.idPlanilhaItem",
+                "k.stCustoPraticado",
                 "x.Descricao as FonteRecurso",
             );
             $sql = $db->select()->from(array('a' => 'Projetos'), $a, $this->_schema)
@@ -753,6 +754,7 @@ class spPlanilhaOrcamentaria extends MinC_Db_Table_Abstract
                 "k.tpAcao",
                 "k.vlUnitario",
                 "k.idPlanilhaItem",
+                "k.stCustoPraticado",
                 "x.Descricao as FonteRecurso",
             );
 
