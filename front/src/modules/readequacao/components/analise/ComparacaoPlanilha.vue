@@ -1,7 +1,16 @@
 <template>
     <v-layout>
+        <template
+            v-if="loading"
+            xs9
+            offset-xs1
+        >
+            <carregando
+                :text="'Carregando painel de readequações...'"
+            />
+        </template>
         <v-flex
-            v-if="Object.keys(getPlanilha).length > 0"
+            v-else
             flat
         >
             <s-planilha-tipos-visualizacao-buttons v-model="opcoesDeVisualizacao" />
@@ -82,7 +91,7 @@
                         <template slot-scope="slotProps">
                             <s-planilha-itens-readequacao
                                 :table="slotProps.itens"
-                                :readonly="false"
+                                :readonly="readonly"
                             />
                         </template>
                     </s-planilha>
@@ -92,7 +101,9 @@
     </v-layout>
 </template>
 <script>
+import _ from 'lodash';
 import { mapActions, mapGetters } from 'vuex';
+import Carregando from '@/components/CarregandoVuetify';
 import SPlanilha from '@/components/Planilha/PlanilhaV2';
 import ResizePanel from '@/components/resize-panel/ResizeSplitPane';
 import SPlanilhaTiposVisualizacaoButtons from '@/components/Planilha/PlanilhaTiposVisualizacaoButtons';
@@ -102,6 +113,7 @@ import MxPlanilha from '@/mixins/planilhas';
 export default {
     name: 'ComparacaoPlanilha',
     components: {
+        Carregando,
         ResizePanel,
         SPlanilha,
         SPlanilhaTiposVisualizacaoButtons,
@@ -114,6 +126,10 @@ export default {
         dadosReadequacao: {
             type: [Array, Object],
             default: () => {},
+        },
+        readonly: {
+            type: Boolean,
+            default: false,
         },
     },
     data() {
@@ -133,6 +149,11 @@ export default {
                 'UF',
                 'Municipio',
             ],
+            loaded: {
+                ativa: false,
+                readequada: false,
+            },
+            loading: true,
         };
     },
     computed: {
@@ -148,6 +169,29 @@ export default {
         },
         mostrarListagem() {
             return this.isOptionActive(2);
+        },
+    },
+    watch: {
+        getPlanilha: {
+            handler() {
+                this.loaded.readequada = true;
+            },
+            deep: true,
+        },
+        getPlanilhaAtiva: {
+            handler() {
+                this.loaded.ativa = true;
+            },
+            deep: true,
+        },
+        loaded: {
+            handler(value) {
+                const fullyLoaded = _.keys(value).every(i => value[i]);
+                if (fullyLoaded) {
+                    this.loading = false;
+                }
+            },
+            deep: true,
         },
     },
     mounted() {
