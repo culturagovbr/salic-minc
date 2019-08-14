@@ -1,5 +1,5 @@
 <li>
-    <a class="dropdown-button" data-beloworigin="true" data-constrainwidth="false" href="<?php echo ($this->url)? $this->url : 'javascript:void(0);'; ?>" data-activates="<?php echo $this->id; ?>" title="<?php echo $this->title; ?>"><?php echo $this->label; ?></a>
+    <a class="dropdown-button" data-beloworigin="true" data-constrainwidth="false" href="<?php echo ($this->url)? urldecode($this->url) : 'javascript:void(0);'; ?>" data-activates="<?php echo $this->id; ?>" title="<?php echo $this->title; ?>"><?php echo $this->label; ?></a>
     <ul id="<?php echo $this->id; ?>" class="dropdown-content">
         <?php echo $this->partialLoop('partials/menu/subitem.phtml', $this->menu); ?>
     </ul>

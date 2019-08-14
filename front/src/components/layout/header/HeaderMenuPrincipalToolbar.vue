@@ -3,7 +3,8 @@
         <v-menu
             v-for="(item, index) in dadosMenu"
             :key="index"
-            offset-y>
+            offset-y
+        >
             <v-btn
                 v-if="item.menu"
                 slot="activator"
@@ -12,28 +13,31 @@
                 small
                 class="caption"
             >
-                <span v-html="item.label"/>
+                <span v-html="item.label" />
             </v-btn>
             <v-list
                 v-if="item.menu"
-                class="pa-0">
+                class="pa-0"
+            >
                 <v-list-tile
                     v-for="(sub, index) in item.menu"
                     :key="index"
-                    :href="('/' + sub.url.module + '/' + sub.url.controller + '/' + sub.url.action)"
+                    :href="url(sub.url)"
                 >
-                    <v-list-tile-title
-                    ><span v-html="sub.label"/></v-list-tile-title>
+                    <v-list-tile-title>
+                        <span v-html="sub.label" />
+                    </v-list-tile-title>
                 </v-list-tile>
             </v-list>
             <v-btn
                 v-else
-                :href="'/' + item.url.module + '/' + item.url.controller + '/' + item.url.action"
+                :href="url(item.url)"
                 flat
                 dark
                 small
-                class="caption">
-                <span v-html="item.label"/>
+                class="caption"
+            >
+                <span v-html="item.label" />
             </v-btn>
         </v-menu>
     </v-toolbar-items>
@@ -46,6 +50,18 @@ export default {
         dadosMenu: {
             type: [Array, Object],
             required: true,
+        },
+    },
+    methods: {
+        url(arrUrl) {
+            let url = `${arrUrl.module}/${arrUrl.controller}/${arrUrl.action}`;
+            Object.keys(arrUrl).forEach((index) => {
+                if (index !== 'module' && index !== 'controller' && index !== 'action') {
+                    url += `/${index}/${arrUrl[index]}`;
+                }
+            });
+
+            return url;
         },
     },
 };
