@@ -769,6 +769,7 @@ class tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
             $planilhaSR['tpAcao'] = 'N';
             $planilhaSR['idRecursoDecisao'] = $value['idRecursoDecisao'];
             $planilhaSR['stAtivo'] = 'N';
+            $planilhaSR['stCustoPraticado'] = $value['stCustoPraticado'];
             
             $idPlanilhaAprovacao = $this->inserir($planilhaSR);
             
