@@ -155,6 +155,7 @@
                 </tr>
             </template>
         </v-data-table>
+         <s-planilha-dialog-dados-mediana v-model="modalMediana" />
     </div>
 </template>
 
@@ -164,12 +165,14 @@ import { utils } from '@/mixins/utils';
 import EditarItemPlanilha from './EditarItemPlanilha';
 import VisualizarItemPlanilha from './VisualizarItemPlanilha';
 import MxPlanilhaReadequacao from '../../mixins/PlanilhaReadequacao';
+import SPlanilhaDialogDadosMediana from '@/components/Planilha/PlanilhaDialogDadosMediana';
 
 export default {
     name: 'PlanilhaItensReadequacao',
     components: {
         EditarItemPlanilha,
         VisualizarItemPlanilha,
+        SPlanilhaDialogDadosMediana,
     },
     mixins: [
         MxPlanilhaReadequacao,
