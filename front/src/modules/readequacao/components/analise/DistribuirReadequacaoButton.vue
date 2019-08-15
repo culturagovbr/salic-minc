@@ -305,7 +305,11 @@ export default {
                 if (this.getDestinatariosDistribuicao.length > 0) {
                     this.selecionarDestinatario = true;
                 }
-                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0;
+                if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP) {
+                    this.encaminharDisponivel = true;
+                } else {
+                    this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0;
+                }
             } else {
                 this.selecionarDestinatario = false;
                 this.encaminharDisponivel = (this.dadosEncaminhamento.vinculada > 0 && this.readequacaoEditada.dsAvaliacao.length > this.minChar);

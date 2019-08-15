@@ -1625,6 +1625,7 @@ class Readequacao implements IServicoRestZend
         $idUsuario = $auth->getIdentity()->usu_codigo;
         
         $idReadequacao = $parametros['idReadequacao'];
+        $idUnidade = $parametros['vinculada'];
         
         $tbReadequacaoModel = new \Readequacao_Model_DbTable_TbReadequacao();
         $readequacao = $tbReadequacaoModel->find(['idReadequacao = ?' => $idReadequacao])->current();
@@ -1649,10 +1650,14 @@ class Readequacao implements IServicoRestZend
                 $readequacao->stAtendimento = \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEVOLVIDA;
                 
             } else {
-                if ($parametros['vinculada'] == \Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI || $parametros['vinculada'] == \Orgaos::ORGAO_SAV_CAP) {
+                if ($parametros['vinculada'] == \Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI
+                    || ($parametros['vinculada'] == \Orgaos::ORGAO_SAV_CAP && $parametros['destinatario'] > 0)) {
                     $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
                     $dataEnvio = new \Zend_Db_Expr('GETDATE()');
                     $readequacao->idAvaliador = $parametros['destinatario'];
+                } else if ($parametros['vinculada'] == \Orgaos::ORGAO_SAV_CAP && $parametros['destinatario'] == 0) {
+                    $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
+                    $idUnidade = \Orgaos::ORGAO_SUPERIOR_SAV;
                 } else if (in_array($parametros['vinculada'], $this->__getVinculadasExcetoIphan())) {
                     if ($parametros['destinatario'] > 0) {
                         $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
@@ -1660,7 +1665,7 @@ class Readequacao implements IServicoRestZend
                         $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
                     }
                 } else {
-                    $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
+                     $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
                 }
             }
             $readequacao->save();
@@ -1673,7 +1678,7 @@ class Readequacao implements IServicoRestZend
                 if (empty($jaDistribuiu)) {
                     $dados = [
                         'idReadequacao' => $readequacao->idReadequacao,
-                        'idUnidade' => $parametros['vinculada'],
+                        'idUnidade' => $idUnidade,
                         'DtEncaminhamento' => new \Zend_Db_Expr('GETDATE()'),
                         'idAvaliador' => (null !== $parametros['destinatario']) ? $parametros['destinatario'] : null,
                         'dtEnvioAvaliador' => !empty($dataEnvio) ? $dataEnvio : null,
