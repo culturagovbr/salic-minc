@@ -37,7 +37,7 @@
                     <td class="text-xs-center">{{ props.item.QtdeDias }}</td>
                     <td class="text-xs-center">{{ props.item.Quantidade }}</td>
                     <td class="text-xs-center">{{ props.item.Ocorrencia }}</td>
-                    <td class="text-xs-right">({{ props.item.stCustoPraticado }})
+                    <td class="text-xs-right">
                         <v-tooltip
                             v-if="validarValorPraticado(props.item).valid === false"
                             bottom
@@ -98,6 +98,38 @@
                                             </v-flex>
                                         </v-layout>
                                     </visualizar-item-planilha>
+                                </v-card>
+                                <v-card>
+                                    <v-card-text>
+                                        <v-alert
+                                            :value="isCustoPraticado(props.item)"
+                                            class="py-2"
+                                            type="warning"
+                                            dismissible
+                                            outline
+                                            color="orange darken-4"
+                                        >
+                                            {{ obterMensagemCustoPraticado(props.item) }}
+                                        </v-alert>
+                                        <div
+                                            v-if="isCustoPraticado(props.item)"
+                                            class="text-xs-center"
+                                        >
+                                            <v-btn
+                                                color="blue-grey"
+                                                class="white--text"
+                                                @click="buscarMediana(props.item)"
+                                            >
+                                                Ver mediana
+                                                <v-icon
+                                                    right
+                                                    dark
+                                                >
+                                                    monetization_on
+                                                </v-icon>
+                                            </v-btn>
+                                        </div>
+                                    </v-card-text>
                                 </v-card>
                                 <editar-item-planilha
                                     :item="props.item"
@@ -170,7 +202,7 @@ export default {
             ],
             itemEmEdicao: {},
             select: {},
-            minChar : 10,
+            minChar: 10,
             modalMediana: false,
         };
     },
@@ -189,8 +221,8 @@ export default {
                     || parseInt(item.stCustoPraticado, 10) === 1);
         },
         obterMensagemCustoPraticado(item) {
-            return `O valor unitário (${this.formatarParaReal(item.vlUnitario)}) deste item para ${item.Cidade},
-                    ultrapassa o valor aprovado por este orgão. Faça uma nova sugestão de valor ou justifique`;
+            return `O valor unitário (${this.formatarParaReal(item.vlUnitario)}) deste item para ${item.Municipio},
+                    ultrapassa o valor aprovado por este orgão. Faça uma nova sugestão de valor e justifique`;
         },
         buscarMediana(item) {
             this.modalMediana = true;
@@ -198,8 +230,8 @@ export default {
                 idProduto: item.idProduto,
                 idUnidade: item.idUnidade,
                 idPlanilhaItem: item.idPlanilhaItem,
-                idUfDespesa: item.idUfDespesa,
-                idMunicipioDespesa: item.idMunicipioDespesa,
+                idUfDespesa: item.idUF,
+                idMunicipioDespesa: item.idMunicipio,
             });
         },
         validarValorPraticado(item) {
@@ -207,17 +239,12 @@ export default {
                 valid: true,
                 message: '',
             };
-            console.log(this.isCustoPraticado(item));
-            console.log(typeof item.dsJustificativa);
-            console.log(item.dsJustificativa.length);im
-            if (this.isCustoPraticado(item) && (item.dsJustificativa === null
-                || item.dsJustificativa.length < this.minChar)) {
+            if (this.isCustoPraticado(item)) {
                 validacao = {
                     valid: false,
                     message: this.obterMensagemCustoPraticado(item),
                 };
             }
-            console.log(validacao);
             return validacao;
         },
     },
