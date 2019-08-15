@@ -995,84 +995,79 @@ class Readequacao implements IServicoRestZend
         $vlPlanilha = 0;
         $idUsuarioLogado = $arrAuth['usu_codigo'];
         
-        if (!in_array($idTipoReadequacao, $tbReadequacao::TIPOS_READEQUACOES_ORCAMENTARIAS)
-            && $idTipoReadequacao != $tbReadequacao::TIPO_READEQUACAO_PLANO_DISTRIBUICAO) {
+        $enquadramentoDAO = new \Admissibilidade_Model_Enquadramento();
+        $buscaEnquadramento = $enquadramentoDAO->buscarDados(
+            $idPronac,
+            null,
+            false
+        );
 
-            $enquadramentoDAO = new \Admissibilidade_Model_Enquadramento();
-            $buscaEnquadramento = $enquadramentoDAO->buscarDados(
-                $idPronac,
-                null,
-                false
-            );
-
-            $projetos = new \Projetos();
-            $dadosProjeto = $projetos->buscar([
-                'IdPRONAC = ?' => $idPronac
-            ]);
+        $projetos = new \Projetos();
+        $dadosProjeto = $projetos->buscar([
+            'IdPRONAC = ?' => $idPronac
+        ]);
             
-            if (count($dadosProjeto) < 1) {
-                throw new \Exception("Projeto Cultural n&atilde;o encontrado.");
-            }
-            
-            $parecerDAO = new \Parecer_Model_DbTable_Parecer();
-            $dadosParecer = [
-                'idPRONAC' => $idPronac,
-                'AnoProjeto' => $dadosProjeto[0]->AnoProjeto,
-                'Sequencial' => $dadosProjeto[0]->Sequencial,
-                'TipoParecer' => $campoTipoParecer,
-                'ParecerFavoravel' => $parecerFavoravel,
-                'DtParecer' => \MinC_Db_Expr::date(),
-                'NumeroReuniao' => null,
-                'ResumoParecer' => $parecerDeConteudo,
-                'SugeridoReal' => $vlPlanilha,
-                'Atendimento' => 'S',
-                'idEnquadramento' => $buscaEnquadramento['IdEnquadramento'],
-                'stAtivo' => 1,
-                'idTipoAgente' => 1,
-                'Logon' => $idUsuarioLogado
-            ];
-            
-            $parecerAntigo = [
-                'Atendimento' => 'S',
-                'stAtivo' => 0
-            ];
-
-            $tbReadequacaoXParecer = new \Readequacao_Model_DbTable_TbReadequacaoXParecer();
-            $parecerAlterado = $tbReadequacaoXParecer->buscarPareceresReadequacao([
-                'a.idReadequacao = ?' => $idReadequacao
-            ])->current();
-
-            if (!empty($readequacaoXParecer)) {
-                $whereUpdateParecer = 'idParecer = ' . $parecerAlterado->IdParecer;
-                $alteraParecer = $parecerDAO->alterar($parecerAntigo, $whereUpdateParecer);
-            }
-            
-            if ($parecerAlterado) {
-                $whereUpdateParecer = 'IdParecer = ' . $parecerAlterado->IdParecer;
-                $parecerDAO->alterar($dadosParecer, $whereUpdateParecer);
-                $idParecer = $parecerAlterado->IdParecer;
-            } else {
-                $idParecer = $parecerDAO->inserir($dadosParecer);
-            }
-
-            $parecerReadequacao = $tbReadequacaoXParecer->buscar([
-                'idReadequacao = ?' => $idReadequacao,
-                'idParecer =?' => $idParecer
-            ]);
-            if (count($parecerReadequacao) == 0) {
-                $dadosInclusao = [
-                    'idReadequacao' => $idReadequacao,
-                    'idParecer' => $idParecer
-                ];
-                $tbReadequacaoXParecer->inserir($dadosInclusao);
-            }
-            
-            $data = [
-                'idParecer' => $idParecer,
-                'ParecerFavoravel' => $parecerFavoravel,
-                'ParecerDeConteudo' => $parecerDeConteudo,
-            ];
+        if (count($dadosProjeto) < 1) {
+            throw new \Exception("Projeto Cultural n&atilde;o encontrado.");
         }
+            
+        $parecerDAO = new \Parecer_Model_DbTable_Parecer();
+        $dadosParecer = [
+            'idPRONAC' => $idPronac,
+            'AnoProjeto' => $dadosProjeto[0]->AnoProjeto,
+            'Sequencial' => $dadosProjeto[0]->Sequencial,
+            'TipoParecer' => $campoTipoParecer,
+            'ParecerFavoravel' => $parecerFavoravel,
+            'DtParecer' => \MinC_Db_Expr::date(),
+            'NumeroReuniao' => null,
+            'ResumoParecer' => $parecerDeConteudo,
+            'SugeridoReal' => $vlPlanilha,
+            'Atendimento' => 'S',
+            'idEnquadramento' => $buscaEnquadramento['IdEnquadramento'],
+            'stAtivo' => 1,
+            'idTipoAgente' => 1,
+            'Logon' => $idUsuarioLogado
+        ];
+            
+        $parecerAntigo = [
+            'Atendimento' => 'S',
+            'stAtivo' => 0
+        ];
+
+        $tbReadequacaoXParecer = new \Readequacao_Model_DbTable_TbReadequacaoXParecer();
+        $parecerAlterado = $tbReadequacaoXParecer->buscarPareceresReadequacao([
+            'a.idReadequacao = ?' => $idReadequacao
+        ])->current();
+
+        if (!empty($readequacaoXParecer)) {
+            $whereUpdateParecer = 'idParecer = ' . $parecerAlterado->IdParecer;
+            $alteraParecer = $parecerDAO->alterar($parecerAntigo, $whereUpdateParecer);
+        }
+            
+        if ($parecerAlterado) {
+            $whereUpdateParecer = 'IdParecer = ' . $parecerAlterado->IdParecer;
+            $parecerDAO->alterar($dadosParecer, $whereUpdateParecer);
+            $idParecer = $parecerAlterado->IdParecer;
+        } else {
+            $idParecer = $parecerDAO->inserir($dadosParecer);
+        }
+
+        $parecerReadequacao = $tbReadequacaoXParecer->buscar([
+            'idReadequacao = ?' => $idReadequacao,
+            'idParecer =?' => $idParecer
+        ]);
+        if (count($parecerReadequacao) == 0) {
+            $dadosInclusao = [
+                'idReadequacao' => $idReadequacao,
+                'idParecer' => $idParecer
+            ];
+            $tbReadequacaoXParecer->inserir($dadosInclusao);
+        }
+        $data = [
+            'idParecer' => $idParecer,
+            'ParecerFavoravel' => $parecerFavoravel,
+            'ParecerDeConteudo' => $parecerDeConteudo,
+        ];
         return $data;
     }
 
