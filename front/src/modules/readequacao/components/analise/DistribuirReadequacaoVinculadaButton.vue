@@ -232,6 +232,10 @@ export default {
                     nome: 'IPHAN',
                 },
                 {
+                    id: 160,
+                    nome: 'SAV',
+                },
+                {
                     id: 166,
                     nome: 'SAV',
                 },
