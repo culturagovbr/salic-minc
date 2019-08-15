@@ -37,7 +37,27 @@
                     <td class="text-xs-center">{{ props.item.QtdeDias }}</td>
                     <td class="text-xs-center">{{ props.item.Quantidade }}</td>
                     <td class="text-xs-center">{{ props.item.Ocorrencia }}</td>
-                    <td class="text-xs-right">{{ props.item.vlUnitario | filtroFormatarParaReal }}</td>
+                    <td class="text-xs-right">({{ props.item.stCustoPraticado }})
+                        <v-tooltip
+                            v-if="validarValorPraticado(props.item).valid === false"
+                            bottom
+                        >
+                            <v-badge
+                                slot="activator"
+                                right
+                                color="orange darken-4"
+                            >
+                                <span slot="badge">
+                                    !
+                                </span>
+                                {{ props.item.vlUnitario | filtroFormatarParaReal }}
+                            </v-badge>
+                            <span> {{ validarValorPraticado(props.item).message }}</span>
+                        </v-tooltip>
+                        <span v-else>
+                            {{ props.item.vlUnitario | filtroFormatarParaReal }}
+                        </span>
+                    </td>
                     <td class="text-xs-right">{{ props.item.vlAprovado | filtroFormatarParaReal }}</td>
                     <td class="text-xs-right">{{ props.item.vlComprovado | filtroFormatarParaReal }}</td>
                 </tr>
@@ -107,6 +127,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import { utils } from '@/mixins/utils';
 import EditarItemPlanilha from './EditarItemPlanilha';
 import VisualizarItemPlanilha from './VisualizarItemPlanilha';
@@ -149,14 +170,55 @@ export default {
             ],
             itemEmEdicao: {},
             select: {},
+            minChar : 10,
+            modalMediana: false,
         };
     },
     methods: {
+        ...mapActions({
+            obterMediana: 'planilha/obterMediana',
+        }),
         getClassItem(row) {
             if (!this.readonly) {
                 return this.obterClasseItem(row);
             }
             return '';
+        },
+        isCustoPraticado(item) {
+            return (item.stCustoPraticado === true
+                    || parseInt(item.stCustoPraticado, 10) === 1);
+        },
+        obterMensagemCustoPraticado(item) {
+            return `O valor unitário (${this.formatarParaReal(item.vlUnitario)}) deste item para ${item.Cidade},
+                    ultrapassa o valor aprovado por este orgão. Faça uma nova sugestão de valor ou justifique`;
+        },
+        buscarMediana(item) {
+            this.modalMediana = true;
+            this.obterMediana({
+                idProduto: item.idProduto,
+                idUnidade: item.idUnidade,
+                idPlanilhaItem: item.idPlanilhaItem,
+                idUfDespesa: item.idUfDespesa,
+                idMunicipioDespesa: item.idMunicipioDespesa,
+            });
+        },
+        validarValorPraticado(item) {
+            let validacao = {
+                valid: true,
+                message: '',
+            };
+            console.log(this.isCustoPraticado(item));
+            console.log(typeof item.dsJustificativa);
+            console.log(item.dsJustificativa.length);im
+            if (this.isCustoPraticado(item) && (item.dsJustificativa === null
+                || item.dsJustificativa.length < this.minChar)) {
+                validacao = {
+                    valid: false,
+                    message: this.obterMensagemCustoPraticado(item),
+                };
+            }
+            console.log(validacao);
+            return validacao;
         },
     },
 };

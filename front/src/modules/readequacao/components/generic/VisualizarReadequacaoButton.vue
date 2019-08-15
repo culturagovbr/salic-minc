@@ -53,8 +53,7 @@
                     class="mt-5 pt-3"
                 >
                     <v-flex
-                        xs10
-                        offset-xs1
+                        xs12
                     >
                         <v-list
                             two-line
@@ -154,8 +153,7 @@
                         </v-list>
                     </v-flex>
                     <v-flex
-                        xs10
-                        offset-xs1
+                        xs12
                     >
                         <v-card>
                             <v-card-title
@@ -175,15 +173,17 @@
                             </v-card-title>
                             <v-card-text>
                                 <template
-                                    v-if="readequacaoTipoSimples()"
+                                    v-if="getTemplateParaTipo && dialog === true"
                                 >
                                     <div
                                         v-if="typeof dadosReadequacao.dsSolicitacao !=='undefined' && typeof getDadosCampo.valor !== 'undefined'"
                                     >
-                                        <campo-diff
-                                            :original-text="getDadosCampo.valor"
-                                            :changed-text="dadosReadequacao.dsSolicitacao"
-                                            :method="'diffWordsWithSpace'"
+                                        <component
+                                            :is="getTemplateParaTipo"
+                                            :original="getDadosCampo"
+                                            :changed="dadosReadequacao"
+                                            :dados-readequacao="dadosReadequacao"
+                                            :readonly="true"
                                         />
                                     </div>
                                     <div v-else>
@@ -196,13 +196,7 @@
                                 <div
                                     v-else
                                 >
-                                    <div
-                                        class="subheading pb-2"
-                                        v-html="dadosReadequacao.dsTipoReadequacao"
-                                    />
-                                    <div
-                                        class="font-italic"
-                                    >
+                                    <div class="mb-3">
                                         Este tipo de readequação ainda não possui uma visualização específica!
                                     </div>
                                     <v-btn
@@ -220,8 +214,7 @@
                     </v-flex>
                     <v-flex
                         v-if="existeAvaliacao"
-                        xs10
-                        offset-xs1
+                        xs12
                     >
                         <v-list
                             two-line
@@ -265,7 +258,7 @@
                     </v-flex>
                     <v-flex
                         v-if="existeAvaliacao"
-                        xs10
+                        xs12
                         offset-xs1
                     >
                         <v-list
@@ -304,7 +297,7 @@
                     </v-flex>
                     <v-flex
                         v-if="dadosReadequacao.dsOrientacao && perfilAceito(['analise'])"
-                        xs10
+                        xs12
                         offset-xs1
                     >
                         <v-list
@@ -355,6 +348,8 @@ import CampoDiff from '@/components/CampoDiff';
 import Const from '../../const';
 import VisualizarCampoDetalhado from './VisualizarCampoDetalhado';
 import MxReadequacao from '../../mixins/Readequacao';
+import ComparacaoTextual from '../analise/ComparacaoTextual';
+import ComparacaoPlanilha from '../analise/ComparacaoPlanilha';
 
 export default {
     name: 'VisualizarReadequacaoButton',
@@ -362,6 +357,8 @@ export default {
         VisualizarCampoDetalhado,
         CampoDiff,
         Carregando,
+        ComparacaoTextual,
+        ComparacaoPlanilha,
     },
     mixins: [
         utils,
@@ -402,15 +399,19 @@ export default {
             visualizarJustificativa: false,
             visualizarOrientacao: false,
             projeto: {},
-            legacyRoutePath: '/readequacao/readequacoes/visualizar-readequacao?id=',
-            outrosTiposSolicitacoes: [
-                Const.TIPO_READEQUACAO_REMANEJAMENTO_PARCIAL,
-                Const.TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA,
-                Const.TIPO_READEQUACAO_LOCAL_REALIZACAO,
-                Const.TIPO_READEQUACAO_PLANO_DISTRIBUICAO,
-                Const.TIPO_READEQUACAO_SALDO_APLICACAO,
-                Const.TIPO_READEQUACAO_TRANSFERENCIA_RECURSOS,
-            ],
+            tiposComponentes: {
+                textarea: 'ComparacaoTextual',
+                input: 'ComparacaoTextual',
+                date: 'ComparacaoTextual',
+                planilha: 'ComparacaoPlanilha',
+            },
+            tiposComponentesRedirect: {
+                local_realizacao: '/readequacao/readequacoes/visualizar-readequacao?id=',
+                planilha: '/readequacao/readequacoes/visualizar-readequacao?id=',
+                saldo_aplicacao: '/readequacao/readequacoes/visualizar-readequacao?id=',
+                plano_distribuicao: '/readequacao/readequacoes/visualizar-readequacao?id=',
+                transferencia_recursos: '/readequacoes/visualizar-readequacao?id=',
+            },
         };
     },
     computed: {
@@ -430,6 +431,22 @@ export default {
         },
         getDadosCampo() {
             return this.parseDadosCampo(this.campoAtual);
+        },
+        getTemplateParaTipo() {
+            let templateName = false;
+            const chave = `key_${this.dadosReadequacao.idTipoReadequacao}`;
+            if (Object.prototype.hasOwnProperty.call(this.campoAtual, chave)) {
+                templateName = this.tiposComponentes[this.campoAtual[chave].tpCampo];
+            }
+            return templateName;
+        },
+        tipoComponente() {
+            let tipoComponente = '';
+            const chave = `key_${this.dadosReadequacao.idTipoReadequacao}`;
+            if (Object.prototype.hasOwnProperty.call(this.campoAtual, chave)) {
+                tipoComponente = this.campoAtual[chave].tpCampo;
+            }
+            return tipoComponente;
         },
     },
     watch: {
@@ -483,12 +500,6 @@ export default {
                 return false;
             });
         },
-        readequacaoTipoSimples() {
-            if (this.outrosTiposSolicitacoes.indexOf(this.dadosReadequacao.idTipoReadequacao) > -1) {
-                return false;
-            }
-            return true;
-        },
         getStatusAnalise(siEncaminhamento) {
             if (Object.prototype.hasOwnProperty.call(Const.SI_ENCAMINHAMENTO, siEncaminhamento)) {
                 return Const.SI_ENCAMINHAMENTO[siEncaminhamento];
@@ -496,8 +507,22 @@ export default {
             return false;
         },
         redirect() {
-            const url = this.legacyRoutePath + this.dadosReadequacao.idReadequacao;
-            window.open(url, '_blank');
+            if (this.tipoComponente !== '') {
+                if (Object.prototype.hasOwnProperty.call(this.tiposComponentesRedirect, this.tipoComponente)) {
+                    this.abreUrl();
+                }
+            }
+        },
+        abreUrl() {
+            if (this.urlRedirect !== 'undefined') {
+                let routePath = this.urlRedirect;
+                if (routePath.match(/#/)) {
+                    routePath = routePath.replace(/#/, '');
+                    this.$router.push({ path: routePath });
+                } else {
+                    window.open(routePath, '_blank');
+                }
+            }
         },
     },
 };

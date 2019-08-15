@@ -355,7 +355,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             $this->_schema
         );
         
-        $select->joinInner(
+        $select->joinLeft(
             array('usuarios' => 'Usuarios'),
             'tbReadequacao.idAvaliador = usuarios.usu_codigo',
             ['usu_nome AS dsNomeAvaliador'],
