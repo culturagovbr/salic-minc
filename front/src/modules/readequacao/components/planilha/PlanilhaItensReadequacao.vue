@@ -155,7 +155,7 @@
                 </tr>
             </template>
         </v-data-table>
-         <s-planilha-dialog-dados-mediana v-model="modalMediana" />
+        <s-planilha-dialog-dados-mediana v-model="modalMediana" />
     </div>
 </template>
 

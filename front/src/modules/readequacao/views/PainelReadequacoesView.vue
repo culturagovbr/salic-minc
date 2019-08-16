@@ -61,7 +61,7 @@
                     <h2 class="grey--text text--darken-4">Painel de Readequações</h2>
                     <v-spacer/>
                     <h3
-                        v-if="dadosProjeto.length > 0"
+                        v-if="dadosProjeto.idPronac !== 'undefined'> 0"
                         class="grey--text text--darken-4"
                     >
                         {{ dadosProjeto.Pronac }} - {{ dadosProjeto.NomeProjeto }}
