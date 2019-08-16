@@ -65,4 +65,27 @@ class Readequacao_Model_DbTable_TbReadequacaoXParecer extends MinC_Db_Table_Abst
         }
         return $result;
     }
+
+    public function possuiDocumentoAssinatura($idReadequacao)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            ['tbReadequacaoXParecer' => $this->_name],
+            [],
+            $this->_schema
+        );
+
+        $select->joinInner(
+            ['tbDocumentoAssinatura' => 'tbDocumentoAssinatura'],
+            'tbDocumentoAssinatura.idAtoDeGestao = tbReadequacaoXParecer.idParecer',
+            ['tbDocumentoAssinatura.idDocumentoAssinatura'],
+            $this->_schema
+        );
+        
+        $select->where('tbDocumentoAssinatura.stEstado = ?', Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO);
+        $select->where('tbReadequacaoXParecer.idReadequacao = ?', $idReadequacao);
+
+        return $this->_db->fetchAll($select);
+    }
 }

@@ -1063,6 +1063,14 @@ class Readequacao implements IServicoRestZend
             ];
             $tbReadequacaoXParecer->inserir($dadosInclusao);
         }
+
+        $tbReadequacaoXParecerDbTable = new \Readequacao_Model_DbTable_TbReadequacaoXParecer();
+        $possuiDocumentoAssinatura = $tbReadequacaoXParecerDbTable->possuiDocumentoAssinatura($idReadequacao);
+        
+        if (count($possuiDocumentoAssinatura) > 0) {
+            $this->__invalidarAssinatura($idReadequacao);
+        }
+        
         $data = [
             'idParecer' => $idParecer,
             'ParecerFavoravel' => $parecerFavoravel,
@@ -1274,6 +1282,8 @@ class Readequacao implements IServicoRestZend
         $idPronac = $parametros['idPronac'];
         $idPlanilhaAprovacao = $parametros['idPlanilhaAprovacao'];
         $idReadequacao = $parametros['idReadequacao'];
+        $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
+        $idPerfil = $grupoAtivo->codGrupo;
 
         if ($parametros['idTipoReadequacao']) {
             $idTipoReadequacao = $parametros['idTipoReadequacao'];
@@ -1324,13 +1334,17 @@ class Readequacao implements IServicoRestZend
             $editarItem->tpAcao = 'A';
         }
 
-        $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
-        $idPerfil = $grupoAtivo->codGrupo;
-        
         if (in_array($idPerfil, [
             \Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
             \Autenticacao_Model_Grupos::PARECERISTA,
         ])) {
+            $tbReadequacaoXParecerDbTable = new \Readequacao_Model_DbTable_TbReadequacaoXParecer();
+            $possuiDocumentoAssinatura = $tbReadequacaoXParecerDbTable->possuiDocumentoAssinatura($idReadequacao);
+            
+            if (count($possuiDocumentoAssinatura) > 0) {
+                $this->__invalidarAssinatura($idReadequacao);
+            }
+            
             $editarItem->stCustoPraticado = 0;
         }
         
