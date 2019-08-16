@@ -86,7 +86,7 @@ class Readequacao implements IServicoRestZend
                 ];
                 $where['tbReadequacao.stEstado = ?'] = \Readequacao_Model_DbTable_TbReadequacao::ST_ESTADO_EM_ANDAMENTO;
                 break;
-            case 'analise':
+            case 'em_analise':
                 $where['tbReadequacao.siEncaminhamento NOT IN (?)'] = [
                     \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE,
                     \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_NAO_ENVIA_MINC
