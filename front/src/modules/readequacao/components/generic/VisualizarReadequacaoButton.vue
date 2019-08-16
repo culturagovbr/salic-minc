@@ -450,6 +450,7 @@ export default {
     watch: {
         dialog() {
             if (this.dialog === true) {
+                this.resetLoading();
                 this.obterCampoAtual({
                     idPronac: this.dadosReadequacao.idPronac,
                     idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
@@ -460,6 +461,8 @@ export default {
                 } else {
                     this.buscarProjetoCompleto(this.dadosReadequacao.idPronac);
                 }
+            } else {
+                this.resetLoading();
             }
         },
         getDadosCampo(value) {
@@ -521,6 +524,11 @@ export default {
                     window.open(routePath, '_blank');
                 }
             }
+        },
+        resetLoading() {
+            this.loading = true;
+            this.loaded.projeto = false;
+            this.loaded.campo = false;
         },
     },
 };

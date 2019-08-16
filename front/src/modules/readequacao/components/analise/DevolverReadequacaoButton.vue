@@ -235,7 +235,7 @@ export default {
             getDestinatariosDistribuicao: 'readequacao/getDestinatariosDistribuicao',
         }),
         orgao() {
-            return this.getUsuario.orgao_ativo;
+            return this.dadosReadequacao.idOrgao;
         },
         vinculada() {
             const orgaos = JSON.parse(JSON.stringify(this.orgaosDestino));
@@ -299,11 +299,15 @@ export default {
             }
         },
         devolverAnalise() {
-            if (this.vinculada.id !== '') {
+            if (typeof this.vinculada.id !== 'undefined') {
                 this.dadosEncaminhamento.vinculada = this.vinculada.id;
+            } else {
+                this.dadosEncaminhamento.vinculada = this.orgao;
             }
             if (this.dadosEncaminhamento.destinatario === '') {
-                this.dadosEncaminhamento.destinatario = this.dadosEncaminhamento.idTecnico;
+                this.dadosEncaminhamento.destinatario = (
+                    typeof this.dadosReadequacao.idTecnicoParecerista !== 'undefined'
+                ) ? this.dadosReadequacao.idTecnicoParecerista : '';
             }
             this.devolverReadequacao({
                 idPronac: this.dadosReadequacao.idPronac,
