@@ -17,6 +17,7 @@
                         :is="getTemplateParaTipo"
                         :original="getDadosCampo"
                         :changed="dadosReadequacao"
+                        :tipo="tipoComponente"
                         :dados-readequacao="dadosReadequacao"
                     />
                 </template>
@@ -120,11 +121,6 @@ export default {
             },
             deep: true,
         },
-    },
-    mounted() {
-        if (this.getDadosCampo.tpCampo !== '') {
-            this.loading = false;
-        }
     },
     methods: {
         redirect() {

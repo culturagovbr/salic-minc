@@ -70,7 +70,8 @@
                                 <v-icon>close</v-icon>
                             </v-btn>
                             <v-toolbar-title>
-                                Avaliar readequação
+                                Avaliar readequação - {{ dadosReadequacao.dsTipoReadequacao }}
+                                / Projeto {{ dadosProjeto.Pronac }} - {{ dadosProjeto.NomeProjeto }}
                             </v-toolbar-title>
                             <v-spacer />
                             <v-toolbar-items>

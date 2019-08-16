@@ -153,6 +153,126 @@
                         </v-list>
                     </v-flex>
                     <v-flex
+                        v-if="existeAvaliacao"
+                        xs12
+                    >
+                        <v-list
+                            two-line
+                            subheader
+                            class="mt-3"
+                        >
+                            <v-subheader
+                                color="black--text"
+                                class="grey lighten-3"
+                            >Dados da Avaliação</v-subheader>
+                            <v-list-tile avatar>
+                                <v-list-tile-avatar>
+                                    <v-icon class="green lighten-1 white--text">
+                                        person
+                                    </v-icon>
+                                </v-list-tile-avatar>
+                                <v-list-tile-content
+                                    v-if="dadosReadequacao.idAvaliador"
+                                >
+                                    <v-list-tile-title>Nome do Avaliador</v-list-tile-title>
+                                    <v-list-tile-sub-title>{{ dadosReadequacao.dsNomeAvaliador }}</v-list-tile-sub-title>
+                                </v-list-tile-content>
+                                <v-list-tile-content
+                                    v-else
+                                >
+                                    <v-list-tile-title>Sem avaliação até o momento</v-list-tile-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                            <v-list-tile avatar>
+                                <v-list-tile-avatar>
+                                    <v-icon class="green lighten-1 white--text">
+                                        date_range
+                                    </v-icon>
+                                </v-list-tile-avatar>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>Data da Avaliação</v-list-tile-title>
+                                    <v-list-tile-sub-title>{{ dadosReadequacao.dtAvaliador | formatarData }}</v-list-tile-sub-title>
+                                </v-list-tile-content>
+                            </v-list-tile>
+                        </v-list>
+                    </v-flex>
+                    <v-flex
+                        v-if="existeAvaliacao"
+                        xs12
+                    >
+                        <v-list
+                            two-line
+                        >
+                            <v-list-tile
+                                avatar
+                                @click="visualizarAvaliacao = !visualizarAvaliacao"
+                            >
+                                <visualizar-campo-detalhado
+                                    v-if="visualizarAvaliacao"
+                                    :dialog="true"
+                                    :dados="{ titulo: 'Avaliação', descricao: dadosReadequacao.dsAvaliacao }"
+                                    @fechar-visualizacao="visualizarAvaliacao = false"
+                                />
+                                <v-list-tile-avatar>
+                                    <v-icon class="green lighten-1 white--text">
+                                        assignment
+                                    </v-icon>
+                                </v-list-tile-avatar>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>Avaliação</v-list-tile-title>
+                                </v-list-tile-content>
+                                <v-list-tile-action>
+                                    <v-btn
+                                        icon
+                                        ripple
+                                    >
+                                        <v-icon color="grey lighten-1">
+                                            info
+                                        </v-icon>
+                                    </v-btn>
+                                </v-list-tile-action>
+                            </v-list-tile>
+                        </v-list>
+                    </v-flex>
+                    <v-flex
+                        v-if="dadosReadequacao.dsOrientacao && perfilAceito(['analise'])"
+                        xs12
+                    >
+                        <v-list
+                            two-line
+                        >
+                            <v-list-tile
+                                avatar
+                                @click="visualizarOrientacao = !visualizarOrientacao"
+                            >
+                                <visualizar-campo-detalhado
+                                    v-if="visualizarOrientacao"
+                                    :dialog="true"
+                                    :dados="{ titulo: 'Observação', descricao: dadosReadequacao.dsOrientacao }"
+                                    @fechar-visualizacao="visualizarOrientacao = false"
+                                />
+                                <v-list-tile-avatar>
+                                    <v-icon class="green lighten-1 white--text">
+                                        assignment
+                                    </v-icon>
+                                </v-list-tile-avatar>
+                                <v-list-tile-content>
+                                    <v-list-tile-title>Observação</v-list-tile-title>
+                                </v-list-tile-content>
+                                <v-list-tile-action>
+                                    <v-btn
+                                        icon
+                                        ripple
+                                    >
+                                        <v-icon color="grey lighten-1">
+                                            report
+                                        </v-icon>
+                                    </v-btn>
+                                </v-list-tile-action>
+                            </v-list-tile>
+                        </v-list>
+                    </v-flex>
+                    <v-flex
                         xs12
                     >
                         <v-card>
@@ -211,128 +331,6 @@
                                 </div>
                             </v-card-text>
                         </v-card>
-                    </v-flex>
-                    <v-flex
-                        v-if="existeAvaliacao"
-                        xs12
-                    >
-                        <v-list
-                            two-line
-                            subheader
-                            class="mt-3"
-                        >
-                            <v-subheader
-                                color="black--text"
-                                class="grey lighten-3"
-                            >Dados da Avaliação</v-subheader>
-                            <v-list-tile avatar>
-                                <v-list-tile-avatar>
-                                    <v-icon class="green lighten-1 white--text">
-                                        person
-                                    </v-icon>
-                                </v-list-tile-avatar>
-                                <v-list-tile-content
-                                    v-if="dadosReadequacao.idAvaliador"
-                                >
-                                    <v-list-tile-title>Nome do Avaliador</v-list-tile-title>
-                                    <v-list-tile-sub-title>{{ dadosReadequacao.dsNomeAvaliador }}</v-list-tile-sub-title>
-                                </v-list-tile-content>
-                                <v-list-tile-content
-                                    v-else
-                                >
-                                    <v-list-tile-title>Sem avaliação até o momento</v-list-tile-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
-                            <v-list-tile avatar>
-                                <v-list-tile-avatar>
-                                    <v-icon class="green lighten-1 white--text">
-                                        date_range
-                                    </v-icon>
-                                </v-list-tile-avatar>
-                                <v-list-tile-content>
-                                    <v-list-tile-title>Data da Avaliação</v-list-tile-title>
-                                    <v-list-tile-sub-title>{{ dadosReadequacao.dtAvaliador | formatarData }}</v-list-tile-sub-title>
-                                </v-list-tile-content>
-                            </v-list-tile>
-                        </v-list>
-                    </v-flex>
-                    <v-flex
-                        v-if="existeAvaliacao"
-                        xs12
-                        offset-xs1
-                    >
-                        <v-list
-                            two-line
-                        >
-                            <v-list-tile
-                                avatar
-                                @click="visualizarAvaliacao = !visualizarAvaliacao"
-                            >
-                                <visualizar-campo-detalhado
-                                    v-if="visualizarAvaliacao"
-                                    :dialog="true"
-                                    :dados="{ titulo: 'Avaliação', descricao: dadosReadequacao.dsAvaliacao }"
-                                    @fechar-visualizacao="visualizarAvaliacao = false"
-                                />
-                                <v-list-tile-avatar>
-                                    <v-icon class="green lighten-1 white--text">
-                                        assignment
-                                    </v-icon>
-                                </v-list-tile-avatar>
-                                <v-list-tile-content>
-                                    <v-list-tile-title>Avaliação</v-list-tile-title>
-                                </v-list-tile-content>
-                                <v-list-tile-action>
-                                    <v-btn
-                                        icon
-                                        ripple
-                                    >
-                                        <v-icon color="grey lighten-1">
-                                            info
-                                        </v-icon>
-                                    </v-btn>
-                                </v-list-tile-action>
-                            </v-list-tile>
-                        </v-list>
-                    </v-flex>
-                    <v-flex
-                        v-if="dadosReadequacao.dsOrientacao && perfilAceito(['analise'])"
-                        xs12
-                        offset-xs1
-                    >
-                        <v-list
-                            two-line
-                        >
-                            <v-list-tile
-                                avatar
-                                @click="visualizarOrientacao = !visualizarOrientacao"
-                            >
-                                <visualizar-campo-detalhado
-                                    v-if="visualizarOrientacao"
-                                    :dialog="true"
-                                    :dados="{ titulo: 'Observação', descricao: dadosReadequacao.dsOrientacao }"
-                                    @fechar-visualizacao="visualizarOrientacao = false"
-                                />
-                                <v-list-tile-avatar>
-                                    <v-icon class="green lighten-1 white--text">
-                                        assignment
-                                    </v-icon>
-                                </v-list-tile-avatar>
-                                <v-list-tile-content>
-                                    <v-list-tile-title>Observação</v-list-tile-title>
-                                </v-list-tile-content>
-                                <v-list-tile-action>
-                                    <v-btn
-                                        icon
-                                        ripple
-                                    >
-                                        <v-icon color="grey lighten-1">
-                                            report
-                                        </v-icon>
-                                    </v-btn>
-                                </v-list-tile-action>
-                            </v-list-tile>
-                        </v-list>
                     </v-flex>
                 </v-layout>
             </v-card>
