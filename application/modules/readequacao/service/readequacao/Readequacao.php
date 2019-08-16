@@ -1323,6 +1323,16 @@ class Readequacao implements IServicoRestZend
         if ($editarItem->tpAcao == 'N') {
             $editarItem->tpAcao = 'A';
         }
+
+        $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
+        $idPerfil = $grupoAtivo->codGrupo;
+        
+        if (in_array($idPerfil, [
+            \Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
+            \Autenticacao_Model_Grupos::PARECERISTA,
+        ])) {
+            $editarItem->stCustoPraticado = 0;
+        }
         
         $editarItem->save();
         

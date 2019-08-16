@@ -55,8 +55,6 @@ class Readequacao_ItemPlanilhaController extends MinC_Controller_Rest_Abstract
 
     public function putAction(){}
 
-    public function deleteAction(){
-        // criar delete
-    }
+    public function deleteAction(){}
 
 }
