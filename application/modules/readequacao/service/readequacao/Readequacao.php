@@ -1020,7 +1020,7 @@ class Readequacao implements IServicoRestZend
             'ParecerFavoravel' => $parecerFavoravel,
             'DtParecer' => \MinC_Db_Expr::date(),
             'NumeroReuniao' => null,
-            'ResumoParecer' => $parecerDeConteudo,
+            'ResumoParecer' => utf8_decode($parecerDeConteudo),
             'SugeridoReal' => $vlPlanilha,
             'Atendimento' => 'S',
             'idEnquadramento' => $buscaEnquadramento['IdEnquadramento'],
