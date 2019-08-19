@@ -248,15 +248,14 @@
                                     v-if="existeAvaliacao"
                                     step="3"
                                 >
+                                    <v-subheader
+                                        class="title"
+                                    >Dados da Avaliação</v-subheader>
                                     <v-list
                                         two-line
                                         subheader
                                         class="mt-3"
                                     >
-                                        <v-subheader
-                                            color="black--text"
-                                            class="grey lighten-3"
-                                        >Dados da Avaliação</v-subheader>
                                         <v-list-tile avatar>
                                             <v-list-tile-avatar>
                                                 <v-icon class="green lighten-1 white--text">
