@@ -116,6 +116,7 @@
                                             class="text-xs-center"
                                         >
                                             <v-btn
+                                                v-if="Object.keys(mediana).length > 0"
                                                 color="blue-grey"
                                                 class="white--text"
                                                 @click="buscarMediana(props.item)"
@@ -155,12 +156,15 @@
                 </tr>
             </template>
         </v-data-table>
-        <s-planilha-dialog-dados-mediana v-model="modalMediana" />
+        <s-planilha-dialog-dados-mediana
+            v-if="Object.keys(mediana).length > 0"
+            v-model="modalMediana"
+        />
     </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { utils } from '@/mixins/utils';
 import EditarItemPlanilha from './EditarItemPlanilha';
 import VisualizarItemPlanilha from './VisualizarItemPlanilha';
@@ -209,6 +213,11 @@ export default {
             modalMediana: false,
         };
     },
+    computed: {
+        ...mapGetters({
+            mediana: 'planilha/obterMediana',
+        }),
+    },
     methods: {
         ...mapActions({
             obterMediana: 'planilha/obterMediana',
@@ -227,14 +236,18 @@ export default {
             return `O valor unitário (${this.formatarParaReal(item.vlUnitario)}) deste item para ${item.Municipio},
                     ultrapassa o valor aprovado por este orgão. Faça uma nova sugestão de valor e justifique`;
         },
-        buscarMediana(item) {
+        abrirMediana() {
             this.modalMediana = true;
+        },
+        buscarMediana(item) {
             this.obterMediana({
                 idProduto: item.idProduto,
                 idUnidade: item.idUnidade,
                 idPlanilhaItem: item.idPlanilhaItem,
                 idUfDespesa: item.idUF,
                 idMunicipioDespesa: item.idMunicipio,
+            }).then(() => {
+                this.abrirMediana();
             });
         },
         validarValorPraticado(item) {

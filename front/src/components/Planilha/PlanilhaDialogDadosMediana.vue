@@ -80,10 +80,15 @@
                         </v-flex>
                     </v-layout>
                 </v-container>
-                <s-carregando
-                    v-else
-                    text="Carregando mediana"
-                />
+                <template v-else>
+                    <s-carregando
+                        v-if="typeof mediana !== 'object'"
+                        text="Carregando mediana"
+                    />
+                    <template v-else>
+                        Ainda não foi calculada a mediana para esse item.
+                    </template>
+                </template>
             </v-card-text>
             <v-card-actions>
                 <v-spacer />
