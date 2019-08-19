@@ -306,8 +306,8 @@ export default {
             }
             if (this.dadosEncaminhamento.destinatario === '') {
                 this.dadosEncaminhamento.destinatario = (
-                    typeof this.dadosReadequacao.idTecnicoParecerista !== 'undefined'
-                ) ? this.dadosReadequacao.idTecnicoParecerista : '';
+                    typeof this.dadosReadequacao.idTecnico !== 'undefined'
+                ) ? this.dadosReadequacao.idTecnico : '';
             }
             this.devolverReadequacao({
                 idPronac: this.dadosReadequacao.idPronac,
