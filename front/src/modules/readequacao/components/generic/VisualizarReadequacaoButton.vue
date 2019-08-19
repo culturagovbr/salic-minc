@@ -541,12 +541,13 @@ export default {
         redirect() {
             if (this.tipoComponente !== '') {
                 if (Object.prototype.hasOwnProperty.call(this.tiposComponentesRedirect, this.tipoComponente)) {
+                    this.urlRedirect = this.tiposComponentesRedirect[this.tipoComponente] + this.dadosReadequacao.idReadequacao;
                     this.abreUrl();
                 }
             }
         },
         abreUrl() {
-            if (this.urlRedirect !== 'undefined') {
+            if (typeof this.urlRedirect !== 'undefined') {
                 let routePath = this.urlRedirect;
                 if (routePath.match(/#/)) {
                     routePath = routePath.replace(/#/, '');
