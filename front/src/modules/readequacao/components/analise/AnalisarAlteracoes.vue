@@ -122,6 +122,11 @@ export default {
             deep: true,
         },
     },
+    mounted() {
+        if (this.getDadosCampo.tpCampo !== '') {
+            this.loading = false;
+        }
+    },
     methods: {
         redirect() {
             if (this.tipoComponente !== '') {
