@@ -328,6 +328,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
              'dsSolicitacao' => new Zend_Db_Expr('CAST(tbReadequacao.dsSolicitacao AS TEXT)'),
              'stAtendimento' => 'tbReadequacao.stAtendimento',
              'idTipoReadequacao' => 'tbReadequacao.idTipoReadequacao',
+             'siEncaminhamento' => 'tbReadequacao.siEncaminhamento',
              'tpReadequacao' => 'tbTipoReadequacao.dsReadequacao',
              'qtAguardandoDistribuicao' => new Zend_Db_Expr('DATEDIFF(DAY, tbReadequacao.dtEnvio, GETDATE())'),
              'dtEnvio' => 'tbReadequacao.dtEnvio',
@@ -509,6 +510,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
              'stAtendimento' => 'tbReadequacao.stAtendimento',
              'idTipoReadequacao' => 'tbReadequacao.idTipoReadequacao',
              'tpReadequacao' => 'tbTipoReadequacao.dsReadequacao',
+             'siEncaminhamento' => 'tbReadequacao.siEncaminhamento',
              'qtAguardandoDistribuicao' => new Zend_Db_Expr('DATEDIFF(DAY, tbReadequacao.dtEnvio, GETDATE())'),
              'dtEnvio' => 'tbReadequacao.dtEnvio',
             ]
