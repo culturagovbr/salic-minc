@@ -232,6 +232,7 @@
                                                     Este tipo de readequação ainda não possui uma visualização específica!
                                                 </div>
                                                 <v-btn
+                                                    v-if="perfilAceito(['analise'])"
                                                     color="secondary"
                                                     @click.stop="redirect()"
                                                 >
@@ -436,7 +437,7 @@ export default {
                 planilha: '/readequacao/readequacoes/visualizar-readequacao?id=',
                 saldo_aplicacao: '/readequacao/readequacoes/visualizar-readequacao?id=',
                 plano_distribuicao: '/readequacao/readequacoes/visualizar-readequacao?id=',
-                transferencia_recursos: '/readequacoes/visualizar-readequacao?id=',
+                transferencia_recursos: '/readequacao/readequacoes/visualizar-readequacao?id=',
             },
         };
     },

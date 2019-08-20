@@ -14,63 +14,76 @@
                 {{ errorMessage }}
             </div>
         </v-flex>
-        <v-flex
-            md6
-            sm12
-            xs12
-        >
-            <v-card
-                flat
+        <template v-else>
+            <v-flex
+                md6
+                sm12
+                xs12
             >
-                <v-card-title
-                    class="subheading"
+                <v-card
+                    flat
                 >
-                    <v-btn
-                        fab
-                        depressed
-                        small
-                        class="green lighten-1"
+                    <v-card-title
+                        class="subheading"
                     >
-                        <v-icon color="white">
-                            menu
-                        </v-icon>
-                    </v-btn>
-                    Versão original
-                </v-card-title>
-                <v-card-text
-                    v-html="tratarCampoVazio(textDiff.before)"
-                />
-            </v-card>
-        </v-flex>
-        <v-spacer/>
-        <v-flex
-            md6
-            sm12
-            xs12
-        >
-            <v-card
-                flat
+                        <v-btn
+                            fab
+                            depressed
+                            small
+                            class="green lighten-1"
+                        >
+                            <v-icon color="white">
+                                menu
+                            </v-icon>
+                        </v-btn>
+                        Versão original
+                    </v-card-title>
+                    <v-card-text
+                        v-html="tratarCampoVazio(textDiff.before)"
+                    />
+                </v-card>
+            </v-flex>
+            <v-spacer/>
+            <v-flex
+                md6
+                sm12
+                xs12
             >
-                <v-card-title
-                    class="subheading"
+                <v-card
+                    flat
                 >
-                    <v-btn
-                        fab
-                        depressed
-                        small
-                        class="green lighten-1"
+                    <v-card-title
+                        class="subheading"
                     >
-                        <v-icon color="white">
-                            playlist_add
-                        </v-icon>
-                    </v-btn>
-                    Versão alterada
-                </v-card-title>
-                <v-card-text
-                    v-html="tratarCampoVazio(textDiff.after)"
-                />
-            </v-card>
-        </v-flex>
+                        <v-btn
+                            fab
+                            depressed
+                            small
+                            class="green lighten-1"
+                        >
+                            <v-icon color="white">
+                                playlist_add
+                            </v-icon>
+                        </v-btn>
+                        Versão alterada
+                    </v-card-title>
+                    <v-card-text
+                        v-html="tratarCampoVazio(textDiff.after)"
+                    />
+                </v-card>
+            </v-flex>
+            <v-flex
+                xs12
+                class="grey lighten-3 text-xs-center"
+            >
+                <v-card>
+                    <v-card-text>
+                        <span class="red lighten-3">removido</span>
+                        <span class="green accent-1">adicionado</span>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </template>
     </v-layout>
 </template>
 
