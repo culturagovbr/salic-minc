@@ -386,8 +386,14 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             /* DADOS DO ITEM PARA INCLUSÃO DA READEQUAÇÃO */
             $dadosInclusao = array();
 
-            $tbPlaninhaProposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
-            $objValorMediana = $tbPlaninhaProposta->calcularMedianaItemOrcamento($idProduto, $this->_request->getParam("newUnidade"), $idPlanilhaItem, $this->_request->getParam("newEtapa"), $idMunicipioDespesa);
+            $spCalcularMedianaItemOrcamentario = new \Planilha_Model_DbTable_SpCalcularMedianaItemOrcamentario();
+            $objValorMediana = $spCalcularMedianaItemOrcamentario->obterMedianaItemOrcamento(
+                $editarItem->idProduto,
+                $editarItem->idUnidade,
+                $editarItem->idPlanilhaItem,
+                $editarItem->idUFDespesa,
+                $editarItem->idMunicipioDespesa
+            );
             $valorMediana = isset($objValorMediana['Mediana']) ? $objValorMediana['Mediana'] : 0;
             $dadosInclusao['stCustoPraticado'] = (!empty($valorMediana) && $valorMediana < $ValorUnitario) ? 1 : 0;
             
@@ -499,8 +505,14 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             )->current();
         }
 
-        $tbPlaninhaProposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
-        $objValorMediana = $tbPlaninhaProposta->calcularMedianaItemOrcamento($editarItem->idProduto, $editarItem->idUnidade, $editarItem->idPlanilhaItem, $editarItem->idUFDespesa, $editarItem->idMunicipioDespesa);
+        $spCalcularMedianaItemOrcamentario = new \Planilha_Model_DbTable_SpCalcularMedianaItemOrcamentario();
+        $objValorMediana = $spCalcularMedianaItemOrcamentario->obterMedianaItemOrcamento(
+            $editarItem->idProduto,
+            $editarItem->idUnidade,
+            $editarItem->idPlanilhaItem,
+            $editarItem->idUFDespesa,
+            $editarItem->idMunicipioDespesa
+        );
         $valorMediana = isset($objValorMediana['Mediana']) ? $objValorMediana['Mediana'] : 0;
         $editarItem->stCustoPraticado = (!empty($valorMediana) && $valorMediana < $ValorUnitario) ? 1 : 0;
         
@@ -2194,7 +2206,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             }
 
             //CADASTRA OU ATUALIZA O PARECER DO TECNICO
-            $parecerDAO = new Parecer();
+            $parecerDAO = new Parecer_Model_DbTable_Parecer();
             $dadosParecer = array(
                 'idPRONAC' => $idPronac,
                 'AnoProjeto' => $dadosProjeto[0]->AnoProjeto,
@@ -2596,7 +2608,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             if (count($dadosProjeto) > 0) {
 
                 //CADASTRA OU ATUALIZA O PARECER DO TECNICO
-                $parecerDAO = new Parecer();
+                $parecerDAO = new Parecer_Model_DbTable_Parecer();
                 $dadosParecer = array(
                     'idPRONAC' => $idPronac,
                     'AnoProjeto' => $dadosProjeto[0]->AnoProjeto,
