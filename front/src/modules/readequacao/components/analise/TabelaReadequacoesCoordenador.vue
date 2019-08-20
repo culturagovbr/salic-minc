@@ -38,7 +38,14 @@
                 slot="items"
                 slot-scope="props">
                 <td>{{ props.index+1 }}</td>
-                <td class="text-xs-left">{{ props.item.PRONAC }}</td>
+                <td class="text-xs-left">
+                    <a
+                        :href="`/projeto/#/${props.item.idPronac}`"
+                        target="_blank"
+                    >
+                        {{ props.item.PRONAC }}
+                    </a>
+                </td>
                 <td class="text-xs-left">{{ props.item.NomeProjeto }}</td>
                 <td class="text-xs-left">{{ props.item.dsTipoReadequacao }}</td>
                 <template
@@ -106,6 +113,7 @@
 </template>
 
 <script>
+import _ from 'lodash';
 import { utils } from '@/mixins/utils';
 import Carregando from '@/components/CarregandoVuetify';
 import MxReadequacao from '../../mixins/Readequacao';
@@ -275,7 +283,7 @@ export default {
             return false;
         },
         filterField(value) {
-            if (Date.parse(value)) {
+            if (_.isDate(value)) {
                 return this.filterDate(value);
             }
             return value;
