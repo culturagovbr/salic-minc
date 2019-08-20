@@ -186,7 +186,7 @@ import Carregando from '@/components/CarregandoVuetify';
 import Const from '../../const';
 
 export default {
-    name: 'DistribuirReadequacaoButton',
+    name: 'RedistribuirReadequacaoButton',
     components: {
         Carregando,
         SEditorTexto,
@@ -339,12 +339,16 @@ export default {
                 this.obterDestinatariosDistribuicao({
                     idPronac: this.dadosReadequacao.idPronac,
                     vinculada: this.dadosEncaminhamento.vinculada,
+                    area: this.dadosReadequacao.Area,
+                    segmento: this.dadosReadequacao.Segmento,
                 });
             } else if (typeof this.vinculada.id !== 'undefined') {
                 this.loadingDestinatarios = true;
                 this.obterDestinatariosDistribuicao({
                     idPronac: this.dadosReadequacao.idPronac,
                     vinculada: this.vinculada.id,
+                    area: this.dadosReadequacao.Area,
+                    segmento: this.dadosReadequacao.Segmento,
                 });
             }
         },
