@@ -73,6 +73,26 @@
                                     sm12
                                     md4
                                 >
+                                    <v-card
+                                        class="mb-2 grey lighten-3"
+                                    >
+                                        <v-card-title
+                                            class="title"
+                                        >
+                                            Órgão / Técnico atual:
+                                        </v-card-title>
+                                        <v-card-text>
+                                            {{ dadosReadequacao.sgUnidade }} /
+                                            <template
+                                                v-if="dadosReadequacao.nmTecnicoParecerista !== null"
+                                            >
+                                                {{ dadosReadequacao.nmTecnicoParecerista }}
+                                            </template>
+                                            <template v-else>
+                                                Aguardando distribuição
+                                            </template>
+                                        </v-card-text>
+                                    </v-card>
                                     <v-select
                                         v-if="!vinculada"
                                         v-model="dadosEncaminhamento.vinculada"
