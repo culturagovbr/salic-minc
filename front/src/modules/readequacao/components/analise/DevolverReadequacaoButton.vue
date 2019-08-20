@@ -48,18 +48,6 @@
                             {{ dadosReadequacao.idReadequacao }} - {{ dadosReadequacao.NomeProjeto }} - {{ dadosReadequacao.tpReadequacao }}
                         </v-toolbar-title>
                         <v-spacer />
-                        <v-toolbar-items>
-                            <v-btn
-                                dark
-                                flat
-                                @click="devolverReadequacao"
-                            >
-                                <v-icon left>
-                                    save
-                                </v-icon>
-                                Salvar
-                            </v-btn>
-                        </v-toolbar-items>
                     </v-toolbar>
                     <v-card-text>
                         <v-form
