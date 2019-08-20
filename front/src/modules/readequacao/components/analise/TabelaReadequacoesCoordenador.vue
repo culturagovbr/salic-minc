@@ -113,7 +113,6 @@
 </template>
 
 <script>
-import _ from 'lodash';
 import { utils } from '@/mixins/utils';
 import Carregando from '@/components/CarregandoVuetify';
 import MxReadequacao from '../../mixins/Readequacao';
@@ -283,8 +282,10 @@ export default {
             return false;
         },
         filterField(value) {
-            if (_.isDate(value)) {
-                return this.filterDate(value);
+            if (Date.parse(value)) {
+                if (value.length > 9) {
+                    return this.filterDate(value);
+                }
             }
             return value;
         },
