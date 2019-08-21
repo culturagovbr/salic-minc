@@ -1682,7 +1682,8 @@ class Readequacao implements IServicoRestZend
                 } else if ($parametros['vinculada'] == \Orgaos::ORGAO_SAV_CAP && $parametros['destinatario'] == 0) {
                     $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
                     $idUnidade = \Orgaos::ORGAO_SUPERIOR_SAV;
-                } else if (in_array($parametros['vinculada'], $this->__getVinculadasExcetoIphan())) {
+                } else if (in_array($parametros['vinculada'], $this->__getVinculadasExcetoIphan())
+                           || $parametros['vinculada'] == \Orgaos::ORGAO_SUPERIOR_SAV) {
                     if ($parametros['destinatario'] > 0) {
                         $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
                     } else {
