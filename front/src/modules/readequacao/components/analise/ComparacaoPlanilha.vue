@@ -6,7 +6,7 @@
             offset-xs1
         >
             <carregando
-                :text="'Carregando painel de readequações...'"
+                :text="'Montando planilha orçamentária...'"
             />
         </template>
         <v-flex

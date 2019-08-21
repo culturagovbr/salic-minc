@@ -116,7 +116,7 @@
                                             class="text-xs-center"
                                         >
                                             <v-btn
-                                                v-if="Object.keys(mediana).length > 0"
+                                                v-if="exibirMediana(props.item)"
                                                 color="blue-grey"
                                                 class="white--text"
                                                 @click="buscarMediana(props.item)"
@@ -229,8 +229,12 @@ export default {
             return '';
         },
         isCustoPraticado(item) {
-            return (item.stCustoPraticado === true
-                    || parseInt(item.stCustoPraticado, 10) === 1);
+            const idEtapasNaoExibir = [8, 10];
+            if (!idEtapasNaoExibir.includes(item.idEtapa)) {
+                return (item.stCustoPraticado === true
+                        || parseInt(item.stCustoPraticado, 10) === 1);
+            }
+            return false;
         },
         obterMensagemCustoPraticado(item) {
             return `O valor unitário (${this.formatarParaReal(item.vlUnitario)}) deste item para ${item.Municipio},
@@ -262,6 +266,14 @@ export default {
                 };
             }
             return validacao;
+        },
+        exibirMediana(item) {
+            const idEtapasNaoExibir = [8, 10];
+            if (!idEtapasNaoExibir.includes(item.idEtapa)
+                && Object.keys(this.mediana).length > 0) {
+                return true;
+            }
+            return false;
         },
     },
 };

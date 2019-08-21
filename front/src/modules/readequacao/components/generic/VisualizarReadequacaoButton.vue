@@ -451,7 +451,7 @@ export default {
                 && this.perfilAceito(['analise'])) {
                 if ((!_.isNull(this.dadosReadequacao.dsAvaliacao) && !_.isNull(this.dadosReadequacao.dtAvaliador))
                     || (!_.isNull(this.dadosReadequacao.dsOrientacao))
-                   ) {
+                ) {
                     return true;
                 }
             }
