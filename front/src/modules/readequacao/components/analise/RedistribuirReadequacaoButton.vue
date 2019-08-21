@@ -311,6 +311,7 @@ export default {
                 destinatario: this.dadosEncaminhamento.destinatario,
                 vinculada: this.dadosEncaminhamento.vinculada,
                 dsOrientacao: this.dsOrientacao,
+                stAtendimento: Const.ST_ATENDIMENTO_DEFERIDA,
             }).then(() => {
                 this.setSnackbar({
                     ativo: true,

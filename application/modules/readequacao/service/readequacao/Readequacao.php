@@ -1787,17 +1787,22 @@ class Readequacao implements IServicoRestZend
                 \Orgaos::ORGAO_SAV_CAP,
                 \Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI]
             )) {
-                $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
                 $dados = [
                     'idAvaliador' => $destinatario,
                     'DtEnvioAvaliador' => new \Zend_Db_Expr('GETDATE()'),
-                    'dsOrientacao' => $dsOrientaca,
+                    'dsOrientacao' => $dsOrientacao,
                     'idUnidade' => $idUnidade
                 ];
-                $where = [];
-                $where['idReadequacao = ?'] = $idReadequacao;
+                $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
+                $jaDistribuiu = $tbDistribuirReadequacao->buscar(['idReadequacao = ?' => $readequacao->idReadequacao])->current();
                 
-                $u = $tbDistribuirReadequacao->update($dados, $where);
+                if (empty($jaDistribuiu)) {
+                    $tbDistribuirReadequacao->inserir($dados);
+                } else {
+                    $where = [];
+                    $where['idReadequacao = ?'] = $idReadequacao;
+                    $u = $tbDistribuirReadequacao->update($dados, $where);
+                }
                 
                 $tbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
                 $dados = [
