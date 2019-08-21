@@ -1579,7 +1579,7 @@ class Readequacao implements IServicoRestZend
                     $a++;
                 }
             }
-        } else if (in_array($vinculada, $this->__getVinculadasExcetoIphan())) {
+        } else if (in_array($vinculada, $this->__getVinculadasExcetoIphan()) || $vinculada == \Orgaos::ORGAO_SUPERIOR_SAV) {
             $agentesModel = new \Agente_Model_DbTable_Agentes();
             $result = $agentesModel->buscarPareceristas($vinculada, $area, $segmento);
             
