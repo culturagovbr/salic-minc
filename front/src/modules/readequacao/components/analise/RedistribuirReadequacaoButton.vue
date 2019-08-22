@@ -271,6 +271,17 @@ export default {
         dialog: {
             handler() {
                 if (this.dialog === true && typeof this.dadosReadequacao.idPronac !== 'undefined') {
+                    this.checkDisponivelRedistribuir();
+                    if ([Const.ORGAO_SUPERIOR_SAV, Const.ORGAO_SAV_CAP].includes(parseInt(this.getUsuario.orgao_ativo, 10))) {
+                        this.orgaosDestino[5] = {
+                            id: 166,
+                            nome: 'SAV/CAP',
+                        };
+                        this.orgaosDestino.splice(5, 0, {
+                            id: 160,
+                            nome: 'SAV',
+                        });
+                    }
                     if (typeof this.vinculada === 'object') {
                         this.obterDestinatarios();
                     }
@@ -281,18 +292,6 @@ export default {
     },
     mounted() {
         this.loading = false;
-        this.checkDisponivelRedistribuir();
-        if ([Const.ORGAO_SUPERIOR_SAV, Const.ORGAO_SAV_CAP].includes(parseInt(this.getUsuario.orgao_ativo, 10))) {
-            this.orgaosDestino[5] = {
-                id: 166,
-                nome: 'SAV/CAP',
-            };
-            this.orgaosDestino.splice(5, 0, {
-                id: 160,
-                nome: 'SAV',
-            });
-        }
-        this.dadosEncaminhamento.vinculada = this.orgao;
     },
     methods: {
         ...mapActions({
@@ -302,14 +301,17 @@ export default {
             setSnackbar: 'noticias/setDados',
         }),
         checkDisponivelRedistribuir() {
-            if (this.orgaosObterDestinatarios.includes(this.dadosReadequacao.idOrgao)) {
-                if (this.getDestinatariosDistribuicao.length > 0) {
-                    this.selecionarDestinatario = true;
+            if (this.orgaosObterDestinatarios.includes(this.dadosEncaminhamento.vinculada)) {
+                if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
+                    && this.dsOrientacao.length > this.minChar) {
+                    this.encaminharDisponivel = true;
+                } else {
+                    if (this.getDestinatariosDistribuicao.length > 0
+                        && this.dsOrientacao.length > this.minChar) {
+                        this.selecionarDestinatario = true;
+                    }
+                    this.encaminharDisponivel = this.dadosEncaminhamento.destinatario !== '';
                 }
-                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario !== '';
-            } else if (typeof this.vinculada.id !== 'undefined') {
-                this.dadosEncaminhamento.vinculada = this.vinculada.id;
-                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0 && this.dsOrientacao.length > this.minChar;
             } else {
                 this.selecionarDestinatario = false;
                 this.encaminharDisponivel = this.dadosEncaminhamento.vinculada > 0 && this.dsOrientacao.length > this.minChar;
@@ -339,14 +341,6 @@ export default {
                 this.obterDestinatariosDistribuicao({
                     idPronac: this.dadosReadequacao.idPronac,
                     vinculada: this.dadosEncaminhamento.vinculada,
-                    area: this.dadosReadequacao.Area,
-                    segmento: this.dadosReadequacao.Segmento,
-                });
-            } else if (typeof this.vinculada.id !== 'undefined') {
-                this.loadingDestinatarios = true;
-                this.obterDestinatariosDistribuicao({
-                    idPronac: this.dadosReadequacao.idPronac,
-                    vinculada: this.vinculada.id,
                     area: this.dadosReadequacao.Area,
                     segmento: this.dadosReadequacao.Segmento,
                 });
