@@ -229,6 +229,11 @@ export default {
                     nome: 'SEFIC',
                 },
             ],
+            orgaosObterDestinatarios: [
+                Const.ORGAO_SUPERIOR_SAV,
+                Const.ORGAO_SAV_CAP,
+                Const.ORGAO_GEAAP_SUAPI_DIAAPI,
+            ],
         };
     },
     computed: {
@@ -237,7 +242,7 @@ export default {
             getDestinatariosDistribuicao: 'readequacao/getDestinatariosDistribuicao',
         }),
         orgao() {
-            return this.getUsuario.orgao_ativo;
+            return this.dadosReadequacao.idOrgao;
         },
         vinculada() {
             const orgaos = JSON.parse(JSON.stringify(this.orgaosDestino));
@@ -278,6 +283,13 @@ export default {
     mounted() {
         this.loading = false;
         this.checkDisponivelRedistribuir();
+
+        if (this.orgao === Const.ORGAO_SUPERIOR_SAV) {
+            this.orgaosDestino[5] = {
+                id: 160,
+                nome: 'SAV',
+            };
+        }
     },
     methods: {
         ...mapActions({
@@ -287,9 +299,7 @@ export default {
             setSnackbar: 'noticias/setDados',
         }),
         checkDisponivelRedistribuir() {
-            if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
-                || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI
-            ) {
+            if (this.orgaosObterDestinatarios.includes(this.dadosEncaminhamento.vinculada)) {
                 if (this.dsOrientacao !== '' && this.dsOrientacao.length > this.minChar) {
                     if (this.getDestinatariosDistribuicao.length > 0) {
                         this.selecionarDestinatario = true;
@@ -323,8 +333,11 @@ export default {
         },
         obterDestinatarios() {
             this.dadosEncaminhamento.destinatario = '';
-            if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI) {
+            if (this.orgaosObterDestinatarios.includes(this.dadosEncaminhamento.vinculada)) {
                 this.loadingDestinatarios = true;
+                if (this.orgao === Const.ORGAO_SUPERIOR_SAV) {
+                    this.dadosEncaminhamento.vinculada = this.orgao;
+                }
                 this.obterDestinatariosDistribuicao({
                     idPronac: this.dadosReadequacao.idPronac,
                     vinculada: this.dadosEncaminhamento.vinculada,

@@ -9,11 +9,13 @@ class Readequacao_RedistribuirReadequacaoController extends MinC_Controller_Rest
     {
         $profiles = [
             Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
+            Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
         ];
         
         $permissionsPerMethod  = [
             'post' => [
                 Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
+                Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
             ]
         ];
         $this->setProtectedMethodsProfilesPermission($permissionsPerMethod);
