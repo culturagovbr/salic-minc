@@ -408,6 +408,8 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
              'nmReceptor' => 'usuarios_a.usu_nome',
              'nmTecnicoParecerista' => 'usuarios_b.usu_nome',
              'idOrgao' => 'tbDistribuirReadequacao.idUnidade',
+             'Area' => 'projetos.Area',
+             'Segmento' => 'projetos.Segmento',
              'sgUnidade' => 'orgaos.Sigla',
              'idOrgaoOrigem' => 'projetos.Orgao',
              'dsSolicitacao' => new Zend_Db_Expr('CAST(tbReadequacao.dsSolicitacao AS TEXT)'),

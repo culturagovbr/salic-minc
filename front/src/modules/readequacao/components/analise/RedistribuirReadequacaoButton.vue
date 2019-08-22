@@ -82,7 +82,6 @@
                                         </v-card-text>
                                     </v-card>
                                     <v-select
-                                        v-if="!vinculada"
                                         v-model="dadosEncaminhamento.vinculada"
                                         :items="orgaosDestino"
                                         label="Orgão a encaminhar"
@@ -283,13 +282,17 @@ export default {
     mounted() {
         this.loading = false;
         this.checkDisponivelRedistribuir();
-
-        if (this.orgao === Const.ORGAO_SUPERIOR_SAV) {
+        if ([Const.ORGAO_SUPERIOR_SAV, Const.ORGAO_SAV_CAP].includes(parseInt(this.getUsuario.orgao_ativo, 10))) {
             this.orgaosDestino[5] = {
+                id: 166,
+                nome: 'SAV/CAP',
+            };
+            this.orgaosDestino.splice(5, 0, {
                 id: 160,
                 nome: 'SAV',
-            };
+            });
         }
+        this.dadosEncaminhamento.vinculada = this.orgao;
     },
     methods: {
         ...mapActions({
@@ -299,13 +302,11 @@ export default {
             setSnackbar: 'noticias/setDados',
         }),
         checkDisponivelRedistribuir() {
-            if (this.orgaosObterDestinatarios.includes(this.dadosEncaminhamento.vinculada)) {
-                if (this.dsOrientacao !== '' && this.dsOrientacao.length > this.minChar) {
-                    if (this.getDestinatariosDistribuicao.length > 0) {
-                        this.selecionarDestinatario = true;
-                    }
-                    this.encaminharDisponivel = this.dadosEncaminhamento.destinatario !== '';
+            if (this.orgaosObterDestinatarios.includes(this.dadosReadequacao.idOrgao)) {
+                if (this.getDestinatariosDistribuicao.length > 0) {
+                    this.selecionarDestinatario = true;
                 }
+                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario !== '';
             } else if (typeof this.vinculada.id !== 'undefined') {
                 this.dadosEncaminhamento.vinculada = this.vinculada.id;
                 this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0 && this.dsOrientacao.length > this.minChar;
@@ -335,9 +336,6 @@ export default {
             this.dadosEncaminhamento.destinatario = '';
             if (this.orgaosObterDestinatarios.includes(this.dadosEncaminhamento.vinculada)) {
                 this.loadingDestinatarios = true;
-                if (this.orgao === Const.ORGAO_SUPERIOR_SAV) {
-                    this.dadosEncaminhamento.vinculada = this.orgao;
-                }
                 this.obterDestinatariosDistribuicao({
                     idPronac: this.dadosReadequacao.idPronac,
                     vinculada: this.dadosEncaminhamento.vinculada,
@@ -360,3 +358,8 @@ export default {
     },
 };
 </script>
+<style>
+#app .v-menu__content {
+    min-width: 130px !important;
+}
+</style>

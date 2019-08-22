@@ -1655,7 +1655,6 @@ class Readequacao implements IServicoRestZend
         $readequacao = $tbReadequacaoModel->find(['idReadequacao = ?' => $idReadequacao])->current();
         $stValidacaoCoordenador = 0;
         $dataEnvio = null;
-        
         if ($readequacao) {
             if ($parametros['stAtendimento']) {
                 $readequacao->stAtendimento = $parametros['stAtendimento'];
@@ -1818,19 +1817,25 @@ class Readequacao implements IServicoRestZend
                 $dados = [
                     'idUnidade' => $idUnidade,
                     'DtEncaminhamento' => new \Zend_Db_Expr('GETDATE()'),
-                    'idAvaliador' => null,
+                    'idAvaliador' => $destinatario,
                     'DtEnvioAvaliador' => null,
                     'dsOrientacao' => $dsOrientacao
                 ];
                 $where = [];
                 $where['idReadequacao = ?'] = $idReadequacao;
-
+                
                 $tbDistribuirReadequacao->update($dados, $where);
 
                 $tbReadequacaoModel = new \Readequacao_Model_DbTable_TbReadequacao();
-                $dadosReadequacao = [
-                    'siEncaminhamento' => \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE
-                ];
+                if ($destinatario > 0) {
+                    $dadosReadequacao = [
+                        'siEncaminhamento' => \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA
+                    ];
+                } else {
+                    $dadosReadequacao = [
+                        'siEncaminhamento' => \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE
+                    ];
+                }
                 $u = $tbReadequacaoModel->update($dadosReadequacao, $where);
             }
         } catch (Exception $e) {
