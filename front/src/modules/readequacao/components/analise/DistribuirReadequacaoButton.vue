@@ -274,9 +274,23 @@ export default {
             }
             this.selecionarDestinatario = true;
         },
-    },
-    mounted() {
-        this.inicializarReadequacaoEditada();
+        dialog() {
+            if (this.dialog === false) {
+                this.dadosEncaminhamento = {
+                    vinculada: 0,
+                    destinatario: 0,
+                };
+                this.readequacaoEditada = {
+                    idPronac: 0,
+                    idReadequacao: 0,
+                    idTipoReadequacao: '',
+                    dsAvaliacao: '',
+                    stAtendimento: '',
+                };
+            } else {
+                this.inicializarReadequacaoEditada();
+            }
+        },
     },
     methods: {
         ...mapActions({
