@@ -9,7 +9,7 @@
                 color="light-green darken-1"
                 @click.stop="dialog = true"
             >
-                send
+                check
             </v-icon>
             <span>Finalizar ciclo de análise da Readequação</span>
         </v-tooltip>
