@@ -91,7 +91,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
 
         $auth = \Zend_Auth::getInstance();
         $dadosUsuarioLogado = $auth->getIdentity();
-        $orgaoSuperior = $dadosUsuarioLogado->usu_org_max_superior;
+        $orgaoSuperior = $dadosUsuarioLogado->orgao_ativo;
         $view->orgaoSuperior = $orgaoSuperior;
         
         if((int)$orgaoSuperior == (int)\Orgaos::ORGAO_SUPERIOR_SEFIC) {
@@ -107,7 +107,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
             $view->secretaria = $resultOrgao[0]['NomeOrgao'];
         }
         
-        $tbParecer = new \Parecer();
+        $tbParecer = new \Parecer_Model_DbTable_Parecer();
         $parecer = $tbParecer->buscar([
             'IdParecer = ?' => $this->idAtoDeGestao
         ])->current();

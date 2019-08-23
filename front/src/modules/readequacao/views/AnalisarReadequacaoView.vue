@@ -322,7 +322,6 @@ export default {
                 ParecerDeConteudo: '',
                 idParecer: '',
             },
-            finalizarDisponivel: false,
             retornoAssinatura: `origin=${encodeURIComponent('#/readequacao/painel')}`,
             urlAssinatura: '/assinatura/index/visualizar-projeto',
         };
@@ -339,6 +338,15 @@ export default {
         parecerFavoravelTexto() {
             const parecerFavoravelTexto = (parseInt(this.parecerReadequacao.ParecerFavoravel, 10) === 2) ? 'Sim' : 'Não';
             return parecerFavoravelTexto;
+        },
+        finalizarDisponivel() {
+            if (this.parecerReadequacao.idParecer !== '') {
+                if ((this.parecerReadequacao.ParecerDeConteudo.length >= this.minChar)
+                    && (this.parecerReadequacao.ParecerDeConteudo === this.dadosAvaliacaoReadequacao.ParecerDeConteudo)) {
+                    return true;
+                }
+            }
+            return false;
         },
     },
     watch: {
@@ -378,12 +386,6 @@ export default {
                         idParecer: this.dadosAvaliacaoReadequacao.idParecer,
                     };
                 }
-            },
-            deep: true,
-        },
-        parecerReadequacao: {
-            handler() {
-                this.checkFinalizar();
             },
             deep: true,
         },
@@ -461,19 +463,7 @@ export default {
             });
         },
         finalizar() {
-            if (this.parecerReadequacao.ParecerDeConteudo !== this.dadosAvaliacaoReadequacao.ParecerDeConteudo) {
-                this.salvarAvaliacaoReadequacao({
-                    idPronac: this.dadosReadequacao.idPronac,
-                    idReadequacao: this.dadosReadequacao.idReadequacao,
-                    idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
-                    ParecerFavoravel: this.parecerReadequacao.ParecerFavoravel,
-                    ParecerDeConteudo: this.parecerReadequacao.ParecerDeConteudo,
-                }).then(() => {
-                    this.executaFinalizarAnalise();
-                });
-            } else {
-                this.executaFinalizarAnalise();
-            }
+            this.executaFinalizarAnalise();
         },
         executaFinalizarAnalise() {
             this.finalizarAvaliacaoReadequacao({
@@ -489,15 +479,6 @@ export default {
         },
         fecharSnackbar() {
             this.setSnackbar({ ativo: false });
-        },
-        checkFinalizar() {
-            if (this.parecerReadequacao.idParecer !== '') {
-                if (this.parecerReadequacao.ParecerDeConteudo.length >= this.minChar) {
-                    this.finalizarDisponivel = true;
-                } else {
-                    this.finalizarDisponivel = false;
-                }
-            }
         },
         validateText(e) {
             this.textIsValid = e >= this.minChar;
