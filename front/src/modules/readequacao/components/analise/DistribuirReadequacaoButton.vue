@@ -288,6 +288,16 @@ export default {
                     stAtendimento: '',
                 };
             } else {
+                if ([Const.ORGAO_SUPERIOR_SAV, Const.ORGAO_SAV_CAP].includes(parseInt(this.getUsuario.orgao_ativo, 10))) {
+                    this.orgaosDestino[5] = {
+                        id: 166,
+                        nome: 'SAV/CAP',
+                    };
+                    this.orgaosDestino.splice(5, 0, {
+                        id: 160,
+                        nome: 'SAV',
+                    });
+                }
                 this.inicializarReadequacaoEditada();
             }
         },
