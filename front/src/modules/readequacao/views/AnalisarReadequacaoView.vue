@@ -318,7 +318,7 @@ export default {
             ],
             currentStep: 1,
             parecerReadequacao: {
-                ParecerFavoravel: 0,
+                ParecerFavoravel: 2,
                 ParecerDeConteudo: '',
                 idParecer: '',
             },
