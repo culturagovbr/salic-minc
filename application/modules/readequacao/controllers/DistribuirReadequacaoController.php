@@ -43,12 +43,20 @@ class Readequacao_DistribuirReadequacaoController extends MinC_Controller_Rest_A
             $data['message'] = 'Você não tem permissão para distribuir esta readequação.';
             $this->customRenderJsonResponse($data, $code);
         } else {
-            $distribuir = $readequacaoService->distribuirReadequacao();
-            if ($distribuir) {
-                $data['message'] = "Readequação encaminhada para técnico.";
+            try {
+                $distribuir = $readequacaoService->distribuirReadequacao();
+                if ($distribuir) {
+                    $data['message'] = "Readequação encaminhada para técnico.";
+                }
+            } catch (\Exception $objException) {
+                $this->customRenderJsonResponse([
+                    'error' => [
+                        'code' => 412,
+                        'message' => $objException->getMessage()
+                    ]
+                ], 412);
             }
         }
-        
         $this->renderJsonResponse($data, $code);
     }
 

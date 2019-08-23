@@ -1692,7 +1692,11 @@ class Readequacao implements IServicoRestZend
                      $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
                 }
             }
-            $readequacao->save();
+            $update = $readequacao->save();
+            if (!$update) {
+                $errorMessage = "Erro ao distribuir a readequação: ao alterar readequação";
+                throw new \Exception($errorMessage);
+            }
             if ($parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEFERIDA
                 || $parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_SEM_AVALIACAO 
             ) {
@@ -1710,7 +1714,11 @@ class Readequacao implements IServicoRestZend
                         'dsOrientacao' => $readequacao->dsAvaliacao
                     ];
 
-                    $tbDistribuirReadequacao->inserir($dados);
+                    $inserir = $tbDistribuirReadequacao->inserir($dados);
+                    if (!$inserir) {
+                        $errorMessage = "Erro ao distribuir a readequação: ao inserir distribuição!";
+                        throw new \Exception($errorMessage);
+                    }
                 } else {
                     $dados = [
                         'idUnidade' => $parametros['vinculada'],
@@ -1722,7 +1730,11 @@ class Readequacao implements IServicoRestZend
                     ];
                     $where = [];
                     $where['idReadequacao = ?'] = $readequacao->idReadequacao;
-                    $tbDistribuirReadequacao->update($dados, $where);
+                    $update = $tbDistribuirReadequacao->update($dados, $where);
+                    if (!$update) {
+                        $errorMessage = "Erro ao distribuir a readequação: ao atualizar distribuição!";
+                        throw new \Exception($errorMessage);
+                    }
                 }
             } else if ($parametros['stAtendimento'] == \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEVOLVIDA) {
                 $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
