@@ -243,6 +243,9 @@ export default {
         orgao() {
             return this.dadosReadequacao.idOrgao;
         },
+        orgaoAtual() {
+            return this.getUsuario.orgao_ativo;
+        },
         vinculada() {
             const orgaos = JSON.parse(JSON.stringify(this.orgaosDestino));
             const vinculada = orgaos.find(orgao => orgao.id === parseInt(this.orgao, 10));
@@ -301,15 +304,13 @@ export default {
             setSnackbar: 'noticias/setDados',
         }),
         checkDisponivelRedistribuir() {
-            if (this.orgaosObterDestinatarios.includes(this.dadosEncaminhamento.vinculada)) {
+            if (this.orgaosObterDestinatarios.includes(this.dadosEncaminhamento.vinculada)
+                || (this.dadosEncaminhamento.vinculada === this.orgaoAtual)) {
                 if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
                     && this.dsOrientacao.length > this.minChar) {
                     this.encaminharDisponivel = true;
                 } else {
-                    if (this.getDestinatariosDistribuicao.length > 0
-                        && this.dsOrientacao.length > this.minChar) {
-                        this.selecionarDestinatario = true;
-                    }
+                    this.selecionarDestinatario = true;
                     this.encaminharDisponivel = this.dadosEncaminhamento.destinatario !== '';
                 }
             } else {
@@ -336,7 +337,8 @@ export default {
         },
         obterDestinatarios() {
             this.dadosEncaminhamento.destinatario = '';
-            if (this.orgaosObterDestinatarios.includes(this.dadosEncaminhamento.vinculada)) {
+            if (this.orgaosObterDestinatarios.includes(this.dadosEncaminhamento.vinculada)
+                || (this.dadosEncaminhamento.vinculada === this.orgaoAtual)) {
                 this.loadingDestinatarios = true;
                 this.obterDestinatariosDistribuicao({
                     idPronac: this.dadosReadequacao.idPronac,
