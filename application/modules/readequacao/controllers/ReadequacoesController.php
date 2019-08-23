@@ -3176,8 +3176,10 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             $this->view->Produtos = $PlanoDistribuicaoProduto->comboProdutosParaInclusaoReadequacao($idPronac);
 
             $spSelecionarEtapa = new spSelecionarEtapa();
-            $this->view->Etapas = $spSelecionarEtapa->exec($idPronac);
-
+            $etapas = $spSelecionarEtapa->exec($idPronac);
+            $etapas = array_slice($etapas, 0, 5);
+            $this->view->Etapas = $etapas;
+            
             $TbPlanilhaUnidade = new Proposta_Model_DbTable_TbPlanilhaUnidade();
             $buscarUnidade = $TbPlanilhaUnidade->buscarUnidade();
             $this->view->Unidade = $buscarUnidade;
