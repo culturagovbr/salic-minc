@@ -15,20 +15,26 @@
             >send</v-icon>
         </v-btn>
         <div v-else>
-            <v-btn
-                :disabled="!validacao"
-                dark
-                icon
-                flat
-                small
-                color="green darken-3"
-                @click.stop="dialog = true"
+            <div v-if="dadosReadequacao.isDisponivelFinalizar === true">
+                <v-btn
+                    dark
+                    icon
+                    flat
+                    small
+                    color="green darken-3"
+                    @click.stop="dialog = true"
+                >
+                    <v-tooltip bottom>
+                        <v-icon slot="activator">send</v-icon>
+                        <span>Finalizar Readequação</span>
+                    </v-tooltip>
+                </v-btn>
+            </div>
+            <div
+                v-else
+                style="width: 44px"
             >
-                <v-tooltip bottom>
-                    <v-icon slot="activator">send</v-icon>
-                    <span>Finalizar Readequação</span>
-                </v-tooltip>
-            </v-btn>
+            </div>
         </div>
         <v-dialog
             v-model="dialog"
@@ -91,6 +97,10 @@ export default {
             type: Object,
             default: () => {},
         },
+        dadosReadequacao: {
+            type: Object,
+            default: () => {},
+        },
         telaEdicao: {
             type: Boolean,
             default: false,
@@ -125,14 +135,14 @@ export default {
     computed: {
         ...mapGetters({
             campoAtual: 'readequacao/getCampoAtual',
-            dadosReadequacao: 'readequacao/getReadequacao',
+            getReadequacao: 'readequacao/getReadequacao',
         }),
         perfilAceito() {
             return this.verificarPerfil(this.perfil, this.perfisAceitos);
         },
     },
     watch: {
-        dadosReadequacao: {
+        getReadequacao: {
             handler() {
                 this.validar();
             },
@@ -153,38 +163,39 @@ export default {
             updateReadequacao: 'readequacao/updateReadequacao',
             finalizarReadequacaoPainel: 'readequacao/finalizarReadequacaoPainel',
             finalizarReadequacaoPlanilha: 'readequacao/finalizarReadequacaoPlanilha',
+            setSnackbar: 'noticias/setDados',
         }),
         validar() {
             if (typeof this.minChar === 'object') {
                 if (typeof this.minChar.solicitacao === 'number') {
-                    if (typeof this.dadosReadequacao.dsSolicitacao !== 'undefined'
-                        && typeof this.dadosReadequacao.dsJustificativa !== 'undefined') {
-                        let solicitacao = this.dadosReadequacao.dsSolicitacao.length;
-                        if (parseInt(this.dadosReadequacao.dsSolicitacao, 10) === 0) {
+                    if (typeof this.getReadequacao.dsSolicitacao !== 'undefined'
+                        && typeof this.getReadequacao.dsJustificativa !== 'undefined') {
+                        let solicitacao = this.getReadequacao.dsSolicitacao.length;
+                        if (parseInt(this.getReadequacao.dsSolicitacao, 10) === 0) {
                             solicitacao = 0;
                         }
                         const contador = {
                             solicitacao,
-                            justificativa: this.dadosReadequacao.dsJustificativa.length,
+                            justificativa: this.getReadequacao.dsJustificativa.length,
                         };
-                        if (this.dadosReadequacao.idTipoReadequacao === Const.TIPO_READEQUACAO_PERIODO_EXECUCAO) {
-                            const key = `key_${this.dadosReadequacao.idTipoReadequacao}`;
+                        if (this.getReadequacao.idTipoReadequacao === Const.TIPO_READEQUACAO_PERIODO_EXECUCAO) {
+                            const key = `key_${this.getReadequacao.idTipoReadequacao}`;
                             if (typeof this.campoAtual[key] === 'undefined') {
                                 this.obterCampoAtual({
-                                    idPronac: this.dadosReadequacao.idPronac,
-                                    idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
+                                    idPronac: this.getReadequacao.idPronac,
+                                    idTipoReadequacao: this.getReadequacao.idTipoReadequacao,
                                 }).then(() => {
                                     this.validacao = this.validarFormulario(
-                                        this.dadosReadequacao,
+                                        this.getReadequacao,
                                         contador,
                                         this.minChar,
-                                        this.campoAtual[`key_${this.dadosReadequacao.idTipoReadequacao}`].dsCampo,
+                                        this.campoAtual[`key_${this.getReadequacao.idTipoReadequacao}`].dsCampo,
                                     );
                                 });
                             }
                         } else {
                             this.validacao = this.validarFormulario(
-                                this.dadosReadequacao,
+                                this.getReadequacao,
                                 contador,
                                 this.minChar,
                             );
@@ -201,7 +212,11 @@ export default {
                     idPronac: this.dadosReadequacao.idPronac,
                 })
                     .then(() => {
-                        this.$emit('readequacao-finalizada');
+                        this.setSnackbar({
+                            ativo: true,
+                            color: 'success',
+                            text: 'Readequação finalizada!',
+                        });
                         this.dialog = false;
                     });
                 break;
@@ -211,7 +226,11 @@ export default {
                     idPronac: this.dadosReadequacao.idPronac,
                 })
                     .then(() => {
-                        this.$emit('readequacao-finalizada');
+                        this.setSnackbar({
+                            ativo: true,
+                            color: 'success',
+                            text: 'Readequação finalizada!',
+                        });
                         this.dialog = false;
                     });
                 break;
@@ -219,8 +238,8 @@ export default {
         },
         finalizar() {
             if (typeof this.readequacaoEditada !== 'undefined') {
-                if ((this.readequacaoEditada.dsJustificativa !== this.dadosReadequacao.dsJustificativa)
-                    || (this.readequacaoEditada.dsSolicitacao !== this.dadosReadequacao.dsSolicitacao)) {
+                if ((this.readequacaoEditada.dsJustificativa !== this.getReadequacao.dsJustificativa)
+                    || (this.readequacaoEditada.dsSolicitacao !== this.getReadequacao.dsSolicitacao)) {
                     this.updateReadequacao(this.readequacaoEditada)
                         .then(() => {
                             this.executaFinalizar();

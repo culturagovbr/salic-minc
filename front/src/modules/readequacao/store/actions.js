@@ -147,6 +147,10 @@ export const updateReadequacao = async ({ commit, dispatch }, params) => {
                 response.data.data.items.message,
                 { root: true },
             );
+            dispatch('obterListaDeReadequacoes', {
+                idPronac: params.idPronac,
+                stStatusAtual: 'proponente',
+            });
         })
         .catch((e) => {
             dispatch(

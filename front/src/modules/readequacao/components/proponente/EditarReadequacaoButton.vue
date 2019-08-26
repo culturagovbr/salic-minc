@@ -157,6 +157,7 @@
                                     <finalizar-button
                                         :disabled="!validacao"
                                         :dados-projeto="dadosProjeto"
+                                        :dados-readequacao="readequacaoEditada"
                                         :tela-edicao="true"
                                         :readequacao-editada="readequacaoEditada"
                                         dark

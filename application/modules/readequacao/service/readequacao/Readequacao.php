@@ -67,6 +67,42 @@ class Readequacao implements IServicoRestZend
         return $readequacao;
     }
 
+    private function __disponivelFinalizarSolicitacao($dadosReadequacao)
+    {
+        $minChar = [
+            'solicitacao' => 3,
+            'justificativa' => 10,
+        ];
+        
+        $valido = [
+            'solicitacao' => false,
+            'justificativa' => false,
+        ];
+        
+        if (strlen($dadosReadequacao['dsJustificativa']) > $minChar['justificativa']) {
+            $valido['justificativa'] = true;
+        }
+        
+        if ((int) $dadosReadequacao['idTipoReadequacao'] === \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PERIODO_EXECUCAO) {
+            $campoAtual = $this->buscarCampoAtual($dadosReadequacao['idPronac'], $dadosReadequacao['idTipoReadequacao']);
+            
+            if (preg_match('/\//', $campoAtual[0]['dsCampo'])) {
+                $dataOriginal = preg_replace('/\//', '-', $campoAtual[0]['dsCampo']);
+            }
+            if (preg_match('/\//', $dadosReadequacao['dsSolicitacao'])) {
+                $dataReadequada = preg_replace('/\//', '-', $dadosReadequacao['dsSolicitacao']);
+            }
+            if (strtotime($dataReadequada) > strtotime($dataOriginal)) {
+                return true;
+            }
+        } else {
+            if (strlen($dadosReadequacao['dsSolicitacao']) > $minChar['solicitacao']) {
+                $valido['solicitacao'] = true;
+            }
+        }
+        return $valido['solicitacao'] && $valido['justificativa'];
+    }
+    
     public function buscarReadequacoes($idPronac, $idTipoReadequacao = '', $stStatusAtual = '')
     {
         $modelTbReadequacao = new \Readequacao_Model_DbTable_TbReadequacao();
@@ -106,6 +142,7 @@ class Readequacao implements IServicoRestZend
         $resultArray = [];
         if (!empty($result)) {
             foreach($result as $item) {
+                $item['isDisponivelFinalizar'] = $this->__disponivelFinalizarSolicitacao($item);
                 $item['dsTipoReadequacao'] = utf8_encode($item['dsTipoReadequacao']);
                 $item['dsSolicitacao'] = utf8_encode($item['dsSolicitacao']);
                 $item['dsJustificativa'] = utf8_encode($item['dsJustificativa']);
