@@ -33,8 +33,7 @@
             <div
                 v-else
                 style="width: 44px"
-            >
-            </div>
+            />
         </div>
         <v-dialog
             v-model="dialog"

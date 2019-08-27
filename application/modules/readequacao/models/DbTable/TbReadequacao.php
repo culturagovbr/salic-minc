@@ -432,7 +432,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
              'idOrgao' => 'tbDistribuirReadequacao.idUnidade',
              'Area' => 'projetos.Area',
              'Segmento' => 'projetos.Segmento',
-             'sgUnidade' => 'orgaos.Sigla',
+             'sgUnidade' => new Zend_Db_Expr('tabelas.dbo.fnEstruturaOrgao(projetos.Orgao, 0)'),
              'idOrgaoOrigem' => 'projetos.Orgao',
              'dsSolicitacao' => new Zend_Db_Expr('CAST(tbReadequacao.dsSolicitacao AS TEXT)'),
              'dsJustificativa' => new Zend_Db_Expr('CAST(tbReadequacao.dsJustificativa AS TEXT)'),
@@ -641,7 +641,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             }
             $select->limit($tamanho, $tmpInicio);
         }
-
+        
         $stmt = $db->query($select);
 
         while ($o = $stmt->fetchObject()) {

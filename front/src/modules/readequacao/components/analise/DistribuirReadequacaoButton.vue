@@ -240,6 +240,7 @@ export default {
     },
     computed: {
         ...mapGetters({
+            dadosUsuario: 'autenticacao/getUsuario',
             getDestinatariosDistribuicao: 'readequacao/getDestinatariosDistribuicao',
         }),
     },
@@ -288,7 +289,7 @@ export default {
                     stAtendimento: '',
                 };
             } else {
-                if ([Const.ORGAO_SUPERIOR_SAV, Const.ORGAO_SAV_CAP].includes(parseInt(this.getUsuario.orgao_ativo, 10))) {
+                if ([Const.ORGAO_SUPERIOR_SAV, Const.ORGAO_SAV_CAP].includes(parseInt(this.dadosUsuario.orgao_ativo, 10))) {
                     this.orgaosDestino[5] = {
                         id: 166,
                         nome: 'SAV/CAP',
