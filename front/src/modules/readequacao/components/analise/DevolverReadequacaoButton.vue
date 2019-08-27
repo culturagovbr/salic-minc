@@ -295,7 +295,7 @@ export default {
             if (this.dadosEncaminhamento.destinatario === '') {
                 this.dadosEncaminhamento.destinatario = (
                     typeof this.dadosReadequacao.idTecnico !== 'undefined'
-                ) ? this.dadosReadequacao.idTecnico : '';
+                ) ? this.dadosReadequacao.idTecnico : this.dadosReadequacao.idTecnicoParecerista;
             }
             this.devolverReadequacao({
                 idPronac: this.dadosReadequacao.idPronac,
