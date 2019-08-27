@@ -612,9 +612,6 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             case 'painel_aguardando_distribuicao':
                 $select = $this->vwPainelCoordenadorReadequacaoAguardandoAnalise();
                 break;
-            case 'aguardando_distribuicao':
-                $select = $this->selectView('vwPainelCoordenadorReadequacaoAguardandoAnalise');
-                break;
             case 'em_analise':
                 $select = $this->vwPainelCoordenadorReadequacaoEmAnalise();
                 break;
@@ -1496,36 +1493,6 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
             xd($objException->getMessage());
             throw new Exception($objException->getMessage(), 0, $objException);
         }
-    }
-
-    /**
-     * painelReadequacoesCoordenadorAcompanhamentoCount
-     *
-     * @param bool $where
-     * @param bool $filtro
-     * @access public
-     * @return int
-     */
-    public function painelReadequacoesCoordenadorAcompanhamentoCount($where = array(), $filtro = null)
-    {
-        $total = null;
-
-        switch ($filtro) {
-            case 'aguardando_distribuicao':
-                $total = $this->count('vwPainelCoordenadorReadequacaoAguardandoAnalise', $where);
-                break;
-            case 'em_analise':
-                $total = $this->count('vwPainelCoordenadorReadequacaoEmAnalise', $where);
-                break;
-            case 'analisados':
-                $total = $this->count($this->painelCoordenadorReadequacaoAnalisadosQuery(), $where);
-                break;
-            case 'aguardando_publicacao':
-                $total = $this->count('vwPainelReadequacaoAguardandoPublicacao', $where);
-                break;
-        }
-
-        return $total;
     }
 
     public function buscarReadequacaoCoordenadorParecerEmAnalise($where = array(), $order = array(), $tamanho = -1, $inicio = -1)
