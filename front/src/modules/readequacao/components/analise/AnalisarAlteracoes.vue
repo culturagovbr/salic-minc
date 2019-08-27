@@ -70,7 +70,7 @@ export default {
                 planilha: '/readequacao/readequacoes/form-avaliar-readequacao?id=',
                 saldo_aplicacao: '/readequacao/readequacoes/form-avaliar-readequacao?id=',
                 plano_distribuicao: '/readequacao/readequacoes/form-avaliar-readequacao?id=',
-                transferencia_recursos: '/readequacoes/form-avaliar-readequacao?id=',
+                transferencia_recursos: '/readequacao/readequacoes/form-avaliar-readequacao?id=',
             },
         };
     },
