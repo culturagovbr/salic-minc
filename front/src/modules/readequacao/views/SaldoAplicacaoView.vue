@@ -312,6 +312,7 @@
                                         <div class="text-xs-right">
                                             <finalizar-button
                                                 :readequacao-editada="readequacaoEditada"
+                                                :dados-readequacao="readequacaoEditada"
                                                 :dados-projeto="dadosProjeto"
                                                 :tela-edicao="true"
                                                 :perfis-aceitos="getPerfis('proponente')"
@@ -645,7 +646,8 @@ export default {
             }
         },
         readequacaoFinalizada() {
-            this.voltar();
+            const routePath = '/index/index/#/readequacao/painel';
+            this.$router.push({ path: routePath });
         },
     },
 };
