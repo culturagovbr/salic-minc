@@ -189,6 +189,8 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
              'dtAvaliador' => 'tbReadequacao.dtAvaliador',
              'nmTecnicoParecerista' => new Zend_Db_Expr("
        CASE
+         WHEN tbReadequacao.siEncaminhamento = 5
+           THEN 'Assinatura do Coordenador (parecer de ' + usuarios.usu_nome + ')'
          WHEN tbReadequacao.siEncaminhamento = 10
            THEN 'Assinatura do Coordenador (parecer de ' + usuarios.usu_nome + ')'
 	     WHEN tbReadequacao.siEncaminhamento = 17
@@ -309,6 +311,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                 $listaSiEncaminhamento = [
                     Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_DEVOLVIDA_AO_MINC,
                     Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_DEVOLVIDA_COORDENADOR_TECNICO,
+                    Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_DEVOLVIDO_ANALISE_TECNICA,
                     Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_DEVOLVIDA_CNIC_AO_COORDENADOR,
                     Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_COORDENADOR_GERAL,
                     Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_DIRETOR,
@@ -498,7 +501,6 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                        [
                            Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE,
                            Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA,
-                           Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_DEVOLVIDO_ANALISE_TECNICA,
                            Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_CNIC,
                            Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_PLENARIA,
                            Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENCAMINHADA_UNIDADE_ANALISE_CNIC,
