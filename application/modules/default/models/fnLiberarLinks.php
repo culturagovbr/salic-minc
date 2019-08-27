@@ -341,7 +341,7 @@ class fnLiberarLinks extends MinC_Db_Table_Abstract
                 $Readequacao_50 = 0;
             }
 
-            $situacoesBloquear = ['E17', 'E24', 'E30'];
+            $situacoesBloquear = ['E17', 'E24', 'E30', 'E62', 'E77', 'E91', 'E92'];
             // caso projeto tenha diligencia de prestacao de contas não mostrar menu readequacão
             if (in_array($dadosProjeto->Situacao, $situacoesBloquear)) {
                 $Readequacao = 0;
