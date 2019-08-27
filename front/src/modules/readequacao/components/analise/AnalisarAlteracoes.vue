@@ -45,6 +45,7 @@ import Carregando from '@/components/CarregandoVuetify';
 import MxReadequacao from '../../mixins/Readequacao';
 import ComparacaoTextual from './ComparacaoTextual';
 import ComparacaoPlanilha from './ComparacaoPlanilha';
+import ComparacaoSaldo from './ComparacaoSaldo';
 
 export default {
     name: 'AnalisarAlteracoes',
@@ -52,6 +53,7 @@ export default {
         Carregando,
         ComparacaoTextual,
         ComparacaoPlanilha,
+        ComparacaoSaldo,
     },
     mixins: [
         MxReadequacao,
@@ -64,11 +66,11 @@ export default {
                 input: 'ComparacaoTextual',
                 date: 'ComparacaoTextual',
                 planilha: 'ComparacaoPlanilha',
+                saldo_aplicacao: 'ComparacaoSaldo',
             },
             tiposComponentesRedirect: {
                 local_realizacao: '/readequacao/readequacoes/form-avaliar-readequacao?id=',
                 planilha: '/readequacao/readequacoes/form-avaliar-readequacao?id=',
-                saldo_aplicacao: '/readequacao/readequacoes/form-avaliar-readequacao?id=',
                 plano_distribuicao: '/readequacao/readequacoes/form-avaliar-readequacao?id=',
                 transferencia_recursos: '/readequacao/readequacoes/form-avaliar-readequacao?id=',
             },
