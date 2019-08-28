@@ -18,10 +18,10 @@ class Readequacao_Model_DbTable_TbTipoReadequacao extends MinC_Db_Table_Abstract
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-            array('a' => $this->_name),
-            array(
+            ['a' => $this->_name],
+            [
                 new Zend_Db_Expr("idTipoReadequacao, dsReadequacao"),
-            )
+            ]
         );
 
         $select->where('siReadequacao = ?', 0);
@@ -31,7 +31,7 @@ class Readequacao_Model_DbTable_TbTipoReadequacao extends MinC_Db_Table_Abstract
             SELECT idTipoReadequacao FROM SAC.dbo.tbReadequacao WHERE idPronac = $idPronac 
             AND stEstado = " . Readequacao_Model_DbTable_TbReadequacao::ST_ESTADO_EM_ANDAMENTO . ")"));
 
-        $select->order($order);
+        $select->order(['dsReadequacao ASC']);
         
         return $this->fetchAll($select);
     }

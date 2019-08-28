@@ -2,19 +2,28 @@ import Vue from 'vue';
 import * as types from './types';
 
 export const state = {
+    avaliacaoReadequacao: {},
+    campoAtual: {},
+    documentoAssinaturaReadequacoes: {},
+    linkAssinatura: {},
     readequacoesProponente: {},
     readequacoesAnalise: {},
     readequacoesFinalizadas: {},
+    readequacoesPainelTecnico: {},
+    readequacoesPainelAguardandoDistribuicao: {},
+    readequacoesPainelEmAnalise: {},
+    readequacoesPainelAnalisados: {},
+    readequacoesPainelAguardandoPublicacao: {},
     readequacao: {},
     saldoAplicacao: {},
     saldoAplicacaoDisponivelEdicaoItem: {},
-    campoAtual: {},
     tiposDisponiveis: [],
     planilha: {},
     planilhaAtiva: {},
     unidadesPlanilha: {},
     itemPlanilhaEdicao: {},
     resumoPlanilha: {},
+    destinatariosDistribuicao: {},
 };
 
 export const mutations = {
@@ -26,6 +35,36 @@ export const mutations = {
     },
     [types.GET_READEQUACOES_FINALIZADAS](state, readequacoes) {
         state.readequacoesFinalizadas = readequacoes;
+    },
+    [types.SET_READEQUACOES_PAINEL_TECNICO](state, data) {
+        state.readequacoesPainelTecnico = data;
+    },
+    [types.GET_READEQUACOES_PAINEL_TECNICO](state, data) {
+        state.readequacoesPainelTecnico = data;
+    },
+    [types.SET_READEQUACOES_PAINEL_AGUARDANDO_DISTRIBUICAO](state, data) {
+        state.readequacoesPainelAguardandoDistribuicao = data;
+    },
+    [types.GET_READEQUACOES_PAINEL_AGUARDANDO_DISTRIBUICAO](state, data) {
+        state.readequacoesPainelAguardandoDistribuicao = data;
+    },
+    [types.SET_READEQUACOES_PAINEL_EM_ANALISE](state, data) {
+        state.readequacoesPainelEmAnalise = data;
+    },
+    [types.GET_READEQUACOES_PAINEL_EM_ANALISE](state, data) {
+        state.readequacoesPainelEmAnalise = data;
+    },
+    [types.SET_READEQUACOES_PAINEL_ANALISADOS](state, data) {
+        state.readequacoesPainelAnalisados = data;
+    },
+    [types.GET_READEQUACOES_PAINEL_ANALISADOS](state, data) {
+        state.readequacoesPainelAnalisados = data;
+    },
+    [types.SET_READEQUACOES_PAINEL_AGUARDANDO_PUBLICACAO](state, data) {
+        state.readequacoesPainelAguardandoPublicacao = data;
+    },
+    [types.GET_READEQUACOES_PAINEL_AGUARDANDO_PUBLICACAO](state, data) {
+        state.readequacoesPainelAguardandoPublicacao = data;
     },
     [types.SET_READEQUACAO](state, readequacao) {
         state.readequacao = readequacao;
@@ -95,10 +134,34 @@ export const mutations = {
     [types.SET_READEQUACOES_PROPONENTE](state, novaReadequacao) {
         state.readequacoesProponente.items.unshift(novaReadequacao);
     },
+    [types.GET_AVALIACAO_READEQUACAO](state, data) {
+        state.avaliacaoReadequacao = data;
+    },
+    [types.SET_AVALIACAO_READEQUACAO](state, data) {
+        state.avaliacaoReadequacao = data;
+    },
+    [types.SET_DOCUMENTO_ASSINATURA](state, data) {
+        state.documentoAssinatura = data;
+    },
+    [types.GET_DOCUMENTO_ASSINATURA](state, data) {
+        state.documentoAssinatura = data;
+    },
+    [types.SET_DOCUMENTO_ASSINATURA_READEQUACOES](state, data) {
+        state.documentoAssinatura = data;
+    },
+    [types.GET_DOCUMENTO_ASSINATURA_READEQUACOES](state, data) {
+        state.documentoAssinatura = data;
+    },
     [types.SET_RESUMO_PLANILHA](state, data) {
         state.resumoPlanilha = data;
     },
     [types.GET_RESUMO_PLANILHA](state, data) {
         state.resumoPlanilha = data;
+    },
+    [types.SET_DESTINATARIOS_DISTRIBUICAO](state, data) {
+        state.destinatariosDistribuicao = data;
+    },
+    [types.GET_DESTINATARIOS_DISTRIBUICAO](state, data) {
+        state.destinatariosDistribuicao = data;
     },
 };
