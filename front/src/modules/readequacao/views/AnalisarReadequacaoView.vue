@@ -102,6 +102,7 @@
                                         <v-switch
                                             v-model="parecerReadequacao.ParecerFavoravel"
                                             :label="`Parecer Favorável?: ${parecerFavoravelTexto}`"
+                                            value="'2'"
                                             false-value="1"
                                             true-value="2"
                                             color="green"
@@ -318,7 +319,7 @@ export default {
             ],
             currentStep: 1,
             parecerReadequacao: {
-                ParecerFavoravel: 2,
+                ParecerFavoravel: '2',
                 ParecerDeConteudo: '',
                 idParecer: '',
             },
