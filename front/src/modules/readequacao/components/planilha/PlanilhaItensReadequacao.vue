@@ -157,7 +157,6 @@
             </template>
         </v-data-table>
         <s-planilha-dialog-dados-mediana
-            v-if="Object.keys(mediana).length > 0"
             v-model="modalMediana"
         />
     </div>
@@ -269,8 +268,7 @@ export default {
         },
         exibirMediana(item) {
             const idEtapasNaoExibir = [8, 10];
-            if (!idEtapasNaoExibir.includes(item.idEtapa)
-                && Object.keys(this.mediana).length > 0) {
+            if (!idEtapasNaoExibir.includes(item.idEtapa)) {
                 return true;
             }
             return false;
