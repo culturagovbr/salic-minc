@@ -21,7 +21,8 @@ export default {
             return JSON.stringify(planilhaEdicao) !== JSON.stringify(planilhaAtiva);
         },
         isItemDisponivelEdicao(item) {
-            if (item.vlComprovado < item.vlAprovado) {
+            const tiposCustosVinculados = [5249, 8197, 8198];
+            if (!tiposCustosVinculados.includes(item.idPlanilhaItem) && item.vlComprovado < item.vlAprovado) {
                 return true;
             }
             return false;

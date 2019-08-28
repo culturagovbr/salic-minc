@@ -439,6 +439,81 @@ HOST: http://localhost:4000
                 "mensagem": "Readequação removida com sucesso!"
             }
 
+
+
+## Painel de readequações -  [/readequacao/painel]
+
+### Filtro por pronac [GET]
+
++ Parameters
+    + pronac (string, required)
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+                "data": {
+                    "code": 200,
+                    "items": [
+                        {
+                            "idPronac": 217336,
+                            "idReadequacao": 15123,
+                            "PRONAC": "160338",
+                            "NomeProjeto": "Baile perfumado",
+                            "tpReadequacao": "Planilha orçamentária",
+                            "dtDistribuicao": "2019-01-22",
+                            "qtDiasAvaliacao" "14",
+                            "idTecnicoParecerista": 255,
+                            "idOrgao": 262,
+                            "idTipoReadequacao": 2,
+                            "dsTipoReadequacao": "Planilha orçamentária",
+                            "dtSolicitacao": "2019-01-22",
+                            "idSolicitante": 267,
+                            "dsNomeSolicitante": "Leôncio das Neves",
+                            "dsSolicitacao": "Solicito alteração na planilha.",
+                            "dsJustificativa": "É necessário",
+                            "idDocumento": 19440,
+                            "idAvaliador": 335,
+                            "dsNomeAvaliador": "Ciclano avaliador",
+                            "dtAvaliador": "2019-02-03",
+                            "dsAvaliacao": "Avalio que está bom.",
+                            "stAtendimento": "N",
+                            "siEncaminhamento": 15,
+                            "idNrReuniao": 45654,
+                            "stEstado": 1,
+                            "dtEnvio": "2019-01-23"
+                        },
+                        {
+                            "idPronac": 217331,
+                            "idReadequacao": 15523,
+                            "PRONAC": "160338",
+                            "NomeProjeto": "Miscelânia e tal",
+                            "tpReadequacao": "Objetivos",
+                            "dtDistribuicao": "2019-01-22",
+                            "qtDiasAvaliacao" "14",
+                            "idTecnicoParecerista": 255,
+                            "idOrgao": 262,
+                            "idTipoReadequacao": 2,
+                            "dsTipoReadequacao": "Planilha orçamentária",
+                            "dtSolicitacao": "2019-01-22",
+                            "idSolicitante": 267,
+                            "dsNomeSolicitante": "Leôncio das Neves",
+                            "dsSolicitacao": "Solicito alteração na planilha.",
+                            "dsJustificativa": "É necessário",
+                            "idDocumento": 19440,
+                            "idAvaliador": 335,
+                            "dsNomeAvaliador": "Ciclano avaliador",
+                            "dtAvaliador": "2019-02-03",
+                            "dsAvaliacao": "Avalio que está bom.",
+                            "stAtendimento": "N",
+                            "siEncaminhamento": 15,
+                            "idNrReuniao": 45654,
+                            "stEstado": 1,
+                            "dtEnvio": "2019-01-23"
+                        },
+                        
+
 ## Readequacao - Visualizar tipos de Readequação disponíveis para criação por Pronac [/readequacao/tipos-disponiveis?idPronac={idPronac}]
 
 + Parameters
@@ -637,7 +712,7 @@ HOST: http://localhost:4000
                 "disponivelEdicaoItem": "true"
             }
 
-## Readequação - Finaliza readequação [/readequacao/finalizar?idReadequacao={idReadequacao}]
+## Readequação - Finaliza análise de readequação [/readequacao/finalizar?idReadequacao={idReadequacao}]
 
 ### Finaliza readequação e envia para análise [POST]
 
@@ -685,6 +760,64 @@ HOST: http://localhost:4000
                     "stStatusAtual": "proponente"
             }
 
+
+## Readequação - Obtem parecer avaliação de readequação [/readequacao/avaliacao]
+
++ Parameters
+    + idReadequacao: 15213 (number, required)
+
++ Response 200 (application/json; charset=utf-8)
+
+            {
+                "idParecer": "352233"
+                "idPronac": "212553"
+                "anoProjeto": "17"
+                "sequencial" : "3233"
+                "tipoParecer": "3"
+                "parecerFavoravel": "2"
+                "numeroReuniao": "31"
+                "dtParecer": "2008-10-17 00:00:00"
+                "parecerista": "James Lovelock"
+                "resumoParecer": "Avalio readequação plausível com indicação de alterações climáticas"
+                "sugeridoReal": "331111"
+                "atendimento": "S"
+                "idEnquadramento": "33212"
+                "stAtivo": "1"
+                "idTipoAgente": "1",
+                "logon": "321"
+            }
+
+## Readequação - Grava parecer de avaliação de solicitação [/readequacao/avaliacao]
+
++ Parameters
+    + idReadequacao: 25221 (number, required)
+    + ParecerAvaliacao: 2 (number, required)
+    + dsParecer: "Avalio como plausível a justificativa da solicitação de readequação." (string, required)
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+                "idParecer": "352233"
+                "idPronac": "212553"
+                "anoProjeto": "17"
+                "sequencial" : "3233"
+                "tipoParecer": "3"
+                "parecerFavoravel": "2"
+                "numeroReuniao": "31"
+                "dtParecer": "2008-10-17 00:00:00"
+                "parecerista": "James Lovelock"
+                "resumoParecer": "Avalio readequação plausível com indicação de alterações climáticas"
+                "sugeridoReal": "331111"
+                "atendimento": "S"
+                "idEnquadramento": "33212"
+                "stAtivo": "1"
+                "idTipoAgente": "1",
+                "logon": "321"
+            }
+
+
 ## Readequação - Obter planilha [/readequacao/obter-planilha=2116336&idTipoReadequacao=22]
 
 ### Solicita planilha [GET]
@@ -728,6 +861,25 @@ HOST: http://localhost:4000
             }
           ]
         }
+
+
+## Readequação - Finaliza readequação [/readequacao/finalizar]
+
+### Finaliza análise [POST]
+
++ Parameters
+    + idPronac: 205213 (number, required)
+    + idParecer: 1205213 (number, required)
+    + idTipoReadequacao: 12 (number, required)
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+            {
+                "mensagem": "Análise de readequação finalizada."
+            }
+
 
 ## Readequação - Obter unidades [/readequacao/planilha-obter-unidades?idPronac={idPronac}]
 
@@ -892,4 +1044,154 @@ HOST: http://localhost:4000
 
             {
                 "mensagem": "Dados do item revertidos!"
+            }
+
+## Readequação - Obtém lista de técnicos disponíveis para distribuir uma readequação [/readequacao/destinatarios-distribuicao]
+
+### Obtém lista de técnicos [GET]
+
++ Parameters
+    + idPronac: 205213 (number, required)
+    + vinculada: 262 (number, required)
+    
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+
+        {
+          "items": [
+              {
+                  "id":6861,
+                  "nome":"Juca Chavez Costa"
+              },
+              {
+                  "id":6153,
+                  "nome":"Ernesto Manuel"
+              }
+
+
+## Readequação - Distribui uma readequação [/readequacao/distribuir-readequacao]
+
+### Obtém lista de técnicos [POST]
+
++ Parameters
+    + idPronac: 205213 (number, required)
+    + idReadequacao: 12262 (number, required)
+    + stAtendimento: 'D' (string, required)
+    + dsAvaliacao: 'D' (string, required)
+    + destinatario: 'Joaquim dos Anjos' (string, required)
+    + vinculada: 262 (number, required)
+
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+
+            {
+                "mensagem": "Readequação encaminhada para técnico."
+            }
+
+## Readequação - Redistribui uma readequação [/readequacao/redistribuir-readequacao]
+
+### Obtém lista de técnicos [POST]
+
++ Parameters
+    + idPronac: 205213 (number, required)
+    + idReadequacao: 12262 (number, required)
+    + stAtendimento: 'D' (string, required)
+    + dsAvaliacao: 'D' (string, required)
+    + destinatario: 'Joaquim dos Anjos' (string, required)
+    + vinculada: 262 (number, required)
+
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+
+            {
+                "mensagem": "Readequação redistribuída para outro técnico."
+            }
+
+## Readequação - Devolve e redistribui uma readequação [/readequacao/devolver-readequacao]
+
+### Obtém lista de técnicos [POST]
+
++ Parameters
+    + idPronac: 205213 (number, required)
+    + idReadequacao: 12262 (number, required)
+    + stAtendimento: 'D' (string, required)
+    + dsAvaliacao: 'D' (string, required)
+    + destinatario: 'Joaquim dos Anjos' (string, required)
+    + vinculada: 262 (number, required)
+
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+
+            {
+                "mensagem": "Readequação devolvida para o coordenador."
+            }
+
+## Readequação - Devolve uma readequação ao coordenador de acompanhamento [/readequacao/devolver-ao-coordenador]
+
+### Coordenador de parecer de vinculada devolve ao coordenador de acompanhamento [POST]
+
++ Parameters
+    + idPronac: 205213 (number, required)
+    + idReadequacao: 12262 (number, required)
+    + stAtendimento: 'D' (string, required)
+    + dsAvaliacao: 'D' (string, required)
+    + destinatario: 'Joaquim dos Anjos' (string, required)
+    + vinculada: 262 (number, required)
+
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+
+            {
+                "mensagem": "Readequação devolvida para o coordenador de acompanhamento."
+            }
+
+## Readequação - Técnico ou parecerista declara impedimento e devolve ao coordenador [/readequacao/declarar-impedimento]
+
+### Técnico ou parecerista declara impedimento e devolve ao coordenador [POST]
+
++ Parameters
+    + idReadequacao: 12262 (number, required)
+    + idTecnico: 12414 (number, required)
+
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+
+            {
+                "mensagem": "Readequação devolvida para o coordenador de acompanhamento."
+            }
+
+## Readequação - Coordenador de acompanhamento finaliza ciclo de análise [/readequacao/avaliar-ciclo-analise]
+
+### Coordenador de acompanhamento finaliza ciclo de análise [POST]
+
++ Parameters
+    + idReadequacao: 12262 (number, required)
+    + idTecnico: 12414 (number, required)
+
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+
+
+            {
+                "mensagem": "Ciclo de análise de readequação finalizado."
             }

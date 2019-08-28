@@ -40,6 +40,11 @@ export const buscaReadequacaoPronacTipo = (params) => {
     return api.getRequest(path + parseQueryParams(params));
 };
 
+export const buscaReadequacoesPainel = (params) => {
+    const path = '/readequacao/painel';
+    return api.getRequest(path + parseQueryParams(params));
+};
+
 export const updateReadequacao = (params) => {
     const path = '/readequacao/dados-readequacao';
     return api.postRequest(path, buildData(params), params.idReadequacao);
@@ -85,6 +90,26 @@ export const finalizarReadequacao = (params) => {
     return api.postRequest(path, buildData(params));
 };
 
+export const obterAvaliacaoReadequacao = (params) => {
+    const path = '/readequacao/avaliacao';
+    return api.getRequest(path + parseQueryParams(params));
+};
+
+export const salvarAvaliacaoReadequacao = (params) => {
+    const path = '/readequacao/avaliacao';
+    return api.postRequest(path, buildData(params));
+};
+
+export const finalizarAvaliacaoReadequacao = (params) => {
+    const path = '/readequacao/finalizar-avaliacao';
+    return api.postRequest(path, buildData(params));
+};
+
+export const obterDocumentoAssinaturaReadequacao = (params) => {
+    const path = '/readequacao/documento-assinatura-readequacao';
+    return api.getRequest(path + parseQueryParams(params));
+};
+
 export const solicitarUsoSaldo = (params) => {
     const path = `/readequacao/solicitar-saldo/${params.idPronac}`;
     return api.getRequest(path);
@@ -112,5 +137,40 @@ export const calcularResumoPlanilha = (params) => {
 
 export const reverterAlteracaoItem = (params) => {
     const path = '/readequacao/reverter-alteracao-item';
+    return api.postRequest(path, buildData(params));
+};
+
+export const obterDestinatariosDistribuicao = (params) => {
+    const path = '/readequacao/destinatarios-distribuicao';
+    return api.getRequest(path + parseQueryParams(params));
+};
+
+export const distribuirReadequacao = (params) => {
+    const path = '/readequacao/distribuir-readequacao';
+    return api.postRequest(path, buildData(params));
+};
+
+export const redistribuirReadequacao = (params) => {
+    const path = '/readequacao/redistribuir-readequacao';
+    return api.postRequest(path, buildData(params));
+};
+
+export const devolverReadequacao = (params) => {
+    const path = '/readequacao/devolver-readequacao';
+    return api.postRequest(path, buildData(params));
+};
+
+export const devolverAoCoordenador = (params) => {
+    const path = '/readequacao/devolver-ao-coordenador';
+    return api.postRequest(path, buildData(params));
+};
+
+export const declararImpedimento = (params) => {
+    const path = '/readequacao/declarar-impedimento';
+    return api.postRequest(path, buildData(params));
+};
+
+export const finalizarCicloAnalise = (params) => {
+    const path = '/readequacao/finalizar-ciclo-analise';
     return api.postRequest(path, buildData(params));
 };

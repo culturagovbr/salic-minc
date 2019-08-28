@@ -238,6 +238,9 @@ function gerarBreadCrumb($links = array(), $breadcrumbId = 'breadcrumb') {
                             // @todo: não é possivel nesse momento otimizar essa rotina.
                             $url = $router->assemble($arrayLink);
                             $url = explode('/', $url);
+                            if ($url[1] == '%23') {
+                                $url[1] = '#';
+                            }
                             $url = ('/'.$url[1] . '/' . $url[2] .'/'.$url[3]);
                         }
                         $guia .= "<li><a href='" . $url . "' title='{$nomeLink}'>" . $nomeLink . "</a></li>";

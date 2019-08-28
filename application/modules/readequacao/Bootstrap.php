@@ -15,14 +15,24 @@ class Readequacao_Bootstrap extends Zend_Application_Module_Bootstrap
             [
                 'readequacao' => [
                     'index',
-                    'campo-atual',
+                    'avaliacao',
                     'calcular-resumo-planilha',
+                    'campo-atual',
                     'dados-readequacao',
                     'dados-readequacao-documento',
+                    'declarar-impedimento',
+                    'destinatarios-distribuicao',
+                    'devolver-ao-coordenador',
+                    'devolver-readequacao',
+                    'distribuir-readequacao',
                     'documento',
                     'finalizar',
+                    'finalizar-avaliacao',
+                    'finalizar-ciclo-analise',
                     'item-planilha',
+                    'painel',
                     'planilha-obter-unidades',
+                    'redistribuir-readequacao',
                     'reverter-alteracao-item',
                     'solicitar-saldo',
                     'tipos-disponiveis',
@@ -32,5 +42,4 @@ class Readequacao_Bootstrap extends Zend_Application_Module_Bootstrap
 
         $frontController->getRouter()->addRoute('rest-readequacao', $restRoute);
     }
-
 }

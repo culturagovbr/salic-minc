@@ -36,6 +36,16 @@ class Assinar implements IAcaoAssinar
                 $siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_SOLICITACAO_ENCAMINHADA_AO_COORDENADOR_GERAL;
                 break;
             case (string)\Autenticacao_Model_Grupos::PARECERISTA:
+                $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
+                $dDP = $tbDistribuirReadequacao->buscar(array('idReadequacao = ?' => $tbReadequacaoXParecer['idReadequacao']));
+                
+                if (count($dDP) > 0) {
+                    $dadosDP = [];
+                    $dadosDP['DtRetornoAvaliador'] = new \Zend_Db_Expr('GETDATE()');
+                    $whereDP = "idDistribuirReadequacao = " . $dDP[0]->idDistribuirReadequacao;
+                    $x = $tbDistribuirReadequacao->update($dadosDP, $whereDP);
+                }
+                
                 $siEncaminhamento = (int)\Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_DEVOLVIDO_ANALISE_TECNICA;
                 break;
             case (string)\Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER:

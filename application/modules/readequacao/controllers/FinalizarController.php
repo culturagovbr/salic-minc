@@ -46,7 +46,7 @@ class Readequacao_FinalizarController extends MinC_Controller_Rest_Abstract
             $data['message'] = 'Você não tem permissão para alterar esta readequação';
             $this->customRenderJsonResponse($data, $code);
         } else {
-            $data = $readequacaoService->finalizar($idReadequacao);
+            $data = $readequacaoService->finalizarSolicitacao($idReadequacao);
         }
         
         $this->renderJsonResponse($data, $code);

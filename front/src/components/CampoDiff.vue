@@ -1,71 +1,89 @@
 <template>
-    <v-layout>
+    <v-layout
+        row
+        wrap
+    >
         <v-flex
-            md6
-            sm12
+            v-if="error"
+            md12
             xs12
         >
-            <v-card
-                flat
+            <div
+                class="grey lighten-4 text-xs-center font-weight-bold pa-2"
             >
-                <v-card-title
-                    class="subheading"
-                >
-                    <v-btn
-                        fab
-                        depressed
-                        small
-                        class="green lighten-1"
-                    >
-                        <v-icon color="white">
-                            menu
-                        </v-icon>
-                    </v-btn>
-                    Versão original
-                </v-card-title>
-                <v-card-text
-                    v-html="tratarCampoVazio(textDiff.before)"
-                />
-            </v-card>
+                {{ errorMessage }}
+            </div>
         </v-flex>
-        <v-spacer/>
-        <v-flex
-            md6
-            sm12
-            xs12
-        >
-            <h4
-                v-if="error"
-                v-html="errorMessage"
-            />
-            <h4
-                v-if="textsEquals"
-                class="grey lighten-4 text-xs-center"
-                v-html="textsEqualsMessage"
-            />
-            <v-card
-                flat
+        <template v-else>
+            <v-flex
+                md6
+                sm12
+                xs12
             >
-                <v-card-title
-                    class="subheading"
+                <v-card
+                    flat
                 >
-                    <v-btn
-                        fab
-                        depressed
-                        small
-                        class="green lighten-1"
+                    <v-card-title
+                        class="subheading"
                     >
-                        <v-icon color="white">
-                            playlist_add
-                        </v-icon>
-                    </v-btn>
-                    Versão alterada
-                </v-card-title>
-                <v-card-text
-                    v-html="tratarCampoVazio(textDiff.after)"
-                />
-            </v-card>
-        </v-flex>
+                        <v-btn
+                            fab
+                            depressed
+                            small
+                            class="green lighten-1"
+                        >
+                            <v-icon color="white">
+                                menu
+                            </v-icon>
+                        </v-btn>
+                        Versão original
+                    </v-card-title>
+                    <v-card-text
+                        v-html="tratarCampoVazio(textDiff.before)"
+                    />
+                </v-card>
+            </v-flex>
+            <v-spacer/>
+            <v-flex
+                md6
+                sm12
+                xs12
+            >
+                <v-card
+                    flat
+                >
+                    <v-card-title
+                        class="subheading"
+                    >
+                        <v-btn
+                            fab
+                            depressed
+                            small
+                            class="green lighten-1"
+                        >
+                            <v-icon color="white">
+                                playlist_add
+                            </v-icon>
+                        </v-btn>
+                        Versão alterada
+                    </v-card-title>
+                    <v-card-text
+                        v-html="tratarCampoVazio(textDiff.after)"
+                    />
+                </v-card>
+            </v-flex>
+            <v-flex
+                xs12
+                class="grey lighten-3 text-xs-center"
+            >
+                <v-card>
+                    <v-card-text>
+                        <span class="red lighten-3">removido</span>
+                        <span class="green accent-1">adicionado</span>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </template>
     </v-layout>
 </template>
 
@@ -101,7 +119,8 @@ export default {
             },
             error: false,
             textsEquals: false,
-            errorMessage: 'Não é possível comparar: ambos lados devem estar preenchidos.',
+            errorMessage: '',
+            cannotCompareMessage: 'Não é possível comparar: ambos lados devem estar preenchidos.',
             textsEqualsMessage: 'Textos sem diferenças.',
         };
     },
@@ -148,12 +167,12 @@ export default {
         },
         showDiff() {
             this.error = false;
-            this.message = '';
+            this.errorMessage = '';
             this.textDiff.after = '';
             this.textDiff.before = '';
             if (this.originalText.trim() === ''
                 || this.changedText.trim() === '') {
-                this.error = true;
+                this.setError(this.cannotCompareMessage);
                 this.textDiff.before = this.originalText;
                 this.textDiff.after = this.changedText;
                 return;
@@ -165,7 +184,7 @@ export default {
             if (dd.length === 1) {
                 this.textDiff.before = this.originalText;
                 this.textDiff.after = this.changedText;
-                this.textsEquals = true;
+                this.setError(this.textsEqualsMessage);
             }
             dd.forEach((part) => {
                 let color = '';
@@ -197,6 +216,10 @@ export default {
             const tmp = document.createElement('DIV');
             tmp.innerHTML = html;
             return tmp.textContent || tmp.innerText || '';
+        },
+        setError(message) {
+            this.error = true;
+            this.errorMessage = message;
         },
         tratarCampoVazio(value) {
             if (typeof value !== 'undefined') {

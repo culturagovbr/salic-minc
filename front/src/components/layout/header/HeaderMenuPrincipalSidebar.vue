@@ -13,7 +13,7 @@
                     :prepend-icon="item.icon"
                 >
                     <v-list-tile slot="activator">
-                        <v-list-tile-title><span v-html="item.label"/></v-list-tile-title>
+                        <v-list-tile-title><span v-html="item.label" /></v-list-tile-title>
                     </v-list-tile>
 
                     <template v-for="(subMenu) in item.menu">
@@ -30,44 +30,36 @@
                             <v-list-tile
                                 v-for="(subitem, i) in subMenu.menu"
                                 :key="i"
-                                :href="'/' +
-                                    subitem.url.module + '/' +
-                                    subitem.url.controller + '/' +
-                                subitem.url.action"
                             >
-                                <v-list-tile-title v-text="subitem.label"/>
+                                <v-list-tile-title v-text="subitem.label" />
                                 <v-list-tile-action if="subitem.icon">
                                     <v-icon
                                         v-if="subitem.icon"
-                                        v-text="subitem.icon"/>
+                                        v-text="subitem.icon"
+                                    />
                                 </v-list-tile-action>
                             </v-list-tile>
                         </v-list-group>
                         <v-list-tile
                             v-else
                             :key="subMenu.index"
-                            :href="'/' +
-                                subMenu.url.module + '/' +
-                                subMenu.url.controller + '/' +
-                            subMenu.url.action">
-                            <span v-html="subMenu.label"/>
+                            :href="url(subMenu.url)"
+                        >
+                            <span v-html="subMenu.label" />
                         </v-list-tile>
                     </template>
                 </v-list-group>
                 <v-list-tile
                     v-else
                     :key="item.index"
-                    :href="'/' +
-                        item.url.module + '/' +
-                        item.url.controller + '/' +
-                    item.url.action"
+                    :href="url(item.url)"
                 >
                     <v-list-tile-action v-if="item.icon">
                         <v-icon>{{ item.icon }}</v-icon>
                     </v-list-tile-action>
-                    <v-list-tile-title><span v-html="item.label"/></v-list-tile-title>
+                    <v-list-tile-title><span v-html="item.label" /></v-list-tile-title>
                 </v-list-tile>
-                <v-divider :key="item.index"/>
+                <v-divider :key="item.index" />
             </template>
         </v-list>
     </v-navigation-drawer>
@@ -106,6 +98,16 @@ export default {
         ...mapActions({
             atualizarStatusSidebar: 'layout/atualizarStatusSidebarDireita',
         }),
+        url(arrUrl) {
+            let url = `${arrUrl.module}/${arrUrl.controller}/${arrUrl.action}`;
+            Object.keys(arrUrl).forEach((index) => {
+                if (index !== 'module' && index !== 'controller' && index !== 'action') {
+                    url += `/${index}/${arrUrl[index]}`;
+                }
+            });
+
+            return url;
+        },
     },
 };
 </script>

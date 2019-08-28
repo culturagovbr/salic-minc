@@ -9,14 +9,19 @@ class Readequacao_ItemPlanilhaController extends MinC_Controller_Rest_Abstract
     {
         $profiles = [
             Autenticacao_Model_Grupos::PROPONENTE,
+            Autenticacao_Model_Grupos::PARECERISTA,
             Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
             Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO,
+            Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
             Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO,
+            Autenticacao_Model_Grupos::PARECERISTA,
         ];
         
         $permissionsPerMethod  = [
             'post' => [
-                Autenticacao_Model_Grupos::PROPONENTE
+                Autenticacao_Model_Grupos::PROPONENTE,
+                Autenticacao_Model_Grupos::PARECERISTA,
+                Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO,
             ]
         ];
         $this->setProtectedMethodsProfilesPermission($permissionsPerMethod);
@@ -50,8 +55,6 @@ class Readequacao_ItemPlanilhaController extends MinC_Controller_Rest_Abstract
 
     public function putAction(){}
 
-    public function deleteAction(){
-        // criar delete
-    }
+    public function deleteAction(){}
 
 }
