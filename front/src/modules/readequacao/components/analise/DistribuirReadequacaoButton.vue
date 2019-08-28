@@ -36,7 +36,7 @@
                         dark
                         color="primary"
                     >
-                        <V-btn
+                        <v-btn
                             icon
                             dark
                             @click="dialog = false"

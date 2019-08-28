@@ -24,17 +24,43 @@
             transition="dialog-bottom-transition"
             @keydown.esc="dialog = false"
         >
-            <v-card>
-                <carregando
+            <v-card tile>
+                <template
                     v-if="loading"
-                    :text="'Montando assinatura...'"
-                    class="mt-5"
-                />
-                <div
+                >
+                    <carregando
+                        :text="'Montando assinatura...'"
+                        class="mt-5"
+                    />
+                </template>
+                <template
                     v-else
-                    class="pa-3"
-                    v-html="htmlAssinatura"
-                />
+                >
+                    <v-toolbar
+                        card
+                        dark
+                        color="primary"
+                    >
+                        <v-btn
+                            icon
+                            dark
+                            @click="dialog = false"
+                        >
+                            <v-icon>
+                                close
+                            </v-icon>
+                        </v-btn>
+                        <v-toolbar-title>
+                            Visualizar assinatura
+                        </v-toolbar-title>
+                    </v-toolbar>
+                    <v-card-text>
+                        <div
+                            class="pa-3"
+                            v-html="htmlAssinatura"
+                        />
+                    </v-card-text>
+                </template>
             </v-card>
         </v-dialog>
     </v-layout>
@@ -106,3 +132,8 @@ export default {
     },
 };
 </script>
+<style>
+div.v-btn__content {
+    margin-top: -10px;
+}
+</style>
