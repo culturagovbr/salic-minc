@@ -377,6 +377,7 @@ import VisualizarCampoDetalhado from './VisualizarCampoDetalhado';
 import MxReadequacao from '../../mixins/Readequacao';
 import ComparacaoTextual from '../analise/ComparacaoTextual';
 import ComparacaoPlanilha from '../analise/ComparacaoPlanilha';
+import ComparacaoSaldo from '../analise/ComparacaoSaldo';
 
 export default {
     name: 'VisualizarReadequacaoButton',
@@ -386,6 +387,7 @@ export default {
         Carregando,
         ComparacaoTextual,
         ComparacaoPlanilha,
+        ComparacaoSaldo,
     },
     mixins: [
         utils,
@@ -431,11 +433,11 @@ export default {
                 input: 'ComparacaoTextual',
                 date: 'ComparacaoTextual',
                 planilha: 'ComparacaoPlanilha',
+                saldo_aplicacao: 'ComparacaoSaldo',
             },
             tiposComponentesRedirect: {
                 local_realizacao: '/readequacao/readequacoes/visualizar-readequacao?id=',
                 planilha: '/readequacao/readequacoes/visualizar-readequacao?id=',
-                saldo_aplicacao: '/readequacao/readequacoes/visualizar-readequacao?id=',
                 plano_distribuicao: '/readequacao/readequacoes/visualizar-readequacao?id=',
                 transferencia_recursos: '/readequacao/readequacoes/visualizar-readequacao?id=',
             },
