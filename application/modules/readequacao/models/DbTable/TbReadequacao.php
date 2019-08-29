@@ -190,7 +190,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
              'nmTecnicoParecerista' => new Zend_Db_Expr("
        CASE
          WHEN tbReadequacao.siEncaminhamento = 5
-           THEN 'Assinatura do Coordenador (parecer de ' + usuarios.usu_nome + ')'
+           THEN orgaos.Sigla + ' - Assinatura do Coordenador (parecer de ' + usuarios.usu_nome + ')'
          WHEN tbReadequacao.siEncaminhamento = 10
            THEN 'Assinatura do Coordenador (parecer de ' + usuarios.usu_nome + ')'
 	     WHEN tbReadequacao.siEncaminhamento = 17
@@ -213,7 +213,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
 		   THEN orgaos.Sigla + ' - Devolvida pelo Presidente ao coordenador de parecer '
          WHEN tbReadequacao.siEncaminhamento = 26
 		   THEN 'Solicita&ccedil;&atilde;o devolvida ao Coordenador ap&oacute;s completar o ciclo de assinaturas'
-		   ELSE usuarios.usu_nome
+		   ELSE orgaos.Sigla + ' - ' + usuarios.usu_nome
 
 	   END"),
              'idOrgao' => 'tbDistribuirReadequacao.idUnidade',
