@@ -1979,7 +1979,7 @@ class Readequacao implements IServicoRestZend
         $arrRetorno['prazoPadrao']   = null;
         $arrRetorno['prazoRespostaCrescente'] = null;
         $arrRetorno['prazoRespostaDecrescente'] = null;
-        $arrRetorno['tipoDiligencia']   = "A Diligenciar";
+        $arrRetorno['tipoDiligencia'] = "a_diligenciar";
         
         $tbDiligencia = new \tbDiligencia();
         
@@ -2042,19 +2042,19 @@ class Readequacao implements IServicoRestZend
     public function tipoDiligencia($rsDiligencia, $prazoPadrao, $prazoResposta)
     {
         if ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta == null && $prazoResposta <= $prazoPadrao && $rsDiligencia->stEnviado == 'S') {
-            $tipoDiligencia = "Diligenciado";
+            $tipoDiligencia = "diligenciado";
         } elseif ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta == null && $prazoResposta > $prazoPadrao) {
-            $tipoDiligencia = "Diligência não respondida";
+            $tipoDiligencia = "nao_respondida";
         } elseif ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta != null) {
             if ($rsDiligencia->stEnviado == 'N' && $prazoResposta > $prazoPadrao) {
-                $tipoDiligencia = "Diligência não respondida";
+                $tipoDiligencia = "nao_respondida";
             } elseif ($rsDiligencia->stEnviado == 'N' && $prazoResposta <= $prazoPadrao) {
-                $tipoDiligencia = "Diligenciado";
+                $tipoDiligencia = "diligenciado";
             } else {
-                $tipoDiligencia  = "Diligencia respondida";
+                $tipoDiligencia  = "diligencia_respondida";
             }
         } else {
-            $tipoDiligencia  = "A Diligenciar";
+            $tipoDiligencia  = "a_diligenciar";
         }
         return $tipoDiligencia;
     }

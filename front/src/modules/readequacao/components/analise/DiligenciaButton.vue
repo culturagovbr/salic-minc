@@ -5,12 +5,12 @@
         >
             <v-icon
                 slot="activator"
-                color="blue darken-3"
+                :color="corDiligencia"
                 @click.stop="redirect()"
             >
                 message
             </v-icon>
-            <span>Diligência</span>
+            <span>{{ tituloDiligencia }}</span>
         </v-tooltip>
         <v-dialog
             v-model="dialog"
@@ -41,7 +41,33 @@ export default {
     data() {
         return {
             dialog: false,
+            tiposDiligencia: {
+                diligenciado: {
+                    cor: 'green lighten-2',
+                    titulo: 'Diligenciado',
+                },
+                nao_respondida: {
+                    cor: 'yellow lighten-3',
+                    titulo: 'Não respondida',
+                },
+                diligencia_respondida: {
+                    cor: 'blue lighten-2',
+                    titulo: 'Diligência respondida',
+                },
+                a_diligenciar: {
+                    cor: 'blue lighten-4',
+                    titulo: 'A diligenciar',
+                },
+            },
         };
+    },
+    computed: {
+        corDiligencia() {
+            return this.tiposDiligencia[this.dadosReadequacao.diligencia.tipoDiligencia].cor;
+        },
+        tituloDiligencia() {
+            return this.tiposDiligencia[this.dadosReadequacao.diligencia.tipoDiligencia].titulo;
+        },
     },
     methods: {
         redirect() {

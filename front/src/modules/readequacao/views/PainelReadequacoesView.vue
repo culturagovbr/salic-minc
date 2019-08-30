@@ -380,7 +380,7 @@ export default {
                     },
                     {
                         componente: DiligenciaButton,
-                        permissao: 'parecerista',
+                        permissao: 'analisar',
                     },
                     {
                         componente: AssinarDocumentoButton,
