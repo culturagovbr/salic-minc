@@ -285,7 +285,7 @@ export default {
                             nome: 'SAV',
                         });
                     }
-                    this.dadosEncaminhamento.vinculada = this.orgaoAtual
+                    this.dadosEncaminhamento.vinculada = this.orgaoAtual;
                     this.obterDestinatarios();
                 }
             },

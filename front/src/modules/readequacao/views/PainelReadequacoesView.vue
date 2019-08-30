@@ -298,6 +298,7 @@ import DistribuirReadequacaoVinculadaButton from '../components/analise/Distribu
 import RedistribuirReadequacaoButton from '../components/analise/RedistribuirReadequacaoButton';
 import DevolverReadequacaoButton from '../components/analise/DevolverReadequacaoButton';
 import FinalizarCicloAnaliseButton from '../components/analise/FinalizarCicloAnaliseButton';
+import DiligenciaButton from '../components/analise/DiligenciaButton';
 import Carregando from '@/components/CarregandoVuetify';
 import CriarReadequacao from '../components/proponente/CriarReadequacao';
 import MxReadequacao from '../mixins/Readequacao';
@@ -319,6 +320,7 @@ export default {
         RedistribuirReadequacaoButton,
         FinalizarCicloAnaliseButton,
         FinalizarButton,
+        DiligenciaButton,
         CriarReadequacao,
         SalicMensagemErro,
     },
@@ -374,6 +376,10 @@ export default {
                     },
                     {
                         componente: DeclararImpedimentoButton,
+                        permissao: 'parecerista',
+                    },
+                    {
+                        componente: DiligenciaButton,
                         permissao: 'parecerista',
                     },
                     {

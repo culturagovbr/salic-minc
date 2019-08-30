@@ -331,6 +331,11 @@ class Readequacao implements IServicoRestZend
                     $orgao = $tbOrgaos->pesquisarUnidades(['Codigo = ?' => $item->idOrgao]);
                     $item->sgUnidade = $orgao[0]->Sigla;
                 }
+
+                if ($idPerfil == \Autenticacao_Model_Grupos::PARECERISTA) {
+                    $tpDiligencia = 179;
+                    $item->diligencia = $this->prazoRespostaDiligencia($item->idPronac, $tpDiligencia);
+                }
                 
                 $resultArray[] = $item;
             }
@@ -1962,6 +1967,96 @@ class Readequacao implements IServicoRestZend
         $data['message'] = "Ciclo de avaliação de readequação finalizado.";
         
         return $data;
+    }
+
+    public function prazoRespostaDiligencia($idPronac = null, $idTipoDiligencia = null, $idDiligencia = null, $blnPrazoPadrao=false, $blnPrazoResposta=false)
+    {
+        if (!isset($idPronac) || empty($idPronac)) {
+            return;
+        }
+        
+        $arrRetorno = [];
+        $arrRetorno['prazoPadrao']   = null;
+        $arrRetorno['prazoRespostaCrescente'] = null;
+        $arrRetorno['prazoRespostaDecrescente'] = null;
+        $arrRetorno['tipoDiligencia']   = "A Diligenciar";
+        
+        $tbDiligencia = new \tbDiligencia();
+        
+        $arrBusca = [];
+        $arrBusca['IdPRONAC = ?'] = $idPronac;
+        if (!empty($idTipoDiligencia)) {
+            $arrBusca['idTipoDiligencia = ?'] = $idTipoDiligencia;
+        }
+        if (!empty($idDiligencia)) {
+            $arrBusca['idDiligencia = ?'] = $idDiligencia;
+        }
+
+        $rsDiligencia = $tbDiligencia->buscar($arrBusca, ['DtSolicitacao DESC'])->current();
+        
+        if (!empty($rsDiligencia)) {
+            $prazoPadrao = 40;
+            
+            $prazoResposta = $this->prazoParaResposta($rsDiligencia->DtSolicitacao, $prazoPadrao);
+            $prazoRespostaCresc = $this->prazoParaResposta($rsDiligencia->DtSolicitacao, $prazoPadrao);
+            $prazoRespostaDesc = $this->prazoParaResposta($rsDiligencia->DtSolicitacao, $prazoPadrao, true);
+        
+            if ($blnPrazoPadrao) {
+                return $prazoPadrao;
+            }
+        
+            if ($blnPrazoResposta) {
+                return ($prazoRespostaDesc == '-1') ? $prazoPadrao : $prazoRespostaDesc;
+            }
+        
+            $arrRetorno['prazoPadrao']   = $prazoPadrao;
+            $arrRetorno['prazoRespostaCrescente'] = ($prazoRespostaCresc == '-1') ? $prazoPadrao : $prazoRespostaCresc;
+            $arrRetorno['prazoRespostaDecrescente'] = ($prazoRespostaDesc == '-1') ? $prazoPadrao : $prazoRespostaDesc;
+
+            $tipoDiligencia = $this->tipoDiligencia($rsDiligencia, $prazoPadrao, $prazoResposta);
+
+            $arrRetorno['tipoDiligencia'] = $tipoDiligencia;
+        }
+        return $arrRetorno;
+    }
+
+    public function prazoParaResposta($dtSolicitacao = null, $prazoPadrao = null, $bln_decrescente=false)
+    {
+        if (!empty($dtSolicitacao)) {
+            $prazo = round(\Data::CompararDatas($dtSolicitacao));
+            if ($bln_decrescente) {
+                $prazo = ((int)$prazoPadrao)-((int)$prazo);
+            }
+            if ($prazo > '0') {
+                return $prazo;
+            } elseif ($prazo <= '0') {
+                return '0';
+            } else {
+                return '-1';
+            }
+        } else {
+            return '0';
+        }
+    }
+
+    public function tipoDiligencia($rsDiligencia, $prazoPadrao, $prazoResposta)
+    {
+        if ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta == null && $prazoResposta <= $prazoPadrao && $rsDiligencia->stEnviado == 'S') {
+            $tipoDiligencia = "Diligenciado";
+        } elseif ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta == null && $prazoResposta > $prazoPadrao) {
+            $tipoDiligencia = "Diligência não respondida";
+        } elseif ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta != null) {
+            if ($rsDiligencia->stEnviado == 'N' && $prazoResposta > $prazoPadrao) {
+                $tipoDiligencia = "Diligência não respondida";
+            } elseif ($rsDiligencia->stEnviado == 'N' && $prazoResposta <= $prazoPadrao) {
+                $tipoDiligencia = "Diligenciado";
+            } else {
+                $tipoDiligencia  = "Diligencia respondida";
+            }
+        } else {
+            $tipoDiligencia  = "A Diligenciar";
+        }
+        return $tipoDiligencia;
     }
 }
 
