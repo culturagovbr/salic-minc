@@ -8,7 +8,7 @@
                 :color="corDiligencia"
                 @click.stop="redirect()"
             >
-                message
+                notification_important
             </v-icon>
             <span>{{ tituloDiligencia }}</span>
         </v-tooltip>
@@ -43,19 +43,19 @@ export default {
             dialog: false,
             tiposDiligencia: {
                 diligenciado: {
-                    cor: 'green lighten-2',
+                    cor: 'blue lighten-2',
                     titulo: 'Diligenciado',
                 },
                 nao_respondida: {
-                    cor: 'yellow lighten-3',
+                    cor: 'orange lighten-3',
                     titulo: 'Não respondida',
                 },
                 diligencia_respondida: {
-                    cor: 'blue lighten-2',
+                    cor: 'green lighten-1',
                     titulo: 'Diligência respondida',
                 },
                 a_diligenciar: {
-                    cor: 'blue lighten-4',
+                    cor: 'grey lighten-1',
                     titulo: 'A diligenciar',
                 },
             },
