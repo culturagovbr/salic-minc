@@ -78,16 +78,16 @@ export default {
                 classe = { 'purple lighten-5': true };
                 break;
             case this.isLinhaAumentada(row):
-                classe = { 'blue lighten-4': true };
+                classe = { 'blue lighten-5': true };
                 break;
             case this.isLinhaReduzida(row):
-                classe = { 'orange lighten-3': true };
+                classe = { 'orange lighten-5': true };
                 break;
             case this.isUnidadeAlterada(row):
-                classe = { 'indigo lighten-4': true };
+                classe = { 'indigo lighten-5': true };
                 break;
             case this.isItemAdicionado(row):
-                classe = { 'green lighten-2': true };
+                classe = { 'green lighten-5': true };
                 break;
             case this.isItemExcluido(row):
                 classe = { 'red lighten-4': true };
