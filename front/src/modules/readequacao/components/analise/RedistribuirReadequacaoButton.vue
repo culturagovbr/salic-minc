@@ -244,7 +244,7 @@ export default {
             return this.dadosReadequacao.idOrgao;
         },
         orgaoAtual() {
-            return this.getUsuario.orgao_ativo;
+            return parseInt(this.getUsuario.orgao_ativo, 10);
         },
         vinculada() {
             const orgaos = JSON.parse(JSON.stringify(this.orgaosDestino));
@@ -285,9 +285,8 @@ export default {
                             nome: 'SAV',
                         });
                     }
-                    if (typeof this.vinculada === 'object') {
-                        this.obterDestinatarios();
-                    }
+                    this.dadosEncaminhamento.vinculada = this.orgaoAtual
+                    this.obterDestinatarios();
                 }
             },
             deep: true,
