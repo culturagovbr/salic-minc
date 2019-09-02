@@ -247,7 +247,7 @@
                                                         </v-chip>
                                                     </template>
                                                     <template slot-scope="slotProps">
-                                                        <s-planilha-itens-saldo
+                                                        <s-planilha-itens-readequacao
                                                             :table="slotProps.itens"
                                                             :readonly="true"
                                                         />
@@ -284,7 +284,7 @@
                                                         </v-chip>
                                                     </template>
                                                     <template slot-scope="slotProps">
-                                                        <s-planilha-itens-saldo
+                                                        <s-planilha-itens-readequacao
                                                             :table="slotProps.itens"
                                                         />
                                                     </template>
@@ -312,6 +312,7 @@
                                         <div class="text-xs-right">
                                             <finalizar-button
                                                 :readequacao-editada="readequacaoEditada"
+                                                :dados-readequacao="readequacaoEditada"
                                                 :dados-projeto="dadosProjeto"
                                                 :tela-edicao="true"
                                                 :perfis-aceitos="getPerfis('proponente')"
@@ -340,19 +341,19 @@ import { mapActions, mapGetters } from 'vuex';
 import { utils } from '@/mixins/utils';
 import Const from '../const';
 import SalicMensagemErro from '@/components/SalicMensagemErro';
-import FinalizarButton from '../components/FinalizarButton';
-import MxReadequacao from '../mixins/Readequacao';
-import Carregando from '@/components/CarregandoVuetify';
-import FormJustificativa from '../components/FormJustificativa';
-import UploadFile from '../components/UploadFile';
-import ValorDisponivel from '../components/ValorDisponivel';
-import SaldoAplicacaoResumo from '../components/SaldoAplicacaoResumo';
-import ExcluirButton from '../components/ExcluirButton';
-import SPlanilha from '@/components/Planilha/PlanilhaV2';
 import ResizePanel from '@/components/resize-panel/ResizeSplitPane';
+import Carregando from '@/components/CarregandoVuetify';
+import SPlanilha from '@/components/Planilha/PlanilhaV2';
 import SPlanilhaTiposVisualizacaoButtons from '@/components/Planilha/PlanilhaTiposVisualizacaoButtons';
-import SPlanilhaItensSaldo from '../components/PlanilhaItensSaldo';
+import FormJustificativa from '../components/proponente/FormJustificativa';
+import UploadFile from '../components/proponente/UploadFile';
+import ValorDisponivel from '../components/proponente/ValorDisponivel';
+import SaldoAplicacaoResumo from '../components/proponente/SaldoAplicacaoResumo';
+import FinalizarButton from '../components/proponente/FinalizarButton';
+import ExcluirButton from '../components/proponente/ExcluirButton';
+import SPlanilhaItensReadequacao from '../components/planilha/PlanilhaItensReadequacao';
 import MxPlanilha from '@/mixins/planilhas';
+import MxReadequacao from '../mixins/Readequacao';
 
 export default {
     name: 'SaldoAplicacaoView',
@@ -368,7 +369,7 @@ export default {
         ResizePanel,
         SPlanilha,
         SPlanilhaTiposVisualizacaoButtons,
-        SPlanilhaItensSaldo,
+        SPlanilhaItensReadequacao,
     },
     mixins: [
         utils,
@@ -645,7 +646,8 @@ export default {
             }
         },
         readequacaoFinalizada() {
-            this.voltar();
+            const routePath = '/index/index/#/readequacao/painel';
+            this.$router.push({ path: routePath });
         },
     },
 };

@@ -18,7 +18,7 @@
                 </v-btn>
                 <v-card>
                     <salic-mensagem-erro
-                        :texto="'Sem permiss&atilde;o de acesso para este 0projeto'"
+                        :texto="'Sem permiss&atilde;o de acesso'"
                     />
                 </v-card>
             </v-flex>
@@ -35,6 +35,18 @@
                     :text="'Carregando painel de readequações...'"
                 />
             </v-flex>
+            <v-flex v-else-if="acessoNegado">
+                <v-btn
+                    class="green--text text--darken-4"
+                    flat
+                    @click="voltar()"
+                >
+                    <v-icon class="mr-2">keyboard_backspace</v-icon>
+                </v-btn>
+                <v-card>
+                    <salic-mensagem-erro texto="Sem permiss&atilde;o de acesso a esse painel"/>
+                </v-card>
+            </v-flex>
             <v-flex v-else>
                 <v-subheader>
                     <v-btn
@@ -49,8 +61,11 @@
                     <h2 class="grey--text text--darken-4">Painel de Readequações</h2>
                     <v-spacer/>
                     <h3
+                        v-if="dadosProjeto.idPronac !== 'undefined'> 0"
                         class="grey--text text--darken-4"
-                    >{{ dadosProjeto.Pronac }} - {{ dadosProjeto.NomeProjeto }}</h3>
+                    >
+                        {{ dadosProjeto.Pronac }} - {{ dadosProjeto.NomeProjeto }}
+                    </h3>
                 </v-subheader>
                 <v-tabs
                     color="#0a420e"
@@ -64,6 +79,7 @@
                         color="yellow"
                     />
                     <v-tab
+                        v-if="perfilAceito(['proponente'])"
                         href="#edicao"
                     >Edição
                         <v-icon>
@@ -71,56 +87,176 @@
                         </v-icon>
                     </v-tab>
                     <v-tab
-                        href="#analise"
+                        v-if="perfilAceito(['coordenador'])"
+                        href="#aguardando_distribuicao"
+                    >Aguardando distribuição
+                        <v-icon>
+                            forward
+                        </v-icon>
+                    </v-tab>
+                    <v-tab
+                        v-if="perfilAceito(['proponente', 'coordenador'])"
+                        href="#em_analise"
                     >Em Análise
                         <v-icon>
                             gavel
                         </v-icon>
                     </v-tab>
                     <v-tab
+                        v-if="perfilAceito(['analisar'])"
+                        href="#analisar"
+                    >Em Análise
+                        <v-icon>
+                            gavel
+                        </v-icon>
+                    </v-tab>
+                    <v-tab
+                        v-if="perfilAceito(['coordenador', 'coordenador_geral'])"
+                        href="#analisados"
+                    >Analisados
+                        <v-icon>
+                            done
+                        </v-icon>
+                    </v-tab>
+                    <v-tab
+                        v-if="perfilAceito(['coordenador_acompanhamento'])"
+                        href="#aguardando_publicacao"
+                    >Aguardando publicação
+                        <v-icon>
+                            schedule
+                        </v-icon>
+                    </v-tab>
+                    <v-tab
+                        v-if="perfilAceito(['proponente'])"
                         href="#finalizadas"
                     >Finalizadas
                         <v-icon>
                             check
                         </v-icon>
                     </v-tab>
-                    <v-tab-item :value="'edicao'">
+                    <v-tab-item
+                        v-if="perfilAceito(['proponente'])"
+                        :value="'edicao'">
                         <v-card>
                             <tabela-readequacoes
                                 :dados-readequacao="getReadequacoesProponente"
-                                :componentes="acoesProponente"
+                                :componentes="acoesProponenteEmEdicao"
                                 :dados-projeto="dadosProjeto"
                                 :item-em-edicao="itemEmEdicao"
                                 :min-char="minChar"
-                                :perfis-aceitos="getPerfis('proponente')"
+                                :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                                 @excluir-readequacao="excluirReadequacao"
                                 @atualizar-readequacao="atualizarReadequacao"
                             />
                         </v-card>
                     </v-tab-item>
-                    <v-tab-item :value="'analise'">
+                    <v-tab-item
+                        v-if="perfilAceito(['coordenador_acompanhamento'])"
+                        :value="'aguardando_distribuicao'">
                         <v-card>
-                            <tabela-readequacoes
-                                :dados-readequacao="getReadequacoesAnalise"
-                                :componentes="acoesAnalise"
-                                :dados-projeto="dadosProjeto"
-                                :perfis-aceitos="getPerfis('analise')"
+                            <tabela-readequacoes-coordenador
+                                :dados-readequacao="getReadequacoesPainelAguardandoDistribuicao"
+                                :componentes="acoesCoordenadorAguardandoDistribuicao"
+                                :painel="`aguardando_distribuicao`"
+                                :perfis-aceitos="perfisAceitos"
                                 :perfil="perfil"
                             />
                         </v-card>
                     </v-tab-item>
-                    <v-tab-item :value="'finalizadas'">
+                    <v-tab-item
+                        v-if="perfilAceito(['coordenador_vinculada'])"
+                        :value="'aguardando_distribuicao'">
+                        <v-card>
+                            <tabela-readequacoes-coordenador
+                                :dados-readequacao="getReadequacoesPainelAguardandoDistribuicao"
+                                :componentes="acoesCoordenadorVinculadaAguardandoDistribuicao"
+                                :painel="`aguardando_distribuicao`"
+                                :perfis-aceitos="perfisAceitos"
+                                :perfil="perfil"
+                            />
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item
+                        v-if="perfilAceito(['proponente'])"
+                        :value="'em_analise'">
+                        <v-card>
+                            <tabela-readequacoes
+                                :dados-readequacao="getReadequacoesAnalise"
+                                :componentes="acoesProponenteEmAnalise"
+                                :perfis-aceitos="perfisAceitos"
+                                :perfil="perfil"
+                            />
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item
+                        v-if="perfilAceito(['coordenador'])"
+                        :value="'em_analise'">
+                        <v-card>
+                            <tabela-readequacoes-coordenador
+                                :dados-readequacao="getReadequacoesPainelEmAnalise"
+                                :componentes="acoesCoordenadorEmAnalise"
+                                :painel="`em_analise`"
+                                :perfis-aceitos="perfisAceitos"
+                                :perfil="perfil"
+                            />
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item
+                        v-if="perfilAceito(['analisar'])"
+                        :value="'analisar'">
+                        <v-card>
+                            <tabela-readequacoes-coordenador
+                                :dados-readequacao="getReadequacoesPainelTecnico"
+                                :componentes="acoesAnalise"
+                                :painel="`analisar`"
+                                :perfis-aceitos="perfisAceitos"
+                                :perfil="perfil"
+                            />
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item
+                        v-if="perfilAceito(['coordenador', 'coordenador_geral'])"
+                        :value="'analisados'">
+                        <v-card>
+                            <tabela-readequacoes-coordenador
+                                :dados-readequacao="getReadequacoesPainelAnalisados"
+                                :componentes="acoesCoordenadorAnalisados"
+                                :painel="`analisados`"
+                                :perfis-aceitos="perfisAceitos"
+                                :perfil="perfil"
+                            />
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item
+                        v-if="perfilAceito(['coordenador_acompanhamento'])"
+                        :value="'aguardando_publicacao'">
+                        <v-card>
+                            <tabela-readequacoes-coordenador
+                                :dados-readequacao="getReadequacoesPainelAguardandoPublicacao"
+                                :componentes="acoesCoordenadorAguardandoPublicacao"
+                                :painel="`aguardando_publicacao`"
+                                :perfis-aceitos="perfisAceitos"
+                                :perfil="perfil"
+                            />
+                        </v-card>
+                    </v-tab-item>
+                    <v-tab-item
+                        v-if="perfilAceito(['proponente'])"
+                        :value="'finalizadas'">
                         <v-card>
                             <tabela-readequacoes
                                 :dados-readequacao="getReadequacoesFinalizadas"
                                 :componentes="acoesFinalizadas"
                                 :dados-projeto="dadosProjeto"
+                                :perfis-aceitos="perfisAceitos"
+                                :perfil="perfil"
                             />
                         </v-card>
                     </v-tab-item>
                 </v-tabs>
                 <criar-readequacao
+                    v-if="perfilAceito(['proponente'])"
                     :id-pronac="dadosProjeto.idPronac"
                     @criar-readequacao="criarReadequacao($event)"
                 />
@@ -147,23 +283,41 @@ import _ from 'lodash';
 import { mapActions, mapGetters } from 'vuex';
 import Const from '../const';
 import SalicMensagemErro from '@/components/SalicMensagemErro';
-import TabelaReadequacoes from '../components/TabelaReadequacoes';
-import ExcluirButton from '../components/ExcluirButton';
-import FinalizarButton from '../components/FinalizarButton';
-import EditarReadequacaoButton from '../components/EditarReadequacaoButton';
-import VisualizarReadequacaoButton from '../components/VisualizarReadequacaoButton';
+import VisualizarAssinaturaButton from '@/modules/assinatura/components/VisualizarAssinaturaButton';
+import AssinarDocumentoButton from '@/modules/assinatura/components/AssinarDocumentoButton';
+import TabelaReadequacoes from '../components/proponente/TabelaReadequacoes';
+import TabelaReadequacoesCoordenador from '../components/analise/TabelaReadequacoesCoordenador';
+import ExcluirButton from '../components/proponente/ExcluirButton';
+import FinalizarButton from '../components/proponente/FinalizarButton';
+import EditarReadequacaoButton from '../components/proponente/EditarReadequacaoButton';
+import VisualizarReadequacaoButton from '../components/generic/VisualizarReadequacaoButton';
+import AnalisarReadequacaoButton from '../components/analise/AnalisarReadequacaoButton';
+import DeclararImpedimentoButton from '../components/analise/DeclararImpedimentoButton';
+import DistribuirReadequacaoButton from '../components/analise/DistribuirReadequacaoButton';
+import DistribuirReadequacaoVinculadaButton from '../components/analise/DistribuirReadequacaoVinculadaButton';
+import RedistribuirReadequacaoButton from '../components/analise/RedistribuirReadequacaoButton';
+import DevolverReadequacaoButton from '../components/analise/DevolverReadequacaoButton';
+import FinalizarCicloAnaliseButton from '../components/analise/FinalizarCicloAnaliseButton';
 import Carregando from '@/components/CarregandoVuetify';
-import CriarReadequacao from '../components/CriarReadequacao';
+import CriarReadequacao from '../components/proponente/CriarReadequacao';
 import MxReadequacao from '../mixins/Readequacao';
 
 export default {
     name: 'PainelReadequacoesView',
     components: {
         Carregando,
+        VisualizarAssinaturaButton,
         TabelaReadequacoes,
+        TabelaReadequacoesCoordenador,
         ExcluirButton,
         EditarReadequacaoButton,
         VisualizarReadequacaoButton,
+        AnalisarReadequacaoButton,
+        DeclararImpedimentoButton,
+        DistribuirReadequacaoButton,
+        DistribuirReadequacaoVinculadaButton,
+        RedistribuirReadequacaoButton,
+        FinalizarCicloAnaliseButton,
         FinalizarButton,
         CriarReadequacao,
         SalicMensagemErro,
@@ -178,27 +332,163 @@ export default {
                 'analise',
                 'finalizadas',
             ],
-            acoesProponente: {
+            acoesProponenteEmEdicao: {
                 usuario: '',
                 acoes: [
-                    ExcluirButton,
-                    EditarReadequacaoButton,
-                    VisualizarReadequacaoButton,
-                    FinalizarButton,
+                    {
+                        componente: ExcluirButton,
+                        permissao: 'proponente',
+                    },
+                    {
+                        componente: EditarReadequacaoButton,
+                        permissao: 'proponente',
+                    },
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'proponente',
+                    },
+                    {
+                        componente: FinalizarButton,
+                        permissao: 'proponente',
+                    },
+                ],
+            },
+            acoesProponenteEmAnalise: {
+                usuario: '',
+                acoes: [
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'proponente',
+                    },
                 ],
             },
             acoesAnalise: {
                 acoes: [
-                    VisualizarReadequacaoButton,
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'analisar',
+                    },
+                    {
+                        componente: AnalisarReadequacaoButton,
+                        permissao: 'analisar',
+                    },
+                    {
+                        componente: DeclararImpedimentoButton,
+                        permissao: 'parecerista',
+                    },
+                    {
+                        componente: AssinarDocumentoButton,
+                        permissao: 'assinatura',
+                    },
+                    {
+                        componente: VisualizarAssinaturaButton,
+                        permissao: 'assinatura',
+                    },
+                ],
+            },
+            acoesCoordenadorAguardandoDistribuicao: {
+                acoes: [
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'analise',
+                    },
+                    {
+                        componente: DistribuirReadequacaoButton,
+                        permissao: 'coordenador_acompanhamento',
+                    },
+                    {
+                        componente: AssinarDocumentoButton,
+                        permissao: 'assinatura',
+                    },
+                    {
+                        componente: VisualizarAssinaturaButton,
+                        permissao: 'assinatura',
+                    },
+                ],
+            },
+            acoesCoordenadorEmAnalise: {
+                acoes: [
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'analise',
+                    },
+                    {
+                        componente: RedistribuirReadequacaoButton,
+                        permissao: 'coordenador',
+                    },
+                ],
+            },
+            acoesCoordenadorAnalisados: {
+                acoes: [
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'analise',
+                    },
+                    {
+                        componente: DevolverReadequacaoButton,
+                        permissao: 'coordenador',
+                    },
+                    {
+                        componente: AssinarDocumentoButton,
+                        permissao: 'assinatura',
+                    },
+                    {
+                        componente: VisualizarAssinaturaButton,
+                        permissao: 'assinatura',
+                    },
+                    {
+                        componente: FinalizarCicloAnaliseButton,
+                        permissao: 'coordenador_acompanhamento',
+                    },
+                ],
+            },
+            acoesCoordenadorAguardandoPublicacao: {
+                acoes: [
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'analise',
+                    },
+                ],
+            },
+            acoesCoordenadorVinculadaAguardandoDistribuicao: {
+                acoes: [
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'analise',
+                    },
+                    {
+                        componente: DistribuirReadequacaoVinculadaButton,
+                        permissao: 'coordenador_vinculada',
+                    },
+                ],
+            },
+            acoesCoordenadorGeralAnalisados: {
+                acoes: [
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'coordenador',
+                    },
+                    {
+                        componente: AssinarDocumentoButton,
+                        permissao: 'assinatura',
+                    },
+                    {
+                        componente: VisualizarAssinaturaButton,
+                        permissao: 'assinatura',
+                    },
                 ],
             },
             acoesFinalizadas: {
                 acoes: [
-                    VisualizarReadequacaoButton,
+                    {
+                        componente: VisualizarReadequacaoButton,
+                        permissao: 'all',
+                    },
                 ],
             },
             itemEmEdicao: 0,
             loading: true,
+            acessoNegado: false,
             mensagem: {
                 ativa: false,
                 timeout: 2300,
@@ -210,9 +500,44 @@ export default {
                     Const.PERFIL_PROPONENTE,
                 ],
                 analise: [
+                    Const.PERFIL_PARECERISTA,
+                    Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
+                    Const.PERFIL_COORDENADOR_DE_PARECER,
+                    Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
+                    Const.PERFIL_PRESIDENTE_DE_VINCULADA,
+                    Const.PERFIL_DIRETOR,
+                    Const.PERFIL_SECRETARIO,
+                ],
+                analisar: [
+                    Const.PERFIL_TECNICO_ACOMPANHAMENTO,
+                    Const.PERFIL_PARECERISTA,
+                ],
+                parecerista: [
+                    Const.PERFIL_PARECERISTA,
+                ],
+                assinatura: [
+                    Const.PERFIL_PARECERISTA,
+                    Const.PERFIL_COORDENADOR_DE_PARECER,
+                    Const.PERFIL_PRESIDENTE_DE_VINCULADA,
                     Const.PERFIL_TECNICO_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
                     Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
+                    Const.PERFIL_DIRETOR,
+                    Const.PERFIL_SECRETARIO,
+                ],
+                coordenador: [
+                    Const.PERFIL_COORDENADOR_DE_PARECER,
+                    Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
+                ],
+                coordenador_vinculada: [
+                    Const.PERFIL_COORDENADOR_DE_PARECER,
+                ],
+                coordenador_acompanhamento: [
+                    Const.PERFIL_COORDENADOR_ACOMPANHAMENTO,
+                ],
+                coordenador_geral: [
+                    Const.PERFIL_COORDENADOR_GERAL_ACOMPANHAMENTO,
+                    Const.PERFIL_PRESIDENTE_DE_VINCULADA,
                     Const.PERFIL_DIRETOR,
                     Const.PERFIL_SECRETARIO,
                 ],
@@ -224,9 +549,7 @@ export default {
             },
             abaInicial: '#edicao',
             loaded: {
-                projeto: false,
                 readequacao: false,
-                usuario: false,
             },
             permissao: true,
         };
@@ -237,6 +560,11 @@ export default {
             getReadequacoesProponente: 'readequacao/getReadequacoesProponente',
             getReadequacoesAnalise: 'readequacao/getReadequacoesAnalise',
             getReadequacoesFinalizadas: 'readequacao/getReadequacoesFinalizadas',
+            getReadequacoesPainelTecnico: 'readequacao/getReadequacoesPainelTecnico',
+            getReadequacoesPainelAguardandoDistribuicao: 'readequacao/getReadequacoesPainelAguardandoDistribuicao',
+            getReadequacoesPainelEmAnalise: 'readequacao/getReadequacoesPainelEmAnalise',
+            getReadequacoesPainelAnalisados: 'readequacao/getReadequacoesPainelAnalisados',
+            getReadequacoesPainelAguardandoPublicacao: 'readequacao/getReadequacoesPainelAguardandoPublicacao',
             dadosProjeto: 'projeto/projeto',
         }),
         perfil() {
@@ -246,14 +574,27 @@ export default {
     watch: {
         getUsuario(value) {
             if (typeof value === 'object') {
-                if (Object.keys(value).length > 0) {
-                    this.loaded.usuario = true;
-                }
+                this.loaded.usuario = true;
             }
         },
         getReadequacoesProponente(value) {
             if (typeof value === 'object') {
-                if (Object.keys(value).length > 0) {
+                this.loaded.readequacao = true;
+            }
+        },
+        getReadequacoesPainelTecnico(value) {
+            if (typeof value === 'object') {
+                this.loaded.readequacao = true;
+            }
+        },
+        getReadequacoesPainelAguardandoDistribuicao(value) {
+            if (typeof value === 'object') {
+                this.loaded.readequacao = true;
+            }
+        },
+        getReadequacoesPainelAnalisados(value) {
+            if (this.perfisAceitos.coordenador_geral.includes(parseInt(this.perfil, 10))) {
+                if (typeof value === 'object') {
                     this.loaded.readequacao = true;
                 }
             }
@@ -265,7 +606,9 @@ export default {
                         this.permissao = false;
                         return;
                     }
-                    this.obterReadequacoesPorStatus('proponente');
+                    if (typeof this.$route.params.idPronac !== 'undefined') {
+                        this.obterReadequacoesPorStatus('proponente');
+                    }
                     this.loaded.projeto = true;
                 }
             }
@@ -279,6 +622,64 @@ export default {
             },
             deep: true,
         },
+        perfil() {
+            if (parseInt(this.perfil, 10) === Const.PERFIL_PROPONENTE) {
+                if (typeof this.$route.params.idPronac !== 'undefined') {
+                    this.idPronac = this.$route.params.idPronac;
+                    this.buscarProjetoCompleto(this.idPronac);
+                } else {
+                    this.loading = false;
+                    this.acessoNegado = true;
+                }
+            } else if (parseInt(this.perfil, 10) === Const.PERFIL_TECNICO_ACOMPANHAMENTO
+                       || parseInt(this.perfil, 10) === Const.PERFIL_PARECERISTA) {
+                this.buscarReadequacoesPainelTecnico({});
+                // TODO: puxar lista para obter lista de projetos finalizáveis
+                // .then((esponse) => {
+                /* const listaIdReadequacao = [];
+                        let { result: items } = response.data.data;
+                        result.forEach(() => {
+                            // extrair todos os idReadequacao e mandar para o
+                        });
+                        this.obterDocumentoAssinaturaReadequacao({ listaIdReadequacao });
+                        */
+                // });
+            } else if (parseInt(this.perfil, 10) === Const.PERFIL_COORDENADOR_ACOMPANHAMENTO
+                       || parseInt(this.perfil, 10) === Const.PERFIL_COORDENADOR_DE_PARECER) {
+                this.buscarReadequacoesPainelAguardandoDistribuicao({ filtro: 'painel_aguardando_distribuicao' });
+                this.buscarReadequacoesPainelEmAnalise({ filtro: 'em_analise' });
+                this.buscarReadequacoesPainelAnalisados({ filtro: 'analisados' });
+                if (parseInt(this.perfil, 10) === Const.PERFIL_COORDENADOR_ACOMPANHAMENTO) {
+                    this.buscarReadequacoesPainelAguardandoPublicacao({ filtro: 'aguardando_publicacao' });
+                }
+            } else if (this.perfisAceitos.coordenador_geral.includes(parseInt(this.perfil, 10))) {
+                this.buscarReadequacoesPainelAnalisados({ filtro: 'analisados' });
+            } else {
+                this.loading = false;
+                this.acessoNegado = true;
+            }
+        },
+    },
+    mounted() {
+        if (this.perfilAceito(['proponente'])) {
+            Object.assign(
+                this.loaded,
+                {
+                    projeto: false,
+                    usuario: false,
+                },
+            );
+        }
+        if (parseInt(this.perfil, 10) === Const.PERFIL_TECNICO_ACOMPANHAMENTO
+            || parseInt(this.perfil, 10) === Const.PERFIL_PARECERISTA) {
+            if (typeof this.getReadequacoesPainelAnalisados.items !== 'undefined') {
+                if (this.getReadequacoesPainelTecnico.items.length > 0) {
+                    this.loaded.readequacao = true;
+                }
+            } else {
+                this.buscarReadequacoesPainelTecnico({});
+            }
+        }
     },
     created() {
         this.loaded = this.checkAlreadyLoadedData(
@@ -287,15 +688,17 @@ export default {
             this.dadosProjeto,
             this.dadosReadequacao,
         );
-        if (typeof this.$route.params.idPronac !== 'undefined') {
-            this.idPronac = this.$route.params.idPronac;
-            this.buscarProjetoCompleto(this.idPronac);
-        }
     },
     methods: {
         ...mapActions({
             obterListaDeReadequacoes: 'readequacao/obterListaDeReadequacoes',
             buscarProjetoCompleto: 'projeto/buscarProjetoCompleto',
+            buscarReadequacoesPainelTecnico: 'readequacao/buscarReadequacoesPainelTecnico',
+            buscarReadequacoesPainelAguardandoDistribuicao: 'readequacao/buscarReadequacoesPainelAguardandoDistribuicao',
+            buscarReadequacoesPainelEmAnalise: 'readequacao/buscarReadequacoesPainelEmAnalise',
+            buscarReadequacoesPainelAnalisados: 'readequacao/buscarReadequacoesPainelAnalisados',
+            buscarReadequacoesPainelAguardandoPublicacao: 'readequacao/buscarReadequacoesPainelAguardandoPublicacao',
+            obterDocumentoAssinaturaReadequacao: 'readequacao/obterDocumentoAssinaturaReadequacao',
         }),
         obterReadequacoesPorStatus(stStatusAtual) {
             if (this.listaStatus.includes(stStatusAtual)) {
@@ -324,15 +727,13 @@ export default {
         getPerfis(tipo) {
             return this.perfisAceitos[tipo];
         },
-        perfilAceito(tipoPerfil) {
-            /* função ainda não utilizada - será usada na visão do painel pelo técnico */
-            if (Object.prototype.hasOwnProperty.call(this.perfisAceitos, tipoPerfil)) {
-                return this.verificarPerfil(this.perfil, this.perfisAceitos[tipoPerfil]);
-            }
-            return false;
-        },
-        voltar() {
-            this.$router.back();
+        perfilAceito(tiposPerfil) {
+            return tiposPerfil.some((perfil) => {
+                if (Object.prototype.hasOwnProperty.call(this.perfisAceitos, perfil)) {
+                    return this.verificarPerfil(this.perfil, this.perfisAceitos[perfil]);
+                }
+                return false;
+            });
         },
         trocaAba(aba) {
             let status = '';
@@ -341,10 +742,12 @@ export default {
             } else {
                 status = aba;
             }
-            this.obterListaDeReadequacoes({
-                idPronac: this.$route.params.idPronac,
-                stStatusAtual: status,
-            });
+            if (this.perfilAceito(['proponente'])) {
+                this.obterListaDeReadequacoes({
+                    idPronac: this.$route.params.idPronac,
+                    stStatusAtual: status,
+                });
+            }
         },
     },
 };

@@ -53,8 +53,10 @@ export default {
             return novoValor;
         },
         verificarPerfil(perfil, perfisAceitos) {
-            if (!_.isEmpty(perfisAceitos)) {
-                if (perfisAceitos.includes(perfil)) {
+            if (!_.isEmpty(perfisAceitos)
+                && typeof perfisAceitos.includes === 'function'
+            ) {
+                if (perfisAceitos.includes(parseInt(perfil, 10))) {
                     return true;
                 }
                 return false;
@@ -67,10 +69,25 @@ export default {
         },
         checkAlreadyLoadedData(loaded, usuario, projeto, readequacao) {
             const localLoaded = {
-                projeto: loaded.projeto,
                 readequacao: loaded.readequacao,
-                usuario: loaded.usuario,
             };
+
+            if (typeof loaded.projeto !== 'undefined') {
+                Object.assign(
+                    loaded,
+                    {
+                        projeto: loaded.projeto,
+                    },
+                );
+            }
+            if (typeof loaded.usuario !== 'undefined') {
+                Object.assign(
+                    loaded,
+                    {
+                        usuario: loaded.usuario,
+                    },
+                );
+            }
             if (typeof usuario === 'object') {
                 if (Object.keys(usuario).length > 0) {
                     localLoaded.usuario = true;
@@ -88,6 +105,19 @@ export default {
             }
             return localLoaded;
         },
-
+        voltar() {
+            this.$router.back();
+        },
+        parseDadosCampo(campoAtual) {
+            const chave = `key_${this.dadosReadequacao.idTipoReadequacao}`;
+            if (Object.prototype.hasOwnProperty.call(campoAtual, chave)) {
+                return {
+                    valor: campoAtual[chave].dsCampo,
+                    titulo: campoAtual[chave].descricao,
+                    tpCampo: campoAtual[chave].tpCampo,
+                };
+            }
+            return {};
+        },
     },
 };

@@ -50,8 +50,8 @@ $arrMenu['analise']['menu'][] = array('label' => 'Avaliar Recursos', 'title' => 
 );
 
 $arrMenu['analise']['menu'][] = array('label' => 'Avaliar Readequa&ccedil;&otilde;es', 'title' => 'Ir para Avaliar Readequa&ccedil;&otilde;es',
-    'url' => $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes'), '', true),
-    'grupo' => array( Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER, Autenticacao_Model_Grupos::PARECERISTA, Autenticacao_Model_Grupos::TECNICO_ANALISE)
+    'url' => $this->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index', '#' => 'readequacao/painel'), '', true),
+    'grupo' => array( Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER, Autenticacao_Model_Grupos::PARECERISTA, Autenticacao_Model_Grupos::TECNICO_ANALISE, Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO, Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA)
 );
 
 $arrMenu['analise']['menu'][] = array('label' => 'Avaliar Readequa&ccedil;&otilde;es', 'title' => 'Ir para Avaliar Readequa&ccedil;&otilde;es',

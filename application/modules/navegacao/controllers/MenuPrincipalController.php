@@ -127,7 +127,10 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
                 137,
                 141,
                 142,
-                143, 148, 151],
+                143,
+                Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO,
+                Autenticacao_Model_Grupos::PRESIDENTE_VINCULADA_SUBSTITUTO
+            ],
         ];
         $arrMenu['analise']['menu'][] = [
             'label' => 'Realizar An&aacute;lise',
@@ -285,8 +288,8 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
         $arrMenu['analise']['menu'][] = [
             'label' => 'Avaliar Readequa&ccedil;&otilde;es',
             'title' => 'Ir para Avaliar Readequa&ccedil;&otilde;es',
-            'url' => ['module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes'],
-            'grupo' => [Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER, Autenticacao_Model_Grupos::PARECERISTA, Autenticacao_Model_Grupos::TECNICO_ANALISE],
+            'url' => ['module' => 'default', 'controller' => 'index', 'action' => 'index', '#' => 'readequacao/painel'],
+            'grupo' => [Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER, Autenticacao_Model_Grupos::PARECERISTA, Autenticacao_Model_Grupos::TECNICO_ANALISE, Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO, Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA],
         ];
 
         $arrMenu['analise']['menu'][] = [
@@ -706,13 +709,13 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
         ];
         $arrMenu['acompanhamento']['menu'][] = [
             'grupo' => [122, 123, 148, 151],
-            'url' => ['module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel'],
+            'url' => ['module' => 'default', 'controller' => 'index', 'action' => 'index', '#' => 'readequacao/painel'],
             'title' => 'Readequa&ccedil;&otilde;es',
             'label' => 'Readequa&ccedil;&otilde;es'
         ];
         $arrMenu['acompanhamento']['menu'][] = [
             'grupo' => [93, 121],
-            'url' => ['module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'painel-readequacoes'],
+            'url' => ['module' => 'default', 'controller' => 'index', 'action' => 'index', '#' => 'readequacao/painel'],
             'title' => 'Avaliar Readequa&ccedil;&otilde;es',
             'label' => 'Avaliar Readequa&ccedil;&otilde;es'
         ];

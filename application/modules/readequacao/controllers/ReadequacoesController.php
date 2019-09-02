@@ -266,7 +266,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $this->_helper->json(array('resposta' => true, 'dadosPlanilhaAtiva' => $dadosPlanilhaAtiva, 'dadosPlanilhaEditavel' => $dadosPlanilhaEditavel, 'valoresDoItem' => $valoresDoItem, 'dadosProjeto' => $dadosProjeto));
         $this->_helper->viewRenderer->setNoRender(true);
     }
-
+    
     /**
      * Esse função é usada pelo proponente para solicitar a exclusão de um item da planilha orçamentária.
      */
@@ -385,6 +385,18 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
 
             /* DADOS DO ITEM PARA INCLUSÃO DA READEQUAÇÃO */
             $dadosInclusao = array();
+
+            $spCalcularMedianaItemOrcamentario = new \Planilha_Model_DbTable_SpCalcularMedianaItemOrcamentario();
+            $objValorMediana = $spCalcularMedianaItemOrcamentario->obterMedianaItemOrcamento(
+                $editarItem->idProduto,
+                $editarItem->idUnidade,
+                $editarItem->idPlanilhaItem,
+                $editarItem->idUFDespesa,
+                $editarItem->idMunicipioDespesa
+            );
+            $valorMediana = isset($objValorMediana['Mediana']) ? $objValorMediana['Mediana'] : 0;
+            $dadosInclusao['stCustoPraticado'] = (!empty($valorMediana) && $valorMediana < $ValorUnitario) ? 1 : 0;
+            
             $dadosInclusao['tpPlanilha'] = 'SR';
             $dadosInclusao['dtPlanilha'] = new Zend_Db_Expr('GETDATE()');
             $dadosInclusao['IdPRONAC'] = $idPronac;
@@ -493,6 +505,17 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             )->current();
         }
 
+        $spCalcularMedianaItemOrcamentario = new \Planilha_Model_DbTable_SpCalcularMedianaItemOrcamentario();
+        $objValorMediana = $spCalcularMedianaItemOrcamentario->obterMedianaItemOrcamento(
+            $editarItem->idProduto,
+            $editarItem->idUnidade,
+            $editarItem->idPlanilhaItem,
+            $editarItem->idUFDespesa,
+            $editarItem->idMunicipioDespesa
+        );
+        $valorMediana = isset($objValorMediana['Mediana']) ? $objValorMediana['Mediana'] : 0;
+        $editarItem->stCustoPraticado = (!empty($valorMediana) && $valorMediana < $ValorUnitario) ? 1 : 0;
+        
         $editarItem->idUnidade = $this->_request->getParam('Unidade');
         $editarItem->qtItem = $this->_request->getParam('Quantidade');
         $editarItem->nrOcorrencia = $this->_request->getParam('Ocorrencia');
@@ -705,39 +728,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $itemAlterado->save();
     }
     
-    /*
-     * Criada em 18/03/2014
-     * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
-     * Essa função é usada pelostécnicos, pareceristas e componentes da comissão para alterarem os locais de realização.
-     */
-    public function alteracoesTecnicasNoLocalDeRealizacaoAction()
-    {
-        $this->_helper->layout->disableLayout();
-        $this->_helper->viewRenderer->setNoRender();
-
-        $tbAbrangencia = new Readequacao_Model_DbTable_TbAbrangencia();
-        $editarItem = $tbAbrangencia->buscar(array('idAbrangencia=?' => $_POST['idAbrangencia']))->current();
-
-        if ($this->idPerfil == Autenticacao_Model_Grupos::PARECERISTA || $this->idPerfil == Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO) {
-            $editarItem->tpAnaliseTecnica = $_POST['tpAcao'];
-        } elseif ($this->idPerfil == Autenticacao_Model_Grupos::COMPONENTE_COMISSAO) {
-            $editarItem->tpAnaliseComissao = $_POST['tpAcao'];
-        } elseif ($this->idPerfil == Autenticacao_Model_Grupos::PROPONENTE) {
-            if ($editarItem->tpSolicitacao == 'E') {
-                $editarItem->tpSolicitacao = 'N';
-            } elseif ($editarItem->tpSolicitacao == 'I') {
-                $editarItem->delete();
-                $this->_helper->json(array('resposta' => true, 'msg' => 'Dados salvos com sucesso!'));
-                $this->_helper->viewRenderer->setNoRender(true);
-            }
-        }
-        $editarItem->save();
-
-        $this->_helper->json(array('resposta' => true, 'msg' => 'Dados salvos com sucesso!'));
-        $this->_helper->viewRenderer->setNoRender(true);
-    }
-
-    /*
+     /*
      * Criada em 28/03/2014
      * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
      * Essa função é usada pelostécnicos, pareceristas e componentes da comissão para alterarem os planos de divulgação.
@@ -840,194 +831,6 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         ]);
     }
     
-    public function criarCampoTipoReadequacaoAction()
-    {
-        $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
-        $get = Zend_Registry::get('get');
-        $tipoReadequacao = $get->tpReadequacao;
-        $valorPreCarregado = null;
-
-        if ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_RAZAO_SOCIAL) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscarDadosUC75($get->idPronac)->current();
-
-            if ($dadosProjeto) {
-                $valorPreCarregado = $dadosProjeto->Proponente;
-            }
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_AGENCIA_BANCARIA) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-
-            if ($dadosProjeto) {
-                $ContaBancaria = new ContaBancaria();
-                $dadosBancarios = $ContaBancaria->contaPorProjeto($get->idPronac);
-                if (count($dadosBancarios) > 0) {
-                    $valorPreCarregado = $dadosBancarios->Agencia;
-                }
-            }
-
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_SINOPSE_OBRA) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-
-            if ($dadosProjeto) {
-                $PreProjeto = new Proposta_Model_DbTable_PreProjeto();
-                $dadosPreProjeto = $PreProjeto->buscar(array('idPreProjeto = ?' => $dadosProjeto->idProjeto))->current();
-                if ($dadosPreProjeto) {
-                    $valorPreCarregado = $dadosPreProjeto->Sinopse;
-                }
-            }
-
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_IMPACTO_AMBIENTAL) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-
-            if ($dadosProjeto) {
-                $PreProjeto = new Proposta_Model_DbTable_PreProjeto();
-                $dadosPreProjeto = $PreProjeto->buscar(array('idPreProjeto = ?' => $dadosProjeto->idProjeto))->current();
-                if ($dadosPreProjeto) {
-                    $valorPreCarregado = $dadosPreProjeto->ImpactoAmbiental;
-                }
-            }
-
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_ESPECIFICACAO_TECNICA) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-
-            if ($dadosProjeto) {
-                $PreProjeto = new Proposta_Model_DbTable_PreProjeto();
-                $dadosPreProjeto = $PreProjeto->buscar(array('idPreProjeto = ?' => $dadosProjeto->idProjeto))->current();
-                if ($dadosPreProjeto) {
-                    $valorPreCarregado = $dadosPreProjeto->EspecificacaoTecnica;
-                }
-            }
-
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_ESTRATEGIA_EXECUCAO) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-
-            if ($dadosProjeto) {
-                $PreProjeto = new Proposta_Model_DbTable_PreProjeto();
-                $dadosPreProjeto = $PreProjeto->buscar(array('idPreProjeto = ?' => $dadosProjeto->idProjeto))->current();
-                if ($dadosPreProjeto) {
-                    $valorPreCarregado = $dadosPreProjeto->EstrategiadeExecucao;
-                }
-            }
-
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_ALTERACAO_PROPONENTE) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-
-            if ($dadosProjeto) {
-                $valorPreCarregado = $dadosProjeto->CgcCpf;
-            }
-
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_NOME_PROJETO) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-
-            if ($dadosProjeto) {
-                $valorPreCarregado = $dadosProjeto->NomeProjeto;
-            }
-
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PERIODO_EXECUCAO) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-            $DtFimExecucao = Data::tratarDataZend($dadosProjeto->DtFimExecucao, 'brasileira');
-
-            if ($dadosProjeto) {
-                $valorPreCarregado = $DtFimExecucao;
-            }
-
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_RESUMO_PROJETO) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-
-            if ($dadosProjeto) {
-                $valorPreCarregado = $dadosProjeto->ResumoProjeto;
-            }
-
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_OBJETIVOS) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-
-            if ($dadosProjeto) {
-                $PreProjeto = new Proposta_Model_DbTable_PreProjeto();
-                $dadosPreProjeto = $PreProjeto->buscar(array('idPreProjeto = ?' => $dadosProjeto->idProjeto))->current();
-                if ($dadosPreProjeto) {
-                    $valorPreCarregado = $dadosPreProjeto->Objetivos;
-                }
-            }
-
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_JUSTIFICATIVA) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-
-            if ($dadosProjeto) {
-                $PreProjeto = new Proposta_Model_DbTable_PreProjeto();
-                $dadosPreProjeto = $PreProjeto->buscar(array('idPreProjeto = ?' => $dadosProjeto->idProjeto))->current();
-                if ($dadosPreProjeto) {
-                    $valorPreCarregado = $dadosPreProjeto->Justificativa;
-                }
-            }
-
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_ACESSIBILIDADE) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-
-            if ($dadosProjeto) {
-                $PreProjeto = new Proposta_Model_DbTable_PreProjeto();
-                $dadosPreProjeto = $PreProjeto->buscar(array('idPreProjeto = ?' => $dadosProjeto->idProjeto))->current();
-                if ($dadosPreProjeto) {
-                    $valorPreCarregado = $dadosPreProjeto->Acessibilidade;
-                }
-            }
-
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_DEMOCRATIZACAO_ACESSO) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-
-            if ($dadosProjeto) {
-                $PreProjeto = new Proposta_Model_DbTable_PreProjeto();
-                $dadosPreProjeto = $PreProjeto->buscar(array('idPreProjeto = ?' => $dadosProjeto->idProjeto))->current();
-                if ($dadosPreProjeto) {
-                    $valorPreCarregado = $dadosPreProjeto->DemocratizacaoDeAcesso;
-                }
-            }
-
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_ETAPAS_TRABALHO) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-
-            if ($dadosProjeto) {
-                $PreProjeto = new Proposta_Model_DbTable_PreProjeto();
-                $dadosPreProjeto = $PreProjeto->buscar(array('idPreProjeto = ?' => $dadosProjeto->idProjeto))->current();
-                if ($dadosPreProjeto) {
-                    $valorPreCarregado = $dadosPreProjeto->EtapaDeTrabalho;
-                }
-            }
-
-        } elseif ($tipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_FICHA_TECNICA) {
-            $Projetos = new Projetos();
-            $dadosProjeto = $Projetos->buscar(array('IdPRONAC = ?' => $get->idPronac))->current();
-
-            if ($dadosProjeto) {
-                $PreProjeto = new Proposta_Model_DbTable_PreProjeto();
-                $dadosPreProjeto = $PreProjeto->buscar(array('idPreProjeto = ?' => $dadosProjeto->idProjeto))->current();
-                if ($dadosPreProjeto) {
-                    $valorPreCarregado = $dadosPreProjeto->FichaTecnica;
-                }
-            }
-        }
-
-        $this->montaTela(
-            'readequacoes/criar-campo-tipo-readequacao.phtml',
-            array(
-                'tipoReadequacao' => $tipoReadequacao,
-                'valorPreCarregado' => $valorPreCarregado
-            )
-        );
-    }
 
     public function carregarValorEntrePlanilhasAction()
     {
@@ -1265,107 +1068,39 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         }
     }
 
-    /*
-     * Criada em 14/03/2014
-     * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
-     * Essa função para excluir uma solicitação de readequação.
-     */
-    public function excluirSolicitacaoReadequacaoAction()
-    {
-        if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
-        }
-
-        $idPronac = $this->_request->getParam("idPronac");
-        if (strlen($idPronac) > 7) {
-            $idPronac = Seguranca::dencrypt($idPronac);
-        }
-
-        $idReadequacao = $this->_request->getParam('idReadequacao');
-
-        try {
-            $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-            $dados = $tbReadequacao->buscar(array('idReadequacao =?' => $idReadequacao))->current();
-
-            if (!empty($dados->idDocumento)) {
-                $tbDocumento = new tbDocumento();
-                $tbDocumento->excluirDocumento($dados->idDocumento);
-            }
-
-            if ($dados->idTipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA) {
-                $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
-
-                $tbPlanilhaAprovacao->delete(array('IdPRONAC = ?' => $idPronac, 'tpPlanilha = ?' => 'SR', 'idReadequacao = ?' => $idReadequacao));
-            }
-
-            if ($dados->idTipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_LOCAL_REALIZACAO) {
-                $tbAbrangencia = new Readequacao_Model_DbTable_TbAbrangencia();
-                $tbAbrangencia->delete(array('idPronac = ?' => $idPronac, 'stAtivo = ?' => 'S'));
-            }
-
-            if ($dados->idTipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANO_DISTRIBUICAO) {
-                $tbPlanoDistribuicao = new Readequacao_Model_DbTable_TbPlanoDistribuicao();
-                $tbPlanoDistribuicao->delete(array('idPronac = ?' => $idPronac, 'stAtivo = ?' => 'S'));
-
-                $tbDetalhaPlanoDistribuicao = new Readequacao_Model_DbTable_TbDetalhaPlanoDistribuicaoReadequacao();
-                $tbDetalhaPlanoDistribuicao->delete(array('idPronac = ?' => $idPronac, 'stAtivo = ?' => 'S'));
-            }
-
-            if ($dados->idTipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANO_DIVULGACAO) {
-                $tbPlanoDivulgacao = new tbPlanoDivulgacao();
-                $tbPlanoDivulgacao->delete(array('idPronac = ?' => $idPronac, 'stAtivo = ?' => 'S'));
-            }
-
-            $exclusao = $tbReadequacao->delete(array('idPronac =?' => $idPronac, 'idReadequacao =?' => $idReadequacao));
-
-            if ($exclusao) {
-                if ($dados->idTipoReadequacao == Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA) {
-                    parent::message('Tipo de readequa&ccedil;&atilde;o exclu&iacute;da com sucesso!', "readequacao/readequacoes/planilha-orcamentaria?idPronac=" . Seguranca::encrypt($idPronac), "CONFIRM");
-                } else {
-                    parent::message('Tipo de readequa&ccedil;&atilde;o exclu&iacute;da com sucesso!', "readequacao/readequacoes/index?idPronac=" . Seguranca::encrypt($idPronac), "CONFIRM");
-                }
-            } else {
-                throw new Exception("Erro ao excluir o tipo de readequa&ccedil;&atilde;o!");
-            }
-        } // fecha try
-        catch (Exception $e) {
-            parent::message($e->getMessage(), "readequacao/readequacoes?idPronac=".Seguranca::encrypt($idPronac), "ERROR");
-        }
-    }
-
     public function finalizarSolicitacaoReadequacaoAction()
     {
         if ($this->idPerfil != Autenticacao_Model_Grupos::PROPONENTE) {
             parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
         }
-
+         
         $idPronac = $this->_request->getParam("idPronac");
         if (strlen($idPronac) > 7) {
             $idPronac = Seguranca::dencrypt($idPronac);
         }
-
+         
         $idReadequacao = $this->_request->getParam("idReadequacao");
-
+         
         try {
             $arrayBuscaReadequacao = array(
                 'a.idPronac = ?' => $idPronac,
                 'a.siEncaminhamento = ?' => Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE,
                 'a.stEstado = ?' => 0,
             );
-
+             
             if ($idReadequacao) {
                 $arrayBuscaReadequacao['a.idReadequacao = ?'] = $idReadequacao;
             } else {
                 $arrayBuscaReadequacao['b.siReadequacao = ?'] = Readequacao_Model_TbTipoReadequacao::SI_READEQUACAO_DIVERSA;
             }
-
+             
             $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
             $readequacoes = $tbReadequacao->readequacoesCadastradasProponente($arrayBuscaReadequacao, array(1), false);
             $dados = array();
             $dados['siEncaminhamento'] = Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_MINC;
             $dados['dtEnvio'] = new Zend_Db_Expr('GETDATE()');
             $where = "idPronac = $idPronac AND siEncaminhamento = " . Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_CADASTRADA_PROPONENTE . " AND stEstado = 0";
-
+             
             if ($idReadequacao) {
                 $where .= " AND idReadequacao = $idReadequacao";
             } else {
@@ -1408,309 +1143,11 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             parent::message($e->getMessage(), "readequacao/readequacoes?idPronac=".Seguranca::encrypt($idPronac), "ERROR");
         }
     }
-
-    /**
-     * painelAction - Lista dos Projetos em nas situações: Aguardando Análise, Em
-     * Analise, Analisados.
-     *
-     * @since Alterada em 30/06/16
-     * @author wouerner <wouerner@gmail.com>
-     * @author fernao <fernao.lara@cultura.gov.br>
-     * @access public
-     * @return void
-     */
+    
+    
     public function painelAction()
     {
-        if ($this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO && $this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO && $this->idPerfil != Autenticacao_Model_Grupos::PRESIDENTE_VINCULADA_SUBSTITUTO && $this->idPerfil != Autenticacao_Model_Grupos::DIRETOR_DEPARTAMENTO) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
-        }
-
-        //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if ($this->_request->getParam("qtde")) {
-            $this->intTamPag = $this->_request->getParam("qtde");
-        }
-        $order = array();
-
-        //==== parametro de ordenacao  ======//
-        if ($this->_request->getParam("ordem")) {
-            $ordem = $this->_request->getParam("ordem");
-            if ($ordem == "DESC") {
-                $novaOrdem = "ASC";
-            } else {
-                $novaOrdem = "DESC";
-            }
-        } else {
-            $campo = 8;  //qtDiasAguardandoDistribuicao default
-            $ordem = "DESC";
-            $novaOrdem = "ASC";
-        }
-
-        //==== campo de ordenacao  ======//
-        if ($this->_request->getParam("campo")) {
-            $campo = $this->_request->getParam("campo");
-            $order = array($campo . " " . $ordem);
-            $ordenacao = "&campo=" . $campo . "&ordem=" . $ordem;
-        } else {
-            // ordenação padrão
-            $order = array($campo . " " . $ordem);
-            $ordenacao = null;
-        }
-
-        $pag = 1;
-        $get = Zend_Registry::get('get');
-        if (isset($get->pag)) {
-            $pag = $get->pag;
-        }
-        $inicio = ($pag > 1) ? ($pag - 1) * $this->intTamPag : 0;
-
-        /* ================== PAGINACAO ======================*/
-        $where = array();
-
-        $filtrosAceitos = [
-            'aguardando_distribuicao',
-            'em_analise',
-            'analisados',
-            'aguardando_publicacao'
-        ];
-
-        $filtro = null;
-        
-        if ($this->_request->getParam('tipoFiltro')) {
-            $filtro = $this->_request->getParam('tipoFiltro');
-            $filtro = preg_replace('/\/gerenciar\-assinaturas/', '', $filtro);
-            if (!in_array($filtro, $filtrosAceitos)) {
-                $filtro = 'aguardando_distribuicao';
-            }
-        } else {
-            $filtro = 'aguardando_distribuicao';
-        }
-
-        $this->view->filtro = $filtro;
-        
-        if ($filtro == 'aguardando_distribuicao') {
-            $where['idOrgao = ?'] = $this->idOrgao;
-        } else {
-            $where['idOrgaoOrigem = ?'] = $this->idOrgao;
-        }
-
-        if ($this->_request->getParam('pronac')) {
-            $where['a.PRONAC = ?'] = $this->_request->getParam('pronac');
-            $this->view->pronac = $this->_request->getParam('pronac');
-        }
-        
-        $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-        
-        $total = $tbReadequacao->painelReadequacoesCoordenadorAcompanhamentoCount($where, $filtro);
-        
-        $fim = $inicio + $this->intTamPag;
-
-        $totalPag = (int)(($total % $this->intTamPag == 0) ? ($total / $this->intTamPag) : (($total / $this->intTamPag) + 1));
-        $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
-
-        if ($filtro == 'analisados') {
-            unset($where['idOrgaoOrigem = ?']);
-            $where["CASE 
-	      WHEN projetos.Orgao in (" . Orgaos::ORGAO_SUPERIOR_SAV . "," . Orgaos::ORGAO_SAV_SAL . "," . Orgaos::SAV_DPAV . ")
-		   THEN " . Orgaos::ORGAO_SAV_CAP . "
-	     WHEN projetos.Orgao in (" . Orgaos::ORGAO_SUPERIOR_SEFIC . "," . Orgaos::SEFIC_DEIPC .")
-		   THEN " . Orgaos::ORGAO_GEAR_SACAV . "
-                    ELSE projetos.Orgao
-                    END = ?"] = $this->idOrgao;
-
-            if ($this->_request->getParam('pronac')) {
-                unset($where['a.PRONAC = ?']);
-                $where[new Zend_Db_Expr('projetos.anoprojeto + projetos.sequencial') . ' = ?'] = $this->_request->getParam('pronac');
-            }           
-        }
-        $busca = $tbReadequacao->painelReadequacoesCoordenadorAcompanhamento($where, $order, $tamanho, $inicio, false, $filtro);
-
-        $paginacao = array(
-            "pag" => $pag,
-            "qtde" => $this->intTamPag,
-            "campo" => $campo,
-            "ordem" => $ordem,
-            "ordenacao" => $ordenacao,
-            "novaOrdem" => $novaOrdem,
-            "total" => $total,
-            "inicio" => ($inicio + 1),
-            "fim" => $fim,
-            "totalPag" => $totalPag,
-            "Itenspag" => $this->intTamPag,
-            "tamanho" => $tamanho
-        );
-
-        $tbTitulacaoConselheiro = new tbTitulacaoConselheiro();
-        $this->view->conselheiros = $tbTitulacaoConselheiro->buscarConselheirosTitularesTbUsuarios();
-
-        $this->view->idPerfil = $this->idPerfil;
-        $this->view->paginacao = $paginacao;
-        $this->view->qtdRegistros = $total;
-        $this->view->dados = $busca;
-        $this->view->intTamPag = $this->intTamPag;
-    }
-
-    /*
-     * Alterada em 15/05/15
-     */
-    public function imprimirReadequacoesAction()
-    {
-
-        if ($this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO && $this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
-        }
-
-        //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if ($this->_request->getParam("qtde")) {
-            $this->intTamPag = $this->_request->getParam("qtde");
-        }
-        $order = array();
-
-        //==== parametro de ordenacao  ======//
-        if ($this->_request->getParam("ordem")) {
-            $ordem = $this->_request->getParam("ordem");
-            if ($ordem == "ASC") {
-                $novaOrdem = "DESC";
-            } else {
-                $novaOrdem = "ASC";
-            }
-        } else {
-            $ordem = "ASC";
-            $novaOrdem = "ASC";
-        }
-
-        //==== campo de ordenacao  ======//
-        if ($this->_request->getParam("campo")) {
-            $campo = $this->_request->getParam("campo");
-            $order = array($campo . " " . $ordem);
-            $ordenacao = "&campo=" . $campo . "&ordem=" . $ordem;
-        } else {
-            $campo = null;
-            $order = array(5); //Dt. Solicitação
-            $ordenacao = null;
-        }
-
-        $pag = 1;
-        if (isset($get->pag)) {
-            $pag = $this->_request->getParam('pag');
-        }
-        $inicio = ($pag > 1) ? ($pag - 1) * $this->intTamPag : 0;
-
-        /* ================== PAGINACAO ======================*/
-
-        $where = array();
-        if ($this->_request->getParam('pronac')) {
-            $where['a.PRONAC = ?'] = $this->_request->getParam('pronac');
-            $this->view->pronac = $this->_request->getParam('pronac');
-        }
-
-        $filtro = null;
-        if ($this->_request->getParam('tipoFiltro')) {
-            $filtro = $this->_request->getParam('tipoFiltro');
-        } else {
-            $filtro = 'aguardando_distribuicao';
-        }
-
-        $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-
-        $total = $tbReadequacao->painelReadequacoesCoordenadorAcompanhamentoCount($where, $filtro);
-
-        $fim = $inicio + $this->intTamPag;
-        $totalPag = (int)(($total % $this->intTamPag == 0) ? ($total / $this->intTamPag) : (($total / $this->intTamPag) + 1));
-        $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
-
-        $busca = $tbReadequacao->painelReadequacoesCoordenadorAcompanhamento($where, $order, $tamanho, $inicio, null, $filtro);
-
-        $this->view->qtdRegistros = $total;
-        $this->view->dados = $busca;
-        $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
-    }
-
-    /*
-     * Alterada em 19/03/2014
-     * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
-     * Função usada para o coordenador de acompanhamento deferir ou não a solicitação de readequação.
-     */
-    public function avaliarReadequacaoAction()
-    {
-        $perfisAcesso = array(Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO, Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO, Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO);
-
-        if (!in_array($this->idPerfil, $perfisAcesso)) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
-        }
-
-        $idReadequacao = Seguranca::dencrypt($this->_request->getParam('id'));
-
-        $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-        $r = $tbReadequacao->buscarDadosReadequacoes(array('idReadequacao = ?' => $idReadequacao))->current();
-
-        if ($r) {
-            $Projetos = new Projetos();
-            $p = $Projetos->buscarProjetoXProponente(array('idPronac = ?' => $r->idPronac))->current();
-
-            $this->view->filtro = $this->_request->getParam('filtro');
-            $this->view->readequacao = $r;
-            $this->view->projeto = $p;
-            $this->view->idPronac = $r->idPronac;
-        } else {
-            parent::message('Nenhum registro encontrado.', "readequacao/readequacoes/painel", "ERROR");
-        }
-    }
-
-    /*
-     * Alterada em 06/03/14
-     * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
-     */
-    public function buscarDestinatariosAction()
-    {
-        $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
-        $vinculada = $this->_request->getParam('vinculada');
-        $idPronac = $this->_request->getParam('idPronac');
-
-        $a = 0;
-        $dadosUsuarios = array();
-
-        if ($vinculada == 166 || $vinculada == 262) {
-            $dados = array();
-            $dados['sis_codigo = ?'] = 21;
-            $dados['uog_status = ?'] = 1;
-            $dados['gru_codigo = ?'] = Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO; //Tecnico de Acompanhamento
-            if ($vinculada == 166) {
-                $dados['org_superior = ?'] = 160;
-            } else {
-                $dados['org_superior = ?'] = 251;
-            }
-
-            $vw = new vwUsuariosOrgaosGrupos();
-            $result = $vw->buscar($dados, array('usu_nome'));
-
-            if (count($result) > 0) {
-                foreach ($result as $registro) {
-                    $dadosUsuarios[$a]['id'] = $registro['usu_codigo'];
-                    $dadosUsuarios[$a]['nome'] = utf8_encode($registro['usu_nome']);
-                    $a++;
-                }
-                $jsonEncode = json_encode($dadosUsuarios);
-                $this->_helper->json(array('resposta' => true, 'conteudo' => $dadosUsuarios));
-            } else {
-                $this->_helper->json(array('resposta' => false));
-            }
-        } else { //CNIC
-            $tbTitulacaoConselheiro = new tbTitulacaoConselheiro();
-            $result = $tbTitulacaoConselheiro->buscarConselheirosTitularesTbUsuarios();
-
-            if (count($result) > 0) {
-                foreach ($result as $registro) {
-                    $dadosUsuarios[$a]['id'] = $registro['id'];
-                    $dadosUsuarios[$a]['nome'] = utf8_encode($registro['nome']);
-                    $a++;
-                }
-                $jsonEncode = json_encode($dadosUsuarios);
-                $this->_helper->json(array('resposta' => true, 'conteudo' => $dadosUsuarios));
-            } else {
-                $this->_helper->json(array('resposta' => false));
-            }
-        }
-        $this->_helper->viewRenderer->setNoRender(true);
+        $this->_redirect('index/index/#/readequacao/painel');
     }
 
     /**
@@ -1819,133 +1256,10 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             }
         }
     }
-
-    /*
-     * FUNÇÃO ACESSADA PELO TECNICO DE ACOMPANHAMENTO
-    */
+    
     public function painelReadequacoesAction()
     {
-        if ($this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER && $this->idPerfil != Autenticacao_Model_Grupos::PARECERISTA && $this->idPerfil != Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
-        }
-
-        //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
-        if ($this->_request->getParam("qtde")) {
-            $this->intTamPag = $this->_request->getParam("qtde");
-        }
-
-        $ordem = "ASC";
-        $novaOrdem = "ASC";
-        if ($this->_request->getParam("ordem")) {
-            $ordem = $this->_request->getParam("ordem");
-            if ($ordem == "ASC") {
-                $novaOrdem = "DESC";
-            }
-        }
-
-        $campo = null;
-        $order = array(1); //idDistribuirReadequacao
-        $ordenacao = null;
-        if ($this->_request->getParam("campo")) {
-            $campo = $this->_request->getParam("campo");
-            $order = array($campo . " " . $ordem);
-            $ordenacao = "&campo=" . $campo . "&ordem=" . $ordem;
-        }
-
-        $pag = 1;
-        $get = Zend_Registry::get('get');
-        if (isset($get->pag)) {
-            $pag = $get->pag;
-        }
-        $inicio = ($pag > 1) ? ($pag - 1) * $this->intTamPag : 0;
-
-        /* ================== PAGINACAO ======================*/
-        $where = array();
-
-        $filtro = 'painel_do_tecnico';
-        if ($this->_request->getParam('tipoFiltro') !== null) {
-            $filtro = $this->_request->getParam('tipoFiltro');
-        } elseif ($this->idPerfil == Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER) {
-            $filtro = 'aguardando_distribuicao';
-        }
-        $this->view->filtro = $filtro;
-
-        if ($this->_request->getParam('pronac')) {
-            $where['projetos.AnoProjeto+projetos.Sequencial = ?'] = $this->_request->getParam('pronac');
-            $this->view->pronac = $this->_request->getParam('pronac');
-        }
-
-        $where['idUnidade = ?'] = $this->idOrgao;
-        if ($this->idOrgao == 272) {
-            $where['idUnidade = ?'] = 262;
-        }
-
-        $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-        $tbDistribuirReadequacao = new Readequacao_Model_tbDistribuirReadequacao();
-
-        if ($this->idPerfil == Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER) {
-
-            switch ($filtro) {
-                case 'aguardando_distribuicao':
-                    $total = count($tbDistribuirReadequacao->buscarReadequacaoCoordenadorParecerAguardandoAnalise($where));
-                    break;
-                case 'em_analise':
-                    $total = count($tbReadequacao->buscarReadequacaoCoordenadorParecerEmAnalise($where));
-                    break;
-                case 'analisados':
-                    $total = count($tbDistribuirReadequacao->buscarReadequacaoCoordenadorParecerAnalisados($where));
-                    break;
-            }
-        } elseif ($this->idPerfil == Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO || $this->idPerfil == Autenticacao_Model_Grupos::PARECERISTA) {
-            $auth = Zend_Auth::getInstance(); // pega a autenticação
-            $where['dtDistribuicao.idAvaliador = ?'] = $auth->getIdentity()->usu_codigo;
-
-            $total = count($tbReadequacao->painelReadequacoesTecnicoAcompanhamento($where));
-
-            $this->filtro = '';
-        }
-
-        $fim = $inicio + $this->intTamPag;
-
-        $totalPag = (int)(($total % $this->intTamPag == 0) ? ($total / $this->intTamPag) : (($total / $this->intTamPag) + 1));
-        $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
-
-        if ($this->idPerfil == Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER) {
-            switch ($filtro) {
-                case 'aguardando_distribuicao':
-                    $busca = $tbDistribuirReadequacao->buscarReadequacaoCoordenadorParecerAguardandoAnalise($where, $order, $tamanho, $inicio, false);
-                    break;
-                case 'em_analise':
-                    $busca = $tbReadequacao->buscarReadequacaoCoordenadorParecerEmAnalise($where, $order, $tamanho, $inicio, false);
-                    break;
-                case 'analisados':
-                    $busca = $tbDistribuirReadequacao->buscarReadequacaoCoordenadorParecerAnalisados($where, $order, $tamanho, $inicio, false);
-                    break;
-            }
-        } elseif ($this->idPerfil == Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO || $this->idPerfil == Autenticacao_Model_Grupos::PARECERISTA) {
-            $busca = $tbReadequacao->painelReadequacoesTecnicoAcompanhamento($where, $order, $tamanho, $inicio, false);
-        }
-        $paginacao = array(
-            "pag" => $pag,
-            "qtde" => $this->intTamPag,
-            "campo" => $campo,
-            "ordem" => $ordem,
-            "ordenacao" => $ordenacao,
-            "novaOrdem" => $novaOrdem,
-            "total" => $total,
-            "inicio" => ($inicio + 1),
-            "fim" => $fim,
-            "totalPag" => $totalPag,
-            "Itenspag" => $this->intTamPag,
-            "tamanho" => $tamanho
-        );
-
-        $this->view->paginacao = $paginacao;
-        $this->view->qtdRegistros = $total;
-        $this->view->dados = $busca;
-        $this->view->intTamPag = $this->intTamPag;
-        $this->view->idPerfil = $this->idPerfil;
-        $this->view->idOrgao = $this->idOrgao;
+        $this->_redirect('index/index/#/readequacao/painel');
     }
 
     /**
@@ -1956,9 +1270,11 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         if ($this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER && $this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO && $this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO) {
             parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
         }
-
-        $id = Seguranca::dencrypt($this->_request->getParam('id'));
-
+        $id = $this->_request->getParam('id');
+        if (strlen($id) > 7) {
+            $id = Seguranca::dencrypt($id);
+        }
+        
         $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
         $d = $tbReadequacao->visualizarReadequacao(array('a.idReadequacao = ?' => $id))->current();
         $this->view->dados = $d;
@@ -1974,57 +1290,6 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
 
         $tbReadequacaoXParecer = new Readequacao_Model_DbTable_TbReadequacaoXParecer();
         $this->view->Parecer = $tbReadequacaoXParecer->buscarPareceresReadequacao(array('a.idReadequacao = ?' => $id, 'idTipoAgente =?' => 1))->current();
-    }
-
-    /**
-     * Função acessada pelo Coordenador de Parecer para encaminhar a readequação para o Parecerista.
-     */
-    public function encaminharReadequacaoAction()
-    {
-        $this->_helper->layout->disableLayout();
-        $vinculada = $this->idOrgao;
-
-        $idDistRead = $this->_request->getParam('idDistRead');
-        $idReadequacao = $this->_request->getParam('idReadequacao');
-
-        if ($vinculada != Orgaos::ORGAO_IPHAN_PRONAC) {
-            $idAvaliador = $this->_request->getParam('parecerista');
-
-            $dados = [];
-            $dados['idAvaliador'] = $idAvaliador;
-            $dados['DtEnvioAvaliador'] = new Zend_Db_Expr('GETDATE()');
-            $where["idDistribuirReadequacao = ? "] = $idDistRead;
-            $tbDistribuirReadequacao = new Readequacao_Model_tbDistribuirReadequacao();
-            $return = $tbDistribuirReadequacao->update($dados, $where);
-            
-            $dados = [];
-            $dados['siEncaminhamento'] = Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
-            $where = [];
-            $where['idReadequacao = ?'] = $idReadequacao;
-            $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-            $return2 = $tbReadequacao->update($dados, $where);
-
-            if ($return && $return2) {
-                $this->_helper->json(['resposta' => true]);
-            } else {
-                $this->_helper->json(['resposta' => false]);
-            }
-        } else {
-            $idVinculada = $this->_request->getParam('parecerista');
-
-            $dados = [];
-            $dados['idUnidade'] = $idVinculada;
-            $where["idDistribuirReadequacao = ? "] = $idDistRead;
-            $tbDistribuirReadequacao = new Readequacao_Model_tbDistribuirReadequacao();
-            $return = $tbDistribuirReadequacao->update($dados, $where);
-
-            if ($return) {
-                $this->_helper->json(['resposta' => true]);
-            } else {
-                $this->_helper->json(['resposta' => false]);
-            }
-        }
-        $this->_helper->viewRenderer->setNoRender(true);
     }
 
     /**
@@ -2256,128 +1521,7 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         }
     }
 
-    public function coordParecerFinalizarReadequacaoAction()
-    {
-        $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
-
-        $post = Zend_Registry::get('post');
-        $idReadequacao = (int)$post->idReadequacao;
-        $idPronac = (int)$post->idPronac;
-
-        //Atualiza a tabela Readequacao_Model_DbTable_TbReadequacao
-        $dados = array();
-        $dados['siEncaminhamento'] = Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_DEVOLVIDA_AO_MINC;
-        $where = "idReadequacao = $idReadequacao";
-        $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-        $return = $tbReadequacao->update($dados, $where);
-
-        if ($return) {
-
-            $idTipoDoAtoAdministrativo = Readequacao_ReadequacaoAssinaturaController::obterIdTipoAtoAdministativoPorOrgaoSuperior($this->idOrgao);
-            $objDbTableDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
-            $idDocumentoAssinatura = $objDbTableDocumentoAssinatura->getIdDocumentoAssinatura(
-                $idPronac,
-                $idTipoDoAtoAdministrativo
-            );
-
-            $linkAssinatura = '';
-            if ($idDocumentoAssinatura) {
-                $origin = "readequacao/readequacao-assinatura";
-                $linkAssinatura = "/assinatura/index/visualizar-projeto?idDocumentoAssinatura={$idDocumentoAssinatura}&origin={$origin}";
-            }
-
-            $this->_helper->json(array('resposta' => true, $linkAssinatura));
-        } else {
-            $this->_helper->json(array('resposta' => false));
-        }
-        $this->_helper->viewRenderer->setNoRender(true);
-    }
-
-    /**
-     * Função acessada pelos coordenadores para devolver para análise técnica.
-     */
-    public function devolverReadequacaoAction()
-    {
-        $dados = array();
-        $get = Zend_Registry::get('get');
-        $idReadequacao = (int)$get->id;
-
-        $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-        $dadosReadequacao = $tbReadequacao->find(array('idReadequacao=?' => $idReadequacao))->current();
-
-        $siEncaminhamento = $dadosReadequacao->siEncaminhamento;
-
-        if ($siEncaminhamento == Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_DEVOLVIDA_AO_MINC) {
-
-            $dados['siEncaminhamento'] = Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
-            $where = "idReadequacao = $idReadequacao";
-        } else {
-            $dados['siEncaminhamento'] = Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
-            $where = "idReadequacao = $idReadequacao";
-        }
-        $tbReadequacao->update($dados, $where);
-
-        parent::message("Readequa&ccedil;&atilde;o devolvida com sucesso!", "readequacao/readequacoes/painel?tipoFiltro=analisados", "CONFIRM");
-    }
-
-    /*
-     * Função acessada pelo coordenador de análise para finalizar a readequação e encaminhar para o componente da comissão.
-    */
-    public function coordAnaliseFinalizarReadequacaoAction()
-    {
-        $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
-        //$vinculada = $this->idOrgao;
-
-        $post = Zend_Registry::get('post');
-        $idComponente = (int)$post->componente;
-        $idReadequacao = (int)$post->idReadequacao;
-
-        if (count($idReadequacao) > 7) {
-            $idReadequacao = (int)Seguranca::dencrypt($idReadequacao);
-        }
-
-        $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-        $dadosReadequacao = $tbReadequacao->buscar(array('idReadequacao = ?' => $idReadequacao))->current();
-        $idPronac = $dadosReadequacao->idPronac;
-
-        $tbDistribuirReadequacao = new Readequacao_Model_tbDistribuirReadequacao();
-        $dadosDistRead = $tbDistribuirReadequacao->buscar(array('idReadequacao=?' => $idReadequacao));
-        if (count($dadosDistRead) > 0) {
-            //Atualiza a tabela tbDistribuirReadequacao
-            $dadosDP = array();
-            $dadosDP['stValidacaoCoordenador'] = 1;
-            $dadosDP['DtValidacaoCoordenador'] = new Zend_Db_Expr('GETDATE()');
-            $dadosDP['idCoordenador'] = $this->idUsuario;
-
-            // atualiza com dados para enviar para cnic
-            $dadosDP['idUnidade'] = 400;
-            $dadosDP['DtEncaminhamento'] = new Zend_Db_Expr('GETDATE()');
-            $dadosDP['idAvaliador'] = $idComponente;
-            $dadosDP['dtEnvioAvaliador'] = new Zend_Db_Expr('GETDATE()');
-
-            $whereDP = "idDistribuirReadequacao = " . $dadosDistRead[0]->idDistribuirReadequacao;
-            $distribuicao = $tbDistribuirReadequacao->update($dadosDP, $whereDP);
-        }
-
-        $reuniao = new Reuniao();
-        $raberta = $reuniao->buscarReuniaoAberta();
-        $idNrReuniao = ($raberta['stPlenaria'] == 'A') ? $raberta['idNrReuniao'] + 1 : $raberta['idNrReuniao'];
-
-        //Atualiza a tabela Readequacao_Model_DbTable_TbReadequacao
-        $dados = array();
-        $dados['siEncaminhamento'] = Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_CNIC;
-        $dados['idNrReuniao'] = $idNrReuniao;
-        $where = "idReadequacao = $idReadequacao";
-        $return = $tbReadequacao->update($dados, $where);
-
-        if ($return && $distribuicao) {
-            $this->_helper->json(array('resposta' => true));
-        } else {
-            $this->_helper->json(array('resposta' => false));
-        }
-        $this->_helper->viewRenderer->setNoRender(true);
-    }
-
+    
     /*
      * Alterada em 14/03/14
      * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
@@ -3024,44 +2168,6 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         }
     }
 
-    /*
-     * Alterada em 15/05/2015
-     * Função criada para finalizar ou encaminhar a readequação para checklist de publicação.
-    */
-    public function encaminharReadequacaoChecklistAction()
-    {
-        if ($this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER
-            && $this->idPerfil != Autenticacao_Model_Grupos::PARECERISTA
-            && $this->idPerfil != Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO
-            && $this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO
-            && $this->idPerfil != Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
-        }
-
-        $auth = Zend_Auth::getInstance();
-        // TODO: quando finalizar, mantem filtro de pronac caso estiver marca
-        $pronacSelecionado = $this->_request->getParam("pronac");
-        $urlComplemento = ($pronacSelecionado) ? "&pronac=$pronacSelecionado" : "";
-
-        $get = Zend_Registry::get('get');
-        $idReadequacao = (int)$get->id;
-
-        $servicoReadequacaoAssinatura = new \Application\Modules\Readequacao\Service\Assinatura\ReadequacaoAssinatura(
-            $this->grupoAtivo,
-            $this->auth
-        );
-        
-        $retorno = $servicoReadequacaoAssinatura->encaminharOuFinalizarReadequacaoChecklist(
-            $idReadequacao
-        );
-
-        if (!$retorno) {
-            parent::message("N&atilde;o foi poss&iacute;vel encaminhar a readequa&ccedil;&atilde;o para o Checklist de Publica&ccedil;&atilde;o", "readequacao/readequacoes/painel?tipoFiltro=analisados" . $urlComplemento, "ERROR");
-        }
-        parent::message("Readequa&ccedil;&atilde;o finalizada com sucesso!", "readequacao/readequacoes/painel?tipoFiltro=analisados" . $urlComplemento, "CONFIRM");
-    }
-
-
     public function isProjetoTransicaoIn2017($idPronac)
     {
         $fnDtAvaliacaoAdequacao = new fnDtAvaliacaoAdequacao();
@@ -3144,8 +2250,10 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             $this->view->Produtos = $PlanoDistribuicaoProduto->comboProdutosParaInclusaoReadequacao($idPronac);
 
             $spSelecionarEtapa = new spSelecionarEtapa();
-            $this->view->Etapas = $spSelecionarEtapa->exec($idPronac);
-
+            $etapas = $spSelecionarEtapa->exec($idPronac);
+            $etapas = array_slice($etapas, 0, 5);
+            $this->view->Etapas = $etapas;
+            
             $TbPlanilhaUnidade = new Proposta_Model_DbTable_TbPlanilhaUnidade();
             $buscarUnidade = $TbPlanilhaUnidade->buscarUnidade();
             $this->view->Unidade = $buscarUnidade;
@@ -3261,163 +2369,6 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
             $this->_helper->json(array('readequacoes' => $output));
         } catch (Zend_Exception $e) {
             $this->_helper->json(array('msg' => 'Registro no localizado'));
-        }
-    }
-
-    /*
-     * Encaminhar para análise técnica
-     * Criada em 13/06/2016
-     * @author: Fernão Lopes Ginez de Lara fernao.lara@cultura.gov.br
-     * @access public
-     * @return void
-     */
-    public function encaminharAnaliseTecnicaAction()
-    {
-        $perfisAcesso = array(Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO, Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO, Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO);
-
-        if (!in_array($this->idPerfil, $perfisAcesso)) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
-        }
-
-        $idReadequacao = Seguranca::dencrypt($this->_request->getParam('id'));
-        $cnic = $this->_request->getParam('cnic');
-
-        $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-        $r = $tbReadequacao->buscarDadosReadequacoes(array('idReadequacao = ?' => $idReadequacao))->current();
-
-        if ($r) {
-            $Projetos = new Projetos();
-            $p = $Projetos->buscarProjetoXProponente(array('idPronac = ?' => $r->idPronac))->current();
-
-            $this->view->filtro = $this->_request->getParam('filtro');
-            $this->view->readequacao = $r;
-            $this->view->projeto = $p;
-            $this->view->idPronac = $r->idPronac;
-            $this->view->cnic = $cnic;
-        } else {
-            parent::message('Nenhum registro encontrado.', "readequacao/readequacoes/painel", "ERROR");
-        }
-
-//        $this->renderScript('readequacao/encaminhar-analise-tecnica.phtml');
-    }
-
-
-    /**
-     * formEncaminharAnaliseTecnicaAction Função utilizada pleo Coord. de Acompanhamento para encaminhar readequacao
-     *
-     * @since  Criada em 13/06/2016
-     * @author Fernão Lopes Ginez de Lara <fernao.lara@cultura.gov.br>
-     * @access public
-     * @return void
-     */
-    public function formEncaminharAnaliseTecnicaAction()
-    {
-        $perfisAcesso = array(Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO, Autenticacao_Model_Grupos::COORDENADOR_ACOMPANHAMENTO, Autenticacao_Model_Grupos::COORDENADOR_GERAL_ACOMPANHAMENTO);
-
-        if (!in_array($this->idPerfil, $perfisAcesso)) {
-            parent::message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal", "ALERT");
-        }
-
-        $idReadequacao = $this->_request->getParam('idReadequacao');
-        $filtro = $this->_request->getParam('filtro');
-        $dsOrientacao = $this->_request->getParam('dsAvaliacao');
-        $stValidacaoCoordenador = 0;
-        $dataEnvio = null;
-        $destinatario = (null !== $this->_request->getParam('destinatario')) ? $this->_request->getParam('destinatario') : null;
-        $idUnidade = $this->_request->getParam('vinculada');
-
-        $tbDocumentoAssinaturaDbTable = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
-        $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-        $servicoReadequacaoAssinatura = new \Application\Modules\Readequacao\Service\Assinatura\ReadequacaoAssinatura(
-            $this->grupoAtivo,
-            $this->auth
-        );        
-
-        $readequacao = $tbReadequacao->buscarDadosReadequacoes(['idReadequacao = ?' => $idReadequacao])->current();
-        $idTipoDoAto = $servicoReadequacaoAssinatura->obterAtoAdministrativoPorTipoReadequacao($readequacao['idTipoReadequacao']);
-        
-        $documentoAssinatura = $tbDocumentoAssinaturaDbTable->obterDocumentoAssinatura(
-            $readequacao['idPronac'],
-            $idTipoDoAto
-        );
-        
-        $data = [
-            'cdSituacao' => \Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_FECHADO_PARA_ASSINATURA,
-            'stEstado' => \Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_INATIVO
-        ];
-        $where = [
-            'idDocumentoAssinatura = ?' => $documentoAssinatura['idDocumentoAssinatura'],
-        ];
-        
-        $update = $tbDocumentoAssinaturaDbTable->update(
-            $data,
-            $where
-        );
-        
-        try {
-            if (in_array($idUnidade, array(Orgaos::ORGAO_SAV_CAP, Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI))) {
-                // MUDANÇA DE TECNICO
-                $tbDistribuirReadequacao = new Readequacao_Model_tbDistribuirReadequacao();
-                $dados = array(
-                    'idAvaliador' => $destinatario,
-                    'DtEnvioAvaliador' => new Zend_Db_Expr('GETDATE()'),
-                    'dsOrientacao' => $dsOrientacao,
-                    'idUnidade' => $idUnidade
-                );
-                $where = array();
-                $where['idReadequacao = ?'] = $idReadequacao;
-
-                $u = $tbDistribuirReadequacao->update($dados, $where);
-
-                // atualizar Readequacao_Model_DbTable_TbReadequacao
-                $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-                $dados = array(
-                    'siEncaminhamento' => Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA
-                );
-                $where = array();
-                $where['idReadequacao = ?'] = $idReadequacao;
-                $tbReadequacao->update($dados, $where);
-
-                if ($this->idPerfil == Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO) {
-                    parent::message('Dados salvos com sucesso!', "readequacao/readequacoes/painel-readequacoes?tipoFiltro=$filtro", "CONFIRM");
-                } else {
-                    parent::message('Dados salvos com sucesso!', "readequacao/readequacoes/painel?tipoFiltro=$filtro", "CONFIRM");
-                }
-            } else {
-                // MUDANÇA DE VINCULADA
-
-                // MUDANÇA DE TECNICO
-                $tbDistribuirReadequacao = new Readequacao_Model_tbDistribuirReadequacao();
-                $dados = array(
-                    'idUnidade' => $idUnidade,
-                    'DtEncaminhamento' => new Zend_Db_Expr('GETDATE()'),
-                    'idAvaliador' => null,
-                    'DtEnvioAvaliador' => null,
-                    'dsOrientacao' => $dsOrientacao
-                );
-                $where = array();
-                $where['idReadequacao = ?'] = $idReadequacao;
-
-                $tbDistribuirReadequacao->update($dados, $where);
-
-                $tbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
-                $dadosReadequacao = array(
-                    'siEncaminhamento' => Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE
-                );
-                $u = $tbReadequacao->update($dadosReadequacao, $where);
-
-                if ($this->idPerfil == Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO) {
-                    parent::message('Dados salvos com sucesso!', "readequacao/readequacoes/painel-readequacoes?tipoFiltro=$filtro", "CONFIRM");
-                } else {
-                    parent::message('Dados salvos com sucesso!', "readequacao/readequacoes/painel?tipoFiltro=$filtro", "CONFIRM");
-                }
-            }
-        } catch (Exception $e) {
-            if ($this->idPerfil == Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO) {
-                parent::message('Erro ao encaminhar readequa&ccedil;&atilde;o!', "readequacao/readequacoes/painel-readequacoes?tipoFiltro=$filtro", "ERROR");
-            } else {
-                parent::message('Erro ao encaminhar readequa&ccedil;&atilde;o!', "readequacao/readequacoes/painel?tipoFiltro=$filtro", "ERROR");
-            }
         }
     }
 
