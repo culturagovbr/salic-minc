@@ -897,11 +897,17 @@ class Readequacao implements IServicoRestZend
     }
 
     public function removerRemanejamentoParcial($readequacao) {
-        
+        if (isset($readequacao['idReadequacao'])
+            && $readequacao['idReadequacao'] > 0) {
+            $this->__removerItensPlanilha($readequacao['idReadequacao']);
+        }
     }
     
     public function removerPlanilhaOrcamentaria($readequacao) {
-        
+        if (isset($readequacao['idReadequacao'])
+            && $readequacao['idReadequacao'] > 0) {
+            $this->__removerItensPlanilha($readequacao['idReadequacao']);
+        }
     }
 
     public function removerPlanoDistribuicao($readequacao) {
