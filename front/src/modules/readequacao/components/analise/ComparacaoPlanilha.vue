@@ -68,6 +68,15 @@
                         <v-icon>edit</v-icon>
                         Planilha readequada
                     </v-chip>
+                    <v-btn
+                        class="light-green lighten-3 ml-5"
+                        @click.stop="dialogLegenda = true"
+                    >
+                        <v-icon>
+                            format-list-bulleted
+                        </v-icon>
+                        legenda de cores
+                    </v-btn>
                     <s-planilha
                         :array-planilha="getPlanilha"
                         :expand-all="expandirTudo"
@@ -98,6 +107,12 @@
                 </div>
             </resize-panel>
         </v-flex>
+        <v-dialog
+            v-model="dialogLegenda"
+            width="350"
+        >
+            <legenda-planilha/>
+        </v-dialog>
     </v-layout>
 </template>
 <script>
@@ -109,6 +124,7 @@ import ResizePanel from '@/components/resize-panel/ResizeSplitPane';
 import SPlanilhaTiposVisualizacaoButtons from '@/components/Planilha/PlanilhaTiposVisualizacaoButtons';
 import SPlanilhaItensReadequacao from '../planilha/PlanilhaItensReadequacao';
 import MxPlanilha from '@/mixins/planilhas';
+import LegendaPlanilha from './LegendaPlanilha';
 
 export default {
     name: 'ComparacaoPlanilha',
@@ -118,6 +134,7 @@ export default {
         SPlanilha,
         SPlanilhaTiposVisualizacaoButtons,
         SPlanilhaItensReadequacao,
+        LegendaPlanilha,
     },
     mixins: [
         MxPlanilha,
@@ -154,6 +171,7 @@ export default {
                 readequada: false,
             },
             loading: true,
+            dialogLegenda: false,
         };
     },
     computed: {
