@@ -228,6 +228,10 @@ export default {
                     nome: 'SEFIC',
                 },
             ],
+            orgaosObterSefic: [
+                Const.ORGAO_SAV_CAP,
+                Const.ORGAO_GEAAP_SUAPI_DIAAPI,
+            ],
             orgaosObterDestinatarios: [
                 Const.ORGAO_SUPERIOR_SAV,
                 Const.ORGAO_SAV_CAP,
@@ -266,7 +270,7 @@ export default {
             this.checkDisponivelRedistribuir();
         },
         getDestinatariosDistribuicao(value) {
-            if (value.length > 0) {
+            if (typeof value !== 'undefined') {
                 this.loadingDestinatarios = false;
             }
             this.selecionarDestinatario = true;
@@ -285,7 +289,11 @@ export default {
                             nome: 'SAV',
                         });
                     }
-                    this.dadosEncaminhamento.vinculada = this.orgaoAtual;
+                    if (this.orgaoAtual === Const.ORGAO_SEFIC_DEIPC_CGEFI) {
+                        this.dadosEncaminhamento.vinculada = Const.ORGAO_GEAAP_SUAPI_DIAAPI;
+                    } else {
+                        this.dadosEncaminhamento.vinculada = this.orgaoAtual;
+                    }
                     this.obterDestinatarios();
                 }
             },
@@ -336,8 +344,15 @@ export default {
         },
         obterDestinatarios() {
             this.dadosEncaminhamento.destinatario = '';
-            if (this.orgaosObterDestinatarios.includes(this.dadosEncaminhamento.vinculada)
-                || (this.dadosEncaminhamento.vinculada === this.orgaoAtual)) {
+            if (this.orgaoAtual === Const.ORGAO_SEFIC_DEIPC_CGEFI
+                && (this.orgaosObterSefic.includes(this.dadosEncaminhamento.vinculada))) {
+                this.obterDestinatariosDistribuicao({
+                    idPronac: this.dadosReadequacao.idPronac,
+                    vinculada: this.dadosEncaminhamento.vinculada,
+                    area: this.dadosReadequacao.Area,
+                    segmento: this.dadosReadequacao.Segmento,
+                });
+            } else if (this.dadosEncaminhamento.vinculada === this.orgaoAtual) {
                 this.loadingDestinatarios = true;
                 this.obterDestinatariosDistribuicao({
                     idPronac: this.dadosReadequacao.idPronac,
