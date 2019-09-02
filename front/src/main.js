@@ -6,7 +6,6 @@ import 'vuetify/dist/vuetify.min.css';
 import pt from 'vuetify/lib/locale/pt';
 import Vuetify from 'vuetify';
 import Vue from 'vue';
-import pt from 'vuetify/lib/locale/pt';
 import App from './App';
 
 import {

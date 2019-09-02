@@ -155,6 +155,10 @@ class AnaliseCusto implements \MinC\Servico\IServicoRestZend
             return false;
         }
 
+        if ($item['NrFonteRecurso'] != \Mecanismo::INCENTIVO_FISCAL_FEDERAL) {
+            return false;
+        }
+
         return true;
     }
 

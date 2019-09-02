@@ -130,12 +130,14 @@ export default {
     name: 'AnaliseDeCustosHeader',
     components: { SConfirmacaoDialog, SProgressoDialog },
     mixins: [MxPlanilha],
+
     props: {
         planilha: {
             type: Array,
             default: () => [],
         },
     },
+
     data() {
         return {
             dialog: false,
@@ -143,11 +145,13 @@ export default {
             calculos: dataDefaults.calculos,
         };
     },
+
     computed: {
         ...mapGetters({
             produto: 'parecer/getProduto',
         }),
     },
+
     watch: {
         planilha: {
             handler(val) {
@@ -159,6 +163,7 @@ export default {
             deep: true,
         },
     },
+
     methods: {
         ...mapActions({
             restaurarPlanilhaProduto: 'parecer/restaurarPlanilhaProduto',
