@@ -111,7 +111,7 @@
                                                 item-value="id"
                                             />
                                         </template>
-                                        <template v-if="getDestinatariosDistribuicao.length === 0 && dadosEncaminhamento.vinculada > 0">
+                                        <template v-if="exibirDestinatariosIndisponiveis">
                                             <h3 class="red--text text--darken-2">
                                                 Não há destinatários/as disponíveis, impossível encaminhar a readequação no momento!
                                             </h3>
@@ -258,6 +258,11 @@ export default {
             }
             return false;
         },
+        exibirDestinatariosIndisponiveis() {
+            return (this.getDestinatariosDistribuicao.length === 0
+                    && this.dadosEncaminhamento.vinculada > 0
+                    && this.selecionarDestinatario === true);
+        },
     },
     watch: {
         dadosEncaminhamento: {
@@ -311,8 +316,8 @@ export default {
             setSnackbar: 'noticias/setDados',
         }),
         checkDisponivelRedistribuir() {
-            if (this.orgaosObterDestinatarios.includes(this.dadosEncaminhamento.vinculada)
-                || (this.dadosEncaminhamento.vinculada === this.orgaoAtual)) {
+            if (this.orgaoAtual === Const.ORGAO_SEFIC_DEIPC_CGEFI
+                && (this.orgaosObterSefic.includes(this.dadosEncaminhamento.vinculada))) {
                 if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
                     && this.dsOrientacao.length > this.minChar) {
                     this.encaminharDisponivel = true;
@@ -320,6 +325,14 @@ export default {
                     this.selecionarDestinatario = true;
                     this.encaminharDisponivel = this.dadosEncaminhamento.destinatario !== '';
                 }
+            } else if (this.dadosEncaminhamento.vinculada === this.orgaoAtual
+                       && this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
+                       && this.dsOrientacao.length > this.minChar) {
+                this.encaminharDisponivel = true;
+            } else if (this.dadosEncaminhamento.vinculada === this.orgaoAtual) {
+                this.encaminharDisponivel = (this.dadosEncaminhamento.vinculada > 0
+                                             && this.dsOrientacao.length > this.minChar
+                                             && this.dadosEncaminhamento.destinatario.toString().length > 0);
             } else {
                 this.selecionarDestinatario = false;
                 this.encaminharDisponivel = this.dadosEncaminhamento.vinculada > 0 && this.dsOrientacao.length > this.minChar;
