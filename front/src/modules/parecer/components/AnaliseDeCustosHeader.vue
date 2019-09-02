@@ -64,6 +64,30 @@
                                 SUGERIDO
                             </span>
                         </v-toolbar-title>
+                        <v-badge
+                            :value="calculos.totalInconsistencias > 0"
+                            class="ml-2"
+                            overlap
+                            left
+                            color="red"
+                        >
+                            <template v-slot:badge>
+                                <span>{{ calculos.totalInconsistencias }}</span>
+                            </template>
+                            <v-tooltip
+                                bottom
+                            >
+                                <v-icon
+                                    v-if="calculos.totalInconsistencias > 0"
+                                    slot="activator"
+                                    color="grey"
+                                >
+                                    error
+                                </v-icon>
+                                <span> Existem {{ calculos.totalInconsistencias }} inconsistências na planilha </span>
+                            </v-tooltip>
+                        </v-badge>
+
                         <v-spacer />
                         <v-tooltip
                             bottom
@@ -113,6 +137,7 @@
 
 import { mapActions, mapGetters } from 'vuex';
 import MxPlanilha from '@/mixins/planilhas';
+import MxUtils from '@/mixins/utils';
 import SProgressoDialog from '@/components/SalicProgressoDialog';
 import SConfirmacaoDialog from '@/components/SalicConfirmacaoDialog';
 
@@ -120,6 +145,7 @@ const dataDefaults = {
     calculos: {
         totalSolicitado: 0,
         totalSugerido: 0,
+        totalInconsistencias: 0,
         fontes: {},
         produtos: {},
         etapas: {},
@@ -129,7 +155,7 @@ const dataDefaults = {
 export default {
     name: 'AnaliseDeCustosHeader',
     components: { SConfirmacaoDialog, SProgressoDialog },
-    mixins: [MxPlanilha],
+    mixins: [MxPlanilha, MxUtils],
 
     props: {
         planilha: {
@@ -173,10 +199,11 @@ export default {
             if (!planilha) {
                 return {};
             }
-
             planilha.forEach((item) => {
                 this.calculos.totalSugerido += item.VlSugeridoParecerista;
                 this.calculos.totalSolicitado += item.VlSolicitado;
+                this.calculos.totalInconsistencias += (item.stCustoPraticadoParc === 1
+                    && this.stripTags(item.dsJustificativaParecerista)) ? 1 : 0;
             });
             return true;
         },

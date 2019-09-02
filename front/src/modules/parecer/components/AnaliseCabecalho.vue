@@ -138,8 +138,6 @@ export default {
                 return;
             }
 
-            console.log('etesssss');
-
             this.$router.push({ name: this.nomeRotaRetorno });
         },
     },

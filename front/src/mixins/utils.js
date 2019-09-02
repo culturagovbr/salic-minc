@@ -180,7 +180,13 @@ export const utils = {
             return filtersQuantidade(parsedValue);
         },
         filtroTruncar25(value) {
-            return value.substr(0, 24) + '...';
+            return `${value.substr(0, 24)}...`;
+        },
+        stripTags(string) {
+            if (typeof string !== 'string') {
+                return string;
+            }
+            return string.replace(/(<([^>]+)>)/ig, '');
         },
     },
 };
