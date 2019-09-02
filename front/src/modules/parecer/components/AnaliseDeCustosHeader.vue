@@ -203,7 +203,7 @@ export default {
                 this.calculos.totalSugerido += item.VlSugeridoParecerista;
                 this.calculos.totalSolicitado += item.VlSolicitado;
                 this.calculos.totalInconsistencias += (item.stCustoPraticadoParc === 1
-                    && this.stripTags(item.dsJustificativaParecerista)) ? 1 : 0;
+                    && this.stripTags(item.dsJustificativaParecerista)).length === 0 ? 1 : 0;
             });
             return true;
         },
