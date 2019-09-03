@@ -184,6 +184,7 @@ import MxConstantes from '@/modules/parecer/mixins/const';
 export default {
     name: 'GerenciarListaValidados',
     mixins: [MxUtils, MxDiligencia, MxConstantes],
+
     props: {
         produtos: {
             type: Array,
@@ -194,6 +195,7 @@ export default {
             default: '',
         },
     },
+
     data() {
         return {
             dialogConfirmarEnvio: false,
@@ -234,6 +236,15 @@ export default {
                 { text: 'Ações', width: '2', value: 'stPrincipal' },
             ],
         };
+    },
+
+    methods: {
+        isDisponivelParaAssinatura(produto) {
+            return produto
+                && produto.siEncaminhamento === 5
+                && produto.siAnalise === 5
+                && produto.idDocumentoAssinatura;
+        },
     },
 };
 </script>

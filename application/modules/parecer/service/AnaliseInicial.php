@@ -443,7 +443,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         return $objDocumentoAssinatura->getIdDocumentoAssinatura($idPronac, self::ID_ATO_ADMINISTRATIVO);
     }
 
-    public function devolverProduto()
+    public function devolverProdutoParaCordenador()
     {
         $params = $this->request->getParams();
 
@@ -468,6 +468,34 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         ]);
 
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
-        return $tbDistribuirParecerMapper->devolverProduto($dados);
+        return $tbDistribuirParecerMapper->devolverProdutoParaCoordenador($dados);
+    }
+
+    public function devolverProdutoParaParecerista()
+    {
+        $params = $this->request->getParams();
+
+        if (empty($params['idDistribuirParecer'])) {
+            throw new \Exception("Dados obrigatórios não informado");
+        }
+
+        $whereDistribuicaoAtual = [];
+        $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
+        $whereDistribuicaoAtual["stEstado = ?"] = \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO;
+
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $distribuicao = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
+
+        if (empty($distribuicao)) {
+            throw new \Exception("Distribui&ccedil;&atilde;o n&atilde;o encontrada para o produto informado");
+        }
+
+        $dados = array_merge($distribuicao, [
+            'Observacao' => utf8_decode(trim(strip_tags($params['Observacao']))),
+            'idUsuario' => $this->idUsuario,
+        ]);
+
+        $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
+        return $tbDistribuirParecerMapper->devolverProdutoParaParecerista($dados);
     }
 }

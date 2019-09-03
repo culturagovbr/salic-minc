@@ -88,9 +88,6 @@
                                         <span>Produto secundário</span>
                                     </v-tooltip>
                                 </td>
-                                <td class="text-xs-right">
-                                    {{ props.item.DtDistribuicao | formatarData }}
-                                </td>
                                 <td class="text-xs-center">
                                     <v-tooltip
                                         bottom
@@ -100,6 +97,7 @@
                                             :color="obterConfigDiligencia(props.item).cor"
                                             target="_blank"
                                             icon
+                                            small
                                             @click="visualizarDiligencia(props.item)"
                                         >
                                             <v-badge
@@ -118,6 +116,9 @@
                                         </v-btn>
                                         <span> {{ obterConfigDiligencia(props.item).texto }} </span>
                                     </v-tooltip>
+                                </td>
+                                <td class="text-xs-right">
+                                    {{ props.item.DtDistribuicao | formatarData }}
                                 </td>
                                 <td class="layout px-0">
                                     <v-tooltip
@@ -248,14 +249,14 @@ export default {
                 width: '2',
             },
             {
-                text: 'Dt. de Recebimento',
-                value: 'dtDistribuicao',
-                width: '2',
-            },
-            {
                 text: 'Diligência',
                 width: '2',
                 value: 'stDiligencia',
+            },
+            {
+                text: 'Dt. de Recebimento',
+                value: 'dtDistribuicao',
+                width: '2',
             },
             {
                 text: 'Ações', align: 'left', value: 'siAnalise',

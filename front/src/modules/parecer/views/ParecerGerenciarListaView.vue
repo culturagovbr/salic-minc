@@ -130,6 +130,7 @@ export default {
         SDialogDiligencias,
     },
     mixins: [MxUtils, MxDiligencia, MxConstantes],
+
     data: () => ({
         filtros: [
             {
@@ -182,7 +183,9 @@ export default {
         produtoSelecionado: {},
         expand: false,
         loading: true,
+        urlAssinatura: '/assinatura/index/visualizar-projeto',
     }),
+
     computed: {
         ...mapGetters({
             obterProdutos: 'parecer/getProdutos',
@@ -191,6 +194,7 @@ export default {
             return this.filtros.find(item => item.id === this.filtro);
         },
     },
+
     watch: {
         obterProdutos(val) {
             this.produtos = val;
@@ -209,12 +213,14 @@ export default {
             }
         },
     },
+
     created() {
         if (this.$route.params.filtro) {
             this.filtro = this.$route.params.filtro;
         }
         this.obterProdutosParaGerenciar({ filtro: this.filtro });
     },
+
     methods: {
         ...mapActions({
             obterProdutosParaGerenciar: 'parecer/obterProdutosParaGerenciar',

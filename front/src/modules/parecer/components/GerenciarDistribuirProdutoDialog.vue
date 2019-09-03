@@ -119,6 +119,11 @@
                                                     <strong class="primary--text">Encaminhar para uma unidade vinculada</strong>
                                                 </template>
                                             </v-radio>
+                                            <v-radio value="devolver">
+                                                <template v-slot:label>
+                                                    <strong class="primary--text">Devolver para reanálise do parecerista</strong>
+                                                </template>
+                                            </v-radio>
                                         </v-radio-group>
                                     </v-flex>
                                     <v-flex
@@ -127,6 +132,7 @@
                                         md6
                                         class="mt-3"
                                     >
+                                        {{ distribuicao }}
                                         <v-select
                                             v-if="distribuicao.tipoAcao === 'distribuir'"
                                             v-model="distribuicao.idParecerista"
@@ -220,6 +226,7 @@ export default {
         SEditorTexto,
     },
     mixins: [utils],
+
     props: {
         value: {
             type: Boolean,
@@ -234,6 +241,7 @@ export default {
             default: '',
         },
     },
+
     data() {
         return {
             dialog: false,
@@ -260,6 +268,7 @@ export default {
             dialogConfirmarEnvio: false,
         };
     },
+
     computed: {
         ...mapGetters({
             pareceristas: 'parecer/getPareceristas',
@@ -276,6 +285,7 @@ export default {
                 : 'Observação para a unidade vinculada';
         },
     },
+
     watch: {
         value(val) {
             this.dialog = val;
@@ -315,6 +325,7 @@ export default {
             this.loadingVinculadas = false;
         },
     },
+
     methods: {
         ...mapActions({
             buscarDadosDistribuicao: 'parecer/obterDadosParaDistribuicao',
@@ -335,7 +346,10 @@ export default {
             }
 
             this.loading = true;
-            const salvar = this.distribuicao.distribuirProjeto ? 'salvarDistribuicaoProjeto' : 'salvarDistribuicaoProduto';
+            const salvar = this.distribuicao.distribuirProjeto
+                ? 'salvarDistribuicaoProjeto'
+                : 'salvarDistribuicaoProduto';
+
             this[salvar](this.distribuicao).then(() => {
                 this.dialog = false;
             }).finally(() => {
@@ -346,5 +360,6 @@ export default {
             return `${item.Nome} (${item.emAvaliacao})`;
         },
     },
+
 };
 </script>

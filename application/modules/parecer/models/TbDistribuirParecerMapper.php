@@ -8,10 +8,23 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
         $this->setDbTable('Parecer_Model_DbTable_TbDistribuirParecer');
     }
 
-    public function devolverProduto($distribuicao)
+    public function devolverProdutoParaCoordenador($distribuicao)
     {
         $dados = array_merge($distribuicao, [
             'DtDevolucao' => \MinC_Db_Expr::date(),
+            'stDiligenciado' => null,
+            'DtRetorno' => null,
+            'siEncaminhamento' => \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA,
+            'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE
+        ]);
+
+        return $this->inserirDistribuicaoProduto($dados);
+    }
+
+    public function devolverProdutoParaParecerista($distribuicao)
+    {
+        $dados = array_merge($distribuicao, [
+            'DtDevolucao' => null,
             'stDiligenciado' => null,
             'DtRetorno' => null,
             'siEncaminhamento' => \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA,

@@ -47,7 +47,7 @@ class Parecer_AnaliseInicialImpedimentoRestController extends MinC_Controller_Re
     {
         try {
             $analiseInicialService = new AnaliseInicial($this->getRequest(), $this->getResponse());
-            $resposta = $analiseInicialService->devolverProduto();
+            $resposta = $analiseInicialService->devolverProdutoParaCordenador();
 
             $this->customRenderJsonResponse(
                 [
