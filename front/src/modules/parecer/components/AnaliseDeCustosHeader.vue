@@ -64,30 +64,31 @@
                                 SUGERIDO
                             </span>
                         </v-toolbar-title>
-                        <v-badge
-                            :value="calculos.totalInconsistencias > 0"
-                            class="ml-2"
-                            overlap
-                            left
-                            color="red"
+                        <v-tooltip
+                            bottom
                         >
-                            <template v-slot:badge>
-                                <span>{{ calculos.totalInconsistencias }}</span>
-                            </template>
-                            <v-tooltip
-                                bottom
+                            <v-badge
+                                slot="activator"
+                                :value="calculos.totalInconsistencias > 0"
+                                class="ml-2"
+                                overlap
+                                left
+                                color="red"
                             >
+                                <template v-slot:badge>
+                                    <span>{{ calculos.totalInconsistencias }}</span>
+                                </template>
+
                                 <v-icon
                                     v-if="calculos.totalInconsistencias > 0"
-                                    slot="activator"
+
                                     color="grey"
                                 >
                                     error
                                 </v-icon>
-                                <span> Existem {{ calculos.totalInconsistencias }} inconsistências na planilha </span>
-                            </v-tooltip>
-                        </v-badge>
-
+                            </v-badge>
+                            <span> Existem ({{ calculos.totalInconsistencias }}) inconsistências na planilha </span>
+                        </v-tooltip>
                         <v-spacer />
                         <v-tooltip
                             bottom
@@ -203,7 +204,7 @@ export default {
                 this.calculos.totalSugerido += item.VlSugeridoParecerista;
                 this.calculos.totalSolicitado += item.VlSolicitado;
                 this.calculos.totalInconsistencias += (item.stCustoPraticadoParc === 1
-                    && this.stripTags(item.dsJustificativaParecerista)).length === 0 ? 1 : 0;
+                    && this.stripTags(item.dsJustificativaParecerista).length === 0) ? 1 : 0;
             });
             return true;
         },

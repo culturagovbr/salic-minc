@@ -121,7 +121,8 @@
                                 </td>
                                 <td class="layout px-0">
                                     <v-tooltip
-                                        v-if="props.item.siAnalise === SI_ANALISE_ANALISADO"
+                                        v-if="props.item.siAnalise === SI_ANALISE_ANALISADO
+                                            && props.item.stPrincipal !== 1"
                                         bottom
                                     >
                                         <v-btn
@@ -223,6 +224,7 @@ export default {
         SAnaliseDeclararImpedimentoDialog, SCarregando, SDialogDiligencias,
     },
     mixins: [MxUtils, MxDiligencia, MxConstantes],
+
     data: () => ({
         headers: [
             {
@@ -245,8 +247,16 @@ export default {
                 value: 'stPrincipal',
                 width: '2',
             },
-            { text: 'Dt. de Recebimento', value: 'dtDistribuicao', width: '2' },
-            { text: 'Diligência', width: '2', value: 'stDiligencia' },
+            {
+                text: 'Dt. de Recebimento',
+                value: 'dtDistribuicao',
+                width: '2',
+            },
+            {
+                text: 'Diligência',
+                width: '2',
+                value: 'stDiligencia',
+            },
             {
                 text: 'Ações', align: 'left', value: 'siAnalise',
             },
@@ -265,20 +275,24 @@ export default {
         expand: false,
         loading: true,
     }),
+
     computed: {
         ...mapGetters({
             obterProdutos: 'parecer/getProdutos',
         }),
     },
+
     watch: {
         obterProdutos(val) {
             this.produtos = val;
             this.loading = false;
         },
     },
+
     created() {
         this.obterProdutosParaAnalise();
     },
+
     methods: {
         ...mapActions({
             obterProdutosParaAnalise: 'parecer/obterProdutosParaAnalise',

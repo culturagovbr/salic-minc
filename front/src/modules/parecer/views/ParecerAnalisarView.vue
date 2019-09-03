@@ -129,6 +129,7 @@ export default {
         SAnaliseHistoricoProdutoDialog,
     },
     mixins: [MxDiligencia, MxConstantes],
+
     data: () => ({
         currentStep: '1',
         dialogOutrosProdutos: false,
@@ -180,6 +181,7 @@ export default {
         hidden: false,
         tabs: null,
     }),
+
     computed: {
         ...mapGetters({
             produto: 'parecer/getProduto',
@@ -197,6 +199,7 @@ export default {
                 && this.produto.idDocumentoAssinatura;
         },
     },
+
     watch: {
         currentStep(step) {
             this.$router.push({ name: this.arraySteps[step - 1].name });
@@ -224,6 +227,7 @@ export default {
             }
         },
     },
+
     created() {
         this.obterProdutoParaAnalise({
             id: this.$route.params.id,
@@ -234,6 +238,7 @@ export default {
             idPronac: this.$route.params.idPronac,
         });
     },
+
     methods: {
         ...mapActions({
             obterProdutoParaAnalise: 'parecer/obterProdutoParaAnalise',
@@ -272,5 +277,6 @@ export default {
             this.dialogOutrosProdutos = true;
         },
     },
+
 };
 </script>

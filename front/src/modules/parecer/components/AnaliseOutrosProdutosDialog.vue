@@ -118,7 +118,7 @@
                     </v-data-table>
                     <s-analise-outros-produtos-dialog-detalhamento
                         v-model="dialogDetalhamento"
-                        :produto="produto"
+                        :produto="produtoVisualizacao"
                     />
                 </div>
             </v-card-text>

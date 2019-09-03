@@ -57,9 +57,7 @@
         <div class="col s2">
             <label style="color: black">CNPJ / CPF</label>
             <p class="bold padding10 bordered">
-                <?php
-                echo $this->projeto['CgcCpf'];
-                ?>
+                <?= Mascara::addMaskCpfCnpj($this->projeto['CgcCpf']); ?>
         </div>
         <div class="col s7">
             <label style="color: black">Proponente</label>
@@ -137,37 +135,37 @@
                         <tr>
                             <td align="center" class="bold" colspan="2">Proponente</td>
                             <td>&nbsp;</td>
-                            <td align="center" class="bold" colspan="2">T&eacute;cnico</td>
+                            <td align="center" class="bold" colspan="2">Parecerista</td>
                         </tr>
 
                         <tr>
-                            <td align="center">vl. Solicitado:</td>
+                            <td align="center">Vl. Solicitado</td>
                             <td class="right-align">
                                 R$<?php echo number_format($this->dadosEnquadramento[0]->VlSolicitado, 2, ',', '.'); ?></td>
                             <td>&nbsp;</td>
-                            <td align="center">Custo do Projeto:</td>
+                            <td align="center">Vl. Sugerido</td>
                             <td class="right-align">
-                                R$<?php echo number_format($this->dadosEnquadramento[0]->CustoProjeto, 2, ',', '.'); ?></td>
+                                R$<?php echo number_format($this->dadosParecer[0]['SugeridoReal'], 2, ',', '.'); ?></td>
                         </tr>
 
                         <tr>
-                            <td align="center">vl. Outras Fontes:</td>
+                            <td align="center">Vl. Outras Fontes</td>
                             <td class="right-align">
                                 R$<?php echo number_format($this->dadosEnquadramento[0]->VlOutrasFontes, 2, ',', '.'); ?></td>
                             <td>&nbsp;</td>
-                            <td align="center">vl. Outras Fontes</td>
+                            <td align="center">Vl. Outras Fontes</td>
                             <td class="right-align">
                                 R$<?php echo number_format($this->dadosEnquadramento[0]->VlOutrasFontesAprovado, 2, ',', '.'); ?></td>
                         </tr>
 
                         <tr>
-                            <td align="center" class="bold">Vl. Projeto:</td>
+                            <td align="center" class="bold">Vl. Projeto</td>
                             <td class="right-align">
                                 R$<?php echo number_format($this->dadosEnquadramento[0]->VlProjeto, 2, ',', '.'); ?></td>
                             <td>&nbsp;</td>
-                            <td align="center" class="bold">Custo Total</td>
+                            <td align="center" class="bold">Vl. Sugerido Total</td>
                             <td class="right-align">
-                                R$<?php echo number_format($this->dadosEnquadramento[0]->CustoProjeto, 2, ',', '.'); ?></td>
+                                R$<?= number_format($this->dadosParecer[0]['SugeridoReal'] + $this->dadosEnquadramento[0]->VlOutrasFontesAprovado, 2, ',', '.'); ?></td>
                         </tr>
                     </table>
                 </div>

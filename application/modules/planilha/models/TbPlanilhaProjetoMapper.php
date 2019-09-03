@@ -32,7 +32,7 @@ class Planilha_Model_TbPlanilhaProjetoMapper extends MinC_Db_Mapper
             if (!empty($itemPlanilhaProjeto)) {
                 $modelTbPlanilhaProjeto->setIdPlanilhaProjeto($itemPlanilhaProjeto['idPlanilhaProjeto']);
                 $modelTbPlanilhaProjeto->setIdPlanilhaProposta($itemPlanilhaProjeto['idPlanilhaProposta']);
-                $modelTbPlanilhaProjeto->setIdParecer($itemPlanilhaProjeto['idPlanilhaProposta']);
+                $modelTbPlanilhaProjeto->setIdParecer($itemPlanilhaProjeto['idParecer']);
             }
 
             $this->save($modelTbPlanilhaProjeto);
@@ -107,8 +107,6 @@ class Planilha_Model_TbPlanilhaProjetoMapper extends MinC_Db_Mapper
         );
 
         $tbCustosVinculadosMapper = new Proposta_Model_TbCustosVinculadosMapper();
-        $custosVinculados = $tbCustosVinculadosMapper->obterCustosVinculados($idPreProjeto, $valorDoProjeto['soma']);
-
-        return $custosVinculados;
+        return $tbCustosVinculadosMapper->obterCustosVinculados($idPreProjeto, $valorDoProjeto['soma']);
     }
 }

@@ -65,7 +65,7 @@ export const utils = {
             if (typeof string !== 'string') {
                 return string;
             }
-            return string.replace(/(<([^>]+)>)/ig, '');
+            return string.replace(/(<([^>]+)>)/ig, '').trim();
         },
     },
     filters: {
