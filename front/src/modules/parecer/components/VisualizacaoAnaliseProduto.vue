@@ -1,6 +1,6 @@
 <template>
     <v-expansion-panel
-        :value="[true, true]"
+        :value="[true, true, true]"
         expand
     >
         <v-expansion-panel-content>
@@ -71,6 +71,50 @@
             </v-layout>
             <visualizacao-analise-produto-planilha :produto="produto" />
         </v-expansion-panel-content>
+        <v-expansion-panel-content v-if="produto.stPrincipal === 1">
+            <v-layout
+                slot="header"
+                row
+                justify-space-between
+            >
+                <v-icon class="material-icons">
+                    attach_money
+                </v-icon>
+                <span class="ml-2 mt-1">
+                    Visualizar Parecer
+                </span>
+                <v-spacer />
+            </v-layout>
+            <v-layout
+                v-if="Object.keys(consolidacaoGetter).length > 0"
+                wrap
+                class="pa-3"
+            >
+                <v-flex
+                    v-if="consolidacaoGetter.ResumoParecer.length > 1"
+                    xs12
+                    sm12
+                    md12
+                >
+                    <p><b>Consolidação do Parecer</b></p>
+                    <div
+                        v-html="consolidacaoGetter.ResumoParecer"
+                    />
+                </v-flex>
+                <v-flex
+                    v-else
+                    xs12
+                    sm12
+                    md12
+                >
+                    <b>Parecer ainda não realizado</b>
+                </v-flex>
+            </v-layout>
+            <s-carregando
+                v-else
+                text="Carregando parecer"
+            />
+        </v-expansion-panel-content>
     </v-expansion-panel>
 </template>
 
@@ -117,6 +161,7 @@ export default {
         ...mapGetters({
             analiseConteudo: 'parecer/getAnaliseConteudoSecundario',
             planilha: 'parecer/getPlanilhaProdutoSecundario',
+            consolidacaoGetter: 'parecer/getConsolidacao',
         }),
     },
     watch: {
@@ -139,6 +184,7 @@ export default {
     },
     methods: {
         ...mapActions({
+            obterConsolidacaoAction: 'parecer/obterConsolidacao',
             obterAnaliseConteudoSecundario: 'parecer/obterAnaliseConteudoSecundario',
             obterPlanilha: 'parecer/obterPlanilhaProdutoSecundario',
         }),
@@ -153,6 +199,13 @@ export default {
                 idPronac: produto.idPronac,
                 stPrincipal: produto.stPrincipal,
             });
+
+            if (produto.stPrincipal === 1) {
+                this.obterConsolidacaoAction({
+                    id: produto.idProduto,
+                    idPronac: produto.idPronac,
+                });
+            }
         },
     },
 };
