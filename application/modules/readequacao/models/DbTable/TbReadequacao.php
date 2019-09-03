@@ -432,7 +432,12 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
              'idOrgao' => 'tbDistribuirReadequacao.idUnidade',
              'Area' => 'projetos.Area',
              'Segmento' => 'projetos.Segmento',
-             'sgUnidade' => new Zend_Db_Expr('tabelas.dbo.fnEstruturaOrgao(projetos.Orgao, 0)'),
+             'sgUnidade' => new Zend_Db_Expr('
+             CASE
+                 WHEN tbDistribuirReadequacao.idUnidade = 262
+                     THEN tabelas.dbo.fnEstruturaOrgao(projetos.Orgao, 0)
+	             ELSE tabelas.dbo.fnEstruturaOrgao(tbDistribuirReadequacao.idUnidade, 0)
+             END'),
              'idOrgaoOrigem' => 'projetos.Orgao',
              'dsSolicitacao' => new Zend_Db_Expr('CAST(tbReadequacao.dsSolicitacao AS TEXT)'),
              'dsJustificativa' => new Zend_Db_Expr('CAST(tbReadequacao.dsJustificativa AS TEXT)'),
