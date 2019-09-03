@@ -222,10 +222,7 @@ export default {
             obterMediana: 'planilha/obterMediana',
         }),
         getClassItem(row) {
-            if (!this.readonly) {
-                return this.obterClasseItem(row);
-            }
-            return '';
+            return this.obterClasseItem(row);
         },
         isCustoPraticado(item) {
             const idEtapasNaoExibir = [8, 10];
