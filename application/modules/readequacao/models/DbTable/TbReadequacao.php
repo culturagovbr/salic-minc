@@ -1416,10 +1416,12 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                         CAST(tbReadequacao.dsSolicitacao AS TEXT) AS dsSolicitacao,
                         CAST(tbReadequacao.dsJustificativa AS TEXT) AS dsJustificativa,
                         CAST(tbReadequacao.dsAvaliacao AS TEXT) AS dsAvaliacao,
-                        tbReadequacao.dtEnvio
+                        tbReadequacao.dtEnvio,
+                        0 as tpDiligencia,
+                        5 as diasEmDiligenca
                 ")
             );
-
+            // adicionar diligencia
             $select->joinInner(
                 ['dtDistribuicao' => 'tbDistribuirReadequacao'],
                 'tbReadequacao.idReadequacao = dtDistribuicao.idReadequacao',

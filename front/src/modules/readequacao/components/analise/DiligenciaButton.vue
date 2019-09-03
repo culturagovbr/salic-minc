@@ -3,31 +3,49 @@
         <v-tooltip
             bottom
         >
-            <v-icon
+            <v-btn
                 slot="activator"
-                :color="corDiligencia"
-                @click.stop="redirect()"
+                :color="obterConfigDiligencia(dadosReadequacao).cor"
+                target="_blank"
+                icon
+                @click="visualizarDiligencia(dadosReadequacao)"
             >
-                notification_important
-            </v-icon>
-            <span>{{ tituloDiligencia }}</span>
+                <v-badge
+                    :value="dadosReadequacao.diasEmDiligencia > 0"
+                    color="grey lighten-1"
+                    overlap
+                    left
+                >
+                    <span slot="badge">{{ dadosReadequacao.diasEmDiligencia }}</span>
+                    <v-icon
+                        :color="obterConfigDiligencia(dadosReadequacao).corIcone"
+                    >
+                        notification_important
+                    </v-icon>
+                </v-badge>
+            </v-btn>
+            <span> {{ obterConfigDiligencia(dadosReadequacao).texto }} </span>
         </v-tooltip>
-        <v-dialog
-            v-model="dialog"
-            fullscreen
-            hide-overlay
-            transition="dialog-bottom-transition"
-            @keydown.esc="dialog = false"
-        >
-            <div>diligencia</div>
-        </v-dialog>
+        <s-dialog-diligencias
+            v-model="dialogDiligencias"
+            :id-pronac="diligenciaVisualizacao.idPronac"
+            :tp-diligencia="getTipoDiligencia"
+        />
     </v-layout>
 </template>
 <script>
 import Const from '../../const';
+import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
+import SDialogDiligencias from '@/modules/diligencia/components/SDialogDiligencias';
 
 export default {
     name: 'DiligenciaButton',
+    components: {
+        SDialogDiligencias,
+    },
+    mixins: [
+        MxDiligencia,
+    ],
     props: {
         dadosReadequacao: {
             type: Object,
@@ -59,6 +77,10 @@ export default {
                     titulo: 'A diligenciar',
                 },
             },
+            dialogDiligencias: false,
+            diligenciaVisualizacao: {
+                idPronac: 0,
+            },
         };
     },
     computed: {
@@ -68,20 +90,16 @@ export default {
         tituloDiligencia() {
             return this.tiposDiligencia[this.dadosReadequacao.diligencia.tipoDiligencia].titulo;
         },
+        getTipoDiligencia() {
+            
+        },
     },
     methods: {
-        redirect() {
-            if (typeof this.dadosReadequacao.idPronac !== 'undefined') {
-                let tpDiligencia = 0;
-                if (parseInt(this.perfil, 10) === Const.PERFIL_PARECERISTA) {
-                    tpDiligencia = 179;
-                } else if (parseInt(this.idPerfil, 10) === Const.PERFIL_TECNICO_ACOMPANHAMENTO) {
-                    tpDiligencia = 171;
-                }
-                const baseUrlDiligencia = '/proposta/diligenciar/listardiligenciaanalista?idPronac=';
-                const complemento = `${this.dadosReadequacao.idPronac}&situacao=E59&tpDiligencia=${tpDiligencia}`;
-                window.open(baseUrlDiligencia + complemento, '_blank');
-            }
+        visualizarDiligencia(item) {
+            this.dialogDiligencias = true;
+            this.diligenciaVisualizacao = {
+                idPronac: this.dadosReadequacao.idPronac,
+            };
         },
     },
 };

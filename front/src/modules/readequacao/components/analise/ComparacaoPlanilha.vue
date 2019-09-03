@@ -1,5 +1,5 @@
 <template>
-    <v-layout>
+    <v-container>
         <template
             v-if="loading"
             xs9
@@ -9,111 +9,240 @@
                 :text="'Montando planilha orçamentária...'"
             />
         </template>
-        <v-flex
+        <template
             v-else
-            flat
         >
-            <s-planilha-tipos-visualizacao-buttons v-model="opcoesDeVisualizacao" />
-            <resize-panel
-                v-if="Object.keys(getPlanilha).length > 0"
-                :allow-resize="true"
-                :size="sizePanel"
-                units="percents"
-                split-to="columns"
+            <v-layout
+                row
             >
-                <div
-                    v-if="compararPlanilha === true"
-                    slot="firstPane"
+                <v-flex
+                    xs12
+                    sm4
+                    md4
                 >
-                    <v-chip
-                        color="blue lighten-4"
+                    <v-card
+                        class="mx-auto mb-2"
+                        max-width="300"
                     >
-                        <v-icon>assignment</v-icon>
-                        Planilha ativa
-                    </v-chip>
-                    <s-planilha
-                        :array-planilha="getPlanilhaAtiva"
-                        :expand-all="expandirTudo"
-                        :list-items="mostrarListagem"
-                        :agrupamentos="agrupamentos"
-                        :totais="totaisPlanilha"
+                        <v-toolbar
+                            card
+                            dense
+                        >
+                            <v-toolbar-title>
+                                <span class="subheading">
+                                    ATIVO
+                                </span>
+                            </v-toolbar-title>
+                            <v-spacer />
+                        </v-toolbar>
+                        <v-card-text>
+                            <v-layout
+                                justify-space-between
+                            >
+                                <v-flex text-xs-left>
+                                    <span class="subheading font-weight-light mr-1">
+                                        R$
+                                    </span>
+                                    <span
+                                        class="display-1 font-weight-light"
+                                    >
+                                        {{ dadosReadequacao.dsSolicitacao | filtroFormatarParaReal }}
+                                    </span>
+                                </v-flex>
+                            </v-layout>
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
+                <v-flex
+                    xs12
+                    sm4
+                    md4
+                >            
+                    <v-card
+                        class="mx-auto mb-2"
+                        max-width="300"
                     >
-                        <template
-                            slot="badge"
-                            slot-scope="slotProps"
+                        <v-toolbar
+                            card
+                            dense
+                        >
+                            <v-toolbar-title>
+                                <span class="subheading">
+                                    READEQUADO
+                                </span>
+                            </v-toolbar-title>
+                            <v-spacer />
+                        </v-toolbar>
+                        <v-card-text>
+                            <v-layout
+                                justify-space-between
+                            >
+                                <v-flex text-xs-left>
+                                    <span class="subheading font-weight-light mr-1">
+                                        R$
+                                    </span>
+                                    <span
+                                        class="display-1 font-weight-light"
+                                    >
+                                        {{ dadosReadequacao.dsSolicitacao | filtroFormatarParaReal }}
+                                    </span>
+                                </v-flex>
+                            </v-layout>
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
+                <v-flex
+                    xs12
+                    sm4
+                    md4
+                >
+                    <v-card
+                        class="mx-auto mb-2"
+                        max-width="300"
+                    >
+                        <v-toolbar
+                            card
+                            dense
+                        >
+                            <v-toolbar-title>
+                                <span class="subheading">
+                                    DIFERENÇA
+                                </span>
+                            </v-toolbar-title>
+                            <v-spacer />
+                        </v-toolbar>
+                        <v-card-text>
+                            <v-layout
+                                justify-space-between
+                            >
+                                <v-flex text-xs-left>
+                                    <span class="subheading font-weight-light mr-1">
+                                        R$
+                                    </span>
+                                    <span
+                                        class="display-1 font-weight-light"
+                                    >
+                                        {{ dadosReadequacao.dsSolicitacao | filtroFormatarParaReal }}
+                                    </span>
+                                </v-flex>
+                            </v-layout>
+                        </v-card-text>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+            <v-layout
+                row
+            >
+                <v-flex
+                    xs12
+                    sm12
+                    md12
+                >
+                    <s-planilha-tipos-visualizacao-buttons v-model="opcoesDeVisualizacao" />
+                    <resize-panel
+                        v-if="Object.keys(getPlanilha).length > 0"
+                        :allow-resize="true"
+                        :size="sizePanel"
+                        units="percents"
+                        split-to="columns"
+                    >
+                        <div
+                            v-if="compararPlanilha === true"
+                            slot="firstPane"
                         >
                             <v-chip
-                                v-if="slotProps.planilha.vlAprovado"
-                                outline="outline"
-                                label="label"
-                                color="#565555"
+                                color="blue lighten-4"
                             >
-                                R$ {{ formatarParaReal(slotProps.planilha.vlAprovado) }}
+                                <v-icon>assignment</v-icon>
+                                Planilha ativa
                             </v-chip>
-                        </template>
-                        <template slot-scope="slotProps">
-                            <s-planilha-itens-readequacao
-                                :table="slotProps.itens"
-                                :readonly="true"
-                            />
-                        </template>
-                    </s-planilha>
-                </div>
-                <div
-                    slot="secondPane"
-                >
-                    <v-chip
-                        color="orange accent-1"
-                    >
-                        <v-icon>edit</v-icon>
-                        Planilha readequada
-                    </v-chip>
-                    <v-btn
-                        class="light-green lighten-3 ml-5"
-                        @click.stop="dialogLegenda = true"
-                    >
-                        <v-icon>
-                            format-list-bulleted
-                        </v-icon>
-                        legenda de cores
-                    </v-btn>
-                    <s-planilha
-                        :array-planilha="getPlanilha"
-                        :expand-all="expandirTudo"
-                        :list-items="mostrarListagem"
-                        :agrupamentos="agrupamentos"
-                        :totais="totaisPlanilha"
-                    >
-                        <template
-                            slot="badge"
-                            slot-scope="slotProps"
+                            <s-planilha
+                                :array-planilha="getPlanilhaAtiva"
+                                :expand-all="expandirTudo"
+                                :list-items="mostrarListagem"
+                                :agrupamentos="agrupamentos"
+                                :totais="totaisPlanilha"
+                            >
+                                <template
+                                    slot="badge"
+                                    slot-scope="slotProps"
+                                >
+                                    <v-chip
+                                        v-if="slotProps.planilha.vlAprovado"
+                                        outline="outline"
+                                        label="label"
+                                        color="#565555"
+                                    >
+                                        R$ {{ formatarParaReal(slotProps.planilha.vlAprovado) }}
+                                    </v-chip>
+                                </template>
+                                <template slot-scope="slotProps">
+                                    <s-planilha-itens-readequacao
+                                        :table="slotProps.itens"
+                                        :readonly="true"
+                                    />
+                                </template>
+                            </s-planilha>
+                        </div>
+                        <div
+                            slot="secondPane"
                         >
                             <v-chip
-                                v-if="slotProps.planilha.vlAprovado"
-                                outline="outline"
-                                label="label"
-                                color="#565555"
+                                color="orange accent-1"
                             >
-                                R$ {{ formatarParaReal(slotProps.planilha.vlAprovado) }}
+                                <v-icon>edit</v-icon>
+                                Planilha readequada
                             </v-chip>
-                        </template>
-                        <template slot-scope="slotProps">
-                            <s-planilha-itens-readequacao
-                                :table="slotProps.itens"
-                                :readonly="readonly"
-                            />
-                        </template>
-                    </s-planilha>
-                </div>
-            </resize-panel>
-        </v-flex>
-        <v-dialog
-            v-model="dialogLegenda"
-            width="350"
-        >
-            <legenda-planilha/>
-        </v-dialog>
-    </v-layout>
+                            <v-btn
+                                round
+                                flat
+                                class="light-green lighten-3 ml-5 mt-0 mb-0"
+                                @click.stop="dialogLegenda = true"
+                            >
+                                <v-icon>
+                                    format-list-bulleted
+                                </v-icon>
+                                legenda de cores
+                            </v-btn>
+                            <s-planilha
+                                :array-planilha="getPlanilha"
+                                :expand-all="expandirTudo"
+                                :list-items="mostrarListagem"
+                                :agrupamentos="agrupamentos"
+                                :totais="totaisPlanilha"
+                            >
+                                <template
+                                    slot="badge"
+                                    slot-scope="slotProps"
+                                >
+                                    <v-chip
+                                        v-if="slotProps.planilha.vlAprovado"
+                                        outline="outline"
+                                        label="label"
+                                        color="#565555"
+                                    >
+                                        R$ {{ formatarParaReal(slotProps.planilha.vlAprovado) }}
+                                    </v-chip>
+                                </template>
+                                <template slot-scope="slotProps">
+                                    <s-planilha-itens-readequacao
+                                        :table="slotProps.itens"
+                                        :readonly="readonly"
+                                    />
+                                </template>
+                            </s-planilha>
+                        </div>
+                    </resize-panel>
+                </v-flex>
+                <v-dialog
+                    v-model="dialogLegenda"
+                    width="350"
+                >
+                    <legenda-planilha/>
+                </v-dialog>
+            </v-layout>
+        </template>
+    </v-container>
 </template>
 <script>
 import _ from 'lodash';

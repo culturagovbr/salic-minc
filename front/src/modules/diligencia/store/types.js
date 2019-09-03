@@ -1,0 +1,2 @@
+export const SET_DILIGENCIAS = 'SET_DILIGENCIAS';
+export const SET_DILIGENCIA = 'SET_DILIGENCIA';
