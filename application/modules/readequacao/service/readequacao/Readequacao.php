@@ -1750,6 +1750,7 @@ class Readequacao implements IServicoRestZend
             ) {
                 $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
                 $jaDistribuiu = $tbDistribuirReadequacao->buscar(['idReadequacao = ?' => $readequacao->idReadequacao])->current();
+                $dtEnvioAvaliador = ($parametros['destinatario'] != null) ? new \Zend_Db_Expr('GETDATE()') : null;
                 
                 if (empty($jaDistribuiu)) {
                     $dados = [
@@ -1757,7 +1758,7 @@ class Readequacao implements IServicoRestZend
                         'idUnidade' => $idUnidade,
                         'DtEncaminhamento' => new \Zend_Db_Expr('GETDATE()'),
                         'idAvaliador' => (null !== $parametros['destinatario']) ? $parametros['destinatario'] : null,
-                        'dtEnvioAvaliador' => !empty($dataEnvio) ? $dataEnvio : null,
+                        'dtEnvioAvaliador' => $dtEnvioAvaliador,
                         'stValidacaoCoordenador' => $stValidacaoCoordenador,
                         'dsOrientacao' => $readequacao->dsAvaliacao
                     ];
@@ -1772,7 +1773,7 @@ class Readequacao implements IServicoRestZend
                         'idUnidade' => $parametros['vinculada'],
                         'DtEncaminhamento' => new \Zend_Db_Expr('GETDATE()'),
                         'idAvaliador' => (null !== $parametros['destinatario']) ? $parametros['destinatario'] : null,
-                        'dtEnvioAvaliador' => !empty($dataEnvio) ? $dataEnvio : null,
+                        'dtEnvioAvaliador' => $dtEnvioAvaliador,
                         'stValidacaoCoordenador' => $stValidacaoCoordenador,
                         'dsOrientacao' => $readequacao->dsAvaliacao
                     ];
@@ -1873,12 +1874,14 @@ class Readequacao implements IServicoRestZend
                 $tbReadequacao->update($dados, $where);
                 
             } else {
+                $dtEnvioAvaliador = ($destinatario != '') ? new \Zend_Db_Expr('GETDATE()') : null;
+                
                 $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
                 $dados = [
                     'idUnidade' => $idUnidade,
                     'DtEncaminhamento' => new \Zend_Db_Expr('GETDATE()'),
                     'idAvaliador' => $destinatario,
-                    'DtEnvioAvaliador' => null,
+                    'DtEnvioAvaliador' => $dtEnvioAvaliador,
                     'dsOrientacao' => $dsOrientacao
                 ];
                 $where = [];
