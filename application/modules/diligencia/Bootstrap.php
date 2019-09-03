@@ -10,6 +10,7 @@ class Diligencia_Bootstrap extends Zend_Application_Module_Bootstrap
             [
                 "diligencia" => [
                     'diligencia',
+                    'diligencia-rest',
                 ]
             ]
         );
