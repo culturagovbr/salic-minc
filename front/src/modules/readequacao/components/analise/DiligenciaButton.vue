@@ -8,7 +8,7 @@
                 :color="obterConfigDiligencia(dadosReadequacao).cor"
                 target="_blank"
                 icon
-                @click="visualizarDiligencia(dadosReadequacao)"
+                @click="visualizarDiligencia()"
             >
                 <v-badge
                     :value="dadosReadequacao.diasEmDiligencia > 0"
@@ -29,7 +29,7 @@
         <s-dialog-diligencias
             v-model="dialogDiligencias"
             :id-pronac="diligenciaVisualizacao.idPronac"
-            :tp-diligencia="getTipoDiligencia"
+            :tp-diligencia="dadosReadequacao.tpDiligencia"
         />
     </v-layout>
 </template>
@@ -90,12 +90,9 @@ export default {
         tituloDiligencia() {
             return this.tiposDiligencia[this.dadosReadequacao.diligencia.tipoDiligencia].titulo;
         },
-        getTipoDiligencia() {
-            
-        },
     },
     methods: {
-        visualizarDiligencia(item) {
+        visualizarDiligencia() {
             this.dialogDiligencias = true;
             this.diligenciaVisualizacao = {
                 idPronac: this.dadosReadequacao.idPronac,
