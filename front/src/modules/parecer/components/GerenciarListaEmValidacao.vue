@@ -100,7 +100,7 @@
                                     done
                                 </v-icon>
                             </v-btn>
-                            <span>Visualizar produto e assinar documento</span>
+                            <span>Validar análise</span>
                         </v-tooltip>
                         <v-tooltip
                             bottom

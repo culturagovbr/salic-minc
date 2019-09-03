@@ -55,22 +55,6 @@
                 text="Carregando análise do produto"
             />
         </v-expansion-panel-content>
-        <v-expansion-panel-content>
-            <v-layout
-                slot="header"
-                row
-                justify-space-between
-            >
-                <v-icon class="material-icons">
-                    attach_money
-                </v-icon>
-                <span class="ml-2 mt-1">
-                    Análise de custo
-                </span>
-                <v-spacer />
-            </v-layout>
-            <visualizacao-analise-produto-planilha :produto="produto" />
-        </v-expansion-panel-content>
         <v-expansion-panel-content v-if="produto.stPrincipal === 1">
             <v-layout
                 slot="header"
@@ -78,10 +62,10 @@
                 justify-space-between
             >
                 <v-icon class="material-icons">
-                    attach_money
+                    assignment_turned_in
                 </v-icon>
                 <span class="ml-2 mt-1">
-                    Visualizar Parecer
+                    Consolidação do Parecer
                 </span>
                 <v-spacer />
             </v-layout>
@@ -96,7 +80,7 @@
                     sm12
                     md12
                 >
-                    <p><b>Consolidação do Parecer</b></p>
+                    <p><b>Parecer</b></p>
                     <div
                         v-html="consolidacaoGetter.ResumoParecer"
                     />
@@ -114,6 +98,22 @@
                 v-else
                 text="Carregando parecer"
             />
+        </v-expansion-panel-content>
+        <v-expansion-panel-content>
+            <v-layout
+                slot="header"
+                row
+                justify-space-between
+            >
+                <v-icon class="material-icons">
+                    monetization_on
+                </v-icon>
+                <span class="ml-2 mt-1">
+                    Análise de custo
+                </span>
+                <v-spacer />
+            </v-layout>
+            <visualizacao-analise-produto-planilha :produto="produto" />
         </v-expansion-panel-content>
     </v-expansion-panel>
 </template>
