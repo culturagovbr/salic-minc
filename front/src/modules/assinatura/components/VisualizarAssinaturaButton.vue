@@ -132,7 +132,7 @@ export default {
     },
 };
 </script>
-<style>
+<style scoped>
 div.v-btn__content {
     margin-top: -10px;
 }
