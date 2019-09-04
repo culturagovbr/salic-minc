@@ -144,12 +144,15 @@ class Diligencia implements \MinC\Servico\IServicoRestZend
                 'Solicitacao' => $solicitacao,
                 'idSolicitante' => $auth->getIdentity()->usu_codigo,
                 'idTipoDiligencia' => $idTipoDiligencia,
-                'idProduto' => $idProduto,
                 'DtSolicitacao' => new \Zend_Db_Expr('GETDATE()'),
                 'stEstado' => 0,
                 'stEnviado' => 'N'
             );
-
+            
+            if ($idProduto) {
+                $dados['idProduto'] = $idProduto;
+            }
+            
             // @todo a trigger no banco já salva como stEnviado ='S' ao inserir
             if ($confirmaEnvio == 1) {
                 $dados['stEnviado'] = 'S';
