@@ -57,7 +57,7 @@
                     xs12
                     sm4
                     md4
-                >            
+                >
                     <v-card
                         class="mx-auto mb-2"
                         max-width="300"
