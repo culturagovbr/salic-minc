@@ -15,8 +15,10 @@ const buildData = (params) => {
 const parseQueryParams = (params) => {
     let queryParams = '';
     Object.keys(params).forEach((key) => {
-        queryParams += (queryParams === '') ? '?' : '&';
-        queryParams += `${key}=${params[key]}`;
+        if (params[key] !== null) {
+            queryParams += (queryParams === '') ? '?' : '&';
+            queryParams += `${key}=${params[key]}`;
+        }
     });
     return queryParams;
 };
@@ -33,8 +35,7 @@ export const obterDiligenciasProduto = (params) => {
 
 export const obterDiligencia = (params) => {
     const path = '/diligencia/diligencia-rest';
-    const queryParams = `/idPronac/${params.idPronac}/idDiligencia/${params.idDiligencia}`;
-    return api.getRequest(path + queryParams);
+    return api.getRequest(path + parseQueryParams(params));
 };
 
 export const salvarDiligencia = params => api.postRequest('/diligencia/diligencia-rest', buildData(params));

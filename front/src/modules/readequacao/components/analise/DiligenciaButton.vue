@@ -28,8 +28,8 @@
         </v-tooltip>
         <s-dialog-diligencias
             v-model="dialogDiligencias"
-            :id-pronac="diligenciaVisualizacao.idPronac"
-            :tp-diligencia="dadosReadequacao.tpDiligencia"
+            :id-pronac="dadosReadequacao.idPronac"
+            :tp-diligencia="tpDiligencia"
         />
     </v-layout>
 </template>
@@ -78,9 +78,6 @@ export default {
                 },
             },
             dialogDiligencias: false,
-            diligenciaVisualizacao: {
-                idPronac: 0,
-            },
         };
     },
     computed: {
@@ -90,13 +87,16 @@ export default {
         tituloDiligencia() {
             return this.tiposDiligencia[this.dadosReadequacao.diligencia.tipoDiligencia].titulo;
         },
+        tpDiligencia() {
+            if (Object.prototype.hasOwnProperty.call(Const.TP_DILIGENCIA_POR_PERMISSAO, this.perfil)) {
+                return Const.TP_DILIGENCIA_POR_PERMISSAO[this.perfil];
+            }
+            return 0;
+        },
     },
     methods: {
         visualizarDiligencia() {
             this.dialogDiligencias = true;
-            this.diligenciaVisualizacao = {
-                idPronac: this.dadosReadequacao.idPronac,
-            };
         },
     },
 };
