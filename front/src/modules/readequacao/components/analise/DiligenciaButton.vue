@@ -88,8 +88,8 @@ export default {
             return this.tiposDiligencia[this.dadosReadequacao.diligencia.tipoDiligencia].titulo;
         },
         tpDiligencia() {
-            if (Object.prototype.hasOwnProperty.call(Const.TP_DILIGENCIA_POR_PERMISSAO, this.perfil)) {
-                return Const.TP_DILIGENCIA_POR_PERMISSAO[this.perfil];
+            if (Object.prototype.hasOwnProperty.call(Const.TP_DILIGENCIA_POR_PERMISSAO, parseInt(this.perfil, 10))) {
+                return Const.TP_DILIGENCIA_POR_PERMISSAO[parseInt(this.perfil, 10)];
             }
             return 0;
         },

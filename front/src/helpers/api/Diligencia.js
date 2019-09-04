@@ -35,7 +35,8 @@ export const obterDiligenciasProduto = (params) => {
 
 export const obterDiligencia = (params) => {
     const path = '/diligencia/diligencia-rest';
-    return api.getRequest(path + parseQueryParams(params));
+    const queryParams = `/idPronac/${params.idPronac}/idDiligencia/${params.idDiligencia}`
+    return api.getRequest(path + queryParams);
 };
 
 export const salvarDiligencia = params => api.postRequest('/diligencia/diligencia-rest', buildData(params));
