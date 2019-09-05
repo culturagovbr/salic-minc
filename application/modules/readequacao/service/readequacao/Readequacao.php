@@ -338,11 +338,6 @@ class Readequacao implements IServicoRestZend
                     $item->diasEmAvaliacao = $this->obterTempoRestanteDeAvaliacao($item);
                 }
                 
-                if ($idPerfil == \Autenticacao_Model_Grupos::PARECERISTA) {
-                    $tpDiligencia = 179;
-                    $item->diligencia = $this->prazoRespostaDiligencia($item->idPronac, $tpDiligencia);
-                }
-                
                 $resultArray[] = $item;
             }
         }
