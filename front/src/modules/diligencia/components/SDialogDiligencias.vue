@@ -214,7 +214,7 @@ export default {
             if (val) {
                 if (this.idReadequacao) {
                     this.headers[2] = { text: 'Tipo de readequação', value: 'produto' };
-                };
+                }
                 this.obterDiligencias({
                     idPronac: this.idPronac,
                     idProduto: this.idProduto,

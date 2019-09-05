@@ -66,7 +66,7 @@ class Diligencia_Model_DbTable_TbDiligencia extends MinC_Db_Table_Abstract
         }
     }
 
-    public function listarDiligenciasReadequacao($idReadequacao)
+    public function listarDiligenciasReadequacao($where = [])
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -80,7 +80,8 @@ class Diligencia_Model_DbTable_TbDiligencia extends MinC_Db_Table_Abstract
              'Resposta' => new Zend_Db_Expr('CAST(tbDiligencia.Resposta AS TEXT)'),
              'tbDiligencia.idCodigoDocumentosExigidos',
              'tbDiligencia.idTipoDiligencia',
-             'tbDiligencia.stEnviado'
+             'tbDiligencia.stEnviado',
+             'idPronac' => 'tbDiligencia.idPronac',
             ]);
 
         $select->joinInner(
@@ -122,7 +123,9 @@ class Diligencia_Model_DbTable_TbDiligencia extends MinC_Db_Table_Abstract
             $this->_schema
         );
         
-        $select->where('tbReadequacao.idReadequacao = ? ', $idReadequacao);
+        foreach ($where as $coluna => $valor) {
+            $select->where($coluna, $valor);
+        }
         
         return $this->fetchAll($select);
     }

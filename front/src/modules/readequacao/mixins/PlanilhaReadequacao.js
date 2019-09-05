@@ -1,4 +1,5 @@
 import planilhas from '@/mixins/planilhas';
+import Const from '../const';
 
 export default {
     mixins: [planilhas],
@@ -58,15 +59,33 @@ export default {
             }
             return false;
         },
-        isItemDisponivelEdicao(item) {
+        isItemCustoVinculado(item) {
             const tiposCustosVinculados = [5249, 8197, 8198];
-            if (!tiposCustosVinculados.includes(item.idPlanilhaItem)
+            if (tiposCustosVinculados.includes(item.idPlanilhaItem)
                 && item.vlComprovado < item.vlAprovado
                 && item.tpAcao !== 'E'
             ) {
                 return true;
             }
             return false;
+        },
+        isItemOutrasFontes(item) {
+            if (item.idFonte !== 109) {
+                return true;
+            }
+            return false;
+        },
+        isItemDisponivelEdicao(item) {
+            if (this.isItemCustoVinculado(item)) {
+                return false;
+            }
+            if (this.isItemOutrasFontes(item)) {
+                if (this.perfil === Const.PERFIL_PROPONENTE) {
+                    return true;
+                }
+                return false;
+            }
+            return true;
         },
         isDisponivelParaEdicao(row) {
             return row;

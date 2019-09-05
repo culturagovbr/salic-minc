@@ -37,7 +37,10 @@ class Diligencia implements \MinC\Servico\IServicoRestZend
             $tbDiligenciaDbTable = new \Diligencia_Model_DbTable_TbDiligencia();
             
             if ($idReadequacao) {
-                return $tbDiligenciaDbTable->listarDiligenciasReadequacao($idReadequacao)->toArray();
+                $where = [
+                    'tbReadequacao.idReadequacao = ?' => $idReadequacao
+                ];
+                return $tbDiligenciaDbTable->listarDiligenciasReadequacao($where)->toArray();
             } else {
                 
                 $whereDiligencia = ['pro.IdPRONAC = ?' => $idPronac];
@@ -90,7 +93,10 @@ class Diligencia implements \MinC\Servico\IServicoRestZend
             ];
             
             if ($idReadequacao) {
-                $diligencia = $tbDiligenciaDbTable->listarDiligenciasReadequacao($idReadequacao)->current()->toArray();
+                $where = [
+                    'tbReadequacao.idReadequacao = ?' => $idReadequacao
+                ];
+                $diligencia = $tbDiligenciaDbTable->listarDiligenciasReadequacao($where)->current()->toArray();
             } else {
                 $diligencia = $tbDiligenciaDbTable->listarDiligencias($whereDiligencia)->current()->toArray();
             }
@@ -136,7 +142,13 @@ class Diligencia implements \MinC\Servico\IServicoRestZend
             
             if ($idReadequacao) {
                 $tbDiligenciaDbTable = new \Diligencia_Model_DbTable_TbDiligencia();
-                $diligenciaCadastrada = $tbDiligenciaDbTable->listarDiligenciasReadequacao($idReadequacao)->current();
+                $where = [
+                    'tbDiligencia.idPronac = ?' => $idPronac,
+                    'DtResposta ?' => [new \Zend_Db_Expr('IS NULL')],
+                    'stEnviado = ?' => 'S',
+                    'tbReadequacao.idReadequacao = ?' => $idReadequacao
+                ];
+                $diligenciaCadastrada = $tbDiligenciaDbTable->listarDiligenciasReadequacao($where)->current();
             } else {
                 $diligenciaCadastrada = $diligenciaDAO->buscar(
                     [
