@@ -1416,12 +1416,10 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                         CAST(tbReadequacao.dsSolicitacao AS TEXT) AS dsSolicitacao,
                         CAST(tbReadequacao.dsJustificativa AS TEXT) AS dsJustificativa,
                         CAST(tbReadequacao.dsAvaliacao AS TEXT) AS dsAvaliacao,
-                        tbReadequacao.dtEnvio,
-                        0 as tpDiligencia,
-                        5 as diasEmDiligenca
+                        tbReadequacao.dtEnvio
                 ")
             );
-            // adicionar diligencia
+            
             $select->joinInner(
                 ['dtDistribuicao' => 'tbDistribuirReadequacao'],
                 'tbReadequacao.idReadequacao = dtDistribuicao.idReadequacao',
@@ -1476,6 +1474,28 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                 ["idDocumentoAssinatura", "idTipoDoAtoAdministrativo"],
                 $this->_schema
             );
+
+            $select->joinLeft(
+                ['tbReadequacaoXtbDiligencia' => 'tbReadequacaoXtbDiligencia'],
+                "tbReadequacaoXtbDiligencia.idReadequacao = tbReadequacao.idReadequacao",
+                [],
+                $this->_schema
+            );
+
+            $select->joinLeft(
+                ['tbDiligencia' => 'tbDiligencia'],
+                'tbDiligencia.idDiligencia = tbReadequacaoXtbDiligencia.idDiligencia',
+                [
+                    'tbDiligencia.DtSolicitacao',
+                    'tbDiligencia.DtResposta',
+                    'tempoFimDiligencia' => new Zend_Db_Expr("CASE WHEN stProrrogacao = 'N'
+                                                                       THEN 20
+                                                                       ELSE 40
+                                                                   END"),
+                ],
+                $this->_schema
+            );
+            
             
             $select->where('tbReadequacao.stEstado = ? ', 0);
             $select->where('tbReadequacao.siEncaminhamento = ? ', 4);

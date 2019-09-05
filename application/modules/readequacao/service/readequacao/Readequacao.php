@@ -332,6 +332,12 @@ class Readequacao implements IServicoRestZend
                     $item->sgUnidade = $orgao[0]->Sigla;
                 }
 
+                if (in_array($idPerfil, [\Autenticacao_Model_Grupos::PARECERISTA, \Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO])) {
+                    $item->stDiligencia = $this->definirStatusDiligencia($item);
+                    $item->diasEmDiligencia = $this->obterTempoDiligencia($item);
+                    $item->diasEmAvaliacao = $this->obterTempoRestanteDeAvaliacao($item);
+                }
+                
                 if ($idPerfil == \Autenticacao_Model_Grupos::PARECERISTA) {
                     $tpDiligencia = 179;
                     $item->diligencia = $this->prazoRespostaDiligencia($item->idPronac, $tpDiligencia);
@@ -342,6 +348,49 @@ class Readequacao implements IServicoRestZend
         }
         
         return $resultArray;
+    }
+
+    private function definirStatusDiligencia($item)
+    {
+        $diligencia = 0;
+        if ($item->DtSolicitacao && $item->DtResposta == NULL) {
+            $diligencia = 1;
+        } else if ($item->DtSolicitacao && $item->DtResposta != NULL) {
+            $diligencia = 2;
+        } else if ($item->DtSolicitacao
+            && round(\data::CompararDatas($item->DtDistribuicao)) > $item->tempoFimDiligencia) {
+            $diligencia = 3;
+        }
+
+        return $diligencia;
+    }
+
+    private function obterTempoRestanteDeAvaliacao($item)
+    {
+        switch ($item->stDiligencia) {
+            case 1:
+                $tempoRestante = round(\data::CompararDatas($item->dtDistribuicao, $item->DtSolicitacao));
+                break;
+            case 2:
+            case 3:
+                $tempoRestante = round(\data::CompararDatas($item->DtResposta));
+                break;
+            default:
+                $tempoRestante = round(\data::CompararDatas($item->dtDistribuicao));
+                break;
+        }
+
+        return $tempoRestante;
+    }
+
+    private function obterTempoDiligencia($item)
+    {
+        $tempoDiligencia = 0;
+        if ($item->stDiligencia == 1) {
+            $tempoDiligencia = round(\data::CompararDatas($item->DtSolicitacao));
+        }
+
+        return $tempoDiligencia;
     }
     
     public function buscarReadequacoesPorPronacTipo($idPronac, $idTipoReadequacao)
