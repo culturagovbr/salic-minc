@@ -125,6 +125,7 @@
                         v-model="dialogCriarDiligencia"
                         :id-pronac="idPronac"
                         :id-produto="idProduto"
+                        :id-readequacao="idReadequacao"
                         :tp-diligencia="tpDiligencia"
                         :situacao="situacao"
                     />
@@ -164,6 +165,10 @@ export default {
             default: null,
         },
         idProduto: {
+            type: Number,
+            default: null,
+        },
+        idReadequacao: {
             type: Number,
             default: null,
         },
@@ -207,9 +212,13 @@ export default {
         value(val) {
             this.dialog = val;
             if (val) {
+                if (this.idReadequacao) {
+                    this.headers[2] = { text: 'Tipo de readequação', value: 'produto' };
+                };
                 this.obterDiligencias({
                     idPronac: this.idPronac,
                     idProduto: this.idProduto,
+                    idReadequacao: this.idReadequacao,
                     situacao: this.situacao,
                     tpDiligencia: this.tpDiligencia,
                 });

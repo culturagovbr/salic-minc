@@ -29,6 +29,7 @@
         <s-dialog-diligencias
             v-model="dialogDiligencias"
             :id-pronac="dadosReadequacao.idPronac"
+            :id-readequacao="dadosReadequacao.idReadequacao"
             :tp-diligencia="tpDiligencia"
         />
     </v-layout>
