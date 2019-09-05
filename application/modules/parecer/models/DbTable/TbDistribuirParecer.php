@@ -2073,7 +2073,8 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'stPrincipal',
                         'FecharAnalise as fecharAnalise',
                         'TecnicoValidador as tecnicoValidador',
-                        'dtValidacao'
+                        'dtValidacao',
+                        'idDocumentoAssinatura'
                     ]
                 );
 
@@ -2249,7 +2250,15 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
 
         $slct->from(
             array('a' => $this->_name),
-            array(new Zend_Db_Expr('a.idPRONAC,b.Descricao as Produto,c.Sigla as Unidade,a.Observacao,convert(char(10),a.DtEnvio,121) as DtEnvio,convert(char(10),a.DtRetorno,121) as DtRetorno, DATEDIFF(DAY,a.DtEnvio,a.DtRetorno) as qtDias'))
+            array(
+                'a.idPRONAC',
+                'b.Descricao as Produto',
+                'c.Sigla as Unidade',
+                'a.Observacao',
+                new Zend_Db_Expr('convert(char(10), a.DtEnvio, 121) as DtEnvio'),
+                new Zend_Db_Expr('convert(char(10), a.DtRetorno, 121) as DtRetorno'),
+                new Zend_Db_Expr('DATEDIFF(DAY, a.DtEnvio, a.DtRetorno) as qtDias')
+            )
         );
         $slct->joinInner(
             array('b' => 'Produto'),
@@ -2269,7 +2278,15 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
             $slct->where($coluna, $valor);
         }
 
-        $slct->group(new Zend_Db_Expr('a.idPRONAC,b.Descricao,c.Sigla,a.Observacao,convert(char(10),a.DtEnvio,121),convert(char(10),a.DtRetorno,121), DATEDIFF(DAY,a.DtEnvio,a.DtRetorno)'));
+        $slct->group(
+            new Zend_Db_Expr('a.idPRONAC'),
+            'b.Descricao',
+            'c.Sigla',
+            'a.Observacao',
+            new Zend_Db_Expr('convert(char(10), a.DtEnvio, 121)'),
+            new Zend_Db_Expr('convert(char(10), a.DtRetorno, 121)'),
+            new Zend_Db_Expr('DATEDIFF(DAY, a.DtEnvio, a.DtRetorno)'));
+
         $slct->order(array('b.Descricao', 'c.Sigla', new Zend_Db_Expr('convert(char(10),a.DtRetorno,121)')));
 
 
@@ -2277,8 +2294,6 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
     }
 
     /*
-     * Criado por Jefferson
-     * Data: 20/10/2014
      * Serve para mostrar quantos produtos possui um determinado projeto, e quantos deles foram validados.
      */
     public function QntdProdutosXValidados($where)
@@ -2372,8 +2387,17 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                 'a.siEncaminhamento',
                 'a.DtEnvio AS dtEnvioMincVinculada',
                 'qtDiasDistribuir' => new Zend_Db_Expr('DATEDIFF(DAY, a.DtEnvio, GETDATE())'),
-                'qtdeSecundarios' => new Zend_Db_Expr('(SELECT COUNT(*) FROM sac.dbo.PlanoDistribuicaoProduto y WHERE y.idProjeto = b.idProjeto AND stPrincipal = 0)'),
-                'valor' => new Zend_Db_Expr('(SELECT SUM(x.Ocorrencia*x.Quantidade*x.ValorUnitario) FROM SAC.dbo.tbPlanilhaProjeto x WHERE b.IdPRONAC = x.idPRONAC and x.FonteRecurso = 109 and x.idProduto = a.idProduto)')
+                'qtdeSecundarios' => new Zend_Db_Expr('(SELECT COUNT(*) 
+                    FROM sac.dbo.PlanoDistribuicaoProduto y 
+                    WHERE y.idProjeto = b.idProjeto 
+                    AND stPrincipal = 0)'
+                ),
+                'valor' => new Zend_Db_Expr('(SELECT SUM(x.Ocorrencia*x.Quantidade*x.ValorUnitario) 
+                    FROM SAC.dbo.tbPlanilhaProjeto x 
+                    WHERE b.IdPRONAC = x.idPRONAC 
+                    AND x.FonteRecurso = 109 
+                    AND x.idProduto = a.idProduto)'
+                )
             ],
             $this->_schema
         );
@@ -2464,7 +2488,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                 $this->_schema
             )
             ->joinInner(
-                array('distribuirParecer' =>  $this->_name),
+                array('distribuirParecer' => $this->_name),
                 'projeto.idPronac = distribuirParecer.idPronac',
                 array( //@todo duplicando para pradronizar - remover quando tiver padronizado
                     'idDistribuirParecer',

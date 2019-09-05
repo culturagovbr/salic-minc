@@ -95,20 +95,13 @@
                                 flat
                                 icon
                                 class="mr-2"
-                                :to="{
-                                    name: 'parecer-gerenciar-visualizar-view',
-                                    params: {
-                                        id: props.item.idProduto,
-                                        idPronac: props.item.idPronac,
-                                        produtoPrincipal: props.item.stPrincipal,
-                                    }
-                                }"
+                                :href="`${urlAssinatura}?idDocumentoAssinatura=${props.item.idDocumentoAssinatura}&${retornoAssinatura.toString()}`"
                             >
                                 <v-icon>
                                     assignment_turned_in
                                 </v-icon>
                             </v-btn>
-                            <span>Validar avaliação</span>
+                            <span>Assinar documento</span>
                         </v-tooltip>
                         <v-tooltip
                             v-else
@@ -126,7 +119,7 @@
                                     watch_later
                                 </v-icon>
                             </v-btn>
-                            <span>Este produto é secundário, aguarde o produto principal para finalizar</span>
+                            <span>Este produto é secundário, quando o produto principal for assinado ele será finalizado</span>
                         </v-tooltip>
                         <v-tooltip
                             bottom
@@ -201,6 +194,8 @@ export default {
             dialogConfirmarEnvio: false,
             loading: false,
             produto: {},
+            urlAssinatura: '/assinatura/index/visualizar-projeto',
+            prevRoute: null,
             headers: [
                 {
                     text: 'Pronac',
@@ -236,6 +231,13 @@ export default {
                 { text: 'Ações', width: '2', value: 'stPrincipal' },
             ],
         };
+    },
+
+    computed: {
+        retornoAssinatura() {
+            const path = `#${this.$route.path}`;
+            return `origin=${encodeURIComponent(path)}`;
+        },
     },
 
     methods: {

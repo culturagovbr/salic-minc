@@ -53,35 +53,6 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         return \TratarArray::utf8EncodeArray($produtos);
     }
 
-    public function get()
-    {
-        $id = $this->request->getParam('id');
-        $idPronac = $this->request->getParam('idPronac');
-
-        $projeto = new \Projetos();
-        $produto = $projeto->buscaProjetosProdutosParaAnalise(
-            [
-                'distribuirParecer.idProduto = ?' => $id,
-                'distribuirParecer.siEncaminhamento = ?' => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
-                'projeto.IdPRONAC = ?' => $idPronac,
-            ]
-        )->current();
-
-        if ($produto) {
-            $produto = $produto->toArray();
-            $produto['stDiligencia'] = $this->definirStatusDiligencia($produto);
-            $produto['diasEmDiligencia'] = $this->obterTempoDiligencia($produto);
-            $produto['diasEmAvaliacao'] = $this->obterTempoRestanteDeAvaliacao($produto);
-
-            if ($produto['stPrincipal']
-                && $produto['siAnalise'] == \Parecer_Model_TbDistribuirParecer::SI_ANALISE_ANALISADO) {
-                $produto['idDocumentoAssinatura'] = $this->getIdDocumentoAssinatura($idPronac);
-            }
-        }
-        return \TratarArray::utf8EncodeArray($produto);
-
-    }
-
     public function obteDistribuicaoProduto()
     {
         $idProduto = $this->request->getParam('idProduto');
@@ -154,7 +125,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         $distribuicoes = $tbDistribuirParecer->findAll($whereDistribuicao);
 
         $resposta = false;
-        foreach($distribuicoes as $distribuicao) {
+        foreach ($distribuicoes as $distribuicao) {
             $resposta = $this->distribuirProduto($params, $distribuicao);
         }
 
@@ -316,13 +287,13 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         }
 
         $dados = [
-            "siAnalise" =>  \Parecer_Model_TbDistribuirParecer::SI_ANALISE_VALIDADO,
+            "siAnalise" => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_VALIDADO,
             "FecharAnalise" => \Parecer_Model_TbDistribuirParecer::FECHAR_ANALISE_FECHADA,
             'DtRetorno' => \MinC_Db_Expr::date(),
         ];
         $whereDocumentoAssinatura = "idDistribuirParecer = " . $params['idDistribuirParecer'];
 
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        return $tbDistribuirParecer->update($dados,$whereDocumentoAssinatura);
+        return $tbDistribuirParecer->update($dados, $whereDocumentoAssinatura);
     }
 }
