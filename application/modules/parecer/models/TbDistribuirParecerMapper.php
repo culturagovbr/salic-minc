@@ -21,14 +21,14 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
         return $this->inserirDistribuicaoProduto($dados);
     }
 
-    public function devolverProdutoParaParecerista($distribuicao)
+    public function solicitarReanaliseParecerista($distribuicao)
     {
         $dados = array_merge($distribuicao, [
             'DtDevolucao' => null,
             'stDiligenciado' => null,
             'DtRetorno' => null,
-            'siEncaminhamento' => \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA,
-            'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE
+            'siEncaminhamento' => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
+            'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE
         ]);
 
         return $this->inserirDistribuicaoProduto($dados);

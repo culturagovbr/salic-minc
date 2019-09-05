@@ -73,7 +73,6 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         if (empty($produto)) {
             throw new \Exception("Produto indispon&iacute;vel para distribui&ccedil;&atilde;o!");
         }
-
         $resposta['pareceristas'] = $this->obterPareceristas(
             $produto['idOrgao'],
             $produto['idArea'],
@@ -141,7 +140,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
     {
         if ($dados['tipoAcao'] === 'distribuir'
             && !$this->isPareceristaCredenciado(
-                $dados['idParecerista'],
+                $dados['idAgenteParecerista'],
                 $dados['idAreaProduto'],
                 $dados['idSegmentoProduto'])
         ) {
@@ -163,8 +162,8 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
             'idUsuario' => $this->idUsuario,
         ]);
 
-        if (!empty($dados['idParecerista'])) {
-            $distribuicao['idAgenteParecerista'] = $dados['idParecerista'];
+        if (!empty($dados['idAgenteParecerista'])) {
+            $distribuicao['idAgenteParecerista'] = $dados['idAgenteParecerista'];
         }
 
         if (!empty($dados['idOrgaoDestino'])) {
@@ -179,10 +178,48 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         return $tbDistribuirParecerMapper->distribuirProdutoParaParecerista($distribuicao);
     }
 
-    private function isPareceristaCredenciado($idParecerista, $idAreaProduto, $idSegmentoProduto)
+    public function solicitarReanaliseParecerista()
+    {
+        $params = $this->request->getParams();
+
+        if (empty($params['idDistribuirParecer'])
+            || empty($params['idPronac'])
+            || empty($params['idProduto'])
+        ) {
+            throw new \Exception("Dados obrigatórios não informados");
+        }
+
+        $observacao = utf8_decode(trim(strip_tags($params['observacao'])));
+
+        if (strlen($observacao) < 11) {
+            throw new \Exception("O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 11 caracteres");
+        }
+
+        $whereDistribuicaoAtual = [];
+        $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $distribuicao = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
+
+        $distribuicao = array_merge($distribuicao, [
+            'Observacao' => $observacao,
+            'idUsuario' => $this->idUsuario,
+        ]);
+
+        $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
+        $resposta = $tbDistribuirParecerMapper->solicitarReanaliseParecerista($distribuicao);
+        if ($resposta && $distribuicao['stPrincipal'] == 1) {
+            $this->desabilitarDocumentoAssinatura($params['idPronac']);
+            $this->alterarSituacaoDoProjeto($params['idPronac']);
+        }
+
+        return $resposta;
+    }
+
+
+    private function isPareceristaCredenciado($idAgenteParecerista, $idAreaProduto, $idSegmentoProduto)
     {
         $whereCredenciamento = [
-            'idAgente = ?' => $idParecerista,
+            'idAgente = ?' => $idAgenteParecerista,
             'idCodigoArea = ?' => $idAreaProduto,
             'idCodigoSegmento = ?' => $idSegmentoProduto
         ];
@@ -265,11 +302,9 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
     {
         $idTipoDoAtoAdministrativo = \Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL;
 
-        $objAssinatura = new \Assinatura_Model_DbTable_TbAssinatura();
-        $assinaturas = $objAssinatura->obterAssinaturas($idPronac, $idTipoDoAtoAdministrativo);
-        if (count($assinaturas) > 0) {
-            $idDocumentoAssinatura = current($assinaturas)['idDocumentoAssinatura'];
-
+        $objTbDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
+        $idDocumentoAssinatura = $objTbDocumentoAssinatura->getIdDocumentoAssinatura($idPronac, $idTipoDoAtoAdministrativo);
+        if ($idDocumentoAssinatura) {
             $objDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
             $dadosDocumentoAssinatura = ["stEstado" => \Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_INATIVO];
             $whereDocumentoAssinatura = "idDocumentoAssinatura = $idDocumentoAssinatura";

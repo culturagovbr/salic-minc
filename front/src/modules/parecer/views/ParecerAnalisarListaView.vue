@@ -131,13 +131,16 @@
                                             color="grey lighten-3"
                                             icon
                                             class="mr-2"
-                                            style="cursor: default"
+                                            disabled
                                         >
                                             <v-icon color="blue-grey darken-2">
                                                 watch_later
                                             </v-icon>
                                         </v-btn>
-                                        <span>Este produto é secundário e será enviado após finalização do produto principal.</span>
+                                        <span>
+                                            Análise finalizada.
+                                            Este produto é secundário e será enviado após finalização do produto principal.
+                                        </span>
                                     </v-tooltip>
                                     <v-tooltip
                                         v-else
@@ -170,13 +173,12 @@
                                             v-if="props.item.siAnalise === SI_ANALISE_AGUARDANDO_ANALISE
                                                 || !props.item.siAnalise"
                                             slot="activator"
-                                            color="blue-grey darken-2"
-                                            flat
+                                            color="yellow accent-4"
                                             icon
                                             class="mr-2"
                                             @click="declararImpedimento(props.item)"
                                         >
-                                            <v-icon>
+                                            <v-icon color="yellow darken-4">
                                                 voice_over_off
                                             </v-icon>
                                         </v-btn>

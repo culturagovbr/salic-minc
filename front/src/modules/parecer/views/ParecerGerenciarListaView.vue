@@ -63,6 +63,7 @@
                             @distribuir-produto="distribuirProduto($event)"
                             @distribuir-projeto="distribuirProjeto($event)"
                             @visualizar-detalhes="visualizarDetalhes($event)"
+                            @reanalisar-produto="reanalisarProduto($event)"
                         />
                         <s-carregando
                             v-else
@@ -80,6 +81,11 @@
                         />
                         <s-gerenciar-distribuir-produto-dialog
                             v-model="dialogDistribuirProduto"
+                            :produto="produtoSelecionado"
+                            :filtro="filtro"
+                        />
+                        <s-gerenciar-reanalisar-produto-dialog
+                            v-model="dialogReanaliseProduto"
                             :produto="produtoSelecionado"
                             :filtro="filtro"
                         />
@@ -108,6 +114,7 @@ import SCarregando from '@/components/CarregandoVuetify';
 import SDialogDiligencias from '@/modules/diligencia/components/SDialogDiligencias';
 import SAnaliseOutrosProdutosDialogDetalhamento from '@/modules/parecer/components/AnaliseOutrosProdutosDialogDetalhamento';
 import SGerenciarDistribuirProdutoDialog from '@/modules/parecer/components/GerenciarDistribuirProdutoDialog';
+import SGerenciarReanalisarProdutoDialog from '@/modules/parecer/components/GerenciarReanalisarProdutoDialog';
 import SGerenciarDetalhesAnaliseDialog from '@/modules/parecer/components/GerenciarDetalhesAnaliseDialog';
 import GerenciarListaAguardandoDistribuicao from '@/modules/parecer/components/GerenciarListaAguardandoDistribuicao';
 import GerenciarListaItensEmAnalise from '@/modules/parecer/components/GerenciarListaItensEmAnalise';
@@ -120,6 +127,7 @@ export default {
     components: {
         SAnaliseHistoricoProdutoDialog,
         SGerenciarDistribuirProdutoDialog,
+        SGerenciarReanalisarProdutoDialog,
         SAnaliseOutrosProdutosDialogDetalhamento,
         GerenciarListaAguardandoDistribuicao,
         GerenciarListaItensEmAnalise,
@@ -171,6 +179,7 @@ export default {
         dialogHistorico: false,
         dialogVisualizarProduto: false,
         dialogDistribuirProduto: false,
+        dialogReanaliseProduto: false,
         dialogDetalhes: false,
         produtoHistorico: {},
         dialogImpedimento: false,
@@ -246,6 +255,10 @@ export default {
         },
         distribuirProduto(produto) {
             this.dialogDistribuirProduto = true;
+            this.produtoSelecionado = produto;
+        },
+        reanalisarProduto(produto) {
+            this.dialogReanaliseProduto = true;
             this.produtoSelecionado = produto;
         },
         distribuirProjeto(produto) {

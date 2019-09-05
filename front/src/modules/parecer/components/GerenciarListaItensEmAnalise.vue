@@ -92,7 +92,7 @@
                             color="blue-grey darken-2"
                             flat
                             icon
-                            class="mr-2"
+                            class="ma-0"
                             @click="$emit('visualizar-detalhes', props.item)"
                         >
                             <v-icon>
@@ -109,7 +109,7 @@
                             color="blue-grey darken-2"
                             flat
                             icon
-                            class="mr-2"
+                            class="ma-0"
                             @click="$emit('distribuir-produto', props.item)"
                         >
                             <v-icon>
@@ -126,7 +126,7 @@
                             color="blue-grey darken-2"
                             flat
                             icon
-                            class="mr-2"
+                            class="ma-0"
                             @click="$emit('visualizar-historico', props.item)"
                         >
                             <v-icon>

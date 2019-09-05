@@ -1,4 +1,4 @@
-import * as parecerHelperAPI from '@/helpers/api/Parecer';
+import * as parecerHelperAPI from '../service/Parecer';
 import * as types from './types';
 
 export const parecerMensagemSucesso = ({ commit }, msg) => {
@@ -203,6 +203,16 @@ export const obterDadosParaDistribuicao = ({ commit }, params) => {
 };
 
 export const salvarDistribuicaoProduto = async ({ dispatch }, params) => parecerHelperAPI.salvarDistribuicaoProduto(params)
+    .then((response) => {
+        dispatch('parecerMensagemSucesso', response.data.message);
+        dispatch('removerProdutoDaLista', params);
+        return response.data;
+    }).catch((e) => {
+        dispatch('parecerMensagemErro', e.response.data.error.message);
+        throw new TypeError(e.response.data.error.message, 'salvarDistribuicaoProduto', 10);
+    });
+
+export const salvarSolicitacaoReanalise = async ({ dispatch }, params) => parecerHelperAPI.salvarSolicitacaoReanalise(params)
     .then((response) => {
         dispatch('parecerMensagemSucesso', response.data.message);
         dispatch('removerProdutoDaLista', params);

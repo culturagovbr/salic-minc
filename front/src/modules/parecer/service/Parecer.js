@@ -1,4 +1,4 @@
-import * as api from './base';
+import * as api from '@/helpers/api/base';
 
 const buildData = (params) => {
     const bodyFormData = new FormData();
@@ -121,5 +121,7 @@ export const obterDadosParaDistribuicao = (params) => {
 export const salvarDistribuicaoProduto = params => api.postRequest('/parecer/gerenciar-distribuir-produto-rest', buildData(params));
 
 export const salvarDistribuicaoProjeto = params => api.postRequest('/parecer/gerenciar-distribuir-projeto-rest', buildData(params));
+
+export const salvarSolicitacaoReanalise = params => api.postRequest('/parecer/gerenciar-reanalisar-produto-rest', buildData(params));
 
 export const salvarValidacaoParecer = params => api.postRequest('/parecer/gerenciar-avaliacao-rest', buildData(params));

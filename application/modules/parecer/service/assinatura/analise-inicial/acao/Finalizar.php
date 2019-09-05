@@ -46,6 +46,7 @@ class Finalizar implements IAcaoFinalizar
             $distribuirParecer->FecharAnalise = 1;
             $distribuirParecer->idUsuario = $auth->getIdentity()->usu_codigo;
             $distribuirParecer->DtRetorno = $tbDistribuirParecer->getExpressionDate();
+            $distribuirParecer->siEncaminhamento = \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_MINC_PELA_UNIDADE;
 
             $distribuirParecer->save();
         }

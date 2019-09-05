@@ -2025,7 +2025,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'idSegmento',
                         'Segmento as segmento',
                         'idDistribuirParecer',
-                        'Parecerista as parecerista',
+                        'Parecerista as nomeParecerista',
                         'idOrgao',
                         'FecharAnalise as fecharAnalise',
                         'DtEnvioMincVinculada as dtEnvioMincVinculada',
@@ -2035,11 +2035,12 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'TempoParecerista as tempoParecerista',
                         'TempoDiligencia as tempoDiligencia',
                         'qtDiligenciaProduto',
-                        'Valor as valor'
+                        'Valor as valor',
+                        'idAgenteParecerista'
                     )
                 );
 
-                $from = ' FROM sac.dbo.vwPainelCoordenadorVinculadasEmValidacao';
+                $from = ' FROM sac.dbo.vwPainelEmValidacao';
                 break;
             case 'validados':
 
@@ -2056,7 +2057,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'idSegmento',
                         'Segmento as segmento',
                         'idDistribuirParecer',
-                        'Parecerista as parecerista',
+                        'Parecerista as nomeParecerista',
                         'idOrgao',
                         'idOrgaoOrigem',
                         'siAnalise',
@@ -2074,7 +2075,8 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'FecharAnalise as fecharAnalise',
                         'TecnicoValidador as tecnicoValidador',
                         'dtValidacao',
-                        'idDocumentoAssinatura'
+                        'idDocumentoAssinatura',
+                        'idAgenteParecerista'
                     ]
                 );
 
@@ -2350,8 +2352,8 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
             ['g' => 'Nomes'],
             'a.idAgenteParecerista = g.idAgente',
             [
-                'g.Descricao AS parecerista',
-                'g.idAgente AS idParecerista',
+                'g.Descricao AS nomeParecerista',
+                'g.idAgente AS idAgenteParecerista',
             ],
             $this->getSchema('Agentes')
         );

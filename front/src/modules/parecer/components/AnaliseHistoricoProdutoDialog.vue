@@ -45,7 +45,7 @@
                         >
                             <td v-html="props.item.dsProduto" />
                             <td v-html="props.item.Unidade" />
-                            <td>{{ props.item.dtDistribuicao | formatarData }}</td>
+                            <td>{{ props.item.DtDistribuicao | formatarData }}</td>
                             <td v-html="props.item.Observacao" />
                             <td v-html="props.item.nmUsuario" />
                             <td v-html="props.item.nmParecerista" />

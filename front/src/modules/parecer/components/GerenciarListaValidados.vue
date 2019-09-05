@@ -77,13 +77,13 @@
                         </v-tooltip>
                     </td>
                     <td>{{ props.item.segmento }}</td>
-                    <td>{{ props.item.parecerista }}</td>
+                    <td>{{ props.item.nomeParecerista }}</td>
                     <td class="text-xs-right">
                         {{ props.item.dtDistribuicao | formatarData }}
                     </td>
                     <td
                         class="text-xs-center"
-                        style="min-width: 212px"
+                        style="min-width: 230px"
                     >
                         <v-tooltip
                             v-if="props.item.stPrincipal === 1"
@@ -91,10 +91,10 @@
                         >
                             <v-btn
                                 slot="activator"
-                                color="blue-grey darken-2"
+                                color="green darken-2"
                                 flat
                                 icon
-                                class="mr-2"
+                                class="ma-0"
                                 :href="`${urlAssinatura}?idDocumentoAssinatura=${props.item.idDocumentoAssinatura}&${retornoAssinatura.toString()}`"
                             >
                                 <v-icon>
@@ -110,9 +110,9 @@
                             <v-btn
                                 slot="activator"
                                 color="blue-grey darken-2"
+                                class="ma-0"
                                 flat
                                 icon
-                                class="mr-2"
                                 disabled
                             >
                                 <v-icon>
@@ -127,16 +127,33 @@
                             <v-btn
                                 slot="activator"
                                 color="blue-grey darken-2"
+                                class="ma-0"
                                 flat
                                 icon
-                                class="mr-2"
                                 @click="$emit('distribuir-produto', props.item)"
                             >
                                 <v-icon>
                                     person
                                 </v-icon>
                             </v-btn>
-                            <span>Distribuir produto</span>
+                            <span>Redistribuir produto</span>
+                        </v-tooltip>
+                        <v-tooltip
+                            bottom
+                        >
+                            <v-btn
+                                slot="activator"
+                                color="blue-grey darken-2"
+                                class="ma-0"
+                                flat
+                                icon
+                                @click="$emit('reanalisar-produto', props.item)"
+                            >
+                                <v-icon>
+                                    arrow_back
+                                </v-icon>
+                            </v-btn>
+                            <span>Devolver para reanálise do parecerista</span>
                         </v-tooltip>
                         <v-tooltip
                             bottom
@@ -146,7 +163,6 @@
                                 color="blue-grey darken-2"
                                 flat
                                 icon
-                                class="mr-2"
                                 @click="$emit('visualizar-historico', props.item)"
                             >
                                 <v-icon>
@@ -228,7 +244,7 @@ export default {
                     value: 'parecerista',
                 },
                 { text: 'Dt. de Envio', value: 'dtDistribuicao', width: '2' },
-                { text: 'Ações', width: '2', value: 'stPrincipal' },
+                { text: 'Ações', width: '4', value: 'stPrincipal' },
             ],
         };
     },
