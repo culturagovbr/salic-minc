@@ -14,6 +14,27 @@
         >
             <v-layout
                 row
+                justify-center
+            >
+                <v-flex
+                    xs4
+                    md4
+                    sm4
+                >
+                    <v-card
+                        class="mb-3"
+                        max-width="500"
+                    >
+                        <v-card-title
+                            class="grey lighten-5 headline justify-center"
+                        >
+                            {{ tipoReadequacaoPlanilha }}
+                        </v-card-title>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+            <v-layout
+                row
             >
                 <v-flex
                     xs12
@@ -46,7 +67,7 @@
                                     <span
                                         class="display-1 font-weight-light"
                                     >
-                                        {{ dadosReadequacao.dsSolicitacao | filtroFormatarParaReal }}
+                                        {{ getResumoPlanilha.PlanilhaAtivaTotal | filtroFormatarParaReal }}
                                     </span>
                                 </v-flex>
                             </v-layout>
@@ -84,7 +105,7 @@
                                     <span
                                         class="display-1 font-weight-light"
                                     >
-                                        {{ dadosReadequacao.dsSolicitacao | filtroFormatarParaReal }}
+                                        {{ getResumoPlanilha.PlanilhaReadequadaTotal | filtroFormatarParaReal }}
                                     </span>
                                 </v-flex>
                             </v-layout>
@@ -111,7 +132,9 @@
                             </v-toolbar-title>
                             <v-spacer />
                         </v-toolbar>
-                        <v-card-text>
+                        <v-card-text
+                            :class="classDiferenca"
+                        >
                             <v-layout
                                 justify-space-between
                             >
@@ -122,7 +145,7 @@
                                     <span
                                         class="display-1 font-weight-light"
                                     >
-                                        {{ dadosReadequacao.dsSolicitacao | filtroFormatarParaReal }}
+                                        {{ valorDiferenca | filtroFormatarParaReal }}
                                     </span>
                                 </v-flex>
                             </v-layout>
@@ -307,6 +330,7 @@ export default {
         ...mapGetters({
             getPlanilha: 'readequacao/getPlanilha',
             getPlanilhaAtiva: 'readequacao/getPlanilhaAtiva',
+            getResumoPlanilha: 'readequacao/getResumoPlanilha',
         }),
         expandirTudo() {
             return this.isOptionActive(0);
@@ -317,6 +341,28 @@ export default {
         mostrarListagem() {
             return this.isOptionActive(2);
         },
+        classDiferenca() {
+            if (this.getResumoPlanilha.statusPlanilha === 'negativo') {
+                return "red lighten-3";
+            } else if (this.getResumoPlanilha.statusPlanilha === 'positivo') {
+                return "green lighten-3";
+            }
+        },
+        tipoReadequacaoPlanilha() {
+            if (this.getResumoPlanilha) {
+                if (this.getResumoPlanilha.statusPlanilha === 'negativo') {
+                    return 'Redução';
+                } else if (this.getResumoPlanilha.statusPlanilha === 'positivo') {
+                    return 'Complementação';
+                } else {
+                    return 'Remanejamento';
+                }
+            }
+            return '';
+        },
+        valorDiferenca() {
+            return Math.abs(this.getResumoPlanilha.saldoValorUtilizado);
+        }
     },
     watch: {
         getPlanilha: {
@@ -352,12 +398,17 @@ export default {
         this.obterUnidadesPlanilha({
             idPronac: this.dadosReadequacao.idPronac,
         });
+        this.calcularResumoPlanilha({
+            idPronac: this.dadosReadequacao.idPronac,
+            idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
+        });
     },
     methods: {
         ...mapActions({
             obterPlanilha: 'readequacao/obterPlanilha',
             obterPlanilhaAtiva: 'readequacao/obterPlanilhaAtiva',
             obterUnidadesPlanilha: 'readequacao/obterUnidadesPlanilha',
+            calcularResumoPlanilha: 'readequacao/calcularResumoPlanilha',
         }),
         isOptionActive(index) {
             return this.opcoesDeVisualizacao.includes(index);
