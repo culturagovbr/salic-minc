@@ -128,6 +128,7 @@
                         :id-readequacao="idReadequacao"
                         :tp-diligencia="tpDiligencia"
                         :situacao="situacao"
+                        @diligencia-criada="diligenciaCriada()"
                     />
                 </div>
             </v-card-text>
@@ -239,6 +240,9 @@ export default {
         abrirModal(produto) {
             this.diligenciaVisualizacao = produto;
             this.dialogDetalhamento = true;
+        },
+        diligenciaCriada() {
+            this.$emit('diligencia-criada', true);
         },
     },
 };

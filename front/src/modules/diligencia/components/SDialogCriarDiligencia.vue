@@ -149,6 +149,7 @@ export default {
             this.salvar(this.diligenciaEmEdicao).then(() => {
                 this.dialog = false;
             }).finally(() => {
+                this.$emit('diligencia-criada', true);
                 this.saveLoading = false;
             });
         },

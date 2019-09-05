@@ -343,26 +343,28 @@ export default {
         },
         classDiferenca() {
             if (this.getResumoPlanilha.statusPlanilha === 'negativo') {
-                return "red lighten-3";
-            } else if (this.getResumoPlanilha.statusPlanilha === 'positivo') {
-                return "green lighten-3";
+                return 'red lighten-3';
             }
+            if (this.getResumoPlanilha.statusPlanilha === 'positivo') {
+                return 'green lighten-3';
+            }
+            return '';
         },
         tipoReadequacaoPlanilha() {
             if (this.getResumoPlanilha) {
                 if (this.getResumoPlanilha.statusPlanilha === 'negativo') {
                     return 'Redução';
-                } else if (this.getResumoPlanilha.statusPlanilha === 'positivo') {
-                    return 'Complementação';
-                } else {
-                    return 'Remanejamento';
                 }
+                if (this.getResumoPlanilha.statusPlanilha === 'positivo') {
+                    return 'Complementação';
+                }
+                return 'Remanejamento';
             }
             return '';
         },
         valorDiferenca() {
             return Math.abs(this.getResumoPlanilha.saldoValorUtilizado);
-        }
+        },
     },
     watch: {
         getPlanilha: {

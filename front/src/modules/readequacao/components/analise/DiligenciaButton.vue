@@ -31,10 +31,12 @@
             :id-pronac="dadosReadequacao.idPronac"
             :id-readequacao="dadosReadequacao.idReadequacao"
             :tp-diligencia="tpDiligencia"
+            @diligencia-criada="diligenciaCriada()"
         />
     </v-layout>
 </template>
 <script>
+import { mapActions } from 'vuex';
 import Const from '../../const';
 import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
 import SDialogDiligencias from '@/modules/diligencia/components/SDialogDiligencias';
@@ -96,8 +98,14 @@ export default {
         },
     },
     methods: {
+        ...mapActions({
+            buscarReadequacoesPainelTecnico: 'readequacao/buscarReadequacoesPainelTecnico',
+        }),
         visualizarDiligencia() {
             this.dialogDiligencias = true;
+        },
+        diligenciaCriada() {
+            this.buscarReadequacoesPainelTecnico({});
         },
     },
 };
