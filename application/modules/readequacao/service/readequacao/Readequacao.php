@@ -331,12 +331,61 @@ class Readequacao implements IServicoRestZend
                     $orgao = $tbOrgaos->pesquisarUnidades(['Codigo = ?' => $item->idOrgao]);
                     $item->sgUnidade = $orgao[0]->Sigla;
                 }
+
+                if (in_array($idPerfil, [\Autenticacao_Model_Grupos::PARECERISTA, \Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO])) {
+                    $item->stDiligencia = $this->definirStatusDiligencia($item);
+                    $item->diasEmDiligencia = $this->obterTempoDiligencia($item);
+                    $item->diasEmAvaliacao = $this->obterTempoRestanteDeAvaliacao($item);
+                }
                 
                 $resultArray[] = $item;
             }
         }
         
         return $resultArray;
+    }
+
+    private function definirStatusDiligencia($item)
+    {
+        $diligencia = 0;
+        if ($item->DtSolicitacao && $item->DtResposta == NULL) {
+            $diligencia = 1;
+        } else if ($item->DtSolicitacao && $item->DtResposta != NULL) {
+            $diligencia = 2;
+        } else if ($item->DtSolicitacao
+            && round(\data::CompararDatas($item->DtDistribuicao)) > $item->tempoFimDiligencia) {
+            $diligencia = 3;
+        }
+
+        return $diligencia;
+    }
+
+    private function obterTempoRestanteDeAvaliacao($item)
+    {
+        switch ($item->stDiligencia) {
+            case 1:
+                $tempoRestante = round(\data::CompararDatas($item->dtDistribuicao, $item->DtSolicitacao));
+                break;
+            case 2:
+            case 3:
+                $tempoRestante = round(\data::CompararDatas($item->DtResposta));
+                break;
+            default:
+                $tempoRestante = round(\data::CompararDatas($item->dtDistribuicao));
+                break;
+        }
+
+        return $tempoRestante;
+    }
+
+    private function obterTempoDiligencia($item)
+    {
+        $tempoDiligencia = 0;
+        if ($item->stDiligencia == 1) {
+            $tempoDiligencia = round(\data::CompararDatas($item->DtSolicitacao));
+        }
+
+        return $tempoDiligencia;
     }
     
     public function buscarReadequacoesPorPronacTipo($idPronac, $idTipoReadequacao)
@@ -892,11 +941,17 @@ class Readequacao implements IServicoRestZend
     }
 
     public function removerRemanejamentoParcial($readequacao) {
-        
+        if (isset($readequacao['idReadequacao'])
+            && $readequacao['idReadequacao'] > 0) {
+            $this->__removerItensPlanilha($readequacao['idReadequacao']);
+        }
     }
     
     public function removerPlanilhaOrcamentaria($readequacao) {
-        
+        if (isset($readequacao['idReadequacao'])
+            && $readequacao['idReadequacao'] > 0) {
+            $this->__removerItensPlanilha($readequacao['idReadequacao']);
+        }
     }
 
     public function removerPlanoDistribuicao($readequacao) {
@@ -1739,6 +1794,7 @@ class Readequacao implements IServicoRestZend
             ) {
                 $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
                 $jaDistribuiu = $tbDistribuirReadequacao->buscar(['idReadequacao = ?' => $readequacao->idReadequacao])->current();
+                $dtEnvioAvaliador = ($parametros['destinatario'] != null) ? new \Zend_Db_Expr('GETDATE()') : null;
                 
                 if (empty($jaDistribuiu)) {
                     $dados = [
@@ -1746,7 +1802,7 @@ class Readequacao implements IServicoRestZend
                         'idUnidade' => $idUnidade,
                         'DtEncaminhamento' => new \Zend_Db_Expr('GETDATE()'),
                         'idAvaliador' => (null !== $parametros['destinatario']) ? $parametros['destinatario'] : null,
-                        'dtEnvioAvaliador' => !empty($dataEnvio) ? $dataEnvio : null,
+                        'dtEnvioAvaliador' => $dtEnvioAvaliador,
                         'stValidacaoCoordenador' => $stValidacaoCoordenador,
                         'dsOrientacao' => $readequacao->dsAvaliacao
                     ];
@@ -1761,7 +1817,7 @@ class Readequacao implements IServicoRestZend
                         'idUnidade' => $parametros['vinculada'],
                         'DtEncaminhamento' => new \Zend_Db_Expr('GETDATE()'),
                         'idAvaliador' => (null !== $parametros['destinatario']) ? $parametros['destinatario'] : null,
-                        'dtEnvioAvaliador' => !empty($dataEnvio) ? $dataEnvio : null,
+                        'dtEnvioAvaliador' => $dtEnvioAvaliador,
                         'stValidacaoCoordenador' => $stValidacaoCoordenador,
                         'dsOrientacao' => $readequacao->dsAvaliacao
                     ];
@@ -1862,12 +1918,14 @@ class Readequacao implements IServicoRestZend
                 $tbReadequacao->update($dados, $where);
                 
             } else {
+                $dtEnvioAvaliador = ($destinatario != '') ? new \Zend_Db_Expr('GETDATE()') : null;
+                
                 $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
                 $dados = [
                     'idUnidade' => $idUnidade,
                     'DtEncaminhamento' => new \Zend_Db_Expr('GETDATE()'),
                     'idAvaliador' => $destinatario,
-                    'DtEnvioAvaliador' => null,
+                    'DtEnvioAvaliador' => $dtEnvioAvaliador,
                     'dsOrientacao' => $dsOrientacao
                 ];
                 $where = [];
@@ -1962,6 +2020,96 @@ class Readequacao implements IServicoRestZend
         $data['message'] = "Ciclo de avaliação de readequação finalizado.";
         
         return $data;
+    }
+
+    public function prazoRespostaDiligencia($idPronac = null, $idTipoDiligencia = null, $idDiligencia = null, $blnPrazoPadrao=false, $blnPrazoResposta=false)
+    {
+        if (!isset($idPronac) || empty($idPronac)) {
+            return;
+        }
+        
+        $arrRetorno = [];
+        $arrRetorno['prazoPadrao']   = null;
+        $arrRetorno['prazoRespostaCrescente'] = null;
+        $arrRetorno['prazoRespostaDecrescente'] = null;
+        $arrRetorno['tipoDiligencia'] = "a_diligenciar";
+        
+        $tbDiligencia = new \tbDiligencia();
+        
+        $arrBusca = [];
+        $arrBusca['IdPRONAC = ?'] = $idPronac;
+        if (!empty($idTipoDiligencia)) {
+            $arrBusca['idTipoDiligencia = ?'] = $idTipoDiligencia;
+        }
+        if (!empty($idDiligencia)) {
+            $arrBusca['idDiligencia = ?'] = $idDiligencia;
+        }
+
+        $rsDiligencia = $tbDiligencia->buscar($arrBusca, ['DtSolicitacao DESC'])->current();
+        
+        if (!empty($rsDiligencia)) {
+            $prazoPadrao = 40;
+            
+            $prazoResposta = $this->prazoParaResposta($rsDiligencia->DtSolicitacao, $prazoPadrao);
+            $prazoRespostaCresc = $this->prazoParaResposta($rsDiligencia->DtSolicitacao, $prazoPadrao);
+            $prazoRespostaDesc = $this->prazoParaResposta($rsDiligencia->DtSolicitacao, $prazoPadrao, true);
+        
+            if ($blnPrazoPadrao) {
+                return $prazoPadrao;
+            }
+        
+            if ($blnPrazoResposta) {
+                return ($prazoRespostaDesc == '-1') ? $prazoPadrao : $prazoRespostaDesc;
+            }
+        
+            $arrRetorno['prazoPadrao']   = $prazoPadrao;
+            $arrRetorno['prazoRespostaCrescente'] = ($prazoRespostaCresc == '-1') ? $prazoPadrao : $prazoRespostaCresc;
+            $arrRetorno['prazoRespostaDecrescente'] = ($prazoRespostaDesc == '-1') ? $prazoPadrao : $prazoRespostaDesc;
+
+            $tipoDiligencia = $this->tipoDiligencia($rsDiligencia, $prazoPadrao, $prazoResposta);
+
+            $arrRetorno['tipoDiligencia'] = $tipoDiligencia;
+        }
+        return $arrRetorno;
+    }
+
+    public function prazoParaResposta($dtSolicitacao = null, $prazoPadrao = null, $bln_decrescente=false)
+    {
+        if (!empty($dtSolicitacao)) {
+            $prazo = round(\Data::CompararDatas($dtSolicitacao));
+            if ($bln_decrescente) {
+                $prazo = ((int)$prazoPadrao)-((int)$prazo);
+            }
+            if ($prazo > '0') {
+                return $prazo;
+            } elseif ($prazo <= '0') {
+                return '0';
+            } else {
+                return '-1';
+            }
+        } else {
+            return '0';
+        }
+    }
+
+    public function tipoDiligencia($rsDiligencia, $prazoPadrao, $prazoResposta)
+    {
+        if ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta == null && $prazoResposta <= $prazoPadrao && $rsDiligencia->stEnviado == 'S') {
+            $tipoDiligencia = "diligenciado";
+        } elseif ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta == null && $prazoResposta > $prazoPadrao) {
+            $tipoDiligencia = "nao_respondida";
+        } elseif ($rsDiligencia->DtSolicitacao && $rsDiligencia->DtResposta != null) {
+            if ($rsDiligencia->stEnviado == 'N' && $prazoResposta > $prazoPadrao) {
+                $tipoDiligencia = "nao_respondida";
+            } elseif ($rsDiligencia->stEnviado == 'N' && $prazoResposta <= $prazoPadrao) {
+                $tipoDiligencia = "diligenciado";
+            } else {
+                $tipoDiligencia  = "diligencia_respondida";
+            }
+        } else {
+            $tipoDiligencia  = "a_diligenciar";
+        }
+        return $tipoDiligencia;
     }
 }
 

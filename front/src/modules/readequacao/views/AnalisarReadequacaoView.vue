@@ -1,9 +1,33 @@
 <template>
     <v-container fluid>
         <v-layout
-            v-if="loading"
+            v-if="!permissao"
+            column
         >
             <v-flex
+                offset-xs1
+            >
+                <v-btn
+                    class="green--text text--darken-4"
+                    flat
+                    @click="voltar()"
+                >
+                    <v-icon class="mr-2">
+                        keyboard_backspace
+                    </v-icon>
+                </v-btn>
+                <v-card>
+                    <salic-mensagem-erro
+                        :texto="'Sem permiss&atilde;o de acesso'"
+                    />
+                </v-card>
+            </v-flex>
+        </v-layout>
+        <v-layout
+            v-else
+        >
+            <v-flex
+                v-if="loading"
                 xs12
                 class="mt-2"
             >
@@ -16,7 +40,7 @@
             </v-flex>
         </v-layout>
         <v-layout
-            v-else
+            v-if="permissao && !loading"
         >
             <v-flex>
                 <v-snackbar
@@ -240,18 +264,20 @@
                                 :key="`${step.name}-content`"
                                 :step="index + 1"
                             >
-                                <v-card
-                                    class="mb-5"
-                                    elevation="0"
+                                <v-layout
+                                    row
+                                    wrap
                                 >
-                                    <keep-alive>
-                                        <router-view
-                                            v-if="(index + 1) === currentStep"
-                                            :is-active="true"
-                                            class="view"
-                                        />
-                                    </keep-alive>
-                                </v-card>
+                                    <v-flex xs12>
+                                        <keep-alive>
+                                            <router-view
+                                                v-if="(index + 1) === currentStep"
+                                                :is-active="true"
+                                                class="view"
+                                            />
+                                        </keep-alive>
+                                    </v-flex>
+                                </v-layout>
                             </v-stepper-content>
                         </v-stepper-items>
                     </v-stepper>
@@ -263,8 +289,10 @@
 <script>
 import _ from 'lodash';
 import { mapActions, mapGetters } from 'vuex';
+import SalicMensagemErro from '@/components/SalicMensagemErro';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import Carregando from '@/components/CarregandoVuetify';
+import Const from '../const';
 import AnalisarDadosGerais from '../components/analise/AnalisarDadosGerais';
 import AnalisarAlteracoes from '../components/analise/AnalisarAlteracoes';
 import MxReadequacao from '../mixins/Readequacao';
@@ -273,6 +301,7 @@ export default {
     name: 'AnalisarReadequacao',
     components: {
         SEditorTexto,
+        SalicMensagemErro,
         Carregando,
         AnalisarDadosGerais,
         AnalisarAlteracoes,
@@ -294,6 +323,7 @@ export default {
             dialogFinalizar: false,
             snackbar: false,
             loading: true,
+            permissao: true,
             loaded: {
                 projeto: false,
                 readequacao: false,
@@ -399,6 +429,13 @@ export default {
             },
             deep: true,
         },
+        loading: {
+            handler(value) {
+                if (value === false) {
+                    this.verificarPermissao();
+                }
+            },
+        },
     },
     created() {
         this.loaded = this.checkAlreadyLoadedData(
@@ -483,6 +520,9 @@ export default {
         },
         validateText(e) {
             this.textIsValid = e >= this.minChar;
+        },
+        verificarPermissao() {
+            this.permissao = this.dadosReadequacao.siEncaminhamento === Const.SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
         },
     },
 };

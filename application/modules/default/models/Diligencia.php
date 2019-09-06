@@ -156,6 +156,22 @@ class Diligencia extends MinC_Db_Table_Abstract
     public function inserirDiligencia($dados)
     {
         $insert = $this->insert($dados);
+        if (!$insert) {
+            $select = $this->select();
+            $select->setIntegrityCheck(false);
+            $select->from(
+                [$this->_name],
+                [
+                    'idDiligencia'
+                ],
+                "SAC.dbo"
+            );
+            $select->where("idPronac = ?", $dados['idPronac']);
+            $select->order("idDiligencia DESC");
+            $diligencia = $this->fetchRow($select)->toArray();
+            $insert = $diligencia['idDiligencia'];
+        }
+        return $insert;
     }
 
     public function diligenciasNaoRespondidas($retornaSelect = false)
