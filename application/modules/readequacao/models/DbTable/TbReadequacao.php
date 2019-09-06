@@ -1495,8 +1495,8 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                 ],
                 $this->_schema
             );
-            
-            
+
+            $select->where(new Zend_Db_Expr('(tbDiligencia.stEstado = 0 OR tbDiligencia.stEstado IS NULL)'));
             $select->where('tbReadequacao.stEstado = ? ', 0);
             $select->where('tbReadequacao.siEncaminhamento = ? ', 4);
 
