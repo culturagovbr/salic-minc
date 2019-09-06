@@ -264,18 +264,20 @@
                                 :key="`${step.name}-content`"
                                 :step="index + 1"
                             >
-                                <v-card
-                                    class="mb-5"
-                                    elevation="0"
+                                <v-layout
+                                    row
+                                    wrap
                                 >
-                                    <keep-alive>
-                                        <router-view
-                                            v-if="(index + 1) === currentStep"
-                                            :is-active="true"
-                                            class="view"
-                                        />
-                                    </keep-alive>
-                                </v-card>
+                                    <v-flex xs12>
+                                        <keep-alive>
+                                            <router-view
+                                                v-if="(index + 1) === currentStep"
+                                                :is-active="true"
+                                                class="view"
+                                            />
+                                        </keep-alive>
+                                    </v-flex>
+                                </v-layout>
                             </v-stepper-content>
                         </v-stepper-items>
                     </v-stepper>

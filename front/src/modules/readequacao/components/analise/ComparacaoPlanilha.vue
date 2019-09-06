@@ -1,5 +1,7 @@
 <template>
-    <v-container>
+    <v-container
+        fluid
+        class="ma-0 pa-0">
         <template
             v-if="loading"
             xs9
@@ -154,6 +156,7 @@
                 </v-flex>
             </v-layout>
             <v-layout
+                wrap
                 row
             >
                 <v-flex
