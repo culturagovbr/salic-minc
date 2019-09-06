@@ -34,6 +34,20 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
         return $this->inserirDistribuicaoProduto($dados);
     }
 
+    public function devolverProdutoParaSecult($distribuicao)
+    {
+        $dados = array_merge($distribuicao, [
+            'DtDevolucao' => null,
+            'stDiligenciado' => null,
+            'DtRetorno' => null,
+            'siEncaminhamento' => \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_MINC_PELA_UNIDADE,
+            'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_FINALIZADA,
+            'FecharAnalise' => \Parecer_Model_TbDistribuirParecer::FECHAR_ANALISE_EM_VALIDACAO
+        ]);
+
+        return $this->inserirDistribuicaoProduto($dados);
+    }
+
     public function distribuirProdutoParaParecerista($distribuicao)
     {
         $dados = array_merge($distribuicao, [

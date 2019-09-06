@@ -76,7 +76,7 @@
                     </v-tooltip>
                 </td>
                 <td>{{ props.item.segmento }}</td>
-                <td>{{ props.item.parecerista }}</td>
+                <td>{{ props.item.nomeParecerista }}</td>
                 <td class="text-xs-right">
                     {{ props.item.dtDistribuicao | formatarData }}
                 </td>
@@ -197,7 +197,7 @@ export default {
                 {
                     text: 'Parecerista',
                     align: 'left',
-                    value: 'parecerista',
+                    value: 'nomeParecerista',
                 },
                 {
                     text: 'Dt. de Envio',

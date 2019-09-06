@@ -5,6 +5,7 @@
             :items="produtos"
             :rows-per-page-items="[15, 35, 50, {'text': 'Todos', value: -1}]"
             :search="search"
+            :expand="expand"
             item-key="idDistribuirParecer"
             class="elevation-1"
             disable-initial-sort
@@ -13,7 +14,10 @@
                 slot="items"
                 slot-scope="props"
             >
-                <tr>
+                <tr
+                    style="cursor: pointer"
+                    @click.prevent="props.expanded = !props.expanded"
+                >
                     <td>
                         <v-tooltip
                             bottom
@@ -91,33 +95,33 @@
                             <v-btn
                                 slot="activator"
                                 color="green darken-2"
+                                class="ma-0"
                                 flat
                                 icon
-                                class="ma-0"
-                                @click="confirmarValidacao(props.item)"
-                            >
-                                <v-icon>
-                                    done_all
-                                </v-icon>
-                            </v-btn>
-                            <span>Validar análise</span>
-                        </v-tooltip>
-                        <v-tooltip
-                            bottom
-                        >
-                            <v-btn
-                                slot="activator"
-                                color="blue-grey darken-2"
-                                flat
-                                icon
-                                class="ma-0"
                                 @click="$emit('distribuir-produto', props.item)"
                             >
                                 <v-icon>
                                     person
                                 </v-icon>
                             </v-btn>
-                            <span>Redistribuir produto</span>
+                            <span>Redistribuir/Encaminhar produto</span>
+                        </v-tooltip>
+                        <v-tooltip
+                            bottom
+                        >
+                            <v-btn
+                                slot="activator"
+                                color="orange darken-4"
+                                flat
+                                icon
+                                class="ma-0"
+                                @click="$emit('devolver-produto-para-secult', props.item)"
+                            >
+                                <v-icon>
+                                    assignment_return
+                                </v-icon>
+                            </v-btn>
+                            <span>Devolver para o Ministério</span>
                         </v-tooltip>
                         <v-tooltip
                             bottom
@@ -144,7 +148,6 @@
                                 color="blue-grey darken-2"
                                 flat
                                 icon
-                                class="ma-0"
                                 @click="$emit('visualizar-historico', props.item)"
                             >
                                 <v-icon>
@@ -157,38 +160,75 @@
                 </tr>
             </template>
 
+            <template v-slot:expand="props">
+                <v-card flat>
+                    <v-card-text>
+                        <v-layout
+                            row
+                            wrap
+                            class="mb-3"
+                        >
+                            <v-flex
+                                xs12
+                                sm12
+                                md12
+                            >
+                                <b>Justificativa do atendimento</b><br>
+                                <salic-texto-simples :texto="props.item.justificativaDevolucao" />
+                            </v-flex>
+                        </v-layout>
+                        <v-layout
+                            row
+                            wrap
+                            class="mb-3"
+                        >
+                            <v-flex
+                                xs12
+                                sm12
+                                md12
+                            >
+                                <b>Justificativa do componente</b><br>
+                                <salic-texto-simples :texto="props.item.justificativaComponente" />
+                            </v-flex>
+                        </v-layout>
+                        <v-layout
+                            row
+                            wrap
+                            class="mb-3"
+                        >
+                            <v-flex
+                                xs12
+                                sm12
+                                md12
+                            >
+                                <b>Justificativa da Secretaria</b><br>
+                                <salic-texto-simples :texto="props.item.justificativaSecretaria" />
+                            </v-flex>
+                        </v-layout>
+                    </v-card-text>
+                </v-card>
+            </template>
+
             <template slot="no-data">
                 <div class="text-xs-center">
-                    {{ `Sem produtos em validação` }}
+                    Sem produtos devolvidos
                 </div>
             </template>
         </v-data-table>
-        <s-confirmacao-dialog
-            v-model="dialogConfirmarEnvio"
-            text="Confirma a validação da análise do produto?"
-            @dialog-response="$event && validarParecer()"
-        />
-        <s-progresso-dialog
-            v-model="loading"
-            label="Aguarde, salvando validação"
-        />
     </div>
 </template>
 
 <script>
 
-import { mapActions } from 'vuex';
-
 import MxUtils from '@/mixins/utils';
-import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
 import MxConstantes from '@/modules/parecer/mixins/const';
-import SProgressoDialog from '@/components/SalicProgressoDialog';
-import SConfirmacaoDialog from '@/components/SalicConfirmacaoDialog';
+import SalicTextoSimples from '@/components/SalicTextoSimples';
 
 export default {
-    name: 'GerenciarListaEmValidacao',
-    components: { SConfirmacaoDialog, SProgressoDialog },
-    mixins: [MxUtils, MxDiligencia, MxConstantes],
+    name: 'GerenciarListaDevolvidasSecult',
+    components: { SalicTextoSimples },
+    mixins: [MxUtils, MxConstantes],
+
     props: {
         produtos: {
             type: Array,
@@ -199,11 +239,13 @@ export default {
             default: '',
         },
     },
+
     data() {
         return {
             dialogConfirmarEnvio: false,
             loading: false,
             produto: {},
+            expand: false,
             headers: [
                 {
                     text: 'Pronac',
@@ -233,29 +275,12 @@ export default {
                 {
                     text: 'Parecerista',
                     align: 'left',
-                    value: 'nomeParecerista',
+                    value: 'parecerista',
                 },
-                { text: 'Dt. de Envio', value: 'dtDistribuicao', width: '2' },
-                { text: 'Ações', width: '2', value: 'stPrincipal' },
+                { text: 'Vl. Incentivo', value: 'valor', width: '2' },
+                { text: 'Ações', width: '4', value: 'stPrincipal' },
             ],
         };
-    },
-    methods: {
-        ...mapActions({
-            salvarValidacaoParecer: 'parecer/salvarValidacaoParecer',
-        }),
-        confirmarValidacao(produto) {
-            this.produto = produto;
-            this.dialogConfirmarEnvio = true;
-        },
-        validarParecer() {
-            this.loading = true;
-            this.salvarValidacaoParecer(this.produto).then(() => {
-                this.dialog = false;
-            }).finally(() => {
-                this.loading = false;
-            });
-        },
     },
 };
 </script>

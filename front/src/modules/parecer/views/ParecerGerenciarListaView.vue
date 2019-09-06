@@ -64,6 +64,7 @@
                             @distribuir-projeto="distribuirProjeto($event)"
                             @visualizar-detalhes="visualizarDetalhes($event)"
                             @reanalisar-produto="reanalisarProduto($event)"
+                            @devolver-produto-para-secult="devolverProdutoParaSecult($event)"
                         />
                         <s-carregando
                             v-else
@@ -86,6 +87,11 @@
                         />
                         <s-gerenciar-reanalisar-produto-dialog
                             v-model="dialogReanaliseProduto"
+                            :produto="produtoSelecionado"
+                            :filtro="filtro"
+                        />
+                        <s-gerenciar-devolver-para-secult-dialog
+                            v-model="dialogDevolverProdutoSecult"
                             :produto="produtoSelecionado"
                             :filtro="filtro"
                         />
@@ -116,8 +122,10 @@ import SAnaliseOutrosProdutosDialogDetalhamento from '@/modules/parecer/componen
 import SGerenciarDistribuirProdutoDialog from '@/modules/parecer/components/GerenciarDistribuirProdutoDialog';
 import SGerenciarReanalisarProdutoDialog from '@/modules/parecer/components/GerenciarReanalisarProdutoDialog';
 import SGerenciarDetalhesAnaliseDialog from '@/modules/parecer/components/GerenciarDetalhesAnaliseDialog';
+import SGerenciarDevolverParaSecultDialog from '@/modules/parecer/components/GerenciarDevolverParaSecultDialog';
 import GerenciarListaAguardandoDistribuicao from '@/modules/parecer/components/GerenciarListaAguardandoDistribuicao';
 import GerenciarListaItensEmAnalise from '@/modules/parecer/components/GerenciarListaItensEmAnalise';
+import GerenciarListaDevolvidasSecult from '@/modules/parecer/components/GerenciarListaDevolvidasSecult';
 import GerenciarListaValidados from '@/modules/parecer/components/GerenciarListaValidados';
 import GerenciarListaEmValidacao from '@/modules/parecer/components/GerenciarListaEmValidacao';
 import SAnaliseHistoricoProdutoDialog from '@/modules/parecer/components/AnaliseHistoricoProdutoDialog';
@@ -128,8 +136,10 @@ export default {
         SAnaliseHistoricoProdutoDialog,
         SGerenciarDistribuirProdutoDialog,
         SGerenciarReanalisarProdutoDialog,
+        SGerenciarDevolverParaSecultDialog,
         SAnaliseOutrosProdutosDialogDetalhamento,
         GerenciarListaAguardandoDistribuicao,
+        GerenciarListaDevolvidasSecult,
         GerenciarListaItensEmAnalise,
         GerenciarListaEmValidacao,
         GerenciarListaValidados,
@@ -164,7 +174,17 @@ export default {
             },
             {
                 id: 'devolvida',
-                label: 'Devolvidos',
+                label: 'Devolvidas (SECULT)',
+                component: 'gerenciar-lista-devolvidas-secult',
+            },
+            {
+                id: 'enviada_vinculada',
+                label: 'Enviadas para análise compartilhada (outra unidade)',
+                component: 'gerenciar-lista-validados',
+            },
+            {
+                id: 'devolucao_vinculada',
+                label: 'Devolvidas análise compartilhada (outra unidade)',
                 component: 'gerenciar-lista-validados',
             },
             {
@@ -180,6 +200,7 @@ export default {
         dialogVisualizarProduto: false,
         dialogDistribuirProduto: false,
         dialogReanaliseProduto: false,
+        dialogDevolverProdutoSecult: false,
         dialogDetalhes: false,
         produtoHistorico: {},
         dialogImpedimento: false,
@@ -245,6 +266,10 @@ export default {
             this.dialogVisualizarProduto = true;
             this.produtoSelecionado = produto;
         },
+        distribuirProjeto(produto) {
+            this.dialogVisualizarProduto = true;
+            this.produtoSelecionado = produto;
+        },
         visualizarHistorico(produto) {
             this.dialogHistorico = true;
             this.produtoSelecionado = produto;
@@ -261,8 +286,8 @@ export default {
             this.dialogReanaliseProduto = true;
             this.produtoSelecionado = produto;
         },
-        distribuirProjeto(produto) {
-            this.dialogVisualizarProduto = true;
+        devolverProdutoParaSecult(produto) {
+            this.dialogDevolverProdutoSecult = true;
             this.produtoSelecionado = produto;
         },
     },

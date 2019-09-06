@@ -202,7 +202,8 @@ export const obterDadosParaDistribuicao = ({ commit }, params) => {
         });
 };
 
-export const salvarDistribuicaoProduto = async ({ dispatch }, params) => parecerHelperAPI.salvarDistribuicaoProduto(params)
+export const salvarDistribuicaoProduto = async ({ dispatch }, params) => parecerHelperAPI
+    .salvarDistribuicaoProduto(params)
     .then((response) => {
         dispatch('parecerMensagemSucesso', response.data.message);
         dispatch('removerProdutoDaLista', params);
@@ -212,18 +213,31 @@ export const salvarDistribuicaoProduto = async ({ dispatch }, params) => parecer
         throw new TypeError(e.response.data.error.message, 'salvarDistribuicaoProduto', 10);
     });
 
-export const salvarSolicitacaoReanalise = async ({ dispatch }, params) => parecerHelperAPI.salvarSolicitacaoReanalise(params)
+export const salvarSolicitacaoReanalise = async ({ dispatch }, params) => parecerHelperAPI
+    .salvarSolicitacaoReanalise(params)
     .then((response) => {
         dispatch('parecerMensagemSucesso', response.data.message);
         dispatch('removerProdutoDaLista', params);
         return response.data;
     }).catch((e) => {
         dispatch('parecerMensagemErro', e.response.data.error.message);
-        throw new TypeError(e.response.data.error.message, 'salvarDistribuicaoProduto', 10);
+        throw new TypeError(e.response.data.error.message, 'salvarSolicitacaoReanalise', 10);
+    });
+
+export const salvarDevolucaoParaSecult = async ({ dispatch }, params) => parecerHelperAPI
+    .salvarDevolucaoParaSecult(params)
+    .then((response) => {
+        dispatch('parecerMensagemSucesso', response.data.message);
+        dispatch('removerProdutoDaLista', params);
+        return response.data;
+    }).catch((e) => {
+        dispatch('parecerMensagemErro', e.response.data.error.message);
+        throw new TypeError(e.response.data.error.message, 'salvarDevoluacaoSecult', 10);
     });
 
 
-export const salvarDistribuicaoProjeto = async ({ dispatch }, params) => parecerHelperAPI.salvarDistribuicaoProjeto(params)
+export const salvarDistribuicaoProjeto = async ({ dispatch }, params) => parecerHelperAPI
+    .salvarDistribuicaoProjeto(params)
     .then((response) => {
         dispatch('parecerMensagemSucesso', response.data.message);
         response.data.items.forEach((item) => {
@@ -235,7 +249,8 @@ export const salvarDistribuicaoProjeto = async ({ dispatch }, params) => parecer
         throw new TypeError(e.response.data.error.message, 'salvarDistribuicaoProjeto', 10);
     });
 
-export const salvarValidacaoParecer = async ({ dispatch }, params) => parecerHelperAPI.salvarValidacaoParecer(params)
+export const salvarValidacaoParecer = async ({ dispatch }, params) => parecerHelperAPI
+    .salvarValidacaoParecer(params)
     .then((response) => {
         dispatch('parecerMensagemSucesso', response.data.message);
         dispatch('removerProdutoDaLista', params);

@@ -27,6 +27,7 @@ class Parecer_Bootstrap extends Zend_Application_Module_Bootstrap
                     'gerenciar-distribuir-produto-rest',
                     'gerenciar-distribuir-projeto-rest',
                     'gerenciar-reanalisar-produto-rest',
+                    'gerenciar-devolver-produto-secult-rest',
                     'gerenciar-avaliacao-rest',
                 ]
             ]

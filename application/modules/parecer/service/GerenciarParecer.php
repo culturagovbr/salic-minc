@@ -215,6 +215,49 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         return $resposta;
     }
 
+    public function devolverProdutoParaSecult()
+    {
+        $params = $this->request->getParams();
+
+        if (empty($params['idDistribuirParecer'])
+            || empty($params['idPronac'])
+            || empty($params['idProduto'])
+        ) {
+            throw new \Exception("Dados obrigatórios não informados");
+        }
+
+        $observacao = utf8_decode(trim(strip_tags($params['observacao'])));
+
+        if (strlen($observacao) < 11) {
+            throw new \Exception("O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 11 caracteres");
+        }
+
+        $whereDistribuicaoAtual = [];
+        $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $distribuicao = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
+
+        $distribuicao = array_merge($distribuicao, [
+            'Observacao' => $observacao,
+            'idUsuario' => $this->idUsuario,
+        ]);
+
+        $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
+        $resposta = $tbDistribuirParecerMapper->devolverProdutoParaSecult($distribuicao);
+
+        if ($resposta) {
+            $providenciaTomada = 'An&aacute;lise t&eacute;cnica conclu&iacute;da';
+
+            $projetos = new \Projetos();
+            $projetos->alterarSituacao(
+                $params['idPronac'],
+                null,
+                \Projeto_Model_Situacao::PARECER_TECNICO_EMITIDO,
+                $providenciaTomada
+            );
+        }
+        return $resposta;
+    }
 
     private function isPareceristaCredenciado($idAgenteParecerista, $idAreaProduto, $idSegmentoProduto)
     {

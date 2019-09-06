@@ -92,9 +92,6 @@ class Orgaos extends MinC_Db_Table_Abstract
                              )
                      );
         $select->where("o.Codigo = ?", $codOrgao);
-
-        echo $select; die;
-
         return $this->fetchAll($select);
     }
 

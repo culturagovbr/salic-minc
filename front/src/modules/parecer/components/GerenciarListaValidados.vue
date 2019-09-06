@@ -241,7 +241,7 @@ export default {
                 {
                     text: 'Parecerista',
                     align: 'left',
-                    value: 'parecerista',
+                    value: 'nomeParecerista',
                 },
                 { text: 'Dt. de Envio', value: 'dtDistribuicao', width: '2' },
                 { text: 'Ações', width: '4', value: 'stPrincipal' },

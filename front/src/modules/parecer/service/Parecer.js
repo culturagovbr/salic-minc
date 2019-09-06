@@ -124,4 +124,6 @@ export const salvarDistribuicaoProjeto = params => api.postRequest('/parecer/ger
 
 export const salvarSolicitacaoReanalise = params => api.postRequest('/parecer/gerenciar-reanalisar-produto-rest', buildData(params));
 
+export const salvarDevolucaoParaSecult = params => api.postRequest('/parecer/gerenciar-devolver-produto-secult-rest', buildData(params));
+
 export const salvarValidacaoParecer = params => api.postRequest('/parecer/gerenciar-avaliacao-rest', buildData(params));

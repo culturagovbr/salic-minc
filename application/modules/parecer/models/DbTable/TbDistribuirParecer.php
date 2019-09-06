@@ -2096,7 +2096,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'idSegmento',
                         'Segmento as segmento',
                         'idDistribuirParecer',
-                        'Parecerista as parecerista',
+                        'Parecerista as nomeParecerista',
                         'idOrgao',
                         'Valor as valor',
                         'FecharAnalise as fecharAnalise',
@@ -2123,7 +2123,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'idSegmento',
                         'Segmento as segmento',
                         'idDistribuirParecer',
-                        'Parecerista as parecerista',
+                        'Parecerista as nomeParecerista',
                         'idOrgao',
                         'Valor as valor',
                         'FecharAnalise as fecharAnalise',
@@ -2150,7 +2150,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'idSegmento',
                         'Segmento as segmento',
                         'idDistribuirParecer',
-                        'Parecerista as parecerista',
+                        'Parecerista as nomeParecerista',
                         'idOrgao',
                         'Valor as valor',
                         'FecharAnalise as fecharAnalise',
@@ -2165,6 +2165,36 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
             case 'devolvida':
 
                 $slct->from(
+                    ['a' => 'dbo.vwPainelCoordenadorVinculadasReanalisar'],
+                    array(
+                        'IdPRONAC as idPronac',
+                        'NrProjeto as pronac',
+                        'NomeProjeto as nomeProjeto',
+                        'idProduto',
+                        'Produto as nomeProduto',
+                        'stPrincipal',
+                        'idArea',
+                        'Area as area',
+                        'idSegmento',
+                        'Segmento as segmento',
+                        'idDistribuirParecer',
+                        'idOrgao',
+                        'FecharAnalise as fecharAnalise',
+                        'idAgenteParecerista',
+                        'Parecerista as nomeParecerista',
+                        'DtEnvioMincVinculada as dtEnvioMincVinculada',
+                        'qtDiasDistribuir',
+                        'CAST (JustComponente AS TEXT) AS justificativaComponente',
+                        'CAST (JustDevolucaoPedido AS TEXT) AS justificativaDevolucao',
+                        'CAST (JustSecretaria AS TEXT) AS justificativaSecretaria',
+                        'Valor as valor')
+                );
+                $from = 'FROM sac.dbo.vwPainelCoordenadorVinculadasReanalisar';
+                break;
+
+            case 'devolucao_vinculada': // vinculada com volta
+
+                $slct->from(
                     ['a' => 'dbo.vwPainelValidadosComDevolucao'],
                     [
                         'IdPRONAC as idPronac',
@@ -2177,7 +2207,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'idSegmento',
                         'Segmento as segmento',
                         'idDistribuirParecer',
-                        'Parecerista as parecerista',
+                        'Parecerista as nomeParecerista',
                         'idOrgao',
                         'idOrgaoOrigem',
                         'siAnalise',
