@@ -281,6 +281,7 @@ export default {
                     vinculada: 0,
                     destinatario: 0,
                 };
+                this.dsOrientacao = '';
                 this.readequacaoEditada = {
                     idPronac: 0,
                     idReadequacao: 0,

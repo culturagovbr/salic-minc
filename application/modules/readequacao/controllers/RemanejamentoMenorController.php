@@ -424,20 +424,16 @@ class Readequacao_RemanejamentoMenorController extends MinC_Controller_Action_Ab
         $tiposEtapa = [];
         $tiposEtapa['A'] = [
             PlanilhaEtapa::ETAPA_PRE_PRODUCAO_PREPARACAO,
-            PlanilhaEtapa::ETAPA_PRODUCAO_EXECUCAO
+            PlanilhaEtapa::ETAPA_PRODUCAO_EXECUCAO,
+            PlanilhaEtapa::ETAPA_POS_PRODUCAO,
+            PlanilhaEtapa::ETAPA_ASSESORIA_CONTABIL_JURIDICA,
         ];
-
-        if ($this->projetoContemEtapasCustosDivulgacao($idPronac)) {
-            $tiposEtapa['A'][] = PlanilhaEtapa::ETAPA_POS_PRODUCAO;
-        }
-        
         $tiposEtapa['B'] = [
             PlanilhaEtapa::ETAPA_DIVULGACAO_COMERCIALIZACAO
         ];
         $tiposEtapa['C'] = [
             PlanilhaEtapa::ETAPA_CUSTOS_ADMINISTRATIVOS,
             PlanilhaEtapa::ETAPA_CUSTOS_VINCULADOS,
-            PlanilhaEtapa::ETAPA_ASSESORIA_CONTABIL_JURIDICA,
             PlanilhaEtapa::ETAPA_CAPTACAO_RECURSOS
         ];
         $tiposEtapa['D'] = [

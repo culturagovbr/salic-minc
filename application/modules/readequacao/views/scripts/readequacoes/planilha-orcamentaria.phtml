@@ -887,8 +887,12 @@
      
      function excluirReadequacao(){
          var idReadequacao = $('#idReadequacao').val();
-         
-         window.location = "<?php echo $this->url(array('module' => 'readequacao', 'controller' => 'readequacoes', 'action' => 'excluir-solicitacao-readequacao'), null, true); ?>?idPronac=<?php echo Seguranca::encrypt($this->idPronac); ?>&idReadequacao="+idReadequacao;
+         $.ajax({
+             url: '/readequacao/dados-readequacao/' + idReadequacao,
+             type: 'DELETE',
+         }).done((response) => {
+             window.location.href = '/#/readequacao/painel/<?php echo Seguranca::encrypt($this->idPronac); ?>';
+         });
      }
 
      function atualizarDadosPlanilha(){

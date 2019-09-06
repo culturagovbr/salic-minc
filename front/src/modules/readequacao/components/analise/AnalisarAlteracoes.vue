@@ -1,6 +1,11 @@
 <template>
-    <v-card tile>
-        <v-card-text>
+    <v-layout
+        row
+        wrap
+    >
+        <v-flex
+            xs12
+        >
             <template
                 v-if="loading"
             >
@@ -36,8 +41,8 @@
                     </v-btn>
                 </div>
             </template>
-        </v-card-text>
-    </v-card>
+        </v-flex>
+    </v-layout>
 </template>
 <script>
 import { mapGetters } from 'vuex';
