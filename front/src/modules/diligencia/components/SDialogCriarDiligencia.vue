@@ -93,6 +93,10 @@ export default {
             type: Number,
             default: null,
         },
+        idReadequacao: {
+            type: Number,
+            default: null,
+        },
         situacao: {
             type: String,
             default: null,
@@ -114,6 +118,7 @@ export default {
                 tpDiligencia: this.tpDiligencia,
                 solicitacao: '',
                 idProduto: this.idProduto,
+                idReadequacao: this.idReadequacao,
                 situacao: this.situacao,
             },
         };
@@ -144,6 +149,7 @@ export default {
             this.salvar(this.diligenciaEmEdicao).then(() => {
                 this.dialog = false;
             }).finally(() => {
+                this.$emit('diligencia-criada', true);
                 this.saveLoading = false;
             });
         },

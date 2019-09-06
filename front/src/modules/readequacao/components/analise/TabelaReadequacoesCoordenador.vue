@@ -212,7 +212,7 @@ export default {
                     {
                         text: 'Data distribuição',
                         align: 'center',
-                        value: 'dtEncaminhamento',
+                        value: 'dtDistribuicao',
                         position: 4,
                     },
                     {

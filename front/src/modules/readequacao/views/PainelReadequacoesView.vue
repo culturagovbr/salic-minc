@@ -61,7 +61,7 @@
                     <h2 class="grey--text text--darken-4">Painel de Readequações</h2>
                     <v-spacer/>
                     <h3
-                        v-if="dadosProjeto.idPronac !== 'undefined'> 0"
+                        v-if="projetoDefinido"
                         class="grey--text text--darken-4"
                     >
                         {{ dadosProjeto.Pronac }} - {{ dadosProjeto.NomeProjeto }}
@@ -298,6 +298,7 @@ import DistribuirReadequacaoVinculadaButton from '../components/analise/Distribu
 import RedistribuirReadequacaoButton from '../components/analise/RedistribuirReadequacaoButton';
 import DevolverReadequacaoButton from '../components/analise/DevolverReadequacaoButton';
 import FinalizarCicloAnaliseButton from '../components/analise/FinalizarCicloAnaliseButton';
+import DiligenciaButton from '../components/analise/DiligenciaButton';
 import Carregando from '@/components/CarregandoVuetify';
 import CriarReadequacao from '../components/proponente/CriarReadequacao';
 import MxReadequacao from '../mixins/Readequacao';
@@ -319,6 +320,7 @@ export default {
         RedistribuirReadequacaoButton,
         FinalizarCicloAnaliseButton,
         FinalizarButton,
+        DiligenciaButton,
         CriarReadequacao,
         SalicMensagemErro,
     },
@@ -375,6 +377,10 @@ export default {
                     {
                         componente: DeclararImpedimentoButton,
                         permissao: 'parecerista',
+                    },
+                    {
+                        componente: DiligenciaButton,
+                        permissao: 'analisar',
                     },
                     {
                         componente: AssinarDocumentoButton,
@@ -570,6 +576,14 @@ export default {
         perfil() {
             return this.getUsuario.grupo_ativo;
         },
+        projetoDefinido() {
+            if (this.dadosProjeto.idPronac !== 'undefined') {
+                if (this.dadosProjeto.idPronac > 0) {
+                    return true;
+                }
+            }
+            return false;
+        },
     },
     watch: {
         getUsuario(value) {
@@ -634,16 +648,6 @@ export default {
             } else if (parseInt(this.perfil, 10) === Const.PERFIL_TECNICO_ACOMPANHAMENTO
                        || parseInt(this.perfil, 10) === Const.PERFIL_PARECERISTA) {
                 this.buscarReadequacoesPainelTecnico({});
-                // TODO: puxar lista para obter lista de projetos finalizáveis
-                // .then((esponse) => {
-                /* const listaIdReadequacao = [];
-                        let { result: items } = response.data.data;
-                        result.forEach(() => {
-                            // extrair todos os idReadequacao e mandar para o
-                        });
-                        this.obterDocumentoAssinaturaReadequacao({ listaIdReadequacao });
-                        */
-                // });
             } else if (parseInt(this.perfil, 10) === Const.PERFIL_COORDENADOR_ACOMPANHAMENTO
                        || parseInt(this.perfil, 10) === Const.PERFIL_COORDENADOR_DE_PARECER) {
                 this.buscarReadequacoesPainelAguardandoDistribuicao({ filtro: 'painel_aguardando_distribuicao' });

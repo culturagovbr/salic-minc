@@ -190,7 +190,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
              'nmTecnicoParecerista' => new Zend_Db_Expr("
        CASE
          WHEN tbReadequacao.siEncaminhamento = 5
-           THEN 'Assinatura do Coordenador (parecer de ' + usuarios.usu_nome + ')'
+           THEN orgaos.Sigla + ' - Assinatura do Coordenador (parecer de ' + usuarios.usu_nome + ')'
          WHEN tbReadequacao.siEncaminhamento = 10
            THEN 'Assinatura do Coordenador (parecer de ' + usuarios.usu_nome + ')'
 	     WHEN tbReadequacao.siEncaminhamento = 17
@@ -213,7 +213,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
 		   THEN orgaos.Sigla + ' - Devolvida pelo Presidente ao coordenador de parecer '
          WHEN tbReadequacao.siEncaminhamento = 26
 		   THEN 'Solicita&ccedil;&atilde;o devolvida ao Coordenador ap&oacute;s completar o ciclo de assinaturas'
-		   ELSE usuarios.usu_nome
+		   ELSE orgaos.Sigla + ' - ' + usuarios.usu_nome
 
 	   END"),
              'idOrgao' => 'tbDistribuirReadequacao.idUnidade',
@@ -432,7 +432,12 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
              'idOrgao' => 'tbDistribuirReadequacao.idUnidade',
              'Area' => 'projetos.Area',
              'Segmento' => 'projetos.Segmento',
-             'sgUnidade' => new Zend_Db_Expr('tabelas.dbo.fnEstruturaOrgao(projetos.Orgao, 0)'),
+             'sgUnidade' => new Zend_Db_Expr('
+             CASE
+                 WHEN tbDistribuirReadequacao.idUnidade = 262
+                     THEN tabelas.dbo.fnEstruturaOrgao(projetos.Orgao, 0)
+	             ELSE tabelas.dbo.fnEstruturaOrgao(tbDistribuirReadequacao.idUnidade, 0)
+             END'),
              'idOrgaoOrigem' => 'projetos.Orgao',
              'dsSolicitacao' => new Zend_Db_Expr('CAST(tbReadequacao.dsSolicitacao AS TEXT)'),
              'dsJustificativa' => new Zend_Db_Expr('CAST(tbReadequacao.dsJustificativa AS TEXT)'),
@@ -1414,7 +1419,7 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                         tbReadequacao.dtEnvio
                 ")
             );
-
+            
             $select->joinInner(
                 ['dtDistribuicao' => 'tbDistribuirReadequacao'],
                 'tbReadequacao.idReadequacao = dtDistribuicao.idReadequacao',
@@ -1469,7 +1474,29 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
                 ["idDocumentoAssinatura", "idTipoDoAtoAdministrativo"],
                 $this->_schema
             );
-            
+
+            $select->joinLeft(
+                ['tbReadequacaoXtbDiligencia' => 'tbReadequacaoXtbDiligencia'],
+                "tbReadequacaoXtbDiligencia.idReadequacao = tbReadequacao.idReadequacao",
+                [],
+                $this->_schema
+            );
+
+            $select->joinLeft(
+                ['tbDiligencia' => 'tbDiligencia'],
+                'tbDiligencia.idDiligencia = tbReadequacaoXtbDiligencia.idDiligencia',
+                [
+                    'tbDiligencia.DtSolicitacao',
+                    'tbDiligencia.DtResposta',
+                    'tempoFimDiligencia' => new Zend_Db_Expr("CASE WHEN stProrrogacao = 'N'
+                                                                       THEN 20
+                                                                       ELSE 40
+                                                                   END"),
+                ],
+                $this->_schema
+            );
+
+            $select->where(new Zend_Db_Expr('(tbDiligencia.stEstado = 0 OR tbDiligencia.stEstado IS NULL)'));
             $select->where('tbReadequacao.stEstado = ? ', 0);
             $select->where('tbReadequacao.siEncaminhamento = ? ', 4);
 
@@ -2022,12 +2049,8 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     }
 
 
-    public function carregarValorEntrePlanilhas($idPronac, $idTipoReadequacao) {
-        $idReadequacao = $this->buscarIdReadequacaoAtiva(
-            $idPronac,
-            $idTipoReadequacao
-        );
-
+    private function carregarValoresSaldoAplicacao($idPronac, $idReadequacao)
+    {
         $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
         $PlanilhaAtiva = $tbPlanilhaAprovacao->valorTotalPlanilhaAtiva(
             $idPronac,
@@ -2069,6 +2092,67 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
         $retorno['PlanilhaAtivaTotal'] = $PlanilhaAtiva['Total'];
 
         return $retorno;
+    }
+
+    private function carregarValoresPlanilhaOrcamentaria($idPronac, $idReadequacao)
+    {
+        $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
+        $PlanilhaAtiva = $tbPlanilhaAprovacao->valorTotalPlanilhaAtiva(
+            $idPronac,
+            [
+                Proposta_Model_Verificacao::INCENTIVO_FISCAL_FEDERAL
+            ]
+        )->current();
+
+        $PlanilhaReadequada = $tbPlanilhaAprovacao->valorTotalPlanilhaReadequada(
+                            $idPronac,
+                            $idReadequacao,
+                            [
+                                Proposta_Model_Verificacao::INCENTIVO_FISCAL_FEDERAL
+                            ]
+        )->current();
+
+        $readequacao = $this->buscar(['idReadequacao = ?' => $idReadequacao])->current();
+
+        $retorno = [];
+        $retorno['diferenca'] = abs(round($PlanilhaReadequada['Total'] -  $PlanilhaAtiva['Total'], 3));
+
+        if ($PlanilhaReadequada['Total'] > 0) {
+            if ($PlanilhaAtiva['Total'] < $PlanilhaReadequada['Total']) {
+                $retorno['statusPlanilha'] = 'Complementação';
+            } elseif ($PlanilhaAtiva['Total'] > $PlanilhaReadequada['Total']) {
+                $retorno['statusPlanilha'] = 'Redução';
+            } else {
+                $retorno['statusPlanilha'] = 'Remanejamento';
+            }
+        } else {
+            $retorno['PlanilhaAtivaTotal'] = 0;
+            $retorno['PlanilhaReadequadaTotal'] = 0;
+            $retorno['statusPlanilha'] = 'neutro';
+        }
+
+        $retorno['PlanilhaReadequadaTotal'] = $PlanilhaReadequada['Total'];
+        $retorno['PlanilhaAtivaTotal'] = $PlanilhaAtiva['Total'];
+
+        return $retorno;
+    }
+
+
+    public function carregarValorEntrePlanilhas($idPronac, $idTipoReadequacao) {
+        $idReadequacao = $this->buscarIdReadequacaoAtiva(
+            $idPronac,
+            $idTipoReadequacao
+        );
+
+        switch ($idTipoReadequacao) {
+            case self::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA:
+                $response = $this->carregarValoresPlanilhaOrcamentaria($idPronac, $idReadequacao);
+                break;
+            case self::TIPO_READEQUACAO_SALDO_APLICACAO:
+                $response = $this->carregarValoresSaldoAplicacao($idPronac, $idReadequacao);
+                break;
+        }
+        return $response;
     }
 
     public function obterReadequacaoDetalhada($idReadequacao) : array

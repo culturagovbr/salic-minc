@@ -273,9 +273,23 @@ export default {
         dialog: {
             handler() {
                 if (this.dialog === true && typeof this.dadosReadequacao.idPronac !== 'undefined') {
+                    this.inicializarReadequacaoEditada();
                     if (typeof this.vinculada === 'object') {
                         this.obterDestinatarios();
                     }
+                } else if (this.dialog === false) {
+                    this.dadosEncaminhamento = {
+                        vinculada: 0,
+                        destinatario: 0,
+                    };
+                    this.dsOrientacao = '';
+                    this.readequacaoEditada = {
+                        idPronac: 0,
+                        idReadequacao: 0,
+                        idTipoReadequacao: '',
+                        dsAvaliacao: '',
+                        stAtendimento: '',
+                    };
                 }
             },
             deep: true,
@@ -317,9 +331,6 @@ export default {
             }
             this.selecionarDestinatario = true;
         },
-    },
-    mounted() {
-        this.inicializarReadequacaoEditada();
     },
     methods: {
         ...mapActions({
