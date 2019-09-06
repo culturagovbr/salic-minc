@@ -2049,12 +2049,8 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
     }
 
 
-    public function carregarValorEntrePlanilhas($idPronac, $idTipoReadequacao) {
-        $idReadequacao = $this->buscarIdReadequacaoAtiva(
-            $idPronac,
-            $idTipoReadequacao
-        );
-
+    private function carregarValoresSaldoAplicacao($idPronac, $idReadequacao)
+    {
         $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
         $PlanilhaAtiva = $tbPlanilhaAprovacao->valorTotalPlanilhaAtiva(
             $idPronac,
@@ -2096,6 +2092,67 @@ class Readequacao_Model_DbTable_TbReadequacao extends MinC_Db_Table_Abstract
         $retorno['PlanilhaAtivaTotal'] = $PlanilhaAtiva['Total'];
 
         return $retorno;
+    }
+
+    private function carregarValoresPlanilhaOrcamentaria($idPronac, $idReadequacao)
+    {
+        $tbPlanilhaAprovacao = new tbPlanilhaAprovacao();
+        $PlanilhaAtiva = $tbPlanilhaAprovacao->valorTotalPlanilhaAtiva(
+            $idPronac,
+            [
+                Proposta_Model_Verificacao::INCENTIVO_FISCAL_FEDERAL
+            ]
+        )->current();
+
+        $PlanilhaReadequada = $tbPlanilhaAprovacao->valorTotalPlanilhaReadequada(
+                            $idPronac,
+                            $idReadequacao,
+                            [
+                                Proposta_Model_Verificacao::INCENTIVO_FISCAL_FEDERAL
+                            ]
+        )->current();
+
+        $readequacao = $this->buscar(['idReadequacao = ?' => $idReadequacao])->current();
+
+        $retorno = [];
+        $retorno['diferenca'] = abs(round($PlanilhaReadequada['Total'] -  $PlanilhaAtiva['Total'], 3));
+
+        if ($PlanilhaReadequada['Total'] > 0) {
+            if ($PlanilhaAtiva['Total'] < $PlanilhaReadequada['Total']) {
+                $retorno['statusPlanilha'] = 'Complementação';
+            } elseif ($PlanilhaAtiva['Total'] > $PlanilhaReadequada['Total']) {
+                $retorno['statusPlanilha'] = 'Redução';
+            } else {
+                $retorno['statusPlanilha'] = 'Remanejamento';
+            }
+        } else {
+            $retorno['PlanilhaAtivaTotal'] = 0;
+            $retorno['PlanilhaReadequadaTotal'] = 0;
+            $retorno['statusPlanilha'] = 'neutro';
+        }
+
+        $retorno['PlanilhaReadequadaTotal'] = $PlanilhaReadequada['Total'];
+        $retorno['PlanilhaAtivaTotal'] = $PlanilhaAtiva['Total'];
+
+        return $retorno;
+    }
+
+
+    public function carregarValorEntrePlanilhas($idPronac, $idTipoReadequacao) {
+        $idReadequacao = $this->buscarIdReadequacaoAtiva(
+            $idPronac,
+            $idTipoReadequacao
+        );
+
+        switch ($idTipoReadequacao) {
+            case self::TIPO_READEQUACAO_PLANILHA_ORCAMENTARIA:
+                $response = $this->carregarValoresPlanilhaOrcamentaria($idPronac, $idReadequacao);
+                break;
+            case self::TIPO_READEQUACAO_SALDO_APLICACAO:
+                $response = $this->carregarValoresSaldoAplicacao($idPronac, $idReadequacao);
+                break;
+        }
+        return $response;
     }
 
     public function obterReadequacaoDetalhada($idReadequacao) : array

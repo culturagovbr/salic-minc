@@ -28,7 +28,7 @@
                         <v-card-title
                             class="grey lighten-5 headline justify-center"
                         >
-                            {{ tipoReadequacaoPlanilha }}
+                            {{ getResumoPlanilha.statusPlanilha }}
                         </v-card-title>
                     </v-card>
                 </v-flex>
@@ -145,7 +145,7 @@
                                     <span
                                         class="display-1 font-weight-light"
                                     >
-                                        {{ valorDiferenca | filtroFormatarParaReal }}
+                                        {{ getResumoPlanilha.diferenca | filtroFormatarParaReal }}
                                     </span>
                                 </v-flex>
                             </v-layout>
@@ -342,28 +342,13 @@ export default {
             return this.isOptionActive(2);
         },
         classDiferenca() {
-            if (this.getResumoPlanilha.statusPlanilha === 'negativo') {
+            if (this.getResumoPlanilha.statusPlanilha === 'Redução') {
                 return 'red lighten-3';
             }
-            if (this.getResumoPlanilha.statusPlanilha === 'positivo') {
+            if (this.getResumoPlanilha.statusPlanilha === 'Complementação') {
                 return 'green lighten-3';
             }
             return '';
-        },
-        tipoReadequacaoPlanilha() {
-            if (this.getResumoPlanilha) {
-                if (this.getResumoPlanilha.statusPlanilha === 'negativo') {
-                    return 'Redução';
-                }
-                if (this.getResumoPlanilha.statusPlanilha === 'positivo') {
-                    return 'Complementação';
-                }
-                return 'Remanejamento';
-            }
-            return '';
-        },
-        valorDiferenca() {
-            return Math.abs(this.getResumoPlanilha.saldoValorUtilizado);
         },
     },
     watch: {
