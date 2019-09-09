@@ -206,7 +206,10 @@ export default {
             diligencias: 'diligencia/getDiligencias',
         }),
         isDiligenciaAberta() {
-            return this.diligencias.length > 0 && typeof this.diligencias.find(item => !item.dataResposta) === 'object';
+            if (typeof this.diligencia !== 'undefined') {
+                return this.diligencias.length > 0 && typeof this.diligencias.find(item => !item.dataResposta) === 'object';
+            }
+            return false;
         },
     },
     watch: {
