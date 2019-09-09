@@ -83,6 +83,7 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
 
             $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
             $tbDistribuirParecer->getAdapter()->beginTransaction();
+
             $tbDistribuirParecer->alterar(
                 ['stEstado' => Parecer_Model_TbDistribuirParecer::ST_ESTADO_INATIVO],
                 ['idDistribuirParecer = ?' => $distribuicao['idDistribuirParecer']]

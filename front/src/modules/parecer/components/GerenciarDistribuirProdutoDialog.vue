@@ -292,10 +292,11 @@ export default {
             this.loadingPareceristas = true;
             this.loadingVinculadas = true;
             if (val) {
-                this.buscarDadosDistribuicao({
-                    idProduto: this.produto.idProduto,
-                    idPronac: this.produto.idPronac,
-                    filtro: this.filtro,
+                this.buscarPareceristas({
+                    idOrgao: this.produto.idOrgao,
+                    idArea: this.produto.idArea,
+                    idSegmento: this.produto.idSegmento,
+                    valor: this.produto.valor,
                 });
 
                 this.distribuicao.idProduto = this.produto.idProduto;
@@ -307,15 +308,17 @@ export default {
                 this.distribuicao.filtro = this.filtro;
                 this.distribuicao.idOrgaoDestino = '';
                 this.distribuicao.observacao = '';
-
-                if (this.produto.idAgenteParecerista) {
-                    this.distribuicao.idAgenteParecerista = this.produto.idAgenteParecerista;
-                }
+                this.distribuicao.idAgenteParecerista = this.produto.idAgenteParecerista;
             }
             this.$emit('input', val);
         },
         /* eslint-disable func-names */
-        'distribuicao.tipoAcao': function () {
+        'distribuicao.tipoAcao': function (val) {
+            if (val === 'encaminhar') {
+                this.buscarVinculadas({
+                    idOrgao: this.produto.idOrgao,
+                });
+            }
             this.distribuicao.idAgenteParecerista = '';
             this.distribuicao.idOrgaoDestino = '';
         },
@@ -329,7 +332,8 @@ export default {
 
     methods: {
         ...mapActions({
-            buscarDadosDistribuicao: 'parecer/obterDadosParaDistribuicao',
+            buscarPareceristas: 'parecer/buscarPareceristas',
+            buscarVinculadas: 'parecer/buscarVinculadas',
             salvarDistribuicaoProduto: 'parecer/salvarDistribuicaoProduto',
             salvarDistribuicaoProjeto: 'parecer/salvarDistribuicaoProjeto',
         }),
@@ -358,7 +362,7 @@ export default {
             });
         },
         formatarSelectParecerista(item) {
-            return `${item.Nome} (${item.emAvaliacao})`;
+            return `${item.Nome} (${item.qtProdutos})`;
         },
     },
 

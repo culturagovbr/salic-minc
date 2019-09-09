@@ -1,8 +1,8 @@
 <?php
 
-use Application\Modules\Parecer\Service\GerenciarParecer as GerenciarParecerService;
+use Application\Modules\Parecer\Service\Parecerista as PareceristaService;
 
-class Parecer_GerenciarParecerRestController extends MinC_Controller_Rest_Abstract
+class Parecer_PareceristaRestController extends MinC_Controller_Rest_Abstract
 {
 
     public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = array())
@@ -24,9 +24,9 @@ class Parecer_GerenciarParecerRestController extends MinC_Controller_Rest_Abstra
     public function indexAction()
     {
         try {
-            $gerenciarParecerService = new GerenciarParecerService($this->getRequest(), $this->getResponse());
+            $gerenciarParecerService = new PareceristaService($this->getRequest(), $this->getResponse());
             $this->customRenderJsonResponse([
-                'items' => $gerenciarParecerService->obterProdutos(),
+                'items' => \TratarArray::utf8EncodeArray($gerenciarParecerService->obterPareceristas()),
             ], 200);
 
         } catch (Exception $objException) {
@@ -42,23 +42,11 @@ class Parecer_GerenciarParecerRestController extends MinC_Controller_Rest_Abstra
 
     public function getAction() {}
 
-    public function postAction()
-    {
-        $this->renderJsonResponse([], 201);
-    }
+    public function postAction() {}
 
-    public function putAction()
-    {
-        $this->renderJsonResponse([], 200);
-    }
+    public function putAction() {}
 
-    public function deleteAction()
-    {
-        $this->renderJsonResponse([], 204);
-    }
+    public function deleteAction() {}
 
-    public function headAction()
-    {
-        $this->renderJsonResponse([], 200);
-    }
+    public function headAction() {}
 }

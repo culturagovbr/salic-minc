@@ -1,8 +1,6 @@
 <?php
 
-use Application\Modules\Parecer\Service\GerenciarParecer as GerenciarParecerService;
-
-class Parecer_GerenciarParecerRestController extends MinC_Controller_Rest_Abstract
+class Parecer_VinculadaRestController extends MinC_Controller_Rest_Abstract
 {
 
     public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = array())
@@ -24,9 +22,16 @@ class Parecer_GerenciarParecerRestController extends MinC_Controller_Rest_Abstra
     public function indexAction()
     {
         try {
-            $gerenciarParecerService = new GerenciarParecerService($this->getRequest(), $this->getResponse());
+            $idOrgao = $this->getParam('idOrgao');
+
+            if (empty($idOrgao)) {
+                throw new Exception("Identificador do org&atilde;o &eacute; obrigat&oacute;rio");
+            }
+
+            $tbOrgaos = new \Orgaos();
+
             $this->customRenderJsonResponse([
-                'items' => $gerenciarParecerService->obterProdutos(),
+                'items' => $tbOrgaos->obterUnidadesVinculadas($idOrgao),
             ], 200);
 
         } catch (Exception $objException) {

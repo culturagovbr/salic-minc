@@ -25,4 +25,22 @@ class Parecer_Model_DbTable_SpSelecionarParecerista extends MinC_Db_Table_Abstra
         $db->setFetchMode($fechMode);
         return $db->fetchAll($sql);
     }
+
+    public function obterPareceristas($idOrgao, $idArea, $idSegmento, $valor)
+    {
+        return $this->exec(
+            $idOrgao,
+            $idArea,
+            $idSegmento,
+            $valor,
+            \Zend_DB::FETCH_ASSOC
+        );
+    }
+
+    private function obterQuantidadeEmAvaliacao($idAgente)
+    {
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        return $tbDistribuirParecer->buscaProjetosProdutosParaAnalise(['idAgenteParecerista = ?' => $idAgente])->count();
+    }
+
 }

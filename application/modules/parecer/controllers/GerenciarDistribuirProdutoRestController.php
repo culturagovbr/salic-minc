@@ -21,14 +21,13 @@ class Parecer_GerenciarDistribuirProdutoRestController extends MinC_Controller_R
         parent::__construct($request, $response, $invokeArgs);
     }
 
-    public function indexAction() {}
-
-    public function getAction()
+    public function indexAction()
     {
         try {
             $gerenciarParecerService = new GerenciarParecerService($this->getRequest(), $this->getResponse());
-            $resposta = $gerenciarParecerService->obteDistribuicaoProduto();
-            $this->customRenderJsonResponse(['data' => \TratarArray::utf8EncodeArray($resposta)], 200);
+            $this->customRenderJsonResponse([
+                'items' => $gerenciarParecerService->obterProdutos(),
+            ], 200);
 
         } catch (Exception $objException) {
             $this->customRenderJsonResponse([
@@ -40,6 +39,8 @@ class Parecer_GerenciarDistribuirProdutoRestController extends MinC_Controller_R
 
         }
     }
+
+    public function getAction() {}
 
     public function postAction()
     {
