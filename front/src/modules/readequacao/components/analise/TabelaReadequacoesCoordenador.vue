@@ -57,7 +57,7 @@
                         <td
                             :key="index"
                             class="text-xs-center"
-                            v-html="filterField(props.item[item.value])"
+                            v-html="filterField(props.item, item.value)"
                         />
                     </template>
                 </template>
@@ -281,13 +281,38 @@ export default {
             }
             return false;
         },
-        filterField(value) {
-            if (Date.parse(value)) {
-                if (value.length > 9) {
-                    return this.filterDate(value);
+        formatCoordenador(item, tipo) {
+            const valor = item[tipo];
+            if (item.siEncaminhamento === Const.SI_ENCAMINHAMENTO_DEVOLVIDA_COORDENADOR_TECNICO) {
+                return `<span class="red--text font-weight-medium text--darken-2">${valor}</span>`;
+            }
+            if (item.siEncaminhamento === Const.SI_ENCAMINHAMENTO_SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_FINAL) {
+                return `<span class="green--text font-weight-medium text--darken-2">${valor}</span>`;
+            }
+            return valor;
+        },
+        formatDiasAnalise(item, tipo) {
+            const diasDestacar = 30;
+            const valor = item[tipo];
+            if (parseInt(valor, 10) > diasDestacar) {
+                return `<span class="red--text font-weight-medium text--darken-2">${valor}</span>`;
+            }
+            return item[tipo];
+        },
+        filterField(item, tipo) {
+            if (tipo === 'nmTecnicoParecerista') {
+                return this.formatCoordenador(item, tipo);
+            }
+            if (tipo === 'qtDiasEncaminhar') {
+                return this.formatDiasAnalise(item, tipo);
+            }
+            const campo = item[tipo];
+            if (Date.parse(campo)) {
+                if (campo.length > 9) {
+                    return this.filterDate(campo);
                 }
             }
-            return value;
+            return campo;
         },
         filterDate(value) {
             return this.$options.filters.formatarData(value);
