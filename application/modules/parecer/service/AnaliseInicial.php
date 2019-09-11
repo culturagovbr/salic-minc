@@ -374,20 +374,23 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
     private function iniciarAssinatura($idPronac): int
     {
         try {
-            if (!empty($idPronac)) {
-                $parecer = new \Parecer_Model_DbTable_Parecer();
-                $parecerTecnico = $parecer->getIdAtoAdministrativoParecerTecnico(
-                    $idPronac,
-                    1
-                )->current();
-
-                $servicoDocumentoAssinatura = new \Application\Modules\Parecer\Service\Assinatura\AnaliseInicial\DocumentoAssinatura(
-                    $idPronac,
-                    \Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL,
-                    $parecerTecnico['idParecer']
-                );
-                return $servicoDocumentoAssinatura->iniciarFluxo();
+            if (empty($idPronac)) {
+                throw new \Exception("Id Pronac não informado");
             }
+
+            $parecer = new \Parecer_Model_DbTable_Parecer();
+            $parecerTecnico = $parecer->getIdAtoAdministrativoParecerTecnico(
+                $idPronac,
+                1
+            )->current();
+
+            $servicoDocumentoAssinatura = new \Application\Modules\Parecer\Service\Assinatura\AnaliseInicial\DocumentoAssinatura(
+                $idPronac,
+                \Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL,
+                $parecerTecnico['idParecer']
+            );
+            return $servicoDocumentoAssinatura->iniciarFluxo();
+
         } catch (\Exception $e) {
             throw $e;
         }

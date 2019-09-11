@@ -51,6 +51,7 @@ class Assinatura_Model_DbTable_TbAtoAdministrativo extends MinC_Db_Table_Abstrac
         $objQuery->where('idOrgaoDoAssinante = ?', $idOrgaoDoAssinante);
         $objQuery->where('idPerfilDoAssinante = ?', $idPerfilDoAssinante);
         $objQuery->where('idTipoDoAto = ?', $idTipoDoAto);
+        $objQuery->where('stEstado = ?', Assinatura_Model_TbAtoAdministrativo::ST_ESTADO_ATIVO);
 
         $result = $this->fetchRow($objQuery);
         if ($result) {
