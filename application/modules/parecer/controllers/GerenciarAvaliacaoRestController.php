@@ -9,6 +9,7 @@ class Parecer_GerenciarAvaliacaoRestController extends MinC_Controller_Rest_Abst
     {
         $profiles = [
             Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
+            Autenticacao_Model_Grupos::SUPERINTENDENTE_DE_VINCULADA,
         ];
 
         $permissionsPerMethod = [

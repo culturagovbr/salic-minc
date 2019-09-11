@@ -9,6 +9,7 @@ class Parecer_GerenciarDevolverProdutoSecultRestController extends MinC_Controll
     {
         $profiles = [
             Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
+            Autenticacao_Model_Grupos::SUPERINTENDENTE_DE_VINCULADA,
         ];
 
         $permissionsPerMethod = [

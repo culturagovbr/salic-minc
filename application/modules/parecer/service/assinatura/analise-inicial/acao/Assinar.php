@@ -6,17 +6,20 @@ use MinC\Assinatura\Acao\IAcaoAssinar;
 
 class Assinar implements IAcaoAssinar
 {
+    private $numeroDeAssinaturas;
+    private $idProximoOrgao;
+
     public function executar(\MinC\Assinatura\Model\Assinatura $assinatura)
     {
-        $numeroDeAssinaturas = $assinatura->dbTableTbAssinatura->obterQuantidadeAssinaturasRealizadas();
-        if ($numeroDeAssinaturas == 1) {
-            $this->finalizarAnaliseInicial($assinatura);
+        $this->numeroDeAssinaturas = $assinatura->dbTableTbAssinatura->obterQuantidadeAssinaturasRealizadas();
+
+        $this->idProximoOrgao = $this->obterProximoOrgao($assinatura);
+
+        if ($this->numeroDeAssinaturas == 1) {
+           return $this->finalizarAnaliseInicial($assinatura);
         }
 
-        if ($numeroDeAssinaturas == 2) {
-            $this->finalizarAnaliseCoordenador($assinatura);
-        }
-
+        return $this->assinarAnaliseCoordenador($assinatura);
     }
 
     private function finalizarAnaliseInicial(\MinC\Assinatura\Model\Assinatura $assinatura)
@@ -33,7 +36,8 @@ class Assinar implements IAcaoAssinar
         $dados = [
             'DtDevolucao' => \MinC_Db_Expr::date(),
             'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_VALIDACAO,
-            'siEncaminhamento' => \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA
+            'siEncaminhamento' => \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA,
+            'idOrgao' => $this->idProximoOrgao,
         ];
 
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
@@ -45,27 +49,6 @@ class Assinar implements IAcaoAssinar
             $modeloTbAssinatura->getIdPronac(),
             $distribuicao['idAgenteParecerista']
         );
-    }
-
-    private function finalizarAnaliseCoordenador(\MinC\Assinatura\Model\Assinatura $assinatura)
-    {
-
-        $modeloTbAssinatura = $assinatura->modeloTbAssinatura;
-        $where = [
-            'idPronac = ?' => $modeloTbAssinatura->getIdPronac(),
-            'stEstado = ?' => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO,
-            'siEncaminhamento = ?' => \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA,
-            'siAnalise = ?' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_VALIDADO,
-        ];
-
-        $dados = [
-            'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_FINALIZADA_COORDENADOR,
-            'FecharAnalise' => \Parecer_Model_TbDistribuirParecer::FECHAR_ANALISE_FECHADA,
-        ];
-
-        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        $tbDistribuirParecer->alterar($dados, $where);
-
     }
 
     private function finalizarOutrosProdutosDoParecerista($idPronac, $idAgenteParecerista)
@@ -87,10 +70,50 @@ class Assinar implements IAcaoAssinar
             $dados = [
                 'siEncaminhamento' => \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA,
                 'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_VALIDACAO,
-                'DtDevolucao' => \MinC_Db_Expr::date()
+                'DtDevolucao' => \MinC_Db_Expr::date(),
+                'idOrgao' => $this->idProximoOrgao
             ];
 
             $tbDistribuirParecer->alterar($dados, $where);
         }
+    }
+
+    private function assinarAnaliseCoordenador(\MinC\Assinatura\Model\Assinatura $assinatura)
+    {
+        $modeloTbAssinatura = $assinatura->modeloTbAssinatura;
+        $where = [
+            'idPronac = ?' => $modeloTbAssinatura->getIdPronac(),
+            'stEstado = ?' => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO,
+            'siEncaminhamento = ?' => \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA,
+        ];
+
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $distribuicaoAtual = $tbDistribuirParecer->findBy($where);
+
+        $dados = [
+            'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_VALIDACAO,
+            'idOrgao' => $this->idProximoOrgao
+        ];
+
+        if ($distribuicaoAtual['idOrgao'] == $this->idProximoOrgao) {
+            $dados['siEncaminhamento'] =  \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_MINC_PELA_UNIDADE;
+        }
+
+        $tbDistribuirParecer->alterar($dados, $where);
+    }
+
+    private function obterProximoOrgao(\MinC\Assinatura\Model\Assinatura $assinatura)
+    {
+        $tbAtoAdministrativo = new \Assinatura_Model_DbTable_TbAtoAdministrativo();
+        $grupoAtoAdministrativo = $tbAtoAdministrativo->obterGrupoPorIdDocumentoAssinatura(
+            $assinatura->modeloTbAssinatura->getIdDocumentoAssinatura()
+        );
+
+        return $tbAtoAdministrativo->obterProximoOrgaoDeDestino(
+            $assinatura->modeloTbAtoAdministrativo->getIdTipoDoAto(),
+            $assinatura->modeloTbAtoAdministrativo->getIdOrdemDaAssinatura(),
+            $assinatura->modeloTbAtoAdministrativo->getIdOrgaoSuperiorDoAssinante(),
+            $grupoAtoAdministrativo
+        );
     }
 }
