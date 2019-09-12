@@ -52,3 +52,8 @@ export const salvarValidacaoParecer = (params) => {
     const controller = 'gerenciar-avaliacao-rest';
     return api.postRequest(`/${MODULE}/${controller}`, api.buildData(params));
 };
+
+export const salvarSolicitacaoAnaliseComplementar = (params) => {
+    const controller = 'gerenciar-analise-complementar-rest';
+    return api.postRequest(`/${MODULE}/${controller}`, api.buildData(params));
+};

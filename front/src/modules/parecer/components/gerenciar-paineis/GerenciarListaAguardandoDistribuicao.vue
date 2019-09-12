@@ -76,14 +76,10 @@
                     </v-tooltip>
                 </td>
                 <td>{{ props.item.segmento }}</td>
-                <td>{{ props.item.nomeParecerista }}</td>
                 <td class="text-xs-right">
-                    {{ props.item.dtDistribuicao | formatarData }}
+                    {{ props.item.dtEnvioMincVinculada | formatarData }}
                 </td>
-                <td
-                    class="text-xs-center"
-                    style="min-width: 212px"
-                >
+                <td class="text-xs-center">
                     <v-tooltip
                         bottom
                     >
@@ -92,48 +88,14 @@
                             color="blue-grey darken-2"
                             flat
                             icon
-                            class="ma-0"
-                            @click="$emit('visualizar-detalhes', props.item)"
-                        >
-                            <v-icon>
-                                visibility
-                            </v-icon>
-                        </v-btn>
-                        <span>Visualizar detalhes</span>
-                    </v-tooltip>
-                    <v-tooltip
-                        bottom
-                    >
-                        <v-btn
-                            slot="activator"
-                            color="blue-grey darken-2"
-                            flat
-                            icon
-                            class="ma-0"
+                            class="mr-2"
                             @click="$emit('distribuir-produto', props.item)"
                         >
                             <v-icon>
                                 person
                             </v-icon>
                         </v-btn>
-                        <span>Distribuir produto</span>
-                    </v-tooltip>
-                    <v-tooltip
-                        bottom
-                    >
-                        <v-btn
-                            slot="activator"
-                            color="blue-grey darken-2"
-                            flat
-                            icon
-                            class="ma-0"
-                            @click="$emit('visualizar-historico', props.item)"
-                        >
-                            <v-icon>
-                                history
-                            </v-icon>
-                        </v-btn>
-                        <span>Visualizar histórico</span>
+                        <span>Distribuir ou encaminhar produto</span>
                     </v-tooltip>
                 </td>
             </tr>
@@ -141,7 +103,7 @@
 
         <template slot="no-data">
             <div class="text-xs-center">
-                {{ `Sem produtos em análise` }}
+                {{ `Sem produtos aguardando análise` }}
             </div>
         </template>
     </v-data-table>
@@ -150,12 +112,12 @@
 <script>
 
 import MxUtils from '@/mixins/utils';
-import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
 import MxConstantes from '@/modules/parecer/mixins/const';
 
 export default {
-    name: 'GerenciarListaItensAguardandoAnalise',
-    mixins: [MxUtils, MxDiligencia, MxConstantes],
+    name: 'GerenciarListaAguardandoDistribuicao',
+    mixins: [MxUtils, MxConstantes],
+
     props: {
         produtos: {
             type: Array,
@@ -166,6 +128,7 @@ export default {
             default: '',
         },
     },
+
     data() {
         return {
             headers: [
@@ -180,7 +143,7 @@ export default {
                     value: 'nomeProjeto',
                 },
                 {
-                    text: 'Produto',
+                    text: 'Produto para análise',
                     align: 'left',
                     value: 'nomeProduto',
                 },
@@ -194,20 +157,9 @@ export default {
                     align: 'left',
                     value: 'segmento',
                 },
+                { text: 'Dt. de Recebimento', value: 'dtEnvioMincVinculada', width: '2' },
                 {
-                    text: 'Parecerista',
-                    align: 'left',
-                    value: 'nomeParecerista',
-                },
-                {
-                    text: 'Dt. de Envio',
-                    value: 'dtDistribuicao',
-                    width: '2',
-                },
-                {
-                    text: 'Ações',
-                    width: '2',
-                    value: 'siAnalise',
+                    text: 'Ações', align: 'center', value: 'siAnalise',
                 },
             ],
         };

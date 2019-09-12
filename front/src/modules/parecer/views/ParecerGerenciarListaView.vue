@@ -52,57 +52,31 @@
                                 />
                             </v-flex>
                         </v-layout>
+
+                        <!-- paineis -->
                         <component
                             :is="filtroSelecionado.component"
                             v-if="!loading"
                             :produtos="produtos"
                             :search="search"
-                            @visualizar-produto="visualizarProduto($event)"
-                            @visualizar-historico="visualizarHistorico($event)"
-                            @visualizar-diligencia="visualizarDiligencia($event)"
-                            @distribuir-produto="distribuirProduto($event)"
-                            @distribuir-projeto="distribuirProjeto($event)"
-                            @visualizar-detalhes="visualizarDetalhes($event)"
-                            @reanalisar-produto="reanalisarProduto($event)"
-                            @devolver-produto-para-secult="devolverProdutoParaSecult($event)"
+                            @visualizar-historico="abrirDialog($event, 's-analise-historico-produto-dialog')"
+                            @distribuir-produto="abrirDialog($event, 's-gerenciar-distribuir-produto-dialog')"
+                            @visualizar-detalhes="abrirDialog($event, 's-gerenciar-detalhes-analise-dialog')"
+                            @reanalisar-produto="abrirDialog($event, 's-gerenciar-reanalisar-produto-dialog')"
+                            @devolver-produto-para-secult="abrirDialog($event, 's-gerenciar-devolver-para-secult-dialog')"
+                            @solicitar-analise-complementar="abrirDialog($event, 's-gerenciar-solicitar-analise-complementar-dialog')"
                         />
                         <s-carregando
                             v-else
                             :text="`Carregando lista de produtos ${filtroSelecionado.label.toLowerCase()}`"
                         />
-                        <s-dialog-diligencias
-                            v-model="dialogDiligencias"
-                            :id-pronac="diligenciaVisualizacao.idPronac"
-                            :id-produto="diligenciaVisualizacao.idProduto"
-                            :tp-diligencia="TP_DILIGENCIA_ANALISE_TECNICA"
-                        />
-                        <s-analise-outros-produtos-dialog-detalhamento
-                            v-model="dialogVisualizarProduto"
-                            :produto="produtoSelecionado"
-                        />
-                        <s-gerenciar-distribuir-produto-dialog
-                            v-model="dialogDistribuirProduto"
+
+                        <!-- dialogs -->
+                        <component
+                            :is="modal.component"
+                            v-model="modal.show"
                             :produto="produtoSelecionado"
                             :filtro="filtro"
-                        />
-                        <s-gerenciar-reanalisar-produto-dialog
-                            v-model="dialogReanaliseProduto"
-                            :produto="produtoSelecionado"
-                            :filtro="filtro"
-                        />
-                        <s-gerenciar-devolver-para-secult-dialog
-                            v-model="dialogDevolverProdutoSecult"
-                            :produto="produtoSelecionado"
-                            :filtro="filtro"
-                        />
-                        <s-gerenciar-detalhes-analise-dialog
-                            v-model="dialogDetalhes"
-                            :produto="produtoSelecionado"
-                            :filtro="filtro"
-                        />
-                        <s-analise-historico-produto-dialog
-                            v-model="dialogHistorico"
-                            :produto="produtoSelecionado"
                         />
                     </v-card-text>
                 </v-card>
@@ -114,21 +88,24 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import MxUtils from '@/mixins/utils';
-import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
 import MxConstantes from '@/modules/parecer/mixins/const';
 import SCarregando from '@/components/CarregandoVuetify';
-import SDialogDiligencias from '@/modules/diligencia/components/SDialogDiligencias';
-import SAnaliseOutrosProdutosDialogDetalhamento from '@/modules/parecer/components/AnaliseOutrosProdutosDialogDetalhamento';
-import SGerenciarDistribuirProdutoDialog from '@/modules/parecer/components/GerenciarDistribuirProdutoDialog';
-import SGerenciarReanalisarProdutoDialog from '@/modules/parecer/components/GerenciarReanalisarProdutoDialog';
-import SGerenciarDetalhesAnaliseDialog from '@/modules/parecer/components/GerenciarDetalhesAnaliseDialog';
-import SGerenciarDevolverParaSecultDialog from '@/modules/parecer/components/GerenciarDevolverParaSecultDialog';
-import GerenciarListaAguardandoDistribuicao from '@/modules/parecer/components/GerenciarListaAguardandoDistribuicao';
-import GerenciarListaItensEmAnalise from '@/modules/parecer/components/GerenciarListaItensEmAnalise';
-import GerenciarListaDevolvidasSecult from '@/modules/parecer/components/GerenciarListaDevolvidasSecult';
-import GerenciarListaValidados from '@/modules/parecer/components/GerenciarListaValidados';
-import GerenciarListaEmValidacao from '@/modules/parecer/components/GerenciarListaEmValidacao';
+
 import SAnaliseHistoricoProdutoDialog from '@/modules/parecer/components/AnaliseHistoricoProdutoDialog';
+
+// dialogs de gerenciar
+import SGerenciarDistribuirProdutoDialog from '@/modules/parecer/components/gerenciar-dialogs/GerenciarDistribuirProdutoDialog';
+import SGerenciarReanalisarProdutoDialog from '@/modules/parecer/components/gerenciar-dialogs/GerenciarReanalisarProdutoDialog';
+import SGerenciarDetalhesAnaliseDialog from '@/modules/parecer/components/gerenciar-dialogs/GerenciarDetalhesAnaliseDialog';
+import SGerenciarDevolverParaSecultDialog from '@/modules/parecer/components/gerenciar-dialogs/GerenciarDevolverParaSecultDialog';
+import SGerenciarSolicitarAnaliseComplementarDialog from '@/modules/parecer/components/gerenciar-dialogs/GerenciarSolicitarAnaliseComplementarDialog';
+
+// paineis
+import GerenciarListaAguardandoDistribuicao from '@/modules/parecer/components/gerenciar-paineis/GerenciarListaAguardandoDistribuicao';
+import GerenciarListaItensEmAnalise from '@/modules/parecer/components/gerenciar-paineis/GerenciarListaItensEmAnalise';
+import GerenciarListaDevolvidasSecult from '@/modules/parecer/components/gerenciar-paineis/GerenciarListaDevolvidasSecult';
+import GerenciarListaValidados from '@/modules/parecer/components/gerenciar-paineis/GerenciarListaValidados';
+import GerenciarListaEmValidacao from '@/modules/parecer/components/gerenciar-paineis/GerenciarListaEmValidacao';
 
 export default {
     name: 'ParecerAnalisarListaView',
@@ -137,7 +114,7 @@ export default {
         SGerenciarDistribuirProdutoDialog,
         SGerenciarReanalisarProdutoDialog,
         SGerenciarDevolverParaSecultDialog,
-        SAnaliseOutrosProdutosDialogDetalhamento,
+        SGerenciarSolicitarAnaliseComplementarDialog,
         GerenciarListaAguardandoDistribuicao,
         GerenciarListaDevolvidasSecult,
         GerenciarListaItensEmAnalise,
@@ -145,9 +122,8 @@ export default {
         GerenciarListaValidados,
         SGerenciarDetalhesAnaliseDialog,
         SCarregando,
-        SDialogDiligencias,
     },
-    mixins: [MxUtils, MxDiligencia, MxConstantes],
+    mixins: [MxUtils, MxConstantes],
 
     data: () => ({
         filtros: [
@@ -195,18 +171,9 @@ export default {
         ],
         filtro: 'aguardando_distribuicao',
         search: '',
-        dialogDiligencias: false,
-        dialogHistorico: false,
-        dialogVisualizarProduto: false,
-        dialogDistribuirProduto: false,
-        dialogReanaliseProduto: false,
-        dialogDevolverProdutoSecult: false,
-        dialogDetalhes: false,
-        produtoHistorico: {},
-        dialogImpedimento: false,
-        diligenciaVisualizacao: {
-            idPronac: 0,
-            idProduto: 0,
+        modal: {
+            show: false,
+            component: '',
         },
         produtoImpedimento: {},
         produtos: [],
@@ -255,40 +222,10 @@ export default {
         ...mapActions({
             obterProdutosParaGerenciar: 'parecer/obterProdutosParaGerenciar',
         }),
-        visualizarDiligencia(produto) {
-            this.dialogDiligencias = true;
-            this.diligenciaVisualizacao = {
-                idPronac: produto.idPronac,
-                idProduto: produto.idProduto,
-            };
-        },
-        visualizarProduto(produto) {
-            this.dialogVisualizarProduto = true;
+        abrirDialog(produto, component) {
             this.produtoSelecionado = produto;
-        },
-        distribuirProjeto(produto) {
-            this.dialogVisualizarProduto = true;
-            this.produtoSelecionado = produto;
-        },
-        visualizarHistorico(produto) {
-            this.dialogHistorico = true;
-            this.produtoSelecionado = produto;
-        },
-        visualizarDetalhes(produto) {
-            this.dialogDetalhes = true;
-            this.produtoSelecionado = produto;
-        },
-        distribuirProduto(produto) {
-            this.dialogDistribuirProduto = true;
-            this.produtoSelecionado = produto;
-        },
-        reanalisarProduto(produto) {
-            this.dialogReanaliseProduto = true;
-            this.produtoSelecionado = produto;
-        },
-        devolverProdutoParaSecult(produto) {
-            this.dialogDevolverProdutoSecult = true;
-            this.produtoSelecionado = produto;
+            this.modal.component = component;
+            this.modal.show = true;
         },
     },
 };

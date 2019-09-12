@@ -79,6 +79,7 @@ export default {
         SCarregando,
     },
     mixins: [utils],
+
     props: {
         value: {
             type: Boolean,
@@ -89,6 +90,7 @@ export default {
             default: () => {},
         },
     },
+
     data() {
         return {
             dialog: false,
@@ -103,11 +105,17 @@ export default {
             ],
         };
     },
+
+    mounted() {
+        this.dialog = this.value;
+    },
+
     computed: {
         ...mapGetters({
             historico: 'parecer/getHistoricoProduto',
         }),
     },
+
     watch: {
         value(val) {
             this.dialog = val;
@@ -126,6 +134,7 @@ export default {
             this.loading = val.length === 0;
         },
     },
+
     methods: {
         ...mapActions({
             obterHistoricoProduto: 'parecer/obterHistoricoProduto',

@@ -22,79 +22,43 @@
                     <v-icon>close</v-icon>
                 </v-btn>
                 <v-toolbar-title>
-                    Devolver Produto: {{ produto.nomeProduto }} - {{ produto.nomeProjeto }}
+                    Gerenciar Produto: {{ produto.nomeProduto }} - {{ produto.nomeProjeto }}
                 </v-toolbar-title>
             </v-toolbar>
             <v-card-text>
                 <v-container>
                     <v-card>
                         <v-card-text>
-                            <v-layout
-                                row
-                                wrap
-                                class="mb-3"
-                            >
-                                <v-flex
-                                    xs12
-                                    sm2
-                                    md2
-                                >
-                                    <b>Pronac</b><br>
-                                    {{ produto.pronac }}
-                                </v-flex>
-                                <v-flex
-                                    xs12
-                                    sm6
-                                    md6
-                                >
-                                    <b>Nome do Projeto</b><br>
-                                    <span v-html="produto.nomeProjeto" />
-                                </v-flex>
-                                <v-flex
-                                    xs12
-                                    sm4
-                                    md4
-                                >
-                                    <b>Produto</b><br>
-                                    <span v-html="produto.nomeProduto" />
-                                </v-flex>
-                            </v-layout>
-                            <v-layout
-                                row
-                                wrap
-                                class="mb-3"
-                            >
-                                <v-flex
-                                    xs12
-                                    sm2
-                                    md2
-                                >
-                                    <b>Área</b><br>
-                                    {{ produto.area }}
-                                </v-flex>
-                                <v-flex
-                                    xs12
-                                    sm6
-                                    md6
-                                >
-                                    <b>Segmento</b><br>
-                                    <span v-html="produto.segmento" />
-                                </v-flex>
-                                <v-flex
-                                    xs12
-                                    sm4
-                                    md4
-                                >
-                                    <b>Valor do Produto</b><br>
-                                    R$ {{ produto.valor | formatarParaReal }}
-                                </v-flex>
-                            </v-layout>
+                            <s-dialog-header :produto="produto" />
 
                             <v-form
                                 ref="form"
                                 v-model="valid"
                                 lazy-validation
                             >
+                                <v-layout
+                                    row
+                                    wrap
+                                    class="mb-3"
+                                >
+                                    <v-flex
+                                        xs12
+                                        sm6
+                                        md6
+                                        class="mt-3"
+                                    >
+                                        <v-select
+                                            v-model="distribuicao.idOrgaoDestino"
+                                            :items="vinculadas"
+                                            item-text="Sigla"
+                                            item-value="Codigo"
+                                            :label="loadingVinculadas ? 'Carregando...' : 'Selecione o orgão destino'"
+                                            :loading="loadingVinculadas"
+                                            :rules="[obrigatorio]"
+                                        />
+                                    </v-flex>
+                                </v-layout>
+
                                 <s-editor-texto
                                     v-model="distribuicao.observacao"
                                     :label="labelTextoRico"
@@ -138,14 +102,16 @@
 
 <script>
 
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { utils } from '@/mixins/utils';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import SConfirmacaoDialog from '@/components/SalicConfirmacaoDialog';
+import SDialogHeader from '@/modules/parecer/components/gerenciar-dialogs/DialogHeader';
 
 export default {
-    name: 'GerenciarReanalisarProdutoDialog',
+    name: 'GerenciarSolicitarAnaliseComplementarDialog',
     components: {
+        SDialogHeader,
         SConfirmacaoDialog,
         SEditorTexto,
     },
@@ -195,11 +161,14 @@ export default {
     },
 
     computed: {
+        ...mapGetters({
+            vinculadas: 'parecer/getVinculadas',
+        }),
         textoMensagemConfirmacao() {
-            return 'Confirma o envio para devolução à Secult?';
+            return 'Confirma o envio para a unidade vinculada?';
         },
         labelTextoRico() {
-            return 'Observação para devolução';
+            return 'Observação para a unidade vinculada';
         },
     },
 
@@ -209,24 +178,26 @@ export default {
         },
         dialog(val) {
             if (val) {
-                this.distribuicao.idProduto = this.produto.idProduto;
-                this.distribuicao.idPronac = this.produto.idPronac;
-                this.distribuicao.idOrgao = this.produto.idOrgao;
-                this.distribuicao.idDistribuirParecer = this.produto.idDistribuirParecer;
-                this.distribuicao.idSegmentoProduto = this.produto.idSegmento;
-                this.distribuicao.idAreaProduto = this.produto.idArea;
-                this.distribuicao.filtro = this.filtro;
-                this.distribuicao.idOrgaoDestino = '';
-                this.distribuicao.observacao = '';
-                this.distribuicao.idAgenteParecerista = this.produto.idAgenteParecerista;
+                this.popularDadosParaEdicao();
             }
             this.$emit('input', val);
         },
+        vinculadas() {
+            this.loadingVinculadas = false;
+        },
+    },
+
+    mounted() {
+        this.dialog = this.value;
+        this.buscarVinculadas({
+            idOrgao: this.produto.idOrgao,
+        });
     },
 
     methods: {
         ...mapActions({
-            salvarAction: 'parecer/salvarDevolucaoParaSecult',
+            buscarVinculadas: 'parecer/buscarVinculadas',
+            salvarSolicitacaoAnaliseComplementar: 'parecer/salvarSolicitacaoAnaliseComplementar',
         }),
         validarTexto(e) {
             this.textIsValid = e >= this.minChar;
@@ -242,12 +213,22 @@ export default {
             }
 
             this.loading = true;
-            this.salvarAction(this.distribuicao)
-                .then(() => {
-                    this.dialog = false;
-                }).finally(() => {
+            this.salvarSolicitacaoAnaliseComplementar(this.distribuicao)
+                .finally(() => {
                     this.loading = false;
                 });
+        },
+        popularDadosParaEdicao() {
+            this.distribuicao.idProduto = this.produto.idProduto;
+            this.distribuicao.idPronac = this.produto.idPronac;
+            this.distribuicao.idOrgao = this.produto.idOrgao;
+            this.distribuicao.idDistribuirParecer = this.produto.idDistribuirParecer;
+            this.distribuicao.idSegmentoProduto = this.produto.idSegmento;
+            this.distribuicao.idAreaProduto = this.produto.idArea;
+            this.distribuicao.filtro = this.filtro;
+            this.distribuicao.idOrgaoDestino = '';
+            this.distribuicao.observacao = '';
+            this.distribuicao.idAgenteParecerista = this.produto.idAgenteParecerista;
         },
     },
 

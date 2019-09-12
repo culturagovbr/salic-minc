@@ -86,6 +86,7 @@
                         style="min-width: 230px"
                     >
                         <v-tooltip
+                            v-if="props.item.stPrincipal === 1"
                             bottom
                         >
                             <v-btn
@@ -94,13 +95,31 @@
                                 flat
                                 icon
                                 class="ma-0"
-                                @click="confirmarValidacao(props.item)"
+                                :href="`${urlAssinatura}?idDocumentoAssinatura=${props.item.idDocumentoAssinatura}&${retornoAssinatura.toString()}`"
                             >
                                 <v-icon>
-                                    done_all
+                                    assignment_turned_in
                                 </v-icon>
                             </v-btn>
-                            <span>Validar análise</span>
+                            <span>Assinar documento</span>
+                        </v-tooltip>
+                        <v-tooltip
+                            v-else
+                            bottom
+                        >
+                            <v-btn
+                                slot="activator"
+                                color="blue-grey darken-2"
+                                class="ma-0"
+                                flat
+                                icon
+                                disabled
+                            >
+                                <v-icon>
+                                    watch_later
+                                </v-icon>
+                            </v-btn>
+                            <span>Este produto é secundário, quando o produto principal for assinado ele será finalizado</span>
                         </v-tooltip>
                         <v-tooltip
                             bottom
@@ -108,9 +127,9 @@
                             <v-btn
                                 slot="activator"
                                 color="blue-grey darken-2"
+                                class="ma-0"
                                 flat
                                 icon
-                                class="ma-0"
                                 @click="$emit('distribuir-produto', props.item)"
                             >
                                 <v-icon>
@@ -144,7 +163,6 @@
                                 color="blue-grey darken-2"
                                 flat
                                 icon
-                                class="ma-0"
                                 @click="$emit('visualizar-historico', props.item)"
                             >
                                 <v-icon>
@@ -159,36 +177,22 @@
 
             <template slot="no-data">
                 <div class="text-xs-center">
-                    {{ `Sem produtos em validação` }}
+                    {{ `Sem produtos validados` }}
                 </div>
             </template>
         </v-data-table>
-        <s-confirmacao-dialog
-            v-model="dialogConfirmarEnvio"
-            text="Confirma a validação da análise do produto?"
-            @dialog-response="$event && validarParecer()"
-        />
-        <s-progresso-dialog
-            v-model="loading"
-            label="Aguarde, salvando validação"
-        />
     </div>
 </template>
 
 <script>
 
-import { mapActions } from 'vuex';
-
 import MxUtils from '@/mixins/utils';
-import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
 import MxConstantes from '@/modules/parecer/mixins/const';
-import SProgressoDialog from '@/components/SalicProgressoDialog';
-import SConfirmacaoDialog from '@/components/SalicConfirmacaoDialog';
 
 export default {
-    name: 'GerenciarListaEmValidacao',
-    components: { SConfirmacaoDialog, SProgressoDialog },
-    mixins: [MxUtils, MxDiligencia, MxConstantes],
+    name: 'GerenciarListaValidados',
+    mixins: [MxUtils, MxConstantes],
+
     props: {
         produtos: {
             type: Array,
@@ -199,11 +203,14 @@ export default {
             default: '',
         },
     },
+
     data() {
         return {
             dialogConfirmarEnvio: false,
             loading: false,
             produto: {},
+            urlAssinatura: '/assinatura/index/visualizar-projeto',
+            prevRoute: null,
             headers: [
                 {
                     text: 'Pronac',
@@ -236,25 +243,24 @@ export default {
                     value: 'nomeParecerista',
                 },
                 { text: 'Dt. de Envio', value: 'dtDistribuicao', width: '2' },
-                { text: 'Ações', width: '2', value: 'stPrincipal' },
+                { text: 'Ações', width: '4', value: 'siAnalise' },
             ],
         };
     },
-    methods: {
-        ...mapActions({
-            salvarValidacaoParecer: 'parecer/salvarValidacaoParecer',
-        }),
-        confirmarValidacao(produto) {
-            this.produto = produto;
-            this.dialogConfirmarEnvio = true;
+
+    computed: {
+        retornoAssinatura() {
+            const path = `#${this.$route.path}`;
+            return `origin=${encodeURIComponent(path)}`;
         },
-        validarParecer() {
-            this.loading = true;
-            this.salvarValidacaoParecer(this.produto).then(() => {
-                this.dialog = false;
-            }).finally(() => {
-                this.loading = false;
-            });
+    },
+
+    methods: {
+        isDisponivelParaAssinatura(produto) {
+            return produto
+                && produto.siEncaminhamento === 5
+                && produto.siAnalise === 5
+                && produto.idDocumentoAssinatura;
         },
     },
 };

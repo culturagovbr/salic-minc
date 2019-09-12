@@ -150,28 +150,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
     {
         $params = $this->request->getParams();
 
-        if (empty($params['idDistribuirParecer'])
-            || empty($params['idPronac'])
-            || empty($params['idProduto'])
-        ) {
-            throw new \Exception("Dados obrigatórios não informados");
-        }
-
-        $observacao = \TratarString::tratarTextoRicoParaUTF8($params['observacao']);
-
-        if (strlen($observacao) < 11) {
-            throw new \Exception("O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 11 caracteres");
-        }
-
-        $whereDistribuicaoAtual = [];
-        $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
-        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        $distribuicao = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
-
-        $distribuicao = array_merge($distribuicao, [
-            'Observacao' => $observacao,
-            'idUsuario' => $this->idUsuario,
-        ]);
+        $distribuicao = $this->tratarDadosRequisicao();
 
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
         $resposta = $tbDistribuirParecerMapper->solicitarReanaliseParecerista($distribuicao);
@@ -187,28 +166,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
     {
         $params = $this->request->getParams();
 
-        if (empty($params['idDistribuirParecer'])
-            || empty($params['idPronac'])
-            || empty($params['idProduto'])
-        ) {
-            throw new \Exception("Dados obrigatórios não informados");
-        }
-
-        $observacao = utf8_decode(trim(strip_tags($params['observacao'])));
-
-        if (strlen($observacao) < 11) {
-            throw new \Exception("O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 11 caracteres");
-        }
-
-        $whereDistribuicaoAtual = [];
-        $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
-        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        $distribuicao = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
-
-        $distribuicao = array_merge($distribuicao, [
-            'Observacao' => $observacao,
-            'idUsuario' => $this->idUsuario,
-        ]);
+        $distribuicao = $this->tratarDadosRequisicao();
 
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
         $resposta = $tbDistribuirParecerMapper->devolverProdutoParaSecult($distribuicao);
@@ -272,5 +230,48 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
 
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
         return $tbDistribuirParecer->update($dados, $whereDocumentoAssinatura);
+    }
+
+    private function tratarDadosRequisicao()
+    {
+        $params = $this->request->getParams();
+
+        if (empty($params['idDistribuirParecer'])
+            || empty($params['idPronac'])
+            || empty($params['idProduto'])
+        ) {
+            throw new \Exception("Dados obrigatórios não informados");
+        }
+
+        $observacao = \TratarString::tratarTextoRicoParaUTF8($params['observacao']);
+
+        if (strlen($observacao) < 11) {
+            throw new \Exception("O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 11 caracteres");
+        }
+
+        $whereDistribuicaoAtual = [];
+        $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $distribuicao = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
+
+        return array_merge($distribuicao, [
+            'Observacao' => $observacao,
+            'idUsuario' => $this->idUsuario,
+        ]);
+    }
+
+    public function solicitarAnaliseComplementar()
+    {
+        $params = $this->request->getParams();
+
+        if (empty($params['idOrgaoDestino'])) {
+            throw new \Exception("Identificador da unidade destino &eacute; obrigat&oacute;rio");
+        }
+
+        $distribuicao = $this->tratarDadosRequisicao();
+        $distribuicao['idOrgao'] = $params['idOrgaoDestino'];
+
+        $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
+        return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($distribuicao);
     }
 }

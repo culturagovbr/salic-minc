@@ -278,3 +278,14 @@ export const salvarValidacaoParecer = async ({ dispatch }, params) => GerenciarS
         dispatch('parecerMensagemErro', e.response.data.error.message);
         throw new TypeError(e.response.data.error.message, 'salvarValidacaoProduto', 10);
     });
+
+export const salvarSolicitacaoAnaliseComplementar = async ({ dispatch }, params) => GerenciarService
+    .salvarSolicitacaoAnaliseComplementar(params)
+    .then((response) => {
+        dispatch('parecerMensagemSucesso', response.data.message);
+        dispatch('removerProdutoDaLista', params);
+        return response.data;
+    }).catch((e) => {
+        dispatch('parecerMensagemErro', e.response.data.error.message);
+        throw new TypeError(e.response.data.error.message, 'salvarValidacaoProduto', 10);
+    });

@@ -22,7 +22,7 @@
                     <v-icon>close</v-icon>
                 </v-btn>
                 <v-toolbar-title>
-                    Gerenciar Produto: {{ produto.nomeProduto }} - {{ produto.nomeProjeto }}
+                    Devolver Produto: {{ produto.nomeProduto }} - {{ produto.nomeProjeto }}
                 </v-toolbar-title>
             </v-toolbar>
             <v-card-text>
@@ -95,78 +95,6 @@
                                 v-model="valid"
                                 lazy-validation
                             >
-                                <v-layout
-                                    row
-                                    wrap
-                                    class="mb-3"
-                                >
-                                    <v-flex
-                                        xs12
-                                        sm6
-                                        md6
-                                    >
-                                        <v-radio-group v-model="distribuicao.tipoAcao">
-                                            <template v-slot:label>
-                                                <div>Qual ação você pretende realizar?</div>
-                                            </template>
-                                            <v-radio value="distribuir">
-                                                <template v-slot:label>
-                                                    <strong class="primary--text">Distribuir para um novo
-                                                        parecerista</strong>
-                                                </template>
-                                            </v-radio>
-                                            <v-radio value="encaminhar">
-                                                <template v-slot:label>
-                                                    <strong class="primary--text">Encaminhar para uma unidade
-                                                        vinculada</strong>
-                                                </template>
-                                            </v-radio>
-                                        </v-radio-group>
-                                    </v-flex>
-                                    <v-flex
-                                        xs12
-                                        sm6
-                                        md6
-                                        class="mt-3"
-                                    >
-                                        <v-select
-                                            v-if="distribuicao.tipoAcao === 'distribuir'"
-                                            v-model="distribuicao.idAgenteParecerista"
-                                            :items="pareceristas"
-                                            :item-text="formatarSelectParecerista"
-                                            item-value="idParecerista"
-                                            :label="loadingPareceristas ? 'Carregando...' : 'Selecione o parecerista'"
-                                            :loading="loadingPareceristas"
-                                            :rules="[obrigatorio]"
-                                        />
-                                        <v-select
-                                            v-if="distribuicao.tipoAcao === 'encaminhar'"
-                                            v-model="distribuicao.idOrgaoDestino"
-                                            :items="vinculadas"
-                                            item-text="Sigla"
-                                            item-value="Codigo"
-                                            :label="loadingVinculadas ? 'Carregando...' : 'Selecione o orgão destino'"
-                                            :loading="loadingVinculadas"
-                                            :rules="[obrigatorio]"
-                                        />
-                                    </v-flex>
-                                    <v-flex
-                                        v-if="produto.stPrincipal === 1"
-                                        xs12
-                                        sm6
-                                        md6
-                                        class="mt-3"
-                                    >
-                                        <v-switch
-                                            v-model="distribuicao.distribuirProjeto"
-                                            label="Deseja aplicar esta ação para os outros produtos do projeto?"
-                                            color="primary"
-                                            value="true"
-                                            hide-details
-                                        />
-                                    </v-flex>
-                                </v-layout>
-
                                 <s-editor-texto
                                     v-model="distribuicao.observacao"
                                     :label="labelTextoRico"
@@ -210,13 +138,13 @@
 
 <script>
 
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 import { utils } from '@/mixins/utils';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import SConfirmacaoDialog from '@/components/SalicConfirmacaoDialog';
 
 export default {
-    name: 'GerenciarDistribuirProdutoDialog',
+    name: 'GerenciarReanalisarProdutoDialog',
     components: {
         SConfirmacaoDialog,
         SEditorTexto,
@@ -242,7 +170,6 @@ export default {
     data() {
         return {
             dialog: false,
-            loadingPareceristas: true,
             loadingVinculadas: true,
             loading: false,
             minChar: 10,
@@ -268,19 +195,11 @@ export default {
     },
 
     computed: {
-        ...mapGetters({
-            pareceristas: 'parecer/getPareceristas',
-            vinculadas: 'parecer/getVinculadas',
-        }),
         textoMensagemConfirmacao() {
-            return this.distribuicao.tipoAcao === 'distribuir'
-                ? 'Confirma a distribuição para o parecerista?'
-                : 'Confirma o envio para a unidade vinculada?';
+            return 'Confirma o envio para devolução à Secult?';
         },
         labelTextoRico() {
-            return this.distribuicao.tipoAcao === 'distribuir'
-                ? 'Observação para o parecerista'
-                : 'Observação para a unidade vinculada';
+            return 'Observação para devolução';
         },
     },
 
@@ -289,16 +208,7 @@ export default {
             this.dialog = val;
         },
         dialog(val) {
-            this.loadingPareceristas = true;
-            this.loadingVinculadas = true;
             if (val) {
-                this.buscarPareceristas({
-                    idOrgao: this.produto.idOrgao,
-                    idArea: this.produto.idArea,
-                    idSegmento: this.produto.idSegmento,
-                    valor: this.produto.valor,
-                });
-
                 this.distribuicao.idProduto = this.produto.idProduto;
                 this.distribuicao.idPronac = this.produto.idPronac;
                 this.distribuicao.idOrgao = this.produto.idOrgao;
@@ -312,30 +222,15 @@ export default {
             }
             this.$emit('input', val);
         },
-        /* eslint-disable func-names */
-        'distribuicao.tipoAcao': function (val) {
-            if (val === 'encaminhar') {
-                this.buscarVinculadas({
-                    idOrgao: this.produto.idOrgao,
-                });
-            }
-            this.distribuicao.idAgenteParecerista = '';
-            this.distribuicao.idOrgaoDestino = '';
-        },
-        pareceristas() {
-            this.loadingPareceristas = false;
-        },
-        vinculadas() {
-            this.loadingVinculadas = false;
-        },
+    },
+
+    mounted() {
+        this.dialog = this.value;
     },
 
     methods: {
         ...mapActions({
-            buscarPareceristas: 'parecer/buscarPareceristas',
-            buscarVinculadas: 'parecer/buscarVinculadas',
-            salvarDistribuicaoProduto: 'parecer/salvarDistribuicaoProduto',
-            salvarDistribuicaoProjeto: 'parecer/salvarDistribuicaoProjeto',
+            salvarAction: 'parecer/salvarDevolucaoParaSecult',
         }),
         validarTexto(e) {
             this.textIsValid = e >= this.minChar;
@@ -351,18 +246,12 @@ export default {
             }
 
             this.loading = true;
-            const salvar = this.distribuicao.distribuirProjeto
-                ? 'salvarDistribuicaoProjeto'
-                : 'salvarDistribuicaoProduto';
-
-            this[salvar](this.distribuicao).then(() => {
-                this.dialog = false;
-            }).finally(() => {
-                this.loading = false;
-            });
-        },
-        formatarSelectParecerista(item) {
-            return `${item.Nome} (${item.qtProdutos})`;
+            this.salvarAction(this.distribuicao)
+                .then(() => {
+                    this.dialog = false;
+                }).finally(() => {
+                    this.loading = false;
+                });
         },
     },
 

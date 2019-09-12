@@ -83,10 +83,9 @@
                     </td>
                     <td
                         class="text-xs-center"
-                        style="min-width: 230px"
+                        style="min-width: 250px"
                     >
                         <v-tooltip
-                            v-if="props.item.stPrincipal === 1"
                             bottom
                         >
                             <v-btn
@@ -95,31 +94,13 @@
                                 flat
                                 icon
                                 class="ma-0"
-                                :href="`${urlAssinatura}?idDocumentoAssinatura=${props.item.idDocumentoAssinatura}&${retornoAssinatura.toString()}`"
+                                @click="validarParecer(props.item)"
                             >
                                 <v-icon>
-                                    assignment_turned_in
+                                    done_all
                                 </v-icon>
                             </v-btn>
-                            <span>Assinar documento</span>
-                        </v-tooltip>
-                        <v-tooltip
-                            v-else
-                            bottom
-                        >
-                            <v-btn
-                                slot="activator"
-                                color="blue-grey darken-2"
-                                class="ma-0"
-                                flat
-                                icon
-                                disabled
-                            >
-                                <v-icon>
-                                    watch_later
-                                </v-icon>
-                            </v-btn>
-                            <span>Este produto é secundário, quando o produto principal for assinado ele será finalizado</span>
+                            <span>Validar análise</span>
                         </v-tooltip>
                         <v-tooltip
                             bottom
@@ -127,9 +108,9 @@
                             <v-btn
                                 slot="activator"
                                 color="blue-grey darken-2"
-                                class="ma-0"
                                 flat
                                 icon
+                                class="ma-0"
                                 @click="$emit('distribuir-produto', props.item)"
                             >
                                 <v-icon>
@@ -150,7 +131,7 @@
                                 @click="$emit('reanalisar-produto', props.item)"
                             >
                                 <v-icon>
-                                    arrow_back
+                                    report_off
                                 </v-icon>
                             </v-btn>
                             <span>Devolver para reanálise do parecerista</span>
@@ -161,8 +142,26 @@
                             <v-btn
                                 slot="activator"
                                 color="blue-grey darken-2"
+                                class="ma-0"
                                 flat
                                 icon
+                                @click="$emit('solicitar-analise-complementar', props.item)"
+                            >
+                                <v-icon>
+                                    group_add
+                                </v-icon>
+                            </v-btn>
+                            <span>Solicitar análise complementar</span>
+                        </v-tooltip>
+                        <v-tooltip
+                            bottom
+                        >
+                            <v-btn
+                                slot="activator"
+                                color="blue-grey darken-2"
+                                flat
+                                icon
+                                class="ma-0"
                                 @click="$emit('visualizar-historico', props.item)"
                             >
                                 <v-icon>
@@ -177,22 +176,29 @@
 
             <template slot="no-data">
                 <div class="text-xs-center">
-                    {{ `Sem produtos validados` }}
+                    {{ `Sem produtos em validação` }}
                 </div>
             </template>
         </v-data-table>
+        <s-progresso-dialog
+            v-model="loading"
+            label="Aguarde, salvando validação"
+        />
     </div>
 </template>
 
 <script>
 
+import { mapActions } from 'vuex';
+
 import MxUtils from '@/mixins/utils';
-import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
 import MxConstantes from '@/modules/parecer/mixins/const';
+import SProgressoDialog from '@/components/SalicProgressoDialog';
 
 export default {
-    name: 'GerenciarListaValidados',
-    mixins: [MxUtils, MxDiligencia, MxConstantes],
+    name: 'GerenciarListaEmValidacao',
+    components: { SProgressoDialog },
+    mixins: [MxUtils, MxConstantes],
 
     props: {
         produtos: {
@@ -207,11 +213,8 @@ export default {
 
     data() {
         return {
-            dialogConfirmarEnvio: false,
             loading: false,
             produto: {},
-            urlAssinatura: '/assinatura/index/visualizar-projeto',
-            prevRoute: null,
             headers: [
                 {
                     text: 'Pronac',
@@ -244,24 +247,32 @@ export default {
                     value: 'nomeParecerista',
                 },
                 { text: 'Dt. de Envio', value: 'dtDistribuicao', width: '2' },
-                { text: 'Ações', width: '4', value: 'stPrincipal' },
+                { text: 'Ações', width: '2', value: 'stPrincipal' },
             ],
         };
     },
 
-    computed: {
-        retornoAssinatura() {
-            const path = `#${this.$route.path}`;
-            return `origin=${encodeURIComponent(path)}`;
-        },
-    },
-
     methods: {
-        isDisponivelParaAssinatura(produto) {
-            return produto
-                && produto.siEncaminhamento === 5
-                && produto.siAnalise === 5
-                && produto.idDocumentoAssinatura;
+        ...mapActions({
+            salvarValidacaoParecer: 'parecer/salvarValidacaoParecer',
+        }),
+        confirmarValidacao(produto) {
+            this.produto = produto;
+            this.dialogConfirmarEnvio = true;
+        },
+        async validarParecer(produto) {
+            const mensagemStatus = 'Confirma a validação da análise do produto?';
+            if (await this.$root.$confirm(mensagemStatus) === false) {
+                return false;
+            }
+
+            this.loading = true;
+            return this.salvarValidacaoParecer(produto)
+                .then(() => {
+                    this.dialog = false;
+                }).finally(() => {
+                    this.loading = false;
+                });
         },
     },
 };

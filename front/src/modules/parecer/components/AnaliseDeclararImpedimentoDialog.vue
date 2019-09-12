@@ -118,7 +118,9 @@ export default {
         SConfirmacaoDialog,
         SEditorTexto,
     },
+
     mixins: [utils],
+
     props: {
         value: {
             type: Boolean,
@@ -129,6 +131,7 @@ export default {
             default: () => {},
         },
     },
+
     data() {
         return {
             dialog: false,
@@ -145,6 +148,11 @@ export default {
             dialogConfirmarEnvio: false,
         };
     },
+
+    mounted() {
+        this.dialog = this.value;
+    },
+
     watch: {
         value(val) {
             this.dialog = val;
@@ -159,6 +167,7 @@ export default {
             this.$emit('input', val);
         },
     },
+
     methods: {
         ...mapActions({
             salvar: 'parecer/salvarDeclaracaoImpedimento',

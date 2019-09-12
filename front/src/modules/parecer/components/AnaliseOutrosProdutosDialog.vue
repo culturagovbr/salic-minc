@@ -140,12 +140,14 @@ export default {
         SAnaliseOutrosProdutosDialogDetalhamento, SCarregando,
     },
     mixins: [MxUtils, MxUtilsParecer],
+
     props: {
         value: {
             type: Boolean,
             default: false,
         },
     },
+
     data() {
         return {
             dialog: false,
@@ -166,12 +168,18 @@ export default {
             },
         };
     },
+
+    mounted() {
+        this.dialog = this.value;
+    },
+
     computed: {
         ...mapGetters({
             produtosSecundarios: 'parecer/getProdutosSecundarios',
             produto: 'parecer/getProduto',
         }),
     },
+
     watch: {
         value(val) {
             this.dialog = val;
@@ -189,6 +197,7 @@ export default {
             this.loading = val.length === 0;
         },
     },
+
     methods: {
         ...mapActions({
             obterProdutosSecundarios: 'parecer/obterProdutosSecundarios',

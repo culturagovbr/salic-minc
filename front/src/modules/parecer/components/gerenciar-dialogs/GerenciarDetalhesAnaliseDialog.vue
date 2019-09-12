@@ -124,6 +124,7 @@ import { utils } from '@/mixins/utils';
 export default {
     name: 'GerenciarDistribuirProdutoDialog',
     mixins: [utils],
+
     props: {
         value: {
             type: Boolean,
@@ -138,17 +139,20 @@ export default {
             default: '',
         },
     },
+
     data() {
         return {
             dialog: false,
         };
     },
+
     computed: {
         ...mapGetters({
             pareceristas: 'parecer/getPareceristas',
             vinculadas: 'parecer/getVinculadas',
         }),
     },
+
     watch: {
         value(val) {
             this.dialog = val;
@@ -156,6 +160,10 @@ export default {
         dialog(val) {
             this.$emit('input', val);
         },
+    },
+
+    mounted() {
+        this.dialog = this.value;
     },
 };
 </script>
