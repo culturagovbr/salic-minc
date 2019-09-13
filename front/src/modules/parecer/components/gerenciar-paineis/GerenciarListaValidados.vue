@@ -129,7 +129,7 @@
 <script>
 
 import MxUtils from '@/mixins/utils';
-import MxGerenciarParecer from '@/modules/parecer/mixins/GerenciarParecer';
+import MxUtilsParecer from '@/modules/parecer/mixins/utilsParecer';
 
 import TdNomeProduto from '@/modules/parecer/components/gerenciar-paineis/TdNomeProduto';
 import TdTipoProduto from '@/modules/parecer/components/gerenciar-paineis/TdTipoProduto';
@@ -138,7 +138,7 @@ import TdNumeroPronac from '@/modules/parecer/components/gerenciar-paineis/TdNum
 export default {
     name: 'GerenciarListaValidados',
     components: { TdNumeroPronac, TdTipoProduto, TdNomeProduto },
-    mixins: [MxUtils, MxGerenciarParecer],
+    mixins: [MxUtils, MxUtilsParecer],
 
     props: {
         produtos: {

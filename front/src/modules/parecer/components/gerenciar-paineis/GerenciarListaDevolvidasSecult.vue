@@ -164,8 +164,9 @@
 <script>
 
 import MxUtils from '@/mixins/utils';
+import MxUtilsParecer from '@/modules/parecer/mixins/utilsParecer';
+
 import SalicTextoSimples from '@/components/SalicTextoSimples';
-import MxGerenciarParecer from '@/modules/parecer/mixins/GerenciarParecer';
 import TdNomeProduto from '@/modules/parecer/components/gerenciar-paineis/TdNomeProduto';
 import TdTipoProduto from '@/modules/parecer/components/gerenciar-paineis/TdTipoProduto';
 import TdNumeroPronac from '@/modules/parecer/components/gerenciar-paineis/TdNumeroPronac';
@@ -175,7 +176,7 @@ export default {
     components: {
         TdNumeroPronac, TdTipoProduto, TdNomeProduto, SalicTextoSimples,
     },
-    mixins: [MxUtils, MxGerenciarParecer],
+    mixins: [MxUtils, MxUtilsParecer],
 
     props: {
         produtos: {

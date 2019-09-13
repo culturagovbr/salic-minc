@@ -266,6 +266,12 @@ export default {
                 this.deleteTaskByName('analise-outros-produtos');
                 this.deleteTaskByName('analise-consolidacao');
             }
+
+            if (this.produto.tipoAnalise === 1) {
+                this.deleteTaskByName('analise-conteudo');
+                this.deleteTaskByName('analise-outros-produtos');
+                this.deleteTaskByName('analise-consolidacao');
+            }
             this.loading = false;
         },
         finalizarParecer() {

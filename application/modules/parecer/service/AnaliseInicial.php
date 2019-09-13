@@ -149,9 +149,9 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
             $distribuicao = $tbDistribuirParecer->dadosParaDistribuir($dadosWhere)->current();
             $isProdutoPrincipal = $distribuicao->stPrincipal == 1;
 
-            if ($distribuicao->siAnalise != \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE) {
-                throw new \Exception("Produto n&atilde;o dispon&iacute;vel para finaliza&ccedil;&atilde;o!");
-            }
+//            if ($distribuicao->siAnalise != \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE) {
+//                throw new \Exception("Produto n&atilde;o dispon&iacute;vel para finaliza&ccedil;&atilde;o!");
+//            }
 
             if ($distribuicao->idAgenteParecerista != $this->idAgente) {
                 throw new \Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para finalizar esse parecer!");
@@ -170,34 +170,35 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
             }
 
             $dados = [
-                'idOrgao' => $distribuicao->idOrgao,
-                'idOrgaoOrigem' => $distribuicao->idOrgaoOrigem,
-                'DtEnvio' => $distribuicao->DtEnvio,
                 'idAgenteParecerista' => $distribuicao->idAgenteParecerista,
+                'idOrgaoOrigem' => $distribuicao->idOrgaoOrigem,
                 'DtDistribuicao' => $distribuicao->DtDistribuicao,
-                'DtDevolucao' => null,
-                'DtRetorno' => null,
                 'FecharAnalise' => $distribuicao->FecharAnalise,
-                'Observacao' => '',
-                'idUsuario' => $this->idUsuario,
-                'idPRONAC' => $distribuicao->IdPRONAC,
-                'idProduto' => $distribuicao->idProduto,
                 'TipoAnalise' => $distribuicao->TipoAnalise,
-                'stEstado' => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO,
                 'stPrincipal' => $distribuicao->stPrincipal,
+                'idProduto' => $distribuicao->idProduto,
+                'idPRONAC' => $distribuicao->IdPRONAC,
+                'idOrgao' => $distribuicao->idOrgao,
+                'DtEnvio' => $distribuicao->DtEnvio,
+                'idUsuario' => $this->idUsuario,
                 'stDiligenciado' => null,
-                'siEncaminhamento' => \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
-                'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_ANALISADO
+                'DtRetorno' => null,
+                'Observacao' => '',
+                'DtDevolucao' => \MinC_Db_Expr::date(),
+                'stEstado' => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO,
+                'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_VALIDACAO,
+                'siEncaminhamento' => \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA
             ];
 
-            if (!$isProdutoPrincipal
-                && !$this->isPareceristaComProdutoPrincipal($distribuicao->IdPRONAC, $distribuicao->idAgenteParecerista)) {
-                $dados['siEncaminhamento'] = \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA;
-                $dados['siAnalise'] = \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_VALIDACAO;
-                $dados['DtDevolucao'] = \MinC_Db_Expr::date();
+
+            if ($this->isPareceristaComProdutoPrincipal($distribuicao->IdPRONAC, $distribuicao->idAgenteParecerista)
+                && $distribuicao->TipoAnalise == \Parecer_Model_TbDistribuirParecer::TIPO_ANALISE_PRODUTO_COMPLETO) {
+                $dados['siEncaminhamento'] = \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA;
+                $dados['siAnalise'] = \Parecer_Model_TbDistribuirParecer::SI_ANALISE_ANALISADO;
+                $dados['DtDevolucao'] = null;
             }
 
-            if ($isProdutoPrincipal) {
+            if ($this->isParecerComAssinatura($distribuicao)) {
 
                 if ($this->isProdutosSecundariosNaoAnalisados($distribuicao->IdPRONAC)) {
                     throw new \Exception("Existem produtos secund&aacute;rios aguardando an&aacute;lise!");
@@ -206,10 +207,6 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
                 if (!$this->isProjetoSemParecer($distribuicao->IdPRONAC)) {
                     throw new \Exception("A consolida&ccedil;&atilde;o do projeto &eacute; obrigat&oacute;ria");
                 }
-
-//            if (!$this->isProjetoDisponivelParaAssinatura($distribuicao->IdPRONAC)) {
-//                throw new \Exception("Projeto n&atilde;o dispon&iacute;vel para assinatura");
-//            }
 
                 $this->iniciarAssinatura($distribuicao->IdPRONAC);
             }
@@ -220,6 +217,12 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         } catch (\Exception $e) {
             throw $e;
         }
+    }
+
+    private function isParecerComAssinatura($distribuicao)
+    {
+        return $distribuicao->stPrincipal == 1
+            && $distribuicao->TipoAnalise == \Parecer_Model_TbDistribuirParecer::TIPO_ANALISE_PRODUTO_COMPLETO;
     }
 
     private function finalizarProduto($idDistribuirParecer, $dados)
@@ -344,17 +347,6 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         $planilhaProjeto = new \PlanilhaProjeto();
         $itensNaoAvaliados = $planilhaProjeto->findAll($where);
         return (count($itensNaoAvaliados) > 0);
-    }
-
-    private function isProjetoDisponivelParaAssinatura($idPronac)
-    {
-        $objModelDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
-        $isProjetoDisponivelParaAssinatura = $objModelDocumentoAssinatura->isProjetoDisponivelParaAssinatura(
-            $idPronac,
-            self::ID_ATO_ADMINISTRATIVO
-        );
-
-        return $isProjetoDisponivelParaAssinatura;
     }
 
     private function isProjetoSemParecer($idPronac)

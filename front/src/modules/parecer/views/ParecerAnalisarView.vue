@@ -261,7 +261,15 @@ export default {
                 if (this.produto.stPrincipal !== 1) {
                     this.deleteStepByName('analise-consolidacao');
                 }
+
+                if (this.produto.tipoAnalise === 1) {
+                    this.removerStepsAnaliseComplementar();
+                }
             }
+        },
+        removerStepsAnaliseComplementar() {
+            this.deleteStepByName('analise-conteudo');
+            this.deleteStepByName('analise-consolidacao');
         },
         atualizarStepByRoute() {
             this.currentStep = this.getIndexStepByName(this.$route.name) + 1;

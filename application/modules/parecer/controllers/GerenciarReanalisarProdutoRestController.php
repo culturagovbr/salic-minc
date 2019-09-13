@@ -30,7 +30,7 @@ class Parecer_GerenciarReanalisarProdutoRestController extends MinC_Controller_R
     {
         try {
             $gerenciarParecerService = new GerenciarParecerService($this->getRequest(), $this->getResponse());
-            $resposta = $gerenciarParecerService->solicitarReanaliseUnidadeVinculada();
+            $resposta = $gerenciarParecerService->solicitarReanaliseParecerista();
             $this->customRenderJsonResponse(
                 [
                     'data' => \TratarArray::utf8EncodeArray($resposta),

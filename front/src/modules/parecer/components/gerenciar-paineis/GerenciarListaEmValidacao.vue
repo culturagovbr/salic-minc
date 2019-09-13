@@ -134,7 +134,7 @@
 import { mapActions } from 'vuex';
 
 import MxUtils from '@/mixins/utils';
-import MxGerenciarParecer from '@/modules/parecer/mixins/GerenciarParecer';
+import MxUtilsParecer from '@/modules/parecer/mixins/utilsParecer';
 
 import SProgressoDialog from '@/components/SalicProgressoDialog';
 import TdNomeProduto from '@/modules/parecer/components/gerenciar-paineis/TdNomeProduto';
@@ -146,7 +146,7 @@ export default {
     components: {
         TdNumeroPronac, TdTipoProduto, TdNomeProduto, SProgressoDialog,
     },
-    mixins: [MxUtils, MxGerenciarParecer],
+    mixins: [MxUtils, MxUtilsParecer],
 
     props: {
         produtos: {

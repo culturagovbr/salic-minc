@@ -62,7 +62,6 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
     public function encaminharProdutoParaVinculada($distribuicao)
     {
         $dados = array_merge($distribuicao, [
-            'idAgenteParecerista' => null,
             'DtEnvio' => MinC_Db_Expr::date(),
             'DtDistribuicao' => null,
             'siEncaminhamento' => TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_PARA_ANALISE_PELO_MINC,
