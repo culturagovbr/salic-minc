@@ -30,7 +30,7 @@ class Parecer_GerenciarAnaliseComplementarRestController extends MinC_Controller
     {
         try {
             $gerenciarParecerService = new GerenciarParecerService($this->getRequest(), $this->getResponse());
-            $resposta = $gerenciarParecerService->solicitarAnaliseComplementar();
+            $resposta = $gerenciarParecerService->solicitarAnaliseComplementarVinculada();
             $this->customRenderJsonResponse(
                 [
                     'data' => \TratarArray::utf8EncodeArray($resposta),

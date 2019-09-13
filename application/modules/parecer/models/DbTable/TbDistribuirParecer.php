@@ -2034,6 +2034,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'TempoTotalAnalise as tempoTotalAnalise',
                         'TempoParecerista as tempoParecerista',
                         'TempoDiligencia as tempoDiligencia',
+                        'TipoAnalise as tipoAnalise',
                         'qtDiligenciaProduto',
                         'Valor as valor',
                         'idAgenteParecerista'
@@ -2418,6 +2419,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                 'a.siAnalise',
                 'a.siEncaminhamento',
                 'a.DtEnvio AS dtEnvioMincVinculada',
+                'a.TipoAnalise as tipoAnalise',
                 'qtDiasDistribuir' => new Zend_Db_Expr('DATEDIFF(DAY, a.DtEnvio, GETDATE())'),
                 'qtdeSecundarios' => new Zend_Db_Expr('(SELECT COUNT(*) 
                     FROM sac.dbo.PlanoDistribuicaoProduto y 

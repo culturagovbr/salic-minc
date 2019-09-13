@@ -214,6 +214,9 @@ export default {
 
             this.loading = true;
             this.salvarSolicitacaoAnaliseComplementar(this.distribuicao)
+                .then(() => {
+                    this.dialog = false;
+                })
                 .finally(() => {
                     this.loading = false;
                 });

@@ -12,69 +12,11 @@
             slot="items"
             slot-scope="props"
         >
-            <tr>
-                <td>
-                    <v-tooltip
-                        bottom
-                    >
-                        <a
-                            slot="activator"
-                            :href="`/projeto/#/${props.item.idPronac}`"
-                            target="_blank"
-                            class="mr-2"
-                        >
-                            {{ props.item.pronac }}
-                        </a>
-                        <span>Consultar projeto {{ props.item.nomeProjeto }}</span>
-                    </v-tooltip>
-                </td>
+            <tr :class="mxObterClasseItem(props.item)">
+                <td-numero-pronac :produto="props.item" />
                 <td>{{ props.item.nomeProjeto }}</td>
-                <td>
-                    <v-tooltip bottom>
-                        <router-link
-                            slot="activator"
-                            :to="{
-                                name: 'parecer-gerenciar-visualizar-view',
-                                params: {
-                                    id: props.item.idProduto,
-                                    idPronac: props.item.idPronac,
-                                    produtoPrincipal: props.item.stPrincipal,
-                                }
-                            }"
-                            class="subheading font-weight-medium"
-                            color="primary"
-                        >
-                            {{ props.item.nomeProduto }}
-                        </router-link>
-                        <span>Clique para analisar o produto {{ props.item.nomeProduto }}</span>
-                    </v-tooltip>
-                </td>
-                <td class="text-xs-center">
-                    <v-tooltip
-                        v-if="props.item.stPrincipal === 1"
-                        bottom
-                    >
-                        <v-icon
-                            slot="activator"
-                            round
-                        >
-                            looks_one
-                        </v-icon>
-                        <span>Produto principal</span>
-                    </v-tooltip>
-                    <v-tooltip
-                        v-else
-                        bottom
-                    >
-                        <v-icon
-                            slot="activator"
-                            color="grey"
-                        >
-                            looks_two
-                        </v-icon>
-                        <span>Produto secundário</span>
-                    </v-tooltip>
-                </td>
+                <td-nome-produto :produto="props.item" />
+                <td-tipo-produto :produto="props.item" />
                 <td>{{ props.item.segmento }}</td>
                 <td>{{ props.item.nomeParecerista }}</td>
                 <td class="text-xs-right">
@@ -141,7 +83,7 @@
 
         <template slot="no-data">
             <div class="text-xs-center">
-                {{ `Sem produtos em análise` }}
+                Sem produtos em análise
             </div>
         </template>
     </v-data-table>
@@ -149,12 +91,18 @@
 
 <script>
 
+/** mixins */
 import MxUtils from '@/mixins/utils';
-import MxConstantes from '@/modules/parecer/mixins/const';
+import MxGerenciarParecer from '@/modules/parecer/mixins/GerenciarParecer';
+
+import TdNomeProduto from '@/modules/parecer/components/gerenciar-paineis/TdNomeProduto';
+import TdTipoProduto from '@/modules/parecer/components/gerenciar-paineis/TdTipoProduto';
+import TdNumeroPronac from '@/modules/parecer/components/gerenciar-paineis/TdNumeroPronac';
 
 export default {
     name: 'GerenciarListaItensAguardandoAnalise',
-    mixins: [MxUtils, MxConstantes],
+    components: { TdNumeroPronac, TdTipoProduto, TdNomeProduto },
+    mixins: [MxUtils, MxGerenciarParecer],
 
     props: {
         produtos: {

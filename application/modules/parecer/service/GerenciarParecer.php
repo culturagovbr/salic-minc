@@ -69,7 +69,9 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         $distribuicao = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
         $resposta = $this->distribuirProduto($params, $distribuicao);
 
-        if ($resposta) {
+        if ($resposta
+            && !empty($distribuicao['idAgenteParecerista'])
+            && $distribuicao['TipoAnalise'] == \Parecer_Model_TbDistribuirParecer::TIPO_ANALISE_PRODUTO_COMPLETO) {
             $this->desabilitarDocumentoAssinatura($params['idPronac']);
             $this->alterarSituacaoDoProjeto($params['idPronac']);
         }
@@ -108,16 +110,16 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         if ($dados['tipoAcao'] === 'encaminhar' && empty($dados['idOrgaoDestino'])) {
             throw new \Exception("Selecione o org&atilde;o destino");
         }
-
-        $tbCredenciamentoParecerista = new \Agente_Model_DbTable_TbCredenciamentoParecerista();
-        if ($dados['tipoAcao'] === 'distribuir'
-            && !$tbCredenciamentoParecerista->isPareceristaCredenciado(
-                $dados['idAgenteParecerista'],
-                $dados['idAreaProduto'],
-                $dados['idSegmentoProduto'])
-        ) {
-            throw new \Exception("Parecerista n&atilde;o credenciado na &aacute;rea e segmento do Produto");
-        }
+//
+//        $tbCredenciamentoParecerista = new \Agente_Model_DbTable_TbCredenciamentoParecerista();
+//        if ($dados['tipoAcao'] === 'distribuir'
+//            && !$tbCredenciamentoParecerista->isPareceristaCredenciado(
+//                $dados['idAgenteParecerista'],
+//                $dados['idAreaProduto'],
+//                $dados['idSegmentoProduto'])
+//        ) {
+//            throw new \Exception("Parecerista n&atilde;o credenciado na &aacute;rea e segmento do Produto");
+//        }
 
         $observacao = \TratarString::tratarTextoRicoParaUTF8($dados['observacao']);
 
@@ -260,7 +262,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         ]);
     }
 
-    public function solicitarAnaliseComplementar()
+    public function solicitarAnaliseComplementarVinculada()
     {
         $params = $this->request->getParams();
 
@@ -270,6 +272,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
 
         $distribuicao = $this->tratarDadosRequisicao();
         $distribuicao['idOrgao'] = $params['idOrgaoDestino'];
+        $distribuicao['TipoAnalise'] = \Parecer_Model_TbDistribuirParecer::TIPO_ANALISE_CUSTO_PRODUTO;
 
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
         return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($distribuicao);

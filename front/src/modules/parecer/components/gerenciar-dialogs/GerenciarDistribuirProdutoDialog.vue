@@ -56,7 +56,10 @@
                                                         parecerista</strong>
                                                 </template>
                                             </v-radio>
-                                            <v-radio value="encaminhar">
+                                            <v-radio
+                                                v-if="produto.tipoAnalise !== 1"
+                                                value="encaminhar"
+                                            >
                                                 <template v-slot:label>
                                                     <strong class="primary--text">Encaminhar para uma unidade
                                                         vinculada</strong>
@@ -92,7 +95,7 @@
                                         />
                                     </v-flex>
                                     <v-flex
-                                        v-if="produto.stPrincipal === 1"
+                                        v-if="exibirOpcaoDistribuirOutrosProdutos"
                                         xs12
                                         sm6
                                         md6
@@ -224,6 +227,9 @@ export default {
             return this.distribuicao.tipoAcao === 'distribuir'
                 ? 'Observação para o parecerista'
                 : 'Observação para a unidade vinculada';
+        },
+        exibirOpcaoDistribuirOutrosProdutos() {
+            return this.produto.tipoAnalise !== 1 && this.produto.stPrincipal === 1;
         },
     },
 
