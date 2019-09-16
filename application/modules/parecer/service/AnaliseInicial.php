@@ -450,6 +450,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
         $whereDistribuicaoAtual["idAgenteParecerista = ?"] = $this->idAgente;
         $whereDistribuicaoAtual["stEstado = ?"] = \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO;
+
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
         $distribuicao = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
 
@@ -457,13 +458,13 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
             throw new \Exception("Distribui&ccedil;&atilde;o n&atilde;o encontrada para o produto informado");
         }
 
-        $dados = array_merge($distribuicao, [
-            'Observacao' => utf8_decode(trim(strip_tags($params['Observacao']))),
-            'idUsuario' => $this->idUsuario,
-        ]);
+        $modelDistribuicao = new \Parecer_Model_TbDistribuirParecer();
+        $modelDistribuicao->setObservacao($params['Observacao']);
+        $modelDistribuicao->tratarObservacaoTextoRico();
+        $modelDistribuicao->setIdUsuario($this->idUsuario);
 
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
-        return $tbDistribuirParecerMapper->devolverProdutoParaCoordenador($dados);
+        return $tbDistribuirParecerMapper->devolverProdutoParaCoordenador($modelDistribuicao);
     }
 
     public function devolverProdutoParaParecerista()

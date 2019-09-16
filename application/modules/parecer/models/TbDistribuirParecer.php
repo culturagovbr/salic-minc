@@ -56,7 +56,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $idDistribuirParecer
      */
-    public function setIdDistribuirParecer($idDistribuirParecer): void
+    public function setIdDistribuirParecer($idDistribuirParecer)
     {
         $this->_idDistribuirParecer = $idDistribuirParecer;
     }
@@ -72,7 +72,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $idPRONAC
      */
-    public function setIdPRONAC($idPRONAC): void
+    public function setIdPRONAC($idPRONAC)
     {
         $this->_idPRONAC = $idPRONAC;
     }
@@ -88,7 +88,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $idProduto
      */
-    public function setIdProduto($idProduto): void
+    public function setIdProduto($idProduto)
     {
         $this->_idProduto = $idProduto;
     }
@@ -104,7 +104,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $TipoAnalise
      */
-    public function setTipoAnalise($TipoAnalise): void
+    public function setTipoAnalise($TipoAnalise)
     {
         $this->_TipoAnalise = $TipoAnalise;
     }
@@ -120,7 +120,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $idOrgao
      */
-    public function setIdOrgao($idOrgao): void
+    public function setIdOrgao($idOrgao)
     {
         $this->_idOrgao = $idOrgao;
     }
@@ -136,7 +136,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $DtEnvio
      */
-    public function setDtEnvio($DtEnvio): void
+    public function setDtEnvio($DtEnvio)
     {
         $this->_DtEnvio = $DtEnvio;
     }
@@ -152,7 +152,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $idAgenteParecerista
      */
-    public function setIdAgenteParecerista($idAgenteParecerista): void
+    public function setIdAgenteParecerista($idAgenteParecerista)
     {
         $this->_idAgenteParecerista = $idAgenteParecerista;
     }
@@ -168,7 +168,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $DtDistribuicao
      */
-    public function setDtDistribuicao($DtDistribuicao): void
+    public function setDtDistribuicao($DtDistribuicao)
     {
         $this->_DtDistribuicao = $DtDistribuicao;
     }
@@ -184,7 +184,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $DtDevolucao
      */
-    public function setDtDevolucao($DtDevolucao): void
+    public function setDtDevolucao($DtDevolucao)
     {
         $this->_DtDevolucao = $DtDevolucao;
     }
@@ -200,7 +200,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $Observacao
      */
-    public function setObservacao($Observacao): void
+    public function setObservacao($Observacao)
     {
         $this->_Observacao = $Observacao;
     }
@@ -216,7 +216,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $stEstado
      */
-    public function setStEstado($stEstado): void
+    public function setStEstado($stEstado)
     {
         $this->_stEstado = $stEstado;
     }
@@ -232,7 +232,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $stPrincipal
      */
-    public function setStPrincipal($stPrincipal): void
+    public function setStPrincipal($stPrincipal)
     {
         $this->_stPrincipal = $stPrincipal;
     }
@@ -248,7 +248,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $FecharAnalise
      */
-    public function setFecharAnalise($FecharAnalise): void
+    public function setFecharAnalise($FecharAnalise)
     {
         $this->_FecharAnalise = $FecharAnalise;
     }
@@ -264,7 +264,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $DtRetorno
      */
-    public function setDtRetorno($DtRetorno): void
+    public function setDtRetorno($DtRetorno)
     {
         $this->_DtRetorno = $DtRetorno;
     }
@@ -280,7 +280,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $idUsuario
      */
-    public function setIdUsuario($idUsuario): void
+    public function setIdUsuario($idUsuario)
     {
         $this->_idUsuario = $idUsuario;
     }
@@ -296,7 +296,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $stDiligenciado
      */
-    public function setStDiligenciado($stDiligenciado): void
+    public function setStDiligenciado($stDiligenciado)
     {
         $this->_stDiligenciado = $stDiligenciado;
     }
@@ -312,7 +312,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $siEncaminhamento
      */
-    public function setSiEncaminhamento($siEncaminhamento): void
+    public function setSiEncaminhamento($siEncaminhamento)
     {
         $this->_siEncaminhamento = $siEncaminhamento;
     }
@@ -328,7 +328,7 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $siAnalise
      */
-    public function setSiAnalise($siAnalise): void
+    public function setSiAnalise($siAnalise)
     {
         $this->_siAnalise = $siAnalise;
     }
@@ -344,8 +344,12 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     /**
      * @param mixed $idOrgaoOrigem
      */
-    public function setIdOrgaoOrigem($idOrgaoOrigem): void
+    public function setIdOrgaoOrigem($idOrgaoOrigem)
     {
         $this->_idOrgaoOrigem = $idOrgaoOrigem;
+    }
+
+    public function tratarObservacaoTextoRico() {
+        $this->_Observacao = \TratarString::tratarTextoRicoParaISO($this->_Observacao);
     }
 }

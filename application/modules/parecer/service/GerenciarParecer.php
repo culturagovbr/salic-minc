@@ -17,11 +17,9 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
     private $idUsuario;
     private $idOrgao;
     private $idGrupo;
-    private $idAgente;
     private $auth;
 
     const ID_ATO_ADMINISTRATIVO = \Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL;
-
 
     function __construct($request, $response)
     {
@@ -34,14 +32,6 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         $grupoAtivo = new \Zend_Session_Namespace('GrupoAtivo');
         $this->idOrgao = $grupoAtivo->codOrgao;
         $this->idGrupo = $grupoAtivo->codGrupo;
-
-        $tbUsuario = new \Autenticacao_Model_DbTable_Usuario();
-        $usuario = $tbUsuario->getIdUsuario($this->idUsuario);
-        $this->idAgente = $usuario['idagente'];
-
-        if (empty($this->idAgente)) {
-            throw new \Exception("Agente n&atilde;o cadastrado");
-        }
     }
 
     public function obterProdutos()
@@ -63,17 +53,19 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
             throw new \Exception("Dados obrigatórios não informados");
         }
 
-        $whereDistribuicaoAtual = [];
-        $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        $distribuicao = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
+        $distribuicao = $tbDistribuirParecer->findBy([
+            "idDistribuirParecer = ?" => $params['idDistribuirParecer']
+        ]);
         $resposta = $this->distribuirProduto($params, $distribuicao);
 
+        return;
         if ($resposta
             && !empty($distribuicao['idAgenteParecerista'])
             && $distribuicao['TipoAnalise'] == \Parecer_Model_TbDistribuirParecer::TIPO_ANALISE_PRODUTO_COMPLETO) {
-            $this->desabilitarDocumentoAssinatura($params['idPronac']);
-            $this->alterarSituacaoDoProjeto($params['idPronac']);
+
+            $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
+            $tbDistribuirParecerMapper->prepararProjetoParaAnalise($params['idPronac']);
         }
 
         return $distribuicao;
@@ -98,8 +90,8 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         }
 
         if ($resposta) {
-            $this->desabilitarDocumentoAssinatura($params['idPronac']);
-            $this->alterarSituacaoDoProjeto($params['idPronac']);
+            $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
+            $tbDistribuirParecerMapper->prepararProjetoParaAnalise($params['idPronac']);
         }
 
         return $distribuicoes;
@@ -107,103 +99,31 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
 
     private function distribuirProduto($dados, $distribuicaoAtual)
     {
-        if ($dados['tipoAcao'] === 'encaminhar' && empty($dados['idOrgaoDestino'])) {
-            throw new \Exception("Selecione o org&atilde;o destino");
-        }
+        $modelDistribuicao = new \Parecer_Model_TbDistribuirParecer($distribuicaoAtual);
+        $modelDistribuicao->setIdUsuario($this->idUsuario);
+        $modelDistribuicao->setObservacao($dados['observacao']);
+        $modelDistribuicao->tratarObservacaoTextoRico();
 
-        $observacao = \TratarString::tratarTextoRicoParaUTF8($dados['observacao']);
-
-        if (strlen($observacao) < 11) {
+        if (strlen($modelDistribuicao->getObservacao()) < 11) {
             throw new \Exception("O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 11 caracteres");
         }
 
-        $distribuicao = array_merge($distribuicaoAtual, [
-            'Observacao' => $observacao,
-            'idUsuario' => $this->idUsuario,
-        ]);
-
         if (!empty($dados['idAgenteParecerista'])) {
-            $distribuicao['idAgenteParecerista'] = $dados['idAgenteParecerista'];
+            $modelDistribuicao->setIdAgenteParecerista($dados['idAgenteParecerista']);
         }
 
         if (!empty($dados['idOrgaoDestino'])) {
-            $distribuicao['idOrgao'] = $dados['idOrgaoDestino'];
+            $modelDistribuicao->setIdOrgao($dados['idOrgaoDestino']);
         }
 
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
+
         if ($dados['tipoAcao'] === 'encaminhar') {
-            $distribuicao['idAgenteParecerista'] = null;
-            return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($distribuicao);
+            $modelDistribuicao->setIdAgenteParecerista(null);
+            return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($modelDistribuicao);
         }
 
-        return $tbDistribuirParecerMapper->distribuirProdutoParaParecerista($distribuicao);
-    }
-
-    public function solicitarReanaliseParecerista()
-    {
-        $params = $this->request->getParams();
-
-        $distribuicao = $this->tratarDadosRequisicao($params);
-
-        $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
-        $resposta = $tbDistribuirParecerMapper->solicitarReanaliseParecerista($distribuicao);
-        if ($resposta && $distribuicao['stPrincipal'] == 1) {
-            $this->desabilitarDocumentoAssinatura($params['idPronac']);
-            $this->alterarSituacaoDoProjeto($params['idPronac']);
-        }
-
-        return $resposta;
-    }
-
-    public function devolverProdutoParaSecult()
-    {
-        $params = $this->request->getParams();
-
-        $distribuicao = $this->tratarDadosRequisicao($params);
-
-        $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
-        $resposta = $tbDistribuirParecerMapper->devolverProdutoParaSecult($distribuicao);
-
-        if ($resposta) {
-            $providenciaTomada = 'An&aacute;lise t&eacute;cnica conclu&iacute;da';
-
-            $projetos = new \Projetos();
-            $projetos->alterarSituacao(
-                $params['idPronac'],
-                null,
-                \Projeto_Model_Situacao::PARECER_TECNICO_EMITIDO,
-                $providenciaTomada
-            );
-        }
-        return $resposta;
-    }
-
-    private function alterarSituacaoDoProjeto($idPronac)
-    {
-        $providenciaTomada = 'Encaminhado ao perito para an&aacute;lise t&eacute;cnica e emiss&atilde;o de parecer.';
-
-        $projetos = new \Projetos();
-        $projetos->alterarSituacao(
-            $idPronac,
-            null,
-            \Projeto_Model_Situacao::ENCAMINHADO_PARA_ANALISE_TECNICA,
-            $providenciaTomada
-        );
-    }
-
-    private function desabilitarDocumentoAssinatura($idPronac)
-    {
-        $idTipoDoAtoAdministrativo = \Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_ANALISE_INICIAL;
-
-        $objTbDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
-        $idDocumentoAssinatura = $objTbDocumentoAssinatura->getIdDocumentoAssinatura($idPronac, $idTipoDoAtoAdministrativo);
-        if ($idDocumentoAssinatura) {
-            $objDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
-            $dadosDocumentoAssinatura = ["stEstado" => \Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_INATIVO];
-            $whereDocumentoAssinatura = "idDocumentoAssinatura = $idDocumentoAssinatura";
-
-            $objDocumentoAssinatura->update($dadosDocumentoAssinatura, $whereDocumentoAssinatura);
-        }
+        return $tbDistribuirParecerMapper->distribuirProdutoParaParecerista($modelDistribuicao);
     }
 
     public function salvarValidacaoParecer()
@@ -242,81 +162,25 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
             'stAtivo' => 1,
         ]);
 
-        $distribuicao['idOrgao'] = $distribuicao['idOrgaoOrigem'];
-        $distribuicao['TipoAnalise'] = \Parecer_Model_TbDistribuirParecer::TIPO_ANALISE_PRODUTO_COMPLETO;
-        $distribuicao['idAgenteParecerista'] = $this->obterIdPareceristaOriginal($distribuicao);
+        $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
+
+        $modelDistribuicao = new \Parecer_Model_TbDistribuirParecer($distribuicao);
+        $modelDistribuicao->setIdOrgao($distribuicao['idOrgaoOrigem']);
+        $modelDistribuicao->setTipoAnalise(\Parecer_Model_TbDistribuirParecer::TIPO_ANALISE_PRODUTO_COMPLETO);
+        $modelDistribuicao->setIdAgenteParecerista($tbDistribuirParecerMapper->obterIdPareceristaOriginalProduto(
+            $distribuicao['idPRONAC'],
+            $distribuicao['idProduto']
+        ));
 
         $planilhaprojeto = new \PlanilhaProjeto();
         $totalSugerido = $planilhaprojeto->somarPlanilhaProjeto($distribuicao['idPRONAC'], 109)['soma'];
         if ($parecer['SugeridoReal'] != $totalSugerido) {
-            return $this->devolverProdutoParaPareceristaOriginal($distribuicao);
+            $tbDistribuirParecerMapper->distribuirProdutoParaParecerista($modelDistribuicao);
+            return $tbDistribuirParecerMapper->prepararProjetoParaAnalise($distribuicao['idPRONAC']);
         }
 
-        $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
-        return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($distribuicao);
+        return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($modelDistribuicao);
     }
 
-    private function devolverProdutoParaPareceristaOriginal($distribuicao)
-    {
-        $this->desabilitarDocumentoAssinatura($distribuicao['idPRONAC']);
-        $this->alterarSituacaoDoProjeto($distribuicao['idPRONAC']);
 
-        $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
-        return $tbDistribuirParecerMapper->distribuirProdutoParaParecerista($distribuicao);
-    }
-
-    private function tratarDadosRequisicao($params)
-    {
-        if (empty($params['idDistribuirParecer'])
-            || empty($params['idPronac'])
-            || empty($params['idProduto'])
-        ) {
-            throw new \Exception("Dados obrigatórios não informados");
-        }
-
-        $observacao = \TratarString::tratarTextoRicoParaUTF8($params['observacao']);
-
-        if (strlen($observacao) < 11) {
-            throw new \Exception("O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 11 caracteres");
-        }
-
-        $whereDistribuicaoAtual = [];
-        $whereDistribuicaoAtual["idDistribuirParecer = ?"] = $params['idDistribuirParecer'];
-        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        $distribuicao = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
-
-        return array_merge($distribuicao, [
-            'Observacao' => $observacao,
-            'idUsuario' => $this->idUsuario,
-        ]);
-    }
-
-    private function obterIdPareceristaOriginal($distribuicao)
-    {
-        $whereDistribuicaoAtual = [
-            'idPRONAC = ?' => $distribuicao['idPRONAC'],
-            'stEstado = ?' => 1,
-            'TipoAnalise = ?' => 3,
-            'idAgenteParecerista <> ?' => $distribuicao['idAgenteParecerista'],
-            'idAgenteParecerista IS NOT NULL' => ''
-        ];
-        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        return $tbDistribuirParecer->findBy($whereDistribuicaoAtual)['idAgenteParecerista'];
-    }
-
-    public function solicitarAnaliseComplementarVinculada()
-    {
-        $params = $this->request->getParams();
-
-        if (empty($params['idOrgaoDestino'])) {
-            throw new \Exception("Identificador da unidade destino &eacute; obrigat&oacute;rio");
-        }
-
-        $distribuicao = $this->tratarDadosRequisicao($params);
-        $distribuicao['idOrgao'] = $params['idOrgaoDestino'];
-        $distribuicao['TipoAnalise'] = \Parecer_Model_TbDistribuirParecer::TIPO_ANALISE_CUSTO_PRODUTO;
-
-        $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
-        return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($distribuicao);
-    }
 }

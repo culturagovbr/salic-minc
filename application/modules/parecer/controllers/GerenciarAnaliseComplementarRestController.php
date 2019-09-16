@@ -1,6 +1,6 @@
 <?php
 
-use Application\Modules\Parecer\Service\GerenciarParecer as GerenciarParecerService;
+use Application\Modules\Parecer\Service\DistribuicaoParecer as DistribuicaoParecerService;
 
 class Parecer_GerenciarAnaliseComplementarRestController extends MinC_Controller_Rest_Abstract
 {
@@ -29,7 +29,7 @@ class Parecer_GerenciarAnaliseComplementarRestController extends MinC_Controller
     public function postAction()
     {
         try {
-            $gerenciarParecerService = new GerenciarParecerService($this->getRequest(), $this->getResponse());
+            $gerenciarParecerService = new DistribuicaoParecerService($this->getRequest(), $this->getResponse());
             $resposta = $gerenciarParecerService->solicitarAnaliseComplementarVinculada();
             $this->customRenderJsonResponse(
                 [
