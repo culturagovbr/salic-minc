@@ -31,76 +31,72 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
         return $booStatus;
     }
 
-    public function devolverProdutoParaCoordenador(Parecer_Model_TbDistribuirParecer $distribuicao)
+    public function devolverProdutoParaCoordenador(Parecer_Model_TbDistribuirParecer $modelDistribuicao)
     {
-        $distribuicao->setDtDevolucao(\MinC_Db_Expr::date());
-        $distribuicao->setDtRetorno(null);
-        $distribuicao->setSiEncaminhamento(\TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA);
-        $distribuicao->setSiAnalise(\Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE);
+        $modelDistribuicao->setDtDevolucao(\MinC_Db_Expr::date());
+        $modelDistribuicao->setDtRetorno(null);
+        $modelDistribuicao->setSiEncaminhamento(\TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA);
+        $modelDistribuicao->setSiAnalise(\Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE);
 
-        return $this->inserirDistribuicaoProduto($distribuicao);
+        return $this->inserirDistribuicaoProduto($modelDistribuicao);
     }
 
-    public function solicitarReanaliseParecerista(Parecer_Model_TbDistribuirParecer $distribuicao)
+    public function solicitarReanaliseParecerista(Parecer_Model_TbDistribuirParecer $modelDistribuicao)
     {
-        $distribuicao->setDtDevolucao(null);
-        $distribuicao->setDtRetorno(null);
-        $distribuicao->setSiEncaminhamento(\TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA);
-        $distribuicao->setSiAnalise(\Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE);
+        $modelDistribuicao->setDtDevolucao(null);
+        $modelDistribuicao->setDtRetorno(null);
+        $modelDistribuicao->setSiEncaminhamento(\TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA);
+        $modelDistribuicao->setSiAnalise(\Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE);
 
-        return $this->inserirDistribuicaoProduto($distribuicao);
+        return $this->inserirDistribuicaoProduto($modelDistribuicao);
     }
 
-    public function devolverProdutoParaSecult(Parecer_Model_TbDistribuirParecer $distribuicao)
+    public function devolverProdutoParaSecult(Parecer_Model_TbDistribuirParecer $modelDistribuicao)
     {
-        $distribuicao->setDtDevolucao(null);
-        $distribuicao->setDtRetorno(null);
-        $distribuicao->setSiEncaminhamento(\TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_MINC_PELA_UNIDADE);
-        $distribuicao->setSiAnalise(\Parecer_Model_TbDistribuirParecer::SI_ANALISE_FINALIZADA);
-        $distribuicao->setFecharAnalise(\Parecer_Model_TbDistribuirParecer::FECHAR_ANALISE_EM_VALIDACAO);
+        $modelDistribuicao->setDtDevolucao(null);
+        $modelDistribuicao->setDtRetorno(null);
+        $modelDistribuicao->setSiEncaminhamento(\TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_MINC_PELA_UNIDADE);
+        $modelDistribuicao->setSiAnalise(\Parecer_Model_TbDistribuirParecer::SI_ANALISE_FINALIZADA);
+        $modelDistribuicao->setFecharAnalise(\Parecer_Model_TbDistribuirParecer::FECHAR_ANALISE_EM_VALIDACAO);
 
-        return $this->inserirDistribuicaoProduto($distribuicao);
+        return $this->inserirDistribuicaoProduto($modelDistribuicao);
     }
 
-    public function distribuirProdutoParaParecerista(Parecer_Model_TbDistribuirParecer $distribuicao)
+    public function distribuirProdutoParaParecerista(Parecer_Model_TbDistribuirParecer $modelDistribuicao)
     {
-        $distribuicao->setDtDistribuicao(MinC_Db_Expr::date());
-        $distribuicao->setSiEncaminhamento(TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA);
-        $distribuicao->setSiAnalise(Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE);
-        return $this->inserirDistribuicaoProduto($distribuicao);
+        $modelDistribuicao->setDtDistribuicao(MinC_Db_Expr::date());
+        $modelDistribuicao->setSiEncaminhamento(TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA);
+        $modelDistribuicao->setSiAnalise(Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE);
+        return $this->inserirDistribuicaoProduto($modelDistribuicao);
     }
 
-    public function encaminharProdutoParaVinculada(Parecer_Model_TbDistribuirParecer $distribuicao)
+    public function encaminharProdutoParaVinculada(Parecer_Model_TbDistribuirParecer $modelDistribuicao)
     {
-        if (empty($distribuicao->getIdOrgao())) {
+        if (empty($modelDistribuicao->getIdOrgao())) {
             throw new Exception("Orgão destino não informado");
         }
 
-        $distribuicao->setDtEnvio(MinC_Db_Expr::date());
-        $distribuicao->setDtDistribuicao(null);
-        $distribuicao->setSiEncaminhamento(TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_PARA_ANALISE_PELO_MINC);
-        $distribuicao->setSiAnalise(Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE);
-
-        $this->inserirDistribuicaoProduto($distribuicao);
+        $modelDistribuicao->setDtEnvio(MinC_Db_Expr::date());
+        $modelDistribuicao->setDtDistribuicao(null);
+        $modelDistribuicao->setSiEncaminhamento(TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_PARA_ANALISE_PELO_MINC);
+        $this->inserirDistribuicaoProduto($modelDistribuicao);
     }
 
-    private function inserirDistribuicaoProduto(Parecer_Model_TbDistribuirParecer $distribuicao)
+    private function inserirDistribuicaoProduto(Parecer_Model_TbDistribuirParecer $modelDistribuicao)
     {
         try {
             $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
-
             $tbDistribuirParecer->getAdapter()->beginTransaction();
-
             $tbDistribuirParecer->alterar(
                 ['stEstado' => Parecer_Model_TbDistribuirParecer::ST_ESTADO_INATIVO],
-                ['idDistribuirParecer = ?' => $distribuicao->getIdDistribuirParecer()]
+                ['idDistribuirParecer = ?' => $modelDistribuicao->getIdDistribuirParecer()]
             );
 
-            $distribuicao->setStEstado(Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO);
-            $distribuicao->setIdDistribuirParecer(null);
-            $distribuicao->setStDiligenciado(null);
+            $modelDistribuicao->setStEstado(Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO);
+            $modelDistribuicao->setIdDistribuirParecer(null);
+            $modelDistribuicao->setStDiligenciado(null);
 
-            $response = $tbDistribuirParecer->inserir($distribuicao->toArray());
+            $response = $tbDistribuirParecer->inserir($modelDistribuicao->toArray());
             $tbDistribuirParecer->getAdapter()->commit();
             return $response;
         } catch (\Exception $e) {

@@ -458,7 +458,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
             throw new \Exception("Distribui&ccedil;&atilde;o n&atilde;o encontrada para o produto informado");
         }
 
-        $modelDistribuicao = new \Parecer_Model_TbDistribuirParecer();
+        $modelDistribuicao = new \Parecer_Model_TbDistribuirParecer($distribuicao);
         $modelDistribuicao->setObservacao($params['Observacao']);
         $modelDistribuicao->tratarObservacaoTextoRico();
         $modelDistribuicao->setIdUsuario($this->idUsuario);

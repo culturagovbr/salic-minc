@@ -38,7 +38,12 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
     {
         $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
         $filtro = $this->request->getParam('filtro');
+
         $where = ['a.idOrgao = ?' => $this->idOrgao];
+        if ($filtro == 'enviada_vinculada') {
+            $where = ['a.idOrgaoOrigem = ?' => $this->idOrgao];
+        }
+
         $produtos = $tbDistribuirParecer->obterPainelGerenciarParecer($filtro, $where);
         return \TratarArray::utf8EncodeArray($produtos);
     }
@@ -120,6 +125,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
 
         if ($dados['tipoAcao'] === 'encaminhar') {
             $modelDistribuicao->setIdAgenteParecerista(null);
+            $modelDistribuicao->setSiAnalise($modelDistribuicao::SI_ANALISE_AGUARDANDO_ANALISE);
             return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($modelDistribuicao);
         }
 

@@ -156,12 +156,12 @@ export default {
             {
                 id: 'enviada_vinculada',
                 label: 'Enviadas para análise compartilhada (outra unidade)',
-                component: 'gerenciar-lista-validados',
+                component: 'gerenciar-lista-itens-em-analise',
             },
             {
                 id: 'devolucao_vinculada',
                 label: 'Devolvidas análise compartilhada (outra unidade)',
-                component: 'gerenciar-lista-validados',
+                component: 'gerenciar-lista-em-validacao',
             },
             {
                 id: 'impedimento_parecerista',

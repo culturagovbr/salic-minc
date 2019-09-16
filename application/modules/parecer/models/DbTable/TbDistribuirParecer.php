@@ -2193,42 +2193,11 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                 $from = 'FROM sac.dbo.vwPainelCoordenadorVinculadasReanalisar';
                 break;
 
-            case 'devolucao_vinculada': // vinculada com volta
-
-                $slct->from(
-                    ['a' => 'dbo.vwPainelValidadosComDevolucao'],
-                    [
-                        'IdPRONAC as idPronac',
-                        'NrProjeto as pronac',
-                        'NomeProjeto as nomeProjeto',
-                        'idProduto',
-                        'Produto as nomeProduto',
-                        'idArea',
-                        'Area as area',
-                        'idSegmento',
-                        'Segmento as segmento',
-                        'idDistribuirParecer',
-                        'Parecerista as nomeParecerista',
-                        'idOrgao',
-                        'idOrgaoOrigem',
-                        'siAnalise',
-                        'siEncaminhamento',
-                        'DtEnvioMincVinculada as dtEnvioMincVinculada',
-                        'DtDistribuicao as dtDistribuicao',
-                        'DtDevolucao as dtDevolucao',
-                        'TempoTotalAnalise as tempoTotalAnalise',
-                        'TempoParecerista as tempoParecerista',
-                        'TempoDiligencia as tempoDiligencia',
-                        'qtDiligenciaProduto',
-                        'Valor as valor',
-                        'Obs as obs',
-                        'stPrincipal',
-                        'FecharAnalise as fecharAnalise',
-                        'TecnicoValidador as tecnicoValidador',
-                        'dtValidacao'
-                    ]
-                );
-                $from = 'FROM sac.dbo.vwPainelValidadosComDevolucao';
+            case 'devolucao_vinculada':
+                return $this->obterProdutosDevolvidosAnaliseComplementar($where);
+                break;
+            case 'enviada_vinculada': // vinculada com volta
+                return $this->obterProdutosEnviadosParaAnaliseComplementar($where);
                 break;
             case 'impedimento_parecerista':
                 return $this->obterProdutosComDeclaracaoImpedimento($where);
@@ -2390,6 +2359,36 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         );
 
         $query->where('a.siEncaminhamento = ?', \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA);
+        $result = $this->fetchAll($query);
+        return $result ? $result->toArray() : [];
+    }
+
+    private function obterProdutosEnviadosParaAnaliseComplementar($where)
+    {
+        $query = $this->obterQueryPainelGerenciarParecer($where);
+
+        $query->joinLeft(
+            ['g' => 'Nomes'],
+            'a.idAgenteParecerista = g.idAgente',
+            [
+                'g.Descricao AS nomeParecerista',
+                'g.idAgente AS idAgenteParecerista',
+            ],
+            $this->getSchema('Agentes')
+        );
+
+        $query->where('a.idOrgao <> a.idOrgaoOrigem','');
+        $query->where('a.siEncaminhamento = ?', \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_PARA_ANALISE_PELO_MINC);
+        $result = $this->fetchAll($query);
+        return $result ? $result->toArray() : [];
+    }
+
+    private function obterProdutosDevolvidosAnaliseComplementar($where)
+    {
+        $query = $this->obterQueryPainelGerenciarParecer($where);
+
+        $query->where('a.siEncaminhamento = ?', \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA);
+        $query->where('a.siAnalise = ?', \Parecer_Model_TbDistribuirParecer::SI_ANALISE_COMPLEMENTAR_DEVOLVIDO);
         $result = $this->fetchAll($query);
         return $result ? $result->toArray() : [];
     }
