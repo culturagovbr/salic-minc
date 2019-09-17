@@ -1,5 +1,11 @@
 import * as AnaliseInicialService from '../service/AnaliseInicial';
 import * as GerenciarService from '../service/Gerenciar';
+import * as PareceristaService from '../service/Parecerista';
+import * as VinculadaService from '../service/Vinculada';
+import * as PlanilhaService from '../service/Planilha';
+import * as HistoricoProdutoService from '../service/HistoricoProduto';
+import * as ProdutoService  from '../service/Produto';
+
 import * as types from './types';
 
 export const parecerMensagemSucesso = ({ commit }, msg) => {
@@ -79,7 +85,7 @@ export const obterPlanilhaParaAnalise = ({ commit, dispatch }, params) => {
 
 export const obterProdutosSecundarios = ({ commit }, params) => {
     commit(types.SET_PRODUTOS_SECUNDARIOS, []);
-    AnaliseInicialService.obterProdutosSecundarios(params)
+    ProdutoService.obterProdutosSecundarios(params)
         .then((response) => {
             commit(types.SET_PRODUTOS_SECUNDARIOS, response.data.items);
         });
@@ -136,7 +142,7 @@ export const salvarAnaliseConsolidacao = async ({ commit, dispatch }, avaliacao)
         throw new TypeError(e.response.data.message, 'salvarAnaliseConsolidacao', 10);
     });
 
-export const restaurarPlanilhaProduto = async ({ dispatch }, params) => AnaliseInicialService
+export const restaurarPlanilhaProduto = async ({ dispatch }, params) => PlanilhaService
     .restaurarPlanilhaProduto(params)
     .then((response) => {
         dispatch('parecerMensagemSucesso', response.data.message);
@@ -176,7 +182,7 @@ export const removerItensSelecionados = ({ commit }, data) => {
 
 export const obterHistoricoProduto = ({ commit }, params) => {
     commit(types.SET_HISTORICO_PRODUTO, []);
-    AnaliseInicialService.obterHistoricoProduto(params)
+    HistoricoProdutoService.obterHistoricoProduto(params)
         .then((response) => {
             commit(types.SET_HISTORICO_PRODUTO, response.data.items);
         });
@@ -204,7 +210,7 @@ export const obterProdutosParaGerenciar = ({ commit }, params) => {
 };
 
 export const buscarPareceristas = ({ commit }, params) => {
-    GerenciarService.buscarPareceristas(params)
+    PareceristaService.buscarPareceristas(params)
         .then((response) => {
             const { items } = response.data;
             commit(types.SET_PARECERISTAS, items);
@@ -213,7 +219,7 @@ export const buscarPareceristas = ({ commit }, params) => {
 };
 
 export const buscarVinculadas = ({ commit }, params) => {
-    GerenciarService.buscarVinculadas(params)
+    VinculadaService.buscarVinculadas(params)
         .then((response) => {
             const { items } = response.data;
             commit(types.SET_VINCULADAS, items);

@@ -214,8 +214,9 @@ export default {
     created() {
         if (this.$route.params.filtro) {
             this.filtro = this.$route.params.filtro;
+        } else {
+            this.obterProdutosParaGerenciar({ filtro: this.filtro });
         }
-        this.obterProdutosParaGerenciar({ filtro: this.filtro });
     },
 
     methods: {

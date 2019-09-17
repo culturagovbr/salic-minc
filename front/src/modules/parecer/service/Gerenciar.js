@@ -2,11 +2,6 @@ import * as api from '@/helpers/api/base';
 
 const MODULE = 'parecer';
 
-export const restaurarPlanilhaProduto = (params) => {
-    const controller = 'planilha-produto-rest';
-    return api.postRequest(`/${MODULE}/${controller}`, api.buildData(params));
-};
-
 export const obterProdutosParaGerenciar = (params) => {
     const controller = 'gerenciar-distribuir-produto-rest';
     const action = '/index';
@@ -14,18 +9,6 @@ export const obterProdutosParaGerenciar = (params) => {
     const queryParams = `?${filtro}`;
 
     return api.getRequest(`/${MODULE}/${controller}${action}${queryParams}`);
-};
-
-export const buscarPareceristas = (params) => {
-    const controller = 'parecerista-rest';
-    return api.getRequest(`/${MODULE}/${controller}`, api.parseQueryParams(params));
-};
-
-export const buscarVinculadas = (params) => {
-    const controller = 'vinculada-rest';
-    const queryParams = api.parseQueryParams(params);
-
-    return api.getRequest(`/${MODULE}/${controller}${queryParams}`);
 };
 
 export const salvarDistribuicaoProduto = (params) => {
