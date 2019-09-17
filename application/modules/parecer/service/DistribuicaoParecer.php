@@ -48,13 +48,13 @@ class DistribuicaoParecer implements \MinC\Servico\IServicoRestZend
     {
         $params = $this->request->getParams();
 
-        $distribuicao = $this->tratarDadosRequisicao($params);
+        $modelDistribuicao = $this->tratarDadosRequisicao($params);
 
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
-        $resposta = $tbDistribuirParecerMapper->solicitarReanaliseParecerista($distribuicao);
-        if ($resposta && $distribuicao['stPrincipal'] == 1) {
-            $tbDistribuirParecerMapper->distribuirProdutoParaParecerista($distribuicao);
-            $tbDistribuirParecerMapper->prepararProjetoParaAnalise($params['idPronac']);
+        $resposta = $tbDistribuirParecerMapper->solicitarReanaliseParecerista($modelDistribuicao);
+        if ($resposta && $modelDistribuicao->getStPrincipal() == 1) {
+            $tbDistribuirParecerMapper->distribuirProdutoParaParecerista($modelDistribuicao);
+            $tbDistribuirParecerMapper->prepararProjetoParaAnalise($modelDistribuicao->getIdPRONAC());
         }
 
         return $resposta;
@@ -97,11 +97,14 @@ class DistribuicaoParecer implements \MinC\Servico\IServicoRestZend
 
         $modelDistribuicao = new \Parecer_Model_TbDistribuirParecer($distribuicao);
         $modelDistribuicao->setIdUsuario($this->idUsuario);
-        $modelDistribuicao->setObservacao($params['observacao']);
+        $modelDistribuicao->setObservacao($params['Observacao']);
         $modelDistribuicao->tratarObservacaoTextoRico();
+        $modelDistribuicao->setSiAnalise($params['siAnalise']);
+        $modelDistribuicao->setSiEncaminhamento($params['siEncaminhamento']);
+        $modelDistribuicao->setTipoAnalise($params['TipoAnalise']);
 
-        if (strlen($modelDistribuicao->getObservacao()) < 11) {
-            throw new \Exception("O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 11 caracteres");
+        if (strlen($modelDistribuicao->getObservacao()) < 10) {
+            throw new \Exception("O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 10 caracteres");
         }
 
         return $modelDistribuicao;
@@ -111,14 +114,14 @@ class DistribuicaoParecer implements \MinC\Servico\IServicoRestZend
     {
         $params = $this->request->getParams();
 
-        if (empty($params['idOrgaoDestino'])) {
+        if (empty($params['idOrgao'])) {
             throw new \Exception("Identificador da unidade destino &eacute; obrigat&oacute;rio");
         }
 
         $modelDistribuicao = $this->tratarDadosRequisicao($params);
-        $modelDistribuicao->setIdOrgao($params['idOrgaoDestino']);
-        $modelDistribuicao->setTipoAnalise($modelDistribuicao::TIPO_ANALISE_CUSTO_PRODUTO);
-        $modelDistribuicao->setSiAnalise($modelDistribuicao::SI_ANALISE_COMPLEMENTAR_DEVOLVIDO);
+        $modelDistribuicao->setIdOrgao($params['idOrgao']);
+//        $modelDistribuicao->setTipoAnalise($modelDistribuicao::TIPO_ANALISE_CUSTO_PRODUTO);
+//        $modelDistribuicao->setSiAnalise($modelDistribuicao::SI_ANALISE_COMPLEMENTAR_DEVOLVIDO);
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
         return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($modelDistribuicao);
     }

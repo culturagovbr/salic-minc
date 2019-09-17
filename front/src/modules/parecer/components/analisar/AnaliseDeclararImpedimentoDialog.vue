@@ -65,7 +65,7 @@
                                 v-model="valid"
                             >
                                 <s-editor-texto
-                                    v-model="declaracao.Observacao"
+                                    v-model="distribuicao.Observacao"
                                     :min-char="minChar"
                                     placeholder="Justifique o motivo do impedimento"
                                     @editor-texto-counter="validateText($event)"
@@ -77,7 +77,7 @@
                                 :loading="loading"
                                 :disabled="!valid || !textIsValid || loading"
                                 color="primary"
-                                @click.native="dialogConfirmarEnvio = true"
+                                @click.native="enviarDeclaracao()"
                             >
                                 <v-icon left>
                                     send
@@ -93,11 +93,6 @@
                                 Cancelar
                             </v-btn>
                         </v-card-actions>
-                        <s-confirmacao-dialog
-                            v-model="dialogConfirmarEnvio"
-                            text="O produto será devolvido para o Coordenador de Parecer"
-                            @dialog-response="$event && enviarDeclaracao()"
-                        />
                     </v-card>
                 </v-container>
             </v-card-text>
@@ -107,15 +102,16 @@
 
 <script>
 
+import * as TbDistribuirParecer from '@/modules/parecer/constantes/TbDistribuirParecer';
+import * as TbTipoEncaminhamento from '@/modules/shared/constantes/TbTipoEncaminhamento';
+
 import { mapActions } from 'vuex';
 import { utils } from '@/mixins/utils';
 import SEditorTexto from '@/components/SalicEditorTexto';
-import SConfirmacaoDialog from '@/components/SalicConfirmacaoDialog';
 
 export default {
     name: 'AnaliseDeclararImpedimentoDialog',
     components: {
-        SConfirmacaoDialog,
         SEditorTexto,
     },
 
@@ -139,18 +135,16 @@ export default {
             minChar: 10,
             valid: false,
             textIsValid: false,
-            declaracao: {
+            distribuicao: {
                 idDistribuirParecer: '',
                 idProduto: '',
                 idPronac: '',
                 Observacao: '',
+                TipoAnalise: TbDistribuirParecer.TIPO_ANALISE_PRODUTO_COMPLETO,
+                siAnalise: TbDistribuirParecer.SI_ANALISE_AGUARDANDO_ANALISE,
+                siEncaminhamento: TbTipoEncaminhamento.SI_ENCAMINHAMENTO_DEVOLVIDO_ANALISE_TECNICA,
             },
-            dialogConfirmarEnvio: false,
         };
-    },
-
-    mounted() {
-        this.dialog = this.value;
     },
 
     watch: {
@@ -158,14 +152,13 @@ export default {
             this.dialog = val;
         },
         dialog(val) {
-            this.declaracao = {
-                idDistribuirParecer: this.produto.idDistribuirParecer,
-                idProduto: this.produto.idProduto,
-                idPronac: this.produto.idPronac,
-                Observacao: '',
-            };
+            this.definirDadosParaEdicao();
             this.$emit('input', val);
         },
+    },
+
+    mounted() {
+        this.dialog = this.value;
     },
 
     methods: {
@@ -175,13 +168,24 @@ export default {
         validateText(e) {
             this.textIsValid = e >= this.minChar;
         },
-        enviarDeclaracao() {
+        async enviarDeclaracao() {
+            const mensagemStatus = 'Confirma a devolução do produto para o Coordenador?';
+            if (await this.$root.$confirm(mensagemStatus) === false) {
+                return false;
+            }
+
             this.loading = true;
-            this.salvar(this.declaracao).then(() => {
+            return this.salvar(this.distribuicao).then(() => {
                 this.dialog = false;
             }).finally(() => {
                 this.loading = false;
             });
+        },
+        definirDadosParaEdicao() {
+            this.distribuicao.idDistribuirParecer = this.produto.idDistribuirParecer;
+            this.distribuicao.idProduto = this.produto.idProduto;
+            this.distribuicao.idPronac = this.produto.idPronac;
+            this.distribuicao.Observacao = '';
         },
     },
 };

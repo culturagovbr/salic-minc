@@ -92,7 +92,7 @@
                                 @click="$emit('reanalisar-produto', props.item)"
                             >
                                 <v-icon>
-                                    arrow_back
+                                    report_off
                                 </v-icon>
                             </v-btn>
                             <span>Devolver para reanálise do parecerista</span>

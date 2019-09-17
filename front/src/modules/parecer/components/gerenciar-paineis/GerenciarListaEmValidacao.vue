@@ -136,6 +136,9 @@ import { mapActions } from 'vuex';
 import MxUtils from '@/mixins/utils';
 import MxUtilsParecer from '@/modules/parecer/mixins/UtilsParecer';
 
+import * as TbDistribuirParecer from '@/modules/parecer/constantes/TbDistribuirParecer';
+import * as TbTipoEncaminhamento from '@/modules/shared/constantes/TbTipoEncaminhamento';
+
 import SProgressoDialog from '@/components/SalicProgressoDialog';
 import TdNomeProduto from '@/modules/parecer/components/gerenciar-paineis/TdNomeProduto';
 import TdTipoProduto from '@/modules/parecer/components/gerenciar-paineis/TdTipoProduto';
@@ -214,8 +217,15 @@ export default {
                 return false;
             }
 
+            const distribuicao = Object.assign({}, produto,
+                {
+                    siAnalise: TbDistribuirParecer.SI_ANALISE_VALIDADO,
+                    tipoAnalise: TbDistribuirParecer.TIPO_ANALISE_PRODUTO_COMPLETO,
+                    siEncaminhamento: TbTipoEncaminhamento.SI_ENCAMINHAMENTO_DEVOLVIDO_ANALISE_TECNICA,
+                });
+
             this.loading = true;
-            return this.salvarValidacaoParecer(produto)
+            return this.salvarValidacaoParecer(distribuicao)
                 .then(() => {
                     this.dialog = false;
                 }).finally(() => {

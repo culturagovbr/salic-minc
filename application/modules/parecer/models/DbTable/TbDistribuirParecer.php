@@ -2069,6 +2069,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'TempoTotalAnalise as dtDevolucao',
                         'TempoParecerista as tempoParecerista',
                         'TempoDiligencia as tempoDiligencia',
+                        'TipoAnalise as tipoAnalise',
                         'qtDiligenciaProduto as qtDiligenciaProduto',
                         'Valor as valor',
                         'Obs as observacao',
@@ -2100,6 +2101,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'Parecerista as nomeParecerista',
                         'idOrgao',
                         'Valor as valor',
+                        'TipoAnalise as tipoAnalise',
                         'FecharAnalise as fecharAnalise',
                         'TecnicoValidador as tecnicoValidador',
                         'dtValidacao'
@@ -2125,6 +2127,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'Segmento as segmento',
                         'idDistribuirParecer',
                         'Parecerista as nomeParecerista',
+                        'TipoAnalise as tipoAnalise',
                         'idOrgao',
                         'Valor as valor',
                         'FecharAnalise as fecharAnalise',
@@ -2152,6 +2155,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'Segmento as segmento',
                         'idDistribuirParecer',
                         'Parecerista as nomeParecerista',
+                        'TipoAnalise as tipoAnalise',
                         'idOrgao',
                         'Valor as valor',
                         'FecharAnalise as fecharAnalise',
@@ -2185,6 +2189,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                         'Parecerista as nomeParecerista',
                         'DtEnvioMincVinculada as dtEnvioMincVinculada',
                         'qtDiasDistribuir',
+                        'TipoAnalise as tipoAnalise',
                         'CAST (JustComponente AS TEXT) AS justificativaComponente',
                         'CAST (JustDevolucaoPedido AS TEXT) AS justificativaDevolucao',
                         'CAST (JustSecretaria AS TEXT) AS justificativaSecretaria',
@@ -2396,6 +2401,17 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
     private function obterProdutosComDeclaracaoImpedimento($where)
     {
         $query = $this->obterQueryPainelGerenciarParecer($where);
+
+        $query->joinLeft(
+            ['g' => 'Nomes'],
+            'a.idAgenteParecerista = g.idAgente',
+            [
+                'g.Descricao AS nomeParecerista',
+                'g.idAgente AS idAgenteParecerista',
+            ],
+            $this->getSchema('Agentes')
+        );
+
         $query->where('a.siEncaminhamento = ?', \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA);
         $query->where('a.siAnalise = ?', \Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE);
         $result = $this->fetchAll($query);

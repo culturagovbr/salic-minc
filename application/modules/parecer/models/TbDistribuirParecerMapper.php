@@ -35,8 +35,6 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
     {
         $modelDistribuicao->setDtDevolucao(\MinC_Db_Expr::date());
         $modelDistribuicao->setDtRetorno(null);
-        $modelDistribuicao->setSiEncaminhamento(\TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA);
-        $modelDistribuicao->setSiAnalise(\Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE);
 
         return $this->inserirDistribuicaoProduto($modelDistribuicao);
     }
@@ -45,9 +43,8 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
     {
         $modelDistribuicao->setDtDevolucao(null);
         $modelDistribuicao->setDtRetorno(null);
-        $modelDistribuicao->setSiEncaminhamento(\TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA);
-        $modelDistribuicao->setSiAnalise(\Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE);
-
+//        $modelDistribuicao->setSiEncaminhamento(\TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA);
+//        $modelDistribuicao->setSiAnalise(\Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE);
         return $this->inserirDistribuicaoProduto($modelDistribuicao);
     }
 
@@ -65,8 +62,8 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
     public function distribuirProdutoParaParecerista(Parecer_Model_TbDistribuirParecer $modelDistribuicao)
     {
         $modelDistribuicao->setDtDistribuicao(MinC_Db_Expr::date());
-        $modelDistribuicao->setSiEncaminhamento(TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA);
-        $modelDistribuicao->setSiAnalise(Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE);
+//        $modelDistribuicao->setSiEncaminhamento(TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA);
+//        $modelDistribuicao->setSiAnalise(Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE);
         return $this->inserirDistribuicaoProduto($modelDistribuicao);
     }
 
@@ -78,7 +75,6 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
 
         $modelDistribuicao->setDtEnvio(MinC_Db_Expr::date());
         $modelDistribuicao->setDtDistribuicao(null);
-        $modelDistribuicao->setSiEncaminhamento(TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_PARA_ANALISE_PELO_MINC);
         $this->inserirDistribuicaoProduto($modelDistribuicao);
     }
 

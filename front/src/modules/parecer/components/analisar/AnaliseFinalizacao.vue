@@ -163,7 +163,7 @@ export default {
                 loading: true,
                 done: false,
                 rules: [(v, self) => (Object.keys(v).length > 0 && v.ResumoParecer
-                    && self.stripTags(v.ResumoParecer).length > 10) || 'Falta parecer da consolidação'],
+                    && self.stripTags(v.ResumoParecer).length >= 10) || 'Falta parecer da consolidação'],
                 error: '',
             },
             {

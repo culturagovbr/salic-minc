@@ -48,7 +48,7 @@
                                         class="mt-3"
                                     >
                                         <v-select
-                                            v-model="distribuicao.idOrgaoDestino"
+                                            v-model="distribuicao.idOrgao"
                                             :items="vinculadas"
                                             item-text="Sigla"
                                             item-value="Codigo"
@@ -60,7 +60,7 @@
                                 </v-layout>
 
                                 <s-editor-texto
-                                    v-model="distribuicao.observacao"
+                                    v-model="distribuicao.Observacao"
                                     :label="labelTextoRico"
                                     :min-char="minChar"
                                     @editor-texto-counter="validarTexto($event)"
@@ -72,7 +72,7 @@
                                 :loading="loading"
                                 :disabled="!valid || !textIsValid || loading"
                                 color="primary"
-                                @click.native="abrirDialogConfirmacao()"
+                                @click.native="salvarDistribuicao()"
                             >
                                 <v-icon left>
                                     send
@@ -88,11 +88,6 @@
                                 Cancelar
                             </v-btn>
                         </v-card-actions>
-                        <s-confirmacao-dialog
-                            v-model="dialogConfirmarEnvio"
-                            :text="textoMensagemConfirmacao"
-                            @dialog-response="$event && salvarDistribuicao()"
-                        />
                     </v-card>
                 </v-container>
             </v-card-text>
@@ -106,20 +101,20 @@ import { mapActions, mapGetters } from 'vuex';
 
 /** Mixins */
 import { utils } from '@/mixins/utils';
-import MxConstantes from '@/modules/parecer/mixins/Constantes';
+
+import * as TbDistribuirParecer from '@/modules/parecer/constantes/TbDistribuirParecer';
+import * as TbTipoEncaminhamento from '@/modules/shared/constantes/TbTipoEncaminhamento';
 
 import SEditorTexto from '@/components/SalicEditorTexto';
-import SConfirmacaoDialog from '@/components/SalicConfirmacaoDialog';
 import SDialogHeader from '@/modules/parecer/components/gerenciar-dialogs/DialogHeader';
 
 export default {
     name: 'GerenciarSolicitarAnaliseComplementarDialog',
     components: {
         SDialogHeader,
-        SConfirmacaoDialog,
         SEditorTexto,
     },
-    mixins: [utils, MxConstantes],
+    mixins: [utils],
 
     props: {
         value: {
@@ -130,10 +125,6 @@ export default {
             type: Object,
             default: () => {
             },
-        },
-        filtro: {
-            type: String,
-            default: '',
         },
     },
 
@@ -150,17 +141,11 @@ export default {
                 idProduto: '',
                 idPronac: '',
                 idOrgao: '',
-                idSegmentoProduto: '',
-                idAreaProduto: '',
-                idOrgaoDestino: '',
                 idAgenteParecerista: '',
-                TipoAnalise: '',
-                siAnalise: this.TIPO_ANALISE_CUSTO_PRODUTO,
-                siEncaminhamento: '',
-                observacao: '',
-                tipoAcao: 'distribuir',
-                distribuirProjeto: false,
-                filtro: '',
+                TipoAnalise: TbDistribuirParecer.TIPO_ANALISE_CUSTO_PRODUTO,
+                siAnalise: TbDistribuirParecer.SI_ANALISE_AGUARDANDO_ANALISE,
+                siEncaminhamento: TbTipoEncaminhamento.SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE,
+                Observacao: '',
             },
             dialogConfirmarEnvio: false,
             obrigatorio: v => !!v || 'Este campo é obrigatório',
@@ -209,18 +194,18 @@ export default {
         validarTexto(e) {
             this.textIsValid = e >= this.minChar;
         },
-        abrirDialogConfirmacao() {
-            if (this.$refs.form.validate()) {
-                this.dialogConfirmarEnvio = true;
-            }
-        },
-        salvarDistribuicao() {
+        async salvarDistribuicao() {
             if (!this.$refs.form.validate()) {
-                return;
+                return false;
+            }
+
+            const mensagem = 'Confirma o envio para a unidade vinculada?';
+            if (await this.$root.$confirm(mensagem) === false) {
+                return false;
             }
 
             this.loading = true;
-            this.salvarSolicitacaoAnaliseComplementar(this.distribuicao)
+            return this.salvarSolicitacaoAnaliseComplementar(this.distribuicao)
                 .then(() => {
                     this.dialog = false;
                 })
@@ -233,12 +218,8 @@ export default {
             this.distribuicao.idPronac = this.produto.idPronac;
             this.distribuicao.idOrgao = this.produto.idOrgao;
             this.distribuicao.idDistribuirParecer = this.produto.idDistribuirParecer;
-            this.distribuicao.idSegmentoProduto = this.produto.idSegmento;
-            this.distribuicao.idAreaProduto = this.produto.idArea;
-            this.distribuicao.filtro = this.filtro;
-            this.distribuicao.idOrgaoDestino = '';
-            this.distribuicao.observacao = '';
             this.distribuicao.idAgenteParecerista = this.produto.idAgenteParecerista;
+            this.distribuicao.Observacao = '';
         },
     },
 

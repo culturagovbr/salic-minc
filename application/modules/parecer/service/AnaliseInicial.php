@@ -149,10 +149,6 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
             $distribuicao = $tbDistribuirParecer->dadosParaDistribuir($dadosWhere)->current();
             $isProdutoPrincipal = $distribuicao->stPrincipal == 1;
 
-//            if ($distribuicao->siAnalise != \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE) {
-//                throw new \Exception("Produto n&atilde;o dispon&iacute;vel para finaliza&ccedil;&atilde;o!");
-//            }
-
             if ($distribuicao->idAgenteParecerista != $this->idAgente) {
                 throw new \Exception("Voc&ecirc; n&atilde;o tem permiss&atilde;o para finalizar esse parecer!");
             }
@@ -183,7 +179,7 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
                 'idUsuario' => $this->idUsuario,
                 'stDiligenciado' => null,
                 'DtRetorno' => null,
-                'Observacao' => '',
+                'Observacao' => 'Produto analisado',
                 'DtDevolucao' => \MinC_Db_Expr::date(),
                 'stEstado' => \Parecer_Model_TbDistribuirParecer::ST_ESTADO_ATIVO,
                 'siAnalise' => \Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_VALIDACAO,
@@ -460,6 +456,8 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
 
         $modelDistribuicao = new \Parecer_Model_TbDistribuirParecer($distribuicao);
         $modelDistribuicao->setObservacao($params['Observacao']);
+        $modelDistribuicao->setSiAnalise($params['siAnalise']);
+        $modelDistribuicao->setSiEncaminhamento($params['siEncaminhamento']);
         $modelDistribuicao->tratarObservacaoTextoRico();
         $modelDistribuicao->setIdUsuario($this->idUsuario);
 
