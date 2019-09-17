@@ -1,13 +1,20 @@
+import * as ConstantesTbDistribuirParecer from '../constantes/TbDistribuirParecer';
+import { SITUACAO_DILIGENCIA_ANALISE_TECNICA } from '@/modules/projeto/constantes/Projetos';
+import { TP_DILIGENCIA_ANALISE_TECNICA } from '@/modules/diligencia/constantes/TbDiligencia';
+
+import {
+    SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE,
+    SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA,
+    SI_ENCAMINHAMENTO_DEVOLVIDO_ANALISE_TECNICA,
+} from '@/modules/shared/constantes/TbTipoEncaminhamento';
+
 export default {
     data: () => ({
-        TP_DILIGENCIA_ANALISE_TECNICA: 124,
-        SITUACAO_DILIGENCIA_ANALISE_TECNICA: 'B14',
-        SI_ANALISE_AGUARDANDO_ANALISE: 0,
-        SI_ANALISE_EM_ANALISE: 1,
-        SI_ANALISE_ANALISADO: 2,
-        SI_ANALISE_FINALIZADA: 3,
-        SI_ANALISE_EM_VALIDACAO: 4,
-        SI_ANALISE_VALIDADO: 5,
-        SI_ANALISE_FINALIZADA_COORDENADOR: 6,
+        ...ConstantesTbDistribuirParecer,
+        TP_DILIGENCIA_ANALISE_TECNICA,
+        SITUACAO_DILIGENCIA_ANALISE_TECNICA,
+        SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE,
+        SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA,
+        SI_ENCAMINHAMENTO_DEVOLVIDO_ANALISE_TECNICA,
     }),
 };

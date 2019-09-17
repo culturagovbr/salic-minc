@@ -116,11 +116,9 @@ class DistribuicaoParecer implements \MinC\Servico\IServicoRestZend
         }
 
         $modelDistribuicao = $this->tratarDadosRequisicao($params);
-        $modelDistribuicao->setIdOrgaoOrigem($modelDistribuicao->getIdOrgao());
-        $modelDistribuicao->setIdOrgao($params['idOrgaoDestino']);
         $modelDistribuicao->setIdOrgao($params['idOrgaoDestino']);
         $modelDistribuicao->setTipoAnalise($modelDistribuicao::TIPO_ANALISE_CUSTO_PRODUTO);
-        $modelDistribuicao->setSiEncaminhamento($modelDistribuicao::SI_ANALISE_COMPLEMENTAR_DEVOLVIDO);
+        $modelDistribuicao->setSiAnalise($modelDistribuicao::SI_ANALISE_COMPLEMENTAR_DEVOLVIDO);
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
         return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($modelDistribuicao);
     }

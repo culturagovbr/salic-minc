@@ -103,7 +103,11 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex';
+
+/** Mixins */
 import { utils } from '@/mixins/utils';
+import MxConstantes from '@/modules/parecer/mixins/Constantes';
+
 import SEditorTexto from '@/components/SalicEditorTexto';
 import SConfirmacaoDialog from '@/components/SalicConfirmacaoDialog';
 import SDialogHeader from '@/modules/parecer/components/gerenciar-dialogs/DialogHeader';
@@ -115,7 +119,7 @@ export default {
         SConfirmacaoDialog,
         SEditorTexto,
     },
-    mixins: [utils],
+    mixins: [utils, MxConstantes],
 
     props: {
         value: {
@@ -150,10 +154,13 @@ export default {
                 idAreaProduto: '',
                 idOrgaoDestino: '',
                 idAgenteParecerista: '',
-                filtro: '',
+                TipoAnalise: '',
+                siAnalise: this.TIPO_ANALISE_CUSTO_PRODUTO,
+                siEncaminhamento: '',
                 observacao: '',
                 tipoAcao: 'distribuir',
                 distribuirProjeto: false,
+                filtro: '',
             },
             dialogConfirmarEnvio: false,
             obrigatorio: v => !!v || 'Este campo é obrigatório',

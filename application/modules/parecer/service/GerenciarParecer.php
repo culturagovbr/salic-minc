@@ -188,5 +188,4 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($modelDistribuicao);
     }
 
-
 }
