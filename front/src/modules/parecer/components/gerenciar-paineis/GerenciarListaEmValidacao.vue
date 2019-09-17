@@ -134,7 +134,7 @@
 import { mapActions } from 'vuex';
 
 import MxUtils from '@/mixins/utils';
-import MxUtilsParecer from '@/modules/parecer/mixins/utilsParecer';
+import MxUtilsParecer from '@/modules/parecer/mixins/UtilsParecer';
 
 import SProgressoDialog from '@/components/SalicProgressoDialog';
 import TdNomeProduto from '@/modules/parecer/components/gerenciar-paineis/TdNomeProduto';

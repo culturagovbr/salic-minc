@@ -88,10 +88,9 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import MxUtils from '@/mixins/utils';
-import MxConstantes from '@/modules/parecer/mixins/const';
 import SCarregando from '@/components/CarregandoVuetify';
 
-import SAnaliseHistoricoProdutoDialog from '@/modules/parecer/components/AnaliseHistoricoProdutoDialog';
+import SAnaliseHistoricoProdutoDialog from '@/modules/parecer/components/HistoricoProdutoDialog';
 
 // dialogs de gerenciar
 import SGerenciarDistribuirProdutoDialog from '@/modules/parecer/components/gerenciar-dialogs/GerenciarDistribuirProdutoDialog';
@@ -123,7 +122,7 @@ export default {
         SGerenciarDetalhesAnaliseDialog,
         SCarregando,
     },
-    mixins: [MxUtils, MxConstantes],
+    mixins: [MxUtils],
 
     data: () => ({
         filtros: [

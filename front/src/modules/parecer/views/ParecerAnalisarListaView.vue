@@ -238,13 +238,13 @@ import { mapActions, mapGetters } from 'vuex';
 
 /** mixins */
 import MxUtils from '@/mixins/utils';
-import MxUtilsParecer from '@/modules/parecer/mixins/utilsParecer';
+import MxUtilsParecer from '@/modules/parecer/mixins/UtilsParecer';
 import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
-import MxConstantes from '@/modules/parecer/mixins/const';
+import MxConstantes from '@/modules/parecer/mixins/Constantes';
 
 import SCarregando from '@/components/CarregandoVuetify';
 import SDialogDiligencias from '@/modules/diligencia/components/SDialogDiligencias';
-import SAnaliseDeclararImpedimentoDialog from '@/modules/parecer/components/AnaliseDeclararImpedimentoDialog';
+import SAnaliseDeclararImpedimentoDialog from '@/modules/parecer/components/analisar/AnaliseDeclararImpedimentoDialog';
 
 export default {
     name: 'ParecerListarView',

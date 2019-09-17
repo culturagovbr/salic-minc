@@ -111,12 +111,12 @@
 import { mapActions, mapGetters } from 'vuex';
 import SCarregando from '@/components/CarregandoVuetify';
 import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
-import MxConstantes from '@/modules/parecer/mixins/const';
-import SDialogAnaliseOutrosProdutos from '../components/AnaliseOutrosProdutosDialog';
+import MxConstantes from '@/modules/parecer/mixins/Constantes';
+import SDialogAnaliseOutrosProdutos from '../components/outros-produtos/OutrosProdutosDialog';
 import SDialogDiligencias from '@/modules/diligencia/components/SDialogDiligencias';
-import SAnaliseHistoricoProdutoDialog from '@/modules/parecer/components/AnaliseHistoricoProdutoDialog';
+import SAnaliseHistoricoProdutoDialog from '@/modules/parecer/components/HistoricoProdutoDialog';
 import SMensagem from '@/components/SalicMensagem';
-import AnaliseCabecalho from '@/modules/parecer/components/AnaliseCabecalho';
+import AnaliseCabecalho from '@/modules/parecer/components/analisar/AnaliseCabecalho';
 
 export default {
     name: 'ParecerAnalisarView',

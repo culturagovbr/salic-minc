@@ -93,7 +93,7 @@
 
 /** mixins */
 import MxUtils from '@/mixins/utils';
-import MxUtilsParecer from '@/modules/parecer/mixins/utilsParecer';
+import MxUtilsParecer from '@/modules/parecer/mixins/UtilsParecer';
 
 import TdNomeProduto from '@/modules/parecer/components/gerenciar-paineis/TdNomeProduto';
 import TdTipoProduto from '@/modules/parecer/components/gerenciar-paineis/TdTipoProduto';

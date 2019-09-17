@@ -105,13 +105,12 @@
 
 import { mapActions, mapGetters } from 'vuex';
 import SPlanilha from '@/components/Planilha/Planilha';
-import SAnaliseDeCustosPlanilhaItens from './AnaliseDeCustosPlanilhaItens';
-import SAnaliseDeCustosPlanilhaItensSolicitado from './AnaliseDeCustosPlanilhaItensSolicitado';
+import SAnaliseDeCustosPlanilhaItensSolicitado from './analisar/analise-custos/AnaliseDeCustosPlanilhaItensSolicitado';
 import SCarregando from '@/components/CarregandoVuetify';
 import ResizePanel from '@/components/resize-panel/ResizeSplitPane';
 import MxPlanilha from '@/mixins/planilhas';
-import AnaliseDeCustosButtons from '@/modules/parecer/components/AnaliseDeCustosButtons';
-import SAnaliseOutrosProdutosPlanilhaItensVisualizar from './AnaliseOutrosProdutosPlanilhaItensVisualizar';
+import AnaliseDeCustosButtons from '@/modules/parecer/components/analisar/analise-custos/AnaliseDeCustosButtons';
+import SAnaliseOutrosProdutosPlanilhaItensVisualizar from './outros-produtos/OutrosProdutosPlanilhaItensVisualizar';
 
 export default {
     name: 'VisualizacaoAnaliseProdutoPlanilha',
@@ -121,7 +120,6 @@ export default {
         SAnaliseDeCustosPlanilhaItensSolicitado,
         SAnaliseOutrosProdutosPlanilhaItensVisualizar,
         SPlanilha,
-        SAnaliseDeCustosPlanilhaItens,
         SCarregando,
     },
     mixins: [MxPlanilha],

@@ -1,7 +1,7 @@
-import AnaliseDeConteudo from './components/AnaliseDeConteudo';
-import AnaliseDeCustos from './components/AnaliseDeCustos';
-import AnaliseConsolidacao from './components/AnaliseConsolidacao';
-import AnaliseFinalizacao from './components/AnaliseFinalizacao';
+import AnaliseDeConteudo from './components/analisar/AnaliseDeConteudo';
+import AnaliseDeCustos from './components/analisar/analise-custos/AnaliseDeCustos';
+import AnaliseConsolidacao from './components/analisar/AnaliseConsolidacao';
+import AnaliseFinalizacao from './components/analisar/AnaliseFinalizacao';
 
 const ParecerAnalisarView = () => import(/* webpackChunkName: "parecer-analisar-view" */ './views/ParecerAnalisarView');
 const ParecerAnalisarListaView = () => import(/* webpackChunkName: "parecer-listar-view" */ './views/ParecerAnalisarListaView');

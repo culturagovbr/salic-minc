@@ -116,11 +116,10 @@
 
 import MxUtils from '@/mixins/utils';
 import MxDiligencia from '@/modules/diligencia/mixins/diligencia';
-import MxConstantes from '@/modules/parecer/mixins/const';
 
 export default {
     name: 'AnaliseCabecalho',
-    mixins: [MxUtils, MxDiligencia, MxConstantes],
+    mixins: [MxUtils, MxDiligencia],
     props: {
         produto: {
             type: Object,

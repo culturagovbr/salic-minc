@@ -119,11 +119,11 @@
 </template>
 
 <script>
-import MxPlanilhaParecer from '@/modules/parecer/mixins/planilhaParecer';
+import MxPlanilhaParecer from '@/modules/parecer/mixins/PlanilhaParecer';
 import SPlanilhaDialog from '@/components/Planilha/PlanilhaItensDialog';
 
 export default {
-    name: 'SPlanilhaItensVisualizar',
+    name: 'OutrosProdutosPlanilhaItensVisualizar',
     components: { SPlanilhaDialog },
     mixins: [MxPlanilhaParecer],
     props: {

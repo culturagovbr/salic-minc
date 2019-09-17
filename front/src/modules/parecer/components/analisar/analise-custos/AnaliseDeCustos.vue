@@ -114,8 +114,8 @@ import SAnaliseDeCustosPlanilhaItensSolicitado from './AnaliseDeCustosPlanilhaIt
 import SCarregando from '@/components/CarregandoVuetify';
 import ResizePanel from '@/components/resize-panel/ResizeSplitPane';
 import MxPlanilha from '@/mixins/planilhas';
-import SAnaliseDeCustosHeader from '@/modules/parecer/components/AnaliseDeCustosHeader';
-import AnaliseDeCustosButtons from '@/modules/parecer/components/AnaliseDeCustosButtons';
+import SAnaliseDeCustosHeader from '@/modules/parecer/components/analisar/analise-custos/AnaliseDeCustosHeader';
+import AnaliseDeCustosButtons from '@/modules/parecer/components/analisar/analise-custos/AnaliseDeCustosButtons';
 
 export default {
     name: 'AnaliseDeCustos',

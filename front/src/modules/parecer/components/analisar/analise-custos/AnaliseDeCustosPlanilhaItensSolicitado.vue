@@ -119,7 +119,7 @@
 
 <script>
 import MxPlanilhas from '@/mixins/planilhas';
-import MxPlanilhaParecer from '../mixins/planilhaParecer';
+import MxPlanilhaParecer from '../../../mixins/PlanilhaParecer';
 import { utils } from '@/mixins/utils';
 
 export default {

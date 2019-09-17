@@ -74,7 +74,7 @@ import SCarregando from '@/components/CarregandoVuetify';
 import { utils } from '@/mixins/utils';
 
 export default {
-    name: 'AnaliseHistoricoProdutoDialog',
+    name: 'HistoricoProdutoDialog',
     components: {
         SCarregando,
     },

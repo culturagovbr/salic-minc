@@ -402,7 +402,7 @@
 </template>
 
 <script>
-import MxPlanilhaParecer from '../mixins/planilhaParecer';
+import MxPlanilhaParecer from '../../../mixins/PlanilhaParecer';
 import { utils } from '@/mixins/utils';
 import { mapActions, mapGetters } from 'vuex';
 import SalicInputValor from '@/components/SalicInputValor';

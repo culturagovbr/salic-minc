@@ -130,12 +130,12 @@
 
 import { mapActions, mapGetters } from 'vuex';
 import SCarregando from '@/components/CarregandoVuetify';
-import SAnaliseOutrosProdutosDialogDetalhamento from './AnaliseOutrosProdutosDialogDetalhamento';
+import SAnaliseOutrosProdutosDialogDetalhamento from './OutrosProdutosDialogDetalhamento';
 import MxUtils from '@/mixins/utils';
-import MxUtilsParecer from '../mixins/utilsParecer';
+import MxUtilsParecer from '../../mixins/UtilsParecer';
 
 export default {
-    name: 'AnaliseOutrosProdutosDialog',
+    name: 'OutrosProdutosDialog',
     components: {
         SAnaliseOutrosProdutosDialogDetalhamento, SCarregando,
     },

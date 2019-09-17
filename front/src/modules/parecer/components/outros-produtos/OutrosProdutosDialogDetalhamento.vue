@@ -37,7 +37,7 @@
 import VisualizacaoAnaliseProduto from '@/modules/parecer/components/VisualizacaoAnaliseProduto';
 
 export default {
-    name: 'AnaliseOutrosProdutosDialog',
+    name: 'OutrosProdutosDialog',
     components: {
         VisualizacaoAnaliseProduto,
     },

@@ -238,7 +238,7 @@ export default {
             return true;
         },
         validateText(e) {
-            this.textIsValid = e >= this.minChar;
+            this.textIsValid = e > this.minChar;
         },
         labelSimOuNao(val) {
             return val ? 'Sim' : 'Não';

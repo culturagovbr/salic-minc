@@ -109,14 +109,12 @@
 
 import { mapActions, mapGetters } from 'vuex';
 import SCarregando from '@/components/CarregandoVuetify';
-import MxConstantes from '@/modules/parecer/mixins/const';
 
 export default {
     components: { SCarregando },
     data: () => ({
         loading: true,
         loadingButton: false,
-        mixins: [MxConstantes],
         tasks: [
             {
                 name: 'analise-conteudo',
