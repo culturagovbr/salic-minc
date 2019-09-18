@@ -216,11 +216,9 @@ export default {
             if (await this.$root.$confirm(mensagemStatus) === false) {
                 return false;
             }
-
             const distribuicao = Object.assign({}, produto,
                 {
                     siAnalise: TbDistribuirParecer.SI_ANALISE_VALIDADO,
-                    tipoAnalise: TbDistribuirParecer.TIPO_ANALISE_PRODUTO_COMPLETO,
                     siEncaminhamento: TbTipoEncaminhamento.SI_ENCAMINHAMENTO_DEVOLVIDO_ANALISE_TECNICA,
                 });
 

@@ -51,9 +51,8 @@ class DistribuicaoParecer implements \MinC\Servico\IServicoRestZend
         $modelDistribuicao = $this->tratarDadosRequisicao($params);
 
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
-        $resposta = $tbDistribuirParecerMapper->solicitarReanaliseParecerista($modelDistribuicao);
+        $resposta = $tbDistribuirParecerMapper->distribuirProdutoParaParecerista($modelDistribuicao);
         if ($resposta && $modelDistribuicao->getStPrincipal() == 1) {
-            $tbDistribuirParecerMapper->distribuirProdutoParaParecerista($modelDistribuicao);
             $tbDistribuirParecerMapper->prepararProjetoParaAnalise($modelDistribuicao->getIdPRONAC());
         }
 

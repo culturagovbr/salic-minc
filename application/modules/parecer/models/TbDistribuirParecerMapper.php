@@ -39,15 +39,6 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
         return $this->inserirDistribuicaoProduto($modelDistribuicao);
     }
 
-    public function solicitarReanaliseParecerista(Parecer_Model_TbDistribuirParecer $modelDistribuicao)
-    {
-        $modelDistribuicao->setDtDevolucao(null);
-        $modelDistribuicao->setDtRetorno(null);
-//        $modelDistribuicao->setSiEncaminhamento(\TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA);
-//        $modelDistribuicao->setSiAnalise(\Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE);
-        return $this->inserirDistribuicaoProduto($modelDistribuicao);
-    }
-
     public function devolverProdutoParaSecult(Parecer_Model_TbDistribuirParecer $modelDistribuicao)
     {
         $modelDistribuicao->setDtDevolucao(null);
@@ -62,6 +53,8 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
     public function distribuirProdutoParaParecerista(Parecer_Model_TbDistribuirParecer $modelDistribuicao)
     {
         $modelDistribuicao->setDtDistribuicao(MinC_Db_Expr::date());
+        $modelDistribuicao->setDtRetorno(null);
+        $modelDistribuicao->setDtDevolucao(null);
         return $this->inserirDistribuicaoProduto($modelDistribuicao);
     }
 
@@ -71,7 +64,7 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
             throw new Exception("Orgão destino não informado");
         }
 
-        $modelDistribuicao->setDtEnvio(MinC_Db_Expr::date());
+        $modelDistribuicao->setDtEnvio(\MinC_Db_Expr::date());
         $modelDistribuicao->setDtDistribuicao(null);
         $this->inserirDistribuicaoProduto($modelDistribuicao);
     }
@@ -141,7 +134,10 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
 
         if ($idDocumentoAssinatura) {
             $objDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
-            $dadosDocumentoAssinatura = ["stEstado" => \Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_INATIVO];
+            $dadosDocumentoAssinatura = [
+                "stEstado" => \Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_INATIVO,
+                "cdSituacao" => \Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_FECHADO_PARA_ASSINATURA
+            ];
             $whereDocumentoAssinatura = "idDocumentoAssinatura = $idDocumentoAssinatura";
 
             $objDocumentoAssinatura->update($dadosDocumentoAssinatura, $whereDocumentoAssinatura);

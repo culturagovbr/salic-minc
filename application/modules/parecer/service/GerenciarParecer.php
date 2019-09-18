@@ -175,14 +175,17 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         $planilhaprojeto = new \PlanilhaProjeto();
         $totalSugerido = $planilhaprojeto->somarPlanilhaProjeto($distribuicao['idPRONAC'], 109)['soma'];
 
-        if ($parecer['SugeridoReal'] != $totalSugerido) {
-            $modelDistribuicao->setSiAnalise(\Parecer_Model_TbDistribuirParecer::SI_ANALISE_AGUARDANDO_ANALISE);
+        if (round($parecer['SugeridoReal'], 2) != round($totalSugerido, 2)) {
+            $modelDistribuicao->setSiAnalise(\Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE);
             $modelDistribuicao->setSiEncaminhamento(\TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA);
             $tbDistribuirParecerMapper->distribuirProdutoParaParecerista($modelDistribuicao);
             return $tbDistribuirParecerMapper->prepararProjetoParaAnalise($distribuicao['idPRONAC']);
         }
 
-        return $tbDistribuirParecerMapper->encaminharProdutoParaVinculada($modelDistribuicao);
+        $modelDistribuicao->setSiAnalise(\Parecer_Model_TbDistribuirParecer::SI_ANALISE_COMPLEMENTAR_DEVOLVIDO);
+        $modelDistribuicao->setSiEncaminhamento(\TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_COORDENADOR_PELO_PARECERISTA);
+
+        return $tbDistribuirParecerMapper->devolverProdutoParaCoordenador($modelDistribuicao);
     }
 
 }

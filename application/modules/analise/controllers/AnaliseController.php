@@ -201,7 +201,7 @@ class Analise_AnaliseController extends Analise_GenericController
                 $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
                 $jaExisteParecer = $tbDistribuirParecer->buscar(array('idPronac = ?' => $idPronac))->current();
 
-                if (empty($jaExisteParecer)) {
+                    if (empty($jaExisteParecer)) {
                     $tbDistribuirParecer->inserirDistribuicaoParaParecer($idPreProjeto, $idPronac, $unidadeVinculada->idVinculada);
                 }
 

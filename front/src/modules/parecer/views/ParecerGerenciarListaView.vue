@@ -229,3 +229,12 @@ export default {
     },
 };
 </script>
+
+<style>
+    .table__expand table.v-table thead th:first-child,
+    .table__expand table.v-table tbody tr:not(.v-datatable__expand-row) td:first-child {
+        max-width: 40px;
+        text-align: center !important;
+        padding: 0;
+    }
+</style>

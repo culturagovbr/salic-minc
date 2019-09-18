@@ -5,7 +5,7 @@
         :rows-per-page-items="[15, 35, 50, {'text': 'Todos', value: -1}]"
         :search="search"
         item-key="idDistribuirParecer"
-        class="elevation-1"
+        class="elevation-1 table__expand"
         disable-initial-sort
     >
         <template
@@ -13,6 +13,19 @@
             slot-scope="props"
         >
             <tr :class="mxObterClasseItem(props.item)">
+                <td>
+                    <v-btn
+                        color="blue-grey darken-2"
+                        class="ma-0"
+                        flat
+                        icon
+                        @click.prevent="props.expanded = !props.expanded"
+                    >
+                        <v-icon>
+                            {{ props.expanded ? 'expand_less' : 'expand_more' }}
+                        </v-icon>
+                    </v-btn>
+                </td>
                 <td-numero-pronac :produto="props.item" />
                 <td>{{ props.item.nomeProjeto }}</td>
                 <td-nome-produto :produto="props.item" />
@@ -26,23 +39,6 @@
                     class="text-xs-center"
                     style="min-width: 212px"
                 >
-                    <v-tooltip
-                        bottom
-                    >
-                        <v-btn
-                            slot="activator"
-                            color="blue-grey darken-2"
-                            flat
-                            icon
-                            class="ma-0"
-                            @click="$emit('visualizar-detalhes', props.item)"
-                        >
-                            <v-icon>
-                                visibility
-                            </v-icon>
-                        </v-btn>
-                        <span>Visualizar detalhes</span>
-                    </v-tooltip>
                     <v-tooltip
                         bottom
                     >
@@ -81,6 +77,10 @@
             </tr>
         </template>
 
+        <template v-slot:expand="props">
+            <gerenciar-lista-expand :produto="props.item" />
+        </template>
+
         <template slot="no-data">
             <div class="text-xs-center">
                 Sem produtos em análise
@@ -98,10 +98,13 @@ import MxUtilsParecer from '@/modules/parecer/mixins/UtilsParecer';
 import TdNomeProduto from '@/modules/parecer/components/gerenciar-paineis/TdNomeProduto';
 import TdTipoProduto from '@/modules/parecer/components/gerenciar-paineis/TdTipoProduto';
 import TdNumeroPronac from '@/modules/parecer/components/gerenciar-paineis/TdNumeroPronac';
+import GerenciarListaExpand from '@/modules/parecer/components/gerenciar-paineis/GerenciarListaExpand';
 
 export default {
     name: 'GerenciarListaItensAguardandoAnalise',
-    components: { TdNumeroPronac, TdTipoProduto, TdNomeProduto },
+    components: {
+        GerenciarListaExpand, TdNumeroPronac, TdTipoProduto, TdNomeProduto,
+    },
     mixins: [MxUtils, MxUtilsParecer],
 
     props: {
@@ -118,6 +121,10 @@ export default {
     data() {
         return {
             headers: [
+                {
+                    text: '#',
+                    sortable: false,
+                },
                 {
                     text: 'Pronac',
                     value: 'pronac',
