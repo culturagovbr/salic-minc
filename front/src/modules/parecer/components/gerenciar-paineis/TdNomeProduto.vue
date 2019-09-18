@@ -15,7 +15,7 @@
                 color="primary"
             >
                 <v-badge
-                    right
+                    left
                     color="orange darken-4"
                     :value="produto.tipoAnalise === 1"
                 >
@@ -27,6 +27,12 @@
             </router-link>
             <span>{{ tooltipProduto }}</span>
         </v-tooltip>
+        <v-icon
+            v-if="produto.tipoAnalise === 1"
+            @click="$root.$dialogAjuda(textoAjuda)"
+        >
+            help
+        </v-icon>
     </td>
 </template>
 
@@ -41,6 +47,10 @@ export default {
             default: () => {},
         },
     },
+
+    data: () => ({
+        textoAjuda: 'Este produto pertence a outra unidade, foi solicitado análise financeira complementar.',
+    }),
 
     computed: {
         tooltipProduto() {

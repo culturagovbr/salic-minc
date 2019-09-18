@@ -198,8 +198,8 @@ export default {
         },
         filtro(v) {
             this.loading = true;
-            this.obterProdutosParaGerenciar({ filtro: v });
             if (this.$route.params.filtro !== v) {
+                this.obterProdutosParaGerenciar({ filtro: v });
                 this.$router.push({ name: 'parecer-gerenciar-listar-view', params: { filtro: v } });
             }
         },
@@ -213,9 +213,8 @@ export default {
     created() {
         if (this.$route.params.filtro) {
             this.filtro = this.$route.params.filtro;
-        } else {
-            this.obterProdutosParaGerenciar({ filtro: this.filtro });
         }
+        this.obterProdutosParaGerenciar({ filtro: this.filtro });
     },
 
     methods: {

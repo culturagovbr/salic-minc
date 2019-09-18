@@ -244,7 +244,7 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
         $arrMenu['analise']['menu'][] = [
             'label' => 'Gerenciar Pareceres',
             'title' => 'Ir para Gerenciar Pareceres',
-            'url' => ['module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index'],
+            'url' => ['module' => 'default', 'controller' => 'index', 'action' => 'index', '#' => 'parecer/gerenciar'],
             'grupo' => [
                 Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
                 Autenticacao_Model_Grupos::SUPERINTENDENTE_DE_VINCULADA,

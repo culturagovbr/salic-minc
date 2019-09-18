@@ -132,7 +132,7 @@ $arrMenu['analise']['menu'][] = array('label' => 'Calend&aacute;rio CNIC', 'titl
     'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_CNIC)
 );
 $arrMenu['analise']['menu'][] = array('label' => 'Gerenciar Pareceres', 'title' => 'Ir para Gerenciar Pareceres',
-    'url' => $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index'), '', true),
+    'url' => $this->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index', '#' => 'parecer/gerenciar'), '', true),
     'grupo' => array(
         Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA,
         Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,

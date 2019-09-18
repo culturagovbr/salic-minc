@@ -7,7 +7,7 @@
             :search="search"
             :expand="expand"
             item-key="idDistribuirParecer"
-            class="elevation-1"
+            class="elevation-1 table__expand"
             disable-initial-sort
         >
             <template
@@ -15,10 +15,21 @@
                 slot-scope="props"
             >
                 <tr
-                    style="cursor: pointer"
                     :class="mxObterClasseItem(props.item)"
-                    @click.prevent="props.expanded = !props.expanded"
                 >
+                    <td>
+                        <v-btn
+                            color="blue-grey darken-2"
+                            class="ma-0"
+                            flat
+                            icon
+                            @click.prevent="props.expanded = !props.expanded"
+                        >
+                            <v-icon>
+                                {{ props.expanded ? 'expand_less' : 'expand_more' }}
+                            </v-icon>
+                        </v-btn>
+                    </td>
                     <td-numero-pronac :produto="props.item" />
                     <td>{{ props.item.nomeProjeto }}</td>
                     <td-nome-produto :produto="props.item" />
@@ -197,6 +208,10 @@ export default {
             expand: false,
             headers: [
                 {
+                    text: '#',
+                    sortable: false,
+                },
+                {
                     text: 'Pronac',
                     value: 'pronac',
                     width: '1',
@@ -233,3 +248,12 @@ export default {
     },
 };
 </script>
+
+<style>
+    .table__expand table.v-table thead th:first-child,
+    .table__expand table.v-table tbody tr:first-child td:first-child {
+        max-width: 40px;
+        text-align: center !important;
+        padding: 0;
+    }
+</style>
