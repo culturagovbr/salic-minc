@@ -41,6 +41,12 @@
                 >
                     <b>Valor sugerido:</b>
                     <span> R$ {{ consolidacaoEmEdicao.SugeridoReal | filtroFormatarParaReal }}</span>
+                    <v-icon
+                        class="ml-2"
+                        @click="$root.$dialogAjuda(textoAjudaValorSugerido)"
+                    >
+                        help
+                    </v-icon>
                 </v-flex>
                 <v-flex
                     xs12
@@ -121,6 +127,7 @@ export default {
             rules: {
                 parecer: v => (!!v || this.$refs.stItemAvaliado.value !== '3') || 'Parecer é obrigatório',
             },
+            textoAjudaValorSugerido: 'Valor sugerido de todos os produtos(primários e secundários) do projeto',
         };
     },
     computed: {

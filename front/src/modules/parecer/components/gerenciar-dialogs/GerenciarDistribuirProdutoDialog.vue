@@ -107,6 +107,8 @@
                                             color="primary"
                                             value="true"
                                             hide-details
+                                            append-icon="help"
+                                            @click:append="$root.$dialogAjuda(textoAjuda)"
                                         />
                                     </v-flex>
                                 </v-layout>
@@ -203,6 +205,7 @@ export default {
                 siAnalise: TbDistribuirParecer.SI_ANALISE_AGUARDANDO_ANALISE,
                 siEncaminhamento: TbTipoEncaminhamento.SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA,
             },
+            textoAjuda: 'Todos os produtos que estão nesta unidade serão distribuidos/encaminhados.',
             tipoAcao: 'distribuir',
             distribuirProjeto: false,
             obrigatorio: v => !!v || 'Este campo é obrigatório',
@@ -244,14 +247,7 @@ export default {
                     valor: this.produto.valor,
                 });
 
-                this.distribuicao.idProduto = this.produto.idProduto;
-                this.distribuicao.idPronac = this.produto.idPronac;
-                this.distribuicao.idDistribuirParecer = this.produto.idDistribuirParecer;
-                this.distribuicao.idAgenteParecerista = this.produto.idAgenteParecerista;
-                this.distribuicao.stPrincipal = this.produto.stPrincipal;
-                this.distribuicao.TipoAnalise = this.produto.tipoAnalise;
-                this.distribuicao.idOrgao = '';
-                this.distribuicao.Observacao = '';
+                this.definirDadosParaEdicao();
             }
             this.$emit('input', val);
         },
@@ -287,6 +283,20 @@ export default {
         }),
         validarTexto(e) {
             this.textIsValid = e >= this.minChar;
+        },
+        definirDadosParaEdicao() {
+            this.distribuicao.idProduto = this.produto.idProduto;
+            this.distribuicao.idPronac = this.produto.idPronac;
+            this.distribuicao.idDistribuirParecer = this.produto.idDistribuirParecer;
+            this.distribuicao.stPrincipal = this.produto.stPrincipal;
+            this.distribuicao.TipoAnalise = this.produto.tipoAnalise;
+            this.distribuicao.idOrgao = '';
+            this.distribuicao.Observacao = '';
+
+            this.distribuicao.idAgenteParecerista = '';
+            if (this.produto.idAgenteParecerista) {
+                this.distribuicao.idAgenteParecerista = this.produto.idAgenteParecerista;
+            }
         },
         async salvarDistribuicao() {
             if (!this.$refs.form.validate()) {

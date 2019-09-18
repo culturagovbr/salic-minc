@@ -64,14 +64,13 @@ export const buscaDocumentos = ({ commit }, dados) => {
         });
 };
 
-export const buscarDadosProposta = ({ commit }, idPreProjeto) => {
-    propostaHelperAPI.buscarDadosProposta(idPreProjeto)
-        .then((response) => {
-            const { data } = response;
-            const proposta = data.data;
-            commit(types.SET_DADOS_PROPOSTA, proposta);
-        });
-};
+export const buscarDadosProposta = ({ commit }, idPreProjeto) => propostaHelperAPI
+    .buscarDadosProposta(idPreProjeto)
+    .then((response) => {
+        const { data } = response;
+        const proposta = data.data;
+        commit(types.SET_DADOS_PROPOSTA, proposta);
+    });
 
 export const buscarHistoricoSolicitacoes = ({ commit }, idPreProjeto) => {
     propostaHelperAPI.buscarHistoricoSolicitacoes(idPreProjeto)

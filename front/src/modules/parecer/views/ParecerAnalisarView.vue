@@ -220,23 +220,13 @@ export default {
             this.atualizarStepByRoute();
             if (prev.params.id !== old.params.id
                 || prev.params.idPronac !== old.params.idPronac) {
-                this.obterProdutoParaAnalise({
-                    id: this.$route.params.id,
-                    idPronac: this.$route.params.idPronac,
-                });
+                this.obterDadosParaAnalise();
             }
         },
     },
 
     created() {
-        this.obterProdutoParaAnalise({
-            id: this.$route.params.id,
-            idPronac: this.$route.params.idPronac,
-        });
-        this.obterAnaLiseConteudo({
-            id: this.$route.params.id,
-            idPronac: this.$route.params.idPronac,
-        });
+        this.obterDadosParaAnalise();
     },
 
     methods: {
@@ -283,6 +273,17 @@ export default {
         },
         visualizarOutrosProdutos() {
             this.dialogOutrosProdutos = true;
+        },
+        obterDadosParaAnalise() {
+            Object.assign(this.$data, this.$options.data.apply(this));
+            this.obterProdutoParaAnalise({
+                id: this.$route.params.id,
+                idPronac: this.$route.params.idPronac,
+            });
+            this.obterAnaLiseConteudo({
+                id: this.$route.params.id,
+                idPronac: this.$route.params.idPronac,
+            });
         },
     },
 

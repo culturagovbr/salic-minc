@@ -152,7 +152,7 @@ export default {
                     return {};
                 },
             },
-            loading: true,
+            loading: false,
             order: 'desc',
             opcoesDeVisualizacao: [0],
             items: [
@@ -325,8 +325,19 @@ export default {
     },
     methods: {
         ...mapActions({
-            buscarDadosProposta: 'proposta/buscarDadosProposta',
+            buscarDadosPropostaAction: 'proposta/buscarDadosProposta',
         }),
+        buscarDadosProposta(idPreProjeto) {
+            if (this.dadosProposta.idPreProjeto
+                && this.dadosProposta.idPreProjeto === idPreProjeto) {
+                return;
+            }
+
+            this.loading = true;
+            this.buscarDadosPropostaAction(idPreProjeto).finally(() => {
+                this.loading = false;
+            });
+        },
         ordernarLista() {
             // this.items. (this.compare;
             this.order = this.order === 'desc' ? 'asc' : 'desc';

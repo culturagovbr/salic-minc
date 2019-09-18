@@ -75,7 +75,7 @@
                 class="pa-3"
             >
                 <v-flex
-                    v-if="consolidacaoGetter.ResumoParecer.length > 1"
+                    v-if="consolidacaoGetter.ResumoParecer && consolidacaoGetter.ResumoParecer.length > 1"
                     xs12
                     sm12
                     md12
