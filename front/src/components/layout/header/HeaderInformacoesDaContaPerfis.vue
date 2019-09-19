@@ -2,35 +2,45 @@
     <v-list>
         <v-list-tile v-if="Object.keys(perfis).length > 0">
             <v-list-tile-action>
-                <v-icon color="indigo">person</v-icon>
+                <v-icon color="indigo">
+                    person
+                </v-icon>
             </v-list-tile-action>
-            <v-list-tile-content>
+            <v-list-tile-content class="menu-perfis">
                 <v-menu>
                     <v-list-tile-title
                         slot="activator"
                     >
-                        <span>{{ perfilAtual.orgao_sigla_autorizada }} - {{ perfilAtual.nome_grupo }}</span>
+                        <span><b>{{ perfilAtual.orgao_sigla_autorizada }}</b> - {{ perfilAtual.nome_grupo }}</span>
                         <v-icon>arrow_drop_down</v-icon>
                     </v-list-tile-title>
                     <v-list
                         v-if="perfis.length > 1"
-                        style="width: 440px; max-height: 500px; overflow: scroll;">
-                        <v-list-tile
+                        style="min-width: 440px; max-height: 600px; overflow-y: scroll;"
+                    >
+                        <template
                             v-for="(perfil, index) in perfis"
-                            :key="index">
-                            <div
-                                v-if="perfil.orgao_sigla_autorizada"
-                                style="cursor:pointer;"
-                                @click="trocarPerfil(perfil)">
-                                {{ perfil.orgao_sigla_autorizada }} - {{ perfil.nome_grupo }}
-                            </div>
-                            <div
-                                v-else
-                                style="cursor:pointer;"
-                                @click="trocarPerfil(perfil)">
-                                {{ perfil.nome_grupo }}
-                            </div>
-                        </v-list-tile>
+                        >
+                            <v-divider :key="index" :inset="isInset(perfil)" />
+                            <v-list-tile
+                                :key="perfil.id_unico"
+                                @click="trocarPerfil(perfil)"
+                            >
+                                <div
+                                    v-if="perfil.orgao_sigla_autorizada"
+                                    style="cursor:pointer;"
+                                >
+                                    <b>{{ perfil.orgao_sigla_autorizada }}</b> - {{ perfil.nome_grupo }}
+                                </div>
+                                <div
+                                    v-else
+                                    style="cursor:pointer;"
+                                    @click="trocarPerfil(perfil)"
+                                >
+                                    {{ perfil.nome_grupo }}
+                                </div>
+                            </v-list-tile>
+                        </template>
                     </v-list>
                 </v-menu>
             </v-list-tile-content>
@@ -53,11 +63,13 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 
+let orgaoSuperiorAnterior = null;
 export default {
     name: 'HeaderInformacoesDaContaPerfis',
     data() {
         return {
             loadingPerfis: true,
+            perfilTeste: null,
         };
     },
     computed: {
@@ -99,6 +111,19 @@ export default {
         trocarPerfil(perfil) {
             this.alterarPerfil(perfil);
         },
+        isInset(perfil) {
+            if (orgaoSuperiorAnterior === perfil.org_superior) {
+                return true;
+            }
+            orgaoSuperiorAnterior = perfil.org_superior;
+            return false;
+        },
     },
 };
 </script>
+
+<style>
+    .menu-perfis .v-list .v-list__tile {
+        font-size: 14px !important;
+    }
+</style>
