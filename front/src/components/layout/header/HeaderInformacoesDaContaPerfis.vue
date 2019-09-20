@@ -1,5 +1,5 @@
 <template>
-    <v-list>
+    <v-list v-if="!isProponente">
         <v-list-tile v-if="Object.keys(perfis).length > 0">
             <v-list-tile-action>
                 <v-icon color="indigo">
@@ -16,7 +16,7 @@
                     </v-list-tile-title>
                     <v-list
                         v-if="perfis.length > 1"
-                        style="min-width: 440px; max-height: 600px; overflow-y: scroll;"
+                        style="min-width: 440px; max-height: calc(100vh - 200px); overflow-y: auto;"
                     >
                         <template
                             v-for="(perfil, index) in perfis"
@@ -91,6 +91,9 @@ export default {
                 return false;
             }).filter(value => (value !== false))[0];
             return perfil || {};
+        },
+        isProponente() {
+            return this.perfilAtual.gru_codigo === 1111;
         },
     },
     watch: {
