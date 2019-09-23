@@ -3286,7 +3286,8 @@ class ConsultarDadosProjetoController extends MinC_Controller_Action_Abstract
 
     public function imprimirProjetoAction()
     {
-        $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
+//        $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
+        Zend_Layout::startMvc(array('layout' => 'layout_visualizar'));
         $idPronac = $this->_request->getParam("idPronac");
         if (strlen($idPronac) > 7) {
             $idPronac = Seguranca::dencrypt($idPronac);
