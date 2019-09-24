@@ -165,12 +165,16 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
 
         $modelDistribuicao = new \Parecer_Model_TbDistribuirParecer($distribuicao);
-        $modelDistribuicao->setIdOrgao($distribuicao['idOrgaoOrigem']);
         $modelDistribuicao->setTipoAnalise(\Parecer_Model_TbDistribuirParecer::TIPO_ANALISE_PRODUTO_COMPLETO);
-        $modelDistribuicao->setIdAgenteParecerista($tbDistribuirParecerMapper->obterIdPareceristaOriginalProduto(
+
+        $dadosAvaliacaoOriginal = $tbDistribuirParecerMapper->obterDadosAvaliacaoOriginal(
             $distribuicao['idPRONAC'],
-            $distribuicao['idProduto']
-        ));
+            $distribuicao['idProduto'],
+            $distribuicao['stPrincipal']
+        );
+
+        $modelDistribuicao->setIdAgenteParecerista($dadosAvaliacaoOriginal['idAgenteParecerista']);
+        $modelDistribuicao->setIdOrgao($dadosAvaliacaoOriginal['idOrgao']);
 
         $planilhaprojeto = new \PlanilhaProjeto();
         $totalSugerido = $planilhaprojeto->somarPlanilhaProjeto($distribuicao['idPRONAC'], 109)['soma'];

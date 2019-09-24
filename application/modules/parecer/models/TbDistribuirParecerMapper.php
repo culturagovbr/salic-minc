@@ -92,18 +92,31 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
         }
     }
 
-    public function obterIdPareceristaOriginalProduto($idPronac, $idProduto)
+    public function obterDadosAvaliacaoOriginal($idPronac, $idProduto, $stPrincipal)
     {
-        $whereDistribuicaoAtual = [
-            'idPRONAC = ?' => $idPronac,
-            'stEstado = ?' => Parecer_Model_TbDistribuirParecer::ST_ESTADO_INATIVO,
-            'TipoAnalise = ?' => \Parecer_Model_TbDistribuirParecer::TIPO_ANALISE_PRODUTO_COMPLETO,
-            'idProduto = ?' => $idProduto,
-            'idAgenteParecerista IS NOT NULL' => ''
-        ];
+        if ($stPrincipal === 1) {
+            $dbTableParecer = new Parecer_Model_DbTable_Parecer();
+            $agente = $dbTableParecer->obterAgenteDoParecer($idPronac);
+        }
 
-        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        return $tbDistribuirParecer->findBy($whereDistribuicaoAtual)['idAgenteParecerista'];
+        if (empty($agente)) {
+            $whereDistribuicaoAtual = [
+                'idPRONAC = ?' => $idPronac,
+                'stEstado = ?' => Parecer_Model_TbDistribuirParecer::ST_ESTADO_INATIVO,
+                'TipoAnalise = ?' => \Parecer_Model_TbDistribuirParecer::TIPO_ANALISE_PRODUTO_COMPLETO,
+                'idProduto = ?' => $idProduto,
+                'idAgenteParecerista IS NOT NULL' => ''
+            ];
+
+            $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+            $agente = $tbDistribuirParecer->findBy($whereDistribuicaoAtual);
+        }
+
+        if (empty($agente)) {
+            throw new Exception("Parecerista original não encontrado");
+        }
+
+        return $agente;
     }
 
     public function prepararProjetoParaAnalise($idPronac)

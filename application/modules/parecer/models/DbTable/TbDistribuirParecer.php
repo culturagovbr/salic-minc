@@ -2383,7 +2383,10 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         );
 
         $query->where('a.idOrgao <> a.idOrgaoOrigem','');
-        $query->where('a.siEncaminhamento = ?', \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_PARA_ANALISE_PELO_MINC);
+        $query->where('a.siEncaminhamento in (?)', [
+            \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_PARA_ANALISE_PELO_MINC,
+            \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
+        ]);
         $result = $this->fetchAll($query);
         return $result ? $result->toArray() : [];
     }
