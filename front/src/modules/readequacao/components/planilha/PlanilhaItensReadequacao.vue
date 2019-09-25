@@ -157,13 +157,13 @@
             </template>
         </v-data-table>
         <s-planilha-dialog-dados-mediana
+            ref="mediana"
             v-model="modalMediana"
         />
     </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
 import { utils } from '@/mixins/utils';
 import EditarItemPlanilha from './EditarItemPlanilha';
 import VisualizarItemPlanilha from './VisualizarItemPlanilha';
@@ -212,15 +212,7 @@ export default {
             modalMediana: false,
         };
     },
-    computed: {
-        ...mapGetters({
-            mediana: 'planilha/obterMediana',
-        }),
-    },
     methods: {
-        ...mapActions({
-            obterMediana: 'planilha/obterMediana',
-        }),
         getClassItem(row) {
             return this.obterClasseItem(row);
         },
@@ -236,18 +228,14 @@ export default {
             return `O valor unitário (${this.formatarParaReal(item.vlUnitario)}) deste item para ${item.Municipio},
                     ultrapassa o valor aprovado por este orgão. Faça uma nova sugestão de valor e justifique`;
         },
-        abrirMediana() {
-            this.modalMediana = true;
-        },
         buscarMediana(item) {
-            this.obterMediana({
+            this.modalMediana = true;
+            this.$refs.mediana.obterMediana({
                 idProduto: item.idProduto,
                 idUnidade: item.idUnidade,
                 idPlanilhaItem: item.idPlanilhaItem,
                 idUfDespesa: item.idUF,
                 idMunicipioDespesa: item.idMunicipio,
-            }).then(() => {
-                this.abrirMediana();
             });
         },
         validarValorPraticado(item) {

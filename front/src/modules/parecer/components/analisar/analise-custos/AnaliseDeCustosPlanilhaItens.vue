@@ -26,7 +26,10 @@
                     class="teste-1"
                     @click="props.expanded = editarItem(props)"
                 >
-                    <td class="text-xs-right" v-if="selectAll">
+                    <td
+                        v-if="selectAll"
+                        class="text-xs-right"
+                    >
                         <v-checkbox
                             v-model="props.selected"
                             primary
@@ -397,7 +400,10 @@
                 </tr>
             </template>
         </v-data-table>
-        <s-planilha-dialog-dados-mediana v-model="modalMediana" />
+        <s-planilha-dialog-dados-mediana
+            ref="mediana"
+            v-model="modalMediana"
+        />
     </div>
 </template>
 
@@ -582,13 +588,7 @@ export default {
         },
         buscarMediana(item) {
             this.modalMediana = true;
-            this.obterMediana({
-                idProduto: item.idProduto,
-                idUnidade: item.idUnidade,
-                idPlanilhaItem: item.idPlanilhaItem,
-                idUfDespesa: item.idUfDespesa,
-                idMunicipioDespesa: item.idMunicipioDespesa,
-            });
+            this.$refs.mediana.obterMediana(item);
         },
         atualizarCombo() {
             this.comboUnidade = {
