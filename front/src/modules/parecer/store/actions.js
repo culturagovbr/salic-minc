@@ -4,7 +4,7 @@ import * as PareceristaService from '../service/Parecerista';
 import * as VinculadaService from '../service/Vinculada';
 import * as PlanilhaService from '../service/Planilha';
 import * as HistoricoProdutoService from '../service/HistoricoProduto';
-import * as ProdutoService  from '../service/Produto';
+import * as ProdutoService from '../service/Produto';
 
 import * as types from './types';
 
@@ -201,13 +201,12 @@ export const salvarDeclaracaoImpedimento = async ({ dispatch }, params) => Anali
 
 /** Gerenciar Parecer */
 
-export const obterProdutosParaGerenciar = ({ commit }, params) => {
-    GerenciarService.obterProdutosParaGerenciar(params)
-        .then((response) => {
-            commit(types.SET_PRODUTOS, response.data.items);
-            return response.data;
-        });
-};
+export const obterProdutosParaGerenciar = async ({ commit }, params) => GerenciarService
+    .obterProdutosParaGerenciar(params)
+    .then((response) => {
+        commit(types.SET_PRODUTOS, response.data.items);
+        return response.data;
+    });
 
 export const buscarPareceristas = ({ commit }, params) => {
     PareceristaService.buscarPareceristas(params)

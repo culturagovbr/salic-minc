@@ -165,6 +165,9 @@ export default {
     },
 
     watch: {
+        $route() {
+            this.dialog = false;
+        },
         value(val) {
             this.dialog = val;
         },
