@@ -190,7 +190,7 @@ export default {
             loadingPareceristas: true,
             loadingVinculadas: true,
             loading: false,
-            minChar: 10,
+            minChar: 11,
             valid: false,
             textIsValid: false,
             distribuicao: {
@@ -315,11 +315,13 @@ export default {
                 ? 'salvarDistribuicaoProjeto'
                 : 'salvarDistribuicaoProduto';
 
-            return this[salvar](this.distribuicao).then(() => {
-                this.dialog = false;
-            }).finally(() => {
-                this.loading = false;
-            });
+            return this[salvar]({ ...this.distribuicao, filtro: this.filtro })
+                .then(() => {
+                    this.dialog = false;
+                    this.$emit('recarregar-lista');
+                }).finally(() => {
+                    this.loading = false;
+                });
         },
         formatarSelectParecerista(item) {
             return `${item.Nome} (${item.qtProdutos})`;

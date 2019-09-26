@@ -77,6 +77,7 @@
                             v-model="modal.show"
                             :produto="produtoSelecionado"
                             :filtro="filtro"
+                            @recarregar-lista="recarregarLista()"
                         />
                     </v-card-text>
                 </v-card>
@@ -224,6 +225,9 @@ export default {
                 .finally(() => {
                     this.loading = false;
                 });
+        },
+        recarregarLista() {
+            this.obterProdutosParaGerenciar({ filtro: this.filtro });
         },
     },
 };

@@ -109,7 +109,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         $modelDistribuicao->setSiAnalise($params['siAnalise']);
         $modelDistribuicao->setSiEncaminhamento($params['siEncaminhamento']);
 
-        if (strlen($modelDistribuicao->getObservacao()) < 11) {
+        if (strlen($modelDistribuicao->getObservacao()) <= 11) {
             throw new \Exception("O campo observa&ccedil;&atilde;o deve ter no m&iacute;nimo 11 caracteres");
         }
 
