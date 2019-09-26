@@ -74,8 +74,8 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
 
     public function index()
     {
-        $projeto = new \Projetos();
-        $resp = $projeto->buscaProjetosProdutosParaAnalise(
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $resp = $tbDistribuirParecer->buscaProjetosProdutosParaAnalise(
             [
                 'distribuirParecer.idAgenteParecerista = ?' => $this->idAgente,
                 'distribuirParecer.idOrgao = ?' => $this->idOrgao,

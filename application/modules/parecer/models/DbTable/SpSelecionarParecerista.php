@@ -36,11 +36,4 @@ class Parecer_Model_DbTable_SpSelecionarParecerista extends MinC_Db_Table_Abstra
             \Zend_DB::FETCH_ASSOC
         );
     }
-
-    private function obterQuantidadeEmAvaliacao($idAgente)
-    {
-        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
-        return $tbDistribuirParecer->buscaProjetosProdutosParaAnalise(['idAgenteParecerista = ?' => $idAgente])->count();
-    }
-
 }

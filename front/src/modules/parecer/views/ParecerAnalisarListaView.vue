@@ -220,6 +220,7 @@
                         <s-dialog-diligencias
                             v-model="dialogDiligencias"
                             :id-pronac="diligenciaVisualizacao.idPronac"
+                            :id-produto="diligenciaVisualizacao.idProduto"
                             :tp-diligencia="TP_DILIGENCIA_ANALISE_TECNICA"
                         />
                         <s-analise-declarar-impedimento-dialog

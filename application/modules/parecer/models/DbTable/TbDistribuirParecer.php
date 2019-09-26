@@ -54,7 +54,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
     public function cadastrarDados($dados)
     {
         return $this->insert($dados);
-    } // fecha m�todo cadastrarDados()
+    } //  cadastrarDados()
 
     public function buscarHistoricoDeAnalise($idPronac, $codOrgao)
     {
@@ -79,7 +79,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         }
 
         return $db->fetchAll($sql);
-    }// fecha m�todo buscarHistoricoDeAnalise()
+    }//  buscarHistoricoDeAnalise()
 
     public function buscarHistorico($where = array())
     {
@@ -133,7 +133,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
 
         $select->order('idDistribuirParecer DESC');
         return $this->fetchAll($select);
-    }// fecha m�todo buscarHistorico()
+    }
 
     public function buscarHistoricoCoordenador($where = array())
     {
@@ -188,7 +188,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         $select->order('idDistribuirParecer DESC');
 
         return $this->fetchAll($select);
-    }// fecha m�todo buscarHistorico()
+    }//  buscarHistorico()
 
 
     /**
@@ -264,7 +264,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         $select->order(array(new Zend_Db_Expr('(p.AnoProjeto + p.Sequencial)'), 't.stPrincipal desc', 't.DtDevolucao', 't.DtEnvio', 'r.Descricao'));
 
         return $this->fetchAll($select);
-    } // fecha m�todo listarProjetos()
+    } //  listarProjetos()
 
 
     public function verificarProdutosSecundarios($idPronac, $codOrgao)
@@ -318,7 +318,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         $select->order(array(new Zend_Db_Expr('(p.AnoProjeto + p.Sequencial)'), 't.stPrincipal desc', 't.DtDevolucao', 't.DtEnvio', 'r.Descricao'));
 
         return $this->fetchAll($select);
-    } // fecha m�todo listarProjetos()
+    } //  listarProjetos()
 
     public function produtosDistribuidos($org_codigo)
     {
@@ -383,7 +383,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         $select->order(array('t.DtEnvio', 'r.Descricao', '(p.AnoProjeto + p.Sequencial)'));
 
         return $this->fetchAll($select);
-    } // fecha m�todo listarProjetos()
+    } //  listarProjetos()
 
     public function pagamentoParecerista($org_codigo, $perfil)
     {
@@ -476,7 +476,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         $select->order(array('t.DtEnvio', 'r.Descricao', new Zend_Db_Expr('(p.AnoProjeto + p.Sequencial)')));
 
         return $this->fetchAll($select);
-    } // fecha m�todo listarProjetos()
+    } //  listarProjetos()
 
 
     public function BuscarParaMemorando($dadosWhere)
@@ -548,7 +548,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         $select->order(array('t.DtEnvio', 'r.Descricao', new Zend_Db_Expr('(p.AnoProjeto + p.Sequencial)')));
 
         return $this->fetchAll($select);
-    } // fecha m�todo()
+    } // ()
 
     public function dadosParaDistribuir($dadosWhere)
     {
@@ -617,7 +617,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         $select->order('t.stPrincipal desc');
 
         return $this->fetchAll($select);
-    } // fecha m�todo dadosParaDistribuir()
+    } //  dadosParaDistribuir()
 
     public function dadosParaDistribuirSecundarios($dadosWhere)
     {
@@ -681,7 +681,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         $select->order('t.stPrincipal desc');
 
         return $this->fetchAll($select);
-    } // fecha m�todo dadosParaDistribuir()
+    } //  dadosParaDistribuir()
 
 
     public function distribuirParecer($dados)
@@ -710,7 +710,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         } else {
             return false;
         }
-    } // fecha m�todo distribuirParecer()
+    } //  distribuirParecer()
 
     public function encaminharParecer($dados)
     {
@@ -738,7 +738,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         } else {
             return false;
         }
-    } // fecha m�todo encaminharParecer()
+    } //  encaminharParecer()
 
     public function concluirParecer($dados)
     {
@@ -765,7 +765,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
         } else {
             return false;
         }
-    } // fecha m�todo concluirParecer()
+    } //  concluirParecer()
 
     public function atualizarParecer($data, $idDistribuirParecer)
     {
@@ -783,7 +783,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
     {
         $where = "idDistribuirParecer = " . $where;
         return $this->delete($where);
-    } // fecha m�todo excluirDados()
+    } //  excluirDados()
 
     public function aguardandoparecerresumo($where)
     {
@@ -2382,7 +2382,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
             $this->getSchema('Agentes')
         );
 
-        $query->where('a.idOrgao <> a.idOrgaoOrigem','');
+        $query->where('a.idOrgao <> a.idOrgaoOrigem', '');
         $query->where('a.siEncaminhamento in (?)', [
             \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_PARA_ANALISE_PELO_MINC,
             \TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA,
@@ -2530,10 +2530,10 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                     'DtAnalise' => new Zend_Db_Expr('CONVERT(CHAR(10), DtAnalise, 103)'),
                     'situacao',
                     'idOrgao' => 'Orgao',
-                    'DtSolicitacao' => new Zend_Db_Expr('(select top 1 DtSolicitacao from sac.dbo.tbDiligencia dili1 where dili1.idPronac = projeto.idPronac and dili1.idProduto = distribuirParecer.idProduto order by dili1.DtSolicitacao desc)'),
-                    'DtResposta' => new Zend_Db_Expr('(select top 1 DtResposta from sac.dbo.tbDiligencia dili2 where dili2.idPronac = projeto.idPronac and dili2.idProduto = distribuirParecer.idProduto order by dili2.DtSolicitacao desc)'),
-                    'stEnviado' => new Zend_Db_Expr('(select top 1 stEnviado from sac.dbo.tbDiligencia dili3 where dili3.idPronac = projeto.idPronac and dili3.idProduto = distribuirParecer.idProduto order by dili3.DtSolicitacao desc)'),
-                    'tempoFimDiligencia' => new Zend_Db_Expr("(select top 1 CASE WHEN stProrrogacao = 'N' THEN 20 ELSE 40 END AS tempoFimDiligencia from sac.dbo.tbDiligencia dili4 where dili4.idPronac = projeto.idPronac and dili4.idProduto = distribuirParecer.idProduto order by dili4.DtSolicitacao desc)"),
+//                    'DtSolicitacao' => new Zend_Db_Expr('(select top 1 DtSolicitacao from sac.dbo.tbDiligencia dili1 where dili1.idPronac = projeto.idPronac and dili1.idProduto = distribuirParecer.idProduto order by dili1.DtSolicitacao desc)'),
+//                    'DtResposta' => new Zend_Db_Expr('(select top 1 DtResposta from sac.dbo.tbDiligencia dili2 where dili2.idPronac = projeto.idPronac and dili2.idProduto = distribuirParecer.idProduto order by dili2.DtSolicitacao desc)'),
+//                    'stEnviado' => new Zend_Db_Expr('(select top 1 stEnviado from sac.dbo.tbDiligencia dili3 where dili3.idPronac = projeto.idPronac and dili3.idProduto = distribuirParecer.idProduto order by dili3.DtSolicitacao desc)'),
+//                    'tempoFimDiligencia' => new Zend_Db_Expr("(select top 1 CASE WHEN stProrrogacao = 'N' THEN 20 ELSE 40 END AS tempoFimDiligencia from sac.dbo.tbDiligencia dili4 where dili4.idPronac = projeto.idPronac and dili4.idProduto = distribuirParecer.idProduto order by dili4.DtSolicitacao desc)"),
                     'quantidadeProdutos' => new Zend_Db_Expr("(select count(*) from sac.dbo.PlanoDistribuicaoProduto where idProjeto = projeto.idProjeto)"), //@todo remover
                     'idProjeto',
                 ),
@@ -2573,22 +2573,23 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                 ),
                 $this->_schema
             )
-//                ->joinLeft(
-//                        array('diligencia' => 'tbDiligencia'),
-//                        'diligencia.idPronac = projeto.idPronac',
-//                        array(
-//                            'DtSolicitacao',
-//                            'DtResposta',
-//                            'stEnviado',
-//                            )
-//                        )
-//            ->where('distribuirParecer.DtDistribuicao is not null')
-//            ->where('distribuirParecer.DtDevolucao is NULL')
+            ->joinLeft(
+                array('diligencia' => 'tbDiligencia'),
+                'diligencia.idPronac = projeto.idPronac 
+                    AND diligencia.idProduto = distribuirParecer.idProduto
+                    AND diligencia.stEstado = 0',
+                array(
+                    'DtSolicitacao',
+                    'DtResposta',
+                    'stEnviado',
+                ),
+                $this->_schema
+            )
+            ->where('distribuirParecer.DtDistribuicao is not null')
+            ->where('distribuirParecer.DtDevolucao is NULL')
             ->where('distribuirParecer.stEstado = ?', 0)
-//            ->where('distribuirParecer.TipoAnalise in (?)', array(1, 3)) // @todo remover essa regra para o parecerista
             ->where('projeto.Situacao in (?)', array('B11', 'B14'))
-//                ->where('diligencia.idProduto = produto.Codigo')
-//                ->order('diligencia.DtSolicitacao')
+            ->order('diligencia.DtSolicitacao')
             ->order('distribuirParecer.DtDistribuicao DESC')
             ->order('projeto.IdPRONAC')
             ->order('produto.Descricao')
