@@ -222,6 +222,7 @@
                             :id-pronac="diligenciaVisualizacao.idPronac"
                             :id-produto="diligenciaVisualizacao.idProduto"
                             :tp-diligencia="TP_DILIGENCIA_ANALISE_TECNICA"
+                            @diligencia-criada="obterProdutosParaAnalise()"
                         />
                         <s-analise-declarar-impedimento-dialog
                             v-model="dialogImpedimento"
