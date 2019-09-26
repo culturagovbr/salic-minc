@@ -92,7 +92,7 @@ class Parecer_Model_TbDistribuirParecerMapper extends MinC_Db_Mapper
         }
     }
 
-    public function obterDadosAvaliacaoOriginal($idPronac, $idProduto, $stPrincipal)
+    public function obterAgenteAvaliacaoOriginal($idPronac, $idProduto, $stPrincipal)
     {
         if ($stPrincipal === 1) {
             $dbTableParecer = new Parecer_Model_DbTable_Parecer();

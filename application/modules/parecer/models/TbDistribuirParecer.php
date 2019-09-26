@@ -45,6 +45,9 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     const TIPO_ANALISE_CUSTO_ADMINISTRATIVO = 2;
     const TIPO_ANALISE_PRODUTO_COMPLETO = 3;
 
+    const ST_PRODUTO_PRINCIPAL = 1;
+    const ST_PRODUTO_SECUNDARIO = 0;
+
     /**
      * @return mixed
      */
