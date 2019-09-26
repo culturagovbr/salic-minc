@@ -169,7 +169,8 @@ export default {
                 component: 'gerenciar-lista-itens-em-analise',
             },
         ],
-        filtro: 'aguardando_distribuicao',
+        filtroPadrao: 'aguardando_distribuicao',
+        filtro: '',
         search: '',
         modal: {
             show: false,
@@ -206,8 +207,9 @@ export default {
     created() {
         if (this.$route.params.filtro) {
             this.filtro = this.$route.params.filtro;
+        } else {
+            this.filtro = this.filtroPadrao;
         }
-        this.obterProdutosParaGerenciar({ filtro: this.filtro });
     },
 
     methods: {
