@@ -2437,6 +2437,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                 'a.siAnalise',
                 'a.siEncaminhamento',
                 'a.DtEnvio AS dtEnvioMincVinculada',
+                'a.DtDistribuicao as dtDistribuicao',
                 'a.TipoAnalise as tipoAnalise',
                 'qtDiasDistribuir' => new Zend_Db_Expr('DATEDIFF(DAY, a.DtEnvio, GETDATE())'),
                 'qtdeSecundarios' => new Zend_Db_Expr('(SELECT COUNT(*) 
@@ -2573,8 +2574,6 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                 ),
                 $this->_schema
             )
-            ->where('distribuirParecer.DtDistribuicao is not null')
-            ->where('distribuirParecer.DtDevolucao is NULL')
             ->where('distribuirParecer.stEstado = ?', 0)
             ->where('projeto.Situacao in (?)', array('B11', 'B14'))
             ->order('distribuirParecer.DtDistribuicao DESC')

@@ -72,11 +72,20 @@
             >
                 <v-flex
                     xs12
-                    sm4
-                    md4
+                    sm12
+                    md2
                 >
                     <b>Parecerista</b><br>
                     {{ produto.nomeParecerista }}
+                </v-flex>
+                <v-flex
+                    v-if="produto.dtEnvioMincVinculada"
+                    xs12
+                    sm4
+                    md4
+                >
+                    <b>Data de envio</b><br>
+                    {{ produto.dtEnvioMincVinculada | formatarData }}
                 </v-flex>
                 <v-flex
                     v-if="produto.tempoTotalAnalise"

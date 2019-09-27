@@ -36,7 +36,7 @@
                 <td>{{ props.item.segmento }}</td>
                 <td>{{ props.item.nomeParecerista }}</td>
                 <td class="text-xs-right">
-                    {{ props.item.dtDistribuicao | formatarData }}
+                    {{ props.item.valor | filtroFormatarParaReal }}
                 </td>
                 <td
                     class="text-xs-center"
@@ -239,7 +239,7 @@ export default {
                     align: 'left',
                     value: 'parecerista',
                 },
-                { text: 'Vl. Incentivo', value: 'valor', width: '2' },
+                { text: 'Valor (R$)', value: 'valor', width: '2' },
                 { text: 'Ações', width: '4', value: 'stPrincipal' },
             ],
         };

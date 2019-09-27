@@ -33,7 +33,16 @@
                 <td>{{ props.item.segmento }}</td>
                 <td>{{ props.item.nomeParecerista }}</td>
                 <td class="text-xs-right">
-                    {{ props.item.dtDistribuicao | formatarData }}
+                    <v-tooltip
+                        bottom
+                    >
+                        <span
+                            slot="activator"
+                            class="subheading font-weight-bold"
+                            :class="obterClasseDiasAnalise(props.item)"
+                        >{{ props.item.qtDiasDistribuir }}</span>
+                        <span>Data de envio: {{ props.item.dtEnvioMincVinculada | formatarData }}</span>
+                    </v-tooltip>
                 </td>
                 <td
                     class="text-xs-center"
@@ -156,8 +165,8 @@ export default {
                     value: 'nomeParecerista',
                 },
                 {
-                    text: 'Dt. de Envio',
-                    value: 'dtDistribuicao',
+                    text: 'Dias',
+                    value: 'dtEnvioMincVinculada',
                     width: '2',
                 },
                 {
@@ -167,6 +176,14 @@ export default {
                 },
             ],
         };
+    },
+
+    methods: {
+        obterClasseDiasAnalise(row) {
+            return {
+                'red--text': row.qtDiasDistribuir > 8,
+            };
+        },
     },
 };
 </script>
