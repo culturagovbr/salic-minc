@@ -19,6 +19,9 @@
                 <td-tipo-produto :produto="props.item" />
                 <td>{{ props.item.segmento }}</td>
                 <td class="text-xs-right">
+                    {{ props.item.valor | filtroFormatarParaReal }}
+                </td>
+                <td class="text-xs-right">
                     {{ props.item.dtEnvioMincVinculada | formatarData }}
                 </td>
                 <td class="text-xs-center">
@@ -103,6 +106,7 @@ export default {
                     align: 'left',
                     value: 'segmento',
                 },
+                { text: 'Valor Produto (R$)', value: 'valor', width: '2' },
                 { text: 'Dt. de Recebimento', value: 'dtEnvioMincVinculada', width: '2' },
                 {
                     text: 'Ações', align: 'center', value: 'siAnalise',

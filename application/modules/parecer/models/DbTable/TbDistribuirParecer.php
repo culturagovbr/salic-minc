@@ -2359,6 +2359,18 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
             [
                 'g.Descricao AS nomeParecerista',
                 'g.idAgente AS idAgenteParecerista',
+                'tempoTotalAnalise' => new Zend_Db_Expr('sac.dbo.fnQtdeDiasAnaliseParecerista(a.IdPRONAC,a.idProduto,0)'),
+                'tempoParecerista' => new Zend_Db_Expr('sac.dbo.fnQtdeDiasAnaliseParecerista(a.IdPRONAC,a.idProduto,1)'),
+                'tempoDiligencia' => new Zend_Db_Expr('sac.dbo.fnQtdeDiasAnaliseParecerista(a.IdPRONAC,a.idProduto,2)'),
+                'dtEnvioDiligencia' => new Zend_Db_Expr('(SELECT min(x1.dtSolicitacao) FROM tbDiligencia x1
+	                                 WHERE x1.idTipoDiligencia = 124 AND x1.stEstado = 0 AND x1.stEnviado = \'S\'
+									       AND x1.idProduto = a.idProduto AND x1.idPronac = a.IdPRONAC)'),
+                'dtRespostaDiligencia' => new Zend_Db_Expr('(SELECT max(x2.DtResposta) FROM tbDiligencia x2
+	                               WHERE x2.idTipoDiligencia = 124 AND x2.stEstado = 0 AND x2.stEnviado = \'S\'
+								         AND x2.idProduto = a.idProduto AND x2.idPronac =  a.IdPRONAC)'),
+                'qtDiligenciaProduto' => new Zend_Db_Expr('(SELECT COUNT(*) FROM tbDiligencia x3
+	                    WHERE x3.idTipoDiligencia = 124 AND x3.stEstado = 0 AND x3.stEnviado = \'S\' AND x3.idProduto = a.idProduto
+						      AND x3.idPronac =  a.IdPRONAC)'),
             ],
             $this->getSchema('Agentes')
         );
