@@ -53,40 +53,39 @@ export const mockAvaliacaDesempenho = ({ commit }) => {
     commit(types.MOCK_AVALIACAO_RESULTADOS);
 };
 
-export const obterDestinatarios = ({ commit }, params) => {
-    avaliacaoResultadosHelperAPI.obterDestinatarios(params)
-        .then((response) => {
-            const { data } = response;
-            const destinatariosEncaminhamento = data.data;
-            commit(types.DESTINATARIOS_ENCAMINHAMENTO, destinatariosEncaminhamento.items);
-        });
-};
+export const obterDestinatarios = async ({ commit }, params) => avaliacaoResultadosHelperAPI
+    .obterDestinatarios(params)
+    .then((response) => {
+        const { data } = response;
+        const destinatariosEncaminhamento = data.data;
+        commit(types.DESTINATARIOS_ENCAMINHAMENTO, destinatariosEncaminhamento.items);
+    });
 
 export const obterDadosTabelaTecnico = ({ commit }, params) => {
     commit(types.PROJETOS_AVALIACAO_TECNICA, {});
     avaliacaoResultadosHelperAPI.obterDadosTabelaTecnico(params)
         .then((response) => {
             const { data } = response.data;
-            data.items.forEach((a, index) => {
-                avaliacaoResultadosHelperAPI.listarDiligencias(a.idPronac).then(
-                    (resp) => {
-                        const obj = resp.data.data;
-                        data.items[index].diligencias = obj.items;
-                    },
-                );
-            });
+            // data.items.forEach((a, index) => {
+            //     avaliacaoResultadosHelperAPI.listarDiligencias(a.idPronac).then(
+            //         (resp) => {
+            //             const obj = resp.data.data;
+            //             data.items[index].diligencias = obj.items;
+            //         },
+            //     );
+            // });
             commit(types.PROJETOS_AVALIACAO_TECNICA, data);
         });
 };
 
-export const obetDadosDiligencias = ({ commit }, params) => {
-    avaliacaoResultadosHelperAPI.listarDiligencias(params).then(
+export const obetDadosDiligencias = async ({ commit }, params) => avaliacaoResultadosHelperAPI
+    .listarDiligencias(params)
+    .then(
         (response) => {
             const obj = response.data.data;
             commit(types.HISTORICO_DILIGENCIAS, obj);
         },
     );
-};
 
 export const projetosFinalizados = ({ commit }, params) => {
     avaliacaoResultadosHelperAPI.obterDadosTabelaTecnico(params)

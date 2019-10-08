@@ -25,7 +25,7 @@ class AvaliacaoResultados_ProjetoController extends MinC_Controller_Rest_Abstrac
         $data = [];
 
         $planilhaAprovacaoModel = new PlanilhaAprovacao();
-        $resposta = $planilhaAprovacaoModel->obterItensAprovados($idPronac);
+//        $resposta = $planilhaAprovacaoModel->obterItensAprovados($idPronac);
         $consolidacao = $planilhaAprovacaoModel->consolidacaoValoresProjeto($idPronac);
 
         $projeto = new Projetos();
@@ -45,7 +45,12 @@ class AvaliacaoResultados_ProjetoController extends MinC_Controller_Rest_Abstrac
         $data['estado'] = $estado ? $estado->toArray() : null;
 
         $documento = new Assinatura_Model_DbTable_TbDocumentoAssinatura();
-        $data['documento'] = $documento->findBy(['idPronac = ?' => $idPronac, 'idTipoDoAtoAdministrativo = ?' => 622, 'cdSituacao = ?' => 1, 'stEstado = ?' => 1]);
+        $data['documento'] = $documento->findBy([
+            'idPronac = ?' => $idPronac,
+            'idTipoDoAtoAdministrativo = ?' => 622,
+            'cdSituacao = ?' => 1,
+            'stEstado = ?' => 1]
+        );
 
         $data = \TratarArray::utf8EncodeArray($data);
 

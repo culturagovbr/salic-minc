@@ -1,17 +1,18 @@
 <template>
     <v-dialog
         v-model="dialog"
-        width="750"
+        max-width="800"
     >
         <v-tooltip
             slot="activator"
-            bottom>
+            bottom
+        >
             <v-btn
                 slot="activator"
                 flat
                 icon
             >
-                <v-icon >assignment_ind</v-icon>
+                <v-icon>assignment_ind</v-icon>
             </v-btn>
             <span>Encaminhar Projeto</span>
         </v-tooltip>
@@ -31,36 +32,23 @@
                 <v-card-text>
                     <v-list
                         three-line
-                        subheader>
+                        subheader
+                    >
                         <v-subheader>
                             <h4 class="headline mb-0 grey--text text--darken-3">
                                 {{ pronac }} - {{ nomeProjeto }}
                             </h4>
                         </v-subheader>
-                        <v-divider/>
-                        <v-subheader>
-                            Informações do encaminhamento
-                        </v-subheader>
-                        <v-list-tile v-if="usuarioLogado.usu_org_max_superior === '251' ">
-                            <v-list-tile-action>
-                                <v-icon color="green">group</v-icon>
-                            </v-list-tile-action>
-                            SEFIC/DEIPC/CGARE
-                        </v-list-tile>
-                        <v-list-tile v-if="usuarioLogado.usu_org_max_superior === '160' ">
-                            <v-list-tile-action>
-                                <v-icon color="green">group</v-icon>
-                            </v-list-tile-action>
-                            SAV/CGAV/CEP
-                        </v-list-tile>
+                        <v-divider class="mb-3"/>
                         <v-select
                             v-model="destinatarioEncaminhamento"
                             :items="dadosDestinatarios"
                             :rules="[rules.required]"
+                            :loading="loadingDestinatarios"
+                            :label="loadingDestinatarios ?  'Carregando técnicos' : '-- Escolha um técnico  --'"
                             height="10px"
                             solo
                             single-line
-                            label="-- Escolha um técnico  --"
                             item-text="usu_nome"
                             item-value="usu_codigo"
                             prepend-icon="perm_identity"
@@ -69,17 +57,18 @@
                             ref="justificativa"
                             v-model="justificativa"
                             :rules="[rules.required]"
-                            label="Justificativa de encaminhamento para análise"
+                            label="Observação de encaminhamento para análise"
                             prepend-icon="create"
                             color="green"
                             autofocus
+                            outline
                             height="150px"
                         />
                     </v-list>
                 </v-card-text>
-                <v-divider/>
+                <v-divider />
                 <v-card-actions>
-                    <v-spacer/>
+                    <v-spacer />
                     <v-btn
                         color="red"
                         flat
@@ -129,6 +118,7 @@ export default {
                 required: v => !!v,
             },
             destinatarioEncaminhamento: null,
+            loadingDestinatarios: false,
             justificativa: null,
             form: null,
         };
@@ -145,7 +135,10 @@ export default {
                 this.$refs.form.reset();
             } else {
                 const orgaoSuperior = this.$store.getters['autenticacao/getUsuario'].usu_org_max_superior;
-                this.obterDestinatarios(orgaoSuperior);
+                this.loadingDestinatarios = true;
+                this.obterDestinatarios(orgaoSuperior).finally(() => {
+                    this.loadingDestinatarios = false;
+                });
             }
         },
     },

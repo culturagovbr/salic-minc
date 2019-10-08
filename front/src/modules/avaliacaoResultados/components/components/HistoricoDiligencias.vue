@@ -7,95 +7,131 @@
     >
         <v-tooltip
             slot="activator"
-            bottom>
+            bottom
+        >
             <v-btn
                 slot="activator"
                 flat
                 icon
-                @click.native="obterDiligencias(obj.idPronac)">
+                @click.native="obterDiligencias(obj.idPronac)"
+            >
                 <v-icon
                     :color="statusDiligencia(obj).color"
                     :change="statusDiligencia(obj).color"
-                    class="material-icons">assignment_late</v-icon>
+                    class="material-icons"
+                >
+                    assignment_late
+                </v-icon>
             </v-btn>
             <span>{{ statusDiligencia(obj).desc }} </span>
         </v-tooltip>
 
-        <v-card v-if="Object.keys(diligencias).length > 0">
-
+        <v-card>
             <v-toolbar
                 dark
                 color="#0a420e !important"
-                fixed
             >
                 <v-btn
                     icon
                     dark
-                    @click="dialog = false">
+                    @click="dialog = false"
+                >
                     <v-icon>close</v-icon>
                 </v-btn>
                 <v-toolbar-title>Diligências Projeto: {{ info.pronac }} - {{ info.nomeProjeto }} </v-toolbar-title>
             </v-toolbar>
 
-            <template>
+            <v-card-text>
                 <div>
+                    <v-card-text
+                        v-if="loadingDiligencias"
+                    >
+                        <Carregando :text="'Carregando ...'" />
+                    </v-card-text>
                     <v-data-table
-                        v-if="Object.keys(diligencias).length > 0"
+                        v-else
                         :headers="headers"
                         :items="sortByDate"
                         item-key="idDiligencia"
-                        class="mt-5 pt-2 elevation-1"
+                        class="mt-2 pt-2 elevation-1"
                         rows-per-page-text="Items por Página"
                         no-data-text="Nenhum dado encontrado"
                     >
                         <template
                             slot="items"
-                            slot-scope="props">
+                            slot-scope="props"
+                        >
                             <tr
                                 class="line"
-                                @click="props.expanded = !props.expanded; arrow = !arrow">
+                                @click="props.expanded = !props.expanded; arrow = !arrow"
+                            >
                                 <td
                                     v-if="props.item.produto"
-                                    class="text-xs-left">
+                                    class="text-xs-left"
+                                >
                                     {{ props.item.produto }}
                                 </td>
                                 <td
                                     v-else
-                                    class="text-xs-left"> - </td>
-                                <td class="text-xs-left">{{ props.item.tipoDiligencia }}</td>
-                                <td class="text-xs-center">{{ props.item.dataSolicitacao | date }}</td>
+                                    class="text-xs-left"
+                                >
+                                    -
+                                </td>
+                                <td class="text-xs-left">
+                                    {{ props.item.tipoDiligencia }}
+                                </td>
+                                <td class="text-xs-center">
+                                    {{ props.item.dataSolicitacao | date }}
+                                </td>
                                 <td
                                     v-if="props.item.dataResposta === null "
-                                    class="text-xs-center">{{ props.item.dataResposta }}</td>
+                                    class="text-xs-center"
+                                >
+                                    {{ props.item.dataResposta }}
+                                </td>
                                 <td
                                     v-if="props.item.dataResposta !== null "
-                                    class="text-xs-center">{{ props.item.dataResposta | date }}</td>
-                                <td class="text-xs-center">{{ statusDiligencia(props.item).prazo }}</td>
-                                <td class="text-xs-left">Prorrogado</td>
+                                    class="text-xs-center"
+                                >
+                                    {{ props.item.dataResposta | date }}
+                                </td>
+                                <td class="text-xs-center">
+                                    {{ statusDiligencia(props.item).prazo }}
+                                </td>
+                                <td class="text-xs-left">
+                                    Prorrogado
+                                </td>
                                 <td>
-                                    <v-icon v-if="arrow">keyboard_arrow_down</v-icon>
-                                    <v-icon v-else>keyboard_arrow_up</v-icon>
+                                    <v-icon v-if="arrow">
+                                        keyboard_arrow_down
+                                    </v-icon>
+                                    <v-icon v-else>
+                                        keyboard_arrow_up
+                                    </v-icon>
                                 </td>
                             </tr>
                         </template>
                         <template
                             slot="expand"
-                            slot-scope="props">
+                            slot-scope="props"
+                        >
                             <v-card flat>
-                                <v-card-text v-if="Object.keys(diligencias).length > 0">
+                                <v-card-text>
                                     <v-container fluid>
                                         <div v-if="props.item.Solicitacao">
                                             <v-layout
                                                 justify-space-around
                                                 row
-                                                wrap>
+                                                wrap
+                                            >
                                                 <v-flex
                                                     lg12
-                                                    dark>
+                                                    dark
+                                                >
                                                     <b>SOLICITAÇÃO</b>
                                                 </v-flex>
                                                 <v-flex>
-                                                    <p v-html="props.item.Solicitacao"/>
+                                                    <p v-html="props.item.Solicitacao" />
                                                 </v-flex>
                                             </v-layout>
                                         </div>
@@ -104,14 +140,16 @@
                                             <v-layout
                                                 justify-space-around
                                                 row
-                                                wrap>
+                                                wrap
+                                            >
                                                 <v-flex
                                                     lg12
-                                                    dark>
+                                                    dark
+                                                >
                                                     <b>RESPOSTA</b>
                                                 </v-flex>
                                                 <v-flex>
-                                                    <p v-html="props.item.Resposta"/>
+                                                    <p v-html="props.item.Resposta" />
                                                 </v-flex>
                                             </v-layout>
                                         </div>
@@ -120,14 +158,16 @@
                                             <v-flex
                                                 lg12
                                                 dark
-                                                class="text-xs-center">
+                                                class="text-xs-center"
+                                            >
                                                 <b>ARQUIVOS ANEXADOS</b>
                                             </v-flex>
                                             <v-container grid-list-md>
                                                 <v-layout
                                                     justify-space-around
                                                     row
-                                                    wrap>
+                                                    wrap
+                                                >
                                                     <v-flex xs6>
                                                         <b>Arquivo</b>
                                                     </v-flex>
@@ -146,7 +186,8 @@
                                                         <p>
                                                             <a
                                                                 :href="`/upload/abrir?id=${arquivo.idArquivo}`"
-                                                                target="_blank">
+                                                                target="_blank"
+                                                            >
                                                                 {{ arquivo.nmArquivo }}
                                                             </a>
                                                         </p>
@@ -161,22 +202,13 @@
                                         </div>
                                     </v-container>
                                 </v-card-text>
-                                <v-card-text v-else>
-                                    <Carregando :text="'Carregando ...'"/>
-                                </v-card-text>
                             </v-card>
                         </template>
                     </v-data-table>
                 </div>
-            </template>
-
+            </v-card-text>
         </v-card>
-        <v-card-text v-else>
-            <Carregando :text="'Carregando ...'"/>
-        </v-card-text>
-        <v-divider/>
     </v-dialog>
-
 </template>
 
 <script>
@@ -202,6 +234,7 @@ export default {
     data() {
         return {
             dialog: false,
+            loadingDiligencias: false,
             show: {
                 solicitacao: false,
                 resposta: false,
@@ -270,7 +303,7 @@ export default {
     },
     methods: {
         ...mapActions({
-            obterDiligencias: 'avaliacaoResultados/obetDadosDiligencias',
+            obterDiligenciasAction: 'avaliacaoResultados/obetDadosDiligencias',
         }),
         mostrarSolicitacao(index) {
             this.show.solicitacao = !this.show.solicitacao;
@@ -288,9 +321,16 @@ export default {
             }
             return this.info;
         },
+        obterDiligencias(params) {
+            this.loadingDiligencias = true;
+            this.obterDiligenciasAction(params).finally(() => {
+                this.loadingDiligencias = false;
+            });
+        },
     },
 };
 </script>
+
 <style scoped>
     .line {
         cursor: pointer;

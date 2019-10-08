@@ -91,8 +91,7 @@ class AvaliacaoResultados_Model_DbTable_FluxosProjeto extends MinC_Db_Table_Abst
             array('fp' => $this->_name),
             [new Zend_Db_Expr('count(*) as quantidade')],
             $this->_schema
-        )
-        ;
+        );
 
         if($estadosId) {
             $select->where('estadoId in (?) ', $estadosId);

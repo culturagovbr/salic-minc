@@ -11,7 +11,7 @@
                 dark
                 icons-and-text
             >
-                <v-tabs-slider color="deep-orange accent-3"/>
+                <v-tabs-slider color="deep-orange accent-3" />
                 <v-tab
                     href="#tab-6"
                     @click="r('/painel/dashboard')"
@@ -20,8 +20,8 @@
                     <v-icon>assignment_ind</v-icon>
                 </v-tab>
                 <v-tab-item
-                    :value="'tab-6'"
                     :key="6"
+                    :value="'tab-6'"
                 >
                     <v-card
                         flat
@@ -120,8 +120,8 @@
                 </v-tab>
 
                 <v-tab-item
-                    :value="'tab-0'"
                     :key="0"
+                    :value="'tab-0'"
                 >
                     <TabelaProjetos
                         v-if="getProjetosParaDistribuir"
@@ -130,8 +130,8 @@
                     />
                 </v-tab-item>
                 <v-tab-item
-                    :value="'tab-1'"
                     :key="1"
+                    :value="'tab-1'"
                 >
                     <v-card
                         v-if="dadosTabelaTecnico"
@@ -155,8 +155,8 @@
                     </v-card>
                 </v-tab-item>
                 <v-tab-item
-                    :value="'tab-2'"
                     :key="2"
+                    :value="'tab-2'"
                 >
                     <v-card flat>
                         <v-card-text>
@@ -180,8 +180,8 @@
                 </v-tab-item>
 
                 <v-tab-item
-                    :value="'tab-4'"
                     :key="4"
+                    :value="'tab-4'"
                 >
                     <v-card flat>
                         <v-card-text>
@@ -200,6 +200,7 @@
 import Vue from 'vue';
 import { mapActions, mapGetters } from 'vuex';
 import CONST from '../../const';
+
 import TabelaProjetos from './components/TabelaProjetos';
 import Historico from '../components/Historico';
 import Encaminhar from './components/ComponenteEncaminhar';
@@ -216,6 +217,7 @@ export default {
     components: {
         TabelaProjetos,
     },
+
     data() {
         return {
             tabActive: null,
@@ -224,7 +226,14 @@ export default {
             listaAcoesTecnico: {
                 atual: '',
                 proximo: '',
-                acoes: [Diligencias, Historico, AnaliseButton, VisualizarParecer, VisualizarPlanilhaButtton, ProjetosSimilaresButtton],
+                acoes: [
+                    Diligencias,
+                    Historico,
+                    AnaliseButton,
+                    VisualizarParecer,
+                    VisualizarPlanilhaButtton,
+                    ProjetosSimilaresButtton,
+                ],
             },
             listaAcoesAssinar: {
                 usuario: this.getUsuario,
@@ -257,6 +266,7 @@ export default {
             CONST: '',
         };
     },
+
     computed: {
         ...mapGetters({
             dadosTabelaTecnico: 'avaliacaoResultados/dadosTabelaTecnico',
@@ -272,6 +282,7 @@ export default {
             getDashboard: 'avaliacaoResultados/getDashboardQuantidade',
         }),
     },
+
     watch: {
         $route: {
             deep: true,
@@ -286,6 +297,7 @@ export default {
             },
         },
     },
+
     created() {
         this.CONST = CONST;
 
@@ -293,8 +305,8 @@ export default {
         let projetosFinalizados = {};
 
         if (
-            parseInt(this.getUsuario.grupo_ativo, 10) === 125
-            || parseInt(this.getUsuario.grupo_ativo, 10) === 126
+            parseInt(this.getUsuario.grupo_ativo, 10) === parseInt(CONST.PERFIL_COORDENADOR, 10)
+            || parseInt(this.getUsuario.grupo_ativo, 10) === parseInt(CONST.PERFIL_COORDENADOR_GERAL, 10)
         ) {
             projetosTecnico = {
                 estadoid: 5,
@@ -328,6 +340,7 @@ export default {
         Vue.set(this.listaAcoesCoordenador, 'usuario', this.getUsuario);
         Vue.set(this.listaAcoesAssinarCoordenadorGeral, 'usuario', this.getUsuario);
     },
+
     methods: {
         ...mapActions({
             obterDadosTabelaTecnico: 'avaliacaoResultados/obterDadosTabelaTecnico',
@@ -342,7 +355,10 @@ export default {
             this.$router.push(val);
         },
         dashboard() {
-            return (typeof this.getDashboard !== 'undefined' && Object.keys(this.getDashboard).length > 0) ? this.getDashboard.items : {};
+            return (typeof this.getDashboard !== 'undefined'
+                && Object.keys(this.getDashboard).length > 0)
+                ? this.getDashboard.items
+                : {};
         },
     },
 };

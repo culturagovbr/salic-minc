@@ -1,7 +1,8 @@
 <template>
     <v-layout
         row
-        wrap>
+        wrap
+    >
         <v-flex xs4>
             <br>
             <v-switch
@@ -9,12 +10,13 @@
                 v-model="filtro"
                 input-value="true"
                 color="success"
-                label="Todos / Analisar"
-                value="Diligenciado"/>
+                label="Ocultar diligenciados"
+                value="Diligenciado"
+            />
         </v-flex>
         <v-flex xs8>
             <v-card-title>
-                <v-spacer/>
+                <v-spacer />
                 <v-text-field
                     v-model="search"
                     append-icon="search"
@@ -27,43 +29,58 @@
 
         <v-flex xs12>
             <v-data-table
-                :headers="cab()"
+                :headers="headers()"
                 :items="dados.items"
                 :pagination.sync="pagination"
                 :search="search"
                 hide-actions
             >
                 <template
-                    v-if="filtragem(statusDiligencia(props.item).desc,filtro)"
+                    v-if="filtragem(statusDiligencia(props.item).desc, filtro)"
                     slot="items"
-                    slot-scope="props">
+                    slot-scope="props"
+                >
                     <td>{{ props.index+1 }}</td>
                     <td class="text-xs-right">
                         <v-flex
                             xs12
                             sm4
-                            text-xs-center>
+                            text-xs-center
+                        >
                             <div>
                                 <v-btn
                                     :href="'/projeto/#/'+ props.item.idPronac"
-                                    flat>{{ props.item.PRONAC }}</v-btn>
+                                    flat
+                                >
+                                    {{ props.item.PRONAC }}
+                                </v-btn>
                             </div>
                         </v-flex>
                     </td>
-                    <td class="text-xs-left">{{ props.item.NomeProjeto }}</td>
-                    <td class="text-xs-center">{{ props.item.Situacao }}</td>
-                    <td class="text-xs-center">{{ props.item.UfProjeto }}</td>
+                    <td class="text-xs-left">
+                        {{ props.item.NomeProjeto }}
+                    </td>
+                    <td class="text-xs-center">
+                        {{ props.item.Situacao }}
+                    </td>
+                    <td class="text-xs-center">
+                        {{ props.item.UfProjeto }}
+                    </td>
                     <td
                         v-if="mostrarTecnico"
-                        class="text-xs-center">{{ props.item.usu_nome }}</td>
+                        class="text-xs-center"
+                    >
+                        {{ props.item.usu_nome }}
+                    </td>
                     <td class="text-xs-center">
                         <template
-                            v-for="(c, index) in componentes.acoes"
-                            d-inline-block>
+                            v-for="(componente, index) in componentes.acoes"
+                            d-inline-block
+                        >
                             <component
+                                :is="componente"
                                 :key="index"
                                 :obj="props.item"
-                                :is="c"
                                 :filtros="filtro"
                                 :link-direto-assinatura="true"
                                 :documento="props.item.idDocumentoAssinatura"
@@ -88,7 +105,8 @@
                     <v-alert
                         :value="true"
                         color="error"
-                        icon="warning">
+                        icon="warning"
+                    >
                         Nenhum dado encontrado ¯\_(ツ)_/¯
                     </v-alert>
                 </template>
@@ -96,7 +114,8 @@
         </v-flex>
         <v-flex
             xs12
-            class="text-xs-center">
+            class="text-xs-center"
+        >
             <div class="text-xs-center pt-2">
                 <v-pagination
                     v-model="pagination.page"
@@ -129,7 +148,7 @@ export default {
             retornoUrl: `&origin=${encodeURIComponent('avaliacao-resultados/#/painel/assinar')}`,
             selected: [],
             search: '',
-            filtro: 'Diligenciado',
+            filtro: '',
             diligencias: [
                 'Todos projetos',
                 'A Diligenciar',
@@ -172,7 +191,7 @@ export default {
             this.filtro = val;
             this.$emit('filtros', this.filtro);
         },
-        cab() {
+        headers() {
             let dados = [];
 
             dados = [
