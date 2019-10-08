@@ -22,7 +22,7 @@
                 v-model="form"
             >
                 <v-card-title
-                    class="headline primary"
+                    class="title primary"
                     primary-title
                 >
                     <span class="white--text">

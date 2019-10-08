@@ -6,12 +6,16 @@
     >
         <v-tooltip
             slot="activator"
-            bottom>
+            bottom
+        >
             <v-btn
                 slot="activator"
                 flat
-                icon>
-                <v-icon class="material-icons">history</v-icon>
+                icon
+            >
+                <v-icon class="material-icons">
+                    history
+                </v-icon>
             </v-btn>
             <span>Histórico de Encaminhamentos</span>
         </v-tooltip>
@@ -19,29 +23,34 @@
         <v-card>
             <v-card-title
                 class="headline primary"
-                primary-title>
+                primary-title
+            >
                 <span class="white--text">
                     Histórico de encaminhamentos
                 </span>
             </v-card-title>
 
             <v-card-text style="height: 500px;">
-                <v-subheader>
-                    <h4 class="headline mb-0 grey--text text--darken-3">
+                <v-subheader class="mb-4">
+                    <h4 class="title mb-0 grey--text text--darken-3">
                         {{ pronac }} - {{ nomeProjeto }}
                     </h4>
                 </v-subheader>
 
-                <v-divider dark/>
-
+                <carregando-vuetify
+                    v-if="loading"
+                    text="Carregando  ..."
+                />
                 <v-data-table
+                    v-else
                     :headers="historicoHeaders"
                     :items="dadosHistoricoEncaminhamento"
                     hide-actions
                 >
                     <template
                         slot="items"
-                        slot-scope="props">
+                        slot-scope="props"
+                    >
                         <td>{{ props.item.dtInicioEncaminhamento | formatarData }}</td>
                         <td>{{ props.item.NomeOrigem }}</td>
                         <td>{{ props.item.NomeDestino }}</td>
@@ -50,22 +59,24 @@
                     <template slot="no-data">
                         <v-alert
                             :value="true"
-                            color="error"
-                            icon="warning">
+                            color="info"
+                            icon="info"
+                        >
                             Nenhum dado encontrado ¯\_(ツ)_/¯
                         </v-alert>
                     </template>
                 </v-data-table>
             </v-card-text>
 
-            <v-divider/>
+            <v-divider />
 
             <v-card-actions>
-                <v-spacer/>
+                <v-spacer />
                 <v-btn
                     color="red"
                     flat
-                    @click="dialog = false">
+                    @click="dialog = false"
+                >
                     Fechar
                 </v-btn>
             </v-card-actions>
@@ -74,13 +85,11 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import ModalTemplate from '@/components/modal';
+import CarregandoVuetify from '@/components/CarregandoVuetify';
 
 export default {
     name: 'Painel',
-    components: {
-        ModalTemplate,
-    },
+    components: { CarregandoVuetify },
     filters: {
         formatarData(value) {
             const date = new Date(value);
@@ -99,6 +108,7 @@ export default {
     },
     data() {
         return {
+            loading: false,
             projetoHeaders: [
                 {
                     text: 'PRONAC',
@@ -154,8 +164,14 @@ export default {
     },
     methods: {
         ...mapActions({
-            obterHistoricoEncaminhamento: 'avaliacaoResultados/obterHistoricoEncaminhamento',
+            obterHistoricoEncaminhamentoAction: 'avaliacaoResultados/obterHistoricoEncaminhamento',
         }),
+        obterHistoricoEncaminhamento(params) {
+            this.loading = true;
+            this.obterHistoricoEncaminhamentoAction(params).finally(() => {
+                this.loading = false;
+            });
+        },
     },
 };
 </script>

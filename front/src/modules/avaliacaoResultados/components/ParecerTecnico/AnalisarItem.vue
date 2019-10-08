@@ -41,7 +41,7 @@
                     <v-container
                         fluid
                         grid-list-md
-                        class="pa-10 elevation-2">
+                        class="pa-10 elevation-0">
                         <v-layout wrap>
                             <v-flex
                                 xs12

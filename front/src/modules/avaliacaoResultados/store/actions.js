@@ -96,13 +96,12 @@ export const projetosFinalizados = ({ commit }, params) => {
         });
 };
 
-export const obterHistoricoEncaminhamento = ({ commit }, params) => {
-    avaliacaoResultadosHelperAPI.obterHistoricoEncaminhamento(params)
-        .then((response) => {
-            const dadosEncaminhamento = response.data.data;
-            commit(types.HISTORICO_ENCAMINHAMENTO, dadosEncaminhamento.items);
-        });
-};
+export const obterHistoricoEncaminhamento = async ({ commit }, params) => avaliacaoResultadosHelperAPI
+    .obterHistoricoEncaminhamento(params)
+    .then((response) => {
+        const dadosEncaminhamento = response.data.data;
+        commit(types.HISTORICO_ENCAMINHAMENTO, dadosEncaminhamento.items);
+    });
 
 export const getTipoAvaliacao = ({ commit }, params) => {
     const p = new Promise((resolve) => {
@@ -235,7 +234,7 @@ export const projetosParaDistribuir = ({ commit }) => {
         });
 };
 
-export const projetosAssinatura = ({ commit }, params) => {
+export const projetosAssinatura = async ({ commit }, params) => {
     let type = '';
     switch (params.estado) {
     case 'em_assinatura':
@@ -249,7 +248,7 @@ export const projetosAssinatura = ({ commit }, params) => {
         type = types.SET_DADOS_PROJETOS_ASSINAR;
     }
 
-    avaliacaoResultadosHelperAPI.obterProjetosAssinatura(params)
+    return avaliacaoResultadosHelperAPI.obterProjetosAssinatura(params)
         .then((response) => {
             const { data } = response;
             const dadosTabela = data.data;

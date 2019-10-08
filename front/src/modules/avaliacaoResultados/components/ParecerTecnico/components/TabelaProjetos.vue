@@ -104,8 +104,8 @@
                 <template slot="no-data">
                     <v-alert
                         :value="true"
-                        color="error"
-                        icon="warning"
+                        color="info"
+                        icon="info"
                     >
                         Nenhum dado encontrado ¯\_(ツ)_/¯
                     </v-alert>

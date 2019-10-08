@@ -198,7 +198,7 @@
                                                                             color="red"
                                                                             dark
                                                                             small
-                                                                            title="Comprovar Item"
+                                                                            title="Avaliar comprovantes do item"
                                                                             @click="avaliarItem(
                                                                                 props.item,
                                                                                 produto.produto,

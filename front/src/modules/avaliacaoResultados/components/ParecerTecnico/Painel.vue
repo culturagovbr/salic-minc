@@ -104,9 +104,9 @@
 
                 <v-tab
                     href="#tab-4"
-                    @click="r('/painel/historico')"
+                    @click="buscarHistorico"
                 >
-                    <template v-if="Object.keys(getProjetosHistorico).length == 0">
+                    <template v-if="loadingHistorico">
                         <v-progress-circular
                             indeterminate
                             color="secondary"
@@ -264,6 +264,7 @@ export default {
             distribuirAcoes: { atual: '', proximo: '', acoes: [Encaminhar] },
             historicoAcoes: { atual: '', proximo: '', acoes: [Historico, VisualizarPlanilhaButtton] },
             CONST: '',
+            loadingHistorico: false,
         };
     },
 
@@ -333,7 +334,7 @@ export default {
         this.projetosFinalizados(projetosFinalizados);
         this.projetosAssinarCoordenador();
         this.projetosAssinarCoordenadorGeral();
-        this.projetosAssinatura({ estado: 'historico' });
+        // this.projetosAssinatura({ estado: 'historico' });
 
 
         Vue.set(this.listaAcoesAssinar, 'usuario', this.getUsuario);
@@ -345,7 +346,7 @@ export default {
         ...mapActions({
             obterDadosTabelaTecnico: 'avaliacaoResultados/obterDadosTabelaTecnico',
             projetosFinalizados: 'avaliacaoResultados/projetosFinalizados',
-            projetosAssinatura: 'avaliacaoResultados/projetosAssinatura',
+            projetosAssinaturaAction: 'avaliacaoResultados/projetosAssinatura',
             distribuir: 'avaliacaoResultados/projetosParaDistribuir',
             projetosAssinarCoordenador: 'avaliacaoResultados/projetosAssinarCoordenador',
             projetosAssinarCoordenadorGeral: 'avaliacaoResultados/projetosAssinarCoordenadorGeral',
@@ -359,6 +360,14 @@ export default {
                 && Object.keys(this.getDashboard).length > 0)
                 ? this.getDashboard.items
                 : {};
+        },
+        buscarHistorico() {
+            this.loadingHistorico = true;
+            this.projetosAssinaturaAction({ estado: 'historico' })
+                .finally(() => {
+                    this.r('/painel/historico');
+                    this.loadingHistorico = false;
+                });
         },
     },
 };
