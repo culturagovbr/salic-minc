@@ -37,8 +37,20 @@ class AvaliacaoResultados_ProjetoController extends MinC_Controller_Rest_Abstrac
         $data['vlComprovado'] = $consolidacao->valorComprovado;
         $data['pronac'] = $projeto->current()['AnoProjeto'] . $projeto->current()['Sequencial'];
 
-        $diligencia = new Diligencia();
-        $data['diligencia'] = $diligencia->existeDiligenciaAberta($idPronac);
+        $tbDiligencia = new Diligencia();
+        $diligencia = $tbDiligencia->buscarUltDiligencia([
+            'idPronac = ?' => $idPronac,
+            'DtResposta IS NULL' => '',
+            'idTipoDiligencia in (?)' => [
+                \Diligencia_Model_TbDiligencia::DILIGENCIA_NA_PRESTACAO_DE_CONTAS,
+                \Diligencia_Model_TbDiligencia::DILIGENCIA_NA_PRESTACAO_DE_CONTAS_TODOS_OS_ITENS,
+            ],
+        ]);
+
+        $data['diligencia'] = null;
+        if (count($diligencia) > 0) {
+            $data['diligencia'] = $diligencia->current()->toArray();
+        }
 
         $fluxo = new FluxoProjetoService();
         $estado = $fluxo->estado($idPronac);

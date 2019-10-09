@@ -9,8 +9,8 @@
         >
             <v-flex
                 xs12
-                sm6
-                md6
+                sm4
+                md4
             >
                 <v-card
                     class="mx-auto mb-2"
@@ -22,7 +22,7 @@
                     >
                         <v-toolbar-title>
                             <span class="subheading">
-                                SOLICITADO
+                                APROVADO
                             </span>
                         </v-toolbar-title>
                         <v-spacer />
@@ -39,7 +39,7 @@
                                 <span
                                     class="display-2 font-weight-light"
                                 >
-                                    {{ calculos.totalSolicitado | filtroFormatarParaReal }}
+                                    {{ dados.items.vlAprovado | filtroFormatarParaReal }}
                                 </span>
                             </v-flex>
                         </v-layout>
@@ -48,8 +48,8 @@
             </v-flex>
             <v-flex
                 xs12
-                sm6
-                md6
+                sm4
+                md4
             >
                 <v-card
                     class="mx-auto mb-2"
@@ -61,47 +61,9 @@
                     >
                         <v-toolbar-title>
                             <span class="subheading">
-                                SUGERIDO
+                                COMPROVADO
                             </span>
                         </v-toolbar-title>
-                        <v-tooltip
-                            bottom
-                        >
-                            <v-badge
-                                slot="activator"
-                                :value="calculos.totalInconsistencias > 0"
-                                class="ml-2"
-                                overlap
-                                left
-                                color="red"
-                            >
-                                <template v-slot:badge>
-                                    <span>{{ calculos.totalInconsistencias }}</span>
-                                </template>
-
-                                <v-icon
-                                    v-if="calculos.totalInconsistencias > 0"
-
-                                    color="grey"
-                                >
-                                    error
-                                </v-icon>
-                            </v-badge>
-                            <span> Existem ({{ calculos.totalInconsistencias }}) inconsistências na planilha </span>
-                        </v-tooltip>
-                        <v-spacer />
-                        <v-tooltip
-                            bottom
-                        >
-                            <v-btn
-                                slot="activator"
-                                icon
-                                @click="dialog = !dialog"
-                            >
-                                <v-icon>settings_backup_restore</v-icon>
-                            </v-btn>
-                            <span>Restaurar planilha original</span>
-                        </v-tooltip>
                     </v-toolbar>
 
                     <v-card-text>
@@ -109,13 +71,51 @@
                             justify-space-between
                         >
                             <v-flex text-xs-left>
-                                <span class="subheading font-weight-light mr-1">
+                                <span class="subheading font-weight-light mr-1 green--text text--darken-4">
                                     R$
                                 </span>
                                 <span
-                                    class="display-2 font-weight-light"
+                                    class="display-2 font-weight-light green--text text--darken-4"
                                 >
-                                    {{ calculos.totalSugerido | filtroFormatarParaReal }}
+                                    {{ dados.items.vlComprovado | filtroFormatarParaReal }}
+                                </span>
+                            </v-flex>
+                        </v-layout>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+            <v-flex
+                xs12
+                sm4
+                md4
+            >
+                <v-card
+                    class="mx-auto mb-2"
+                    max-width="600"
+                >
+                    <v-toolbar
+                        card
+                        dense
+                    >
+                        <v-toolbar-title>
+                            <span class="subheading">
+                                A COMPROVAR
+                            </span>
+                        </v-toolbar-title>
+                    </v-toolbar>
+
+                    <v-card-text>
+                        <v-layout
+                            justify-space-between
+                        >
+                            <v-flex text-xs-left>
+                                <span class="subheading font-weight-light mr-1 red--text text--darken-4">
+                                    R$
+                                </span>
+                                <span
+                                    class="display-2 font-weight-light red--text text--darken-4"
+                                >
+                                    {{ dados.items.vlTotalComprovar | filtroFormatarParaReal }}
                                 </span>
                             </v-flex>
                         </v-layout>

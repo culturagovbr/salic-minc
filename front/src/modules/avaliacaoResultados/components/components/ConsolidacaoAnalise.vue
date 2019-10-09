@@ -7,7 +7,7 @@
     >
         <v-btn
             slot="activator"
-            color="success"
+            color="secondary"
             dark>CONSOLIDAÇÃO</v-btn>
         <v-card>
             <v-card-text>

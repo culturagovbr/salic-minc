@@ -52,7 +52,7 @@ class AvaliacaoResultados_Model_DbTable_FluxosProjeto extends MinC_Db_Table_Abst
 
         $select->joinLeft(
             ['e' => 'tbDiligencia'],
-            'b.IdPRONAC   = e.idPronac AND e.idTipoDiligencia IN (174,645) AND e.DtResposta IS NULL',
+            'b.IdPRONAC = e.idPronac AND e.idTipoDiligencia IN (174,645) AND e.DtResposta IS NULL',
             [
                 'e.idDiligencia',
                 'e.DtSolicitacao',
@@ -88,7 +88,7 @@ class AvaliacaoResultados_Model_DbTable_FluxosProjeto extends MinC_Db_Table_Abst
 
     public function projeto($idPronac)
     {
-        $select  = $this->obterQueryProjetos();
+        $select = $this->obterQueryProjetos();
 
         $select->where('idPronac = ? ', $idPronac);
 

@@ -1,7 +1,7 @@
 <template>
     <carregando
         v-if="Object.keys(dadosProjeto).length == 0"
-        :text="'Carregando ...'"
+        text="Carregando ..."
     />
     <v-container
         v-else
@@ -16,28 +16,23 @@
                 <v-icon>arrow_back</v-icon>
             </v-btn>
             <v-toolbar-title>
-                Planilha
+                Planilha: {{ dadosProjeto.items.pronac }} &#45; {{ dadosProjeto.items.nomeProjeto }}
             </v-toolbar-title>
+            <v-spacer />
+
+            <v-chip v-if="isProjetoDiligenciado">
+                Projeto diligenciado
+            </v-chip>
+            <v-chip v-else-if="estado.estadoId == 5">
+                Projeto em analise
+            </v-chip>
+            <historico-diligencias
+                :id-pronac="idPronac"
+                :obj="dadosProjeto.items.diligencia"
+            />
         </v-toolbar>
         <v-card>
-            <v-card-title primary-title>
-                <h2>{{ dadosProjeto.items.pronac }} &#45; {{ dadosProjeto.items.nomeProjeto }}</h2>
-            </v-card-title>
             <v-card-text>
-                <v-alert
-                    v-if="dadosProjeto.items.diligencia"
-                    :value="true"
-                    color="info"
-                >
-                    Existe Diligência para esse projeto. Acesse
-                    <a
-                        :href="
-                            '/proposta/diligenciar/listardiligenciaanalista/idPronac/'
-                                + idPronac"
-                    >
-                        aqui
-                    </a>.
-                </v-alert>
                 <v-alert
                     v-if="documento != 0"
                     :value="true"
@@ -45,27 +40,7 @@
                 >
                     Existe Documento para assinar nesse projeto.
                 </v-alert>
-                <v-alert
-                    v-if="estado.estadoId == 5"
-                    :value="true"
-                    color="info"
-                >
-                    Projeto em analise.
-                </v-alert>
-                <div class="mt-4 mb-3">
-                    <div class="d-inline-block text-xs-right">
-                        <h4>Valor Aprovado</h4>
-                        R$ {{ dadosProjeto.items.vlAprovado | moedaMasc }}
-                    </div>
-                    <div class="d-inline-block ml-5 text-xs-right">
-                        <h4>Valor Comprovado</h4>
-                        R$ {{ dadosProjeto.items.vlComprovado | moedaMasc }}
-                    </div>
-                    <div class="d-inline-block ml-5 text-xs-right">
-                        <h4>Valor a Comprovar</h4>
-                        R$ {{ dadosProjeto.items.vlTotalComprovar | moedaMasc }}
-                    </div>
-                </div>
+                <parecer-tecnico-planilha-header :dados="dadosProjeto" />
             </v-card-text>
             <v-card-actions>
                 <v-btn
@@ -184,7 +159,7 @@
                                                             :key="index"
                                                             ripple
                                                         >
-                                                            {{ tabs[tab] }}
+                                                            <b>{{ tabs[tab] }}</b>
                                                         </v-tab>
                                                         <v-tab-item
                                                             v-for="item in cidade.itens"
@@ -272,7 +247,7 @@
             <Carregando :text="'Carregando planilha ...'" />
         </template>
         <v-speed-dial
-            v-if="(!dadosProjeto.items.diligencia)"
+            v-if="(!isProjetoDiligenciado)"
             v-model="fab"
             bottom
             right
@@ -308,7 +283,7 @@
                 <span>Assinar</span>
             </v-tooltip>
             <v-tooltip
-                v-if="(documento == 0 && !dadosProjeto.items.diligencia)"
+                v-if="(documento == 0 && !isProjetoDiligenciado)"
                 left
             >
                 <v-btn
@@ -325,7 +300,7 @@
                 <span>Emitir Parecer</span>
             </v-tooltip>
             <v-tooltip
-                v-if="(documento == 0) && !dadosProjeto.items.diligencia"
+                v-if="(documento == 0) && !isProjetoDiligenciado"
                 left
             >
                 <v-btn
@@ -351,12 +326,16 @@ import Carregando from '@/components/CarregandoVuetify';
 import ConsolidacaoAnalise from '../components/ConsolidacaoAnalise';
 import AnalisarItem from './AnalisarItem';
 import Moeda from '../../../../filters/money';
+import HistoricoDiligencias from '@/modules/avaliacaoResultados/components/components/HistoricoDiligencias';
+import ParecerTecnicoPlanilhaHeader from '@/modules/avaliacaoResultados/components/ParecerTecnico/PlanilhaHeader';
 
 Vue.filter('moedaMasc', Moeda);
 
 export default {
     name: 'Planilha',
     components: {
+        ParecerTecnicoPlanilhaHeader,
+        HistoricoDiligencias,
         ConsolidacaoAnalise,
         AnalisarItem,
         Carregando,
@@ -422,6 +401,10 @@ export default {
             let planilha = this.getPlanilha;
             planilha = (planilha !== null && Object.keys(planilha).length) ? this.getPlanilha : 0;
             return planilha;
+        },
+        isProjetoDiligenciado() {
+            const { diligencia } = this.dadosProjeto.items;
+            return diligencia && diligencia.DtSolicitacao && !diligencia.DtResposta;
         },
     },
     mounted() {

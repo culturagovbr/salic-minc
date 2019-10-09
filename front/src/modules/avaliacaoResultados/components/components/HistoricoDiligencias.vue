@@ -8,7 +8,7 @@
         <diligencia-button
             slot="activator"
             :item="obj"
-            @click="obterDiligencias(obj.idPronac)"
+            @click="obterDiligencias(idPronac)"
         />
 
         <v-card>
@@ -31,7 +31,7 @@
                     <v-card-text
                         v-if="loadingDiligencias"
                     >
-                        <Carregando :text="'Carregando ...'" />
+                        <Carregando text="Carregando ..." />
                     </v-card-text>
                     <v-data-table
                         v-else
@@ -216,6 +216,7 @@ export default {
     },
     mixins: [statusDiligencia],
     props: {
+        idPronac: { type: String, default: '' },
         obj: {
             type: Object,
             default: () => {},

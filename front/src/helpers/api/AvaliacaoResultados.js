@@ -24,6 +24,8 @@ export const getTeste = params => api.postRequest('/realizarprestacaodecontas/ca
 
 export const getTipoAvaliacao = params => api.getRequest(`/avaliacao-resultados/tipo-avaliacao-rest/idPronac/${params}`);
 
+/** FLUXO PROJETO */
+
 export const obterDadosTabelaTecnico = (params) => {
     let data = '?';
 
@@ -41,6 +43,45 @@ export const obterDadosTabelaTecnico = (params) => {
 
     return api.getRequest(`/avaliacao-resultados/fluxo-projeto${data}`);
 };
+
+export const obterProjetoTabelaTecnico = id => api.getRequest(`/avaliacao-resultados/fluxo-projeto/id/${id}`);
+
+export const projetosRevisao = (params) => {
+    let data = '?';
+
+    if (params.estadoid) {
+        data += `estadoid=${params.estadoid}`;
+    }
+
+    if (params.idAgente) {
+        data += `&idAgente=${params.idAgente}`;
+    }
+
+    if (params.idSecretaria) {
+        data += `&idSecretaria=${params.idSecretaria}`;
+    }
+
+    return api.getRequest(`/avaliacao-resultados/fluxo-projeto${data}`);
+};
+
+export const projetosPorEstado = (params) => {
+    let data = '?';
+
+    if (params.estadoid) {
+        data += `estadoid=${params.estadoid}`;
+    }
+
+    if (params.idAgente) {
+        data += `&idAgente=${params.idAgente}`;
+    }
+
+    if (params.idSecretaria) {
+        data += `&idSecretaria=${params.idSecretaria}`;
+    }
+
+    return api.getRequest(`/avaliacao-resultados/fluxo-projeto${data}`);
+};
+
 
 export const obterHistoricoEncaminhamento = params => api.getRequest(`/avaliacao-resultados/historico/idPronac/${params}`);
 
@@ -91,24 +132,6 @@ export const alterarPerfil = (grupoAtivo, orgaoAtivo) => api.getRequest(`perfil/
 
 export const obterProjetosAssinatura = params => api.getRequest(`/avaliacao-resultados/projeto-assinatura/estado/${params.estado}`);
 
-export const projetosRevisao = (params) => {
-    let data = '?';
-
-    if (params.estadoid) {
-        data += `estadoid=${params.estadoid}`;
-    }
-
-    if (params.idAgente) {
-        data += `&idAgente=${params.idAgente}`;
-    }
-
-    if (params.idSecretaria) {
-        data += `&idSecretaria=${params.idSecretaria}`;
-    }
-
-    return api.getRequest(`/avaliacao-resultados/fluxo-projeto${data}`);
-};
-
 export const buscarDetalhamentoItens = idPronac => api.getRequest(`/avaliacao-resultados/detalhamento-itens-rest?idPronac=${idPronac}`);
 
 export const buscarComprovantes = (params) => {
@@ -129,28 +152,7 @@ export const buscarComprovantes = (params) => {
     return api.getRequest(url + queryParams);
 };
 
-export const projetosPorEstado = (params) => {
-    let data = '?';
-
-    if (params.estadoid) {
-        data += `estadoid=${params.estadoid}`;
-    }
-
-    if (params.idAgente) {
-        data += `&idAgente=${params.idAgente}`;
-    }
-
-    if (params.idSecretaria) {
-        data += `&idSecretaria=${params.idSecretaria}`;
-    }
-
-    return api.getRequest(`/avaliacao-resultados/fluxo-projeto${data}`);
-};
 
 export const salvarAvaliacaoComprovante = params => api.postRequest('/avaliacao-resultados/avaliacao-comprovante/', buildData(params));
 
 export const dashboardQuantidade = () => api.getRequest('/avaliacao-resultados/dashboard');
-// export const projetosSimilares = params => ax.get(`/avaliacao-resultados/projetos-similares/${params}`);
-//
-// const ax = api.HTTP({ baseURL: 'http://localhost:81' });
-

@@ -41,6 +41,10 @@ export default {
     },
     computed: {
         diasEmDiligencia() {
+            if (!this.item || !this.item.DtSolicitacao) {
+                return 0;
+            }
+
             return this.diasData(this.item.DtSolicitacao);
         },
         prazoExpirado() {
@@ -49,6 +53,10 @@ export default {
         },
         statusDiligencia() {
             let status = 0;
+
+            if (!this.item || !this.item.DtSolicitacao) {
+                return 0;
+            }
 
             if (this.item.DtSolicitacao && this.item.DtResposta) {
                 status = 2;
