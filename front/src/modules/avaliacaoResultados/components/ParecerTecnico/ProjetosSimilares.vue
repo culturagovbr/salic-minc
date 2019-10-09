@@ -31,9 +31,6 @@
 <script>
 import Vue from 'vue';
 import { mapActions, mapGetters } from 'vuex';
-import Carregando from '@/components/CarregandoVuetify';
-import ConsolidacaoAnalise from '../components/ConsolidacaoAnalise';
-import AnalisarItem from './AnalisarItem';
 import Moeda from '../../../../filters/money';
 import VisualizarPlanilhaButtton from '../analise/VisualizarPlanilhaButtton';
 
@@ -42,9 +39,6 @@ Vue.filter('moedaMasc', Moeda);
 export default {
     name: 'Planilha',
     components: {
-        ConsolidacaoAnalise,
-        AnalisarItem,
-        Carregando,
         VisualizarPlanilhaButtton,
     },
     data() {

@@ -340,10 +340,6 @@ export default {
         ...mapActions({
             buscarReadequacoesPainelAguardandoDistribuicao: 'readequacao/buscarReadequacoesPainelAguardandoDistribuicao',
             buscarReadequacoesPainelEmAnalise: 'readequacao/buscarReadequacoesPainelEmAnalise',
-            obterDestinatariosDistribuicao: 'readequacao/obterDestinatariosDistribuicao',
-            distribuirReadequacao: 'readequacao/distribuirReadequacao',
-            devolverAoCoordenador: 'readequacao/devolverAoCoordenador',
-            setSnackbar: 'noticias/setDados',
         }),
         checkDisponivelEncaminhar() {
             if (this.acaoTomada === 'DEVOLVER_AO_COORDENADOR') {

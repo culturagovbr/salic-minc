@@ -210,7 +210,6 @@ import Devolver from '../components/Devolver';
 import VisualizarPlanilhaButtton from '../analise/VisualizarPlanilhaButtton';
 import Diligencias from '../components/HistoricoDiligencias';
 import VisualizarParecer from '../components/VisualizarParecer';
-import ProjetosSimilaresButtton from '../analise/ProjetosSimilaresButton';
 
 export default {
     name: 'Painel',
@@ -232,7 +231,6 @@ export default {
                     AnaliseButton,
                     VisualizarParecer,
                     VisualizarPlanilhaButtton,
-                    ProjetosSimilaresButtton,
                 ],
             },
             listaAcoesAssinar: {
@@ -279,8 +277,9 @@ export default {
             getUsuario: 'autenticacao/getUsuario',
             getProjetosAssinarCoordenador: 'avaliacaoResultados/getProjetosAssinarCoordenador',
             getProjetosAssinarCoordenadorGeral: 'avaliacaoResultados/getProjetosAssinarCoordenadorGeral',
-            route: 'route',
             getDashboard: 'avaliacaoResultados/getDashboardQuantidade',
+            usuarioGetter: 'autenticacao/getUsuario',
+            route: 'route',
         }),
     },
 
@@ -305,26 +304,32 @@ export default {
         let projetosTecnico = {};
         let projetosFinalizados = {};
 
+        const idSecretaria = this.usuarioGetter.usu_org_max_superior;
+
         if (
             parseInt(this.getUsuario.grupo_ativo, 10) === parseInt(CONST.PERFIL_COORDENADOR, 10)
             || parseInt(this.getUsuario.grupo_ativo, 10) === parseInt(CONST.PERFIL_COORDENADOR_GERAL, 10)
         ) {
             projetosTecnico = {
                 estadoid: 5,
+                idSecretaria,
             };
 
             projetosFinalizados = {
                 estadoid: 6,
+                idSecretaria,
             };
         } else {
             projetosTecnico = {
                 estadoid: 5,
                 idAgente: this.getUsuario.usu_codigo,
+                idSecretaria,
             };
 
             projetosFinalizados = {
                 estadoid: 6,
                 idAgente: this.getUsuario.usu_codigo,
+                idSecretaria,
             };
         }
 
@@ -332,10 +337,14 @@ export default {
         this.distribuir();
         this.obterDadosTabelaTecnico(projetosTecnico);
         this.projetosFinalizados(projetosFinalizados);
-        this.projetosAssinarCoordenador();
-        this.projetosAssinarCoordenadorGeral();
-        // this.projetosAssinatura({ estado: 'historico' });
-
+        this.projetosAssinarCoordenador({
+            estadoid: 9,
+            idSecretaria,
+        });
+        this.projetosAssinarCoordenadorGeral({
+            estadoid: 15,
+            idSecretaria,
+        });
 
         Vue.set(this.listaAcoesAssinar, 'usuario', this.getUsuario);
         Vue.set(this.listaAcoesCoordenador, 'usuario', this.getUsuario);

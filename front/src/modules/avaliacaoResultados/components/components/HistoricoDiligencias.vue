@@ -5,26 +5,11 @@
         scrollable
         fullscreen
     >
-        <v-tooltip
+        <diligencia-button
             slot="activator"
-            bottom
-        >
-            <v-btn
-                slot="activator"
-                flat
-                icon
-                @click.native="obterDiligencias(obj.idPronac)"
-            >
-                <v-icon
-                    :color="statusDiligencia(obj).color"
-                    :change="statusDiligencia(obj).color"
-                    class="material-icons"
-                >
-                    assignment_late
-                </v-icon>
-            </v-btn>
-            <span>{{ statusDiligencia(obj).desc }} </span>
-        </v-tooltip>
+            :item="obj"
+            @click="obterDiligencias(obj.idPronac)"
+        />
 
         <v-card>
             <v-toolbar
@@ -219,16 +204,22 @@ import Carregando from '@/components/CarregandoVuetify';
 import Data from '../../../../filters/date';
 import statusDiligencia from '../../mixins/statusDiligencia';
 
+import DiligenciaButton from '@/modules/diligencia/components/DiligenciaButton';
+
 Vue.filter('date', Data);
 
 export default {
     name: 'HistoricoDiligencias',
     components: {
+        DiligenciaButton,
         Carregando,
     },
     mixins: [statusDiligencia],
     props: {
-        obj: { type: Object, default: () => {} },
+        obj: {
+            type: Object,
+            default: () => {},
+        },
         filtros: { type: String, default: '' },
     },
     data() {

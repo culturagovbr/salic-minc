@@ -34,6 +34,11 @@ export const obterDadosTabelaTecnico = (params) => {
     if (params.idAgente) {
         data += `&idAgente=${params.idAgente}`;
     }
+
+    if (params.idSecretaria) {
+        data += `&idSecretaria=${params.idSecretaria}`;
+    }
+
     return api.getRequest(`/avaliacao-resultados/fluxo-projeto${data}`);
 };
 
@@ -87,8 +92,21 @@ export const alterarPerfil = (grupoAtivo, orgaoAtivo) => api.getRequest(`perfil/
 export const obterProjetosAssinatura = params => api.getRequest(`/avaliacao-resultados/projeto-assinatura/estado/${params.estado}`);
 
 export const projetosRevisao = (params) => {
-    const data = params;
-    return api.getRequest(`/avaliacao-resultados/fluxo-projeto?estadoid=${data.estadoid}&idAgente=${data.idAgente}`);
+    let data = '?';
+
+    if (params.estadoid) {
+        data += `estadoid=${params.estadoid}`;
+    }
+
+    if (params.idAgente) {
+        data += `&idAgente=${params.idAgente}`;
+    }
+
+    if (params.idSecretaria) {
+        data += `&idSecretaria=${params.idSecretaria}`;
+    }
+
+    return api.getRequest(`/avaliacao-resultados/fluxo-projeto${data}`);
 };
 
 export const buscarDetalhamentoItens = idPronac => api.getRequest(`/avaliacao-resultados/detalhamento-itens-rest?idPronac=${idPronac}`);
@@ -121,13 +139,18 @@ export const projetosPorEstado = (params) => {
     if (params.idAgente) {
         data += `&idAgente=${params.idAgente}`;
     }
+
+    if (params.idSecretaria) {
+        data += `&idSecretaria=${params.idSecretaria}`;
+    }
+
     return api.getRequest(`/avaliacao-resultados/fluxo-projeto${data}`);
 };
 
 export const salvarAvaliacaoComprovante = params => api.postRequest('/avaliacao-resultados/avaliacao-comprovante/', buildData(params));
 
 export const dashboardQuantidade = () => api.getRequest('/avaliacao-resultados/dashboard');
+// export const projetosSimilares = params => ax.get(`/avaliacao-resultados/projetos-similares/${params}`);
+//
+// const ax = api.HTTP({ baseURL: 'http://localhost:81' });
 
-const ax = api.HTTP({ baseURL: 'http://localhost:81' });
-
-export const projetosSimilares = params => ax.get(`/avaliacao-resultados/projetos-similares/${params}`);

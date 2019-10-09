@@ -39,13 +39,13 @@
                                 {{ pronac }} - {{ nomeProjeto }}
                             </h4>
                         </v-subheader>
-                        <v-divider class="mb-3"/>
+                        <v-divider class="mb-3" />
                         <v-select
                             v-model="destinatarioEncaminhamento"
                             :items="dadosDestinatarios"
                             :rules="[rules.required]"
                             :loading="loadingDestinatarios"
-                            :label="loadingDestinatarios ?  'Carregando técnicos' : '-- Escolha um técnico  --'"
+                            :label="loadingDestinatarios ? 'Carregando técnicos' : '-- Escolha um técnico  --'"
                             height="10px"
                             solo
                             single-line
@@ -126,7 +126,7 @@ export default {
     computed: {
         ...mapGetters({
             dadosDestinatarios: 'avaliacaoResultados/dadosDestinatarios',
-            usuarioLogado: 'autenticacao/getUsuario',
+            usuarioGetter: 'autenticacao/getUsuario',
         }),
     },
     watch: {
@@ -151,24 +151,27 @@ export default {
             distribuir: 'avaliacaoResultados/projetosParaDistribuir',
         }),
         enviarEncaminhamento() {
+            const idSecretaria = this.usuarioGetter.usu_org_max_superior;
+
             this.encaminharParaTecnico({
                 atual: 4,
                 proximo: 5,
                 idPronac: this.idPronac,
-                idOrgaoDestino: 1,
+                idOrgaoDestino: idSecretaria,
                 idAgenteDestino: this.destinatarioEncaminhamento,
                 cdGruposDestino: 1,
-                dtFimEncaminhamento: '2015-09-25 10:38:41',
+                dtFimEncaminhamento: '2015-09-25 10:38:41', // @todo pegar data do back
                 idSituacaoEncPrestContas: 1,
                 idSituacao: 1,
                 dsJustificativa: this.justificativa,
+                idSecretaria,
             });
 
             this.dialog = false;
             this.$refs.form.reset();
 
-            this.projetosFinalizados({ estadoid: 6 });
-            this.obterDadosTabelaTecnico({ estadoid: 5 });
+            this.projetosFinalizados({ estadoid: 6, idSecretaria });
+            this.obterDadosTabelaTecnico({ estadoid: 5, idSecretaria });
         },
     },
 };

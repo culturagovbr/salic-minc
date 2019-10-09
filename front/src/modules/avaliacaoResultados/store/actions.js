@@ -179,7 +179,7 @@ export const encaminharParaTecnico = ({ commit, dispatch }, params) => {
         .alterarEstado(params)
         .then(() => {
             dispatch('projetosParaDistribuir');
-            dispatch('obterDadosTabelaTecnico', { estadoid: 5 });
+            dispatch('obterDadosTabelaTecnico', { estadoid: 5, idSecretaria: params.idSecretaria });
         });
 };
 
@@ -304,9 +304,11 @@ export const devolverProjeto = ({ commit, dispatch }, params) => {
     commit(types.SYNC_PROJETOS_ASSINAR_COORDENADOR, {});
     commit(types.PROJETOS_AVALIACAO_TECNICA, {});
 
+    const { idSecretaria } = params;
+
     let projetosTecnico = {};
     let projetosFinalizadosEstatos = {};
-    const laudoDevolver = { estadoId: params.atual };
+    const laudoDevolver = { estadoId: params.atual, idSecretaria };
 
     if (
         parseInt(params.usuario.grupo_ativo, 10) === 125
@@ -314,57 +316,61 @@ export const devolverProjeto = ({ commit, dispatch }, params) => {
     ) {
         projetosTecnico = {
             estadoid: 5,
+            idSecretaria,
         };
 
         projetosFinalizadosEstatos = {
             estadoid: 6,
+            idSecretaria,
         };
     } else {
         projetosTecnico = {
             estadoid: 5,
             idAgente: params.usuario.usu_codigo,
+            idSecretaria,
         };
 
         projetosFinalizadosEstatos = {
             estadoid: 6,
             idAgente: params.usuario.usu_codigo,
+            idSecretaria,
         };
     }
 
     if (params.idTipoDoAtoAdministrativo === '622' && params.proximo === '5') {
-        avaliacaoResultadosHelperAPI.alterarEstado(params)
+        return avaliacaoResultadosHelperAPI.alterarEstado(params)
             .then((response) => {
                 const devolverProjetoData = response.data;
                 commit(types.SET_DEVOLVER_PROJETO, devolverProjetoData);
-                dispatch('projetosAssinarCoordenador', { estadoid: 9 });
-                dispatch('projetosAssinarCoordenadorGeral', { estadoid: 15 });
+                dispatch('projetosAssinarCoordenador', { estadoid: 9, idSecretaria });
+                dispatch('projetosAssinarCoordenadorGeral', { estadoid: 15, idSecretaria });
                 dispatch('projetosFinalizados', projetosFinalizadosEstatos);
                 dispatch('obterDadosTabelaTecnico', projetosTecnico);
-                dispatch('obterProjetosLaudoFinal', { estadoId: '10' });
+                dispatch('obterProjetosLaudoFinal', { estadoId: '10', idSecretaria });
             });
     } if (params.idTipoDoAtoAdministrativo === '623' && params.proximo === '10') {
-        avaliacaoResultadosHelperAPI.alterarEstado(params)
+        return avaliacaoResultadosHelperAPI.alterarEstado(params)
             .then((response) => {
                 const devolverProjetoData = response.data;
                 commit(types.SET_DEVOLVER_PROJETO, devolverProjetoData);
                 dispatch('obterProjetosLaudoAssinar', laudoDevolver);
-                dispatch('obterProjetosLaudoFinal', { estadoId: '10' });
+                dispatch('obterProjetosLaudoFinal', { estadoId: '10', idSecretaria });
             });
     }
 
     return null;
 };
 
-export const projetosAssinarCoordenador = ({ commit }) => {
-    avaliacaoResultadosHelperAPI.projetosPorEstado({ estadoid: 9 })
+export const projetosAssinarCoordenador = ({ commit }, params) => {
+    avaliacaoResultadosHelperAPI.projetosPorEstado(params) // { estadoid: 9 }
         .then((response) => {
             const dados = response.data;
             commit(types.SYNC_PROJETOS_ASSINAR_COORDENADOR, dados.data);
         });
 };
 
-export const projetosAssinarCoordenadorGeral = ({ commit }) => {
-    avaliacaoResultadosHelperAPI.projetosPorEstado({ estadoid: 15 })
+export const projetosAssinarCoordenadorGeral = ({ commit }, params) => {
+    avaliacaoResultadosHelperAPI.projetosPorEstado(params) // { estadoid: 15 }
         .then((response) => {
             const dados = response.data;
             commit(types.SYNC_PROJETOS_ASSINAR_COORDENADOR_GERAL, dados.data);
@@ -404,12 +410,12 @@ export const dashboardQuantidades = ({ commit }) => {
         });
 };
 
-export const projetoSimilaresAction = ({ commit }, params) => {
-    avaliacaoResultadosHelperAPI.projetosSimilares(params)
-        .then((response) => {
-            const { data } = response;
-            commit(types.SYNC_PROJETOS_SIMILARES, data);
-        }).catch((e) => {
-            throw new TypeError(e.response.data.message, 'error', 10);
-        });
-};
+// export const projetoSimilaresAction = ({ commit }, params) => {
+//     avaliacaoResultadosHelperAPI.projetosSimilares(params)
+//         .then((response) => {
+//             const { data } = response;
+//             commit(types.SYNC_PROJETOS_SIMILARES, data);
+//         }).catch((e) => {
+//             throw new TypeError(e.response.data.message, 'error', 10);
+//         });
+// };

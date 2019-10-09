@@ -15,7 +15,7 @@ export default {
                 desc: 'Histórico Diligências',
                 prazo: fim,
             };
-            const prazoPadrao = 40;
+            const prazoPadrao = 20;
             // diligenciado
             if (obj.DtSolicitacao && obj.DtResposta === ''
                 && prazo <= prazoPadrao && obj.stEnviado === 'S') {

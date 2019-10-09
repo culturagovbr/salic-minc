@@ -33,6 +33,7 @@
                 :items="dados.items"
                 :pagination.sync="pagination"
                 :search="search"
+                :loading="loading"
                 hide-actions
             >
                 <template
@@ -45,12 +46,14 @@
                         <v-flex
                             xs12
                             sm4
-                            text-xs-center
                         >
                             <div>
                                 <v-btn
                                     :href="'/projeto/#/'+ props.item.idPronac"
                                     flat
+                                    small
+                                    color="primary"
+                                    style="text-decoration: underline"
                                 >
                                     {{ props.item.PRONAC }}
                                 </v-btn>
@@ -139,6 +142,7 @@ export default {
         dados: { type: Object, default: () => {} },
         componentes: { type: Object, default: () => {} },
         mostrarTecnico: { type: Boolean, default: false },
+        loading: { type: Boolean, default: false },
     },
     data() {
         return {
@@ -207,7 +211,7 @@ export default {
                 },
                 {
                     text: 'Nome Do Projeto',
-                    align: 'center',
+                    align: 'left',
                     value: 'NomeProjeto',
                 },
                 {

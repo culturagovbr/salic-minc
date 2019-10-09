@@ -1,10 +1,12 @@
 <template>
     <carregando
         v-if="!dadosProjeto"
-        :text="'Carregando ...'"/>
+        :text="'Carregando ...'"
+    />
     <v-container
         v-else
-        fluid>
+        fluid
+    >
         <v-toolbar>
             <v-btn
                 icon
@@ -20,11 +22,20 @@
                 <h2>{{ dadosProjeto.items.pronac }} &#45; {{ dadosProjeto.items.nomeProjeto }}</h2>
             </v-card-title>
             <v-card-text>
-                <p v-if="dadosProjeto.items.diligencia">Existe Diligência para esse projeto. Acesse <a
-                    :href="'/proposta/diligenciar/listardiligenciaanalista/idPronac/' + idPronac">aqui</a>.</p>
-                <p v-else-if="documento != 0">Existe Documento para assinar nesse projeto.</p>
-                <p v-else-if="estado.estadoId == 5">Projeto em analise.</p>
-                <p v-else>Sem Observações.</p>
+                <p v-if="dadosProjeto.items.diligencia">
+                    Existe Diligência para esse projeto. Acesse <a
+                        :href="'/proposta/diligenciar/listardiligenciaanalista/idPronac/' + idPronac"
+                    >aqui</a>.
+                </p>
+                <p v-else-if="documento != 0">
+                    Existe Documento para assinar nesse projeto.
+                </p>
+                <p v-else-if="estado.estadoId == 5">
+                    Projeto em analise.
+                </p>
+                <p v-else>
+                    Sem Observações.
+                </p>
                 <div class="mt-4 mb-3">
                     <div class="d-inline-block">
                         <h4>Valor Aprovado</h4>
@@ -41,26 +52,26 @@
                 </div>
             </v-card-text>
             <v-card-actions>
-
                 <v-btn
                     :href="'/consultardadosprojeto/index?idPronac=' + idPronac"
                     color="success"
                     target="_blank"
                     class="mr-2"
-                >VER PROJETO
+                >
+                    VER PROJETO
                 </v-btn>
 
                 <consolidacao-analise
                     :id-pronac="idPronac"
                     :nome-projeto="dadosProjeto.items.nomeProjeto"
                 />
-
             </v-card-actions>
         </v-card>
         <template v-if="Object.keys(planilha).length > 0">
             <v-card
                 class="mt-3"
-                flat>
+                flat
+            >
                 <!-- PRODUTO -->
                 <v-expansion-panel
                     :v-if="getPlanilha != undefined && Object.keys(getPlanilha)"
@@ -73,8 +84,11 @@
                     >
                         <v-layout
                             slot="header"
-                            class="green--text">
-                            <v-icon class="mr-3 green--text">perm_media</v-icon>
+                            class="green--text"
+                        >
+                            <v-icon class="mr-3 green--text">
+                                perm_media
+                            </v-icon>
                             {{ produto.produto }}
                         </v-layout>
                         <!-- ETAPA -->
@@ -89,8 +103,11 @@
                             >
                                 <v-layout
                                     slot="header"
-                                    class="orange--text">
-                                    <v-icon class="mr-3 orange--text">label</v-icon>
+                                    class="orange--text"
+                                >
+                                    <v-icon class="mr-3 orange--text">
+                                        label
+                                    </v-icon>
                                     {{ etapa.etapa }}
                                 </v-layout>
                                 <!-- UF -->
@@ -105,8 +122,11 @@
                                     >
                                         <v-layout
                                             slot="header"
-                                            class="blue--text">
-                                            <v-icon class="mr-3 blue--text">place</v-icon>
+                                            class="blue--text"
+                                        >
+                                            <v-icon class="mr-3 blue--text">
+                                                place
+                                            </v-icon>
                                             {{ uf.Uf }}
                                         </v-layout>
                                         <!-- CIDADE -->
@@ -121,8 +141,11 @@
                                             >
                                                 <v-layout
                                                     slot="header"
-                                                    class="blue--text">
-                                                    <v-icon class="mr-3 blue--text">place</v-icon>
+                                                    class="blue--text"
+                                                >
+                                                    <v-icon class="mr-3 blue--text">
+                                                        place
+                                                    </v-icon>
                                                     {{ cidade.cidade }}
                                                 </v-layout>
                                                 <template v-if="typeof cidade.itens !== 'undefined'">
@@ -132,11 +155,14 @@
                                                         <v-tab
                                                             v-for="tab in Object.keys(cidade.itens)"
                                                             :key="tab"
-                                                            ripple>{{ tabs[tab] }}
+                                                            ripple
+                                                        >
+                                                            {{ tabs[tab] }}
                                                         </v-tab>
                                                         <v-tab-item
                                                             v-for="(item, index) in cidade.itens"
-                                                            :key="index">
+                                                            :key="index"
+                                                        >
                                                             <v-data-table
                                                                 :headers="headers"
                                                                 :items="Object.values(item)"
@@ -144,18 +170,21 @@
                                                             >
                                                                 <template
                                                                     slot="items"
-                                                                    slot-scope="props">
+                                                                    slot-scope="props"
+                                                                >
                                                                     <td>{{ props.item.item }}</td>
                                                                     <td>{{ moeda(props.item.varlorAprovado) }}</td>
                                                                     <td>{{ moeda(props.item.varlorComprovado) }}</td>
-                                                                    <td>{{ moeda(props.item.varlorAprovado -
-                                                                    props.item.varlorComprovado) }}
+                                                                    <td>
+                                                                        {{ moeda(props.item.varlorAprovado -
+                                                                            props.item.varlorComprovado) }}
                                                                     </td>
                                                                     <td>
                                                                         <v-btn
                                                                             slot="activator"
                                                                             color="blue lighten-2"
                                                                             dark
+                                                                            small
                                                                             @click="visualizarComprovantes(
                                                                                 uf.Uf,
                                                                                 cidade.cdCidade,
@@ -166,7 +195,9 @@
                                                                                 props.item.item,
                                                                             )"
                                                                         >
-                                                                            <v-icon dark>visibility</v-icon>
+                                                                            <v-icon dark>
+                                                                                visibility
+                                                                            </v-icon>
                                                                         </v-btn>
                                                                     </td>
                                                                 </template>
@@ -196,7 +227,8 @@
         </template>
         <carregando
             v-else
-            :text="'Carregando planilha...'"/>
+            :text="'Carregando planilha...'"
+        />
     </v-container>
 </template>
 <script>
@@ -204,14 +236,12 @@ import { mapActions, mapGetters } from 'vuex';
 import Carregando from '@/components/CarregandoVuetify';
 import ModalDetalheItens from './ModalDetalheItens';
 import ConsolidacaoAnalise from './ConsolidacaoAnalise';
-import AnalisarItem from '../ParecerTecnico/AnalisarItem';
 
 export default {
     name: 'Painel',
     components: {
         ModalDetalheItens,
         ConsolidacaoAnalise,
-        AnalisarItem,
         Carregando,
     },
     data() {

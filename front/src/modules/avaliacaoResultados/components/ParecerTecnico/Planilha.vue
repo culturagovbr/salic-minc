@@ -1,10 +1,12 @@
 <template>
     <carregando
         v-if="Object.keys(dadosProjeto).length == 0"
-        :text="'Carregando ...'"/>
+        :text="'Carregando ...'"
+    />
     <v-container
         v-else
-        fluid>
+        fluid
+    >
         <v-toolbar>
             <v-btn
                 icon
@@ -31,7 +33,8 @@
                     <a
                         :href="
                             '/proposta/diligenciar/listardiligenciaanalista/idPronac/'
-                        + idPronac">
+                                + idPronac"
+                    >
                         aqui
                     </a>.
                 </v-alert>
@@ -46,7 +49,8 @@
                     v-if="estado.estadoId == 5"
                     :value="true"
                     color="info"
-                >Projeto em analise.
+                >
+                    Projeto em analise.
                 </v-alert>
                 <div class="mt-4 mb-3">
                     <div class="d-inline-block text-xs-right">
@@ -64,20 +68,20 @@
                 </div>
             </v-card-text>
             <v-card-actions>
-
                 <v-btn
                     :href="'/consultardadosprojeto/index?idPronac=' + idPronac"
                     color="success"
                     target="_blank"
                     class="mr-2"
                     dark
-                >VER PROJETO</v-btn>
+                >
+                    VER PROJETO
+                </v-btn>
 
                 <consolidacao-analise
                     :id-pronac="idPronac"
                     :nome-projeto="dadosProjeto.items.nomeProjeto"
                 />
-
             </v-card-actions>
         </v-card>
         <template v-if="Object.keys(planilha).length > 0 && planilha.error">
@@ -91,7 +95,8 @@
         <template v-else-if="Object.keys(planilha).length">
             <v-card
                 class="mt-3"
-                flat>
+                flat
+            >
                 <!-- PRODUTO -->
                 <v-expansion-panel
                     :v-if="getPlanilha != undefined && Object.keys(getPlanilha)"
@@ -104,8 +109,11 @@
                     >
                         <v-layout
                             slot="header"
-                            class="green--text">
-                            <v-icon class="mr-3 green--text">perm_media</v-icon>
+                            class="green--text"
+                        >
+                            <v-icon class="mr-3 green--text">
+                                perm_media
+                            </v-icon>
                             {{ produto.produto }}
                         </v-layout>
                         <!-- ETAPA -->
@@ -120,8 +128,11 @@
                             >
                                 <v-layout
                                     slot="header"
-                                    class="orange--text">
-                                    <v-icon class="mr-3 orange--text">label</v-icon>
+                                    class="orange--text"
+                                >
+                                    <v-icon class="mr-3 orange--text">
+                                        label
+                                    </v-icon>
                                     {{ etapa.etapa }}
                                 </v-layout>
                                 <!-- UF -->
@@ -136,8 +147,11 @@
                                     >
                                         <v-layout
                                             slot="header"
-                                            class="blue--text">
-                                            <v-icon class="mr-3 blue--text">place</v-icon>
+                                            class="blue--text"
+                                        >
+                                            <v-icon class="mr-3 blue--text">
+                                                place
+                                            </v-icon>
                                             {{ uf.Uf }}
                                         </v-layout>
                                         <!-- CIDADE -->
@@ -152,8 +166,11 @@
                                             >
                                                 <v-layout
                                                     slot="header"
-                                                    class="blue--text">
-                                                    <v-icon class="mr-3 blue--text">place</v-icon>
+                                                    class="blue--text"
+                                                >
+                                                    <v-icon class="mr-3 blue--text">
+                                                        place
+                                                    </v-icon>
                                                     {{ cidade.cidade }}
                                                 </v-layout>
                                                 <template
@@ -180,15 +197,26 @@
                                                             >
                                                                 <template
                                                                     slot="items"
-                                                                    slot-scope="props">
+                                                                    slot-scope="props"
+                                                                >
                                                                     <td>
                                                                         {{ props.item.item }}
                                                                     </td>
-                                                                    <td class="text-xs-right">{{ (props.item.quantidade) }}</td>
-                                                                    <td class="text-xs-right">{{ (props.item.numeroOcorrencias) }}</td>
-                                                                    <td class="text-xs-right">{{ props.item.valor | moedaMasc }}</td>
-                                                                    <td class="text-xs-right">{{ props.item.varlorAprovado | moedaMasc }}</td>
-                                                                    <td class="text-xs-right">{{ props.item.varlorComprovado | moedaMasc }}</td>
+                                                                    <td class="text-xs-right">
+                                                                        {{ (props.item.quantidade) }}
+                                                                    </td>
+                                                                    <td class="text-xs-right">
+                                                                        {{ (props.item.numeroOcorrencias) }}
+                                                                    </td>
+                                                                    <td class="text-xs-right">
+                                                                        {{ props.item.valor | moedaMasc }}
+                                                                    </td>
+                                                                    <td class="text-xs-right">
+                                                                        {{ props.item.varlorAprovado | moedaMasc }}
+                                                                    </td>
+                                                                    <td class="text-xs-right">
+                                                                        {{ props.item.varlorComprovado | moedaMasc }}
+                                                                    </td>
                                                                     <td class="text-xs-right">
                                                                         {{ (props.item.varlorAprovado - props.item.varlorComprovado) | moedaMasc }}
                                                                     </td>
@@ -265,8 +293,8 @@
             </v-btn>
             <v-tooltip
                 v-if="(documento != 0)"
-                left>
-
+                left
+            >
                 <v-btn
                     slot="activator"
                     :href="'/assinatura/index/visualizar-projeto?idDocumentoAssinatura=' + documento.idDocumentoAssinatura"
@@ -281,7 +309,8 @@
             </v-tooltip>
             <v-tooltip
                 v-if="(documento == 0 && !dadosProjeto.items.diligencia)"
-                left>
+                left
+            >
                 <v-btn
                     slot="activator"
                     :to="'/emitir-parecer/' + idPronac"
@@ -297,7 +326,8 @@
             </v-tooltip>
             <v-tooltip
                 v-if="(documento == 0) && !dadosProjeto.items.diligencia"
-                left>
+                left
+            >
                 <v-btn
                     slot="activator"
                     :to="'/diligenciar/' + idPronac"
