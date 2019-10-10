@@ -7,6 +7,18 @@
             row
             wrap
         >
+
+            <v-flex lg4 sm12 v-for="(item, index) in trending" :key="'trending' + index">
+                <linear-statistic
+                    :title="item.subheading"
+                    :sub-title="item.caption"
+                    :icon="item.icon.label"
+                    :color="item.icon.color"
+                    :value="item.linear.value"
+                    :headline="item.headline"
+                >
+                </linear-statistic>
+            </v-flex>
             <v-flex
                 xs12
                 sm4
@@ -25,7 +37,7 @@
                                 APROVADO
                             </span>
                         </v-toolbar-title>
-                        <v-spacer />
+                        <v-spacer/>
                     </v-toolbar>
 
                     <v-card-text>
@@ -127,16 +139,67 @@
 </template>
 <script>
 
-import MxPlanilha from '@/mixins/planilhas';
+    import MxPlanilha from '@/mixins/planilhas';
+    import LinearStatistic from "@/components/widgets/statistic/LinearStatistic";
 
-export default {
-    name: 'ParecerTecnicoPlanilhaHeader',
-    mixins: [MxPlanilha],
-    props: {
-        dados: {
-            type: Object,
-            default: () => {},
+    export default {
+        name: 'ParecerTecnicoPlanilhaHeader',
+        components: {LinearStatistic},
+        mixins: [MxPlanilha],
+        props: {
+            dados: {
+                type: Object,
+                default: () => {
+                },
+            },
         },
-    },
-};
+        computed: {
+            trending() {
+                return [
+                    {
+                        subheading: "Comprovado",
+                        headline: `de R$ ${this.formatarParaReal(this.dados.items.vlAprovado)}`,
+                        caption: `R$ ${this.formatarParaReal(this.dados.items.vlComprovado)}`,
+                        percent: (this.dados.items.vlComprovado / this.dados.items.vlAprovado) * 100,
+                        icon: {
+                            label: "trending_up",
+                            color: "success"
+                        },
+                        linear: {
+                            value: (this.dados.items.vlComprovado / this.dados.items.vlAprovado) * 100,
+                            color: "success"
+                        }
+                    },
+                    {
+                        subheading: "A comprovar",
+                        headline: `de R$ ${this.formatarParaReal(this.dados.items.vlAprovado)}`,
+                        caption: `R$ ${this.formatarParaReal(this.dados.items.vlTotalComprovar)}`,
+                        percent: (this.dados.items.vlTotalComprovar / this.dados.items.vlAprovado) * 100,
+                        icon: {
+                            label: "trending_down",
+                            color: "error"
+                        },
+                        linear: {
+                            value: (this.dados.items.vlTotalComprovar / this.dados.items.vlAprovado) * 100,
+                            color: "error"
+                        }
+                    },
+                    {
+                        subheading: "Orders",
+                        headline: "5,00",
+                        caption: "increase",
+                        percent: 50,
+                        icon: {
+                            label: "arrow_upward",
+                            color: "info"
+                        },
+                        linear: {
+                            value: 50,
+                            color: "info"
+                        }
+                    }
+                ];
+            }
+        }
+    };
 </script>
