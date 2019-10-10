@@ -1,7 +1,8 @@
 <template>
     <v-layout
         row
-        justify-center>
+        justify-center
+    >
         <v-dialog
             :value="isModalVisible === 'avaliacao-item'"
             scrollable
@@ -24,14 +25,17 @@
             <v-card>
                 <v-toolbar
                     dark
-                    color="primary">
+                    color="primary"
+                >
                     <v-btn
                         icon
                         dark
-                        @click.native="fecharModal">
+                        @click.native="fecharModal"
+                    >
                         <v-icon>close</v-icon>
                     </v-btn>
-                    <v-toolbar-title>Avaliar comprovantes
+                    <v-toolbar-title>
+                        Avaliar comprovantes
                         <span v-if="item">item <b>"{{ item.item }}"</b></span>
                     </v-toolbar-title>
                 </v-toolbar>
@@ -41,46 +45,65 @@
                     <v-container
                         fluid
                         grid-list-md
-                        class="pa-10 elevation-0">
+                        class="pa-10 elevation-0"
+                    >
                         <v-layout wrap>
                             <v-flex
                                 xs12
                                 sm6
-                                md4>
+                                md4
+                            >
                                 <b>Produto:</b> {{ descricaoProduto }}
                             </v-flex>
                             <v-flex
                                 xs12
                                 sm6
-                                md4>
+                                md4
+                            >
                                 <b>Etapa:</b> {{ descricaoEtapa }}
                             </v-flex>
                             <v-flex
                                 xs12
                                 sm6
-                                md4>
+                                md4
+                            >
                                 <b>Item de Custo:</b> {{ item.item }}
                             </v-flex>
                         </v-layout>
-                        <v-divider class="my-2"/>
+                        <v-divider class="my-2" />
                         <v-layout wrap>
                             <v-flex
                                 xs12
                                 sm6
-                                md4>
+                                md4
+                            >
                                 <b>Valor Aprovado:</b> {{ item.varlorAprovado | moeda }}
                             </v-flex>
                             <v-flex
                                 xs12
                                 sm6
-                                md4>
+                                md4
+                            >
                                 <b>Valor Comprovado:</b> {{ item.varlorComprovado | moeda }}
                             </v-flex>
                             <v-flex
                                 xs12
                                 sm6
-                                md4>
+                                md4
+                            >
                                 <b>Comprovação Validada:</b> {{ valorComprovacaoValidada | moeda }}
+                            </v-flex>
+                        </v-layout>
+
+                        <v-divider class="my-2" />
+
+                        <v-layout wrap>
+                            <v-flex
+                                xs12
+                                sm6
+                                md4
+                            >
+                                <b>Período de execução:</b> {{ dtInicioExecucao | formatarData }} a {{ dtFimExecucao | formatarData }}
                             </v-flex>
                         </v-layout>
                     </v-container>
@@ -88,7 +111,8 @@
                     <lista-de-comprovantes :comprovantes="comprovantes">
                         <template
                             slot="slot-comprovantes"
-                            slot-scope="{ props }">
+                            slot-scope="{ props }"
+                        >
                             <v-form
                                 ref="form"
                                 v-model="valid"
@@ -96,7 +120,8 @@
                             >
                                 <v-layout
                                     row
-                                    wrap>
+                                    wrap
+                                >
                                     <v-flex xs12>
                                         <b>Avaliação</b>
                                         <v-radio-group
@@ -111,12 +136,14 @@
                                                 label="Aprovado"
                                                 value="1"
                                                 name="stItemAvaliadoModel"
-                                                color="green"/>
+                                                color="green"
+                                            />
                                             <v-radio
                                                 label="Reprovado"
                                                 value="3"
                                                 name="stItemAvaliadoModel"
-                                                color="red"/>
+                                                color="red"
+                                            />
                                         </v-radio-group>
                                     </v-flex>
                                     <v-flex xs12>
@@ -134,7 +161,8 @@
                                     grid-list-xs
                                     text-xs-center
                                     ma-0
-                                    pa-0>
+                                    pa-0
+                                >
                                     <v-btn
                                         :disabled="!valid"
                                         :loading="loading"
@@ -142,7 +170,10 @@
                                     >
                                         <v-icon
                                             left
-                                            dark>save</v-icon>
+                                            dark
+                                        >
+                                            save
+                                        </v-icon>
                                         Salvar
                                     </v-btn>
                                 </v-container>
@@ -158,6 +189,7 @@
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import ListaDeComprovantes from '@/modules/avaliacaoResultados/components/components/ListaDeComprovantes';
+import MxPlanilha from '@/mixins/planilhas';
 
 export default {
     name: 'AnalisarItem',
@@ -168,6 +200,7 @@ export default {
             return moeda.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' });
         },
     },
+    mixins: [MxPlanilha],
     props: {
         item: { type: Object, default: () => {} },
         descricaoProduto: { type: String, default: '' },
@@ -179,6 +212,8 @@ export default {
         etapa: { type: Number, default: 0 },
         cdProduto: { type: Number, default: 0 },
         cdUf: { type: Number, default: 0 },
+        dtInicioExecucao: { type: String, default: '' },
+        dtFimExecucao: { type: String, default: '' },
     },
     data() {
         return {

@@ -247,6 +247,8 @@
                 :etapa="itemEmAvaliacao.cdEtapa"
                 :cd-produto="itemEmAvaliacao.cdProduto"
                 :cd-uf="itemEmAvaliacao.cdUF"
+                :dt-inicio-execucao="dadosProjeto.items.dtInicioExecucao"
+                :dt-fim-execucao="dadosProjeto.items.dtFimExecucao"
             />
         </template>
         <template v-else>

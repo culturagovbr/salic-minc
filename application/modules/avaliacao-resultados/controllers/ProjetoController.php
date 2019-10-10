@@ -31,11 +31,16 @@ class AvaliacaoResultados_ProjetoController extends MinC_Controller_Rest_Abstrac
         $projeto = new Projetos();
         $projeto = $projeto->buscarDadosCompletos($idPronac);
 
-        $data['nomeProjeto'] = $projeto->current()['NomeProjeto'];
+        $tbProjeto = new Projetos();
+        $projeto = $tbProjeto->findBy(['idPronac = ?' => $idPronac]);
+
+        $data['nomeProjeto'] = $projeto['NomeProjeto'];
         $data['vlTotalComprovar'] = $consolidacao->valorAprovadoProjeto - $consolidacao->valorComprovado;
         $data['vlAprovado'] = $consolidacao->valorAprovadoProjeto;
         $data['vlComprovado'] = $consolidacao->valorComprovado;
-        $data['pronac'] = $projeto->current()['AnoProjeto'] . $projeto->current()['Sequencial'];
+        $data['pronac'] = $projeto['AnoProjeto'] . $projeto['Sequencial'];
+        $data['dtInicioExecucao'] = $projeto['DtInicioExecucao'];
+        $data['dtFimExecucao'] = $projeto['DtFimExecucao'];
 
         $tbDiligencia = new Diligencia();
         $diligencia = $tbDiligencia->buscarUltDiligencia([
