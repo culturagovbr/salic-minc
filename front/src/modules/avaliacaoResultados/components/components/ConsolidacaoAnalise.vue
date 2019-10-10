@@ -10,8 +10,19 @@
             color="primary"
             dark>CONSOLIDAÇÃO</v-btn>
         <v-card>
+            <v-toolbar
+                dark
+                color="primary">
+                <v-btn
+                    @click="dialog = false"
+                    icon
+                    dark>
+                    <v-icon>close</v-icon>
+                </v-btn>
+                <v-toolbar-title>Consolidação - {{ nomeProjeto }}</v-toolbar-title>
+                <v-spacer/>
+            </v-toolbar>
             <v-card-text>
-                <h2>{{ nomeProjeto }}</h2>
                 <div
                     v-if="Object.keys(getConsolidacaoAnalise).length > 0"
                     class="mt-3">

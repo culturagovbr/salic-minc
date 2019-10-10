@@ -2,6 +2,8 @@
     <v-layout
         row
         wrap
+        align-content-start
+        style="min-height: calc(100vh - 332px)"
     >
         <v-flex xs4>
             <br>
@@ -75,7 +77,10 @@
                     >
                         {{ props.item.usu_nome }}
                     </td>
-                    <td class="text-xs-center">
+                    <td
+                        class="text-xs-center"
+                        style="min-width: 360px;"
+                    >
                         <template
                             v-for="(componente, index) in componentes.acoes"
                             d-inline-block

@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid>
+    <v-container class="testeeeee" fluid>
         <v-subheader>
             <h2>{{ route.meta.title }}</h2>
         </v-subheader>
@@ -31,7 +31,7 @@
                             align-center
                             justify-space-around
                             row
-                            fill-height
+                            style="min-height: calc(100vh - 318px)"
                         >
                             <v-card
                                 v-for="(dashboad, index) in dashboardItens"
