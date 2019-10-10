@@ -8,7 +8,7 @@ class AvaliacaoResultados_ProjetoController extends MinC_Controller_Rest_Abstrac
     public function __construct(Zend_Controller_Request_Abstract $request, Zend_Controller_Response_Abstract $response, array $invokeArgs = array())
     {
         $profiles = [
-            // Autenticacao_Model_Grupos::TECNICO_PRESTACAO_DE_CONTAS,
+//             Autenticacao_Model_Grupos::TECNICO_PRESTACAO_DE_CONTAS,
             // Autenticacao_Model_Grupos::COORDENADOR_PRESTACAO_DE_CONTAS,
             // Autenticacao_Model_Grupos::COORDENADOR_GERAL_PRESTACAO_DE_CONTAS,
         ];

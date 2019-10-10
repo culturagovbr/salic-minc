@@ -181,6 +181,7 @@
                                                                     </td>
                                                                     <td>
                                                                         <v-btn
+                                                                            v-if="props.item.varlorComprovado !== 0"
                                                                             slot="activator"
                                                                             color="blue lighten-2"
                                                                             dark

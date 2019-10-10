@@ -1,12 +1,13 @@
 <template>
     <v-dialog
-        v-if=" typeof usuario !== 'undefined' && Object.keys(usuario).length > 0"
+        v-if="typeof usuario !== 'undefined' && Object.keys(usuario).length > 0 && usuario.grupo_ativo !== '124'"
         v-model="dialog"
         width="650"
     >
         <v-tooltip
             slot="activator"
-            bottom>
+            bottom
+        >
             <v-btn
                 slot="activator"
                 color="green lighten-2"
@@ -17,16 +18,19 @@
             >
                 <v-icon
                     color="error"
-                    class="material-icons">undo</v-icon>
+                    class="material-icons"
+                >
+                    undo
+                </v-icon>
             </v-btn>
             <span>Devolver Projeto</span>
         </v-tooltip>
 
-
         <v-card>
             <v-card-title
                 class="headline primary"
-                primary-title>
+                primary-title
+            >
                 <span class="white--text">
                     Devolver Projeto
                 </span>
@@ -37,7 +41,8 @@
                         v-if="tecnico !== undefined
                             && tecnico !== null
                             && tecnico !== ''
-                        && tecnico.nome !== 'sysLaudo'">
+                            && tecnico.nome !== 'sysLaudo'"
+                    >
                         Você deseja devolver o projeto '{{ pronac }} - {{ nomeProjeto }}'
                         para análise do Tecnico: {{ tecnico.nome }}?
                     </div>
@@ -70,7 +75,6 @@
                 </v-btn>
             </v-card-actions>
         </v-card>
-
     </v-dialog>
 </template>
 
