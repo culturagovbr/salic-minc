@@ -198,7 +198,7 @@
                                                                     <td>
                                                                         <v-btn
                                                                             v-if="podeEditar(props.item.varlorComprovado)"
-                                                                            color="red"
+                                                                            color="primary"
                                                                             dark
                                                                             small
                                                                             title="Avaliar comprovantes do item"

@@ -7,8 +7,12 @@
             row
             wrap
         >
-
-            <v-flex lg4 sm12 v-for="(item, index) in trending" :key="'trending' + index">
+            <v-flex
+                v-for="(item, index) in trending"
+                :key="'trending' + index"
+                lg4
+                sm12
+            >
                 <linear-statistic
                     :title="item.subheading"
                     :sub-title="item.caption"
@@ -16,190 +20,136 @@
                     :color="item.icon.color"
                     :value="item.linear.value"
                     :headline="item.headline"
-                >
-                </linear-statistic>
-            </v-flex>
-            <v-flex
-                xs12
-                sm4
-                md4
-            >
-                <v-card
-                    class="mx-auto mb-2"
-                    max-width="600"
-                >
-                    <v-toolbar
-                        card
-                        dense
-                    >
-                        <v-toolbar-title>
-                            <span class="subheading">
-                                APROVADO
-                            </span>
-                        </v-toolbar-title>
-                        <v-spacer/>
-                    </v-toolbar>
-
-                    <v-card-text>
-                        <v-layout
-                            justify-space-between
-                        >
-                            <v-flex text-xs-left>
-                                <span class="subheading font-weight-light mr-1">
-                                    R$
-                                </span>
-                                <span
-                                    class="display-2 font-weight-light"
-                                >
-                                    {{ dados.items.vlAprovado | filtroFormatarParaReal }}
-                                </span>
-                            </v-flex>
-                        </v-layout>
-                    </v-card-text>
-                </v-card>
-            </v-flex>
-            <v-flex
-                xs12
-                sm4
-                md4
-            >
-                <v-card
-                    class="mx-auto mb-2"
-                    max-width="600"
-                >
-                    <v-toolbar
-                        card
-                        dense
-                    >
-                        <v-toolbar-title>
-                            <span class="subheading">
-                                COMPROVADO
-                            </span>
-                        </v-toolbar-title>
-                    </v-toolbar>
-
-                    <v-card-text>
-                        <v-layout
-                            justify-space-between
-                        >
-                            <v-flex text-xs-left>
-                                <span class="subheading font-weight-light mr-1 green--text text--darken-4">
-                                    R$
-                                </span>
-                                <span
-                                    class="display-2 font-weight-light green--text text--darken-4"
-                                >
-                                    {{ dados.items.vlComprovado | filtroFormatarParaReal }}
-                                </span>
-                            </v-flex>
-                        </v-layout>
-                    </v-card-text>
-                </v-card>
-            </v-flex>
-            <v-flex
-                xs12
-                sm4
-                md4
-            >
-                <v-card
-                    class="mx-auto mb-2"
-                    max-width="600"
-                >
-                    <v-toolbar
-                        card
-                        dense
-                    >
-                        <v-toolbar-title>
-                            <span class="subheading">
-                                A COMPROVAR
-                            </span>
-                        </v-toolbar-title>
-                    </v-toolbar>
-
-                    <v-card-text>
-                        <v-layout
-                            justify-space-between
-                        >
-                            <v-flex text-xs-left>
-                                <span class="subheading font-weight-light mr-1 red--text text--darken-4">
-                                    R$
-                                </span>
-                                <span
-                                    class="display-2 font-weight-light red--text text--darken-4"
-                                >
-                                    {{ dados.items.vlTotalComprovar | filtroFormatarParaReal }}
-                                </span>
-                            </v-flex>
-                        </v-layout>
-                    </v-card-text>
-                </v-card>
+                />
             </v-flex>
         </v-layout>
     </v-container>
 </template>
 <script>
+import { mapActions, mapGetters } from 'vuex';
 
-    import MxPlanilha from '@/mixins/planilhas';
-    import LinearStatistic from "@/components/widgets/statistic/LinearStatistic";
+import MxPlanilha from '@/mixins/planilhas';
+import LinearStatistic from '@/components/widgets/statistic/LinearStatistic';
 
-    export default {
-        name: 'ParecerTecnicoPlanilhaHeader',
-        components: {LinearStatistic},
-        mixins: [MxPlanilha],
-        props: {
-            dados: {
-                type: Object,
-                default: () => {
-                },
+export default {
+    name: 'ParecerTecnicoPlanilhaHeader',
+    components: { LinearStatistic },
+    mixins: [MxPlanilha],
+    props: {
+        dados: {
+            type: Object,
+            default: () => {
             },
         },
-        computed: {
-            trending() {
-                return [
-                    {
-                        subheading: "Comprovado",
-                        headline: `de R$ ${this.formatarParaReal(this.dados.items.vlAprovado)}`,
-                        caption: `R$ ${this.formatarParaReal(this.dados.items.vlComprovado)}`,
-                        percent: (this.dados.items.vlComprovado / this.dados.items.vlAprovado) * 100,
-                        icon: {
-                            label: "trending_up",
-                            color: "success"
-                        },
-                        linear: {
-                            value: (this.dados.items.vlComprovado / this.dados.items.vlAprovado) * 100,
-                            color: "success"
-                        }
+    },
+
+    data() {
+        return {
+            comprovacao: {
+                vlTotalComprovar: 0,
+                vlAprovado: 0,
+                vlComprovado: 0,
+            },
+            estatisticas: {
+                qtTotalComprovante: 0,
+                qtComprovantesValidadosProjeto: 0,
+                qtComprovantesRecusadosProjeto: 0,
+                qtComprovantesNaoAvaliados: 0,
+                vlComprovadoProjeto: 0,
+                vlComprovadoValidado: 0,
+                vlComprovadoRecusado: 0,
+                vlNaoComprovado: 0,
+            },
+        };
+    },
+
+
+    computed: {
+        ...mapGetters({
+            estatisticasGetter: 'avaliacaoResultados/getEstatisticasAvaliacao',
+        }),
+        trending() {
+            return [
+                {
+                    subheading: 'Comprovação',
+                    headline: `<b class="error--text text-darken-4">R$ ${this.formatarParaReal(this.comprovacao.vlTotalComprovar)}</b>`
+                        + ` a comprovar de <b>R$ ${this.formatarParaReal(this.comprovacao.vlAprovado)}</b> aprovado`,
+                    caption: `R$ ${this.formatarParaReal(this.comprovacao.vlComprovado)}`,
+                    percent: this.calcularPercentual(this.comprovacao.vlComprovado, this.comprovacao.vlAprovado),
+                    icon: {
+                        label: 'trending_up',
+                        color: 'success',
                     },
-                    {
-                        subheading: "A comprovar",
-                        headline: `de R$ ${this.formatarParaReal(this.dados.items.vlAprovado)}`,
-                        caption: `R$ ${this.formatarParaReal(this.dados.items.vlTotalComprovar)}`,
-                        percent: (this.dados.items.vlTotalComprovar / this.dados.items.vlAprovado) * 100,
-                        icon: {
-                            label: "trending_down",
-                            color: "error"
-                        },
-                        linear: {
-                            value: (this.dados.items.vlTotalComprovar / this.dados.items.vlAprovado) * 100,
-                            color: "error"
-                        }
+                    linear: {
+                        value: this.calcularPercentual(this.comprovacao.vlComprovado, this.comprovacao.vlAprovado),
+                        color: 'success',
                     },
-                    {
-                        subheading: "Orders",
-                        headline: "5,00",
-                        caption: "increase",
-                        percent: 50,
-                        icon: {
-                            label: "arrow_upward",
-                            color: "info"
-                        },
-                        linear: {
-                            value: 50,
-                            color: "info"
-                        }
-                    }
-                ];
+                },
+                {
+                    subheading: 'Análise - Validados',
+                    headline: `${this.estatisticas.qtComprovantesValidadosProjeto}`
+                        + ` comprovante(s) validado(s) de ${this.estatisticas.qtTotalComprovante}`,
+                    caption: `R$ ${this.formatarParaReal(this.estatisticas.vlComprovadoValidado)}`,
+                    percent: this.calcularPercentual(this.estatisticas.qtComprovantesValidadosProjeto, this.estatisticas.qtTotalComprovante),
+                    icon: {
+                        label: 'arrow_upward',
+                        color: 'info',
+                    },
+                    linear: {
+                        value: this.calcularPercentual(this.estatisticas.qtComprovantesValidadosProjeto, this.estatisticas.qtTotalComprovante),
+                        color: 'info',
+                    },
+                },
+                {
+                    subheading: 'Análise - Recusados',
+                    headline: `${this.estatisticas.qtComprovantesRecusadosProjeto}`
+                        + ` comprovante(s) recusado(s) de ${this.estatisticas.qtTotalComprovante}`,
+                    caption: `R$ ${this.formatarParaReal(this.estatisticas.vlComprovadoRecusado)}`,
+                    percent: this.calcularPercentual(this.estatisticas.qtComprovantesRecusadosProjeto, this.estatisticas.qtTotalComprovante),
+                    icon: {
+                        label: 'trending_down',
+                        color: 'error',
+                    },
+                    linear: {
+                        percent: this.calcularPercentual(this.estatisticas.qtComprovantesRecusadosProjeto, this.estatisticas.qtTotalComprovante),
+                        color: 'error',
+                    },
+                },
+            ];
+        },
+    },
+
+    watch: {
+        estatisticasGetter(val) {
+            if (val) {
+                this.estatisticas = val;
             }
-        }
-    };
+
+            this.comprovacao = {
+                vlTotalComprovar: this.dados.items.vlTotalComprovar,
+                vlAprovado: this.dados.items.vlAprovado,
+                vlComprovado: this.dados.items.vlComprovado,
+            };
+        },
+    },
+
+    mounted() {
+        this.buscarEstatisticasAvaliacao();
+    },
+
+    methods: {
+        ...mapActions({
+            buscarEstatisticasAvaliacaoAction: 'avaliacaoResultados/buscarEstatisticasAvaliacao',
+        }),
+        calcularPercentual(valor, total) {
+            if (!valor) {
+                return 0;
+            }
+            return parseFloat(((valor / total) * 100).toFixed(0));
+        },
+        buscarEstatisticasAvaliacao() {
+            this.buscarEstatisticasAvaliacaoAction(this.$route.params.id);
+        },
+    },
+};
 </script>

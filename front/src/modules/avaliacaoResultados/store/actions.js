@@ -410,12 +410,9 @@ export const dashboardQuantidades = ({ commit }) => {
         });
 };
 
-// export const projetoSimilaresAction = ({ commit }, params) => {
-//     avaliacaoResultadosHelperAPI.projetosSimilares(params)
-//         .then((response) => {
-//             const { data } = response;
-//             commit(types.SYNC_PROJETOS_SIMILARES, data);
-//         }).catch((e) => {
-//             throw new TypeError(e.response.data.message, 'error', 10);
-//         });
-// };
+export const buscarEstatisticasAvaliacao = async ({ commit }, idPronac) => avaliacaoResultadosHelperAPI
+    .buscarEstatisticasAvaliacao(idPronac)
+    .then((response) => {
+        const { data } = response.data;
+        commit(types.SET_ESTATISTICAS_AVALIACAO, data);
+    });

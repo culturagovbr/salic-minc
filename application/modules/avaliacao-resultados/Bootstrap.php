@@ -28,7 +28,8 @@ class AvaliacaoResultados_Bootstrap extends Zend_Application_Module_Bootstrap
                     'projeto-inicio',
                     'projetos-avaliacao-tecnica',
                     'planilha-aprovada',
-                    'dashboard'
+                    'dashboard',
+                    'estatisticas-avaliacao'
                 ]
             ]
         );

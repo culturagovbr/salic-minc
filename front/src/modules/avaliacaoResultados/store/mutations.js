@@ -46,6 +46,7 @@ export const state = {
     projetosAssinarCoordenador: {},
     projetosAssinarCoordenadorGeral: {},
     dashboard: {},
+    estatisticasAvaliacao: {},
     projetosSimilares: [],
 };
 
@@ -239,6 +240,9 @@ export const mutations = {
     },
     [types.DASHBOARD_QUANTIDADE](state, dados) {
         state.dashboard = dados;
+    },
+    [types.SET_ESTATISTICAS_AVALIACAO](state, dados) {
+        state.estatisticasAvaliacao = dados;
     },
     [types.SYNC_PROJETOS_SIMILARES](state, dados) {
         state.projetosSimilares = dados;

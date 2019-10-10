@@ -223,6 +223,7 @@ export default {
             alterarPlanilha: 'avaliacaoResultados/alterarPlanilha',
             salvarAvaliacaoComprovante: 'avaliacaoResultados/salvarAvaliacaoComprovante',
             obterDadosItemComprovacao: 'avaliacaoResultados/obterDadosItemComprovacao',
+            atualizarEstatisticasAvaliacaoAction: 'avaliacaoResultados/buscarEstatisticasAvaliacao',
             modalClose: 'modal/modalClose',
         }),
         getUrlParams() {
@@ -278,6 +279,7 @@ export default {
                 idmunicipio: this.idmunicipio,
                 idPlanilhaItem: this.item.idPlanilhaItens,
             });
+            this.atualizarEstatisticasAvaliacaoAction(this.idPronac);
         },
     },
 };

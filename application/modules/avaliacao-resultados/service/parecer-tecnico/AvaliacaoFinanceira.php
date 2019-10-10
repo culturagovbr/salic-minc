@@ -66,6 +66,13 @@ class AvaliacaoFinanceira
         return $tbAvaliacaoFinanceira->findBy($where);
     }
 
+    public function buscarDadosAnaliseFinanceira()
+    {
+        $vwResultadoDaAvaliacaoFinanceira = new \AvaliacaoResultados_Model_DbTable_vwResultadoDaAvaliacaoFinanceira();
+        $dadosAvaliacaoFinanceira = $vwResultadoDaAvaliacaoFinanceira->buscarConsolidacaoComprovantes($this->request->idPronac);
+        return $dadosAvaliacaoFinanceira->toArray();
+    }
+
     public function salvar()
     {
         $authInstance = \Zend_Auth::getInstance();
