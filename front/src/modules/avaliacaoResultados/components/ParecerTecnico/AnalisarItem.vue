@@ -24,7 +24,7 @@
             <v-card>
                 <v-toolbar
                     dark
-                    color="green darken-3">
+                    color="primary">
                     <v-btn
                         icon
                         dark

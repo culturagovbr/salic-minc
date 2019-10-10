@@ -36,9 +36,15 @@
                 <v-alert
                     v-if="documento != 0"
                     :value="true"
-                    color="info"
+                    color="orange darken-3"
                 >
-                    Existe Documento para assinar nesse projeto.
+                    Existe documento disponível para assinatura nesse projeto.
+                    <v-btn
+                        :href="'/assinatura/index/visualizar-projeto?idDocumentoAssinatura=' + documento.idDocumentoAssinatura"
+                        small
+                    >
+                        Ver documento
+                    </v-btn>
                 </v-alert>
                 <parecer-tecnico-planilha-header :dados="dadosProjeto" />
             </v-card-text>
@@ -244,7 +250,7 @@
             />
         </template>
         <template v-else>
-            <Carregando :text="'Carregando planilha ...'" />
+            <Carregando text="Carregando planilha ..." />
         </template>
         <v-speed-dial
             v-if="(!isProjetoDiligenciado)"

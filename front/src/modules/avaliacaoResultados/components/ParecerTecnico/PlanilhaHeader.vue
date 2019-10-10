@@ -73,7 +73,7 @@ export default {
                 {
                     subheading: 'Comprovação',
                     headline: `<b class="error--text text-darken-4">R$ ${this.formatarParaReal(this.comprovacao.vlTotalComprovar)}</b>`
-                        + ` a comprovar de <b>R$ ${this.formatarParaReal(this.comprovacao.vlAprovado)}</b> aprovado`,
+                        + ` não comprovado de <b>R$ ${this.formatarParaReal(this.comprovacao.vlAprovado)}</b>`,
                     caption: `R$ ${this.formatarParaReal(this.comprovacao.vlComprovado)}`,
                     percent: this.calcularPercentual(this.comprovacao.vlComprovado, this.comprovacao.vlAprovado),
                     icon: {
@@ -86,7 +86,7 @@ export default {
                     },
                 },
                 {
-                    subheading: 'Análise - Validados',
+                    subheading: 'Comprovantes validados',
                     headline: `${this.estatisticas.qtComprovantesValidadosProjeto}`
                         + ` comprovante(s) validado(s) de ${this.estatisticas.qtTotalComprovante}`,
                     caption: `R$ ${this.formatarParaReal(this.estatisticas.vlComprovadoValidado)}`,
@@ -101,7 +101,7 @@ export default {
                     },
                 },
                 {
-                    subheading: 'Análise - Recusados',
+                    subheading: 'Comprovantes recusados',
                     headline: `${this.estatisticas.qtComprovantesRecusadosProjeto}`
                         + ` comprovante(s) recusado(s) de ${this.estatisticas.qtTotalComprovante}`,
                     caption: `R$ ${this.formatarParaReal(this.estatisticas.vlComprovadoRecusado)}`,

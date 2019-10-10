@@ -16,7 +16,7 @@
                             dark
                             color="primary">
                             <v-btn
-                                :to="{ name: 'AnalisePlanilha', params:{ id: idPronac }}"
+                                @click="$router.go(-1)"
                                 icon
                                 dark>
                                 <v-icon>close</v-icon>
