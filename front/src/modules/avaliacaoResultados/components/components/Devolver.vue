@@ -80,7 +80,7 @@
 
 <script>
 
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'Devolver',
@@ -106,12 +106,20 @@ export default {
             justificativa: '',
         };
     },
+
+    computed: {
+        ...mapGetters({
+            usuarioGetter: 'autenticacao/getUsuario',
+        }),
+    },
+
     methods: {
         ...mapActions({
             setDevolverProjeto: 'avaliacaoResultados/devolverProjeto',
         }),
         devolver() {
             this.dialog = false;
+            const idSecretaria = this.usuarioGetter.usu_org_max_superior;
 
             const dados = {
                 idPronac: this.idPronac,
@@ -129,6 +137,7 @@ export default {
                 dtFimEncaminhamento: '2015-09-25 10:38:41',
                 idSituacaoEncPrestContas: 1,
                 idSituacao: 1,
+                idSecretaria,
             };
 
             this.setDevolverProjeto(dados);
