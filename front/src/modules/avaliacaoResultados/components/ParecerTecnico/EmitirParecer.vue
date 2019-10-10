@@ -18,7 +18,7 @@
                         dark
                         color="primary">
                         <v-btn
-                            :href="redirectLink"
+                            @click="$router.go(-1)"
                             icon
                             dark>
                             <v-icon>close</v-icon>

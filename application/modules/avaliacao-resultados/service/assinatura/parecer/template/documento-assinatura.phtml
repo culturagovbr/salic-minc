@@ -78,26 +78,26 @@
     <div class="col s1"></div>
     <div class="col s3">
         <label style="color: black">Total</label>
-        <p class="bold bordered">
+        <p class="bold bordered right-align">
             <?php echo $this->consolidacao['qtTotalComprovante']; ?>
         </p>
     </div>
     <div class="col s2">
         <label style="color: black">Validados</label>
         <br/>
-        <p class="bold bordered">
+        <p class="bold bordered right-align">
             <?php echo $this->consolidacao['qtComprovantesValidadosProjeto']; ?>
         </p>
     </div>
     <div class="col s2">
         <label style="color: black">Recusados</label>
-        <p class="bold  bordered">
+        <p class="bold  bordered right-align">
             <?php echo $this->consolidacao['qtComprovantesRecusadosProjeto']; ?>
         </p>
     </div>
     <div class="col s3">
         <label style="color: black">N&atilde;o Avaliados</label>
-        <p class="bold bordered">
+        <p class="bold bordered right-align">
             <?php echo $this->consolidacao['qtComprovantesNaoAvaliados']; ?>
         </p>
     </div>
@@ -116,34 +116,24 @@
     <div class="col s1"></div>
     <div class="col s3">
         <label style="color: black">Total</label>
-        <p class="bold bordered">
-            <?php echo 'R$ '+ Mascara::addMaskMoeda($this->consolidacao['vlComprovadoProjeto']); ?>
+        <p class="bold bordered right-align">
+            <?php echo 'R$ ' . Mascara::addMaskMoeda($this->consolidacao['vlComprovadoProjeto']); ?>
         </p>
     </div>
     <div class="col s2">
         <label style="color: black">Validados</label>
         <br/>
-        <p class="bold bordered">
-            <?php echo 'R$ '+ Mascara::addMaskMoeda($this->consolidacao['vlComprovadoValidado']); ?>
+        <p class="bold bordered right-align">
+            <?php echo 'R$ ' . Mascara::addMaskMoeda($this->consolidacao['vlComprovadoValidado']); ?>
         </p>
     </div>
     <div class="col s2">
         <label style="color: black">Recusados</label>
-        <p class="bold bordered">
-            <?php echo 'R$ '+ Mascara::addMaskMoeda($this->consolidacao['vlComprovadoRecusado']); ?>
+        <p class="bold bordered right-align">
+            <?php echo 'R$ ' . Mascara::addMaskMoeda($this->consolidacao['vlComprovadoRecusado']); ?>
         </p>
     </div>
-<!--    <div class="col s3">-->
-<!--        <label style="color: black">N&atilde;o Avaliados</label>-->
-<!--        <p class="bold bordered">-->
-<!--            --><?php //echo $this->consolidacao['']; ?>
-<!--        </p>-->
-<!--    </div>-->
     <div class="col s3">
-<!--        <label style="color: black">N&atilde;o Comprovados</label>-->
-<!--        <p class="bold bordered">-->
-<!--            --><?php //echo 'R$ '+ Mascara::addMaskMoeda($this->consolidacao['vlNaoComprovado']); ?>
-<!--        </p>-->
     </div>
     <div class="col s1"></div>
 </div>
