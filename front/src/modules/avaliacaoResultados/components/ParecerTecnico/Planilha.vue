@@ -74,6 +74,67 @@
             </v-alert>
         </template>
         <template v-else-if="Object.keys(planilha).length">
+            <s-planilha-tipos-visualizacao-buttons v-model="opcoesDeVisualizacao" />
+            <s-planilha
+                :array-planilha="getPlanilha"
+                :expand-all="expandirTudo"
+                :list-items="mostrarListagem"
+                :agrupamentos="agrupamentos"
+                :totais="totaisPlanilha"
+            >
+                <v-data-table
+                    :headers="headers"
+                    :items="Object.values(item)"
+                    hide-actions
+                >
+                    <template
+                        slot="items"
+                        slot-scope="props"
+                    >
+                        <td>
+                            {{ props.item.item }}
+                        </td>
+                        <td class="text-xs-right">
+                            {{ (props.item.quantidade) }}
+                        </td>
+                        <td class="text-xs-right">
+                            {{ (props.item.numeroOcorrencias) }}
+                        </td>
+                        <td class="text-xs-right">
+                            {{ props.item.valor | moedaMasc }}
+                        </td>
+                        <td class="text-xs-right">
+                            {{ props.item.varlorAprovado | moedaMasc }}
+                        </td>
+                        <td class="text-xs-right">
+                            {{ props.item.varlorComprovado | moedaMasc }}
+                        </td>
+                        <td class="text-xs-right">
+                            {{ (props.item.varlorAprovado - props.item.varlorComprovado) | moedaMasc }}
+                        </td>
+                        <td>
+                            <v-btn
+                                v-if="podeEditar(props.item.varlorComprovado)"
+                                color="primary"
+                                dark
+                                small
+                                title="Avaliar comprovantes do item"
+                                @click="avaliarItem(
+                                                                                props.item,
+                                                                                produto.produto,
+                                                                                etapa.etapa,
+                                                                                uf.Uf,
+                                                                                produto.cdProduto,
+                                                                                cidade.cdCidade,
+                                                                                etapa.cdEtapa,
+                                                                                uf.cdUF)"
+                            >
+                                <v-icon>gavel</v-icon>
+                            </v-btn>
+                        </td>
+                    </template>
+                </v-data-table>
+            </s-planilha>
             <v-card
                 class="mt-3"
                 flat
@@ -336,22 +397,27 @@ import AnalisarItem from './AnalisarItem';
 import Moeda from '../../../../filters/money';
 import HistoricoDiligencias from '@/modules/avaliacaoResultados/components/components/HistoricoDiligencias';
 import ParecerTecnicoPlanilhaHeader from '@/modules/avaliacaoResultados/components/ParecerTecnico/PlanilhaHeader';
+import SPlanilhaTiposVisualizacaoButtons from "../../../../components/Planilha/PlanilhaTiposVisualizacaoButtons";
+import SPlanilha from '@/components/Planilha/PlanilhaV2';
 
 Vue.filter('moedaMasc', Moeda);
 
 export default {
     name: 'Planilha',
     components: {
+        SPlanilhaTiposVisualizacaoButtons,
         ParecerTecnicoPlanilhaHeader,
         HistoricoDiligencias,
         ConsolidacaoAnalise,
         AnalisarItem,
         Carregando,
+        SPlanilha,
     },
     data() {
         return {
             headers: [
-                { text: 'Item', value: 'item', sortable: false },
+                {
+                    text: 'Item', value: 'item', sortable: false },
                 {
                     text: 'Qtd', value: 'quantidade', sortable: false, align: 'right',
                 },
@@ -381,6 +447,19 @@ export default {
             fab: false,
             idPronac: this.$route.params.id,
             itemEmAvaliacao: {},
+            opcoesDeVisualizacao: [0],
+            agrupamentos: [
+                'Produto',
+                'descEtapa',
+                'uf',
+                'cidade',
+            ],
+            totaisPlanilha: [
+                {
+                    label: 'Valor Aprovado',
+                    column: 'vlAprovado',
+                },
+            ],
         };
     },
     computed: {
@@ -414,17 +493,25 @@ export default {
             const { diligencia } = this.dadosProjeto.items;
             return diligencia && diligencia.DtSolicitacao && !diligencia.DtResposta;
         },
+        expandirTudo() {
+            return this.isOptionActive(0);
+        },
+        mostrarListagem() {
+            return this.isOptionActive(2);
+        },
     },
+
     mounted() {
-        this.setPlanilha(this.idPronac);
-        this.setProjetoAnalise(this.idPronac);
+        this.buscarPlanilhaAction(this.idPronac);
+        this.buscarProjetoAnaliseAction(this.idPronac);
     },
+
     methods: {
         ...mapActions({
             modalOpen: 'modal/modalOpen',
             requestEmissaoParecer: 'avaliacaoResultados/getDadosEmissaoParecer',
-            setPlanilha: 'avaliacaoResultados/syncPlanilhaAction',
-            setProjetoAnalise: 'avaliacaoResultados/syncProjetoAction',
+            buscarPlanilhaAction: 'avaliacaoResultados/syncPlanilhaAction',
+            buscarProjetoAnaliseAction: 'avaliacaoResultados/syncProjetoAction',
         }),
         getConsolidacao(id) {
             this.requestEmissaoParecer(id);
@@ -477,6 +564,9 @@ export default {
             } else {
                 this.$router.push('/');
             }
+        },
+        isOptionActive(index) {
+            return this.opcoesDeVisualizacao.includes(index);
         },
     },
 };
