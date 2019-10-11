@@ -65,243 +65,108 @@
                 />
             </v-card-actions>
         </v-card>
-        <template v-if="Object.keys(planilha).length > 0 && planilha.error">
-            <v-alert
-                :value="true"
-                color="error"
-            >
-                {{ planilha.error.message }}
-            </v-alert>
+
+        <template v-if="!Object.keys(planilha).length">
+            <Carregando text="Carregando planilha ..." />
         </template>
-        <template v-else-if="Object.keys(planilha).length">
-            <s-planilha-tipos-visualizacao-buttons v-model="opcoesDeVisualizacao" />
+        <template v-else>
+            <v-container
+                fluid
+                class="pa-0"
+            >
+                <v-flex
+                    xs12
+                    sm6
+                    class="py-2"
+                >
+                    <v-btn-toggle
+                        v-model="opcoesDeVisualizacao"
+                        multiple
+                    >
+                        <v-tooltip bottom>
+                            <v-btn
+                                slot="activator"
+                                flat
+                            >
+                                <v-icon>list</v-icon>
+                            </v-btn>
+                            <span>
+                                Apenas itens
+                            </span>
+                        </v-tooltip>
+                    </v-btn-toggle>
+                </v-flex>
+            </v-container>
             <s-planilha
                 :array-planilha="getPlanilha"
-                :expand-all="expandirTudo"
                 :list-items="mostrarListagem"
                 :agrupamentos="agrupamentos"
                 :totais="totaisPlanilha"
             >
-                <v-data-table
-                    :headers="headers"
-                    :items="Object.values(item)"
-                    hide-actions
-                >
-                    <template
-                        slot="items"
-                        slot-scope="props"
+                <template slot-scope="slotProps">
+                    <v-data-table
+                        :headers="headers"
+                        :items="Object.values(slotProps.itens)"
+                        hide-actions
                     >
-                        <td>
-                            {{ props.item.item }}
-                        </td>
-                        <td class="text-xs-right">
-                            {{ (props.item.quantidade) }}
-                        </td>
-                        <td class="text-xs-right">
-                            {{ (props.item.numeroOcorrencias) }}
-                        </td>
-                        <td class="text-xs-right">
-                            {{ props.item.valor | moedaMasc }}
-                        </td>
-                        <td class="text-xs-right">
-                            {{ props.item.varlorAprovado | moedaMasc }}
-                        </td>
-                        <td class="text-xs-right">
-                            {{ props.item.varlorComprovado | moedaMasc }}
-                        </td>
-                        <td class="text-xs-right">
-                            {{ (props.item.varlorAprovado - props.item.varlorComprovado) | moedaMasc }}
-                        </td>
-                        <td>
-                            <v-btn
-                                v-if="podeEditar(props.item.varlorComprovado)"
-                                color="primary"
-                                dark
-                                small
-                                title="Avaliar comprovantes do item"
-                                @click="avaliarItem(
-                                                                                props.item,
-                                                                                produto.produto,
-                                                                                etapa.etapa,
-                                                                                uf.Uf,
-                                                                                produto.cdProduto,
-                                                                                cidade.cdCidade,
-                                                                                etapa.cdEtapa,
-                                                                                uf.cdUF)"
-                            >
-                                <v-icon>gavel</v-icon>
-                            </v-btn>
-                        </td>
-                    </template>
-                </v-data-table>
+                        <template
+                            slot="items"
+                            slot-scope="props"
+                        >
+                            <td>
+                                <v-progress-circular
+                                    v-if="props.item.qtComprovado > 0"
+                                    style="margin: 1px 0px"
+                                    height="5"
+                                    :value="obterPercentualProgresso(props.item)"
+                                    :color="obterCorProgresso(props.item)"
+                                >
+                                    {{ props.item.qtComprovado }}
+                                </v-progress-circular>
+                            </td>
+                            <td>
+                                {{ props.item.item }}
+                            </td>
+                            <td class="text-xs-right">
+                                {{ (props.item.quantidade) }}
+                            </td>
+                            <td class="text-xs-right">
+                                {{ (props.item.numeroOcorrencias) }}
+                            </td>
+                            <td class="text-xs-right">
+                                {{ props.item.valor | moedaMasc }}
+                            </td>
+                            <td class="text-xs-right">
+                                {{ props.item.varlorAprovado | moedaMasc }}
+                            </td>
+                            <td class="text-xs-right">
+                                {{ props.item.varlorComprovado | moedaMasc }}
+                            </td>
+                            <td class="text-xs-right">
+                                {{ (props.item.varlorAprovado - props.item.varlorComprovado) | moedaMasc }}
+                            </td>
+                            <td>
+                                <v-btn
+                                    v-if="podeEditar(props.item.varlorComprovado)"
+                                    color="primary"
+                                    dark
+                                    small
+                                    title="Avaliar comprovantes do item"
+                                    @click="avaliarItem(props.item)"
+                                >
+                                    <v-icon>gavel</v-icon>
+                                </v-btn>
+                            </td>
+                        </template>
+                    </v-data-table>
+                </template>
             </s-planilha>
-            <v-card
-                class="mt-3"
-                flat
-            >
-                <!-- PRODUTO -->
-                <v-expansion-panel
-                    :v-if="getPlanilha != undefined && Object.keys(getPlanilha)"
-                    :value="expandir(getPlanilha)"
-                    expand
-                >
-                    <v-expansion-panel-content
-                        v-for="(produto,i) in getPlanilha"
-                        :key="i"
-                    >
-                        <v-layout
-                            slot="header"
-                            class="green--text"
-                        >
-                            <v-icon class="mr-3 green--text">
-                                perm_media
-                            </v-icon>
-                            {{ produto.produto }}
-                        </v-layout>
-                        <!-- ETAPA -->
-                        <v-expansion-panel
-                            :value="expandir(produto)"
-                            class="pl-3 elevation-0"
-                            expand
-                        >
-                            <v-expansion-panel-content
-                                v-for="(etapa,i) in produto.etapa"
-                                :key="i"
-                            >
-                                <v-layout
-                                    slot="header"
-                                    class="orange--text"
-                                >
-                                    <v-icon class="mr-3 orange--text">
-                                        label
-                                    </v-icon>
-                                    {{ etapa.etapa }}
-                                </v-layout>
-                                <!-- UF -->
-                                <v-expansion-panel
-                                    :value="expandir(etapa)"
-                                    class="pl-3 elevation-0"
-                                    expand
-                                >
-                                    <v-expansion-panel-content
-                                        v-for="(uf,i) in etapa.UF"
-                                        :key="i"
-                                    >
-                                        <v-layout
-                                            slot="header"
-                                            class="blue--text"
-                                        >
-                                            <v-icon class="mr-3 blue--text">
-                                                place
-                                            </v-icon>
-                                            {{ uf.Uf }}
-                                        </v-layout>
-                                        <!-- CIDADE -->
-                                        <v-expansion-panel
-                                            :value="expandir(uf)"
-                                            class="pl-3 elevation-0"
-                                            expand
-                                        >
-                                            <v-expansion-panel-content
-                                                v-for="(cidade,i) in uf.cidade"
-                                                :key="i"
-                                            >
-                                                <v-layout
-                                                    slot="header"
-                                                    class="blue--text"
-                                                >
-                                                    <v-icon class="mr-3 blue--text">
-                                                        place
-                                                    </v-icon>
-                                                    {{ cidade.cidade }}
-                                                </v-layout>
-                                                <template
-                                                    v-if="typeof cidade.itens !== 'undefined'"
-                                                >
-                                                    <v-tabs
-                                                        slider-color="green"
-                                                    >
-                                                        <v-tab
-                                                            v-for="(tab, index) in Object.keys(cidade.itens)"
-                                                            :key="index"
-                                                            ripple
-                                                        >
-                                                            <b>{{ tabs[tab] }}</b>
-                                                        </v-tab>
-                                                        <v-tab-item
-                                                            v-for="item in cidade.itens"
-                                                            :key="item.stItemAvaliado"
-                                                        >
-                                                            <v-data-table
-                                                                :headers="headers"
-                                                                :items="Object.values(item)"
-                                                                hide-actions
-                                                            >
-                                                                <template
-                                                                    slot="items"
-                                                                    slot-scope="props"
-                                                                >
-                                                                    <td>
-                                                                        {{ props.item.item }}
-                                                                    </td>
-                                                                    <td class="text-xs-right">
-                                                                        {{ (props.item.quantidade) }}
-                                                                    </td>
-                                                                    <td class="text-xs-right">
-                                                                        {{ (props.item.numeroOcorrencias) }}
-                                                                    </td>
-                                                                    <td class="text-xs-right">
-                                                                        {{ props.item.valor | moedaMasc }}
-                                                                    </td>
-                                                                    <td class="text-xs-right">
-                                                                        {{ props.item.varlorAprovado | moedaMasc }}
-                                                                    </td>
-                                                                    <td class="text-xs-right">
-                                                                        {{ props.item.varlorComprovado | moedaMasc }}
-                                                                    </td>
-                                                                    <td class="text-xs-right">
-                                                                        {{ (props.item.varlorAprovado - props.item.varlorComprovado) | moedaMasc }}
-                                                                    </td>
-                                                                    <td>
-                                                                        <v-btn
-                                                                            v-if="podeEditar(props.item.varlorComprovado)"
-                                                                            color="primary"
-                                                                            dark
-                                                                            small
-                                                                            title="Avaliar comprovantes do item"
-                                                                            @click="avaliarItem(
-                                                                                props.item,
-                                                                                produto.produto,
-                                                                                etapa.etapa,
-                                                                                uf.Uf,
-                                                                                produto.cdProduto,
-                                                                                cidade.cdCidade,
-                                                                                etapa.cdEtapa,
-                                                                                uf.cdUF)"
-                                                                        >
-                                                                            <v-icon>gavel</v-icon>
-                                                                        </v-btn>
-                                                                    </td>
-                                                                </template>
-                                                            </v-data-table>
-                                                        </v-tab-item>
-                                                    </v-tabs>
-                                                </template>
-                                            </v-expansion-panel-content>
-                                        </v-expansion-panel>
-                                    </v-expansion-panel-content>
-                                </v-expansion-panel>
-                            </v-expansion-panel-content>
-                        </v-expansion-panel>
-                    </v-expansion-panel-content>
-                </v-expansion-panel>
-            </v-card>
             <analisar-item
                 v-if="isModalVisible === 'avaliacao-item'"
+                :id-pronac="idPronac"
                 :item="itemEmAvaliacao.item"
                 :descricao-produto="itemEmAvaliacao.produto"
                 :descricao-etapa="itemEmAvaliacao.etapa"
-                :id-pronac="idPronac"
                 :uf="itemEmAvaliacao.Uf"
                 :produto="itemEmAvaliacao.cdProduto"
                 :idmunicipio="itemEmAvaliacao.cdCidade"
@@ -311,9 +176,6 @@
                 :dt-inicio-execucao="dadosProjeto.items.dtInicioExecucao"
                 :dt-fim-execucao="dadosProjeto.items.dtFimExecucao"
             />
-        </template>
-        <template v-else>
-            <Carregando text="Carregando planilha ..." />
         </template>
         <v-speed-dial
             v-if="(!isProjetoDiligenciado)"
@@ -397,7 +259,7 @@ import AnalisarItem from './AnalisarItem';
 import Moeda from '../../../../filters/money';
 import HistoricoDiligencias from '@/modules/avaliacaoResultados/components/components/HistoricoDiligencias';
 import ParecerTecnicoPlanilhaHeader from '@/modules/avaliacaoResultados/components/ParecerTecnico/PlanilhaHeader';
-import SPlanilhaTiposVisualizacaoButtons from "../../../../components/Planilha/PlanilhaTiposVisualizacaoButtons";
+import SPlanilhaTiposVisualizacaoButtons from '../../../../components/Planilha/PlanilhaTiposVisualizacaoButtons';
 import SPlanilha from '@/components/Planilha/PlanilhaV2';
 
 Vue.filter('moedaMasc', Moeda);
@@ -417,7 +279,9 @@ export default {
         return {
             headers: [
                 {
-                    text: 'Item', value: 'item', sortable: false },
+                    text: 'Avaliação', value: 'qtComprovado', sortable: false, align: 'left',
+                },
+                { text: 'Item', value: 'item', sortable: true },
                 {
                     text: 'Qtd', value: 'quantidade', sortable: false, align: 'right',
                 },
@@ -428,13 +292,13 @@ export default {
                     text: 'Valor (R$)', value: 'valor', sortable: false, align: 'right',
                 },
                 {
-                    text: 'Vl. Aprovado (R$)', value: 'varlorAprovado', sortable: false, align: 'right',
+                    text: 'Vl. Aprovado (R$)', value: 'varlorAprovado', sortable: true, align: 'right',
                 },
                 {
-                    text: 'Vl. Comprovado (R$)', value: 'varlorComprovado', sortable: false, align: 'right',
+                    text: 'Vl. Comprovado (R$)', value: 'varlorComprovado', sortable: true, align: 'right',
                 },
                 {
-                    text: 'Vl. a Comprovar (R$)', value: 'valorAComprovar', sortable: false, align: 'right',
+                    text: 'Vl. a Comprovar (R$)', value: 'vlAComprovar', sortable: true, align: 'right',
                 },
                 { text: '', value: 'comprovarItem', sortable: false },
             ],
@@ -447,7 +311,7 @@ export default {
             fab: false,
             idPronac: this.$route.params.id,
             itemEmAvaliacao: {},
-            opcoesDeVisualizacao: [0],
+            opcoesDeVisualizacao: [],
             agrupamentos: [
                 'Produto',
                 'descEtapa',
@@ -493,11 +357,8 @@ export default {
             const { diligencia } = this.dadosProjeto.items;
             return diligencia && diligencia.DtSolicitacao && !diligencia.DtResposta;
         },
-        expandirTudo() {
-            return this.isOptionActive(0);
-        },
         mostrarListagem() {
-            return this.isOptionActive(2);
+            return this.isOptionActive(0);
         },
     },
 
@@ -530,23 +391,16 @@ export default {
 
             return false;
         },
-        avaliarItem(item,
-            produto,
-            etapa,
-            Uf,
-            cdProduto,
-            cdCidade,
-            cdEtapa,
-            cdUF) {
+        avaliarItem(item) {
             this.itemEmAvaliacao = {
                 item,
-                produto,
-                etapa,
-                Uf,
-                cdProduto,
-                cdCidade,
-                cdEtapa,
-                cdUF,
+                produto: item.Produto,
+                etapa: item.descEtapa,
+                Uf: item.uf,
+                cdProduto: item.cdProduto,
+                cdCidade: item.cdCidade,
+                cdEtapa: item.cdEtapa,
+                cdUF: item.cdUF,
             };
             this.modalOpen('avaliacao-item');
         },
@@ -567,6 +421,19 @@ export default {
         },
         isOptionActive(index) {
             return this.opcoesDeVisualizacao.includes(index);
+        },
+        obterPercentualProgresso(item) {
+            return (item.qtComprovadoValidado + item.qtComprovadoRecusada / item.qtComprovado) * 100;
+        },
+        obterPercentualProgressoRecusado(item) {
+            return (item.qtComprovadoRecusada / item.qtComprovado) * 100;
+        },
+        obterCorProgresso(item) {
+            let cor = 'green';
+            if (item.qtComprovadoRecusada > item.qtComprovadoValidado) {
+                cor = 'red';
+            }
+            return cor;
         },
     },
 };

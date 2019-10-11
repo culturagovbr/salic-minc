@@ -9,6 +9,7 @@
             fullscreen
             transition="dialog-bottom-transition"
             hide-overlay
+            @keydown.esc="fecharModal"
         >
             <v-snackbar
                 v-model="snackbarAlerta"

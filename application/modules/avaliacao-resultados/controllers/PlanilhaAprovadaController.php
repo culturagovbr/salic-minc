@@ -185,6 +185,17 @@ class AvaliacaoResultados_PlanilhaAprovadaController extends MinC_Controller_Res
                 $row['Produto'] = !empty($item['cdProduto'])
                     ? $item['Produto']
                     : html_entity_decode('Administra&ccedil;&atilde;o do Projeto');
+
+
+                $row['vlAComprovar'] = $row['vlAprovado'] - $row['vlComprovado'];
+
+                // corrigir no front e depois remover
+                $row['varlorComprovado'] = $row['vlComprovado'];
+                $row['varlorAprovado'] = $row['vlAprovado'];
+                $row['varlorAprovado'] = $row['vlAprovado'];
+                $row['produto'] = $row['Produto'];
+                $row['item'] = $row['descItem'];
+
                 $novaPlanilha[] = $row;
             }
 

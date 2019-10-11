@@ -200,43 +200,43 @@ export const mutations = {
         state.projetosAssinarCoordenadorGeral = dados;
     },
     [types.ALTERAR_PLANILHA](state, params) {
-        const tiposXQuantidade = {
-            1: 0, // avaliado
-            3: 0, // impugnado
-            4: 0, // aguardando analise
-        };
-
-        const copiaState = state
-            .planilha[params.cdProduto]
-            .etapa[params.etapa]
-            .UF[params.cdUf]
-            .cidade[params.idmunicipio]
-            .itens;
-
-        const copiaItem = _.cloneDeep(copiaState.todos[params.idPlanilhaItem]);
-
-        state.comprovantes.forEach((comprovante) => {
-            tiposXQuantidade[comprovante.stItemAvaliado] += 1;
-        });
-
-        Object.keys(tiposXQuantidade).forEach((tipo) => {
-            const quantidade = tiposXQuantidade[tipo];
-            if (quantidade === 0) {
-                if (typeof copiaState[tipo] !== 'undefined') {
-                    Vue.delete(copiaState[tipo], params.idPlanilhaItem);
-
-                    if (Object.keys(copiaState[tipo]).length === 0) {
-                        Vue.delete(copiaState, tipo);
-                    }
-                }
-                return;
-            }
-
-            if (typeof copiaState[tipo] === 'undefined') {
-                Vue.set(copiaState, tipo, {});
-            }
-            Vue.set(copiaState[tipo], params.idPlanilhaItem, copiaItem);
-        });
+        // const tiposXQuantidade = {
+        //     1: 0, // avaliado
+        //     3: 0, // impugnado
+        //     4: 0, // aguardando analise
+        // };
+        //
+        // const copiaState = state
+        //     .planilha[params.cdProduto]
+        //     .etapa[params.etapa]
+        //     .UF[params.cdUf]
+        //     .cidade[params.idmunicipio]
+        //     .itens;
+        //
+        // const copiaItem = _.cloneDeep(copiaState.todos[params.idPlanilhaItem]);
+        //
+        // state.comprovantes.forEach((comprovante) => {
+        //     tiposXQuantidade[comprovante.stItemAvaliado] += 1;
+        // });
+        //
+        // Object.keys(tiposXQuantidade).forEach((tipo) => {
+        //     const quantidade = tiposXQuantidade[tipo];
+        //     if (quantidade === 0) {
+        //         if (typeof copiaState[tipo] !== 'undefined') {
+        //             Vue.delete(copiaState[tipo], params.idPlanilhaItem);
+        //
+        //             if (Object.keys(copiaState[tipo]).length === 0) {
+        //                 Vue.delete(copiaState, tipo);
+        //             }
+        //         }
+        //         return;
+        //     }
+        //
+        //     if (typeof copiaState[tipo] === 'undefined') {
+        //         Vue.set(copiaState, tipo, {});
+        //     }
+        //     Vue.set(copiaState[tipo], params.idPlanilhaItem, copiaItem);
+        // });
     },
     [types.DASHBOARD_QUANTIDADE](state, dados) {
         state.dashboard = dados;
