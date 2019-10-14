@@ -62,6 +62,11 @@
                 <consolidacao-analise
                     :id-pronac="idPronac"
                     :nome-projeto="dadosProjeto.items.nomeProjeto"
+                    class="mr-2"
+                />
+
+                <relacao-pagamento-dialog
+                    :id-pronac="idPronac"
                 />
             </v-card-actions>
         </v-card>
@@ -272,12 +277,14 @@ import HistoricoDiligencias from '@/modules/avaliacaoResultados/components/compo
 import ParecerTecnicoPlanilhaHeader from '@/modules/avaliacaoResultados/components/ParecerTecnico/PlanilhaHeader';
 import SPlanilha from '@/components/Planilha/PlanilhaV2';
 import CONST from '../../const';
+import RelacaoPagamentoDialog from '@/modules/projeto/visualizar/components/prestacaoContas/RelacaoPagamentoDialog';
 
 Vue.filter('moedaMasc', Moeda);
 
 export default {
     name: 'Planilha',
     components: {
+        RelacaoPagamentoDialog,
         ParecerTecnicoPlanilhaHeader,
         HistoricoDiligencias,
         ConsolidacaoAnalise,

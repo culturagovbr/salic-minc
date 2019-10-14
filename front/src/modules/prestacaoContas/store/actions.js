@@ -33,13 +33,12 @@ export const buscarRelatorioFisico = ({ commit }, idPronac) => {
         });
 };
 
-export const buscarRelacaoPagamento = ({ commit }, idPronac) => {
-    prestacaoContasHelperAPI.buscarRelacaoPagamento(idPronac)
-        .then((response) => {
-            const data = response.data.data.items;
-            commit(types.SET_RELACAO_PAGAMENTO, data);
-        });
-};
+export const buscarRelacaoPagamento = async ({ commit }, idPronac) => prestacaoContasHelperAPI
+    .buscarRelacaoPagamento(idPronac)
+    .then((response) => {
+        const data = response.data.data.items;
+        commit(types.SET_RELACAO_PAGAMENTO, data);
+    });
 
 export const buscarRelatorioCumprimentoObjeto = ({ commit }, idPronac) => {
     prestacaoContasHelperAPI.buscarRelatorioCumprimentoObjeto(idPronac)
