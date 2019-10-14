@@ -218,7 +218,11 @@ export default {
         fecharModal() {
             this.modalClose();
             this.alterarPlanilha({
-                idPlanilhaAprovacao: this.item.idPlanilhaAprovacao,
+                cdProduto: this.item.cdProduto,
+                cdEtapa: this.item.cdEtapa,
+                cdUF: this.item.cdUF,
+                cdCidade: this.item.cdCidade,
+                idPlanilhaItens: this.item.idPlanilhaItens,
             });
             this.atualizarEstatisticasAvaliacaoAction(this.item.IdPRONAC);
         },

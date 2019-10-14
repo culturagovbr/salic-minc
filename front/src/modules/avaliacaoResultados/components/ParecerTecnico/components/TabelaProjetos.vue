@@ -30,20 +30,22 @@
         </v-flex>
 
         <v-flex xs12>
+            <carregando-vuetify
+                v-if="loading"
+                text="Carregando ..."
+            />
             <v-data-table
+                v-else
                 :headers="headers()"
                 :items="dados.items"
-                :pagination.sync="pagination"
                 :search="search"
-                :loading="loading"
-                hide-actions
+                :rows-per-page-items="[10, 25, 50, {'text': 'Todos', value: -1}]"
             >
                 <template
                     v-if="filtragem(statusDiligencia(props.item).desc, filtro)"
                     slot="items"
                     slot-scope="props"
                 >
-                    <td>{{ props.index+1 }}</td>
                     <td class="text-xs-right">
                         <v-flex
                             xs12
@@ -120,34 +122,35 @@
                 </template>
             </v-data-table>
         </v-flex>
-        <v-flex
-            xs12
-            class="text-xs-center"
-        >
-            <div class="text-xs-center pt-2">
-                <v-pagination
-                    v-model="pagination.page"
-                    :length="pages"
-                    :total-visible="4"
-                    color="primary "
-                />
-            </div>
-        </v-flex>
     </v-layout>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import statusDiligencia from '../../../mixins/statusDiligencia';
+import CarregandoVuetify from '@/components/CarregandoVuetify';
 
 export default {
     name: 'TabelaProjetos',
+    components: { CarregandoVuetify },
     mixins: [statusDiligencia],
     props: {
-        dados: { type: Object, default: () => {} },
-        componentes: { type: Object, default: () => {} },
-        mostrarTecnico: { type: Boolean, default: false },
-        loading: { type: Boolean, default: false },
+        dados: {
+            type: [Object, Array],
+            default: () => {},
+        },
+        componentes: {
+            type: Object,
+            default: () => {},
+        },
+        mostrarTecnico: {
+            type: Boolean,
+            default: false,
+        },
+        loading: {
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         return {
@@ -187,29 +190,23 @@ export default {
         },
     },
     methods: {
-        ...mapActions({
-            obterDadosTabelaTecnico: 'avaliacaoResultados/obterDadosTabelaTecnico',
-        }),
+        // ...mapActions({
+        //     obterDadosTabelaTecnico: 'avaliacaoResultados/obterDadosTabelaTecnico',
+        // }),
         filtragem(projeto, filtro) {
             if (filtro === 'Todos projetos' || this.filtro === '') {
                 return true;
             }
             return projeto !== filtro;
         },
-        filtroDiligencia(val) {
-            this.filtro = val;
-            this.$emit('filtros', this.filtro);
-        },
+        // filtroDiligencia(val) {
+        //     this.filtro = val;
+        //     this.$emit('filtros', this.filtro);
+        // },
         headers() {
             let dados = [];
 
             dados = [
-                {
-                    text: '#',
-                    align: 'left',
-                    sortable: false,
-                    value: 'numero',
-                },
                 {
                     text: 'PRONAC',
                     value: 'PRONAC',

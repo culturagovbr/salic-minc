@@ -23,7 +23,7 @@
             <v-chip v-if="isProjetoDiligenciado">
                 Projeto diligenciado
             </v-chip>
-            <v-chip v-else-if="estado.estadoId == 5">
+            <v-chip v-else-if="estado.estadoId === CONST.ESTADO_ANALISE_PARECER">
                 Projeto em analise
             </v-chip>
             <historico-diligencias
@@ -271,6 +271,7 @@ import Moeda from '../../../../filters/money';
 import HistoricoDiligencias from '@/modules/avaliacaoResultados/components/components/HistoricoDiligencias';
 import ParecerTecnicoPlanilhaHeader from '@/modules/avaliacaoResultados/components/ParecerTecnico/PlanilhaHeader';
 import SPlanilha from '@/components/Planilha/PlanilhaV2';
+import CONST from '../../const';
 
 Vue.filter('moedaMasc', Moeda);
 
@@ -286,6 +287,7 @@ export default {
     },
     data() {
         return {
+            CONST,
             headers: [
                 {
                     text: '#', value: 'qtComprovado', sortable: true, align: 'left',

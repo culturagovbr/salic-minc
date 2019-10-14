@@ -1,5 +1,6 @@
 import * as avaliacaoResultadosHelperAPI from '@/helpers/api/AvaliacaoResultados';
 import * as types from './types';
+import CONST from '../const';
 
 export const dadosMenu = ({ commit }) => {
     avaliacaoResultadosHelperAPI.dadosMenu()
@@ -61,7 +62,7 @@ export const obterDestinatarios = async ({ commit }, params) => avaliacaoResulta
         commit(types.DESTINATARIOS_ENCAMINHAMENTO, destinatariosEncaminhamento.items);
     });
 
-export const obterDadosTabelaTecnico = ({ commit }, params) => {
+export const obterDadosTabelaTecnico = async ({ commit }, params) => {
     commit(types.PROJETOS_AVALIACAO_TECNICA, {});
     avaliacaoResultadosHelperAPI.obterDadosTabelaTecnico(params)
         .then((response) => {
@@ -87,14 +88,14 @@ export const obetDadosDiligencias = async ({ commit }, params) => avaliacaoResul
         },
     );
 
-export const projetosFinalizados = ({ commit }, params) => {
-    avaliacaoResultadosHelperAPI.obterDadosTabelaTecnico(params)
-        .then((response) => {
-            const { data } = response;
-            const dadosTabela = data.data;
-            commit(types.SET_DADOS_PROJETOS_FINALIZADOS, dadosTabela);
-        });
-};
+export const projetosFinalizados = async ({ commit }, params) => avaliacaoResultadosHelperAPI
+    .obterDadosTabelaTecnico(params)
+    .then((response) => {
+        const { data } = response;
+        const dadosTabela = data.data;
+        commit(types.SET_DADOS_PROJETOS_FINALIZADOS, dadosTabela);
+        return response;
+    });
 
 export const obterHistoricoEncaminhamento = async ({ commit }, params) => avaliacaoResultadosHelperAPI
     .obterHistoricoEncaminhamento(params)
@@ -172,16 +173,12 @@ export const finalizarParecer = ({ commit }, params) => {
         });
 };
 
-export const encaminharParaTecnico = ({ commit, dispatch }, params) => {
-    commit(types.SET_DADOS_PROJETOS_PARA_DISTRIBUIR, {});
-    commit(types.PROJETOS_AVALIACAO_TECNICA, {});
-    avaliacaoResultadosHelperAPI
-        .alterarEstado(params)
-        .then(() => {
-            dispatch('projetosParaDistribuir');
-            dispatch('obterDadosTabelaTecnico', { estadoid: 5, idSecretaria: params.idSecretaria });
-        });
-};
+export const encaminharParaTecnico = async ({ dispatch }, params) => avaliacaoResultadosHelperAPI
+    .alterarEstado(params)
+    .then(response => response,
+        // dispatch('projetosParaDistribuir');
+        // dispatch('obterDadosTabelaTecnico', { estadoid: 5, idSecretaria: params.idSecretaria });
+    );
 
 export const alterarParecer = ({ commit }, param) => {
     commit(types.SET_PARECER, param);
@@ -226,13 +223,13 @@ export const enviarDiligencia = (_, data) => {
         });
 };
 
-export const projetosParaDistribuir = ({ commit }) => {
-    avaliacaoResultadosHelperAPI.obterProjetosParaDistribuir()
-        .then((response) => {
-            const { data } = response;
-            commit(types.SET_DADOS_PROJETOS_PARA_DISTRIBUIR, data);
-        });
-};
+export const projetosParaDistribuir = async ({ commit }) => avaliacaoResultadosHelperAPI
+    .obterProjetosParaDistribuir()
+    .then((response) => {
+        const { data } = response;
+        commit(types.SET_DADOS_PROJETOS_PARA_DISTRIBUIR, data);
+        return response;
+    });
 
 export const projetosAssinatura = async ({ commit }, params) => {
     let type = '';
@@ -299,83 +296,102 @@ export const buscarComprovantes = ({ commit }, params) => {
         });
 };
 
-export const devolverProjeto = ({ commit, dispatch }, params) => {
-    commit(types.SET_DADOS_PROJETOS_FINALIZADOS, {});
-    commit(types.SYNC_PROJETOS_ASSINAR_COORDENADOR, {});
-    commit(types.PROJETOS_AVALIACAO_TECNICA, {});
+export const devolverProjeto = async ({ commit, dispatch }, params) => {
+    // commit(types.SET_DADOS_PROJETOS_FINALIZADOS, {});
+    // commit(types.SYNC_PROJETOS_ASSINAR_COORDENADOR, {});
+    // commit(types.PROJETOS_AVALIACAO_TECNICA, {});
+    const dados = params;
+    const { idSecretaria } = dados;
+    const isCoordenadorGeral = dados.usuario.grupo_ativo === CONST.PERFIL_COORDENADOR_GERAL;
+    const isCoordenador = dados.usuario.grupo_ativo === CONST.PERFIL_COORDENADOR;
 
-    const { idSecretaria } = params;
+    let projetosTecnico = {
+        estadoid: CONST.ESTADO_ANALISE_PARECER,
+        idAgente: dados.usuario.usu_codigo,
+        idSecretaria,
+    };
 
-    let projetosTecnico = {};
-    let projetosFinalizadosEstatos = {};
-    const laudoDevolver = { estadoId: params.atual, idSecretaria };
+    let projetosFinalizadosEstados = {
+        estadoid: CONST.ESTADO_PARECER_FINALIZADO,
+        idAgente: dados.usuario.usu_codigo,
+        idSecretaria,
+    };
 
-    if (
-        parseInt(params.usuario.grupo_ativo, 10) === 125
-        || parseInt(params.usuario.grupo_ativo, 10) === 126
-    ) {
+    if (isCoordenador || isCoordenadorGeral) {
         projetosTecnico = {
-            estadoid: 5,
+            estadoid: CONST.ESTADO_ANALISE_PARECER,
             idSecretaria,
         };
 
-        projetosFinalizadosEstatos = {
-            estadoid: 6,
-            idSecretaria,
-        };
-    } else {
-        projetosTecnico = {
-            estadoid: 5,
-            idAgente: params.usuario.usu_codigo,
-            idSecretaria,
-        };
-
-        projetosFinalizadosEstatos = {
-            estadoid: 6,
-            idAgente: params.usuario.usu_codigo,
+        projetosFinalizadosEstados = {
+            estadoid: CONST.ESTADO_PARECER_FINALIZADO,
             idSecretaria,
         };
     }
 
-    if (params.idTipoDoAtoAdministrativo === '622' && params.proximo === '5') {
-        return avaliacaoResultadosHelperAPI.alterarEstado(params)
+    if (dados.idTipoDoAtoAdministrativo === CONST.ATO_ADMINISTRATIVO_PARECER_TECNICO) {
+        dados.proximo = CONST.ESTADO_ANALISE_PARECER;
+
+        return avaliacaoResultadosHelperAPI.alterarEstado(dados)
             .then((response) => {
                 const devolverProjetoData = response.data;
                 commit(types.SET_DEVOLVER_PROJETO, devolverProjetoData);
-                dispatch('projetosAssinarCoordenador', { estadoid: 9, idSecretaria });
-                dispatch('projetosAssinarCoordenadorGeral', { estadoid: 15, idSecretaria });
-                dispatch('projetosFinalizados', projetosFinalizadosEstatos);
+
+                if (isCoordenador) {
+                    dispatch('projetosAssinarCoordenador', {
+                        estadoid: CONST.ESTADO_AGUARDANDO_ASSINATURA_COORDENADOR_PARECER,
+                        idSecretaria,
+                    });
+                }
+
+                if (isCoordenadorGeral) {
+                    dispatch('projetosAssinarCoordenadorGeral', {
+                        estadoid: CONST.ESTADO_AGUARDANDO_ASSINATURA_COORDENADOR_GERAL_PARECER,
+                        idSecretaria,
+                    });
+                }
+
+                dispatch('projetosFinalizados', projetosFinalizadosEstados);
                 dispatch('obterDadosTabelaTecnico', projetosTecnico);
-                dispatch('obterProjetosLaudoFinal', { estadoId: '10', idSecretaria });
+                // dispatch('obterProjetosLaudoFinal', {
+                //     estadoId: CONST.ESTADO_ANALISE_LAUDO,
+                //     idSecretaria,
+                // });
             });
-    } if (params.idTipoDoAtoAdministrativo === '623' && params.proximo === '10') {
-        return avaliacaoResultadosHelperAPI.alterarEstado(params)
+    }
+
+    if (dados.idTipoDoAtoAdministrativo === CONST.ATO_ADMINISTRATIVO_LAUDO_FINAL
+        && dados.proximo === CONST.ESTADO_ANALISE_LAUDO) {
+        const laudoDevolver = { estadoId: dados.atual, idSecretaria };
+
+        return avaliacaoResultadosHelperAPI.alterarEstado(dados)
             .then((response) => {
                 const devolverProjetoData = response.data;
                 commit(types.SET_DEVOLVER_PROJETO, devolverProjetoData);
                 dispatch('obterProjetosLaudoAssinar', laudoDevolver);
-                dispatch('obterProjetosLaudoFinal', { estadoId: '10', idSecretaria });
+                dispatch('obterProjetosLaudoFinal', {
+                    estadoId: CONST.ESTADO_ANALISE_LAUDO,
+                    idSecretaria,
+                });
             });
     }
 
     return null;
 };
 
-export const projetosAssinarCoordenador = ({ commit }, params) => {
-    avaliacaoResultadosHelperAPI.projetosPorEstado(params) // { estadoid: 9 }
-        .then((response) => {
-            const dados = response.data;
-            commit(types.SYNC_PROJETOS_ASSINAR_COORDENADOR, dados.data);
-        });
-};
+export const projetosAssinarCoordenador = async ({ commit }, params) => avaliacaoResultadosHelperAPI
+    .projetosPorEstado(params) // { estadoid: 9 }
+    .then((response) => {
+        const dados = response.data;
+        commit(types.SYNC_PROJETOS_ASSINAR_COORDENADOR, dados.data);
+    });
 
-export const projetosAssinarCoordenadorGeral = ({ commit }, params) => {
-    avaliacaoResultadosHelperAPI.projetosPorEstado(params) // { estadoid: 15 }
-        .then((response) => {
-            const dados = response.data;
-            commit(types.SYNC_PROJETOS_ASSINAR_COORDENADOR_GERAL, dados.data);
-        });
-};
+export const projetosAssinarCoordenadorGeral = async ({ commit }, params) => avaliacaoResultadosHelperAPI
+    .projetosPorEstado(params) // { estadoid: 15 }
+    .then((response) => {
+        const dados = response.data;
+        commit(types.SYNC_PROJETOS_ASSINAR_COORDENADOR_GERAL, dados.data);
+    });
 
 export const salvarAvaliacaoComprovante = async ({ commit }, avaliacao) => {
     const params = {

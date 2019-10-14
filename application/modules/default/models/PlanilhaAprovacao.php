@@ -2842,7 +2842,6 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract
             $select->where('d.codigo is null');
         }
 
-//        echo $select; die;
         $select->order('c.Descricao');
         return $this->fetchAll($select);
     }

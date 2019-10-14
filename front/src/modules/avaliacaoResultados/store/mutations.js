@@ -213,7 +213,11 @@ export const mutations = {
         });
 
         const index = state.planilha.findIndex(
-            item => parseInt(item.idPlanilhaAprovacao, 10) === parseInt(params.idPlanilhaAprovacao, 10),
+            item => item.cdProduto === params.cdProduto
+            && item.cdEtapa === params.cdEtapa
+            && item.cdUF === params.cdUF
+            && item.cdCidade === params.cdCidade
+            && item.idPlanilhaItens === params.idPlanilhaItens,
         );
 
         if (index >= 0) {

@@ -1,6 +1,6 @@
 <template>
     <v-dialog
-        v-if="typeof usuario !== 'undefined' && Object.keys(usuario).length > 0 && usuario.grupo_ativo !== '124'"
+        v-if="Object.keys(usuarioGetter).length > 0"
         v-model="dialog"
         width="650"
     >
@@ -35,7 +35,7 @@
                     Devolver Projeto
                 </span>
             </v-card-title>
-            <v-container grid-list-md>
+            <v-container fluid>
                 <v-card-text class="subheading">
                     <div
                         v-if="tecnico !== undefined
@@ -43,15 +43,16 @@
                             && tecnico !== ''
                             && tecnico.nome !== 'sysLaudo'"
                     >
-                        Você deseja devolver o projeto '{{ pronac }} - {{ nomeProjeto }}'
+                        Confirma a devolução do projeto '{{ pronac }} - {{ nomeProjeto }}'
                         para análise do Tecnico: {{ tecnico.nome }}?
                     </div>
                     <div v-else>
-                        Você deseja devolver o projeto
+                        Confirma a devolução do projeto
                         <b> {{ pronac }} - {{ nomeProjeto }}</b> para a etapa anterior?
                     </div>
                     <v-textarea
                         v-model="justificativa"
+                        class="mt-4"
                         outline
                         name="input-7-4"
                         label="Justificativa"
@@ -59,19 +60,20 @@
                 </v-card-text>
             </v-container>
             <v-card-actions>
-                <v-btn
-                    color="success"
-                    flat
-                    @click="devolver()"
-                >
-                    Sim
-                </v-btn>
+                <v-spacer />
                 <v-btn
                     color="error"
                     flat
                     @click="dialog = false"
                 >
-                    Não
+                    Cancelar
+                </v-btn>
+                <v-btn
+                    color="success"
+                    flat
+                    @click="devolver()"
+                >
+                    Devolver
                 </v-btn>
             </v-card-actions>
         </v-card>

@@ -237,6 +237,7 @@ import { mapActions, mapGetters } from 'vuex';
 import Carregando from '@/components/CarregandoVuetify';
 import ModalDetalheItens from './ModalDetalheItens';
 import ConsolidacaoAnalise from './ConsolidacaoAnalise';
+import CONST from '../../const';
 
 export default {
     name: 'Painel',
@@ -247,6 +248,7 @@ export default {
     },
     data() {
         return {
+            CONST,
             headers: [
                 { text: 'Item de Custo', value: 'item', sortable: false },
                 { text: 'Valor Aprovado', value: 'varlorAprovado', sortable: false },

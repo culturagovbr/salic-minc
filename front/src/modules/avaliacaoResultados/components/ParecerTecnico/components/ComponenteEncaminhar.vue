@@ -47,8 +47,8 @@
                             :loading="loadingDestinatarios"
                             :label="loadingDestinatarios ? 'Carregando técnicos' : '-- Escolha um técnico  --'"
                             height="10px"
-                            solo
                             single-line
+                            outline
                             item-text="usu_nome"
                             item-value="usu_codigo"
                             prepend-icon="perm_identity"
@@ -72,12 +72,13 @@
                     <v-btn
                         color="red"
                         flat
-                        @click="dialog = false, $refs.form.reset()"
+                        @click="dialog = false; $refs.form.reset()"
                     >
                         Fechar
                     </v-btn>
                     <v-btn
-                        :disabled="!form"
+                        :disabled="!form || loading"
+                        :loading="loading"
                         color="primary"
                         flat
                         @click="enviarEncaminhamento"
@@ -121,6 +122,7 @@ export default {
             loadingDestinatarios: false,
             justificativa: null,
             form: null,
+            loading: false,
         };
     },
     computed: {
@@ -147,12 +149,14 @@ export default {
             obterDestinatarios: 'avaliacaoResultados/obterDestinatarios',
             encaminharParaTecnico: 'avaliacaoResultados/encaminharParaTecnico',
             obterDadosTabelaTecnico: 'avaliacaoResultados/obterDadosTabelaTecnico',
+            obterProjetosParaDistribuicaoAction: 'avaliacaoResultados/projetosParaDistribuir',
             projetosFinalizados: 'avaliacaoResultados/projetosFinalizados',
             distribuir: 'avaliacaoResultados/projetosParaDistribuir',
+            mensagemSucesso: 'noticias/mensagemSucesso',
         }),
         enviarEncaminhamento() {
             const idSecretaria = this.usuarioGetter.usu_org_max_superior;
-
+            this.loading = true;
             this.encaminharParaTecnico({
                 atual: 4,
                 proximo: 5,
@@ -165,13 +169,16 @@ export default {
                 idSituacao: 1,
                 dsJustificativa: this.justificativa,
                 idSecretaria,
+            }).then(() => {
+                this.mensagemSucesso('Projeto encaminhado com sucesso!');
+                this.obterProjetosParaDistribuicaoAction();
+                this.obterDadosTabelaTecnico({ estadoid: 5, idSecretaria });
+                // this.projetosFinalizados({ estadoid: 6, idSecretaria });
+                this.dialog = false;
+                this.$refs.form.reset();
+            }).finally(() => {
+                this.loading = false;
             });
-
-            this.dialog = false;
-            this.$refs.form.reset();
-
-            this.projetosFinalizados({ estadoid: 6, idSecretaria });
-            this.obterDadosTabelaTecnico({ estadoid: 5, idSecretaria });
         },
     },
 };

@@ -11,13 +11,13 @@
                 dark
                 icons-and-text
             >
-                <v-tabs-slider color="deep-orange accent-3"/>
+                <v-tabs-slider color="deep-orange accent-3" />
                 <v-tab
-                    v-if="getUsuario.grupo_ativo == Const.PERFIL_COORDENADOR_GERAL"
+                    v-if="getUsuario.grupo_ativo === CONST.PERFIL_COORDENADOR_GERAL"
                     href="#tab-0"
                     @click="r('/laudo/aba-em-analise')"
                 >
-                    <template v-if="Object.keys(getProjetosLaudoFinal).length == 0">
+                    <template v-if="Object.keys(getProjetosLaudoFinal).length === 0">
                         <v-progress-circular
                             indeterminate
                             color="primary"
@@ -30,9 +30,9 @@
                     </template>
                 </v-tab>
                 <v-tab
-                    v-if="getUsuario.grupo_ativo == Const.PERFIL_COORDENADOR_GERAL ||
-                        getUsuario.grupo_ativo == Const.PERFIL_DIRETOR ||
-                    getUsuario.grupo_ativo == Const.PERFIL_SECRETARIO"
+                    v-if="getUsuario.grupo_ativo === CONST.PERFIL_COORDENADOR_GERAL ||
+                        getUsuario.grupo_ativo === CONST.PERFIL_DIRETOR ||
+                        getUsuario.grupo_ativo === CONST.PERFIL_SECRETARIO"
                     href="#tab-1"
                     @click="r('/laudo/assinar')"
                 >
@@ -40,7 +40,7 @@
                     <v-icon>done</v-icon>
                 </v-tab>
                 <v-tab
-                    v-if="getUsuario.grupo_ativo == Const.PERFIL_COORDENADOR_GERAL"
+                    v-if="getUsuario.grupo_ativo === CONST.PERFIL_COORDENADOR_GERAL"
                     href="#tab-3"
                     @click="r('/laudo/finalizados')"
                 >
@@ -49,21 +49,21 @@
                 </v-tab>
 
                 <v-tab-item
-                    v-if="getUsuario.grupo_ativo == Const.PERFIL_COORDENADOR_GERAL"
-                    :value="'tab-0'"
+                    v-if="getUsuario.grupo_ativo === CONST.PERFIL_COORDENADOR_GERAL"
                     :key="0"
+                    :value="'tab-0'"
                 >
                     <Laudo
                         :dados="getProjetosLaudoFinal"
-                        :estado="Const.ESTADO_ANALISE_LAUDO"
+                        :estado="CONST.ESTADO_ANALISE_LAUDO"
                     />
                 </v-tab-item>
                 <v-tab-item
-                    v-if="getUsuario.grupo_ativo == Const.PERFIL_COORDENADOR_GERAL ||
-                        getUsuario.grupo_ativo == Const.PERFIL_DIRETOR ||
-                    getUsuario.grupo_ativo == Const.PERFIL_SECRETARIO"
-                    :value="'tab-1'"
+                    v-if="getUsuario.grupo_ativo === CONST.PERFIL_COORDENADOR_GERAL ||
+                        getUsuario.grupo_ativo === CONST.PERFIL_DIRETOR ||
+                        getUsuario.grupo_ativo === CONST.PERFIL_SECRETARIO"
                     :key="1"
+                    :value="'tab-1'"
                 >
                     <Laudo
                         :dados="getProjetosLaudoAssinar"
@@ -71,13 +71,13 @@
                     />
                 </v-tab-item>
                 <v-tab-item
-                    v-if="getUsuario.grupo_ativo == Const.PERFIL_COORDENADOR_GERAL"
-                    :value="'tab-3'"
+                    v-if="getUsuario.grupo_ativo === CONST.PERFIL_COORDENADOR_GERAL"
                     :key="3"
+                    :value="'tab-3'"
                 >
                     <Laudo
                         :dados="getProjetosLaudoFinalizados"
-                        :estado="Const.ESTADO_AVALIACAO_RESULTADOS_FINALIZADA"
+                        :estado="CONST.ESTADO_AVALIACAO_RESULTADOS_FINALIZADA"
                     />
                 </v-tab-item>
             </v-tabs>
@@ -88,7 +88,7 @@
 <script>
 
 import { mapActions, mapGetters } from 'vuex';
-import Const from '../../const';
+import CONST from '../../const';
 import Laudo from './Laudo';
 
 export default {
@@ -99,7 +99,7 @@ export default {
     data() {
         return {
             tabActive: null,
-            Const,
+            CONST,
         };
     },
     computed: {
@@ -121,9 +121,9 @@ export default {
         },
     },
     created() {
-        this.obterProjetosLaudoFinal({ estadoId: 10 });
+        this.obterProjetosLaudoFinal({ estadoId: CONST.ESTADO_ANALISE_LAUDO });
         this.obterProjetosLaudoAssinar({ estadoId: this.assinarPerfil() });
-        this.obterProjetosLaudoFinalizados({ estadoId: 12 });
+        this.obterProjetosLaudoFinalizados({ estadoId: CONST.ESTADO_AVALIACAO_RESULTADOS_FINALIZADA });
     },
     methods: {
         ...mapActions({
@@ -132,14 +132,14 @@ export default {
             obterProjetosLaudoFinalizados: 'avaliacaoResultados/obterProjetosLaudoFinalizados',
         }),
         assinarPerfil() {
-            if (this.getUsuario.grupo_ativo === this.Const.PERFIL_COORDENADOR_GERAL) {
-                return this.Const.ESTADO_AGUARDANDO_ASSINATURA_COORDENADOR_GERAL_LAUDO;
+            if (this.getUsuario.grupo_ativo === this.CONST.PERFIL_COORDENADOR_GERAL) {
+                return this.CONST.ESTADO_AGUARDANDO_ASSINATURA_COORDENADOR_GERAL_LAUDO;
             }
-            if (this.getUsuario.grupo_ativo === this.Const.PERFIL_DIRETOR) {
-                return this.Const.ESTADO_AGUARDANDO_ASSINATURA_DIRETOR_LAUDO;
+            if (this.getUsuario.grupo_ativo === this.CONST.PERFIL_DIRETOR) {
+                return this.CONST.ESTADO_AGUARDANDO_ASSINATURA_DIRETOR_LAUDO;
             }
-            if (this.getUsuario.grupo_ativo === this.Const.PERFIL_SECRETARIO) {
-                return this.Const.ESTADO_AGUARDANDO_ASSINATURA_SECRETARIO_LAUDO;
+            if (this.getUsuario.grupo_ativo === this.CONST.PERFIL_SECRETARIO) {
+                return this.CONST.ESTADO_AGUARDANDO_ASSINATURA_SECRETARIO_LAUDO;
             }
             return null;
         },
