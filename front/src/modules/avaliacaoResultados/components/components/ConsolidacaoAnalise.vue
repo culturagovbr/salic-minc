@@ -7,25 +7,29 @@
     >
         <v-btn
             slot="activator"
-            color="primary"
-            dark>CONSOLIDAÇÃO</v-btn>
+        >
+            CONSOLIDAÇÃO
+        </v-btn>
         <v-card>
             <v-toolbar
                 dark
-                color="primary">
+                color="primary"
+            >
                 <v-btn
-                    @click="dialog = false"
                     icon
-                    dark>
+                    dark
+                    @click="dialog = false"
+                >
                     <v-icon>close</v-icon>
                 </v-btn>
                 <v-toolbar-title>Consolidação - {{ nomeProjeto }}</v-toolbar-title>
-                <v-spacer/>
+                <v-spacer />
             </v-toolbar>
             <v-card-text>
                 <div
                     v-if="Object.keys(getConsolidacaoAnalise).length > 0"
-                    class="mt-3">
+                    class="mt-3"
+                >
                     <v-expansion-panel>
                         <v-expansion-panel-content
                             v-for="(consolidacao, i) in getConsolidacaoAnalise"
@@ -33,10 +37,13 @@
                         >
                             <v-layout
                                 slot="header"
-                                class="blue--text">
-                                <v-icon class="mr-3 blue--text" >{{ consolidacao.icon }}</v-icon>
-                                <span v-text="consolidacao.title"/>
-                                <v-spacer/>
+                                class="blue--text"
+                            >
+                                <v-icon class="mr-3 blue--text">
+                                    {{ consolidacao.icon }}
+                                </v-icon>
+                                <span v-text="consolidacao.title" />
+                                <v-spacer />
                             </v-layout>
 
                             <v-card>
@@ -49,7 +56,8 @@
                                     >
                                         <template
                                             slot="items"
-                                            slot-scope="props">
+                                            slot-scope="props"
+                                        >
                                             <td
                                                 v-for="(celula, i) in props.item"
                                                 :key="i"
@@ -64,12 +72,16 @@
                 </div>
                 <Carregando
                     v-else
-                    :text="'Carregando dados da consolidação ...'" />
+                    :text="'Carregando dados da consolidação ...'"
+                />
             </v-card-text>
             <v-btn
                 color="red"
                 flat
-                @click="dialog = false">FECHAR</v-btn>
+                @click="dialog = false"
+            >
+                FECHAR
+            </v-btn>
         </v-card>
     </v-dialog>
 </template>

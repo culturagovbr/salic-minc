@@ -51,10 +51,8 @@
             <v-card-actions>
                 <v-btn
                     :href="'/consultardadosprojeto/index?idPronac=' + idPronac"
-                    color="success"
                     target="_blank"
                     class="mr-2"
-                    dark
                 >
                     VER PROJETO
                 </v-btn>
@@ -67,6 +65,12 @@
 
                 <relacao-pagamento-dialog
                     :id-pronac="idPronac"
+                    class="mr-2"
+                />
+
+                <conciliacao-bancaria-dialog
+                    :id-pronac="idPronac"
+                    class="mr-2"
                 />
             </v-card-actions>
         </v-card>
@@ -278,12 +282,16 @@ import ParecerTecnicoPlanilhaHeader from '@/modules/avaliacaoResultados/componen
 import SPlanilha from '@/components/Planilha/PlanilhaV2';
 import CONST from '../../const';
 import RelacaoPagamentoDialog from '@/modules/projeto/visualizar/components/prestacaoContas/RelacaoPagamentoDialog';
+import ConciliacaoBancariaDialog
+    from '@/modules/projeto/visualizar/components/dadosBancarios/ConciliacaoBancariaDialog';
+
 
 Vue.filter('moedaMasc', Moeda);
 
 export default {
     name: 'Planilha',
     components: {
+        ConciliacaoBancariaDialog,
         RelacaoPagamentoDialog,
         ParecerTecnicoPlanilhaHeader,
         HistoricoDiligencias,

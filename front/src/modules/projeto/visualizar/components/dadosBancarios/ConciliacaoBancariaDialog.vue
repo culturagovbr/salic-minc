@@ -8,7 +8,7 @@
         <v-btn
             slot="activator"
         >
-            Ver pagamentos
+            Ver conciliação
         </v-btn>
 
         <v-card>
@@ -23,22 +23,25 @@
                 >
                     <v-icon>close</v-icon>
                 </v-btn>
-                <v-toolbar-title>Relação de pagamento</v-toolbar-title>
+                <v-toolbar-title>Conciliação bancária</v-toolbar-title>
             </v-toolbar>
 
             <v-card-text>
-                <relacao-pagamento v-if="dialog" :id-pronac="idPronac" />
+                <conciliacao-bancaria
+                    v-if="dialog"
+                    :id-pronac="idPronac"
+                />
             </v-card-text>
         </v-card>
     </v-dialog>
 </template>
 <script>
 
-import RelacaoPagamento from '@/modules/projeto/visualizar/components/prestacaoContas/RelacaoPagamento';
+import ConciliacaoBancaria from '@/modules/projeto/visualizar/components/dadosBancarios/ConciliacaoBancaria';
 
 export default {
-    name: 'RelacaoPagamentoDialog',
-    components: { RelacaoPagamento },
+    name: 'ConciliacaoBancariaDialog',
+    components: { ConciliacaoBancaria },
     props: {
         idPronac: {
             type: String,

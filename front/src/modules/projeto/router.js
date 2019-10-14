@@ -26,7 +26,7 @@ import DadosReadequacoes from './visualizar/components/execucao/DadosReadequacoe
 import PedidoProrrogacao from './visualizar/components/execucao/PedidoProrrogacao';
 import DadosFiscalizacao from './visualizar/components/execucao/DadosFiscalizacao';
 import ContasBancarias from './visualizar/components/dadosBancarios/ContasBancarias';
-import ConciliacaoBancaria from './visualizar/components/dadosBancarios/ConciliacaoBancaria';
+import ConciliacaoBancariaView from './visualizar/components/dadosBancarios/ConciliacaoBancariaView';
 import InconsistenciaBancaria from './visualizar/components/dadosBancarios/InconsistenciaBancaria';
 import Liberacao from './visualizar/components/dadosBancarios/Liberacao';
 import SaldoContas from './visualizar/components/dadosBancarios/SaldoContas';
@@ -289,7 +289,7 @@ const routes = [
             {
                 path: 'conciliacao-bancaria',
                 name: 'ConciliacaoBancaria',
-                component: ConciliacaoBancaria,
+                component: ConciliacaoBancariaView,
                 meta: {
                     title: 'Conciliação Bancária',
                 },
