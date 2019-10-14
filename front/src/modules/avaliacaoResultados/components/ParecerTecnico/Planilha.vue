@@ -102,7 +102,7 @@
                                 <v-icon>money_off</v-icon>
                             </v-btn>
                             <span>
-                               Ocultar itens sem comprovação
+                                Ocultar itens sem comprovação
                             </span>
                         </v-tooltip>
                     </v-btn-toggle>
@@ -119,6 +119,7 @@
                         :headers="headers"
                         :items="Object.values(slotProps.itens)"
                         hide-actions
+                        disable-initial-sort
                     >
                         <template
                             slot="items"
@@ -128,16 +129,16 @@
                                 <v-tooltip
                                     bottom
                                 >
-                                <v-progress-circular
-                                    slot="activator"
-                                    v-if="props.item.qtComprovado > 0"
-                                    style="margin: 1px 0px"
-                                    height="5"
-                                    :value="obterPercentualProgresso(props.item)"
-                                    :color="obterCorProgresso(props.item)"
-                                >
-                                    {{ props.item.qtComprovado }}
-                                </v-progress-circular>
+                                    <v-progress-circular
+                                        v-if="props.item.qtComprovado > 0"
+                                        slot="activator"
+                                        style="margin: 1px 0px"
+                                        height="5"
+                                        :value="obterPercentualProgresso(props.item)"
+                                        :color="obterCorProgresso(props.item)"
+                                    >
+                                        {{ props.item.qtComprovado }}
+                                    </v-progress-circular>
                                     <span> {{ obterTextoProgresso(props.item) }} </span>
                                 </v-tooltip>
                             </td>
@@ -158,12 +159,13 @@
                                     v-if="podeEditar(props.item.varlorComprovado)"
                                     color="primary"
                                     dark
-                                    small
                                     icon
                                     title="Avaliar comprovantes do item"
                                     @click="avaliarItem(props.item)"
                                 >
-                                    <v-icon small>gavel</v-icon>
+                                    <v-icon>
+                                        gavel
+                                    </v-icon>
                                 </v-btn>
                             </td>
                         </template>
@@ -268,7 +270,6 @@ import AnalisarItem from './AnalisarItem';
 import Moeda from '../../../../filters/money';
 import HistoricoDiligencias from '@/modules/avaliacaoResultados/components/components/HistoricoDiligencias';
 import ParecerTecnicoPlanilhaHeader from '@/modules/avaliacaoResultados/components/ParecerTecnico/PlanilhaHeader';
-import SPlanilhaTiposVisualizacaoButtons from '../../../../components/Planilha/PlanilhaTiposVisualizacaoButtons';
 import SPlanilha from '@/components/Planilha/PlanilhaV2';
 
 Vue.filter('moedaMasc', Moeda);
@@ -276,7 +277,6 @@ Vue.filter('moedaMasc', Moeda);
 export default {
     name: 'Planilha',
     components: {
-        SPlanilhaTiposVisualizacaoButtons,
         ParecerTecnicoPlanilhaHeader,
         HistoricoDiligencias,
         ConsolidacaoAnalise,
@@ -288,7 +288,7 @@ export default {
         return {
             headers: [
                 {
-                    text: '#', value: 'qtComprovado', sortable: false, align: 'left',
+                    text: '#', value: 'qtComprovado', sortable: true, align: 'left',
                 },
                 { text: 'Item', value: 'item', sortable: true },
                 {
@@ -302,12 +302,6 @@ export default {
                 },
                 { text: '', value: 'varlorComprovado', sortable: false },
             ],
-            tabs: {
-                1: 'AVALIADO',
-                3: 'IMPUGNADOS',
-                4: 'AGUARDANDO ANÁLISE',
-                todos: 'TODOS',
-            },
             fab: false,
             idPronac: this.$route.params.id,
             itemEmAvaliacao: {},
@@ -364,8 +358,8 @@ export default {
                 return [];
             }
 
-            if (this.ocultarItensNaoComprovados)  {
-                planilha = this.getPlanilha.filter((item) => item.varlorComprovado > 0 );
+            if (this.ocultarItensNaoComprovados) {
+                planilha = this.getPlanilha.filter(item => item.varlorComprovado > 0);
             }
 
             return planilha;
@@ -414,14 +408,6 @@ export default {
             };
             this.modalOpen('avaliacao-item');
         },
-        expandir(obj) {
-            const arr = [];
-            const items = Object.keys(obj).length;
-            for (let i = 0; i < items; i += 1) {
-                arr.push(true);
-            }
-            return arr;
-        },
         goBack() {
             if (window.history.length > 1) {
                 this.$router.go(-1);
@@ -449,7 +435,7 @@ export default {
         obterTextoProgresso(item) {
             return `${item.qtComprovadoValidado} validado(s) e ${item.qtComprovadoRecusada} recusado(s) `
                 + `de ${item.qtComprovado} comprovado(s)`;
-        }
+        },
     },
 };
 </script>

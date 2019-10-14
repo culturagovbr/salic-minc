@@ -11,18 +11,6 @@
             hide-overlay
             @keydown.esc="fecharModal"
         >
-            <v-snackbar
-                v-model="snackbarAlerta"
-            >
-                {{ snackbarTexto }}
-                <v-btn
-                    color="pink"
-                    flat
-                    @click="snackbarAlerta = false"
-                >
-                    Fechar
-                </v-btn>
-            </v-snackbar>
             <v-card>
                 <v-toolbar
                     dark
@@ -37,7 +25,7 @@
                     </v-btn>
                     <v-toolbar-title>
                         Avaliar comprovantes
-                        <span v-if="item">item <b>"{{ item.item }}"</b></span>
+                        <span v-if="item"> do item <b>"{{ item.item }}"</b> - {{ item.cidade }}/{{ item.uf }}</span>
                     </v-toolbar-title>
                 </v-toolbar>
 
@@ -54,14 +42,14 @@
                                 sm6
                                 md4
                             >
-                                <b>Produto:</b> {{ descricaoProduto }}
+                                <b>Produto:</b> {{ item.Produto }}
                             </v-flex>
                             <v-flex
                                 xs12
                                 sm6
                                 md4
                             >
-                                <b>Etapa:</b> {{ descricaoEtapa }}
+                                <b>Etapa:</b> {{ item.descEtapa }}
                             </v-flex>
                             <v-flex
                                 xs12
@@ -78,14 +66,38 @@
                                 sm6
                                 md4
                             >
-                                <b>Valor Aprovado:</b> {{ item.varlorAprovado | moeda }}
+                                <b>Quantidade:</b> {{ item.quantidade }}
                             </v-flex>
                             <v-flex
                                 xs12
                                 sm6
                                 md4
                             >
-                                <b>Valor Comprovado:</b> {{ item.varlorComprovado | moeda }}
+                                <b>Ocorrências:</b> {{ item.numeroOcorrencias }}
+                            </v-flex>
+                            <v-flex
+                                xs12
+                                sm6
+                                md4
+                            >
+                                <b>Valor unitário:</b> {{ item.valor | moeda }}
+                            </v-flex>
+                        </v-layout>
+                        <v-divider class="my-2" />
+                        <v-layout wrap>
+                            <v-flex
+                                xs12
+                                sm6
+                                md4
+                            >
+                                <b>Valor Aprovado:</b> {{ item.vlAprovado | moeda }}
+                            </v-flex>
+                            <v-flex
+                                xs12
+                                sm6
+                                md4
+                            >
+                                <b>Valor Comprovado:</b> {{ item.vlComprovado | moeda }}
                             </v-flex>
                             <v-flex
                                 xs12
@@ -108,77 +120,12 @@
                             </v-flex>
                         </v-layout>
                     </v-container>
-
                     <lista-de-comprovantes :comprovantes="comprovantes">
                         <template
                             slot="slot-comprovantes"
                             slot-scope="{ props }"
                         >
-                            <v-form
-                                ref="form"
-                                v-model="valid"
-                                lazy-validation
-                            >
-                                <v-layout
-                                    row
-                                    wrap
-                                >
-                                    <v-flex xs12>
-                                        <b>Avaliação</b>
-                                        <v-radio-group
-                                            ref="stItemAvaliado"
-                                            v-model="props.stItemAvaliado"
-                                            :rules="[rules.required, rules.avaliacao]"
-                                            name="stItemAvaliado"
-                                            type="radio"
-                                            row
-                                        >
-                                            <v-radio
-                                                label="Aprovado"
-                                                value="1"
-                                                name="stItemAvaliadoModel"
-                                                color="green"
-                                            />
-                                            <v-radio
-                                                label="Reprovado"
-                                                value="3"
-                                                name="stItemAvaliadoModel"
-                                                color="red"
-                                            />
-                                        </v-radio-group>
-                                    </v-flex>
-                                    <v-flex xs12>
-                                        <v-textarea
-                                            v-model="props.dsOcorrenciaDoTecnico"
-                                            :rules="[rules.parecer]"
-                                            auto-grow
-                                            box
-                                            label="Parecer"
-                                            autofocus
-                                        />
-                                    </v-flex>
-                                </v-layout>
-                                <v-container
-                                    grid-list-xs
-                                    text-xs-center
-                                    ma-0
-                                    pa-0
-                                >
-                                    <v-btn
-                                        :disabled="!valid"
-                                        :loading="loading"
-                                        @click="salvarAvaliacao(props)"
-                                    >
-                                        <v-icon
-                                            left
-                                            dark
-                                        >
-                                            save
-                                        </v-icon>
-                                        Salvar
-                                    </v-btn>
-                                </v-container>
-                            </v-form>
+                            <analisar-item-formulario :comprovante="props" />
                         </template>
                     </lista-de-comprovantes>
                 </v-card-text>
@@ -191,10 +138,11 @@
 import { mapActions, mapGetters } from 'vuex';
 import ListaDeComprovantes from '@/modules/avaliacaoResultados/components/components/ListaDeComprovantes';
 import MxPlanilha from '@/mixins/planilhas';
+import AnalisarItemFormulario from '@/modules/avaliacaoResultados/components/ParecerTecnico/AnalisarItemFormulario';
 
 export default {
     name: 'AnalisarItem',
-    components: { ListaDeComprovantes },
+    components: { AnalisarItemFormulario, ListaDeComprovantes },
     filters: {
         moeda: (moedaString) => {
             const moeda = Number(moedaString);
@@ -204,31 +152,12 @@ export default {
     mixins: [MxPlanilha],
     props: {
         item: { type: Object, default: () => {} },
-        descricaoProduto: { type: String, default: '' },
-        descricaoEtapa: { type: String, default: '' },
-        idPronac: { type: String, default: '' },
-        uf: { type: String, default: '' },
-        produto: { type: Number, default: 0 },
-        idmunicipio: { type: Number, default: 0 },
-        etapa: { type: Number, default: 0 },
-        cdProduto: { type: Number, default: 0 },
-        cdUf: { type: Number, default: 0 },
         dtInicioExecucao: { type: String, default: '' },
         dtFimExecucao: { type: String, default: '' },
     },
     data() {
         return {
             comprovantesIsLoading: false,
-            loading: false,
-            snackbarAlerta: false,
-            snackbarTexto: '',
-            itemEmAvaliacao: {},
-            valid: true,
-            rules: {
-                required: v => !!v || 'Campo obrigatório',
-                avaliacao: v => v !== '4' || 'Avaliação deve ser aprovado ou reprovado',
-                parecer: v => (!!v || this.$refs.stItemAvaliado.value !== '3') || 'Parecer é obrigatório',
-            },
         };
     },
     computed: {
@@ -257,7 +186,6 @@ export default {
     methods: {
         ...mapActions({
             alterarPlanilha: 'avaliacaoResultados/alterarPlanilha',
-            salvarAvaliacaoComprovante: 'avaliacaoResultados/salvarAvaliacaoComprovante',
             obterDadosItemComprovacao: 'avaliacaoResultados/obterDadosItemComprovacao',
             atualizarEstatisticasAvaliacaoAction: 'avaliacaoResultados/buscarEstatisticasAvaliacao',
             modalClose: 'modal/modalClose',
@@ -265,36 +193,18 @@ export default {
         getUrlParams() {
             return this.$route.params[0];
         },
-        salvarAvaliacao(avaliacao) {
-            if (!this.$refs.form.validate()) {
-                return false;
-            }
-            const avaliando = Object.assign({}, avaliacao);
-            this.loading = true;
-            this.salvarAvaliacaoComprovante(avaliando).then((response) => {
-                this.snackbarTexto = response.message;
-                this.snackbarAlerta = true;
-                this.loading = false;
-            }).catch((e) => {
-                this.snackbarTexto = e.message;
-                this.snackbarAlerta = true;
-                this.loading = false;
-            });
-
-            return true;
-        },
         atualizarComprovantes(loading) {
             let params = '';
             if (typeof this.getUrlParams() !== 'undefined') {
                 params = this.getUrlParams();
             } else {
-                const idPronac = `idPronac/${this.idPronac}`;
-                const uf = `uf/${this.uf}`;
-                const produto = `produto/${this.produto}`;
-                const idMunicipio = `idmunicipio/${this.idmunicipio}`;
+                const idPronac = `idPronac/${this.item.IdPRONAC}`;
+                const uf = `uf/${this.item.uf}`;
+                const produto = `produto/${this.item.cdProduto}`;
+                const idMunicipio = `idmunicipio/${this.item.cdCidade}`;
                 const idPlanilhaItem = `idPlanilhaItem/${this.item.idPlanilhaItens}`;
-                const etapa = `etapa/${this.etapa}`;
-                const idUf = `idUf/${this.cdUf}`;
+                const etapa = `etapa/${this.item.cdEtapa}`;
+                const idUf = `idUf/${this.item.cdUF}`;
                 params = `${idPronac}/${idPlanilhaItem}/${produto}/${uf}/${idMunicipio}/${etapa}/${idUf}`;
             }
 
@@ -307,11 +217,10 @@ export default {
         },
         fecharModal() {
             this.modalClose();
-            this.itemEmAvaliacao = {};
             this.alterarPlanilha({
                 idPlanilhaAprovacao: this.item.idPlanilhaAprovacao,
             });
-            this.atualizarEstatisticasAvaliacaoAction(this.idPronac);
+            this.atualizarEstatisticasAvaliacaoAction(this.item.IdPRONAC);
         },
     },
 };

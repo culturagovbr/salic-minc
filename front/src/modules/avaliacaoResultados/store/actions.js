@@ -384,14 +384,13 @@ export const salvarAvaliacaoComprovante = async ({ commit }, avaliacao) => {
         stItemAvaliado: avaliacao.stItemAvaliado,
         idComprovantePagamento: avaliacao.idComprovantePagamento,
     };
-    const valor = await avaliacaoResultadosHelperAPI.salvarAvaliacaoComprovante(params)
+    return avaliacaoResultadosHelperAPI.salvarAvaliacaoComprovante(params)
         .then((response) => {
             commit(types.EDIT_COMPROVANTE, avaliacao);
             return response.data;
         }).catch((e) => {
             throw new TypeError(e.response.data.message, 'salvarAvaliacaoComprovante', 10);
         });
-    return valor;
 };
 
 export const alterarAvaliacaoComprovante = ({ commit }, params) => {
@@ -399,16 +398,6 @@ export const alterarAvaliacaoComprovante = ({ commit }, params) => {
 };
 
 export const alterarPlanilha = ({ commit }, params) => commit(types.ALTERAR_PLANILHA, params);
-
-export const dashboardQuantidades = ({ commit }) => {
-    avaliacaoResultadosHelperAPI.dashboardQuantidade()
-        .then((response) => {
-            const { data } = response.data;
-            commit(types.DASHBOARD_QUANTIDADE, data);
-        }).catch((e) => {
-            throw new TypeError(e.response.data.message, 'error', 10);
-        });
-};
 
 export const buscarEstatisticasAvaliacao = async ({ commit }, idPronac) => avaliacaoResultadosHelperAPI
     .buscarEstatisticasAvaliacao(idPronac)

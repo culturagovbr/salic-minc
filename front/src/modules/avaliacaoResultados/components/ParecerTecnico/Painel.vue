@@ -1,5 +1,8 @@
 <template>
-    <v-container class="testeeeee" fluid>
+    <v-container
+        class="testeeeee"
+        fluid
+    >
         <v-subheader>
             <h2>{{ route.meta.title }}</h2>
         </v-subheader>
@@ -12,45 +15,6 @@
                 icons-and-text
             >
                 <v-tabs-slider color="deep-orange accent-3" />
-                <v-tab
-                    href="#tab-6"
-                    @click="r('/painel/dashboard')"
-                >
-                    Dashboard
-                    <v-icon>assignment_ind</v-icon>
-                </v-tab>
-                <v-tab-item
-                    :key="6"
-                    :value="'tab-6'"
-                >
-                    <v-card
-                        flat
-                        class="pa-2"
-                    >
-                        <v-layout
-                            align-center
-                            justify-space-around
-                            row
-                            style="min-height: calc(100vh - 318px)"
-                        >
-                            <v-card
-                                v-for="(dashboad, index) in dashboardItens"
-                                :key="index"
-                                max-width="400"
-                            >
-                                <v-card-title>
-                                    <span class="title font-weight-light">{{ index }}</span>
-                                </v-card-title>
-
-                                <v-card-text class="headline font-weight-bold ">
-                                    <p class="display-3 text-xs-center">
-                                        <a :href="dashboad.url">{{ dashboad.valor }}</a>
-                                    </p>
-                                </v-card-text>
-                            </v-card>
-                        </v-layout>
-                    </v-card>
-                </v-tab-item>
                 <v-tab
                     v-if="getUsuario.grupo_ativo == 125"
                     href="#tab-0"
@@ -139,7 +103,8 @@
                     >
                         <v-card-text>
                             <TabelaProjetos
-                                v-if="(getUsuario.grupo_ativo == 125 || getUsuario.grupo_ativo == 126)"
+                                v-if="(getUsuario.grupo_ativo == CONST.PERFIL_COORDENADOR
+                                    || getUsuario.grupo_ativo == CONST.PERFIL_COORDENADOR_GERAL)"
                                 :analisar="true"
                                 :dados="dadosTabelaTecnico"
                                 :componentes="listaAcoesCoordenador"
@@ -277,7 +242,6 @@ export default {
             getUsuario: 'autenticacao/getUsuario',
             getProjetosAssinarCoordenador: 'avaliacaoResultados/getProjetosAssinarCoordenador',
             getProjetosAssinarCoordenadorGeral: 'avaliacaoResultados/getProjetosAssinarCoordenadorGeral',
-            getDashboard: 'avaliacaoResultados/getDashboardQuantidade',
             usuarioGetter: 'autenticacao/getUsuario',
             route: 'route',
         }),
@@ -290,19 +254,13 @@ export default {
                 this.tabActive = this.$route.meta.tab;
             },
         },
-        getDashboard: {
-            deep: true,
-            handler(val) {
-                this.dashboardItens = val.items;
-            },
-        },
     },
 
     created() {
         this.CONST = CONST;
 
         let projetosTecnico = {};
-        let projetosFinalizados = {};
+        let whereProjetosAssinatura = {};
 
         const idSecretaria = this.usuarioGetter.usu_org_max_superior;
 
@@ -315,7 +273,7 @@ export default {
                 idSecretaria,
             };
 
-            projetosFinalizados = {
+            whereProjetosAssinatura = {
                 estadoid: 6,
                 idSecretaria,
             };
@@ -326,49 +284,51 @@ export default {
                 idSecretaria,
             };
 
-            projetosFinalizados = {
+            whereProjetosAssinatura = {
                 estadoid: 6,
                 idAgente: this.getUsuario.usu_codigo,
                 idSecretaria,
             };
         }
 
-        this.setDashboard();
-        this.distribuir();
-        this.obterDadosTabelaTecnico(projetosTecnico);
-        this.projetosFinalizados(projetosFinalizados);
-        this.projetosAssinarCoordenador({
-            estadoid: 9,
-            idSecretaria,
-        });
-        this.projetosAssinarCoordenadorGeral({
-            estadoid: 15,
-            idSecretaria,
-        });
 
-        Vue.set(this.listaAcoesAssinar, 'usuario', this.getUsuario);
-        Vue.set(this.listaAcoesCoordenador, 'usuario', this.getUsuario);
-        Vue.set(this.listaAcoesAssinarCoordenadorGeral, 'usuario', this.getUsuario);
+        if (this.getUsuario.grupo_ativo === CONST.PERFIL_TECNICO) {
+            this.obterDadosTabelaTecnico(projetosTecnico);
+            Vue.set(this.listaAcoesAssinar, 'usuario', this.getUsuario);
+        }
+
+        if (this.getUsuario.grupo_ativo === CONST.PERFIL_COORDENADOR) {
+            this.distribuir();
+            this.projetosAssinarCoordenador({
+                estadoid: 9,
+                idSecretaria,
+            });
+            Vue.set(this.listaAcoesCoordenador, 'usuario', this.getUsuario);
+        }
+
+        if (this.getUsuario.grupo_ativo === CONST.PERFIL_COORDENADOR_GERAL) {
+            this.distribuir();
+            this.projetosAssinarCoordenadorGeral({
+                estadoid: 15,
+                idSecretaria,
+            });
+            Vue.set(this.listaAcoesAssinarCoordenadorGeral, 'usuario', this.getUsuario);
+        }
+
+        this.buscarProjetosAssinaturaAction(whereProjetosAssinatura);
     },
 
     methods: {
         ...mapActions({
             obterDadosTabelaTecnico: 'avaliacaoResultados/obterDadosTabelaTecnico',
-            projetosFinalizados: 'avaliacaoResultados/projetosFinalizados',
+            buscarProjetosAssinaturaAction: 'avaliacaoResultados/projetosFinalizados',
             projetosAssinaturaAction: 'avaliacaoResultados/projetosAssinatura',
             distribuir: 'avaliacaoResultados/projetosParaDistribuir',
             projetosAssinarCoordenador: 'avaliacaoResultados/projetosAssinarCoordenador',
             projetosAssinarCoordenadorGeral: 'avaliacaoResultados/projetosAssinarCoordenadorGeral',
-            setDashboard: 'avaliacaoResultados/dashboardQuantidades',
         }),
         r(val) {
             this.$router.push(val);
-        },
-        dashboard() {
-            return (typeof this.getDashboard !== 'undefined'
-                && Object.keys(this.getDashboard).length > 0)
-                ? this.getDashboard.items
-                : {};
         },
         buscarHistorico() {
             this.loadingHistorico = true;
