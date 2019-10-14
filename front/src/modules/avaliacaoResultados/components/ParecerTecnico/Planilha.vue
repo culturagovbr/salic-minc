@@ -94,11 +94,22 @@
                                 Apenas itens
                             </span>
                         </v-tooltip>
+                        <v-tooltip bottom>
+                            <v-btn
+                                slot="activator"
+                                flat
+                            >
+                                <v-icon>money_off</v-icon>
+                            </v-btn>
+                            <span>
+                               Ocultar itens sem comprovação
+                            </span>
+                        </v-tooltip>
                     </v-btn-toggle>
                 </v-flex>
             </v-container>
             <s-planilha
-                :array-planilha="getPlanilha"
+                :array-planilha="planilha"
                 :list-items="mostrarListagem"
                 :agrupamentos="agrupamentos"
                 :totais="totaisPlanilha"
@@ -114,7 +125,11 @@
                             slot-scope="props"
                         >
                             <td>
+                                <v-tooltip
+                                    bottom
+                                >
                                 <v-progress-circular
+                                    slot="activator"
                                     v-if="props.item.qtComprovado > 0"
                                     style="margin: 1px 0px"
                                     height="5"
@@ -123,18 +138,11 @@
                                 >
                                     {{ props.item.qtComprovado }}
                                 </v-progress-circular>
+                                    <span> {{ obterTextoProgresso(props.item) }} </span>
+                                </v-tooltip>
                             </td>
                             <td>
                                 {{ props.item.item }}
-                            </td>
-                            <td class="text-xs-right">
-                                {{ (props.item.quantidade) }}
-                            </td>
-                            <td class="text-xs-right">
-                                {{ (props.item.numeroOcorrencias) }}
-                            </td>
-                            <td class="text-xs-right">
-                                {{ props.item.valor | moedaMasc }}
                             </td>
                             <td class="text-xs-right">
                                 {{ props.item.varlorAprovado | moedaMasc }}
@@ -151,10 +159,11 @@
                                     color="primary"
                                     dark
                                     small
+                                    icon
                                     title="Avaliar comprovantes do item"
                                     @click="avaliarItem(props.item)"
                                 >
-                                    <v-icon>gavel</v-icon>
+                                    <v-icon small>gavel</v-icon>
                                 </v-btn>
                             </td>
                         </template>
@@ -279,18 +288,9 @@ export default {
         return {
             headers: [
                 {
-                    text: 'Avaliação', value: 'qtComprovado', sortable: false, align: 'left',
+                    text: '#', value: 'qtComprovado', sortable: false, align: 'left',
                 },
                 { text: 'Item', value: 'item', sortable: true },
-                {
-                    text: 'Qtd', value: 'quantidade', sortable: false, align: 'right',
-                },
-                {
-                    text: 'Nº Ocorr.', value: 'numeroOcorrencias', sortable: false, align: 'right',
-                },
-                {
-                    text: 'Valor (R$)', value: 'valor', sortable: false, align: 'right',
-                },
                 {
                     text: 'Vl. Aprovado (R$)', value: 'varlorAprovado', sortable: true, align: 'right',
                 },
@@ -300,7 +300,7 @@ export default {
                 {
                     text: 'Vl. a Comprovar (R$)', value: 'vlAComprovar', sortable: true, align: 'right',
                 },
-                { text: '', value: 'comprovarItem', sortable: false },
+                { text: '', value: 'varlorComprovado', sortable: false },
             ],
             tabs: {
                 1: 'AVALIADO',
@@ -348,17 +348,27 @@ export default {
             estado = (estado !== null) ? this.getProjetoAnalise.data.items.estado : 0;
             return estado;
         },
-        planilha() {
-            let planilha = this.getPlanilha;
-            planilha = (planilha !== null && Object.keys(planilha).length) ? this.getPlanilha : 0;
-            return planilha;
-        },
         isProjetoDiligenciado() {
             const { diligencia } = this.dadosProjeto.items;
             return diligencia && diligencia.DtSolicitacao && !diligencia.DtResposta;
         },
         mostrarListagem() {
             return this.isOptionActive(0);
+        },
+        ocultarItensNaoComprovados() {
+            return this.isOptionActive(1);
+        },
+        planilha() {
+            let planilha = this.getPlanilha;
+            if (planilha === null || Object.keys(planilha).length === 0) {
+                return [];
+            }
+
+            if (this.ocultarItensNaoComprovados)  {
+                planilha = this.getPlanilha.filter((item) => item.varlorComprovado > 0 );
+            }
+
+            return planilha;
         },
     },
 
@@ -423,18 +433,23 @@ export default {
             return this.opcoesDeVisualizacao.includes(index);
         },
         obterPercentualProgresso(item) {
-            return (item.qtComprovadoValidado + item.qtComprovadoRecusada / item.qtComprovado) * 100;
-        },
-        obterPercentualProgressoRecusado(item) {
-            return (item.qtComprovadoRecusada / item.qtComprovado) * 100;
+            return ((item.qtComprovadoValidado + item.qtComprovadoRecusada) / item.qtComprovado) * 100;
         },
         obterCorProgresso(item) {
             let cor = 'green';
+            if (item.qtComprovadoRecusada > 0) {
+                cor = 'orange';
+            }
+
             if (item.qtComprovadoRecusada > item.qtComprovadoValidado) {
                 cor = 'red';
             }
             return cor;
         },
+        obterTextoProgresso(item) {
+            return `${item.qtComprovadoValidado} validado(s) e ${item.qtComprovadoRecusada} recusado(s) `
+                + `de ${item.qtComprovado} comprovado(s)`;
+        }
     },
 };
 </script>

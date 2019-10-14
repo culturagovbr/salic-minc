@@ -20,6 +20,7 @@
                 :value="value"
                 height="5"
                 :color="color"
+                :indeterminate="loading"
             />
             <span
                 class="caption"
@@ -38,6 +39,7 @@ export default {
         headline: String,
         value: Number,
         color: String,
+        loading: Boolean,
     },
     computed: {
         caption() {

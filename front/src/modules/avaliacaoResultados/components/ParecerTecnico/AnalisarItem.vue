@@ -309,11 +309,7 @@ export default {
             this.modalClose();
             this.itemEmAvaliacao = {};
             this.alterarPlanilha({
-                cdProduto: this.cdProduto,
-                etapa: this.etapa,
-                cdUf: this.cdUf,
-                idmunicipio: this.idmunicipio,
-                idPlanilhaItem: this.item.idPlanilhaItens,
+                idPlanilhaAprovacao: this.item.idPlanilhaAprovacao,
             });
             this.atualizarEstatisticasAvaliacaoAction(this.idPronac);
         },

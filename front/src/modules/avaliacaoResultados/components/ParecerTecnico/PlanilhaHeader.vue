@@ -60,6 +60,7 @@ export default {
                 vlComprovadoRecusado: 0,
                 vlNaoComprovado: 0,
             },
+            loading: false,
         };
     },
 
@@ -77,12 +78,12 @@ export default {
                     caption: `R$ ${this.formatarParaReal(this.comprovacao.vlComprovado)}`,
                     percent: this.calcularPercentual(this.comprovacao.vlComprovado, this.comprovacao.vlAprovado),
                     icon: {
-                        label: 'trending_up',
-                        color: 'success',
+                        label: 'arrow_upward',
+                        color: 'info',
                     },
                     linear: {
                         value: this.calcularPercentual(this.comprovacao.vlComprovado, this.comprovacao.vlAprovado),
-                        color: 'success',
+                        color: 'info',
                     },
                 },
                 {
@@ -92,12 +93,12 @@ export default {
                     caption: `R$ ${this.formatarParaReal(this.estatisticas.vlComprovadoValidado)}`,
                     percent: this.calcularPercentual(this.estatisticas.qtComprovantesValidadosProjeto, this.estatisticas.qtTotalComprovante),
                     icon: {
-                        label: 'arrow_upward',
-                        color: 'info',
+                        label: 'trending_up',
+                        color: 'success',
                     },
                     linear: {
                         value: this.calcularPercentual(this.estatisticas.qtComprovantesValidadosProjeto, this.estatisticas.qtTotalComprovante),
-                        color: 'info',
+                        color: 'success',
                     },
                 },
                 {

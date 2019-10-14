@@ -200,11 +200,14 @@ export const mutations = {
         state.projetosAssinarCoordenadorGeral = dados;
     },
     [types.ALTERAR_PLANILHA](state, params) {
-        // const tiposXQuantidade = {
-        //     1: 0, // avaliado
-        //     3: 0, // impugnado
-        //     4: 0, // aguardando analise
-        // };
+        console.log('alterando o state', params);
+        const tiposXQuantidade = {
+            1: 0, // avaliado
+            3: 0, // impugnado
+            4: 0, // aguardando analise
+        };
+
+        let totalComprovantes = 0;
         //
         // const copiaState = state
         //     .planilha[params.cdProduto]
@@ -215,9 +218,12 @@ export const mutations = {
         //
         // const copiaItem = _.cloneDeep(copiaState.todos[params.idPlanilhaItem]);
         //
-        // state.comprovantes.forEach((comprovante) => {
-        //     tiposXQuantidade[comprovante.stItemAvaliado] += 1;
-        // });
+        state.comprovantes.forEach((comprovante) => {
+            tiposXQuantidade[comprovante.stItemAvaliado] += 1;
+            totalComprovantes += 1;
+
+        });
+        console.log('aaaaa', tiposXQuantidade);
         //
         // Object.keys(tiposXQuantidade).forEach((tipo) => {
         //     const quantidade = tiposXQuantidade[tipo];
@@ -237,6 +243,18 @@ export const mutations = {
         //     }
         //     Vue.set(copiaState[tipo], params.idPlanilhaItem, copiaItem);
         // });
+
+        const index = state.planilha.findIndex(
+            item => parseInt(item.idPlanilhaAprovacao, 10) === parseInt(params.idPlanilhaAprovacao, 10),
+        );
+
+        if (index >= 0) {
+            state.planilha[index] = Object.assign(state.planilha[index], {
+                qtComprovado: totalComprovantes,
+                qtComprovadoRecusada: tiposXQuantidade[3],
+                qtComprovadoValidado: tiposXQuantidade[1],
+            });
+        }
     },
     [types.DASHBOARD_QUANTIDADE](state, dados) {
         state.dashboard = dados;
