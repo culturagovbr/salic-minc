@@ -1,6 +1,6 @@
 <template>
     <carregando
-        v-if="Object.keys(dadosProjeto).length == 0"
+        v-if="Object.keys(dadosProjeto).length === 0"
         text="Carregando ..."
     />
     <v-container
@@ -49,6 +49,7 @@
                 <parecer-tecnico-planilha-header :dados="dadosProjeto" />
             </v-card-text>
             <v-card-actions>
+                <v-spacer />
                 <v-btn
                     :href="'/consultardadosprojeto/index?idPronac=' + idPronac"
                     target="_blank"
@@ -72,6 +73,11 @@
                     :id-pronac="idPronac"
                     class="mr-2"
                 />
+
+                <execucao-receita-despesa-dialog
+                    :id-pronac="idPronac"
+                    class="mr-2"
+                />
             </v-card-actions>
         </v-card>
 
@@ -83,39 +89,30 @@
                 fluid
                 class="pa-0"
             >
-                <v-flex
-                    xs12
-                    sm6
-                    class="py-2"
-                >
-                    <v-btn-toggle
-                        v-model="opcoesDeVisualizacao"
-                        multiple
+                <v-layout row>
+                    <v-flex
+                        xs4
+                        sm4
+                        md2
                     >
-                        <v-tooltip bottom>
-                            <v-btn
-                                slot="activator"
-                                flat
-                            >
-                                <v-icon>list</v-icon>
-                            </v-btn>
-                            <span>
-                                Apenas itens
-                            </span>
-                        </v-tooltip>
-                        <v-tooltip bottom>
-                            <v-btn
-                                slot="activator"
-                                flat
-                            >
-                                <v-icon>money_off</v-icon>
-                            </v-btn>
-                            <span>
-                                Ocultar itens sem comprovação
-                            </span>
-                        </v-tooltip>
-                    </v-btn-toggle>
-                </v-flex>
+                        <v-switch
+                            v-model="mostrarListagem"
+                            color="primary"
+                            label="Exibir planilha em lista"
+                        />
+                    </v-flex>
+                    <v-flex
+                        xs4
+                        sm4
+                        md2
+                    >
+                        <v-switch
+                            v-model="ocultarItensNaoComprovados"
+                            color="primary"
+                            label="Ocultar itens não comprovados"
+                        />
+                    </v-flex>
+                </v-layout>
             </v-container>
             <s-planilha
                 :array-planilha="planilha"
@@ -151,6 +148,7 @@
                                     <span> {{ obterTextoProgresso(props.item) }} </span>
                                 </v-tooltip>
                             </td>
+                            <td>{{ props.item.Seq }}</td>
                             <td>
                                 {{ props.item.item }}
                             </td>
@@ -284,6 +282,8 @@ import CONST from '../../const';
 import RelacaoPagamentoDialog from '@/modules/projeto/visualizar/components/prestacaoContas/RelacaoPagamentoDialog';
 import ConciliacaoBancariaDialog
     from '@/modules/projeto/visualizar/components/dadosBancarios/ConciliacaoBancariaDialog';
+import ExecucaoReceitaDespesaDialog
+    from '@/modules/projeto/visualizar/components/prestacaoContas/ExecucaoReceitaDespesaDialog';
 
 
 Vue.filter('moedaMasc', Moeda);
@@ -291,6 +291,7 @@ Vue.filter('moedaMasc', Moeda);
 export default {
     name: 'Planilha',
     components: {
+        ExecucaoReceitaDespesaDialog,
         ConciliacaoBancariaDialog,
         RelacaoPagamentoDialog,
         ParecerTecnicoPlanilhaHeader,
@@ -305,8 +306,9 @@ export default {
             CONST,
             headers: [
                 {
-                    text: '#', value: 'qtComprovado', sortable: true, align: 'left',
+                    text: 'Análise', value: 'qtComprovado', sortable: true, align: 'left',
                 },
+                { text: '#', value: 'seq', sortable: true },
                 { text: 'Item', value: 'item', sortable: true },
                 {
                     text: 'Vl. Aprovado (R$)', value: 'varlorAprovado', sortable: true, align: 'right',
@@ -322,19 +324,15 @@ export default {
             fab: false,
             idPronac: this.$route.params.id,
             itemEmAvaliacao: {},
-            opcoesDeVisualizacao: [],
             agrupamentos: [
                 'Produto',
                 'descEtapa',
                 'uf',
                 'cidade',
             ],
-            totaisPlanilha: [
-                {
-                    label: 'Valor Aprovado',
-                    column: 'vlAprovado',
-                },
-            ],
+            totaisPlanilha: [],
+            mostrarListagem: false,
+            ocultarItensNaoComprovados: false,
         };
     },
     computed: {
@@ -362,12 +360,6 @@ export default {
         isProjetoDiligenciado() {
             const { diligencia } = this.dadosProjeto.items;
             return diligencia && diligencia.DtSolicitacao && !diligencia.DtResposta;
-        },
-        mostrarListagem() {
-            return this.isOptionActive(0);
-        },
-        ocultarItensNaoComprovados() {
-            return this.isOptionActive(1);
         },
         planilha() {
             let planilha = this.getPlanilha;
@@ -431,9 +423,6 @@ export default {
             } else {
                 this.$router.push('/');
             }
-        },
-        isOptionActive(index) {
-            return this.opcoesDeVisualizacao.includes(index);
         },
         obterPercentualProgresso(item) {
             return ((item.qtComprovadoValidado + item.qtComprovadoRecusada) / item.qtComprovado) * 100;

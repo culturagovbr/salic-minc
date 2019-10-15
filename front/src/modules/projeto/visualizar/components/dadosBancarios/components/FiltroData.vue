@@ -18,7 +18,7 @@
             wrap>
             <v-flex xs12>
                 <div>
-                    <h6 v-html="text"/>
+                    <h3 class="subheading" v-html="text"/>
                     <v-divider class="pb-2"/>
                 </div>
             </v-flex>

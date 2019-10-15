@@ -17,13 +17,12 @@ export const buscarPagamentosUfMunicipio = ({ commit }, idPronac) => {
         });
 };
 
-export const buscarExecucaoReceitaDespesa = ({ commit }, idPronac) => {
-    prestacaoContasHelperAPI.buscarExecucaoReceitaDespesa(idPronac)
-        .then((response) => {
-            const data = response.data.data.items;
-            commit(types.SET_EXECUCAO_RECEITA_DESPESA, data);
-        });
-};
+export const buscarExecucaoReceitaDespesa = async ({ commit }, idPronac) => prestacaoContasHelperAPI
+    .buscarExecucaoReceitaDespesa(idPronac)
+    .then((response) => {
+        const data = response.data.data.items;
+        commit(types.SET_EXECUCAO_RECEITA_DESPESA, data);
+    });
 
 export const buscarRelatorioFisico = ({ commit }, idPronac) => {
     prestacaoContasHelperAPI.buscarRelatorioFisico(idPronac)

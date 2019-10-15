@@ -36,7 +36,7 @@ import Captacao from './visualizar/components/dadosBancarios/Captacao';
 import Devolucoes from './visualizar/components/dadosBancarios/Devolucoes';
 import PagamentosConsolidados from './visualizar/components/prestacaoContas/PagamentosConsolidados';
 import PagamentosUfMunicipio from './visualizar/components/prestacaoContas/PagamentosUfMunicipio';
-import ExecucaoReceitaDespesa from './visualizar/components/prestacaoContas/ExecucaoReceitaDespesa';
+import ExecucaoReceitaDespesaView from './visualizar/components/prestacaoContas/ExecucaoReceitaDespesaView';
 import RelatorioFisico from './visualizar/components/prestacaoContas/RelatorioFisico';
 import RelacaoPagamentoView from './visualizar/components/prestacaoContas/RelacaoPagamentoView';
 import RelatorioCumprimentoObjeto from './visualizar/components/prestacaoContas/RelatorioCumprimentoObjeto';
@@ -385,7 +385,7 @@ const routes = [
             {
                 path: 'execucao-receita-despesa',
                 name: 'ExecucaoReceitaDespesa',
-                component: ExecucaoReceitaDespesa,
+                component: ExecucaoReceitaDespesaView,
                 meta: {
                     title: 'Execução da Receita e Despesa',
                 },
