@@ -89,8 +89,8 @@ export default {
     props: {
         idPronac: { type: String, default: '' },
         usuario: { type: Object, default: () => {} },
-        atual: { type: String, default: '' },
-        proximo: { type: String, default: '' },
+        atual: { type: Number, default: 0 },
+        proximo: { type: Number, default: 0 },
         nomeProjeto: { type: String, default: '' },
         pronac: { type: String, default: '' },
         idTipoDoAtoAdministrativo: {

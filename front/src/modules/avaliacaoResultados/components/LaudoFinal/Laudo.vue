@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-card-title>
-            <v-spacer/>
+            <v-spacer />
             <v-text-field
                 v-model="search"
                 append-icon="search"
@@ -21,8 +21,11 @@
         >
             <template
                 slot="items"
-                slot-scope="props">
-                <td class="text-xs-center">{{ props.index+1 }}</td>
+                slot-scope="props"
+            >
+                <td class="text-xs-center">
+                    {{ props.index+1 }}
+                </td>
                 <td class="text-xs-center">
                     <v-flex>
                         <div>
@@ -32,7 +35,9 @@
                         </div>
                     </v-flex>
                 </td>
-                <td class="text-xs-center">{{ props.item.NomeProjeto }}</td>
+                <td class="text-xs-center">
+                    {{ props.item.NomeProjeto }}
+                </td>
                 <td class="text-xs-center">
                     <VisualizarParecer
                         :obj="props.item"
@@ -58,36 +63,46 @@
                 </td>
                 <td
                     v-if="estado == Const.ESTADO_ANALISE_LAUDO"
-                    class="text-xs-center">
+                    class="text-xs-center"
+                >
                     <v-btn
                         id="emitirLaudo"
                         :to="{ name: 'EmitirLaudoFinal', params:{ id:props.item.IdPronac }}"
                         flat
                         icon
                         color="teal darken-1"
-                        @click.native="sincState(props.item.IdPronac)">
+                        @click.native="sincState(props.item.IdPronac)"
+                    >
                         <v-tooltip bottom>
                             <v-icon
                                 slot="activator"
-                                class="material-icons">gavel</v-icon>
+                                class="material-icons"
+                            >
+                                gavel
+                            </v-icon>
                             <span>Emitir Laudo</span>
                         </v-tooltip>
                     </v-btn>
                 </td>
                 <td
                     v-if="liberarAssinatura(estado)"
-                    class="text-xs-center">
+                    class="text-xs-center"
+                >
                     <v-btn
                         id="assinarLaudo"
                         :href="'/assinatura/index/assinar-projeto?IdPRONAC='
-                        +props.item.IdPronac+'&idTipoDoAtoAdministrativo=623'+retornoUrl.toString()"
+                            +props.item.IdPronac+'&idTipoDoAtoAdministrativo=623'+retornoUrl.toString()"
                         flat
                         icon
-                        color="teal darken-1">
+                        color="teal darken-1"
+                    >
                         <v-tooltip bottom>
                             <v-icon
                                 slot="activator"
-                                class="material-icons">edit</v-icon>
+                                class="material-icons"
+                            >
+                                edit
+                            </v-icon>
                             <span>Assinar Laudo</span>
                         </v-tooltip>
                     </v-btn>
@@ -102,11 +117,15 @@
                         flat
                         icon
                         color="teal darken-1"
-                        @click.native="sincState(props.item.IdPronac)">
+                        @click.native="sincState(props.item.IdPronac)"
+                    >
                         <v-tooltip bottom>
                             <v-icon
                                 slot="activator"
-                                class="material-icons">visibility</v-icon>
+                                class="material-icons"
+                            >
+                                visibility
+                            </v-icon>
                             <span>Visualizar Laudo</span>
                         </v-tooltip>
                     </v-btn>
@@ -116,16 +135,17 @@
                 <v-alert
                     :value="true"
                     color="error"
-                    icon="warning">
+                    icon="warning"
+                >
                     Nenhum dado encontrado ¯\_(ツ)_/¯
-
                 </v-alert>
             </template>
             <v-alert
                 slot="no-results"
                 :value="true"
                 color="error"
-                icon="warning">
+                icon="warning"
+            >
                 Não foi possível encontrar um projeto com a palavra chave '{{ search }}'.
             </v-alert>
         </v-data-table>
@@ -147,7 +167,14 @@ export default {
         VisualizarParecer,
     },
     props: {
-        dados: { type: Object, default: () => {} }, estado: { type: String, default: '' },
+        dados: {
+            type: Object,
+            default: () => {},
+        },
+        estado: {
+            type: Number,
+            default: 0,
+        },
     },
     data() {
         return {
@@ -236,7 +263,7 @@ export default {
             } else if (this.estado === this.Const.ESTADO_AVALIACAO_RESULTADOS_FINALIZADA) {
                 proximo = this.Const.ESTADO_ANALISE_LAUDO;
             } else {
-                proximo = '';
+                proximo = 0;
             }
             return proximo;
         },

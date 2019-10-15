@@ -67,7 +67,7 @@
                 >
                     <Laudo
                         :dados="getProjetosLaudoAssinar"
-                        :estado="assinarPerfil().toString()"
+                        :estado="assinarPerfil()"
                     />
                 </v-tab-item>
                 <v-tab-item
@@ -141,7 +141,7 @@ export default {
             if (this.getUsuario.grupo_ativo === this.CONST.PERFIL_SECRETARIO) {
                 return this.CONST.ESTADO_AGUARDANDO_ASSINATURA_SECRETARIO_LAUDO;
             }
-            return null;
+            return 0;
         },
         r(val) {
             this.$router.push(val);

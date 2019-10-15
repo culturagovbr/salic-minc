@@ -193,7 +193,7 @@ export default {
             tabActive: null,
             projetoAnaliseDados: { code: 300, items: [] },
             listaAcoesTecnico: {
-                atual: '',
+                atual: 0,
                 proximo: '',
                 acoes: [
                     Diligencias,
@@ -219,7 +219,7 @@ export default {
             listaAcoesCoordenador: {
                 usuario: this.getUsuario,
                 atual: CONST.ESTADO_AGUARDANDO_ASSINATURA_COORDENADOR_PARECER,
-                proximo: '',
+                proximo: 0,
                 acoes: [
                     Diligencias,
                     Encaminhar,
@@ -256,8 +256,8 @@ export default {
                     VisualizarParecer,
                 ],
             },
-            distribuirAcoes: { atual: '', proximo: '', acoes: [Encaminhar] },
-            historicoAcoes: { atual: '', proximo: '', acoes: [Historico, VisualizarPlanilhaButtton] },
+            distribuirAcoes: { atual: 0, proximo: 0, acoes: [Encaminhar] },
+            historicoAcoes: { atual: 0, proximo: 0, acoes: [Historico, VisualizarPlanilhaButtton] },
             CONST: '',
             loadingHistorico: false,
         };
