@@ -2725,7 +2725,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract
             c.idPlanilhaItens,
             c.Descricao AS Item,
             c.Descricao AS descItem,
-            d.Descricao ,
+            d.Descricao,
             CONVERT(DECIMAL(38,2), ISNULL((qtItem * nrOcorrencia * vlUnitario),0) ) as vlAprovado,
             CONVERT(DECIMAL(38,2), sac.dbo.fnVlComprovado_Fonte_Produto_Etapa_Local_Item
                    (a.idPronac,a.nrFonteRecurso,a.idProduto,a.idEtapa,a.idUFDespesa,
@@ -2756,7 +2756,7 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract
         $select->join(
             ['b' => 'tbPlanilhaEtapa'],
             "(a.idEtapa = b.idPlanilhaEtapa)",
-            [],
+            ['nrOrdenacao'],
             'SAC.dbo'
         );
 
@@ -2842,7 +2842,8 @@ class PlanilhaAprovacao extends MinC_Db_Table_Abstract
             $select->where('d.codigo is null');
         }
 
-        $select->order('c.Descricao');
+        $select->order(['d.Descricao DESC', 'nrOrdenacao ASC', 'e.Sigla', 'descItem']);
+
         return $this->fetchAll($select);
     }
 

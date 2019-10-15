@@ -25,96 +25,9 @@ class AvaliacaoResultados_PlanilhaAprovadaController extends MinC_Controller_Res
 
         $planilhaAprovacaoModel = new PlanilhaAprovacao();
         $resposta = $planilhaAprovacaoModel->planilhaAprovada($idPronac);
-        /* var_dump(empty($resposta->toArray()));die; */
         $data = \TratarArray::utf8EncodeArray($resposta->toArray());
         $data = $this->filtrarPlanilhaParaAnalise($data);
-
         return $this->customRenderJsonResponse($data, $code);
-        $planilhaJSON = null;
-
-        if(!empty($resposta->toArray())) {
-
-            foreach($resposta as $item) {
-                if($item->stItemAvaliado){
-                    $planilhaJSON
-                        [$item->cdProduto]
-                        ['etapa']
-                        [$item->cdEtapa]
-                        ['UF']
-                        [$item->cdUF]
-                        ['cidade']
-                        [$item->cdCidade]
-                        ['itens']
-                        [$item->stItemAvaliado]
-                        [$item->idPlanilhaItens] = [
-                            'item' => utf8_encode($item->Item),
-                            'valor' => utf8_encode($item->valor),
-                            'quantidade' => ($item->quantidade),
-                            'numeroOcorrencias' => ($item->numeroOcorrencias),
-                            'varlorAprovado' => $item->vlAprovado,
-                            'varlorComprovado' => $item->vlComprovado,
-                            'comprovacaoValidada' => $item->ComprovacaoValidada,
-                            'idPlanilhaAprovacao' => $item->idPlanilhaAprovacao,
-                            'idPlanilhaItens' => $item->idPlanilhaItens,
-                            'ComprovacaoValidada' => $item->ComprovacaoValidada,
-                            'stItemAvaliado' => $item->stItemAvaliado,
-                        ];
-                }
-
-                $planilhaJSON
-                [$item->cdProduto]
-                ['etapa']
-                [$item->cdEtapa]
-                ['UF']
-                [$item->cdUF]
-                ['cidade']
-                [$item->cdCidade]
-                ['itens']
-                ['todos']
-                [$item->idPlanilhaItens] = [
-                    'item' => utf8_encode($item->Item),
-                    'valor' => utf8_encode($item->valor),
-                    'quantidade' => ($item->quantidade),
-                    'numeroOcorrencias' => ($item->numeroOcorrencias),
-                    'varlorAprovado' => $item->vlAprovado,
-                    'varlorComprovado' => $item->vlComprovado,
-                    'comprovacaoValidada' => $item->ComprovacaoValidada,
-                    'idPlanilhaAprovacao' => $item->idPlanilhaAprovacao,
-                    'idPlanilhaItens' => $item->idPlanilhaItens,
-                    'ComprovacaoValidada' => $item->ComprovacaoValidada,
-                    'stItemAvaliado' => $item->stItemAvaliado,
-                ];
-
-                $planilhaJSON[$item->cdProduto] += [
-                    'produto' => html_entity_decode(utf8_encode($item->Produto)),
-                    'cdProduto' => $item->cdProduto,
-                ];
-
-                $planilhaJSON[$item->cdProduto]['etapa'][$item->cdEtapa] += [
-                    'etapa' => utf8_encode($item->Etapa),
-                    'cdEtapa' =>  $item->cdEtapa
-                ];
-
-                $planilhaJSON[$item->cdProduto]['etapa'][$item->cdEtapa]['UF'][$item->cdUF] += [
-                    'Uf' => $item->Uf,
-                    'cdUF' => $item->cdUF
-                ];
-
-                $planilhaJSON[$item->cdProduto]['etapa'][$item->cdEtapa]['UF'][$item->cdUF]['cidade'][$item->cdCidade] += [
-                    'cidade' => utf8_encode($item->Cidade),
-                    'cdCidade' => $item->cdCidade
-                ];
-            }
-            $data = $planilhaJSON;
-
-        } else {
-            $code = 400;
-            $data['data']['erro'] = ['message' => 'Não existe planilha para esse projeto!'];
-        }
-
-        /* $data = \TratarArray::utf8EncodeArray($data); */
-
-        $this->customRenderJsonResponse($data, $code);
     }
 
     private function filtrarPlanilhaParaAnalise($planilha)
