@@ -117,6 +117,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
 
         $tbOrgao = new \Orgaos();
         $view->secretaria = $tbOrgao->obterNomeSecretariaPorExtenso($dadosProjeto['Orgao']);
+        $view->secretariaEspecial = $tbOrgao->obterNomeSecretariaEspecialPorExtenso($dadosProjeto['Orgao']);
 
         return $view->render('documento-assinatura.phtml');
     }

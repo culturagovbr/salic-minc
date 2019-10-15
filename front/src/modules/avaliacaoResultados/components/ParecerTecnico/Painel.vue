@@ -197,8 +197,8 @@ export default {
                 proximo: '',
                 acoes: [
                     Diligencias,
-                    Historico,
                     AnaliseButton,
+                    Historico,
                     VisualizarParecer,
                     VisualizarPlanilhaButtton,
                 ],

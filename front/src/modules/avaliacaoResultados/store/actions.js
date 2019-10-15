@@ -38,17 +38,12 @@ export const getDadosEmissaoParecer = ({ commit }, param) => {
     return p;
 };
 
-export const salvarParecer = ({ commit }, params) => {
-    const p = new Promise((resolve) => {
-        avaliacaoResultadosHelperAPI.criarParecer(params)
-            .then(() => {
-                commit('noticias/SET_DADOS', { ativo: true, color: 'success', text: 'Salvo com sucesso!' }, { root: true });
-                resolve();
-            });
+export const salvarParecer = async ({ commit }, params) => avaliacaoResultadosHelperAPI
+    .criarParecer(params)
+    .then((response) => {
+        commit('noticias/SET_DADOS', { ativo: true, color: 'success', text: 'Salvo com sucesso!' }, { root: true });
+        return response;
     });
-
-    return p;
-};
 
 export const mockAvaliacaDesempenho = ({ commit }) => {
     commit(types.MOCK_AVALIACAO_RESULTADOS);
@@ -166,12 +161,12 @@ export const consolidacaoAnalise = ({ commit }, params) => {
         });
 };
 
-export const finalizarParecer = ({ commit }, params) => {
-    avaliacaoResultadosHelperAPI.alterarEstado(params)
-        .then(() => {
-            commit('noticias/SET_DADOS', { ativo: true, color: 'success', text: 'Finalizado com sucesso!' }, { root: true });
-        });
-};
+export const finalizarParecer = async ({ commit }, params) => avaliacaoResultadosHelperAPI
+    .alterarEstado(params)
+    .then((response) => {
+        commit('noticias/SET_DADOS', { ativo: true, color: 'success', text: 'Finalizado com sucesso!' }, { root: true });
+        return response;
+    });
 
 export const encaminharParaTecnico = async ({ dispatch }, params) => avaliacaoResultadosHelperAPI
     .alterarEstado(params)

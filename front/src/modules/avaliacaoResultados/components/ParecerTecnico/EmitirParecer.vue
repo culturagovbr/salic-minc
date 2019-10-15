@@ -3,7 +3,10 @@
         row
         justify-center
     >
-        <v-form v-model="valid">
+        <v-form
+            v-model="valid"
+            lazy-validation
+        >
             <v-dialog
                 v-model="dialog"
                 full-width
@@ -215,7 +218,8 @@
                                             pa-0
                                         >
                                             <v-btn
-                                                :disabled="!valid || !parecerRules.enable"
+                                                :disabled="!valid || !parecerRules.enable || loadingSalvar"
+                                                :loading="loadingSalvar"
                                                 color="primary"
                                                 @click.native="salvarParecer()"
                                             >
@@ -223,7 +227,8 @@
                                             </v-btn>
                                             <v-btn
                                                 :href="redirectLink"
-                                                :disabled="!valid || !parecerRules.enable"
+                                                :disabled="!valid || !parecerRules.enable || loadingFinalizar"
+                                                :loading="loadingFinalizar"
                                                 color="primary"
                                                 @click.native="finalizarParecer()"
                                             >
@@ -270,6 +275,8 @@ export default {
             redirectLink: '#/planilha/',
             valid: false,
             dialog: true,
+            loadingSalvar: false,
+            loadingFinalizar: false,
             itemRules: [v => !!v || 'Tipo de manifestação e obrigatório!'],
             parecerRules: {
                 show: false,
@@ -314,7 +321,7 @@ export default {
     methods: {
         ...mapActions({
             requestEmissaoParecer: 'avaliacaoResultados/getDadosEmissaoParecer',
-            salvar: 'avaliacaoResultados/salvarParecer',
+            salvarParecerAction: 'avaliacaoResultados/salvarParecer',
             finalizar: 'avaliacaoResultados/finalizarParecer',
             alterarParecer: 'avaliacaoResultados/alterarParecer',
         }),
@@ -342,7 +349,11 @@ export default {
             if (this.parecerData.dsParecer) {
                 data.dsParecer = this.parecerData.dsParecer;
             }
-            this.salvar(data);
+
+            this.loadingSalvar = true;
+            this.salvarParecerAction(data).finally(() => {
+                this.loadingSalvar = false;
+            });
         },
         finalizarParecer() {
             const data = {
@@ -366,7 +377,10 @@ export default {
                 data.dsParecer = this.parecerData.dsParecer;
             }
 
-            this.finalizar(data);
+            this.loadingFinalizar = true;
+            this.finalizar(data).finally(() => {
+                this.loadingFinalizar = false;
+            });
         },
         inputParecer(e) {
             this.parecerData.dsParecer = e;
