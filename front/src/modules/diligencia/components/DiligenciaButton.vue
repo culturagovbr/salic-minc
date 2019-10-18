@@ -41,7 +41,7 @@ export default {
     },
     computed: {
         diasEmDiligencia() {
-            if (!this.item || !this.item.DtSolicitacao) {
+            if (!this.item || !this.item.DtSolicitacao || this.item.DtResposta) {
                 return 0;
             }
 
@@ -51,6 +51,13 @@ export default {
             const prazoDiasDiligencia = 20;
             return this.diasEmDiligencia >= prazoDiasDiligencia;
         },
+        isDiligenciaRespondida() {
+            if (!this.item.DtSolicitacao || !this.item.DtResposta) {
+                return false;
+            }
+
+            return (this.diasData(this.item.DtResposta) < 5);
+        },
         statusDiligencia() {
             let status = 0;
 
@@ -58,7 +65,7 @@ export default {
                 return 0;
             }
 
-            if (this.item.DtSolicitacao && this.item.DtResposta) {
+            if (this.isDiligenciaRespondida) {
                 status = 2;
             } else if (this.item.DtSolicitacao && this.prazoExpirado) {
                 status = 3;
