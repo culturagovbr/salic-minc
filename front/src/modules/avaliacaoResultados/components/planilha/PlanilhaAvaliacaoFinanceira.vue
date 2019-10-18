@@ -78,6 +78,11 @@
                     :id-pronac="idPronac"
                     class="mr-2"
                 />
+
+                <extratos-bancarios-dialog
+                    :id-pronac="idPronac"
+                    class="mr-2"
+                />
             </v-card-actions>
         </v-card>
 
@@ -144,11 +149,13 @@ import ConciliacaoBancariaDialog
     from '@/modules/projeto/visualizar/components/dadosBancarios/ConciliacaoBancariaDialog';
 import ExecucaoReceitaDespesaDialog
     from '@/modules/projeto/visualizar/components/prestacaoContas/ExecucaoReceitaDespesaDialog';
+import ExtratosBancariosDialog from '@/modules/projeto/visualizar/components/dadosBancarios/ExtratosBancariosDialog';
 
 
 export default {
     name: 'PlanilhaAvaliacaoFinanceira',
     components: {
+        ExtratosBancariosDialog,
         ExecucaoReceitaDespesaDialog,
         ConciliacaoBancariaDialog,
         RelacaoPagamentoDialog,

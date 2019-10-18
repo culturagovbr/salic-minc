@@ -30,7 +30,7 @@ import ConciliacaoBancariaView from './visualizar/components/dadosBancarios/Conc
 import InconsistenciaBancaria from './visualizar/components/dadosBancarios/InconsistenciaBancaria';
 import Liberacao from './visualizar/components/dadosBancarios/Liberacao';
 import SaldoContas from './visualizar/components/dadosBancarios/SaldoContas';
-import ExtratosBancarios from './visualizar/components/dadosBancarios/ExtratosBancarios';
+import ExtratosBancariosView from './visualizar/components/dadosBancarios/ExtratosBancariosView';
 import ExtratosBancariosConsolidado from './visualizar/components/dadosBancarios/ExtratosBancariosConsolidado';
 import Captacao from './visualizar/components/dadosBancarios/Captacao';
 import Devolucoes from './visualizar/components/dadosBancarios/Devolucoes';
@@ -321,7 +321,7 @@ const routes = [
             {
                 path: 'extratos-bancarios',
                 name: 'ExtratosBancarios',
-                component: ExtratosBancarios,
+                component: ExtratosBancariosView,
                 meta: {
                     title: 'Extratos Bancários',
                 },
