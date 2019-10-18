@@ -206,8 +206,12 @@ export default {
             diligencias: 'diligencia/getDiligencias',
         }),
         isDiligenciaAberta() {
-            if (typeof this.diligencia !== 'undefined') {
-                return this.diligencias.length > 0 && typeof this.diligencias.find(item => !item.dataResposta) === 'object';
+            if (this.diligencias) {
+                return this.diligencias.length > 0
+                    && typeof this.diligencias.find((item) => {
+                        const isProdutoEmAberto = this.idProduto === item.idProduto;
+                        return !item.dataResposta && isProdutoEmAberto;
+                    }) === 'object';
             }
             return false;
         },
@@ -219,14 +223,7 @@ export default {
                 if (this.idReadequacao) {
                     this.headers[2] = { text: 'Tipo de readequação', value: 'produto' };
                 }
-                this.obterDiligencias({
-                    idPronac: this.idPronac,
-                    idProduto: this.idProduto,
-                    idReadequacao: this.idReadequacao,
-                    situacao: this.situacao,
-                    tpDiligencia: this.tpDiligencia,
-                });
-                this.loading = true;
+                this.obterDiligencias();
             }
         },
         dialog(val) {
@@ -238,13 +235,23 @@ export default {
     },
     methods: {
         ...mapActions({
-            obterDiligencias: 'diligencia/obterDiligenciasProduto',
+            obterDiligenciasAction: 'diligencia/obterDiligenciasProduto',
         }),
         abrirModal(produto) {
             this.diligenciaVisualizacao = produto;
             this.dialogDetalhamento = true;
         },
+        obterDiligencias() {
+            this.loading = true;
+            this.obterDiligenciasAction({
+                idPronac: this.idPronac,
+                idReadequacao: this.idReadequacao,
+                situacao: this.situacao,
+                tpDiligencia: this.tpDiligencia,
+            });
+        },
         diligenciaCriada() {
+            this.obterDiligencias();
             this.$emit('diligencia-criada', true);
         },
     },

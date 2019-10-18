@@ -40,7 +40,6 @@
     }
 </script>
 
-<!-- ========== INA� CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="modal"></div>
 <div id="total">
     <div id="breadcrumb">
@@ -50,20 +49,11 @@
 	  <li class="last">Declarar impedimento</li>
         </ul>
     </div>
-    <!-- ========== FIM BREADCRUMB (LINKS TOPO)========== -->
-
-
-
-    <!-- ==========INA� CIO TA� TULO========== -->
 
     <div id="titulo">
         <div>Declarar impedimento <span class="voltar"><a href="javascript:voltar();">Voltar</a></span></div>
 
     </div>
-
-    <!-- ========== FIM TA� TULO ========== -->
-
-    <!-- ========== INA� CIO CONTEAšDO ==========-->
 
     <div id="conteudo">
     <div id="confirma"></div>
@@ -90,7 +80,7 @@
                 <tr>
                     <td align="center"><input type="button" class="btn_voltar" style="width: 85px;" onclick="window.location=('<?php echo $this->url(array('controller' => 'analisarprojetoparecer', 'action' => 'produto')); ?>');" /></td>                </tr>
             </table>
-        <?php } else { ?>
+        <?php } else if (count($this->dados) > 0) { ?>
         <table class="tabela">
             <tr>
                 <th width="100" align="left">Pronac</th>
@@ -150,13 +140,13 @@
                 </tr>
             </table>
         <?php } ?>
-        
+
+        <?php if (count($this->dados) == 0) : ?>
+            <table class="tabela">
+                <tr>
+                    <td align="center">Produto n&atilde;o dispon&iacute;vel para esta a&ccedil;&atilde;o</td>
+                </tr>
+            </table>
+        <?php endif; ?>
     </div>
-    <!-- ========== FIM CONTEAšDO ========== -->
-
-    <!-- ========== INA� CIO RODAPA‰ DO CONTEAšDO ========== // -->
-
-    <div id="rodapeConteudo" ><span></span></div>
-    <!-- ========== FIM RODAP� DO CONTE�DO ========== -->
-    <br clear="all" />
 </div>

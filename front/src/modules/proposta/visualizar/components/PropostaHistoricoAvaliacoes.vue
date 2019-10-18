@@ -1,27 +1,45 @@
 <template>
-    <div class="tabelas">
-        <div class="row">
-            <slTabelaSimples :dados="dado"/>
-        </div>
-    </div>
+    <v-data-table
+        :headers="headers"
+        :items="dado"
+        class="elevation-1"
+    >
+        <template
+            slot="items"
+            slot-scope="props">
+            <td>{{ props.item.Tipo }}</td>
+            <td class="text-xs-right">{{ props.item.DtAvaliacao | formatarData }}</td>
+            <td
+                class="text-xs-justify"
+                v-html="props.item.Avaliacao"/>
+        </template>
+    </v-data-table>
 </template>
 <script>
-import slTabelaSimples from '@/components/slTabelaSimples';
+import axios from 'axios';
+import { utils } from '@/mixins/utils';
 
 export default {
     name: 'PropostaHistoricoAvaliacoes',
-    components: {
-        slTabelaSimples,
-    },
+    mixins: [utils],
     props: {
         idpreprojeto: {
-            type: Number,
-            default: 0,
+            type: [String, Number],
+            default: '',
         },
     },
     data() {
         return {
             dado: [],
+            headers: [
+                {
+                    text: 'Tipo',
+                    align: 'left',
+                    value: 'Tipo',
+                },
+                { text: 'Dt. Avaliação', value: 'DtAvaliacao' },
+                { text: 'Avaliação', value: 'Avaliacao' },
+            ],
         };
     },
     watch: {
@@ -38,14 +56,12 @@ export default {
         fetch(id) {
             if (id) {
                 const self = this;
-                /* eslint-disable */
-                $3.ajax({
-                    url: '/proposta/visualizar/obter-historico-avaliacoes/idPreProjeto/' + id
-                }).done(function (response) {
-                    self.dado = response.data;
-                });
+                axios.get(`/proposta/visualizar/obter-historico-avaliacoes/idPreProjeto/${id}`)
+                    .then((response) => {
+                        self.dado = response.data.data;
+                    });
             }
         },
-    }
+    },
 };
 </script>

@@ -132,19 +132,26 @@ $arrMenu['analise']['menu'][] = array('label' => 'Calend&aacute;rio CNIC', 'titl
     'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_CNIC)
 );
 $arrMenu['analise']['menu'][] = array('label' => 'Gerenciar Pareceres', 'title' => 'Ir para Gerenciar Pareceres',
-    'url' => $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index'), '', true),
-    'grupo' => array(Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER)
+    'url' => $this->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index', '#' => 'parecer/gerenciar'), '', true),
+    'grupo' => array(
+        Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA,
+        Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
+        Autenticacao_Model_Grupos::SUPERINTENDENTE_DE_VINCULADA,
+    )
 );
-$arrMenu['analise']['menu'][] = array('label' => 'Gerenciar Pareceres', 'title' => 'Ir para Gerenciar Pareceres',
+$arrMenu['analise']['menu'][] = array('label' => 'Finalizar Pareceres', 'title' => 'Ir para Finalizar Pareceres',
     'url' => $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'finalizar-parecer'), '', true),
-    'grupo' => array(Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA)
+    'grupo' => array(
+        Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA,
+        Autenticacao_Model_Grupos::SUPERINTENDENTE_DE_VINCULADA
+    )
 );
-$arrMenu['analise']['menu'][] = array('label' => 'Gerenciar Pareceres', 'title' => 'Ir para Gerenciar Pareceres',
-    'url' => $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'finalizar-parecer'), '', true),
-    'grupo' => array(Autenticacao_Model_Grupos::SUPERINTENDENTE_DE_VINCULADA)
-);
+//$arrMenu['analise']['menu'][] = array('label' => 'Gerenciar Pareceres', 'title' => 'Ir para Gerenciar Pareceres',
+//    'url' => $this->url(array('module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'finalizar-parecer'), '', true),
+//    'grupo' => array(Autenticacao_Model_Grupos::SUPERINTENDENTE_DE_VINCULADA)
+//);
 $arrMenu['analise']['menu'][] = array('label' => 'An&aacute;lise T&eacute;cnica Inicial', 'title' => 'Ir para An&aacute;lise T&eacute;cnica Inicial',
-    'url' => $this->url(array('module' => 'parecer', 'controller' => 'analise-inicial', 'action' => 'index'), '', true),
+    'url' => $this->url(array('module' => 'default', 'controller' => 'index', 'action' => 'index', '#' => 'parecer/analise-inicial'), '', true),
     'grupo' => array(Autenticacao_Model_Grupos::PARECERISTA)
 );
 

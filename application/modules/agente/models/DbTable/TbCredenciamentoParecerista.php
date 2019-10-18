@@ -160,4 +160,17 @@ class Agente_Model_DbTable_TbCredenciamentoParecerista extends MinC_Db_Table_Abs
             return false;
         }
     }
+
+    public function isPareceristaCredenciado($idAgenteParecerista, $idAreaProduto, $idSegmentoProduto)
+    {
+        $whereCredenciamento = [
+            'idAgente = ?' => $idAgenteParecerista,
+            'idCodigoArea = ?' => $idAreaProduto,
+            'idCodigoSegmento = ?' => $idSegmentoProduto
+        ];
+
+        $credenciamentos = $this->buscar($whereCredenciamento)->toArray();
+
+        return (count($credenciamentos) > 0);
+    }
 }

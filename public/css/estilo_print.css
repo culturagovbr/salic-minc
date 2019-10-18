@@ -1,15 +1,4 @@
-<!--
-/**
- * Folha de estilo do sistema para impress�o
- * @author Equipe RUP
- * @since 08/06/2010
- * @version 1.0
- * @copyright � 2010 Politec - Todos os direitos reservados.
- * @package css
- * @link http://www.politec.com.br
- */
-
-.pesquisaParecerista, #barraSuperior, #atalhos, #logo, #navglobal, #menu, #container, #menuContexto, #breadcrumb, #rodapeConteudo, #rodape, 
+.pesquisaParecerista, #barraSuperior, #atalhos, #logo, #navglobal, #menu, #container, #menuContexto, #breadcrumb, #rodapeConteudo, #rodape,
 #dialog-valor, #titulo, .qmactive, #menuContainer, ul.fg-menu-footer, 
 .btn_editar, .btn_excluir, .btn_off, .btn_on, .btn_senha, .btn_visualizar, 
 .btn_adicionar, .btn_cadastrar, .btn_alterar, .btn_incluir, .btn_cancelar, .btn_imprimir, 
@@ -27,7 +16,7 @@
 }
 body {
 	margin: 1.111cm 1cm 1cm 1.005cm;
-    font: 22px "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
+    font: 14px "Trebuchet MS", Georgia, "Times New Roman", Times, serif;
     color: #000;
 }
 #printHeader {
@@ -67,7 +56,6 @@ table {
 	border: 1px solid #036;
 }
 table td {
-	background:url(../img/bg-celulas.gif) repeat-x #fff;
 	padding:8px;
 	color:auto;
 }
@@ -82,7 +70,7 @@ table th {
 	padding:8px; 
 	color:#3A7300; 
 	text-transform:uppercase; 
-	font-size: 20px;
+	font-size: 12px;
 }
 table tfoot td { 
 	background:#f3f3f3; 
@@ -125,3 +113,11 @@ table tfoot td strong {
     font-size: 15px;
 	border: 0px; !important
 }
+
+#navbar-header,
+#topo,
+.page-footer,
+.btn {
+    display: none !important;
+}
+

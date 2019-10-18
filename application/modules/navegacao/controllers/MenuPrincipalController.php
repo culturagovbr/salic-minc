@@ -168,7 +168,12 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
             'label' => 'Gerenciar Pareceres',
             'title' => 'Ir para Gerenciar Pareceres',
             'url' => ['module' => 'default', 'controller' => 'gerenciarpareceres', 'action' => 'index'],
-            'grupo' => [Autenticacao_Model_Grupos::COORDENADOR_ANALISE, Autenticacao_Model_Grupos::TECNICO_ANALISE, 148, 151]
+            'grupo' => [
+                Autenticacao_Model_Grupos::COORDENADOR_ANALISE,
+                Autenticacao_Model_Grupos::TECNICO_ANALISE,
+                148,
+                151
+            ]
         ];
         $arrMenu['analise']['menu'][] = [
             'label' => 'Imprimir Parecer T&eacute;cnico',
@@ -239,25 +244,33 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
         $arrMenu['analise']['menu'][] = [
             'label' => 'Gerenciar Pareceres',
             'title' => 'Ir para Gerenciar Pareceres',
-            'url' => ['module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'index'],
-            'grupo' => [Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER]
+            'url' => ['module' => 'default', 'controller' => 'index', 'action' => 'index', '#' => 'parecer/gerenciar'],
+            'grupo' => [
+                Autenticacao_Model_Grupos::COORDENADOR_DE_PARECER,
+                Autenticacao_Model_Grupos::SUPERINTENDENTE_DE_VINCULADA,
+            ]
         ];
         $arrMenu['analise']['menu'][] = [
             'label' => 'Gerenciar Pareceres',
             'title' => 'Ir para Gerenciar Pareceres',
             'url' => ['module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'finalizar-parecer'],
-            'grupo' => [Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA]
+            'grupo' => [
+                Autenticacao_Model_Grupos::PRESIDENTE_DE_VINCULADA,
+                Autenticacao_Model_Grupos::SUPERINTENDENTE_DE_VINCULADA
+            ]
         ];
-        $arrMenu['analise']['menu'][] = [
-            'label' => 'Gerenciar Pareceres',
-            'title' => 'Ir para Gerenciar Pareceres',
-            'url' => ['module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'finalizar-parecer'],
-            'grupo' => [Autenticacao_Model_Grupos::SUPERINTENDENTE_DE_VINCULADA]
-        ];
+//        $arrMenu['analise']['menu'][] = [
+//            'label' => 'Gerenciar Pareceres',
+//            'title' => 'Ir para Gerenciar Pareceres',
+//            'url' => ['module' => 'parecer', 'controller' => 'gerenciar-parecer', 'action' => 'finalizar-parecer'],
+//            'grupo' => [
+//                Autenticacao_Model_Grupos::SUPERINTENDENTE_DE_VINCULADA
+//            ]
+//        ];
         $arrMenu['analise']['menu'][] = [
             'label' => 'An&aacute;lise T&eacute;cnica Inicial',
             'title' => 'Ir para An&aacute;lise T&eacute;cnica Inicial',
-            'url' => ['module' => 'parecer', 'controller' => 'analise-inicial', 'action' => 'index'],
+            'url' => ['module' => 'default', 'controller' => 'index', 'action' => 'index', '#' => 'parecer/analise-inicial'],
             'grupo' => [Autenticacao_Model_Grupos::PARECERISTA]
         ];
         $arrMenu['analise']['menu'][] = [
@@ -1213,8 +1226,6 @@ class Navegacao_MenuPrincipalController extends Zend_Rest_Controller
             $arrMenu = [];
         }
         return $arrMenu;
-
-
     }
 
 

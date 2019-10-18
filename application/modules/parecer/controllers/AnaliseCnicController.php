@@ -64,7 +64,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract
 
         try {
             if (isset($idPronac) && !empty($idPronac)) {
-                $parecer = new Parecer();
+                $parecer = new Parecer_Model_DbTable_Parecer();
 
                 $dadosParecer = $parecer->getIdAtoAdministrativoParecerTecnico($idPronac, self::ID_TIPO_AGENTE_COMPONENTE_CNIC);
                 $idAtoAdministrativo = $dadosParecer[0]['idParecer'];
@@ -151,7 +151,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract
             $this->view->resultadoCheckList = $resultadoCheckList;
         }
 
-        $tblParecer = new Parecer();
+        $tblParecer = new Parecer_Model_DbTable_Parecer();
         $tblPlanilhaAprovacao = new PlanilhaAprovacao();
         $auth = Zend_Auth::getInstance(); // pega a autenticacao
         $tblProjetos = new Projetos();
@@ -604,7 +604,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract
                 $planilhaprojeto = new PlanilhaProjeto();
                 $planilhaAprovacao = new PlanilhaAprovacao();
                 $tbPreProjeto = new Proposta_Model_DbTable_PreProjeto();
-                $tblParecer = new Parecer();
+                $tblParecer = new Parecer_Model_DbTable_Parecer();
 
                 $rsPlanilhaAtual = $planilhaAprovacao->buscar(array('IdPRONAC = ?' => $idpronac), array('dtPlanilha DESC'))->current();
                 $tipoplanilha = (!empty($rsPlanilhaAtual) && $rsPlanilhaAtual->tpPlanilha == 'SE') ? 'SE' : 'CO';
@@ -767,7 +767,7 @@ class Parecer_AnaliseCnicController extends MinC_Controller_Action_Abstract
     {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
 
-        $tblParecer = new Parecer();
+        $tblParecer = new Parecer_Model_DbTable_Parecer();
 
         $tipoAgente = $this->_request->getParam("tipoplanilha");
         $parecer = $this->_request->getParam("parecer");

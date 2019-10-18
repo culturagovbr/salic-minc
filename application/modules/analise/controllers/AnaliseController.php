@@ -198,14 +198,14 @@ class Analise_AnaliseController extends Analise_GenericController
                     throw new Exception("Unidade vinculada n&atilde;o foi encontrada! Entre em contato com o administrador do sistema!");
                 }
 
-                $tbDistribuirParecer = new tbDistribuirParecer();
+                $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
                 $jaExisteParecer = $tbDistribuirParecer->buscar(array('idPronac = ?' => $idPronac))->current();
 
-                if (empty($jaExisteParecer)) {
+                    if (empty($jaExisteParecer)) {
                     $tbDistribuirParecer->inserirDistribuicaoParaParecer($idPreProjeto, $idPronac, $unidadeVinculada->idVinculada);
                 }
 
-                $tbAnaliseDeConteudo = new tbAnaliseDeConteudo();
+                $tbAnaliseDeConteudo = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                 $jaExisteAnaliseConteudo = $tbAnaliseDeConteudo->buscar(array('idPronac = ?' => $idPronac))->current();
                 if (empty($jaExisteAnaliseConteudo)) {
                     $tbAnaliseDeConteudo->inserirAnaliseConteudoParaParecerista($idPreProjeto, $idPronac);

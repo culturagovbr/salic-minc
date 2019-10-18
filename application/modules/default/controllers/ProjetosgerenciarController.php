@@ -259,7 +259,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
         $arrBusca['p.IdPRONAC =?']=$idpronac;
         $arrBusca['t.stPrincipal =?']=1;
         $arrBusca['t.stEstado =?']=0;
-        $tbDistParecer = new tbDistribuirParecer();
+        $tbDistParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
         $rsProduto = $tbDistParecer->buscarProdutos($arrBusca);
         $this->view->dados = $rsProduto;
 
@@ -288,7 +288,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
             $arrBusca['p.IdPRONAC =?']= $idpronac;
             $arrBusca['t.stEstado =?']=0;
 
-            $tbDistParecer = new tbDistribuirParecer();
+            $tbDistParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
             $rsProdutos = $tbDistParecer->buscarProdutos($arrBusca);
 
             //VOLTANDO TODOS OS PRODUTOS
@@ -390,7 +390,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
             }
 
             //APAGA PARECER DO COMPONENTE
-            $tblParecer = new Parecer();
+            $tblParecer = new Parecer_Model_DbTable_Parecer();
             $rsParecer = $tblParecer->buscar(array('idPRONAC =?'=>$idpronac,'idTipoAgente =?'=>6))->current();
             if (!empty($rsParecer)) {
                 $idparecer = isset($rsParecer->IdParecer) ? $rsParecer->IdParecer : $rsParecer->idParecer;
@@ -406,7 +406,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
 
             //APAGA PARECER do PARECERISTA
             $rsParecer = array();
-            $tblParecer = new Parecer();
+            $tblParecer = new Parecer_Model_DbTable_Parecer();
             $rsParecer = $tblParecer->buscar(array('IdPRONAC =?'=>$idpronac,'idTipoAgente =?'=>1))->current();
             if (!empty($rsParecer)) {
                 //$idParecer = $rsParecer->stAtivo = 1;
@@ -473,7 +473,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
                     $arrBusca['p.IdPRONAC = ?']    = $idPronac;
                     $arrBusca['t.stPrincipal = ?'] = 1;
                     $arrBusca['t.stEstado = ?']    = 0;
-                    $tbDistParecer = new tbDistribuirParecer();
+                    $tbDistParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
                     $rsProduto = $tbDistParecer->buscarProdutos($arrBusca);
                     if (count($rsProduto) <= 0) {
                         throw new Exception("Dados n&atilde;o encontrados.");
@@ -488,7 +488,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
                             $arrBusca['p.IdPRONAC = ?'] = $idPronac;
                             $arrBusca['t.stEstado = ?'] = 0;
 
-                            $tbDistParecer = new tbDistribuirParecer();
+                            $tbDistParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
                             $rsProdutos = $tbDistParecer->buscarProdutos($arrBusca);
 
                             //VOLTANDO TODOS OS PRODUTOS
@@ -576,7 +576,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
                             }
 
                             //APAGA PARECER DO COMPONENTE
-                            $tblParecer = new Parecer();
+                            $tblParecer = new Parecer_Model_DbTable_Parecer();
                             $rsParecer = $tblParecer->buscar(array('idPRONAC = ?' => $idPronac, 'idTipoAgente = ?' => 6))->current();
                             if (!empty($rsParecer)) {
                                 $idparecer = isset($rsParecer->IdParecer) ? $rsParecer->IdParecer : $rsParecer->idParecer;
@@ -593,7 +593,7 @@ class ProjetosGerenciarController extends MinC_Controller_Action_Abstract
 
                             //APAGA PARECER do PARECERISTA
                             $rsParecer = array();
-                            $tblParecer = new Parecer();
+                            $tblParecer = new Parecer_Model_DbTable_Parecer();
                             $rsParecer = $tblParecer->buscar(array('IdPRONAC =?' => $idPronac, 'idTipoAgente = ?' => 1))->current();
                             if (!empty($rsParecer)) {
                                 $idparecer = isset($rsParecer->IdParecer) ? $rsParecer->IdParecer : $rsParecer->idParecer;

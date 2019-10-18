@@ -1,6 +1,8 @@
 <template>
     <div>
+        <v-label v-if="label">{{ label }}</v-label>
         <vue-editor
+            class="mt-2"
             v-model="editor"
             :editor-toolbar="customToolbar"
             v-bind="$attrs"
@@ -50,8 +52,13 @@ export default {
     components: {
         VueEditor,
     },
+    inheritAttrs: false,
     props: {
         value: {
+            type: String,
+            default: '',
+        },
+        label: {
             type: String,
             default: '',
         },
@@ -66,10 +73,6 @@ export default {
         maxChar: {
             type: [String, Number],
             default: null,
-        },
-        rules: {
-            type: Array,
-            default: () => [],
         },
     },
     data() {

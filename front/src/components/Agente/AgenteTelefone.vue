@@ -16,7 +16,7 @@
                 <td>{{ telefone.dstelefone }}</td>
                 <td class="center-align">{{ telefone.ufsigla }}</td>
                 <td class="left-align">{{ telefone.ddd }} {{ telefone.numero }}</td>
-                <td class="center-align">{{ label_sim_ou_nao(telefone.divulgar) }}</td>
+                <td class="center-align">{{ telefone.divulgar | formatarLabelSimOuNao }}</td>
             </tr>
         </table>
         <table

@@ -1,7 +1,7 @@
 <?php
 class Orgaos extends MinC_Db_Table_Abstract
 {
-    protected $_banco = 'SAC';
+    protected $_schema = 'SAC';
     protected $_name  = 'Orgaos';
     protected $_primary = 'Codigo';
 
@@ -92,7 +92,6 @@ class Orgaos extends MinC_Db_Table_Abstract
                              )
                      );
         $select->where("o.Codigo = ?", $codOrgao);
-
         return $this->fetchAll($select);
     }
 
@@ -252,5 +251,36 @@ class Orgaos extends MinC_Db_Table_Abstract
         $where['Codigo in (12,167,177,270,303)'] = '?';
 
         return $this->buscar($where, array('Sigla'))->current();
+    }
+
+    public function obterUnidadesVinculadas($idOrgao)
+    {
+        $tbOrgaos = new \Orgaos();
+        $unidadesVinculadas = $tbOrgaos->buscar(
+            array(
+                "Codigo <> ?" => $idOrgao,
+                "Status = ?" => 0,
+                "Vinculo = ?" => 1,
+                "stvinculada = ?" => 1,
+                "idSecretaria <> ?" => \Orgaos::ORGAO_SUPERIOR_SEFIC,
+            )
+        )->toArray();
+
+        /**
+         * Apenas o IPHAN principal pode ter acesso as unidades vinculadas
+         */
+        if ($idOrgao == \Orgaos::ORGAO_IPHAN_PRONAC) {
+            $vinculadasIphan = $tbOrgaos->buscar(
+                array(
+                    "Codigo <> ?" => $idOrgao,
+                    "Status = ?" => 0,
+                    "idSecretaria = ?" => \Orgaos::ORGAO_IPHAN_PRONAC,
+                )
+            )->toArray();
+
+            $unidadesVinculadas = array_merge($unidadesVinculadas, $vinculadasIphan);
+        }
+
+        return $unidadesVinculadas;
     }
 }

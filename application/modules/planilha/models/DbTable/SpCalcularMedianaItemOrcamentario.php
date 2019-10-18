@@ -18,6 +18,9 @@ class Planilha_Model_DbTable_SpCalcularMedianaItemOrcamentario extends MinC_Db_T
         } catch (Zend_Exception_Db $e) {
             $this->view->message = $e->getMessage();
         }
-        return $db->fetchRow($exec);
+
+        $resultado = $db->fetchRow($exec);
+
+        return $resultado ? $resultado : [];
     }
 }

@@ -1737,7 +1737,7 @@ class Agente_AgentesController extends MinC_Controller_Action_Abstract
                 // Criar uma funcao para isso!
 
 
-                $tbDistribuirParecer = new tbDistribuirParecer();
+                $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
                 $projetoDAO = new Projetos();
                 $projetos = $projetoDAO->buscaProjetosProdutosAnaliseInicial(array('idAgenteParecerista = ?' => $idAgente, 'DtDistribuicao >= ?' => '' . $dtInicio . '', 'DtDistribuicao <= ?' => '' . $dtFim . ''));
 

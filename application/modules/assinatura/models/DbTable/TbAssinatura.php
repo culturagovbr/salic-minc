@@ -28,7 +28,7 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
     const TIPO_ATO_PARECER_TECNICO_READEQUACAO_VINCULADAS = 653;
     const TIPO_ATO_PARECER_TECNICO_AJUSTE_DE_PROJETO = 654;
     const TIPO_ATO_PARECER_TECNICO_READEQUACAO_PROJETOS_MINC = 655;
-    
+
     const TIPO_ATO_READEQUACAO_PLANILHA_ORCAMENTARIA = 656;
     const TIPO_ATO_READEQUACAO_ALTERACAO_RAZAO_SOCIAL = 657;
     const TIPO_ATO_READEQUACAO_AGENCIA_BANCARIA = 658;
@@ -256,7 +256,7 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
         if (!$this->modeloTbAssinatura) {
             throw new Exception("&Eacute; necess&aacute;rio definir uma entidade de Assinatura.");
         }
-        
+
         if (is_null($this->modeloTbAssinatura->getIdDocumentoAssinatura())) {
             throw new Exception("Identificador do Documento de Assinatura n&atilde;o informado.");
         }
@@ -312,7 +312,7 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
         $sqlTotalQuantidadeAssinaturasGrupo = '';
         $sqlPossuiAssinaturaGrupo = '';
         $sqlAtoAdministrativoGrupo = '';
-        if($grupo) {
+        if ($grupo) {
             $sqlTotalQuantidadeAssinaturasGrupo = " AND TbAtoAdministrativoInterno.grupo = {$this->modeloTbAtoAdministrativo->getGrupo()} ";
             $sqlPossuiAssinaturaGrupo = " AND {$this->_schema}.TbAtoAdministrativo.grupo = {$this->modeloTbAtoAdministrativo->getGrupo()} ";
             $sqlAtoAdministrativoGrupo = " AND TbAtoAdministrativo.grupo = {$this->modeloTbAtoAdministrativo->getGrupo()} ";
@@ -421,6 +421,7 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
         $query->where("TbAtoAdministrativo.idOrgaoDoAssinante = ?", $this->modeloTbAtoAdministrativo->getIdOrgaoDoAssinante());
         $query->where("tbDocumentoAssinatura.cdSituacao = ?", Assinatura_Model_TbDocumentoAssinatura::CD_SITUACAO_DISPONIVEL_PARA_ASSINATURA);
         $query->where("tbDocumentoAssinatura.stEstado = ?", Assinatura_Model_TbDocumentoAssinatura::ST_ESTADO_DOCUMENTO_ATIVO);
+        $query->where("TbAtoAdministrativo.stEstado = ?", Assinatura_Model_TbAtoAdministrativo::ST_ESTADO_ATIVO);
         $query->where("tbDocumentoAssinatura.idDocumentoAssinatura not in (
             select idDocumentoAssinatura
               from TbAssinatura

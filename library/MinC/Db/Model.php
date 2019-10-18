@@ -50,6 +50,16 @@ class MinC_Db_Model
     {
         $methods = get_class_methods($this);
         $class_vars = get_class_vars(get_class($this));
+
+        if (empty($class_vars)) {
+            $reflection = new \ReflectionClass($this);
+            $properties = $reflection->getProperties(ReflectionProperty::IS_PRIVATE);
+            $class_vars = [];
+            foreach ($properties as $value) {
+                $class_vars[$value->getName()] = '';
+            }
+        }
+
         $array = array();
         foreach ($class_vars as $key => $value) {
             $key = str_replace('_', '', $key);

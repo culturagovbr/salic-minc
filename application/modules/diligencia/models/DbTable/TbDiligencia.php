@@ -32,6 +32,7 @@ class Diligencia_Model_DbTable_TbDiligencia extends MinC_Db_Table_Abstract
                 'Resposta' => new Zend_Db_Expr('CAST(dil.Resposta AS TEXT)'),
                 'dil.idCodigoDocumentosExigidos',
                 'dil.idTipoDiligencia',
+                'dil.idProduto',
                 'dil.stEnviado'
             )
         );
@@ -90,7 +91,7 @@ class Diligencia_Model_DbTable_TbDiligencia extends MinC_Db_Table_Abstract
             [],
             $this->_schema
         );
-        
+
         $select->joinInner(
             ['tbReadequacao' => 'tbReadequacao'],
             'tbReadequacao.idReadequacao = tbReadequacaoXtbDiligencia.idReadequacao',
@@ -122,11 +123,11 @@ class Diligencia_Model_DbTable_TbDiligencia extends MinC_Db_Table_Abstract
             ['produto' => new Zend_Db_Expr('CAST(tbTipoReadequacao.dsReadequacao AS TEXT)')],
             $this->_schema
         );
-        
+
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
-        
+
         return $this->fetchAll($select);
     }
 }

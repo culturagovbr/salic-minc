@@ -107,7 +107,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
 
 
                     //VERIFICA SE O PROJETO EST� NA CNIC //
-                    $Parecer = new Parecer();
+                    $Parecer = new Parecer_Model_DbTable_Parecer();
                     $dadosCNIC = $Parecer->verificaProjSituacaoCNIC($pronac);
 
                     $msgCNIC = 0;
@@ -1426,7 +1426,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
                                 $objSegmentocultural = new Segmentocultural();
                                 $this->view->combosegmentosculturaisReconsideracao = $objSegmentocultural->buscarSegmento($this->view->projetosENReconsideracao->cdArea);
 
-                                $parecer = new Parecer();
+                                $parecer = new Parecer_Model_DbTable_Parecer();
                                 $this->view->ParecerReconsideracao = $parecer->buscar(array('IdPRONAC = ?' => $dados->IdPRONAC, 'TipoParecer in (?)' => array(1,7), 'stAtivo = ?' => 1))->current();
                             }
                         }
@@ -1463,7 +1463,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
                                 $objSegmentocultural = new Segmentocultural();
                                 $this->view->combosegmentosculturaisRecurso = $objSegmentocultural->buscarSegmento($this->view->projetosENRecurso->cdArea);
 
-                                $parecer = new Parecer();
+                                $parecer = new Parecer_Model_DbTable_Parecer();
                                 $this->view->ParecerRecurso = $parecer->buscar(array('IdPRONAC = ?' => $dados->IdPRONAC, 'TipoParecer = ?' => 7, 'stAtivo = ?' => 1))->current();
                             }
                         }
@@ -1712,7 +1712,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
             $this->view->idPronac = $idPronac;
             $this->view->DadosProjeto = $DadosProjeto;
 
-            $tbDistribuirParecer = new tbDistribuirParecer();
+            $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
             $this->view->dados = $tbDistribuirParecer->buscarHistoricoEncaminhamento(array('a.idPRONAC = ?'=>$idPronac));
         }
     }
@@ -1732,7 +1732,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
             $this->view->idPronac = $idPronac;
             $this->view->DadosProjeto = $DadosProjeto;
 
-            $tbDistribuirParecer = new tbDistribuirParecer();
+            $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
             $this->view->dados = $tbDistribuirParecer->buscarHistoricoEncaminhamento(array('a.idPRONAC = ?'=>$idPronac));
         }
     }
@@ -2899,7 +2899,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
 
             //INICIAL
             if ($tipoAnalise == "inicial") {
-                $parecer = new Parecer();
+                $parecer = new Parecer_Model_DbTable_Parecer();
                 $analiseparecer = $parecer->buscarParecer(array(1), $idPronac)->current();
                 if (is_object($analiseparecer)) {
                     $this->view->resultAnaliseProjeto = $analiseparecer->toArray();
@@ -2985,7 +2985,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
             }
             //CNIC
             if ($tipoAnalise == "cnic") {
-                $parecer = new Parecer();
+                $parecer = new Parecer_Model_DbTable_Parecer();
                 $analiseparecer = $parecer->buscarParecer(array(6), $idPronac)->current();
                 if (is_object($analiseparecer)) {
                     $this->view->resultAnaliseProjetoCNIC = $analiseparecer->toArray();
@@ -3071,7 +3071,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
             }
             //PLENARIA
             if ($tipoAnalise == "plenaria") {
-                $parecer = new Parecer();
+                $parecer = new Parecer_Model_DbTable_Parecer();
                 $analiseparecer = $parecer->buscarParecer(array(10), $idPronac)->current();
                 if (is_object($analiseparecer)) {
                     $this->view->resultAnaliseProjetoPlenaria = $analiseparecer->toArray();
@@ -4019,13 +4019,13 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
 
                     //PARECER CONSOLIDADO
                     if (in_array('parecer-consolidado', $arrConteudoImpressao)) {
-                        $Parecer = new Parecer();
+                        $Parecer = new Parecer_Model_DbTable_Parecer();
                         $this->view->identificacaoParecerConsolidado = $Parecer->identificacaoParecerConsolidado($idPronac);
 
                         $vwMemoriaDeCalculo = new vwMemoriaDeCalculo();
                         $this->view->memoriaDeCalculo = $vwMemoriaDeCalculo->busca($idPronac);
 
-                        $tbAnaliseDeConteudo = new tbAnaliseDeConteudo();
+                        $tbAnaliseDeConteudo = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                         $this->view->outrasInformacoesParecer = $tbAnaliseDeConteudo->buscarOutrasInformacoes($idPronac);
 
                         $tbPauta = new tbPauta();
@@ -4148,7 +4148,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
                             $this->view->valorcomponente  = 0;
                             $this->view->enquadramento = 'N&atilde;o Enquadrado';
 
-                            $parecer = new Parecer();
+                            $parecer = new Parecer_Model_DbTable_Parecer();
                             $analiseparecer = $parecer->buscarParecer(array(1), $idPronac)->current();
                             if (is_object($analiseparecer)) {
                                 $this->view->resultAnaliseProjeto = $analiseparecer->toArray();
@@ -4241,7 +4241,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
                             $this->view->totalpareceristaInicial = $buscarsomaprojeto['soma'];
 
                             // === CNIC == PARECER CONSOLIDADO
-                            $parecer = new Parecer();
+                            $parecer = new Parecer_Model_DbTable_Parecer();
                             $analiseparecer = $parecer->buscarParecer(array(6), $idPronac)->current();
                             if (is_object($analiseparecer)) {
                                 $this->view->resultAnaliseProjetoCNIC = $analiseparecer->toArray();
@@ -4350,7 +4350,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
                             $this->view->totalpareceristaCNIC = $buscarsomaprojeto['soma'];
 
                             // === PLENARIA == PARECER CONSOLIDADO
-                            $parecer = new Parecer();
+                            $parecer = new Parecer_Model_DbTable_Parecer();
                             $analiseparecer = $parecer->buscarParecer(array(10), $idPronac)->current();
                             if (is_object($analiseparecer)) {
                                 $this->view->resultAnaliseProjetoPlenaria = $analiseparecer->toArray();
@@ -4951,7 +4951,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
                             $this->view->valorcomponente  = 0;
                             $this->view->enquadramento = 'N&atilde;o Enquadrado';
 
-                            $parecer = new Parecer();
+                            $parecer = new Parecer_Model_DbTable_Parecer();
                             $analiseparecer = $parecer->buscarParecer(array(1), $idPronac)->current();
                             if (is_object($analiseparecer)) {
                                 $this->view->resultAnaliseProjeto = $analiseparecer->toArray();
@@ -5044,7 +5044,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
                             $this->view->totalpareceristaInicial = $buscarsomaprojeto['soma'];
 
                             // === CNIC == PARECER CONSOLIDADO
-                            $parecer = new Parecer();
+                            $parecer = new Parecer_Model_DbTable_Parecer();
                             $analiseparecer = $parecer->buscarParecer(array(6), $idPronac)->current();
                             if (is_object($analiseparecer)) {
                                 $this->view->resultAnaliseProjetoCNIC = $analiseparecer->toArray();
@@ -5153,7 +5153,7 @@ class VerProjetosController extends MinC_Controller_Action_Abstract
                             $this->view->totalpareceristaCNIC = $buscarsomaprojeto['soma'];
 
                             // === PLENARIA == PARECER CONSOLIDADO
-                            $parecer = new Parecer();
+                            $parecer = new Parecer_Model_DbTable_Parecer();
                             $analiseparecer = $parecer->buscarParecer(array(10), $idPronac)->current();
                             if (is_object($analiseparecer)) {
                                 $this->view->resultAnaliseProjetoPlenaria = $analiseparecer->toArray();

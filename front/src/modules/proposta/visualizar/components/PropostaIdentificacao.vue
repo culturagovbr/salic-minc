@@ -1,126 +1,236 @@
 <template>
-    <div
-        v-if="proposta"
-        class="dados-basicos">
-        <div class="card">
-            <div class="card-content">
-                <h5>Identifica&ccedil;&atilde;o</h5>
-                <div class="row">
-                    <div
-                        v-if="proposta.PRONAC"
-                        class="col s12 l3 m3">
-                        <b>Pronac</b><br>
-                        {{ proposta.PRONAC }}
-                    </div>
-                    <div
-                        v-if="proposta.idPreProjeto"
-                        class="col s12 l3 m3">
-                        <b>N&ordm; da proposta</b><br>
-                        {{ proposta.idPreProjeto }}
-                    </div>
-                    <div class="col s12 l6 m6">
-                        <b>Nome Projeto</b><br>
-                        <SalicTextoSimples :texto="proposta.NomeProjeto"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <h5>Tipicidade e seus limites orçamentários</h5>
-                <div class="row">
-                    <div class="col s12 l6 m6">
-                        <b>Tipicidade</b><br>
-                        <SalicTextoSimples :texto="proposta.DescricaoTipicidade"/>
-                    </div>
-                    <div class="col s12 l6 m6">
-                        <b>Tipologia</b><br>
-                        <SalicTextoSimples :texto="proposta.DescricaoTipologia"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <h5>Informa&ccedil;&otilde;es complementares</h5>
-                <div class="row">
-                    <div
-                        v-if="proposta.Mecanismo"
-                        class="col s12 l3 m3">
-                        <b>Mecanismo</b><br>
-                        {{ mecanismo }}
-                    </div>
-                    <div
-                        v-if="proposta.DtInicioDeExecucao"
-                        class="col s12 l3 m3">
-                        <b>In&iacute;cio Execu&ccedil;&atilde;o</b><br>
-                        {{ dtInicioDeExecucao }}
-                    </div>
-                    <div
-                        v-if="proposta.DtFinalDeExecucao"
-                        class="col s12 l3 m3">
-                        <b>Final Execu&ccedil;&atilde;o</b><br>
-                        {{ dtFinalDeExecucao }}
-                    </div>
-                    <div
-                        v-if="proposta.stDataFixa"
-                        class="col s12 l3 m3">
-                        <b>Dt. Fixa</b><br>
-                        {{ stDataFixa }}
-                    </div>
-                </div>
-                <div class="divider"/>
-                <div class="row">
-                    <div class="col s12 l3 m3">
-                        <b>Ag&ecirc;ncia banc&aacute;ria</b><br>
-                        <SalicTextoSimples :texto="proposta.AgenciaBancaria"/>
-                    </div>
-                    <div
-                        v-if="proposta.AreaAbrangencia"
-                        class="col s12 l3 m3">
-                        <b>&Eacute; proposta audiovisual</b><br>
-                        {{ areaAbrangencia }}
-                    </div>
-                    <div
-                        v-if="proposta.tpProrrogacao"
-                        class="col s12 l3 m3">
-                        <b>Prorroga&ccedil;&atilde;o autom&aacute;tica</b><br>
-                        {{ tpProrrogacao }}
-                    </div>
-                    <div class="col s12 l3 m3">
-                        <b>Tipo de execu&ccedil;&atilde;o</b><br>
-                        <SalicTextoSimples :texto="proposta.TipoExecucao"/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div
-            v-if="proposta.NrAtoTombamento && proposta.NrAtoTombamento.length > 1"
-            class="card">
-            <div class="card-content">
-                <h5>Tombamento</h5>
-                <div class="row">
-                    <div class="col s12 l4 m4">
-                        <b>Nº Ato</b><br>
-                        {{ proposta.NrAtoTombamento }}
-                    </div>
-                    <div class="col s12 l4 m4">
-                        <b>Dt. Ato</b><br>
-                        {{ dtAtoTombamento }}
-                    </div>
-                    <div class="col s12 l4 m4">
-                        <b>Esfera</b><br>
-                        {{ esferaTombamento }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <v-container
+        fluid
+        grid-list-md
+        class="ma-0"
+    >
+        <v-layout
+            row
+            wrap
+        >
+            <v-flex
+                d-flex
+                xs12
+                sm12
+                md12
+            >
+                <v-card>
+                    <v-card-title
+                        primary
+                        class="title"
+                    >
+                        Identificação
+                    </v-card-title>
+                    <v-card-text>
+                        <v-layout
+                            row
+                            wrap
+                        >
+                            <v-flex
+                                v-if="proposta.PRONAC"
+                                xs12
+                                sm3
+                                md3
+                            >
+                                <b>Pronac</b><br>
+                                <a :href="`/projeto/#/${proposta.idPronac}`">
+                                    {{ proposta.PRONAC }}
+                                </a>
+                            </v-flex>
+                            <v-flex
+                                v-if="proposta.idPreProjeto"
+                                xs12
+                                sm3
+                                md3
+                            >
+                                <b>N&ordm; da proposta</b><br>
+                                {{ proposta.idPreProjeto }}
+                            </v-flex>
+                            <v-flex
+                                xs12
+                                sm6
+                                md6
+                            >
+                                <b>Nome Projeto</b><br>
+                                <salic-texto-simples :texto="proposta.NomeProjeto" />
+                            </v-flex>
+                        </v-layout>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+            <v-flex
+                d-flex
+                xs12
+                sm12
+                md12
+            >
+                <v-card>
+                    <v-card-title
+                        primary
+                        class="title"
+                    >
+                        Tipicidade e seus limites orçamentários
+                    </v-card-title>
+                    <v-card-text>
+                        <v-layout row>
+                            <v-flex
+                                v-if="proposta.Mecanismo"
+                                xs12
+                                sm12
+                                md3
+                            >
+                                <b>Tipicidade</b><br>
+                                <salic-texto-simples :texto="proposta.DescricaoTipicidade" />
+                            </v-flex>
+                            <v-flex
+                                v-if="proposta.DtInicioDeExecucao"
+                                xs12
+                                sm12
+                                md3
+                            >
+                                <b>Tipologia</b><br>
+                                <salic-texto-simples :texto="proposta.DescricaoTipologia" />
+                            </v-flex>
+                        </v-layout>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+            <v-flex
+                d-flex
+                xs12
+                sm12
+                md12
+            >
+                <v-card>
+                    <v-card-title
+                        primary
+                        class="title"
+                    >
+                        Informações complementares
+                    </v-card-title>
+                    <v-card-text>
+                        <v-layout row>
+                            <v-flex
+                                v-if="proposta.Mecanismo"
+                                xs12
+                                sm12
+                                md3
+                            >
+                                <b>Mecanismo</b><br>
+                                {{ proposta.Mecanismo | formatarLabelMecanismo }}
+                            </v-flex>
+                            <v-flex
+                                v-if="proposta.DtInicioDeExecucao"
+                                xs12
+                                sm12
+                                md3
+                            >
+                                <b>In&iacute;cio Execu&ccedil;&atilde;o</b><br>
+                                {{ proposta.DtInicioDeExecucao | formatarData }}
+                            </v-flex>
+                            <v-flex
+                                v-if="proposta.DtFinalDeExecucao"
+                                xs12
+                                sm12
+                                md3
+                            >
+                                <b>Final Execu&ccedil;&atilde;o</b><br>
+                                {{ proposta.DtFinalDeExecucao | formatarData }}
+                            </v-flex>
+                            <v-flex
+                                v-if="proposta.stDataFixa"
+                                xs12
+                                sm12
+                                md3
+                            >
+                                <b>Dt. Fixa</b><br>
+                                {{ proposta.stDataFixa | formatarLabelSimOuNao }}
+                            </v-flex>
+                        </v-layout>
+                        <v-divider />
+                        <v-layout>
+                            <v-flex
+                                xs12
+                                sm12
+                                md3
+                            >
+                                <b>Ag&ecirc;ncia banc&aacute;ria</b><br>
+                                <salic-texto-simples :texto="proposta.AgenciaBancaria" />
+                            </v-flex>
+                            <v-flex
+                                v-if="proposta.AreaAbrangencia"
+                                xs12
+                                sm12
+                                md3
+                            >
+                                <b>&Eacute; proposta audiovisual</b><br>
+                                {{ proposta.AreaAbrangencia | formatarLabelSimOuNao }}
+                            </v-flex>
+                            <v-flex
+                                v-if="proposta.tpProrrogacao"
+                                xs12
+                                sm12
+                                md3
+                            >
+                                <b>Prorroga&ccedil;&atilde;o autom&aacute;tica</b><br>
+                                {{ proposta.tpProrrogacao | formatarLabelSimOuNao }}
+                            </v-flex>
+                            <v-flex
+                                xs12
+                                sm12
+                                md3
+                            >
+                                <b>Tipo de execu&ccedil;&atilde;o</b><br>
+                                <salic-texto-simples :texto="proposta.TipoExecucao" />
+                            </v-flex>
+                        </v-layout>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+            <v-flex xs12>
+                <v-card
+                    v-if="proposta && proposta.NrAtoTombamento && proposta.NrAtoTombamento.length > 1"
+                >
+                    <v-card-title
+                        primary
+                        class="title"
+                    >
+                        Tombamento
+                    </v-card-title>
+                    <v-card-text>
+                        <v-layout row>
+                            <v-flex
+                                xs12
+                                sm12
+                                md3
+                            >
+                                <b>Nº Ato</b><br>
+                                {{ proposta.NrAtoTombamento }}
+                            </v-flex>
+                            <v-flex
+                                xs12
+                                sm12
+                                md3
+                            >
+                                <b>Dt. Ato</b><br>
+                                {{ proposta.DtAtoTombamento | formatarData }}
+                            </v-flex>
+                            <v-flex
+                                xs12
+                                sm12
+                                md3
+                            >
+                                <b>Esfera</b><br>
+                                {{ proposta.EsferaTombamento | formatarLabelEsfera }}
+                            </v-flex>
+                        </v-layout>
+                    </v-card-text>
+                </v-card>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 <script>
-import moment from 'moment';
 import SalicTextoSimples from '@/components/SalicTextoSimples';
 import { utils } from '@/mixins/utils';
 
@@ -129,9 +239,7 @@ export default {
     components: {
         SalicTextoSimples,
     },
-    mixins: [
-        utils,
-    ],
+    mixins: [utils],
     props: {
         idpreprojeto: {
             type: null,
@@ -142,68 +250,6 @@ export default {
             default() {
                 return {};
             },
-        },
-    },
-    computed: {
-        stDataFixa() {
-            return this.label_sim_ou_nao(this.proposta.stDataFixa);
-        },
-        areaAbrangencia() {
-            return this.label_sim_ou_nao(this.proposta.AreaAbrangencia);
-        },
-        tpProrrogacao() {
-            return this.label_sim_ou_nao(this.proposta.tpProrrogacao);
-        },
-        mecanismo() {
-            return this.labelMecanismo(this.proposta.Mecanismo);
-        },
-        dtInicioDeExecucao() {
-            return this.formatar_data(this.proposta.DtInicioDeExecucao);
-        },
-        dtFinalDeExecucao() {
-            return this.formatar_data(this.proposta.DtFinalDeExecucao);
-        },
-        dtAtoTombamento() {
-            return this.formatar_data(this.proposta.DtAtoTombamento);
-        },
-        esferaTombamento() {
-            return this.labelEsfera(this.proposta.EsferaTombamento);
-        },
-    },
-    methods: {
-        labelMecanismo(valor) {
-            switch (valor) {
-            case '1':
-            case 1:
-                return 'Mecenato';
-            default:
-                return 'Inv\xE1lido';
-            }
-        },
-        formatar_data(date) {
-            const dateValue = moment(date).format('DD/MM/YYYY');
-
-            return dateValue;
-        },
-        labelEsfera(esfera) {
-            let string;
-
-            switch (esfera) {
-            case '1':
-                string = 'Municipal';
-                break;
-            case '2':
-                string = 'Estadual';
-                break;
-            case '3':
-                string = 'Federal';
-                break;
-            default:
-                string = 'N\xE3o informada';
-                break;
-            }
-
-            return string;
         },
     },
 };

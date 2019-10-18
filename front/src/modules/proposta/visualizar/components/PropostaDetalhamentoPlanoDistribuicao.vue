@@ -1,86 +1,96 @@
 <template>
-    <div class="detalhamento-plano-distribuicao">
-        <ul
-            class="collapsible"
-            data-collapsible="expandable">
-            <li
-                v-for="( detalhamento, index ) in detalhamentos"
-                :key="index">
-                <div class="collapsible-header">
-                    <i class="material-icons">place</i>
-                    Detalhamento - {{ detalhamento[0].DescricaoUf }}
-                    - {{ detalhamento[0].DescricaoMunicipio }}
-                </div>
-                <div class="collapsible-body no-padding margin20 scroll-x">
-                    <table>
-                        <thead v-if="detalhamento.length > 0">
+    <v-container
+        fluid
+    >
+        <v-layout
+            row
+            wrap>
+            <v-expansion-panel
+                :value="[1]"
+                expand>
+                <v-expansion-panel-content
+                    v-for="( detalhamento, index ) in detalhamentos"
+                    :key="index">
+                    <v-layout slot="header">
+                        <i class="material-icons">place</i>
+                        <span class="ml-2 mt-1">Detalhamento - {{ detalhamento[0].DescricaoUf }}
+                            - {{ detalhamento[0].DescricaoMunicipio }}</span>
+                    </v-layout>
+                    <v-data-table
+                        :items="detalhamento"
+                        :headers="headers"
+                        class="elevation-1"
+                        hide-actions
+                    >
+                        <template
+                            slot="headers"
+                            slot-scope="props">
                             <tr>
-                                <th rowspan="2">Categoria</th>
-                                <th rowspan="2">Qtd.</th>
+                                <th colspan="3"/>
                                 <th
-                                    class="center-align gratuito"
-                                    rowspan="2">
-                                    Dist. <br>Gratuita
-                                </th>
-                                <th
-                                    class="center-align popular"
+                                    align="center"
+                                    style="border: 1px solid #ddd"
                                     colspan="3">
                                     Pre&ccedil;o Popular
                                 </th>
                                 <th
-                                    class="center-align proponente"
+                                    align="center"
+                                    style="border: 1px solid #ddd"
                                     colspan="3">
                                     Proponente
                                 </th>
-                                <th
-                                    rowspan="2"
-                                    class="center-align">Receita <br> Prevista</th>
+                                <th/>
                             </tr>
                             <tr>
-                                <th class="right-align popular">Qtd. Inteira</th>
-                                <th class="right-align popular">Qtd. Meia</th>
-                                <th class="right-align popular">
-                                    Pre&ccedil;o <br> Unit&aacute;rio</th>
-                                <th class="right-align proponente">Qtd. Inteira</th>
-                                <th class="right-align proponente">Qtd. Meia</th>
-                                <th class="right-align proponente">
-                                    Pre&ccedil;o <br> Unit&aacute;rio</th>
+                                <th
+                                    v-for="header in props.headers"
+                                    :key="header.text"
+                                    :class="[
+                                        'column sortable',
+                                        pagination.descending ? 'desc' : 'asc',
+                                        header.value === pagination.sortBy ? 'active' : ''
+                                    ]"
+                                    @click="changeSort(header.value)"
+                                >
+                                    <v-icon small>arrow_upward</v-icon>
+                                    {{ header.text }}
+                                </th>
                             </tr>
-                        </thead>
-                        <tbody v-if="detalhamento.length > 0">
-                            <tr
-                                v-for="( item, index ) in detalhamento"
-                                :key="index">
-                                <td>{{ item.dsProduto }}</td>
-                                <td class="right-align">{{ item.qtExemplares }}</td>
+                        </template>
+                        <template
+                            slot="items"
+                            slot-scope="props">
+                            <td>{{ props.item.dsProduto }}</td>
+                            <td class="text-xs-right">{{ props.item.qtExemplares }}</td>
 
-                                <td class="right-align">
-                                    {{ parseInt(item.qtGratuitaDivulgacao) +
-                                        parseInt(item.qtGratuitaPatrocinador) +
-                                    parseInt(item.qtGratuitaPopulacao) }}
-                                </td>
+                            <td class="text-xs-right">
+                                {{ parseInt(props.item.qtGratuitaDivulgacao) +
+                                    parseInt(props.item.qtGratuitaPatrocinador) +
+                                parseInt(props.item.qtGratuitaPopulacao) }}
+                            </td>
 
-                                <td class="right-align">{{ item.qtPopularIntegral }}</td>
-                                <td class="right-align">{{ item.qtPopularParcial }}</td>
-                                <td class="right-align">
-                                    {{ item.vlUnitarioPopularIntegral | filtroFormatarParaReal }}
-                                </td>
-                                <td class="right-align">{{ item.qtProponenteIntegral }}</td>
-                                <td class="right-align">{{ item.qtProponenteParcial }}</td>
-                                <td class="right-align">
-                                    {{ item.vlUnitarioProponenteIntegral | filtroFormatarParaReal }}
-                                </td>
-                                <td class="right-align">
-                                    {{ item.vlReceitaPrevista | filtroFormatarParaReal }}</td>
-                            </tr>
-                        </tbody>
-                        <PropostaDetalhamentoConsolidacao
-                            :items="detalhamento"/>
-                    </table>
-                </div>
-            </li>
-        </ul>
-    </div>
+                            <td class="text-xs-right">{{ props.item.qtPopularIntegral }}</td>
+                            <td class="text-xs-right">{{ props.item.qtPopularParcial }}</td>
+                            <td class="text-xs-right">
+                                {{ props.item.vlUnitarioPopularIntegral | filtroFormatarParaReal }}
+                            </td>
+                            <td class="text-xs-right">{{ props.item.qtProponenteIntegral }}</td>
+                            <td class="text-xs-right">{{ props.item.qtProponenteParcial }}</td>
+                            <td class="text-xs-right">
+                                {{ props.item.vlUnitarioProponenteIntegral | filtroFormatarParaReal }}
+                            </td>
+                            <td class="text-xs-right">
+                                {{ props.item.vlReceitaPrevista | filtroFormatarParaReal }}</td>
+                        </template>
+                        <template slot="footer">
+                            <PropostaDetalhamentoConsolidacao
+                                :items="detalhamento"/>
+                        </template>
+                    </v-data-table>
+                </v-expansion-panel-content>
+            </v-expansion-panel>
+        </v-layout>
+    </v-container>
 </template>
 <script>
 import planilhas from '@/mixins/planilhas';
@@ -101,6 +111,21 @@ export default {
     data() {
         return {
             detalhamentos: [],
+            pagination: {
+                sortBy: 'dsProduto',
+            },
+            headers: [
+                { text: 'Categoria', value: 'dsProduto' },
+                { text: 'Qtd.', value: 'qtExemplares' },
+                { text: 'Dist. Gratuita', align: 'center', value: 'qtGratuitaDivulgacao' },
+                { text: 'Qtd. Inteira (P)', align: 'center', value: 'qtPopularIntegral' },
+                { text: 'Qtd. Meia (P)', align: 'center', value: 'qtPopularParcial' },
+                { text: 'Preço Unitário(P)', align: 'center', value: 'vlUnitarioPopularIntegral' },
+                { text: 'Qtd. Inteira (PR)', align: 'center', value: 'qtProponenteIntegral' },
+                { text: 'Qtd. Meia (PR)', align: 'center', value: 'qtProponenteParcial' },
+                { text: 'Preço Unitário (PR)', align: 'center', value: 'vlUnitarioProponenteIntegral' },
+                { text: 'Receita Prevista', align: 'center', value: 'vlReceitaPrevista' },
+            ],
         };
     },
     watch: {
@@ -110,18 +135,10 @@ export default {
     },
     mounted() {
         if (typeof this.arrayDetalhamentos !== 'undefined') {
-            this.iniciarCollapsible();
             this.detalhamentos = this.montarVisualizacao(this.arrayDetalhamentos);
         }
     },
     methods: {
-        iniciarCollapsible() {
-            // eslint-disable-next-line
-            $3('.detalhamento-plano-distribuicao .collapsible').each(function () {
-                // eslint-disable-next-line
-                $3(this).collapsible();
-            });
-        },
         montarVisualizacao(detalhamentos) {
             const novoDetalhamento = {};
             let i = 0;
@@ -142,6 +159,14 @@ export default {
             });
 
             return novoDetalhamento;
+        },
+        changeSort(column) {
+            if (this.pagination.sortBy === column) {
+                this.pagination.descending = !this.pagination.descending;
+            } else {
+                this.pagination.sortBy = column;
+                this.pagination.descending = false;
+            }
         },
     },
 };

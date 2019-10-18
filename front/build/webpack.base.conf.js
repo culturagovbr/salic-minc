@@ -50,8 +50,7 @@ module.exports = {
              ...(process.env.NODE_ENV !== 'production' && config.dev.useEslint ? [createLintingRule()] : []),
             {
                 test: /\.vue$/,
-                loader: 'vue-loader',
-                options: vueLoaderConfig
+                loader: 'vue-loader'
             },
             {
                 test: /\.js$/,

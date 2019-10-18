@@ -81,7 +81,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
         $usu_codigo = $auth->getIdentity()->usu_codigo;
         $mensagemprojeto = new Mensagemprojeto();
         $projetos = new Projetos();
-        $pa = new Parecer();
+        $pa = new Parecer_Model_DbTable_Parecer();
 
         if (isset($_POST['idpronac'])) {
             $quebra = chr(13) . chr(10); // Quebra de linha no TXT
@@ -155,7 +155,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
         }
         /* Fim Perfil de Coordenador e T�cnico de Adminissibilidade  */
         /* Perfil de Coordenador de Parecerista / Parecerista  */
-        $DistribuirParecerDAO = new tbDistribuirParecer();
+        $DistribuirParecerDAO = new Parecer_Model_DbTable_TbDistribuirParecer();
         $atores = $DistribuirParecerDAO->buscarPareceristaCoordParecer($idpronac);
         
         foreach ($atores as $ator) {
@@ -361,7 +361,7 @@ class MantermensagensController extends MinC_Controller_Action_Abstract
         }
         /* Fim Perfil de Coordenador e T�cnico de Adminissibilidade  */
         /* Perfil de Coordenador de Parecerista / Parecerista  */
-        $DistribuirParecerDAO = new tbDistribuirParecer();
+        $DistribuirParecerDAO = new Parecer_Model_DbTable_TbDistribuirParecer();
         /*$where = array(
             //'gru.gru_codigo = ?' => 94,
             'dp.idPRONAC = ? ' => $idpronac

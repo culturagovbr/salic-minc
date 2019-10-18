@@ -132,22 +132,12 @@ class Proposta_Model_PreProjetoMapper extends MinC_Db_Mapper
             $newArray = [];
 
             foreach ($proposta['tbcustosvinculados'] as $key => $dado) {
-                $objDateTime = new DateTime($dado['dtCadastro']);
                 $newArray[$key]['item'] = $dado['item'];
-                $newArray[$key]['dtCadastro'] = $objDateTime->format('d/m/Y');
+                $newArray[$key]['dtCadastro'] = $dado['dtCadastro'];
                 $newArray[$key]['pcCalculo'] = $dado['pcCalculo'] . '%';
             }
 
-            $custosVinculados = [];
-            $custosVinculados['class'] = 'bordered striped';
-            $custosVinculados['lines'] = $newArray;
-            $custosVinculados['cols'] = [
-                'item' => ['name' => 'Item'],
-                'dtCadastro' => ['name' => 'Data', 'class' => 'valig'],
-                'pcCalculo' => ['name' => 'Percentual']
-            ];
-
-            $proposta['tbcustosvinculados'] = $custosVinculados;
+            $proposta['tbcustosvinculados'] = $newArray;
         }
 
         $proposta['tbplanilhaproposta'] = $this->montarPlanilhaProposta(
@@ -177,13 +167,9 @@ class Proposta_Model_PreProjetoMapper extends MinC_Db_Mapper
         foreach ($planilhaOrcamentaria as $item) {
             $row = [];
 
-            $produto = !empty($item['idProduto']) ? $item['DescricaoProduto'] : html_entity_decode('Administra&ccedil;&atilde;o do Projeto');
-            $fonte = $item['DescricaoRecurso'];
-            $etapa = $item['DescricaoEtapa'];
-            $regiao = $item['DescricaoUf'] . ' - ' . $item['DescricaoMunicipio'];
-
             $row["Seq"] = $i;
             $row["idPlanilhaProposta"] = $item['idPlanilhaProposta'];
+            $row["Produto"] = !empty($item['DescricaoProduto']) ? $item['DescricaoProduto'] : html_entity_decode('Administra&ccedil;&atilde;o do Projeto');
             $row["Item"] = $item['DescricaoItem'];
             $row["Unidade"] = $item['DescricaoUnidade'];
             $row['FonteRecurso'] = $item['DescricaoRecurso'];
@@ -198,15 +184,7 @@ class Proposta_Model_PreProjetoMapper extends MinC_Db_Mapper
             $row["vlSolicitado"] = $item['Quantidade'] * $item['Ocorrencia'] * $item['ValorUnitario'];
             $row['JustProponente'] = $item['dsJustificativa'];
             $row['stCustoPraticado'] = $item['stCustoPraticado'];
-
-            $planilha[$fonte]['total'] += $row["vlSolicitado"];
-            $planilha[$fonte][$produto]['total'] += $row["vlSolicitado"];
-            $planilha[$fonte][$produto][$etapa]['total'] += $row["vlSolicitado"];
-            $planilha[$fonte][$produto][$etapa][$regiao]['total'] += $row["vlSolicitado"];
-            $planilha[$fonte][$produto][$etapa][$regiao]['itens'][] = $row;
-
-            $planilha['total'] += $row["vlSolicitado"];
-
+            $planilha[] = $row;
             $count++;
             $i++;
         }

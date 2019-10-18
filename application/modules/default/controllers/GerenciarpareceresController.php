@@ -684,7 +684,7 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
         try {
 //                $db->beginTransaction();
 
-            $tbDistribuirParecer = new tbDistribuirParecer();
+            $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
             $dadosWhere["t.idPRONAC = ?"] = $idpronac;
             $dadosWhere["t.stEstado = ?"] = 0;
             $dadosWhere["t.TipoAnalise in (?)"] = array(1,3);
@@ -706,7 +706,9 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
                             'TipoAnalise'   		=> 3, //O valor 3 e o novo valor acordado (entre os gestores) para tratar projetos que estarao acessiveis no mod. parecerista, pois para montar a grid o mod. busca projetos com TipoAnalise=3
                             'stEstado'      		=> 0,
                             'stPrincipal'   		=> $dp->stPrincipal,
-                            'stDiligenciado'   		=> $dp->stDiligenciado
+                            'stDiligenciado'   		=> $dp->stDiligenciado,
+                            'siAnalise'   		    => Parecer_Model_TbDistribuirParecer::SI_ANALISE_FINALIZADA_COORDENADOR,
+                            'siEncaminhamento'   	=> TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_PARA_O_COORDENADOR_PELO_TECNICO
                     );
 
                 $where['idDistribuirParecer = ?']  = $dp->idDistribuirParecer;
@@ -718,7 +720,11 @@ class GerenciarpareceresController extends MinC_Controller_Action_Abstract
 
             $orgao = $orgaos->pesquisarNomeOrgao($idorgao);
             $projetos = new Projetos();
-            $projetos->alterarSituacao($dp->IdPRONAC, null, 'B11', 'Devolvido para unidade ' . $orgao[0]->NomeOrgao . ' para revis�o do parecer t�cnico.');
+            $projetos->alterarSituacao(
+                $dp->IdPRONAC,
+                null,
+                'B11',
+                'Devolvido para unidade ' . $orgao[0]->NomeOrgao . ' para revis&atilde;o do parecer t&eacute;cnico.');
 //                $db->commit();
             parent::message("Devolvido com sucesso!", "gerenciarpareceres/index", "CONFIRM");
         } catch (Zend_Exception $ex) {

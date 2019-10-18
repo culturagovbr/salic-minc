@@ -1,0 +1,11 @@
+export const getProdutos = state => state.produtos;
+export const getProduto = state => state.produto;
+export const getAnaliseConteudo = state => state.analiseConteudo;
+export const getPlanilhaParecer = state => state.planilhaParecer;
+export const getProdutosSecundarios = state => state.produtosSecundarios;
+export const getAnaliseConteudoSecundario = state => state.analiseConteudoSecundario;
+export const getPlanilhaProdutoSecundario = state => state.planilhaSecundario;
+export const getConsolidacao = state => state.consolidacao;
+export const getHistoricoProduto = state => state.historicoProduto;
+export const getVinculadas = state => state.vinculadas;
+export const getPareceristas = state => state.pareceristas;

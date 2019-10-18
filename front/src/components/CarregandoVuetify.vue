@@ -1,5 +1,7 @@
 <template>
-    <v-layout column>
+    <v-layout
+        column
+        class="pb-3">
         <v-flex xs12>
             <div class="text-xs-center">
                 <div style="padding: 20px">

@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="irParaProjeto()">
+    <form @keyup.enter="irParaProjeto">
         <v-card
             color="blue-grey darken-2"
             class="white--text"
@@ -136,7 +136,7 @@ export default {
         },
         formatarCPNJ,
         irParaProjeto() {
-            if (this.model.idPronac) {
+            if (this.model !== null && this.model.idPronac) {
                 window.location = `/projeto/#/${this.model.idPronac}`;
             }
         },

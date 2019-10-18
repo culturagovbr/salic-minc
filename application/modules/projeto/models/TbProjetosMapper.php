@@ -96,7 +96,7 @@ class Projeto_Model_TbProjetosMapper extends MinC_Db_Mapper
         $dbTableInabilitado = new Inabilitado();
         $proponenteInabilitado = $dbTableInabilitado->BuscarInabilitado($projeto->CgcCPf, null, null, true);;
 
-        $Parecer = new Parecer();
+        $Parecer = new Parecer_Model_DbTable_Parecer();
         $parecerAnaliseCNIC = $Parecer->verificaProjSituacaoCNIC($projeto->Pronac);
 
         $data['ProponenteInabilitado'] = !empty($proponenteInabilitado);

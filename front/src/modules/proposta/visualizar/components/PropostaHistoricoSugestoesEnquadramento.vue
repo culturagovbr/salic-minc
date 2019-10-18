@@ -1,24 +1,50 @@
 <template>
-    <div class="tabelas">
-        <div class="row">
-            <slTabelaSimples :dados="dado"/>
-        </div>
-    </div>
+    <v-data-table
+        :headers="headers"
+        :items="dado"
+        class="elevation-1"
+        disable-initial-sort
+    >
+        <template
+            slot="items"
+            slot-scope="props">
+            <td>{{ props.item.data_avaliacao | formatarData }}</td>
+            <td class="text-xs-left">{{ props.item.usu_nome }}</td>
+            <td class="text-xs-center">{{ props.item.org_sigla }}</td>
+            <td class="text-xs-center">{{ props.item.area }}</td>
+            <td class="text-xs-left">{{ props.item.segmento }}</td>
+            <td class="text-xs-left">{{ props.item.enquadramento }}</td>
+            <td
+                class="text-xs-justify"
+                v-html="props.item.descricao_motivacao"/>
+        </template>
+    </v-data-table>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import slTabelaSimples from '@/components/slTabelaSimples';
+import { utils } from '@/mixins/utils';
 
 export default {
     name: 'PropostaHistoricoSugestoesEnquadramento',
-    components: {
-        slTabelaSimples,
-    },
+    mixins: [utils],
     props: {
         idpreprojeto: {
             type: Number,
             default: 0,
         },
+    },
+    data() {
+        return {
+            headers: [
+                { text: 'Data', value: 'data_avaliacao' },
+                { text: 'Avaliador', value: 'usu_nome' },
+                { text: 'Unidade', align: 'center', value: 'org_sigla' },
+                { text: 'Área', align: 'center', value: 'area' },
+                { text: 'Segmento', align: 'left', value: 'segmento' },
+                { text: 'Enquadramento', align: 'left', value: 'enquadramento' },
+                { text: 'Parecer', value: 'descricao_motivacao' },
+            ],
+        };
     },
     computed: {
         ...mapGetters({

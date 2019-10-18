@@ -15,10 +15,10 @@ class Zend_View_Helper_IsProdutosSecundariosAnalisados
     public function IsProdutosSecundariosAnalisados($idPronac)
     {
 
-//        $tbDistribuirParecer = new tbDistribuirParecer();
+//        $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
 //        return $tbDistribuirParecer->checarValidacaoProdutosSecundarios($idPronac);
 
-        $tbDistribuirParecerDAO = new tbDistribuirParecer();
+        $tbDistribuirParecerDAO = new Parecer_Model_DbTable_TbDistribuirParecer();
         $dadosWhere["t.stEstado = ?"] = 0;
         $dadosWhere["t.FecharAnalise = ?"] = 0;
         $dadosWhere["t.TipoAnalise = ?"] = 3;

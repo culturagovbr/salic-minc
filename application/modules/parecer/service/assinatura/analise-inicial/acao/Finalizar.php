@@ -29,7 +29,7 @@ class Finalizar implements IAcaoFinalizar
             $modeloTbAssinatura->getIdPronac()
         );
 
-        $tbDistribuirParecer = new \tbDistribuirParecer();
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
         $dadosDistribuirParecer = $tbDistribuirParecer->findBy([
             'idPRONAC = ?' => $modeloTbAssinatura->getIdPronac(),
             'stEstado = ?' => 0,
@@ -46,6 +46,8 @@ class Finalizar implements IAcaoFinalizar
             $distribuirParecer->FecharAnalise = 1;
             $distribuirParecer->idUsuario = $auth->getIdentity()->usu_codigo;
             $distribuirParecer->DtRetorno = $tbDistribuirParecer->getExpressionDate();
+            $distribuirParecer->siEncaminhamento = \TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_MINC_PELA_UNIDADE;
+            $distribuirParecer->idOrgao = $dadosDistribuirParecer['idOrgaoOrigem'];
 
             $distribuirParecer->save();
         }

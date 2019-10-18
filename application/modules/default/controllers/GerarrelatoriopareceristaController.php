@@ -109,7 +109,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
 
         $where = $this->filtroGeral('resaguardandoparecer');
 
-        $distribuirParecerDAO   =   new tbDistribuirParecer();
+        $distribuirParecerDAO   =   new Parecer_Model_DbTable_TbDistribuirParecer();
         $resp                   =   $distribuirParecerDAO->aguardandoparecerresumo($where);
         $titulos    =   array();
         $valores    =   array();
@@ -628,7 +628,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
         $post = Zend_Registry::get('post');
         $retorno = array();
         $ProjetosDAO            =   new Projetos();
-        $distribuirParecerDAO   =   new tbDistribuirParecer();
+        $distribuirParecerDAO   =   new Parecer_Model_DbTable_TbDistribuirParecer();
         switch ($tipo) {
             case 'resaguardandoparecer':
 

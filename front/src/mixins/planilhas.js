@@ -1,8 +1,6 @@
 import numeral from 'numeral';
-
 import moment from 'moment';
 import moneyFilter from '@/filters/money';
-
 import 'numeral/locales';
 
 numeral.locale('pt-br');

@@ -6,6 +6,7 @@
         <Planilha
             v-if="Object.keys(planilha).length > 0"
             :array-planilha="planilha">
+
             <template slot-scope="slotProps">
                 <PlanilhaItensAutorizados :table="slotProps.itens"/>
             </template>
@@ -21,6 +22,7 @@ import { mapActions, mapGetters } from 'vuex';
 import Carregando from '@/components/Carregando';
 import Planilha from '@/components/Planilha/Planilha';
 import PlanilhaItensAutorizados from '@/components/Planilha/PlanilhaItensAutorizados';
+import MxPlanilha from '@/mixins/planilhas';
 
 export default {
     name: 'PlanilhaPropostaAutorizada',
@@ -29,6 +31,7 @@ export default {
         Planilha,
         PlanilhaItensAutorizados,
     },
+    mixins: [MxPlanilha],
     data() {
         return {
             loading: true,

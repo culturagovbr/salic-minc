@@ -336,7 +336,7 @@ abstract class MinC_Controller_Action_Abstract extends Zend_Controller_Action
                 if (!$objIdentity) {
                     return self::perfil(0, $permissoes);
                 } else {
-                    if (!in_array($GrupoAtivo->codGrupo, $permissoes)) {
+                    if (!is_array($permissoes) || !in_array($GrupoAtivo->codGrupo, $permissoes)) {
                         $this->message("Voc&ecirc; n&atilde;o tem permiss&atilde;o para acessar essa &aacute;rea do sistema!", "principal/index", "ALERT");
                     }
 
