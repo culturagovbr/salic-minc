@@ -71,6 +71,8 @@
                 <v-btn
                     color="success"
                     flat
+                    :loading="loading"
+                    :disabled="loading"
                     @click="devolver()"
                 >
                     Devolver
@@ -106,6 +108,7 @@ export default {
         return {
             dialog: false,
             justificativa: '',
+            loading: false,
         };
     },
 
@@ -117,10 +120,10 @@ export default {
 
     methods: {
         ...mapActions({
-            setDevolverProjeto: 'avaliacaoResultados/devolverProjeto',
+            setDevolverProjetoAction: 'avaliacaoResultados/devolverProjeto',
+            mensagemSucesso: 'noticias/mensagemSucesso',
         }),
         devolver() {
-            this.dialog = false;
             const idSecretaria = this.usuarioGetter.usu_org_max_superior;
 
             const dados = {
@@ -142,7 +145,15 @@ export default {
                 idSecretaria,
             };
 
-            this.setDevolverProjeto(dados);
+            this.loading = true;
+            this.setDevolverProjetoAction(dados)
+                .then(() => {
+                    this.mensagemSucesso('Devolução realizada com sucesso');
+                    this.dialog = false;
+                })
+                .finally(() => {
+                    this.loading = false;
+                });
         },
     },
 };
