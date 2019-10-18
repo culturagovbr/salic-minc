@@ -51,7 +51,7 @@
                                                     <b>Projeto:</b> {{ projeto.AnoProjeto }}{{ projeto.Sequencial }} - {{ projeto.NomeProjeto }}
                                                 </div>
                                                 <span class="black--text">
-                                                    <b>Proponente:</b> {{ proponente.CgcCpf | cnpjFilter }} - {{ proponente.Nome }}</span>
+                                                <b>Proponente:</b> {{ proponente.CgcCpf | cnpjFilter }} - {{ proponente.Nome }}</span>
                                             </div>
                                         </v-container>
                                     </v-card-title>

@@ -198,19 +198,15 @@ export const getLaudoFinal = ({ commit }, params) => {
         });
 };
 
-export const salvarLaudoFinal = ({ commit }, data) => {
-    avaliacaoResultadosHelperAPI.criarParecerLaudoFinal(data)
-        .then(() => {
-            commit('noticias/SET_DADOS', { ativo: true, color: 'success', text: 'Salvo com sucesso!' }, { root: true });
-        });
-};
+export const salvarLaudoFinal = async (state, data) => avaliacaoResultadosHelperAPI
+    .criarParecerLaudoFinal(data);
 
-export const finalizarLaudoFinal = ({ commit }, data) => {
-    avaliacaoResultadosHelperAPI.alterarEstado(data)
-        .then(() => {
-            commit('noticias/SET_DADOS', { ativo: true, color: 'success', text: 'Finalizado com sucesso!' }, { root: true });
-        });
-};
+export const finalizarLaudoFinal = async ({ commit }, data) => avaliacaoResultadosHelperAPI
+    .alterarEstado(data)
+    .then((response) => {
+        commit('noticias/SET_DADOS', { ativo: true, color: 'success', text: 'Finalizado com sucesso!' }, { root: true });
+        return response;
+    });
 
 export const enviarDiligencia = (_, data) => {
     avaliacaoResultadosHelperAPI.criarDiligencia(data)

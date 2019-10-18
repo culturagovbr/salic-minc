@@ -137,6 +137,36 @@
                     <v-divider/>
                 </v-container>
             </div>
+            <div v-if="Object.keys(parecerLaudoFinal).length !== 0">
+                <h2 class="text-sm-center">Laudo Final da Avaliação de Resultado</h2>
+                <v-container grid-list-sm>
+                    <v-layout
+                        wrap
+                        align-center>
+                        <v-flex
+                            xs12
+                            sm12
+                            md12>
+                            <div>
+                                <p v-if="parecerLaudoFinal.items.siManifestacao == 'A'"><b>Manifestação: </b> Aprovado</p>
+                                <p v-else-if="parecerLaudoFinal.items.siManifestacao == 'P'"><b>Manifestação: </b> Aprovado com ressalva</p>
+                                <p v-else-if="parecerLaudoFinal.items.siManifestacao == 'R'"><b>Manifestação: </b> Reprovado</p>
+                            </div>
+                        </v-flex>
+                        <v-flex
+                            xs12
+                            sm12
+                            md12>
+                            <div>
+                                <h4>Laudo: </h4>
+                                <div v-html="parecerLaudoFinal.items.dsLaudoFinal"/>
+                            </div>
+                        </v-flex>
+                    </v-layout>
+                    <v-divider/>
+                </v-container>
+            </div>
+
         </v-card>
     </v-dialog>
 </template>
@@ -175,6 +205,7 @@ export default {
             parecerTecnico: 'avaliacaoResultados/parecer',
             parecerObjeto: 'avaliacaoResultados/objetoParecer',
             projeto: 'avaliacaoResultados/projeto',
+            parecerLaudoFinal: 'avaliacaoResultados/getParecerLaudoFinal',
         }),
     },
     methods: {

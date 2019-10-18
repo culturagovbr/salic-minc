@@ -16,9 +16,9 @@
                             dark
                             color="primary">
                             <v-btn
-                                @click="$router.go(-1)"
                                 icon
-                                dark>
+                                dark
+                                @click="$router.go(-1)">
                                 <v-icon>close</v-icon>
                             </v-btn>
                             <v-toolbar-title>Avaliação Financeira - Diligenciar</v-toolbar-title>

@@ -36,13 +36,13 @@ class AvaliacaoResultados_Events_FinalizarLaudo
             $model = new AvaliacaoResultados_Model_FluxosProjeto();
             $mapper = new AvaliacaoResultados_Model_FluxosProjetoMapper();
 
-            $row = $mapper->find(['idpronac = ?' => $params['idpronac']]);
+            $row = $mapper->find(['idPronac = ?' => $params['idPronac']]);
 
             if (!empty($row)) {
                 $model->setId($row['id']);
             }
 
-            $model->setIdPronac($params['idpronac']);
+            $model->setIdPronac($params['idPronac']);
             $model->setEstadoId($params['proximo']);
 
             $mapper->save($model);
@@ -53,7 +53,7 @@ class AvaliacaoResultados_Events_FinalizarLaudo
         return function($t) {
             $params = $t->getParams();
 
-            $assinatura = new DocumentoAssinaturaService($params['idpronac'], 623);
+            $assinatura = new DocumentoAssinaturaService($params['idPronac'], 623);
             $idDocumentoAssinatura = $assinatura->iniciarFluxo();
         };
     }
@@ -64,7 +64,7 @@ class AvaliacaoResultados_Events_FinalizarLaudo
 
             $service = new LaudoService();
             $data = $service->salvarLaudo($params['idLaudoFinal'],
-                                          $params['idpronac'],
+                                          $params['idPronac'],
                                           $params['siManifestacao'],
                                           $params['dsLaudoFinal']);
         };

@@ -32,7 +32,7 @@
                 <v-tab
                     v-if="getUsuario.grupo_ativo === CONST.PERFIL_COORDENADOR_GERAL ||
                         getUsuario.grupo_ativo === CONST.PERFIL_DIRETOR ||
-                        getUsuario.grupo_ativo === CONST.PERFIL_SECRETARIO"
+                    getUsuario.grupo_ativo === CONST.PERFIL_SECRETARIO"
                     href="#tab-1"
                     @click="r('/laudo/assinar')"
                 >
@@ -61,7 +61,7 @@
                 <v-tab-item
                     v-if="getUsuario.grupo_ativo === CONST.PERFIL_COORDENADOR_GERAL ||
                         getUsuario.grupo_ativo === CONST.PERFIL_DIRETOR ||
-                        getUsuario.grupo_ativo === CONST.PERFIL_SECRETARIO"
+                    getUsuario.grupo_ativo === CONST.PERFIL_SECRETARIO"
                     :key="1"
                     :value="'tab-1'"
                 >
