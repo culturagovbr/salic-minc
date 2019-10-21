@@ -1,30 +1,40 @@
 <template>
     <v-container
         row
-        justify-center>
-        <v-form v-model="valid">
+        justify-center
+    >
+        <v-form
+            v-model="valid"
+            lazy-validation
+        >
             <v-dialog
                 v-model="dialog"
                 full-width
                 scrollable
                 fullscreen
-                transition="dialog-bottom-transition">
+                transition="dialog-bottom-transition"
+            >
                 <v-btn
                     slot="activator"
                     color="green"
-                    dark>Emitir Parecer</v-btn>
+                    dark
+                >
+                    Emitir Parecer
+                </v-btn>
                 <v-card>
                     <v-toolbar
                         dark
-                        color="primary">
+                        color="primary"
+                    >
                         <v-btn
-                            :href="redirectLink"
                             icon
-                            dark>
+                            dark
+                            @click="$router.go(-1)"
+                        >
                             <v-icon>close</v-icon>
                         </v-btn>
                         <v-toolbar-title>Avaliação Financeira - Emissão de Parecer</v-toolbar-title>
-                        <v-spacer/>
+                        <v-spacer />
                     </v-toolbar>
 
                     <v-card-text>
@@ -34,10 +44,12 @@
                                     <v-card-title primary-title>
                                         <v-container
                                             pa-0
-                                            ma-0>
+                                            ma-0
+                                        >
                                             <div>
                                                 <div class="headline">
-                                                <b>Projeto:</b> {{ projeto.AnoProjeto }}{{ projeto.Sequencial }} - {{ projeto.NomeProjeto }}</div>
+                                                    <b>Projeto:</b> {{ projeto.AnoProjeto }}{{ projeto.Sequencial }} - {{ projeto.NomeProjeto }}
+                                                </div>
                                                 <span class="black--text">
                                                 <b>Proponente:</b> {{ proponente.CgcCpf | cnpjFilter }} - {{ proponente.Nome }}</span>
                                             </div>
@@ -48,14 +60,17 @@
                                             grid-list-xs
                                             text-xs-center
                                             ma-0
-                                            pa-0>
+                                            pa-0
+                                        >
                                             <v-layout
                                                 row
-                                                wrap>
+                                                wrap
+                                            >
                                                 <v-flex
                                                     xs12
                                                     md6
-                                                    mb-2>
+                                                    mb-2
+                                                >
                                                     <v-data-table
                                                         :items="[]"
                                                         class="elevation-2"
@@ -64,23 +79,39 @@
                                                     >
                                                         <template slot="no-data">
                                                             <tr>
-                                                                <th colspan="6">Quantidade de Comprovantes</th>
+                                                                <th colspan="6">
+                                                                    Quantidade de Comprovantes
+                                                                </th>
                                                             </tr>
                                                             <tr>
-                                                                <td left><b>Total:</b></td>
-                                                                <td >{{ consolidacaoComprovantes.qtTotalComprovante }}</td>
-                                                                <td left><b>Validados:</b></td>
+                                                                <td left>
+                                                                    <b>Total:</b>
+                                                                </td>
+                                                                <td>{{ consolidacaoComprovantes.qtTotalComprovante }}</td>
+                                                                <td left>
+                                                                    <b>Validados:</b>
+                                                                </td>
                                                                 <td>
                                                                     <font color="#006400">
-                                                                        {{ consolidacaoComprovantes.qtComprovantesValidadosProjeto }} </font></td>
+                                                                        {{ consolidacaoComprovantes.qtComprovantesValidadosProjeto }}
+                                                                    </font>
+                                                                </td>
                                                             </tr>
                                                             <tr>
-                                                                <td left><b>Não Avaliados:</b></td>
-                                                                <td left>{{ consolidacaoComprovantes.qtComprovantesNaoAvaliados }}</td>
-                                                                <td left><b>Recusados:</b></td>
+                                                                <td left>
+                                                                    <b>Não Avaliados:</b>
+                                                                </td>
+                                                                <td left>
+                                                                    {{ consolidacaoComprovantes.qtComprovantesNaoAvaliados }}
+                                                                </td>
+                                                                <td left>
+                                                                    <b>Recusados:</b>
+                                                                </td>
                                                                 <td left>
                                                                     <font color="red">
-                                                                        {{ consolidacaoComprovantes.qtComprovantesRecusadosProjeto }} </font></td>
+                                                                        {{ consolidacaoComprovantes.qtComprovantesRecusadosProjeto }}
+                                                                    </font>
+                                                                </td>
                                                             </tr>
                                                         </template>
                                                     </v-data-table>
@@ -89,7 +120,8 @@
                                                 <v-flex
                                                     xs12
                                                     md6
-                                                    mb-4>
+                                                    mb-4
+                                                >
                                                     <v-data-table
                                                         :items="[]"
                                                         class="elevation-1"
@@ -98,21 +130,33 @@
                                                     >
                                                         <template slot="no-data">
                                                             <tr>
-                                                                <th colspan="6">Valores Comprovados</th>
+                                                                <th colspan="6">
+                                                                    Valores Comprovados
+                                                                </th>
                                                             </tr>
                                                             <tr>
-                                                                <td left><b>Total:</b></td>
-                                                                <td >{{ consolidacaoComprovantes.vlComprovadoProjeto | currency }}</td>
-                                                                <td left><b>Recusados:</b></td>
+                                                                <td left>
+                                                                    <b>Total:</b>
+                                                                </td>
+                                                                <td>{{ consolidacaoComprovantes.vlComprovadoProjeto | currency }}</td>
+                                                                <td left>
+                                                                    <b>Recusados:</b>
+                                                                </td>
                                                                 <td left>
                                                                     <font color="red">
-                                                                        {{ consolidacaoComprovantes.vlComprovadoRecusado | currency }}</font></td>
+                                                                        {{ consolidacaoComprovantes.vlComprovadoRecusado | currency }}
+                                                                    </font>
+                                                                </td>
                                                             </tr>
                                                             <tr>
-                                                                <td left><b>Validados:</b></td>
+                                                                <td left>
+                                                                    <b>Validados:</b>
+                                                                </td>
                                                                 <td>
                                                                     <font color="#006400">
-                                                                        {{ consolidacaoComprovantes.vlComprovadoValidado | currency }}</font></td>
+                                                                        {{ consolidacaoComprovantes.vlComprovadoValidado | currency }}
+                                                                    </font>
+                                                                </td>
                                                             </tr>
                                                         </template>
                                                     </v-data-table>
@@ -120,7 +164,8 @@
 
                                                 <v-flex
                                                     xs4
-                                                    d-flex>
+                                                    d-flex
+                                                >
                                                     <v-select
                                                         v-model="getParecer.siManifestacao"
                                                         :rules="itemRules"
@@ -140,13 +185,18 @@
                                                 <v-flex
                                                     md12
                                                     xs12
-                                                    mb-4>
+                                                    mb-4
+                                                >
                                                     <v-card>
                                                         <v-responsive>
                                                             <div
                                                                 v-show="parecerRules.show"
-                                                                class="text-xs-left">
-                                                            <h4 :class="parecerRules.color">{{ parecerRules.msg }}*</h4></div>
+                                                                class="text-xs-left"
+                                                            >
+                                                                <h4 :class="parecerRules.color">
+                                                                    {{ parecerRules.msg }}*
+                                                                </h4>
+                                                            </div>
                                                             <EditorTexto
                                                                 :style="parecerRules.backgroundColor"
                                                                 :value="getParecer.dsParecer"
@@ -165,9 +215,11 @@
                                             grid-list-xs
                                             text-xs-center
                                             ma-0
-                                            pa-0>
+                                            pa-0
+                                        >
                                             <v-btn
-                                                :disabled="!valid || !parecerRules.enable"
+                                                :disabled="!valid || !parecerRules.enable || loadingSalvar"
+                                                :loading="loadingSalvar"
                                                 color="primary"
                                                 @click.native="salvarParecer()"
                                             >
@@ -175,7 +227,8 @@
                                             </v-btn>
                                             <v-btn
                                                 :href="redirectLink"
-                                                :disabled="!valid || !parecerRules.enable"
+                                                :disabled="!valid || !parecerRules.enable || loadingFinalizar"
+                                                :loading="loadingFinalizar"
                                                 color="primary"
                                                 @click.native="finalizarParecer()"
                                             >
@@ -222,6 +275,8 @@ export default {
             redirectLink: '#/planilha/',
             valid: false,
             dialog: true,
+            loadingSalvar: false,
+            loadingFinalizar: false,
             itemRules: [v => !!v || 'Tipo de manifestação e obrigatório!'],
             parecerRules: {
                 show: false,
@@ -266,7 +321,7 @@ export default {
     methods: {
         ...mapActions({
             requestEmissaoParecer: 'avaliacaoResultados/getDadosEmissaoParecer',
-            salvar: 'avaliacaoResultados/salvarParecer',
+            salvarParecerAction: 'avaliacaoResultados/salvarParecer',
             finalizar: 'avaliacaoResultados/finalizarParecer',
             alterarParecer: 'avaliacaoResultados/alterarParecer',
         }),
@@ -294,7 +349,11 @@ export default {
             if (this.parecerData.dsParecer) {
                 data.dsParecer = this.parecerData.dsParecer;
             }
-            this.salvar(data);
+
+            this.loadingSalvar = true;
+            this.salvarParecerAction(data).finally(() => {
+                this.loadingSalvar = false;
+            });
         },
         finalizarParecer() {
             const data = {
@@ -318,7 +377,10 @@ export default {
                 data.dsParecer = this.parecerData.dsParecer;
             }
 
-            this.finalizar(data);
+            this.loadingFinalizar = true;
+            this.finalizar(data).finally(() => {
+                this.loadingFinalizar = false;
+            });
         },
         inputParecer(e) {
             this.parecerData.dsParecer = e;

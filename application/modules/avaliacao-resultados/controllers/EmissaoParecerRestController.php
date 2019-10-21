@@ -35,18 +35,6 @@ class AvaliacaoResultados_EmissaoParecerRestController extends MinC_Controller_R
             $this->customRenderJsonResponse([], 422);
         }
 
-        if (!$this->isPermitidoAcesso()) {
-            $this->renderJsonResponse(
-                [
-                    'consolidacaoComprovantes' => [],
-                    'projeto' => [],
-                    'proponente' => [],
-                    'parecer' => [],
-                    'objetoParecer' => [],
-                ], 200);
-            return;
-        }
-
         $avaliacaoFinanceiraService = new AvaliacaoFinanceiraService($this->getRequest(), $this->getResponse());
         $resposta = $avaliacaoFinanceiraService->buscarDadosProjeto();
         $this->renderJsonResponse(\TratarArray::utf8EncodeArray($resposta), 200);

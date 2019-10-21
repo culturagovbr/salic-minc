@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="loading">
-            <Carregando :text="'Conciliação Bancária'"/>
+            <Carregando :text="'Conciliação Bancária'" />
         </div>
         <div v-else>
             <v-card>
@@ -14,22 +14,35 @@
                     </v-container>
                 </div>
                 <v-card id="geraPdf">
+                    <v-card-title>
+                        <v-spacer/>
+                        <v-text-field
+                            v-model="search"
+                            append-icon="search"
+                            label="Buscar"
+                            single-line
+                            hide-details
+                        />
+                    </v-card-title>
                     <v-data-table
                         :headers="headers"
                         :items="dadosConciliacao"
+                        :search="search"
                         :pagination.sync="pagination"
                         :rows-per-page-items="[10, 25, 50, 100, {'text': 'Todos', value: -1}]"
                         class="elevation-1 container-fluid"
                     >
                         <template
                             slot="items"
-                            slot-scope="props">
+                            slot-scope="props"
+                        >
                             <td class="text-xs-left">
                                 {{ props.item.ItemOrcamentario }}
                             </td>
                             <td
                                 class="text-xs-left"
-                                style="width: 200px">
+                                style="width: 200px"
+                            >
                                 {{ props.item.CNPJCPF | cnpjFilter }}
                             </td>
                             <td class="text-xs-left">
@@ -44,7 +57,9 @@
                             <td class="text-xs-right font-weight-bold">
                                 {{ props.item.vlPagamento | filtroFormatarParaReal }}
                             </td>
-                            <td class="text-xs-left">{{ props.item.dsLancamento }}</td>
+                            <td class="text-xs-left">
+                                {{ props.item.dsLancamento }}
+                            </td>
                             <td
                                 v-if="props.item.vlDebitado"
                                 class="text-xs-right font-weight-bold"
@@ -53,7 +68,8 @@
                             </td>
                             <td
                                 v-else
-                                class="text-xs-right font-weight-bold">
+                                class="text-xs-right font-weight-bold"
+                            >
                                 {{ '000' | filtroFormatarParaReal }}
                             </td>
 
@@ -65,27 +81,32 @@
                             </td>
                             <td
                                 v-else
-                                class="text-xs-right font-weight-bold">
+                                class="text-xs-right font-weight-bold"
+                            >
                                 {{ '000' | filtroFormatarParaReal }}
                             </td>
                         </template>
                         <template
                             slot="pageText"
-                            slot-scope="props">
+                            slot-scope="props"
+                        >
                             Items {{ props.pageStart }}
                             - {{ props.pageStop }}
                             de {{ props.itemsLength }}
                         </template>
                     </v-data-table>
                     <v-card-actions v-if="Object.keys(dadosConciliacao).length > 0">
-                        <v-spacer/>
+                        <v-spacer />
                         <v-btn
                             small
                             fab
                             round
                             target="_blank"
-                            @click="print">
-                            <v-icon dark>local_printshop</v-icon>
+                            @click="print"
+                        >
+                            <v-icon dark>
+                                local_printshop
+                            </v-icon>
                         </v-btn>
                     </v-card-actions>
                 </v-card>
@@ -112,6 +133,12 @@ export default {
         cnpjFilter,
     },
     mixins: [utils],
+    props: {
+        idPronac: {
+            type: String,
+            required: true,
+        },
+    },
     data() {
         return {
             cssText: [`
@@ -195,18 +222,13 @@ export default {
     },
     computed: {
         ...mapGetters({
-            dadosProjeto: 'projeto/projeto',
             dadosConciliacao: 'dadosBancarios/conciliacaoBancaria',
         }),
     },
     watch: {
-        dadosConciliacao() {
-            this.loading = false;
-        },
-        dadosProjeto(value) {
-            this.loading = true;
+        idPronac(value) {
             const params = {
-                idPronac: value.idPronac,
+                idPronac: value,
                 dtInicio: '',
                 dtFim: '',
             };
@@ -214,22 +236,20 @@ export default {
         },
     },
     mounted() {
-        if (typeof this.dadosProjeto.idPronac !== 'undefined') {
-            const params = {
-                idPronac: this.dadosProjeto.idPronac,
-                dtInicio: '',
-                dtFim: '',
-            };
-            this.buscarConciliacaoBancaria(params);
-        }
+        const params = {
+            idPronac: this.idPronac,
+            dtInicio: '',
+            dtFim: '',
+        };
+        this.buscarConciliacaoBancaria(params);
     },
     methods: {
         ...mapActions({
-            buscarConciliacaoBancaria: 'dadosBancarios/buscarConciliacaoBancaria',
+            buscarConciliacaoBancariaAction: 'dadosBancarios/buscarConciliacaoBancaria',
         }),
         filtrarData(response) {
             const params = {
-                idPronac: this.dadosProjeto.idPronac,
+                idPronac: this.idPronac,
                 dtInicio: response.dtInicio,
                 dtFim: response.dtFim,
             };
@@ -248,6 +268,13 @@ export default {
             );
 
             this.d.print(this.$el, this.cssText);
+        },
+        buscarConciliacaoBancaria(params) {
+            this.loading = true;
+            this.buscarConciliacaoBancariaAction(params)
+                .finally(() => {
+                    this.loading = false;
+                });
         },
     },
 };

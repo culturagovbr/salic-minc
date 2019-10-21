@@ -9,7 +9,7 @@
                 <v-card>
                     <v-toolbar
                         dark
-                        color="green">
+                        color="primary">
                         <v-btn
                             :to="{ name: 'Laudo' }"
                             icon
@@ -73,7 +73,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import cnpjFilter from '@/filters/cnpj';
 
 export default {
@@ -85,6 +85,7 @@ export default {
             dialog: true,
         };
     },
+
     computed: {
         ...mapGetters({
             proponente: 'avaliacaoResultados/proponente',
@@ -92,5 +93,19 @@ export default {
             parecerLaudoFinal: 'avaliacaoResultados/getParecerLaudoFinal',
         }),
     },
+
+    mounted() {
+        this.requestEmissaoParecer(this.$route.params.id);
+        this.getLaudoFinal(this.$route.params.id);
+    },
+
+    methods: {
+        ...mapActions({
+            requestEmissaoParecer: 'avaliacaoResultados/getDadosEmissaoParecer',
+            getLaudoFinal: 'avaliacaoResultados/getLaudoFinal',
+        }),
+    },
+
+
 };
 </script>

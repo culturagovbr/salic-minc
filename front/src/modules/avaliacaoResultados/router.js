@@ -5,7 +5,6 @@ import HistoricoDiligencias from './components/components/HistoricoDiligencias';
 import Painel from './components/ParecerTecnico/Painel';
 import Planilha from './components/ParecerTecnico/Planilha';
 import VisualizarPlanilha from './components/components/VisualizarPlanilha';
-import AnaliseComprovantes from './components/ParecerTecnico/AnaliseComprovantes';
 import Diligenciar from './components/ParecerTecnico/Diligenciar';
 import EmitirLaudoFinal from './components/LaudoFinal/EmitirLaudoFinal';
 import Laudo from './components/LaudoFinal/PainelLaudo';
@@ -39,14 +38,6 @@ const routes = [
         component: VisualizarPlanilha,
         meta: {
             title: 'Visualizar Planilha',
-        },
-    },
-    {
-        path: '/analise-comprovantes',
-        name: 'Analise',
-        component: AnaliseComprovantes,
-        meta: {
-            title: 'Analise dos comprovantes',
         },
     },
     {

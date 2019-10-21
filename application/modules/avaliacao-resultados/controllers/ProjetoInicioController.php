@@ -80,7 +80,7 @@ class AvaliacaoResultados_ProjetoInicioController extends MinC_Controller_Rest_A
         $this->_helper->json(
             [
                 'code'=> 200,
-                "items" => !empty($projetosAnaliseFinanceiraVirtual) ? $projetosAnaliseFinanceiraVirtual : 0,
+                "items" => !empty($projetosAnaliseFinanceiraVirtual) ? $projetosAnaliseFinanceiraVirtual : [],
                 'recordsTotal' => $recordsTotal ? $recordsTotal : 0,
                 'draw' => $draw,
                 'recordsFiltered' => $recordsFiltered ? $recordsFiltered : 0,

@@ -1,37 +1,44 @@
 <template>
     <div>
         <div v-if="loading">
-            <Carregando :text="'Execução da receita e despesa'"/>
+            <Carregando :text="'Execução da receita e despesa'" />
         </div>
         <div v-else>
-            <ExecucaoReceita :valor-receita-total="valorReceitaTotal"/>
-            <ExecucaoDespesa :valor-despesa-total="valorDespesaTotal"/>
+            <ExecucaoReceita :valor-receita-total="valorReceitaTotal" />
+            <ExecucaoDespesa :valor-despesa-total="valorDespesaTotal" />
             <v-expansion-panel
                 v-model="panel"
                 popout
                 focusable
-                expand>
+                expand
+            >
                 <v-expansion-panel-content
-                    class="elevation-1">
+                    class="elevation-1"
+                >
                     <v-card>
                         <v-container fluid>
                             <v-layout
                                 row
-                                wrap>
+                                wrap
+                            >
                                 <v-flex xs6>
-                                    <h6 class="mr-3">VALOR DO SALDO</h6>
+                                    <h3 class="subheading mr-3">
+                                        VALOR DO SALDO
+                                    </h3>
                                 </v-flex>
                                 <v-flex
                                     xs5
                                     offset-xs1
-                                    class="text-xs-right">
-                                    <h6>
+                                    class="text-xs-right"
+                                >
+                                    <h3 class="subheading">
                                         <v-chip
                                             outline
                                             color="black"
-                                        >R$ {{ total | filtroFormatarParaReal }}
+                                        >
+                                            R$ {{ total | filtroFormatarParaReal }}
                                         </v-chip>
-                                    </h6>
+                                    </h3>
                                 </v-flex>
                             </v-layout>
                         </v-container>
@@ -57,6 +64,14 @@ export default {
         ExecucaoDespesa,
     },
     mixins: [utils],
+
+    props: {
+        idPronac: {
+            type: String,
+            required: true,
+        },
+    },
+
     data() {
         return {
             panel: [true],
@@ -67,9 +82,9 @@ export default {
             loading: true,
         };
     },
+
     computed: {
         ...mapGetters({
-            dadosProjeto: 'projeto/projeto',
             dados: 'prestacaoContas/execucaoReceitaDespesa',
         }),
         valorReceitaTotal() {
@@ -102,24 +117,28 @@ export default {
             return this.valorReceitaTotal - this.valorDespesaTotal;
         },
     },
+
     watch: {
-        dadosProjeto(value) {
-            this.loading = true;
-            this.buscarExecucaoReceitaDespesa(value.idPronac);
-        },
-        dados() {
-            this.loading = false;
+        idPronac(value) {
+            this.buscarExecucaoReceitaDespesa(value);
         },
     },
+
     mounted() {
-        if (typeof this.dadosProjeto.idPronac !== 'undefined') {
-            this.buscarExecucaoReceitaDespesa(this.dadosProjeto.idPronac);
-        }
+        this.buscarExecucaoReceitaDespesa(this.idPronac);
     },
+
     methods: {
         ...mapActions({
-            buscarExecucaoReceitaDespesa: 'prestacaoContas/buscarExecucaoReceitaDespesa',
+            buscarExecucaoReceitaDespesaAction: 'prestacaoContas/buscarExecucaoReceitaDespesa',
         }),
+        buscarExecucaoReceitaDespesa(param) {
+            this.loading = true;
+            this.buscarExecucaoReceitaDespesaAction(param)
+                .finally(() => {
+                    this.loading = false;
+                });
+        },
     },
 };
 </script>

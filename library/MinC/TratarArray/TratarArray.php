@@ -47,6 +47,10 @@ class TratarArray {
     
     // Based on https://secure.php.net/manual/en/function.utf8-encode.php#109965
     public static function utf8EncodeArray($input) {
+
+        if (empty($input)) {
+            return $input;
+        }
         
         if (is_string($input)) {
             return utf8_encode($input);

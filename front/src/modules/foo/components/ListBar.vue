@@ -73,7 +73,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .atualizar-action {
     display:inline-block;
     margin-right:1px;

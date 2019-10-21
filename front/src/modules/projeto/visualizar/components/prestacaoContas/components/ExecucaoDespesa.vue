@@ -4,15 +4,19 @@
             v-model="panel"
             popout
             focusable
-            expand>
+            expand
+        >
             <v-expansion-panel-content class="elevation-1">
                 <v-layout
                     slot="header"
-                    class="red--text">
-                    <v-icon class="mr-3 red--text">trending_down</v-icon>
+                    class="red--text"
+                >
+                    <v-icon class="mr-3 red--text">
+                        trending_down
+                    </v-icon>
                     DESPESA
                 </v-layout>
-                <v-card/>
+                <v-card />
                 <v-card>
                     <v-data-table
                         :pagination.sync="pagination"
@@ -22,30 +26,45 @@
                     >
                         <template
                             slot="items"
-                            slot-scope="props">
-                            <td class="text-xs-center pl-5">{{ props.item.id + 1 }}</td>
-                            <td class="text-xs-left">{{ props.item.Etapa }}</td>
-                            <td class="text-xs-left">{{ props.item.Item }}</td>
-                            <td class="text-xs-right">R$ {{ props.item.vlPagamento | filtroFormatarParaReal }}</td>
+                            slot-scope="props"
+                        >
+                            <td class="text-xs-center pl-5">
+                                {{ props.item.id + 1 }}
+                            </td>
+                            <td class="text-xs-left">
+                                {{ props.item.Etapa }}
+                            </td>
+                            <td class="text-xs-left">
+                                {{ props.item.Item }}
+                            </td>
+                            <td class="text-xs-right">
+                                R$ {{ props.item.vlPagamento | filtroFormatarParaReal }}
+                            </td>
                         </template>
                     </v-data-table>
                     <v-container fluid>
                         <v-layout
                             row
-                            wrap>
+                            wrap
+                        >
                             <v-flex xs6>
-                                <h6 class="mr-3 red--text">TOTAL DESPESA</h6>
+                                <h3 class="subheading mr-3 red--text">
+                                    TOTAL DESPESA
+                                </h3>
                             </v-flex>
                             <v-flex
                                 xs5
                                 offset-xs1
-                                class=" text-xs-right">
-                                <h6>
+                                class=" text-xs-right"
+                            >
+                                <h3 class="subheading">
                                     <v-chip
                                         outline
-                                        color="red">R$ {{ valorDespesaTotal | filtroFormatarParaReal }}
+                                        color="red"
+                                    >
+                                        R$ {{ valorDespesaTotal | filtroFormatarParaReal }}
                                     </v-chip>
-                                </h6>
+                                </h3>
                             </v-flex>
                         </v-layout>
                     </v-container>

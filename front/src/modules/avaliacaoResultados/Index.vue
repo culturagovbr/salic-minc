@@ -1,30 +1,29 @@
 <template>
     <div id="app">
         <v-app :dark="isModoNoturno">
-            <SlNav/>
-            <v-content>
-                <v-container
-                    v-if="Object.keys(usuario).length > 0"
-                    fluid>
-                    <v-layout>
-                        <v-fade-transition mode="out-in">
-                            <router-view/>
-                        </v-fade-transition>
-                    </v-layout>
-                </v-container>
+            <SlNav />
+            <v-content v-if="Object.keys(usuario).length > 0">
+                <v-fade-transition mode="out-in">
+                    <router-view />
+                </v-fade-transition>
             </v-content>
+            <carregando
+                v-else
+                class="mt-5"
+                text="Aguarde ..."
+            />
 
             <v-snackbar
                 v-model="snackbar"
                 :color="getSnackbar.color"
                 :top="true"
-                :left="true"
+                :right="true"
                 :timeout="2000"
                 @input="fecharSnackbar"
             >
                 {{ getSnackbar.text }}
             </v-snackbar>
-            <Rodape/>
+            <Rodape />
         </v-app>
     </div>
 </template>
@@ -33,10 +32,11 @@
 import { mapActions, mapGetters } from 'vuex';
 import Rodape from '@/components/layout/footer';
 import SlNav from './components/SlNav';
+import Carregando from '@/components/CarregandoVuetify';
 
 export default {
     name: 'Index',
-    components: { SlNav, Rodape },
+    components: { Carregando, SlNav, Rodape },
     data() {
         return {
             dark: false,

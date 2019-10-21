@@ -1,21 +1,28 @@
 <?php
+
 class Orgaos extends MinC_Db_Table_Abstract
 {
     protected $_banco = 'SAC';
-    protected $_name  = 'Orgaos';
+    protected $_name = 'Orgaos';
     protected $_primary = 'Codigo';
+    protected $_schema = 'sac';
 
     const ORGAO_SUPERIOR_SAV = 160;
     const ORGAO_SUPERIOR_SEFIC = 251;
+    const ORGAO_SUPERIOR_SGFT = 731;
+
     const ORGAO_SAV_CAP = 166;
     const ORGAO_SAV_CEP = 167;
     const ORGAO_SAV_DAP = 171;
     const ORGAO_SAV_SAL = 179;
     const ORGAO_SAV_DIECI = 632;
+
     const ORGAO_GEAAP_SUAPI_DIAAPI = 262;
     const ORGAO_SEFIC_ARQ_CGEPC = 303;
     const ORGAO_SEFIC_DIC = 341;
     const ORGAO_GEAR_SACAV = 272;
+
+    const ORGAO_SGFT_DEFNC_CGPC = 733;
 
     const ORGAO_IPHAN_PRONAC = 91;
     const ORGAO_FUNARTE = 92;
@@ -34,18 +41,18 @@ class Orgaos extends MinC_Db_Table_Abstract
         $select->setIntegrityCheck(false);
         $select->distinct();
         $select->from(
-                array('o'=>$this->_name),
-                array(
+            array('o' => $this->_name),
+            array(
                 'o.Codigo',
                 new Zend_Db_Expr('Tabelas.dbo.fnEstruturaOrgao(o.codigo, 0) as Sigla'),
                 'org.org_nomeautorizado'
-                )
+            )
         );
         $select->joinInner(
-                array('org'=>'vwUsuariosOrgaosGrupos'),
-                'org.uog_orgao = o.Codigo ',
-                array('org.org_nomeautorizado'),
-                'Tabelas.dbo'
+            array('org' => 'vwUsuariosOrgaosGrupos'),
+            'org.uog_orgao = o.Codigo ',
+            array('org.org_nomeautorizado'),
+            'Tabelas.dbo'
         );
         $select->where('o.Status = ?', 0);
         $select->where(new Zend_Db_Expr('o.idSecretaria IS NOT NULL'));
@@ -60,7 +67,7 @@ class Orgaos extends MinC_Db_Table_Abstract
         $select->setIntegrityCheck(false);
         $select->distinct();
         $select->from(
-            array('o'=>$this->_name),
+            array('o' => $this->_name),
             array(
                 'o.Codigo',
                 'o.Sigla',
@@ -85,12 +92,12 @@ class Orgaos extends MinC_Db_Table_Abstract
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-                        array('o'=>$this->_name),
-                        array(
-                                'o.Codigo',
-                                'o.Sigla as NomeOrgao'
-                             )
-                     );
+            array('o' => $this->_name),
+            array(
+                'o.Codigo',
+                'o.Sigla as NomeOrgao'
+            )
+        );
         $select->where("o.Codigo = ?", $codOrgao);
 
         return $this->fetchAll($select);
@@ -101,54 +108,16 @@ class Orgaos extends MinC_Db_Table_Abstract
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-            array('o'=>$this->_name),
-                      array('o.Codigo',
-                            'o.Sigla',
-                            'o.idSecretaria as Superior')
+            array('o' => $this->_name),
+            array('o.Codigo',
+                'o.Sigla',
+                'o.idSecretaria as Superior')
         );
 
         $select->where("o.Codigo = ?", $codOrgao);
 
         return $this->fetchAll($select);
     }
-
-
-    /**
-     * Retorna registros do banco de dados
-     * @param array $where - array com dados where no formato "nome_coluna_1"=>"valor_1","nome_coluna_2"=>"valor_2"
-     * @param array $order - array com orders no formado "coluna_1 desc","coluna_2"...
-     * @param int $tamanho - numero de registros que deve retornar
-     * @param int $inicio - offset
-     * @return Zend_Db_Table_Rowset_Abstract
-     */
-//    public function buscarOrgaoPorSegmento($area, $segmento)
-//    {
-//        $slct = $this->select();
-//        $slct->setIntegrityCheck(false);
-//        $slct->from(
-//                    array("o"=>$this->_name),
-//                    array("Codigo", "Sigla")
-//                    );
-//        $slct->joinInner(
-//                        array("se"=>"Segmento"),
-//                        "o.Codigo = se.idOrgao",
-//                        array(),
-//                        "SAC.dbo"
-//                        );
-//        $slct->joinInner(
-//                        array("a"=>"Area"),
-//                        "a.Codigo = substring(se.Codigo, 1, 1)",
-//                        array(),
-//                        "SAC.dbo"
-//                        );
-//
-//        //adiciona quantos filtros foram enviados
-//        $slct->where("se.stEstado = ?", 1);
-//        $slct->where("se.Codigo = ?", $area);
-//        $slct->orWhere("se.Codigo = ?", $segmento);
-//
-//        return $this->fetchAll($slct);
-//    }
 
     /**
      * Retorna registros do banco de dados
@@ -163,20 +132,20 @@ class Orgaos extends MinC_Db_Table_Abstract
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
         $slct->from(
-                    array("o"=>$this->_name),
-                    array("Codigo", "Sigla")
-                    );
+            array("o" => $this->_name),
+            array("Codigo", "Sigla")
+        );
         $slct->joinInner(
-                        array("se"=>"Segmento"),
-                        "o.Codigo = se.idOrgao",
-                        array(),
-                        "SAC.dbo"
-                        );
+            array("se" => "Segmento"),
+            "o.Codigo = se.idOrgao",
+            array(),
+            "SAC.dbo"
+        );
 
         //adiciona quantos filtros foram enviados
         //$slct->where("se.stEstado = ?", 1);
         $slct->where("se.Codigo = ?", $segmento);
-        
+
         return $this->fetchAll($slct);
     }
 
@@ -212,15 +181,15 @@ class Orgaos extends MinC_Db_Table_Abstract
     public function buscarSuperintendencias()
     {
         $query = $this->select()
-               ->from(
-                   $this,
-                      array('Codigo', 'Sigla')
-               );
+            ->from(
+                $this,
+                array('Codigo', 'Sigla')
+            );
 
         $query->where('Vinculo = 1');
         $query->where('idSecretaria = ' . Orgaos::ORGAO_IPHAN_PRONAC);
         $query->order('Sigla');
-        
+
         return $this->fetchAll($query);
     }
 
@@ -236,11 +205,12 @@ class Orgaos extends MinC_Db_Table_Abstract
             self::ORGAO_SUPERIOR_SAV,
             self::ORGAO_SAV_DAP
         );
-        
+
         return (!in_array($idOrgao, $orgaos)) ? true : false;
     }
 
-    public function obterAreaParaEncaminhamentoPrestacao($codOrgao){
+    public function obterAreaParaEncaminhamentoPrestacao($codOrgao)
+    {
         $idOrgaoDestino = $codOrgao;
         $where = array();
 
@@ -253,4 +223,67 @@ class Orgaos extends MinC_Db_Table_Abstract
 
         return $this->buscar($where, array('Sigla'))->current();
     }
+
+    public function obterUnidadeParaComprovacaoFinanceira($idOrgaoSuperior)
+    {
+        switch ($idOrgaoSuperior) {
+            case self::ORGAO_SUPERIOR_SAV:
+                $idOrgaoDestino = self::ORGAO_SAV_CEP;
+                break;
+            case self::ORGAO_SUPERIOR_SGFT:
+                $idOrgaoDestino = self::ORGAO_SGFT_DEFNC_CGPC;
+                break;
+            default:
+                $idOrgaoDestino = self::ORGAO_SEFIC_ARQ_CGEPC;
+        }
+        return $idOrgaoDestino;
+    }
+
+    public function obterUnidadeDestinoLaudoDaFinal($idUnidade)
+    {
+        $idOrgaoSuperior = (int)$this->obterOrgaoSuperior($idUnidade)['Codigo'];
+
+        switch ($idOrgaoSuperior) {
+            case self::ORGAO_SUPERIOR_SAV:
+                $idUnidade = \Orgaos::ORGAO_SAV_CEP;
+                break;
+            case self::ORGAO_SUPERIOR_SGFT:
+                $idUnidade = \Orgaos::ORGAO_SGFT_DEFNC_CGPC;
+                break;
+            default:
+                $idUnidade = \Orgaos::ORGAO_SEFIC_ARQ_CGEPC;
+        }
+
+        return $idUnidade;
+    }
+
+    public function obterNomeSecretariaPorExtenso($idUnidade)
+    {
+        $idOrgaoSuperior = (int)$this->obterOrgaoSuperior($idUnidade)['Codigo'];
+
+        switch ($idOrgaoSuperior) {
+            case self::ORGAO_SUPERIOR_SAV:
+                $nome = 'Secretaria do Audiovisual - SAV';
+                break;
+            case self::ORGAO_SUPERIOR_SGFT:
+                $nome = 'Secretaria de Gest&atilde;o de Fundos e Transfer&ecirc;ncias - SGFT';
+                break;
+            default:
+                $nome = 'Secretaria de Fomento e Incentivo &agrave; Cultura - SEFIC';
+        }
+        return $nome;
+    }
+
+    public function obterNomeSecretariaEspecialPorExtenso($idUnidade)
+    {
+        $idOrgaoSuperior = (int)$this->obterOrgaoSuperior($idUnidade)['Codigo'];
+
+        $nome = 'SECRETARIA ESPECIAL DA CULTURA';
+        if ($idOrgaoSuperior == self::ORGAO_SUPERIOR_SGFT ) {
+            $nome = 'SECRETARIA EXECUTIVA';
+        }
+        return $nome;
+    }
+
+
 }

@@ -228,6 +228,10 @@ export default {
                     nome: 'FUNARTE',
                 },
                 {
+                    id: 335,
+                    nome: 'IBRAM',
+                },
+                {
                     id: 91,
                     nome: 'IPHAN',
                 },
@@ -336,10 +340,6 @@ export default {
         ...mapActions({
             buscarReadequacoesPainelAguardandoDistribuicao: 'readequacao/buscarReadequacoesPainelAguardandoDistribuicao',
             buscarReadequacoesPainelEmAnalise: 'readequacao/buscarReadequacoesPainelEmAnalise',
-            obterDestinatariosDistribuicao: 'readequacao/obterDestinatariosDistribuicao',
-            distribuirReadequacao: 'readequacao/distribuirReadequacao',
-            devolverAoCoordenador: 'readequacao/devolverAoCoordenador',
-            setSnackbar: 'noticias/setDados',
         }),
         checkDisponivelEncaminhar() {
             if (this.acaoTomada === 'DEVOLVER_AO_COORDENADOR') {
