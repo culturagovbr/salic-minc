@@ -46,8 +46,12 @@
                 </v-btn>
                 <v-toolbar-title>Avaliação de Resultados - Visualizar Parecer</v-toolbar-title>
             </v-toolbar>
+            <carregando-vuetify
+                v-if="loading"
+                class="mt-5"
+                text="Carregando parecer" />
 
-            <v-container v-if="parecerObjeto === null">
+            <v-container v-else-if="parecerObjeto === null">
                 <v-alert
                     :value="true"
                     type="warning"
@@ -57,7 +61,9 @@
                 </v-alert>
             </v-container>
 
-            <v-container grid-list-sm>
+            <v-container
+                v-else
+                grid-list-sm>
                 <v-layout
                     row
                     wrap
@@ -137,7 +143,7 @@
                     <v-divider/>
                 </v-container>
             </div>
-            <div v-if="Object.keys(parecerLaudoFinal).length !== 0">
+            <div v-if="parecerLaudoFinal.items && parecerLaudoFinal.items.length !== 0">
                 <h2 class="text-sm-center">Laudo Final da Avaliação de Resultado</h2>
                 <v-container grid-list-sm>
                     <v-layout
@@ -174,9 +180,11 @@
 <script>
 import { mapGetters, mapActions } from 'vuex';
 import cnpjFilter from '@/filters/cnpj';
+import CarregandoVuetify from '@/components/CarregandoVuetify';
 
 export default {
     name: 'VisualizarParecer',
+    components: { CarregandoVuetify },
     filters: {
         cnpjFilter,
     },
@@ -197,6 +205,7 @@ export default {
     data() {
         return {
             dialog: false,
+            loading: false,
         };
     },
     computed: {
@@ -210,12 +219,16 @@ export default {
     },
     methods: {
         ...mapActions({
-            requestEmissaoParecer: 'avaliacaoResultados/getDadosEmissaoParecer',
-            getLaudoFinal: 'avaliacaoResultados/getLaudoFinal',
+            requestEmissaoParecerAction: 'avaliacaoResultados/getDadosEmissaoParecer',
+            getLaudoFinalAction: 'avaliacaoResultados/getLaudoFinal',
         }),
         sincState(id) {
-            this.requestEmissaoParecer(id);
-            this.getLaudoFinal(id);
+            this.loading = true;
+            this.requestEmissaoParecerAction(id)
+                .finally(() => {
+                    this.loading = false;
+                });
+            this.getLaudoFinalAction(id);
         },
         statusButton(obj, laudo) {
             let status = {};

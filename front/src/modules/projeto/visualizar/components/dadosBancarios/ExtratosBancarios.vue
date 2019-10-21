@@ -13,11 +13,22 @@
                             :text="'Escolha a Dt. Lançamento:'"
                             @eventoFiltrarData="filtrarData"
                         />
-                        <FiltroTipoConta
-                            @eventoSearch="search = $event"
-                        />
                     </v-container>
                 </div>
+                <v-card-title>
+                    <FiltroTipoConta
+                        @eventoSearch="search = $event"
+                    />
+                    <v-spacer/>
+                    <v-text-field
+                        v-model="search"
+                        append-icon="search"
+                        label="Buscar"
+                        single-line
+                        hide-details
+                    />
+
+                </v-card-title>
                 <v-data-table
                     :headers="headers"
                     :items="dadosExtratosBancarios"
@@ -139,6 +150,7 @@ export default {
               }
               `],
             search: '',
+            searchAll: '',
             pagination: {
                 sortBy: 'dtLancamento',
                 descending: true,

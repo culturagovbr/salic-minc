@@ -14,9 +14,20 @@
                     </v-container>
                 </div>
                 <v-card id="geraPdf">
+                    <v-card-title>
+                        <v-spacer/>
+                        <v-text-field
+                            v-model="search"
+                            append-icon="search"
+                            label="Buscar"
+                            single-line
+                            hide-details
+                        />
+                    </v-card-title>
                     <v-data-table
                         :headers="headers"
                         :items="dadosConciliacao"
+                        :search="search"
                         :pagination.sync="pagination"
                         :rows-per-page-items="[10, 25, 50, 100, {'text': 'Todos', value: -1}]"
                         class="elevation-1 container-fluid"

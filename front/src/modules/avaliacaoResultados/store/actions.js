@@ -22,21 +22,16 @@ export const removerRegistro = ({ commit }, registro) => {
         });
 };
 
-export const getDadosEmissaoParecer = ({ commit }, param) => {
-    const p = new Promise((resolve) => {
-        avaliacaoResultadosHelperAPI.parecerConsolidacao(param)
-            .then((response) => {
-                const data = response.data.data.items;
-                commit(types.GET_PROPONENTE, data.proponente);
-                commit(types.GET_PROJETO, data.projeto);
-                commit(types.GET_PARECER, data.parecer);
-                commit(types.GET_CONSOLIDACAO_PARECER, data.consolidacaoComprovantes);
-                commit(types.GET_OBJETO_PARECER, data.objetoParecer);
-                resolve();
-            }).catch(() => { });
+export const getDadosEmissaoParecer = async ({ commit }, param) => avaliacaoResultadosHelperAPI
+    .parecerConsolidacao(param)
+    .then((response) => {
+        const data = response.data.data.items;
+        commit(types.GET_PROPONENTE, data.proponente);
+        commit(types.GET_PROJETO, data.projeto);
+        commit(types.GET_PARECER, data.parecer);
+        commit(types.GET_CONSOLIDACAO_PARECER, data.consolidacaoComprovantes);
+        commit(types.GET_OBJETO_PARECER, data.objetoParecer);
     });
-    return p;
-};
 
 export const salvarParecer = async ({ commit }, params) => avaliacaoResultadosHelperAPI
     .criarParecer(params)
@@ -190,13 +185,12 @@ export const obterDadosItemComprovacao = ({ commit }, params) => {
         });
 };
 
-export const getLaudoFinal = ({ commit }, params) => {
-    avaliacaoResultadosHelperAPI.obterLaudoFinal(params)
-        .then((response) => {
-            const dados = response.data.data;
-            commit(types.GET_PARECER_LAUDO_FINAL, dados);
-        });
-};
+export const getLaudoFinal = async ({ commit }, params) => avaliacaoResultadosHelperAPI
+    .obterLaudoFinal(params)
+    .then((response) => {
+        const dados = response.data.data;
+        commit(types.GET_PARECER_LAUDO_FINAL, dados);
+    });
 
 export const salvarLaudoFinal = async (state, data) => avaliacaoResultadosHelperAPI
     .criarParecerLaudoFinal(data);
