@@ -1,5 +1,3 @@
-import _ from 'lodash';
-import Vue from 'vue';
 import * as types from './types';
 import Parecer from '../mocks/Parecer.json';
 import TipoAvaliacao from '../mocks/TipoAvaliacao.json';

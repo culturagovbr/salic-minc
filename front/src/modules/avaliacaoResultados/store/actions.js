@@ -163,12 +163,9 @@ export const finalizarParecer = async ({ commit }, params) => avaliacaoResultado
         return response;
     });
 
-export const encaminharParaTecnico = async ({ dispatch }, params) => avaliacaoResultadosHelperAPI
+export const encaminharParaTecnico = async (store, params) => avaliacaoResultadosHelperAPI
     .alterarEstado(params)
-    .then(response => response,
-        // dispatch('projetosParaDistribuir');
-        // dispatch('obterDadosTabelaTecnico', { estadoid: 5, idSecretaria: params.idSecretaria });
-    );
+    .then(response => response);
 
 export const alterarParecer = ({ commit }, param) => {
     commit(types.SET_PARECER, param);

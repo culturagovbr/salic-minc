@@ -104,7 +104,7 @@
                         <v-card-text>
                             <TabelaProjetos
                                 v-if="(usuarioGetter.grupo_ativo === CONST.PERFIL_COORDENADOR
-                                    || usuarioGetter.grupo_ativo === CONST.PERFIL_COORDENADOR_GERAL)"
+                                || usuarioGetter.grupo_ativo === CONST.PERFIL_COORDENADOR_GERAL)"
                                 :analisar="true"
                                 :dados="dadosTabelaTecnico"
                                 :componentes="listaAcoesCoordenador"

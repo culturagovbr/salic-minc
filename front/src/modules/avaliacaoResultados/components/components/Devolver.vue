@@ -41,7 +41,7 @@
                         v-if="tecnico !== undefined
                             && tecnico !== null
                             && tecnico !== ''
-                            && tecnico.nome !== 'sysLaudo'"
+                        && tecnico.nome !== 'sysLaudo'"
                     >
                         Confirma a devolução do projeto '{{ pronac }} - {{ nomeProjeto }}'
                         para análise do Tecnico: {{ tecnico.nome }}?
@@ -69,10 +69,10 @@
                     Cancelar
                 </v-btn>
                 <v-btn
-                    color="success"
-                    flat
                     :loading="loading"
                     :disabled="loading"
+                    color="success"
+                    flat
                     @click="devolver()"
                 >
                     Devolver

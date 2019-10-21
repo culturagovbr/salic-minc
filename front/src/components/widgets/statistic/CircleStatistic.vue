@@ -40,12 +40,30 @@
 <script>
 export default {
     props: {
-        icon: String,
-        title: String,
-        subTitle: String,
-        caption: String,
-        value: Number,
-        color: String,
+        icon: {
+            type: String,
+            default: '',
+        },
+        title: {
+            type: String,
+            default: '',
+        },
+        subTitle: {
+            type: String,
+            default: '',
+        },
+        caption: {
+            type: String,
+            default: '',
+        },
+        value: {
+            type: Number,
+            default: 0,
+        },
+        color: {
+            type: String,
+            default: '',
+        },
     },
 };
 </script>

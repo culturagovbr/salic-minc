@@ -27,7 +27,9 @@
             </v-toolbar>
 
             <v-card-text>
-                <relacao-pagamento v-if="dialog" :id-pronac="idPronac" />
+                <relacao-pagamento
+                    v-if="dialog"
+                    :id-pronac="idPronac" />
             </v-card-text>
         </v-card>
     </v-dialog>

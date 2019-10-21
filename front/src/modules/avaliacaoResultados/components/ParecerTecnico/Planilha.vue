@@ -19,10 +19,10 @@
                                 <v-progress-circular
                                     v-if="props.item.qtComprovado > 0"
                                     slot="activator"
-                                    style="margin: 1px 0px"
-                                    height="5"
                                     :value="obterPercentualProgresso(props.item)"
                                     :color="obterCorProgresso(props.item)"
+                                    style="margin: 1px 0px"
+                                    height="5"
                                 >
                                     {{ props.item.qtComprovado }}
                                 </v-progress-circular>

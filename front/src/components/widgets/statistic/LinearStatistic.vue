@@ -7,8 +7,8 @@
                 </div>
 
                 <div class="grey--text"><span v-if="value">{{ value }}%</span> <v-icon
-                    mini
                     :color="color"
+                    mini
                 >{{ icon }}</v-icon></div>
             </div>
         </v-card-title>
@@ -18,9 +18,9 @@
             </h3>
             <v-progress-linear
                 :value="value"
-                height="5"
                 :color="color"
                 :indeterminate="loading"
+                height="5"
             />
             <span
                 class="caption"
@@ -33,13 +33,34 @@
 <script>
 export default {
     props: {
-        icon: String,
-        title: String,
-        subTitle: String,
-        headline: String,
-        value: Number,
-        color: String,
-        loading: Boolean,
+        icon: {
+            type: String,
+            default: '',
+        },
+        title: {
+            type: String,
+            default: '',
+        },
+        subTitle: {
+            type: String,
+            default: '',
+        },
+        headline: {
+            type: String,
+            default: '',
+        },
+        value: {
+            type: Number,
+            default: 0,
+        },
+        color: {
+            type: String,
+            default: '',
+        },
+        loading: {
+            type: Boolean,
+            default: false,
+        },
     },
     computed: {
         caption() {
