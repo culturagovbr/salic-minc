@@ -9,7 +9,9 @@
         color="green"
     >
         <v-tooltip bottom>
-            <v-icon slot="activator">edit</v-icon>
+            <v-icon slot="activator">
+                edit
+            </v-icon>
             <span>Assinar</span>
         </v-tooltip>
     </v-btn>
@@ -24,7 +26,9 @@
         color="green"
     >
         <v-tooltip bottom>
-            <v-icon slot="activator">edit</v-icon>
+            <v-icon slot="activator">
+                edit
+            </v-icon>
             <span>Assinar</span>
         </v-tooltip>
     </v-btn>
@@ -35,7 +39,7 @@ export default {
     name: 'AssinarButton',
     props: {
         idPronac: { type: String, default: '' },
-        linkDiretoAssinatura: { type: String, default: '' },
+        linkDiretoAssinatura: { type: [String, Boolean], default: '' },
         documento: { type: String, default: '' },
         retorno: { type: String, default: '' },
     },

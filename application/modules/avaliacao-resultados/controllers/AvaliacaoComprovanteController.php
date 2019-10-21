@@ -43,16 +43,12 @@ class AvaliacaoResultados_AvaliacaoComprovanteController extends MinC_Controller
     }
 
     public function postAction(){
-        $idPronac = $this->getRequest()->getParam('idPronac');
-        $dsJustificativa = utf8_decode($this->getRequest()->getParam('dsJustificativa'));
+        $dsJustificativa = utf8_decode($this->getRequest()->getParam('dsJustificativa', ''));
         $stItemAvaliado = $this->getRequest()->getParam('stItemAvaliado');
         $idComprovantePagamento = $this->getRequest()->getParam('idComprovantePagamento');
-
         try {
 
-            if (!$idPronac) {
-                throw new Exception('Falta idPronac');
-            }
+            $dsJustificativa = $dsJustificativa == 'null' ? '' : $dsJustificativa;
 
             if (!$idComprovantePagamento) {
                 throw new Exception('Falta idComprovantePagamento');

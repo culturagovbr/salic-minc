@@ -54,7 +54,7 @@ export default {
     },
     methods: {
         url(arrUrl) {
-            let url = `${arrUrl.module}/${arrUrl.controller}/${arrUrl.action}`;
+            let url = `/${arrUrl.module}/${arrUrl.controller}/${arrUrl.action}`;
             Object.keys(arrUrl).forEach((index) => {
                 if (index !== 'module' && index !== 'controller' && index !== 'action') {
                     url += `/${index}/${arrUrl[index]}`;

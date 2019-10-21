@@ -11,7 +11,7 @@
             >
                 visibility
             </v-icon>
-            <span>Visualizar Projeto</span>
+            <span>Visualizar Comprovação Financeira</span>
         </v-tooltip>
     </v-btn>
 

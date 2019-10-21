@@ -34,18 +34,18 @@
                             row
                             wrap>
                             <v-flex xs6>
-                                <h6 class="mr-3 blue--text">TOTAL RECEITA</h6>
+                                <h3 class="subheading mr-3 blue--text">TOTAL RECEITA</h3>
                             </v-flex>
                             <v-flex
                                 xs5
                                 offset-xs1
                                 class=" text-xs-right">
-                                <h6>
+                                <h3 class="subheading">
                                     <v-chip
                                         outline
                                         color="blue">R$ {{ valorReceitaTotal | filtroFormatarParaReal }}
                                     </v-chip>
-                                </h6>
+                                </h3>
                             </v-flex>
                         </v-layout>
                     </v-container>

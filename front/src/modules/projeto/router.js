@@ -26,19 +26,19 @@ import DadosReadequacoes from './visualizar/components/execucao/DadosReadequacoe
 import PedidoProrrogacao from './visualizar/components/execucao/PedidoProrrogacao';
 import DadosFiscalizacao from './visualizar/components/execucao/DadosFiscalizacao';
 import ContasBancarias from './visualizar/components/dadosBancarios/ContasBancarias';
-import ConciliacaoBancaria from './visualizar/components/dadosBancarios/ConciliacaoBancaria';
+import ConciliacaoBancariaView from './visualizar/components/dadosBancarios/ConciliacaoBancariaView';
 import InconsistenciaBancaria from './visualizar/components/dadosBancarios/InconsistenciaBancaria';
 import Liberacao from './visualizar/components/dadosBancarios/Liberacao';
 import SaldoContas from './visualizar/components/dadosBancarios/SaldoContas';
-import ExtratosBancarios from './visualizar/components/dadosBancarios/ExtratosBancarios';
+import ExtratosBancariosView from './visualizar/components/dadosBancarios/ExtratosBancariosView';
 import ExtratosBancariosConsolidado from './visualizar/components/dadosBancarios/ExtratosBancariosConsolidado';
 import Captacao from './visualizar/components/dadosBancarios/Captacao';
 import Devolucoes from './visualizar/components/dadosBancarios/Devolucoes';
 import PagamentosConsolidados from './visualizar/components/prestacaoContas/PagamentosConsolidados';
 import PagamentosUfMunicipio from './visualizar/components/prestacaoContas/PagamentosUfMunicipio';
-import ExecucaoReceitaDespesa from './visualizar/components/prestacaoContas/ExecucaoReceitaDespesa';
+import ExecucaoReceitaDespesaView from './visualizar/components/prestacaoContas/ExecucaoReceitaDespesaView';
 import RelatorioFisico from './visualizar/components/prestacaoContas/RelatorioFisico';
-import RelacaoPagamento from './visualizar/components/prestacaoContas/RelacaoPagamento';
+import RelacaoPagamentoView from './visualizar/components/prestacaoContas/RelacaoPagamentoView';
 import RelatorioCumprimentoObjeto from './visualizar/components/prestacaoContas/RelatorioCumprimentoObjeto';
 import LaudoFinal from './visualizar/components/prestacaoContas/LaudoFinal';
 
@@ -289,7 +289,7 @@ const routes = [
             {
                 path: 'conciliacao-bancaria',
                 name: 'ConciliacaoBancaria',
-                component: ConciliacaoBancaria,
+                component: ConciliacaoBancariaView,
                 meta: {
                     title: 'Conciliação Bancária',
                 },
@@ -321,7 +321,7 @@ const routes = [
             {
                 path: 'extratos-bancarios',
                 name: 'ExtratosBancarios',
-                component: ExtratosBancarios,
+                component: ExtratosBancariosView,
                 meta: {
                     title: 'Extratos Bancários',
                 },
@@ -385,7 +385,7 @@ const routes = [
             {
                 path: 'execucao-receita-despesa',
                 name: 'ExecucaoReceitaDespesa',
-                component: ExecucaoReceitaDespesa,
+                component: ExecucaoReceitaDespesaView,
                 meta: {
                     title: 'Execução da Receita e Despesa',
                 },
@@ -401,7 +401,7 @@ const routes = [
             {
                 path: 'relacao-pagamento',
                 name: 'RelacaoPagamento',
-                component: RelacaoPagamento,
+                component: RelacaoPagamentoView,
                 meta: {
                     title: 'Relação de Pagamentos',
                 },

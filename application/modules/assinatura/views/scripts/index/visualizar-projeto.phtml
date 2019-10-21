@@ -1,13 +1,13 @@
 <main>
     <?php
 
+    if ($this->origin != '') {
+        $origin = '?origin=' . $this->origin;
+    }
+
     $links = array(
         array(
-            'Gerenciar Projetos' => array(
-                'module' => $this->moduleOrigin,
-                'controller' => $this->controllerOrigin,
-                'action' => 'gerenciar-assinaturas'
-            )
+            'Gerenciar Projetos' => $this->urlVoltar
         ),
         array('Visualizar Documento' => array())
     );
@@ -48,11 +48,6 @@
             <?= $this->partial("/index/partials/template-documento-assinado.phtml", $this); ?>
         </div>
         <div class="row center-align">
-            <?php
-            if ($this->origin != '') {
-                $origin = '?origin=' . $this->origin;
-            }
-            ?>
             <a class="btn waves-effect waves-dark"
                href="<?= $this->urlVoltar; ?>">Voltar</a>
             <?php
