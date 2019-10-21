@@ -112,7 +112,7 @@ export default {
                         color: 'error',
                     },
                     linear: {
-                        percent: this.calcularPercentual(this.estatisticas.qtComprovantesRecusadosProjeto, this.estatisticas.qtTotalComprovante),
+                        value: this.calcularPercentual(this.estatisticas.qtComprovantesRecusadosProjeto, this.estatisticas.qtTotalComprovante),
                         color: 'error',
                     },
                 },
