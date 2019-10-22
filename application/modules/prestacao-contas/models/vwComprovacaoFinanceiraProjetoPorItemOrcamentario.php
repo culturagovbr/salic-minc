@@ -620,8 +620,8 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             "a.idPlanilhaAprovacao",
             "c.idComprovantePagamento",
             "a.IdPRONAC",
-            new Zend_Db_Expr("d.AnoProjeto+d.Sequencial AS Pronac"),
-            "d.NomeProjeto",
+//            new Zend_Db_Expr("d.AnoProjeto+d.Sequencial AS Pronac"),
+//            "d.NomeProjeto",
             "a.nrFonteRecurso",
             "a.idProduto as cdProduto",
             "a.idEtapa as cdEtapa",
@@ -689,12 +689,12 @@ class PrestacaoContas_Model_vwComprovacaoFinanceiraProjetoPorItemOrcamentario ex
             'BDCORPORATIVO.scSAC'
         );
 
-        $select->join(
-            ['d' => 'Projetos'],
-            '(a.IdPRONAC = d.IdPRONAC)',
-            null,
-           'sac.dbo'
-        );
+//        $select->join(
+//            ['d' => 'Projetos'],
+//            '(a.IdPRONAC = d.IdPRONAC)',
+//            null,
+//           'sac.dbo'
+//        );
 
         $select->joinLeft(
             ['e' => 'Agentes'],

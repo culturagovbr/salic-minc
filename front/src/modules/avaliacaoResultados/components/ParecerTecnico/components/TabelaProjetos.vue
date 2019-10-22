@@ -1,7 +1,10 @@
 <template>
     <v-layout
         row
-        wrap>
+        wrap
+        align-content-start
+        style="min-height: calc(100vh - 332px)"
+    >
         <v-flex xs4>
             <br>
             <v-switch
@@ -9,12 +12,13 @@
                 v-model="filtro"
                 input-value="true"
                 color="success"
-                label="Todos / Analisar"
-                value="Diligenciado"/>
+                label="Ocultar diligenciados"
+                value="Diligenciado"
+            />
         </v-flex>
         <v-flex xs8>
             <v-card-title>
-                <v-spacer/>
+                <v-spacer />
                 <v-text-field
                     v-model="search"
                     append-icon="search"
@@ -26,44 +30,67 @@
         </v-flex>
 
         <v-flex xs12>
+            <carregando-vuetify
+                v-if="loading"
+                text="Carregando ..."
+            />
             <v-data-table
-                :headers="cab()"
+                v-else
+                :headers="headers()"
                 :items="dados.items"
-                :pagination.sync="pagination"
                 :search="search"
-                hide-actions
+                :rows-per-page-items="[10, 25, 50, {'text': 'Todos', value: -1}]"
             >
                 <template
-                    v-if="filtragem(statusDiligencia(props.item).desc,filtro)"
+                    v-if="filtragem(statusDiligencia(props.item).desc, filtro)"
                     slot="items"
-                    slot-scope="props">
-                    <td>{{ props.index+1 }}</td>
+                    slot-scope="props"
+                >
                     <td class="text-xs-right">
                         <v-flex
                             xs12
                             sm4
-                            text-xs-center>
+                        >
                             <div>
                                 <v-btn
                                     :href="'/projeto/#/'+ props.item.idPronac"
-                                    flat>{{ props.item.PRONAC }}</v-btn>
+                                    flat
+                                    small
+                                    color="primary"
+                                    style="text-decoration: underline"
+                                >
+                                    {{ props.item.PRONAC }}
+                                </v-btn>
                             </div>
                         </v-flex>
                     </td>
-                    <td class="text-xs-left">{{ props.item.NomeProjeto }}</td>
-                    <td class="text-xs-center">{{ props.item.Situacao }}</td>
-                    <td class="text-xs-center">{{ props.item.UfProjeto }}</td>
+                    <td class="text-xs-left">
+                        {{ props.item.NomeProjeto }}
+                    </td>
+                    <td class="text-xs-center">
+                        {{ props.item.Situacao }}
+                    </td>
+                    <td class="text-xs-center">
+                        {{ props.item.UfProjeto }}
+                    </td>
                     <td
                         v-if="mostrarTecnico"
-                        class="text-xs-center">{{ props.item.usu_nome }}</td>
-                    <td class="text-xs-center">
+                        class="text-xs-center"
+                    >
+                        {{ props.item.usu_nome }}
+                    </td>
+                    <td
+                        class="text-xs-center"
+                        style="min-width: 360px;"
+                    >
                         <template
-                            v-for="(c, index) in componentes.acoes"
-                            d-inline-block>
+                            v-for="(componente, index) in componentes.acoes"
+                            d-inline-block
+                        >
                             <component
+                                :is="componente"
                                 :key="index"
                                 :obj="props.item"
-                                :is="c"
                                 :filtros="filtro"
                                 :link-direto-assinatura="true"
                                 :documento="props.item.idDocumentoAssinatura"
@@ -87,39 +114,43 @@
                 <template slot="no-data">
                     <v-alert
                         :value="true"
-                        color="error"
-                        icon="warning">
+                        color="info"
+                        icon="info"
+                    >
                         Nenhum dado encontrado ¯\_(ツ)_/¯
                     </v-alert>
                 </template>
             </v-data-table>
         </v-flex>
-        <v-flex
-            xs12
-            class="text-xs-center">
-            <div class="text-xs-center pt-2">
-                <v-pagination
-                    v-model="pagination.page"
-                    :length="pages"
-                    :total-visible="4"
-                    color="primary "
-                />
-            </div>
-        </v-flex>
     </v-layout>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 import statusDiligencia from '../../../mixins/statusDiligencia';
+import CarregandoVuetify from '@/components/CarregandoVuetify';
 
 export default {
     name: 'TabelaProjetos',
+    components: { CarregandoVuetify },
     mixins: [statusDiligencia],
     props: {
-        dados: { type: Object, default: () => {} },
-        componentes: { type: Object, default: () => {} },
-        mostrarTecnico: { type: Boolean, default: false },
+        dados: {
+            type: [Object, Array],
+            default: () => {},
+        },
+        componentes: {
+            type: Object,
+            default: () => {},
+        },
+        mostrarTecnico: {
+            type: Boolean,
+            default: false,
+        },
+        loading: {
+            type: Boolean,
+            default: false,
+        },
     },
     data() {
         return {
@@ -129,7 +160,7 @@ export default {
             retornoUrl: `&origin=${encodeURIComponent('avaliacao-resultados/#/painel/assinar')}`,
             selected: [],
             search: '',
-            filtro: 'Diligenciado',
+            filtro: '',
             diligencias: [
                 'Todos projetos',
                 'A Diligenciar',
@@ -159,36 +190,30 @@ export default {
         },
     },
     methods: {
-        ...mapActions({
-            obterDadosTabelaTecnico: 'avaliacaoResultados/obterDadosTabelaTecnico',
-        }),
+        // ...mapActions({
+        //     obterDadosTabelaTecnico: 'avaliacaoResultados/obterDadosTabelaTecnico',
+        // }),
         filtragem(projeto, filtro) {
             if (filtro === 'Todos projetos' || this.filtro === '') {
                 return true;
             }
             return projeto !== filtro;
         },
-        filtroDiligencia(val) {
-            this.filtro = val;
-            this.$emit('filtros', this.filtro);
-        },
-        cab() {
+        // filtroDiligencia(val) {
+        //     this.filtro = val;
+        //     this.$emit('filtros', this.filtro);
+        // },
+        headers() {
             let dados = [];
 
             dados = [
-                {
-                    text: '#',
-                    align: 'left',
-                    sortable: false,
-                    value: 'numero',
-                },
                 {
                     text: 'PRONAC',
                     value: 'PRONAC',
                 },
                 {
                     text: 'Nome Do Projeto',
-                    align: 'center',
+                    align: 'left',
                     value: 'NomeProjeto',
                 },
                 {

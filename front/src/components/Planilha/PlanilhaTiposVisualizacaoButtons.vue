@@ -53,7 +53,7 @@
 <script>
 
 export default {
-    name: 'AnaliseDeCustosButtons',
+    name: 'PlanilhaTiposVisualizacaoButtons',
     props: {
         value: {
             type: Array,

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="loading">
-            <Carregando :text="'Carregando Relação de Pagamentos'"/>
+            <Carregando :text="'Carregando Relação de Pagamentos'" />
         </div>
         <div v-else-if="dados">
             <v-card>
@@ -9,7 +9,8 @@
                     <v-layout
                         justify-start
                         row
-                        wrap>
+                        wrap
+                    >
                         <Filtro
                             :items="montaArray()"
                             :label="'Pesquise Item'"
@@ -29,15 +30,27 @@
                 >
                     <template
                         slot="items"
-                        slot-scope="props">
-                        <td class="text-xs-left"><b>{{ props.item.Item }}</b></td>
-                        <td class="text-xs-left">{{ props.item.Fornecedor }}</td>
-                        <td class="text-xs-left">{{ props.item.tbDocumento }}</td>
-                        <td class="text-xs-center pl-5">{{ props.item.DtPagamento | formatarData }}</td>
+                        slot-scope="props"
+                    >
+                        <td class="text-xs-left">
+                            <b>{{ props.item.Item }}</b>
+                        </td>
+                        <td class="text-xs-left">
+                            {{ props.item.Fornecedor }}
+                        </td>
+                        <td class="text-xs-left">
+                            {{ props.item.tbDocumento }}
+                        </td>
+                        <td class="text-xs-center pl-5">
+                            {{ props.item.DtPagamento | formatarData }}
+                        </td>
                         <td
                             class="text-xs-left"
-                            v-html="props.item.tpFormaDePagamento"/>
-                        <td class="text-xs-right">{{ props.item.vlPagamento | filtroFormatarParaReal }}</td>
+                            v-html="props.item.tpFormaDePagamento"
+                        />
+                        <td class="text-xs-right">
+                            {{ props.item.vlPagamento | filtroFormatarParaReal }}
+                        </td>
                         <td class="text-xs-center pr-2">
                             <v-tooltip bottom>
                                 <v-btn
@@ -58,26 +71,32 @@
                 <v-container fluid>
                     <v-layout
                         row
-                        wrap>
+                        wrap
+                    >
                         <v-flex xs6>
-                            <h6 class="mr-3">VALOR TOTAL</h6>
+                            <h6 class="mr-3">
+                                VALOR TOTAL
+                            </h6>
                         </v-flex>
                         <v-flex
                             xs5
                             offset-xs1
-                            class="text-xs-right">
+                            class="text-xs-right"
+                        >
                             <h6>
                                 <v-chip
                                     v-if="search"
                                     outline
                                     color="black"
-                                >R$ {{ valorTotalPagamentos() | filtroFormatarParaReal }}
+                                >
+                                    R$ {{ valorTotalPagamentos() | filtroFormatarParaReal }}
                                 </v-chip>
                                 <v-chip
                                     v-else
                                     outline
                                     color="black"
-                                >R$ {{ valorTotal | filtroFormatarParaReal }}
+                                >
+                                    R$ {{ valorTotal | filtroFormatarParaReal }}
                                 </v-chip>
                             </h6>
                         </v-flex>
@@ -89,32 +108,37 @@
                     <v-card-text v-if="dadosPagamento">
                         <v-container
                             grid-list-md
-                            text-xs-left>
+                            text-xs-left
+                        >
                             <div>
                                 <v-layout
                                     justify-space-around
                                     row
-                                    wrap>
+                                    wrap
+                                >
                                     <v-flex
                                         lg12
                                         xs12
                                         sm12
                                         md12
                                         dark
-                                        class="text-xs-left">
+                                        class="text-xs-left"
+                                    >
                                         <h4>DADOS DO PAGAMENTO</h4>
                                         <h3 class="text-xs-center">
                                             <b>{{ dadosPagamento.Item }}</b>
                                         </h3>
-                                        <v-divider class="pb-2"/>
+                                        <v-divider class="pb-2" />
                                     </v-flex>
                                 </v-layout>
                                 <v-layout
-                                    row>
+                                    row
+                                >
                                     <v-flex
                                         xs12
                                         sm12
-                                        md12>
+                                        md12
+                                    >
                                         <b>Arquivo</b><br>
                                         <v-btn
                                             v-if="dadosPagamento.idArquivo"
@@ -123,8 +147,10 @@
                                             round
                                             small
                                         >
-                                            <span v-html="dadosPagamento.nmArquivo"/>
-                                            <v-icon right>cloud_download</v-icon>
+                                            <span v-html="dadosPagamento.nmArquivo" />
+                                            <v-icon right>
+                                                cloud_download
+                                            </v-icon>
                                         </v-btn>
                                         <span v-else>
                                             -
@@ -132,11 +158,13 @@
                                     </v-flex>
                                 </v-layout>
                                 <v-layout
-                                    row>
+                                    row
+                                >
                                     <v-flex
                                         xs12
                                         sm12
-                                        md3>
+                                        md3
+                                    >
                                         <b>Data Pagamento</b>
                                         <p
                                             v-if="dadosPagamento.DtPagamento"
@@ -170,7 +198,6 @@
                                         <b>Valor Pagamento</b>
                                         <p
                                             v-if="dadosPagamento.vlPagamento"
-
                                         >
                                             R$ {{ dadosPagamento.vlPagamento | filtroFormatarParaReal }}
                                         </p>
@@ -180,15 +207,18 @@
                                     </v-flex>
                                 </v-layout>
                                 <v-layout
-                                    row>
+                                    row
+                                >
                                     <v-flex
                                         xs12
                                         sm12
-                                        md3>
+                                        md3
+                                    >
                                         <b>Fornecedor</b>
                                         <p
                                             v-if="dadosPagamento.Fornecedor"
-                                            v-html="dadosPagamento.Fornecedor"/>
+                                            v-html="dadosPagamento.Fornecedor"
+                                        />
                                         <p v-else>
                                             -
                                         </p>
@@ -196,7 +226,8 @@
                                     <v-flex
                                         xs12
                                         sm12
-                                        md3>
+                                        md3
+                                    >
                                         <b class="pr-2">CNPJ/CPF</b>
                                         <p
                                             v-if="dadosPagamento.CNPJCPF"
@@ -210,15 +241,18 @@
                                     </v-flex>
                                 </v-layout>
                                 <v-layout
-                                    row>
+                                    row
+                                >
                                     <v-flex
                                         xs12
                                         sm12
-                                        md3>
+                                        md3
+                                    >
                                         <b>Documento</b>
                                         <p
                                             v-if="dadosPagamento.tbDocumento"
-                                            v-html="dadosPagamento.tbDocumento"/>
+                                            v-html="dadosPagamento.tbDocumento"
+                                        />
                                     </v-flex>
                                     <v-flex
                                         xs12
@@ -238,11 +272,13 @@
                                     <v-flex
                                         xs12
                                         sm12
-                                        md3>
+                                        md3
+                                    >
                                         <b>Forma de Pagamento</b>
                                         <p
                                             v-if="dadosPagamento.tpFormaDePagamento"
-                                            v-html="dadosPagamento.tpFormaDePagamento"/>
+                                            v-html="dadosPagamento.tpFormaDePagamento"
+                                        />
                                     </v-flex>
                                     <v-flex
                                         xs12
@@ -262,12 +298,14 @@
                                 </v-layout>
                                 <v-layout
                                     row
-                                    justify-space-between>
+                                    justify-space-between
+                                >
                                     <v-flex>
                                         <b>Justificativa</b>
                                         <p
                                             v-if="dadosPagamento.dsJustificativa !== ' '"
-                                            v-html="dadosPagamento.dsJustificativa"/>
+                                            v-html="dadosPagamento.dsJustificativa"
+                                        />
                                         <p v-else>
                                             -
                                         </p>
@@ -276,9 +314,9 @@
                             </div>
                         </v-container>
                     </v-card-text>
-                    <v-divider/>
+                    <v-divider />
                     <v-card-actions>
-                        <v-spacer/>
+                        <v-spacer />
                         <v-btn
                             color="red"
                             flat
@@ -310,6 +348,12 @@ export default {
         cnpjFilter,
     },
     mixins: [utils],
+    props: {
+        idPronac: {
+            type: String,
+            required: true,
+        },
+    },
     data() {
         return {
             search: '',
@@ -360,7 +404,6 @@ export default {
     },
     computed: {
         ...mapGetters({
-            dadosProjeto: 'projeto/projeto',
             dados: 'prestacaoContas/relacaoPagamento',
         }),
         valorTotal() {
@@ -378,22 +421,19 @@ export default {
         },
     },
     watch: {
-        dadosProjeto(value) {
-            this.loading = true;
-            this.buscarRelacaoPagamento(value.idPronac);
-        },
         dados() {
             this.loading = false;
         },
+        idPronac(val) {
+            this.buscarRelacaoPagamento(val);
+        },
     },
     mounted() {
-        if (typeof this.dadosProjeto.idPronac !== 'undefined') {
-            this.buscarRelacaoPagamento(this.dadosProjeto.idPronac);
-        }
+        this.buscarRelacaoPagamento(this.idPronac);
     },
     methods: {
         ...mapActions({
-            buscarRelacaoPagamento: 'prestacaoContas/buscarRelacaoPagamento',
+            buscarRelacaoPagamentoAction: 'prestacaoContas/buscarRelacaoPagamento',
         }),
         showItem(item) {
             this.dadosPagamento = item;
@@ -426,6 +466,12 @@ export default {
         /* global _ */
         pagamentosPorItem() {
             return _.groupBy(this.dados, pagamento => pagamento.Item.trim());
+        },
+        buscarRelacaoPagamento(param) {
+            this.loading = true;
+            this.buscarRelacaoPagamentoAction(param).finally(() => {
+                this.loading = false;
+            });
         },
     },
 };

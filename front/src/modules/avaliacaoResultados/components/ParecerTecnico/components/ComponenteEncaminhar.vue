@@ -1,17 +1,18 @@
 <template>
     <v-dialog
         v-model="dialog"
-        width="750"
+        max-width="800"
     >
         <v-tooltip
             slot="activator"
-            bottom>
+            bottom
+        >
             <v-btn
                 slot="activator"
                 flat
                 icon
             >
-                <v-icon >assignment_ind</v-icon>
+                <v-icon>assignment_ind</v-icon>
             </v-btn>
             <span>Encaminhar Projeto</span>
         </v-tooltip>
@@ -21,7 +22,7 @@
                 v-model="form"
             >
                 <v-card-title
-                    class="headline primary"
+                    class="title primary"
                     primary-title
                 >
                     <span class="white--text">
@@ -31,36 +32,23 @@
                 <v-card-text>
                     <v-list
                         three-line
-                        subheader>
+                        subheader
+                    >
                         <v-subheader>
                             <h4 class="headline mb-0 grey--text text--darken-3">
                                 {{ pronac }} - {{ nomeProjeto }}
                             </h4>
                         </v-subheader>
-                        <v-divider/>
-                        <v-subheader>
-                            Informações do encaminhamento
-                        </v-subheader>
-                        <v-list-tile v-if="usuarioLogado.usu_org_max_superior === '251' ">
-                            <v-list-tile-action>
-                                <v-icon color="green">group</v-icon>
-                            </v-list-tile-action>
-                            SEFIC/DEIPC/CGARE
-                        </v-list-tile>
-                        <v-list-tile v-if="usuarioLogado.usu_org_max_superior === '160' ">
-                            <v-list-tile-action>
-                                <v-icon color="green">group</v-icon>
-                            </v-list-tile-action>
-                            SAV/CGAV/CEP
-                        </v-list-tile>
+                        <v-divider class="mb-3" />
                         <v-select
                             v-model="destinatarioEncaminhamento"
                             :items="dadosDestinatarios"
                             :rules="[rules.required]"
+                            :loading="loadingDestinatarios"
+                            :label="loadingDestinatarios ? 'Carregando técnicos' : '-- Escolha um técnico  --'"
                             height="10px"
-                            solo
                             single-line
-                            label="-- Escolha um técnico  --"
+                            outline
                             item-text="usu_nome"
                             item-value="usu_codigo"
                             prepend-icon="perm_identity"
@@ -69,26 +57,28 @@
                             ref="justificativa"
                             v-model="justificativa"
                             :rules="[rules.required]"
-                            label="Justificativa de encaminhamento para análise"
+                            label="Observação de encaminhamento para análise"
                             prepend-icon="create"
                             color="green"
                             autofocus
+                            outline
                             height="150px"
                         />
                     </v-list>
                 </v-card-text>
-                <v-divider/>
+                <v-divider />
                 <v-card-actions>
-                    <v-spacer/>
+                    <v-spacer />
                     <v-btn
                         color="red"
                         flat
-                        @click="dialog = false, $refs.form.reset()"
+                        @click="dialog = false; $refs.form.reset()"
                     >
                         Fechar
                     </v-btn>
                     <v-btn
-                        :disabled="!form"
+                        :disabled="!form || loading"
+                        :loading="loading"
                         color="primary"
                         flat
                         @click="enviarEncaminhamento"
@@ -129,14 +119,16 @@ export default {
                 required: v => !!v,
             },
             destinatarioEncaminhamento: null,
+            loadingDestinatarios: false,
             justificativa: null,
             form: null,
+            loading: false,
         };
     },
     computed: {
         ...mapGetters({
             dadosDestinatarios: 'avaliacaoResultados/dadosDestinatarios',
-            usuarioLogado: 'autenticacao/getUsuario',
+            usuarioGetter: 'autenticacao/getUsuario',
         }),
     },
     watch: {
@@ -145,7 +137,10 @@ export default {
                 this.$refs.form.reset();
             } else {
                 const orgaoSuperior = this.$store.getters['autenticacao/getUsuario'].usu_org_max_superior;
-                this.obterDestinatarios(orgaoSuperior);
+                this.loadingDestinatarios = true;
+                this.obterDestinatarios(orgaoSuperior).finally(() => {
+                    this.loadingDestinatarios = false;
+                });
             }
         },
     },
@@ -154,28 +149,36 @@ export default {
             obterDestinatarios: 'avaliacaoResultados/obterDestinatarios',
             encaminharParaTecnico: 'avaliacaoResultados/encaminharParaTecnico',
             obterDadosTabelaTecnico: 'avaliacaoResultados/obterDadosTabelaTecnico',
+            obterProjetosParaDistribuicaoAction: 'avaliacaoResultados/projetosParaDistribuir',
             projetosFinalizados: 'avaliacaoResultados/projetosFinalizados',
             distribuir: 'avaliacaoResultados/projetosParaDistribuir',
+            mensagemSucesso: 'noticias/mensagemSucesso',
         }),
         enviarEncaminhamento() {
+            const idSecretaria = this.usuarioGetter.usu_org_max_superior;
+            this.loading = true;
             this.encaminharParaTecnico({
                 atual: 4,
                 proximo: 5,
                 idPronac: this.idPronac,
-                idOrgaoDestino: 1,
+                idOrgaoDestino: idSecretaria,
                 idAgenteDestino: this.destinatarioEncaminhamento,
                 cdGruposDestino: 1,
-                dtFimEncaminhamento: '2015-09-25 10:38:41',
+                dtFimEncaminhamento: '2015-09-25 10:38:41', // @todo pegar data do back
                 idSituacaoEncPrestContas: 1,
                 idSituacao: 1,
                 dsJustificativa: this.justificativa,
+                idSecretaria,
+            }).then(() => {
+                this.mensagemSucesso('Projeto encaminhado com sucesso!');
+                this.obterProjetosParaDistribuicaoAction();
+                this.obterDadosTabelaTecnico({ estadoid: 5, idSecretaria });
+                // this.projetosFinalizados({ estadoid: 6, idSecretaria });
+                this.dialog = false;
+                this.$refs.form.reset();
+            }).finally(() => {
+                this.loading = false;
             });
-
-            this.dialog = false;
-            this.$refs.form.reset();
-
-            this.projetosFinalizados({ estadoid: 6 });
-            this.obterDadosTabelaTecnico({ estadoid: 5 });
         },
     },
 };

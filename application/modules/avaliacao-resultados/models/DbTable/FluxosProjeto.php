@@ -6,67 +6,96 @@ class AvaliacaoResultados_Model_DbTable_FluxosProjeto extends MinC_Db_Table_Abst
     protected $_schema = "SAC";
     protected $_primary = "id";
 
-    public function projetos($estadoId, $idAgente = null)
+
+    private function obterQueryProjetos()
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
-            array('e' => $this->_name),
+            array('a' => $this->_name),
             array('*'),
             $this->_schema
-        )
-        ->join(
-            ['p' => 'projetos'],
-            'p.idpronac = e.idpronac',
-            ['*', new Zend_Db_Expr('anoprojeto+sequencial as PRONAC')],
-            $this->_schema
-        )
-        //inner join Tabelas.dbo.Usuarios as a ON a.usu_codigo = fp.idAgente
-        ->joinLeft(
-            ['u' => 'Usuarios'],
-            'u.usu_codigo = e.idAgente',
-            ['u.usu_nome'],
-            'Tabelas.dbo'
-        )
-            ->joinLeft(
-                ['doc' => new Zend_Db_Expr(
-                    '(SELECT idDocumentoAssinatura,
-                                       IdPRONAC,
-                                       idTipoDoAtoAdministrativo,
-                                       stEstado,
-                                       cdSituacao
-                                FROM "SAC"."dbo"."tbDocumentoAssinatura"
-                                WHERE idTipoDoAtoAdministrativo = 622
-                                  AND cdSituacao = 1
-                                  AND stEstado = 1)')],
-                'doc.IdPRONAC = p.idpronac',
-                ['idDocumentoAssinatura',
-                    'idTipoDoAtoAdministrativo',
-                    'stEstado',
-                    'cdSituacao']
-            )
-        ->joinLeft(
-            ['dil' => new Zend_Db_Expr('(SELECT a.idPronac, 
-                                                          a.idDiligencia, 
-                                                          a.DtSolicitacao, 
-                                                          a.DtResposta, a.stEnviado 
-                                                   FROM "sac"."dbo"."tbDiligencia" as a 
-                                                   where a.DtSolicitacao = (select max(DtSolicitacao) 
-                                                                            from sac..tbDiligencia 
-                                                                            where a.idPronac = idPronac))')],
-            'dil.idPronac = p.IdPRONAC',
-            ['idDiligencia',
-             'DtSolicitacao',
-             'DtResposta',
-             'stEnviado']
-            )
-        ->where('estadoId = ? ', $estadoId);
+        );
 
-        if($idAgente) {
+        $select->join(
+            ['b' => 'projetos'],
+            'b.IdPRONAC = a.idPronac',
+            [
+                new Zend_Db_Expr('AnoProjeto + Sequencial as PRONAC'),
+                'b.IdPRONAC',
+                'b.Orgao as orgao',
+                'b.Situacao',
+                'b.NomeProjeto',
+                'b.UfProjeto'
+            ],
+            $this->_schema
+        );
+
+        $select->joinLeft(
+            ['c' => 'Usuarios'],
+            'c.usu_codigo = a.idAgente',
+            ['c.usu_nome'],
+            $this->getSchema('Tabelas')
+        );
+
+        $select->joinLeft(
+            ['d' => 'tbDocumentoAssinatura'],
+            '(b.IdPRONAC = d.IdPRONAC AND d.idTipoDoAtoAdministrativo = 622 AND d.cdSituacao = 1)',
+            [
+                'd.idDocumentoAssinatura',
+                'd.idTipoDoAtoAdministrativo',
+                'd.stEstado',
+                'd.cdSituacao'
+            ],
+            $this->_schema
+        );
+
+        $select->joinLeft(
+            ['e' => 'tbDiligencia'],
+            'b.IdPRONAC = e.idPronac AND e.idDiligencia = 
+                (select MAX(idDiligencia) 
+                    from sac..tbDiligencia as dili 
+                    where b.IdPRONAC = dili.idPronac AND dili.idTipoDiligencia IN (174, 645))',
+            [
+                'e.idDiligencia',
+                'e.DtSolicitacao',
+                'e.DtResposta',
+                'e.stEnviado'
+            ],
+            $this->_schema
+        );
+
+        $select->join(
+            ['f' => 'Orgaos'],
+            'b.Orgao = f.Codigo',
+            [],
+            $this->_schema
+        );
+
+        return $select;
+    }
+
+    public function projetos($estadoId, $idSecretaria, $idAgente = null)
+    {
+        $select  = $this->obterQueryProjetos();
+
+        $select->where('estadoId = ? ', $estadoId);
+        $select->where('f.idSecretaria = ? ', $idSecretaria);
+
+        if ($idAgente) {
             $select->where('idAgente = ? ', $idAgente);
         }
 
         return $this->fetchAll($select);
+    }
+
+    public function projeto($idPronac)
+    {
+        $select = $this->obterQueryProjetos();
+
+        $select->where('idPronac = ? ', $idPronac);
+
+        return $this->fetchRow($select);
     }
 
     public function estado($idPronac)
@@ -78,7 +107,7 @@ class AvaliacaoResultados_Model_DbTable_FluxosProjeto extends MinC_Db_Table_Abst
             array('*'),
             $this->_schema
         )
-        ->where('idpronac = ? ', $idPronac);
+            ->where('idpronac = ? ', $idPronac);
 
         return $this->fetchRow($select);
     }
@@ -91,14 +120,13 @@ class AvaliacaoResultados_Model_DbTable_FluxosProjeto extends MinC_Db_Table_Abst
             array('fp' => $this->_name),
             [new Zend_Db_Expr('count(*) as quantidade')],
             $this->_schema
-        )
-        ;
+        );
 
-        if($estadosId) {
+        if ($estadosId) {
             $select->where('estadoId in (?) ', $estadosId);
         }
 
-        if($idAgente) {
+        if ($idAgente) {
             $select->where('idAgente = ? ', $idAgente);
         }
 

@@ -100,7 +100,7 @@ class AvaliacaoFinanceira
         $where['e.idAgenteDestino = ?'] = $this->getIdUsuario; //id Tecnico de Presta&ccedil;&atilde;o de Contas
         $where['e.cdGruposDestino in (?)'] = [124, 125]; //grupo do tecnico de prestacao de contas
 
-        // t�cnico s� visualiza projetos encaminhados para ele
+        // tecnico so visualiza projetos encaminhados para ele
         $where['p.Situacao in (?)'] = array('E17', 'E20', 'E27', 'E30');
         $where['e.idSituacaoEncPrestContas = ?'] = '2';
 

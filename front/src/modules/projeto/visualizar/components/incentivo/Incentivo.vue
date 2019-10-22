@@ -422,9 +422,17 @@
             <table
                 v-if="dadosProjeto.DtArquivamento"
                 class="tabela">
-                <caption style="color: red !important;">Arquivado Definitivamente</caption>
                 <tr class="destacar">
-                    <td align="center"><b>Dt.Arquivamento</b></td>
+                    <td
+                        align="center"
+                        colspan="3">
+                        <b>
+                            Localização física do projeto
+                        </b>
+                    </td>
+                </tr>
+                <tr class="destacar">
+                    <td align="center"><b>Data</b></td>
                     <td align="center"><b>Cx.Inicial</b></td>
                     <td align="center"><b>Cx.Final</b></td>
                 </tr>

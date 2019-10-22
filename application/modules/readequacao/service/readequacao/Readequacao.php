@@ -1278,8 +1278,9 @@ class Readequacao implements IServicoRestZend
         $params = [
             'link' => true,
         ];
-        $planilhaReadequada = $spPlanilhaOrcamentaria->exec($idPronac, $tipoPlanilha, $params);
         $tbPlanilhaAprovacao = new \tbPlanilhaAprovacao();
+
+        $planilhaReadequada = $spPlanilhaOrcamentaria->exec($idPronac, $tipoPlanilha, $params);
         $planilhaAtiva = $tbPlanilhaAprovacao->obterPlanilhaAtiva($idPronac);
         
         $planilha = [];
@@ -1289,7 +1290,7 @@ class Readequacao implements IServicoRestZend
             } else {
                 $planilha[] = $item;
             }
-        };
+        }
         
         foreach ($planilhaAtiva as $itemAtiva) {
             if (array_key_exists($itemAtiva->idPlanilhaAprovacao, $planilha)) {

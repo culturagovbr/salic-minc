@@ -22,9 +22,10 @@ class AvaliacaoResultados_FluxoProjetoController extends MinC_Controller_Rest_Ab
     {
         $estadoId = (int)$this->getRequest()->getParam('estadoid');
         $idAgente = (int)$this->getRequest()->getParam('idAgente');
+        $idSecretaria = $this->getRequest()->getParam('idSecretaria');
 
         $fluxo = new AvaliacaoResultados_Model_DbTable_FluxosProjeto();
-        $projetos = $fluxo->projetos($estadoId, $idAgente);
+        $projetos = $fluxo->projetos($estadoId, $idSecretaria, $idAgente);
         $aux = [];
 
         foreach($projetos as $projeto){
@@ -37,16 +38,10 @@ class AvaliacaoResultados_FluxoProjetoController extends MinC_Controller_Rest_Ab
     {
         $id = $this->getRequest()->getParam('id');
 
-        $estado = new  AvaliacaoResultados_Model_DbTable_Estados();
-
-        $estado = $estado->findBy($id);
-        $estado['proximo'] = json_decode($estado['proximo']);
-
         $fluxo = new AvaliacaoResultados_Model_DbTable_FluxosProjeto();
-        $projetos = $fluxo->projetos();
-        /* $this->customRenderJsonResponse($projetos->toArray(), 200); */
+        $projeto = $fluxo->projeto($id);
 
-        $this->renderJsonResponse($projetos->toArray(), 200);
+        $this->renderJsonResponse(\TratarArray::utf8EncodeArray($projeto), 200);
     }
 
     public function headAction(){}
