@@ -85,8 +85,8 @@
                                         v-model="dadosEncaminhamento.vinculada"
                                         :items="orgaosDestino"
                                         label="Orgão a encaminhar"
-                                        item-text="nome"
-                                        item-value="id"
+                                        item-text="Sigla"
+                                        item-value="Codigo"
                                         @change="obterDestinatarios()"
                                     />
                                     <template
@@ -251,8 +251,15 @@ export default {
             return parseInt(this.getUsuario.orgao_ativo, 10);
         },
         vinculada() {
-            const orgaos = JSON.parse(JSON.stringify(this.orgaosDestino));
-            const vinculada = orgaos.find(orgao => orgao.id === parseInt(this.orgao, 10));
+            let orgaos = this.mxVinculadas;
+
+            if (this.orgaoAtual === 91) {
+                orgaos = Object.assign({}, orgaos, this.mxVinculadasIphan);
+            }
+
+            orgaos = JSON.parse(JSON.stringify(orgaos));
+
+            const vinculada = orgaos.find(orgao => orgao.Codigo === parseInt(this.orgao, 10));
             if (typeof vinculada !== 'undefined') {
                 return vinculada;
             }

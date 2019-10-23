@@ -44,7 +44,7 @@
                             <v-icon>close</v-icon>
                         </v-btn>
                         <v-toolbar-title>
-                            {{ vinculada.nome }} / Distribuir readequação -
+                            {{ vinculada.Sigla }} / Distribuir readequação -
                             {{ dadosReadequacao.idReadequacao }} - {{ dadosReadequacao.NomeProjeto }} - {{ dadosReadequacao.tpReadequacao }}
                         </v-toolbar-title>
                         <v-spacer />
@@ -125,7 +125,7 @@
                                                 :items="getDestinatariosDistribuicao"
                                                 label="Destinatário/a"
                                                 item-text="nome"
-                                                item-value="id"
+                                                item-value="Codigo"
                                             />
                                         </template>
                                         <template v-if="getDestinatariosDistribuicao.length === 0 && dadosEncaminhamento.vinculada > 0">
@@ -174,6 +174,7 @@
 import { mapActions, mapGetters } from 'vuex';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import Carregando from '@/components/CarregandoVuetify';
+import MxVinculadas from '@/modules/readequacao/mixins/MxVinculadas';
 
 export default {
     name: 'DistribuirReadequacaoVinculadaButton',
@@ -181,6 +182,7 @@ export default {
         Carregando,
         SEditorTexto,
     },
+    mixins: [MxVinculadas],
     props: {
         dadosReadequacao: {
             type: Object,
@@ -259,8 +261,14 @@ export default {
             return this.getUsuario.orgao_ativo;
         },
         vinculada() {
-            const orgaos = JSON.parse(JSON.stringify(this.orgaosDestino));
-            const vinculada = orgaos.find(orgao => orgao.id === parseInt(this.orgao, 10));
+            let orgaos = this.mxVinculadas;
+
+            if (this.orgao === 91) {
+                orgaos = Object.assign({}, orgaos, this.mxVinculadasIphan);
+            }
+
+            orgaos = JSON.parse(JSON.stringify(orgaos));
+            const vinculada = orgaos.find(orgao => orgao.Codigo === parseInt(this.orgao, 10));
             if (typeof vinculada !== 'undefined') {
                 return vinculada;
             }
@@ -349,7 +357,7 @@ export default {
             if (this.acaoTomada === 'DEVOLVER_AO_COORDENADOR') {
                 this.encaminharDisponivel = this.dsOrientacao.length > this.minChar;
             } else if (this.acaoTomada === 'ENVIAR_PARECERISTA') {
-                this.dadosEncaminhamento.vinculada = this.vinculada.id;
+                this.dadosEncaminhamento.vinculada = this.vinculada.Codigo;
                 this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0 && this.dsOrientacao.length > this.minChar;
             }
         },
@@ -396,12 +404,12 @@ export default {
             }
         },
         obterDestinatarios() {
-            this.dadosEncaminhamento.vinculada = this.vinculada.id;
+            this.dadosEncaminhamento.vinculada = this.vinculada.Codigo;
             this.loadingDestinatarios = true;
             this.obterDestinatariosDistribuicao({
                 area: this.dadosReadequacao.Area,
                 segmento: this.dadosReadequacao.Segmento,
-                vinculada: this.vinculada.id,
+                vinculada: this.vinculada.Codigo,
             }).then(() => {
                 this.loadingDestinatarios = false;
                 this.selecionarDestinatario = true;

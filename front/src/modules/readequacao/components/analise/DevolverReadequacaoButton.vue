@@ -157,6 +157,7 @@ import { mapActions, mapGetters } from 'vuex';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import Carregando from '@/components/CarregandoVuetify';
 import Const from '../../const';
+import MxVinculadas from '@/modules/readequacao/mixins/MxVinculadas';
 
 export default {
     name: 'DevolverReadequacaoButton',
@@ -164,6 +165,7 @@ export default {
         Carregando,
         SEditorTexto,
     },
+    mixins: [MxVinculadas],
     props: {
         dadosReadequacao: {
             type: Object,
@@ -226,8 +228,8 @@ export default {
             return this.dadosReadequacao.idOrgao;
         },
         vinculada() {
-            const orgaos = JSON.parse(JSON.stringify(this.orgaosDestino));
-            const vinculada = orgaos.find(orgao => orgao.id === parseInt(this.orgao, 10));
+            const orgaos = JSON.parse(JSON.stringify(this.mxVinculadas));
+            const vinculada = orgaos.find(orgao => orgao.Codigo === parseInt(this.orgao, 10));
             if (typeof vinculada !== 'undefined') {
                 return vinculada;
             }
@@ -287,8 +289,8 @@ export default {
             }
         },
         devolverAnalise() {
-            if (typeof this.vinculada.id !== 'undefined') {
-                this.dadosEncaminhamento.vinculada = this.vinculada.id;
+            if (typeof this.vinculada.Codigo !== 'undefined') {
+                this.dadosEncaminhamento.vinculada = this.vinculada.Codigo;
             } else {
                 this.dadosEncaminhamento.vinculada = this.orgao;
             }
@@ -316,13 +318,13 @@ export default {
         obterDestinatarios() {
             this.loadingDestinatarios = true;
             this.dadosEncaminhamento.destinatario = '';
-            if (typeof this.vinculada.id !== 'undefined') {
-                this.dadosEncaminhamento.vinculada = this.vinculada.id;
+            if (typeof this.vinculada.Codigo !== 'undefined') {
+                this.dadosEncaminhamento.vinculada = this.vinculada.Codigo;
                 this.loadingDestinatarios = true;
                 this.obterDestinatariosDistribuicao({
                     area: this.dadosReadequacao.Area,
                     segmento: this.dadosReadequacao.Segmento,
-                    vinculada: this.vinculada.id,
+                    vinculada: this.vinculada.Codigo,
                 });
             } else if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
                        || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI) {

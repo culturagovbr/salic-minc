@@ -1654,7 +1654,7 @@ class Readequacao implements IServicoRestZend
         
         $a = 0;
         $dadosUsuarios = [];
-        
+
         if ($vinculada == \Orgaos::ORGAO_SAV_CAP || $vinculada == \Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI) {
             $dados = [];
             $dados['sis_codigo = ?'] = 21;
@@ -1679,7 +1679,7 @@ class Readequacao implements IServicoRestZend
         } else if (in_array($vinculada, $this->__getVinculadasExcetoIphan()) || $vinculada == \Orgaos::ORGAO_SUPERIOR_SAV) {
             $agentesModel = new \Agente_Model_DbTable_Agentes();
             $result = $agentesModel->buscarPareceristas($vinculada, $area, $segmento);
-            
+
             if ($result) {
                 foreach ($result as $registro) {
                     $dadosUsuarios[$a]['id'] = $registro['id'];
@@ -1688,7 +1688,7 @@ class Readequacao implements IServicoRestZend
                 }
             }
         }
-        
+
         return $dadosUsuarios;
     }
 
