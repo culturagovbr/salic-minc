@@ -60,6 +60,8 @@ class Diligencia_Model_DbTable_TbDiligencia extends MinC_Db_Table_Abstract
             $select->where($coluna, $valor);
         }
 
+        $select->order('idDiligencia Desc');
+
         if ($retornaSelect) {
             return $select;
         } else {
