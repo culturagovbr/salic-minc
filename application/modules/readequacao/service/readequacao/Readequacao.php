@@ -1291,8 +1291,12 @@ class Readequacao implements IServicoRestZend
                 $planilha[] = $item;
             }
         }
-        
+
         foreach ($planilhaAtiva as $itemAtiva) {
+            if ($itemAtiva->tpAcao == 'E') {
+                continue;
+            }
+
             if (array_key_exists($itemAtiva->idPlanilhaAprovacao, $planilha)) {
                 $planilha[$itemAtiva->idPlanilhaAprovacao]->idUnidadeAtivo = $itemAtiva->idUnidade;
                 $planilha[$itemAtiva->idPlanilhaAprovacao]->OcorrenciaAtivo = $itemAtiva->Ocorrencia;
@@ -1319,7 +1323,7 @@ class Readequacao implements IServicoRestZend
             \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_SALDO_APLICACAO => \spPlanilhaOrcamentaria::TIPO_PLANILHA_SALDO_APLICACAO
         ];
 
-        $tipoPlanilha = ($idTipoReadequacao) ? $tipoPlanilha[$idTipoReadequacao] : \spPlanilhaOrcamentaria::TIPO_PLANILHA_APROVADA_ATIVA;
+//        $tipoPlanilha = ($idTipoReadequacao) ? $tipoPlanilha[$idTipoReadequacao] : \spPlanilhaOrcamentaria::TIPO_PLANILHA_APROVADA_ATIVA;
         $planilhaOrcamentariaAtiva = [];
         
         if ($idTipoReadequacao) {
