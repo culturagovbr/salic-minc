@@ -1516,7 +1516,7 @@ class Readequacao implements IServicoRestZend
                     return $retorno;
                 }
                 
-                if ($itemOriginal->vlUnitario != $item['valorUnitario']) {
+                if ($editarItem->vlUnitario != $item['valorUnitario']) {
                     $editarItem->vlUnitario = $item['valorUnitario'];
                     $editarItem->tpAcao = 'A';
                     $editarItem->dsJustificativa = "Rec&aacute;lculo autom&aacute;tico com base no percentual solicitado pelo proponente ao enviar a proposta ao MinC.";
@@ -1904,7 +1904,7 @@ class Readequacao implements IServicoRestZend
                     'idUnidade' => $idUnidade
                 ];
                 $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
-                $jaDistribuiu = $tbDistribuirReadequacao->buscar(['idReadequacao = ?' => $readequacao->idReadequacao])->current();
+                $jaDistribuiu = $tbDistribuirReadequacao->buscar(['idReadequacao = ?' => $idReadequacao])->current();
                 
                 if (empty($jaDistribuiu)) {
                     $tbDistribuirReadequacao->inserir($dados);
