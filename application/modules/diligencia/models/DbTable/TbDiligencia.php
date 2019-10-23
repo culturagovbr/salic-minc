@@ -88,7 +88,7 @@ class Diligencia_Model_DbTable_TbDiligencia extends MinC_Db_Table_Abstract
         $select->joinInner(
             ['tbReadequacaoXtbDiligencia' => 'tbReadequacaoXtbDiligencia'],
             'tbReadequacaoXtbDiligencia.idDiligencia = tbDiligencia.idDiligencia',
-            [],
+            ['idReadequacao'],
             $this->_schema
         );
 
@@ -127,6 +127,8 @@ class Diligencia_Model_DbTable_TbDiligencia extends MinC_Db_Table_Abstract
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);
         }
+
+        $select->order('idDiligencia desc');
 
         return $this->fetchAll($select);
     }
