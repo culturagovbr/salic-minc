@@ -194,7 +194,7 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         $modelDistribuicao->setSiAnalise(\Parecer_Model_TbDistribuirParecer::SI_ANALISE_EM_ANALISE);
         $modelDistribuicao->setSiEncaminhamento(\TbTipoEncaminhamento::SOLICITACAO_ENCAMINHADA_AO_PARECERISTA);
         $modelDistribuicao->setTipoAnalise(\Parecer_Model_TbDistribuirParecer::TIPO_ANALISE_PRODUTO_COMPLETO);
-        $modelDistribuicao->setObservacao('Produto devolvido ao parecerista para nova análise após an&aacute;lise complementar tendo em vista que houve alteração de valor');
+        $modelDistribuicao->setObservacao('Produto devolvido ao parecerista para nova an&aacute;lise ap&oacute;s an&aacute;lise complementar tendo em vista que houve altera&ccedil;&atilde;o de valor');
 
         $tbDistribuirParecerMapper->distribuirProdutoParaParecerista($modelDistribuicao);
         return $tbDistribuirParecerMapper->prepararProjetoParaAnalise($modelDistribuicao->getIdPRONAC());
