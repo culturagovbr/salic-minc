@@ -1643,6 +1643,43 @@ class Readequacao implements IServicoRestZend
             \Orgaos::ORGAO_IBRAM,
         ];
     }
+
+    private function __getVinculadasIphan()
+    {
+        return [
+            \Orgaos::ORGAO_IPHAN_AM,
+            \Orgaos::ORGAO_IPHAN_PA,
+            \Orgaos::ORGAO_IPHAN_MA,
+            \Orgaos::ORGAO_IPHAN_CE,
+            \Orgaos::ORGAO_IPHAN_PE,
+            \Orgaos::ORGAO_IPHAN_RJ,
+            \Orgaos::ORGAO_IPHAN_BA,
+            \Orgaos::ORGAO_IPHAN_SE,
+            \Orgaos::ORGAO_IPHAN_SP,
+            \Orgaos::ORGAO_IPHAN_PR,
+            \Orgaos::ORGAO_IPHAN_SC,
+            \Orgaos::ORGAO_IPHAN_RS,
+            \Orgaos::ORGAO_IPHAN_MG,
+            \Orgaos::ORGAO_IPHAN_GO,
+            \Orgaos::ORGAO_IPHAN_DPI,
+            \Orgaos::ORGAO_IPHAN_DF,
+            \Orgaos::ORGAO_IPHAN_DEPAM,
+            \Orgaos::ORGAO_IPHAN_COGEDIP,
+            \Orgaos::ORGAO_IPHAN_COPEDOC,
+            \Orgaos::ORGAO_IPHAN_RR,
+            \Orgaos::ORGAO_IPHAN_AP,
+            \Orgaos::ORGAO_IPHAN_TO,
+            \Orgaos::ORGAO_IPHAN_MT,
+            \Orgaos::ORGAO_IPHAN_RO,
+            \Orgaos::ORGAO_IPHAN_AC,
+            \Orgaos::ORGAO_IPHAN_AL,
+            \Orgaos::ORGAO_IPHAN_MS,
+            \Orgaos::ORGAO_IPHAN_PI,
+            \Orgaos::ORGAO_IPHAN_PB,
+            \Orgaos::ORGAO_IPHAN_RN,
+            \Orgaos::ORGAO_IPHAN_ES
+        ];
+    }
     
     public function buscarDestinatariosDistribuicao()
     {
@@ -1676,16 +1713,28 @@ class Readequacao implements IServicoRestZend
                     $a++;
                 }
             }
-        } else if (in_array($vinculada, $this->__getVinculadasExcetoIphan()) || $vinculada == \Orgaos::ORGAO_SUPERIOR_SAV) {
-            $agentesModel = new \Agente_Model_DbTable_Agentes();
-            $result = $agentesModel->buscarPareceristas($vinculada, $area, $segmento);
 
-            if ($result) {
-                foreach ($result as $registro) {
-                    $dadosUsuarios[$a]['id'] = $registro['id'];
-                    $dadosUsuarios[$a]['nome'] = utf8_encode($registro['nome']);
-                    $a++;
-                }
+            return $dadosUsuarios;
+        }
+
+        if (in_array($vinculada, $this->__getVinculadasExcetoIphan()) || $vinculada == \Orgaos::ORGAO_SUPERIOR_SAV) {
+            $idOrgao = $vinculada;
+        }
+
+        $idVinculada = null;
+        if (in_array($vinculada, $this->__getVinculadasIphan())) {
+            $idOrgao = 91;
+            $idVinculada = $vinculada;
+        }
+
+        $agentesModel = new \Agente_Model_DbTable_Agentes();
+        $result = $agentesModel->buscarPareceristas($idOrgao, $area, $segmento, $idVinculada);
+
+        if ($result) {
+            foreach ($result as $registro) {
+                $dadosUsuarios[$a]['id'] = $registro['id'];
+                $dadosUsuarios[$a]['nome'] = utf8_encode($registro['nome']);
+                $a++;
             }
         }
 

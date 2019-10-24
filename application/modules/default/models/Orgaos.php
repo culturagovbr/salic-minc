@@ -35,6 +35,38 @@ class Orgaos extends MinC_Db_Table_Abstract
     const SAV_DPAV = 682;
     const SEFIC_DEIPC = 341;
 
+    const ORGAO_IPHAN_AM = 113;
+    const ORGAO_IPHAN_PA = 114;
+    const ORGAO_IPHAN_MA = 115;
+    const ORGAO_IPHAN_CE = 116;
+    const ORGAO_IPHAN_PE = 117;
+    const ORGAO_IPHAN_RJ = 118;
+    const ORGAO_IPHAN_BA = 119;
+    const ORGAO_IPHAN_SE = 120;
+    const ORGAO_IPHAN_SP = 121;
+    const ORGAO_IPHAN_PR = 122;
+    const ORGAO_IPHAN_SC = 123;
+    const ORGAO_IPHAN_RS = 124;
+    const ORGAO_IPHAN_MG = 125;
+    const ORGAO_IPHAN_GO = 126;
+    const ORGAO_IPHAN_DPI = 343;
+    const ORGAO_IPHAN_DF = 344;
+    const ORGAO_IPHAN_DEPAM = 345;
+    const ORGAO_IPHAN_COGEDIP = 346;
+    const ORGAO_IPHAN_COPEDOC = 347;
+    const ORGAO_IPHAN_RR = 348;
+    const ORGAO_IPHAN_AP = 349;
+    const ORGAO_IPHAN_TO = 350;
+    const ORGAO_IPHAN_MT = 351;
+    const ORGAO_IPHAN_RO = 352;
+    const ORGAO_IPHAN_AC = 353;
+    const ORGAO_IPHAN_AL = 354;
+    const ORGAO_IPHAN_MS = 355;
+    const ORGAO_IPHAN_PI = 356;
+    const ORGAO_IPHAN_PB = 357;
+    const ORGAO_IPHAN_RN = 358;
+    const ORGAO_IPHAN_ES = 359;
+
     public function pesquisarTodosOrgaos()
     {
         $select = $this->select();

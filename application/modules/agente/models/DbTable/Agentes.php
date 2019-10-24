@@ -567,7 +567,7 @@ class Agente_Model_DbTable_Agentes extends MinC_Db_Table_Abstract
      * @access public
      * @return void
      */
-    public function buscarPareceristas($idOrgao, $idArea, $idSegmento)
+    public function buscarPareceristas($idOrgao, $idArea, $idSegmento, $idVinculada = null)
     {
         $slct = $this->select();
         $slct->setIntegrityCheck(false);
@@ -601,6 +601,10 @@ class Agente_Model_DbTable_Agentes extends MinC_Db_Table_Abstract
             array(),
             $this->getSchema('agentes')
         );
+
+        if ($idVinculada) {
+            $dadosWhere["u.uog_orgao = ?"] = $idVinculada;
+        }
 
         $dadosWhere["v.Visao = ?"] = 209;
         $dadosWhere["n.TipoNome = ?"] = 18;
