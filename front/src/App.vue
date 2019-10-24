@@ -11,6 +11,7 @@
                 :color="getSnackbar.color"
                 :top="true"
                 :timeout="2000"
+                right
                 @input="fecharSnackbar"
             >
                 {{ getSnackbar.text }}

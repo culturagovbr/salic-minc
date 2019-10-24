@@ -89,33 +89,28 @@
                                         item-value="Codigo"
                                         @change="obterDestinatarios()"
                                     />
-                                    <template
+                                    <carregando
                                         v-if="loadingDestinatarios"
+                                        :defined-class="`body-1`"
+                                        :size="`small`"
+                                        :text="'Carregando destinatários/as...'"
+                                    />
+                                    <template
+                                        v-else-if="getDestinatariosDistribuicao.length > 0"
                                     >
-                                        <carregando
-                                            :defined-class="`body-1`"
-                                            :size="`small`"
-                                            :text="'Carregando destinatários/as...'"
+                                        <v-select
+                                            v-if="selecionarDestinatario"
+                                            v-model="dadosEncaminhamento.destinatario"
+                                            :items="getDestinatariosDistribuicao"
+                                            label="Destinatário/a"
+                                            item-text="nome"
+                                            item-value="id"
                                         />
                                     </template>
-                                    <template v-else>
-                                        <template
-                                            v-if="getDestinatariosDistribuicao.length > 0"
-                                        >
-                                            <v-select
-                                                v-if="selecionarDestinatario"
-                                                v-model="dadosEncaminhamento.destinatario"
-                                                :items="getDestinatariosDistribuicao"
-                                                label="Destinatário/a"
-                                                item-text="nome"
-                                                item-value="id"
-                                            />
-                                        </template>
-                                        <template v-if="exibirDestinatariosIndisponiveis">
-                                            <h3 class="red--text text--darken-2">
-                                                Não há destinatários/as disponíveis, impossível encaminhar a readequação no momento!
-                                            </h3>
-                                        </template>
+                                    <template v-if="exibirDestinatariosIndisponiveis">
+                                        <h3 class="red--text text--darken-2">
+                                            Não há destinatários/as disponíveis, impossível encaminhar a readequação no momento!
+                                        </h3>
                                     </template>
                                 </v-flex>
                                 <v-flex

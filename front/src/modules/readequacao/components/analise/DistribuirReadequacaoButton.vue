@@ -103,15 +103,12 @@
                                         item-value="Codigo"
                                         @change="obterDestinatarios()"
                                     />
-                                    <template
+                                    <carregando
                                         v-if="loadingDestinatarios"
-                                    >
-                                        <carregando
-                                            :defined-class="`body-1`"
-                                            :size="`small`"
-                                            :text="'Carregando destinatários/as...'"
-                                        />
-                                    </template>
+                                        defined-class="body-1"
+                                        size="small"
+                                        text="Carregando destinatários/as..."
+                                    />
                                     <div v-else>
                                         <template
                                             v-if="getDestinatariosDistribuicao.length > 0 && selecionarDestinatario"
@@ -229,9 +226,9 @@ export default {
                 });
             }
 
-            if (parseInt(this.dadosUsuario.orgao_ativo, 10) === Const.ORGAO_IPHAN_PRONAC) {
-                destinos = Object.assign({}, destinos, this.mxVinculadasIphan);
-            }
+            // if (parseInt(this.dadosUsuario.orgao_ativo, 10) === Const.ORGAO_IPHAN_PRONAC) {
+            //     destinos = Object.assign({}, destinos, this.mxVinculadasIphan);
+            // }
 
             return destinos;
         },

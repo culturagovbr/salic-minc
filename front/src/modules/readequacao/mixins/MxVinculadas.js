@@ -3,6 +3,14 @@ export default {
         return {
             mxVinculadas: [
                 {
+                    Codigo: 91,
+                    Sigla: 'IPHAN',
+                    idSecretaria: 91,
+                    Vinculo: 1,
+                    Status: 0,
+                    stVinculada: 1,
+                },
+                {
                     Codigo: 92,
                     Sigla: 'FUNARTE',
                     idSecretaria: 92,

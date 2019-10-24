@@ -67,42 +67,36 @@
                             v-model="valid"
                             lazy-validation
                         >
-                            <v-layout wrap>
+                            <v-layout
+                                wrap
+                                align-center>
                                 <v-flex
                                     xs12
                                     sm12
-                                    md12
+                                    md6
                                 >
                                     <v-radio-group
                                         v-model="acaoTomada"
                                     >
                                         <v-radio
-                                            :label="`Devolver ao coordenador de acompanhamento`"
-                                            :value="`DEVOLVER_AO_COORDENADOR`"
+                                            label="Devolver ao coordenador de acompanhamento"
+                                            value="DEVOLVER_AO_COORDENADOR"
                                             color="green"
                                         />
                                         <v-radio
-                                            :label="`Distribuir para parecerista`"
-                                            :value="`ENVIAR_PARECERISTA`"
+                                            label="Distribuir para parecerista"
+                                            value="ENVIAR_PARECERISTA"
+                                            color="green"
+                                        />
+                                        <v-radio
+                                            label="Encaminhar para unidade vinculada"
+                                            value="ENCAMINHAR_VINCULADA"
                                             color="green"
                                         />
                                     </v-radio-group>
                                 </v-flex>
                                 <v-flex
-                                    xs12
-                                    sm12
-                                    md12
-                                >
-                                    <p><b>Parecer sobre a solicitação de readequação</b></p>
-                                    <s-editor-texto
-                                        v-model="dsOrientacao"
-                                        :placeholder="'Parecer sobre a solicitação de readequação'"
-                                        :min-char="minChar"
-                                        @editor-texto-counter="validateText($event)"
-                                    />
-                                </v-flex>
-                                <v-flex
-                                    v-if="opcoesEncaminhamento"
+                                    v-if="acaoTomada === 'ENVIAR_PARECERISTA'"
                                     xs6
                                     sm12
                                     md6
@@ -116,25 +110,54 @@
                                             :text="'Carregando destinatários/as...'"
                                         />
                                     </template>
-                                    <div v-else>
-                                        <template
-                                            v-if="getDestinatariosDistribuicao.length > 0 && selecionarDestinatario"
-                                        >
-                                            <v-select
-                                                v-model="dadosEncaminhamento.destinatario"
-                                                :items="getDestinatariosDistribuicao"
-                                                label="Destinatário/a"
-                                                item-text="nome"
-                                                item-value="Codigo"
-                                            />
-                                        </template>
-                                        <template v-if="getDestinatariosDistribuicao.length === 0 && dadosEncaminhamento.vinculada > 0">
-                                            <h3 class="red--text text--darken-2">
-                                                Não há destinatários/as disponíveis, impossível encaminhar a readequação no momento!
-                                            </h3>
-                                        </template>
-                                    </div>
+                                    <template
+                                        v-else-if="getDestinatariosDistribuicao.length > 0 && selecionarDestinatario"
+                                    >
+                                        <v-select
+                                            v-model="dadosEncaminhamento.destinatario"
+                                            :items="getDestinatariosDistribuicao"
+                                            label="Destinatário/a"
+                                            item-text="nome"
+                                            item-value="Codigo"
+                                        />
+                                    </template>
+                                    <template v-else-if="getDestinatariosDistribuicao.length === 0 && vinculada.Codigo > 0">
+                                        <h3 class="red--text text--darken-2">
+                                            Não há destinatários/as disponíveis, impossível encaminhar a readequação no momento!
+                                        </h3>
+                                    </template>
                                 </v-flex>
+                                <v-flex
+                                    v-if="acaoTomada === 'ENCAMINHAR_VINCULADA'"
+                                    xs12
+                                    sm12
+                                    md6
+                                >
+                                    <v-select
+                                        v-model="dadosEncaminhamento.vinculada"
+                                        :items="vinculadasCombo"
+                                        label="Orgão a encaminhar"
+                                        item-text="Sigla"
+                                        item-value="Codigo"
+                                    />
+                                </v-flex>
+                            </v-layout>
+
+                            <v-layout
+                                wrap>
+                                <v-flex
+                                    xs12
+                                    sm12
+                                    md12>
+                                    <p><b>Parecer sobre a solicitação de readequação</b></p>
+                                    <s-editor-texto
+                                        v-model="dsOrientacao"
+                                        :min-char="minChar"
+                                        placeholder="Parecer sobre a solicitação de readequação"
+                                        @editor-texto-counter="validateText($event)"
+                                    />
+                                </v-flex>
+
                             </v-layout>
                             <v-subheader class="pa-0 pt-5">
                                 Todos os campos s&atilde;o obrigat&oacute;rios
@@ -144,9 +167,8 @@
                                 justify-center
                             >
                                 <v-btn
-                                    v-if="encaminharDisponivel"
-                                    dark
-                                    color="blue accent-4"
+                                    :disabled="!encaminharDisponivel"
+                                    color="primary"
                                     @click="encaminharAnalise()"
                                 >
                                     <v-icon left>
@@ -172,6 +194,7 @@
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import _ from 'lodash';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import Carregando from '@/components/CarregandoVuetify';
 import MxVinculadas from '@/modules/readequacao/mixins/MxVinculadas';
@@ -183,15 +206,17 @@ export default {
         SEditorTexto,
     },
     mixins: [MxVinculadas],
+
     props: {
         dadosReadequacao: {
             type: Object,
             default: () => {},
         },
     },
+
     data() {
         return {
-            opcoesEncaminhamento: false,
+            // opcoesEncaminhamento: false,
             encaminharDisponivel: false,
             selecionarDestinatario: false,
             textIsValid: false,
@@ -212,69 +237,42 @@ export default {
                 stAtendimento: '',
             },
             acaoTomada: '',
-            orgaosDestino: [
-                {
-                    id: 93,
-                    nome: 'FBN',
-                },
-                {
-                    id: 94,
-                    nome: 'FCP',
-                },
-                {
-                    id: 95,
-                    nome: 'FCRB',
-                },
-                {
-                    id: 92,
-                    nome: 'FUNARTE',
-                },
-                {
-                    id: 335,
-                    nome: 'IBRAM',
-                },
-                {
-                    id: 91,
-                    nome: 'IPHAN',
-                },
-                {
-                    id: 160,
-                    nome: 'SAV',
-                },
-                {
-                    id: 166,
-                    nome: 'SAV',
-                },
-                {
-                    id: 262,
-                    nome: 'SEFIC',
-                },
-            ],
         };
     },
+
     computed: {
         ...mapGetters({
             getUsuario: 'autenticacao/getUsuario',
             getDestinatariosDistribuicao: 'readequacao/getDestinatariosDistribuicao',
         }),
-        orgao() {
+        orgaoAtual() {
             return this.getUsuario.orgao_ativo;
         },
         vinculada() {
-            let orgaos = this.mxVinculadas;
-
-            if (this.orgao === 91) {
-                orgaos = Object.assign({}, orgaos, this.mxVinculadasIphan);
-            }
-
-            orgaos = JSON.parse(JSON.stringify(orgaos));
-            const vinculada = orgaos.find(orgao => orgao.Codigo === parseInt(this.orgao, 10));
+            const vinculada = this.vinculadas.find(orgao => orgao.Codigo === parseInt(this.orgaoAtual, 10));
             if (typeof vinculada !== 'undefined') {
                 return vinculada;
             }
-            return false;
+            return vinculada;
+        },
+        vinculadas() {
+            let orgaos = this.mxVinculadas;
+            if (parseInt(this.orgaoAtual, 10) === 91) {
+                orgaos = _.concat(orgaos, this.mxVinculadasIphan);
+            }
+            return orgaos;
+        },
+        vinculadasCombo() {
+            const orgaos = this.vinculadas;
+            orgaos.forEach((item, index) => {
+                if (item.Codigo === 91) {
+                    orgaos.splice(index, 1);
+                }
+            });
+            return orgaos;
         },
     },
+
     watch: {
         dadosEncaminhamento: {
             handler() {
@@ -309,11 +307,6 @@ export default {
         acaoTomada: {
             handler() {
                 this.checkDisponivelEncaminhar();
-                if (this.acaoTomada === 'DEVOLVER_AO_COORDENADOR') {
-                    this.opcoesEncaminhamento = false;
-                } else if (this.acaoTomada === 'ENVIAR_PARECERISTA') {
-                    this.opcoesEncaminhamento = true;
-                }
             },
         },
         dsOrientacao: {
@@ -327,9 +320,6 @@ export default {
                     && (value.dsAvaliacao !== '' && value.dsAvaliacao.length > this.minChar)
                 ) {
                     this.encaminharDisponivel = true;
-                } else if (typeof value.stAtendimento !== 'undefined') {
-                    this.encaminharDisponivel = false;
-                    this.checkDisponivelEncaminhar();
                 } else {
                     this.encaminharDisponivel = false;
                     this.checkDisponivelEncaminhar();
@@ -344,6 +334,7 @@ export default {
             this.selecionarDestinatario = true;
         },
     },
+
     methods: {
         ...mapActions({
             buscarReadequacoesPainelAguardandoDistribuicao: 'readequacao/buscarReadequacoesPainelAguardandoDistribuicao',
@@ -351,14 +342,17 @@ export default {
             obterDestinatariosDistribuicao: 'readequacao/obterDestinatariosDistribuicao',
             distribuirReadequacao: 'readequacao/distribuirReadequacao',
             devolverAoCoordenador: 'readequacao/devolverAoCoordenador',
-            setSnackbar: 'noticias/setDados',
+            mensagemSucesso: 'noticias/mensagemSucesso',
         }),
         checkDisponivelEncaminhar() {
             if (this.acaoTomada === 'DEVOLVER_AO_COORDENADOR') {
-                this.encaminharDisponivel = this.dsOrientacao.length > this.minChar;
+                this.encaminharDisponivel = this.textIsValid;
             } else if (this.acaoTomada === 'ENVIAR_PARECERISTA') {
-                this.dadosEncaminhamento.vinculada = this.vinculada.Codigo;
-                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0 && this.dsOrientacao.length > this.minChar;
+                // this.dadosEncaminhamento.vinculada = this.vinculada.Codigo;
+                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0 && this.textIsValid;
+            } else if (this.acaoTomada === 'ENCAMINHAR_VINCULADA') {
+                this.encaminharDisponivel = this.dadosEncaminhamento.vinculada > 0
+                    && this.textIsValid;
             }
         },
         inicializarReadequacaoEditada() {
@@ -372,39 +366,42 @@ export default {
             this.checkDisponivelEncaminhar();
         },
         encaminharAnalise() {
-            if (this.acaoTomada === 'ENVIAR_PARECERISTA') {
-                this.distribuirReadequacao({
-                    idPronac: this.readequacaoEditada.idPronac,
-                    idReadequacao: this.readequacaoEditada.idReadequacao,
-                    stAtendimento: this.readequacaoEditada.stAtendimento,
-                    dsOrientacao: this.dsOrientacao,
-                    destinatario: this.dadosEncaminhamento.destinatario,
-                    vinculada: this.dadosEncaminhamento.vinculada,
-                }).then(() => {
-                    this.setSnackbar({
-                        ativo: true,
-                        color: 'success',
-                        text: 'Readequação distribuída!',
-                    });
-                    this.dialog = false;
-                });
-            } else if (this.acaoTomada === 'DEVOLVER_AO_COORDENADOR') {
-                this.devolverAoCoordenador({
+            if (!this.encaminharDisponivel) {
+                return false;
+            }
+
+            if (this.acaoTomada === 'DEVOLVER_AO_COORDENADOR') {
+                return this.devolverAoCoordenador({
                     idPronac: this.readequacaoEditada.idPronac,
                     idReadequacao: this.readequacaoEditada.idReadequacao,
                     dsOrientacao: this.dsOrientacao,
                 }).then(() => {
-                    this.setSnackbar({
-                        ativo: true,
-                        color: 'success',
-                        text: 'Readequação devolvida ao coordenador de acompanhamento!',
-                    });
+                    this.mensagemSucesso('Readequação devolvida ao coordenador de acompanhamento!');
                     this.dialog = false;
                 });
             }
+
+            if (this.acaoTomada === 'ENVIAR_PARECERISTA') {
+                this.dadosEncaminhamento.vinculada = 0;
+            }
+
+            if (this.acaoTomada === 'ENCAMINHAR_VINCULADA') {
+                this.dadosEncaminhamento.destinatario = 0;
+            }
+
+            return this.distribuirReadequacao({
+                idPronac: this.readequacaoEditada.idPronac,
+                idReadequacao: this.readequacaoEditada.idReadequacao,
+                stAtendimento: this.readequacaoEditada.stAtendimento,
+                dsOrientacao: this.dsOrientacao,
+                destinatario: this.dadosEncaminhamento.destinatario,
+                vinculada: this.dadosEncaminhamento.vinculada,
+            }).then(() => {
+                this.mensagemSucesso('Readequação distribuída!');
+                this.dialog = false;
+            });
         },
         obterDestinatarios() {
-            this.dadosEncaminhamento.vinculada = this.vinculada.Codigo;
             this.loadingDestinatarios = true;
             this.obterDestinatariosDistribuicao({
                 area: this.dadosReadequacao.Area,
