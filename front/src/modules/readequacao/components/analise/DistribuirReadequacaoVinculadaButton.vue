@@ -44,7 +44,7 @@
                             <v-icon>close</v-icon>
                         </v-btn>
                         <v-toolbar-title>
-                            {{ vinculada.Sigla }} / Distribuir readequação -
+                            <span v-if="unidadeAtual">{{ unidadeAtual.Sigla }} /</span> Distribuir readequação -
                             {{ dadosReadequacao.idReadequacao }} - {{ dadosReadequacao.NomeProjeto }} - {{ dadosReadequacao.tpReadequacao }}
                         </v-toolbar-title>
                         <v-spacer />
@@ -110,21 +110,24 @@
                                             :text="'Carregando destinatários/as...'"
                                         />
                                     </template>
-                                    <template
-                                        v-else-if="getDestinatariosDistribuicao.length > 0 && selecionarDestinatario"
-                                    >
-                                        <v-select
-                                            v-model="dadosEncaminhamento.destinatario"
-                                            :items="getDestinatariosDistribuicao"
-                                            label="Destinatário/a"
-                                            item-text="nome"
-                                            item-value="Codigo"
-                                        />
-                                    </template>
-                                    <template v-else-if="getDestinatariosDistribuicao.length === 0 && vinculada.Codigo > 0">
-                                        <h3 class="red--text text--darken-2">
-                                            Não há destinatários/as disponíveis, impossível encaminhar a readequação no momento!
-                                        </h3>
+                                    <template v-else>
+
+                                        <template
+                                            v-if="getDestinatariosDistribuicao.length > 0 && selecionarDestinatario"
+                                        >
+                                            <v-select
+                                                v-model="dadosEncaminhamento.destinatario"
+                                                :items="getDestinatariosDistribuicao"
+                                                label="Destinatário/a"
+                                                item-text="nome"
+                                                item-value="Codigo"
+                                            />
+                                        </template>
+                                        <template v-if="getDestinatariosDistribuicao.length === 0 && orgaoAtual">
+                                            <h3 class="red--text text--darken-2">
+                                                Não há destinatários/as disponíveis, impossível encaminhar a readequação no momento!
+                                            </h3>
+                                        </template>
                                     </template>
                                 </v-flex>
                                 <v-flex
@@ -248,12 +251,8 @@ export default {
         orgaoAtual() {
             return this.getUsuario.orgao_ativo;
         },
-        vinculada() {
-            const vinculada = this.vinculadas.find(orgao => orgao.Codigo === parseInt(this.orgaoAtual, 10));
-            if (typeof vinculada !== 'undefined') {
-                return vinculada;
-            }
-            return vinculada;
+        unidadeAtual() {
+            return this.vinculadas.find(orgao => parseInt(orgao.Codigo, 10) === parseInt(this.orgaoAtual, 10));
         },
         vinculadas() {
             let orgaos = this.mxVinculadas;
@@ -263,9 +262,9 @@ export default {
             return orgaos;
         },
         vinculadasCombo() {
-            const orgaos = this.vinculadas;
+            const orgaos = _.cloneDeep(this.vinculadas);
             orgaos.forEach((item, index) => {
-                if (item.Codigo === 91) {
+                if (parseInt(item.Codigo, 10) === parseInt(this.orgaoAtual, 10)) {
                     orgaos.splice(index, 1);
                 }
             });
@@ -284,9 +283,7 @@ export default {
             handler() {
                 if (this.dialog === true && typeof this.dadosReadequacao.idPronac !== 'undefined') {
                     this.inicializarReadequacaoEditada();
-                    if (typeof this.vinculada === 'object') {
-                        this.obterDestinatarios();
-                    }
+                    this.obterDestinatarios();
                 } else if (this.dialog === false) {
                     this.dadosEncaminhamento = {
                         vinculada: 0,
@@ -406,7 +403,7 @@ export default {
             this.obterDestinatariosDistribuicao({
                 area: this.dadosReadequacao.Area,
                 segmento: this.dadosReadequacao.Segmento,
-                vinculada: this.vinculada.Codigo,
+                vinculada: this.orgaoAtual,
             }).then(() => {
                 this.loadingDestinatarios = false;
                 this.selecionarDestinatario = true;

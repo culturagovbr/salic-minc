@@ -85,32 +85,37 @@
                                         v-model="dadosEncaminhamento.vinculada"
                                         :items="orgaosDestino"
                                         label="Orgão a encaminhar"
-                                        item-text="Sigla"
-                                        item-value="Codigo"
+                                        item-text="nome"
+                                        item-value="id"
                                         @change="obterDestinatarios()"
                                     />
-                                    <carregando
-                                        v-if="loadingDestinatarios"
-                                        :defined-class="`body-1`"
-                                        :size="`small`"
-                                        :text="'Carregando destinatários/as...'"
-                                    />
                                     <template
-                                        v-else-if="getDestinatariosDistribuicao.length > 0"
+                                        v-if="loadingDestinatarios"
                                     >
-                                        <v-select
-                                            v-if="selecionarDestinatario"
-                                            v-model="dadosEncaminhamento.destinatario"
-                                            :items="getDestinatariosDistribuicao"
-                                            label="Destinatário/a"
-                                            item-text="nome"
-                                            item-value="id"
+                                        <carregando
+                                            :defined-class="`body-1`"
+                                            :size="`small`"
+                                            :text="'Carregando destinatários/as...'"
                                         />
                                     </template>
-                                    <template v-if="exibirDestinatariosIndisponiveis">
-                                        <h3 class="red--text text--darken-2">
-                                            Não há destinatários/as disponíveis, impossível encaminhar a readequação no momento!
-                                        </h3>
+                                    <template v-else>
+                                        <template
+                                            v-if="getDestinatariosDistribuicao.length > 0"
+                                        >
+                                            <v-select
+                                                v-if="selecionarDestinatario"
+                                                v-model="dadosEncaminhamento.destinatario"
+                                                :items="getDestinatariosDistribuicao"
+                                                label="Destinatário/a"
+                                                item-text="nome"
+                                                item-value="id"
+                                            />
+                                        </template>
+                                        <template v-if="exibirDestinatariosIndisponiveis">
+                                            <h3 class="red--text text--darken-2">
+                                                Não há destinatários/as disponíveis, impossível encaminhar a readequação no momento!
+                                            </h3>
+                                        </template>
                                     </template>
                                 </v-flex>
                                 <v-flex
@@ -246,15 +251,8 @@ export default {
             return parseInt(this.getUsuario.orgao_ativo, 10);
         },
         vinculada() {
-            let orgaos = this.mxVinculadas;
-
-            if (this.orgaoAtual === 91) {
-                orgaos = Object.assign({}, orgaos, this.mxVinculadasIphan);
-            }
-
-            orgaos = JSON.parse(JSON.stringify(orgaos));
-
-            const vinculada = orgaos.find(orgao => orgao.Codigo === parseInt(this.orgao, 10));
+            const orgaos = JSON.parse(JSON.stringify(this.orgaosDestino));
+            const vinculada = orgaos.find(orgao => orgao.id === parseInt(this.orgao, 10));
             if (typeof vinculada !== 'undefined') {
                 return vinculada;
             }
