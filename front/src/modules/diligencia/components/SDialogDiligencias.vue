@@ -206,14 +206,14 @@ export default {
             diligencias: 'diligencia/getDiligencias',
         }),
         isDiligenciaAberta() {
-            if (this.diligencias) {
-                return this.diligencias.length > 0
-                    && typeof this.diligencias.find((item) => {
-                        const isProdutoEmAberto = this.idProduto === item.idProduto;
-                        return !item.dataResposta && isProdutoEmAberto;
-                    }) === 'object';
-            }
-            return false;
+            return this.diligencias.length > 0
+                && typeof this.diligencias.find((item) => {
+                    const temResposta = !item.dataResposta;
+                    const temProduto = this.idProduto === null || this.idProduto === item.idProduto;
+                    const temTipoDiligencia = this.tpDiligencia === null || this.tpDiligencia === item.idTipoDiligencia;
+                    const temReadequacao = this.idReadequacao === null || this.idReadequacao === item.idReadequacao;
+                    return temResposta && temProduto && temTipoDiligencia && temReadequacao;
+                }) === 'object';
         },
     },
     watch: {

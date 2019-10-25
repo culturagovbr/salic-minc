@@ -13,11 +13,22 @@
                             :text="'Escolha a Dt. Lançamento:'"
                             @eventoFiltrarData="filtrarData"
                         />
-                        <FiltroTipoConta
-                            @eventoSearch="search = $event"
-                        />
                     </v-container>
                 </div>
+                <v-card-title>
+                    <FiltroTipoConta
+                        @eventoSearch="search = $event"
+                    />
+                    <v-spacer/>
+                    <v-text-field
+                        v-model="search"
+                        append-icon="search"
+                        label="Buscar"
+                        single-line
+                        hide-details
+                    />
+
+                </v-card-title>
                 <v-data-table
                     :headers="headers"
                     :items="dadosExtratosBancarios"
@@ -108,6 +119,12 @@ export default {
         FiltroTipoConta,
     },
     mixins: [utils],
+    props: {
+        idPronac: {
+            type: String,
+            required: true,
+        },
+    },
     data() {
         return {
             cssText: [`
@@ -133,6 +150,7 @@ export default {
               }
               `],
             search: '',
+            searchAll: '',
             pagination: {
                 sortBy: 'dtLancamento',
                 descending: true,
@@ -185,12 +203,11 @@ export default {
     },
     computed: {
         ...mapGetters({
-            dadosProjeto: 'projeto/projeto',
             dadosExtratosBancarios: 'dadosBancarios/extratosBancarios',
         }),
     },
     watch: {
-        dadosProjeto(value) {
+        idPronac(value) {
             this.loading = true;
 
             const params = {
@@ -206,9 +223,9 @@ export default {
         },
     },
     mounted() {
-        if (typeof this.dadosProjeto.idPronac !== 'undefined') {
+        if (typeof this.idPronac !== 'undefined') {
             const params = {
-                idPronac: this.dadosProjeto.idPronac,
+                idPronac: this.idPronac,
                 dtLancamento: '',
                 dtLancamentoFim: '',
                 tpConta: '',
@@ -222,7 +239,7 @@ export default {
         }),
         filtrarData(response) {
             const params = {
-                idPronac: this.dadosProjeto.idPronac,
+                idPronac: this.idPronac,
                 dtLancamento: response.dtInicio,
                 dtLancamentoFim: response.dtFim,
                 tpConta: this.search,

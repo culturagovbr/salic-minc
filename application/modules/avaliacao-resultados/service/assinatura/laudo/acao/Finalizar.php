@@ -10,12 +10,6 @@ class Finalizar implements IAcaoFinalizar
     {
         $modeloTbAssinatura = $assinatura->modeloTbAssinatura;
 
-        $laudo = new \AvaliacaoResultados_Model_DbTable_LaudoFinal();
-        $where = [
-            'idPronac' => $modeloTbAssinatura->getIdPronac()
-        ];
-        $laudoFinal = $laudo->findBy($where);
-
         $situacao = \Projeto_Model_Situacao::PC_AVALIADA_SEFIC;
         $providenciaTomada = 'Projeto encaminhado para o setor de elabora&ccedil;&atilde;o de portaria';
 
@@ -27,12 +21,8 @@ class Finalizar implements IAcaoFinalizar
         ));
 
         $objOrgaos = new \Orgaos();
-        $dadosOrgaoSuperior = $objOrgaos->obterOrgaoSuperior($dadosProjeto['Orgao']);
-        if ((int)$dadosOrgaoSuperior['Codigo'] == (int)\Orgaos::ORGAO_SUPERIOR_SEFIC) {
-            $orgaoDestino = (int)\Orgaos::ORGAO_SEFIC_ARQ_CGEPC;
-        } elseif ((int)$dadosOrgaoSuperior['Codigo'] == (int)\Orgaos::ORGAO_SUPERIOR_SAV) {
-            $orgaoDestino = (int)\Orgaos::ORGAO_SAV_CEP;
-        }
+        $orgaoDestino = $objOrgaos->obterUnidadeDestinoLaudoDaFinal($dadosProjeto['Orgao']);
+
         $objTbProjetos = new \Projeto_Model_DbTable_Projetos();
         $objTbProjetos->alterarOrgao($orgaoDestino, $modeloTbAssinatura->getIdPronac());
     }

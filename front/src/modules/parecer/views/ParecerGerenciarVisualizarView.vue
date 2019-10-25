@@ -13,16 +13,16 @@
                 @visualizarHistorico="visualizarHistorico($event)"
                 @visualizarOutrosProdutos="visualizarOutrosProdutos($event)"
             />
-            <s-mensagem
-                v-if="isDisponivelParaAssinatura"
-                :url-retorno="`${urlAssinatura}?idDocumentoAssinatura=${produto.idDocumentoAssinatura}&${retornoAssinatura.toString()}`"
-                texto="Análise validada!
-                Para finalizar você também deverá assinar o parecer técnico"
-                msg-url-retorno="Ir para o documento"
-                type="success"
-            />
-            <v-card v-else>
+            <v-card>
                 <v-card-text>
+                    <s-mensagem
+                        v-if="isDisponivelParaAssinatura"
+                        :url-retorno="`${urlAssinatura}?idDocumentoAssinatura=${produto.idDocumentoAssinatura}&${retornoAssinatura.toString()}`"
+                        texto="Análise validada!
+                Para finalizar você também deverá assinar o parecer técnico"
+                        msg-url-retorno="Ir para o documento"
+                        type="success"
+                    />
                     <visualizacao-analise-produto
                         :produto="produto"
                     />

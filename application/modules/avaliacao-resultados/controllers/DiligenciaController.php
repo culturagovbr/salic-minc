@@ -46,7 +46,12 @@ class AvaliacaoResultados_DiligenciaController extends MinC_Controller_Rest_Abst
     public function getAction()
     {
         $diligencia = new DiligenciaService();
-        $coisa = $diligencia->listaDiligenciaPainel(['idPronac' => $this->getRequest()->getParam('id'), 'situacao' => 'E17', 'tipoDiligencia' => 174]);
+        $coisa = $diligencia->listaDiligenciaPainel([
+            'idPronac' => $this->getRequest()->getParam('id'),
+            'situacao' => 'E17',
+            'tipoDiligencia' => 174
+        ]);
+
         if (!isset($coisa)){
             $this->renderJsonResponse([], 400);
         }elseif (isset($coisa)){

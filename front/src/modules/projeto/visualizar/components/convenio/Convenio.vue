@@ -130,10 +130,13 @@
                 v-if="dadosProjeto.DtArquivamento"
                 class="tabela">
                 <tr class="destacar">
-                    <th
+                    <td
                         align="center"
-                        colspan="3"
-                        class="red-text"><b>Arquivado definitivamente</b></th>
+                        colspan="3">
+                        <b>
+                            Localização física do projeto
+                        </b>
+                    </td>
                 </tr>
                 <tr class="destacar">
                     <th>Dt. Arquivamento</th>

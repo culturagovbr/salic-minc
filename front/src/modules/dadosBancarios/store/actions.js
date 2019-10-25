@@ -9,13 +9,12 @@ export const buscarContasBancarias = ({ commit }, idPronac) => {
         });
 };
 
-export const buscarConciliacaoBancaria = ({ commit }, params) => {
-    dadosBancariosHelperAPI.buscarConciliacaoBancaria(params)
-        .then((response) => {
-            const data = response.data.data.items;
-            commit(types.SET_CONCILIACAO_BANCARIA, data);
-        });
-};
+export const buscarConciliacaoBancaria = async ({ commit }, params) => dadosBancariosHelperAPI
+    .buscarConciliacaoBancaria(params)
+    .then((response) => {
+        const data = response.data.data.items;
+        commit(types.SET_CONCILIACAO_BANCARIA, data);
+    });
 
 export const buscarInconsistenciaBancaria = ({ commit }, params) => {
     dadosBancariosHelperAPI.buscarInconsistenciaBancaria(params)

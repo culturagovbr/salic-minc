@@ -26,7 +26,7 @@ export default {
     props: {
         text: {
             type: String,
-            default: '',
+            default: 'aaaaaadadsadasdasdasdasdasd',
         },
         definedClass: {
             type: String,
