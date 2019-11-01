@@ -107,7 +107,7 @@
                                                 :items="getDestinatariosDistribuicao"
                                                 label="Destinatário/a"
                                                 item-text="nome"
-                                                item-value="Codigo"
+                                                item-value="id"
                                             />
                                         </template>
                                         <template v-if="getDestinatariosDistribuicao.length === 0 && orgaoAtual">
@@ -333,7 +333,7 @@ export default {
                 this.encaminharDisponivel = this.textIsValid;
             } else if (this.acaoTomada === 'ENVIAR_PARECERISTA') {
                 // this.dadosEncaminhamento.vinculada = this.vinculada.Codigo;
-                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario.length > 0 && this.textIsValid;
+                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0 && this.textIsValid;
             } else if (this.acaoTomada === 'ENCAMINHAR_VINCULADA') {
                 this.encaminharDisponivel = this.dadosEncaminhamento.vinculada > 0
                     && this.textIsValid;
