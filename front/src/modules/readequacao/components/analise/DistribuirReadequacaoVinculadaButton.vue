@@ -47,19 +47,6 @@
                             <span v-if="unidadeAtual">{{ unidadeAtual.Sigla }} /</span> Distribuir readequação -
                             {{ dadosReadequacao.idReadequacao }} - {{ dadosReadequacao.NomeProjeto }} - {{ dadosReadequacao.tpReadequacao }}
                         </v-toolbar-title>
-                        <v-spacer />
-                        <v-toolbar-items>
-                            <v-btn
-                                dark
-                                flat
-                                @click="encaminharAnalise"
-                            >
-                                <v-icon left>
-                                    save
-                                </v-icon>
-                                Salvar
-                            </v-btn>
-                        </v-toolbar-items>
                     </v-toolbar>
                     <v-card-text>
                         <v-form
@@ -346,7 +333,7 @@ export default {
                 this.encaminharDisponivel = this.textIsValid;
             } else if (this.acaoTomada === 'ENVIAR_PARECERISTA') {
                 // this.dadosEncaminhamento.vinculada = this.vinculada.Codigo;
-                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario > 0 && this.textIsValid;
+                this.encaminharDisponivel = this.dadosEncaminhamento.destinatario.length > 0 && this.textIsValid;
             } else if (this.acaoTomada === 'ENCAMINHAR_VINCULADA') {
                 this.encaminharDisponivel = this.dadosEncaminhamento.vinculada > 0
                     && this.textIsValid;

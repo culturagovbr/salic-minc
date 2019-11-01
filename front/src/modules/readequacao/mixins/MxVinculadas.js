@@ -58,6 +58,14 @@ export default {
                     Status: 0,
                     stVinculada: 1,
                 },
+                {
+                    Codigo: 262,
+                    Sigla: 'SEFIC',
+                    idSecretaria: 261,
+                    Vinculo: 1,
+                    Status: 0,
+                    stVinculada: 1,
+                },
             ],
             mxVinculadasIphan: [
                 {
