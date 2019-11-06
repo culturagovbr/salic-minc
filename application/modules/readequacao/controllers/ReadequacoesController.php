@@ -727,7 +727,39 @@ class Readequacao_ReadequacoesController extends Readequacao_GenericController
         $itemAlterado->nrOcorrencia = $itemOriginal->nrOcorrencia;
         $itemAlterado->save();
     }
-    
+
+    /*
+   * Criada em 18/03/2014
+   * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
+   * Essa função é usada pelostécnicos, pareceristas e componentes da comissão para alterarem os locais de realização.
+   */
+    public function alteracoesTecnicasNoLocalDeRealizacaoAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+
+        $tbAbrangencia = new Readequacao_Model_DbTable_TbAbrangencia();
+        $editarItem = $tbAbrangencia->buscar(array('idAbrangencia=?' => $_POST['idAbrangencia']))->current();
+
+        if ($this->idPerfil == Autenticacao_Model_Grupos::PARECERISTA || $this->idPerfil == Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO) {
+            $editarItem->tpAnaliseTecnica = $_POST['tpAcao'];
+        } elseif ($this->idPerfil == Autenticacao_Model_Grupos::COMPONENTE_COMISSAO) {
+            $editarItem->tpAnaliseComissao = $_POST['tpAcao'];
+        } elseif ($this->idPerfil == Autenticacao_Model_Grupos::PROPONENTE) {
+            if ($editarItem->tpSolicitacao == 'E') {
+                $editarItem->tpSolicitacao = 'N';
+            } elseif ($editarItem->tpSolicitacao == 'I') {
+                $editarItem->delete();
+                $this->_helper->json(array('resposta' => true, 'msg' => 'Dados salvos com sucesso!'));
+                $this->_helper->viewRenderer->setNoRender(true);
+            }
+        }
+        $editarItem->save();
+
+        $this->_helper->json(array('resposta' => true, 'msg' => 'Dados salvos com sucesso!'));
+        $this->_helper->viewRenderer->setNoRender(true);
+    }
+
      /*
      * Criada em 28/03/2014
      * @author: Jefferson Alessandro - jeffersonassilva@gmail.com
