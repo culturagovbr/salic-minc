@@ -2,77 +2,21 @@
     <div
         v-if="localizacoes"
         class="local-realizacao-deslocamento">
-        <div class="card">
-            <div class="card-content">
-                <h5>Local de Realiza&ccedil;&atilde;o</h5>
-                <table
-                    v-if="localizacoes.abrangencia"
-                    class="bordered responsive-table">
-                    <thead>
-                        <tr>
-                            <th>Pa&iacute;s</th>
-                            <th>UF</th>
-                            <th>Cidade</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            v-for="(localizacao,index) in localizacoes.abrangencia"
-                            :key="index">
-                            <td>{{ localizacao.pais }}</td>
-                            <td>{{ localizacao.uf }}</td>
-                            <td>{{ localizacao.cidade }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div v-else>Nenhuma localiza&ccedil;&atilde;o</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <h5>Deslocamentos</h5>
-                <table
-                    v-if="localizacoes.deslocamento && localizacoes.deslocamento.lenght > 1"
-                    class="bordered responsive-table">
-                    <thead>
-                        <tr>
-                            <th>Pais de Origem</th>
-                            <th>UF de Origem</th>
-                            <th>Cidade de Origem</th>
-                            <th>Pais de Destino</th>
-                            <th>UF de Destino</th>
-                            <th>Cidade de Destino</th>
-                            <th>Quantidade</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            v-for="(deslocamento, index) in localizacoes.deslocamento"
-                            :key="index">
-                            <td>{{ deslocamento.paisorigem }}</td>
-                            <td>{{ deslocamento.uforigem }}</td>
-                            <td>{{ deslocamento.municipioorigem }}</td>
-                            <td>{{ deslocamento.paisodestino }}</td>
-                            <td>{{ deslocamento.ufdestino }}</td>
-                            <td>{{ deslocamento.municipiodestino }}</td>
-                            <td>{{ deslocamento.Qtde }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div v-else>N&atilde;o informado</div>
-            </div>
-        </div>
+        <proposta-local-realizacao :localizacoes="localizacoes.abrangencia"/>
+        <proposta-deslocamento :deslocamentos="localizacoes.deslocamento"/>
     </div>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import PropostaLocalRealizacao from './PropostaLocalRealizacao';
+import PropostaDeslocamento from './PropostaDeslocamento';
 
 export default {
     name: 'PropostaLocalRealizacaoDeslocamento',
+    components: { PropostaDeslocamento, PropostaLocalRealizacao },
     props: {
         idpreprojeto: {
-            type: String,
+            type: [String, Number],
             default: '',
         },
         proposta: {

@@ -42,23 +42,6 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
             throw new \Exception("Projeto n&atilde;o encontrado.");
         }
 
-        $fnVerificarProjetoAprovadoIN2017 = new \fnVerificarProjetoAprovadoIN2017();
-        $instrucaoNormativa2017 = $fnVerificarProjetoAprovadoIN2017->verificar($this->idPronac);
-
-        if (!$instrucaoNormativa2017) {
-            $secundariosAnalisados = $this->verificaSecundariosAnalisados($this->idPronac);
-            $principalConsolidacao = $this->verificaPrimarioConsolidacao($this->idPronac);
-            $pareceresProjeto = $this->verificaParecer($this->idPronac);
-            $diligenciasProjeto = $this->projetoPossuiDiligenciasDiligencias($this->idPronac);
-
-            if ((!$secundariosAnalisados) &&
-                (!$principalConsolidacao) &&
-                (!$pareceresProjeto) &&
-                ($diligenciasProjeto)) {
-                throw new \Exception("N&atilde;o &eacute; poss&iacute;vel assinar esse projeto!");
-            }
-        }
-
         $objModelDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
         $isProjetoDisponivelParaAssinatura = $objModelDocumentoAssinatura->isProjetoDisponivelParaAssinatura(
             $this->idPronac,
@@ -81,12 +64,13 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
             $objDocumentoAssinatura = new \MinC\Assinatura\Servico\DocumentoAssinatura();
             $objDocumentoAssinatura->registrarDocumentoAssinatura($objModelDocumentoAssinatura);
 
-            $objDbTableDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
-            return (int)$objDbTableDocumentoAssinatura->getIdDocumentoAssinatura(
-                $this->idPronac,
-                $this->idTipoDoAtoAdministrativo
-            );
         }
+
+        $objDbTableDocumentoAssinatura = new \Assinatura_Model_DbTable_TbDocumentoAssinatura();
+        return (int)$objDbTableDocumentoAssinatura->getIdDocumentoAssinatura(
+            $this->idPronac,
+            $this->idTipoDoAtoAdministrativo
+        );
     }
 
     /**
@@ -115,10 +99,10 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
         $resultOrgao = $objOrgao->codigoOrgaoSuperior($codOrgao);
         $view->nomeOrgao = $resultOrgao[0]['Sigla'];
         $view->orgaoSuperior = $resultOrgao[0]['Superior'];
-        
+
         $objProjeto = new \Projeto_Model_DbTable_Projetos();
         $view->projeto = $objProjeto->findBy(array('IdPRONAC' => $this->idPronac));
-        
+
         $objAgentes = new \Agente_Model_DbTable_Agentes();
         $dadosAgente = $objAgentes->buscarFornecedor(array('a.CNPJCPF = ?' => $view->projeto['CgcCpf']));
         $arrayDadosAgente = $dadosAgente->current();
@@ -140,66 +124,9 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
         $projetos = new \Projetos();
         $dadosProjeto = $projetos->assinarParecerTecnico($this->idPronac);
         $view->dadosEnquadramento = $dadosProjeto['enquadramento'];
-        $view->dadosProdutos = $dadosProjeto['produtos'];
-        $view->dadosDiligencias = $dadosProjeto['diligencias'];
-        $fnVerificarProjetoAprovadoIN2017 = new \fnVerificarProjetoAprovadoIN2017();
-        $view->IN2017 = $fnVerificarProjetoAprovadoIN2017->verificar($this->idPronac);
-
-        if ($view->IN2017) {
-            $view->dadosAlcance = $dadosProjeto['alcance'][0];
-        }
 
         $view->dadosParecer = $dadosProjeto['parecer'];
 
         return $view->render('documento-assinatura.phtml');
-    }
-
-    private function verificaSecundariosAnalisados($idPronac)
-    {
-        $tbDistribuirParecerDAO = new \tbDistribuirParecer();
-        $dadosWhere["t.stEstado = ?"] = 0;
-        $dadosWhere["t.FecharAnalise = ?"] = 0;
-        $dadosWhere["t.TipoAnalise = ?"] = 3;
-        $dadosWhere["p.Situacao IN ('B11', 'B14')"] = '';
-        $dadosWhere["p.IdPRONAC = ?"] = $idPronac;
-        $dadosWhere["t.stPrincipal = ?"] = 0;
-        $dadosWhere["t.DtDevolucao is null"] = '';
-
-        $SecundariosAtivos = $tbDistribuirParecerDAO->dadosParaDistribuir($dadosWhere);
-        $secundariosCount = count($SecundariosAtivos);
-
-        if ($secundariosCount < 1) {
-            return true;
-        }
-
-        return false;
-    }
-
-    private function verificaPrimarioConsolidacao($idPronac)
-    {
-        $enquadramentoDAO = new \Admissibilidade_Model_Enquadramento();
-        $buscaEnquadramento = $enquadramentoDAO->buscarDados(
-            $idPronac,
-            null,
-            false
-        );
-
-        return count($buscaEnquadramento);
-    }
-
-    private function verificaParecer($idPronac)
-    {
-        $parecerDAO = new \Parecer();
-        $buscaParecer = $parecerDAO->buscarParecer(null, $idPronac);
-
-        return count($buscaParecer);
-    }
-
-    private function projetoPossuiDiligenciasDiligencias($idPronac)
-    {
-        $tbDiligencia = new \tbDiligencia();
-        $rsDilig = $tbDiligencia->buscarDados($idPronac);
-
-        return count($rsDilig);
     }
 }

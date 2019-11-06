@@ -26,7 +26,7 @@ class Zend_View_Helper_ChecarDiligencia
 
             // objetos
             $tbDiligencia        = new tbDiligencia();
-        $tbDistribuirParecer = new tbDistribuirParecer();
+        $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
 
 
         // busca a diligência

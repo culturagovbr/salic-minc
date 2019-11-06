@@ -75,7 +75,7 @@ class VotarProjetoCulturalController extends MinC_Controller_Action_Abstract
         $planilhaproposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
         $planilhaprojeto = new PlanilhaProjeto();
         $planilhaAprovacao = new PlanilhaAprovacao();
-        $tblParecer = new Parecer();
+        $tblParecer = new Parecer_Model_DbTable_Parecer();
         $pt = new Pauta();
         $analiseaprovacao = new AnaliseAprovacao();
         $buscarPronac = $projeto->buscar(array('IdPRONAC = ?' => $idpronac))->current()->toArray();
@@ -898,7 +898,7 @@ class VotarProjetoCulturalController extends MinC_Controller_Action_Abstract
         //$nrreuniaoatual = $reuniaoatual['NrReuniao'];
         $pauta = new Pauta();
         $votantes = new Votante();
-        $parecer = new Parecer();
+        $parecer = new Parecer_Model_DbTable_Parecer();
         $tblProjetos = new Projetos();
         $pa = new PlanilhaAprovacao();
         $st = new Situacao();
@@ -1107,7 +1107,7 @@ class VotarProjetoCulturalController extends MinC_Controller_Action_Abstract
         //$idAbrangencia = $post->cod;
         $pauta = new Pauta();
         $votantes = new Votante();
-        $parecer = new Parecer();
+        $parecer = new Parecer_Model_DbTable_Parecer();
         $tblProjetos = new Projetos();
         $pa = new PlanilhaAprovacao();
         $st = new Situacao();

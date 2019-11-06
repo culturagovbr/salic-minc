@@ -33,8 +33,8 @@ export default {
     mixins: [planilhas],
     props: {
         planilha: {
-            type: Object,
-            default: () => {},
+            type: [Array, Object],
+            default: () => [],
         },
     },
 };

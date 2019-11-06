@@ -80,7 +80,7 @@ class Mensagem extends MinC_Db_Table_Abstract
                 'tpMensagem',
                 'nrCPF',
                 'idPronac',
-                'idDiligencia',
+                'idMensagem as idDiligencia', // nao existe idDiligencia
                 'titulo',
                 'descricao',
                 'dtEnvio',

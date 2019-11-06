@@ -1,139 +1,220 @@
 <template>
     <div
         v-if="produtos"
-        class="plano-distribuicao card">
-        <div
-            v-if="produtos.length <= 0"
-            class="padding10">
-            <b>Aguarde! Carregando....</b>
-        </div>
-        <ul
-            class="collapsible collapsible-produto no-padding"
-            data-collapsible="expandable">
-            <li
-                v-for="(produto, index) of produtos"
-                :key="index">
-                <div class="collapsible-header green-text">
-                    <i class="material-icons">perm_media</i> {{ produto.Produto }}
+        class="plano-distribuicao"
+    >
+        <v-card>
+            <v-card-title
+                primary
+                class="title"
+            >
+                Produtos, distribuição e detalhamentos
+            </v-card-title>
+            <v-card-text>
+                <div
+                    v-if="produtos.length <= 0"
+                    class="padding10"
+                >
+                    <b>Aguarde! Carregando....</b>
                 </div>
-                <div class="collapsible-body no-padding margin10 scroll-x">
-                    <table class="bordered">
-                        <thead>
-                            <tr>
-                                <th>&Aacute;rea</th>
-                                <th>Segmento</th>
-                                <th>Principal</th>
-                                <th>Canal aberto?</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>{{ produto.DescricaoArea }}</td>
-                                <td>{{ produto.DescricaoSegmento }}</td>
-                                <td>{{ label_sim_ou_nao(produto.stPrincipal) }}</td>
-                                <td>{{ label_sim_ou_nao(produto.canalAberto) }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="bordered">
-                        <thead>
-                            <tr>
-                                <th
-                                    colspan="3"
-                                    class="center-align gratuito padding10">
-                                    Quantidade Distribui&ccedil;&atilde;o Gratuita
-                                </th>
-                            </tr>
-                            <tr>
-                                <td class="gratuito">Divulga&ccedil;&atilde;o</td>
-                                <td class="gratuito">Patrocinador</td>
-                                <td class="gratuito">Popula&ccedil;&atilde;o</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="gratuito">{{ produto.QtdeProponente }}</td>
-                                <td class="gratuito">{{ produto.QtdePatrocinador }}</td>
-                                <td class="gratuito">{{ produto.QtdeOutros }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="bordered">
-                        <thead>
-                            <tr>
-                                <th
-                                    colspan="3"
-                                    class="center-align popular padding10">Pre&ccedil;o Popular</th>
-                            </tr>
-                            <tr>
-                                <td class="popular">Quantidade Inteira</td>
-                                <td class="popular">Quantidade Meia</td>
-                                <td class="popular">Valor m&eacute;dio</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="popular">{{ produto.QtdeVendaPopularNormal }}</td>
-                                <td class="popular">{{ produto.QtdeVendaPopularPromocional }}</td>
-                                <td class="popular">{{ produto.ReceitaPopularNormal }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="bordered">
-                        <thead>
-                            <tr>
-                                <th
-                                    colspan="3"
-                                    class="center-align proponente padding10">Proponente</th>
-                            </tr>
-                            <tr>
-                                <td class="proponente">Quantidade Inteira</td>
-                                <td class="proponente">Quantidade Meia</td>
-                                <td class="proponente">Valor m&eacute;dio</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="proponente">{{ produto.QtdeVendaNormal }}</td>
-                                <td class="proponente">{{ produto.QtdeVendaPromocional }}</td>
-                                <td class="proponente">{{ produto.PrecoUnitarioNormal }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="bordered">
-                        <thead>
-                            <tr>
-                                <th class="center-align">Quantidade Total</th>
-                                <th class="center-align">Receita Prevista Total</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="right-align">{{ produto.QtdeProduzida }}</td>
-                                <td class="right-align">{{ produto.Receita }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <v-expansion-panel
+                    :value="[1]"
+                    expand
+                >
+                    <v-expansion-panel-content
+                        v-for="(produto, index) of produtos"
+                        :key="index"
+                    >
+                        <v-layout
+                            slot="header"
+                            style="color: green;"
+                        >
+                            <i class="material-icons">perm_media</i>
+                            <span class="ml-2 mt-1">{{ produto.Produto }}</span>
+                        </v-layout>
 
-                    <PropostaDetalhamentoPlanoDistribuicao
-                        :array-detalhamentos="detalhamentosByID(
-                            detalhamentos,
-                            produto.idPlanoDistribuicao
-                        )"
-                    />
-                </div>
-            </li>
-        </ul>
+                        <v-container
+                            fluid
+                            grid-list-lg
+                        >
+                            <v-layout
+                                row
+                                wrap
+                            >
+                                <v-flex
+                                    xs12
+                                >
+                                    <h3>Produto</h3>
+                                    <v-divider />
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>Área</b>
+                                    <div>{{ produto.DescricaoArea }}</div>
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>Segmento</b>
+                                    <div>{{ produto.DescricaoSegmento }}</div>
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>Principal</b>
+                                    <div>{{ produto.stPrincipal | formatarLabelSimOuNao }}</div>
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>Canal aberto?</b>
+                                    <div>{{ produto.canalAberto | formatarLabelSimOuNao }}</div>
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                >
+                                    <h3>Quantidade Distribuição Gratuita</h3>
+                                    <v-divider />
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>Divulgação</b>
+                                    <div>{{ produto.QtdeProponente }}</div>
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>Patrocinador</b>
+                                    <div>{{ produto.QtdePatrocinador }}</div>
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>População</b>
+                                    <div>{{ produto.QtdeOutros }}</div>
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                >
+                                    <h3>Pre&ccedil;o Popular</h3>
+                                    <v-divider />
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>Quantidade Inteira</b>
+                                    <div>{{ produto.QtdeVendaPopularNormal }}</div>
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>Quantidade Meia</b>
+                                    <div>{{ produto.QtdeVendaPopularPromocional }}</div>
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>Valor médio</b>
+                                    <div>{{ produto.ReceitaPopularNormal }}</div>
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                >
+                                    <h3>Proponente</h3>
+                                    <v-divider />
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>Quantidade Inteira</b>
+                                    <div>{{ produto.QtdeVendaNormal }}</div>
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>Quantidade Meia</b>
+                                    <div>{{ produto.QtdeVendaPromocional }}</div>
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>Valor médio</b>
+                                    <div>{{ produto.PrecoUnitarioNormal }}</div>
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                >
+                                    <h3>Consolidação</h3>
+                                    <v-divider />
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>Quantidade Total</b>
+                                    <div>{{ produto.QtdeProduzida }}</div>
+                                </v-flex>
+                                <v-flex
+                                    xs12
+                                    sm3
+                                    md3
+                                >
+                                    <b>Receita Prevista Total</b>
+                                    <div>{{ produto.Receita }}</div>
+                                </v-flex>
+                            </v-layout>
+                        </v-container>
+                        <PropostaDetalhamentoPlanoDistribuicao
+                            :array-detalhamentos="detalhamentosByID(
+                                detalhamentos,
+                                produto.idPlanoDistribuicao
+                            )"
+                        />
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-card-text>
+        </v-card>
     </div>
 </template>
 <script>
 import PropostaDetalhamentoPlanoDistribuicao from './PropostaDetalhamentoPlanoDistribuicao';
+import { utils } from '@/mixins/utils';
 
 export default {
     name: 'PropostaPlanoDistribuicao',
     components: {
         PropostaDetalhamentoPlanoDistribuicao,
     },
+    mixins: [utils],
     props: {
         arrayProdutos: {
             type: Array,
@@ -142,6 +223,10 @@ export default {
         arrayDetalhamentos: {
             type: Array,
             default: () => [],
+        },
+        proposta: {
+            type: Object,
+            default: () => {},
         },
     },
     data() {
@@ -154,6 +239,10 @@ export default {
         };
     },
     watch: {
+        proposta(v) {
+            this.produtos = v.planodistribuicaoproduto;
+            this.detalhamentos = v.tbdetalhaplanodistribuicao;
+        },
         arrayProdutos(value) {
             this.produtos = value;
         },
@@ -169,8 +258,6 @@ export default {
         if (typeof this.arrayDetalhamentos !== 'undefined') {
             this.detalhamentos = this.arrayDetalhamentos;
         }
-
-        this.iniciarCollapsible();
     },
     methods: {
         detalhamentosByID(lista, id) {
@@ -187,18 +274,6 @@ export default {
                     return novaLista;
                 }
                 return lista;
-            },
-            label_sim_ou_nao(valor) {
-                if (valor === 1) {
-                    return 'Sim';
-                }
-                return 'N\xE3o';
-            },
-            iniciarCollapsible() {
-                /* eslint-disable */
-                $3('.collapsible').each(function () {
-                    $3(this).collapsible();
-                });
             },
         },
     };

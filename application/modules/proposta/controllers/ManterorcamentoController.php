@@ -540,9 +540,8 @@ class Proposta_ManterorcamentoController extends Proposta_GenericController
     {
         $params = $idPreProjeto = $this->getRequest()->getParams();
 
-        $tbPlaninhaProposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
-
-        $valorMediana = $tbPlaninhaProposta->calcularMedianaItemOrcamento($params['idproduto'], $params['idunidade'], $params['idplanilhaitem'], $params['idufdespesa'], $params['idmunicipiodespesa']);
+        $spCalcularMedianaItemOrcamentario = new Planilha_Model_DbTable_SpCalcularMedianaItemOrcamentario();
+        $valorMediana = $spCalcularMedianaItemOrcamentario->obterMedianaItemOrcamento($params['idproduto'], $params['idunidade'], $params['idplanilhaitem'], $params['idufdespesa'], $params['idmunicipiodespesa']);
         $valorMediana = isset($valorMediana['Mediana']) ? $valorMediana['Mediana'] : 0;
 
         $return['msg'] = '';

@@ -28,7 +28,7 @@ class Mensagem
         $listarTudo = $this->request->getParam('listarTudo', null);
 
         if (strlen($idPronac) > 7) {
-            $idPronac = Seguranca::dencrypt($idPronac);
+            $idPronac = \Seguranca::dencrypt($idPronac);
         }
 
         $where = [];
@@ -44,13 +44,10 @@ class Mensagem
         $solicitacoes = $obterSolicitacoes->obterSolicitacoes($where)->toArray();
 
         foreach ($solicitacoes as $key => $solicitacao) {
-            $objDateTimeSolicitacao = new \DateTime($solicitacao['dtSolicitacao']);
-            $objDateTimeResposta = new \DateTime($solicitacao['dtResposta']);
-
-            $solicitacoes[$key]['dtSolicitacao'] = $objDateTimeSolicitacao->format('d/m/Y H:i:s');
-            $solicitacoes[$key]['dtResposta'] = $objDateTimeResposta->format('d/m/Y H:i:s');
-            $solicitacoes[$key]['dsSolicitacao'] = $this->removerHtmlTags($solicitacao['dsSolicitacao']);
-            $solicitacoes[$key]['dsResposta'] = $this->removerHtmlTags($solicitacao['dsResposta']);
+            $solicitacoes[$key]['dtSolicitacao'] = $solicitacao['dtSolicitacao'];
+            $solicitacoes[$key]['dtResposta'] = $solicitacao['dtResposta'];
+            $solicitacoes[$key]['dsSolicitacao'] = $this->stringReplace($solicitacao['dsSolicitacao']);
+            $solicitacoes[$key]['dsResposta'] = $this->stringReplace($solicitacao['dsResposta']);
         }
 
         array_walk($solicitacoes, function (&$value) {
@@ -59,12 +56,6 @@ class Mensagem
         });
 
         return $solicitacoes;
-    }
-
-    private function removerHtmlTags($string)
-    {
-        $result = strip_tags($string);
-        return $this->stringReplace($result);
     }
 
     private function stringReplace($string)

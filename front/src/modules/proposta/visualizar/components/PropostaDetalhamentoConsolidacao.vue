@@ -1,37 +1,29 @@
 <template>
-    <tfoot style="opacity: 0.8">
-        <tr>
-            <td><b>Totais</b></td>
-            <td class="right-align">{{ qtExemplaresTotal }}</td>
+    <tr style="opacity: 0.5">
+        <td><b>Totais</b></td>
+        <td class="text-xs-right">{{ qtExemplaresTotal }}</td>
 
-            <td class="right-align">
-                {{
-                    parseInt(qtGratuitaDivulgacaoTotal) +
-                        parseInt(qtGratuitaPatrocinadorTotal) +
-                        parseInt(qtGratuitaPopulacaoTotal)
-                }}
-            </td>
+        <td class="text-xs-right">
+            {{
+                parseInt(qtGratuitaDivulgacaoTotal) +
+                    parseInt(qtGratuitaPatrocinadorTotal) +
+                    parseInt(qtGratuitaPopulacaoTotal)
+            }}
+        </td>
 
-            <td class="right-align">{{ qtPopularIntegralTotal }}</td>
-            <td class="right-align">{{ qtPopularParcialTotal }}</td>
-            <td class="right-align"> --- </td>
+        <td class="text-xs-right">{{ qtPopularIntegralTotal }}</td>
+        <td class="text-xs-right">{{ qtPopularParcialTotal }}</td>
+        <td class="text-xs-right"> --- </td>
 
-            <td class="right-align">{{ qtProponenteIntegralTotal }}</td>
-            <td class="right-align">{{ qtProponenteParcialTotal }}</td>
-            <td class="right-align"> --- </td>
-            <td class="right-align">{{ receitaPrevistaTotal }}</td>
-        </tr>
-    </tfoot>
+        <td class="text-xs-right">{{ qtProponenteIntegralTotal }}</td>
+        <td class="text-xs-right">{{ qtProponenteParcialTotal }}</td>
+        <td class="text-xs-right"> --- </td>
+        <td class="text-xs-right">{{ receitaPrevistaTotal | formatarParaReal }}</td>
+    </tr>
 </template>
 <script>
 
-import numeral from 'numeral';
-import 'numeral/locales';
 import { utils } from '@/mixins/utils';
-
-numeral.locale('pt-br');
-numeral.defaultFormat('0,0.00');
-
 
 export default {
     name: 'PropostaDetalhamentoConsolidacao',
@@ -97,27 +89,6 @@ export default {
 
             return total;
         },
-        vlReceitaPopularIntegralTotal() {
-            let total = 0;
-
-            for (let i = 0; i < this.items.length; i += 1) {
-                const vl = (this.items[i].vlReceitaPopularIntegral);
-                total += numeral(vl).value();
-            }
-
-            return numeral(total).format('0,0.00');
-        },
-        vlReceitaPopularParcialTotal() {
-            let total = 0;
-
-            for (let i = 0; i < this.items.length; i += 1) {
-                const vl = (this.items[i].vlReceitaPopularParcial);
-                total += numeral(vl).value();
-            }
-
-            return numeral(total).format('0,0.00');
-        },
-
         qtProponenteIntegralTotal() {
             let total = 0;
 
@@ -136,35 +107,13 @@ export default {
 
             return total;
         },
-        vlReceitaProponenteIntegralTotal() {
-            let total = 0;
-
-            for (let i = 0; i < this.items.length; i += 1) {
-                const vl = (this.items[i].vlReceitaProponenteIntegral);
-                total += this.converterParaMoedaAmericana(vl);
-            }
-
-            return numeral(total).format('0,0.00');
-        },
-        vlReceitaProponenteParcialTotal() {
-            let total = 0;
-
-            for (let i = 0; i < this.items.length; i += 1) {
-                const vl = (this.items[i].vlReceitaProponenteParcial);
-                total += this.converterParaMoedaAmericana(vl);
-            }
-
-            return numeral(total).format('0,0.00');
-        },
         receitaPrevistaTotal() {
-            const total = numeral();
-
+            let total = 0;
             for (let i = 0; i < this.items.length; i += 1) {
                 const vl = this.items[i].vlReceitaPrevista;
-                total.add(parseFloat(vl));
+                total += parseFloat(vl);
             }
-
-            return total.format('0,0.00');
+            return total;
         },
     },
 };

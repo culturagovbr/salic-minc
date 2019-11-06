@@ -1,27 +1,39 @@
 <template>
-    <div class="dados-usuario">
-        <div
-            v-if="usuario"
-            class="card">
-            <div class="card-content">
-                <h5>Usu&aacute;rio do sistema</h5>
-                <div class="row">
-                    <div class="col s12 l3 m3">
-                        <b>CPF</b><br>
-                        {{ usuario.cpf }}
-                    </div>
-                    <div class="col s12 l3 m3">
-                        <b>Nome</b><br>
-                        {{ usuario.nome }}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <v-card
+        v-if="usuario"
+        class="mb-2">
+        <v-card-title
+            primary
+            class="title">Usu&aacute;rio do sistema</v-card-title>
+        <v-card-text>
+            <v-layout
+                row
+                wrap>
+                <v-flex
+                    xs12
+                    sm3
+                    md3>
+                    <b>CPF</b><br>
+                    {{ usuario.cpf | formatarCpfOuCnpj }}
+                </v-flex>
+                <v-flex
+                    xs12
+                    sm6
+                    md6>
+                    <b>Nome</b>
+                    <div>{{ usuario.nome }}</div>
+                </v-flex>
+            </v-layout>
+        </v-card-text>
+    </v-card>
 </template>
 <script>
+import axios from 'axios';
+import { utils } from '@/mixins/utils';
+
 export default {
     name: 'AgenteUsuario',
+    mixins: [utils],
     props: {
         idusuario: {
             type: Number,
@@ -47,14 +59,12 @@ export default {
         fetch(id) {
             if (id) {
                 const self = this;
-                /* eslint-disable */
-                $3.ajax({
-                    url: '/autenticacao/index/obter-dados-usuario/idUsuario/' + id
-                }).done(function (response) {
-                    self.usuario = response.data;
-                });
+                axios.get(`/autenticacao/index/obter-dados-usuario/idUsuario/${id}`)
+                    .then((response) => {
+                        self.usuario = response.data.data;
+                    });
             }
         },
     },
-}
+};
 </script>

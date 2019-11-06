@@ -46,7 +46,7 @@ export default {
     methods: {
         formatValue() {
             const num = this.formatFloat(this.$refs.input.value);
-            this.$refs.input.value = this.converterParaMoedaPontuado(num);
+            this.$refs.input.value = this.converterParaReal(num);
             this.updateMoney(
                 this.formatFloat(this.$refs.input.value),
             );

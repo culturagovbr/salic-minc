@@ -214,7 +214,7 @@ class Projeto_HomologacaoController extends Projeto_GenericController
      */
     private function prepareData($intIdPronac)
     {
-        $dbTableParecer = new Parecer();
+        $dbTableParecer = new Parecer_Model_DbTable_Parecer();
         $dbTableAcaoProjeto = new tbAcaoAlcanceProjeto();
         $dbTableHomologacao = new Projeto_Model_DbTable_TbHomologacao();
         $dbTableEnquadramento = new Projeto_Model_DbTable_Enquadramento();

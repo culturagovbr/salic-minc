@@ -10,8 +10,12 @@
                 </span>
             </v-card-title>
             <v-card-text>
+                <s-carregando
+                    v-if="loading"
+                    text="Carregando mediana"
+                />
                 <v-container
-                    v-if="Object.keys(mediana).length > 0"
+                    v-else-if="Object.keys(mediana).length > 0"
                     grid-list-md
                 >
                     <v-layout wrap>
@@ -80,10 +84,13 @@
                         </v-flex>
                     </v-layout>
                 </v-container>
-                <s-carregando
-                    v-else
-                    text="Carregando mediana"
-                />
+                <v-alert
+                    :value="!loading && Object.keys(mediana).length === 0"
+                    type="info"
+                    outline
+                >
+                    <b>Valor mediano de referência não encontrado.</b> Adicione este texto na justificativa do item.
+                </v-alert>
             </v-card-text>
             <v-card-actions>
                 <v-spacer />
@@ -100,7 +107,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapActions } from 'vuex';
 import planilhas from '@/mixins/planilhas';
 import SCarregando from '@/components/CarregandoVuetify';
 
@@ -108,6 +115,7 @@ export default {
     name: 'SPlanilhaDialogDadosMediana',
     components: { SCarregando },
     mixins: [planilhas],
+
     props: {
         label: {
             type: String,
@@ -117,21 +125,25 @@ export default {
             type: Boolean,
             default: false,
         },
-        text: {
-            type: String,
-            default: '',
+        item: {
+            type: Object,
+            default: () => {},
         },
     },
+
     data() {
         return {
+            loading: true,
             dialog: false,
         };
     },
+
     computed: {
         ...mapGetters({
             mediana: 'planilha/obterMediana',
         }),
     },
+
     watch: {
         value(val) {
             this.dialog = val;
@@ -140,9 +152,23 @@ export default {
             this.$emit('input', val);
         },
     },
+
     methods: {
+        ...mapActions({
+            obterMedianaAction: 'planilha/obterMediana',
+        }),
         close() {
             this.dialog = false;
+        },
+        obterMediana(item) {
+            if (Object.keys(item).length === 0) {
+                return;
+            }
+            this.loading = true;
+            this.obterMedianaAction(item)
+                .finally(() => {
+                    this.loading = false;
+                });
         },
     },
 };

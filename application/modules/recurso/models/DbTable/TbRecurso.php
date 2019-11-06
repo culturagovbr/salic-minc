@@ -37,7 +37,7 @@ class Recurso_Model_DbTable_TbRecurso extends MinC_Db_Table_Abstract
     }
 
     /**
-     * Retorna o projetos com desistencia recursal apenas fase 1
+     * Retorna os projetos com desistencia recursal apenas fase 1
      *
      * @param mixed $idPronac
      * @access public

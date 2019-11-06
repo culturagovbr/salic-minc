@@ -3,11 +3,11 @@
 ## Lista de produtos parecer [GET /parecer/produto-rest]
 
 + Response 200 (application/json; charset=utf-8)
-    + Attributes (object)
-        + Body 
-            {
-              "quantidadeAssinaturas": 3,
-              "items": [
+
+    + Body
+        {
+            "quantidadeAssinaturas": 3,
+            "items": [
                 {
                   "IdPRONAC": 215261,
                   "PRONAC": "177111",
@@ -320,31 +320,37 @@
 
     + Body
         {
-              "IdPRONAC": 215261,
-              "PRONAC": "177111",
-              "NomeProjeto": "Auditório C.E.U.",
-              "DtAnalise": "03/11/2017",
-              "situacao": "B11",
-              "idOrgao": 262,
-              "DtSolicitacao": null,
-              "DtResposta": null,
-              "stEnviado": null,
-              "tempoFimDiligencia": null,
-              "quantidadeProdutos": 2,
-              "idProjeto": 251930,
-              "idDistribuirParecer": 910177,
-              "idProduto": 68,
-              "stPrincipal": 1,
-              "TipoAnalise": 3,
-              "DtDistribuicao": "2019-01-28 11:25:12",
-              "stDiligenciado": 0,
-              "DtDevolucao": null,
-              "DtEnvio": "2018-10-31 08:37:24",
-              "idAgenteParecerista": 46265,
-              "dsProduto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição"
+          "data": {
+            "IdPRONAC": 219794,
+            "PRONAC": "182216",
+            "NomeProjeto": "GALO DA MADRUGADA 2019",
+            "DtAnalise": "23/07/2018",
+            "situacao": "B14",
+            "idOrgao": 262,
+            "DtSolicitacao": "2019-03-15 14:56:06",
+            "DtResposta": null,
+            "stEnviado": "S",
+            "tempoFimDiligencia": 40,
+            "quantidadeProdutos": 1,
+            "idProjeto": 282667,
+            "idDistribuirParecer": 910044,
+            "idProduto": 114,
+            "stPrincipal": 1,
+            "TipoAnalise": 3,
+            "DtDistribuicao": "2018-11-13 15:38:51",
+            "stDiligenciado": 0,
+            "DtDevolucao": null,
+            "DtEnvio": "2018-11-08 09:32:27",
+            "FecharAnalise": "0",
+            "idAgenteParecerista": 46265,
+            "dsProduto": "Desfile de Carnaval",
+            "stDiligencia": 1,
+            "diasEmDiligencia": 25,
+            "diasEmAvaliacao": 122
+          }
         }
         
-## PARECER - Análise conteúdo [/parecer/analise-conteudo-rest/id/{id}/idPronac/{idPronac}]
+## PARECER - Análise conteúdo [/parecer/analise-inicial-conteudo-rest/id/{id}/idPronac/{idPronac}]
 
 ### PARECER - Conteúdo análise [GET]
 
@@ -356,9 +362,10 @@
 
     + Body
         {
-            "IdPRONAC": 215261,
-            "idAnaliseDeConteudo": 91130,
-            "idProduto": 68,
+          "data": {
+            "IdPRONAC": 219794,
+            "idAnaliseDeConteudo": 91210,
+            "idProduto": 114,
             "Lei8313": 0,
             "Artigo3": 0,
             "IncisoArtigo3": 0,
@@ -373,11 +380,12 @@
             "IncisoArtigo27_III": 0,
             "IncisoArtigo27_IV": 0,
             "ParecerFavoravel": 1,
-            "ParecerDeConteudo": "<p class=\"ql-align-justify\"><br></p><p>O projeto prevê a \"<span style=\"background-color: rgb(238, 238, 238);\">Conclusão da construção de um Auditório para música de Camara, instalar e montar o Auditório nos 1º e 2º. Pavimentos (palco e plateia) e 1º. Subsolo (camarins e vestiários) do edifício do CEU ? Centro de Extensão Universitária, cuja construção foi interrompida em 2012 restando o acabamento, mobiliário e equipamentos de som, luz e refrigeração. Além da música de câmara, o Auditório C.E.U terá capacidade para receber todas as manifestações culturais que o CEU vem realizando desde a sua fundação tais como recitais, workshops diversos, palestras, encontros culturais, eventos literários, cinema em debate e Fórum de cinema e literatura.</span></p>",
+            "ParecerDeConteudo": "<p class=\"ql-align-justify\">hor(a) Proponente,</p><p class=\"ql-align-justify\">Conforme dispõe o artigo 24 da Instrução Normativa nº 05/2017 do MinC, sua proposta será encaminhada à Comissão Nacional de Incentivo à Cultura para conhecimento e manifestação quanto ao enquadramen</p><p>ribuição ou cobrança de ingressos, o acesso é&nbsp;totalmente gratuito e aberto ao público.&nbsp;Portanto fica garantido/assegurado o livre acesso a toda a população. Fica garantida a plena DEMOCRATIZAÇÂO DO ACESSO para 100% das pessoas, de forma gratuita, que desejarem participar do Desfile de Carnaval.</p><p>O evento já está incorporado as festividades e ao carnaval da cidade do Recife e do Estado de Pernambuco.</p><p>sadasdasd]ãsçdasçd</p><p>]asd</p>",
             "somenteLeitura": false
+          }
         }
 
-## PARECER - Análise Custo [/parecer/analise-custo-rest/id/{id}/idPronac/{idPronac}/stPrincipal/{stPrincipal}]
+## PARECER - Análise Custo [/parecer/analise-inicial-custo-rest/id/{id}/idPronac/{idPronac}/stPrincipal/{stPrincipal}]
 
 ### PARECER - Conteúdo análise [GET]
 
@@ -404,7 +412,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 31475,
               "diasparc": 11,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 31475,
               "justificitivaproponente": "Consultoria Arquitetura R$ 16.500 e Consultoria Acústica R$ 5.000 (Adequação do Projeto). Orçamento Básico R$ 9.975. Total R$ 31.475",
               "quantidadeprop": 1,
@@ -424,7 +432,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 1,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691534,
@@ -439,7 +448,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 1000,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 15000,
               "justificitivaproponente": "Andaime para serviços internos - locação mensal",
               "quantidadeprop": 1,
@@ -459,7 +468,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 2,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691528,
@@ -474,7 +484,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 15000,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 25000,
               "justificitivaproponente": "Aprovação junto a PMSP e Bombeiros - ACOMPANHAMENTO TÉCNICO",
               "quantidadeprop": 1,
@@ -494,7 +504,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 3,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691565,
@@ -509,7 +520,7 @@
               "ocorrenciaparc": 3,
               "valorUnitarioparc": 2500,
               "diasparc": 200,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 33600,
               "justificitivaproponente": "Ajudante que auxiliará o oficial a fazer o check list de obras",
               "quantidadeprop": 1,
@@ -529,7 +540,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 4,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691546,
@@ -544,7 +556,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 17099.98,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 17099.98046875,
               "justificitivaproponente": "Azulejo (materiais) R$ 10.958,58; Azulejo (mão de obra) R$ 6.141,40 - Revestimentos internos - REVESTIMENTO DE PAREDES INTERNAS",
               "quantidadeprop": 1,
@@ -564,7 +576,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 5,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691568,
@@ -579,7 +592,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 58028.55,
               "diasparc": 30,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 58028.55078125,
               "justificitivaproponente": "Cabeamento para Infraestrutura TIC - Tecnologia da Informação e Comunicação - Infraestrutura de rede com Cabeamento estruturado CAT6E, material R$ 38.264,18 e mão de obra  R$ 19.764,37 Total = 58.028,55. O Valor foi ampliado pois a Rede TIC passa a prover todo os serviços para o auditorio (audio, vídeo, automação e TI) sem que haja uma rede analógica para o local.",
               "quantidadeprop": 1,
@@ -599,7 +612,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 6,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691533,
@@ -614,7 +628,7 @@
               "ocorrenciaparc": 38,
               "valorUnitarioparc": 350,
               "diasparc": 210,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 13300,
               "justificitivaproponente": "Caçamba para limpeza permanente de obra (civil e terceiros)",
               "quantidadeprop": 1,
@@ -634,7 +648,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 7,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691526,
@@ -649,7 +664,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 110800,
               "diasparc": 300,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 110800,
               "justificitivaproponente": "Limpeza periódica por 07 meses x R$ 4.800 x 2 ajudantes = R$ 67.200; Caixa de obra por 07 meses x 200 = R$ 1.400; Segurança do trabalho (palestras, medicamento, equipamento de segurança, melhorias) x 1 verba x R$ 5.000; Cópias, plotagens e fotos = R$ 4.000; Materiais diversos para canteiro por 07 meses x R$ 2.500 = R$ 17.500; Proteções de pisos/elevadores/carpete = R$ 15.000,00 TOTAL: R$ 110.800,00",
               "quantidadeprop": 1,
@@ -669,7 +684,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 8,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691556,
@@ -684,7 +700,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 15000,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 15000,
               "justificitivaproponente": "Comunicação Visual de Segurança (material + mão de obra)",
               "quantidadeprop": 1,
@@ -704,7 +720,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 9,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691527,
@@ -719,7 +736,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 194800,
               "diasparc": 30,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 194800,
               "justificitivaproponente": "Consultoria Arquitetura R$ 48.500; Consultoria Acústica R$ 45.000; Consultoria Automação e Controle R$ 50.000; Consultoria Segurança Contra Incêndio R$ 4.300; Consultoria Acessibilidade R$ 9.000; Consultoria Estrutura R$ 10.000; Consultoria Instalações R$ 15.000; Consultoria Ar condicionado R$ 10.000;Consultoria para aprovação da entrada definitiva da Eletropaulo R$ 3.000,00.- TOTAL: R$ 194.800,00",
               "quantidadeprop": 1,
@@ -739,7 +756,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 10,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691543,
@@ -754,7 +772,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 49260.96,
               "diasparc": 210,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 49260.9609375,
               "justificitivaproponente": "Contrapiso - material (areia, cimento, cola pva, manta acústica E CINASITA) R$ 34.780,28; Contrapiso - mão de obra R$ 14.480,68. Total R$ 49.260,96 - CONTRA-PISOS E ENCHIMENTOS/PISO E PAVIMENTAÇÃO INTERNA",
               "quantidadeprop": 1,
@@ -774,7 +792,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 11,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691532,
@@ -789,7 +808,7 @@
               "ocorrenciaparc": 7,
               "valorUnitarioparc": 5500,
               "diasparc": 210,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 38500,
               "justificitivaproponente": "Oficial que fará o checklist de obra",
               "quantidadeprop": 1,
@@ -809,7 +828,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 12,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691559,
@@ -824,7 +844,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 39140,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 39140,
               "justificitivaproponente": "Cotina Automatizada h =5,50m - R$ 32.400,00\r\nCotina não Automatizada h = 2,30 e 2,70m - R$ 6.740,00",
               "quantidadeprop": 1,
@@ -844,7 +864,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 13,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691561,
@@ -859,7 +880,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 19978,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 19978,
               "justificitivaproponente": "Enchimento (material) R$ 9.999,05; Enchimento (mão de obra) R$ 9.978,95. TOTAL: R$ 19.978,00 - CONTRA-PISOS E ENCHIMENTOS/PISO E PAVIMENTAÇÃO INTERNA",
               "quantidadeprop": 1,
@@ -879,7 +900,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 14,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691529,
@@ -894,7 +916,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 10000,
               "diasparc": 210,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 70000,
               "justificitivaproponente": "Engenheiro residente - Engenheiro de Produção (Equipe Técnica/Mão de obra indireta)",
               "quantidadeprop": 1,
@@ -914,7 +936,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 15,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691539,
@@ -929,7 +952,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 19701.55,
               "diasparc": 300,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 19701.55078125,
               "justificitivaproponente": "Kit porta-pronta mat e mão de obra (porta e espuma) 0,80X2,10 R$ 7.056,72; Kit porta-pronta mat e mão de obra (porta e espuma) 0,80X2,10 acústica R$ 5.292,54; Kit porta-pronta mat e mo (porta e espuma) 1,20X2,10 acústica R$ 1.813,89; Kit porta-pronta mat e mão de obra (porta e espuma) 1,90X2,10 acústica R$ 3.727,20; Ferragens - Fechaduras, Barras R$ 1.495,60; Ferragens - Dobradicas R$ 315,60. TOTAL: 19.701,55 - ESQUADRIAS DE MADEIRA",
               "quantidadeprop": 1,
@@ -949,7 +972,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 16,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691540,
@@ -964,7 +988,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 26066.33,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 26066.33984375,
               "justificitivaproponente": "ESQUADRIAS METÁLICAS - Porta corta-fogo (Material e mão de obra) R$ 14.384,80; Acessórios diversos - Outros R$ 431,54 / SERRALHERIA - Guarda corpo fabricado em aço inox escovado, sendo colunas em tubo quadrado de 50 x 50 x 1,5mm e barra horizontal em tubo redondo de 50 x 1,5mm R$11.250. TOTAL = 26.066,34",
               "quantidadeprop": 1,
@@ -984,7 +1008,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 17,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691530,
@@ -999,7 +1024,7 @@
               "ocorrenciaparc": 7,
               "valorUnitarioparc": 2720,
               "diasparc": 210,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 19040,
               "justificitivaproponente": "Estagiário de obra (Equipe Técnica/Mão de obra indireta)",
               "quantidadeprop": 1,
@@ -1019,7 +1044,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 18,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691549,
@@ -1034,7 +1060,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 40979.6,
               "diasparc": 300,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 40979.6015625,
               "justificitivaproponente": "Forro de gesso (material + mão de obra) x 227,30m² x R$ 92,00 = R$ 20.911,60. Forro modular x 51,34m² x R$ 200,00 = R$ 10.268,00; e placas coladas (3 x)  com drywall 12,5 mm em paredes p/ atender acústica = R$ 9.800,00. TOTAL = R$ 40.979,60",
               "quantidadeprop": 1,
@@ -1054,7 +1080,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 19,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691563,
@@ -1069,7 +1096,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 528827,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 528827,
               "justificitivaproponente": "Custos de gerenciamento do projeto/obra",
               "quantidadeprop": 1,
@@ -1089,7 +1116,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 20,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691551,
@@ -1104,7 +1132,7 @@
               "ocorrenciaparc": 1164,
               "valorUnitarioparc": 39.12,
               "diasparc": 3,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 45535.6796875,
               "justificitivaproponente": "Gesso Acústico - FORRO DE GESSO E GESSO LISO EM PAREDES (REVESTIMENTOS)",
               "quantidadeprop": 1,
@@ -1124,7 +1152,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 21,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691553,
@@ -1139,7 +1168,7 @@
               "ocorrenciaparc": 7,
               "valorUnitarioparc": 2677.11,
               "diasparc": 2,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 18739.771484375,
               "justificitivaproponente": "Granito e Mármores (Material + Mão de obra) (bancadas, tampos, baguetes, peitoris, soleiras, tentos) - BANCADA E TAMPOS",
               "quantidadeprop": 1,
@@ -1159,7 +1188,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 22,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691535,
@@ -1174,7 +1204,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 11551.21,
               "diasparc": 30,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 11551.209960938,
               "justificitivaproponente": "Materiais para impermeabilização = R$ 5.690,25; Mão de obra para impermeabilização = R$ 5.690,25; Acessórios diversos (tela de poliester, lona) TOTAL: R$ 11.551,21",
               "quantidadeprop": 1,
@@ -1194,7 +1224,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 23,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691536,
@@ -1209,7 +1240,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 391388.61,
               "diasparc": 300,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 391388.625,
               "justificitivaproponente": "Instalações elétricas - Material R$ 166.800; Instalações elétricas - Mão de obra R$ 182.000; Acessórios diversos - Outros R$ 10.388,61; Infra Estrutura Elétrica para Áudio R$ 32.000 TOTAL: R$ 391.188,61 - INSTALAÇÕES ELÉTRICAS PREDIAIS",
               "quantidadeprop": 1,
@@ -1229,7 +1260,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 24,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691572,
@@ -1244,7 +1276,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 6000,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 6000,
               "justificitivaproponente": "Instalação e configuração das antenas Wi-Fi - Tecnologia de Informação e Comunicação. O valor anterior estava totalmente fora da realidade em termos de um sistema Wi-Fi com capacidade para atender toda a demanda do auditório.",
               "quantidadeprop": 1,
@@ -1264,7 +1296,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 25,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691537,
@@ -1279,7 +1312,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 63250,
               "diasparc": 300,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 63250,
               "justificitivaproponente": "Instalacoes hidraulicas - Material R$ 22.000,00; Instalacoes hidraulicas - Mão de obra R$ 33.250,00; Extintores e mangueiras R$ 5.000,00; Acessórios diversos - Outros - (Furacoes, carenagens plasticas) R$ 3.000,00. TOTAL: 63.250,00 - INSTALAÇÕES HIDRÁULICAS PREDIAIS",
               "quantidadeprop": 1,
@@ -1299,7 +1332,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 26,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691558,
@@ -1314,7 +1348,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 63198.6,
               "diasparc": 300,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 63198.6015625,
               "justificitivaproponente": "2 VARAS SCENICAS 14 POSIÇÕES RELAY+DMX, 16 ILUMINADORES PLANO FRENEL 1kW, 6 ILUMINADORES  ELIPSOIDAIS, 2 REFLETOR RGB PISO ( LATERAIS ), 12 RIBALTAS FUNDO DE PALCO ( DMX), 14 LUMINARIAS PAR 70 LED + RECEPTACULO DE EMBUTIR , 150 M FITAS DE LED 3000k, 24 LUMINARIAS PAR 70 LED + RECEPTACULO PENDURAL . EQUIPAMENTOS R$ 48.288,58.  MÃO DE OBRA R$ 14.910,01. TOTAL: 63.198,60",
               "quantidadeprop": 1,
@@ -1334,7 +1368,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 27,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691538,
@@ -1349,7 +1384,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 232500,
               "diasparc": 300,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 232500,
               "justificitivaproponente": "Ar Condicionado - Infra material e mão de obra R$ 127.500; Ar Condicionado - Equipamentos e Instalação R$ 45.000; Ar Condicionado - vedação da casa de máquinas, isolamento acústico e todos os serviços de obras civis em geral. (Furações, recomposições, bases e etc.) R$ 60.000. TOTAL: R$ 232.500,00 - INSTALAÇÕES MECÂNICAS - ELEVADORES, AR CONDICIONADO, EXAUSTÃO E PRESSURIZAÇÃO",
               "quantidadeprop": 1,
@@ -1369,7 +1404,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 28,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691573,
@@ -1384,7 +1420,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 8980,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 8980,
               "justificitivaproponente": "Controladora Wi-Fi  (com Licença de Software da Controladora para as 3 antenas a serem instaladas) - Tecnologia de Informação e Comunicação.",
               "quantidadeprop": 1,
@@ -1404,7 +1440,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 29,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691555,
@@ -1419,7 +1456,7 @@
               "ocorrenciaparc": 799,
               "valorUnitarioparc": 15.02,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 12000.98046875,
               "justificitivaproponente": "Limpeza final de obra.",
               "quantidadeprop": 1,
@@ -1439,7 +1476,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 30,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691552,
@@ -1454,7 +1492,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 6434.77,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 6434.7700195312,
               "justificitivaproponente": "Loucas - materiais (vasos, tanques e cubas) R$ 1.506,18; Metais - materiais (torneira, sifao, flexiveis, valvulas e acabamentos de registro) R$ 1.430,26; Acessório diversos (bolsas, buchas, parafusos, sifao) R$ 3.498,33. TOTAL: R$ 6.434,77.",
               "quantidadeprop": 1,
@@ -1474,7 +1512,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 31,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691542,
@@ -1489,7 +1528,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 273780,
               "diasparc": 300,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 273780,
               "justificitivaproponente": "Painéis acústicos, portas e piso do palco. Novo projeto não considera mais o revestimento de madeira nas paredes de todo o auditório.",
               "quantidadeprop": 1,
@@ -1509,7 +1548,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 32,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691571,
@@ -1524,7 +1564,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 24384,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 24384,
               "justificitivaproponente": "Sistemática de WiFi - Antenas (Tecnologia de Informação e Comunicação). O valor anterior estava totalmente fora da realidade em termos de um sistema Wi-Fi com capacidade para atender toda a demanda do auditório.",
               "quantidadeprop": 1,
@@ -1544,7 +1584,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 33,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691547,
@@ -1559,7 +1600,7 @@
               "ocorrenciaparc": 187,
               "valorUnitarioparc": 40,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 7480,
               "justificitivaproponente": "Materiais para assentamento (cimentcola, rejunte) REVESTIMENTO DE PAREDES INTERNAS.",
               "quantidadeprop": 1,
@@ -1579,7 +1620,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 34,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691570,
@@ -1594,7 +1636,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 227171.56,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 227171.5625,
               "justificitivaproponente": "Prover os Switches , rede de dados, VoIP com alta performance e controle e transmissão de áudio, vídeo e automação via rede TIC (Tecnologia da informação e comunicação) com capacidade para streaming de transmissão ao vivo para a Internet (Webex, Redes sociais., You tube...). Switches R$ 207.171,56 \r\nServiços de mão de obra de instalação e configuração dos switches = R$ 20.000\r\nTI e Comunicação Rede - de TIC para o Auditório. Nessa nova concepta que terão IP independente e trafegados pela TIC.",
               "quantidadeprop": 1,
@@ -1614,7 +1656,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 35,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691531,
@@ -1629,7 +1672,7 @@
               "ocorrenciaparc": 7,
               "valorUnitarioparc": 7670,
               "diasparc": 210,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 53690,
               "justificitivaproponente": "Operador de elevador de obra (Equipe Técnica/Mão de obra indireta)",
               "quantidadeprop": 1,
@@ -1649,7 +1692,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 36,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691554,
@@ -1664,7 +1708,7 @@
               "ocorrenciaparc": 749,
               "valorUnitarioparc": 65,
               "diasparc": 300,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 48685,
               "justificitivaproponente": "Pintura (material e mão de obra)",
               "quantidadeprop": 1,
@@ -1684,7 +1728,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 37,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691545,
@@ -1699,7 +1744,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 125473.61,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 125473.609375,
               "justificitivaproponente": "Piso Carpete em placa 8mm x 277,55m² x R$ 307,10 = R$ 85.235,61; Piso de madeira x 118m² x R$ 341,00 = R$ 40.238,00 = R$ 125.473,61. PISOS INTERNOS",
               "quantidadeprop": 1,
@@ -1719,7 +1764,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 38,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691560,
@@ -1734,7 +1780,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 379975.89,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 379975.875,
               "justificitivaproponente": "Poltronas Auditório = 280 unidades x R$ 1.263,80 = R$ 353.863.17.  Poltronas para pessoas com dificuldade de locomoção = 3 unidades x R$ 1.617,75 = R$ 4.853,24,  Poltronas para pessoas obesas = 3 unidades x R$ 1.970,61 = R$5.911,83. Poltronas para uso dos músicos da orquestra = 22 unidades x 697,20 = 15.347,64  TOTAL = R$ 379.975,89",
               "quantidadeprop": 1,
@@ -1754,7 +1800,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 39,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691569,
@@ -1769,7 +1816,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 0,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 60445.921875,
               "justificitivaproponente": "2 DIMMER 12CH 20V DMX 19\" with Rack , 1 CONTROLADORA DMX - RECORD, 8 DRIVERS DE LED 16A, 3 MÓDULOS DE CONTROLE DE LED 06CH, 1 MODULO DE CONTROLE DE RELAY 12CH, 1 SWITCH DE DADOS 24p, Patch pannel 24, CABEAMENTO DIGITAL, QLA CENTRAL COM ACESSÓRIOS, QLA SECUNDÁRIO ( STAFF 1 E 2 ), 2 AP RADIANTE 802.11 W/ WAVE2, 2 TABLET. EQUIPAMENTOS R$ 42.704,74. SERVIÇOS R$ 17.741,18. TOTAL R$ 60.445,92",
               "quantidadeprop": 1,
@@ -1789,7 +1836,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 40,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691548,
@@ -1804,7 +1852,7 @@
               "ocorrenciaparc": 398,
               "valorUnitarioparc": 424,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 168752,
               "justificitivaproponente": "Revestimento de parede em madeira - REVESTIMENTO DE PAREDES INTERNAS",
               "quantidadeprop": 1,
@@ -1824,7 +1872,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 41,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691544,
@@ -1839,7 +1888,7 @@
               "ocorrenciaparc": 106,
               "valorUnitarioparc": 108.97,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 11550.8203125,
               "justificitivaproponente": "Rodapé Madeira - PISO E PAVIMENTAÇÃO INTERNA",
               "quantidadeprop": 1,
@@ -1859,7 +1908,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 42,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691562,
@@ -1874,7 +1924,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 365177.31,
               "diasparc": 300,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 365177.3125,
               "justificitivaproponente": "TELA DE PROJEÇÃO, PROJETOR 5000 HDBASET, BRACKT UNIVERSAL L, GABINETE MATRIZ 32X32 COM FONTE REDUNDANTE E SEEMLESS, PLACA INPUT CARD 04CH HD-SDI W LOOP, PLACA INPUT CARD 04CH 4K HDMI,  PLACA INPUT CARD 04CH HDBASET, 2 PLACAS OUTPUT CARD 04CH HDMI, RACK 19\" 44un COM RODAS, PORTA E ACESSORIOS INTERNOS, SERVIDOR DE VIDEO RECORD, 3 CAMERAS AUTOTRACK 20X + Joystick, LIVE STREAMING PRO EDITIONS CUSTON, 2 MONITORES DE LIVE STREAMING, MONITOR DE M-VIEW 43\", SUPORTE DE MESA DUAL , SUPORTE PLANO COM TILT,",
               "quantidadeprop": 1,
@@ -1894,7 +1944,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 43,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691557,
@@ -1909,7 +1960,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 200000,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 447625.0625,
               "justificitivaproponente": "2 MEDUZAS 12P w/ Connector, 3 CAIXAS DE PISO, MESA DE SOM DIGITAL, INTERFACE DANTE, 2 MONITORES DE CABINE, INTERFACE DANTE VOLANTE, BASE DE MICROFONES 04 CH, 2 MICROFONES  BASTÃO DIGITAL , 2 SUBWOOFERS, 4 CAIXAS DE SOM FRONTAIS, 8 CAIXAS DE SOM DOWN BALCONY, AMPLICADOR PARA DOWN BALCONY, 8 CAIXAS DE SOM UP BALCONY, AMPLICADOR PARA UP BALCONY, DISTRIBUIDOR DE ÁUDIO, CABEAMENTO ANALÓGICO. EQUIPAMENTOS: R$ 387.332,37. SERVIÇOS: R$ 60.292,68. TOTAL = 447.625,05",
               "quantidadeprop": 1,
@@ -1929,7 +1980,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 44,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691550,
@@ -1944,7 +1996,7 @@
               "ocorrenciaparc": 221,
               "valorUnitarioparc": 25,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 5525,
               "justificitivaproponente": "Tabica - FORRO DE GESSO",
               "quantidadeprop": 1,
@@ -1964,7 +2016,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 45,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691564,
@@ -1979,7 +2032,7 @@
               "ocorrenciaparc": 5,
               "valorUnitarioparc": 1000,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 7000,
               "justificitivaproponente": "Técnico de Segurança no Trabalho - Equipe Técnica",
               "quantidadeprop": 1,
@@ -1999,7 +2052,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 46,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691541,
@@ -2014,7 +2068,7 @@
               "ocorrenciaparc": 2,
               "valorUnitarioparc": 5500,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 11250,
               "justificitivaproponente": "Vidro 6+8 (14mm) laminado fumê comum 01 vão paginado medindo no total de 6,60m²",
               "quantidadeprop": 1,
@@ -2034,7 +2088,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 47,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691567,
@@ -2049,7 +2104,7 @@
               "ocorrenciaparc": 10,
               "valorUnitarioparc": 4500,
               "diasparc": 365,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 45000,
               "justificitivaproponente": "Advogado",
               "quantidadeprop": 1,
@@ -2069,7 +2124,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 48,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691566,
@@ -2084,7 +2140,7 @@
               "ocorrenciaparc": 5,
               "valorUnitarioparc": 4000,
               "diasparc": 365,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 40000,
               "justificitivaproponente": "Contador",
               "quantidadeprop": 1,
@@ -2104,7 +2160,8 @@
               "UF": "SP",
               "Produto": "Bem Imóvel - Reforma / Ampliação / Construção / Aquisição",
               "Seq": 49,
-              "isDisponivelParaAnalise": true
+              "isDisponivelParaAnalise": true,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691523,
@@ -2119,7 +2176,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 246373.3075,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 271748.5625,
               "justificitivaproponente": " ",
               "quantidadeprop": 1,
@@ -2139,7 +2196,8 @@
               "UF": "SP",
               "Produto": "Administração do Projeto",
               "Seq": 50,
-              "isDisponivelParaAnalise": false
+              "isDisponivelParaAnalise": false,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691524,
@@ -2154,7 +2212,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 41062.2179,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 45291.4296875,
               "justificitivaproponente": " ",
               "quantidadeprop": 1,
@@ -2174,7 +2232,8 @@
               "UF": "SP",
               "Produto": "Administração do Projeto",
               "Seq": 51,
-              "isDisponivelParaAnalise": false
+              "isDisponivelParaAnalise": false,
+              "selecionado": false
             },
             {
               "idPlanilhaProjeto": 2691525,
@@ -2189,7 +2248,7 @@
               "ocorrenciaparc": 1,
               "valorUnitarioparc": 150000,
               "diasparc": 1,
-              "custopraticado": 0,
+              "stCustoPraticadoParc": 0,
               "VlSolicitado": 150000,
               "justificitivaproponente": " ",
               "quantidadeprop": 1,
@@ -2209,8 +2268,208 @@
               "UF": "SP",
               "Produto": "Administração do Projeto",
               "Seq": 52,
-              "isDisponivelParaAnalise": false
+              "isDisponivelParaAnalise": false,
+              "selecionado": false
             }
           ],
           "somenteLeitura": false
         }
+
+## PARECER - Análise outros produtos [/parecer/analise-inicial-outros-produtos-rest/id/{id}/idPronac/{idPronac}]
+
+### PARECER - obter outros produtos [GET]
+
++ Parameters
+    + id: 68
+    + idPronac: 215261
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+      [
+        {
+          "idProduto": 3,
+          "idDistribuirParecer": 910184,
+          "idOrgao": 92,
+          "DtDevolucao": null,
+          "DtEnvio": "2018-10-30 22:52:33",
+          "idAgenteParecerista": 11476,
+          "stDiligenciado": 0,
+          "DtDistribuicao": "2019-02-13 08:41:21",
+          "TipoAnalise": 3,
+          "FecharAnalise": "0",
+          "stPrincipal": 1,
+          "nrDias": 106,
+          "DtEnvioPT": "30/10/2018",
+          "DtDevolucaoPT": null,
+          "DtDistribuicaoPT": "13/02/2019",
+          "DescricaoAnalise": "Custo Administrativo",
+          "Obs": "ANDRE LUIZ FERNANDES ANDRIES",
+          "Valor": 4445668.6015625,
+          "idSegmento": "38",
+          "Segmento": "Ações de capacitação e treinamento de pessoal",
+          "IdPRONAC": 221176,
+          "NrProjeto": "183717",
+          "NomeProjeto": "PLANO ANUAL AMIGOS DO GURI 2019",
+          "idArea": "3",
+          "Produto": "Curso / Oficina / Estágio",
+          "Area": "Música"
+        },
+        {
+          "idProduto": 7,
+          "idDistribuirParecer": 910185,
+          "idOrgao": 92,
+          "DtDevolucao": null,
+          "DtEnvio": "2018-10-30 22:52:33",
+          "idAgenteParecerista": 11476,
+          "stDiligenciado": 0,
+          "DtDistribuicao": "2019-02-13 08:41:22",
+          "TipoAnalise": 3,
+          "FecharAnalise": "0",
+          "stPrincipal": 0,
+          "nrDias": 106,
+          "DtEnvioPT": "30/10/2018",
+          "DtDevolucaoPT": null,
+          "DtDistribuicaoPT": "13/02/2019",
+          "DescricaoAnalise": "Custo Administrativo",
+          "Obs": "ANDRE LUIZ FERNANDES ANDRIES",
+          "Valor": 196500,
+          "idSegmento": "32",
+          "Segmento": "Música Erudita",
+          "IdPRONAC": 221176,
+          "NrProjeto": "183717",
+          "NomeProjeto": "PLANO ANUAL AMIGOS DO GURI 2019",
+          "idArea": "3",
+          "Produto": "Intercâmbio",
+          "Area": "Música"
+        },
+        {
+          "idProduto": 8,
+          "idDistribuirParecer": 910186,
+          "idOrgao": 92,
+          "DtDevolucao": null,
+          "DtEnvio": "2018-10-30 22:52:33",
+          "idAgenteParecerista": 11476,
+          "stDiligenciado": 0,
+          "DtDistribuicao": "2019-02-13 08:41:22",
+          "TipoAnalise": 3,
+          "FecharAnalise": "0",
+          "stPrincipal": 0,
+          "nrDias": 106,
+          "DtEnvioPT": "30/10/2018",
+          "DtDevolucaoPT": null,
+          "DtDistribuicaoPT": "13/02/2019",
+          "DescricaoAnalise": "Custo Administrativo",
+          "Obs": "ANDRE LUIZ FERNANDES ANDRIES",
+          "Valor": 525000,
+          "idSegmento": "32",
+          "Segmento": "Música Erudita",
+          "IdPRONAC": 221176,
+          "NrProjeto": "183717",
+          "NomeProjeto": "PLANO ANUAL AMIGOS DO GURI 2019",
+          "idArea": "3",
+          "Produto": "Bolsa",
+          "Area": "Música"
+        },
+        {
+          "idProduto": 121,
+          "idDistribuirParecer": 910188,
+          "idOrgao": 92,
+          "DtDevolucao": null,
+          "DtEnvio": "2018-10-30 22:52:33",
+          "idAgenteParecerista": 11476,
+          "stDiligenciado": 0,
+          "DtDistribuicao": "2019-02-13 08:41:22",
+          "TipoAnalise": 3,
+          "FecharAnalise": "0",
+          "stPrincipal": 0,
+          "nrDias": 106,
+          "DtEnvioPT": "30/10/2018",
+          "DtDevolucaoPT": null,
+          "DtDistribuicaoPT": "13/02/2019",
+          "DescricaoAnalise": "Custo Administrativo",
+          "Obs": "ANDRE LUIZ FERNANDES ANDRIES",
+          "Valor": 85000,
+          "idSegmento": "32",
+          "Segmento": "Música Erudita",
+          "IdPRONAC": 221176,
+          "NrProjeto": "183717",
+          "NomeProjeto": "PLANO ANUAL AMIGOS DO GURI 2019",
+          "idArea": "3",
+          "Produto": "Oficina /Workshop/Seminário Audiovisual",
+          "Area": "Música"
+        }
+      ]
+
+## PARECER - Análise consolidação [/parecer/analise-inicial-consolidacao-rest/id/{id}/idPronac/{idPronac}]
+
+### obter consolidacao [GET]
+
++ Parameters
+    + id: 68
+    + idPronac: 215261
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Body
+        {
+          "IdParecer": 190763,
+          "AnoProjeto": "18",
+          "Sequencial": "2216",
+          "TipoParecer": "1",
+          "ParecerFavoravel": "2",
+          "DtParecer": "2019-02-11 20:06:52",
+          "Parecerista": null,
+          "Conselheiro": null,
+          "NumeroReuniao": null,
+          "ResumoParecer": "<p>Consolidação do projeto</p>",
+          "SugeridoUfir": 0,
+          "SugeridoReal": 0,
+          "SugeridoCusteioUfir": 0,
+          "SugeridoCusteioReal": 0,
+          "SugeridoCapitalUfir": 0,
+          "SugeridoCapitalReal": 0,
+          "Atendimento": "S",
+          "Logon": 2161,
+          "IdPRONAC": 219794,
+          "idEnquadramento": 125651,
+          "stAtivo": 1,
+          "idTipoAgente": 1
+        }
+
+
+## PARECER - Análise consolidação [/parecer/analise-inicial-consolidacao-rest]
+
+### Save parecer consolidacao [POST]
+
++ Request (multipart/form-data; charset=utf-8)
+
+    + Attributes 
+        + IdParecer: 190763 (number, required) 
+        + AnoProjeto: 18 (number, required) 
+        + Sequencial: 2216 (number, required) 
+        + TipoParecer: 1 (number, required) 
+        + ParecerFavoravel: 2 (number, required) 
+        + DtParecer: 2019-02-11 20:06:52 (string, required) 
+        + Parecerista: null (number, required) 
+        + Conselheiro: null
+        + NumeroReuniao: null
+        + ResumoParecer: <p>Consolidação do projeto</p>
+        + SugeridoUfir: 0
+        + SugeridoReal: 0
+        + SugeridoCusteioUfir: 0
+        + SugeridoCusteioReal: 0
+        + SugeridoCapitalUfir: 0
+        + SugeridoCapitalReal: 0
+        + Atendimento: S
+        + Logon: 2161
+        + IdPRONAC: 219794
+        + idEnquadramento: 125651
+        + stAtivo: 1
+        + idTipoAgente: 1
+
++ Response 200 (application/json; charset=utf-8)
+
+    + Attributes (object)
+        + status: 1 (number)
+        + message: Salvo com sucesso! (string)

@@ -5,7 +5,23 @@
             :text="'Procurando planilha'"/>
         <Planilha
             v-if="Object.keys(planilha).length > 0"
-            :array-planilha="planilha">
+            :array-planilha="planilha"
+            :agrupamentos="agrupamentos"
+            :totais="totaisPlanilha"
+        >
+            <template
+                slot="badge"
+                slot-scope="slotProps"
+            >
+                <VChip
+                    v-if="slotProps.planilha.vlAprovado"
+                    outline="outline"
+                    label="label"
+                    color="#565555"
+                >
+                    R$ {{ formatarParaReal(slotProps.planilha.vlAprovado) }}
+                </VChip>
+            </template>
             <template slot-scope="slotProps">
                 <PlanilhaItensHomologados :table="slotProps.itens"/>
             </template>
@@ -21,6 +37,7 @@ import { mapActions, mapGetters } from 'vuex';
 import Carregando from '@/components/Carregando';
 import Planilha from '@/components/Planilha/Planilha';
 import PlanilhaItensHomologados from '@/components/Planilha/PlanilhaItensHomologados';
+import MxPlanilha from '@/mixins/planilhas';
 
 export default {
     name: 'PlanilhaPropostaHomologada',
@@ -29,11 +46,31 @@ export default {
         Planilha,
         PlanilhaItensHomologados,
     },
+    mixins: [MxPlanilha],
     data() {
         return {
             loading: true,
             semResposta: false,
             mensagem: '',
+            totaisPlanilha: [
+                {
+                    label: 'Valor Solicitado',
+                    column: 'vlSolicitado',
+                },
+                {
+                    label: 'Valor Sugerido',
+                    column: 'vlSugerido',
+                },
+                {
+                    label: 'Valor Aprovado',
+                    column: 'vlAprovado',
+                },
+                {
+                    label: 'Valor Comprovado',
+                    column: 'VlComprovado',
+                },
+            ],
+            agrupamentos: ['FonteRecurso', 'Produto', 'Etapa', 'UF', 'Municipio'],
         };
     },
     computed: {

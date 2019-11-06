@@ -1,9 +1,11 @@
 <template>
     <div>
+        <v-label v-if="label">{{ label }}</v-label>
         <vue-editor
             v-model="editor"
-            :editor-toolbar="customToolbar"
             v-bind="$attrs"
+            :editor-toolbar="customToolbar"
+            class="mt-2"
             @input="$emit('input', $event)"
             @focus="$emit('focus', $event)"
             @blur="$emit('blur', $event)"
@@ -50,8 +52,13 @@ export default {
     components: {
         VueEditor,
     },
+    inheritAttrs: false,
     props: {
         value: {
+            type: String,
+            default: '',
+        },
+        label: {
             type: String,
             default: '',
         },
@@ -66,10 +73,6 @@ export default {
         maxChar: {
             type: [String, Number],
             default: null,
-        },
-        rules: {
-            type: Array,
-            default: () => [],
         },
     },
     data() {

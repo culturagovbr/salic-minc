@@ -29,7 +29,7 @@ class ValidacaoProjeto
 		);
 		
 		
-		$projetosDAO 	 = new tbDistribuirParecer();
+		$projetosDAO 	 = new Parecer_Model_DbTable_TbDistribuirParecer();
     	$PlanilhaDAO = new PlanilhaProjeto();
     	
     	$total = $PlanilhaDAO->valorTotalDoProjeto($idPronac);

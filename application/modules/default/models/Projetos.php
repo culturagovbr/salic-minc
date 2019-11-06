@@ -2281,7 +2281,7 @@ class Projetos extends MinC_Db_Table_Abstract
                 'p.SolicitadoReal AS VlSolicitado',
                 new Zend_Db_Expr('sac.dbo.fnOutrasFontes(p.IdPRONAC) AS VlOutrasFontes'),
                 new Zend_Db_Expr('sac.dbo.fnValorDaProposta(p.idProjeto) AS VlProjeto'),
-                'p.SolicitadoReal AS CustoProjeto',
+                new Zend_Db_Expr('p.SolicitadoReal AS CustoProjeto'),
                 new Zend_Db_Expr('dbo.fnOutrasFontes(p.IdPRONAC) AS VlOutrasFontesAprovado'),
                 new Zend_Db_Expr('dbo.fnValorDaProposta(p.idProjeto) AS CustoTotal')
             )
@@ -2291,7 +2291,12 @@ class Projetos extends MinC_Db_Table_Abstract
             array('e' => 'Enquadramento'),
             new Zend_Db_Expr('(p.AnoProjeto = e.AnoProjeto AND p.Sequencial = e.Sequencial)'),
             array(
-                new Zend_Db_Expr("CASE WHEN e.Enquadramento = '1' THEN 'Artigo 26' WHEN e.Enquadramento = '2' THEN 'Artigo 18' ELSE 'Não enquadrado' END AS Enquadramento")
+                new Zend_Db_Expr("
+                CASE 
+                    WHEN e.Enquadramento = '1' THEN 'Artigo 26' 
+                    WHEN e.Enquadramento = '2' THEN 'Artigo 18' 
+                    ELSE 'Não enquadrado' END AS Enquadramento"
+                )
             )
         );
 
@@ -2305,35 +2310,6 @@ class Projetos extends MinC_Db_Table_Abstract
         $returnData = array();
 
         $returnData['enquadramento'] = $this->enquadramentoProjeto($idpronac);
-
-        $select2 = $this->select();
-        $select2->setIntegrityCheck(false);
-        $select2->from(
-            array('p' => 'vwPlanoDeDistribuicaoProduto'),
-            array(
-                'p.idProjeto',
-                'p.IdPRONAC',
-                'p.idProduto',
-                'p.Produto',
-                'p.tpProduto',
-                'p.QtdeProduzida',
-                'p.QtdeDistribuicaoGratuita',
-                'p.QtdeVendaPopular',
-                'p.QtdeVendaProponente',
-                'p.PrecoMedio',
-                'p.ReceitaTotal',
-                'p.vlProduto'
-            )
-        );
-        $select2->where("p.idPronac = ?", $idpronac);
-        $returnData['produtos'] = $this->fetchAll($select2);
-
-
-        $db = Zend_Db_Table::getDefaultAdapter();
-        $sql = "exec " . $this->_schema . ".spDiligenciasEnviadasAoProjeto " . $idpronac;
-        $db->setFetchMode(Zend_DB :: FETCH_OBJ);
-        $returnData['diligencias'] = $db->fetchAll($sql);
-
 
         $select3 = $this->select();
         $select3->setIntegrityCheck(false);
@@ -2352,8 +2328,13 @@ class Projetos extends MinC_Db_Table_Abstract
         $select4->from(
             array('p' => 'Parecer'),
             array(
-                'p.tpResultado' => new Zend_Db_Expr("CASE WHEN ParecerFavoravel = 1 THEN 'Desfavor&aacute;vel' WHEN ParecerFavoravel = 2 THEN 'Favor&aacute;vel' END"),
-                'p.ResumoParecer'
+                'p.tpResultado' => new Zend_Db_Expr("
+                CASE 
+                WHEN ParecerFavoravel = 1 THEN 'Desfavor&aacute;vel' 
+                WHEN ParecerFavoravel = 2 THEN 'Favor&aacute;vel' 
+                END"),
+                'p.ResumoParecer',
+                'p.SugeridoReal'
             )
         );
         $select4->where("p.stAtivo = ?", 1);
@@ -2412,7 +2393,7 @@ class Projetos extends MinC_Db_Table_Abstract
         return $returnData;
     }
 
-    public function dadosFechar($usu_Codigo, $idpronac, $idDistribuirParecer)
+    public function dadosFechar($idAgente, $idpronac, $idDistribuirParecer)
     {
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -2458,7 +2439,8 @@ class Projetos extends MinC_Db_Table_Abstract
         $select->joinLeft(
             array('pr' => 'Produto'),
             'd.idProduto = pr.Codigo',
-            array('pr.Descricao AS Produto')
+            array('pr.Descricao AS Produto'),
+            $this->_schema
         );
 
 
@@ -2467,8 +2449,8 @@ class Projetos extends MinC_Db_Table_Abstract
             'd.DtDistribuicao IS NOT NULL',
             'd.DtDevolucao IS NULL',
             '(p.Situacao = \'B11\') OR (p.Situacao = \'B14\')',
-            /* 'a.idAgente = ' . $usu_Codigo, */
-            'u.usu_codigo = ' . $usu_Codigo,
+            'a.idAgente = ' . $idAgente,
+//            'u.usu_codigo = ' . $usu_Codigo,
             'p.IdPRONAC = ' . $idpronac,
             'd.idDistribuirParecer = ' . $idDistribuirParecer
         );
@@ -2483,8 +2465,12 @@ class Projetos extends MinC_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
-    // fecha metodo buscarPeriodoCaptacao()
-
+    /**
+     * @param $idpronac
+     * @param null $idItem
+     * @return Zend_Db_Table_Rowset_Abstract
+     * @deprecated metodo nao utilizado
+     */
     public function analiseDeCustos($idpronac, $idItem = null)
     {
         $select = $this->select();
@@ -2624,8 +2610,6 @@ class Projetos extends MinC_Db_Table_Abstract
 
         return $this->fetchRow($select);
     }
-
-    // fecha metodo buscarSituacaoAtual()
 
     /**
      * Metodo para alterar a situa??o do projeto
@@ -2945,43 +2929,13 @@ class Projetos extends MinC_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
+    /**
+     * @deprecated: método migrado para modulo correto. Utilizar model Diligencia_Model_DbTable_TbDiligencia
+     **/
     public function listarDiligencias($consulta = array(), $retornaSelect = false)
     {
-        $select = $this->select();
-        $select->setIntegrityCheck(false);
-        $select->from(
-            array('pro' => $this->_name),
-            array('nomeProjeto' => 'pro.NomeProjeto', 'pronac' => new Zend_Db_Expr('pro.AnoProjeto+pro.Sequencial'))
-        );
-
-        $select->joinInner(
-            array('dil' => 'tbDiligencia'),
-            'dil.idPronac = pro.IdPRONAC',
-            array(
-                'dil.stProrrogacao',
-                'idDiligencia' => 'dil.idDiligencia',
-                'dataSolicitacao' => 'dil.DtSolicitacao',
-                'dataResposta' => 'dil.DtResposta',
-                'Solicitacao' => 'dil.Solicitacao',
-                'Resposta' => new Zend_Db_Expr('CAST(dil.Resposta AS TEXT)'),
-                'dil.idCodigoDocumentosExigidos',
-                'dil.idTipoDiligencia',
-                'dil.stEnviado'
-            )
-        );
-        $select->joinInner(array('ver' => 'Verificacao'), 'ver.idVerificacao = dil.idTipoDiligencia', array('tipoDiligencia' => 'ver.Descricao'));
-        $select->joinLeft(array('prod' => 'Produto'), 'prod.Codigo = dil.idProduto', array('produto' => 'prod.Descricao'));
-
-
-        foreach ($consulta as $coluna => $valor) {
-            $select->where($coluna, $valor);
-        }
-
-        if ($retornaSelect) {
-            return $select;
-        } else {
-            return $this->fetchAll($select);
-        }
+        $tbDiligenciaDbTable = new Diligencia_Model_DbTable_TbDiligencia();
+        return $tbDiligenciaDbTable->listarDiligencias($consulta, $retornaSelect);
     }
 
     public function dadosProjeto($consulta = array())
@@ -4829,75 +4783,13 @@ class Projetos extends MinC_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
+    /**
+     * @deprecated migrado para a Parecer_Model_DbTable_TbDistribuirParecer
+     */
     public function buscaProjetosProdutosParaAnalise($where)
     {
-        $select = $this
-            ->select()
-            ->setIntegrityCheck(false)
-            ->from(
-                array('projeto' => $this->_name),
-                array(
-                    'IdPRONAC',
-                    'PRONAC' => '(AnoProjeto + Sequencial)',
-                    'NomeProjeto',
-                    'DtAnalise' => new Zend_Db_Expr('CONVERT(CHAR(10), DtAnalise, 103)'),
-                    'situacao',
-                    'idOrgao' => 'Orgao',
-                    'DtSolicitacao' => new Zend_Db_Expr('(select top 1 DtSolicitacao from sac.dbo.tbDiligencia dili1 where dili1.idPronac = projeto.idPronac and dili1.idProduto = distribuirParecer.idProduto order by dili1.DtSolicitacao desc)'),
-                    'DtResposta' => new Zend_Db_Expr('(select top 1 DtResposta from sac.dbo.tbDiligencia dili2 where dili2.idPronac = projeto.idPronac and dili2.idProduto = distribuirParecer.idProduto order by dili2.DtSolicitacao desc)'),
-                    'stEnviado' => new Zend_Db_Expr('(select top 1 stEnviado from sac.dbo.tbDiligencia dili3 where dili3.idPronac = projeto.idPronac and dili3.idProduto = distribuirParecer.idProduto order by dili3.DtSolicitacao desc)'),
-                    'tempoFimDiligencia' => new Zend_Db_Expr("(select top 1 CASE WHEN stProrrogacao = 'N' THEN 20 ELSE 40 END AS tempoFimDiligencia from sac.dbo.tbDiligencia dili4 where dili4.idPronac = projeto.idPronac and dili4.idProduto = distribuirParecer.idProduto order by dili4.DtSolicitacao desc)"),
-                ),
-                $this->_schema
-            )
-            ->joinInner(
-                array('distribuirParecer' => 'tbDistribuirParecer'),
-                'projeto.idPronac = distribuirParecer.idPronac',
-                array(
-                    'idDistribuirParecer',
-                    'idProduto',
-                    'stPrincipal',
-                    'TipoAnalise',
-                    'DtDistribuicao',
-                    'stDiligenciado',
-                    'DtDevolucao',
-                    'DtEnvio' => new Zend_Db_Expr('CONVERT(CHAR(10), DtEnvio, 103)'),
-                    'idAgenteParecerista',
-                ),
-                $this->_schema
-            )
-            ->joinLeft(
-                array('produto' => 'Produto'),
-                'distribuirParecer.idProduto = produto.Codigo',
-                array('dsProduto' => 'Descricao'),
-                $this->_schema
-            )
-//                ->joinLeft(
-//                        array('diligencia' => 'tbDiligencia'),
-//                        'diligencia.idPronac = projeto.idPronac',
-//                        array(
-//                            'DtSolicitacao',
-//                            'DtResposta',
-//                            'stEnviado',
-//                            )
-//                        )
-            ->where('distribuirParecer.DtDistribuicao is not null')
-            ->where('distribuirParecer.DtDevolucao is NULL')
-            ->where('distribuirParecer.stEstado = ?', 0)
-            ->where('distribuirParecer.TipoAnalise in (?)', array(1, 3))
-            ->where('Situacao in (?)', array('B11', 'B14'))
-//                ->where('diligencia.idProduto = produto.Codigo')
-//                ->order('diligencia.DtSolicitacao')
-            ->order('projeto.IdPRONAC')
-            ->order('distribuirParecer.stPrincipal DESC')
-            ->order('produto.Descricao');
-
-        foreach ($where as $key => $val) {
-            $select->where($key, $val);
-        }
-
-
-        return $this->fetchAll($select);
+        $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
+        return $tbDistribuirParecer->buscaProjetosProdutosParaAnalise($where);
     }
 
     public function buscarProjetosAprovados($where = array(), $order = array(), $tamanho = -1, $inicio = -1, $qtdeTotal = false)
@@ -6515,7 +6407,6 @@ class Projetos extends MinC_Db_Table_Abstract
     }
 
 
-
     public function projetosCnicOpinioes($where = array(), $order = array())
     {
         $select1 = $this->select();
@@ -8097,11 +7988,11 @@ class Projetos extends MinC_Db_Table_Abstract
             $projetosRecebedores = $TbSolicitacaoTransferenciaRecursos->obterProjetosRecebedores($idReadequacao);
 
             $listaProjetosRecebedores = [];
-            
+
             foreach ($projetosRecebedores as $projeto) {
                 $listaProjetosRecebedores[] = $projeto->idPronacRecebedor;
             }
-            
+
             $select = $this->select();
 
             if (!empty($listaProjetosRecebedores)) {
@@ -8109,7 +8000,7 @@ class Projetos extends MinC_Db_Table_Abstract
             }
             $select->where('IdPRONAC != ?', $idPronac);
             $select->where(new Zend_Db_Expr('AnoProjeto + Sequencial = ?'), $pronacRecebedor);
-            
+
             $projeto = $this->fetchAll($select);
             $saida = [];
 

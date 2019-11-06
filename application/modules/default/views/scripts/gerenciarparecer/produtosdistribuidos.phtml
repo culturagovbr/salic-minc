@@ -57,7 +57,7 @@
 			$tbDiligencia           = new tbDiligencia();
 			$rsDilig                = $tbDiligencia->buscarDados($dp->IdPRONAC);
 			$dilig                  = count($rsDilig);
-                        $tbDistribuirParecer    = new tbDistribuirParecer();
+                        $tbDistribuirParecer    = new Parecer_Model_DbTable_TbDistribuirParecer();
                         $qtdAvaliacoes          = $tbDistribuirParecer->buscarHistoricoCoordenador(array("d.idPronac = ?" => $dp->IdPRONAC, "d.idProduto = ?" => $dp->idProduto, "d.stPrincipal = ?" => $dp->stPrincipal));
 
             ?>

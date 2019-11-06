@@ -35,38 +35,36 @@ class Diligencia implements \MinC\Servico\IServicoRestZend
             }
 
             $tbDiligenciaDbTable = new \Diligencia_Model_DbTable_TbDiligencia();
-            
+
             if ($idReadequacao) {
                 $where = [
                     'tbReadequacao.idReadequacao = ?' => $idReadequacao
                 ];
                 return $tbDiligenciaDbTable->listarDiligenciasReadequacao($where)->toArray();
-            } else {
-                
-                $whereDiligencia = ['pro.IdPRONAC = ?' => $idPronac];
-
-                if (!empty($idProduto) && $idProduto != 'null') {
-                    $whereDiligencia = [
-                        'pro.IdPRONAC = ?' => $idPronac,
-                        'dil.idProduto = ?' => $idProduto,
-                        'dil.stEnviado = ?' => 'S'
-                    ];
-                }
-
-                if ($idDiligencia && $idDiligencia != 'null') {
-                    $whereDiligencia['dil.idDiligencia = ?'] = $idDiligencia;
-                }
-
-                if ($idTipoDiligencia && $idTipoDiligencia != 'null') {
-                    $whereDiligencia['dil.idTipoDiligencia = ?'] = $idTipoDiligencia;
-                }
-
-                if (!empty($situacao) && $situacao != 'null') {
-                    $whereDiligencia['pro.Situacao = ?'] = $situacao;
-                }
-
-                return $tbDiligenciaDbTable->listarDiligencias($whereDiligencia)->toArray();
             }
+
+            $whereDiligencia = ['pro.IdPRONAC = ?' => $idPronac];
+            if (!empty($idProduto) && $idProduto != 'null') {
+                $whereDiligencia = [
+                    'pro.IdPRONAC = ?' => $idPronac,
+                    'dil.idProduto = ?' => $idProduto,
+                    'dil.stEnviado = ?' => 'S'
+                ];
+            }
+
+            if ($idDiligencia && $idDiligencia != 'null') {
+                $whereDiligencia['dil.idDiligencia = ?'] = $idDiligencia;
+            }
+
+            if ($idTipoDiligencia && $idTipoDiligencia != 'null') {
+                $whereDiligencia['dil.idTipoDiligencia = ?'] = $idTipoDiligencia;
+            }
+
+            if (!empty($situacao) && $situacao != 'null') {
+                $whereDiligencia['pro.Situacao = ?'] = $situacao;
+            }
+
+            return $tbDiligenciaDbTable->listarDiligencias($whereDiligencia)->toArray();
         } catch (\Exception $exception) {
             throw $exception;
         }
@@ -91,7 +89,7 @@ class Diligencia implements \MinC\Servico\IServicoRestZend
                 'pro.IdPRONAC = ?' => $idPronac,
                 'dil.idDiligencia = ?' => $idDiligencia,
             ];
-            
+
             if ($idReadequacao) {
                 $where = [
                     'tbReadequacao.idReadequacao = ?' => $idReadequacao
@@ -125,10 +123,8 @@ class Diligencia implements \MinC\Servico\IServicoRestZend
             $idPronac = $this->request->getParam('idPronac');
             $idProduto = $this->request->getParam('idProduto', null);
             $idReadequacao = $this->request->getParam('idReadequacao', null);
-            $situacao = $this->request->getParam('situacao');
             $idTipoDiligencia = $this->request->getParam('tpDiligencia');
             $solicitacao = utf8_decode($this->request->getParam('solicitacao'));
-            $confirmaEnvio = $this->request->getParam('btnEnvio');
 
             if (empty($idPronac)) {
                 throw new \Exception("Dados obrigat&oacute;rios n&atilde;o informados");
@@ -139,7 +135,7 @@ class Diligencia implements \MinC\Servico\IServicoRestZend
             }
 
             $diligenciaDAO = new \Diligencia();
-            
+
             if ($idReadequacao) {
                 $tbDiligenciaDbTable = new \Diligencia_Model_DbTable_TbDiligencia();
                 $where = [
@@ -168,22 +164,18 @@ class Diligencia implements \MinC\Servico\IServicoRestZend
             }
 
             $idProduto = $idProduto ?? new \Zend_Db_Expr('null');
-            $auth = \Zend_Auth::getInstance();
 
+            $auth = \Zend_Auth::getInstance();
             $dados = array(
                 'idPronac' => $idPronac,
                 'Solicitacao' => $solicitacao,
                 'idSolicitante' => $auth->getIdentity()->usu_codigo,
+                'idProduto' => $idProduto,
                 'idTipoDiligencia' => $idTipoDiligencia,
                 'DtSolicitacao' => new \Zend_Db_Expr('GETDATE()'),
                 'stEstado' => 0,
-                'stEnviado' => 'N'
+                'stEnviado' => 'S'
             );
-            
-            // @todo a trigger no banco já salva como stEnviado ='S' ao inserir
-            if ($confirmaEnvio == 1) {
-                $dados['stEnviado'] = 'S';
-            }
 
             $tbDiligenciaDbTable = new \Diligencia_Model_DbTable_TbDiligencia();
             $diligenciaEmEdicao = $tbDiligenciaDbTable->findBy([
@@ -199,20 +191,20 @@ class Diligencia implements \MinC\Servico\IServicoRestZend
                     ['idDiligencia = ?' => $diligenciaEmEdicao['idDiligencia']]
                 );
             }
-            
+
             if ($idReadequacao) {
                 $dados['stEnviado'] = 'S';
                 $idDiligencia = $diligenciaDAO->inserirDiligencia($dados);
 
                 $tbReadequacaoXtbDiligencia = new \Readequacao_Model_DbTable_TbReadequacaoXtbDiligencia();
-                
+
                 $dados = [];
                 $dados['idReadequacao'] = $idReadequacao;
                 $dados['idDiligencia'] = $idDiligencia;
-                $inserir = $tbReadequacaoXtbDiligencia->insert($dados);
-            } else {
-                return $diligenciaDAO->inserirDiligencia($dados);
+                return $tbReadequacaoXtbDiligencia->insert($dados);
             }
+
+            return $diligenciaDAO->inserirDiligencia($dados);
         } catch (\Exception $exception) {
             throw $exception;
         }
