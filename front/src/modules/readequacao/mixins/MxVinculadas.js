@@ -61,10 +61,10 @@ export default {
                 {
                     Codigo: 262,
                     Sigla: 'SEFIC',
-                    idSecretaria: 261,
+                    idSecretaria: 251,
                     Vinculo: 1,
                     Status: 0,
-                    stVinculada: 1,
+                    stVinculada: 0,
                 },
             ],
             mxVinculadasIphan: [

@@ -1699,6 +1699,7 @@ class Readequacao implements IServicoRestZend
             $dados['gru_codigo = ?'] = \Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO;
             if ($vinculada == \Orgaos::ORGAO_SAV_CAP) {
                 $dados['org_superior = ?'] = \Orgaos::ORGAO_SUPERIOR_SAV;
+                $dados["uog_orgao = ?"] = \Orgaos::ORGAO_SAV_CAP;
             } else {
                 $dados['org_superior = ?'] = \Orgaos::ORGAO_SUPERIOR_SEFIC;
             }
@@ -1717,11 +1718,8 @@ class Readequacao implements IServicoRestZend
             return $dadosUsuarios;
         }
 
-        if (in_array($vinculada, $this->__getVinculadasExcetoIphan()) || $vinculada == \Orgaos::ORGAO_SUPERIOR_SAV) {
-            $idOrgao = $vinculada;
-        }
-
         $idVinculada = null;
+        $idOrgao = $vinculada;
         if (in_array($vinculada, $this->__getVinculadasIphan())) {
             $idOrgao = 91;
             $idVinculada = $vinculada;
