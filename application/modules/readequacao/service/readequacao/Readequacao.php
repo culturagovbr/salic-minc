@@ -1817,6 +1817,7 @@ class Readequacao implements IServicoRestZend
                 $readequacao->stAtendimento = \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEVOLVIDA;
                 
             } else {
+                $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
                 if ($parametros['vinculada'] == \Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI
                     || ($parametros['vinculada'] == \Orgaos::ORGAO_SAV_CAP && $parametros['destinatario'] > 0)) {
                     $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
@@ -1825,15 +1826,8 @@ class Readequacao implements IServicoRestZend
                 } else if ($parametros['vinculada'] == \Orgaos::ORGAO_SAV_CAP && $parametros['destinatario'] == 0) {
                     $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
                     $idUnidade = \Orgaos::ORGAO_SUPERIOR_SAV;
-                } else if (in_array($parametros['vinculada'], $this->__getVinculadasExcetoIphan())
-                           || $parametros['vinculada'] == \Orgaos::ORGAO_SUPERIOR_SAV) {
-                    if ($parametros['destinatario'] > 0) {
-                        $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
-                    } else {
-                        $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
-                    }
-                } else {
-                     $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
+                } else if ($parametros['destinatario'] > 0) {
+                    $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
                 }
             }
             $update = $readequacao->save();
@@ -1856,7 +1850,7 @@ class Readequacao implements IServicoRestZend
                         'idAvaliador' => (null !== $parametros['destinatario']) ? $parametros['destinatario'] : null,
                         'dtEnvioAvaliador' => $dtEnvioAvaliador,
                         'stValidacaoCoordenador' => $stValidacaoCoordenador,
-                        'dsOrientacao' => $readequacao->dsAvaliacao
+                        'dsOrientacao' => utf8_decode($parametros['dsOrientacao'])
                     ];
 
                     $inserir = $tbDistribuirReadequacao->inserir($dados);
@@ -1871,7 +1865,7 @@ class Readequacao implements IServicoRestZend
                         'idAvaliador' => (null !== $parametros['destinatario']) ? $parametros['destinatario'] : null,
                         'dtEnvioAvaliador' => $dtEnvioAvaliador,
                         'stValidacaoCoordenador' => $stValidacaoCoordenador,
-                        'dsOrientacao' => $readequacao->dsAvaliacao
+                        'dsOrientacao' => utf8_decode($parametros['dsOrientacao'])
                     ];
                     $where = [];
                     $where['idReadequacao = ?'] = $readequacao->idReadequacao;
