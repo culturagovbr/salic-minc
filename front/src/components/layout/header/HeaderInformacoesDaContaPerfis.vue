@@ -21,7 +21,9 @@
                         <template
                             v-for="(perfil, index) in perfis"
                         >
-                            <v-divider :key="index" :inset="isInset(perfil)" />
+                            <v-divider
+                                :key="index"
+                                :inset="isInset(perfil)" />
                             <v-list-tile
                                 :key="perfil.id_unico"
                                 @click="trocarPerfil(perfil)"

@@ -150,11 +150,11 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import SProposta from '@/modules/proposta/visualizar/Proposta';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import SCarregando from '@/components/CarregandoVuetify';
 
-import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'AnaliseDeConteudo',

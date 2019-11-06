@@ -33,11 +33,11 @@
                         >
                             <v-btn
                                 slot="activator"
+                                :href="`${urlAssinatura}?idDocumentoAssinatura=${props.item.idDocumentoAssinatura}&${retornoAssinatura.toString()}`"
                                 color="green darken-2"
                                 flat
                                 icon
                                 class="ma-0"
-                                :href="`${urlAssinatura}?idDocumentoAssinatura=${props.item.idDocumentoAssinatura}&${retornoAssinatura.toString()}`"
                             >
                                 <v-icon>
                                     assignment_turned_in

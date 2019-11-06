@@ -32,7 +32,6 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
-import slTabelaSimples from '@/components/slTabelaSimples';
 
 export default {
     name: 'PropostaFontesDeRecursos',

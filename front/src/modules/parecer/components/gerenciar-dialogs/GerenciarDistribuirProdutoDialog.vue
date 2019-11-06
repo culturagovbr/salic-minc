@@ -52,8 +52,7 @@
                                             </template>
                                             <v-radio value="distribuir">
                                                 <template v-slot:label>
-                                                    <strong class="primary--text">Distribuir para um novo
-                                                        parecerista</strong>
+                                                    <strong class="primary--text">Distribuir para um novo parecerista</strong>
                                                 </template>
                                             </v-radio>
                                             <v-radio
@@ -61,8 +60,7 @@
                                                 value="encaminhar"
                                             >
                                                 <template v-slot:label>
-                                                    <strong class="primary--text">Encaminhar para uma unidade
-                                                        vinculada</strong>
+                                                    <strong class="primary--text">Encaminhar para uma unidade vinculada</strong>
                                                 </template>
                                             </v-radio>
                                         </v-radio-group>
@@ -78,20 +76,20 @@
                                             v-model="distribuicao.idAgenteParecerista"
                                             :items="pareceristas"
                                             :item-text="formatarSelectParecerista"
-                                            item-value="idParecerista"
                                             :label="loadingPareceristas ? 'Carregando...' : 'Selecione o parecerista'"
                                             :loading="loadingPareceristas"
                                             :rules="[obrigatorio]"
+                                            item-value="idParecerista"
                                         />
                                         <v-select
                                             v-if="tipoAcao === 'encaminhar'"
                                             v-model="distribuicao.idOrgao"
                                             :items="vinculadas"
-                                            item-text="Sigla"
-                                            item-value="Codigo"
                                             :label="loadingVinculadas ? 'Carregando...' : 'Selecione o orgão destino'"
                                             :loading="loadingVinculadas"
                                             :rules="[obrigatorio]"
+                                            item-text="Sigla"
+                                            item-value="Codigo"
                                         />
                                     </v-flex>
                                     <v-flex

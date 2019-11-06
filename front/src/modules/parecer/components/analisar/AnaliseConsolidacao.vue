@@ -87,11 +87,11 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import SCarregando from '@/components/CarregandoVuetify';
 import MxPlanilha from '@/mixins/planilhas';
 
-import { mapActions, mapGetters } from 'vuex';
 
 export default {
     name: 'Consolidacao',

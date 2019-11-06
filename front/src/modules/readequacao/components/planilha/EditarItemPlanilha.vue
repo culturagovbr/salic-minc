@@ -158,7 +158,7 @@ import InputMoney from '@/components/InputMoney';
 import Carregando from '@/components/CarregandoVuetify';
 import MxReadequacao from '../../mixins/Readequacao';
 import MxPlanilhaReadequacao from '../../mixins/PlanilhaReadequacao';
-import SalicInputValor from "@/components/SalicInputValor";
+import SalicInputValor from '@/components/SalicInputValor';
 
 export default {
     name: 'EditarItemPlanilha',

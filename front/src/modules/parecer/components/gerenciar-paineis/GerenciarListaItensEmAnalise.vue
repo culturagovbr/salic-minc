@@ -38,8 +38,8 @@
                     >
                         <span
                             slot="activator"
-                            class="subheading font-weight-bold"
                             :class="obterClasseDiasAnalise(props.item)"
+                            class="subheading font-weight-bold"
                         >{{ props.item.qtDiasDistribuir }}</span>
                         <span>Data de envio: {{ props.item.dtEnvioMincVinculada | formatarData }}</span>
                     </v-tooltip>

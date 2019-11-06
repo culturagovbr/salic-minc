@@ -1,9 +1,9 @@
 <template>
     <v-dialog
         v-model="dialog"
-        persistent
         :max-width="options.width"
         :style="{ zIndex: options.zIndex }"
+        persistent
         @keydown.esc="response(false)"
     >
         <v-card>

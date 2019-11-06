@@ -55,8 +55,8 @@
 
                         <!-- paineis -->
                         <component
-                            :is="filtroSelecionado.component"
                             v-if="!loading"
+                            :is="filtroSelecionado.component"
                             :produtos="produtos"
                             :search="search"
                             @visualizar-historico="abrirDialog($event, 's-analise-historico-produto-dialog')"

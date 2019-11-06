@@ -142,8 +142,7 @@
                                     </td>
                                     <td class="layout px-0">
                                         <v-tooltip
-                                            v-if="props.item.siAnalise === SI_ANALISE_ANALISADO
-                                                && props.item.stPrincipal !== 1"
+                                            v-if="props.item.siAnalise === SI_ANALISE_ANALISADO && props.item.stPrincipal !== 1"
                                             bottom
                                         >
                                             <v-btn
@@ -190,8 +189,7 @@
                                             bottom
                                         >
                                             <v-btn
-                                                v-if="props.item.siAnalise === SI_ANALISE_AGUARDANDO_ANALISE
-                                                    || !props.item.siAnalise"
+                                                v-if="props.item.siAnalise === SI_ANALISE_AGUARDANDO_ANALISE || !props.item.siAnalise"
                                                 slot="activator"
                                                 color="yellow accent-4"
                                                 icon

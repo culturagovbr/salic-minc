@@ -106,10 +106,6 @@ export default {
         };
     },
 
-    mounted() {
-        this.dialog = this.value;
-    },
-
     computed: {
         ...mapGetters({
             historico: 'parecer/getHistoricoProduto',
@@ -133,6 +129,10 @@ export default {
         historico(val) {
             this.loading = val.length === 0;
         },
+    },
+
+    mounted() {
+        this.dialog = this.value;
     },
 
     methods: {

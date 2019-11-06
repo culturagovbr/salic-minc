@@ -102,10 +102,10 @@
 
 <script>
 
+import { mapActions } from 'vuex';
 import * as TbDistribuirParecer from '@/modules/parecer/constantes/TbDistribuirParecer';
 import * as TbTipoEncaminhamento from '@/modules/shared/constantes/TbTipoEncaminhamento';
 
-import { mapActions } from 'vuex';
 import { utils } from '@/mixins/utils';
 import SEditorTexto from '@/components/SalicEditorTexto';
 

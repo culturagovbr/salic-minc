@@ -2,10 +2,10 @@
     <div>
         <v-label v-if="label">{{ label }}</v-label>
         <vue-editor
-            class="mt-2"
             v-model="editor"
-            :editor-toolbar="customToolbar"
             v-bind="$attrs"
+            :editor-toolbar="customToolbar"
+            class="mt-2"
             @input="$emit('input', $event)"
             @focus="$emit('focus', $event)"
             @blur="$emit('blur', $event)"

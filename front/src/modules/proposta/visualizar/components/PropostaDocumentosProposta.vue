@@ -21,8 +21,7 @@
                     <td>{{ props.item.Data | formatarData }}</td>
                     <td>
                         <a
-                            :href="getUrl(
-                                props.item.idDocumentosPreProjetos, props.item.tpDoc)"
+                            :href="getUrl(props.item.idDocumentosPreProjetos, props.item.tpDoc)"
                             title="Abrir arquivo"
                         >{{ props.item.NoArquivo }}</a>
                     </td>

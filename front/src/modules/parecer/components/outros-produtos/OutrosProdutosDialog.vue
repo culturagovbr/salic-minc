@@ -169,10 +169,6 @@ export default {
         };
     },
 
-    mounted() {
-        this.dialog = this.value;
-    },
-
     computed: {
         ...mapGetters({
             produtosSecundarios: 'parecer/getProdutosSecundarios',
@@ -196,6 +192,10 @@ export default {
         produtosSecundarios(val) {
             this.loading = val.length === 0;
         },
+    },
+
+    mounted() {
+        this.dialog = this.value;
     },
 
     methods: {

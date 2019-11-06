@@ -6,9 +6,9 @@
             :items="table"
             :rows-per-page-items="[-1]"
             :loading="loading"
+            :select-all="selectAll"
             item-key="idPlanilhaProjeto"
             class="elevation-1"
-            :select-all="selectAll"
             hide-actions
         >
             <v-progress-linear
@@ -408,9 +408,9 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import MxPlanilhaParecer from '../../../mixins/PlanilhaParecer';
 import { utils } from '@/mixins/utils';
-import { mapActions, mapGetters } from 'vuex';
 import SalicInputValor from '@/components/SalicInputValor';
 import SPlanilhaDialogDadosMediana from '@/components/Planilha/PlanilhaDialogDadosMediana';
 

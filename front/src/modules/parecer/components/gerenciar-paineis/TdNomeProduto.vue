@@ -15,9 +15,9 @@
                 color="primary"
             >
                 <v-badge
+                    :value="produto.tipoAnalise === 1"
                     left
                     color="orange darken-4"
-                    :value="produto.tipoAnalise === 1"
                 >
                     <span slot="badge">
                         <v-icon dark>attach_money</v-icon>

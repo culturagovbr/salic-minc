@@ -50,11 +50,11 @@
                                         <v-select
                                             v-model="distribuicao.idOrgao"
                                             :items="vinculadas"
-                                            item-text="Sigla"
-                                            item-value="Codigo"
                                             :label="loadingVinculadas ? 'Carregando...' : 'Selecione o orgão destino'"
                                             :loading="loadingVinculadas"
                                             :rules="[obrigatorio]"
+                                            item-text="Sigla"
+                                            item-value="Codigo"
                                         />
                                     </v-flex>
                                 </v-layout>

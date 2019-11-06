@@ -100,6 +100,7 @@
 
 import { mapActions, mapGetters } from 'vuex';
 
+import _ from 'lodash';
 import Carregando from '@/components/CarregandoVuetify';
 import SalicTextoSimples from '@/components/SalicTextoSimples';
 import PropostaIdentificacao from './components/PropostaIdentificacao';
@@ -114,6 +115,7 @@ import PropostaLocalRealizacaoDeslocamento from './components/PropostaLocalReali
 import PropostaCustosVinculados from './components/PropostaCustosVinculados';
 import PropostaProponente from './components/PropostaProponente';
 import PropostaPlanilha from './components/PropostaPlanilha';
+
 
 export default {
     name: 'Proposta',
