@@ -54,8 +54,20 @@ export default {
             mensagem: '',
             totaisPlanilha: [
                 {
+                    label: 'Valor Solicitado',
+                    column: 'vlSolicitado',
+                },
+                {
+                    label: 'Valor Sugerido',
+                    column: 'vlSugerido',
+                },
+                {
                     label: 'Valor Aprovado',
                     column: 'vlAprovado',
+                },
+                {
+                    label: 'Valor Comprovado',
+                    column: 'VlComprovado',
                 },
             ],
             agrupamentos: ['FonteRecurso', 'Produto', 'Etapa', 'UF', 'Municipio'],

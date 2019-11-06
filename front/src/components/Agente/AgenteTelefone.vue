@@ -36,7 +36,7 @@ export default {
     mixins: [utils],
     props: {
         telefones: {
-            type: Object,
+            type: [Object, Array],
             default: () => {},
         },
     },

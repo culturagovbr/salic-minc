@@ -136,6 +136,10 @@ export default {
         },
         formatarCPNJ,
         irParaProjeto() {
+            if(this.model === null) {
+                return false;
+            }
+
             if (this.model !== null && this.model.idPronac) {
                 window.location = `/projeto/#/${this.model.idPronac}`;
             }

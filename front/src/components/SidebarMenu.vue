@@ -141,6 +141,12 @@
                     });
             },
             carregarDados(item) {
+
+                $3("html,body").animate(
+                    { scrollTop: 0 },
+                    700,
+                );
+
                 if (item.ajax != true) {
                     window.location.href = item.link;
                     return;

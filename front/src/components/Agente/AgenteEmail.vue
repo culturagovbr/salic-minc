@@ -28,7 +28,7 @@
 export default{
     props: {
         emails: {
-            type: Object,
+            type: [Object, Array],
             default: () => {},
         },
     },
