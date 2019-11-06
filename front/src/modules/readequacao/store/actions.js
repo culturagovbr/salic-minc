@@ -362,14 +362,12 @@ export const reverterAlteracaoItem = ({ dispatch }, params) => {
         });
 };
 
-export const obterDestinatariosDistribuicao = async ({ commit }, params) => {
-    const resultado = await readequacaoHelperAPI.obterDestinatariosDistribuicao(params)
-        .then((response) => {
-            commit(types.SET_DESTINATARIOS_DISTRIBUICAO, response.data.data.items);
-            return response.data.data.items;
-        });
-    return resultado;
-};
+export const obterDestinatariosDistribuicao = async ({ commit }, params) => readequacaoHelperAPI
+    .obterDestinatariosDistribuicao(params)
+    .then((response) => {
+        commit(types.SET_DESTINATARIOS_DISTRIBUICAO, response.data.data.items);
+        return response.data.data.items;
+    });
 
 export const distribuirReadequacao = ({ dispatch }, params) => {
     readequacaoHelperAPI.distribuirReadequacao(params)
