@@ -88,20 +88,6 @@ class Parecer_Model_DbTable_Parecer extends MinC_Db_Table_Abstract
         }
     }
 
-
-    public function inserirParecer($dados)
-    {
-        try {
-            x($dados);
-            xd($this->dbg($dados));
-            $inserir = $this->insert($dados);
-            return $inserir;
-        } catch (Zend_Db_Table_Exception $e) {
-            return "'inserirParecer = 'ERRO:" . $e->__toString() . "Linha:" . $e->getLine();
-        }
-    }
-
-
     public function updateSalvarParecer($dados, $idparecer)
     {
         try {
@@ -118,7 +104,7 @@ class Parecer_Model_DbTable_Parecer extends MinC_Db_Table_Abstract
      * @todo: N?o apague esse coment�rio, caso contr�rio aparecer� uma tela azul no seu computador! ;D
      *
      *
-     * -- Lista de An�lises realizadas
+     * -- Lista de An&aacute;lises realizadas
      * > somente se selecionar um parecerista
      * -- Se solicitar valor por produto linkar com planilha projeto
      *
@@ -151,9 +137,9 @@ class Parecer_Model_DbTable_Parecer extends MinC_Db_Table_Abstract
         $select->from(
             array('dp' => 'tbDistribuirParecer'),
             array(
-                "case when dp.TipoAnalise = 0 then 'An�lise de conte�do' else '' end +
-                     case when dp.TipoAnalise = 1 then 'An�lise de custo de produto' else '' end +
-                     case when dp.TipoAnalise = 2 then 'An�lise de custo adminstrativo do projeto' else '' end as TipoAnalise",
+                "case when dp.TipoAnalise = 0 then 'An&aacute;lise de conte&uacute;do' else '' end +
+                     case when dp.TipoAnalise = 1 then 'An&aacute;lise de custo de produto' else '' end +
+                     case when dp.TipoAnalise = 2 then 'An&aacute;lise de custo adminstrativo do projeto' else '' end as TipoAnalise",
                 'dp.Observacao'
             )
         );
@@ -200,9 +186,6 @@ class Parecer_Model_DbTable_Parecer extends MinC_Db_Table_Abstract
         return $this->fetchAll($select);
     }
 
-    public function buscarDadosParecerista($filtros)
-    {
-    }
 
     /*===========================================================================*/
     /*====================== ABAIXO - METODOS DA CNIC ===========================*/
@@ -356,20 +339,20 @@ class Parecer_Model_DbTable_Parecer extends MinC_Db_Table_Abstract
                 SELECT p.idPronac AS Codigo, p.AnoProjeto+p.Sequencial AS Pronac, pr.NomeProjeto,
                    CASE
                      WHEN TipoParecer = '1'
-                          THEN 'Aprova��o'
+                          THEN 'Aprova&ccedil;&atilde;o'
                      WHEN TipoParecer = '2'
-                          THEN 'Complementa��o'
+                          THEN 'Complementa&ccedil;&atilde;o'
                      WHEN TipoParecer = '3'
-                          THEN 'Prorroga��o'
+                          THEN 'Prorroga&ccedil;&atilde;o'
                      WHEN TipoParecer = '4'
-                          THEN 'Redu��o'
+                          THEN 'Redu&ccedil;&atilde;o'
                    END AS TipoParecer,
                    CASE
                      WHEN ParecerFavoravel = '1'
-                          THEN 'N�o'
+                          THEN 'N&atilde;o'
                      WHEN ParecerFavoravel = '2'
                           THEN 'Sim'
-                          ELSE 'Sim com restri��es'
+                          ELSE 'Sim com restri&ccedil;&otilde;es'
                    END AS ParecerFavoravel,
                    CASE
                      WHEN Enquadramento = '1'
@@ -404,20 +387,20 @@ class Parecer_Model_DbTable_Parecer extends MinC_Db_Table_Abstract
                          pr.NomeProjeto,
                          CASE
                             WHEN TipoParecer = '1'
-                                 THEN 'Aprova��o'
+                                 THEN 'Aprova&ccedil;&atilde;o'
                             WHEN TipoParecer = '2'
-                                 THEN 'Complementa��o'
+                                 THEN 'Complementa&ccedil;&atilde;o'
                             WHEN TipoParecer = '3'
-                                 THEN 'Prorroga��o'
+                                 THEN 'Prorroga&ccedil;&atilde;o'
                             WHEN TipoParecer = '4'
-                                 THEN 'Redu��o'
+                                 THEN 'Redu&ccedil;&atilde;o'
                           END AS TipoParecer,
                           CASE
                             WHEN ParecerFavoravel = '1'
-                                 THEN 'N�o'
+                                 THEN 'N&atilde;o'
                             WHEN ParecerFavoravel = '2'
                                  THEN 'Sim'
-                                 ELSE 'Sim com restri��es'
+                                 ELSE 'Sim com restri&ccedil;&otilde;es'
                           END AS ParecerFavoravel,
                           CASE
                             WHEN Enquadramento = '1'
@@ -465,5 +448,34 @@ class Parecer_Model_DbTable_Parecer extends MinC_Db_Table_Abstract
         $select->where('p.TipoParecer = ?', 1);
         
         return $this->fetchAll($select);
+    }
+
+    public function obterAgenteDoParecer($idPronac)
+    {
+        $select = $this->select();
+        $select->setIntegrityCheck(false);
+        $select->from(
+            ['a' => $this->_name],
+            ['']
+        );
+
+        $select->joinInner(
+            ['b' => 'vwUsuariosOrgaosGrupos'],
+            'a.Logon = b.usu_codigo',
+            ['b.uog_orgao as idOrgao'],
+            $this->getSchema('Tabelas')
+        );
+
+        $select->joinInner(
+            ['c' => 'Agentes'],
+            'b.usu_identificacao = c.CNPJCPF',
+            ['c.idAgente as idAgenteParecerista'],
+            $this->getSchema('agentes')
+        );
+
+        $select->where('a.TipoParecer = ?', 1);
+        $select->where('a.idPronac = ?', $idPronac);
+
+        return $this->fetchRow($select);
     }
 }

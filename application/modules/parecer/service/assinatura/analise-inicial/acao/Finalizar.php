@@ -29,25 +29,21 @@ class Finalizar implements IAcaoFinalizar
             $modeloTbAssinatura->getIdPronac()
         );
 
-        $tbDistribuirParecer = new \tbDistribuirParecer();
-        $dadosDistribuirParecer = $tbDistribuirParecer->findBy([
+        $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
+        $dadosDistribuirParecer = $tbDistribuirParecer->findAll([
             'idPRONAC = ?' => $modeloTbAssinatura->getIdPronac(),
             'stEstado = ?' => 0,
-            'stPrincipal = ?' => 1
         ]);
 
-        if (count($dadosDistribuirParecer) > 0) {
-
-            $distribuirParecer = $tbDistribuirParecer->find(
-                $dadosDistribuirParecer['idDistribuirParecer']
-            )->current();
-
-            $auth = \Zend_Auth::getInstance();
-            $distribuirParecer->FecharAnalise = 1;
-            $distribuirParecer->idUsuario = $auth->getIdentity()->usu_codigo;
-            $distribuirParecer->DtRetorno = $tbDistribuirParecer->getExpressionDate();
-
-            $distribuirParecer->save();
+        $auth = \Zend_Auth::getInstance();
+        $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
+        foreach ($dadosDistribuirParecer as $distribuirParecer) {
+            $modelDistribuicao = new \Parecer_Model_TbDistribuirParecer($distribuirParecer);
+            $modelDistribuicao->setFecharAnalise(1);
+            $modelDistribuicao->setIdUsuario($auth->getIdentity()->usu_codigo);
+            $modelDistribuicao->setDtRetorno($tbDistribuirParecer->getExpressionDate());
+            $modelDistribuicao->setSiEncaminhamento(\TbTipoEncaminhamento::SOLICITACAO_DEVOLVIDA_AO_MINC_PELA_UNIDADE);
+            $tbDistribuirParecerMapper->save($modelDistribuicao);
         }
     }
 }

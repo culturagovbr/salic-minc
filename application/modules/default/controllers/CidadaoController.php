@@ -1,10 +1,9 @@
 <?php
 
 /**
- * Description of GerarRelatorioReuniao
- * @author jefferson.silva - XTI
- * @version 1.0 - 17/01/2014
+    @todo remover essa controller e codigo e enviar para o ver salic
  */
+
 
 class CidadaoController extends MinC_Controller_Action_Abstract
 {
@@ -625,13 +624,13 @@ class CidadaoController extends MinC_Controller_Action_Abstract
             parent::message("Projeto n�o encontrado!", "cidadao/index", "ALERT");
         }
 
-        $Parecer = new Parecer();
+        $Parecer = new Parecer_Model_DbTable_Parecer();
         $this->view->identificacaoParecerConsolidado = $Parecer->cidadoPareceConsolidado($idPronac);
 
         $vwMemoriaDeCalculo = new vwMemoriaDeCalculo();
         $this->view->memoriaDeCalculo = $vwMemoriaDeCalculo->busca($idPronac);
 
-        $tbAnaliseDeConteudo = new tbAnaliseDeConteudo();
+        $tbAnaliseDeConteudo = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
         $this->view->outrasInformacoesParecer = $tbAnaliseDeConteudo->cidadoBuscarOutrasInformacoes($idPronac);
 
         $spPlanilhaOrcamentaria = new spPlanilhaOrcamentaria();

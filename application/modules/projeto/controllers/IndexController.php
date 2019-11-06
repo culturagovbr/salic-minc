@@ -107,7 +107,7 @@ class Projeto_IndexController extends Projeto_GenericController
         $recordsFiltered = 0;
         $dados = array();
         $tbMecanismo = new Mecanismo();
-        $parecer = new Parecer();
+        $parecer = new Parecer_Model_DbTable_Parecer();
         if (!empty($projetos)) {
             foreach ($projetos as $key => $projeto) {
                 $novoProjeto = new stdClass();

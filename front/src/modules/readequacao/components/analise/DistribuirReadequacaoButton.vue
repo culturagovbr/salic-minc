@@ -213,7 +213,7 @@ export default {
             getDestinatariosDistribuicao: 'readequacao/getDestinatariosDistribuicao',
         }),
         orgaosDestino() {
-            let destinos = this.mxVinculadas;
+            const destinos = this.mxVinculadas;
 
             if ([Const.ORGAO_SUPERIOR_SAV, Const.ORGAO_SAV_CAP].includes(parseInt(this.dadosUsuario.orgao_ativo, 10))) {
                 destinos[5] = {
@@ -225,10 +225,6 @@ export default {
                     Sigla: 'SAV',
                 });
             }
-
-            // if (parseInt(this.dadosUsuario.orgao_ativo, 10) === Const.ORGAO_IPHAN_PRONAC) {
-            //     destinos = Object.assign({}, destinos, this.mxVinculadasIphan);
-            // }
 
             return destinos;
         },

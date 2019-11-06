@@ -51,7 +51,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
         $servico 	 = $this->_request->getParam("servico"); // pega o id do pronac via get
         $tipousuario = $this->_request->getParam("idusuario"); // pega o id do pronac via get
         
-        $tbDistParecer = new tbDistribuirParecer();
+        $tbDistParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
         $w1['a.IdPRONAC = ?'] = $idPronac;
         $qntdProd = $tbDistParecer->QntdProdutosXValidados($w1);
         
@@ -71,7 +71,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
             try {
                 // copia as tabelas
                 $planilhaProjeto 	= new PlanilhaProjeto();
-                $analiseConteudo 	= new Analisedeconteudo();
+                $analiseConteudo 	= new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                 $analiseaprovacao 	= new AnaliseAprovacao();
                 $projetos 		= new Projetos();
                 $Distribuicao 		= new DistribuicaoProjetoComissao();
@@ -313,11 +313,11 @@ class ProjetosController extends MinC_Controller_Action_Abstract
             //$servico   = $this->_request->getParam("servico"); // pega o id do pronac via get
 
             $aprovacao = new Aprovacao();
-            $parecer = new Parecer();
+            $parecer = new Parecer_Model_DbTable_Parecer();
             $planilhaaprovacao = new PlanilhaAprovacao();
             $projeto = new Projetos();
             $planilhaProjeto = new PlanilhaProjeto();
-            $analiseConteudo = new Analisedeconteudo();
+            $analiseConteudo = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
             $analiseaprovacao = new AnaliseAprovacao();
             $Distribuicao = new DistribuicaoProjetoComissao();
             $reuniao = new Reuniao();
@@ -448,7 +448,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
             // copia as tabelas
             $planilhaProjeto = new PlanilhaProjeto();
             $planilhaAprovacao = new PlanilhaAprovacao();
-            $analiseConteudo = new Analisedeconteudo();
+            $analiseConteudo = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
             $analiseaprovacao = new AnaliseAprovacao();
             $projetos = new Projetos();
             $Distribuicao = new DistribuicaoProjetoComissao();
@@ -514,7 +514,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
             // chama a funcao para fazer o balanceamento
             
             //VERIFICA QUANTOS PRODUTOS O PROJETO POSSUI POR AREA
-            $tbDistParecer = new tbDistribuirParecer();
+            $tbDistParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
             $rsProdutos = $tbDistParecer->BuscarQtdAreasProjetos($idPronac);
             $totalArea = $rsProdutos->QDTArea;
             if ($totalArea >= '2') {

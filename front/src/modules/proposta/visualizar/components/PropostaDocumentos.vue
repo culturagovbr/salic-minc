@@ -1,80 +1,19 @@
 <template>
     <div
-        v-if="documentos"
-        class="documentos-anexados">
-        <div class="card">
-            <div class="card-content">
-                <h5>Documentos da Proposta</h5>
-                <table
-                    v-if="documentos.documentos_proposta
-                    && documentos.documentos_proposta.length > 0"
-                    class="bordered responsive-table">
-                    <thead>
-                        <tr>
-                            <th>Documento</th>
-                            <th>Data envio</th>
-                            <th>Arquivo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            v-for="(documento, index) in documentos.documentos_proposta"
-                            :key="index">
-                            <td>{{ documento.Descricao }}</td>
-                            <td>{{ documento.Data | formatarData }}</td>
-                            <td>
-                                <a
-                                    :href="getUrl(
-                                    documento.idDocumentosPreProjetos, documento.tpDoc)"
-                                    title="Abrir arquivo">{{ documento.NoArquivo }}</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div v-else>Nenhum documento da proposta</div>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <h5>Documentos do Proponente</h5>
-                <table
-                    v-if="documentos.documentos_proponente
-                    && documentos.documentos_proponente.length > 0"
-                    class="bordered responsive-table">
-                    <thead>
-                        <tr>
-                            <th>Documento</th>
-                            <th>Data envio</th>
-                            <th>Arquivo</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr
-                            v-for="(documento, index) in documentos.documentos_proponente"
-                            :key="index">
-                            <td>{{ documento.Descricao }}</td>
-                            <td>{{ documento.Data | formatarData }}</td>
-                            <td>
-                                <a
-                                    :href="getUrl(documento.idDocumentosAgentes, documento.tpDoc)"
-                                    title="Abrir arquivo">{{
-                                    documento.NoArquivo }}</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div v-else>Nenhum documento do proponente</div>
-            </div>
-        </div>
+        v-if="documentos">
+        <proposta-documentos-proposta :documentos="documentos.documentos_proposta"/>
+        <proposta-documentos-proponente :documentos="documentos.documentos_proponente"/>
     </div>
 </template>
 <script>
 import { mapActions, mapGetters } from 'vuex';
 import { utils } from '@/mixins/utils';
+import PropostaDocumentosProponente from './PropostaDocumentosProponente';
+import PropostaDocumentosProposta from './PropostaDocumentosProposta';
 
 export default {
     name: 'PropostaDocumentos',
+    components: { PropostaDocumentosProposta, PropostaDocumentosProponente },
     mixins: [utils],
     props: {
         proposta: {

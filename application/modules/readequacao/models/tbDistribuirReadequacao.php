@@ -135,7 +135,7 @@ class Readequacao_Model_tbDistribuirReadequacao extends MinC_Db_Table_Abstract
                 tbDistribuirReadequacao.idAvaliador,
                 usuarios.usu_nome AS nmParecerista,
                 tbDistribuirReadequacao.idUnidade as idOrgao,
-                dsOrientacao
+                CAST(dsOrientacao AS TEXT) AS dsOrientacao
             ")
             );
             $select->joinInner(

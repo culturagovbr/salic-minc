@@ -148,7 +148,7 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
         $this->_helper->layout->disableLayout();
         $pauta = new Pauta();
         $tblPauta = new tbPauta();
-        $parecer = new Parecer();
+        $parecer = new Parecer_Model_DbTable_Parecer();
         $idpronac  = $_POST['idpronac'];
         $nrReuniao = $_POST['nrReuniao'];
         //$buscarpauta = $pauta->dadosiniciaistermoaprovacao($idpronac);
@@ -435,7 +435,7 @@ class GerartermodeaprovacaoController extends MinC_Controller_Action_Abstract
         $this->_helper->layout->disableLayout();
         $pauta = new Pauta();
         $tblPauta = new tbPauta();
-        $parecer = new Parecer();
+        $parecer = new Parecer_Model_DbTable_Parecer();
         $idpronac  = $_POST['idpronac'];
         $nrReuniao = $_POST['nrReuniao'];
         //$buscarpauta = $pauta->dadosiniciaistermoaprovacao($idpronac);

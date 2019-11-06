@@ -40,7 +40,7 @@ export default {
     },
     props: {
         procuradores: {
-            type: Object,
+            type: [Object, Array],
             default: () => {},
         },
     },

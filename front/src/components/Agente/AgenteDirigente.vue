@@ -85,8 +85,8 @@ export default {
     },
     props: {
         dirigentes: {
-            type: String,
-            default: '',
+            type: [Object, Array],
+            default: () => {},
         },
     },
 };

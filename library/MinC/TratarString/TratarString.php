@@ -32,4 +32,9 @@ class TratarString
 
         return $string;
     }
+
+    public static function tratarTextoRicoParaISO($string)
+    {
+        return utf8_decode(trim(strip_tags($string)));
+    }
 }

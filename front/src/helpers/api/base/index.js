@@ -25,6 +25,29 @@ if (process.env.NODE_ENV !== 'production') {
     });
 }
 
+export const buildData = (params) => {
+    const bodyFormData = new FormData();
+
+    Object.keys(params).forEach((key) => {
+        if (params[key] !== null) {
+            bodyFormData.append(key, params[key]);
+        }
+    });
+
+    return bodyFormData;
+};
+
+export const parseQueryParams = (params) => {
+    let queryParams = '';
+    Object.keys(params).forEach((key) => {
+        if (params[key] !== null) {
+            queryParams += (queryParams === '') ? '?' : '&';
+            queryParams += `${key}=${params[key]}`;
+        }
+    });
+    return queryParams;
+};
+
 export const getRequest = (path, queryParams = '') => instance.get(`${path}${queryParams}`);
 
 export const postRequest = (path, data) => instance.post(path, data);

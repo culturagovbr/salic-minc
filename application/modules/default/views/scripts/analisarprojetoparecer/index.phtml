@@ -65,7 +65,7 @@
 
             foreach($this->buscar as $d) {
 
-                $tbDistribuirParecerDAO = new tbDistribuirParecer();
+                $tbDistribuirParecerDAO = new Parecer_Model_DbTable_TbDistribuirParecer();
 
                 /** Verifica se tem produtos secund&aacute;rios n&atilde;o analizados ****************************/
                 $dadosWhere["t.stEstado = ?"]                   = 0;
@@ -81,7 +81,7 @@
                 /***********************************************************************************/
                 
                 /** Verificar se o Produto j&aacute; foi dado o Parecer ***********************************/
-                $tbAnaliseDeConteudoDAO = new Analisedeconteudo();
+                $tbAnaliseDeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                 $where['IdPRONAC = ?'] = $d->IdPRONAC;
                 $where['idProduto = ?'] = $d->idProduto;
                 $where['ParecerDeConteudo = ?'] = '';
@@ -94,7 +94,7 @@
                 $buscaEnquadramento 	= $enquadramentoDAO->buscarDados($d->IdPRONAC, null, false);
                 $countEnquadramentoP 	= count($buscaEnquadramento);
 
-                $parecerDAO 			= new Parecer();
+                $parecerDAO 			= new Parecer_Model_DbTable_Parecer();
                 $buscaParecer 			= $parecerDAO->buscarParecer(null, $d->IdPRONAC);
                 $countParecerP 			= count($buscaParecer);
 

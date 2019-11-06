@@ -7,8 +7,8 @@ export const state = {
     fontesDeRecursos: {},
     documentos: {},
     proposta: {},
-    historicoSolicitacoes: {},
-    historicoEnquadramento: {},
+    historicoSolicitacoes: [],
+    historicoEnquadramento: [],
 };
 
 export const mutations = {

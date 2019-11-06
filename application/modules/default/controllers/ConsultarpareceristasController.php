@@ -682,7 +682,7 @@ class ConsultarpareceristasController extends MinC_Controller_Action_Abstract
         $this->view->PRONAC = $dadosProjeto[0]->pronac;
         $this->view->nomeProjeto = $dadosProjeto[0]->NomeProjeto;
 
-        $buscaHistorico = new tbDistribuirParecer();
+        $buscaHistorico = new Parecer_Model_DbTable_TbDistribuirParecer();
         $historico = $buscaHistorico->buscarHistoricoDeAnalise($idPronac, self::$codOrgao);
 
         $this->view->Historico = $historico;

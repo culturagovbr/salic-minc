@@ -59,7 +59,7 @@
                             $('.ui-dialog-titlebar-close').remove();
                             window.setTimeout('location.reload()', 1000);
                         } else {
-                            alertaModal("N„o foi possÌvel encaminhar o recurso.");
+                            alertaModal("N√£o foi poss√≠vel encaminhar o recurso.");
                         }
                     },
                     dataType : 'json'
@@ -72,14 +72,14 @@
                 idRecurso = $(this).attr('idRecurso');
 
             $("#alerta").dialog("destroy");
-            $("#alerta").html('Deseja realmente finalizar a an·lise do recurso?<br /><br />Ao finalizar o recurso ser· devolvido ao MinC.');
+            $("#alerta").html('Deseja realmente finalizar a an√°lise do recurso?<br /><br />Ao finalizar o recurso ser√° devolvido ao MinC.');
             $("#alerta").dialog({
                 resizable: false,
                 title: 'Alerta!',
                 width: 430,
                 modal: true,
                 buttons : {
-                    'N„o' : function(){
+                    'N√£o' : function(){
                         $(this).dialog('close');
                     },
                     'Sim' : function(){
@@ -103,7 +103,7 @@
                                     $('.ui-dialog-titlebar-close').remove();
                                     window.setTimeout('location.reload()', 1000);
                                 } else {
-                                    alertaModal("N„o foi possÌvel finalizar o recurso.");
+                                    alertaModal("N√£o foi poss√≠vel finalizar o recurso.");
                                 }
                             },
                             dataType : 'json'
@@ -123,26 +123,26 @@
     });
 </script>
 
-<!-- ========== INÕCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== IN√çCIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="alerta" class="sumir"></div>
 
 <div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para InÔøΩcio">InÌcio</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para In√Ø¬ø¬Ωcio">In√≠cio</a></li>
         <li>Avaliar Recursos</li>
-        <li class="last"><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An·lise'; ?></li>
+        <li class="last"><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An√°lise'; ?></li>
     </ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-<!-- ========== INÕCIO TÕTULO ========== -->
+<!-- ========== IN√çCIO T√çTULO ========== -->
 <div id="titulo">
-    <div><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An·lise'; ?></div>
+    <div><?php echo ($this->nmPagina) ? $this->nmPagina : 'Aguardando An√°lise'; ?></div>
 </div>
 
 
-<!-- ========== INÕCIO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO CONTE√öDO ========== -->
 <div id="conteudo">
     <?php if($this->idPerfil == 93){ ?>
     <form name="formPesquisa" id="formPesquisa" action="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'painel-recursos'));?>" method="get">
@@ -159,8 +159,8 @@
                 <td class="destacar bold" width="60">Situa&ccedil;&atilde;o</td>
                 <td width="200">
                     <select name="tipoFiltro" style="width: 160px;" class="input_simples" id="situacao_projetos">
-                        <option value="">Aguardando An·lise</option>
-			<option value="emanalise" <?php echo filter_input(INPUT_GET, 'tipoFiltro') == 'emanalise' ? 'selected="selected"' : 'emanalise'; ?>>Em An·lise</option>
+                        <option value="">Aguardando An√°lise</option>
+			<option value="emanalise" <?php echo filter_input(INPUT_GET, 'tipoFiltro') == 'emanalise' ? 'selected="selected"' : 'emanalise'; ?>>Em An√°lise</option>
                         <option value="analisados" <?php echo filter_input(INPUT_GET, 'tipoFiltro') == 'analisados' ? 'selected="selected"' : ''; ?>>Analisados</option>
                     </select>
                 </td>
@@ -173,7 +173,7 @@
     <?php } ?>
     
     <?php if(count($this->dados)>0){ ?>
-    <!-- ============ PAGINA«√O ============ -->
+    <!-- ============ PAGINA√á√ÉO ============ -->
     <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
         <tbody>
             <tr>
@@ -198,12 +198,12 @@
                     <input class="btn_ultimo" id="btn_ultimo" type="button"
                            onclick="location.href='<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'painel-recursos')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronac; ?>'">
                     <?php } ?>
-                    P·g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                    P√°g.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
                         <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                         <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                         <?php endfor; ?>
                     </select>
-                    &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                     <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                     <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                     <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro;?>">
@@ -221,7 +221,7 @@
             echo " de ". $this->paginacao['total']. " Projetos listados";
         ?>
     </center>
-    <!-- ========== FIM PAGINA«√O ========== -->
+    <!-- ========== FIM PAGINA√á√ÉO ========== -->
     <?php } ?>
 
 
@@ -233,15 +233,15 @@
                 <th><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'painel-recursos')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronac.'&campo=4&ordem='.$this->paginacao['novaOrdem'];?>">Nome do Projeto</a></th>
                 <th style="width: 100px;"><a href="<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'painel-recursos')).'?pag=1&qtde='.$this->paginacao['qtde'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronac.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">Dt. Envio</a></th>
                 
-                <?php if($this->idPerfil == 94 || $this->idPerfil == 110){ //FUN«√O CRIADA APENAS PARA O PARECERISTA E TECNICO DE ANALISE ?>
-                <th>DiligÍncia</th>
+                <?php if($this->idPerfil == 94 || $this->idPerfil == 110){ //FUN√á√ÉO CRIADA APENAS PARA O PARECERISTA E TECNICO DE ANALISE ?>
+                <th>Dilig√™ncia</th>
                 <?php } ?>
                 
-                <?php if($this->idPerfil == 93){ //FUN«√O CRIADA APENAS PARA OS COORDENADORES GERAL DE ANALISE E DE PARECER ?>
+                <?php if($this->idPerfil == 93){ //FUN√á√ÉO CRIADA APENAS PARA OS COORDENADORES GERAL DE ANALISE E DE PARECER ?>
                 <th style="width: 130px;">Visualizar</th>
                 <?php } ?>
                 
-                <?php if($this->idPerfil == 93){ //FUN«√O CRIADA APENAS PARA O COORDENADOR DE PARECER ?>
+                <?php if($this->idPerfil == 93){ //FUN√á√ÉO CRIADA APENAS PARA O COORDENADOR DE PARECER ?>
 		<?php if ($this->idOrgao == 91) { ?>
 		<th style="width: 130px;">Superintend&ecirc;ncias do IPHAN</th>      
 		<?php } else { ?>
@@ -262,13 +262,13 @@
                 <td><?php echo $d->NomeProjeto; ?></td>
                 <td align="center"><?php echo Data::tratarDataZend($d->dtEnvio, 'Brasileira'); ?></td>
                 
-                <?php if($this->idPerfil == 94 || $this->idPerfil == 110){ //FUN«√O CRIADA APENAS PARA O PARECERISTA E TECNICO DE ANALISE ?>
+                <?php if($this->idPerfil == 94 || $this->idPerfil == 110){ //FUN√á√ÉO CRIADA APENAS PARA O PARECERISTA E TECNICO DE ANALISE ?>
                 <td align="center" style="width: 1px;">
                     <?php
                         $tpDiligencia = 0;
                         if($this->idPerfil == 94){ //Parecerista
                             $tpDiligencia = 563;
-                        } else if($this->idPerfil == 110){ //TÈcnico de An·lise
+                        } else if($this->idPerfil == 110){ //T√©cnico de An√°lise
                             $tpDiligencia = 565;
                         }
                         $arrPrazo = $this->prazoRespostaDiligencia($d->IdPRONAC, $tpDiligencia);
@@ -278,13 +278,13 @@
                 </td>
                 <?php } ?>
                 
-                <?php if($this->idPerfil == 93){ //FUN«√O CRIADA APENAS PARA OS COORDENADORES GERAL DE ANALISE E DE PARECER ?>
+                <?php if($this->idPerfil == 93){ //FUN√á√ÉO CRIADA APENAS PARA OS COORDENADORES GERAL DE ANALISE E DE PARECER ?>
                 <td align="center">
                     <input type="button" class="btn_ver" idRecurso="<?php echo $d->idRecurso; ?>" />
                 </td>
                 <?php } ?>
                 
-                <?php if($this->idPerfil == 93){ //FUN«√O CRIADA APENAS PARA O COORDENADOR DE PARECER ?>
+                <?php if($this->idPerfil == 93){ //FUN√á√ÉO CRIADA APENAS PARA O COORDENADOR DE PARECER ?>
                 <td align="center">
                     <?php 
                 $p = new Projetos();
@@ -300,7 +300,7 @@
                     $Pareceristas = $a->buscarPareceristasIphan($this->idOrgao, $dadosProjetos->Area, $dadosProjetos->Segmento);
                     } else {
                         $Pareceristas = array();
-                        $spSelecionarParecerista = new spSelecionarParecerista();
+                        $spSelecionarParecerista = new Parecer_Model_DbTable_SpSelecionarParecerista();
                         $Pareceristas = $spSelecionarParecerista->exec($this->idOrgao, $dadosProjetos->Area, $dadosProjetos->Segmento, $dadosProjetos->SolicitadoReal);
                     }
                 }
@@ -343,7 +343,7 @@
 
     <?php if(count($this->dados)>0){ ?>
 
-        <!-- ============ PAGINA«√O ============ -->
+        <!-- ============ PAGINA√á√ÉO ============ -->
         <?php if($this->qtdRegistros > 10) { //echo $this->dados; ?>
         <center>
             <?php
@@ -376,12 +376,12 @@
                         <input class="btn_ultimo" id="btn_ultimo" type="button"
                                onclick="location.href='<?php echo $this->url(array('module' => 'default', 'controller' => 'recursos', 'action' => 'painel-recursos')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&tipoFiltro='.$this->filtro.'&pronac='.$this->pronac; ?>'">
                         <?php } ?>
-                        P·g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                        P√°g.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
                             <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
                             <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
                             <?php endfor; ?>
                         </select>
-                        &nbsp;Registros por p·gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        &nbsp;Registros por p√°gina:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
                         <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
                         <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
                         <input type="hidden" name="tipoFiltro" value="<?php echo $this->filtro;?>">
@@ -392,7 +392,7 @@
                 </tr>
             </tbody>
         </table>
-        <!-- ========== FIM PAGINA«√O ========== -->
+        <!-- ========== FIM PAGINA√á√ÉO ========== -->
 
     <?php } } ?>
 
@@ -415,7 +415,7 @@
 
 </div>
 
-<!-- ========== INÕCIO RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== IN√çCIO RODAP√â DO CONTE√öDO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAP… DO CONTE⁄DO ========== -->
+<!-- ========== FIM RODAP√â DO CONTE√öDO ========== -->
 <br clear="all" />

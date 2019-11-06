@@ -150,26 +150,13 @@ class Proposta_VisualizarController extends Proposta_GenericController
 
         try {
             $dados = Proposta_Model_AnalisarPropostaDAO::buscarHistorico($this->idPreProjeto);
-            $json = [];
             $newArray = [];
-
             foreach ($dados as $key => $dado) {
-                $objDateTime = new DateTime($dado->DtAvaliacao);
                 $newArray[$key]['Tipo'] = $dado->tipo;
-                $newArray[$key]['DtAvaliacao'] = $objDateTime->format('d/m/Y H:i:s');
+                $newArray[$key]['DtAvaliacao'] = $dado->DtAvaliacao;
                 $newArray[$key]['Avaliacao'] = str_replace('<p>&nbsp;</p>', '', $dado->Avaliacao);
             }
-
-            $json['class'] = 'bordered striped';
-            $json['lines'] = $newArray;
-            $json['cols'] = [
-                'Tipo' => ['name' => 'Tipo'],
-                'DtAvaliacao' => ['name' => 'Data', 'class' => 'valig'],
-                'Avaliacao' => [
-                    'name' => html_entity_decode('Avalia&ccedil;&atilde;o')]
-            ];
-
-            $this->_helper->json(array('success' => 'true', 'msg' => '', 'data' => $json));
+            $this->_helper->json(array('success' => 'true', 'msg' => '', 'data' => $newArray));
         } catch (Exception $e) {
             $this->_helper->json(array('success' => 'false', 'msg' => $e->getMessage(), 'data' => []));
         }

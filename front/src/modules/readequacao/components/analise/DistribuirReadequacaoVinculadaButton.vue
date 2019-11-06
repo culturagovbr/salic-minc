@@ -47,19 +47,6 @@
                             <span v-if="unidadeAtual">{{ unidadeAtual.Sigla }} /</span> Distribuir readequação -
                             {{ dadosReadequacao.idReadequacao }} - {{ dadosReadequacao.NomeProjeto }} - {{ dadosReadequacao.tpReadequacao }}
                         </v-toolbar-title>
-                        <v-spacer />
-                        <v-toolbar-items>
-                            <v-btn
-                                dark
-                                flat
-                                @click="encaminharAnalise"
-                            >
-                                <v-icon left>
-                                    save
-                                </v-icon>
-                                Salvar
-                            </v-btn>
-                        </v-toolbar-items>
                     </v-toolbar>
                     <v-card-text>
                         <v-form
@@ -120,7 +107,7 @@
                                                 :items="getDestinatariosDistribuicao"
                                                 label="Destinatário/a"
                                                 item-text="nome"
-                                                item-value="Codigo"
+                                                item-value="id"
                                             />
                                         </template>
                                         <template v-if="getDestinatariosDistribuicao.length === 0 && orgaoAtual">
@@ -358,6 +345,7 @@ export default {
                 idReadequacao: this.dadosReadequacao.idReadequacao,
                 idTipoReadequacao: this.dadosReadequacao.idTipoReadequacao,
                 stAtendimento: this.dadosReadequacao.stAtendimento,
+                idUnidade: this.dadosReadequacao.idOrgao,
             };
             this.loading = false;
             this.checkDisponivelEncaminhar();
@@ -379,7 +367,7 @@ export default {
             }
 
             if (this.acaoTomada === 'ENVIAR_PARECERISTA') {
-                this.dadosEncaminhamento.vinculada = 0;
+                this.dadosEncaminhamento.vinculada = this.readequacaoEditada.idUnidade;
             }
 
             if (this.acaoTomada === 'ENCAMINHAR_VINCULADA') {
@@ -405,8 +393,9 @@ export default {
                 segmento: this.dadosReadequacao.Segmento,
                 vinculada: this.orgaoAtual,
             }).then(() => {
-                this.loadingDestinatarios = false;
                 this.selecionarDestinatario = true;
+            }).finally(() => {
+                this.loadingDestinatarios = false;
             });
         },
         validateText(e) {

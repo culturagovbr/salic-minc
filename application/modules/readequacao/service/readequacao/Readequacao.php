@@ -298,6 +298,7 @@ class Readequacao implements IServicoRestZend
                 $item->dsJustificativa = utf8_encode($item->dsJustificativa);
                 $item->dsNomeSolicitante = utf8_encode($item->dsNomeSolicitante);
                 $item->dsNomeAvaliador = utf8_encode($item->dsNomeAvaliador);
+                $item->dsOrientacao = utf8_encode($item->dsOrientacao);
                 if ($item->dsEncaminhamento) {
                     $item->dsEncaminhamento = utf8_encode($item->dsEncaminhamento);
                 }
@@ -1699,6 +1700,7 @@ class Readequacao implements IServicoRestZend
             $dados['gru_codigo = ?'] = \Autenticacao_Model_Grupos::TECNICO_ACOMPANHAMENTO;
             if ($vinculada == \Orgaos::ORGAO_SAV_CAP) {
                 $dados['org_superior = ?'] = \Orgaos::ORGAO_SUPERIOR_SAV;
+                $dados["uog_orgao = ?"] = \Orgaos::ORGAO_SAV_CAP;
             } else {
                 $dados['org_superior = ?'] = \Orgaos::ORGAO_SUPERIOR_SEFIC;
             }
@@ -1717,11 +1719,8 @@ class Readequacao implements IServicoRestZend
             return $dadosUsuarios;
         }
 
-        if (in_array($vinculada, $this->__getVinculadasExcetoIphan()) || $vinculada == \Orgaos::ORGAO_SUPERIOR_SAV) {
-            $idOrgao = $vinculada;
-        }
-
         $idVinculada = null;
+        $idOrgao = $vinculada;
         if (in_array($vinculada, $this->__getVinculadasIphan())) {
             $idOrgao = 91;
             $idVinculada = $vinculada;
@@ -1819,6 +1818,7 @@ class Readequacao implements IServicoRestZend
                 $readequacao->stAtendimento = \Readequacao_Model_DbTable_TbReadequacao::ST_ATENDIMENTO_DEVOLVIDA;
                 
             } else {
+                $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
                 if ($parametros['vinculada'] == \Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI
                     || ($parametros['vinculada'] == \Orgaos::ORGAO_SAV_CAP && $parametros['destinatario'] > 0)) {
                     $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
@@ -1827,15 +1827,8 @@ class Readequacao implements IServicoRestZend
                 } else if ($parametros['vinculada'] == \Orgaos::ORGAO_SAV_CAP && $parametros['destinatario'] == 0) {
                     $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
                     $idUnidade = \Orgaos::ORGAO_SUPERIOR_SAV;
-                } else if (in_array($parametros['vinculada'], $this->__getVinculadasExcetoIphan())
-                           || $parametros['vinculada'] == \Orgaos::ORGAO_SUPERIOR_SAV) {
-                    if ($parametros['destinatario'] > 0) {
-                        $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
-                    } else {
-                        $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
-                    }
-                } else {
-                     $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_UNIDADE_ANALISE;
+                } else if ($parametros['destinatario'] > 0) {
+                    $readequacao->siEncaminhamento = \Readequacao_Model_tbTipoEncaminhamento::SI_ENCAMINHAMENTO_ENVIADO_ANALISE_TECNICA;
                 }
             }
             $update = $readequacao->save();
@@ -1858,7 +1851,7 @@ class Readequacao implements IServicoRestZend
                         'idAvaliador' => (null !== $parametros['destinatario']) ? $parametros['destinatario'] : null,
                         'dtEnvioAvaliador' => $dtEnvioAvaliador,
                         'stValidacaoCoordenador' => $stValidacaoCoordenador,
-                        'dsOrientacao' => $readequacao->dsAvaliacao
+                        'dsOrientacao' => utf8_decode($parametros['dsOrientacao'])
                     ];
 
                     $inserir = $tbDistribuirReadequacao->inserir($dados);
@@ -1873,7 +1866,7 @@ class Readequacao implements IServicoRestZend
                         'idAvaliador' => (null !== $parametros['destinatario']) ? $parametros['destinatario'] : null,
                         'dtEnvioAvaliador' => $dtEnvioAvaliador,
                         'stValidacaoCoordenador' => $stValidacaoCoordenador,
-                        'dsOrientacao' => $readequacao->dsAvaliacao
+                        'dsOrientacao' => utf8_decode($parametros['dsOrientacao'])
                     ];
                     $where = [];
                     $where['idReadequacao = ?'] = $readequacao->idReadequacao;

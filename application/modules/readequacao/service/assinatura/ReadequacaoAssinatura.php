@@ -149,7 +149,7 @@ class ReadequacaoAssinatura implements IServico
                 $pareceres[$key] = $dp->idParecer;
             }
 
-            $Parecer = new \Parecer();
+            $Parecer = new \Parecer_Model_DbTable_Parecer();
             $parecerTecnico = $Parecer->buscar(
                 ['IdParecer = (?)' => $pareceres],
                 ['IdParecer']

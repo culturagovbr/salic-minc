@@ -235,7 +235,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
             $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
             $raberta = $reuniao->buscarReuniaoAberta();
             $reuniaoaberta = $raberta['idNrReuniao'];
-            $pa = new Parecer();
+            $pa = new Parecer_Model_DbTable_Parecer();
             $dpc = new DistribuicaoProjetoComissao();
             $buscarProjetoPauta = $pauta->PautaReuniaoAtual($reuniaoaberta);
             $plenario['plenario'] = array();
@@ -348,7 +348,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
     {
         $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo'); // cria a sessao com o grupo ativo
         $pauta = new Pauta();
-        $pa = new Parecer();
+        $pa = new Parecer_Model_DbTable_Parecer();
         $reuniao = new Reuniao();
         $votacao = new Votacao();
         $dpc = new DistribuicaoProjetoComissao();
@@ -1201,7 +1201,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
         $planilhaproposta = new Proposta_Model_DbTable_TbPlanilhaProposta();
         $planilhaprojeto = new PlanilhaProjeto();
         $planilhaAprovacao = new PlanilhaAprovacao();
-        $tblParecer = new Parecer();
+        $tblParecer = new Parecer_Model_DbTable_Parecer();
         $pt = new Pauta();
         $analiseaprovacao = new AnaliseAprovacao();
         $buscarPronac = $projeto->buscar(array('IdPRONAC = ?' => $idpronac))->current()->toArray();
@@ -1379,7 +1379,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
                 $objSegmentocultural = new Segmentocultural();
                 $this->view->combosegmentosculturais = $objSegmentocultural->buscarSegmento($this->view->projetosEN->cdArea);
 
-                $parecer = new Parecer();
+                $parecer = new Parecer_Model_DbTable_Parecer();
                 $this->view->Parecer = $parecer->buscar(array('IdPRONAC = ?' => $dados->IdPRONAC, 'TipoParecer in (?)' => array(1,7), 'stAtivo = ?' => 1))->current();
             }
 

@@ -42,10 +42,11 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
             $this->view->orgaoAtivo = $GrupoAtivo->codOrgao; // manda o �rg�o ativo do usu�rio para a vis�o
 
             if (isset($auth->getIdentity()->usu_codigo)) { // autenticacao novo salic
-                $this->getIdUsuario = UsuarioDAO::getIdUsuario($auth->getIdentity()->usu_codigo);
-                $this->getIdUsuario = ($this->getIdUsuario) ? $this->getIdUsuario["idAgente"] : 0;
+                $usuario = UsuarioDAO::getIdUsuario($auth->getIdentity()->usu_codigo);
+                $this->getIdUsuario = ($usuario) ? $usuario["idAgente"] : 0;
+                $this->idAgente = ($usuario) ? $usuario["idAgente"] : 0;
             }
-        } 
+        }
         else { // caso o usu�rio n�o esteja autenticado
             return $this->_helper->redirector->goToRoute(array('controller' => 'index', 'action' => 'logout'), null, true);
         }
@@ -297,7 +298,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         $idProduto = $this->_request->getParam("idProduto");
         $stPrincipal = $this->_request->getParam("stPrincipal");
 
-        $tbDistribuirParecer = new tbDistribuirParecer();
+        $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
         $resp = $tbDistribuirParecer->buscarHistorico(array("d.idPronac = ?" => $idPronac, "d.idProduto = ?" => $idProduto, "d.stPrincipal = ?" => $stPrincipal));
 
         $cont = 0;
@@ -351,7 +352,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         $this->view->dsSegmento = $projeto[0]->dsSegmento;
         $this->view->IN2017 = $projetoDAO->verificarIN2017($idPronac);
 
-        $tbDistribuirParecer = new tbDistribuirParecer();
+        $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
         $whereProduto = array();
         $whereProduto['idPRONAC = ?'] = $idPronac;
         $whereProduto['idProduto = ?'] = $idProduto;
@@ -360,7 +361,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         $pareceristaAtivo = ($idAgenteParecerista == $produto['idAgenteParecerista']) ? true : false;
         
         /* Analise de conteudo */
-        $analisedeConteudoDAO = new Analisedeconteudo();
+        $analisedeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
         $analisedeConteudo = $analisedeConteudoDAO->dadosAnaliseconteudo(false, array('idPronac = ?' => $idPronac, 'idProduto = ?' => $idProduto));
 
         if (count($analisedeConteudo) > 0) {
@@ -424,7 +425,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
             $itensCusto['fonte'][$val->FonteRecurso][$produto][$val->idEtapa . ' - ' . $val->Etapa][$val->UF . ' - ' . $val->Cidade]['itens'][$val->idPlanilhaProjeto]['Justificativa do Proponente'] = $val->justificitivaproponente;
             $itensCusto['fonte'][$val->FonteRecurso][$produto][$val->idEtapa . ' - ' . $val->Etapa][$val->UF . ' - ' . $val->Cidade]['itens'][$val->idPlanilhaProjeto]['Valor Sugerido pelo Parecerista'] = $val->VlSugeridoParecerista;
             $itensCusto['fonte'][$val->FonteRecurso][$produto][$val->idEtapa . ' - ' . $val->Etapa][$val->UF . ' - ' . $val->Cidade]['itens'][$val->idPlanilhaProjeto]['Justificativas do Parecerista'] = $val->dsJustificativaParecerista;
-            $itensCusto['fonte'][$val->FonteRecurso][$produto][$val->idEtapa . ' - ' . $val->Etapa][$val->UF . ' - ' . $val->Cidade]['itens'][$val->idPlanilhaProjeto]['Custo praticado'] = $val->custopraticado;
+            $itensCusto['fonte'][$val->FonteRecurso][$produto][$val->idEtapa . ' - ' . $val->Etapa][$val->UF . ' - ' . $val->Cidade]['itens'][$val->idPlanilhaProjeto]['Custo praticado'] = $val->stCustoPraticadoParc;
         }
         foreach ($itensCusto['fonte'] as $key => $value) {
             foreach ($value as $key2 => $value2) {
@@ -504,7 +505,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
             $buscaEnquadramento = $enquadramentoDAO->buscarDados($idPronac, null, false);
             $countEnquadramentoP = count($buscaEnquadramento);
             
-            $parecerDAO = new Parecer();
+            $parecerDAO = new Parecer_Model_DbTable_Parecer();
             $whereParecer['idPRONAC = ?'] = $idPronac;
             $buscaParecer = $parecerDAO->buscar($whereParecer)->toArray();
             $countParecerP = count($buscaParecer);
@@ -542,7 +543,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         /***********************************************************************************/
 
         /** Verificar se o Produto j� foi dado o Parecer ***********************************/
-        $tbAnaliseDeConteudoDAO = new Analisedeconteudo();
+        $tbAnaliseDeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
         $whereAC['IdPRONAC = ?'] = $idPronac;
         $whereAC['idProduto = ?'] = $idProduto;
         $whereAC['ParecerDeConteudo = ?'] = '';
@@ -554,7 +555,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         $buscaEnquadramento = $enquadramentoDAO->buscarDados($idPronac, null, false);
         $countEnquadramentoP = count($buscaEnquadramento);
 
-        $parecerDAO = new Parecer();
+        $parecerDAO = new Parecer_Model_DbTable_Parecer();
         $buscaParecer = $parecerDAO->buscarParecer(null, $idPronac);
         $countParecerP = count($buscaParecer);
 
@@ -646,7 +647,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         
         switch ($stAcao) {
             case 1: /* CONSULTA */
-                $analisedeConteudoDAO = new Analisedeconteudo();
+                $analisedeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                 $resp = $analisedeConteudoDAO->dadosAnaliseconteudo(false, array('idPRONAC = ?' => $idPronac, 'idProduto = ?' => $idProduto))->current()->toArray();
                 foreach ($resp as $key => $val) {
                     $arrayRetorno[$key] = utf8_encode($val);
@@ -677,7 +678,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
                             $planilhaProjeto->alterar($atualizar, array('idPRONAC = ?' => $idPronac, 'idProduto = ?' => $idProduto));
                         }
                     } else {
-                        $analisedeConteudoDAO = new Analisedeconteudo();
+                        $analisedeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                         $whereB['idPronac  = ?'] = $idPronac;
                         $whereB['idProduto = ?'] = $idProduto;
                         $buscaAnaliseConteudo = $analisedeConteudoDAO->buscar($whereB);
@@ -707,7 +708,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
                         'idUsuario' => $idusuario
                     );
                     
-                    $analisedeConteudoDAO = new Analisedeconteudo();
+                    $analisedeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                     $where['idPRONAC = ?'] = $idPronac;
                     $where['idProduto = ?'] = $idProduto;
                     $analisedeConteudoDAO->update($dados, $where);
@@ -758,7 +759,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
                         'idUsuario' => $idusuario,
                     );
 
-                    $analisedeConteudoDAO = new Analisedeconteudo();
+                    $analisedeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
                     $resp = $analisedeConteudoDAO->insert($dados);
                     parent::message("Altera&ccedil;&atilde;o realizada com sucesso!", "Analisarprojetoparecer/produto/?idPronac={$idPronac}&idProduto={$idProduto}&stPrincipal={$stPrincipal}&idD={$idD}", "CONFIRM");
                 } catch (Exception $e) {
@@ -816,6 +817,8 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         $where = array('idPlanilhaProjeto = ?' => $idPlanilhaProjeto);
 
         $planilhaProjeto = new PlanilhaProjeto();
+
+
 
         $projetos = new Projetos();
         if ($projetos->verificarIN2017($idPronac)) {
@@ -928,7 +931,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         
         if ($_POST || $this->_request->getParam("concluir") == 1) {
             $justificativa = ($this->_request->getParam("concluir") == 1) ? "" : trim(strip_tags($this->_request->getParam("justificativa")));
-            $tbDistribuirParecer = new tbDistribuirParecer();
+            $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
             $dadosWhere["t.idDistribuirParecer = ?"] = $idDistribuirParecer;
             $buscaDadosProjeto = $tbDistribuirParecer->dadosParaDistribuir($dadosWhere);
 
@@ -977,7 +980,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         }
 
         $projetos = new Projetos();
-        $dadosProjetoProduto = $projetos->dadosFechar($this->getIdUsuario, $idPronac, $idDistribuirParecer);
+        $dadosProjetoProduto = $projetos->dadosFechar($this->idAgente, $idPronac, $idDistribuirParecer);
         $this->view->dados = $dadosProjetoProduto;
         
         $this->view->IN2017 = $projetos->verificarIN2017($idPronac);
@@ -1108,7 +1111,7 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
 
                 $buscaEnquadramento = $enquadramentoDAO->buscarDados($idPronac, null, false);
                 
-                $parecerDAO = new Parecer();
+                $parecerDAO = new Parecer_Model_DbTable_Parecer();
                 $dadosParecer = array(
                     'idPRONAC' => $idPronac,
                     'AnoProjeto' => $anoProjeto,
@@ -1241,5 +1244,80 @@ class AnalisarprojetoparecerController extends MinC_Controller_Action_Abstract
         } catch (Exception $objException) {
             parent::message($objException->getMessage(), $origin);
         }
+    }
+
+    /**
+     * @deprecated migrado para novo layout
+    **/
+    public function devolverParecerAction() {
+
+        $auth = Zend_Auth::getInstance();
+        $idusuario = $auth->getIdentity()->usu_codigo;
+        $dtAtual = Date("Y/m/d h:i:s");
+
+        $GrupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
+        $codOrgao = $GrupoAtivo->codOrgao;
+
+        $idPronac = $this->_request->getParam("idPronac");
+        $idProduto = $this->_request->getParam("idProduto");
+        $idDistribuirParecer = $this->_request->getParam("idD");
+        $stPrincipal = $this->_request->getParam("stPrincipal");
+        $this->view->totaldivulgacao = "true";
+
+        if ($_POST) {
+            $justificativa = trim(strip_tags($this->_request->getParam("justificativa")));
+            $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
+            $dadosWhere["t.idDistribuirParecer = ?"] = $idDistribuirParecer;
+            $buscaDadosProjeto = $tbDistribuirParecer->dadosParaDistribuir($dadosWhere);
+
+            try {
+                $tbDistribuirParecer->getAdapter()->beginTransaction();
+                foreach ($buscaDadosProjeto as $dp) {
+
+                    // DEVOLVER PARA O COORDENADOR ( PARECERISTA )
+
+                    $dados = array(
+                        'idOrgao' => $dp->idOrgao,
+                        'DtEnvio' => $dp->DtEnvio,
+                        'idAgenteParecerista' => $dp->idAgenteParecerista,
+                        'DtDistribuicao' => $dp->DtDistribuicao,
+                        'DtDevolucao' => MinC_Db_Expr::date(),
+                        'DtRetorno' => null,
+                        'FecharAnalise' => 3,
+                        'Observacao' => $justificativa,
+                        'idUsuario' => $idusuario,
+                        'idPRONAC' => $dp->IdPRONAC,
+                        'idProduto' => $dp->idProduto,
+                        'TipoAnalise' => $dp->TipoAnalise,
+                        'stEstado' => 0,
+                        'stPrincipal' => $dp->stPrincipal,
+                        'stDiligenciado' => null
+                    );
+
+                    $where['idDistribuirParecer = ?'] = $idDistribuirParecer;
+                    $salvar = $tbDistribuirParecer->alterar(array('stEstado' => 1), $where);
+                    $insere = $tbDistribuirParecer->inserir($dados);
+
+                }
+
+                $tbDistribuirParecer->getAdapter()->commit();
+
+                parent::message("Declara&ccedil;&atilde;o de impedimento conclu&iacute;da com sucesso !", "parecer/analise-inicial", "CONFIRM");
+
+            } catch (Zend_Db_Exception $e) {
+
+                $tbDistribuirParecer->getAdapter()->rollBack();
+                parent::message("Error" . $e->getMessage(), "Analisarprojetoparecer/fecharparecer/idD/" . $idDistribuirParecer, "ERROR");
+            }
+
+            $idPronac = $this->_request->getParam("idPronac");
+            $idProduto = $this->_request->getParam("idProduto");
+        }
+
+        $projetos = new Projetos();
+
+        $dadosProjetoProduto = $projetos->dadosFechar($this->idAgente, $idPronac, $idDistribuirParecer);
+        $this->view->dados = $dadosProjetoProduto;
+        $this->view->idpronac = $idPronac;
     }
 }

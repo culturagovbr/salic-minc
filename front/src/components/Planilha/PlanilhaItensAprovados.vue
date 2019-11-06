@@ -3,12 +3,24 @@
         <table class="bordered">
             <thead>
                 <tr>
-                    <th class="center-align">#</th>
-                    <th class="left-align">Item</th>
-                    <th class="left-align">Unidade</th>
-                    <th class="center-align">Dias</th>
-                    <th class="center-align">Qtde</th>
-                    <th class="center-align">Ocor.</th>
+                    <th class="center-align">
+                        #
+                    </th>
+                    <th class="left-align">
+                        Item
+                    </th>
+                    <th class="left-align">
+                        Unidade
+                    </th>
+                    <th class="center-align">
+                        Dias
+                    </th>
+                    <th class="center-align">
+                        Qtde
+                    </th>
+                    <th class="center-align">
+                        Ocor.
+                    </th>
                     <th>Vl. Unit&aacute;rio</th>
                     <th>Vl. Solicitado</th>
                     <th>#</th>
@@ -19,14 +31,29 @@
                     v-for="row of table"
                     v-if="isObject(row)"
                     :key="row.idPlanilhaProposta"
-                    :class="definirClasseItem(row)">
-                    <td class="center-align">{{ row.Seq }}</td>
-                    <td class="left-align">{{ row.Item }}</td>
-                    <td class="center-align">{{ row.Unidade }}</td>
-                    <td class="center-align">{{ row.QtdeDias }}</td>
-                    <td class="center-align">{{ row.Quantidade }}</td>
-                    <td class="center-align">{{ row.Ocorrencia }}</td>
-                    <td class="right-align">{{ row.vlUnitario | filtroFormatarParaReal }}</td>
+                    :class="definirClasseItem(row)"
+                >
+                    <td class="center-align">
+                        {{ row.Seq }}
+                    </td>
+                    <td class="left-align">
+                        {{ row.Item }}
+                    </td>
+                    <td class="center-align">
+                        {{ row.Unidade }}
+                    </td>
+                    <td class="center-align">
+                        {{ row.QtdeDias }}
+                    </td>
+                    <td class="center-align">
+                        {{ row.Quantidade }}
+                    </td>
+                    <td class="center-align">
+                        {{ row.Ocorrencia }}
+                    </td>
+                    <td class="right-align">
+                        {{ row.vlUnitario | filtroFormatarParaReal }}
+                    </td>
                     <td>{{ row.vlSolicitado | filtroFormatarParaReal }}</td>
                     <td>
                         <a

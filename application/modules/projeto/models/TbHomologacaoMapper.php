@@ -162,7 +162,7 @@ class Projeto_Model_TbHomologacaoMapper extends MinC_Db_Mapper
             );
         }
 
-        $dbTableParecer = new Parecer();
+        $dbTableParecer = new Parecer_Model_DbTable_Parecer();
         $parecer = $dbTableParecer->findBy([
             'TipoParecer' => '1',
             'idTipoAgente' => '1',

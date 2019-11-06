@@ -9,9 +9,9 @@ export const obterUnidadesPlanilha = ({ commit }) => {
         });
 };
 
-export const obterMediana = ({ commit }, params) => {
+export const obterMediana = async ({ commit }, params) => {
     commit(types.SET_MEDIANA, {});
-    planilhaAPI.obterMediana(params)
+    return planilhaAPI.obterMediana(params)
         .then((response) => {
             const { data } = response;
             commit(types.SET_MEDIANA, data.data);

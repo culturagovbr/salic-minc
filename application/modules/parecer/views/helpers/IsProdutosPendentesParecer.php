@@ -1,4 +1,4 @@
-<?php
+ <?php
 /**
  * Helper para verificar se há produtos pendentes de parecer
  */
@@ -14,7 +14,7 @@ class Zend_View_Helper_IsProdutosPendentesParecer
      */
     public function IsProdutosPendentesParecer($idPronac, $idProduto)
     {
-        $tbAnaliseDeConteudoDAO = new Analisedeconteudo();
+        $tbAnaliseDeConteudoDAO = new Parecer_Model_DbTable_TbAnaliseDeConteudo();
         $where['IdPRONAC = ?'] = $idPronac;
         $where['idProduto = ?'] = $idProduto;
         $where['ParecerDeConteudo = ?'] = '';
