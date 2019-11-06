@@ -298,6 +298,7 @@ class Readequacao implements IServicoRestZend
                 $item->dsJustificativa = utf8_encode($item->dsJustificativa);
                 $item->dsNomeSolicitante = utf8_encode($item->dsNomeSolicitante);
                 $item->dsNomeAvaliador = utf8_encode($item->dsNomeAvaliador);
+                $item->dsOrientacao = utf8_encode($item->dsOrientacao);
                 if ($item->dsEncaminhamento) {
                     $item->dsEncaminhamento = utf8_encode($item->dsEncaminhamento);
                 }

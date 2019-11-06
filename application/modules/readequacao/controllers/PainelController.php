@@ -32,7 +32,6 @@ class Readequacao_PainelController extends MinC_Controller_Rest_Abstract
 
         $readequacaoService = new ReadequacaoService($this->getRequest(), $this->getResponse());
         $data = $readequacaoService->buscarReadequacoesPainel();
-        
         $this->renderJsonResponse(\TratarArray::utf8EncodeArray($data), $code);
     }
 
