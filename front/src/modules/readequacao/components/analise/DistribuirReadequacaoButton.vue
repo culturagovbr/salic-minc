@@ -99,19 +99,16 @@
                                         v-model="dadosEncaminhamento.vinculada"
                                         :items="orgaosDestino"
                                         label="Orgão a encaminhar"
-                                        item-text="nome"
-                                        item-value="id"
+                                        item-text="Sigla"
+                                        item-value="Codigo"
                                         @change="obterDestinatarios()"
                                     />
-                                    <template
+                                    <carregando
                                         v-if="loadingDestinatarios"
-                                    >
-                                        <carregando
-                                            :defined-class="`body-1`"
-                                            :size="`small`"
-                                            :text="'Carregando destinatários/as...'"
-                                        />
-                                    </template>
+                                        defined-class="body-1"
+                                        size="small"
+                                        text="Carregando destinatários/as..."
+                                    />
                                     <div v-else>
                                         <template
                                             v-if="getDestinatariosDistribuicao.length > 0 && selecionarDestinatario"
@@ -171,6 +168,7 @@ import { mapActions, mapGetters } from 'vuex';
 import SEditorTexto from '@/components/SalicEditorTexto';
 import Carregando from '@/components/CarregandoVuetify';
 import Const from '../../const';
+import MxVinculadas from '@/modules/readequacao/mixins/MxVinculadas';
 
 export default {
     name: 'DistribuirReadequacaoButton',
@@ -178,6 +176,7 @@ export default {
         Carregando,
         SEditorTexto,
     },
+    mixins: [MxVinculadas],
     props: {
         dadosReadequacao: {
             type: Object,
@@ -206,40 +205,6 @@ export default {
                 dsAvaliacao: '',
                 stAtendimento: '',
             },
-            orgaosDestino: [
-                {
-                    id: 93,
-                    nome: 'FBN',
-                },
-                {
-                    id: 94,
-                    nome: 'FCP',
-                },
-                {
-                    id: 95,
-                    nome: 'FCRB',
-                },
-                {
-                    id: 92,
-                    nome: 'FUNARTE',
-                },
-                {
-                    id: 335,
-                    nome: 'IBRAM',
-                },
-                {
-                    id: 91,
-                    nome: 'IPHAN',
-                },
-                {
-                    id: 166,
-                    nome: 'SAV',
-                },
-                {
-                    id: 262,
-                    nome: 'SEFIC',
-                },
-            ],
         };
     },
     computed: {
@@ -247,6 +212,26 @@ export default {
             dadosUsuario: 'autenticacao/getUsuario',
             getDestinatariosDistribuicao: 'readequacao/getDestinatariosDistribuicao',
         }),
+        orgaosDestino() {
+            let destinos = this.mxVinculadas;
+
+            if ([Const.ORGAO_SUPERIOR_SAV, Const.ORGAO_SAV_CAP].includes(parseInt(this.dadosUsuario.orgao_ativo, 10))) {
+                destinos[5] = {
+                    Codigo: 166,
+                    Sigla: 'SAV/CAP',
+                };
+                destinos.splice(5, 0, {
+                    Codigo: 160,
+                    Sigla: 'SAV',
+                });
+            }
+
+            // if (parseInt(this.dadosUsuario.orgao_ativo, 10) === Const.ORGAO_IPHAN_PRONAC) {
+            //     destinos = Object.assign({}, destinos, this.mxVinculadasIphan);
+            // }
+
+            return destinos;
+        },
     },
     watch: {
         dadosEncaminhamento: {
@@ -294,16 +279,6 @@ export default {
                     stAtendimento: '',
                 };
             } else {
-                if ([Const.ORGAO_SUPERIOR_SAV, Const.ORGAO_SAV_CAP].includes(parseInt(this.dadosUsuario.orgao_ativo, 10))) {
-                    this.orgaosDestino[5] = {
-                        id: 166,
-                        nome: 'SAV/CAP',
-                    };
-                    this.orgaosDestino.splice(5, 0, {
-                        id: 160,
-                        nome: 'SAV',
-                    });
-                }
                 this.inicializarReadequacaoEditada();
             }
         },

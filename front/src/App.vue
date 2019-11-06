@@ -10,8 +10,8 @@
                 v-model="snackbar"
                 :color="getSnackbar.color"
                 :top="true"
-                :right="true"
                 :timeout="4000"
+                right
                 @input="fecharSnackbar"
             >
                 <span v-html="getSnackbar.text" />

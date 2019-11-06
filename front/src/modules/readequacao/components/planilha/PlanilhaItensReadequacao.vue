@@ -146,15 +146,6 @@
                     </v-card>
                 </v-layout>
             </template>
-            <template slot="footer">
-                <tr
-                    v-if="table && Object.keys(table).length > 0"
-                    style="opacity: 0.5">
-                    <td colspan="6"><b>Totais</b></td>
-                    <td class="text-xs-right"><b>{{ obterValorAprovadoTotal(table) | filtroFormatarParaReal }}</b></td>
-                    <td class="text-xs-right"><b>{{ obterValorComprovadoTotal(table) | filtroFormatarParaReal }}</b></td>
-                </tr>
-            </template>
         </v-data-table>
         <s-planilha-dialog-dados-mediana
             ref="mediana"
