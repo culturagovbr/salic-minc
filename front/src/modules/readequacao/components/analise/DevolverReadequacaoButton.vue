@@ -325,7 +325,7 @@ export default {
                     vinculada: this.vinculada.id,
                 });
             } else if (this.dadosEncaminhamento.vinculada === Const.ORGAO_SAV_CAP
-                       || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI) {
+                || this.dadosEncaminhamento.vinculada === Const.ORGAO_GEAAP_SUAPI_DIAAPI) {
                 this.obterDestinatariosDistribuicao({
                     idPronac: this.dadosReadequacao.idPronac,
                     vinculada: this.dadosEncaminhamento.vinculada,

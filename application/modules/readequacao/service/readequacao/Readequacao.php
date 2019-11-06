@@ -1291,8 +1291,12 @@ class Readequacao implements IServicoRestZend
                 $planilha[] = $item;
             }
         }
-        
+
         foreach ($planilhaAtiva as $itemAtiva) {
+            if ($itemAtiva->tpAcao == 'E') {
+                continue;
+            }
+
             if (array_key_exists($itemAtiva->idPlanilhaAprovacao, $planilha)) {
                 $planilha[$itemAtiva->idPlanilhaAprovacao]->idUnidadeAtivo = $itemAtiva->idUnidade;
                 $planilha[$itemAtiva->idPlanilhaAprovacao]->OcorrenciaAtivo = $itemAtiva->Ocorrencia;
@@ -1319,7 +1323,7 @@ class Readequacao implements IServicoRestZend
             \Readequacao_Model_DbTable_TbReadequacao::TIPO_READEQUACAO_SALDO_APLICACAO => \spPlanilhaOrcamentaria::TIPO_PLANILHA_SALDO_APLICACAO
         ];
 
-        $tipoPlanilha = ($idTipoReadequacao) ? $tipoPlanilha[$idTipoReadequacao] : \spPlanilhaOrcamentaria::TIPO_PLANILHA_APROVADA_ATIVA;
+//        $tipoPlanilha = ($idTipoReadequacao) ? $tipoPlanilha[$idTipoReadequacao] : \spPlanilhaOrcamentaria::TIPO_PLANILHA_APROVADA_ATIVA;
         $planilhaOrcamentariaAtiva = [];
         
         if ($idTipoReadequacao) {
@@ -1512,7 +1516,7 @@ class Readequacao implements IServicoRestZend
                     return $retorno;
                 }
                 
-                if ($itemOriginal->vlUnitario != $item['valorUnitario']) {
+                if ($editarItem->vlUnitario != $item['valorUnitario']) {
                     $editarItem->vlUnitario = $item['valorUnitario'];
                     $editarItem->tpAcao = 'A';
                     $editarItem->dsJustificativa = "Rec&aacute;lculo autom&aacute;tico com base no percentual solicitado pelo proponente ao enviar a proposta ao MinC.";
@@ -1639,6 +1643,43 @@ class Readequacao implements IServicoRestZend
             \Orgaos::ORGAO_IBRAM,
         ];
     }
+
+    private function __getVinculadasIphan()
+    {
+        return [
+            \Orgaos::ORGAO_IPHAN_AM,
+            \Orgaos::ORGAO_IPHAN_PA,
+            \Orgaos::ORGAO_IPHAN_MA,
+            \Orgaos::ORGAO_IPHAN_CE,
+            \Orgaos::ORGAO_IPHAN_PE,
+            \Orgaos::ORGAO_IPHAN_RJ,
+            \Orgaos::ORGAO_IPHAN_BA,
+            \Orgaos::ORGAO_IPHAN_SE,
+            \Orgaos::ORGAO_IPHAN_SP,
+            \Orgaos::ORGAO_IPHAN_PR,
+            \Orgaos::ORGAO_IPHAN_SC,
+            \Orgaos::ORGAO_IPHAN_RS,
+            \Orgaos::ORGAO_IPHAN_MG,
+            \Orgaos::ORGAO_IPHAN_GO,
+            \Orgaos::ORGAO_IPHAN_DPI,
+            \Orgaos::ORGAO_IPHAN_DF,
+            \Orgaos::ORGAO_IPHAN_DEPAM,
+            \Orgaos::ORGAO_IPHAN_COGEDIP,
+            \Orgaos::ORGAO_IPHAN_COPEDOC,
+            \Orgaos::ORGAO_IPHAN_RR,
+            \Orgaos::ORGAO_IPHAN_AP,
+            \Orgaos::ORGAO_IPHAN_TO,
+            \Orgaos::ORGAO_IPHAN_MT,
+            \Orgaos::ORGAO_IPHAN_RO,
+            \Orgaos::ORGAO_IPHAN_AC,
+            \Orgaos::ORGAO_IPHAN_AL,
+            \Orgaos::ORGAO_IPHAN_MS,
+            \Orgaos::ORGAO_IPHAN_PI,
+            \Orgaos::ORGAO_IPHAN_PB,
+            \Orgaos::ORGAO_IPHAN_RN,
+            \Orgaos::ORGAO_IPHAN_ES
+        ];
+    }
     
     public function buscarDestinatariosDistribuicao()
     {
@@ -1650,7 +1691,7 @@ class Readequacao implements IServicoRestZend
         
         $a = 0;
         $dadosUsuarios = [];
-        
+
         if ($vinculada == \Orgaos::ORGAO_SAV_CAP || $vinculada == \Orgaos::ORGAO_GEAAP_SUAPI_DIAAPI) {
             $dados = [];
             $dados['sis_codigo = ?'] = 21;
@@ -1672,19 +1713,31 @@ class Readequacao implements IServicoRestZend
                     $a++;
                 }
             }
-        } else if (in_array($vinculada, $this->__getVinculadasExcetoIphan()) || $vinculada == \Orgaos::ORGAO_SUPERIOR_SAV) {
-            $agentesModel = new \Agente_Model_DbTable_Agentes();
-            $result = $agentesModel->buscarPareceristas($vinculada, $area, $segmento);
-            
-            if ($result) {
-                foreach ($result as $registro) {
-                    $dadosUsuarios[$a]['id'] = $registro['id'];
-                    $dadosUsuarios[$a]['nome'] = utf8_encode($registro['nome']);
-                    $a++;
-                }
+
+            return $dadosUsuarios;
+        }
+
+        if (in_array($vinculada, $this->__getVinculadasExcetoIphan()) || $vinculada == \Orgaos::ORGAO_SUPERIOR_SAV) {
+            $idOrgao = $vinculada;
+        }
+
+        $idVinculada = null;
+        if (in_array($vinculada, $this->__getVinculadasIphan())) {
+            $idOrgao = 91;
+            $idVinculada = $vinculada;
+        }
+
+        $agentesModel = new \Agente_Model_DbTable_Agentes();
+        $result = $agentesModel->buscarPareceristas($idOrgao, $area, $segmento, $idVinculada);
+
+        if ($result) {
+            foreach ($result as $registro) {
+                $dadosUsuarios[$a]['id'] = $registro['id'];
+                $dadosUsuarios[$a]['nome'] = utf8_encode($registro['nome']);
+                $a++;
             }
         }
-        
+
         return $dadosUsuarios;
     }
 
@@ -1900,7 +1953,7 @@ class Readequacao implements IServicoRestZend
                     'idUnidade' => $idUnidade
                 ];
                 $tbDistribuirReadequacao = new \Readequacao_Model_tbDistribuirReadequacao();
-                $jaDistribuiu = $tbDistribuirReadequacao->buscar(['idReadequacao = ?' => $readequacao->idReadequacao])->current();
+                $jaDistribuiu = $tbDistribuirReadequacao->buscar(['idReadequacao = ?' => $idReadequacao])->current();
                 
                 if (empty($jaDistribuiu)) {
                     $tbDistribuirReadequacao->inserir($dados);

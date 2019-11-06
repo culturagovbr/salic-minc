@@ -40,7 +40,7 @@
 export default {
     props: {
         natureza: {
-            type: Object,
+            type: [Object, Array],
             default: () => {},
         },
     },

@@ -49,7 +49,7 @@ export default {
     },
     props: {
         enderecos: {
-            type: Object,
+            type: [Object, Array],
             default: () => {},
         },
     },
