@@ -257,6 +257,13 @@ export default {
                     value: 'DescricaoAtividade',
                 },
                 {
+                    label: 'Outras informações',
+                    icon: 'short_text',
+                    component: 'proposta-texto',
+                    class: '',
+                    value: 'EstrategiadeExecucao',
+                },
+                {
                     label: 'Documentos anexados',
                     icon: 'attachment',
                     component: 'proposta-documentos',

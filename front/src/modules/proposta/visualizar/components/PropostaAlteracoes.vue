@@ -47,6 +47,18 @@
             </li>
             <li>
                 <div class="collapsible-header">
+                    <i class="material-icons">history</i>
+                    Hist&oacute;rico solicita&ccedil;&otilde;es
+                </div>
+                <div class="collapsible-body padding10">
+                    <div class="card padding10">
+                        <PropostaHistoricoSolicitacoes
+                            :idpreprojeto="idpreprojeto"/>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div class="collapsible-header">
                     <i class="material-icons">person</i>
                     Proponente
                 </div>
@@ -340,6 +352,32 @@
             <li>
                 <div
                     :class="{'orange lighten-4': existe_diferenca(
+                        dadosAtuais.EstrategiadeExecucao,
+                        dadosHistorico.EstrategiadeExecucao
+                    )}"
+                    class="collapsible-header">
+                    <i class="material-icons">subject</i>Outras informações
+                </div>
+                <div
+                    v-if="dadosAtuais"
+                    class="collapsible-body padding20">
+                    <div class="card">
+                        <table>
+                            <tr>
+                                <td class="original historico padding20">
+                                    <SalicTextoSimples :texto="dadosHistorico.EstrategiadeExecucao"/>
+                                </td>
+                                <td class="changed atual padding20">
+                                    <SalicTextoSimples :texto="dadosAtuais.EstrategiadeExecucao"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div
+                    :class="{'orange lighten-4': existe_diferenca(
                         dadosAtuais.abrangencia,
                         dadosHistorico.abrangencia
                     )}"
@@ -421,12 +459,12 @@
                     <div class="row">
                         <div class="col s12 m6 l6 scroll historico">
                             <PropostaCustosVinculados
-                                :array-custos="dadosHistorico.tbcustosvinculados"
+                                :proposta="dadosHistorico"
                             />
                         </div>
                         <div class="col s12 m6 l6 scroll atual">
                             <PropostaCustosVinculados
-                                :array-custos="dadosAtuais.tbcustosvinculados"
+                                :proposta="dadosAtuais"
                             />
                         </div>
                     </div>
@@ -464,6 +502,7 @@ import SalicTextoSimples from '@/components/SalicTextoSimples';
 import Planilha from '@/components/Planilha/Planilha';
 import PropostaIdentificacao from './PropostaIdentificacao';
 import PropostaHistoricoAvaliacoes from './PropostaHistoricoAvaliacoes';
+import PropostaHistoricoSolicitacoes from './PropostaHistoricoSolicitacoes';
 import AgenteProponente from '../../components/AgenteProponente';
 import AgenteUsuario from '../../components/AgenteUsuario';
 import PropostaLocalRealizacaoDeslocamento from './PropostaLocalRealizacaoDeslocamento';
@@ -476,6 +515,7 @@ export default {
     components: {
         PropostaIdentificacao,
         PropostaHistoricoAvaliacoes,
+        PropostaHistoricoSolicitacoes,
         AgenteProponente,
         AgenteUsuario,
         SalicTextoSimples,
