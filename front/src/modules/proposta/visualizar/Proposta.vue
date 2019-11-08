@@ -173,6 +173,13 @@ export default {
                     value: this.idpreprojeto,
                 },
                 {
+                    label: 'Hist&oacute;rico solicita&ccedil;&otilde;es',
+                    icon: 'history',
+                    component: 'proposta-historico-solicitacoes',
+                    class: '',
+                    value: this.idpreprojeto,
+                },
+                {
                     label: 'Proponente',
                     icon: 'person',
                     component: 'proposta-proponente',
