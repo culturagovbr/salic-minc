@@ -203,6 +203,10 @@ export default {
                     nome: 'FUNARTE',
                 },
                 {
+                    id: 335,
+                    nome: 'IBRAM',
+                },
+                {
                     id: 91,
                     nome: 'IPHAN',
                 },
