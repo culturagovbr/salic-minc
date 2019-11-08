@@ -1,5 +1,5 @@
 <template>
-    <div
+    <v-app
         v-if="dados"
         class="proposta"
     >
@@ -85,7 +85,7 @@
                 </div>
             </v-expansion-panel-content>
         </v-expansion-panel>
-    </div>
+    </v-app>
     <div
         v-else
         class="center-align"

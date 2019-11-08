@@ -1,5 +1,5 @@
 <template>
-    <div class="proposta">
+    <v-app>
         <div v-if="Object.keys(dadosHistorico).length > 2">
             <PropostaAlteracoes
                 :idpreprojeto="idpreprojeto"
@@ -28,7 +28,7 @@
                 <Carregando :text="'Carregando proposta'"/>
             </div>
         </div>
-    </div>
+    </v-app>
 </template>
 <script>
 import Carregando from '@/components/Carregando';
