@@ -1,5 +1,5 @@
 <template>
-    <div
+    <v-app
         v-if="dados"
         class="proposta"
     >
@@ -85,7 +85,7 @@
                 </div>
             </v-expansion-panel-content>
         </v-expansion-panel>
-    </div>
+    </v-app>
     <div
         v-else
         class="center-align"
@@ -173,6 +173,13 @@ export default {
                     value: this.idpreprojeto,
                 },
                 {
+                    label: 'Hist&oacute;rico solicita&ccedil;&otilde;es',
+                    icon: 'history',
+                    component: 'proposta-historico-solicitacoes',
+                    class: '',
+                    value: this.idpreprojeto,
+                },
+                {
                     label: 'Proponente',
                     icon: 'person',
                     component: 'proposta-proponente',
@@ -248,6 +255,13 @@ export default {
                     component: 'proposta-texto',
                     class: '',
                     value: 'DescricaoAtividade',
+                },
+                {
+                    label: 'Outras informações',
+                    icon: 'short_text',
+                    component: 'proposta-texto',
+                    class: '',
+                    value: 'EstrategiadeExecucao',
                 },
                 {
                     label: 'Documentos anexados',
