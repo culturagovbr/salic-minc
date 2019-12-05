@@ -31,7 +31,8 @@
                     <b>
                         <router-link
                             v-if="dadosProjeto.vlTotalPropostaOriginal > 0"
-                            :to="{ name: 'planilhaproposta', params: { idPronac: idPronac }}">
+                            :to="{ name: 'planilhaproposta', params: { idPronac: idPronac }}"
+                            @click.native="irParaOTopo">
                             <SalicFormatarValor :valor="dadosProjeto.vlTotalPropostaOriginal"/>
                         </router-link>
                         <SalicFormatarValor
@@ -77,7 +78,8 @@
                         <router-link
                             v-else-if="dadosProjeto.vlTotalAutorizado > 0
                             && parseInt(dadosProjeto.idNormativo) <= 6"
-                            :to="{ name: 'planilhaaprovada', params: { idPronac: idPronac }}">
+                            :to="{ name: 'planilhaaprovada', params: { idPronac: idPronac }}"
+                            @click.native="irParaOTopo">
                             <SalicFormatarValor :valor="dadosProjeto.vlTotalAutorizado"/>
                         </router-link>
                         <SalicFormatarValor
@@ -118,7 +120,8 @@
                     <b>
                         <router-link
                             v-if="dadosProjeto.vlTotalAdequado > 0"
-                            :to="{ name: 'planilhaadequada', params: { idPronac: idPronac }}">
+                            :to="{ name: 'planilhaadequada', params: { idPronac: idPronac }}"
+                            @click.native="irParaOTopo">
                             <SalicFormatarValor :valor="dadosProjeto.vlTotalAdequado"/>
                         </router-link>
                         <SalicFormatarValor
@@ -158,7 +161,8 @@
                     <b>
                         <router-link
                             v-if="dadosProjeto.vlTotalHomologado > 0"
-                            :to="{ name: 'planilhahomologada', params: { idPronac: idPronac }}">
+                            :to="{ name: 'planilhahomologada', params: { idPronac: idPronac }}"
+                            @click.native="irParaOTopo">
                             <SalicFormatarValor :valor="dadosProjeto.vlTotalHomologado"/>
                         </router-link>
                         <SalicFormatarValor
@@ -200,7 +204,8 @@
                     <b>
                         <router-link
                             v-if="dadosProjeto.vlTotalReadequado > 0"
-                            :to="{ name: 'planilhareadequada', params: { idPronac: idPronac }}">
+                            :to="{ name: 'planilhareadequada', params: { idPronac: idPronac }}"
+                            @click.native="irParaOTopo">
                             <SalicFormatarValor :valor="dadosProjeto.vlTotalReadequado"/>
                         </router-link>
                         <SalicFormatarValor
@@ -232,7 +237,8 @@
                 <td class="right-align destaque-texto-primary destacar-celula">
                     <b>
                         <router-link
-                            :to="{ name: 'Captacao', params: { idPronac: idPronac }}">
+                            :to="{ name: 'Captacao', params: { idPronac: idPronac }}"
+                            @click.native="irParaOTopo">
                             <SalicFormatarValor :valor="dadosProjeto.vlCaptado"/>
                         </router-link>
                     </b>
@@ -263,7 +269,8 @@
                 <td class="right-align destaque-texto-primary">
                     <b>
                         <router-link
-                            :to="{ name: 'Captacao', params: { idPronac: idPronac }}">
+                            :to="{ name: 'Captacao', params: { idPronac: idPronac }}"
+                            @click.native="irParaOTopo">
                             <SalicFormatarValor :valor="dadosProjeto.PercentualCaptado"/>
                         </router-link>
                     </b>
@@ -292,7 +299,8 @@
                     <b>
                         <router-link
                             v-if="dadosProjeto.vlComprovado > 0"
-                            :to="{ name: 'RelacaoPagamento', params: { idPronac: idPronac }}">
+                            :to="{ name: 'RelacaoPagamento', params: { idPronac: idPronac }}"
+                            @click.native="irParaOTopo">
                             <SalicFormatarValor :valor="dadosProjeto.vlComprovado"/>
                         </router-link>
                         <SalicFormatarValor
@@ -308,7 +316,8 @@
                 <td class="right-align destaque-texto-primary">
                     <b>
                         <router-link
-                            :to="{ name: 'RelacaoPagamento', params: { idPronac: idPronac }}">
+                            :to="{ name: 'RelacaoPagamento', params: { idPronac: idPronac }}"
+                            @click.native="irParaOTopo">
                             <SalicFormatarValor :valor="dadosProjeto.PercentualComprovado"/>
                         </router-link>
                     </b>
@@ -331,7 +340,8 @@ export default {
     props: {
         dadosProjeto: {
             type: Object,
-            default: () => {},
+            default: () => {
+            },
         },
         idPronac: {
             type: String,
@@ -372,6 +382,13 @@ export default {
         },
         mensagemPlanilhaAtiva(nomePlanilha) {
             return (nomePlanilha === this.obterPlanilhaAtiva()) ? '(PLANILHA ATUAL)' : '';
+        },
+        irParaOTopo() {
+            /* eslint-disable no-undef */
+            $3('html,body').animate(
+                { scrollTop: 0 },
+                700,
+            );
         },
     },
 };
