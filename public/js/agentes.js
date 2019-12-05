@@ -381,17 +381,17 @@ function validaDirigenteNovo()
         alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, selecione o Tipo de Telefone!", "tipoFone");
         exibirMsgErro('tipoFone','erroTipoFone');
     }
-    else if (ufFone == 0 && document.getElementById('exibirTelefone').value == 's')
+    else if (ufFone == 0 && $3('#exibirTelefone').val() == 's')
     {
         alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, selecione a UF!", "ufFone");
         exibirMsgErro('ufFone','erroUfFone');
     }
-    else if (dddFone == "" && document.getElementById('exibirTelefone').value == 's')
+    else if (dddFone == "" && $3('#exibirTelefone').val() == 's')
     {
         alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, selecione o DDD do telefone!", "dddFone");
         exibirMsgErro('dddFone','erroDddFone');
     }
-    else if (fone == "" && document.getElementById('exibirTelefone').value == 's')
+    else if (fone == "" && $3('#exibirTelefone').val() == 's')
     {
         alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, informe o Telefone!", "fone");
         exibirMsgErro('fone','erroFone');
@@ -399,7 +399,7 @@ function validaDirigenteNovo()
     else if ((fone.length < 9 || !(/\d{4}\-\d{4}/.test(fone)) || fone == "0000-0000" ||
         fone == "1111-1111" || fone == "2222-2222" || fone == "3333-3333" ||
         fone == "4444-4444" || fone == "5555-5555" || fone == "6666-6666" ||
-        fone == "7777-7777" || fone == "8888-8888" || fone == "9999-9999") && document.getElementById('exibirTelefone').value == 's')
+        fone == "7777-7777" || fone == "8888-8888" || fone == "9999-9999") && $3('#exibirTelefone').val() == 's')
         {
         alertar("O n&uacute;mero do Telefone &eacute; inv&aacute;lido!", "fone");
         exibirMsgErro('fone','erroFone');
@@ -416,7 +416,7 @@ function validaDirigenteNovo()
         alertar("Dados obrigat&oacute;rios n&atilde;o informados:\nPor favor, informe o E-mail!", "email");
         exibirMsgErro('email','erroEmail');
     }
-    else if (((email.indexOf("@") < 1) || (email.lastIndexOf(".") <= email.indexOf("@")) || (email.indexOf("@") == email.length) || !(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test(email))) && document.getElementById('exibirTelefone').value == 's')
+    else if (((email.indexOf("@") < 1) || (email.lastIndexOf(".") <= email.indexOf("@")) || (email.indexOf("@") == email.length) || !(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+(\.[a-z]+)?$/i.test(email))) && $3('#exibirTelefone').val() == 's')
     {
         alertar("E-mail inv&aacute;lido!", "email");
         exibirMsgErro('email','erroEmail');
