@@ -48,7 +48,6 @@
                                 <td>{{ props.item.DtDistribuicao | formatarData }}</td>
                                 <td v-html="props.item.nmUsuario" />
                                 <td v-html="props.item.nmParecerista" />
-                                <!--<td v-html="props.item.Observacao.substring(0, 120) + '... <a>Ver mais</a>'" />-->
                                 <td>
                                     <v-tooltip
                                       bottom
