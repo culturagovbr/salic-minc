@@ -2285,18 +2285,6 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
             $slct->where($coluna, $valor);
         }
 
-        $slct->group(
-            new Zend_Db_Expr('a.idPRONAC'),
-            'b.Descricao',
-            'c.Sigla',
-            'a.Observacao',
-            new Zend_Db_Expr('convert(char(10), a.DtEnvio, 121)'),
-            new Zend_Db_Expr('convert(char(10), a.DtRetorno, 121)'),
-            new Zend_Db_Expr('DATEDIFF(DAY, a.DtEnvio, a.DtRetorno)'));
-
-        $slct->order(array('b.Descricao', 'c.Sigla', new Zend_Db_Expr('convert(char(10),a.DtRetorno,121)')));
-
-
         return $this->fetchAll($slct);
     }
 
