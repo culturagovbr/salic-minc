@@ -32,24 +32,52 @@
                 />
                 <div v-else>
                     <v-data-table
-                        :headers="headers"
+                      :expand="expand"
+
+                      :headers="headers"
                         :items="historico"
                         :rows-per-page-items="[10, 25, 50, {'text': 'Todos', value: -1}]"
                         disable-initial-sort
                         class="elevation-0"
                         item-key="idDistribuirParecer"
                     >
-                        <template
-                            slot="items"
-                            slot-scope="props"
-                        >
-                            <td v-html="props.item.dsProduto" />
-                            <td v-html="props.item.Unidade" />
-                            <td>{{ props.item.DtDistribuicao | formatarData }}</td>
-                            <td v-html="props.item.Observacao" />
-                            <td v-html="props.item.nmUsuario" />
-                            <td v-html="props.item.nmParecerista" />
+
+                        <template v-slot:items="props">
+                            <tr @click="props.expanded = !props.expanded">
+                                <td v-html="props.item.dsProduto" />
+                                <td v-html="props.item.Unidade" />
+                                <td>{{ props.item.DtDistribuicao | formatarData }}</td>
+                                <td v-html="props.item.nmUsuario" />
+                                <td v-html="props.item.nmParecerista" />
+                                <!--<td v-html="props.item.Observacao.substring(0, 120) + '... <a>Ver mais</a>'" />-->
+                                <td>
+                                    <v-tooltip
+                                      bottom
+                                    >
+                                        <v-btn
+                                          slot="activator"
+                                          icon
+                                          small
+                                        >
+                                            <v-icon color="blue-grey darken-2">
+                                                remove_red_eye
+                                            </v-icon>
+                                        </v-btn>
+                                        <span>Expandir observação</span>
+                                    </v-tooltip>
+                                </td>
+                            </tr>
                         </template>
+                        <template
+                          v-slot:expand="props">
+                            <v-card-title class="title">
+                                Observação:
+                            </v-card-title>
+                            <v-card flat>
+                                <v-card-text v-html="props.item.Observacao"></v-card-text>
+                            </v-card>
+                        </template>
+
                     </v-data-table>
                 </div>
             </v-card-text>
@@ -99,9 +127,9 @@ export default {
                 { text: 'Nome do Produto', value: 'dsProduto' },
                 { text: 'Unidade Responsável', value: 'Unidade' },
                 { text: 'Data', value: 'DtDistribuicao' },
-                { text: 'Observações', value: 'Observacao' },
                 { text: 'Nome do Remetente', value: 'nmUsuario' },
                 { text: 'Nome do Parecerista', value: 'nmParecerista' },
+                { text: 'Observações', value: 'Observacao', sortable: false },
             ],
         };
     },

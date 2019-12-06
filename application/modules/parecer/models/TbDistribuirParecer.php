@@ -351,8 +351,4 @@ class Parecer_Model_TbDistribuirParecer  extends MinC_Db_Model
     {
         $this->_idOrgaoOrigem = $idOrgaoOrigem;
     }
-
-    public function tratarObservacaoTextoRico() {
-        $this->_Observacao = \TratarString::tratarTextoRicoParaISO($this->_Observacao);
-    }
 }

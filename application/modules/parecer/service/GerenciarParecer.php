@@ -105,7 +105,6 @@ class GerenciarParecer implements \MinC\Servico\IServicoRestZend
         $modelDistribuicao = new \Parecer_Model_TbDistribuirParecer($distribuicaoAtual);
         $modelDistribuicao->setIdUsuario($this->idUsuario);
         $modelDistribuicao->setObservacao($params['Observacao']);
-        $modelDistribuicao->tratarObservacaoTextoRico();
         $modelDistribuicao->setSiAnalise($params['siAnalise']);
         $modelDistribuicao->setSiEncaminhamento($params['siEncaminhamento']);
 

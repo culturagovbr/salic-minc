@@ -458,7 +458,6 @@ class AnaliseInicial implements \MinC\Servico\IServicoRestZend
         $modelDistribuicao->setObservacao($params['Observacao']);
         $modelDistribuicao->setSiAnalise($params['siAnalise']);
         $modelDistribuicao->setSiEncaminhamento($params['siEncaminhamento']);
-        $modelDistribuicao->tratarObservacaoTextoRico();
         $modelDistribuicao->setIdUsuario($this->idUsuario);
 
         $tbDistribuirParecerMapper = new \Parecer_Model_TbDistribuirParecerMapper();
