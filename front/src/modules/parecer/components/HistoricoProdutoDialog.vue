@@ -32,8 +32,7 @@
                 />
                 <div v-else>
                     <v-data-table
-                      :expand="expand"
-
+                      expand
                       :headers="headers"
                         :items="historico"
                         :rows-per-page-items="[10, 25, 50, {'text': 'Todos', value: -1}]"
