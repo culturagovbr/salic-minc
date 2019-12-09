@@ -2041,6 +2041,12 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                     )
                 );
 
+                $slct->order([
+                    'DtDistribuicao ASC',
+                    'IdPRONAC ASC',
+                    'TipoAnalise ASC',
+                ]);
+
                 $from = ' FROM sac.dbo.vwPainelEmValidacao';
                 break;
             case 'validados':
