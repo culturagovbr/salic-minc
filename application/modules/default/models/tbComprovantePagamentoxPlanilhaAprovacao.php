@@ -104,6 +104,7 @@ class tbComprovantePagamentoxPlanilhaAprovacao extends MinC_Db_Table_Abstract
                                  THEN 'Saque/Dinheiro'
                                  ELSE ''
                             END as tpFormaDePagamento,
+                            b.nrComprovante,
                             b.nrDocumentoDePagamento,
                             a.vlComprovado as vlPagamento,
                             b.idArquivo,
@@ -408,7 +409,7 @@ class tbComprovantePagamentoxPlanilhaAprovacao extends MinC_Db_Table_Abstract
         $select->order(array(1,2));
 
         return $this->fetchAll($select);
-    } 
+    }
 
     public function buscarRelatorioExecucaoReceita($idPronac)
     {
@@ -606,7 +607,7 @@ class tbComprovantePagamentoxPlanilhaAprovacao extends MinC_Db_Table_Abstract
                 [],
                 'BDCORPORATIVO.scSAC'
             );
-            
+
             foreach ($where as $coluna => $valor) {
                 if (!is_null($valor)) {
                     $select->where($coluna, $valor);
