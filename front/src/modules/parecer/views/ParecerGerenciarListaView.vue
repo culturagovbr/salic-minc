@@ -204,7 +204,7 @@ export default {
             if (next.params.filtro !== prev.params.filtro) {
                 this.filtro = next.params.filtro || 'aguardando_distribuicao';
             }
-            if (this.search.length > 0) {
+            if ((this.search || '').length > 0) {
                 this.$router.push({ query: { busca: this.search } });
             }
         },
