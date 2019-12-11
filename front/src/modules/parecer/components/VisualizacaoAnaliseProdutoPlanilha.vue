@@ -60,7 +60,9 @@
                         </v-chip>
                     </template>
                     <template slot-scope="slotProps">
-                        <s-analise-outros-produtos-planilha-itens-visualizar :table="slotProps.itens" />
+                        <s-analise-outros-produtos-planilha-itens-visualizar
+                            :visualizar-todas-justificativas="habilitarVisualizarTodasJustificativas"
+                            :table="slotProps.itens" />
                     </template>
                 </s-planilha>
             </div>
@@ -152,7 +154,6 @@ export default {
     computed: {
         ...mapGetters({
             planilha: 'parecer/getPlanilhaParecer',
-            // produto: 'parecer/getProduto',
         }),
         expandirTudo() {
             return this.isOptionActive(0);
@@ -165,6 +166,9 @@ export default {
         },
         habilitarModoSelecao() {
             return this.isOptionActive(3);
+        },
+        habilitarVisualizarTodasJustificativas() {
+            return this.isOptionActive(4);
         },
     },
     watch: {

@@ -57,6 +57,17 @@
                         Habilitar modo seleção
                     </span>
                 </v-tooltip>
+                <v-tooltip bottom>
+                    <v-btn
+                        slot="activator"
+                        flat
+                    >
+                        <v-icon>remove_red_eye</v-icon>
+                    </v-btn>
+                    <span>
+                        Visualizar todas as justificativas
+                    </span>
+                </v-tooltip>
             </v-btn-toggle>
         </v-flex>
     </v-container>

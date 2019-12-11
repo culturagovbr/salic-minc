@@ -32,10 +32,10 @@
                 />
                 <div v-else>
                     <v-data-table
-                      expand
-                      :headers="headers"
+                        :headers="headers"
                         :items="historico"
                         :rows-per-page-items="[10, 25, 50, {'text': 'Todos', value: -1}]"
+                        expand
                         disable-initial-sort
                         class="elevation-0"
                         item-key="idDistribuirParecer"
@@ -50,12 +50,12 @@
                                 <td v-html="props.item.nmParecerista" />
                                 <td>
                                     <v-tooltip
-                                      bottom
+                                        bottom
                                     >
                                         <v-btn
-                                          slot="activator"
-                                          icon
-                                          small
+                                            slot="activator"
+                                            icon
+                                            small
                                         >
                                             <v-icon color="blue-grey darken-2">
                                                 remove_red_eye
@@ -67,12 +67,12 @@
                             </tr>
                         </template>
                         <template
-                          v-slot:expand="props">
+                            v-slot:expand="props">
                             <v-card-title class="title">
                                 Observação:
                             </v-card-title>
                             <v-card flat>
-                                <v-card-text v-html="props.item.Observacao"></v-card-text>
+                                <v-card-text v-html="props.item.Observacao"/>
                             </v-card>
                         </template>
 
