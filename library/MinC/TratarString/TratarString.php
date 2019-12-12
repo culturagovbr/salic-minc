@@ -50,9 +50,10 @@ class TratarString
             "…" => "..."
         );
 
-        foreach ($replace as $caractereWord => $caractereUtf8) {
-            $stringTratada = str_replace($caractereWord, $caractereUtf8, $string);
+        foreach($replace as $k => $v)
+        {
+            $string = str_replace($k, $v, $string);
         }
-        return $stringTratada;
+        return $string;
     }
 }
