@@ -57,15 +57,18 @@
                         Habilitar modo seleção
                     </span>
                 </v-tooltip>
-                <v-tooltip bottom>
+                <v-tooltip
+                    v-for="(customButton, index) in customButtons"
+                    :key="index"
+                    bottom>
                     <v-btn
                         slot="activator"
                         flat
                     >
-                        <v-icon>remove_red_eye</v-icon>
+                        <v-icon>{{ customButton.icon }}</v-icon>
                     </v-btn>
                     <span>
-                        Visualizar todas as justificativas
+                        {{ customButton.tooltip }}
                     </span>
                 </v-tooltip>
             </v-btn-toggle>
@@ -78,6 +81,10 @@ export default {
     name: 'AnaliseDeCustosButtons',
     props: {
         value: {
+            type: Array,
+            default: () => [],
+        },
+        customButtons: {
             type: Array,
             default: () => [],
         },

@@ -1,6 +1,8 @@
 <template>
     <div>
-        <analise-de-custos-buttons v-model="opcoesDeVisualizacao" />
+        <analise-de-custos-buttons
+            :custom-buttons="customButtons"
+            v-model="opcoesDeVisualizacao" />
         <resize-panel
             v-if="Object.keys(planilha).length > 0"
             :allow-resize="true"
@@ -133,6 +135,9 @@ export default {
     },
     data() {
         return {
+            customButtons: [
+                { icon: 'remove_red_eye', tooltip: 'Visualizar todas as justificativas' },
+            ],
             opcoesDeVisualizacao: [0],
             sizePanel: 49.8,
             totalItensSelecionados: 0,
