@@ -124,7 +124,9 @@ class Diligencia implements \MinC\Servico\IServicoRestZend
             $idProduto = $this->request->getParam('idProduto', null);
             $idReadequacao = $this->request->getParam('idReadequacao', null);
             $idTipoDiligencia = $this->request->getParam('tpDiligencia');
-            $solicitacao = utf8_decode($this->request->getParam('solicitacao'));
+            $solicitacao = $this->request->getParam('solicitacao');
+            $solicitacao = \TratarString::tratarTextoRicoComCaracteresDoWord($solicitacao);
+            $solicitacao = utf8_decode($solicitacao);
 
             if (empty($idPronac)) {
                 throw new \Exception("Dados obrigat&oacute;rios n&atilde;o informados");

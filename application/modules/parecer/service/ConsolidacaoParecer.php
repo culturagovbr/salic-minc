@@ -114,6 +114,9 @@ class ConsolidacaoParecer implements \MinC\Servico\IServicoRestZend
             $sugeridoReal = $total['soma'];
 
             $tbParecer = new \Parecer_Model_DbTable_Parecer();
+
+            $resumoParecer = \TratarString::tratarTextoRicoComCaracteresDoWord($resumoParecer);
+
             $dadosParecer = [
                 'idPRONAC' => $idPronac,
                 'AnoProjeto' => $enquadramento['AnoProjeto'],
