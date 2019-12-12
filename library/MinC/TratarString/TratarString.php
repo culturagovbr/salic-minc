@@ -37,4 +37,22 @@ class TratarString
     {
         return utf8_decode(trim(strip_tags($string)));
     }
+
+    public static function tratarTextoRicoComCaracteresDoWord($string)
+    {
+        $replace = array(
+            "‘" => "'",
+            "’" => "'",
+            "”" => '"',
+            "“" => '"',
+            "–" => "-",
+            "—" => "-",
+            "…" => "..."
+        );
+
+        foreach ($replace as $caractereWord => $caractereUtf8) {
+            $stringTratada = str_replace($caractereWord, $caractereUtf8, $string);
+        }
+        return $stringTratada;
+    }
 }
