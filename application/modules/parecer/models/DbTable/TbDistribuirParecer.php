@@ -2042,7 +2042,7 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                 );
 
                 $slct->order([
-                    'DtEnvioMincVinculada ASC',
+                    'DtDistribuicao ASC',
                     'IdPRONAC ASC',
                     'stPrincipal ASC',
                 ]);
