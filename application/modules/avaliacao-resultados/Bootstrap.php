@@ -29,7 +29,8 @@ class AvaliacaoResultados_Bootstrap extends Zend_Application_Module_Bootstrap
                     'projetos-avaliacao-tecnica',
                     'planilha-aprovada',
                     'dashboard',
-                    'estatisticas-avaliacao'
+                    'estatisticas-avaliacao',
+                    'avaliacao-geral-comprovantes'
                 ]
             ]
         );

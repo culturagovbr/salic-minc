@@ -158,3 +158,5 @@ export const salvarAvaliacaoComprovante = params => api.postRequest('/avaliacao-
 export const dashboardQuantidade = () => api.getRequest('/avaliacao-resultados/dashboard');
 
 export const buscarEstatisticasAvaliacao = idPronac => api.getRequest(`/avaliacao-resultados/estatisticas-avaliacao/idPronac/${idPronac}`);
+
+export const aprovarTodosComprovantes = idPronac => api.postRequest('/avaliacao-resultados/avaliacao-geral-comprovantes/', buildData(idPronac));

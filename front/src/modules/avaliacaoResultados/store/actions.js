@@ -36,7 +36,11 @@ export const getDadosEmissaoParecer = async ({ commit }, param) => avaliacaoResu
 export const salvarParecer = async ({ commit }, params) => avaliacaoResultadosHelperAPI
     .criarParecer(params)
     .then((response) => {
-        commit('noticias/SET_DADOS', { ativo: true, color: 'success', text: 'Salvo com sucesso!' }, { root: true });
+        commit('noticias/SET_DADOS', {
+            ativo: true,
+            color: 'success',
+            text: 'Salvo com sucesso!',
+        }, { root: true });
         return response;
     });
 
@@ -102,7 +106,9 @@ export const getTipoAvaliacao = ({ commit }, params) => {
 
                 commit(types.GET_TIPO_AVALIACAO, data);
                 resolve();
-            }).catch(() => { });
+            })
+            .catch(() => {
+            });
     });
     return p;
 };
@@ -113,7 +119,8 @@ export const planilha = ({ commit }, params) => {
         .then((response) => {
             const planilhaData = response.data;
             commit(types.GET_PLANILHA, planilhaData);
-        }).catch((error) => {
+        })
+        .catch((error) => {
             const data = error.response;
             commit(types.GET_PLANILHA, { error: data.data.data.erro });
         });
@@ -125,7 +132,8 @@ export const syncPlanilhaAction = ({ commit }, params) => {
         .then((response) => {
             const planilhaData = response.data;
             commit(types.GET_PLANILHA, planilhaData);
-        }).catch((error) => {
+        })
+        .catch((error) => {
             const data = error.response;
             commit(types.GET_PLANILHA, { error: data.data.data.erro });
         });
@@ -159,7 +167,11 @@ export const consolidacaoAnalise = ({ commit }, params) => {
 export const finalizarParecer = async ({ commit }, params) => avaliacaoResultadosHelperAPI
     .alterarEstado(params)
     .then((response) => {
-        commit('noticias/SET_DADOS', { ativo: true, color: 'success', text: 'Finalizado com sucesso!' }, { root: true });
+        commit('noticias/SET_DADOS', {
+            ativo: true,
+            color: 'success',
+            text: 'Finalizado com sucesso!',
+        }, { root: true });
         return response;
     });
 
@@ -195,7 +207,11 @@ export const salvarLaudoFinal = async (state, data) => avaliacaoResultadosHelper
 export const finalizarLaudoFinal = async ({ commit }, data) => avaliacaoResultadosHelperAPI
     .alterarEstado(data)
     .then((response) => {
-        commit('noticias/SET_DADOS', { ativo: true, color: 'success', text: 'Finalizado com sucesso!' }, { root: true });
+        commit('noticias/SET_DADOS', {
+            ativo: true,
+            color: 'success',
+            text: 'Finalizado com sucesso!',
+        }, { root: true });
         return response;
     });
 
@@ -345,7 +361,10 @@ export const devolverProjeto = async ({ commit, dispatch }, params) => {
 
     if (dados.idTipoDoAtoAdministrativo === CONST.ATO_ADMINISTRATIVO_LAUDO_FINAL
         && dados.proximo === CONST.ESTADO_ANALISE_LAUDO) {
-        const laudoDevolver = { estadoId: dados.atual, idSecretaria };
+        const laudoDevolver = {
+            estadoId: dados.atual,
+            idSecretaria,
+        };
 
         return avaliacaoResultadosHelperAPI.alterarEstado(dados)
             .then((response) => {
@@ -387,7 +406,8 @@ export const salvarAvaliacaoComprovante = async ({ commit }, avaliacao) => {
         .then((response) => {
             commit(types.EDIT_COMPROVANTE, avaliacao);
             return response.data;
-        }).catch((e) => {
+        })
+        .catch((e) => {
             throw new TypeError(e.response.data.message, 'salvarAvaliacaoComprovante', 10);
         });
 };
@@ -404,3 +424,7 @@ export const buscarEstatisticasAvaliacao = async ({ commit }, idPronac) => avali
         const { data } = response.data;
         commit(types.SET_ESTATISTICAS_AVALIACAO, data);
     });
+
+export const validarTodosComprovantes = async (_, idPronac) => avaliacaoResultadosHelperAPI
+    .aprovarTodosComprovantes({ idPronac })
+    .then(response => response);

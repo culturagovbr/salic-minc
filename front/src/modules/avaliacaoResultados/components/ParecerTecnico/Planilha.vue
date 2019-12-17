@@ -129,6 +129,21 @@
                 <span>Emitir Parecer</span>
             </v-tooltip>
             <v-tooltip
+                left
+            >
+                <v-btn
+                    slot="activator"
+                    fab
+                    dark
+                    small
+                    color="green"
+                    @click.native="confirmacaoValidarTodos = true"
+                >
+                    <v-icon>thumb_up</v-icon>
+                </v-btn>
+                <span>Validar todos</span>
+            </v-tooltip>
+            <v-tooltip
                 v-if="(documento == 0) && !isProjetoDiligenciado"
                 left
             >
@@ -145,6 +160,43 @@
                 <span>Diligenciar</span>
             </v-tooltip>
         </v-speed-dial>
+        <v-dialog
+            v-model="confirmacaoValidarTodos"
+            width="500"
+        >
+            <v-card>
+                <v-card-title
+                    class="headline primary white--text"
+                    primary-title
+                >
+                    Validar todos
+                </v-card-title>
+
+                <v-card-text >
+                    Deseja realmente aprovar todos os comprovantes?
+                </v-card-text>
+
+                <v-divider/>
+
+                <v-card-actions>
+                    <v-spacer/>
+                    <v-btn
+                        color="red"
+                        flat
+                        @click="confirmacaoValidarTodos = false"
+                    >
+                        Não
+                    </v-btn>
+                    <v-btn
+                        color="primary"
+                        flat
+                        @click="aprovarTodos()"
+                    >
+                        Sim
+                    </v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -186,6 +238,7 @@ export default {
                 },
                 { text: '', value: 'varlorComprovado', sortable: false },
             ],
+            confirmacaoValidarTodos: false,
             fab: false,
             idPronac: this.$route.params.id,
             itemEmAvaliacao: {},
@@ -243,7 +296,19 @@ export default {
         ...mapActions({
             modalOpen: 'modal/modalOpen',
             requestEmissaoParecer: 'avaliacaoResultados/getDadosEmissaoParecer',
+            validarTodosComprovantes: 'avaliacaoResultados/validarTodosComprovantes',
+            mensagemSucesso: 'noticias/mensagemSucesso',
+            mensagemErro: 'noticias/mensagemErro',
         }),
+        aprovarTodos() {
+            this.validarTodosComprovantes(this.idPronac).then(() => {
+                this.confirmacaoValidarTodos = false;
+                this.mensagemSucesso('Comprovantes validados com sucesso!');
+                window.location.reload();
+            }).error((e) => {
+                this.mensagemErro(e.response.data.error.message);
+            });
+        },
         getConsolidacao(id) {
             this.requestEmissaoParecer(id);
         },
