@@ -2042,9 +2042,9 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                 );
 
                 $slct->order([
-                    'DtDistribuicao ASC',
+                    'DtEnvioMincVinculada ASC',
                     'IdPRONAC ASC',
-                    'TipoAnalise ASC',
+                    'stPrincipal ASC',
                 ]);
 
                 $from = ' FROM sac.dbo.vwPainelEmValidacao';
@@ -2446,15 +2446,15 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                 'a.DtDistribuicao as dtDistribuicao',
                 'a.TipoAnalise as tipoAnalise',
                 'qtDiasDistribuir' => new Zend_Db_Expr('DATEDIFF(DAY, a.DtEnvio, GETDATE())'),
-                'qtdeSecundarios' => new Zend_Db_Expr('(SELECT COUNT(*) 
-                    FROM sac.dbo.PlanoDistribuicaoProduto y 
-                    WHERE y.idProjeto = b.idProjeto 
+                'qtdeSecundarios' => new Zend_Db_Expr('(SELECT COUNT(*)
+                    FROM sac.dbo.PlanoDistribuicaoProduto y
+                    WHERE y.idProjeto = b.idProjeto
                     AND stPrincipal = 0)'
                 ),
-                'valor' => new Zend_Db_Expr('(SELECT SUM(x.Ocorrencia*x.Quantidade*x.ValorUnitario) 
-                    FROM SAC.dbo.tbPlanilhaProjeto x 
-                    WHERE b.IdPRONAC = x.idPRONAC 
-                    AND x.FonteRecurso = 109 
+                'valor' => new Zend_Db_Expr('(SELECT SUM(x.Ocorrencia*x.Quantidade*x.ValorUnitario)
+                    FROM SAC.dbo.tbPlanilhaProjeto x
+                    WHERE b.IdPRONAC = x.idPRONAC
+                    AND x.FonteRecurso = 109
                     AND x.idProduto = a.idProduto)'
                 )
             ],
