@@ -48,7 +48,9 @@
                     <td class="text-xs-right">
                         {{ props.item.VlSugeridoParecerista | filtroFormatarParaReal }}
                     </td>
-                    <td class="justify-center layout px-0">
+                    <td
+                        v-if="!visualizarTodasJustificativas"
+                        class="justify-center layout px-0">
                         <v-icon
                             v-if="props.item.justificitivaproponente.length > 1 || props.item.dsJustificativaParecerista.length > 1"
                             small
@@ -57,6 +59,31 @@
                         >
                             visibility
                         </v-icon>
+                        <span
+                            v-else
+                            class="py-2"
+                        >
+                            -
+                        </span>
+                    </td>
+                    <td v-if="visualizarTodasJustificativas">
+                        <template
+                            v-if="props.item.justificitivaproponente.length > 1"
+                        >
+                            <div v-html="props.item.justificitivaproponente" />
+                        </template>
+                        <span
+                            v-else
+                            class="py-2"
+                        >
+                            -
+                        </span>
+                    </td>
+                    <td v-if="visualizarTodasJustificativas">
+                        <template
+                            v-if="props.item.dsJustificativaParecerista.length > 1">
+                            <div v-html="props.item.dsJustificativaParecerista" />
+                        </template>
                         <span
                             v-else
                             class="py-2"
@@ -99,7 +126,7 @@
                         xs12
                     >
                         <b class="body-1 font-weight-medium">
-                            Justificativa Proponente:
+                            Justificativa proponente:
                         </b>
                         <div v-html="slotProps.item.justificitivaproponente" />
                     </v-flex>
@@ -108,7 +135,7 @@
                         xs12
                     >
                         <b class="body-1 font-weight-medium">
-                            Justificativa Parecerista:
+                            Justificativa parecerista:
                         </b>
                         <div v-html="slotProps.item.dsJustificativaParecerista" />
                     </v-flex>
@@ -130,6 +157,10 @@ export default {
         table: {
             type: Array,
             required: true,
+        },
+        visualizarTodasJustificativas: {
+            type: Boolean,
+            default: () => false,
         },
     },
     data() {
@@ -153,6 +184,18 @@ export default {
             itemVisualizacao: {},
             select: {},
         };
+    },
+    watch: {
+        visualizarTodasJustificativas(visualizarTodas) {
+            if (visualizarTodas) {
+                this.headers.splice(9, 1);
+                this.headers.push({ text: 'Justificativa proponente', align: 'left', value: 'justificitivaproponente' });
+                this.headers.push({ text: 'Justificativa parecerista', align: 'left', value: 'dsJustificativaParecerista' });
+                return;
+            }
+            this.headers.splice(9, 5);
+            this.headers.push({ text: 'Justificativas', align: 'left', value: 'justificitivaproponente' });
+        },
     },
     methods: {
         visualizarJustificativa(item) {

@@ -96,8 +96,9 @@ class DistribuicaoParecer implements \MinC\Servico\IServicoRestZend
 
         $modelDistribuicao = new \Parecer_Model_TbDistribuirParecer($distribuicao);
         $modelDistribuicao->setIdUsuario($this->idUsuario);
-        $modelDistribuicao->setObservacao($params['Observacao']);
-        $modelDistribuicao->tratarObservacaoTextoRico();
+        $observacao = \TratarString::tratarTextoRicoComCaracteresDoWord($params['Observacao']);
+        $observacao = utf8_decode($observacao);
+        $modelDistribuicao->setObservacao($observacao);
         $modelDistribuicao->setSiAnalise($params['siAnalise']);
         $modelDistribuicao->setSiEncaminhamento($params['siEncaminhamento']);
         $modelDistribuicao->setTipoAnalise($params['TipoAnalise']);

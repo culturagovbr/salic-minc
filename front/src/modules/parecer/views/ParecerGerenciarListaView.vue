@@ -193,18 +193,26 @@ export default {
     },
 
     watch: {
+        search(v) {
+            this.$router.push({ query: { busca: v } });
+        },
         filtro(v) {
             this.obterProdutosParaGerenciar({ filtro: v });
             this.$router.push({ name: 'parecer-gerenciar-listar-view', params: { filtro: v } });
         },
-        $route(prev, old) {
-            if (prev.params.filtro !== old.params.filtro) {
-                this.filtro = prev.params.filtro || 'aguardando_distribuicao';
+        $route(next, prev) {
+            if (next.params.filtro !== prev.params.filtro) {
+                this.filtro = next.params.filtro || 'aguardando_distribuicao';
+            }
+            if ((this.search || '').length > 0) {
+                this.$router.push({ query: { busca: this.search } });
             }
         },
     },
 
     created() {
+        this.search = this.$route.query.busca;
+
         if (this.$route.params.filtro) {
             this.filtro = this.$route.params.filtro;
         } else {

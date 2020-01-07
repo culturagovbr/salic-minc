@@ -19,6 +19,7 @@
                     <td-nome-produto :produto="props.item" />
                     <td-tipo-produto :produto="props.item" />
                     <td>{{ props.item.segmento }}</td>
+                    <td> R$ {{ props.item.valor | filtroFormatarParaReal }}</td>
                     <td>{{ props.item.nomeParecerista }}</td>
                     <td class="text-xs-right">
                         {{ props.item.dtDistribuicao | formatarData }}
@@ -191,6 +192,11 @@ export default {
                     text: 'Segmento',
                     align: 'left',
                     value: 'segmento',
+                },
+                {
+                    text: 'Vl.Produto',
+                    align: 'left',
+                    value: 'valor',
                 },
                 {
                     text: 'Parecerista',

@@ -2041,6 +2041,12 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                     )
                 );
 
+                $slct->order([
+                    'DtDistribuicao ASC',
+                    'IdPRONAC ASC',
+                    'stPrincipal ASC',
+                ]);
+
                 $from = ' FROM sac.dbo.vwPainelEmValidacao';
                 break;
             case 'validados':
@@ -2285,18 +2291,6 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
             $slct->where($coluna, $valor);
         }
 
-        $slct->group(
-            new Zend_Db_Expr('a.idPRONAC'),
-            'b.Descricao',
-            'c.Sigla',
-            'a.Observacao',
-            new Zend_Db_Expr('convert(char(10), a.DtEnvio, 121)'),
-            new Zend_Db_Expr('convert(char(10), a.DtRetorno, 121)'),
-            new Zend_Db_Expr('DATEDIFF(DAY, a.DtEnvio, a.DtRetorno)'));
-
-        $slct->order(array('b.Descricao', 'c.Sigla', new Zend_Db_Expr('convert(char(10),a.DtRetorno,121)')));
-
-
         return $this->fetchAll($slct);
     }
 
@@ -2452,15 +2446,15 @@ class Parecer_Model_DbTable_TbDistribuirParecer extends MinC_Db_Table_Abstract
                 'a.DtDistribuicao as dtDistribuicao',
                 'a.TipoAnalise as tipoAnalise',
                 'qtDiasDistribuir' => new Zend_Db_Expr('DATEDIFF(DAY, a.DtEnvio, GETDATE())'),
-                'qtdeSecundarios' => new Zend_Db_Expr('(SELECT COUNT(*) 
-                    FROM sac.dbo.PlanoDistribuicaoProduto y 
-                    WHERE y.idProjeto = b.idProjeto 
+                'qtdeSecundarios' => new Zend_Db_Expr('(SELECT COUNT(*)
+                    FROM sac.dbo.PlanoDistribuicaoProduto y
+                    WHERE y.idProjeto = b.idProjeto
                     AND stPrincipal = 0)'
                 ),
-                'valor' => new Zend_Db_Expr('(SELECT SUM(x.Ocorrencia*x.Quantidade*x.ValorUnitario) 
-                    FROM SAC.dbo.tbPlanilhaProjeto x 
-                    WHERE b.IdPRONAC = x.idPRONAC 
-                    AND x.FonteRecurso = 109 
+                'valor' => new Zend_Db_Expr('(SELECT SUM(x.Ocorrencia*x.Quantidade*x.ValorUnitario)
+                    FROM SAC.dbo.tbPlanilhaProjeto x
+                    WHERE b.IdPRONAC = x.idPRONAC
+                    AND x.FonteRecurso = 109
                     AND x.idProduto = a.idProduto)'
                 )
             ],
