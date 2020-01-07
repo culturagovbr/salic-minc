@@ -1,4 +1,5 @@
 <?php
+
 class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Table_Abstract
 {
     protected $_schema = "sac";
@@ -290,7 +291,8 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
         $idEtapa,
         $idMunicipioDespesa,
         $idPlanilhaItem
-    ) {
+    )
+    {
         $select = $this->select();
         $select->setIntegrityCheck(false);
         $select->from(
@@ -326,7 +328,8 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
      * @param array $nrFonteRecurso
      * @return boolean
      */
-    public function valorTotalPlanilhaAtiva($idPronac, $nrFonteRecurso = []) {
+    public function valorTotalPlanilhaAtiva($idPronac, $nrFonteRecurso = [])
+    {
 
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -353,7 +356,8 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
      * @param integer $idPlanilhaItem
      * @return boolean
      */
-    public function valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, $idEtapa) {
+    public function valorTotalPlanilhaAtivaNaoExcluidosPorEtapa($idPronac, $idEtapa)
+    {
 
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -380,7 +384,8 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
      * @param array $nrFonteRecurso
      * @return boolean
      */
-    public function valorTotalPlanilhaReadequada($idPronac, $idReadequacao, $nrFonteRecurso = []) {
+    public function valorTotalPlanilhaReadequada($idPronac, $idReadequacao, $nrFonteRecurso = [])
+    {
 
         $select = $this->select();
         $select->setIntegrityCheck(false);
@@ -511,7 +516,7 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
      */
     public function buscarValoresItem($item, $valorComprovado)
     {
-        $vlTotalItem = $item['qtItem']*$item['nrOcorrencia']*$item['vlUnitario'];
+        $vlTotalItem = $item['qtItem'] * $item['nrOcorrencia'] * $item['vlUnitario'];
 
         //CALCULAR VALORES MINIMO E MAXIMO PARA VALIDACAO
         $vlAtual = @number_format(
@@ -522,7 +527,7 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
             '',
             ''
         );
-        $vlAtualPerc = $vlAtual* Readequacao_Model_DbTable_TbReadequacao::PERCENTUAL_REMANEJAMENTO/100;
+        $vlAtualPerc = $vlAtual * Readequacao_Model_DbTable_TbReadequacao::PERCENTUAL_REMANEJAMENTO / 100;
 
         //VALOR MINIMO E MAXIMO DO ITEM ORIGINAL
         //SE TIVER VALOR COMPROVADO, DEVE SUBTRAIR O VALOR DO ITEM COMPROVADO DO VALOR UNITARIO
@@ -533,17 +538,17 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
                 2,
                 '',
                 ''
-            ) > round($vlAtual-$vlAtualPerc)
+            ) > round($vlAtual - $vlAtualPerc)
         )
-                    ? number_format(
-                        $valorComprovado,
-                        2,
-                        '',
-                        ''
-                    )
-                    : round($vlAtual-$vlAtualPerc);
+            ? number_format(
+                $valorComprovado,
+                2,
+                '',
+                ''
+            )
+            : round($vlAtual - $vlAtualPerc);
 
-        $vlAtualMax = round($vlAtual+$vlAtualPerc);
+        $vlAtualMax = round($vlAtual + $vlAtualPerc);
 
         $valoresItem = [];
 
@@ -719,8 +724,8 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
         }
 
         if (!is_null($start) && $limit) {
-            $start = (int) $start;
-            $limit = (int) $limit;
+            $start = (int)$start;
+            $limit = (int)$limit;
             $select->limit($limit, $start);
         }
 
@@ -932,5 +937,33 @@ class AvaliacaoResultados_Model_DbTable_tbPlanilhaAprovacao extends MinC_Db_Tabl
             return true;
         }
         return false;
+    }
+
+    public function validarTodosComprovantes($idPronac)
+    {
+        if (!is_numeric($idPronac)) {
+            return false;
+        }
+
+        $sql = "
+          UPDATE
+              BDCORPORATIVO.scSAC.tbComprovantePagamentoxPlanilhaAprovacao
+          SET
+              stItemAvaliado = 1
+          FROM
+              SAC.dbo.tbplanilhaaprovacao AS a
+          INNER JOIN BDCORPORATIVO.scSAC.tbComprovantePagamentoxPlanilhaAprovacao AS b ON
+              (a.idPlanilhaAprovacao = b.idPlanilhaAprovacao)
+          INNER JOIN BDCORPORATIVO.scSAC.tbComprovantePagamento AS c ON
+              (b.idComprovantePagamento = c.idComprovantePagamento)
+          INNER JOIN sac.dbo.Projetos AS d ON (a.IdPRONAC = d.IdPRONAC)
+          WHERE
+              d.IdPRONAC = $idPronac
+              AND b.stItemAvaliado = 4";
+
+        $db = Zend_Db_Table::getDefaultAdapter();
+        $db->setFetchMode(Zend_DB::FETCH_OBJ);
+
+        return $db->fetchAll($sql);
     }
 }

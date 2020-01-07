@@ -706,17 +706,7 @@ class Proposta_DiligenciarController extends Proposta_GenericController
             $dados['idSolicitante'] = $idagente;
             $dados['stEnviado'] = 'S';
         }
-        $rowDiligencia = $diligenciaDAO->inserir($dados);
-
-        # Envia notificacao para o usuario atraves do aplicativo mobile.
-        $modelProjeto = new Projetos();
-        $projeto = $modelProjeto->buscarPorPronac((int)$this->getRequest()->getParam('idPronac'));
-        $this->enviarNotificacao((object)array(
-            'cpf' => $projeto->CNPJCPF,
-            'pronac' => $projeto->Pronac,
-            'idPronac' => $projeto->IdPRONAC,
-            'idDiligencia' => $rowDiligencia->idDiligencia
-        ));
+        $diligenciaDAO->inserir($dados);
 
         parent::message(
             "Dilig&ecirc;ncia enviada com sucesso!",

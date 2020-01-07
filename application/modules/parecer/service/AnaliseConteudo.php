@@ -75,7 +75,7 @@ class AnaliseConteudo implements \MinC\Servico\IServicoRestZend
         $idProduto = (int) $this->request->getParam('id');
         $idPronac = (int) $this->request->getParam('idPronac');
 
-        if(empty($idProduto) || empty($idPronac))  {
+        if (empty($idProduto) || empty($idPronac)) {
             throw new \Exception("Dados obrigat&oacute;rios n&atilde;o informados");
         }
 
@@ -105,8 +105,9 @@ class AnaliseConteudo implements \MinC\Servico\IServicoRestZend
         $idPronac = $this->request->getParam('IdPRONAC');
         $idProduto = $this->request->getParam('idProduto');
         $parecerFavoravel= $this->request->getParam('ParecerFavoravel');
-        $parecerDeConteudo = utf8_decode($this->request->getParam('ParecerDeConteudo'));
-        $stPrincipal = utf8_decode($this->request->getParam('stPrincipal'));
+        $parecerDeConteudo = $this->request->getParam('ParecerDeConteudo');
+        $parecerDeConteudo = \TratarString::tratarTextoRicoComCaracteresDoWord($parecerDeConteudo);
+        $parecerDeConteudo = utf8_decode($parecerDeConteudo);
 
         if (!$idPronac) {
             throw new \Exception('Falta idPronac');

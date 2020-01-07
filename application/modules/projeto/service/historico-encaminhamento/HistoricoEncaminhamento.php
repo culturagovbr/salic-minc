@@ -32,8 +32,6 @@ class HistoricoEncaminhamento implements \MinC\Servico\IServicoRestZend
 
         if (!empty($idPronac)) {
             //****** Dados do Projeto - Cabecalho *****//
-            $projetos = new \Projetos();
-            $DadosProjeto = $projetos->dadosProjeto(array('idPronac = ?' => $idPronac))->current();
 
             $tbDistribuirParecer = new \Parecer_Model_DbTable_TbDistribuirParecer();
             $historicoEncaminhamento = $tbDistribuirParecer->buscarHistoricoEncaminhamento(array('a.idPRONAC = ?'=>$idPronac));

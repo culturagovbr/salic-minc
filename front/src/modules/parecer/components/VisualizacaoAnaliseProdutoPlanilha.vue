@@ -1,6 +1,8 @@
 <template>
     <div>
-        <analise-de-custos-buttons v-model="opcoesDeVisualizacao" />
+        <analise-de-custos-buttons
+            :custom-buttons="customButtons"
+            v-model="opcoesDeVisualizacao" />
         <resize-panel
             v-if="Object.keys(planilha).length > 0"
             :allow-resize="true"
@@ -60,7 +62,9 @@
                         </v-chip>
                     </template>
                     <template slot-scope="slotProps">
-                        <s-analise-outros-produtos-planilha-itens-visualizar :table="slotProps.itens" />
+                        <s-analise-outros-produtos-planilha-itens-visualizar
+                            :visualizar-todas-justificativas="habilitarVisualizarTodasJustificativas"
+                            :table="slotProps.itens" />
                     </template>
                 </s-planilha>
             </div>
@@ -131,6 +135,9 @@ export default {
     },
     data() {
         return {
+            customButtons: [
+                { icon: 'remove_red_eye', tooltip: 'Visualizar todas as justificativas' },
+            ],
             opcoesDeVisualizacao: [0],
             sizePanel: 49.8,
             totalItensSelecionados: 0,
@@ -152,7 +159,6 @@ export default {
     computed: {
         ...mapGetters({
             planilha: 'parecer/getPlanilhaParecer',
-            // produto: 'parecer/getProduto',
         }),
         expandirTudo() {
             return this.isOptionActive(0);
@@ -165,6 +171,9 @@ export default {
         },
         habilitarModoSelecao() {
             return this.isOptionActive(3);
+        },
+        habilitarVisualizarTodasJustificativas() {
+            return this.isOptionActive(4);
         },
     },
     watch: {

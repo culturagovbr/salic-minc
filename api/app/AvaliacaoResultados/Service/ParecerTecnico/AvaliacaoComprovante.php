@@ -75,7 +75,7 @@ class AvaliacaoComprovante
         $comprovantes = \TratarArray::utf8EncodeArray($comprovantes->toArray());
 
         $dataAux = [];
-        foreach($comprovantes as $chave => $comprovante) {
+        foreach ($comprovantes as $chave => $comprovante) {
 
             $dataAux[$chave] = $comprovante;
             $dataAux[$chave]['tipo'] = $comprovante['tipo'];

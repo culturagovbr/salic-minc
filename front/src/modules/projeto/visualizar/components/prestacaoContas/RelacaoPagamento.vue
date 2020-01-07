@@ -39,15 +39,14 @@
                             {{ props.item.Fornecedor }}
                         </td>
                         <td class="text-xs-left">
-                            {{ props.item.tbDocumento }}
+                            {{ props.item.nrComprovante }}
                         </td>
                         <td class="text-xs-center pl-5">
                             {{ props.item.DtPagamento | formatarData }}
                         </td>
-                        <td
-                            class="text-xs-left"
-                            v-html="props.item.tpFormaDePagamento"
-                        />
+                        <td class="text-xs-center">
+                            {{ props.item.nrDocumentoDePagamento }}
+                        </td>
                         <td class="text-xs-right">
                             {{ props.item.vlPagamento | filtroFormatarParaReal }}
                         </td>
@@ -375,9 +374,9 @@ export default {
                     value: 'Fornecedor',
                 },
                 {
-                    text: 'Documento',
+                    text: 'Nr. Comprovante',
                     align: 'left',
-                    value: 'tbDocumento',
+                    value: 'nrComprovante',
                 },
                 {
                     text: 'Dt. Pagamento',
@@ -385,9 +384,9 @@ export default {
                     value: 'DtPagamento',
                 },
                 {
-                    text: 'Forma de Pagamento',
+                    text: 'Nr. Pagamento',
                     align: 'left',
-                    value: 'tpFormaDePagamento',
+                    value: 'nrDocumentoDePagamento',
                 },
                 {
                     text: 'Vl. Pagamento',

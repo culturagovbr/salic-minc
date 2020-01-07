@@ -96,7 +96,7 @@
                                 lazy-validation
                             >
                                 <s-editor-texto
-                                    v-model="distribuicao.observacao"
+                                    v-model="distribuicao.Observacao"
                                     :label="labelTextoRico"
                                     :min-char="minChar"
                                     @editor-texto-counter="validarTexto($event)"
@@ -185,8 +185,9 @@ export default {
                 idOrgaoDestino: '',
                 idAgenteParecerista: '',
                 filtro: '',
-                observacao: '',
+                Observacao: '',
                 tipoAcao: 'distribuir',
+                TipoAnalise: 3,
                 distribuirProjeto: false,
             },
             dialogConfirmarEnvio: false,
@@ -220,7 +221,7 @@ export default {
                 this.distribuicao.idAreaProduto = this.produto.idArea;
                 this.distribuicao.filtro = this.filtro;
                 this.distribuicao.idOrgaoDestino = '';
-                this.distribuicao.observacao = '';
+                this.distribuicao.Observacao = '';
                 this.distribuicao.idAgenteParecerista = this.produto.idAgenteParecerista;
             }
             this.$emit('input', val);

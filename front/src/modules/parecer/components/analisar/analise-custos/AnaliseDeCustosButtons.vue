@@ -57,6 +57,20 @@
                         Habilitar modo seleção
                     </span>
                 </v-tooltip>
+                <v-tooltip
+                    v-for="(customButton, index) in customButtons"
+                    :key="index"
+                    bottom>
+                    <v-btn
+                        slot="activator"
+                        flat
+                    >
+                        <v-icon>{{ customButton.icon }}</v-icon>
+                    </v-btn>
+                    <span>
+                        {{ customButton.tooltip }}
+                    </span>
+                </v-tooltip>
             </v-btn-toggle>
         </v-flex>
     </v-container>
@@ -67,6 +81,10 @@ export default {
     name: 'AnaliseDeCustosButtons',
     props: {
         value: {
+            type: Array,
+            default: () => [],
+        },
+        customButtons: {
             type: Array,
             default: () => [],
         },
