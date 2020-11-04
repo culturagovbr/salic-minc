@@ -1,0 +1,327 @@
+<script type="text/javascript">
+    function toogleAjax(id, url){
+        if(!url) {
+            $('#'+id).toggle('slow');
+        } else {
+            elemento = '#'+id;
+            if($(elemento).css('display') == 'none') {
+                $(elemento).html('<img src="<?php echo $this->baseUrl(); ?>/public/img/ajax.gif" /> ');
+                $(elemento).fadeIn('fast');
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        teste: 'testando'
+                    },
+                    url: url,
+                    success: function(data) {
+                        $(elemento).html(data);
+                    }
+                });
+            } else {
+                $(elemento).fadeOut('fast');
+            }
+        }
+    };
+
+    function abrirDinamico(elemento, obj) {
+        if($(elemento).css('display') == 'none') {
+            $(elemento).fadeIn('fast', function() {
+                $('img', $(obj)).attr('src','<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png');
+            });
+        } else {
+            $(elemento).fadeOut('fast', function() {
+                $('img', $(obj)).attr('src','<?php echo $this->baseUrl(); ?>/public/img/navigation-baixo.PNG');
+            });
+        }
+    }
+
+    function goback() {
+        history.go(-1);
+    }
+</script>
+
+<style type="text/css">
+    .mensagem {
+        padding: 8px;
+        border: darkgreen;
+        background: #e3e3c7;
+    }
+</style>
+
+<?php
+echo $this->partial('cidadao/inc/menu.inc.php', $this); // menu de consultar dados do projeto
+
+$urlPronac = null;
+$urlPronac = (isset($this->idPronac)) ? "?idPronac=".Seguranca::encrypt($this->idPronac) : "";
+
+?>
+<!-- ========== INICIO BREADCRUMB (LINKS TOPO) ========== -->
+<div id="breadcrumb">
+    <ul>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'consultar')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
+        <li class="last" id="caminhoLocalAtual">Detalhamento do Projeto</li>
+    </ul>
+</div>
+<!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
+
+
+<!-- ========== INICIO TITULO ========== -->
+<div id="titulo">
+    <div>Consultar dados do Projeto</div>
+</div>
+<!-- ========== FIM TITULO ========== -->
+<!-- ========== INICIO CONTEUDO ========== -->
+
+<div id="conteudo">
+    <?php //include_once 'scripts/cidadao/inc/menu.inc.php';
+    if(!isset($this->projeto)) {
+        echo '<div align="center">Projeto n�o encontrado.</div>';
+    } else { ?>
+
+    <br clear="all" />
+    <div id="projetocultural">
+        <?php if(isset($this->ProponenteInabilitado) && $this->ProponenteInabilitado){ ?>
+        <table class="tabela" style="background-color: red;">
+            <tr style="background-color: red;">
+                <td align="center" style="text-transform: uppercase; color: red;"><b>Proponente Inabilitado</b></td>
+            </tr>
+        </table>
+        <?php } ?>
+        <table class="tabela">
+            <tr class="destacar">
+                <td class="centro"><b>PRONAC</b></td>
+                <td class="centro"><b>Nome do Projeto</b></td>
+            </tr>
+            <tr>
+                <td align="center"><?php echo empty($this->projeto->NrProjeto) ? '<em>Dados n&atilde;o informados!</em>' : $this->projeto->NrProjeto; ?></td>
+                <td align="center"><?php echo empty($this->projeto->NomeProjeto) ? '<em>Dados n&atilde;o informados!</em>' : $this->projeto->NomeProjeto; ?></td>
+            </tr>
+            <tr class="destacar">
+                <td class="centro"><b>CNPJ/CPF</b></td>
+                <td class="centro"><b>Proponente</b></td>
+            </tr>
+            <tr>
+                <td align="center"><?php echo (strlen($this->projeto->CgcCPf) > 11) ? Mascara::addMaskCNPJ($this->projeto->CgcCPf) : Mascara::addMaskCPF($this->projeto->CgcCPf); ?></td>
+                <td align="center"><?php echo empty($this->projeto->Proponente) ? '<em>Dados n&atilde;o informados!</em>' : $this->projeto->Proponente; ?></td>
+            </tr>
+        </table>
+        <br clear="all" />
+
+        <table class="tabela">
+            <tr class="destacar">
+                <td class="centro"><b>UF</b></td>
+                <td class="centro"><b>Mecanismo</b></td>
+                <td class="centro"><b>�rea Cultural</b></td>
+                <td class="centro"><b>Segmento</b></td>
+                <td class="centro"><b>Processo</b></td>
+                <?php if($this->projeto->idMecanismo != 2 && $this->projeto->idMecanismo != 6) { ?>
+                <td class="centro"><b>Enquadramento</b></td>
+                <?php } ?>
+            </tr>
+            <tr>
+                <td align="center"><?php echo empty($this->projeto->UfProjeto) ? '<em>Dados n&atilde;o informados!</em>' : $this->projeto->UfProjeto; ?></td>
+                <td align="center"><?php echo empty($this->projeto->Mecanismo) ? '<em>Dados n&atilde;o informados!</em>' : $this->projeto->Mecanismo; ?></td>
+                <td align="center"><?php echo empty($this->projeto->Area)      ? '<em>Dados n&atilde;o informados!</em>' : $this->projeto->Area; ?></td>
+                <td align="center"><?php echo empty($this->projeto->Segmento)  ? '<em>Dados n&atilde;o informados!</em>' : $this->projeto->Segmento; ?></td>
+                <td align="center"><?php echo empty($this->projeto->Processo)  ? '<em>Dados n&atilde;o informados!</em>' : $this->projeto->Processo; ?></td>
+                <?php if($this->projeto->idMecanismo != 2 && $this->projeto->idMecanismo != 6) { ?>
+                <td align="center" class="bold"><?php echo empty($this->projeto->Enquadramento) ? '<em>Dados n&atilde;o informados!</em>' : $this->projeto->Enquadramento; ?></td>
+                <?php } ?>
+            </tr>
+        </table>
+        <br clear="all" />
+
+        <table class="tabela">
+            <tr class="destacar">
+                <td align="center"><b>Solicitado (A)</b></td>
+                <td align="center"><b>Outras Fontes (B)</b></td>
+                <td align="center"><b>Vl.Proposta (C = A + B)</b></td>
+                <td align="center"><b>Aprovado (D)</b></td>
+                <td align="center"><b>Vl.Projeto (E = B + D)</b></td>
+                <td align="center"><b><?php echo ($this->projeto->idMecanismo == 2 || $this->projeto->idMecanismo == 6) ? 'Vl. Conv�nio' : 'Vl. Captado (E)'?></b></td>
+                <?php if($this->projeto->idMecanismo != 2 && $this->projeto->idMecanismo != 6) { ?>
+                <td align="center"><b>% Captado</b></td>
+                <td align="center"><b>Vl. Comprovado</b></td>
+                <td align="center"><b>% Comprovado</b></td>
+                <?php } ?>
+            </tr>
+            <tr>
+                <td align="center"><b><font color="#009900"><?php echo @number_format($this->projeto->ValorSolicitado, 2, ",", "."); ?></font></b></td>
+                <td align="center"><b><font color="#CC0000"><?php echo @number_format($this->projeto->OutrasFontes, 2, ",", "."); ?></font></b></td>
+
+                <td align="center"><b><?php echo "<a href=\"#\" onclick=\"carregaDados('".$this->url(array('controller' => 'cidadao', 'action' => 'planilha-orcamentaria'))."?idPronac=".$this->idPronac."','conteudo'); return false\" title=\"Ir para Planilha or&ccedil;ament&aacute;ria\"> <font color=\"#0000FF\">".@number_format(($this->projeto->ValorSolicitado + $this->projeto->OutrasFontes), 2, ",", ".")."</font></a>"; ?></b></td>
+                <td align="center"><b><?php echo "<a href=\"#\" onclick=\"carregaDados('".$this->url(array('controller' => 'cidadao', 'action' => 'planilha-orcamentaria-aprovada'))."?idPronac=".$this->idPronac."','conteudo'); return false\" title=\"Ir para Planilha or&ccedil;ament&aacute;ria\"> <font color=\"#0000FF\">".@number_format(($this->projeto->ValorAprovado), 2, ",", ".")."</font></a>"; ?></b></td>
+                <!--<td align="center"><b><?php //echo "<font color=\"#0000FF\">".@number_format(($this->projeto->ValorSolicitado + $this->projeto->OutrasFontes), 2, ",", ".")."</font>"; ?></b></td>
+                <td align="center"><b><?php //echo "<font color=\"#0000FF\">".@number_format(($this->projeto->ValorAprovado), 2, ",", ".")."</font>"; ?></b></td>-->
+            
+                <td align="center"><b><?php echo @number_format(($this->projeto->OutrasFontes + $this->projeto->ValorAprovado), 2, ",", "."); ?></b></td>
+                <?php if($this->projeto->idMecanismo != 2 && $this->projeto->idMecanismo != 6) { ?>
+                <td align="center"><b><a href="<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'dados-bancarios-captacao'));?>?idPronac=<?php echo $this->idPronac; ?>" style="color: blue !important;"><?php echo @number_format($this->projeto->ValorCaptado, 2, ",", "."); ?></a></b></td>
+                <?php } else { ?>
+                <td align="center"><b><a href="<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'dados-convenio'));?>?idPronac=<?php echo $this->idPronac; ?>" style="color: blue !important;"><?php echo @number_format($this->projeto->ValorCaptado, 2, ",", "."); ?></a></b></td>
+                <?php } ?>
+
+                <?php if($this->projeto->idMecanismo != 2 && $this->projeto->idMecanismo != 6) { ?>
+                <td align="center"><b><?php echo @number_format((($this->projeto->ValorCaptado / $this->projeto->ValorAprovado)* 100), 2, ",", "."); ?></b></td>
+                <td align="center"><b><?php echo "<a href=\"#\" onclick=\"carregaDados('".$this->url(array('controller' => 'cidadao', 'action' => 'dados-relacao-pagamentos'))."?idPronac=".$this->idPronac."','conteudo'); return false\" title=\"Ir para Rela&ccedil;&atilde;o de Pagamentos\"> <font color=\"#0000FF\">". @number_format($this->projeto->vlComprovado, 2, ",", ".") ."</font></a>" ?></b></td>
+                <td align="center"><b><?php echo @number_format((($this->projeto->vlComprovado / $this->projeto->ValorCaptado)* 100), 2, ",", "."); ?></b></td>
+                <?php } ?>
+            </tr>
+ 
+	<!--<tr>
+                <td align="center"><b><font color="#009900"><?php //echo @number_format($this->valoresDoProjeto['fontesincentivo'], 2, ",", "."); ?></font></b></td>
+                <td align="center"><b><font color="#CC0000"><?php //echo @number_format($this->valoresDoProjeto['outrasfontes'], 2, ",", "."); ?></font></b></td>
+                <td align="center"><b><?php //echo "<a href=\"#\" onclick=\"carregaDados('".$this->url(array('controller' => 'cidadao', 'action' => 'planilha-orcamentaria'))."?idPronac=".$this->idPronac."','conteudo'); return false\" title=\"Ir para Planilha or&ccedil;ament&aacute;ria\"> <font color=\"#0000FF\">".@number_format(($this->valoresDoProjeto['valorproposta']), 2, ",", ".")."</font></a>"; ?></b></td>
+                <td align="center"><b><?php //echo "<a href=\"#\" onclick=\"carregaDados('".$this->url(array('controller' => 'cidadao', 'action' => 'analise-de-custo'))."?idPronac=".$this->idPronac."&tipoAnalise=".$this->linkplanilha."&telaprincipal=true','conteudo'); return false\" title=\"Ir para Planilha or&ccedil;ament&aacute;ria\"> <font color=\"#0000FF\">".@number_format(($this->valoresDoProjeto['valorcomponente']), 2, ",", ".")."</font></a>"; ?></b></td>
+                <td align="center"><b><?php //echo @number_format(($this->valoresDoProjeto['outrasfontes'] + $this->valoresDoProjeto['valorcomponente']), 2, ",", "."); ?></b></td>
+                <td align="center"><b><?php //echo @number_format(($this->totalGeralCaptado), 2, ",", "."); ?></b></td>
+            </tr>-->
+        </table>
+        <br clear="all" />
+
+        <?php if($this->projeto->idMecanismo != 2 && $this->projeto->idMecanismo != 6) { ?>
+            <?php
+                if(!empty($this->dadosProjeto->DtFimExecucao)){
+                    $classRed = null;
+                    if(new DateTime() > $this->dadosProjeto->DtFimExecucao){
+                        $classRed = 'style="color:red;"';
+                    }
+                }
+            ?>
+            <table class="tabela">
+                    <tr class="destacar">
+                        <td class="centro"><b>Dt. In&iacute;cio de Execu&ccedil;&atilde;o</b></td>
+                        <td class="centro"><b>Dt. Final de Execu&ccedil;&atilde;o</b></td>
+                    </tr>
+                    <tr>
+                        <td align="center" class="bold" <?php echo $classRed; ?>><?php echo !empty($this->dadosProjeto->DtInicioExecucao) ? Data::tratarDataZend($this->dadosProjeto->DtInicioExecucao, 'Brasileira') : '<em>Dados n&atilde;o informados!</em>'; ?></td>
+                        <td align="center" class="bold" <?php echo $classRed; ?>><?php echo !empty($this->dadosProjeto->DtInicioExecucao) ? Data::tratarDataZend($this->dadosProjeto->DtFimExecucao, 'Brasileira') : '<em>Dados n&atilde;o informados!</em>'; ?></td>
+                    </tr>
+            </table>
+        <?php } ?>
+        <br clear="all" />
+
+        <?php if($this->msgCNIC){ ?>
+        <div style="background-color: red; color: #fff; width: 90%; margin:   0 auto; font-size: 14px; padding: 7px;" class="bold centro">A T E N &Ccedil; &Atilde; O: Projeto em an&aacute;lise pela Comiss&atilde;o Nacional de Incentivo &agrave; Cultura-CNIC. Aguardar resultado da avalia&ccedil;&atilde;o.</div>
+        <?php } else { ?>
+        <table class="tabela">
+            <tr class="destacar">
+                <td align="center"><b>Dt.Situa��o</b></td>
+                <td align="center"><b>Situa��o</b></td>
+                <td align="center"><b>Provid&ecirc;ncia Tomada</b></td>
+                <td align="center"><b>Localiza&ccedil;&atilde;o atual do projeto</b></td>
+            </tr>
+            <tr>
+                <td align="center"><?php echo $this->projeto->DtSituacao; ?></td>
+                <td align="center"><?php echo $this->projeto->Situacao; ?></td>
+                <td style="text-align: justify"><?php echo $this->projeto->ProvidenciaTomada; ?></td>
+                <td align="center" class="bold"><?php echo $this->projeto->Origem; ?></td>
+            </tr>
+        </table>
+        <?php } ?>
+
+        <?php if(count($this->dadosArquivamentoProjeto)>0){ ?>
+        <fieldset>
+            <legend style="color: red !important;">Arquivado Definitivamente</legend>
+            <table class="tabela">
+                <tr class="destacar">
+                    <td align="center"><b>Dt.Arquivamento</b></td>
+                    <td align="center"><b>Cx.Inicial</b></td>
+                    <td align="center"><b>Cx.Final</b></td>
+                </tr>
+                <tr>
+                    <td align="center"><?php echo Data::tratarDataZend($this->dadosArquivamentoProjeto->Data, 'Brasileira'); ?></td>
+                    <td align="center"><?php echo $this->dadosArquivamentoProjeto->CaixaInicio; ?></td>
+                    <td align="center"><?php echo $this->dadosArquivamentoProjeto->CaixaFinal; ?></td>
+                </tr>
+            </table>
+        </fieldset>
+        <?php } ?>
+
+
+        <fieldset>
+            <legend>&Uacute;ltima tramita&ccedil;&atilde;o</legend>
+            <table class="tabela">
+                <tr class="destacar">
+                    <td align="center"><b>Emissor</b></td>
+                    <td align="center"><b>Dt.Envio</b></td>
+                    <td align="center"><b>Receptor</b></td>
+                    <td align="center"><b>Dt.Recebimento</b></td>
+                    <td align="center"><b>Estado</b></td>
+                    <td align="center"><b>Destino</b></td>
+                </tr>
+                <tr>
+                    <td align="center"><?php echo empty($this->projeto->Emissor) ? '<em>Dados n&atilde;o informados!</em>' : $this->projeto->Emissor; ?></td>
+                    <td align="center"><?php echo isset($this->projeto->DtTramitacaoEnvio) && !empty($this->projeto->DtTramitacaoEnvio) ? Data::tratarDataZend($this->projeto->DtTramitacaoEnvio, 'Brasileira', true) : '<em>Dados n&atilde;o informados!</em>'; ?></td>
+                    <td align="center"><?php echo empty($this->projeto->Receptor) ? '<em>Dados n&atilde;o informados!</em>' : $this->projeto->Receptor; ?></td>
+                    <td align="center"><?php echo isset($this->projeto->dtTramitacaoRecebida) && !empty($this->projeto->dtTramitacaoRecebida) ? Data::tratarDataZend($this->projeto->dtTramitacaoRecebida, 'Brasileira', true) : '<em>Dados n&atilde;o informados!</em>'; ?></td>
+                    <td align="center"><?php echo empty($this->projeto->Estado) ? '<em>Dados n&atilde;o informados!</em>' : $this->projeto->Estado; ?></td>
+                    <td align="center"><?php echo empty($this->projeto->Destino) ? '<em>Dados n&atilde;o informados!</em>' : $this->projeto->Destino; ?></td>
+                </tr>
+                <tr class="destacar">
+                    <td colspan="6" align="center"><b>Despacho</b></td>
+                </tr>
+                <tr>
+                    <td colspan="6" align="left"><?php echo empty($this->projeto->meDespacho) ? '<center><em>Dados n&atilde;o informados!</em></center>' : $this->projeto->meDespacho; ?></td>
+                </tr>
+
+            </table>
+        </fieldset>
+        <fieldset>
+            <legend>S&iacute;ntese do projeto</legend>
+            <table class="tabela">
+                <tr>
+                    <td align="left"><?php echo empty($this->projeto->ResumoProjeto) ? '<em>Dados n&atilde;o informados!</em>' : $this->projeto->ResumoProjeto; ?></td>
+                </tr>
+            </table>
+        </fieldset>
+
+        <?php if($this->projeto->idMecanismo != 2 && $this->projeto->idMecanismo != 6) { ?>
+        <fieldset>
+            <legend>Objetivo</legend>
+            <table class="tabela">
+                <?php if(is_array($this->itensGeral) and isset($this->itensGeral[0]->Objetivos)){ ?>
+                <tr align="left">
+                    <td><?php echo (trim(strip_tags($this->itensGeral[0]->Objetivos)) != "")?strip_tags($this->itensGeral[0]->Objetivos,"<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>"):"<em>Dados n&atilde;o informados!</em>"; ?></td>
+                </tr>
+                <?php }else{?>
+                <tr>
+                    <td><em>Dados n&atilde;o informados!</em></td>
+                </tr>
+                <?php }?>
+            </table>
+        </fieldset>
+
+        <fieldset>
+            <legend>Justificativa</legend>
+            <table class="tabela">
+                <?php if(is_array($this->itensGeral) and isset($this->itensGeral[0]->Justificativa)){ ?>
+                <tr align="left">
+                    <td><?php echo (trim(strip_tags($this->itensGeral[0]->Justificativa)) != "")?strip_tags($this->itensGeral[0]->Justificativa,"<b></b><ul></ul><li></li><strong></strong><i></i><p></p><br>"):"<em>Dados n&atilde;o informados!</em>";  ?></td>
+                </tr>
+                <?php }else{?>
+                <tr>
+                    <td><em>Dados n&atilde;o informados!</em></td>
+                </tr>
+                <?php }?>
+            </table>
+        </fieldset>
+        <?php } ?>
+    </div>
+
+    <!--<table class="tabela">
+        <tr>
+            <td align="center">
+                <input type="button" value=" " class="btn_pdf" style="width: 44px;" onclick="redirecionar('<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'gerarpdf')); ?>?idPronac=<?php echo $this->idpronac?>');">
+            </td>
+        </tr>
+    </table>-->
+</div>
+<!-- ========== FIM CONTEUDO ========== -->
+<!-- ========== INICIO RODAPE DO CONTEUDO ========== -->
+<div id="rodapeConteudo"><span></span></div>
+<!-- ========== FIM RODAPE DO CONTEUDO ========== -->
+<br clear="all" />
+    <?php
+}
+?>

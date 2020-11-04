@@ -1,0 +1,275 @@
+<?php echo $this->partial('verprojetos/inc/menu.dados.bancarios.php', $this) // menu de consultar dados do projeto - dados bancarios ?>
+
+<script type="text/javascript">
+    function abrirDinamico(elemento, obj) {
+        if($(elemento).css('display') == 'none') {
+            $(elemento).fadeIn('fast', function() {
+                $('img', $(obj)).attr('src','<?php echo $this->baseUrl(); ?>/public/img/navigation-right.png');
+            });
+        } else {
+            $(elemento).fadeOut('fast', function() {
+                $('img', $(obj)).attr('src','<?php echo $this->baseUrl(); ?>/public/img/navigation-baixo.PNG');
+            });
+        }
+    }
+
+    $(document).ready(function(){
+        $("#btn_pesquisar").click(function(){
+            $('#formPesquisa').submit();
+        });
+
+        $('.btn_imprimir').click(function(){
+            $('#formImpressao').submit();
+        });
+
+        $('#dtReciboInicio, #dtReciboFim').keydown(function(event){
+            if(event.keyCode == 13){
+                $("#btn_pesquisar").click();
+            }
+        });
+
+    });
+
+</script>
+
+<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<div id="breadcrumb">
+    <ul>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'consultar')); ?>" title="Ir para In&iacute;cio">In&iacute;cio</a></li>
+        <li class="second"><a href="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'index'), '', true); ?>?idPronac=<?php echo $this->idPronac; ?>" title="Consultar dados projeto">Consultar dados projeto</a></li>
+        <li>Dados banc&aacute;rios</li>
+        <li class="last">Capta&ccedil;&atilde;o</li>
+    </ul>
+</div>
+<!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
+
+
+<!-- ========== INÍCIO TÍTULO ========== -->
+<div id="titulo">
+    <div>Capta&ccedil;&atilde;o</div>
+</div>
+
+
+<!-- ========== INÍCIO CONTEÚDO ========== -->
+<div id="conteudo">
+    <table class="tabela">
+        <tr class="destacar">
+            <td align="center"><b>PRONAC</b></td>
+            <td align="center"><b>Nome do Projeto</b></td>
+        </tr>
+        <tr>
+            <td align="center"><?php echo $this->projeto->AnoProjeto.$this->projeto->Sequencial; ?></td>
+            <td align="center"><?php echo $this->projeto->NomeProjeto; ?></td>
+        </tr>
+    </table>
+
+
+    <form name="formPesquisa" id="formPesquisa" action="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao'));?>" method="get">
+        <table class="tabela">
+            <tr onclick="abrirDinamico('.divFiltroPesquisa', $(this))" style="cursor:pointer">
+                <th colspan="8">
+                    <img src="<?php echo $this->baseUrl();?>/public/img/navigation-right.png" id="imgDinamica" align="left"/>
+                    Filtro de Pesquisa
+                </th>
+            </tr>
+            <tr class="divFiltroPesquisa">
+                <td class="destacar bold w100">Dt. Capta&ccedil;&atilde;o</td>
+                <td>
+                    <input type="text" name="dtReciboInicio" id="dtReciboInicio" class="input_simples w100" maxlength="10"onkeyup="mascara(this, format_data);" onclick="limpar_campo(this, '');" onblur="restaurar_campo(this, '');" type="text" value="<?php echo $this->dtReciboInicio; ?>">&nbsp;até&nbsp;
+                    <input type="text" name="dtReciboFim" id="dtReciboFim" class="input_simples w100" maxlength="10" onkeyup="mascara(this, format_data);" onclick="limpar_campo(this, '');" onblur="restaurar_campo(this, '');" type="text" value="<?php echo $this->dtReciboFim; ?>">
+                    <input type="hidden" class="input_simples" name="idPronac" value="<?php echo $this->idPronac; ?>">
+                    <input type="button" name="btn_pesquisar" id="btn_pesquisar" class="btn_pesquisar" value="">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <?php if(count($this->dados)>0){ ?>
+    <!-- ============ PAGINAÇÃO ============ -->
+    <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
+        <tbody>
+            <tr>
+                <td align="center">
+                <form name="form1" id="form1" action="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao'));?>" method="get">
+                    <?php if($this->paginacao['pag']>1) { ?>
+                    <input class="btn_inicio" id="btn_inicio" type="button" class="btn_inicio"
+                           onclick="location.href='<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag=1'."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac; ?>'">
+                    <?php } ?>
+                    <input id="btn_p_anterior" type="button"
+                    <?php if($this->paginacao['pag']<=1) { ?> class="btn_p_anterior-off"
+                    <?php }else { ?>
+                           class="btn_p_anterior" onclick="location.href='<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag='.($this->paginacao['pag'] - 1)."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac; ?>'"
+                    <?php } ?>>
+                    <input id="btn_p_proximo" type="button"
+                           <?php if($this->paginacao['pag']+1 > $this->paginacao['totalPag']) { ?>
+                           class="btn_p_proximo-off"
+                    <?php }else { ?>
+                           class="btn_p_proximo" onclick="location.href='<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag='.($this->paginacao['pag'] + 1)."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac; ?>'"
+                    <?php } ?>>
+                    <?php if($this->paginacao['pag'] < $this->paginacao['totalPag']) { ?>
+                    <input class="btn_ultimo" id="btn_ultimo" type="button"
+                           onclick="location.href='<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac; ?>'">
+                    <?php } ?>
+                    Pág.:<select name="pag" id="pag" onchange="$('#form1').submit()" class="input_simples">
+                        <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
+                        <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
+                        <?php endfor; ?>
+                    </select>
+                    &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                    <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
+                    <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
+                    <input type="hidden" name="dtReciboInicio" value="<?php echo $this->dtReciboInicio;?>">
+                    <input type="hidden" name="dtReciboFim" value="<?php echo $this->dtReciboFim;?>">
+                    <input type="hidden" name="idPronac" value="<?php echo $this->idPronac;?>">
+                    <input type="button" class="btn_imprimir">
+                 </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <center>
+        <?php
+            echo $this->paginacao['inicio']." a ";
+            echo ($this->paginacao['pag']-1)*$this->paginacao['Itenspag'] + $this->paginacao['tamanho'];
+            echo " de ". $this->paginacao['total']. " Projetos listados";
+        ?>
+    </center>
+    <!-- ========== FIM PAGINAÇÃO ========== -->
+    <?php } ?>
+
+
+    <?php if($this->qtd > 0){ ?>
+    <table class="tabela tablesorter">
+        <thead>
+            <tr class="titulo_tabela">
+                <th><a href="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag=1&qtde='.$this->paginacao['qtde'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac.'&campo=8&ordem='.$this->paginacao['novaOrdem'];?>">Incentivador</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag=1&qtde='.$this->paginacao['qtde'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac.'&campo=2&ordem='.$this->paginacao['novaOrdem'];?>">Nr. Recibo</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag=1&qtde='.$this->paginacao['qtde'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac.'&campo=6&ordem='.$this->paginacao['novaOrdem'];?>">Tipo de apoio</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag=1&qtde='.$this->paginacao['qtde'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac.'&campo=4&ordem='.$this->paginacao['novaOrdem'];?>">Dt. Capta&ccedil;&atilde;o</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag=1&qtde='.$this->paginacao['qtde'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac.'&campo=3&ordem='.$this->paginacao['novaOrdem'];?>">Dt. Transfer&ecirc;ncia</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag=1&qtde='.$this->paginacao['qtde'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">Vl. Captado</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag=1&qtde='.$this->paginacao['qtde'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">% Captado</a></th>
+                <th><a href="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag=1&qtde='.$this->paginacao['qtde'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac.'&campo=5&ordem='.$this->paginacao['novaOrdem'];?>">BEM/SERVIÇO</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            	$vlTotal=0;
+            	$cnpjcpf=0;
+            	foreach ($this->dados as $d) {
+			?>
+            <tr>
+                <td>
+                	<a  target="blank"
+                	>
+                		<?php echo($d->CgcCPfMecena != $cnpjcpf) ? $d->Nome : '';  ?>
+                	</a>
+                </td>
+                <td><?php echo $d->NumeroRecibo; ?></td>
+                <td><?php echo $d->TipoApoio; ?></td>
+                <td align="center"><?php echo (!empty($d->DtRecibo)) ? Data::tratarDataZend($d->DtRecibo, 'Brasileira') : ''; ?></td>
+                <td align="center"><?php echo (!empty($d->DtTransferenciaRecurso)) ? Data::tratarDataZend($d->DtTransferenciaRecurso, 'Brasileira') : ''; ?></td>
+                <td align="right"><?php echo 'R$ '.@number_format(($d->CaptacaoReal), 2, ",", "."); ?></td>
+                <td align="right"><?php echo @number_format((($d->CaptacaoReal / ($d->ValorCaptado))* 100), 2, ",", "."); ?></td>
+                <td align="center"><?php echo $d->isBemServico ? 'Sim' : 'N&atilde;o'; ?></td>
+            </tr>
+            <?php $cnpjcpf=$d->CgcCPfMecena; $vlTotal=$vlTotal+$d->CaptacaoReal; } ?>
+        </tbody>
+    </table>
+
+    <br clear="all" />
+
+    <table class="tabela">
+        <tr>
+            <td align="right" style="font-size: 16px; color: #333; font-weight: bold;">Total Captado</td>
+            <td align="right" width="140px" style="font-size: 14px; color: #333; font-weight: bold;" nowrap><?php echo 'R$ '.number_format($vlTotal, 2, ",", "."); ?></td>
+        </tr>
+        <tr>
+            <td align="right" style="font-size: 16px; color: #666; font-weight: bold;">Total % Captado</td>
+            <td align="right" width="140px" style="font-size: 14px; color: #666; font-weight: bold;" nowrap>
+                <?php $percentualCaptado = @number_format((($vlTotal / ($d->OutrasFontes + $d->ValorAprovado))* 100), 2, ",", "."); ?>
+                <?php echo $percentualCaptado.'%'; ?>
+            </td>
+        </tr>
+    </table>
+
+    <?php if(count($this->dados)>0){ ?>
+
+        <!-- ============ PAGINAÇÃO ============ -->
+        <?php if($this->qtd > 10) { //echo $this->dados; ?>
+        <center>
+            <?php
+                echo $this->paginacao['inicio']." a ";
+                echo ($this->paginacao['pag']-1)*$this->paginacao['Itenspag'] + $this->paginacao['tamanho'];
+                echo " de ". $this->paginacao['total'];
+            ?>
+        </center>
+        <table class="tabela" style="width: 97%;" border="0" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td align="center">
+                    <form name="form2" id="form2" action="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao'));?>" method="get">
+                        <?php if($this->paginacao['pag']>1) { ?>
+                        <input class="btn_inicio" id="btn_inicio" type="button" class="btn_inicio"
+                               onclick="location.href='<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag=1'."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac; ?>'">
+                        <?php } ?>
+                        <input id="btn_p_anterior" type="button"
+                        <?php if($this->paginacao['pag']<=1) { ?> class="btn_p_anterior-off"
+                        <?php }else { ?>
+                               class="btn_p_anterior" onclick="location.href='<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag='.($this->paginacao['pag'] - 1)."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac; ?>'"
+                        <?php } ?>>
+                        <input id="btn_p_proximo" type="button"
+                               <?php if($this->paginacao['pag']+1 > $this->paginacao['totalPag']) { ?>
+                               class="btn_p_proximo-off"
+                        <?php }else { ?>
+                               class="btn_p_proximo" onclick="location.href='<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag='.($this->paginacao['pag'] + 1)."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac; ?>'"
+                        <?php } ?>>
+                        <?php if($this->paginacao['pag'] < $this->paginacao['totalPag']) { ?>
+                        <input class="btn_ultimo" id="btn_ultimo" type="button"
+                               onclick="location.href='<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'dados-bancarios-captacao')).'?pag='.($this->paginacao['totalPag'])."&qtde=".$this->paginacao['qtde'].$this->paginacao['ordenacao'].'&dtReciboInicio='.$this->dtReciboInicio.'&dtReciboFim='.$this->dtReciboFim.'&idPronac='.$this->idPronac; ?>'">
+                        <?php } ?>
+                        Pág.:<select name="pag" id="pag" onchange="$('#form2').submit()" class="input_simples">
+                            <?php for($i=1; $i<=$this->paginacao['totalPag']; $i++):?>
+                            <option value="<?php echo $i;?>" <?php if($this->paginacao['pag'] == $i) echo "selected";?>><?php echo $i;?>&nbsp;</option>
+                            <?php endfor; ?>
+                        </select>
+                        &nbsp;Registros por página:<input type="text" size="1" name="qtde" id="qtde" class="input_simples" value="<?php echo $this->intTamPag;?>"><input type="submit" class="btn_recarregar" value="">
+                        <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
+                        <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
+                        <input type="hidden" name="dtReciboInicio" value="<?php echo $this->dtReciboInicio;?>">
+                        <input type="hidden" name="dtReciboFim" value="<?php echo $this->dtReciboFim;?>">
+                        <input type="hidden" name="idPronac" value="<?php echo $this->idPronac;?>">
+                        <input type="button" class="btn_imprimir">
+                     </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- ========== FIM PAGINAÇÃO ========== -->
+
+    <?php } } ?>
+
+
+    <?php } else { ?>
+    <table class="tabela">
+        <tr>
+            <td align="center">Nenhum registro encontrado.</td>
+        </tr>
+    </table>
+    <?php } ?>
+    <br clear="all" />
+
+    <form target="_blank" class="form" name="formImpressao" id="formImpressao" method="post" action='<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'imprimir-dados-bancarios-captacao')); ?>'>
+        <input type="hidden" name="campo" value="<?php echo $this->paginacao['campo'];?>">
+        <input type="hidden" name="ordem" value="<?php echo $this->paginacao['ordem'];?>">
+        <input type="hidden" name="dtReciboInicio" value="<?php echo $this->dtReciboInicio;?>">
+        <input type="hidden" name="dtReciboFim" value="<?php echo $this->dtReciboFim;?>">
+        <input type="hidden" name="idPronac" value="<?php echo $this->idPronac;?>">
+        <input type="hidden" name="qtde" id="qtde" value="<?php echo $this->intTamPag;?>">
+    </form>
+</div>
+
+<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<div id="rodapeConteudo"><span></span></div>
+<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<br clear="all" />
