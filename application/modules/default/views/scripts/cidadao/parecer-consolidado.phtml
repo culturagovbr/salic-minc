@@ -68,7 +68,7 @@
     
 </script>
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INï¿½CIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Parecer consolidado</div>
 </div>
@@ -89,7 +89,7 @@
         <tr class="destacar">
             <td><b>Enquadramento</b></td>
             <td><b>Tipo do Parecer</b></td>
-            <td><b>Parecer Favorável?</b></td>
+            <td><b>Parecer Favorï¿½vel?</b></td>
             <td><b>Dt. Parecer</b></td>
             <td><b>Sugerido Real</b></td>
         </tr>
@@ -118,15 +118,15 @@
             <td align="right"><span style="color: blue; font-weight: bold;"><?php echo $this->formatarReal($this->memoriaDeCalculo[0]->ValorProposta); ?></span></td>
         </tr>
         <tr>
-            <td align="right" class="destacar bold">Valor do Parecer Técnico (D)</td>
+            <td align="right" class="destacar bold">Valor do Parecer Tï¿½cnico (D)</td>
             <td align="right"><?php echo $this->formatarReal($this->memoriaDeCalculo[0]->ValorParecer); ?></td>
         </tr>
         <tr>
-            <td align="right" class="destacar bold">Valor de Elaboração e Agenciamento (E)</td>
+            <td align="right" class="destacar bold">Valor de Elaboraï¿½ï¿½o e Agenciamento (E)</td>
             <td align="right"><?php echo $this->formatarReal($this->memoriaDeCalculo[0]->Elaboracao); ?></td>
         </tr>
         <tr>
-            <td align="right" class="destacar bold">Valor Sugerido para Aprovação (F = D + E)</td>
+            <td align="right" class="destacar bold">Valor Sugerido para Aprovaï¿½ï¿½o (F = D + E)</td>
             <td align="right">
                 <!--<img class="btnMais" src="<?php echo $this->baseUrl(); ?>/public/img/icn_mais.gif"/>-->
                 <input type="button" class="btn_adicionar" id="planilha" onclick="mostraOcultaElemento('planilha');" />
@@ -269,7 +269,7 @@
                                         </table>
                                     </td>
                                 </tr>
-                                <?
+                                <?php 
                                 $nretapa++;
                             } //fechaForeachetapa
                             ?>
@@ -286,7 +286,7 @@
                                     </table>
                                 </td>
                             </tr>
-                            <? $nrproduto++; 
+                            <?php $nrproduto++; 
                         } //fechaForeachproduto
                         ?>
                         <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>"  fonte="<?php echo $nrfonte; ?>">
@@ -302,7 +302,7 @@
                                 </table>
                             </td>
                         </tr>
-                        <? $nrfonte++;
+                        <?php $nrfonte++;
                     }//fechaForeachFonteIncentivo
                     ?>
                     <?php if(is_array($this->planilha) && count($this->planilha)>0): ?>
@@ -358,7 +358,7 @@
     <?php if(count($this->identificacaoParecerConsolidado)>0){ ?>
     <table class="tabela">
         <tr class="destacar bold">
-            <td align="center">Parecer Técnico</td>
+            <td align="center">Parecer Tï¿½cnico</td>
         </tr>
         <tr>
             <td style="text-align: justify;"><?php echo $this->identificacaoParecerConsolidado[0]->ResumoParecer; ?></td>
@@ -369,7 +369,7 @@
 </div>
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INï¿½CIO RODAPï¿½ DO CONTEï¿½DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPï¿½ DO CONTEï¿½DO ========== -->
 <br clear="all" />
