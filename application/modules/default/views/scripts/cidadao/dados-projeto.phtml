@@ -54,7 +54,7 @@
     });
 </script>
 
-<!-- ========== INÍCIO TÍTULO ========== -->
+<!-- ========== INï¿½CIO Tï¿½TULO ========== -->
 <div id="titulo">
     <div>Dados do Projeto</div>
 </div>
@@ -77,7 +77,7 @@
             <td colspan="2"><?php echo $this->dados->Proponente; ?></td>
         </tr>
 
-        <!----------------------------------Bloco de Informaï¿½ï¿½es: UF / Mecanismo / área / Segmento / Processo---------------------------------------------->
+        <!----------------------------------Bloco de Informaï¿½ï¿½es: UF / Mecanismo / ï¿½rea / Segmento / Processo---------------------------------------------->
 
 
         <tr class="titulo_tabela">
@@ -135,7 +135,7 @@
             <td colspan="5" class= "tabelaprincipal"><?php echo $this->dados->Acessibilidade; ?></td>
         </tr>
         
-        <th colspan="5">Democratização de Acesso</th>
+        <th colspan="5">Democratizaï¿½ï¿½o de Acesso</th>
         <tr>
             <td colspan="5" class= "tabelaprincipal"><?php echo $this->dados->DemocratizacaoDeAcesso; ?></td>
         </tr>
@@ -145,12 +145,12 @@
             <td colspan="5" class= "tabelaprincipal"><?php echo $this->dados->EtapaDeTrabalho; ?></td>
         </tr>
         
-        <th colspan="5">Ficha Técnica</th>
+        <th colspan="5">Ficha Tï¿½cnica</th>
         <tr>
             <td colspan="5" class= "tabelaprincipal"><?php echo $this->dados->FichaTecnica; ?></td>
         </tr>
         
-        <th colspan="5">Planilha Orçamentária</th>
+        <th colspan="5">Planilha Orï¿½amentï¿½ria</th>
         <tr>
             <td colspan="5">
                 
@@ -287,7 +287,7 @@
                                         </table>
                                     </td>
                                 </tr>
-                                <?
+                               <?php 
                                 $nretapa++;
                             } //fechaForeachetapa
                             ?>
@@ -304,7 +304,7 @@
                                     </table>
                                 </td>
                             </tr>
-                            <? $nrproduto++; 
+                            <?php $nrproduto++; 
                         } //fechaForeachproduto
                         ?>
                         <tr class="master produto etapa cidade" produto="<?php echo $nrproduto; ?>"  fonte="<?php echo $nrfonte; ?>">
@@ -320,7 +320,7 @@
                                 </table>
                             </td>
                         </tr>
-                        <? $nrfonte++;
+                        <?php $nrfonte++;
                     }//fechaForeachFonteIncentivo
                     ?>
                     <?php if(is_array($this->planilha) && count($this->planilha)>0): ?>
@@ -351,7 +351,7 @@
 </div>
 
 
-<!-- ========== INÍCIO RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== INï¿½CIO RODAPï¿½ DO CONTEï¿½DO ========== -->
 <div id="rodapeConteudo"><span></span></div>
-<!-- ========== FIM RODAPÉ DO CONTEÚDO ========== -->
+<!-- ========== FIM RODAPï¿½ DO CONTEï¿½DO ========== -->
 <br clear="all" />
