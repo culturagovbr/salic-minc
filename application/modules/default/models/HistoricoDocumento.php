@@ -286,8 +286,6 @@ class HistoricoDocumento extends MinC_Db_Table_Abstract
         
         return $this->fetchAll($select);
     }
-    
-    
 
     public function alterarHistoricoDocumento($dados, $where)
     {
