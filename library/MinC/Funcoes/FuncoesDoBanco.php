@@ -3,7 +3,7 @@
 class FuncoesDoBanco 
 {
 
-	//Função do Banco de Dados fnFormataProcesso
+	//Funï¿½ï¿½o do Banco de Dados fnFormataProcesso
     public static function fnFormataProcesso($processo)
 	{
         
@@ -30,7 +30,7 @@ class FuncoesDoBanco
 			
 	}
 	
-	/* Função do banco para retornar o nome do usuário 
+	/* Funï¿½ï¿½o do banco para retornar o nome do usuï¿½rio 
 	 * Usar FuncoesDoBanco::fnNomeUsuario($id);
 	 * Retorna String Nome
 	 * 
@@ -58,7 +58,7 @@ class FuncoesDoBanco
 	}
 
 	
-	/* Função do banco fnOutrasFontes 
+	/* Funï¿½ï¿½o do banco fnOutrasFontes 
 	 * Usar FuncoesDoBanco::fnOutrasFontes($idPronac);
 	 * Retorna Float valor
 	 * 

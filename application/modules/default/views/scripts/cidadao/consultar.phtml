@@ -142,7 +142,7 @@ function parseUrlWithParams($url, $params = array()) {
 <!-- ========== INICIO BREADCRUMB (LINKS TOPO) ========== -->
 <!--div id="breadcrumb">
     <ul>
-        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para Inï¿½cio">Início</a></li>
+        <li class="first"><a href="<?php echo $this->url(array('controller' => 'principal', 'action' => '')); ?>" title="Ir para Inï¿½cio">Inï¿½cio</a></li>
         <li class="last">Lista de Projetos</li>
     </ul>
 </div-->
@@ -318,7 +318,7 @@ function parseUrlWithParams($url, $params = array()) {
                 <?php foreach($this->dados as $d){ ?>
                 <tr>
                     <td align="center" class="w100">
-                        <a href="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'index'));?>?idPronac=<?php echo Seguranca::encrypt($d->idPronac); ?>" target="_blank">
+                        <a href="<?php echo $this->url(array('controller' => 'cidadao', 'action' => 'index'));?>?idPronac=<?php echo Seguranca::encrypt($d->idPronac); ?>" target="_blank">
                             <?php echo $d->Pronac; ?>
                         </a>
                     </td>

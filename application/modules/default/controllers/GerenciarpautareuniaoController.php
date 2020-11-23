@@ -1402,6 +1402,7 @@ class GerenciarPautaReuniaoController extends MinC_Controller_Action_Abstract
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $idPronac = $_POST['idpronac'];
         $idReadequacao = $_POST['idreadequacao'];
+        $tbReadequacaoXParecer = new Readequacao_Model_DbTable_TbReadequacaoXParecer();
 
         $Readequacao_Model_DbTable_TbReadequacao = new Readequacao_Model_DbTable_TbReadequacao();
         $dadosReadequacao = $Readequacao_Model_DbTable_TbReadequacao->buscar(array('idPronac=?'=>$idPronac, 'idReadequacao=?'=>$idReadequacao, 'siEncaminhamento in (?)'=>array(8,9), 'stEstado=?'=>0))->current();

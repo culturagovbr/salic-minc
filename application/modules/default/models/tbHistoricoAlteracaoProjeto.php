@@ -13,6 +13,8 @@ class tbHistoricoAlteracaoProjeto extends MinC_Db_Table_Abstract
 {
     protected $_banco = "SAC";
     protected $_name = "tbHistoricoAlteracaoProjeto";
+    protected $_primary = 'idHistoricoAlteracaoProjeto';
+    protected $_schema = 'sac';
 
     public function listadocumentosanexados($where=array())
     {
