@@ -1113,7 +1113,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function redistribuiranaliseAction()
     {
-        set_time_limit(120);
+        set_time_limit(120); /* Ajuste dop timeout, consulta muito demorada*/
         $orgao = new Orgaos();
         $vwPainelAvaliar = new Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas();
         $orgao = $orgao->codigoOrgaoSuperior($this->codOrgao);
