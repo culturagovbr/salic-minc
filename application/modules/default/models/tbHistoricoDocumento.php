@@ -4,7 +4,11 @@ class tbHistoricoDocumento extends MinC_Db_Table_Abstract
 {
     protected $_banco = "SAC";
     protected $_name = "tbHistoricoDocumento";
-
+    protected $_primary = 'idHistorico';
+    protected $_schema = 'sac';
+    
+    /* Ajuste no Tramitar Documentos - Erro*/
+    
     /**
      * Retorna registros do banco de dados
      * @param array $where - array com dados where no formato "nome_coluna_1"=>"valor_1","nome_coluna_2"=>"valor_2"

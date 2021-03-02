@@ -1,14 +1,21 @@
 <?php
 
 /**
-    @todo remover essa controller e codigo e enviar para o ver salic
+  @todo remover essa controller e codigo e enviar para o ver salic
  */
+class CidadaoController extends MinC_Controller_Action_Abstract {
 
+    private $blnProponente = false;
+    private $blnProcurador = false;
+    private $intFaseProjeto = 0;
+    private $intTamPag = 10;
+    protected $cpfLogado = 0;
+    protected $idResponsavel = 0;
+    protected $idAgente = 0;
+    private $bln_readequacao = "false";
+    private $idPreProjeto = 0;
 
-class CidadaoController extends MinC_Controller_Action_Abstract
-{
-    public function init()
-    {
+    public function init() {
         parent::init(); // chama o init() do pai GenericControllerNew
         $this->intTamPag = 10;
         $this->usuarioInterno = false;
@@ -35,13 +42,11 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         parent::init();
     }
 
-    public function indexAction()
-    {
+    public function indexAction() {
         $this->redirect('/cidadao/consultar');
     }
 
-    public function consultarAction()
-    {
+    public function consultarAction() {
 
         #Pedro - Criando a variavel de Sessao para Usar na impressao PDF
         $sess = new Zend_Session_Namespace('Filtro_de_Pesquisa');
@@ -58,7 +63,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract
             $raberta = null;  // Fernao: permite n�o filtrar
             $this->view->idNrReuniaoConsulta = null;
         } else {
-            $raberta = $reuniao->buscarReuniaoPorId($idNrReuniaoConsulta);//idNrReuniao
+            $raberta = $reuniao->buscarReuniaoPorId($idNrReuniaoConsulta); //idNrReuniao
             $this->view->idNrReuniaoConsulta = $raberta->idNrReuniao;
         }
         $this->view->reuniao = $raberta;
@@ -93,7 +98,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         //==== campo de ordenacao  ======//
         if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
-            $ordenacao = "&campo=".$campo;
+            $ordenacao = "&campo=" . $campo;
             $urlComplement[] = "campo=$campo";
             $urlComplement[] = "ordem=$ordem";
             $sess->campo = $campo;
@@ -109,7 +114,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract
 
         $order = array("$campo $ordem");
 
-        /* ================== PAGINACAO ======================*/
+        /* ================== PAGINACAO ====================== */
         $where = array();
         $where["stAtivo = ?"] = 1;
 
@@ -131,7 +136,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         }
         if ($this->_request->getParam("ProponenteConsulta")) {
             $ProponenteConsulta = $this->_request->getParam("ProponenteConsulta");
-            $where["y.Descricao LIKE ?"] = "%" . $ProponenteConsulta. "%";
+            $where["y.Descricao LIKE ?"] = "%" . $ProponenteConsulta . "%";
             $this->view->proponente = $ProponenteConsulta;
             $urlComplement[] = "ProponenteConsulta=$ProponenteConsulta";
             $sess->ProponenteConsulta = $ProponenteConsulta;
@@ -160,37 +165,36 @@ class CidadaoController extends MinC_Controller_Action_Abstract
             $sess->qtde = $this->intTamPag;
         }
         $pag = 1;
-        $post  = Zend_Registry::get('get');
+        $post = Zend_Registry::get('get');
         if (isset($post->pag)) {
             $pag = $post->pag;
         }
-        $offset = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
+        $offset = ($pag > 1) ? ($pag - 1) * $this->intTamPag : 0;
         $objTotal = $Projetos->countProjetosCnicOpinioesPorIdReuniao($idNrReuniao, $where, $ordem, false, false);
         $total = $objTotal['total'];
         $fim = $offset + $this->intTamPag;
-        $totalPag = (int)(($total % $this->intTamPag == 0)?($total/$this->intTamPag):(($total/$this->intTamPag)+1));
+        $totalPag = (int) (($total % $this->intTamPag == 0) ? ($total / $this->intTamPag) : (($total / $this->intTamPag) + 1));
         $limit = ($fim > $total) ? $total - $offset : $this->intTamPag;
 
         $paginacao = array(
-            "pag"=>$pag,
-            "qtde"=>$this->intTamPag,
-            "campo"=>$campo,
-            "ordem"=>$ordem,
-            "ordenacao"=>$ordenacao,
-            "novaOrdem"=>$novaOrdem,
-            "total"=>$total,
-            "inicio"=>($offset+1),
-            "fim"=>$fim,
-            "totalPag"=>$totalPag,
-            "Itenspag"=>$this->intTamPag,
-            "tamanho"=>$limit
+            "pag" => $pag,
+            "qtde" => $this->intTamPag,
+            "campo" => $campo,
+            "ordem" => $ordem,
+            "ordenacao" => $ordenacao,
+            "novaOrdem" => $novaOrdem,
+            "total" => $total,
+            "inicio" => ($offset + 1),
+            "fim" => $fim,
+            "totalPag" => $totalPag,
+            "Itenspag" => $this->intTamPag,
+            "tamanho" => $limit
         );
 
         $busca = $Projetos->projetosCnicOpinioesPorIdReuniao($idNrReuniao, $where, $order, $limit, $offset);
 
         // gera url completa com paginacao e vari�veis
         $strUrlComplement = '';   // campo texto vazio
-
         // se houver complementos
         if (!empty($urlComplement)) {
             $first = true;
@@ -205,13 +209,13 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         }
 
         $this->view->urlComplement = $strUrlComplement;
-        $this->view->paginacao     = $paginacao;
+        $this->view->paginacao = $paginacao;
         $this->view->qtdRegistros = $total;
         $this->view->dados = $busca;
         $this->view->novaOrdem = $novaOrdem;
         $this->view->ordem = $ordem;
         $this->view->campo = $campo;
-        $this->view->intTamPag     = $this->intTamPag;
+        $this->view->intTamPag = $this->intTamPag;
 
         $this->view->intranet = false;
         if (isset($_GET['intranet'])) {
@@ -219,10 +223,9 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         }
     }
 
-    public function imprimirListagemAction()
-    {
+    public function imprimirListagemAction() {
 
-    #Pedro - recuperando a Sessao Salva da pesquisa
+        #Pedro - recuperando a Sessao Salva da pesquisa
         $sess = new Zend_Session_Namespace('Filtro_de_Pesquisa');
 
         $idNrReuniaoConsulta = $this->_request->getParam("idNrReuniaoConsulta") ? $this->_request->getParam("idNrReuniaoConsulta") : null;
@@ -232,7 +235,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract
             $raberta = null;
             $this->view->idNrReuniaoConsulta = null;
         } else {
-            $raberta = $reuniao->buscarReuniaoPorId($idNrReuniaoConsulta);//idNrReuniao
+            $raberta = $reuniao->buscarReuniaoPorId($idNrReuniaoConsulta); //idNrReuniao
             $this->view->idNrReuniaoConsulta = $raberta->idNrReuniao;
         }
         $this->view->reuniao = $raberta;
@@ -254,8 +257,8 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         //==== campo de ordenacao  ======//
         if ($sess->campo) {
             $campo = $sess->campo;
-            $order = array($campo." ".$ordem);
-            $ordenacao = "&campo=".$campo."&ordem=".$ordem;
+            $order = array($campo . " " . $ordem);
+            $ordenacao = "&campo=" . $campo . "&ordem=" . $ordem;
         } else {
             $campo = null;
             $order = array('2 DESC');
@@ -279,7 +282,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         }
         if ($sess->ProponenteConsulta) {
             $ProponenteConsulta = $sess->ProponenteConsulta;
-            $where["y.Descricao LIKE ?"] = "%" . $ProponenteConsulta. "%";
+            $where["y.Descricao LIKE ?"] = "%" . $ProponenteConsulta . "%";
             $this->view->proponente = $ProponenteConsulta;
         }
         if ($sess->NomeProjetoConsulta) {
@@ -305,14 +308,14 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         $total = $objTotal['total'];
 
         $pag = 1;
-        $post  = Zend_Registry::get('get');
+        $post = Zend_Registry::get('get');
 
         if (isset($sess->pag)) {
             $pag = $sess->pag;
         }
-        $offset = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
+        $offset = ($pag > 1) ? ($pag - 1) * $this->intTamPag : 0;
         $fim = $offset + $this->intTamPag;
-        $totalPag = (int)(($total % $this->intTamPag == 0)?($total/$this->intTamPag):(($total/$this->intTamPag)+1));
+        $totalPag = (int) (($total % $this->intTamPag == 0) ? ($total / $this->intTamPag) : (($total / $this->intTamPag) + 1));
         $limit = ($fim > $total) ? $total - $offset : $this->intTamPag;
 
         $busca = $Projetos->projetosCnicOpinioesPorIdReuniao($idNrReuniao, $where, $order, $limit, $offset);
@@ -330,8 +333,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
     }
 
-    public function xlsListagemAction()
-    {
+    public function xlsListagemAction() {
         $idNrReuniaoConsulta = $this->_request->getParam("idNrReuniaoConsulta") ? $this->_request->getParam("idNrReuniaoConsulta") : null;
         $reuniao = new Reuniao();
 
@@ -339,7 +341,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract
             $raberta = null;
             $this->view->idNrReuniaoConsulta = null;
         } else {
-            $raberta = $reuniao->buscarReuniaoPorId($idNrReuniaoConsulta);//idNrReuniao
+            $raberta = $reuniao->buscarReuniaoPorId($idNrReuniaoConsulta); //idNrReuniao
             $this->view->idNrReuniaoConsulta = $raberta->idNrReuniao;
         }
         $this->view->reuniao = $raberta;
@@ -361,8 +363,8 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         //==== campo de ordenacao  ======//
         if ($this->_request->getParam("campo")) {
             $campo = $this->_request->getParam("campo");
-            $order = array($campo." ".$ordem);
-            $ordenacao = "&campo=".$campo."&ordem=".$ordem;
+            $order = array($campo . " " . $ordem);
+            $ordenacao = "&campo=" . $campo . "&ordem=" . $ordem;
         } else {
             $campo = null;
             $order = array('2 DESC'); //Vl.Sugerido
@@ -383,7 +385,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         }
         if ($this->_request->getParam("ProponenteConsulta")) {
             $ProponenteConsulta = $this->_request->getParam("ProponenteConsulta");
-            $where["y.Descricao LIKE ?"] = "%" . $ProponenteConsulta. "%";
+            $where["y.Descricao LIKE ?"] = "%" . $ProponenteConsulta . "%";
         }
         if ($this->_request->getParam("NomeProjetoConsulta")) {
             $NomeProjetoConsulta = $this->_request->getParam("NomeProjetoConsulta");
@@ -407,13 +409,13 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         $total = $objTotal['total'];
 
         $pag = 1;
-        $post  = Zend_Registry::get('get');
+        $post = Zend_Registry::get('get');
         if (isset($post->pag)) {
             $pag = $post->pag;
         }
-        $offset = ($pag>1) ? ($pag-1)*$this->intTamPag : 0;
+        $offset = ($pag > 1) ? ($pag - 1) * $this->intTamPag : 0;
         $fim = $offset + $this->intTamPag;
-        $totalPag = (int)(($total % $this->intTamPag == 0)?($total/$this->intTamPag):(($total/$this->intTamPag)+1));
+        $totalPag = (int) (($total % $this->intTamPag == 0) ? ($total / $this->intTamPag) : (($total / $this->intTamPag) + 1));
         $limit = ($fim > $total) ? $total - $offset : $this->intTamPag;
 
         $busca = $Projetos->projetosCnicOpinioesPorIdReuniao($idNrReuniao, $where, $order, $limit, $offset);
@@ -461,40 +463,39 @@ class CidadaoController extends MinC_Controller_Action_Abstract
 
 
             $html .= "  <tr>
-                            <td>".$d->Pronac."</td>
-                            <td>".$d->NomeProjeto."</td>
-                            <td>".$d->Proponente."</td>
-                            <td>".$d->UF."</td>
-                            <td>".$d->Cidade."</td>
-                            <td>".$d->descEnquadramento."</td>
-                            <td>".$d->dsArea."</td>
-                            <td>".$d->dsSegmento."</td>
-                            <td>".$d->descAvaliacao."</td>
-			    <td>".Data::tratarDataZend($d->DtInicioExecucao, 'Brasileira')."</td>
-			    <td>".Data::tratarDataZend($d->DtFimExecucao, 'Brasileira')."</td>
-                            <td>".$vl1."</td>
-                            <td>".$vl2."</td>
-                            <td>".$vl3."</td>
+                            <td>" . $d->Pronac . "</td>
+                            <td>" . $d->NomeProjeto . "</td>
+                            <td>" . $d->Proponente . "</td>
+                            <td>" . $d->UF . "</td>
+                            <td>" . $d->Cidade . "</td>
+                            <td>" . $d->descEnquadramento . "</td>
+                            <td>" . $d->dsArea . "</td>
+                            <td>" . $d->dsSegmento . "</td>
+                            <td>" . $d->descAvaliacao . "</td>
+			    <td>" . Data::tratarDataZend($d->DtInicioExecucao, 'Brasileira') . "</td>
+			    <td>" . Data::tratarDataZend($d->DtFimExecucao, 'Brasileira') . "</td>
+                            <td>" . $vl1 . "</td>
+                            <td>" . $vl2 . "</td>
+                            <td>" . $vl3 . "</td>
                     </tr>";
             $TotalSolicitado = $TotalSolicitado + $d->vlSolicitado;
             $TotalAprovado = $TotalAprovado + $d->vlAprovado;
             $TotalCaptado = $TotalCaptado + $d->vlCaptado;
         };
 
-        $html .="<tr>
+        $html .= "<tr>
                     <th colspan='11'>TOTAL</th>
-                    <th nowrap>". @number_format($TotalSolicitado, 2, ',', '.')."</th>
-                    <th nowrap>". @number_format($TotalAprovado, 2, ',', '.')."</th>
-                    <th nowrap>". @number_format($TotalCaptado, 2, ',', '.')."</th>
+                    <th nowrap>" . @number_format($TotalSolicitado, 2, ',', '.') . "</th>
+                    <th nowrap>" . @number_format($TotalAprovado, 2, ',', '.') . "</th>
+                    <th nowrap>" . @number_format($TotalCaptado, 2, ',', '.') . "</th>
                 </tr>
             ";
-        $html .="</table>";
+        $html .= "</table>";
         $this->view->html = $html;
         $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
     }
 
-    public function cadastrarOpiniaoAction()
-    {
+    public function cadastrarOpiniaoAction() {
         if (!$this->usuarioInterno) {
             Zend_Layout::startMvc(array('layout' => 'layout_login'));
         }
@@ -514,8 +515,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         $this->view->DadosProjeto = $DadosProjeto;
     }
 
-    public function inserirOpiniaoAction()
-    {
+    public function inserirOpiniaoAction() {
         //INSERT NA TABELA SAC.dbo.tbOpinarProjeto
         $dados = array(
             'idPronac' => $_POST['idPronac'],
@@ -538,8 +538,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         }
     }
 
-    public function visualizarOpinioesAction()
-    {
+    public function visualizarOpinioesAction() {
         if (!$this->usuarioInterno) {
             Zend_Layout::startMvc(array('layout' => 'layout_login'));
         }
@@ -581,8 +580,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         $this->view->qst3n = $qst3n;
     }
 
-    public function dadosProjetoAction()
-    {
+    public function dadosProjetoAction() {
         if (!$this->usuarioInterno) {
             Zend_Layout::startMvc(array('layout' => 'layout_login'));
         }
@@ -608,8 +606,7 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         $this->view->tipoPlanilha = 2;
     }
 
-    public function parecerConsolidadoAction()
-    {
+    public function parecerConsolidadoAction() {
         if (!$this->usuarioInterno) {
             Zend_Layout::startMvc(array('layout' => 'layout_login'));
         }
@@ -639,4 +636,455 @@ class CidadaoController extends MinC_Controller_Action_Abstract
         $this->view->planilha = $planilha;
         $this->view->tipoPlanilha = 2;
     }
+
+//    private function consultapronacAction()
+    public function consultapronacAction() {
+        Zend_Layout::startMvc(array('layout' => 'layout'));
+
+        if (isset($_REQUEST['idPronac'])) {
+            $idPronac = $_GET['idPronac'];
+            if (strlen($idPronac) > 7) {
+                $idPronac = Seguranca::dencrypt($idPronac);
+            }
+
+
+            $dados = array();
+            $dados['idPronac'] = (int) $idPronac;
+            if (is_numeric($dados['idPronac'])) {
+                if (isset($dados['idPronac'])) {
+                    $idPronac = $dados['idPronac'];
+                    //UC 13 - MANTER MENSAGENS (Habilitar o menu superior)
+                    $this->view->idPronac = $idPronac;
+                    $this->view->menumsg = 'true';
+                }
+
+                $tblProjetos = new Projetos();
+                $rst = $tblProjetos->buscarDadosUC75($idPronac);
+//                $rst = ConsultarDadosProjetoDAO::obterDadosProjeto($dados);
+                //DEFINIE LINK PARA PLANILHA DE VALOR APROVADO
+                $pp = new PlanilhaProjeto();
+                $pa = new PlanilhaAprovacao();
+                $buscarsomaprojeto = $pp->somarPlanilhaProjeto($idPronac);
+                $buscarsomaaprovacaoC = $pa->somarPlanilhaAprovacao($idPronac, 206, "CO");
+                $buscarsomaaprovacaoP = $pa->somarPlanilhaAprovacao($idPronac, 206, "SE");
+
+                if (isset($buscarsomaaprovacaoP['soma']) && $buscarsomaaprovacaoP['soma'] > 0) {
+                    $this->view->linkplanilha = "plenaria";
+                } elseif (isset($buscarsomaaprovacaoC['soma']) && $buscarsomaaprovacaoC['soma'] > 0) {
+                    $this->view->linkplanilha = "cnic";
+                } else {
+                    $this->view->linkplanilha = "inicial";
+                }
+
+                if (count($rst) > 0) {
+                    $this->view->projeto = $rst[0];
+                    $this->view->idpronac = $idPronac;
+                    $this->view->idprojeto = $rst[0]->idProjeto;
+                    if ($rst[0]->codSituacao == 'E12' || $rst[0]->codSituacao == 'E13' || $rst[0]->codSituacao == 'E15' || $rst[0]->codSituacao == 'E50' || $rst[0]->codSituacao == 'E59' || $rst[0]->codSituacao == 'E61' || $rst[0]->codSituacao == 'E62') {
+                        $this->view->menuCompExec = 'true';
+                    }
+                    $this->view->situacaoProjeto = $rst[0]->codSituacao;
+
+                    $geral = new ProponenteDAO();
+
+                    $arrBusca['IdPronac = ?'] = $idPronac;
+                    $rsProjeto = $tblProjetos->buscar($arrBusca)->current();
+                    $idPreProjeto = 0;
+
+                    if (!empty($rsProjeto->idProjeto)) {
+                        $idPreProjeto = $rsProjeto->idProjeto;
+                    }
+
+                    $pronac = $rsProjeto->AnoProjeto . $rsProjeto->Sequencial;
+                    $dadosProjeto = $geral->execPaProponente($idPronac);
+                    $this->view->dados = $dadosProjeto;
+                    $this->view->dadosProjeto = $rsProjeto;
+
+
+                    //VERIFICA SE O PROJETO EST� NA CNIC //
+                    $Parecer = new Parecer_Model_DbTable_Parecer();
+                    $dadosCNIC = $Parecer->verificaProjSituacaoCNIC($pronac);
+
+                    $msgCNIC = 0;
+                    if (count($dadosCNIC)) {
+                        $msgCNIC = 1;
+                    }
+                    $this->view->msgCNIC = $msgCNIC;
+                    // FIM - VERIFICA SE O PROJETO EST� NA CNIC //
+                    //VERIFICA OS DADOS DE ARQUIVAMENTO, CASO EXISTA //
+                    $ArquivamentoProjeto = array();
+                    $tbArquivamento = new tbArquivamento();
+                    $dadosArquivamentoProjeto = $tbArquivamento->conferirArquivamentoProjeto($pronac);
+                    if (count($dadosArquivamentoProjeto)) {
+                        $ArquivamentoProjeto = $dadosArquivamentoProjeto;
+                    }
+                    $this->view->dadosArquivamentoProjeto = $ArquivamentoProjeto;
+                    // FIM - VERIFICA OS DADOS DE ARQUIVAMENTO, CASO EXISTA //
+
+
+                    $verificarHabilitado = $geral->verificarHabilitado($rst[0]->CgcCPf);
+                    if (count($verificarHabilitado) > 0) {
+                        $this->view->ProponenteInabilitado = 1;
+                    }
+
+                    //VALORES DO PROJETO
+                    $planilhaproposta = new Proposta_Model_DbTable_PlanilhaProposta();
+                    $planilhaprojeto = new PlanilhaProjeto();
+                    $planilhaAprovacao = new PlanilhaAprovacao();
+
+                    $rsPlanilhaAtual = $planilhaAprovacao->buscar(array('IdPRONAC = ?' => $idPronac), array('dtPlanilha DESC'))->current();
+                    $tpPlanilha = (!empty($rsPlanilhaAtual) && $rsPlanilhaAtual->tpPlanilha == 'SE') ? 'SE' : 'CO';
+
+                    $arrWhereSomaPlanilha = array();
+                    $arrWhereSomaPlanilha['idPronac = ?'] = $idPronac;
+                    if ($this->bln_readequacao == "false") {
+                        $fonteincentivo = $planilhaproposta->somarPlanilhaProposta($idPreProjeto, 109);
+                        $outrasfontes = $planilhaproposta->somarPlanilhaProposta($idPreProjeto, false, 109);
+                        $parecerista = $planilhaprojeto->somarPlanilhaProjeto($idPreProjeto, 109);
+                    } else {
+                        $arrWhereFontesIncentivo = $arrWhereSomaPlanilha;
+                        $arrWhereFontesIncentivo['idPlanilhaItem <> ? '] = '206'; //elaboracao e agenciamento
+                        $arrWhereFontesIncentivo['tpPlanilha = ? '] = 'SR';
+                        $arrWhereFontesIncentivo['stAtivo = ? '] = 'N';
+                        $arrWhereFontesIncentivo['NrFonteRecurso = ? '] = '109';
+                        $arrWhereFontesIncentivo["idPedidoAlteracao = (?)"] = new Zend_Db_Expr("(SELECT TOP 1 max(idPedidoAlteracao) from SAC.dbo.tbPlanilhaAprovacao where IdPRONAC = '{$idPronac}')");
+                        $arrWhereFontesIncentivo["tpAcao <> ('E') OR tpAcao IS NULL "] = '(?)';
+                        $fonteincentivo = $planilhaAprovacao->somarItensPlanilhaAprovacao($arrWhereFontesIncentivo);
+
+                        $arrWhereOutrasFontes = $arrWhereSomaPlanilha;
+                        $arrWhereOutrasFontes['idPlanilhaItem <> ? '] = '206'; //elaboracao e agenciamento
+                        $arrWhereOutrasFontes['tpPlanilha = ? '] = 'SR';
+                        $arrWhereOutrasFontes['stAtivo = ? '] = 'N';
+                        $arrWhereOutrasFontes['NrFonteRecurso <> ? '] = '109';
+                        $arrWhereOutrasFontes["idPedidoAlteracao = (?)"] = new Zend_Db_Expr("(SELECT TOP 1 max(idPedidoAlteracao) from SAC.dbo.tbPlanilhaAprovacao where IdPRONAC = '{$idPronac}')");
+                        $arrWhereOutrasFontes["tpAcao <> ('E') OR tpAcao IS NULL "] = '(?)';
+                        $outrasfontes = $planilhaAprovacao->somarItensPlanilhaAprovacao($arrWhereOutrasFontes);
+
+                        $arrWherePlanilhaPA = $arrWhereSomaPlanilha;
+                        $arrWherePlanilhaPA['idPlanilhaItem <> ? '] = '206'; //elaboracao e agenciamento
+                        $arrWherePlanilhaPA['tpPlanilha = ? '] = 'PA';
+                        $arrWherePlanilhaPA['stAtivo = ? '] = 'N';
+                        $arrWherePlanilhaPA['NrFonteRecurso = ? '] = '109';
+                        $arrWherePlanilhaPA["idPedidoAlteracao = (?)"] = new Zend_Db_Expr("(SELECT TOP 1 max(idPedidoAlteracao) from SAC.dbo.tbPlanilhaAprovacao where IdPRONAC = '{$idPronac}')");
+                        $arrWherePlanilhaPA["tpAcao <> ('E') OR tpAcao IS NULL "] = '(?)';
+                        $parecerista = $planilhaAprovacao->somarItensPlanilhaAprovacao($arrWherePlanilhaPA);
+                    }
+                    //valor do componetne
+                    $arrWhereSomaPlanilha = array();
+                    $arrWhereSomaPlanilha['idPronac = ?'] = $idPronac;
+                    $arrWhereSomaPlanilha['idPlanilhaItem <> ? '] = '206'; //elaboracao e agenciamento
+                    $arrWhereSomaPlanilha['tpPlanilha = ? '] = $tpPlanilha;
+                    $arrWhereSomaPlanilha['NrFonteRecurso = ? '] = '109';
+                    $arrWhereSomaPlanilha['stAtivo = ? '] = 'S';
+                    $componente = $planilhaAprovacao->somarItensPlanilhaAprovacao($arrWhereSomaPlanilha);
+
+                    $valoresProjeto = new ArrayObject();
+                    $valoresProjeto['fontesincentivo'] = $fonteincentivo['soma'];
+                    $valoresProjeto['outrasfontes'] = $outrasfontes['soma'];
+                    $valoresProjeto['valorproposta'] = $fonteincentivo['soma'] + $outrasfontes['soma'];
+                    $valoresProjeto['valorparecerista'] = $parecerista['soma'];
+                    $valoresProjeto['valorcomponente'] = $componente['soma'];
+                    $this->view->valoresDoProjeto = $valoresProjeto;
+
+                    $tblCaptacao = new Captacao();
+                    $rsCount = $tblCaptacao->buscaCompleta(array('idPronac = ?' => $idPronac), array(), null, null, true);
+                    $this->view->totalGeralCaptado = $rsCount->totalGeralCaptado;
+                    /*                     * *************** FIM  - MODO NOVO ******************* */
+
+                    /*                     * * Valida��o do Proponente Inabilitado *********************************** */
+
+                    $cpfLogado = $this->cpfLogado;
+                    $cpfProponente = !empty($dadosProjeto[0]->CNPJCPF) ? $dadosProjeto[0]->CNPJCPF : '';
+                    $respProponente = 'R';
+                    $inabilitado = 'N';
+
+
+                    // Verificando se o Proponente est� inabilitado
+                    $inabilitadoDAO = new Inabilitado();
+                    $where['CgcCpf 		= ?'] = $cpfProponente;
+                    $where['Habilitado 	= ?'] = 'N';
+                    $busca = $inabilitadoDAO->Localizar($where)->count();
+
+                    if ($busca > 0) {
+                        $inabilitado = 'S';
+                    }
+
+                    if (!empty($idPreProjeto)) {
+
+                        // Se for Respons�vel verificar se tem Procura��o
+                        $procuracaoDAO = new Procuracao();
+                        $procuracaoValida = 'N';
+
+                        $wherePro['vprp.idPreProjeto = ?'] = $idPreProjeto;
+                        $wherePro['v.idUsuarioResponsavel = ?'] = $this->idResponsavel;
+                        $wherePro['p.siProcuracao = ?'] = 1;
+                        $buscaProcuracao = $procuracaoDAO->buscarProcuracaoProjeto($wherePro)->count();
+                        if ($buscaProcuracao > 0) {
+                            $procuracaoValida = 'S';
+                        }
+                    } else {
+                        $procuracaoValida = 'S';
+                    }
+
+                    $this->view->procuracaoValida = $procuracaoValida;
+                    $this->view->respProponente = $respProponente;
+                    $this->view->inabilitado = $inabilitado;
+
+                    /*                     * ************************************************************************* */
+
+                    $tbemail = $geral->buscarEmail($idPronac);
+                    $this->view->email = $tbemail;
+
+                    $tbtelefone = $geral->buscarTelefone($idPronac);
+                    $this->view->telefone = $tbtelefone;
+
+                    $tblAgente = new Agente_Model_DbTable_Agentes();
+                    if (isset($dadosProjeto[0]->CNPJCPF) && !empty($dadosProjeto[0]->CNPJCPF)) {
+                        $rsAgente = $tblAgente->buscar(array('CNPJCPF=?' => $dadosProjeto[0]->CNPJCPF))->current();
+                        $this->view->CgcCpf = $dadosProjeto[0]->CNPJCPF;
+                    }
+
+                    $rsIdAgente = (isset($rsAgente->idAgente) && !empty($rsAgente->idAgente)) ? $rsAgente->idAgente : 0;
+
+                    $rsDirigentes = $tblAgente->buscarDirigentes(array('v.idVinculoPrincipal =?' => $rsIdAgente, 'n.Status =?' => 0), array('n.Descricao ASC'));
+//                    $tbDirigentes = $geral->buscarDirigentes($idPronac);
+                    $this->view->dirigentes = $rsDirigentes;
+
+                    //========== inicio codigo mandato dirigente ================
+                    /* ================================================== */
+                    $arrMandatos = array();
+
+                    if (!empty($this->idPreProjeto)) {
+                        $preProjeto = new Proposta_Model_DbTable_PreProjeto();
+                        $Empresa = $preProjeto->buscar(array('idPreProjeto = ?' => $this->idPreProjeto))->current();
+                        $idEmpresa = $Empresa->idAgente;
+
+                        $tbDirigenteMandato = new tbAgentesxVerificacao();
+                        foreach ($rsDirigentes as $dirigente) {
+                            $rsMandato = $tbDirigenteMandato->listarMandato(array('idEmpresa = ?' => $idEmpresa, 'idDirigente = ?' => $dirigente->idAgente, 'stMandato = ?' => 0));
+                            $arrMandatos[$dirigente->NomeDirigente] = $rsMandato;
+                        }
+                    }
+                    $this->view->mandatos = $arrMandatos;
+
+                    //============== fim codigo dirigente ================
+                    /* ================================================== */
+
+                    if (!empty($idPreProjeto)) {
+                        //OUTROS DADOS PROPONENTE
+                        $this->view->itensGeral = Proposta_Model_AnalisarPropostaDAO::buscarGeral($idPreProjeto);
+                    }
+                } else {
+                    parent::message("Nenhum projeto encontrado com o n&uacute;mero de Pronac informado.", "listarprojetos/listarprojetos", "ERROR");
+                }
+            } else {
+                parent::message("N&uacute;mero Pronac inv&aacute;lido!", "listarprojetos/listarprojetos", "ERROR");
+            }
+        } else {
+            parent::message("N&uacute;mero Pronac inv&aacute;lido!", "listarprojetos/listarprojetos", "ERROR");
+        }
+    }
+
+    public function planilhaOrcamentariaAction() {
+        $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
+        $idPronac = $this->_request->getParam("idPronac");
+        if (strlen($idPronac) > 7) {
+            $idPronac = Seguranca::dencrypt($idPronac);
+        }
+
+        if (!empty($idPronac)) {
+            $Projetos = new Projetos();
+            $this->view->projeto = $Projetos->buscar(array('IdPRONAC = ?' => $idPronac))->current();
+            $this->view->tipoPlanilha = 1;
+        }
+    }
+
+    public function planilhaOrcamentariaAprovadaAction() {
+        $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
+        $idPronac = $this->_request->getParam("idPronac");
+        if (strlen($idPronac) > 7) {
+            $idPronac = Seguranca::dencrypt($idPronac);
+        }
+
+        if (!empty($idPronac)) {
+            $Projetos = new Projetos();
+            $this->view->projeto = $Projetos->buscar(array('IdPRONAC = ?' => $idPronac))->current();
+
+            $spPlanilhaOrcamentaria = new spPlanilhaOrcamentaria();
+            $planilhaOrcamentaria = $spPlanilhaOrcamentaria->exec($idPronac, 6);
+
+            if (count($planilhaOrcamentaria) > 0) {
+                $this->view->tipoPlanilha = 6;
+            } else {
+                $planilhaOrcamentaria = $spPlanilhaOrcamentaria->exec($idPronac, 3);
+                if (count($planilhaOrcamentaria) > 0) {
+                    $this->view->tipoPlanilha = 3;
+                } else {
+                    $this->view->tipoPlanilha = 2;
+                }
+            }
+        }
+    }
+
+    public function dadosBancariosCaptacaoAction() {
+        Zend_Layout::startMvc(array('layout' => 'layout'));
+
+
+        $idPronac = $this->_request->getParam("idPronac");
+        if (strlen($idPronac) > 7) {
+            $idPronac = Seguranca::dencrypt($idPronac);
+        }
+        $this->view->idPronac = $idPronac;
+
+        if (!empty($idPronac)) {
+            $Projetos = new Projetos();
+            $this->view->projeto = $Projetos->buscar(array('IdPRONAC = ?' => $idPronac))->current();
+
+            //DEFINE PARAMETROS DE ORDENACAO / QTDE. REG POR PAG. / PAGINACAO
+            if ($this->_request->getParam("qtde")) {
+                $this->intTamPag = $this->_request->getParam("qtde");
+            }
+            $order = array();
+
+            //==== parametro de ordenacao  ======//
+            if ($this->_request->getParam("ordem")) {
+                $ordem = $this->_request->getParam("ordem");
+                if ($ordem == "ASC") {
+                    $novaOrdem = "DESC";
+                } else {
+                    $novaOrdem = "ASC";
+                }
+            } else {
+                $ordem = "ASC";
+                $novaOrdem = "ASC";
+            }
+
+            //==== campo de ordenacao  ======//
+            if ($this->_request->getParam("campo")) {
+                $campo = $this->_request->getParam("campo");
+                $order = array($campo . " " . $ordem);
+                $ordenacao = "&campo=" . $campo . "&ordem=" . $ordem;
+            } else {
+                $campo = null;
+                $order = array(8, 4); //NomeProjeto, Dt.Recibo
+                $ordenacao = null;
+            }
+
+            $pag = 1;
+            $get = Zend_Registry::get('get');
+            if (isset($get->pag)) {
+                $pag = $get->pag;
+            }
+            $inicio = ($pag > 1) ? ($pag - 1) * $this->intTamPag : 0;
+
+            /* ================== PAGINACAO ====================== */
+            $where = array();
+            $where['p.idPronac = ?'] = $idPronac;
+
+            if (isset($_GET['dtReciboInicio']) && !empty($_GET['dtReciboInicio']) && isset($_GET['dtReciboFim']) && empty($_GET['dtReciboFim'])) {
+                $di = ConverteData($_GET['dtReciboInicio'], 13) . " 00:00:00";
+                $df = ConverteData($_GET['dtReciboInicio'], 13) . " 23:59:59";
+                $where["c.DtRecibo BETWEEN '$di' AND '$df'"] = '';
+                $this->view->dtReciboInicio = $_GET['dtReciboInicio'];
+                $this->view->dtReciboFim = $_GET['dtReciboFim'];
+            }
+
+            if (isset($_GET['dtReciboInicio']) && !empty($_GET['dtReciboInicio']) && isset($_GET['dtReciboFim']) && !empty($_GET['dtReciboFim'])) {
+                $di = ConverteData($_GET['dtReciboInicio'], 13) . " 00:00:00";
+                $df = ConverteData($_GET['dtReciboFim'], 13) . " 23:59:59";
+                $where["c.DtRecibo BETWEEN '$di' AND '$df'"] = '';
+                $this->view->dtReciboInicio = $_GET['dtReciboInicio'];
+                $this->view->dtReciboFim = $_GET['dtReciboFim'];
+            }
+
+            $Captacao = new Captacao();
+            $total = $Captacao->painelDadosBancariosCaptacao($where, $order, null, null, true);
+            $fim = $inicio + $this->intTamPag;
+
+            $totalPag = (int) (($total % $this->intTamPag == 0) ? ($total / $this->intTamPag) : (($total / $this->intTamPag) + 1));
+            $tamanho = ($fim > $total) ? $total - $inicio : $this->intTamPag;
+
+            $busca = $Captacao->painelDadosBancariosCaptacao($where, $order, $tamanho, $inicio);
+
+            $paginacao = array(
+                "pag" => $pag,
+                "qtde" => $this->intTamPag,
+                "campo" => $campo,
+                "ordem" => $ordem,
+                "ordenacao" => $ordenacao,
+                "novaOrdem" => $novaOrdem,
+                "total" => $total,
+                "inicio" => ($inicio + 1),
+                "fim" => $fim,
+                "totalPag" => $totalPag,
+                "Itenspag" => $this->intTamPag,
+                "tamanho" => $tamanho
+            );
+
+            $this->view->paginacao = $paginacao;
+            $this->view->qtd = $total;
+            $this->view->dados = $busca;
+            $this->view->intTamPag = $this->intTamPag;
+        }
+    }
+
+    public function dadosRelacaoPagamentosAction() {
+        $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
+        $idPronac = $this->_request->getParam("idPronac");
+        if (strlen($idPronac) > 7) {
+            $idPronac = Seguranca::dencrypt($idPronac);
+        }
+
+        if (!empty($idPronac)) {
+            //****** Dados do Projeto - Cabecalho *****//
+            $projetos = new Projetos();
+            $DadosProjeto = $projetos->dadosProjeto(array('idPronac = ?' => $idPronac))->current();
+            $this->view->DadosProjeto = $DadosProjeto;
+
+            $tbComprovante = new tbComprovantePagamentoxPlanilhaAprovacao();
+            $this->view->relacaoPagamentos = $tbComprovante->buscarRelacaoPagamentos($idPronac);
+        }
+    }
+    
+    public function historicoEncaminhamentoAction()
+    {
+        $idPronac = $this->_request->getParam("idPronac");
+        if (strlen($idPronac) > 7) {
+            $idPronac = Seguranca::dencrypt($idPronac);
+        }
+
+        if (!empty($idPronac)) {
+            //****** Dados do Projeto - Cabecalho *****//
+            $projetos = new Projetos();
+            $DadosProjeto = $projetos->dadosProjeto(array('idPronac = ?' => $idPronac))->current();
+            $this->view->idPronac = $idPronac;
+            $this->view->DadosProjeto = $DadosProjeto;
+
+            $tbDistribuirParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
+            $this->view->dados = $tbDistribuirParecer->buscarHistoricoEncaminhamento(array('a.idPRONAC = ?'=>$idPronac));
+        }
+    }
+    
+     public function dadosBancariosAction()
+    {
+        $idPronac = $this->_request->getParam("idPronac");
+        if (strlen($idPronac) > 7) {
+            $idPronac = Seguranca::dencrypt($idPronac);
+        }
+        $this->view->idPronac = $idPronac;
+
+        if (!empty($idPronac)) {
+            $Projetos = new Projetos();
+            $this->view->projeto = $Projetos->buscar(array('IdPRONAC = ?'=>$idPronac))->current();
+
+            $tblContaBancaria = new ContaBancaria();
+            $rsContaBancaria = $tblContaBancaria->contaPorProjeto($idPronac);
+            $this->view->dadosContaBancaria = $rsContaBancaria;
+
+            $tbLiberacao = new Liberacao();
+            $rsLiberacao = $tbLiberacao->liberacaoPorProjeto($idPronac);
+            $this->view->dadosLiberacao = $rsLiberacao;
+        }
+    }
+
 }

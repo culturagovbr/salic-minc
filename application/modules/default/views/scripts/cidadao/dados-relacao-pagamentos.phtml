@@ -1,0 +1,93 @@
+<script type="text/javascript">
+    $(document).ready(function(){
+        //ATUALIZA TITULO DA PAGINA
+        window.parent.$("#titulo").html("<div>Rela&ccedil;&atilde;o de Pagamentos</div>");
+        window.parent.$("#caminhoLocalAtual").html("Rela&ccedil;&atilde;o de Pagamentos");
+
+        $('.btnDetalhar').click(function(){
+            var tipo = $(this).children('img').attr('src'),
+                id = $(this).attr('classReg');
+
+            if(tipo == '/salic/public/img/icn_menos.gif'){
+                $(this).children('img').attr('src','/salic/public/img/icn_mais.gif');
+            } else {
+                $(this).children('img').attr('src','/salic/public/img/icn_menos.gif');
+            }
+            $('.detalhar_'+id).toggle();
+        });
+    });
+</script>
+
+<?php
+    $arrayIds = array();
+    foreach($this->relacaoPagamentos as $relPagamentos){
+        $arrayIds[] = $relPagamentos->idPlanilhaAprovacao;
+    }
+    $arrayIds = array_diff( $arrayIds , array_diff( $arrayIds , array_diff_key( $arrayIds , array_unique( $arrayIds ) ) ) );
+    $arrayIds = array_unique( $arrayIds );
+?>
+
+<table class="tabela">
+    <tr class="destacar">
+        <td align="center"><b>PRONAC</b></td>
+        <td align="center"><b>Nome do Projeto</b></td>
+    </tr>
+    <tr class="linha">
+        <td align="center"><?php echo $this->DadosProjeto->pronac; ?></td>
+        <td align="center"><?php echo $this->DadosProjeto->nomeProjeto; ?></td>
+    </tr>
+</table>
+
+<table class="tabela">
+    <?php $x=1; $idPlanilhaAnterior=0; $vlTotal=0; if(count($this->relacaoPagamentos) > 0) { ?>
+    <tr class="centro">
+        <td width="1" class="destacar bold">#</td>
+        <td width="1" class="destacar bold">Item</td>
+        <td width="1" class="destacar bold">CNPJ/CPF</td>
+        <td width="1" class="destacar bold">Fornecedor</td>
+        <td width="1" class="destacar bold">Dt.<br />Comprova&ccedil;&atilde;o</td>
+        <td width="1" class="destacar bold">Documento</td>
+        <td width="1" class="destacar bold">N&ordm; Comprovante</td>
+        <td width="1" class="destacar bold">Dt.<br />Pagamento</td>
+        <td width="1" class="destacar bold">Forma de Pagamento</td>
+        <td width="1" class="destacar bold">N&ordm; Doc. Pagamento</td>
+        <td width="1" class="destacar bold">Arquivo</td>
+        <td width="1" class="destacar bold">Vl. Pagamento</td>
+    </tr>
+    <?php foreach ($this->relacaoPagamentos as $relPagamentos) { ?>
+    <tr <?php echo ($relPagamentos->idPlanilhaAprovacao == $idPlanilhaAnterior) ? 'class="sumir detalhar_'.$relPagamentos->idPlanilhaAprovacao.'"' : ''; ?>>
+        <td><?php echo $x; ?></td>
+        <td style="<?php echo (in_array($relPagamentos->idPlanilhaAprovacao, $arrayIds)) ? 'cursor: pointer;' : ''; ?> font-weight: inherit;" class="bold <?php echo ($relPagamentos->idPlanilhaAprovacao!=$idPlanilhaAnterior) ? 'btnDetalhar' : ''; ?>" classReg="<?php echo $relPagamentos->idPlanilhaAprovacao; ?>">
+            <?php if($relPagamentos->idPlanilhaAprovacao != $idPlanilhaAnterior){ ?>
+                <?php if(in_array($relPagamentos->idPlanilhaAprovacao, $arrayIds)){ ?>
+                    <img src="<?php echo $this->baseUrl(); ?>/public/img/icn_mais.gif">
+                <?php } ?>
+                <?php echo ($relPagamentos->idPlanilhaAprovacao!=$idPlanilhaAnterior) ? $relPagamentos->Item : ''; ?>
+            <?php } ?>
+        </td>
+        <td><?php echo (!empty($relPagamentos->CNPJCPF)) ? Validacao::mascaraCPFCNPJ($relPagamentos->CNPJCPF) : ''; ?></td>
+        <td><?php echo $relPagamentos->Fornecedor; ?></td>
+        <td align="center"><?php echo Data::tratarDataZend($relPagamentos->DtComprovacao, 'Brasileira'); ?></td>
+        <td><?php echo $relPagamentos->tbDocumento; ?></td>
+        <td><?php echo $relPagamentos->nrComprovante; ?></td>
+        <td align="center"><?php echo Data::tratarDataZend($relPagamentos->DtPagamento, 'Brasileira'); ?></td>
+        <td><?php echo $relPagamentos->tpFormaDePagamento; ?></td>
+        <td><?php echo $relPagamentos->nrDocumentoDePagamento; ?></td>
+        <td><a href="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'abrir')); ?>?id=<?php echo $relPagamentos->idArquivo; ?>"><?php echo $relPagamentos->nmArquivo; ?></a></td>
+        <td align="right"><?php echo number_format($relPagamentos->vlPagamento, 2, ",", "."); ?></td>
+    </tr>
+    <?php $x++; $idPlanilhaAnterior=$relPagamentos->idPlanilhaAprovacao; $vlTotal=$vlTotal+$relPagamentos->vlPagamento; } ?>
+    <?php } else { ?>
+    <tr>
+        <td align="center">Nenhum relatório cadastrado.</td>
+    </tr>
+    <?php } ?>
+</table>
+<br clear="all" />
+
+<table class="tabela">
+    <tr>
+        <td align="right" style="font-size: 16px; color: #333; font-weight: bold;">Total dos Pagamentos</td>
+        <td align="right" width="140px" style="font-size: 14px; color: #333; font-weight: bold;" nowrap id="vlTotal"><?php echo number_format($vlTotal, 2, ",", "."); ?></td>
+    </tr>
+</table>

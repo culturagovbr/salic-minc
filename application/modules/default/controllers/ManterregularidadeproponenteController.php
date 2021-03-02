@@ -1,7 +1,6 @@
 <?php
 
-class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abstract
-{
+class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abstract {
 
     /**
      * cpf/cnpj pra consulta
@@ -18,15 +17,13 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
     private $queryString = '';
     private $codGrupo = null;
 
-
     /**
      * Reescreve o m�todo init()
      * @access public
      * @param void
      * @return void
      */
-    public function init()
-    {
+    public function init() {
 
         // verifica as permiss�es
         $PermissoesGrupo = array();
@@ -65,9 +62,12 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
         $this->view->codGrupo = $GrupoAtivo->codGrupo;
 
         if ($GrupoAtivo->codGrupo == 92 || $GrupoAtivo->codGrupo == 131 || $GrupoAtivo->codGrupo == 140) :
-            $this->view->dsMod = 'Admissibilidade'; elseif ($GrupoAtivo->codGrupo == 103 || $GrupoAtivo->codGrupo == 109 || $GrupoAtivo->codGrupo == 110 || $GrupoAtivo->codGrupo == 127) :
-            $this->view->dsMod = 'An&aacute;lise'; elseif ($GrupoAtivo->codGrupo == 125 || $GrupoAtivo->codGrupo == 124) :
-            $this->view->dsMod = 'Presta&ccedil;&atilde;o de Contas'; else :
+            $this->view->dsMod = 'Admissibilidade';
+        elseif ($GrupoAtivo->codGrupo == 103 || $GrupoAtivo->codGrupo == 109 || $GrupoAtivo->codGrupo == 110 || $GrupoAtivo->codGrupo == 127) :
+            $this->view->dsMod = 'An&aacute;lise';
+        elseif ($GrupoAtivo->codGrupo == 125 || $GrupoAtivo->codGrupo == 124) :
+            $this->view->dsMod = 'Presta&ccedil;&atilde;o de Contas';
+        else :
             $this->view->dsMod = 'Acompanhamento';
         endif;
 
@@ -91,17 +91,18 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
      * @param void
      * @return void
      */
-    public function preDispatch()
-    {
+    public function preDispatch() {
         // recebe os dados via get
         $this->cpfcnpj = $this->_request->getParam("cpfcnpj");
         $this->cpfcnpj = isset($this->cpfcnpj) && !empty($this->cpfcnpj) ? $this->cpfcnpj : 0;
 
         if (Validacao::validarCPF($this->cpfcnpj) && strlen($this->cpfcnpj) == 11) : // cpf
             $this->queryString = '/cpfcnpj/' . $this->cpfcnpj;
-        $this->view->cpfcnpj = $this->cpfcnpj; elseif (Validacao::validarCNPJ($this->cpfcnpj) && strlen($this->cpfcnpj) == 14) : // cnpj
+            $this->view->cpfcnpj = $this->cpfcnpj;
+        elseif (Validacao::validarCNPJ($this->cpfcnpj) && strlen($this->cpfcnpj) == 14) : // cnpj
             $this->queryString = '/cpfcnpj/' . $this->cpfcnpj;
-        $this->view->cpfcnpj = $this->cpfcnpj; else :
+            $this->view->cpfcnpj = $this->cpfcnpj;
+        else :
             $this->view->cpfcnpj = '';
 
         endif;
@@ -115,8 +116,8 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
      * @param void
      * @return void
      */
-    public function indexAction()
-    {
+    public function indexAction() {
+        
     }
 
     // fecha m�todo indexAction()
@@ -127,8 +128,7 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
      * @param void
      * @return void
      */
-    public function manterregularidadeproponenteAction()
-    {
+    public function manterregularidadeproponenteAction() {
         if (isset($_POST['pronacEnviado']) || isset($_GET['pronacEnviado'])) {
             $this->view->pronacEnviado = isset($_POST['pronacEnviado']) ? $_POST['pronacEnviado'] : $_GET['pronacEnviado'];
         }
@@ -158,7 +158,7 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
             $natureza = new Natureza();
             $buscaDados = $natureza->pesquisaCEPIM($cnpjcpf);
             $this->view->habilitarCepim = 0;
-            if (count($buscaDados)>0) {
+            if (count($buscaDados) > 0) {
                 $this->view->habilitarCepim = 1;
             }
 
@@ -191,8 +191,8 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
             $agentes = new Agente_Model_DbTable_Agentes();
             $interessados = new Interessado();
             $certidoesNegativas = new CertidoesNegativas();
-            $buscaAgentes = $agentes->buscar(array('CNPJCPF = ?' => $cnpjcpf));
 
+            $buscaAgentes = $agentes->buscar(array('CNPJCPF = ?' => $cnpjcpf));
             $buscaInteressados = $interessados->buscar(array('CgcCpf = ?' => $cnpjcpf));
 
             if (!$buscaAgentes[0] or !$buscaInteressados[0]) {
@@ -340,45 +340,45 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
                 $this->view->buscarcadin = null;
             }
 
-            /*$buscaCertidaoCEPIM = $certidoesNegativas->buscar(array('CgcCpf = ?' => $cnpjcpf, 'CodigoCertidao = ?' => 247));
-            if (!empty($buscaCertidaoCEPIM[0])) {
-                $this->view->cgccpfcepim = $buscaCertidaoCEPIM[0]->CgcCpf;
-                $this->view->codigocertidaocepim = $buscaCertidaoCEPIM[0]->CodigoCertidao;
-                $horaCepim = $buscaCertidaoCEPIM[0]->DtEmissao;
-                $horaCepim = date('H:i:s', strtotime($horaCepim));
-                $this->view->horacepim = $horaCepim;
-                $dtEmissaoCepimFormatada = date("d/m/Y", strtotime($buscaCertidaoCEPIM[0]->DtEmissao));
-                $this->view->dtemissaocepim = $dtEmissaoCepimFormatada;
-                $dtValidadeCepimFormatada = date("d/m/Y", strtotime($buscaCertidaoCEPIM[0]->DtValidade));
-                $dtValidade = Data::somarData(date('Y-m-d', strtotime($buscaCertidaoCEPIM[0]->DtValidade)), 1);
-                $diascepim = (int) Data::CompararDatas($buscaCertidaoCEPIM[0]->DtEmissao, Data::dataAmericana($dtValidade));
-                $this->view->diascepim = $diascepim;
-                $this->view->dtvalidadecepim = $dtValidadeCepimFormatada;
-                $this->view->pronaccepim = $buscaCertidaoCEPIM[0]->AnoProjeto . $buscaCertidaoCEPIM[0]->Sequencial;
-                $this->view->logoncepim = $buscaCertidaoCEPIM[0]->Logon;
-                $this->view->idcertidoesnegativascepim = $buscaCertidaoCEPIM[0]->idCertidoesnegativas;
-                $this->view->cdprotocolonegativacepim = $buscaCertidaoCEPIM[0]->cdProtocoloNegativa;
-                $this->view->idcertidaocepim = $buscaCertidaoCEPIM[0]->idCertidoesnegativas;
+            /* $buscaCertidaoCEPIM = $certidoesNegativas->buscar(array('CgcCpf = ?' => $cnpjcpf, 'CodigoCertidao = ?' => 247));
+              if (!empty($buscaCertidaoCEPIM[0])) {
+              $this->view->cgccpfcepim = $buscaCertidaoCEPIM[0]->CgcCpf;
+              $this->view->codigocertidaocepim = $buscaCertidaoCEPIM[0]->CodigoCertidao;
+              $horaCepim = $buscaCertidaoCEPIM[0]->DtEmissao;
+              $horaCepim = date('H:i:s', strtotime($horaCepim));
+              $this->view->horacepim = $horaCepim;
+              $dtEmissaoCepimFormatada = date("d/m/Y", strtotime($buscaCertidaoCEPIM[0]->DtEmissao));
+              $this->view->dtemissaocepim = $dtEmissaoCepimFormatada;
+              $dtValidadeCepimFormatada = date("d/m/Y", strtotime($buscaCertidaoCEPIM[0]->DtValidade));
+              $dtValidade = Data::somarData(date('Y-m-d', strtotime($buscaCertidaoCEPIM[0]->DtValidade)), 1);
+              $diascepim = (int) Data::CompararDatas($buscaCertidaoCEPIM[0]->DtEmissao, Data::dataAmericana($dtValidade));
+              $this->view->diascepim = $diascepim;
+              $this->view->dtvalidadecepim = $dtValidadeCepimFormatada;
+              $this->view->pronaccepim = $buscaCertidaoCEPIM[0]->AnoProjeto . $buscaCertidaoCEPIM[0]->Sequencial;
+              $this->view->logoncepim = $buscaCertidaoCEPIM[0]->Logon;
+              $this->view->idcertidoesnegativascepim = $buscaCertidaoCEPIM[0]->idCertidoesnegativas;
+              $this->view->cdprotocolonegativacepim = $buscaCertidaoCEPIM[0]->cdProtocoloNegativa;
+              $this->view->idcertidaocepim = $buscaCertidaoCEPIM[0]->idCertidoesnegativas;
 
-                if ($buscaCertidaoCEPIM[0]->cdSituacaoCertidao == 1) {
-                    $this->view->cdsituacaocertidaocepim = "N&atilde;o pendente";
-                } else {
-                    $this->view->cdsituacaocertidaocepim = "Pendente";
-                }
-            } else {
-                $this->view->cgccpfcepim = "";
-                $this->view->codigocertidaocepim = "";
-                $this->view->dtemissaocepim = "";
-                $this->view->dtvalidadecepim = "";
-                $this->view->horacepim = "";
-                $this->view->diascepim = "";
-                $this->view->pronaccepim = "";
-                $this->view->logoncepim = "";
-                $this->view->idcertidoesnegativascepim = "";
-                $this->view->cdprotocolonegativacepim = "";
-                $this->view->cdsituacaocertidaocepim = "Selecione";
-                $this->view->idcertidaocepim = "";
-            }*/
+              if ($buscaCertidaoCEPIM[0]->cdSituacaoCertidao == 1) {
+              $this->view->cdsituacaocertidaocepim = "N&atilde;o pendente";
+              } else {
+              $this->view->cdsituacaocertidaocepim = "Pendente";
+              }
+              } else {
+              $this->view->cgccpfcepim = "";
+              $this->view->codigocertidaocepim = "";
+              $this->view->dtemissaocepim = "";
+              $this->view->dtvalidadecepim = "";
+              $this->view->horacepim = "";
+              $this->view->diascepim = "";
+              $this->view->pronaccepim = "";
+              $this->view->logoncepim = "";
+              $this->view->idcertidoesnegativascepim = "";
+              $this->view->cdprotocolonegativacepim = "";
+              $this->view->cdsituacaocertidaocepim = "Selecione";
+              $this->view->idcertidaocepim = "";
+              } */
 
             $buscaCertidaoINSS = $certidoesNegativas->buscar(array('CgcCpf = ?' => $cnpjcpf, 'CodigoCertidao = ?' => 52));
 
@@ -415,8 +415,7 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
         }
     }
 
-    public function buscapronacAction()
-    {
+    public function buscapronacAction() {
         $idPronac = $this->_request->getParam("idPronac");
         if (!empty($idPronac)) {
             $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
@@ -439,8 +438,7 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
         }
     }
 
-    public function salvacertidaoAction()
-    {
+    public function salvacertidaoAction() {
         $auth = Zend_Auth::getInstance();
         $usu_codigo = $auth->getIdentity()->usu_codigo;
         $verificaqf = $this->_request->getParam("verificaqf");
@@ -655,15 +653,14 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
         } else {
             if (isset($_POST['pronacEnviado']) || isset($_GET['pronacEnviado'])) {
                 $pronacEnviado = isset($_POST['pronacEnviado']) ? $_POST['pronacEnviado'] : $_GET['pronacEnviado'];
-                parent::message("Cadastro realizado com sucesso!", "/manterregularidadeproponente/manterregularidadeproponente?cpfCnpj=" . $cgccpf . "&pronacEnviado=" .$pronacEnviado, "CONFIRM");
+                parent::message("Cadastro realizado com sucesso!", "/manterregularidadeproponente/manterregularidadeproponente?cpfCnpj=" . $cgccpf . "&pronacEnviado=" . $pronacEnviado, "CONFIRM");
             } else {
                 parent::message("Cadastro realizado com sucesso!", "/manterregularidadeproponente/manterregularidadeproponente?cpfCnpj=" . $cgccpf, "CONFIRM");
             }
         }
     }
 
-    public function imprimirAction()
-    {
+    public function imprimirAction() {
         $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
 
         if (isset($_POST['cpfCnpj']) || isset($_GET['cpfCnpj'])) {
@@ -678,7 +675,7 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
             $natureza = new Natureza();
             $buscaDados = $natureza->pesquisaCEPIM($cnpjcpf);
             $this->view->habilitarCepim = 0;
-            if (count($buscaDados)>0) {
+            if (count($buscaDados) > 0) {
                 $this->view->habilitarCepim = 1;
             }
 
@@ -690,20 +687,19 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
                 parent::message('Por favor, informe um CNPJ v&aacute;lido!', 'manterregularidadeproponente/index' . $this->queryString, 'ALERT');
             } else {
                 $this->view->cgccpf = $_REQUEST['cpfCnpj'];
-                $agentes                        = new Agente_Model_DbTable_Agentes();
-                $nomes                          = new Nomes();
-                $interessados                   = new Interessado();
-                $certidoesNegativas             = new CertidoesNegativas();
+                $agentes = new Agente_Model_DbTable_Agentes();
+                $nomes = new Nomes();
+                $interessados = new Interessado();
+                $certidoesNegativas = new CertidoesNegativas();
 //                $tblProjeto                     = New Projetos();
-                $buscaAgentes                   = $agentes->buscar(array('CNPJCPF = ?' => $cnpjcpf));
-                $idAgente                       = $buscaAgentes[0]->idAgente;
-                $buscaNomeProponente            = $nomes->buscar(array('idAgente = ?' => $idAgente));
-                $nomeProponente                 = $buscaNomeProponente[0]->Descricao;
-                $this->view->cgccpf             = $cnpjcpf;
-                $this->view->nomeproponente     = $nomeProponente;
+                $buscaAgentes = $agentes->buscar(array('CNPJCPF = ?' => $cnpjcpf));
+                $idAgente = $buscaAgentes[0]->idAgente;
+                $buscaNomeProponente = $nomes->buscar(array('idAgente = ?' => $idAgente));
+                $nomeProponente = $buscaNomeProponente[0]->Descricao;
+                $this->view->cgccpf = $cnpjcpf;
+                $this->view->nomeproponente = $nomeProponente;
 //                $this->view->NrProjeto          = $rst[0]->NrProjeto;
 //                $this->view->NomeProjeto        = $tblProjetos->buscarTodosDadosProjeto(array('CgcCpf = ?' => $buscaAgentes));
-
 //                $rsProjeto = $tblProjeto->buscar(array("idPronac = ?"=>$get->idPronac))->current();
 //                $this->view->projeto = $rsProjeto;
 
@@ -915,7 +911,7 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
                 }
 
 
-                if (!$buscaAgentes[0] or !$buscaInteressados[0]) {
+                if (!$buscaAgentes[0] or ! $buscaInteressados[0]) {
                     if ($this->cpfcnpj != 0) {
                         parent::message("O agente n&atilde;o est&aacute; cadastrado!", "liberarcontabancaria/index" . $this->queryString, "ERROR");
                     }
@@ -927,23 +923,21 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
         }
     }
 
-    public function excluirCertidaoAction()
-    {
+    public function excluirCertidaoAction() {
         $this->_helper->layout->disableLayout(); // desabilita o Zend_Layout
         $post = Zend_Registry::get('post');
 
         $CertidoesNegativas = new CertidoesNegativas();
         $exclusao = $CertidoesNegativas->delete(array('CgcCpf = ?' => $post->cpfcnpj, 'CodigoCertidao = ?' => $post->cod));
         if ($exclusao) {
-            $this->_helper->json(array('resposta'=>true));
+            $this->_helper->json(array('resposta' => true));
         } else {
-            $this->_helper->json(array('resposta'=>false));
+            $this->_helper->json(array('resposta' => false));
         }
         $this->_helper->viewRenderer->setNoRender(true);
     }
 
-    public function datadiffAction()
-    {
+    public function datadiffAction() {
         $dtIni = $this->_request->getParam("dtIni");
         $dtFim = $this->_request->getParam("dtFim");
         $intervalo = "d";
@@ -985,8 +979,7 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
         }
     }
 
-    public function calculadataemissaoduracaoAction()
-    {
+    public function calculadataemissaoduracaoAction() {
         $tipo = $this->_request->getParam("tipo");
         $duracao = $this->_request->getParam("duracao");
         $dtEmissao = $this->_request->getParam("dtEmissao");
@@ -1031,8 +1024,8 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
                 }
             }
 
-            $dtEmissao = $arrDtTemp[0].'-'.$arrDtTemp[1].'-'.$arrDtTemp[2];
-            $dtEmissao = date('d/m/Y', strtotime("+".$qtdDias." days", strtotime($dtEmissao)));
+            $dtEmissao = $arrDtTemp[0] . '-' . $arrDtTemp[1] . '-' . $arrDtTemp[2];
+            $dtEmissao = date('d/m/Y', strtotime("+" . $qtdDias . " days", strtotime($dtEmissao)));
 
             if (!empty($dtEmissao)) {
                 $result['existe'] = true;
@@ -1046,4 +1039,5 @@ class ManterRegularidadeProponenteController extends MinC_Controller_Action_Abst
             }
         }
     }
+
 }

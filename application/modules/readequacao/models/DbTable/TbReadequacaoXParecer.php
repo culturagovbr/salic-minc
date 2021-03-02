@@ -39,7 +39,7 @@ class Readequacao_Model_DbTable_TbReadequacaoXParecer extends MinC_Db_Table_Abst
             array(''),
             'TABELAS.dbo'
         );
-
+        
         //adiciona quantos filtros foram enviados
         foreach ($where as $coluna => $valor) {
             $select->where($coluna, $valor);

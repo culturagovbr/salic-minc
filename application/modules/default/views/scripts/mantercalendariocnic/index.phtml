@@ -6,28 +6,24 @@
  * @version 1.0
  * @package application
  * @subpackage application.view.scripts.manteragentes
- * @copyright ? 2010 - Ministério da Cultura - Todos os direitos reservados.
+ * @copyright ? 2010 - Ministï¿½rio da Cultura - Todos os direitos reservados.
  * @link http://www.cultura.gov.br
  */
 ?>
 
 
 
-<!-- ========== INÍCIO BREADCRUMB (LINKS TOPO) ========== -->
+<!-- ========== INï¿½CIO BREADCRUMB (LINKS TOPO) ========== -->
 <div id="breadcrumb">
 	<ul>
-		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Início">Início</a></li>
-		<li><a href="<?php echo $this->url(array('controller' => 'mantercalendariocnic', 'action' => 'index')); ?>">Calendário CNIC</a></li>
+		<li class="first"><a href="<?php echo $this->baseUrl(); ?>" title="Inï¿½cio">Inï¿½cio</a></li>
+		<li><a href="<?php echo $this->url(array('controller' => 'mantercalendariocnic', 'action' => 'index')); ?>">Calendï¿½rio CNIC</a></li>
 	</ul>
 </div>
 <!-- ========== FIM BREADCRUMB (LINKS TOPO) ========== -->
 
 
-
-
-
-
-<!-- ========== INÍCIO CONTEÚDO ========== -->
+<!-- ========== INï¿½CIO CONTEï¿½DO ========== -->
 <script>
 $(function()
     {
@@ -69,7 +65,7 @@ function addTodos() // adiciona todos os options da esquerda para direita
 			visao.remove(i); // remove o option do select de origem
 			i--;
 		}
-	} // fecha funç?o addTodos()
+	} // fecha funï¿½?o addTodos()
 
 
 	function delTodos() // deleta todos os options da direita
@@ -88,7 +84,7 @@ function addTodos() // adiciona todos os options da esquerda para direita
 				i--;
 			}
 		}
-	} // fecha funç?o delTodos()
+	} // fecha funï¿½?o delTodos()
 
 
 	function addSelecionado() // adiciona o option selecionado da esquerda para direita
@@ -107,7 +103,7 @@ function addTodos() // adiciona todos os options da esquerda para direita
 				i--;
 			}
 		}
-	} // fecha funç?o addSelecionado()
+	} // fecha funï¿½?o addSelecionado()
 
 
 	function delSelecionado() // deleta o option selecionado da direita
@@ -126,10 +122,10 @@ function addTodos() // adiciona todos os options da esquerda para direita
 				i--;
 			}
 		}
-	} // fecha funç?o delSelecionado()
+	} // fecha funï¿½?o delSelecionado()
 
 
-	function selecionarOptions() // funç?o para selecionar todos os options antes do envio do formulário
+	function selecionarOptions() // funï¿½?o para selecionar todos os options antes do envio do formulï¿½rio
 	{
 		visaoAgente = document.getElementById("visaoAgente"); // select de destino
 		for (i = 0; i < visaoAgente.length; i++) // varre todo o option de origem
@@ -137,7 +133,7 @@ function addTodos() // adiciona todos os options da esquerda para direita
 			visaoAgente.options[i].selected = true; // adiciona o novo option no select de destino
 		}
 		document.getElementById('form').submit();
-	} // fecha funç?o selecionarOptions()
+	} // fecha funï¿½?o selecionarOptions()
 
 
 
@@ -170,7 +166,7 @@ function adicionar_nova_reuniao()
 		});
 		$('.ui-dialog-titlebar-close').remove();
 
-} // fecha funç?o adicionar_dirigente_agente()
+} // fecha funï¿½?o adicionar_dirigente_agente()
 
 
 
@@ -221,7 +217,7 @@ function Alterar_reuniao(idNrReuniao,NrReuniao,DtInicio,DtFinal,DtFechamento,Mec
 		});
 		$('.ui-dialog-titlebar-close').remove();
 
-} // fecha funç?o adicionar_dirigente_agente()
+} // fecha funï¿½?o adicionar_dirigente_agente()
 
 
 
@@ -249,11 +245,11 @@ function Montar_Consulta()
 		});
 		$('.ui-dialog-titlebar-close').remove();
 
-} // fecha funç?o adicionar_dirigente_agente()
+} // fecha funï¿½?o adicionar_dirigente_agente()
 
 
 function gerar_pdf(formato){
-document.getElementById("html").value = "<html><style>table {width:798px;} table td { background-color:#EEE; padding:3px; text-align:center}table th { background-color:#CCC; padding:3px; text-align:center}</style><center><h2>Calendário CNIC</h2></center>"
+document.getElementById("html").value = "<html><style>table {width:798px;} table td { background-color:#EEE; padding:3px; text-align:center}table th { background-color:#CCC; padding:3px; text-align:center}</style><center><h2>Calendï¿½rio CNIC</h2></center>"
 document.getElementById("html").value = document.getElementById("html").value + document.getElementById("miolo").innerHTML+"</html>";
 document.getElementById("formato").value = formato;
 document.formulario1.submit();
@@ -263,15 +259,16 @@ document.formulario1.submit();
 function validarForm(){
 
      if(document.getElementById("NrReuniao").value == ""){
-         alert("Numero da Reuni?o é um campo de preenchimento obrigatório");
+         alert("Numero da Reuni?o ï¿½ um campo de preenchimento obrigatï¿½rio");
      }else if(document.getElementById("DtInicio").value == "" || document.getElementById("DtInicio").value == "00/00/0000"){
-         alert("Data Início é um campo de preenchimento obrigatório");
+         alert("Data Inï¿½cio ï¿½ um campo de preenchimento obrigatï¿½rio");
      }else if(document.getElementById("DtFinal").value == "" || document.getElementById("DtFinal").value == "00/00/0000"){
-        alert("Data Final é um campo de preenchimento obrigatório");
+        alert("Data Final ï¿½ um campo de preenchimento obrigatï¿½rio");
      }else if(document.getElementById("DtFechamento").value == "" || document.getElementById("DtFechamento").value == "00/00/0000"){
-        alert("Data Fechamento é um campo de preenchimento obrigatório");
-     }else if(document.getElementById("Mecanismo"). checked == "checked" && document.getElementById("FNC"). checked == "checked"){
-        alert("Mecanismo é um campo de preenchimento obrigatório");
+        alert("Data Fechamento ï¿½ um campo de preenchimento obrigatï¿½rio");
+//     }else if(document.getElementById("Mecenato"). checked == "checked" && document.getElementById("FNC"). checked == "checked"){
+     }else if(document.getElementById("Mecenato"). value == ''  && document.getElementById("FNC"). value == '' ){
+        alert("Mecanismo ï¿½ um campo de preenchimento obrigatï¿½rio");
      }else{
      document.ALTERAR_REUNIAO.submit();
      }
@@ -300,7 +297,7 @@ function validarForm(){
                         </td>
                     </tr>
                     <tr>
-                        <td>Data Início</td>
+                        <td>Data Inï¿½cio</td>
                         <td><input type="text" name="DtInicio" id="DtInicio" class="input_simples w200" maxlength="10" value="" onkeyup="mascara(this, format_data);" onclick="limpar_campo(this, '00/00/0000');" onblur="restaurar_campo(this, '00/00/0000');" type="text"></td>
                     </tr>
                     <tr>
@@ -312,8 +309,11 @@ function validarForm(){
                         <td><input type="text" name="DtFechamento" id="DtFechamento" class="input_simples w200" maxlength="10" value="" onkeyup="mascara(this, format_data);" onclick="limpar_campo(this, '00/00/0000');" onblur="restaurar_campo(this, '00/00/0000');" type="text"></td>
                     </tr>
                     <tr>
-                        <td>Mecanísmo</td>
-                        <td><input type="radio" name="Mecanismo" id="Mecanismo" value="1">&ensp;Mecenato&ensp;&ensp;&ensp;<input type="radio" name="Mecanismo" id="FNC" value="2">&ensp;FNC</td>
+                        <td>Mecanismo</td>
+                        <td>
+                            <input type="radio" id="Mecenato" name="Mecanismo" value="1" checked > <label for="Mecenato">Mecenato</label><br>
+                            <input type="radio" id="FNC" name="Mecanismo" value="2"> <label for="FNC">FNC</label>
+                        </td>
                     </tr>
                 </table>
                 <table class="tabela">
@@ -344,7 +344,7 @@ function validarForm(){
                                                     <select class="select w150" name="colunas[]" id="visao" multiple="multiple" size="7">
 
                                                             <option value="N.Reuniao">N. Reuni?o</option>
-                                                            <option value="Dt.Inicio">Dt. Início </option>
+                                                            <option value="Dt.Inicio">Dt. Inï¿½cio </option>
                                                             <option value="Dt.Final">Dt. Final</option>
                                                             <option value="Dt.Fechamento">Dt. Fechamento</option>
                                                             <option value="Mecanismo">Mecanismo </option>
@@ -384,7 +384,7 @@ function validarForm(){
 
 <div id="titulo"><div>Reuni&atilde;o da CNIC<span class="voltar"><a href="#">Voltar</a></span></div></div></form><div id="conteudo">
     <div id="cronometro" style="display: none; font-size: 2em; margin-top: 0.5em; text-align: center; color: red;" >
-        Tempo restante para início da Plenária = <span id="minu" ></span>' : <span id="seg" ></span>"
+        Tempo restante para inï¿½cio da Plenï¿½ria = <span id="minu" ></span>' : <span id="seg" ></span>"
     </div>
 
     <div id="miolo">
@@ -574,7 +574,7 @@ function validarForm(){
 
 </div><!-- final: conte??do principal #conteudo -->
 
-<!-- in?­cio: detalhe final da div conteudo #rodapeConteudo -->
+<!-- in?ï¿½cio: detalhe final da div conteudo #rodapeConteudo -->
 <div id="rodapeConteudo"></div>
 <!-- final: detalhe final da div conteudo #rodapeConteudo -->
 

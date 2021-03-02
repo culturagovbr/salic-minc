@@ -1,0 +1,17 @@
+<table class="tabela">
+    <tr class="destacar">
+        <td align="center"><b>PRONAC</b></td>
+        <td align="center"><b>Nome do Projeto</b></td>
+    </tr>
+    <tr>
+        <td align="center"><?php echo $this->projeto->AnoProjeto.$this->projeto->Sequencial; ?></td>
+        <td align="center"><?php echo $this->projeto->NomeProjeto; ?></td>
+    </tr>
+</table>
+
+<?php /***** CARREGA A PLANILHA ORCAMENTARIA *****/ ?>
+<script type="text/javascript">
+    jqAjaxLink('<?php echo $this->Url(array('controller' => 'index', 'action' => 'montar-planilha-orcamentaria')) ?>?idPronac=<?php echo $this->projeto->IdPRONAC; ?>&tipoPlanilha=<?php echo $this->tipoPlanilha; ?>', '', 'planilhaOrcamentariaMontada');
+</script>
+<div id="planilhaOrcamentariaMontada"></div>
+<?php /****** FIM DA PLANILHA ORCAMENTARIA ******/ ?>

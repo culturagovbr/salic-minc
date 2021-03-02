@@ -4,7 +4,7 @@ class MantercalendariocnicController extends MinC_Controller_Action_Abstract
 {
     private $intTamPag = 10;
     /**
-    * Reescreve o método init()
+    * Reescreve o mï¿½todo init()
     * @access public
     * @param void
     * @return void
@@ -12,14 +12,14 @@ class MantercalendariocnicController extends MinC_Controller_Action_Abstract
 
     public function init()
     {
-        $auth = Zend_Auth::getInstance(); // pega a autenticaç?o
-        $this->view->title = "Salic - Sistema de Apoio às Leis de Incentivo à Cultura"; // título da página
+        $auth = Zend_Auth::getInstance(); // pega a autenticaï¿½?o
+        $this->view->title = "Salic - Sistema de Apoio ï¿½s Leis de Incentivo ï¿½ Cultura"; // tï¿½tulo da pï¿½gina
 
-        // 3 => autenticaç?o scriptcase e autenticaç?o/permiss?o zend (AMBIENTE PROPONENTE E MINC)
+        // 3 => autenticaï¿½?o scriptcase e autenticaï¿½?o/permiss?o zend (AMBIENTE PROPONENTE E MINC)
         // utilizar quando a Controller ou a Action for acessada via scriptcase e zend
         // define as permiss?es
         $PermissoesGrupo = array();
-        $PermissoesGrupo[] = 103; // Coordenador de Análise
+        $PermissoesGrupo[] = 103; // Coordenador de Anï¿½lise
         $PermissoesGrupo[] = 120; // Coordenador Administrativo CNIC
         parent::perfil(3, $PermissoesGrupo);
         if (isset($auth->getIdentity()->usu_codigo)) {
@@ -34,7 +34,7 @@ class MantercalendariocnicController extends MinC_Controller_Action_Abstract
         }
 
         parent::init(); // chama o init() do pai GenericControllerNew
-    } // fecha método init()
+    } // fecha mï¿½todo init()
 
     public function indexAction()
     {
@@ -122,9 +122,10 @@ class MantercalendariocnicController extends MinC_Controller_Action_Abstract
                'DtFinal'      => ConverteData($_POST['DtFinal'], 13),
                'DtFechamento' => ConverteData($_POST['DtFechamento'], 13),
                'Mecanismo'    => $_POST['Mecanismo'],
+//               'Mecanismo'    => 1,
                'stEstado'     => 1,
-               'stPlenaria'   => 'N',
-               'idUsuario'    => $this->getIdUsuario
+               'idUsuario'    => $this->getIdUsuario,
+               'stPlenaria'   => 'N'
                );
                 $atualizar = tbreuniao::salvareuniao($dados);
                 //inserrir
@@ -135,10 +136,12 @@ class MantercalendariocnicController extends MinC_Controller_Action_Abstract
 
 
             if ($atualizar) {
-                parent::message("Alteração realizada com sucesso!", "mantercalendariocnic/index", "CONFIRM");
+                parent::message("Alteraï¿½ï¿½o realizada com sucesso!", "mantercalendariocnic/index", "CONFIRM");
             } else {
-                throw new Exception("Erro ao efetuar alteração da reunião");
+                throw new Exception("Erro ao efetuar alteraï¿½ï¿½o da reuniï¿½o");
             }
         }
     }
 }
+
+

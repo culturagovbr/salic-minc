@@ -61,7 +61,7 @@ class AvaliacaoResultados_DiligenciaController extends MinC_Controller_Rest_Abst
 
     public function postAction()
     {
-        $idagente = (Zend_Auth::getInstance())->getIdentity()->usu_codigo;
+        $idagente = Zend_Auth::getInstance()->getIdentity()->usu_codigo;
         $idPronac = $this->getRequest()->getParam('idPronac');
         $solicitacao = $this->getRequest()->getParam('solicitacao');
         $idTipoDiligencia = $this->getRequest()->getParam('tpDiligencia');
