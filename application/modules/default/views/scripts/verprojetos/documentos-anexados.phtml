@@ -44,14 +44,14 @@
             if (in_array($documento->Anexado, $excluir)) {
                 continue;
             }
-            
+
             // Tipos de documentos
             $tipoDocumento = array(
             	1 => 'Documento do Proponente',
-		2 => 'Documento do Proposta',
-		3 => 'Documento do Projeto Anexado no MinC',
-		4 => 'Documento do Projeto',
-		5 => 'Documento do Projeto'
+		        2 => 'Documento do Proposta',
+		        3 => 'Documento do Projeto Anexado no MinC',
+		        4 => 'Documento do Projeto',
+		        5 => 'Documento do Projeto'
             );
             ?>
             <tr>
@@ -61,9 +61,9 @@
                 <td align="left"><?php echo $documento->Descricao;?></td>
                 <td align="left">
                     <?php $arrayTipos = array(1,2,3); if(in_array($documento->Anexado,$arrayTipos)) { ?>
-                    <a href="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'abrir-documentos-anexados')); ?>?id=<?php echo $documento->idDocumentosAgentes; ?>&tipo=<?php echo $documento->AgenteDoc; ?>&idPronac=<?php echo $this->projeto->IdPRONAC; ?>" title="Abrir arquivo"><?php echo $documento->NoArquivo;?></a>
+                    <a href="<?php echo $this->url(array('controller' => 'projetos', 'action' => 'abrir-documentos-anexados')); ?>?id=<?php echo $documento->idDocumentosAgentes; ?>&tipo=<?php echo $documento->AgenteDoc; ?>&idPronac=<?php echo $this->projeto->IdPRONAC; ?>" title="Abrir arquivo"><?php echo $documento->NoArquivo;?></a>
                     <?php } else { ?>
-                    <a href="<?php echo $this->url(array('controller' => 'verprojetos', 'action' => 'abrir')); ?>?id=<?php echo $documento->idDocumentosAgentes; ?>"><?php echo $documento->NoArquivo; ?></a>
+                    <a href="<?php echo $this->url(array('controller' => 'projetos', 'action' => 'abrir')); ?>?id=<?php echo $documento->idDocumentosAgentes; ?>"><?php echo $documento->NoArquivo; ?></a>
                     <?php }  ?>
                 </td>
             </tr>
