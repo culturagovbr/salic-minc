@@ -33,7 +33,7 @@ RUN ln -s /usr/local/bin/composer.phar /usr/local/bin/composer
 
 WORKDIR /var/www/
 
-EXPOSE 8080
+EXPOSE 80
 EXPOSE 9000
 
 COPY . /var/www/salic
