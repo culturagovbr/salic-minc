@@ -50,11 +50,11 @@ class ProjetosController extends MinC_Controller_Action_Abstract
         $idPronac 	 = $this->_request->getParam("idpronac"); // pega o id do pronac via get
         $servico 	 = $this->_request->getParam("servico"); // pega o id do pronac via get
         $tipousuario = $this->_request->getParam("idusuario"); // pega o id do pronac via get
-        
+
         $tbDistParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
         $w1['a.IdPRONAC = ?'] = $idPronac;
         $qntdProd = $tbDistParecer->QntdProdutosXValidados($w1);
-        
+
         $w2['a.IdPRONAC = ?'] = $idPronac;
         $w2['a.stEstado = ?'] = 0;
         $w2['a.FecharAnalise in (?)'] = array(1,2);
@@ -63,7 +63,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
         if ($qntdProdValidados != $qntdProd) { //Se n�o houver valida��o para cada produto, o sistema n�o deixa continuar.
             parent::message("Produto sem valida&ccedil;&atilde;o do Coordenador da Vinculada!", "gerenciarpareceres/index", "ERROR");
         }
-                
+
         $planilhaAprovacao = new PlanilhaAprovacao();
         $buscarplanilhaaprovacao = $planilhaAprovacao->buscar(array("IdPRONAC = ?" => $idPronac, "tpPlanilha = ?"=>"CO"))->current();
 
@@ -103,7 +103,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
                         'stAvaliacao' 			=> $resu->ParecerFavoravel, //1=Favoravel(sim)    0=Desfavoravel(nao)
                         'dsAvaliacao' 			=> $resu->ParecerDeConteudo
                     );
-                    
+
                     if ($resu->idProduto >= 1) {
                         $arrParecerProduto[$resu->idProduto] = $resu->ParecerFavoravel;
                     } else {
@@ -111,7 +111,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
                     }
                     $analiseaprovacao->inserir($data);
                 }
-                
+
                 //ANALISE DE CUSTO
                 $Rplanilhaprojeto = $planilhaProjeto->dadosPlanilhaProjeto($idPronac);
                 foreach ($Rplanilhaprojeto as $resu) {
@@ -136,7 +136,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
                         'dsJustificativa'       => $resu->Justificativa,
                         'stAtivo'               => 'S'
                     );
-                    
+
                     //zera valores de produto desfavorecido
                     if (isset($arrParecerProduto[$resu->idProduto])) {
                         if ($arrParecerProduto[$resu->idProduto] == '1') {
@@ -155,10 +155,10 @@ class ProjetosController extends MinC_Controller_Action_Abstract
                         $data['nrOcorrencia'] = $resu->Ocorrencia;
                         $data['vlUnitario']   = $resu->ValorUnitario;
                     }
-                    
+
                     $inserirPlanilhaAprovacao = $planilhaAprovacao->inserir($data);
                 }
-                
+
                 //VERIFICA QUANTOS PRODUTOS O PROJETO POSSUI POR AREA
                 $rsProdutos = $tbDistParecer->BuscarQtdAreasProjetos($idPronac);
                 $totalArea = $rsProdutos->QDTArea;
@@ -169,7 +169,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
                     $areaProjeto = $projetos->BuscarAreaSegmentoProjetos($idPronac);
                     $area = $areaProjeto['area']; //Area do projeto
                 }
-            
+
                 $Rtitulacao = $titulacaoConselheiro->buscarcomponentebalanceamento($area)->current();
                 $dados = array(
                     'idPRONAC' 			=> $idPronac,
@@ -187,7 +187,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
                 $where['IdPRONAC = ?'] = $idPronac;
                 $projetos->alterar($data, $where);
                 //echo 'Conselheiro = ' . $Rtitulacao->idAgente . '<br/>';
-                
+
                 parent::message("Projeto encaminhado para o Componente da Comiss&atilde;o. Conselheiro: ".$Rtitulacao->Nome, "gerenciarpareceres/index", "CONFIRM");
             } // fecha try
             catch (Exception $e) {
@@ -199,9 +199,9 @@ class ProjetosController extends MinC_Controller_Action_Abstract
         } else {
             parent::message("Planilhas j&aacute; copiadas.", "gerenciarpareceres/index", "ALERT");
         }
-        
+
         // colocar um else aqui!!!
-        
+
         /*
         // redireciona para a pagina de projetos
         // $this->_redirect('projetos/projetos');
@@ -379,7 +379,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
                         'stAvaliacao'=>$resu->ParecerFavoravel,
                         'dsAvaliacao'=>$resu->ParecerDeConteudo
                     );
-                    
+
                 $analiseaprovacao->inserir($data);
             }
 
@@ -512,7 +512,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
             }
 
             // chama a funcao para fazer o balanceamento
-            
+
             //VERIFICA QUANTOS PRODUTOS O PROJETO POSSUI POR AREA
             $tbDistParecer = new Parecer_Model_DbTable_TbDistribuirParecer();
             $rsProdutos = $tbDistParecer->BuscarQtdAreasProjetos($idPronac);
@@ -524,7 +524,7 @@ class ProjetosController extends MinC_Controller_Action_Abstract
                 $areaProjeto = $projetos->BuscarAreaSegmentoProjetos($idPronac);
                 $area = $areaProjeto['area']; //Area do projeto
             }
-            
+
             $Rtitulacao = $titulacaoConselheiro->buscarComponenteBalanceamento($area);
             $dados = array(
                 'idPRONAC' 			=> $idPronac,
@@ -551,6 +551,108 @@ class ProjetosController extends MinC_Controller_Action_Abstract
     }
 
     // fecha metodo enviarcomponentedacomissaoAction()
+
+    public function abrirDocumentosAnexadosAction()
+    {
+        $this->_helper->layout->disableLayout(); // Desabilita o Zend Layout
+
+        $idPronac = $this->_request->getParam("idPronac");
+        if (strlen($idPronac) > 7) {
+            $idPronac = Seguranca::dencrypt($idPronac);
+        }
+        $id  = $this->_request->getParam('id');
+        $tipo  = $this->_request->getParam('tipo');
+        $tipoDoc = null;
+        $bln = "false";
+
+        $tipoDoc = 0;
+        if ($tipo == '1') {
+            $tipoDoc = "tbDocumentosAgentes"; //SAC.dbo.tbDocumentosAgentes
+        } elseif ($tipo == '2') {
+            $tipoDoc = "tbDocumentosPreProjeto"; //SAC.dbo.tbDocumentosPreProjeto
+        } elseif ($tipo == '3') {
+            $tipoDoc = "tbDocumento"; //SAC.dbo.tbDocumento
+        }
+
+        // Configura��o o php.ini para 10MB
+        @ini_set("mssql.textsize", 10485760);
+        @ini_set("mssql.textlimit", 10485760);
+        @ini_set("upload_max_filesize", "10M");
+
+        if ($tipo == 1 || $tipo == 2 || $tipo == 3) {
+            // busca o arquivo
+            $resultado = UploadDAO::abrirdocumentosanexados($id, $tipoDoc);
+            if (count($resultado) > 0) {
+                if ($tipo == 1) {
+                    $this->forward("abrirdocumentosanexadosbinario", "anexospublicos", "", array('id'=>$id,'busca'=>$tipoDoc));
+                } else {
+                    $this->forward("abrirdocumentosanexados", "anexospublicos", "", array('id'=>$id,'busca'=>$tipoDoc));
+                }
+                $bln = "true";
+            }
+        } else {
+            // busca o arquivo
+            $resultado = UploadDAO::abrir($id);
+            if (count($resultado) > 0) {
+                $this->forward("abrir", "upload", "", array('id'=>$id));
+                $bln = "true";
+            }
+        }
+
+        if ($bln == "false") {
+            $url = Zend_Controller_Front::getInstance()->getBaseUrl()."/projetos/?idPronac={$idPronac}";
+            $this->_helper->viewRenderer->setNoRender(true);
+            $this->_helper->flashMessenger->addMessage("N&atilde;o foi poss&iacute;vel abrir o arquivo especificado. Tente anex&aacute;-lo novamente.");
+            $this->_helper->flashMessengerType->addMessage("ERROR");
+            JS::redirecionarURL($url);
+            $this->_helper->viewRenderer->setNoRender(true);
+        }
+
+    }
+
+    public function abrirAction()
+    {
+        // recebe o id do arquivo via get
+        $get = Zend_Registry::get('get');
+        $id = (int) isset($get->id) ? $get->id : $this->_request->getParam('id');
+
+        // Configura��o o php.ini para 10MB
+        @ini_set("mssql.textsize", 10485760);
+        @ini_set("mssql.textlimit", 10485760);
+        @ini_set("upload_max_filesize", "10M");
+
+        $response = new Zend_Controller_Response_Http;
+
+        // busca o arquivo
+        $resultado = UploadDAO::abrir($id);
+
+        // erro ao abrir o arquivo
+        if (!$resultado) {
+            $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
+            $this->_helper->viewRenderer->setNoRender();    // Desabilita o Zend Render
+            die("N&atilde;o existe o arquivo especificado");
+            $this->view->message = 'Não foi possível abrir o arquivo!';
+            $this->view->message_type = 'ERROR';
+        } else {
+            // l� os cabe�alhos formatado
+            foreach ($resultado as $r) {
+                $this->_helper->layout->disableLayout();        // Desabilita o Zend Layout
+                $this->_helper->viewRenderer->setNoRender();    // Desabilita o Zend Render
+                Zend_Layout::getMvcInstance()->disableLayout(); // Desabilita o Zend MVC
+                $this->_response->clearBody();                  // Limpa o corpo html
+                $this->_response->clearHeaders();               // Limpa os headers do Zend
+
+                $this->getResponse()
+                    ->setHeader('Content-Type', $r->dsTipoPadronizado)
+                    ->setHeader('Content-Disposition', 'attachment; filename="' . $r->nmArquivo . '"')
+                    //->setHeader("Connection", "close")
+                    //->setHeader("Content-transfer-encoding", "binary")
+                    //->setHeader("Cache-control", "private")
+                    ->setBody($r->biArquivo);
+            } // fecha foreach
+        } // fecha else
+    }
+
 }
 
 // fecha class
