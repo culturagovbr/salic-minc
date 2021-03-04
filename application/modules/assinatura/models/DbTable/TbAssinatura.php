@@ -363,7 +363,7 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
                 'quantidadeTotalAssinaturas' => new Zend_Db_Expr($sqlTotalQuantidadeAssinaturas),
             ),
             $this->_schema
-        );
+        )->order(new Zend_Db_Expr('projetos.DtSituacao ASC'));
 
         $query->joinInner(
             array('Area' => 'Area'),

@@ -26,7 +26,7 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
         $enquadramento = new Admissibilidade_Model_Enquadramento();
 
         $this->view->dados = array();
-        $ordenacao = array("projetos.DtSituacao asc");
+        $ordenacao = array("projetos.DtSituacao ASC");
 
         if ($this->grupoAtivo->codGrupo == Autenticacao_Model_Grupos::COORDENADOR_ADMISSIBILIDADE) {
             $this->view->dados = $enquadramento->obterProjetosParaEnquadramento(
@@ -210,7 +210,7 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
         $enquadramento = new Admissibilidade_Model_Enquadramento();
 
         $this->view->dados = array();
-        $ordenacao = array("dias desc");
+        $ordenacao = ['dias ASC'];
         $situacoes = ['B02', 'B03'];
         $dados = $enquadramento->obterProjetosEnquadradosParaAssinatura($this->grupoAtivo->codOrgao, $situacoes, $ordenacao);
 
