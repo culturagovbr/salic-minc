@@ -87,7 +87,7 @@ class DocumentoAssinatura implements \MinC\Assinatura\Servico\IDocumentoAssinatu
             $this->idPronac,
             null,
             'B04',
-            'Projeto em an&aacute;lise documental.'
+            'Proposta em avaliação.'
         );
 
         $orgaoDestino = \Orgaos::ORGAO_SAV_DAP;
