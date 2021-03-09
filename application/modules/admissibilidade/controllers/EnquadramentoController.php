@@ -218,7 +218,6 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
             $dado->desistenciaRecursal = $enquadramento->verificarDesistenciaRecursal($dado->IdPRONAC);
             $this->view->dados[] = $dado;
         }
-        var_dump($dados);die();
 
         $this->view->codGrupo = $this->grupoAtivo->codGrupo;
         $this->view->codOrgao = $this->grupoAtivo->codOrgao;
