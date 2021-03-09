@@ -24,7 +24,7 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
         }
     }
 
-    public function obterProjetosEncaminhadosParaAssinatura($codOrgao = null, $ordenacao = ['projetos.DtSituacao ASC'])
+    public function obterProjetosEncaminhadosParaAssinatura($codOrgao = null, $ordenacao = array())
     {
         $query = $this->select();
         $query->setIntegrityCheck(false);
