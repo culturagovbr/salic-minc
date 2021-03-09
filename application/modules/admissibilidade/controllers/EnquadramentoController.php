@@ -210,7 +210,7 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
         $enquadramento = new Admissibilidade_Model_Enquadramento();
 
         $this->view->dados = array();
-        $ordenacao = ['dias ASC'];
+        $ordenacao = array('dias ASC');
         $situacoes = ['B02', 'B03'];
         $dados = $enquadramento->obterProjetosEnquadradosParaAssinatura($this->grupoAtivo->codOrgao, $situacoes, $ordenacao);
 
@@ -218,6 +218,7 @@ class Admissibilidade_EnquadramentoController extends MinC_Controller_Action_Abs
             $dado->desistenciaRecursal = $enquadramento->verificarDesistenciaRecursal($dado->IdPRONAC);
             $this->view->dados[] = $dado;
         }
+        var_dump($dados);die();
 
         $this->view->codGrupo = $this->grupoAtivo->codGrupo;
         $this->view->codOrgao = $this->grupoAtivo->codOrgao;

@@ -356,14 +356,13 @@ class Assinatura_Model_DbTable_TbAssinatura extends MinC_Db_Table_Abstract
                           WHERE {$this->_schema}.TbAssinatura.idDocumentoAssinatura = {$this->_schema}.tbDocumentoAssinatura.idDocumentoAssinatura
                           AND {$this->_schema}.TbAtoAdministrativo.idTipoDoAto = {$this->_schema}.tbDocumentoAssinatura.idTipoDoAtoAdministrativo
                       )
-                      order by idOrdemDaAssinatura asc
                     )
                 "),
                 'quantidadeAssinaturas' => new Zend_Db_Expr($sqlQuantidadeAssinaturas),
                 'quantidadeTotalAssinaturas' => new Zend_Db_Expr($sqlTotalQuantidadeAssinaturas),
             ),
             $this->_schema
-        )->order(new Zend_Db_Expr('projetos.DtSituacao ASC'));
+        );
 
         $query->joinInner(
             array('Area' => 'Area'),

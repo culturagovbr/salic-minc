@@ -224,7 +224,7 @@
                  },
                  "autoWidth": false,
                  // "serverSide": true,
-                 "order": [5, "ASC"]
+                 "order": [ 5, "asc" ],
                  "searchDelay": 350,
                  "columnDefs": [
                      // { "width": "1%", "targets": 0 },
@@ -232,14 +232,14 @@
                      // { "width": "10%", "targets": 3 },
                      // { "width": "5%", "targets": [5,6,7,9] },
                      {"className": "dt-center", "targets": [0, 1, 2, 5, 7]},
-                     {'bSortable': true, 'aTargets': [1, 7]},
+                     {'bSortable': true, 'aTargets': [1]},
                  ],
                  "columns": [
                      {
                          "targets": 0,
                          "data": null,
                          "name": "IdPRONAC",
-                         "orderable": false,
+                         "orderable": true,
                          render: (data) => {
                              let assinarEmMassa = '<input type="checkbox" ' +
                                                   'name="IdPRONAC[]" ' +
