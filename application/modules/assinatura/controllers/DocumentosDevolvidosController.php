@@ -52,7 +52,7 @@ class Assinatura_DocumentosDevolvidosController extends Assinatura_GenericContro
         $order = $this->getRequest()->getParam('order');
         $columns = $this->getRequest()->getParam('columns');
 
-        $order = (!empty($order[0]['dir'])) ? array($columns[$order[0]['column']]['name'] . ' ' . $order[0]['dir']) : ["idDocumentoAssinatura desc"];
+        $order = (!empty($order[0]['dir'])) ? array($columns[$order[0]['column']]['name'] . ' ' . $order[0]['dir']) : ["dias asc"];
 
         $where = [];
         $where["TbAtoAdministrativo.idOrgaoDoAssinante = ?"] = $this->grupoAtivo->codOrgao;
