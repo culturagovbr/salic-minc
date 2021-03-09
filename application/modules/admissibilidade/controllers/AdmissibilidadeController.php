@@ -776,7 +776,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
                     $rsProjeto->IdPRONAC,
                     null,
                     Projeto_Model_Situacao::PROJETO_EM_AVALIACAO_DOCUMENTAL,
-                    "Proposta transformada em projeto e encaminhado para assinatura."
+                    "Proposta aguardando análise e convalidação."
                 );
 
             }

@@ -336,7 +336,7 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
                                                          Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_READEQUACAO_VINCULADAS . "," .
                                                          Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_AJUSTE_DE_PROJETO . "," .
                                                          Assinatura_Model_DbTable_TbAssinatura::TIPO_ATO_PARECER_TECNICO_READEQUACAO_PROJETOS_MINC . ")
-                                                               THEN Verificacao.Descricao + ' - ' + tbTipoReadequacao.dsReadequacao 
+                                                               THEN Verificacao.Descricao + ' - ' + tbTipoReadequacao.dsReadequacao
                                                                ELSE Verificacao.Descricao END")
             ],
             $this->_schema
@@ -391,7 +391,7 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
 
         return (count($result) > 0);
     }
-    
+
     public function obterProximaAssinatura(
         $idDocumentoAssinatura,
         $idPronac
@@ -399,7 +399,7 @@ class Assinatura_Model_DbTable_TbDocumentoAssinatura extends MinC_Db_Table_Abstr
     {
         $query = $this->select();
         $query->setIntegrityCheck(false);
-        
+
         $query->from(
             [$this->_name],
             ['ordemDaProximaAssinatura' => new Zend_Db_Expr('ISNULL(TbAtoAdministrativo.idOrdemDaAssinatura, 0) + 2')],
