@@ -127,6 +127,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
     }
     public function pareceremitidoAction()
     {
+        set_time_limit(-1);
         $tela   = 'pareceremitido';
         $this->gerarAnexo($tela);
         $this->view->projetos = $this->gerarInfoPaginas($tela, array(), 10);
