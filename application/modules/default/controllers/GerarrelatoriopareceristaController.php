@@ -70,6 +70,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
     }
     private function gerarAnexo($tela, $filtro = '')
     {
+        set_time_limit(-1);
         $this->view->tela   =   $tela;
         if (empty($filtro)) {
             $this->view->filtro =   $tela;
