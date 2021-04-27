@@ -39,6 +39,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
     }
     private function paginacao($total, $qtInformacao = 10)
     {
+        set_time_limit(-1);
         $post = Zend_Registry::get('post');
         $this->intTamPag = $qtInformacao;
         //controlando a paginacao
