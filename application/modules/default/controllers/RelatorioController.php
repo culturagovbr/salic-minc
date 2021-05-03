@@ -17,6 +17,7 @@ class RelatorioController extends MinC_Controller_Action_Abstract
 
     public function init()
     {
+        set_time_limit(-1);
         $auth = Zend_Auth::getInstance(); // instancia da autentica��o
         if (empty($auth->getIdentity()->usu_codigo)) {
             $this->redirect(Zend_Controller_Front::getInstance()->getBaseUrl());

@@ -13,6 +13,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function init()
     {
+        set_time_limit(-1);
         $this->auth = Zend_Auth::getInstance(); // instancia da autenticacao
         $this->grupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
 
@@ -1137,6 +1138,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function redistribuiranaliseitemAction()
     {
+        set_time_limit(-1);
         if ($_REQUEST['idProjeto'] && isset($_REQUEST['usu_cod'])) {
             $params = new stdClass();
             $params->usu_cod = $_REQUEST['usu_cod'];

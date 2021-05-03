@@ -4,14 +4,14 @@ class PDFCreator {
 
     /**
      *
-     * @var type 
+     * @var type
      */
     private $_entrada;
     private $_orientacaoPapel;
 
     /**
      *
-     * @param type $entrada 
+     * @param type $entrada
      */
     public function __construct($entrada , $orientacao = 'P') {
 
@@ -21,19 +21,19 @@ class PDFCreator {
 
     /**
      * @param $quebra_linha
-     * auto: é o valor padrão. Só coloca a quebra de página se for necessário;
+     * auto: ï¿½ o valor padrï¿½o. Sï¿½ coloca a quebra de pï¿½gina se for necessï¿½rio;
      * always: coloca sempre uma quebra de linha, depois ou antes do elemento;
      * avoid: evita colocar uma quebra de linha antes ou depois;
-     * left: insere uma ou duas quebras de página, de modo que se possa assegurar que a seguinte página seja uma página esquerda (page-break-after) 
-     * 		ou para assegurar que a página onde se começa o elemento seja uma página esquerda (page-break-before). 
-     * 		Imaginemos um livro aberto, que tem páginas à esquerda e à direita para saber ao que se refere uma página esquerda.
-	 * right: insere uma ou duas quebras de página, para assegurar que se possa inserir o elemento ao princípio de uma página de direita (page-break-before)
-	 * 		ou para assegurar que depois do elemento comece uma página direita (page-break-after).
+     * left: insere uma ou duas quebras de pï¿½gina, de modo que se possa assegurar que a seguinte pï¿½gina seja uma pï¿½gina esquerda (page-break-after)
+     * 		ou para assegurar que a pï¿½gina onde se comeï¿½a o elemento seja uma pï¿½gina esquerda (page-break-before).
+     * 		Imaginemos um livro aberto, que tem pï¿½ginas ï¿½ esquerda e ï¿½ direita para saber ao que se refere uma pï¿½gina esquerda.
+	 * right: insere uma ou duas quebras de pï¿½gina, para assegurar que se possa inserir o elemento ao princï¿½pio de uma pï¿½gina de direita (page-break-before)
+	 * 		ou para assegurar que depois do elemento comece uma pï¿½gina direita (page-break-after).
      */
     public function gerarPdf($quebra_linha = 'avoid') {
 
         ini_set("memory_limit", "2048M");
-        set_time_limit(380);
+        set_time_limit(-1);
         error_reporting(0);
 
 
@@ -43,7 +43,7 @@ class PDFCreator {
         $patterns[] = '/<tbody>/is';
         $patterns[] = '/<\/tbody>/is';
         $patterns[] = '/<a.*?>/is';
-        $patterns[] = '/–/is';
+        $patterns[] = '/ï¿½/is';
 
         $replaces = array();
         $replaces[] = '';
@@ -62,7 +62,7 @@ class PDFCreator {
           <html>
             <head>
                 <style type="text/css">
-        ';       
+        ';
         if($this->_orientacaoPapel == 'L'){
             $output .= '
                 @page {
@@ -70,30 +70,30 @@ class PDFCreator {
                 }
                 ';
         }
-        $output .= '                
+        $output .= '
                 *, p {
-                    font-family:"Lucida Grande", Verdana, Arial, sans-serif; 
+                    font-family:"Lucida Grande", Verdana, Arial, sans-serif;
                     font-size:10px;
                 }
                 .texto-pequeno {
                     font-size:8px;
                 }
                 table { border: 1px solid #666666;  border-collapse:collapse; border-color:#ccc; }
-                
-                td, th { 
-                    border: 1px solid #666666; 
-                    line-height:13px; 
-                    vertical-align:top; 
-                    padding:4px; 
-                    }                
+
+                td, th {
+                    border: 1px solid #666666;
+                    line-height:13px;
+                    vertical-align:top;
+                    padding:4px;
+                    }
 
                 th {
                     background:#D0D0D0;
                     text-transform:uppercase;
                     font-weight: bold;
-                    
+
                 }
-                                
+
                 td.titulo {
                     padding: 3px;
                     font-weight:bold;
@@ -101,7 +101,7 @@ class PDFCreator {
                 }
                 .pagebreak {
                     page-break-after: '.$quebra_linha.';
-                } 
+                }
                 .zebrar {
                     background:#F3F3F3;
                 }
@@ -116,7 +116,7 @@ class PDFCreator {
         ';
 
         $output .= $this->_entrada;
-        
+
 
         $output .= '
             </body>
