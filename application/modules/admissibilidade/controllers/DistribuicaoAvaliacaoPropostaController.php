@@ -6,6 +6,7 @@ class Admissibilidade_DistribuicaoAvaliacaoPropostaController extends MinC_Contr
 
     public function init()
     {
+        set_time_limit(-1);
         parent::perfil();
         parent::init();
         $this->auth = Zend_Auth::getInstance();

@@ -1094,6 +1094,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
         try {
+            set_time_limit(-1);
             $tblTbAvaliacaoProposta = new AvaliacaoProposta();
             $rsAvaliacaoProposta = $tblTbAvaliacaoProposta->find($_POST["idAvaliacaoProposta"])->current();
 
@@ -1128,6 +1129,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
         $this->view->urlResumo = $this->_urlPadrao . "/admissibilidade/admissibilidade/resumo-distribuicao-propostas";
         $i = 0;
         foreach ($analistas as $analista) {
+            set_time_limit(-1);
             $this->view->analistas[$analista->Tecnico][$i]['nrProposta'] = $analista->idProjeto;
             $this->view->analistas[$analista->Tecnico][$i]['NomeProjeto'] = $analista->NomeProposta;
             $this->view->analistas[$analista->Tecnico][$i]['DtMovimentacao'] = ConverteData($analista->DtAdmissibilidade, 5);
@@ -1148,6 +1150,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
         }
 
         if ($_REQUEST['idProjeto']) {
+            set_time_limit(-1);
             $this->view->analista = AdmissibilidadeDAO::consultarProposta($this->getRequest()->getParam('idProjeto'));
 
             $params = new stdClass();
@@ -1977,6 +1980,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function resumoDistribuicaoPropostasAction()
     {
+        set_time_limit(-1);
         if ($this->codOrgao) {
             $params = new stdClass();
             $params->usu_orgao = $this->codOrgao;
@@ -2050,6 +2054,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function graficoDistribuicaoPropostasAction()
     {
+        set_time_limit(-1);
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
         error_reporting(E_ERROR);
@@ -2298,6 +2303,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function localizarGerenciamentoPropostaAction()
     {
+        set_time_limit(-1);
         $params = new stdClass();
         $params->usu_nome = "";
         $params->gru_codigo = $_SESSION['GrupoAtivo']['codOrgao'];
