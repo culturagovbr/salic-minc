@@ -292,6 +292,7 @@ class Analise_AnaliseController extends Analise_GenericController
 
     public function redistribuiranaliseitemAction()
     {
+        set_time_limit(-1);
         $params = $this->getRequest()->getParams();
         try {
             if (empty($params['idpronac'])) {

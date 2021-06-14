@@ -1091,6 +1091,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function alterarunianalisepropostaAction()
     {
+        set_time_limit(-1);
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
         try {
