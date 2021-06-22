@@ -674,16 +674,16 @@ class Agente_Model_DbTable_Agentes extends MinC_Db_Table_Abstract
         $dadosWhere["u.org_superior = ?"] = 91;
         $dadosWhere["u.usu_orgao = ?"] = $idOrgao;  // especificidade do IPHAN - puxa codigo do orgao
         $dadosWhere["NOT EXISTS(SELECT TOP 1 * FROM Agentes.dbo.tbAusencia WHERE Getdate() BETWEEN dtInicioAusencia AND dtFimAusencia AND idAgente = a.idAgente)"] = '';
-        
+
         foreach ($dadosWhere as $coluna => $valor) {
             $slct->where($coluna, $valor);
         }
-
+//        xd($slct->assemble());
         $slct->order('n.Descricao');
-        
+
         return $this->fetchAll($slct);
     }
-    
+
     /**
      * consultaPareceristasPainel
      *

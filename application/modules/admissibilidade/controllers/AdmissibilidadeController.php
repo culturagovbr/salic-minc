@@ -2762,6 +2762,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function listarPropostasAjaxAction()
     {
+        set_time_limit(-1);
         $start = $this->getRequest()->getParam('start');
         $length = $this->getRequest()->getParam('length');
         $draw = (int)$this->getRequest()->getParam('draw');

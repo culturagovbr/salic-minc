@@ -53,6 +53,7 @@ class Admissibilidade_Model_DbTable_DistribuicaoAvaliacaoProposta extends MinC_D
 
     public function obterAvaliacoesVencidas($prazoVencimentoEmDias = 5)
     {
+        set_time_limit(-1);
         $db = $this->getAdapter();
         $db->setFetchMode(Zend_DB :: FETCH_OBJ);
 
