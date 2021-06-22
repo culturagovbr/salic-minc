@@ -39,6 +39,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
     }
     private function paginacao($total, $qtInformacao = 10)
     {
+        set_time_limit(-1);
         $post = Zend_Registry::get('post');
         $this->intTamPag = $qtInformacao;
         //controlando a paginacao
@@ -69,6 +70,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
     }
     private function gerarAnexo($tela, $filtro = '')
     {
+        set_time_limit(-1);
         $this->view->tela   =   $tela;
         if (empty($filtro)) {
             $this->view->filtro =   $tela;
@@ -127,6 +129,7 @@ class GerarrelatoriopareceristaController extends MinC_Controller_Action_Abstrac
     }
     public function pareceremitidoAction()
     {
+        set_time_limit(-1);
         $tela   = 'pareceremitido';
         $this->gerarAnexo($tela);
         $this->view->projetos = $this->gerarInfoPaginas($tela, array(), 10);

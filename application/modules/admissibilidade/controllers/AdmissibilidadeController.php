@@ -13,6 +13,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function init()
     {
+        set_time_limit(-1);
         $this->auth = Zend_Auth::getInstance(); // instancia da autenticacao
         $this->grupoAtivo = new Zend_Session_Namespace('GrupoAtivo');
 
@@ -1090,9 +1091,11 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function alterarunianalisepropostaAction()
     {
+        set_time_limit(-1);
         $this->_helper->viewRenderer->setNoRender(true);
         $this->_helper->layout->disableLayout();
         try {
+            set_time_limit(-1);
             $tblTbAvaliacaoProposta = new AvaliacaoProposta();
             $rsAvaliacaoProposta = $tblTbAvaliacaoProposta->find($_POST["idAvaliacaoProposta"])->current();
 
@@ -1113,7 +1116,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function redistribuiranaliseAction()
     {
-        set_time_limit(120); /* Ajuste dop timeout, consulta muito demorada*/
+        set_time_limit(-1); /* Ajuste dop timeout, consulta muito demorada*/
         $orgao = new Orgaos();
         $vwPainelAvaliar = new Admissibilidade_Model_DbTable_VwPainelAvaliarPropostas();
         $orgao = $orgao->codigoOrgaoSuperior($this->codOrgao);
@@ -1127,6 +1130,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
         $this->view->urlResumo = $this->_urlPadrao . "/admissibilidade/admissibilidade/resumo-distribuicao-propostas";
         $i = 0;
         foreach ($analistas as $analista) {
+            set_time_limit(-1);
             $this->view->analistas[$analista->Tecnico][$i]['nrProposta'] = $analista->idProjeto;
             $this->view->analistas[$analista->Tecnico][$i]['NomeProjeto'] = $analista->NomeProposta;
             $this->view->analistas[$analista->Tecnico][$i]['DtMovimentacao'] = ConverteData($analista->DtAdmissibilidade, 5);
@@ -1137,6 +1141,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function redistribuiranaliseitemAction()
     {
+        set_time_limit(-1);
         if ($_REQUEST['idProjeto'] && isset($_REQUEST['usu_cod'])) {
             $params = new stdClass();
             $params->usu_cod = $_REQUEST['usu_cod'];
@@ -1146,6 +1151,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
         }
 
         if ($_REQUEST['idProjeto']) {
+            set_time_limit(-1);
             $this->view->analista = AdmissibilidadeDAO::consultarProposta($this->getRequest()->getParam('idProjeto'));
 
             $params = new stdClass();
@@ -1975,6 +1981,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function resumoDistribuicaoPropostasAction()
     {
+        set_time_limit(-1);
         if ($this->codOrgao) {
             $params = new stdClass();
             $params->usu_orgao = $this->codOrgao;
@@ -2048,6 +2055,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function graficoDistribuicaoPropostasAction()
     {
+        set_time_limit(-1);
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
         error_reporting(E_ERROR);
@@ -2296,6 +2304,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function localizarGerenciamentoPropostaAction()
     {
+        set_time_limit(-1);
         $params = new stdClass();
         $params->usu_nome = "";
         $params->gru_codigo = $_SESSION['GrupoAtivo']['codOrgao'];
@@ -2753,6 +2762,7 @@ class Admissibilidade_AdmissibilidadeController extends MinC_Controller_Action_A
 
     public function listarPropostasAjaxAction()
     {
+        set_time_limit(-1);
         $start = $this->getRequest()->getParam('start');
         $length = $this->getRequest()->getParam('length');
         $draw = (int)$this->getRequest()->getParam('draw');

@@ -1065,7 +1065,7 @@ class Proposta_ManterpropostaincentivofiscalController extends Proposta_GenericC
                 # Se o CNAE estiver vazio, forçar atualização do proponente com os dados do webservice da receita
                 if (empty($cnae)) {
                     $servicoReceita = new ServicosReceitaFederal();
-                    $dadosPessoaJuridica = $servicoReceita->consultarPessoaJuridicaReceitaFederal($proponente->CNPJCPF, false);
+                    $dadosPessoaJuridica = $servicoReceita->consultarPessoaJuridicaReceitaFederal($proponente->CNPJCPF, true);
                     return $dadosPessoaJuridica;
                 }
                 return false;

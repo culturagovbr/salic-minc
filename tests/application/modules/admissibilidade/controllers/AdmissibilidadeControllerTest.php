@@ -102,6 +102,7 @@ class AdmissibilidadeControllerTest extends MinC_Test_ControllerActionTestCase
 
     public function testRedistribuiranaliseAction()
     {
+        set_time_limit(-1);
         $this->dispatch('/admissibilidade/admissibilidade/redistribuiranalise');
         $this->assertUrl('admissibilidade', 'admissibilidade', 'redistribuiranalise');
     }
